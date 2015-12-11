@@ -1,0 +1,10 @@
+# JetBrains
+.idea/
+
+# Cordova
+platforms/
+plugins/
+www/*
+www/**.*
+!www/.gitkeep
+

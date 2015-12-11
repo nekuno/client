@@ -8,3 +8,5 @@ www/*
 www/**.*
 !www/.gitkeep
 
+# npm
+node_modules/

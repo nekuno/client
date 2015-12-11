@@ -11,5 +11,9 @@
     "url": "git+ssh://git@bitbucket.org/nekuno/app.git"
   },
   "author": "Nekuno",
-  "homepage": "https://bitbucket.org/nekuno/app#readme"
+  "homepage": "https://bitbucket.org/nekuno/app#readme",
+  "dependencies": {
+    "flux": "^2.1.1",
+    "react": "^0.14.3"
+  }
 }

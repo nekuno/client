@@ -1,5 +1,5 @@
 {
-  "name": "app",
+  "name": "client",
   "version": "1.0.0",
   "description": "Nekuno Hybrid Mobile App",
   "main": "index.js",
@@ -11,9 +11,25 @@
     "url": "git+ssh://git@bitbucket.org/nekuno/app.git"
   },
   "author": "Nekuno",
+  "license": "MIT",
   "homepage": "https://bitbucket.org/nekuno/app#readme",
   "dependencies": {
     "flux": "^2.1.1",
-    "react": "^0.14.3"
+    "history": "^1.13.1",
+    "react": "^0.14.3",
+    "react-dom": "^0.14.3",
+    "react-router": "^1.0.2"
+  },
+  "devDependencies": {
+    "babel-preset-es2015": "^6.3.13",
+    "babel-preset-react": "^6.3.13",
+    "babel-preset-stage-0": "^6.3.13",
+    "babelify": "^7.2.0",
+    "browserify": "^12.0.1",
+    "gulp": "^3.9.0",
+    "gulp-connect": "^2.2.0",
+    "gulp-less": "^3.0.5",
+    "gulp-rename": "^1.2.2",
+    "vinyl-source-stream": "^1.1.0"
   }
 }

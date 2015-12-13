@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { Router, Route } from 'react-router';
 
 import App from './App';
-import About from './pages/About';
-import Login from './pages/Login';
+import AboutPage from './pages/AboutPage';
+import LoginPage from './pages/LoginPage';
+import UserPage from './pages/UserPage';
 
 export default class Root extends Component {
 
@@ -11,8 +12,9 @@ export default class Root extends Component {
         return (
             <Router>
                 <Route name="home" path="/" component={App}>
-                    <Route name="about" path="/about" component={About}/>
-                    <Route name="login" path="/login" component={Login}/>
+                    <Route name="about" path="/about" component={AboutPage}/>
+                    <Route name="login" path="/login" component={LoginPage}/>
+                    <Route name="user" path="/login/:login" component={UserPage}/>
                 </Route>
             </Router>
         );

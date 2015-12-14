@@ -27,13 +27,13 @@ function getNextPageUrl(response) {
 
 // Read more about Normalizr: https://github.com/gaearon/normalizr
 
-const userSchema = new Schema('users', {idAttribute: 'login'});
-const repoSchema = new Schema('repos', {idAttribute: 'fullName'});
-repoSchema.define({
-    owner: userSchema
-});
+const userSchema = new Schema('users', {idAttribute: 'qnoow_id'});
+//const repoSchema = new Schema('repos', {idAttribute: 'fullName'});
+//repoSchema.define({
+//    owner: userSchema
+//});
 
-const API_ROOT = 'https://api.github.com/';
+const API_ROOT = 'http://brain.dev.nekuno.com/index_dev.php/';
 
 /**
  * Fetches an API response and normalizes the result JSON according to schema.
@@ -45,11 +45,11 @@ function fetchAndNormalize(url, schema) {
 
     return fetch(url).then(response =>
         response.json().then(json => {
-            const camelizedJson = camelizeKeys(json);
+            //const camelizedJson = camelizeKeys(json);
             const nextPageUrl = getNextPageUrl(response) || undefined;
 
             return {
-                ...normalize(camelizedJson, schema),
+                ...normalize(json, schema),
                 nextPageUrl
             };
         })

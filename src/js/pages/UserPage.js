@@ -15,7 +15,7 @@ function requestData(props) {
     const { params } = props;
     const userLogin = parseLogin(params);
 
-    UserActionCreators.requestUser(userLogin, ['name', 'avatarUrl']);
+    UserActionCreators.requestUser(userLogin, ['username', 'email', 'picture', 'status']);
 
 }
 
@@ -65,7 +65,7 @@ export default class UserPage extends Component {
                     <h1>Loading...</h1>
                 }
 
-                <h1>List</h1>
+                <h1>List for user { login }</h1>
                 {this.renderList()}
             </div>
         );

@@ -1,4 +1,5 @@
 import React, { PropTypes, Component } from 'react';
+import SearchUser from '../components/SearchUser';
 
 export default class LoginPage extends Component {
 
@@ -7,8 +8,7 @@ export default class LoginPage extends Component {
             <div>
                 <h1>Login</h1>
                 <p>Login page</p>
-                <input type="text" name="username"/>
-                <input type="password" name="password"/>
+                <SearchUser {...this.props} />
             </div>
         );
     }

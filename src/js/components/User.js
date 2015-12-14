@@ -15,9 +15,9 @@ export default class User extends Component {
         return (
             <div className="User">
                 <Link to={`/login/${user.login}`}>
-                    <img src={user.avatarUrl} width="72" height="72"/>
                     <h3>
-                        {user.login} {user.name && <span>({user.name})</span>}
+                        {user.username} {user.email && <span>({user.email})</span>}
+                        <img src={`https://dev.nekuno.com/media/cache/resolve/profile_picture/user/images/${user.picture }`} />
                     </h3>
                 </Link>
             </div>

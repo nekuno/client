@@ -1,0 +1,56 @@
+/* Layout Styles */
+
+@import '_partials/colors';
+@import '_partials/fonts';
+@import '_partials/theme.color';
+@import '_partials/navbar';
+@import '_partials/panel';
+@import '_partials/form';
+@import '_partials/text-input';
+@import '_partials/button';
+@import '_partials/full-width-button';
+@import '_partials/chip';
+@import '_partials/small-chip';
+@import '_partials/chip-list';
+@import '_partials/small-chip-list';
+@import '_partials/card';
+
+* {
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
+}
+
+body {
+	-webkit-touch-callout: none; /* prevent callout to copy image, etc when tap to hold */
+	-webkit-text-size-adjust: none; /* prevent webkit from resizing text to fit */
+	-webkit-user-select: none; /* prevent copy paste, to allow, change 'none' to 'text' */
+
+	background: $dark-gray;
+	font-family: $nekuno-font;
+	margin: auto;
+	max-width: 480px;
+	min-width: 320px;	
+	width: 100%;
+
+	#root {
+		height: 100%;
+
+		.App {
+			height: 100%;
+
+			.page {
+				background: $dark-purple;
+
+				#page-content {
+					font-family: $nekuno-font;
+					margin: 150px auto 0 auto;
+					width: 85%;
+
+					.list-block .item-content {
+						padding-left: 0;
+					}
+				}
+			}
+		}
+	}
+}
+

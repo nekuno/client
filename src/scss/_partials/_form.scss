@@ -1,0 +1,31 @@
+.list-block {
+	 ul {
+		background: none;
+		text-transform: uppercase;
+		
+		&::before {
+			content: none;
+		}
+		&::after {
+			content: none;
+		}
+		
+		li {
+			&::after {
+				content: '';
+				position: absolute;
+				left: 0;
+				bottom: 0;
+				right: auto;
+				top: auto;
+				height: 1px;
+				width: 100%;
+				background-color: $light-gray;
+				display: block;
+				z-index: 15;
+				-webkit-transform-origin: 50% 100%;
+				transform-origin: 50% 100%;
+			}
+		}
+	}
+}

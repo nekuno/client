@@ -1,5 +1,5 @@
 import React, { PropTypes, Component } from 'react';
-import { Link } from 'react-router'
+import { Link } from 'react-router';
 
 export default class App extends Component {
     static propTypes = {
@@ -9,14 +9,17 @@ export default class App extends Component {
     render() {
         return (
             <div className="App">
-                <h1>Nekuno</h1>
-                <ul>
-                    <li><Link to="/">Home</Link></li>
-                    <li><Link to="/about">About</Link></li>
-                    <li><Link to="/login">Login</Link></li>
-                </ul>
-                <hr />
-                {this.props.children}
+                <div className="panel-overlay"></div>
+                <div className="panel panel-left panel-reveal">
+                    <div className="content-block">
+                        <p>Left Panel content here</p>
+                        <span className="icon-delete"></span>
+                        <p><a href="#" className="close-panel">Close me</a></p>
+                    </div>
+                </div>
+                <div className="views">
+                    {this.props.children}
+                </div>
             </div>
         );
     }

@@ -1,16 +1,35 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="utf-8">
     <!--<meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">-->
     <meta name="format-detection" content="telephone=no">
     <meta name="msapplication-tap-highlight" content="no">
     <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+    <link href='https://fonts.googleapis.com/css?family=Maven+Pro:400,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="bundle.css">
     <title>Nekuno</title>
 </head>
-<body>
-<div id="root"></div>
-<script type="text/javascript" src="cordova.js"></script>
-<script type="text/javascript" src="bundle.js"></script>
+<body class="theme-nekuno">
+
+    <!-- Scrollable page content -->
+    <div id="root"></div>
+
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="vendor.js"></script>
+    <script type="text/javascript" src="bundle.js"></script>
+
+    <script type="text/javascript">
+        var myApp = new Framework7();
+        var $$ = Dom7;
+
+        $$('.open-left-panel').on('click', function (e) {
+            myApp.openPanel('left');
+        });
+
+        $$('.panel-close').on('click', function (e) {
+            myApp.closePanel();
+        });
+    </script>
 </body>
 </html>

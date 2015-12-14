@@ -1,0 +1,28 @@
+.card {
+	text-align: center;
+	
+	.card-header {
+		display:block;
+		padding: 15px 0 25px;
+		
+		.title {
+			font-weight: bold;
+		}
+		
+		.sub-title {
+			color: $light-gray;
+			font-size: 15px;
+		}
+	}
+	
+	.card-content {
+		
+		.card-content-inner {
+			padding: 0 0 15px 0;
+			
+			.image img {
+				max-width: 100%;
+			}
+		}
+	}
+} 

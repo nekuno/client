@@ -1,0 +1,174 @@
+$nekuno-logo-font: 'klinic_slabmedium';
+$nekuno-font: 'Maven Pro';
+
+@font-face {
+	font-family: 'klinic_slabmedium';
+	src: url('../fonts/klinicslabmedium-webfont.eot');
+	src: url('../fonts/klinicslabmedium-webfont.eot?#iefix') format('embedded-opentype'),
+	url('../fonts/klinicslabmedium-webfont.woff2') format('woff2'),
+	url('../fonts/klinicslabmedium-webfont.woff') format('woff'),
+	url('../fonts/klinicslabmedium-webfont.ttf') format('truetype'),
+	url('../fonts/klinicslabmedium-webfont.svg#klinic_slabmedium') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Nekuno Icons';
+	src:url('../fonts/icomoon.eot?4e8y2a');
+	src:url('../fonts/icomoon.eot?4e8y2a#iefix') format('embedded-opentype'),
+	url('../fonts/icomoon.ttf?4e8y2a') format('truetype'),
+	url('../fonts/icomoon.woff?4e8y2a') format('woff'),
+	url('../fonts/icomoon.svg?4e8y2a#icomoon') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+	/* use !important to prevent issues with browser extensions that change fonts */
+	font-family: 'Nekuno Icons' !important;
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+
+	/* Better Font Rendering =========== */
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.icon-pause:before {
+	content: "\e916";
+}
+.icon-play:before {
+	content: "\e91a";
+}
+.icon-audio:before {
+	content: "\e900";
+}
+.icon-block:before {
+	content: "\e901";
+}
+.icon-calendar:before {
+	content: "\e902";
+}
+.icon-chanels:before {
+	content: "\e903";
+}
+.icon-clock:before {
+	content: "\e904";
+}
+.icon-delete:before {
+	content: "\e905";
+}
+.icon-edit:before {
+	content: "\e906";
+}
+.icon-facebook:before {
+	content: "\e907";
+}
+.icon-female:before {
+	content: "\e908";
+}
+.icon-google-plus:before {
+	content: "\e909";
+}
+.icon-image:before {
+	content: "\e90a";
+}
+.icon-instagram:before {
+	content: "\e90b";
+}
+.icon-left-arrow:before {
+	content: "\e90c";
+}
+.icon-linkedin:before {
+	content: "\e90d";
+}
+.icon-male:before {
+	content: "\e90e";
+}
+.icon-marker:before {
+	content: "\e90f";
+}
+.icon-menu:before {
+	content: "\e910";
+}
+.icon-message:before {
+	content: "\e911";
+}
+.icon-mixed-gender:before {
+	content: "\e912";
+}
+.icon-mobile:before {
+	content: "\e913";
+}
+.icon-nekuno:before {
+	content: "\e914";
+}
+.icon-notifications:before {
+	content: "\e915";
+}
+.icon-person:before {
+	content: "\e917";
+}
+.icon-photo:before {
+	content: "\e918";
+}
+.icon-pinterest:before {
+	content: "\e919";
+}
+.icon-plus:before {
+	content: "\e91b";
+}
+.icon-preferences:before {
+	content: "\e91c";
+}
+.icon-private:before {
+	content: "\e91d";
+}
+.icon-right-arrow:before {
+	content: "\e91e";
+}
+.icon-search:before {
+	content: "\e91f";
+}
+.icon-soundcloud:before {
+	content: "\e920";
+}
+.icon-spotify:before {
+	content: "\e921";
+}
+.icon-twitter:before {
+	content: "\e922";
+}
+.icon-upload:before {
+	content: "\e923";
+}
+.icon-uploadthin:before {
+	content: "\e924";
+}
+.icon-upload-cload-image:before {
+	content: "\e925";
+}
+.icon-upload-cloud:before {
+	content: "\e926";
+}
+.icon-video:before {
+	content: "\e927";
+}
+.icon-video-next:before {
+	content: "\e928";
+}
+.icon-video-prev:before {
+	content: "\e92b";
+}
+.icon-web-site:before {
+	content: "\e92c";
+}
+.icon-youtube:before {
+	content: "\e92d";
+}
+

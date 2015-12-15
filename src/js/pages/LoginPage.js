@@ -20,7 +20,6 @@ export default class LoginPage extends Component {
                             </ul>
                         </div>
                         <FullWidthButton text={'Iniciar Sesión'} />
-                        <p><a href="#" className="open-panel">Open Left Panel</a></p>
                         <SearchUser {...this.props} />
                     </div>
                 </div>

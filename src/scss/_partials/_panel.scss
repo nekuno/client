@@ -1,9 +1,18 @@
 .panel {
 	background: $dark-blue;
+	padding-left: 5px;
 	width: 90%;
-	
+
 	a {
 		color: #fff;
+	}
+	.top-menu {
+		margin-top: 12px;
+		position: absolute;
+	}
+	.close-panel {
+		color: $deep-purple;
+		font-size: 29px;
 	}
 }
 

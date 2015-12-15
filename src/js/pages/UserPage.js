@@ -60,6 +60,8 @@ export default class UserPage extends Component {
 
         return (
             <div>
+                <p><a href="#" className="open-panel">Open Left Panel</a></p>
+
                 {user ?
                     <User user={user}/> :
                     <h1>Loading...</h1>

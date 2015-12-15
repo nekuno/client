@@ -1,7 +1,9 @@
 import React, { PropTypes, Component } from 'react';
+import selectn from 'selectn';
 import * as UserActionCreators from '../actions/UserActionCreators';
 import UserStore from '../stores/UserStore';
 import User from '../components/User';
+import LeftMenuTopNavbar from '../components/ui/LeftMenuTopNavbar';
 import connectToStores from '../utils/connectToStores';
 
 function parseLogin(params) {
@@ -59,16 +61,26 @@ export default class UserPage extends Component {
         const login = parseLogin(params);
 
         return (
-            <div>
-                <p><a href="#" className="open-panel">Open Left Panel</a></p>
+            <div className="view view-main">
+                <LeftMenuTopNavbar centerText={'Mi perfil'} />
+                <div data-page="index" className="page">
+                    <div id="page-content">
 
-                {user ?
-                    <User user={user}/> :
-                    <h1>Loading...</h1>
-                }
+                        {user ?
+                            <User user={user}/> :
+                            <h1>Loading...</h1>
+                        }
 
-                <h1>List for user { login }</h1>
-                {this.renderList()}
+                        <div className="user-interests">
+                            <div className="number">
+                                {selectn('interests', user) ? user.interests : 0}
+                            </div>
+                            <div className="label">
+                                Intereses
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         );
     }

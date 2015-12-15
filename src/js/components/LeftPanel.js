@@ -1,6 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import { Link } from 'react-router';
 import shouldPureComponentUpdate from 'react-pure-render/function';
+import User from '../components/User';
 
 export default class LeftPanel extends Component {
     static propTypes = {
@@ -19,25 +20,13 @@ export default class LeftPanel extends Component {
                     <div className="content-block top-menu">
                         <a className="close-panel" href="#"><span className="icon-notifications"></span><span className="notifications-alert"></span></a>
                     </div>
-                    <div className="content-block profile-block">
-                        <div className="profile-image">
-                            <img src={`https://dev.nekuno.com/media/cache/resolve/profile_picture/user/images/${user.picture }`} />
+                    <User {...this.props} />
+                    <div className="user-interests">
+                        <div className="number">
+                            {user.interests ? user.interests : 0}
                         </div>
-                        <div className="user-data">
-                            <div className="user-username">
-                                {user.username}
-                            </div>
-                            <div className="user-location">
-                                <span className="icon-marker"></span> {location.address ? location.address : 'Madrid'}
-                            </div>
-                            <div className="user-interests">
-                                <div className="number">
-                                    {user.interests ? user.interests : 0}
-                                </div>
-                                <div className="label">
-                                    Intereses
-                                </div>
-                            </div>
+                        <div className="label">
+                            Intereses
                         </div>
                     </div>
                     <div className="content-block menu">

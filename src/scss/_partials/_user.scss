@@ -1,0 +1,39 @@
+.user-block {
+	margin: 20px auto;
+	text-align: center;
+
+	.user-image {
+		margin: auto;
+		width: 25%;
+
+		img {
+			border-radius: 50%;
+			height: auto;
+			width: 100%;
+		}
+	}
+
+	.user-data {
+		color: #fff;
+
+		.user-username {
+			font-size: 25px;
+		}
+
+		.user-location {
+			font-size: 14px;
+
+			.icon-marker {
+				font-size: 10px;
+			}
+		}
+	}
+}
+
+.user-interests {
+	color: #fff;
+	margin-top: -10px;
+	text-align: center;
+
+}
+

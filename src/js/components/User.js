@@ -1,6 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import { Link } from 'react-router';
 import shouldPureComponentUpdate from 'react-pure-render/function';
+import selectn from 'selectn';
 
 export default class User extends Component {
     static propTypes = {
@@ -14,12 +15,19 @@ export default class User extends Component {
 
         return (
             <div className="User">
-                <Link to={`/login/${user.login}`}>
-                    <h3>
-                        {user.username} {user.email && <span>({user.email})</span>}
+                <div className="content-block user-block">
+                    <div className="user-image">
                         <img src={`https://dev.nekuno.com/media/cache/resolve/profile_picture/user/images/${user.picture }`} />
-                    </h3>
-                </Link>
+                    </div>
+                    <div className="user-data">
+                        <div className="user-username">
+                            {user.username}
+                        </div>
+                        <div className="user-location">
+                            <span className="icon-marker"></span> {selectn('location.address', user) ? user.location.address : 'Madrid'}
+                        </div>
+                    </div>
+                </div>
             </div>
         );
     }

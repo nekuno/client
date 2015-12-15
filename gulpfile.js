@@ -20,6 +20,7 @@ gulp.task('fonts', function() {
 gulp.task('sass', function() {
     var paths = [
         './node_modules/framework7/dist/css/framework7.ios.css',
+        './src/scss/pages/*.scss',
         './src/scss/*.scss'
     ];
 

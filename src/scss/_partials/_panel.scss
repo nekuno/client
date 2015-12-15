@@ -14,6 +14,52 @@
 		color: $deep-purple;
 		font-size: 29px;
 	}
+
+	.profile-block {
+		margin: 20px auto;
+		text-align: center;
+
+		.profile-image {
+			margin: auto;
+			width: 25%;
+
+			img {
+				border-radius: 50%;
+				height: auto;
+				width: 100%;
+			}
+		}
+
+		.user-data {
+			color: #fff;
+
+			.user-username {
+				font-size:25px;
+			}
+
+			.user-location {
+				font-size: 14px;
+
+				.icon-marker {
+					font-size: 10px;
+				}
+			}
+
+			.user-interests {
+				margin-top: 15px;
+			}
+		}
+	}
+
+	.menu {
+		padding: 30px 30px 0 30px;
+
+		a {
+			display: block;
+			font-size: 16px;
+			padding: 20px;
+		}
+	}
 }
 
 body.with-panel-left-reveal .views {

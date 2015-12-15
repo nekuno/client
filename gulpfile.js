@@ -30,21 +30,21 @@ gulp.task('sass', function() {
         .pipe(connect.reload());
 });
 
-gulp.task('build-js', function() {
-    return browserify('./src/js/index.js')
-        .transform(babelify)
-        .bundle()
-        .pipe(source('bundle.js'))
-        .pipe(gulp.dest('./www'))
-        .pipe(connect.reload());
-});
-
 gulp.task('build-vendor-js', function() {
     var paths = [
         './node_modules/framework7/dist/js/framework7.min.js'
     ];
     return gulp.src(paths)
         .pipe(rename('vendor.js'))
+        .pipe(gulp.dest('./www'))
+        .pipe(connect.reload());
+});
+
+gulp.task('build-js', ['build-vendor-js'], function() {
+    return browserify('./src/js/index.js')
+        .transform(babelify)
+        .bundle()
+        .pipe(source('bundle.js'))
         .pipe(gulp.dest('./www'))
         .pipe(connect.reload());
 });

@@ -15,3 +15,12 @@ export function requestUser(login, fields) {
         failure: ActionTypes.REQUEST_USER_ERROR
     }, {login});
 }
+
+export function requestThreads(login) {
+
+    dispatchAsync(UserAPI.getThreads(login), {
+        request: ActionTypes.REQUEST_THREADS,
+        success: ActionTypes.REQUEST_THREADS_SUCCESS,
+        failure: ActionTypes.REQUEST_THREADS_ERROR
+    }, {login})
+}

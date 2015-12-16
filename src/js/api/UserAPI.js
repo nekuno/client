@@ -1,5 +1,9 @@
-import { fetchUser, fetchUserArray } from '../utils/APIUtils';
+import { fetchUser, fetchThreads, fetchUserArray } from '../utils/APIUtils';
 
 export function getUser(login, url = `users/${login}`) {
     return fetchUser(url);
+}
+
+export function getThreads(login, url = `users/${login}/threads`){
+    return fetchThreads(url);
 }

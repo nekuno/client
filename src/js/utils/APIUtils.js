@@ -28,6 +28,17 @@ function getNextPageUrl(response) {
 // Read more about Normalizr: https://github.com/gaearon/normalizr
 
 const userSchema = new Schema('users', {idAttribute: 'qnoow_id'});
+
+const threadSchema = new Schema('thread', {idAttribute: 'id'});
+
+const threadsSchema = new Schema('threads');
+
+threadsSchema.define({
+    threads: arrayOf(threadSchema)
+});
+
+
+
 //const repoSchema = new Schema('repos', {idAttribute: 'fullName'});
 //repoSchema.define({
 //    owner: userSchema
@@ -62,4 +73,8 @@ export function fetchUser(url) {
 
 export function fetchUserArray(url) {
     return fetchAndNormalize(url, arrayOf(userSchema));
+}
+
+export function fetchThreads(url) {
+    return fetchAndNormalize(url, threadsSchema);
 }

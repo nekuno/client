@@ -62,7 +62,7 @@ export default class UserPage extends Component {
 
         return (
             <div className="view view-main">
-                <LeftMenuTopNavbar centerText={'Mi perfil'} />
+                <LeftMenuTopNavbar centerText={'Mi Perfil'} />
                 <div data-page="index" className="page">
                     <div id="page-content">
 

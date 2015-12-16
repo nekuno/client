@@ -15,11 +15,11 @@ $nekuno-font: 'Maven Pro';
 
 @font-face {
 	font-family: 'Nekuno Icons';
-	src:url('../fonts/icomoon.eot?4e8y2a');
-	src:url('../fonts/icomoon.eot?4e8y2a#iefix') format('embedded-opentype'),
-	url('../fonts/icomoon.ttf?4e8y2a') format('truetype'),
-	url('../fonts/icomoon.woff?4e8y2a') format('woff'),
-	url('../fonts/icomoon.svg?4e8y2a#icomoon') format('svg');
+	src:url('../fonts/icomoon.eot?nn8br1');
+	src:url('../fonts/icomoon.eot?nn8br1#iefix') format('embedded-opentype'),
+	url('../fonts/icomoon.ttf?nn8br1') format('truetype'),
+	url('../fonts/icomoon.woff?nn8br1') format('woff'),
+	url('../fonts/icomoon.svg?nn8br1#icomoon') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }
@@ -39,6 +39,9 @@ $nekuno-font: 'Maven Pro';
 	-moz-osx-font-smoothing: grayscale;
 }
 
+.icon-circle:before {
+	content: "\e929";
+}
 .icon-pause:before {
 	content: "\e916";
 }

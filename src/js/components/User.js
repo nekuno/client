@@ -12,7 +12,7 @@ export default class User extends Component {
 
     render() {
         const { user } = this.props;
-        let imgSrc = user.picture ? `https://dev.nekuno.com/media/cache/resolve/profile_picture/user/images/${user.picture}` : 'https://dev.nekuno.com/media/cache/user_avatar_180x180/bundles/qnoowweb/images/user-no-img.jpg';
+        let imgSrc = user.picture ? `https://dev.nekuno.com/media/cache/user_avatar_180x180/user/images/${user.picture}` : 'https://dev.nekuno.com/media/cache/user_avatar_180x180/bundles/qnoowweb/images/user-no-img.jpg';
         return (
             <div className="User">
                 <div className="content-block user-block">

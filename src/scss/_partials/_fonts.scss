@@ -1,6 +1,30 @@
-$nekuno-logo-font: 'klinic_slabmedium';
 $nekuno-font: 'Maven Pro';
 
+@font-face {
+	font-family: 'Maven Pro';
+	src: url('fonts/mavenpro-regular-webfont.eot');
+	src: url('fonts/mavenpro-regular-webfont.eot?#iefix') format('embedded-opentype'),
+	url('fonts/mavenpro-regular-webfont.woff2') format('woff2'),
+	url('fonts/mavenpro-regular-webfont.woff') format('woff'),
+	url('fonts/mavenpro-regular-webfont.ttf') format('truetype'),
+	url('fonts/mavenpro-regular-webfont.svg#maven_proregular') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'Maven Pro';
+	src: url('fonts/mavenpro-bold-webfont.eot');
+	src: url('fonts/mavenpro-bold-webfont.eot?#iefix') format('embedded-opentype'),
+	url('fonts/mavenpro-bold-webfont.woff2') format('woff2'),
+	url('fonts/mavenpro-bold-webfont.woff') format('woff'),
+	url('fonts/mavenpro-bold-webfont.ttf') format('truetype'),
+	url('fonts/mavenpro-bold-webfont.svg#maven_probold') format('svg');
+	font-weight: bold;
+	font-style: normal;
+}
+
+/* Nekuno font (not used)
+$nekuno-logo-font: 'klinic_slabmedium';
 @font-face {
 	font-family: 'klinic_slabmedium';
 	src: url('fonts/klinicslabmedium-webfont.eot');
@@ -12,6 +36,7 @@ $nekuno-font: 'Maven Pro';
 	font-weight: normal;
 	font-style: normal;
 }
+*/
 
 @font-face {
 	font-family: 'Nekuno Icons';

@@ -51,7 +51,7 @@ export default class HomePage extends Component {
                     </div>
                     <div className="linear-gradient-rectangle"></div>
                     <div id={'login-' + i + '-image'} data-page="index" className="page">
-                        <img src="/img/transparency.png" className="full-transparency" />
+                        <img src="img/transparency.png" className="full-transparency" />
                         <div id="page-content" className="home-content">
                             <div className="title">
                                 {i === 1 ? 'Descubre contenidos de los temas que más te interesan' :

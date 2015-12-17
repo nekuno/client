@@ -3,23 +3,23 @@ $nekuno-font: 'Maven Pro';
 
 @font-face {
 	font-family: 'klinic_slabmedium';
-	src: url('../fonts/klinicslabmedium-webfont.eot');
-	src: url('../fonts/klinicslabmedium-webfont.eot?#iefix') format('embedded-opentype'),
-	url('../fonts/klinicslabmedium-webfont.woff2') format('woff2'),
-	url('../fonts/klinicslabmedium-webfont.woff') format('woff'),
-	url('../fonts/klinicslabmedium-webfont.ttf') format('truetype'),
-	url('../fonts/klinicslabmedium-webfont.svg#klinic_slabmedium') format('svg');
+	src: url('fonts/klinicslabmedium-webfont.eot');
+	src: url('fonts/klinicslabmedium-webfont.eot?#iefix') format('embedded-opentype'),
+	url('fonts/klinicslabmedium-webfont.woff2') format('woff2'),
+	url('fonts/klinicslabmedium-webfont.woff') format('woff'),
+	url('fonts/klinicslabmedium-webfont.ttf') format('truetype'),
+	url('fonts/klinicslabmedium-webfont.svg#klinic_slabmedium') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }
 
 @font-face {
 	font-family: 'Nekuno Icons';
-	src:url('../fonts/icomoon.eot?aqqre2');
-	src:url('../fonts/icomoon.eot?aqqre2#iefix') format('embedded-opentype'),
-	url('../fonts/icomoon.ttf?aqqre2') format('truetype'),
-	url('../fonts/icomoon.woff?aqqre2') format('woff'),
-	url('../fonts/icomoon.svg?aqqre2#icomoon') format('svg');
+	src:url('fonts/icomoon.eot?aqqre2');
+	src:url('fonts/icomoon.eot?aqqre2#iefix') format('embedded-opentype'),
+	url('fonts/icomoon.ttf?aqqre2') format('truetype'),
+	url('fonts/icomoon.woff?aqqre2') format('woff'),
+	url('fonts/icomoon.svg?aqqre2#icomoon') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }

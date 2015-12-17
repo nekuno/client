@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:sketch="http://www.bohemiancoding.com/sketch/ns"
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="100px"
+   height="100px"
+   viewBox="0 0 100 100"
+   version="1.1"
+   id="svg2"
+   inkscape:version="0.48.4 r9939"
+   sodipodi:docname="play.svg">
+  <metadata
+     id="metadata16">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="640"
+     inkscape:window-height="480"
+     id="namedview14"
+     showgrid="false"
+     inkscape:zoom="2.36"
+     inkscape:cx="50"
+     inkscape:cy="50"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg2" />
+  <!-- Generator: Sketch 3.4.4 (17249) - http://www.bohemiancoding.com/sketch -->
+  <title
+     id="title4">Shape</title>
+  <desc
+     id="desc6">Created with Sketch.</desc>
+  <defs
+     id="defs8" />
+  <g
+     id="Page-1"
+     sketch:type="MSPage"
+     stroke-width="1"
+     stroke="none"
+     fill-rule="evenodd"
+     fill="none"
+     style="fill:#000000">
+    <g
+       id="video-play"
+       sketch:type="MSLayerGroup"
+       fill="#FFFFFF"
+       style="fill:#000000">
+      <g
+         id="_x33_56._Play"
+         sketch:type="MSShapeGroup"
+         style="fill:#000000">
+        <path
+           d="M93.0165079,24.9301587 C79.2526984,1.09047619 48.767619,-7.07809524 24.9298413,6.68825397 C1.09015873,20.4501587 -7.07873016,50.9339683 6.68761905,74.7726984 C20.4495238,98.612381 50.9336508,106.782222 74.771746,93.0171429 C98.611746,79.2504762 106.784444,48.768254 93.0165079,24.9301587 L93.0165079,24.9301587 Z M69.7885714,84.3812698 C50.7196825,95.3946032 26.3301587,88.8593651 15.32,69.7866667 C4.30730159,50.7177778 10.8447619,26.3285714 29.9142857,15.3206349 C48.9844444,4.30793651 73.3726984,10.8425397 84.3834921,29.9146032 C95.3946032,48.9863492 88.8590476,73.3704762 69.7885714,84.3812698 L69.7885714,84.3812698 Z M67.7952381,47.8260317 L41.6955556,32.604127 C39.3171429,31.2155556 37.3987302,32.3257143 37.4120635,35.0768254 L37.5457143,65.2907937 C37.5577778,68.0412698 39.4996825,69.1609524 41.8850794,67.7831746 L67.7850794,52.8298413 C70.1679365,51.4546032 70.1730159,49.2146032 67.7952381,47.8260317 L67.7952381,47.8260317 Z"
+           id="Shape"
+           style="fill:#000000" />
+      </g>
+    </g>
+  </g>
+</svg>

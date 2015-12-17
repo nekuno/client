@@ -17,6 +17,11 @@ gulp.task('fonts', function() {
         .pipe(gulp.dest('www/fonts/'));
 });
 
+gulp.task('images', function() {
+    gulp.src('src/scss/img/*')
+        .pipe(gulp.dest('www/img/'));
+});
+
 gulp.task('sass', function() {
     var paths = [
         './node_modules/framework7/dist/css/framework7.ios.css',
@@ -66,5 +71,5 @@ gulp.task('serve', function() {
     });
 });
 
-gulp.task('build', ['copy', 'fonts', 'sass', 'build-js']);
+gulp.task('build', ['copy', 'fonts', 'images', 'sass', 'build-js']);
 gulp.task('dev', ['build', 'serve', 'watch']);

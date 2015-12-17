@@ -10,7 +10,7 @@ export default class FullWidthButton extends Component {
 
     render() {
         return (
-            <a href="#" className="button button-fill button-big button-round">{this.props.text}</a>
+            <button className="button button-fill button-big button-round">{this.props.text}</button>
         );
     }
 }

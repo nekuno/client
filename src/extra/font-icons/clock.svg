@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generator: Avocode 2.4.5 - http://avocode.com -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   height="22"
+   width="22"
+   viewBox="0 0 22 22"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.4 r9939"
+   sodipodi:docname="fill-2.svg">
+  <metadata
+     id="metadata10">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs8" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="742"
+     inkscape:window-height="480"
+     id="namedview6"
+     showgrid="false"
+     inkscape:zoom="7.5853273"
+     inkscape:cx="13.216485"
+     inkscape:cy="8.8059171"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg2" />
+  <path
+     fill="#bababa"
+     opacity="0.6"
+     fill-rule="evenodd"
+     d="M 11 0 C 17.07 0 22 4.93 22 11 C 22 17.08 17.07 22 11 22 C 4.92 22 0 17.08 0 11 C 0 4.93 4.92 0 11 0 L 11 0 L 11 0 Z M 19.15 11 C 19.15 6.5 15.5 2.85 11 2.85 C 6.5 2.85 2.85 6.5 2.85 11 C 2.85 15.5 6.5 19.15 11 19.15 C 15.5 19.15 19.15 15.5 19.15 11 L 19.15 11 Z M 17.52 11.09 C 17.52 11.56 17.16 11.95 16.69 12 L 10.47 12 C 10.22 11.98 10.02 11.77 10 11.51 L 10 11.5 L 10 6.66 C 10.02 6.16 10.42 5.76 10.93 5.76 C 11.44 5.76 11.86 6.18 11.86 6.69 L 11.86 9.63 C 11.86 9.64 11.86 9.64 11.86 9.65 C 11.86 9.66 11.86 9.67 11.86 9.68 L 11.86 9.68 C 11.87 9.94 12.07 10.13 12.32 10.16 L 16.66 10.16 C 17.14 10.2 17.52 10.6 17.52 11.09 L 17.52 11.09 Z M 17.52 11.09"
+     id="path4"
+     style="fill:#000000;opacity:1" />
+</svg>

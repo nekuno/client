@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="34.999897"
+   height="34.995453"
+   id="svg7339"
+   version="1.1"
+   inkscape:version="0.48.4 r9939"
+   sodipodi:docname="Nuevo documento 52">
+  <defs
+     id="defs7341" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.979899"
+     inkscape:cx="-15.111062"
+     inkscape:cy="23.90458"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:window-width="503"
+     inkscape:window-height="421"
+     inkscape:window-x="48"
+     inkscape:window-y="48"
+     inkscape:window-maximized="0" />
+  <metadata
+     id="metadata7344">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Capa 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-336.9264,-431.36445)">
+    <path
+       d="m 363.17857,464.01218 c -8.37,4.83 -19.07,1.97 -23.9,-6.4 -4.84,-8.37 -1.97,-19.07 6.4,-23.9 8.37,-4.83 19.07,-1.97 23.9,6.4 4.83,8.37 1.97,19.07 -6.4,23.9 l 0,0 z m -0.88,-16.04 -11.45,-6.68 c -1.04,-0.61 -1.88,-0.12 -1.88,1.09 l 0.06,13.25 c 0.01,1.21 0.86,1.7 1.9,1.1 l 11.37,-6.56 c 1.05,-0.61 1.05,-1.59 0,-2.2 l 0,0 z m 0,0"
+       id="path58"
+       inkscape:connector-curvature="0"
+       style="fill:#000000;fill-rule:evenodd" />
+  </g>
+</svg>

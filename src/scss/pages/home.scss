@@ -1,0 +1,230 @@
+.view {
+
+  .swiper-container {
+    height: 100%;
+    overflow-y: visible;
+
+    .swiper-slide {
+      background: #fff;
+      text-align: center;
+
+      .linear-gradient-rectangle {
+        background-image: linear-gradient(180deg, black 0%, rgba(0, 0, 0, 0.76) 24%, transparent 100%);
+        height: 338px;
+        opacity: 0.8;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        z-index: 10;
+      }
+
+      .full-transparency {
+        height: auto;
+        width: 100%;
+      }
+
+      .nekuno-logo-wrapper {
+        height: 100px;
+        position: absolute;
+        top: 50px;
+        width: 100%;
+        z-index: 100;
+
+        .nekuno-logo {
+          height:100px;
+          margin: auto;
+          position: relative;
+          width: 40%;
+        }
+      }
+
+      .home-content {
+        position: absolute;
+        top: 0;
+        width: 100% !important;
+
+        .title {
+          color: white;
+          font-size: 30px;
+          line-height: 40px;
+          margin: 100% auto 0;
+          width: 75%;
+        }
+      }
+    }
+
+    .swiper-pagination-and-button {
+      position: absolute;
+      text-align: center;
+      top: 645px;
+      width: 100%;
+      z-index: 100;
+
+      .swiper-pagination {
+        margin: auto;
+        position: relative;
+      }
+      .swiper-pagination.color-nekuno .swiper-pagination-bullet-active, .swiper-pagination .swiper-pagination-bullet-active {
+        background-color: white;
+      }
+
+      .button.button-big.button-round {
+        margin: 5% auto;
+        position: relative;
+        width: 80%;
+      }
+    }
+  }
+}
+
+// Default pixel ratio (1)
+@media only screen and (max-width: 320px) {
+  .nekuno-logo {
+    background: url('../img/logo-107x56.png') no-repeat;
+  }
+  .view .swiper-container .swiper-slide .home-content .title {
+    font-size: 20px;
+    line-height: 25px;
+    margin: 70% auto 0;
+  }
+  .view .swiper-container .swiper-pagination-and-button {
+    top: 380px;
+  }
+  body #root .App .page#login-1-image {
+    background: url('../img/login-image-1-320x569.jpg') no-repeat;
+  }
+  body #root .App .page#login-2-image {
+    background: url('../img/login-image-2-320x569.jpg') no-repeat;
+  }
+  body #root .App .page#login-3-image {
+    background: url('../img/login-image-3-320x569.jpg') no-repeat;
+  }
+}
+@media only screen and (min-width: 321px) and (max-width: 480px) {
+  .nekuno-logo {
+    background: url('../img/logo-160x84.png') no-repeat;
+  }
+  .view .swiper-container .swiper-slide .home-content .title {
+    font-size: 25px;
+    line-height: 30px;
+    margin: 80% auto 0;
+  }
+  .view .swiper-container .swiper-pagination-and-button {
+    top: 480px;
+  }
+  body #root .App .page#login-1-image {
+    background: url('../img/login-image-1-480x854.jpg') no-repeat;
+  }
+  body #root .App .page#login-2-image {
+    background: url('../img/login-image-2-480x854.jpg') no-repeat;
+  }
+  body #root .App .page#login-3-image {
+    background: url('../img/login-image-3-480x854.jpg') no-repeat;
+  }
+}
+@media only screen and (min-width: 481px) {
+  .nekuno-logo {
+    background: url('../img/logo-250x132.png') no-repeat;
+  }
+  body #root .App .page#login-1-image {
+    background: url('../img/login-image-1-compressed-750x1334.jpg') no-repeat;
+  }
+  body #root .App .page#login-2-image {
+    background: url('../img/login-image-2-compressed-750x1334.jpg') no-repeat;
+  }
+  body #root .App .page#login-3-image {
+    background: url('../img/login-image-3-compressed-750x1334.jpg') no-repeat;
+  }
+}
+
+@media only screen and (min--moz-device-pixel-ratio: 1.5),
+(-o-min-device-pixel-ratio: 3/2),
+(-webkit-min-device-pixel-ratio: 1.5),
+(min-device-pixel-ratio: 1.5) {
+
+  @media only screen and (max-width: 212px) {
+    .nekuno-logo {
+      background: url('../img/logo-107x56.png') no-repeat;
+    }
+    body #root .App .page#login-1-image {
+      background: url('../img/login-image-1-320x569.jpg') no-repeat;
+    }
+    body #root .App .page#login-2-image {
+      background: url('../img/login-image-2-320x569.jpg') no-repeat;
+    }
+    body #root .App .page#login-3-image {
+      background: url('../img/login-image-3-320x569.jpg') no-repeat;
+    }
+  }
+  @media only screen and (min-width: 213px) and (max-width: 320px) {
+    .nekuno-logo {
+      background: url('../img/logo-160x84.png') no-repeat;
+    }
+    body #root .App .page#login-1-image {
+      background: url('../img/login-image-1-480x854.jpg') no-repeat;
+    }
+    body #root .App .page#login-2-image {
+      background: url('../img/login-image-2-480x854.jpg') no-repeat;
+    }
+    body #root .App .page#login-3-image {
+      background: url('../img/login-image-3-480x854.jpg') no-repeat;
+    }
+  }
+  @media only screen and (min-width: 321px) {
+    .nekuno-logo {
+      background: url('../img/logo-250x132.png') no-repeat;
+    }
+    body #root .App .page#login-1-image {
+      background: url('../img/login-image-1-compressed-750x1334.jpg') no-repeat;
+    }
+    body #root .App .page#login-2-image {
+      background: url('../img/login-image-2-compressed-750x1334.jpg') no-repeat;
+    }
+    body #root .App .page#login-3-image {
+      background: url('../img/login-image-3-compressed-750x1334.jpg') no-repeat;
+    }
+  }
+}
+
+@media only screen and (min--moz-device-pixel-ratio: 2),
+(-o-min-device-pixel-ratio: 4/2),
+(-webkit-min-device-pixel-ratio: 2),
+(min-device-pixel-ratio: 2) {
+
+  @media only screen and (max-width: 240px) {
+    .nekuno-logo {
+      background: url('../img/logo-160x84.png') no-repeat;
+    }
+    body #root .App .page#login-1-image {
+      background: url('../img/login-image-1-480x854.jpg') no-repeat;
+    }
+    body #root .App .page#login-2-image {
+      background: url('../img/login-image-2-480x854.jpg') no-repeat;
+    }
+    body #root .App .page#login-3-image {
+      background: url('../img/login-image-3-480x854.jpg') no-repeat;
+    }
+  }
+  @media only screen and (min-width: 241px) {
+    .nekuno-logo {
+      background: url('../img/logo-250x132.png') no-repeat;
+    }
+    body #root .App .page#login-1-image {
+      background: url('../img/login-image-1-compressed-750x1334.jpg') no-repeat;
+    }
+    body #root .App .page#login-2-image {
+      background: url('../img/login-image-2-compressed-750x1334.jpg') no-repeat;
+    }
+    body #root .App .page#login-3-image {
+      background: url('../img/login-image-3-compressed-750x1334.jpg') no-repeat;
+    }
+  }
+}
+
+body #root .App .page#login-1-image ,
+body #root .App .page#login-2-image,
+body #root .App .page#login-3-image,
+.nekuno-logo {
+  background-size: 100% auto;
+  height: auto;
+}

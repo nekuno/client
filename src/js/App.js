@@ -1,6 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import { Link } from 'react-router';
 import LeftPanel from './components/LeftPanel';
+import HomePage from './pages/HomePage';
 import * as UserActionCreators from './actions/UserActionCreators';
 import UserStore from './stores/UserStore';
 import connectToStores from './utils/connectToStores';
@@ -64,7 +65,7 @@ export default class App extends Component {
             <div className="App">
                 { user ? <LeftPanel user={user} /> : '' }
                 <div className="views">
-                    {children}
+                    {children ? children : <HomePage />}
                 </div>
             </div>
         );

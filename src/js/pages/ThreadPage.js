@@ -1,7 +1,8 @@
 import React, { PropTypes, Component } from 'react';
 import * as UserActionCreators from '../actions/UserActionCreators';
 import ThreadStore from '../stores/ThreadStore';
-import Thread from '../components/thread/Thread';
+import ThreadList from '../components/threads/ThreadList';
+import LeftMenuTopNavbar from '../components/ui/LeftMenuTopNavbar';
 import connectToStores from '../utils/connectToStores';
 
 function parseLogin(params) {
@@ -58,18 +59,13 @@ export default class ThreadPage extends Component {
         }
 
         return (
-            <div style={{backgroundColor: '#FFFFFF'}}>
-
-                Threads for user {this.props.params.login} <br/>
-
-                Foreach this.props.threads (each key it´s the id of the thread}: <br/>
-
-                Id: {this.props.threads['22151'].id}<br/>
-                Name: {this.props.threads['22151'].name}<br/>
-                Category: {this.props.threads['22151'].category} (2 possible, ThreadUsers and ThreadContent)<br/>
-
-                Image (for ThreadUsers): {this.props.threads['22151'].cached[0].image} (is null here because only user5 have image); <br/>
-                Thumbnail (for ThreadContent): {this.props.threads['22152'].cached[0].thumbnail};
+            <div className="view view-main">
+                <LeftMenuTopNavbar centerText={'Hilos'} />
+                <div data-page="index" className="page">
+                    <div id="page-content">
+                        <ThreadList threads={this.props.threads} />
+                    </div>
+                </div>
             </div>
         );
     }

@@ -1,5 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import shouldPureComponentUpdate from 'react-pure-render/function';
+import Chip from './Chip';
+import SmallChip from './SmallChip';
 
 export default class ChipList extends Component {
 	static propTypes = {

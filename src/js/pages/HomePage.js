@@ -15,6 +15,12 @@ export default class HomePage extends Component {
         history: PropTypes.object.isRequired
     };
 
+    constructor(props) {
+        super(props);
+
+        this.handleGoClick = this.handleGoClick.bind(this);
+    }
+
     render() {
         initSwiper();
         return (

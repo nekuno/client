@@ -29,7 +29,8 @@ body {
 	font-family: $nekuno-font;
 	margin: auto;
 	max-width: 480px;
-	min-width: 320px;	
+	min-width: 320px;
+	overflow-y: visible;
 	width: 100%;
 
 	#root {
@@ -38,16 +39,21 @@ body {
 		.App {
 			height: 100%;
 
-			.page {
+			.view {
 				background: $dark-purple;
+				overflow-y: visible;
 
-				#page-content {
-					font-family: $nekuno-font;
-					margin: 50px auto 0 auto;
-					width: 85%;
+				.page {
+					background: $dark-purple;
 
-					.list-block .item-content {
-						padding-left: 0;
+					#page-content {
+						font-family: $nekuno-font;
+						margin: 50px auto 0 auto;
+						width: 85%;
+
+						.list-block .item-content {
+							padding-left: 0;
+						}
 					}
 				}
 			}

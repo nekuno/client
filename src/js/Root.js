@@ -5,7 +5,8 @@ import App from './App';
 import AboutPage from './pages/AboutPage';
 import LoginPage from './pages/LoginPage';
 import UserPage from './pages/UserPage';
-import ThreadPage from './pages/ThreadPage'
+import ThreadPage from './pages/ThreadPage';
+import RecommendationPage from './pages/RecommendationPage';
 
 export default class Root extends Component {
 
@@ -17,6 +18,7 @@ export default class Root extends Component {
                     <Route name="login" path="/login" component={LoginPage}/>
                     <Route name="user" path="/login/:login" component={UserPage}/>
                     <Route name="threads" path="/threads/:login" component={ThreadPage}/>
+                    <Route name="recommendations" path="/users/:login/recommendations/:threadId" component={RecommendationPage} />
                 </Route>
             </Router>
         );

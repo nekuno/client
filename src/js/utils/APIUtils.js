@@ -27,11 +27,34 @@ function getNextPageUrl(response) {
 
 // Read more about Normalizr: https://github.com/gaearon/normalizr
 
+//TODO: Pagination schema for nextLink
+
 const userSchema = new Schema('users', {idAttribute: 'qnoow_id'});
 
 const threadSchema = new Schema('thread', {idAttribute: 'id'});
 
 const threadsSchema = new Schema('threads');
+
+
+
+//TODO: Check pull request https://github.com/gaearon/normalizr/pull/42 for recommendation of different types
+
+//If we id by similarity/affinity/matching, there are 'same key' conflicts
+function getRecommendationOrder(entity){
+    if (entity.content){
+        return entity.content.id;
+    } else {
+        return entity.id
+    }
+}
+
+const recommendationSchema = new Schema('recommendation', {idAttribute: getRecommendationOrder});
+const recommendationResultSchema = new Schema('recommendationResult');
+
+recommendationResultSchema.define({
+    items: arrayOf(recommendationSchema),
+    pagination: new Schema('pagination')
+});
 
 threadsSchema.define({
     threads: arrayOf(threadSchema)
@@ -56,12 +79,10 @@ function fetchAndNormalize(url, schema) {
 
     return fetch(url).then(response =>
         response.json().then(json => {
-            //const camelizedJson = camelizeKeys(json);
-            const nextPageUrl = getNextPageUrl(response) || undefined;
-
+            //const camelizedJson = camelizeKeys(json)
+            //Can we extract nextLink from body here? Promise not resolved is the problem
             return {
-                ...normalize(json, schema),
-                nextPageUrl
+                ...normalize(json, schema)
             };
         })
     );
@@ -77,4 +98,8 @@ export function fetchUserArray(url) {
 
 export function fetchThreads(url) {
     return fetchAndNormalize(url, threadsSchema);
+}
+
+export function fetchRecommendation(url) {
+    return fetchAndNormalize(url, recommendationResultSchema);
 }

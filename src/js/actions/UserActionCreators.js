@@ -1,4 +1,4 @@
-import { dispatchAsync } from '../dispatcher/Dispatcher';
+import { dispatchAsync, dispatch } from '../dispatcher/Dispatcher';
 import ActionTypes from '../constants/ActionTypes';
 import * as UserAPI from '../api/UserAPI';
 import UserStore from '../stores/UserStore';
@@ -23,4 +23,21 @@ export function requestThreads(login) {
         success: ActionTypes.REQUEST_THREADS_SUCCESS,
         failure: ActionTypes.REQUEST_THREADS_ERROR
     }, {login})
+}
+
+export function requestRecommendation(threadId) {
+
+    dispatchAsync(UserAPI.getRecommendation(threadId), {
+        request: ActionTypes.REQUEST_RECOMMENDATIONS,
+        success: ActionTypes.REQUEST_RECOMMENDATIONS_SUCCESS,
+        failure: ActionTypes.REQUEST_RECOMMENDATIONS_ERROR
+    }, {threadId})
+}
+
+export function recommendationsBack() {
+    dispatch (ActionTypes.RECOMMENDATIONS_PREV);
+}
+
+export function recommendationsNext() {
+    dispatch (ActionTypes.RECOMMENDATIONS_NEXT);
 }

@@ -22,8 +22,7 @@ function requestData(props) {
  * Retrieves state from stores for current props.
  */
 function getState(props) {
-    const position = UserRecommendationStore.getPosition();
-    let userRecommendations = UserRecommendationStore.getThreeUsers(position);
+    let userRecommendations = UserRecommendationStore.getLastTwenty();
     let nextLink = UserRecommendationStore.getNextLink();
     return {
         userRecommendations,

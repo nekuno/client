@@ -2,6 +2,7 @@ import { dispatchAsync, dispatch } from '../dispatcher/Dispatcher';
 import ActionTypes from '../constants/ActionTypes';
 import * as UserAPI from '../api/UserAPI';
 import UserStore from '../stores/UserStore';
+import UserRecommendationStore from '../stores/UserRecommendationStore';
 
 export function requestUser(login, fields) {
     // Exit early if we know enough about this user
@@ -38,6 +39,10 @@ export function recommendationsBack() {
     dispatch (ActionTypes.RECOMMENDATIONS_PREV);
 }
 
-export function recommendationsNext() {
+export function recommendationsNext(threadId) {
+    if (UserRecommendationStore.getPosition() >= (UserRecommendationStore.getCount() - 3) ){
+        console.log('request more!');
+        //requestRecommendation(threadId);
+    }
     dispatch (ActionTypes.RECOMMENDATIONS_NEXT);
 }

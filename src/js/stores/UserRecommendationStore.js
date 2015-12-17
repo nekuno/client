@@ -21,6 +21,10 @@ const UserRecommendationStore = createStore({
         return _current;
     },
 
+    getLastTwenty() {
+        return _users.slice(Math.max(_users.length - 20, 0));
+    },
+
     getThreeUsers() {
         return {previous: this.getUser(this.getPosition() - 1 ),
                 current: this.getUser(this.getPosition()),
@@ -33,6 +37,10 @@ const UserRecommendationStore = createStore({
         }
 
         return _users[position];
+    },
+
+    getCount(){
+        return _users.length;
     },
 
     goTo(position) {
@@ -52,7 +60,6 @@ UserRecommendationStore.dispatchToken = register(action => {
     }
 
     if (action.type === ActionTypes.RECOMMENDATIONS_NEXT){
-        //TODO: If get to 19 , requestData which will add to _users
         UserRecommendationStore.goTo(UserRecommendationStore.getPosition() + 1);
         UserRecommendationStore.emitChange();
     }

@@ -5,7 +5,8 @@ import FullWidthButton from '../components/ui/FullWidthButton';
 function initSwiper() {
     // Init slider and store its instance in nekunoSwiper variable
     let nekunoSwiper = nekunoApp.swiper('.swiper-container', {
-        pagination:'.swiper-pagination'
+        pagination:'.swiper-pagination',
+        autoplay: 3000
     });
 }
 

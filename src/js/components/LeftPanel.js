@@ -4,9 +4,19 @@ import shouldPureComponentUpdate from 'react-pure-render/function';
 import User from '../components/User';
 
 export default class LeftPanel extends Component {
+    static contextTypes = {
+        history: PropTypes.object.isRequired
+    };
     static propTypes = {
         user: PropTypes.object.isRequired
     };
+
+    constructor(props) {
+        super(props);
+
+        this.handleGoClickProfile = this.handleGoClickProfile.bind(this);
+        this.handleGoClickThreads = this.handleGoClickThreads.bind(this);
+    }
 
     shouldComponentUpdate = shouldPureComponentUpdate;
 
@@ -30,10 +40,10 @@ export default class LeftPanel extends Component {
                         </div>
                     </div>
                     <div className="content-block menu">
-                        <Link to={`/login/${user.qnoow_id}`}>
+                        <Link to={`/threads/${user.qnoow_id}`} onClick={this.handleGoClickThreads}>
                             Hilos
                         </Link>
-                        <Link to={`/login/${user.qnoow_id}`}>
+                        <Link to={`/login/${user.qnoow_id}`} onClick={this.handleGoClickProfile}>
                             Mi perfil
                         </Link>
                         <Link to={`/login/${user.qnoow_id}`}>
@@ -46,5 +56,14 @@ export default class LeftPanel extends Component {
                 </div>
             </div>
         );
+    }
+
+    handleGoClickProfile() {
+        nekunoApp.closePanel();
+        this.context.history.pushState(null, `/login/${this.props.user.qnoow_id}`);
+    }
+    handleGoClickThreads() {
+        nekunoApp.closePanel();
+        this.context.history.pushState(null, `/threads/${this.props.user.qnoow_id}`);
     }
 }

@@ -54,6 +54,7 @@ export default class ThreadContent extends Component {
 
     renderChipList = function(thread) {
         let chips = [];
+        chips.push({'label': 'Contenidos'});
         if (thread.type) {
             chips.push({'label': thread.type});
         }

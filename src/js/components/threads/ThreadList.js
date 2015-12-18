@@ -13,13 +13,14 @@ export default class ThreadList extends Component {
 
     render() {
         let threadList = [];
+        let threadsLength = Object.keys(this.props.threads).length;
         let counter = 0;
         for (let threadId in this.props.threads) {
             let thread = selectn('threads['+threadId+']', this.props);
             if (thread) {
                 threadList[counter++] = thread.category === 'ThreadUsers' ?
-                    <ThreadUsers thread={thread} /> :
-                    <ThreadContent thread={thread} />;
+                    <ThreadUsers thread={thread} last={counter == threadsLength} /> :
+                    <ThreadContent thread={thread} last={counter == threadsLength} />;
             }
         }
 

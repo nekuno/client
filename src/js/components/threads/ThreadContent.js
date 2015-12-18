@@ -4,15 +4,18 @@ import ChipList from './../ui/ChipList';
 
 export default class ThreadContent extends Component {
     static propTypes = {
-        thread: PropTypes.object.isRequired
+        thread: PropTypes.object.isRequired,
+        last: PropTypes.bool.isRequired
     };
 
     shouldComponentUpdate = shouldPureComponentUpdate;
 
     render() {
         let thread = this.props.thread;
+        let last = this.props.last;
         return (
             <div className="thread-listed">
+                {last ? '' : <div className="threads-vertical-connection"></div>}
                 <div className="thread-first-image">
                     <img src={thread.cached[0].thumbnail} />
                 </div>

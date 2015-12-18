@@ -11,8 +11,10 @@ body #root .App .view .page  {
         border-radius: 50%;
         display: inline-block;
         height: 81px;
+        position: relative;
         text-align: center;
         width: 81px;
+        z-index: 10;
 
         img {
           border-radius: 50%;
@@ -20,6 +22,16 @@ body #root .App .view .page  {
           margin-top: 3px;
           width: 75px;
         }
+      }
+
+      .threads-vertical-connection {
+        background-color: $deep-purple;
+        height: 150px;
+        margin-left: 40.5px;
+        margin-top: 40.5px;
+        position: absolute;
+        width: 1px;
+        z-index: 1;
       }
 
       .thread-info-box {
@@ -53,6 +65,5 @@ body #root .App .view .page  {
         }
       }
     }
-
   }
 }

@@ -38,10 +38,16 @@ body #root .App .view .page  {
         color: #fff;
         display: inline-block;
         margin-left: 15px;
+        max-width: 70%;
         vertical-align: top;
 
         .thread-title {
           font-size: 25px;
+          line-height: 30px;
+          
+          a {
+            color: #fff;
+          }
         }
 
         .thread-images {
@@ -62,6 +68,11 @@ body #root .App .view .page  {
               width: 30px;
             }
           }
+        }
+
+        .recommendations-count {
+          font-size: 12px;
+          line-height: 20px;
         }
       }
     }

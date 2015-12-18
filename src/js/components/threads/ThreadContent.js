@@ -1,12 +1,22 @@
 import React, { PropTypes, Component } from 'react';
+import { Link } from 'react-router';
 import shouldPureComponentUpdate from '../../../../node_modules/react-pure-render/function';
 import ChipList from './../ui/ChipList';
 
 export default class ThreadContent extends Component {
+    static contextTypes = {
+        history: PropTypes.object.isRequired
+    };
     static propTypes = {
         thread: PropTypes.object.isRequired,
         last: PropTypes.bool.isRequired
     };
+
+    constructor(props) {
+        super(props);
+
+        this.handleGoClickThread = this.handleGoClickThread.bind(this);
+    }
 
     shouldComponentUpdate = shouldPureComponentUpdate;
 
@@ -21,9 +31,12 @@ export default class ThreadContent extends Component {
                 </div>
                 <div className="thread-info-box">
                     <div className="thread-title">
-                        {thread.name}
+                        <Link to={`users/1/recommendations/${thread.id}`} onClick={this.handleGoClickThread.bind(this, thread.id)}>
+                            {thread.name}
+                        </Link>
                     </div>
                     <div className="recommendations-count">
+                        {'5'} Contenidos
                     </div>
                     <div className="thread-images">
                         {thread.cached.map((item, index) => index !== 0 && item.thumbnail ?
@@ -35,7 +48,11 @@ export default class ThreadContent extends Component {
         );
     }
 
-    renderChipList(thread) {
+    handleGoClickThread(threadId) {
+        this.context.history.pushState(null, `users/1/recommendations/${threadId}`);
+    }
+
+    renderChipList = function(thread) {
         let chips = [];
         if (thread.type) {
             chips.push({'label': thread.type});

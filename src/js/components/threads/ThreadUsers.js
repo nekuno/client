@@ -1,12 +1,22 @@
 import React, { PropTypes, Component } from 'react';
+import { Link } from 'react-router';
 import shouldPureComponentUpdate from '../../../../node_modules/react-pure-render/function';
 import ChipList from './../ui/ChipList';
 
 export default class ThreadUsers extends Component {
+    static contextTypes = {
+        history: PropTypes.object.isRequired
+    };
     static propTypes = {
         thread: PropTypes.object.isRequired,
         last: PropTypes.bool.isRequired
     };
+
+    constructor(props) {
+        super(props);
+
+        this.handleGoClickThread = this.handleGoClickThread.bind(this);
+    }
 
     shouldComponentUpdate = shouldPureComponentUpdate;
 
@@ -23,9 +33,12 @@ export default class ThreadUsers extends Component {
                 </div>
                 <div className="thread-info-box">
                     <div className="thread-title">
-                        {thread.name}
+                        <Link to={`users/1/recommendations/${thread.id}`} onClick={this.handleGoClickThread.bind(this, thread.id)}>
+                            {thread.name}
+                        </Link>
                     </div>
                     <div className="recommendations-count">
+                        {'5'} Usuarios
                     </div>
                     <div className="thread-images">
                         {thread.cached.map((item, index) => index !== 0 && item.image ?
@@ -44,6 +57,10 @@ export default class ThreadUsers extends Component {
                 </div>
             </div>
         );
+    }
+
+    handleGoClickThread(threadId) {
+        this.context.history.pushState(null, `users/1/recommendations/${threadId}`);
     }
 
     mergeImagesWithThread(thread) {

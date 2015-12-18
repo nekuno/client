@@ -15,22 +15,30 @@ export default class ThreadUsers extends Component {
 
         return (
             <div className="thread-listed">
-                <div className="first-user-image">
+                <div className="thread-first-image">
                     <img src={thread.cached[0].image} />
                 </div>
-                <div className="thread-title">
-                    {thread.name}
+                <div className="thread-info-box">
+                    <div className="thread-title">
+                        {thread.name}
+                    </div>
+                    <div className="recommendations-count">
+                    </div>
+                    <div className="thread-images">
+                        {thread.cached.map((item, index) => index !== 0 && item.image ?
+                            <div className="thread-image"><img src={item.image} /></div> : '')}
+                    </div>
+                    {/* TODO:Convert filters to simple text
+                     <ChipList chips={thread.profileFilters} small={false} />*/}
+                    <ChipList chips={[
+                        {
+                            'label': 'Edad: 20-35'
+                        },
+                        {
+                            'label': 'Soltero'
+                        }
+                    ]} small={false} />
                 </div>
-                {/* TODO:Convert filters to simple text
-                 <ChipList chips={thread.profileFilters} small={false} />*/}
-                <ChipList chips={[
-                    {
-                        'label': 'Edad: 20-35'
-                    },
-                    {
-                        'label': 'Soltero'
-                    }
-                ]} small={false} />
             </div>
         );
     }

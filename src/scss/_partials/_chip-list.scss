@@ -1,18 +1,13 @@
 .chip-list {
 
 	.separator {
+		color: $green-alert;
+		font-size: 7px;
+		line-height: 35px;
+		margin-left: -3.5px;
 		position: absolute;
-		margin-left: -6px;
-
-		&::before {
-			color: $green-alert;
-			content: "•";
-			font-size: 29px;
-			line-height: 32px;
-			vertical-align: text-top;
-		}
 	}
-	
+
 	.chip-wrapper {
 		display: inline-block;
 	}

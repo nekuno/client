@@ -13,13 +13,21 @@ export default class ThreadContent extends Component {
         let thread = this.props.thread;
         return (
             <div className="thread-listed">
-                <div className="first-user-image">
+                <div className="thread-first-image">
                     <img src={thread.cached[0].thumbnail} />
                 </div>
-                <div className="thread-title">
-                    {thread.name}
+                <div className="thread-info-box">
+                    <div className="thread-title">
+                        {thread.name}
+                    </div>
+                    <div className="recommendations-count">
+                    </div>
+                    <div className="thread-images">
+                        {thread.cached.map((item, index) => index !== 0 && item.thumbnail ?
+                            <div className="thread-image"><img src={item.thumbnail} /></div> : '')}
+                    </div>
+                    {this.renderChipList(thread)}
                 </div>
-                {this.renderChipList(thread)}
             </div>
         );
     }

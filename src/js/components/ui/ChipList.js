@@ -21,10 +21,10 @@ export default class ChipList extends Component {
 					let secondSeparator = '';
 
 					if (index != 0) {
-						firstSeparator = <span className="separator"></span>;
+						firstSeparator = <span className="separator icon-circle"></span>;
 					}
 					if (index != chipsLength - 1) {
-						secondSeparator = <span className="separator"></span>;
+						secondSeparator = <span className="separator icon-circle"></span>;
 					}
 					if (small) {
 						chip = <SmallChip label={chip.label} key={chip.id} />;

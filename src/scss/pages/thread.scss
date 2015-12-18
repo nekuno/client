@@ -1,0 +1,58 @@
+@import '../_partials/colors';
+
+body #root .App .view .page  {
+  #page-content {
+    margin-top: 70px !important;
+    .thread-listed {
+      margin: 25px auto;
+
+      .thread-first-image {
+        background-color: $deep-purple;
+        border-radius: 50%;
+        display: inline-block;
+        height: 81px;
+        text-align: center;
+        width: 81px;
+
+        img {
+          border-radius: 50%;
+          height: 75px;
+          margin-top: 3px;
+          width: 75px;
+        }
+      }
+
+      .thread-info-box {
+        color: #fff;
+        display: inline-block;
+        margin-left: 15px;
+        vertical-align: top;
+
+        .thread-title {
+          font-size: 25px;
+        }
+
+        .thread-images {
+
+          .thread-image {
+            background-color: #fff;
+            border-radius: 50%;
+            display: inline-block;
+            height: 32px;
+            margin: 10px 10px 10px 0px;
+            text-align: center;
+            width: 32px;
+
+            img {
+              border-radius: 50%;
+              height: 30px;
+              margin-top: 1px;
+              width: 30px;
+            }
+          }
+        }
+      }
+    }
+
+  }
+}

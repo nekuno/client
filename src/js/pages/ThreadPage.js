@@ -54,10 +54,6 @@ export default class ThreadPage extends Component {
     }
 
     render() {
-        if (!this.props.threads['22151']){
-            return null;
-        }
-
         return (
             <div className="view view-main">
                 <LeftMenuTopNavbar centerText={'Hilos'} />

@@ -2,6 +2,7 @@ import { Schema, arrayOf, normalize } from 'normalizr';
 import { camelizeKeys } from 'humps';
 //import 'core-js/es6/promise';
 import 'whatwg-fetch';
+import { API_ROOT } from '../constants/Constants';
 
 /**
  * Extracts the next page URL from Github API response.
@@ -35,8 +36,6 @@ const threadSchema = new Schema('thread', {idAttribute: 'id'});
 
 const threadsSchema = new Schema('threads');
 
-
-
 //TODO: Check pull request https://github.com/gaearon/normalizr/pull/42 for recommendation of different types
 
 //If we id by similarity/affinity/matching, there are 'same key' conflicts
@@ -55,15 +54,6 @@ const paginationSchema = new Schema('pagination');
 threadsSchema.define({
     threads: arrayOf(threadSchema)
 });
-
-
-
-//const repoSchema = new Schema('repos', {idAttribute: 'fullName'});
-//repoSchema.define({
-//    owner: userSchema
-//});
-
-const API_ROOT = 'http://brain.dev.nekuno.com/index_dev.php/';
 
 /**
  * Fetches an API response and normalizes the result JSON according to schema.

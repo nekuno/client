@@ -5,8 +5,8 @@ import FullWidthButton from '../components/ui/FullWidthButton';
 function initSwiper() {
     // Init slider and store its instance in nekunoSwiper variable
     let nekunoSwiper = nekunoApp.swiper('.swiper-container', {
-        pagination:'.swiper-pagination',
-        autoplay: 3000
+        pagination: '.swiper-pagination',
+        autoplay  : 3000
     });
 }
 
@@ -33,11 +33,10 @@ export default class HomePage extends Component {
                     <div className="swiper-pagination-and-button">
                         <div className="swiper-pagination"></div>
                         <Link to={`/login`} onClick={this.handleGoClick}>
-                            <FullWidthButton text={"Iniciar sesión"} />
+                            <FullWidthButton>Iniciar sesión</FullWidthButton>
                         </Link>
                     </div>
                 </div>
-
             </div>
         );
     }
@@ -51,12 +50,12 @@ export default class HomePage extends Component {
                     </div>
                     <div className="linear-gradient-rectangle"></div>
                     <div id={'login-' + i + '-image'} data-page="index" className="page">
-                        <img src="img/transparency.png" className="full-transparency" />
+                        <img src="img/transparency.png" className="full-transparency"/>
                         <div id="page-content" className="home-content">
                             <div className="title">
                                 {i === 1 ? 'Descubre contenidos de los temas que más te interesan' :
-                                i=== 2 ? 'Conecta sólo con las personas más compatibles' :
-                                'Tú decides la información que compartes'}
+                                    i === 2 ? 'Conecta sólo con las personas más compatibles' :
+                                        'Tú decides la información que compartes'}
                             </div>
                         </div>
                     </div>

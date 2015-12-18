@@ -19,6 +19,7 @@
     "framework7": "^1.4.0",
     "history": "^1.13.1",
     "humps": "^1.0.0",
+    "invariant": "^2.2.0",
     "jwt-decode": "^1.4.0",
     "keymirror": "^0.1.1",
     "normalizr": "^1.4.0",

@@ -13,7 +13,7 @@ export default class ThreadList extends Component {
 
     render() {
         let threadList = [];
-        let threadsLength = Object.keys(this.props.threads).length;
+        let threadsLength = this.getObjectLength(this.props.threads);
         let counter = 0;
         for (let threadId in this.props.threads) {
             let thread = selectn('threads['+threadId+']', this.props);
@@ -30,5 +30,13 @@ export default class ThreadList extends Component {
             </div>
         );
     }
+
+    getObjectLength = function(obj) {
+        let size = 0, key;
+        for (key in obj) {
+            if (obj.hasOwnProperty(key)) size++;
+        }
+        return size;
+    };
 
 }

@@ -5,12 +5,16 @@ import selectn from 'selectn';
 const _threads = {};
 
 const ThreadStore = createStore({
-    contains(name, fields) {
-        return isInBag(_threads, name, fields);
+    contains(id, fields) {
+        return isInBag(_threads, id, fields);
     },
 
-    get(name) {
-        return _threads[name];
+    get(id) {
+
+        if (!this.contains(id)){
+            return null;
+        }
+        return _threads[id];
     },
 
     getAll() {

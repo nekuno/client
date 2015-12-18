@@ -1,10 +1,16 @@
 import React, { PropTypes, Component } from 'react';
 import * as UserActionCreators from '../actions/UserActionCreators';
-import UserRecommendationStore from '../stores/UserRecommendationStore';
+import RecommendationStore from '../stores/RecommendationStore';
+import ThreadStore from '../stores/ThreadStore';
+import RecommendationsByThreadStore from '../stores/RecommendationsByThreadStore';
 import connectToStores from '../utils/connectToStores';
 
 function parseThreadId(params) {
     return params.threadId;
+}
+
+function parseLogin(params) {
+    return params.login;
 }
 
 /**
@@ -13,24 +19,37 @@ function parseThreadId(params) {
 function requestData(props) {
     const { params } = props;
     const threadId = parseThreadId(params);
+    const login = parseLogin(params);
 
-    UserActionCreators.requestRecommendation(threadId);
+    UserActionCreators.requestRecommendationPage(login, threadId);
 
 }
-
 /**
  * Retrieves state from stores for current props.
  */
 function getState(props) {
-    let userRecommendations = UserRecommendationStore.getLastTwenty();
-    let nextLink = UserRecommendationStore.getNextLink();
+    const threadId = parseThreadId(props.params);
+    const thread = ThreadStore.get(threadId);
+    if (thread === null || thread.category === undefined){
+        return null;
+    }
+    const recommendationIds = RecommendationsByThreadStore.getRecommendationsFromThread(threadId);
+
+    let recommendations = [];
+    const category = thread.category;
+    if (category == 'ThreadUsers'){
+        recommendations = RecommendationStore.getUserRecommendations(recommendationIds)
+    } else {
+        recommendations = RecommendationStore.getContentRecommendations(recommendationIds)
+    }
+
     return {
-        userRecommendations,
-        nextLink
-    };
+        recommendations,
+        category
+    }
 }
 
-@connectToStores([UserRecommendationStore], getState)
+@connectToStores([ThreadStore, RecommendationStore, RecommendationsByThreadStore], getState)
 export default class RecommendationPage extends Component {
     static propTypes = {
         // Injected by React Router:
@@ -55,9 +74,9 @@ export default class RecommendationPage extends Component {
     render() {
         return (
             <div style={{backgroundColor: '#FFFFFF'}}>
-                this.props.userRecommendations.current.username to access "main" recommendation name (the one with the big image) <br/>
-                this.props.userRecommendations.previous to access "previous" recommendation object <br/>
-                this.props.userRecommendations.next to access "main" recommendation object (the one with the big image) <br/>
+
+                this.props.recommendations to access recommendation objects <br/>
+                this.props.category to access thread type (ThreadUsers or ThreadContent) <br/>
 
                 <button onClick={function() { UserActionCreators.recommendationsBack() }} > Previous </button>
                 <button onClick={function() { UserActionCreators.recommendationsNext() }} > Next </button>

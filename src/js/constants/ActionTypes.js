@@ -11,5 +11,6 @@ export default keyMirror({
     REQUEST_RECOMMENDATIONS_SUCCESS   : null,
     REQUEST_RECOMMENDATIONS_ERROR     : null,
     RECOMMENDATIONS_PREV    :null,
-    RECOMMENDATIONS_NEXT    :null
+    RECOMMENDATIONS_NEXT    :null,
+    REQUEST_RECOMMENDATIONS_PAGE      : null
 });

@@ -40,7 +40,7 @@ const threadsSchema = new Schema('threads');
 //TODO: Check pull request https://github.com/gaearon/normalizr/pull/42 for recommendation of different types
 
 //If we id by similarity/affinity/matching, there are 'same key' conflicts
-function getRecommendationOrder(entity){
+function getRecommendationId(entity){
     if (entity.content){
         return entity.content.id;
     } else {
@@ -48,13 +48,9 @@ function getRecommendationOrder(entity){
     }
 }
 
-const recommendationSchema = new Schema('recommendation', {idAttribute: getRecommendationOrder});
-const recommendationResultSchema = new Schema('recommendationResult');
+const recommendationSchema = new Schema('recommendation', {idAttribute: getRecommendationId});
+const paginationSchema = new Schema('pagination');
 
-recommendationResultSchema.define({
-    items: arrayOf(recommendationSchema),
-    pagination: new Schema('pagination')
-});
 
 threadsSchema.define({
     threads: arrayOf(threadSchema)
@@ -101,5 +97,8 @@ export function fetchThreads(url) {
 }
 
 export function fetchRecommendation(url) {
-    return fetchAndNormalize(url, recommendationResultSchema);
+    return fetchAndNormalize(url, {
+        items: arrayOf(recommendationSchema),
+        pagination: {}
+    });
 }

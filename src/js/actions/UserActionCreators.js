@@ -2,7 +2,8 @@ import { dispatchAsync, dispatch } from '../dispatcher/Dispatcher';
 import ActionTypes from '../constants/ActionTypes';
 import * as UserAPI from '../api/UserAPI';
 import UserStore from '../stores/UserStore';
-import UserRecommendationStore from '../stores/UserRecommendationStore';
+import RecommendationStore from '../stores/RecommendationStore';
+import ThreadStore from '../stores/ThreadStore';
 
 export function requestUser(login, fields) {
     // Exit early if we know enough about this user
@@ -26,7 +27,17 @@ export function requestThreads(login) {
     }, {login})
 }
 
+export function requestRecommendationPage(login,threadId){
+    if (!ThreadStore.contains(threadId)){
+        this.requestThreads(login);
+    }
+    requestRecommendation(threadId);
+
+    dispatch(ActionTypes.REQUEST_RECOMMENDATIONS_PAGE);
+}
+
 export function requestRecommendation(threadId) {
+
 
     dispatchAsync(UserAPI.getRecommendation(threadId), {
         request: ActionTypes.REQUEST_RECOMMENDATIONS,
@@ -40,9 +51,9 @@ export function recommendationsBack() {
 }
 
 export function recommendationsNext(threadId) {
-    if (UserRecommendationStore.getPosition() >= (UserRecommendationStore.getCount() - 3) ){
+    /*if (RecommendationStore.getPosition() >= (UserRecommendationStore.getCount() - 3) ){
         console.log('request more!');
         //requestRecommendation(threadId);
-    }
+    }*/
     dispatch (ActionTypes.RECOMMENDATIONS_NEXT);
 }

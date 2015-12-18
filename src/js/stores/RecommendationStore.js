@@ -82,14 +82,14 @@ RecommendationStore.dispatchToken = register(action => {
     if (!category){
         return null;
     } else if (category == 'ThreadUsers') {
-        _userRecommendations = getSavedRecommendations(recommendations, _userRecommendations);
+        _userRecommendations = mergeAndGetRecommendations(recommendations, _userRecommendations);
     } else if (category == 'ThreadContent'){
-        _contentRecommendations = getSavedRecommendations(recommendations, _contentRecommendations);
+        _contentRecommendations = mergeAndGetRecommendations(recommendations, _contentRecommendations);
     }
 
     RecommendationStore.emitChange();
 
-    function getSavedRecommendations(recommendations, _recommendations) {
+    function mergeAndGetRecommendations(recommendations, _recommendations) {
         for (let userId in recommendations) {
             if (recommendations.hasOwnProperty(userId)) {
                 _recommendations[userId] = recommendations[userId];

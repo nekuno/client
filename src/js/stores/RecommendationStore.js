@@ -21,27 +21,28 @@ const RecommendationStore = createStore({
     },
 
     contains(id) {
-        return RecommendationStore.containsUserRecommendation(id) || RecommendationStore.containsContentRecommendation(id);
+        return this.containsUserRecommendation(id) || this.containsContentRecommendation(id);
     },
 
     getUserRecommendation(id){
 
-        if (!RecommendationStore.containsUserRecommendation(id)){
+        if (!this.containsUserRecommendation(id)){
             return null;
         }
         return _userRecommendations[id];
     },
 
     getUserRecommendations(array){
+        let _self = this;
         let recommendations = [];
         array.forEach(function(userId){
-            recommendations.push( RecommendationStore.getUserRecommendation(userId));
+            recommendations.push(_self.getUserRecommendation(userId));
         });
         return recommendations;
     },
 
     getContentRecommendation(id){
-        if (!RecommendationStore.containsContentRecommendation(id)){
+        if (!this.containsContentRecommendation(id)){
             return null;
         }
 
@@ -49,9 +50,10 @@ const RecommendationStore = createStore({
     },
 
     getContentRecommendations(array){
+        let _self = this;
         let recommendations = [];
         array.forEach(function(userId){
-            recommendations.push( RecommendationStore.getContentRecommendation(userId));
+            recommendations.push(_self.getContentRecommendation(userId));
         });
         return recommendations;
     },
@@ -80,16 +82,22 @@ RecommendationStore.dispatchToken = register(action => {
     if (!category){
         return null;
     } else if (category == 'ThreadUsers') {
-        for (let userId in recommendations) {
-            _userRecommendations[userId] = recommendations[userId];
-        }
+        _userRecommendations = getSavedRecommendations(recommendations, _userRecommendations);
     } else if (category == 'ThreadContent'){
-        for (let userId in recommendations) {
-            _contentRecommendations[userId] = recommendations[userId];
-        }
+        _contentRecommendations = getSavedRecommendations(recommendations, _contentRecommendations);
     }
 
     RecommendationStore.emitChange();
+
+    function getSavedRecommendations(recommendations, _recommendations) {
+        for (let userId in recommendations) {
+            if (recommendations.hasOwnProperty(userId)) {
+                _recommendations[userId] = recommendations[userId];
+            }
+        }
+
+        return _recommendations;
+    }
 });
 
 export default RecommendationStore;

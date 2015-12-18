@@ -1,7 +1,7 @@
 .navbar, .subnavbar, .toolbar {
 	background-color: $dark-purple;
 	color: #fff;
-	
+
 	#navbar-inner {
 		.row {
 			margin: auto;
@@ -22,6 +22,11 @@
 			display: block;
 			font-size: 14px;
 			margin-top: 12px;
+
+			.icon-left-arrow {
+				color: #fff;
+				font-size: 17px;
+			}
 		}
 		.open-panel .icon-menu {
 			font-size: 25px;

@@ -56,6 +56,29 @@ body {
 						}
 					}
 				}
+
+				.icon-wrapper {
+					background-color: $deep-purple;
+					border-radius: 50%;
+					display: inline-block;
+					height: 35px;
+					text-align: center;
+					width: 35px;
+
+					span {
+						color: #fff;
+						font-size: 15px;
+						line-height: 35px;
+					}
+
+					&:last-of-type {
+						margin-left: 15px;
+					}
+				}
+
+				.inline-icons-wrapper {
+					min-width: 85px;
+				}
 			}
 		}
 	}

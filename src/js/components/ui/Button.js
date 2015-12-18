@@ -10,7 +10,7 @@ export default class Button extends Component {
 
     render() {
         return (
-            <a href="#" className="button button-fill button-round">{this.props.text}</a>
+            <button className="button button-fill button-round">{this.props.text}</button>
         );
     }
 }

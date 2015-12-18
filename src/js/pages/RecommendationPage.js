@@ -3,6 +3,8 @@ import * as UserActionCreators from '../actions/UserActionCreators';
 import RecommendationStore from '../stores/RecommendationStore';
 import ThreadStore from '../stores/ThreadStore';
 import RecommendationsByThreadStore from '../stores/RecommendationsByThreadStore';
+import RecommendationList from '../components/recommendations/RecommendationList';
+import RecommendationsTopNavbar from '../components/recommendations/RecommendationsTopNavbar';
 import connectToStores from '../utils/connectToStores';
 
 function parseThreadId(params) {
@@ -45,7 +47,8 @@ function getState(props) {
 
     return {
         recommendations,
-        category
+        category,
+        thread
     }
 }
 
@@ -54,11 +57,12 @@ export default class RecommendationPage extends Component {
     static propTypes = {
         // Injected by React Router:
         params: PropTypes.shape({
-            threadId: PropTypes.string.isRequired
+            threadId: PropTypes.string.isRequired,
         }).isRequired,
 
         // Injected by @connectToStores:
-        recommendations: PropTypes.array
+        recommendations: PropTypes.array.isRequired,
+        thread: PropTypes.object.isRequired
     };
 
     componentWillMount() {
@@ -72,14 +76,24 @@ export default class RecommendationPage extends Component {
     }
 
     render() {
+        if (!this.props.recommendations || !this.props.thread){
+            return null;
+        }
         return (
-            <div style={{backgroundColor: '#FFFFFF'}}>
+            <div className="view view-main">
+                <RecommendationsTopNavbar centerText={''} />
+                <div data-page="index" className="page">
+                    <div id="page-content">
+                        <RecommendationList recommendations={this.props.recommendations} thread={this.props.thread} />
 
-                this.props.recommendations to access recommendation objects <br/>
-                this.props.category to access thread type (ThreadUsers or ThreadContent) <br/>
+                        this.props.recommendations to access recommendation objects <br/>
+                        this.props.category to access thread type (ThreadUsers or ThreadContent) <br/>
 
-                <button onClick={function() { UserActionCreators.recommendationsBack() }} > Previous </button>
-                <button onClick={function() { UserActionCreators.recommendationsNext() }} > Next </button>
+                        <button onClick={function() { UserActionCreators.recommendationsBack() }} > Previous </button>
+                        <button onClick={function() { UserActionCreators.recommendationsNext() }} > Next </button>
+
+                    </div>
+                </div>
             </div>
         );
     }

@@ -1,7 +1,8 @@
 import React, { PropTypes, Component } from 'react';
 import shouldPureComponentUpdate from 'react-pure-render/function';
+import Button from './Button';
 
-export default class PersonCard extends Component {
+export default class CardUser extends Component {
 	static propTypes = {
 		username: PropTypes.string.isRequired,
 		location: PropTypes.string.isRequired,

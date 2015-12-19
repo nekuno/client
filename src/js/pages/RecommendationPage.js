@@ -66,6 +66,7 @@ export default class RecommendationPage extends Component {
     };
 
     componentWillMount() {
+        RecommendationsByThreadStore.setPosition(this.props.params.threadId, 0);
         requestData(this.props);
     }
 
@@ -79,6 +80,7 @@ export default class RecommendationPage extends Component {
         if (!this.props.recommendations || !this.props.thread){
             return null;
         }
+        const thread = this.props.thread;
         return (
             <div className="view view-main">
                 <RecommendationsTopNavbar centerText={''} />
@@ -89,8 +91,8 @@ export default class RecommendationPage extends Component {
                         this.props.recommendations to access recommendation objects <br/>
                         this.props.category to access thread type (ThreadUsers or ThreadContent) <br/>
 
-                        <button onClick={function() { UserActionCreators.recommendationsBack() }} > Previous </button>
-                        <button onClick={function() { UserActionCreators.recommendationsNext() }} > Next </button>
+                        <button onClick={function() { UserActionCreators.recommendationsBack(thread.id) }} > Previous </button>
+                        <button onClick={function() { UserActionCreators.recommendationsNext(thread.id) }} > Next </button>
 
                     </div>
                 </div>

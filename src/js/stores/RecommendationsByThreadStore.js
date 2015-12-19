@@ -1,104 +1,3 @@
-/*import { register, waitFor } from '../dispatcher/Dispatcher';
-import {
-    createIndexedListStore,
-    createListActionHandler
-} from '../utils/PaginatedStoreUtils';
-import selectn from 'selectn';
-import ActionTypes from '../constants/ActionTypes'
-import ThreadStore from '../stores/ThreadStore'
-import RecommendationStore from '../stores/RecommendationStore'
-
-let _recommendations = [];
-let _current = 0;
-let _nextLink = "";
-
-const RecommendationsByThreadStore = createIndexedListStore({
-
-    contains(id) {
-        return isInBag(_recommendations, id);
-    },
-
-    getNextLink() {
-        return _nextLink;
-    },
-
-    getPosition() {
-        return _current;
-    },
-
-    getLastTwenty() {
-        return _recommendations.slice(Math.max(_recommendations.length - 20, 0));
-    },
-
-    getThreeUsers() {
-        return {previous: this.getUser(this.getPosition() - 1 ),
-                current: this.getUser(this.getPosition()),
-                next: this.getUser(this.getPosition() + 1 )};
-    },
-
-    getUser(position){
-        if (!this.contains(position)){
-            return null;
-        }
-
-        return _recommendations[position];
-    },
-
-    getCount(){
-        return _recommendations.length;
-    },
-
-    goTo(position) {
-        _current = position;
-        return this.getPosition();
-    }
-});
-
-RecommendationsByThreadStore.dispatchToken = register(action => {
-
-    waitFor([ThreadStore.dispatchToken, RecommendationStore.dispatchToken]);
-
-    if (action.type === ActionTypes.RECOMMENDATIONS_PREV){
-        if (RecommendationsByThreadStore.getPosition() == 0){
-            return;
-        }
-        RecommendationsByThreadStore.goTo(RecommendationsByThreadStore.getPosition() - 1);
-        RecommendationsByThreadStore.emitChange();
-    }
-
-    if (action.type === ActionTypes.RECOMMENDATIONS_NEXT){
-        RecommendationsByThreadStore.goTo(RecommendationsByThreadStore.getPosition() + 1);
-        RecommendationsByThreadStore.emitChange();
-    }
-
-    const recommendations = selectn('response.entities.recommendation', action);
-
-    if (!recommendations){
-        return;
-    }
-
-    let orderedUsers = [];
-    for (let id in recommendations) {
-        orderedUsers.push(recommendations[id]);
-    }
-    //TODO: Order by similarity or matching
-    orderedUsers.sort(compareBySimilarity);
-
-    _nextLink = selectn('response.entities.pagination.undefined.nextLink', action);
-    _recommendations = _recommendations.concat(orderedUsers);
-    RecommendationsByThreadStore.emitChange();
-});
-
-function compareBySimilarity(a,b) {
-    if (a.similarity > b.similarity)
-        return -1;
-    if (a.similarity < b.similarity)
-        return 1;
-    return 0;
-};
-
-export default RecommendationsByThreadStore;*/
-
 import { register, waitFor } from '../dispatcher/Dispatcher';
 import ActionTypes from '../constants/ActionTypes';
 import ThreadStore from '../stores/ThreadStore';
@@ -108,7 +7,11 @@ import {
     createListActionHandler
 } from '../utils/PaginatedStoreUtils';
 
+//Move logic to createIndexedListStore?
+let _position = [];
+
 const RecommendationsByThreadStore = createIndexedListStore({
+
     getRecommendationsFromThread(threadId) {
 
         const thread = ThreadStore.get(threadId);
@@ -119,6 +22,18 @@ const RecommendationsByThreadStore = createIndexedListStore({
 
         return this.getIds(threadId);
 
+    },
+
+    setPosition(threadId, newPosition){
+        _position[threadId] = newPosition;
+    },
+
+    getPosition(threadId){
+        return _position[threadId];
+    },
+
+    advancePosition(threadId, number = 1){
+        _position[threadId] += number;
     }
 });
 
@@ -133,6 +48,11 @@ register(action => {
     waitFor([ThreadStore.dispatchToken, RecommendationStore.dispatchToken]);
 
     const { threadId } = action;
+    if (action.type == ActionTypes.RECOMMENDATIONS_NEXT){
+        RecommendationsByThreadStore.advancePosition(threadId, 1);
+    } else if (action.type == ActionTypes.RECOMMENDATIONS_PREV){
+        RecommendationsByThreadStore.advancePosition(threadId, -1);
+    }
 
     if (threadId) {
         handleListAction(

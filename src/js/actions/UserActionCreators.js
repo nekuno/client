@@ -2,7 +2,7 @@ import { dispatchAsync, dispatch } from '../dispatcher/Dispatcher';
 import ActionTypes from '../constants/ActionTypes';
 import * as UserAPI from '../api/UserAPI';
 import UserStore from '../stores/UserStore';
-import RecommendationStore from '../stores/RecommendationStore';
+import RecommendationsByThreadStore from '../stores/RecommendationsByThreadStore';
 import ThreadStore from '../stores/ThreadStore';
 
 export function requestUser(login, fields) {
@@ -36,10 +36,16 @@ export function requestRecommendationPage(login,threadId){
     dispatch(ActionTypes.REQUEST_RECOMMENDATIONS_PAGE);
 }
 
-export function requestRecommendation(threadId) {
+export function requestRecommendation(threadId, url = null) {
 
+    let recommendation = {};
+    if (url){
+        recommendation = UserAPI.getRecommendation(threadId, url);
+    } else {
+        recommendation = UserAPI.getRecommendation(threadId);
+    }
 
-    dispatchAsync(UserAPI.getRecommendation(threadId), {
+    dispatchAsync((recommendation), {
         request: ActionTypes.REQUEST_RECOMMENDATIONS,
         success: ActionTypes.REQUEST_RECOMMENDATIONS_SUCCESS,
         failure: ActionTypes.REQUEST_RECOMMENDATIONS_ERROR
@@ -51,9 +57,11 @@ export function recommendationsBack() {
 }
 
 export function recommendationsNext(threadId) {
-    /*if (RecommendationStore.getPosition() >= (UserRecommendationStore.getCount() - 3) ){
-        console.log('request more!');
-        //requestRecommendation(threadId);
-    }*/
-    dispatch (ActionTypes.RECOMMENDATIONS_NEXT);
+
+    dispatch (ActionTypes.RECOMMENDATIONS_NEXT, {threadId});
+
+    if (RecommendationsByThreadStore.getPosition(threadId) >= ( RecommendationsByThreadStore.getIds(threadId).length - 3) ){
+        const nextUrl = RecommendationsByThreadStore.getNextPageUrl(threadId);
+        requestRecommendation(threadId, nextUrl);
+    }
 }

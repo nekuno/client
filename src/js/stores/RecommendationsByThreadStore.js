@@ -51,7 +51,9 @@ register(action => {
     if (action.type == ActionTypes.RECOMMENDATIONS_NEXT){
         RecommendationsByThreadStore.advancePosition(threadId, 1);
     } else if (action.type == ActionTypes.RECOMMENDATIONS_PREV){
-        RecommendationsByThreadStore.advancePosition(threadId, -1);
+        if (RecommendationsByThreadStore.getPosition(threadId) > 0){
+            RecommendationsByThreadStore.advancePosition(threadId, -1);
+        }
     }
 
     if (threadId) {

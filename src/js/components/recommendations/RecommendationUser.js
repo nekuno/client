@@ -5,7 +5,8 @@ import CardUser from './../ui/CardUser';
 export default class RecommendationUser extends Component {
     static propTypes = {
         recommendation: PropTypes.object.isRequired,
-        last: PropTypes.bool.isRequired
+        last: PropTypes.bool.isRequired,
+        accessibleKey: PropTypes.number.isRequired
     };
 
     shouldComponentUpdate = shouldPureComponentUpdate;
@@ -13,8 +14,9 @@ export default class RecommendationUser extends Component {
     render() {
         let recommendation = this.props.recommendation;
         let last = this.props.last;
+        let key = this.props.accessibleKey;
         return (
-            <div className="recommendation">
+            <div className={'recommendation recommendation-' + key}>
                 <CardUser username={recommendation.username} location={recommendation.location} canSendMessage={true} image={'http://www.tvchoicemagazine.co.uk/sites/default/files/imagecache/interview_image/intex/michael_emerson.png'} matching={Math.round(recommendation.similarity * 100)} liked={recommendation.like} hideLikeButton={false} />
             </div>
         );

@@ -22,8 +22,8 @@ export default class RecommendationList extends Component {
             if (this.props.recommendations.hasOwnProperty(recommendationId)) {
                 let recommendation = this.props.recommendations[recommendationId];
                 recommendationList[counter++] = thread.category === 'ThreadUsers' ?
-                    <RecommendationUser recommendation={recommendation} last={counter == recommendationsLength} /> :
-                    <RecommendationContent recommendation={recommendation} last={counter == recommendationsLength} />;
+                    <RecommendationUser key={counter} accessibleKey={counter} recommendation={recommendation} last={counter == recommendationsLength} /> :
+                    <RecommendationContent key={counter} accessibleKey={counter} recommendation={recommendation} last={counter == recommendationsLength} />;
             }
         }
 
@@ -61,7 +61,7 @@ export default class RecommendationList extends Component {
         }
 
         return (
-            <ChipList chips={chips} small={false} />
+            <ChipList chips={chips} small={true} />
         );
     };
 

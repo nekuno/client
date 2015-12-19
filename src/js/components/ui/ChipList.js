@@ -14,7 +14,7 @@ export default class ChipList extends Component {
 	render() {
 		let small = this.props.small;
 		return (
-			<div className="chip-list">
+			<div className={small ? 'chip-list small-chip-list' : 'chip-list'}>
 				{this.props.chips.map(function(chip, index, chips) {
 					let chipsLength = chips.length;
 					let firstSeparator = '';

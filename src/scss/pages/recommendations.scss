@@ -1,0 +1,87 @@
+@import '../_partials/colors';
+
+body #root .App .view .page  {
+  #page-content {
+    margin-top: 70px !important;
+
+    .recommendation-page {
+      text-align: center;
+
+      .thread-title {
+        color: #fff;
+        font-size: 25px;
+        line-height: 30px;
+        margin-bottom: 10px;
+      }
+
+      .recommendation-list {
+
+        .recommendation {
+          display: inline-block;
+          left: 15%;
+          margin-top: 25px;
+          position: absolute;
+        }
+
+        .recommendation-2 {
+          margin-left: 70%;
+        }
+        .recommendation-3 {
+          margin-left: 140%;
+        }
+        .recommendation-4 {
+          margin-left: 210%;
+        }
+        .recommendation-5 {
+          margin-left: 280%;
+        }
+        .recommendation-6 {
+          margin-left: 350%;
+        }
+        .recommendation-7 {
+          margin-left: 420%;
+        }
+        .recommendation-8 {
+          margin-left: 490%;
+        }
+        .recommendation-9 {
+          margin-left: 560%;
+        }
+        .recommendation-10 {
+          margin-left: 630%;
+        }
+        .recommendation-11 {
+          margin-left: 700%;
+        }
+        .recommendation-12 {
+          margin-left: 770%;
+        }
+        .recommendation-13 {
+          margin-left: 840%;
+        }
+        .recommendation-14 {
+          margin-left: 910%;
+        }
+        .recommendation-15 {
+          margin-left: 980%;
+        }
+        .recommendation-16 {
+          margin-left: 1050%;
+        }
+        .recommendation-17 {
+          margin-left: 1120%;
+        }
+        .recommendation-18 {
+          margin-left: 1190%;
+        }
+        .recommendation-19 {
+          margin-left: 1260%;
+        }
+        .recommendation-20 {
+          margin-left: 1330%;
+        }
+
+      }
+    }
+  }
+}

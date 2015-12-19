@@ -4,7 +4,8 @@ import shouldPureComponentUpdate from '../../../../node_modules/react-pure-rende
 export default class RecommendationContent extends Component {
     static propTypes = {
         recommendation: PropTypes.object.isRequired,
-        last: PropTypes.bool.isRequired
+        last: PropTypes.bool.isRequired,
+        accessibleKey: PropTypes.number.isRequired
     };
 
     shouldComponentUpdate = shouldPureComponentUpdate;
@@ -12,6 +13,7 @@ export default class RecommendationContent extends Component {
     render() {
         let recommendation = this.props.recommendation;
         let last = this.props.last;
+        let key = this.props.accessibleKey;
         return (
             <div className="recommendation">
                 {/* TODO: <CardContent {...this.props} />*/}

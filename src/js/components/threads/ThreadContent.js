@@ -36,7 +36,7 @@ export default class ThreadContent extends Component {
                         </Link>
                     </div>
                     <div className="recommendations-count">
-                        {'5'} Contenidos
+                        {thread.totalResults} Contenidos
                     </div>
                     <div className="thread-images">
                         {thread.cached.map((item, index) => index !== 0 && item.thumbnail ?

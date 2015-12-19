@@ -38,7 +38,7 @@ export default class ThreadUsers extends Component {
                         </Link>
                     </div>
                     <div className="recommendations-count">
-                        {'5'} Usuarios
+                        {thread.totalResults} Usuarios
                     </div>
                     <div className="thread-images">
                         {thread.cached.map((item, index) => index !== 0 && item.image ?

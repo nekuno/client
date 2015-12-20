@@ -28,14 +28,16 @@ export default class RecommendationList extends Component {
         }
 
         return (
-            <div className="recommendation-page">
+            <div className="recommendation-content">
                 <div className="thread-title">
                     {this.props.thread.name}
                 </div>
                 {this.renderChipList(this.props.thread)}
 
-                <div className="recommendation-list">
-                    {recommendationList.map(recommendation => recommendation)}
+                <div className="swiper-container">
+                    <div className="swiper-wrapper recommendation-list">
+                        {recommendationList.map(recommendation => recommendation)}
+                    </div>
                 </div>
             </div>
         );

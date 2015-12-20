@@ -16,8 +16,10 @@ export default class RecommendationUser extends Component {
         let last = this.props.last;
         let key = this.props.accessibleKey;
         return (
-            <div className={'recommendation recommendation-' + key}>
-                <CardUser username={recommendation.username} location={recommendation.location} canSendMessage={true} image={'http://www.tvchoicemagazine.co.uk/sites/default/files/imagecache/interview_image/intex/michael_emerson.png'} matching={Math.round(recommendation.similarity * 100)} liked={recommendation.like} hideLikeButton={false} />
+            <div className="swiper-slide">
+                <div className={'recommendation recommendation-' + key}>
+                    <CardUser username={recommendation.username} location={recommendation.location} canSendMessage={true} image={'http://www.tvchoicemagazine.co.uk/sites/default/files/imagecache/interview_image/intex/michael_emerson.png'} matching={Math.round(recommendation.similarity * 100)} liked={recommendation.like == true} hideLikeButton={false} />
+                </div>
             </div>
         );
     }

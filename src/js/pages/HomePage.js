@@ -41,7 +41,7 @@ export default class HomePage extends Component {
         );
     }
 
-    renderSlides() {
+    renderSlides = function() {
         return (
             [1, 2, 3].map(i =>
                 <div className="swiper-slide">
@@ -62,7 +62,7 @@ export default class HomePage extends Component {
                 </div>
             )
         );
-    }
+    };
 
     handleGoClick() {
         this.context.history.pushState(null, `/login`);

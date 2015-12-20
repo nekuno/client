@@ -26,6 +26,42 @@ function requestData(props) {
     UserActionCreators.requestRecommendationPage(login, threadId);
 
 }
+
+function initSwiper(thread) {
+    // Init slider and store its instance in nekunoSwiper variable
+    let recommendationsSwiper = nekunoApp.swiper('.swiper-container', {
+        spaceBetween: '-25%',
+        onSlideNextStart: onSlideNextStart,
+        onSlidePrevStart: onSlidePrevStart
+    });
+
+    let activeIndex = recommendationsSwiper.activeIndex;
+
+    function onSlideNextStart(swiper) {
+        while(swiper.activeIndex > activeIndex) {
+            activeIndex ++;
+            UserActionCreators.recommendationsNext(thread.id);
+
+            if (activeIndex + 1 % 20 === 0) {
+                swiper.update();
+                swiper.slideTo(activeIndex);
+            }
+
+        }
+        console.log(swiper.activeIndex)
+    }
+    function onSlidePrevStart(swiper) {
+        while(swiper.activeIndex < activeIndex) {
+            activeIndex --;
+            if (activeIndex >= 0) {
+                UserActionCreators.recommendationsNext(thread.id);
+            }
+        }
+        console.log(swiper.activeIndex)
+    }
+
+}
+
 /**
  * Retrieves state from stores for current props.
  */
@@ -81,11 +117,12 @@ export default class RecommendationPage extends Component {
             return null;
         }
         const thread = this.props.thread;
+        initSwiper(thread);
         return (
             <div className="view view-main">
                 <RecommendationsTopNavbar centerText={''} />
                 <div data-page="index" className="page">
-                    <div id="page-content">
+                    <div id="page-content" className="recommendation-page">
                         <RecommendationList recommendations={this.props.recommendations} thread={this.props.thread} />
 
                         this.props.recommendations to access recommendation objects <br/>

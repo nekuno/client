@@ -1,7 +1,11 @@
-import { fetchUser, fetchThreads, fetchRecommendation, fetchUserArray } from '../utils/APIUtils';
+import { fetchUser, fetchThreads, fetchRecommendation, fetchUserArray, fetchProfile } from '../utils/APIUtils';
 
 export function getUser(login, url = `users/${login}`) {
     return fetchUser(url);
+}
+
+export function getProfile(login, url = `users/${login}/profile`) {
+    return fetchProfile(url);
 }
 
 export function getThreads(login, url = `users/${login}/threads`){

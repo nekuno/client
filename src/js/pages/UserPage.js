@@ -2,6 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import selectn from 'selectn';
 import * as UserActionCreators from '../actions/UserActionCreators';
 import UserStore from '../stores/UserStore';
+import ProfileStore from '../stores/ProfileStore';
 import User from '../components/User';
 import LeftMenuTopNavbar from '../components/ui/LeftMenuTopNavbar';
 import connectToStores from '../utils/connectToStores';
@@ -18,6 +19,7 @@ function requestData(props) {
     const userLogin = parseLogin(params);
 
     UserActionCreators.requestUser(userLogin, ['username', 'email', 'picture', 'status']);
+    UserActionCreators.requestProfile(userLogin);
 
 }
 
@@ -28,13 +30,15 @@ function getState(props) {
     const login = parseLogin(props.params);
 
     const user = UserStore.get(login);
+    const profile = ProfileStore.get(login);
 
     return {
-        user
+        user,
+        profile
     };
 }
 
-@connectToStores([UserStore], getState)
+@connectToStores([UserStore, ProfileStore], getState)
 export default class UserPage extends Component {
     static propTypes = {
         // Injected by React Router:
@@ -57,7 +61,7 @@ export default class UserPage extends Component {
     }
 
     render() {
-        const { user, params } = this.props;
+        const { user, params, profile } = this.props;
         const login = parseLogin(params);
 
         return (
@@ -67,7 +71,7 @@ export default class UserPage extends Component {
                     <div id="page-content">
 
                         {user ?
-                            <User user={user}/> :
+                            <User user={user} profile={profile}/> :
                             <h1>Loading...</h1>
                         }
 

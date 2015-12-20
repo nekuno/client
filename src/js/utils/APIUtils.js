@@ -28,13 +28,15 @@ function getNextPageUrl(response) {
 
 // Read more about Normalizr: https://github.com/gaearon/normalizr
 
-//TODO: Pagination schema for nextLink
-
 const userSchema = new Schema('users', {idAttribute: 'qnoow_id'});
+
+const profileSchema = new Schema('profiles');
 
 const threadSchema = new Schema('thread', {idAttribute: 'id'});
 
 const threadsSchema = new Schema('threads');
+
+//TODO: Implement location schema and store
 
 //TODO: Check pull request https://github.com/gaearon/normalizr/pull/42 for recommendation of different types
 
@@ -48,8 +50,6 @@ function getRecommendationId(entity){
 }
 
 const recommendationSchema = new Schema('recommendation', {idAttribute: getRecommendationId});
-const paginationSchema = new Schema('pagination');
-
 
 threadsSchema.define({
     threads: arrayOf(threadSchema)
@@ -80,6 +80,10 @@ export function fetchUser(url) {
 
 export function fetchUserArray(url) {
     return fetchAndNormalize(url, arrayOf(userSchema));
+}
+
+export function fetchProfile(url) {
+    return fetchAndNormalize(url, profileSchema);
 }
 
 export function fetchThreads(url) {

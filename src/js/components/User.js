@@ -11,7 +11,7 @@ export default class User extends Component {
     shouldComponentUpdate = shouldPureComponentUpdate;
 
     render() {
-        const { user } = this.props;
+        const { user, profile } = this.props;
         let imgSrc = user.picture ? `https://dev.nekuno.com/media/cache/user_avatar_180x180/user/images/${user.picture}` : 'https://dev.nekuno.com/media/cache/user_avatar_180x180/bundles/qnoowweb/images/user-no-img.jpg';
         return (
             <div className="User">
@@ -24,7 +24,7 @@ export default class User extends Component {
                             {user.username}
                         </div>
                         <div className="user-location">
-                            <span className="icon-marker"></span> {selectn('location.address', user) ? user.location.address : 'Madrid'}
+                            <span className="icon-marker"></span> {selectn('location.address', profile) ? profile.location.address : 'Madrid'}
                         </div>
                     </div>
                 </div>

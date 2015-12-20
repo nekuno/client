@@ -4,6 +4,7 @@ import * as UserAPI from '../api/UserAPI';
 import UserStore from '../stores/UserStore';
 import RecommendationsByThreadStore from '../stores/RecommendationsByThreadStore';
 import ThreadStore from '../stores/ThreadStore';
+import ProfileStore from '../stores/ProfileStore';
 
 export function requestUser(login, fields) {
     // Exit early if we know enough about this user
@@ -15,6 +16,19 @@ export function requestUser(login, fields) {
         request: ActionTypes.REQUEST_USER,
         success: ActionTypes.REQUEST_USER_SUCCESS,
         failure: ActionTypes.REQUEST_USER_ERROR
+    }, {login});
+}
+
+export function requestProfile(login, fields) {
+    // Exit early if we know enough about this user
+    if (ProfileStore.contains(login, fields)) {
+        return;
+    }
+
+    dispatchAsync(UserAPI.getProfile(login), {
+        request: ActionTypes.REQUEST_PROFILE,
+        success: ActionTypes.REQUEST_PROFILE_SUCCESS,
+        failure: ActionTypes.REQUEST_PROFILE_ERROR
     }, {login});
 }
 

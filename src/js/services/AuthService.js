@@ -6,10 +6,10 @@ class AuthService {
 
     login(username, password) {
         return new Bluebird((resolve, reject) => {
-            request.get(
+            request.post(
                 {
                     url : LOGIN_URL,
-                    qs : {usernameCanonical: username},
+                    body: {username, password},
                     json: true
                 },
                 (err, response, body) => {

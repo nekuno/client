@@ -4,6 +4,7 @@ import * as UserActionCreators from '../actions/UserActionCreators';
 import UserStore from '../stores/UserStore';
 import ProfileStore from '../stores/ProfileStore';
 import User from '../components/User';
+import ProfileDataList from '../components/profile/ProfileDataList'
 import LeftMenuTopNavbar from '../components/ui/LeftMenuTopNavbar';
 import connectToStores from '../utils/connectToStores';
 
@@ -70,7 +71,7 @@ export default class UserPage extends Component {
                 <div data-page="index" className="page">
                     <div id="page-content">
 
-                        {user ?
+                        {user && profile ?
                             <User user={user} profile={profile}/> :
                             <h1>Loading...</h1>
                         }
@@ -83,6 +84,11 @@ export default class UserPage extends Component {
                                 Intereses
                             </div>
                         </div>
+
+                        {profile ?
+                            <ProfileDataList profile={profile}/> :
+                            <h1>Loading...</h1>
+                        }
                     </div>
                 </div>
             </div>

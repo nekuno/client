@@ -9,7 +9,7 @@ export default class ThreadList extends Component {
         threads: PropTypes.object.isRequired
     };
 
-    shouldComponentUpdate = shouldPureComponentUpdate;
+    //shouldComponentUpdate = shouldPureComponentUpdate;
 
     render() {
         let threadList = [];

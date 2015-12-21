@@ -23,11 +23,12 @@ export default class ThreadContent extends Component {
     render() {
         let thread = this.props.thread;
         let last = this.props.last;
+        const firstImage = thread.cached[0] && thread.cached[0].thumbnail? thread.cached[0].thumbnail : '';
         return (
             <div className="thread-listed">
                 {last ? '' : <div className="threads-vertical-connection"></div>}
                 <div className="thread-first-image">
-                    <img src={thread.cached[0].thumbnail} />
+                    <img src={firstImage} />
                 </div>
                 <div className="thread-info-box">
                     <div className="thread-title">

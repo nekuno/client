@@ -71,6 +71,7 @@ export default class ThreadUsers extends Component {
                 `${IMAGES_ROOT}/media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`
             );
 
+        thread.cached[0] = thread.cached[0] ? thread.cached[0] : [];
         images[0] = thread.cached[0].picture ?
                 `${IMAGES_ROOT}/media/cache/user_avatar_180x180/user/images/${thread.cached[0].picture}` :
                 `${IMAGES_ROOT}/media/cache/user_avatar_180x180/bundles/qnoowweb/images/user-no-img.jpg`;

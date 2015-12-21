@@ -32,7 +32,8 @@ function initSwiper(thread) {
     let recommendationsSwiper = nekunoApp.swiper('.swiper-container', {
         spaceBetween: '-25%',
         onSlideNextStart: onSlideNextStart,
-        onSlidePrevStart: onSlidePrevStart
+        onSlidePrevStart: onSlidePrevStart,
+        onSlideNextEnd: onSlideNextEnd
     });
 
     let activeIndex = recommendationsSwiper.activeIndex;
@@ -41,11 +42,6 @@ function initSwiper(thread) {
         while(swiper.activeIndex > activeIndex) {
             activeIndex ++;
             UserActionCreators.recommendationsNext(thread.id);
-
-            if (swiper.isEnd && (activeIndex + 1) % 20 === 0) {
-                swiper.updateSlidesSize();
-                console.log(activeIndex)
-            }
         }
     }
     function onSlidePrevStart(swiper) {
@@ -54,6 +50,12 @@ function initSwiper(thread) {
             if (activeIndex >= 0) {
                 UserActionCreators.recommendationsBack(thread.id);
             }
+        }
+    }
+    function onSlideNextEnd(swiper) {
+        if (swiper.isEnd &&
+            typeof document.getElementsByClassName('recommendation-' + (activeIndex + 2)[0]) !== 'undefined') {
+            swiper.updateSlidesSize();
         }
     }
 

@@ -16,12 +16,6 @@ export default class HomePage extends Component {
         history: PropTypes.object.isRequired
     };
 
-    constructor(props) {
-        super(props);
-
-        this.handleGoClick = this.handleGoClick.bind(this);
-    }
-
     render() {
         initSwiper();
         return (
@@ -32,7 +26,7 @@ export default class HomePage extends Component {
                     </div>
                     <div className="swiper-pagination-and-button">
                         <div className="swiper-pagination"></div>
-                        <Link to={`/login`} onClick={this.handleGoClick}>
+                        <Link to="/login">
                             <FullWidthButton>Iniciar sesión</FullWidthButton>
                         </Link>
                     </div>
@@ -44,7 +38,7 @@ export default class HomePage extends Component {
     renderSlides = function() {
         return (
             [1, 2, 3].map(i =>
-                <div className="swiper-slide">
+                <div key={i} className="swiper-slide">
                     <div className="nekuno-logo-wrapper">
                         <div className="nekuno-logo"></div>
                     </div>
@@ -64,7 +58,4 @@ export default class HomePage extends Component {
         );
     };
 
-    handleGoClick() {
-        this.context.history.pushState(null, `/login`);
-    }
 }

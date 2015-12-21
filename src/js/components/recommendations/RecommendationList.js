@@ -7,7 +7,7 @@ import ChipList from './../ui/ChipList';
 
 export default class RecommendationList extends Component {
     static propTypes = {
-        recommendations: PropTypes.object.isRequired,
+        recommendations: PropTypes.array.isRequired,
         thread: PropTypes.object.isRequired
     };
 

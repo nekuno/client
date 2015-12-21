@@ -76,6 +76,8 @@ export function recommendationsNext(threadId) {
 
     if (RecommendationsByThreadStore.getPosition(threadId) >= ( RecommendationsByThreadStore.getIds(threadId).length - 3) ){
         const nextUrl = RecommendationsByThreadStore.getNextPageUrl(threadId);
-        requestRecommendation(threadId, nextUrl);
+        if (nextUrl) {
+            requestRecommendation(threadId, nextUrl);
+        }
     }
 }

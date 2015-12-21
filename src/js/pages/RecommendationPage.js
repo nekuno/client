@@ -39,12 +39,22 @@ function initSwiper(thread) {
     let activeIndex = recommendationsSwiper.activeIndex;
 
     function onSlideNextStart(swiper) {
-        while(swiper.activeIndex > activeIndex) {
-            activeIndex ++;
+        swiper.unlockSwipeToPrev();
+        if (swiper.isEnd) {
+            swiper.lockSwipeToNext();
+            return;
+        }
+        while (swiper.activeIndex > activeIndex) {
+            activeIndex++;
             UserActionCreators.recommendationsNext(thread.id);
         }
+
     }
     function onSlidePrevStart(swiper) {
+        if (swiper.isBeginning) {
+            swiper.lockSwipeToPrev();
+            return;
+        }
         while(swiper.activeIndex < activeIndex) {
             activeIndex --;
             if (activeIndex >= 0) {
@@ -56,6 +66,9 @@ function initSwiper(thread) {
         if (swiper.isEnd &&
             typeof document.getElementsByClassName('recommendation-' + (activeIndex + 2)[0]) !== 'undefined') {
             swiper.updateSlidesSize();
+            swiper.unlockSwipeToNext();
+        } else if (swiper.isEnd) {
+            swiper.lockSwipeToNext();
         }
     }
 

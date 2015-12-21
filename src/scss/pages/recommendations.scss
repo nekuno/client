@@ -12,7 +12,8 @@ body #root .App .view .page  {
         color: #fff;
         font-size: 25px;
         line-height: 30px;
-        margin-bottom: 10px;
+        margin: 0 auto 10px auto;
+        width: 75%;
       }
 
       .recommendation-list {
@@ -26,8 +27,11 @@ body #root .App .view .page  {
           .recommendation {
 
             .card {
-              height: 425px;
               margin-top: 50px;
+
+              img {
+                max-height: 120px;
+              }
             }
           }
         }

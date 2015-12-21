@@ -28,7 +28,7 @@ function requestData(props) {
 }
 
 function initSwiper(thread) {
-    // Init slider and store its instance in nekunoSwiper variable
+    // Init slider and store its instance in recommendationsSwiper variable
     let recommendationsSwiper = nekunoApp.swiper('.swiper-container', {
         spaceBetween: '-25%',
         onSlideNextStart: onSlideNextStart,
@@ -42,13 +42,11 @@ function initSwiper(thread) {
             activeIndex ++;
             UserActionCreators.recommendationsNext(thread.id);
 
-            if (activeIndex + 1 % 20 === 0) {
+            if ((activeIndex + 1) % 20 === 0) {
                 swiper.update();
-                swiper.slideTo(activeIndex);
+                //swiper.slideTo(activeIndex);
             }
-
         }
-        console.log(swiper.activeIndex)
     }
     function onSlidePrevStart(swiper) {
         while(swiper.activeIndex < activeIndex) {
@@ -57,7 +55,6 @@ function initSwiper(thread) {
                 UserActionCreators.recommendationsNext(thread.id);
             }
         }
-        console.log(swiper.activeIndex)
     }
 
 }

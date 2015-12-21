@@ -12,7 +12,24 @@
 		
 		.sub-title {
 			color: $light-gray;
-			font-size: 15px;
+			font-size: 14px;
+			margin-top: 5px;
+
+			.icon-marker {
+				font-size: 10px;
+				margin-right: 5px;
+			}
+		}
+
+		.send-message-button {
+			float: right;
+			margin-right: 4%;
+			margin-top: -50px;
+
+			span {
+				font-size: 20px !important;
+				width: 35px;
+			}
 		}
 	}
 	

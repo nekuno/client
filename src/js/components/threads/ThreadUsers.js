@@ -1,5 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import { Link } from 'react-router';
+import { IMAGES_ROOT } from '../../constants/Constants';
 import shouldPureComponentUpdate from '../../../../node_modules/react-pure-render/function';
 import ChipList from './../ui/ChipList';
 
@@ -66,13 +67,13 @@ export default class ThreadUsers extends Component {
     mergeImagesWithThread(thread) {
 
         let images = thread.cached.map((item, index) => item.picture ?
-                `https://dev.nekuno.com/media/cache/resolve/profile_picture/user/images/${item.picture}` :
-                'https://dev.nekuno.com/media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg'
+                `${IMAGES_ROOT}/media/cache/resolve/profile_picture/user/images/${item.picture}` :
+                `${IMAGES_ROOT}/media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`
             );
 
         images[0] = thread.cached[0].picture ?
-                `https://dev.nekuno.com/media/cache/user_avatar_180x180/user/images/${thread.cached[0].picture}` :
-                'https://dev.nekuno.com/media/cache/user_avatar_180x180/bundles/qnoowweb/images/user-no-img.jpg';
+                `${IMAGES_ROOT}/media/cache/user_avatar_180x180/user/images/${thread.cached[0].picture}` :
+                `${IMAGES_ROOT}/media/cache/user_avatar_180x180/bundles/qnoowweb/images/user-no-img.jpg`;
 
         images.forEach((item, index) => {if (thread.cached[index]) { thread.cached[index].image = item }});
 

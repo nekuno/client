@@ -32,17 +32,14 @@ function initSwiper(thread) {
     let recommendationsSwiper = nekunoApp.swiper('.swiper-container', {
         spaceBetween: '-25%',
         onSlideNextStart: onSlideNextStart,
-        onSlidePrevStart: onSlidePrevStart,
-        onSlideNextEnd: onSlideNextEnd
+        onSlidePrevStart: onSlidePrevStart
     });
 
     let activeIndex = recommendationsSwiper.activeIndex;
 
     function onSlideNextStart(swiper) {
-        swiper.unlockSwipeToPrev();
         if (swiper.isEnd) {
-            swiper.lockSwipeToNext();
-            return;
+            swiper.updateSlidesSize();
         }
         while (swiper.activeIndex > activeIndex) {
             activeIndex++;
@@ -50,28 +47,15 @@ function initSwiper(thread) {
         }
 
     }
+
     function onSlidePrevStart(swiper) {
-        if (swiper.isBeginning) {
-            swiper.lockSwipeToPrev();
-            return;
-        }
-        while(swiper.activeIndex < activeIndex) {
-            activeIndex --;
+        while (swiper.activeIndex < activeIndex) {
+            activeIndex--;
             if (activeIndex >= 0) {
                 UserActionCreators.recommendationsBack(thread.id);
             }
         }
     }
-    function onSlideNextEnd(swiper) {
-        if (swiper.isEnd &&
-            typeof document.getElementsByClassName('recommendation-' + (activeIndex + 2)[0]) !== 'undefined') {
-            swiper.updateSlidesSize();
-            swiper.unlockSwipeToNext();
-        } else if (swiper.isEnd) {
-            swiper.lockSwipeToNext();
-        }
-    }
-
 }
 
 /**
@@ -113,7 +97,10 @@ export default class RecommendationPage extends Component {
         thread: PropTypes.object.isRequired
     };
 
-    swiperActive = false;
+    constructor() {
+        super();
+        this.swiperActive = false;
+    }
 
     componentWillMount() {
         RecommendationsByThreadStore.setPosition(this.props.params.threadId, 0);
@@ -144,8 +131,6 @@ export default class RecommendationPage extends Component {
         if (!this.props.recommendations || !this.props.thread){
             return null;
         }
-        const thread = this.props.thread;
-        initSwiper(thread);
         return (
             <div className="view view-main">
                 <RecommendationsTopNavbar centerText={''} />

@@ -44,6 +44,7 @@ function initSwiper(thread) {
 
             if (swiper.isEnd && (activeIndex + 1) % 20 === 0) {
                 swiper.updateSlidesSize();
+                console.log(activeIndex)
             }
         }
     }
@@ -89,7 +90,7 @@ export default class RecommendationPage extends Component {
     static propTypes = {
         // Injected by React Router:
         params: PropTypes.shape({
-            threadId: PropTypes.string.isRequired,
+            threadId: PropTypes.string.isRequired
         }).isRequired,
 
         // Injected by @connectToStores:

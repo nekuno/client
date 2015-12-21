@@ -2,12 +2,18 @@ import React, { PropTypes, Component } from 'react';
 import { Link } from 'react-router';
 import FullWidthButton from '../components/ui/FullWidthButton';
 
+let nekunoSwiper;
+
 function initSwiper() {
     // Init slider and store its instance in nekunoSwiper variable
-    let nekunoSwiper = nekunoApp.swiper('.swiper-container', {
+    nekunoSwiper = nekunoApp.swiper('.swiper-container', {
         pagination: '.swiper-pagination',
         autoplay  : 3000
     });
+}
+
+function destroySwiper() {
+    nekunoSwiper.destroy(true);
 }
 
 export default class HomePage extends Component {
@@ -16,8 +22,16 @@ export default class HomePage extends Component {
         history: PropTypes.object.isRequired
     };
 
-    render() {
+    componentDidMount() {
         initSwiper();
+    }
+
+    componentWillUnmount() {
+        destroySwiper();
+    }
+
+    render() {
+
         return (
             <div className="view view-main">
                 <div className="swiper-container swiper-init" data-speed="400" data-space-between="40" data-pagination=".swiper-pagination">

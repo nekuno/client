@@ -42,9 +42,8 @@ function initSwiper(thread) {
             activeIndex ++;
             UserActionCreators.recommendationsNext(thread.id);
 
-            if ((activeIndex + 1) % 20 === 0) {
-                swiper.update();
-                //swiper.slideTo(activeIndex);
+            if (swiper.isEnd && (activeIndex + 1) % 20 === 0) {
+                swiper.updateSlidesSize();
             }
         }
     }
@@ -52,7 +51,7 @@ function initSwiper(thread) {
         while(swiper.activeIndex < activeIndex) {
             activeIndex --;
             if (activeIndex >= 0) {
-                UserActionCreators.recommendationsNext(thread.id);
+                UserActionCreators.recommendationsBack(thread.id);
             }
         }
     }
@@ -98,6 +97,8 @@ export default class RecommendationPage extends Component {
         thread: PropTypes.object.isRequired
     };
 
+    swiperActive = false;
+
     componentWillMount() {
         RecommendationsByThreadStore.setPosition(this.props.params.threadId, 0);
         requestData(this.props);
@@ -106,6 +107,20 @@ export default class RecommendationPage extends Component {
     componentWillReceiveProps(nextProps) {
         if (parseThreadId(nextProps.params) !== parseThreadId(this.props.params)) {
             requestData(nextProps);
+        }
+    }
+
+    componentDidMount() {
+        if (this.props.thread && this.props.recommendations && !this.swiperActive) {
+            initSwiper(this.props.thread);
+            this.swiperActive = true;
+        }
+    }
+
+    componentDidUpdate() {
+        if (this.props.thread && this.props.recommendations && !this.swiperActive) {
+            initSwiper(this.props.thread);
+            this.swiperActive = true;
         }
     }
 
@@ -121,13 +136,6 @@ export default class RecommendationPage extends Component {
                 <div data-page="index" className="page">
                     <div id="page-content" className="recommendation-page">
                         <RecommendationList recommendations={this.props.recommendations} thread={this.props.thread} />
-
-                        this.props.recommendations to access recommendation objects <br/>
-                        this.props.category to access thread type (ThreadUsers or ThreadContent) <br/>
-
-                        <button onClick={function() { UserActionCreators.recommendationsBack(thread.id) }} > Previous </button>
-                        <button onClick={function() { UserActionCreators.recommendationsNext(thread.id) }} > Next </button>
-
                     </div>
                 </div>
             </div>

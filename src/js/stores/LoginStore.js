@@ -50,7 +50,7 @@ class LoginStore extends BaseStore {
         let jwt = localStorage.getItem('jwt');
         if (jwt) {
             this._jwt = jwt;
-            this._user = jwt_decode(this._jwt);
+            this._user = jwt_decode(this._jwt).user;
             console.log("&*&*&* autologin success")
         }
     }

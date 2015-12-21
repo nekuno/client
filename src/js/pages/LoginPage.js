@@ -1,13 +1,33 @@
 import React, { PropTypes, Component } from 'react';
-import LinkedStateMixin from 'react-addons-linked-state-mixin';
-import ReactMixin from 'react-mixin';
+const ReactLink = require('react/lib/ReactLink');
+const ReactStateSetters = require('react/lib/ReactStateSetters');
 import RegularTopNavbar from '../components/ui/RegularTopNavbar';
 import TextInput from '../components/ui/TextInput';
 import PasswordInput from '../components/ui/PasswordInput';
 import FullWidthButton from '../components/ui/FullWidthButton';
 import LoginActionCreators from '../actions/LoginActionCreators';
+import connectToStores from '../utils/connectToStores';
+import LoginStore from '../stores/LoginStore';
 
+function getState(props) {
+
+    const error = LoginStore.error;
+    const requesting = LoginStore.requesting();
+
+    return {
+        error,
+        requesting
+    };
+}
+
+@connectToStores([LoginStore], getState)
 export default class LoginPage extends Component {
+
+    static propTypes = {
+        // Injected by @connectToStores:
+        error     : PropTypes.object,
+        requesting: PropTypes.bool.isRequired
+    };
 
     constructor() {
         super();
@@ -22,7 +42,15 @@ export default class LoginPage extends Component {
         LoginActionCreators.loginUser(this.state.user, this.state.password);
     }
 
+    linkState(key) {
+        return new ReactLink(this.state[key], ReactStateSetters.createStateKeySetter(this, key));
+    }
+
     render() {
+        const {
+            error,
+            requesting
+            } = this.props;
         return (
             <div className="view view-main">
                 <RegularTopNavbar leftText={'Cancelar'} centerText={'Iniciar sesión'}/>
@@ -35,11 +63,13 @@ export default class LoginPage extends Component {
                             </ul>
                         </div>
                         <FullWidthButton type="submit" onClick={this.login.bind(this)}>Iniciar Sesión</FullWidthButton>
+                        <div style={{color: '#FFF'}}>
+                            <p>{ requesting ? 'Sending...' : ''}</p>
+                            <p>{ error ? error.error : ''}</p>
+                        </div>
                     </div>
                 </div>
             </div>
         );
     }
 }
-
-ReactMixin(LoginPage.prototype, LinkedStateMixin);

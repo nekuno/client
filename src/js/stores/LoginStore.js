@@ -7,8 +7,9 @@ class LoginStore extends BaseStore {
     constructor() {
         super();
         this.subscribe(() => this._registerToActions.bind(this));
-        this._user = null;
+        this._requesting = false;
         this._error = null;
+        this._user = null;
         this._jwt = null;
 
         // Attempt auto-login
@@ -19,22 +20,31 @@ class LoginStore extends BaseStore {
     _registerToActions(action) {
         switch (action.type) {
 
-            case ActionTypes.REQUEST_LOGIN_USER_SUCCESS:
-                this._jwt = action.response.jwt;
-                localStorage.setItem('jwt', this._jwt);
-                this._user = jwt_decode(this._jwt);
+            case ActionTypes.REQUEST_LOGIN_USER:
+                this._requesting = true;
                 this._error = null;
                 this.emitChange();
                 break;
 
+            case ActionTypes.REQUEST_LOGIN_USER_SUCCESS:
+                this._requesting = false;
+                this._error = null;
+                this._jwt = action.response.jwt;
+                localStorage.setItem('jwt', this._jwt);
+                this._user = jwt_decode(this._jwt);
+                this.emitChange();
+                break;
+
             case ActionTypes.REQUEST_LOGIN_USER_ERROR:
+                this._requesting = false;
                 this._error = action.error;
                 this.emitChange();
                 break;
 
             case ActionTypes.LOGOUT_USER:
-                this._user = null;
+                this._requesting = false;
                 this._error = null;
+                this._user = null;
                 this._jwt = null;
                 localStorage.setItem('jwt', '');
                 this.emitChange();
@@ -43,7 +53,6 @@ class LoginStore extends BaseStore {
             default:
                 break;
         }
-        ;
     }
 
     _autoLogin() {
@@ -65,6 +74,10 @@ class LoginStore extends BaseStore {
 
     get jwt() {
         return this._jwt;
+    }
+
+    requesting() {
+        return this._requesting;
     }
 
     isLoggedIn() {

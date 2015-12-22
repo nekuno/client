@@ -30,3 +30,19 @@
   }
 }
 
+.otherProfileData {
+  color: white;
+  margin-top: 10px;
+  .otherProfileLeft{
+    width:50%;
+    float:left;
+    .otherProfileStats{
+      width:100%;
+    }
+  }
+  .otherProfileRight{
+    width:50%;
+    float:right;
+  }
+}
+

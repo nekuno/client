@@ -36,6 +36,10 @@ const profileSchema = new Schema('profiles');
 
 const statsSchema = new Schema('stats');
 
+const matchingSchema = new Schema('matching');
+
+const similaritySchema = new Schema('similarity');
+
 const threadSchema = new Schema('thread', {idAttribute: 'id'});
 
 const threadsSchema = new Schema('threads');
@@ -143,6 +147,21 @@ export function fetchProfile(url) {
 
 export function fetchStats(url) {
     return fetchAndNormalize(url, statsSchema);
+}
+
+export function fetchMatching(url) {
+    if (url.indexOf(API_ROOT) === -1) {
+        url = API_ROOT + url;
+    }
+    return fetch(url).then(response =>
+        response.json().then(json => {
+            return json;}
+        )
+    );
+}
+
+export function fetchSimilarity(url) {
+    return fetchAndNormalize(url, similaritySchema);
 }
 
 export function fetchThreads(url) {

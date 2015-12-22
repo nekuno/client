@@ -73,6 +73,23 @@ export function requestStats(userId) {
         failure: ActionTypes.REQUEST_STATS_ERROR
     }, {userId})
 }
+
+export function requestMatching(userId1, userId2) {
+    dispatchAsync(UserAPI.getMatching(userId1, userId2), {
+        request: ActionTypes.REQUEST_MATCHING,
+        success: ActionTypes.REQUEST_MATCHING_SUCCESS,
+        failure: ActionTypes.REQUEST_MATCHING_ERROR
+    }, {userId1, userId2})
+}
+
+export function requestSimilarity(userId1, userId2) {
+    dispatchAsync(UserAPI.getSimilarity(userId1, userId2), {
+        request: ActionTypes.REQUEST_SIMILARITY,
+        success: ActionTypes.REQUEST_SIMILARITY_SUCCESS,
+        failure: ActionTypes.REQUEST_SIMILARITY_ERROR
+    }, {userId1, userId2})
+}
+
 export function recommendationsBack() {
     dispatch (ActionTypes.RECOMMENDATIONS_PREV);
 }

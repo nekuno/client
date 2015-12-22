@@ -4,12 +4,16 @@ import * as UserActionCreators from '../actions/UserActionCreators';
 import UserStore from '../stores/UserStore';
 import ProfileStore from '../stores/ProfileStore';
 import StatsStore from '../stores/StatsStore';
+import MatchingStore from '../stores/MatchingStore';
 import User from '../components/User';
+import OtherProfileData from '../components/profile/OtherProfileData';
 import ProfileDataList from '../components/profile/ProfileDataList'
 import LeftMenuTopNavbar from '../components/ui/LeftMenuTopNavbar';
+import ProgressBar from '../components/ui/ProgressBar'
 import connectToStores from '../utils/connectToStores';
+import AuthenticatedComponent from '../components/AuthenticatedComponent'
 
-function parseLogin(params) {
+function parseId(params) {
     return params.login;
 }
 
@@ -17,12 +21,17 @@ function parseLogin(params) {
  * Requests data from server for current props.
  */
 function requestData(props) {
-    const { params } = props;
-    const userLogin = parseLogin(params);
+    const { params, user, userLoggedIn } = props;
+    const currentUserId = parseId(params);
 
-    UserActionCreators.requestUser(userLogin, ['username', 'email', 'picture', 'status']);
-    UserActionCreators.requestProfile(userLogin);
-    UserActionCreators.requestStats(userLogin);
+    if (!(userLoggedIn && user && (user.qnoow_id == currentUserId))) {
+        UserActionCreators.requestMatching(parseInt(currentUserId), user.qnoow_id);
+        //UserActionCreators.requestSimilarity(userLogin, user.qnoow_id);
+    }
+
+    UserActionCreators.requestUser(currentUserId, ['username', 'email', 'picture', 'status']);
+    UserActionCreators.requestProfile(currentUserId);
+    UserActionCreators.requestStats(currentUserId);
 
 }
 
@@ -30,20 +39,31 @@ function requestData(props) {
  * Retrieves state from stores for current props.
  */
 function getState(props) {
-    const login = parseLogin(props.params);
+    const currentUserId = parseId(props.params);
+    const {userLoggedIn, user} = props;
+    //to use when changing route
+    const currentUser = UserStore.get(currentUserId);
+    const profile = ProfileStore.get(currentUserId);
+    const stats = StatsStore.get(currentUserId);
 
-    const user = UserStore.get(login);
-    const profile = ProfileStore.get(login);
-    const stats = StatsStore.get(login);
+    let matching = 0;
+    if (!(userLoggedIn && user && (user.qnoow_id == currentUserId))) {
+        matching = MatchingStore.get(currentUserId, user.qnoow_id);
+    }
+
     return {
-        user,
+        currentUser,
         profile,
-        stats
+        stats,
+        matching
     };
 }
 
-@connectToStores([UserStore, ProfileStore, StatsStore], getState)
-export default class UserPage extends Component {
+/*@connectToStores([ThreadStore, RecommendationStore, RecommendationsByThreadStore], getState)
+export default AuthenticatedComponent(class RecommendationPage extends Component {*/
+
+@connectToStores([UserStore, ProfileStore, StatsStore, MatchingStore], getState)
+export default AuthenticatedComponent(class UserPage extends Component {
     static propTypes = {
         // Injected by React Router:
         params: PropTypes.shape({
@@ -51,9 +71,13 @@ export default class UserPage extends Component {
         }).isRequired,
 
         // Injected by @connectToStores:
-        user: PropTypes.object,
+        //currentUser: PropTypes.object,
         profile: PropTypes.object,
-        stats: PropTypes.object
+        stats: PropTypes.object,
+        matching: PropTypes.number,
+
+        // Injected by AuthenticatedComponent
+        user: PropTypes.object
     };
 
     componentWillMount() {
@@ -61,15 +85,21 @@ export default class UserPage extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (parseLogin(nextProps.params) !== parseLogin(this.props.params)) {
+        if (parseId(nextProps.params) !== parseId(this.props.params)) {
             requestData(nextProps);
         }
     }
 
     render() {
-        const { user, params, profile, stats } = this.props;
-        const login = parseLogin(params);
+        const { userLoggedIn, user, currentUser, params, profile, stats, matching } = this.props;
+        const currentUserId = currentUser? currentUser.qnoow_id : null;
+        const currentPicture = currentUser? currentUser.picture : null;
 
+        let otherProfileHTML = '';
+        if (!(userLoggedIn && user && (user.qnoow_id == currentUserId))) {
+            const ownPicture = user? user.picture : null;
+            otherProfileHTML = <OtherProfileData matching = {matching} stats = {stats} ownImage = {ownPicture} currentImage = {currentPicture} />
+        }
         return (
             <div className="view view-main">
                 <LeftMenuTopNavbar centerText={'Mi Perfil'} />
@@ -81,14 +111,16 @@ export default class UserPage extends Component {
                             <h1>Loading...</h1>
                         }
 
-                            <div className="user-interests">
-                                <div className="number">
-                                    {selectn('numberOfContentLikes', stats) ? stats.numberOfContentLikes : 0}
-                                </div>
-                                <div className="label">
-                                    Intereses
-                                </div>
+                        <div className="user-interests">
+                            <div className="number">
+                                {selectn('numberOfContentLikes', stats) ? stats.numberOfContentLikes : 0}
                             </div>
+                            <div className="label">
+                                Intereses
+                            </div>
+                        </div>
+
+                        {otherProfileHTML}
 
                         {profile ?
                             <ProfileDataList profile={profile}/> :
@@ -113,4 +145,4 @@ export default class UserPage extends Component {
             </div>
         );
     }
-}
+})

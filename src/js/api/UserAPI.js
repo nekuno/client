@@ -24,9 +24,10 @@ export function setLikeUser(from, to, url = `users/${from}/likes/${to}`){
     return postLikeUser(url);
 }
 
-export function unsetLikeUser(from, to, url = `users/${from}/likes/${to}`){
+export function unsetLikeUser(from, to, url = `users/${from}/likes/${to}`) {
     return deleteLikeUser(url);
-    
+}
+
 export function getMatching(userId1, userId2, url = `users/${userId1}/matching/${userId2}`){
     return fetchMatching(url);
 }

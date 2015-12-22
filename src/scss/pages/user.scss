@@ -1,0 +1,32 @@
+.profileDataList{
+  margin-top: 30px;
+  .profileData, .profileAboutMe{
+    color: white;
+
+    span{
+      width:50%;
+      margin-top:5px;
+    }
+
+    .profileDataValue{
+      float: right;
+      width:50%;
+    }
+    .profileDataName{
+      font-weight: bold;
+      float:left;
+      width:50%;
+    }
+    .profileAboutMeValue{
+      margin-top: 1.5ex;
+      width:100%;
+      margin-bottom: 3ex;
+    }
+    .profileAboutMeName{
+      font-weight: bold;
+      width:100%;
+    }
+
+  }
+}
+

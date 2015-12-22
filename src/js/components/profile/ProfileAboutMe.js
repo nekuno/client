@@ -2,7 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import shouldPureComponentUpdate from '../../../../node_modules/react-pure-render/function';
 import selectn from 'selectn';
 
-export default class ProfileData extends Component {
+export default class ProfileAboutMe extends Component {
     static propTypes = {
         name: PropTypes.string.isRequired,
         value: PropTypes.string.isRequired
@@ -14,8 +14,10 @@ export default class ProfileData extends Component {
         const {name, value} = this.props;
 
         return (
-            <div className="profileData">
-                <span className="profileDataName">{name}</span>  <span className="profileDataValue">{value}</span>
+            <div className="profileAboutMe">
+                <div className="profileAboutMeName">{name}</div>
+
+                <div className="profileAboutMeValue">{value}</div>
             </div>
         );
     }

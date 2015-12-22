@@ -36,11 +36,28 @@
 	.card-content {
 		
 		.card-content-inner {
-			padding: 0 0 15px 0;
+			padding: 0;
 			
 			.image img {
 				max-width: 100%;
 			}
+
+			.matching {
+				margin-top: -37px;
+				position: relative;
+
+				.matching-value {
+					color: #fff;
+					margin-bottom: 5px;
+				}
+			}
+		}
+	}
+
+	.card-footer {
+
+		.like-button-container {
+			margin: 7px auto;
 		}
 	}
 } 

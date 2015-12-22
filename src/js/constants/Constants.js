@@ -1,3 +1,5 @@
-export const API_ROOT = 'http://brain.local.nekuno.com/index_dev.php/';
-export const IMAGES_ROOT = 'http://local.nekuno.com/';
+import config from '../config/config';
+
+export const API_ROOT = config.API_ROOT;
+export const IMAGES_ROOT = config.IMAGES_ROOT;
 export const LOGIN_URL = API_ROOT + 'login';

@@ -17,6 +17,10 @@ export default keyMirror({
     REQUEST_PROFILE_SUCCESS        : null,
     REQUEST_PROFILE_ERROR          : null,
 
+    REQUEST_STATS                  : null,
+    REQUEST_STATS_SUCCESS          : null,
+    REQUEST_STATS_ERROR            : null,
+
     REQUEST_THREADS                : null,
     REQUEST_THREADS_SUCCESS        : null,
     REQUEST_THREADS_ERROR          : null,

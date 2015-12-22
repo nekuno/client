@@ -66,6 +66,13 @@ export function requestRecommendation(threadId, url = null) {
     }, {threadId})
 }
 
+export function requestStats(userId) {
+    dispatchAsync(UserAPI.getStats(userId), {
+        request: ActionTypes.REQUEST_STATS,
+        success: ActionTypes.REQUEST_STATS_SUCCESS,
+        failure: ActionTypes.REQUEST_STATS_ERROR
+    }, {userId})
+}
 export function recommendationsBack() {
     dispatch (ActionTypes.RECOMMENDATIONS_PREV);
 }

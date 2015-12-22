@@ -3,6 +3,7 @@ import selectn from 'selectn';
 import * as UserActionCreators from '../actions/UserActionCreators';
 import UserStore from '../stores/UserStore';
 import ProfileStore from '../stores/ProfileStore';
+import StatsStore from '../stores/StatsStore';
 import User from '../components/User';
 import ProfileDataList from '../components/profile/ProfileDataList'
 import LeftMenuTopNavbar from '../components/ui/LeftMenuTopNavbar';
@@ -21,6 +22,7 @@ function requestData(props) {
 
     UserActionCreators.requestUser(userLogin, ['username', 'email', 'picture', 'status']);
     UserActionCreators.requestProfile(userLogin);
+    UserActionCreators.requestStats(userLogin);
 
 }
 
@@ -32,14 +34,15 @@ function getState(props) {
 
     const user = UserStore.get(login);
     const profile = ProfileStore.get(login);
-
+    const stats = StatsStore.get(login);
     return {
         user,
-        profile
+        profile,
+        stats
     };
 }
 
-@connectToStores([UserStore, ProfileStore], getState)
+@connectToStores([UserStore, ProfileStore, StatsStore], getState)
 export default class UserPage extends Component {
     static propTypes = {
         // Injected by React Router:
@@ -48,7 +51,9 @@ export default class UserPage extends Component {
         }).isRequired,
 
         // Injected by @connectToStores:
-        user: PropTypes.object
+        user: PropTypes.object,
+        profile: PropTypes.object,
+        stats: PropTypes.object
     };
 
     componentWillMount() {
@@ -62,7 +67,7 @@ export default class UserPage extends Component {
     }
 
     render() {
-        const { user, params, profile } = this.props;
+        const { user, params, profile, stats } = this.props;
         const login = parseLogin(params);
 
         return (
@@ -76,14 +81,14 @@ export default class UserPage extends Component {
                             <h1>Loading...</h1>
                         }
 
-                        <div className="user-interests">
-                            <div className="number">
-                                {selectn('interests', user) ? user.interests : 0}
+                            <div className="user-interests">
+                                <div className="number">
+                                    {selectn('numberOfContentLikes', stats) ? stats.numberOfContentLikes : 0}
+                                </div>
+                                <div className="label">
+                                    Intereses
+                                </div>
                             </div>
-                            <div className="label">
-                                Intereses
-                            </div>
-                        </div>
 
                         {profile ?
                             <ProfileDataList profile={profile}/> :

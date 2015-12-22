@@ -32,6 +32,8 @@ const userSchema = new Schema('users', {idAttribute: 'qnoow_id'});
 
 const profileSchema = new Schema('profiles');
 
+const statsSchema = new Schema('stats');
+
 const threadSchema = new Schema('thread', {idAttribute: 'id'});
 
 const threadsSchema = new Schema('threads');
@@ -84,6 +86,10 @@ export function fetchUserArray(url) {
 
 export function fetchProfile(url) {
     return fetchAndNormalize(url, profileSchema);
+}
+
+export function fetchStats(url) {
+    return fetchAndNormalize(url, statsSchema);
 }
 
 export function fetchThreads(url) {

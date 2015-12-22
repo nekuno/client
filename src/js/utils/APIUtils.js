@@ -2,6 +2,8 @@ import { Schema, arrayOf, normalize } from 'normalizr';
 import { camelizeKeys } from 'humps';
 //import 'core-js/es6/promise';
 import 'whatwg-fetch';
+import request from 'request';
+import Bluebird from 'bluebird';
 import { API_ROOT } from '../constants/Constants';
 
 /**
@@ -37,6 +39,8 @@ const statsSchema = new Schema('stats');
 const threadSchema = new Schema('thread', {idAttribute: 'id'});
 
 const threadsSchema = new Schema('threads');
+
+const likedUserSchema = new Schema('liked', {idAttribute: 'id'});
 
 //TODO: Implement location schema and store
 
@@ -76,6 +80,55 @@ function fetchAndNormalize(url, schema) {
     );
 }
 
+function postData(url, data, schema) {
+    if (url.indexOf(API_ROOT) === -1) {
+        url = API_ROOT + url;
+    }
+
+    return new Bluebird((resolve, reject) => {
+        request.post(
+            {
+                url : url,
+                body: {data},
+                json: true
+            },
+            (err, response, body) => {
+                if (err) {
+                    return reject(err);
+                }
+                if (response.statusCode >= 400) {
+                    return reject(body);
+                }
+                return resolve(body);
+            }
+        );
+    });
+}
+
+function deleteData(url, data, schema) {
+    if (url.indexOf(API_ROOT) === -1) {
+        url = API_ROOT + url;
+    }
+    return new Bluebird((resolve, reject) => {
+        request.del(
+            {
+                url : url,
+                body: {data},
+                json: true
+            },
+            (err, response, body) => {
+                if (err) {
+                    return reject(err);
+                }
+                if (response.statusCode >= 400) {
+                    return reject(body);
+                }
+                return resolve(body);
+            }
+        );
+    });
+}
+
 export function fetchUser(url) {
     return fetchAndNormalize(url, userSchema);
 }
@@ -101,4 +154,12 @@ export function fetchRecommendation(url) {
         items: arrayOf(recommendationSchema),
         pagination: {}
     });
+}
+
+export function postLikeUser(url) {
+    return postData(url, null, likedUserSchema);
+}
+
+export function deleteLikeUser(url) {
+    return deleteData(url, null, likedUserSchema);
 }

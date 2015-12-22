@@ -1,19 +1,52 @@
 import React, { PropTypes, Component } from 'react';
+import { Link } from 'react-router';
 import { IMAGES_ROOT } from '../../constants/Constants';
 import shouldPureComponentUpdate from 'react-pure-render/function';
+import * as UserActionCreators from '../../actions/UserActionCreators'
 import ProgressBar from './ProgressBar';
 import Button from './Button';
 
+/**
+ * Set user like.
+ */
+function setLikeUser(props) {
+	const { loggedUserId, userId } = props;
+
+	UserActionCreators.likeUser(loggedUserId, userId);
+}
+
+/**
+ * Unset user like.
+ */
+function unsetLikeUser(props) {
+	const { loggedUserId, userId } = props;
+
+	UserActionCreators.deleteLikeUser(loggedUserId, userId);
+}
+
 export default class CardUser extends Component {
 	static propTypes = {
+		userId: PropTypes.number.isRequired,
 		username: PropTypes.string.isRequired,
 		location: PropTypes.string.isRequired,
 		canSendMessage: PropTypes.bool.isRequired,
 		picture: PropTypes.string.isRequired,
 		matching: PropTypes.number.isRequired,
 		liked: PropTypes.bool.isRequired,
-		hideLikeButton: PropTypes.bool.isRequired
+		hideLikeButton: PropTypes.bool.isRequired,
+		loggedUserId: PropTypes.number.isRequired
 	};
+
+	constructor(props) {
+		super(props);
+
+		this.onLikeOrDislike = this.onLikeOrDislike.bind(this);
+
+		// State that depends on props is often an anti-pattern, but in our case
+		// that's what we need to we can update the input both in response to route
+		// change and in response to user typing.
+
+	}
 
 	shouldComponentUpdate = shouldPureComponentUpdate;
 
@@ -21,15 +54,17 @@ export default class CardUser extends Component {
 		let subTitle = this.props.location ? <div><span className="icon-marker"></span>{this.props.location}</div> : '';
 		let messageButton = this.props.canSendMessage ? <span className="icon-message"></span> : '';
 		let likeButtonText = this.props.liked ? 'Quitar Me gusta' : 'Me gusta';
-		let likeButton = this.props.hideLikeButton ? '' : <div className="like-button-container"><Button {...this.props}>{likeButtonText}</Button></div>;
-		let imgSrc = this.props.picture ? `${IMAGES_ROOT}/media/cache/user_avatar_180x180/user/images/${this.props.picture}` : `${IMAGES_ROOT}/media/cache/user_avatar_180x180/bundles/qnoowweb/images/user-no-img.jpg`;
+		let likeButton = this.props.hideLikeButton ? '' : <div className="like-button-container"><Button {...this.props} onClick={this.onLikeOrDislike}>{likeButtonText}</Button></div>;
+		let imgSrc = this.props.picture ? `${IMAGES_ROOT}media/cache/user_avatar_180x180/user/images/${this.props.picture}` : `${IMAGES_ROOT}media/cache/user_avatar_180x180/bundles/qnoowweb/images/user-no-img.jpg`;
 
 		return (
 			<div className="card person-card">
 				<div className="card-header">
-					<div className="title">
-						{this.props.username}
-					</div>
+					<Link to={`/login/${this.props.userId}`}>
+						<div className="title">
+							{this.props.username}
+						</div>
+					</Link>
 					<div className="sub-title">
 						{subTitle}
 					</div>
@@ -39,9 +74,11 @@ export default class CardUser extends Component {
 				</div>
 				<div className="card-content">
 					<div className="card-content-inner">
-						<div className="image">
-							<img src={imgSrc} />
-						</div>
+						<Link to={`/login/${this.props.userId}`}>
+							<div className="image">
+								<img src={imgSrc} />
+							</div>
+						</Link>
 						<div className="matching">
 							<div className="matching-value">Similaridad {this.props.matching}%</div>
 							<ProgressBar percentage={this.props.matching} />
@@ -53,5 +90,16 @@ export default class CardUser extends Component {
 				</div>
 			</div>
 		);
+	}
+
+	onLikeOrDislike() {
+		if (!this.props.liked){
+			setLikeUser(this.props);
+		} else {
+			unsetLikeUser(this.props);
+		}
+		this.setState({
+			liked: !this.props.liked
+		});
 	}
 }

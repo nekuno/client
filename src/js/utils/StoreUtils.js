@@ -58,3 +58,15 @@ export function mergeIntoBag(bag, entities) {
     }
   }
 }
+
+export function removeFromBag(bag, entities) {
+  for (let id in entities) {
+    if (!entities.hasOwnProperty(id)) {
+      continue;
+    }
+
+    if (bag.hasOwnProperty(id)) {
+      delete bag[id];
+    }
+  }
+}

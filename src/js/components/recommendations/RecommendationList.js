@@ -8,7 +8,8 @@ import ChipList from './../ui/ChipList';
 export default class RecommendationList extends Component {
     static propTypes = {
         recommendations: PropTypes.array.isRequired,
-        thread: PropTypes.object.isRequired
+        thread: PropTypes.object.isRequired,
+        userId: PropTypes.number.isRequired
     };
 
     shouldComponentUpdate = shouldPureComponentUpdate;
@@ -22,8 +23,8 @@ export default class RecommendationList extends Component {
             if (this.props.recommendations.hasOwnProperty(recommendationId)) {
                 let recommendation = this.props.recommendations[recommendationId];
                 recommendationList[counter++] = thread.category === 'ThreadUsers' ?
-                    <RecommendationUser key={counter} accessibleKey={counter} recommendation={recommendation} last={counter == recommendationsLength} /> :
-                    <RecommendationContent key={counter} accessibleKey={counter} recommendation={recommendation} last={counter == recommendationsLength} />;
+                    <RecommendationUser userId={this.props.userId} key={counter} accessibleKey={counter} recommendation={recommendation} last={counter == recommendationsLength} /> :
+                    <RecommendationContent userId={this.props.userId} key={counter} accessibleKey={counter} recommendation={recommendation} last={counter == recommendationsLength} />;
             }
         }
 

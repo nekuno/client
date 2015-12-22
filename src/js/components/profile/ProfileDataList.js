@@ -17,7 +17,7 @@ export default class ProfileDataList extends Component {
         const country = selectn('country', location);
 
         return  locality && country?
-                locality + ', '+country :
+                locality + ', ' + country :
                 selectn('address', location);
     }
 
@@ -80,7 +80,7 @@ export default class ProfileDataList extends Component {
                 profileDataName = texts.name;
                 profileDataValue = texts.value;
 
-                profileDataList[counter++] = <ProfileData key = {profileDataName} name = {profileDataName} value = {profileDataValue} />;
+                profileDataList[counter++] = <ProfileData key={profileDataName} name={profileDataName} value={profileDataValue} />;
             }
 
         }

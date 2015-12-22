@@ -33,5 +33,14 @@ export default keyMirror({
     RECOMMENDATIONS_NEXT           : null,
     REQUEST_RECOMMENDATIONS_PAGE   : null,
 
+    LIKE_USER                      : null,
+    LIKE_USER_SUCCESS              : null,
+    LIKE_USER_ERROR                : null,
+
+    UNLIKE_USER                   : null,
+    UNLIKE_USER_SUCCESS           : null,
+    UNLIKE_USER_ERROR             : null,
+
+
     ROUTER_NEXT_TRANSITION_PATH: null
 });

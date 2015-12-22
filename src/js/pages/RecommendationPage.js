@@ -1,11 +1,13 @@
 import React, { PropTypes, Component } from 'react';
 import * as UserActionCreators from '../actions/UserActionCreators';
+import UserStore from '../stores/UserStore';
 import RecommendationStore from '../stores/RecommendationStore';
 import ThreadStore from '../stores/ThreadStore';
 import RecommendationsByThreadStore from '../stores/RecommendationsByThreadStore';
 import RecommendationList from '../components/recommendations/RecommendationList';
 import RecommendationsTopNavbar from '../components/recommendations/RecommendationsTopNavbar';
 import connectToStores from '../utils/connectToStores';
+import AuthenticatedComponent from '../components/AuthenticatedComponent';
 
 function parseThreadId(params) {
     return params.threadId;
@@ -85,7 +87,7 @@ function getState(props) {
 }
 
 @connectToStores([ThreadStore, RecommendationStore, RecommendationsByThreadStore], getState)
-export default class RecommendationPage extends Component {
+export default AuthenticatedComponent(class RecommendationPage extends Component {
     static propTypes = {
         // Injected by React Router:
         params: PropTypes.shape({
@@ -128,7 +130,7 @@ export default class RecommendationPage extends Component {
     }
 
     render() {
-        if (!this.props.recommendations || !this.props.thread){
+        if (!this.props.recommendations || !this.props.thread || !this.props.user){
             return null;
         }
         return (
@@ -136,11 +138,11 @@ export default class RecommendationPage extends Component {
                 <RecommendationsTopNavbar centerText={''} />
                 <div data-page="index" className="page">
                     <div id="page-content" className="recommendation-page">
-                        <RecommendationList recommendations={this.props.recommendations} thread={this.props.thread} />
+                        <RecommendationList recommendations={this.props.recommendations} thread={this.props.thread} userId={this.props.user.qnoow_id} />
                     </div>
                 </div>
             </div>
         );
     }
-}
+});
 

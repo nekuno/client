@@ -88,3 +88,19 @@ export function recommendationsNext(threadId) {
         }
     }
 }
+
+export function likeUser(from, to) {
+    dispatchAsync(UserAPI.setLikeUser(from, to), {
+        request: ActionTypes.LIKE_USER,
+        success: ActionTypes.LIKE_USER_SUCCESS,
+        failure: ActionTypes.LIKE_USER_ERROR
+    }, {from, to});
+}
+
+export function deleteLikeUser(from, to) {
+    dispatchAsync(UserAPI.unsetLikeUser(from, to), {
+        request: ActionTypes.UNLIKE_USER,
+        success: ActionTypes.UNLIKE_USER_SUCCESS,
+        failure: ActionTypes.UNLIKE_USER_ERROR
+    }, {from, to});
+}

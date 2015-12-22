@@ -67,26 +67,35 @@ RecommendationStore.dispatchToken = register(action => {
 
     waitFor([ThreadStore.dispatchToken]);
 
-    const recommendations = selectn('response.entities.recommendation', action);
-
-    if (!recommendations){
-        return null;
+    if(action.type == ActionTypes.LIKE_USER_SUCCESS) {
+        const { to } = action;
+        _userRecommendations = setLikedUser(to, _userRecommendations);
     }
-
-    const thread = ThreadStore.get(selectn('threadId', action));
-    if (!thread) {
-        return null;
+    else if(action.type == ActionTypes.UNLIKE_USER_SUCCESS) {
+        const { to } = action;
+        _userRecommendations = setUnlikedUser(to, _userRecommendations);
     }
-    const category = thread.category;
+    else {
+        const recommendations = selectn('response.entities.recommendation', action);
 
-    if (!category){
-        return null;
-    } else if (category == 'ThreadUsers') {
-        _userRecommendations = mergeAndGetRecommendations(recommendations, _userRecommendations);
-    } else if (category == 'ThreadContent'){
-        _contentRecommendations = mergeAndGetRecommendations(recommendations, _contentRecommendations);
+        if (!recommendations) {
+            return null;
+        }
+
+        const thread = ThreadStore.get(selectn('threadId', action));
+        if (!thread) {
+            return null;
+        }
+        const category = thread.category;
+
+        if (!category) {
+            return null;
+        } else if (category == 'ThreadUsers') {
+            _userRecommendations = mergeAndGetRecommendations(recommendations, _userRecommendations);
+        } else if (category == 'ThreadContent') {
+            _contentRecommendations = mergeAndGetRecommendations(recommendations, _contentRecommendations);
+        }
     }
-
     RecommendationStore.emitChange();
 
     function mergeAndGetRecommendations(recommendations, _recommendations) {
@@ -96,6 +105,25 @@ RecommendationStore.dispatchToken = register(action => {
             }
         }
 
+        return _recommendations;
+    }
+
+    function setLikedUser(userId, _recommendations) {
+        if (_recommendations.hasOwnProperty(userId)) {
+            if (_recommendations[userId].hasOwnProperty('like')) {
+                _recommendations[userId]['like'] = 1;
+            }
+        }
+
+        return _recommendations;
+    }
+
+    function setUnlikedUser(userId, _recommendations) {
+        if (_recommendations.hasOwnProperty(userId)) {
+            if (_recommendations[userId].hasOwnProperty('like')) {
+                _recommendations[userId]['like'] = 0;
+            }
+        }
         return _recommendations;
     }
 });

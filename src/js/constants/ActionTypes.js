@@ -17,6 +17,10 @@ export default keyMirror({
     REQUEST_PROFILE_SUCCESS        : null,
     REQUEST_PROFILE_ERROR          : null,
 
+    REQUEST_METADATA               : null,
+    REQUEST_METADATA_SUCCESS       : null,
+    REQUEST_METADATA_ERROR         : null,
+
     REQUEST_STATS                  : null,
     REQUEST_STATS_SUCCESS          : null,
     REQUEST_STATS_ERROR            : null,

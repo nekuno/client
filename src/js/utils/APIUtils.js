@@ -41,6 +41,8 @@ const matchingSchema = new Schema('matching');
 
 const similaritySchema = new Schema('similarity');
 
+const metadataSchema = new Schema('metadata');
+
 const threadSchema = new Schema('thread', {idAttribute: 'id'});
 
 const threadsSchema = new Schema('threads');
@@ -150,6 +152,10 @@ export function fetchUserArray(url) {
 
 export function fetchProfile(url) {
     return fetchAndNormalize(url, profileSchema);
+}
+
+export function fetchMetadata(url) {
+    return fetchAndNormalize(url, metadataSchema);
 }
 
 export function fetchStats(url) {

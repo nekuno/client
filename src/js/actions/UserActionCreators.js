@@ -32,6 +32,18 @@ export function requestProfile(userId, fields) {
     }, {userId});
 }
 
+export function requestMetadata(userId){
+
+    if (!ProfileStore.getMetadata()){
+        dispatchAsync(UserAPI.getMetadata(userId), {
+            request: ActionTypes.REQUEST_METADATA,
+            success: ActionTypes.REQUEST_METADATA_SUCCESS,
+            failure: ActionTypes.REQUEST_METADATA_ERROR
+        }, {userId});
+    }
+
+}
+
 export function requestThreads(userId) {
 
     dispatchAsync(UserAPI.getThreads(userId), {

@@ -5,6 +5,7 @@ import ActionTypes from '../constants/ActionTypes';
 import selectn from 'selectn';
 
 let _profiles = {};
+let _metadata = null;
 
 const ProfileStore = createStore({
     contains(userId, fields) {
@@ -13,6 +14,10 @@ const ProfileStore = createStore({
 
     get(userId) {
         return _profiles[userId];
+    },
+
+    getMetadata(){
+        return _metadata;
     }
 });
 
@@ -57,6 +62,13 @@ ProfileStore.dispatchToken = register(action => {
             _profiles[userId]['like'] = 0;
         }
         return _profiles;
+    }
+    //TODO: Move to own store?
+    const responseMetadata = selectn('response.entities.metadata', action);
+    if (responseMetadata){
+        _metadata = responseMetadata.undefined;
+        console.log('setting metadata');
+        console.log(_metadata);
     }
 });
 

@@ -8,6 +8,7 @@ import selectn from 'selectn';
 export default class OtherProfileData extends Component {
     static propTypes = {
         matching: PropTypes.number,
+        similarity: PropTypes.number,
         stats: PropTypes.object,
         ownImage: PropTypes.string,
         currentImage: PropTypes.string
@@ -16,7 +17,7 @@ export default class OtherProfileData extends Component {
     //shouldComponentUpdate = shouldPureComponentUpdate;
 
     render() {
-        const { matching, stats, ownImage, currentImage } = this.props;
+        const { matching, similarity, stats, ownImage, currentImage } = this.props;
         let imgSrc = currentImage ? `${IMAGES_ROOT}/media/cache/user_avatar_180x180/user/images/${currentImage}` : `${IMAGES_ROOT}/media/cache/user_avatar_180x180/bundles/qnoowweb/images/user-no-img.jpg`;
 
         return (
@@ -31,8 +32,8 @@ export default class OtherProfileData extends Component {
                 <div className = "otherProfileRight">
                     <span> {matching}% compatibilidad</span>
                     <ProgressBar percentage = {matching ? matching : 0} />
-                    <span> 50% similaridad</span>
-                    <ProgressBar percentage = {50} />
+                    <span> {similarity ? similarity : 0}% similaridad</span>
+                    <ProgressBar percentage = {similarity ? similarity : 0} />
                 </div>
 
             </div>

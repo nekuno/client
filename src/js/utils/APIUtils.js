@@ -161,7 +161,14 @@ export function fetchMatching(url) {
 }
 
 export function fetchSimilarity(url) {
-    return fetchAndNormalize(url, similaritySchema);
+    if (url.indexOf(API_ROOT) === -1) {
+        url = API_ROOT + url;
+    }
+    return fetch(url).then(response =>
+        response.json().then(json => {
+            return json;}
+        )
+    );
 }
 
 export function fetchThreads(url) {

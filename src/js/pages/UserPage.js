@@ -5,6 +5,7 @@ import UserStore from '../stores/UserStore';
 import ProfileStore from '../stores/ProfileStore';
 import StatsStore from '../stores/StatsStore';
 import MatchingStore from '../stores/MatchingStore';
+import SimilarityStore from '../stores/SimilarityStore';
 import User from '../components/User';
 import OtherProfileData from '../components/profile/OtherProfileData';
 import ProfileDataList from '../components/profile/ProfileDataList'
@@ -21,12 +22,14 @@ function parseId(params) {
  * Requests data from server for current props.
  */
 function requestData(props) {
+    //user === logged user
     const { params, user, userLoggedIn } = props;
+    //current === user whose profile is being viewed
     const currentUserId = parseId(params);
 
     if (!(userLoggedIn && user && (user.qnoow_id == currentUserId))) {
         UserActionCreators.requestMatching(parseInt(currentUserId), user.qnoow_id);
-        //UserActionCreators.requestSimilarity(userLogin, user.qnoow_id);
+        UserActionCreators.requestSimilarity(currentUserId, user.qnoow_id);
     }
 
     UserActionCreators.requestUser(currentUserId, ['username', 'email', 'picture', 'status']);
@@ -47,22 +50,28 @@ function getState(props) {
     const stats = StatsStore.get(currentUserId);
 
     let matching = 0;
+    let similarity = 0;
+    let ownPicture = "";
     if (!(userLoggedIn && user && (user.qnoow_id == currentUserId))) {
         matching = MatchingStore.get(currentUserId, user.qnoow_id);
+        similarity = SimilarityStore.get(currentUserId, user.qnoow_id);
     }
 
     return {
         currentUser,
         profile,
         stats,
-        matching
+        matching,
+        similarity,
+        userLoggedIn,
+        user
     };
 }
 
 /*@connectToStores([ThreadStore, RecommendationStore, RecommendationsByThreadStore], getState)
 export default AuthenticatedComponent(class RecommendationPage extends Component {*/
 
-@connectToStores([UserStore, ProfileStore, StatsStore, MatchingStore], getState)
+@connectToStores([UserStore, ProfileStore, StatsStore, MatchingStore, SimilarityStore], getState)
 export default AuthenticatedComponent(class UserPage extends Component {
     static propTypes = {
         // Injected by React Router:
@@ -91,14 +100,14 @@ export default AuthenticatedComponent(class UserPage extends Component {
     }
 
     render() {
-        const { userLoggedIn, user, currentUser, params, profile, stats, matching } = this.props;
+        const { userLoggedIn, user, currentUser, profile, stats, matching, similarity } = this.props;
         const currentUserId = currentUser? currentUser.qnoow_id : null;
         const currentPicture = currentUser? currentUser.picture : null;
 
         let otherProfileHTML = '';
         if (!(userLoggedIn && user && (user.qnoow_id == currentUserId))) {
             const ownPicture = user? user.picture : null;
-            otherProfileHTML = <OtherProfileData matching = {matching} stats = {stats} ownImage = {ownPicture} currentImage = {currentPicture} />
+            otherProfileHTML = <OtherProfileData matching = {matching} similarity = {similarity} stats = {stats} ownImage = {ownPicture} currentImage = {currentPicture} />
         }
         return (
             <div className="view view-main">
@@ -106,8 +115,8 @@ export default AuthenticatedComponent(class UserPage extends Component {
                 <div data-page="index" className="page">
                     <div id="page-content">
 
-                        {user && profile ?
-                            <User user={user} profile={profile}/> :
+                        {currentUser && profile ?
+                            <User user={currentUser} profile={profile}/> :
                             <h1>Loading...</h1>
                         }
 

@@ -4,6 +4,7 @@ import shouldPureComponentUpdate from 'react-pure-render/function';
 import User from '../components/User';
 import connectToStores from '../utils/connectToStores';
 import LoginStore from '../stores/LoginStore';
+import LoginActionCreators from '../actions/LoginActionCreators';
 
 function getState(props) {
 
@@ -34,6 +35,7 @@ export default class LeftPanel extends Component {
         this.handleGoClickProfile = this.handleGoClickProfile.bind(this);
         this.handleGoClickThreads = this.handleGoClickThreads.bind(this);
         this.handleGoClickNotifications = this.handleGoClickNotifications.bind(this);
+        this.logout = this.logout.bind(this);
     }
 
     shouldComponentUpdate = shouldPureComponentUpdate;
@@ -71,6 +73,9 @@ export default class LeftPanel extends Component {
                             <Link to="/notifications" onClick={this.handleGoClickNotifications}>
                                 Mensajes
                             </Link>
+                            <Link to="/" onClick={this.logout}>
+                                Salir
+                            </Link>
                         </div>
                         : '' }
                 </div>
@@ -91,5 +96,11 @@ export default class LeftPanel extends Component {
     handleGoClickNotifications() {
         nekunoApp.closePanel();
         this.context.history.pushState(null, "/notifications");
+    }
+
+    logout(e) {
+        e.preventDefault();
+        nekunoApp.closePanel();
+        LoginActionCreators.logoutUser();
     }
 }

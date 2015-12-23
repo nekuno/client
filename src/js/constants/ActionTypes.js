@@ -49,6 +49,13 @@ export default keyMirror({
     UNLIKE_USER_SUCCESS           : null,
     UNLIKE_USER_ERROR             : null,
 
+    LIKE_CONTENT                      : null,
+    LIKE_CONTENT_SUCCESS              : null,
+    LIKE_CONTENT_ERROR                : null,
+
+    UNLIKE_CONTENT                   : null,
+    UNLIKE_CONTENT_SUCCESS           : null,
+    UNLIKE_CONTENT_ERROR             : null,
 
     ROUTER_NEXT_TRANSITION_PATH: null
 });

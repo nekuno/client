@@ -45,8 +45,6 @@ export default class ThreadUsers extends Component {
                         {thread.cached.map((item, index) => index !== 0 && item.image ?
                             <div className="thread-image"><img src={item.image} /></div> : '')}
                     </div>
-                    {/* TODO:Convert filters to simple text
-                     <ChipList chips={thread.profileFilters + thread.userFilters + Persons} small={false} />*/}
                     <ChipList chips={[
                         {
                             'label': 'Personas'

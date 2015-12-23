@@ -41,11 +41,6 @@ export default class CardUser extends Component {
 		super(props);
 
 		this.onLikeOrDislike = this.onLikeOrDislike.bind(this);
-
-		// State that depends on props is often an anti-pattern, but in our case
-		// that's what we need to we can update the input both in response to route
-		// change and in response to user typing.
-
 	}
 
 	shouldComponentUpdate = shouldPureComponentUpdate;
@@ -98,8 +93,5 @@ export default class CardUser extends Component {
 		} else {
 			unsetLikeUser(this.props);
 		}
-		this.setState({
-			liked: !this.props.liked
-		});
 	}
 }

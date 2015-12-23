@@ -60,7 +60,7 @@ export default class ThreadPage extends Component {
         return (
             <div className="view view-main">
                 <LeftMenuTopNavbar centerText={'Hilos'} />
-                <div data-page="index" className="page">
+                <div data-page="index" className="page threads-page">
                     <div id="page-content">
                         <ThreadList threads={this.props.threads} />
                     </div>

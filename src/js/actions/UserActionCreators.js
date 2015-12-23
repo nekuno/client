@@ -121,3 +121,19 @@ export function deleteLikeUser(from, to) {
         failure: ActionTypes.UNLIKE_USER_ERROR
     }, {from, to});
 }
+
+export function likeContent(from, to) {
+    dispatchAsync(UserAPI.setLikeContent(from, to), {
+        request: ActionTypes.LIKE_CONTENT,
+        success: ActionTypes.LIKE_CONTENT_SUCCESS,
+        failure: ActionTypes.LIKE_CONTENT_ERROR
+    }, {from, to});
+}
+
+export function deleteLikeContent(from, to) {
+    dispatchAsync(UserAPI.unsetLikeContent(from, to), {
+        request: ActionTypes.UNLIKE_CONTENT,
+        success: ActionTypes.UNLIKE_CONTENT_SUCCESS,
+        failure: ActionTypes.UNLIKE_CONTENT_ERROR
+    }, {from, to});
+}

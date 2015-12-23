@@ -23,7 +23,7 @@ export default class ThreadContent extends Component {
     render() {
         let thread = this.props.thread;
         let last = this.props.last;
-        const firstImage = thread.cached[0] && thread.cached[0].thumbnail? thread.cached[0].thumbnail : '';
+        const firstImage = thread.cached[0] && thread.cached[0].thumbnail ? thread.cached[0].thumbnail : '/img/default-content-image.jpg';
         return (
             <div className="thread-listed">
                 {last ? '' : <div className="threads-vertical-connection"></div>}
@@ -41,7 +41,8 @@ export default class ThreadContent extends Component {
                     </div>
                     <div className="thread-images">
                         {thread.cached.map((item, index) => index !== 0 && item.thumbnail ?
-                            <div className="thread-image"><img src={item.thumbnail} /></div> : '')}
+                            <div className="thread-image"><img src={item.thumbnail} /></div> :
+                            <div className="thread-image"><img src='/img/default-content-image.jpg' /></div>)}
                     </div>
                     {this.renderChipList(thread)}
                 </div>

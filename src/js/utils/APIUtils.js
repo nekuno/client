@@ -46,6 +46,8 @@ const threadsSchema = new Schema('threads');
 
 const likedUserSchema = new Schema('liked', {idAttribute: 'id'});
 
+const likedContentSchema = new Schema('rate', {idAttribute: 'id'});
+
 //TODO: Implement location schema and store
 
 //TODO: Check pull request https://github.com/gaearon/normalizr/pull/42 for recommendation of different types
@@ -93,7 +95,7 @@ function postData(url, data, schema) {
         request.post(
             {
                 url : url,
-                body: {data},
+                body: data,
                 json: true
             },
             (err, response, body) => {
@@ -188,4 +190,12 @@ export function postLikeUser(url) {
 
 export function deleteLikeUser(url) {
     return deleteData(url, null, likedUserSchema);
+}
+
+export function postLikeContent(url, to) {
+    return postData(url, {"linkId": to, "rate": "LIKES"}, likedContentSchema);
+}
+
+export function deleteLikeContent(url, to) {
+    return postData(url, {"linkId": to, "rate": "DISLIKES"}, likedContentSchema);
 }

@@ -1,8 +1,8 @@
 @import '../_partials/colors';
 
-body #root .App .view .page  {
+body #root .App .view .page.threads-page  {
   #page-content {
-    margin-top: 70px !important;
+    margin-top: 70px;
     .thread-listed {
       margin: 25px auto;
 

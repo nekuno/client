@@ -75,6 +75,14 @@ RecommendationStore.dispatchToken = register(action => {
         const { to } = action;
         _userRecommendations = setUnlikedUser(to, _userRecommendations);
     }
+    else if(action.type == ActionTypes.LIKE_CONTENT_SUCCESS) {
+        const { to } = action;
+        _contentRecommendations = setLikedContent(to, _contentRecommendations);
+    }
+    else if(action.type == ActionTypes.UNLIKE_CONTENT_SUCCESS) {
+        const { to } = action;
+        _contentRecommendations = setUnlikedContent(to, _contentRecommendations);
+    }
     else {
         const recommendations = selectn('response.entities.recommendation', action);
 
@@ -110,9 +118,7 @@ RecommendationStore.dispatchToken = register(action => {
 
     function setLikedUser(userId, _recommendations) {
         if (_recommendations.hasOwnProperty(userId)) {
-            if (_recommendations[userId].hasOwnProperty('like')) {
-                _recommendations[userId]['like'] = 1;
-            }
+            _recommendations[userId]['like'] = 1;
         }
 
         return _recommendations;
@@ -120,9 +126,22 @@ RecommendationStore.dispatchToken = register(action => {
 
     function setUnlikedUser(userId, _recommendations) {
         if (_recommendations.hasOwnProperty(userId)) {
-            if (_recommendations[userId].hasOwnProperty('like')) {
-                _recommendations[userId]['like'] = 0;
-            }
+            _recommendations[userId]['like'] = 0;
+        }
+        return _recommendations;
+    }
+
+    function setLikedContent(contentId, _recommendations) {
+        if (_recommendations.hasOwnProperty(contentId)) {
+            _recommendations[contentId]['rate'] = 1;
+        }
+
+        return _recommendations;
+    }
+
+    function setUnlikedContent(contentId, _recommendations) {
+        if (_recommendations.hasOwnProperty(contentId)) {
+            _recommendations[contentId]['rate'] = 0;
         }
         return _recommendations;
     }

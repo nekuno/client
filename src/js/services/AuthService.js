@@ -1,3 +1,4 @@
+import Url from 'url';
 import request from 'request';
 import Bluebird from 'bluebird';
 import { LOGIN_URL } from '../constants/Constants';
@@ -8,9 +9,10 @@ class AuthService {
         return new Bluebird((resolve, reject) => {
             request.post(
                 {
-                    url : LOGIN_URL,
-                    body: {username, password},
-                    json: true
+                    protocol: Url.parse(LOGIN_URL).protocol,
+                    url     : LOGIN_URL,
+                    body    : {username, password},
+                    json    : true
                 },
                 (err, response, body) => {
                     if (err) {
@@ -29,9 +31,10 @@ class AuthService {
         return new Bluebird((resolve, reject) => {
             request.post(
                 {
-                    url : LOGIN_URL,
-                    body: {username, password, extra},
-                    json: true
+                    protocol: Url.parse(LOGIN_URL).protocol,
+                    url     : LOGIN_URL,
+                    body    : {username, password, extra},
+                    json    : true
                 },
                 (err, response, body) => {
                     if (err) {

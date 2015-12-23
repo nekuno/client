@@ -2,6 +2,7 @@ import { Schema, arrayOf, normalize } from 'normalizr';
 import { camelizeKeys } from 'humps';
 //import 'core-js/es6/promise';
 import 'whatwg-fetch';
+import Url from 'url';
 import request from 'request';
 import Bluebird from 'bluebird';
 import { API_ROOT } from '../constants/Constants';
@@ -53,8 +54,8 @@ const likedContentSchema = new Schema('rate', {idAttribute: 'id'});
 //TODO: Check pull request https://github.com/gaearon/normalizr/pull/42 for recommendation of different types
 
 //If we id by similarity/affinity/matching, there are 'same key' conflicts
-function getRecommendationId(entity){
-    if (entity.content){
+function getRecommendationId(entity) {
+    if (entity.content) {
         return entity.content.id;
     } else {
         return entity.id
@@ -87,6 +88,7 @@ function fetchAndNormalize(url, schema) {
 }
 
 function postData(url, data, schema) {
+
     if (url.indexOf(API_ROOT) === -1) {
         url = API_ROOT + url;
     }
@@ -94,9 +96,10 @@ function postData(url, data, schema) {
     return new Bluebird((resolve, reject) => {
         request.post(
             {
-                url : url,
-                body: data,
-                json: true
+                protocol: Url.parse(url).protocol,
+                url     : url,
+                body    : data,
+                json    : true
             },
             (err, response, body) => {
                 if (err) {
@@ -112,15 +115,17 @@ function postData(url, data, schema) {
 }
 
 function deleteData(url, data, schema) {
+
     if (url.indexOf(API_ROOT) === -1) {
         url = API_ROOT + url;
     }
     return new Bluebird((resolve, reject) => {
         request.del(
             {
-                url : url,
-                body: {data},
-                json: true
+                protocol: Url.parse(url).protocol,
+                url     : url,
+                body    : data,
+                json    : true
             },
             (err, response, body) => {
                 if (err) {
@@ -157,7 +162,8 @@ export function fetchMatching(url) {
     }
     return fetch(url).then(response =>
         response.json().then(json => {
-            return json;}
+                return json;
+            }
         )
     );
 }
@@ -168,7 +174,8 @@ export function fetchSimilarity(url) {
     }
     return fetch(url).then(response =>
         response.json().then(json => {
-            return json;}
+                return json;
+            }
         )
     );
 }
@@ -179,7 +186,7 @@ export function fetchThreads(url) {
 
 export function fetchRecommendation(url) {
     return fetchAndNormalize(url, {
-        items: arrayOf(recommendationSchema),
+        items     : arrayOf(recommendationSchema),
         pagination: {}
     });
 }

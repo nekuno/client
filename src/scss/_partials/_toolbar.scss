@@ -1,0 +1,18 @@
+.toolbar {
+	padding: 30px 0;
+
+	.toolbar-inner {
+		background-color: $deep-purple;
+		color: #fff;
+		font-size: 14px;
+		padding: 0 40px;
+
+		a {
+			color: #fff;
+		}
+	}
+
+	&::before {
+		content: none;
+	}
+}

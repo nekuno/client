@@ -12,6 +12,7 @@ import OtherProfileData from '../components/profile/OtherProfileData';
 import ProfileDataList from '../components/profile/ProfileDataList'
 import LeftMenuTopNavbar from '../components/ui/LeftMenuTopNavbar';
 import ProgressBar from '../components/ui/ProgressBar';
+import ToolBar from '../components/ui/ToolBar';
 import Button from '../components/ui/Button';
 import connectToStores from '../utils/connectToStores';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
@@ -176,6 +177,16 @@ export default AuthenticatedComponent(class UserPage extends Component {
                         }
                     </div>
                 </div>
+                <ToolBar links={ownProfile ? [
+                {'url': `/profile/${selectn('qnoow_id', currentUser)}`, 'text': 'Sobre mí'},
+                {'url': '/questions', 'text': 'Respuestas'},
+                {'url': '/interests', 'text': 'Intereses'}]
+                : [
+                {'url': `/profile/${selectn('qnoow_id', currentUser)}`, 'text': `Sobre ${selectn('username', currentUser)}`},
+                {'url': '/other-questions', 'text': 'Respuestas'},
+                {'url': '/other-interests', 'text': 'Intereses'}]
+
+                } />
             </div>
         );
     }

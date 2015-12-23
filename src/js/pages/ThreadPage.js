@@ -42,7 +42,6 @@ export default AuthenticatedComponent(class ThreadPage extends Component {
 
         // Injected by @connectToStores:
         threads: PropTypes.object
-
     };
 
     componentWillMount() {

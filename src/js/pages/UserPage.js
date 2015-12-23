@@ -17,7 +17,7 @@ import connectToStores from '../utils/connectToStores';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 
 function parseId(params) {
-    return params.login;
+    return params.userId;
 }
 
 /**
@@ -77,7 +77,7 @@ export default AuthenticatedComponent(class UserPage extends Component {
     static propTypes = {
         // Injected by React Router:
         params: PropTypes.shape({
-            login: PropTypes.string.isRequired
+            userId: PropTypes.string.isRequired
         }).isRequired,
 
         // Injected by @connectToStores:
@@ -184,7 +184,7 @@ export default AuthenticatedComponent(class UserPage extends Component {
         const { params } = this.props;
         return (
             <div>
-                <p>{params.login}</p>
+                <p>{params.userId}</p>
                 <ul>
                     <li>1</li>
                     <li>2</li>

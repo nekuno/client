@@ -4,6 +4,7 @@ import { Router, Route } from 'react-router';
 import App from './App';
 import HomePage from './pages/HomePage';
 import AboutPage from './pages/AboutPage';
+import NotificationsPage from './pages/NotificationsPage';
 import LoginPage from './pages/LoginPage';
 import UserPage from './pages/UserPage';
 import ThreadPage from './pages/ThreadPage';
@@ -20,8 +21,9 @@ export default class Root extends Component {
         return (
             <Router history={history}>
                 <Route name="home" path="/" component={App}>
-                    <Route name="about" path="/splash" component={HomePage}/>
+                    <Route name="splash" path="/splash" component={HomePage}/>
                     <Route name="about" path="/about" component={AboutPage}/>
+                    <Route name="notifications" path="/notifications" component={NotificationsPage}/>
                     <Route name="login" path="/login" component={LoginPage}/>
                     <Route name="user" path="/login/:login" component={UserPage}/>
                     <Route name="threads" path="/threads/:login" component={ThreadPage}/>

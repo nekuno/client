@@ -33,6 +33,7 @@ export default class LeftPanel extends Component {
 
         this.handleGoClickProfile = this.handleGoClickProfile.bind(this);
         this.handleGoClickThreads = this.handleGoClickThreads.bind(this);
+        this.handleGoClickNotifications = this.handleGoClickNotifications.bind(this);
     }
 
     shouldComponentUpdate = shouldPureComponentUpdate;
@@ -70,7 +71,7 @@ export default class LeftPanel extends Component {
                             <Link to={`/login/${user.qnoow_id}`}>
                                 Grupos
                             </Link>
-                            <Link to={`/login/${user.qnoow_id}`}>
+                            <Link to="/notifications" onClick={this.handleGoClickNotifications}>
                                 Mensajes
                             </Link>
                         </div>
@@ -88,5 +89,10 @@ export default class LeftPanel extends Component {
     handleGoClickThreads() {
         nekunoApp.closePanel();
         this.context.history.pushState(null, `/threads/${this.props.user.qnoow_id}`);
+    }
+
+    handleGoClickNotifications() {
+        nekunoApp.closePanel();
+        this.context.history.pushState(null, "/notifications");
     }
 }

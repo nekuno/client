@@ -7,7 +7,7 @@ export default class TopLeftMenuLink extends Component {
 	render() {
 		return (
 			<div className="col-25 left">
-				<a className="open-panel" href="#">
+				<a className="open-panel">
 					<span className="icon-menu"></span>
 				</a>
 			</div>

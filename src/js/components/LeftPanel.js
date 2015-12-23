@@ -45,7 +45,7 @@ export default class LeftPanel extends Component {
                 <div className="panel-overlay"></div>
                 <div className="panel panel-left panel-reveal">
                     <div className="content-block top-menu">
-                        <a className="close-panel" href="#">
+                        <a className="close-panel">
                             <span className="icon-notifications"/>
                             <span className="notifications-alert"/>
                         </a>

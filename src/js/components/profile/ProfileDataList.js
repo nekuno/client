@@ -56,6 +56,9 @@ export default class ProfileDataList extends Component {
 
         }
 
+        if (value === false){
+            value = "No";
+        }
         return {name, value}
     }
 

@@ -5,6 +5,10 @@ import App from './App';
 import HomePage from './pages/HomePage';
 import AboutPage from './pages/AboutPage';
 import NotificationsPage from './pages/NotificationsPage';
+import InterestsPage from './pages/InterestsPage';
+import OtherInterestsPage from './pages/OtherInterestsPage';
+import QuestionsPage from './pages/QuestionsPage';
+import OtherQuestionsPage from './pages/OtherQuestionsPage';
 import LoginPage from './pages/LoginPage';
 import UserPage from './pages/UserPage';
 import ThreadPage from './pages/ThreadPage';
@@ -24,6 +28,10 @@ export default class Root extends Component {
                     <Route name="splash" path="/splash" component={HomePage}/>
                     <Route name="about" path="/about" component={AboutPage}/>
                     <Route name="notifications" path="/notifications" component={NotificationsPage}/>
+                    <Route name="interests" path="/interests" component={InterestsPage}/>
+                    <Route name="other-interests" path="/other-interests" component={OtherInterestsPage}/>
+                    <Route name="questions" path="/questions" component={QuestionsPage}/>
+                    <Route name="other-questions" path="/other-questions" component={OtherQuestionsPage}/>
                     <Route name="login" path="/login" component={LoginPage}/>
                     <Route name="user" path="/login/:login" component={UserPage}/>
                     <Route name="threads" path="/threads/:login" component={ThreadPage}/>

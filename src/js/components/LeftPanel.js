@@ -68,9 +68,6 @@ export default class LeftPanel extends Component {
                             <Link to={`/login/${user.qnoow_id}`} onClick={this.handleGoClickProfile}>
                                 Mi perfil
                             </Link>
-                            <Link to={`/login/${user.qnoow_id}`}>
-                                Grupos
-                            </Link>
                             <Link to="/notifications" onClick={this.handleGoClickNotifications}>
                                 Mensajes
                             </Link>

@@ -23,12 +23,12 @@ export default class ThreadContent extends Component {
     render() {
         let thread = this.props.thread;
         let last = this.props.last;
-        const firstImage = thread.cached[0] && thread.cached[0].thumbnail ? thread.cached[0].thumbnail : '/img/default-content-image.jpg';
+
         return (
             <div className="thread-listed">
                 {last ? '' : <div className="threads-vertical-connection"></div>}
                 <div className="thread-first-image">
-                    <img src={firstImage} />
+                    {this.renderImage(thread.cached[0], thread.type)}
                 </div>
                 <div className="thread-info-box">
                     <div className="thread-title">
@@ -40,9 +40,11 @@ export default class ThreadContent extends Component {
                         {thread.totalResults} Contenidos
                     </div>
                     <div className="thread-images">
-                        {thread.cached.map((item, index) => index !== 0 && item.thumbnail ?
-                            <div className="thread-image"><img src={item.thumbnail} /></div> :
-                            <div className="thread-image"><img src='/img/default-content-image.jpg' /></div>)}
+                        {thread.cached.map((item, index) => {
+                            if(index !== 0) {
+                                return <div className="thread-image">{this.renderImage(item, thread.type)}</div>
+                            }
+                        })}
                     </div>
                     {this.renderChipList(thread)}
                 </div>
@@ -67,5 +69,18 @@ export default class ThreadContent extends Component {
         return (
             <ChipList chips={chips} small={false} />
         );
-    }
+    };
+
+    renderImage = function (recommendation, type) {
+        let imgSrc = '/img/default-content-image.jpg';
+        if (recommendation.thumbnail) {
+            imgSrc = recommendation.thumbnail;
+        } else if (type === 'Image') {
+            imgSrc = recommendation.url;
+        }
+
+        return (
+            <img src={imgSrc} />
+        );
+    };
 }

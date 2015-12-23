@@ -23,15 +23,24 @@ body #root .App .view .page  {
         }
 
         .swiper-slide-prev, .swiper-slide-next {
+          z-index: 1;
 
           .recommendation {
+            -webkit-transform: scaleY(0.85); /* Saf3.1+, Chrome */
+            -moz-transform: scaleY(0.85); /* FF3.5+ */
+            -ms-transform: scaleY(0.85); /* IE9 */
+            -o-transform: scaleY(0.85); /* Opera 10.5+ */
+            transform: scaleY(0.85);
 
             .card {
-              margin-top: 50px;
               opacity: 0.5;
 
-              img {
-                max-height: 120px;
+              .card-header {
+                -webkit-transform: scaleY(1.15); /* Saf3.1+, Chrome */
+                -moz-transform: scaleY(1.15); /* FF3.5+ */
+                -ms-transform: scaleY(1.15); /* IE9 */
+                -o-transform: scaleY(1.15); /* Opera 10.5+ */
+                transform: scaleY(1.15);
               }
             }
           }

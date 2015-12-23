@@ -51,12 +51,16 @@ export default class CardContent extends Component {
 	shouldComponentUpdate = shouldPureComponentUpdate;
 
 	render() {
-		let title = this.props.title ? <div>{this.props.title.substr(0, 20)}{this.props.title.length > 20 ? '...' : ''}</div> : '';
+		let title = this.props.title ? <div>{this.props.title.substr(0, 20)}{this.props.title.length > 20 ? '...' : ''}</div> : 'Link';
 		let subTitle = this.props.description ? <div>{this.props.description.substr(0, 20)}{this.props.description.length > 20 ? '...' : ''}</div> : '';
 		let likeButtonText = this.props.rate ? 'Quitar Me gusta' : 'Me gusta';
 		let likeButton = this.props.hideLikeButton ? '' : <div className="like-button-container"><Button {...this.props} onClick={this.onRate}>{likeButtonText}</Button></div>;
-		let imgSrc = this.props.thumbnail ? this.props.thumbnail : '/img/default-content-image.jpg';
-
+		let imgSrc = '/img/default-content-image.jpg';
+		if (this.props.thumbnail) {
+			imgSrc = this.props.thumbnail;
+		} else if (this.props.types.indexOf('Image') > -1) {
+			imgSrc = this.props.url;
+		}
 		return (
 			<div className="card person-card">
 				<div className="card-header">

@@ -59,7 +59,7 @@ export default class ThreadContent extends Component {
     };
 
     renderImage = function (recommendation, type) {
-        let imgSrc = '/img/default-content-image.jpg';
+        let imgSrc = 'img/default-content-image.jpg';
         if (selectn('thumbnail', recommendation)) {
             imgSrc = recommendation.thumbnail;
         } else if (type === 'Image' && selectn('url', recommendation)) {

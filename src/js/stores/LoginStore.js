@@ -31,7 +31,7 @@ class LoginStore extends BaseStore {
                 this._error = null;
                 this._jwt = action.response.jwt;
                 localStorage.setItem('jwt', this._jwt);
-                this._user = jwt_decode(this._jwt);
+                this._user = jwt_decode(this._jwt).user;
                 this.emitChange();
                 break;
 

@@ -48,8 +48,7 @@ export default class App extends Component {
         let transitionPath = RouterStore.nextTransitionPath || '/';
 
         //trigger router change
-        console.log("&*&*&* App onLoginChange event: loggedIn=", userLoggedInState.userLoggedIn,
-            "nextTransitionPath=", transitionPath);
+        console.log("&*&*&* App onLoginChange event: loggedIn=", userLoggedInState.userLoggedIn, "nextTransitionPath=", transitionPath);
 
         if (userLoggedInState.userLoggedIn) {
             this.history.replaceState(null, transitionPath)

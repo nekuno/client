@@ -6,6 +6,7 @@ import Url from 'url';
 import request from 'request';
 import Bluebird from 'bluebird';
 import { API_ROOT } from '../constants/Constants';
+import LoginStore from '../stores/LoginStore';
 
 /**
  * Extracts the next page URL from Github API response.
@@ -74,11 +75,15 @@ threadsSchema.define({
  * Fetches an API response and normalizes the result JSON according to schema.
  */
 function fetchAndNormalize(url, schema) {
+
     if (url.indexOf(API_ROOT) === -1) {
         url = API_ROOT + url;
     }
 
-    return fetch(url).then(response =>
+    var jwt = LoginStore.jwt;
+    var headers = jwt ? {'Authorization': 'Bearer ' + jwt} : {};
+
+    return fetch(url, {headers: headers}).then(response =>
         response.json().then(json => {
             //const camelizedJson = camelizeKeys(json)
             //Can we extract nextLink from body here? Promise not resolved is the problem
@@ -95,13 +100,17 @@ function postData(url, data, schema) {
         url = API_ROOT + url;
     }
 
+    var jwt = LoginStore.jwt;
+    var headers = jwt ? {'Authorization': 'Bearer ' + jwt} : {};
+
     return new Bluebird((resolve, reject) => {
         request.post(
             {
                 protocol: Url.parse(url).protocol,
                 url     : url,
                 body    : data,
-                json    : true
+                json    : true,
+                headers : headers
             },
             (err, response, body) => {
                 if (err) {
@@ -121,13 +130,18 @@ function deleteData(url, data, schema) {
     if (url.indexOf(API_ROOT) === -1) {
         url = API_ROOT + url;
     }
+
+    var jwt = LoginStore.jwt;
+    var headers = jwt ? {'Authorization': 'Bearer ' + jwt} : {};
+
     return new Bluebird((resolve, reject) => {
         request.del(
             {
                 protocol: Url.parse(url).protocol,
                 url     : url,
                 body    : data,
-                json    : true
+                json    : true,
+                headers : headers
             },
             (err, response, body) => {
                 if (err) {

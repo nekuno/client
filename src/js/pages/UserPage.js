@@ -184,11 +184,11 @@ export default AuthenticatedComponent(class UserPage extends Component {
                 {'url': '/questions', 'text': 'Respuestas'},
                 {'url': '/interests', 'text': 'Intereses'}]
                 : [
-                {'url': `/profile/${selectn('qnoow_id', currentUser)}`, 'text': `Sobre ${selectn('username', currentUser)}`},
-                {'url': '/other-questions', 'text': 'Respuestas'},
-                {'url': '/other-interests', 'text': 'Intereses'}]
+                {'url': `/profile/${selectn('qnoow_id', currentUser)}`, 'text': `Sobre ${selectn('username', currentUser) ? currentUser.username : ''}`},
+                {'url': `/users/${selectn('qnoow_id', currentUser)}/other-questions`, 'text': 'Respuestas'},
+                {'url': `/users/${selectn('qnoow_id', currentUser)}/other-interests`, 'text': 'Intereses'}]
 
-                } />
+                } activeLinkIndex={0}/>
             </div>
         );
     }

@@ -29,9 +29,9 @@ export default class Root extends Component {
                     <Route name="about" path="/about" component={AboutPage}/>
                     <Route name="notifications" path="/notifications" component={NotificationsPage}/>
                     <Route name="interests" path="/interests" component={InterestsPage}/>
-                    <Route name="other-interests" path="/other-interests" component={OtherInterestsPage}/>
+                    <Route name="other-interests" path="/users/:userId/other-interests" component={OtherInterestsPage}/>
                     <Route name="questions" path="/questions" component={QuestionsPage}/>
-                    <Route name="other-questions" path="/other-questions" component={OtherQuestionsPage}/>
+                    <Route name="other-questions" path="/users/:userId/other-questions" component={OtherQuestionsPage}/>
                     <Route name="login" path="/login" component={LoginPage}/>
                     <Route name="profile" path="/profile/:userId" component={UserPage}/>
                     <Route name="threads" path="/threads/:userId" component={ThreadPage}/>

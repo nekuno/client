@@ -4,7 +4,7 @@ import shouldPureComponentUpdate from '../../../../node_modules/react-pure-rende
 
 export default class ToolBar extends Component {
     static propTypes = {
-        links: PropTypes.array.isRequired,
+        links          : PropTypes.array.isRequired,
         activeLinkIndex: PropTypes.number.isRequired
     };
 
@@ -16,7 +16,7 @@ export default class ToolBar extends Component {
             <div className="toolbar">
                 <div className="toolbar-inner">
                     {this.props.links.map((link, index) => {
-                        return <Link to={link.url}>{activeLinkIndex === index ? <strong>{link.text}</strong> : link.text}</Link>
+                        return <Link key={index} to={link.url}>{activeLinkIndex === index ? <strong>{link.text}</strong> : link.text}</Link>
                     })}
                 </div>
             </div>

@@ -60,7 +60,9 @@ export default class RecommendationList extends Component {
         } else {
             chips.push({'label': 'Contenidos'});
             /* TODO: Get real filters here */
-            chips.push({'label': 'Edad: 20-35'});
+            chips.push({'label': 'Edad: 22-32'});
+            chips.push({'label': 'a 10km de Madrid'});
+            chips.push({'label': 'Mujer'});
         }
 
         return (

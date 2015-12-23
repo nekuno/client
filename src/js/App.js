@@ -2,7 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import ReactMixin from 'react-mixin';
 import { History } from 'react-router'
 import LeftPanel from './components/LeftPanel';
-import LinksPage from './pages/LinksPage';
+import HomePage from './pages/HomePage';
 import * as UserActionCreators from './actions/UserActionCreators';
 import LoginStore from './stores/LoginStore';
 import RouterStore from './stores/RouterStore';
@@ -71,7 +71,7 @@ export default class App extends Component {
             <div className="App">
                 <LeftPanel/>
                 <div className="views">
-                    {children ? children : <LinksPage />}
+                    {children ? children : <HomePage />}
                 </div>
             </div>
         );

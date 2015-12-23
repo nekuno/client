@@ -60,7 +60,7 @@ class LoginStore extends BaseStore {
         if (jwt) {
             this._jwt = jwt;
             this._user = jwt_decode(this._jwt).user;
-            console.log("&*&*&* autologin success")
+            console.log("&*&*&* autologin success");
         }
     }
 

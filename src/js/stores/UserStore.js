@@ -5,12 +5,12 @@ import selectn from 'selectn';
 const _users = {};
 
 const UserStore = createStore({
-    contains(login, fields) {
-        return isInBag(_users, login, fields);
+    contains(userId, fields) {
+        return isInBag(_users, userId, fields);
     },
 
-    get(login) {
-        return _users[login];
+    get(userId) {
+        return _users[userId];
     }
 });
 

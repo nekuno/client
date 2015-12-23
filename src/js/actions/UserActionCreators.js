@@ -6,44 +6,45 @@ import RecommendationsByThreadStore from '../stores/RecommendationsByThreadStore
 import ThreadStore from '../stores/ThreadStore';
 import ProfileStore from '../stores/ProfileStore';
 
-export function requestUser(login, fields) {
+export function requestUser(userId, fields) {
     // Exit early if we know enough about this user
-    if (UserStore.contains(login, fields)) {
+    if (UserStore.contains(userId, fields)) {
         return;
     }
 
-    dispatchAsync(UserAPI.getUser(login), {
+    dispatchAsync(UserAPI.getUser(userId), {
         request: ActionTypes.REQUEST_USER,
         success: ActionTypes.REQUEST_USER_SUCCESS,
         failure: ActionTypes.REQUEST_USER_ERROR
-    }, {login});
+    }, {userId});
 }
 
-export function requestProfile(login, fields) {
+export function requestProfile(userId, fields) {
     // Exit early if we know enough about this user
-    if (ProfileStore.contains(login, fields)) {
+    if (ProfileStore.contains(userId, fields)) {
         return;
     }
 
-    dispatchAsync(UserAPI.getProfile(login), {
+    dispatchAsync(UserAPI.getProfile(userId), {
         request: ActionTypes.REQUEST_PROFILE,
         success: ActionTypes.REQUEST_PROFILE_SUCCESS,
         failure: ActionTypes.REQUEST_PROFILE_ERROR
-    }, {login});
+    }, {userId});
 }
 
-export function requestThreads(login) {
+export function requestThreads(userId) {
 
-    dispatchAsync(UserAPI.getThreads(login), {
+    dispatchAsync(UserAPI.getThreads(userId), {
         request: ActionTypes.REQUEST_THREADS,
         success: ActionTypes.REQUEST_THREADS_SUCCESS,
         failure: ActionTypes.REQUEST_THREADS_ERROR
-    }, {login})
+    }, {userId})
 }
 
-export function requestRecommendationPage(login,threadId){
-    if (!ThreadStore.contains(threadId)){
-        this.requestThreads(login);
+export function requestRecommendationPage(userId, threadId) {
+
+    if (!ThreadStore.contains(threadId)) {
+        this.requestThreads(userId);
     }
     requestRecommendation(threadId);
 
@@ -53,7 +54,7 @@ export function requestRecommendationPage(login,threadId){
 export function requestRecommendation(threadId, url = null) {
 
     let recommendation = {};
-    if (url){
+    if (url) {
         recommendation = UserAPI.getRecommendation(threadId, url);
     } else {
         recommendation = UserAPI.getRecommendation(threadId);
@@ -91,14 +92,14 @@ export function requestSimilarity(userId1, userId2) {
 }
 
 export function recommendationsBack() {
-    dispatch (ActionTypes.RECOMMENDATIONS_PREV);
+    dispatch(ActionTypes.RECOMMENDATIONS_PREV);
 }
 
 export function recommendationsNext(threadId) {
 
-    dispatch (ActionTypes.RECOMMENDATIONS_NEXT, {threadId});
+    dispatch(ActionTypes.RECOMMENDATIONS_NEXT, {threadId});
 
-    if (RecommendationsByThreadStore.getPosition(threadId) >= ( RecommendationsByThreadStore.getIds(threadId).length - 3) ){
+    if (RecommendationsByThreadStore.getPosition(threadId) >= ( RecommendationsByThreadStore.getIds(threadId).length - 3)) {
         const nextUrl = RecommendationsByThreadStore.getNextPageUrl(threadId);
         if (nextUrl) {
             requestRecommendation(threadId, nextUrl);

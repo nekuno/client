@@ -6,12 +6,12 @@ import selectn from 'selectn';
 const _profiles = {};
 
 const ProfileStore = createStore({
-    contains(login, fields) {
-        return isInBag(_profiles, login, fields);
+    contains(userId, fields) {
+        return isInBag(_profiles, userId, fields);
     },
 
-    get(login) {
-        return _profiles[login];
+    get(userId) {
+        return _profiles[userId];
     }
 });
 
@@ -20,10 +20,10 @@ ProfileStore.dispatchToken = register(action => {
     const responseProfiles = selectn('response.entities.profiles', action);
     if (responseProfiles) {
 
-        const {login} = action;
+        const {userId} = action;
 
         //undefined comes from not id selected on normalizr
-        responseProfiles[login] = responseProfiles.undefined;
+        responseProfiles[userId] = responseProfiles.undefined;
         delete responseProfiles.undefined;
 
         mergeIntoBag(_profiles, responseProfiles);

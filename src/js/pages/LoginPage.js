@@ -64,7 +64,7 @@ export default class LoginPage extends Component {
                         </div>
                         <FullWidthButton type="submit" onClick={this.login.bind(this)}>Iniciar Sesión</FullWidthButton>
                         <div style={{color: '#FFF'}}>
-                            <p>{ requesting ? 'Sending...' : ''}</p>
+                            <p>{ requesting ? 'Enviando...' : ''}</p>
                             <p>{ error ? error.error : ''}</p>
                         </div>
                     </div>

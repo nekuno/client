@@ -1,5 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import selectn from 'selectn';
+import { IMAGES_ROOT } from '../constants/Constants';
 import * as UserActionCreators from '../actions/UserActionCreators';
 import UserStore from '../stores/UserStore';
 import ProfileStore from '../stores/ProfileStore';
@@ -10,9 +11,10 @@ import User from '../components/User';
 import OtherProfileData from '../components/profile/OtherProfileData';
 import ProfileDataList from '../components/profile/ProfileDataList'
 import LeftMenuTopNavbar from '../components/ui/LeftMenuTopNavbar';
-import ProgressBar from '../components/ui/ProgressBar'
+import ProgressBar from '../components/ui/ProgressBar';
+import Button from '../components/ui/Button';
 import connectToStores from '../utils/connectToStores';
-import AuthenticatedComponent from '../components/AuthenticatedComponent'
+import AuthenticatedComponent from '../components/AuthenticatedComponent';
 
 function parseId(params) {
     return params.login;
@@ -51,7 +53,6 @@ function getState(props) {
 
     let matching = 0;
     let similarity = 0;
-    let ownPicture = "";
     if (!(userLoggedIn && user && (user.qnoow_id == currentUserId))) {
         matching = MatchingStore.get(currentUserId, user.qnoow_id);
         similarity = SimilarityStore.get(currentUserId, user.qnoow_id);
@@ -99,16 +100,51 @@ export default AuthenticatedComponent(class UserPage extends Component {
         }
     }
 
+    onRate() {
+        if (!this.rate){
+            this.setLikeUser();
+        } else {
+            this.unsetLikeUser();
+        }
+    }
+
+    /**
+     * Set rate like.
+     */
+    setLikeUser() {
+        const { user, currentUser } = this.props;
+
+        UserActionCreators.likeUser(user.qnoow_id, currentUser.qnoow_id);
+        this.rate = true;
+    }
+
+    /**
+     * Unset rate like.
+     */
+    unsetLikeUser() {
+        const { user, currentUser } = this.props;
+
+        UserActionCreators.deleteLikeUser(user.qnoow_id, currentUser.qnoow_id);
+        this.rate = false;
+    }
+
     render() {
         const { userLoggedIn, user, currentUser, profile, stats, matching, similarity } = this.props;
         const currentUserId = currentUser? currentUser.qnoow_id : null;
         const currentPicture = currentUser? currentUser.picture : null;
 
+        let ownProfile=false;
+        if (userLoggedIn && user && (user.qnoow_id == currentUserId)){
+            ownProfile = true;
+        }
         let otherProfileHTML = '';
-        if (!(userLoggedIn && user && (user.qnoow_id == currentUserId))) {
-            const ownPicture = user? user.picture : null;
+
+        if (!ownProfile) {
+            const ownPicture = user && user.picture ? user.picture : `${IMAGES_ROOT}/media/cache/user_avatar_180x180/bundles/qnoowweb/images/user-no-img.jpg`;
             otherProfileHTML = <OtherProfileData matching = {matching} similarity = {similarity} stats = {stats} ownImage = {ownPicture} currentImage = {currentPicture} />
         }
+
+        const _this = this;
         return (
             <div className="view view-main">
                 <LeftMenuTopNavbar centerText={'Mi Perfil'} />
@@ -120,14 +156,17 @@ export default AuthenticatedComponent(class UserPage extends Component {
                             <h1>Loading...</h1>
                         }
 
-                        <div className="user-interests">
-                            <div className="number">
-                                {selectn('numberOfContentLikes', stats) ? stats.numberOfContentLikes : 0}
+                        {ownProfile ?
+                            <div className="user-interests">
+                                <div className="number">
+                                    {selectn('numberOfContentLikes', stats) ? stats.numberOfContentLikes : 0}
+                                </div>
+                                <div className="label">
+                                    Intereses
+                                </div>
                             </div>
-                            <div className="label">
-                                Intereses
-                            </div>
-                        </div>
+                            : <div className="otherProfileLikeButton"><Button onClick={function(){_this.onRate()}}>Me gusta</Button></div>
+                        }
 
                         {otherProfileHTML}
 

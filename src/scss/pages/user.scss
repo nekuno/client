@@ -1,3 +1,5 @@
+@import '../_partials/colors';
+
 .profileDataList{
   margin-top: 30px;
   .profileData, .profileAboutMe{
@@ -33,16 +35,32 @@
 .otherProfileData {
   color: white;
   margin-top: 10px;
+  display: inline-block;
+  width: 100%;
   .otherProfileLeft{
     width:50%;
+    height:100%;
     float:left;
+    .otherProfileAvatars{
+      min-height:50%;
+    }
     .otherProfileStats{
       width:100%;
     }
   }
   .otherProfileRight{
     width:50%;
+    height:100%;
     float:right;
+    .progress-bar{
+      margin-top: 5px;
+      margin-bottom: 5px;
+    }
   }
+}
+
+.otherProfileLikeButton {
+  margin:0 auto 25px auto;
+  width: 25%;
 }
 

@@ -58,7 +58,7 @@ export default class RecommendationList extends Component {
                 chips.push({'label': thread.tag});
             }
         } else {
-            chips.push({'label': 'Contenidos'});
+            chips.push({'label': 'Personas'});
             /* TODO: Get real filters here */
             chips.push({'label': 'Edad: 22-32'});
             chips.push({'label': 'a 10km de Madrid'});

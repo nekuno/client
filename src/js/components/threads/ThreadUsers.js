@@ -40,7 +40,13 @@ export default class ThreadUsers extends Component {
                             'label': 'Personas'
                         },
                         {
-                            'label': 'Edad: 20-35'
+                            'label': 'Edad: 22-32'
+                        },
+                        {
+                            'label': 'a 10km de Madrid'
+                        },
+                        {
+                            'label': 'Mujer'
                         }
                     ]} small={false} />
                 </div>

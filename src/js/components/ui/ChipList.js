@@ -31,7 +31,7 @@ export default class ChipList extends Component {
 					} else {
 						chip = <Chip label={chip.label} key={chip.id} />;
 					}
-					return <div className="chip-wrapper">
+					return <div key={index} className="chip-wrapper">
 						{firstSeparator}{chip}{secondSeparator}
 					</div>;
 				})}

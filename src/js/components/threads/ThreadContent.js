@@ -33,7 +33,7 @@ export default class ThreadContent extends Component {
                     <div className="thread-images">
                         {thread.cached.map((item, index) => {
                             if(index !== 0) {
-                                return <div className="thread-image">{this.renderImage(item, thread.type)}</div>
+                                return <div key={index} className="thread-image">{this.renderImage(item, thread.type)}</div>
                             }
                         })}
                     </div>

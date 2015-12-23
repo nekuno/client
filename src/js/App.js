@@ -63,10 +63,10 @@ export default class App extends Component {
     }
 
     render() {
-        const { children, user } = this.props;
+        const { children } = this.props;
         return (
             <div className="App">
-                { user ? <LeftPanel user={user}/> : '' }
+                <LeftPanel/>
                 <div className="views">
                     {children ? children : <LinksPage />}
                 </div>

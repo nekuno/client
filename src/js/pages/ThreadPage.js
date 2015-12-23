@@ -4,6 +4,7 @@ import ThreadStore from '../stores/ThreadStore';
 import ThreadList from '../components/threads/ThreadList';
 import LeftMenuTopNavbar from '../components/ui/LeftMenuTopNavbar';
 import connectToStores from '../utils/connectToStores';
+import AuthenticatedComponent from '../components/AuthenticatedComponent';
 
 function parseLogin(params) {
     return params.login;
@@ -32,7 +33,7 @@ function getState(props) {
 }
 
 @connectToStores([ThreadStore], getState)
-export default class ThreadPage extends Component {
+export default AuthenticatedComponent(class ThreadPage extends Component {
     static propTypes = {
         // Injected by React Router:
         params: PropTypes.shape({
@@ -41,13 +42,12 @@ export default class ThreadPage extends Component {
 
         // Injected by @connectToStores:
         threads: PropTypes.object
+
     };
 
     componentWillMount() {
         requestData(this.props);
     }
-
-    //shouldComponentUpdate = shouldPureComponentUpdate;
 
     componentWillReceiveProps(nextProps) {
         if (parseLogin(nextProps.params) !== parseLogin(this.props.params)) {
@@ -62,10 +62,10 @@ export default class ThreadPage extends Component {
                 <LeftMenuTopNavbar centerText={'Hilos'} />
                 <div data-page="index" className="page threads-page">
                     <div id="page-content">
-                        <ThreadList threads={this.props.threads} />
+                        <ThreadList threads={this.props.threads} userId={this.props.user.qnoow_id} />
                     </div>
                 </div>
             </div>
         );
     }
-}
+});

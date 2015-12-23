@@ -1,29 +1,19 @@
 import React, { PropTypes, Component } from 'react';
 import { Link } from 'react-router';
 import { IMAGES_ROOT } from '../../constants/Constants';
-import shouldPureComponentUpdate from '../../../../node_modules/react-pure-render/function';
 import ChipList from './../ui/ChipList';
 
 export default class ThreadUsers extends Component {
-    static contextTypes = {
-        history: PropTypes.object.isRequired
-    };
     static propTypes = {
         thread: PropTypes.object.isRequired,
-        last: PropTypes.bool.isRequired
+        last: PropTypes.bool.isRequired,
+        userId: PropTypes.number.isRequired
     };
-
-    constructor(props) {
-        super(props);
-
-        this.handleGoClickThread = this.handleGoClickThread.bind(this);
-    }
-
-    shouldComponentUpdate = shouldPureComponentUpdate;
 
     render() {
         let thread = this.props.thread;
         let last = this.props.last;
+        let userId = this.props.userId;
         thread = this.mergeImagesWithThread(thread);
 
         return (
@@ -34,7 +24,7 @@ export default class ThreadUsers extends Component {
                 </div>
                 <div className="thread-info-box">
                     <div className="thread-title">
-                        <Link to={`users/1/recommendations/${thread.id}`} onClick={this.handleGoClickThread.bind(this, thread.id)}>
+                        <Link to={`users/${userId}/recommendations/${thread.id}`}>
                             {thread.name}
                         </Link>
                     </div>
@@ -56,10 +46,6 @@ export default class ThreadUsers extends Component {
                 </div>
             </div>
         );
-    }
-
-    handleGoClickThread(threadId) {
-        this.context.history.pushState(null, `users/1/recommendations/${threadId}`);
     }
 
     mergeImagesWithThread(thread) {

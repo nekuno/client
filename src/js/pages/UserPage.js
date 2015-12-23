@@ -50,7 +50,7 @@ function getState(props) {
     const {userLoggedIn, user} = props;
     //to use when changing route
     const currentUser = UserStore.get(currentUserId);
-    const profile = ProfileStore.get(currentUserId);
+    const profile = ProfileStore.getWithMetadata(currentUserId);
     const stats = StatsStore.get(currentUserId);
 
     let matching = 0;
@@ -84,7 +84,7 @@ export default AuthenticatedComponent(class UserPage extends Component {
 
         // Injected by @connectToStores:
         //currentUser: PropTypes.object,
-        profile: PropTypes.object,
+        //profile: PropTypes.array,
         stats: PropTypes.object,
         matching: PropTypes.number,
 

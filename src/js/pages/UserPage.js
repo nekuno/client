@@ -132,6 +132,8 @@ export default AuthenticatedComponent(class UserPage extends Component {
         const { userLoggedIn, user, currentUser, profile, stats, matching, similarity } = this.props;
         const currentUserId = currentUser? currentUser.qnoow_id : null;
         const currentPicture = currentUser? currentUser.picture : null;
+        const liked = currentUser && profile.like? profile.like : null;
+        const likeText = liked ? "Ya no me gusta" : "Me gusta";
 
         let ownProfile=false;
         if (userLoggedIn && user && (user.qnoow_id == currentUserId)){
@@ -165,7 +167,7 @@ export default AuthenticatedComponent(class UserPage extends Component {
                                     Intereses
                                 </div>
                             </div>
-                            : <div className="otherProfileLikeButton"><Button onClick={function(){_this.onRate()}}>Me gusta</Button></div>
+                            : <div className="otherProfileLikeButton"><Button onClick={function(){_this.onRate()}}>{likeText}</Button></div>
                         }
 
                         {otherProfileHTML}

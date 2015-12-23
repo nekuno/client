@@ -23,7 +23,19 @@ export default class OtherProfileData extends Component {
         return (
             <div className="otherProfileData">
                 <div className="otherProfileLeft">
-                    <div className = "otherProfileAvatars"></div>
+                    <div className = "otherProfileAvatars">
+                        <div className = "small-user-image">
+                            <img src={imgSrc}/>
+                        </div>
+                        <div className = "small-user-circles">
+                            <span className="icon-circle"></span>
+                            <span className="icon-circle"></span>
+                            <span className="icon-circle"></span>
+                        </div>
+                        <div className = "small-user-image">
+                            <img src={ownImage}/>
+                        </div>
+                    </div>
                     <div className = "otherProfileStats">
                         <div className = "otherProfileStats">20 Coincidencias</div>
                         <div className = "otherProfileStats">5 Intereses similares</div>

@@ -22,7 +22,7 @@ function setLikeContent(props) {
 function unsetLikeContent(props) {
 	const { loggedUserId, contentId } = props;
 
-	UserActionCreators.deleteLikeContent(loggedUserId, userId);
+	UserActionCreators.deleteLikeContent(loggedUserId, contentId);
 }
 
 export default class CardContent extends Component {

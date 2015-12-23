@@ -32,7 +32,7 @@ export function setLikeContent(from, to, url = `users/${from}/content/rate`){
     return postLikeContent(url, to);
 }
 
-export function unsetLikeContent(from, to, url = `users/${from}/likes/${to}`) {
+export function unsetLikeContent(from, to, url = `users/${from}/content/rate`) {
     return deleteLikeContent(url, to);
 }
 

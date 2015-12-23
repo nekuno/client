@@ -6,7 +6,7 @@ import LinksPage from './pages/LinksPage';
 import * as UserActionCreators from './actions/UserActionCreators';
 import LoginStore from './stores/LoginStore';
 import RouterStore from './stores/RouterStore';
-import LoginActionCreators from './actions/LoginActionCreators';
+import RouterActionCreators from './actions/RouterActionCreators';
 
 export default class App extends Component {
 
@@ -24,6 +24,7 @@ export default class App extends Component {
 
     _getLoginState() {
         return {
+            user        : LoginStore.user,
             userLoggedIn: LoginStore.isLoggedIn()
         };
     }
@@ -51,9 +52,12 @@ export default class App extends Component {
         console.log("&*&*&* App onLoginChange event: loggedIn=", userLoggedInState.userLoggedIn, "nextTransitionPath=", transitionPath);
 
         if (userLoggedInState.userLoggedIn) {
-            this.history.replaceState(null, transitionPath)
+            //this.history.replaceState(null, transitionPath);
+            setTimeout(() => {
+                this.history.replaceState(null, '/threads/' + userLoggedInState.user.qnoow_id);
+            });
         } else {
-            this.history.replaceState(null, '/login')
+            this.history.replaceState(null, '/login');
         }
     }
 

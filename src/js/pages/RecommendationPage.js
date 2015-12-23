@@ -13,8 +13,8 @@ function parseThreadId(params) {
     return params.threadId;
 }
 
-function parseLogin(params) {
-    return params.login;
+function parseId(params) {
+    return params.userId;
 }
 
 /**
@@ -23,9 +23,9 @@ function parseLogin(params) {
 function requestData(props) {
     const { params } = props;
     const threadId = parseThreadId(params);
-    const login = parseLogin(params);
+    const userId = parseId(params);
 
-    UserActionCreators.requestRecommendationPage(login, threadId);
+    UserActionCreators.requestRecommendationPage(userId, threadId);
 
 }
 

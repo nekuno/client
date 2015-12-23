@@ -6,8 +6,8 @@ import LeftMenuTopNavbar from '../components/ui/LeftMenuTopNavbar';
 import connectToStores from '../utils/connectToStores';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 
-function parseLogin(params) {
-    return params.login;
+function parseId(params) {
+    return params.userId;
 }
 
 /**
@@ -15,9 +15,9 @@ function parseLogin(params) {
  */
 function requestData(props) {
     const { params } = props;
-    const userLogin = parseLogin(params);
+    const userId = parseId(params);
 
-    UserActionCreators.requestThreads(userLogin);
+    UserActionCreators.requestThreads(userId);
 
 }
 
@@ -37,7 +37,7 @@ export default AuthenticatedComponent(class ThreadPage extends Component {
     static propTypes = {
         // Injected by React Router:
         params: PropTypes.shape({
-            login: PropTypes.string.isRequired
+            userId: PropTypes.string.isRequired
         }).isRequired,
 
         // Injected by @connectToStores:
@@ -49,7 +49,7 @@ export default AuthenticatedComponent(class ThreadPage extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (parseLogin(nextProps.params) !== parseLogin(this.props.params)) {
+        if (parseId(nextProps.params) !== parseId(this.props.params)) {
             requestData(nextProps);
         }
     }

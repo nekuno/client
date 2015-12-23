@@ -6,12 +6,12 @@ import selectn from 'selectn';
 const _stats = {};
 
 const ProfileStore = createStore({
-    contains(login, fields) {
-        return isInBag(_stats, login, fields);
+    contains(userId, fields) {
+        return isInBag(_stats, userId, fields);
     },
 
-    get(login) {
-        return _stats[login];
+    get(userId) {
+        return _stats[userId];
     }
 });
 

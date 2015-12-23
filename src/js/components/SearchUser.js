@@ -6,19 +6,19 @@ const DEFAULT_LOGIN = '51';
 
 function parseFullName(params) {
 
-    if (!params.login) {
+    if (!params.userId) {
         return DEFAULT_LOGIN;
     }
 
-    return params.login + (params.name ? '/' + params.name : '');
+    return params.userId + (params.name ? '/' + params.name : '');
 }
 
 export default class SearchUser extends Component {
 
     static propTypes = {
         params: PropTypes.shape({
-            login: PropTypes.string,
-            name : PropTypes.string
+            userId: PropTypes.string,
+            name  : PropTypes.string
         })
     };
 

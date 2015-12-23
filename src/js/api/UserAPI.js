@@ -1,18 +1,18 @@
 import { fetchUser, fetchThreads, fetchRecommendation, fetchUserArray, fetchProfile, fetchStats, postLikeUser, deleteLikeUser, postLikeContent, deleteLikeContent, fetchMatching, fetchSimilarity } from '../utils/APIUtils';
 
-export function getUser(login, url = `users/${login}`) {
+export function getUser(userId, url = `users/${userId}`) {
     return fetchUser(url);
 }
 
-export function getProfile(login, url = `users/${login}/profile`) {
+export function getProfile(userId, url = `users/${userId}/profile`) {
     return fetchProfile(url);
 }
 
-export function getStats(login, url = `users/${login}/stats`) {
+export function getStats(userId, url = `users/${userId}/stats`) {
     return fetchStats(url);
 }
 
-export function getThreads(login, url = `users/${login}/threads`){
+export function getThreads(userId, url = `users/${userId}/threads`){
     return fetchThreads(url);
 }
 

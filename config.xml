@@ -16,8 +16,17 @@
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
+    <preference name="Orientation" value="portrait" />
     <platform name="android">
         <allow-intent href="market:*" />
+        <icon src="src/scss/img/icons/72 - hdpi.png" density="ldpi" />
+        <icon src="src/scss/img/icons/96 - xhdpi.png" density="mdpi" />
+        <icon src="src/scss/img/icons/144 - xxhdpi.png" density="hdpi" />
+        <icon src="src/scss/img/icons/192 - xxxhpdi.png" density="xhdpi" />
+        <splash src="src/scss/img/splash/ldpi.png" density="port-ldpi"/>
+        <splash src="src/scss/img/splash/mdpi.png" density="port-mdpi"/>
+        <splash src="src/scss/img/splash/hdpi.png" density="port-hdpi"/>
+        <splash src="src/scss/img/splash/xhdpi.png" density="port-xhdpi"/>
     </platform>
     <platform name="ios">
         <allow-intent href="itms:*" />

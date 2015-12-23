@@ -32,11 +32,18 @@
   }
 }
 
+.otherProfileWrapper{
+  width:200%;
+  background-color: #1E1542;
+  margin-left:-50%;
+  text-align:center;
+}
+
 .otherProfileData {
   color: white;
-  margin-top: 10px;
+  margin: 10px auto;
   display: inline-block;
-  width: 100%;
+  width: 50%;
   .otherProfileLeft{
     width:50%;
     height:100%;
@@ -45,7 +52,8 @@
       height:50%;
       .small-user-circles{
         display:inline;
-        line-height: 100%;
+        line-height: 40px;
+        vertical-align: text-bottom;
       }
       .icon-circle{
         color:$deep-purple;
@@ -76,6 +84,10 @@
     .progress-bar{
       margin-top: 5px;
       margin-bottom: 5px;
+      border-radius: 5px;
+    }
+    [class^="progress-bar"] {
+      border-radius: 5px;
     }
   }
 }

@@ -144,7 +144,10 @@ export default AuthenticatedComponent(class UserPage extends Component {
 
         if (!ownProfile) {
             const ownPicture = user && user.picture ? user.picture : `${IMAGES_ROOT}/media/cache/user_avatar_180x180/bundles/qnoowweb/images/user-no-img.jpg`;
-            otherProfileHTML = <OtherProfileData matching = {matching} similarity = {similarity} stats = {stats} ownImage = {ownPicture} currentImage = {currentPicture} />
+            otherProfileHTML =
+                <div className="otherProfileWrapper" >
+                    <OtherProfileData matching = {matching} similarity = {similarity} stats = {stats} ownImage = {ownPicture} currentImage = {currentPicture} />
+                </div>
         }
 
         const _this = this;

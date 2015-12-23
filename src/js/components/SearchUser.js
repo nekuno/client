@@ -80,7 +80,7 @@ export default class SearchUser extends Component {
     }
 
     handleGoClick() {
-        this.context.history.pushState(null, `/login/${this.getInputValue()}`);
+        this.context.history.pushState(null, `/profile/${this.getInputValue()}`);
     }
 
     getInputValue() {

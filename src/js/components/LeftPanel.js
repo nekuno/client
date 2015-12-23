@@ -65,7 +65,7 @@ export default class LeftPanel extends Component {
                             <Link to={`/threads/${user.qnoow_id}`} onClick={this.handleGoClickThreads}>
                                 Hilos
                             </Link>
-                            <Link to={`/login/${user.qnoow_id}`} onClick={this.handleGoClickProfile}>
+                            <Link to={`/profile/${user.qnoow_id}`} onClick={this.handleGoClickProfile}>
                                 Mi perfil
                             </Link>
                             <Link to="/notifications" onClick={this.handleGoClickNotifications}>
@@ -80,7 +80,7 @@ export default class LeftPanel extends Component {
 
     handleGoClickProfile() {
         nekunoApp.closePanel();
-        this.context.history.pushState(null, `/login/${this.props.user.qnoow_id}`);
+        this.context.history.pushState(null, `/profile/${this.props.user.qnoow_id}`);
     }
 
     handleGoClickThreads() {

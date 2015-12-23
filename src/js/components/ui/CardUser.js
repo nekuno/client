@@ -55,7 +55,7 @@ export default class CardUser extends Component {
 		return (
 			<div className="card person-card">
 				<div className="card-header">
-					<Link to={`/login/${this.props.userId}`}>
+					<Link to={`/profile/${this.props.userId}`}>
 						<div className="title">
 							{this.props.username}
 						</div>
@@ -69,7 +69,7 @@ export default class CardUser extends Component {
 				</div>
 				<div className="card-content">
 					<div className="card-content-inner">
-						<Link to={`/login/${this.props.userId}`}>
+						<Link to={`/profile/${this.props.userId}`}>
 							<div className="image">
 								<img src={imgSrc} />
 							</div>

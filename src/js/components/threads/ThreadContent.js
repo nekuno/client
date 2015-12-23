@@ -1,6 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import { Link } from 'react-router';
 import ChipList from './../ui/ChipList';
+import selectn from 'selectn';
 
 export default class ThreadContent extends Component {
     static propTypes = {
@@ -59,9 +60,9 @@ export default class ThreadContent extends Component {
 
     renderImage = function (recommendation, type) {
         let imgSrc = '/img/default-content-image.jpg';
-        if (recommendation.thumbnail) {
+        if (selectn('thumbnail', recommendation)) {
             imgSrc = recommendation.thumbnail;
-        } else if (type === 'Image') {
+        } else if (type === 'Image' && selectn('url', recommendation)) {
             imgSrc = recommendation.url;
         }
 

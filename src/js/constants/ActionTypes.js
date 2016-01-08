@@ -37,6 +37,10 @@ export default keyMirror({
     REQUEST_THREADS_SUCCESS        : null,
     REQUEST_THREADS_ERROR          : null,
 
+    THREADS_PREV           : null,
+    THREADS_NEXT           : null,
+    REQUEST_THREADS_PAGE   : null,
+
     REQUEST_RECOMMENDATIONS        : null,
     REQUEST_RECOMMENDATIONS_SUCCESS: null,
     REQUEST_RECOMMENDATIONS_ERROR  : null,

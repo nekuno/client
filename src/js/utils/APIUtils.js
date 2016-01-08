@@ -46,8 +46,6 @@ const metadataSchema = new Schema('metadata');
 
 const threadSchema = new Schema('thread', {idAttribute: 'id'});
 
-const threadsSchema = new Schema('threads');
-
 const questionsAndAnswersSchema = new Schema('questions');
 
 const userAnswerSchema = new Schema('userAnswer', {idAttribute: 'answerId'});
@@ -73,10 +71,6 @@ function getRecommendationId(entity) {
 
 const recommendationSchema = new Schema('recommendation', {idAttribute: getRecommendationId});
 
-threadsSchema.define({
-    threads: arrayOf(threadSchema)
-});
-
 questionsAndAnswersSchema.define({
     items: arrayOf({
         question: {
@@ -85,7 +79,6 @@ questionsAndAnswersSchema.define({
         userAnswer: userAnswerSchema
     })
 });
-
 
 /**
  * Fetches an API response and normalizes the result JSON according to schema.
@@ -217,7 +210,10 @@ export function fetchSimilarity(url) {
 }
 
 export function fetchThreads(url) {
-    return fetchAndNormalize(url, threadsSchema);
+    return fetchAndNormalize(url, {
+        items     : arrayOf(threadSchema),
+        pagination: {}
+    });
 }
 
 export function fetchRecommendation(url) {

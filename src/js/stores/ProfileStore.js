@@ -45,7 +45,7 @@ const ProfileStore = createStore({
                          const doubleChoices = thisMetadata.doubleChoices;
                          let firstChoice = basicProfile[label]['choice'];
                          let doubleChoice = basicProfile[label]['detail'];
-                         value = firstChoices[firstChoice] + doubleChoices[doubleChoice];
+                         value = firstChoices[firstChoice] + ' ' + doubleChoices[firstChoice][doubleChoice];
                          break;
                      case 'tags':
                          value = basicProfile[label];

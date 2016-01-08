@@ -71,8 +71,23 @@ function getState(props) {
     };
 }
 
-/*@connectToStores([ThreadStore, RecommendationStore, RecommendationsByThreadStore], getState)
-export default AuthenticatedComponent(class RecommendationPage extends Component {*/
+/**
+ * Set rate like.
+ */
+function setLikeUser(props) {
+    const { user, currentUser } = props;
+
+    UserActionCreators.likeUser(user.qnoow_id, currentUser.qnoow_id);
+}
+
+/**
+ * Unset rate like.
+ */
+function unsetLikeUser(props) {
+    const { user, currentUser } = props;
+
+    UserActionCreators.deleteLikeUser(user.qnoow_id, currentUser.qnoow_id);
+}
 
 @connectToStores([UserStore, ProfileStore, StatsStore, MatchingStore, SimilarityStore], getState)
 export default AuthenticatedComponent(class UserPage extends Component {
@@ -92,6 +107,12 @@ export default AuthenticatedComponent(class UserPage extends Component {
         user: PropTypes.object
     };
 
+    constructor(props) {
+        super(props);
+
+        this.onRate = this.onRate.bind(this);
+    }
+
     componentWillMount() {
         requestData(this.props);
     }
@@ -104,38 +125,21 @@ export default AuthenticatedComponent(class UserPage extends Component {
 
     onRate() {
         if (!this.rate){
-            this.setLikeUser();
+            setLikeUser(this.props);
+            this.rate = true;
         } else {
-            this.unsetLikeUser();
+            unsetLikeUser(this.props);
+            this.rate = false;
         }
     }
 
-    /**
-     * Set rate like.
-     */
-    setLikeUser() {
-        const { user, currentUser } = this.props;
-
-        UserActionCreators.likeUser(user.qnoow_id, currentUser.qnoow_id);
-        this.rate = true;
-    }
-
-    /**
-     * Unset rate like.
-     */
-    unsetLikeUser() {
-        const { user, currentUser } = this.props;
-
-        UserActionCreators.deleteLikeUser(user.qnoow_id, currentUser.qnoow_id);
-        this.rate = false;
-    }
 
     render() {
         const { userLoggedIn, user, currentUser, profile, stats, matching, similarity } = this.props;
+        const rate = this.rate;
         const currentUserId = currentUser? currentUser.qnoow_id : null;
         const currentPicture = currentUser? currentUser.picture : null;
-        const liked = currentUser && profile.like? profile.like : null;
-        const likeText = liked ? "Ya no me gusta" : "Me gusta";
+        const likeText = rate ? "Ya no me gusta" : "Me gusta";
 
         let ownProfile=false;
         if (userLoggedIn && user && (user.qnoow_id == currentUserId)){
@@ -151,7 +155,6 @@ export default AuthenticatedComponent(class UserPage extends Component {
                 </div>
         }
 
-        const _this = this;
         return (
             <div className="view view-main">
                 <div data-page="index" className="page toolbar-fixed user-page">
@@ -173,7 +176,7 @@ export default AuthenticatedComponent(class UserPage extends Component {
                                     Intereses
                                 </div>
                             </div>
-                            : <div className="otherProfileLikeButton"><Button onClick={function(){_this.onRate()}}>{likeText}</Button></div>
+                            : <div className="otherProfileLikeButton"><Button onClick={this.onRate}>{likeText}</Button></div>
                         }
 
                         {otherProfileHTML}

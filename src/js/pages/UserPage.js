@@ -7,6 +7,7 @@ import ProfileStore from '../stores/ProfileStore';
 import StatsStore from '../stores/StatsStore';
 import MatchingStore from '../stores/MatchingStore';
 import SimilarityStore from '../stores/SimilarityStore';
+import LikeStore from '../stores/LikeStore';
 import User from '../components/User';
 import OtherProfileData from '../components/profile/OtherProfileData';
 import ProfileDataList from '../components/profile/ProfileDataList'
@@ -31,8 +32,16 @@ function requestData(props) {
     const currentUserId = parseId(params);
 
     if (!(userLoggedIn && user && (user.qnoow_id == currentUserId))) {
-        UserActionCreators.requestMatching(parseInt(currentUserId), user.qnoow_id);
-        UserActionCreators.requestSimilarity(currentUserId, user.qnoow_id);
+        if (!MatchingStore.contains(currentUserId, user.qnoow_id)){
+            UserActionCreators.requestMatching(parseInt(currentUserId), user.qnoow_id);
+        }
+        if (!SimilarityStore.contains(currentUserId, user.qnoow_id)){
+            UserActionCreators.requestSimilarity(currentUserId, user.qnoow_id);
+        }
+        if (!LikeStore.contains(user.qnoow_id, currentUserId)){
+            UserActionCreators.requestLikeUser(user.qnoow_id, currentUserId);
+        }
+
     }
 
     UserActionCreators.requestUser(currentUserId, ['username', 'email', 'picture', 'status']);
@@ -55,9 +64,11 @@ function getState(props) {
 
     let matching = 0;
     let similarity = 0;
+    let like = 0;
     if (!(userLoggedIn && user && (user.qnoow_id == currentUserId))) {
         matching = MatchingStore.get(currentUserId, user.qnoow_id);
         similarity = SimilarityStore.get(currentUserId, user.qnoow_id);
+        like = LikeStore.get(user.qnoow_id, currentUserId);
     }
 
     return {
@@ -66,6 +77,7 @@ function getState(props) {
         stats,
         matching,
         similarity,
+        like,
         userLoggedIn,
         user
     };
@@ -89,7 +101,7 @@ function unsetLikeUser(props) {
     UserActionCreators.deleteLikeUser(user.qnoow_id, currentUser.qnoow_id);
 }
 
-@connectToStores([UserStore, ProfileStore, StatsStore, MatchingStore, SimilarityStore], getState)
+@connectToStores([UserStore, ProfileStore, StatsStore, MatchingStore, SimilarityStore, LikeStore], getState)
 export default AuthenticatedComponent(class UserPage extends Component {
     static propTypes = {
         // Injected by React Router:
@@ -124,22 +136,19 @@ export default AuthenticatedComponent(class UserPage extends Component {
     }
 
     onRate() {
-        if (!this.rate){
+        if (!this.props.like){
             setLikeUser(this.props);
-            this.rate = true;
         } else {
             unsetLikeUser(this.props);
-            this.rate = false;
         }
     }
 
 
     render() {
-        const { userLoggedIn, user, currentUser, profile, stats, matching, similarity } = this.props;
-        const rate = this.rate;
+        const { userLoggedIn, user, currentUser, profile, stats, matching, similarity, like } = this.props;
         const currentUserId = currentUser? currentUser.qnoow_id : null;
         const currentPicture = currentUser? currentUser.picture : null;
-        const likeText = rate ? "Ya no me gusta" : "Me gusta";
+        const likeText = like ? "Ya no me gusta" : "Me gusta";
 
         let ownProfile=false;
         if (userLoggedIn && user && (user.qnoow_id == currentUserId)){

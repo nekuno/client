@@ -235,6 +235,10 @@ export function deleteLikeUser(url) {
     return deleteData(url, null, likedUserSchema);
 }
 
+export function fetchLikeUser(url) {
+    return fetchAndNormalize(url, likedUserSchema);
+}
+
 export function postLikeContent(url, to) {
     return postData(url, {"linkId": to, "rate": "LIKES"}, likedContentSchema);
 }

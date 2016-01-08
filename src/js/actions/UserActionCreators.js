@@ -200,3 +200,11 @@ export function deleteLikeContent(from, to) {
         failure: ActionTypes.UNLIKE_CONTENT_ERROR
     }, {from, to});
 }
+
+export function requestLikeUser(from, to) {
+    dispatchAsync(UserAPI.getLikeUser(from, to), {
+        request: ActionTypes.REQUEST_LIKE_USER,
+        success: ActionTypes.REQUEST_LIKE_USER_SUCCESS,
+        failure: ActionTypes.REQUEST_LIKE_USER_ERROR
+    }, {from, to});
+}

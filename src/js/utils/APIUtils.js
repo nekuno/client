@@ -48,6 +48,12 @@ const threadSchema = new Schema('thread', {idAttribute: 'id'});
 
 const threadsSchema = new Schema('threads');
 
+const questionsAndAnswersSchema = new Schema('questions');
+
+const userAnswerSchema = new Schema('userAnswer', {idAttribute: 'answerId'});
+
+const answersSchema = new Schema('answers', {idAttribute: 'answerId'});
+
 const likedUserSchema = new Schema('liked', {idAttribute: 'id'});
 
 const likedContentSchema = new Schema('rate', {idAttribute: 'id'});
@@ -70,6 +76,16 @@ const recommendationSchema = new Schema('recommendation', {idAttribute: getRecom
 threadsSchema.define({
     threads: arrayOf(threadSchema)
 });
+
+questionsAndAnswersSchema.define({
+    items: arrayOf({
+        question: {
+            answers: arrayOf(answersSchema)
+        },
+        userAnswer: userAnswerSchema
+    })
+});
+
 
 /**
  * Fetches an API response and normalizes the result JSON according to schema.
@@ -209,6 +225,10 @@ export function fetchRecommendation(url) {
         items     : arrayOf(recommendationSchema),
         pagination: {}
     });
+}
+
+export function fetchQuestions(url) {
+    return fetchAndNormalize(url, questionsAndAnswersSchema);
 }
 
 export function postLikeUser(url) {

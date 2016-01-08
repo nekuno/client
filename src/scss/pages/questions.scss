@@ -1,10 +1,53 @@
+@import '../_partials/colors';
+
 body #root .App .view .page.questions-page  {
   #page-content {
-    background: url('img/provisional-screens/questions_coming_soon.jpg') no-repeat;
-    background-size: 100% auto;
-    height: 100%;
-    margin-left: 0;
-    margin-right: 0;
-    width: 100%;
+    .question-list {
+      .question {
+        color: white;
+        margin-bottom: 15px;
+        //background: url('img/provisional-screens/questions_coming_soon.jpg') no-repeat;
+        //background-size: 100% auto;
+        //height: 100%;
+        //margin-left: 0;
+        //margin-right: 0;
+
+        .question-title {
+          font-weight: bold;
+        }
+        .question-answered, .question-not-answered {
+          .question-answered-picture, .question-not-answered-picture {
+            background-color: #fff;
+            border-radius: 50%;
+            display: inline-block;
+            height: 22px;
+            margin: 10px 10px 10px 0px;
+            text-align: center;
+            width: 22px;
+
+            img {
+              border-radius: 50%;
+              height: 20px;
+              margin-top: 1px;
+              width: 20px;
+            }
+          }
+
+          .question-answered-answer, .question-not-answered-answer {
+            display: inline-block;
+            margin-top: -8px;
+            vertical-align: text-top;
+            width: 89%;
+          }
+        }
+
+        hr {
+          background-color: $deep-purple;
+          border: none;
+          height: 1px;
+          margin-top: 15px;
+        }
+      }
+    }
   }
 }

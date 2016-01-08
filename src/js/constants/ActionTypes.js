@@ -41,6 +41,10 @@ export default keyMirror({
     REQUEST_RECOMMENDATIONS_SUCCESS: null,
     REQUEST_RECOMMENDATIONS_ERROR  : null,
 
+    REQUEST_QUESTIONS              : null,
+    REQUEST_QUESTIONS_SUCCESS      : null,
+    REQUEST_QUESTIONS_ERROR        : null,
+
     RECOMMENDATIONS_PREV           : null,
     RECOMMENDATIONS_NEXT           : null,
     REQUEST_RECOMMENDATIONS_PAGE   : null,

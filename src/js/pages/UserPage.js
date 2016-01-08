@@ -154,8 +154,9 @@ export default AuthenticatedComponent(class UserPage extends Component {
         const _this = this;
         return (
             <div className="view view-main">
-                <LeftMenuTopNavbar centerText={'Mi Perfil'} />
-                <div data-page="index" className="page">
+                <div data-page="index" className="page toolbar-fixed user-page">
+                    <LeftMenuTopNavbar centerText={'Mi Perfil'} />
+
                     <div id="page-content">
 
                         {currentUser && profile ?
@@ -181,8 +182,10 @@ export default AuthenticatedComponent(class UserPage extends Component {
                             <ProfileDataList profile={profile}/> :
                             <h1>Loading...</h1>
                         }
+
                     </div>
                 </div>
+
                 <ToolBar links={ownProfile ? [
                 {'url': `/profile/${selectn('qnoow_id', currentUser)}`, 'text': 'Sobre mí'},
                 {'url': '/questions', 'text': 'Respuestas'},

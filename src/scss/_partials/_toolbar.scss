@@ -1,11 +1,18 @@
 .toolbar {
+	background: none;
+	position: fixed !important;
 	padding: 30px 0;
 
 	.toolbar-inner {
 		background-color: $deep-purple;
 		color: #fff;
 		font-size: 14px;
+		height: 60px;
+		margin: -30px auto 40px auto;
+		max-width: 480px;
+		min-width: 320px;
 		padding: 0 40px;
+		position: relative;
 
 		a {
 			color: #fff;

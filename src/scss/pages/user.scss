@@ -1,101 +1,104 @@
 @import '../_partials/colors';
 
-.profileDataList{
-  margin-top: 30px;
-  .profileData, .profileAboutMe{
-    color: white;
-    display: table;
-    width: 100%;
+body #root .App .view .page.user-page {
+  #page-content {
+    .profileDataList {
+      margin-top: 30px;
+      .profileData, .profileAboutMe {
+        color: white;
+        display: table;
+        width: 100%;
 
-    span{
-      width:50%;
-      margin-top:5px;
-    }
+        span {
+          width: 50%;
+          margin-top: 5px;
+        }
 
-    .profileDataValue{
-      float: right;
-      width:50%;
-    }
-    .profileDataName{
-      font-weight: bold;
-      float:left;
-      width:50%;
-    }
-    .profileAboutMeValue{
-      margin-top: 1.5ex;
-      width:100%;
-      margin-bottom: 3ex;
-    }
-    .profileAboutMeName{
-      font-weight: bold;
-      width:100%;
-    }
-
-  }
-}
-
-.otherProfileWrapper{
-  width:200%;
-  background-color: #1E1542;
-  margin-left:-50%;
-  text-align:center;
-}
-
-.otherProfileData {
-  color: white;
-  margin: 10px auto;
-  display: inline-block;
-  width: 50%;
-  .otherProfileLeft{
-    width:50%;
-    height:100%;
-    float:left;
-    .otherProfileAvatars{
-      height:50%;
-      .small-user-circles{
-        display:inline;
-        line-height: 40px;
-        vertical-align: text-bottom;
-      }
-      .icon-circle{
-        color:$deep-purple;
-        margin-left:1.5px;
-        margin-right:1.5px;
-        font-size:5px;
-      }
-      .small-user-image{
-        margin-left:5px;
-        margin-right:5px;
-        display: inline;
-        img{
-          border-radius: 50%;
-          height:auto;
-          width:15%;
+        .profileDataValue {
+          float: right;
+          width: 50%;
+        }
+        .profileDataName {
+          font-weight: bold;
+          float: left;
+          width: 50%;
+        }
+        .profileAboutMeValue {
+          margin-top: 1.5ex;
+          width: 100%;
+          margin-bottom: 3ex;
+        }
+        .profileAboutMeName {
+          font-weight: bold;
+          width: 100%;
         }
 
       }
     }
-    .otherProfileStats{
-      width:100%;
+
+    .otherProfileWrapper {
+      width: 200%;
+      background-color: #1E1542;
+      margin-left: -50%;
+      text-align: center;
     }
-  }
-  .otherProfileRight{
-    width:50%;
-    height:100%;
-    float:right;
-    .progress-bar{
-      margin-top: 5px;
-      margin-bottom: 5px;
-      border-radius: 5px;
+
+    .otherProfileData {
+      color: white;
+      margin: 10px auto;
+      display: inline-block;
+      width: 50%;
+      .otherProfileLeft {
+        width: 50%;
+        height: 100%;
+        float: left;
+        .otherProfileAvatars {
+          height: 50%;
+          .small-user-circles {
+            display: inline;
+            line-height: 40px;
+            vertical-align: text-bottom;
+          }
+          .icon-circle {
+            color: $deep-purple;
+            margin-left: 1.5px;
+            margin-right: 1.5px;
+            font-size: 5px;
+          }
+          .small-user-image {
+            margin-left: 5px;
+            margin-right: 5px;
+            display: inline;
+            img {
+              border-radius: 50%;
+              height: auto;
+              width: 15%;
+            }
+
+          }
+        }
+        .otherProfileStats {
+          width: 100%;
+        }
+      }
+      .otherProfileRight {
+        width: 50%;
+        height: 100%;
+        float: right;
+        .progress-bar {
+          margin-top: 5px;
+          margin-bottom: 5px;
+          border-radius: 5px;
+        }
+        [class^="progress-bar"], [class*=" progress-bar-"] {
+          border-radius: 5px;
+        }
+      }
     }
-    [class^="progress-bar"] {
-      border-radius: 5px;
+
+    .otherProfileLikeButton {
+      margin: 0 auto 25px auto;
+      width: 25%;
     }
   }
 }
-
-.otherProfileLikeButton {
-  margin:0 auto 25px auto;
-  width: 25%;
-}
-

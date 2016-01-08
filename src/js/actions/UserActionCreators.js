@@ -5,6 +5,7 @@ import UserStore from '../stores/UserStore';
 import RecommendationsByThreadStore from '../stores/RecommendationsByThreadStore';
 import ThreadStore from '../stores/ThreadStore';
 import ProfileStore from '../stores/ProfileStore';
+import QuestionStore from '../stores/QuestionStore';
 
 export function requestUser(userId, fields) {
     // Exit early if we know enough about this user
@@ -117,6 +118,19 @@ export function recommendationsNext(threadId) {
             requestRecommendation(threadId, nextUrl);
         }
     }
+}
+
+export function requestQuestions(userId, fields) {
+    // Exit early if we know enough about this user
+    if (QuestionStore.contains(userId, fields)) {
+        return;
+    }
+
+    dispatchAsync(UserAPI.getQuestions(userId), {
+        request: ActionTypes.REQUEST_QUESTIONS,
+        success: ActionTypes.REQUEST_QUESTIONS_SUCCESS,
+        failure: ActionTypes.REQUEST_QUESTIONS_ERROR
+    }, {userId});
 }
 
 export function likeUser(from, to) {

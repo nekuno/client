@@ -11,7 +11,7 @@ import {
 const _questions = {};
 const _pagination = {};
 
-const QuestionStore = createIndexedListStore({
+const QuestionStore = createStore({
     contains(userId, fields) {
         return isInBag(_questions, userId, fields);
     },

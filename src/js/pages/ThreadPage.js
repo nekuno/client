@@ -17,7 +17,7 @@ function requestData(props) {
     const { params } = props;
     const userId = parseId(params);
 
-    UserActionCreators.requestThreads(userId);
+    UserActionCreators.requestThreadPage(userId);
 
 }
 

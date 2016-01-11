@@ -3,6 +3,7 @@ import ActionTypes from '../constants/ActionTypes';
 import * as UserAPI from '../api/UserAPI';
 import UserStore from '../stores/UserStore';
 import RecommendationsByThreadStore from '../stores/RecommendationsByThreadStore';
+import ThreadsByUserStore from '../stores/ThreadsByUserStore';
 import ThreadStore from '../stores/ThreadStore';
 import ProfileStore from '../stores/ProfileStore';
 import QuestionStore from '../stores/QuestionStore';
@@ -45,9 +46,27 @@ export function requestMetadata(userId){
 
 }
 
-export function requestThreads(userId) {
+export function requestThreadPage(userId)
+{
+    if (!UserStore.contains(userId)) {
+        this.requestUser(userId, null);
+    }
 
-    dispatchAsync(UserAPI.getThreads(userId), {
+    requestThreads(userId);
+
+    dispatch(ActionTypes.REQUEST_THREADS_PAGE);
+}
+
+export function requestThreads(userId, url = null) {
+
+    let threads = {};
+    if (url) {
+        threads = UserAPI.getThreads(userId, url);
+    } else {
+        threads = UserAPI.getThreads(userId);
+    }
+
+    dispatchAsync(threads, {
         request: ActionTypes.REQUEST_THREADS,
         success: ActionTypes.REQUEST_THREADS_SUCCESS,
         failure: ActionTypes.REQUEST_THREADS_ERROR
@@ -59,6 +78,11 @@ export function requestRecommendationPage(userId, threadId) {
     if (!ThreadStore.contains(threadId)) {
         this.requestThreads(userId);
     }
+
+    if (!UserStore.contains(userId)) {
+        this.requestUser(userId, null);
+    }
+
     requestRecommendation(threadId);
 
     dispatch(ActionTypes.REQUEST_RECOMMENDATIONS_PAGE);
@@ -135,6 +159,18 @@ export function requestNextQuestions(userId, link) {
     }
 }
 
+export function threadsNext(userId) {
+
+    dispatch(ActionTypes.THREADS_NEXT, {userId});
+
+    if (ThreadsByUserStore.getPosition(userId) >= ( ThreadsByUserStore.getIds(userId).length - 3)) {
+        const nextUrl = ThreadsByUserStore.getNextPageUrl(userId);
+        if (nextUrl) {
+            requestThreads(userId, nextUrl);
+        }
+    }
+}
+
 export function likeUser(from, to) {
     dispatchAsync(UserAPI.setLikeUser(from, to), {
         request: ActionTypes.LIKE_USER,
@@ -164,5 +200,13 @@ export function deleteLikeContent(from, to) {
         request: ActionTypes.UNLIKE_CONTENT,
         success: ActionTypes.UNLIKE_CONTENT_SUCCESS,
         failure: ActionTypes.UNLIKE_CONTENT_ERROR
+    }, {from, to});
+}
+
+export function requestLikeUser(from, to) {
+    dispatchAsync(UserAPI.getLikeUser(from, to), {
+        request: ActionTypes.REQUEST_LIKE_USER,
+        success: ActionTypes.REQUEST_LIKE_USER_SUCCESS,
+        failure: ActionTypes.REQUEST_LIKE_USER_ERROR
     }, {from, to});
 }

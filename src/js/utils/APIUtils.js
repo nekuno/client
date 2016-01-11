@@ -55,8 +55,6 @@ const questionsSchema = new Schema('questions', {idAttribute: 'questionId'});
 
 const userAnswersSchema = new Schema('userAnswers', {idAttribute: 'questionId'});
 
-const answersSchema = new Schema('answers', {idAttribute: 'answerId'});
-
 const likedUserSchema = new Schema('liked', {idAttribute: 'id'});
 
 const likedContentSchema = new Schema('rate', {idAttribute: 'id'});
@@ -80,15 +78,10 @@ function getQuestionId(entity) {
 
 const recommendationSchema = new Schema('recommendation', {idAttribute: getRecommendationId});
 
-threadsSchema.define({
-    threads: arrayOf(threadSchema)
-});
-
 questionsAndAnswersSchema.define({
     questions: arrayOf(questionsSchema),
     userAnswers: arrayOf(userAnswersSchema)
 });
-
 
 /**
  * Fetches an API response and normalizes the result JSON according to schema.
@@ -220,7 +213,10 @@ export function fetchSimilarity(url) {
 }
 
 export function fetchThreads(url) {
-    return fetchAndNormalize(url, threadsSchema);
+    return fetchAndNormalize(url, {
+        items     : arrayOf(threadSchema),
+        pagination: {}
+    });
 }
 
 export function fetchRecommendation(url) {
@@ -243,6 +239,10 @@ export function postLikeUser(url) {
 
 export function deleteLikeUser(url) {
     return deleteData(url, null, likedUserSchema);
+}
+
+export function fetchLikeUser(url) {
+    return fetchAndNormalize(url, likedUserSchema);
 }
 
 export function postLikeContent(url, to) {

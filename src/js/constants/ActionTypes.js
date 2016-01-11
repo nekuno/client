@@ -1,13 +1,13 @@
 import keyMirror from 'keymirror';
 
 export default keyMirror({
-    REQUEST_LOGIN_USER         : null,
-    REQUEST_LOGIN_USER_SUCCESS : null,
-    REQUEST_LOGIN_USER_ERROR   : null,
-    REQUEST_SIGNUP_USER        : null,
-    REQUEST_SIGNUP_USER_SUCCESS: null,
-    REQUEST_SIGNUP_USER_ERROR  : null,
-    LOGOUT_USER                : null,
+    REQUEST_LOGIN_USER             : null,
+    REQUEST_LOGIN_USER_SUCCESS     : null,
+    REQUEST_LOGIN_USER_ERROR       : null,
+    REQUEST_SIGNUP_USER            : null,
+    REQUEST_SIGNUP_USER_SUCCESS    : null,
+    REQUEST_SIGNUP_USER_ERROR      : null,
+    LOGOUT_USER                    : null,
 
     REQUEST_USER                   : null,
     REQUEST_USER_SUCCESS           : null,
@@ -37,6 +37,10 @@ export default keyMirror({
     REQUEST_THREADS_SUCCESS        : null,
     REQUEST_THREADS_ERROR          : null,
 
+    THREADS_PREV                   : null,
+    THREADS_NEXT                   : null,
+    REQUEST_THREADS_PAGE           : null,
+
     REQUEST_RECOMMENDATIONS        : null,
     REQUEST_RECOMMENDATIONS_SUCCESS: null,
     REQUEST_RECOMMENDATIONS_ERROR  : null,
@@ -55,17 +59,21 @@ export default keyMirror({
     LIKE_USER_SUCCESS              : null,
     LIKE_USER_ERROR                : null,
 
-    UNLIKE_USER                   : null,
-    UNLIKE_USER_SUCCESS           : null,
-    UNLIKE_USER_ERROR             : null,
+    UNLIKE_USER                    : null,
+    UNLIKE_USER_SUCCESS            : null,
+    UNLIKE_USER_ERROR              : null,
 
-    LIKE_CONTENT                      : null,
-    LIKE_CONTENT_SUCCESS              : null,
-    LIKE_CONTENT_ERROR                : null,
+    REQUEST_LIKE_USER              : null,
+    REQUEST_LIKE_USER_SUCCESS      : null,
+    REQUEST_LIKE_USER_ERROR        : null,
 
-    UNLIKE_CONTENT                   : null,
-    UNLIKE_CONTENT_SUCCESS           : null,
-    UNLIKE_CONTENT_ERROR             : null,
+    LIKE_CONTENT                   : null,
+    LIKE_CONTENT_SUCCESS           : null,
+    LIKE_CONTENT_ERROR             : null,
+
+    UNLIKE_CONTENT                 : null,
+    UNLIKE_CONTENT_SUCCESS         : null,
+    UNLIKE_CONTENT_ERROR           : null,
 
     ROUTER_NEXT_TRANSITION_PATH: null
 });

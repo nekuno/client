@@ -41,13 +41,15 @@ export default keyMirror({
     REQUEST_RECOMMENDATIONS_SUCCESS: null,
     REQUEST_RECOMMENDATIONS_ERROR  : null,
 
+    RECOMMENDATIONS_PREV           : null,
+    RECOMMENDATIONS_NEXT           : null,
+    REQUEST_RECOMMENDATIONS_PAGE   : null,
+
     REQUEST_QUESTIONS              : null,
     REQUEST_QUESTIONS_SUCCESS      : null,
     REQUEST_QUESTIONS_ERROR        : null,
 
-    RECOMMENDATIONS_PREV           : null,
-    RECOMMENDATIONS_NEXT           : null,
-    REQUEST_RECOMMENDATIONS_PAGE   : null,
+    QUESTIONS_NEXT                 : null,
 
     LIKE_USER                      : null,
     LIKE_USER_SUCCESS              : null,

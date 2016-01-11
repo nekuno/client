@@ -120,17 +120,19 @@ export function recommendationsNext(threadId) {
     }
 }
 
-export function requestQuestions(userId, fields) {
-    // Exit early if we know enough about this user
-    if (QuestionStore.contains(userId, fields)) {
-        return;
-    }
-
-    dispatchAsync(UserAPI.getQuestions(userId), {
+export function requestQuestions(userId, link, fields) {
+    dispatchAsync(UserAPI.getQuestions(userId, link), {
         request: ActionTypes.REQUEST_QUESTIONS,
         success: ActionTypes.REQUEST_QUESTIONS_SUCCESS,
         failure: ActionTypes.REQUEST_QUESTIONS_ERROR
     }, {userId});
+}
+
+export function requestNextQuestions(userId, link) {
+    dispatch(ActionTypes.QUESTIONS_NEXT, {userId});
+    if (link) {
+        requestQuestions(userId, link);
+    }
 }
 
 export function likeUser(from, to) {

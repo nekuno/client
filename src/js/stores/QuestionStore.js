@@ -1,50 +1,45 @@
-import { register } from '../dispatcher/Dispatcher';
+import { register, waitFor } from '../dispatcher/Dispatcher';
 import { createStore, mergeIntoBag, isInBag } from '../utils/StoreUtils';
+import ActionTypes from '../constants/ActionTypes';
 import selectn from 'selectn';
+import UserStore from './UserStore';
+import {
+    createIndexedListStore,
+    createListActionHandler
+} from '../utils/PaginatedStoreUtils';
 
 const _questions = {};
-const _answers = {};
-const _userAnswers = {};
+const _pagination = {};
 
-const QuestionStore = createStore({
+const QuestionStore = createIndexedListStore({
     contains(userId, fields) {
         return isInBag(_questions, userId, fields);
     },
 
     get(userId) {
-
-        if (!this.contains(userId)){
-            return null;
-        }
         return _questions[userId];
     },
 
-    getAll() {
-        return _questions;
-    },
-
-    getAnswers() {
-        return _answers;
-    },
-
-    getUserAnswers() {
-        return _userAnswers;
+    getPagination(userId) {
+        return _pagination[userId];
     }
 });
 
 QuestionStore.dispatchToken = register(action => {
-    const responseQuestions = selectn('response.entities.questions', action);
-    const responseAnswers = selectn('response.entities.answers', action);
-    const responseUserAnswers = selectn('response.entities.userAnswers', action);
+    waitFor([UserStore.dispatchToken]);
+    const items = selectn('response.entities.items', action);
+    const pagination = selectn('response.result.pagination', action);
+    const userId = selectn('userId', action);
 
-    if (responseAnswers && !isInBag(_answers, responseAnswers)) {
-        mergeIntoBag(_answers, responseAnswers);
+    if (typeof _questions[userId] === "undefined") {
+        _questions[userId] = {};
     }
-    if (responseUserAnswers && !isInBag(_userAnswers, responseUserAnswers)) {
-        mergeIntoBag(_userAnswers, responseUserAnswers);
+    if (typeof _pagination[userId] === "undefined") {
+        _pagination[userId] = {};
     }
-    if (responseQuestions) {
-        mergeIntoBag(_questions, responseQuestions);
+    if (items) {
+        mergeIntoBag(_questions[userId], items);
+        _pagination[userId] = pagination;
         QuestionStore.emitChange();
     }
 });

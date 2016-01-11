@@ -84,6 +84,14 @@ body {
 				.inline-icons-wrapper {
 					min-width: 85px;
 				}
+
+				.loading-gif {
+					background: url('img/loading.gif') no-repeat;
+					background-size: 100px 100px;
+					height: 100px;
+					margin: -25px auto auto auto;
+					width: 100px;
+				}
 			}
 		}
 	}

@@ -1,5 +1,6 @@
 import { Schema, arrayOf, normalize } from 'normalizr';
 import { camelizeKeys } from 'humps';
+import selectn from 'selectn';
 //import 'core-js/es6/promise';
 import 'whatwg-fetch';
 import Url from 'url';
@@ -48,9 +49,11 @@ const threadSchema = new Schema('thread', {idAttribute: 'id'});
 
 const threadsSchema = new Schema('threads');
 
-const questionsAndAnswersSchema = new Schema('questions');
+const questionsAndAnswersSchema = new Schema('items', {idAttribute: getQuestionId});
 
-const userAnswerSchema = new Schema('userAnswer', {idAttribute: 'answerId'});
+const questionsSchema = new Schema('questions', {idAttribute: 'questionId'});
+
+const userAnswersSchema = new Schema('userAnswers', {idAttribute: 'questionId'});
 
 const answersSchema = new Schema('answers', {idAttribute: 'answerId'});
 
@@ -71,6 +74,10 @@ function getRecommendationId(entity) {
     }
 }
 
+function getQuestionId(entity) {
+    return selectn('question.questionId', entity);
+}
+
 const recommendationSchema = new Schema('recommendation', {idAttribute: getRecommendationId});
 
 threadsSchema.define({
@@ -78,12 +85,8 @@ threadsSchema.define({
 });
 
 questionsAndAnswersSchema.define({
-    items: arrayOf({
-        question: {
-            answers: arrayOf(answersSchema)
-        },
-        userAnswer: userAnswerSchema
-    })
+    questions: arrayOf(questionsSchema),
+    userAnswers: arrayOf(userAnswersSchema)
 });
 
 
@@ -228,7 +231,10 @@ export function fetchRecommendation(url) {
 }
 
 export function fetchQuestions(url) {
-    return fetchAndNormalize(url, questionsAndAnswersSchema);
+    return fetchAndNormalize(url, {
+        items     : arrayOf(questionsAndAnswersSchema),
+        pagination: {}
+    });
 }
 
 export function postLikeUser(url) {

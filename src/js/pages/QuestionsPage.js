@@ -9,6 +9,7 @@ import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import connectToStores from '../utils/connectToStores';
 import UserStore from '../stores/UserStore';
 import QuestionStore from '../stores/QuestionStore';
+import QuestionsByUserIdStore from '../stores/QuestionsByUserIdStore';
 
 function parseId(user) {
     return user.qnoow_id;
@@ -28,41 +29,59 @@ function requestData(props) {
 }
 
 /**
+ * Requests next data from server for current props.
+ */
+function requestLinkData(props, link) {
+    //user === logged user
+    const { user } = props;
+    const currentUserId = parseId(user);
+
+    UserActionCreators.requestQuestions(currentUserId, link);
+
+}
+
+/**
  * Retrieves state from stores for current props.
  */
 function getState(props) {
-    const currentUserId = parseId(props.params);
+    const currentUserId = parseId(props.user);
     const {userLoggedIn, user} = props;
-    //to use when changing route
     const currentUser = UserStore.get(currentUserId);
     const questions = QuestionStore.get(currentUserId);
-    const answers = QuestionStore.getAnswers();
-    const userAnswers = QuestionStore.getUserAnswers();
+    const pagination = QuestionStore.getPagination(currentUserId);
 
     return {
         currentUser,
+        pagination,
         questions,
-        answers,
-        userAnswers,
         userLoggedIn,
         user
     };
 }
 
-@connectToStores([UserStore, QuestionStore], getState)
+@connectToStores([UserStore, QuestionStore, QuestionsByUserIdStore], getState)
 export default AuthenticatedComponent(class QuestionsPage extends Component {
     static propTypes = {
         // Injected by @connectToStores:
-        questions: PropTypes.object.isRequired,
-        answers: PropTypes.object.isRequired,
-        userAnswers: PropTypes.object.isRequired,
+        questions: PropTypes.object,
+        pagination: PropTypes.object,
 
         // Injected by AuthenticatedComponent
         user: PropTypes.object
     };
 
+    constructor(props) {
+        super(props);
+
+        this.handleScroll = this.handleScroll.bind(this);
+    }
+
     componentWillMount() {
         requestData(this.props);
+    }
+
+    componentWillUnmount() {
+        document.getElementsByClassName('view')[0].removeEventListener('scroll', this.handleScroll);
     }
 
     render() {
@@ -72,13 +91,12 @@ export default AuthenticatedComponent(class QuestionsPage extends Component {
 
         const ownPicture = this.props.user && this.props.user.picture ? this.props.user.picture : `${IMAGES_ROOT}/media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
         const defaultPicture = `${IMAGES_ROOT}/media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
-
         return (
-            <div className="view view-main">
+            <div className="view view-main" onScroll={this.handleScroll}>
                 <LeftMenuTopNavbar centerText={'Mi Perfil'}/>
                 <div data-page="index" className="page questions-page">
                     <div id="page-content" className="questions-content">
-                        <QuestionList questions={this.props.questions} userAnswers={this.props.userAnswers} answers={this.props.answers} userId={this.props.user.qnoow_id} ownPicture={ownPicture} defaultPicture={defaultPicture} />
+                        <QuestionList questions={this.props.questions} userId={this.props.user.qnoow_id} ownPicture={ownPicture} defaultPicture={defaultPicture} />
                     </div>
                 </div>
                 <ToolBar links={[
@@ -88,5 +106,13 @@ export default AuthenticatedComponent(class QuestionsPage extends Component {
                 ]} activeLinkIndex={1}/>
             </div>
         );
+    }
+
+    handleScroll() {
+        let pagination = this.props.pagination;
+        let nextLink = pagination && pagination.hasOwnProperty('nextLink') ? pagination.nextLink : null;
+        if (nextLink && document.getElementsByClassName('view')[0].scrollTop + document.getElementsByClassName('view')[0].offsetHeight - 50 === document.getElementById('page-content').offsetHeight) {
+            UserActionCreators.requestNextQuestions(parseId(this.props.user), nextLink);
+        }
     }
 });

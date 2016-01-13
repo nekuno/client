@@ -28,40 +28,6 @@ export default class ProfileDataList extends Component {
         return Math.abs(ageDate.getUTCFullYear() - 1970).toString();
     }
 
-    getTexts(name, value){
-        switch(name){
-            case 'location':
-                name = 'Ubicación';
-                value = this.locationToString(value);
-                break;
-            case 'birthday':
-                name = 'Edad';
-                value = this.birthdayToAge(value);
-                break;
-            case 'zodiacSign':
-                name = 'Signo del zodíaco';
-                //TODO: Translate sign
-                break;
-            case 'orientation':
-                name = 'Orientación sexual';
-                break;
-            case 'gender':
-                name = 'Género';
-                value = (value === 'male'? 'Hombre' : 'Mujer');
-                break;
-            case 'interfaceLanguage':
-                name = 'Idioma de la intefaz';
-                value = 'Español';
-                break;
-
-        }
-
-        if (value === false){
-            value = "No";
-        }
-        return {name, value}
-    }
-
     render() {
         let profileDataList = [];
         let counter = 0;
@@ -74,14 +40,10 @@ export default class ProfileDataList extends Component {
                 continue;
             }
 
-            if (profileDataName === 'description'){
+            if (profileDataName === 'About Me' || profileDataName === 'Sobre mí'){
                 const profileAboutMeName = 'Sobre mí';
                 profileDataList[counter++] = <ProfileAboutMe key = {profileAboutMeName} name = {profileAboutMeName} value = {profileDataValue} />;
             } else {
-                const texts = this.getTexts(profileDataName, profileDataValue);
-
-                profileDataName = texts.name;
-                profileDataValue = texts.value;
 
                 profileDataList[counter++] = <ProfileData key={profileDataName} name={profileDataName} value={profileDataValue} />;
             }

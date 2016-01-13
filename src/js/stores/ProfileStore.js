@@ -33,7 +33,7 @@ const ProfileStore = createStore({
              if (selectn(label, metadata)){
                  const thisMetadata = metadata[label];
                  const type = thisMetadata.type;
-                 const name = thisMetadata.label;
+                 let name = thisMetadata.label;
                  let value = '';
                  switch(type){
                      case 'choice':
@@ -77,6 +77,7 @@ const ProfileStore = createStore({
                          value = basicProfile[label];
                          break;
                      case 'birthday':
+                         name = thisMetadata.label == 'Birthday'? 'Age' : 'Edad' ;
                          const thatDate = new Date(basicProfile[label]);
                          const ageDifMs = Date.now() - thatDate.getTime();
                          const ageDate = new Date(ageDifMs); // miliseconds from epoch
@@ -85,10 +86,15 @@ const ProfileStore = createStore({
                      case 'location':
                          value = this.locationToString(basicProfile[label]);
                          break;
+                     case 'textarea':
+                         value = basicProfile[label];
+                         break;
                      default:
                          break;
                  }
-                 if (value == false){
+                 if (value === ''){
+                     continue;
+                 } else if (value == false){
                      value = 'No';
                  }
                  profile[name] = value;

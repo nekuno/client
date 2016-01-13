@@ -27,6 +27,9 @@ body #root .App .view .page.user-page {
           margin-top: 1.5ex;
           width: 100%;
           margin-bottom: 3ex;
+          .seeMore {
+            color: $deep-purple;
+          }
         }
         .profileAboutMeName {
           font-weight: bold;

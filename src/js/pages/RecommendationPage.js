@@ -116,14 +116,14 @@ export default AuthenticatedComponent(class RecommendationPage extends Component
     }
 
     componentDidMount() {
-        if (this.props.thread && this.props.recommendations && !this.swiperActive) {
+        if (this.props.thread && this.props.recommendations.length > 0 && !this.swiperActive) {
             initSwiper(this.props.thread);
             this.swiperActive = true;
         }
     }
 
     componentDidUpdate() {
-        if (this.props.thread && this.props.recommendations && !this.swiperActive) {
+        if (this.props.thread && this.props.recommendations.length > 0 && !this.swiperActive) {
             initSwiper(this.props.thread);
             this.swiperActive = true;
         }

@@ -138,7 +138,11 @@ export default AuthenticatedComponent(class RecommendationPage extends Component
                 <RecommendationsTopNavbar centerText={''} />
                 <div data-page="index" className="page">
                     <div id="page-content" className="recommendation-page">
-                        <RecommendationList recommendations={this.props.recommendations} thread={this.props.thread} userId={this.props.user.qnoow_id} />
+                        {this.props.recommendations.length > 0 ?
+                            <RecommendationList recommendations={this.props.recommendations} thread={this.props.thread} userId={this.props.user.qnoow_id} />
+                            :
+                            <div className="loading"><h1>Loading...</h1></div>
+                        }
                     </div>
                 </div>
             </div>

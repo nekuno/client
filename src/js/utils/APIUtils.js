@@ -53,6 +53,8 @@ const questionsAndAnswersSchema = new Schema('items', {idAttribute: getQuestionI
 
 const questionsSchema = new Schema('questions', {idAttribute: 'questionId'});
 
+const questionSchema = new Schema('question', {idAttribute: 'questionId'});
+
 const userAnswersSchema = new Schema('userAnswers', {idAttribute: 'questionId'});
 
 const likedUserSchema = new Schema('liked', {idAttribute: 'id'});
@@ -231,6 +233,10 @@ export function fetchQuestions(url) {
         items     : arrayOf(questionsAndAnswersSchema),
         pagination: {}
     });
+}
+
+export function fetchQuestion(url) {
+    return fetchAndNormalize(url, questionSchema);
 }
 
 export function postLikeUser(url) {

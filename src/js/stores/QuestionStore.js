@@ -10,10 +10,11 @@ import {
 
 const _questions = {};
 const _pagination = {};
+let _answerQuestion = {};
 
 const QuestionStore = createStore({
-    contains(userId, fields) {
-        return isInBag(_questions, userId, fields);
+    contains(userId, questionId) {
+        return selectn(userId+'.'+questionId, _questions) !== null;
     },
 
     get(userId) {
@@ -22,6 +23,18 @@ const QuestionStore = createStore({
 
     getPagination(userId) {
         return _pagination[userId];
+    },
+
+    getQuestion() {
+        return this.first(_answerQuestion);
+    },
+
+    first(obj) {
+        for (let a in obj) {
+            if (obj.hasOwnProperty(a)) {
+                return obj[a];
+            }
+        }
     }
 });
 
@@ -29,6 +42,7 @@ QuestionStore.dispatchToken = register(action => {
     waitFor([UserStore.dispatchToken]);
     const items = selectn('response.entities.items', action);
     const pagination = selectn('response.result.pagination', action);
+    const question = selectn('response.entities.question', action);
     const userId = selectn('userId', action);
 
     if (typeof _questions[userId] === "undefined") {
@@ -40,6 +54,10 @@ QuestionStore.dispatchToken = register(action => {
     if (items) {
         mergeIntoBag(_questions[userId], items);
         _pagination[userId] = pagination;
+        QuestionStore.emitChange();
+    }
+    else if (question) {
+        _answerQuestion = question;
         QuestionStore.emitChange();
     }
 });

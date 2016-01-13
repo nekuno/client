@@ -159,6 +159,27 @@ export function requestNextQuestions(userId, link) {
     }
 }
 
+export function requestQuestion(userId, questionId) {
+    if (!questionId) {
+        requestNextQuestion(userId);
+    }
+    if (!QuestionStore.contains(userId, questionId)) {
+        dispatchAsync(UserAPI.getQuestion(userId, questionId), {
+            request: ActionTypes.REQUEST_QUESTION,
+            success: ActionTypes.REQUEST_QUESTION_SUCCESS,
+            failure: ActionTypes.REQUEST_QUESTION_ERROR
+        }, {userId, questionId});
+    }
+}
+
+export function requestNextQuestion(userId) {
+    dispatchAsync(UserAPI.getNextQuestion(userId), {
+        request: ActionTypes.REQUEST_QUESTION,
+        success: ActionTypes.REQUEST_QUESTION_SUCCESS,
+        failure: ActionTypes.REQUEST_QUESTION_ERROR
+    }, {userId});
+}
+
 export function threadsNext(userId) {
 
     dispatch(ActionTypes.THREADS_NEXT, {userId});

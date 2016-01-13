@@ -1,0 +1,105 @@
+@import '../_partials/colors';
+
+body #root .App .view .page.answer-question-page  {
+  #page-content {
+    .answer-question {
+      color: white;
+      margin-top: 70px;
+
+      .answer-question-title {
+        font-size: 21px;
+        margin-bottom: 20px;
+      }
+      .answer-question-form {
+        form {
+          .list-block.answers, .list-block.accepted-answers {
+            margin: auto;
+            float: left;
+            width: 82%;
+
+            ul {
+              li {
+                .label-checkbox {
+                  .item-inner {
+                    .item-title {
+                      font-size: 14px;
+                      text-transform: none;
+                      white-space: normal;
+                      width: 90%;
+
+                    }
+                    &::after {
+                      content: none;
+                    }
+                  }
+                  &::after {
+                    content: none;
+                  }
+                }
+                &::after {
+                  content: none;
+                }
+              }
+              .active-state {
+                background-color: transparent;
+              }
+            }
+          }
+
+          .list-block.accepted-answers {
+            margin-left: 15%;
+            position: absolute;
+            width: 69.7%;
+
+            ul {
+              li {
+                .label-checkbox {
+
+                  .item-inner {
+                    .item-title {
+                      opacity: 0;
+                    }
+                  }
+                  input {
+                    z-index: 100;
+                  }
+                }
+              }
+            }
+          }
+
+          .accepted-answers-importance {
+            clear: both;
+            margin: auto;
+            padding: 35px 0;
+            text-align: center;
+
+            .accepted-answers-importance-container {
+              background-color: $deep-purple-translucent;
+              padding: 2px;
+              -moz-border-radius: 30px;
+              -webkit-border-radius: 30px;
+              border-radius: 30px;
+
+              .chip {
+                display: inline-block;
+                height: 30px;
+                line-height: 30px;
+                cursor: pointer;
+                text-align: center;
+                width: 33%;
+
+              }
+            }
+
+            .accepted-answers-importance-container.unique-chip {
+              .chip {
+                width: 50%;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

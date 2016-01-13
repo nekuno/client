@@ -3,14 +3,14 @@ import shouldPureComponentUpdate from 'react-pure-render/function';
 
 export default class Chip extends Component {
 	static propTypes = {
-		label: PropTypes.string.isRequired
+		label: PropTypes.string.isRequired,
+		disabled: PropTypes.bool,
+		onClickEvent: PropTypes.func
 	};
-
-	shouldComponentUpdate = shouldPureComponentUpdate;
 
 	render() {
 		return (
-			<div className="chip">
+			<div className={this.props.disabled ? "disabled-chip chip" : "chip"} onClick={this.props.onClickEvent}>
 				<div className="chip-label">
 					{this.props.label}
 				</div>

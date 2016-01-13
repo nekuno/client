@@ -1,4 +1,5 @@
 import React, { PropTypes, Component } from 'react';
+import { Link } from 'react-router';
 import selectn from 'selectn';
 import { IMAGES_ROOT } from '../constants/Constants';
 import * as UserActionCreators from '../actions/UserActionCreators';
@@ -89,13 +90,32 @@ export default AuthenticatedComponent(class QuestionsPage extends Component {
             return null;
         }
 
-        const ownPicture = this.props.user && this.props.user.picture ? this.props.user.picture : `${IMAGES_ROOT}/media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
+        const ownPicture = this.props.user && this.props.user.picture ? `${IMAGES_ROOT}/media/cache/user_avatar_60x60/bundles/qnoowweb/images/${this.props.user.picture}` : `${IMAGES_ROOT}/media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
         const defaultPicture = `${IMAGES_ROOT}/media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
         return (
             <div className="view view-main" onScroll={this.handleScroll}>
                 <LeftMenuTopNavbar centerText={'Mi Perfil'}/>
                 <div data-page="index" className="page questions-page">
                     <div id="page-content" className="questions-content">
+                        <div className="answer-questions-link-container">
+                            <Link to="/answer-question/next">
+                                <div className="answer-questions-link-title">
+                                    ¿Quieres que hilemos más fino?
+                                </div>
+                                <div className="answer-questions-link-text">
+                                    Responde más preguntas del test
+                                </div>
+                                <div className="answer-questions-link-stats">
+                                    645 de 1234 preguntas completadas
+                                </div>
+                            </Link>
+                        </div>
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+                        <br />
                         <QuestionList questions={this.props.questions} userId={this.props.user.qnoow_id} ownPicture={ownPicture} defaultPicture={defaultPicture} />
                     </div>
                 </div>

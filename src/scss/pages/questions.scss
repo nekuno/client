@@ -2,6 +2,32 @@
 
 body #root .App .view .page.questions-page  {
   #page-content {
+    .answer-questions-link-container {
+      background-color: $deep-purple;
+      left: 0;
+      max-width: 480px;
+      min-width: 320px;
+      padding: 10px 5%;
+      position: absolute;
+      right: 0;
+      text-align: center;
+
+      a {
+        color: white;
+
+        .answer-questions-link-title {
+          font-size: 21px;
+          font-weight: bold;
+        }
+        .answer-questions-link-text {
+          font-size: 14px;
+        }
+        .answer-questions-link-stats {
+          font-size: 12px;
+          margin-top: 10px;
+        }
+      }
+    }
     .question-list {
       .question {
         color: white;

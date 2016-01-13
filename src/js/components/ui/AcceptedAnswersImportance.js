@@ -22,6 +22,7 @@ export default class AcceptedAnswersImportance extends Component {
 	render() {
 		return (
 			<div className="accepted-answers-importance">
+				<div className="accepted-answers-importance-title">¿Te importa la respuesta del usuario?</div>
 				{this.props.irrelevant ?
 					<div className="accepted-answers-importance-container unique-chip">
 						<Chip label={"Irrelevante"} onClickEvent={this.handleOnIrrelevantImportanceClick} disabled={this.state.importance !== 'irrelevant'} />

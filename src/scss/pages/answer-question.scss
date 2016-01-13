@@ -74,6 +74,11 @@ body #root .App .view .page.answer-question-page  {
             padding: 35px 0;
             text-align: center;
 
+            .accepted-answers-importance-title {
+              font-weight: bold;
+              margin-bottom: 10px;
+            }
+
             .accepted-answers-importance-container {
               background-color: $deep-purple-translucent;
               padding: 2px;

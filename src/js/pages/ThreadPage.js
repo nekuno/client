@@ -1,6 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import * as UserActionCreators from '../actions/UserActionCreators';
 import ThreadStore from '../stores/ThreadStore';
+import ThreadsByUserStore from '../stores/ThreadsByUserStore';
 import ThreadList from '../components/threads/ThreadList';
 import LeftMenuTopNavbar from '../components/ui/LeftMenuTopNavbar';
 import connectToStores from '../utils/connectToStores';
@@ -25,14 +26,18 @@ function requestData(props) {
  * Retrieves state from stores for current props.
  */
 function getState(props) {
-    const threads = ThreadStore.getAll();
+    const threadIds = ThreadsByUserStore.getThreadsFromUser(props.user.qnoow_id);
 
+    if (!threadIds){
+        return null;
+    }
+    const threads = threadIds.map(ThreadStore.get);
     return {
         threads
     };
 }
 
-@connectToStores([ThreadStore], getState)
+@connectToStores([ThreadStore, ThreadsByUserStore], getState)
 export default AuthenticatedComponent(class ThreadPage extends Component {
     static propTypes = {
         // Injected by React Router:

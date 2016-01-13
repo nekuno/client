@@ -41,7 +41,7 @@ gulp.task('build-vendor-js', function() {
         './node_modules/framework7/dist/js/framework7.min.js'
     ];
     return gulp.src(paths)
-        .pipe(rename('vendor.js'))
+        .pipe(concat('vendor.js'))
         .pipe(gulp.dest('./www'))
         .pipe(connect.reload());
 });

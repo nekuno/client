@@ -9,7 +9,8 @@ export default class AnswerRadio extends Component {
         checked: PropTypes.bool.isRequired,
         userAnswer: PropTypes.object,
         ownPicture: PropTypes.string.isRequired,
-        userId: PropTypes.number.isRequired
+        userId: PropTypes.number.isRequired,
+        onClickHandler: PropTypes.func
     };
 
     render() {
@@ -20,7 +21,7 @@ export default class AnswerRadio extends Component {
 
         return (
         <li>
-            <InputRadio value={answer.answerId} name={'answer'} text={answer.text} checked={checked} />
+            <InputRadio value={answer.answerId} name={'answer'} text={answer.text} checked={checked} onClickHandler={this.props.onClickHandler} />
         </li>
         );
     }

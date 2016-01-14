@@ -3,7 +3,8 @@ import Chip from './Chip';
 
 export default class AcceptedAnswersImportance extends Component {
 	static propTypes = {
-		irrelevant: PropTypes.bool.isRequired
+		irrelevant: PropTypes.bool.isRequired,
+		answeredAndAccepted: PropTypes.bool.isRequired
 	};
 
 	constructor(props) {
@@ -25,13 +26,13 @@ export default class AcceptedAnswersImportance extends Component {
 				<div className="accepted-answers-importance-title">¿Te importa la respuesta del usuario?</div>
 				{this.props.irrelevant ?
 					<div className="accepted-answers-importance-container unique-chip">
-						<Chip label={"Irrelevante"} onClickEvent={this.handleOnIrrelevantImportanceClick} disabled={this.state.importance !== 'irrelevant'} />
+						<Chip label={"Irrelevante"} onClickHandler={this.handleOnIrrelevantImportanceClick} disabled={this.state.importance !== 'irrelevant'} />
 					</div>
 					:
 					<div className="accepted-answers-importance-container">
-						<Chip label={"Poco"} onClickEvent={this.handleOnFewImportanceClick} disabled={this.state.importance !== 'few'} />
-						<Chip label={"Normal"} onClickEvent={this.handleOnNormalImportanceClick} disabled={this.state.importance !== 'normal'} />
-						<Chip label={"Mucho"} onClickEvent={this.handleOnALotImportanceClick} disabled={this.state.importance !== 'aLot'} />
+						<Chip label={"Poco"} onClickHandler={this.handleOnFewImportanceClick} disabled={this.state.importance !== 'few'} />
+						<Chip label={"Normal"} onClickHandler={this.handleOnNormalImportanceClick} disabled={this.state.importance !== 'normal'} />
+						<Chip label={"Mucho"} onClickHandler={this.handleOnALotImportanceClick} disabled={this.state.importance !== 'aLot'} />
 					</div>
 				}
 			</div>
@@ -39,19 +40,34 @@ export default class AcceptedAnswersImportance extends Component {
 		);
 	}
 
-	handleOnFewImportanceClick() {
+	handleOnFewImportanceClick(event) {
+		if (!this.props.answeredAndAccepted) {
+			this.showNotCompleteModal();
+			this.preventCheck(event);
+			return;
+		}
 		this.setState({
 			importance: 'few'
 		});
 	}
 
-	handleOnNormalImportanceClick() {
+	handleOnNormalImportanceClick(event) {
+		if (!this.props.answeredAndAccepted) {
+			this.showNotCompleteModal();
+			this.preventCheck(event);
+			return;
+		}
 		this.setState({
 			importance: 'normal'
 		});
 	}
 
-	handleOnALotImportanceClick() {
+	handleOnALotImportanceClick(event) {
+		if (!this.props.answeredAndAccepted) {
+			this.showNotCompleteModal();
+			this.preventCheck(event);
+			return;
+		}
 		this.setState({
 			importance: 'aLot'
 		});
@@ -62,4 +78,12 @@ export default class AcceptedAnswersImportance extends Component {
 			importance: 'irrelevant'
 		});
 	}
+
+	showNotCompleteModal = function() {
+		nekunoApp.alert('Marca tu respuesta y una o varias opciones en la segunda columna para indicar qué te gustaría que respondiera otro usuario');
+	};
+
+	preventCheck = function(event) {
+		event.target.checked = false;
+	};
 }

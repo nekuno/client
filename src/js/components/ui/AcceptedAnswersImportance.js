@@ -4,7 +4,8 @@ import Chip from './Chip';
 export default class AcceptedAnswersImportance extends Component {
 	static propTypes = {
 		irrelevant: PropTypes.bool.isRequired,
-		answeredAndAccepted: PropTypes.bool.isRequired
+		answeredAndAccepted: PropTypes.bool,
+		onClickHandler: PropTypes.func.isRequired
 	};
 
 	constructor(props) {
@@ -49,6 +50,7 @@ export default class AcceptedAnswersImportance extends Component {
 		this.setState({
 			importance: 'few'
 		});
+		this.props.onClickHandler('few');
 	}
 
 	handleOnNormalImportanceClick(event) {
@@ -60,6 +62,7 @@ export default class AcceptedAnswersImportance extends Component {
 		this.setState({
 			importance: 'normal'
 		});
+		this.props.onClickHandler('normal');
 	}
 
 	handleOnALotImportanceClick(event) {
@@ -71,12 +74,14 @@ export default class AcceptedAnswersImportance extends Component {
 		this.setState({
 			importance: 'aLot'
 		});
+		this.props.onClickHandler('aLot');
 	}
 
 	handleOnIrrelevantImportanceClick() {
 		this.setState({
 			importance: 'irrelevant'
 		});
+		this.props.onClickHandler('irrelevant');
 	}
 
 	showNotCompleteModal = function() {

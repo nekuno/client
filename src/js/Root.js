@@ -10,6 +10,7 @@ import OtherInterestsPage from './pages/OtherInterestsPage';
 import QuestionsPage from './pages/QuestionsPage';
 import OtherQuestionsPage from './pages/OtherQuestionsPage';
 import AnswerQuestionPage from './pages/AnswerQuestionPage';
+import QuestionStatsPage from './pages/QuestionStatsPage';
 import LoginPage from './pages/LoginPage';
 import UserPage from './pages/UserPage';
 import ThreadPage from './pages/ThreadPage';
@@ -36,6 +37,7 @@ export default class Root extends Component {
                     <Route name="answer-question" path="/answer-question/:questionId" component={AnswerQuestionPage}/>
                     {/*<Route name="re-answer-question" path="/re-answer-question/:questionId" component={ReAnswerQuestionPage}/>*/}
                     <Route name="answer-question-next" path="/answer-question/next" component={AnswerQuestionPage}/>
+                    <Route name="question-stats" path="/question-stats" component={QuestionStatsPage}/>
                     <Route name="login" path="/login" component={LoginPage}/>
                     <Route name="profile" path="/profile/:userId" component={UserPage}/>
                     <Route name="threads" path="/threads/:userId" component={ThreadPage}/>

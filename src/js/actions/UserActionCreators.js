@@ -180,6 +180,14 @@ export function requestNextQuestion(userId) {
     }, {userId});
 }
 
+export function answerQuestion(userId, questionId, answerId, acceptedAnswers, rating) {
+    return dispatchAsync(UserAPI.answerQuestion(userId, questionId, answerId, acceptedAnswers, rating), {
+        request: ActionTypes.ANSWER_QUESTION,
+        success: ActionTypes.ANSWER_QUESTION_SUCCESS,
+        failure: ActionTypes.ANSWER_QUESTION_ERROR
+    }, {userId, questionId, answerId, acceptedAnswers, rating});
+}
+
 export function threadsNext(userId) {
 
     dispatch(ActionTypes.THREADS_NEXT, {userId});

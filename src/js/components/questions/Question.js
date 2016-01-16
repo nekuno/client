@@ -16,8 +16,11 @@ export default class Question extends Component {
     render() {
 
         let question = this.props.question.question;
+        if (!question) {
+            return null;
+        }
         let userAnswer = this.props.userAnswer;
-        let answers = question.answers;
+        let answers = question && question.answers.length > 0 ? question.answers : [];
         let userAnswerText = '';
 
         if (userAnswer) {

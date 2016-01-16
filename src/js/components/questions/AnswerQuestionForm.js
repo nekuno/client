@@ -1,6 +1,8 @@
 import React, { PropTypes, Component } from 'react';
+import selectn from 'selectn';
 import { Link } from 'react-router';
 import { IMAGES_ROOT } from '../../constants/Constants';
+import * as UserActionCreators from '../../actions/UserActionCreators';
 import AnswerRadio from './AnswerRadio';
 import AcceptedAnswerCheckbox from './AcceptedAnswerCheckbox';
 import AcceptedAnswersImportance from '../ui/AcceptedAnswersImportance';
@@ -11,7 +13,12 @@ export default class AnswerQuestionForm extends Component {
         userAnswer: PropTypes.object,
         ownPicture: PropTypes.string.isRequired,
         defaultPicture: PropTypes.string.isRequired,
-        userId: PropTypes.number.isRequired
+        userId: PropTypes.number.isRequired,
+        question: PropTypes.object.isRequired
+    };
+
+    static contextTypes = {
+        history: PropTypes.object.isRequired
     };
 
     constructor(props) {
@@ -19,16 +26,26 @@ export default class AnswerQuestionForm extends Component {
 
         this.handleOnClickAnswer = this.handleOnClickAnswer.bind(this);
         this.handleOnClickAcceptedAnswer = this.handleOnClickAcceptedAnswer.bind(this);
+        this.handleOnClickImportance = this.handleOnClickImportance.bind(this);
 
         this.state = {
-            answered: false,
-            acceptedAnswersCount: 0
+            answerId: null,
+            acceptedAnswers: []
         };
     }
 
+    answerQuestion(importance) {
+        let userId = this.props.userId;
+        let questionId = this.props.question.questionId;
+        let answerId = this.state.answerId;
+        let acceptedAnswers = this.state.acceptedAnswers;
+        let rating = this.getRatingByImportance(importance);
+        UserActionCreators.answerQuestion(userId, questionId, answerId, acceptedAnswers, rating);
+    }
+
     render() {
-        let userAnswer = this.props.userAnswer;
         let answers = this.props.answers;
+        let userAnswerId = selectn('userAnswer.answerId', this.props);
 
         if (!answers) {
             return null;
@@ -42,7 +59,7 @@ export default class AnswerQuestionForm extends Component {
                             <ul>
                                 {answers.map((answer, index) => {
                                     return (
-                                        <AcceptedAnswerCheckbox key={index} answer={answer} checked={false} onClickHandler={this.handleOnClickAcceptedAnswer} {...this.props} />
+                                        <AcceptedAnswerCheckbox key={index} answer={answer} checked={userAnswerId === answer.answerId} onClickHandler={this.handleOnClickAcceptedAnswer}  />
                                     );
                                 })}
                             </ul>
@@ -51,12 +68,12 @@ export default class AnswerQuestionForm extends Component {
                             <ul>
                                 {answers.map((answer, index) => {
                                     return (
-                                        <AnswerRadio key={index} answer={answer} checked={false} onClickHandler={this.handleOnClickAnswer} {...this.props} />
+                                        <AnswerRadio key={index} answer={answer} checked={userAnswerId === answer.answerId} onClickHandler={this.handleOnClickAnswer} />
                                     );
                                 })}
                             </ul>
                         </div>
-                        <AcceptedAnswersImportance irrelevant={this.state.acceptedAnswersCount === answers.length} answeredAndAccepted={this.state.answered && this.state.acceptedAnswersCount} />
+                        <AcceptedAnswersImportance irrelevant={this.state.acceptedAnswers.length === answers.length} answeredAndAccepted={this.state.answerId && this.state.acceptedAnswers.length > 0} onClickHandler={this.handleOnClickImportance} />
                     </div>
                 </form>
             </div>
@@ -64,26 +81,56 @@ export default class AnswerQuestionForm extends Component {
     }
 
     handleOnClickAcceptedAnswer(event) {
-        if (!this.state.answered) {
+        if (!this.state.answerId) {
             nekunoApp.alert('Marca primero tu respuesta');
             event.target.checked = false;
             return;
         }
 
-        let acceptedAnswersCount = event.target.checked ? this.state.acceptedAnswersCount + 1 : this.state.acceptedAnswersCount - 1;
+        let acceptedAnswers = this.state.acceptedAnswers;
+        let acceptedAnswerId = parseInt(event.target.value);
+        if (event.target.checked) {
+            acceptedAnswers.push(acceptedAnswerId);
+        } else {
+            acceptedAnswers = acceptedAnswers.filter(value => value !== acceptedAnswerId);
+        }
 
         this.setState({
-            acceptedAnswersCount: acceptedAnswersCount
+            acceptedAnswers: acceptedAnswers
         });
-
     }
 
-    handleOnClickAnswer() {
-        if (!this.state.answered) {
+    handleOnClickAnswer(event) {
+        if (!this.state.answerId) {
             nekunoApp.alert('Marca una o varias opciones en la segunda columna para indicar qué te gustaría que respondiera otro usuario');
-            this.setState({
-                answered: true
-            });
         }
+
+        let answerId = parseInt(event.target.value);
+
+        this.setState({
+            answerId: answerId
+        });
     }
+
+    handleOnClickImportance(importance) {
+        this.answerQuestion(importance);
+    }
+
+    getRatingByImportance = function(importance) {
+        let rating;
+        if (importance === 'few') {
+            rating = 0;
+        }
+        else if (importance === 'normal') {
+            rating = 1;
+        }
+        else if (importance === 'aLot') {
+            rating = 2;
+        }
+        else if (importance === 'irrelevant') {
+            rating = 3;
+        }
+
+        return rating;
+    };
 }

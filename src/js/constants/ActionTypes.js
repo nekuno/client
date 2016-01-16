@@ -59,6 +59,10 @@ export default keyMirror({
     REQUEST_QUESTION_SUCCESS       : null,
     REQUEST_QUESTION_ERROR         : null,
 
+    ANSWER_QUESTION                : null,
+    ANSWER_QUESTION_SUCCESS        : null,
+    ANSWER_QUESTION_ERROR          : null,
+
     LIKE_USER                      : null,
     LIKE_USER_SUCCESS              : null,
     LIKE_USER_ERROR                : null,

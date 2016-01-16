@@ -1,4 +1,4 @@
-import { fetchUser, fetchThreads, fetchRecommendation, fetchUserArray, fetchProfile, fetchMetadata, fetchStats, fetchQuestions, fetchQuestion, postLikeUser, deleteLikeUser, fetchLikeUser, postLikeContent, deleteLikeContent, fetchMatching, fetchSimilarity } from '../utils/APIUtils';
+import { fetchUser, fetchThreads, fetchRecommendation, fetchUserArray, fetchProfile, fetchMetadata, fetchStats, fetchQuestions, fetchQuestion, postAnswer, postLikeUser, deleteLikeUser, fetchLikeUser, postLikeContent, deleteLikeContent, fetchMatching, fetchSimilarity } from '../utils/APIUtils';
 
 export function getUser(userId, url = `users/${userId}`) {
     return fetchUser(url);
@@ -34,6 +34,10 @@ export function getQuestion(userId, questionId, url = `questionnaire/questions/$
 
 export function getNextQuestion(userId, url = `questionnaire/questions/next?userId=${userId}&locale=es`){
     return fetchQuestion(url);
+}
+
+export function answerQuestion(userId, questionId, answerId, acceptedAnswers, rating, url = `users/${userId}/answers`){
+    return postAnswer(url, userId, questionId, answerId, acceptedAnswers, rating);
 }
 
 export function setLikeUser(from, to, url = `users/${from}/likes/${to}`){

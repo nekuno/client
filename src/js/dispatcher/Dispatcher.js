@@ -52,4 +52,6 @@ export function dispatchAsync(promise, types, action = {}) {
         response => dispatch(success, {...action, response}),
         error => dispatch(failure, {...action, error})
     );
+
+    return promise;
 }

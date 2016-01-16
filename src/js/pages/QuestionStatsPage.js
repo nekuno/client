@@ -4,7 +4,7 @@ import selectn from 'selectn';
 import { IMAGES_ROOT } from '../constants/Constants';
 import * as UserActionCreators from '../actions/UserActionCreators';
 import LeftMenuTopNavbar from '../components/ui/LeftMenuTopNavbar';
-import AnswerQuestion from '../components/questions/AnswerQuestion';
+import QuestionStats from '../components/questions/QuestionStats';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import connectToStores from '../utils/connectToStores';
 import UserStore from '../stores/UserStore';
@@ -18,11 +18,8 @@ function parseUserId(user) {
 /**
  * Requests data from server (or store) for current props.
  */
-function requestData(props) {
-    const { user, questionId } = props;
-    const currentUserId = parseUserId(user);
-
-    UserActionCreators.requestQuestion(currentUserId, questionId);
+function requestData() {
+    QuestionStore.getQuestion();
 }
 
 /**
@@ -33,36 +30,27 @@ function getState(props) {
     const currentUserId = parseUserId(user);
     const currentUser = UserStore.get(currentUserId);
     const question = QuestionStore.getQuestion();
-    const questionId = selectn('questionId', question);
-    const userAnswer = questionId ? QuestionStore.getUserAnswer(currentUserId, questionId) : {};
-    const errors = QuestionStore.getErrors();
+    const userAnswer = QuestionStore.getUserAnswer(currentUserId, question.questionId);
 
     return {
         currentUser,
         question,
         userAnswer,
-        user,
-        errors
+        user
     };
 }
 
 @connectToStores([UserStore, QuestionStore, QuestionsByUserIdStore], getState)
-export default AuthenticatedComponent(class AnswerQuestionPage extends Component {
+export default AuthenticatedComponent(class QuestionStatsPage extends Component {
     static propTypes = {
-        // Injected by React Router:
-        params: PropTypes.shape({
-            questionId: PropTypes.string
-        }),
 
         // Injected by @connectToStores:
         question: PropTypes.object,
         userAnswer: PropTypes.object,
-        errors: PropTypes.string,
 
         // Injected by AuthenticatedComponent
         user: PropTypes.object.isRequired
     };
-
 
     static contextTypes = {
         history: PropTypes.object.isRequired
@@ -71,47 +59,27 @@ export default AuthenticatedComponent(class AnswerQuestionPage extends Component
     constructor(props) {
         super(props);
 
-        this.state = {
-            ready: false
-        };
+        this.handleContinueClick = this.handleContinueClick.bind(this);
     }
 
     componentWillMount() {
-        requestData(this.props);
+        requestData();
     }
 
-    componentDidUpdate() {
-
-    }
-
-    componentWillUnmount() {
-        this.setState({
-            ready: false
-        })
-    }
-
-    componentWillReceiveProps(nextProps) {
-        if (selectn('userAnswer.answerId', nextProps)) {
-            this.context.history.pushState(null, `/question-stats`);
-        }
-        this.setState({
-            ready: true
-        })
+    componentWillUpdate() {
+        requestData();
     }
 
     render() {
         const user = this.props.user;
-        const userId = selectn('qnoow_id', user);
-        const ownPicture = selectn('picture', user) ? `${IMAGES_ROOT}/media/cache/user_avatar_60x60/bundles/qnoowweb/images/${user.picture}` : `${IMAGES_ROOT}/media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
-        const defaultPicture = `${IMAGES_ROOT}/media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
 
         return (
             <div className="view view-main">
-                <LeftMenuTopNavbar centerText={'Pregunta'} rightText={'Omitir'}/>
+                <LeftMenuTopNavbar centerText={'Pregunta'} rightText={'Continuar'} onRightLinkClickHandler={this.handleContinueClick} />
                 <div data-page="index" className="page answer-question-page">
                     <div id="page-content" className="answer-question-content">
-                        {this.props.question && this.state.ready ?
-                            <AnswerQuestion question={this.props.question} userAnswer={this.props.userAnswer} userId={userId} errors={this.props.errors} ownPicture={ownPicture} defaultPicture={defaultPicture} />
+                        {this.props.userAnswer && this.props.question ?
+                            <QuestionStats question={this.props.question} userAnswer={this.props.userAnswer} userId={user.qnoow_id}/>
                             :
                             <h1>Loading...</h1>
                         }
@@ -119,5 +87,9 @@ export default AuthenticatedComponent(class AnswerQuestionPage extends Component
                 </div>
             </div>
         );
+    }
+
+    handleContinueClick() {
+        this.context.history.pushState(null, `/answer-question/next`);
     }
 });

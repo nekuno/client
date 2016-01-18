@@ -11,6 +11,7 @@ export default class AnswerQuestionForm extends Component {
     static propTypes = {
         answers: PropTypes.array.isRequired,
         userAnswer: PropTypes.object,
+        isFirstQuestion: PropTypes.bool.isRequired,
         ownPicture: PropTypes.string.isRequired,
         defaultPicture: PropTypes.string.isRequired,
         userId: PropTypes.number.isRequired,
@@ -101,7 +102,7 @@ export default class AnswerQuestionForm extends Component {
     }
 
     handleOnClickAnswer(event) {
-        if (!this.state.answerId) {
+        if (!this.state.answerId && this.props.isFirstQuestion) {
             nekunoApp.alert('Marca una o varias opciones en la segunda columna para indicar qué te gustaría que respondiera otro usuario');
         }
 

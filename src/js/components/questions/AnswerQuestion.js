@@ -8,6 +8,7 @@ export default class AnswerQuestion extends Component {
     static propTypes = {
         question: PropTypes.object.isRequired,
         userAnswer: PropTypes.object,
+        isFirstQuestion: PropTypes.bool.isRequired,
         ownPicture: PropTypes.string.isRequired,
         defaultPicture: PropTypes.string.isRequired,
         userId: PropTypes.number.isRequired,

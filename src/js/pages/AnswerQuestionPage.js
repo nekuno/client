@@ -33,6 +33,7 @@ function getState(props) {
     const currentUserId = parseUserId(user);
     const currentUser = UserStore.get(currentUserId);
     const question = QuestionStore.getQuestion();
+    const isFirstQuestion = QuestionStore.isFirstQuestion(currentUserId);
     const questionId = selectn('questionId', question);
     const userAnswer = questionId ? QuestionStore.getUserAnswer(currentUserId, questionId) : {};
     const errors = QuestionStore.getErrors();
@@ -40,6 +41,7 @@ function getState(props) {
     return {
         currentUser,
         question,
+        isFirstQuestion,
         userAnswer,
         user,
         errors
@@ -57,6 +59,7 @@ export default AuthenticatedComponent(class AnswerQuestionPage extends Component
         // Injected by @connectToStores:
         question: PropTypes.object,
         userAnswer: PropTypes.object,
+        isFirstQuestion: PropTypes.bool,
         errors: PropTypes.string,
 
         // Injected by AuthenticatedComponent
@@ -107,7 +110,7 @@ export default AuthenticatedComponent(class AnswerQuestionPage extends Component
                 <div data-page="index" className="page answer-question-page">
                     <div id="page-content" className="answer-question-content">
                         {this.props.question && this.state.ready ?
-                            <AnswerQuestion question={this.props.question} userAnswer={this.props.userAnswer} userId={userId} errors={this.props.errors} ownPicture={ownPicture} defaultPicture={defaultPicture} />
+                            <AnswerQuestion question={this.props.question} userAnswer={this.props.userAnswer} isFirstQuestion={this.props.isFirstQuestion} userId={userId} errors={this.props.errors} ownPicture={ownPicture} defaultPicture={defaultPicture} />
                             :
                             <h1>Loading...</h1>
                         }

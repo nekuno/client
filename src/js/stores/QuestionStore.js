@@ -19,6 +19,11 @@ const QuestionStore = createStore({
         return _questions[userId];
     },
 
+    isFirstQuestion(userId) {
+        return !_questions.hasOwnProperty(userId)  ||
+            _questions.hasOwnProperty(userId) && Object.keys(_questions[userId]).length === 0;
+    },
+
     getPagination(userId) {
         return _pagination[userId];
     },

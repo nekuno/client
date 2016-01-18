@@ -26,10 +26,6 @@ export default class AnswerQuestion extends Component {
             nekunoApp.alert(errors);
         }
 
-        if (!question || !answers) {
-            return null;
-        }
-
         return (
             <div>
                 {questionId ?

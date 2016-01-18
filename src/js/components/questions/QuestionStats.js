@@ -1,7 +1,8 @@
 import React, { PropTypes, Component } from 'react';
 import { Link } from 'react-router';
 import { IMAGES_ROOT } from '../../constants/Constants';
-import AnswerQuestionForm from './AnswerQuestionForm';
+import { QUESTION_STATS_COLORS } from '../../constants/Constants';
+import QuestionStatsGraphs from './QuestionStatsGraphs';
 
 export default class QuestionStats extends Component {
     static propTypes = {
@@ -34,8 +35,22 @@ export default class QuestionStats extends Component {
                         {answers.map((answer, index) => userAnswer.answerId === answer.answerId ? answer.text : '')}
                     </div>
                 </div>
+                <div className="question-stats-graph-title">
+                    Estadísticas repuestas comunidad
+                </div>
+                <QuestionStatsGraphs question={question} userAnswer={userAnswer} />
+                <div className="answers-colors">
+                    <hr align="left"/>
+                    {answers.map((answer, index) =>
+                        <div key={index} className="answer-color">
+                            <span className="icon-circle " style={{'color': QUESTION_STATS_COLORS[index]}}></span>
+                            <div className="answer" style={{'fontWeight': answer.answerId === userAnswer.answerId ? 'bold' : 'normal'}}>{answer.text}</div>
 
+                        </div>
+                    )}
+                </div>
             </div>
+
         );
     }
 }

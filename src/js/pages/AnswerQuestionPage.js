@@ -80,10 +80,6 @@ export default AuthenticatedComponent(class AnswerQuestionPage extends Component
         requestData(this.props);
     }
 
-    componentDidUpdate() {
-
-    }
-
     componentWillUnmount() {
         this.setState({
             ready: false

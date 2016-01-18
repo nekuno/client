@@ -75,9 +75,9 @@ export default AuthenticatedComponent(class QuestionStatsPage extends Component 
 
         return (
             <div className="view view-main">
-                <LeftMenuTopNavbar centerText={'Pregunta'} rightText={'Continuar'} onRightLinkClickHandler={this.handleContinueClick} />
-                <div data-page="index" className="page answer-question-page">
-                    <div id="page-content" className="answer-question-content">
+                <LeftMenuTopNavbar centerText={'Estadísticas'} rightText={'Continuar'} onRightLinkClickHandler={this.handleContinueClick} />
+                <div data-page="index" className="page question-stats-page">
+                    <div id="page-content" className="question-stats-content">
                         {this.props.userAnswer && this.props.question ?
                             <QuestionStats question={this.props.question} userAnswer={this.props.userAnswer} userId={user.qnoow_id}/>
                             :

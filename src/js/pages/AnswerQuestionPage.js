@@ -2,7 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import { Link } from 'react-router';
 import selectn from 'selectn';
 import { IMAGES_ROOT } from '../constants/Constants';
-import * as UserActionCreators from '../actions/UserActionCreators';
+import * as QuestionActionCreators from '../actions/QuestionActionCreators';
 import LeftMenuTopNavbar from '../components/ui/LeftMenuTopNavbar';
 import AnswerQuestion from '../components/questions/AnswerQuestion';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
@@ -22,7 +22,7 @@ function requestData(props) {
     const { user, questionId } = props;
     const currentUserId = parseUserId(user);
 
-    UserActionCreators.requestQuestion(currentUserId, questionId);
+    QuestionActionCreators.requestQuestion(currentUserId, questionId);
 }
 
 /**
@@ -74,6 +74,8 @@ export default AuthenticatedComponent(class AnswerQuestionPage extends Component
     constructor(props) {
         super(props);
 
+        this.skipQuestionHandler = this.skipQuestionHandler.bind(this);
+
         this.state = {
             ready: false
         };
@@ -106,7 +108,7 @@ export default AuthenticatedComponent(class AnswerQuestionPage extends Component
 
         return (
             <div className="view view-main">
-                <LeftMenuTopNavbar centerText={'Pregunta'} rightText={'Omitir'}/>
+                <LeftMenuTopNavbar centerText={'Pregunta'} rightText={'Omitir'} onRightLinkClickHandler={this.skipQuestionHandler} />
                 <div data-page="index" className="page answer-question-page">
                     <div id="page-content" className="answer-question-content">
                         {this.props.question && this.state.ready ?
@@ -118,5 +120,11 @@ export default AuthenticatedComponent(class AnswerQuestionPage extends Component
                 </div>
             </div>
         );
+    }
+
+    skipQuestionHandler() {
+        let userId = parseUserId(this.props.user);
+        let questionId = this.props.question.questionId;
+        QuestionActionCreators.skipQuestion(userId, questionId);
     }
 });

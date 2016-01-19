@@ -2,7 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import selectn from 'selectn';
 import { Link } from 'react-router';
 import { IMAGES_ROOT } from '../../constants/Constants';
-import * as UserActionCreators from '../../actions/UserActionCreators';
+import * as QuestionActionCreators from '../../actions/QuestionActionCreators';
 import AnswerRadio from './AnswerRadio';
 import AcceptedAnswerCheckbox from './AcceptedAnswerCheckbox';
 import AcceptedAnswersImportance from '../ui/AcceptedAnswersImportance';
@@ -41,7 +41,7 @@ export default class AnswerQuestionForm extends Component {
         let answerId = this.state.answerId;
         let acceptedAnswers = this.state.acceptedAnswers;
         let rating = this.getRatingByImportance(importance);
-        UserActionCreators.answerQuestion(userId, questionId, answerId, acceptedAnswers, rating);
+        QuestionActionCreators.answerQuestion(userId, questionId, answerId, acceptedAnswers, rating);
     }
 
     render() {

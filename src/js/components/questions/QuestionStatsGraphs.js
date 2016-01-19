@@ -17,7 +17,8 @@ export default class QuestionStatsGraph extends Component {
 
         let options = {
             segmentShowStroke: false,
-            percentageInnerCutout : 55
+            percentageInnerCutout : 55,
+            tooltipTemplate: "<%= value %>%"
         };
 
         this.initQuestionStatsGraphs(question, userAnswer, options);

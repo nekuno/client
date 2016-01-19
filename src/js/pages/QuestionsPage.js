@@ -2,7 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import { Link } from 'react-router';
 import selectn from 'selectn';
 import { IMAGES_ROOT } from '../constants/Constants';
-import * as UserActionCreators from '../actions/UserActionCreators';
+import * as QuestionActionCreators from '../actions/QuestionActionCreators';
 import LeftMenuTopNavbar from '../components/ui/LeftMenuTopNavbar';
 import ToolBar from '../components/ui/ToolBar';
 import QuestionList from '../components/questions/QuestionList';
@@ -25,7 +25,7 @@ function requestData(props) {
     //current === user whose profile is being viewed
     const currentUserId = parseId(user);
 
-    UserActionCreators.requestQuestions(currentUserId);
+    QuestionActionCreators.requestQuestions(currentUserId);
 
 }
 
@@ -37,7 +37,7 @@ function requestLinkData(props, link) {
     const { user } = props;
     const currentUserId = parseId(user);
 
-    UserActionCreators.requestQuestions(currentUserId, link);
+    QuestionActionCreators.requestQuestions(currentUserId, link);
 
 }
 
@@ -132,7 +132,7 @@ export default AuthenticatedComponent(class QuestionsPage extends Component {
         let pagination = this.props.pagination;
         let nextLink = pagination && pagination.hasOwnProperty('nextLink') ? pagination.nextLink : null;
         if (nextLink && document.getElementsByClassName('view')[0].scrollTop + document.getElementsByClassName('view')[0].offsetHeight - 50 === document.getElementById('page-content').offsetHeight) {
-            UserActionCreators.requestNextQuestions(parseId(this.props.user), nextLink);
+            QuestionActionCreators.requestNextQuestions(parseId(this.props.user), nextLink);
         }
     }
 });

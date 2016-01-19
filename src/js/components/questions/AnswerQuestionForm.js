@@ -57,6 +57,14 @@ export default class AnswerQuestionForm extends Component {
                 <form>
                     <div className="answers-block">
                         <div className="list-block accepted-answers">
+                            <div className="answer-question-picture">
+                                <div className="answer-question-other-picture-container">
+                                    <div className="answer-question-other-picture">
+                                        <img src={this.props.defaultPicture} />
+                                    </div>
+                                </div>
+                            </div>
+
                             <ul>
                                 {answers.map((answer, index) => {
                                     return (
@@ -66,6 +74,13 @@ export default class AnswerQuestionForm extends Component {
                             </ul>
                         </div>
                         <div className="list-block answers">
+                            <div className="answer-question-picture">
+                                <div className="answer-question-own-picture-container">
+                                    <div className="answer-question-own-picture">
+                                        <img src={this.props.ownPicture} />
+                                    </div>
+                                </div>
+                            </div>
                             <ul>
                                 {answers.map((answer, index) => {
                                     return (

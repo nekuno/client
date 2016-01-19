@@ -17,6 +17,34 @@ body #root .App .view .page.answer-question-page  {
             float: left;
             width: 82%;
 
+            .answer-question-picture {
+              margin-right: -10px;
+              text-align: right;
+
+              .answer-question-own-picture-container, .answer-question-other-picture-container {
+                background-color: #fff;
+                border-radius: 50%;
+                display: inline-block;
+                height: 42px;
+                width: 42px;
+
+                .answer-question-own-picture, .answer-question-other-picture {
+                  border-radius: 50%;
+                  height: 40px;
+                  margin: 1px 0 0 1px;
+                  width: 40px;
+
+                  img {
+                    border-radius: 50%;
+                    height: 40px;
+                    width: 40px;
+                  }
+                }
+              }
+              .answer-question-other-picture-container {
+                margin-left: 2%;
+              }
+            }
             ul {
               li {
                 .label-checkbox {

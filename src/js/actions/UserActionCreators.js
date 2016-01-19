@@ -1,6 +1,7 @@
 import { dispatchAsync, dispatch } from '../dispatcher/Dispatcher';
 import ActionTypes from '../constants/ActionTypes';
 import * as UserAPI from '../api/UserAPI';
+import * as QuestionAPI from '../api/QuestionAPI';
 import UserStore from '../stores/UserStore';
 import RecommendationsByThreadStore from '../stores/RecommendationsByThreadStore';
 import ThreadsByUserStore from '../stores/ThreadsByUserStore';
@@ -145,7 +146,7 @@ export function recommendationsNext(threadId) {
 }
 
 export function requestQuestions(userId, link, fields) {
-    dispatchAsync(UserAPI.getQuestions(userId, link), {
+    dispatchAsync(QuestionAPI.getQuestions(userId, link), {
         request: ActionTypes.REQUEST_QUESTIONS,
         success: ActionTypes.REQUEST_QUESTIONS_SUCCESS,
         failure: ActionTypes.REQUEST_QUESTIONS_ERROR
@@ -164,7 +165,7 @@ export function requestQuestion(userId, questionId) {
         requestNextQuestion(userId);
     }
     if (!QuestionStore.contains(userId, questionId)) {
-        dispatchAsync(UserAPI.getQuestion(userId, questionId), {
+        dispatchAsync(QuestionAPI.getQuestion(userId, questionId), {
             request: ActionTypes.REQUEST_QUESTION,
             success: ActionTypes.REQUEST_QUESTION_SUCCESS,
             failure: ActionTypes.REQUEST_QUESTION_ERROR
@@ -173,7 +174,7 @@ export function requestQuestion(userId, questionId) {
 }
 
 export function requestNextQuestion(userId) {
-    dispatchAsync(UserAPI.getNextQuestion(userId), {
+    dispatchAsync(QuestionAPI.getNextQuestion(userId), {
         request: ActionTypes.REQUEST_QUESTION,
         success: ActionTypes.REQUEST_QUESTION_SUCCESS,
         failure: ActionTypes.REQUEST_QUESTION_ERROR
@@ -181,7 +182,7 @@ export function requestNextQuestion(userId) {
 }
 
 export function answerQuestion(userId, questionId, answerId, acceptedAnswers, rating) {
-    return dispatchAsync(UserAPI.answerQuestion(userId, questionId, answerId, acceptedAnswers, rating), {
+    return dispatchAsync(QuestionAPI.answerQuestion(userId, questionId, answerId, acceptedAnswers, rating), {
         request: ActionTypes.ANSWER_QUESTION,
         success: ActionTypes.ANSWER_QUESTION_SUCCESS,
         failure: ActionTypes.ANSWER_QUESTION_ERROR

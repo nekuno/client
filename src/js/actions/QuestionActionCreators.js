@@ -46,3 +46,16 @@ export function answerQuestion(userId, questionId, answerId, acceptedAnswers, ra
         failure: ActionTypes.ANSWER_QUESTION_ERROR
     }, {userId, questionId, answerId, acceptedAnswers, rating});
 }
+
+export function skipQuestion(userId, questionId) {
+    let promise = dispatchAsync(QuestionAPI.skipQuestion(userId, questionId), {
+        request: ActionTypes.SKIP_QUESTION,
+        success: ActionTypes.SKIP_QUESTION_SUCCESS,
+        failure: ActionTypes.SKIP_QUESTION_ERROR
+    }, {userId, questionId});
+    promise.then(function() {
+        requestNextQuestion(userId);
+    });
+
+    return promise;
+}

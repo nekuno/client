@@ -247,6 +247,12 @@ export function postAnswer(url, userId, questionId, answerId, acceptedAnswers, r
     });
 }
 
+export function postSkipQuestion(url, userId) {
+    return postData(url, {
+        "userId": userId,
+    });
+}
+
 export function fetchQuestion(url) {
     return fetchAndNormalize(url, questionSchema);
 }

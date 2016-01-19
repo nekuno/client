@@ -2,7 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import { Link } from 'react-router';
 import selectn from 'selectn';
 import { IMAGES_ROOT } from '../constants/Constants';
-import * as UserActionCreators from '../actions/UserActionCreators';
+import * as QuestionActionCreators from '../actions/QuestionActionCreators';
 import LeftMenuTopNavbar from '../components/ui/LeftMenuTopNavbar';
 import AnswerQuestion from '../components/questions/AnswerQuestion';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
@@ -22,7 +22,7 @@ function requestData(props) {
     const { user, questionId } = props;
     const currentUserId = parseUserId(user);
 
-    UserActionCreators.requestQuestion(currentUserId, questionId);
+    QuestionActionCreators.requestQuestion(currentUserId, questionId);
 }
 
 /**

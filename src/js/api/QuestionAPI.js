@@ -1,4 +1,4 @@
-import { fetchQuestions, fetchQuestion, postAnswer } from '../utils/APIUtils';
+import { fetchQuestions, fetchQuestion, postAnswer, postSkipQuestion } from '../utils/APIUtils';
 
 export function getQuestions(userId, url = `users/${userId}/answers`){
     return fetchQuestions(url);
@@ -14,4 +14,8 @@ export function getNextQuestion(userId, url = `questionnaire/questions/next?user
 
 export function answerQuestion(userId, questionId, answerId, acceptedAnswers, rating, url = `users/${userId}/answers`){
     return postAnswer(url, userId, questionId, answerId, acceptedAnswers, rating);
+}
+
+export function skipQuestion(userId, questionId, url = `questionnaire/questions/${questionId}/skip`){
+    return postSkipQuestion(url, userId);
 }

@@ -66,16 +66,13 @@ function initSwiper(thread) {
 function getState(props) {
     const threadId = parseThreadId(props.params);
     const thread = ThreadStore.get(threadId);
-    if (thread === null || thread.category === undefined){
-        return {};
-    }
-    const recommendationIds = RecommendationsByThreadStore.getRecommendationsFromThread(threadId);
+    const recommendationIds = threadId? RecommendationsByThreadStore.getRecommendationsFromThread(threadId) : [];
+    const category = thread? thread.category: null;
 
     let recommendations = [];
-    const category = thread.category;
-    if (category == 'ThreadUsers'){
+    if (thread && category == 'ThreadUsers'){
         recommendations = RecommendationStore.getUserRecommendations(recommendationIds)
-    } else {
+    } else if (thread) {
         recommendations = RecommendationStore.getContentRecommendations(recommendationIds)
     }
 

@@ -28,13 +28,13 @@ function unsetLikeContent(props) {
 export default class CardContent extends Component {
 	static propTypes = {
 		contentId: PropTypes.number.isRequired,
-		title: PropTypes.string.isRequired,
-		description: PropTypes.string.isRequired,
+		title: PropTypes.string,
+		description: PropTypes.string,
 		types: PropTypes.array.isRequired,
 		url: PropTypes.string.isRequired,
-		embed: PropTypes.string.isRequired,
-		embed_type: PropTypes.string.isRequired,
-		thumbnail: PropTypes.string.isRequired,
+		embed_id: PropTypes.string,
+		embed_type: PropTypes.string,
+		thumbnail: PropTypes.string,
 		synonymous: PropTypes.array.isRequired,
 		matching: PropTypes.number.isRequired,
 		rate: PropTypes.bool.isRequired,

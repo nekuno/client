@@ -7,6 +7,7 @@ var concat = require('gulp-concat');
 var connect = require('gulp-connect');
 var rename = require('gulp-rename');
 var uglify = require('gulp-uglify');
+var minifyCss = require('gulp-minify-css');
 
 gulp.task('copy', function() {
     return gulp.src('src/index.html')
@@ -56,9 +57,15 @@ gulp.task('build-js', ['build-vendor-js'], function() {
         .pipe(connect.reload());
 });
 
-gulp.task('minify', ['build'], function() {
+gulp.task('minify-js', ['build'], function() {
     return gulp.src('www/bundle.js')
         .pipe(uglify())
+        .pipe(gulp.dest('./www'));
+});
+
+gulp.task('minify-css', ['sass'], function() {
+    return gulp.src('www/bundle.css')
+        .pipe(minifyCss())
         .pipe(gulp.dest('./www'));
 });
 
@@ -79,5 +86,5 @@ gulp.task('serve', function() {
 });
 
 gulp.task('build', ['copy', 'fonts', 'images', 'sass', 'build-js']);
-gulp.task('release', ['minify']);
+gulp.task('release', ['minify-js', 'minify-css']);
 gulp.task('dev', ['build', 'serve', 'watch']);

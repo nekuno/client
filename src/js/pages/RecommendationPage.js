@@ -67,7 +67,7 @@ function getState(props) {
     const threadId = parseThreadId(props.params);
     const thread = ThreadStore.get(threadId);
     if (thread === null || thread.category === undefined){
-        return null;
+        return {};
     }
     const recommendationIds = RecommendationsByThreadStore.getRecommendationsFromThread(threadId);
 

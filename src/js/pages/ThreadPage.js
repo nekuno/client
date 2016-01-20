@@ -29,7 +29,7 @@ function getState(props) {
     const threadIds = ThreadsByUserStore.getThreadsFromUser(props.user.qnoow_id);
 
     if (!threadIds){
-        return null;
+        return {};
     }
     const threads = threadIds.map(ThreadStore.get);
     return {

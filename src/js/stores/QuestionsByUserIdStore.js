@@ -22,6 +22,7 @@ const handleListAction = createListActionHandler({
 
 QuestionsByUserIdStore.dispatchToken = register(action => {
     waitFor([UserStore.dispatchToken, QuestionStore.dispatchToken]);
+
     const userId = selectn('userId', action);
 
     if (userId)  {

@@ -16,13 +16,6 @@ function parseUserId(user) {
 }
 
 /**
- * Requests data from server (or store) for current props.
- */
-function requestData() {
-    QuestionStore.getQuestion();
-}
-
-/**
  * Retrieves state from stores for current props.
  */
 function getState(props) {
@@ -62,17 +55,8 @@ export default AuthenticatedComponent(class QuestionStatsPage extends Component 
         this.handleContinueClick = this.handleContinueClick.bind(this);
     }
 
-    componentWillMount() {
-        requestData();
-    }
-
-    componentWillUpdate() {
-        requestData();
-    }
-
     render() {
         const user = this.props.user;
-
         return (
             <div className="view view-main">
                 <LeftMenuTopNavbar centerText={'Estadísticas'} rightText={'Continuar'} onRightLinkClickHandler={this.handleContinueClick} />

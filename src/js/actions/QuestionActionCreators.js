@@ -22,12 +22,14 @@ export function requestQuestion(userId, questionId) {
     if (!questionId) {
         requestNextQuestion(userId);
     }
-    if (!QuestionStore.contains(userId, questionId)) {
+    else if (!QuestionStore.contains(userId, questionId)) {
         dispatchAsync(QuestionAPI.getQuestion(userId, questionId), {
             request: ActionTypes.REQUEST_QUESTION,
             success: ActionTypes.REQUEST_QUESTION_SUCCESS,
             failure: ActionTypes.REQUEST_QUESTION_ERROR
         }, {userId, questionId});
+    } else {
+        dispatch(ActionTypes.REQUEST_EXISTING_QUESTION, {userId, questionId});
     }
 }
 

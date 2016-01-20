@@ -14,7 +14,6 @@ export default class Question extends Component {
     };
 
     render() {
-
         let question = this.props.question.question;
         if (!question) {
             return null;
@@ -37,7 +36,7 @@ export default class Question extends Component {
         return (
             <div className="question">
                 <div className="edit-question-button">
-                    <a className="edit-question-link"><span className="icon-edit"></span></a>
+                    <Link to={`/re-answer-question/${question.questionId}`}><span className="icon-edit"></span></Link>
                 </div>
                 <div className="question-title">
                     {question.text}

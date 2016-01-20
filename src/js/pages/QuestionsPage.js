@@ -27,17 +27,6 @@ function requestData(props) {
 
     QuestionActionCreators.requestQuestions(currentUserId);
 
-}
-
-/**
- * Requests next data from server for current props.
- */
-function requestLinkData(props, link) {
-    //user === logged user
-    const { user } = props;
-    const currentUserId = parseId(user);
-
-    QuestionActionCreators.requestQuestions(currentUserId, link);
 
 }
 
@@ -50,7 +39,6 @@ function getState(props) {
     const currentUser = UserStore.get(currentUserId);
     const questions = QuestionStore.get(currentUserId);
     const pagination = QuestionStore.getPagination(currentUserId);
-
     return {
         currentUser,
         pagination,
@@ -86,7 +74,7 @@ export default AuthenticatedComponent(class QuestionsPage extends Component {
     }
 
     render() {
-        if (!this.props.questions) {
+        if (!this.props.questions || !this.props.user) {
             return null;
         }
 

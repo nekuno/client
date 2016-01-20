@@ -19,9 +19,9 @@ function parseUserId(user) {
  * Requests data from server (or store) for current props.
  */
 function requestData(props) {
-    const { user, questionId } = props;
+    const { user, params } = props;
+    const questionId = params.hasOwnProperty('questionId') ? parseInt(params.questionId) : null;
     const currentUserId = parseUserId(user);
-
     QuestionActionCreators.requestQuestion(currentUserId, questionId);
 }
 
@@ -29,14 +29,15 @@ function requestData(props) {
  * Retrieves state from stores for current props.
  */
 function getState(props) {
-    const { user } = props;
+    const { user, params } = props;
     const currentUserId = parseUserId(user);
     const currentUser = UserStore.get(currentUserId);
     const question = QuestionStore.getQuestion();
     const isFirstQuestion = QuestionStore.isFirstQuestion(currentUserId);
-    const questionId = selectn('questionId', question);
+    const questionId = params.hasOwnProperty('questionId') ? parseInt(params.questionId) : selectn('questionId', question);
     const userAnswer = questionId ? QuestionStore.getUserAnswer(currentUserId, questionId) : {};
     const errors = QuestionStore.getErrors();
+    const goToQuestionStats = QuestionStore.mustGoToQuestionStats();
 
     return {
         currentUser,
@@ -44,7 +45,8 @@ function getState(props) {
         isFirstQuestion,
         userAnswer,
         user,
-        errors
+        errors,
+        goToQuestionStats
     };
 }
 
@@ -61,6 +63,7 @@ export default AuthenticatedComponent(class AnswerQuestionPage extends Component
         userAnswer: PropTypes.object,
         isFirstQuestion: PropTypes.bool,
         errors: PropTypes.string,
+        goToQuestionStats: PropTypes.bool,
 
         // Injected by AuthenticatedComponent
         user: PropTypes.object.isRequired
@@ -91,10 +94,13 @@ export default AuthenticatedComponent(class AnswerQuestionPage extends Component
         })
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (selectn('userAnswer.answerId', nextProps)) {
+    componentDidUpdate() {
+        if (this.props.goToQuestionStats) {
             this.context.history.pushState(null, `/question-stats`);
         }
+    }
+
+    componentWillReceiveProps() {
         this.setState({
             ready: true
         })

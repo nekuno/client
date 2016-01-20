@@ -35,6 +35,13 @@ export default class AnswerQuestionForm extends Component {
         };
     }
 
+    componentWillMount() {
+        this.state = {
+            answerId: selectn('userAnswer.answerId', this.props),
+            acceptedAnswers: selectn('userAnswer.acceptedAnswers', this.props) ? this.props.userAnswer.acceptedAnswers : []
+        };
+    }
+
     answerQuestion(importance) {
         let userId = this.props.userId;
         let questionId = this.props.question.questionId;
@@ -46,6 +53,7 @@ export default class AnswerQuestionForm extends Component {
 
     render() {
         let answers = this.props.answers;
+        let acceptedAnswers = selectn('userAnswer.acceptedAnswers', this.props) ? selectn('userAnswer.acceptedAnswers', this.props) : [];
         let userAnswerId = selectn('userAnswer.answerId', this.props);
 
         if (!answers) {
@@ -67,8 +75,14 @@ export default class AnswerQuestionForm extends Component {
 
                             <ul>
                                 {answers.map((answer, index) => {
+                                    let answerChecked = false;
+                                    acceptedAnswers.forEach((answerId) => {
+                                        if (answerId === answer.answerId) {
+                                            answerChecked = true;
+                                        }
+                                    });
                                     return (
-                                        <AcceptedAnswerCheckbox key={index} answer={answer} checked={userAnswerId === answer.answerId} onClickHandler={this.handleOnClickAcceptedAnswer}  />
+                                        <AcceptedAnswerCheckbox key={index} answer={answer} checked={answerChecked} onClickHandler={this.handleOnClickAcceptedAnswer}  />
                                     );
                                 })}
                             </ul>

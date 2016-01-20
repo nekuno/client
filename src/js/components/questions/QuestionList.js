@@ -16,14 +16,12 @@ export default class QuestionList extends Component {
         let questionList = [];
         let questionsLength = this.getObjectLength(questions);
         let counter = 0;
-
         for (let questionId in questions) {
             if (questions.hasOwnProperty(questionId)) {
                 let question = questions[questionId];
                 questionList[counter++] = <Question userId={this.props.userId} userAnswer={question.userAnswer} ownPicture={this.props.ownPicture} defaultPicture={this.props.defaultPicture} key={counter} accessibleKey={counter} question={question} last={counter == questionsLength} />
             }
         }
-
         return (
             <div className="question-list">
                 {questionList.map(question => question)}

@@ -73,6 +73,7 @@ export default class LeftPanel extends Component {
                             <Link to="/notifications" onClick={this.handleGoClickNotifications}>
                                 Mensajes
                             </Link>
+                            <a href="https://nekuno.com">Versión escritorio</a>
                             <Link to="/" onClick={this.logout}>
                                 Salir
                             </Link>

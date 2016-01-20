@@ -6,7 +6,6 @@ import RecommendationsByThreadStore from '../stores/RecommendationsByThreadStore
 import ThreadsByUserStore from '../stores/ThreadsByUserStore';
 import ThreadStore from '../stores/ThreadStore';
 import ProfileStore from '../stores/ProfileStore';
-import QuestionStore from '../stores/QuestionStore';
 
 export function requestUser(userId, fields) {
     // Exit early if we know enough about this user
@@ -43,7 +42,6 @@ export function requestMetadata(userId){
             failure: ActionTypes.REQUEST_METADATA_ERROR
         }, {userId});
     }
-
 }
 
 export function requestThreadPage(userId)
@@ -142,42 +140,6 @@ export function recommendationsNext(threadId) {
             requestRecommendation(threadId, nextUrl);
         }
     }
-}
-
-export function requestQuestions(userId, link, fields) {
-    dispatchAsync(UserAPI.getQuestions(userId, link), {
-        request: ActionTypes.REQUEST_QUESTIONS,
-        success: ActionTypes.REQUEST_QUESTIONS_SUCCESS,
-        failure: ActionTypes.REQUEST_QUESTIONS_ERROR
-    }, {userId});
-}
-
-export function requestNextQuestions(userId, link) {
-    dispatch(ActionTypes.QUESTIONS_NEXT, {userId});
-    if (link) {
-        requestQuestions(userId, link);
-    }
-}
-
-export function requestQuestion(userId, questionId) {
-    if (!questionId) {
-        requestNextQuestion(userId);
-    }
-    if (!QuestionStore.contains(userId, questionId)) {
-        dispatchAsync(UserAPI.getQuestion(userId, questionId), {
-            request: ActionTypes.REQUEST_QUESTION,
-            success: ActionTypes.REQUEST_QUESTION_SUCCESS,
-            failure: ActionTypes.REQUEST_QUESTION_ERROR
-        }, {userId, questionId});
-    }
-}
-
-export function requestNextQuestion(userId) {
-    dispatchAsync(UserAPI.getNextQuestion(userId), {
-        request: ActionTypes.REQUEST_QUESTION,
-        success: ActionTypes.REQUEST_QUESTION_SUCCESS,
-        failure: ActionTypes.REQUEST_QUESTION_ERROR
-    }, {userId});
 }
 
 export function threadsNext(userId) {

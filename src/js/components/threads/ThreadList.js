@@ -5,7 +5,7 @@ import ThreadUsers from './ThreadUsers';
 
 export default class ThreadList extends Component {
     static propTypes = {
-        threads: PropTypes.object.isRequired,
+        threads: PropTypes.array.isRequired,
         userId: PropTypes.number.isRequired
     };
 

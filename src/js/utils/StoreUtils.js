@@ -1,6 +1,7 @@
 import { each, isFunction } from 'underscore';
 import { EventEmitter } from 'events';
 import shallowEqual from 'react-pure-render/shallowEqual';
+import selectn from 'selectn';
 
 const CHANGE_EVENT = 'change';
 
@@ -69,4 +70,17 @@ export function removeFromBag(bag, entities) {
       delete bag[id];
     }
   }
+}
+
+export function getValidationErrors(error) {
+  let validationErrors =  selectn('validationErrors', error);
+  let displayErrors = '';
+
+  for(var key in validationErrors) {
+    if(validationErrors.hasOwnProperty(key)) {
+      displayErrors += validationErrors[key].map(error => error + '<br/>');
+    }
+  }
+
+  return displayErrors;
 }

@@ -8,8 +8,6 @@ export default class AcceptedAnswerCheckbox extends Component {
         answer: PropTypes.object.isRequired,
         checked: PropTypes.bool.isRequired,
         userAnswer: PropTypes.object,
-        ownPicture: PropTypes.string.isRequired,
-        userId: PropTypes.number.isRequired,
         onClickHandler: PropTypes.func
     };
 
@@ -21,7 +19,7 @@ export default class AcceptedAnswerCheckbox extends Component {
 
         return (
             <li>
-                <InputCheckbox value={answer.answerId} name={'accepted-answer'} text={answer.text} checked={checked} onClickHandler={this.props.onClickHandler} />
+                <InputCheckbox value={answer.answerId} name={'acceptedAnswerId'} text={answer.text} checked={checked} onClickHandler={this.props.onClickHandler} />
             </li>
         );
     }

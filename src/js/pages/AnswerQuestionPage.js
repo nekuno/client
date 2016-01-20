@@ -2,7 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import { Link } from 'react-router';
 import selectn from 'selectn';
 import { IMAGES_ROOT } from '../constants/Constants';
-import * as UserActionCreators from '../actions/UserActionCreators';
+import * as QuestionActionCreators from '../actions/QuestionActionCreators';
 import LeftMenuTopNavbar from '../components/ui/LeftMenuTopNavbar';
 import AnswerQuestion from '../components/questions/AnswerQuestion';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
@@ -19,10 +19,10 @@ function parseUserId(user) {
  * Requests data from server (or store) for current props.
  */
 function requestData(props) {
-    const { user, questionId } = props;
+    const { user, params } = props;
+    const questionId = params.hasOwnProperty('questionId') ? parseInt(params.questionId) : null;
     const currentUserId = parseUserId(user);
-
-    UserActionCreators.requestQuestion(currentUserId, questionId);
+    QuestionActionCreators.requestQuestion(currentUserId, questionId);
 }
 
 /**
@@ -33,11 +33,20 @@ function getState(props) {
     const currentUserId = parseUserId(user);
     const currentUser = UserStore.get(currentUserId);
     const question = QuestionStore.getQuestion();
+    const isFirstQuestion = QuestionStore.isFirstQuestion(currentUserId);
+    const questionId = params.hasOwnProperty('questionId') ? parseInt(params.questionId) : selectn('questionId', question);
+    const userAnswer = questionId ? QuestionStore.getUserAnswer(currentUserId, questionId) : {};
+    const errors = QuestionStore.getErrors();
+    const goToQuestionStats = QuestionStore.mustGoToQuestionStats();
 
     return {
         currentUser,
         question,
-        user
+        isFirstQuestion,
+        userAnswer,
+        user,
+        errors,
+        goToQuestionStats
     };
 }
 
@@ -51,34 +60,77 @@ export default AuthenticatedComponent(class AnswerQuestionPage extends Component
 
         // Injected by @connectToStores:
         question: PropTypes.object,
+        userAnswer: PropTypes.object,
+        isFirstQuestion: PropTypes.bool,
+        errors: PropTypes.string,
+        goToQuestionStats: PropTypes.bool,
 
         // Injected by AuthenticatedComponent
         user: PropTypes.object.isRequired
     };
 
+
+    static contextTypes = {
+        history: PropTypes.object.isRequired
+    };
+
+    constructor(props) {
+        super(props);
+
+        this.skipQuestionHandler = this.skipQuestionHandler.bind(this);
+
+        this.state = {
+            ready: false
+        };
+    }
+
     componentWillMount() {
         requestData(this.props);
     }
 
-    render() {
-        if (!this.props.question) {
-            return null;
-        }
+    componentWillUnmount() {
+        this.setState({
+            ready: false
+        })
+    }
 
+    componentDidUpdate() {
+        if (this.props.goToQuestionStats) {
+            this.context.history.pushState(null, `/question-stats`);
+        }
+    }
+
+    componentWillReceiveProps() {
+        this.setState({
+            ready: true
+        })
+    }
+
+    render() {
         const user = this.props.user;
-        const userId = user.qnoow_id;
-        const ownPicture = this.props.user && this.props.user.picture ? `${IMAGES_ROOT}/media/cache/user_avatar_60x60/bundles/qnoowweb/images/${user.picture}` : `${IMAGES_ROOT}/media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
+        const userId = selectn('qnoow_id', user);
+        const ownPicture = selectn('picture', user) ? `${IMAGES_ROOT}/media/cache/user_avatar_60x60/bundles/qnoowweb/images/${user.picture}` : `${IMAGES_ROOT}/media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
         const defaultPicture = `${IMAGES_ROOT}/media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
 
         return (
             <div className="view view-main">
-                <LeftMenuTopNavbar centerText={'Pregunta'} rightText={'Omitir'}/>
+                <LeftMenuTopNavbar centerText={'Pregunta'} rightText={'Omitir'} onRightLinkClickHandler={this.skipQuestionHandler} />
                 <div data-page="index" className="page answer-question-page">
                     <div id="page-content" className="answer-question-content">
-                        <AnswerQuestion question={this.props.question} userId={userId} ownPicture={ownPicture} defaultPicture={defaultPicture} />
+                        {this.props.question && this.state.ready ?
+                            <AnswerQuestion question={this.props.question} userAnswer={this.props.userAnswer} isFirstQuestion={this.props.isFirstQuestion} userId={userId} errors={this.props.errors} ownPicture={ownPicture} defaultPicture={defaultPicture} />
+                            :
+                            <h1>Loading...</h1>
+                        }
                     </div>
                 </div>
             </div>
         );
+    }
+
+    skipQuestionHandler() {
+        let userId = parseUserId(this.props.user);
+        let questionId = this.props.question.questionId;
+        QuestionActionCreators.skipQuestion(userId, questionId);
     }
 });

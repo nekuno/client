@@ -33,7 +33,7 @@ export default class ThreadUsers extends Component {
                     </div>
                     <div className="thread-images">
                         {thread.cached.map((item, index) => index !== 0 && item.image ?
-                            <div className="thread-image"><img src={item.image} /></div> : '')}
+                            <div key={item.image} className="thread-image"><img src={item.image} /></div> : '')}
                     </div>
                     <ChipList chips={[
                         {

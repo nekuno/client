@@ -5,7 +5,8 @@ export default class InputRadio extends Component {
 		value: PropTypes.number.isRequired,
 		name: PropTypes.string.isRequired,
 		text: PropTypes.string.isRequired,
-		checked: PropTypes.bool.isRequired
+		checked: PropTypes.bool.isRequired,
+		onClickHandler: PropTypes.func.isRequired
 	};
 
 	render() {
@@ -14,7 +15,7 @@ export default class InputRadio extends Component {
 				<div className="item-inner">
 					<div className="item-title">{this.props.text}</div>
 				</div>
-				<input type="radio" name={this.props.name} value={this.props.value} defaultChecked={this.props.checked} />
+				<input type="radio" name={this.props.name} value={this.props.value} defaultChecked={this.props.checked} onClick={this.props.onClickHandler} />
 				<div className="item-media">
 					<i className="icon icon-form-checkbox"></i>
 				</div>

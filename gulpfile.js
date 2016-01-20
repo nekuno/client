@@ -6,19 +6,21 @@ var sass = require('gulp-sass');
 var concat = require('gulp-concat');
 var connect = require('gulp-connect');
 var rename = require('gulp-rename');
+var uglify = require('gulp-uglify');
+var minifyCss = require('gulp-minify-css');
 
 gulp.task('copy', function() {
-    gulp.src('src/index.html')
+    return gulp.src('src/index.html')
         .pipe(gulp.dest('www/'));
 });
 
 gulp.task('fonts', function() {
-    gulp.src('src/scss/fonts/*')
+    return gulp.src('src/scss/fonts/*')
         .pipe(gulp.dest('www/fonts/'));
 });
 
 gulp.task('images', function() {
-    gulp.src(['src/scss/img/*', 'src/scss/img/**/*'])
+    return gulp.src(['src/scss/img/*', 'src/scss/img/**/*'])
         .pipe(gulp.dest('www/img/'));
 });
 
@@ -55,6 +57,18 @@ gulp.task('build-js', ['build-vendor-js'], function() {
         .pipe(connect.reload());
 });
 
+gulp.task('minify-js', ['build'], function() {
+    return gulp.src('www/bundle.js')
+        .pipe(uglify())
+        .pipe(gulp.dest('./www'));
+});
+
+gulp.task('minify-css', ['sass'], function() {
+    return gulp.src('www/bundle.css')
+        .pipe(minifyCss())
+        .pipe(gulp.dest('./www'));
+});
+
 // Rerun tasks whenever a file changes.
 gulp.task('watch', ['build'], function() {
     gulp.watch('./src/scss/**/*', ['sass']);
@@ -72,4 +86,5 @@ gulp.task('serve', function() {
 });
 
 gulp.task('build', ['copy', 'fonts', 'images', 'sass', 'build-js']);
+gulp.task('release', ['minify-js', 'minify-css']);
 gulp.task('dev', ['build', 'serve', 'watch']);

@@ -12,7 +12,7 @@ const ThreadStore = createStore({
     get(id) {
 
         if (!this.contains(id)){
-            return null;
+            return {};
         }
         return _threads[id];
     },

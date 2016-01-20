@@ -235,6 +235,24 @@ export function fetchQuestions(url) {
     });
 }
 
+export function postAnswer(url, userId, questionId, answerId, acceptedAnswers, rating) {
+    return postData(url, {
+        "userId": userId,
+        "questionId": questionId,
+        "answerId": answerId,
+        "acceptedAnswers": acceptedAnswers,
+        "rating": rating,
+        "explanation": '',
+        "isPrivate": false
+    });
+}
+
+export function postSkipQuestion(url, userId) {
+    return postData(url, {
+        "userId": userId,
+    });
+}
+
 export function fetchQuestion(url) {
     return fetchAndNormalize(url, questionSchema);
 }

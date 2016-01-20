@@ -27,11 +27,8 @@ function requestData(props) {
  */
 function getState(props) {
     const threadIds = ThreadsByUserStore.getThreadsFromUser(props.user.qnoow_id);
+    const threads = threadIds? threadIds.map(ThreadStore.get) : [];
 
-    if (!threadIds){
-        return {};
-    }
-    const threads = threadIds.map(ThreadStore.get);
     return {
         threads
     };
@@ -46,7 +43,7 @@ export default AuthenticatedComponent(class ThreadPage extends Component {
         }).isRequired,
 
         // Injected by @connectToStores:
-        threads: PropTypes.object
+        threads: PropTypes.array
     };
 
     componentWillMount() {

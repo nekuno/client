@@ -63,7 +63,7 @@ export default class ThreadUsers extends Component {
 
         thread.cached[0] = thread.cached[0] ? thread.cached[0] : [];
         images[0] = thread.cached[0].picture ?
-                `${IMAGES_ROOT}media/cache/user_avatar_180x180/user/images/${thread.cached[0].picture}` :
+                `${IMAGES_ROOT}media/cache/resolve/user_avatar_180x180/user/images/${thread.cached[0].picture}` :
                 `${IMAGES_ROOT}media/cache/user_avatar_180x180/bundles/qnoowweb/images/user-no-img.jpg`;
 
         images.forEach((item, index) => {if (thread.cached[index]) { thread.cached[index].image = item }});

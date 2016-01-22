@@ -14,12 +14,11 @@ export default class OtherProfileData extends Component {
 
     render() {
         const { matching, similarity, stats, ownImage, currentImage } = this.props;
-        let imgSrc = currentImage ? `${IMAGES_ROOT}/media/cache/user_avatar_180x180/user/images/${currentImage}` : `${IMAGES_ROOT}/media/cache/user_avatar_180x180/bundles/qnoowweb/images/user-no-img.jpg`;
 
         return (
             <div className="other-profile-data">
                 <div className="other-profile-left">
-                    <ProfilesAvatarConnection ownPicture={ownImage} otherPicture={imgSrc} />
+                    <ProfilesAvatarConnection ownPicture={ownImage} otherPicture={currentImage} />
                     <div className = "other-profile-stats">
                         <div className = "other-profile-stats">20 Coincidencias</div>
                         <div className = "other-profile-stats">5 Intereses similares</div>

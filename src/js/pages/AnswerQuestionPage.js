@@ -109,8 +109,8 @@ export default AuthenticatedComponent(class AnswerQuestionPage extends Component
     render() {
         const user = this.props.user;
         const userId = selectn('qnoow_id', user);
-        const ownPicture = selectn('picture', user) ? `${IMAGES_ROOT}/media/cache/user_avatar_60x60/bundles/qnoowweb/images/${user.picture}` : `${IMAGES_ROOT}/media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
-        const defaultPicture = `${IMAGES_ROOT}/media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
+        const ownPicture = user.picture ? `${IMAGES_ROOT}media/cache/resolve/user_avatar_60x60/user/images/${user.picture}` : `${IMAGES_ROOT}media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
+        const defaultPicture = `${IMAGES_ROOT}media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
         const isRegisterQuestion = selectn('question.isRegisterQuestion', this.props);
 
         return (

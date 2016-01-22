@@ -93,8 +93,8 @@ export default AuthenticatedComponent(class OtherQuestionsPage extends Component
             return null;
         }
 
-        const ownPicture = this.props.user && this.props.user.picture ? `${IMAGES_ROOT}/media/cache/user_avatar_60x60/user/images/${this.props.user.picture}` : `${IMAGES_ROOT}/media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
-        const otherPicture = this.props.otherUser && this.props.otherUser.picture ? `${IMAGES_ROOT}/media/cache/user_avatar_60x60/user/images/${this.props.otherUser.picture}` : `${IMAGES_ROOT}/media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
+        const ownPicture = this.props.user && this.props.user.picture ? `${IMAGES_ROOT}media/cache/resolve/user_avatar_60x60/user/images/${this.props.user.picture}` : `${IMAGES_ROOT}media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
+        const otherPicture = this.props.otherUser && this.props.otherUser.picture ? `${IMAGES_ROOT}media/cache/resolve/user_avatar_60x60/user/images/${this.props.otherUser.picture}` : `${IMAGES_ROOT}media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
         return (
             <div className="view view-main" onScroll={this.handleScroll}>
                 <RegularTopNavbar leftText={'Cancelar'} centerText={this.props.otherUser.username}/>

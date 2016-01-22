@@ -104,10 +104,6 @@ QuestionStore.dispatchToken = register(action => {
         //let userAnswerAndQuestion = { question: userAnswerQuestion, userAnswer: userAnswer };
         //mergeIntoBag(_questions[userId], userAnswerAndQuestion);
         _questions[userId][userAnswer.questionId] = { question: userAnswerQuestion, userAnswer: userAnswer };
-        // TODO: userAnswer seems to have sometimes the old values, so we get from action directly (apparently solved)
-        //_questions[userId][userAnswer.questionId].userAnswer.answerId = action.answerId;
-        //_questions[userId][userAnswer.questionId].userAnswer.acceptedAnswers = action.acceptedAnswers;
-
         _goToQuestionStats = true;
         QuestionStore.emitChange();
     }

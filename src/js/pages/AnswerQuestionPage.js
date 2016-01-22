@@ -111,10 +111,11 @@ export default AuthenticatedComponent(class AnswerQuestionPage extends Component
         const userId = selectn('qnoow_id', user);
         const ownPicture = selectn('picture', user) ? `${IMAGES_ROOT}/media/cache/user_avatar_60x60/bundles/qnoowweb/images/${user.picture}` : `${IMAGES_ROOT}/media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
         const defaultPicture = `${IMAGES_ROOT}/media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
+        const isRegisterQuestion = selectn('question.isRegisterQuestion', this.props);
 
         return (
             <div className="view view-main">
-                <LeftMenuTopNavbar centerText={'Pregunta'} rightText={'Omitir'} onRightLinkClickHandler={this.skipQuestionHandler} />
+                <LeftMenuTopNavbar centerText={'Pregunta'} rightText={isRegisterQuestion ? '' : 'Omitir'} onRightLinkClickHandler={isRegisterQuestion ? null : this.skipQuestionHandler} />
                 <div data-page="index" className="page answer-question-page">
                     <div id="page-content" className="answer-question-content">
                         {this.props.question && this.state.ready ?

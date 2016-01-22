@@ -25,6 +25,24 @@ body #root .App .view .page.questions-page  {
         .answer-questions-link-stats {
           font-size: 12px;
           margin-top: 10px;
+
+          p {
+            margin: 0;
+          }
+        }
+        .answer-questions-link-picture {
+          float: right;
+          max-height: 45px;
+          margin-bottom: -90px;
+          margin-top: -35px;
+          overflow: hidden;
+          width: 90px;
+
+          img {
+            border-radius: 50%;
+            width: 90px;
+          }
+
         }
       }
     }

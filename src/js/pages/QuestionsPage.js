@@ -20,14 +20,10 @@ function parseId(user) {
  * Requests data from server for current props.
  */
 function requestData(props) {
-    //user === logged user
-    const { params, user, userLoggedIn } = props;
-    //current === user whose profile is being viewed
+    const { user } = props;
     const currentUserId = parseId(user);
 
     QuestionActionCreators.requestQuestions(currentUserId);
-
-
 }
 
 /**
@@ -79,6 +75,7 @@ export default AuthenticatedComponent(class QuestionsPage extends Component {
         }
 
         const ownPicture = this.props.user && this.props.user.picture ? `${IMAGES_ROOT}/media/cache/user_avatar_60x60/user/images/${this.props.user.picture}` : `${IMAGES_ROOT}/media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
+        const ownBigPicture = this.props.user && this.props.user.picture ? `${IMAGES_ROOT}/media/cache/user_avatar_180x180/user/images/${this.props.user.picture}` : `${IMAGES_ROOT}/media/cache/user_avatar_180x180/bundles/qnoowweb/images/user-no-img.jpg`;
         const defaultPicture = `${IMAGES_ROOT}/media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
         return (
             <div className="view view-main" onScroll={this.handleScroll}>
@@ -94,7 +91,12 @@ export default AuthenticatedComponent(class QuestionsPage extends Component {
                                     Responde más preguntas del test
                                 </div>
                                 <div className="answer-questions-link-stats">
-                                    645 de 1234 preguntas completadas
+                                    {/** TODO: Use props from own stats */}
+                                    <p>645 de 1234</p>
+                                    <p>preguntas completadas</p>
+                                </div>
+                                <div className="answer-questions-link-picture">
+                                    <img src={ownBigPicture} />
                                 </div>
                             </Link>
                         </div>

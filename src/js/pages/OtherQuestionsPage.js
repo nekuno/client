@@ -95,7 +95,6 @@ export default AuthenticatedComponent(class OtherQuestionsPage extends Component
                 <RegularTopNavbar leftText={'Cancelar'} centerText={this.props.otherUser.username}/>
                 <div data-page="index" className="page other-questions-page">
                     <div id="page-content" className="other-questions-content">
-
                         <OtherQuestionList otherQuestions={this.props.otherQuestions} questions={this.props.questions} userId={this.props.user.qnoow_id} ownPicture={ownPicture} otherPicture={otherPicture} />
                         <div className="loading-gif" style={{display: this.props.pagination.nextLink}}></div>
                         <br />

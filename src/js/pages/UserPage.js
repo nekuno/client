@@ -159,7 +159,7 @@ export default AuthenticatedComponent(class UserPage extends Component {
         if (!ownProfile) {
             const ownPicture = user && user.picture ? user.picture : `${IMAGES_ROOT}/media/cache/user_avatar_180x180/bundles/qnoowweb/images/user-no-img.jpg`;
             otherProfileHTML =
-                <div className="otherProfileWrapper" >
+                <div className="other-profile-wrapper" >
                     <OtherProfileData matching = {matching} similarity = {similarity} stats = {stats} ownImage = {ownPicture} currentImage = {currentPicture} />
                 </div>
         }
@@ -167,7 +167,7 @@ export default AuthenticatedComponent(class UserPage extends Component {
         return (
             <div className="view view-main">
                 <div data-page="index" className="page toolbar-fixed user-page">
-                    <LeftMenuTopNavbar centerText={'Mi Perfil'} />
+                    <LeftMenuTopNavbar centerText={currentUser && !ownProfile ? currentUser.username : 'Mi Perfil'} />
 
                     <div id="page-content">
 
@@ -185,7 +185,7 @@ export default AuthenticatedComponent(class UserPage extends Component {
                                     Intereses
                                 </div>
                             </div>
-                            : <div className="otherProfileLikeButton"><Button onClick={this.onRate}>{likeText}</Button></div>
+                            : <div className="other-profile-like-button"><Button onClick={this.onRate}>{likeText}</Button></div>
                         }
 
                         {otherProfileHTML}
@@ -208,20 +208,6 @@ export default AuthenticatedComponent(class UserPage extends Component {
                 {'url': `/users/${selectn('qnoow_id', currentUser)}/other-interests`, 'text': 'Intereses'}]
 
                 } activeLinkIndex={0}/>
-            </div>
-        );
-    }
-
-    renderList() {
-        const { params } = this.props;
-        return (
-            <div>
-                <p>{params.userId}</p>
-                <ul>
-                    <li>1</li>
-                    <li>2</li>
-                    <li>3</li>
-                </ul>
             </div>
         );
     }

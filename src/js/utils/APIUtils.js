@@ -51,6 +51,8 @@ const threadsSchema = new Schema('threads');
 
 const questionsAndAnswersSchema = new Schema('items', {idAttribute: getQuestionId});
 
+const comparedQuestionsAndAnswersSchema = new Schema('items', {idAttribute: getUserId});
+
 const questionsSchema = new Schema('questions', {idAttribute: 'questionId'});
 
 const questionSchema = new Schema('question', {idAttribute: 'questionId'});
@@ -78,12 +80,17 @@ function getQuestionId(entity) {
     return selectn('question.questionId', entity);
 }
 
+function getUserId(entity) {
+    return parseInt(selectn('userId', entity));
+}
+
 const recommendationSchema = new Schema('recommendation', {idAttribute: getRecommendationId});
 
 questionsAndAnswersSchema.define({
     questions: arrayOf(questionsSchema),
     userAnswers: arrayOf(userAnswersSchema)
 });
+
 
 /**
  * Fetches an API response and normalizes the result JSON according to schema.
@@ -231,6 +238,13 @@ export function fetchRecommendation(url) {
 export function fetchQuestions(url) {
     return fetchAndNormalize(url, {
         items     : arrayOf(questionsAndAnswersSchema),
+        pagination: {}
+    });
+}
+
+export function fetchComparedQuestions(url) {
+    return fetchAndNormalize(url, {
+        items     : arrayOf(comparedQuestionsAndAnswersSchema),
         pagination: {}
     });
 }

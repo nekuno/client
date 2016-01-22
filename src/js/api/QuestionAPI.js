@@ -1,7 +1,11 @@
-import { fetchQuestions, fetchQuestion, postAnswer, postSkipQuestion } from '../utils/APIUtils';
+import { fetchQuestions, fetchQuestion, fetchComparedQuestions, postAnswer, postSkipQuestion } from '../utils/APIUtils';
 
 export function getQuestions(userId, url = `users/${userId}/answers`){
     return fetchQuestions(url);
+}
+
+export function getComparedQuestions(userId, otherUserId, url = `users/${otherUserId}/questions/compare-new/${userId}?locale=es`){
+    return fetchComparedQuestions(url);
 }
 
 export function getQuestion(userId, questionId, url = `questionnaire/questions/${questionId}?userId=${userId}&locale=es`){

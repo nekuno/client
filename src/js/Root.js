@@ -34,7 +34,7 @@ export default class Root extends Component {
                     <Route name="other-interests" path="/users/:userId/other-interests" component={OtherInterestsPage}/>
                     <Route name="questions" path="/questions" component={QuestionsPage}/>
                     <Route name="other-questions" path="/users/:userId/other-questions" component={OtherQuestionsPage}/>
-                    <Route name="re-answer-question" path="/re-answer-question/:questionId" component={AnswerQuestionPage}/>
+                    <Route name="answer-question" path="/answer-question/:questionId" component={AnswerQuestionPage}/>
                     <Route name="answer-question-next" path="/answer-question/next" component={AnswerQuestionPage}/>
                     <Route name="question-stats" path="/question-stats" component={QuestionStatsPage}/>
                     <Route name="login" path="/login" component={LoginPage}/>

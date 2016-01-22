@@ -36,19 +36,19 @@ export default class Question extends Component {
         return (
             <div className="question">
                 <div className="edit-question-button">
-                    <Link to={`/re-answer-question/${question.questionId}`}><span className="icon-edit"></span></Link>
+                    <Link to={`/answer-question/${question.questionId}`}><span className="icon-edit"></span></Link>
                 </div>
                 <div className="question-title">
                     {question.text}
                 </div>
-                <Answer text={userAnswerText} answered={true} ownProfile={true} ownPicture={true} {...this.props} />
+                <Answer text={userAnswerText} answered={true} {...this.props} />
 
                 {answers.map((answer, index) => {
                     if (answer.answerId === userAnswer.answerId) {
                         return null;
                     }
                     return (
-                        <Answer key={index} text={answer.text} answered={false} ownProfile={true} ownPicture={true} {...this.props} />
+                        <Answer key={index} text={answer.text} answered={false} {...this.props} />
                     );
                 })}
                 <hr/>

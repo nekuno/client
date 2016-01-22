@@ -119,7 +119,10 @@ export default AuthenticatedComponent(class QuestionsPage extends Component {
     handleScroll() {
         let pagination = this.props.pagination;
         let nextLink = pagination && pagination.hasOwnProperty('nextLink') ? pagination.nextLink : null;
-        if (nextLink && document.getElementsByClassName('view')[0].scrollTop + document.getElementsByClassName('view')[0].offsetHeight - 50 === document.getElementById('page-content').offsetHeight) {
+        let offsetTop = parseInt(document.getElementsByClassName('view')[0].scrollTop + document.getElementsByClassName('view')[0].offsetHeight - 49);
+        let offsetTopMax = parseInt(document.getElementById('page-content').offsetHeight);
+
+        if (nextLink && offsetTop >= offsetTopMax) {
             QuestionActionCreators.requestNextQuestions(parseId(this.props.user), nextLink);
         }
     }

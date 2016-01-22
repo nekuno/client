@@ -53,6 +53,10 @@ export default keyMirror({
     REQUEST_QUESTIONS_SUCCESS      : null,
     REQUEST_QUESTIONS_ERROR        : null,
 
+    REQUEST_COMPARED_QUESTIONS     : null,
+    REQUEST_COMPARED_QUESTIONS_SUCCESS : null,
+    REQUEST_COMPARED_QUESTIONS_ERROR : null,
+
     QUESTIONS_NEXT                 : null,
 
     REQUEST_QUESTION               : null,

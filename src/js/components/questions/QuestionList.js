@@ -25,11 +25,6 @@ export default class QuestionList extends Component {
         return (
             <div className="question-list">
                 {questionList.map(question => question)}
-
-                <div className="loading-gif"></div>
-                <br />
-                <br />
-                <br />
             </div>
         );
     }

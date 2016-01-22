@@ -107,7 +107,7 @@ export default AuthenticatedComponent(class OtherQuestionsPage extends Component
                             <div className="other-questions-stats-title">20 Coincidencias</div>
                         </div>
                         <OtherQuestionList otherQuestions={this.props.otherQuestions} questions={this.props.questions} userId={this.props.user.qnoow_id} ownPicture={ownPicture} otherPicture={otherPicture} />
-                        <div className="loading-gif" style={{display: this.props.pagination.nextLink}}></div>
+                        <div className="loading-gif" style={this.props.pagination.nextLink ? {} : {display: 'none'}}></div>
                         <br />
                         <br />
                         <br />

@@ -29,8 +29,6 @@ export default class OtherQuestionList extends Component {
         return (
             <div className="question-list">
                 {questionList.map(question => question)}
-
-
             </div>
         );
     }

@@ -105,6 +105,10 @@ export default AuthenticatedComponent(class QuestionsPage extends Component {
                         <br />
                         <br />
                         <QuestionList questions={this.props.questions} userId={this.props.user.qnoow_id} ownPicture={ownPicture} defaultPicture={defaultPicture} />
+                        <div className="loading-gif" style={this.props.pagination.nextLink ? {} : {display: 'none'}}></div>
+                        <br />
+                        <br />
+                        <br />
                     </div>
                 </div>
                 <ToolBar links={[

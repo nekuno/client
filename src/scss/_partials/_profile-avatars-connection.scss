@@ -1,7 +1,7 @@
 .profile-avatars-connection {
   height: 50%;
   .small-user-circles {
-    display: inline;
+    display: inline-block;
     line-height: 40px;
     vertical-align: text-bottom;
   }
@@ -12,13 +12,19 @@
     font-size: 5px;
   }
   .small-user-image {
+    background-color: #fff;
+    border-radius: 50%;
+    height: 30px;
     margin-left: 5px;
     margin-right: 5px;
-    display: inline;
+    display: inline-block;
+    width: 30px;
+
     img {
       border-radius: 50%;
       height: auto;
-      width: 15%;
+      margin: 1px 0 0 1px;
+      width: 28px;
     }
 
   }

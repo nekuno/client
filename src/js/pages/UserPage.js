@@ -194,7 +194,12 @@ export default AuthenticatedComponent(class UserPage extends Component {
                             <ProfileDataList profile={profile}/> :
                             <h1>Loading...</h1>
                         }
-
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+                        <br />
                     </div>
                 </div>
 

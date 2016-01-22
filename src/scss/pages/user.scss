@@ -2,9 +2,9 @@
 
 body #root .App .view .page.user-page {
   #page-content {
-    .profileDataList {
+    .profile-data-list {
       margin-top: 30px;
-      .profileData, .profileAboutMe {
+      .profile-data, .profile-about-me {
         color: white;
         display: table;
         width: 100%;
@@ -14,16 +14,16 @@ body #root .App .view .page.user-page {
           margin-top: 5px;
         }
 
-        .profileDataValue {
+        .profile-data-value {
           float: right;
           width: 50%;
         }
-        .profileDataName {
+        .profile-data-name {
           font-weight: bold;
           float: left;
           width: 50%;
         }
-        .profileAboutMeValue {
+        .profile-about-me-value {
           margin-top: 1.5ex;
           width: 100%;
           margin-bottom: 3ex;
@@ -31,7 +31,7 @@ body #root .App .view .page.user-page {
             color: $deep-purple;
           }
         }
-        .profileAboutMeName {
+        .profile-about-me-name {
           font-weight: bold;
           width: 100%;
         }
@@ -39,52 +39,28 @@ body #root .App .view .page.user-page {
       }
     }
 
-    .otherProfileWrapper {
+    .other-profile-wrapper {
       width: 200%;
       background-color: #1E1542;
       margin-left: -50%;
       text-align: center;
     }
 
-    .otherProfileData {
+    .other-profile-data {
       color: white;
       margin: 10px auto;
       display: inline-block;
       width: 50%;
-      .otherProfileLeft {
+      .other-profile-left {
         width: 50%;
         height: 100%;
         float: left;
-        .otherProfileAvatars {
-          height: 50%;
-          .small-user-circles {
-            display: inline;
-            line-height: 40px;
-            vertical-align: text-bottom;
-          }
-          .icon-circle {
-            color: $deep-purple;
-            margin-left: 1.5px;
-            margin-right: 1.5px;
-            font-size: 5px;
-          }
-          .small-user-image {
-            margin-left: 5px;
-            margin-right: 5px;
-            display: inline;
-            img {
-              border-radius: 50%;
-              height: auto;
-              width: 15%;
-            }
 
-          }
-        }
-        .otherProfileStats {
+        .other-profile-stats {
           width: 100%;
         }
       }
-      .otherProfileRight {
+      .other-profile-right {
         width: 50%;
         height: 100%;
         float: right;
@@ -99,9 +75,9 @@ body #root .App .view .page.user-page {
       }
     }
 
-    .otherProfileLikeButton {
+    .other-profile-like-button {
       margin: 0 auto 25px auto;
-      width: 25%;
+      text-align: center;
     }
   }
 }

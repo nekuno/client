@@ -16,7 +16,6 @@ export default class AnswerQuestion extends Component {
     };
 
     render() {
-
         let question = this.props.question;
         let questionId = selectn('questionId', question);
         let userAnswer = this.props.userAnswer;

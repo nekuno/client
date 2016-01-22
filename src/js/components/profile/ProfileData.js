@@ -1,6 +1,4 @@
 import React, { PropTypes, Component } from 'react';
-import shouldPureComponentUpdate from '../../../../node_modules/react-pure-render/function';
-import selectn from 'selectn';
 
 export default class ProfileData extends Component {
     static propTypes = {
@@ -8,14 +6,12 @@ export default class ProfileData extends Component {
         value: PropTypes.string.isRequired
     };
 
-    //shouldComponentUpdate = shouldPureComponentUpdate;
-
     render() {
         const {name, value} = this.props;
 
         return (
-            <div className="profileData">
-                <span className="profileDataName">{name}</span>  <span className="profileDataValue">{value}</span>
+            <div className="profile-data">
+                <span className="profile-data-name">{name}</span>  <span className="profile-data-value">{value}</span>
             </div>
         );
     }

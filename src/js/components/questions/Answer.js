@@ -4,17 +4,14 @@ export default class Answer extends Component {
     static propTypes = {
         text: PropTypes.string.isRequired,
         answered: PropTypes.bool.isRequired,
-        ownProfile: PropTypes.bool.isRequired,
         ownPicture: PropTypes.string.isRequired,
-        defaultPicture: PropTypes.string.isRequired
-
+        defaultPicture: PropTypes.string
     };
 
     render() {
 
         let text = this.props.text;
         let answered = this.props.answered;
-        let ownProfile = this.props.ownProfile;
         let ownPicture = this.props.ownPicture;
         let defaultPicture = this.props.defaultPicture;
 

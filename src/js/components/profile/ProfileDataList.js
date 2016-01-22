@@ -51,7 +51,7 @@ export default class ProfileDataList extends Component {
         }
 
         return (
-            <div className="profileDataList">
+            <div className="profile-data-list">
                 {profileDataList.map(profileDataValue => profileDataValue)}
             </div>
         );

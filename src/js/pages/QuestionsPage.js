@@ -20,14 +20,10 @@ function parseId(user) {
  * Requests data from server for current props.
  */
 function requestData(props) {
-    //user === logged user
-    const { params, user, userLoggedIn } = props;
-    //current === user whose profile is being viewed
+    const { user } = props;
     const currentUserId = parseId(user);
 
     QuestionActionCreators.requestQuestions(currentUserId);
-
-
 }
 
 /**
@@ -78,8 +74,9 @@ export default AuthenticatedComponent(class QuestionsPage extends Component {
             return null;
         }
 
-        const ownPicture = this.props.user && this.props.user.picture ? `${IMAGES_ROOT}/media/cache/user_avatar_60x60/user/images/${this.props.user.picture}` : `${IMAGES_ROOT}/media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
-        const defaultPicture = `${IMAGES_ROOT}/media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
+        const ownPicture = this.props.user && this.props.user.picture ? `${IMAGES_ROOT}media/cache/resolve/user_avatar_60x60/user/images/${this.props.user.picture}` : `${IMAGES_ROOT}media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
+        const ownBigPicture = this.props.user && this.props.user.picture ? `${IMAGES_ROOT}media/cache/resolve/user_avatar_180x180/user/images/${this.props.user.picture}` : `${IMAGES_ROOT}media/cache/user_avatar_180x180/bundles/qnoowweb/images/user-no-img.jpg`;
+        const defaultPicture = `${IMAGES_ROOT}media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
         return (
             <div className="view view-main" onScroll={this.handleScroll}>
                 <LeftMenuTopNavbar centerText={'Mi Perfil'}/>
@@ -94,7 +91,11 @@ export default AuthenticatedComponent(class QuestionsPage extends Component {
                                     Responde más preguntas del test
                                 </div>
                                 <div className="answer-questions-link-stats">
-                                    645 de 1234 preguntas completadas
+                                    <p>{this.props.pagination.total || 0}</p>
+                                    <p>preguntas completadas</p>
+                                </div>
+                                <div className="answer-questions-link-picture">
+                                    <img src={ownBigPicture} />
                                 </div>
                             </Link>
                         </div>
@@ -105,6 +106,10 @@ export default AuthenticatedComponent(class QuestionsPage extends Component {
                         <br />
                         <br />
                         <QuestionList questions={this.props.questions} userId={this.props.user.qnoow_id} ownPicture={ownPicture} defaultPicture={defaultPicture} />
+                        <div className="loading-gif" style={this.props.pagination.nextLink ? {} : {display: 'none'}}></div>
+                        <br />
+                        <br />
+                        <br />
                     </div>
                 </div>
                 <ToolBar links={[
@@ -119,7 +124,10 @@ export default AuthenticatedComponent(class QuestionsPage extends Component {
     handleScroll() {
         let pagination = this.props.pagination;
         let nextLink = pagination && pagination.hasOwnProperty('nextLink') ? pagination.nextLink : null;
-        if (nextLink && document.getElementsByClassName('view')[0].scrollTop + document.getElementsByClassName('view')[0].offsetHeight - 50 === document.getElementById('page-content').offsetHeight) {
+        let offsetTop = parseInt(document.getElementsByClassName('view')[0].scrollTop + document.getElementsByClassName('view')[0].offsetHeight - 49);
+        let offsetTopMax = parseInt(document.getElementById('page-content').offsetHeight);
+
+        if (nextLink && offsetTop >= offsetTopMax) {
             QuestionActionCreators.requestNextQuestions(parseId(this.props.user), nextLink);
         }
     }

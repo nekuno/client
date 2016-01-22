@@ -1,6 +1,4 @@
 import React, { PropTypes, Component } from 'react';
-import shouldPureComponentUpdate from '../../../../node_modules/react-pure-render/function';
-import selectn from 'selectn';
 
 export default class ProfileAboutMe extends Component {
     static propTypes = {
@@ -8,7 +6,6 @@ export default class ProfileAboutMe extends Component {
         value: PropTypes.string.isRequired
     };
 
-    //shouldComponentUpdate = shouldPureComponentUpdate;
     constructor(props) {
         super(props);
         this.toggleSeeMore = this.toggleSeeMore.bind(this);
@@ -28,14 +25,14 @@ export default class ProfileAboutMe extends Component {
             }
         }
         return (
-            <div className="profileAboutMe">
-                <div className="profileAboutMeName">{name}</div>
+            <div className="profile-about-me">
+                <div className="profile-about-me-name">{name}</div>
 
-                <div className="profileAboutMeValue">
+                <div className="profile-about-me-value">
                     {value}
                     {value.length > maxLength
                         ?
-                        <span className="seeMore" onClick={this.toggleSeeMore}>{' '+seeMoreText}</span>
+                        <span className="see-more" onClick={this.toggleSeeMore}>{' '+seeMoreText}</span>
                         : ""
                     }
 
@@ -51,7 +48,6 @@ export default class ProfileAboutMe extends Component {
         let newState = this.state != null? this.state : {};
         newState.seeMore = !newState.seeMore;
         this.setState(newState);
-        //this.state['seeMore'] = (this.state !== null)? !this.state.seeMore : true;
     }
 
 }

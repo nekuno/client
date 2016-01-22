@@ -65,6 +65,8 @@ QuestionStore.dispatchToken = register(action => {
     const userAnswerQuestion = selectn('response.question', action);
     const error = selectn('error', action);
     const userId = selectn('userId', action);
+    const otherUserId = selectn('otherUserId', action);
+    let newItems = {};
     _goToQuestionStats = false;
 
     if (typeof _questions[userId] === "undefined") {
@@ -78,8 +80,19 @@ QuestionStore.dispatchToken = register(action => {
         QuestionStore.emitChange();
     }
     else if (items) {
-        mergeIntoBag(_questions[userId], items);
-        _pagination[userId] = pagination;
+        if (action.type === 'REQUEST_COMPARED_QUESTIONS_SUCCESS') {
+            for (let index in items) {
+                if (items.hasOwnProperty(index)) {
+                    newItems[index] = items[index].questions;
+                }
+            }
+            _pagination[otherUserId] = pagination;
+        } else {
+            newItems[userId] = items;
+            _pagination[userId] = pagination;
+        }
+        mergeIntoBag(_questions, newItems);
+
         QuestionStore.emitChange();
     }
     else if (question) {
@@ -91,10 +104,6 @@ QuestionStore.dispatchToken = register(action => {
         //let userAnswerAndQuestion = { question: userAnswerQuestion, userAnswer: userAnswer };
         //mergeIntoBag(_questions[userId], userAnswerAndQuestion);
         _questions[userId][userAnswer.questionId] = { question: userAnswerQuestion, userAnswer: userAnswer };
-        // TODO: userAnswer seems to have sometimes the old values, so we get from action directly (apparently solved)
-        //_questions[userId][userAnswer.questionId].userAnswer.answerId = action.answerId;
-        //_questions[userId][userAnswer.questionId].userAnswer.acceptedAnswers = action.acceptedAnswers;
-
         _goToQuestionStats = true;
         QuestionStore.emitChange();
     }

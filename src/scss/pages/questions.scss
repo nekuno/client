@@ -25,18 +25,33 @@ body #root .App .view .page.questions-page  {
         .answer-questions-link-stats {
           font-size: 12px;
           margin-top: 10px;
+
+          p {
+            margin: 0;
+          }
+        }
+        .answer-questions-link-picture {
+          float: right;
+          max-height: 45px;
+          margin-bottom: -90px;
+          margin-top: -35px;
+          overflow: hidden;
+          width: 90px;
+
+          img {
+            border-radius: 50%;
+            width: 90px;
+          }
+
         }
       }
     }
     .question-list {
+      margin-top: 20px;
+
       .question {
         color: white;
         margin-bottom: 15px;
-        //background: url('img/provisional-screens/questions_coming_soon.jpg') no-repeat;
-        //background-size: 100% auto;
-        //height: 100%;
-        //margin-left: 0;
-        //margin-right: 0;
 
         .question-title {
           font-weight: bold;

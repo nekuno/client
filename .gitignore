@@ -4,6 +4,7 @@
 # Cordova
 platforms/
 plugins/
+build/
 www/*
 www/**.*
 !www/.gitkeep

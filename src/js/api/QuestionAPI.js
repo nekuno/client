@@ -4,7 +4,7 @@ export function getQuestions(userId, url = `users/${userId}/answers`){
     return fetchQuestions(url);
 }
 
-export function getComparedQuestions(userId, otherUserId, url = `users/${otherUserId}/questions/compare-new/${userId}?locale=es`){
+export function getComparedQuestions(userId, otherUserId, filters, url = `users/${otherUserId}/questions/compare-new/${userId}?locale=es${filters.map(filter => '&'+filter+'=1')}`){
     return fetchComparedQuestions(url);
 }
 

@@ -47,14 +47,11 @@ body #root .App .view .page.questions-page  {
       }
     }
     .question-list {
+      margin-top: 20px;
+
       .question {
         color: white;
         margin-bottom: 15px;
-        //background: url('img/provisional-screens/questions_coming_soon.jpg') no-repeat;
-        //background-size: 100% auto;
-        //height: 100%;
-        //margin-left: 0;
-        //margin-right: 0;
 
         .question-title {
           font-weight: bold;

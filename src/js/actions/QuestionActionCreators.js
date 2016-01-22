@@ -11,8 +11,8 @@ export function requestQuestions(userId, link, fields) {
     }, {userId});
 }
 
-export function requestComparedQuestions(userId, otherUserId, link, fields) {
-    dispatchAsync(QuestionAPI.getComparedQuestions(userId, otherUserId, link), {
+export function requestComparedQuestions(userId, otherUserId, filters, link) {
+    dispatchAsync(QuestionAPI.getComparedQuestions(userId, otherUserId, filters, link), {
         request: ActionTypes.REQUEST_COMPARED_QUESTIONS,
         success: ActionTypes.REQUEST_COMPARED_QUESTIONS_SUCCESS,
         failure: ActionTypes.REQUEST_COMPARED_QUESTIONS_ERROR
@@ -29,7 +29,7 @@ export function requestNextQuestions(userId, link) {
 export function requestNextComparedQuestions(userId, otherUserId, link) {
     dispatch(ActionTypes.QUESTIONS_NEXT, {userId, otherUserId});
     if (link) {
-        requestComparedQuestions(userId, otherUserId, link);
+        requestComparedQuestions(userId, otherUserId, [], link);
     }
 }
 

@@ -26,7 +26,8 @@ export default class OtherQuestion extends Component {
         question.answers.forEach((answer) => {
             if (answer.answerId === userAnswer.answerId) {
                 userAnswer.text = answer.text;
-            } else if (answer.answerId === otherUserAnswer.answerId) {
+            }
+            if (answer.answerId === otherUserAnswer.answerId) {
                 otherUserAnswer.text = answer.text;
             }
         });

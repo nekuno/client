@@ -11,7 +11,6 @@ import ProfilesAvatarConnection from '../components/ui/ProfilesAvatarConnection'
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import connectToStores from '../utils/connectToStores';
 import UserStore from '../stores/UserStore';
-import StatsStore from '../stores/StatsStore';
 import ProfileStore from '../stores/ProfileStore';
 import QuestionStore from '../stores/QuestionStore';
 import QuestionsByUserIdStore from '../stores/QuestionsByUserIdStore';
@@ -23,13 +22,12 @@ function parseId(user) {
 /**
  * Requests data from server for current props.
  */
-function requestData(props) {
+function requestData(props, state) {
     const { user, params } = props;
     const userId = parseId(user);
     const otherUserId = parseInt(params.userId);
     UserActionCreators.requestUser(otherUserId, ['username', 'email', 'picture', 'status']);
-    QuestionActionCreators.requestComparedQuestions(userId, otherUserId);
-    UserActionCreators.requestStats(otherUserId);
+    QuestionActionCreators.requestComparedQuestions(userId, otherUserId, state.filters);
 }
 
 /**
@@ -41,7 +39,6 @@ function getState(props) {
     const otherUserId = parseInt(props.params.userId);
     const currentUser = UserStore.get(currentUserId);
     const otherUser = UserStore.get(otherUserId);
-    const otherUserStats = StatsStore.get(otherUserId);
     const questions = QuestionStore.get(currentUserId);
     const otherQuestions = QuestionStore.get(otherUserId);
     const pagination = QuestionStore.getPagination(otherUserId);
@@ -52,12 +49,11 @@ function getState(props) {
         otherQuestions,
         questions,
         user,
-        otherUser,
-        otherUserStats
+        otherUser
     };
 }
 
-@connectToStores([UserStore, StatsStore, QuestionStore, QuestionsByUserIdStore], getState)
+@connectToStores([UserStore, QuestionStore, QuestionsByUserIdStore], getState)
 export default AuthenticatedComponent(class OtherQuestionsPage extends Component {
     static propTypes = {
         // Injected by React Router:
@@ -70,7 +66,6 @@ export default AuthenticatedComponent(class OtherQuestionsPage extends Component
         otherQuestions: PropTypes.object,
         pagination: PropTypes.object,
         otherUser: PropTypes.object,
-        otherUserStats: PropTypes.object,
         // Injected by AuthenticatedComponent
         user: PropTypes.object
     };
@@ -79,10 +74,14 @@ export default AuthenticatedComponent(class OtherQuestionsPage extends Component
         super(props);
 
         this.handleScroll = this.handleScroll.bind(this);
+
+        this.state = {
+            filters: ['showOnlyCommon']
+        }
     }
 
     componentWillMount() {
-        requestData(this.props);
+        requestData(this.props, this.state);
     }
 
     componentWillUnmount() {
@@ -103,8 +102,7 @@ export default AuthenticatedComponent(class OtherQuestionsPage extends Component
                     <div id="page-content" className="other-questions-content">
                         <div className="other-questions-header-container">
                             <ProfilesAvatarConnection ownPicture={ownPicture} otherPicture={otherPicture} />
-                            {/** TODO: Request from stats (must be included from brain) */}
-                            <div className="other-questions-stats-title">20 Coincidencias</div>
+                            <div className="other-questions-stats-title">{this.props.pagination.total || 0} Coincidencias</div>
                         </div>
                         <OtherQuestionList otherQuestions={this.props.otherQuestions} questions={this.props.questions} userId={this.props.user.qnoow_id} ownPicture={ownPicture} otherPicture={otherPicture} />
                         <div className="loading-gif" style={this.props.pagination.nextLink ? {} : {display: 'none'}}></div>

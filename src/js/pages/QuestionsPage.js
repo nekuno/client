@@ -91,8 +91,7 @@ export default AuthenticatedComponent(class QuestionsPage extends Component {
                                     Responde más preguntas del test
                                 </div>
                                 <div className="answer-questions-link-stats">
-                                    {/** TODO: Use props from own stats */}
-                                    <p>645 de 1234</p>
+                                    <p>{this.props.pagination.total || 0}</p>
                                     <p>preguntas completadas</p>
                                 </div>
                                 <div className="answer-questions-link-picture">

@@ -1,0 +1,24 @@
+@import '../_partials/colors';
+
+body #root .App .view .page {
+  #page-content.register-content {
+    margin: 150px auto 0 auto;
+  }
+
+  .register-title {
+    text-align: center;
+
+    h1 {
+      color: white;
+    }
+
+    h4, p {
+      color: $light-gray;
+    }
+
+    a {
+      color: $deep-purple;
+    }
+
+  }
+}

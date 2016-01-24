@@ -43,6 +43,9 @@ export default class HomePage extends Component {
                         <Link to="/login">
                             <FullWidthButton>Iniciar sesión</FullWidthButton>
                         </Link>
+                        <div className="register">
+                            <span>¿Tienes una invitación?</span> <Link to="/register">Regístrate</Link>
+                        </div>
                     </div>
                 </div>
             </div>

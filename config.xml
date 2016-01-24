@@ -35,4 +35,5 @@
     <engine name="android" spec="~5.0.0" />
     <plugin name="cordova-plugin-whitelist" />
     <plugin name="cordova-plugin-crosswalk-webview" spec="~1.4.0" />
+    <plugin name="cordova-plugin-inappbrowser" spec="~1.2.0" />
 </widget>

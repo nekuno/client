@@ -1,3 +1,5 @@
+@import '../_partials/colors';
+
 .view {
 
   .swiper-container {
@@ -72,6 +74,15 @@
         margin: 5% auto;
         position: relative;
         width: 80%;
+      }
+
+      .register {
+
+        color: white;
+
+        a {
+          color: $deep-purple;
+        }
       }
     }
   }

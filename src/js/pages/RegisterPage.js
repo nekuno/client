@@ -39,7 +39,7 @@ export default class RegisterPage extends Component {
     handleOnChange(e) {
         e.preventDefault();
         var token = e.target.value;
-        token.replace('https://nekuno.com/invitation/', '');
+        token = token.replace('https://nekuno.com/invitation/', '');
         if (token) {
             console.log('Validating token...', token);
             LoginActionCreators.validate(token);

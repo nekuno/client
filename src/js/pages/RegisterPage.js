@@ -6,12 +6,12 @@ import TextInput from '../components/ui/TextInput';
 import FullWidthButton from '../components/ui/FullWidthButton';
 import LoginActionCreators from '../actions/LoginActionCreators';
 import connectToStores from '../utils/connectToStores';
-import LoginStore from '../stores/LoginStore';
+import InvitationStore from '../stores/InvitationStore';
 
 function getState(props) {
 
-    const error = LoginStore.error;
-    const requesting = LoginStore.requesting();
+    const error = InvitationStore.error;
+    const requesting = InvitationStore.requesting();
 
     return {
         error,
@@ -19,7 +19,7 @@ function getState(props) {
     };
 }
 
-@connectToStores([LoginStore], getState)
+@connectToStores([InvitationStore], getState)
 export default class RegisterPage extends Component {
 
     static propTypes = {
@@ -40,8 +40,10 @@ export default class RegisterPage extends Component {
         e.preventDefault();
         var token = e.target.value;
         token.replace('https://nekuno.com/invitation/', '');
-        console.log('Validating token', token);
-        LoginActionCreators.validate(token);
+        if (token) {
+            console.log('Validating token...', token);
+            LoginActionCreators.validate(token);
+        }
     }
 
     render() {
@@ -64,7 +66,7 @@ export default class RegisterPage extends Component {
                             </ul>
                         </div>
                         <div style={{color: '#FFF'}}>
-                            <p>{ requesting ? 'Enviando...' : ''}</p>
+                            <p>{ requesting ? 'Comprobando...' : ''}</p>
                             <p>{ error ? error.error : ''}</p>
                         </div>
                         <div className="register-title">

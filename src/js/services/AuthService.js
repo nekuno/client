@@ -5,9 +5,18 @@ import { LOGIN_URL, VALIDATE_INVITATION_TOKEN_URL } from '../constants/Constants
 
 class AuthService {
 
+    constructor() {
+        this._promise = null;
+    }
+
     validate(token) {
+
         return new Bluebird((resolve, reject) => {
-            request.post(
+
+            if (this._promise) {
+                this._promise.abort();
+            }
+            this._promise = request.post(
                 {
                     protocol: Url.parse(VALIDATE_INVITATION_TOKEN_URL).protocol,
                     url     : VALIDATE_INVITATION_TOKEN_URL + token,

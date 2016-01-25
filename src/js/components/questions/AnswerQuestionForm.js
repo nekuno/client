@@ -103,23 +103,22 @@ export default class AnswerQuestionForm extends Component {
                                 })}
                             </ul>
                         </div>
-                        <AcceptedAnswersImportance irrelevant={this.state.acceptedAnswers.length === answers.length} answeredAndAccepted={this.state.answerId && this.state.acceptedAnswers.length > 0} onClickHandler={this.handleOnClickImportance} />
+                        <AcceptedAnswersImportance irrelevant={this.state.acceptedAnswers.length === answers.length} answeredAndAccepted={this.state.answerId !== null && this.state.acceptedAnswers.length > 0} onClickHandler={this.handleOnClickImportance} />
                     </div>
                 </form>
             </div>
         );
     }
 
-    handleOnClickAcceptedAnswer(event) {
+    handleOnClickAcceptedAnswer(checked, value) {
         if (!this.state.answerId) {
             nekunoApp.alert('Marca primero tu respuesta');
-            event.target.checked = false;
-            return;
+            return false;
         }
 
         let acceptedAnswers = this.state.acceptedAnswers;
-        let acceptedAnswerId = parseInt(event.target.value);
-        if (event.target.checked) {
+        let acceptedAnswerId = parseInt(value);
+        if (checked) {
             acceptedAnswers.push(acceptedAnswerId);
         } else {
             acceptedAnswers = acceptedAnswers.filter(value => value !== acceptedAnswerId);
@@ -128,14 +127,16 @@ export default class AnswerQuestionForm extends Component {
         this.setState({
             acceptedAnswers: acceptedAnswers
         });
+
+        return checked;
     }
 
-    handleOnClickAnswer(event) {
+    handleOnClickAnswer(value) {
         if (!this.state.answerId && this.props.isFirstQuestion) {
             nekunoApp.alert('Marca una o varias opciones en la segunda columna para indicar qué te gustaría que respondiera otro usuario');
         }
 
-        let answerId = parseInt(event.target.value);
+        let answerId = parseInt(value);
 
         this.setState({
             answerId: answerId

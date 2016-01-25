@@ -83,6 +83,28 @@ export default class RegisterPage extends Component {
                             <p>{ requesting ? 'Comprobando...' : ''}</p>
                             <p>{ error ? error.error : ''}</p>
                         </div>
+                        <div className="social-box">
+                            <div>
+                                <a>
+                                    <span className="icon-facebook"></span>
+                                </a>
+                            </div>
+                            <div>
+                                <a>
+                                    <span className="icon-twitter"></span>
+                                </a>
+                            </div>
+                            <div>
+                                <a>
+                                    <span className="icon-google-plus"></span>
+                                </a>
+                            </div>
+                            <div>
+                                <a>
+                                    <span className="icon-spotify"></span>
+                                </a>
+                            </div>
+                        </div>
                         <div className="register-title">
                             <p>Al registrarte, estás aceptando las <a href="https://nekuno.com/static/legal">Condiciones Legales</a> y la <a href="https://nekuno.com/static/privacy">Política de Privacidad</a> de Nekuno.</p>
                         </div>

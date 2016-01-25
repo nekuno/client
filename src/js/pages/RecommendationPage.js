@@ -32,9 +32,18 @@ function requestData(props) {
 function initSwiper(thread) {
     // Init slider and store its instance in recommendationsSwiper variable
     let recommendationsSwiper = nekunoApp.swiper('.swiper-container', {
-        spaceBetween: '-25%',
+        //spaceBetween: '-25%',
         onSlideNextStart: onSlideNextStart,
-        onSlidePrevStart: onSlidePrevStart
+        onSlidePrevStart: onSlidePrevStart,
+        effect: 'coverflow',
+
+        coverflow: {
+            rotate: 50,
+            stretch: 0,
+            depth: 100,
+            modifier: 1,
+            slideShadows : false
+    }
     });
 
     let activeIndex = recommendationsSwiper.activeIndex;

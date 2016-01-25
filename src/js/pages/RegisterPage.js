@@ -22,6 +22,10 @@ function getState(props) {
 @connectToStores([InvitationStore], getState)
 export default class RegisterPage extends Component {
 
+    static contextTypes = {
+        history: PropTypes.object.isRequired
+    };
+
     static propTypes = {
         // Injected by @connectToStores:
         error     : PropTypes.object,
@@ -46,11 +50,21 @@ export default class RegisterPage extends Component {
         }
     }
 
+    componentWillReceiveProps() {
+
+        const token = InvitationStore.token;
+
+        if (token) {
+            this.context.history.pushState(null, '/join');
+        }
+    }
+
     render() {
         const {
             error,
             requesting
             } = this.props;
+
         return (
             <div className="view view-main">
                 <RegularTopNavbar leftText={'Cancelar'} centerText={'Crear cuenta'}/>

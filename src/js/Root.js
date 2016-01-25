@@ -13,6 +13,7 @@ import AnswerQuestionPage from './pages/AnswerQuestionPage';
 import QuestionStatsPage from './pages/QuestionStatsPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
+import RegisterJoinPage from './pages/RegisterJoinPage';
 import UserPage from './pages/UserPage';
 import ThreadPage from './pages/ThreadPage';
 import RecommendationPage from './pages/RecommendationPage';
@@ -40,6 +41,7 @@ export default class Root extends Component {
                     <Route name="question-stats" path="/question-stats" component={QuestionStatsPage}/>
                     <Route name="login" path="/login" component={LoginPage}/>
                     <Route name="register" path="/register" component={RegisterPage}/>
+                    <Route name="join" path="/join" component={RegisterJoinPage}/>
                     <Route name="profile" path="/profile/:userId" component={UserPage}/>
                     <Route name="threads" path="/threads/:userId" component={ThreadPage}/>
                     <Route name="recommendations" path="/users/:userId/recommendations/:threadId" component={RecommendationPage}/>

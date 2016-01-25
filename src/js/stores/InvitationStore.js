@@ -17,6 +17,7 @@ class InvitationStore extends BaseStore {
             case ActionTypes.REQUEST_VALIDATE_INVITATION_USER:
                 this._requesting = true;
                 this._error = null;
+                this._token = null;
                 this.emitChange();
                 break;
 
@@ -30,6 +31,7 @@ class InvitationStore extends BaseStore {
             case ActionTypes.REQUEST_VALIDATE_INVITATION_USER_ERROR:
                 this._requesting = false;
                 this._error = action.error;
+                this._token = null;
                 this.emitChange();
                 break;
 

@@ -34,12 +34,12 @@ export default class QuestionStatsGraph extends Component {
         return (
             <div className="community-question-stats">
                 <div className="female-answer-chart-container">
-                    <canvas id={"female-answer-chart-" + userAnswer.answerId} width="150" height="150"></canvas>
+                    <canvas id={"female-answer-chart-" + userAnswer.answerId}></canvas>
                     <div className="icon-female genre-icon"></div>
                     <div className="genre-text female">Chicas</div>
                 </div>
                 <div className="male-answer-chart-container">
-                    <canvas id={"male-answer-chart-" + userAnswer.answerId} width="150" height="150"></canvas>
+                    <canvas id={"male-answer-chart-" + userAnswer.answerId}></canvas>
                     <div className="icon-male genre-icon"></div>
                     <div className="genre-text male">Chicos</div>
                 </div>
@@ -65,8 +65,18 @@ export default class QuestionStatsGraph extends Component {
             });
         });
 
-        let ctx1 = document.getElementById("female-answer-chart-" + userAnswer.answerId).getContext("2d");
-        let ctx2 = document.getElementById("male-answer-chart-" + userAnswer.answerId).getContext("2d");
+        let femaleElem = document.getElementById("female-answer-chart-" + userAnswer.answerId);
+        let maleElem = document.getElementById("male-answer-chart-" + userAnswer.answerId);
+        let canvasWidth = femaleElem.style.width;
+        let canvasHeight = femaleElem.style.height;
+
+        femaleElem.width = canvasWidth;
+        femaleElem.height = canvasHeight;
+        maleElem.width = canvasWidth;
+        maleElem.height = canvasHeight;
+
+        let ctx1 = femaleElem.getContext("2d");
+        let ctx2 = maleElem.getContext("2d");
 
         if (question.femaleAnswersCount) {
             new Chart(ctx1).Doughnut(femaleStats, options);

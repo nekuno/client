@@ -9,17 +9,40 @@ export default class InputCheckbox extends Component {
 		onClickHandler: PropTypes.func
 	};
 
+	constructor(props) {
+		super(props);
+
+		this.onClickHandler = this.onClickHandler.bind(this);
+
+		this.state = {
+			checked: props.checked
+		}
+	}
+
 	render() {
 		return (
 			<label className="label-checkbox item-content">
 				<div className="item-inner">
 					<div className="item-title">{this.props.text}</div>
 				</div>
-				<input type="checkbox" name={this.props.name} value={this.props.value} defaultChecked={this.props.checked} onClick={this.props.onClickHandler} />
-				<div className="item-media">
+				<input type="checkbox" name={this.props.name} value={this.props.value} checked={this.state.checked} defaultChecked={this.props.checked} />
+				<div className="item-media" onClick={this.onClickHandler}>
 					<i className="icon icon-form-checkbox"></i>
+
 				</div>
 			</label>
 		);
+	}
+
+	onClickHandler() {
+		let _self = this;
+		let checked = !_self.state.checked;
+		let value = _self.props.value;
+		setTimeout(function () {
+			checked = _self.props.onClickHandler(checked, value);
+			_self.setState({'checked': checked});
+		}, 50);
+
+
 	}
 }

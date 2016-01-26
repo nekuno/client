@@ -32,26 +32,24 @@ function requestData(props) {
 function initSwiper(thread) {
     // Init slider and store its instance in recommendationsSwiper variable
     let recommendationsSwiper = nekunoApp.swiper('.swiper-container', {
-        //spaceBetween: '-25%',
         onSlideNextStart: onSlideNextStart,
         onSlidePrevStart: onSlidePrevStart,
         effect: 'coverflow',
-
+        slidesPerView: 'auto',
         coverflow: {
-            rotate: 50,
+            rotate: 30,
             stretch: 0,
             depth: 100,
             modifier: 1,
             slideShadows : false
-    }
+        },
+        centeredSlides: true,
+        grabCursor: true
     });
 
     let activeIndex = recommendationsSwiper.activeIndex;
 
     function onSlideNextStart(swiper) {
-        if (swiper.isEnd) {
-            swiper.updateSlidesSize();
-        }
         while (swiper.activeIndex > activeIndex) {
             activeIndex++;
             UserActionCreators.recommendationsNext(thread.id);
@@ -67,7 +65,10 @@ function initSwiper(thread) {
             }
         }
     }
+
+    return recommendationsSwiper;
 }
+
 
 /**
  * Retrieves state from stores for current props.
@@ -107,7 +108,8 @@ export default AuthenticatedComponent(class RecommendationPage extends Component
 
     constructor() {
         super();
-        this.swiperActive = false;
+
+        this.state = {swiper: null}
     }
 
     componentWillMount() {
@@ -122,16 +124,23 @@ export default AuthenticatedComponent(class RecommendationPage extends Component
     }
 
     componentDidMount() {
-        if (this.props.thread && this.props.recommendations.length > 0 && !this.swiperActive) {
-            initSwiper(this.props.thread);
-            this.swiperActive = true;
+        if (this.props.thread && this.props.recommendations.length > 0 && !this.state.swiper) {
+            this.state = {
+                swiper: initSwiper(this.props.thread)
+            };
         }
     }
 
     componentDidUpdate() {
-        if (this.props.thread && this.props.recommendations.length > 0 && !this.swiperActive) {
-            initSwiper(this.props.thread);
-            this.swiperActive = true;
+        if (!this.props.thread || this.props.recommendations.length == 0) {
+            return;
+        }
+        if (!this.state.swiper) {
+            this.state = {
+                swiper: initSwiper(this.props.thread)
+            };
+        } else {
+            this.state.swiper.updateSlidesSize();
         }
     }
 

@@ -20,6 +20,7 @@ body #root .App .view .page  {
 
         .swiper-slide {
           background-color: $dark-purple;
+          width: 275px;
         }
 
         .swiper-slide-prev, .swiper-slide-next {
@@ -38,9 +39,7 @@ body #root .App .view .page  {
           }
         }
         .recommendation {
-          //margin-left: 12.5%;
           margin: 25px auto 0;
-          width: 75%;
         }
       }
     }

@@ -7,14 +7,17 @@ import FullWidthButton from '../components/ui/FullWidthButton';
 import LoginActionCreators from '../actions/LoginActionCreators';
 import connectToStores from '../utils/connectToStores';
 import InvitationStore from '../stores/InvitationStore';
+import { FACEBOOK_SCOPE } from '../constants/Constants';
 
 function getState(props) {
 
     const error = InvitationStore.error;
+    const token = InvitationStore.token;
     const requesting = InvitationStore.requesting();
 
     return {
         error,
+        token,
         requesting
     };
 }
@@ -35,6 +38,7 @@ export default class RegisterPage extends Component {
     constructor(props) {
         super(props);
         this.handleOnChange = this.handleOnChange.bind(this);
+        this.handleFacebook = this.handleFacebook.bind(this);
         this.state = {
             url: ''
         };
@@ -50,18 +54,33 @@ export default class RegisterPage extends Component {
         }
     }
 
+    handleFacebook(e) {
+        e.preventDefault();
+        var history = this.context.history
+        openFB.login(function(response) {
+            if (response.status === 'connected') {
+                console.log('facebook token', response.authResponse.accessToken);
+                history.pushState(null, '/join');
+            } else {
+                nekunoApp.alert('Facebook login failed: ' + response.error);
+            }
+
+        }, {scope: FACEBOOK_SCOPE});
+    }
+
     componentWillReceiveProps() {
 
         const token = InvitationStore.token;
 
         if (token) {
-            this.context.history.pushState(null, '/join');
+            nekunoApp.alert('Invitación correcta! Conecta ahora una red para registrarte en Nekuno');
         }
     }
 
     render() {
         const {
             error,
+            token,
             requesting
             } = this.props;
 
@@ -83,28 +102,30 @@ export default class RegisterPage extends Component {
                             <p>{ requesting ? 'Comprobando...' : ''}</p>
                             <p>{ error ? error.error : ''}</p>
                         </div>
-                        <div className="social-box">
-                            <div>
-                                <a>
-                                    <span className="icon-facebook"></span>
-                                </a>
+                        { token ?
+                            <div className="social-box">
+                                <div>
+                                    <a onClick={this.handleFacebook}>
+                                        <span className="icon-facebook"></span>
+                                    </a>
+                                </div>
+                                <div>
+                                    <a>
+                                        <span className="icon-twitter"></span>
+                                    </a>
+                                </div>
+                                <div>
+                                    <a>
+                                        <span className="icon-google-plus"></span>
+                                    </a>
+                                </div>
+                                <div>
+                                    <a>
+                                        <span className="icon-spotify"></span>
+                                    </a>
+                                </div>
                             </div>
-                            <div>
-                                <a>
-                                    <span className="icon-twitter"></span>
-                                </a>
-                            </div>
-                            <div>
-                                <a>
-                                    <span className="icon-google-plus"></span>
-                                </a>
-                            </div>
-                            <div>
-                                <a>
-                                    <span className="icon-spotify"></span>
-                                </a>
-                            </div>
-                        </div>
+                            : '' }
                         <div className="register-title">
                             <p>Al registrarte, estás aceptando las <a href="https://nekuno.com/static/legal">Condiciones Legales</a> y la <a href="https://nekuno.com/static/privacy">Política de Privacidad</a> de Nekuno.</p>
                         </div>

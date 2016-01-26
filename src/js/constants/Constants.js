@@ -18,3 +18,5 @@ export const QUESTION_STATS_COLORS = [
     // light green
     '#32ca91'
 ];
+export const FACEBOOK_ID = config.FACEBOOK_ID;
+export const FACEBOOK_SCOPE = config.FACEBOOK_SCOPE;

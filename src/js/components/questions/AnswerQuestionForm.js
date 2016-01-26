@@ -42,6 +42,13 @@ export default class AnswerQuestionForm extends Component {
         };
     }
 
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            answerId: selectn('userAnswer.answerId', nextProps),
+            acceptedAnswers: selectn('userAnswer.acceptedAnswers', nextProps) ? nextProps.userAnswer.acceptedAnswers : []
+        });
+    }
+
     answerQuestion(importance) {
         let userId = this.props.userId;
         let questionId = this.props.question.questionId;
@@ -76,13 +83,19 @@ export default class AnswerQuestionForm extends Component {
                             <ul>
                                 {answers.map((answer, index) => {
                                     let answerChecked = false;
+                                    let defaultAnswerChecked = false;
                                     acceptedAnswers.forEach((answerId) => {
+                                        if (answerId === answer.answerId) {
+                                            defaultAnswerChecked = true;
+                                        }
+                                    });
+                                    this.state.acceptedAnswers.forEach((answerId) => {
                                         if (answerId === answer.answerId) {
                                             answerChecked = true;
                                         }
                                     });
                                     return (
-                                        <AcceptedAnswerCheckbox key={index} answer={answer} checked={answerChecked} onClickHandler={this.handleOnClickAcceptedAnswer}  />
+                                        <AcceptedAnswerCheckbox key={index} answer={answer} checked={answerChecked} defaultChecked={defaultAnswerChecked} onClickHandler={this.handleOnClickAcceptedAnswer}  />
                                     );
                                 })}
                             </ul>
@@ -98,12 +111,12 @@ export default class AnswerQuestionForm extends Component {
                             <ul>
                                 {answers.map((answer, index) => {
                                     return (
-                                        <AnswerRadio key={index} answer={answer} checked={userAnswerId === answer.answerId} onClickHandler={this.handleOnClickAnswer} />
+                                        <AnswerRadio key={index} answer={answer} checked={this.state.answerId === answer.answerId} defaultChecked={userAnswerId === answer.answerId} onClickHandler={this.handleOnClickAnswer} />
                                     );
                                 })}
                             </ul>
                         </div>
-                        <AcceptedAnswersImportance irrelevant={this.state.acceptedAnswers.length === answers.length} answeredAndAccepted={this.state.answerId !== null && this.state.acceptedAnswers.length > 0} onClickHandler={this.handleOnClickImportance} />
+                        <AcceptedAnswersImportance irrelevant={this.state.acceptedAnswers.length === answers.length} answeredAndAccepted={this.state.answerId != null && this.state.acceptedAnswers.length > 0} onClickHandler={this.handleOnClickImportance} />
                     </div>
                 </form>
             </div>
@@ -112,8 +125,7 @@ export default class AnswerQuestionForm extends Component {
 
     handleOnClickAcceptedAnswer(checked, value) {
         if (!this.state.answerId) {
-            nekunoApp.alert('Marca primero tu respuesta');
-            return false;
+            nekunoApp.alert('Marca tu respuesta en la primera columna');
         }
 
         let acceptedAnswers = this.state.acceptedAnswers;
@@ -127,8 +139,6 @@ export default class AnswerQuestionForm extends Component {
         this.setState({
             acceptedAnswers: acceptedAnswers
         });
-
-        return checked;
     }
 
     handleOnClickAnswer(value) {

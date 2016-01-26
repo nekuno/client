@@ -41,10 +41,9 @@ export default class AcceptedAnswersImportance extends Component {
 		);
 	}
 
-	handleOnFewImportanceClick(event) {
+	handleOnFewImportanceClick() {
 		if (!this.props.answeredAndAccepted) {
 			this.showNotCompleteModal();
-			this.preventCheck(event);
 			return;
 		}
 		this.setState({
@@ -53,10 +52,9 @@ export default class AcceptedAnswersImportance extends Component {
 		this.props.onClickHandler('few');
 	}
 
-	handleOnNormalImportanceClick(event) {
+	handleOnNormalImportanceClick() {
 		if (!this.props.answeredAndAccepted) {
 			this.showNotCompleteModal();
-			this.preventCheck(event);
 			return;
 		}
 		this.setState({
@@ -65,10 +63,9 @@ export default class AcceptedAnswersImportance extends Component {
 		this.props.onClickHandler('normal');
 	}
 
-	handleOnALotImportanceClick(event) {
+	handleOnALotImportanceClick() {
 		if (!this.props.answeredAndAccepted) {
 			this.showNotCompleteModal();
-			this.preventCheck(event);
 			return;
 		}
 		this.setState({
@@ -78,6 +75,10 @@ export default class AcceptedAnswersImportance extends Component {
 	}
 
 	handleOnIrrelevantImportanceClick() {
+		if (!this.props.answeredAndAccepted) {
+			this.showNotCompleteModal();
+			return;
+		}
 		this.setState({
 			importance: 'irrelevant'
 		});
@@ -86,9 +87,5 @@ export default class AcceptedAnswersImportance extends Component {
 
 	showNotCompleteModal = function() {
 		nekunoApp.alert('Marca tu respuesta y una o varias opciones en la segunda columna para indicar qué te gustaría que respondiera otro usuario');
-	};
-
-	preventCheck = function(event) {
-		event.target.checked = false;
 	};
 }

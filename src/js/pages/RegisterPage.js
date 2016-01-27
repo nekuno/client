@@ -5,6 +5,7 @@ import RegularTopNavbar from '../components/ui/RegularTopNavbar';
 import TextInput from '../components/ui/TextInput';
 import FullWidthButton from '../components/ui/FullWidthButton';
 import LoginActionCreators from '../actions/LoginActionCreators';
+import ConnectActionCreators from '../actions/ConnectActionCreators';
 import connectToStores from '../utils/connectToStores';
 import InvitationStore from '../stores/InvitationStore';
 import { FACEBOOK_SCOPE } from '../constants/Constants';
@@ -50,16 +51,19 @@ export default class RegisterPage extends Component {
         token = token.replace('https://nekuno.com/invitation/', '');
         if (token) {
             console.log('Validating token...', token);
-            LoginActionCreators.validate(token);
+            ConnectActionCreators.validate(token);
         }
     }
 
     handleFacebook(e) {
         e.preventDefault();
-        var history = this.context.history
+        var history = this.context.history;
+        var token = this.props.token;
         openFB.login(function(response) {
             if (response.status === 'connected') {
-                console.log('facebook token', response.authResponse.accessToken);
+                var accessToken = response.authResponse.accessToken;
+                console.log('accessToken token', accessToken);
+                ConnectActionCreators.connect(token, accessToken, 'facebook');
                 history.pushState(null, '/join');
             } else {
                 nekunoApp.alert('Facebook login failed: ' + response.error);
@@ -68,21 +72,16 @@ export default class RegisterPage extends Component {
         }, {scope: FACEBOOK_SCOPE});
     }
 
-    componentWillReceiveProps() {
-
-        const token = InvitationStore.token;
-
-        if (token) {
-            nekunoApp.alert('Invitación correcta! Conecta ahora una red para registrarte en Nekuno');
-        }
-    }
-
     render() {
         const {
             error,
             token,
             requesting
             } = this.props;
+
+        if (token) {
+            nekunoApp.alert('Invitación correcta! Conecta ahora una red para registrarte en Nekuno');
+        }
 
         return (
             <div className="view view-main">
@@ -104,26 +103,12 @@ export default class RegisterPage extends Component {
                         </div>
                         { token ?
                             <div className="social-box">
-                                <div>
-                                    <a onClick={this.handleFacebook}>
-                                        <span className="icon-facebook"></span>
-                                    </a>
-                                </div>
-                                <div>
-                                    <a>
-                                        <span className="icon-twitter"></span>
-                                    </a>
-                                </div>
-                                <div>
-                                    <a>
-                                        <span className="icon-google-plus"></span>
-                                    </a>
-                                </div>
-                                <div>
-                                    <a>
-                                        <span className="icon-spotify"></span>
-                                    </a>
-                                </div>
+                                <div><a onClick={this.handleFacebook}><span className="icon-facebook"></span></a></div>
+                                {/*
+                                 <div><a><span className="icon-twitter"></span></a></div>
+                                 <div><a><span className="icon-google-plus"></span></a></div>
+                                 <div><a><span className="icon-spotify"></span></a></div>
+                                 */}
                             </div>
                             : '' }
                         <div className="register-title">

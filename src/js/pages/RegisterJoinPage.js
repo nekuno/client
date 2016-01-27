@@ -7,26 +7,33 @@ import PasswordInput from '../components/ui/PasswordInput';
 import FullWidthButton from '../components/ui/FullWidthButton';
 import LoginActionCreators from '../actions/LoginActionCreators';
 import connectToStores from '../utils/connectToStores';
-import LoginStore from '../stores/LoginStore';
+import ConnectStore from '../stores/ConnectStore';
 
-function getState(props) {
+function getState() {
 
-    const error = LoginStore.error;
-    const requesting = LoginStore.requesting();
+    const token = ConnectStore.token;
+    const accessToken = ConnectStore.accessToken;
+    const resource = ConnectStore.resource;
 
     return {
-        error,
-        requesting
+        token,
+        accessToken,
+        resource
     };
 }
 
-@connectToStores([LoginStore], getState)
+@connectToStores([ConnectStore], getState)
 export default class RegisterJoinPage extends Component {
+
+    static contextTypes = {
+        history: PropTypes.object.isRequired
+    };
 
     static propTypes = {
         // Injected by @connectToStores:
-        error     : PropTypes.object,
-        requesting: PropTypes.bool.isRequired
+        token      : PropTypes.string,
+        accessToken: PropTypes.string,
+        resource   : PropTypes.string
     };
 
     constructor() {
@@ -37,9 +44,14 @@ export default class RegisterJoinPage extends Component {
         };
     }
 
-    login(e) {
+    register(e) {
         e.preventDefault();
-        LoginActionCreators.loginUser(this.state.user, this.state.password);
+        const {
+            token,
+            accessToken,
+            resource
+            } = this.props;
+        console.log(this.state, this.props);
     }
 
     linkState(key) {
@@ -47,10 +59,14 @@ export default class RegisterJoinPage extends Component {
     }
 
     render() {
-        const {
-            error,
-            requesting
-            } = this.props;
+
+        const error = false;
+        const requesting = false;
+
+        if (!this.props.token) {
+            this.context.history.pushState(null, '/register');
+        }
+
         return (
             <div className="view view-main">
                 <RegularTopNavbar leftText={'Cancelar'} centerText={'Crear cuenta'}/>
@@ -62,7 +78,7 @@ export default class RegisterJoinPage extends Component {
                                 <PasswordInput placeholder={'Contraseña'} valueLink={this.linkState('password')}/>
                             </ul>
                         </div>
-                        <FullWidthButton type="submit" onClick={this.login.bind(this)}>Completar registro</FullWidthButton>
+                        <FullWidthButton type="submit" onClick={this.register.bind(this)}>Completar registro</FullWidthButton>
                         <div style={{color: '#FFF'}}>
                             <p>{ requesting ? 'Enviando...' : ''}</p>
                             <p>{ error ? error.error : ''}</p>

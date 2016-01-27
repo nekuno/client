@@ -12,6 +12,8 @@ export default keyMirror({
     REQUEST_SIGNUP_USER_ERROR               : null,
     LOGOUT_USER                             : null,
 
+    CONNECT_ACCOUNT: null,
+
     REQUEST_USER        : null,
     REQUEST_USER_SUCCESS: null,
     REQUEST_USER_ERROR  : null,

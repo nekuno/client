@@ -27,6 +27,7 @@ gulp.task('images', function() {
 gulp.task('sass', function() {
     var paths = [
         './node_modules/framework7/dist/css/framework7.ios.css',
+        './node_modules/Framework7-3D-Panels/dist/framework7.3dpanels.css',
         './src/scss/pages/*.scss',
         './src/scss/*.scss'
     ];
@@ -40,7 +41,8 @@ gulp.task('sass', function() {
 
 gulp.task('build-vendor-js', function() {
     var paths = [
-        './node_modules/framework7/dist/js/framework7.min.js'
+        './node_modules/framework7/dist/js/framework7.min.js',
+        './node_modules/Framework7-3D-Panels/dist/framework7.3dpanels.min.js'
     ];
     return gulp.src(paths)
         .pipe(concat('vendor.js'))

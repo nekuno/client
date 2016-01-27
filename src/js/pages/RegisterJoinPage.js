@@ -58,14 +58,16 @@ export default class RegisterJoinPage extends Component {
         return new ReactLink(this.state[key], ReactStateSetters.createStateKeySetter(this, key));
     }
 
+    componentWillMount() {
+        if (!this.props.token) {
+            this.context.history.pushState(null, '/register');
+        }
+    }
+
     render() {
 
         const error = false;
         const requesting = false;
-
-        if (!this.props.token) {
-            this.context.history.pushState(null, '/register');
-        }
 
         return (
             <div className="view view-main">

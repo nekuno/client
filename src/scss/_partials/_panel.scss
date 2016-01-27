@@ -1,7 +1,11 @@
+// This rule is used to fix 3d panel plugin when page height > 100% of screen height
+body.panels-3d.with-panel-left-reveal .views {
+	height: 110%;
+}
+
 .panel {
 	background: $dark-blue;
-	padding-left: 5px;
-	width: 90%;
+	width: 100%;
 
 	a {
 		color: #fff;
@@ -26,10 +30,4 @@
 	}
 }
 
-body.with-panel-left-reveal .views {
-	-webkit-transform: translate3d(90%,0,0);
-	transform: translate3d(90%, 0px, 0px);
-}
-body.with-panel-left-reveal .panel-overlay {
-    margin-left: 90%;
-}
+

@@ -134,7 +134,7 @@ export function recommendationsNext(threadId) {
 
     dispatch(ActionTypes.RECOMMENDATIONS_NEXT, {threadId});
 
-    if (RecommendationsByThreadStore.getPosition(threadId) >= ( RecommendationsByThreadStore.getIds(threadId).length - 3)) {
+    if (RecommendationsByThreadStore.getPosition(threadId) === ( RecommendationsByThreadStore.getIds(threadId).length - 15)) {
         const nextUrl = RecommendationsByThreadStore.getNextPageUrl(threadId);
         if (nextUrl) {
             requestRecommendation(threadId, nextUrl);

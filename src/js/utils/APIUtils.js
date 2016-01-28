@@ -59,6 +59,8 @@ const questionSchema = new Schema('question', {idAttribute: 'questionId'});
 
 const userAnswersSchema = new Schema('userAnswers', {idAttribute: 'questionId'});
 
+const blockedUserSchema = new Schema('blocked', {idAttribute: 'id'});
+
 const likedUserSchema = new Schema('liked', {idAttribute: 'id'});
 
 const likedContentSchema = new Schema('rate', {idAttribute: 'id'});
@@ -284,6 +286,18 @@ export function postSkipQuestion(url, userId) {
 
 export function fetchQuestion(url) {
     return fetchAndNormalize(url, questionSchema);
+}
+
+export function postBlockUser(url) {
+    return postData(url, null, blockedUserSchema);
+}
+
+export function deleteBlockUser(url) {
+    return deleteData(url, null, blockedUserSchema);
+}
+
+export function fetchBlockUser(url) {
+    return fetchAndNormalize(url, blockedUserSchema);
 }
 
 export function postLikeUser(url) {

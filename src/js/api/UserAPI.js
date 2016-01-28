@@ -1,4 +1,8 @@
-import { fetchUser, fetchThreads, fetchRecommendation, fetchUserArray, fetchProfile, fetchMetadata, fetchStats, postLikeUser, deleteLikeUser, fetchLikeUser, postLikeContent, deleteLikeContent, fetchMatching, fetchSimilarity } from '../utils/APIUtils';
+import { fetchUser, fetchThreads, fetchRecommendation, fetchUserArray, fetchProfile, fetchMetadata, fetchStats,
+    postBlockUser, deleteBlockUser, fetchBlockUser,
+    postLikeUser, deleteLikeUser, fetchLikeUser,
+    postLikeContent, deleteLikeContent,
+    fetchMatching, fetchSimilarity } from '../utils/APIUtils';
 
 export function getUser(userId, url = `users/${userId}`) {
     return fetchUser(url);
@@ -22,6 +26,18 @@ export function getThreads(userId, url = `users/${userId}/threads`){
 
 export function getRecommendation(threadId, url = `threads/${threadId}/recommendation`){
     return fetchRecommendation(url);
+}
+
+export function setBlockUser(from, to, url = `users/${from}/blocks/${to}`){
+    return postBlockUser(url);
+}
+
+export function unsetBlockUser(from, to, url = `users/${from}/blocks/${to}`) {
+    return deleteBlockUser(url);
+}
+
+export function getBlockUser(from, to, url = `users/${from}/blocks/${to}`) {
+    return fetchBlockUser(url);
 }
 
 export function setLikeUser(from, to, url = `users/${from}/likes/${to}`){

@@ -7,6 +7,7 @@ import ProfileStore from '../stores/ProfileStore';
 import StatsStore from '../stores/StatsStore';
 import MatchingStore from '../stores/MatchingStore';
 import SimilarityStore from '../stores/SimilarityStore';
+import BlockStore from '../stores/BlockStore';
 import LikeStore from '../stores/LikeStore';
 import User from '../components/User';
 import OtherProfileData from '../components/profile/OtherProfileData';
@@ -41,6 +42,9 @@ function requestData(props) {
         if (!LikeStore.contains(user.qnoow_id, currentUserId)){
             UserActionCreators.requestLikeUser(user.qnoow_id, currentUserId);
         }
+        if (!BlockStore.contains(user.qnoow_id, currentUserId)){
+            UserActionCreators.requestBlockUser(user.qnoow_id, currentUserId);
+        }
 
     }
 
@@ -65,9 +69,11 @@ function getState(props) {
     let matching = 0;
     let similarity = 0;
     let like = 0;
+    let block = 0;
     if (!(userLoggedIn && user && (user.qnoow_id == currentUserId))) {
         matching = MatchingStore.get(currentUserId, user.qnoow_id);
         similarity = SimilarityStore.get(currentUserId, user.qnoow_id);
+        block = BlockStore.get(user.qnoow_id, currentUserId);
         like = LikeStore.get(user.qnoow_id, currentUserId);
     }
 
@@ -77,31 +83,38 @@ function getState(props) {
         stats,
         matching,
         similarity,
+        block,
         like,
         userLoggedIn,
         user
     };
 }
 
-/**
- * Set rate like.
- */
+function setBlockUser(props) {
+    const { user, currentUser } = props;
+
+    UserActionCreators.blockUser(user.qnoow_id, currentUser.qnoow_id);
+}
+
+function unsetBlockUser(props) {
+    const { user, currentUser } = props;
+
+    UserActionCreators.deleteBlockUser(user.qnoow_id, currentUser.qnoow_id);
+}
+
 function setLikeUser(props) {
     const { user, currentUser } = props;
 
     UserActionCreators.likeUser(user.qnoow_id, currentUser.qnoow_id);
 }
 
-/**
- * Unset rate like.
- */
 function unsetLikeUser(props) {
     const { user, currentUser } = props;
 
     UserActionCreators.deleteLikeUser(user.qnoow_id, currentUser.qnoow_id);
 }
 
-@connectToStores([UserStore, ProfileStore, StatsStore, MatchingStore, SimilarityStore, LikeStore], getState)
+@connectToStores([UserStore, ProfileStore, StatsStore, MatchingStore, SimilarityStore, BlockStore, LikeStore], getState)
 export default AuthenticatedComponent(class UserPage extends Component {
     static propTypes = {
         // Injected by React Router:
@@ -123,6 +136,7 @@ export default AuthenticatedComponent(class UserPage extends Component {
         super(props);
 
         this.onRate = this.onRate.bind(this);
+        this.onBlock = this.onBlock.bind(this);
     }
 
     componentWillMount() {
@@ -132,6 +146,14 @@ export default AuthenticatedComponent(class UserPage extends Component {
     componentWillReceiveProps(nextProps) {
         if (parseId(nextProps.params) !== parseId(this.props.params)) {
             requestData(nextProps);
+        }
+    }
+
+    onBlock() {
+        if (!this.props.block){
+            setBlockUser(this.props);
+        } else {
+            unsetBlockUser(this.props);
         }
     }
 
@@ -145,10 +167,11 @@ export default AuthenticatedComponent(class UserPage extends Component {
 
 
     render() {
-        const { userLoggedIn, user, currentUser, profile, stats, matching, similarity, like } = this.props;
+        const { userLoggedIn, user, currentUser, profile, stats, matching, similarity, block, like } = this.props;
         const currentUserId = currentUser ? currentUser.qnoow_id : null;
         const currentPicture = currentUser ? `${IMAGES_ROOT}media/cache/resolve/user_avatar_60x60/user/images/${currentUser.picture}` : `${IMAGES_ROOT}media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
         const likeText = like ? "Ya no me gusta" : "Me gusta";
+        const blockClass = block? "icon-block blocked" : "icon-block";
 
         let ownProfile=false;
         if (userLoggedIn && user && (user.qnoow_id == currentUserId)){
@@ -185,7 +208,10 @@ export default AuthenticatedComponent(class UserPage extends Component {
                                     Intereses
                                 </div>
                             </div>
-                            : <div className="other-profile-like-button"><Button onClick={this.onRate}>{likeText}</Button></div>
+                            :   <div className = "other-profile-buttons">
+                                    <div className="other-profile-like-button"><Button onClick={this.onRate}>{likeText}</Button></div>
+                                    <div className = "other-profile-block-button"><Button onClick = {this.onBlock}><span className={blockClass}></span></Button></div>
+                                </div>
                         }
 
                         {otherProfileHTML}

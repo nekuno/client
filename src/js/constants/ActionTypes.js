@@ -84,6 +84,18 @@ export default keyMirror({
     REQUEST_LIKE_USER_SUCCESS      : null,
     REQUEST_LIKE_USER_ERROR        : null,
 
+    BLOCK_USER                      : null,
+    BLOCK_USER_SUCCESS              : null,
+    BLOCK_USER_ERROR                : null,
+
+    UNBLOCK_USER                    : null,
+    UNBLOCK_USER_SUCCESS            : null,
+    UNBLOCK_USER_ERROR              : null,
+
+    REQUEST_BLOCK_USER              : null,
+    REQUEST_BLOCK_USER_SUCCESS      : null,
+    REQUEST_BLOCK_USER_ERROR        : null,
+
     LIKE_CONTENT                   : null,
     LIKE_CONTENT_SUCCESS           : null,
     LIKE_CONTENT_ERROR             : null,

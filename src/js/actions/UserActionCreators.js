@@ -154,6 +154,22 @@ export function threadsNext(userId) {
     }
 }
 
+export function blockUser(from, to) {
+    dispatchAsync(UserAPI.setBlockUser(from, to), {
+        request: ActionTypes.BLOCK_USER,
+        success: ActionTypes.BLOCK_USER_SUCCESS,
+        failure: ActionTypes.BLOCK_USER_ERROR
+    }, {from, to});
+}
+
+export function deleteBlockUser(from, to) {
+    dispatchAsync(UserAPI.unsetBlockUser(from, to), {
+        request: ActionTypes.UNBLOCK_USER,
+        success: ActionTypes.UNBLOCK_USER_SUCCESS,
+        failure: ActionTypes.UNBLOCK_USER_ERROR
+    }, {from, to});
+}
+
 export function likeUser(from, to) {
     dispatchAsync(UserAPI.setLikeUser(from, to), {
         request: ActionTypes.LIKE_USER,
@@ -183,6 +199,14 @@ export function deleteLikeContent(from, to) {
         request: ActionTypes.UNLIKE_CONTENT,
         success: ActionTypes.UNLIKE_CONTENT_SUCCESS,
         failure: ActionTypes.UNLIKE_CONTENT_ERROR
+    }, {from, to});
+}
+
+export function requestBlockUser(from, to) {
+    dispatchAsync(UserAPI.getBlockUser(from, to), {
+        request: ActionTypes.REQUEST_BLOCK_USER,
+        success: ActionTypes.REQUEST_BLOCK_USER_SUCCESS,
+        failure: ActionTypes.REQUEST_BLOCK_USER_ERROR
     }, {from, to});
 }
 

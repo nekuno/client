@@ -37,6 +37,9 @@ class AuthService {
     }
 
     login(username, password) {
+
+        nekunoApp.showProgressbar();
+
         return new Bluebird((resolve, reject) => {
             request.post(
                 {
@@ -46,6 +49,7 @@ class AuthService {
                     json    : true
                 },
                 (err, response, body) => {
+                    nekunoApp.hideProgressbar();
                     if (err) {
                         return reject(err);
                     }

@@ -65,7 +65,7 @@ export default AuthenticatedComponent(class QuestionStatsPage extends Component 
                         {this.props.userAnswer && this.props.question ?
                             <QuestionStats question={this.props.question} userAnswer={this.props.userAnswer} userId={user.qnoow_id}/>
                             :
-                            <h1>Loading...</h1>
+                            ''
                         }
                     </div>
                 </div>
@@ -74,6 +74,7 @@ export default AuthenticatedComponent(class QuestionStatsPage extends Component 
     }
 
     handleContinueClick() {
+        QuestionStore.deleteQuestion();
         this.context.history.pushState(null, `/answer-question/next`);
     }
 });

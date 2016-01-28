@@ -62,7 +62,7 @@ export default AuthenticatedComponent(class QuestionsPage extends Component {
     }
 
     componentWillMount() {
-        if (Object.keys(this.props.questions).length === 0) {
+        if (Object.keys(this.props.pagination).length === 0) {
             requestData(this.props);
         }
     }

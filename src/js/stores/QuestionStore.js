@@ -34,6 +34,10 @@ const QuestionStore = createStore({
         return this.first(_answerQuestion);
     },
 
+    deleteQuestion() {
+        _answerQuestion = {};
+    },
+
     getErrors() {
         return _errors;
     },

@@ -35,15 +35,14 @@ body #root .App .view .page.threads-page  {
       }
 
       .thread-info-box {
-        color: #fff;
         display: inline-block;
         margin-left: 15px;
         max-width: 63%;
         vertical-align: top;
 
         .thread-title {
-          font-size: 25px;
           line-height: 30px;
+          text-align: left;
           
           a {
             color: #fff;

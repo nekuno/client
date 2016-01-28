@@ -23,7 +23,7 @@ export default class ThreadUsers extends Component {
                     <img src={thread.cached[0].image} />
                 </div>
                 <div className="thread-info-box">
-                    <div className="thread-title">
+                    <div className="title thread-title">
                         <Link to={`users/${userId}/recommendations/${thread.id}`}>
                             {thread.name}
                         </Link>

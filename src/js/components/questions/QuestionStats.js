@@ -24,7 +24,7 @@ export default class QuestionStats extends Component {
 
         return (
             <div className="question-stats">
-                <div className="question-title">
+                <div className="title question-title">
                     {question.text}
                 </div>
                 <div className="your-answer">

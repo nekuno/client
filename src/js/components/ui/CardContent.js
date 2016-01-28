@@ -65,11 +65,11 @@ export default class CardContent extends Component {
 			<div className="card person-card">
 				<div className="card-header">
 					<a href={this.props.url}>
-						<div className="title">
+						<div className="card-title">
 							{title}
 						</div>
 					</a>
-					<div className="sub-title">
+					<div className="card-sub-title">
 						{subTitle}
 					</div>
 				</div>

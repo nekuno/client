@@ -30,7 +30,7 @@ export default class AnswerQuestion extends Component {
             <div>
                 {questionId ?
                     <div className="answer-question">
-                        <div className="answer-question-title">
+                        <div className="title answer-question-title">
                             {question.text}
                         </div>
                         <AnswerQuestionForm answers={answers} {...this.props} />

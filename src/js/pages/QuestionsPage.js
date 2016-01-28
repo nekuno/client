@@ -82,7 +82,7 @@ export default AuthenticatedComponent(class QuestionsPage extends Component {
                     <div id="page-content" className="questions-content">
                         <div className="answer-questions-link-container">
                             <Link to="/answer-question/next">
-                                <div className="answer-questions-link-title">
+                                <div className="title answer-questions-link-title">
                                     ¿Quieres que hilemos más fino?
                                 </div>
                                 <div className="answer-questions-link-text">

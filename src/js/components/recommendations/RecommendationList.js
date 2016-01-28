@@ -30,7 +30,7 @@ export default class RecommendationList extends Component {
 
         return (
             <div className="recommendation-content">
-                <div className="thread-title">
+                <div className="title thread-title">
                     {this.props.thread.name}
                 </div>
                 {this.renderChipList(this.props.thread)}

@@ -57,9 +57,15 @@ body {
 					height: auto;
 
 					#page-content {
+						color: #fff;
 						font-family: $nekuno-font;
 						margin: 50px auto 0 auto;
 						width: 85%;
+
+						.title {
+							font-size: 25px;
+							text-align: center;
+						}
 
 						.list-block .item-content {
 							padding-left: 0;

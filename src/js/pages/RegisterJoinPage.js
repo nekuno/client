@@ -25,7 +25,7 @@ function getState() {
         token,
         accessToken,
         resource,
-        descriptiveGender: metadata ? metadata.descriptiveGender : null
+        metadata
     };
 }
 
@@ -38,10 +38,10 @@ export default class RegisterJoinPage extends Component {
 
     static propTypes = {
         // Injected by @connectToStores:
-        token            : PropTypes.string,
-        accessToken      : PropTypes.string,
-        resource         : PropTypes.string,
-        descriptiveGender: PropTypes.object
+        token      : PropTypes.string,
+        accessToken: PropTypes.string,
+        resource   : PropTypes.string,
+        metadata   : PropTypes.object
     };
 
     constructor() {
@@ -49,10 +49,11 @@ export default class RegisterJoinPage extends Component {
         this.onClickGender = this.onClickGender.bind(this);
         this.onClickDescriptiveGender = this.onClickDescriptiveGender.bind(this);
         this.state = {
-            user    : '',
-            password: '',
-            birthday: '',
-            gender  : ''
+            user             : '',
+            password         : '',
+            birthday         : '',
+            gender           : '',
+            descriptiveGender: {}
         };
     }
 
@@ -71,8 +72,24 @@ export default class RegisterJoinPage extends Component {
         })
     }
 
-    onClickDescriptiveGender(checked, value) {
+    onClickDescriptiveGender(checked, value, uncheck) {
+
+        let descriptiveGender = this.state.descriptiveGender;
+        if (Object.keys(descriptiveGender).length === 5 && checked && !descriptiveGender[value]) {
+            nekunoApp.alert('El máximo de opciones permitidas es 5, desmarca alguna otra opción para elegir esta.');
+            uncheck();
+        } else {
+            if (!checked) {
+                delete descriptiveGender[value]
+            } else {
+                descriptiveGender[value] = checked;
+            }
+        }
+        this.setState({
+            descriptiveGender: descriptiveGender
+        });
         console.log(checked, value);
+        console.log(descriptiveGender);
     }
 
     componentWillMount() {
@@ -86,7 +103,7 @@ export default class RegisterJoinPage extends Component {
 
         const error = false;
         const requesting = false;
-        const descriptiveGender = this.props.descriptiveGender;
+        const metadata = this.props.metadata ? this.props.metadata.descriptiveGender : null;
 
         return (
             <div className="view view-main">
@@ -101,13 +118,13 @@ export default class RegisterJoinPage extends Component {
                             </ul>
                         </div>
                         <RegisterGender onClickHandler={this.onClickGender}/>
-                        { descriptiveGender ?
+                        { metadata ?
                             <div className="list-block">
                                 <ul>
-                                    {Object.keys(descriptiveGender.choices).map((id) => {
-                                        let text = descriptiveGender.choices[id];
+                                    {Object.keys(metadata.choices).map((id) => {
+                                        let text = metadata.choices[id];
                                         return (<li key={id}>
-                                            <InputCheckbox value={id} name={'alternativeGender[]'} text={text} checked={false} defaultChecked={false} onClickHandler={this.onClickDescriptiveGender}/>
+                                            <InputCheckbox value={id} name={'alternativeGender[]'} text={text} defaultChecked={false} onClickHandler={this.onClickDescriptiveGender}/>
                                         </li>)
                                     })}
                                 </ul>

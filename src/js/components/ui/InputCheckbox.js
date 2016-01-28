@@ -33,6 +33,8 @@ export default class InputCheckbox extends Component {
     onClickHandler() {
         let checked = !this.refs.checkbox.checked;
         let value = this.refs.checkbox.value;
-        this.props.onClickHandler(checked, value);
+        this.props.onClickHandler(checked, value, () => {
+            this.refs.checkbox.checked = !this.refs.checkbox.checked;
+        });
     }
 }

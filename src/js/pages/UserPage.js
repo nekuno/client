@@ -50,7 +50,7 @@ function requestData(props) {
 
     UserActionCreators.requestUser(currentUserId, ['username', 'email', 'picture', 'status']);
     UserActionCreators.requestProfile(currentUserId);
-    UserActionCreators.requestMetadata(currentUserId);
+    UserActionCreators.requestMetadata();
     UserActionCreators.requestStats(currentUserId);
 
 }

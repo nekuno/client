@@ -1,7 +1,5 @@
 import { Schema, arrayOf, normalize } from 'normalizr';
-import { camelizeKeys } from 'humps';
 import selectn from 'selectn';
-//import 'core-js/es6/promise';
 import 'whatwg-fetch';
 import Url from 'url';
 import request from 'request';
@@ -42,8 +40,6 @@ const statsSchema = new Schema('stats');
 const matchingSchema = new Schema('matching');
 
 const similaritySchema = new Schema('similarity');
-
-const metadataSchema = new Schema('metadata');
 
 const threadSchema = new Schema('thread', {idAttribute: 'id'});
 
@@ -89,15 +85,24 @@ function getUserId(entity) {
 const recommendationSchema = new Schema('recommendation', {idAttribute: getRecommendationId});
 
 questionsAndAnswersSchema.define({
-    questions: arrayOf(questionsSchema),
+    questions  : arrayOf(questionsSchema),
     userAnswers: arrayOf(userAnswersSchema)
 });
-
 
 /**
  * Fetches an API response and normalizes the result JSON according to schema.
  */
 function fetchAndNormalize(url, schema) {
+
+    return getData(url).then(function(json) {
+        return {
+            ...normalize(json, schema)
+        };
+    });
+
+}
+
+export function getData(url) {
 
     if (url.indexOf(API_ROOT) === -1) {
         url = API_ROOT + url;
@@ -110,15 +115,10 @@ function fetchAndNormalize(url, schema) {
 
     return fetch(url, {headers: headers}).then(response =>
         response.json().then(json => {
-            //const camelizedJson = camelizeKeys(json)
-            //Can we extract nextLink from body here? Promise not resolved is the problem
-
-            nekunoApp.hideProgressbar();
-
-            return {
-                ...normalize(json, schema)
-            };
-        })
+                nekunoApp.hideProgressbar();
+                return json;
+            }
+        )
     );
 }
 
@@ -207,7 +207,7 @@ export function fetchProfile(url) {
 }
 
 export function fetchMetadata(url) {
-    return fetchAndNormalize(url, metadataSchema);
+    return getData(url);
 }
 
 export function fetchStats(url) {
@@ -268,19 +268,19 @@ export function fetchComparedQuestions(url) {
 
 export function postAnswer(url, userId, questionId, answerId, acceptedAnswers, rating) {
     return postData(url, {
-        "userId": userId,
-        "questionId": questionId,
-        "answerId": answerId,
+        "userId"         : userId,
+        "questionId"     : questionId,
+        "answerId"       : answerId,
         "acceptedAnswers": acceptedAnswers,
-        "rating": rating,
-        "explanation": '',
-        "isPrivate": false
+        "rating"         : rating,
+        "explanation"    : '',
+        "isPrivate"      : false
     });
 }
 
 export function postSkipQuestion(url, userId) {
     return postData(url, {
-        "userId": userId,
+        "userId": userId
     });
 }
 

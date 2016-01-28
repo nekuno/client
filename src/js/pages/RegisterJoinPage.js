@@ -7,8 +7,10 @@ import PasswordInput from '../components/ui/PasswordInput';
 import DateInput from '../components/ui/DateInput';
 import FullWidthButton from '../components/ui/FullWidthButton';
 import LoginActionCreators from '../actions/LoginActionCreators';
+import * as UserActionCreators from '../actions/UserActionCreators';
 import connectToStores from '../utils/connectToStores';
 import ConnectStore from '../stores/ConnectStore';
+import ProfileStore from '../stores/ProfileStore';
 import RegisterGender from '../components/ui/RegisterGender';
 
 function getState() {
@@ -16,15 +18,17 @@ function getState() {
     const token = ConnectStore.token;
     const accessToken = ConnectStore.accessToken;
     const resource = ConnectStore.resource;
+    const metadata = ProfileStore.getMetadata();
 
     return {
         token,
         accessToken,
-        resource
+        resource,
+        metadata
     };
 }
 
-@connectToStores([ConnectStore], getState)
+@connectToStores([ConnectStore, ProfileStore], getState)
 export default class RegisterJoinPage extends Component {
 
     static contextTypes = {
@@ -68,12 +72,14 @@ export default class RegisterJoinPage extends Component {
         if (!this.props.token) {
             //this.context.history.pushState(null, '/register');
         }
+        UserActionCreators.requestMetadata();
     }
 
     render() {
 
         const error = false;
         const requesting = false;
+        console.log(this.props.metadata);
 
         return (
             <div className="view view-main">

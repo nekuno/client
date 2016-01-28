@@ -33,19 +33,18 @@ export function requestProfile(userId, fields) {
     }, {userId});
 }
 
-export function requestMetadata(userId){
+export function requestMetadata() {
 
-    if (!ProfileStore.getMetadata()){
-        dispatchAsync(UserAPI.getMetadata(userId), {
+    if (!ProfileStore.getMetadata()) {
+        dispatchAsync(UserAPI.getMetadata(), {
             request: ActionTypes.REQUEST_METADATA,
             success: ActionTypes.REQUEST_METADATA_SUCCESS,
             failure: ActionTypes.REQUEST_METADATA_ERROR
-        }, {userId});
+        }, {});
     }
 }
 
-export function requestThreadPage(userId)
-{
+export function requestThreadPage(userId) {
     if (!UserStore.contains(userId)) {
         this.requestUser(userId, null);
     }

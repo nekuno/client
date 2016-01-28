@@ -52,7 +52,7 @@ export default AuthenticatedComponent(class QuestionsPage extends Component {
         pagination: PropTypes.object,
 
         // Injected by AuthenticatedComponent
-        user: PropTypes.object
+        user: PropTypes.object.isRequired
     };
 
     constructor(props) {
@@ -62,7 +62,9 @@ export default AuthenticatedComponent(class QuestionsPage extends Component {
     }
 
     componentWillMount() {
-        requestData(this.props);
+        if (!this.props.questions) {
+            requestData(this.props);
+        }
     }
 
     componentWillUnmount() {

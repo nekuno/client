@@ -104,10 +104,15 @@ function fetchAndNormalize(url, schema) {
     var jwt = LoginStore.jwt;
     var headers = jwt ? {'Authorization': 'Bearer ' + jwt} : {};
 
+    nekunoApp.showProgressbar();
+
     return fetch(url, {headers: headers}).then(response =>
         response.json().then(json => {
             //const camelizedJson = camelizeKeys(json)
             //Can we extract nextLink from body here? Promise not resolved is the problem
+
+            nekunoApp.hideProgressbar();
+
             return {
                 ...normalize(json, schema)
             };
@@ -124,6 +129,8 @@ function postData(url, data, schema) {
     var jwt = LoginStore.jwt;
     var headers = jwt ? {'Authorization': 'Bearer ' + jwt} : {};
 
+    nekunoApp.showProgressbar();
+
     return new Bluebird((resolve, reject) => {
         request.post(
             {
@@ -134,6 +141,9 @@ function postData(url, data, schema) {
                 headers : headers
             },
             (err, response, body) => {
+
+                nekunoApp.hideProgressbar();
+
                 if (err) {
                     return reject(err);
                 }
@@ -155,6 +165,8 @@ function deleteData(url, data, schema) {
     var jwt = LoginStore.jwt;
     var headers = jwt ? {'Authorization': 'Bearer ' + jwt} : {};
 
+    nekunoApp.showProgressbar();
+
     return new Bluebird((resolve, reject) => {
         request.del(
             {
@@ -165,6 +177,9 @@ function deleteData(url, data, schema) {
                 headers : headers
             },
             (err, response, body) => {
+
+                nekunoApp.hideProgressbar();
+
                 if (err) {
                     return reject(err);
                 }

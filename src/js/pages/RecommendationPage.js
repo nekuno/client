@@ -114,7 +114,9 @@ export default AuthenticatedComponent(class RecommendationPage extends Component
 
     componentWillMount() {
         RecommendationsByThreadStore.setPosition(this.props.params.threadId, 0);
-        requestData(this.props);
+        if (this.props.recommendations.length === 0) {
+            requestData(this.props);
+        }
     }
 
     componentWillReceiveProps(nextProps) {
@@ -145,19 +147,12 @@ export default AuthenticatedComponent(class RecommendationPage extends Component
     }
 
     render() {
-        if (!this.props.recommendations || !this.props.thread || !this.props.user){
-            return null;
-        }
         return (
             <div className="view view-main">
                 <RecommendationsTopNavbar centerText={''} />
                 <div data-page="index" className="page">
                     <div id="page-content" className="recommendation-page">
-                        {this.props.recommendations.length > 0 ?
-                            <RecommendationList recommendations={this.props.recommendations} thread={this.props.thread} userId={this.props.user.qnoow_id} />
-                            :
-                            <div className="loading"><h1>Loading...</h1></div>
-                        }
+                        <RecommendationList recommendations={this.props.recommendations} thread={this.props.thread} userId={this.props.user.qnoow_id} />
                     </div>
                 </div>
             </div>

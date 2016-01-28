@@ -33,8 +33,8 @@ function getState(props) {
     const currentUserId = parseId(props.user);
     const {userLoggedIn, user} = props;
     const currentUser = UserStore.get(currentUserId);
-    const questions = QuestionStore.get(currentUserId);
-    const pagination = QuestionStore.getPagination(currentUserId);
+    const questions = QuestionStore.get(currentUserId) || {};
+    const pagination = QuestionStore.getPagination(currentUserId) || {};
     return {
         currentUser,
         pagination,
@@ -48,11 +48,11 @@ function getState(props) {
 export default AuthenticatedComponent(class QuestionsPage extends Component {
     static propTypes = {
         // Injected by @connectToStores:
-        questions: PropTypes.object,
-        pagination: PropTypes.object,
+        questions: PropTypes.object.isRequired,
+        pagination: PropTypes.object.isRequired,
 
         // Injected by AuthenticatedComponent
-        user: PropTypes.object
+        user: PropTypes.object.isRequired
     };
 
     constructor(props) {
@@ -62,7 +62,9 @@ export default AuthenticatedComponent(class QuestionsPage extends Component {
     }
 
     componentWillMount() {
-        requestData(this.props);
+        if (Object.keys(this.props.pagination).length === 0) {
+            requestData(this.props);
+        }
     }
 
     componentWillUnmount() {
@@ -70,10 +72,6 @@ export default AuthenticatedComponent(class QuestionsPage extends Component {
     }
 
     render() {
-        if (!this.props.questions || !this.props.user) {
-            return null;
-        }
-
         const ownPicture = this.props.user && this.props.user.picture ? `${IMAGES_ROOT}media/cache/resolve/user_avatar_60x60/user/images/${this.props.user.picture}` : `${IMAGES_ROOT}media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
         const ownBigPicture = this.props.user && this.props.user.picture ? `${IMAGES_ROOT}media/cache/resolve/user_avatar_180x180/user/images/${this.props.user.picture}` : `${IMAGES_ROOT}media/cache/user_avatar_180x180/bundles/qnoowweb/images/user-no-img.jpg`;
         const defaultPicture = `${IMAGES_ROOT}media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;

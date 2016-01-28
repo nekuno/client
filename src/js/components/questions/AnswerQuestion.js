@@ -19,7 +19,7 @@ export default class AnswerQuestion extends Component {
         let question = this.props.question;
         let questionId = selectn('questionId', question);
         let userAnswer = this.props.userAnswer;
-        let answers = question.answers;
+        let answers = selectn('answers', question) || [];
         let errors = this.props.errors;
 
         if (errors) {

@@ -78,32 +78,18 @@ export default AuthenticatedComponent(class AnswerQuestionPage extends Component
         super(props);
 
         this.skipQuestionHandler = this.skipQuestionHandler.bind(this);
-
-        this.state = {
-            ready: false
-        };
     }
 
     componentWillMount() {
-        requestData(this.props);
-    }
-
-    componentWillUnmount() {
-        this.setState({
-            ready: false
-        })
+        if (!this.props.question) {
+            requestData(this.props);
+        }
     }
 
     componentDidUpdate() {
         if (this.props.goToQuestionStats) {
             this.context.history.pushState(null, `/question-stats`);
         }
-    }
-
-    componentWillReceiveProps() {
-        this.setState({
-            ready: true
-        })
     }
 
     render() {
@@ -118,10 +104,10 @@ export default AuthenticatedComponent(class AnswerQuestionPage extends Component
                 <LeftMenuTopNavbar centerText={'Pregunta'} rightText={isRegisterQuestion ? '' : 'Omitir'} onRightLinkClickHandler={isRegisterQuestion ? null : this.skipQuestionHandler} />
                 <div data-page="index" className="page answer-question-page">
                     <div id="page-content" className="answer-question-content">
-                        {this.props.question && this.state.ready ?
+                        {this.props.question ?
                             <AnswerQuestion question={this.props.question} userAnswer={this.props.userAnswer} isFirstQuestion={this.props.isFirstQuestion} userId={userId} errors={this.props.errors} ownPicture={ownPicture} defaultPicture={defaultPicture} />
                             :
-                            <h1>Loading...</h1>
+                            ''
                         }
                     </div>
                 </div>

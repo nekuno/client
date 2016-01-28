@@ -59,6 +59,8 @@ const questionSchema = new Schema('question', {idAttribute: 'questionId'});
 
 const userAnswersSchema = new Schema('userAnswers', {idAttribute: 'questionId'});
 
+const blockedUserSchema = new Schema('blocked', {idAttribute: 'id'});
+
 const likedUserSchema = new Schema('liked', {idAttribute: 'id'});
 
 const likedContentSchema = new Schema('rate', {idAttribute: 'id'});
@@ -104,10 +106,15 @@ function fetchAndNormalize(url, schema) {
     var jwt = LoginStore.jwt;
     var headers = jwt ? {'Authorization': 'Bearer ' + jwt} : {};
 
+    nekunoApp.showProgressbar();
+
     return fetch(url, {headers: headers}).then(response =>
         response.json().then(json => {
             //const camelizedJson = camelizeKeys(json)
             //Can we extract nextLink from body here? Promise not resolved is the problem
+
+            nekunoApp.hideProgressbar();
+
             return {
                 ...normalize(json, schema)
             };
@@ -124,6 +131,8 @@ function postData(url, data, schema) {
     var jwt = LoginStore.jwt;
     var headers = jwt ? {'Authorization': 'Bearer ' + jwt} : {};
 
+    nekunoApp.showProgressbar();
+
     return new Bluebird((resolve, reject) => {
         request.post(
             {
@@ -134,6 +143,9 @@ function postData(url, data, schema) {
                 headers : headers
             },
             (err, response, body) => {
+
+                nekunoApp.hideProgressbar();
+
                 if (err) {
                     return reject(err);
                 }
@@ -155,6 +167,8 @@ function deleteData(url, data, schema) {
     var jwt = LoginStore.jwt;
     var headers = jwt ? {'Authorization': 'Bearer ' + jwt} : {};
 
+    nekunoApp.showProgressbar();
+
     return new Bluebird((resolve, reject) => {
         request.del(
             {
@@ -165,6 +179,9 @@ function deleteData(url, data, schema) {
                 headers : headers
             },
             (err, response, body) => {
+
+                nekunoApp.hideProgressbar();
+
                 if (err) {
                     return reject(err);
                 }
@@ -269,6 +286,18 @@ export function postSkipQuestion(url, userId) {
 
 export function fetchQuestion(url) {
     return fetchAndNormalize(url, questionSchema);
+}
+
+export function postBlockUser(url) {
+    return postData(url, null, blockedUserSchema);
+}
+
+export function deleteBlockUser(url) {
+    return deleteData(url, null, blockedUserSchema);
+}
+
+export function fetchBlockUser(url) {
+    return fetchAndNormalize(url, blockedUserSchema);
 }
 
 export function postLikeUser(url) {

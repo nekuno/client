@@ -6,6 +6,7 @@ import TextInput from '../components/ui/TextInput';
 import PasswordInput from '../components/ui/PasswordInput';
 import DateInput from '../components/ui/DateInput';
 import FullWidthButton from '../components/ui/FullWidthButton';
+import InputCheckbox from '../components/ui/InputCheckbox';
 import LoginActionCreators from '../actions/LoginActionCreators';
 import * as UserActionCreators from '../actions/UserActionCreators';
 import connectToStores from '../utils/connectToStores';
@@ -24,7 +25,7 @@ function getState() {
         token,
         accessToken,
         resource,
-        metadata
+        descriptiveGender: metadata ? metadata.descriptiveGender : null
     };
 }
 
@@ -37,14 +38,16 @@ export default class RegisterJoinPage extends Component {
 
     static propTypes = {
         // Injected by @connectToStores:
-        token      : PropTypes.string,
-        accessToken: PropTypes.string,
-        resource   : PropTypes.string
+        token            : PropTypes.string,
+        accessToken      : PropTypes.string,
+        resource         : PropTypes.string,
+        descriptiveGender: PropTypes.object
     };
 
     constructor() {
         super();
         this.onClickGender = this.onClickGender.bind(this);
+        this.onClickDescriptiveGender = this.onClickDescriptiveGender.bind(this);
         this.state = {
             user    : '',
             password: '',
@@ -68,6 +71,10 @@ export default class RegisterJoinPage extends Component {
         })
     }
 
+    onClickDescriptiveGender(checked, value) {
+        console.log(checked, value);
+    }
+
     componentWillMount() {
         if (!this.props.token) {
             //this.context.history.pushState(null, '/register');
@@ -79,7 +86,7 @@ export default class RegisterJoinPage extends Component {
 
         const error = false;
         const requesting = false;
-        console.log(this.props.metadata);
+        const descriptiveGender = this.props.descriptiveGender;
 
         return (
             <div className="view view-main">
@@ -94,6 +101,20 @@ export default class RegisterJoinPage extends Component {
                             </ul>
                         </div>
                         <RegisterGender onClickHandler={this.onClickGender}/>
+                        { descriptiveGender ?
+                            <div className="list-block">
+                                <ul>
+                                    {Object.keys(descriptiveGender.choices).map((id) => {
+                                        let text = descriptiveGender.choices[id];
+                                        return (<li key={id}>
+                                            <InputCheckbox value={id} name={'alternativeGender[]'} text={text} checked={false} defaultChecked={false} onClickHandler={this.onClickDescriptiveGender}/>
+                                        </li>)
+                                    })}
+                                </ul>
+                            </div>
+                            :
+                            ''
+                        }
                         <FullWidthButton type="submit" onClick={this.register.bind(this)}>Completar registro</FullWidthButton>
                         <div style={{color: '#FFF'}}>
                             <p>{ requesting ? 'Enviando...' : ''}</p>

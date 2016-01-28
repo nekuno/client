@@ -25,7 +25,7 @@ const ProfileStore = createStore({
         const metadata = this.getMetadata();
 
         if (!(basicProfile || metadata)){
-            return [];
+            return {};
         }
 
         let profile = {};
@@ -97,7 +97,7 @@ const ProfileStore = createStore({
                  } else if (value == false){
                      value = 'No';
                  }
-                 profile[name] = value;
+                 profile[name] = value.toString();
 
              }
         }

@@ -104,30 +104,6 @@ body #root .App .view .page.answer-question-page  {
               font-weight: bold;
               margin-bottom: 10px;
             }
-
-            .accepted-answers-importance-container {
-              background-color: $deep-purple-translucent;
-              padding: 2px;
-              -moz-border-radius: 30px;
-              -webkit-border-radius: 30px;
-              border-radius: 30px;
-
-              .chip {
-                display: inline-block;
-                height: 30px;
-                line-height: 30px;
-                cursor: pointer;
-                text-align: center;
-                width: 33%;
-
-              }
-            }
-
-            .accepted-answers-importance-container.unique-chip {
-              .chip {
-                width: 50%;
-              }
-            }
           }
         }
       }

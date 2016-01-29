@@ -38,12 +38,6 @@ export default class HomePage extends Component {
                     <div className="swiper-wrapper">
                         {this.renderSlides()}
                     </div>
-                    <div className="swiper-pagination-and-button">
-                        <div className="swiper-pagination"></div>
-                        <Link to="/login">
-                            <FullWidthButton>Iniciar sesión</FullWidthButton>
-                        </Link>
-                    </div>
                 </div>
             </div>
         );
@@ -53,11 +47,11 @@ export default class HomePage extends Component {
         return (
             [1, 2, 3].map(i =>
                 <div key={i} className="swiper-slide">
-                    <div className="nekuno-logo-wrapper">
-                        <div className="nekuno-logo"></div>
-                    </div>
-                    <div className="linear-gradient-rectangle"></div>
                     <div id={'login-' + i + '-image'} data-page="index" className="page">
+                        <div className="linear-gradient-rectangle"></div>
+                        <div className="nekuno-logo-wrapper">
+                            <div className="nekuno-logo"></div>
+                        </div>
                         <img src="img/transparency.png" className="full-transparency"/>
                         <div id="page-content" className="home-content">
                             <div className="title">
@@ -65,6 +59,12 @@ export default class HomePage extends Component {
                                     i === 2 ? 'Conecta sólo con las personas más compatibles' :
                                         'Tú decides la información que compartes'}
                             </div>
+                        </div>
+                        <div className="swiper-pagination-and-button">
+                            <div className="swiper-pagination"></div>
+                            <Link to="/login">
+                                <FullWidthButton>Iniciar sesión</FullWidthButton>
+                            </Link>
                         </div>
                     </div>
                 </div>

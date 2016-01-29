@@ -74,7 +74,6 @@ export default AuthenticatedComponent(class QuestionStatsPage extends Component 
     }
 
     handleContinueClick() {
-        QuestionStore.deleteQuestion();
         this.context.history.pushState(null, `/answer-question/next`);
     }
 });

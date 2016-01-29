@@ -81,7 +81,7 @@ export default AuthenticatedComponent(class AnswerQuestionPage extends Component
     }
 
     componentWillMount() {
-        if (!this.props.question) {
+        if (!this.props.question || this.props.question.questionId !== this.props.params.questionId) {
             requestData(this.props);
         }
     }

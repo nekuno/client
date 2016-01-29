@@ -5,7 +5,7 @@ import { IMAGES_ROOT } from '../../constants/Constants';
 import * as QuestionActionCreators from '../../actions/QuestionActionCreators';
 import AnswerRadio from './AnswerRadio';
 import AcceptedAnswerCheckbox from './AcceptedAnswerCheckbox';
-import AcceptedAnswersImportance from '../ui/AcceptedAnswersImportance';
+import AcceptedAnswersImportance from './AcceptedAnswersImportance';
 
 export default class AnswerQuestionForm extends Component {
     static propTypes = {

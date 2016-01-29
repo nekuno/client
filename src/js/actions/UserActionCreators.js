@@ -109,6 +109,14 @@ export function requestStats(userId) {
     }, {userId})
 }
 
+export function requestComparedStats(userId1, userId2) {
+    dispatchAsync(UserAPI.getComparedStats(userId1, userId2), {
+        request: ActionTypes.REQUEST_COMPARED_STATS,
+        success: ActionTypes.REQUEST_COMPARED_STATS_SUCCESS,
+        failure: ActionTypes.REQUEST_COMPARED_STATS_ERROR
+    }, {userId1, userId2})
+}
+
 export function requestMatching(userId1, userId2) {
     dispatchAsync(UserAPI.getMatching(userId1, userId2), {
         request: ActionTypes.REQUEST_MATCHING,

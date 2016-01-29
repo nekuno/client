@@ -6,6 +6,7 @@ import {
     fetchProfile,
     fetchMetadata,
     fetchStats,
+    fetchComparedStats,
     postBlockUser,
     deleteBlockUser,
     fetchBlockUser,
@@ -33,7 +34,11 @@ export function getStats(userId, url = `users/${userId}/stats`) {
     return fetchStats(url);
 }
 
-export function getThreads(userId, url = `users/${userId}/threads`) {
+export function getComparedStats(id1, id2, url = `users/${id1}/stats/compare/${id2}`) {
+    return fetchComparedStats(url);
+}
+
+export function getThreads(userId, url = `users/${userId}/threads`){
     return fetchThreads(url);
 }
 

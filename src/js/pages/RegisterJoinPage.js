@@ -49,8 +49,9 @@ export default class RegisterJoinPage extends Component {
         this.onClickGender = this.onClickGender.bind(this);
         this.onClickDescriptiveGender = this.onClickDescriptiveGender.bind(this);
         this.state = {
-            user             : '',
-            password         : '',
+            username         : '',
+            email            : '',
+            plainPassword    : '',
             birthday         : '',
             gender           : '',
             descriptiveGender: {}
@@ -60,6 +61,7 @@ export default class RegisterJoinPage extends Component {
     register(e) {
         e.preventDefault();
         console.log(this.state, this.props);
+        LoginActionCreators.register(this.state.username, this.state.plainPassword, this.state.email);
     }
 
     linkState(key) {
@@ -112,8 +114,9 @@ export default class RegisterJoinPage extends Component {
                     <div id="page-content" className="login-content">
                         <div className="list-block">
                             <ul>
-                                <TextInput placeholder={'Nombre de usuario'} valueLink={this.linkState('user')}/>
-                                <PasswordInput placeholder={'Contraseña'} valueLink={this.linkState('password')}/>
+                                <TextInput placeholder={'Nombre de usuario'} valueLink={this.linkState('username')}/>
+                                <TextInput placeholder={'Email'} valueLink={this.linkState('email')}/>
+                                <PasswordInput placeholder={'Contraseña'} valueLink={this.linkState('plainPassword')}/>
                                 <DateInput label={'Fecha de nacimiento'} valueLink={this.linkState('birthday')}/>
                             </ul>
                         </div>

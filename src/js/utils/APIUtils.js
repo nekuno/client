@@ -115,16 +115,31 @@ export function getData(url) {
 
     nekunoApp.showProgressbar();
 
-    return fetch(url, {headers: headers}).then(response =>
-        response.json().then(json => {
+    return new Bluebird((resolve, reject) => {
+        request.get(
+            {
+                protocol: Url.parse(url).protocol,
+                url     : url,
+                json    : true,
+                headers : headers
+            },
+            (error, response, body) => {
+
                 nekunoApp.hideProgressbar();
-                return json;
+
+                if (error) {
+                    return reject(error);
+                }
+                if (response.statusCode >= 400) {
+                    return reject(body);
+                }
+                return resolve(body);
             }
-        )
-    );
+        );
+    });
 }
 
-function postData(url, data, schema) {
+function postData(url, data) {
 
     if (url.indexOf(API_ROOT) === -1) {
         url = API_ROOT + url;
@@ -160,7 +175,7 @@ function postData(url, data, schema) {
     });
 }
 
-function deleteData(url, data, schema) {
+function deleteData(url, data) {
 
     if (url.indexOf(API_ROOT) === -1) {
         url = API_ROOT + url;
@@ -218,30 +233,6 @@ export function fetchStats(url) {
 
 export function fetchComparedStats(url) {
     return fetchAndNormalize(url, comparedStatsSchema);
-}
-
-export function fetchMatching(url) {
-    if (url.indexOf(API_ROOT) === -1) {
-        url = API_ROOT + url;
-    }
-    return fetch(url).then(response =>
-        response.json().then(json => {
-                return json;
-            }
-        )
-    );
-}
-
-export function fetchSimilarity(url) {
-    if (url.indexOf(API_ROOT) === -1) {
-        url = API_ROOT + url;
-    }
-    return fetch(url).then(response =>
-        response.json().then(json => {
-                return json;
-            }
-        )
-    );
 }
 
 export function fetchThreads(url) {

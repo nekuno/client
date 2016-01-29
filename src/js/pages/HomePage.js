@@ -52,11 +52,10 @@ export default class HomePage extends Component {
                         <div className="nekuno-logo-wrapper">
                             <div className="nekuno-logo"></div>
                         </div>
-                        <img src="img/transparency.png" className="full-transparency"/>
                         <div id="page-content" className="home-content">
                             <div className="title">
                                 {i === 1 ? 'Descubre contenidos de los temas que más te interesan' :
-                                    i === 2 ? 'Conecta sólo con las personas más compatibles' :
+                                    i === 2 ? 'Conecta sólo con las personas más compatibles contigo' :
                                         'Tú decides la información que compartes'}
                             </div>
                         </div>

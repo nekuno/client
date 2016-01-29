@@ -3,6 +3,7 @@ import ActionTypes from '../constants/ActionTypes';
 import AuthService from '../services/AuthService';
 
 export default {
+
     loginUser: (username, password) => {
         let promise = AuthService.login(username, password);
         dispatchAsync(promise, {
@@ -12,13 +13,17 @@ export default {
         }, {username, password});
     },
 
-    signup: (username, password, extra) => {
-        let promise = AuthService.signup(username, password, extra);
+    register: (username, plainPassword, email, profile) => {
+        let promise = AuthService.register(username, plainPassword, email);
         dispatchAsync(promise, {
-            request: ActionTypes.REQUEST_LOGIN_USER,
-            success: ActionTypes.REQUEST_LOGIN_USER_SUCCESS,
-            failure: ActionTypes.REQUEST_LOGIN_USER_ERROR
-        }, {username, password, extra});
+            request: ActionTypes.REQUEST_REGISTER_USER,
+            success: ActionTypes.REQUEST_REGISTER_USER_SUCCESS,
+            failure: ActionTypes.REQUEST_REGISTER_USER_ERROR
+        }, {username, plainPassword, email})
+            .then(function(user) {
+                console.log(user);
+                console.log(profile);
+            });
     },
 
     logoutUser: () => {

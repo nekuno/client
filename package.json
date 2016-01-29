@@ -1,18 +1,18 @@
 {
   "name": "client",
   "version": "0.2.5",
-  "description": "Nekuno Hybrid Mobile App",
+  "description": "Nekuno Hybrid Mobile Client",
   "main": "index.js",
   "scripts": {
     "test": "echo test"
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@bitbucket.org/nekuno/app.git"
+    "url": "git+ssh://git@bitbucket.org/nekuno/client.git"
   },
   "author": "Nekuno",
   "license": "MIT",
-  "homepage": "https://bitbucket.org/nekuno/app#readme",
+  "homepage": "https://bitbucket.org/nekuno/client#readme",
   "dependencies": {
     "Framework7-3D-Panels": "git+https://github.com/nolimits4web/Framework7-3D-Panels.git",
     "bluebird": "^3.1.1",
@@ -20,7 +20,6 @@
     "flux": "^2.1.1",
     "framework7": "^1.4.0",
     "history": "^1.13.1",
-    "humps": "^1.0.0",
     "invariant": "^2.2.0",
     "jwt-decode": "^1.4.0",
     "keymirror": "^0.1.1",

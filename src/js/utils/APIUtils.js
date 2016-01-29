@@ -1,7 +1,5 @@
 import { Schema, arrayOf, normalize } from 'normalizr';
-import { camelizeKeys } from 'humps';
 import selectn from 'selectn';
-//import 'core-js/es6/promise';
 import 'whatwg-fetch';
 import Url from 'url';
 import request from 'request';
@@ -44,8 +42,6 @@ const comparedStatsSchema = new Schema('comparedStats');
 const matchingSchema = new Schema('matching');
 
 const similaritySchema = new Schema('similarity');
-
-const metadataSchema = new Schema('metadata');
 
 const threadSchema = new Schema('thread', {idAttribute: 'id'});
 
@@ -91,15 +87,24 @@ function getUserId(entity) {
 const recommendationSchema = new Schema('recommendation', {idAttribute: getRecommendationId});
 
 questionsAndAnswersSchema.define({
-    questions: arrayOf(questionsSchema),
+    questions  : arrayOf(questionsSchema),
     userAnswers: arrayOf(userAnswersSchema)
 });
-
 
 /**
  * Fetches an API response and normalizes the result JSON according to schema.
  */
 function fetchAndNormalize(url, schema) {
+
+    return getData(url).then(function(json) {
+        return {
+            ...normalize(json, schema)
+        };
+    });
+
+}
+
+export function getData(url) {
 
     if (url.indexOf(API_ROOT) === -1) {
         url = API_ROOT + url;
@@ -110,21 +115,31 @@ function fetchAndNormalize(url, schema) {
 
     nekunoApp.showProgressbar();
 
-    return fetch(url, {headers: headers}).then(response =>
-        response.json().then(json => {
-            //const camelizedJson = camelizeKeys(json)
-            //Can we extract nextLink from body here? Promise not resolved is the problem
+    return new Bluebird((resolve, reject) => {
+        request.get(
+            {
+                protocol: Url.parse(url).protocol,
+                url     : url,
+                json    : true,
+                headers : headers
+            },
+            (error, response, body) => {
 
-            nekunoApp.hideProgressbar();
+                nekunoApp.hideProgressbar();
 
-            return {
-                ...normalize(json, schema)
-            };
-        })
-    );
+                if (error) {
+                    return reject(error);
+                }
+                if (response.statusCode >= 400) {
+                    return reject(body);
+                }
+                return resolve(body);
+            }
+        );
+    });
 }
 
-function postData(url, data, schema) {
+function postData(url, data) {
 
     if (url.indexOf(API_ROOT) === -1) {
         url = API_ROOT + url;
@@ -160,7 +175,7 @@ function postData(url, data, schema) {
     });
 }
 
-function deleteData(url, data, schema) {
+function deleteData(url, data) {
 
     if (url.indexOf(API_ROOT) === -1) {
         url = API_ROOT + url;
@@ -209,7 +224,7 @@ export function fetchProfile(url) {
 }
 
 export function fetchMetadata(url) {
-    return fetchAndNormalize(url, metadataSchema);
+    return getData(url);
 }
 
 export function fetchStats(url) {
@@ -218,30 +233,6 @@ export function fetchStats(url) {
 
 export function fetchComparedStats(url) {
     return fetchAndNormalize(url, comparedStatsSchema);
-}
-
-export function fetchMatching(url) {
-    if (url.indexOf(API_ROOT) === -1) {
-        url = API_ROOT + url;
-    }
-    return fetch(url).then(response =>
-        response.json().then(json => {
-                return json;
-            }
-        )
-    );
-}
-
-export function fetchSimilarity(url) {
-    if (url.indexOf(API_ROOT) === -1) {
-        url = API_ROOT + url;
-    }
-    return fetch(url).then(response =>
-        response.json().then(json => {
-                return json;
-            }
-        )
-    );
 }
 
 export function fetchThreads(url) {
@@ -274,19 +265,19 @@ export function fetchComparedQuestions(url) {
 
 export function postAnswer(url, userId, questionId, answerId, acceptedAnswers, rating) {
     return postData(url, {
-        "userId": userId,
-        "questionId": questionId,
-        "answerId": answerId,
+        "userId"         : userId,
+        "questionId"     : questionId,
+        "answerId"       : answerId,
         "acceptedAnswers": acceptedAnswers,
-        "rating": rating,
-        "explanation": '',
-        "isPrivate": false
+        "rating"         : rating,
+        "explanation"    : '',
+        "isPrivate"      : false
     });
 }
 
 export function postSkipQuestion(url, userId) {
     return postData(url, {
-        "userId": userId,
+        "userId": userId
     });
 }
 

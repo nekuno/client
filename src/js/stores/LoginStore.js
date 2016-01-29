@@ -18,6 +18,7 @@ class LoginStore extends BaseStore {
     }
 
     _registerToActions(action) {
+
         switch (action.type) {
 
             case ActionTypes.REQUEST_LOGIN_USER:

@@ -1,5 +1,5 @@
 import React, { PropTypes, Component } from 'react';
-import TextCheckboxes from './../ui/TextCheckboxes';
+import TextRadios from './../ui/TextRadios';
 
 export default class AcceptedAnswersImportance extends Component {
 	static propTypes = {
@@ -21,16 +21,16 @@ export default class AcceptedAnswersImportance extends Component {
 	render() {
 		return (
 			<div className="accepted-answers-importance">
-				<div className="accepted-answers-importance-title">¿Te importa la respuesta del usuario?</div>
 				{this.props.irrelevant ?
-
-					<TextCheckboxes labels={[{key: 'irrelevant', text: 'Irrelevante'}]} onClickHandler={this.handleOnImportanceClick} enabled={this.state.importance} />
+					<TextRadios title={'¿Te importa la respuesta del usuario?'} labels={[
+						{key: 'irrelevant', text: 'Irrelevante'}
+						]} onClickHandler={this.handleOnImportanceClick} value={this.state.importance} />
 					:
-					<TextCheckboxes labels={[
+					<TextRadios title={'¿Te importa la respuesta del usuario?'} labels={[
 						{key: 'few', text: 'Poco'},
 						{key: 'normal', text: 'Normal'},
 						{key: 'aLot', text: 'Mucho'}
-					]} onClickHandler={this.handleOnImportanceClick} enabled={this.state.importance} />
+					]} onClickHandler={this.handleOnImportanceClick} value={this.state.importance} />
 				}
 			</div>
 		);

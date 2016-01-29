@@ -5,6 +5,7 @@ import * as UserActionCreators from '../actions/UserActionCreators';
 import UserStore from '../stores/UserStore';
 import ProfileStore from '../stores/ProfileStore';
 import StatsStore from '../stores/StatsStore';
+import ComparedStatsStore from '../stores/ComparedStatsStore';
 import MatchingStore from '../stores/MatchingStore';
 import SimilarityStore from '../stores/SimilarityStore';
 import BlockStore from '../stores/BlockStore';
@@ -45,6 +46,9 @@ function requestData(props) {
         if (!BlockStore.contains(user.qnoow_id, currentUserId)){
             UserActionCreators.requestBlockUser(user.qnoow_id, currentUserId);
         }
+        if (!ComparedStatsStore.contains(user.qnoow_id, currentUserId)){
+            UserActionCreators.requestComparedStats(user.qnoow_id, currentUserId);
+        }
 
     }
 
@@ -64,17 +68,22 @@ function getState(props) {
     //to use when changing route
     const currentUser = UserStore.get(currentUserId);
     const profile = ProfileStore.getWithMetadata(currentUserId);
-    const stats = StatsStore.get(currentUserId);
 
     let matching = 0;
     let similarity = 0;
     let like = 0;
     let block = 0;
+    let comparedStats = {};
+    let stats = {};
     if (!(userLoggedIn && user && (user.qnoow_id == currentUserId))) {
+
         matching = MatchingStore.get(currentUserId, user.qnoow_id);
         similarity = SimilarityStore.get(currentUserId, user.qnoow_id);
         block = BlockStore.get(user.qnoow_id, currentUserId);
         like = LikeStore.get(user.qnoow_id, currentUserId);
+        comparedStats = ComparedStatsStore.get(user.qnoow_id, currentUserId);
+    } else {
+        stats = StatsStore.get(currentUserId);
     }
 
     return {
@@ -85,6 +94,7 @@ function getState(props) {
         similarity,
         block,
         like,
+        comparedStats,
         userLoggedIn,
         user
     };
@@ -114,7 +124,7 @@ function unsetLikeUser(props) {
     UserActionCreators.deleteLikeUser(user.qnoow_id, currentUser.qnoow_id);
 }
 
-@connectToStores([UserStore, ProfileStore, StatsStore, MatchingStore, SimilarityStore, BlockStore, LikeStore], getState)
+@connectToStores([UserStore, ProfileStore, StatsStore, MatchingStore, SimilarityStore, BlockStore, LikeStore, ComparedStatsStore], getState)
 export default AuthenticatedComponent(class UserPage extends Component {
     static propTypes = {
         // Injected by React Router:
@@ -167,7 +177,7 @@ export default AuthenticatedComponent(class UserPage extends Component {
 
 
     render() {
-        const { userLoggedIn, user, currentUser, profile, stats, matching, similarity, block, like } = this.props;
+        const { userLoggedIn, user, currentUser, profile, stats, matching, similarity, block, like, comparedStats } = this.props;
         const currentUserId = currentUser ? currentUser.qnoow_id : null;
         const currentPicture = currentUser ? `${IMAGES_ROOT}media/cache/resolve/user_avatar_60x60/user/images/${currentUser.picture}` : `${IMAGES_ROOT}media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
         const likeText = like ? "Ya no me gusta" : "Me gusta";
@@ -183,7 +193,7 @@ export default AuthenticatedComponent(class UserPage extends Component {
             const ownPicture = user && user.picture ? `${IMAGES_ROOT}media/cache/resolve/user_avatar_60x60/user/images/${user.picture}` : `${IMAGES_ROOT}media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
             otherProfileHTML =
                 <div className="other-profile-wrapper" >
-                    <OtherProfileData matching={matching} similarity={similarity} stats={stats} ownImage={ownPicture} currentImage={currentPicture} />
+                    <OtherProfileData matching={matching} similarity={similarity} stats={comparedStats} ownImage={ownPicture} currentImage={currentPicture} />
                 </div>
         }
 

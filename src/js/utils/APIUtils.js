@@ -39,6 +39,8 @@ const profileSchema = new Schema('profiles');
 
 const statsSchema = new Schema('stats');
 
+const comparedStatsSchema = new Schema('comparedStats');
+
 const matchingSchema = new Schema('matching');
 
 const similaritySchema = new Schema('similarity');
@@ -212,6 +214,10 @@ export function fetchMetadata(url) {
 
 export function fetchStats(url) {
     return fetchAndNormalize(url, statsSchema);
+}
+
+export function fetchComparedStats(url) {
+    return fetchAndNormalize(url, comparedStatsSchema);
 }
 
 export function fetchMatching(url) {

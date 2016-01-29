@@ -25,6 +25,10 @@ export default keyMirror({
     REQUEST_STATS_SUCCESS          : null,
     REQUEST_STATS_ERROR            : null,
 
+    REQUEST_COMPARED_STATS         : null,
+    REQUEST_COMPARED_STATS_SUCCESS : null,
+    REQUEST_COMPARED_STATS_ERROR   : null,
+
     REQUEST_MATCHING               : null,
     REQUEST_MATCHING_SUCCESS       : null,
     REQUEST_MATCHING_ERROR         : null,

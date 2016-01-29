@@ -1,4 +1,4 @@
-import { fetchUser, fetchThreads, fetchRecommendation, fetchUserArray, fetchProfile, fetchMetadata, fetchStats,
+import { fetchUser, fetchThreads, fetchRecommendation, fetchUserArray, fetchProfile, fetchMetadata, fetchStats, fetchComparedStats,
     postBlockUser, deleteBlockUser, fetchBlockUser,
     postLikeUser, deleteLikeUser, fetchLikeUser,
     postLikeContent, deleteLikeContent,
@@ -18,6 +18,10 @@ export function getMetadata(userId, url = `profile/metadata`) {
 
 export function getStats(userId, url = `users/${userId}/stats`) {
     return fetchStats(url);
+}
+
+export function getComparedStats(id1, id2, url = `users/${id1}/stats/compare/${id2}`) {
+    return fetchComparedStats(url);
 }
 
 export function getThreads(userId, url = `users/${userId}/threads`){

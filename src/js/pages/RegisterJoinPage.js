@@ -14,6 +14,7 @@ import ConnectStore from '../stores/ConnectStore';
 import ProfileStore from '../stores/ProfileStore';
 import RegisterStore from '../stores/RegisterStore';
 import TextRadios from '../components/ui/TextRadios';
+import { getValidationErrors } from '../utils/StoreUtils';
 
 function getState() {
 
@@ -109,6 +110,13 @@ export default class RegisterJoinPage extends Component {
     render() {
 
         const { metadata, error, requesting } = this.props;
+
+        if (error) {
+            let displayErrors = getValidationErrors(error);
+            if (displayErrors) {
+                nekunoApp.alert(displayErrors);
+            }
+        }
 
         return (
             <div className="view view-main">

@@ -12,7 +12,8 @@ import * as UserActionCreators from '../actions/UserActionCreators';
 import connectToStores from '../utils/connectToStores';
 import ConnectStore from '../stores/ConnectStore';
 import ProfileStore from '../stores/ProfileStore';
-import RegisterGender from '../components/ui/RegisterGender';
+import RegisterStore from '../stores/RegisterStore';
+import TextRadios from '../components/ui/TextRadios';
 
 function getState() {
 
@@ -20,16 +21,20 @@ function getState() {
     const accessToken = ConnectStore.accessToken;
     const resource = ConnectStore.resource;
     const metadata = ProfileStore.getMetadata();
+    const error = RegisterStore.error;
+    const requesting = RegisterStore.requesting();
 
     return {
         token,
         accessToken,
         resource,
-        metadata
+        metadata,
+        error,
+        requesting
     };
 }
 
-@connectToStores([ConnectStore, ProfileStore], getState)
+@connectToStores([ConnectStore, ProfileStore, RegisterStore], getState)
 export default class RegisterJoinPage extends Component {
 
     static contextTypes = {
@@ -103,9 +108,7 @@ export default class RegisterJoinPage extends Component {
 
     render() {
 
-        const error = false;
-        const requesting = false;
-        const metadata = this.props.metadata ? this.props.metadata.descriptiveGender : null;
+        const { metadata, error, requesting } = this.props;
 
         return (
             <div className="view view-main">
@@ -120,12 +123,17 @@ export default class RegisterJoinPage extends Component {
                                 <DateInput label={'Fecha de nacimiento'} valueLink={this.linkState('birthday')}/>
                             </ul>
                         </div>
-                        <RegisterGender onClickHandler={this.onClickGender}/>
-                        { metadata ?
+
+                        <TextRadios title={'Incluirme en las búsquedas como'} labels={[
+						{key: 'male', text: 'Hombre'},
+						{key: 'female', text: 'Mujer'}
+					]} onClickHandler={this.onClickGender} value={this.state.gender}/>
+
+                        { metadata && metadata.descriptiveGender ?
                             <div className="list-block">
                                 <ul>
-                                    {Object.keys(metadata.choices).map((id) => {
-                                        let text = metadata.choices[id];
+                                    {Object.keys(metadata.descriptiveGender.choices).map((id) => {
+                                        let text = metadata.descriptiveGender.choices[id];
                                         return (<li key={id}>
                                             <InputCheckbox value={id} name={'alternativeGender[]'} text={text} defaultChecked={false} onClickHandler={this.onClickDescriptiveGender}/>
                                         </li>)
@@ -135,9 +143,10 @@ export default class RegisterJoinPage extends Component {
                             :
                             ''
                         }
+
                         <FullWidthButton type="submit" onClick={this.register.bind(this)}>Completar registro</FullWidthButton>
                         <div style={{color: '#FFF'}}>
-                            <p>{ requesting ? 'Enviando...' : ''}</p>
+                            <p>{ requesting ? 'Registrando...' : ''}</p>
                             <p>{ error ? error.error : ''}</p>
                         </div>
                     </div>

@@ -40,7 +40,7 @@ export function requestMetadata() {
             request: ActionTypes.REQUEST_METADATA,
             success: ActionTypes.REQUEST_METADATA_SUCCESS,
             failure: ActionTypes.REQUEST_METADATA_ERROR
-        }, {});
+        });
     }
 }
 

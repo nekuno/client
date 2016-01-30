@@ -23,7 +23,9 @@ export default {
             .then(function(user) {
                 console.log(user);
                 console.log(profile);
-            });
+            }).catch(function(error) {
+                console.log(error);
+        });
     },
 
     logoutUser: () => {

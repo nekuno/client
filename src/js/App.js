@@ -1,6 +1,4 @@
 import React, { PropTypes, Component } from 'react';
-import ReactMixin from 'react-mixin';
-import { History } from 'react-router'
 import LeftPanel from './components/LeftPanel';
 import HomePage from './pages/HomePage';
 import * as UserActionCreators from './actions/UserActionCreators';
@@ -22,6 +20,10 @@ export default class App extends Component {
         this.state = this._getLoginState();
     }
 
+    static contextTypes = {
+        history: PropTypes.object.isRequired
+    };
+
     _getLoginState() {
         return {
             user        : LoginStore.user,
@@ -29,7 +31,7 @@ export default class App extends Component {
         };
     }
 
-    componentDidMount() {
+    componentWillMount() {
         //register change listener with LoginStore
         this.changeListener = this._onLoginChange.bind(this);
         LoginStore.addChangeListener(this.changeListener);
@@ -52,12 +54,11 @@ export default class App extends Component {
         console.log("&*&*&* App onLoginChange event: loggedIn=", userLoggedInState.userLoggedIn, "nextTransitionPath=", transitionPath);
 
         if (userLoggedInState.userLoggedIn) {
-            //this.history.replaceState(null, transitionPath);
             setTimeout(() => {
-                this.history.replaceState(null, '/threads/' + userLoggedInState.user.qnoow_id);
+                this.context.history.replaceState(null, '/threads/' + userLoggedInState.user.qnoow_id);
             });
         } else {
-            this.history.replaceState(null, '/login');
+            this.context.history.replaceState(null, '/login');
         }
     }
 
@@ -77,5 +78,3 @@ export default class App extends Component {
         );
     }
 }
-
-ReactMixin.onClass(App, History);

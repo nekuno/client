@@ -44,7 +44,9 @@ class RegisterStore extends BaseStore {
     }
 
     get error() {
-        return this._error;
+        let error = this._error;
+        this._error = null;
+        return error;
     }
 
     requesting() {

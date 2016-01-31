@@ -66,12 +66,12 @@ class AuthService {
     register(user, profile) {
 
         return APIUtils.postData(API_URLS.VALIDATE_USER, user)
-            .then(function(user) {
-                console.log('User valid', user);
+            .then(function() {
+                console.log('User valid');
                 return APIUtils.postData(API_URLS.VALIDATE_PROFILE, profile);
             })
-            .then(function(profile) {
-                console.log('Profile valid', profile);
+            .then(function() {
+                console.log('Profile valid');
                 return APIUtils.postData(API_URLS.REGISTER_USER, user);
             })
             .then(function(user) {

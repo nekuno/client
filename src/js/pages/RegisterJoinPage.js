@@ -15,6 +15,7 @@ import ProfileStore from '../stores/ProfileStore';
 import RegisterStore from '../stores/RegisterStore';
 import TextRadios from '../components/ui/TextRadios';
 import { getValidationErrors } from '../utils/StoreUtils';
+import Geosuggest from 'react-geosuggest';
 
 function getState() {
 
@@ -24,6 +25,13 @@ function getState() {
     const metadata = ProfileStore.getMetadata();
     const error = RegisterStore.error;
     const requesting = RegisterStore.requesting();
+
+    if (error) {
+        let displayErrors = getValidationErrors(error);
+        if (displayErrors) {
+            nekunoApp.alert(displayErrors);
+        }
+    }
 
     return {
         token,
@@ -56,8 +64,10 @@ export default class RegisterJoinPage extends Component {
         super();
         this.onClickGender = this.onClickGender.bind(this);
         this.onClickDescriptiveGender = this.onClickDescriptiveGender.bind(this);
+        this.onSuggestSelect = this.onSuggestSelect.bind(this);
         this.state = {
             gender           : '',
+            location         : {},
             descriptiveGender: {}
         };
     }
@@ -70,10 +80,11 @@ export default class RegisterJoinPage extends Component {
             plainPassword: this.refs.plainPassword.getValue(),
             email        : this.refs.email.getValue()
         }, {
-            interfaceLanguage: 'es',
+            interfaceLanguage  : 'es',
             orientationRequired: false,
-            birthday: this.refs.birthday.getValue(),
-            gender  : this.state.gender
+            birthday           : this.refs.birthday.getValue(),
+            gender             : this.state.gender,
+            location           : this.state.location
         });
     }
 
@@ -103,6 +114,10 @@ export default class RegisterJoinPage extends Component {
         console.log(descriptiveGender);
     }
 
+    onSuggestSelect(suggest) {
+        console.log(suggest);
+    }
+
     componentWillMount() {
         if (!this.props.token) {
             //this.context.history.pushState(null, '/register');
@@ -113,13 +128,6 @@ export default class RegisterJoinPage extends Component {
     render() {
 
         const { metadata, error, requesting } = this.props;
-
-        if (error) {
-            let displayErrors = getValidationErrors(error);
-            if (displayErrors) {
-                nekunoApp.alert(displayErrors);
-            }
-        }
 
         return (
             <div className="view view-main">
@@ -132,6 +140,7 @@ export default class RegisterJoinPage extends Component {
                                 <TextInput placeholder={'Email'} ref="email"/>
                                 <PasswordInput placeholder={'Contraseña'} ref="plainPassword"/>
                                 <DateInput label={'Fecha de nacimiento'} ref="birthday"/>
+                                <Geosuggest placeholder="Ubicación" onSuggestSelect={this.onSuggestSelect}/>
                             </ul>
                         </div>
 

@@ -2,10 +2,14 @@ import config from '../config/config';
 
 export const API_ROOT = config.API_ROOT;
 export const IMAGES_ROOT = config.IMAGES_ROOT;
-export const LOGIN_URL = API_ROOT + 'login';
-export const REGISTER_USER_URL = API_ROOT + 'users';
-export const REGISTER_PROFILE_URL = API_ROOT + 'users/{id}/profile';
-export const VALIDATE_INVITATION_TOKEN_URL = API_ROOT + 'invitations/token/validate/';
+export const API_URLS = {
+    LOGIN                    : API_ROOT + 'login',
+    VALIDATE_INVITATION_TOKEN: API_ROOT + 'invitations/token/validate/',
+    VALIDATE_USER            : API_ROOT + 'users/validate',
+    VALIDATE_PROFILE         : API_ROOT + 'profile/validate',
+    REGISTER_USER            : API_ROOT + 'users',
+    REGISTER_PROFILE         : API_ROOT + 'users/{id}/profile'
+};
 export const QUESTION_STATS_COLORS = [
     // purple
     '#2d205f',

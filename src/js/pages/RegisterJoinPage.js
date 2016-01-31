@@ -47,7 +47,9 @@ export default class RegisterJoinPage extends Component {
         token      : PropTypes.string,
         accessToken: PropTypes.string,
         resource   : PropTypes.string,
-        metadata   : PropTypes.object
+        metadata   : PropTypes.object,
+        error      : PropTypes.object,
+        requesting : PropTypes.bool
     };
 
     constructor() {
@@ -55,10 +57,6 @@ export default class RegisterJoinPage extends Component {
         this.onClickGender = this.onClickGender.bind(this);
         this.onClickDescriptiveGender = this.onClickDescriptiveGender.bind(this);
         this.state = {
-            username         : '',
-            email            : '',
-            plainPassword    : '',
-            birthday         : '',
             gender           : '',
             descriptiveGender: {}
         };
@@ -66,12 +64,17 @@ export default class RegisterJoinPage extends Component {
 
     register(e) {
         e.preventDefault();
-        console.log(this.state, this.props);
-        LoginActionCreators.register(this.state.username, this.state.plainPassword, this.state.email);
-    }
-
-    linkState(key) {
-        return new ReactLink(this.state[key], ReactStateSetters.createStateKeySetter(this, key));
+        console.log(this.refs, this.state, this.props);
+        LoginActionCreators.register({
+            username     : this.refs.username.getValue(),
+            plainPassword: this.refs.plainPassword.getValue(),
+            email        : this.refs.email.getValue()
+        }, {
+            interfaceLanguage: 'es',
+            orientationRequired: false,
+            birthday: this.refs.birthday.getValue(),
+            gender  : this.state.gender
+        });
     }
 
     onClickGender(gender) {
@@ -125,10 +128,10 @@ export default class RegisterJoinPage extends Component {
                     <div id="page-content" className="login-content">
                         <div className="list-block">
                             <ul>
-                                <TextInput placeholder={'Nombre de usuario'} valueLink={this.linkState('username')}/>
-                                <TextInput placeholder={'Email'} valueLink={this.linkState('email')}/>
-                                <PasswordInput placeholder={'Contraseña'} valueLink={this.linkState('plainPassword')}/>
-                                <DateInput label={'Fecha de nacimiento'} valueLink={this.linkState('birthday')}/>
+                                <TextInput placeholder={'Nombre de usuario'} ref="username"/>
+                                <TextInput placeholder={'Email'} ref="email"/>
+                                <PasswordInput placeholder={'Contraseña'} ref="plainPassword"/>
+                                <DateInput label={'Fecha de nacimiento'} ref="birthday"/>
                             </ul>
                         </div>
 

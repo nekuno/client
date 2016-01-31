@@ -139,7 +139,7 @@ export function getData(url) {
     });
 }
 
-function postData(url, data) {
+export function postData(url, data) {
 
     if (url.indexOf(API_ROOT) === -1) {
         url = API_ROOT + url;

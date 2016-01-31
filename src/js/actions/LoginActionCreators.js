@@ -13,19 +13,13 @@ export default {
         }, {username, password});
     },
 
-    register: (username, plainPassword, email, profile) => {
-        let promise = AuthService.register(username, plainPassword, email);
+    register: (user, profile) => {
+        let promise = AuthService.register(user, profile);
         dispatchAsync(promise, {
             request: ActionTypes.REQUEST_REGISTER_USER,
             success: ActionTypes.REQUEST_REGISTER_USER_SUCCESS,
             failure: ActionTypes.REQUEST_REGISTER_USER_ERROR
-        }, {username, plainPassword, email})
-            .then(function(user) {
-                console.log(user);
-                console.log(profile);
-            }).catch(function(error) {
-                console.log(error);
-        });
+        }, {user, profile});
     },
 
     logoutUser: () => {

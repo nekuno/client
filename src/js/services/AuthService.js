@@ -1,7 +1,8 @@
 import Url from 'url';
 import request from 'request';
 import Bluebird from 'bluebird';
-import { LOGIN_URL, REGISTER_USER_URL, VALIDATE_INVITATION_TOKEN_URL } from '../constants/Constants';
+import { API_URLS } from '../constants/Constants';
+import * as APIUtils from '../utils/APIUtils';
 
 class AuthService {
 
@@ -18,8 +19,8 @@ class AuthService {
             }
             this._promise = request.post(
                 {
-                    protocol: Url.parse(VALIDATE_INVITATION_TOKEN_URL).protocol,
-                    url     : VALIDATE_INVITATION_TOKEN_URL + token,
+                    protocol: Url.parse(API_URLS.VALIDATE_INVITATION_TOKEN).protocol,
+                    url     : API_URLS.VALIDATE_INVITATION_TOKEN + token,
                     body    : {},
                     json    : true
                 },
@@ -43,8 +44,8 @@ class AuthService {
         return new Bluebird((resolve, reject) => {
             request.post(
                 {
-                    protocol: Url.parse(LOGIN_URL).protocol,
-                    url     : LOGIN_URL,
+                    protocol: Url.parse(API_URLS.LOGIN).protocol,
+                    url     : API_URLS.LOGIN,
                     body    : {username, password},
                     json    : true
                 },
@@ -62,26 +63,36 @@ class AuthService {
         });
     }
 
-    register(username, plainPassword, email) {
-        return new Bluebird((resolve, reject) => {
-            request.post(
-                {
-                    protocol: Url.parse(REGISTER_USER_URL).protocol,
-                    url     : REGISTER_USER_URL,
-                    body    : {username, plainPassword, email},
-                    json    : true
-                },
-                (err, response, body) => {
-                    if (err) {
-                        return reject(err);
-                    }
-                    if (response.statusCode >= 400) {
-                        return reject(body);
-                    }
-                    return resolve(body);
-                }
-            );
-        });
+    register(user, profile) {
+
+        return APIUtils.postData(API_URLS.VALIDATE_USER, user)
+            .then(function(user) {
+                console.log('User valid', user);
+                return APIUtils.postData(API_URLS.VALIDATE_PROFILE, profile);
+            })
+            .then(function(profile) {
+                console.log('Profile valid', profile);
+                return APIUtils.postData(API_URLS.REGISTER_USER, user);
+            })
+            .then(function(user) {
+                console.log('User registered', user);
+                return [user, APIUtils.postData(API_URLS.REGISTER_PROFILE.replace('{id}', user.id), profile)];
+            })
+            .spread(function(user, profile) {
+                console.log('Profile registered', profile, user);
+            });
+
+        //then(function(user) {
+        //    $user = user;
+        //
+        //})
+        //    .then(function(profile) {
+        //        $profile = profile;
+        //    })
+        //    .catch(function(error) {
+        //
+        //    });
+
     }
 
 }

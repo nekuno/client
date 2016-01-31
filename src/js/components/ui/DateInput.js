@@ -9,13 +9,17 @@ export default class DateInput extends Component {
 
     shouldComponentUpdate = shouldPureComponentUpdate;
 
+    getValue() {
+        return this.refs.input.value;
+    }
+
     render() {
         return (
             <li>
                 <div className="item-content">
                     <div className="item-inner">
                         <div className="item-input">
-                            <label>{this.props.label} <input {...this.props} type="date"/></label>
+                            <label>{this.props.label} <input {...this.props} ref="input" type="date"/></label>
                         </div>
                     </div>
                 </div>

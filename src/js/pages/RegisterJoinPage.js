@@ -84,6 +84,7 @@ export default class RegisterJoinPage extends Component {
             orientationRequired: false,
             birthday           : this.refs.birthday.getValue(),
             gender             : this.state.gender,
+            descriptiveGender  : Object.keys(this.state.descriptiveGender),
             location           : this.state.location
         });
     }
@@ -115,7 +116,30 @@ export default class RegisterJoinPage extends Component {
     }
 
     onSuggestSelect(suggest) {
-        console.log(suggest);
+
+        let locality = '', country = '';
+        suggest.gmaps.address_components.forEach(function(component) {
+            component.types.forEach(function(type) {
+                if (!locality && type === 'locality') {
+                    locality = component.long_name;
+                }
+                if (!country && type === 'country') {
+                    country = component.long_name;
+                }
+            });
+        });
+
+        let location = {
+            latitude : suggest.location.lat,
+            longitude: suggest.location.lng,
+            address  : suggest.label,
+            locality : locality,
+            country  : country
+        };
+
+        this.setState({
+            location: location
+        });
     }
 
     componentWillMount() {
@@ -155,7 +179,7 @@ export default class RegisterJoinPage extends Component {
                                     {Object.keys(metadata.descriptiveGender.choices).map((id) => {
                                         let text = metadata.descriptiveGender.choices[id];
                                         return (<li key={id}>
-                                            <InputCheckbox value={id} name={'alternativeGender[]'} text={text} defaultChecked={false} onClickHandler={this.onClickDescriptiveGender}/>
+                                            <InputCheckbox value={id} name={'descriptiveGender[]'} text={text} defaultChecked={false} onClickHandler={this.onClickDescriptiveGender}/>
                                         </li>)
                                     })}
                                 </ul>

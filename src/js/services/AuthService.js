@@ -76,23 +76,15 @@ class AuthService {
             })
             .then(function(user) {
                 console.log('User registered', user);
-                return [user, APIUtils.postData(API_URLS.REGISTER_PROFILE.replace('{id}', user.id), profile)];
+                return [user, APIUtils.postData(API_URLS.REGISTER_PROFILE.replace('{id}', user.qnoow_id), profile)];
             })
             .spread(function(user, profile) {
-                console.log('Profile registered', profile, user);
+                console.log('Profile registered', user, profile);
+                return {
+                    user,
+                    profile
+                };
             });
-
-        //then(function(user) {
-        //    $user = user;
-        //
-        //})
-        //    .then(function(profile) {
-        //        $profile = profile;
-        //    })
-        //    .catch(function(error) {
-        //
-        //    });
-
     }
 
 }

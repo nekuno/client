@@ -75,14 +75,28 @@ body #root .App .view .page.user-page {
       }
     }
 
-    .other-profile-like-button {
-      margin: 0 auto 25px auto;
+    .other-profile-buttons {
       text-align: center;
-    }
 
-    .other-profile-block-button {
-      margin: -20px auto 25px auto;
-      text-align: center;
+      .other-profile-like-button, .other-profile-block-button {
+        display: inline-block;
+        margin: 0 auto 25px auto;
+      }
+
+      .other-profile-block-button {
+        margin-left: 10px;
+        position: absolute;
+
+        .button {
+          font-size: 20px;
+          padding: 5px;
+
+          .icon-block {
+            vertical-align: super;
+          }
+
+        }
+      }
     }
   }
 }

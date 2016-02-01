@@ -179,22 +179,14 @@ export default AuthenticatedComponent(class UserPage extends Component {
     render() {
         const { userLoggedIn, user, currentUser, profile, stats, matching, similarity, block, like, comparedStats } = this.props;
         const currentUserId = currentUser ? currentUser.qnoow_id : null;
-        const currentPicture = currentUser ? `${IMAGES_ROOT}media/cache/resolve/user_avatar_60x60/user/images/${currentUser.picture}` : `${IMAGES_ROOT}media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
+        const currentPicture = currentUser && currentUser.picture ? `${IMAGES_ROOT}media/cache/resolve/user_avatar_60x60/user/images/${currentUser.picture}` : `${IMAGES_ROOT}media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
+        const ownPicture = user && user.picture ? `${IMAGES_ROOT}media/cache/resolve/user_avatar_60x60/user/images/${user.picture}` : `${IMAGES_ROOT}media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
         const likeText = like ? "Ya no me gusta" : "Me gusta";
         const blockClass = block? "icon-block blocked" : "icon-block";
 
         let ownProfile=false;
         if (userLoggedIn && user && (user.qnoow_id == currentUserId)){
             ownProfile = true;
-        }
-        let otherProfileHTML = '';
-
-        if (!ownProfile) {
-            const ownPicture = user && user.picture ? `${IMAGES_ROOT}media/cache/resolve/user_avatar_60x60/user/images/${user.picture}` : `${IMAGES_ROOT}media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
-            otherProfileHTML =
-                <div className="other-profile-wrapper" >
-                    <OtherProfileData matching={matching} similarity={similarity} stats={comparedStats} ownImage={ownPicture} currentImage={currentPicture} />
-                </div>
         }
 
         return (
@@ -206,10 +198,10 @@ export default AuthenticatedComponent(class UserPage extends Component {
 
                         {currentUser && profile ?
                             <User user={currentUser} profile={profile}/> :
-                            <h1>Loading...</h1>
+                            ''
                         }
 
-                        {ownProfile ?
+                        {currentUser && profile && ownProfile ?
                             <div className="user-interests">
                                 <div className="number">
                                     {selectn('numberOfContentLikes', stats) ? stats.numberOfContentLikes : 0}
@@ -218,17 +210,30 @@ export default AuthenticatedComponent(class UserPage extends Component {
                                     Intereses
                                 </div>
                             </div>
-                            :   <div className = "other-profile-buttons">
-                                    <div className="other-profile-like-button"><Button onClick={this.onRate}>{likeText}</Button></div>
-                                    <div className = "other-profile-block-button"><Button onClick = {this.onBlock}><span className={blockClass}></span></Button></div>
-                                </div>
+                            : ''
                         }
 
-                        {otherProfileHTML}
+                        {currentUser && profile && !ownProfile ?
+                            <div>
+                                <div className = "other-profile-buttons">
+                                    <div className="other-profile-like-button">
+                                        <Button onClick={this.onRate}>{likeText}</Button>
+                                    </div>
+                                    <div className = "other-profile-block-button">
+                                        <Button onClick = {this.onBlock}><span className={blockClass}></span></Button>
+                                    </div>
+                                </div>
+                                <div className="other-profile-wrapper" >
+                                    <OtherProfileData matching={matching} similarity={similarity} stats={comparedStats} ownImage={ownPicture} currentImage={currentPicture} />
+                                </div>
+                            </div>
+                            : ''
+                        }
 
-                        {profile ?
+
+                        {currentUser && profile ?
                             <ProfileDataList profile={profile}/> :
-                            <h1>Loading...</h1>
+                            ''
                         }
                         <br />
                         <br />

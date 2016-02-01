@@ -225,7 +225,7 @@ export default AuthenticatedComponent(class UserPage extends Component {
                                         <Button onClick = {this.onBlock}><span className={blockClass}></span></Button>
                                     </div>
                                 </div>
-                                <div className="other-profile-wrapper" >
+                                <div className="other-profile-wrapper bold" >
                                     <OtherProfileData matching={matching} similarity={similarity} stats={comparedStats} ownImage={ownPicture} currentImage={currentPicture} />
                                 </div>
                             </div>

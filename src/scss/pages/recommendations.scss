@@ -1,50 +1,52 @@
 @import '../_partials/colors';
 
-body #root .App .view .page  {
-  #page-content.recommendation-page {
-    margin-top: 70px !important;
-    width: 100% !important;
+body #root .App {
 
-    .recommendation-content {
-      text-align: center;
+  .view .page {
+    #page-content.recommendation-page {
+      margin-top: 70px !important;
+      width: 100% !important;
 
-      .thread-title {
-        line-height: 30px;
-        margin: 0 auto 10px auto;
-        width: 75%;
-      }
+      .recommendation-content {
+        text-align: center;
 
-      .recommendation-list {
-
-        .swiper-slide {
-          background-color: $dark-purple;
-          width: 275px;
+        .thread-title {
+          line-height: 30px;
+          margin: 0 auto 10px auto;
+          width: 75%;
         }
 
-        .swiper-slide-prev, .swiper-slide-next {
-          z-index: 1;
+        .recommendation-list {
 
-          .recommendation {
+          .swiper-slide {
+            background-color: $dark-purple;
+            width: 275px;
+          }
 
+          .swiper-slide-prev, .swiper-slide-next {
+            z-index: 1;
 
-            .card {
-              opacity: 0.5;
+            .recommendation {
 
-              .card-header {
+              .card {
+                opacity: 0.5;
 
+                .card-header {
+
+                }
               }
             }
           }
-        }
-        .recommendation {
-          margin: 25px auto 0;
+          .recommendation {
+            margin: 25px auto 0;
+          }
         }
       }
-    }
 
-    .loading {
-      margin: 100px auto;
-      text-align: center;
+      .loading {
+        margin: 100px auto;
+        text-align: center;
+      }
     }
   }
 }

@@ -2,10 +2,15 @@
 
 body #root .App .view .page.user-page {
   #page-content {
+    .user-interests {
+      .label {
+        font-size: 0.857142857em;
+      }
+    }
     .profile-data-list {
       margin-top: 30px;
+
       .profile-data, .profile-about-me {
-        color: white;
         display: table;
         width: 100%;
 
@@ -35,7 +40,6 @@ body #root .App .view .page.user-page {
           font-weight: bold;
           width: 100%;
         }
-
       }
     }
 
@@ -64,6 +68,7 @@ body #root .App .view .page.user-page {
         width: 50%;
         height: 100%;
         float: right;
+
         .progress-bar {
           margin-top: 5px;
           margin-bottom: 5px;
@@ -88,11 +93,10 @@ body #root .App .view .page.user-page {
         position: absolute;
 
         .button {
-          font-size: 20px;
           padding: 5px;
 
           .icon-block {
-            vertical-align: super;
+
           }
 
         }

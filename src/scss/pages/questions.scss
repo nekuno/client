@@ -16,14 +16,12 @@ body #root .App .view .page.questions-page  {
         color: white;
 
         .answer-questions-link-title {
-          font-size: 21px;
+          font-size: 1.428571429em;
           font-weight: bold;
         }
-        .answer-questions-link-text {
-          font-size: 14px;
-        }
+
         .answer-questions-link-stats {
-          font-size: 12px;
+          font-size: 0.857142857em;
           margin-top: 10px;
 
           p {
@@ -50,7 +48,6 @@ body #root .App .view .page.questions-page  {
       margin-top: 20px;
 
       .question {
-        color: white;
         margin-bottom: 15px;
 
         .question-title {

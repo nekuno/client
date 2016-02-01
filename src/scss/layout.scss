@@ -33,6 +33,7 @@ body {
 
 	background: $dark-gray;
 	font-family: $nekuno-font;
+	font-size: 10px;
 	margin: auto;
 	max-width: 480px;
 	min-width: 320px;
@@ -41,11 +42,13 @@ body {
 
 	a {
 		cursor: pointer;
+		font-size: 1em;
 	}
 	#root {
 		height: 100%;
 
 		.App {
+			font-size: 1.4em;
 			height: 100%;
 
 			.view {
@@ -58,16 +61,28 @@ body {
 
 					#page-content {
 						color: #fff;
-						font-family: $nekuno-font;
 						margin: 50px auto 0 auto;
 						width: 85%;
 
 						.title {
-							font-size: 25px;
+							font-size: 1.785714286em;
+							text-align: center;
+						}
+						.sub-title {
+							font-size: 1.214285714em;
 							text-align: center;
 						}
 
+						.content-block {
+							color: #fff;
+						}
+
+						.bold {
+							font-weight: bold;
+						}
+
 						.list-block .item-content {
+							font-size: 0.823529412em;
 							padding-left: 0;
 						}
 					}
@@ -83,7 +98,7 @@ body {
 
 					span {
 						color: #fff;
-						font-size: 15px;
+						font-size: 1em;
 						line-height: 35px;
 					}
 

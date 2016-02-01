@@ -17,9 +17,6 @@ body #root .App .view .page.question-stats-page  {
           font-weight: bold;
           margin-bottom: 10px;
         }
-        .your-answer-text {
-          font-size: 16px;
-        }
       }
       .question-stats-graph-title {
         color: $pink;
@@ -64,7 +61,7 @@ body #root .App .view .page.question-stats-page  {
             }
           }
           .genre-text {
-            font-size: 16px;
+            font-size: 1.214285714em;
           }
         }
         .female-answer-chart-container {
@@ -84,7 +81,6 @@ body #root .App .view .page.question-stats-page  {
           }
           .answer {
             display: inline-block;
-            font-size: 13px;
             margin-left: 5px;
             overflow: hidden;
             text-overflow: ellipsis;

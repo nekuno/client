@@ -7,16 +7,17 @@
 		padding: 15px 0 25px;
 		
 		.card-title {
+			color: #000;
+			font-size: 0.941176471em;
 			font-weight: bold;
 		}
 		
 		.card-sub-title {
 			color: $light-gray;
-			font-size: 14px;
+			font-size: 0.823529412em;
 			margin-top: 5px;
 
 			.icon-marker {
-				font-size: 10px;
 				margin-right: 5px;
 			}
 		}

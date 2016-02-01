@@ -5,8 +5,16 @@ body.panels-3d.with-panel-left-reveal .views {
 
 .panel {
 	background: $dark-blue;
+	color: #fff;
 	width: 100%;
 
+	.content-block {
+		color: #fff;
+	}
+	.title {
+		font-size: 1.785714286em;
+		text-align: center;
+	}
 	a {
 		color: #fff;
 	}
@@ -18,13 +26,12 @@ body.panels-3d.with-panel-left-reveal .views {
 		color: $deep-purple;
 		font-size: 29px;
 	}
-
 	.menu {
 		padding: 30px 30px 0 30px;
 
 		a {
 			display: block;
-			font-size: 16px;
+			font-size: 1.142857143em;
 			padding: 20px;
 		}
 	}

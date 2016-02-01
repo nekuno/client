@@ -31,7 +31,7 @@ export default class QuestionStats extends Component {
                     <div className="your-answer-title">
                         Tu respuesta
                     </div>
-                    <div className="your-answer-text">
+                    <div className="your-answer-text sub-title">
                         {answers.map((answer, index) => userAnswer.answerId === answer.answerId ? answer.text : '')}
                     </div>
                 </div>

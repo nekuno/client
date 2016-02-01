@@ -1,8 +1,4 @@
 import React, { PropTypes, Component } from 'react';
-import { Link } from 'react-router';
-import selectn from 'selectn';
-import { IMAGES_ROOT } from '../constants/Constants';
-import * as UserActionCreators from '../actions/UserActionCreators';
 import LeftMenuTopNavbar from '../components/ui/LeftMenuTopNavbar';
 import QuestionStats from '../components/questions/QuestionStats';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
@@ -68,6 +64,12 @@ export default AuthenticatedComponent(class QuestionStatsPage extends Component 
                             ''
                         }
                     </div>
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
                 </div>
             </div>
         );

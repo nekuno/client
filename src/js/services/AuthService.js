@@ -39,28 +39,7 @@ class AuthService {
 
     login(username, password) {
 
-        nekunoApp.showProgressbar();
-
-        return new Bluebird((resolve, reject) => {
-            request.post(
-                {
-                    protocol: Url.parse(API_URLS.LOGIN).protocol,
-                    url     : API_URLS.LOGIN,
-                    body    : {username, password},
-                    json    : true
-                },
-                (err, response, body) => {
-                    nekunoApp.hideProgressbar();
-                    if (err) {
-                        return reject(err);
-                    }
-                    if (response.statusCode >= 400) {
-                        return reject(body);
-                    }
-                    return resolve(body);
-                }
-            );
-        });
+        return APIUtils.postData(API_URLS.LOGIN, {username, password});
     }
 
     register(user, profile) {

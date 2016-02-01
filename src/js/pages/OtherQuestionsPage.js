@@ -1,6 +1,4 @@
 import React, { PropTypes, Component } from 'react';
-import { Link } from 'react-router';
-import selectn from 'selectn';
 import { IMAGES_ROOT } from '../constants/Constants';
 import * as QuestionActionCreators from '../actions/QuestionActionCreators';
 import * as UserActionCreators from '../actions/UserActionCreators';
@@ -40,8 +38,8 @@ function getState(props) {
     const currentUser = UserStore.get(currentUserId);
     const otherUser = UserStore.get(otherUserId);
     const questions = QuestionStore.get(currentUserId);
-    const otherQuestions = QuestionStore.get(otherUserId);
-    const pagination = QuestionStore.getPagination(otherUserId);
+    const otherQuestions = QuestionStore.get(otherUserId) || {};
+    const pagination = QuestionStore.getPagination(otherUserId) || {};
 
     return {
         currentUser,
@@ -63,8 +61,8 @@ export default AuthenticatedComponent(class OtherQuestionsPage extends Component
 
         // Injected by @connectToStores:
         questions: PropTypes.object,
-        otherQuestions: PropTypes.object,
-        pagination: PropTypes.object,
+        otherQuestions: PropTypes.object.isRequired,
+        pagination: PropTypes.object.isRequired,
         otherUser: PropTypes.object,
         // Injected by AuthenticatedComponent
         user: PropTypes.object
@@ -81,11 +79,19 @@ export default AuthenticatedComponent(class OtherQuestionsPage extends Component
     }
 
     componentWillMount() {
-        requestData(this.props, this.state);
+        if (Object.keys(this.props.pagination).length === 0) {
+            requestData(this.props, this.state);
+        }
     }
 
     componentWillUnmount() {
         document.getElementsByClassName('view')[0].removeEventListener('scroll', this.handleScroll);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (parseId(nextProps.params) !== parseId(this.props.params)) {
+            requestData(nextProps);
+        }
     }
 
     render() {

@@ -30,7 +30,7 @@ export default class CardUser extends Component {
 		username: PropTypes.string.isRequired,
 		location: PropTypes.string.isRequired,
 		canSendMessage: PropTypes.bool.isRequired,
-		picture: PropTypes.string.isRequired,
+		picture: PropTypes.string,
 		matching: PropTypes.number.isRequired,
 		liked: PropTypes.bool.isRequired,
 		hideLikeButton: PropTypes.bool.isRequired,

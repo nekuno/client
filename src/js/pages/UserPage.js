@@ -150,7 +150,9 @@ export default AuthenticatedComponent(class UserPage extends Component {
     }
 
     componentWillMount() {
-        requestData(this.props);
+        if (!UserStore.contains(parseId(this.props.params))) {
+            requestData(this.props);
+        }
     }
 
     componentWillReceiveProps(nextProps) {

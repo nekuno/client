@@ -5,7 +5,7 @@ export default class TextRadios extends Component {
 	static propTypes = {
 		title: PropTypes.string,
 		labels: PropTypes.array.isRequired,
-		value: PropTypes.string.isRequired,
+		value: PropTypes.string,
 		onClickHandler: PropTypes.func.isRequired
 	};
 

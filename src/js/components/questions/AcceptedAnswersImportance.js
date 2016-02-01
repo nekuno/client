@@ -14,7 +14,7 @@ export default class AcceptedAnswersImportance extends Component {
 		this.handleOnImportanceClick = this.handleOnImportanceClick.bind(this);
 
 		this.state = {
-			importance: false
+			importance: null
 		};
 	}
 

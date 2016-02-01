@@ -5,6 +5,7 @@ export const IMAGES_ROOT = config.IMAGES_ROOT;
 export const API_URLS = {
     LOGIN                    : API_ROOT + 'login',
     VALIDATE_INVITATION_TOKEN: API_ROOT + 'invitations/token/validate/',
+    VALIDATE_USERNAME        : API_ROOT + 'users/available/',
     VALIDATE_USER            : API_ROOT + 'users/validate',
     VALIDATE_PROFILE         : API_ROOT + 'profile/validate',
     REGISTER_USER            : API_ROOT + 'users',

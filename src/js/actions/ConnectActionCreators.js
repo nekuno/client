@@ -4,13 +4,22 @@ import AuthService from '../services/AuthService';
 
 export default {
 
-    validate: (token) => {
-        let promise = AuthService.validate(token);
+    validateInvitation: (token) => {
+        let promise = AuthService.validateInvitation(token);
         dispatchAsync(promise, {
             request: ActionTypes.REQUEST_VALIDATE_INVITATION_USER,
             success: ActionTypes.REQUEST_VALIDATE_INVITATION_USER_SUCCESS,
             failure: ActionTypes.REQUEST_VALIDATE_INVITATION_USER_ERROR
         }, {token});
+    },
+
+    validateUsername: (username) => {
+        let promise = AuthService.validateUsername(username);
+        dispatchAsync(promise, {
+            request: ActionTypes.REQUEST_VALIDATE_USERNAME,
+            success: ActionTypes.REQUEST_VALIDATE_USERNAME_SUCCESS,
+            failure: ActionTypes.REQUEST_VALIDATE_USERNAME_ERROR
+        }, {username});
     },
 
     connect: (token, accessToken, resource) => {

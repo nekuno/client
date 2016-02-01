@@ -7,24 +7,58 @@ import * as APIUtils from '../utils/APIUtils';
 class AuthService {
 
     constructor() {
-        this._promise = null;
+        this._invitationPromise = null;
+        this._usernamePromise = null;
     }
 
-    validate(token) {
+    validateInvitation(token) {
+
+        nekunoApp.showProgressbar();
 
         return new Bluebird((resolve, reject) => {
 
-            if (this._promise) {
-                this._promise.abort();
+            if (this._invitationPromise) {
+                this._invitationPromise.abort();
             }
-            this._promise = request.post(
+            this._invitationPromise = request.post(
                 {
-                    protocol: Url.parse(API_URLS.VALIDATE_INVITATION_TOKEN).protocol,
+                    protocol: Url.parse(API_URLS.VALIDATE_INVITATION_TOKEN + token).protocol,
                     url     : API_URLS.VALIDATE_INVITATION_TOKEN + token,
                     body    : {},
                     json    : true
                 },
                 (err, response, body) => {
+                    nekunoApp.hideProgressbar();
+                    if (err) {
+                        return reject(err);
+                    }
+                    if (response.statusCode >= 400) {
+                        return reject(body);
+                    }
+                    return resolve(body);
+                }
+            );
+        });
+    }
+
+    validateUsername(username) {
+
+        nekunoApp.showProgressbar();
+
+        return new Bluebird((resolve, reject) => {
+
+            if (this._usernamePromise) {
+                this._usernamePromise.abort();
+            }
+            this._usernamePromise = request.get(
+                {
+                    protocol: Url.parse(API_URLS.VALIDATE_USERNAME + username).protocol,
+                    url     : API_URLS.VALIDATE_USERNAME + username,
+                    body    : {},
+                    json    : true
+                },
+                (err, response, body) => {
+                    nekunoApp.hideProgressbar();
                     if (err) {
                         return reject(err);
                     }

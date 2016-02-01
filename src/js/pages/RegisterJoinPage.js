@@ -8,6 +8,7 @@ import DateInput from '../components/ui/DateInput';
 import FullWidthButton from '../components/ui/FullWidthButton';
 import InputCheckbox from '../components/ui/InputCheckbox';
 import LoginActionCreators from '../actions/LoginActionCreators';
+import ConnectActionCreators from '../actions/ConnectActionCreators';
 import * as UserActionCreators from '../actions/UserActionCreators';
 import connectToStores from '../utils/connectToStores';
 import ConnectStore from '../stores/ConnectStore';
@@ -25,6 +26,7 @@ function getState() {
     const metadata = ProfileStore.getMetadata();
     const error = RegisterStore.error;
     const requesting = RegisterStore.requesting();
+    const validUsername = RegisterStore.validUsername();
 
     if (error) {
         let displayErrors = getValidationErrors(error);
@@ -33,13 +35,18 @@ function getState() {
         }
     }
 
+    if (!validUsername) {
+        nekunoApp.alert('Lo sentimos, este nombre de usuario no está disponible');
+    }
+
     return {
         token,
         accessToken,
         resource,
         metadata,
         error,
-        requesting
+        requesting,
+        validUsername
     };
 }
 
@@ -52,16 +59,18 @@ export default class RegisterJoinPage extends Component {
 
     static propTypes = {
         // Injected by @connectToStores:
-        token      : PropTypes.string,
-        accessToken: PropTypes.string,
-        resource   : PropTypes.string,
-        metadata   : PropTypes.object,
-        error      : PropTypes.object,
-        requesting : PropTypes.bool
+        token        : PropTypes.string,
+        accessToken  : PropTypes.string,
+        resource     : PropTypes.string,
+        metadata     : PropTypes.object,
+        error        : PropTypes.object,
+        requesting   : PropTypes.bool,
+        validUsername: PropTypes.bool
     };
 
     constructor() {
         super();
+        this.onUsernameChange = this.onUsernameChange.bind(this);
         this.onClickGender = this.onClickGender.bind(this);
         this.onClickDescriptiveGender = this.onClickDescriptiveGender.bind(this);
         this.onSuggestSelect = this.onSuggestSelect.bind(this);
@@ -87,6 +96,11 @@ export default class RegisterJoinPage extends Component {
             descriptiveGender  : this.state.descriptiveGender,
             location           : this.state.location
         });
+    }
+
+    onUsernameChange() {
+        let username = this.refs.username.getValue();
+        ConnectActionCreators.validateUsername(username);
     }
 
     onClickGender(gender) {
@@ -159,7 +173,7 @@ export default class RegisterJoinPage extends Component {
                     <div id="page-content" className="login-content">
                         <div className="list-block">
                             <ul>
-                                <TextInput placeholder={'Nombre de usuario'} ref="username"/>
+                                <TextInput placeholder={'Nombre de usuario'} ref="username" onChange={this.onUsernameChange}/>
                                 <TextInput placeholder={'Email'} ref="email"/>
                                 <PasswordInput placeholder={'Contraseña'} ref="plainPassword"/>
                                 <DateInput label={'Fecha de nacimiento'} ref="birthday"/>

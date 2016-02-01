@@ -51,7 +51,7 @@ export default class RegisterPage extends Component {
         token = token.replace('https://nekuno.com/invitation/', '');
         if (token) {
             console.log('Validating token...', token);
-            ConnectActionCreators.validate(token);
+            ConnectActionCreators.validateInvitation(token);
         }
     }
 

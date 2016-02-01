@@ -6,9 +6,10 @@ class RegisterStore extends BaseStore {
     constructor() {
         super();
         this.subscribe(() => this._registerToActions.bind(this));
+        this._validUsername = true;
+        this._user = null;
         this._requesting = false;
         this._error = null;
-        this._user = null;
     }
 
     _registerToActions(action) {
@@ -22,9 +23,9 @@ class RegisterStore extends BaseStore {
                 break;
 
             case ActionTypes.REQUEST_REGISTER_USER_SUCCESS:
+                this._user = action.response.user;
                 this._requesting = false;
                 this._error = null;
-                this._user = action.response.user;
                 this.emitChange();
                 break;
 
@@ -34,9 +35,30 @@ class RegisterStore extends BaseStore {
                 this.emitChange();
                 break;
 
+            case ActionTypes.REQUEST_VALIDATE_USERNAME:
+                this._validUsername = true;
+                this.emitChange();
+                break;
+
+            case ActionTypes.REQUEST_VALIDATE_USERNAME_SUCCESS:
+                this._validUsername = true;
+                this.emitChange();
+                break;
+
+            case ActionTypes.REQUEST_VALIDATE_USERNAME_ERROR:
+                this._validUsername = false;
+                this.emitChange();
+                break;
+
             default:
                 break;
         }
+    }
+
+    validUsername() {
+        let valid = this._validUsername;
+        this._validUsername = true;
+        return valid;
     }
 
     get user() {

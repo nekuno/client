@@ -68,7 +68,7 @@ export default class RegisterJoinPage extends Component {
         this.state = {
             gender           : '',
             location         : {},
-            descriptiveGender: {}
+            descriptiveGender: []
         };
     }
 
@@ -84,7 +84,7 @@ export default class RegisterJoinPage extends Component {
             orientationRequired: false,
             birthday           : this.refs.birthday.getValue(),
             gender             : this.state.gender,
-            descriptiveGender  : Object.keys(this.state.descriptiveGender),
+            descriptiveGender  : this.state.descriptiveGender,
             location           : this.state.location
         });
     }
@@ -95,17 +95,16 @@ export default class RegisterJoinPage extends Component {
         })
     }
 
-    onClickDescriptiveGender(checked, value, uncheck) {
+    onClickDescriptiveGender(checked, value) {
 
         let descriptiveGender = this.state.descriptiveGender;
-        if (Object.keys(descriptiveGender).length === 5 && checked && !descriptiveGender[value]) {
+        if (descriptiveGender.length === 5 && checked && descriptiveGender.indexOf(value) === -1) {
             nekunoApp.alert('El máximo de opciones permitidas es 5, desmarca alguna otra opción para elegir esta.');
-            uncheck();
         } else {
-            if (!checked) {
-                delete descriptiveGender[value]
+            if (checked) {
+                descriptiveGender.push(value);
             } else {
-                descriptiveGender[value] = checked;
+                descriptiveGender = descriptiveGender.filter(val => val !== value);
             }
         }
         this.setState({
@@ -178,8 +177,9 @@ export default class RegisterJoinPage extends Component {
                                 <ul>
                                     {Object.keys(metadata.descriptiveGender.choices).map((id) => {
                                         let text = metadata.descriptiveGender.choices[id];
+                                        let checked = this.state.descriptiveGender.indexOf(id) !== -1;
                                         return (<li key={id}>
-                                            <InputCheckbox value={id} name={'descriptiveGender[]'} text={text} defaultChecked={false} onClickHandler={this.onClickDescriptiveGender}/>
+                                            <InputCheckbox value={id} name={'descriptiveGender[]'} text={text} checked={checked} defaultChecked={false} onClickHandler={this.onClickDescriptiveGender}/>
                                         </li>)
                                     })}
                                 </ul>

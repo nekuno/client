@@ -95,6 +95,9 @@ export default class RegisterJoinPage extends Component {
             gender             : this.state.gender,
             descriptiveGender  : this.state.descriptiveGender,
             location           : this.state.location
+        }, this.props.token, {
+            accessToken: this.props.accessToken,
+            resource  : this.props.resource
         });
     }
 
@@ -156,7 +159,7 @@ export default class RegisterJoinPage extends Component {
     }
 
     componentWillMount() {
-        if (!this.props.token) {
+        if (!this.props.token || !this.props.accessToken || !this.props.resource) {
             //this.context.history.pushState(null, '/register');
         }
         UserActionCreators.requestMetadata();

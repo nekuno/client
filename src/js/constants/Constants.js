@@ -9,7 +9,9 @@ export const API_URLS = {
     VALIDATE_USER            : API_ROOT + 'users/validate',
     VALIDATE_PROFILE         : API_ROOT + 'profile/validate',
     REGISTER_USER            : API_ROOT + 'users',
-    REGISTER_PROFILE         : API_ROOT + 'users/{id}/profile'
+    REGISTER_PROFILE         : API_ROOT + 'users/{id}/profile',
+    CONSUME_INVITATION       : API_ROOT + 'user/{id}/invitations/consume/{token}',
+    CONNECT_ACCOUNT          : API_ROOT + 'users/{id}/tokens/{resource}'
 };
 export const QUESTION_STATS_COLORS = [
     // purple

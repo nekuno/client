@@ -13,13 +13,13 @@ export default new class LoginActionCreators {
         }, {username, password});
     }
 
-    register(user, profile) {
-        let promise = AuthService.register(user, profile);
+    register(user, profile, token, oauth) {
+        let promise = AuthService.register(user, profile, token, oauth);
         dispatchAsync(promise, {
             request: ActionTypes.REQUEST_REGISTER_USER,
             success: ActionTypes.REQUEST_REGISTER_USER_SUCCESS,
             failure: ActionTypes.REQUEST_REGISTER_USER_ERROR
-        }, {user, profile})
+        }, {user, profile, token, oauth})
             .then(() => {
                 return this.loginUser(user.username, user.plainPassword);
             }, () => {

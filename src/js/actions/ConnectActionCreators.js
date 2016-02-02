@@ -22,11 +22,12 @@ export default {
         }, {username});
     },
 
-    connect: (token, accessToken, resource) => {
+    connect: (token, accessToken, resource, userId) => {
         dispatch(ActionTypes.CONNECT_ACCOUNT, {
             token,
             accessToken,
-            resource
+            resource,
+            userId
         });
     }
 }

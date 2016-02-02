@@ -63,8 +63,18 @@ export default class RegisterPage extends Component {
             if (response.status === 'connected') {
                 var accessToken = response.authResponse.accessToken;
                 console.log('accessToken token', accessToken);
-                ConnectActionCreators.connect(token, accessToken, 'facebook');
-                history.pushState(null, '/join');
+                openFB.api({
+                    path   : '/me',
+                    params : {fields: 'id'},
+                    success: (status) => {
+                        console.log('User id: ', status.id);
+                        ConnectActionCreators.connect(token, accessToken, 'facebook', status.id);
+                        history.pushState(null, '/join');
+                    },
+                    error  : (status) => {
+                        nekunoApp.alert('Facebook login failed: ' + status.message);
+                    }
+                });
             } else {
                 nekunoApp.alert('Facebook login failed: ' + response.error);
             }

@@ -1,4 +1,5 @@
 import React, { PropTypes, Component } from 'react';
+import selectn from 'selectn';
 const ReactLink = require('react/lib/ReactLink');
 const ReactStateSetters = require('react/lib/ReactStateSetters');
 import RegularTopNavbar from '../components/ui/RegularTopNavbar';
@@ -168,12 +169,16 @@ export default class RegisterJoinPage extends Component {
     render() {
 
         const { metadata, error, requesting } = this.props;
+        const descriptiveGenderChoices = selectn('descriptiveGender.choices', metadata) || {};
+        const descriptiveGenderChoicesLength = Object.keys(descriptiveGenderChoices).length || 0;
+        let descriptiveGenderFirstColumnCounter = 0;
+        let descriptiveGenderSecondColumnCounter = 0;
 
         return (
             <div className="view view-main">
                 <RegularTopNavbar leftText={'Cancelar'} centerText={'Crear cuenta'}/>
                 <div data-page="index" className="page">
-                    <div id="page-content" className="login-content">
+                    <div id="page-content" className="register-join-content">
                         <div className="list-block">
                             <ul>
                                 <TextInput placeholder={'Nombre de usuario'} ref="username" onChange={this.onUsernameChange}/>
@@ -189,18 +194,38 @@ export default class RegisterJoinPage extends Component {
 						{key: 'female', text: 'Mujer'}
 					]} onClickHandler={this.onClickGender} value={this.state.gender}/>
 
-                        { metadata && metadata.descriptiveGender ?
+                        { descriptiveGenderChoices ?
                             <div className="list-block">
-                                <ul>
-                                    {Object.keys(metadata.descriptiveGender.choices).map((id) => {
+                                <ul className="checkbox-genders-list">
+                                    {Object.keys(descriptiveGenderChoices).map((id) => {
+                                        descriptiveGenderFirstColumnCounter++;
+                                        if (descriptiveGenderFirstColumnCounter > descriptiveGenderChoicesLength/2) {
+                                            return '';
+                                        }
+                                        let text = metadata.descriptiveGender.choices[id];
+                                        let checked = this.state.descriptiveGender.indexOf(id) !== -1;
+                                        return (
+                                            <li key={id}>
+                                                <InputCheckbox value={id} name={'descriptiveGender[]'} text={text} checked={checked} defaultChecked={false} onClickHandler={this.onClickDescriptiveGender} reverse={true}/>
+                                            </li>
+                                        )
+                                    })}
+                                </ul>
+                                <ul className="checkbox-genders-list">
+                                    {Object.keys(descriptiveGenderChoices).map((id) => {
+                                        descriptiveGenderSecondColumnCounter++;
+                                        if (descriptiveGenderSecondColumnCounter <= descriptiveGenderChoicesLength/2) {
+                                            return '';
+                                        }
                                         let text = metadata.descriptiveGender.choices[id];
                                         let checked = this.state.descriptiveGender.indexOf(id) !== -1;
                                         return (<li key={id}>
-                                            <InputCheckbox value={id} name={'descriptiveGender[]'} text={text} checked={checked} defaultChecked={false} onClickHandler={this.onClickDescriptiveGender}/>
+                                            <InputCheckbox value={id} name={'descriptiveGender[]'} text={text} checked={checked} defaultChecked={false} onClickHandler={this.onClickDescriptiveGender} reverse={true}/>
                                         </li>)
                                     })}
                                 </ul>
                             </div>
+
                             :
                             ''
                         }

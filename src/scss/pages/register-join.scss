@@ -1,0 +1,27 @@
+body #root .App .view .page #page-content.register-join-content {
+  margin: 150px auto 0 auto;
+
+  .list-block {
+    ul.checkbox-genders-list {
+      display: inline-table;
+      padding: 0 2.5%;
+      width: 45%;
+
+      li {
+        .label-checkbox {
+          .item-inner {
+            .item-title {
+              width: 80%;
+            }
+          }
+        }
+        &::after {
+          content: none;
+        }
+      }
+      .active-state {
+        background-color: transparent;
+      }
+    }
+  }
+}

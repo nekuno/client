@@ -48,17 +48,8 @@ body #root .App .view .page {
                 .label-checkbox {
                   .item-inner {
                     .item-title {
-                      text-transform: none;
-                      white-space: normal;
                       width: 90%;
-
                     }
-                    &::after {
-                      content: none;
-                    }
-                  }
-                  &::after {
-                    content: none;
                   }
                 }
                 &::after {

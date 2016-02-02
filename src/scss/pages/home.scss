@@ -7,12 +7,12 @@ body #root .App .view {
     overflow-y: visible;
 
     .swiper-slide {
-      background: #fff;
       height: 100%;
       text-align: center;
 
       .page#login-1-image, .page#login-2-image, .page#login-3-image {
         background-size: 100% auto;
+        max-height: 750px;
         height: 100%;
         overflow: hidden;
 

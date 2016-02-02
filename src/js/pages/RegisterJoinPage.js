@@ -23,6 +23,7 @@ function getState() {
     const token = ConnectStore.token;
     const accessToken = ConnectStore.accessToken;
     const resource = ConnectStore.resource;
+    const userId = ConnectStore.userId;
     const metadata = ProfileStore.getMetadata();
     const error = RegisterStore.error;
     const requesting = RegisterStore.requesting();
@@ -43,6 +44,7 @@ function getState() {
         token,
         accessToken,
         resource,
+        userId,
         metadata,
         error,
         requesting,
@@ -62,6 +64,7 @@ export default class RegisterJoinPage extends Component {
         token        : PropTypes.string,
         accessToken  : PropTypes.string,
         resource     : PropTypes.string,
+        userId       : PropTypes.string,
         metadata     : PropTypes.object,
         error        : PropTypes.object,
         requesting   : PropTypes.bool,
@@ -84,21 +87,41 @@ export default class RegisterJoinPage extends Component {
     register(e) {
         e.preventDefault();
         console.log(this.refs, this.state, this.props);
-        LoginActionCreators.register({
+        let user = {
             username     : this.refs.username.getValue(),
             plainPassword: this.refs.plainPassword.getValue(),
             email        : this.refs.email.getValue()
-        }, {
+        };
+        let profile = {
             interfaceLanguage  : 'es',
             orientationRequired: false,
             birthday           : this.refs.birthday.getValue(),
             gender             : this.state.gender,
             descriptiveGender  : this.state.descriptiveGender,
             location           : this.state.location
-        }, this.props.token, {
+        };
+        let token = this.props.token;
+        let oauth = {
             accessToken: this.props.accessToken,
-            resource  : this.props.resource
-        });
+            resource   : this.props.resource
+        };
+
+        switch (oauth.resource) {
+            case 'facebook':
+                user.facebookID = this.props.userId;
+                break;
+            case 'twitter':
+                user.twitterID = this.props.userId;
+                break;
+            case 'google':
+                user.googleID = this.props.userId;
+                break;
+            case 'spotify':
+                user.spotifyID = this.props.userId;
+                break;
+        }
+
+        LoginActionCreators.register(user, profile, token, oauth);
     }
 
     onUsernameChange() {
@@ -159,7 +182,7 @@ export default class RegisterJoinPage extends Component {
     }
 
     componentWillMount() {
-        if (!this.props.token || !this.props.accessToken || !this.props.resource) {
+        if (!this.props.token || !this.props.accessToken || !this.props.resource || !this.props.userId) {
             //this.context.history.pushState(null, '/register');
         }
         UserActionCreators.requestMetadata();

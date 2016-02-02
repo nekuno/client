@@ -11,7 +11,7 @@ export const API_URLS = {
     REGISTER_USER            : API_ROOT + 'users',
     REGISTER_PROFILE         : API_ROOT + 'users/{id}/profile',
     CONSUME_INVITATION       : API_ROOT + 'user/{id}/invitations/consume/{token}',
-    CONNECT_ACCOUNT          : API_ROOT + 'users/{id}/tokens/{resource}'
+    CONNECT_ACCOUNT          : API_ROOT + 'users/{id}/tokens/{resource}?extend'
 };
 export const QUESTION_STATS_COLORS = [
     // purple

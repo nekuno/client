@@ -1,0 +1,26 @@
+.list-block ul li.date-item {
+	.item-content.date-content {
+		.date-label {
+			width: 50%;
+		}
+		.item-inner {
+
+			input[type=date] {
+				color: $light-gray;
+				text-align: right;
+			}
+
+			&::after {
+				background-color: $light-gray;
+			}
+		}
+
+		&::after {
+			content: none;
+		}
+	}
+
+	&::after {
+		content: none;
+	}
+}

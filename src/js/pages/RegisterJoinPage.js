@@ -5,6 +5,7 @@ import RegularTopNavbar from '../components/ui/RegularTopNavbar';
 import TextInput from '../components/ui/TextInput';
 import PasswordInput from '../components/ui/PasswordInput';
 import DateInput from '../components/ui/DateInput';
+import LocationInput from '../components/ui/LocationInput';
 import FullWidthButton from '../components/ui/FullWidthButton';
 import InputCheckbox from '../components/ui/InputCheckbox';
 import LoginActionCreators from '../actions/LoginActionCreators';
@@ -16,7 +17,6 @@ import ProfileStore from '../stores/ProfileStore';
 import RegisterStore from '../stores/RegisterStore';
 import TextRadios from '../components/ui/TextRadios';
 import { getValidationErrors } from '../utils/StoreUtils';
-import Geosuggest from 'react-geosuggest';
 
 function getState() {
 
@@ -180,7 +180,7 @@ export default class RegisterJoinPage extends Component {
                                 <TextInput placeholder={'Email'} ref="email"/>
                                 <PasswordInput placeholder={'Contraseña'} ref="plainPassword"/>
                                 <DateInput label={'Fecha de nacimiento'} ref="birthday"/>
-                                <Geosuggest placeholder="Ubicación" onSuggestSelect={this.onSuggestSelect}/>
+                                <LocationInput placeholder="Ubicación" onSuggestSelect={this.onSuggestSelect}/>
                             </ul>
                         </div>
 
@@ -211,6 +211,12 @@ export default class RegisterJoinPage extends Component {
                             <p>{ error ? error.error : ''}</p>
                         </div>
                     </div>
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
                 </div>
             </div>
         );

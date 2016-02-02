@@ -15,11 +15,12 @@ export default class DateInput extends Component {
 
     render() {
         return (
-            <li>
-                <div className="item-content">
+            <li className="date-item">
+                <div className="item-content date-content">
+                    <div className="item-title label date-label">{this.props.label}</div>
                     <div className="item-inner">
                         <div className="item-input">
-                            <label>{this.props.label} <input {...this.props} ref="input" type="date"/></label>
+                            <input {...this.props} ref="input" type="date"/>
                         </div>
                     </div>
                 </div>

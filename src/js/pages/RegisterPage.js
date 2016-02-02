@@ -88,10 +88,12 @@ export default class RegisterPage extends Component {
                 <RegularTopNavbar leftText={'Cancelar'} centerText={'Crear cuenta'}/>
                 <div data-page="index" className="page">
                     <div id="page-content" className="register-content">
-                        <div className="register-title">
-                            <h1>Nekuno sólo permite el registro por invitación.</h1>
-                            <h4>Por favor, copia la URL que habrás recibido en tu invitación y pégala en el siguiente campo para poder crear tu cuenta en Nekuno.</h4>
+                        <div className="register-title bold">
+                            <div className="title">Nekuno</div>
+                            <div className="title">sólo permite el registro por invitación.</div>
                         </div>
+                        <div className="register-sub-title">Por favor, copia la URL que habrás recibido en tu invitación y pégala en el siguiente campo para poder crear tu cuenta en Nekuno.</div>
+
                         <div className="list-block">
                             <ul>
                                 <TextInput onChange={this.handleOnChange} placeholder={'Pega aquí la URL de la invitación'}/>

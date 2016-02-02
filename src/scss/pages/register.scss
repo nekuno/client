@@ -8,17 +8,14 @@ body #root .App .view .page {
   .register-title {
     text-align: center;
 
-    h1 {
-      color: white;
-    }
-
-    h4, p {
-      color: white;
-    }
-
     a {
       color: $deep-purple;
     }
 
+  }
+  
+  .register-sub-title {
+    margin-top: 10px;
+    text-align: center;
   }
 }

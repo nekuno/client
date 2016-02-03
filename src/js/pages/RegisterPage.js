@@ -78,7 +78,7 @@ export default class RegisterPage extends Component {
                     }
                 });
             } else {
-                nekunoApp.alert('Facebook login failed: ' + response.error);
+                nekunoApp.alert('Facebook login failed: ' + response.status);
             }
 
         }, {scope: FACEBOOK_SCOPE});

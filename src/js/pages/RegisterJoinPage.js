@@ -192,7 +192,7 @@ export default class RegisterJoinPage extends Component {
 
     componentWillMount() {
         if (!this.props.token || !this.props.accessToken || !this.props.resource || !this.props.userId) {
-            //this.context.history.pushState(null, '/register');
+            this.context.history.pushState(null, '/register');
         }
         UserActionCreators.requestMetadata();
     }

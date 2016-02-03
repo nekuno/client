@@ -47,11 +47,14 @@ export default class RegisterPage extends Component {
 
     handleOnChange(e) {
         e.preventDefault();
-        var token = e.target.value;
-        token = token.replace('https://nekuno.com/invitation/', '');
-        if (token) {
-            ConnectActionCreators.validateInvitation(token);
-        }
+        clearTimeout(this.tokenTimeout);
+        this.tokenTimeout = setTimeout(() => {
+            var token = e.target.value;
+            token = token.replace(/(http[s]?:\/\/)?(www\.)?(pre\.)?(nekuno.com\/)?(invitation\/)?(inv)?/ig, '');
+            if (token) {
+                ConnectActionCreators.validateInvitation(token);
+            }
+        }, 500);
     }
 
     handleFacebook(e) {

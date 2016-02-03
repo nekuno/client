@@ -127,8 +127,11 @@ export default class RegisterJoinPage extends Component {
     }
 
     onUsernameChange() {
-        let username = this.refs.username.getValue();
-        ConnectActionCreators.validateUsername(username);
+        clearTimeout(this.usernameTimeout);
+        this.usernameTimeout = setTimeout(() => {
+            let username = this.refs.username.getValue();
+            ConnectActionCreators.validateUsername(username);
+        }, 500);
     }
 
     onClickGender(gender) {

@@ -89,7 +89,6 @@ export default class RegisterJoinPage extends Component {
 
     register(e) {
         e.preventDefault();
-        console.log(this.refs, this.state, this.props);
         let user = {
             username     : this.refs.username.getValue(),
             plainPassword: this.refs.plainPassword.getValue(),
@@ -153,8 +152,6 @@ export default class RegisterJoinPage extends Component {
         this.setState({
             descriptiveGender: descriptiveGender
         });
-        console.log(checked, value);
-        console.log(descriptiveGender);
     }
 
     onSuggestSelect(suggest) {

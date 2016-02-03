@@ -50,7 +50,6 @@ export default class RegisterPage extends Component {
         var token = e.target.value;
         token = token.replace('https://nekuno.com/invitation/', '');
         if (token) {
-            console.log('Validating token...', token);
             ConnectActionCreators.validateInvitation(token);
         }
     }
@@ -62,12 +61,12 @@ export default class RegisterPage extends Component {
         openFB.login(function(response) {
             if (response.status === 'connected') {
                 var accessToken = response.authResponse.accessToken;
-                console.log('accessToken token', accessToken);
+                console.log('accessToken:', accessToken);
                 openFB.api({
                     path   : '/me',
                     params : {fields: 'id'},
                     success: (status) => {
-                        console.log('User id: ', status.id);
+                        console.log('userId: ', status.id);
                         ConnectActionCreators.connect(token, accessToken, 'facebook', status.id);
                         history.pushState(null, '/join');
                     },

@@ -24,14 +24,14 @@ export default class QuestionStats extends Component {
 
         return (
             <div className="question-stats">
-                <div className="question-title">
+                <div className="title question-title">
                     {question.text}
                 </div>
                 <div className="your-answer">
                     <div className="your-answer-title">
                         Tu respuesta
                     </div>
-                    <div className="your-answer-text">
+                    <div className="your-answer-text sub-title">
                         {answers.map((answer, index) => userAnswer.answerId === answer.answerId ? answer.text : '')}
                     </div>
                 </div>

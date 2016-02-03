@@ -21,7 +21,7 @@ export default class User extends Component {
                         <img src={imgSrc} />
                     </div>
                     <div className="user-data">
-                        <div className="user-username">
+                        <div className="user-username title">
                             {user.username}
                         </div>
                         <div className="user-location">

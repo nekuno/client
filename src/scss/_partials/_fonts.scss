@@ -81,6 +81,8 @@ $nekuno-logo-font: 'klinic_slabmedium';
 }
 .icon-block:before {
 	content: "\e901";
+	font-size: 20px;
+	vertical-align: super;
 }
 .icon-calendar:before {
 	content: "\e902";
@@ -123,6 +125,7 @@ $nekuno-logo-font: 'klinic_slabmedium';
 }
 .icon-marker:before {
 	content: "\e90f";
+	font-size: 0.714285714em;
 }
 .icon-menu:before {
 	content: "\e910";

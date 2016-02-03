@@ -5,15 +5,18 @@
 		background-color: $deep-purple;
 
 		.modal-title {
-			font-size: 14px;
+			font-size: 1.4em;
 			font-weight: bold;
+		}
+		.modal-text {
+			font-size: 1.4em;
 		}
 	}
 	.modal-buttons {
 		.modal-button {
 			background-color: $deep-purple;
 			color: #fff;
-			font-size: 12px;
+			font-size: 1.2em;
 			font-weight: bold;
 		}
 	}

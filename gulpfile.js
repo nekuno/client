@@ -10,7 +10,7 @@ var uglify = require('gulp-uglify');
 var minifyCss = require('gulp-minify-css');
 
 gulp.task('copy', function() {
-    return gulp.src('src/index.html')
+    return gulp.src('src/*.html')
         .pipe(gulp.dest('www/'));
 });
 
@@ -27,6 +27,7 @@ gulp.task('images', function() {
 gulp.task('sass', function() {
     var paths = [
         './node_modules/framework7/dist/css/framework7.ios.css',
+        './node_modules/Framework7-3D-Panels/dist/framework7.3dpanels.css',
         './src/scss/pages/*.scss',
         './src/scss/*.scss'
     ];
@@ -40,7 +41,9 @@ gulp.task('sass', function() {
 
 gulp.task('build-vendor-js', function() {
     var paths = [
-        './node_modules/framework7/dist/js/framework7.min.js'
+        './node_modules/framework7/dist/js/framework7.min.js',
+        './node_modules/Framework7-3D-Panels/dist/framework7.3dpanels.min.js',
+        './src/js/vendor/openfb.js'
     ];
     return gulp.src(paths)
         .pipe(concat('vendor.js'))
@@ -48,7 +51,7 @@ gulp.task('build-vendor-js', function() {
         .pipe(connect.reload());
 });
 
-gulp.task('build-js', ['build-vendor-js'], function() {
+gulp.task('build-js', function() {
     return browserify('./src/js/index.js')
         .transform(babelify)
         .bundle()
@@ -85,6 +88,6 @@ gulp.task('serve', function() {
     });
 });
 
-gulp.task('build', ['copy', 'fonts', 'images', 'sass', 'build-js']);
+gulp.task('build', ['copy', 'fonts', 'images', 'sass', 'build-js', 'build-vendor-js']);
 gulp.task('release', ['minify-js', 'minify-css']);
 gulp.task('dev', ['build', 'serve', 'watch']);

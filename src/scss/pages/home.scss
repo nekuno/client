@@ -1,54 +1,59 @@
-.view {
+@import '../_partials/colors';
+
+body #root .App .view {
 
   .swiper-container {
     height: 100%;
     overflow-y: visible;
 
     .swiper-slide {
-      background: #fff;
+      height: 100%;
       text-align: center;
 
-      .linear-gradient-rectangle {
-        background-image: linear-gradient(180deg, black 0%, rgba(0, 0, 0, 0.76) 24%, transparent 100%);
-        height: 338px;
-        opacity: 0.8;
-        position: absolute;
-        top: 0;
-        width: 100%;
-        z-index: 10;
-      }
+      .page#login-1-image, .page#login-2-image, .page#login-3-image {
+        background-size: 100% auto;
+        max-height: 750px;
+        height: 100%;
+        overflow: hidden;
 
-      .full-transparency {
-        height: auto;
-        width: 100%;
-      }
-
-      .nekuno-logo-wrapper {
-        height: 100px;
-        position: absolute;
-        top: 50px;
-        width: 100%;
-        z-index: 100;
-
-        .nekuno-logo {
-          height:100px;
-          margin: auto;
-          position: relative;
-          width: 40%;
+        .linear-gradient-rectangle {
+          background-image: linear-gradient(180deg, black 0%, rgba(0, 0, 0, 0.76) 24%, transparent 100%);
+          height: 338px;
+          opacity: 0.8;
+          position: absolute;
+          top: 0;
+          width: 100%;
+          z-index: 10;
         }
-      }
 
-      .home-content {
-        position: absolute;
-        top: 0;
-        width: 100% !important;
+        .nekuno-logo-wrapper {
+          height: 101px;
+          position: absolute;
+          top: 50px;
+          width: 100%;
+          z-index: 100;
 
-        .title {
-          color: white;
-          font-size: 30px;
-          line-height: 40px;
-          margin: 100% auto 0;
-          width: 75%;
+          .nekuno-logo {
+            background-size: 100% auto;
+            height: 100%;
+            margin: auto;
+            position: relative;
+            width: 40%;
+          }
+        }
+
+        .home-content {
+          bottom: 30%;
+          position: absolute;
+          width: 100% !important;
+
+          .title {
+            color: white;
+            font-size: 27px;
+            line-height: 40px;
+            margin: auto;
+            width: 75%;
+          }
         }
       }
     }
@@ -56,7 +61,7 @@
     .swiper-pagination-and-button {
       position: absolute;
       text-align: center;
-      top: 645px;
+      bottom: 5%;
       width: 100%;
       z-index: 100;
 
@@ -73,6 +78,15 @@
         position: relative;
         width: 80%;
       }
+
+      .register {
+
+        color: white;
+
+        a {
+          color: $deep-purple;
+        }
+      }
     }
   }
 }
@@ -87,9 +101,7 @@
     line-height: 25px;
     margin: 70% auto 0;
   }
-  .view .swiper-container .swiper-pagination-and-button {
-    top: 380px;
-  }
+
   body #root .App .page#login-1-image {
     background: url('img/login-image-1-320x569.jpg') no-repeat;
   }
@@ -109,9 +121,7 @@
     line-height: 30px;
     margin: 80% auto 0;
   }
-  .view .swiper-container .swiper-pagination-and-button {
-    top: 480px;
-  }
+
   body #root .App .page#login-1-image {
     background: url('img/login-image-1-480x854.jpg') no-repeat;
   }
@@ -219,12 +229,4 @@
       background: url('img/login-image-3-compressed-750x1334.jpg') no-repeat;
     }
   }
-}
-
-body #root .App .page#login-1-image ,
-body #root .App .page#login-2-image,
-body #root .App .page#login-3-image,
-.nekuno-logo {
-  background-size: 100% auto;
-  height: auto;
 }

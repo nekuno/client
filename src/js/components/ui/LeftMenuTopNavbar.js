@@ -8,6 +8,7 @@ export default class LeftMenuTopNavbar extends Component {
 	static propTypes = {
 		leftText: PropTypes.string,
 		centerText: PropTypes.string,
+		centerTextSize: PropTypes.string,
 		rightText: PropTypes.string,
 		onRightLinkClickHandler: PropTypes.func
 	};
@@ -20,7 +21,7 @@ export default class LeftMenuTopNavbar extends Component {
 				<div id="navbar-inner" className="navbar-inner">
 					<div className="row">
 						<TopLeftMenuLink />
-						<RegularTopTitle text={this.props.centerText} />
+						<RegularTopTitle text={this.props.centerText} textSize={this.props.centerTextSize} />
 						<TopRightLink text={this.props.rightText} onClickHandler={this.props.onRightLinkClickHandler} />
 					</div>
 				</div>

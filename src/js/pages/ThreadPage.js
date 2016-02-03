@@ -60,7 +60,7 @@ export default AuthenticatedComponent(class ThreadPage extends Component {
 
         return (
             <div className="view view-main">
-                <LeftMenuTopNavbar centerText={'Hilos'} />
+                <LeftMenuTopNavbar centerText={'Hilos'} centerTextSize={'large'} />
                 <div data-page="index" className="page threads-page">
                     <div id="page-content">
                         <ThreadList threads={this.props.threads} userId={this.props.user.qnoow_id} />

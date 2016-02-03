@@ -9,8 +9,13 @@
 		}
 		.center {
 			display: block;
-			//font-size: 15px;
+			font-size: 0.941176471em;
 		}
+
+		.center.large {
+			font-size: 1.3125em;
+		}
+
 		.left {
 			text-align: left;
 		}
@@ -20,12 +25,12 @@
 		.left, .right {
 			color: $deep-purple;
 			display: block;
-			font-size: 14px;
+			font-size: 0.823529412em;
 			margin-top: 12px;
 
 			.icon-left-arrow {
 				color: #fff;
-				font-size: 17px;
+				font-size: 25px;
 			}
 		}
 		.open-panel .icon-menu {

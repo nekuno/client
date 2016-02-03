@@ -33,19 +33,18 @@ export function requestProfile(userId, fields) {
     }, {userId});
 }
 
-export function requestMetadata(userId){
+export function requestMetadata() {
 
-    if (!ProfileStore.getMetadata()){
-        dispatchAsync(UserAPI.getMetadata(userId), {
+    if (!ProfileStore.getMetadata()) {
+        dispatchAsync(UserAPI.getMetadata(), {
             request: ActionTypes.REQUEST_METADATA,
             success: ActionTypes.REQUEST_METADATA_SUCCESS,
             failure: ActionTypes.REQUEST_METADATA_ERROR
-        }, {userId});
+        });
     }
 }
 
-export function requestThreadPage(userId)
-{
+export function requestThreadPage(userId) {
     if (!UserStore.contains(userId)) {
         this.requestUser(userId, null);
     }
@@ -110,6 +109,14 @@ export function requestStats(userId) {
     }, {userId})
 }
 
+export function requestComparedStats(userId1, userId2) {
+    dispatchAsync(UserAPI.getComparedStats(userId1, userId2), {
+        request: ActionTypes.REQUEST_COMPARED_STATS,
+        success: ActionTypes.REQUEST_COMPARED_STATS_SUCCESS,
+        failure: ActionTypes.REQUEST_COMPARED_STATS_ERROR
+    }, {userId1, userId2})
+}
+
 export function requestMatching(userId1, userId2) {
     dispatchAsync(UserAPI.getMatching(userId1, userId2), {
         request: ActionTypes.REQUEST_MATCHING,
@@ -134,7 +141,7 @@ export function recommendationsNext(threadId) {
 
     dispatch(ActionTypes.RECOMMENDATIONS_NEXT, {threadId});
 
-    if (RecommendationsByThreadStore.getPosition(threadId) >= ( RecommendationsByThreadStore.getIds(threadId).length - 3)) {
+    if (RecommendationsByThreadStore.getPosition(threadId) === ( RecommendationsByThreadStore.getIds(threadId).length - 15)) {
         const nextUrl = RecommendationsByThreadStore.getNextPageUrl(threadId);
         if (nextUrl) {
             requestRecommendation(threadId, nextUrl);
@@ -152,6 +159,22 @@ export function threadsNext(userId) {
             requestThreads(userId, nextUrl);
         }
     }
+}
+
+export function blockUser(from, to) {
+    dispatchAsync(UserAPI.setBlockUser(from, to), {
+        request: ActionTypes.BLOCK_USER,
+        success: ActionTypes.BLOCK_USER_SUCCESS,
+        failure: ActionTypes.BLOCK_USER_ERROR
+    }, {from, to});
+}
+
+export function deleteBlockUser(from, to) {
+    dispatchAsync(UserAPI.unsetBlockUser(from, to), {
+        request: ActionTypes.UNBLOCK_USER,
+        success: ActionTypes.UNBLOCK_USER_SUCCESS,
+        failure: ActionTypes.UNBLOCK_USER_ERROR
+    }, {from, to});
 }
 
 export function likeUser(from, to) {
@@ -183,6 +206,14 @@ export function deleteLikeContent(from, to) {
         request: ActionTypes.UNLIKE_CONTENT,
         success: ActionTypes.UNLIKE_CONTENT_SUCCESS,
         failure: ActionTypes.UNLIKE_CONTENT_ERROR
+    }, {from, to});
+}
+
+export function requestBlockUser(from, to) {
+    dispatchAsync(UserAPI.getBlockUser(from, to), {
+        request: ActionTypes.REQUEST_BLOCK_USER,
+        success: ActionTypes.REQUEST_BLOCK_USER_SUCCESS,
+        failure: ActionTypes.REQUEST_BLOCK_USER_ERROR
     }, {from, to});
 }
 

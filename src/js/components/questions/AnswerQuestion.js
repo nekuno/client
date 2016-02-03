@@ -19,7 +19,7 @@ export default class AnswerQuestion extends Component {
         let question = this.props.question;
         let questionId = selectn('questionId', question);
         let userAnswer = this.props.userAnswer;
-        let answers = question.answers;
+        let answers = selectn('answers', question) || [];
         let errors = this.props.errors;
 
         if (errors) {
@@ -30,7 +30,7 @@ export default class AnswerQuestion extends Component {
             <div>
                 {questionId ?
                     <div className="answer-question">
-                        <div className="answer-question-title">
+                        <div className="title answer-question-title">
                             {question.text}
                         </div>
                         <AnswerQuestionForm answers={answers} {...this.props} />

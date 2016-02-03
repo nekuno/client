@@ -1,0 +1,21 @@
+@import '../_partials/colors';
+
+body #root .App .view .page {
+  #page-content.register-content {
+    margin: 150px auto 0 auto;
+  }
+
+  .register-title {
+    text-align: center;
+
+    a {
+      color: $deep-purple;
+    }
+
+  }
+  
+  .register-sub-title {
+    margin-top: 10px;
+    text-align: center;
+  }
+}

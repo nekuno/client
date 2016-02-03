@@ -1,0 +1,16 @@
+.label-checkbox {
+	.item-inner {
+		.item-title {
+			text-transform: none;
+			white-space: normal;
+			width: 50%;
+
+		}
+		&::after {
+			content: none;
+		}
+	}
+	&::after {
+		content: none;
+	}
+}

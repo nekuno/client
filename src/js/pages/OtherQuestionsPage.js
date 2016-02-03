@@ -1,6 +1,4 @@
 import React, { PropTypes, Component } from 'react';
-import { Link } from 'react-router';
-import selectn from 'selectn';
 import { IMAGES_ROOT } from '../constants/Constants';
 import * as QuestionActionCreators from '../actions/QuestionActionCreators';
 import * as UserActionCreators from '../actions/UserActionCreators';
@@ -40,8 +38,8 @@ function getState(props) {
     const currentUser = UserStore.get(currentUserId);
     const otherUser = UserStore.get(otherUserId);
     const questions = QuestionStore.get(currentUserId);
-    const otherQuestions = QuestionStore.get(otherUserId);
-    const pagination = QuestionStore.getPagination(otherUserId);
+    const otherQuestions = QuestionStore.get(otherUserId) || {};
+    const pagination = QuestionStore.getPagination(otherUserId) || {};
 
     return {
         currentUser,
@@ -63,8 +61,8 @@ export default AuthenticatedComponent(class OtherQuestionsPage extends Component
 
         // Injected by @connectToStores:
         questions: PropTypes.object,
-        otherQuestions: PropTypes.object,
-        pagination: PropTypes.object,
+        otherQuestions: PropTypes.object.isRequired,
+        pagination: PropTypes.object.isRequired,
         otherUser: PropTypes.object,
         // Injected by AuthenticatedComponent
         user: PropTypes.object
@@ -81,35 +79,42 @@ export default AuthenticatedComponent(class OtherQuestionsPage extends Component
     }
 
     componentWillMount() {
-        requestData(this.props, this.state);
+        if (Object.keys(this.props.pagination).length === 0) {
+            requestData(this.props, this.state);
+        }
     }
 
     componentWillUnmount() {
         document.getElementsByClassName('view')[0].removeEventListener('scroll', this.handleScroll);
     }
 
-    render() {
-        if (!this.props.questions || !this.props.user || !this.props.otherUser) {
-            return null;
+    componentWillReceiveProps(nextProps) {
+        if (parseId(nextProps.params) !== parseId(this.props.params)) {
+            requestData(nextProps);
         }
+    }
 
+    render() {
         const ownPicture = this.props.user && this.props.user.picture ? `${IMAGES_ROOT}media/cache/resolve/user_avatar_60x60/user/images/${this.props.user.picture}` : `${IMAGES_ROOT}media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
         const otherPicture = this.props.otherUser && this.props.otherUser.picture ? `${IMAGES_ROOT}media/cache/resolve/user_avatar_60x60/user/images/${this.props.otherUser.picture}` : `${IMAGES_ROOT}media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
         return (
             <div className="view view-main" onScroll={this.handleScroll}>
-                <RegularTopNavbar leftText={'Cancelar'} centerText={this.props.otherUser.username}/>
+                <RegularTopNavbar leftText={'Cancelar'} centerText={this.props.otherUser ? this.props.otherUser.username : ''}/>
                 <div data-page="index" className="page other-questions-page">
-                    <div id="page-content" className="other-questions-content">
-                        <div className="other-questions-header-container">
-                            <ProfilesAvatarConnection ownPicture={ownPicture} otherPicture={otherPicture} />
-                            <div className="other-questions-stats-title">{this.props.pagination.total || 0} Coincidencias</div>
+                    {this.props.user && this.props.otherUser ?
+                        <div id="page-content" className="other-questions-content">
+                            <div className="other-questions-header-container">
+                                <ProfilesAvatarConnection ownPicture={ownPicture} otherPicture={otherPicture} />
+                                <div className="other-questions-stats-title title">{this.props.pagination.total || 0} Coincidencias</div>
+                            </div>
+                            <OtherQuestionList otherQuestions={this.props.otherQuestions} questions={this.props.questions} userId={this.props.user.qnoow_id} ownPicture={ownPicture} otherPicture={otherPicture} />
+                            <div className="loading-gif" style={this.props.pagination.nextLink ? {} : {display: 'none'}}></div>
+                            <br />
+                            <br />
+                            <br />
                         </div>
-                        <OtherQuestionList otherQuestions={this.props.otherQuestions} questions={this.props.questions} userId={this.props.user.qnoow_id} ownPicture={ownPicture} otherPicture={otherPicture} />
-                        <div className="loading-gif" style={this.props.pagination.nextLink ? {} : {display: 'none'}}></div>
-                        <br />
-                        <br />
-                        <br />
-                    </div>
+                        : ''
+                    }
                 </div>
                 <ToolBar links={[
                 {'url': `/profile/${this.props.params.userId}`, 'text': 'Acerca de'},

@@ -22,7 +22,7 @@ export default class ThreadContent extends Component {
                     {this.renderImage(thread.cached[0], thread.type)}
                 </div>
                 <div className="thread-info-box">
-                    <div className="thread-title">
+                    <div className="title thread-title">
                         <Link to={`users/${userId}/recommendations/${thread.id}`}>
                             {thread.name}
                         </Link>

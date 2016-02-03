@@ -3,12 +3,10 @@
 body #root .App .view .page.question-stats-page  {
   #page-content {
     .question-stats {
-      color: white;
       margin-top: 70px;
       text-align: center;
 
       .question-title {
-        font-size: 21px;
         margin-bottom: 20px;
       }
       .your-answer {
@@ -18,9 +16,6 @@ body #root .App .view .page.question-stats-page  {
           color: $pink;
           font-weight: bold;
           margin-bottom: 10px;
-        }
-        .your-answer-text {
-          font-size: 16px;
         }
       }
       .question-stats-graph-title {
@@ -66,7 +61,7 @@ body #root .App .view .page.question-stats-page  {
             }
           }
           .genre-text {
-            font-size: 16px;
+            font-size: 1.214285714em;
           }
         }
         .female-answer-chart-container {
@@ -86,7 +81,6 @@ body #root .App .view .page.question-stats-page  {
           }
           .answer {
             display: inline-block;
-            font-size: 13px;
             margin-left: 5px;
             overflow: hidden;
             text-overflow: ellipsis;

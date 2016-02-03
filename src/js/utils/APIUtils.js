@@ -1,30 +1,10 @@
 import { Schema, arrayOf, normalize } from 'normalizr';
-import { camelizeKeys } from 'humps';
 import selectn from 'selectn';
-//import 'core-js/es6/promise';
-import 'whatwg-fetch';
 import Url from 'url';
 import request from 'request';
 import Bluebird from 'bluebird';
 import { API_ROOT } from '../constants/Constants';
 import LoginStore from '../stores/LoginStore';
-
-/**
- * Extracts the next page URL from Github API response.
- */
-function getNextPageUrl(response) {
-    const link = response.headers.get('link');
-    if (!link) {
-        return null;
-    }
-
-    const nextLink = link.split(',').filter(s => s.indexOf('rel="next"') > -1)[0];
-    if (!nextLink) {
-        return null;
-    }
-
-    return nextLink.split(';')[0].slice(1, -1);
-}
 
 // We use this Normalizr schemas to transform API responses from a nested form
 // to a flat form where repos and users are placed in `entities`, and nested
@@ -34,99 +14,76 @@ function getNextPageUrl(response) {
 // Read more about Normalizr: https://github.com/gaearon/normalizr
 
 const userSchema = new Schema('users', {idAttribute: 'qnoow_id'});
-
 const profileSchema = new Schema('profiles');
-
 const statsSchema = new Schema('stats');
-
-const matchingSchema = new Schema('matching');
-
-const similaritySchema = new Schema('similarity');
-
-const metadataSchema = new Schema('metadata');
-
+const comparedStatsSchema = new Schema('comparedStats');
 const threadSchema = new Schema('thread', {idAttribute: 'id'});
-
-const threadsSchema = new Schema('threads');
-
-const questionsAndAnswersSchema = new Schema('items', {idAttribute: getQuestionId});
-
-const comparedQuestionsAndAnswersSchema = new Schema('items', {idAttribute: getUserId});
-
 const questionsSchema = new Schema('questions', {idAttribute: 'questionId'});
-
 const questionSchema = new Schema('question', {idAttribute: 'questionId'});
-
 const userAnswersSchema = new Schema('userAnswers', {idAttribute: 'questionId'});
-
-const likedUserSchema = new Schema('liked', {idAttribute: 'id'});
-
-const likedContentSchema = new Schema('rate', {idAttribute: 'id'});
-
-//TODO: Implement location schema and store
-
-//TODO: Check pull request https://github.com/gaearon/normalizr/pull/42 for recommendation of different types
-
-//If we id by similarity/affinity/matching, there are 'same key' conflicts
-function getRecommendationId(entity) {
-    if (entity.content) {
-        return entity.content.id;
-    } else {
-        return entity.id
+const questionsAndAnswersSchema = new Schema('items', {
+    idAttribute: entity=> {
+        return selectn('question.questionId', entity);
     }
-}
-
-function getQuestionId(entity) {
-    return selectn('question.questionId', entity);
-}
-
-function getUserId(entity) {
-    return parseInt(selectn('userId', entity));
-}
-
-const recommendationSchema = new Schema('recommendation', {idAttribute: getRecommendationId});
-
+});
 questionsAndAnswersSchema.define({
-    questions: arrayOf(questionsSchema),
+    questions  : arrayOf(questionsSchema),
     userAnswers: arrayOf(userAnswersSchema)
 });
+const comparedQuestionsAndAnswersSchema = new Schema('items', {
+    idAttribute: entity=> {
+        return parseInt(selectn('userId', entity));
+    }
+});
+const blockedUserSchema = new Schema('blocked', {idAttribute: 'id'});
+const likedUserSchema = new Schema('liked', {idAttribute: 'id'});
+const likedContentSchema = new Schema('rate', {idAttribute: 'id'});
+const recommendationSchema = new Schema('recommendation', {
+    idAttribute: entity => {
+        if (entity.content) {
+            return entity.content.id;
+        } else {
+            return entity.id
+        }
+    }
+});
 
+//TODO: Implement location schema and store
+//TODO: Check pull request https://github.com/gaearon/normalizr/pull/42 for recommendation of different types
+
+var _jwt = null;
+
+export function setJwt(value) {
+    _jwt = value;
+}
 
 /**
  * Fetches an API response and normalizes the result JSON according to schema.
  */
-function fetchAndNormalize(url, schema) {
+export function fetchAndNormalize(url, schema) {
 
-    if (url.indexOf(API_ROOT) === -1) {
-        url = API_ROOT + url;
-    }
-
-    var jwt = LoginStore.jwt;
-    var headers = jwt ? {'Authorization': 'Bearer ' + jwt} : {};
-
-    return fetch(url, {headers: headers}).then(response =>
-        response.json().then(json => {
-            //const camelizedJson = camelizeKeys(json)
-            //Can we extract nextLink from body here? Promise not resolved is the problem
-            return {
-                ...normalize(json, schema)
-            };
-        })
-    );
+    return getData(url).then(function(json) {
+        return {
+            ...normalize(json, schema)
+        };
+    });
 }
 
-function postData(url, data, schema) {
+export function doRequest(method, url, data = null) {
 
     if (url.indexOf(API_ROOT) === -1) {
         url = API_ROOT + url;
     }
 
-    var jwt = LoginStore.jwt;
+    var jwt = LoginStore.jwt ? LoginStore.jwt : _jwt;
     var headers = jwt ? {'Authorization': 'Bearer ' + jwt} : {};
 
+    nekunoApp.showProgressbar();
+
     return new Bluebird((resolve, reject) => {
-        request.post(
+        request(
             {
+                method  : method,
                 protocol: Url.parse(url).protocol,
                 url     : url,
                 body    : data,
@@ -134,6 +91,9 @@ function postData(url, data, schema) {
                 headers : headers
             },
             (err, response, body) => {
+
+                nekunoApp.hideProgressbar();
+
                 if (err) {
                     return reject(err);
                 }
@@ -146,35 +106,16 @@ function postData(url, data, schema) {
     });
 }
 
-function deleteData(url, data, schema) {
+export function getData(url) {
+    return doRequest('GET', url);
+}
 
-    if (url.indexOf(API_ROOT) === -1) {
-        url = API_ROOT + url;
-    }
+export function postData(url, data) {
+    return doRequest('POST', url, data);
+}
 
-    var jwt = LoginStore.jwt;
-    var headers = jwt ? {'Authorization': 'Bearer ' + jwt} : {};
-
-    return new Bluebird((resolve, reject) => {
-        request.del(
-            {
-                protocol: Url.parse(url).protocol,
-                url     : url,
-                body    : data,
-                json    : true,
-                headers : headers
-            },
-            (err, response, body) => {
-                if (err) {
-                    return reject(err);
-                }
-                if (response.statusCode >= 400) {
-                    return reject(body);
-                }
-                return resolve(body);
-            }
-        );
-    });
+export function deleteData(url, data) {
+    return doRequest('DELETE', url, data);
 }
 
 export function fetchUser(url) {
@@ -190,35 +131,15 @@ export function fetchProfile(url) {
 }
 
 export function fetchMetadata(url) {
-    return fetchAndNormalize(url, metadataSchema);
+    return getData(url);
 }
 
 export function fetchStats(url) {
     return fetchAndNormalize(url, statsSchema);
 }
 
-export function fetchMatching(url) {
-    if (url.indexOf(API_ROOT) === -1) {
-        url = API_ROOT + url;
-    }
-    return fetch(url).then(response =>
-        response.json().then(json => {
-                return json;
-            }
-        )
-    );
-}
-
-export function fetchSimilarity(url) {
-    if (url.indexOf(API_ROOT) === -1) {
-        url = API_ROOT + url;
-    }
-    return fetch(url).then(response =>
-        response.json().then(json => {
-                return json;
-            }
-        )
-    );
+export function fetchComparedStats(url) {
+    return fetchAndNormalize(url, comparedStatsSchema);
 }
 
 export function fetchThreads(url) {
@@ -251,24 +172,36 @@ export function fetchComparedQuestions(url) {
 
 export function postAnswer(url, userId, questionId, answerId, acceptedAnswers, rating) {
     return postData(url, {
-        "userId": userId,
-        "questionId": questionId,
-        "answerId": answerId,
-        "acceptedAnswers": acceptedAnswers,
-        "rating": rating,
-        "explanation": '',
-        "isPrivate": false
+        userId         : userId,
+        questionId     : questionId,
+        answerId       : answerId,
+        acceptedAnswers: acceptedAnswers,
+        rating         : rating,
+        explanation    : '',
+        isPrivate      : false
     });
 }
 
 export function postSkipQuestion(url, userId) {
     return postData(url, {
-        "userId": userId,
+        userId: userId
     });
 }
 
 export function fetchQuestion(url) {
     return fetchAndNormalize(url, questionSchema);
+}
+
+export function postBlockUser(url) {
+    return postData(url, null, blockedUserSchema);
+}
+
+export function deleteBlockUser(url) {
+    return deleteData(url, null, blockedUserSchema);
+}
+
+export function fetchBlockUser(url) {
+    return fetchAndNormalize(url, blockedUserSchema);
 }
 
 export function postLikeUser(url) {
@@ -284,9 +217,9 @@ export function fetchLikeUser(url) {
 }
 
 export function postLikeContent(url, to) {
-    return postData(url, {"linkId": to, "rate": "LIKES"}, likedContentSchema);
+    return postData(url, {linkId: to, rate: "LIKES"}, likedContentSchema);
 }
 
 export function deleteLikeContent(url, to) {
-    return postData(url, {"linkId": to, "rate": "DISLIKES"}, likedContentSchema);
+    return postData(url, {linkId: to, rate: "DISLIKES"}, likedContentSchema);
 }

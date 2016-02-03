@@ -18,6 +18,7 @@ class LoginStore extends BaseStore {
     }
 
     _registerToActions(action) {
+
         switch (action.type) {
 
             case ActionTypes.REQUEST_LOGIN_USER:
@@ -46,7 +47,7 @@ class LoginStore extends BaseStore {
                 this._error = null;
                 this._user = null;
                 this._jwt = null;
-                localStorage.setItem('jwt', '');
+                localStorage.removeItem('jwt');
                 this.emitChange();
                 break;
 

@@ -51,7 +51,7 @@ gulp.task('build-vendor-js', function() {
         .pipe(connect.reload());
 });
 
-gulp.task('build-js', ['build-vendor-js'], function() {
+gulp.task('build-js', function() {
     return browserify('./src/js/index.js')
         .transform(babelify)
         .bundle()
@@ -88,6 +88,6 @@ gulp.task('serve', function() {
     });
 });
 
-gulp.task('build', ['copy', 'fonts', 'images', 'sass', 'build-js']);
+gulp.task('build', ['copy', 'fonts', 'images', 'sass', 'build-js', 'build-vendor-js']);
 gulp.task('release', ['minify-js', 'minify-css']);
 gulp.task('dev', ['build', 'serve', 'watch']);

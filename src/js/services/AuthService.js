@@ -87,8 +87,13 @@ class AuthService {
                 console.log('Profile valid');
                 return APIUtils.postData(API_URLS.REGISTER_USER, user);
             })
-            .then(function(user) {
-                console.log('User registered', user);
+            .then((registeredUser) => {
+                console.log('User registered', registeredUser);
+                return [registeredUser, this.login(user.username, user.plainPassword)];
+            })
+            .spread(function(user, jwt) {
+                console.log('jwt', jwt);
+                APIUtils.setJwt(jwt.jwt);
                 return [user, APIUtils.postData(API_URLS.REGISTER_PROFILE.replace('{id}', user.qnoow_id), profile)];
             })
             .spread(function(user, profile) {

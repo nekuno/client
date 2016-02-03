@@ -1,28 +1,10 @@
 import { Schema, arrayOf, normalize } from 'normalizr';
 import selectn from 'selectn';
-import 'whatwg-fetch';
 import Url from 'url';
 import request from 'request';
 import Bluebird from 'bluebird';
 import { API_ROOT } from '../constants/Constants';
 import LoginStore from '../stores/LoginStore';
-
-/**
- * Extracts the next page URL from Github API response.
- */
-function getNextPageUrl(response) {
-    const link = response.headers.get('link');
-    if (!link) {
-        return null;
-    }
-
-    const nextLink = link.split(',').filter(s => s.indexOf('rel="next"') > -1)[0];
-    if (!nextLink) {
-        return null;
-    }
-
-    return nextLink.split(';')[0].slice(1, -1);
-}
 
 // We use this Normalizr schemas to transform API responses from a nested form
 // to a flat form where repos and users are placed in `entities`, and nested
@@ -32,183 +14,108 @@ function getNextPageUrl(response) {
 // Read more about Normalizr: https://github.com/gaearon/normalizr
 
 const userSchema = new Schema('users', {idAttribute: 'qnoow_id'});
-
 const profileSchema = new Schema('profiles');
-
 const statsSchema = new Schema('stats');
-
 const comparedStatsSchema = new Schema('comparedStats');
-
-const matchingSchema = new Schema('matching');
-
-const similaritySchema = new Schema('similarity');
-
 const threadSchema = new Schema('thread', {idAttribute: 'id'});
-
-const threadsSchema = new Schema('threads');
-
-const questionsAndAnswersSchema = new Schema('items', {idAttribute: getQuestionId});
-
-const comparedQuestionsAndAnswersSchema = new Schema('items', {idAttribute: getUserId});
-
 const questionsSchema = new Schema('questions', {idAttribute: 'questionId'});
-
 const questionSchema = new Schema('question', {idAttribute: 'questionId'});
-
 const userAnswersSchema = new Schema('userAnswers', {idAttribute: 'questionId'});
-
-const blockedUserSchema = new Schema('blocked', {idAttribute: 'id'});
-
-const likedUserSchema = new Schema('liked', {idAttribute: 'id'});
-
-const likedContentSchema = new Schema('rate', {idAttribute: 'id'});
-
-//TODO: Implement location schema and store
-
-//TODO: Check pull request https://github.com/gaearon/normalizr/pull/42 for recommendation of different types
-
-//If we id by similarity/affinity/matching, there are 'same key' conflicts
-function getRecommendationId(entity) {
-    if (entity.content) {
-        return entity.content.id;
-    } else {
-        return entity.id
+const questionsAndAnswersSchema = new Schema('items', {
+    idAttribute: entity=> {
+        return selectn('question.questionId', entity);
     }
-}
-
-function getQuestionId(entity) {
-    return selectn('question.questionId', entity);
-}
-
-function getUserId(entity) {
-    return parseInt(selectn('userId', entity));
-}
-
-const recommendationSchema = new Schema('recommendation', {idAttribute: getRecommendationId});
-
+});
 questionsAndAnswersSchema.define({
     questions  : arrayOf(questionsSchema),
     userAnswers: arrayOf(userAnswersSchema)
 });
+const comparedQuestionsAndAnswersSchema = new Schema('items', {
+    idAttribute: entity=> {
+        return parseInt(selectn('userId', entity));
+    }
+});
+const blockedUserSchema = new Schema('blocked', {idAttribute: 'id'});
+const likedUserSchema = new Schema('liked', {idAttribute: 'id'});
+const likedContentSchema = new Schema('rate', {idAttribute: 'id'});
+const recommendationSchema = new Schema('recommendation', {
+    idAttribute: entity => {
+        if (entity.content) {
+            return entity.content.id;
+        } else {
+            return entity.id
+        }
+    }
+});
+
+//TODO: Implement location schema and store
+//TODO: Check pull request https://github.com/gaearon/normalizr/pull/42 for recommendation of different types
+
+var _jwt = null;
+
+export function setJwt(value) {
+    _jwt = value;
+}
 
 /**
  * Fetches an API response and normalizes the result JSON according to schema.
  */
-function fetchAndNormalize(url, schema) {
+export function fetchAndNormalize(url, schema) {
 
     return getData(url).then(function(json) {
         return {
             ...normalize(json, schema)
         };
     });
+}
 
+export function doRequest(method, url, data = null) {
+
+    if (url.indexOf(API_ROOT) === -1) {
+        url = API_ROOT + url;
+    }
+
+    var jwt = LoginStore.jwt ? LoginStore.jwt : _jwt;
+    var headers = jwt ? {'Authorization': 'Bearer ' + jwt} : {};
+
+    nekunoApp.showProgressbar();
+
+    return new Bluebird((resolve, reject) => {
+        request(
+            {
+                method  : method,
+                protocol: Url.parse(url).protocol,
+                url     : url,
+                body    : data,
+                json    : true,
+                headers : headers
+            },
+            (err, response, body) => {
+
+                nekunoApp.hideProgressbar();
+
+                if (err) {
+                    return reject(err);
+                }
+                if (response.statusCode >= 400) {
+                    return reject(body);
+                }
+                return resolve(body);
+            }
+        );
+    });
 }
 
 export function getData(url) {
-
-    if (url.indexOf(API_ROOT) === -1) {
-        url = API_ROOT + url;
-    }
-
-    var jwt = LoginStore.jwt;
-    var headers = jwt ? {'Authorization': 'Bearer ' + jwt} : {};
-
-    nekunoApp.showProgressbar();
-
-    return new Bluebird((resolve, reject) => {
-        request.get(
-            {
-                protocol: Url.parse(url).protocol,
-                url     : url,
-                json    : true,
-                headers : headers
-            },
-            (error, response, body) => {
-
-                nekunoApp.hideProgressbar();
-
-                if (error) {
-                    return reject(error);
-                }
-                if (response.statusCode >= 400) {
-                    return reject(body);
-                }
-                return resolve(body);
-            }
-        );
-    });
+    return doRequest('GET', url);
 }
 
 export function postData(url, data) {
-
-    if (url.indexOf(API_ROOT) === -1) {
-        url = API_ROOT + url;
-    }
-
-    var jwt = LoginStore.jwt;
-    var headers = jwt ? {'Authorization': 'Bearer ' + jwt} : {};
-
-    nekunoApp.showProgressbar();
-
-    return new Bluebird((resolve, reject) => {
-        request.post(
-            {
-                protocol: Url.parse(url).protocol,
-                url     : url,
-                body    : data,
-                json    : true,
-                headers : headers
-            },
-            (err, response, body) => {
-
-                nekunoApp.hideProgressbar();
-
-                if (err) {
-                    return reject(err);
-                }
-                if (response.statusCode >= 400) {
-                    return reject(body);
-                }
-                return resolve(body);
-            }
-        );
-    });
+    return doRequest('POST', url, data);
 }
 
-function deleteData(url, data) {
-
-    if (url.indexOf(API_ROOT) === -1) {
-        url = API_ROOT + url;
-    }
-
-    var jwt = LoginStore.jwt;
-    var headers = jwt ? {'Authorization': 'Bearer ' + jwt} : {};
-
-    nekunoApp.showProgressbar();
-
-    return new Bluebird((resolve, reject) => {
-        request.del(
-            {
-                protocol: Url.parse(url).protocol,
-                url     : url,
-                body    : data,
-                json    : true,
-                headers : headers
-            },
-            (err, response, body) => {
-
-                nekunoApp.hideProgressbar();
-
-                if (err) {
-                    return reject(err);
-                }
-                if (response.statusCode >= 400) {
-                    return reject(body);
-                }
-                return resolve(body);
-            }
-        );
-    });
+export function deleteData(url, data) {
+    return doRequest('DELETE', url, data);
 }
 
 export function fetchUser(url) {
@@ -265,19 +172,19 @@ export function fetchComparedQuestions(url) {
 
 export function postAnswer(url, userId, questionId, answerId, acceptedAnswers, rating) {
     return postData(url, {
-        "userId"         : userId,
-        "questionId"     : questionId,
-        "answerId"       : answerId,
-        "acceptedAnswers": acceptedAnswers,
-        "rating"         : rating,
-        "explanation"    : '',
-        "isPrivate"      : false
+        userId         : userId,
+        questionId     : questionId,
+        answerId       : answerId,
+        acceptedAnswers: acceptedAnswers,
+        rating         : rating,
+        explanation    : '',
+        isPrivate      : false
     });
 }
 
 export function postSkipQuestion(url, userId) {
     return postData(url, {
-        "userId": userId
+        userId: userId
     });
 }
 
@@ -310,9 +217,9 @@ export function fetchLikeUser(url) {
 }
 
 export function postLikeContent(url, to) {
-    return postData(url, {"linkId": to, "rate": "LIKES"}, likedContentSchema);
+    return postData(url, {linkId: to, rate: "LIKES"}, likedContentSchema);
 }
 
 export function deleteLikeContent(url, to) {
-    return postData(url, {"linkId": to, "rate": "DISLIKES"}, likedContentSchema);
+    return postData(url, {linkId: to, rate: "DISLIKES"}, likedContentSchema);
 }

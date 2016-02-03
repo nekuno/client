@@ -78,10 +78,12 @@ export default class RegisterJoinPage extends Component {
         this.onClickGender = this.onClickGender.bind(this);
         this.onClickDescriptiveGender = this.onClickDescriptiveGender.bind(this);
         this.onSuggestSelect = this.onSuggestSelect.bind(this);
+        this.onClickShowDescriptiveGender = this.onClickShowDescriptiveGender.bind(this);
         this.state = {
-            gender           : '',
-            location         : {},
-            descriptiveGender: []
+            gender               : '',
+            location             : {},
+            descriptiveGender    : [],
+            showDescriptiveGender: false
         };
     }
 
@@ -182,6 +184,12 @@ export default class RegisterJoinPage extends Component {
         });
     }
 
+    onClickShowDescriptiveGender() {
+        this.setState(
+            {showDescriptiveGender: !this.state.showDescriptiveGender}
+        );
+    }
+
     componentWillMount() {
         if (!this.props.token || !this.props.accessToken || !this.props.resource || !this.props.userId) {
             //this.context.history.pushState(null, '/register');
@@ -216,13 +224,15 @@ export default class RegisterJoinPage extends Component {
 						{key: 'male', text: 'Hombre'},
 						{key: 'female', text: 'Mujer'}
 					]} onClickHandler={this.onClickGender} value={this.state.gender}/>
-
-                        { descriptiveGenderChoices ?
+                        <div style={{textAlign: 'center', marginBottom: '20px'}}>
+                            <a onClick={this.onClickShowDescriptiveGender}>{ this.state.showDescriptiveGender ? 'Ocultar otros géneros' : 'Mostras otros generos'}</a>
+                        </div>
+                        { this.state.showDescriptiveGender && descriptiveGenderChoices ?
                             <div className="list-block">
                                 <ul className="checkbox-genders-list">
                                     {Object.keys(descriptiveGenderChoices).map((id) => {
                                         descriptiveGenderFirstColumnCounter++;
-                                        if (descriptiveGenderFirstColumnCounter > descriptiveGenderChoicesLength/2) {
+                                        if (descriptiveGenderFirstColumnCounter > descriptiveGenderChoicesLength / 2) {
                                             return '';
                                         }
                                         let text = metadata.descriptiveGender.choices[id];
@@ -237,7 +247,7 @@ export default class RegisterJoinPage extends Component {
                                 <ul className="checkbox-genders-list">
                                     {Object.keys(descriptiveGenderChoices).map((id) => {
                                         descriptiveGenderSecondColumnCounter++;
-                                        if (descriptiveGenderSecondColumnCounter <= descriptiveGenderChoicesLength/2) {
+                                        if (descriptiveGenderSecondColumnCounter <= descriptiveGenderChoicesLength / 2) {
                                             return '';
                                         }
                                         let text = metadata.descriptiveGender.choices[id];

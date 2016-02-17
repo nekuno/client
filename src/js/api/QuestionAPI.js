@@ -8,11 +8,11 @@ export function getComparedQuestions(userId, otherUserId, filters, url = `users/
     return fetchComparedQuestions(url);
 }
 
-export function getQuestion(userId, questionId, url = `questionnaire/questions/${questionId}?userId=${userId}&locale=es`){
+export function getQuestion(userId, questionId, url = `questions/${questionId}?userId=${userId}&locale=es`){
     return fetchQuestion(url);
 }
 
-export function getNextQuestion(userId, url = `questionnaire/questions/next?userId=${userId}&locale=es`){
+export function getNextQuestion(userId, url = `questions/next?userId=${userId}&locale=es`){
     return fetchQuestion(url);
 }
 
@@ -20,6 +20,6 @@ export function answerQuestion(userId, questionId, answerId, acceptedAnswers, ra
     return postAnswer(url, userId, questionId, answerId, acceptedAnswers, rating);
 }
 
-export function skipQuestion(userId, questionId, url = `questionnaire/questions/${questionId}/skip`){
+export function skipQuestion(userId, questionId, url = `questions/${questionId}/skip`){
     return postSkipQuestion(url, userId);
 }

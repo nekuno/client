@@ -4,7 +4,7 @@ export function getAnswers(url = `answers`){
     return fetchAnswers(url);
 }
 
-export function getComparedAnswers(otherUserId, filters, url = `answers/compare-new/${otherUserId}?locale=es${filters.map(filter => '&'+filter+'=1')}`){
+export function getComparedAnswers(otherUserId, filters, url = `answers/compare/${otherUserId}?locale=es${filters.map(filter => '&'+filter+'=1')}`){
     return fetchComparedAnswers(url);
 }
 

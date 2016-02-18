@@ -1,6 +1,8 @@
 import React, { PropTypes, Component } from 'react';
 import { Link } from 'react-router';
 import FullWidthButton from '../components/ui/FullWidthButton';
+import moment from 'moment';
+import {LAST_RELEASE_DATE, API_ROOT} from '../constants/Constants';
 
 let nekunoSwiper;
 
@@ -32,12 +34,21 @@ export default class HomePage extends Component {
 
     render() {
 
+        const needsUpdating = this.needsUpdating();
+
         return (
             <div className="view view-main">
-                <div className="swiper-container swiper-init" data-speed="400" data-space-between="40" data-pagination=".swiper-pagination">
-                    <div className="swiper-wrapper">
-                        {this.renderSlides()}
-                    </div>
+                <div className="swiper-container swiper-init" data-speed="400" data-space-between="40"
+                     data-pagination=".swiper-pagination">
+            {needsUpdating ?
+                <a href="https://play.google.com/store/apps/details?id=com.nekuno">
+                    <FullWidthButton id="update-link"> Click aquí para actualizar</FullWidthButton>
+                </a>
+                :
+                <div className="swiper-wrapper">
+                    {this.renderSlides()}
+                </div>
+            }
                 </div>
             </div>
         );
@@ -73,5 +84,17 @@ export default class HomePage extends Component {
             )
         );
     };
+
+    needsUpdating() {
+
+        var request = new XMLHttpRequest();
+        request.open("GET", API_ROOT + 'client/version', false);
+        request.send();
+
+        var lastVersion = moment(JSON.parse(request.responseText), 'DD de MMMM de YYYY');
+        var thisVersion = moment(LAST_RELEASE_DATE, 'DD de MMMM de YYYY');
+
+        return lastVersion.diff(thisVersion) > 0;
+    }
 
 }

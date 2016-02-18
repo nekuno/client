@@ -156,14 +156,14 @@ export function fetchRecommendation(url) {
     });
 }
 
-export function fetchQuestions(url) {
+export function fetchAnswers(url) {
     return fetchAndNormalize(url, {
         items     : arrayOf(questionsAndAnswersSchema),
         pagination: {}
     });
 }
 
-export function fetchComparedQuestions(url) {
+export function fetchComparedAnswers(url) {
     return fetchAndNormalize(url, {
         items     : arrayOf(comparedQuestionsAndAnswersSchema),
         pagination: {}

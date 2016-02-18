@@ -4,7 +4,7 @@ import * as QuestionAPI from '../api/QuestionAPI';
 import QuestionStore from '../stores/QuestionStore';
 
 export function requestQuestions(userId, link, fields) {
-    dispatchAsync(QuestionAPI.getQuestions(link), {
+    dispatchAsync(QuestionAPI.getAnswers(link), {
         request: ActionTypes.REQUEST_QUESTIONS,
         success: ActionTypes.REQUEST_QUESTIONS_SUCCESS,
         failure: ActionTypes.REQUEST_QUESTIONS_ERROR
@@ -12,7 +12,7 @@ export function requestQuestions(userId, link, fields) {
 }
 
 export function requestComparedQuestions(userId, otherUserId, filters, link) {
-    dispatchAsync(QuestionAPI.getComparedQuestions(userId, otherUserId, filters, link), {
+    dispatchAsync(QuestionAPI.getComparedAnswers(otherUserId, filters, link), {
         request: ActionTypes.REQUEST_COMPARED_QUESTIONS,
         success: ActionTypes.REQUEST_COMPARED_QUESTIONS_SUCCESS,
         failure: ActionTypes.REQUEST_COMPARED_QUESTIONS_ERROR

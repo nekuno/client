@@ -22,7 +22,7 @@ export function getUser(userId, url = `users/${userId}`) {
     return fetchUser(url);
 }
 
-export function getProfile(userId, url = `users/${userId}/profile`) {
+export function getProfile(userId, url = `profile/${userId}`) {
     return fetchProfile(url);
 }
 

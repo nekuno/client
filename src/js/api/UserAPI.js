@@ -46,27 +46,27 @@ export function getRecommendation(threadId, url = `threads/${threadId}/recommend
     return fetchRecommendation(url);
 }
 
-export function setBlockUser(from, to, url = `users/${from}/blocks/${to}`) {
+export function setBlockUser(to, url = `blocks/${to}`) {
     return postBlockUser(url);
 }
 
-export function unsetBlockUser(from, to, url = `users/${from}/blocks/${to}`) {
+export function unsetBlockUser(to, url = `blocks/${to}`) {
     return deleteBlockUser(url);
 }
 
-export function getBlockUser(from, to, url = `users/${from}/blocks/${to}`) {
+export function getBlockUser(to, url = `blocks/${to}`) {
     return fetchBlockUser(url);
 }
 
-export function setLikeUser(from, to, url = `users/${from}/likes/${to}`) {
+export function setLikeUser(to, url = `likes/${to}`) {
     return postLikeUser(url);
 }
 
-export function unsetLikeUser(from, to, url = `users/${from}/likes/${to}`) {
+export function unsetLikeUser(to, url = `likes/${to}`) {
     return deleteLikeUser(url);
 }
 
-export function getLikeUser(from, to, url = `users/${from}/likes/${to}`) {
+export function getLikeUser(to, url = `likes/${to}`) {
     return fetchLikeUser(url);
 }
 

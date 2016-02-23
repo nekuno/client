@@ -30,15 +30,15 @@ export function getMetadata(url = `profile/metadata`) {
     return fetchMetadata(url);
 }
 
-export function getStats(userId, url = `users/${userId}/stats`) {
+export function getStats(url = `stats`) {
     return fetchStats(url);
 }
 
-export function getComparedStats(id1, id2, url = `users/${id1}/stats/compare/${id2}`) {
+export function getComparedStats(id, url = `stats/compare/${id}`) {
     return fetchComparedStats(url);
 }
 
-export function getThreads(userId, url = `users/${userId}/threads`){
+export function getThreads(url = `threads`){
     return fetchThreads(url);
 }
 
@@ -70,18 +70,18 @@ export function getLikeUser(to, url = `likes/${to}`) {
     return fetchLikeUser(url);
 }
 
-export function setLikeContent(from, to, url = `users/${from}/content/rate`) {
+export function setLikeContent(to, url = `content/rate`) {
     return postLikeContent(url, to);
 }
 
-export function unsetLikeContent(from, to, url = `users/${from}/content/rate`) {
+export function unsetLikeContent(to, url = `content/rate`) {
     return deleteLikeContent(url, to);
 }
 
-export function getMatching(userId1, userId2, url = `users/${userId1}/matching/${userId2}`) {
+export function getMatching(userId, url = `matching/${userId}`) {
     return getData(url);
 }
 
-export function getSimilarity(userId1, userId2, url = `users/${userId1}/similarity/${userId2}`) {
+export function getSimilarity(userId, url = `similarity/${userId}`) {
     return getData(url);
 }

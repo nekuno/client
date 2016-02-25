@@ -1,12 +1,57 @@
+@import "../_partials/colors";
+
 body #root .App .view .page.notifications-page  {
-  height: 100%;
+  background: #fff;
+  height: inherit;
 
   #page-content {
-    background: url('img/provisional-screens/notifications_coming_soon.jpg') no-repeat;
-    background-size: 100% auto;
-    height: 100%;
-    margin-left: 0;
-    margin-right: 0;
-    width: 100%;
+    padding-top: 10px;
+    width: 90%;
+
+    .last-message {
+      padding: 5px;
+
+      .last-message-picture {
+        display: inline-block;
+        margin-right: 5%;
+        vertical-align: top;
+        width: 12%;
+
+        img {
+          border-radius: 50%;
+          width: 100%;
+        }
+      }
+      .last-message-text {
+        display: inline-block;
+        width: 80%;
+
+        .last-message-title {
+          .last-message-title-text {
+            font-weight: bold;
+          }
+          .status-online {
+            color: $light-green;
+            float: right;
+            font-size: 0.6em;
+          }
+        }
+        .last-message-excerpt {
+          color: $light-gray;
+        }
+        .last-message-time {
+          color: $light-gray;
+          font-size: 0.8em;
+          padding-top: 5px;
+
+          .last-message-time-text {
+            vertical-align: text-bottom;
+          }
+        }
+      }
+    }
+    hr {
+      opacity: 0.2;
+    }
   }
 }

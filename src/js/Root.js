@@ -32,6 +32,7 @@ export default class Root extends Component {
                     <Route name="splash" path="/splash" component={HomePage}/>
                     <Route name="about" path="/about" component={AboutPage}/>
                     <Route name="notifications" path="/notifications" component={NotificationsPage}/>
+                    <Route name="messages" path="/messages/:userId" component={NotificationsPage}/>
                     <Route name="interests" path="/interests" component={InterestsPage}/>
                     <Route name="other-interests" path="/users/:userId/other-interests" component={OtherInterestsPage}/>
                     <Route name="questions" path="/questions" component={QuestionsPage}/>

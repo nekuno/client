@@ -50,7 +50,7 @@ export default class CardUser extends Component {
 		let messageButton = this.props.canSendMessage ? <span className="icon-message"></span> : '';
 		let likeButtonText = this.props.liked ? 'Quitar Me gusta' : 'Me gusta';
 		let likeButton = this.props.hideLikeButton ? '' : <div className="like-button-container"><Button {...this.props} onClick={this.onLikeOrDislike}>{likeButtonText}</Button></div>;
-		let imgSrc = this.props.picture ? `${IMAGES_ROOT}media/cache/user_avatar_180x180/user/images/${this.props.picture}` : `${IMAGES_ROOT}media/cache/user_avatar_180x180/bundles/qnoowweb/images/user-no-img.jpg`;
+		let imgSrc = this.props.picture ? `${IMAGES_ROOT}media/cache/resolve/user_avatar_180x180/user/images/${this.props.picture}` : `${IMAGES_ROOT}media/cache/user_avatar_180x180/bundles/qnoowweb/images/user-no-img.jpg`;
 
 		return (
 			<div className="card person-card">

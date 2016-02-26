@@ -94,15 +94,15 @@ class AuthService {
             .spread(function(user, jwt) {
                 console.log('jwt', jwt);
                 APIUtils.setJwt(jwt.jwt);
-                return [user, APIUtils.postData(API_URLS.REGISTER_PROFILE.replace('{id}', user.qnoow_id), profile)];
+                return [user, APIUtils.postData(API_URLS.REGISTER_PROFILE, profile)];
             })
             .spread(function(user, profile) {
                 console.log('Profile registered', profile);
-                return [user, profile, APIUtils.postData(API_URLS.CONSUME_INVITATION.replace('{id}', user.qnoow_id).replace('{token}', token))]
+                return [user, profile, APIUtils.postData(API_URLS.CONSUME_INVITATION.replace('{token}', token))]
             })
             .spread(function(user, profile, invitation) {
                 console.log('Invitation consumed', invitation);
-                return [user, profile, invitation, APIUtils.postData(API_URLS.CONNECT_ACCOUNT.replace('{id}', user.qnoow_id).replace('{resource}', oauth.resource), {oauthToken: oauth.accessToken})];
+                return [user, profile, invitation, APIUtils.postData(API_URLS.CONNECT_ACCOUNT.replace('{resource}', oauth.resource), {oauthToken: oauth.accessToken})];
             })
             .spread(function(user, profile, invitation, oauthToken) {
                 console.log('Account connected', oauthToken);

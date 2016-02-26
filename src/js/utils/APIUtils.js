@@ -156,23 +156,22 @@ export function fetchRecommendation(url) {
     });
 }
 
-export function fetchQuestions(url) {
+export function fetchAnswers(url) {
     return fetchAndNormalize(url, {
         items     : arrayOf(questionsAndAnswersSchema),
         pagination: {}
     });
 }
 
-export function fetchComparedQuestions(url) {
+export function fetchComparedAnswers(url) {
     return fetchAndNormalize(url, {
         items     : arrayOf(comparedQuestionsAndAnswersSchema),
         pagination: {}
     });
 }
 
-export function postAnswer(url, userId, questionId, answerId, acceptedAnswers, rating) {
+export function postAnswer(url, questionId, answerId, acceptedAnswers, rating) {
     return postData(url, {
-        userId         : userId,
         questionId     : questionId,
         answerId       : answerId,
         acceptedAnswers: acceptedAnswers,
@@ -182,10 +181,8 @@ export function postAnswer(url, userId, questionId, answerId, acceptedAnswers, r
     });
 }
 
-export function postSkipQuestion(url, userId) {
-    return postData(url, {
-        userId: userId
-    });
+export function postSkipQuestion(url) {
+    return postData(url);
 }
 
 export function fetchQuestion(url) {

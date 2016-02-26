@@ -4,7 +4,7 @@ import * as QuestionAPI from '../api/QuestionAPI';
 import QuestionStore from '../stores/QuestionStore';
 
 export function requestQuestions(userId, link, fields) {
-    dispatchAsync(QuestionAPI.getQuestions(userId, link), {
+    dispatchAsync(QuestionAPI.getAnswers(link), {
         request: ActionTypes.REQUEST_QUESTIONS,
         success: ActionTypes.REQUEST_QUESTIONS_SUCCESS,
         failure: ActionTypes.REQUEST_QUESTIONS_ERROR
@@ -12,7 +12,7 @@ export function requestQuestions(userId, link, fields) {
 }
 
 export function requestComparedQuestions(userId, otherUserId, filters, link) {
-    dispatchAsync(QuestionAPI.getComparedQuestions(userId, otherUserId, filters, link), {
+    dispatchAsync(QuestionAPI.getComparedAnswers(otherUserId, filters, link), {
         request: ActionTypes.REQUEST_COMPARED_QUESTIONS,
         success: ActionTypes.REQUEST_COMPARED_QUESTIONS_SUCCESS,
         failure: ActionTypes.REQUEST_COMPARED_QUESTIONS_ERROR
@@ -38,7 +38,7 @@ export function requestQuestion(userId, questionId) {
         requestNextQuestion(userId);
     }
     else if (!QuestionStore.contains(userId, questionId)) {
-        dispatchAsync(QuestionAPI.getQuestion(userId, questionId), {
+        dispatchAsync(QuestionAPI.getQuestion(questionId), {
             request: ActionTypes.REQUEST_QUESTION,
             success: ActionTypes.REQUEST_QUESTION_SUCCESS,
             failure: ActionTypes.REQUEST_QUESTION_ERROR
@@ -49,7 +49,7 @@ export function requestQuestion(userId, questionId) {
 }
 
 export function requestNextQuestion(userId) {
-    dispatchAsync(QuestionAPI.getNextQuestion(userId), {
+    dispatchAsync(QuestionAPI.getNextQuestion(), {
         request: ActionTypes.REQUEST_QUESTION,
         success: ActionTypes.REQUEST_QUESTION_SUCCESS,
         failure: ActionTypes.REQUEST_QUESTION_ERROR
@@ -57,7 +57,7 @@ export function requestNextQuestion(userId) {
 }
 
 export function answerQuestion(userId, questionId, answerId, acceptedAnswers, rating) {
-    return dispatchAsync(QuestionAPI.answerQuestion(userId, questionId, answerId, acceptedAnswers, rating), {
+    return dispatchAsync(QuestionAPI.answerQuestion(questionId, answerId, acceptedAnswers, rating), {
         request: ActionTypes.ANSWER_QUESTION,
         success: ActionTypes.ANSWER_QUESTION_SUCCESS,
         failure: ActionTypes.ANSWER_QUESTION_ERROR
@@ -65,7 +65,7 @@ export function answerQuestion(userId, questionId, answerId, acceptedAnswers, ra
 }
 
 export function skipQuestion(userId, questionId) {
-    let promise = dispatchAsync(QuestionAPI.skipQuestion(userId, questionId), {
+    let promise = dispatchAsync(QuestionAPI.skipQuestion(questionId), {
         request: ActionTypes.SKIP_QUESTION,
         success: ActionTypes.SKIP_QUESTION_SUCCESS,
         failure: ActionTypes.SKIP_QUESTION_ERROR

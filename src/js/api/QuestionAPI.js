@@ -1,25 +1,25 @@
-import { fetchQuestions, fetchQuestion, fetchComparedQuestions, postAnswer, postSkipQuestion } from '../utils/APIUtils';
+import { fetchAnswers, fetchQuestion, fetchComparedAnswers, postAnswer, postSkipQuestion } from '../utils/APIUtils';
 
-export function getQuestions(userId, url = `users/${userId}/answers`){
-    return fetchQuestions(url);
+export function getAnswers(url = `answers`){
+    return fetchAnswers(url);
 }
 
-export function getComparedQuestions(userId, otherUserId, filters, url = `users/${otherUserId}/questions/compare-new/${userId}?locale=es${filters.map(filter => '&'+filter+'=1')}`){
-    return fetchComparedQuestions(url);
+export function getComparedAnswers(otherUserId, filters, url = `answers/compare/${otherUserId}?locale=es${filters.map(filter => '&'+filter+'=1')}`){
+    return fetchComparedAnswers(url);
 }
 
-export function getQuestion(userId, questionId, url = `questionnaire/questions/${questionId}?userId=${userId}&locale=es`){
+export function getQuestion(questionId, url = `questions/${questionId}?locale=es`){
     return fetchQuestion(url);
 }
 
-export function getNextQuestion(userId, url = `questionnaire/questions/next?userId=${userId}&locale=es`){
+export function getNextQuestion(url = `questions/next?locale=es`){
     return fetchQuestion(url);
 }
 
-export function answerQuestion(userId, questionId, answerId, acceptedAnswers, rating, url = `users/${userId}/answers`){
-    return postAnswer(url, userId, questionId, answerId, acceptedAnswers, rating);
+export function answerQuestion(questionId, answerId, acceptedAnswers, rating, url = `answers`){
+    return postAnswer(url, questionId, answerId, acceptedAnswers, rating);
 }
 
-export function skipQuestion(userId, questionId, url = `questionnaire/questions/${questionId}/skip`){
-    return postSkipQuestion(url, userId);
+export function skipQuestion(questionId, url = `questions/${questionId}/skip`){
+    return postSkipQuestion(url);
 }

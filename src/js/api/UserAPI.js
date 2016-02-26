@@ -22,7 +22,7 @@ export function getUser(userId, url = `users/${userId}`) {
     return fetchUser(url);
 }
 
-export function getProfile(userId, url = `users/${userId}/profile`) {
+export function getProfile(userId, url = `profile/${userId}`) {
     return fetchProfile(url);
 }
 
@@ -30,15 +30,15 @@ export function getMetadata(url = `profile/metadata`) {
     return fetchMetadata(url);
 }
 
-export function getStats(userId, url = `users/${userId}/stats`) {
+export function getStats(url = `stats`) {
     return fetchStats(url);
 }
 
-export function getComparedStats(id1, id2, url = `users/${id1}/stats/compare/${id2}`) {
+export function getComparedStats(id, url = `stats/compare/${id}`) {
     return fetchComparedStats(url);
 }
 
-export function getThreads(userId, url = `users/${userId}/threads`){
+export function getThreads(url = `threads`){
     return fetchThreads(url);
 }
 
@@ -46,42 +46,42 @@ export function getRecommendation(threadId, url = `threads/${threadId}/recommend
     return fetchRecommendation(url);
 }
 
-export function setBlockUser(from, to, url = `users/${from}/blocks/${to}`) {
+export function setBlockUser(to, url = `blocks/${to}`) {
     return postBlockUser(url);
 }
 
-export function unsetBlockUser(from, to, url = `users/${from}/blocks/${to}`) {
+export function unsetBlockUser(to, url = `blocks/${to}`) {
     return deleteBlockUser(url);
 }
 
-export function getBlockUser(from, to, url = `users/${from}/blocks/${to}`) {
+export function getBlockUser(to, url = `blocks/${to}`) {
     return fetchBlockUser(url);
 }
 
-export function setLikeUser(from, to, url = `users/${from}/likes/${to}`) {
+export function setLikeUser(to, url = `likes/${to}`) {
     return postLikeUser(url);
 }
 
-export function unsetLikeUser(from, to, url = `users/${from}/likes/${to}`) {
+export function unsetLikeUser(to, url = `likes/${to}`) {
     return deleteLikeUser(url);
 }
 
-export function getLikeUser(from, to, url = `users/${from}/likes/${to}`) {
+export function getLikeUser(to, url = `likes/${to}`) {
     return fetchLikeUser(url);
 }
 
-export function setLikeContent(from, to, url = `users/${from}/content/rate`) {
+export function setLikeContent(to, url = `content/rate`) {
     return postLikeContent(url, to);
 }
 
-export function unsetLikeContent(from, to, url = `users/${from}/content/rate`) {
+export function unsetLikeContent(to, url = `content/rate`) {
     return deleteLikeContent(url, to);
 }
 
-export function getMatching(userId1, userId2, url = `users/${userId1}/matching/${userId2}`) {
+export function getMatching(userId, url = `matching/${userId}`) {
     return getData(url);
 }
 
-export function getSimilarity(userId1, userId2, url = `users/${userId1}/similarity/${userId2}`) {
+export function getSimilarity(userId, url = `similarity/${userId}`) {
     return getData(url);
 }

@@ -58,9 +58,9 @@ export function requestThreads(userId, url = null) {
 
     let threads = {};
     if (url) {
-        threads = UserAPI.getThreads(userId, url);
+        threads = UserAPI.getThreads(url);
     } else {
-        threads = UserAPI.getThreads(userId);
+        threads = UserAPI.getThreads();
     }
 
     dispatchAsync(threads, {
@@ -102,7 +102,7 @@ export function requestRecommendation(threadId, url = null) {
 }
 
 export function requestStats(userId) {
-    dispatchAsync(UserAPI.getStats(userId), {
+    dispatchAsync(UserAPI.getStats(), {
         request: ActionTypes.REQUEST_STATS,
         success: ActionTypes.REQUEST_STATS_SUCCESS,
         failure: ActionTypes.REQUEST_STATS_ERROR
@@ -110,7 +110,7 @@ export function requestStats(userId) {
 }
 
 export function requestComparedStats(userId1, userId2) {
-    dispatchAsync(UserAPI.getComparedStats(userId1, userId2), {
+    dispatchAsync(UserAPI.getComparedStats(userId2), {
         request: ActionTypes.REQUEST_COMPARED_STATS,
         success: ActionTypes.REQUEST_COMPARED_STATS_SUCCESS,
         failure: ActionTypes.REQUEST_COMPARED_STATS_ERROR
@@ -118,7 +118,7 @@ export function requestComparedStats(userId1, userId2) {
 }
 
 export function requestMatching(userId1, userId2) {
-    dispatchAsync(UserAPI.getMatching(userId1, userId2), {
+    dispatchAsync(UserAPI.getMatching(userId2), {
         request: ActionTypes.REQUEST_MATCHING,
         success: ActionTypes.REQUEST_MATCHING_SUCCESS,
         failure: ActionTypes.REQUEST_MATCHING_ERROR
@@ -126,7 +126,7 @@ export function requestMatching(userId1, userId2) {
 }
 
 export function requestSimilarity(userId1, userId2) {
-    dispatchAsync(UserAPI.getSimilarity(userId1, userId2), {
+    dispatchAsync(UserAPI.getSimilarity(userId2), {
         request: ActionTypes.REQUEST_SIMILARITY,
         success: ActionTypes.REQUEST_SIMILARITY_SUCCESS,
         failure: ActionTypes.REQUEST_SIMILARITY_ERROR
@@ -162,7 +162,7 @@ export function threadsNext(userId) {
 }
 
 export function blockUser(from, to) {
-    dispatchAsync(UserAPI.setBlockUser(from, to), {
+    dispatchAsync(UserAPI.setBlockUser(to), {
         request: ActionTypes.BLOCK_USER,
         success: ActionTypes.BLOCK_USER_SUCCESS,
         failure: ActionTypes.BLOCK_USER_ERROR
@@ -170,7 +170,7 @@ export function blockUser(from, to) {
 }
 
 export function deleteBlockUser(from, to) {
-    dispatchAsync(UserAPI.unsetBlockUser(from, to), {
+    dispatchAsync(UserAPI.unsetBlockUser(to), {
         request: ActionTypes.UNBLOCK_USER,
         success: ActionTypes.UNBLOCK_USER_SUCCESS,
         failure: ActionTypes.UNBLOCK_USER_ERROR
@@ -178,7 +178,7 @@ export function deleteBlockUser(from, to) {
 }
 
 export function likeUser(from, to) {
-    dispatchAsync(UserAPI.setLikeUser(from, to), {
+    dispatchAsync(UserAPI.setLikeUser(to), {
         request: ActionTypes.LIKE_USER,
         success: ActionTypes.LIKE_USER_SUCCESS,
         failure: ActionTypes.LIKE_USER_ERROR
@@ -186,7 +186,7 @@ export function likeUser(from, to) {
 }
 
 export function deleteLikeUser(from, to) {
-    dispatchAsync(UserAPI.unsetLikeUser(from, to), {
+    dispatchAsync(UserAPI.unsetLikeUser(to), {
         request: ActionTypes.UNLIKE_USER,
         success: ActionTypes.UNLIKE_USER_SUCCESS,
         failure: ActionTypes.UNLIKE_USER_ERROR
@@ -194,7 +194,7 @@ export function deleteLikeUser(from, to) {
 }
 
 export function likeContent(from, to) {
-    dispatchAsync(UserAPI.setLikeContent(from, to), {
+    dispatchAsync(UserAPI.setLikeContent(to), {
         request: ActionTypes.LIKE_CONTENT,
         success: ActionTypes.LIKE_CONTENT_SUCCESS,
         failure: ActionTypes.LIKE_CONTENT_ERROR
@@ -202,7 +202,7 @@ export function likeContent(from, to) {
 }
 
 export function deleteLikeContent(from, to) {
-    dispatchAsync(UserAPI.unsetLikeContent(from, to), {
+    dispatchAsync(UserAPI.unsetLikeContent(to), {
         request: ActionTypes.UNLIKE_CONTENT,
         success: ActionTypes.UNLIKE_CONTENT_SUCCESS,
         failure: ActionTypes.UNLIKE_CONTENT_ERROR
@@ -210,7 +210,7 @@ export function deleteLikeContent(from, to) {
 }
 
 export function requestBlockUser(from, to) {
-    dispatchAsync(UserAPI.getBlockUser(from, to), {
+    dispatchAsync(UserAPI.getBlockUser(to), {
         request: ActionTypes.REQUEST_BLOCK_USER,
         success: ActionTypes.REQUEST_BLOCK_USER_SUCCESS,
         failure: ActionTypes.REQUEST_BLOCK_USER_ERROR
@@ -218,7 +218,7 @@ export function requestBlockUser(from, to) {
 }
 
 export function requestLikeUser(from, to) {
-    dispatchAsync(UserAPI.getLikeUser(from, to), {
+    dispatchAsync(UserAPI.getLikeUser(to), {
         request: ActionTypes.REQUEST_LIKE_USER,
         success: ActionTypes.REQUEST_LIKE_USER_SUCCESS,
         failure: ActionTypes.REQUEST_LIKE_USER_ERROR

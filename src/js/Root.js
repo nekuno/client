@@ -5,6 +5,7 @@ import App from './App';
 import HomePage from './pages/HomePage';
 import AboutPage from './pages/AboutPage';
 import NotificationsPage from './pages/NotificationsPage';
+import MessagesPage from './pages/MessagesPage';
 import InterestsPage from './pages/InterestsPage';
 import OtherInterestsPage from './pages/OtherInterestsPage';
 import QuestionsPage from './pages/QuestionsPage';
@@ -32,6 +33,7 @@ export default class Root extends Component {
                     <Route name="splash" path="/splash" component={HomePage}/>
                     <Route name="about" path="/about" component={AboutPage}/>
                     <Route name="notifications" path="/notifications" component={NotificationsPage}/>
+                    <Route name="messages" path="/messages/:userId" component={MessagesPage}/>
                     <Route name="interests" path="/interests" component={InterestsPage}/>
                     <Route name="other-interests" path="/users/:userId/other-interests" component={OtherInterestsPage}/>
                     <Route name="questions" path="/questions" component={QuestionsPage}/>

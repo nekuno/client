@@ -5,51 +5,10 @@ body #root .App .view .page.notifications-page  {
   height: inherit;
 
   #page-content {
-    padding-top: 10px;
-    width: 90%;
+    background: #fff;
+    padding: 10px 0 10px 0;
+    width: 100%;
 
-    .last-message {
-      padding: 5px;
-
-      .last-message-picture {
-        display: inline-block;
-        margin-right: 5%;
-        vertical-align: top;
-        width: 12%;
-
-        img {
-          border-radius: 50%;
-          width: 100%;
-        }
-      }
-      .last-message-text {
-        display: inline-block;
-        width: 80%;
-
-        .last-message-title {
-          .last-message-title-text {
-            font-weight: bold;
-          }
-          .status-online {
-            color: $light-green;
-            float: right;
-            font-size: 0.6em;
-          }
-        }
-        .last-message-excerpt {
-          color: $light-gray;
-        }
-        .last-message-time {
-          color: $light-gray;
-          font-size: 0.8em;
-          padding-top: 5px;
-
-          .last-message-time-text {
-            vertical-align: text-bottom;
-          }
-        }
-      }
-    }
     hr {
       opacity: 0.2;
     }

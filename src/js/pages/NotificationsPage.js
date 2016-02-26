@@ -15,6 +15,14 @@ export default AuthenticatedComponent(class NotificationsPage extends Component 
                         <hr />
                         <LastMessage username={'Usuario2'} text={'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas nunc enim, bibendum in arcu id, aliquet euismod tellus. Sed feugiat nisi a accumsan cursus. Nullam ac massa vitae massa mollis ullamcorper.'} datetime={'20160120'} canSendMessage={true} picture={''} userId={4} loggedUserId={3} online={true} />
                         <hr />
+                        <LastMessage username={'Usuario1'} text={'Texto mesaje usuario 1 ...'} datetime={'20160220'} canSendMessage={true} picture={''} userId={2} loggedUserId={3} online={false} />
+                        <hr />
+                        <LastMessage username={'Usuario2'} text={'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas nunc enim, bibendum in arcu id, aliquet euismod tellus. Sed feugiat nisi a accumsan cursus. Nullam ac massa vitae massa mollis ullamcorper.'} datetime={'20160120'} canSendMessage={true} picture={''} userId={4} loggedUserId={3} online={true} />
+                        <hr />
+                        <LastMessage username={'Usuario1'} text={'Texto mesaje usuario 1 ...'} datetime={'20160220'} canSendMessage={true} picture={''} userId={2} loggedUserId={3} online={false} />
+                        <hr />
+                        <LastMessage username={'Usuario2'} text={'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas nunc enim, bibendum in arcu id, aliquet euismod tellus. Sed feugiat nisi a accumsan cursus. Nullam ac massa vitae massa mollis ullamcorper.'} datetime={'20160120'} canSendMessage={true} picture={''} userId={4} loggedUserId={3} online={true} />
+                        <hr />
                     </div>
                 </div>
             </div>

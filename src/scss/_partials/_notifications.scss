@@ -1,0 +1,49 @@
+.notification {
+	padding: 10px 5% 5px 5%;
+
+	.notification-picture, .notification-picture-right {
+		display: inline-block;
+		margin-right: 5%;
+		vertical-align: top;
+		width: 12%;
+
+		img {
+			border-radius: 50%;
+			width: 100%;
+		}
+	}
+	.notification-picture-right {
+		margin-right: 0;
+		margin-left: 5%;
+	}
+	.notification-text, .notification-text-right {
+		display: inline-block;
+		width: 80%;
+
+		.notification-title {
+			.last-notification-title-text {
+				font-weight: bold;
+			}
+			.status-online {
+				color: $light-green;
+				float: right;
+				font-size: 0.6em;
+			}
+		}
+		.notification-excerpt {
+			color: $light-gray;
+		}
+		.notification-time {
+			color: $light-gray;
+			font-size: 0.8em;
+			padding-top: 5px;
+
+			.notification-time-text {
+				vertical-align: text-bottom;
+			}
+		}
+	}
+	.notification-text-right {
+		text-align: right;
+	}
+}

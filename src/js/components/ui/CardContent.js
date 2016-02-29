@@ -86,9 +86,12 @@ export default class CardContent extends Component {
 						</div>
 					</div>
 				</div>
-				<div className="card-footer">
-					{likeButton}
-				</div>
+				{likeButton ?
+					<div className="card-footer">
+						{likeButton}
+					</div>
+						: ''
+				}
 			</div>
 		);
 	}

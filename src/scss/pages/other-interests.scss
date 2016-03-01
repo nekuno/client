@@ -3,6 +3,14 @@ body #root .App .view .page.other-interests-page  {
     margin: 60px auto 0 auto;
     width: 98%;
 
+    .profile-avatars-connection {
+      margin: 50px auto 10px auto;
+      text-align: center;
+    }
+
+    .title {
+      margin-bottom: 10px;
+    }
     .card {
       display: inline-block;
       margin: 5px 1% 5px 1%;

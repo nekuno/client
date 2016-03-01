@@ -50,7 +50,7 @@ export default AuthenticatedComponent(class RegisterQuestionLandingPage extends 
                 <div className="user-image">
                     <img src={imgSrc} />
                 </div>
-                <Link to="/registerquestions">
+                <Link to="/register-questions">
                     <FullWidthButton> HACER TEST </FullWidthButton>
                 </Link>
 

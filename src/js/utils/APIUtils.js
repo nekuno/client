@@ -118,6 +118,10 @@ export function deleteData(url, data) {
     return doRequest('DELETE', url, data);
 }
 
+export function getVersion() {
+    return getData('client/version');
+}
+
 export function fetchUser(url) {
     return fetchAndNormalize(url, userSchema);
 }

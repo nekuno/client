@@ -3,6 +3,7 @@ import LeftPanel from './components/LeftPanel';
 import HomePage from './pages/HomePage';
 import * as UserActionCreators from './actions/UserActionCreators';
 import LoginStore from './stores/LoginStore';
+import RegisterStore from './stores/RegisterStore';
 import RouterStore from './stores/RouterStore';
 import RouterActionCreators from './actions/RouterActionCreators';
 
@@ -27,7 +28,8 @@ export default class App extends Component {
     _getLoginState() {
         return {
             user        : LoginStore.user,
-            userLoggedIn: LoginStore.isLoggedIn()
+            userLoggedIn: LoginStore.isLoggedIn(),
+            userRegistered: RegisterStore.user
         };
     }
 
@@ -50,12 +52,15 @@ export default class App extends Component {
         //get any nextTransitionPath - NB it can only be got once then it self-nullifies
         let transitionPath = RouterStore.nextTransitionPath || '/';
 
+        const userJustRegistered = userLoggedInState.userRegistered !== null;
+
         //trigger router change
         console.log("&*&*&* App onLoginChange event: loggedIn=", userLoggedInState.userLoggedIn, "nextTransitionPath=", transitionPath);
 
         if (userLoggedInState.userLoggedIn) {
+            let nextPath = userJustRegistered ? '/register-questions-landing' : '/threads/' + userLoggedInState.user.qnoow_id;
             setTimeout(() => {
-                this.context.history.replaceState(null, '/threads/' + userLoggedInState.user.qnoow_id);
+                this.context.history.replaceState(null, nextPath);
             });
         } else {
             this.context.history.replaceState(null, '/login');

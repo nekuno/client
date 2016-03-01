@@ -2,6 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import { Link } from 'react-router';
 import FullWidthButton from '../components/ui/FullWidthButton';
 import moment from 'moment';
+import 'moment/locale/es';
 import { LAST_RELEASE_DATE } from '../constants/Constants';
 import { getVersion } from '../utils/APIUtils';
 
@@ -40,10 +41,9 @@ export default class HomePage extends Component {
 
     componentWillMount() {
         getVersion().then((response) => {
-            var lastVersion = moment(response, 'DD de MMMM de YYYY');
-            var thisVersion = moment(LAST_RELEASE_DATE, 'DD de MMMM de YYYY');
-
-            this.setState({needsUpdating: lastVersion.diff(thisVersion) > 0});
+            var lastVersion = moment(response, 'DD [de] MMMM [de] YYYY');
+            var thisVersion = moment(LAST_RELEASE_DATE, 'DD [de] MMMM [de] YYYY');
+            this.setState({needsUpdating: lastVersion > thisVersion});
         });
 
     }

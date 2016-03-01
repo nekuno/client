@@ -2,6 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import { Link } from 'react-router';
 import { IMAGES_ROOT } from '../../constants/Constants';
 import Answer from './Answer';
+import QuestionStatsInLine from './QuestionStatsInline';
 
 export default class Question extends Component {
     static propTypes = {
@@ -12,6 +13,16 @@ export default class Question extends Component {
         last: PropTypes.bool.isRequired,
         userId: PropTypes.number.isRequired
     };
+
+    constructor(props) {
+        super(props);
+
+        this.onClickHandler = this.onClickHandler.bind(this);
+
+        this.state = {
+            graphDisplay: false
+        };
+    }
 
     render() {
         let question = this.props.question.question;
@@ -34,7 +45,7 @@ export default class Question extends Component {
         }
 
         return (
-            <div className="question">
+            <div className="question" onClick={this.onClickHandler}>
                 <div className="edit-question-button">
                     <Link to={`/answer-question/${question.questionId}`}><span className="icon-edit"></span></Link>
                 </div>
@@ -51,8 +62,17 @@ export default class Question extends Component {
                         <Answer key={index} text={answer.text} answered={false} {...this.props} />
                     );
                 })}
+                {this.state.graphDisplay ?
+                    <QuestionStatsInLine question={question} userAnswer={userAnswer} userId={this.props.userId}/> : ''
+                }
                 <hr/>
             </div>
         );
+    }
+
+    onClickHandler() {
+        this.setState({
+            graphDisplay: !this.state.graphDisplay
+        });
     }
 }

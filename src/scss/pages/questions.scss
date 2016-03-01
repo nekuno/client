@@ -102,6 +102,75 @@ body #root .App .view .page.questions-page  {
           }
         }
 
+        .question-stats {
+          margin-top: 10px;
+          text-align: center;
+
+          .question-stats-graph-title {
+            color: $pink;
+            font-weight: bold;
+            margin-bottom: 15px;
+          }
+          .community-question-stats {
+            .female-answer-chart-container, .male-answer-chart-container {
+              display: inline-block;
+              height: 100px;
+              width: 100px;
+
+              canvas {
+                height: 100px;
+                width: 100px;
+              }
+              .genre-icon {
+                color: $deep-purple;
+                margin-top: -70px;
+              }
+              .icon-female {
+                font-size: 1.1em;
+                margin-top: -70px;
+              }
+              .genre-text {
+                font-size: 0.8em;
+              }
+            }
+            .female-answer-chart-container {
+              margin-right: 5%;
+            }
+            .male-answer-chart-container {
+
+            }
+          }
+          .answers-colors {
+            text-align: left;
+
+            .answer-color {
+              .icon-circle {
+                font-size: 9px;
+                line-height: 16px;
+              }
+              .answer {
+                display: inline-block;
+                margin-left: 5px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                vertical-align: bottom;
+                width: 95%;
+                white-space: nowrap;
+              }
+            }
+
+            hr {
+              background-color: $light-gray;
+              border: none;
+              color: $light-gray;
+              height: 1px;
+              width: 10%;
+              max-width: 10%;
+              margin: 20px 0 15px 0;
+            }
+          }
+        }
+
         hr {
           background-color: $deep-purple;
           border: none;

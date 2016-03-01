@@ -2,7 +2,8 @@ import React, { PropTypes, Component } from 'react';
 import { Link } from 'react-router';
 import FullWidthButton from '../components/ui/FullWidthButton';
 import moment from 'moment';
-import {LAST_RELEASE_DATE, API_ROOT} from '../constants/Constants';
+import { LAST_RELEASE_DATE } from '../constants/Constants';
+import { getVersion } from '../utils/APIUtils';
 
 let nekunoSwiper;
 
@@ -32,23 +33,29 @@ export default class HomePage extends Component {
         destroySwiper();
     }
 
-    render() {
+    constructor(props) {
+        super(props);
+        this.state = {needsUpdating: false};
+    }
 
-        const needsUpdating = this.needsUpdating();
+    componentWillMount() {
+        getVersion().then((response) => {
+            var lastVersion = moment(response, 'DD de MMMM de YYYY');
+            var thisVersion = moment(LAST_RELEASE_DATE, 'DD de MMMM de YYYY');
+
+            this.setState({needsUpdating: lastVersion.diff(thisVersion) > 0});
+        });
+
+    }
+
+    render() {
 
         return (
             <div className="view view-main">
-                <div className="swiper-container swiper-init" data-speed="400" data-space-between="40"
-                     data-pagination=".swiper-pagination">
-            {needsUpdating ?
-                <a href="https://play.google.com/store/apps/details?id=com.nekuno">
-                    <FullWidthButton id="update-link"> Click aquí para actualizar</FullWidthButton>
-                </a>
-                :
-                <div className="swiper-wrapper">
-                    {this.renderSlides()}
-                </div>
-            }
+                <div className="swiper-container swiper-init" data-speed="400" data-space-between="40" data-pagination=".swiper-pagination">
+                    <div className="swiper-wrapper">
+                        {this.renderSlides()}
+                    </div>
                 </div>
             </div>
         );
@@ -72,29 +79,24 @@ export default class HomePage extends Component {
                         </div>
                         <div className="swiper-pagination-and-button">
                             <div className="swiper-pagination"></div>
-                            <Link to="/login">
-                                <FullWidthButton>Iniciar sesión</FullWidthButton>
-                            </Link>
-							<div className="register">
-                            	<span>¿Tienes una invitación?</span> <Link to="/register">Regístrate</Link>
-                        	</div>
+                            { this.state.needsUpdating ?
+                                <FullWidthButton onClick={() => window.location = 'https://play.google.com/store/apps/details?id=com.nekuno'}>
+                                    Actualizar
+                                </FullWidthButton>
+                                :
+                                <div>
+                                    <Link to="/login">
+                                        <FullWidthButton>Iniciar sesión</FullWidthButton>
+                                    </Link>
+                                    <div className="register">
+                                        <span>¿Tienes una invitación?</span> <Link to="/register">Regístrate</Link>
+                                    </div>
+                                </div>
+                            }
                         </div>
                     </div>
                 </div>
             )
         );
     };
-
-    needsUpdating() {
-
-        var request = new XMLHttpRequest();
-        request.open("GET", API_ROOT + 'client/version', false);
-        request.send();
-
-        var lastVersion = moment(JSON.parse(request.responseText), 'DD de MMMM de YYYY');
-        var thisVersion = moment(LAST_RELEASE_DATE, 'DD de MMMM de YYYY');
-
-        return lastVersion.diff(thisVersion) > 0;
-    }
-
 }

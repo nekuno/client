@@ -35,6 +35,7 @@ body #root .App .view .page.questions-page  {
           margin-top: -35px;
           overflow: hidden;
           width: 90px;
+          -webkit-backface-visibility: hidden;
 
           img {
             border-radius: 50%;

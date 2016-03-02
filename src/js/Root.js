@@ -47,7 +47,6 @@ export default class Root extends Component {
                     <Route name="register" path="/register" component={RegisterPage}/>
                     <Route name="join" path="/join" component={RegisterJoinPage}/>
                     <Route name="register-questions-landing" path="/register-questions-landing" component={RegisterQuestionsLandingPage}/>
-                    <Route name="register-questions" path="/register-questions" component={RegisterQuestionsPage}/>
                     <Route name="profile" path="/profile/:userId" component={UserPage}/>
                     <Route name="threads" path="/threads/:userId" component={ThreadPage}/>
                     <Route name="recommendations" path="/users/:userId/recommendations/:threadId" component={RecommendationPage}/>

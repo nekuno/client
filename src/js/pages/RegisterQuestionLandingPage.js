@@ -1,6 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import { Link } from 'react-router';
 import FullWidthButton from '../components/ui/FullWidthButton';
+import TopRightLink from '../components/ui/TopRightLink';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import connectToStores from '../utils/connectToStores';
 import UserStore from '../stores/UserStore';
@@ -45,12 +46,13 @@ export default AuthenticatedComponent(class RegisterQuestionLandingPage extends 
         const imgSrc = this.props.user.picture;
         return (
             <div className="view view-main">
+                /*<TopRightLink text="Omitir" onClickHandler={this.skipRegisterQuestions()} />*/
                 <h1> Queremos conocerte un poco mejor </h1>
                 <h3> Realiza el test respondiendo por ti y lo que te gustaría que respondiera otro usuario para ser compatible contigo </h3>
                 <div className="user-image">
                     <img src={imgSrc} />
                 </div>
-                <Link to="/register-questions">
+                <Link to="/answer-question-next">
                     <FullWidthButton> HACER TEST </FullWidthButton>
                 </Link>
 

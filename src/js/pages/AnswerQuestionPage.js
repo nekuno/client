@@ -4,12 +4,14 @@ import selectn from 'selectn';
 import { IMAGES_ROOT } from '../constants/Constants';
 import * as QuestionActionCreators from '../actions/QuestionActionCreators';
 import LeftMenuTopNavbar from '../components/ui/LeftMenuTopNavbar';
+import RegularTopNavbar from '../components/ui/RegularTopNavbar';
 import AnswerQuestion from '../components/questions/AnswerQuestion';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import connectToStores from '../utils/connectToStores';
 import UserStore from '../stores/UserStore';
 import QuestionStore from '../stores/QuestionStore';
 import QuestionsByUserIdStore from '../stores/QuestionsByUserIdStore';
+import RegisterStore from '../stores/RegisterStore';
 
 function parseUserId(user) {
     return user.qnoow_id;
@@ -38,6 +40,7 @@ function getState(props) {
     const userAnswer = questionId ? QuestionStore.getUserAnswer(currentUserId, questionId) : {};
     const errors = QuestionStore.getErrors();
     const goToQuestionStats = QuestionStore.mustGoToQuestionStats();
+    const isJustRegistered = RegisterStore.user !== null;
 
     return {
         currentUser,
@@ -46,7 +49,8 @@ function getState(props) {
         userAnswer,
         user,
         errors,
-        goToQuestionStats
+        goToQuestionStats,
+        isJustRegistered
     };
 }
 
@@ -64,6 +68,7 @@ export default AuthenticatedComponent(class AnswerQuestionPage extends Component
         isFirstQuestion: PropTypes.bool,
         errors: PropTypes.string,
         goToQuestionStats: PropTypes.bool,
+        isJustRegistered: PropTypes.bool,
 
         // Injected by AuthenticatedComponent
         user: PropTypes.object.isRequired
@@ -81,6 +86,13 @@ export default AuthenticatedComponent(class AnswerQuestionPage extends Component
     }
 
     componentWillMount() {
+
+        if (this.props.isJustRegistered && this.props.question && this.props.question.isRegisterQuestion === false)
+        {
+            RegisterStore.deleteUser();
+            this.context.history.replaceState(null, '/threads/' + this.props.user.qnoow_id);
+        }
+
         if (!this.props.question || this.props.question.questionId !== this.props.params.questionId) {
             requestData(this.props);
         }
@@ -101,7 +113,11 @@ export default AuthenticatedComponent(class AnswerQuestionPage extends Component
 
         return (
             <div className="view view-main">
-                <LeftMenuTopNavbar centerText={'Pregunta'} rightText={isRegisterQuestion ? '' : 'Omitir'} onRightLinkClickHandler={isRegisterQuestion ? null : this.skipQuestionHandler} />
+                {this.props.isJustRegistered ?
+                    <RegularTopNavbar centerText={'Pregunta'}/>
+                    :
+                    <LeftMenuTopNavbar centerText={'Pregunta'} rightText={isRegisterQuestion ? '' : 'Omitir'} onRightLinkClickHandler={isRegisterQuestion ? null : this.skipQuestionHandler}/>
+                }
                 <div data-page="index" className="page answer-question-page">
                     <div id="page-content" className="answer-question-content">
                         {this.props.question ?

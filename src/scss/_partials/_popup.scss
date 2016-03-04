@@ -3,14 +3,15 @@
 }
 
 .popup {
-	background: $dark-purple-translucent;
+	background: $dark-purple-semi-translucent;
 	overflow: hidden;
-	position: absolute;
+	position: fixed;
 
 	.content-block {
-
 		a {
 			color: $deep-purple;
+			font-weight: bold;
+			font-size: 1.1em;
 		}
 		.popup-filter-contents-title {
 			margin-top: 80px;

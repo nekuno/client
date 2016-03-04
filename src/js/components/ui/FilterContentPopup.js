@@ -33,31 +33,31 @@ export default class FilterContentPopup extends Component {
                     <p><a className="close-popup">Cerrar</a></p>
                     <div className="popup-filter-contents-title title">{contentsCount} intereses</div>
                     <div className="filter-icons-row-wrapper">
-                        <div className="icon-large-wrapper" onClick={this.onVideosFilterClick}>
+                        <div className="icons-large-wrapper" onClick={this.onVideosFilterClick}>
                             <div className="icon icon-video"></div>
-                            <div className="icon-large-text">Vídeos</div>
+                            <div className="icons-large-text">Vídeos</div>
                         </div>
-                        <div className="icon-large-wrapper" onClick={this.onAudiosFilterClick}>
+                        <div className="icons-large-wrapper" onClick={this.onAudiosFilterClick}>
                             <div className="icon icon-audio"></div>
-                            <div className="icon-large-text">Audios</div>
+                            <div className="icons-large-text">Audios</div>
                         </div>
-                        <div className="icon-large-wrapper" onClick={this.onImagesFilterClick}>
+                        <div className="icons-large-wrapper" onClick={this.onImagesFilterClick}>
                             <div className="icon icon-photo"></div>
-                            <div className="icon-large-text">Fotos</div>
+                            <div className="icons-large-text">Fotos</div>
                         </div>
                     </div>
                     <div className="filter-icons-row-wrapper">
-                        <div className="icon-large-wrapper" onClick={this.onLinksFilterClick}>
+                        <div className="icons-large-wrapper" onClick={this.onLinksFilterClick}>
                             <div className="icon icon-web-site"></div>
-                            <div className="icon-large-text">Sitios web</div>
+                            <div className="icons-large-text">Sitios web</div>
                         </div>
-                        <div className="icon-large-wrapper" onClick={this.onUsersFilterClick}>
+                        <div className="icons-large-wrapper" onClick={this.onUsersFilterClick}>
                             <div className="icon icon-person"></div>
-                            <div className="icon-large-text">Personas</div>
+                            <div className="icons-large-text">Personas</div>
                         </div>
-                        <div className="icon-large-wrapper" onClick={this.onChannelsFilterClick}>
+                        <div className="icons-large-wrapper" onClick={this.onChannelsFilterClick}>
                             <div className="icon icon-channels"></div>
-                            <div className="icon-large-text">Canales</div>
+                            <div className="icons-large-text">Canales</div>
                         </div>
                     </div>
                 </div>

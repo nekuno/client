@@ -51,7 +51,6 @@ export function requestThreadPage(userId) {
 
     requestThreads(userId);
 
-    dispatch(ActionTypes.REQUEST_THREADS_PAGE);
 }
 
 export function requestThreads(userId, url = null) {
@@ -82,7 +81,6 @@ export function requestRecommendationPage(userId, threadId) {
 
     requestRecommendation(threadId);
 
-    dispatch(ActionTypes.REQUEST_RECOMMENDATIONS_PAGE);
 }
 
 export function requestRecommendation(threadId, url = null) {

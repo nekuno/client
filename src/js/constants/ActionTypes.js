@@ -51,7 +51,6 @@ export default keyMirror({
 
     THREADS_PREV        : null,
     THREADS_NEXT        : null,
-    REQUEST_THREADS_PAGE: null,
 
     REQUEST_RECOMMENDATIONS        : null,
     REQUEST_RECOMMENDATIONS_SUCCESS: null,
@@ -59,7 +58,6 @@ export default keyMirror({
 
     RECOMMENDATIONS_PREV        : null,
     RECOMMENDATIONS_NEXT        : null,
-    REQUEST_RECOMMENDATIONS_PAGE: null,
 
     REQUEST_QUESTIONS        : null,
     REQUEST_QUESTIONS_SUCCESS: null,

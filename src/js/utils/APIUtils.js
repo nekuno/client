@@ -3,6 +3,9 @@ import selectn from 'selectn';
 import Url from 'url';
 import request from 'request';
 import Bluebird from 'bluebird';
+Bluebird.config({
+    cancellation: true
+});
 import { API_ROOT } from '../constants/Constants';
 import LoginStore from '../stores/LoginStore';
 
@@ -80,8 +83,9 @@ export function doRequest(method, url, data = null) {
 
     nekunoApp.showProgressbar();
 
-    return new Bluebird((resolve, reject) => {
-        request(
+    return new Bluebird((resolve, reject, onCancel) => {
+
+        var promise = request(
             {
                 method  : method,
                 protocol: Url.parse(url).protocol,
@@ -103,6 +107,10 @@ export function doRequest(method, url, data = null) {
                 return resolve(body);
             }
         );
+        onCancel(() => {
+            promise.abort();
+            nekunoApp.hideProgressbar();
+        });
     });
 }
 

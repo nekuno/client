@@ -1,6 +1,8 @@
 import { dispatch, dispatchAsync } from '../dispatcher/Dispatcher';
 import ActionTypes from '../constants/ActionTypes';
 import AuthService from '../services/AuthService';
+import ChatSocketService from '../services/ChatSocketService';
+import WorkersSocketService from '../services/WorkersSocketService';
 import LoginStore from '../stores/LoginStore';
 import RouterContainer from '../services/RouterContainer';
 
@@ -14,6 +16,8 @@ export default new class LoginActionCreators {
             failure: ActionTypes.REQUEST_LOGIN_USER_ERROR
         }, {username, password})
             .then(() => {
+                ChatSocketService.connect();
+                WorkersSocketService.connect();
                 this.redirect();
                 return null;
             }, (error) => {
@@ -48,6 +52,8 @@ export default new class LoginActionCreators {
 
     logoutUser() {
         dispatch(ActionTypes.LOGOUT_USER);
+        ChatSocketService.disconnect();
+        WorkersSocketService.disconnect();
         this.redirect();
     }
 }

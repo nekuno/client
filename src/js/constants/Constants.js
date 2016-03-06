@@ -30,3 +30,4 @@ export const QUESTION_STATS_COLORS = [
 export const FACEBOOK_ID = config.FACEBOOK_ID;
 export const FACEBOOK_SCOPE = config.FACEBOOK_SCOPE;
 export const LAST_RELEASE_DATE = config.LAST_RELEASE_DATE;
+export const INSTANT_HOST = config.INSTANT_HOST;

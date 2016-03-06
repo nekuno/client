@@ -1,23 +1,10 @@
-import LoginStore from '../stores/LoginStore';
-import { INSTANT_HOST } from '../constants/Constants';
+import SocketService from './SocketService';
 
-class ChatSocketService {
+class ChatSocketService extends SocketService {
 
     constructor() {
-        this._socket = null;
-    }
-
-    connect() {
-
-        if (typeof io === 'undefined') {
-            return;
-        }
-
-        this._socket = io.connect(INSTANT_HOST + 'chat?token=' + LoginStore.jwt);
-    }
-
-    disconnect() {
-        this._socket.disconnect();
+        super();
+        this._name = 'chat';
     }
 
 }

@@ -16,8 +16,6 @@ export default new class LoginActionCreators {
             failure: ActionTypes.REQUEST_LOGIN_USER_ERROR
         }, {username, password})
             .then(() => {
-                ChatSocketService.connect();
-                WorkersSocketService.connect();
                 this.redirect();
                 return null;
             }, (error) => {
@@ -29,8 +27,13 @@ export default new class LoginActionCreators {
         var history = RouterContainer.get();
         var path = '/';
         if (LoginStore.isLoggedIn()) {
+            ChatSocketService.connect();
+            WorkersSocketService.connect();
             var user = LoginStore.user;
             path = '/threads/' + user.qnoow_id;
+        } else {
+            ChatSocketService.disconnect();
+            WorkersSocketService.disconnect();
         }
         history.replaceState(null, path);
         console.log('&*&*&* redirecting to path', path);
@@ -52,8 +55,6 @@ export default new class LoginActionCreators {
 
     logoutUser() {
         dispatch(ActionTypes.LOGOUT_USER);
-        ChatSocketService.disconnect();
-        WorkersSocketService.disconnect();
         this.redirect();
     }
 }

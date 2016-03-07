@@ -6,6 +6,9 @@ class SocketService {
     constructor() {
         this._socket = null;
         this._name = '';
+        this._options = {
+            'force new connection': true
+        };
     }
 
     connect() {
@@ -14,13 +17,14 @@ class SocketService {
             return;
         }
 
-        this._socket = io.connect(INSTANT_HOST + this._name + '?token=' + LoginStore.jwt);
+        this._socket = io.connect(INSTANT_HOST + this._name + '?token=' + LoginStore.jwt, this._options);
         this.bind();
     }
 
     disconnect() {
-        this._socket.disconnect();
-        this._socket = null;
+        if (this._socket) {
+            this._socket.disconnect();
+        }
     }
 
     bind() {

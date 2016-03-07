@@ -12,8 +12,6 @@ function parseUserId(user) {
     return user.qnoow_id;
 }
 
-
-
 /**
  * Requests data from server (or store) for current props.
  */
@@ -41,18 +39,22 @@ export default AuthenticatedComponent(class RegisterQuestionLandingPage extends 
         history: PropTypes.object.isRequired
     };
 
+    componentWillMount() {
+        requestData(this.props);
+    }
+
     render() {
 
         const imgSrc = this.props.user.picture;
         return (
             <div className="view view-main">
-                /*<TopRightLink text="Omitir" onClickHandler={this.skipRegisterQuestions()} />*/
                 <h1> Queremos conocerte un poco mejor </h1>
-                <h3> Realiza el test respondiendo por ti y lo que te gustaría que respondiera otro usuario para ser compatible contigo </h3>
+                <h3> Realiza el test respondiendo por ti y lo que te gustaría que respondiera otro usuario para ser
+                    compatible contigo </h3>
                 <div className="user-image">
-                    <img src={imgSrc} />
+                    <img src={imgSrc}/>
                 </div>
-                <Link to="/answer-question-next">
+                <Link to="/answer-question/next">
                     <FullWidthButton> HACER TEST </FullWidthButton>
                 </Link>
 

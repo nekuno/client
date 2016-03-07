@@ -11,7 +11,6 @@ import connectToStores from '../utils/connectToStores';
 import UserStore from '../stores/UserStore';
 import QuestionStore from '../stores/QuestionStore';
 import QuestionsByUserIdStore from '../stores/QuestionsByUserIdStore';
-import RegisterStore from '../stores/RegisterStore';
 
 function parseUserId(user) {
     return user.qnoow_id;
@@ -40,7 +39,7 @@ function getState(props) {
     const userAnswer = questionId ? QuestionStore.getUserAnswer(currentUserId, questionId) : {};
     const errors = QuestionStore.getErrors();
     const goToQuestionStats = QuestionStore.mustGoToQuestionStats();
-    const isJustRegistered = RegisterStore.user !== null;
+    const isJustRegistered = Object.keys(QuestionsByUserIdStore.getByUserId(currentUserId)).length < 4;
 
     return {
         currentUser,
@@ -89,7 +88,6 @@ export default AuthenticatedComponent(class AnswerQuestionPage extends Component
 
         if (this.props.isJustRegistered && this.props.question && this.props.question.isRegisterQuestion === false)
         {
-            RegisterStore.deleteUser();
             this.context.history.replaceState(null, '/threads/' + this.props.user.qnoow_id);
         }
 

@@ -54,7 +54,7 @@ export default class App extends Component {
             const _this = this;
             QuestionAPI.getAnswers().then(function (data) {
 
-                const userJustRegistered = data.result.pagination.total <= 4;
+                const userJustRegistered = data.result.pagination.total < 4;
 
                 //get any nextTransitionPath - NB it can only be got once then it self-nullifies
                 let transitionPath = RouterStore.nextTransitionPath || '/';

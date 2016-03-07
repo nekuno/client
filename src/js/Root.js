@@ -16,7 +16,6 @@ import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import RegisterJoinPage from './pages/RegisterJoinPage';
 import RegisterQuestionsLandingPage from './pages/RegisterQuestionLandingPage';
-import RegisterQuestionsPage from './pages/RegisterQuestionsPage';
 import UserPage from './pages/UserPage';
 import ThreadPage from './pages/ThreadPage';
 import RecommendationPage from './pages/RecommendationPage';

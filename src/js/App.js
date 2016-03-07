@@ -2,8 +2,8 @@ import React, { PropTypes, Component } from 'react';
 import LeftPanel from './components/LeftPanel';
 import HomePage from './pages/HomePage';
 import * as UserActionCreators from './actions/UserActionCreators';
+import * as QuestionAPI from './api/QuestionAPI';
 import LoginStore from './stores/LoginStore';
-import RegisterStore from './stores/RegisterStore';
 import RouterStore from './stores/RouterStore';
 import RouterActionCreators from './actions/RouterActionCreators';
 
@@ -27,9 +27,8 @@ export default class App extends Component {
 
     _getLoginState() {
         return {
-            user        : LoginStore.user,
-            userLoggedIn: LoginStore.isLoggedIn(),
-            userRegistered: RegisterStore.user
+            user: LoginStore.user,
+            userLoggedIn: LoginStore.isLoggedIn()
         };
     }
 
@@ -49,21 +48,26 @@ export default class App extends Component {
         let userLoggedInState = this._getLoginState();
         this.setState(userLoggedInState);
 
-        //get any nextTransitionPath - NB it can only be got once then it self-nullifies
-        let transitionPath = RouterStore.nextTransitionPath || '/';
-
-        const userJustRegistered = userLoggedInState.userRegistered !== null;
-
-        //trigger router change
-        console.log("&*&*&* App onLoginChange event: loggedIn=", userLoggedInState.userLoggedIn, "nextTransitionPath=", transitionPath);
-
-        if (userLoggedInState.userLoggedIn) {
-            let nextPath = userJustRegistered ? '/register-questions-landing' : '/threads/' + userLoggedInState.user.qnoow_id;
-            setTimeout(() => {
-                this.context.history.replaceState(null, nextPath);
-            });
-        } else {
+        if (this.state.userLoggedIn == false) {
             this.context.history.replaceState(null, '/login');
+        } else {
+            const _this = this;
+            QuestionAPI.getAnswers().then(function (data) {
+
+                const userJustRegistered = data.result.pagination.total <= 4;
+
+                //get any nextTransitionPath - NB it can only be got once then it self-nullifies
+                let transitionPath = RouterStore.nextTransitionPath || '/';
+
+                //trigger router change
+                console.log("&*&*&* App onLoginChange event: loggedIn=", userLoggedInState.userLoggedIn, "nextTransitionPath=", transitionPath);
+
+                let nextPath = userJustRegistered ? '/register-questions-landing' : '/threads/' + userLoggedInState.user.qnoow_id;
+                setTimeout(() => {
+                    _this.context.history.replaceState(null, nextPath);
+                });
+
+            });
         }
     }
 

@@ -1,6 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import { Link } from 'react-router';
 import shouldPureComponentUpdate from 'react-pure-render/function';
+import * as InterestsActionCreators from '../../actions/InterestsActionCreators';
 
 export default class FilterContentPopup extends Component {
     static propTypes = {
@@ -66,27 +67,38 @@ export default class FilterContentPopup extends Component {
     }
 
     onVideosFilterClick() {
-        // TODO: Use this.props.ownContent and this.props.userId to know what action should be called in ContentAction.
-        console.log('filter by videos')
+        InterestsActionCreators.resetOwnInterests(this.props.userId);
+        InterestsActionCreators.requestOwnInterests(this.props.userId, 'Video');
+        nekunoApp.closeModal('.popup-filter-contents');
     }
 
     onAudiosFilterClick() {
-        console.log('filter by audios')
+        InterestsActionCreators.resetOwnInterests(this.props.userId);
+        InterestsActionCreators.requestOwnInterests(this.props.userId, 'Audio');
+        nekunoApp.closeModal('.popup-filter-contents');
     }
 
     onImagesFilterClick() {
-        console.log('filter by images')
+        InterestsActionCreators.resetOwnInterests(this.props.userId);
+        InterestsActionCreators.requestOwnInterests(this.props.userId, 'Image');
+        nekunoApp.closeModal('.popup-filter-contents');
     }
 
     onLinksFilterClick() {
-        console.log('filter by links')
+        InterestsActionCreators.resetOwnInterests(this.props.userId);
+        InterestsActionCreators.requestOwnInterests(this.props.userId, '');
+        nekunoApp.closeModal('.popup-filter-contents');
     }
 
     onUsersFilterClick() {
-        console.log('filter by users')
+        InterestsActionCreators.resetOwnInterests(this.props.userId);
+        InterestsActionCreators.requestOwnInterests(this.props.userId, '');
+        nekunoApp.closeModal('.popup-filter-contents');
     }
 
     onChannelsFilterClick() {
-        console.log('filter by channels')
+        InterestsActionCreators.resetOwnInterests(this.props.userId);
+        InterestsActionCreators.requestOwnInterests(this.props.userId, '');
+        nekunoApp.closeModal('.popup-filter-contents');
     }
 }

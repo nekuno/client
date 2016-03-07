@@ -11,7 +11,10 @@ export const API_URLS = {
     REGISTER_USER            : API_ROOT + 'users',
     REGISTER_PROFILE         : API_ROOT + 'profile',
     CONSUME_INVITATION       : API_ROOT + 'invitations/consume/{token}',
-    CONNECT_ACCOUNT          : API_ROOT + 'tokens/{resource}?extend'
+    CONNECT_ACCOUNT          : API_ROOT + 'tokens/{resource}?extend',
+
+    OWN_INTERESTS            : API_ROOT + 'content?type={type}',
+    COMPARED_INTERESTS       : API_ROOT + 'content/compare/{userId}?type={type}&showOnlyCommon={showOnlyCommon}'
 };
 export const QUESTION_STATS_COLORS = [
     // light green

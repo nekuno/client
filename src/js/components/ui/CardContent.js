@@ -37,8 +37,8 @@ export default class CardContent extends Component {
 		embed_type: PropTypes.string,
 		thumbnail: PropTypes.string,
 		synonymous: PropTypes.array.isRequired,
-		matching: PropTypes.number.isRequired,
-		rate: PropTypes.bool.isRequired,
+		matching: PropTypes.number,
+		rate: PropTypes.bool,
 		hideLikeButton: PropTypes.bool.isRequired,
 		loggedUserId: PropTypes.number.isRequired
 	};
@@ -84,10 +84,15 @@ export default class CardContent extends Component {
 								<img src={imgSrc} />
 							</div>
 						</a>
-						<div className="matching">
-							<div className="matching-value">Compatibilidad {this.props.matching}%</div>
-							<ProgressBar percentage={this.props.matching} />
-						</div>
+						{typeof this.props.matching !== 'undefined' ?
+							<div className="matching">
+								<div className="matching-value">Compatibilidad {this.props.matching}%</div>
+								<ProgressBar percentage={this.props.matching} />
+							</div>
+							:
+							''
+						}
+
 					</div>
 				</div>
 				{likeButton ?

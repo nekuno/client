@@ -126,6 +126,7 @@ export default AuthenticatedComponent(class QuestionsPage extends Component {
         let offsetTopMax = parseInt(document.getElementById('page-content').offsetHeight);
 
         if (nextLink && offsetTop >= offsetTopMax) {
+            document.getElementsByClassName('view')[0].removeEventListener('scroll', this.handleScroll);
             QuestionActionCreators.requestNextQuestions(parseId(this.props.user), nextLink);
         }
     }

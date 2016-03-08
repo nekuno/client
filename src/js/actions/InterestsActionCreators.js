@@ -10,8 +10,8 @@ export function requestOwnInterests(userId, type, link) {
     }, {userId});
 }
 
-export function resetOwnInterests(userId) {
-    dispatch(ActionTypes.RESET_OWN_INTERESTS, {userId});
+export function resetInterests(userId) {
+    dispatch(ActionTypes.RESET_INTERESTS, {userId});
 }
 
 export function requestComparedInterests(userId, otherUserId, type, showOnlyCommon, link) {

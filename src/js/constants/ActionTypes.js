@@ -87,7 +87,7 @@ export default keyMirror({
     REQUEST_OWN_INTERESTS_ERROR    : null,
     REQUEST_NEXT_OWN_INTERESTS     : null,
 
-    RESET_OWN_INTERESTS     : null,
+    RESET_INTERESTS     : null,
 
     REQUEST_COMPARED_INTERESTS          : null,
     REQUEST_COMPARED_INTERESTS_SUCCESS  : null,

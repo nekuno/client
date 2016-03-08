@@ -97,6 +97,7 @@ export default AuthenticatedComponent(class InterestsPage extends Component {
         let offsetTopMax = parseInt(document.getElementById('page-content').offsetHeight);
 
         if (nextLink && offsetTop >= offsetTopMax) {
+            document.getElementsByClassName('view')[0].removeEventListener('scroll', this.handleScroll);
             InterestsActionCreators.requestNextOwnInterests(parseId(this.props.user), nextLink);
         }
     }

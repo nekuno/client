@@ -27,18 +27,20 @@ InterestStore.dispatchToken = register(action => {
     const interests = selectn('response.result.items', action);
     const pagination = selectn('response.result.pagination', action);
     const userId = selectn('userId', action);
+    const otherUserId = selectn('otherUserId', action);
     if (typeof _interests[userId] === "undefined") {
         _interests[userId] = [];
     }
     if (typeof _pagination[userId] === "undefined") {
         _pagination[userId] = {};
     }
-    if (action.type === 'RESET_OWN_INTERESTS') {
+    if (action.type === 'RESET_INTERESTS') {
         _interests[userId] = [];
     }
 
-    if (interests && action.type === 'REQUEST_OWN_INTERESTS_SUCCESS') {
-        let ids = Object.keys(_interests[userId]);
+    if (interests && action.type === 'REQUEST_OWN_INTERESTS_SUCCESS' || action.type === 'REQUEST_COMPARED_INTERESTS_SUCCESS') {
+        let currentUserId = otherUserId ? otherUserId : userId;
+        let ids = Object.keys(_interests[currentUserId]);
         let lastId = ids.length > 0 ? parseInt(ids[ids.length - 1]) : 0;
         let orderedInterests = [];
         for (let key in interests) {
@@ -50,8 +52,8 @@ InterestStore.dispatchToken = register(action => {
             }
         }
 
-        mergeIntoBag(_interests[userId], orderedInterests);
-        _pagination[userId] = pagination;
+        mergeIntoBag(_interests[currentUserId], orderedInterests);
+        _pagination[currentUserId] = pagination;
         InterestStore.emitChange();
     }
 });

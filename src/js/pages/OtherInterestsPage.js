@@ -5,31 +5,38 @@ import ToolBar from '../components/ui/ToolBar';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import connectToStores from '../utils/connectToStores';
 import UserStore from '../stores/UserStore';
+import InterestStore from '../stores/InterestStore';
+import InterestsByUserStore from '../stores/InterestsByUserStore';
 import * as UserActionCreators from '../actions/UserActionCreators';
+import * as InterestsActionCreators from '../actions/InterestsActionCreators';
 import CardContentList from '../components/interests/CardContentList';
 import FilterContentPopup from '../components/ui/FilterContentPopup';
 import ProfilesAvatarConnection from '../components/ui/ProfilesAvatarConnection';
 
+
+function parseId(user) {
+    return user.qnoow_id;
+}
+
 function requestData(props) {
+    const { user } = props;
+    const userId = parseId(user);
     UserActionCreators.requestUser(props.params.userId, ['username', 'email', 'picture', 'status']);
+    UserActionCreators.requestComparedStats(userId, props.params.userId);
+    InterestsActionCreators.requestComparedInterests(userId, props.params.userId);
 }
 
 function getState(props) {
-    // TODO: Get contents from ContentStore
-    const contents = [];
-    const pagination = {nextLink: ''};
-    const ownUser = props.user;
-    const otherUser = UserStore.get(props.params.userId);
+    const otherUserId = props.params.userId;
+    const interests = InterestStore.get(otherUserId) || [];
+    const pagination = InterestStore.getPagination(otherUserId) || {};
     return {
-        ownUser,
-        otherUser,
         pagination,
-        contents
+        interests
     };
 }
 
-// TODO: Connect to ContentStore
-@connectToStores([UserStore], getState)
+@connectToStores([UserStore, InterestStore, InterestsByUserStore], getState)
 export default AuthenticatedComponent(class OtherInterestsPage extends Component {
     static propTypes = {
         // Injected by React Router:
@@ -44,82 +51,36 @@ export default AuthenticatedComponent(class OtherInterestsPage extends Component
         super(props);
 
         this.onSearchClick = this.onSearchClick.bind(this);
+        this.handleScroll = this.handleScroll.bind(this);
     }
 
     componentWillMount() {
-        requestData(this.props);
+        if (Object.keys(this.props.pagination).length === 0) {
+            requestData(this.props);
+        }
+    }
+
+    componentWillUnmount() {
+        document.getElementsByClassName('view')[0].removeEventListener('scroll', this.handleScroll);
     }
 
     render() {
-        // TODO: This is just an example. Get contents from props
-        const contents = [
-            {
-                contentId: 3,
-                title: 'Título 1',
-                description: 'Descripción 1',
-                types: ['Link'],
-                url: 'https://nekuno.com',
-                embed_id: '',
-                embed_type: '',
-                thumbnail: '',
-                synonymous: [],
-                matching: 80,
-                rate: false
-            },
-            {
-                contentId: 4,
-                title: 'Título 2',
-                description: 'Descripción 2',
-                types: ['Link'],
-                url: 'https://nekuno.com',
-                embed_id: '',
-                embed_type: '',
-                thumbnail: '',
-                synonymous: [],
-                matching: 70,
-                rate: false
-            },
-            {
-                contentId: 5,
-                title: 'Título 3',
-                description: 'Descripción 3',
-                types: ['Link'],
-                url: 'https://nekuno.com',
-                embed_id: '',
-                embed_type: '',
-                thumbnail: '',
-                synonymous: [],
-                matching: 60,
-                rate: false
-            },
-            {
-                contentId: 6,
-                title: 'Título 4',
-                description: 'Descripción 4',
-                types: ['Link'],
-                url: 'https://nekuno.com',
-                embed_id: '',
-                embed_type: '',
-                thumbnail: '',
-                synonymous: [],
-                matching: 50,
-                rate: false
-            }
-        ];
+        const interests = this.props.interests;
         const otherUser = this.props.otherUser;
         const ownUser = this.props.user;
+        const ownUserId = this.props.user.qnoow_id;
         const otherUserId = parseInt(this.props.params.userId);
         const otherUserPicture = otherUser && otherUser.picture ? `${IMAGES_ROOT}media/cache/resolve/user_avatar_60x60/user/images/${otherUser.picture}` : `${IMAGES_ROOT}media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
         const ownPicture = ownUser && ownUser.picture ? `${IMAGES_ROOT}media/cache/resolve/user_avatar_60x60/user/images/${ownUser.picture}` : `${IMAGES_ROOT}media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
         return (
-            <div className="view view-main">
+            <div className="view view-main" onScroll={this.handleScroll}>
                 <LeftMenuRightSearchTopNavbar centerText={otherUser ? otherUser.username : ''} onRightLinkClickHandler={this.onSearchClick}/>
                 <div data-page="index" className="page other-interests-page">
                     <div id="page-content" className="other-interests-content">
                         <ProfilesAvatarConnection ownPicture={ownPicture} otherPicture={otherUserPicture} />
-                        {/* TODO: Use contents count */}
+                        {/* TODO: Use interests count */}
                         <div className="title">567 Intereses similares</div>
-                        <CardContentList contents={contents} userId={otherUserId} />
+                        <CardContentList contents={interests} userId={otherUserId} />
                         <br />
                         <div className="loading-gif" style={this.props.pagination.nextLink ? {} : {display: 'none'}}></div>
                     </div>
@@ -132,8 +93,8 @@ export default AuthenticatedComponent(class OtherInterestsPage extends Component
                 {'url': `/users/${otherUserId}/other-questions`, 'text': 'Respuestas'},
                 {'url': `/users/${otherUserId}/other-interests`, 'text': 'Intereses'}
                 ]} activeLinkIndex={2}/>
-                {/* TODO: Pass contents count */}
-                <FilterContentPopup userId={otherUserId} contentsCount={567} ownContent={false}/>
+                {/* TODO: Pass interests count */}
+                <FilterContentPopup userId={otherUserId} contentsCount={567} ownContent={false} ownUserId={ownUserId}/>
             </div>
         );
     }
@@ -141,4 +102,16 @@ export default AuthenticatedComponent(class OtherInterestsPage extends Component
     onSearchClick = function () {
         nekunoApp.popup('.popup-filter-other-contents');
     };
+
+    handleScroll() {
+        let pagination = this.props.pagination;
+        let nextLink = pagination && pagination.hasOwnProperty('nextLink') ? pagination.nextLink : null;
+        let offsetTop = parseInt(document.getElementsByClassName('view')[0].scrollTop + document.getElementsByClassName('view')[0].offsetHeight - 110);
+        let offsetTopMax = parseInt(document.getElementById('page-content').offsetHeight);
+
+        if (nextLink && offsetTop >= offsetTopMax) {
+            document.getElementsByClassName('view')[0].removeEventListener('scroll', this.handleScroll);
+            InterestsActionCreators.requestNextComparedInterests(parseId(this.props.user), this.props.params.userId, nextLink);
+        }
+    }
 });

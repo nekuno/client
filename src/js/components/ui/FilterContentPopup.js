@@ -7,7 +7,8 @@ export default class FilterContentPopup extends Component {
     static propTypes = {
         userId: PropTypes.number.isRequired,
         contentsCount: PropTypes.number.isRequired,
-        ownContent: PropTypes.bool.isRequired
+        ownContent: PropTypes.bool.isRequired,
+        ownUserId: PropTypes.number
     };
 
     constructor(props) {
@@ -67,38 +68,37 @@ export default class FilterContentPopup extends Component {
     }
 
     onVideosFilterClick() {
-        InterestsActionCreators.resetOwnInterests(this.props.userId);
-        InterestsActionCreators.requestOwnInterests(this.props.userId, 'Video');
-        nekunoApp.closeModal('.popup-filter-contents');
+        this.filterContent(this.props, 'Video');
     }
 
     onAudiosFilterClick() {
-        InterestsActionCreators.resetOwnInterests(this.props.userId);
-        InterestsActionCreators.requestOwnInterests(this.props.userId, 'Audio');
-        nekunoApp.closeModal('.popup-filter-contents');
+        this.filterContent(this.props, 'Audio');
     }
 
     onImagesFilterClick() {
-        InterestsActionCreators.resetOwnInterests(this.props.userId);
-        InterestsActionCreators.requestOwnInterests(this.props.userId, 'Image');
-        nekunoApp.closeModal('.popup-filter-contents');
+        this.filterContent(this.props, 'Image');
     }
 
     onLinksFilterClick() {
-        InterestsActionCreators.resetOwnInterests(this.props.userId);
-        InterestsActionCreators.requestOwnInterests(this.props.userId, '');
-        nekunoApp.closeModal('.popup-filter-contents');
+        this.filterContent(this.props, '');
     }
 
     onUsersFilterClick() {
-        InterestsActionCreators.resetOwnInterests(this.props.userId);
-        InterestsActionCreators.requestOwnInterests(this.props.userId, '');
-        nekunoApp.closeModal('.popup-filter-contents');
+        this.filterContent(this.props, '');
     }
 
     onChannelsFilterClick() {
-        InterestsActionCreators.resetOwnInterests(this.props.userId);
-        InterestsActionCreators.requestOwnInterests(this.props.userId, '');
-        nekunoApp.closeModal('.popup-filter-contents');
+        this.filterContent(this.props, '');
     }
+
+    filterContent = function(props, type) {
+        InterestsActionCreators.resetInterests(props.userId);
+        if (props.ownContent) {
+            InterestsActionCreators.requestOwnInterests(props.userId, type);
+            nekunoApp.closeModal('.popup-filter-contents');
+        } else {
+            InterestsActionCreators.requestComparedInterests(props.ownUserId, props.userId, type);
+            nekunoApp.closeModal('.popup-filter-other-contents');
+        }
+    };
 }

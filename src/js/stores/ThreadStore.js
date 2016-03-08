@@ -1,6 +1,7 @@
-import { register } from '../dispatcher/Dispatcher';
+import { register, waitFor } from '../dispatcher/Dispatcher';
 import { createStore, mergeIntoBag, isInBag } from '../utils/StoreUtils';
 import selectn from 'selectn';
+import UserStore from './UserStore';
 
 const _threads = {};
 
@@ -23,6 +24,7 @@ const ThreadStore = createStore({
 });
 
 ThreadStore.dispatchToken = register(action => {
+    waitFor([UserStore.dispatchToken]);
     const responseThreads = selectn('response.entities.thread', action);
 
     if (responseThreads) {

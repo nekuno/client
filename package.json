@@ -1,6 +1,6 @@
 {
   "name": "client",
-  "version": "0.4.0",
+  "version": "0.4.2",
   "description": "Nekuno Hybrid Mobile Client",
   "main": "index.js",
   "scripts": {
@@ -15,7 +15,7 @@
   "homepage": "https://bitbucket.org/nekuno/client#readme",
   "dependencies": {
     "Framework7-3D-Panels": "git+https://github.com/nolimits4web/Framework7-3D-Panels.git",
-    "bluebird": "^3.1.1",
+    "bluebird": "^3.3.3",
     "chart.js": "^1.0.2",
     "flux": "^2.1.1",
     "framework7": "^1.4.0",

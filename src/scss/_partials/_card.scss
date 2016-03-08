@@ -33,9 +33,54 @@
 			}
 		}
 	}
-	
+	.card-icons {
+		.absolute-wrapper {
+			margin: -17.5px auto -17.5px auto;
+			position: absolute;
+			text-align: center;
+			width: 100%;
+			z-index: 11111;
+
+			.icon-wrapper {
+				margin: 0 5px 0 5px !important;
+				vertical-align: top;
+
+				.icon-web-site {
+					font-size: 2.5em !important;
+					line-height: 33px !important;
+				}
+				.icon-photo {
+					font-size: 1.3em !important;
+				}
+				.icon-video {
+					font-size: 1.2em !important;
+				}
+				.icon-youtube {
+					font-size: 2.5em !important;
+				}
+				.icon-audio {
+					font-size: 1.3em !important;
+				}
+				.icon-spotify {
+					font-size: 2.5em !important;
+				}
+			}
+
+			.link-icon-wrapper {
+				background-color: $orange-link !important;
+			}
+
+			.spotify-icon-wrapper {
+				background-color: $spotify-green !important;
+			}
+
+			.youtube-icon-wrapper {
+				background-color: $youtube-red !important;
+			}
+		}
+	}
 	.card-content {
-		
+
 		.card-content-inner {
 			padding: 0;
 			

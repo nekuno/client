@@ -14,6 +14,8 @@ export const API_URLS = {
     CONNECT_ACCOUNT          : API_ROOT + 'tokens/{resource}?extend'
 };
 export const QUESTION_STATS_COLORS = [
+    // light green
+    '#32ca91',
     // purple
     '#2d205f',
     // deep purple
@@ -23,10 +25,9 @@ export const QUESTION_STATS_COLORS = [
     // yellow
     '#adb32f',
     // flesh-colored
-    '#d96484',
-    // light green
-    '#32ca91'
+    '#d96484'
 ];
 export const FACEBOOK_ID = config.FACEBOOK_ID;
 export const FACEBOOK_SCOPE = config.FACEBOOK_SCOPE;
 export const LAST_RELEASE_DATE = config.LAST_RELEASE_DATE;
+export const INSTANT_HOST = config.INSTANT_HOST;

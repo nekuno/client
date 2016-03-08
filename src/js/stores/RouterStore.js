@@ -19,7 +19,6 @@ class RouterStore extends BaseStore {
             default:
                 break;
         }
-        ;
     }
 
     //any value can only be retrieved once

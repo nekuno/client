@@ -1,6 +1,10 @@
 import { dispatch, dispatchAsync } from '../dispatcher/Dispatcher';
 import ActionTypes from '../constants/ActionTypes';
 import AuthService from '../services/AuthService';
+import ChatSocketService from '../services/ChatSocketService';
+import WorkersSocketService from '../services/WorkersSocketService';
+import LoginStore from '../stores/LoginStore';
+import RouterContainer from '../services/RouterContainer';
 
 export default new class LoginActionCreators {
 
@@ -10,7 +14,29 @@ export default new class LoginActionCreators {
             request: ActionTypes.REQUEST_LOGIN_USER,
             success: ActionTypes.REQUEST_LOGIN_USER_SUCCESS,
             failure: ActionTypes.REQUEST_LOGIN_USER_ERROR
-        }, {username, password});
+        }, {username, password})
+            .then(() => {
+                this.redirect();
+                return null;
+            }, (error) => {
+                console.error(error);
+            });
+    }
+
+    redirect() {
+        var history = RouterContainer.get();
+        var path = '/';
+        if (LoginStore.isLoggedIn()) {
+            ChatSocketService.connect();
+            WorkersSocketService.connect();
+            var user = LoginStore.user;
+            path = '/threads/' + user.qnoow_id;
+        } else {
+            ChatSocketService.disconnect();
+            WorkersSocketService.disconnect();
+        }
+        history.replaceState(null, path);
+        console.log('&*&*&* redirecting to path', path);
     }
 
     register(user, profile, token, oauth) {
@@ -22,11 +48,13 @@ export default new class LoginActionCreators {
         }, {user, profile, token, oauth})
             .then(() => {
                 return this.loginUser(user.username, user.plainPassword);
-            }, () => {
+            }, (error) => {
+                console.error(error);
             });
     }
 
     logoutUser() {
         dispatch(ActionTypes.LOGOUT_USER);
+        this.redirect();
     }
 }

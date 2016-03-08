@@ -5,6 +5,7 @@ import shouldPureComponentUpdate from 'react-pure-render/function';
 import * as UserActionCreators from '../../actions/UserActionCreators'
 import ProgressBar from './ProgressBar';
 import Button from './Button';
+import CardIcons from './CardIcons';
 
 /**
  * Set rate like.
@@ -73,6 +74,9 @@ export default class CardContent extends Component {
 						{subTitle}
 					</div>
 				</div>
+				<div className="card-icons">
+					<CardIcons types={this.props.types}/>
+				</div>
 				<div className="card-content">
 					<div className="card-content-inner">
 						<a href={this.props.url}>
@@ -86,9 +90,12 @@ export default class CardContent extends Component {
 						</div>
 					</div>
 				</div>
-				<div className="card-footer">
-					{likeButton}
-				</div>
+				{likeButton ?
+					<div className="card-footer">
+						{likeButton}
+					</div>
+						: ''
+				}
 			</div>
 		);
 	}

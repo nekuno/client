@@ -23,7 +23,7 @@ function requestData(props) {
     const { user, params } = props;
     const questionId = params.hasOwnProperty('questionId') ? parseInt(params.questionId) : null;
     const currentUserId = parseUserId(user);
-    QuestionActionCreators.requestQuestion(currentUserId, questionId);
+    return QuestionActionCreators.requestQuestion(currentUserId, questionId);
 }
 
 /**
@@ -85,14 +85,18 @@ export default AuthenticatedComponent(class AnswerQuestionPage extends Component
     }
 
     componentWillMount() {
-
-        if (this.props.isJustRegistered && this.props.question && this.props.question.isRegisterQuestion === false)
-        {
-            this.context.history.replaceState(null, '/threads/' + this.props.user.qnoow_id);
-        }
-
         if (!this.props.question || this.props.question.questionId !== this.props.params.questionId) {
-            requestData(this.props);
+            let promise = requestData(this.props);
+            let isJustRegistered = this.props.isJustRegistered;
+            let history = this.context.history;
+            let userId = parseUserId(this.props.user);
+            promise.then(function (data) {
+                    const questions =data.entities.question;
+                    if (isJustRegistered && questions[Object.keys(questions)[0]].isRegisterQuestion === false) {
+                        history.pushState(null, '/threads/' + userId);
+                    }
+                }
+            );
         }
     }
 

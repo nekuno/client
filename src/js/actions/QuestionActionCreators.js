@@ -4,7 +4,7 @@ import * as QuestionAPI from '../api/QuestionAPI';
 import QuestionStore from '../stores/QuestionStore';
 
 export function requestQuestions(userId, link, fields) {
-    dispatchAsync(QuestionAPI.getAnswers(link), {
+    return dispatchAsync(QuestionAPI.getAnswers(link), {
         request: ActionTypes.REQUEST_QUESTIONS,
         success: ActionTypes.REQUEST_QUESTIONS_SUCCESS,
         failure: ActionTypes.REQUEST_QUESTIONS_ERROR
@@ -35,7 +35,7 @@ export function requestNextComparedQuestions(userId, otherUserId, link) {
 
 export function requestQuestion(userId, questionId) {
     if (!questionId) {
-        requestNextQuestion(userId);
+        return requestNextQuestion(userId);
     }
     else if (!QuestionStore.contains(userId, questionId)) {
         dispatchAsync(QuestionAPI.getQuestion(questionId), {
@@ -49,7 +49,7 @@ export function requestQuestion(userId, questionId) {
 }
 
 export function requestNextQuestion(userId) {
-    dispatchAsync(QuestionAPI.getNextQuestion(), {
+    return dispatchAsync(QuestionAPI.getNextQuestion(), {
         request: ActionTypes.REQUEST_QUESTION,
         success: ActionTypes.REQUEST_QUESTION_SUCCESS,
         failure: ActionTypes.REQUEST_QUESTION_ERROR

@@ -1,11 +1,11 @@
 import React, { PropTypes, Component } from 'react';
 import { Link } from 'react-router';
+import { IMAGES_ROOT } from '../constants/Constants';
 import FullWidthButton from '../components/ui/FullWidthButton';
 import TopRightLink from '../components/ui/TopRightLink';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import connectToStores from '../utils/connectToStores';
 import UserStore from '../stores/UserStore';
-
 import * as QuestionActionCreators from '../actions/QuestionActionCreators';
 
 function parseUserId(user) {
@@ -45,19 +45,26 @@ export default AuthenticatedComponent(class RegisterQuestionLandingPage extends 
 
     render() {
 
-        const imgSrc = this.props.user.picture;
+        let imgSrc = this.props.user && this.props.user.picture ? `${IMAGES_ROOT}media/cache/resolve/user_avatar_60x60/user/images/${this.props.user.picture}` : `${IMAGES_ROOT}media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
+        imgSrc = 'http://local.nekuno.com/media/cache/user_avatar_180x180/user/images/user43_1453456276.jpg';
         return (
             <div className="view view-main">
-                <h1> Queremos conocerte un poco mejor </h1>
-                <h3> Realiza el test respondiendo por ti y lo que te gustaría que respondiera otro usuario para ser
-                    compatible contigo </h3>
-                <div className="user-image">
-                    <img src={imgSrc}/>
+                <div className="page">
+                    <div id="register-landing-first"> Queremos conocerte un poco mejor</div>
+                    <div id="register-landing-second"> Realiza el test respondiendo por ti y lo que te gustaría que respondiera otro usuario para ser
+                        compatible contigo
+                    </div>
+                    <div id="register-landing-image">
+                        <div className="user-image">
+                            <img src={imgSrc}/>
+                        </div>
+                    </div>
+                    <div id="start-test">
+                        <Link to="/answer-question/next">
+                            <FullWidthButton> HACER TEST </FullWidthButton>
+                        </Link>
+                    </div>
                 </div>
-                <Link to="/answer-question/next">
-                    <FullWidthButton> HACER TEST </FullWidthButton>
-                </Link>
-
             </div>
         );
     }

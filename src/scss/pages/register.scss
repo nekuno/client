@@ -18,4 +18,44 @@ body #root .App .view .page {
     margin-top: 10px;
     text-align: center;
   }
+
+  #register-landing-first {
+    width:80%;
+    margin-left:10%;
+    margin-top:20%;
+    font-size:30px;
+    text-align:center;
+    margin-bottom:10px;
+  }
+  #register-landing-second {
+    width:80%;
+    margin-left:10%;
+    text-align:center;
+    margin-bottom:10px;
+  }
+
+  #start-test {
+    width:90%;
+    margin-left:5%;
+    margin-bottom:5%;
+  }
+
+  #register-landing-image {
+    width:80%;
+    height: 80%;
+  }
+
+  .user-image {
+    border-radius: 50%;
+    height: 60px;
+    margin: 1px 0 0 1px;
+    width: 60px;
+
+    text-align:center;
+    img {
+      border-radius: 50%;
+      height: 60px;
+      width: 60px;
+    }
+  }
 }

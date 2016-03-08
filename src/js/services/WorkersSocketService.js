@@ -1,4 +1,5 @@
 import SocketService from './SocketService';
+import WorkersActionCreators from '../actions/WorkersActionCreators';
 
 class WorkersSocketService extends SocketService {
 
@@ -10,36 +11,29 @@ class WorkersSocketService extends SocketService {
     bind() {
 
         var socket = this._socket;
-        var name = this._name;
 
         socket.on('fetch.start', function(data) {
-            // TODO: call action creator
-            console.log('socket', name, 'fetch.start', data);
+            WorkersActionCreators.fetchStart(data);
         });
 
         socket.on('fetch.finish', function(data) {
-            // TODO: call action creator
-            console.log('socket', name, 'fetch.finish', data);
+            WorkersActionCreators.fetchFinish(data);
         });
 
         socket.on('process.start', function(data) {
-            // TODO: call action creator
-            console.log('socket', name, 'process.start', data);
+            WorkersActionCreators.processStart(data);
         });
 
         socket.on('process.link', function(data) {
-            // TODO: call action creator
-            console.log('socket', name, 'process.link', data);
+            WorkersActionCreators.processLink(data);
         });
 
         socket.on('process.finish', function(data) {
-            // TODO: call action creator
-            console.log('socket', name, 'process.finish', data);
+            WorkersActionCreators.processFinish(data);
         });
 
         socket.on('user.status', function(data) {
-            // TODO: call action creator
-            console.log('socket', name, 'user.status', data);
+            WorkersActionCreators.userStatus(data);
         });
     }
 

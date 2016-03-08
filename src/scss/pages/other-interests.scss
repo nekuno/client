@@ -11,6 +11,19 @@ body #root .App .view .page.other-interests-page  {
     .title {
       margin-bottom: 10px;
     }
+
+    .common-content-switch {
+      margin: auto;
+      width: 75%;
+
+      .text-radios {
+        padding: 5px 0 35px 0;
+
+        .chip {
+          width: 49%;
+        }
+      }
+    }
     .card {
       display: inline-block;
       margin: 5px 1% 5px 1%;

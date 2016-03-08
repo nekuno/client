@@ -80,8 +80,7 @@ export default AuthenticatedComponent(class InterestsPage extends Component {
                 {'url': '/questions', 'text': 'Respuestas'},
                 {'url': '/interests', 'text': 'Intereses'}
                 ]} activeLinkIndex={2}/>
-                {/* TODO: Pass contents count */}
-                <FilterContentPopup userId={this.props.user.qnoow_id} contentsCount={444} ownContent={true}/>
+                <FilterContentPopup userId={this.props.user.qnoow_id} contentsCount={this.props.pagination.total || 0} ownContent={true}/>
             </div>
         );
     }

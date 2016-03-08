@@ -8,7 +8,9 @@ export default class FilterContentPopup extends Component {
         userId: PropTypes.number.isRequired,
         contentsCount: PropTypes.number.isRequired,
         ownContent: PropTypes.bool.isRequired,
-        ownUserId: PropTypes.number
+        ownUserId: PropTypes.number,
+        onClickHandler: PropTypes.func,
+        commonContent: PropTypes.number
     };
 
     constructor(props) {
@@ -53,14 +55,14 @@ export default class FilterContentPopup extends Component {
                             <div className="icon icon-web-site"></div>
                             <div className="icons-large-text">Sitios web</div>
                         </div>
-                        <div className="icons-large-wrapper" onClick={this.onUsersFilterClick}>
+                        {/*<div className="icons-large-wrapper" onClick={this.onUsersFilterClick}>
                             <div className="icon icon-person"></div>
                             <div className="icons-large-text">Personas</div>
                         </div>
                         <div className="icons-large-wrapper" onClick={this.onChannelsFilterClick}>
                             <div className="icon icon-channels"></div>
                             <div className="icons-large-text">Canales</div>
-                        </div>
+                        </div>*/}
                     </div>
                 </div>
             </div>
@@ -97,8 +99,11 @@ export default class FilterContentPopup extends Component {
             InterestsActionCreators.requestOwnInterests(props.userId, type);
             nekunoApp.closeModal('.popup-filter-contents');
         } else {
-            InterestsActionCreators.requestComparedInterests(props.ownUserId, props.userId, type);
+            InterestsActionCreators.requestComparedInterests(props.ownUserId, props.userId, type, props.commonContent);
             nekunoApp.closeModal('.popup-filter-other-contents');
+        }
+        if (typeof this.props.onClickHandler == 'function') {
+            this.props.onClickHandler(type);
         }
     };
 }

@@ -11,6 +11,7 @@ import * as UserActionCreators from '../actions/UserActionCreators';
 import * as InterestsActionCreators from '../actions/InterestsActionCreators';
 import CardContentList from '../components/interests/CardContentList';
 import FilterContentPopup from '../components/ui/FilterContentPopup';
+import TextRadios from '../components/ui/TextRadios';
 import ProfilesAvatarConnection from '../components/ui/ProfilesAvatarConnection';
 
 
@@ -22,17 +23,18 @@ function requestData(props) {
     const { user } = props;
     const userId = parseId(user);
     UserActionCreators.requestUser(props.params.userId, ['username', 'email', 'picture', 'status']);
-    UserActionCreators.requestComparedStats(userId, props.params.userId);
     InterestsActionCreators.requestComparedInterests(userId, props.params.userId);
 }
 
 function getState(props) {
     const otherUserId = props.params.userId;
+    const otherUser = UserStore.get(otherUserId);
     const interests = InterestStore.get(otherUserId) || [];
     const pagination = InterestStore.getPagination(otherUserId) || {};
     return {
         pagination,
-        interests
+        interests,
+        otherUser
     };
 }
 
@@ -51,7 +53,14 @@ export default AuthenticatedComponent(class OtherInterestsPage extends Component
         super(props);
 
         this.onSearchClick = this.onSearchClick.bind(this);
+        this.onFilterCommonClick = this.onFilterCommonClick.bind(this);
+        this.onFilterTypeClick = this.onFilterTypeClick.bind(this);
         this.handleScroll = this.handleScroll.bind(this);
+
+        this.state = {
+            type: '',
+            commonContent: 0
+        }
     }
 
     componentWillMount() {
@@ -79,7 +88,10 @@ export default AuthenticatedComponent(class OtherInterestsPage extends Component
                     <div id="page-content" className="other-interests-content">
                         <ProfilesAvatarConnection ownPicture={ownPicture} otherPicture={otherUserPicture} />
                         {/* TODO: Use interests count */}
-                        <div className="title">567 Intereses similares</div>
+                        <div className="title">{this.props.pagination.total} Intereses {this.state.commonContent ? 'similares' : ''}</div>
+                        <div className="common-content-switch">
+                            <TextRadios labels={[{key: 0, text: 'Todo'}, {key: 1, text: 'En común'}]} value={this.state.commonContent} onClickHandler={this.onFilterCommonClick}/>
+                        </div>
                         <CardContentList contents={interests} userId={otherUserId} />
                         <br />
                         <div className="loading-gif" style={this.props.pagination.nextLink ? {} : {display: 'none'}}></div>
@@ -94,7 +106,7 @@ export default AuthenticatedComponent(class OtherInterestsPage extends Component
                 {'url': `/users/${otherUserId}/other-interests`, 'text': 'Intereses'}
                 ]} activeLinkIndex={2}/>
                 {/* TODO: Pass interests count */}
-                <FilterContentPopup userId={otherUserId} contentsCount={567} ownContent={false} ownUserId={ownUserId}/>
+                <FilterContentPopup userId={otherUserId} contentsCount={this.props.pagination.total || 0} ownContent={false} ownUserId={ownUserId} onClickHandler={this.onFilterTypeClick} commonContent={this.state.commonContent}/>
             </div>
         );
     }
@@ -113,5 +125,20 @@ export default AuthenticatedComponent(class OtherInterestsPage extends Component
             document.getElementsByClassName('view')[0].removeEventListener('scroll', this.handleScroll);
             InterestsActionCreators.requestNextComparedInterests(parseId(this.props.user), this.props.params.userId, nextLink);
         }
+    }
+
+    onFilterCommonClick(key) {
+        InterestsActionCreators.resetInterests(this.props.params.userId);
+        InterestsActionCreators.requestComparedInterests(this.props.user.qnoow_id, parseInt(this.props.params.userId), this.state.type, key);
+
+        this.setState({
+            commonContent: key
+        });
+    }
+
+    onFilterTypeClick(type) {
+        this.setState({
+            type: type
+        });
     }
 });

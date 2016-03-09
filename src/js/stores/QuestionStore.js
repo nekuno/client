@@ -105,6 +105,7 @@ QuestionStore.dispatchToken = register(action => {
         //mergeIntoBag(_questions[userId], userAnswerAndQuestion);
         _questions[userId][userAnswer.questionId] = { question: userAnswerQuestion, userAnswer: userAnswer };
         _goToQuestionStats = true;
+        _pagination[userId]++;
         QuestionStore.emitChange();
     }
     else if (action.type === 'REQUEST_EXISTING_QUESTION') {

@@ -1,5 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import LeftMenuTopNavbar from '../components/ui/LeftMenuTopNavbar';
+import RegularTopNavbar from '../components/ui/RegularTopNavbar';
 import QuestionStats from '../components/questions/QuestionStats';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import connectToStores from '../utils/connectToStores';
@@ -20,12 +21,14 @@ function getState(props) {
     const currentUser = UserStore.get(currentUserId);
     const question = QuestionStore.getQuestion();
     const userAnswer = QuestionStore.getUserAnswer(currentUserId, question.questionId);
+    const isJustRegistered = Object.keys(QuestionsByUserIdStore.getByUserId(currentUserId)).length < 4;
 
     return {
         currentUser,
         question,
         userAnswer,
-        user
+        user,
+        isJustRegistered
     };
 }
 
@@ -36,6 +39,7 @@ export default AuthenticatedComponent(class QuestionStatsPage extends Component 
         // Injected by @connectToStores:
         question: PropTypes.object,
         userAnswer: PropTypes.object,
+        isJustRegistered: PropTypes.bool,
 
         // Injected by AuthenticatedComponent
         user: PropTypes.object.isRequired
@@ -55,7 +59,12 @@ export default AuthenticatedComponent(class QuestionStatsPage extends Component 
         const user = this.props.user;
         return (
             <div className="view view-main">
-                <LeftMenuTopNavbar centerText={'Estadísticas'} rightText={'Continuar'} onRightLinkClickHandler={this.handleContinueClick} />
+                {this.props.isJustRegistered ?
+                    <RegularTopNavbar centerText={'Estadísticas'} rightText={'Continuar'}/>
+                    :
+                    <LeftMenuTopNavbar centerText={'Estadísticas'} rightText={'Continuar'} onRightLinkClickHandler={this.handleContinueClick} />
+                }
+
                 <div data-page="index" className="page question-stats-page">
                     <div id="page-content" className="question-stats-content">
                         {this.props.userAnswer && this.props.question ?

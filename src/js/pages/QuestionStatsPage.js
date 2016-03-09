@@ -60,7 +60,7 @@ export default AuthenticatedComponent(class QuestionStatsPage extends Component 
         return (
             <div className="view view-main">
                 {this.props.isJustRegistered ?
-                    <RegularTopNavbar centerText={'Estadísticas'} rightText={'Continuar'}/>
+                    <RegularTopNavbar centerText={'Estadísticas'} rightText={'Continuar'} onRightLinkClickHandler={this.handleContinueClick}/>
                     :
                     <LeftMenuTopNavbar centerText={'Estadísticas'} rightText={'Continuar'} onRightLinkClickHandler={this.handleContinueClick} />
                 }
@@ -85,6 +85,7 @@ export default AuthenticatedComponent(class QuestionStatsPage extends Component 
     }
 
     handleContinueClick() {
+        console.log('handling');
         this.context.history.pushState(null, `/answer-question/next`);
     }
 });

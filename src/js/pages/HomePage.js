@@ -30,7 +30,7 @@ export default class HomePage extends Component {
         super(props);
         this.promise = null;
         this.state = {
-            needsUpdating: false,
+            needsUpdating: false
         };
     }
 

@@ -3,64 +3,63 @@ import LeftMenuTopNavbar from '../components/ui/LeftMenuTopNavbar';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import DailyMessages from '../components/ui/DailyMessages';
 import MessagesToolBar from '../components/ui/MessagesToolBar';
+import * as UserActionCreators from '../actions/UserActionCreators';
+import UserStore from '../stores/UserStore';
+import ChatMessageStore from '../stores/ChatMessageStore';
+import connectToStores from '../utils/connectToStores';
 
+function requestData(props) {
+    const userId = props.params.userId;
+    UserActionCreators.requestUser(userId, ['username', 'email', 'picture', 'status']);
+}
+
+function getState(props) {
+
+    const { params } = props;
+    const userId = params.userId;
+    const messages = ChatMessageStore.getAllForUser(userId);
+    const otherUser = UserStore.get(userId);
+
+    return {
+        messages,
+        otherUsername: otherUser ? otherUser.username : ''
+    };
+}
+
+@connectToStores([ChatMessageStore, UserStore], getState)
 export default AuthenticatedComponent(class MessagesPage extends Component {
 
+    static propTypes = {
+        // Injected by React Router:
+        params: PropTypes.shape({
+            userId: PropTypes.string
+        }),
+
+        // Injected by @connectToStores:
+        messages : PropTypes.array.isRequired,
+        otherUser: PropTypes.object,
+
+        // Injected by AuthenticatedComponent
+        user: PropTypes.object.isRequired
+    };
+
+    componentWillMount() {
+        requestData(this.props);
+    }
 
     render() {
-        let messages = [
-            {
-                text: 'Texto mesaje usuario 1 ...',
-                datetime: '20160220',
-                isOwnMessage: true
-            },
-            {
-                text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas nunc enim, bibendum in arcu id, aliquet euismod tellus. Sed feugiat nisi a accumsan cursus. Nullam ac massa vitae massa mollis ullamcorper.',
-                datetime: '20160120',
-                isOwnMessage: true
-            },
-            {
-                text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas nunc enim, bibendum in arcu id, aliquet euismod tellus. Sed feugiat nisi a accumsan cursus. Nullam ac massa vitae massa mollis ullamcorper.',
-                datetime: '20151220',
-                isOwnMessage: false
-            },
-            {
-                text: 'Texto mesaje usuario 4 ...',
-                datetime: '20141020',
-                isOwnMessage: false
-            },
-            {
-                text: 'Texto mesaje usuario 1 ...',
-                datetime: '20160220',
-                isOwnMessage: true
-            },
-            {
-                text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas nunc enim, bibendum in arcu id, aliquet euismod tellus. Sed feugiat nisi a accumsan cursus. Nullam ac massa vitae massa mollis ullamcorper.',
-                datetime: '20160120',
-                isOwnMessage: true
-            },
-            {
-                text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas nunc enim, bibendum in arcu id, aliquet euismod tellus. Sed feugiat nisi a accumsan cursus. Nullam ac massa vitae massa mollis ullamcorper.',
-                datetime: '20151220',
-                isOwnMessage: false
-            },
-            {
-                text: 'Texto mesaje usuario 4 ...',
-                datetime: '20141020',
-                isOwnMessage: false
-            }
-        ];
+        let messages = this.props.messages;
+        let otherUsername = this.props.otherUsername;
         return (
             <div className="view view-main">
-                <LeftMenuTopNavbar centerText={'username'}/>
+                <LeftMenuTopNavbar centerText={otherUsername}/>
                 <div data-page="index" className="page notifications-page">
                     <div id="page-content" className="notifications-content">
-                        <DailyMessages messages={messages} ownPicture={''} otherPicture={''} date={'20160223'} />
-                        <DailyMessages messages={messages} ownPicture={''} otherPicture={''} date={'20160225'} />
+                        <DailyMessages messages={messages} date={'20160223'}/>
                         <br />
                     </div>
                 </div>
-                <MessagesToolBar onClickHandler={function() {}} />
+                <MessagesToolBar onClickHandler={function() {}}/>
             </div>
         );
     }

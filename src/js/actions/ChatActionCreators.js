@@ -9,7 +9,7 @@ export default {
     },
 
     noMessages: () => {
-        dispatch(ActionTypes.CHAT_NO_MESSAGES, {});
+        dispatch(ActionTypes.CHAT_NO_MESSAGES, {noMessages: true});
     },
 
     userStatus: (user, status) => {

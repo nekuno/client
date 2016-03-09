@@ -46,7 +46,7 @@ export default AuthenticatedComponent(class RegisterQuestionLandingPage extends 
     render() {
 
         let imgSrc = this.props.user && this.props.user.picture ? `${IMAGES_ROOT}media/cache/resolve/user_avatar_60x60/user/images/${this.props.user.picture}` : `${IMAGES_ROOT}media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
-        imgSrc = 'http://local.nekuno.com/media/cache/user_avatar_180x180/user/images/user43_1453456276.jpg';
+
         return (
             <div className="view view-main">
                 <div className="page">

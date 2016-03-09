@@ -82,6 +82,18 @@ export default keyMirror({
     SKIP_QUESTION_SUCCESS: null,
     SKIP_QUESTION_ERROR  : null,
 
+    REQUEST_OWN_INTERESTS          : null,
+    REQUEST_OWN_INTERESTS_SUCCESS  : null,
+    REQUEST_OWN_INTERESTS_ERROR    : null,
+    REQUEST_NEXT_OWN_INTERESTS     : null,
+
+    RESET_INTERESTS     : null,
+
+    REQUEST_COMPARED_INTERESTS          : null,
+    REQUEST_COMPARED_INTERESTS_SUCCESS  : null,
+    REQUEST_COMPARED_INTERESTS_ERROR    : null,
+    REQUEST_NEXT_COMPARED_INTERESTS     : null,
+
     LIKE_USER        : null,
     LIKE_USER_SUCCESS: null,
     LIKE_USER_ERROR  : null,

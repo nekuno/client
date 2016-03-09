@@ -37,16 +37,18 @@ export default class CardContent extends Component {
 		embed_type: PropTypes.string,
 		thumbnail: PropTypes.string,
 		synonymous: PropTypes.array.isRequired,
-		matching: PropTypes.number.isRequired,
-		rate: PropTypes.bool.isRequired,
+		matching: PropTypes.number,
+		rate: PropTypes.bool,
 		hideLikeButton: PropTypes.bool.isRequired,
-		loggedUserId: PropTypes.number.isRequired
+		loggedUserId: PropTypes.number.isRequired,
+		onClickHandler: PropTypes.func
 	};
 
 	constructor(props) {
 		super(props);
 
 		this.onRate = this.onRate.bind(this);
+		this.onClickHandler = this.onClickHandler.bind(this);
 	}
 
 	shouldComponentUpdate = shouldPureComponentUpdate;
@@ -63,9 +65,9 @@ export default class CardContent extends Component {
 			imgSrc = this.props.url;
 		}
 		return (
-			<div className="card person-card">
+			<div className="card person-card" onClick={this.onClickHandler}>
 				<div className="card-header">
-					<a href={this.props.url}>
+					<a>
 						<div className="card-title">
 							{title}
 						</div>
@@ -79,15 +81,20 @@ export default class CardContent extends Component {
 				</div>
 				<div className="card-content">
 					<div className="card-content-inner">
-						<a href={this.props.url}>
+						<a>
 							<div className="image">
 								<img src={imgSrc} />
 							</div>
 						</a>
-						<div className="matching">
-							<div className="matching-value">Compatibilidad {this.props.matching}%</div>
-							<ProgressBar percentage={this.props.matching} />
-						</div>
+						{typeof this.props.matching !== 'undefined' ?
+							<div className="matching">
+								<div className="matching-value">Compatibilidad {this.props.matching}%</div>
+								<ProgressBar percentage={this.props.matching} />
+							</div>
+							:
+							''
+						}
+
 					</div>
 				</div>
 				{likeButton ?
@@ -105,6 +112,14 @@ export default class CardContent extends Component {
 			setLikeContent(this.props);
 		} else {
 			unsetLikeContent(this.props);
+		}
+	}
+
+	onClickHandler() {
+		if (typeof this.props.onClickHandler !== 'undefined') {
+			this.props.onClickHandler();
+		} else {
+			document.location = this.props.url;
 		}
 	}
 }

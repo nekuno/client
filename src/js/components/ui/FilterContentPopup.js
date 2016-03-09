@@ -1,12 +1,16 @@
 import React, { PropTypes, Component } from 'react';
 import { Link } from 'react-router';
 import shouldPureComponentUpdate from 'react-pure-render/function';
+import * as InterestsActionCreators from '../../actions/InterestsActionCreators';
 
 export default class FilterContentPopup extends Component {
     static propTypes = {
         userId: PropTypes.number.isRequired,
         contentsCount: PropTypes.number.isRequired,
-        ownContent: PropTypes.bool.isRequired
+        ownContent: PropTypes.bool.isRequired,
+        ownUserId: PropTypes.number,
+        onClickHandler: PropTypes.func,
+        commonContent: PropTypes.number
     };
 
     constructor(props) {
@@ -51,14 +55,14 @@ export default class FilterContentPopup extends Component {
                             <div className="icon icon-web-site"></div>
                             <div className="icons-large-text">Sitios web</div>
                         </div>
-                        <div className="icons-large-wrapper" onClick={this.onUsersFilterClick}>
+                        {/*<div className="icons-large-wrapper" onClick={this.onUsersFilterClick}>
                             <div className="icon icon-person"></div>
                             <div className="icons-large-text">Personas</div>
                         </div>
                         <div className="icons-large-wrapper" onClick={this.onChannelsFilterClick}>
                             <div className="icon icon-channels"></div>
                             <div className="icons-large-text">Canales</div>
-                        </div>
+                        </div>*/}
                     </div>
                 </div>
             </div>
@@ -66,27 +70,40 @@ export default class FilterContentPopup extends Component {
     }
 
     onVideosFilterClick() {
-        // TODO: Use this.props.ownContent and this.props.userId to know what action should be called in ContentAction.
-        console.log('filter by videos')
+        this.filterContent(this.props, 'Video');
     }
 
     onAudiosFilterClick() {
-        console.log('filter by audios')
+        this.filterContent(this.props, 'Audio');
     }
 
     onImagesFilterClick() {
-        console.log('filter by images')
+        this.filterContent(this.props, 'Image');
     }
 
     onLinksFilterClick() {
-        console.log('filter by links')
+        this.filterContent(this.props, '');
     }
 
     onUsersFilterClick() {
-        console.log('filter by users')
+        this.filterContent(this.props, '');
     }
 
     onChannelsFilterClick() {
-        console.log('filter by channels')
+        this.filterContent(this.props, '');
     }
+
+    filterContent = function(props, type) {
+        InterestsActionCreators.resetInterests(props.userId);
+        if (props.ownContent) {
+            InterestsActionCreators.requestOwnInterests(props.userId, type);
+            nekunoApp.closeModal('.popup-filter-contents');
+        } else {
+            InterestsActionCreators.requestComparedInterests(props.ownUserId, props.userId, type, props.commonContent);
+            nekunoApp.closeModal('.popup-filter-other-contents');
+        }
+        if (typeof this.props.onClickHandler == 'function') {
+            this.props.onClickHandler(type);
+        }
+    };
 }

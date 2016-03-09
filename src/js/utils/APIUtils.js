@@ -201,6 +201,20 @@ export function fetchQuestion(url) {
     return fetchAndNormalize(url, questionSchema);
 }
 
+export function fetchOwnInterests(url) {
+    return fetchAndNormalize(url, {
+        items     : [],
+        pagination: {}
+    });
+}
+
+export function fetchComparedInterests(url) {
+    return fetchAndNormalize(url, {
+        items     : [],
+        pagination: {}
+    });
+}
+
 export function postBlockUser(url) {
     return postData(url, null, blockedUserSchema);
 }

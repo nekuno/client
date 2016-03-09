@@ -17,47 +17,47 @@ export default class CardIcons extends Component {
                             if (array.length > 1) {
                                 break;
                             }
-                            return this.renderLinkIcons();
+                            return this.renderLinkIcons(index);
                         case 'Image':
-                            return this.renderImageIcons();
+                            return this.renderImageIcons(index);
                         case 'Video':
-                            return this.renderVideoIcons();
+                            return this.renderVideoIcons(index);
                         case 'Audio':
-                            return this.renderAudioIcons();
+                            return this.renderAudioIcons(index);
                     }
                 })}
             </div>
         );
     }
 
-    renderLinkIcons = function() {
+    renderLinkIcons = function(index) {
         return (
-            <div className="absolute-wrapper">
+            <div className="absolute-wrapper" key={index + 1}>
                 <div className="icon-wrapper link-icon-wrapper"><span className="icon-web-site"></span></div>
             </div>
         );
     };
 
-    renderImageIcons = function() {
+    renderImageIcons = function(index) {
         return (
-            <div className="absolute-wrapper">
+            <div className="absolute-wrapper" key={index + 1}>
                 <div className="icon-wrapper image-icon-wrapper"><span className="icon-photo"></span></div>
             </div>
         );
     };
 
-    renderVideoIcons = function() {
+    renderVideoIcons = function(index) {
         return (
-            <div className="absolute-wrapper">
+            <div className="absolute-wrapper" key={index + 1}>
                 <div className="icon-wrapper"><span className="icon-video"></span></div>
                 <div className="icon-wrapper youtube-icon-wrapper"><span className="icon-youtube"></span></div>
             </div>
         );
     };
 
-    renderAudioIcons = function() {
+    renderAudioIcons = function(index) {
         return (
-            <div className="absolute-wrapper">
+            <div className="absolute-wrapper" key={index + 1}>
                 <div className="icon-wrapper"><span className="icon-audio"></span></div>
                 <div className="icon-wrapper spotify-icon-wrapper"><span className="icon-spotify"></span></div>
             </div>

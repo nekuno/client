@@ -40,13 +40,15 @@ export default class CardContent extends Component {
 		matching: PropTypes.number,
 		rate: PropTypes.bool,
 		hideLikeButton: PropTypes.bool.isRequired,
-		loggedUserId: PropTypes.number.isRequired
+		loggedUserId: PropTypes.number.isRequired,
+		onClickHandler: PropTypes.func
 	};
 
 	constructor(props) {
 		super(props);
 
 		this.onRate = this.onRate.bind(this);
+		this.onClickHandler = this.onClickHandler.bind(this);
 	}
 
 	shouldComponentUpdate = shouldPureComponentUpdate;
@@ -63,7 +65,7 @@ export default class CardContent extends Component {
 			imgSrc = this.props.url;
 		}
 		return (
-			<div className="card person-card">
+			<div className="card person-card" onClick={this.onClickHandler}>
 				<div className="card-header">
 					<a href={this.props.url}>
 						<div className="card-title">
@@ -110,6 +112,12 @@ export default class CardContent extends Component {
 			setLikeContent(this.props);
 		} else {
 			unsetLikeContent(this.props);
+		}
+	}
+
+	onClickHandler() {
+		if (typeof this.props.onClickHandler !== 'undefined') {
+			this.props.onClickHandler();
 		}
 	}
 }

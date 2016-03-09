@@ -105,7 +105,6 @@ export default AuthenticatedComponent(class OtherInterestsPage extends Component
                 {'url': `/users/${otherUserId}/other-questions`, 'text': 'Respuestas'},
                 {'url': `/users/${otherUserId}/other-interests`, 'text': 'Intereses'}
                 ]} activeLinkIndex={2}/>
-                {/* TODO: Pass interests count */}
                 <FilterContentPopup userId={otherUserId} contentsCount={this.props.pagination.total || 0} ownContent={false} ownUserId={ownUserId} onClickHandler={this.onFilterTypeClick} commonContent={this.state.commonContent}/>
             </div>
         );

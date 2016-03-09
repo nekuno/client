@@ -42,12 +42,13 @@ InterestStore.dispatchToken = register(action => {
         let currentUserId = otherUserId ? otherUserId : userId;
         let ids = Object.keys(_interests[currentUserId]);
         let lastId = ids.length > 0 ? parseInt(ids[ids.length - 1]) : 0;
+        let nextId = lastId + 1;
         let orderedInterests = [];
         for (let key in interests) {
             if (interests.hasOwnProperty(key)) {
-                orderedInterests[parseInt(key) + lastId] = interests[key];
-                if (!orderedInterests[parseInt(key) + lastId].hasOwnProperty('contentId')) {
-                    orderedInterests[parseInt(key) + lastId]['contentId'] = interests[key].id;
+                orderedInterests[parseInt(key) + nextId] = interests[key];
+                if (!orderedInterests[parseInt(key) + nextId].hasOwnProperty('contentId')) {
+                    orderedInterests[parseInt(key) + nextId]['contentId'] = interests[key].id;
                 }
             }
         }

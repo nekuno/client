@@ -109,9 +109,9 @@ export default AuthenticatedComponent(class InterestsPage extends Component {
                 <div data-page="index" className="page interests-page">
                     <div id="page-content" className="interests-content">
                         {this.state.carousel ?
-                            <CardContentCarousel contents={interests} userId={this.props.user.qnoow_id} />
+                            <CardContentCarousel contents={interests} userId={parseId(this.props.user)} />
                             :
-                            <CardContentList contents={interests} userId={this.props.user.qnoow_id} onClickHandler={this.onContentClick}/>
+                            <CardContentList contents={interests} userId={parseId(this.props.user)} onClickHandler={this.onContentClick}/>
                         }
                         <br />
                         {this.state.carousel ? '' : <div className="loading-gif" style={this.props.pagination.nextLink ? {} : {display: 'none'}}></div>}
@@ -144,7 +144,7 @@ export default AuthenticatedComponent(class InterestsPage extends Component {
             position: contentKey,
             swiper: null
         });
-    }
+    };
 
     handleScroll() {
         let pagination = this.props.pagination;

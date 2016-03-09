@@ -1,6 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import { IMAGES_ROOT } from '../constants/Constants';
 import LeftMenuRightSearchTopNavbar from '../components/ui/LeftMenuRightSearchTopNavbar';
+import LeftLinkRightSearchTopNavbar from '../components/ui/LeftLinkRightSearchTopNavbar';
 import ToolBar from '../components/ui/ToolBar';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import connectToStores from '../utils/connectToStores';
@@ -10,6 +11,7 @@ import InterestsByUserStore from '../stores/InterestsByUserStore';
 import * as UserActionCreators from '../actions/UserActionCreators';
 import * as InterestsActionCreators from '../actions/InterestsActionCreators';
 import CardContentList from '../components/interests/CardContentList';
+import CardContentCarousel from '../components/interests/CardContentCarousel';
 import FilterContentPopup from '../components/ui/FilterContentPopup';
 import TextRadios from '../components/ui/TextRadios';
 import ProfilesAvatarConnection from '../components/ui/ProfilesAvatarConnection';
@@ -56,10 +58,17 @@ export default AuthenticatedComponent(class OtherInterestsPage extends Component
         this.onFilterCommonClick = this.onFilterCommonClick.bind(this);
         this.onFilterTypeClick = this.onFilterTypeClick.bind(this);
         this.handleScroll = this.handleScroll.bind(this);
+        this.onContentClick = this.onContentClick.bind(this);
+        this.onNavbarLeftLinkClick = this.onNavbarLeftLinkClick.bind(this);
+        this.initSwiper = this.initSwiper.bind(this);
+
 
         this.state = {
             type: '',
-            commonContent: 0
+            commonContent: 0,
+            carousel: false,
+            position: 0,
+            swiper: null
         }
     }
 
@@ -73,6 +82,29 @@ export default AuthenticatedComponent(class OtherInterestsPage extends Component
         document.getElementsByClassName('view')[0].removeEventListener('scroll', this.handleScroll);
     }
 
+    componentDidUpdate() {
+        if (!this.state.carousel || this.props.interests.length == 0) {
+            return;
+        }
+        if (!this.state.swiper) {
+            this.state.swiper = this.initSwiper();
+            this.state.carousel = true;
+
+        } else {
+            this.state.swiper.updateSlidesSize();
+        }
+    }
+
+    componentDidMount() {
+        if (!this.state.carousel || this.props.interests.length == 0) {
+            return;
+        }
+        this.state = {
+            swiper: this.initSwiper(),
+            carousel: true
+        };
+    }
+
     render() {
         const interests = this.props.interests;
         const otherUser = this.props.otherUser;
@@ -83,18 +115,27 @@ export default AuthenticatedComponent(class OtherInterestsPage extends Component
         const ownPicture = ownUser && ownUser.picture ? `${IMAGES_ROOT}media/cache/resolve/user_avatar_60x60/user/images/${ownUser.picture}` : `${IMAGES_ROOT}media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
         return (
             <div className="view view-main" onScroll={this.handleScroll}>
-                <LeftMenuRightSearchTopNavbar centerText={otherUser ? otherUser.username : ''} onRightLinkClickHandler={this.onSearchClick}/>
+                {this.state.carousel ?
+                    <LeftLinkRightSearchTopNavbar leftText={"Cancelar"} centerText={otherUser ? otherUser.username : ''} onLeftLinkClickHandler={this.onNavbarLeftLinkClick}
+                                                  onRightLinkClickHandler={this.onSearchClick}/>
+                    :
+                    <LeftMenuRightSearchTopNavbar centerText={otherUser ? otherUser.username : ''}
+                                                  onRightLinkClickHandler={this.onSearchClick}/>
+                }
                 <div data-page="index" className="page other-interests-page">
                     <div id="page-content" className="other-interests-content">
                         <ProfilesAvatarConnection ownPicture={ownPicture} otherPicture={otherUserPicture} />
-                        {/* TODO: Use interests count */}
                         <div className="title">{this.props.pagination.total} Intereses {this.state.commonContent ? 'similares' : ''}</div>
                         <div className="common-content-switch">
                             <TextRadios labels={[{key: 0, text: 'Todo'}, {key: 1, text: 'En común'}]} value={this.state.commonContent} onClickHandler={this.onFilterCommonClick}/>
                         </div>
-                        <CardContentList contents={interests} userId={otherUserId} />
+                        {this.state.carousel ?
+                            <CardContentCarousel contents={interests} userId={otherUserId} />
+                            :
+                            <CardContentList contents={interests} userId={otherUserId} onClickHandler={this.onContentClick}/>
+                        }
                         <br />
-                        <div className="loading-gif" style={this.props.pagination.nextLink ? {} : {display: 'none'}}></div>
+                        {this.state.carousel ? '' : <div className="loading-gif" style={this.props.pagination.nextLink ? {} : {display: 'none'}}></div>}
                     </div>
                     <br/>
                     <br/>
@@ -112,6 +153,18 @@ export default AuthenticatedComponent(class OtherInterestsPage extends Component
 
     onSearchClick = function () {
         nekunoApp.popup('.popup-filter-other-contents');
+        this.setState({
+            carousel: false,
+            swiper: null
+        });
+    };
+
+    onContentClick(contentKey) {
+        this.setState({
+            carousel: true,
+            position: contentKey,
+            swiper: null
+        });
     };
 
     handleScroll() {
@@ -126,12 +179,43 @@ export default AuthenticatedComponent(class OtherInterestsPage extends Component
         }
     }
 
+    onNavbarLeftLinkClick() {
+        this.setState({
+            carousel: false
+        });
+    }
+
+    initSwiper() {
+        var _self = this;
+        return nekunoApp.swiper('.swiper-container', {
+            onReachEnd: onReachEnd,
+            effect: 'coverflow',
+            slidesPerView: 'auto',
+            coverflow: {
+                rotate: 30,
+                stretch: 0,
+                depth: 100,
+                modifier: 1,
+                slideShadows : false
+            },
+            centeredSlides: true,
+            grabCursor: true,
+            initialSlide: this.state.position
+        });
+
+        function onReachEnd() {
+            let pagination = _self.props.pagination;
+            let nextLink = pagination && pagination.hasOwnProperty('nextLink') ? pagination.nextLink : null;
+            InterestsActionCreators.requestNextComparedInterests(parseId(_self.props.user), _self.props.params.userId, nextLink);
+        }
+    }
+
     onFilterCommonClick(key) {
         InterestsActionCreators.resetInterests(this.props.params.userId);
-        InterestsActionCreators.requestComparedInterests(this.props.user.qnoow_id, parseInt(this.props.params.userId), this.state.type, key);
-
+        InterestsActionCreators.requestComparedInterests(parseId(this.props.user), parseInt(this.props.params.userId), this.state.type, key);
         this.setState({
-            commonContent: key
+            commonContent: key,
+            carousel: false
         });
     }
 

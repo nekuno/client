@@ -24,10 +24,15 @@ body #root .App .view .page.other-interests-page  {
         }
       }
     }
-    .card {
-      display: inline-block;
-      margin: 5px 1% 5px 1%;
-      width: 48%;
+    .content-list {
+      .card {
+        display: inline-block;
+        margin: 5px 1% 5px 1%;
+        width: 48%;
+      }
+    }
+    .content-carousel .swiper-slide {
+      width: 275px;
     }
   }
 }

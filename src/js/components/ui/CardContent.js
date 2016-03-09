@@ -67,7 +67,7 @@ export default class CardContent extends Component {
 		return (
 			<div className="card person-card" onClick={this.onClickHandler}>
 				<div className="card-header">
-					<a href={this.props.url}>
+					<a>
 						<div className="card-title">
 							{title}
 						</div>
@@ -81,7 +81,7 @@ export default class CardContent extends Component {
 				</div>
 				<div className="card-content">
 					<div className="card-content-inner">
-						<a href={this.props.url}>
+						<a>
 							<div className="image">
 								<img src={imgSrc} />
 							</div>
@@ -118,6 +118,8 @@ export default class CardContent extends Component {
 	onClickHandler() {
 		if (typeof this.props.onClickHandler !== 'undefined') {
 			this.props.onClickHandler();
+		} else {
+			document.location = this.props.url;
 		}
 	}
 }

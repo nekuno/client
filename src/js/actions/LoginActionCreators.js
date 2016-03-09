@@ -5,6 +5,7 @@ import ChatSocketService from '../services/ChatSocketService';
 import WorkersSocketService from '../services/WorkersSocketService';
 import LoginStore from '../stores/LoginStore';
 import RouterContainer from '../services/RouterContainer';
+import * as QuestionActionCreators from '../actions/QuestionActionCreators';
 
 export default new class LoginActionCreators {
 
@@ -30,13 +31,17 @@ export default new class LoginActionCreators {
             ChatSocketService.connect();
             WorkersSocketService.connect();
             var user = LoginStore.user;
-            path = '/threads/' + user.qnoow_id;
+            QuestionActionCreators.requestQuestions(user.qnoow_id).then(function(data){
+                path = data.result.pagination.total < 4 ? '/register-questions-landing' : '/threads/' + user.qnoow_id ;
+                history.replaceState(null, path);
+                console.log('&*&*&* redirecting to path', path);
+            });
         } else {
             ChatSocketService.disconnect();
             WorkersSocketService.disconnect();
+            history.replaceState(null, path);
+            console.log('&*&*&* redirecting to path', path);
         }
-        history.replaceState(null, path);
-        console.log('&*&*&* redirecting to path', path);
     }
 
     register(user, profile, token, oauth) {

@@ -4,6 +4,7 @@ import selectn from 'selectn';
 import { IMAGES_ROOT } from '../constants/Constants';
 import * as QuestionActionCreators from '../actions/QuestionActionCreators';
 import LeftMenuTopNavbar from '../components/ui/LeftMenuTopNavbar';
+import RegularTopNavbar from '../components/ui/RegularTopNavbar';
 import AnswerQuestion from '../components/questions/AnswerQuestion';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import connectToStores from '../utils/connectToStores';
@@ -22,7 +23,7 @@ function requestData(props) {
     const { user, params } = props;
     const questionId = params.hasOwnProperty('questionId') ? parseInt(params.questionId) : null;
     const currentUserId = parseUserId(user);
-    QuestionActionCreators.requestQuestion(currentUserId, questionId);
+    return QuestionActionCreators.requestQuestion(currentUserId, questionId);
 }
 
 /**
@@ -38,6 +39,7 @@ function getState(props) {
     const userAnswer = questionId ? QuestionStore.getUserAnswer(currentUserId, questionId) : {};
     const errors = QuestionStore.getErrors();
     const goToQuestionStats = QuestionStore.mustGoToQuestionStats();
+    const isJustRegistered = Object.keys(QuestionsByUserIdStore.getByUserId(currentUserId)).length < 4;
 
     return {
         currentUser,
@@ -46,7 +48,8 @@ function getState(props) {
         userAnswer,
         user,
         errors,
-        goToQuestionStats
+        goToQuestionStats,
+        isJustRegistered
     };
 }
 
@@ -64,6 +67,7 @@ export default AuthenticatedComponent(class AnswerQuestionPage extends Component
         isFirstQuestion: PropTypes.bool,
         errors: PropTypes.string,
         goToQuestionStats: PropTypes.bool,
+        isJustRegistered: PropTypes.bool,
 
         // Injected by AuthenticatedComponent
         user: PropTypes.object.isRequired
@@ -82,7 +86,17 @@ export default AuthenticatedComponent(class AnswerQuestionPage extends Component
 
     componentWillMount() {
         if (!this.props.question || this.props.question.questionId !== this.props.params.questionId) {
-            requestData(this.props);
+            let promise = requestData(this.props);
+            let isJustRegistered = this.props.isJustRegistered;
+            let history = this.context.history;
+            let userId = parseUserId(this.props.user);
+            promise.then(function (data) {
+                    const questions =data.entities.question;
+                    if (isJustRegistered && questions[Object.keys(questions)[0]].isRegisterQuestion === false) {
+                        history.pushState(null, '/threads/' + userId);
+                    }
+                }
+            );
         }
     }
 
@@ -101,7 +115,11 @@ export default AuthenticatedComponent(class AnswerQuestionPage extends Component
 
         return (
             <div className="view view-main">
-                <LeftMenuTopNavbar centerText={'Pregunta'} rightText={isRegisterQuestion ? '' : 'Omitir'} onRightLinkClickHandler={isRegisterQuestion ? null : this.skipQuestionHandler} />
+                {this.props.isJustRegistered ?
+                    <RegularTopNavbar centerText={'Pregunta'}/>
+                    :
+                    <LeftMenuTopNavbar centerText={'Pregunta'} rightText={isRegisterQuestion ? '' : 'Omitir'} onRightLinkClickHandler={isRegisterQuestion ? null : this.skipQuestionHandler}/>
+                }
                 <div data-page="index" className="page answer-question-page">
                     <div id="page-content" className="answer-question-content">
                         {this.props.question ?

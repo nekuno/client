@@ -54,9 +54,9 @@ class ChatThreadStore extends BaseStore {
 
         this._threads.sort((a, b) => {
             if (a.message.createdAt < b.message.createdAt) {
-                return -1;
-            } else if (a.message.createdAt > b.message.createdAt) {
                 return 1;
+            } else if (a.message.createdAt > b.message.createdAt) {
+                return -1;
             }
             return 0;
         });

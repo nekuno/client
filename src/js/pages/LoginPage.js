@@ -63,7 +63,7 @@ export default class LoginPage extends Component {
         return (
             <div className="view view-main">
                 <RegularTopNavbar leftText={'Cancelar'} centerText={'Iniciar sesión'}/>
-                <div data-page="index" className="page">
+                <div className="page">
                     <div id="page-content" className="login-content">
                         <div className="list-block">
                             <ul>

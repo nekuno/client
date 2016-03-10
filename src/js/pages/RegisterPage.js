@@ -98,7 +98,7 @@ export default class RegisterPage extends Component {
         return (
             <div className="view view-main">
                 <RegularTopNavbar leftText={'Cancelar'} centerText={'Crear cuenta'}/>
-                <div data-page="index" className="page">
+                <div className="page">
                     <div id="page-content" className="register-content">
                         <div className="register-title bold">
                             <div className="title">Nekuno</div>

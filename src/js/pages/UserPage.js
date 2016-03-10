@@ -191,7 +191,7 @@ export default AuthenticatedComponent(class UserPage extends Component {
 
         return (
             <div className="view view-main">
-                <div data-page="index" className="page toolbar-fixed user-page">
+                <div className="page toolbar-fixed user-page">
                     <LeftMenuTopNavbar centerText={currentUser && !ownProfile ? currentUser.username : 'Mi Perfil'} />
 
                     <div id="page-content">

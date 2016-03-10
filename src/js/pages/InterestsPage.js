@@ -106,7 +106,7 @@ export default AuthenticatedComponent(class InterestsPage extends Component {
                     <LeftMenuRightSearchTopNavbar centerText={'Mi Perfil'}
                                                   onRightLinkClickHandler={this.onSearchClick}/>
                 }
-                <div data-page="index" className="page interests-page">
+                <div className="page interests-page">
                     <div id="page-content" className="interests-content">
                         {this.state.carousel ?
                             <CardContentCarousel contents={interests} userId={parseId(this.props.user)} />

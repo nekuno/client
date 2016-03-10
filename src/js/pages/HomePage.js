@@ -65,7 +65,7 @@ export default class HomePage extends Component {
         return (
             [1, 2, 3].map(i =>
                 <div key={i} className="swiper-slide">
-                    <div id={'login-' + i + '-image'} data-page="index" className="page">
+                    <div id={'login-' + i + '-image'} className="page">
                         <div className="linear-gradient-rectangle"></div>
                         <div className="nekuno-logo-wrapper">
                             <div className="nekuno-logo"></div>

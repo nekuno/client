@@ -208,7 +208,7 @@ export default class RegisterJoinPage extends Component {
         return (
             <div className="view view-main">
                 <RegularTopNavbar leftText={'Cancelar'} centerText={'Crear cuenta'}/>
-                <div data-page="index" className="page">
+                <div className="page">
                     <div id="page-content" className="register-join-content">
                         <div className="list-block">
                             <ul>

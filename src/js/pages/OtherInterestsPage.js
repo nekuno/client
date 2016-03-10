@@ -122,7 +122,7 @@ export default AuthenticatedComponent(class OtherInterestsPage extends Component
                     <LeftMenuRightSearchTopNavbar centerText={otherUser ? otherUser.username : ''}
                                                   onRightLinkClickHandler={this.onSearchClick}/>
                 }
-                <div data-page="index" className="page other-interests-page">
+                <div className="page other-interests-page">
                     <div id="page-content" className="other-interests-content">
                         <ProfilesAvatarConnection ownPicture={ownPicture} otherPicture={otherUserPicture} />
                         <div className="title">{this.props.pagination.total} Intereses {this.state.commonContent ? 'similares' : ''}</div>

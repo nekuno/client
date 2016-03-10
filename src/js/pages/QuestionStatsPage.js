@@ -65,7 +65,7 @@ export default AuthenticatedComponent(class QuestionStatsPage extends Component 
                     <LeftMenuTopNavbar centerText={'Estadísticas'} rightText={'Continuar'} onRightLinkClickHandler={this.handleContinueClick} />
                 }
 
-                <div data-page="index" className="page question-stats-page">
+                <div className="page question-stats-page">
                     <div id="page-content" className="question-stats-content">
                         {this.props.userAnswer && this.props.question ?
                             <QuestionStats question={this.props.question} userAnswer={this.props.userAnswer} userId={user.qnoow_id}/>

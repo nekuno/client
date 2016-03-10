@@ -100,7 +100,7 @@ export default AuthenticatedComponent(class OtherQuestionsPage extends Component
         return (
             <div className="view view-main" onScroll={this.handleScroll}>
                 <RegularTopNavbar leftText={'Cancelar'} centerText={this.props.otherUser ? this.props.otherUser.username : ''}/>
-                <div data-page="index" className="page other-questions-page">
+                <div className="page other-questions-page">
                     {this.props.user && this.props.otherUser ?
                         <div id="page-content" className="other-questions-content">
                             <div className="other-questions-header-container">

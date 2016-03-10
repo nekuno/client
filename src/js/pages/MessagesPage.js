@@ -47,11 +47,24 @@ export default AuthenticatedComponent(class MessagesPage extends Component {
         requestData(this.props);
     }
 
+    componentDidMount() {
+        this._scrollToBottom();
+    }
+
+    componentDidUpdate() {
+        this._scrollToBottom();
+    }
+
+    _scrollToBottom() {
+        var list = this.refs.list;
+        list.scrollTop = list.scrollHeight;
+    }
+
     render() {
         let messages = this.props.messages;
         let otherUsername = this.props.otherUsername;
         return (
-            <div className="view view-main">
+            <div className="view view-main" ref="list">
                 <LeftMenuTopNavbar centerText={otherUsername}/>
                 <div data-page="index" className="page notifications-page">
                     <div id="page-content" className="notifications-content">
@@ -59,7 +72,9 @@ export default AuthenticatedComponent(class MessagesPage extends Component {
                         <br />
                     </div>
                 </div>
-                <MessagesToolBar onClickHandler={function() {}}/>
+                <div>
+                    <MessagesToolBar onClickHandler={function() {}}/>
+                </div>
             </div>
         );
     }

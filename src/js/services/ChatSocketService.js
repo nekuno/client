@@ -8,6 +8,12 @@ class ChatSocketService extends SocketService {
         this._name = 'chat';
     }
 
+    sendMessage(userTo, messageText) {
+        this._socket.emit('sendMessage', userTo, messageText, (error) => {
+
+        });
+    }
+
     bind() {
 
         var socket = this._socket;

@@ -14,6 +14,11 @@ export default {
 
     userStatus: (user, status) => {
         dispatch(ActionTypes.CHAT_USER_STATUS, {user, status});
+    },
+
+    sendMessage: (userTo, messageText) => {
+        dispatch(ActionTypes.CHAT_SENDING_MESSAGE, {userTo, messageText});
+        ChatSocketService.sendMessage(userTo, messageText);
     }
 
 }

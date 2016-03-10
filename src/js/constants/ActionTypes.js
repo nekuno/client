@@ -49,15 +49,15 @@ export default keyMirror({
     REQUEST_THREADS_SUCCESS: null,
     REQUEST_THREADS_ERROR  : null,
 
-    THREADS_PREV        : null,
-    THREADS_NEXT        : null,
+    THREADS_PREV: null,
+    THREADS_NEXT: null,
 
     REQUEST_RECOMMENDATIONS        : null,
     REQUEST_RECOMMENDATIONS_SUCCESS: null,
     REQUEST_RECOMMENDATIONS_ERROR  : null,
 
-    RECOMMENDATIONS_PREV        : null,
-    RECOMMENDATIONS_NEXT        : null,
+    RECOMMENDATIONS_PREV: null,
+    RECOMMENDATIONS_NEXT: null,
 
     REQUEST_QUESTIONS        : null,
     REQUEST_QUESTIONS_SUCCESS: null,
@@ -126,5 +126,18 @@ export default keyMirror({
     UNLIKE_CONTENT_SUCCESS: null,
     UNLIKE_CONTENT_ERROR  : null,
 
-    ROUTER_NEXT_TRANSITION_PATH: null
+    ROUTER_NEXT_TRANSITION_PATH: null,
+
+    CHAT_MESSAGES       : null,
+    CHAT_NO_MESSAGES    : null,
+    CHAT_USER_STATUS    : null,
+    CHAT_SENDING_MESSAGE: null,
+
+    WORKERS_FETCH_START   : null,
+    WORKERS_FETCH_FINISH  : null,
+    WORKERS_PROCESS_START : null,
+    WORKERS_PROCESS_LINK  : null,
+    WORKERS_PROCESS_FINISH: null,
+    WORKERS_USER_STATUS   : null
+
 });

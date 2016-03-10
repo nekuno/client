@@ -4,8 +4,8 @@ import { Router, Route } from 'react-router';
 import App from './App';
 import HomePage from './pages/HomePage';
 import AboutPage from './pages/AboutPage';
-import NotificationsPage from './pages/NotificationsPage';
-import MessagesPage from './pages/MessagesPage';
+import ChatThreadsPage from './pages/ChatThreadsPage';
+import ChatMessagesPage from './pages/ChatMessagesPage';
 import InterestsPage from './pages/InterestsPage';
 import OtherInterestsPage from './pages/OtherInterestsPage';
 import QuestionsPage from './pages/QuestionsPage';
@@ -33,8 +33,8 @@ export default class Root extends Component {
                 <Route name="home" path="/" component={App}>
                     <Route name="splash" path="/splash" component={HomePage}/>
                     <Route name="about" path="/about" component={AboutPage}/>
-                    <Route name="notifications" path="/notifications" component={NotificationsPage}/>
-                    <Route name="messages" path="/messages/:userId" component={MessagesPage}/>
+                    <Route name="notifications" path="/conversations" component={ChatThreadsPage}/>
+                    <Route name="messages" path="/conversations/:userId" component={ChatMessagesPage}/>
                     <Route name="interests" path="/interests" component={InterestsPage}/>
                     <Route name="other-interests" path="/users/:userId/other-interests" component={OtherInterestsPage}/>
                     <Route name="questions" path="/questions" component={QuestionsPage}/>

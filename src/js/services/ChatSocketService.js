@@ -1,4 +1,5 @@
 import SocketService from './SocketService';
+import ChatActionsCreators from '../actions/ChatActionCreators';
 
 class ChatSocketService extends SocketService {
 
@@ -7,24 +8,26 @@ class ChatSocketService extends SocketService {
         this._name = 'chat';
     }
 
+    sendMessage(userTo, messageText) {
+        this._socket.emit('sendMessage', userTo, messageText, (error) => {
+
+        });
+    }
+
     bind() {
 
         var socket = this._socket;
-        var name = this._name;
 
         socket.on('messages', function(messages, fresh) {
-            // TODO: call action creator
-            console.log('socket', name, 'messages', messages, fresh);
+            ChatActionsCreators.messages(messages, fresh);
         });
 
         socket.on('no-messages', function() {
-            // TODO: call action creator
-            console.log('socket', name, 'no-messages');
+            ChatActionsCreators.noMessages();
         });
-        
+
         socket.on('userStatus', function(user, status) {
-            // TODO: call action creator
-            console.log('socket', name, 'userStatus', user, status);
+            ChatActionsCreators.userStatus(user, status);
         });
     }
 

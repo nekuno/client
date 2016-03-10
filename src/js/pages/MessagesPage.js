@@ -4,6 +4,7 @@ import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import DailyMessages from '../components/ui/DailyMessages';
 import MessagesToolBar from '../components/ui/MessagesToolBar';
 import * as UserActionCreators from '../actions/UserActionCreators';
+import ChatActionCreators from '../actions/ChatActionCreators';
 import UserStore from '../stores/UserStore';
 import ChatMessageStore from '../stores/ChatMessageStore';
 import connectToStores from '../utils/connectToStores';
@@ -43,6 +44,12 @@ export default AuthenticatedComponent(class MessagesPage extends Component {
         user: PropTypes.object.isRequired
     };
 
+    constructor(props) {
+        super(props);
+
+        this.sendMessageHandler = this.sendMessageHandler.bind(this);
+    }
+
     componentWillMount() {
         requestData(this.props);
     }
@@ -60,6 +67,12 @@ export default AuthenticatedComponent(class MessagesPage extends Component {
         list.scrollTop = list.scrollHeight;
     }
 
+    sendMessageHandler(messageText) {
+        const { params } = this.props;
+        const userId = params.userId;
+        ChatActionCreators.sendMessage(userId, messageText);
+    }
+
     render() {
         let messages = this.props.messages;
         let otherUsername = this.props.otherUsername;
@@ -73,7 +86,7 @@ export default AuthenticatedComponent(class MessagesPage extends Component {
                     </div>
                 </div>
                 <div>
-                    <MessagesToolBar onClickHandler={function() {}}/>
+                    <MessagesToolBar onClickHandler={this.sendMessageHandler}/>
                 </div>
             </div>
         );

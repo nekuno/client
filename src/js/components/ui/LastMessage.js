@@ -21,7 +21,7 @@ export default class LastMessage extends Component {
 
         return (
             <div className="notification">
-                <Link to={`/messages/${user.id}`}>
+                <Link to={`/conversations/${user.id}`}>
                     <div className="notification-picture">
                         <img src={image}/>
                     </div>

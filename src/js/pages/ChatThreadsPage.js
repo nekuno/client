@@ -15,7 +15,7 @@ function getState() {
 }
 
 @connectToStores([ChatThreadStore], getState)
-export default AuthenticatedComponent(class NotificationsPage extends Component {
+export default AuthenticatedComponent(class ChatThreadsPage extends Component {
 
     static propTypes = {
         // Injected by @connectToStores:

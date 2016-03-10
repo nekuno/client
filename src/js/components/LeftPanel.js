@@ -34,7 +34,7 @@ export default class LeftPanel extends Component {
 
         this.handleGoClickProfile = this.handleGoClickProfile.bind(this);
         this.handleGoClickThreads = this.handleGoClickThreads.bind(this);
-        this.handleGoClickNotifications = this.handleGoClickNotifications.bind(this);
+        this.handleGoClickChatThreads = this.handleGoClickChatThreads.bind(this);
         this.logout = this.logout.bind(this);
     }
 
@@ -70,7 +70,7 @@ export default class LeftPanel extends Component {
                             <Link to={`/profile/${user.qnoow_id}`} onClick={this.handleGoClickProfile}>
                                 Mi perfil
                             </Link>
-                            <Link to="/notifications" onClick={this.handleGoClickNotifications}>
+                            <Link to="/conversations" onClick={this.handleGoClickChatThreads}>
                                 Mensajes
                             </Link>
                             <a href="https://nekuno.com">Versión escritorio</a>
@@ -94,9 +94,9 @@ export default class LeftPanel extends Component {
         this.context.history.pushState(null, `/threads/${this.props.user.qnoow_id}`);
     }
 
-    handleGoClickNotifications() {
+    handleGoClickChatThreads() {
         nekunoApp.closePanel();
-        this.context.history.pushState(null, "/notifications");
+        this.context.history.pushState(null, "/conversations");
     }
 
     logout(e) {

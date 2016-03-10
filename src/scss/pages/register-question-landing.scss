@@ -1,0 +1,26 @@
+@import '../_partials/colors';
+
+body #root .App .view .page.register-question-landing-page {
+  #page-content.register-question-landing {
+    margin: 30px auto 0 auto;
+
+    .register-question-landing-button {
+      margin: 20px auto;
+      width:90%;
+    }
+
+    #register-question-landing-image {
+      background: url('img/register-questions-landing-transparent.png');
+      background-size: 100% auto;
+      background-repeat: no-repeat;
+      height: 315px;
+      margin: 25px auto 0 auto;
+      width: 315px;
+    }
+
+    .user-image-wrapper {
+      margin-top: -194px;
+      margin-bottom: 174px;
+    }
+  }
+}

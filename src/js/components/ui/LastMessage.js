@@ -14,7 +14,7 @@ export default class LastMessage extends Component {
         let message = this.props.message;
         let text = message.text;
         let createdAt = message.createdAt;
-        let image = message.user.id === message.user_from.id ? IMAGES_ROOT + message.user_to.image.small : IMAGES_ROOT + message.user_from.image.small;
+        let image = IMAGES_ROOT.slice(0,-1) + (message.user.id === message.user_from.id ? message.user_to.image.small : message.user_from.image.small);
         let user = this.props.user;
         let online = true;
 

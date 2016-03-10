@@ -4,36 +4,45 @@ import { IMAGES_ROOT } from '../../constants/Constants';
 import ChipList from './../ui/ChipList';
 
 export default class ThreadUsers extends Component {
+    static contextTypes = {
+        history: PropTypes.object.isRequired
+    };
+
     static propTypes = {
         thread: PropTypes.object.isRequired,
         last: PropTypes.bool.isRequired,
         userId: PropTypes.number.isRequired
     };
 
+    constructor(props) {
+        super(props);
+
+        this.goToThread = this.goToThread.bind(this);
+    }
+
     render() {
         let thread = this.props.thread;
         let last = this.props.last;
-        let userId = this.props.userId;
         thread = this.mergeImagesWithThread(thread);
 
         return (
-            <div className="thread-listed">
+            <div className="thread-listed" onClick={this.goToThread}>
                 {last ? '' : <div className="threads-vertical-connection"></div>}
                 <div className="thread-first-image">
                     <img src={thread.cached[0].image} />
                 </div>
                 <div className="thread-info-box">
-                    <div className="title thread-title">
-                        <Link to={`users/${userId}/recommendations/${thread.id}`}>
+                    <div className="title thread-title" >
+                        <a>
                             {thread.name}
-                        </Link>
+                        </a>
                     </div>
                     <div className="recommendations-count">
                         {thread.totalResults} Usuarios
                     </div>
                     <div className="thread-images">
                         {thread.cached.map((item, index) => index !== 0 && item.image ?
-                            <div key={item.image} className="thread-image"><img src={item.image} /></div> : '')}
+                            <div key={index} className="thread-image"><img src={item.image} /></div> : '')}
                     </div>
                     <ChipList chips={[
                         {
@@ -69,5 +78,9 @@ export default class ThreadUsers extends Component {
         images.forEach((item, index) => {if (thread.cached[index]) { thread.cached[index].image = item }});
 
         return thread;
+    }
+
+    goToThread() {
+        this.context.history.pushState(null, `users/${this.props.userId}/recommendations/${this.props.thread.id}`)
     }
 }

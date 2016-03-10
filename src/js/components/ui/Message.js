@@ -13,7 +13,7 @@ export default class Message extends Component {
         let message = this.props.message;
         let text = message.text;
         let createdAt = message.createdAt;
-        let image = IMAGES_ROOT + message.user_from.image.small;
+        let image = IMAGES_ROOT.slice(0,-1) + message.user_from.image.small;
         let mine = message.user.id === message.user_from.id;
 
         return (

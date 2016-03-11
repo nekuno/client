@@ -19,6 +19,7 @@ import RegisterQuestionsLandingPage from './pages/RegisterQuestionLandingPage';
 import UserPage from './pages/UserPage';
 import ThreadPage from './pages/ThreadPage';
 import RecommendationPage from './pages/RecommendationPage';
+import ConnectSocialNetworksPage from './pages/ConnectSocialNetworksPage';
 
 export default class Root extends Component {
 
@@ -49,6 +50,7 @@ export default class Root extends Component {
                     <Route name="profile" path="/profile/:userId" component={UserPage}/>
                     <Route name="threads" path="/threads/:userId" component={ThreadPage}/>
                     <Route name="recommendations" path="/users/:userId/recommendations/:threadId" component={RecommendationPage}/>
+                    <Route name="social-networks" path="/social-networks" component={ConnectSocialNetworksPage}/>
                 </Route>
             </Router>
         );

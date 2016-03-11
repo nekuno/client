@@ -3,41 +3,60 @@ import React, { PropTypes, Component } from 'react';
 export default class SocialWheels extends Component {
     static propTypes = {
         picture: PropTypes.string,
-        twitterFetching: PropTypes.bool,
-        twitterFetched: PropTypes.bool,
-        twitterProgress: PropTypes.number,
-        facebookFetching: PropTypes.bool,
-        facebookFetched: PropTypes.bool,
-        facebookProgress: PropTypes.number,
-        googlePlusFetching: PropTypes.bool,
-        googlePlusFetched: PropTypes.bool,
-        googlePlusProgress: PropTypes.number,
-        spotifyFetching: PropTypes.bool,
-        spotifyFetched: PropTypes.bool,
-        spotifyProgress: PropTypes.number
+        data: PropTypes.array
     };
 
     render() {
         const picture = "https://nekuno.com/media/cache/user_avatar_180x180/user/images/msalsas_1445885030.jpg";
-        const posX = 125;
-        const posY = 125;
-        const facebookFetching = true;
-        const twitterFetching = false;
-        const spotifyFetching = false;
-        const googlePlusFetching = false;
-        const facebookFetched = false;
-        const twitterFetched = false;
-        const spotifyFetched = true;
-        const googlePlusFetched = false;
-        const facebookProgress = 0;
-        const twitterProgress = 300;
-        const spotifyProgress = 0;
-        const googlePlusProgress = 95;
+        const posX = 155;
+        const posY = 155;
+        const data = [
+            {
+                // already processed, but not received 'processed' message
+                // (same as processed, just to check 100%)
+                resource: 'facebook',
+                fetching: false,
+                fetched: false,
+                processing: true,
+                process: 100,
+                processed: false
+            },
+            {
+                // already fetched and waiting for processing
+                resource: 'spotify',
+                fetching: false,
+                fetched: true,
+                processing: false,
+                process: 0,
+                processed: false
+            },
+            {
+                // processing at 50%
+                resource: 'twitter',
+                fetching: false,
+                fetched: false,
+                processing: true,
+                process: 50,
+                processed: false
+            },
+            {
+                // already processed
+                resource: 'google-plus',
+                fetching: false,
+                fetched: false,
+                processing: false,
+                process: 0,
+                processed: true
+            }
+        ];
+
+        let initialRadius = 37.5;
 
         return (
             <div className="social-wheels">
-                <svg width="250" height="250" xmlns="http://www.w3.org/2000/svg">
+                <svg width="310" height="310" xmlns="http://www.w3.org/2000/svg">
                     <g>
+                        {/* Wheel separators */}
                         <path d={this.describeArc(posX, posY, 112.5, 0, 359.9)} className="wheel-separator"/>
                         <path d={this.describeArc(posX, posY, 100, 0, 359.9)} className="wheel-separator"/>
                         <path d={this.describeArc(posX, posY, 87.5, 0, 359.9)} className="wheel-separator"/>
@@ -46,20 +65,44 @@ export default class SocialWheels extends Component {
                         <path d={this.describeArc(posX, posY, 50, 0, 359.9)} className="wheel-separator"/>
                         <path d={this.describeArc(posX, posY, 37.5, 0, 359.9)} className="wheel-separator"/>
 
+                        {/* User picture */}
                         <image xlinkHref={picture} x={posX - 25} y={posY - 25} height="50px" width="50px" clipPath="url(#clip)"/>
                         <clipPath id="clip">
                             <rect id="rect" x={posX - 25} y={posY - 25} width="50px" height="50px" rx="25"/>
                         </clipPath>
                         <path d={this.describeArc(posX, posY, 25, 0, 359.9)} className="wheel-picture"/>
 
-                        <path d={this.describeArc(posX, posY, 112.5, 0, facebookProgress)} className="wheel-facebook"/>
-                        {this.renderIcon('facebook', 112.5, facebookProgress, posX, posY, facebookFetching, facebookFetched)}
-                        <path d={this.describeArc(posX, posY, 87.5, 0, spotifyProgress)} className="wheel-spotify"/>
-                        {this.renderIcon('spotify', 87.5, spotifyProgress, posX, posY, spotifyFetching, spotifyFetched)}
-                        <path d={this.describeArc(posX, posY, 62.5, 0, twitterProgress)} className="wheel-twitter"/>
-                        {this.renderIcon('twitter', 62.5, twitterProgress, posX, posY, twitterFetching, twitterFetched)}
-                        <path d={this.describeArc(posX, posY, 37.5, 0, googlePlusProgress)} className="wheel-google-plus"/>
-                        {this.renderIcon('google-plus', 37.5, googlePlusProgress, posX, posY, googlePlusFetching, googlePlusFetched)}
+                        {/* Big icons */}
+                        {/* Use custom degrees bellow for new social networks */}
+                        {data.map(message => {
+                            let captured = message.fetching || message.fetched || message.processing || message.processed;
+                            switch(message.resource) {
+                                case 'facebook':
+                                    return this.renderIcon('facebook', 45, posX, posY, captured);
+                                case 'spotify':
+                                    return this.renderIcon('spotify', 135, posX, posY, captured);
+                                case 'twitter':
+                                    return this.renderIcon('twitter', 225, posX, posY, captured);
+                                case 'google-plus':
+                                    return this.renderIcon('google-plus', 315, posX, posY, captured);
+                            }
+                        })}
+
+                        {/* Social networks wheels */}
+                        {data.map((message, index) => {
+                            let radius = initialRadius + index * 25;
+                            let progress = message.processed ? 359 : message.process * 3.6;
+                            return (
+                                <path d={this.describeArc(posX, posY, radius, 0, progress)} className={"wheel-" + message.resource}/>
+                            );
+                        })}
+
+                        {/* Small icons */}
+                        {data.map((message, index) => {
+                            let radius = initialRadius + index * 25;
+                            let progress = message.processed ? 359 : message.process * 3.6;
+                            return this.renderSmallIcon(message.resource, radius, progress, posX, posY, message.fetching, message.fetched);
+                        })}
                     </g>
                 </svg>
             </div>
@@ -96,7 +139,7 @@ export default class SocialWheels extends Component {
         );
     };
 
-    renderIcon = function (resource, radius, degrees, posX, posY, fetching, fetched) {
+    renderSmallIcon = function (resource, radius, degrees, posX, posY, fetching, fetched) {
         if (fetching) {
             return this.renderFetchingIcon(resource, radius, posX, posY);
         } else if (fetched) {
@@ -104,6 +147,20 @@ export default class SocialWheels extends Component {
         } else {
             return this.renderProcessingIcon(resource, radius, degrees, posX, posY);
         }
+    };
+
+    renderIcon = function (resource, degrees, posX, posY, captured = false) {
+        const iconWrapperClass = captured ? "disabled icon-wrapper big-icon-wrapper text-" + resource : "icon-wrapper big-icon-wrapper text-" + resource;
+
+        return (
+            <foreignObject x={this.textXValue(posX, posY, 137.5, 0, degrees)} y={this.textYValue(posX, posY, 137.5, 0, degrees)} width="30" height="30" requiredExtensions="http://www.w3.org/1999/xhtml">
+                <div className={iconWrapperClass} onClick={function() {
+                  console.log('clicked')
+                }}>
+                    <div className={"icon-" + resource}></div>
+                </div>
+            </foreignObject>
+        )
     };
 
     polarToCartesian = function (centerX, centerY, radius, angleInDegrees) {
@@ -115,8 +172,8 @@ export default class SocialWheels extends Component {
         };
     };
 
-    describeArc = function (x, y, radius, startAngle, endAngle){
-
+    describeArc = function (x, y, radius, startAngle, endAngle) {
+        endAngle = endAngle === 360 ? 359 : endAngle;
         var start = this.polarToCartesian(x, y, radius, endAngle);
         var end = this.polarToCartesian(x, y, radius, startAngle);
 

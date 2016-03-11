@@ -32,7 +32,7 @@ export default class RegisterPage extends Component {
 
     static propTypes = {
         // Injected by @connectToStores:
-        error     : PropTypes.object,
+        error: PropTypes.object,
         requesting: PropTypes.bool.isRequired
     };
 
@@ -40,6 +40,7 @@ export default class RegisterPage extends Component {
         super(props);
         this.handleOnChange = this.handleOnChange.bind(this);
         this.handleFacebook = this.handleFacebook.bind(this);
+        this.handleGoogle = this.handleGoogle.bind(this);
         this.state = {
             url: ''
         };
@@ -61,19 +62,19 @@ export default class RegisterPage extends Component {
         e.preventDefault();
         var history = this.context.history;
         var token = this.props.token;
-        openFB.login(function(response) {
+        openFB.login(function (response) {
             if (response.status === 'connected') {
                 var accessToken = response.authResponse.accessToken;
                 console.log('accessToken:', accessToken);
                 openFB.api({
-                    path   : '/me',
-                    params : {fields: 'id'},
+                    path: '/me',
+                    params: {fields: 'id'},
                     success: (status) => {
                         console.log('userId: ', status.id);
                         ConnectActionCreators.connect(token, accessToken, 'facebook', status.id);
                         history.pushState(null, '/join');
                     },
-                    error  : (status) => {
+                    error: (status) => {
                         nekunoApp.alert('Facebook login failed: ' + status.message);
                     }
                 });
@@ -82,6 +83,27 @@ export default class RegisterPage extends Component {
             }
 
         }, {scope: FACEBOOK_SCOPE});
+    }
+
+    handleGoogle(e) {
+        e.preventDefault();
+        var history = this.context.history;
+        var token = this.props.token;
+        hello('google').login().then(function (response) {
+            var accessToken = response.authResponse.access_token;
+            console.log('accessToken:', accessToken);
+            hello('google').api('me').then(function (status) {
+                    console.log('userId: ', status.id);
+                    ConnectActionCreators.connect(token, accessToken, 'google', status.id);
+                    history.pushState(null, '/join');
+                },
+                function (status) {
+                    nekunoApp.alert('Google login failed: ' + status.error.message);
+                }
+            )
+        }, function (response) {
+            nekunoApp.alert('Google login failed: ' + response.error.message);
+        });
     }
 
     render() {
@@ -104,11 +126,14 @@ export default class RegisterPage extends Component {
                             <div className="title">Nekuno</div>
                             <div className="title">sólo permite el registro por invitación.</div>
                         </div>
-                        <div className="register-sub-title">Por favor, copia la URL que habrás recibido en tu invitación y pégala en el siguiente campo para poder crear tu cuenta en Nekuno.</div>
+                        <div className="register-sub-title">Por favor, copia la URL que habrás recibido en tu invitación
+                            y pégala en el siguiente campo para poder crear tu cuenta en Nekuno.
+                        </div>
 
                         <div className="list-block">
                             <ul>
-                                <TextInput onChange={this.handleOnChange} placeholder={'Pega aquí la URL de la invitación'}/>
+                                <TextInput onChange={this.handleOnChange}
+                                           placeholder={'Pega aquí la URL de la invitación'}/>
                             </ul>
                         </div>
                         <div style={{color: '#FFF'}}>
@@ -118,15 +143,18 @@ export default class RegisterPage extends Component {
                         { token ?
                             <div className="social-box">
                                 <div><a onClick={this.handleFacebook}><span className="icon-facebook"></span></a></div>
+                                <div><a onClick={this.handleGoogle}><span className="icon-google-plus"></span></a></div>
                                 {/*
                                  <div><a><span className="icon-twitter"></span></a></div>
-                                 <div><a><span className="icon-google-plus"></span></a></div>
+
                                  <div><a><span className="icon-spotify"></span></a></div>
                                  */}
                             </div>
                             : '' }
                         <div className="register-title">
-                            <p>Al registrarte, estás aceptando las <a href="https://nekuno.com/static/legal">Condiciones Legales</a> y la <a href="https://nekuno.com/static/privacy">Política de Privacidad</a> de Nekuno.</p>
+                            <p>Al registrarte, estás aceptando las <a href="https://nekuno.com/static/legal">Condiciones
+                                Legales</a> y la <a href="https://nekuno.com/static/privacy">Política de Privacidad</a>
+                                de Nekuno.</p>
                         </div>
                     </div>
                 </div>

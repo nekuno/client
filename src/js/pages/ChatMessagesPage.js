@@ -79,7 +79,7 @@ export default AuthenticatedComponent(class ChatMessagesPage extends Component {
         return (
             <div className="view view-main" ref="list">
                 <LeftMenuTopNavbar centerText={otherUsername}/>
-                <div data-page="index" className="page notifications-page">
+                <div className="page notifications-page">
                     <div id="page-content" className="notifications-content">
                         <DailyMessages messages={messages} date={'20160223'}/>
                         <br />

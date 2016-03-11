@@ -24,3 +24,23 @@
 	color: red;
 }
 
+.user-image-wrapper {
+	background-color: #fff;
+	border-radius: 50%;
+	height: 64px;
+	margin: auto;
+	width: 64px;
+
+	.user-image {
+		height: 60px;
+		margin: 2px auto;
+		width: 60px;
+		img {
+			border-radius: 50%;
+			height: 60px;
+			vertical-align: text-top;;
+			width: 60px;
+		}
+	}
+
+}

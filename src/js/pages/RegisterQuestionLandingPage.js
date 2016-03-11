@@ -49,23 +49,27 @@ export default AuthenticatedComponent(class RegisterQuestionLandingPage extends 
 
         return (
             <div className="view view-main">
-                <div className="page">
-                    <div id="register-landing">
-                        <div id="register-landing-first"> Queremos conocerte un poco mejor</div>
-                        <div id="register-landing-second"> Realiza el test respondiendo por ti y lo que te gustaría que respondiera otro usuario para ser
+                <div className="page register-question-landing-page">
+                    <div id="page-content" className="register-question-landing">
+                        <div className="title"> Queremos conocerte un poco mejor</div>
+                        <div className="excerpt"> Realiza el test respondiendo por ti y lo que te gustaría que respondiera otro usuario para ser
                             compatible contigo
                         </div>
-                        <div id="register-landing-image">
+                        <div id="register-question-landing-image"></div>
+                        <div className="user-image-wrapper">
                             <div className="user-image">
                                 <img src={imgSrc}/>
                             </div>
                         </div>
-                        <div id="start-test">
+                        <div className="register-question-landing-button">
                             <Link to="/answer-question/next">
                                 <FullWidthButton> HACER TEST </FullWidthButton>
                             </Link>
                         </div>
                     </div>
+                    <br/>
+                    <br/>
+                    <br/>
                 </div>
             </div>
         );

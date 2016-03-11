@@ -29,7 +29,7 @@ export default AuthenticatedComponent(class ChatThreadsPage extends Component {
         return (
             <div className="view view-main">
                 <LeftMenuTopNavbar centerText={'Mensajes'}/>
-                <div data-page="index" className="page notifications-page">
+                <div className="page notifications-page">
                     <div id="page-content" className="notifications-content">
                         {
                             threads.map((thread, key) => {

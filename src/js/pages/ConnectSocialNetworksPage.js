@@ -12,7 +12,7 @@ export default AuthenticatedComponent(class ConnectSocialNetworksPage extends Co
     render() {
         return (
             <div className="view view-main">
-                <RegularTopNavbar rightText={'Continuar'}/>
+                <RegularTopNavbar centerText={''} rightText={'Continuar'}/>
                 <div data-page="index" className="page connect-social-networks-page">
                     <div id="page-content" className="connect-social-networks-content">
                         <div className="title">Bienvenido a Nekuno <br />{this.props.user.username}</div>
@@ -20,7 +20,7 @@ export default AuthenticatedComponent(class ConnectSocialNetworksPage extends Co
                             Conecta con Nekuno todas las redes sociales que quieras para mejorar
                         los resultados de los contenidos recomendados.
                         </div>
-                        <br /><br />
+                        <br />
                         <SocialWheels />
                     </div>
                 </div>

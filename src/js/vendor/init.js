@@ -8,6 +8,9 @@ hello.init({
         google: GOOGLE_ID
     },
     {
-        scope: GOOGLE_SCOPE,
-        redirect_uri: '/oauthcallback.html'
+        scope       : GOOGLE_SCOPE,
+        redirect_uri: '/oauthcallback.html',
+        popup       : {
+            location: 'no'
+        }
     });

@@ -14,6 +14,12 @@ class ChatSocketService extends SocketService {
         });
     }
 
+    getMessages(userId, offset) {
+        this._socket.emit('getMessages', userId, offset, () => {
+            console.log('TODO: There is no more messages, remove scroll listener');
+        });
+    }
+
     bind() {
 
         var socket = this._socket;

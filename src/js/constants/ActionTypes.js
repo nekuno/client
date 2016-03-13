@@ -82,17 +82,17 @@ export default keyMirror({
     SKIP_QUESTION_SUCCESS: null,
     SKIP_QUESTION_ERROR  : null,
 
-    REQUEST_OWN_INTERESTS          : null,
-    REQUEST_OWN_INTERESTS_SUCCESS  : null,
-    REQUEST_OWN_INTERESTS_ERROR    : null,
-    REQUEST_NEXT_OWN_INTERESTS     : null,
+    REQUEST_OWN_INTERESTS        : null,
+    REQUEST_OWN_INTERESTS_SUCCESS: null,
+    REQUEST_OWN_INTERESTS_ERROR  : null,
+    REQUEST_NEXT_OWN_INTERESTS   : null,
 
-    RESET_INTERESTS     : null,
+    RESET_INTERESTS: null,
 
-    REQUEST_COMPARED_INTERESTS          : null,
-    REQUEST_COMPARED_INTERESTS_SUCCESS  : null,
-    REQUEST_COMPARED_INTERESTS_ERROR    : null,
-    REQUEST_NEXT_COMPARED_INTERESTS     : null,
+    REQUEST_COMPARED_INTERESTS        : null,
+    REQUEST_COMPARED_INTERESTS_SUCCESS: null,
+    REQUEST_COMPARED_INTERESTS_ERROR  : null,
+    REQUEST_NEXT_COMPARED_INTERESTS   : null,
 
     LIKE_USER        : null,
     LIKE_USER_SUCCESS: null,
@@ -132,6 +132,7 @@ export default keyMirror({
     CHAT_NO_MESSAGES    : null,
     CHAT_USER_STATUS    : null,
     CHAT_SENDING_MESSAGE: null,
+    CHAT_GET_MESSAGES   : null,
 
     WORKERS_FETCH_START   : null,
     WORKERS_FETCH_FINISH  : null,

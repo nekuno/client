@@ -23,7 +23,7 @@ function getState(props) {
 
     return {
         messages,
-        otherUsername: otherUser ? otherUser.username : ''
+        otherUser
     };
 }
 
@@ -48,6 +48,7 @@ export default AuthenticatedComponent(class ChatMessagesPage extends Component {
         super(props);
 
         this.sendMessageHandler = this.sendMessageHandler.bind(this);
+        this.handleScroll = this.handleScroll.bind(this);
     }
 
     componentWillMount() {
@@ -73,11 +74,19 @@ export default AuthenticatedComponent(class ChatMessagesPage extends Component {
         ChatActionCreators.sendMessage(userId, messageText);
     }
 
+    handleScroll() {
+        var list = this.refs.list;
+        if (list.scrollTop === 0) {
+            list.scrollTop = 350;
+            ChatActionCreators.getMessages(this.props.otherUser.id, this.props.messages.length);
+        }
+    }
+
     render() {
         let messages = this.props.messages;
-        let otherUsername = this.props.otherUsername;
+        let otherUsername = this.props.otherUser ? this.props.otherUser.username : '';
         return (
-            <div className="view view-main" ref="list">
+            <div className="view view-main" ref="list" onScroll={this.handleScroll}>
                 <LeftMenuTopNavbar centerText={otherUsername}/>
                 <div className="page notifications-page">
                     <div id="page-content" className="notifications-content">

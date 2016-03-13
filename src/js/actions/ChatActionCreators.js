@@ -19,6 +19,11 @@ export default {
     sendMessage: (userTo, messageText) => {
         dispatch(ActionTypes.CHAT_SENDING_MESSAGE, {userTo, messageText});
         ChatSocketService.sendMessage(userTo, messageText);
+    },
+
+    getMessages: (userId, offset) => {
+        dispatch(ActionTypes.CHAT_GET_MESSAGES, {userId, offset});
+        ChatSocketService.getMessages(userId, offset);
     }
 
 }

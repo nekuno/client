@@ -8,6 +8,8 @@ export default {
 
     GOOGLE_ID   : '351352065100-hjnd2afbiirca4nihu9ck461nv14b5l1.apps.googleusercontent.com',
     GOOGLE_SCOPE : 'email,profile,openid,https://www.googleapis.com/auth/youtube.readonly',
-    
+
+    SPOTIFY_ID : 'e8c3557e29ad4974a1f41e93aeaf6e79',
+
     LAST_RELEASE_DATE: '1 de marzo de 2020'
 }

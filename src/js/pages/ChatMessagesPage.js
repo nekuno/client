@@ -101,7 +101,7 @@ export default AuthenticatedComponent(class ChatMessagesPage extends Component {
         let otherUsername = this.props.otherUser ? this.props.otherUser.username : '';
         return (
             <div className="view view-main" ref="list" onScroll={this.handleScroll}>
-                <LeftMenuTopNavbar centerText={otherUsername}/>
+                <LeftMenuTopNavbar centerText={otherUsername} fixed={true}/>
                 <div className="page notifications-page">
                     <div id="page-content" className="notifications-content">
                         <DailyMessages messages={messages}/>

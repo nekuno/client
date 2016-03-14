@@ -41,6 +41,8 @@ export default class RegisterPage extends Component {
         this.handleOnChange = this.handleOnChange.bind(this);
         this.handleFacebook = this.handleFacebook.bind(this);
         this.handleGoogle = this.handleGoogle.bind(this);
+        this.handleSpotify = this.handleSpotify.bind(this);
+        this.handleSocialNetwork = this.handleSocialNetwork.bind(this);
         this.state = {
             url: ''
         };
@@ -85,24 +87,34 @@ export default class RegisterPage extends Component {
         }, {scope: FACEBOOK_SCOPE});
     }
 
+    handleSpotify(e) {
+        e.preventDefault();
+        return this.handleSocialNetwork('spotify');
+    }
+
     handleGoogle(e) {
         e.preventDefault();
+        return this.handleSocialNetwork('google');
+    }
+
+    handleSocialNetwork(network) {
+        console.log(network);
         var history = this.context.history;
         var token = this.props.token;
-        hello('google').login().then(function (response) {
+        hello(network).login().then(function (response) {
             var accessToken = response.authResponse.access_token;
             console.log('accessToken:', accessToken);
-            hello('google').api('me').then(function (status) {
+            hello(network).api('me').then(function (status) {
                     console.log('userId: ', status.id);
-                    ConnectActionCreators.connect(token, accessToken, 'google', status.id);
+                    ConnectActionCreators.connect(token, accessToken, network, status.id);
                     history.pushState(null, '/join');
                 },
                 function (status) {
-                    nekunoApp.alert('Google login failed: ' + status.error.message);
+                    nekunoApp.alert(network + ' login failed: ' + status.error.message);
                 }
             )
         }, function (response) {
-            nekunoApp.alert('Google login failed: ' + response.error.message);
+            nekunoApp.alert(network + ' login failed: ' + response.error.message);
         });
     }
 
@@ -144,10 +156,11 @@ export default class RegisterPage extends Component {
                             <div className="social-box">
                                 <div><a onClick={this.handleFacebook}><span className="icon-facebook"></span></a></div>
                                 <div><a onClick={this.handleGoogle}><span className="icon-google-plus"></span></a></div>
+                                <div><a onClick={this.handleSpotify}><span className="icon-spotify"></span></a></div>
                                 {/*
                                  <div><a><span className="icon-twitter"></span></a></div>
 
-                                 <div><a><span className="icon-spotify"></span></a></div>
+
                                  */}
                             </div>
                             : '' }

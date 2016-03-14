@@ -37,6 +37,7 @@ export const GOOGLE_ID = config.GOOGLE_ID;
 export const GOOGLE_SCOPE = config.GOOGLE_SCOPE;
 
 export const SPOTIFY_ID = config.SPOTIFY_ID;
+export const SPOTIFY_SCOPE = config.SPOTIFY_SCOPE;
 
 export const LAST_RELEASE_DATE = config.LAST_RELEASE_DATE;
 export const INSTANT_HOST = config.INSTANT_HOST;

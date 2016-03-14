@@ -33,7 +33,8 @@ export default class LastMessage extends Component {
         let image = IMAGES_ROOT.slice(0, -1) + (message.user.id === message.user_from.id ? message.user_to.image.small : message.user_from.image.small);
         let user = this.props.user;
         let online = this.props.online;
-        let style = readed ? {} : {fontWeight: 'bold', color: '#000'};
+        let mine = message.user.id === message.user_from.id;
+        let style = readed || mine ? {} : {fontWeight: 'bold', color: '#000'};
 
         return (
             <div className="notification">

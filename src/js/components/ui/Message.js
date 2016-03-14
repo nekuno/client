@@ -23,7 +23,7 @@ export default class Message extends Component {
                 {mine ?
                     <div className="notification">
                         <div className="notification-text-right">
-                            <div className="notification-excerpt" style={style}>
+                            <div className="notification-excerpt">
                                 {text}
                             </div>
                             <div className="notification-time" title={createdAt.toLocaleString()}>

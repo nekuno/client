@@ -20,6 +20,10 @@ class ChatSocketService extends SocketService {
         });
     }
 
+    markAsReaded(userId, timestamp) {
+        this._socket.emit('markAsReaded', userId, timestamp);
+    }
+
     bind() {
 
         var socket = this._socket;

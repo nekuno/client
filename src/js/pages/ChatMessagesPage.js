@@ -16,8 +16,7 @@ function requestData(props) {
 
 function getState(props) {
 
-    const { params } = props;
-    const userId = params.userId;
+    const userId = props.params.userId;
     const messages = ChatMessageStore.getAllForUser(userId);
     const otherUser = UserStore.get(userId);
 
@@ -48,6 +47,7 @@ export default AuthenticatedComponent(class ChatMessagesPage extends Component {
         super(props);
 
         this.sendMessageHandler = this.sendMessageHandler.bind(this);
+        this.handleFocus = this.handleFocus.bind(this);
         this.handleScroll = this.handleScroll.bind(this);
     }
 
@@ -71,9 +71,17 @@ export default AuthenticatedComponent(class ChatMessagesPage extends Component {
     }
 
     sendMessageHandler(messageText) {
-        const { params } = this.props;
-        const userId = params.userId;
+        const userId = this.props.params.userId;
         ChatActionCreators.sendMessage(userId, messageText);
+    }
+
+    handleFocus(e) {
+        if (this.props.messages.length > 0) {
+            const userId = parseInt(this.props.params.userId);
+            let lastMessage = this.props.messages[this.props.messages.length - 1];
+            let timestamp = lastMessage.createdAt.toISOString();
+            ChatActionCreators.markAsReaded(userId, timestamp);
+        }
     }
 
     handleScroll() {
@@ -101,7 +109,7 @@ export default AuthenticatedComponent(class ChatMessagesPage extends Component {
                     </div>
                 </div>
                 <div>
-                    <MessagesToolBar onClickHandler={this.sendMessageHandler}/>
+                    <MessagesToolBar onClickHandler={this.sendMessageHandler} onFocusHandler={this.handleFocus}/>
                 </div>
             </div>
         );

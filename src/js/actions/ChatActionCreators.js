@@ -28,6 +28,11 @@ export default {
 
     noMoreMessages: (userId) => {
         dispatch(ActionTypes.CHAT_NO_MORE_MESSAGES, {userId});
+    },
+
+    markAsReaded: (userId, timestamp) => {
+        dispatch(ActionTypes.CHAT_MARK_AS_READED, {userId, timestamp});
+        ChatSocketService.markAsReaded(userId, timestamp);
     }
 
 }

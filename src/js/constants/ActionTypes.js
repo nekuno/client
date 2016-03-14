@@ -134,6 +134,7 @@ export default keyMirror({
     CHAT_SENDING_MESSAGE : null,
     CHAT_GET_MESSAGES    : null,
     CHAT_NO_MORE_MESSAGES: null,
+    CHAT_MARK_AS_READED  : null,
 
     WORKERS_FETCH_START   : null,
     WORKERS_FETCH_FINISH  : null,

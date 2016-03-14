@@ -3,12 +3,14 @@ import React, { PropTypes, Component } from 'react';
 export default class MessagesToolBar extends Component {
 
     static propTypes = {
-        onClickHandler: PropTypes.func.isRequired
+        onClickHandler: PropTypes.func.isRequired,
+        onFocusHandler: PropTypes.func.isRequired
     };
 
     constructor(props) {
         super(props);
         this.handleClick = this.handleClick.bind(this);
+        this.handleFocus = this.handleFocus.bind(this);
         this._onKeyDown = this._onKeyDown.bind(this);
     }
 
@@ -18,6 +20,10 @@ export default class MessagesToolBar extends Component {
             this.props.onClickHandler(text);
         }
         this.refs.textarea.value = '';
+    }
+
+    handleFocus(e) {
+        this.props.onFocusHandler(e);
     }
 
     _onKeyDown(event) {
@@ -34,7 +40,7 @@ export default class MessagesToolBar extends Component {
                 <div className="toolbar-inner">
                     <div className="toolbar messagebar">
                         <div className="toolbar-inner">
-                            <textarea placeholder="Escribir mensaje..." ref="textarea" onKeyDown={this._onKeyDown}/>
+                            <textarea placeholder="Escribir mensaje..." ref="textarea" onKeyDown={this._onKeyDown} onFocus={this.handleFocus}/>
                             <a onClick={this.handleClick}>Enviar</a>
                         </div>
                     </div>

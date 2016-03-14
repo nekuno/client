@@ -30,6 +30,17 @@ class ChatMessageStore extends BaseStore {
                 this.emitChange();
                 break;
 
+            case ActionTypes.CHAT_MARK_AS_READED:
+                for (var messageId in this._messages) {
+                    let message = this._messages[messageId];
+                    let user = message.user.id === message.user_from.id ? message.user_to : message.user_from;
+                    if (user.id === action.userId) {
+                        message.readed = true;
+                    }
+                }
+                this.emitChange();
+                break;
+
             default:
                 break;
         }

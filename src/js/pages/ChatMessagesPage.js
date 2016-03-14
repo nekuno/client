@@ -104,7 +104,7 @@ export default AuthenticatedComponent(class ChatMessagesPage extends Component {
                 <LeftMenuTopNavbar centerText={otherUsername}/>
                 <div className="page notifications-page">
                     <div id="page-content" className="notifications-content">
-                        <DailyMessages messages={messages} date={'20160223'}/>
+                        <DailyMessages messages={messages}/>
                         <br />
                     </div>
                 </div>

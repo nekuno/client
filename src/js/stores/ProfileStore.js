@@ -44,8 +44,8 @@ const ProfileStore = createStore({
                         let firstChoices = thisMetadata.choices;
                         const doubleChoices = thisMetadata.doubleChoices;
                         let firstChoice = basicProfile[label]['choice'];
-                        let doubleChoice = basicProfile[label]['detail'];
-                        value = firstChoices[firstChoice] + ' ' + doubleChoices[firstChoice][doubleChoice];
+                        let doubleChoiceValue = basicProfile[label]['detail'] ? doubleChoices[firstChoice][basicProfile[label]['detail']] : '';
+                        value = firstChoices[firstChoice] + ' ' + doubleChoiceValue;
                         break;
                     case 'tags':
                         value = basicProfile[label];
@@ -53,10 +53,14 @@ const ProfileStore = createStore({
                     case 'multiple_choices':
                         let multiple_choices = thisMetadata['choices'];
                         let mchoices = [];
-                        for (let mchoice_label in basicProfile[label]) {
-                            mchoices.push(multiple_choices[mchoice_label]);
+                        if (typeof basicProfile[label] === 'string') {
+                            mchoices.push(multiple_choices[basicProfile[label]]);
+                        } else {
+                            for (let mchoice_label in basicProfile[label]) {
+                                mchoices.push(multiple_choices[basicProfile[label][mchoice_label]]);
+                            }
                         }
-                        value = mchoices.join();
+                        value = mchoices.join(', ');
                         break;
                     case 'tags_and_choice':
                         let tagChoices = thisMetadata['choices'];

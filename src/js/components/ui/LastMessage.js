@@ -28,10 +28,12 @@ export default class LastMessage extends Component {
 
         let message = this.props.message;
         let text = message.text;
+        let readed = message.readed;
         let createdAt = message.createdAt;
         let image = IMAGES_ROOT.slice(0, -1) + (message.user.id === message.user_from.id ? message.user_to.image.small : message.user_from.image.small);
         let user = this.props.user;
         let online = this.props.online;
+        let style = readed ? {} : {fontWeight: 'bold', color: '#000'};
 
         return (
             <div className="notification">
@@ -44,12 +46,12 @@ export default class LastMessage extends Component {
                             <span className="notification-title-text">{user.username}</span>
                             {online ? <span className="status-online icon-circle"></span> : ''}
                         </div>
-                        <div className="notification-excerpt" style={{ fontWeight: online ? 'bold' : 'normal', color: online ? '#000' : '' }}>
+                        <div className="notification-excerpt" style={style}>
                             {text}
                         </div>
                         <div className="notification-time" title={createdAt.toLocaleString()}>
                             <span className="icon-clock"></span>&nbsp;
-                            <span className="notification-time-text" style={{ fontWeight: online ? 'bold' : 'normal' }}>{moment(createdAt).fromNow()}</span>
+                            <span className="notification-time-text" style={style}>{moment(createdAt).fromNow()}</span>
                         </div>
                     </div>
                 </Link>

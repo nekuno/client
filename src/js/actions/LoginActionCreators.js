@@ -6,6 +6,7 @@ import WorkersSocketService from '../services/WorkersSocketService';
 import LoginStore from '../stores/LoginStore';
 import RouterContainer from '../services/RouterContainer';
 import * as QuestionActionCreators from '../actions/QuestionActionCreators';
+import selectn from 'selectn';
 
 export default new class LoginActionCreators {
 
@@ -25,14 +26,21 @@ export default new class LoginActionCreators {
     }
 
     redirect() {
-        var history = RouterContainer.get();
-        var path = '/';
+        let history = RouterContainer.get();
+        let path = '/';
         if (LoginStore.isLoggedIn()) {
             ChatSocketService.connect();
             WorkersSocketService.connect();
             var user = LoginStore.user;
             QuestionActionCreators.requestQuestions(user.qnoow_id).then(function(data){
-                path = data.result.pagination.total < 4 ? '/register-questions-landing' : '/threads/' + user.qnoow_id ;
+                let answers = selectn('result.pagination.total', data) || 0;
+                if (answers == 0) {
+                    path = '/social-networks';
+                } else if (answers < 4) {
+                    path = '/register-questions-landing';
+                } else {
+                    path = '/threads/' + user.qnoow_id;
+                }
                 history.replaceState(null, path);
                 console.log('&*&*&* redirecting to path', path);
             });

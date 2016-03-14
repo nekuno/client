@@ -4,15 +4,23 @@ import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import SocialWheels from '../components/ui/SocialWheels';
 
 export default AuthenticatedComponent(class ConnectSocialNetworksPage extends Component {
+    static contextTypes = {
+        history: PropTypes.object.isRequired
+    };
     static propTypes = {
         // Injected by AuthenticatedComponent
         user: PropTypes.object.isRequired
     };
 
+    constructor(props) {
+        super(props);
+        this.goToRegisterLandingPage = this.goToRegisterLandingPage.bind(this);
+    }
+
     render() {
         return (
             <div className="view view-main">
-                <RegularTopNavbar centerText={''} rightText={'Continuar'}/>
+                <RegularTopNavbar centerText={''} rightText={'Continuar'} onRightLinkClickHandler={this.goToRegisterLandingPage}/>
                 <div data-page="index" className="page connect-social-networks-page">
                     <div id="page-content" className="connect-social-networks-content">
                         <div className="title">Bienvenido a Nekuno <br />{this.props.user.username}</div>
@@ -26,5 +34,9 @@ export default AuthenticatedComponent(class ConnectSocialNetworksPage extends Co
                 </div>
             </div>
         );
+    }
+
+    goToRegisterLandingPage() {
+        this.context.history.pushState(null, 'register-questions-landing')
     }
 });

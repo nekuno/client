@@ -26,6 +26,10 @@ export default class MessagesToolBar extends Component {
         this.props.onFocusHandler(e);
     }
 
+    componentDidMount() {
+        this.refs.textarea.focus();
+    }
+
     _onKeyDown(event) {
         let ENTER_KEY_CODE = 13;
         if (event.keyCode === ENTER_KEY_CODE) {

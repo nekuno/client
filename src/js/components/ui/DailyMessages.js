@@ -16,7 +16,7 @@ export default class DailyMessages extends Component {
             let date = moment(message.createdAt).format('YYYYMMDD');
             if (dates.indexOf(date) === -1) {
                 dates.push(date);
-                messagesByDate.push(<div className="daily-message-title">{moment(date).format('dddd, D MMMM YYYY')}</div>);
+                messagesByDate.push(<div key={date} className="daily-message-title">{moment(date).format('dddd, D MMMM YYYY')}</div>);
                 messagesByDate.push(<Message key={message.id} message={message}/>);
             } else {
                 messagesByDate.push(<Message key={message.id} message={message}/>);

@@ -24,6 +24,10 @@ export default {
     getMessages: (userId, offset) => {
         dispatch(ActionTypes.CHAT_GET_MESSAGES, {userId, offset});
         ChatSocketService.getMessages(userId, offset);
+    },
+
+    noMoreMessages: (userId) => {
+        dispatch(ActionTypes.CHAT_NO_MORE_MESSAGES, {userId});
     }
 
 }

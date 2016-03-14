@@ -7,14 +7,16 @@ class ChatMessageStore extends BaseStore {
         super();
         this.subscribe(() => this._registerToActions.bind(this));
         this._messages = {};
+        this._fresh = {};
         this._noMessages = false;
+        this._noMoreMessages = {};
     }
 
     _registerToActions(action) {
         switch (action.type) {
 
             case ActionTypes.CHAT_MESSAGES:
-                this._addMessages(action.messages);
+                this._addMessages(action.messages, action.fresh);
                 this.emitChange();
                 break;
 
@@ -23,16 +25,23 @@ class ChatMessageStore extends BaseStore {
                 this.emitChange();
                 break;
 
+            case ActionTypes.CHAT_NO_MORE_MESSAGES:
+                this._noMoreMessages[action.userId] = true;
+                this.emitChange();
+                break;
+
             default:
                 break;
         }
     }
 
-    _addMessages(messages) {
+    _addMessages(messages, fresh) {
         messages.forEach((message) => {
             if (!this._messages[message.id]) {
                 message.createdAt = new Date(message.createdAt);
                 this._messages[message.id] = message;
+                let user = message.user.id === message.user_from.id ? message.user_to : message.user_from;
+                this._fresh[user.id] = fresh;
             }
         })
     }
@@ -66,6 +75,14 @@ class ChatMessageStore extends BaseStore {
         });
 
         return userMessages;
+    }
+
+    isFresh(id) {
+        return this._fresh[id] && this._fresh[id] === true;
+    }
+
+    noMoreMessages(id) {
+        return this._noMoreMessages[id] && this._noMoreMessages[id] === true;
     }
 
 }

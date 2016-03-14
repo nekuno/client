@@ -64,8 +64,10 @@ export default AuthenticatedComponent(class ChatMessagesPage extends Component {
     }
 
     _scrollToBottom() {
-        var list = this.refs.list;
-        list.scrollTop = list.scrollHeight;
+        if (ChatMessageStore.isFresh(this.props.params.userId)) {
+            var list = this.refs.list;
+            list.scrollTop = list.scrollHeight;
+        }
     }
 
     sendMessageHandler(messageText) {
@@ -77,8 +79,12 @@ export default AuthenticatedComponent(class ChatMessagesPage extends Component {
     handleScroll() {
         var list = this.refs.list;
         if (list.scrollTop === 0) {
-            list.scrollTop = 350;
-            ChatActionCreators.getMessages(this.props.otherUser.id, this.props.messages.length);
+            if (ChatMessageStore.noMoreMessages(this.props.params.userId)) {
+                list.removeEventListener('scroll', this.handleScroll);
+            } else {
+                list.scrollTop = 150;
+                ChatActionCreators.getMessages(this.props.otherUser.id, this.props.messages.length);
+            }
         }
     }
 

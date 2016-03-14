@@ -49,6 +49,10 @@ export default AuthenticatedComponent(class ChatMessagesPage extends Component {
         this.sendMessageHandler = this.sendMessageHandler.bind(this);
         this.handleFocus = this.handleFocus.bind(this);
         this.handleScroll = this.handleScroll.bind(this);
+
+        this.state = {
+            noMoreMessages: false
+        };
     }
 
     componentWillMount() {
@@ -89,6 +93,7 @@ export default AuthenticatedComponent(class ChatMessagesPage extends Component {
         if (list.scrollTop === 0) {
             if (ChatMessageStore.noMoreMessages(this.props.params.userId)) {
                 list.removeEventListener('scroll', this.handleScroll);
+                this.setState({noMoreMessages: true});
             } else {
                 list.scrollTop = 150;
                 ChatActionCreators.getMessages(this.props.otherUser.id, this.props.messages.length);
@@ -104,6 +109,7 @@ export default AuthenticatedComponent(class ChatMessagesPage extends Component {
                 <LeftMenuTopNavbar centerText={otherUsername} fixed={true}/>
                 <div className="page notifications-page">
                     <div id="page-content" className="notifications-content">
+                        {this.state.noMoreMessages ? <div className="daily-message-title">No tienes más mensajes</div> : '' }
                         <DailyMessages messages={messages}/>
                         <br />
                     </div>

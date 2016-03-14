@@ -10,6 +10,7 @@ export default {
     GOOGLE_SCOPE : 'email,profile,openid,https://www.googleapis.com/auth/youtube.readonly',
 
     SPOTIFY_ID : 'e8c3557e29ad4974a1f41e93aeaf6e79',
+    SPOTIFY_SCOPE : 'user-read-private user-read-email playlist-read-private',
 
     LAST_RELEASE_DATE: '1 de marzo de 2020'
 }

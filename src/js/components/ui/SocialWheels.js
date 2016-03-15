@@ -2,53 +2,15 @@ import React, { PropTypes, Component } from 'react';
 
 export default class SocialWheels extends Component {
     static propTypes = {
-        picture: PropTypes.string,
-        data: PropTypes.array
+        picture : PropTypes.string,
+        networks: PropTypes.array.isRequired
     };
 
     render() {
         const picture = "https://nekuno.com/media/cache/user_avatar_180x180/user/images/msalsas_1445885030.jpg";
         const posX = 155;
         const posY = 155;
-        const data = [
-            {
-                // already processed, but not received 'processed' message
-                // (same as processed, just to check 100%)
-                resource: 'facebook',
-                fetching: false,
-                fetched: false,
-                processing: true,
-                process: 100,
-                processed: false
-            },
-            {
-                // already fetched and waiting for processing
-                resource: 'spotify',
-                fetching: false,
-                fetched: true,
-                processing: false,
-                process: 0,
-                processed: false
-            },
-            {
-                // processing at 50%
-                resource: 'twitter',
-                fetching: false,
-                fetched: false,
-                processing: true,
-                process: 50,
-                processed: false
-            },
-            {
-                // already processed
-                resource: 'google-plus',
-                fetching: false,
-                fetched: false,
-                processing: false,
-                process: 0,
-                processed: true
-            }
-        ];
+        const data = this.props.networks;
 
         let initialRadius = 37.5;
 
@@ -76,7 +38,7 @@ export default class SocialWheels extends Component {
                         {/* Use custom degrees bellow for new social networks */}
                         {data.map((message, index) => {
                             let captured = message.fetching || message.fetched || message.processing || message.processed;
-                            switch(message.resource) {
+                            switch (message.resource) {
                                 case 'facebook':
                                     return this.renderIcon('facebook', 45, posX, posY, captured, index);
                                 case 'spotify':
@@ -109,7 +71,7 @@ export default class SocialWheels extends Component {
         );
     }
 
-    renderProcessingIcon = function (resource, radius, degrees, posX, posY, key) {
+    renderProcessingIcon = function(resource, radius, degrees, posX, posY, key) {
         return (
             <foreignObject key={key} x={this.smallIconXValue(posX, posY, radius, 0, degrees)} y={this.smallIconYValue(posX, posY, radius, 0, degrees)} width="15" height="15" requiredExtensions="http://www.w3.org/1999/xhtml">
                 <div className={"icon-wrapper text-" + resource}>
@@ -119,7 +81,7 @@ export default class SocialWheels extends Component {
         );
     };
 
-    renderFetchingIcon = function (resource, radius, posX, posY, key) {
+    renderFetchingIcon = function(resource, radius, posX, posY, key) {
         return (
             <foreignObject key={key} x={this.smallIconXValue(posX, posY, radius, 0, 0)} y={this.smallIconYValue(posX, posY, radius, 0, 0)} width="15" height="15" requiredExtensions="http://www.w3.org/1999/xhtml">
                 <div className={"fetching-icon icon-wrapper text-" + resource}>
@@ -129,7 +91,7 @@ export default class SocialWheels extends Component {
         );
     };
 
-    renderFetchedIcon = function (resource, radius, posX, posY, key) {
+    renderFetchedIcon = function(resource, radius, posX, posY, key) {
         return (
             <foreignObject key={key} x={this.smallIconXValue(posX, posY, radius, 0, 0)} y={this.smallIconYValue(posX, posY, radius, 0, 0)} width="15" height="15" requiredExtensions="http://www.w3.org/1999/xhtml">
                 <div className={"fetched-icon icon-wrapper text-" + resource}>
@@ -139,7 +101,7 @@ export default class SocialWheels extends Component {
         );
     };
 
-    renderSmallIcon = function (resource, radius, degrees, posX, posY, fetching, fetched, key) {
+    renderSmallIcon = function(resource, radius, degrees, posX, posY, fetching, fetched, key) {
         if (fetching) {
             return this.renderFetchingIcon(resource, radius, posX, posY, key);
         } else if (fetched) {
@@ -149,7 +111,7 @@ export default class SocialWheels extends Component {
         }
     };
 
-    renderIcon = function (resource, degrees, posX, posY, captured = false, key) {
+    renderIcon = function(resource, degrees, posX, posY, captured = false, key) {
         return (
             <g key={key} opacity={captured ? 0.5 : 1}>
                 <foreignObject x={this.bigIconXValue(posX, posY, 137.5, 0, degrees)} y={this.bigIconYValue(posX, posY, 137.5, 0, degrees)}
@@ -165,8 +127,8 @@ export default class SocialWheels extends Component {
         )
     };
 
-    polarToCartesian = function (centerX, centerY, radius, angleInDegrees) {
-        var angleInRadians = (angleInDegrees-90) * Math.PI / 180.0;
+    polarToCartesian = function(centerX, centerY, radius, angleInDegrees) {
+        var angleInRadians = (angleInDegrees - 90) * Math.PI / 180.0;
 
         return {
             x: centerX + (radius * Math.cos(angleInRadians)),
@@ -174,7 +136,7 @@ export default class SocialWheels extends Component {
         };
     };
 
-    describeArc = function (x, y, radius, startAngle, endAngle) {
+    describeArc = function(x, y, radius, startAngle, endAngle) {
         endAngle = endAngle === 360 ? 359 : endAngle;
         var start = this.polarToCartesian(x, y, radius, endAngle);
         var end = this.polarToCartesian(x, y, radius, startAngle);
@@ -187,25 +149,25 @@ export default class SocialWheels extends Component {
         ].join(" ");
     };
 
-    smallIconXValue = function (x, y, radius, startAngle, endAngle) {
+    smallIconXValue = function(x, y, radius, startAngle, endAngle) {
         var end = this.polarToCartesian(x, y, radius, endAngle);
 
         return end.x - 7.5;
     };
 
-    smallIconYValue = function (x, y, radius, startAngle, endAngle) {
+    smallIconYValue = function(x, y, radius, startAngle, endAngle) {
         var end = this.polarToCartesian(x, y, radius, endAngle);
 
         return end.y - 7.5;
     };
 
-    bigIconXValue = function (x, y, radius, startAngle, endAngle) {
+    bigIconXValue = function(x, y, radius, startAngle, endAngle) {
         var end = this.polarToCartesian(x, y, radius, endAngle);
 
         return end.x - 15;
     };
 
-    bigIconYValue = function (x, y, radius, startAngle, endAngle) {
+    bigIconYValue = function(x, y, radius, startAngle, endAngle) {
         var end = this.polarToCartesian(x, y, radius, endAngle);
 
         return end.y - 15;

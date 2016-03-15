@@ -8,7 +8,7 @@ import LoginActionCreators from '../actions/LoginActionCreators';
 import ConnectActionCreators from '../actions/ConnectActionCreators';
 import connectToStores from '../utils/connectToStores';
 import InvitationStore from '../stores/InvitationStore';
-import { FACEBOOK_SCOPE } from '../constants/Constants';
+import { FACEBOOK_SCOPE, GOOGLE_SCOPE, SPOTIFY_SCOPE } from '../constants/Constants';
 
 function getState(props) {
 
@@ -89,19 +89,19 @@ export default class RegisterPage extends Component {
 
     handleSpotify(e) {
         e.preventDefault();
-        return this.handleSocialNetwork('spotify');
+        return this.handleSocialNetwork('spotify', SPOTIFY_SCOPE);
     }
 
     handleGoogle(e) {
         e.preventDefault();
-        return this.handleSocialNetwork('google');
+        return this.handleSocialNetwork('google', GOOGLE_SCOPE);
     }
 
-    handleSocialNetwork(network) {
+    handleSocialNetwork(network, scope) {
         console.log(network);
         var history = this.context.history;
         var token = this.props.token;
-        hello(network).login().then(function (response) {
+        hello(network).login({scope: scope}).then(function (response) {
             var accessToken = response.authResponse.access_token;
             console.log('accessToken:', accessToken);
             hello(network).api('me').then(function (status) {

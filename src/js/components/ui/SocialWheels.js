@@ -45,8 +45,8 @@ export default class SocialWheels extends Component {
                                     return this.renderIcon('spotify', 135, posX, posY, captured, index);
                                 case 'twitter':
                                     return this.renderIcon('twitter', 225, posX, posY, captured, index);
-                                case 'google-plus':
-                                    return this.renderIcon('google-plus', 315, posX, posY, captured, index);
+                                case 'google':
+                                    return this.renderIcon('google', 315, posX, posY, captured, index);
                             }
                         })}
 

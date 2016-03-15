@@ -11,10 +11,6 @@ class WorkersStore extends BaseStore {
 
     _registerToActions(action) {
 
-        if (action.resource === 'google') {
-            action.resource = 'google-plus';
-        }
-
         switch (action.type) {
 
             case ActionTypes.WORKERS_FETCH_START:

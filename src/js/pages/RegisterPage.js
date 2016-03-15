@@ -62,29 +62,7 @@ export default class RegisterPage extends Component {
 
     handleFacebook(e) {
         e.preventDefault();
-        var history = this.context.history;
-        var token = this.props.token;
-        openFB.login(function (response) {
-            if (response.status === 'connected') {
-                var accessToken = response.authResponse.accessToken;
-                console.log('accessToken:', accessToken);
-                openFB.api({
-                    path: '/me',
-                    params: {fields: 'id'},
-                    success: (status) => {
-                        console.log('userId: ', status.id);
-                        ConnectActionCreators.connect(token, accessToken, 'facebook', status.id);
-                        history.pushState(null, '/join');
-                    },
-                    error: (status) => {
-                        nekunoApp.alert('Facebook login failed: ' + status.message);
-                    }
-                });
-            } else {
-                nekunoApp.alert('Facebook login failed: ' + response.status);
-            }
-
-        }, {scope: FACEBOOK_SCOPE});
+        return this.handleSocialNetwork('facebook', FACEBOOK_SCOPE);
     }
 
     handleSpotify(e) {

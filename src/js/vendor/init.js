@@ -1,9 +1,5 @@
 import { FACEBOOK_ID, TWITTER_ID, GOOGLE_ID, SPOTIFY_ID } from '../constants/Constants';
 
-openFB.init({
-    appId: FACEBOOK_ID
-});
-
 let helloOAuthCallback = '/oauthcallback.html';
 
 if (window.cordova) {
@@ -39,7 +35,8 @@ hello.init({
 hello.init(
     {
         google: GOOGLE_ID,
-        spotify: SPOTIFY_ID
+        spotify: SPOTIFY_ID,
+        facebook: FACEBOOK_ID
     },
     {
         redirect_uri: helloOAuthCallback,

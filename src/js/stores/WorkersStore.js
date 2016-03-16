@@ -6,7 +6,39 @@ class WorkersStore extends BaseStore {
     constructor() {
         super();
         this.subscribe(() => this._registerToActions.bind(this));
-        this._networks = [];
+        this._networks = [
+            {
+                resource  : 'facebook',
+                fetching  : false,
+                fetched   : false,
+                processing: false,
+                process   : 0,
+                processed : false
+            },
+            {
+                resource  : 'spotify',
+                fetching  : false,
+                fetched   : false,
+                processing: false,
+                process   : 0,
+                processed : false
+            },
+            {
+                resource  : 'twitter',
+                fetching  : false,
+                fetched   : false,
+                processing: false,
+                process   : 0,
+                processed : false
+            },
+            {
+                resource  : 'google',
+                fetching  : false,
+                fetched   : false,
+                processing: false,
+                process   : 0,
+                processed : false
+            }];
     }
 
     _registerToActions(action) {

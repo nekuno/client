@@ -2,15 +2,16 @@ import React, { PropTypes, Component } from 'react';
 
 export default class SocialWheels extends Component {
     static propTypes = {
-        picture : PropTypes.string,
+        picture : PropTypes.string.isRequired,
         networks: PropTypes.array.isRequired
     };
 
     render() {
-        const picture = "https://nekuno.com/media/cache/user_avatar_180x180/user/images/msalsas_1445885030.jpg";
+
         const posX = 155;
         const posY = 155;
-        const data = this.props.networks;
+        const networks = this.props.networks;
+        const picture = this.props.picture;
 
         let initialRadius = 37.5;
 
@@ -36,7 +37,7 @@ export default class SocialWheels extends Component {
 
                         {/* Big icons */}
                         {/* Use custom degrees bellow for new social networks */}
-                        {data.map((message, index) => {
+                        {networks.map((message, index) => {
                             let captured = message.fetching || message.fetched || message.processing || message.processed;
                             switch (message.resource) {
                                 case 'facebook':
@@ -51,7 +52,7 @@ export default class SocialWheels extends Component {
                         })}
 
                         {/* Social networks wheels */}
-                        {data.map((message, index) => {
+                        {networks.map((message, index) => {
                             let radius = initialRadius + index * 25;
                             let progress = message.processed ? 359 : message.process * 3.6;
                             return (
@@ -60,7 +61,7 @@ export default class SocialWheels extends Component {
                         })}
 
                         {/* Small icons */}
-                        {data.map((message, index) => {
+                        {networks.map((message, index) => {
                             let radius = initialRadius + index * 25;
                             let progress = message.processed ? 359 : message.process * 3.6;
                             return this.renderSmallIcon(message.resource, radius, progress, posX, posY, message.fetching, message.fetched, index);

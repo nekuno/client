@@ -51,7 +51,6 @@ export default class Message extends Component {
                         </div>
                     </div>
                 }
-                <hr />
             </div>
         );
     }

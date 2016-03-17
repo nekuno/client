@@ -49,17 +49,15 @@ export default keyMirror({
     REQUEST_THREADS_SUCCESS: null,
     REQUEST_THREADS_ERROR  : null,
 
-    THREADS_PREV        : null,
-    THREADS_NEXT        : null,
-    REQUEST_THREADS_PAGE: null,
+    THREADS_PREV: null,
+    THREADS_NEXT: null,
 
     REQUEST_RECOMMENDATIONS        : null,
     REQUEST_RECOMMENDATIONS_SUCCESS: null,
     REQUEST_RECOMMENDATIONS_ERROR  : null,
 
-    RECOMMENDATIONS_PREV        : null,
-    RECOMMENDATIONS_NEXT        : null,
-    REQUEST_RECOMMENDATIONS_PAGE: null,
+    RECOMMENDATIONS_PREV: null,
+    RECOMMENDATIONS_NEXT: null,
 
     REQUEST_QUESTIONS        : null,
     REQUEST_QUESTIONS_SUCCESS: null,
@@ -83,6 +81,18 @@ export default keyMirror({
     SKIP_QUESTION        : null,
     SKIP_QUESTION_SUCCESS: null,
     SKIP_QUESTION_ERROR  : null,
+
+    REQUEST_OWN_INTERESTS        : null,
+    REQUEST_OWN_INTERESTS_SUCCESS: null,
+    REQUEST_OWN_INTERESTS_ERROR  : null,
+    REQUEST_NEXT_OWN_INTERESTS   : null,
+
+    RESET_INTERESTS: null,
+
+    REQUEST_COMPARED_INTERESTS        : null,
+    REQUEST_COMPARED_INTERESTS_SUCCESS: null,
+    REQUEST_COMPARED_INTERESTS_ERROR  : null,
+    REQUEST_NEXT_COMPARED_INTERESTS   : null,
 
     LIKE_USER        : null,
     LIKE_USER_SUCCESS: null,
@@ -116,5 +126,21 @@ export default keyMirror({
     UNLIKE_CONTENT_SUCCESS: null,
     UNLIKE_CONTENT_ERROR  : null,
 
-    ROUTER_NEXT_TRANSITION_PATH: null
+    ROUTER_NEXT_TRANSITION_PATH: null,
+
+    CHAT_MESSAGES        : null,
+    CHAT_NO_MESSAGES     : null,
+    CHAT_USER_STATUS     : null,
+    CHAT_SENDING_MESSAGE : null,
+    CHAT_GET_MESSAGES    : null,
+    CHAT_NO_MORE_MESSAGES: null,
+    CHAT_MARK_AS_READED  : null,
+
+    WORKERS_FETCH_START   : null,
+    WORKERS_FETCH_FINISH  : null,
+    WORKERS_PROCESS_START : null,
+    WORKERS_PROCESS_LINK  : null,
+    WORKERS_PROCESS_FINISH: null,
+    WORKERS_USER_STATUS   : null
+
 });

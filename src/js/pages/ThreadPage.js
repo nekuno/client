@@ -27,7 +27,7 @@ function requestData(props) {
  */
 function getState(props) {
     const threadIds = ThreadsByUserStore.getThreadsFromUser(props.user.qnoow_id);
-    const threads = threadIds? threadIds.map(ThreadStore.get) : [];
+    const threads = threadIds ? threadIds.map(ThreadStore.get) : [];
 
     return {
         threads
@@ -61,7 +61,7 @@ export default AuthenticatedComponent(class ThreadPage extends Component {
         return (
             <div className="view view-main">
                 <LeftMenuTopNavbar centerText={'Hilos'} centerTextSize={'large'} />
-                <div data-page="index" className="page threads-page">
+                <div className="page threads-page">
                     <div id="page-content">
                         <ThreadList threads={this.props.threads} userId={this.props.user.qnoow_id} />
                     </div>

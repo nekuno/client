@@ -8,7 +8,9 @@ export default class RegularTopNavbar extends Component {
 	static propTypes = {
 		leftText: PropTypes.string,
 		centerText: PropTypes.string,
-		rightText: PropTypes.string
+		rightText: PropTypes.string,
+		onRightLinkClickHandler: PropTypes.func
+
 	};
 
 	shouldComponentUpdate = shouldPureComponentUpdate;
@@ -20,7 +22,7 @@ export default class RegularTopNavbar extends Component {
 					<div className="row">
 						<TopLeftLink text={this.props.leftText} />
 						<RegularTopTitle text={this.props.centerText} />
-						<TopRightLink text={this.props.rightText} />
+						<TopRightLink text={this.props.rightText} onClickHandler={this.props.onRightLinkClickHandler} />
 					</div>
 				</div>
 			</div>

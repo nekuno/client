@@ -1,12 +1,38 @@
 body #root .App .view .page.other-interests-page  {
-  height: 100%;
-
   #page-content {
-    background: url('img/provisional-screens/other-interests_coming_soon.jpg') no-repeat;
-    background-size: 100% auto;
-    height: 100%;
-    margin-left: 0;
-    margin-right: 0;
-    width: 100%;
+    margin: 60px auto 0 auto;
+    width: 98%;
+
+    .profile-avatars-connection {
+      margin: 50px auto 10px auto;
+      text-align: center;
+    }
+
+    .title {
+      margin-bottom: 10px;
+    }
+
+    .common-content-switch {
+      margin: auto;
+      width: 75%;
+
+      .text-radios {
+        padding: 5px 0 35px 0;
+
+        .chip {
+          width: 49%;
+        }
+      }
+    }
+    .content-list {
+      .card {
+        display: inline-block;
+        margin: 5px 1% 5px 1%;
+        width: 48%;
+      }
+    }
+    .content-carousel .swiper-slide {
+      width: 275px;
+    }
   }
 }

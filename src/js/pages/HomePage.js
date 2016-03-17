@@ -26,26 +26,26 @@ export default class HomePage extends Component {
         history: PropTypes.object.isRequired
     };
 
-    componentDidMount() {
-        initSwiper();
-    }
-
-    componentWillUnmount() {
-        destroySwiper();
-    }
-
     constructor(props) {
         super(props);
-        this.state = {needsUpdating: false};
+        this.promise = null;
+        this.state = {
+            needsUpdating: false
+        };
     }
 
-    componentWillMount() {
-        getVersion().then((response) => {
+    componentDidMount() {
+        initSwiper();
+        this.promise = getVersion().then((response) => {
             var lastVersion = moment(response, 'DD [de] MMMM [de] YYYY');
             var thisVersion = moment(LAST_RELEASE_DATE, 'DD [de] MMMM [de] YYYY');
             this.setState({needsUpdating: lastVersion > thisVersion});
         });
+    }
 
+    componentWillUnmount() {
+        destroySwiper();
+        this.promise.cancel();
     }
 
     render() {
@@ -65,7 +65,7 @@ export default class HomePage extends Component {
         return (
             [1, 2, 3].map(i =>
                 <div key={i} className="swiper-slide">
-                    <div id={'login-' + i + '-image'} data-page="index" className="page">
+                    <div id={'login-' + i + '-image'} className="page">
                         <div className="linear-gradient-rectangle"></div>
                         <div className="nekuno-logo-wrapper">
                             <div className="nekuno-logo"></div>

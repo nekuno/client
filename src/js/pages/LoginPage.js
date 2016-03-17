@@ -31,15 +31,24 @@ export default class LoginPage extends Component {
 
     constructor() {
         super();
+        this.login = this.login.bind(this);
+        this._onKeyDown = this._onKeyDown.bind(this);
         this.state = {
             user    : '',
             password: ''
         };
     }
 
-    login(e) {
-        e.preventDefault();
+    login() {
         LoginActionCreators.loginUser(this.state.user, this.state.password);
+    }
+
+    _onKeyDown(event) {
+        let ENTER_KEY_CODE = 13;
+        if (event.keyCode === ENTER_KEY_CODE) {
+            event.preventDefault();
+            this.login();
+        }
     }
 
     linkState(key) {
@@ -54,15 +63,15 @@ export default class LoginPage extends Component {
         return (
             <div className="view view-main">
                 <RegularTopNavbar leftText={'Cancelar'} centerText={'Iniciar sesión'}/>
-                <div data-page="index" className="page">
+                <div className="page">
                     <div id="page-content" className="login-content">
                         <div className="list-block">
                             <ul>
-                                <TextInput placeholder={'Usuario o email'} valueLink={this.linkState('user')}/>
-                                <PasswordInput placeholder={'Contraseña'} valueLink={this.linkState('password')}/>
+                                <TextInput placeholder={'Usuario o email'} valueLink={this.linkState('user')} onKeyDown={this._onKeyDown}/>
+                                <PasswordInput placeholder={'Contraseña'} valueLink={this.linkState('password')} onKeyDown={this._onKeyDown}/>
                             </ul>
                         </div>
-                        <FullWidthButton type="submit" onClick={this.login.bind(this)}>Iniciar Sesión</FullWidthButton>
+                        <FullWidthButton type="submit" onClick={this.login}>Iniciar Sesión</FullWidthButton>
                         <div style={{color: '#FFF'}}>
                             <p>{ requesting ? 'Enviando...' : ''}</p>
                             <p>{ error ? error.error : ''}</p>

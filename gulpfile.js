@@ -43,7 +43,9 @@ gulp.task('build-vendor-js', function() {
     var paths = [
         './node_modules/framework7/dist/js/framework7.min.js',
         './node_modules/Framework7-3D-Panels/dist/framework7.3dpanels.min.js',
-        './src/js/vendor/openfb.js'
+        './src/js/vendor/openfb.js',
+        './src/js/vendor/hello.js',
+        './src/js/vendor/socket.io.min.js'
     ];
     return gulp.src(paths)
         .pipe(concat('vendor.js'))

@@ -71,6 +71,10 @@ class RegisterStore extends BaseStore {
         return error;
     }
 
+    deleteUser() {
+        this._user = null;
+    }
+
     requesting() {
         return this._requesting;
     }

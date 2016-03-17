@@ -11,9 +11,14 @@ export const API_URLS = {
     REGISTER_USER            : API_ROOT + 'users',
     REGISTER_PROFILE         : API_ROOT + 'profile',
     CONSUME_INVITATION       : API_ROOT + 'invitations/consume/{token}',
-    CONNECT_ACCOUNT          : API_ROOT + 'tokens/{resource}?extend'
+    CONNECT_ACCOUNT          : API_ROOT + 'tokens/{resource}?extend',
+
+    OWN_INTERESTS            : API_ROOT + 'content?type={type}',
+    COMPARED_INTERESTS       : API_ROOT + 'content/compare/{userId}?type={type}&showOnlyCommon={showOnlyCommon}'
 };
 export const QUESTION_STATS_COLORS = [
+    // light green
+    '#32ca91',
     // purple
     '#2d205f',
     // deep purple
@@ -23,10 +28,16 @@ export const QUESTION_STATS_COLORS = [
     // yellow
     '#adb32f',
     // flesh-colored
-    '#d96484',
-    // light green
-    '#32ca91'
+    '#d96484'
 ];
 export const FACEBOOK_ID = config.FACEBOOK_ID;
 export const FACEBOOK_SCOPE = config.FACEBOOK_SCOPE;
+
+export const GOOGLE_ID = config.GOOGLE_ID;
+export const GOOGLE_SCOPE = config.GOOGLE_SCOPE;
+
+export const SPOTIFY_ID = config.SPOTIFY_ID;
+export const SPOTIFY_SCOPE = config.SPOTIFY_SCOPE;
+
 export const LAST_RELEASE_DATE = config.LAST_RELEASE_DATE;
+export const INSTANT_HOST = config.INSTANT_HOST;

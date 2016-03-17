@@ -1,0 +1,51 @@
+.popup-overlay.modal-overlay-visible {
+	visibility: collapse;
+}
+
+.popup {
+	background: $dark-purple-semi-translucent;
+	overflow: hidden;
+	position: fixed;
+
+	.content-block {
+		a {
+			color: #fff;
+			font-size: 1.1em;
+		}
+		.popup-filter-contents-title {
+			margin-top: 80px;
+			margin-bottom: 40px;
+		}
+		.filter-icons-row-wrapper {
+			margin-top: 20px;
+			text-align: center;
+
+			.icons-large-wrapper {
+				background-color: $deep-purple;
+				border-radius: 50%;
+				cursor: pointer;
+				display: inline-block;
+				height: 90px;
+				margin: 0 2% 0 2%;
+				text-align: center;
+				width: 90px;
+
+				.icon {
+					font-size: 2em;
+					padding-top: 20px;
+				}
+
+				.icon-web-site {
+					font-size: 3em;
+					line-height: 0.7;
+				}
+
+				.icons-large-text {
+					font-size: 0.8em;
+					font-weight: bold;
+					margin-top: 5px;
+				}
+			}
+		}
+	}
+}

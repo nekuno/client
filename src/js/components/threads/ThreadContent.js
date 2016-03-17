@@ -4,28 +4,39 @@ import ChipList from './../ui/ChipList';
 import selectn from 'selectn';
 
 export default class ThreadContent extends Component {
+    static contextTypes = {
+        history: PropTypes.object.isRequired
+    };
+
     static propTypes = {
         thread: PropTypes.object.isRequired,
         last: PropTypes.bool.isRequired,
         userId: PropTypes.number.isRequired
     };
 
+    constructor(props) {
+        super(props);
+
+        this.goToThread = this.goToThread.bind(this);
+    }
+
     render() {
         let thread = this.props.thread;
         let last = this.props.last;
-        let userId = this.props.userId;
+        let type = selectn('type', thread.filters);
+        let tag = selectn('tag', thread.filters);
 
         return (
-            <div className="thread-listed">
+            <div className="thread-listed" onClick={this.goToThread}>
                 {last ? '' : <div className="threads-vertical-connection"></div>}
                 <div className="thread-first-image">
-                    {this.renderImage(thread.cached[0], thread.type)}
+                    {this.renderImage(thread.cached[0], type)}
                 </div>
                 <div className="thread-info-box">
                     <div className="title thread-title">
-                        <Link to={`users/${userId}/recommendations/${thread.id}`}>
+                        <a>
                             {thread.name}
-                        </Link>
+                        </a>
                     </div>
                     <div className="recommendations-count">
                         {thread.totalResults} Contenidos
@@ -33,24 +44,24 @@ export default class ThreadContent extends Component {
                     <div className="thread-images">
                         {thread.cached.map((item, index) => {
                             if(index !== 0) {
-                                return <div key={index} className="thread-image">{this.renderImage(item, thread.type)}</div>
+                                return <div key={index} className="thread-image">{this.renderImage(item, type)}</div>
                             }
                         })}
                     </div>
-                    {this.renderChipList(thread)}
+                    {this.renderChipList(thread, type, tag)}
                 </div>
             </div>
         );
     }
 
-    renderChipList = function(thread) {
+    renderChipList = function(thread, type, tag) {
         let chips = [];
         chips.push({'label': 'Contenidos'});
-        if (thread.type) {
-            chips.push({'label': thread.type});
+        if (type && type != 'Link') {
+            chips.push({'label': type});
         }
-        if (thread.tag) {
-            chips.push({'label': thread.tag});
+        if (tag) {
+            chips.push({'label': tag});
         }
 
         return (
@@ -70,4 +81,8 @@ export default class ThreadContent extends Component {
             <img src={imgSrc} />
         );
     };
+
+    goToThread() {
+        this.context.history.pushState(null, `users/${this.props.userId}/recommendations/${this.props.thread.id}`)
+    }
 }

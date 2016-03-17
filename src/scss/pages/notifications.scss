@@ -1,12 +1,16 @@
+@import "../_partials/colors";
+
 body #root .App .view .page.notifications-page  {
-  height: 100%;
+  background: #fff;
+  height: inherit;
 
   #page-content {
-    background: url('img/provisional-screens/notifications_coming_soon.jpg') no-repeat;
-    background-size: 100% auto;
-    height: 100%;
-    margin-left: 0;
-    margin-right: 0;
+    background: #fff;
+    padding: 10px 0 10px 0;
     width: 100%;
+
+    hr {
+      opacity: 0.2;
+    }
   }
 }

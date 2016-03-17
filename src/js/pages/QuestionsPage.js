@@ -78,7 +78,7 @@ export default AuthenticatedComponent(class QuestionsPage extends Component {
         return (
             <div className="view view-main" onScroll={this.handleScroll}>
                 <LeftMenuTopNavbar centerText={'Mi Perfil'}/>
-                <div data-page="index" className="page questions-page">
+                <div className="page questions-page">
                     <div id="page-content" className="questions-content">
                         <div className="answer-questions-link-container">
                             <Link to="/answer-question/next">
@@ -126,6 +126,7 @@ export default AuthenticatedComponent(class QuestionsPage extends Component {
         let offsetTopMax = parseInt(document.getElementById('page-content').offsetHeight);
 
         if (nextLink && offsetTop >= offsetTopMax) {
+            document.getElementsByClassName('view')[0].removeEventListener('scroll', this.handleScroll);
             QuestionActionCreators.requestNextQuestions(parseId(this.props.user), nextLink);
         }
     }

@@ -6,7 +6,8 @@ export default class TopLeftLink extends Component {
 		history: PropTypes.object.isRequired
 	};
 	static propTypes = {
-		text: PropTypes.string
+		text: PropTypes.string,
+		onClickHandler: PropTypes.func
 	};
 
 	shouldComponentUpdate = shouldPureComponentUpdate;
@@ -14,7 +15,7 @@ export default class TopLeftLink extends Component {
 	render() {
 		return (
 			<div className="col-25 left">
-				<a href="#" onClick={() => this.context.history.goBack()}>
+				<a onClick={typeof this.props.onClickHandler !== 'undefined' ? this.props.onClickHandler : this.context.history.goBack}>
 					{this.props.text}
 				</a>
 			</div>

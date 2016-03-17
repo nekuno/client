@@ -8,7 +8,7 @@ import LoginActionCreators from '../actions/LoginActionCreators';
 import ConnectActionCreators from '../actions/ConnectActionCreators';
 import connectToStores from '../utils/connectToStores';
 import InvitationStore from '../stores/InvitationStore';
-import { FACEBOOK_SCOPE } from '../constants/Constants';
+import { FACEBOOK_SCOPE, GOOGLE_SCOPE, SPOTIFY_SCOPE } from '../constants/Constants';
 
 function getState(props) {
 
@@ -32,7 +32,7 @@ export default class RegisterPage extends Component {
 
     static propTypes = {
         // Injected by @connectToStores:
-        error     : PropTypes.object,
+        error: PropTypes.object,
         requesting: PropTypes.bool.isRequired
     };
 
@@ -40,6 +40,9 @@ export default class RegisterPage extends Component {
         super(props);
         this.handleOnChange = this.handleOnChange.bind(this);
         this.handleFacebook = this.handleFacebook.bind(this);
+        this.handleGoogle = this.handleGoogle.bind(this);
+        this.handleSpotify = this.handleSpotify.bind(this);
+        this.handleSocialNetwork = this.handleSocialNetwork.bind(this);
         this.state = {
             url: ''
         };
@@ -50,7 +53,7 @@ export default class RegisterPage extends Component {
         clearTimeout(this.tokenTimeout);
         var token = e.target.value;
         this.tokenTimeout = setTimeout(() => {
-            token = token.replace(/(http[s]?:\/\/)?(www\.)?(pre\.)?(nekuno.com\/)?(invitation\/)?(inv)?/ig, '');
+            token = token.replace(/(http[s]?:\/\/)?(www\.)?(pre\.)?(local\.)?(nekuno.com\/)?(invitation\/)?(inv)?/ig, '');
             if (token) {
                 ConnectActionCreators.validateInvitation(token);
             }
@@ -59,29 +62,38 @@ export default class RegisterPage extends Component {
 
     handleFacebook(e) {
         e.preventDefault();
+        return this.handleSocialNetwork('facebook', FACEBOOK_SCOPE);
+    }
+
+    handleSpotify(e) {
+        e.preventDefault();
+        return this.handleSocialNetwork('spotify', SPOTIFY_SCOPE);
+    }
+
+    handleGoogle(e) {
+        e.preventDefault();
+        return this.handleSocialNetwork('google', GOOGLE_SCOPE);
+    }
+
+    handleSocialNetwork(network, scope) {
+        console.log(network);
         var history = this.context.history;
         var token = this.props.token;
-        openFB.login(function(response) {
-            if (response.status === 'connected') {
-                var accessToken = response.authResponse.accessToken;
-                console.log('accessToken:', accessToken);
-                openFB.api({
-                    path   : '/me',
-                    params : {fields: 'id'},
-                    success: (status) => {
-                        console.log('userId: ', status.id);
-                        ConnectActionCreators.connect(token, accessToken, 'facebook', status.id);
-                        history.pushState(null, '/join');
-                    },
-                    error  : (status) => {
-                        nekunoApp.alert('Facebook login failed: ' + status.message);
-                    }
-                });
-            } else {
-                nekunoApp.alert('Facebook login failed: ' + response.status);
-            }
-
-        }, {scope: FACEBOOK_SCOPE});
+        hello(network).login({scope: scope}).then(function (response) {
+            var accessToken = response.authResponse.access_token;
+            console.log('accessToken:', accessToken);
+            hello(network).api('me').then(function (status) {
+                    console.log('userId: ', status.id);
+                    ConnectActionCreators.connect(token, accessToken, network, status.id);
+                    history.pushState(null, '/join');
+                },
+                function (status) {
+                    nekunoApp.alert(network + ' login failed: ' + status.error.message);
+                }
+            )
+        }, function (response) {
+            nekunoApp.alert(network + ' login failed: ' + response.error.message);
+        });
     }
 
     render() {
@@ -98,17 +110,20 @@ export default class RegisterPage extends Component {
         return (
             <div className="view view-main">
                 <RegularTopNavbar leftText={'Cancelar'} centerText={'Crear cuenta'}/>
-                <div data-page="index" className="page">
+                <div className="page">
                     <div id="page-content" className="register-content">
                         <div className="register-title bold">
                             <div className="title">Nekuno</div>
                             <div className="title">sólo permite el registro por invitación.</div>
                         </div>
-                        <div className="register-sub-title">Por favor, copia la URL que habrás recibido en tu invitación y pégala en el siguiente campo para poder crear tu cuenta en Nekuno.</div>
+                        <div className="register-sub-title">Por favor, copia la URL que habrás recibido en tu invitación
+                            y pégala en el siguiente campo para poder crear tu cuenta en Nekuno.
+                        </div>
 
                         <div className="list-block">
                             <ul>
-                                <TextInput onChange={this.handleOnChange} placeholder={'Pega aquí la URL de la invitación'}/>
+                                <TextInput onChange={this.handleOnChange}
+                                           placeholder={'Pega aquí la URL de la invitación'}/>
                             </ul>
                         </div>
                         <div style={{color: '#FFF'}}>
@@ -118,15 +133,19 @@ export default class RegisterPage extends Component {
                         { token ?
                             <div className="social-box">
                                 <div><a onClick={this.handleFacebook}><span className="icon-facebook"></span></a></div>
+                                <div><a onClick={this.handleGoogle}><span className="icon-google"></span></a></div>
+                                <div><a onClick={this.handleSpotify}><span className="icon-spotify"></span></a></div>
                                 {/*
                                  <div><a><span className="icon-twitter"></span></a></div>
-                                 <div><a><span className="icon-google-plus"></span></a></div>
-                                 <div><a><span className="icon-spotify"></span></a></div>
+
+
                                  */}
                             </div>
                             : '' }
                         <div className="register-title">
-                            <p>Al registrarte, estás aceptando las <a href="https://nekuno.com/static/legal">Condiciones Legales</a> y la <a href="https://nekuno.com/static/privacy">Política de Privacidad</a> de Nekuno.</p>
+                            <p>Al registrarte, estás aceptando las <a href="https://nekuno.com/static/legal">Condiciones
+                                Legales</a> y la <a href="https://nekuno.com/static/privacy">Política de Privacidad</a>
+                                de Nekuno.</p>
                         </div>
                     </div>
                 </div>

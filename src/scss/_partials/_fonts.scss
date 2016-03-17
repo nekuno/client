@@ -64,6 +64,10 @@ $nekuno-logo-font: 'klinic_slabmedium';
 	-moz-osx-font-smoothing: grayscale;
 }
 
+.disabled-icon {
+	opacity: 0.5;
+}
+
 .icon-circle:before {
 	content: "\e929";
 }
@@ -87,8 +91,9 @@ $nekuno-logo-font: 'klinic_slabmedium';
 .icon-calendar:before {
 	content: "\e902";
 }
-.icon-chanels:before {
+.icon-channels:before {
 	content: "\e903";
+	font-size: 20px;
 }
 .icon-clock:before {
 	content: "\e904";
@@ -105,7 +110,7 @@ $nekuno-logo-font: 'klinic_slabmedium';
 .icon-female:before {
 	content: "\e908";
 }
-.icon-google-plus:before {
+.icon-google:before {
 	content: "\e909";
 }
 .icon-image:before {
@@ -132,6 +137,7 @@ $nekuno-logo-font: 'klinic_slabmedium';
 }
 .icon-message:before {
 	content: "\e911";
+	font-size: 20px;
 }
 .icon-mixed-gender:before {
 	content: "\e912";

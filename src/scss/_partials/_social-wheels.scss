@@ -1,0 +1,100 @@
+body #root .App .view {
+
+  .social-wheels {
+    text-align: center;
+
+    path {
+      fill: none;
+      stroke-width: 1.5px;
+    }
+    .icon-wrapper {
+      cursor: default;
+      font-size: 1.1em;
+      height: 15px;
+      width: 15px;
+    }
+    .icon-wrapper:last-of-type {
+      margin-left: 0;
+    }
+    .fetching-icon {
+      -moz-animation-duration: 1s;
+      -webkit-animation-duration: 1s;
+      animation-duration: 1s;
+      -moz-animation-name: background-to-yellow;
+      -webkit-animation-name: background-to-yellow;
+      animation-name: background-to-yellow;
+      -moz-animation-iteration-count: infinite;
+      -webkit-animation-iteration-count: infinite;
+      animation-iteration-count: infinite;
+      -moz-animation-direction: alternate;
+      -webkit-animation-direction: alternate;
+      animation-direction: alternate;
+    }
+    .fetched-icon {
+      -moz-animation-duration: 1s;
+      -webkit-animation-duration: 1s;
+      animation-duration: 1s;
+      -moz-animation-name: background-to-orange;
+      -webkit-animation-name: background-to-orange;
+      animation-name: background-to-orange;
+      -moz-animation-iteration-count: infinite;
+      -webkit-animation-iteration-count: infinite;
+      animation-iteration-count: infinite;
+      -moz-animation-direction: alternate;
+      -webkit-animation-direction: alternate;
+      animation-direction: alternate;
+    }
+
+    @keyframes background-to-yellow {
+      to {
+        -webkit-box-shadow: 0 0 1px 1px yellow;
+        -moz-box-shadow: 0 0 1px 1px yellow;
+        box-shadow: 0 0 1px 1px yellow;
+      }
+    }
+    @keyframes background-to-orange {
+      to {
+        -webkit-box-shadow: 0 0 1px 1px orange;
+        -moz-box-shadow: 0 0 1px 1px orange;
+        box-shadow: 0 0 1px 1px orange;
+      }
+    }
+
+    .wheel-picture {
+      stroke: #fff;
+    }
+    .wheel-separator {
+      stroke: $light-gray-translucent;
+    }
+    .wheel-twitter {
+      stroke: $twitter-blue;
+    }
+    .text-twitter {
+      background-color: $twitter-blue;
+    }
+    .wheel-facebook {
+      stroke: $facebook-blue;
+    }
+    .text-facebook {
+      background-color: $facebook-blue;
+    }
+    .wheel-google {
+      stroke: $google-red;
+    }
+    .text-google {
+      background-color: $google-red;
+    }
+    .wheel-spotify {
+      stroke: $spotify-green;
+    }
+    .text-spotify {
+      background-color: $spotify-green;
+    }
+
+    .big-icon-wrapper.icon-wrapper {
+      font-size: 2.1em;
+      height: 30px;
+      width: 30px;
+    }
+  }
+}

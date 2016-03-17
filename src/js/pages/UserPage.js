@@ -14,6 +14,7 @@ import User from '../components/User';
 import OtherProfileData from '../components/profile/OtherProfileData';
 import ProfileDataList from '../components/profile/ProfileDataList'
 import LeftMenuTopNavbar from '../components/ui/LeftMenuTopNavbar';
+import OtherUserTopNavbar from '../components/ui/OtherUserTopNavbar';
 import ProgressBar from '../components/ui/ProgressBar';
 import ToolBar from '../components/ui/ToolBar';
 import Button from '../components/ui/Button';
@@ -191,8 +192,12 @@ export default AuthenticatedComponent(class UserPage extends Component {
 
         return (
             <div className="view view-main">
-                <div data-page="index" className="page toolbar-fixed user-page">
-                    <LeftMenuTopNavbar centerText={currentUser && !ownProfile ? currentUser.username : 'Mi Perfil'} />
+                <div className="page toolbar-fixed user-page">
+                    {ownProfile ?
+                        <LeftMenuTopNavbar centerText={'Mi Perfil'} />
+                        :
+                        <OtherUserTopNavbar centerText={currentUser ? currentUser.username : ''} userId={currentUserId} />
+                    }
 
                     <div id="page-content">
 

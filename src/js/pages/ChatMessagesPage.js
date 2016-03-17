@@ -106,7 +106,7 @@ export default AuthenticatedComponent(class ChatMessagesPage extends Component {
         let otherUsername = this.props.otherUser ? this.props.otherUser.username : '';
         return (
             <div className="view view-main" ref="list" onScroll={this.handleScroll}>
-                <LeftMenuTopNavbar centerText={otherUsername} fixed={true}/>
+                <LeftMenuTopNavbar centerText={otherUsername}/>
                 <div className="page notifications-page">
                     <div id="page-content" className="notifications-content">
                         {this.state.noMoreMessages ? <div className="daily-message-title">No tienes más mensajes</div> : '' }

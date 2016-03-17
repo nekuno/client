@@ -8,15 +8,14 @@ export default class OtherUserTopNavbar extends Component {
 	static propTypes = {
 		centerText: PropTypes.string,
 		centerTextSize: PropTypes.string,
-		userId: PropTypes.number,
-		fixed: PropTypes.bool
+		userId: PropTypes.number
 	};
 
 	shouldComponentUpdate = shouldPureComponentUpdate;
 
 	render() {
 		return (
-			<div className="navbar" style={ this.props.fixed ? {position: 'fixed'} : {} }>
+			<div className="navbar">
 				<div id="navbar-inner" className="navbar-inner">
 					<div className="row">
 						<TopLeftMenuLink />

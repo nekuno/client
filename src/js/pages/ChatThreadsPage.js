@@ -28,7 +28,7 @@ export default AuthenticatedComponent(class ChatThreadsPage extends Component {
 
         return (
             <div className="view view-main">
-                <LeftMenuTopNavbar centerText={'Mensajes'} fixed={true}/>
+                <LeftMenuTopNavbar centerText={'Mensajes'}/>
                 <div className="page notifications-page">
                     <div id="page-content" className="notifications-content">
                         {

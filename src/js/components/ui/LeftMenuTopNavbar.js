@@ -10,15 +10,14 @@ export default class LeftMenuTopNavbar extends Component {
 		centerText: PropTypes.string,
 		centerTextSize: PropTypes.string,
 		rightText: PropTypes.string,
-		onRightLinkClickHandler: PropTypes.func,
-		fixed: PropTypes.bool
+		onRightLinkClickHandler: PropTypes.func
 	};
 
 	shouldComponentUpdate = shouldPureComponentUpdate;
 
 	render() {
 		return (
-			<div className="navbar" style={ this.props.fixed ? {position: 'fixed'} : {} }>
+			<div className="navbar">
 				<div id="navbar-inner" className="navbar-inner">
 					<div className="row">
 						<TopLeftMenuLink />

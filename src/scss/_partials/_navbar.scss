@@ -1,3 +1,7 @@
+.navbar {
+	position: fixed !important;
+}
+
 .navbar, .subnavbar, .toolbar {
 	background-color: $dark-purple;
 	color: #fff;

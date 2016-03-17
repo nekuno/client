@@ -24,6 +24,8 @@ export default class CardIcons extends Component {
                             return this.renderVideoIcons(index);
                         case 'Audio':
                             return this.renderAudioIcons(index);
+                        case 'Creator':
+                            return this.renderCreatorIcons(index);
                     }
                 })}
             </div>
@@ -60,6 +62,14 @@ export default class CardIcons extends Component {
             <div className="absolute-wrapper" key={index + 1}>
                 <div className="icon-wrapper"><span className="icon-audio"></span></div>
                 <div className="icon-wrapper spotify-icon-wrapper"><span className="icon-spotify"></span></div>
+            </div>
+        );
+    };
+
+    renderCreatorIcons = function(index) {
+        return (
+            <div className="absolute-wrapper" key={index + 1}>
+                <div className="icon-wrapper"><span className="icon-channels"></span></div>
             </div>
         );
     };

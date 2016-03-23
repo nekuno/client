@@ -1,7 +1,7 @@
 $nekuno-font: 'Maven Pro';
 
 @font-face {
-	font-family: 'Maven Pro';
+	font-family: $nekuno-font;
 	src: url('fonts/mavenpro-regular-webfont.eot');
 	src: url('fonts/mavenpro-regular-webfont.eot?#iefix') format('embedded-opentype'),
 	url('fonts/mavenpro-regular-webfont.woff2') format('woff2'),
@@ -12,7 +12,7 @@ $nekuno-font: 'Maven Pro';
 	font-style: normal;
 }
 @font-face {
-	font-family: 'Maven Pro';
+	font-family: $nekuno-font;
 	src: url('fonts/mavenpro-bold-webfont.eot');
 	src: url('fonts/mavenpro-bold-webfont.eot?#iefix') format('embedded-opentype'),
 	url('fonts/mavenpro-bold-webfont.woff2') format('woff2'),
@@ -212,3 +212,17 @@ $nekuno-logo-font: 'klinic_slabmedium';
 	content: "\e92d";
 }
 
+::-webkit-input-placeholder {
+	font-family: $nekuno-font;
+}
+:-moz-placeholder { /* Firefox 18- */
+	font-family: $nekuno-font;
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+	font-family: $nekuno-font;
+}
+
+:-ms-input-placeholder {
+	font-family: $nekuno-font;
+}

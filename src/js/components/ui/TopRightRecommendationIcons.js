@@ -12,7 +12,7 @@ export default class TopRightRecommendationIcons extends Component {
 		return (
 			<div className="col-25 right">
 				<div className="inline-icons-wrapper">
-					<div className="icon-wrapper" onClick={() => this.context.history.goBack()}>
+					<div className="icon-wrapper" onClick={() => this.context.history.pushState(null, `create-thread`)}>
 						{/* TODO: Link to Create Threads */}
 						<span className="icon-search">
 						</span>

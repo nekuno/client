@@ -5,7 +5,7 @@ import TextCheckboxes from '../ui/TextCheckboxes';
 import TagInput from '../ui/TagInput';
 import FullWidthButton from '../ui/FullWidthButton';
 
-export default class CreateUserThread extends Component {
+export default class CreateUsersThread extends Component {
     static propTypes = {
         // TODO: defaultFilters should be a prop
     };

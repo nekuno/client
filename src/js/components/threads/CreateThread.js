@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import TextInput from '../ui/TextInput';
 import CreateContentThread from './CreateContentThread';
-import CreateUserThread from './CreateUserThread';
+import CreateUsersThread from './CreateUsersThread';
 import TextRadios from '../ui/TextRadios';
 import FullWidthButton from '../ui/FullWidthButton';
 
@@ -37,7 +37,7 @@ export default class CreateThread extends Component {
                 {this.state.type === 'contents' ?
                     <CreateContentThread /> : '' }
                 {this.state.type === 'persons' ?
-                    <CreateUserThread /> : '' }
+                    <CreateUsersThread /> : '' }
                 <br />
                 <br />
                 <br />

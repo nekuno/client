@@ -14,6 +14,7 @@ export default class TagInput extends Component {
         super();
 
         this.onKeyUpHandler = this.onKeyUpHandler.bind(this);
+        this.onClickTagHandler = this.onClickTagHandler.bind(this);
     }
 
     componentDidMount() {
@@ -28,7 +29,7 @@ export default class TagInput extends Component {
                 </div>
                 <div className="tag-suggestions">
                     <ul>
-                        {this.props.tags.map((tag, index) => <li key={index} className="tag-suggestion" onClick={this.onClickTagHandler.bind(this, tag)}><Chip label={tag} value={tag}/></li>)}
+                        {this.props.tags.map((tag, index) => <li key={index} className="tag-suggestion" ><Chip onClickHandler={this.onClickTagHandler.bind(this, tag)} label={tag} value={tag}/></li>)}
                     </ul>
                 </div>
             </div>

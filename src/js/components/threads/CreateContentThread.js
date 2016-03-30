@@ -7,6 +7,7 @@ import FullWidthButton from '../ui/FullWidthButton';
 
 export default class CreateContentThread extends Component {
     static propTypes = {
+        onClickHandler: PropTypes.func.isRequired
         // TODO: tagSuggestions should be a prop
     };
 
@@ -71,6 +72,8 @@ export default class CreateContentThread extends Component {
         } else {
             filters.push(type);
         }
+
+        this.props.onClickHandler({type: filters});
         this.setState({
             filters: filters
         });
@@ -103,6 +106,8 @@ export default class CreateContentThread extends Component {
         this.setState({
             tags: tags
         });
+
+        this.props.onClickHandler({tags: tags});
     }
 
     handleClickTag(tag) {

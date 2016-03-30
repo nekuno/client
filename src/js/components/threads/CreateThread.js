@@ -13,9 +13,11 @@ export default class CreateThread extends Component {
         super(props);
 
         this.handleClickCategory = this.handleClickCategory.bind(this);
+        this.handleClickFilters = this.handleClickFilters.bind(this);
 
         this.state = {
-            category: null
+            category: null,
+            filters: {}
         }
     }
 
@@ -35,9 +37,9 @@ export default class CreateThread extends Component {
                     {this.state.category ? <div className="vertical-line"></div> : ''}
                 </div>
                 {this.state.category === 'contents' ?
-                    <CreateContentThread /> : '' }
+                    <CreateContentThread onClickHandler={this.handleClickFilters}/> : '' }
                 {this.state.category === 'persons' ?
-                    <CreateUsersThread /> : '' }
+                    <CreateUsersThread onClickHandler={this.handleClickFilters}/> : '' }
                 <br />
                 <br />
                 <br />
@@ -56,4 +58,19 @@ export default class CreateThread extends Component {
             category: category
         });
     }
+
+    handleClickFilters(filters)
+    {
+        let state = this.state;
+
+        for (var attrname in filters) {
+            if (filters.hasOwnProperty(attrname)){
+                state.filters[attrname] = filters[attrname];
+            }
+        }
+
+        this.setState(state);
+    }
+
+
 }

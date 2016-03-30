@@ -12,10 +12,10 @@ export default class CreateThread extends Component {
     constructor(props) {
         super(props);
 
-        this.handleClickType = this.handleClickType.bind(this);
+        this.handleClickCategory = this.handleClickCategory.bind(this);
 
         this.state = {
-            type: null
+            category: null
         }
     }
 
@@ -29,21 +29,21 @@ export default class CreateThread extends Component {
                 </div>
                 <div className="thread-filter">
                     <div className="thread-filter-dot">
-                        <span className={this.state.type ? "icon-circle active" : "icon-circle"}></span>
+                        <span className={this.state.category ? "icon-circle active" : "icon-circle"}></span>
                     </div>
-                    <TextRadios labels={[{key: 'persons', text: 'Personas'}, {key: 'contents', text: 'Contenidos'}]} onClickHandler={this.handleClickType} value={this.state.type} />
-                    {this.state.type ? <div className="vertical-line"></div> : ''}
+                    <TextRadios labels={[{key: 'persons', text: 'Personas'}, {key: 'contents', text: 'Contenidos'}]} onClickHandler={this.handleClickCategory} value={this.state.category} />
+                    {this.state.category ? <div className="vertical-line"></div> : ''}
                 </div>
-                {this.state.type === 'contents' ?
+                {this.state.category === 'contents' ?
                     <CreateContentThread /> : '' }
-                {this.state.type === 'persons' ?
+                {this.state.category === 'persons' ?
                     <CreateUsersThread /> : '' }
                 <br />
                 <br />
                 <br />
                 <br />
                 <br />
-                {this.state.type ? <FullWidthButton>Crear hilo</FullWidthButton> : ''}
+                {this.state.category ? <FullWidthButton>Crear hilo</FullWidthButton> : ''}
                 <br />
                 <br />
                 <br />
@@ -51,22 +51,9 @@ export default class CreateThread extends Component {
         );
     }
 
-    handleClickType(type) {
+    handleClickCategory(category) {
         this.setState({
-            type: type
-        });
-    }
-
-    handleClickFilter(type) {
-        let filters = this.state.filters;
-        let index = filters.indexOf(type);
-        if (index > -1) {
-            filters.splice(index, 1);
-        } else {
-            filters.push(type);
-        }
-        this.setState({
-            filters: filters
+            category: category
         });
     }
 }

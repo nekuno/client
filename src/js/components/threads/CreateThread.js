@@ -1,4 +1,5 @@
 import React, { PropTypes, Component } from 'react';
+import * as UserActionCreators from '../../actions/UserActionCreators';
 import TextInput from '../ui/TextInput';
 import CreateContentThread from './CreateContentThread';
 import CreateUsersThread from './CreateUsersThread';
@@ -7,6 +8,7 @@ import FullWidthButton from '../ui/FullWidthButton';
 
 export default class CreateThread extends Component {
     static propTypes = {
+        userId: PropTypes.number.isRequired
     };
 
     constructor(props) {
@@ -14,11 +16,12 @@ export default class CreateThread extends Component {
 
         this.handleClickCategory = this.handleClickCategory.bind(this);
         this.handleClickFilters = this.handleClickFilters.bind(this);
+        this.createThread = this.createThread.bind(this);
 
         this.state = {
             category: null,
-            filters: {}
-        }
+            filters: {}}
+
     }
 
     render() {
@@ -45,7 +48,7 @@ export default class CreateThread extends Component {
                 <br />
                 <br />
                 <br />
-                {this.state.category ? <FullWidthButton>Crear hilo</FullWidthButton> : ''}
+                {this.state.category ? <FullWidthButton onClick={this.createThread}>Crear hilo</FullWidthButton> : ''}
                 <br />
                 <br />
                 <br />
@@ -72,5 +75,32 @@ export default class CreateThread extends Component {
         this.setState(state);
     }
 
+    createThread()
+    {
+        let data={
+            name: document.querySelector('.list-block input').value,
+            filters: {}
+        };
+
+        if (this.state.category == null) {
+            return false;
+        } else if (this.state.category == 'contents'){
+                data.category='ThreadContent';
+            if (this.state.filters.type.length > 0){
+                data.filters.type = this.state.filters.type;
+            }
+            if (this.state.filters.tags.length > 0){
+                data.filters.tags = this.state.filters.tags;
+            }
+
+        } else if (this.state.category == 'persons'){
+            //TODO: UsersThread
+            return false;
+        } else {
+            return false;
+        }
+
+        UserActionCreators.createThread(this.props.userId, data);
+    }
 
 }

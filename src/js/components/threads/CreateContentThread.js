@@ -121,5 +121,7 @@ export default class CreateContentThread extends Component {
         this.setState({
             tags: tags
         });
+
+        this.props.onClickHandler({tags: tags});
     }
 }

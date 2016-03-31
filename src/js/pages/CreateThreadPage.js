@@ -25,7 +25,7 @@ export default AuthenticatedComponent(class CreateThreadPage extends Component {
                 <RegularTopNavbar centerText={'Crear hilos'} leftText={'Cancelar'} />
                 <div className="page create-thread-page">
                     <div id="page-content">
-                        <CreateThread />
+                        <CreateThread userId={this.props.user.id} />
                     </div>
                 </div>
             </div>

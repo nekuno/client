@@ -69,6 +69,14 @@ export function requestThreads(userId, url = null) {
     }, {userId})
 }
 
+export function createThread(userId, data) {
+    dispatchAsync(UserAPI.createThread(data),{
+        request: ActionTypes.CREATE_THREAD,
+        success: ActionTypes.CREATE_THREAD_SUCCESS,
+        failure: ActionTypes.CREATE_THREAD_ERROR
+    }, data)
+}
+
 export function requestRecommendationPage(userId, threadId) {
 
     if (!ThreadStore.contains(threadId)) {

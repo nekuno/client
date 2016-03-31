@@ -1,6 +1,7 @@
 import {
     fetchUser,
     fetchThreads,
+    postThread,
     fetchRecommendation,
     fetchUserArray,
     fetchProfile,
@@ -40,6 +41,10 @@ export function getComparedStats(id, url = `stats/compare/${id}`) {
 
 export function getThreads(url = `threads`){
     return fetchThreads(url);
+}
+
+export function createThread(data, url='threads') {
+    return postThread(url, data);
 }
 
 export function getRecommendation(threadId, url = `threads/${threadId}/recommendation`) {

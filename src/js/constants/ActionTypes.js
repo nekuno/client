@@ -49,6 +49,10 @@ export default keyMirror({
     REQUEST_THREADS_SUCCESS: null,
     REQUEST_THREADS_ERROR  : null,
 
+    CREATE_THREAD           : null,
+    CREATE_THREAD_SUCCESS   : null,
+    CREATE_THREAD_ERROR     : null,
+
     THREADS_PREV: null,
     THREADS_NEXT: null,
 

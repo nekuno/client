@@ -161,6 +161,11 @@ export function fetchThreads(url) {
     });
 }
 
+export function postThread(url, data)
+{
+        return postData(url, data);
+}
+
 export function fetchRecommendation(url) {
     return fetchAndNormalize(url, {
         items     : arrayOf(recommendationSchema),

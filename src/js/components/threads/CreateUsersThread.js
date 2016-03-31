@@ -7,12 +7,13 @@ import FullWidthButton from '../ui/FullWidthButton';
 
 export default class CreateUsersThread extends Component {
     static propTypes = {
-        // TODO: defaultFilters should be a prop
+        // TODO: defFilters should be a prop
     };
-
+    
     constructor(props) {
         super(props);
 
+        this.handleClickChoice = this.handleClickChoice.bind(this);
         this.handleClickChoiceFilter = this.handleClickChoiceFilter.bind(this);
         this.handleClickTagFilter = this.handleClickTagFilter.bind(this);
         this.handleKeyUpTag = this.handleKeyUpTag.bind(this);
@@ -90,14 +91,19 @@ export default class CreateUsersThread extends Component {
             filters: [],
             tags: [],
             tagSuggestions: [],
-            selectedChoiceFilter: {filter: {}, choice: null},
+            selectedChoiceFilter: {},
             selectedTagFilter: {filter: {}, value: null}
         }
     }
 
     render() {
-        let choiceFilters = this.defaultFilters.filter(defaultFilter => defaultFilter.type === 'choice' || this.state.filters.some(filter => filter.value === defaultFilter.value));
-        let tagFilters = this.defaultFilters.filter(defaultFilter => defaultFilter.type === 'tag' || this.state.filters.some(filter => filter.value === defaultFilter.value));
+        let defaultFilters = this.defaultFilters;
+        console.log('render before');
+        console.log(this.defaultFilters);
+        let choiceFilters = defaultFilters.filter(defaultFilter => defaultFilter.type === 'choice');
+        let tagFilters = defaultFilters.filter(defaultFilter => defaultFilter.type === 'tag');
+        console.log('render after');
+        console.log(this.defaultFilters);
         return (
             <div>
                 <div className="thread-filter">
@@ -108,13 +114,13 @@ export default class CreateUsersThread extends Component {
                                     onClickHandler={this.handleClickChoiceFilter} values={this.state.filters.map(filter => filter.value)} />
                     <div className="vertical-line"></div>
                 </div>
-                {this.state.selectedChoiceFilter.filter.choices ?
+                {this.state.selectedChoiceFilter.choices ?
                     <div className="thread-filter">
                         <div className="thread-filter-dot">
                             <span className={this.state.filters.tags > 0 ? "icon-circle active" : "icon-circle"}></span>
                         </div>
-                        <TextCheckboxes labels={this.state.selectedChoiceFilter.filter.choices.map(choice => { return({key: choice.value, text: choice.label}); }) }
-                                        onClickHandler={this.handleClickChoice} values={[]}/>
+                        <TextRadios labels={this.state.selectedChoiceFilter.choices.map(choice => { return({key: choice.value, text: choice.label}); }) }
+                                        onClickHandler={this.handleClickChoice} value={this.state.selectedChoiceFilter.choice}/>
                         <div className="vertical-line"></div>
                     </div>
                     : ''}
@@ -154,26 +160,49 @@ export default class CreateUsersThread extends Component {
     }
 
     handleClickChoiceFilter(type) {
-        let filter = this.defaultFilters.find(function (filter) {
+        let filter = this.state.filters.find(function (filter) {
            return filter.value === type;
         });
+        if (typeof filter == 'undefined') {
+            let defaultFilters = this.defaultFilters;
+            filter = defaultFilters.find(function (filter) {
+                return filter.value === type;
+            });
+        }
+
         this.setState({
-            selectedChoiceFilter: {filter: filter, choice: null}
+            selectedChoiceFilter: filter
         });
+        console.log('handleClickChoiceFilter after');
+        console.log(this.defaultFilters)
     }
 
     handleClickChoice(choice) {
+        // TODO: Why this.defaultFilters has a choice parameter here? It hasn't in render
+        console.log('handleClickChoice before');
+        console.log(choice);
+        console.log(this.defaultFilters);
         let filters = this.state.filters;
-        let filter = this.state.selectedChoiceFilter.filter;
-        filter.choice = choice;
+        let filter = this.state.selectedChoiceFilter;
         let index = filters.findIndex(savedFilter => savedFilter.choice === filter.choice);
+        let selectedChoiceFilter = {};
         if (index > -1) {
-            filters.splice(index, 1);
+            if (choice === filter.choice) {
+                filters.splice(index, 1);
+
+            } else {
+                filter.choice = choice;
+                filters[index] = filter;
+                selectedChoiceFilter = filter;
+            }
         } else {
+            filter.choice = choice;
             filters.push(filter);
+            selectedChoiceFilter = filter;
         }
         this.setState({
-            filters: filters
+            filters: filters,
+            selectedChoiceFilter: selectedChoiceFilter
         });
     }
 

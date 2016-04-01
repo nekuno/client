@@ -4,7 +4,6 @@ import TextInput from '../ui/TextInput';
 import CreateContentThread from './CreateContentThread';
 import CreateUsersThread from './CreateUsersThread';
 import TextRadios from '../ui/TextRadios';
-import FullWidthButton from '../ui/FullWidthButton';
 
 export default class CreateThread extends Component {
     static propTypes = {
@@ -15,13 +14,10 @@ export default class CreateThread extends Component {
         super(props);
 
         this.handleClickCategory = this.handleClickCategory.bind(this);
-        this.handleClickFilters = this.handleClickFilters.bind(this);
-        this.createThread = this.createThread.bind(this);
 
         this.state = {
-            category: null,
-            filters: {}}
-
+            category: null
+        };
     }
 
     render() {
@@ -40,18 +36,9 @@ export default class CreateThread extends Component {
                     {this.state.category ? <div className="vertical-line"></div> : ''}
                 </div>
                 {this.state.category === 'contents' ?
-                    <CreateContentThread onClickHandler={this.handleClickFilters}/> : '' }
+                    <CreateContentThread userId={this.props.userId}/> : '' }
                 {this.state.category === 'persons' ?
-                    <CreateUsersThread onClickHandler={this.handleClickFilters}/> : '' }
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                {this.state.category ? <FullWidthButton onClick={this.createThread}>Crear hilo</FullWidthButton> : ''}
-                <br />
-                <br />
-                <br />
+                    <CreateUsersThread userId={this.props.userId}/> : '' }
             </div>
         );
     }
@@ -61,46 +48,4 @@ export default class CreateThread extends Component {
             category: category
         });
     }
-
-    handleClickFilters(filters)
-    {
-        let state = this.state;
-
-        for (var attrname in filters) {
-            if (filters.hasOwnProperty(attrname)){
-                state.filters[attrname] = filters[attrname];
-            }
-        }
-
-        this.setState(state);
-    }
-
-    createThread()
-    {
-        let data={
-            name: document.querySelector('.list-block input').value,
-            filters: {}
-        };
-
-        if (this.state.category == null) {
-            return false;
-        } else if (this.state.category == 'contents'){
-                data.category='ThreadContent';
-            if (this.state.filters.type.length > 0){
-                data.filters.type = this.state.filters.type;
-            }
-            if (this.state.filters.tags.length > 0){
-                data.filters.tags = this.state.filters.tags;
-            }
-
-        } else if (this.state.category == 'persons'){
-            //TODO: UsersThread
-            return false;
-        } else {
-            return false;
-        }
-
-        UserActionCreators.createThread(this.props.userId, data);
-    }
-
 }

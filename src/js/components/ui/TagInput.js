@@ -21,6 +21,10 @@ export default class TagInput extends Component {
         this.refs.input.focus();
     }
 
+    componentDidUpdate() {
+        this.refs.input.focus();
+    }
+
     render() {
         return (
             <div className="tag-input-wrapper">
@@ -41,6 +45,8 @@ export default class TagInput extends Component {
     }
 
     onClickTagHandler(tag) {
+        this.refs.input.value = '';
+        this.refs.input.focus();
         this.props.onClickTagHandler(tag);
     }
 }

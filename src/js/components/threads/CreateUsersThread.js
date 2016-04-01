@@ -109,7 +109,7 @@ export default class CreateUsersThread extends Component {
             <div>
                 <div className="thread-filter">
                     <div className="thread-filter-dot">
-                        <span className="icon-circle active"></span>
+                        <span className={this.state.selectedChoiceFilter.value ? "icon-circle active" : "icon-circle"}></span>
                     </div>
                     <TextCheckboxes labels={choiceFilters.map(filter => {return {key: filter.value, text: filter.label}})}
                                     onClickHandler={this.handleClickChoiceFilter} values={this.state.filters.map(filter => filter.value)} />
@@ -118,7 +118,7 @@ export default class CreateUsersThread extends Component {
                 {this.state.selectedChoiceFilter.choices ?
                     <div className="thread-filter">
                         <div className="thread-filter-dot">
-                            <span className={this.state.filters.tags > 0 ? "icon-circle active" : "icon-circle"}></span>
+                            <span className={this.state.selectedChoiceFilter.choice ? "icon-circle active" : "icon-circle"}></span>
                         </div>
                         <TextRadios labels={this.state.selectedChoiceFilter.choices.map(choice => { return({key: choice.value, text: choice.label}); }) }
                                         onClickHandler={this.handleClickChoice} value={this.state.selectedChoiceFilter.choice}/>
@@ -127,7 +127,7 @@ export default class CreateUsersThread extends Component {
                     : ''}
                 <div className="thread-filter">
                     <div className="thread-filter-dot">
-                        <span className={tagFilters.length > 0 ? "icon-circle active" : "icon-circle"}></span>
+                        <span className={this.state.selectedTagFilter.value ? "icon-circle active" : "icon-circle"}></span>
                     </div>
                     <TextCheckboxes labels={tagFilters.map(filter => {return {key: filter.value, text: filter.label}})}
                                     onClickHandler={this.handleClickTagFilter} values={this.state.tags.map(tag => tag.value)} />

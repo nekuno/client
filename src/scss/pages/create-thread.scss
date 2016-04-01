@@ -15,8 +15,7 @@ body #root .App .view .page.create-thread-page  {
         color: $deep-purple;
         display: inline-block;
         margin-right: 15px;
-        width: 17.5px;
-        vertical-align: middle;
+        width: 15px;
 
         .icon-circle {
           border: 2.5px solid $dark-blue;
@@ -41,14 +40,14 @@ body #root .App .view .page.create-thread-page  {
       .text-radios {
         display: inline-block;
         padding: 30px 0;
-        width: 90%;
+        width: 85%;
       }
       .text-checkboxes {
         display: inline-block;
         padding: 25px 0;
         text-align: left;
         vertical-align: middle;
-        width: 90%;
+        width: 85%;
 
         .chip {
           margin: 5px;

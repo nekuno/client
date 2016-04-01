@@ -90,13 +90,15 @@ export default AuthenticatedComponent(class AnswerQuestionPage extends Component
             let isJustRegistered = this.props.isJustRegistered;
             let history = this.context.history;
             let userId = parseUserId(this.props.user);
-            promise.then(function (data) {
-                    const questions =data.entities.question;
-                    if (isJustRegistered && questions[Object.keys(questions)[0]].isRegisterQuestion === false) {
-                        history.pushState(null, '/threads/' + userId);
+            if (typeof promise != 'undefined') {
+                promise.then(function (data) {
+                        const questions = data.entities.question;
+                        if (isJustRegistered && questions[Object.keys(questions)[0]].isRegisterQuestion === false) {
+                            history.pushState(null, '/threads/' + userId);
+                        }
                     }
-                }
-            );
+                );
+            }
         }
     }
 

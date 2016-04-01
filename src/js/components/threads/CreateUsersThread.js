@@ -92,18 +92,16 @@ export default class CreateUsersThread extends Component {
             tags: [],
             tagSuggestions: [],
             selectedChoiceFilter: {},
-            selectedTagFilter: {filter: {}, value: null}
+            selectedTagFilter: {}
         }
     }
 
     render() {
-        let defaultFilters = this.defaultFilters;
-        console.log('render before');
-        console.log(this.defaultFilters);
+        let defaultFilters = JSON.parse(JSON.stringify(this.defaultFilters));
         let choiceFilters = defaultFilters.filter(defaultFilter => defaultFilter.type === 'choice');
         let tagFilters = defaultFilters.filter(defaultFilter => defaultFilter.type === 'tag');
-        console.log('render after');
-        console.log(this.defaultFilters);
+        let tags = this.state.tags.filter(tag => tag.value === this.state.selectedTagFilter.value && tag.tagString);
+
         return (
             <div>
                 <div className="thread-filter">
@@ -129,19 +127,19 @@ export default class CreateUsersThread extends Component {
                         <span className={this.state.filters.length > 0 ? "icon-circle active" : "icon-circle"}></span>
                     </div>
                     <TextCheckboxes labels={tagFilters.map(filter => {return {key: filter.value, text: filter.label}})}
-                                    onClickHandler={this.handleClickTagFilter} values={this.state.filters} />
+                                    onClickHandler={this.handleClickTagFilter} values={this.state.tags.map(tag => tag.value)} />
                     {this.state.filters.length > 0 ? <div className="vertical-line"></div> : ''}
                 </div>
-                {this.state.tags.length > 0 ?
+                {this.state.selectedTagFilter.value ?
                     <div className="thread-filter">
                         <div className="thread-filter-dot">
                             <span className={this.state.filters.tags > 0 ? "icon-circle active" : "icon-circle"}></span>
                         </div>
-                        <TextCheckboxes labels={this.state.tags.map(tag => { return({key: tag, text: tag}); })} onClickHandler={this.handleClickTag} values={this.state.tags} />
+                        <TextCheckboxes labels={tags.map(tag => { return({key: tag.tagString, text: tag.tagString}) })} onClickHandler={this.handleClickTag} values={this.state.tags.map(tag => tag.tagString)} />
                         <div className="vertical-line"></div>
                     </div>
                     : ''}
-                {this.state.selectedTagFilter.filter.value ? this.renderTagInput() : ''}
+                {this.state.selectedTagFilter.value ? this.renderTagInput() : ''}
             </div>
         );
     }
@@ -164,7 +162,7 @@ export default class CreateUsersThread extends Component {
            return filter.value === type;
         });
         if (typeof filter == 'undefined') {
-            let defaultFilters = this.defaultFilters;
+            let defaultFilters = JSON.parse(JSON.stringify(this.defaultFilters));
             filter = defaultFilters.find(function (filter) {
                 return filter.value === type;
             });
@@ -173,15 +171,9 @@ export default class CreateUsersThread extends Component {
         this.setState({
             selectedChoiceFilter: filter
         });
-        console.log('handleClickChoiceFilter after');
-        console.log(this.defaultFilters)
     }
 
     handleClickChoice(choice) {
-        // TODO: Why this.defaultFilters has a choice parameter here? It hasn't in render
-        console.log('handleClickChoice before');
-        console.log(choice);
-        console.log(this.defaultFilters);
         let filters = this.state.filters;
         let filter = this.state.selectedChoiceFilter;
         let index = filters.findIndex(savedFilter => savedFilter.choice === filter.choice);
@@ -206,8 +198,21 @@ export default class CreateUsersThread extends Component {
         });
     }
 
-    handleClickTagFilter() {
+    handleClickTagFilter(type) {
+        let tag = this.state.tags.find(function (tag) {
+            return tag.value === type;
+        });
+        if (typeof tag == 'undefined') {
+            let defaultFilters = JSON.parse(JSON.stringify(this.defaultFilters));
+            tag = defaultFilters.find(function (tag) {
+                return tag.value === type;
+            });
+        }
 
+        this.setState({
+            selectedTagFilter: tag,
+            tagSuggestions: []
+        });
     }
 
     handleKeyUpTag(tag) {
@@ -228,27 +233,27 @@ export default class CreateUsersThread extends Component {
         }
     }
 
-    handleClickTagSuggestion(tag) {
+    handleClickTagSuggestion(tagString) {
         let tags = this.state.tags;
-        let index = tags.indexOf(tag);
+        let tag = JSON.parse(JSON.stringify(this.state.selectedTagFilter));
+        let index = tags.findIndex(savedTag => (savedTag.value === tag.value && savedTag.tagString === tagString));
         if (index == -1) {
+            tag.tagString = tagString;
             tags.push(tag);
+            this.setState({
+                tags: tags
+            });
         }
-        this.setState({
-            tags: tags
-        });
     }
 
-    handleClickTag(tag) {
+    handleClickTag(tagString) {
         let tags = this.state.tags;
-        let index = tags.indexOf(tag);
+        let index = tags.findIndex(savedTag => savedTag.tagString === tagString);
         if (index > -1) {
             tags.splice(index, 1);
-        } else {
-            tags.push(tag)
+            this.setState({
+                tags: tags
+            });
         }
-        this.setState({
-            tags: tags
-        });
     }
 }

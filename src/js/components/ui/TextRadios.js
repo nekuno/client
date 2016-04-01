@@ -11,8 +11,6 @@ export default class TextRadios extends Component {
 
 	constructor(props) {
 		super(props);
-
-		this.onClickHandler = this.onClickHandler.bind(this);
 	}
 
 	render() {
@@ -22,7 +20,8 @@ export default class TextRadios extends Component {
 				<div className="text-radios-title">{this.props.title}</div>
 				<div className={labelsLength ? 'text-radios-container' : ' unique-chip text-radios-container'}>
 					{this.props.labels.map(label =>
-						<Chip key={label.key} label={label.text} onClickHandler={this.onClickHandler.bind(this, label.key)} disabled={this.props.value !== label.key} />
+						<Chip key={label.key} chipClass={'chip-' + labelsLength} label={label.text}
+							  onClickHandler={this.onClickHandler.bind(this, label.key)} disabled={this.props.value !== label.key} />
 					)}
 				</div>
 			</div>

@@ -7,7 +7,8 @@ export default class Chip extends Component {
         label         : PropTypes.string.isRequired,
         disabled      : PropTypes.bool,
         value         : PropTypes.string,
-        onClickHandler: PropTypes.func
+        onClickHandler: PropTypes.func,
+        chipClass     : PropTypes.string
     };
 
     constructor(props) {
@@ -21,8 +22,9 @@ export default class Chip extends Component {
     }
 
     render() {
+        let chipClass = this.props.chipClass + ' chip' || 'chip';
         return (
-            <div className={this.props.disabled ? "disabled-chip chip" : "chip"} onClick={this.handleClick}>
+            <div className={this.props.disabled ? chipClass + " disabled-chip" : chipClass} onClick={this.handleClick}>
                 <div className="chip-label">
                     {this.props.label}
                 </div>

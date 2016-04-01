@@ -1,4 +1,5 @@
 import React, { PropTypes, Component } from 'react';
+import * as UserActionCreators from '../../actions/UserActionCreators';
 import TextInput from '../ui/TextInput';
 import TextRadios from '../ui/TextRadios';
 import TextCheckboxes from '../ui/TextCheckboxes';
@@ -7,6 +8,7 @@ import FullWidthButton from '../ui/FullWidthButton';
 
 export default class CreateUsersThread extends Component {
     static propTypes = {
+        userId: PropTypes.number.isRequired
         // TODO: defFilters should be a prop
     };
     
@@ -19,6 +21,7 @@ export default class CreateUsersThread extends Component {
         this.handleKeyUpTag = this.handleKeyUpTag.bind(this);
         this.handleClickTagSuggestion = this.handleClickTagSuggestion.bind(this);
         this.handleClickTag = this.handleClickTag.bind(this);
+        this.createThread = this.createThread.bind(this);
 
 
         this.defaultFilters = [
@@ -140,6 +143,15 @@ export default class CreateUsersThread extends Component {
                     </div>
                     : ''}
                 {this.state.selectedTagFilter.value ? this.renderTagInput() : ''}
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <FullWidthButton onClick={this.createThread}>Crear hilo</FullWidthButton>
+                <br />
+                <br />
+                <br />
             </div>
         );
     }
@@ -256,5 +268,22 @@ export default class CreateUsersThread extends Component {
                 tags: tags
             });
         }
+    }
+
+    createThread() {
+        let data = {
+            name: document.querySelector('.list-block input').value,
+            filters: {},
+            category: 'ThreadUsers'
+        };
+
+        if (this.state.filters.length > 0){
+            data.filters = this.state.filters;
+        }
+        if (this.state.tags.length > 0){
+            data.tags = this.state.tags;
+        }
+
+        UserActionCreators.createThread(this.props.userId, data);
     }
 }

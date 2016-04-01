@@ -35,7 +35,7 @@ export default new class LoginActionCreators {
             QuestionActionCreators.requestQuestions(user.qnoow_id).then(function(data){
                 let answers = selectn('result.pagination.total', data) || 0;
                 if (answers == 0) {
-                    path = '/social-networks';
+                    path = '/social-networks-on-sign-up';
                 } else if (answers < 4) {
                     path = '/register-questions-landing';
                 } else {

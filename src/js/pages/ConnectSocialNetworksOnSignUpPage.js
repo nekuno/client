@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import { IMAGES_ROOT } from '../constants/Constants';
-import LeftBackIconTopNavbar from '../components/ui/LeftBackIconTopNavbar';
+import RegularTopNavbar from '../components/ui/RegularTopNavbar';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import SocialWheels from '../components/ui/SocialWheels';
 import WorkersStore from '../stores/WorkersStore';
@@ -16,7 +16,7 @@ function getState(props) {
 }
 
 @connectToStores([WorkersStore], getState)
-export default AuthenticatedComponent(class ConnectSocialNetworksPage extends Component {
+export default AuthenticatedComponent(class ConnectSocialNetworksOnSignUpPage extends Component {
 
     static contextTypes = {
         history: PropTypes.object.isRequired
@@ -27,21 +27,26 @@ export default AuthenticatedComponent(class ConnectSocialNetworksPage extends Co
         networks: PropTypes.array.isRequired
     };
 
+    constructor(props) {
+        super(props);
+        this.goToRegisterLandingPage = this.goToRegisterLandingPage.bind(this);
+    }
+
     render() {
 
         const networks = this.props.networks;
+        const username = this.props.user.username;
         const picture = this.props.user && this.props.user.picture ? `${IMAGES_ROOT}media/cache/resolve/user_avatar_180x180/user/images/${this.props.user.picture}` : `${IMAGES_ROOT}media/cache/user_avatar_180x180/bundles/qnoowweb/images/user-no-img.jpg`;
 
         return (
             <div className="view view-main">
-                <LeftBackIconTopNavbar centerText={'Conexión con redes sociales'}/>
+                <RegularTopNavbar centerText={''} rightText={'Continuar'} onRightLinkClickHandler={this.goToRegisterLandingPage}/>
                 <div data-page="index" className="page connect-social-networks-page">
                     <div id="page-content" className="connect-social-networks-content">
-                        <div className="title">Conecta con tu mundo</div>
+                        <div className="title">Bienvenido a Nekuno <br />{username}</div>
                         <div className="excerpt">
-                            Conecta tus redes sociales con Nekuno
-                            para mejorar los resultados de los
-                            contenidos recomendados.
+                            Conecta con Nekuno todas las redes sociales que quieras para mejorar
+                            los resultados de los contenidos recomendados.
                         </div>
                         <br />
                         <SocialWheels networks={networks} picture={picture}/>
@@ -49,5 +54,9 @@ export default AuthenticatedComponent(class ConnectSocialNetworksPage extends Co
                 </div>
             </div>
         );
+    }
+
+    goToRegisterLandingPage() {
+        this.context.history.pushState(null, 'register-questions-landing')
     }
 });

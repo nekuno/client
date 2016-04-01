@@ -104,7 +104,8 @@ export default class CreateContentThread extends Component {
             tags.push(tag);
         }
         this.setState({
-            tags: tags
+            tags: tags,
+            tagSuggestions: []
         });
 
         this.props.onClickHandler({tags: tags});

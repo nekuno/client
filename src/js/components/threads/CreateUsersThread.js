@@ -124,16 +124,16 @@ export default class CreateUsersThread extends Component {
                     : ''}
                 <div className="thread-filter">
                     <div className="thread-filter-dot">
-                        <span className={this.state.filters.length > 0 ? "icon-circle active" : "icon-circle"}></span>
+                        <span className={tagFilters.length > 0 ? "icon-circle active" : "icon-circle"}></span>
                     </div>
                     <TextCheckboxes labels={tagFilters.map(filter => {return {key: filter.value, text: filter.label}})}
                                     onClickHandler={this.handleClickTagFilter} values={this.state.tags.map(tag => tag.value)} />
-                    {this.state.filters.length > 0 ? <div className="vertical-line"></div> : ''}
+                    {this.state.selectedTagFilter.value ? <div className="vertical-line"></div> : ''}
                 </div>
-                {this.state.selectedTagFilter.value ?
+                {tags.length > 0 ?
                     <div className="thread-filter">
                         <div className="thread-filter-dot">
-                            <span className={this.state.filters.tags > 0 ? "icon-circle active" : "icon-circle"}></span>
+                            <span className={tags.length > 0 ? "icon-circle active" : "icon-circle"}></span>
                         </div>
                         <TextCheckboxes labels={tags.map(tag => { return({key: tag.tagString, text: tag.tagString}) })} onClickHandler={this.handleClickTag} values={this.state.tags.map(tag => tag.tagString)} />
                         <div className="vertical-line"></div>
@@ -241,7 +241,8 @@ export default class CreateUsersThread extends Component {
             tag.tagString = tagString;
             tags.push(tag);
             this.setState({
-                tags: tags
+                tags: tags,
+                tagSuggestions: []
             });
         }
     }

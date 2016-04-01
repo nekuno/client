@@ -58,11 +58,11 @@ export default class FilterContentPopup extends Component {
                         {/*<div className="icons-large-wrapper" onClick={this.onUsersFilterClick}>
                             <div className="icon icon-person"></div>
                             <div className="icons-large-text">Personas</div>
-                        </div>
+                        </div>*/
                         <div className="icons-large-wrapper" onClick={this.onChannelsFilterClick}>
                             <div className="icon icon-channels"></div>
                             <div className="icons-large-text">Canales</div>
-                        </div>*/}
+                        </div>}
                     </div>
                 </div>
             </div>
@@ -90,7 +90,7 @@ export default class FilterContentPopup extends Component {
     }
 
     onChannelsFilterClick() {
-        this.filterContent(this.props, '');
+        this.filterContent(this.props, 'Creator');
     }
 
     filterContent = function(props, type) {

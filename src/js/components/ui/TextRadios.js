@@ -6,7 +6,8 @@ export default class TextRadios extends Component {
 		title: PropTypes.string,
 		labels: PropTypes.array.isRequired,
 		value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-		onClickHandler: PropTypes.func.isRequired
+		onClickHandler: PropTypes.func.isRequired,
+		className: PropTypes.string
 	};
 
 	constructor(props) {
@@ -16,7 +17,7 @@ export default class TextRadios extends Component {
 	render() {
 		let labelsLength = this.props.labels.length;
 		return (
-			<div className="text-radios">
+			<div className={this.props.className ? "text-radios " + this.props.className : "text-radios"}>
 				<div className="text-radios-title">{this.props.title}</div>
 				<div className={labelsLength ? 'text-radios-container' : ' unique-chip text-radios-container'}>
 					{this.props.labels.map(label =>

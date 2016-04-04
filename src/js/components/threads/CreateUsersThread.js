@@ -17,6 +17,9 @@ export default class CreateUsersThread extends Component {
 
         this.handleClickChoice = this.handleClickChoice.bind(this);
         this.handleClickChoiceFilter = this.handleClickChoiceFilter.bind(this);
+        this.handleClickDoubleChoiceFilter = this.handleClickDoubleChoiceFilter.bind(this);
+        this.handleClickDoubleChoiceChoice = this.handleClickDoubleChoiceChoice.bind(this);
+        this.handleClickDoubleChoiceDetail = this.handleClickDoubleChoiceDetail.bind(this);
         this.handleClickTagFilter = this.handleClickTagFilter.bind(this);
         this.handleKeyUpTag = this.handleKeyUpTag.bind(this);
         this.handleClickTagSuggestion = this.handleClickTagSuggestion.bind(this);
@@ -79,6 +82,48 @@ export default class CreateUsersThread extends Component {
                 ]
             },
             {
+                type: 'double_choice',
+                label: 'Hijos',
+                value: 'sons',
+                doubleChoices: {
+                    yes: {
+                        might_want: "y quizás quiera más",
+                        want: "y quiero más",
+                        not_want: "y no quiero más"
+                    },
+                    no: {
+                        might_want: "pero quizás quiera",
+                        want: "pero quiero",
+                        not_want: "y no quiero ninguno"
+                    }
+                },
+                choices: {
+                    yes: 'Tengo hijos',
+                    no: 'No tengo hijos'
+                }
+            },
+            {
+                type: 'double_choice',
+                label: 'Hijos (ejemplo 2)',
+                value: 'sonss',
+                doubleChoices: {
+                    yes: {
+                        might_want: "y quizás quiera más",
+                        want: "y quiero más",
+                        not_want: "y no quiero más"
+                    },
+                    no: {
+                        might_want: "pero quizás quiera",
+                        want: "pero quiero",
+                        not_want: "y no quiero ninguno"
+                    }
+                },
+                choices: {
+                    yes: 'Tengo hijos',
+                    no: 'No tengo hijos'
+                }
+            },
+            {
                 type: 'tag',
                 label: 'Alergia',
                 value: 'allergy'
@@ -95,6 +140,7 @@ export default class CreateUsersThread extends Component {
             tags: [],
             tagSuggestions: [],
             selectedChoiceFilter: {},
+            selectedDoubleChoiceFilter: {},
             selectedTagFilter: {}
         }
     }
@@ -102,6 +148,7 @@ export default class CreateUsersThread extends Component {
     render() {
         let defaultFilters = JSON.parse(JSON.stringify(this.defaultFilters));
         let choiceFilters = defaultFilters.filter(defaultFilter => defaultFilter.type === 'choice');
+        let doubleChoiceFilters = defaultFilters.filter(defaultFilter => defaultFilter.type === 'double_choice');
         let tagFilters = defaultFilters.filter(defaultFilter => defaultFilter.type === 'tag');
         let tags = this.state.tags.filter(tag => tag.value === this.state.selectedTagFilter.value && tag.tagString);
 
@@ -123,6 +170,40 @@ export default class CreateUsersThread extends Component {
                         <TextRadios labels={this.state.selectedChoiceFilter.choices.map(choice => { return({key: choice.value, text: choice.label}); }) }
                                         onClickHandler={this.handleClickChoice} value={this.state.selectedChoiceFilter.choice}/>
                         <div className="vertical-line"></div>
+                    </div>
+                    : ''}
+                <div className="thread-filter">
+                    <div className="thread-filter-dot">
+                        <span className={this.state.selectedDoubleChoiceFilter.value ? "icon-circle active" : "icon-circle"}></span>
+                    </div>
+                    <TextCheckboxes labels={doubleChoiceFilters.map(filter => {return {key: filter.value, text: filter.label}})}
+                                    onClickHandler={this.handleClickDoubleChoiceFilter} values={this.state.filters.map(filter => filter.value)} />
+                    <div className="vertical-line"></div>
+                </div>
+                {this.state.selectedDoubleChoiceFilter.choices ?
+                    <div className="thread-filter double-choice-filter">
+                        <div className="thread-filter-dot">
+                            <span className={this.state.selectedDoubleChoiceFilter.choice ? "icon-circle active" : "icon-circle"}></span>
+                        </div>
+                        <TextRadios labels={Object.keys(this.state.selectedDoubleChoiceFilter.choices).map(choice => { return({key: choice, text: this.state.selectedDoubleChoiceFilter.choices[choice]}); }) }
+                                    onClickHandler={this.handleClickDoubleChoiceChoice} value={this.state.selectedDoubleChoiceFilter.choice} className={'double-choice-choice'}/>
+                        <div className="vertical-line"></div>
+
+                        {this.state.selectedDoubleChoiceFilter.choice ?
+                            <div className="thread-filter-dot">
+                                <span className={this.state.selectedDoubleChoiceFilter.detail ? "icon-circle active" : "icon-circle"}></span>
+                            </div>
+                            : ''
+                        }
+                        {this.state.selectedDoubleChoiceFilter.choice ?
+                            <TextRadios labels={Object.keys(this.state.selectedDoubleChoiceFilter.doubleChoices[this.state.selectedDoubleChoiceFilter.choice]).map(doubleChoice => { return({key: doubleChoice, text: this.state.selectedDoubleChoiceFilter.doubleChoices[this.state.selectedDoubleChoiceFilter.choice][doubleChoice]}); }) }
+                                        onClickHandler={this.handleClickDoubleChoiceDetail} value={this.state.selectedDoubleChoiceFilter.detail} className={'double-choice-detail'}/>
+                            : ''
+                        }
+                        {this.state.selectedDoubleChoiceFilter.choice ?
+                            <div className="vertical-line"></div> : ''
+                        }
+
                     </div>
                     : ''}
                 <div className="thread-filter">
@@ -207,6 +288,72 @@ export default class CreateUsersThread extends Component {
         this.setState({
             filters: filters,
             selectedChoiceFilter: selectedChoiceFilter
+        });
+    }
+
+    handleClickDoubleChoiceFilter(type) {
+        let filter = this.state.filters.find(function (filter) {
+            return filter.value === type;
+        });
+        if (typeof filter == 'undefined') {
+            let defaultFilters = JSON.parse(JSON.stringify(this.defaultFilters));
+            filter = defaultFilters.find(function (filter) {
+                return filter.value === type;
+            });
+        }
+
+        this.setState({
+            selectedDoubleChoiceFilter: filter
+        });
+    }
+
+    handleClickDoubleChoiceChoice(choice) {
+        let filters = this.state.filters;
+        let filter = this.state.selectedDoubleChoiceFilter;
+        let index = filters.findIndex(savedFilter => savedFilter.choice === filter.choice);
+        let selectedDoubleChoiceFilter = {};
+        if (index > -1) {
+            if (choice === filter.choice) {
+                filters.splice(index, 1);
+
+            } else {
+                filter.choice = choice;
+                filters[index] = filter;
+                selectedDoubleChoiceFilter = filter;
+            }
+        } else {
+            filter.choice = choice;
+            filters.push(filter);
+            selectedDoubleChoiceFilter = filter;
+        }
+        this.setState({
+            filters: filters,
+            selectedDoubleChoiceFilter: selectedDoubleChoiceFilter
+        });
+    }
+
+    handleClickDoubleChoiceDetail(detail) {
+        let filters = this.state.filters;
+        let filter = this.state.selectedDoubleChoiceFilter;
+        let index = filters.findIndex(savedFilter => savedFilter.detail === filter.detail);
+        let selectedDoubleChoiceFilter = {};
+        if (index > -1) {
+            if (detail === filter.detail) {
+                filters.splice(index, 1);
+
+            } else {
+                filter.detail = detail;
+                filters[index] = filter;
+                selectedDoubleChoiceFilter = filter;
+            }
+        } else {
+            filter.detail = detail;
+            filters.push(filter);
+            selectedDoubleChoiceFilter = filter;
+        }
+        this.setState({
+            filters: filters,
+            selectedDoubleChoiceFilter: selectedDoubleChoiceFilter
         });
     }
 

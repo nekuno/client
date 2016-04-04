@@ -64,5 +64,15 @@ body #root .App .view .page.create-thread-page  {
     .tag-filter {
       margin-top: -20px;
     }
+
+    .double-choice-filter {
+      .double-choice-choice {
+        padding-bottom: 0;
+      }
+      .double-choice-detail {
+        margin-top: -30px;
+        padding-top: 0;
+      }
+    }
   }
 }

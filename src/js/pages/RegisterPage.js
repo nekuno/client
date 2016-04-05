@@ -8,7 +8,7 @@ import LoginActionCreators from '../actions/LoginActionCreators';
 import ConnectActionCreators from '../actions/ConnectActionCreators';
 import connectToStores from '../utils/connectToStores';
 import InvitationStore from '../stores/InvitationStore';
-import { FACEBOOK_SCOPE, GOOGLE_SCOPE, SPOTIFY_SCOPE } from '../constants/Constants';
+import { FACEBOOK_SCOPE, TWITTER_SCOPE, GOOGLE_SCOPE, SPOTIFY_SCOPE } from '../constants/Constants';
 
 function getState(props) {
 
@@ -40,6 +40,7 @@ export default class RegisterPage extends Component {
         super(props);
         this.handleOnChange = this.handleOnChange.bind(this);
         this.handleFacebook = this.handleFacebook.bind(this);
+        this.handleTwitter = this.handleTwitter.bind(this);
         this.handleGoogle = this.handleGoogle.bind(this);
         this.handleSpotify = this.handleSpotify.bind(this);
         this.handleSocialNetwork = this.handleSocialNetwork.bind(this);
@@ -63,6 +64,11 @@ export default class RegisterPage extends Component {
     handleFacebook(e) {
         e.preventDefault();
         return this.handleSocialNetwork('facebook', FACEBOOK_SCOPE);
+    }
+
+    handleTwitter(e) {
+        e.preventDefault();
+        return this.handleSocialNetwork('twitter', TWITTER_SCOPE);
     }
 
     handleSpotify(e) {
@@ -133,13 +139,9 @@ export default class RegisterPage extends Component {
                         { token ?
                             <div className="social-box">
                                 <div><a onClick={this.handleFacebook}><span className="icon-facebook"></span></a></div>
+                                <div><a onClick={this.handleTwitter}><span className="icon-twitter"></span></a></div>
                                 <div><a onClick={this.handleGoogle}><span className="icon-google"></span></a></div>
                                 <div><a onClick={this.handleSpotify}><span className="icon-spotify"></span></a></div>
-                                {/*
-                                 <div><a><span className="icon-twitter"></span></a></div>
-
-
-                                 */}
                             </div>
                             : '' }
                         <div className="register-title">

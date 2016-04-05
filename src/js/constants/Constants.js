@@ -33,6 +33,9 @@ export const QUESTION_STATS_COLORS = [
 export const FACEBOOK_ID = config.FACEBOOK_ID;
 export const FACEBOOK_SCOPE = config.FACEBOOK_SCOPE;
 
+export const TWITTER_ID = config.TWITTER_ID;
+export const TWITTER_SCOPE = config.TWITTER_SCOPE;
+
 export const GOOGLE_ID = config.GOOGLE_ID;
 export const GOOGLE_SCOPE = config.GOOGLE_SCOPE;
 

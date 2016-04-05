@@ -1,4 +1,4 @@
-import { FACEBOOK_ID, TWITTER_ID, GOOGLE_ID, SPOTIFY_ID } from '../constants/Constants';
+import { FACEBOOK_ID, TWITTER_ID, GOOGLE_ID, SPOTIFY_ID, INSTANT_HOST } from '../constants/Constants';
 
 let helloOAuthCallback = '/oauthcallback.html';
 
@@ -13,15 +13,15 @@ hello.init({
 
         oauth: {
             version: '2.0',
-            auth: 'https://accounts.spotify.com/authorize',
-            grant: 'https://accounts.spotify.com/api/token'
+            auth   : 'https://accounts.spotify.com/authorize',
+            grant  : 'https://accounts.spotify.com/api/token'
         },
 
-        base: 'https://api.spotify.com/v1/',
+        base       : 'https://api.spotify.com/v1/',
         scope_delim: ' ',
-        scope: {
-            email: 'email',
-            playlists: 'playlist-read-private',
+        scope      : {
+            email        : 'email',
+            playlists    : 'playlist-read-private',
             subscriptions: 'user-read-private'
         },
 
@@ -34,14 +34,21 @@ hello.init({
 
 hello.init(
     {
-        google: GOOGLE_ID,
-        spotify: SPOTIFY_ID,
+        google  : GOOGLE_ID,
+        spotify : SPOTIFY_ID,
         facebook: FACEBOOK_ID
     },
     {
         redirect_uri: helloOAuthCallback,
-        popup: {
+        popup       : {
             location: 'no'
         }
     }
 );
+
+hello.init({
+    twitter: TWITTER_ID
+}, {
+    redirect_uri: helloOAuthCallback,
+    oauth_proxy : INSTANT_HOST + 'oauthproxy'
+});

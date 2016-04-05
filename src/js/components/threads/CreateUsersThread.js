@@ -5,6 +5,7 @@ import TextRadios from '../ui/TextRadios';
 import TextCheckboxes from '../ui/TextCheckboxes';
 import TagInput from '../ui/TagInput';
 import FullWidthButton from '../ui/FullWidthButton';
+import Geosuggest from 'react-geosuggest';
 
 export default class CreateUsersThread extends Component {
     static propTypes = {
@@ -16,6 +17,7 @@ export default class CreateUsersThread extends Component {
         super(props);
 
         this.handleClickChoice = this.handleClickChoice.bind(this);
+        this.handleClickLocationFilter = this.handleClickLocationFilter.bind(this);
         this.handleClickChoiceFilter = this.handleClickChoiceFilter.bind(this);
         this.handleClickDoubleChoiceFilter = this.handleClickDoubleChoiceFilter.bind(this);
         this.handleClickDoubleChoiceChoice = this.handleClickDoubleChoiceChoice.bind(this);
@@ -24,6 +26,7 @@ export default class CreateUsersThread extends Component {
         this.handleKeyUpTag = this.handleKeyUpTag.bind(this);
         this.handleClickTagSuggestion = this.handleClickTagSuggestion.bind(this);
         this.handleClickTag = this.handleClickTag.bind(this);
+        this.renderLocationInput = this.renderLocationInput.bind(this);
         this.createThread = this.createThread.bind(this);
 
 
@@ -80,6 +83,10 @@ export default class CreateUsersThread extends Component {
                         label: 'Gordo'
                     }
                 ]
+            },
+            {
+                type: 'location',
+                label: 'Ubicación'
             },
             {
                 type: 'double_choice',
@@ -140,6 +147,7 @@ export default class CreateUsersThread extends Component {
             tags: [],
             tagSuggestions: [],
             selectedChoiceFilter: {},
+            selectedLocationFilter: {},
             selectedDoubleChoiceFilter: {},
             selectedTagFilter: {}
         }
@@ -147,6 +155,7 @@ export default class CreateUsersThread extends Component {
 
     render() {
         let defaultFilters = JSON.parse(JSON.stringify(this.defaultFilters));
+        let locationFilter = defaultFilters.filter(defaultFilter => defaultFilter.type === 'location');
         let choiceFilters = defaultFilters.filter(defaultFilter => defaultFilter.type === 'choice');
         let doubleChoiceFilters = defaultFilters.filter(defaultFilter => defaultFilter.type === 'double_choice');
         let tagFilters = defaultFilters.filter(defaultFilter => defaultFilter.type === 'tag');
@@ -154,6 +163,15 @@ export default class CreateUsersThread extends Component {
 
         return (
             <div>
+                <div className="thread-filter location-filter">
+                    <div className="thread-filter-dot">
+                        <span className={locationFilter.value ? "icon-circle active" : "icon-circle"}></span>
+                    </div>
+                    <TextCheckboxes labels={locationFilter.map(filter => {return {key: 'location', text: this.state.selectedLocationFilter.value && this.state.selectedLocationFilter.value.address ? filter.label + ' - ' + this.state.selectedLocationFilter.value.address.slice(0, 32) : filter.label}})}
+                                    onClickHandler={this.handleClickLocationFilter} values={this.state.selectedLocationFilter.value && this.state.selectedLocationFilter.value.address ? ['location'] : []} />
+                    <div className="vertical-line"></div>
+                </div>
+                {this.state.selectedLocationFilter.label ? this.renderLocationInput() : ''}
                 <div className="thread-filter">
                     <div className="thread-filter-dot">
                         <span className={this.state.selectedChoiceFilter.value ? "icon-circle active" : "icon-circle"}></span>
@@ -235,6 +253,74 @@ export default class CreateUsersThread extends Component {
                 <br />
             </div>
         );
+    }
+
+    handleClickLocationFilter(type) {
+        let filters = this.state.filters;
+        let filter = filters.find(function (filter) {
+            return filter.type === 'location';
+        });
+        let index = filters.findIndex(savedFilter => savedFilter.type === 'location');
+        if (typeof filter == 'undefined') {
+            let defaultFilters = JSON.parse(JSON.stringify(this.defaultFilters));
+            filter = defaultFilters.find(function (filter) {
+                return filter.type === 'location';
+            });
+        } else {
+            filter = {};
+            filters.splice(index, 1);
+        }
+
+        filters.push(filter);
+        this.setState({
+            selectedLocationFilter: filter,
+            filters: filters
+        });
+    }
+
+    renderLocationInput() {
+        var _self = this;
+        return (
+            <div className="thread-filter tag-filter location-tag-filter">
+                <div className="thread-filter-dot">
+                    <span className="icon-plus active"></span>
+                </div>
+                <div className="tag-input-wrapper">
+                    <Geosuggest className="tag-input-wrapper" placeholder={'Escribe una ubicación'} onSuggestSelect={function(suggest) { _self.handleClickLocationSuggestion.bind(_self, suggest)() }}
+                                wrapInput={true} wrapSuggestionList={true} inputWrapperClassName={'tag-input'} suggestionListWrapperClassName={'suggestion-list-wrapper'}
+                                getSuggestLabel={function(suggest) { return suggest.description.length > 15 ? suggest.description.slice(0, 15) + '...' : suggest.description }}
+                    />
+                </div>
+                <div className="vertical-line"></div>
+            </div>
+        );
+    }
+
+    handleClickLocationSuggestion(suggest) {
+        let filters = this.state.filters;
+        let filter = JSON.parse(JSON.stringify(this.state.selectedLocationFilter));
+        let locality = '', country = '';
+        suggest.gmaps.address_components.forEach(function(component) {
+            component.types.forEach(function(type) {
+                if (!locality && type === 'locality') {
+                    locality = component.long_name;
+                }
+                if (!country && type === 'country') {
+                    country = component.long_name;
+                }
+            });
+        });
+        filter.value = {
+            latitude: suggest.location.lat,
+            longitude: suggest.location.lng,
+            address: suggest.gmaps.formatted_address,
+            locality: locality,
+            country: country
+        };
+        this.setState({
+            filters: filters,
+            selectedLocationFilter: filter
+        });
     }
 
     renderTagInput() {

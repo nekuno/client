@@ -89,8 +89,9 @@ export default class RegisterPage extends Component {
             var accessToken = response.authResponse.access_token;
             console.log('accessToken:', accessToken);
             hello(network).api('me').then(function (status) {
-                    console.log('userId: ', status.id);
-                    ConnectActionCreators.connect(token, accessToken, network, status.id);
+                    var userId = status.id.toString();
+                    console.log('userId: ', userId);
+                    ConnectActionCreators.connect(token, accessToken, network, userId);
                     history.pushState(null, '/join');
                 },
                 function (status) {

@@ -102,10 +102,22 @@ class AuthService {
             })
             .spread(function(user, profile, invitation) {
                 console.log('Invitation consumed', invitation);
+                if (invitation.invitation.hasOwnProperty('group')){
+                    APIUtils.postData(API_URLS.JOIN_GROUP.replace('{groupId}', invitation.invitation.group.id), user);
+                    console.log('Joined to group', invitation.invitation.group);
+                }
+                return [user, profile, invitation]
+            })
+            .spread(function(user, profile, invitation) {
                 return [user, profile, invitation, APIUtils.postData(API_URLS.CONNECT_ACCOUNT.replace('{resource}', oauth.resource), {oauthToken: oauth.accessToken})];
             })
             .spread(function(user, profile, invitation, oauthToken) {
                 console.log('Account connected', oauthToken);
+                APIUtils.postData(API_URLS.CREATE_DEFAULT_THREADS);
+                console.log('Default threads created');
+                return [user, profile, invitation, oauthToken]
+            })
+            .spread(function(user, profile, invitation, oauthToken) {
                 console.log(user, profile, invitation, oauthToken);
                 return {
                     user,

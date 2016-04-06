@@ -28,13 +28,16 @@ export default class CreateThread extends Component {
                         <TextInput placeholder={'Escribe un título descriptivo del hilo'} />
                     </ul>
                 </div>
-                <div className="thread-filter">
+                {this.state.category === 'contents' ? <div className="content-first-vertical-line"></div> : ''}
+                {this.state.category === 'persons' ? <div className="users-first-vertical-line"></div> : ''}
+                {this.state.category === 'persons' ? <div className="users-last-vertical-line"></div> : ''}
+                <div className="thread-filter radio-filter">
                     <div className="thread-filter-dot">
                         <span className={this.state.category ? "icon-circle active" : "icon-circle"}></span>
                     </div>
                     <TextRadios labels={[{key: 'persons', text: 'Personas'}, {key: 'contents', text: 'Contenidos'}]} onClickHandler={this.handleClickCategory} value={this.state.category} />
-                    {this.state.category ? <div className="vertical-line"></div> : ''}
                 </div>
+                <div className="table-row"></div>
                 {this.state.category === 'contents' ?
                     <CreateContentThread userId={this.props.userId}/> : '' }
                 {this.state.category === 'persons' ?

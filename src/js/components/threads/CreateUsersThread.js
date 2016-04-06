@@ -81,6 +81,24 @@ export default class CreateUsersThread extends Component {
                     }
                 ]
             },
+            'complexion2': {
+                type: 'choice',
+                label: 'Complexión2',
+                choices: [
+                    {
+                        value: 'slim2',
+                        label: 'Delgado2'
+                    },
+                    {
+                        value: 'normal2',
+                        label: 'Normal2'
+                    },
+                    {
+                        value: 'fat2',
+                        label: 'Gordo2'
+                    }
+                ]
+            },
             'location': {
                 type: 'location',
                 label: 'Ubicación'
@@ -156,6 +174,7 @@ export default class CreateUsersThread extends Component {
         Object.keys(this.defaultFilters).forEach(key => this.defaultFilters[key].key = key);
         let defaultFilters = JSON.parse(JSON.stringify(this.defaultFilters));
         let locationFilter = Object.keys(defaultFilters).filter(key => defaultFilters[key].type === 'location').map(key => {defaultFilters[key].key = key; return defaultFilters[key]});
+        let integerFilter = Object.keys(defaultFilters).filter(key => defaultFilters[key].type === 'integer').map(key => {defaultFilters[key].key = key; return defaultFilters[key]});
         let choiceFilters = Object.keys(defaultFilters).filter(key => defaultFilters[key].type === 'choice').map(key => {defaultFilters[key].key = key; return defaultFilters[key]});
         let doubleChoiceFilters = Object.keys(defaultFilters).filter(key => defaultFilters[key].type === 'double_choice').map(key => {defaultFilters[key].key = key; return defaultFilters[key]});
         let tagFilters = Object.keys(defaultFilters).filter(key => defaultFilters[key].type === 'tag').map(key => {defaultFilters[key].key = key; return defaultFilters[key]});
@@ -167,87 +186,84 @@ export default class CreateUsersThread extends Component {
                     <div className="thread-filter-dot">
                         <span className={this.state.selectedLocationFilter.value ? "icon-circle active" : "icon-circle"}></span>
                     </div>
-                    <TextCheckboxes labels={locationFilter.map(filter => {return {key: 'location', text: this.state.selectedLocationFilter.value && this.state.selectedLocationFilter.value.address ? filter.label + ' - ' + this.state.selectedLocationFilter.value.address.slice(0, 32) : filter.label}})}
+                    <TextCheckboxes labels={locationFilter.map(filter => {return {key: 'location', text: this.state.selectedLocationFilter.value && this.state.selectedLocationFilter.value.address ? filter.label + ' - ' + this.state.selectedLocationFilter.value.address.slice(0, 28) : filter.label}})}
                                     onClickHandler={this.handleClickLocationFilter} values={this.state.selectedLocationFilter.value && this.state.selectedLocationFilter.value.address ? ['location'] : []} />
-                    <div className="vertical-line"></div>
                 </div>
-                {this.state.selectedLocationFilter.label ? this.renderLocationInput() : ''}
+                <div className="table-row"></div>
+                {this.state.selectedLocationFilter.label && !this.state.selectedLocationFilter.value ? this.renderLocationInput() : ''}
+                {this.state.selectedLocationFilter.label && !this.state.selectedLocationFilter.value ? <div className="table-row"></div> : ''}
                 <div className="thread-filter">
                     <div className="thread-filter-dot">
                         <span className={this.state.selectedChoiceFilter.key ? "icon-circle active" : "icon-circle"}></span>
                     </div>
                     <TextCheckboxes labels={choiceFilters.map(filter => {return {key: filter.key, text: filter.label}})}
                                     onClickHandler={this.handleClickChoiceFilter} values={this.state.filters.map(filter => filter.key)} />
-                    <div className="vertical-line"></div>
                 </div>
+                <div className="table-row"></div>
                 {this.state.selectedChoiceFilter.choices ?
-                    <div className="thread-filter">
+                    <div className="thread-filter radio-filter">
                         <div className="thread-filter-dot">
                             <span className={this.state.selectedChoiceFilter.choice ? "icon-circle active" : "icon-circle"}></span>
                         </div>
                         <TextRadios labels={this.state.selectedChoiceFilter.choices.map(choice => { return({key: choice.value, text: choice.label}); }) }
                                         onClickHandler={this.handleClickChoice} value={this.state.selectedChoiceFilter.choice}/>
-                        <div className="vertical-line"></div>
                     </div>
                     : ''}
+                {this.state.selectedChoiceFilter.choices ? <div className="table-row"></div> : ''}
                 <div className="thread-filter">
                     <div className="thread-filter-dot">
                         <span className={this.state.selectedDoubleChoiceFilter.key ? "icon-circle active" : "icon-circle"}></span>
                     </div>
                     <TextCheckboxes labels={doubleChoiceFilters.map(filter => {return {key: filter.key, text: filter.label}})}
                                     onClickHandler={this.handleClickDoubleChoiceFilter} values={this.state.filters.map(filter => filter.key)} />
-                    <div className="vertical-line"></div>
                 </div>
+                <div className="table-row"></div>
                 {this.state.selectedDoubleChoiceFilter.choices ?
-                    <div className="thread-filter double-choice-filter">
+                    <div className="thread-filter radio-filter">
                         <div className="thread-filter-dot">
                             <span className={this.state.selectedDoubleChoiceFilter.choice ? "icon-circle active" : "icon-circle"}></span>
                         </div>
                         <TextRadios labels={Object.keys(this.state.selectedDoubleChoiceFilter.choices).map(choice => { return({key: choice, text: this.state.selectedDoubleChoiceFilter.choices[choice]}); }) }
                                     onClickHandler={this.handleClickDoubleChoiceChoice} value={this.state.selectedDoubleChoiceFilter.choice} className={'double-choice-choice'}/>
-                        <div className="vertical-line"></div>
-
-                        {this.state.selectedDoubleChoiceFilter.choice ?
-                            <div className="thread-filter-dot">
-                                <span className={this.state.selectedDoubleChoiceFilter.detail ? "icon-circle active" : "icon-circle"}></span>
-                            </div>
-                            : ''
-                        }
-                        {this.state.selectedDoubleChoiceFilter.choice ?
-                            <TextRadios labels={Object.keys(this.state.selectedDoubleChoiceFilter.doubleChoices[this.state.selectedDoubleChoiceFilter.choice]).map(doubleChoice => { return({key: doubleChoice, text: this.state.selectedDoubleChoiceFilter.doubleChoices[this.state.selectedDoubleChoiceFilter.choice][doubleChoice]}); }) }
-                                        onClickHandler={this.handleClickDoubleChoiceDetail} value={this.state.selectedDoubleChoiceFilter.detail} className={'double-choice-detail'}/>
-                            : ''
-                        }
-                        {this.state.selectedDoubleChoiceFilter.choice ?
-                            <div className="vertical-line"></div> : ''
-                        }
-
                     </div>
                     : ''}
+                {this.state.selectedDoubleChoiceFilter.choices ? <div className="table-row"></div> : ''}
+                {this.state.selectedDoubleChoiceFilter.choice ?
+                    <div className="thread-filter radio-filter">
+                        <div className="thread-filter-dot">
+                            <span className={this.state.selectedDoubleChoiceFilter.detail ? "icon-circle active" : "icon-circle"}></span>
+                        </div>
+
+                        <TextRadios labels={Object.keys(this.state.selectedDoubleChoiceFilter.doubleChoices[this.state.selectedDoubleChoiceFilter.choice]).map(doubleChoice => { return({key: doubleChoice, text: this.state.selectedDoubleChoiceFilter.doubleChoices[this.state.selectedDoubleChoiceFilter.choice][doubleChoice]}); }) }
+                                    onClickHandler={this.handleClickDoubleChoiceDetail} value={this.state.selectedDoubleChoiceFilter.detail} className={'double-choice-detail'}/>
+                    </div>
+                    : ''}
+                {this.state.selectedDoubleChoiceFilter.choice ? <div className="table-row"></div> : ''}
                 <div className="thread-filter">
                     <div className="thread-filter-dot">
                         <span className={this.state.selectedTagFilter.key ? "icon-circle active" : "icon-circle"}></span>
                     </div>
                     <TextCheckboxes labels={tagFilters.map(filter => {return {key: filter.key, text: filter.label}})}
                                     onClickHandler={this.handleClickTagFilter} values={this.state.tags.map(tag => tag.key)} />
-                    {this.state.selectedTagFilter.key ? <div className="vertical-line"></div> : ''}
+                    {/*this.state.selectedTagFilter.key ? <div className="after-vertical-line"></div> : ''*/}
                 </div>
+                <div className="table-row"></div>
                 {this.state.selectedTagFilter.tagString ?
                     <div className="thread-filter">
                         <div className="thread-filter-dot">
                             <span className={tags.length > 0 ? "icon-circle active" : "icon-circle"}></span>
                         </div>
                         <TextCheckboxes labels={tags.filter(tag => tag.key === this.state.selectedTagFilter.key).map(tag => { return({key: tag.tagString, text: tag.tagString}) })} onClickHandler={this.handleClickTag} values={this.state.tags.map(tag => tag.tagString)} />
-                        <div className="vertical-line"></div>
                     </div>
                     : ''}
+                {this.state.selectedTagFilter.tagString ? <div className="table-row"></div> : ''}
                 {this.state.selectedTagFilter.key ? this.renderTagInput() : ''}
                 <br />
                 <br />
                 <br />
                 <br />
-                <br />
                 <FullWidthButton onClick={this.createThread}>Crear hilo</FullWidthButton>
+                <br />
                 <br />
                 <br />
                 <br />
@@ -288,7 +304,6 @@ export default class CreateUsersThread extends Component {
                 <Geosuggest className="tag-input-wrapper" placeholder={'Escribe una ubicación'} onSuggestSelect={function(suggest) { _self.handleClickLocationSuggestion.bind(_self, suggest)() }}
                             getSuggestLabel={function(suggest) { return suggest.description.length > 15 ? suggest.description.slice(0, 15) + '...' : suggest.description }}
                 />
-                <div className="vertical-line"></div>
             </div>
         );
     }

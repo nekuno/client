@@ -41,19 +41,21 @@ export default class CreateContentThread extends Component {
                         {key: 'Audio', text: 'Audios'},
                         {key: 'Image', text: 'Imágenes'}
                         ]} onClickHandler={this.handleClickFilter} values={this.state.filters} />
-                    {this.state.filters.length > 0 ? <div className="vertical-line"></div> : ''}
                 </div>
+                <div className="table-row"></div>
+                {this.state.filters.length > 0 && this.state.tags.length > 0 ? <div className="content-middle-vertical-line"></div> : ''}
                 {this.state.filters.length > 0 && this.state.tags.length > 0 ?
                     <div className="thread-filter">
                         <div className="thread-filter-dot">
                             <span className={this.state.filters.length > 0 ? "icon-circle active" : "icon-circle"}></span>
                         </div>
                         <TextCheckboxes labels={this.state.tags.map(tag => { return({key: tag, text: tag}); }) } onClickHandler={this.handleClickTag} values={this.state.tags} />
-                        <div className="vertical-line"></div>
                     </div>
                     : ''}
+                {this.state.filters.length > 0 && this.state.tags.length > 0 ? <div className="table-row"></div> : ''}
                 {this.state.filters.length > 0 ?
                     <div className="thread-filter tag-filter">
+                        <div className="content-last-vertical-line"></div>
                         <div className="thread-filter-dot">
                             <span className={this.state.filters.length > 0 ? "icon-plus active" : "icon-plus"}></span>
                         </div>
@@ -62,7 +64,6 @@ export default class CreateContentThread extends Component {
                                   onKeyUpHandler={this.handleKeyUpTag} onClickTagHandler={this.handleClickTagSuggestion}/>
                     </div>
                     : ''}
-                <br />
                 <br />
                 <br />
                 <br />

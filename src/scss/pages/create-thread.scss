@@ -8,8 +8,44 @@ body #root .App .view .page.create-thread-page  {
       margin-bottom: 5px;
     }
 
+    .users-first-vertical-line {
+      border-left: 1px solid $green-alert;
+      height: 35%;
+      margin-left: 7px;
+      top: 175px;
+      position: absolute;
+    }
+    .users-last-vertical-line {
+      border-left: 1px solid $green-alert;
+      bottom: 230px;
+      height: 35%;
+      margin-left: 7px;
+      position: absolute;
+    }
+    .content-first-vertical-line {
+      border-left: 1px solid $green-alert;
+      height: 15%;
+      margin-left: 7px;
+      top: 170px;
+      position: absolute;
+    }
+    .content-middle-vertical-line {
+      border-left: 1px solid $green-alert;
+      height: 25%;
+      margin-left: 7px;
+      margin-top: -25%;
+      position: absolute;
+    }
+    .content-last-vertical-line {
+      border-left: 1px solid $green-alert;
+      margin-top: -60px;
+      height: 15%;
+      margin-left: 7px;
+      position: absolute;
+    }
+
     .thread-filter {
-      margin-top: -45px;
+      display: table-row;
 
       .thread-filter-dot {
         color: $deep-purple;
@@ -22,6 +58,8 @@ body #root .App .view .page.create-thread-page  {
           box-shadow: 0 0 0 2.5px $dark-blue;
           border-radius: 50%;
           font-size: 11px;
+          position: absolute;
+          margin-top: -10px;
         }
         .icon-plus {
           border: 2.5px solid $deep-purple;
@@ -30,6 +68,8 @@ body #root .App .view .page.create-thread-page  {
           background-color: $deep-purple;
           color: #fff;
           font-size: 11px;
+          position: absolute;
+          margin-top: -10px;
         }
         .icon-circle.active {
           color: $green-alert;
@@ -39,33 +79,39 @@ body #root .App .view .page.create-thread-page  {
       }
       .text-radios {
         display: inline-block;
-        padding: 30px 0;
-        width: 85%;
+        width: 90%;
+        padding: 0;
       }
       .text-checkboxes {
         display: inline-block;
-        padding: 25px 0;
+        max-width: 90%;
+        padding: 0;
         text-align: left;
         vertical-align: middle;
-        width: 85%;
 
         .chip {
           margin: 5px;
         }
       }
-      .vertical-line {
-        border-left: 1px solid $green-alert;
-        height: 100px;
-        margin-left: 7px;
-        margin-top: -45px;
-      }
+    }
+
+    .radio-filter {
+      display: block;
+      width: 100%;
+    }
+
+    .table-row {
+      display: table-row;
+      height: 30px;
     }
 
     .location-tag-filter {
-      margin-bottom: 90px;
-
       .geosuggest__suggests-wrapper {
         position: absolute;
+        z-index: 111;
+        background: $purple;
+        border-radius: 20px;
+        padding: 0 10px;
 
         ul {
           -webkit-padding-start: 0px;
@@ -91,20 +137,6 @@ body #root .App .view .page.create-thread-page  {
             margin: 2px;
           }
         }
-      }
-    }
-
-    .tag-filter {
-      margin-top: -20px;
-    }
-
-    .double-choice-filter {
-      .double-choice-choice {
-        padding-bottom: 0;
-      }
-      .double-choice-detail {
-        margin-top: -30px;
-        padding-top: 0;
       }
     }
   }

@@ -13,6 +13,7 @@ export const API_URLS = {
     CONSUME_INVITATION       : API_ROOT + 'invitations/consume/{token}',
     JOIN_GROUP               : API_ROOT + 'groups/{groupId}/members',
     CONNECT_ACCOUNT          : API_ROOT + 'tokens/{resource}?extend',
+    CREATE_DEFAULT_THREADS   : API_ROOT + 'threads/default',
 
     OWN_INTERESTS            : API_ROOT + 'content?type={type}',
     COMPARED_INTERESTS       : API_ROOT + 'content/compare/{userId}?type={type}&showOnlyCommon={showOnlyCommon}'

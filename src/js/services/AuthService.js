@@ -113,6 +113,11 @@ class AuthService {
             })
             .spread(function(user, profile, invitation, oauthToken) {
                 console.log('Account connected', oauthToken);
+                APIUtils.postData(API_URLS.CREATE_DEFAULT_THREADS);
+                console.log('Default threads created');
+                return [user, profile, invitation, oauthToken]
+            })
+            .spread(function(user, profile, invitation, oauthToken) {
                 console.log(user, profile, invitation, oauthToken);
                 return {
                     user,

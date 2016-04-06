@@ -11,6 +11,7 @@ export const API_URLS = {
     REGISTER_USER            : API_ROOT + 'users',
     REGISTER_PROFILE         : API_ROOT + 'profile',
     CONSUME_INVITATION       : API_ROOT + 'invitations/consume/{token}',
+    JOIN_GROUP               : API_ROOT + 'groups/{groupId}/members',
     CONNECT_ACCOUNT          : API_ROOT + 'tokens/{resource}?extend',
 
     OWN_INTERESTS            : API_ROOT + 'content?type={type}',

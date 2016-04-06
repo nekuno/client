@@ -1,7 +1,7 @@
 .tag-input-wrapper {
   display: inline-block;
 
-  .tag-input {
+  .tag-input, .geosuggest__input-wrapper {
     font-weight: 400;
     background: $deep-purple;
     height: 60px;

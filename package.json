@@ -28,7 +28,7 @@
     "react": "^0.14.3",
     "react-addons-linked-state-mixin": "^0.14.3",
     "react-dom": "^0.14.3",
-    "react-geosuggest": "https://github.com/msalsas/react-geosuggest.git",
+    "react-geosuggest": "^1.20.1",
     "react-pure-render": "^1.0.2",
     "react-router": "^1.0.2",
     "request": "^2.67.0",

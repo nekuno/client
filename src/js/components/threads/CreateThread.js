@@ -21,6 +21,18 @@ export default class CreateThread extends Component {
     }
 
     render() {
+        let verticalLines = [];
+        let content = '';
+        switch (this.state.category) {
+            case 'contents':
+                verticalLines = [<div className="content-first-vertical-line"></div>];
+                content = <CreateContentThread userId={this.props.userId}/>;
+                break;
+            case 'persons':
+                verticalLines = [<div className="users-first-vertical-line"></div>, <div className="users-last-vertical-line"></div>];
+                content = <CreateUsersThread userId={this.props.userId}/>;
+                break;
+        }
         return (
             <div>
                 <div className="list-block">
@@ -28,9 +40,7 @@ export default class CreateThread extends Component {
                         <TextInput placeholder={'Escribe un título descriptivo del hilo'} />
                     </ul>
                 </div>
-                {this.state.category === 'contents' ? <div className="content-first-vertical-line"></div> : ''}
-                {this.state.category === 'persons' ? <div className="users-first-vertical-line"></div> : ''}
-                {this.state.category === 'persons' ? <div className="users-last-vertical-line"></div> : ''}
+                {verticalLines.map(verticalLine => verticalLine)}
                 <div className="thread-filter radio-filter">
                     <div className="thread-filter-dot">
                         <span className={this.state.category ? "icon-circle active" : "icon-circle"}></span>
@@ -38,10 +48,7 @@ export default class CreateThread extends Component {
                     <TextRadios labels={[{key: 'persons', text: 'Personas'}, {key: 'contents', text: 'Contenidos'}]} onClickHandler={this.handleClickCategory} value={this.state.category} />
                 </div>
                 <div className="table-row"></div>
-                {this.state.category === 'contents' ?
-                    <CreateContentThread userId={this.props.userId}/> : '' }
-                {this.state.category === 'persons' ?
-                    <CreateUsersThread userId={this.props.userId}/> : '' }
+                {content}
             </div>
         );
     }

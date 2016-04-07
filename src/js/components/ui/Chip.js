@@ -22,7 +22,7 @@ export default class Chip extends Component {
     }
 
     render() {
-        let chipClass = this.props.chipClass + ' chip' || 'chip';
+        let chipClass = this.props.chipClass ? this.props.chipClass + ' chip' : 'chip';
         return (
             <div className={this.props.disabled ? chipClass + " disabled-chip" : chipClass} onClick={this.handleClick}>
                 <div className="chip-label">

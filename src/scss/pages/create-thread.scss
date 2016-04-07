@@ -105,6 +105,13 @@ body #root .App .view .page.create-thread-page  {
       height: 30px;
     }
 
+    .location-filter {
+      display: block;
+
+      .text-checkboxes .chip {
+        max-width: 95%;
+      }
+    }
     .location-tag-filter {
       .geosuggest__suggests-wrapper {
         position: absolute;

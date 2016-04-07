@@ -186,7 +186,7 @@ export default class CreateUsersThread extends Component {
                     <div className="thread-filter-dot">
                         <span className={this.state.selectedLocationFilter.value ? "icon-circle active" : "icon-circle"}></span>
                     </div>
-                    <TextCheckboxes labels={locationFilter.map(filter => {return {key: 'location', text: this.state.selectedLocationFilter.value && this.state.selectedLocationFilter.value.address ? filter.label + ' - ' + this.state.selectedLocationFilter.value.address.slice(0, 28) : filter.label}})}
+                    <TextCheckboxes labels={locationFilter.map(filter => {return {key: 'location', text: this.state.selectedLocationFilter.value && this.state.selectedLocationFilter.value.address ? filter.label + ' - ' + this.state.selectedLocationFilter.value.address : filter.label}})}
                                     onClickHandler={this.handleClickLocationFilter} values={this.state.selectedLocationFilter.value && this.state.selectedLocationFilter.value.address ? ['location'] : []} />
                 </div>
                 <div className="table-row"></div>

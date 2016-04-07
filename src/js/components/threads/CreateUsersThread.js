@@ -181,12 +181,13 @@ export default class CreateUsersThread extends Component {
         let tags = this.state.tags.filter(tag => tag.value === this.state.selectedTagFilter.value && tag.tagString);
 
         return (
-            <div>
+            <div className="users-filters-wrapper">
+                <div className="table-row"></div>
                 <div className="thread-filter location-filter">
                     <div className="thread-filter-dot">
                         <span className={this.state.selectedLocationFilter.value ? "icon-circle active" : "icon-circle"}></span>
                     </div>
-                    <TextCheckboxes labels={locationFilter.map(filter => {return {key: 'location', text: this.state.selectedLocationFilter.value && this.state.selectedLocationFilter.value.address ? filter.label + ' - ' + this.state.selectedLocationFilter.value.address : filter.label}})}
+                    <TextCheckboxes labels={locationFilter.map(filter => {return {key: 'location', text: this.state.selectedLocationFilter.value && this.state.selectedLocationFilter.value.address ? filter.label + ' - ' + this.state.selectedLocationFilter.value.address.slice(0, 28) : filter.label}})}
                                     onClickHandler={this.handleClickLocationFilter} values={this.state.selectedLocationFilter.value && this.state.selectedLocationFilter.value.address ? ['location'] : []} />
                 </div>
                 <div className="table-row"></div>
@@ -267,6 +268,11 @@ export default class CreateUsersThread extends Component {
                 <br />
                 <br />
                 <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
             </div>
         );
     }
@@ -286,8 +292,9 @@ export default class CreateUsersThread extends Component {
             filter = {};
             filters.splice(index, 1);
         }
-
-        filters.push(filter);
+        window.setTimeout(function () {
+            document.getElementsByClassName('view')[0].scrollTop = 170;
+        }, 500);
         this.setState({
             selectedLocationFilter: filter,
             filters: filters
@@ -329,6 +336,13 @@ export default class CreateUsersThread extends Component {
             locality: locality,
             country: country
         };
+        let index = filters.findIndex(savedFilter => savedFilter.key === 'location');
+        if (index == -1) {
+            filters.push(filter);
+        } else {
+            filters[index] = filter;
+        }
+
         this.setState({
             filters: filters,
             selectedLocationFilter: filter
@@ -483,7 +497,7 @@ export default class CreateUsersThread extends Component {
                 tagSuggestions: [tag + '1', tag + '2', tag + '3']
             });
             window.setTimeout(function () {
-                //document.getElementsByClassName('view')[0].scrollTop = document.getElementsByClassName('view')[0].scrollHeight;
+                document.getElementsByClassName('view')[0].scrollTop = document.getElementsByClassName('view')[0].scrollHeight;
             }, 500);
         } else if (this.state.tags.length > 0) {
             this.setState({

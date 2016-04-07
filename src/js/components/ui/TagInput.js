@@ -14,22 +14,21 @@ export default class TagInput extends Component {
         super();
 
         this.onKeyUpHandler = this.onKeyUpHandler.bind(this);
-        this.onClickTagHandler = this.onClickTagHandler.bind(this);
     }
 
     componentDidMount() {
-        this.refs.input.focus();
-    }
-
-    componentDidUpdate() {
-        this.refs.input.focus();
+        let _self = this;
+        document.getElementsByClassName('view')[0].scrollTop = document.getElementsByClassName('view')[0].scrollHeight;
+        window.setTimeout(function () {
+            _self.refs.tagInput.focus();
+        }, 500);
     }
 
     render() {
         return (
             <div className="tag-input-wrapper">
                 <div className="tag-input">
-                    <input placeholder={this.props.placeholder} ref="input" type="text" onKeyUp={this.onKeyUpHandler}/>
+                    <input placeholder={this.props.placeholder} ref="tagInput" type="text" onKeyUp={this.onKeyUpHandler}/>
                 </div>
                 <div className="tag-suggestions">
                     <ul>
@@ -41,12 +40,11 @@ export default class TagInput extends Component {
     }
 
     onKeyUpHandler() {
-        this.props.onKeyUpHandler(this.refs.input.value);
+        this.props.onKeyUpHandler(this.refs.tagInput.value);
     }
 
     onClickTagHandler(tag) {
-        this.refs.input.value = '';
-        this.refs.input.focus();
+        this.refs.tagInput.value = '';
         this.props.onClickTagHandler(tag);
     }
 }

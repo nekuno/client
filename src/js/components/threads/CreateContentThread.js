@@ -31,6 +31,7 @@ export default class CreateContentThread extends Component {
     render() {
         return (
             <div>
+                <div className="table-row"></div>
                 <div className="thread-filter">
                     <div className="thread-filter-dot">
                         <span className={this.state.filters.length > 0 ? "icon-circle active" : "icon-circle"}></span>

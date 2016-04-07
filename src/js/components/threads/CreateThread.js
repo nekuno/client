@@ -25,11 +25,11 @@ export default class CreateThread extends Component {
         let content = '';
         switch (this.state.category) {
             case 'contents':
-                verticalLines = [<div className="content-first-vertical-line"></div>];
+                verticalLines = [<div key={1} className="content-first-vertical-line"></div>];
                 content = <CreateContentThread userId={this.props.userId}/>;
                 break;
             case 'persons':
-                verticalLines = [<div className="users-first-vertical-line"></div>, <div className="users-last-vertical-line"></div>];
+                verticalLines = [<div key={1} className="users-first-vertical-line"></div>, <div key={2} className="users-last-vertical-line"></div>];
                 content = <CreateUsersThread userId={this.props.userId}/>;
                 break;
         }
@@ -41,13 +41,14 @@ export default class CreateThread extends Component {
                     </ul>
                 </div>
                 {verticalLines.map(verticalLine => verticalLine)}
-                <div className="thread-filter radio-filter">
-                    <div className="thread-filter-dot">
-                        <span className={this.state.category ? "icon-circle active" : "icon-circle"}></span>
+                <div className="main-filter-wprapper">
+                    <div className="thread-filter radio-filter">
+                        <div className="thread-filter-dot">
+                            <span className={this.state.category ? "icon-circle active" : "icon-circle"}></span>
+                        </div>
+                        <TextRadios labels={[{key: 'persons', text: 'Personas'}, {key: 'contents', text: 'Contenidos'}]} onClickHandler={this.handleClickCategory} value={this.state.category} />
                     </div>
-                    <TextRadios labels={[{key: 'persons', text: 'Personas'}, {key: 'contents', text: 'Contenidos'}]} onClickHandler={this.handleClickCategory} value={this.state.category} />
                 </div>
-                <div className="table-row"></div>
                 {content}
             </div>
         );

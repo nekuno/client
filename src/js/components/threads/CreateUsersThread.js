@@ -417,7 +417,7 @@ export default class CreateUsersThread extends Component {
         if (locationFilter) {
             let address = locationFilter.value ? locationFilter.value.address : '';
             filterCheckboxes.push({
-                label: {key: 'location', text: locationFilter.label + ' - ' + address},
+                label: {key: 'location', text: address ? locationFilter.label + ' - ' + address : locationFilter.label},
                 value: 'location',
                 selected: this.state.selectedFilter && this.state.selectedFilter.key === 'location'
             });
@@ -427,7 +427,7 @@ export default class CreateUsersThread extends Component {
                 let choice = filter.choices.find(choice => choice.value === filter.choice);
                 let choiceLabel = choice ? choice.label : '';
                 filterCheckboxes.push({
-                    label: {key: filter.key, text: filter.label + ' - ' + choiceLabel},
+                    label: {key: filter.key, text: choiceLabel ? filter.label + ' - ' + choiceLabel : filter.label},
                     value: filter.key,
                     selected: this.state.selectedFilter && this.state.selectedFilter.key === filter.key
                 });
@@ -438,7 +438,7 @@ export default class CreateUsersThread extends Component {
                 let choice = filter.choices[Object.keys(filter.choices).find(key => key === filter.choice)];
                 let detail = filter.detail ? filter.doubleChoices[filter.choice][Object.keys(filter.doubleChoices[filter.choice]).find(key => key === filter.detail)] : null;
                 filterCheckboxes.push({
-                    label: {key: filter.key, text: detail ? filter.label + ' - ' + choice + ' ' + detail : filter.label + ' - ' + choice},
+                    label: {key: filter.key, text: choice ? filter.label + ' - ' + choice + ' ' + detail : filter.label},
                     value: filter.key,
                     selected: this.state.selectedFilter && this.state.selectedFilter.key === filter.key
                 });
@@ -455,7 +455,7 @@ export default class CreateUsersThread extends Component {
                             <span className="icon-circle active"></span>
                         </div>
                         <TextCheckboxes labels={[filterCheckbox.label]}
-                                        onClickHandler={this.handleClickFilter.bind(this, filterCheckbox.label.key)} values={[filterCheckbox.value]} />
+                                        onClickHandler={this.handleClickFilter.bind(this, filterCheckbox.label.key)} values={filters.map(filter => {return filter.value || filter.choice ? filter.key : null})} />
                         <div className="table-row"></div>
                     </div>
             )

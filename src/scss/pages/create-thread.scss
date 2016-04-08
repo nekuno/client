@@ -10,15 +10,22 @@ body #root .App .view .page.create-thread-page  {
 
     .users-first-vertical-line {
       border-left: 1px solid $green-alert;
-      height: 35%;
+      height: 20%;
       margin-left: 7px;
-      top: 175px;
+      top: 170px;
+      position: absolute;
+    }
+    .users-middle-vertical-line {
+      border-left: 1px solid $green-alert;
+      height: 18%;
+      margin-left: 7px;
+      margin-top: -10%;
       position: absolute;
     }
     .users-last-vertical-line {
       border-left: 1px solid $green-alert;
-      bottom: 330px;
-      height: 35%;
+      bottom: 310px;
+      height: 20%;
       margin-left: 7px;
       position: absolute;
     }
@@ -49,14 +56,43 @@ body #root .App .view .page.create-thread-page  {
       height: 100%;
       width: 100%;
     }
+
+    .double-choice-filter {
+      display: inline-block;
+      width: 90%;
+      vertical-align: middle;
+    }
+
+    .choice-filter {
+      vertical-align: middle;
+    }
+
     .thread-filter {
       display: table-row;
 
+      .thread-filter-background {
+        background: $deep-purple-translucent;
+        height: 40%;
+        left: 0;
+        margin-top: -15px;
+        opacity: 0.5;
+        padding: 40px 0;
+        position: absolute;
+        width: 100%;
+        z-index: -2;
+
+        .thread-filter-remove {
+          cursor: pointer;
+          float: right;
+          margin: -30px 5% 30px 0;
+        }
+      }
       .thread-filter-dot {
         color: $deep-purple;
         display: inline-block;
         margin-right: 15px;
         width: 15px;
+        z-index: 111;
 
         .icon-circle {
           border: 2.5px solid $dark-blue;
@@ -86,6 +122,7 @@ body #root .App .view .page.create-thread-page  {
         display: inline-block;
         width: 90%;
         padding: 0;
+        z-index: 111;
       }
       .text-checkboxes {
         display: inline-block;
@@ -93,11 +130,23 @@ body #root .App .view .page.create-thread-page  {
         padding: 0;
         text-align: left;
         vertical-align: middle;
+        z-index: 111;
 
         .chip {
           margin: 5px;
         }
       }
+    }
+
+    .thread-filter-opposite-background {
+      background: $dark-purple;
+      height: 40%;
+      left: 0;
+      margin-top: 15px;
+      padding: 40px 0;
+      position: absolute;
+      width: 100%;
+      z-index: -1;
     }
 
     .radio-filter {
@@ -132,6 +181,7 @@ body #root .App .view .page.create-thread-page  {
           padding: 0px;
 
           li {
+            cursor: pointer;
             display: inline-block;
             list-style-type: none;
             font-weight: 400;
@@ -151,6 +201,42 @@ body #root .App .view .page.create-thread-page  {
             -webkit-align-items: center;
             align-items: center;
             margin: 2px;
+          }
+        }
+      }
+    }
+
+    .select-filter {
+      background: $dark-purple;
+      height: 500px;
+      left: 0;
+      position: absolute;
+      top: 50px;
+      width: 100%;
+      z-index: 1111;
+
+      .list-block {
+        margin: 35px 0 35px 5%;
+
+        ul.checkbox-filters-list {
+          display: inline-table;
+          padding: 0 2.5%;
+          width: 45%;
+
+          li {
+            .label-checkbox {
+              .item-inner {
+                .item-title {
+                  width: 80%;
+                }
+              }
+            }
+            &::after {
+              content: none;
+            }
+          }
+          .active-state {
+            background-color: transparent;
           }
         }
       }
@@ -177,6 +263,5 @@ body #root .App .view .page.create-thread-page  {
         }
       }
     }
-
   }
 }

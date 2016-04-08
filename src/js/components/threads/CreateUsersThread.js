@@ -336,7 +336,8 @@ export default class CreateUsersThread extends Component {
                         let checked = this.state.filters.some(filter => filter.key === this.defaultFilters[id].key);
                         return (
                             <li key={id}>
-                                <InputCheckbox value={id} name={this.defaultFilters[id].key} text={text} checked={checked} defaultChecked={false} onClickHandler={this.handleClickFilterOnList} reverse={true}/>
+                                <InputCheckbox value={this.defaultFilters[id].key} name={this.defaultFilters[id].key} text={text}
+                                               checked={checked} defaultChecked={false} onClickHandler={this.handleClickFilterOnList} reverse={true}/>
                             </li>
                         )
                     })}
@@ -375,7 +376,8 @@ export default class CreateUsersThread extends Component {
                 selectedFilter: filter
             });
         } else {
-            filters.splice(filter.key, 1);
+            let index = filters.findIndex(savedFilter => savedFilter.key === filter.key);
+            filters.splice(index, 1);
             this.setState({
                 filters: filters,
                 selectedFilter: {}

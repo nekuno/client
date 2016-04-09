@@ -1,6 +1,5 @@
 import React from 'react';
 import LoginStore from '../stores/LoginStore';
-import LoginActionCreators from '../actions/LoginActionCreators';
 import RouterActionCreators from '../actions/RouterActionCreators';
 
 /**

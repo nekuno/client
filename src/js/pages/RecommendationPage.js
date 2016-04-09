@@ -93,8 +93,9 @@ function getState(props) {
     }
 }
 
+@AuthenticatedComponent
 @connectToStores([ThreadStore, RecommendationStore, RecommendationsByThreadStore], getState)
-export default AuthenticatedComponent(class RecommendationPage extends Component {
+export default class RecommendationPage extends Component {
     static propTypes = {
         // Injected by React Router:
         params: PropTypes.shape({
@@ -158,5 +159,5 @@ export default AuthenticatedComponent(class RecommendationPage extends Component
             </div>
         );
     }
-});
+};
 

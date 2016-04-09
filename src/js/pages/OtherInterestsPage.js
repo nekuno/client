@@ -40,8 +40,9 @@ function getState(props) {
     };
 }
 
+@AuthenticatedComponent
 @connectToStores([UserStore, InterestStore, InterestsByUserStore], getState)
-export default AuthenticatedComponent(class OtherInterestsPage extends Component {
+export default class OtherInterestsPage extends Component {
     static propTypes = {
         // Injected by React Router:
         params: PropTypes.shape({
@@ -224,4 +225,4 @@ export default AuthenticatedComponent(class OtherInterestsPage extends Component
             type: type
         });
     }
-});
+};

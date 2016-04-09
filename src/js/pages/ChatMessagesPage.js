@@ -26,8 +26,9 @@ function getState(props) {
     };
 }
 
+@AuthenticatedComponent
 @connectToStores([ChatMessageStore, UserStore], getState)
-export default AuthenticatedComponent(class ChatMessagesPage extends Component {
+export default class ChatMessagesPage extends Component {
 
     static propTypes = {
         // Injected by React Router:
@@ -120,4 +121,4 @@ export default AuthenticatedComponent(class ChatMessagesPage extends Component {
             </div>
         );
     }
-});
+};

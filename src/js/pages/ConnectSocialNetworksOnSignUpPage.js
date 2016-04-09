@@ -15,8 +15,9 @@ function getState(props) {
     };
 }
 
+@AuthenticatedComponent
 @connectToStores([WorkersStore], getState)
-export default AuthenticatedComponent(class ConnectSocialNetworksOnSignUpPage extends Component {
+export default class ConnectSocialNetworksOnSignUpPage extends Component {
 
     static contextTypes = {
         history: PropTypes.object.isRequired
@@ -59,4 +60,4 @@ export default AuthenticatedComponent(class ConnectSocialNetworksOnSignUpPage ex
     goToRegisterLandingPage() {
         this.context.history.pushState(null, 'register-questions-landing')
     }
-});
+};

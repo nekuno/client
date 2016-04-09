@@ -51,8 +51,9 @@ function getState(props) {
     };
 }
 
+@AuthenticatedComponent
 @connectToStores([UserStore, QuestionStore, QuestionsByUserIdStore], getState)
-export default AuthenticatedComponent(class OtherQuestionsPage extends Component {
+export default class OtherQuestionsPage extends Component {
     static propTypes = {
         // Injected by React Router:
         params: PropTypes.shape({
@@ -136,4 +137,4 @@ export default AuthenticatedComponent(class OtherQuestionsPage extends Component
             QuestionActionCreators.requestNextComparedQuestions(parseId(this.props.user), parseId(this.props.otherUser), nextLink);
         }
     }
-});
+};

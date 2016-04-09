@@ -15,8 +15,9 @@ function getState(props) {
     };
 }
 
+@AuthenticatedComponent
 @connectToStores([WorkersStore], getState)
-export default AuthenticatedComponent(class ConnectSocialNetworksPage extends Component {
+export default class ConnectSocialNetworksPage extends Component {
 
     static contextTypes = {
         history: PropTypes.object.isRequired
@@ -50,4 +51,4 @@ export default AuthenticatedComponent(class ConnectSocialNetworksPage extends Co
             </div>
         );
     }
-});
+};

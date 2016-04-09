@@ -14,8 +14,9 @@ function getState() {
     };
 }
 
+@AuthenticatedComponent
 @connectToStores([ChatThreadStore], getState)
-export default AuthenticatedComponent(class ChatThreadsPage extends Component {
+export default class ChatThreadsPage extends Component {
 
     static propTypes = {
         // Injected by @connectToStores:
@@ -47,4 +48,4 @@ export default AuthenticatedComponent(class ChatThreadsPage extends Component {
             </div>
         );
     }
-});
+};

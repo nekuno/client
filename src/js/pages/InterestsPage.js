@@ -33,8 +33,9 @@ function getState(props) {
     };
 }
 
+@AuthenticatedComponent
 @connectToStores([InterestStore, InterestsByUserStore], getState)
-export default AuthenticatedComponent(class InterestsPage extends Component {
+export default class InterestsPage extends Component {
     static propTypes = {
         // Injected by @connectToStores:
         interests: PropTypes.array.isRequired,
@@ -188,4 +189,4 @@ export default AuthenticatedComponent(class InterestsPage extends Component {
             InterestsActionCreators.requestNextOwnInterests(parseId(_self.props.user), nextLink);
         }
     }
-});
+};

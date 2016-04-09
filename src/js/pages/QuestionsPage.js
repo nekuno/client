@@ -44,8 +44,9 @@ function getState(props) {
     };
 }
 
+@AuthenticatedComponent
 @connectToStores([UserStore, QuestionStore, QuestionsByUserIdStore], getState)
-export default AuthenticatedComponent(class QuestionsPage extends Component {
+export default class QuestionsPage extends Component {
     static propTypes = {
         // Injected by @connectToStores:
         questions: PropTypes.object.isRequired,
@@ -130,4 +131,4 @@ export default AuthenticatedComponent(class QuestionsPage extends Component {
             QuestionActionCreators.requestNextQuestions(parseId(this.props.user), nextLink);
         }
     }
-});
+};

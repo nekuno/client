@@ -3,7 +3,6 @@ import { Router, Route } from 'react-router';
 
 import App from './App';
 import HomePage from './pages/HomePage';
-import AboutPage from './pages/AboutPage';
 import ChatThreadsPage from './pages/ChatThreadsPage';
 import ChatMessagesPage from './pages/ChatMessagesPage';
 import InterestsPage from './pages/InterestsPage';
@@ -35,7 +34,6 @@ export default class Root extends Component {
             <Router history={history}>
                 <Route name="home" path="/" component={App}>
                     <Route name="splash" path="/splash" component={HomePage}/>
-                    <Route name="about" path="/about" component={AboutPage}/>
                     <Route name="notifications" path="/conversations" component={ChatThreadsPage}/>
                     <Route name="messages" path="/conversations/:userId" component={ChatMessagesPage}/>
                     <Route name="interests" path="/interests" component={InterestsPage}/>

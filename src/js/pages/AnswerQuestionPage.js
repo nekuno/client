@@ -1,13 +1,13 @@
-import React, { PropTypes, Component } from 'react';
-import { Link } from 'react-router';
+import React, {PropTypes, Component} from 'react';
 import selectn from 'selectn';
-import { IMAGES_ROOT } from '../constants/Constants';
+import {IMAGES_ROOT} from '../constants/Constants';
 import * as QuestionActionCreators from '../actions/QuestionActionCreators';
 import LeftMenuTopNavbar from '../components/ui/LeftMenuTopNavbar';
 import RegularTopNavbar from '../components/ui/RegularTopNavbar';
 import AnswerQuestion from '../components/questions/AnswerQuestion';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import connectToStores from '../utils/connectToStores';
+import translate from '../i18n/Translate';
 import UserStore from '../stores/UserStore';
 import QuestionStore from '../stores/QuestionStore';
 import QuestionsByUserIdStore from '../stores/QuestionsByUserIdStore';
@@ -20,7 +20,7 @@ function parseUserId(user) {
  * Requests data from server (or store) for current props.
  */
 function requestData(props) {
-    const { user, params } = props;
+    const {user, params} = props;
     const questionId = params.hasOwnProperty('questionId') ? parseInt(params.questionId) : null;
     const currentUserId = parseUserId(user);
     return QuestionActionCreators.requestQuestion(currentUserId, questionId);
@@ -30,7 +30,7 @@ function requestData(props) {
  * Retrieves state from stores for current props.
  */
 function getState(props) {
-    const { user, params } = props;
+    const {user, params} = props;
     const currentUserId = parseUserId(user);
     const currentUser = UserStore.get(currentUserId);
     const question = QuestionStore.getQuestion();
@@ -53,8 +53,10 @@ function getState(props) {
     };
 }
 
+@AuthenticatedComponent
+@translate('AnswerQuestionPage')
 @connectToStores([UserStore, QuestionStore, QuestionsByUserIdStore], getState)
-export default AuthenticatedComponent(class AnswerQuestionPage extends Component {
+export default class AnswerQuestionPage extends Component {
     static propTypes = {
         // Injected by React Router:
         params: PropTypes.shape({
@@ -62,17 +64,19 @@ export default AuthenticatedComponent(class AnswerQuestionPage extends Component
         }),
 
         // Injected by @connectToStores:
-        question: PropTypes.object,
-        userAnswer: PropTypes.object,
-        isFirstQuestion: PropTypes.bool,
-        errors: PropTypes.string,
+        question         : PropTypes.object,
+        userAnswer       : PropTypes.object,
+        isFirstQuestion  : PropTypes.bool,
+        errors           : PropTypes.string,
         goToQuestionStats: PropTypes.bool,
-        isJustRegistered: PropTypes.bool,
+        isJustRegistered : PropTypes.bool,
+
+        // Injected by @translate:
+        strings: PropTypes.object,
 
         // Injected by AuthenticatedComponent
         user: PropTypes.object.isRequired
     };
-
 
     static contextTypes = {
         history: PropTypes.object.isRequired
@@ -91,7 +95,7 @@ export default AuthenticatedComponent(class AnswerQuestionPage extends Component
             let history = this.context.history;
             let userId = parseUserId(this.props.user);
             if (typeof promise != 'undefined') {
-                promise.then(function (data) {
+                promise.then(function(data) {
                         const questions = data.entities.question;
                         if (isJustRegistered && questions[Object.keys(questions)[0]].isRegisterQuestion === false) {
                             history.pushState(null, '/threads/' + userId);
@@ -109,7 +113,7 @@ export default AuthenticatedComponent(class AnswerQuestionPage extends Component
     }
 
     render() {
-        const user = this.props.user;
+        const {user, strings} = this.props;
         const userId = selectn('qnoow_id', user);
         const ownPicture = user.picture ? `${IMAGES_ROOT}media/cache/resolve/user_avatar_60x60/user/images/${user.picture}` : `${IMAGES_ROOT}media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
         const defaultPicture = `${IMAGES_ROOT}media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
@@ -118,14 +122,14 @@ export default AuthenticatedComponent(class AnswerQuestionPage extends Component
         return (
             <div className="view view-main">
                 {this.props.isJustRegistered ?
-                    <RegularTopNavbar centerText={'Pregunta'}/>
+                    <RegularTopNavbar centerText={strings.question}/>
                     :
-                    <LeftMenuTopNavbar centerText={'Pregunta'} rightText={isRegisterQuestion ? '' : 'Omitir'} onRightLinkClickHandler={isRegisterQuestion ? null : this.skipQuestionHandler}/>
+                    <LeftMenuTopNavbar centerText={strings.question} rightText={isRegisterQuestion ? '' : strings.skip} onRightLinkClickHandler={isRegisterQuestion ? null : this.skipQuestionHandler}/>
                 }
                 <div className="page answer-question-page">
                     <div id="page-content" className="answer-question-content">
                         {this.props.question ?
-                            <AnswerQuestion question={this.props.question} userAnswer={this.props.userAnswer} isFirstQuestion={this.props.isFirstQuestion} userId={userId} errors={this.props.errors} ownPicture={ownPicture} defaultPicture={defaultPicture} />
+                            <AnswerQuestion question={this.props.question} userAnswer={this.props.userAnswer} isFirstQuestion={this.props.isFirstQuestion} userId={userId} errors={this.props.errors} ownPicture={ownPicture} defaultPicture={defaultPicture}/>
                             :
                             ''
                         }
@@ -140,4 +144,11 @@ export default AuthenticatedComponent(class AnswerQuestionPage extends Component
         let questionId = this.props.question.questionId;
         QuestionActionCreators.skipQuestion(userId, questionId);
     }
-});
+}
+
+AnswerQuestionPage.defaultProps = {
+    strings: {
+        question: 'Pregunta',
+        skip    : 'Omitir'
+    }
+};

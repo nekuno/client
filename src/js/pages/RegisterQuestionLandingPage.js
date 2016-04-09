@@ -22,7 +22,8 @@ function requestData(props) {
     QuestionActionCreators.requestQuestion(currentUserId, questionId);
 }
 
-export default AuthenticatedComponent(class RegisterQuestionLandingPage extends Component {
+@AuthenticatedComponent
+export default class RegisterQuestionLandingPage extends Component {
 
     static propTypes = {
         // Injected by React Router:
@@ -75,4 +76,4 @@ export default AuthenticatedComponent(class RegisterQuestionLandingPage extends 
         );
     }
 
-})
+};

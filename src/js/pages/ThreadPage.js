@@ -1,4 +1,4 @@
-import React, { PropTypes, Component } from 'react';
+import React, {PropTypes, Component} from 'react';
 import * as UserActionCreators from '../actions/UserActionCreators';
 import ThreadStore from '../stores/ThreadStore';
 import ThreadsByUserStore from '../stores/ThreadsByUserStore';
@@ -15,7 +15,7 @@ function parseId(params) {
  * Requests data from server for current props.
  */
 function requestData(props) {
-    const { params } = props;
+    const {params} = props;
     const userId = parseId(params);
 
     UserActionCreators.requestThreadPage(userId);
@@ -34,8 +34,9 @@ function getState(props) {
     };
 }
 
+@AuthenticatedComponent
 @connectToStores([ThreadStore, ThreadsByUserStore], getState)
-export default AuthenticatedComponent(class ThreadPage extends Component {
+export default class ThreadPage extends Component {
     static propTypes = {
         // Injected by React Router:
         params: PropTypes.shape({
@@ -43,7 +44,10 @@ export default AuthenticatedComponent(class ThreadPage extends Component {
         }).isRequired,
 
         // Injected by @connectToStores:
-        threads: PropTypes.array
+        threads: PropTypes.array,
+
+        // Injected by AuthenticatedComponent
+        user: PropTypes.object.isRequired
     };
 
     componentWillMount() {
@@ -60,13 +64,13 @@ export default AuthenticatedComponent(class ThreadPage extends Component {
 
         return (
             <div className="view view-main">
-                <LeftMenuTopNavbar centerText={'Hilos'} centerTextSize={'large'} />
+                <LeftMenuTopNavbar centerText={'Hilos'} centerTextSize={'large'}/>
                 <div className="page threads-page">
                     <div id="page-content">
-                        <ThreadList threads={this.props.threads} userId={this.props.user.qnoow_id} />
+                        <ThreadList threads={this.props.threads} userId={this.props.user.qnoow_id}/>
                     </div>
                 </div>
             </div>
         );
     }
-});
+};

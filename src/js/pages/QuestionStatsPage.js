@@ -32,8 +32,9 @@ function getState(props) {
     };
 }
 
+@AuthenticatedComponent
 @connectToStores([UserStore, QuestionStore, QuestionsByUserIdStore], getState)
-export default AuthenticatedComponent(class QuestionStatsPage extends Component {
+export default class QuestionStatsPage extends Component {
     static propTypes = {
 
         // Injected by @connectToStores:
@@ -88,4 +89,4 @@ export default AuthenticatedComponent(class QuestionStatsPage extends Component 
         console.log('handling');
         this.context.history.pushState(null, `/answer-question/next`);
     }
-});
+};

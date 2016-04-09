@@ -125,8 +125,9 @@ function unsetLikeUser(props) {
     UserActionCreators.deleteLikeUser(user.qnoow_id, currentUser.qnoow_id);
 }
 
+@AuthenticatedComponent
 @connectToStores([UserStore, ProfileStore, StatsStore, MatchingStore, SimilarityStore, BlockStore, LikeStore, ComparedStatsStore], getState)
-export default AuthenticatedComponent(class UserPage extends Component {
+export default class UserPage extends Component {
     static propTypes = {
         // Injected by React Router:
         params: PropTypes.shape({
@@ -262,4 +263,4 @@ export default AuthenticatedComponent(class UserPage extends Component {
             </div>
         );
     }
-})
+};

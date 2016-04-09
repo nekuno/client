@@ -1,10 +1,11 @@
-import React, { PropTypes, Component } from 'react';
-import { Link } from 'react-router';
+import React, {PropTypes, Component} from 'react';
+import {Link} from 'react-router';
 import FullWidthButton from '../components/ui/FullWidthButton';
 import moment from 'moment';
 import 'moment/locale/es';
-import { LAST_RELEASE_DATE } from '../constants/Constants';
-import { getVersion } from '../utils/APIUtils';
+import {LAST_RELEASE_DATE} from '../constants/Constants';
+import {getVersion} from '../utils/APIUtils';
+import translate from '../i18n/Translate';
 
 let nekunoSwiper;
 
@@ -20,6 +21,7 @@ function destroySwiper() {
     nekunoSwiper.destroy(true);
 }
 
+@translate('HomePage')
 export default class HomePage extends Component {
 
     static contextTypes = {
@@ -62,6 +64,7 @@ export default class HomePage extends Component {
     }
 
     renderSlides = function() {
+        const {strings} = this.props;
         return (
             [1, 2, 3].map(i =>
                 <div key={i} className="swiper-slide">
@@ -72,24 +75,22 @@ export default class HomePage extends Component {
                         </div>
                         <div id="page-content" className="home-content">
                             <div className="title">
-                                {i === 1 ? 'Descubre contenidos de los temas que más te interesan' :
-                                    i === 2 ? 'Conecta sólo con las personas más compatibles contigo' :
-                                        'Tú decides la información que compartes'}
+                                {i === 1 ? strings.title1 : i === 2 ? strings.title2 : strings.title3}
                             </div>
                         </div>
                         <div className="swiper-pagination-and-button">
                             <div className="swiper-pagination"></div>
                             { this.state.needsUpdating ?
                                 <FullWidthButton onClick={() => window.location = 'https://play.google.com/store/apps/details?id=com.nekuno'}>
-                                    Actualizar
+                                    {strings.update}
                                 </FullWidthButton>
                                 :
                                 <div>
                                     <Link to="/login">
-                                        <FullWidthButton>Iniciar sesión</FullWidthButton>
+                                        <FullWidthButton>{strings.login}</FullWidthButton>
                                     </Link>
                                     <div className="register">
-                                        <span>¿Tienes una invitación?</span> <Link to="/register">Regístrate</Link>
+                                        <span>{strings.hasInvitation}</span> <Link to="/register">{strings.register}</Link>
                                     </div>
                                 </div>
                             }
@@ -100,3 +101,15 @@ export default class HomePage extends Component {
         );
     };
 }
+
+HomePage.defaultProps = {
+    strings: {
+        title1       : 'Descubre contenidos de los temas que más te interesan',
+        title2       : 'Conecta sólo con las personas más compatibles contigo',
+        title3       : 'Tú decides la información que compartes',
+        update       : 'Actualizar',
+        login        : 'Iniciar sesión',
+        hasInvitation: '¿Tienes una invitación?',
+        register     : 'Regístrate'
+    }
+};

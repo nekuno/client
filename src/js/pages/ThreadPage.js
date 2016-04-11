@@ -1,13 +1,13 @@
 import React, { PropTypes, Component } from 'react';
-import * as UserActionCreators from '../actions/UserActionCreators';
-import ThreadStore from '../stores/ThreadStore';
-import ProfileStore from '../stores/ProfileStore';
-import ThreadsByUserStore from '../stores/ThreadsByUserStore';
 import ThreadList from '../components/threads/ThreadList';
 import LeftMenuTopNavbar from '../components/ui/LeftMenuTopNavbar';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
+import * as UserActionCreators from '../actions/UserActionCreators';
+import ThreadStore from '../stores/ThreadStore';
+import ProfileStore from '../stores/ProfileStore';
+import ThreadsByUserStore from '../stores/ThreadsByUserStore';
 
 function parseId(params) {
     return params.userId;
@@ -28,8 +28,7 @@ function requestData(props) {
 function getState(props) {
     const threadIds = ThreadsByUserStore.getThreadsFromUser(props.user.qnoow_id);
     const threads = threadIds ? threadIds.map(ThreadStore.get) : [];
-    let profile = ProfileStore.get(props.user.qnoow_id);
-    profile = profile !== undefined? profile : {} ;
+    const profile = ProfileStore.get(props.user.qnoow_id) || {};
     return {
         threads,
         profile
@@ -71,7 +70,7 @@ export default class ThreadPage extends Component {
                 <LeftMenuTopNavbar centerText={strings.threads} centerTextSize={'large'}/>
                 <div className="page threads-page">
                     <div id="page-content">
-                        <ThreadList threads={this.props.threads} userId={this.props.user.qnoow_id} profile={this.props.profile} />
+                        <ThreadList threads={this.props.threads} userId={this.props.user.qnoow_id} profile={this.props.profile}/>
                     </div>
                 </div>
             </div>

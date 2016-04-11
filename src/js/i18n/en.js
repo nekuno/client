@@ -30,6 +30,13 @@ export default {
         hasInvitation: 'Do you have an invitation?',
         register     : 'Register'
     },
+    InterestsPage                    : {
+        cancel   : 'Cancel',
+        myProfile: 'My profile',
+        about    : 'About me',
+        questions: 'Answers',
+        interests: 'Interests'
+    },
     LoginPage                        : {
         login   : 'Login',
         cancel  : 'Cancel',

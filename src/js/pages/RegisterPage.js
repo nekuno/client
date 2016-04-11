@@ -54,7 +54,7 @@ export default class RegisterPage extends Component {
         var token = e.target.value;
         this.tokenTimeout = setTimeout(() => {
             token = token.replace(/(http[s]?:\/\/)?(www\.)?(pre\.)?(local\.)?(nekuno.com\/)?(invitation\/)?(inv)?/ig, '');
-            if(token) {
+            if (token) {
                 ConnectActionCreators.validateInvitation(token);
             }
         }, 500);
@@ -103,14 +103,11 @@ export default class RegisterPage extends Component {
     }
 
     render() {
-        const {
-            error,
-            token,
-            strings
-        } = this.props;
 
-        if(token) {
-            nekunoApp.alert('Invitación correcta! Conecta ahora una red para registrarte en Nekuno');
+        const {error, token, strings} = this.props;
+
+        if (token) {
+            nekunoApp.alert(strings.correct);
         }
 
         return (
@@ -153,9 +150,10 @@ RegisterPage.defaultProps = {
     strings: {
         register: 'Create account',
         cancel  : 'Cancel',
-        title   : 'Nekuno sólo permite el registro por invitación.',
-        subtitle: 'Por favor, copia la URL que habrás recibido en tu invitación y pégala en el siguiente campo para poder crear tu cuenta en Nekuno.',
-        paste   : 'Pega aquí la URL de la invitación',
-        privacy : 'Al registrarte, estás aceptando las <a href="https://nekuno.com/static/legal">Condiciones Legales</a> y la <a href="https://nekuno.com/static/privacy">Política de Privacidad</a> de Nekuno.'
+        title   : 'Nekuno only allows registration by invitation.',
+        subtitle: 'Please copy the URL that you\'ve received your invitation and paste it into the field below to create your account at Nekuno.',
+        paste   : 'Paste the invitation url here',
+        privacy : 'By registering, you agree to the <a href="https://nekuno.com/static/legal">Legal Conditions</a> and the Nekuno <a href="https://nekuno.com/static/privacy">Privacy Policy</a>.',
+        correct : 'Invitation is correct! Connect now a social network to join Nekuno'
     }
 };

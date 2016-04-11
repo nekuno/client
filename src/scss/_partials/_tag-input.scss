@@ -1,5 +1,7 @@
 .tag-input-wrapper {
   display: inline-block;
+  width: 90%;
+
   &::after {
     content: '';
     height: 1px;
@@ -16,48 +18,23 @@
     line-height: 60px;
     padding: 0 5px;
     vertical-align: middle;
-    display: -webkit-inline-box;
-    display: -ms-inline-flexbox;
-    display: -webkit-inline-flex;
-    display: inline-flex;
     margin: 2px 0;
-    /*font-weight: 400;
-    background: $deep-purple;
-    height: 60px;
-    line-height: 60px;
-    border-radius: 30px;
-    padding: 0 24px;
-    box-sizing: border-box;
-    vertical-align: middle;
-    display: -webkit-inline-box;
-    display: -ms-inline-flexbox;
-    display: -webkit-inline-flex;
-    display: inline-flex;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    -webkit-align-items: center;
-    align-items: center;
-    margin: 2px 0;*/
-
-
+    width: 100%;
 
     input[type="text"] {
       background-color: transparent;
       border: none;
       color: #fff;
-      font-size: 1.3em;
-      width: 90%;
-
+      width: 100%;
     }
-
-    /*.tag-input-text {
-      cursor: pointer;
-      font-size: 1.3em;
-    }*/
-
   }
 
   .tag-suggestions {
+    background: $purple;
+    cursor: pointer;
+    margin-top: 5px;
+    border-radius: 20px;
+    padding: 0 10px;
     position: absolute;
 
     ul {

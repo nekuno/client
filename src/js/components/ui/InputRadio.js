@@ -3,7 +3,7 @@ import React, { PropTypes, Component } from 'react';
 export default class InputRadio extends Component {
 
     static propTypes = {
-        value         : PropTypes.number.isRequired,
+        value         : PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
         name          : PropTypes.string.isRequired,
         text          : PropTypes.string.isRequired,
         checked       : PropTypes.bool.isRequired,

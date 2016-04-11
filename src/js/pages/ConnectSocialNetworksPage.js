@@ -1,10 +1,11 @@
 import React, { PropTypes, Component } from 'react';
 import { IMAGES_ROOT } from '../constants/Constants';
 import LeftBackIconTopNavbar from '../components/ui/LeftBackIconTopNavbar';
-import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import SocialWheels from '../components/ui/SocialWheels';
-import WorkersStore from '../stores/WorkersStore';
+import AuthenticatedComponent from '../components/AuthenticatedComponent';
+import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
+import WorkersStore from '../stores/WorkersStore';
 
 function getState(props) {
 
@@ -16,39 +17,48 @@ function getState(props) {
 }
 
 @AuthenticatedComponent
+@translate('ConnectSocialNetworksPage')
 @connectToStores([WorkersStore], getState)
 export default class ConnectSocialNetworksPage extends Component {
 
     static contextTypes = {
         history: PropTypes.object.isRequired
     };
+
     static propTypes = {
         // Injected by @AuthenticatedComponent
         user    : PropTypes.object.isRequired,
+        // Injected by @translate:
+        strings : PropTypes.object,
+        // Injected by @connectToStores:
         networks: PropTypes.array.isRequired
     };
 
     render() {
 
-        const networks = this.props.networks;
-        const picture = this.props.user && this.props.user.picture ? `${IMAGES_ROOT}media/cache/resolve/user_avatar_180x180/user/images/${this.props.user.picture}` : `${IMAGES_ROOT}media/cache/user_avatar_180x180/bundles/qnoowweb/images/user-no-img.jpg`;
+        const {networks, user, strings} = this.props;
+        const picture = user && user.picture ? `${IMAGES_ROOT}media/cache/resolve/user_avatar_180x180/user/images/${user.picture}` : `${IMAGES_ROOT}media/cache/user_avatar_180x180/bundles/qnoowweb/images/user-no-img.jpg`;
 
         return (
             <div className="view view-main">
-                <LeftBackIconTopNavbar centerText={'Conexión con redes sociales'}/>
+                <LeftBackIconTopNavbar centerText={strings.top}/>
                 <div data-page="index" className="page connect-social-networks-page">
                     <div id="page-content" className="connect-social-networks-content">
-                        <div className="title">Conecta con tu mundo</div>
-                        <div className="excerpt">
-                            Conecta tus redes sociales con Nekuno
-                            para mejorar los resultados de los
-                            contenidos recomendados.
-                        </div>
+                        <div className="title">{strings.title}</div>
+                        <div className="excerpt">{strings.excerpt}</div>
                         <br />
                         <SocialWheels networks={networks} picture={picture}/>
                     </div>
                 </div>
             </div>
         );
+    }
+};
+
+ConnectSocialNetworksPage.defaultProps = {
+    strings: {
+        top    : 'Social Networks',
+        title  : 'Connect to your world',
+        excerpt: 'Connect your social networks with Nekuno to improve the results of the recommended content.'
     }
 };

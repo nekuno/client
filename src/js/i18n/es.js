@@ -1,17 +1,27 @@
 export default {
-    AnswerQuestionPage: {
+    AnswerQuestionPage               : {
         question: 'Pregunta',
         skip    : 'Omitir'
     },
-    ChatMessagesPage  : {
+    ChatMessagesPage                 : {
         noMoreMessages: 'No tienes más mensajes',
         placeholder   : 'Escribe un mensaje...',
         text          : 'Enviar'
     },
-    ChatThreadsPage   : {
+    ChatThreadsPage                  : {
         title: 'Mensajes'
     },
-    HomePage          : {
+    ConnectSocialNetworksOnSignUpPage: {
+        next   : 'Continuar',
+        welcome: 'Bienvenido a Nekuno',
+        excerpt: 'Conecta con Nekuno todas las redes sociales que quieras para mejorar los resultados de los contenidos recomendados.'
+    },
+    ConnectSocialNetworksPage        : {
+        top    : 'Conexión con redes sociales',
+        title  : 'Conecta con tu mundo',
+        excerpt: 'Conecta tus redes sociales con Nekuno para mejorar los resultados de los contenidos recomendados.'
+    },
+    HomePage                         : {
         title1       : 'Descubre contenidos de los temas que más te interesan',
         title2       : 'Conecta sólo con las personas más compatibles contigo',
         title3       : 'Tú decides la información que compartes',
@@ -20,13 +30,13 @@ export default {
         hasInvitation: '¿Tienes una invitación?',
         register     : 'Regístrate'
     },
-    LoginPage         : {
+    LoginPage                        : {
         login   : 'Iniciar sesión',
         cancel  : 'Cancelar',
         username: 'Usuario o email',
         password: 'Contraseña'
     },
-    RegisterPage      : {
+    RegisterPage                     : {
         register: 'Crear cuenta',
         cancel  : 'Cancelar',
         title   : 'Nekuno sólo permite el registro por invitación.',

@@ -1,10 +1,11 @@
 import React, { PropTypes, Component } from 'react';
 import { IMAGES_ROOT } from '../constants/Constants';
 import RegularTopNavbar from '../components/ui/RegularTopNavbar';
-import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import SocialWheels from '../components/ui/SocialWheels';
-import WorkersStore from '../stores/WorkersStore';
+import AuthenticatedComponent from '../components/AuthenticatedComponent';
+import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
+import WorkersStore from '../stores/WorkersStore';
 
 function getState(props) {
 
@@ -16,15 +17,20 @@ function getState(props) {
 }
 
 @AuthenticatedComponent
+@translate('ConnectSocialNetworksOnSignUpPage')
 @connectToStores([WorkersStore], getState)
 export default class ConnectSocialNetworksOnSignUpPage extends Component {
 
     static contextTypes = {
         history: PropTypes.object.isRequired
     };
+
     static propTypes = {
         // Injected by @AuthenticatedComponent
         user    : PropTypes.object.isRequired,
+        // Injected by @translate:
+        strings : PropTypes.object,
+        // Injected by @connectToStores:
         networks: PropTypes.array.isRequired
     };
 
@@ -33,22 +39,23 @@ export default class ConnectSocialNetworksOnSignUpPage extends Component {
         this.goToRegisterLandingPage = this.goToRegisterLandingPage.bind(this);
     }
 
+    goToRegisterLandingPage() {
+        this.context.history.pushState(null, 'register-questions-landing')
+    }
+
     render() {
 
-        const networks = this.props.networks;
-        const username = this.props.user.username;
-        const picture = this.props.user && this.props.user.picture ? `${IMAGES_ROOT}media/cache/resolve/user_avatar_180x180/user/images/${this.props.user.picture}` : `${IMAGES_ROOT}media/cache/user_avatar_180x180/bundles/qnoowweb/images/user-no-img.jpg`;
+        const {networks, user, strings} = this.props;
+        const username = user.username;
+        const picture = user && user.picture ? `${IMAGES_ROOT}media/cache/resolve/user_avatar_180x180/user/images/${user.picture}` : `${IMAGES_ROOT}media/cache/user_avatar_180x180/bundles/qnoowweb/images/user-no-img.jpg`;
 
         return (
             <div className="view view-main">
-                <RegularTopNavbar centerText={''} rightText={'Continuar'} onRightLinkClickHandler={this.goToRegisterLandingPage}/>
+                <RegularTopNavbar centerText={''} rightText={strings.next} onRightLinkClickHandler={this.goToRegisterLandingPage}/>
                 <div data-page="index" className="page connect-social-networks-page">
                     <div id="page-content" className="connect-social-networks-content">
-                        <div className="title">Bienvenido a Nekuno <br />{username}</div>
-                        <div className="excerpt">
-                            Conecta con Nekuno todas las redes sociales que quieras para mejorar
-                            los resultados de los contenidos recomendados.
-                        </div>
+                        <div className="title">{strings.welcome} <br />{username}</div>
+                        <div className="excerpt">{strings.excerpt}</div>
                         <br />
                         <SocialWheels networks={networks} picture={picture}/>
                     </div>
@@ -56,8 +63,12 @@ export default class ConnectSocialNetworksOnSignUpPage extends Component {
             </div>
         );
     }
+};
 
-    goToRegisterLandingPage() {
-        this.context.history.pushState(null, 'register-questions-landing')
+ConnectSocialNetworksOnSignUpPage.defaultProps = {
+    strings: {
+        next   : 'Continue',
+        welcome: 'Welcome to Nekuno',
+        excerpt: 'Connect to Nekuno all social networks that you want, to improve the results of the recommended content.'
     }
 };

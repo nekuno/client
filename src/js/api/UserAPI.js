@@ -5,6 +5,7 @@ import {
     fetchRecommendation,
     fetchUserArray,
     fetchProfile,
+    putProfile,
     fetchMetadata,
     fetchStats,
     fetchComparedStats,
@@ -25,6 +26,10 @@ export function getUser(userId, url = `users/${userId}`) {
 
 export function getProfile(userId, url = `profile/${userId}`) {
     return fetchProfile(url);
+}
+
+export function editProfile(data, url = `profile`) {
+    return putProfile(url, data);
 }
 
 export function getMetadata(url = `profile/metadata`) {

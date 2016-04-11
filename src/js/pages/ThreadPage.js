@@ -1,6 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import * as UserActionCreators from '../actions/UserActionCreators';
 import ThreadStore from '../stores/ThreadStore';
+import ProfileStore from '../stores/ProfileStore';
 import ThreadsByUserStore from '../stores/ThreadsByUserStore';
 import ThreadList from '../components/threads/ThreadList';
 import LeftMenuTopNavbar from '../components/ui/LeftMenuTopNavbar';
@@ -19,7 +20,7 @@ function requestData(props) {
     const userId = parseId(params);
 
     UserActionCreators.requestThreadPage(userId);
-
+    UserActionCreators.requestProfile(userId);
 }
 
 /**
@@ -28,13 +29,15 @@ function requestData(props) {
 function getState(props) {
     const threadIds = ThreadsByUserStore.getThreadsFromUser(props.user.qnoow_id);
     const threads = threadIds ? threadIds.map(ThreadStore.get) : [];
-
+    let profile = ProfileStore.get(props.user.qnoow_id);
+    profile = profile !== undefined? profile : {} ;
     return {
-        threads
+        threads,
+        profile
     };
 }
 
-@connectToStores([ThreadStore, ThreadsByUserStore], getState)
+@connectToStores([ThreadStore, ThreadsByUserStore, ProfileStore], getState)
 export default AuthenticatedComponent(class ThreadPage extends Component {
     static propTypes = {
         // Injected by React Router:
@@ -43,7 +46,8 @@ export default AuthenticatedComponent(class ThreadPage extends Component {
         }).isRequired,
 
         // Injected by @connectToStores:
-        threads: PropTypes.array
+        threads: PropTypes.array,
+        profile: PropTypes.object
     };
 
     componentWillMount() {
@@ -63,7 +67,7 @@ export default AuthenticatedComponent(class ThreadPage extends Component {
                 <LeftMenuTopNavbar centerText={'Hilos'} centerTextSize={'large'} />
                 <div className="page threads-page">
                     <div id="page-content">
-                        <ThreadList threads={this.props.threads} userId={this.props.user.qnoow_id} />
+                        <ThreadList threads={this.props.threads} userId={this.props.user.qnoow_id} profile={this.props.profile} />
                     </div>
                 </div>
             </div>

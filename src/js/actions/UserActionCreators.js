@@ -33,6 +33,14 @@ export function requestProfile(userId, fields) {
     }, {userId});
 }
 
+export function editProfile(data) {
+    return dispatchAsync(UserAPI.editProfile(data), {
+        request: ActionTypes.EDIT_PROFILE,
+        success: ActionTypes.EDIT_PROFILE_SUCCESS,
+        failure: ActionTypes.EDIT_PROFILE_ERROR
+    }, {data})
+}
+
 export function requestMetadata() {
 
     if (!ProfileStore.getMetadata()) {

@@ -49,14 +49,14 @@ export default {
         similarInterestsCount: '%count% Intereses similares',
         all                  : 'Todo',
         common               : 'En común',
-        about                : 'Acerca de',
+        about                : 'Sobre %username%',
         questions            : 'Respuestas',
         interests            : 'Intereses'
     },
     OtherQuestionsPage               : {
         cancel      : 'Cancelar',
         coincidences: 'Coincidencias',
-        about       : 'Acerca de',
+        about       : 'Sobre %username%',
         questions   : 'Respuestas',
         interests   : 'Intereses'
     },
@@ -106,5 +106,14 @@ export default {
     },
     ThreadPage                       : {
         threads: 'Hilos'
+    },
+    UserPage                         : {
+        aboutMe   : 'Sobre mí',
+        aboutOther: 'Sobre %username%',
+        questions : 'Respuestas',
+        interests : 'Intereses',
+        like      : 'Me gusta',
+        dontLike  : 'Ya no me gusta',
+        myProfile : 'Mi Perfil'
     }
 }

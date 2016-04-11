@@ -1,6 +1,16 @@
 import React, { PropTypes, Component } from 'react';
 import selectn from 'selectn';
 import { IMAGES_ROOT } from '../constants/Constants';
+import User from '../components/User';
+import OtherProfileData from '../components/profile/OtherProfileData';
+import ProfileDataList from '../components/profile/ProfileDataList'
+import LeftMenuTopNavbar from '../components/ui/LeftMenuTopNavbar';
+import OtherUserTopNavbar from '../components/ui/OtherUserTopNavbar';
+import ToolBar from '../components/ui/ToolBar';
+import Button from '../components/ui/Button';
+import AuthenticatedComponent from '../components/AuthenticatedComponent';
+import translate from '../i18n/Translate';
+import connectToStores from '../utils/connectToStores';
 import * as UserActionCreators from '../actions/UserActionCreators';
 import UserStore from '../stores/UserStore';
 import ProfileStore from '../stores/ProfileStore';
@@ -10,16 +20,6 @@ import MatchingStore from '../stores/MatchingStore';
 import SimilarityStore from '../stores/SimilarityStore';
 import BlockStore from '../stores/BlockStore';
 import LikeStore from '../stores/LikeStore';
-import User from '../components/User';
-import OtherProfileData from '../components/profile/OtherProfileData';
-import ProfileDataList from '../components/profile/ProfileDataList'
-import LeftMenuTopNavbar from '../components/ui/LeftMenuTopNavbar';
-import OtherUserTopNavbar from '../components/ui/OtherUserTopNavbar';
-import ProgressBar from '../components/ui/ProgressBar';
-import ToolBar from '../components/ui/ToolBar';
-import Button from '../components/ui/Button';
-import connectToStores from '../utils/connectToStores';
-import AuthenticatedComponent from '../components/AuthenticatedComponent';
 
 function parseId(params) {
     return params.userId;
@@ -30,24 +30,24 @@ function parseId(params) {
  */
 function requestData(props) {
     //user === logged user
-    const { params, user, userLoggedIn } = props;
+    const {params, user, userLoggedIn} = props;
     //current === user whose profile is being viewed
     const currentUserId = parseId(params);
 
     if (!(userLoggedIn && user && (user.qnoow_id == currentUserId))) {
-        if (!MatchingStore.contains(currentUserId, user.qnoow_id)){
+        if (!MatchingStore.contains(currentUserId, user.qnoow_id)) {
             UserActionCreators.requestMatching(parseInt(currentUserId), user.qnoow_id);
         }
-        if (!SimilarityStore.contains(currentUserId, user.qnoow_id)){
+        if (!SimilarityStore.contains(currentUserId, user.qnoow_id)) {
             UserActionCreators.requestSimilarity(currentUserId, user.qnoow_id);
         }
-        if (!LikeStore.contains(user.qnoow_id, currentUserId)){
+        if (!LikeStore.contains(user.qnoow_id, currentUserId)) {
             UserActionCreators.requestLikeUser(user.qnoow_id, currentUserId);
         }
-        if (!BlockStore.contains(user.qnoow_id, currentUserId)){
+        if (!BlockStore.contains(user.qnoow_id, currentUserId)) {
             UserActionCreators.requestBlockUser(user.qnoow_id, currentUserId);
         }
-        if (!ComparedStatsStore.contains(user.qnoow_id, currentUserId)){
+        if (!ComparedStatsStore.contains(user.qnoow_id, currentUserId)) {
             UserActionCreators.requestComparedStats(user.qnoow_id, currentUserId);
         }
 
@@ -102,46 +102,48 @@ function getState(props) {
 }
 
 function setBlockUser(props) {
-    const { user, currentUser } = props;
+    const {user, currentUser} = props;
 
     UserActionCreators.blockUser(user.qnoow_id, currentUser.qnoow_id);
 }
 
 function unsetBlockUser(props) {
-    const { user, currentUser } = props;
+    const {user, currentUser} = props;
 
     UserActionCreators.deleteBlockUser(user.qnoow_id, currentUser.qnoow_id);
 }
 
 function setLikeUser(props) {
-    const { user, currentUser } = props;
+    const {user, currentUser} = props;
 
     UserActionCreators.likeUser(user.qnoow_id, currentUser.qnoow_id);
 }
 
 function unsetLikeUser(props) {
-    const { user, currentUser } = props;
+    const {user, currentUser} = props;
 
     UserActionCreators.deleteLikeUser(user.qnoow_id, currentUser.qnoow_id);
 }
 
 @AuthenticatedComponent
+@translate('UserPage')
 @connectToStores([UserStore, ProfileStore, StatsStore, MatchingStore, SimilarityStore, BlockStore, LikeStore, ComparedStatsStore], getState)
 export default class UserPage extends Component {
     static propTypes = {
         // Injected by React Router:
-        params: PropTypes.shape({
+        params  : PropTypes.shape({
             userId: PropTypes.string.isRequired
         }).isRequired,
-
+        // Injected by @AuthenticatedComponent
+        user    : PropTypes.object,
+        // Injected by @translate:
+        strings : PropTypes.object,
         // Injected by @connectToStores:
         //currentUser: PropTypes.object,
         //profile: PropTypes.array,
-        stats: PropTypes.object,
-        matching: PropTypes.number,
+        stats   : PropTypes.object,
+        matching: PropTypes.number
 
-        // Injected by @AuthenticatedComponent
-        user: PropTypes.object
     };
 
     constructor(props) {
@@ -162,7 +164,7 @@ export default class UserPage extends Component {
     }
 
     onBlock() {
-        if (!this.props.block){
+        if (!this.props.block) {
             setBlockUser(this.props);
         } else {
             unsetBlockUser(this.props);
@@ -170,24 +172,24 @@ export default class UserPage extends Component {
     }
 
     onRate() {
-        if (!this.props.like){
+        if (!this.props.like) {
             setLikeUser(this.props);
         } else {
             unsetLikeUser(this.props);
         }
     }
 
-
     render() {
-        const { userLoggedIn, user, currentUser, profile, stats, matching, similarity, block, like, comparedStats } = this.props;
+        const {userLoggedIn, user, currentUser, profile, stats, matching, similarity, block, like, comparedStats} = this.props;
         const currentUserId = currentUser ? currentUser.qnoow_id : null;
         const currentPicture = currentUser && currentUser.picture ? `${IMAGES_ROOT}media/cache/resolve/user_avatar_60x60/user/images/${currentUser.picture}` : `${IMAGES_ROOT}media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
         const ownPicture = user && user.picture ? `${IMAGES_ROOT}media/cache/resolve/user_avatar_60x60/user/images/${user.picture}` : `${IMAGES_ROOT}media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
-        const likeText = like ? "Ya no me gusta" : "Me gusta";
-        const blockClass = block? "icon-block blocked" : "icon-block";
+        const strings = this.props.strings;
+        const likeText = like ? strings.dontLike : strings.like;
+        const blockClass = block ? "icon-block blocked" : "icon-block";
 
-        let ownProfile=false;
-        if (userLoggedIn && user && (user.qnoow_id == currentUserId)){
+        let ownProfile = false;
+        if (userLoggedIn && user && (user.qnoow_id == currentUserId)) {
             ownProfile = true;
         }
 
@@ -195,9 +197,9 @@ export default class UserPage extends Component {
             <div className="view view-main">
                 <div className="page toolbar-fixed user-page">
                     {ownProfile ?
-                        <LeftMenuTopNavbar centerText={'Mi Perfil'} />
+                        <LeftMenuTopNavbar centerText={strings.myProfile}/>
                         :
-                        <OtherUserTopNavbar centerText={currentUser ? currentUser.username : ''} userId={currentUserId} />
+                        <OtherUserTopNavbar centerText={currentUser ? currentUser.username : ''} userId={currentUserId}/>
                     }
 
                     <div id="page-content">
@@ -212,25 +214,23 @@ export default class UserPage extends Component {
                                 <div className="number">
                                     {selectn('numberOfContentLikes', stats) ? stats.numberOfContentLikes : 0}
                                 </div>
-                                <div className="label">
-                                    Intereses
-                                </div>
+                                <div className="label">{strings.interests}</div>
                             </div>
                             : ''
                         }
 
                         {currentUser && profile && !ownProfile ?
                             <div>
-                                <div className = "other-profile-buttons">
+                                <div className="other-profile-buttons">
                                     <div className="other-profile-like-button">
                                         <Button onClick={this.onRate}>{likeText}</Button>
                                     </div>
-                                    <div className = "other-profile-block-button">
-                                        <Button onClick = {this.onBlock}><span className={blockClass}></span></Button>
+                                    <div className="other-profile-block-button">
+                                        <Button onClick={this.onBlock}><span className={blockClass}></span></Button>
                                     </div>
                                 </div>
-                                <div className="other-profile-wrapper bold" >
-                                    <OtherProfileData matching={matching} similarity={similarity} stats={comparedStats} ownImage={ownPicture} currentImage={currentPicture} />
+                                <div className="other-profile-wrapper bold">
+                                    <OtherProfileData matching={matching} similarity={similarity} stats={comparedStats} ownImage={ownPicture} currentImage={currentPicture}/>
                                 </div>
                             </div>
                             : ''
@@ -251,16 +251,28 @@ export default class UserPage extends Component {
                 </div>
 
                 <ToolBar links={ownProfile ? [
-                {'url': `/profile/${selectn('qnoow_id', currentUser)}`, 'text': 'Sobre mí'},
-                {'url': '/questions', 'text': 'Respuestas'},
-                {'url': '/interests', 'text': 'Intereses'}]
+                {'url': `/profile/${selectn('qnoow_id', currentUser)}`, 'text': strings.aboutMe},
+                {'url': '/questions', 'text': strings.questions},
+                {'url': '/interests', 'text': strings.interests}]
                 : [
-                {'url': `/profile/${selectn('qnoow_id', currentUser)}`, 'text': `Sobre ${selectn('username', currentUser) ? currentUser.username : ''}`},
-                {'url': `/users/${selectn('qnoow_id', currentUser)}/other-questions`, 'text': 'Respuestas'},
-                {'url': `/users/${selectn('qnoow_id', currentUser)}/other-interests`, 'text': 'Intereses'}]
+                {'url': `/profile/${selectn('qnoow_id', currentUser)}`, 'text': currentUser ? strings.aboutOther.replace('%username%', currentUser.username) : ''},
+                {'url': `/users/${selectn('qnoow_id', currentUser)}/other-questions`, 'text': strings.questions},
+                {'url': `/users/${selectn('qnoow_id', currentUser)}/other-interests`, 'text': strings.interests}]
 
                 } activeLinkIndex={0}/>
             </div>
         );
+    }
+};
+
+UserPage.defaultProps = {
+    strings: {
+        aboutMe   : 'About me',
+        aboutOther: 'About %username%',
+        questions : 'Answers',
+        interests : 'Interests',
+        like      : 'Me gusta',
+        dontLike  : 'Ya no me gusta',
+        myProfile : 'Mi Perfil'
     }
 };

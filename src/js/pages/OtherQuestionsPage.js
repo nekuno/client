@@ -107,6 +107,7 @@ export default class OtherQuestionsPage extends Component {
     }
 
     render() {
+        const otherUser = this.props.otherUser;
         const ownPicture = this.props.user && this.props.user.picture ? `${IMAGES_ROOT}media/cache/resolve/user_avatar_60x60/user/images/${this.props.user.picture}` : `${IMAGES_ROOT}media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
         const otherPicture = this.props.otherUser && this.props.otherUser.picture ? `${IMAGES_ROOT}media/cache/resolve/user_avatar_60x60/user/images/${this.props.otherUser.picture}` : `${IMAGES_ROOT}media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
         const strings = this.props.strings;
@@ -130,7 +131,7 @@ export default class OtherQuestionsPage extends Component {
                     }
                 </div>
                 <ToolBar links={[
-                {'url': `/profile/${this.props.params.userId}`, 'text': strings.about},
+                {'url': `/profile/${this.props.params.userId}`, 'text': strings.about.replace('%username%', otherUser.username)},
                 {'url': `/users/${this.props.params.userId}/other-questions`, 'text': strings.questions},
                 {'url': `/users/${this.props.params.userId}/other-interests`, 'text': strings.interests}
                 ]} activeLinkIndex={1}/>
@@ -144,7 +145,7 @@ OtherQuestionsPage.defaultProps = {
     strings: {
         cancel      : 'Cancel',
         coincidences: 'Coincidences',
-        about       : 'About',
+        about       : 'About %username%',
         questions   : 'Answers',
         interests   : 'Interests'
     }

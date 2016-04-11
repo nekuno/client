@@ -122,6 +122,10 @@ export function postData(url, data) {
     return doRequest('POST', url, data);
 }
 
+export function putData(url, data) {
+    return doRequest('PUT', url, data);
+}
+
 export function deleteData(url, data) {
     return doRequest('DELETE', url, data);
 }
@@ -140,6 +144,10 @@ export function fetchUserArray(url) {
 
 export function fetchProfile(url) {
     return fetchAndNormalize(url, profileSchema);
+}
+
+export function putProfile(url, data) {
+    return putData(url, data);
 }
 
 export function fetchMetadata(url) {

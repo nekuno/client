@@ -6,6 +6,7 @@ import WorkersSocketService from '../services/WorkersSocketService';
 import LoginStore from '../stores/LoginStore';
 import RouterContainer from '../services/RouterContainer';
 import * as QuestionActionCreators from '../actions/QuestionActionCreators';
+import * as UserActionCreators from '../actions/UserActionCreators';
 import selectn from 'selectn';
 
 export default new class LoginActionCreators {
@@ -18,6 +19,7 @@ export default new class LoginActionCreators {
             failure: ActionTypes.REQUEST_LOGIN_USER_ERROR
         }, {username, password})
             .then(() => {
+                UserActionCreators.requestProfile(LoginStore.user.id);
                 this.redirect();
                 return null;
             }, (error) => {

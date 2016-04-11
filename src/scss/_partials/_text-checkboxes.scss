@@ -16,6 +16,7 @@
     line-height: 30px;
     margin: 0 5px 0 5px;
     text-align: center;
+    word-wrap: break-word;
   }
   .chip.disabled-chip {
     background-color: $deep-purple-translucent;

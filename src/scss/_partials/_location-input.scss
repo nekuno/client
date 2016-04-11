@@ -67,10 +67,6 @@
 					padding: 0 12px;
 					box-sizing: border-box;
 					vertical-align: middle;
-					display: -webkit-inline-box;
-					display: -ms-inline-flexbox;
-					display: -webkit-inline-flex;
-					display: inline-flex;
 					-webkit-box-align: center;
 					-ms-flex-align: center;
 					-webkit-align-items: center;
@@ -80,6 +76,26 @@
 					&::after {
 						content: none;
 					}
+				}
+			}
+		}
+
+		@media only screen and (min-width: 360px) and (max-width: 375px) {
+			.geosuggest__suggests-wrapper {
+				.geosuggest-item {
+					width: 85%;
+					word-wrap: break-word;
+
+				}
+			}
+		}
+
+		@media only screen and (max-width: 359px) {
+			.geosuggest__suggests-wrapper {
+				.geosuggest-item {
+					width: 80%;
+					word-wrap: break-word;
+
 				}
 			}
 		}

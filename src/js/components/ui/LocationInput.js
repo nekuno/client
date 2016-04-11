@@ -15,7 +15,7 @@ export default class LocationInput extends Component {
                 <div className="item-inner location-inner">
                     <div className="item-input">
                         <Geosuggest {...this.props}
-                            getSuggestLabel={function(suggest) { return suggest.description.length > 50 ? suggest.description.slice(0, 50) + '...' : suggest.description }}/>
+                            getSuggestLabel={function(suggest) { return suggest.description.length > 35 ? suggest.description.slice(0, 35) + '...' : suggest.description }}/>
                     </div>
                 </div>
             </div>

@@ -1,7 +1,9 @@
 import React, { PropTypes, Component } from 'react';
 import { Link } from 'react-router';
 import { IMAGES_ROOT } from '../../constants/Constants';
+import selectn from 'selectn'
 import ChipList from './../ui/ChipList';
+import OrientationRequiredPopup from './../ui/OrientationRequiredPopup';
 
 export default class ThreadUsers extends Component {
     static contextTypes = {
@@ -11,40 +13,42 @@ export default class ThreadUsers extends Component {
     static propTypes = {
         thread: PropTypes.object.isRequired,
         last: PropTypes.bool.isRequired,
-        userId: PropTypes.number.isRequired
+        userId: PropTypes.number.isRequired,
+        profile: PropTypes.object.isRequired
     };
 
     constructor(props) {
         super(props);
 
         this.goToThread = this.goToThread.bind(this);
+        this.continue = this.continue.bind(this);
     }
 
     render() {
         let thread = this.props.thread;
         let last = this.props.last;
         thread = this.mergeImagesWithThread(thread);
-
         return (
-            <div className="thread-listed" onClick={this.goToThread}>
-                {last ? '' : <div className="threads-vertical-connection"></div>}
-                <div className="thread-first-image">
-                    <img src={thread.cached[0].image} />
-                </div>
-                <div className="thread-info-box">
-                    <div className="title thread-title" >
-                        <a>
-                            {thread.name}
-                        </a>
+            <div>
+                <div className="thread-listed" onClick={this.goToThread}>
+                    {last ? '' : <div className="threads-vertical-connection"></div>}
+                    <div className="thread-first-image">
+                        <img src={thread.cached[0].image} />
                     </div>
-                    <div className="recommendations-count">
-                        {thread.totalResults} Usuarios
-                    </div>
-                    <div className="thread-images">
-                        {thread.cached.map((item, index) => index !== 0 && item.image ?
-                            <div key={index} className="thread-image"><img src={item.image} /></div> : '')}
-                    </div>
-                    <ChipList chips={[
+                    <div className="thread-info-box">
+                        <div className="title thread-title" >
+                            <a>
+                                {thread.name}
+                            </a>
+                        </div>
+                        <div className="recommendations-count">
+                            {thread.totalResults} Usuarios
+                        </div>
+                        <div className="thread-images">
+                            {thread.cached.map((item, index) => index !== 0 && item.image ?
+                                <div key={index} className="thread-image"><img src={item.image} /></div> : '')}
+                        </div>
+                        <ChipList chips={[
                         {
                             'label': 'Personas'
                         },
@@ -58,8 +62,12 @@ export default class ThreadUsers extends Component {
                             'label': 'Mujer'
                         }
                     ]} small={false} />
+                    </div>
                 </div>
+                <OrientationRequiredPopup profile={this.props.profile} onContinue={this.continue} ></OrientationRequiredPopup>
             </div>
+
+
         );
     }
 
@@ -81,6 +89,15 @@ export default class ThreadUsers extends Component {
     }
 
     goToThread() {
+        if (selectn('orientation', this.props.profile) === undefined) {
+            console.log('orientation required');
+            nekunoApp.popup('.popup-orientation-required');
+        } else {
+            this.continue();
+        }
+    }
+
+    continue() {
         this.context.history.pushState(null, `users/${this.props.userId}/recommendations/${this.props.thread.id}`)
     }
 }

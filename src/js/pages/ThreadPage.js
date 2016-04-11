@@ -4,8 +4,9 @@ import ThreadStore from '../stores/ThreadStore';
 import ThreadsByUserStore from '../stores/ThreadsByUserStore';
 import ThreadList from '../components/threads/ThreadList';
 import LeftMenuTopNavbar from '../components/ui/LeftMenuTopNavbar';
-import connectToStores from '../utils/connectToStores';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
+import translate from '../i18n/Translate';
+import connectToStores from '../utils/connectToStores';
 
 function parseId(params) {
     return params.userId;
@@ -15,11 +16,8 @@ function parseId(params) {
  * Requests data from server for current props.
  */
 function requestData(props) {
-    const {params} = props;
-    const userId = parseId(params);
-
+    const userId = parseId(props.params);
     UserActionCreators.requestThreadPage(userId);
-
 }
 
 /**
@@ -35,19 +33,21 @@ function getState(props) {
 }
 
 @AuthenticatedComponent
+@translate('ThreadPage')
 @connectToStores([ThreadStore, ThreadsByUserStore], getState)
 export default class ThreadPage extends Component {
     static propTypes = {
         // Injected by React Router:
-        params: PropTypes.shape({
+        params : PropTypes.shape({
             userId: PropTypes.string.isRequired
         }).isRequired,
-
-        // Injected by @connectToStores:
-        threads: PropTypes.array,
-
         // Injected by @AuthenticatedComponent
-        user: PropTypes.object.isRequired
+        user   : PropTypes.object.isRequired,
+        // Injected by @translate:
+        strings: PropTypes.object,
+        // Injected by @connectToStores:
+        threads: PropTypes.array
+
     };
 
     componentWillMount() {
@@ -55,16 +55,16 @@ export default class ThreadPage extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if(parseId(nextProps.params) !== parseId(this.props.params)) {
+        if (parseId(nextProps.params) !== parseId(this.props.params)) {
             requestData(nextProps);
         }
     }
 
     render() {
-
+        const strings = this.props.strings;
         return (
             <div className="view view-main">
-                <LeftMenuTopNavbar centerText={'Hilos'} centerTextSize={'large'}/>
+                <LeftMenuTopNavbar centerText={strings.threads} centerTextSize={'large'}/>
                 <div className="page threads-page">
                     <div id="page-content">
                         <ThreadList threads={this.props.threads} userId={this.props.user.qnoow_id}/>
@@ -72,5 +72,11 @@ export default class ThreadPage extends Component {
                 </div>
             </div>
         );
+    }
+};
+
+ThreadPage.defaultProps = {
+    strings: {
+        threads: 'Threads'
     }
 };

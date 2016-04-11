@@ -98,5 +98,13 @@ export default {
         paste   : 'Paste the invitation url here',
         privacy : 'By registering, you agree to the <a href="https://nekuno.com/static/legal">Legal Conditions</a> and the Nekuno <a href="https://nekuno.com/static/privacy">Privacy Policy</a>.',
         correct : 'Invitation is correct! Connect now a social network to join Nekuno'
+    },
+    RegisterQuestionLandingPage      : {
+        title  : 'We want to know you a little better',
+        excerpt: 'Make the test answering for you and what you would like to answer another user to be compatible with you',
+        next   : 'DO TEST'
+    },
+    ThreadPage                       : {
+        threads: 'Threads'
     }
 }

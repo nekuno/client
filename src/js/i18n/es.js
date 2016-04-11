@@ -98,5 +98,13 @@ export default {
         paste   : 'Pega aquí la URL de la invitación',
         privacy : 'Al registrarte, estás aceptando las <a href="https://nekuno.com/static/legal">Condiciones Legales</a> y la <a href="https://nekuno.com/static/privacy">Política de Privacidad</a> de Nekuno.',
         correct : 'Invitación correcta! Conecta ahora una red para registrarte en Nekuno'
+    },
+    RegisterQuestionLandingPage      : {
+        title  : 'Queremos conocerte un poco mejor',
+        excerpt: 'Realiza el test respondiendo por ti y lo que te gustaría que respondiera otro usuario para ser compatible contigo',
+        next   : 'HACER TEST'
+    },
+    ThreadPage                       : {
+        threads: 'Hilos'
     }
 }

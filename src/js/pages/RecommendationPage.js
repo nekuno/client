@@ -1,13 +1,12 @@
 import React, { PropTypes, Component } from 'react';
+import RecommendationList from '../components/recommendations/RecommendationList';
+import RecommendationsTopNavbar from '../components/recommendations/RecommendationsTopNavbar';
+import AuthenticatedComponent from '../components/AuthenticatedComponent';
+import connectToStores from '../utils/connectToStores';
 import * as UserActionCreators from '../actions/UserActionCreators';
-import UserStore from '../stores/UserStore';
 import RecommendationStore from '../stores/RecommendationStore';
 import ThreadStore from '../stores/ThreadStore';
 import RecommendationsByThreadStore from '../stores/RecommendationsByThreadStore';
-import RecommendationList from '../components/recommendations/RecommendationList';
-import RecommendationsTopNavbar from '../components/recommendations/RecommendationsTopNavbar';
-import connectToStores from '../utils/connectToStores';
-import AuthenticatedComponent from '../components/AuthenticatedComponent';
 
 function parseThreadId(params) {
     return params.threadId;
@@ -21,7 +20,7 @@ function parseId(params) {
  * Requests data from server for current props.
  */
 function requestData(props) {
-    const { params } = props;
+    const {params} = props;
     const threadId = parseThreadId(params);
     const userId = parseId(params);
 
@@ -34,17 +33,17 @@ function initSwiper(thread) {
     let recommendationsSwiper = nekunoApp.swiper('.swiper-container', {
         onSlideNextStart: onSlideNextStart,
         onSlidePrevStart: onSlidePrevStart,
-        effect: 'coverflow',
-        slidesPerView: 'auto',
-        coverflow: {
-            rotate: 30,
-            stretch: 0,
-            depth: 100,
-            modifier: 1,
-            slideShadows : false
+        effect          : 'coverflow',
+        slidesPerView   : 'auto',
+        coverflow       : {
+            rotate      : 30,
+            stretch     : 0,
+            depth       : 100,
+            modifier    : 1,
+            slideShadows: false
         },
-        centeredSlides: true,
-        grabCursor: true
+        centeredSlides  : true,
+        grabCursor      : true
     });
 
     let activeIndex = recommendationsSwiper.activeIndex;
@@ -69,18 +68,17 @@ function initSwiper(thread) {
     return recommendationsSwiper;
 }
 
-
 /**
  * Retrieves state from stores for current props.
  */
 function getState(props) {
     const threadId = parseThreadId(props.params);
     const thread = ThreadStore.get(threadId);
-    const recommendationIds = threadId? RecommendationsByThreadStore.getRecommendationsFromThread(threadId) : [];
-    const category = thread? thread.category: null;
+    const recommendationIds = threadId ? RecommendationsByThreadStore.getRecommendationsFromThread(threadId) : [];
+    const category = thread ? thread.category : null;
 
     let recommendations = [];
-    if (thread && category == 'ThreadUsers'){
+    if (thread && category == 'ThreadUsers') {
         recommendations = RecommendationStore.getUserRecommendations(recommendationIds)
     } else if (thread) {
         recommendations = RecommendationStore.getContentRecommendations(recommendationIds)
@@ -96,21 +94,23 @@ function getState(props) {
 @AuthenticatedComponent
 @connectToStores([ThreadStore, RecommendationStore, RecommendationsByThreadStore], getState)
 export default class RecommendationPage extends Component {
+
     static propTypes = {
         // Injected by React Router:
-        params: PropTypes.shape({
+        params         : PropTypes.shape({
             threadId: PropTypes.string.isRequired
         }).isRequired,
-
+        // Injected by @AuthenticatedComponent
+        user           : PropTypes.object.isRequired,
         // Injected by @connectToStores:
         recommendations: PropTypes.array.isRequired,
-        thread: PropTypes.object.isRequired
+        thread         : PropTypes.object.isRequired
     };
 
     constructor() {
         super();
 
-        this.state = {swiper: null}
+        this.state = {swiper: null};
     }
 
     componentWillMount() {
@@ -150,10 +150,10 @@ export default class RecommendationPage extends Component {
     render() {
         return (
             <div className="view view-main">
-                <RecommendationsTopNavbar centerText={''} />
+                <RecommendationsTopNavbar centerText={''}/>
                 <div className="page">
                     <div id="page-content" className="recommendation-page">
-                        <RecommendationList recommendations={this.props.recommendations} thread={this.props.thread} userId={this.props.user.qnoow_id} />
+                        <RecommendationList recommendations={this.props.recommendations} thread={this.props.thread} userId={this.props.user.qnoow_id}/>
                     </div>
                 </div>
             </div>

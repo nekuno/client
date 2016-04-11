@@ -69,6 +69,10 @@ export default {
         questions: 'Respuestas',
         interests: 'Intereses'
     },
+    QuestionStatsPage                : {
+        statistics: 'Estadísticas',
+        next      : 'Continuar'
+    },
     RegisterPage                     : {
         register: 'Crear cuenta',
         cancel  : 'Cancelar',

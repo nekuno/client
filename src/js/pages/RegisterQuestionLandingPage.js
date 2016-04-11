@@ -31,7 +31,7 @@ export default class RegisterQuestionLandingPage extends Component {
             questionId: PropTypes.string
         }),
 
-        // Injected by AuthenticatedComponent
+        // Injected by @AuthenticatedComponent
         user: PropTypes.object.isRequired
     };
 

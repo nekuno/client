@@ -1,10 +1,10 @@
-import React, {PropTypes, Component} from 'react';
-import {Link} from 'react-router';
+import React, { PropTypes, Component } from 'react';
+import { Link } from 'react-router';
 import FullWidthButton from '../components/ui/FullWidthButton';
 import moment from 'moment';
 import 'moment/locale/es';
-import {LAST_RELEASE_DATE} from '../constants/Constants';
-import {getVersion} from '../utils/APIUtils';
+import { LAST_RELEASE_DATE } from '../constants/Constants';
+import { getVersion } from '../utils/APIUtils';
 import translate from '../i18n/Translate';
 
 let nekunoSwiper;
@@ -23,6 +23,11 @@ function destroySwiper() {
 
 @translate('HomePage')
 export default class HomePage extends Component {
+
+    static propTypes = {
+        // Injected by @translate:
+        strings: PropTypes.object
+    };
 
     static contextTypes = {
         history: PropTypes.object.isRequired
@@ -48,19 +53,6 @@ export default class HomePage extends Component {
     componentWillUnmount() {
         destroySwiper();
         this.promise.cancel();
-    }
-
-    render() {
-
-        return (
-            <div className="view view-main">
-                <div className="swiper-container swiper-init" data-speed="400" data-space-between="40" data-pagination=".swiper-pagination">
-                    <div className="swiper-wrapper">
-                        {this.renderSlides()}
-                    </div>
-                </div>
-            </div>
-        );
     }
 
     renderSlides = function() {
@@ -100,16 +92,30 @@ export default class HomePage extends Component {
             )
         );
     };
+
+    render() {
+
+        return (
+            <div className="view view-main">
+                <div className="swiper-container swiper-init" data-speed="400" data-space-between="40" data-pagination=".swiper-pagination">
+                    <div className="swiper-wrapper">
+                        {this.renderSlides()}
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
 }
 
 HomePage.defaultProps = {
     strings: {
-        title1       : 'Descubre contenidos de los temas que más te interesan',
-        title2       : 'Conecta sólo con las personas más compatibles contigo',
-        title3       : 'Tú decides la información que compartes',
-        update       : 'Actualizar',
-        login        : 'Iniciar sesión',
-        hasInvitation: '¿Tienes una invitación?',
-        register     : 'Regístrate'
+        title1       : 'Discover contents of the topics that interest you',
+        title2       : 'Connect only with most compatible people with you',
+        title3       : 'You decide the information you share',
+        update       : 'Update',
+        login        : 'Login',
+        hasInvitation: 'Do you have an invitation?',
+        register     : 'Register'
     }
 };

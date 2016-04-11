@@ -1,13 +1,13 @@
-import React, {PropTypes, Component} from 'react';
+import React, { PropTypes, Component } from 'react';
 import selectn from 'selectn';
-import {IMAGES_ROOT} from '../constants/Constants';
+import { IMAGES_ROOT } from '../constants/Constants';
 import * as QuestionActionCreators from '../actions/QuestionActionCreators';
 import LeftMenuTopNavbar from '../components/ui/LeftMenuTopNavbar';
 import RegularTopNavbar from '../components/ui/RegularTopNavbar';
 import AnswerQuestion from '../components/questions/AnswerQuestion';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
-import connectToStores from '../utils/connectToStores';
 import translate from '../i18n/Translate';
+import connectToStores from '../utils/connectToStores';
 import UserStore from '../stores/UserStore';
 import QuestionStore from '../stores/QuestionStore';
 import QuestionsByUserIdStore from '../stores/QuestionsByUserIdStore';
@@ -57,25 +57,23 @@ function getState(props) {
 @translate('AnswerQuestionPage')
 @connectToStores([UserStore, QuestionStore, QuestionsByUserIdStore], getState)
 export default class AnswerQuestionPage extends Component {
+
     static propTypes = {
         // Injected by React Router:
-        params: PropTypes.shape({
+        params           : PropTypes.shape({
             questionId: PropTypes.string
         }),
-
+        // Injected by @AuthenticatedComponent
+        user             : PropTypes.object.isRequired,
+        // Injected by @translate:
+        strings          : PropTypes.object,
         // Injected by @connectToStores:
         question         : PropTypes.object,
         userAnswer       : PropTypes.object,
         isFirstQuestion  : PropTypes.bool,
         errors           : PropTypes.string,
         goToQuestionStats: PropTypes.bool,
-        isJustRegistered : PropTypes.bool,
-
-        // Injected by @translate:
-        strings: PropTypes.object,
-
-        // Injected by AuthenticatedComponent
-        user: PropTypes.object.isRequired
+        isJustRegistered : PropTypes.bool
     };
 
     static contextTypes = {
@@ -89,15 +87,16 @@ export default class AnswerQuestionPage extends Component {
     }
 
     componentWillMount() {
-        if (!this.props.question || this.props.question.questionId !== this.props.params.questionId) {
+        if(!this.props.question || this.props.question.questionId !== this.props.params.questionId) {
             let promise = requestData(this.props);
             let isJustRegistered = this.props.isJustRegistered;
             let history = this.context.history;
             let userId = parseUserId(this.props.user);
-            if (typeof promise != 'undefined') {
+            if(typeof promise != 'undefined') {
+                // TODO: Juanlu: I think this should not be done like this, but using some store and flux flow.
                 promise.then(function(data) {
                         const questions = data.entities.question;
-                        if (isJustRegistered && questions[Object.keys(questions)[0]].isRegisterQuestion === false) {
+                        if(isJustRegistered && questions[Object.keys(questions)[0]].isRegisterQuestion === false) {
                             history.pushState(null, '/threads/' + userId);
                         }
                     }
@@ -107,12 +106,19 @@ export default class AnswerQuestionPage extends Component {
     }
 
     componentDidUpdate() {
-        if (this.props.goToQuestionStats) {
+        if(this.props.goToQuestionStats) {
             this.context.history.pushState(null, `/question-stats`);
         }
     }
 
+    skipQuestionHandler() {
+        let userId = parseUserId(this.props.user);
+        let questionId = this.props.question.questionId;
+        QuestionActionCreators.skipQuestion(userId, questionId);
+    }
+
     render() {
+
         const {user, strings} = this.props;
         const userId = selectn('qnoow_id', user);
         const ownPicture = user.picture ? `${IMAGES_ROOT}media/cache/resolve/user_avatar_60x60/user/images/${user.picture}` : `${IMAGES_ROOT}media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
@@ -137,12 +143,6 @@ export default class AnswerQuestionPage extends Component {
                 </div>
             </div>
         );
-    }
-
-    skipQuestionHandler() {
-        let userId = parseUserId(this.props.user);
-        let questionId = this.props.question.questionId;
-        QuestionActionCreators.skipQuestion(userId, questionId);
     }
 }
 

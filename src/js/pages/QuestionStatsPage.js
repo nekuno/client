@@ -42,7 +42,7 @@ export default class QuestionStatsPage extends Component {
         userAnswer: PropTypes.object,
         isJustRegistered: PropTypes.bool,
 
-        // Injected by AuthenticatedComponent
+        // Injected by @AuthenticatedComponent
         user: PropTypes.object.isRequired
     };
 

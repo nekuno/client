@@ -23,7 +23,7 @@ export default class ConnectSocialNetworksOnSignUpPage extends Component {
         history: PropTypes.object.isRequired
     };
     static propTypes = {
-        // Injected by AuthenticatedComponent
+        // Injected by @AuthenticatedComponent
         user    : PropTypes.object.isRequired,
         networks: PropTypes.array.isRequired
     };

@@ -140,7 +140,7 @@ export default class UserPage extends Component {
         stats: PropTypes.object,
         matching: PropTypes.number,
 
-        // Injected by AuthenticatedComponent
+        // Injected by @AuthenticatedComponent
         user: PropTypes.object
     };
 

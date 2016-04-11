@@ -1,4 +1,4 @@
-import React, {PropTypes, Component} from 'react';
+import React, { PropTypes, Component } from 'react';
 import * as UserActionCreators from '../actions/UserActionCreators';
 import ThreadStore from '../stores/ThreadStore';
 import ThreadsByUserStore from '../stores/ThreadsByUserStore';
@@ -46,7 +46,7 @@ export default class ThreadPage extends Component {
         // Injected by @connectToStores:
         threads: PropTypes.array,
 
-        // Injected by AuthenticatedComponent
+        // Injected by @AuthenticatedComponent
         user: PropTypes.object.isRequired
     };
 
@@ -55,7 +55,7 @@ export default class ThreadPage extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (parseId(nextProps.params) !== parseId(this.props.params)) {
+        if(parseId(nextProps.params) !== parseId(this.props.params)) {
             requestData(nextProps);
         }
     }

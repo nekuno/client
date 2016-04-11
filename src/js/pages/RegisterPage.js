@@ -1,13 +1,13 @@
-import React, {PropTypes, Component} from 'react';
+import React, { PropTypes, Component } from 'react';
 const ReactLink = require('react/lib/ReactLink');
 const ReactStateSetters = require('react/lib/ReactStateSetters');
 import RegularTopNavbar from '../components/ui/RegularTopNavbar';
 import TextInput from '../components/ui/TextInput';
-import ConnectActionCreators from '../actions/ConnectActionCreators';
-import connectToStores from '../utils/connectToStores';
 import translate from '../i18n/Translate';
+import connectToStores from '../utils/connectToStores';
+import ConnectActionCreators from '../actions/ConnectActionCreators';
 import InvitationStore from '../stores/InvitationStore';
-import {FACEBOOK_SCOPE, TWITTER_SCOPE, GOOGLE_SCOPE, SPOTIFY_SCOPE} from '../constants/Constants';
+import { FACEBOOK_SCOPE, TWITTER_SCOPE, GOOGLE_SCOPE, SPOTIFY_SCOPE } from '../constants/Constants';
 
 function getState(props) {
 
@@ -29,10 +29,10 @@ export default class RegisterPage extends Component {
     };
 
     static propTypes = {
-        // Injected by @connectToStores:
-        error  : PropTypes.object,
         // Injected by @translate:
-        strings: PropTypes.object
+        strings: PropTypes.object,
+        // Injected by @connectToStores:
+        error  : PropTypes.object
     };
 
     constructor(props) {
@@ -54,7 +54,7 @@ export default class RegisterPage extends Component {
         var token = e.target.value;
         this.tokenTimeout = setTimeout(() => {
             token = token.replace(/(http[s]?:\/\/)?(www\.)?(pre\.)?(local\.)?(nekuno.com\/)?(invitation\/)?(inv)?/ig, '');
-            if (token) {
+            if(token) {
                 ConnectActionCreators.validateInvitation(token);
             }
         }, 500);
@@ -109,7 +109,7 @@ export default class RegisterPage extends Component {
             strings
         } = this.props;
 
-        if (token) {
+        if(token) {
             nekunoApp.alert('Invitación correcta! Conecta ahora una red para registrarte en Nekuno');
         }
 

@@ -65,7 +65,7 @@ export default class OtherQuestionsPage extends Component {
         otherQuestions: PropTypes.object.isRequired,
         pagination: PropTypes.object.isRequired,
         otherUser: PropTypes.object,
-        // Injected by AuthenticatedComponent
+        // Injected by @AuthenticatedComponent
         user: PropTypes.object
     };
 

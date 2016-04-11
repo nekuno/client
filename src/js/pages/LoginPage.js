@@ -1,13 +1,13 @@
-import React, {PropTypes, Component} from 'react';
+import React, { PropTypes, Component } from 'react';
 const ReactLink = require('react/lib/ReactLink');
 const ReactStateSetters = require('react/lib/ReactStateSetters');
 import RegularTopNavbar from '../components/ui/RegularTopNavbar';
 import TextInput from '../components/ui/TextInput';
 import PasswordInput from '../components/ui/PasswordInput';
 import FullWidthButton from '../components/ui/FullWidthButton';
-import LoginActionCreators from '../actions/LoginActionCreators';
-import connectToStores from '../utils/connectToStores';
 import translate from '../i18n/Translate';
+import connectToStores from '../utils/connectToStores';
+import LoginActionCreators from '../actions/LoginActionCreators';
 import LoginStore from '../stores/LoginStore';
 
 function getState(props) {
@@ -24,10 +24,10 @@ function getState(props) {
 export default class LoginPage extends Component {
 
     static propTypes = {
-        // Injected by @connectToStores:
-        error  : PropTypes.object,
         // Injected by @translate:
-        strings: PropTypes.object
+        strings: PropTypes.object,
+        // Injected by @connectToStores:
+        error  : PropTypes.object
     };
 
     constructor() {
@@ -46,7 +46,7 @@ export default class LoginPage extends Component {
 
     _onKeyDown(event) {
         let ENTER_KEY_CODE = 13;
-        if (event.keyCode === ENTER_KEY_CODE) {
+        if(event.keyCode === ENTER_KEY_CODE) {
             event.preventDefault();
             this.login();
         }

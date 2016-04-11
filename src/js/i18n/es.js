@@ -1,4 +1,14 @@
 export default {
+    AnswerQuestionPage: {
+        question: 'Pregunta',
+        skip    : 'Omitir'
+    },
+    ChatMessagesPage  : {
+        noMoreMessages: 'No tienes más mensajes'
+    },
+    ChatThreadsPage   : {
+        title: 'Mensajes'
+    },
     HomePage          : {
         title1       : 'Descubre contenidos de los temas que más te interesan',
         title2       : 'Conecta sólo con las personas más compatibles contigo',
@@ -7,10 +17,6 @@ export default {
         login        : 'Iniciar sesión',
         hasInvitation: '¿Tienes una invitación?',
         register     : 'Regístrate'
-    },
-    AnswerQuestionPage: {
-        question: 'Pregunta',
-        skip    : 'Omitir'
     },
     LoginPage         : {
         login   : 'Iniciar sesión',

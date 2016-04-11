@@ -41,7 +41,7 @@ export default class InterestsPage extends Component {
         interests: PropTypes.array.isRequired,
         pagination: PropTypes.object,
 
-        // Injected by AuthenticatedComponent
+        // Injected by @AuthenticatedComponent
         user: PropTypes.object.isRequired
     };
 

@@ -52,7 +52,7 @@ export default class QuestionsPage extends Component {
         questions: PropTypes.object.isRequired,
         pagination: PropTypes.object.isRequired,
 
-        // Injected by AuthenticatedComponent
+        // Injected by @AuthenticatedComponent
         user: PropTypes.object.isRequired
     };
 

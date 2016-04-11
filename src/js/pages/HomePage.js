@@ -5,6 +5,7 @@ import moment from 'moment';
 import 'moment/locale/es';
 import { LAST_RELEASE_DATE } from '../constants/Constants';
 import { getVersion } from '../utils/APIUtils';
+import translate from '../i18n/Translate';
 
 let nekunoSwiper;
 
@@ -20,7 +21,13 @@ function destroySwiper() {
     nekunoSwiper.destroy(true);
 }
 
+@translate('HomePage')
 export default class HomePage extends Component {
+
+    static propTypes = {
+        // Injected by @translate:
+        strings: PropTypes.object
+    };
 
     static contextTypes = {
         history: PropTypes.object.isRequired
@@ -48,6 +55,44 @@ export default class HomePage extends Component {
         this.promise.cancel();
     }
 
+    renderSlides = function() {
+        const {strings} = this.props;
+        return (
+            [1, 2, 3].map(i =>
+                <div key={i} className="swiper-slide">
+                    <div id={'login-' + i + '-image'} className="page">
+                        <div className="linear-gradient-rectangle"></div>
+                        <div className="nekuno-logo-wrapper">
+                            <div className="nekuno-logo"></div>
+                        </div>
+                        <div id="page-content" className="home-content">
+                            <div className="title">
+                                {i === 1 ? strings.title1 : i === 2 ? strings.title2 : strings.title3}
+                            </div>
+                        </div>
+                        <div className="swiper-pagination-and-button">
+                            <div className="swiper-pagination"></div>
+                            { this.state.needsUpdating ?
+                                <FullWidthButton onClick={() => window.location = 'https://play.google.com/store/apps/details?id=com.nekuno'}>
+                                    {strings.update}
+                                </FullWidthButton>
+                                :
+                                <div>
+                                    <Link to="/login">
+                                        <FullWidthButton>{strings.login}</FullWidthButton>
+                                    </Link>
+                                    <div className="register">
+                                        <span>{strings.hasInvitation}</span> <Link to="/register">{strings.register}</Link>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            )
+        );
+    };
+
     render() {
 
         return (
@@ -61,42 +106,16 @@ export default class HomePage extends Component {
         );
     }
 
-    renderSlides = function() {
-        return (
-            [1, 2, 3].map(i =>
-                <div key={i} className="swiper-slide">
-                    <div id={'login-' + i + '-image'} className="page">
-                        <div className="linear-gradient-rectangle"></div>
-                        <div className="nekuno-logo-wrapper">
-                            <div className="nekuno-logo"></div>
-                        </div>
-                        <div id="page-content" className="home-content">
-                            <div className="title">
-                                {i === 1 ? 'Descubre contenidos de los temas que más te interesan' :
-                                    i === 2 ? 'Conecta sólo con las personas más compatibles contigo' :
-                                        'Tú decides la información que compartes'}
-                            </div>
-                        </div>
-                        <div className="swiper-pagination-and-button">
-                            <div className="swiper-pagination"></div>
-                            { this.state.needsUpdating ?
-                                <FullWidthButton onClick={() => window.location = 'https://play.google.com/store/apps/details?id=com.nekuno'}>
-                                    Actualizar
-                                </FullWidthButton>
-                                :
-                                <div>
-                                    <Link to="/login">
-                                        <FullWidthButton>Iniciar sesión</FullWidthButton>
-                                    </Link>
-                                    <div className="register">
-                                        <span>¿Tienes una invitación?</span> <Link to="/register">Regístrate</Link>
-                                    </div>
-                                </div>
-                            }
-                        </div>
-                    </div>
-                </div>
-            )
-        );
-    };
 }
+
+HomePage.defaultProps = {
+    strings: {
+        title1       : 'Discover contents of the topics that interest you',
+        title2       : 'Connect only with most compatible people with you',
+        title3       : 'You decide the information you share',
+        update       : 'Update',
+        login        : 'Login',
+        hasInvitation: 'Do you have an invitation?',
+        register     : 'Register'
+    }
+};

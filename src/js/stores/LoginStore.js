@@ -7,7 +7,6 @@ class LoginStore extends BaseStore {
     constructor() {
         super();
         this.subscribe(() => this._registerToActions.bind(this));
-        this._requesting = false;
         this._error = null;
         this._user = null;
         this._jwt = null;
@@ -22,13 +21,11 @@ class LoginStore extends BaseStore {
         switch (action.type) {
 
             case ActionTypes.REQUEST_LOGIN_USER:
-                this._requesting = true;
                 this._error = null;
                 this.emitChange();
                 break;
 
             case ActionTypes.REQUEST_LOGIN_USER_SUCCESS:
-                this._requesting = false;
                 this._error = null;
                 this._jwt = action.response.jwt;
                 localStorage.setItem('jwt', this._jwt);
@@ -37,13 +34,11 @@ class LoginStore extends BaseStore {
                 break;
 
             case ActionTypes.REQUEST_LOGIN_USER_ERROR:
-                this._requesting = false;
                 this._error = action.error;
                 this.emitChange();
                 break;
 
             case ActionTypes.LOGOUT_USER:
-                this._requesting = false;
                 this._error = null;
                 this._user = null;
                 this._jwt = null;
@@ -75,10 +70,6 @@ class LoginStore extends BaseStore {
 
     get jwt() {
         return this._jwt;
-    }
-
-    requesting() {
-        return this._requesting;
     }
 
     isLoggedIn() {

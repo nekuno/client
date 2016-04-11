@@ -1,13 +1,14 @@
 import React, { PropTypes, Component } from 'react';
 import LeftMenuTopNavbar from '../components/ui/LeftMenuTopNavbar';
-import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import DailyMessages from '../components/ui/DailyMessages';
 import MessagesToolBar from '../components/ui/MessagesToolBar';
+import AuthenticatedComponent from '../components/AuthenticatedComponent';
+import translate from '../i18n/Translate';
+import connectToStores from '../utils/connectToStores';
 import * as UserActionCreators from '../actions/UserActionCreators';
 import ChatActionCreators from '../actions/ChatActionCreators';
 import UserStore from '../stores/UserStore';
 import ChatMessageStore from '../stores/ChatMessageStore';
-import connectToStores from '../utils/connectToStores';
 
 function requestData(props) {
     const userId = props.params.userId;
@@ -26,24 +27,28 @@ function getState(props) {
     };
 }
 
+@AuthenticatedComponent
+@translate('ChatMessagesPage')
 @connectToStores([ChatMessageStore, UserStore], getState)
-export default AuthenticatedComponent(class ChatMessagesPage extends Component {
+export default class ChatMessagesPage extends Component {
 
     static propTypes = {
         // Injected by React Router:
-        params: PropTypes.shape({
+        params   : PropTypes.shape({
             userId: PropTypes.string
         }),
-
+        // Injected by @AuthenticatedComponent
+        user     : PropTypes.object.isRequired,
+        // Injected by @translate:
+        strings  : PropTypes.object,
         // Injected by @connectToStores:
         messages : PropTypes.array.isRequired,
-        otherUser: PropTypes.object,
+        otherUser: PropTypes.object
 
-        // Injected by AuthenticatedComponent
-        user: PropTypes.object.isRequired
     };
 
     constructor(props) {
+
         super(props);
 
         this.sendMessageHandler = this.sendMessageHandler.bind(this);
@@ -68,7 +73,7 @@ export default AuthenticatedComponent(class ChatMessagesPage extends Component {
     }
 
     _scrollToBottom() {
-        if (ChatMessageStore.isFresh(this.props.params.userId)) {
+        if(ChatMessageStore.isFresh(this.props.params.userId)) {
             var list = this.refs.list;
             list.scrollTop = list.scrollHeight;
         }
@@ -80,7 +85,7 @@ export default AuthenticatedComponent(class ChatMessagesPage extends Component {
     }
 
     handleFocus(e) {
-        if (this.props.messages.length > 0) {
+        if(this.props.messages.length > 0) {
             const userId = parseInt(this.props.params.userId);
             let lastMessage = this.props.messages[this.props.messages.length - 1];
             let timestamp = lastMessage.createdAt.toISOString();
@@ -90,8 +95,8 @@ export default AuthenticatedComponent(class ChatMessagesPage extends Component {
 
     handleScroll() {
         var list = this.refs.list;
-        if (list.scrollTop === 0) {
-            if (ChatMessageStore.noMoreMessages(this.props.params.userId)) {
+        if(list.scrollTop === 0) {
+            if(ChatMessageStore.noMoreMessages(this.props.params.userId)) {
                 list.removeEventListener('scroll', this.handleScroll);
                 this.setState({noMoreMessages: true});
             } else {
@@ -102,22 +107,31 @@ export default AuthenticatedComponent(class ChatMessagesPage extends Component {
     }
 
     render() {
-        let messages = this.props.messages;
+        const {messages, strings} = this.props;
         let otherUsername = this.props.otherUser ? this.props.otherUser.username : '';
         return (
+
             <div className="view view-main" ref="list" onScroll={this.handleScroll}>
                 <LeftMenuTopNavbar centerText={otherUsername}/>
                 <div className="page notifications-page">
                     <div id="page-content" className="notifications-content">
-                        {this.state.noMoreMessages ? <div className="daily-message-title">No tienes más mensajes</div> : '' }
+                        {this.state.noMoreMessages ? <div className="daily-message-title">{strings.noMoreMessages}</div> : '' }
                         <DailyMessages messages={messages}/>
                         <br />
                     </div>
                 </div>
                 <div>
-                    <MessagesToolBar onClickHandler={this.sendMessageHandler} onFocusHandler={this.handleFocus}/>
+                    <MessagesToolBar onClickHandler={this.sendMessageHandler} onFocusHandler={this.handleFocus} placeholder={strings.placeholder} text={strings.text}/>
                 </div>
             </div>
         );
     }
-});
+};
+
+ChatMessagesPage.defaultProps = {
+    strings: {
+        noMoreMessages: 'You have no messages',
+        placeholder   : 'Type a message...',
+        text          : 'Send'
+    }
+};

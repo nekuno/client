@@ -3,6 +3,8 @@ import React, { PropTypes, Component } from 'react';
 export default class MessagesToolBar extends Component {
 
     static propTypes = {
+        placeholder   : PropTypes.string.isRequired,
+        text          : PropTypes.string.isRequired,
         onClickHandler: PropTypes.func.isRequired,
         onFocusHandler: PropTypes.func.isRequired
     };
@@ -39,13 +41,16 @@ export default class MessagesToolBar extends Component {
     }
 
     render() {
+
+        const {placeholder, text} = this.props;
+
         return (
             <div className="toolbar">
                 <div className="toolbar-inner">
                     <div className="toolbar messagebar">
                         <div className="toolbar-inner">
-                            <textarea placeholder="Escribir mensaje..." ref="textarea" onKeyDown={this._onKeyDown} onFocus={this.handleFocus}/>
-                            <a onClick={this.handleClick}>Enviar</a>
+                            <textarea placeholder={placeholder} ref="textarea" onKeyDown={this._onKeyDown} onFocus={this.handleFocus}/>
+                            <a onClick={this.handleClick}>{text}</a>
                         </div>
                     </div>
                 </div>

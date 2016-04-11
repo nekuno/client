@@ -3,36 +3,35 @@ import { IMAGES_ROOT } from '../constants/Constants';
 import LeftMenuRightSearchTopNavbar from '../components/ui/LeftMenuRightSearchTopNavbar';
 import LeftLinkRightSearchTopNavbar from '../components/ui/LeftLinkRightSearchTopNavbar';
 import ToolBar from '../components/ui/ToolBar';
-import AuthenticatedComponent from '../components/AuthenticatedComponent';
-import connectToStores from '../utils/connectToStores';
-import UserStore from '../stores/UserStore';
-import InterestStore from '../stores/InterestStore';
-import InterestsByUserStore from '../stores/InterestsByUserStore';
-import * as UserActionCreators from '../actions/UserActionCreators';
-import * as InterestsActionCreators from '../actions/InterestsActionCreators';
 import CardContentList from '../components/interests/CardContentList';
 import CardContentCarousel from '../components/interests/CardContentCarousel';
 import FilterContentPopup from '../components/ui/FilterContentPopup';
 import TextRadios from '../components/ui/TextRadios';
 import ProfilesAvatarConnection from '../components/ui/ProfilesAvatarConnection';
-
+import AuthenticatedComponent from '../components/AuthenticatedComponent';
+import translate from '../i18n/Translate';
+import connectToStores from '../utils/connectToStores';
+import * as UserActionCreators from '../actions/UserActionCreators';
+import * as InterestsActionCreators from '../actions/InterestsActionCreators';
+import UserStore from '../stores/UserStore';
+import InterestStore from '../stores/InterestStore';
+import InterestsByUserStore from '../stores/InterestsByUserStore';
 
 function parseId(user) {
     return user.qnoow_id;
 }
 
 function requestData(props) {
-    const { user } = props;
-    const userId = parseId(user);
+    const userId = parseId(props.user);
     UserActionCreators.requestUser(props.params.userId, ['username', 'email', 'picture', 'status']);
     InterestsActionCreators.requestComparedInterests(userId, props.params.userId);
 }
 
 function getState(props) {
     const otherUserId = props.params.userId;
-    const otherUser = UserStore.get(otherUserId);
-    const interests = InterestStore.get(otherUserId) || [];
     const pagination = InterestStore.getPagination(otherUserId) || {};
+    const interests = InterestStore.get(otherUserId) || [];
+    const otherUser = UserStore.get(otherUserId);
     return {
         pagination,
         interests,
@@ -40,18 +39,27 @@ function getState(props) {
     };
 }
 
+@AuthenticatedComponent
+@translate('OtherInterestsPage')
 @connectToStores([UserStore, InterestStore, InterestsByUserStore], getState)
-export default AuthenticatedComponent(class OtherInterestsPage extends Component {
+export default class OtherInterestsPage extends Component {
     static propTypes = {
         // Injected by React Router:
-        params: PropTypes.shape({
+        params    : PropTypes.shape({
             userId: PropTypes.string.isRequired
         }).isRequired,
-
-        user: PropTypes.object.isRequired,
+        // Injected by @AuthenticatedComponent
+        user      : PropTypes.object.isRequired,
+        // Injected by @translate:
+        strings   : PropTypes.object,
+        // Injected by @connectToStores:
+        pagination: PropTypes.object,
+        interests : PropTypes.array.isRequired,
+        otherUser : PropTypes.object
     };
 
     constructor(props) {
+
         super(props);
 
         this.onSearchClick = this.onSearchClick.bind(this);
@@ -62,13 +70,12 @@ export default AuthenticatedComponent(class OtherInterestsPage extends Component
         this.onNavbarLeftLinkClick = this.onNavbarLeftLinkClick.bind(this);
         this.initSwiper = this.initSwiper.bind(this);
 
-
         this.state = {
-            type: '',
+            type         : '',
             commonContent: 0,
-            carousel: false,
-            position: 0,
-            swiper: null
+            carousel     : false,
+            position     : 0,
+            swiper       : null
         }
     }
 
@@ -100,62 +107,16 @@ export default AuthenticatedComponent(class OtherInterestsPage extends Component
             return;
         }
         this.state = {
-            swiper: this.initSwiper(),
+            swiper  : this.initSwiper(),
             carousel: true
         };
     }
 
-    render() {
-        const interests = this.props.interests;
-        const otherUser = this.props.otherUser;
-        const ownUser = this.props.user;
-        const ownUserId = this.props.user.qnoow_id;
-        const otherUserId = parseInt(this.props.params.userId);
-        const otherUserPicture = otherUser && otherUser.picture ? `${IMAGES_ROOT}media/cache/resolve/user_avatar_60x60/user/images/${otherUser.picture}` : `${IMAGES_ROOT}media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
-        const ownPicture = ownUser && ownUser.picture ? `${IMAGES_ROOT}media/cache/resolve/user_avatar_60x60/user/images/${ownUser.picture}` : `${IMAGES_ROOT}media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
-        return (
-            <div className="view view-main" onScroll={this.handleScroll}>
-                {this.state.carousel ?
-                    <LeftLinkRightSearchTopNavbar leftText={"Cancelar"} centerText={otherUser ? otherUser.username : ''} onLeftLinkClickHandler={this.onNavbarLeftLinkClick}
-                                                  onRightLinkClickHandler={this.onSearchClick}/>
-                    :
-                    <LeftMenuRightSearchTopNavbar centerText={otherUser ? otherUser.username : ''}
-                                                  onRightLinkClickHandler={this.onSearchClick}/>
-                }
-                <div className="page other-interests-page">
-                    <div id="page-content" className="other-interests-content">
-                        <ProfilesAvatarConnection ownPicture={ownPicture} otherPicture={otherUserPicture} />
-                        <div className="title">{this.props.pagination.total} Intereses {this.state.commonContent ? 'similares' : ''}</div>
-                        <div className="common-content-switch">
-                            <TextRadios labels={[{key: 0, text: 'Todo'}, {key: 1, text: 'En común'}]} value={this.state.commonContent} onClickHandler={this.onFilterCommonClick}/>
-                        </div>
-                        {this.state.carousel ?
-                            <CardContentCarousel contents={interests} userId={otherUserId} />
-                            :
-                            <CardContentList contents={interests} userId={otherUserId} onClickHandler={this.onContentClick}/>
-                        }
-                        <br />
-                        {this.state.carousel ? '' : <div className="loading-gif" style={this.props.pagination.nextLink ? {} : {display: 'none'}}></div>}
-                    </div>
-                    <br/>
-                    <br/>
-                    <br/>
-                </div>
-                <ToolBar links={[
-                {'url': `/profile/${otherUserId}`, 'text': 'Acerca de'},
-                {'url': `/users/${otherUserId}/other-questions`, 'text': 'Respuestas'},
-                {'url': `/users/${otherUserId}/other-interests`, 'text': 'Intereses'}
-                ]} activeLinkIndex={2}/>
-                <FilterContentPopup userId={otherUserId} contentsCount={this.props.pagination.total || 0} ownContent={false} ownUserId={ownUserId} onClickHandler={this.onFilterTypeClick} commonContent={this.state.commonContent}/>
-            </div>
-        );
-    }
-
-    onSearchClick = function () {
+    onSearchClick() {
         nekunoApp.popup('.popup-filter-other-contents');
         this.setState({
             carousel: false,
-            swiper: null
+            swiper  : null
         });
     };
 
@@ -163,7 +124,7 @@ export default AuthenticatedComponent(class OtherInterestsPage extends Component
         this.setState({
             carousel: true,
             position: contentKey,
-            swiper: null
+            swiper  : null
         });
     };
 
@@ -188,19 +149,19 @@ export default AuthenticatedComponent(class OtherInterestsPage extends Component
     initSwiper() {
         var _self = this;
         return nekunoApp.swiper('.swiper-container', {
-            onReachEnd: onReachEnd,
-            effect: 'coverflow',
-            slidesPerView: 'auto',
-            coverflow: {
-                rotate: 30,
-                stretch: 0,
-                depth: 100,
-                modifier: 1,
-                slideShadows : false
+            onReachEnd    : onReachEnd,
+            effect        : 'coverflow',
+            slidesPerView : 'auto',
+            coverflow     : {
+                rotate      : 30,
+                stretch     : 0,
+                depth       : 100,
+                modifier    : 1,
+                slideShadows: false
             },
             centeredSlides: true,
-            grabCursor: true,
-            initialSlide: this.state.position
+            grabCursor    : true,
+            initialSlide  : this.state.position
         });
 
         function onReachEnd() {
@@ -215,7 +176,7 @@ export default AuthenticatedComponent(class OtherInterestsPage extends Component
         InterestsActionCreators.requestComparedInterests(parseId(this.props.user), parseInt(this.props.params.userId), this.state.type, key);
         this.setState({
             commonContent: key,
-            carousel: false
+            carousel     : false
         });
     }
 
@@ -224,4 +185,63 @@ export default AuthenticatedComponent(class OtherInterestsPage extends Component
             type: type
         });
     }
-});
+
+    render() {
+        const interests = this.props.interests;
+        const otherUser = this.props.otherUser;
+        const ownUser = this.props.user;
+        const ownUserId = this.props.user.qnoow_id;
+        const otherUserId = parseInt(this.props.params.userId);
+        const otherUserPicture = otherUser && otherUser.picture ? `${IMAGES_ROOT}media/cache/resolve/user_avatar_60x60/user/images/${otherUser.picture}` : `${IMAGES_ROOT}media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
+        const ownPicture = ownUser && ownUser.picture ? `${IMAGES_ROOT}media/cache/resolve/user_avatar_60x60/user/images/${ownUser.picture}` : `${IMAGES_ROOT}media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
+        const strings = this.props.strings;
+        return (
+            <div className="view view-main" onScroll={this.handleScroll}>
+                {this.state.carousel ?
+                    <LeftLinkRightSearchTopNavbar leftText={strings.cancel} centerText={otherUser ? otherUser.username : ''} onLeftLinkClickHandler={this.onNavbarLeftLinkClick} onRightLinkClickHandler={this.onSearchClick}/>
+                    :
+                    <LeftMenuRightSearchTopNavbar centerText={otherUser ? otherUser.username : ''} onRightLinkClickHandler={this.onSearchClick}/>
+                }
+                <div className="page other-interests-page">
+                    <div id="page-content" className="other-interests-content">
+                        <ProfilesAvatarConnection ownPicture={ownPicture} otherPicture={otherUserPicture}/>
+                        <div className="title">{this.state.commonContent ? strings.similarInterestsCount.replace('%count%', this.props.pagination.total) : strings.interestsCount.replace('%count%', this.props.pagination.total)}</div>
+                        <div className="common-content-switch">
+                            <TextRadios labels={[{key: 0, text: strings.all}, {key: 1, text: strings.common}]} value={this.state.commonContent} onClickHandler={this.onFilterCommonClick}/>
+                        </div>
+                        {this.state.carousel ?
+                            <CardContentCarousel contents={interests} userId={otherUserId}/>
+                            :
+                            <CardContentList contents={interests} userId={otherUserId} onClickHandler={this.onContentClick}/>
+                        }
+                        <br />
+                        {this.state.carousel ? '' : <div className="loading-gif" style={this.props.pagination.nextLink ? {} : {display: 'none'}}></div>}
+                    </div>
+                    <br/>
+                    <br/>
+                    <br/>
+                </div>
+                <ToolBar links={[
+                {'url': `/profile/${otherUserId}`, 'text': strings.about.replace('%username%', otherUser.username)},
+                {'url': `/users/${otherUserId}/other-questions`, 'text': strings.questions},
+                {'url': `/users/${otherUserId}/other-interests`, 'text': strings.interests}
+                ]} activeLinkIndex={2}/>
+                <FilterContentPopup userId={otherUserId} contentsCount={this.props.pagination.total || 0} ownContent={false} ownUserId={ownUserId} onClickHandler={this.onFilterTypeClick} commonContent={this.state.commonContent}/>
+            </div>
+        );
+    }
+
+};
+
+OtherInterestsPage.defaultProps = {
+    strings: {
+        cancel               : 'Cancel',
+        interestsCount       : '%count% Interests',
+        similarInterestsCount: '%count% Similar interests',
+        all                  : 'All',
+        common               : 'In common',
+        about                : 'About %username%',
+        questions            : 'Answers',
+        interests            : 'Interests'
+    }
+};

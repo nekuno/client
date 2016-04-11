@@ -13,8 +13,9 @@ function getState(props) {
     };
 }
 
+@AuthenticatedComponent
 @connectToStores([], getState)
-export default AuthenticatedComponent(class CreateThreadPage extends Component {
+export default class CreateThreadPage extends Component {
     static propTypes = {
 
     };
@@ -31,4 +32,4 @@ export default AuthenticatedComponent(class CreateThreadPage extends Component {
             </div>
         );
     }
-});
+};

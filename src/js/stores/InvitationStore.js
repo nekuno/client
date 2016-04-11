@@ -6,7 +6,6 @@ class InvitationStore extends BaseStore {
     constructor() {
         super();
         this.subscribe(() => this._registerToActions.bind(this));
-        this._requesting = false;
         this._error = null;
         this._token = null;
     }
@@ -15,21 +14,18 @@ class InvitationStore extends BaseStore {
         switch (action.type) {
 
             case ActionTypes.REQUEST_VALIDATE_INVITATION_USER:
-                this._requesting = true;
                 this._error = null;
                 this._token = null;
                 this.emitChange();
                 break;
 
             case ActionTypes.REQUEST_VALIDATE_INVITATION_USER_SUCCESS:
-                this._requesting = false;
                 this._error = null;
                 this._token = action.response.invitation.token;
                 this.emitChange();
                 break;
 
             case ActionTypes.REQUEST_VALIDATE_INVITATION_USER_ERROR:
-                this._requesting = false;
                 this._error = action.error;
                 this._token = null;
                 this.emitChange();
@@ -46,10 +42,6 @@ class InvitationStore extends BaseStore {
 
     get error() {
         return this._error;
-    }
-
-    requesting() {
-        return this._requesting;
     }
 
 }

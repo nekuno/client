@@ -53,9 +53,9 @@ export default keyMirror({
     REQUEST_THREADS_SUCCESS: null,
     REQUEST_THREADS_ERROR  : null,
 
-    CREATE_THREAD           : null,
-    CREATE_THREAD_SUCCESS   : null,
-    CREATE_THREAD_ERROR     : null,
+    CREATE_THREAD        : null,
+    CREATE_THREAD_SUCCESS: null,
+    CREATE_THREAD_ERROR  : null,
 
     THREADS_PREV: null,
     THREADS_NEXT: null,
@@ -149,6 +149,8 @@ export default keyMirror({
     WORKERS_PROCESS_START : null,
     WORKERS_PROCESS_LINK  : null,
     WORKERS_PROCESS_FINISH: null,
-    WORKERS_USER_STATUS   : null
+    WORKERS_USER_STATUS   : null,
+
+    CHANGE_LOCALE: null
 
 });

@@ -3,48 +3,52 @@ import selectn from 'selectn';
 import LeftMenuRightSearchTopNavbar from '../components/ui/LeftMenuRightSearchTopNavbar';
 import LeftLinkRightSearchTopNavbar from '../components/ui/LeftLinkRightSearchTopNavbar';
 import ToolBar from '../components/ui/ToolBar';
-import AuthenticatedComponent from '../components/AuthenticatedComponent';
-import connectToStores from '../utils/connectToStores';
-import InterestStore from '../stores/InterestStore';
-import InterestsByUserStore from '../stores/InterestsByUserStore';
-import * as InterestsActionCreators from '../actions/InterestsActionCreators';
+import FilterContentPopup from '../components/ui/FilterContentPopup';
 import CardContentList from '../components/interests/CardContentList';
 import CardContentCarousel from '../components/interests/CardContentCarousel';
-import FilterContentPopup from '../components/ui/FilterContentPopup';
+import AuthenticatedComponent from '../components/AuthenticatedComponent';
+import translate from '../i18n/Translate';
+import connectToStores from '../utils/connectToStores';
+import * as InterestsActionCreators from '../actions/InterestsActionCreators';
+import InterestStore from '../stores/InterestStore';
+import InterestsByUserStore from '../stores/InterestsByUserStore';
 
 function parseId(user) {
     return user.qnoow_id;
 }
 
 function requestData(props) {
-    const { user } = props;
-    const userId = parseId(user);
-
+    const userId = parseId(props.user);
     InterestsActionCreators.requestOwnInterests(userId);
 }
 
 function getState(props) {
     const userId = parseId(props.user);
-    const interests = InterestStore.get(userId) || [];
     const pagination = InterestStore.getPagination(userId) || {};
+    const interests = InterestStore.get(userId) || [];
     return {
         pagination,
         interests
     };
 }
 
+@AuthenticatedComponent
+@translate('InterestsPage')
 @connectToStores([InterestStore, InterestsByUserStore], getState)
-export default AuthenticatedComponent(class InterestsPage extends Component {
-    static propTypes = {
-        // Injected by @connectToStores:
-        interests: PropTypes.array.isRequired,
-        pagination: PropTypes.object,
+export default class InterestsPage extends Component {
 
-        // Injected by AuthenticatedComponent
-        user: PropTypes.object.isRequired
+    static propTypes = {
+        // Injected by @AuthenticatedComponent
+        user      : PropTypes.object.isRequired,
+        // Injected by @translate:
+        strings   : PropTypes.object,
+        // Injected by @connectToStores:
+        pagination: PropTypes.object,
+        interests : PropTypes.array.isRequired
     };
 
     constructor(props) {
+
         super(props);
 
         this.onSearchClick = this.onSearchClick.bind(this);
@@ -56,7 +60,7 @@ export default AuthenticatedComponent(class InterestsPage extends Component {
         this.state = {
             carousel: false,
             position: 0,
-            swiper: null
+            swiper  : null
         };
     }
 
@@ -76,7 +80,7 @@ export default AuthenticatedComponent(class InterestsPage extends Component {
         }
         if (!this.state.swiper) {
             this.state = {
-                swiper: this.initSwiper(),
+                swiper  : this.initSwiper(),
                 carousel: true
             };
         } else {
@@ -89,52 +93,16 @@ export default AuthenticatedComponent(class InterestsPage extends Component {
             return;
         }
         this.state = {
-            swiper: this.initSwiper(),
+            swiper  : this.initSwiper(),
             carousel: true
         };
     }
 
-    render() {
-        const interests = this.props.interests;
-
-        return (
-            <div className="view view-main" onScroll={this.state.carousel ? function() {} : this.handleScroll}>
-                {this.state.carousel ?
-                    <LeftLinkRightSearchTopNavbar leftText={"Cancelar"} centerText={'Mi Perfil'} onLeftLinkClickHandler={this.onNavbarLeftLinkClick}
-                                                 onRightLinkClickHandler={this.onSearchClick}/>
-                    :
-                    <LeftMenuRightSearchTopNavbar centerText={'Mi Perfil'}
-                                                  onRightLinkClickHandler={this.onSearchClick}/>
-                }
-                <div className="page interests-page">
-                    <div id="page-content" className="interests-content">
-                        {this.state.carousel ?
-                            <CardContentCarousel contents={interests} userId={parseId(this.props.user)} />
-                            :
-                            <CardContentList contents={interests} userId={parseId(this.props.user)} onClickHandler={this.onContentClick}/>
-                        }
-                        <br />
-                        {this.state.carousel ? '' : <div className="loading-gif" style={this.props.pagination.nextLink ? {} : {display: 'none'}}></div>}
-                    </div>
-                    <br/>
-                    <br/>
-                    <br/>
-                </div>
-                <ToolBar links={[
-                {'url': `/profile/${selectn('qnoow_id', this.props.user)}`, 'text': 'Sobre mí'},
-                {'url': '/questions', 'text': 'Respuestas'},
-                {'url': '/interests', 'text': 'Intereses'}
-                ]} activeLinkIndex={2}/>
-                <FilterContentPopup userId={parseId(this.props.user)} contentsCount={this.props.pagination.total || 0} ownContent={true}/>
-            </div>
-        );
-    }
-
-    onSearchClick = function () {
+    onSearchClick() {
         nekunoApp.popup('.popup-filter-contents');
         this.setState({
             carousel: false,
-            swiper: null
+            swiper  : null
         });
     };
 
@@ -142,7 +110,7 @@ export default AuthenticatedComponent(class InterestsPage extends Component {
         this.setState({
             carousel: true,
             position: contentKey,
-            swiper: null
+            swiper  : null
         });
     };
 
@@ -167,19 +135,19 @@ export default AuthenticatedComponent(class InterestsPage extends Component {
     initSwiper() {
         var _self = this;
         return nekunoApp.swiper('.swiper-container', {
-            onReachEnd: onReachEnd,
-            effect: 'coverflow',
-            slidesPerView: 'auto',
-            coverflow: {
-                rotate: 30,
-                stretch: 0,
-                depth: 100,
-                modifier: 1,
-                slideShadows : false
+            onReachEnd    : onReachEnd,
+            effect        : 'coverflow',
+            slidesPerView : 'auto',
+            coverflow     : {
+                rotate      : 30,
+                stretch     : 0,
+                depth       : 100,
+                modifier    : 1,
+                slideShadows: false
             },
             centeredSlides: true,
-            grabCursor: true,
-            initialSlide: this.state.position
+            grabCursor    : true,
+            initialSlide  : this.state.position
         });
 
         function onReachEnd() {
@@ -188,4 +156,50 @@ export default AuthenticatedComponent(class InterestsPage extends Component {
             InterestsActionCreators.requestNextOwnInterests(parseId(_self.props.user), nextLink);
         }
     }
-});
+
+    render() {
+
+        const {pagination, interests, user, strings} = this.props;
+
+        return (
+            <div className="view view-main" onScroll={this.state.carousel ? function() {} : this.handleScroll}>
+                {this.state.carousel ?
+                    <LeftLinkRightSearchTopNavbar leftText={strings.cancel} centerText={strings.myProfile} onLeftLinkClickHandler={this.onNavbarLeftLinkClick} onRightLinkClickHandler={this.onSearchClick}/>
+                    :
+                    <LeftMenuRightSearchTopNavbar centerText={strings.myProfile} onRightLinkClickHandler={this.onSearchClick}/>
+                }
+                <div className="page interests-page">
+                    <div id="page-content" className="interests-content">
+                        {this.state.carousel ?
+                            <CardContentCarousel contents={interests} userId={parseId(user)}/>
+                            :
+                            <CardContentList contents={interests} userId={parseId(user)} onClickHandler={this.onContentClick}/>
+                        }
+                        <br />
+                        {this.state.carousel ? '' : <div className="loading-gif" style={pagination.nextLink ? {} : {display: 'none'}}></div>}
+                    </div>
+                    <br/>
+                    <br/>
+                    <br/>
+                </div>
+                <ToolBar links={[
+                {'url': `/profile/${selectn('qnoow_id', user)}`, 'text': strings.about},
+                {'url': '/questions', 'text': strings.questions},
+                {'url': '/interests', 'text': strings.interests}
+                ]} activeLinkIndex={2}/>
+                <FilterContentPopup userId={parseId(user)} contentsCount={pagination.total || 0} ownContent={true}/>
+            </div>
+        );
+    }
+
+};
+
+InterestsPage.defaultProps = {
+    strings: {
+        cancel   : 'Cancel',
+        myProfile: 'My profile',
+        about    : 'About me',
+        questions: 'Answers',
+        interests: 'Interests'
+    }
+};

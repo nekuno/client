@@ -100,15 +100,15 @@ export default class CreateUsersThread extends Component {
                 choices: [
                     {
                         value: 'slim2',
-                        label: 'Delgado2'
+                        label: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
                     },
                     {
                         value: 'normal2',
-                        label: 'Normal2'
+                        label: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
                     },
                     {
                         value: 'fat2',
-                        label: 'Gordo2'
+                        label: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
                     }
                 ]
             },
@@ -212,6 +212,7 @@ export default class CreateUsersThread extends Component {
                     <div className="thread-filter-dot">
                         <span className="icon-plus active"></span>
                     </div>
+                    <div className="users-opposite-vertical-line"></div>
                     <div className="add-filter-button-wrapper" onClick={this.handleClickAddFilter}>
                         <div className="add-filter-button">
                             <span className="add-filter-button-text">Añadir filtro</span>
@@ -298,9 +299,6 @@ export default class CreateUsersThread extends Component {
                 <br />
                 <br />
                 <FullWidthButton onClick={this.createThread}>Crear hilo</FullWidthButton>
-                <br />
-                <br />
-                <br />
                 <br />
                 <br />
                 <br />
@@ -464,7 +462,6 @@ export default class CreateUsersThread extends Component {
     }
 
     renderLocationFilter() {
-        var _self = this;
         return (
             <div className="thread-filter tag-filter location-tag-filter">
                 <div className="users-middle-vertical-line"></div>

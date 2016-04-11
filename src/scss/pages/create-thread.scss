@@ -17,15 +17,22 @@ body #root .App .view .page.create-thread-page  {
     }
     .users-middle-vertical-line {
       border-left: 1px solid $green-alert;
-      height: 18%;
+      height: 250px;
       margin-left: 7px;
-      margin-top: -10%;
+      margin-top: -10px;
       position: absolute;
     }
     .users-last-vertical-line {
       border-left: 1px solid $green-alert;
-      bottom: 295px;
+      bottom: 250px;
       height: 20%;
+      margin-left: 7px;
+      position: absolute;
+    }
+    .users-opposite-vertical-line {
+      border-left: 1px solid $dark-purple;
+      margin-top: -22px;
+      height: 150px;
       margin-left: 7px;
       position: absolute;
     }
@@ -57,10 +64,16 @@ body #root .App .view .page.create-thread-page  {
       width: 100%;
     }
 
-    .double-choice-filter {
-      display: inline-block;
-      width: 90%;
-      vertical-align: middle;
+    .radio-filter {
+      .double-choice-filter {
+        display: inline-block;
+        width: 90%;
+        vertical-align: middle;
+
+        .list-block {
+          margin: 0 0 0 15px;
+        }
+      }
     }
 
     .choice-filter {
@@ -152,6 +165,17 @@ body #root .App .view .page.create-thread-page  {
     .radio-filter {
       display: table-row;
       width: 100%;
+
+      .list-block {
+        display: inline-block;
+        margin: 0;
+        width: 80%;
+        vertical-align: middle;
+
+        .item-title {
+          width: 100%;
+        }
+      }
     }
 
     .table-row {

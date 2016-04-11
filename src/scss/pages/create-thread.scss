@@ -30,7 +30,7 @@ body #root .App .view .page.create-thread-page  {
       position: absolute;
     }
     .users-opposite-vertical-line {
-      border-left: 1px solid $dark-purple;
+      border-left: 2px solid $dark-purple;
       margin-top: -22px;
       height: 150px;
       margin-left: 7px;
@@ -64,6 +64,15 @@ body #root .App .view .page.create-thread-page  {
       width: 100%;
     }
 
+    .users-filters-wrapper {
+      .thread-filter {
+        height: 70px;
+      }
+      .radio-filter {
+        height: 90px;
+      }
+
+    }
     .radio-filter {
       .double-choice-filter {
         display: inline-block;
@@ -276,22 +285,33 @@ body #root .App .view .page.create-thread-page  {
 
     @media only screen and (min-width: 360px) and (max-width: 375px) {
       .thread-filter {
-        .text-radios {
-          width: 85%;
+        .text-radios .chip {
+          max-width: 265px;
         }
-        .text-checkboxes {
-          max-width: 85%;
+        .text-checkboxes .chip {
+          max-width: 265px;
         }
       }
     }
 
-    @media only screen and (max-width: 359px) {
+    @media only screen and (min-width: 340px) and (max-width: 359px) {
       .thread-filter {
         .text-radios {
-          width: 80%;
+          max-width: 255px;
         }
-        .text-checkboxes {
-          max-width: 80%;
+        .text-checkboxes .chip {
+          max-width: 255px;
+        }
+      }
+    }
+
+    @media only screen and (max-width: 339px) {
+      .thread-filter {
+        .text-radios {
+          max-width: 220px;
+        }
+        .text-checkboxes .chip {
+          max-width: 220px;
         }
       }
     }

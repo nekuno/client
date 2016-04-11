@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import Chip from './Chip';
-import InputRadio from './InputCheckbox';
+import InputRadio from './InputRadio';
 
 export default class TextRadios extends Component {
 	static propTypes = {

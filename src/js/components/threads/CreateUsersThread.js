@@ -435,7 +435,7 @@ export default class CreateUsersThread extends Component {
         if (doubleChoicesFilter) {
             doubleChoicesFilter.forEach(filter => {
                 let choice = filter.choices[Object.keys(filter.choices).find(key => key === filter.choice)];
-                let detail = filter.detail ? filter.doubleChoices[filter.choice][Object.keys(filter.doubleChoices[filter.choice]).find(key => key === filter.detail)] : null;
+                let detail = filter.detail ? filter.doubleChoices[filter.choice][Object.keys(filter.doubleChoices[filter.choice]).find(key => key === filter.detail)] : '';
                 filterCheckboxes.push({
                     label: {key: filter.key, text: choice ? filter.label + ' - ' + choice + ' ' + detail : filter.label},
                     value: filter.key,

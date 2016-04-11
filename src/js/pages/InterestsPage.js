@@ -24,8 +24,8 @@ function requestData(props) {
 
 function getState(props) {
     const userId = parseId(props.user);
-    const interests = InterestStore.get(userId) || [];
     const pagination = InterestStore.getPagination(userId) || {};
+    const interests = InterestStore.get(userId) || [];
     return {
         pagination,
         interests
@@ -43,8 +43,8 @@ export default class InterestsPage extends Component {
         // Injected by @translate:
         strings   : PropTypes.object,
         // Injected by @connectToStores:
-        interests : PropTypes.array.isRequired,
-        pagination: PropTypes.object
+        pagination: PropTypes.object,
+        interests : PropTypes.array.isRequired
     };
 
     constructor(props) {

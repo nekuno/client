@@ -43,6 +43,32 @@ export default {
         username: 'Username or email',
         password: 'Password'
     },
+    OtherInterestsPage               : {
+        cancel               : 'Cancel',
+        interestsCount       : '%count% Interests',
+        similarInterestsCount: '%count% Similar interests',
+        all                  : 'All',
+        common               : 'In common',
+        about                : 'About',
+        questions            : 'Answers',
+        interests            : 'Interests'
+    },
+    OtherQuestionsPage               : {
+        cancel      : 'Cancel',
+        coincidences: 'Coincidences',
+        about       : 'About',
+        questions   : 'Answers',
+        interests   : 'Interests'
+    },
+    QuestionsPage                    : {
+        myProfile: 'My profile',
+        title    : 'Do you want us to walk a fine line?',
+        text     : 'Answer more test questions',
+        completed: 'completed questions',
+        about    : 'About me',
+        questions: 'Answers',
+        interests: 'Interests'
+    },
     RegisterPage                     : {
         register: 'Create account',
         cancel  : 'Cancel',

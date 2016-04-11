@@ -43,6 +43,32 @@ export default {
         username: 'Usuario o email',
         password: 'Contraseña'
     },
+    OtherInterestsPage               : {
+        cancel               : 'Cancelar',
+        interestsCount       : '%count% Intereses',
+        similarInterestsCount: '%count% Intereses similares',
+        all                  : 'Todo',
+        common               : 'En común',
+        about                : 'Acerca de',
+        questions            : 'Respuestas',
+        interests            : 'Intereses'
+    },
+    OtherQuestionsPage               : {
+        cancel      : 'Cancelar',
+        coincidences: 'Coincidencias',
+        about       : 'Acerca de',
+        questions   : 'Respuestas',
+        interests   : 'Intereses'
+    },
+    QuestionsPage                    : {
+        myProfile: 'Mi Perfil',
+        title    : '¿Quieres que hilemos más fino?',
+        text     : 'Responde más preguntas del test',
+        completed: 'preguntas completadas',
+        about    : 'Sobre mí',
+        questions: 'Respuestas',
+        interests: 'Intereses'
+    },
     RegisterPage                     : {
         register: 'Crear cuenta',
         cancel  : 'Cancelar',

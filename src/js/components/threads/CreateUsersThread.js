@@ -6,7 +6,7 @@ import TextCheckboxes from '../ui/TextCheckboxes';
 import TagInput from '../ui/TagInput';
 import FullWidthButton from '../ui/FullWidthButton';
 import InputCheckbox from '../ui/InputCheckbox';
-import Geosuggest from 'react-geosuggest';
+import LocationInput from '../ui/LocationInput';
 
 export default class CreateUsersThread extends Component {
     static propTypes = {
@@ -23,6 +23,7 @@ export default class CreateUsersThread extends Component {
         this.renderActiveFilters = this.renderActiveFilters.bind(this);
         this.handleClickRemoveFilter = this.handleClickRemoveFilter.bind(this);
         this.renderLocationFilter = this.renderLocationFilter.bind(this);
+        this.handleClickLocationSuggestion = this.handleClickLocationSuggestion.bind(this);
         this.renderChoiceFilter = this.renderChoiceFilter.bind(this);
         this.renderDoubleChoiceFilter = this.renderDoubleChoiceFilter.bind(this);
         this.renderIntegerFilter = this.renderIntegerFilter.bind(this);
@@ -211,9 +212,9 @@ export default class CreateUsersThread extends Component {
                     <div className="thread-filter-dot">
                         <span className="icon-plus active"></span>
                     </div>
-                    <div className="tag-input-wrapper" onClick={this.handleClickAddFilter}>
-                        <div className="tag-input">
-                            <span className="tag-input-text">Añadir filtro</span>
+                    <div className="add-filter-button-wrapper" onClick={this.handleClickAddFilter}>
+                        <div className="add-filter-button">
+                            <span className="add-filter-button-text">Añadir filtro</span>
                         </div>
                     </div>
                 </div>
@@ -471,9 +472,10 @@ export default class CreateUsersThread extends Component {
                 <div className="thread-filter-dot">
                     <span className="icon-plus active"></span>
                 </div>
-                <Geosuggest className="tag-input-wrapper" placeholder={'Escribe una ubicación'} onSuggestSelect={function(suggest) { _self.handleClickLocationSuggestion.bind(_self, suggest)() }}
-                            getSuggestLabel={function(suggest) { return suggest.description.length > 15 ? suggest.description.slice(0, 15) + '...' : suggest.description }}
-                />
+                <div className="list-block">
+                    <div className="location-title">Ubicación</div>
+                    <LocationInput placeholder={'Escribe una ubicación'} onSuggestSelect={this.handleClickLocationSuggestion}/>
+                </div>
                 {this.renderSelectedFilterOppositeBackgroud()}
                 <div className="table-row"></div>
             </div>

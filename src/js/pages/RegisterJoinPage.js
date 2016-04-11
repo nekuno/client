@@ -216,8 +216,8 @@ export default class RegisterJoinPage extends Component {
                                 <TextInput placeholder={'Email'} ref="email"/>
                                 <PasswordInput placeholder={'Contraseña'} ref="plainPassword"/>
                                 <DateInput label={'Fecha de nacimiento'} ref="birthday"/>
-                                <LocationInput placeholder="Ubicación" onSuggestSelect={this.onSuggestSelect}/>
                             </ul>
+                            <LocationInput placeholder="Ubicación" onSuggestSelect={this.onSuggestSelect}/>
                         </div>
 
                         <TextRadios title={'Incluirme en las búsquedas como'} labels={[

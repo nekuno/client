@@ -11,15 +11,14 @@ export default class LocationInput extends Component {
 
     render() {
         return (
-            <li>
-                <div className="item-content">
-                    <div className="item-inner">
-                        <div className="item-input">
-                            <Geosuggest {...this.props}/>
-                        </div>
+            <div className="item-content">
+                <div className="item-inner location-inner">
+                    <div className="item-input">
+                        <Geosuggest {...this.props}
+                            getSuggestLabel={function(suggest) { return suggest.description.length > 50 ? suggest.description.slice(0, 50) + '...' : suggest.description }}/>
                     </div>
                 </div>
-            </li>
+            </div>
         );
     }
 }

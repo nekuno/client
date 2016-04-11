@@ -35,7 +35,7 @@ export default class CreateThread extends Component {
         }
         return (
             <div>
-                <div className="list-block">
+                <div className="thread-title list-block">
                     <ul>
                         <TextInput placeholder={'Escribe un título descriptivo del hilo'} />
                     </ul>

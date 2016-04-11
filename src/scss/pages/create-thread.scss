@@ -2,7 +2,7 @@
 
 body #root .App .view .page.create-thread-page  {
   #page-content {
-    .list-block ul li input[type="text"] {
+    .thread-title ul li input[type="text"] {
       color: #fff;
       font-size: 1.7em;
       margin-bottom: 5px;
@@ -24,7 +24,7 @@ body #root .App .view .page.create-thread-page  {
     }
     .users-last-vertical-line {
       border-left: 1px solid $green-alert;
-      bottom: 310px;
+      bottom: 295px;
       height: 20%;
       margin-left: 7px;
       position: absolute;
@@ -170,38 +170,17 @@ body #root .App .view .page.create-thread-page  {
       }
     }
     .location-tag-filter {
-      .geosuggest__suggests-wrapper {
-        position: absolute;
-        z-index: 111;
-        background: $purple;
-        border-radius: 20px;
-        padding: 0 10px;
 
-        ul {
-          padding: 0px;
+      .list-block {
+        display: inline-block;
+        margin: 0;
+        vertical-align: middle;
+        width: 80%;
 
-          li {
-            cursor: pointer;
-            display: inline-block;
-            list-style-type: none;
-            font-weight: 400;
-            background: $deep-purple;
-            height: 32px;
-            line-height: 32px;
-            border-radius: 16px;
-            padding: 0 12px;
-            box-sizing: border-box;
-            vertical-align: middle;
-            display: -webkit-inline-box;
-            display: -ms-inline-flexbox;
-            display: -webkit-inline-flex;
-            display: inline-flex;
-            -webkit-box-align: center;
-            -ms-flex-align: center;
-            -webkit-align-items: center;
-            align-items: center;
-            margin: 2px;
-          }
+        .location-title {
+          font-size: 0.8em;
+          font-weight: bold;
+          text-align: center;
         }
       }
     }
@@ -238,6 +217,35 @@ body #root .App .view .page.create-thread-page  {
           .active-state {
             background-color: transparent;
           }
+        }
+      }
+    }
+
+    .add-filter {
+      display: inline-block;
+
+      .add-filter-button-wrapper {
+        font-weight: 400;
+        background: $deep-purple;
+        height: 60px;
+        line-height: 60px;
+        border-radius: 30px;
+        padding: 0 24px;
+        box-sizing: border-box;
+        vertical-align: middle;
+        display: -webkit-inline-box;
+        display: -ms-inline-flexbox;
+        display: -webkit-inline-flex;
+        display: inline-flex;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        -webkit-align-items: center;
+        align-items: center;
+        margin: 2px 0;
+
+        .add-filter-button {
+          cursor: pointer;
+          font-size: 1.3em;
         }
       }
     }

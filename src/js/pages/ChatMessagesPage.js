@@ -110,18 +110,18 @@ export default class ChatMessagesPage extends Component {
         const {messages, strings} = this.props;
         let otherUsername = this.props.otherUser ? this.props.otherUser.username : '';
         return (
-            
+
             <div className="view view-main" ref="list" onScroll={this.handleScroll}>
                 <LeftMenuTopNavbar centerText={otherUsername}/>
                 <div className="page notifications-page">
                     <div id="page-content" className="notifications-content">
-                        {this.state.noMoreMessages ? <div className="daily-message-title">{strings}</div> : '' }
+                        {this.state.noMoreMessages ? <div className="daily-message-title">{strings.noMoreMessages}</div> : '' }
                         <DailyMessages messages={messages}/>
                         <br />
                     </div>
                 </div>
                 <div>
-                    <MessagesToolBar onClickHandler={this.sendMessageHandler} onFocusHandler={this.handleFocus}/>
+                    <MessagesToolBar onClickHandler={this.sendMessageHandler} onFocusHandler={this.handleFocus} placeholder={strings.placeholder} text={strings.text}/>
                 </div>
             </div>
         );
@@ -130,6 +130,8 @@ export default class ChatMessagesPage extends Component {
 
 ChatMessagesPage.defaultProps = {
     strings: {
-        noMoreMessages: 'You have no messages'
+        noMoreMessages: 'You have no messages',
+        placeholder   : 'Type a message...',
+        text          : 'Send'
     }
 };

@@ -4,7 +4,9 @@ export default {
         skip    : 'Omitir'
     },
     ChatMessagesPage  : {
-        noMoreMessages: 'No tienes más mensajes'
+        noMoreMessages: 'No tienes más mensajes',
+        placeholder   : 'Escribe un mensaje...',
+        text          : 'Enviar'
     },
     ChatThreadsPage   : {
         title: 'Mensajes'

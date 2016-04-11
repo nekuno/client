@@ -3,8 +3,10 @@ export default {
         question: 'Question',
         skip    : 'Skip'
     },
-    ChatMessagePage   : {
-        noMoreMessages: 'You have no messages'
+    ChatMessagesPage   : {
+        noMoreMessages: 'You have no messages',
+        placeholder   : 'Type a message...',
+        text          : 'Send'
     },
     ChatThreadsPage   : {
         title: 'Messages'

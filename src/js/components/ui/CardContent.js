@@ -65,8 +65,8 @@ export default class CardContent extends Component {
 			imgSrc = this.props.url;
 		}
 		return (
-			<div className="card person-card" onClick={this.onClickHandler}>
-				<div className="card-header">
+			<div className="card person-card">
+				<div className="card-header" onClick={this.onClickHandler}>
 					<a>
 						<div className="card-title">
 							{title}
@@ -76,10 +76,10 @@ export default class CardContent extends Component {
 						{subTitle}
 					</div>
 				</div>
-				<div className="card-icons">
+				<div className="card-icons" onClick={this.onClickHandler}>
 					<CardIcons types={this.props.types}/>
 				</div>
-				<div className="card-content">
+				<div className="card-content" onClick={this.onClickHandler}>
 					<div className="card-content-inner">
 						<a>
 							<div className="image">

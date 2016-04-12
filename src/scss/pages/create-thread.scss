@@ -45,26 +45,26 @@ body #root .App .view .page.create-thread-page  {
     }
     .content-middle-vertical-line {
       border-left: 1px solid $green-alert;
-      height: 25%;
+      height: 250px;
       margin-left: 7px;
-      margin-top: -25%;
+      margin-top: -10px;
       position: absolute;
     }
     .content-last-vertical-line {
       border-left: 1px solid $green-alert;
-      margin-top: -60px;
-      height: 15%;
+      bottom: 250px;
+      height: 20%;
       margin-left: 7px;
       position: absolute;
     }
 
-    .main-filter-wprapper, .users-filters-wrapper {
+    .main-filter-wprapper, .users-filters-wrapper, .content-filters-wrapper {
       display: table;
       height: 100%;
       width: 100%;
     }
 
-    .users-filters-wrapper {
+    .users-filters-wrapper, .content-filters-wrapper {
       .thread-filter {
         height: 70px;
       }

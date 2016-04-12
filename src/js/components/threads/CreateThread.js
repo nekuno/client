@@ -7,7 +7,8 @@ import TextRadios from '../ui/TextRadios';
 
 export default class CreateThread extends Component {
     static propTypes = {
-        userId: PropTypes.number.isRequired
+        userId: PropTypes.number.isRequired,
+        filters: PropTypes.object.isRequired
     };
 
     constructor(props) {
@@ -25,12 +26,12 @@ export default class CreateThread extends Component {
         let content = '';
         switch (this.state.category) {
             case 'contents':
-                verticalLines = [<div key={1} className="content-first-vertical-line"></div>];
-                content = <CreateContentThread userId={this.props.userId}/>;
+                verticalLines = [<div key={1} className="content-first-vertical-line"></div>, <div key={2} className="content-last-vertical-line"></div>];
+                content = <CreateContentThread userId={this.props.userId} filters={this.props.filters['contentFilters']}/>;
                 break;
             case 'persons':
                 verticalLines = [<div key={1} className="users-first-vertical-line"></div>, <div key={2} className="users-last-vertical-line"></div>];
-                content = <CreateUsersThread userId={this.props.userId}/>;
+                content = <CreateUsersThread userId={this.props.userId} filters={this.props.filters['profileFilters']}/>;
                 break;
         }
         return (

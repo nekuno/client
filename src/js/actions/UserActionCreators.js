@@ -6,6 +6,7 @@ import RecommendationsByThreadStore from '../stores/RecommendationsByThreadStore
 import ThreadsByUserStore from '../stores/ThreadsByUserStore';
 import ThreadStore from '../stores/ThreadStore';
 import ProfileStore from '../stores/ProfileStore';
+import FilterStore from '../stores/FilterStore';
 
 export function requestUser(userId, fields) {
     // Exit early if we know enough about this user
@@ -50,6 +51,18 @@ export function requestMetadata() {
             failure: ActionTypes.REQUEST_METADATA_ERROR
         });
     }
+}
+
+export function requestFilters() {
+    if (FilterStore.filters != null){
+        return;
+    }
+
+    dispatchAsync(UserAPI.getFilters(), {
+        request: ActionTypes.REQUEST_FILTERS,
+        success: ActionTypes.REQUEST_FILTERS_SUCCESS,
+        failure: ActionTypes.REQUEST_FILTERS_ERROR
+    })
 }
 
 export function requestThreadPage(userId) {

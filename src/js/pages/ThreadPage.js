@@ -20,6 +20,7 @@ function requestData(props) {
     const userId = parseId(props.params);
     UserActionCreators.requestThreadPage(userId);
     UserActionCreators.requestProfile(userId);
+    UserActionCreators.requestFilters(userId);
 }
 
 /**

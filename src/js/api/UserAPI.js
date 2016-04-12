@@ -36,6 +36,10 @@ export function getMetadata(url = `profile/metadata`) {
     return fetchMetadata(url);
 }
 
+export function getFilters(url = `filters`) {
+    return getData(url);
+}
+
 export function getStats(url = `stats`) {
     return fetchStats(url);
 }

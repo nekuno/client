@@ -49,6 +49,10 @@ export default keyMirror({
     REQUEST_SIMILARITY_SUCCESS: null,
     REQUEST_SIMILARITY_ERROR  : null,
 
+    REQUEST_FILTERS        : null,
+    REQUEST_FILTERS_SUCCESS: null,
+    REQUEST_FILTERS_ERROR  : null,
+
     REQUEST_THREADS        : null,
     REQUEST_THREADS_SUCCESS: null,
     REQUEST_THREADS_ERROR  : null,

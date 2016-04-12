@@ -40,7 +40,8 @@ export default class CreateContentThread extends Component {
                         {key: 'Link', text: 'Sitios web'},
                         {key: 'Video', text: 'Videos'},
                         {key: 'Audio', text: 'Audios'},
-                        {key: 'Image', text: 'Imágenes'}
+                        {key: 'Image', text: 'Imágenes'},
+                        {key: 'Creator', text: 'Canales'}
                         ]} onClickHandler={this.handleClickFilter} values={this.state.filters} />
                 </div>
                 <div className="table-row"></div>

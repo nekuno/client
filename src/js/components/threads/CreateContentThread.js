@@ -184,8 +184,8 @@ export default class CreateContentThread extends Component {
                         <div className="thread-filter-dot">
                             <span className="icon-circle active"></span>
                         </div>
-                        <TextCheckboxes labels={[filterCheckbox.label]}
-                                        onClickHandler={this.handleClickFilter.bind(this, filterCheckbox.label.key)} values={filters.map(filter => {return filter.value || filter.choice || filter.values && filter.values > 0 ? filter.key : null})} />
+                        <TextCheckboxes labels={[filterCheckbox.label]} onClickHandler={this.handleClickFilter.bind(this, filterCheckbox.label.key)}
+                                        values={filters.map(filter => {return filter.value || filter.choice || filter.values && filter.values.length > 0 ? filter.key : null})} />
                         <div className="table-row"></div>
                     </div>
             )
@@ -194,7 +194,7 @@ export default class CreateContentThread extends Component {
 
     renderMultipleChoicesFilter() {
         return (
-            <div className="thread-filter checkbox-filter">
+            <div key={'selected-filter'} className="thread-filter checkbox-filter">
                 <div className="content-middle-vertical-line"></div>
                 {this.renderSelectedFilterBackground()}
                 <div className="thread-filter-dot">
@@ -211,7 +211,7 @@ export default class CreateContentThread extends Component {
 
     renderTagFilter() {
         return (
-            <div className="thread-filter tag-filter">
+            <div key={'selected-filter'} className="thread-filter tag-filter">
                 <div className="content-middle-vertical-line"></div>
                 {this.renderSelectedFilterBackground()}
                 <div className="thread-filter-dot">

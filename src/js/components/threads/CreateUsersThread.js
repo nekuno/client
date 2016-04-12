@@ -659,15 +659,35 @@ export default class CreateUsersThread extends Component {
     createThread() {
         let data = {
             name: document.querySelector('.list-block input').value,
-            filters: {},
+            filters: {profileFilters: {}, userFilters: {}},
             category: 'ThreadUsers'
         };
 
-        if (this.state.filters.length > 0){
-            data.filters = this.state.filters;
-        }
-        if (this.state.tags.length > 0){
-            data.tags = this.state.tags;
+        let stateFilters = this.state.filters;
+
+        for (let stateFilter of stateFilters) {
+            //read from metadata
+            let box = 'profileFilters';
+            switch (stateFilter.type) {
+                case 'choice':
+                    data.filters[box][stateFilter.key] = stateFilter.choice;
+                    break;
+                case 'location':
+                    data.filters[box][stateFilter.key] = {};
+                    data.filters[box][stateFilter.key]['location'] = stateFilter.value;
+                    data.filters[box][stateFilter.key]['distance'] = 50;
+                    break;
+                case 'tags':
+                    data.filters[box][stateFilter.key] = stateFilter.values;
+                    break;
+                case 'double_choice':
+                    data.filters[box][stateFilter.key] = {};
+                    data.filters[box][stateFilter.key]['choice'] = stateFilter.choice;
+                    data.filters[box][stateFilter.key]['detail'] = stateFilter.detail;
+                    break;
+                default:
+                    break;
+            }
         }
 
         UserActionCreators.createThread(this.props.userId, data);

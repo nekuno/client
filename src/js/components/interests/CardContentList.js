@@ -13,7 +13,7 @@ export default class CardContentList extends Component {
     render() {
         return (
             <div className="content-list">
-                {this.props.contents.map((content, index) => <CardContent key={index} hideLikeButton={true} {...content} loggedUserId={this.props.userId} onClickHandler={this.onClickHandler.bind(this, index - 1)}/>)}
+                {this.props.contents.map((content, index) => <CardContent key={index} hideLikeButton={false} {...content} loggedUserId={this.props.userId} onClickHandler={this.onClickHandler.bind(this, index - 1)}/>)}
             </div>
         );
     }

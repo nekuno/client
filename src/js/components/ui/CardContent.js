@@ -1,7 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import { Link } from 'react-router';
 import { IMAGES_ROOT } from '../../constants/Constants';
-import shouldPureComponentUpdate from 'react-pure-render/function';
 import * as UserActionCreators from '../../actions/UserActionCreators'
 import ProgressBar from './ProgressBar';
 import Button from './Button';
@@ -51,12 +50,10 @@ export default class CardContent extends Component {
 		this.onClickHandler = this.onClickHandler.bind(this);
 	}
 
-	shouldComponentUpdate = shouldPureComponentUpdate;
-
 	render() {
 		let title = this.props.title ? <div>{this.props.title.substr(0, 20)}{this.props.title.length > 20 ? '...' : ''}</div> : 'Link';
 		let subTitle = this.props.description ? <div>{this.props.description.substr(0, 20)}{this.props.description.length > 20 ? '...' : ''}</div> : '';
-		let likeButtonText = this.props.rate ? 'Quitar Me gusta' : 'Me gusta';
+		let likeButtonText = this.props.rate ? 'Quitar' : 'Me interesa';
 		let likeButton = this.props.hideLikeButton ? '' : <div className="like-button-container"><Button {...this.props} onClick={this.onRate}>{likeButtonText}</Button></div>;
 		let imgSrc = 'img/default-content-image.jpg';
 		if (this.props.thumbnail) {
@@ -65,8 +62,8 @@ export default class CardContent extends Component {
 			imgSrc = this.props.url;
 		}
 		return (
-			<div className="card person-card" onClick={this.onClickHandler}>
-				<div className="card-header">
+			<div className="card person-card">
+				<div className="card-header" onClick={this.onClickHandler}>
 					<a>
 						<div className="card-title">
 							{title}
@@ -76,10 +73,10 @@ export default class CardContent extends Component {
 						{subTitle}
 					</div>
 				</div>
-				<div className="card-icons">
+				<div className="card-icons" onClick={this.onClickHandler}>
 					<CardIcons types={this.props.types}/>
 				</div>
-				<div className="card-content">
+				<div className="card-content" onClick={this.onClickHandler}>
 					<div className="card-content-inner">
 						<a>
 							<div className="image">

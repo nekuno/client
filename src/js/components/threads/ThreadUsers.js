@@ -92,6 +92,7 @@ export default class ThreadUsers extends Component {
         if (selectn('orientation', this.props.profile) === undefined) {
             console.log('orientation required');
             nekunoApp.popup('.popup-orientation-required');
+            document.getElementsByClassName('view')[0].scrollTop = 0;
         } else {
             this.continue();
         }

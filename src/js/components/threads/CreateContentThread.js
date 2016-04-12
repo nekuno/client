@@ -185,7 +185,7 @@ export default class CreateContentThread extends Component {
                             <span className="icon-circle active"></span>
                         </div>
                         <TextCheckboxes labels={[filterCheckbox.label]}
-                                        onClickHandler={this.handleClickFilter.bind(this, filterCheckbox.label.key)} values={filters.map(filter => {return filter.value || filter.choice || filter.values ? filter.key : null})} />
+                                        onClickHandler={this.handleClickFilter.bind(this, filterCheckbox.label.key)} values={filters.map(filter => {return filter.value || filter.choice || filter.values && filter.values > 0 ? filter.key : null})} />
                         <div className="table-row"></div>
                     </div>
             )

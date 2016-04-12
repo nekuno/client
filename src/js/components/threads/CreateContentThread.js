@@ -334,8 +334,32 @@ export default class CreateContentThread extends Component {
             category: 'ThreadContent'
         };
 
-        if (this.state.filters.length > 0){
-            data.filters = this.state.filters;
+        let stateFilters = this.state.filters;
+
+        for (let stateFilter of stateFilters) {
+            switch (stateFilter.type) {
+                case 'choice':
+                    data.filters[stateFilter.key] = stateFilter.choice;
+                    break;
+                case 'location':
+                    data.filters[stateFilter.key] = {};
+                    data.filters[stateFilter.key]['location'] = stateFilter.value;
+                    data.filters[stateFilter.key]['distance'] = 50;
+                    break;
+                case 'tags':
+                    data.filters['tag'] = stateFilter.values[0];
+                    break;
+                case 'double_choice':
+                    data.filters[stateFilter.key] = {};
+                    data.filters[stateFilter.key]['choice'] = stateFilter.choice;
+                    data.filters[stateFilter.key]['detail'] = stateFilter.detail;
+                    break;
+                case 'multiple_choices':
+                    data.filters[stateFilter.key] = stateFilter.values;
+                    break;
+                default:
+                    break;
+            }
         }
 
         UserActionCreators.createThread(this.props.userId, data);

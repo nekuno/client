@@ -25,7 +25,7 @@ const ProfileStore = createStore({
         const basicProfile = this.get(userId);
         const metadata = this.getMetadata();
 
-        if (!(basicProfile || metadata)) {
+        if (!basicProfile || !metadata) {
             return {};
         }
 

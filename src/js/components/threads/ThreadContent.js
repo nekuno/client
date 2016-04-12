@@ -54,12 +54,19 @@ export default class ThreadContent extends Component {
         );
     }
 
-    renderChipList = function(thread, type, tag) {
+    renderChipList = function(thread, types, tag) {
         let chips = [];
         chips.push({'label': 'Contenidos'});
-        if (type && type != 'Link') {
-            chips.push({'label': type});
+
+        for (let key in types){
+            if (types.hasOwnProperty(key)){
+                let type = types[key];
+                if (type && type != 'Link') {
+                    chips.push({'label': type});
+                }
+            }
         }
+
         if (tag) {
             chips.push({'label': tag});
         }
@@ -73,7 +80,7 @@ export default class ThreadContent extends Component {
         let imgSrc = 'img/default-content-image.jpg';
         if (selectn('thumbnail', recommendation)) {
             imgSrc = recommendation.thumbnail;
-        } else if (type === 'Image' && selectn('url', recommendation)) {
+        } else if (type.indexOf('Image') > -1  && selectn('url', recommendation)) {
             imgSrc = recommendation.url;
         }
 

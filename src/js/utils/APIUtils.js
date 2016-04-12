@@ -8,6 +8,7 @@ Bluebird.config({
 });
 import { API_ROOT } from '../constants/Constants';
 import LoginStore from '../stores/LoginStore';
+import LocaleStore from '../stores/LocaleStore';
 
 // We use this Normalizr schemas to transform API responses from a nested form
 // to a flat form where repos and users are placed in `entities`, and nested
@@ -80,6 +81,7 @@ export function doRequest(method, url, data = null) {
 
     var jwt = LoginStore.jwt ? LoginStore.jwt : _jwt;
     var headers = jwt ? {'Authorization': 'Bearer ' + jwt} : {};
+    var locale = LocaleStore.locale;
 
     nekunoApp.showProgressbar();
 
@@ -90,6 +92,7 @@ export function doRequest(method, url, data = null) {
                 method  : method,
                 protocol: Url.parse(url).protocol,
                 url     : url,
+                qs      : {locale},
                 body    : data,
                 json    : true,
                 headers : headers
@@ -169,9 +172,8 @@ export function fetchThreads(url) {
     });
 }
 
-export function postThread(url, data)
-{
-        return postData(url, data);
+export function postThread(url, data) {
+    return postData(url, data);
 }
 
 export function fetchRecommendation(url) {

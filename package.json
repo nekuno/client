@@ -31,7 +31,7 @@
     "react-geosuggest": "^1.20.1",
     "react-pure-render": "^1.0.2",
     "react-router": "^1.0.2",
-    "request": "^2.67.0",
+    "request": "^2.71.0",
     "selectn": "^0.10.0",
     "underscore": "^1.8.3"
   },

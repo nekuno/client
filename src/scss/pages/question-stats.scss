@@ -33,6 +33,10 @@ body #root .App .view .page.question-stats-page {
             height: 140px;
             width: 140px;
           }
+          @media only screen and (max-width: 346px) {
+            height: 120px;
+            width: 120px;
+          }
 
           canvas {
             height: 150px;
@@ -41,6 +45,10 @@ body #root .App .view .page.question-stats-page {
             @media only screen and (max-width: 370px) {
               height: 140px;
               width: 140px;
+            }
+            @media only screen and (max-width: 346px) {
+              height: 120px;
+              width: 120px;
             }
           }
           .genre-icon {
@@ -51,6 +59,9 @@ body #root .App .view .page.question-stats-page {
             @media only screen and (max-width: 370px) {
               margin-top: -95px;
             }
+            @media only screen and (max-width: 346px) {
+              margin-top: -85px;
+            }
           }
           .icon-female {
             font-size: 28px;
@@ -59,9 +70,16 @@ body #root .App .view .page.question-stats-page {
             @media only screen and (max-width: 370px) {
               margin-top: -100px;
             }
+            @media only screen and (max-width: 346px) {
+              margin-top: -90px;
+            }
           }
           .genre-text {
             font-size: 1.214285714em;
+
+            @media only screen and (max-width: 346px) {
+              font-size: 1em;
+            }
           }
         }
         .female-answer-chart-container {
@@ -85,7 +103,7 @@ body #root .App .view .page.question-stats-page {
             overflow: hidden;
             text-overflow: ellipsis;
             vertical-align: bottom;
-            width: 95%;
+            width: 90%;
             white-space: nowrap;
           }
         }

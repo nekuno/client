@@ -83,7 +83,9 @@
 				width: 100%;
 				vertical-align: middle;
 			}
-
+			.image.fixed-height-image {
+				height: 180px;
+			}
 			.matching {
 				margin-top: -32px;
 				position: relative;

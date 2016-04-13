@@ -115,5 +115,26 @@ export default {
         like      : 'Me gusta',
         dontLike  : 'Ya no me gusta',
         myProfile : 'Mi Perfil'
+    },
+    ////////////////
+    // Components //
+    ////////////////
+    LeftPanel                        : {
+        interests     : 'Intereses',
+        threads       : 'Hilos',
+        myProfile     : 'Mi perfil',
+        conversations : 'Mensajes',
+        socialNetworks: 'Mis redes sociales',
+        logout        : 'Salir'
+    },
+    OtherProfileData                 : {
+        coincidences    : 'Coincidencias',
+        similarInterests: 'Intereses similares',
+        compatibility   : 'compatibilidad',
+        similarity      : 'similaridad'
+    },
+    ProfileAboutMe                   : {
+        seeLess: 'Ver menos',
+        seeMore: 'Ver más'
     }
 }

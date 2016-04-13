@@ -1,5 +1,4 @@
 import React, { PropTypes, Component } from 'react';
-import shouldPureComponentUpdate from '../../../../node_modules/react-pure-render/function';
 import selectn from 'selectn';
 import ProfileData from './ProfileData'
 import ProfileAboutMe from './ProfileAboutMe'
@@ -11,17 +10,17 @@ export default class ProfileDataList extends Component {
 
     //shouldComponentUpdate = shouldPureComponentUpdate;
 
-    locationToString(location){
+    locationToString(location) {
 
         const locality = selectn('locality', location);
         const country = selectn('country', location);
 
-        return  locality && country?
-                locality + ', ' + country :
-                selectn('address', location);
+        return locality && country ?
+        locality + ', ' + country :
+            selectn('address', location);
     }
 
-    birthdayToAge(birthday){
+    birthdayToAge(birthday) {
         birthday = new Date(birthday);
         const ageDifMs = Date.now() - birthday.getTime();
         const ageDate = new Date(ageDifMs); // miliseconds from epoch
@@ -34,18 +33,18 @@ export default class ProfileDataList extends Component {
         for (let profileDataName in this.props.profile) {
             //let profileDataValue = selectn('profile['+profileDataName+']', this.props);
             let profileDataValue = null;
-            if (this.props.profile.hasOwnProperty(profileDataName)){
+            if (this.props.profile.hasOwnProperty(profileDataName)) {
                 profileDataValue = this.props.profile[profileDataName];
             } else {
                 continue;
             }
 
-            if (profileDataName === 'About Me' || profileDataName === 'Sobre mí'){
+            if (profileDataName === 'About Me' || profileDataName === 'Sobre mí') {
                 const profileAboutMeName = 'Sobre mí';
-                profileDataList[counter++] = <ProfileAboutMe key = {profileAboutMeName} name = {profileAboutMeName} value = {profileDataValue} />;
+                profileDataList[counter++] = <ProfileAboutMe key={profileAboutMeName} name={profileAboutMeName} value={profileDataValue}/>;
             } else {
 
-                profileDataList[counter++] = <ProfileData key={profileDataName} name={profileDataName} value={profileDataValue} />;
+                profileDataList[counter++] = <ProfileData key={profileDataName} name={profileDataName} value={profileDataValue}/>;
             }
 
         }

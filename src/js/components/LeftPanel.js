@@ -74,7 +74,7 @@ export default class LeftPanel extends Component {
     }
 
     render() {
-        const {user, interests, userLoggedIn} = this.props;
+        const {user, userLoggedIn, strings, interests} = this.props;
         return (
             <div className="LeftPanel">
                 <div className="panel-overlay"></div>
@@ -91,25 +91,25 @@ export default class LeftPanel extends Component {
                             {interests}
                         </div>
                         <div className="label">
-                            Intereses
+                            {strings.interests}
                         </div>
                     </div>
                     { userLoggedIn ?
                         <div className="content-block menu">
                             <Link to={'/threads'} onClick={this.handleGoClickThreads}>
-                                Hilos
+                                {strings.threads}
                             </Link>
                             <Link to={`/profile/${user.id}`} onClick={this.handleGoClickProfile}>
-                                Mi perfil
+                                {strings.myProfile}
                             </Link>
                             <Link to="/conversations" onClick={this.handleGoClickConversations}>
-                                Mensajes
+                                {strings.conversations}
                             </Link>
                             <Link to="/social-networks" onClick={this.handleGoClickSocialNetworks}>
-                                Mis redes sociales
+                                {strings.socialNetworks}
                             </Link>
                             <Link to="/" onClick={this.logout}>
-                                Salir
+                                {strings.logout}
                             </Link>
                         </div>
                         : '' }
@@ -119,3 +119,14 @@ export default class LeftPanel extends Component {
     }
 
 }
+
+LeftPanel.defaultProps = {
+    strings: {
+        interests     : 'Interests',
+        threads       : 'Threads',
+        myProfile     : 'Profile',
+        conversations : 'Messages',
+        socialNetworks: 'My social networks',
+        logout        : 'Logout'
+    }
+};

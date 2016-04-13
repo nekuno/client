@@ -115,5 +115,27 @@ export default {
         like      : 'Like',
         dontLike  : 'Don\'t like anymore',
         myProfile : 'My profile'
+    },
+    ////////////////
+    // Components //
+    ////////////////
+    LeftPanel                        : {
+        interests     : 'Interests',
+        threads       : 'Threads',
+        myProfile     : 'Profile',
+        conversations : 'Messages',
+        socialNetworks: 'My social networks',
+        logout        : 'Logout'
+    },
+    OtherProfileData                 : {
+        coincidences    : 'Coincidences',
+        similarInterests: 'Similar interests',
+        compatibility   : 'compatibility',
+        similarity      : 'similarity'
+    },
+    ProfileAboutMe                   : {
+        seeLess: 'See less',
+        seeMore: 'See more'
     }
+
 }

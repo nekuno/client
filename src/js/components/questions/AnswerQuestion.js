@@ -1,18 +1,16 @@
 import React, { PropTypes, Component } from 'react';
 import selectn from 'selectn';
-import { Link } from 'react-router';
-import { IMAGES_ROOT } from '../../constants/Constants';
 import AnswerQuestionForm from './AnswerQuestionForm';
 
 export default class AnswerQuestion extends Component {
     static propTypes = {
-        question: PropTypes.object.isRequired,
-        userAnswer: PropTypes.object,
+        question       : PropTypes.object.isRequired,
+        userAnswer     : PropTypes.object,
         isFirstQuestion: PropTypes.bool.isRequired,
-        ownPicture: PropTypes.string.isRequired,
-        defaultPicture: PropTypes.string.isRequired,
-        userId: PropTypes.number.isRequired,
-        errors: PropTypes.string.isRequired
+        ownPicture     : PropTypes.string.isRequired,
+        defaultPicture : PropTypes.string.isRequired,
+        userId         : PropTypes.number.isRequired,
+        errors         : PropTypes.string.isRequired
     };
 
     render() {

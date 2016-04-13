@@ -137,5 +137,4 @@ export default {
         seeLess: 'See less',
         seeMore: 'See more'
     }
-
 }

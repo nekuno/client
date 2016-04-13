@@ -1,14 +1,12 @@
 import React, { PropTypes, Component } from 'react';
-import { Link } from 'react-router';
-import { IMAGES_ROOT } from '../../constants/Constants';
 import InputRadio from '../ui/InputRadio';
 
 export default class AnswerRadio extends Component {
     static propTypes = {
-        answer: PropTypes.object.isRequired,
-        checked: PropTypes.bool.isRequired,
+        answer        : PropTypes.object.isRequired,
+        checked       : PropTypes.bool.isRequired,
         defaultChecked: PropTypes.bool.isRequired,
-        userAnswer: PropTypes.object,
+        userAnswer    : PropTypes.object,
         onClickHandler: PropTypes.func
     };
 
@@ -20,9 +18,9 @@ export default class AnswerRadio extends Component {
         let defaultChecked = this.props.defaultChecked;
 
         return (
-        <li>
-            <InputRadio value={answer.answerId} name={'answerId'} text={answer.text} checked={checked} defaultChecked={defaultChecked} onClickHandler={this.props.onClickHandler} />
-        </li>
+            <li>
+                <InputRadio value={answer.answerId} name={'answerId'} text={answer.text} checked={checked} defaultChecked={defaultChecked} onClickHandler={this.props.onClickHandler}/>
+            </li>
         );
     }
 }

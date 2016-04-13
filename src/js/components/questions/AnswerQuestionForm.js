@@ -1,7 +1,5 @@
 import React, { PropTypes, Component } from 'react';
 import selectn from 'selectn';
-import { Link } from 'react-router';
-import { IMAGES_ROOT } from '../../constants/Constants';
 import * as QuestionActionCreators from '../../actions/QuestionActionCreators';
 import AnswerRadio from './AnswerRadio';
 import AcceptedAnswerCheckbox from './AcceptedAnswerCheckbox';
@@ -9,13 +7,13 @@ import AcceptedAnswersImportance from './AcceptedAnswersImportance';
 
 export default class AnswerQuestionForm extends Component {
     static propTypes = {
-        answers: PropTypes.array.isRequired,
-        userAnswer: PropTypes.object,
+        answers        : PropTypes.array.isRequired,
+        userAnswer     : PropTypes.object,
         isFirstQuestion: PropTypes.bool.isRequired,
-        ownPicture: PropTypes.string.isRequired,
-        defaultPicture: PropTypes.string.isRequired,
-        userId: PropTypes.number.isRequired,
-        question: PropTypes.object.isRequired
+        ownPicture     : PropTypes.string.isRequired,
+        defaultPicture : PropTypes.string.isRequired,
+        userId         : PropTypes.number.isRequired,
+        question       : PropTypes.object.isRequired
     };
 
     static contextTypes = {
@@ -30,21 +28,21 @@ export default class AnswerQuestionForm extends Component {
         this.handleOnClickImportance = this.handleOnClickImportance.bind(this);
 
         this.state = {
-            answerId: null,
+            answerId       : null,
             acceptedAnswers: []
         };
     }
 
     componentWillMount() {
         this.state = {
-            answerId: selectn('userAnswer.answerId', this.props),
+            answerId       : selectn('userAnswer.answerId', this.props),
             acceptedAnswers: selectn('userAnswer.acceptedAnswers', this.props) ? this.props.userAnswer.acceptedAnswers : []
         };
     }
 
     componentWillReceiveProps(nextProps) {
         this.setState({
-            answerId: selectn('userAnswer.answerId', nextProps),
+            answerId       : selectn('userAnswer.answerId', nextProps),
             acceptedAnswers: selectn('userAnswer.acceptedAnswers', nextProps) ? nextProps.userAnswer.acceptedAnswers : []
         });
     }
@@ -75,7 +73,7 @@ export default class AnswerQuestionForm extends Component {
                             <div className="answer-question-picture">
                                 <div className="answer-question-other-picture-container">
                                     <div className="answer-question-other-picture">
-                                        <img src={this.props.defaultPicture} />
+                                        <img src={this.props.defaultPicture}/>
                                     </div>
                                 </div>
                             </div>
@@ -95,7 +93,7 @@ export default class AnswerQuestionForm extends Component {
                                         }
                                     });
                                     return (
-                                        <AcceptedAnswerCheckbox key={index} answer={answer} checked={answerChecked} defaultChecked={defaultAnswerChecked} onClickHandler={this.handleOnClickAcceptedAnswer}  />
+                                        <AcceptedAnswerCheckbox key={index} answer={answer} checked={answerChecked} defaultChecked={defaultAnswerChecked} onClickHandler={this.handleOnClickAcceptedAnswer}/>
                                     );
                                 })}
                             </ul>
@@ -104,19 +102,19 @@ export default class AnswerQuestionForm extends Component {
                             <div className="answer-question-picture">
                                 <div className="answer-question-own-picture-container">
                                     <div className="answer-question-own-picture">
-                                        <img src={this.props.ownPicture} />
+                                        <img src={this.props.ownPicture}/>
                                     </div>
                                 </div>
                             </div>
                             <ul>
                                 {answers.map((answer, index) => {
                                     return (
-                                        <AnswerRadio key={index} answer={answer} checked={this.state.answerId === answer.answerId} defaultChecked={userAnswerId === answer.answerId} onClickHandler={this.handleOnClickAnswer} />
+                                        <AnswerRadio key={index} answer={answer} checked={this.state.answerId === answer.answerId} defaultChecked={userAnswerId === answer.answerId} onClickHandler={this.handleOnClickAnswer}/>
                                     );
                                 })}
                             </ul>
                         </div>
-                        <AcceptedAnswersImportance irrelevant={this.state.acceptedAnswers.length === answers.length} answeredAndAccepted={this.state.answerId != null && this.state.acceptedAnswers.length > 0} onClickHandler={this.handleOnClickImportance} />
+                        <AcceptedAnswersImportance irrelevant={this.state.acceptedAnswers.length === answers.length} answeredAndAccepted={this.state.answerId != null && this.state.acceptedAnswers.length > 0} onClickHandler={this.handleOnClickImportance}/>
                     </div>
                 </form>
             </div>

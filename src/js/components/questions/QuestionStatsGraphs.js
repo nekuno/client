@@ -4,7 +4,7 @@ import Chart from 'chart.js';
 
 export default class QuestionStatsGraph extends Component {
     static propTypes = {
-        question: PropTypes.object.isRequired,
+        question  : PropTypes.object.isRequired,
         userAnswer: PropTypes.object.isRequired
     };
 
@@ -16,9 +16,9 @@ export default class QuestionStatsGraph extends Component {
         }
 
         let options = {
-            segmentShowStroke: false,
-            percentageInnerCutout : 55,
-            tooltipTemplate: "<%= value %>%"
+            segmentShowStroke    : false,
+            percentageInnerCutout: 55,
+            tooltipTemplate      : "<%= value %>%"
         };
 
         this.initQuestionStatsGraphs(question, userAnswer, options);
@@ -48,7 +48,7 @@ export default class QuestionStatsGraph extends Component {
     }
 
     getPercentage = function(count, totalCount) {
-        return count && totalCount ? Math.round(count/totalCount*100) : 0;
+        return count && totalCount ? Math.round(count / totalCount * 100) : 0;
     };
 
     initQuestionStatsGraphs(question, userAnswer, options) {

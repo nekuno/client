@@ -1,17 +1,16 @@
 import React, { PropTypes, Component } from 'react';
 import { Link } from 'react-router';
-import { IMAGES_ROOT } from '../../constants/Constants';
 import Answer from './Answer';
 
 export default class OtherQuestion extends Component {
     static propTypes = {
-        question: PropTypes.object.isRequired,
-        userAnswer: PropTypes.object,
+        question       : PropTypes.object.isRequired,
+        userAnswer     : PropTypes.object,
         otherUserAnswer: PropTypes.object.isRequired,
-        ownPicture: PropTypes.string.isRequired,
-        otherPicture: PropTypes.string.isRequired,
-        last: PropTypes.bool.isRequired,
-        userId: PropTypes.number.isRequired
+        ownPicture     : PropTypes.string.isRequired,
+        otherPicture   : PropTypes.string.isRequired,
+        last           : PropTypes.bool.isRequired,
+        userId         : PropTypes.number.isRequired
     };
 
     render() {

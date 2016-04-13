@@ -2,9 +2,9 @@ import React, { PropTypes, Component } from 'react';
 
 export default class Answer extends Component {
     static propTypes = {
-        text: PropTypes.string.isRequired,
-        answered: PropTypes.bool.isRequired,
-        ownPicture: PropTypes.string.isRequired,
+        text          : PropTypes.string.isRequired,
+        answered      : PropTypes.bool.isRequired,
+        ownPicture    : PropTypes.string.isRequired,
         defaultPicture: PropTypes.string
     };
 
@@ -20,7 +20,7 @@ export default class Answer extends Component {
                 return (
                     <div className="answer-answered">
                         <div className="answer-answered-picture">
-                            <img src={ownPicture} />
+                            <img src={ownPicture}/>
                         </div>
                         <div className="answer-answered-text">
                             {text}
@@ -31,7 +31,7 @@ export default class Answer extends Component {
                 return (
                     <div className="answer-not-answered">
                         <div className="answer-not-answered-picture">
-                            <img src={defaultPicture} />
+                            <img src={defaultPicture}/>
                         </div>
                         <div className="answer-not-answered-text">
                             {text}

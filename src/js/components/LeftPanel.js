@@ -2,32 +2,25 @@ import React, { PropTypes, Component } from 'react';
 import selectn from 'selectn';
 import { Link } from 'react-router';
 import User from '../components/User';
-import connectToStores from '../utils/connectToStores';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
-import LoginStore from '../stores/LoginStore';
+import translate from '../i18n/Translate';
+import connectToStores from '../utils/connectToStores';
 import StatsStore from '../stores/StatsStore';
 import LoginActionCreators from '../actions/LoginActionCreators';
-import * as UserActionCreators from '../actions/UserActionCreators';
 
-function parseId(user) {
-    return user.id;
-}
+function getState(props) {
 
-function getState() {
-
-    const isLoggedIn = LoginStore.isLoggedIn();
-    const user = isLoggedIn? LoginStore.user : null;
-    const stats = user? StatsStore.get(user.id) : {};
+    const stats = StatsStore.get(props.user.id);
     const interests = selectn('numberOfContentLikes', stats) || 0;
 
     return {
-        interests,
-        isLoggedIn
+        interests
     };
 }
 
 @AuthenticatedComponent
-@connectToStores([LoginStore, StatsStore], getState)
+@translate('LeftPanel')
+@connectToStores([StatsStore], getState)
 export default class LeftPanel extends Component {
 
     static contextTypes = {
@@ -36,23 +29,52 @@ export default class LeftPanel extends Component {
 
     static propTypes = {
         // Injected by @AuthenticatedComponent
-        user      : PropTypes.object,
+        user        : PropTypes.object,
+        userLoggedIn: PropTypes.bool.isRequired,
+        // Injected by @translate:
+        strings     : PropTypes.object,
         // Injected by @connectToStores:
-        isLoggedIn: PropTypes.bool.isRequired
+        interests   : PropTypes.number.isRequired
     };
 
     constructor(props) {
         super(props);
 
-        this.handleGoClickProfile = this.handleGoClickProfile.bind(this);
         this.handleGoClickThreads = this.handleGoClickThreads.bind(this);
-        this.handleGoClickChatThreads = this.handleGoClickChatThreads.bind(this);
+        this.handleGoClickProfile = this.handleGoClickProfile.bind(this);
+        this.handleGoClickConversations = this.handleGoClickConversations.bind(this);
         this.handleGoClickSocialNetworks = this.handleGoClickSocialNetworks.bind(this);
         this.logout = this.logout.bind(this);
     }
 
+    handleGoClickThreads() {
+        nekunoApp.closePanel();
+        this.context.history.pushState(null, '/threads');
+    }
+
+    handleGoClickProfile() {
+        nekunoApp.closePanel();
+        this.context.history.pushState(null, `/profile/${this.props.user.id}`);
+    }
+
+    handleGoClickConversations() {
+        nekunoApp.closePanel();
+        this.context.history.pushState(null, '/conversations');
+    }
+
+    handleGoClickSocialNetworks() {
+        nekunoApp.closePanel();
+        this.context.history.pushState(null, '/social-networks');
+    }
+
+    logout(e) {
+        e.preventDefault();
+        nekunoApp.closePanel();
+        LoginActionCreators.logoutUser();
+    }
+
     render() {
-        const { user, interests, isLoggedIn } = this.props;
+        const {user, interests, userLoggedIn} = this.props;
         return (
             <div className="LeftPanel">
                 <div className="panel-overlay"></div>
@@ -63,7 +85,7 @@ export default class LeftPanel extends Component {
                             <span className="notifications-alert"/>
                         </a>
                     </div>
-                    { isLoggedIn ? <User {...this.props} /> : '' }
+                    { userLoggedIn ? <User {...this.props} /> : '' }
                     <div className="user-interests">
                         <div className="number">
                             {interests}
@@ -72,15 +94,15 @@ export default class LeftPanel extends Component {
                             Intereses
                         </div>
                     </div>
-                    { isLoggedIn ?
+                    { userLoggedIn ?
                         <div className="content-block menu">
                             <Link to={'/threads'} onClick={this.handleGoClickThreads}>
                                 Hilos
                             </Link>
-                            <Link to={`/profile/${user.qnoow_id}`} onClick={this.handleGoClickProfile}>
+                            <Link to={`/profile/${user.id}`} onClick={this.handleGoClickProfile}>
                                 Mi perfil
                             </Link>
-                            <Link to="/conversations" onClick={this.handleGoClickChatThreads}>
+                            <Link to="/conversations" onClick={this.handleGoClickConversations}>
                                 Mensajes
                             </Link>
                             <Link to="/social-networks" onClick={this.handleGoClickSocialNetworks}>
@@ -96,29 +118,4 @@ export default class LeftPanel extends Component {
         );
     }
 
-    handleGoClickProfile() {
-        nekunoApp.closePanel();
-        this.context.history.pushState(null, `/profile/${this.props.user.qnoow_id}`);
-    }
-
-    handleGoClickThreads() {
-        nekunoApp.closePanel();
-        this.context.history.pushState(null, '/threads');
-    }
-
-    handleGoClickSocialNetworks() {
-        nekunoApp.closePanel();
-        this.context.history.pushState(null, '/social-networks');
-    }
-
-    handleGoClickChatThreads() {
-        nekunoApp.closePanel();
-        this.context.history.pushState(null, '/conversations');
-    }
-
-    logout(e) {
-        e.preventDefault();
-        nekunoApp.closePanel();
-        LoginActionCreators.logoutUser();
-    }
 }

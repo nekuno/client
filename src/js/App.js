@@ -1,4 +1,4 @@
-import React, {PropTypes, Component} from 'react';
+import React, { PropTypes, Component } from 'react';
 import LeftPanel from './components/LeftPanel';
 import HomePage from './pages/HomePage';
 import TranslationProvider from './i18n/TranslationProvider';
@@ -18,7 +18,7 @@ export default class App extends Component {
     };
 
     static propTypes = {
-        children: PropTypes.object,
+        children  : PropTypes.object,
         // Injected by @connectToStores:
         isLoggedIn: PropTypes.bool.isRequired
     };
@@ -28,11 +28,7 @@ export default class App extends Component {
         return (
             <TranslationProvider>
                 <div className="App">
-                    {isLoggedIn ?
-                        <LeftPanel/>
-                        :
-                        ''
-                    }
+                    { isLoggedIn ? <LeftPanel/> : '' }
                     <div className="views">
                         {children ? children : <HomePage />}
                     </div>

@@ -42,7 +42,7 @@ export default new class LoginActionCreators {
                 } else if (answers < 4) {
                     path = '/register-questions-landing';
                 } else {
-                    path = '/threads/' + user.qnoow_id;
+                    path = '/threads';
                 }
                 history.replaceState(null, path);
                 console.log('&*&*&* redirecting to path', path);

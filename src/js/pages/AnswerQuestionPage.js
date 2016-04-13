@@ -91,13 +91,12 @@ export default class AnswerQuestionPage extends Component {
             let promise = requestData(this.props);
             let isJustRegistered = this.props.isJustRegistered;
             let history = this.context.history;
-            let userId = parseUserId(this.props.user);
             if(typeof promise != 'undefined') {
                 // TODO: Juanlu: I think this should not be done like this, but using some store and flux flow.
                 promise.then(function(data) {
                         const questions = data.entities.question;
                         if(isJustRegistered && questions[Object.keys(questions)[0]].isRegisterQuestion === false) {
-                            history.pushState(null, '/threads/' + userId);
+                            history.pushState(null, '/threads');
                         }
                     }
                 );

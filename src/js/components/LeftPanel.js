@@ -74,7 +74,7 @@ export default class LeftPanel extends Component {
                     </div>
                     { isLoggedIn ?
                         <div className="content-block menu">
-                            <Link to={`/threads/${user.qnoow_id}`} onClick={this.handleGoClickThreads}>
+                            <Link to={'/threads'} onClick={this.handleGoClickThreads}>
                                 Hilos
                             </Link>
                             <Link to={`/profile/${user.qnoow_id}`} onClick={this.handleGoClickProfile}>
@@ -103,17 +103,17 @@ export default class LeftPanel extends Component {
 
     handleGoClickThreads() {
         nekunoApp.closePanel();
-        this.context.history.pushState(null, `/threads/${this.props.user.qnoow_id}`);
+        this.context.history.pushState(null, '/threads');
     }
 
     handleGoClickSocialNetworks() {
         nekunoApp.closePanel();
-        this.context.history.pushState(null, "/social-networks");
+        this.context.history.pushState(null, '/social-networks');
     }
 
     handleGoClickChatThreads() {
         nekunoApp.closePanel();
-        this.context.history.pushState(null, "/conversations");
+        this.context.history.pushState(null, '/conversations');
     }
 
     logout(e) {

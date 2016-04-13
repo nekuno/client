@@ -482,11 +482,6 @@ export default class CreateUsersThread extends Component {
     handleClickFilter(key) {
         let filters = this.state.filters;
         let filter = filters.find(filter => filter.key === key);
-        if (filter.type === 'location') {
-            window.setTimeout(function () {
-                document.getElementsByClassName('view')[0].scrollTop = 170;
-            }, 500);
-        }
 
         this.setState({
             selectedFilter: filter

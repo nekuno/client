@@ -26,12 +26,22 @@ body #root .App .view .page.threads-page  {
 
       .threads-vertical-connection {
         background-color: $deep-purple;
-        height: 200px;
+        height: 300px;
         margin-left: 40.5px;
         margin-top: 40.5px;
         position: absolute;
         width: 1px;
         z-index: 1;
+      }
+
+      .threads-opposite-vertical-connection {
+        background: $dark-purple;
+        height: 200px;
+        margin-left: 40.5px;
+        margin-top: 40.5px;
+        position: absolute;
+        width: 2px;
+        z-index: 2;
       }
 
       .thread-info-box {

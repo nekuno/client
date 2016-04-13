@@ -11,9 +11,12 @@ export default class CardContentList extends Component {
     };
 
     render() {
+        const {contents, userId} = this.props;
         return (
             <div className="content-list">
-                {this.props.contents.map((content, index) => <CardContent key={index} hideLikeButton={false} {...content} loggedUserId={this.props.userId} onClickHandler={this.onClickHandler.bind(this, index - 1)}/>)}
+                {contents.map((content, index) => <CardContent key={index} hideLikeButton={false} {...content} loggedUserId={userId}
+                                                               onClickHandler={this.onClickHandler.bind(this, index - 1)}
+                                                               fixedHeight={true}/>)}
             </div>
         );
     }

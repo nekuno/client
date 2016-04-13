@@ -347,7 +347,7 @@ export default class CreateContentThread extends Component {
                     data.filters[stateFilter.key]['distance'] = 50;
                     break;
                 case 'tags':
-                    data.filters['tag'] = stateFilter.values[0];
+                    data.filters['tag'] = stateFilter.values;
                     break;
                 case 'double_choice':
                     data.filters[stateFilter.key] = {};

@@ -24,6 +24,9 @@ export default class ThreadContent extends Component {
         let thread = this.props.thread;
         let last = this.props.last;
         let type = selectn('type', thread.filters);
+        if (type === null){
+            return <div></div>;
+        }
         let tag = selectn('tag', thread.filters);
 
         return (

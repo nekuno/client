@@ -47,7 +47,9 @@ export default class TagInput extends Component {
 
     onFocusHandler() {
         let inputElem = this.refs.tagInput;
-        inputElem.scrollIntoView();
-        document.getElementsByClassName('view')[0].scrollTop -= 50;
+        window.setTimeout(function () {
+            inputElem.scrollIntoView();
+            document.getElementsByClassName('view')[0].scrollTop -= 100;
+        }, 500)
     }
 }

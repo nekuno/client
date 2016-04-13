@@ -35,7 +35,9 @@ export default class LocationInput extends Component {
 
     onFocusHandler() {
         let geosuggestWrapper = this.refs.geosuggestWrapper;
-        geosuggestWrapper.scrollIntoView();
-        document.getElementsByClassName('view')[0].scrollTop -= 50;
+        window.setTimeout(function () {
+            geosuggestWrapper.scrollIntoView();
+            document.getElementsByClassName('view')[0].scrollTop -= 100;
+        }, 500)
     }
 }

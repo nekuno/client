@@ -3,6 +3,7 @@ import selectn from 'selectn';
 import { Link } from 'react-router';
 import User from '../components/User';
 import connectToStores from '../utils/connectToStores';
+import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import LoginStore from '../stores/LoginStore';
 import StatsStore from '../stores/StatsStore';
 import LoginActionCreators from '../actions/LoginActionCreators';
@@ -12,29 +13,20 @@ function parseId(user) {
     return user.id;
 }
 
-/**
- * Requests data from server for current props.
- */
-function requestData() {
-    const user = LoginStore.user;
-    const currentUserId = parseId(user);
-    UserActionCreators.requestStats(currentUserId);
-}
-
 function getState() {
 
-    const user = LoginStore.user;
     const isLoggedIn = LoginStore.isLoggedIn();
-    const stats = StatsStore.get(user.id);
+    const user = isLoggedIn? LoginStore.user : null;
+    const stats = user? StatsStore.get(user.id) : {};
     const interests = selectn('numberOfContentLikes', stats) || 0;
 
     return {
-        user,
         interests,
         isLoggedIn
     };
 }
 
+@AuthenticatedComponent
 @connectToStores([LoginStore, StatsStore], getState)
 export default class LeftPanel extends Component {
 
@@ -43,7 +35,9 @@ export default class LeftPanel extends Component {
     };
 
     static propTypes = {
+        // Injected by @AuthenticatedComponent
         user      : PropTypes.object,
+        // Injected by @connectToStores:
         isLoggedIn: PropTypes.bool.isRequired
     };
 
@@ -55,10 +49,6 @@ export default class LeftPanel extends Component {
         this.handleGoClickChatThreads = this.handleGoClickChatThreads.bind(this);
         this.handleGoClickSocialNetworks = this.handleGoClickSocialNetworks.bind(this);
         this.logout = this.logout.bind(this);
-    }
-
-    componentWillMount() {
-        requestData();
     }
 
     render() {

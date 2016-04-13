@@ -20,6 +20,7 @@ export default new class LoginActionCreators {
         }, {username, password})
             .then(() => {
                 UserActionCreators.requestProfile(LoginStore.user.id);
+                UserActionCreators.requestStats(LoginStore.user.id);
                 this.redirect();
                 return null;
             }, (error) => {

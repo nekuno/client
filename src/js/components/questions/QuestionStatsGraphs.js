@@ -1,11 +1,15 @@
 import React, { PropTypes, Component } from 'react';
 import { QUESTION_STATS_COLORS } from '../../constants/Constants';
 import Chart from 'chart.js';
+import translate from '../../i18n/Translate';
 
+@translate('QuestionStatsGraph')
 export default class QuestionStatsGraph extends Component {
     static propTypes = {
         question  : PropTypes.object.isRequired,
-        userAnswer: PropTypes.object.isRequired
+        userAnswer: PropTypes.object.isRequired,
+        // Injected by @translate:
+        strings   : PropTypes.object
     };
 
     componentDidMount() {
@@ -22,29 +26,6 @@ export default class QuestionStatsGraph extends Component {
         };
 
         this.initQuestionStatsGraphs(question, userAnswer, options);
-    }
-
-    render() {
-        let userAnswer = this.props.userAnswer;
-        let question = this.props.question;
-        if (!question) {
-            return null;
-        }
-
-        return (
-            <div className="community-question-stats">
-                <div className="female-answer-chart-container">
-                    <canvas id={"female-answer-chart-" + userAnswer.answerId}></canvas>
-                    <div className="icon-female genre-icon"></div>
-                    <div className="genre-text female">Chicas</div>
-                </div>
-                <div className="male-answer-chart-container">
-                    <canvas id={"male-answer-chart-" + userAnswer.answerId}></canvas>
-                    <div className="icon-male genre-icon"></div>
-                    <div className="genre-text male">Chicos</div>
-                </div>
-            </div>
-        );
     }
 
     getPercentage = function(count, totalCount) {
@@ -85,4 +66,35 @@ export default class QuestionStatsGraph extends Component {
             new Chart(ctx2).Doughnut(maleStats, options);
         }
     }
+
+    render() {
+        let userAnswer = this.props.userAnswer;
+        let question = this.props.question;
+        if (!question) {
+            return null;
+        }
+        const {strings} = this.props;
+
+        return (
+            <div className="community-question-stats">
+                <div className="female-answer-chart-container">
+                    <canvas id={"female-answer-chart-" + userAnswer.answerId}></canvas>
+                    <div className="icon-female genre-icon"></div>
+                    <div className="genre-text female">{strings.females}</div>
+                </div>
+                <div className="male-answer-chart-container">
+                    <canvas id={"male-answer-chart-" + userAnswer.answerId}></canvas>
+                    <div className="icon-male genre-icon"></div>
+                    <div className="genre-text male">{strings.males}</div>
+                </div>
+            </div>
+        );
+    }
 }
+
+QuestionStatsGraph.defaultProps = {
+    strings: {
+        females: 'Girls',
+        males  : 'Boys'
+    }
+};

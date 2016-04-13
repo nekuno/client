@@ -1,7 +1,9 @@
 import React, { PropTypes, Component } from 'react';
 import selectn from 'selectn';
 import AnswerQuestionForm from './AnswerQuestionForm';
+import translate from '../../i18n/Translate';
 
+@translate('AnswerQuestion')
 export default class AnswerQuestion extends Component {
     static propTypes = {
         question       : PropTypes.object.isRequired,
@@ -10,7 +12,9 @@ export default class AnswerQuestion extends Component {
         ownPicture     : PropTypes.string.isRequired,
         defaultPicture : PropTypes.string.isRequired,
         userId         : PropTypes.number.isRequired,
-        errors         : PropTypes.string.isRequired
+        errors         : PropTypes.string.isRequired,
+        // Injected by @translate:
+        strings        : PropTypes.object
     };
 
     render() {
@@ -19,6 +23,7 @@ export default class AnswerQuestion extends Component {
         let userAnswer = this.props.userAnswer;
         let answers = selectn('answers', question) || [];
         let errors = this.props.errors;
+        const {strings} = this.props;
 
         if (errors) {
             nekunoApp.alert(errors);
@@ -34,9 +39,15 @@ export default class AnswerQuestion extends Component {
                         <AnswerQuestionForm answers={answers} {...this.props} />
                     </div>
                     :
-                    <h1>No hay más preguntas</h1>
+                    <h1>{strings.noMoreQuestions}</h1>
                 }
             </div>
         );
     }
 }
+
+AnswerQuestion.defaultProps = {
+    strings: {
+        noMoreQuestions: 'No more questions'
+    }
+};

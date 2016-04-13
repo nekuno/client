@@ -136,5 +136,34 @@ export default {
     ProfileAboutMe                   : {
         seeLess: 'Ver menos',
         seeMore: 'Ver más'
+    },
+    AcceptedAnswersImportance        : {
+        title     : '¿Te importa la respuesta del usuario?',
+        irrelevant: 'Irrelevante',
+        few       : 'Poco',
+        normal    : 'Normal',
+        aLot      : 'Mucho',
+        alert     : 'Marca tu respuesta y una o varias opciones en la segunda columna para indicar qué te gustaría que respondiera otro usuario'
+    },
+    AnswerQuestion                   : {
+        noMoreQuestions: 'No hay más preguntas'
+    },
+    AnswerQuestionForm               : {
+        alertFirst : 'Marca tu respuesta en la primera columna',
+        alertSecond: 'Marca una o varias opciones en la segunda columna para indicar qué te gustaría que respondiera otro usuario'
+    },
+    OtherQuestion                    : {
+        didntAnswered: 'No has contestado a esta pregunta'
+    },
+    QuestionStats                    : {
+        yourAnswer: 'Tu respuesta',
+        statistics: 'Estadísticas repuestas comunidad'
+    },
+    QuestionStatsGraph               : {
+        females: 'Chicas',
+        males  : 'Chicos'
+    },
+    QuestionStatsInline              : {
+        statistics: 'Estadísticas repuestas comunidad'
     }
 }

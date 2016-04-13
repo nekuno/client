@@ -4,7 +4,9 @@ import * as QuestionActionCreators from '../../actions/QuestionActionCreators';
 import AnswerRadio from './AnswerRadio';
 import AcceptedAnswerCheckbox from './AcceptedAnswerCheckbox';
 import AcceptedAnswersImportance from './AcceptedAnswersImportance';
+import translate from '../../i18n/Translate';
 
+@translate('AnswerQuestionForm')
 export default class AnswerQuestionForm extends Component {
     static propTypes = {
         answers        : PropTypes.array.isRequired,
@@ -55,6 +57,58 @@ export default class AnswerQuestionForm extends Component {
         let rating = this.getRatingByImportance(importance);
         QuestionActionCreators.answerQuestion(userId, questionId, answerId, acceptedAnswers, rating);
     }
+
+    handleOnClickAcceptedAnswer(checked, value) {
+        if (!this.state.answerId) {
+            nekunoApp.alert(this.props.strings.alertFirst);
+        }
+
+        let acceptedAnswers = this.state.acceptedAnswers;
+        let acceptedAnswerId = parseInt(value);
+        if (checked) {
+            acceptedAnswers.push(acceptedAnswerId);
+        } else {
+            acceptedAnswers = acceptedAnswers.filter(value => value !== acceptedAnswerId);
+        }
+
+        this.setState({
+            acceptedAnswers: acceptedAnswers
+        });
+    }
+
+    handleOnClickAnswer(value) {
+        if (!this.state.answerId && this.props.isFirstQuestion) {
+            nekunoApp.alert(this.props.strings.alertSecond);
+        }
+
+        let answerId = parseInt(value);
+
+        this.setState({
+            answerId: answerId
+        });
+    }
+
+    handleOnClickImportance(importance) {
+        this.answerQuestion(importance);
+    }
+
+    getRatingByImportance = function(importance) {
+        let rating;
+        if (importance === 'few') {
+            rating = 0;
+        }
+        else if (importance === 'normal') {
+            rating = 1;
+        }
+        else if (importance === 'aLot') {
+            rating = 2;
+        }
+        else if (importance === 'irrelevant') {
+            rating = 3;
+        }
+
+        return rating;
+    };
 
     render() {
         let answers = this.props.answers;
@@ -121,55 +175,11 @@ export default class AnswerQuestionForm extends Component {
         );
     }
 
-    handleOnClickAcceptedAnswer(checked, value) {
-        if (!this.state.answerId) {
-            nekunoApp.alert('Marca tu respuesta en la primera columna');
-        }
-
-        let acceptedAnswers = this.state.acceptedAnswers;
-        let acceptedAnswerId = parseInt(value);
-        if (checked) {
-            acceptedAnswers.push(acceptedAnswerId);
-        } else {
-            acceptedAnswers = acceptedAnswers.filter(value => value !== acceptedAnswerId);
-        }
-
-        this.setState({
-            acceptedAnswers: acceptedAnswers
-        });
-    }
-
-    handleOnClickAnswer(value) {
-        if (!this.state.answerId && this.props.isFirstQuestion) {
-            nekunoApp.alert('Marca una o varias opciones en la segunda columna para indicar qué te gustaría que respondiera otro usuario');
-        }
-
-        let answerId = parseInt(value);
-
-        this.setState({
-            answerId: answerId
-        });
-    }
-
-    handleOnClickImportance(importance) {
-        this.answerQuestion(importance);
-    }
-
-    getRatingByImportance = function(importance) {
-        let rating;
-        if (importance === 'few') {
-            rating = 0;
-        }
-        else if (importance === 'normal') {
-            rating = 1;
-        }
-        else if (importance === 'aLot') {
-            rating = 2;
-        }
-        else if (importance === 'irrelevant') {
-            rating = 3;
-        }
-
-        return rating;
-    };
 }
+
+AnswerQuestionForm.defaultProps = {
+    strings: {
+        alertFirst : 'Mark your answer in the first column',
+        alertSecond: 'Mark one or more options in the second column to indicate what would you like to answer another user'
+    }
+};

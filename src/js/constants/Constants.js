@@ -15,8 +15,8 @@ export const API_URLS = {
     CONNECT_ACCOUNT          : API_ROOT + 'tokens/{resource}?extend',
     CREATE_DEFAULT_THREADS   : API_ROOT + 'threads/default',
 
-    OWN_INTERESTS            : API_ROOT + 'content?type={type}',
-    COMPARED_INTERESTS       : API_ROOT + 'content/compare/{userId}?type={type}&showOnlyCommon={showOnlyCommon}'
+    OWN_INTERESTS            : API_ROOT + 'content?type[]={type}',
+    COMPARED_INTERESTS       : API_ROOT + 'content/compare/{userId}?type[]={type}&showOnlyCommon={showOnlyCommon}'
 };
 export const QUESTION_STATS_COLORS = [
     // light green

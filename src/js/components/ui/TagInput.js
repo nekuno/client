@@ -6,6 +6,7 @@ export default class TagInput extends Component {
     static propTypes = {
         tags: PropTypes.array.isRequired,
         placeholder: PropTypes.string.isRequired,
+        title: PropTypes.string,
         onKeyUpHandler: PropTypes.func,
         onClickTagHandler: PropTypes.func
     };
@@ -22,14 +23,16 @@ export default class TagInput extends Component {
     }
 
     render() {
+        const {tags, placeholder, title} = this.props;
         return (
             <div className="tag-input-wrapper">
+                <div className="tag-input-title">{title ? title : ''}</div>
                 <div className="tag-input">
-                    <input placeholder={this.props.placeholder} ref="tagInput" type="text" onKeyUp={this.onKeyUpHandler} onFocus={this.onFocusHandler}/>
+                    <input placeholder={placeholder} ref="tagInput" type="text" onKeyUp={this.onKeyUpHandler} onFocus={this.onFocusHandler}/>
                 </div>
                 <div className="tag-suggestions">
                     <ul>
-                        {this.props.tags.map((tag, index) => <li key={index} className="tag-suggestion" ><Chip onClickHandler={this.onClickTagHandler.bind(this, tag)} label={tag} value={tag}/></li>)}
+                        {tags.map((tag, index) => <li key={index} className="tag-suggestion" ><Chip onClickHandler={this.onClickTagHandler.bind(this, tag)} label={tag} value={tag}/></li>)}
                     </ul>
                 </div>
             </div>

@@ -388,7 +388,7 @@ export default class CreateUsersThread extends Component {
 
     renderLocationFilter() {
         return (
-            <div className="thread-filter tag-filter location-tag-filter">
+            <div key={'selected-filter'} className="thread-filter tag-filter location-tag-filter">
                 <div className="users-middle-vertical-line"></div>
                 {this.renderSelectedFilterBackground()}
                 <div className="thread-filter-dot">
@@ -412,7 +412,7 @@ export default class CreateUsersThread extends Component {
 
     renderChoiceFilter() {
         return (
-            <div className="thread-filter radio-filter">
+            <div key={'selected-filter'} className="thread-filter radio-filter">
                 <div className="users-middle-vertical-line"></div>
                 {this.renderSelectedFilterBackground()}
                 <div className="thread-filter-dot">
@@ -429,7 +429,7 @@ export default class CreateUsersThread extends Component {
 
     renderDoubleChoiceFilter() {
         return (
-          <div className="thread-filter radio-filter">
+          <div key={'selected-filter'} className="thread-filter radio-filter">
               <div className="users-middle-vertical-line"></div>
               {this.renderSelectedFilterBackground()}
               <div className="thread-filter-dot">
@@ -452,7 +452,7 @@ export default class CreateUsersThread extends Component {
 
     renderTagFilter() {
         return (
-            <div className="thread-filter tag-filter">
+            <div key={'selected-filter'} className="thread-filter tag-filter">
                 <div className="users-middle-vertical-line"></div>
                 {this.renderSelectedFilterBackground()}
                 <div className="thread-filter-dot">
@@ -460,7 +460,8 @@ export default class CreateUsersThread extends Component {
                 </div>
                 {/* TODO: tagSuggestions should be set from props instead of state */}
                 <TagInput placeholder={'Escribe un tag'} tags={this.state.tagSuggestions}
-                          onKeyUpHandler={this.handleKeyUpTag} onClickTagHandler={this.handleClickTagSuggestion}/>
+                          onKeyUpHandler={this.handleKeyUpTag} onClickTagHandler={this.handleClickTagSuggestion}
+                          title={this.state.selectedFilter.label} />
                 {this.renderSelectedFilterOppositeBackground()}
                 <div className="table-row"></div>
             </div>

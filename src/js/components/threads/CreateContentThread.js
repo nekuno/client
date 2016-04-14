@@ -34,6 +34,7 @@ export default class CreateContentThread extends Component {
         this.handleClickFilter = this.handleClickFilter.bind(this);
         this.handleClickRemoveFilter = this.handleClickRemoveFilter.bind(this);
         this.createThread = this.createThread.bind(this);
+        this.handleClickOutside = this.handleClickOutside.bind(this);
 
         this.state = {
             selectFilter: false,
@@ -41,6 +42,14 @@ export default class CreateContentThread extends Component {
             filters: [],
             tagSuggestions: []
         }
+    }
+
+    componentDidMount () {
+        window.nekunoContainer.addEventListener('click', this.handleClickOutside)
+    }
+
+    componentWillUnmount () {
+        window.nekunoContainer.removeEventListener('click', this.handleClickOutside)
     }
 
     render() {
@@ -199,7 +208,7 @@ export default class CreateContentThread extends Component {
 
     renderMultipleChoicesFilter() {
         return (
-            <div key={'selected-filter'} className="thread-filter checkbox-filter">
+            <div key={'selected-filter'} ref={'selectedFilter'} className="thread-filter checkbox-filter">
                 <div className="content-middle-vertical-line"></div>
                 {this.renderSelectedFilterBackground()}
                 <div className="thread-filter-dot">
@@ -216,7 +225,7 @@ export default class CreateContentThread extends Component {
 
     renderTagFilter() {
         return (
-            <div key={'selected-filter'} className="thread-filter tag-filter">
+            <div key={'selected-filter'} ref={'selectedFilter'} className="thread-filter tag-filter">
                 <div className="content-middle-vertical-line"></div>
                 {this.renderSelectedFilterBackground()}
                 <div className="thread-filter-dot">
@@ -373,5 +382,12 @@ export default class CreateContentThread extends Component {
             .then(function(){
                 history.pushState(null, `threads`);
             });
+    }
+
+    handleClickOutside(e) {
+        const selectedFilter = this.refs.selectedFilter;
+        if (selectedFilter && !selectedFilter.contains(e.target)) {
+            this.setState({selectedFilter: {}});
+        }
     }
 }

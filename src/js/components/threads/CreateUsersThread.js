@@ -39,7 +39,7 @@ export default class CreateUsersThread extends Component {
         this.handleKeyUpTag = this.handleKeyUpTag.bind(this);
         this.handleClickTagSuggestion = this.handleClickTagSuggestion.bind(this);
         this.createThread = this.createThread.bind(this);
-
+        this.handleClickOutside = this.handleClickOutside.bind(this);
 
         this.defaultFilters = {
             'orientation': {
@@ -183,6 +183,14 @@ export default class CreateUsersThread extends Component {
         }
     }
 
+    componentDidMount () {
+        window.nekunoContainer.addEventListener('click', this.handleClickOutside)
+    }
+
+    componentWillUnmount () {
+        window.nekunoContainer.removeEventListener('click', this.handleClickOutside)
+    }
+
     render() {
         Object.keys(this.defaultFilters).forEach(key => this.defaultFilters[key].key = key);
         let content = '';
@@ -236,6 +244,7 @@ export default class CreateUsersThread extends Component {
         const choicesLength = Object.keys(this.defaultFilters).length || 0;
         let firstColumnCounter = 0;
         let secondColumnCounter = 0;
+        document.getElementsByClassName('view')[0].scrollTop = 0;
         return(
             <div className="list-block">
                 <ul className="checkbox-filters-list">
@@ -388,7 +397,7 @@ export default class CreateUsersThread extends Component {
 
     renderLocationFilter() {
         return (
-            <div key={'selected-filter'} className="thread-filter tag-filter location-tag-filter">
+            <div key={'selected-filter'} ref={'selectedFilter'} className="thread-filter tag-filter location-tag-filter">
                 <div className="users-middle-vertical-line"></div>
                 {this.renderSelectedFilterBackground()}
                 <div className="thread-filter-dot">
@@ -412,7 +421,7 @@ export default class CreateUsersThread extends Component {
 
     renderChoiceFilter() {
         return (
-            <div key={'selected-filter'} className="thread-filter radio-filter">
+            <div key={'selected-filter'} ref={'selectedFilter'} className="thread-filter radio-filter">
                 <div className="users-middle-vertical-line"></div>
                 {this.renderSelectedFilterBackground()}
                 <div className="thread-filter-dot">
@@ -429,7 +438,7 @@ export default class CreateUsersThread extends Component {
 
     renderDoubleChoiceFilter() {
         return (
-          <div key={'selected-filter'} className="thread-filter radio-filter">
+          <div key={'selected-filter'} ref={'selectedFilter'} className="thread-filter radio-filter">
               <div className="users-middle-vertical-line"></div>
               {this.renderSelectedFilterBackground()}
               <div className="thread-filter-dot">
@@ -452,7 +461,7 @@ export default class CreateUsersThread extends Component {
 
     renderTagFilter() {
         return (
-            <div key={'selected-filter'} className="thread-filter tag-filter">
+            <div key={'selected-filter'} ref={'selectedFilter'} className="thread-filter tag-filter">
                 <div className="users-middle-vertical-line"></div>
                 {this.renderSelectedFilterBackground()}
                 <div className="thread-filter-dot">
@@ -694,5 +703,12 @@ export default class CreateUsersThread extends Component {
         .then(function(){
             history.pushState(null, `threads`);
         });
+    }
+
+    handleClickOutside(e) {
+        const selectedFilter = this.refs.selectedFilter;
+        if (selectedFilter && !selectedFilter.contains(e.target)) {
+            this.setState({selectedFilter: {}});
+        }
     }
 }

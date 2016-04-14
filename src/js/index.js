@@ -10,4 +10,5 @@ import './vendor/init';
 const history = createHashHistory();
 RouterContainer.set(history);
 LoginActionsCreator.autologin();
-render(<Root history={history}/>, document.getElementById('root'));
+window.nekunoContainer = document.getElementById('root');
+render(<Root history={history}/>, window.nekunoContainer);

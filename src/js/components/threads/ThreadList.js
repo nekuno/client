@@ -19,7 +19,7 @@ export default class ThreadList extends Component {
                 continue;
             }
             let thread = selectn('threads['+threadId+']', this.props);
-            if (thread) {
+            if (thread && thread.hasOwnProperty('name')) {
                 threadList[counter++] = thread.category === 'ThreadUsers' ?
                     <ThreadUsers key={threadId} thread={thread} last={counter == threadsLength} userId={this.props.userId} profile={this.props.profile} /> :
                     <ThreadContent key={threadId} thread={thread} last={counter == threadsLength} userId={this.props.userId} />;

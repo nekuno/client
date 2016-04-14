@@ -60,8 +60,6 @@ register(action => {
             break;
         case ActionTypes.CREATE_THREAD_SUCCESS:
             let list = ThreadsByUserStore.getList(userId);
-            console.log(list);
-            console.log(action.response.id);
             list._ids.unshift(action.response.id);
             ThreadsByUserStore.emitChange();
             break;

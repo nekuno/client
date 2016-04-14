@@ -13,7 +13,6 @@ export default class AnswerQuestionForm extends Component {
         userAnswer     : PropTypes.object,
         isFirstQuestion: PropTypes.bool.isRequired,
         ownPicture     : PropTypes.string.isRequired,
-        defaultPicture : PropTypes.string.isRequired,
         userId         : PropTypes.number.isRequired,
         question       : PropTypes.object.isRequired
     };
@@ -127,7 +126,7 @@ export default class AnswerQuestionForm extends Component {
                             <div className="answer-question-picture">
                                 <div className="answer-question-other-picture-container">
                                     <div className="answer-question-other-picture">
-                                        <img src={this.props.defaultPicture}/>
+                                        <span className="icon-users"></span>
                                     </div>
                                 </div>
                             </div>

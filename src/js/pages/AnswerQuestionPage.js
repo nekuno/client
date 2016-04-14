@@ -121,7 +121,6 @@ export default class AnswerQuestionPage extends Component {
         const {user, strings} = this.props;
         const userId = selectn('qnoow_id', user);
         const ownPicture = user.picture ? `${IMAGES_ROOT}media/cache/resolve/user_avatar_60x60/user/images/${user.picture}` : `${IMAGES_ROOT}media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
-        const defaultPicture = `${IMAGES_ROOT}media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
         const isRegisterQuestion = selectn('question.isRegisterQuestion', this.props);
 
         return (
@@ -134,7 +133,7 @@ export default class AnswerQuestionPage extends Component {
                 <div className="page answer-question-page">
                     <div id="page-content" className="answer-question-content">
                         {this.props.question ?
-                            <AnswerQuestion question={this.props.question} userAnswer={this.props.userAnswer} isFirstQuestion={this.props.isFirstQuestion} userId={userId} errors={this.props.errors} ownPicture={ownPicture} defaultPicture={defaultPicture}/>
+                            <AnswerQuestion question={this.props.question} userAnswer={this.props.userAnswer} isFirstQuestion={this.props.isFirstQuestion} userId={userId} errors={this.props.errors} ownPicture={ownPicture}/>
                             :
                             ''
                         }

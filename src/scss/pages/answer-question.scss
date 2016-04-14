@@ -38,6 +38,14 @@ body #root .App .view .page {
                     width: 40px;
                   }
                 }
+                .answer-question-other-picture {
+                  text-align: center;
+
+                  span {
+                    color: $dark-blue;
+                    line-height: 40px;
+                  }
+                }
               }
               .answer-question-other-picture-container {
                 margin-left: 2%;

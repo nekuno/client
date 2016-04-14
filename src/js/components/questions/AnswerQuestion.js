@@ -10,7 +10,6 @@ export default class AnswerQuestion extends Component {
         userAnswer     : PropTypes.object,
         isFirstQuestion: PropTypes.bool.isRequired,
         ownPicture     : PropTypes.string.isRequired,
-        defaultPicture : PropTypes.string.isRequired,
         userId         : PropTypes.number.isRequired,
         errors         : PropTypes.string.isRequired,
         // Injected by @translate:

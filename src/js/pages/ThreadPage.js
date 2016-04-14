@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import ThreadList from '../components/threads/ThreadList';
-import LeftMenuTopNavbar from '../components/ui/LeftMenuTopNavbar';
+import LeftMenuRightIconTopNavbar from '../components/ui/LeftMenuRightIconTopNavbar';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
@@ -47,15 +47,29 @@ export default class ThreadPage extends Component {
         profile: PropTypes.object
     };
 
+    static contextTypes = {
+        history: PropTypes.object.isRequired
+    };
+
+    constructor(props) {
+        super(props);
+
+        this.onAddThreadClickHandler = this.onAddThreadClickHandler.bind(this);
+    }
+
     componentWillMount() {
         requestData(this.props);
+    }
+
+    onAddThreadClickHandler() {
+        this.context.history.pushState(null, '/create-thread');
     }
 
     render() {
         const strings = this.props.strings;
         return (
             <div className="view view-main">
-                <LeftMenuTopNavbar centerText={strings.threads} centerTextSize={'large'}/>
+                <LeftMenuRightIconTopNavbar centerText={strings.threads} centerTextSize={'large'} rightIcon={'plus'} onRightLinkClickHandler={this.onAddThreadClickHandler}/>
                 <div className="page threads-page">
                     <div id="page-content">
                         <ThreadList threads={this.props.threads} userId={this.props.user.id} profile={this.props.profile}/>

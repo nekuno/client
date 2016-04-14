@@ -1,4 +1,6 @@
 import React, { PropTypes, Component } from 'react';
+const ReactLink = require('react/lib/ReactLink');
+const ReactStateSetters = require('react/lib/ReactStateSetters');
 import * as UserActionCreators from '../../actions/UserActionCreators';
 import TextInput from '../ui/TextInput';
 import CreateContentThread from './CreateContentThread';
@@ -17,6 +19,7 @@ export default class CreateThread extends Component {
         this.handleClickCategory = this.handleClickCategory.bind(this);
 
         this.state = {
+            threadName: '',
             category: null
         };
     }
@@ -24,30 +27,32 @@ export default class CreateThread extends Component {
     render() {
         let verticalLines = [];
         let content = '';
-        switch (this.state.category) {
+        const {userId, filters} = this.props;
+        const {category, threadName} = this.state;
+        switch (category) {
             case 'contents':
                 verticalLines = [<div key={1} className="content-first-vertical-line"></div>, <div key={2} className="content-last-vertical-line"></div>];
-                content = <CreateContentThread userId={this.props.userId} filters={this.props.filters['contentFilters']}/>;
+                content = <CreateContentThread userId={userId} filters={filters['contentFilters']} threadName={threadName}/>;
                 break;
             case 'persons':
                 verticalLines = [<div key={1} className="users-first-vertical-line"></div>, <div key={2} className="users-last-vertical-line"></div>];
-                content = <CreateUsersThread userId={this.props.userId} filters={this.props.filters['profileFilters']}/>;
+                content = <CreateUsersThread userId={userId} filters={filters['profileFilters']} threadName={threadName}/>;
                 break;
         }
         return (
             <div>
                 <div className="thread-title list-block">
                     <ul>
-                        <TextInput placeholder={'Escribe un título descriptivo del hilo'} />
+                        <TextInput placeholder={'Escribe un título descriptivo del hilo'} valueLink={this.linkState('threadName')}/>
                     </ul>
                 </div>
                 {verticalLines.map(verticalLine => verticalLine)}
                 <div className="main-filter-wprapper">
                     <div className="thread-filter radio-filter">
                         <div className="thread-filter-dot">
-                            <span className={this.state.category ? "icon-circle active" : "icon-circle"}></span>
+                            <span className={category ? "icon-circle active" : "icon-circle"}></span>
                         </div>
-                        <TextRadios labels={[{key: 'persons', text: 'Personas'}, {key: 'contents', text: 'Contenidos'}]} onClickHandler={this.handleClickCategory} value={this.state.category} />
+                        <TextRadios labels={[{key: 'persons', text: 'Personas'}, {key: 'contents', text: 'Contenidos'}]} onClickHandler={this.handleClickCategory} value={category} />
                     </div>
                 </div>
                 {content}
@@ -59,5 +64,9 @@ export default class CreateThread extends Component {
         this.setState({
             category: category
         });
+    }
+
+    linkState(key) {
+        return new ReactLink(this.state[key], ReactStateSetters.createStateKeySetter(this, key));
     }
 }

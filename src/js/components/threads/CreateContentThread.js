@@ -15,7 +15,8 @@ export default class CreateContentThread extends Component {
 
     static propTypes = {
         userId: PropTypes.number.isRequired,
-        filters: PropTypes.object.isRequired
+        filters: PropTypes.object.isRequired,
+        threadName: PropTypes.string
         // TODO: tagSuggestions should be a prop
     };
 
@@ -344,7 +345,7 @@ export default class CreateContentThread extends Component {
 
     createThread() {
         let data = {
-            name: document.querySelector('.list-block input').value,
+            name: this.props.threadName,
             filters: {},
             category: 'ThreadContent'
         };

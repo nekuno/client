@@ -1,6 +1,7 @@
 import { register, waitFor } from '../dispatcher/Dispatcher';
 import { createStore, mergeIntoBag, isInBag } from '../utils/StoreUtils';
 import selectn from 'selectn';
+import ActionTypes from '../constants/ActionTypes';
 import UserStore from './UserStore';
 
 const _threads = {};
@@ -30,6 +31,16 @@ ThreadStore.dispatchToken = register(action => {
     if (responseThreads) {
         mergeIntoBag(_threads, responseThreads);
         ThreadStore.emitChange();
+    }
+
+    switch(action.type){
+        case ActionTypes.CREATE_THREAD_SUCCESS:
+            let items = [action.response];
+            mergeIntoBag(_threads, items);
+            ThreadStore.emitChange();
+            break;
+        default:
+            break;
     }
 });
 

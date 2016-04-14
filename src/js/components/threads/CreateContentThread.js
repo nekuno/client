@@ -8,6 +8,11 @@ import TagInput from '../ui/TagInput';
 import FullWidthButton from '../ui/FullWidthButton';
 
 export default class CreateContentThread extends Component {
+
+    static contextTypes = {
+        history: PropTypes.object.isRequired
+    };
+
     static propTypes = {
         userId: PropTypes.number.isRequired,
         filters: PropTypes.object.isRequired
@@ -362,6 +367,10 @@ export default class CreateContentThread extends Component {
             }
         }
 
-        UserActionCreators.createThread(this.props.userId, data);
+        let history = this.context.history;
+        UserActionCreators.createThread(this.props.userId, data)
+            .then(function(){
+                history.pushState(null, `threads`);
+            });
     }
 }

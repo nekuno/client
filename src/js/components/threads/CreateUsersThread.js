@@ -9,6 +9,10 @@ import InputCheckbox from '../ui/InputCheckbox';
 import LocationInput from '../ui/LocationInput';
 
 export default class CreateUsersThread extends Component {
+    static contextTypes = {
+        history: PropTypes.object.isRequired
+    };
+
     static propTypes = {
         userId: PropTypes.number.isRequired
         // TODO: defFilters should be a prop
@@ -684,7 +688,10 @@ export default class CreateUsersThread extends Component {
                     break;
             }
         }
-
-        UserActionCreators.createThread(this.props.userId, data);
+        let history = this.context.history;
+        UserActionCreators.createThread(this.props.userId, data)
+        .then(function(){
+            history.pushState(null, `threads`);
+        });
     }
 }

@@ -91,11 +91,11 @@ export function requestThreads(userId, url = null) {
 }
 
 export function createThread(userId, data) {
-    dispatchAsync(UserAPI.createThread(data),{
+    return dispatchAsync(UserAPI.createThread(data),{
         request: ActionTypes.CREATE_THREAD,
         success: ActionTypes.CREATE_THREAD_SUCCESS,
         failure: ActionTypes.CREATE_THREAD_ERROR
-    }, data)
+    }, {userId, data})
 }
 
 export function requestRecommendationPage(userId, threadId) {

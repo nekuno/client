@@ -6,6 +6,7 @@ import TextInput from '../ui/TextInput';
 import CreateContentThread from './CreateContentThread';
 import CreateUsersThread from './CreateUsersThread';
 import TextRadios from '../ui/TextRadios';
+import selectn from 'selectn';
 
 export default class CreateThread extends Component {
     static propTypes = {
@@ -35,8 +36,9 @@ export default class CreateThread extends Component {
                 content = <CreateContentThread userId={userId} filters={filters['contentFilters']} threadName={threadName}/>;
                 break;
             case 'persons':
+                const threadUserFilters = this.buildThreadUsersFilters(filters);
                 verticalLines = [<div key={1} className="users-first-vertical-line"></div>, <div key={2} className="users-last-vertical-line"></div>];
-                content = <CreateUsersThread userId={userId} filters={filters['profileFilters']} threadName={threadName}/>;
+                content = <CreateUsersThread userId={userId} filters={threadUserFilters} threadName={threadName}/>;
                 break;
         }
         return (
@@ -68,5 +70,32 @@ export default class CreateThread extends Component {
 
     linkState(key) {
         return new ReactLink(this.state[key], ReactStateSetters.createStateKeySetter(this, key));
+    }
+
+    buildThreadUsersFilters(filters){
+
+        //merge profileFilters - userFilters into one
+        const profileFilters = (selectn('profileFilters', filters))? selectn('profileFilters', filters) : {};
+        const userFilters = (selectn('userFilters', filters))? selectn('userFilters', filters) : {};
+
+        let threadUsersFilters = {};
+        Object.keys(userFilters).map((id) => {threadUsersFilters[id] = userFilters[id]});
+        Object.keys(profileFilters).map((id) => {threadUsersFilters[id] = profileFilters[id]});
+
+        //format choices, {married:'casado'} => [{value: 'married', label: 'casado'}]
+
+        Object.keys(threadUsersFilters).map((id) => {
+            const field = threadUsersFilters[id];
+            const choices = selectn('choices', field);
+
+            if ((field.type == 'choice') && choices){
+                threadUsersFilters[id]['choices'] = [];
+                Object.keys(choices).map((id2) => {
+                    threadUsersFilters[id]['choices'].push({value: id2, label: choices[id2]})
+                })
+            }
+        });
+
+        return threadUsersFilters;
     }
 }

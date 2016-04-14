@@ -194,7 +194,7 @@ export default class CreateUsersThread extends Component {
     }
 
     render() {
-        Object.keys(this.defaultFilters).forEach(key => this.defaultFilters[key].key = key);
+        Object.keys(this.props.filters).forEach(key => this.props.filters[key].key = key);
         let content = '';
         if (this.state.selectFilter) {
             content = <div className="select-filter">
@@ -243,39 +243,39 @@ export default class CreateUsersThread extends Component {
     }
 
     renderFiltersList() {
-        const choicesLength = Object.keys(this.defaultFilters).length || 0;
+        const choicesLength = Object.keys(this.props.filters).length || 0;
         let firstColumnCounter = 0;
         let secondColumnCounter = 0;
         document.getElementsByClassName('view')[0].scrollTop = 0;
         return(
             <div className="list-block">
                 <ul className="checkbox-filters-list">
-                    {Object.keys(this.defaultFilters).map((id) => {
+                    {Object.keys(this.props.filters).map((id) => {
                         firstColumnCounter++;
                         if (firstColumnCounter > choicesLength / 2) {
                             return '';
                         }
-                        let text = this.defaultFilters[id].label;
-                        let checked = this.state.filters.some(filter => filter.key === this.defaultFilters[id].key);
+                        let text = this.props.filters[id].label;
+                        let checked = this.state.filters.some(filter => filter.key === this.props.filters[id].key);
                         return (
                             <li key={id}>
-                                <InputCheckbox value={this.defaultFilters[id].key} name={this.defaultFilters[id].key} text={text}
+                                <InputCheckbox value={this.props.filters[id].key} name={this.props.filters[id].key} text={text}
                                                checked={checked} defaultChecked={false} onClickHandler={this.handleClickFilterOnList} reverse={true}/>
                             </li>
                         )
                     })}
                 </ul>
                 <ul className="checkbox-filters-list">
-                    {Object.keys(this.defaultFilters).map((id) => {
+                    {Object.keys(this.props.filters).map((id) => {
                         secondColumnCounter++;
                         if (secondColumnCounter <= choicesLength / 2) {
                             return '';
                         }
-                        let text = this.defaultFilters[id].label;
-                        let checked = this.state.filters.some(filter => filter.key === this.defaultFilters[id].key);
+                        let text = this.props.filters[id].label;
+                        let checked = this.state.filters.some(filter => filter.key === this.props.filters[id].key);
                         return (
                             <li key={id}>
-                                <InputCheckbox value={id} name={this.defaultFilters[id].key} text={text} checked={checked} defaultChecked={false} onClickHandler={this.handleClickFilterOnList} reverse={true}/>
+                                <InputCheckbox value={id} name={this.props.filters[id].key} text={text} checked={checked} defaultChecked={false} onClickHandler={this.handleClickFilterOnList} reverse={true}/>
                             </li>
                         )
                     })}
@@ -288,7 +288,7 @@ export default class CreateUsersThread extends Component {
         let filters = this.state.filters;
         let filter = this.state.filters.find(key => key === value);
         if (typeof filter == 'undefined') {
-            let defaultFilters = JSON.parse(JSON.stringify(this.defaultFilters));
+            let defaultFilters = JSON.parse(JSON.stringify(this.props.filters));
             filter = Object.keys(defaultFilters).map(key => defaultFilters[key]).find(function (defaultFilter) {
                 return defaultFilter.key === value;
             });

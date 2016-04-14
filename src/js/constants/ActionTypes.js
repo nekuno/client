@@ -155,6 +155,10 @@ export default keyMirror({
     WORKERS_PROCESS_FINISH: null,
     WORKERS_USER_STATUS   : null,
 
+    REQUEST_USER_DATA_STATUS           : null,
+    REQUEST_USER_DATA_STATUS_SUCCESS   : null,
+    REQUEST_USER_DATA_STATUS_ERROR     : null,
+
     CHANGE_LOCALE: null
 
 });

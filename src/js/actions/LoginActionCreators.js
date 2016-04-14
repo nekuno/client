@@ -7,6 +7,7 @@ import LoginStore from '../stores/LoginStore';
 import RouterContainer from '../services/RouterContainer';
 import * as QuestionActionCreators from '../actions/QuestionActionCreators';
 import * as UserActionCreators from '../actions/UserActionCreators';
+import UserDataStatusActionCreators from '../actions/UserDataStatusActionCreators';
 import selectn from 'selectn';
 
 export default new class LoginActionCreators {
@@ -34,6 +35,7 @@ export default new class LoginActionCreators {
         if (LoginStore.isLoggedIn()) {
             ChatSocketService.connect();
             WorkersSocketService.connect();
+            UserDataStatusActionCreators.requestUserDataStatus();
             var user = LoginStore.user;
             QuestionActionCreators.requestQuestions(user.qnoow_id).then(function(data){
                 let answers = selectn('result.pagination.total', data) || 0;

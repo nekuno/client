@@ -64,7 +64,7 @@ export default class SocialWheels extends Component {
                         {networks.map((message, index) => {
                             let radius = initialRadius + index * 25;
                             let progress = message.processed ? 359 : message.process * 3.6;
-                            return this.renderSmallIcon(message.resource, radius, progress, posX, posY, message.fetching, message.fetched, index);
+                            return this.renderSmallIcon(message.resource, radius, progress, posX, posY, message.fetching, message.fetched, message.processing, message.processed, index);
                         })}
                     </g>
                 </svg>
@@ -102,10 +102,10 @@ export default class SocialWheels extends Component {
         );
     };
 
-    renderSmallIcon = function(resource, radius, degrees, posX, posY, fetching, fetched, key) {
+    renderSmallIcon = function(resource, radius, degrees, posX, posY, fetching, fetched, processing, processed, key) {
         if (fetching) {
             return this.renderFetchingIcon(resource, radius, posX, posY, key);
-        } else if (fetched) {
+        } else if (fetched && !processing && !processed) {
             return this.renderFetchedIcon(resource, radius, posX, posY, key);
         } else {
             return this.renderProcessingIcon(resource, radius, degrees, posX, posY, key);

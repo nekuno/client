@@ -1,6 +1,5 @@
 import { dispatch, dispatchAsync } from '../dispatcher/Dispatcher';
 import ActionTypes from '../constants/ActionTypes';
-import ChatSocketService from '../services/ChatSocketService';
 
 export default {
 

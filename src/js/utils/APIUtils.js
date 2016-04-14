@@ -230,6 +230,12 @@ export function fetchComparedInterests(url) {
     });
 }
 
+export function fetchUserDataStatus(url) {
+    return getData(url).then(function(json) {
+        return json;
+    });
+}
+
 export function postBlockUser(url) {
     return postData(url, null, blockedUserSchema);
 }

@@ -1,6 +1,4 @@
 import React, { PropTypes, Component } from 'react';
-import { Link } from 'react-router';
-import { IMAGES_ROOT } from '../../constants/Constants';
 import InputCheckbox from '../ui/InputCheckbox';
 
 export default class AcceptedAnswerCheckbox extends Component {

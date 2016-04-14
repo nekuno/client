@@ -1,15 +1,14 @@
 import React, { PropTypes, Component } from 'react';
-import shouldPureComponentUpdate from '../../../../node_modules/react-pure-render/function';
 import selectn from 'selectn';
 import OtherQuestion from './OtherQuestion';
 
 export default class OtherQuestionList extends Component {
     static propTypes = {
-        questions: PropTypes.object.isRequired,
+        questions     : PropTypes.object.isRequired,
         otherQuestions: PropTypes.object.isRequired,
-        ownPicture: PropTypes.string.isRequired,
-        otherPicture: PropTypes.string.isRequired,
-        userId: PropTypes.number.isRequired
+        ownPicture    : PropTypes.string.isRequired,
+        otherPicture  : PropTypes.string.isRequired,
+        userId        : PropTypes.number.isRequired
     };
 
     render() {
@@ -23,7 +22,8 @@ export default class OtherQuestionList extends Component {
                 let otherQuestion = otherQuestions[questionId];
                 let question = selectn(questionId, questions);
                 let userAnswer = selectn('userAnswer', question);
-                questionList[counter++] = <OtherQuestion userId={this.props.userId} otherUserAnswer={otherQuestion.userAnswer} userAnswer={userAnswer} ownPicture={this.props.ownPicture} otherPicture={this.props.otherPicture} key={counter} accessibleKey={counter} question={otherQuestion} last={counter == questionsLength} />
+                questionList[counter++] = <OtherQuestion userId={this.props.userId} otherUserAnswer={otherQuestion.userAnswer} userAnswer={userAnswer} ownPicture={this.props.ownPicture} otherPicture={this.props.otherPicture} key={counter} accessibleKey={counter} question={otherQuestion}
+                                                         last={counter == questionsLength}/>
             }
         }
         return (

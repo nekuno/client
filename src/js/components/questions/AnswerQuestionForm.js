@@ -1,21 +1,21 @@
 import React, { PropTypes, Component } from 'react';
 import selectn from 'selectn';
-import { Link } from 'react-router';
-import { IMAGES_ROOT } from '../../constants/Constants';
 import * as QuestionActionCreators from '../../actions/QuestionActionCreators';
 import AnswerRadio from './AnswerRadio';
 import AcceptedAnswerCheckbox from './AcceptedAnswerCheckbox';
 import AcceptedAnswersImportance from './AcceptedAnswersImportance';
+import translate from '../../i18n/Translate';
 
+@translate('AnswerQuestionForm')
 export default class AnswerQuestionForm extends Component {
     static propTypes = {
-        answers: PropTypes.array.isRequired,
-        userAnswer: PropTypes.object,
+        answers        : PropTypes.array.isRequired,
+        userAnswer     : PropTypes.object,
         isFirstQuestion: PropTypes.bool.isRequired,
-        ownPicture: PropTypes.string.isRequired,
-        defaultPicture: PropTypes.string.isRequired,
-        userId: PropTypes.number.isRequired,
-        question: PropTypes.object.isRequired
+        ownPicture     : PropTypes.string.isRequired,
+        defaultPicture : PropTypes.string.isRequired,
+        userId         : PropTypes.number.isRequired,
+        question       : PropTypes.object.isRequired
     };
 
     static contextTypes = {
@@ -30,21 +30,21 @@ export default class AnswerQuestionForm extends Component {
         this.handleOnClickImportance = this.handleOnClickImportance.bind(this);
 
         this.state = {
-            answerId: null,
+            answerId       : null,
             acceptedAnswers: []
         };
     }
 
     componentWillMount() {
         this.state = {
-            answerId: selectn('userAnswer.answerId', this.props),
+            answerId       : selectn('userAnswer.answerId', this.props),
             acceptedAnswers: selectn('userAnswer.acceptedAnswers', this.props) ? this.props.userAnswer.acceptedAnswers : []
         };
     }
 
     componentWillReceiveProps(nextProps) {
         this.setState({
-            answerId: selectn('userAnswer.answerId', nextProps),
+            answerId       : selectn('userAnswer.answerId', nextProps),
             acceptedAnswers: selectn('userAnswer.acceptedAnswers', nextProps) ? nextProps.userAnswer.acceptedAnswers : []
         });
     }
@@ -58,74 +58,9 @@ export default class AnswerQuestionForm extends Component {
         QuestionActionCreators.answerQuestion(userId, questionId, answerId, acceptedAnswers, rating);
     }
 
-    render() {
-        let answers = this.props.answers;
-        let acceptedAnswers = selectn('userAnswer.acceptedAnswers', this.props) ? selectn('userAnswer.acceptedAnswers', this.props) : [];
-        let userAnswerId = selectn('userAnswer.answerId', this.props);
-
-        if (!answers) {
-            return null;
-        }
-
-        return (
-            <div className="answer-question-form">
-                <form>
-                    <div className="answers-block">
-                        <div className="list-block accepted-answers">
-                            <div className="answer-question-picture">
-                                <div className="answer-question-other-picture-container">
-                                    <div className="answer-question-other-picture">
-                                        <img src={this.props.defaultPicture} />
-                                    </div>
-                                </div>
-                            </div>
-
-                            <ul>
-                                {answers.map((answer, index) => {
-                                    let answerChecked = false;
-                                    let defaultAnswerChecked = false;
-                                    acceptedAnswers.forEach((answerId) => {
-                                        if (answerId === answer.answerId) {
-                                            defaultAnswerChecked = true;
-                                        }
-                                    });
-                                    this.state.acceptedAnswers.forEach((answerId) => {
-                                        if (answerId === answer.answerId) {
-                                            answerChecked = true;
-                                        }
-                                    });
-                                    return (
-                                        <AcceptedAnswerCheckbox key={index} answer={answer} checked={answerChecked} defaultChecked={defaultAnswerChecked} onClickHandler={this.handleOnClickAcceptedAnswer}  />
-                                    );
-                                })}
-                            </ul>
-                        </div>
-                        <div className="list-block answers">
-                            <div className="answer-question-picture">
-                                <div className="answer-question-own-picture-container">
-                                    <div className="answer-question-own-picture">
-                                        <img src={this.props.ownPicture} />
-                                    </div>
-                                </div>
-                            </div>
-                            <ul>
-                                {answers.map((answer, index) => {
-                                    return (
-                                        <AnswerRadio key={index} answer={answer} checked={this.state.answerId === answer.answerId} defaultChecked={userAnswerId === answer.answerId} onClickHandler={this.handleOnClickAnswer} />
-                                    );
-                                })}
-                            </ul>
-                        </div>
-                        <AcceptedAnswersImportance irrelevant={this.state.acceptedAnswers.length === answers.length} answeredAndAccepted={this.state.answerId != null && this.state.acceptedAnswers.length > 0} onClickHandler={this.handleOnClickImportance} />
-                    </div>
-                </form>
-            </div>
-        );
-    }
-
     handleOnClickAcceptedAnswer(checked, value) {
         if (!this.state.answerId) {
-            nekunoApp.alert('Marca tu respuesta en la primera columna');
+            nekunoApp.alert(this.props.strings.alertFirst);
         }
 
         let acceptedAnswers = this.state.acceptedAnswers;
@@ -143,7 +78,7 @@ export default class AnswerQuestionForm extends Component {
 
     handleOnClickAnswer(value) {
         if (!this.state.answerId && this.props.isFirstQuestion) {
-            nekunoApp.alert('Marca una o varias opciones en la segunda columna para indicar qué te gustaría que respondiera otro usuario');
+            nekunoApp.alert(this.props.strings.alertSecond);
         }
 
         let answerId = parseInt(value);
@@ -174,4 +109,77 @@ export default class AnswerQuestionForm extends Component {
 
         return rating;
     };
+
+    render() {
+        let answers = this.props.answers;
+        let acceptedAnswers = selectn('userAnswer.acceptedAnswers', this.props) ? selectn('userAnswer.acceptedAnswers', this.props) : [];
+        let userAnswerId = selectn('userAnswer.answerId', this.props);
+
+        if (!answers) {
+            return null;
+        }
+
+        return (
+            <div className="answer-question-form">
+                <form>
+                    <div className="answers-block">
+                        <div className="list-block accepted-answers">
+                            <div className="answer-question-picture">
+                                <div className="answer-question-other-picture-container">
+                                    <div className="answer-question-other-picture">
+                                        <img src={this.props.defaultPicture}/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <ul>
+                                {answers.map((answer, index) => {
+                                    let answerChecked = false;
+                                    let defaultAnswerChecked = false;
+                                    acceptedAnswers.forEach((answerId) => {
+                                        if (answerId === answer.answerId) {
+                                            defaultAnswerChecked = true;
+                                        }
+                                    });
+                                    this.state.acceptedAnswers.forEach((answerId) => {
+                                        if (answerId === answer.answerId) {
+                                            answerChecked = true;
+                                        }
+                                    });
+                                    return (
+                                        <AcceptedAnswerCheckbox key={index} answer={answer} checked={answerChecked} defaultChecked={defaultAnswerChecked} onClickHandler={this.handleOnClickAcceptedAnswer}/>
+                                    );
+                                })}
+                            </ul>
+                        </div>
+                        <div className="list-block answers">
+                            <div className="answer-question-picture">
+                                <div className="answer-question-own-picture-container">
+                                    <div className="answer-question-own-picture">
+                                        <img src={this.props.ownPicture}/>
+                                    </div>
+                                </div>
+                            </div>
+                            <ul>
+                                {answers.map((answer, index) => {
+                                    return (
+                                        <AnswerRadio key={index} answer={answer} checked={this.state.answerId === answer.answerId} defaultChecked={userAnswerId === answer.answerId} onClickHandler={this.handleOnClickAnswer}/>
+                                    );
+                                })}
+                            </ul>
+                        </div>
+                        <AcceptedAnswersImportance irrelevant={this.state.acceptedAnswers.length === answers.length} answeredAndAccepted={this.state.answerId != null && this.state.acceptedAnswers.length > 0} onClickHandler={this.handleOnClickImportance}/>
+                    </div>
+                </form>
+            </div>
+        );
+    }
+
 }
+
+AnswerQuestionForm.defaultProps = {
+    strings: {
+        alertFirst : 'Mark your answer in the first column',
+        alertSecond: 'Mark one or more options in the second column to indicate what would you like to answer another user'
+    }
+};

@@ -1,17 +1,20 @@
 import React, { PropTypes, Component } from 'react';
 import { Link } from 'react-router';
-import { IMAGES_ROOT } from '../../constants/Constants';
 import Answer from './Answer';
+import translate from '../../i18n/Translate';
 
+@translate('OtherQuestion')
 export default class OtherQuestion extends Component {
     static propTypes = {
-        question: PropTypes.object.isRequired,
-        userAnswer: PropTypes.object,
+        question       : PropTypes.object.isRequired,
+        userAnswer     : PropTypes.object,
         otherUserAnswer: PropTypes.object.isRequired,
-        ownPicture: PropTypes.string.isRequired,
-        otherPicture: PropTypes.string.isRequired,
-        last: PropTypes.bool.isRequired,
-        userId: PropTypes.number.isRequired
+        ownPicture     : PropTypes.string.isRequired,
+        otherPicture   : PropTypes.string.isRequired,
+        last           : PropTypes.bool.isRequired,
+        userId         : PropTypes.number.isRequired,
+        // Injected by @translate:
+        strings        : PropTypes.object
     };
 
     render() {
@@ -21,8 +24,9 @@ export default class OtherQuestion extends Component {
         }
         let userAnswer = this.props.userAnswer || {};
         let otherUserAnswer = this.props.otherUserAnswer;
+        const {strings} = this.props;
 
-        userAnswer.text = otherUserAnswer.text = 'No has contestado esta pregunta';
+        userAnswer.text = otherUserAnswer.text = strings.didntAnswered;
         question.answers.forEach((answer) => {
             if (answer.answerId === userAnswer.answerId) {
                 userAnswer.text = answer.text;
@@ -44,10 +48,16 @@ export default class OtherQuestion extends Component {
                 {userAnswer.text ?
                     <Answer text={userAnswer.text} answered={true} {...this.props} />
                     :
-                    <div className="not-answered-text">No has contestado a esta pregunta</div>
+                    <div className="not-answered-text">{strings.didntAnswered}</div>
                 }
                 <hr/>
             </div>
         );
     }
 }
+
+OtherQuestion.defaultProps = {
+    strings: {
+        didntAnswered: 'You have not answered this question'
+    }
+};

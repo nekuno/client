@@ -12,6 +12,17 @@ import selectn from 'selectn';
 
 export default new class LoginActionCreators {
 
+    autologin() {
+        let jwt = localStorage.getItem('jwt');
+        console.log('Attempting auto-login...');
+        dispatch(ActionTypes.AUTO_LOGIN, {jwt});
+        if (LoginStore.isLoggedIn()) {
+            UserActionCreators.requestProfile(LoginStore.user.id);
+            UserActionCreators.requestStats(LoginStore.user.id);
+        }
+        this.redirect();
+    }
+
     loginUser(username, password) {
         let promise = AuthService.login(username, password);
         dispatchAsync(promise, {
@@ -37,23 +48,27 @@ export default new class LoginActionCreators {
             WorkersSocketService.connect();
             UserDataStatusActionCreators.requestUserDataStatus();
             var user = LoginStore.user;
-            QuestionActionCreators.requestQuestions(user.qnoow_id).then(function(data){
-                let answers = selectn('result.pagination.total', data) || 0;
-                if (answers == 0) {
-                    path = '/social-networks-on-sign-up';
-                } else if (answers < 4) {
-                    path = '/register-questions-landing';
-                } else {
-                    path = '/threads/' + user.qnoow_id;
-                }
-                history.replaceState(null, path);
-                console.log('&*&*&* redirecting to path', path);
-            });
+            QuestionActionCreators.requestQuestions(user.qnoow_id).then(
+                (data) => {
+                    let answers = selectn('result.pagination.total', data) || 0;
+                    if (answers == 0) {
+                        path = '/social-networks-on-sign-up';
+                    } else if (answers < 4) {
+                        path = '/register-questions-landing';
+                    } else {
+                        path = '/threads';
+                    }
+                    console.log('Redirecting to path', path);
+                    history.replaceState(null, path);
+                    return null;
+                }, (error) => {
+                    console.error(error);
+                });
         } else {
             ChatSocketService.disconnect();
             WorkersSocketService.disconnect();
             history.replaceState(null, path);
-            console.log('&*&*&* redirecting to path', path);
+            console.log('Redirecting to path', path);
         }
     }
 

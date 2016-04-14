@@ -9,15 +9,11 @@ import ThreadStore from '../stores/ThreadStore';
 import ProfileStore from '../stores/ProfileStore';
 import ThreadsByUserStore from '../stores/ThreadsByUserStore';
 
-function parseId(params) {
-    return params.userId;
-}
-
 /**
  * Requests data from server for current props.
  */
 function requestData(props) {
-    const userId = parseId(props.params);
+    const userId = props.user.id;
     UserActionCreators.requestThreadPage(userId);
     UserActionCreators.requestProfile(userId);
     UserActionCreators.requestFilters(userId);
@@ -27,9 +23,9 @@ function requestData(props) {
  * Retrieves state from stores for current props.
  */
 function getState(props) {
-    const threadIds = ThreadsByUserStore.getThreadsFromUser(props.user.qnoow_id);
+    const threadIds = ThreadsByUserStore.getThreadsFromUser(props.user.id);
     const threads = threadIds ? threadIds.map(ThreadStore.get) : [];
-    const profile = ProfileStore.get(props.user.qnoow_id) || {};
+    const profile = ProfileStore.get(props.user.id) || {};
     return {
         threads,
         profile
@@ -40,11 +36,8 @@ function getState(props) {
 @translate('ThreadPage')
 @connectToStores([ThreadStore, ThreadsByUserStore, ProfileStore], getState)
 export default class ThreadPage extends Component {
+
     static propTypes = {
-        // Injected by React Router:
-        params : PropTypes.shape({
-            userId: PropTypes.string.isRequired
-        }).isRequired,
         // Injected by @AuthenticatedComponent
         user   : PropTypes.object.isRequired,
         // Injected by @translate:
@@ -58,12 +51,6 @@ export default class ThreadPage extends Component {
         requestData(this.props);
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (parseId(nextProps.params) !== parseId(this.props.params)) {
-            requestData(nextProps);
-        }
-    }
-
     render() {
         const strings = this.props.strings;
         return (
@@ -71,7 +58,7 @@ export default class ThreadPage extends Component {
                 <LeftMenuTopNavbar centerText={strings.threads} centerTextSize={'large'}/>
                 <div className="page threads-page">
                     <div id="page-content">
-                        <ThreadList threads={this.props.threads} userId={this.props.user.qnoow_id} profile={this.props.profile}/>
+                        <ThreadList threads={this.props.threads} userId={this.props.user.id} profile={this.props.profile}/>
                     </div>
                 </div>
             </div>

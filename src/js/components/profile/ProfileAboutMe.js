@@ -1,9 +1,13 @@
 import React, { PropTypes, Component } from 'react';
+import translate from '../../i18n/Translate';
 
+@translate('ProfileAboutMe')
 export default class ProfileAboutMe extends Component {
     static propTypes = {
-        name: PropTypes.string.isRequired,
-        value: PropTypes.string.isRequired
+        name   : PropTypes.string.isRequired,
+        value  : PropTypes.string.isRequired,
+        // Injected by @translate:
+        strings: PropTypes.object
     };
 
     constructor(props) {
@@ -12,16 +16,16 @@ export default class ProfileAboutMe extends Component {
     }
 
     render() {
-        let {name, value} = this.props;
-        const seeMore = this.state? this.state.seeMore : false;
+        let {name, value, strings} = this.props;
+        const seeMore = this.state ? this.state.seeMore : false;
         const maxLength = 100;
         let seeMoreText = "";
-        if (value.length > maxLength){
-            if (seeMore){
-                seeMoreText = 'Ver menos';
+        if (value.length > maxLength) {
+            if (seeMore) {
+                seeMoreText = strings.seeLess;
             } else {
-                value = value.substring(0,maxLength)+'...';
-                seeMoreText = 'Ver más';
+                value = value.substring(0, maxLength) + '...';
+                seeMoreText = strings.seeMore;
             }
         }
         return (
@@ -32,7 +36,7 @@ export default class ProfileAboutMe extends Component {
                     {value}
                     {value.length > maxLength
                         ?
-                        <span className="see-more" onClick={this.toggleSeeMore}>{' '+seeMoreText}</span>
+                        <span className="see-more" onClick={this.toggleSeeMore}>{' ' + seeMoreText}</span>
                         : ""
                     }
 
@@ -43,11 +47,17 @@ export default class ProfileAboutMe extends Component {
         );
     }
 
-    toggleSeeMore()
-    {
-        let newState = this.state != null? this.state : {};
+    toggleSeeMore() {
+        let newState = this.state != null ? this.state : {};
         newState.seeMore = !newState.seeMore;
         this.setState(newState);
     }
 
 }
+
+ProfileAboutMe.defaultProps = {
+    strings: {
+        seeLess: 'See less',
+        seeMore: 'See more'
+    }
+};

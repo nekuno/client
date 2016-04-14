@@ -1,6 +1,4 @@
 import React, { PropTypes, Component } from 'react';
-import shouldPureComponentUpdate from '../../../../node_modules/react-pure-render/function';
-import selectn from 'selectn';
 import RecommendationContent from './RecommendationContent';
 import RecommendationUser from './RecommendationUser';
 import ChipList from './../ui/ChipList';
@@ -8,43 +6,9 @@ import ChipList from './../ui/ChipList';
 export default class RecommendationList extends Component {
     static propTypes = {
         recommendations: PropTypes.array.isRequired,
-        thread: PropTypes.object.isRequired,
-        userId: PropTypes.number.isRequired
+        thread         : PropTypes.object.isRequired,
+        userId         : PropTypes.number.isRequired
     };
-
-    shouldComponentUpdate = shouldPureComponentUpdate;
-
-    render() {
-        let thread = this.props.thread;
-        let recommendationList = [];
-        let recommendationsLength = this.getObjectLength(this.props.recommendations);
-        let counter = 0;
-        for (let recommendationId in this.props.recommendations) {
-            if (this.props.recommendations.hasOwnProperty(recommendationId)) {
-                let recommendation = this.props.recommendations[recommendationId];
-                recommendationList[counter++] = thread.category === 'ThreadUsers' ?
-                    <RecommendationUser userId={this.props.userId} key={counter} accessibleKey={counter} recommendation={recommendation} last={counter == recommendationsLength} /> :
-                    <RecommendationContent userId={this.props.userId} key={counter} accessibleKey={counter} recommendation={recommendation} last={counter == recommendationsLength} />;
-            }
-        }
-
-        return (
-            <div className="recommendation-content">
-                <div className="title thread-title">
-                    {this.props.thread.name}
-                </div>
-                {this.renderChipList(this.props.thread)}
-
-                <div className="swiper-container">
-                    <div className="swiper-wrapper recommendation-list">
-                        {recommendationList.map(recommendation => recommendation)}
-                    </div>
-                </div>
-            </div>
-        );
-
-
-    }
 
     renderChipList = function(thread) {
         let chips = [];
@@ -66,7 +30,7 @@ export default class RecommendationList extends Component {
         }
 
         return (
-            <ChipList chips={chips} small={true} />
+            <ChipList chips={chips} small={true}/>
         );
     };
 
@@ -77,5 +41,36 @@ export default class RecommendationList extends Component {
         }
         return size;
     };
+
+    render() {
+        let thread = this.props.thread;
+        let recommendationList = [];
+        let recommendationsLength = this.getObjectLength(this.props.recommendations);
+        let counter = 0;
+        for (let recommendationId in this.props.recommendations) {
+            if (this.props.recommendations.hasOwnProperty(recommendationId)) {
+                let recommendation = this.props.recommendations[recommendationId];
+                recommendationList[counter++] = thread.category === 'ThreadUsers' ?
+                    <RecommendationUser userId={this.props.userId} key={counter} accessibleKey={counter} recommendation={recommendation} last={counter == recommendationsLength}/> :
+                    <RecommendationContent userId={this.props.userId} key={counter} accessibleKey={counter} recommendation={recommendation} last={counter == recommendationsLength}/>;
+            }
+        }
+
+        return (
+            <div className="recommendation-content">
+                <div className="title thread-title">
+                    {this.props.thread.name}
+                </div>
+                {this.renderChipList(this.props.thread)}
+
+                <div className="swiper-container">
+                    <div className="swiper-wrapper recommendation-list">
+                        {recommendationList.map(recommendation => recommendation)}
+                    </div>
+                </div>
+            </div>
+        );
+
+    }
 
 }

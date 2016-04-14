@@ -1,13 +1,12 @@
 import React, { PropTypes, Component } from 'react';
-import shouldPureComponentUpdate from '../../../../node_modules/react-pure-render/function';
 import CardContent from './../ui/CardContent';
 
 export default class RecommendationContent extends Component {
     static propTypes = {
         recommendation: PropTypes.object.isRequired,
-        last: PropTypes.bool.isRequired,
-        accessibleKey: PropTypes.number.isRequired,
-        rate: PropTypes.string
+        last          : PropTypes.bool.isRequired,
+        accessibleKey : PropTypes.number.isRequired,
+        rate          : PropTypes.string
     };
 
     render() {
@@ -20,7 +19,8 @@ export default class RecommendationContent extends Component {
         return (
             <div className="swiper-slide">
                 <div className={'recommendation recommendation-' + key}>
-                    <CardContent loggedUserId={this.props.userId} contentId={content.id} title={content.title} description={content.description} types={recommendation.types} url={content.url} embed_id={content.embed_id} matching={Math.round(recommendation.match * 100)} rate={rate} embed_type={content.embed_type} synonymous={recommendation.synonymous} thumbnail={content.thumbnail} hideLikeButton={false} />
+                    <CardContent loggedUserId={this.props.userId} contentId={content.id} title={content.title} description={content.description} types={recommendation.types} url={content.url} embed_id={content.embed_id} matching={Math.round(recommendation.match * 100)} rate={rate}
+                                 embed_type={content.embed_type} synonymous={recommendation.synonymous} thumbnail={content.thumbnail} hideLikeButton={false}/>
                 </div>
             </div>
         );

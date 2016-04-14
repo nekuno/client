@@ -115,5 +115,55 @@ export default {
         like      : 'Like',
         dontLike  : 'Don\'t like anymore',
         myProfile : 'My profile'
+    },
+    ////////////////
+    // Components //
+    ////////////////
+    LeftPanel                        : {
+        interests     : 'Interests',
+        threads       : 'Threads',
+        myProfile     : 'Profile',
+        conversations : 'Messages',
+        socialNetworks: 'My social networks',
+        logout        : 'Logout'
+    },
+    OtherProfileData                 : {
+        coincidences    : 'Coincidences',
+        similarInterests: 'Similar interests',
+        compatibility   : 'compatibility',
+        similarity      : 'similarity'
+    },
+    ProfileAboutMe                   : {
+        seeLess: 'See less',
+        seeMore: 'See more'
+    },
+    AcceptedAnswersImportance        : {
+        title     : 'Do you mind the user response?',
+        irrelevant: 'Irrelevant',
+        few       : 'Little bit',
+        normal    : 'Normal',
+        aLot      : 'A lot',
+        alert     : 'Mark your answer and one or more options in the second column to indicate what would you like to answer another user'
+    },
+    AnswerQuestion                   : {
+        noMoreQuestions: 'No more questions'
+    },
+    AnswerQuestionForm               : {
+        alertFirst : 'Mark your answer in the first column',
+        alertSecond: 'Mark one or more options in the second column to indicate what would you like to answer another user'
+    },
+    OtherQuestion                    : {
+        didntAnswered: 'You have not answered this question'
+    },
+    QuestionStats                    : {
+        yourAnswer: 'Your answer',
+        statistics: 'Statistics answers community'
+    },
+    QuestionStatsGraph               : {
+        females: 'Girls',
+        males  : 'Boys'
+    },
+    QuestionStatsInline              : {
+        statistics: 'Statistics answers community'
     }
 }

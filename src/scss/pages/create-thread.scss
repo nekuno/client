@@ -187,6 +187,39 @@ body #root .App .view .page.create-thread-page  {
       }
     }
 
+    .integer-filter {
+      .list-block {
+        display: inline-block;
+        margin: 0;
+        vertical-align: middle;
+        width: 80%;
+
+        .integer-title {
+          font-size: 0.8em;
+          font-weight: bold;
+          text-align: center;
+        }
+
+        .item-input {
+          font-weight: 400;
+          background: transparent;
+          height: 60px;
+          line-height: 60px;
+          padding: 0 5px;
+          vertical-align: middle;
+          margin: 2px 0;
+          width: 100%;
+
+          input[type="text"] {
+            background-color: transparent;
+            border: none;
+            color: #fff;
+            width: 100%;
+          }
+        }
+      }
+    }
+
     .table-row {
       display: table-row;
       height: 30px;

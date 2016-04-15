@@ -7,6 +7,7 @@ import TagInput from '../ui/TagInput';
 import FullWidthButton from '../ui/FullWidthButton';
 import InputCheckbox from '../ui/InputCheckbox';
 import LocationInput from '../ui/LocationInput';
+import ThreadSelectedFilter from './ThreadSelectedFilter';
 
 export default class CreateUsersThread extends Component {
     static contextTypes = {
@@ -38,6 +39,8 @@ export default class CreateUsersThread extends Component {
         this.handleClickChoice = this.handleClickChoice.bind(this);
         this.handleClickDoubleChoiceChoice = this.handleClickDoubleChoiceChoice.bind(this);
         this.handleClickDoubleChoiceDetail = this.handleClickDoubleChoiceDetail.bind(this);
+        this.handleChangeMinIntegerInput = this.handleChangeMinIntegerInput.bind(this);
+        this.handleChangeMaxIntegerInput = this.handleChangeMaxIntegerInput.bind(this);
         this.handleKeyUpTag = this.handleKeyUpTag.bind(this);
         this.handleClickTagSuggestion = this.handleClickTagSuggestion.bind(this);
         this.createThread = this.createThread.bind(this);
@@ -334,6 +337,7 @@ export default class CreateUsersThread extends Component {
             }
         }
         let locationFilter = filters.find(filter => filter.type === 'location');
+        let integerFilter = filters.filter(filter => filter.type === 'integer');
         let choicesFilter = filters.filter(filter => filter.type === 'choice');
         let doubleChoicesFilter = filters.filter(filter => filter.type === 'double_choice');
         let tagsFilter = filters.filter(filter => filter.type === 'tags');
@@ -344,6 +348,19 @@ export default class CreateUsersThread extends Component {
                 label: {key: 'location', text: address ? locationFilter.label + ' - ' + address : locationFilter.label},
                 value: 'location',
                 selected: this.state.selectedFilter && this.state.selectedFilter.key === 'location'
+            });
+        }
+        if (integerFilter) {
+            integerFilter.forEach(filter => {
+                let text = filter.label;
+                text += !isNaN(filter.value_min) ? ' - Min: ' + filter.value_min : '';
+                text += !isNaN(filter.value_max) ? ' - Max:' + filter.value_min : '';
+
+                filterCheckboxes.push({
+                    label: {key: filter.key, text: text},
+                    value: filter.key,
+                    selected: this.state.selectedFilter && this.state.selectedFilter.key === filter.key
+                });
             });
         }
         if (choicesFilter) {
@@ -390,7 +407,8 @@ export default class CreateUsersThread extends Component {
                             <span className="icon-circle active"></span>
                         </div>
                         <TextCheckboxes labels={[filterCheckbox.label]}
-                                        onClickHandler={this.handleClickFilter.bind(this, filterCheckbox.label.key)} values={filters.map(filter => {return filter.value || filter.choice || filter.values ? filter.key : null})} />
+                                        onClickHandler={this.handleClickFilter.bind(this, filterCheckbox.label.key)}
+                                        values={filters.map(filter => {return filter.value || filter.choice || filter.value_min || filter.value_max || filter.values ? filter.key : null})} />
                         <div className="table-row"></div>
                     </div>
             )
@@ -417,7 +435,15 @@ export default class CreateUsersThread extends Component {
 
     renderIntegerFilter() {
         return(
-            ''
+            <ThreadSelectedFilter key={'selected-filter'} type={'integer'} plusIcon={true} handleClickRemoveFilter={this.handleClickRemoveFilter}>
+                <div ref={'selectedFilter'} className="list-block">
+                    <div className="integer-title">{this.state.selectedFilter.label}</div>
+                    <ul>
+                        <TextInput ref={this.state.selectedFilter.key + '_min'} placeholder={'Mínimo'} onChange={this.handleChangeMinIntegerInput}/>
+                        <TextInput ref={this.state.selectedFilter.key + '_max'} placeholder={'Maximo'} onChange={this.handleChangeMaxIntegerInput}/>
+                    </ul>
+                </div>
+            </ThreadSelectedFilter>
         );
     }
 
@@ -625,6 +651,62 @@ export default class CreateUsersThread extends Component {
             filters: filters,
             selectedFilter: selectedFilter
         });
+    }
+
+    handleChangeMinIntegerInput() {
+        let selectedFilter = this.state.selectedFilter;
+        let filters = this.state.filters;
+        let index = filters.findIndex(savedFilter => savedFilter.key === selectedFilter.key);
+
+        clearTimeout(this.minIntegerTimeout);
+        this.minIntegerTimeout = setTimeout(() => {
+            const text = parseInt(this.refs[selectedFilter.key + '_min'].getValue());
+            if (typeof text === 'number' && (text % 1) === 0 || text === '') {
+                if (typeof text === 'number' && text < selectedFilter.min) {
+                    nekunoApp.alert('El valor mínimo de este valor es ' + selectedFilter.min);
+                } else {
+                    selectedFilter.value_min = text;
+                }
+            }
+            if (index > -1) {
+                filters[index] = selectedFilter;
+            } else {
+                filters.push(selectedFilter)
+            }
+
+            this.setState({
+                selectedFilter: selectedFilter,
+                filters: filters
+            });
+        }, 500);
+    }
+
+    handleChangeMaxIntegerInput() {
+        let selectedFilter = this.state.selectedFilter;
+        let filters = this.state.filters;
+        let index = filters.findIndex(savedFilter => savedFilter.key === selectedFilter.key);
+
+        clearTimeout(this.maxIntegerTimeout);
+        this.maxIntegerTimeout = setTimeout(() => {
+            const text = parseInt(this.refs[selectedFilter.key + '_max'].getValue());
+            if (typeof text === 'number' && (text % 1) === 0 || text === '') {
+                if (typeof text === 'number' && text > selectedFilter.max) {
+                    nekunoApp.alert('El valor máximo de este valor es ' + selectedFilter.max);
+                } else {
+                    selectedFilter.value_max = text;
+                }
+            }
+            if (index > -1) {
+                filters[index] = selectedFilter;
+            } else {
+                filters.push(selectedFilter)
+            }
+
+            this.setState({
+                selectedFilter: selectedFilter,
+                filters: filters
+            });
+        }, 500);
     }
 
     handleKeyUpTag(tag) {

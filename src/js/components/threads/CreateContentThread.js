@@ -309,7 +309,9 @@ export default class CreateContentThread extends Component {
         return (
             <div className="thread-filter-background">
                 <div className="thread-filter-remove" onClick={this.handleClickRemoveFilter}>
-                    <span className="icon-delete"></span>
+                    <div className="small-icon-wrapper">
+                        <span className="icon-delete"></span>
+                    </div>
                 </div>
             </div>
         );

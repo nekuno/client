@@ -27,13 +27,13 @@ export default class InputRadio extends Component {
                         <i className="icon icon-form-checkbox"></i>
                     </div>
                     <div className="item-inner">
-                        <div className="item-title">{this.props.text}</div>
+                        <div className="item-title" onClick={this.onClickHandler}>{this.props.text}</div>
                     </div>
                 </label>
                 :
                 <label className="label-checkbox item-content">
                     <div className="item-inner">
-                        <div className="item-title">{this.props.text}</div>
+                        <div className="item-title" onClick={this.onClickHandler}>{this.props.text}</div>
                     </div>
                     <input type="radio" name={this.props.name} value={this.props.value} checked={this.props.checked} defaultChecked={this.props.defaultChecked} readOnly/>
                     <div className="item-media" onClick={this.onClickHandler}>

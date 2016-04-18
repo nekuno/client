@@ -73,8 +73,8 @@ body #root .App .view .page.create-thread-page  {
       }
 
     }
-    .radio-filter {
-      .double-choice-filter {
+    .radio-filter, .tags-and-choice-filter {
+      .double-choice-filter, .tags-and-choice-choice {
         display: inline-block;
         width: 90%;
         vertical-align: middle;
@@ -82,6 +82,24 @@ body #root .App .view .page.create-thread-page  {
         .list-block {
           margin: 0 0 0 15px;
         }
+        .tags-and-choice-choice-radios {
+          margin-top: 20px;
+        }
+      }
+      .tags-and-choice-choice {
+        margin-left: 30px;
+      }
+      .tags-and-choice-unselected-filters {
+        display: inline-block;
+        margin-left: 30px;
+
+        .tags-and-choice-unselected-filter {
+          display: inline-block;
+        }
+      }
+      .add-tags-and-choice, .remove-tags-and-choice {
+        cursor: pointer;
+        margin: 20px 0 20px 30px;
       }
     }
 
@@ -94,7 +112,7 @@ body #root .App .view .page.create-thread-page  {
 
       .thread-filter-background {
         background: $deep-purple-translucent;
-        height: 40%;
+        height: 90%;
         left: 0;
         margin-top: -15px;
         opacity: 0.5;
@@ -171,7 +189,7 @@ body #root .App .view .page.create-thread-page  {
       z-index: -1;
     }
 
-    .radio-filter {
+    .radio-filter, .tags-and-choice-filter {
       display: table-row;
       width: 100%;
 
@@ -187,14 +205,14 @@ body #root .App .view .page.create-thread-page  {
       }
     }
 
-    .integer-filter {
+    .integer-filter, .tags-and-choice-filter {
       .list-block {
         display: inline-block;
         margin: 0;
         vertical-align: middle;
         width: 80%;
 
-        .integer-title {
+        .integer-title, .tags-and-choice-title {
           font-size: 0.8em;
           font-weight: bold;
           text-align: center;

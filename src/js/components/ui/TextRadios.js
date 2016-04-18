@@ -16,29 +16,30 @@ export default class TextRadios extends Component {
 	}
 
 	render() {
-		let labelsLength = this.props.labels.length;
+		const {title, labels, value, className} = this.props;
+		let labelsLength = labels.length;
 		let labelsTextLength = 0;
-		this.props.labels.forEach(label => labelsTextLength += label.text.length);
+		labels.forEach(label => labelsTextLength += label.text.length);
 		let showCheckboxesList = labelsLength > 3 || labelsTextLength > 35;
 		return (
 			showCheckboxesList ?
-				<div className="list-block">
-					<div className="checkbox-title">{this.props.title}</div>
+				<div className={className ? "list-block " + className : "list-block"}>
+					<div className="checkbox-title">{title}</div>
 					<ul className="checkbox-list">
-						{this.props.labels.map(label =>
+						{labels.map(label =>
 							<li key={label.key}>
-								<InputRadio value={label.key} name={label.key} text={label.text} checked={this.props.value === label.key} defaultChecked={false} onClickHandler={this.onClickHandler.bind(this, label.key)} reverse={true}/>
+								<InputRadio value={label.key} name={label.key} text={label.text} checked={value === label.key} defaultChecked={false} onClickHandler={this.onClickHandler.bind(this, label.key)} reverse={true}/>
 							</li>
 						)}
 					</ul>
 				</div>
 				:
-				<div className={this.props.className ? "text-radios " + this.props.className : "text-radios"}>
-					<div className="text-radios-title">{this.props.title}</div>
+				<div className={className ? "text-radios " + className : "text-radios"}>
+					<div className="text-radios-title">{title}</div>
 					<div className={labelsLength ? 'text-radios-container' : ' unique-chip text-radios-container'}>
-						{this.props.labels.map(label =>
+						{labels.map(label =>
 							<Chip key={label.key} chipClass={'chip-' + labelsLength} label={label.text}
-								  onClickHandler={this.onClickHandler.bind(this, label.key)} disabled={this.props.value !== label.key} />
+								  onClickHandler={this.onClickHandler.bind(this, label.key)} disabled={value !== label.key} />
 						)}
 					</div>
 				</div>

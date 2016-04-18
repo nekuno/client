@@ -38,10 +38,11 @@ export default {
         interests: 'Interests'
     },
     LoginPage                        : {
-        login   : 'Login',
-        cancel  : 'Cancel',
-        username: 'Username or email',
-        password: 'Password'
+        login          : 'Login',
+        cancel         : 'Cancel',
+        username       : 'Username or email',
+        password       : 'Password',
+        recoverPassword: 'Forgotten your password?'
     },
     OtherInterestsPage               : {
         cancel               : 'Cancel',

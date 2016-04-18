@@ -165,5 +165,13 @@ export default {
     },
     QuestionStatsInline              : {
         statistics: 'Statistics answers community'
+    },
+    ////////////////
+    // Framework7 //
+    ////////////////
+    Framework7                       : {
+        modalTitle       : 'NOTICE',
+        modalButtonOk    : 'OK',
+        modalButtonCancel: 'CANCEL'
     }
 }

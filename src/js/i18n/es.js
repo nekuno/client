@@ -165,5 +165,13 @@ export default {
     },
     QuestionStatsInline              : {
         statistics: 'Estadísticas repuestas comunidad'
+    },
+    ////////////////
+    // Framework7 //
+    ////////////////
+    Framework7                       : {
+        modalTitle       : 'AVISO',
+        modalButtonOk    : 'ACEPTAR',
+        modalButtonCancel: 'CANCELAR'
     }
 }

@@ -72,6 +72,9 @@ export default class LoginPage extends Component {
                                 <PasswordInput placeholder={strings.password} valueLink={this.linkState('password')} onKeyDown={this._onKeyDown}/>
                             </ul>
                         </div>
+                        <div className="recover-password">
+                            <a href="https://nekuno.com/resetting/request" target="_blank">{strings.recoverPassword}</a>
+                        </div>
                         <FullWidthButton type="submit" onClick={this.login}>{strings.login}</FullWidthButton>
                         <div style={{color: '#FFF'}}>
                             <p>{ error ? error.error : ''}</p>

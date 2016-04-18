@@ -38,10 +38,11 @@ export default {
         interests: 'Interests'
     },
     LoginPage                        : {
-        login   : 'Login',
-        cancel  : 'Cancel',
-        username: 'Username or email',
-        password: 'Password'
+        login          : 'Login',
+        cancel         : 'Cancel',
+        username       : 'Username or email',
+        password       : 'Password',
+        recoverPassword: 'Forgotten your password?'
     },
     OtherInterestsPage               : {
         cancel               : 'Cancel',
@@ -165,5 +166,13 @@ export default {
     },
     QuestionStatsInline              : {
         statistics: 'Statistics answers community'
+    },
+    ////////////////
+    // Framework7 //
+    ////////////////
+    Framework7                       : {
+        modalTitle       : 'NOTICE',
+        modalButtonOk    : 'OK',
+        modalButtonCancel: 'CANCEL'
     }
 }

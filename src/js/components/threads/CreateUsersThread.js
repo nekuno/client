@@ -372,7 +372,7 @@ export default class CreateUsersThread extends Component {
             integerFilter.forEach(filter => {
                 let text = filter.label;
                 text += !isNaN(filter.value_min) ? ' - Min: ' + filter.value_min : '';
-                text += !isNaN(filter.value_max) ? ' - Max:' + filter.value_min : '';
+                text += !isNaN(filter.value_max) ? ' - Max: ' + filter.value_max : '';
 
                 filterCheckboxes.push({
                     label: {key: filter.key, text: text},
@@ -480,8 +480,8 @@ export default class CreateUsersThread extends Component {
                 <div ref={'selectedFilter'} className="list-block">
                     <div className="integer-title">{this.state.selectedFilter.label}</div>
                     <ul>
-                        <TextInput ref={this.state.selectedFilter.key + '_min'} placeholder={'Mínimo'} onChange={this.handleChangeMinIntegerInput}/>
-                        <TextInput ref={this.state.selectedFilter.key + '_max'} placeholder={'Maximo'} onChange={this.handleChangeMaxIntegerInput}/>
+                        <TextInput ref={this.state.selectedFilter.key + '_min'} placeholder={'Mínimo'} onChange={this.handleChangeMinIntegerInput} defaultValue={this.state.selectedFilter.value_min}/>
+                        <TextInput ref={this.state.selectedFilter.key + '_max'} placeholder={'Maximo'} onChange={this.handleChangeMaxIntegerInput} defaultValue={this.state.selectedFilter.value_max}/>
                     </ul>
                 </div>
             </ThreadSelectedFilter>

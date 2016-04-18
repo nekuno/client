@@ -2,8 +2,10 @@ import React, { PropTypes, Component } from 'react';
 import RecommendationContent from './RecommendationContent';
 import RecommendationUser from './RecommendationUser';
 import ChipList from './../ui/ChipList';
+import FilterStore from './../../stores/FilterStore';
 
 export default class RecommendationList extends Component {
+
     static propTypes = {
         recommendations: PropTypes.array.isRequired,
         thread         : PropTypes.object.isRequired,
@@ -11,23 +13,8 @@ export default class RecommendationList extends Component {
     };
 
     renderChipList = function(thread) {
-        let chips = [];
 
-        if (thread.category === 'ThreadContent') {
-            chips.push({'label': 'Contenidos'});
-            if (thread.type) {
-                chips.push({'label': thread.type});
-            }
-            if (thread.tag) {
-                chips.push({'label': thread.tag});
-            }
-        } else {
-            chips.push({'label': 'Personas'});
-            /* TODO: Get real filters here */
-            chips.push({'label': 'Edad: 22-32'});
-            chips.push({'label': 'a 10km de Madrid'});
-            chips.push({'label': 'Mujer'});
-        }
+        let chips = FilterStore.getFiltersText(thread.filters);
 
         return (
             <ChipList chips={chips} small={true}/>

@@ -33,12 +33,14 @@ export default class CreateUsersThread extends Component {
         this.handleClickLocationSuggestion = this.handleClickLocationSuggestion.bind(this);
         this.renderChoiceFilter = this.renderChoiceFilter.bind(this);
         this.renderDoubleChoiceFilter = this.renderDoubleChoiceFilter.bind(this);
+        this.renderMultipleChoicesFilter = this.renderMultipleChoicesFilter.bind(this);
         this.renderIntegerFilter = this.renderIntegerFilter.bind(this);
         this.renderTagFilter = this.renderTagFilter.bind(this);
         this.renderSelectedFilterBackground = this.renderSelectedFilterBackground.bind(this);
         this.handleClickChoice = this.handleClickChoice.bind(this);
         this.handleClickDoubleChoiceChoice = this.handleClickDoubleChoiceChoice.bind(this);
         this.handleClickDoubleChoiceDetail = this.handleClickDoubleChoiceDetail.bind(this);
+        this.handleClickMultipleChoice = this.handleClickMultipleChoice.bind(this);
         this.handleChangeMinIntegerInput = this.handleChangeMinIntegerInput.bind(this);
         this.handleChangeMaxIntegerInput = this.handleChangeMaxIntegerInput.bind(this);
         this.handleKeyUpTag = this.handleKeyUpTag.bind(this);
@@ -332,6 +334,9 @@ export default class CreateUsersThread extends Component {
                 case 'double_choice':
                     selectedFilterContent = this.renderDoubleChoiceFilter();
                     break;
+                case 'multiple_choices':
+                    selectedFilterContent = this.renderMultipleChoicesFilter();
+                    break;
                 case 'tags':
                     selectedFilterContent = this.renderTagFilter();
             }
@@ -340,6 +345,7 @@ export default class CreateUsersThread extends Component {
         let integerFilter = filters.filter(filter => filter.type === 'integer');
         let choicesFilter = filters.filter(filter => filter.type === 'choice');
         let doubleChoicesFilter = filters.filter(filter => filter.type === 'double_choice');
+        let multipleChoicesFilter = filters.filter(filter => filter.type === 'multiple_choices');
         let tagsFilter = filters.filter(filter => filter.type === 'tags');
         let filterCheckboxes = [];
         if (locationFilter) {
@@ -380,6 +386,18 @@ export default class CreateUsersThread extends Component {
                 let detail = filter.detail ? filter.doubleChoices[filter.choice][Object.keys(filter.doubleChoices[filter.choice]).find(key => key === filter.detail)] : '';
                 filterCheckboxes.push({
                     label: {key: filter.key, text: choice ? filter.label + ' - ' + choice + ' ' + detail : filter.label},
+                    value: filter.key,
+                    selected: this.state.selectedFilter && this.state.selectedFilter.key === filter.key
+                });
+            });
+        }
+        if (multipleChoicesFilter) {
+            multipleChoicesFilter.forEach(filter => {
+                let values = filter.values || [];
+                let textArray = values.map(value => filter.choices[value]);
+                let text = textArray.length > 0 ? filter.label + ' - ' + textArray.join(', ') : filter.label;
+                filterCheckboxes.push({
+                    label: {key: filter.key, text: text},
                     value: filter.key,
                     selected: this.state.selectedFilter && this.state.selectedFilter.key === filter.key
                 });
@@ -487,6 +505,23 @@ export default class CreateUsersThread extends Component {
         );
     }
 
+    renderMultipleChoicesFilter() {
+        return (
+            <div key={'selected-filter'} ref={'selectedFilter'} className="thread-filter checkbox-filter">
+                <div className="content-middle-vertical-line"></div>
+                {this.renderSelectedFilterBackground()}
+                <div className="thread-filter-dot">
+                    <span className={this.state.selectedFilter.values && this.state.selectedFilter.values.length > 0 ? "icon-circle active" : "icon-circle"}></span>
+                </div>
+                <TextCheckboxes labels={Object.keys(this.state.selectedFilter.choices).map(key => { return({key: key, text: this.state.selectedFilter.choices[key]}) })}
+                                onClickHandler={this.handleClickMultipleChoice} values={this.state.selectedFilter.values || []} className={'multiple-choice-filter'}
+                                title={this.state.selectedFilter.label} />
+                {this.renderSelectedFilterOppositeBackground()}
+                <div className="table-row"></div>
+            </div>
+        );
+    }
+    
     renderTagFilter() {
         return (
             <div key={'selected-filter'} ref={'selectedFilter'} className="thread-filter tag-filter">
@@ -652,6 +687,30 @@ export default class CreateUsersThread extends Component {
         this.setState({
             filters: filters,
             selectedFilter: selectedFilter
+        });
+    }
+
+    handleClickMultipleChoice(choice) {
+        let filters = this.state.filters;
+        let filter = this.state.selectedFilter;
+        let index = filters.findIndex(savedFilter => savedFilter.key === filter.key);
+        filter.values = filter.values || [];
+        if (index > -1) {
+            const valueIndex = filter.values.findIndex(value => value === choice);
+            if (valueIndex > -1) {
+                filter.values.splice(valueIndex, 1);
+            } else {
+                filter.values.push(choice);
+            }
+            filters[index] = filter;
+        } else {
+            filter.values.push(choice);
+            filters.push(filter);
+        }
+
+        this.setState({
+            filters: filters,
+            selectedFilter: filter
         });
     }
 

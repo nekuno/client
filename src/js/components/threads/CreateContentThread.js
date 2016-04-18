@@ -248,10 +248,11 @@ export default class CreateContentThread extends Component {
         let index = filters.findIndex(savedFilter => savedFilter.key === filter.key);
         filter.values = filter.values || [];
         if (index > -1) {
-            if (!filter.values.some(value => value === choice)) {
-                filter.values.push(choice);
+            const valueIndex = filter.values.findIndex(value => value === choice);
+            if (valueIndex > -1) {
+                filter.values.splice(valueIndex, 1);
             } else {
-                filter.values.splice(choice, 1);
+                filter.values.push(choice);
             }
             filters[index] = filter;
         } else {

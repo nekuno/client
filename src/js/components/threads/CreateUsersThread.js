@@ -8,6 +8,7 @@ import FullWidthButton from '../ui/FullWidthButton';
 import InputCheckbox from '../ui/InputCheckbox';
 import LocationInput from '../ui/LocationInput';
 import ThreadSelectedFilter from './ThreadSelectedFilter';
+import selectn from 'selectn';
 
 export default class CreateUsersThread extends Component {
     static contextTypes = {
@@ -152,10 +153,10 @@ export default class CreateUsersThread extends Component {
                 filters.push(this.state.selectedFilter);
             }
             switch (this.state.selectedFilter.type) {
-                case 'location':
+                case 'location_distance':
                     selectedFilterContent = this.renderLocationFilter();
                     break;
-                case 'integer':
+                case 'integer_range':
                     selectedFilterContent = this.renderIntegerFilter();
                     break;
                 case 'choice':
@@ -174,8 +175,8 @@ export default class CreateUsersThread extends Component {
                     selectedFilterContent = this.renderTagFilter();
             }
         }
-        let locationFilter = filters.find(filter => filter.type === 'location');
-        let integerFilter = filters.filter(filter => filter.type === 'integer');
+        let locationFilter = filters.find(filter => filter.type === 'location_distance');
+        let integerFilter = filters.filter(filter => filter.type === 'integer_range');
         let choicesFilter = filters.filter(filter => filter.type === 'choice');
         let doubleChoicesFilter = filters.filter(filter => filter.type === 'double_choice');
         let multipleChoicesFilter = filters.filter(filter => filter.type === 'multiple_choices');
@@ -742,13 +743,13 @@ export default class CreateUsersThread extends Component {
         let stateFilters = this.state.filters;
 
         for (let stateFilter of stateFilters) {
-            //read from metadata
+            //TODO: Improve reading from metadata
             let box = 'profileFilters';
             switch (stateFilter.type) {
                 case 'choice':
                     data.filters[box][stateFilter.key] = stateFilter.choice;
                     break;
-                case 'location':
+                case 'location_distance':
                     data.filters[box][stateFilter.key] = {};
                     data.filters[box][stateFilter.key]['location'] = stateFilter.value;
                     data.filters[box][stateFilter.key]['distance'] = 50;
@@ -760,6 +761,14 @@ export default class CreateUsersThread extends Component {
                     data.filters[box][stateFilter.key] = {};
                     data.filters[box][stateFilter.key]['choice'] = stateFilter.choice;
                     data.filters[box][stateFilter.key]['detail'] = stateFilter.detail;
+                    break;
+                case 'integer_range':
+                    if (stateFilter.key == 'similarity' || stateFilter.key == 'compatibility'){
+                        box = 'userFilters';
+                    }
+                    data.filters[box][stateFilter.key] = {};
+                    data.filters[box][stateFilter.key]['min'] = selectn('value_min', stateFilter)? stateFilter.value_min : stateFilter.min;
+                    data.filters[box][stateFilter.key]['max'] = selectn('value_max', stateFilter)? stateFilter.value_max : stateFilter.max;
                     break;
                 default:
                     break;

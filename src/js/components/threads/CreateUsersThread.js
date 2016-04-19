@@ -762,6 +762,9 @@ export default class CreateUsersThread extends Component {
                     data.filters[box][stateFilter.key]['choice'] = stateFilter.choice;
                     data.filters[box][stateFilter.key]['detail'] = stateFilter.detail;
                     break;
+                case 'multiple_choices':
+                    data.filters[box][stateFilter.key] = stateFilter.values;
+                    break;
                 case 'integer_range':
                     if (stateFilter.key == 'similarity' || stateFilter.key == 'compatibility'){
                         box = 'userFilters';

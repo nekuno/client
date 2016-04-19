@@ -37,7 +37,6 @@ export default class CreateUsersThread extends Component {
         this.renderIntegerFilter = this.renderIntegerFilter.bind(this);
         this.renderTagFilter = this.renderTagFilter.bind(this);
         this.renderTagAndChoiceFilter = this.renderTagAndChoiceFilter.bind(this);
-        this.renderSelectedFilterBackground = this.renderSelectedFilterBackground.bind(this);
         this.handleClickChoice = this.handleClickChoice.bind(this);
         this.handleClickDoubleChoiceChoice = this.handleClickDoubleChoiceChoice.bind(this);
         this.handleClickDoubleChoiceDetail = this.handleClickDoubleChoiceDetail.bind(this);
@@ -55,145 +54,11 @@ export default class CreateUsersThread extends Component {
         this.createThread = this.createThread.bind(this);
         this.handleClickOutside = this.handleClickOutside.bind(this);
 
-        this.defaultFilters = {
-            'orientation': {
-                type: 'choice',
-                label: 'Orientación sexual',
-                choices: [
-                    {
-                        value: 'heterosexual',
-                        label: 'Heterosexual'
-                    },
-                    {
-                        value: 'bisexual',
-                        label: 'Bisexual'
-                    },
-                    {
-                        value: 'homosexual',
-                        label: 'Homosexual'
-                    }
-                ]
-            },
-            'civilStatus': {
-                type: 'choice',
-                label: 'Estado civil',
-                choices: [
-                    {
-                        value: 'married',
-                        label: 'Casado'
-                    },
-                    {
-                        value: 'single',
-                        label: 'Soltero'
-                    }
-                ]
-            },
-            'complexion': {
-                type: 'choice',
-                label: 'Complexión',
-                choices: [
-                    {
-                        value: 'slim',
-                        label: 'Delgado'
-                    },
-                    {
-                        value: 'normal',
-                        label: 'Normal'
-                    },
-                    {
-                        value: 'fat',
-                        label: 'Gordo'
-                    }
-                ]
-            },
-            'complexion2': {
-                type: 'choice',
-                label: 'Complexión2',
-                choices: [
-                    {
-                        value: 'slim2',
-                        label: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
-                    },
-                    {
-                        value: 'normal2',
-                        label: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
-                    },
-                    {
-                        value: 'fat2',
-                        label: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
-                    }
-                ]
-            },
-            'location': {
-                type: 'location',
-                label: 'Ubicación'
-            },
-            'height': {
-                type: 'integer',
-                label: 'Altura',
-                min: 0,
-                max: 250
-            },
-            'sons': {
-                type: 'double_choice',
-                label: 'Hijos',
-                doubleChoices: {
-                    yes: {
-                        might_want: "y quizás quiera más",
-                        want: "y quiero más",
-                        not_want: "y no quiero más"
-                    },
-                    no: {
-                        might_want: "pero quizás quiera",
-                        want: "pero quiero",
-                        not_want: "y no quiero ninguno"
-                    }
-                },
-                choices: {
-                    yes: 'Tengo hijos',
-                    no: 'No tengo hijos'
-                }
-            },
-            'sonss': {
-                type: 'double_choice',
-                label: 'Hijos (ejemplo 2)',
-                doubleChoices: {
-                    yes: {
-                        might_want: "y quizás quiera más",
-                        want: "y quiero más",
-                        not_want: "y no quiero más"
-                    },
-                    no: {
-                        might_want: "pero quizás quiera",
-                        want: "pero quiero",
-                        not_want: "y no quiero ninguno"
-                    }
-                },
-                choices: {
-                    yes: 'Tengo hijos 2',
-                    no: 'No tengo hijos 2'
-                }
-            },
-            'allergy': {
-                type: 'tags',
-                label: 'Alergia'
-            },
-            'education': {
-                type: 'tags',
-                label: 'Educación'
-            }
-        };
-
         this.state = {
             selectFilter: false,
             selectedFilter: {},
             filters: [],
-            tags: [],
             tagSuggestions: [],
-            selectedChoiceFilter: {},
-            selectedLocationFilter: {},
-            selectedDoubleChoiceFilter: {},
-            selectedTagFilter: {},
             selectedTagAndChoice: {}
         }
     }
@@ -204,49 +69,6 @@ export default class CreateUsersThread extends Component {
 
     componentWillUnmount () {
         window.nekunoContainer.removeEventListener('click', this.handleClickOutside)
-    }
-
-    render() {
-        Object.keys(this.props.filters).forEach(key => this.props.filters[key].key = key);
-        let content = '';
-        if (this.state.selectFilter) {
-            content = <div className="select-filter">
-                <div className="title">Selecciona un filtro</div>
-                {this.renderFiltersList()}
-            </div>;
-        } else {
-            content = <div className="users-filters-wrapper">
-                <div className="table-row"></div>
-                {this.renderActiveFilters()}
-                <div className="table-row"></div>
-                <div className="thread-filter add-filter">
-                    <div className="thread-filter-dot">
-                        <span className="icon-plus active"></span>
-                    </div>
-                    <div className="users-opposite-vertical-line"></div>
-                    <div className="add-filter-button-wrapper" onClick={this.handleClickAddFilter}>
-                        <div className="add-filter-button">
-                            <span className="add-filter-button-text">Añadir filtro</span>
-                        </div>
-                    </div>
-                </div>
-                <br />
-                <br />
-                <br />
-                <br />
-                <FullWidthButton onClick={this.createThread}>Crear hilo</FullWidthButton>
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-            </div>
-        }
-
-        return (
-            content
-        );
     }
 
     handleClickAddFilter() {
@@ -458,26 +280,19 @@ export default class CreateUsersThread extends Component {
 
     renderLocationFilter() {
         return (
-            <div key={'selected-filter'} ref={'selectedFilter'} className="thread-filter tag-filter location-tag-filter">
-                <div className="users-middle-vertical-line"></div>
-                {this.renderSelectedFilterBackground()}
-                <div className="thread-filter-dot">
-                    <span className="icon-plus active"></span>
-                </div>
+            <ThreadSelectedFilter key={'selected-filter'} ref={'selectedFilter'} type={'location-tag'} addedClass={'tag-filter'} plusIcon={true} handleClickRemoveFilter={this.handleClickRemoveFilter}>
                 <div className="list-block">
                     <div className="location-title">Ubicación</div>
                     <LocationInput placeholder={'Escribe una ubicación'} onSuggestSelect={this.handleClickLocationSuggestion}/>
                 </div>
-                {this.renderSelectedFilterOppositeBackground()}
-                <div className="table-row"></div>
-            </div>
+            </ThreadSelectedFilter>
         );
     }
 
     renderIntegerFilter() {
         return(
-            <ThreadSelectedFilter key={'selected-filter'} type={'integer'} plusIcon={true} handleClickRemoveFilter={this.handleClickRemoveFilter}>
-                <div ref={'selectedFilter'} className="list-block">
+            <ThreadSelectedFilter key={'selected-filter'} ref={'selectedFilter'} type={'integer'} plusIcon={true} handleClickRemoveFilter={this.handleClickRemoveFilter}>
+                <div className="list-block">
                     <div className="integer-title">{this.state.selectedFilter.label}</div>
                     <ul>
                         <TextInput ref={this.state.selectedFilter.key + '_min'} placeholder={'Mínimo'} onChange={this.handleChangeMinIntegerInput} defaultValue={this.state.selectedFilter.value_min}/>
@@ -490,30 +305,18 @@ export default class CreateUsersThread extends Component {
 
     renderChoiceFilter() {
         return (
-            <div key={'selected-filter'} ref={'selectedFilter'} className="thread-filter radio-filter">
-                <div className="users-middle-vertical-line"></div>
-                {this.renderSelectedFilterBackground()}
-                <div className="thread-filter-dot">
-                    <span className={this.state.selectedFilter.choice ? "icon-circle active" : "icon-circle"}></span>
-                </div>
+            <ThreadSelectedFilter key={'selected-filter'} ref={'selectedFilter'} type={'radio'} active={this.state.selectedFilter.choice ? true : false} handleClickRemoveFilter={this.handleClickRemoveFilter}>
                 <TextRadios labels={this.state.selectedFilter.choices.map(choice => { return({key: choice.value, text: choice.label}); }) }
                             onClickHandler={this.handleClickChoice} value={this.state.selectedFilter.choice} className={'choice-filter'}
                             title={this.state.selectedFilter.label} />
-                {this.renderSelectedFilterOppositeBackground()}
-                <div className="table-row"></div>
-            </div>
+            </ThreadSelectedFilter>
         );
     }
 
     renderDoubleChoiceFilter() {
         return (
-          <div key={'selected-filter'} ref={'selectedFilter'} className="thread-filter radio-filter">
-              <div className="users-middle-vertical-line"></div>
-              {this.renderSelectedFilterBackground()}
-              <div className="thread-filter-dot">
-                  <span className={this.state.selectedFilter.choice ? "icon-circle active" : "icon-circle"}></span>
-              </div>
-              <div className="double-choice-filter">
+            <ThreadSelectedFilter key={'selected-filter'} ref={'selectedFilter'} type={'radio'} active={this.state.selectedFilter.choice ? true : false} handleClickRemoveFilter={this.handleClickRemoveFilter}>
+                <div className="double-choice-filter">
                   <TextRadios labels={Object.keys(this.state.selectedFilter.choices).map(choice => { return({key: choice, text: this.state.selectedFilter.choices[choice]}); }) }
                               onClickHandler={this.handleClickDoubleChoiceChoice} value={this.state.selectedFilter.choice} className={'double-choice-choice'}
                               title={this.state.selectedFilter.label} />
@@ -521,45 +324,29 @@ export default class CreateUsersThread extends Component {
                       <TextRadios labels={Object.keys(this.state.selectedFilter.doubleChoices[this.state.selectedFilter.choice]).map(doubleChoice => { return({key: doubleChoice, text: this.state.selectedFilter.doubleChoices[this.state.selectedFilter.choice][doubleChoice]}); }) }
                               onClickHandler={this.handleClickDoubleChoiceDetail} value={this.state.selectedFilter.detail} className={'double-choice-detail'}/>
                       : ''}
-              </div>
-              {this.renderSelectedFilterOppositeBackground()}
-              <div className="table-row"></div>
-          </div>
+                </div>
+          </ThreadSelectedFilter>
         );
     }
 
     renderMultipleChoicesFilter() {
         return (
-            <div key={'selected-filter'} ref={'selectedFilter'} className="thread-filter checkbox-filter">
-                <div className="content-middle-vertical-line"></div>
-                {this.renderSelectedFilterBackground()}
-                <div className="thread-filter-dot">
-                    <span className={this.state.selectedFilter.values && this.state.selectedFilter.values.length > 0 ? "icon-circle active" : "icon-circle"}></span>
-                </div>
+            <ThreadSelectedFilter key={'selected-filter'} ref={'selectedFilter'} type={'checkbox'} active={this.state.selectedFilter.values && this.state.selectedFilter.values.length > 0} handleClickRemoveFilter={this.handleClickRemoveFilter}>
                 <TextCheckboxes labels={Object.keys(this.state.selectedFilter.choices).map(key => { return({key: key, text: this.state.selectedFilter.choices[key]}) })}
                                 onClickHandler={this.handleClickMultipleChoice} values={this.state.selectedFilter.values || []} className={'multiple-choice-filter'}
                                 title={this.state.selectedFilter.label} />
-                {this.renderSelectedFilterOppositeBackground()}
-                <div className="table-row"></div>
-            </div>
+            </ThreadSelectedFilter>
         );
     }
 
     renderTagFilter() {
         return (
-            <div key={'selected-filter'} ref={'selectedFilter'} className="thread-filter tag-filter">
-                <div className="users-middle-vertical-line"></div>
-                {this.renderSelectedFilterBackground()}
-                <div className="thread-filter-dot">
-                    <span className="icon-plus active"></span>
-                </div>
+            <ThreadSelectedFilter key={'selected-filter'} ref={'selectedFilter'} type={'tag'} plusIcon={true} handleClickRemoveFilter={this.handleClickRemoveFilter}>
                 {/* TODO: tagSuggestions should be set from props instead of state */}
                 <TagInput placeholder={'Escribe un tag'} tags={this.state.tagSuggestions}
                           onKeyUpHandler={this.handleKeyUpTag} onClickTagHandler={this.handleClickTagSuggestion}
                           title={this.state.selectedFilter.label} />
-                {this.renderSelectedFilterOppositeBackground()}
-                <div className="table-row"></div>
-            </div>
+            </ThreadSelectedFilter>
         );
     }
 
@@ -568,12 +355,7 @@ export default class CreateUsersThread extends Component {
         const selectedTagAndChoice = this.state.selectedTagAndChoice;
         const values = selectedFilter.values || [];
         return (
-            <div key={'selected-filter'} ref={'selectedFilter'} className="thread-filter tags-and-choice-filter">
-                <div className="users-middle-vertical-line"></div>
-                {this.renderSelectedFilterBackground()}
-                <div className="thread-filter-dot">
-                    <span className={values.some(value => value.tag !== '') ? "icon-circle active" : "icon-circle"}></span>
-                </div>
+            <ThreadSelectedFilter key={'selected-filter'} ref={'selectedFilter'} type={'tags-and-choice'} active={values.some(value => value.tag !== '')} handleClickRemoveFilter={this.handleClickRemoveFilter}>
                     <TagInput ref={'tagInput'} placeholder={'Escribe un tag'} tags={this.state.tagSuggestions} value={selectedTagAndChoice.tag}
                               onKeyUpHandler={this.handleKeyUpTagAndChoiceTag} onClickTagHandler={this.handleClickTagAndChoiceTagSuggestion}
                               title={selectedFilter.label} />
@@ -596,30 +378,9 @@ export default class CreateUsersThread extends Component {
                     </div> : ''
                 }
                 {selectedTagAndChoice.tag ? <div className="add-tags-and-choice" onClick={this.handleClickAddTagsAndChoice}>Añadir <span className="icon-plus"></span></div> : ''}
-
-                {this.renderSelectedFilterOppositeBackground()}
-                <div className="table-row"></div>
-            </div>
+            </ThreadSelectedFilter>
         );
     }
-
-    renderSelectedFilterBackground() {
-        return (
-            <div className="thread-filter-background">
-                <div className="thread-filter-remove" onClick={this.handleClickRemoveFilter}>
-                    <div className="small-icon-wrapper">
-                        <span className="icon-delete"></span>
-                    </div>
-                </div>
-            </div>
-        );
-    }
-
-    renderSelectedFilterOppositeBackground = function() {
-        return (
-            <div className="thread-filter-opposite-background"></div>
-        );
-    };
 
     handleClickFilter(key) {
         let filters = this.state.filters;
@@ -668,7 +429,7 @@ export default class CreateUsersThread extends Component {
         let filters = this.state.filters;
         let filter = this.state.selectedFilter;
         let index = filters.findIndex(savedFilter => savedFilter.key === filter.key);
-        if (index !== -1) {
+        if (index > -1) {
             filters.splice(index, 1);
         }
         this.setState({
@@ -801,7 +562,6 @@ export default class CreateUsersThread extends Component {
 
     handleClickRemoveTagsAndChoice() {
         const selectedTagAndChoice = this.state.selectedTagAndChoice;
-        console.log(selectedTagAndChoice)
         const filters = this.state.filters;
         let selectedFilter = this.state.selectedFilter;
         const index = filters.findIndex(filter => filter.key === selectedFilter.key);
@@ -1014,8 +774,47 @@ export default class CreateUsersThread extends Component {
 
     handleClickOutside(e) {
         const selectedFilter = this.refs.selectedFilter;
-        if (selectedFilter && !selectedFilter.contains(e.target)) {
+        if (selectedFilter && selectedFilter.getSelectedFilter() && !selectedFilter.selectedFilterContains(e.target)) {
             this.setState({selectedFilter: {}});
         }
+    }
+
+    render() {
+        Object.keys(this.props.filters).forEach(key => this.props.filters[key].key = key);
+        return (
+            this.state.selectFilter ?
+                <div className="select-filter">
+                    <div className="title">Selecciona un filtro</div>
+                    {this.renderFiltersList()}
+                </div>
+                :
+                <div className="users-filters-wrapper">
+                    <div className="table-row"></div>
+                    {this.renderActiveFilters()}
+                    <div className="table-row"></div>
+                    <div className="thread-filter add-filter">
+                        <div className="thread-filter-dot">
+                            <span className="icon-plus active"></span>
+                        </div>
+                        <div className="users-opposite-vertical-line"></div>
+                        <div className="add-filter-button-wrapper" onClick={this.handleClickAddFilter}>
+                            <div className="add-filter-button">
+                                <span className="add-filter-button-text">Añadir filtro</span>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <FullWidthButton onClick={this.createThread}>Crear hilo</FullWidthButton>
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                </div>
+        );
     }
 }

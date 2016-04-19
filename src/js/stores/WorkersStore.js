@@ -108,7 +108,6 @@ class WorkersStore extends BaseStore {
             case ActionTypes.REQUEST_USER_DATA_STATUS_SUCCESS:
                 Object.keys(action.response).forEach(resource => {
                     const data = action.response[resource];
-                    console.log(data)
                     this._add({
                         resource  : resource,
                         fetching  : false,

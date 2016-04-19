@@ -357,6 +357,7 @@ export default class CreateUsersThread extends Component {
         const values = selectedFilter.values || [];
         return (
             <ThreadSelectedFilter key={'selected-filter'} ref={'selectedFilter'} type={'tags-and-choice'} active={values.some(value => value.tag !== '')} handleClickRemoveFilter={this.handleClickRemoveFilter}>
+                <div className="tags-and-choice-wrapper">
                     <TagInput ref={'tagInput'} placeholder={'Escribe un tag'} tags={this.state.tagSuggestions} value={selectedTagAndChoice.tag}
                               onKeyUpHandler={this.handleKeyUpTagAndChoiceTag} onClickTagHandler={this.handleClickTagAndChoiceTagSuggestion}
                               title={selectedFilter.label} />
@@ -367,18 +368,19 @@ export default class CreateUsersThread extends Component {
                                     title={this.state.selectedFilter.choiceLabel['es']} />
                         </div>
                         : ''}
-                {selectedTagAndChoice.tag ? <div className="remove-tags-and-choice" onClick={this.handleClickRemoveTagsAndChoice}>Eliminar <span className="icon-delete"></span></div> : ''}
-                {values.length > 0 ?
-                    <div className="tags-and-choice-unselected-filters">
-                        {values.filter(value => value.tag !== selectedTagAndChoice.tag).map((value, index) =>
-                            <div className="tags-and-choice-unselected-filter" key={index}>
-                                <TextCheckboxes labels={[{key: value.tag, text: value.choice ? value.tag + ' ' + selectedFilter.choices[value.choice] : value.tag}]} values={[value.tag]}
-                                                onClickHandler={this.handleClickTagAndChoiceTag} className={'tags-and-choice-filter'}/>
-                            </div>
-                        )}
-                    </div> : ''
-                }
-                {selectedTagAndChoice.tag ? <div className="add-tags-and-choice" onClick={this.handleClickAddTagsAndChoice}>Añadir <span className="icon-plus"></span></div> : ''}
+                    {selectedTagAndChoice.tag ? <div className="remove-tags-and-choice" onClick={this.handleClickRemoveTagsAndChoice}>Eliminar <span className="icon-delete"></span></div> : ''}
+                    {values.length > 0 ?
+                        <div className="tags-and-choice-unselected-filters">
+                            {values.filter(value => value.tag !== selectedTagAndChoice.tag).map((value, index) =>
+                                <div className="tags-and-choice-unselected-filter" key={index}>
+                                    <TextCheckboxes labels={[{key: value.tag, text: value.choice ? value.tag + ' ' + selectedFilter.choices[value.choice] : value.tag}]} values={[value.tag]}
+                                                    onClickHandler={this.handleClickTagAndChoiceTag} className={'tags-and-choice-filter'}/>
+                                </div>
+                            )}
+                        </div> : ''
+                    }
+                    {selectedTagAndChoice.tag ? <div className="add-tags-and-choice" onClick={this.handleClickAddTagsAndChoice}>Añadir <span className="icon-plus"></span></div> : ''}
+                </div>
             </ThreadSelectedFilter>
         );
     }

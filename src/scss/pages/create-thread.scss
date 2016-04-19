@@ -193,6 +193,10 @@ body #root .App .view .page.create-thread-page  {
       display: table-row;
       width: 100%;
 
+      .tags-and-choice-wrapper {
+        display: inline;
+      }
+      
       .list-block {
         display: inline-block;
         margin: 0;

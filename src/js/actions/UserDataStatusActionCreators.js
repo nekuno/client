@@ -1,4 +1,4 @@
-import { dispatch, dispatchAsync } from '../dispatcher/Dispatcher';
+import { dispatchAsync } from '../dispatcher/Dispatcher';
 import ActionTypes from '../constants/ActionTypes';
 import * as UserDataStatusAPI from '../api/UserDataStatusAPI';
 

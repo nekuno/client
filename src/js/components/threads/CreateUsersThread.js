@@ -10,6 +10,7 @@ import LocationSelectedFilter from './filters/LocationSelectedFilter';
 import IntegerSelectedFilter from './filters/IntegerSelectedFilter';
 import ChoiceSelectedFilter from './filters/ChoiceSelectedFilter';
 import DoubleChoiceSelectedFilter from './filters/DoubleChoiceSelectedFilter';
+import MultipleChoicesSelectedFilter from './filters/MultipleChoicesSelectedFilter';
 import selectn from 'selectn';
 import FilterStore from './../../stores/FilterStore';
 
@@ -247,11 +248,13 @@ export default class CreateUsersThread extends Component {
 
     renderMultipleChoicesFilter() {
         return (
-            <ThreadSelectedFilter key={'selected-filter'} ref={'selectedFilter'} type={'checkbox'} active={this.state.selectedFilter.values && this.state.selectedFilter.values.length > 0} handleClickRemoveFilter={this.handleClickRemoveFilter}>
-                <TextCheckboxes labels={Object.keys(this.state.selectedFilter.choices).map(key => { return({key: key, text: this.state.selectedFilter.choices[key]}) })}
-                                onClickHandler={this.handleClickMultipleChoice} values={this.state.selectedFilter.values || []} className={'multiple-choice-filter'}
-                                title={this.state.selectedFilter.label} />
-            </ThreadSelectedFilter>
+            <MultipleChoicesSelectedFilter key={'selected-filter'} ref={'selectedFilter'}
+                                           handleClickRemoveFilter={this.handleClickRemoveFilter}
+                                           choices={this.state.selectedFilter.choices}
+                                           handleClickMultipleChoice={this.handleClickMultipleChoice}
+                                           values={this.state.selectedFilter.values}
+                                           label={this.state.selectedFilter.label}
+            />
         );
     }
 

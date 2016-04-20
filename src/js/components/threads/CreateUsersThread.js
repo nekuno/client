@@ -11,6 +11,7 @@ import IntegerSelectedFilter from './filters/IntegerSelectedFilter';
 import ChoiceSelectedFilter from './filters/ChoiceSelectedFilter';
 import DoubleChoiceSelectedFilter from './filters/DoubleChoiceSelectedFilter';
 import MultipleChoicesSelectedFilter from './filters/MultipleChoicesSelectedFilter';
+import TagSelectedFilter from './filters/TagSelectedFilter';
 import selectn from 'selectn';
 import FilterStore from './../../stores/FilterStore';
 
@@ -259,13 +260,15 @@ export default class CreateUsersThread extends Component {
     }
 
     renderTagFilter() {
+        /* TODO: tagSuggestions should be set from props instead of state */
         return (
-            <ThreadSelectedFilter key={'selected-filter'} ref={'selectedFilter'} type={'tag'} plusIcon={true} handleClickRemoveFilter={this.handleClickRemoveFilter}>
-                {/* TODO: tagSuggestions should be set from props instead of state */}
-                <TagInput placeholder={'Escribe un tag'} tags={this.state.tagSuggestions}
-                          onKeyUpHandler={this.handleKeyUpTag} onClickTagHandler={this.handleClickTagSuggestion}
-                          title={this.state.selectedFilter.label} />
-            </ThreadSelectedFilter>
+            <TagSelectedFilter key={'selected-filter'} ref={'selectedFilter'}
+                               handleClickRemoveFilter={this.handleClickRemoveFilter}
+                               tagSuggestions={this.state.tagSuggestions}
+                               handleKeyUpTag={this.handleKeyUpTag}
+                               handleClickTagSuggestion={this.handleClickTagSuggestion}
+                               label={this.state.selectedFilter.label}
+            />
         );
     }
 

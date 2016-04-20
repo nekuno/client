@@ -9,6 +9,7 @@ import InputCheckbox from '../ui/InputCheckbox';
 import LocationInput from '../ui/LocationInput';
 import ThreadSelectedFilter from './ThreadSelectedFilter';
 import selectn from 'selectn';
+import FilterStore from './../../stores/FilterStore';
 
 export default class CreateUsersThread extends Component {
     static contextTypes = {
@@ -175,104 +176,19 @@ export default class CreateUsersThread extends Component {
                     selectedFilterContent = this.renderTagFilter();
             }
         }
-        let locationFilter = filters.find(filter => filter.type === 'location_distance');
-        let integerFilter = filters.filter(filter => filter.type === 'integer_range');
-        let choicesFilter = filters.filter(filter => filter.type === 'choice');
-        let doubleChoicesFilter = filters.filter(filter => filter.type === 'double_choice');
-        let multipleChoicesFilter = filters.filter(filter => filter.type === 'multiple_choices');
-        let tagsFilter = filters.filter(filter => filter.type === 'tags');
-        let tagAndChoiceFilter = filters.filter(filter => filter.type === 'tags_and_choice');
-        let filterCheckboxes = [];
-        if (locationFilter) {
-            let address = locationFilter.value ? locationFilter.value.address : '';
-            filterCheckboxes.push({
-                label: {key: 'location', text: address ? locationFilter.label + ' - ' + address : locationFilter.label},
-                value: 'location',
-                selected: this.state.selectedFilter && this.state.selectedFilter.key === 'location'
-            });
-        }
-        if (integerFilter) {
-            integerFilter.forEach(filter => {
-                let text = filter.label;
-                text += !isNaN(filter.value_min) ? ' - Min: ' + filter.value_min : '';
-                text += !isNaN(filter.value_max) ? ' - Max: ' + filter.value_max : '';
-
-                filterCheckboxes.push({
-                    label: {key: filter.key, text: text},
-                    value: filter.key,
-                    selected: this.state.selectedFilter && this.state.selectedFilter.key === filter.key
-                });
-            });
-        }
-        if (choicesFilter) {
-            choicesFilter.forEach(filter => {
-                let choice = filter.choices.find(choice => choice.value === filter.choice);
-                let choiceLabel = choice ? choice.label : '';
-                filterCheckboxes.push({
-                    label: {key: filter.key, text: choiceLabel ? filter.label + ' - ' + choiceLabel : filter.label},
-                    value: filter.key,
-                    selected: this.state.selectedFilter && this.state.selectedFilter.key === filter.key
-                });
-            });
-        }
-        if (doubleChoicesFilter) {
-            doubleChoicesFilter.forEach(filter => {
-                let choice = filter.choices[Object.keys(filter.choices).find(key => key === filter.choice)];
-                let detail = filter.detail ? filter.doubleChoices[filter.choice][Object.keys(filter.doubleChoices[filter.choice]).find(key => key === filter.detail)] : '';
-                filterCheckboxes.push({
-                    label: {key: filter.key, text: choice ? filter.label + ' - ' + choice + ' ' + detail : filter.label},
-                    value: filter.key,
-                    selected: this.state.selectedFilter && this.state.selectedFilter.key === filter.key
-                });
-            });
-        }
-        if (multipleChoicesFilter) {
-            multipleChoicesFilter.forEach(filter => {
-                let values = filter.values || [];
-                let textArray = values.map(value => filter.choices[value]);
-                let text = textArray.length > 0 ? filter.label + ' - ' + textArray.join(', ') : filter.label;
-                filterCheckboxes.push({
-                    label: {key: filter.key, text: text},
-                    value: filter.key,
-                    selected: this.state.selectedFilter && this.state.selectedFilter.key === filter.key
-                });
-            });
-        }
-        if (tagsFilter) {
-            tagsFilter.forEach(filter => {
-                let tags = filter.values;
-                let text = tags && tags.length > 0 ? filter.label + ' - ' + tags.join(', ') : filter.label;
-                filterCheckboxes.push({
-                    label: {key: filter.key, text: text},
-                    value: filter.key,
-                    selected: this.state.selectedFilter && this.state.selectedFilter.key === filter.key
-                });
-            });
-        }
-        if (tagAndChoiceFilter) {
-            tagAndChoiceFilter.forEach(filter => {
-                let values = filter.values;
-                let text = values && values.length > 0 ? filter.label + ' - ' + values.map(value => value.choice ? value.tag + ' ' + filter.choices[value.choice] : value.tag).join(', ') : filter.label;
-                filterCheckboxes.push({
-                    label: {key: filter.key, text: text},
-                    value: filter.key,
-                    selected: this.state.selectedFilter && this.state.selectedFilter.key === filter.key
-                });
-            });
-        }
 
         return (
-            filterCheckboxes.map((filterCheckbox, index) =>
-                filterCheckbox.selected ?
+            filters.map((filter, index) =>
+                this.state.selectedFilter && this.state.selectedFilter.key === filter.key ?
                     selectedFilterContent :
                     <div key={index} className="thread-filter">
                         <div className="users-middle-vertical-line"></div>
                         <div className="thread-filter-dot">
                             <span className="icon-circle active"></span>
                         </div>
-                        <TextCheckboxes labels={[filterCheckbox.label]}
-                                        onClickHandler={this.handleClickFilter.bind(this, filterCheckbox.label.key)}
-                                        values={filters.map(filter => {return filter.value || filter.choice || filter.value_min || filter.value_max || filter.values ? filter.key : null})} />
+                        <TextCheckboxes labels={[{key: filter.key, text: FilterStore.getFilterLabel(filter)}]}
+                                        onClickHandler={this.handleClickFilter.bind(this, filter.key)}
+                                        values={filter.value || filter.choice || filter.value_min || filter.value_max || filter.values ? [filter.key] : []} />
                         <div className="table-row"></div>
                     </div>
             )

@@ -8,6 +8,8 @@ import InputCheckbox from '../ui/InputCheckbox';
 import ThreadSelectedFilter from './ThreadSelectedFilter';
 import LocationSelectedFilter from './filters/LocationSelectedFilter';
 import IntegerSelectedFilter from './filters/IntegerSelectedFilter';
+import ChoiceSelectedFilter from './filters/ChoiceSelectedFilter';
+import DoubleChoiceSelectedFilter from './filters/DoubleChoiceSelectedFilter';
 import selectn from 'selectn';
 import FilterStore from './../../stores/FilterStore';
 
@@ -218,27 +220,28 @@ export default class CreateUsersThread extends Component {
 
     renderChoiceFilter() {
         return (
-            <ThreadSelectedFilter key={'selected-filter'} ref={'selectedFilter'} type={'radio'} active={this.state.selectedFilter.choice ? true : false} handleClickRemoveFilter={this.handleClickRemoveFilter}>
-                <TextRadios labels={this.state.selectedFilter.choices.map(choice => { return({key: choice.value, text: choice.label}); }) }
-                            onClickHandler={this.handleClickChoice} value={this.state.selectedFilter.choice} className={'choice-filter'}
-                            title={this.state.selectedFilter.label} />
-            </ThreadSelectedFilter>
+            <ChoiceSelectedFilter key={'selected-filter'} ref={'selectedFilter'}
+                                  handleClickRemoveFilter={this.handleClickRemoveFilter}
+                                  choices={this.state.selectedFilter.choices}
+                                  handleClickChoice={this.handleClickChoice}
+                                  choice={this.state.selectedFilter.choice}
+                                  label={this.state.selectedFilter.label}
+            />
         );
     }
 
     renderDoubleChoiceFilter() {
         return (
-            <ThreadSelectedFilter key={'selected-filter'} ref={'selectedFilter'} type={'radio'} active={this.state.selectedFilter.choice ? true : false} handleClickRemoveFilter={this.handleClickRemoveFilter}>
-                <div className="double-choice-filter">
-                  <TextRadios labels={Object.keys(this.state.selectedFilter.choices).map(choice => { return({key: choice, text: this.state.selectedFilter.choices[choice]}); }) }
-                              onClickHandler={this.handleClickDoubleChoiceChoice} value={this.state.selectedFilter.choice} className={'double-choice-choice'}
-                              title={this.state.selectedFilter.label} />
-                  {this.state.selectedFilter.choice ?
-                      <TextRadios labels={Object.keys(this.state.selectedFilter.doubleChoices[this.state.selectedFilter.choice]).map(doubleChoice => { return({key: doubleChoice, text: this.state.selectedFilter.doubleChoices[this.state.selectedFilter.choice][doubleChoice]}); }) }
-                              onClickHandler={this.handleClickDoubleChoiceDetail} value={this.state.selectedFilter.detail} className={'double-choice-detail'}/>
-                      : ''}
-                </div>
-          </ThreadSelectedFilter>
+            <DoubleChoiceSelectedFilter key={'selected-filter'} ref={'selectedFilter'}
+                                        handleClickRemoveFilter={this.handleClickRemoveFilter}
+                                        choices={this.state.selectedFilter.choices}
+                                        doubleChoices={this.state.selectedFilter.doubleChoices}
+                                        handleClickDoubleChoiceChoice={this.handleClickDoubleChoiceChoice}
+                                        handleClickDoubleChoiceDetail={this.handleClickDoubleChoiceDetail}
+                                        choice={this.state.selectedFilter.choice}
+                                        detail={this.state.selectedFilter.detail}
+                                        label={this.state.selectedFilter.label}
+            />
         );
     }
 

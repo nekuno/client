@@ -6,8 +6,8 @@ import TextCheckboxes from '../ui/TextCheckboxes';
 import TagInput from '../ui/TagInput';
 import FullWidthButton from '../ui/FullWidthButton';
 import InputCheckbox from '../ui/InputCheckbox';
-import LocationInput from '../ui/LocationInput';
 import ThreadSelectedFilter from './ThreadSelectedFilter';
+import LocationSelectedFilter from './filters/LocationSelectedFilter';
 import selectn from 'selectn';
 import FilterStore from './../../stores/FilterStore';
 
@@ -197,12 +197,7 @@ export default class CreateUsersThread extends Component {
 
     renderLocationFilter() {
         return (
-            <ThreadSelectedFilter key={'selected-filter'} ref={'selectedFilter'} type={'location-tag'} addedClass={'tag-filter'} plusIcon={true} handleClickRemoveFilter={this.handleClickRemoveFilter}>
-                <div className="list-block">
-                    <div className="location-title">Ubicación</div>
-                    <LocationInput placeholder={'Escribe una ubicación'} onSuggestSelect={this.handleClickLocationSuggestion}/>
-                </div>
-            </ThreadSelectedFilter>
+            <LocationSelectedFilter key={'selected-filter'} ref={'selectedFilter'} handleClickRemoveFilter={this.handleClickRemoveFilter} handleClickLocationSuggestion={this.handleClickLocationSuggestion} />
         );
     }
 
@@ -310,32 +305,16 @@ export default class CreateUsersThread extends Component {
         });
     }
 
-    handleClickLocationSuggestion(suggest) {
+    handleClickLocationSuggestion(location) {
         let filters = this.state.filters;
         let filter = this.state.selectedFilter;
-        let locality = '', country = '';
-        suggest.gmaps.address_components.forEach(function(component) {
-            component.types.forEach(function(type) {
-                if (!locality && type === 'locality') {
-                    locality = component.long_name;
-                }
-                if (!country && type === 'country') {
-                    country = component.long_name;
-                }
-            });
-        });
-        filter.value = {
-            latitude: suggest.location.lat,
-            longitude: suggest.location.lng,
-            address: suggest.gmaps.formatted_address,
-            locality: locality,
-            country: country
-        };
+        filter.value = location;
+       
         let index = filters.findIndex(savedFilter => savedFilter.key === 'location');
-        if (index == -1) {
-            filters.push(filter);
-        } else {
+        if (index > -1) {
             filters[index] = filter;
+        } else {
+            filters.push(filter);
         }
 
         this.setState({

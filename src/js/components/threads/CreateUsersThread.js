@@ -1,17 +1,15 @@
 import React, { PropTypes, Component } from 'react';
 import * as UserActionCreators from '../../actions/UserActionCreators';
-import TextRadios from '../ui/TextRadios';
 import TextCheckboxes from '../ui/TextCheckboxes';
-import TagInput from '../ui/TagInput';
 import FullWidthButton from '../ui/FullWidthButton';
 import InputCheckbox from '../ui/InputCheckbox';
-import ThreadSelectedFilter from './ThreadSelectedFilter';
 import LocationSelectedFilter from './filters/LocationSelectedFilter';
 import IntegerSelectedFilter from './filters/IntegerSelectedFilter';
 import ChoiceSelectedFilter from './filters/ChoiceSelectedFilter';
 import DoubleChoiceSelectedFilter from './filters/DoubleChoiceSelectedFilter';
 import MultipleChoicesSelectedFilter from './filters/MultipleChoicesSelectedFilter';
 import TagSelectedFilter from './filters/TagSelectedFilter';
+import TagsAndChoiceSelectedFilter from './filters/TagsAndChoiceSelectedFilter';
 import selectn from 'selectn';
 import FilterStore from './../../stores/FilterStore';
 
@@ -275,34 +273,23 @@ export default class CreateUsersThread extends Component {
     renderTagAndChoiceFilter() {
         const selectedFilter = this.state.selectedFilter;
         const selectedTagAndChoice = this.state.selectedTagAndChoice;
-        const values = selectedFilter.values || [];
         return (
-            <ThreadSelectedFilter key={'selected-filter'} ref={'selectedFilter'} type={'tags-and-choice'} active={values.some(value => value.tag !== '')} handleClickRemoveFilter={this.handleClickRemoveFilter}>
-                <div className="tags-and-choice-wrapper">
-                    <TagInput ref={'tagInput'} placeholder={'Escribe un tag'} tags={this.state.tagSuggestions} value={selectedTagAndChoice.tag}
-                              onKeyUpHandler={this.handleKeyUpTagAndChoiceTag} onClickTagHandler={this.handleClickTagAndChoiceTagSuggestion}
-                              title={selectedFilter.label} />
-                    {selectedTagAndChoice.tag ?
-                        <div className="tags-and-choice-choice">
-                            <TextRadios labels={Object.keys(this.state.selectedFilter.choices).map(key => { return({key: key, text: this.state.selectedFilter.choices[key]}); }) }
-                                    onClickHandler={this.handleClickTagAndChoiceChoice} value={selectedTagAndChoice.choice} className={'tags-and-choice-choice-radios'}
-                                    title={this.state.selectedFilter.choiceLabel['es']} />
-                        </div>
-                        : ''}
-                    {selectedTagAndChoice.tag ? <div className="remove-tags-and-choice" onClick={this.handleClickRemoveTagsAndChoice}>Eliminar <span className="icon-delete"></span></div> : ''}
-                    {values.length > 0 ?
-                        <div className="tags-and-choice-unselected-filters">
-                            {values.filter(value => value.tag !== selectedTagAndChoice.tag).map((value, index) =>
-                                <div className="tags-and-choice-unselected-filter" key={index}>
-                                    <TextCheckboxes labels={[{key: value.tag, text: value.choice ? value.tag + ' ' + selectedFilter.choices[value.choice] : value.tag}]} values={[value.tag]}
-                                                    onClickHandler={this.handleClickTagAndChoiceTag} className={'tags-and-choice-filter'}/>
-                                </div>
-                            )}
-                        </div> : ''
-                    }
-                    {selectedTagAndChoice.tag ? <div className="add-tags-and-choice" onClick={this.handleClickAddTagsAndChoice}>Añadir <span className="icon-plus"></span></div> : ''}
-                </div>
-            </ThreadSelectedFilter>
+            <TagsAndChoiceSelectedFilter key={'selected-filter'} ref={'selectedFilter'}
+                                         handleClickRemoveFilter={this.handleClickRemoveFilter}
+                                         label={selectedFilter.label}
+                                         values={selectedFilter.values || []}
+                                         tagSuggestions={this.state.tagSuggestions}
+                                         tag={selectedTagAndChoice.tag}
+                                         handleKeyUpTagAndChoiceTag={this.handleKeyUpTagAndChoiceTag}
+                                         handleClickTagAndChoiceTagSuggestion={this.handleClickTagAndChoiceTagSuggestion}
+                                         choices={selectedFilter.choices}
+                                         handleClickTagAndChoiceChoice={this.handleClickTagAndChoiceChoice}
+                                         choice={selectedTagAndChoice.choice}
+                                         choiceLabel={selectedFilter.choiceLabel}
+                                         handleClickRemoveTagsAndChoice={this.handleClickRemoveTagsAndChoice}
+                                         handleClickAddTagsAndChoice={this.handleClickAddTagsAndChoice}
+                                         handleClickTagAndChoiceTag={this.handleClickTagAndChoiceTag}
+            />
         );
     }
 
@@ -468,8 +455,6 @@ export default class CreateUsersThread extends Component {
         const index = values.findIndex(value => value.tag === tag);
         let selectedTagAndChoice = this.state.selectedFilter.values[index];
         selectedTagAndChoice.index = index;
-        this.refs.tagInput.setValue(tag);
-        this.refs.tagInput.focus();
         if (index > -1) {
             this.setState({
                 selectedTagAndChoice: selectedTagAndChoice
@@ -478,8 +463,6 @@ export default class CreateUsersThread extends Component {
     }
 
     handleClickAddTagsAndChoice() {
-        this.refs.tagInput.clearValue();
-        this.refs.tagInput.focus();
         this.setState({
             selectedTagAndChoice: {}
         });
@@ -492,8 +475,6 @@ export default class CreateUsersThread extends Component {
         const index = filters.findIndex(filter => filter.key === selectedFilter.key);
         selectedFilter.values.splice(selectedTagAndChoice.index, 1);
         filters[index] = selectedFilter;
-        this.refs.tagInput.clearValue();
-        this.refs.tagInput.focus();
         this.setState({
             selectedTagAndChoice: {},
             filters: filters,
@@ -571,7 +552,6 @@ export default class CreateUsersThread extends Component {
             }
         }
             
-        this.refs.tagInput.setValue(tagString);
         this.setState({
             filters: filters,
             selectedTagAndChoice: selectedTagAndChoice,
@@ -591,13 +571,12 @@ export default class CreateUsersThread extends Component {
                 filter.values[valuesIndex].choice = choice;
                 filters[index] = filter;
                 selectedFilter = filter;
-                selectedTagAndChoice = filter.values[valuesIndex];
             }
         }
         this.setState({
             filters: filters,
             selectedFilter: selectedFilter,
-            selectedTagAndChoice: selectedTagAndChoice
+            selectedTagAndChoice: {}
         });
     }
 

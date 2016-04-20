@@ -1,5 +1,5 @@
 import React, { PropTypes, Component } from 'react';
-import ThreadSelectedFilter from '../ThreadSelectedFilter';
+import ThreadSelectedFilter from './ThreadSelectedFilter';
 import LocationInput from '../../ui/LocationInput';
 
 export default class LocationSelectedFilter extends Component {

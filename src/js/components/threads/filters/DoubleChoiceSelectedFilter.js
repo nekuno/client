@@ -1,5 +1,5 @@
 import React, { PropTypes, Component } from 'react';
-import ThreadSelectedFilter from '../ThreadSelectedFilter';
+import ThreadSelectedFilter from './ThreadSelectedFilter';
 import TextRadios from '../../ui/TextRadios';
 
 export default class DoubleChoiceSelectedFilter extends Component {

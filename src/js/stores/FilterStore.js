@@ -132,6 +132,26 @@ class FilterStore extends BaseStore {
         return '';
     }
 
+    isFilterSet(filter) {
+        switch (filter.type) {
+            case 'location_distance':
+                return filter.value && filter.value.address;
+            case 'integer_range':
+                return filter.value_min || filter.value_max;
+            case 'choice':
+                return !!filter.choice;
+            case 'double_choice':
+                return !!filter.choice;
+            case 'multiple_choices':
+                return filter.values && filter.values.length > 0;
+            case 'tags':
+                return filter.values && filter.values.length > 0;
+            case 'tags_and_choice':
+                return filter.values && filter.values.length > 0;
+            default:
+                return false;
+        }
+    }
 }
 
 export default new FilterStore();

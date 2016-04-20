@@ -1,6 +1,5 @@
 import React, { PropTypes, Component } from 'react';
 import * as UserActionCreators from '../../actions/UserActionCreators';
-import TextCheckboxes from '../ui/TextCheckboxes';
 import FullWidthButton from '../ui/FullWidthButton';
 import InputCheckbox from '../ui/InputCheckbox';
 import LocationSelectedFilter from './filters/LocationSelectedFilter';
@@ -11,7 +10,7 @@ import MultipleChoicesSelectedFilter from './filters/MultipleChoicesSelectedFilt
 import TagSelectedFilter from './filters/TagSelectedFilter';
 import TagsAndChoiceSelectedFilter from './filters/TagsAndChoiceSelectedFilter';
 import selectn from 'selectn';
-import FilterStore from './../../stores/FilterStore';
+import ThreadUnselectedFilter from './filters/ThreadUnselectedFilter';
 
 export default class CreateUsersThread extends Component {
     static contextTypes = {
@@ -32,6 +31,7 @@ export default class CreateUsersThread extends Component {
         this.renderFiltersList = this.renderFiltersList.bind(this);
         this.handleClickFilterOnList = this.handleClickFilterOnList.bind(this);
         this.renderActiveFilters = this.renderActiveFilters.bind(this);
+        this.handleClickFilter = this.handleClickFilter.bind(this);
         this.handleClickRemoveFilter = this.handleClickRemoveFilter.bind(this);
         this.renderLocationFilter = this.renderLocationFilter.bind(this);
         this.handleClickLocationSuggestion = this.handleClickLocationSuggestion.bind(this);
@@ -181,17 +181,8 @@ export default class CreateUsersThread extends Component {
         return (
             filters.map((filter, index) =>
                 this.state.selectedFilter && this.state.selectedFilter.key === filter.key ?
-                    selectedFilterContent :
-                    <div key={index} className="thread-filter">
-                        <div className="users-middle-vertical-line"></div>
-                        <div className="thread-filter-dot">
-                            <span className="icon-circle active"></span>
-                        </div>
-                        <TextCheckboxes labels={[{key: filter.key, text: FilterStore.getFilterLabel(filter)}]}
-                                        onClickHandler={this.handleClickFilter.bind(this, filter.key)}
-                                        values={filter.value || filter.choice || filter.value_min || filter.value_max || filter.values ? [filter.key] : []} />
-                        <div className="table-row"></div>
-                    </div>
+                    selectedFilterContent : 
+                    <ThreadUnselectedFilter key={index} filter={filter} handleClickFilter={this.handleClickFilter} />
             )
         );
     }

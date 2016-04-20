@@ -1,5 +1,5 @@
 import React, { PropTypes, Component } from 'react';
-import ThreadSelectedFilter from '../ThreadSelectedFilter';
+import ThreadSelectedFilter from './ThreadSelectedFilter';
 import TagInput from '../../ui/TagInput';
 
 export default class TagSelectedFilter extends Component {

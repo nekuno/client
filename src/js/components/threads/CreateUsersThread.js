@@ -51,6 +51,7 @@ export default class CreateUsersThread extends Component {
         this.createThread = this.createThread.bind(this);
         this.handleClickOutside = this.handleClickOutside.bind(this);
         this.findSelectedFilterIndex = this.findSelectedFilterIndex.bind(this);
+        this.scrollToFilter = this.scrollToFilter.bind(this);
 
         this.state = {
             selectFilter: false,
@@ -89,16 +90,9 @@ export default class CreateUsersThread extends Component {
                 selectedFilter: filter,
                 filters: filters
             });
-            clearTimeout(this.selectFilterTimeout);
-            this.selectFilterTimeout = setTimeout(() => {
-                let selectedFilterElem = this.refs.selectedFilter;
-                if (selectedFilterElem) {
-                    selectedFilterElem.getSelectedFilter().scrollIntoView();
-                    document.getElementsByClassName('view')[0].scrollTop -= 100;
-                }
-            })
+            this.scrollToFilter();
         } else {
-            let index = filters.findIndex(savedFilter => savedFilter.key === filter.key);
+            const index = filters.findIndex(savedFilter => savedFilter.key === filter.key);
             filters.splice(index, 1);
             this.setState({
                 filters: filters,
@@ -240,8 +234,8 @@ export default class CreateUsersThread extends Component {
         let filter = this.refs.selectedFilter.updateFilterInteger(selectedFilter, value, minOrMax)
         filters[this.findSelectedFilterIndex()] = filter;
         this.setState({
-            selectedFilter: filter,
-            filters: filters
+            filters: filters,
+            selectedFilter: filter
         });
     }
 
@@ -350,6 +344,17 @@ export default class CreateUsersThread extends Component {
         let index = filters.findIndex(savedFilter => savedFilter.key === selectedFilter.key);
         
         return index > -1 ? index : null;
+    }
+    
+    scrollToFilter() {
+        clearTimeout(this.selectFilterTimeout);
+        this.selectFilterTimeout = setTimeout(() => {
+            let selectedFilterElem = this.refs.selectedFilter;
+            if (selectedFilterElem) {
+                selectedFilterElem.getSelectedFilter().scrollIntoView();
+                document.getElementsByClassName('view')[0].scrollTop -= 100;
+            }
+        }, 0);
     }
 
     createThread() {

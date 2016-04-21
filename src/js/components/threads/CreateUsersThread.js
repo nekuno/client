@@ -32,26 +32,18 @@ export default class CreateUsersThread extends Component {
         this.handleClickFilter = this.handleClickFilter.bind(this);
         this.handleClickRemoveFilter = this.handleClickRemoveFilter.bind(this);
         this.renderLocationFilter = this.renderLocationFilter.bind(this);
-        this.handleClickLocationSuggestion = this.handleClickLocationSuggestion.bind(this);
         this.renderChoiceFilter = this.renderChoiceFilter.bind(this);
         this.renderDoubleChoiceFilter = this.renderDoubleChoiceFilter.bind(this);
         this.renderMultipleChoicesFilter = this.renderMultipleChoicesFilter.bind(this);
         this.renderIntegerRangeFilter = this.renderIntegerRangeFilter.bind(this);
         this.renderTagFilter = this.renderTagFilter.bind(this);
         this.renderTagAndChoiceFilter = this.renderTagAndChoiceFilter.bind(this);
-        this.handleClickChoice = this.handleClickChoice.bind(this);
-        this.handleClickDoubleChoiceChoice = this.handleClickDoubleChoiceChoice.bind(this);
-        this.handleClickDoubleChoiceDetail = this.handleClickDoubleChoiceDetail.bind(this);
-        this.handleClickMultipleChoice = this.handleClickMultipleChoice.bind(this);
-        this.handleClickRemoveTagsAndChoice = this.handleClickRemoveTagsAndChoice.bind(this);
-        this.handleClickTagAndChoiceChoice = this.handleClickTagAndChoiceChoice.bind(this);
-        this.handleClickTagAndChoiceTagSuggestion = this.handleClickTagAndChoiceTagSuggestion.bind(this);
-        this.handleChangeIntegerInput = this.handleChangeIntegerInput.bind(this);
-        this.handleClickTagSuggestion = this.handleClickTagSuggestion.bind(this);
-        this.createThread = this.createThread.bind(this);
+        this.handleChangeFilter = this.handleChangeFilter.bind(this);
+        this.handleChangeFilterAndUnSelect = this.handleChangeFilterAndUnSelect.bind(this);
         this.handleClickOutside = this.handleClickOutside.bind(this);
         this.findSelectedFilterIndex = this.findSelectedFilterIndex.bind(this);
         this.scrollToFilter = this.scrollToFilter.bind(this);
+        this.createThread = this.createThread.bind(this);
 
         this.state = {
             selectFilter: false,
@@ -138,7 +130,7 @@ export default class CreateUsersThread extends Component {
                             filter={filter}
                             selected={selected}
                             handleClickRemoveFilter={this.handleClickRemoveFilter}
-                            handleClickLocationSuggestion={this.handleClickLocationSuggestion}
+                            handleChangeFilter={this.handleChangeFilterAndUnSelect}
                             handleClickFilter={this.handleClickFilter}
             />
         );
@@ -147,11 +139,11 @@ export default class CreateUsersThread extends Component {
     renderIntegerRangeFilter(filter, index, selected) {
         return(
             <IntegerRangeFilter key={index} ref={selected ? 'selectedFilter' : ''}
-                           filter={filter}
-                           selected={selected}
-                           handleClickRemoveFilter={this.handleClickRemoveFilter} 
-                           handleChangeIntegerInput={this.handleChangeIntegerInput}
-                           handleClickFilter={this.handleClickFilter}
+                                filter={filter}
+                                selected={selected}
+                                handleClickRemoveFilter={this.handleClickRemoveFilter} 
+                                handleChangeFilter={this.handleChangeFilter}
+                                handleClickFilter={this.handleClickFilter}
             />
         )
     }
@@ -162,7 +154,7 @@ export default class CreateUsersThread extends Component {
                           filter={filter}
                           selected={selected}
                           handleClickRemoveFilter={this.handleClickRemoveFilter}
-                          handleClickChoice={this.handleClickChoice}
+                          handleChangeFilter={this.handleChangeFilterAndUnSelect}
                           handleClickFilter={this.handleClickFilter}
             />
         );
@@ -174,8 +166,7 @@ export default class CreateUsersThread extends Component {
                                 filter={filter}
                                 selected={selected}
                                 handleClickRemoveFilter={this.handleClickRemoveFilter}
-                                handleClickDoubleChoiceChoice={this.handleClickDoubleChoiceChoice}
-                                handleClickDoubleChoiceDetail={this.handleClickDoubleChoiceDetail}
+                                handleChangeFilter={this.handleChangeFilter}
                                 handleClickFilter={this.handleClickFilter}
             />
         );
@@ -187,7 +178,7 @@ export default class CreateUsersThread extends Component {
                                    filter={filter}
                                    selected={selected}
                                    handleClickRemoveFilter={this.handleClickRemoveFilter}
-                                   handleClickMultipleChoice={this.handleClickMultipleChoice}
+                                   handleChangeFilter={this.handleChangeFilter}
                                    handleClickFilter={this.handleClickFilter}
             />
         );
@@ -199,7 +190,7 @@ export default class CreateUsersThread extends Component {
                        filter={filter}
                        selected={selected}
                        handleClickRemoveFilter={this.handleClickRemoveFilter}
-                       handleClickTagSuggestion={this.handleClickTagSuggestion}
+                       handleChangeFilter={this.handleChangeFilterAndUnSelect}
                        handleClickFilter={this.handleClickFilter}
             />
         );
@@ -211,111 +202,30 @@ export default class CreateUsersThread extends Component {
                                  filter={filter}
                                  selected={selected}
                                  handleClickRemoveFilter={this.handleClickRemoveFilter}
-                                 handleClickTagAndChoiceTagSuggestion={this.handleClickTagAndChoiceTagSuggestion}
-                                 handleClickTagAndChoiceChoice={this.handleClickTagAndChoiceChoice}
-                                 handleClickRemoveTagsAndChoice={this.handleClickRemoveTagsAndChoice}
-                                 handleClickTagAndChoiceTag={this.handleClickTagAndChoiceTag}
+                                 handleChangeFilter={this.handleChangeFilter}
                                  handleClickFilter={this.handleClickFilter}
             />
         );
     }
+
+    handleChangeFilter(filter) {
+        let {filters} = this.state;
+        filters[this.findSelectedFilterIndex()] = filter;
+        this.setState({
+            filters: filters,
+            selectedFilter: filter
+        });
+    }
+
+    handleChangeFilterAndUnSelect(filter) {
+        let {filters} = this.state;
+        filters[this.findSelectedFilterIndex()] = filter;
+        this.setState({
+            filters: filters,
+            selectedFilter: {}
+        });
+    }
     
-    handleClickLocationSuggestion(location) {
-        let {filters, selectedFilter} = this.state;
-        filters[this.findSelectedFilterIndex()] = this.refs.selectedFilter.updateFilterLocation(selectedFilter, location);
-        this.setState({
-            filters: filters,
-            selectedFilter: {}
-        });
-    }
-
-    handleChangeIntegerInput(value, minOrMax) {
-        let {filters, selectedFilter} = this.state;
-        let filter = this.refs.selectedFilter.updateFilterInteger(selectedFilter, value, minOrMax)
-        filters[this.findSelectedFilterIndex()] = filter;
-        this.setState({
-            filters: filters,
-            selectedFilter: filter
-        });
-    }
-
-    handleClickChoice(choice) {
-        let {filters, selectedFilter} = this.state;
-        let filter = this.refs.selectedFilter.updateFilterChoice(selectedFilter, choice);
-        filters[this.findSelectedFilterIndex()] = filter;
-        this.setState({
-            filters: filters,
-            selectedFilter: filter
-        });
-    }
-
-    handleClickDoubleChoiceChoice(choice) {
-        let {filters, selectedFilter} = this.state;
-        let filter = this.refs.selectedFilter.updateFilterChoice(selectedFilter, choice);
-        filters[this.findSelectedFilterIndex()] = filter;
-        this.setState({
-            filters: filters,
-            selectedFilter: filter
-        });
-    }
-
-    handleClickDoubleChoiceDetail(detail) {
-        let {filters, selectedFilter} = this.state;
-        let filter = this.refs.selectedFilter.updateFilterDetail(selectedFilter, detail);
-        filters[this.findSelectedFilterIndex()] = filter;
-        this.setState({
-            filters: filters,
-            selectedFilter: filter
-        });
-    }
-
-    handleClickMultipleChoice(choice) {
-        let {filters, selectedFilter} = this.state;
-        let filter = this.refs.selectedFilter.updateFilterChoice(selectedFilter, choice);
-        filters[this.findSelectedFilterIndex()] = filter;
-        this.setState({
-            filters: filters,
-            selectedFilter: filter
-        });
-    }
-
-    handleClickRemoveTagsAndChoice(tagAndChoiceIndex) {
-        let {filters, selectedFilter} = this.state;
-        let filter = this.refs.selectedFilter.removeTagAndChoice(selectedFilter, tagAndChoiceIndex);
-        filters[this.findSelectedFilterIndex()] = filter;
-        this.setState({
-            filters: filters,
-            selectedFilter: filter
-        });
-    }
-
-    handleClickTagSuggestion(tagString) {
-        let {filters, selectedFilter} = this.state;
-        filters[this.findSelectedFilterIndex()] = this.refs.selectedFilter.updateFilterTag(selectedFilter, tagString);
-        this.setState({
-            filters: filters,
-            selectedFilter: {}
-        });
-    }
-
-    handleClickTagAndChoiceTagSuggestion(tagString) {
-        let {filters, selectedFilter} = this.state;
-        filters[this.findSelectedFilterIndex()] = this.refs.selectedFilter.updateFilterTag(selectedFilter, tagString);
-        this.setState({
-            filters: filters
-        });
-    }
-
-    handleClickTagAndChoiceChoice(choice, selectedTag) {
-        let {filters, selectedFilter} = this.state;
-        let filter = this.refs.selectedFilter.updateFilterChoice(selectedFilter, choice, selectedTag);
-        filters[this.findSelectedFilterIndex()] = filter;
-        this.setState({
-            filters: filters,
-            selectedFilter: filter
-        });
-    }
-
     handleClickFilter(key) {
         let filters = this.state.filters;
         this.setState({

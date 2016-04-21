@@ -8,7 +8,7 @@ export default class TagFilter extends Component {
         selected: PropTypes.bool.isRequired,
         filter: PropTypes.object.isRequired,
         handleClickRemoveFilter: PropTypes.func.isRequired,
-        handleClickTagSuggestion: PropTypes.func.isRequired,
+        handleChangeFilter: PropTypes.func.isRequired,
         handleClickFilter: PropTypes.func.isRequired
     };
 
@@ -47,20 +47,16 @@ export default class TagFilter extends Component {
     }
 
     handleClickTagSuggestion(tagString) {
-        this.setState({
-            tagSuggestions: []
-        });
-        this.props.handleClickTagSuggestion(tagString);
-    }
-
-    updateFilterTag(filter, tagString) {
+        let {filter} = this.props;
         filter.values = filter.values || [];
         const valueIndex = filter.values.findIndex(value => value.tag === tagString);
         if (!valueIndex > -1) {
             filter.values.push(tagString);
         }
-
-        return filter;
+        this.setState({
+            tagSuggestions: []
+        });
+        this.props.handleChangeFilter(filter);
     }
 
     render() {

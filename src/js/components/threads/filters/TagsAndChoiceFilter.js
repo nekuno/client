@@ -10,9 +10,7 @@ export default class TagsAndChoiceFilter extends Component {
         selected: PropTypes.bool.isRequired,
         filter: PropTypes.object.isRequired,
         handleClickRemoveFilter: PropTypes.func.isRequired,
-        handleClickTagAndChoiceTagSuggestion: PropTypes.func.isRequired,
-        handleClickTagAndChoiceChoice: PropTypes.func.isRequired,
-        handleClickRemoveTagsAndChoice: PropTypes.func.isRequired,
+        handleChangeFilter: PropTypes.func.isRequired,
         handleClickFilter: PropTypes.func.isRequired
     };
     
@@ -41,23 +39,23 @@ export default class TagsAndChoiceFilter extends Component {
     }
 
     handleClickTagAndChoiceTagSuggestion(tagString) {
+        let {filter} = this.props;
         this.refs.tagInput.setValue(tagString);
-        const filter = this.props.filter;
-        const values = filter.values || [];
+        filter.values = filter.values || [];
         let selectedTagAndChoice = this.state.selectedTagAndChoice;
-        const valueIndex = values.findIndex(value => value.tag === tagString);
+        const valueIndex = filter.values.findIndex(value => value.tag === tagString);
         if (valueIndex > -1) {
-            selectedTagAndChoice = values[valueIndex];
+            selectedTagAndChoice = filter.values[valueIndex];
             selectedTagAndChoice.index = valueIndex;
         } else {
-            selectedTagAndChoice = {tag: tagString, index: values.length};
+            selectedTagAndChoice = {tag: tagString, index: filter.values.length};
+            filter.values.push(selectedTagAndChoice);
         }
         this.setState({
             selectedTagAndChoice: selectedTagAndChoice,
             tagSuggestions: []
         });
-        
-        this.props.handleClickTagAndChoiceTagSuggestion(tagString);
+        this.props.handleChangeFilter(filter);
     }
     
     handleClickAddTagsAndChoice() {
@@ -69,23 +67,30 @@ export default class TagsAndChoiceFilter extends Component {
     }
 
     handleClickTagAndChoiceChoice(choice) {
+        let {filter} = this.props;
         this.refs.tagInput.clearValue();
         this.refs.tagInput.focus();
         let selectedTagAndChoice = this.state.selectedTagAndChoice;
+        const valuesIndex = filter.values.findIndex(value => value.tag === selectedTagAndChoice.tag);
+        if (valuesIndex > -1) {
+            filter.values[valuesIndex].choice = choice;
+        }
         this.setState({
             selectedTagAndChoice: {}
         });
-        this.props.handleClickTagAndChoiceChoice(choice, selectedTagAndChoice.tag);
+        this.props.handleChangeFilter(filter);
     }
 
     handleClickRemoveTagsAndChoice() {
+        let {filter} = this.props;
         this.refs.tagInput.clearValue();
         this.refs.tagInput.focus();
         const index = this.state.selectedTagAndChoice.index;
+        filter.values.splice(index, 1);
         this.setState({
             selectedTagAndChoice: {}
         });
-        this.props.handleClickRemoveTagsAndChoice(index);
+        this.props.handleChangeFilter(filter);
     }
     
     handleClickTagAndChoiceTag(tag) {
@@ -116,31 +121,6 @@ export default class TagsAndChoiceFilter extends Component {
                 tagSuggestions: []
             });
         }
-    }
-
-    updateFilterTag(filter, tagString) {
-        filter.values = filter.values || [];
-        const valueIndex = filter.values.findIndex(value => value.tag === tagString);
-        if (!valueIndex > -1) {
-            filter.values.push({tag: tagString, index: filter.values.length});
-        }
-        
-        return filter;
-    }
-
-    updateFilterChoice(filter, choice, selectedTag) {
-        const valuesIndex = filter.values.findIndex(value => value.tag === selectedTag);
-        if (valuesIndex > -1) {
-            filter.values[valuesIndex].choice = choice;
-        }
-
-        return filter;
-    }
-
-    removeTagAndChoice(filter, tagAndChoiceIndex) {
-        filter.values.splice(tagAndChoiceIndex, 1);
-        
-        return filter;
     }
 
     render() {

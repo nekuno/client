@@ -8,7 +8,7 @@ export default class IntegerRangeFilter extends Component {
         selected: PropTypes.bool.isRequired,
         filter: PropTypes.object.isRequired,
         handleClickRemoveFilter: PropTypes.func.isRequired,
-        handleChangeIntegerInput: PropTypes.func.isRequired,
+        handleChangeFilter: PropTypes.func.isRequired,
         handleClickFilter: PropTypes.func.isRequired
     };
 
@@ -52,19 +52,14 @@ export default class IntegerRangeFilter extends Component {
                     nekunoApp.alert('El valor máximo de este valor es ' + maxValue);
                 }, 1000);
             } else {
-                this.props.handleChangeIntegerInput(value, minOrMax);
+                filter['value_' + minOrMax] = value;
+                this.props.handleChangeFilter(filter);
             }
         } else {
             this.integerTimeout = setTimeout(() => {
                 nekunoApp.alert('Este valor debe ser un entero');
             }, 1000);
         }
-    }
-
-    updateFilterInteger(filter, value, minOrMax) {
-        filter['value_' + minOrMax] = value;
-        
-        return filter;
     }
     
     render() {

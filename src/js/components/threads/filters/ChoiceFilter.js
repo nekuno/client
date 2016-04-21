@@ -8,10 +8,16 @@ export default class ChoiceFilter extends Component {
         selected: PropTypes.bool.isRequired,
         filter: PropTypes.object.isRequired,
         handleClickRemoveFilter: PropTypes.func.isRequired,
-        handleClickChoice: PropTypes.func.isRequired,
+        handleChangeFilter: PropTypes.func.isRequired,
         handleClickFilter: PropTypes.func.isRequired
     };
 
+    constructor(props) {
+        super(props);
+
+        this.handleClickChoice = this.handleClickChoice.bind(this);
+    }
+    
     getSelectedFilter() {
         return this.refs.selectedFilter ? this.refs.selectedFilter.getSelectedFilter() : {};
     }
@@ -20,21 +26,21 @@ export default class ChoiceFilter extends Component {
         return this.refs.selectedFilter && this.refs.selectedFilter.selectedFilterContains(target);
     }
 
-    updateFilterChoice(filter, choice) {
+    handleClickChoice(choice) {
+        let {filter} = this.props;
         if (choice !== filter.choice) {
             filter.choice = choice;
         }
-
-        return filter;
+        this.props.handleChangeFilter(filter);
     }
 
     render() {
-        const {selected, filter, handleClickRemoveFilter, handleClickChoice, handleClickFilter} = this.props;
+        const {selected, filter, handleClickRemoveFilter, handleClickFilter} = this.props;
         return(
             selected ?
                 <ThreadSelectedFilter key={'selected-filter'} ref={'selectedFilter'} type={'radio'} active={filter.choice ? true : false} handleClickRemoveFilter={handleClickRemoveFilter}>
                     <TextRadios labels={filter.choices.map(choice => { return({key: choice.value, text: choice.label}); }) }
-                                onClickHandler={handleClickChoice} value={filter.choice} className={'choice-filter'}
+                                onClickHandler={this.handleClickChoice} value={filter.choice} className={'choice-filter'}
                                 title={filter.label} />
                 </ThreadSelectedFilter>
             : 

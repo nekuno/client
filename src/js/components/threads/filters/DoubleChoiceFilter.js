@@ -8,10 +8,16 @@ export default class DoubleChoiceFilter extends Component {
         selected: PropTypes.bool.isRequired,
         filter: PropTypes.object.isRequired,
         handleClickRemoveFilter: PropTypes.func.isRequired,
-        handleClickDoubleChoiceChoice: PropTypes.func.isRequired,
-        handleClickDoubleChoiceDetail: PropTypes.func.isRequired,
+        handleChangeFilter: PropTypes.func.isRequired,
         handleClickFilter: PropTypes.func.isRequired
     };
+    
+    constructor(props) {
+        super(props);
+
+        this.handleClickDoubleChoiceDetail = this.handleClickDoubleChoiceDetail.bind(this);
+        this.handleClickDoubleChoiceChoice = this.handleClickDoubleChoiceChoice.bind(this);
+    }
 
     getSelectedFilter() {
         return this.refs.selectedFilter ? this.refs.selectedFilter.getSelectedFilter() : {};
@@ -21,34 +27,35 @@ export default class DoubleChoiceFilter extends Component {
         return this.refs.selectedFilter && this.refs.selectedFilter.selectedFilterContains(target);
     }
 
-    updateFilterChoice(filter, choice) {
+    handleClickDoubleChoiceChoice(choice) {
+        let {filter} = this.props;
         if (choice !== filter.choice) {
             filter.choice = choice;
+            filter.detail = null;
         }
-
-        return filter;
+        this.props.handleChangeFilter(filter);
     }
 
-    updateFilterDetail(filter, detail) {
+    handleClickDoubleChoiceDetail(detail) {
+        let {filter} = this.props;
         if (detail !== filter.detail) {
             filter.detail = detail;
         }
-
-        return filter;
+        this.props.handleChangeFilter(filter);
     }
 
     render() {
-        const {selected, filter, handleClickRemoveFilter, handleClickDoubleChoiceChoice, handleClickDoubleChoiceDetail, handleClickFilter} = this.props;
+        const {selected, filter, handleClickRemoveFilter, handleClickFilter} = this.props;
         return(
             selected ?
                 <ThreadSelectedFilter key={'selected-filter'} ref={'selectedFilter'} type={'radio'} active={filter.choice ? true : false} handleClickRemoveFilter={handleClickRemoveFilter}>
                     <div className="double-choice-filter">
                         <TextRadios labels={Object.keys(filter.choices).map(choice => { return({key: choice, text: filter.choices[choice]}); }) }
-                                    onClickHandler={handleClickDoubleChoiceChoice} value={filter.choice} className={'double-choice-choice'}
+                                    onClickHandler={this.handleClickDoubleChoiceChoice} value={filter.choice} className={'double-choice-choice'}
                                     title={filter.label} />
                         {filter.choice ?
                             <TextRadios labels={Object.keys(filter.doubleChoices[filter.choice]).map(doubleChoice => { return({key: doubleChoice, text: filter.doubleChoices[filter.choice][doubleChoice]}); }) }
-                                        onClickHandler={handleClickDoubleChoiceDetail} value={filter.detail} className={'double-choice-detail'}/>
+                                        onClickHandler={this.handleClickDoubleChoiceDetail} value={filter.detail} className={'double-choice-detail'}/>
                             : ''}
                     </div>
                 </ThreadSelectedFilter>

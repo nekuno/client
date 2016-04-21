@@ -8,10 +8,16 @@ export default class MultipleChoicesFilter extends Component {
         selected: PropTypes.bool.isRequired,
         filter: PropTypes.object.isRequired,
         handleClickRemoveFilter: PropTypes.func.isRequired,
-        handleClickMultipleChoice: PropTypes.func.isRequired,
+        handleChangeFilter: PropTypes.func.isRequired,
         handleClickFilter: PropTypes.func.isRequired
     };
 
+    constructor(props) {
+        super(props);
+
+        this.handleClickMultipleChoice = this.handleClickMultipleChoice.bind(this);
+    }
+    
     getSelectedFilter() {
         return this.refs.selectedFilter ? this.refs.selectedFilter.getSelectedFilter() : {};
     }
@@ -20,7 +26,8 @@ export default class MultipleChoicesFilter extends Component {
         return this.refs.selectedFilter && this.refs.selectedFilter.selectedFilterContains(target);
     }
 
-    updateFilterChoice(filter, choice) {
+    handleClickMultipleChoice(choice) {
+        let {filter} = this.props;
         filter.values = filter.values || [];
         const valueIndex = filter.values.findIndex(value => value === choice);
         if (valueIndex > -1) {
@@ -28,17 +35,16 @@ export default class MultipleChoicesFilter extends Component {
         } else {
             filter.values.push(choice);
         }
-
-        return filter;
+        this.props.handleChangeFilter(filter);
     }
 
     render() {
-        const {selected, filter, handleClickRemoveFilter, handleClickMultipleChoice, handleClickFilter} = this.props;
+        const {selected, filter, handleClickRemoveFilter, handleClickFilter} = this.props;
         return(
             selected ?
                 <ThreadSelectedFilter key={'selected-filter'} ref={'selectedFilter'} type={'checkbox'} active={filter.values && filter.values.length > 0} handleClickRemoveFilter={handleClickRemoveFilter}>
                     <TextCheckboxes labels={Object.keys(filter.choices).map(key => { return({key: key, text: filter.choices[key]}) })}
-                                    onClickHandler={handleClickMultipleChoice} values={filter.values || []} className={'multiple-choice-filter'}
+                                    onClickHandler={this.handleClickMultipleChoice} values={filter.values || []} className={'multiple-choice-filter'}
                                     title={filter.label} />
                 </ThreadSelectedFilter>
                     :

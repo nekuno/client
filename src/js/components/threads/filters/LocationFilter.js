@@ -8,7 +8,7 @@ export default class LocationFilter extends Component {
         selected: PropTypes.bool.isRequired,
         filter: PropTypes.object.isRequired,
         handleClickRemoveFilter: PropTypes.func.isRequired,
-        handleClickLocationSuggestion: PropTypes.func.isRequired,
+        handleChangeFilter: PropTypes.func.isRequired,
         handleClickFilter: PropTypes.func.isRequired
     };
 
@@ -19,6 +19,7 @@ export default class LocationFilter extends Component {
     }
 
     handleClickLocationSuggestion(suggest) {
+        let {filter} = this.props;
         let locality = '', country = '';
         suggest.gmaps.address_components.forEach(function(component) {
             component.types.forEach(function(type) {
@@ -30,15 +31,15 @@ export default class LocationFilter extends Component {
                 }
             });
         });
-        let location = {
+        filter.value = {
             latitude: suggest.location.lat,
             longitude: suggest.location.lng,
             address: suggest.gmaps.formatted_address,
             locality: locality,
             country: country
         };
-        
-        this.props.handleClickLocationSuggestion(location);
+
+        this.props.handleChangeFilter(filter);
     }
 
     getSelectedFilter() {
@@ -47,12 +48,6 @@ export default class LocationFilter extends Component {
 
     selectedFilterContains(target) {
         return this.refs.selectedFilter && this.refs.selectedFilter.selectedFilterContains(target);
-    }
-
-    updateFilterLocation(filter, location) {
-        filter.value = location;
-        
-        return filter;
     }
     
     render() {

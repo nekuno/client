@@ -1,11 +1,15 @@
 import React, { PropTypes, Component } from 'react';
 import ThreadSelectedFilter from './ThreadSelectedFilter';
+import ThreadUnselectedFilter from './ThreadUnselectedFilter';
 import LocationInput from '../../ui/LocationInput';
 
-export default class LocationSelectedFilter extends Component {
+export default class LocationFilter extends Component {
     static propTypes = {
+        selected: PropTypes.bool.isRequired,
+        filter: PropTypes.object.isRequired,
         handleClickRemoveFilter: PropTypes.func.isRequired,
-        handleClickLocationSuggestion: PropTypes.func.isRequired
+        handleClickLocationSuggestion: PropTypes.func.isRequired,
+        handleClickFilter: PropTypes.func.isRequired
     };
 
     constructor(props) {
@@ -38,22 +42,25 @@ export default class LocationSelectedFilter extends Component {
     }
 
     getSelectedFilter() {
-        return this.refs.selectedFilter.getSelectedFilter();
+        return this.refs.selectedFilter ? this.refs.selectedFilter.getSelectedFilter() : {};
     }
 
     selectedFilterContains(target) {
-        return this.refs.selectedFilter.selectedFilterContains(target);
+        return this.refs.selectedFilter && this.refs.selectedFilter.selectedFilterContains(target);
     }
     
     render() {
-        const {handleClickRemoveFilter} = this.props;
+        const {selected, filter, handleClickRemoveFilter, handleClickFilter} = this.props;
         return(
-            <ThreadSelectedFilter key={'selected-filter'} ref={'selectedFilter'} type={'location-tag'} addedClass={'tag-filter'} plusIcon={true} handleClickRemoveFilter={handleClickRemoveFilter}>
-                <div className="list-block">
-                    <div className="location-title">Ubicación</div>
-                    <LocationInput placeholder={'Escribe una ubicación'} onSuggestSelect={this.handleClickLocationSuggestion}/>
-                </div>
-            </ThreadSelectedFilter>
+            selected ?
+                <ThreadSelectedFilter key={'selected-filter'} ref={'selectedFilter'} type={'location-tag'} addedClass={'tag-filter'} plusIcon={true} handleClickRemoveFilter={handleClickRemoveFilter}>
+                    <div className="list-block">
+                        <div className="location-title">Ubicación</div>
+                        <LocationInput placeholder={'Escribe una ubicación'} onSuggestSelect={this.handleClickLocationSuggestion}/>
+                    </div>
+                </ThreadSelectedFilter>
+                    :
+                <ThreadUnselectedFilter key={filter.key} filter={filter} handleClickFilter={handleClickFilter} />
         );
     }
 }

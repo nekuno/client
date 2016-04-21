@@ -117,8 +117,31 @@ export default class TagsAndChoiceFilter extends Component {
             });
         }
     }
-    
-    
+
+    updateFilterTag(filter, tagString) {
+        filter.values = filter.values || [];
+        const valueIndex = filter.values.findIndex(value => value.tag === tagString);
+        if (!valueIndex > -1) {
+            filter.values.push({tag: tagString, index: filter.values.length});
+        }
+        
+        return filter;
+    }
+
+    updateFilterChoice(filter, choice, selectedTag) {
+        const valuesIndex = filter.values.findIndex(value => value.tag === selectedTag);
+        if (valuesIndex > -1) {
+            filter.values[valuesIndex].choice = choice;
+        }
+
+        return filter;
+    }
+
+    removeTagAndChoice(filter, tagAndChoiceIndex) {
+        filter.values.splice(tagAndChoiceIndex, 1);
+        
+        return filter;
+    }
 
     render() {
         const {selected, filter, handleClickRemoveFilter, handleClickFilter} = this.props;

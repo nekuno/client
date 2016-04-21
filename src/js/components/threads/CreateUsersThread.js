@@ -50,6 +50,7 @@ export default class CreateUsersThread extends Component {
         this.handleClickTagSuggestion = this.handleClickTagSuggestion.bind(this);
         this.createThread = this.createThread.bind(this);
         this.handleClickOutside = this.handleClickOutside.bind(this);
+        this.findSelectedFilterIndex = this.findSelectedFilterIndex.bind(this);
 
         this.state = {
             selectFilter: false,
@@ -74,17 +75,19 @@ export default class CreateUsersThread extends Component {
 
     handleClickFilterOnList(checked, value) {
         let filters = this.state.filters;
-        let filter = this.state.filters.find(key => key === value);
+        let filter = filters.find(key => key === value);
         if (typeof filter == 'undefined') {
-            let defaultFilters = JSON.parse(JSON.stringify(this.props.filters));
+            let defaultFilters = Object.assign({}, this.props.filters);
             filter = Object.keys(defaultFilters).map(key => defaultFilters[key]).find(function (defaultFilter) {
                 return defaultFilter.key === value;
             });
         }
         if (checked) {
+            filters.push(filter);
             this.setState({
                 selectFilter: false,
-                selectedFilter: filter
+                selectedFilter: filter,
+                filters: filters
             });
             clearTimeout(this.selectFilterTimeout);
             this.selectFilterTimeout = setTimeout(() => {
@@ -106,14 +109,6 @@ export default class CreateUsersThread extends Component {
 
     renderActiveFilters() {
         let filters = this.state.filters;
-        if (this.state.selectedFilter.key) {
-            let isSelectedFilterActive = filters.some(filter => filter.key === this.state.selectedFilter.key);
-            if (!isSelectedFilterActive) {
-                filters.push(this.state.selectedFilter);
-            }
-            
-        }
-
         return (
             filters.map((filter, index) => {
                 const selected = this.state.selectedFilter && this.state.selectedFilter.key === filter.key;
@@ -230,28 +225,10 @@ export default class CreateUsersThread extends Component {
             />
         );
     }
-
-    handleClickFilter(key) {
-        let filters = this.state.filters;
-        let filter = filters.find(filter => filter.key === key);
-
-        this.setState({
-            selectedFilter: filter
-        });
-    }
-
+    
     handleClickLocationSuggestion(location) {
-        let filters = this.state.filters;
-        let filter = this.state.selectedFilter;
-        filter.value = location;
-       
-        let index = filters.findIndex(savedFilter => savedFilter.key === 'location');
-        if (index > -1) {
-            filters[index] = filter;
-        } else {
-            filters.push(filter);
-        }
-
+        let {filters, selectedFilter} = this.state;
+        filters[this.findSelectedFilterIndex()] = this.refs.selectedFilter.updateFilterLocation(selectedFilter, location);
         this.setState({
             filters: filters,
             selectedFilter: {}
@@ -259,129 +236,49 @@ export default class CreateUsersThread extends Component {
     }
 
     handleChangeIntegerInput(value, minOrMax) {
-        let selectedFilter = this.state.selectedFilter;
-        let filters = this.state.filters;
-        let index = filters.findIndex(savedFilter => savedFilter.key === selectedFilter.key);
-        selectedFilter['value_' + minOrMax] = value;
-        if (index > -1) {
-            filters[index] = selectedFilter;
-        } else {
-            filters.push(selectedFilter)
-        }
-
+        let {filters, selectedFilter} = this.state;
+        let filter = this.refs.selectedFilter.updateFilterInteger(selectedFilter, value, minOrMax)
+        filters[this.findSelectedFilterIndex()] = filter;
         this.setState({
-            selectedFilter: selectedFilter,
+            selectedFilter: filter,
             filters: filters
         });
     }
 
-    handleClickRemoveFilter() {
-        let filters = this.state.filters;
-        let filter = this.state.selectedFilter;
-        let index = filters.findIndex(savedFilter => savedFilter.key === filter.key);
-        if (index > -1) {
-            filters.splice(index, 1);
-        }
-        this.setState({
-            filters: filters,
-            selectedFilter: {}
-        })
-    }
-
     handleClickChoice(choice) {
-        let filters = this.state.filters;
-        let filter = this.state.selectedFilter;
-        let index = filters.findIndex(savedFilter => savedFilter.choice === filter.choice && savedFilter.key === filter.key);
-        let selectedFilter = {};
-        if (index > -1) {
-            if (choice === filter.choice) {
-                filters.splice(index, 1);
-
-            } else {
-                filter.choice = choice;
-                filters[index] = filter;
-                selectedFilter = filter;
-            }
-        } else {
-            filter.choice = choice;
-            filters.push(filter);
-            selectedFilter = filter;
-        }
-
+        let {filters, selectedFilter} = this.state;
+        let filter = this.refs.selectedFilter.updateFilterChoice(selectedFilter, choice);
+        filters[this.findSelectedFilterIndex()] = filter;
         this.setState({
             filters: filters,
-            selectedFilter: selectedFilter
+            selectedFilter: filter
         });
     }
 
     handleClickDoubleChoiceChoice(choice) {
-        let filters = this.state.filters;
-        let filter = this.state.selectedFilter;
-        let index = filters.findIndex(savedFilter => savedFilter.choice === filter.choice && savedFilter.key === filter.key);
-        let selectedFilter = {};
-        if (index > -1) {
-            if (choice === filter.choice) {
-                filters.splice(index, 1);
-
-            } else {
-                filter.choice = choice;
-                filters[index] = filter;
-                selectedFilter = filter;
-            }
-        } else {
-            filter.choice = choice;
-            filters.push(filter);
-            selectedFilter = filter;
-        }
+        let {filters, selectedFilter} = this.state;
+        let filter = this.refs.selectedFilter.updateFilterChoice(selectedFilter, choice);
+        filters[this.findSelectedFilterIndex()] = filter;
         this.setState({
             filters: filters,
-            selectedFilter: selectedFilter
+            selectedFilter: filter
         });
     }
 
     handleClickDoubleChoiceDetail(detail) {
-        let filters = this.state.filters;
-        let filter = this.state.selectedFilter;
-        let index = filters.findIndex(savedFilter => savedFilter.detail === filter.detail && savedFilter.key === filter.key);
-        let selectedFilter = {};
-        if (index > -1) {
-            if (detail === filter.detail) {
-                filters.splice(index, 1);
-
-            } else {
-                filter.detail = detail;
-                filters[index] = filter;
-                selectedFilter = filter;
-            }
-        } else {
-            filter.detail = detail;
-            filters.push(filter);
-            selectedFilter = filter;
-        }
+        let {filters, selectedFilter} = this.state;
+        let filter = this.refs.selectedFilter.updateFilterDetail(selectedFilter, detail);
+        filters[this.findSelectedFilterIndex()] = filter;
         this.setState({
             filters: filters,
-            selectedFilter: selectedFilter
+            selectedFilter: filter
         });
     }
 
     handleClickMultipleChoice(choice) {
-        let filters = this.state.filters;
-        let filter = this.state.selectedFilter;
-        let index = filters.findIndex(savedFilter => savedFilter.key === filter.key);
-        filter.values = filter.values || [];
-        if (index > -1) {
-            const valueIndex = filter.values.findIndex(value => value === choice);
-            if (valueIndex > -1) {
-                filter.values.splice(valueIndex, 1);
-            } else {
-                filter.values.push(choice);
-            }
-            filters[index] = filter;
-        } else {
-            filter.values.push(choice);
-            filters.push(filter);
-        }
-
+        let {filters, selectedFilter} = this.state;
+        let filter = this.refs.selectedFilter.updateFilterChoice(selectedFilter, choice);
+        filters[this.findSelectedFilterIndex()] = filter;
         this.setState({
             filters: filters,
             selectedFilter: filter
@@ -389,32 +286,18 @@ export default class CreateUsersThread extends Component {
     }
 
     handleClickRemoveTagsAndChoice(tagAndChoiceIndex) {
-        const filters = this.state.filters;
-        let selectedFilter = this.state.selectedFilter;
-        const index = filters.findIndex(filter => filter.key === selectedFilter.key);
-        selectedFilter.values.splice(tagAndChoiceIndex, 1);
-        filters[index] = selectedFilter;
+        let {filters, selectedFilter} = this.state;
+        let filter = this.refs.selectedFilter.removeTagAndChoice(selectedFilter, tagAndChoiceIndex);
+        filters[this.findSelectedFilterIndex()] = filter;
         this.setState({
             filters: filters,
-            selectedFilter: selectedFilter
+            selectedFilter: filter
         });
     }
 
     handleClickTagSuggestion(tagString) {
-        let filters = this.state.filters;
-        let filter = this.state.selectedFilter;
-        let index = filters.findIndex(savedFilter => savedFilter.key === filter.key);
-        filter.values = filter.values || [];
-        if (index > -1) {
-            if (!filter.values.some(value => value === tagString)) {
-                filter.values.push(tagString);
-                filters[index] = filter;
-            }
-        } else {
-            filter.values.push(tagString);
-            filters.push(filter);
-        }
-
+        let {filters, selectedFilter} = this.state;
+        filters[this.findSelectedFilterIndex()] = this.refs.selectedFilter.updateFilterTag(selectedFilter, tagString);
         this.setState({
             filters: filters,
             selectedFilter: {}
@@ -422,42 +305,51 @@ export default class CreateUsersThread extends Component {
     }
 
     handleClickTagAndChoiceTagSuggestion(tagString) {
-        let filters = this.state.filters;
-        let filter = this.state.selectedFilter;
-        filter.values = filter.values || [];
-        
-        let index = filters.findIndex(savedFilter => savedFilter.key === filter.key);
-        if (index > -1) {
-            const valueIndex = filter.values.findIndex(value => value.tag === tagString);
-            if (!valueIndex > -1) {
-                filter.values.push({tag: tagString, index: filter.values.length});
-                filters[index] = filter;
-            }
-        }
-            
+        let {filters, selectedFilter} = this.state;
+        filters[this.findSelectedFilterIndex()] = this.refs.selectedFilter.updateFilterTag(selectedFilter, tagString);
         this.setState({
             filters: filters
         });
     }
 
     handleClickTagAndChoiceChoice(choice, selectedTag) {
-        let filters = this.state.filters;
-        let filter = this.state.selectedFilter;
-        
-        let index = filters.findIndex(savedFilter => savedFilter.key === filter.key);
-        let selectedFilter = {};
-        if (index > -1) {
-            const valuesIndex = filter.values.findIndex(value => value.tag === selectedTag);
-            if (valuesIndex > -1) {
-                filter.values[valuesIndex].choice = choice;
-                filters[index] = filter;
-                selectedFilter = filter;
-            }
-        }
+        let {filters, selectedFilter} = this.state;
+        let filter = this.refs.selectedFilter.updateFilterChoice(selectedFilter, choice, selectedTag);
+        filters[this.findSelectedFilterIndex()] = filter;
         this.setState({
             filters: filters,
-            selectedFilter: selectedFilter
+            selectedFilter: filter
         });
+    }
+
+    handleClickFilter(key) {
+        let filters = this.state.filters;
+        this.setState({
+            selectedFilter: filters.find(filter => filter.key === key)
+        });
+    }
+
+    handleClickRemoveFilter() {
+        let filters = this.state.filters;
+        filters.splice(this.findSelectedFilterIndex(), 1);
+        this.setState({
+            filters: filters,
+            selectedFilter: {}
+        })
+    }
+
+    handleClickOutside(e) {
+        const selectedFilter = this.refs.selectedFilter;
+        if (selectedFilter && selectedFilter.getSelectedFilter() && !selectedFilter.selectedFilterContains(e.target)) {
+            this.setState({selectedFilter: {}});
+        }
+    }
+    
+    findSelectedFilterIndex() {
+        let {filters, selectedFilter} = this.state;
+        let index = filters.findIndex(savedFilter => savedFilter.key === selectedFilter.key);
+        
+        return index > -1 ? index : null;
     }
 
     createThread() {
@@ -506,26 +398,20 @@ export default class CreateUsersThread extends Component {
         }
         let history = this.context.history;
         UserActionCreators.createThread(this.props.userId, data)
-        .then(function(){
-            history.pushState(null, `threads`);
-        });
-    }
-
-    handleClickOutside(e) {
-        const selectedFilter = this.refs.selectedFilter;
-        if (selectedFilter && selectedFilter.getSelectedFilter() && !selectedFilter.selectedFilterContains(e.target)) {
-            this.setState({selectedFilter: {}});
-        }
+            .then(function(){
+                history.pushState(null, `threads`);
+            });
     }
 
     render() {
-        Object.keys(this.props.filters).forEach(key => this.props.filters[key].key = key);
+        let filtersMetadata = Object.assign({}, this.props.filters);
+        Object.keys(filtersMetadata).forEach(key => filtersMetadata[key].key = key);
         return (
             this.state.selectFilter ?
                 <div className="select-filter">
                     <div className="title">Selecciona un filtro</div>
                     <ThreadFilterList filters={this.state.filters}
-                                      filtersMetadata={this.props.filters}
+                                      filtersMetadata={filtersMetadata}
                                       handleClickFilterOnList={this.handleClickFilterOnList}
                     />
                 </div>

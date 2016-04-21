@@ -48,6 +48,12 @@ export default class LocationFilter extends Component {
     selectedFilterContains(target) {
         return this.refs.selectedFilter && this.refs.selectedFilter.selectedFilterContains(target);
     }
+
+    updateFilterLocation(filter, location) {
+        filter.value = location;
+        
+        return filter;
+    }
     
     render() {
         const {selected, filter, handleClickRemoveFilter, handleClickFilter} = this.props;

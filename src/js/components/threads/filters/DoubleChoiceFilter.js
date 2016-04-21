@@ -21,6 +21,22 @@ export default class DoubleChoiceFilter extends Component {
         return this.refs.selectedFilter && this.refs.selectedFilter.selectedFilterContains(target);
     }
 
+    updateFilterChoice(filter, choice) {
+        if (choice !== filter.choice) {
+            filter.choice = choice;
+        }
+
+        return filter;
+    }
+
+    updateFilterDetail(filter, detail) {
+        if (detail !== filter.detail) {
+            filter.detail = detail;
+        }
+
+        return filter;
+    }
+
     render() {
         const {selected, filter, handleClickRemoveFilter, handleClickDoubleChoiceChoice, handleClickDoubleChoiceDetail, handleClickFilter} = this.props;
         return(

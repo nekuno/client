@@ -61,6 +61,12 @@ export default class IntegerRangeFilter extends Component {
         }
     }
 
+    updateFilterInteger(filter, value, minOrMax) {
+        filter['value_' + minOrMax] = value;
+        
+        return filter;
+    }
+    
     render() {
         const {selected, filter, handleClickRemoveFilter, handleClickFilter} = this.props;
         return(

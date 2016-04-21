@@ -20,6 +20,14 @@ export default class ChoiceFilter extends Component {
         return this.refs.selectedFilter && this.refs.selectedFilter.selectedFilterContains(target);
     }
 
+    updateFilterChoice(filter, choice) {
+        if (choice !== filter.choice) {
+            filter.choice = choice;
+        }
+
+        return filter;
+    }
+
     render() {
         const {selected, filter, handleClickRemoveFilter, handleClickChoice, handleClickFilter} = this.props;
         return(

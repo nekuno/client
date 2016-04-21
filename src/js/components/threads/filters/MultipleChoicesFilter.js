@@ -20,6 +20,18 @@ export default class MultipleChoicesFilter extends Component {
         return this.refs.selectedFilter && this.refs.selectedFilter.selectedFilterContains(target);
     }
 
+    updateFilterChoice(filter, choice) {
+        filter.values = filter.values || [];
+        const valueIndex = filter.values.findIndex(value => value === choice);
+        if (valueIndex > -1) {
+            filter.values.splice(valueIndex, 1);
+        } else {
+            filter.values.push(choice);
+        }
+
+        return filter;
+    }
+
     render() {
         const {selected, filter, handleClickRemoveFilter, handleClickMultipleChoice, handleClickFilter} = this.props;
         return(

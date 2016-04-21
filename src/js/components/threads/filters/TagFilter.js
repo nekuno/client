@@ -53,6 +53,16 @@ export default class TagFilter extends Component {
         this.props.handleClickTagSuggestion(tagString);
     }
 
+    updateFilterTag(filter, tagString) {
+        filter.values = filter.values || [];
+        const valueIndex = filter.values.findIndex(value => value.tag === tagString);
+        if (!valueIndex > -1) {
+            filter.values.push(tagString);
+        }
+
+        return filter;
+    }
+
     render() {
         const {selected, filter, handleClickRemoveFilter, handleClickFilter} = this.props;
         const {tagSuggestions} = this.state;

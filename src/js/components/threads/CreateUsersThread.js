@@ -27,7 +27,6 @@ export default class CreateUsersThread extends Component {
         super(props);
 
         this.handleClickAddFilter = this.handleClickAddFilter.bind(this);
-        this.renderFiltersList = this.renderFiltersList.bind(this);
         this.handleClickFilterOnList = this.handleClickFilterOnList.bind(this);
         this.renderActiveFilters = this.renderActiveFilters.bind(this);
         this.handleClickFilter = this.handleClickFilter.bind(this);
@@ -71,15 +70,6 @@ export default class CreateUsersThread extends Component {
         this.setState({
             selectFilter: true
         })
-    }
-
-    renderFiltersList() {
-        return (
-            <ThreadFilterList filters={this.state.filters}
-                              filtersMetadata={this.props.filters}
-                              handleClickFilterOnList={this.handleClickFilterOnList}
-            />
-        );
     }
 
     handleClickFilterOnList(checked, value) {
@@ -534,7 +524,10 @@ export default class CreateUsersThread extends Component {
             this.state.selectFilter ?
                 <div className="select-filter">
                     <div className="title">Selecciona un filtro</div>
-                    {this.renderFiltersList()}
+                    <ThreadFilterList filters={this.state.filters}
+                                      filtersMetadata={this.props.filters}
+                                      handleClickFilterOnList={this.handleClickFilterOnList}
+                    />
                 </div>
                 :
                 <div className="users-filters-wrapper">

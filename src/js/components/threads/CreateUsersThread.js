@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import * as UserActionCreators from '../../actions/UserActionCreators';
 import FullWidthButton from '../ui/FullWidthButton';
-import InputCheckbox from '../ui/InputCheckbox';
+import ThreadFilterList from './filters/ThreadFilterList';
 import LocationFilter from './filters/LocationFilter';
 import IntegerRangeFilter from './filters/IntegerRangeFilter';
 import ChoiceFilter from './filters/ChoiceFilter';
@@ -74,44 +74,11 @@ export default class CreateUsersThread extends Component {
     }
 
     renderFiltersList() {
-        const choicesLength = Object.keys(this.props.filters).length || 0;
-        let firstColumnCounter = 0;
-        let secondColumnCounter = 0;
-        document.getElementsByClassName('view')[0].scrollTop = 0;
-        return(
-            <div className="list-block">
-                <ul className="checkbox-filters-list">
-                    {Object.keys(this.props.filters).map((id) => {
-                        firstColumnCounter++;
-                        if (firstColumnCounter > choicesLength / 2) {
-                            return '';
-                        }
-                        let text = this.props.filters[id].label;
-                        let checked = this.state.filters.some(filter => filter.key === this.props.filters[id].key);
-                        return (
-                            <li key={id}>
-                                <InputCheckbox value={this.props.filters[id].key} name={this.props.filters[id].key} text={text}
-                                               checked={checked} defaultChecked={false} onClickHandler={this.handleClickFilterOnList} reverse={true}/>
-                            </li>
-                        )
-                    })}
-                </ul>
-                <ul className="checkbox-filters-list">
-                    {Object.keys(this.props.filters).map((id) => {
-                        secondColumnCounter++;
-                        if (secondColumnCounter <= choicesLength / 2) {
-                            return '';
-                        }
-                        let text = this.props.filters[id].label;
-                        let checked = this.state.filters.some(filter => filter.key === this.props.filters[id].key);
-                        return (
-                            <li key={id}>
-                                <InputCheckbox value={id} name={this.props.filters[id].key} text={text} checked={checked} defaultChecked={false} onClickHandler={this.handleClickFilterOnList} reverse={true}/>
-                            </li>
-                        )
-                    })}
-                </ul>
-            </div>
+        return (
+            <ThreadFilterList filters={this.state.filters}
+                              filtersMetadata={this.props.filters}
+                              handleClickFilterOnList={this.handleClickFilterOnList}
+            />
         );
     }
 
@@ -129,6 +96,14 @@ export default class CreateUsersThread extends Component {
                 selectFilter: false,
                 selectedFilter: filter
             });
+            clearTimeout(this.selectFilterTimeout);
+            this.selectFilterTimeout = setTimeout(() => {
+                let selectedFilterElem = this.refs.selectedFilter;
+                if (selectedFilterElem) {
+                    selectedFilterElem.getSelectedFilter().scrollIntoView();
+                    document.getElementsByClassName('view')[0].scrollTop -= 100;
+                }
+            })
         } else {
             let index = filters.findIndex(savedFilter => savedFilter.key === filter.key);
             filters.splice(index, 1);

@@ -38,22 +38,27 @@ export default class IntegerRangeFilter extends Component {
 
     handleChangeIntegerInput(minOrMax) {
         clearTimeout(this.integerTimeout);
-        this.integerTimeout = setTimeout(() => {
-            const value = parseInt(this.refs[this.props.filter.key + '_' + minOrMax].getValue());
-            if (typeof value === 'number' && (value % 1) === 0 || value === '') {
-                const minValue = Math.max(this.props.filter.min, parseInt(this.props.filter.value_min) || 0);
-                const maxValue = Math.max(this.props.filter.max, parseInt(this.props.filter.value_max) || 0);
-                if (typeof value === 'number' && value < minValue) {
+        const {filter} = this.props;
+        const value = this.refs[filter.key + '_' + minOrMax] ? parseInt(this.refs[filter.key + '_' + minOrMax].getValue()) : 0;
+        if (typeof value === 'number' && (value % 1) === 0 || value === '') {
+            const minValue = Math.max(filter.min, parseInt(filter.value_min) || 0);
+            const maxValue = Math.max(filter.max, parseInt(filter.value_max) || 0);
+            if (typeof value === 'number' && value < minValue) {
+                this.integerTimeout = setTimeout(() => {
                     nekunoApp.alert('El valor mínimo de este valor es ' + minValue);
-                } else if (typeof value === 'number' && value > maxValue) {
+                }, 1000);
+            } else if (typeof value === 'number' && value > maxValue) {
+                this.integerTimeout = setTimeout(() => {
                     nekunoApp.alert('El valor máximo de este valor es ' + maxValue);
-                } else {
-                    this.props.handleChangeIntegerInput(value, minOrMax);
-                }
+                }, 1000);
             } else {
-                nekunoApp.alert('Este valor debe ser un entero');
+                this.props.handleChangeIntegerInput(value, minOrMax);
             }
-        }, 500);
+        } else {
+            this.integerTimeout = setTimeout(() => {
+                nekunoApp.alert('Este valor debe ser un entero');
+            }, 1000);
+        }
     }
 
     render() {

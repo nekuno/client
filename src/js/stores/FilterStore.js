@@ -109,6 +109,10 @@ class FilterStore extends BaseStore {
                 text += !isNaN(filter.value_min) ? ' - Min: ' + filter.value_min : '';
                 text += !isNaN(filter.value_max) ? ' - Max: ' + filter.value_max : '';
                 return text;
+            case 'integer':
+                text = filter.label;
+                text += !isNaN(filter.value) ? ' - ' + filter.value : '';
+                return text;
             case 'choice':
                 choice = filter.choices.find(choice => choice.value === filter.choice);
                 choiceLabel = choice ? choice.label : '';
@@ -142,6 +146,8 @@ class FilterStore extends BaseStore {
                 return filter.value && filter.value.address;
             case 'integer_range':
                 return filter.value_min || filter.value_max;
+            case 'integer':
+                return filter.value;
             case 'choice':
                 return !!filter.choice;
             case 'double_choice':

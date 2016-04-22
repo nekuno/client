@@ -4,6 +4,7 @@ import FullWidthButton from '../ui/FullWidthButton';
 import ThreadFilterList from './filters/ThreadFilterList';
 import LocationFilter from './filters/LocationFilter';
 import IntegerRangeFilter from './filters/IntegerRangeFilter';
+import IntegerFilter from './filters/IntegerFilter';
 import ChoiceFilter from './filters/ChoiceFilter';
 import DoubleChoiceFilter from './filters/DoubleChoiceFilter';
 import MultipleChoicesFilter from './filters/MultipleChoicesFilter';
@@ -38,6 +39,7 @@ export default class CreateUsersThread extends Component {
         this.renderMultipleChoicesFilter = this.renderMultipleChoicesFilter.bind(this);
         this.renderDoubleMultipleChoicesFilter = this.renderDoubleMultipleChoicesFilter.bind(this);
         this.renderIntegerRangeFilter = this.renderIntegerRangeFilter.bind(this);
+        this.renderIntegerFilter = this.renderIntegerFilter.bind(this);
         this.renderTagFilter = this.renderTagFilter.bind(this);
         this.renderTagAndChoiceFilter = this.renderTagAndChoiceFilter.bind(this);
         this.handleChangeFilter = this.handleChangeFilter.bind(this);
@@ -107,6 +109,9 @@ export default class CreateUsersThread extends Component {
                     case 'integer_range':
                         return this.renderIntegerRangeFilter(filter, index, selected);
                         break;
+                    case 'integer':
+                        return this.renderIntegerFilter(filter, index, selected);
+                        break;
                     case 'choice':
                         return this.renderChoiceFilter(filter, index, selected);
                         break;
@@ -147,6 +152,18 @@ export default class CreateUsersThread extends Component {
                                 filter={filter}
                                 selected={selected}
                                 handleClickRemoveFilter={this.handleClickRemoveFilter} 
+                                handleChangeFilter={this.handleChangeFilter}
+                                handleClickFilter={this.handleClickFilter}
+            />
+        )
+    }
+
+    renderIntegerFilter(filter, index, selected) {
+        return(
+            <IntegerFilter key={index} ref={selected ? 'selectedFilter' : ''}
+                                filter={filter}
+                                selected={selected}
+                                handleClickRemoveFilter={this.handleClickRemoveFilter}
                                 handleChangeFilter={this.handleChangeFilter}
                                 handleClickFilter={this.handleClickFilter}
             />
@@ -326,8 +343,9 @@ export default class CreateUsersThread extends Component {
                     data.filters[box][stateFilter.key] = stateFilter.values;
                     break;
                 case 'integer_range':
-                    data.filters[box][stateFilter.key]['min'] = selectn('value_min', stateFilter)? stateFilter.value_min : stateFilter.min;
-                    data.filters[box][stateFilter.key]['max'] = selectn('value_max', stateFilter)? stateFilter.value_max : stateFilter.max;
+                    data.filters[box][stateFilter.key] = {};
+                    data.filters[box][stateFilter.key]['min'] = stateFilter.value_min;
+                    data.filters[box][stateFilter.key]['max'] = stateFilter.value_max;
                     break;
                 case 'integer':
                     if (stateFilter.key == 'similarity' || stateFilter.key == 'compatibility'){

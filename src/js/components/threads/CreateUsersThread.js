@@ -7,6 +7,7 @@ import IntegerRangeFilter from './filters/IntegerRangeFilter';
 import ChoiceFilter from './filters/ChoiceFilter';
 import DoubleChoiceFilter from './filters/DoubleChoiceFilter';
 import MultipleChoicesFilter from './filters/MultipleChoicesFilter';
+import DoubleMultipleChoicesFilter from './filters/DoubleMultipleChoicesFilter';
 import TagFilter from './filters/TagFilter';
 import TagsAndChoiceFilter from './filters/TagsAndChoiceFilter';
 import selectn from 'selectn';
@@ -35,6 +36,7 @@ export default class CreateUsersThread extends Component {
         this.renderChoiceFilter = this.renderChoiceFilter.bind(this);
         this.renderDoubleChoiceFilter = this.renderDoubleChoiceFilter.bind(this);
         this.renderMultipleChoicesFilter = this.renderMultipleChoicesFilter.bind(this);
+        this.renderDoubleMultipleChoicesFilter = this.renderDoubleMultipleChoicesFilter.bind(this);
         this.renderIntegerRangeFilter = this.renderIntegerRangeFilter.bind(this);
         this.renderTagFilter = this.renderTagFilter.bind(this);
         this.renderTagAndChoiceFilter = this.renderTagAndChoiceFilter.bind(this);
@@ -114,6 +116,9 @@ export default class CreateUsersThread extends Component {
                     case 'multiple_choices':
                         return this.renderMultipleChoicesFilter(filter, index, selected);
                         break;
+                    case 'double_multiple_choices':
+                        return this.renderDoubleMultipleChoicesFilter(filter, index, selected);
+                        break;
                     case 'tags_and_choice':
                         return this.renderTagAndChoiceFilter(filter, index, selected);
                         break;
@@ -184,6 +189,18 @@ export default class CreateUsersThread extends Component {
         );
     }
 
+    renderDoubleMultipleChoicesFilter(filter, index, selected) {
+        return (
+            <DoubleMultipleChoicesFilter key={index} ref={selected ? 'selectedFilter' : ''}
+                                   filter={filter}
+                                   selected={selected}
+                                   handleClickRemoveFilter={this.handleClickRemoveFilter}
+                                   handleChangeFilter={this.handleChangeFilter}
+                                   handleClickFilter={this.handleClickFilter}
+            />
+        );
+    }
+    
     renderTagFilter(filter, index, selected) {
         return (
             <TagFilter key={index} ref={selected ? 'selectedFilter' : ''}
@@ -303,6 +320,9 @@ export default class CreateUsersThread extends Component {
                     data.filters[box][stateFilter.key]['detail'] = stateFilter.detail;
                     break;
                 case 'multiple_choices':
+                    data.filters[box][stateFilter.key] = stateFilter.values;
+                    break;
+                case 'double_multiple_choices':
                     data.filters[box][stateFilter.key] = stateFilter.values;
                     break;
                 case 'integer_range':

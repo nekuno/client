@@ -53,6 +53,7 @@ export default class DoubleChoiceFilter extends Component {
                         <TextRadios labels={Object.keys(filter.choices).map(choice => { return({key: choice, text: filter.choices[choice]}); }) }
                                     onClickHandler={this.handleClickDoubleChoiceChoice} value={filter.choice} className={'double-choice-choice'}
                                     title={filter.label} />
+                        {filter.choice ? <div className="table-row"></div> : ''}
                         {filter.choice ?
                             <TextRadios labels={Object.keys(filter.doubleChoices[filter.choice]).map(doubleChoice => { return({key: doubleChoice, text: filter.doubleChoices[filter.choice][doubleChoice]}); }) }
                                         onClickHandler={this.handleClickDoubleChoiceDetail} value={filter.detail} className={'double-choice-detail'}/>

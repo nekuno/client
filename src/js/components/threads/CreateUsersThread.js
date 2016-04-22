@@ -291,6 +291,12 @@ export default class CreateUsersThread extends Component {
                 case 'tags':
                     data.filters[box][stateFilter.key] = stateFilter.values;
                     break;
+                case 'tags_and_choice':
+                    data.filters[box][stateFilter.key] = {};
+                    stateFilter.values.forEach(function(value, key){
+                        data.filters[box][stateFilter.key][key] = {'tag':value.tag, 'choice':value.choice};
+                    });
+                    break;
                 case 'double_choice':
                     data.filters[box][stateFilter.key] = {};
                     data.filters[box][stateFilter.key]['choice'] = stateFilter.choice;
@@ -300,12 +306,14 @@ export default class CreateUsersThread extends Component {
                     data.filters[box][stateFilter.key] = stateFilter.values;
                     break;
                 case 'integer_range':
+                    data.filters[box][stateFilter.key]['min'] = selectn('value_min', stateFilter)? stateFilter.value_min : stateFilter.min;
+                    data.filters[box][stateFilter.key]['max'] = selectn('value_max', stateFilter)? stateFilter.value_max : stateFilter.max;
+                    break;
+                case 'integer':
                     if (stateFilter.key == 'similarity' || stateFilter.key == 'compatibility'){
                         box = 'userFilters';
                     }
-                    data.filters[box][stateFilter.key] = {};
-                    data.filters[box][stateFilter.key]['min'] = selectn('value_min', stateFilter)? stateFilter.value_min : stateFilter.min;
-                    data.filters[box][stateFilter.key]['max'] = selectn('value_max', stateFilter)? stateFilter.value_max : stateFilter.max;
+                    data.filters[box][stateFilter.key] = stateFilter.value;
                     break;
                 default:
                     break;

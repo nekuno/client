@@ -121,6 +121,10 @@ class FilterStore extends BaseStore {
                 values = filter.values || [];
                 textArray = values.map(value => filter.choices[value]);
                 return textArray.length > 0 ? filter.label + ' - ' + textArray.join(', ') : filter.label;
+            case 'double_multiple_choices':
+                values = filter.values || [];
+                textArray = values.map(value => filter.doubleChoices[value.choice][value.detail] ? filter.choices[value.choice] + ' ' + filter.doubleChoices[value.choice][value.detail] : filter.choices[value.choice]);
+                return textArray.length > 0 ? filter.label + ' - ' + textArray.join(', ') : filter.label;
             case 'tags':
                 tags = filter.values;
                 return tags && tags.length > 0 ? filter.label + ' - ' + tags.join(', ') : filter.label;
@@ -143,6 +147,8 @@ class FilterStore extends BaseStore {
             case 'double_choice':
                 return !!filter.choice;
             case 'multiple_choices':
+                return filter.values && filter.values.length > 0;
+            case 'double_multiple_choices':
                 return filter.values && filter.values.length > 0;
             case 'tags':
                 return filter.values && filter.values.length > 0;

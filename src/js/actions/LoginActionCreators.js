@@ -4,10 +4,12 @@ import AuthService from '../services/AuthService';
 import ChatSocketService from '../services/ChatSocketService';
 import WorkersSocketService from '../services/WorkersSocketService';
 import LoginStore from '../stores/LoginStore';
+import RouterStore from '../stores/RouterStore';
 import RouterContainer from '../services/RouterContainer';
 import * as QuestionActionCreators from '../actions/QuestionActionCreators';
 import * as UserActionCreators from '../actions/UserActionCreators';
 import UserDataStatusActionCreators from '../actions/UserDataStatusActionCreators';
+import RouterActionCreators from '../actions/RouterActionCreators';
 import selectn from 'selectn';
 
 export default new class LoginActionCreators {
@@ -16,9 +18,8 @@ export default new class LoginActionCreators {
         let jwt = localStorage.getItem('jwt');
         console.log('Attempting auto-login...');
         dispatch(ActionTypes.AUTO_LOGIN, {jwt});
-        if (LoginStore.isLoggedIn()) {
-            UserActionCreators.requestProfile(LoginStore.user.id);
-            UserActionCreators.requestStats(LoginStore.user.id);
+        if (!RouterStore.hasNextTransitionPath() && LoginStore.isLoggedIn() && document.location.hash.indexOf('#/?') === 0) {
+            RouterActionCreators.storeRouterTransitionPath('/threads');
         }
         this.redirect();
     }
@@ -31,8 +32,9 @@ export default new class LoginActionCreators {
             failure: ActionTypes.REQUEST_LOGIN_USER_ERROR
         }, {username, password})
             .then(() => {
-                UserActionCreators.requestProfile(LoginStore.user.id);
-                UserActionCreators.requestStats(LoginStore.user.id);
+                if (!RouterStore.hasNextTransitionPath()) {
+                    RouterActionCreators.storeRouterTransitionPath('/threads');
+                }
                 this.redirect();
                 return null;
             }, (error) => {
@@ -41,34 +43,39 @@ export default new class LoginActionCreators {
     }
 
     redirect() {
-        let history = RouterContainer.get();
-        let path = '/';
+
         if (LoginStore.isLoggedIn()) {
+
+            UserActionCreators.requestProfile(LoginStore.user.id);
+            UserActionCreators.requestStats(LoginStore.user.id);
+
             ChatSocketService.connect();
             WorkersSocketService.connect();
             UserDataStatusActionCreators.requestUserDataStatus();
-            var user = LoginStore.user;
-            QuestionActionCreators.requestQuestions(user.qnoow_id).then(
+
+            QuestionActionCreators.requestQuestions(LoginStore.user.id).then(
                 (data) => {
+                    let path = null;
                     let answers = selectn('result.pagination.total', data) || 0;
                     if (answers == 0) {
                         path = '/social-networks-on-sign-up';
                     } else if (answers < 4) {
                         path = '/register-questions-landing';
                     } else {
-                        path = '/threads';
+                        path = RouterStore.nextTransitionPath;
+                        if (path) {
+                            console.log('RouterStore.nextTransitionPath found', path);
+                        }
                     }
-                    console.log('Redirecting to path', path);
-                    history.replaceState(null, path);
+                    if (path) {
+                        console.log('Redirecting to path', path);
+                        let history = RouterContainer.get();
+                        history.replaceState(null, path);
+                    }
                     return null;
                 }, (error) => {
                     console.error(error);
                 });
-        } else {
-            ChatSocketService.disconnect();
-            WorkersSocketService.disconnect();
-            history.replaceState(null, path);
-            console.log('Redirecting to path', path);
         }
     }
 
@@ -88,6 +95,9 @@ export default new class LoginActionCreators {
 
     logoutUser() {
         dispatch(ActionTypes.LOGOUT_USER);
-        this.redirect();
+        ChatSocketService.disconnect();
+        WorkersSocketService.disconnect();
+        let history = RouterContainer.get();
+        history.replaceState(null, '/');
     }
 }

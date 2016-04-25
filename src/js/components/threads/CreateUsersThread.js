@@ -327,8 +327,7 @@ export default class CreateUsersThread extends Component {
         let stateFilters = this.state.filters;
 
         for (let stateFilter of stateFilters) {
-            //TODO: Improve reading from metadata
-            let box = 'profileFilters';
+            let box = 'userFilters';
             switch (stateFilter.type) {
                 case 'choice':
                     data.filters[box][stateFilter.key] = stateFilter.choice;
@@ -370,9 +369,6 @@ export default class CreateUsersThread extends Component {
                     data.filters[box][stateFilter.key]['max'] = stateFilter.value_max;
                     break;
                 case 'integer':
-                    if (stateFilter.key == 'similarity' || stateFilter.key == 'compatibility'){
-                        box = 'userFilters';
-                    }
                     data.filters[box][stateFilter.key] = stateFilter.value;
                     break;
                 default:

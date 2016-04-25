@@ -18,7 +18,7 @@ export default new class LoginActionCreators {
         let jwt = localStorage.getItem('jwt');
         console.log('Attempting auto-login...');
         dispatch(ActionTypes.AUTO_LOGIN, {jwt});
-        if (!RouterStore.hasNextTransitionPath() && LoginStore.isLoggedIn() && document.location.hash.indexOf('#/?') === 0) {
+        if (!RouterStore.hasNextTransitionPath() && LoginStore.isLoggedIn() && (document.location.hash === '' || document.location.hash.indexOf('#/?') === 0)) {
             RouterActionCreators.storeRouterTransitionPath('/threads');
         }
         this.redirect();

@@ -322,57 +322,6 @@ export default class CreateUsersThread extends Component {
             category: 'ThreadUsers'
         };
 
-        let stateFilters = this.state.filters;
-
-        for (let stateFilter of stateFilters) {
-            let box = 'userFilters';
-            switch (stateFilter.type) {
-                case 'choice':
-                    data.filters[box][stateFilter.key] = stateFilter.choice;
-                    break;
-                case 'location_distance':
-                    data.filters[box][stateFilter.key] = {};
-                    data.filters[box][stateFilter.key]['location'] = stateFilter.value;
-                    data.filters[box][stateFilter.key]['distance'] = 50;
-                    break;
-                case 'tags':
-                    data.filters[box][stateFilter.key] = stateFilter.values;
-                    break;
-                case 'tags_and_choice':
-                    data.filters[box][stateFilter.key] = {};
-                    stateFilter.values.forEach(function(value, key){
-                        data.filters[box][stateFilter.key][key] = {'tag':value.tag, 'choice':value.choice};
-                    });
-                    break;
-                case 'tags_and_multiple_choices':
-                    data.filters[box][stateFilter.key] = {};
-                    stateFilter.values.forEach(function(value, key){
-                        data.filters[box][stateFilter.key][key] = {'tag':value.tag, 'choices':value.choices};
-                    });
-                    break;
-                case 'double_choice':
-                    data.filters[box][stateFilter.key] = {};
-                    data.filters[box][stateFilter.key]['choice'] = stateFilter.choice;
-                    data.filters[box][stateFilter.key]['detail'] = stateFilter.detail;
-                    break;
-                case 'multiple_choices':
-                    data.filters[box][stateFilter.key] = stateFilter.values;
-                    break;
-                case 'double_multiple_choices':
-                    data.filters[box][stateFilter.key] = stateFilter.values;
-                    break;
-                case 'integer_range':
-                    data.filters[box][stateFilter.key] = {};
-                    data.filters[box][stateFilter.key]['min'] = stateFilter.value_min;
-                    data.filters[box][stateFilter.key]['max'] = stateFilter.value_max;
-                    break;
-                case 'integer':
-                    data.filters[box][stateFilter.key] = stateFilter.value;
-                    break;
-                default:
-                    break;
-            }
-        }
         let history = this.context.history;
         UserActionCreators.createThread(this.props.userId, data)
             .then(function(){

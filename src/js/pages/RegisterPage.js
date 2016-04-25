@@ -32,7 +32,8 @@ export default class RegisterPage extends Component {
         // Injected by @translate:
         strings: PropTypes.object,
         // Injected by @connectToStores:
-        error  : PropTypes.object
+        error  : PropTypes.object,
+        token  : PropTypes.string
     };
 
     constructor(props) {
@@ -43,15 +44,20 @@ export default class RegisterPage extends Component {
         this.handleGoogle = this.handleGoogle.bind(this);
         this.handleSpotify = this.handleSpotify.bind(this);
         this.handleSocialNetwork = this.handleSocialNetwork.bind(this);
-        this.state = {
-            url: ''
-        };
     }
 
-    handleOnChange(e) {
-        e.preventDefault();
+    componentWillMount() {
+        let {location} = this.props;
+        let initialToken = location.query && location.query.token ? location.query.token : null;
+        this.setState({initialToken});
+        if (initialToken) {
+            ConnectActionCreators.validateInvitation(initialToken);
+        }
+    }
+
+    handleOnChange() {
         clearTimeout(this.tokenTimeout);
-        var token = e.target.value;
+        var token = this.refs.token.getValue();
         this.tokenTimeout = setTimeout(() => {
             token = token.replace(/(http[s]?:\/\/)?(www\.)?(pre\.)?(local\.)?(nekuno.com\/)?(invitation\/)?(inv)?/ig, '');
             if (token) {
@@ -106,6 +112,8 @@ export default class RegisterPage extends Component {
 
         const {error, token, strings} = this.props;
 
+        let initialToken = this.state.initialToken;
+
         if (token) {
             nekunoApp.alert(strings.correct);
         }
@@ -122,7 +130,7 @@ export default class RegisterPage extends Component {
 
                         <div className="list-block">
                             <ul>
-                                <TextInput onChange={this.handleOnChange} placeholder={strings.paste}/>
+                                <TextInput ref="token" defaultValue={initialToken} onChange={this.handleOnChange} placeholder={strings.paste}/>
                             </ul>
                         </div>
                         <div style={{color: '#FFF'}}>

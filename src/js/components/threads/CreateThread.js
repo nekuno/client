@@ -38,7 +38,7 @@ export default class CreateThread extends Component {
             case 'persons':
                 const threadUserFilters = this.buildThreadUsersFilters(filters);
                 verticalLines = [<div key={1} className="users-first-vertical-line"></div>, <div key={2} className="users-last-vertical-line"></div>];
-                content = <CreateUsersThread userId={userId} filters={threadUserFilters} threadName={threadName}/>;
+                content = <CreateUsersThread userId={userId} defaultFilters={threadUserFilters} threadName={threadName}/>;
                 break;
         }
         return (

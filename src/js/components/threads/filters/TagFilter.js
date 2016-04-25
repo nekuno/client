@@ -5,8 +5,10 @@ import TagInput from '../../ui/TagInput';
 
 export default class TagFilter extends Component {
     static propTypes = {
+        filterKey: PropTypes.string.isRequired,
         selected: PropTypes.bool.isRequired,
         filter: PropTypes.object.isRequired,
+        data: PropTypes.array,
         handleClickRemoveFilter: PropTypes.func.isRequired,
         handleChangeFilter: PropTypes.func.isRequired,
         handleClickFilter: PropTypes.func.isRequired
@@ -47,20 +49,20 @@ export default class TagFilter extends Component {
     }
 
     handleClickTagSuggestion(tagString) {
-        let {filter} = this.props;
-        filter.values = filter.values || [];
-        const valueIndex = filter.values.findIndex(value => value.tag === tagString);
+        let {filterKey, data} = this.props;
+        data = data || [];
+        const valueIndex = data.findIndex(value => value.tag === tagString);
         if (!valueIndex > -1) {
-            filter.values.push(tagString);
+            data.push(tagString);
         }
         this.setState({
             tagSuggestions: []
         });
-        this.props.handleChangeFilter(filter);
+        this.props.handleChangeFilter(filterKey, data);
     }
 
     render() {
-        const {selected, filter, handleClickRemoveFilter, handleClickFilter} = this.props;
+        const {filterKey, selected, filter, data, handleClickRemoveFilter, handleClickFilter} = this.props;
         const {tagSuggestions} = this.state;
         return(
             selected ?
@@ -70,7 +72,7 @@ export default class TagFilter extends Component {
                               title={filter.label} />
                 </ThreadSelectedFilter>
                     :
-                <ThreadUnselectedFilter key={filter.key} filter={filter} handleClickFilter={handleClickFilter} />
+                <ThreadUnselectedFilter key={filterKey} filterKey={filterKey} filter={filter} data={data} handleClickFilter={handleClickFilter} />
         );
     }
 }

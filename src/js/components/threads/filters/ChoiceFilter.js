@@ -5,8 +5,10 @@ import TextRadios from '../../ui/TextRadios';
 
 export default class ChoiceFilter extends Component {
     static propTypes = {
+        filterKey: PropTypes.string.isRequired,
         selected: PropTypes.bool.isRequired,
         filter: PropTypes.object.isRequired,
+        data: PropTypes.object.isRequired,
         handleClickRemoveFilter: PropTypes.func.isRequired,
         handleChangeFilter: PropTypes.func.isRequired,
         handleClickFilter: PropTypes.func.isRequired
@@ -27,24 +29,23 @@ export default class ChoiceFilter extends Component {
     }
 
     handleClickChoice(choice) {
-        let {filter} = this.props;
-        if (choice !== filter.choice) {
-            filter.choice = choice;
+        let {filterKey, data} = this.props;
+        if (choice !== data) {
+            this.props.handleChangeFilter(filterKey, choice);
         }
-        this.props.handleChangeFilter(filter);
     }
 
     render() {
-        const {selected, filter, handleClickRemoveFilter, handleClickFilter} = this.props;
+        const {filterKey, selected, filter, data, handleClickRemoveFilter, handleClickFilter} = this.props;
         return(
             selected ?
-                <ThreadSelectedFilter key={'selected-filter'} ref={'selectedFilter'} type={'radio'} active={filter.choice ? true : false} handleClickRemoveFilter={handleClickRemoveFilter}>
+                <ThreadSelectedFilter key={'selected-filter'} ref={'selectedFilter'} type={'radio'} active={data ? true : false} handleClickRemoveFilter={handleClickRemoveFilter}>
                     <TextRadios labels={filter.choices.map(choice => { return({key: choice.value, text: choice.label}); }) }
-                                onClickHandler={this.handleClickChoice} value={filter.choice} className={'choice-filter'}
+                                onClickHandler={this.handleClickChoice} value={data} className={'choice-filter'}
                                 title={filter.label} />
                 </ThreadSelectedFilter>
-            : 
-                <ThreadUnselectedFilter key={filter.key} filter={filter} handleClickFilter={handleClickFilter} />
+            :
+                <ThreadUnselectedFilter key={filterKey} filterKey={filterKey} filter={filter} data={data} handleClickFilter={handleClickFilter} />
         );
     }
 }

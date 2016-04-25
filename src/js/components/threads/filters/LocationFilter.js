@@ -5,8 +5,10 @@ import LocationInput from '../../ui/LocationInput';
 
 export default class LocationFilter extends Component {
     static propTypes = {
+        filterKey: PropTypes.string.isRequired,
         selected: PropTypes.bool.isRequired,
         filter: PropTypes.object.isRequired,
+        data: PropTypes.object,
         handleClickRemoveFilter: PropTypes.func.isRequired,
         handleChangeFilter: PropTypes.func.isRequired,
         handleClickFilter: PropTypes.func.isRequired
@@ -19,7 +21,7 @@ export default class LocationFilter extends Component {
     }
 
     handleClickLocationSuggestion(suggest) {
-        let {filter} = this.props;
+        let {filterKey} = this.props;
         let locality = '', country = '';
         suggest.gmaps.address_components.forEach(function(component) {
             component.types.forEach(function(type) {
@@ -31,15 +33,14 @@ export default class LocationFilter extends Component {
                 }
             });
         });
-        filter.value = {
+        let filter = {
             latitude: suggest.location.lat,
             longitude: suggest.location.lng,
             address: suggest.gmaps.formatted_address,
             locality: locality,
             country: country
         };
-
-        this.props.handleChangeFilter(filter);
+        this.props.handleChangeFilter(filterKey, filter);
     }
 
     getSelectedFilter() {
@@ -51,7 +52,7 @@ export default class LocationFilter extends Component {
     }
     
     render() {
-        const {selected, filter, handleClickRemoveFilter, handleClickFilter} = this.props;
+        const {filterKey, selected, filter, data, handleClickRemoveFilter, handleClickFilter} = this.props;
         return(
             selected ?
                 <ThreadSelectedFilter key={'selected-filter'} ref={'selectedFilter'} type={'location-tag'} addedClass={'tag-filter'} plusIcon={true} handleClickRemoveFilter={handleClickRemoveFilter}>
@@ -61,7 +62,7 @@ export default class LocationFilter extends Component {
                     </div>
                 </ThreadSelectedFilter>
                     :
-                <ThreadUnselectedFilter key={filter.key} filter={filter} handleClickFilter={handleClickFilter} />
+                <ThreadUnselectedFilter key={filterKey} filterKey={filterKey} filter={filter} data={data} handleClickFilter={handleClickFilter} />
         );
     }
 }

@@ -3,7 +3,7 @@ import InputCheckbox from '../../ui/InputCheckbox';
 
 export default class ThreadFilterList extends Component {
     static propTypes = {
-        filters: PropTypes.array.isRequired,
+        filters: PropTypes.object.isRequired,
         filtersMetadata: PropTypes.object.isRequired,
         handleClickFilterOnList: PropTypes.func.isRequired
     };
@@ -17,32 +17,32 @@ export default class ThreadFilterList extends Component {
         return(
             <div className="list-block">
                 <ul className="checkbox-filters-list">
-                    {Object.keys(filtersMetadata).map((id) => {
+                    {Object.keys(filtersMetadata).map(key => {
                         firstColumnCounter++;
                         if (firstColumnCounter > choicesLength / 2) {
                             return '';
                         }
-                        let text = filtersMetadata[id].label;
-                        let checked = filters.some(filter => filter.key === filtersMetadata[id].key);
+                        let text = filtersMetadata[key].label;
+                        let checked = typeof filters[key] !== 'undefined';
                         return (
-                            <li key={id}>
-                                <InputCheckbox value={filtersMetadata[id].key} name={filtersMetadata[id].key} text={text}
+                            <li key={key}>
+                                <InputCheckbox value={key} name={key} text={text}
                                                checked={checked} defaultChecked={false} onClickHandler={handleClickFilterOnList} reverse={true}/>
                             </li>
                         )
                     })}
                 </ul>
                 <ul className="checkbox-filters-list">
-                    {Object.keys(filtersMetadata).map((id) => {
+                    {Object.keys(filtersMetadata).map(key => {
                         secondColumnCounter++;
                         if (secondColumnCounter <= choicesLength / 2) {
                             return '';
                         }
-                        let text = filtersMetadata[id].label;
-                        let checked = filters.some(filter => filter.key === filtersMetadata[id].key);
+                        let text = filtersMetadata[key].label;
+                        let checked = typeof filters[key] !== 'undefined';
                         return (
-                            <li key={id}>
-                                <InputCheckbox value={id} name={filtersMetadata[id].key} text={text} checked={checked} defaultChecked={false} onClickHandler={handleClickFilterOnList} reverse={true}/>
+                            <li key={key}>
+                                <InputCheckbox value={key} name={key} text={text} checked={checked} defaultChecked={false} onClickHandler={handleClickFilterOnList} reverse={true}/>
                             </li>
                         )
                     })}

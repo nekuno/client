@@ -5,8 +5,10 @@ import TextInput from '../../ui/TextInput';
 
 export default class IntegerFilter extends Component {
     static propTypes = {
+        filterKey: PropTypes.string.isRequired,
         selected: PropTypes.bool.isRequired,
         filter: PropTypes.object.isRequired,
+        data: PropTypes.number,
         handleClickRemoveFilter: PropTypes.func.isRequired,
         handleChangeFilter: PropTypes.func.isRequired,
         handleClickFilter: PropTypes.func.isRequired
@@ -28,8 +30,8 @@ export default class IntegerFilter extends Component {
 
     handleChangeIntegerInput() {
         clearTimeout(this.integerTimeout);
-        const {filter} = this.props;
-        const value = this.refs[filter.key] ? parseInt(this.refs[filter.key].getValue()) : 0;
+        const {filterKey, filter} = this.props;
+        const value = this.refs[filterKey] ? parseInt(this.refs[filterKey].getValue()) : 0;
         if (typeof value === 'number' && (value % 1) === 0 || value === '') {
             const minValue = filter.min || 0;
             const maxValue = filter.max || 0;
@@ -42,8 +44,7 @@ export default class IntegerFilter extends Component {
                     nekunoApp.alert('El valor máximo de este valor es ' + maxValue);
                 }, 1000);
             } else {
-                filter.value = value;
-                this.props.handleChangeFilter(filter);
+                this.props.handleChangeFilter(filterKey, value);
             }
         } else {
             this.integerTimeout = setTimeout(() => {
@@ -53,19 +54,19 @@ export default class IntegerFilter extends Component {
     }
     
     render() {
-        const {selected, filter, handleClickRemoveFilter, handleClickFilter} = this.props;
+        const {filterKey, selected, filter, data, handleClickRemoveFilter, handleClickFilter} = this.props;
         return(
             selected ?
                 <ThreadSelectedFilter key={'selected-filter'} ref={'selectedFilter'} type={'integer'} plusIcon={true} handleClickRemoveFilter={handleClickRemoveFilter}>
                     <div className="list-block">
                         <div className="integer-title">{filter.label}</div>
                         <ul>
-                            <TextInput ref={filter.key} placeholder={'Escribe un número'} onChange={this.handleChangeIntegerInput} defaultValue={filter.value}/>
+                            <TextInput ref={filterKey} placeholder={'Escribe un número'} onChange={this.handleChangeIntegerInput} defaultValue={data}/>
                         </ul>
                     </div>
                 </ThreadSelectedFilter>
                     :
-                <ThreadUnselectedFilter key={filter.key} filter={filter} handleClickFilter={handleClickFilter} />
+                <ThreadUnselectedFilter key={filterKey} filterKey={filterKey} filter={filter} data={data} handleClickFilter={handleClickFilter} />
         );
     }
 }

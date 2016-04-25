@@ -7,8 +7,10 @@ import TextCheckboxes from '../../ui/TextCheckboxes';
 
 export default class TagsAndChoiceFilter extends Component {
     static propTypes = {
+        filterKey: PropTypes.string.isRequired,
         selected: PropTypes.bool.isRequired,
         filter: PropTypes.object.isRequired,
+        data: PropTypes.array.isRequired,
         handleClickRemoveFilter: PropTypes.func.isRequired,
         handleChangeFilter: PropTypes.func.isRequired,
         handleClickFilter: PropTypes.func.isRequired
@@ -39,23 +41,23 @@ export default class TagsAndChoiceFilter extends Component {
     }
 
     handleClickTagAndChoiceTagSuggestion(tagString) {
-        let {filter} = this.props;
+        let {filterKey, data} = this.props;
         this.refs.tagInput.setValue(tagString);
-        filter.values = filter.values || [];
+        data = data || [];
         let selectedTagAndChoice = this.state.selectedTagAndChoice;
-        const valueIndex = filter.values.findIndex(value => value.tag === tagString);
+        const valueIndex = data.findIndex(value => value.tag === tagString);
         if (valueIndex > -1) {
-            selectedTagAndChoice = filter.values[valueIndex];
+            selectedTagAndChoice = data[valueIndex];
             selectedTagAndChoice.index = valueIndex;
         } else {
-            selectedTagAndChoice = {tag: tagString, index: filter.values.length};
-            filter.values.push(selectedTagAndChoice);
+            selectedTagAndChoice = {tag: tagString, index: data.length};
+            data.push(selectedTagAndChoice);
         }
         this.setState({
             selectedTagAndChoice: selectedTagAndChoice,
             tagSuggestions: []
         });
-        this.props.handleChangeFilter(filter);
+        this.props.handleChangeFilter(filterKey, data);
     }
     
     handleClickAddTagsAndChoice() {
@@ -67,40 +69,39 @@ export default class TagsAndChoiceFilter extends Component {
     }
 
     handleClickTagAndChoiceChoice(choice) {
-        let {filter} = this.props;
+        let {filterKey, data} = this.props;
         this.refs.tagInput.clearValue();
         this.refs.tagInput.focus();
         let selectedTagAndChoice = this.state.selectedTagAndChoice;
-        const valuesIndex = filter.values.findIndex(value => value.tag === selectedTagAndChoice.tag);
+        const valuesIndex = data.findIndex(value => value.tag === selectedTagAndChoice.tag);
         if (valuesIndex > -1) {
-            filter.values[valuesIndex].choice = choice;
+            data[valuesIndex].choice = choice;
         }
         this.setState({
             selectedTagAndChoice: {}
         });
-        this.props.handleChangeFilter(filter);
+        this.props.handleChangeFilter(filterKey, data);
     }
 
     handleClickRemoveTagsAndChoice() {
-        let {filter} = this.props;
+        let {filterKey, data} = this.props;
         this.refs.tagInput.clearValue();
         this.refs.tagInput.focus();
         const index = this.state.selectedTagAndChoice.index;
-        filter.values.splice(index, 1);
+        data.splice(index, 1);
         this.setState({
             selectedTagAndChoice: {}
         });
-        this.props.handleChangeFilter(filter);
+        this.props.handleChangeFilter(filterKey, data);
     }
     
     handleClickTagAndChoiceTag(tag) {
         this.refs.tagInput.setValue(tag);
         this.refs.tagInput.focus();
-        const filter = this.props.filter;
-        const values = filter.values;
-        const index = values.findIndex(value => value.tag === tag);
+        let {data} = this.props;
+        const index = data.findIndex(value => value.tag === tag);
         if (index > -1) {
-            let selectedTagAndChoice = values[index];
+            let selectedTagAndChoice = data[index];
             selectedTagAndChoice.index = index;
             this.setState({
                 selectedTagAndChoice: selectedTagAndChoice
@@ -124,12 +125,12 @@ export default class TagsAndChoiceFilter extends Component {
     }
 
     render() {
-        const {selected, filter, handleClickRemoveFilter, handleClickFilter} = this.props;
+        let {filterKey, selected, filter, data, handleClickRemoveFilter, handleClickFilter} = this.props;
         const {tagSuggestions, selectedTagAndChoice} = this.state;
-        const values = filter.values || [];
+        data = data || [];
         return(
             selected ?
-                <ThreadSelectedFilter key={'selected-filter'} ref={'selectedFilter'} type={'tags-and-choice'} active={values && values.some(value => value.tag !== '')} handleClickRemoveFilter={handleClickRemoveFilter}>
+                <ThreadSelectedFilter key={'selected-filter'} ref={'selectedFilter'} type={'tags-and-choice'} active={data && data.some(value => value.tag !== '')} handleClickRemoveFilter={handleClickRemoveFilter}>
                     <div className="tags-and-choice-wrapper">
                         <TagInput ref={'tagInput'} placeholder={'Escribe un tag'} tags={tagSuggestions} value={selectedTagAndChoice.tag}
                                   onKeyUpHandler={this.handleKeyUpTagAndChoiceTag} onClickTagHandler={this.handleClickTagAndChoiceTagSuggestion}
@@ -142,9 +143,9 @@ export default class TagsAndChoiceFilter extends Component {
                             </div>
                             : ''}
                         {selectedTagAndChoice.tag ? <div className="remove-tags-and-choice" onClick={this.handleClickRemoveTagsAndChoice}>Eliminar <span className="icon-delete"></span></div> : ''}
-                        {values.length > 0 ?
+                        {data.length > 0 ?
                             <div className="tags-and-choice-unselected-filters">
-                                {values.filter(value => value.tag !== selectedTagAndChoice.tag).map((value, index) =>
+                                {data.filter(value => value.tag !== selectedTagAndChoice.tag).map((value, index) =>
                                     <div className="tags-and-choice-unselected-filter" key={index}>
                                         <TextCheckboxes labels={[{key: value.tag, text: value.choice ? value.tag + ' ' + filter.choices[value.choice] : value.tag}]} values={[value.tag]}
                                                         onClickHandler={this.handleClickTagAndChoiceTag} className={'tags-and-choice-filter'}/>
@@ -155,8 +156,8 @@ export default class TagsAndChoiceFilter extends Component {
                         {selectedTagAndChoice.tag ? <div className="add-tags-and-choice" onClick={this.handleClickAddTagsAndChoice}>Añadir <span className="icon-plus"></span></div> : ''}
                     </div>
                 </ThreadSelectedFilter>
-                    : 
-                <ThreadUnselectedFilter key={filter.key} filter={filter} handleClickFilter={handleClickFilter} />
+                    :
+                <ThreadUnselectedFilter key={filterKey} filterKey={filterKey} filter={filter} data={data} handleClickFilter={handleClickFilter} />
         );
     }
 }

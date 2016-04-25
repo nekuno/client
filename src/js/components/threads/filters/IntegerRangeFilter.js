@@ -5,8 +5,10 @@ import TextInput from '../../ui/TextInput';
 
 export default class IntegerRangeFilter extends Component {
     static propTypes = {
+        filterKey: PropTypes.string.isRequired,
         selected: PropTypes.bool.isRequired,
         filter: PropTypes.object.isRequired,
+        data: PropTypes.object,
         handleClickRemoveFilter: PropTypes.func.isRequired,
         handleChangeFilter: PropTypes.func.isRequired,
         handleClickFilter: PropTypes.func.isRequired
@@ -38,11 +40,12 @@ export default class IntegerRangeFilter extends Component {
 
     handleChangeIntegerInput(minOrMax) {
         clearTimeout(this['integerTimeout_' + minOrMax]);
-        const {filter} = this.props;
-        const value = this.refs[filter.key + '_' + minOrMax] ? parseInt(this.refs[filter.key + '_' + minOrMax].getValue()) : 0;
+        let {filterKey, filter, data} = this.props;
+        data = data || {};
+        const value = this.refs[filterKey + '_' + minOrMax] ? parseInt(this.refs[filterKey + '_' + minOrMax].getValue()) : 0;
         if (typeof value === 'number' && (value % 1) === 0 || value === '') {
-            const minValue = Math.max(filter.min, parseInt(filter.value_min) || 0);
-            const maxValue = Math.max(filter.max, parseInt(filter.value_max) || 0);
+            const minValue = Math.max(filter.min, parseInt(data.min) || 0);
+            const maxValue = Math.max(filter.max, parseInt(data.max) || 0);
             if (typeof value === 'number' && value < minValue) {
                 this['integerTimeout_' + minOrMax] = setTimeout(() => {
                     nekunoApp.alert('El valor mínimo de este valor es ' + minValue);
@@ -52,8 +55,8 @@ export default class IntegerRangeFilter extends Component {
                     nekunoApp.alert('El valor máximo de este valor es ' + maxValue);
                 }, 1000);
             } else {
-                filter['value_' + minOrMax] = value;
-                this.props.handleChangeFilter(filter);
+                filter[minOrMax] = value;
+                this.props.handleChangeFilter(filterKey, filter);
             }
         } else {
             this['integerTimeout_' + minOrMax] = setTimeout(() => {
@@ -63,20 +66,20 @@ export default class IntegerRangeFilter extends Component {
     }
     
     render() {
-        const {selected, filter, handleClickRemoveFilter, handleClickFilter} = this.props;
+        const {filterKey, selected, filter, data, handleClickRemoveFilter, handleClickFilter} = this.props;
         return(
             selected ?
                 <ThreadSelectedFilter key={'selected-filter'} ref={'selectedFilter'} type={'integer'} plusIcon={true} handleClickRemoveFilter={handleClickRemoveFilter}>
                     <div className="list-block">
                         <div className="integer-title">{filter.label}</div>
                         <ul>
-                            <TextInput ref={filter.key + '_min'} placeholder={'Mínimo'} onChange={this.handleChangeMinIntegerInput} defaultValue={filter.value_min}/>
-                            <TextInput ref={filter.key + '_max'} placeholder={'Maximo'} onChange={this.handleChangeMaxIntegerInput} defaultValue={filter.value_max}/>
+                            <TextInput ref={filterKey + '_min'} placeholder={'Mínimo'} onChange={this.handleChangeMinIntegerInput} defaultValue={data ? data.min : null}/>
+                            <TextInput ref={filterKey + '_max'} placeholder={'Maximo'} onChange={this.handleChangeMaxIntegerInput} defaultValue={data ? data.max : null}/>
                         </ul>
                     </div>
                 </ThreadSelectedFilter>
                     :
-                <ThreadUnselectedFilter key={filter.key} filter={filter} handleClickFilter={handleClickFilter} />
+                <ThreadUnselectedFilter key={filterKey} filterKey={filterKey} filter={filter} data={data} handleClickFilter={handleClickFilter} />
         );
     }
 }

@@ -347,6 +347,12 @@ export default class CreateUsersThread extends Component {
                         data.filters[box][stateFilter.key][key] = {'tag':value.tag, 'choice':value.choice};
                     });
                     break;
+                case 'tags_and_multiple_choices':
+                    data.filters[box][stateFilter.key] = {};
+                    stateFilter.values.forEach(function(value, key){
+                        data.filters[box][stateFilter.key][key] = {'tag':value.tag, 'choices':value.choices};
+                    });
+                    break;
                 case 'double_choice':
                     data.filters[box][stateFilter.key] = {};
                     data.filters[box][stateFilter.key]['choice'] = stateFilter.choice;

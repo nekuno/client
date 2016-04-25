@@ -99,31 +99,22 @@ export default class CreateUsersThread extends Component {
                 switch (defaultFilters[key].type) {
                     case 'location_distance':
                         return this.renderLocationFilter(defaultFilters[key], key, filters[key], selected);
-                        break;
                     case 'integer_range':
                         return this.renderIntegerRangeFilter(defaultFilters[key], key, filters[key], selected);
-                        break;
                     case 'integer':
                         return this.renderIntegerFilter(defaultFilters[key], key, filters[key], selected);
-                        break;
                     case 'choice':
                         return this.renderChoiceFilter(defaultFilters[key], key, filters[key], selected);
-                        break;
                     case 'double_choice':
                         return this.renderDoubleChoiceFilter(defaultFilters[key], key, filters[key], selected);
-                        break;
                     case 'multiple_choices':
                         return this.renderMultipleChoicesFilter(defaultFilters[key], key, filters[key], selected);
-                        break;
                     case 'double_multiple_choices':
                         return this.renderDoubleMultipleChoicesFilter(defaultFilters[key], key, filters[key], selected);
-                        break;
                     case 'tags_and_choice':
                         return this.renderTagsAndChoiceFilter(defaultFilters[key], key, filters[key], selected);
-                        break;
                     case 'tags_and_multiple_choices':
                         return this.renderTagsAndMultipleChoicesFilter(defaultFilters[key], key, filters[key], selected);
-                        break;
                     case 'tags':
                         return this.renderTagFilter(defaultFilters[key], key, filters[key], selected);
                 }
@@ -344,7 +335,7 @@ export default class CreateUsersThread extends Component {
                                       handleClickFilterOnList={this.handleClickFilterOnList}
                     />
                 </div>
-                :
+                    :
                 <div className="users-filters-wrapper">
                     <div className="table-row"></div>
                     {this.renderActiveFilters()}

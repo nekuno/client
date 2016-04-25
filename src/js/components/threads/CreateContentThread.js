@@ -1,10 +1,8 @@
 import React, { PropTypes, Component } from 'react';
 import * as UserActionCreators from '../../actions/UserActionCreators';
-import TextInput from '../ui/TextInput';
-import TextRadios from '../ui/TextRadios';
-import TextCheckboxes from '../ui/TextCheckboxes';
-import InputCheckbox from '../ui/InputCheckbox';
-import TagInput from '../ui/TagInput';
+import ThreadFilterList from './filters/ThreadFilterList';
+import MultipleChoicesFilter from './filters/MultipleChoicesFilter';
+import TagFilter from './filters/TagFilter';
 import FullWidthButton from '../ui/FullWidthButton';
 
 export default class CreateContentThread extends Component {
@@ -15,7 +13,7 @@ export default class CreateContentThread extends Component {
 
     static propTypes = {
         userId: PropTypes.number.isRequired,
-        filters: PropTypes.object.isRequired,
+        defaultFilters: PropTypes.object.isRequired,
         threadName: PropTypes.string
         // TODO: tagSuggestions should be a prop
     };
@@ -24,15 +22,13 @@ export default class CreateContentThread extends Component {
         super(props);
 
         this.handleClickAddFilter = this.handleClickAddFilter.bind(this);
-        this.renderFiltersList = this.renderFiltersList.bind(this);
         this.handleClickFilterOnList = this.handleClickFilterOnList.bind(this);
         this.renderActiveFilters = this.renderActiveFilters.bind(this);
         this.renderMultipleChoicesFilter = this.renderMultipleChoicesFilter.bind(this);
         this.renderTagFilter = this.renderTagFilter.bind(this);
-        this.handleClickMultipleChoice = this.handleClickMultipleChoice.bind(this);
-        this.handleKeyUpTag = this.handleKeyUpTag.bind(this);
-        this.handleClickTagSuggestion = this.handleClickTagSuggestion.bind(this);
         this.handleClickFilter = this.handleClickFilter.bind(this);
+        this.handleChangeFilter = this.handleChangeFilter.bind(this);
+        this.handleChangeFilterAndUnSelect = this.handleChangeFilterAndUnSelect.bind(this);
         this.handleClickRemoveFilter = this.handleClickRemoveFilter.bind(this);
         this.createThread = this.createThread.bind(this);
         this.handleClickOutside = this.handleClickOutside.bind(this);
@@ -40,7 +36,7 @@ export default class CreateContentThread extends Component {
         this.state = {
             selectFilter: false,
             selectedFilter: {},
-            filters: [],
+            filters: {},
             tagSuggestions: []
         }
     }
@@ -53,333 +49,135 @@ export default class CreateContentThread extends Component {
         window.nekunoContainer.removeEventListener('click', this.handleClickOutside)
     }
 
-    render() {
-        Object.keys(this.props.filters).forEach(key => this.props.filters[key].key = key);
-        let content = '';
-        if (this.state.selectFilter) {
-            content = <div className="select-filter">
-                <div className="title">Selecciona un filtro</div>
-                {this.renderFiltersList()}
-            </div>;
-        } else {
-            content = <div className="content-filters-wrapper">
-                <div className="table-row"></div>
-                {this.renderActiveFilters()}
-                <div className="table-row"></div>
-                <div className="thread-filter add-filter">
-                    <div className="thread-filter-dot">
-                        <span className="icon-plus active"></span>
-                    </div>
-                    <div className="users-opposite-vertical-line"></div>
-                    <div className="add-filter-button-wrapper" onClick={this.handleClickAddFilter}>
-                        <div className="add-filter-button">
-                            <span className="add-filter-button-text">Añadir filtro</span>
-                        </div>
-                    </div>
-                </div>
-                <br />
-                <br />
-                <br />
-                <br />
-                <FullWidthButton onClick={this.createThread}>Crear hilo</FullWidthButton>
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-            </div>;
-        }
-
-        return (
-            content
-        );
-    }
-
     handleClickAddFilter() {
         this.setState({
             selectFilter: true
         })
     }
 
-    renderFiltersList() {
-        return(
-            <div className="list-block">
-                <ul className="checkbox-filters-list">
-                    {Object.keys(this.props.filters).map((id) => {
-                        let text = this.props.filters[id].label;
-                        let checked = this.state.filters.some(filter => filter.key === this.props.filters[id].key);
-                        return (
-                            <li key={id}>
-                                <InputCheckbox value={this.props.filters[id].key} name={this.props.filters[id].key} text={text}
-                                               checked={checked} defaultChecked={false} onClickHandler={this.handleClickFilterOnList} reverse={true}/>
-                            </li>
-                        )
-                    })}
-                </ul>
-            </div>
-        );
-    }
-
     handleClickFilterOnList(checked, value) {
         let filters = this.state.filters;
-        let filter = this.state.filters.find(key => key === value);
-        if (typeof filter == 'undefined') {
-            let defaultFilters = JSON.parse(JSON.stringify(this.props.filters));
-            filter = Object.keys(defaultFilters).map(key => defaultFilters[key]).find(function (defaultFilter) {
-                return defaultFilter.key === value;
-            });
-        }
+        let filterData = Object.keys(filters).find(key => key === value) || null;
+
         if (checked) {
+            filters[value] = filterData;
             this.setState({
                 selectFilter: false,
-                selectedFilter: filter
+                selectedFilter: value,
+                filters: filters
             });
+            this.scrollToFilter();
         } else {
-            let index = filters.findIndex(savedFilter => savedFilter.key === filter.key);
-            filters.splice(index, 1);
+            delete filters[value];
             this.setState({
                 filters: filters,
-                selectedFilter: {}
+                selectedFilter: null
             });
         }
     }
 
     renderActiveFilters() {
-        let filters = this.state.filters || [];
-        let selectedFilterContent = '';
-        if (this.state.selectedFilter.key) {
-            let isSelectedFilterActive = filters.some(filter => filter.key === this.state.selectedFilter.key);
-            if (!isSelectedFilterActive) {
-                filters.push(this.state.selectedFilter);
-            }
-            switch (this.state.selectedFilter.type) {
-                case 'multiple_choices':
-                    selectedFilterContent = this.renderMultipleChoicesFilter();
-                    break;
-                case 'tags':
-                    selectedFilterContent = this.renderTagFilter();
-                    break;
-            }
-        }
-        let multipleChoicesFilter = filters.filter(filter => filter.type === 'multiple_choices');
-        let tagsFilter = filters.filter(filter => filter.type === 'tags');
-        let filterCheckboxes = [];
-
-        if (multipleChoicesFilter) {
-            multipleChoicesFilter.forEach(filter => {
-                let values = filter.values || [];
-                let textArray = values.map(value => filter.choices[value]);
-                let text = textArray.length > 0 ? filter.label + ' - ' + textArray.join(', ') : filter.label;
-                filterCheckboxes.push({
-                    label: {key: filter.key, text: text},
-                    value: filter.key,
-                    selected: this.state.selectedFilter && this.state.selectedFilter.key === filter.key
-                });
-            });
-        }
-        if (tagsFilter) {
-            tagsFilter.forEach(filter => {
-                let tags = filter.values;
-                let text = tags && tags.length > 0 ? filter.label + ' - ' + tags.join(', ') : filter.label;
-                filterCheckboxes.push({
-                    label: {key: filter.key, text: text},
-                    value: filter.key,
-                    selected: this.state.selectedFilter && this.state.selectedFilter.key === filter.key
-                });
-            });
-        }
-
+        const defaultFilters = Object.assign({}, this.props.defaultFilters);
+        const {filters} = this.state;
         return (
-            filterCheckboxes.map((filterCheckbox, index) =>
-                filterCheckbox.selected ?
-                    selectedFilterContent :
-                    <div key={index} className="thread-filter">
-                        <div className="content-middle-vertical-line"></div>
-                        <div className="thread-filter-dot">
-                            <span className="icon-circle active"></span>
-                        </div>
-                        <TextCheckboxes labels={[filterCheckbox.label]} onClickHandler={this.handleClickFilter.bind(this, filterCheckbox.label.key)}
-                                        values={filters.map(filter => {return filter.value || filter.choice || filter.values && filter.values.length > 0 ? filter.key : null})} />
-                        <div className="table-row"></div>
-                    </div>
-            )
+            Object.keys(filters).map(key => {
+                const selected = this.state.selectedFilter === key;
+                switch (defaultFilters[key].type) {
+                    case 'multiple_choices':
+                        return this.renderMultipleChoicesFilter(defaultFilters[key], key, filters[key], selected);
+                    case 'tags':
+                        return this.renderTagFilter(defaultFilters[key], key, filters[key], selected);
+                }
+            })
         );
     }
 
-    renderMultipleChoicesFilter() {
+    renderMultipleChoicesFilter(filter, key, data, selected) {
         return (
-            <div key={'selected-filter'} ref={'selectedFilter'} className="thread-filter checkbox-filter">
-                <div className="content-middle-vertical-line"></div>
-                {this.renderSelectedFilterBackground()}
-                <div className="thread-filter-dot">
-                    <span className={this.state.selectedFilter.values && this.state.selectedFilter.values.length > 0 ? "icon-circle active" : "icon-circle"}></span>
-                </div>
-                <TextCheckboxes labels={Object.keys(this.state.selectedFilter.choices).map(key => { return({key: key, text: this.state.selectedFilter.choices[key]}) })}
-                            onClickHandler={this.handleClickMultipleChoice} values={this.state.selectedFilter.values || []} className={'multiple-choice-filter'}
-                            title={this.state.selectedFilter.label} />
-                {this.renderSelectedFilterOppositeBackground()}
-                <div className="table-row"></div>
-            </div>
+            <MultipleChoicesFilter key={key} filterKey={key} ref={selected ? 'selectedFilter' : ''}
+                                   filter={filter}
+                                   data={data}
+                                   selected={selected}
+                                   handleClickRemoveFilter={this.handleClickRemoveFilter}
+                                   handleChangeFilter={this.handleChangeFilter}
+                                   handleClickFilter={this.handleClickFilter}
+            />
         );
     }
 
-    renderTagFilter() {
+    renderTagFilter(filter, key, data, selected) {
         return (
-            <div key={'selected-filter'} ref={'selectedFilter'} className="thread-filter tag-filter">
-                <div className="content-middle-vertical-line"></div>
-                {this.renderSelectedFilterBackground()}
-                <div className="thread-filter-dot">
-                    <span className="icon-plus active"></span>
-                </div>
-                {/* TODO: tagSuggestions should be set from props instead of state */}
-                <TagInput placeholder={'Escribe un tag'} tags={this.state.tagSuggestions}
-                          onKeyUpHandler={this.handleKeyUpTag} onClickTagHandler={this.handleClickTagSuggestion}
-                          title={this.state.selectedFilter.label}/>
-                {this.renderSelectedFilterOppositeBackground()}
-                <div className="table-row"></div>
-            </div>
+            <TagFilter key={key} filterKey={key} ref={selected ? 'selectedFilter' : ''}
+                       filter={filter}
+                       data={data}
+                       selected={selected}
+                       handleClickRemoveFilter={this.handleClickRemoveFilter}
+                       handleChangeFilter={this.handleChangeFilterAndUnSelect}
+                       handleClickFilter={this.handleClickFilter}
+            />
         );
     }
 
-    handleClickMultipleChoice(choice) {
-        let filters = this.state.filters;
-        let filter = this.state.selectedFilter;
-        let index = filters.findIndex(savedFilter => savedFilter.key === filter.key);
-        filter.values = filter.values || [];
-        if (index > -1) {
-            const valueIndex = filter.values.findIndex(value => value === choice);
-            if (valueIndex > -1) {
-                filter.values.splice(valueIndex, 1);
-            } else {
-                filter.values.push(choice);
-            }
-            filters[index] = filter;
-        } else {
-            filter.values.push(choice);
-            filters.push(filter);
-        }
-
+    handleChangeFilter(key, data) {
+        let {filters} = this.state;
+        filters[key] = data;
         this.setState({
             filters: filters,
-            selectedFilter: filter
+            selectedFilter: key
         });
     }
 
-    handleKeyUpTag(tag = '') {
-        if (tag.length > 2) {
-            // TODO: Call get tags action and save in store
-            // TODO: Replace this example setting the tagSuggestions in getState method as props
-            console.log(tag);
-            this.setState({
-                tagSuggestions: [tag + '1', tag + '2', tag + '3']
-            });
-            /*window.setTimeout(function () {
-             document.getElementsByClassName('view')[0].scrollTop = document.getElementsByClassName('view')[0].scrollHeight;
-             }, 500);*/
-        } else {
-            this.setState({
-                tagSuggestions: []
-            });
-        }
-    }
-
-    handleClickTagSuggestion(tagString) {
-        let filters = this.state.filters;
-        let filter = this.state.selectedFilter;
-        let index = filters.findIndex(savedFilter => savedFilter.key === filter.key);
-        filter.values = filter.values || [];
-        if (index > -1) {
-            if (!filter.values.some(value => value === tagString)) {
-                filter.values.push(tagString);
-                filters[index] = filter;
-            }
-        } else {
-            filter.values.push(tagString);
-            filters.push(filter);
-        }
-
+    handleChangeFilterAndUnSelect(key, data) {
+        let {filters} = this.state;
+        filters[key] = data;
         this.setState({
             filters: filters,
-            selectedFilter: {},
-            tagSuggestions: []
+            selectedFilter: null
         });
     }
 
-    renderSelectedFilterBackground() {
-        return (
-            <div className="thread-filter-background">
-                <div className="thread-filter-remove" onClick={this.handleClickRemoveFilter}>
-                    <div className="small-icon-wrapper">
-                        <span className="icon-delete"></span>
-                    </div>
-                </div>
-            </div>
-        );
+    handleClickFilter(key) {
+        let {filters} = this.state;
+        filters[key] = filters[key] || null;
+        this.setState({
+            selectedFilter: key,
+            filters: filters
+        });
     }
 
     handleClickRemoveFilter() {
-        let filters = this.state.filters;
-        let filter = this.state.selectedFilter;
-        let index = filters.findIndex(savedFilter => savedFilter.key === filter.key);
-        if (index !== -1) {
-            filters.splice(index, 1);
-        }
+        let {filters, selectedFilter} = this.state;
+        delete filters[selectedFilter];
         this.setState({
             filters: filters,
-            selectedFilter: {}
+            selectedFilter: null
         })
     }
 
-    renderSelectedFilterOppositeBackground = function() {
-        return (
-            <div className="thread-filter-opposite-background"></div>
-        );
-    };
+    handleClickOutside(e) {
+        const selectedFilter = this.refs.selectedFilter;
+        if (selectedFilter && selectedFilter.getSelectedFilter() && !selectedFilter.selectedFilterContains(e.target)) {
+            this.setState({selectedFilter: null});
+        }
+    }
 
-    handleClickFilter(key) {
-        let filters = this.state.filters;
-        let filter = filters.find(filter => filter.key === key);
-
-        this.setState({
-            selectedFilter: filter
-        });
+    scrollToFilter() {
+        clearTimeout(this.selectFilterTimeout);
+        this.selectFilterTimeout = setTimeout(() => {
+            let selectedFilterElem = this.refs.selectedFilter;
+            if (selectedFilterElem) {
+                selectedFilterElem.getSelectedFilter().scrollIntoView();
+                document.getElementsByClassName('view')[0].scrollTop -= 100;
+            }
+        }, 0);
     }
 
     createThread() {
         let data = {
             name: this.props.threadName,
-            filters: {},
+            filters: {contentFilters: this.state.filters},
             category: 'ThreadContent'
         };
-
-        let stateFilters = this.state.filters;
-
-        for (let stateFilter of stateFilters) {
-            switch (stateFilter.type) {
-                case 'choice':
-                    data.filters[stateFilter.key] = stateFilter.choice;
-                    break;
-                case 'location':
-                    data.filters[stateFilter.key] = {};
-                    data.filters[stateFilter.key]['location'] = stateFilter.value;
-                    data.filters[stateFilter.key]['distance'] = 50;
-                    break;
-                case 'tags':
-                    data.filters['tag'] = stateFilter.values;
-                    break;
-                case 'double_choice':
-                    data.filters[stateFilter.key] = {};
-                    data.filters[stateFilter.key]['choice'] = stateFilter.choice;
-                    data.filters[stateFilter.key]['detail'] = stateFilter.detail;
-                    break;
-                case 'multiple_choices':
-                    data.filters[stateFilter.key] = stateFilter.values;
-                    break;
-                default:
-                    break;
-            }
-        }
 
         let history = this.context.history;
         UserActionCreators.createThread(this.props.userId, data)
@@ -388,10 +186,49 @@ export default class CreateContentThread extends Component {
             });
     }
 
-    handleClickOutside(e) {
-        const selectedFilter = this.refs.selectedFilter;
-        if (selectedFilter && !selectedFilter.contains(e.target)) {
-            this.setState({selectedFilter: {}});
-        }
+    render() {
+        let defaultFilters = Object.assign({}, this.props.defaultFilters);
+        const data = this.state.filters || {};
+        let filterKeys = Object.keys(defaultFilters).filter(key => Object.keys(data).some(dataKey => dataKey === key));
+        let filters = {};
+        filterKeys.forEach(key => { if (typeof data[key] !== 'undefined') { filters[key] = defaultFilters[key] } });
+        return (
+            this.state.selectFilter ?
+                <div className="select-filter">
+                    <div className="title">Selecciona un filtro</div>
+                    <ThreadFilterList filters={filters}
+                                      filtersMetadata={defaultFilters}
+                                      handleClickFilterOnList={this.handleClickFilterOnList}
+                    />
+                </div>
+                    :
+                <div className="content-filters-wrapper">
+                    <div className="table-row"></div>
+                    {this.renderActiveFilters()}
+                    <div className="table-row"></div>
+                    <div className="thread-filter add-filter">
+                        <div className="thread-filter-dot">
+                            <span className="icon-plus active"></span>
+                        </div>
+                        <div className="users-opposite-vertical-line"></div>
+                        <div className="add-filter-button-wrapper" onClick={this.handleClickAddFilter}>
+                            <div className="add-filter-button">
+                                <span className="add-filter-button-text">Añadir filtro</span>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <FullWidthButton onClick={this.createThread}>Crear hilo</FullWidthButton>
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                </div>
+        )
     }
 }

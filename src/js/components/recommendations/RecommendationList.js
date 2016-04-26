@@ -14,7 +14,11 @@ export default class RecommendationList extends Component {
     };
 
     renderChipList = function(thread, filters) {
-        const chips = Object.keys(thread.filters).filter(key => typeof filters[key] !== 'undefined').map(key => { return {label: FilterStore.getFilterLabel(filters[key], thread.filters[key])} });
+        const threadFilters = thread.category === 'ThreadUsers' ? thread.filters.userFilters : thread.filters.contentFilters;
+        let chips = [{label: thread.category === 'ThreadUsers' ? 'Personas' : 'Contenidos'}]
+        Object.keys(threadFilters).filter(key => typeof filters[key] !== 'undefined').forEach(key => { 
+            chips.push({label: FilterStore.getFilterLabel(filters[key], threadFilters[key])}) 
+        });
         return (
             <ChipList chips={chips} small={true}/>
         );

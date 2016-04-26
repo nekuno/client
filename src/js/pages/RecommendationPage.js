@@ -159,7 +159,7 @@ export default class RecommendationPage extends Component {
                 <RecommendationsTopNavbar centerText={''}/>
                 <div className="page">
                     <div id="page-content" className="recommendation-page">
-                        {thread.filters && filters && Object.keys(filters).length !== 0 && recommendations.length > 0 ? 
+                        {thread.filters && filters && Object.keys(filters).length !== 0 ? 
                             <RecommendationList recommendations={recommendations} thread={thread} userId={user.id} 
                                                 filters={thread.category === 'ThreadUsers' ? filters.userFilters : filters.contentFilters}/> : ''
                         }

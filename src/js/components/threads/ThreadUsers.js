@@ -76,7 +76,7 @@ export default class ThreadUsers extends Component {
     }
 
     renderChipList = function(filters, defaultFilters) {
-        let chips = [];
+        let chips = [{'label': 'Personas'}];
         Object.keys(filters).map(key => {
             chips.push({'label': FilterStore.getFilterLabel(defaultFilters[key], filters[key])});
         });

@@ -32,7 +32,7 @@ export default class CardUser extends Component {
     static propTypes = {
         userId        : PropTypes.number.isRequired,
         username      : PropTypes.string.isRequired,
-        location      : PropTypes.string.isRequired,
+        location      : PropTypes.string,
         canSendMessage: PropTypes.bool.isRequired,
         picture       : PropTypes.string,
         matching      : PropTypes.number.isRequired,
@@ -61,7 +61,7 @@ export default class CardUser extends Component {
     }
 
     render() {
-        let subTitle = this.props.location ? <div><span className="icon-marker"></span>{this.props.location}</div> : '';
+        let subTitle = this.props.location ? <div><span className="icon-marker"></span>{this.props.location}</div> : <div>&nbsp;</div>;
         let messageButton = this.props.canSendMessage ? <span className="icon-message" onClick={this.handleMessage}></span> : '';
         let likeButtonText = this.props.liked ? 'Quitar Me gusta' : 'Me gusta';
         let likeButton = this.props.hideLikeButton ? '' : <div className="like-button-container"><Button {...this.props} onClick={this.onLikeOrDislike}>{likeButtonText}</Button></div>;

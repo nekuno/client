@@ -99,9 +99,10 @@ class FilterStore extends BaseStore {
     }
     
     getFilterLabel(filter, data) {
-        let text, choice, choiceLabel, detail, textArray, tags;
+        let text, address, choice, choiceLabel, detail, textArray, tags;
         switch (filter.type) {
             case 'location_distance':
+                address = data && data.address ? data.address : data && data.location ? data.location : '';
                 return data && data.address ? filter.label + ' - ' + data.address : filter.label;
             case 'integer_range':
                 text = filter.label;
@@ -148,7 +149,7 @@ class FilterStore extends BaseStore {
     isFilterSet(filter, data) {
         switch (filter.type) {
             case 'location_distance':
-                return data && data.address;
+                return data && (data.address || data.location);
             case 'integer_range':
                 return data && (data.min || data.max);
             case 'birthday_range':

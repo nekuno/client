@@ -55,8 +55,8 @@ export default class IntegerRangeFilter extends Component {
                     nekunoApp.alert('El valor máximo de este valor es ' + maxValue);
                 }, 1000);
             } else {
-                filter[minOrMax] = value;
-                this.props.handleChangeFilter(filterKey, filter);
+                data[minOrMax] = value;
+                this.props.handleChangeFilter(filterKey, data);
             }
         } else {
             this['integerTimeout_' + minOrMax] = setTimeout(() => {

@@ -7,7 +7,8 @@ export default class ThreadList extends Component {
     static propTypes = {
         threads: PropTypes.array.isRequired,
         userId: PropTypes.number.isRequired,
-        profile: PropTypes.object.isRequired
+        profile: PropTypes.object.isRequired,
+        filters: PropTypes.object.isRequired
     };
 
     render() {
@@ -21,8 +22,8 @@ export default class ThreadList extends Component {
             let thread = selectn('threads['+threadId+']', this.props);
             if (thread && thread.hasOwnProperty('name')) {
                 threadList[counter++] = thread.category === 'ThreadUsers' ?
-                    <ThreadUsers key={threadId} thread={thread} last={counter == threadsLength} userId={this.props.userId} profile={this.props.profile} /> :
-                    <ThreadContent key={threadId} thread={thread} last={counter == threadsLength} userId={this.props.userId} />;
+                    <ThreadUsers key={threadId} thread={thread} last={counter == threadsLength} userId={this.props.userId} profile={this.props.profile} filters={this.props.filters}/> :
+                    <ThreadContent key={threadId} thread={thread} last={counter == threadsLength} userId={this.props.userId} filters={this.props.filters}/>;
             }
         }
 

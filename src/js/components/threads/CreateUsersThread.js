@@ -101,6 +101,8 @@ export default class CreateUsersThread extends Component {
                         return this.renderLocationFilter(defaultFilters[key], key, filters[key], selected);
                     case 'integer_range':
                         return this.renderIntegerRangeFilter(defaultFilters[key], key, filters[key], selected);
+                    case 'birthday_range':
+                        return this.renderIntegerRangeFilter(defaultFilters[key], key, filters[key], selected);
                     case 'integer':
                         return this.renderIntegerFilter(defaultFilters[key], key, filters[key], selected);
                     case 'choice':

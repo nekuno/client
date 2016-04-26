@@ -108,6 +108,11 @@ class FilterStore extends BaseStore {
                 text += data && data.min ? ' - Min: ' + data.min : '';
                 text += data && data.max ? ' - Max: ' + data.max : '';
                 return text;
+            case 'birthday_range':
+                text = filter.label;
+                text += data && data.min ? ' - Min: ' + data.min : '';
+                text += data && data.max ? ' - Max: ' + data.max : '';
+                return text;
             case 'integer':
                 text = filter.label;
                 text += data ? ' - ' + data : '';
@@ -145,6 +150,8 @@ class FilterStore extends BaseStore {
             case 'location_distance':
                 return data && data.address;
             case 'integer_range':
+                return data && (data.min || data.max);
+            case 'birthday_range':
                 return data && (data.min || data.max);
             case 'integer':
                 return !!data;

@@ -10,5 +10,10 @@
 
 	.chip-wrapper {
 		display: inline-block;
+		max-width: 100%;
+
+		.chip {
+			max-width: 100%;
+		}
 	}
 } 

@@ -4,7 +4,6 @@ import CardContent from './../ui/CardContent';
 export default class RecommendationContent extends Component {
     static propTypes = {
         recommendation: PropTypes.object.isRequired,
-        last          : PropTypes.bool.isRequired,
         accessibleKey : PropTypes.number.isRequired,
         rate          : PropTypes.string
     };
@@ -13,7 +12,6 @@ export default class RecommendationContent extends Component {
         let recommendation = this.props.recommendation;
         let content = recommendation.content;
         let rate = this.props.recommendation.rate ? true : false;
-        let last = this.props.last;
         let key = this.props.accessibleKey;
 
         return (

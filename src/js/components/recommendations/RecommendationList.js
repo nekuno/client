@@ -9,55 +9,35 @@ export default class RecommendationList extends Component {
     static propTypes = {
         recommendations: PropTypes.array.isRequired,
         thread         : PropTypes.object.isRequired,
+        filters        : PropTypes.object.isRequired,
         userId         : PropTypes.number.isRequired
     };
 
-    renderChipList = function(thread) {
-
-        let chips = FilterStore.getFiltersText(thread.filters);
-
+    renderChipList = function(thread, filters) {
+        const chips = Object.keys(thread.filters).filter(key => typeof filters[key] !== 'undefined').map(key => { return {label: FilterStore.getFilterLabel(filters[key], thread.filters[key])} });
         return (
             <ChipList chips={chips} small={true}/>
         );
     };
 
-    getObjectLength = function(obj) {
-        let size = 0, key;
-        for (key in obj) {
-            if (obj.hasOwnProperty(key)) size++;
-        }
-        return size;
-    };
-
     render() {
-        let thread = this.props.thread;
-        let recommendationList = [];
-        let recommendationsLength = this.getObjectLength(this.props.recommendations);
-        let counter = 0;
-        for (let recommendationId in this.props.recommendations) {
-            if (this.props.recommendations.hasOwnProperty(recommendationId)) {
-                let recommendation = this.props.recommendations[recommendationId];
-                recommendationList[counter++] = thread.category === 'ThreadUsers' ?
-                    <RecommendationUser userId={this.props.userId} key={counter} accessibleKey={counter} recommendation={recommendation} last={counter == recommendationsLength}/> :
-                    <RecommendationContent userId={this.props.userId} key={counter} accessibleKey={counter} recommendation={recommendation} last={counter == recommendationsLength}/>;
-            }
-        }
-
+        const {thread, recommendations, filters, userId} = this.props;
         return (
             <div className="recommendation-content">
                 <div className="title thread-title">
-                    {this.props.thread.name}
+                    {thread.name}
                 </div>
-                {this.renderChipList(this.props.thread)}
-
+                {this.renderChipList(thread, filters)}
                 <div className="swiper-container">
                     <div className="swiper-wrapper recommendation-list">
-                        {recommendationList.map(recommendation => recommendation)}
+                        {thread.category === 'ThreadUsers' ? 
+                            Object.keys(recommendations).map((key, index) => <RecommendationUser userId={userId} key={index} accessibleKey={index} recommendation={recommendations[key]}/>)
+                            :
+                            Object.keys(recommendations).map((key, index) => <RecommendationContent userId={userId} key={index} accessibleKey={index} recommendation={recommendations[key]}/>)
+                        }
                     </div>
                 </div>
             </div>
         );
-
     }
-
 }

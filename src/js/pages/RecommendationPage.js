@@ -7,6 +7,7 @@ import * as UserActionCreators from '../actions/UserActionCreators';
 import RecommendationStore from '../stores/RecommendationStore';
 import ThreadStore from '../stores/ThreadStore';
 import RecommendationsByThreadStore from '../stores/RecommendationsByThreadStore';
+import FilterStore from '../stores/FilterStore';
 
 function parseThreadId(params) {
     return params.threadId;
@@ -25,6 +26,7 @@ function requestData(props) {
     const userId = parseId(params);
 
     UserActionCreators.requestRecommendationPage(userId, threadId);
+    UserActionCreators.requestFilters();
 
 }
 
@@ -76,6 +78,7 @@ function getState(props) {
     const thread = ThreadStore.get(threadId);
     const recommendationIds = threadId ? RecommendationsByThreadStore.getRecommendationsFromThread(threadId) : [];
     const category = thread ? thread.category : null;
+    const filters = FilterStore.filters;
 
     let recommendations = [];
     if (thread && category == 'ThreadUsers') {
@@ -87,12 +90,13 @@ function getState(props) {
     return {
         recommendations,
         category,
-        thread
+        thread,
+        filters
     }
 }
 
 @AuthenticatedComponent
-@connectToStores([ThreadStore, RecommendationStore, RecommendationsByThreadStore], getState)
+@connectToStores([ThreadStore, RecommendationStore, RecommendationsByThreadStore, FilterStore], getState)
 export default class RecommendationPage extends Component {
 
     static propTypes = {
@@ -104,7 +108,8 @@ export default class RecommendationPage extends Component {
         user           : PropTypes.object.isRequired,
         // Injected by @connectToStores:
         recommendations: PropTypes.array.isRequired,
-        thread         : PropTypes.object.isRequired
+        thread         : PropTypes.object.isRequired,
+        filters        : PropTypes.object
     };
 
     constructor() {
@@ -148,12 +153,16 @@ export default class RecommendationPage extends Component {
     }
 
     render() {
+        const {recommendations, thread, user, filters} = this.props;
         return (
             <div className="view view-main">
                 <RecommendationsTopNavbar centerText={''}/>
                 <div className="page">
                     <div id="page-content" className="recommendation-page">
-                        <RecommendationList recommendations={this.props.recommendations} thread={this.props.thread} userId={this.props.user.qnoow_id}/>
+                        {thread.filters && filters && Object.keys(filters).length !== 0 && recommendations.length > 0 ? 
+                            <RecommendationList recommendations={recommendations} thread={thread} userId={user.id} 
+                                                filters={thread.category === 'ThreadUsers' ? filters.userFilters : filters.contentFilters}/> : ''
+                        }
                     </div>
                 </div>
             </div>

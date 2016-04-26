@@ -248,27 +248,24 @@ body #root .App .view .page.create-thread-page  {
       width: 100%;
     }
 
-    .location-filter {
-      display: block;
-
-      .text-checkboxes {
-        .chip {
-          max-width: 95%;
-        }
-      }
-    }
     .location-tag-filter {
 
-      .list-block {
+      .location-filter-wrapper {
         display: inline-block;
-        margin: 0;
+        width: 90%;
         vertical-align: middle;
-        width: 80%;
 
-        .location-title {
-          font-size: 0.8em;
-          font-weight: bold;
-          text-align: center;
+        .list-block {
+          display: inline-block;
+          margin: 0 0 0 15px;
+          vertical-align: middle;
+          width: 80%;
+
+          .location-title {
+            font-size: 0.8em;
+            font-weight: bold;
+            text-align: center;
+          }
         }
       }
     }

@@ -5,12 +5,9 @@ import ThreadFilterList from './filters/ThreadFilterList';
 import LocationFilter from './filters/LocationFilter';
 import IntegerRangeFilter from './filters/IntegerRangeFilter';
 import IntegerFilter from './filters/IntegerFilter';
-import ChoiceFilter from './filters/ChoiceFilter';
-import DoubleChoiceFilter from './filters/DoubleChoiceFilter';
 import MultipleChoicesFilter from './filters/MultipleChoicesFilter';
 import DoubleMultipleChoicesFilter from './filters/DoubleMultipleChoicesFilter';
 import TagFilter from './filters/TagFilter';
-import TagsAndChoiceFilter from './filters/TagsAndChoiceFilter';
 import TagsAndMultipleChoicesFilter from './filters/TagsAndMultipleChoicesFilter';
 
 export default class CreateUsersThread extends Component {
@@ -34,14 +31,11 @@ export default class CreateUsersThread extends Component {
         this.handleClickFilter = this.handleClickFilter.bind(this);
         this.handleClickRemoveFilter = this.handleClickRemoveFilter.bind(this);
         this.renderLocationFilter = this.renderLocationFilter.bind(this);
-        this.renderChoiceFilter = this.renderChoiceFilter.bind(this);
-        this.renderDoubleChoiceFilter = this.renderDoubleChoiceFilter.bind(this);
         this.renderMultipleChoicesFilter = this.renderMultipleChoicesFilter.bind(this);
         this.renderDoubleMultipleChoicesFilter = this.renderDoubleMultipleChoicesFilter.bind(this);
         this.renderIntegerRangeFilter = this.renderIntegerRangeFilter.bind(this);
         this.renderIntegerFilter = this.renderIntegerFilter.bind(this);
         this.renderTagFilter = this.renderTagFilter.bind(this);
-        this.renderTagsAndChoiceFilter = this.renderTagsAndChoiceFilter.bind(this);
         this.handleChangeFilter = this.handleChangeFilter.bind(this);
         this.handleChangeFilterAndUnSelect = this.handleChangeFilterAndUnSelect.bind(this);
         this.handleClickOutside = this.handleClickOutside.bind(this);
@@ -105,16 +99,10 @@ export default class CreateUsersThread extends Component {
                         return this.renderIntegerRangeFilter(defaultFilters[key], key, filters[key], selected);
                     case 'integer':
                         return this.renderIntegerFilter(defaultFilters[key], key, filters[key], selected);
-                    case 'choice':
-                        return this.renderChoiceFilter(defaultFilters[key], key, filters[key], selected);
-                    case 'double_choice':
-                        return this.renderDoubleChoiceFilter(defaultFilters[key], key, filters[key], selected);
                     case 'multiple_choices':
                         return this.renderMultipleChoicesFilter(defaultFilters[key], key, filters[key], selected);
                     case 'double_multiple_choices':
                         return this.renderDoubleMultipleChoicesFilter(defaultFilters[key], key, filters[key], selected);
-                    case 'tags_and_choice':
-                        return this.renderTagsAndChoiceFilter(defaultFilters[key], key, filters[key], selected);
                     case 'tags_and_multiple_choices':
                         return this.renderTagsAndMultipleChoicesFilter(defaultFilters[key], key, filters[key], selected);
                     case 'tags':
@@ -131,7 +119,7 @@ export default class CreateUsersThread extends Component {
                             data={data}
                             selected={selected}
                             handleClickRemoveFilter={this.handleClickRemoveFilter}
-                            handleChangeFilter={this.handleChangeFilterAndUnSelect}
+                            handleChangeFilter={this.handleChangeFilter}
                             handleClickFilter={this.handleClickFilter}
             />
         );
@@ -161,32 +149,6 @@ export default class CreateUsersThread extends Component {
                            handleClickFilter={this.handleClickFilter}
             />
         )
-    }
-
-    renderChoiceFilter(filter, key, data, selected) {
-        return (
-            <ChoiceFilter key={key} filterKey={key} ref={selected ? 'selectedFilter' : ''}
-                          filter={filter}
-                          data={data}
-                          selected={selected}
-                          handleClickRemoveFilter={this.handleClickRemoveFilter}
-                          handleChangeFilter={this.handleChangeFilterAndUnSelect}
-                          handleClickFilter={this.handleClickFilter}
-            />
-        );
-    }
-
-    renderDoubleChoiceFilter(filter, key, data, selected) {
-        return (
-            <DoubleChoiceFilter key={key} filterKey={key} ref={selected ? 'selectedFilter' : ''}
-                                filter={filter}
-                                data={data}
-                                selected={selected}
-                                handleClickRemoveFilter={this.handleClickRemoveFilter}
-                                handleChangeFilter={this.handleChangeFilter}
-                                handleClickFilter={this.handleClickFilter}
-            />
-        );
     }
 
     renderMultipleChoicesFilter(filter, key, data, selected) {
@@ -224,19 +186,6 @@ export default class CreateUsersThread extends Component {
                        handleClickRemoveFilter={this.handleClickRemoveFilter}
                        handleChangeFilter={this.handleChangeFilterAndUnSelect}
                        handleClickFilter={this.handleClickFilter}
-            />
-        );
-    }
-
-    renderTagsAndChoiceFilter(filter, key, data, selected) {
-        return (
-            <TagsAndChoiceFilter key={key} filterKey={key} ref={selected ? 'selectedFilter' : ''}
-                                 filter={filter}
-                                 data={data}
-                                 selected={selected}
-                                 handleClickRemoveFilter={this.handleClickRemoveFilter}
-                                 handleChangeFilter={this.handleChangeFilter}
-                                 handleClickFilter={this.handleClickFilter}
             />
         );
     }

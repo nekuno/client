@@ -92,9 +92,6 @@ class FilterStore extends BaseStore {
             }
         }
 
-        console.log(this._filters);
-        console.log(filters);
-
         return texts;
     }
     
@@ -102,8 +99,9 @@ class FilterStore extends BaseStore {
         let text, address, choice, choiceLabel, detail, textArray, tags;
         switch (filter.type) {
             case 'location_distance':
-                address = data && data.address ? data.address : data && data.location ? data.location : '';
-                return data && data.address ? filter.label + ' - ' + data.address : filter.label;
+                address = data && data.location && data.location.address ? data.location.address : data && data.location && data.location.location ? data.location.location : '';
+                address = address && data.distance ? address + ' (' + data.distance + ' Km)' : address;
+                return address ? filter.label + ' - ' + address : filter.label;
             case 'integer_range':
                 text = filter.label;
                 text += data && data.min ? ' - Min: ' + data.min : '';
@@ -149,7 +147,7 @@ class FilterStore extends BaseStore {
     isFilterSet(filter, data) {
         switch (filter.type) {
             case 'location_distance':
-                return data && (data.address || data.location);
+                return data && data.location && (data.location.address || data.location.location);
             case 'integer_range':
                 return data && (data.min || data.max);
             case 'birthday_range':

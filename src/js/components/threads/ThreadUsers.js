@@ -31,7 +31,7 @@ export default class ThreadUsers extends Component {
         return (
             <div>
                 <div className="thread-listed" onClick={this.goToThread}>
-                    {last ? <div className="threads-opposite-vertical-connection"></div> : <div className="threads-vertical-connection"></div>}
+                    {last ? <div className="threads-opposite-vertical-connection"></div> : ''}
                     <div className="thread-first-image">
                         <img src={formattedThread.cached[0].image} />
                     </div>

@@ -23,7 +23,7 @@ export default class ThreadContent extends Component {
         let {thread, last, filters} = this.props;
         return (
             <div className="thread-listed" onClick={this.goToThread}>
-                {last ? <div className="threads-opposite-vertical-connection"></div> : <div className="threads-vertical-connection"></div>}
+                {last ? <div className="threads-opposite-vertical-connection"></div> : ''}
                 <div className="thread-first-image">
                     {this.renderImage(thread.cached[0])}
                 </div>

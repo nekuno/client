@@ -29,6 +29,7 @@ export default class ThreadList extends Component {
 
         return (
             <div>
+                <div className="threads-vertical-connection"></div>
                 {threadList.map(thread => thread)}
             </div>
         );

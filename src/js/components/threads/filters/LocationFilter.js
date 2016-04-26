@@ -43,7 +43,7 @@ export default class LocationFilter extends Component {
                 locality: locality || country,
                 country: country
             },
-            distance: null
+            distance: 50
         };
         this.props.handleChangeFilter(filterKey, data);
     }

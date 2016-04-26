@@ -25,7 +25,7 @@ export default class LocationInput extends Component {
                     <div className="item-input" ref="geosuggestWrapper">
                         <Geosuggest {...this.props} ref="geosuggest"
                             getSuggestLabel={function(suggest) { return suggest.description.length > 35 ? suggest.description.slice(0, 35) + '...' : suggest.description }}
-                            onFocus={this.onFocusHandler} />
+                            onFocus={this.onFocusHandler} skipSuggest={function(suggest) { return suggest.terms.length < 2 }} />
                     </div>
                 </div>
             </div>

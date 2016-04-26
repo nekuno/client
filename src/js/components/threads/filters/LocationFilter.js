@@ -40,7 +40,7 @@ export default class LocationFilter extends Component {
                 latitude: suggest.location.lat,
                 longitude: suggest.location.lng,
                 address: suggest.gmaps.formatted_address,
-                locality: locality,
+                locality: locality || country,
                 country: country
             },
             distance: null

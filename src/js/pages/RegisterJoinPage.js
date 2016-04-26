@@ -26,6 +26,7 @@ function getState(props) {
     const accessToken = ConnectStore.accessToken;
     const resource = ConnectStore.resource;
     const userId = ConnectStore.userId;
+    const profile = ConnectStore.profile;
     const metadata = ProfileStore.getMetadata();
     const error = RegisterStore.error;
     const validUsername = RegisterStore.validUsername();
@@ -46,6 +47,7 @@ function getState(props) {
         accessToken,
         resource,
         userId,
+        profile,
         metadata,
         error,
         validUsername
@@ -68,6 +70,7 @@ export default class RegisterJoinPage extends Component {
         accessToken  : PropTypes.string,
         resource     : PropTypes.string,
         userId       : PropTypes.string,
+        profile      : PropTypes.object,
         metadata     : PropTypes.object,
         error        : PropTypes.object,
         validUsername: PropTypes.bool
@@ -93,7 +96,8 @@ export default class RegisterJoinPage extends Component {
         let user = {
             username     : this.refs.username.getValue(),
             plainPassword: this.refs.plainPassword.getValue(),
-            email        : this.refs.email.getValue()
+            email        : this.refs.email.getValue(),
+            picture      : this.props.profile.picture
         };
         let profile = {
             interfaceLanguage  : 'es',

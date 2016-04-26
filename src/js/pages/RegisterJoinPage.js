@@ -1,7 +1,5 @@
 import React, { PropTypes, Component } from 'react';
 import selectn from 'selectn';
-const ReactLink = require('react/lib/ReactLink');
-const ReactStateSetters = require('react/lib/ReactStateSetters');
 import RegularTopNavbar from '../components/ui/RegularTopNavbar';
 import TextInput from '../components/ui/TextInput';
 import PasswordInput from '../components/ui/PasswordInput';

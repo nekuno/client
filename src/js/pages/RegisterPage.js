@@ -87,16 +87,20 @@ export default class RegisterPage extends Component {
     }
 
     handleSocialNetwork(network, scope) {
-        console.log(network);
+        console.log('handleSocialNetwork', network);
         var history = this.context.history;
         var token = this.props.token;
         hello(network).login({scope: scope}).then(function(response) {
             var accessToken = response.authResponse.access_token;
             console.log('accessToken:', accessToken);
             hello(network).api('me').then(function(status) {
+                    console.log('api(\'me\')', status);
                     var userId = status.id.toString();
                     console.log('userId: ', userId);
-                    ConnectActionCreators.connect(token, accessToken, network, userId);
+                    let profile = {
+                        picture: status.picture
+                    };
+                    ConnectActionCreators.connect(token, accessToken, network, userId, profile);
                     history.pushState(null, '/join');
                 },
                 function(status) {

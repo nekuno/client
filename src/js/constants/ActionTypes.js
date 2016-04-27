@@ -63,6 +63,14 @@ export default keyMirror({
     CREATE_THREAD_SUCCESS: null,
     CREATE_THREAD_ERROR  : null,
 
+    UPDATE_THREAD        : null,
+    UPDATE_THREAD_SUCCESS: null,
+    UPDATE_THREAD_ERROR  : null,
+
+    DELETE_THREAD        : null,
+    DELETE_THREAD_SUCCESS: null,
+    DELETE_THREAD_ERROR  : null,
+
     THREADS_PREV: null,
     THREADS_NEXT: null,
 

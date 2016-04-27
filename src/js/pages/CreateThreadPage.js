@@ -6,6 +6,7 @@ import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import FilterStore from '../stores/FilterStore';
 import TagSuggestionsStore from '../stores/TagSuggestionsStore';
 import * as UserActionCreators from '../actions/UserActionCreators';
+import * as ThreadActionCreators from '../actions/ThreadActionCreators';
 
 /**
  * Retrieves state from stores for current props.
@@ -24,7 +25,7 @@ function getState(props) {
  */
 function requestData(props) {
     const userId = props.user.id;
-    UserActionCreators.requestFilters(userId);
+    ThreadActionCreators.requestFilters(userId);
 }
 
 

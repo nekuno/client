@@ -176,6 +176,14 @@ export function postThread(url, data) {
     return postData(url, data);
 }
 
+export function putThread(url, data) {
+    return putData(url, data);
+}
+
+export function deleteThread(url) {
+    return deleteData(url);
+}
+
 export function fetchRecommendation(url) {
     return fetchAndNormalize(url, {
         items     : arrayOf(recommendationSchema),

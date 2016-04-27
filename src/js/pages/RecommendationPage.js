@@ -4,6 +4,7 @@ import RecommendationsTopNavbar from '../components/recommendations/Recommendati
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import connectToStores from '../utils/connectToStores';
 import * as UserActionCreators from '../actions/UserActionCreators';
+import * as ThreadActionCreators from '../actions/ThreadActionCreators';
 import RecommendationStore from '../stores/RecommendationStore';
 import ThreadStore from '../stores/ThreadStore';
 import RecommendationsByThreadStore from '../stores/RecommendationsByThreadStore';
@@ -25,8 +26,8 @@ function requestData(props) {
     const threadId = parseThreadId(params);
     const userId = parseId(params);
 
-    UserActionCreators.requestRecommendationPage(userId, threadId);
-    UserActionCreators.requestFilters();
+    ThreadActionCreators.requestRecommendationPage(userId, threadId);
+    ThreadActionCreators.requestFilters();
 
 }
 
@@ -53,7 +54,7 @@ function initSwiper(thread) {
     function onSlideNextStart(swiper) {
         while (swiper.activeIndex > activeIndex) {
             activeIndex++;
-            UserActionCreators.recommendationsNext(thread.id);
+            ThreadActionCreators.recommendationsNext(thread.id);
         }
 
     }
@@ -62,7 +63,7 @@ function initSwiper(thread) {
         while (swiper.activeIndex < activeIndex) {
             activeIndex--;
             if (activeIndex >= 0) {
-                UserActionCreators.recommendationsBack(thread.id);
+                ThreadActionCreators.recommendationsBack(thread.id);
             }
         }
     }

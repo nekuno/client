@@ -5,6 +5,7 @@ import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
 import * as UserActionCreators from '../actions/UserActionCreators';
+import * as ThreadActionCreators from '../actions/ThreadActionCreators';
 import ThreadStore from '../stores/ThreadStore';
 import ProfileStore from '../stores/ProfileStore';
 import ThreadsByUserStore from '../stores/ThreadsByUserStore';
@@ -15,9 +16,9 @@ import FilterStore from '../stores/FilterStore';
  */
 function requestData(props) {
     const userId = props.user.id;
-    UserActionCreators.requestThreadPage(userId);
+    ThreadActionCreators.requestThreadPage(userId);
     UserActionCreators.requestProfile(userId);
-    UserActionCreators.requestFilters(userId);
+    ThreadActionCreators.requestFilters();
 }
 
 /**

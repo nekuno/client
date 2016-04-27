@@ -39,6 +39,16 @@ ThreadStore.dispatchToken = register(action => {
             mergeIntoBag(_threads, items);
             ThreadStore.emitChange();
             break;
+        case ActionTypes.UPDATE_THREAD_SUCCESS:
+            let update_item = [action.response];
+            mergeIntoBag(_threads, update_item);
+            ThreadStore.emitChange();
+            break;
+        case ActionTypes.DELETE_THREAD_SUCCESS:
+            const threadId = [action.response.threadId];
+            delete _threads[threadId];
+            ThreadStore.emitChange();
+            break;
         default:
             break;
     }

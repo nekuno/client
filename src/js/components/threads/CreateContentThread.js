@@ -1,5 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import * as UserActionCreators from '../../actions/UserActionCreators';
+import * as ThreadActionCreators from '../../actions/ThreadActionCreators';
 import ThreadFilterList from './filters/ThreadFilterList';
 import MultipleChoicesFilter from './filters/MultipleChoicesFilter';
 import TagFilter from './filters/TagFilter';
@@ -181,7 +182,7 @@ export default class CreateContentThread extends Component {
         };
 
         let history = this.context.history;
-        UserActionCreators.createThread(this.props.userId, data)
+        ThreadActionCreators.createThread(this.props.userId, data)
             .then(function(){
                 history.pushState(null, `threads`);
             });

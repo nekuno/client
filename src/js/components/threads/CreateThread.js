@@ -9,7 +9,8 @@ import TextRadios from '../ui/TextRadios';
 export default class CreateThread extends Component {
     static propTypes = {
         userId: PropTypes.number.isRequired,
-        filters: PropTypes.object.isRequired
+        filters: PropTypes.object.isRequired,
+        tags: PropTypes.array.isRequired
     };
 
     constructor(props) {
@@ -26,16 +27,16 @@ export default class CreateThread extends Component {
     render() {
         let verticalLines = [];
         let content = '';
-        const {userId, filters} = this.props;
+        const {userId, filters, tags} = this.props;
         const {category, threadName} = this.state;
         switch (category) {
             case 'contents':
                 verticalLines = [<div key={1} className="content-first-vertical-line"></div>, <div key={2} className="content-last-vertical-line"></div>];
-                content = <CreateContentThread userId={userId} defaultFilters={filters['contentFilters']} threadName={threadName}/>;
+                content = <CreateContentThread userId={userId} defaultFilters={filters['contentFilters']} threadName={threadName} tags={tags}/>;
                 break;
             case 'persons':
                 verticalLines = [<div key={1} className="users-first-vertical-line"></div>, <div key={2} className="users-last-vertical-line"></div>];
-                content = <CreateUsersThread userId={userId} defaultFilters={filters['userFilters']} threadName={threadName}/>;
+                content = <CreateUsersThread userId={userId} defaultFilters={filters['userFilters']} threadName={threadName} tags={tags}/>;
                 break;
         }
         return (

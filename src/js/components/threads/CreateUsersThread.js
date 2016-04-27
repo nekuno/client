@@ -18,8 +18,8 @@ export default class CreateUsersThread extends Component {
     static propTypes = {
         userId: PropTypes.number.isRequired,
         defaultFilters: PropTypes.object.isRequired,
-        threadName: PropTypes.string
-        // TODO: defFilters should be a prop
+        threadName: PropTypes.string,
+        tags: PropTypes.array.isRequired
     };
     
     constructor(props) {
@@ -87,6 +87,7 @@ export default class CreateUsersThread extends Component {
     renderActiveFilters() {
         const defaultFilters = Object.assign({}, this.props.defaultFilters);
         const {filters} = this.state;
+        const {tags} = this.props;
         return (
             Object.keys(filters).map(key => {
                 const selected = this.state.selectedFilter === key;
@@ -106,7 +107,7 @@ export default class CreateUsersThread extends Component {
                     case 'tags_and_multiple_choices':
                         return this.renderTagsAndMultipleChoicesFilter(defaultFilters[key], key, filters[key], selected);
                     case 'tags':
-                        return this.renderTagFilter(defaultFilters[key], key, filters[key], selected);
+                        return this.renderTagFilter(defaultFilters[key], key, filters[key], selected, tags);
                 }
             })
         );
@@ -177,7 +178,7 @@ export default class CreateUsersThread extends Component {
         );
     }
     
-    renderTagFilter(filter, key, data, selected) {
+    renderTagFilter(filter, key, data, selected, tags) {
         return (
             <TagFilter key={key} filterKey={key} ref={selected ? 'selectedFilter' : ''}
                        filter={filter}
@@ -186,6 +187,7 @@ export default class CreateUsersThread extends Component {
                        handleClickRemoveFilter={this.handleClickRemoveFilter}
                        handleChangeFilter={this.handleChangeFilterAndUnSelect}
                        handleClickFilter={this.handleClickFilter}
+                       tags={tags}
             />
         );
     }

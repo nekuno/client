@@ -2,6 +2,19 @@ import React, { PropTypes, Component } from 'react';
 import ThreadSelectedFilter from './ThreadSelectedFilter';
 import ThreadUnselectedFilter from './ThreadUnselectedFilter';
 import TagInput from '../../ui/TagInput';
+import * as TagSuggestionsActionCreators from '../../../actions/TagSuggestionsActionCreators';
+
+function requestTagSuggestions(search, type = null) {
+    if (type === null) {
+        TagSuggestionsActionCreators.requestContentTagSuggestions(search);
+    } else {
+        TagSuggestionsActionCreators.requestProfileTagSuggestions(search, type);
+    }
+}
+
+function resetTagSuggestions() {
+    TagSuggestionsActionCreators.resetTagSuggestions();
+}
 
 export default class TagFilter extends Component {
     static propTypes = {
@@ -11,7 +24,8 @@ export default class TagFilter extends Component {
         data: PropTypes.array,
         handleClickRemoveFilter: PropTypes.func.isRequired,
         handleChangeFilter: PropTypes.func.isRequired,
-        handleClickFilter: PropTypes.func.isRequired
+        handleClickFilter: PropTypes.func.isRequired,
+        tags: PropTypes.array.isRequired
     };
 
     constructor(props) {
@@ -34,17 +48,12 @@ export default class TagFilter extends Component {
     }
 
     handleKeyUpTag(tag) {
+        let {filterKey} = this.props;
+        filterKey = filterKey === 'tags' ? null : filterKey;
         if (tag.length > 2) {
-            // TODO: Call get tags action and save in store
-            // TODO: Replace this example setting the tagSuggestions in getState method as props
-            console.log(tag);
-            this.setState({
-                tagSuggestions: [tag + '1', tag + '2', tag + '3']
-            });
+            requestTagSuggestions(tag, filterKey);
         } else {
-            this.setState({
-                tagSuggestions: []
-            });
+            resetTagSuggestions();
         }
     }
 
@@ -55,19 +64,16 @@ export default class TagFilter extends Component {
         if (!valueIndex > -1) {
             data.push(tagString);
         }
-        this.setState({
-            tagSuggestions: []
-        });
+        resetTagSuggestions();
         this.props.handleChangeFilter(filterKey, data);
     }
 
     render() {
-        const {filterKey, selected, filter, data, handleClickRemoveFilter, handleClickFilter} = this.props;
-        const {tagSuggestions} = this.state;
+        const {filterKey, selected, filter, data, tags, handleClickRemoveFilter, handleClickFilter} = this.props;
         return(
             selected ?
                 <ThreadSelectedFilter key={'selected-filter'} ref={'selectedFilter'} type={'tag'} plusIcon={true} handleClickRemoveFilter={handleClickRemoveFilter}>
-                    <TagInput placeholder={'Escribe un tag'} tags={tagSuggestions}
+                    <TagInput placeholder={'Escribe un tag'} tags={tags.map(tag => tag.name)}
                               onKeyUpHandler={this.handleKeyUpTag} onClickTagHandler={this.handleClickTagSuggestion}
                               title={filter.label} />
                 </ThreadSelectedFilter>

@@ -161,6 +161,11 @@ export default keyMirror({
     REQUEST_USER_DATA_STATUS_SUCCESS   : null,
     REQUEST_USER_DATA_STATUS_ERROR     : null,
 
+    REQUEST_TAG_SUGGESTIONS           : null,
+    REQUEST_TAG_SUGGESTIONS_SUCCESS   : null,
+    REQUEST_TAG_SUGGESTIONS_ERROR     : null,
+    RESET_TAG_SUGGESTIONS             : null,
+    
     CHANGE_LOCALE: null
 
 });

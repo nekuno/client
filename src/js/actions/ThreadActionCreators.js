@@ -42,7 +42,7 @@ export function createThread(userId, data) {
 }
 
 export function updateThread(threadId, data) {
-    dispatchAsync(UserAPI.updateThread(data), {
+    return dispatchAsync(UserAPI.updateThread(threadId, data), {
         request: ActionTypes.UPDATE_THREAD,
         success: ActionTypes.UPDATE_THREAD_SUCCESS,
         failure: ActionTypes.UPDATE_THREAD_ERROR

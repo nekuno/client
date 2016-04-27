@@ -8,49 +8,49 @@ body #root .App .view .page.create-thread-page  {
       margin-bottom: 5px;
     }
 
-    .users-first-vertical-line {
+    .persons-first-vertical-line {
       border-left: 1px solid $green-alert;
       height: 20%;
       margin-left: 7px;
       top: 170px;
       position: absolute;
     }
-    .users-middle-vertical-line {
+    .persons-middle-vertical-line {
       border-left: 1px solid $green-alert;
       height: 45%;
       margin-left: 7px;
       margin-top: -10px;
       position: absolute;
     }
-    .users-last-vertical-line {
+    .persons-last-vertical-line {
       border-left: 1px solid $green-alert;
       bottom: 250px;
       height: 20%;
       margin-left: 7px;
       position: absolute;
     }
-    .users-opposite-vertical-line {
+    .opposite-vertical-line {
       border-left: 2px solid $dark-purple;
       margin-top: -22px;
       height: 40%;
       margin-left: 7px;
       position: absolute;
     }
-    .content-first-vertical-line {
+    .contents-first-vertical-line {
       border-left: 1px solid $green-alert;
       height: 15%;
       margin-left: 7px;
       top: 170px;
       position: absolute;
     }
-    .content-middle-vertical-line {
+    .contents-middle-vertical-line {
       border-left: 1px solid $green-alert;
       height: 250px;
       margin-left: 7px;
       margin-top: -10px;
       position: absolute;
     }
-    .content-last-vertical-line {
+    .contents-last-vertical-line {
       border-left: 1px solid $green-alert;
       bottom: 250px;
       height: 20%;

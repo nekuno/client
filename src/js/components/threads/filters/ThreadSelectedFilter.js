@@ -24,7 +24,7 @@ export default class ThreadSelectedFilter extends Component {
         let iconClass = plusIcon ? 'icon-plus' : active ? 'icon-circle active' : 'icon-circle';
         return(
             <div className={className} ref={'selectedFilter'}>
-                <div className="users-middle-vertical-line"></div>
+                <div className="persons-middle-vertical-line"></div>
                 {this.renderSelectedFilterBackground()}
                 <div className="thread-filter-dot">
                     <span className={iconClass}></span>

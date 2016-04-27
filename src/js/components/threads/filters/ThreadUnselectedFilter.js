@@ -14,7 +14,7 @@ export default class ThreadUnselectedFilter extends Component {
         const {filterKey, filter, data} = this.props;
         return(
             <div className="thread-filter">
-                <div className="users-middle-vertical-line"></div>
+                <div className="persons-middle-vertical-line"></div>
                 <div className="thread-filter-dot">
                     <span className="icon-circle active"></span>
                 </div>

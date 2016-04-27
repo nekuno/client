@@ -1,10 +1,10 @@
 import React, { PropTypes, Component } from 'react';
-import * as UserActionCreators from '../../actions/UserActionCreators';
 import * as ThreadActionCreators from '../../actions/ThreadActionCreators';
 import ThreadFilterList from './filters/ThreadFilterList';
 import MultipleChoicesFilter from './filters/MultipleChoicesFilter';
 import TagFilter from './filters/TagFilter';
 import FullWidthButton from '../ui/FullWidthButton';
+import selectn from 'selectn';
 
 export default class CreateContentThread extends Component {
 
@@ -16,7 +16,8 @@ export default class CreateContentThread extends Component {
         userId: PropTypes.number.isRequired,
         defaultFilters: PropTypes.object.isRequired,
         threadName: PropTypes.string,
-        tags: PropTypes.array.isRequired
+        tags: PropTypes.array.isRequired,
+        thread: PropTypes.object
     };
 
     constructor(props) {
@@ -32,12 +33,13 @@ export default class CreateContentThread extends Component {
         this.handleChangeFilterAndUnSelect = this.handleChangeFilterAndUnSelect.bind(this);
         this.handleClickRemoveFilter = this.handleClickRemoveFilter.bind(this);
         this.createThread = this.createThread.bind(this);
+        this.editThread = this.editThread.bind(this);
         this.handleClickOutside = this.handleClickOutside.bind(this);
 
         this.state = {
             selectFilter: false,
             selectedFilter: {},
-            filters: {}
+            filters: selectn('thread.filters.contentFilters', props) || {}
         }
     }
 
@@ -187,7 +189,21 @@ export default class CreateContentThread extends Component {
                 history.pushState(null, `threads`);
             });
     }
+    
+    editThread() {
+        let data = {
+            name: this.props.threadName,
+            filters: {contentFilters: this.state.filters},
+            category: 'ThreadContent'
+        };
 
+        let history = this.context.history;
+        ThreadActionCreators.updateThread(this.props.thread.id, data)
+            .then(function(){
+                history.pushState(null, `threads`);
+            });
+    }
+    
     render() {
         let defaultFilters = Object.assign({}, this.props.defaultFilters);
         const data = this.state.filters || {};
@@ -212,7 +228,7 @@ export default class CreateContentThread extends Component {
                         <div className="thread-filter-dot">
                             <span className="icon-plus active"></span>
                         </div>
-                        <div className="users-opposite-vertical-line"></div>
+                        <div className="opposite-vertical-line"></div>
                         <div className="add-filter-button-wrapper" onClick={this.handleClickAddFilter}>
                             <div className="add-filter-button">
                                 <span className="add-filter-button-text">Añadir filtro</span>
@@ -223,7 +239,7 @@ export default class CreateContentThread extends Component {
                     <br />
                     <br />
                     <br />
-                    <FullWidthButton onClick={this.createThread}>Crear hilo</FullWidthButton>
+                    <FullWidthButton onClick={this.props.thread ? this.editThread : this.createThread}>{this.props.thread ? 'Editar hilo' : 'Crear hilo'}</FullWidthButton>
                     <br />
                     <br />
                     <br />

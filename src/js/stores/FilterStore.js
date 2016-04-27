@@ -45,55 +45,6 @@ class FilterStore extends BaseStore {
     get filters() {
         return this._filters;
     }
-
-    getFiltersText(filters) {
-
-        let texts = [];
-
-        if (this._filters) {
-
-            if (selectn('profileFilters') || selectn('userFilters')) {
-                // Users
-                texts.push({label: 'Personas'});
-                Object.keys(filters).forEach((category) => {
-                    Object.keys(filters[category]).forEach((widgetKey) => {
-                        if (selectn(category + '.' + widgetKey, this._filters)) {
-                            let filter = selectn(category + '.' + widgetKey, this._filters);
-                            let widget = filters[category][widgetKey];
-                            switch (filter.type) {
-                                case 'location':
-                                    texts.push({label: 'A ' + widget.distance + ' km de ' + widget.location.latitude + ', ' + widget.location.longitude});
-                                    break;
-                                case 'choice':
-                                    widget.forEach((item) => {
-                                        texts.push({label: filter.choices[item]});
-                                    });
-                                    break;
-                                case 'multiple_choices':
-                                    break;
-                                case 'double_choice':
-                                    break;
-                                case 'tags':
-                                    break;
-                                case 'tags_and_choice':
-                                    break;
-                                case 'birthday':
-                                    break;
-                                case 'integer':
-                                    break;
-                            }
-                        }
-                    });
-                });
-
-            } else {
-                // Content
-                texts.push({label: 'Contenido'});
-            }
-        }
-
-        return texts;
-    }
     
     getFilterLabel(filter, data) {
         let text, address, choice, choiceLabel, detail, textArray, tags;

@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import TopLeftIcon from '../ui/TopLeftIcon';
 import RegularTopTitle from '../ui/RegularTopTitle';
-import TopRightRecommendationIcons from '../ui/TopRightRecommendationIcons';
+import TopRightRecommendationIcons from './TopRightRecommendationIcons';
 
 export default class RecommendationsTopNavbar extends Component {
     static propTypes = {

@@ -1,5 +1,5 @@
 import React, { PropTypes, Component } from 'react';
-import shouldPureComponentUpdate from 'react-pure-render/function';
+import shouldPureComponentUpdate from '../../../../node_modules/react-pure-render/function';
 import * as ThreadActionCreators from '../../actions/ThreadActionCreators';
 
 export default class TopRightRecommendationIcons extends Component {

@@ -10,12 +10,12 @@ export function requestContentTagSuggestions(search) {
     }, {search});
 }
 
-export function requestProfileTagSuggestions(search, type) {
-    dispatchAsync(TagSuggestionsAPI.getProfileTagSuggestions(search, type), {
+export function requestProfileTagSuggestions(search, tagType) {
+    dispatchAsync(TagSuggestionsAPI.getProfileTagSuggestions(search, tagType), {
         request: ActionTypes.REQUEST_TAG_SUGGESTIONS,
         success: ActionTypes.REQUEST_TAG_SUGGESTIONS_SUCCESS,
         failure: ActionTypes.REQUEST_TAG_SUGGESTIONS_ERROR
-    }, {search, type});
+    }, {search, tagType});
 }
 
 export function resetTagSuggestions() {

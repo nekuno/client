@@ -33,10 +33,6 @@ export default class TagFilter extends Component {
 
         this.handleKeyUpTag = this.handleKeyUpTag.bind(this);
         this.handleClickTagSuggestion = this.handleClickTagSuggestion.bind(this);
-
-        this.state = {
-            tagSuggestions: []
-        };
     }
 
     getSelectedFilter() {

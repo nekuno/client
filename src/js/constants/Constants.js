@@ -15,7 +15,7 @@ export const API_URLS = {
     CONNECT_ACCOUNT          : API_ROOT + 'tokens/{resource}?extend',
     CREATE_DEFAULT_THREADS   : API_ROOT + 'threads/default',
     USER_DATA_STATUS         : API_ROOT + 'data/status',
-    CONTENT_TAG_SUGGESTIONS  : API_ROOT + 'content/tags?search={search}&limit=4',
+    CONTENT_TAG_SUGGESTIONS  : API_ROOT + 'recommendations/content/tags?search={search}&limit=4',
     PROFILE_TAG_SUGGESTIONS  : API_ROOT + 'profile/tags/{type}?search={search}&limit=4',
 
     OWN_INTERESTS            : API_ROOT + 'content?type[]={type}',

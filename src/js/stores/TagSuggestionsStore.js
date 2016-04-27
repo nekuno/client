@@ -26,7 +26,7 @@ class TagSuggestionsStore extends BaseStore {
     }
 
     get tags() {
-        return this._tags;
+        return this._tags || [];
     }
 }
 

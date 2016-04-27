@@ -3,6 +3,15 @@ import ThreadSelectedFilter from './ThreadSelectedFilter';
 import ThreadUnselectedFilter from './ThreadUnselectedFilter';
 import TagInput from '../../ui/TagInput';
 import TextCheckboxes from '../../ui/TextCheckboxes';
+import * as TagSuggestionsActionCreators from '../../../actions/TagSuggestionsActionCreators';
+
+function requestTagSuggestions(search, type) {
+    TagSuggestionsActionCreators.requestProfileTagSuggestions(search, type);
+}
+
+function resetTagSuggestions() {
+    TagSuggestionsActionCreators.resetTagSuggestions();
+}
 
 export default class TagsAndMultipleChoicesFilter extends Component {
     static propTypes = {
@@ -12,7 +21,8 @@ export default class TagsAndMultipleChoicesFilter extends Component {
         data: PropTypes.array,
         handleClickRemoveFilter: PropTypes.func.isRequired,
         handleChangeFilter: PropTypes.func.isRequired,
-        handleClickFilter: PropTypes.func.isRequired
+        handleClickFilter: PropTypes.func.isRequired,
+        tags: PropTypes.array.isRequired
     };
     
     constructor(props) {
@@ -26,8 +36,7 @@ export default class TagsAndMultipleChoicesFilter extends Component {
         this.handleClickChoice = this.handleClickChoice.bind(this);
         
         this.state = {
-            selectedTagAndChoice: {},
-            tagSuggestions: []
+            selectedTagAndChoice: {}
         };
     }
 
@@ -52,9 +61,9 @@ export default class TagsAndMultipleChoicesFilter extends Component {
             selectedTagAndChoice = {tag: tagString, index: data.length};
             data.push(selectedTagAndChoice);
         }
+        resetTagSuggestions();
         this.setState({
-            selectedTagAndChoice: selectedTagAndChoice,
-            tagSuggestions: []
+            selectedTagAndChoice: selectedTagAndChoice
         });
         this.props.handleChangeFilter(filterKey, data);
     }
@@ -112,29 +121,23 @@ export default class TagsAndMultipleChoicesFilter extends Component {
     }
 
     handleKeyUpTagAndChoiceTag(tag) {
+        let {filterKey} = this.props;
         if (tag.length > 2) {
-            // TODO: Call get tags action and save in store
-            // TODO: Replace this example setting the tagSuggestions in getState method as props
-            console.log(tag);
-            this.setState({
-                tagSuggestions: [tag, tag + '2', tag + '3']
-            });
+            requestTagSuggestions(tag, filterKey);
         } else {
-            this.setState({
-                tagSuggestions: []
-            });
+            resetTagSuggestions();
         }
     }
 
     render() {
-        let {filterKey, selected, filter, data, handleClickRemoveFilter, handleClickFilter} = this.props;
-        const {tagSuggestions, selectedTagAndChoice} = this.state;
+        let {filterKey, selected, filter, data, tags, handleClickRemoveFilter, handleClickFilter} = this.props;
+        const {selectedTagAndChoice} = this.state;
         data = data || [];
         return(
             selected ?
                 <ThreadSelectedFilter key={'selected-filter'} ref={'selectedFilter'} type={'tags-and-choice'} active={data && data.some(value => value.tag !== '')} handleClickRemoveFilter={handleClickRemoveFilter}>
                     <div className="tags-and-choice-wrapper">
-                        <TagInput ref={'tagInput'} placeholder={'Escribe un tag'} tags={tagSuggestions} value={selectedTagAndChoice.tag}
+                        <TagInput ref={'tagInput'} placeholder={'Escribe un tag en inglés'} tags={tags.map(tag => tag.name)} value={selectedTagAndChoice.tag}
                                   onKeyUpHandler={this.handleKeyUpTagAndChoiceTag} onClickTagHandler={this.handleClickTagSuggestion}
                                   title={filter.label} />
                         {selectedTagAndChoice.tag ?

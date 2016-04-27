@@ -9,6 +9,11 @@ import MultipleChoicesFilter from './filters/MultipleChoicesFilter';
 import DoubleMultipleChoicesFilter from './filters/DoubleMultipleChoicesFilter';
 import TagFilter from './filters/TagFilter';
 import TagsAndMultipleChoicesFilter from './filters/TagsAndMultipleChoicesFilter';
+import * as TagSuggestionsActionCreators from '../../actions/TagSuggestionsActionCreators';
+
+function resetTagSuggestions() {
+    TagSuggestionsActionCreators.resetTagSuggestions();
+}
 
 export default class CreateUsersThread extends Component {
     static contextTypes = {
@@ -58,6 +63,7 @@ export default class CreateUsersThread extends Component {
     }
 
     handleClickAddFilter() {
+        resetTagSuggestions();
         this.setState({
             selectFilter: true
         })
@@ -105,7 +111,7 @@ export default class CreateUsersThread extends Component {
                     case 'double_multiple_choices':
                         return this.renderDoubleMultipleChoicesFilter(defaultFilters[key], key, filters[key], selected);
                     case 'tags_and_multiple_choices':
-                        return this.renderTagsAndMultipleChoicesFilter(defaultFilters[key], key, filters[key], selected);
+                        return this.renderTagsAndMultipleChoicesFilter(defaultFilters[key], key, filters[key], selected, tags);
                     case 'tags':
                         return this.renderTagFilter(defaultFilters[key], key, filters[key], selected, tags);
                 }
@@ -192,7 +198,7 @@ export default class CreateUsersThread extends Component {
         );
     }
 
-    renderTagsAndMultipleChoicesFilter(filter, key, data, selected) {
+    renderTagsAndMultipleChoicesFilter(filter, key, data, selected, tags) {
         return (
             <TagsAndMultipleChoicesFilter key={key} filterKey={key} ref={selected ? 'selectedFilter' : ''}
                                           filter={filter}
@@ -201,6 +207,7 @@ export default class CreateUsersThread extends Component {
                                           handleClickRemoveFilter={this.handleClickRemoveFilter}
                                           handleChangeFilter={this.handleChangeFilter}
                                           handleClickFilter={this.handleClickFilter}
+                                          tags={tags}
             />
         );
     }
@@ -226,6 +233,7 @@ export default class CreateUsersThread extends Component {
     handleClickFilter(key) {
         let {filters} = this.state;
         filters[key] = filters[key] || null;
+        resetTagSuggestions();
         this.setState({
             selectedFilter: key,
             filters: filters

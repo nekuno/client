@@ -34,6 +34,7 @@ export default class CreateContentThread extends Component {
         this.handleClickRemoveFilter = this.handleClickRemoveFilter.bind(this);
         this.createThread = this.createThread.bind(this);
         this.editThread = this.editThread.bind(this);
+        this.goToSelectedFilters = this.goToSelectedFilters.bind(this);
         this.handleClickOutside = this.handleClickOutside.bind(this);
 
         this.state = {
@@ -204,6 +205,12 @@ export default class CreateContentThread extends Component {
             });
     }
     
+    goToSelectedFilters() {
+        this.setState({
+            selectFilter: false
+        });
+    }
+    
     render() {
         let defaultFilters = Object.assign({}, this.props.defaultFilters);
         const data = this.state.filters || {};
@@ -213,6 +220,7 @@ export default class CreateContentThread extends Component {
         return (
             this.state.selectFilter ?
                 <div className="select-filter">
+                    <span className="back-to-selected-filters" onClick={this.goToSelectedFilters}>Volver</span>
                     <div className="title">Selecciona un filtro</div>
                     <ThreadFilterList filters={filters}
                                       filtersMetadata={defaultFilters}

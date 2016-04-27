@@ -47,6 +47,7 @@ export default class CreateUsersThread extends Component {
         this.handleChangeFilterAndUnSelect = this.handleChangeFilterAndUnSelect.bind(this);
         this.handleClickOutside = this.handleClickOutside.bind(this);
         this.scrollToFilter = this.scrollToFilter.bind(this);
+        this.goToSelectedFilters = this.goToSelectedFilters.bind(this);
         this.editThread = this.editThread.bind(this);
         this.createThread = this.createThread.bind(this);
 
@@ -298,6 +299,12 @@ export default class CreateUsersThread extends Component {
             });
     }
 
+    goToSelectedFilters() {
+        this.setState({
+            selectFilter: false
+        });
+    }
+    
     render() {
         let defaultFilters = Object.assign({}, this.props.defaultFilters);
         const data = this.state.filters || {};
@@ -307,6 +314,7 @@ export default class CreateUsersThread extends Component {
         return (
             this.state.selectFilter ?
                 <div className="select-filter">
+                    <span className="back-to-selected-filters" onClick={this.goToSelectedFilters}>Volver</span>
                     <div className="title">Selecciona un filtro</div>
                     <ThreadFilterList filters={filters}
                                       filtersMetadata={defaultFilters}

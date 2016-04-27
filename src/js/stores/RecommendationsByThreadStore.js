@@ -48,12 +48,22 @@ register(action => {
     waitFor([ThreadStore.dispatchToken, RecommendationStore.dispatchToken]);
 
     const { threadId } = action;
-    if (action.type == ActionTypes.RECOMMENDATIONS_NEXT){
-        RecommendationsByThreadStore.advancePosition(threadId, 1);
-    } else if (action.type == ActionTypes.RECOMMENDATIONS_PREV){
-        if (RecommendationsByThreadStore.getPosition(threadId) > 0){
-            RecommendationsByThreadStore.advancePosition(threadId, -1);
-        }
+    switch(action.type){
+        case ActionTypes.RECOMMENDATIONS_NEXT:
+            RecommendationsByThreadStore.advancePosition(threadId, 1);
+            break;
+        case ActionTypes.RECOMMENDATIONS_PREV:
+            if (RecommendationsByThreadStore.getPosition(threadId) > 0){
+                RecommendationsByThreadStore.advancePosition(threadId, -1);
+            }
+            break;
+        case ActionTypes.UPDATE_THREAD:
+            let delete_list = RecommendationsByThreadStore.getList(threadId);
+            delete_list._ids=[];
+            RecommendationsByThreadStore.emitChange();
+            break;
+        default:
+            break;
     }
 
     if (threadId) {

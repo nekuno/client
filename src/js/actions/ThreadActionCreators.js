@@ -46,7 +46,7 @@ export function updateThread(threadId, data) {
         request: ActionTypes.UPDATE_THREAD,
         success: ActionTypes.UPDATE_THREAD_SUCCESS,
         failure: ActionTypes.UPDATE_THREAD_ERROR
-    })
+    }, {threadId})
 }
 
 export function deleteThread(threadId) {

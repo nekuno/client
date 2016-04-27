@@ -45,7 +45,7 @@ ThreadStore.dispatchToken = register(action => {
             ThreadStore.emitChange();
             break;
         case ActionTypes.DELETE_THREAD_SUCCESS:
-            const threadId = [action.response.threadId];
+            const threadId = [action.threadId];
             delete _threads[threadId];
             ThreadStore.emitChange();
             break;

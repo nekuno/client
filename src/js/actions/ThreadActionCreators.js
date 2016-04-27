@@ -49,8 +49,8 @@ export function updateThread(threadId, data) {
     })
 }
 
-export function deleteThread(threadId, data) {
-    dispatchAsync(UserAPI.removeThread(threadId, data), {
+export function deleteThread(threadId) {
+    return dispatchAsync(UserAPI.removeThread(threadId), {
         request: ActionTypes.DELETE_THREAD,
         success: ActionTypes.DELETE_THREAD_SUCCESS,
         failure: ActionTypes.DELETE_THREAD_ERROR

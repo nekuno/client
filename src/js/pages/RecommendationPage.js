@@ -157,7 +157,7 @@ export default class RecommendationPage extends Component {
         const {recommendations, thread, user, filters} = this.props;
         return (
             <div className="view view-main">
-                <RecommendationsTopNavbar centerText={''}/>
+                <RecommendationsTopNavbar centerText={''} thread={thread}/>
                 <div className="page">
                     <div id="page-content" className="recommendation-page">
                         {thread.filters && filters && Object.keys(filters).length !== 0 ? 

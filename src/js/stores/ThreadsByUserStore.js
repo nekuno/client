@@ -63,6 +63,11 @@ register(action => {
             list._ids.unshift(action.response.id);
             ThreadsByUserStore.emitChange();
             break;
+        case ActionTypes.DELETE_THREAD_SUCCESS:
+            let delete_list = ThreadsByUserStore.getList(userId);
+            delete delete_list._ids[action.response.threadId];
+            ThreadsByUserStore.emitChange();
+            break;
         default:
             break;
     }

@@ -1,5 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import * as UserActionCreators from '../../actions/UserActionCreators';
+import * as ThreadActionCreators from '../../actions/ThreadActionCreators';
 import FullWidthButton from '../ui/FullWidthButton';
 import ThreadFilterList from './filters/ThreadFilterList';
 import LocationFilter from './filters/LocationFilter';
@@ -267,7 +268,7 @@ export default class CreateUsersThread extends Component {
         };
 
         let history = this.context.history;
-        UserActionCreators.createThread(this.props.userId, data)
+        ThreadActionCreators.createThread(this.props.userId, data)
             .then(function(){
                 history.pushState(null, `threads`);
             });

@@ -53,81 +53,6 @@ export function requestMetadata() {
     }
 }
 
-export function requestFilters() {
-    if (FilterStore.filters != null){
-        return;
-    }
-
-    dispatchAsync(UserAPI.getFilters(), {
-        request: ActionTypes.REQUEST_FILTERS,
-        success: ActionTypes.REQUEST_FILTERS_SUCCESS,
-        failure: ActionTypes.REQUEST_FILTERS_ERROR
-    })
-}
-
-export function requestThreadPage(userId) {
-    if (!UserStore.contains(userId)) {
-        this.requestUser(userId, null);
-    }
-
-    requestThreads(userId);
-
-}
-
-export function requestThreads(userId, url = null) {
-
-    let threads = {};
-    if (url) {
-        threads = UserAPI.getThreads(url);
-    } else {
-        threads = UserAPI.getThreads();
-    }
-
-    dispatchAsync(threads, {
-        request: ActionTypes.REQUEST_THREADS,
-        success: ActionTypes.REQUEST_THREADS_SUCCESS,
-        failure: ActionTypes.REQUEST_THREADS_ERROR
-    }, {userId})
-}
-
-export function createThread(userId, data) {
-    return dispatchAsync(UserAPI.createThread(data),{
-        request: ActionTypes.CREATE_THREAD,
-        success: ActionTypes.CREATE_THREAD_SUCCESS,
-        failure: ActionTypes.CREATE_THREAD_ERROR
-    }, {userId, data})
-}
-
-export function requestRecommendationPage(userId, threadId) {
-
-    if (!ThreadStore.contains(threadId)) {
-        this.requestThreads(userId);
-    }
-
-    if (!UserStore.contains(userId)) {
-        this.requestUser(userId, null);
-    }
-
-    requestRecommendation(threadId);
-
-}
-
-export function requestRecommendation(threadId, url = null) {
-
-    let recommendation = {};
-    if (url) {
-        recommendation = UserAPI.getRecommendation(threadId, url);
-    } else {
-        recommendation = UserAPI.getRecommendation(threadId);
-    }
-
-    dispatchAsync((recommendation), {
-        request: ActionTypes.REQUEST_RECOMMENDATIONS,
-        success: ActionTypes.REQUEST_RECOMMENDATIONS_SUCCESS,
-        failure: ActionTypes.REQUEST_RECOMMENDATIONS_ERROR
-    }, {threadId})
-}
-
 export function requestStats(userId) {
     dispatchAsync(UserAPI.getStats(), {
         request: ActionTypes.REQUEST_STATS,
@@ -158,34 +83,6 @@ export function requestSimilarity(userId1, userId2) {
         success: ActionTypes.REQUEST_SIMILARITY_SUCCESS,
         failure: ActionTypes.REQUEST_SIMILARITY_ERROR
     }, {userId1, userId2})
-}
-
-export function recommendationsBack() {
-    dispatch(ActionTypes.RECOMMENDATIONS_PREV);
-}
-
-export function recommendationsNext(threadId) {
-
-    dispatch(ActionTypes.RECOMMENDATIONS_NEXT, {threadId});
-
-    if (RecommendationsByThreadStore.getPosition(threadId) === ( RecommendationsByThreadStore.getIds(threadId).length - 15)) {
-        const nextUrl = RecommendationsByThreadStore.getNextPageUrl(threadId);
-        if (nextUrl) {
-            requestRecommendation(threadId, nextUrl);
-        }
-    }
-}
-
-export function threadsNext(userId) {
-
-    dispatch(ActionTypes.THREADS_NEXT, {userId});
-
-    if (ThreadsByUserStore.getPosition(userId) >= ( ThreadsByUserStore.getIds(userId).length - 3)) {
-        const nextUrl = ThreadsByUserStore.getNextPageUrl(userId);
-        if (nextUrl) {
-            requestThreads(userId, nextUrl);
-        }
-    }
 }
 
 export function blockUser(from, to) {

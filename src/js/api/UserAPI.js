@@ -2,6 +2,8 @@ import {
     fetchUser,
     fetchThreads,
     postThread,
+    putThread,
+    deleteThread,
     fetchRecommendation,
     fetchUserArray,
     fetchProfile,
@@ -54,6 +56,14 @@ export function getThreads(url = `threads`){
 
 export function createThread(data, url='threads') {
     return postThread(url, data);
+}
+
+export function updateThread(threadId, data, url= `threads/${threadId}`) {
+    return putThread(url, data);
+}
+
+export function removeThread(threadId, url= `threads/${threadId}`) {
+    return deleteThread(url);
 }
 
 export function getRecommendation(threadId, url = `threads/${threadId}/recommendation`) {

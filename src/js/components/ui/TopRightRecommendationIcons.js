@@ -30,7 +30,7 @@ export default class TopRightRecommendationIcons extends Component {
 	}
 
 	editThread() {
-		this.context.history.pushState({thread:this.props.thread}, '/create-thread');
+		this.context.history.pushState(null, `edit-thread/${this.props.thread.id}`);
 	}
 
 	render() {

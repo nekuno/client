@@ -2,6 +2,7 @@ import { register, waitFor } from '../dispatcher/Dispatcher';
 import ActionTypes from '../constants/ActionTypes';
 import UserStore from '../stores/UserStore';
 import ThreadStore from '../stores/ThreadStore';
+import LoginStore from '../stores/LoginStore';
 import {
     createIndexedListStore,
     createListActionHandler
@@ -47,7 +48,7 @@ register(action => {
 
     waitFor([UserStore.dispatchToken,ThreadStore.dispatchToken]);
 
-    const { userId } = action;
+    let { userId } = action;
 
     switch(action.type){
         case ActionTypes.THREADS_NEXT:
@@ -64,8 +65,9 @@ register(action => {
             ThreadsByUserStore.emitChange();
             break;
         case ActionTypes.DELETE_THREAD_SUCCESS:
+            userId = LoginStore.user.id;
             let delete_list = ThreadsByUserStore.getList(userId);
-            delete delete_list._ids[action.response.threadId];
+            delete_list.remove(action.threadId);
             ThreadsByUserStore.emitChange();
             break;
         default:

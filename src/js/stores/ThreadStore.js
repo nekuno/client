@@ -35,13 +35,17 @@ ThreadStore.dispatchToken = register(action => {
 
     switch(action.type){
         case ActionTypes.CREATE_THREAD_SUCCESS:
-            let items = [action.response];
+            let item = [action.response];
+            let items = [];
+            items[item[0].id] = item[0];
             mergeIntoBag(_threads, items);
             ThreadStore.emitChange();
             break;
         case ActionTypes.UPDATE_THREAD_SUCCESS:
             let update_item = [action.response];
-            mergeIntoBag(_threads, update_item);
+            let update_items = [];
+            update_items[update_item[0].id] = update_item[0];
+            mergeIntoBag(_threads, update_items);
             ThreadStore.emitChange();
             break;
         case ActionTypes.DELETE_THREAD_SUCCESS:

@@ -6,14 +6,14 @@ class RouterStore extends BaseStore {
     constructor() {
         super();
         this.subscribe(() => this._registerToActions.bind(this));
-        this._nextRouterPath = null;
+        this._nextPath = null;
     }
 
     _registerToActions(action) {
         switch (action.type) {
 
             case ActionTypes.ROUTER_NEXT_TRANSITION_PATH:
-                this._nextRouterPath = action.path;
+                this._nextPath = action.path;
                 break;
 
             default:
@@ -21,10 +21,13 @@ class RouterStore extends BaseStore {
         }
     }
 
-    //any value can only be retrieved once
+    hasNextTransitionPath() {
+        return !!this._nextPath;
+    }
+
     get nextTransitionPath() {
-        let nextPath = this._nextRouterPath;
-        this._nextRouterPath = null;
+        let nextPath = this._nextPath;
+        this._nextPath = null;
         return nextPath;
     }
 }

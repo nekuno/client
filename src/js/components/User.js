@@ -13,7 +13,7 @@ export default class User extends Component {
 
     render() {
         const { user, profile } = this.props;
-        let imgSrc = user.picture ? `${IMAGES_ROOT}/media/cache/user_avatar_180x180/user/images/${user.picture}` : `${IMAGES_ROOT}/media/cache/user_avatar_180x180/bundles/qnoowweb/images/user-no-img.jpg`;
+        let imgSrc = user.picture ? `${IMAGES_ROOT}media/cache/user_avatar_180x180/user/images/${user.picture}` : `${IMAGES_ROOT}media/cache/user_avatar_180x180/bundles/qnoowweb/images/user-no-img.jpg`;
         return (
             <div className="User">
                 <div className="content-block user-block">

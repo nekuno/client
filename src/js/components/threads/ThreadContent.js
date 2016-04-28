@@ -1,7 +1,6 @@
 import React, { PropTypes, Component } from 'react';
-import { Link } from 'react-router';
+import FilterStore from '../../stores/FilterStore';
 import ChipList from './../ui/ChipList';
-import selectn from 'selectn';
 
 export default class ThreadContent extends Component {
     static contextTypes = {
@@ -21,16 +20,12 @@ export default class ThreadContent extends Component {
     }
 
     render() {
-        let thread = this.props.thread;
-        let last = this.props.last;
-        let type = selectn('type', thread.filters);
-        let tag = selectn('tag', thread.filters);
-
+        let {thread, last, filters} = this.props;
         return (
             <div className="thread-listed" onClick={this.goToThread}>
-                {last ? '' : <div className="threads-vertical-connection"></div>}
+                {last ? <div className="threads-opposite-vertical-connection"></div> : ''}
                 <div className="thread-first-image">
-                    {this.renderImage(thread.cached[0], type)}
+                    {this.renderImage(thread.cached[0])}
                 </div>
                 <div className="thread-info-box">
                     <div className="title thread-title">
@@ -43,37 +38,35 @@ export default class ThreadContent extends Component {
                     </div>
                     <div className="thread-images">
                         {thread.cached.map((item, index) => {
-                            if(index !== 0) {
-                                return <div key={index} className="thread-image">{this.renderImage(item, type)}</div>
+                            if (index !== 0) {
+                                return <div key={index} className="thread-image">{this.renderImage(item)}</div>
                             }
                         })}
                     </div>
-                    {this.renderChipList(thread, type, tag)}
+                    {this.renderChipList(thread.filters.contentFilters, filters.contentFilters)}
                 </div>
             </div>
         );
     }
 
-    renderChipList = function(thread, type, tag) {
+    renderChipList = function(filters, defaultFilters) {
         let chips = [];
         chips.push({'label': 'Contenidos'});
-        if (type && type != 'Link') {
-            chips.push({'label': type});
-        }
-        if (tag) {
-            chips.push({'label': tag});
-        }
+
+        Object.keys(filters).map(key => {
+            chips.push({'label': FilterStore.getFilterLabel(defaultFilters[key], filters[key])});
+        });
 
         return (
             <ChipList chips={chips} small={false} />
         );
     };
 
-    renderImage = function (recommendation, type) {
+    renderImage = function (recommendation) {
         let imgSrc = 'img/default-content-image.jpg';
-        if (selectn('thumbnail', recommendation)) {
+        if (recommendation && recommendation.thumbnail) {
             imgSrc = recommendation.thumbnail;
-        } else if (type === 'Image' && selectn('url', recommendation)) {
+        } else if (recommendation && recommendation.url && recommendation.url.match(/\.(jpe?g|gif|png)$/) != null) {
             imgSrc = recommendation.url;
         }
 

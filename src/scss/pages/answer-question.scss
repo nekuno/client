@@ -16,6 +16,7 @@ body #root .App .view .page {
             width: 82%;
 
             .answer-question-picture {
+              height: 47px;
               margin-right: -10px;
               text-align: right;
 
@@ -36,6 +37,15 @@ body #root .App .view .page {
                     border-radius: 50%;
                     height: 40px;
                     width: 40px;
+                  }
+                }
+                .answer-question-other-picture {
+                  background: $dark-blue;
+                  text-align: center;
+
+                  span {
+                    color: #fff;
+                    line-height: 40px;
                   }
                 }
               }

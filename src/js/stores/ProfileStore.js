@@ -1,6 +1,7 @@
 import { register, waitFor } from '../dispatcher/Dispatcher';
 import { createStore, mergeIntoBag, isInBag } from '../utils/StoreUtils';
 import UserStore from '../stores/UserStore';
+import LoginStore from '../stores/LoginStore';
 import ActionTypes from '../constants/ActionTypes';
 import selectn from 'selectn';
 
@@ -24,7 +25,7 @@ const ProfileStore = createStore({
         const basicProfile = this.get(userId);
         const metadata = this.getMetadata();
 
-        if (!(basicProfile || metadata)) {
+        if (!basicProfile || !metadata) {
             return {};
         }
 
@@ -121,7 +122,7 @@ const ProfileStore = createStore({
 
 ProfileStore.dispatchToken = register(action => {
 
-    waitFor([UserStore.dispatchToken]);
+    waitFor([UserStore.dispatchToken, LoginStore.dispatchToken]);
 
     switch (action.type) {
 
@@ -136,6 +137,9 @@ ProfileStore.dispatchToken = register(action => {
         case ActionTypes.UNLIKE_USER_SUCCESS:
             _profiles = setUnlikedUser(action.to, _profiles);
             ProfileStore.emitChange();
+            break;
+        case ActionTypes.EDIT_PROFILE_SUCCESS:
+            _profiles[LoginStore.user.id]=action.data;
             break;
         default:
             break;

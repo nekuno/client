@@ -8,6 +8,7 @@ Bluebird.config({
 });
 import { API_ROOT } from '../constants/Constants';
 import LoginStore from '../stores/LoginStore';
+import LocaleStore from '../stores/LocaleStore';
 
 // We use this Normalizr schemas to transform API responses from a nested form
 // to a flat form where repos and users are placed in `entities`, and nested
@@ -80,6 +81,7 @@ export function doRequest(method, url, data = null) {
 
     var jwt = LoginStore.jwt ? LoginStore.jwt : _jwt;
     var headers = jwt ? {'Authorization': 'Bearer ' + jwt} : {};
+    var locale = LocaleStore.locale;
 
     nekunoApp.showProgressbar();
 
@@ -90,6 +92,7 @@ export function doRequest(method, url, data = null) {
                 method  : method,
                 protocol: Url.parse(url).protocol,
                 url     : url,
+                qs      : {locale},
                 body    : data,
                 json    : true,
                 headers : headers
@@ -122,6 +125,10 @@ export function postData(url, data) {
     return doRequest('POST', url, data);
 }
 
+export function putData(url, data) {
+    return doRequest('PUT', url, data);
+}
+
 export function deleteData(url, data) {
     return doRequest('DELETE', url, data);
 }
@@ -142,6 +149,10 @@ export function fetchProfile(url) {
     return fetchAndNormalize(url, profileSchema);
 }
 
+export function putProfile(url, data) {
+    return putData(url, data);
+}
+
 export function fetchMetadata(url) {
     return getData(url);
 }
@@ -159,6 +170,18 @@ export function fetchThreads(url) {
         items     : arrayOf(threadSchema),
         pagination: {}
     });
+}
+
+export function postThread(url, data) {
+    return postData(url, data);
+}
+
+export function putThread(url, data) {
+    return putData(url, data);
+}
+
+export function deleteThread(url) {
+    return deleteData(url);
 }
 
 export function fetchRecommendation(url) {
@@ -212,6 +235,12 @@ export function fetchComparedInterests(url) {
     return fetchAndNormalize(url, {
         items     : [],
         pagination: {}
+    });
+}
+
+export function fetchUserDataStatus(url) {
+    return getData(url).then(function(json) {
+        return json;
     });
 }
 

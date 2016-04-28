@@ -18,9 +18,10 @@ export default class TopRightMessageLink extends Component {
 	shouldComponentUpdate = shouldPureComponentUpdate;
 
 	render() {
+		const {userId} = this.props;
 		return (
-			<div className="col-25 right">
-				{this.props.userId ?
+			<div className="col-30 right">
+				{userId ?
 					<div className="send-message-button icon-wrapper">
 						<span className="icon-message" onClick={this.handleMessage}></span>
 					</div>

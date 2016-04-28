@@ -67,42 +67,49 @@ RecommendationStore.dispatchToken = register(action => {
 
     waitFor([ThreadStore.dispatchToken]);
 
-    if(action.type == ActionTypes.LIKE_USER_SUCCESS) {
-        const { to } = action;
-        _userRecommendations = setLikedUser(to, _userRecommendations);
-    }
-    else if(action.type == ActionTypes.UNLIKE_USER_SUCCESS) {
-        const { to } = action;
-        _userRecommendations = setUnlikedUser(to, _userRecommendations);
-    }
-    else if(action.type == ActionTypes.LIKE_CONTENT_SUCCESS) {
-        const { to } = action;
-        _contentRecommendations = setLikedContent(to, _contentRecommendations);
-    }
-    else if(action.type == ActionTypes.UNLIKE_CONTENT_SUCCESS) {
-        const { to } = action;
-        _contentRecommendations = setUnlikedContent(to, _contentRecommendations);
-    }
-    else {
-        const recommendations = selectn('response.entities.recommendation', action);
+    switch (action.type) {
+        case ActionTypes.LIKE_USER_SUCCESS:
+            const { to_likeuser } = action;
+            _userRecommendations = setLikedUser(to_likeuser, _userRecommendations);
+            break;
+        case ActionTypes.UNLIKE_USER_SUCCESS:
+            const { to_unlikeuser } = action;
+            _userRecommendations = setUnlikedUser(to_unlikeuser, _userRecommendations);
+            break;
+        case ActionTypes.LIKE_CONTENT_SUCCESS:
+            const { to_likecontent } = action;
+            _contentRecommendations = setLikedContent(to_likecontent, _contentRecommendations);
+            break;
+        case ActionTypes.UNLIKE_CONTENT_SUCCESS:
+            const { to_unlikecontent } = action;
+            _contentRecommendations = setUnlikedContent(to_unlikecontent, _contentRecommendations);
+            break;
+        case ActionTypes.UPDATE_THREAD_SUCCESS:
+            const { threadId } = action;
+            delete _contentRecommendations[threadId];
+            delete _userRecommendations[threadId];
+            break;
+        default:
+            const recommendations = selectn('response.entities.recommendation', action);
 
-        if (!recommendations) {
-            return null;
-        }
+            if (!recommendations) {
+                return null;
+            }
 
-        const thread = ThreadStore.get(selectn('threadId', action));
-        if (!thread) {
-            return null;
-        }
-        const category = thread.category;
+            const thread = ThreadStore.get(selectn('threadId', action));
+            if (!thread) {
+                return null;
+            }
+            const category = thread.category;
 
-        if (!category) {
-            return null;
-        } else if (category == 'ThreadUsers') {
-            _userRecommendations = mergeAndGetRecommendations(recommendations, _userRecommendations);
-        } else if (category == 'ThreadContent') {
-            _contentRecommendations = mergeAndGetRecommendations(recommendations, _contentRecommendations);
-        }
+            if (!category) {
+                return null;
+            } else if (category == 'ThreadUsers') {
+                _userRecommendations = mergeAndGetRecommendations(recommendations, _userRecommendations);
+            } else if (category == 'ThreadContent') {
+                _contentRecommendations = mergeAndGetRecommendations(recommendations, _contentRecommendations);
+            }
+            break;
     }
     RecommendationStore.emitChange();
 

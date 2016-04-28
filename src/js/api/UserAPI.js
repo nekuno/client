@@ -1,9 +1,13 @@
 import {
     fetchUser,
     fetchThreads,
+    postThread,
+    putThread,
+    deleteThread,
     fetchRecommendation,
     fetchUserArray,
     fetchProfile,
+    putProfile,
     fetchMetadata,
     fetchStats,
     fetchComparedStats,
@@ -26,8 +30,16 @@ export function getProfile(userId, url = `profile/${userId}`) {
     return fetchProfile(url);
 }
 
+export function editProfile(data, url = `profile`) {
+    return putProfile(url, data);
+}
+
 export function getMetadata(url = `profile/metadata`) {
     return fetchMetadata(url);
+}
+
+export function getFilters(url = `filters`) {
+    return getData(url);
 }
 
 export function getStats(url = `stats`) {
@@ -40,6 +52,18 @@ export function getComparedStats(id, url = `stats/compare/${id}`) {
 
 export function getThreads(url = `threads`){
     return fetchThreads(url);
+}
+
+export function createThread(data, url='threads') {
+    return postThread(url, data);
+}
+
+export function updateThread(threadId, data, url= `threads/${threadId}`) {
+    return putThread(url, data);
+}
+
+export function removeThread(threadId, url= `threads/${threadId}`) {
+    return deleteThread(url);
 }
 
 export function getRecommendation(threadId, url = `threads/${threadId}/recommendation`) {

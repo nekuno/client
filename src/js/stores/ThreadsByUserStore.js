@@ -2,6 +2,7 @@ import { register, waitFor } from '../dispatcher/Dispatcher';
 import ActionTypes from '../constants/ActionTypes';
 import UserStore from '../stores/UserStore';
 import ThreadStore from '../stores/ThreadStore';
+import LoginStore from '../stores/LoginStore';
 import {
     createIndexedListStore,
     createListActionHandler
@@ -47,13 +48,30 @@ register(action => {
 
     waitFor([UserStore.dispatchToken,ThreadStore.dispatchToken]);
 
-    const { userId } = action;
-    if (action.type == ActionTypes.THREADS_NEXT){
-        ThreadsByUserStore.advancePosition(userId, 1);
-    } else if (action.type == ActionTypes.THREADS_PREV){
-        if (ThreadsByUserStore.getPosition(userId) > 0){
-            ThreadsByUserStore.advancePosition(userId, -1);
-        }
+    let { userId } = action;
+
+    switch(action.type){
+        case ActionTypes.THREADS_NEXT:
+            ThreadsByUserStore.advancePosition(userId, 1);
+            break;
+        case ActionTypes.THREADS_PREV:
+            if (ThreadsByUserStore.getPosition(userId) > 0){
+                ThreadsByUserStore.advancePosition(userId, -1);
+            }
+            break;
+        case ActionTypes.CREATE_THREAD_SUCCESS:
+            let list = ThreadsByUserStore.getList(userId);
+            list._ids.unshift(action.response.id);
+            ThreadsByUserStore.emitChange();
+            break;
+        case ActionTypes.DELETE_THREAD_SUCCESS:
+            userId = LoginStore.user.id;
+            let delete_list = ThreadsByUserStore.getList(userId);
+            delete_list.remove(action.threadId);
+            ThreadsByUserStore.emitChange();
+            break;
+        default:
+            break;
     }
 
     if (userId) {

@@ -1,0 +1,56 @@
+.tag-input-wrapper {
+  display: inline-block;
+  width: 90%;
+
+  &::after {
+    content: '';
+    height: 1px;
+    width: 100%;
+    background-color: #888888;
+    display: block;
+    z-index: 15;
+
+  }
+  
+  .tag-input-title {
+    font-weight: bold;
+    text-align: center;
+  }
+  .tag-input {
+    font-weight: 400;
+    background: transparent;
+    height: 60px;
+    line-height: 60px;
+    padding: 0 5px;
+    vertical-align: middle;
+    margin: 2px 0;
+    width: 100%;
+
+    input[type="text"] {
+      background-color: transparent;
+      border: none;
+      color: #fff;
+      width: 100%;
+    }
+  }
+
+  .tag-suggestions {
+    background: $purple;
+    cursor: pointer;
+    margin-top: 5px;
+    border-radius: 20px;
+    padding: 0 10px;
+    position: absolute;
+    z-index: 2;
+
+    ul {
+      padding: 0;
+
+      li {
+        display: inline-block;
+        list-style-type: none;
+        padding-right: 5px;
+      }
+    }
+  }
+}

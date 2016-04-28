@@ -1,8 +1,9 @@
 import React, { PropTypes, Component } from 'react';
 import LeftMenuTopNavbar from '../components/ui/LeftMenuTopNavbar';
-import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import LastMessage from '../components/ui/LastMessage';
+import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import ChatThreadStore from '../stores/ChatThreadStore';
+import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
 
 function getState() {
@@ -14,21 +15,27 @@ function getState() {
     };
 }
 
+@AuthenticatedComponent
+@translate('ChatThreadsPage')
 @connectToStores([ChatThreadStore], getState)
-export default AuthenticatedComponent(class ChatThreadsPage extends Component {
+export default class ChatThreadsPage extends Component {
 
     static propTypes = {
+        // Injected by @AuthenticatedComponent
+        user   : PropTypes.object.isRequired,
+        // Injected by @translate:
+        strings: PropTypes.object,
         // Injected by @connectToStores:
         threads: PropTypes.array.isRequired
     };
 
     render() {
 
-        let threads = this.props.threads;
+        const {threads, strings} = this.props;
 
         return (
             <div className="view view-main">
-                <LeftMenuTopNavbar centerText={'Mensajes'}/>
+                <LeftMenuTopNavbar centerText={strings.title}/>
                 <div className="page notifications-page">
                     <div id="page-content" className="notifications-content">
                         {
@@ -47,4 +54,10 @@ export default AuthenticatedComponent(class ChatThreadsPage extends Component {
             </div>
         );
     }
-});
+};
+
+ChatThreadsPage.defaultProps = {
+    strings: {
+        title: 'Messages'
+    }
+};

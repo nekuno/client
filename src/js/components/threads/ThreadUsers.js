@@ -1,7 +1,9 @@
 import React, { PropTypes, Component } from 'react';
-import { Link } from 'react-router';
 import { IMAGES_ROOT } from '../../constants/Constants';
+import selectn from 'selectn'
 import ChipList from './../ui/ChipList';
+import OrientationRequiredPopup from './../ui/OrientationRequiredPopup';
+import FilterStore from '../../stores/FilterStore';
 
 export default class ThreadUsers extends Component {
     static contextTypes = {
@@ -11,55 +13,48 @@ export default class ThreadUsers extends Component {
     static propTypes = {
         thread: PropTypes.object.isRequired,
         last: PropTypes.bool.isRequired,
-        userId: PropTypes.number.isRequired
+        userId: PropTypes.number.isRequired,
+        profile: PropTypes.object.isRequired,
+        filters: PropTypes.object.isRequired
     };
 
     constructor(props) {
         super(props);
 
         this.goToThread = this.goToThread.bind(this);
+        this.continue = this.continue.bind(this);
     }
 
     render() {
-        let thread = this.props.thread;
-        let last = this.props.last;
-        thread = this.mergeImagesWithThread(thread);
-
+        const {thread, last, filters, profile} = this.props;
+        let formattedThread = this.mergeImagesWithThread(thread);
         return (
-            <div className="thread-listed" onClick={this.goToThread}>
-                {last ? '' : <div className="threads-vertical-connection"></div>}
-                <div className="thread-first-image">
-                    <img src={thread.cached[0].image} />
+            <div>
+                <div className="thread-listed" onClick={this.goToThread}>
+                    {last ? <div className="threads-opposite-vertical-connection"></div> : ''}
+                    <div className="thread-first-image">
+                        <img src={formattedThread.cached[0].image} />
+                    </div>
+                    <div className="thread-info-box">
+                        <div className="title thread-title" >
+                            <a>
+                                {formattedThread.name}
+                            </a>
+                        </div>
+                        <div className="recommendations-count">
+                            {formattedThread.totalResults} Usuarios
+                        </div>
+                        <div className="thread-images">
+                            {formattedThread.cached.map((item, index) => index !== 0 && item.image ?
+                                <div key={index} className="thread-image"><img src={item.image} /></div> : '')}
+                        </div>
+                        {this.renderChipList(formattedThread.filters.userFilters, filters.userFilters)}
+                    </div>
                 </div>
-                <div className="thread-info-box">
-                    <div className="title thread-title" >
-                        <a>
-                            {thread.name}
-                        </a>
-                    </div>
-                    <div className="recommendations-count">
-                        {thread.totalResults} Usuarios
-                    </div>
-                    <div className="thread-images">
-                        {thread.cached.map((item, index) => index !== 0 && item.image ?
-                            <div key={index} className="thread-image"><img src={item.image} /></div> : '')}
-                    </div>
-                    <ChipList chips={[
-                        {
-                            'label': 'Personas'
-                        },
-                        {
-                            'label': 'Edad: 22-32'
-                        },
-                        {
-                            'label': 'a 10km de Madrid'
-                        },
-                        {
-                            'label': 'Mujer'
-                        }
-                    ]} small={false} />
-                </div>
+                <OrientationRequiredPopup profile={profile} onContinue={this.continue} ></OrientationRequiredPopup>
             </div>
+
+
         );
     }
 
@@ -80,7 +75,28 @@ export default class ThreadUsers extends Component {
         return thread;
     }
 
+    renderChipList = function(filters, defaultFilters) {
+        let chips = [{'label': 'Personas'}];
+        Object.keys(filters).map(key => {
+            chips.push({'label': FilterStore.getFilterLabel(defaultFilters[key], filters[key])});
+        });
+
+        return (
+            <ChipList chips={chips} small={false} />
+        );
+    };
+
     goToThread() {
+        if (selectn('orientation', this.props.profile) === undefined) {
+            console.log('orientation required');
+            nekunoApp.popup('.popup-orientation-required');
+            document.getElementsByClassName('view')[0].scrollTop = 0;
+        } else {
+            this.continue();
+        }
+    }
+
+    continue() {
         this.context.history.pushState(null, `users/${this.props.userId}/recommendations/${this.props.thread.id}`)
     }
 }

@@ -13,10 +13,11 @@ export default class TopLeftLink extends Component {
 	shouldComponentUpdate = shouldPureComponentUpdate;
 
 	render() {
+		const {onClickHandler, text} = this.props;
 		return (
-			<div className="col-25 left">
-				<a onClick={typeof this.props.onClickHandler !== 'undefined' ? this.props.onClickHandler : this.context.history.goBack}>
-					{this.props.text}
+			<div className="col-30 left" onClick={typeof onClickHandler !== 'undefined' ? onClickHandler : this.context.history.goBack}>
+				<a>
+					{text}
 				</a>
 			</div>
 		);

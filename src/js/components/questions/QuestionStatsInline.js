@@ -1,14 +1,16 @@
 import React, { PropTypes, Component } from 'react';
-import { Link } from 'react-router';
-import { IMAGES_ROOT } from '../../constants/Constants';
 import { QUESTION_STATS_COLORS } from '../../constants/Constants';
 import QuestionStatsGraphs from './QuestionStatsGraphs';
+import translate from '../../i18n/Translate';
 
-export default class QuestionStats extends Component {
+@translate('QuestionStatsInline')
+export default class QuestionStatsInline extends Component {
     static propTypes = {
-        question: PropTypes.object.isRequired,
+        question  : PropTypes.object.isRequired,
         userAnswer: PropTypes.object.isRequired,
-        userId: PropTypes.number.isRequired
+        userId    : PropTypes.number.isRequired,
+        // Injected by @translate:
+        strings   : PropTypes.object
     };
 
     render() {
@@ -22,12 +24,14 @@ export default class QuestionStats extends Component {
             return null;
         }
 
+        const {strings} = this.props;
+
         return (
             <div className="question-stats">
                 <div className="question-stats-graph-title">
-                    Estadísticas repuestas comunidad
+                    {strings.statistics}
                 </div>
-                <QuestionStatsGraphs question={question} userAnswer={userAnswer} />
+                <QuestionStatsGraphs question={question} userAnswer={userAnswer}/>
                 <div className="answers-colors">
                     <hr align="left"/>
                     {answers.map((answer, index) =>
@@ -42,3 +46,9 @@ export default class QuestionStats extends Component {
         );
     }
 }
+
+QuestionStatsInline.defaultProps = {
+    strings: {
+        statistics: 'Statistics answers community'
+    }
+};

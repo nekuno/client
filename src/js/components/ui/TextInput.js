@@ -7,6 +7,12 @@ export default class TextInput extends Component {
         placeholder: PropTypes.string.isRequired
     };
 
+    constructor() {
+        super();
+
+        this.onFocusHandler = this.onFocusHandler.bind(this);
+    }
+
     shouldComponentUpdate = shouldPureComponentUpdate;
 
     getValue() {
@@ -19,11 +25,19 @@ export default class TextInput extends Component {
                 <div className="item-content">
                     <div className="item-inner">
                         <div className="item-input">
-                            <input {...this.props} ref="input" type="text" placeholder={this.props.placeholder}/>
+                            <input {...this.props} ref="input" type="text" placeholder={this.props.placeholder} onFocus={this.onFocusHandler}/>
                         </div>
                     </div>
                 </div>
             </li>
         );
+    }
+
+    onFocusHandler() {
+        let inputElem = this.refs.input;
+        window.setTimeout(function () {
+            inputElem.scrollIntoView();
+            document.getElementsByClassName('view')[0].scrollTop -= 100;
+        }, 500)
     }
 }

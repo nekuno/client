@@ -28,6 +28,7 @@ InterestStore.dispatchToken = register(action => {
     const pagination = selectn('response.result.pagination', action);
     const userId = selectn('userId', action);
     const otherUserId = selectn('otherUserId', action);
+    let currentUserId = otherUserId ? otherUserId : userId;
     if (typeof _interests[userId] === "undefined") {
         _interests[userId] = [];
     }
@@ -39,7 +40,6 @@ InterestStore.dispatchToken = register(action => {
     }
 
     if (interests && action.type === 'REQUEST_OWN_INTERESTS_SUCCESS' || action.type === 'REQUEST_COMPARED_INTERESTS_SUCCESS') {
-        let currentUserId = otherUserId ? otherUserId : userId;
         let ids = Object.keys(_interests[currentUserId]);
         let lastId = ids.length > 0 ? parseInt(ids[ids.length - 1]) : 0;
         let nextId = lastId + 1;
@@ -49,12 +49,19 @@ InterestStore.dispatchToken = register(action => {
                 orderedInterests[parseInt(key) + nextId] = interests[key];
                 if (!orderedInterests[parseInt(key) + nextId].hasOwnProperty('contentId')) {
                     orderedInterests[parseInt(key) + nextId]['contentId'] = interests[key].id;
+                    orderedInterests[parseInt(key) + nextId]['rate'] = interests[key].user_rates && interests[key].user_rates.some(user_rate => user_rate.rate == 'LIKES' && user_rate.user.id == userId) ? true : false;
                 }
             }
         }
 
         mergeIntoBag(_interests[currentUserId], orderedInterests);
         _pagination[currentUserId] = pagination;
+        InterestStore.emitChange();
+    }
+
+    if (action.type === 'LIKE_CONTENT_SUCCESS' || action.type === 'UNLIKE_CONTENT_SUCCESS') {
+        const { from, to } = action;
+        Object.keys(_interests[from]).forEach(key => { if (_interests[from][key].id == to) { _interests[from][key].rate = action.type === 'LIKE_CONTENT_SUCCESS'; } });
         InterestStore.emitChange();
     }
 });

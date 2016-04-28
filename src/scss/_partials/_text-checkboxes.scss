@@ -1,0 +1,25 @@
+.text-checkboxes {
+  clear: both;
+  margin: auto;
+  padding: 35px 0;
+  text-align: center;
+
+  .text-checkboxes-title {
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+
+  .chip {
+    display: inline-block;
+    cursor: pointer;
+    height: 30px;
+    line-height: 30px;
+    margin: 0 5px 0 5px;
+    text-align: center;
+    word-wrap: break-word;
+  }
+  .chip.disabled-chip {
+    background-color: $deep-purple-translucent;
+  }
+}

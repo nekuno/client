@@ -6,17 +6,16 @@ export default class TopLeftIcon extends Component {
 		history: PropTypes.object.isRequired
 	};
 	static propTypes = {
-		text: PropTypes.string
+		icon: PropTypes.string
 	};
 
 	shouldComponentUpdate = shouldPureComponentUpdate;
 
 	render() {
+		const {icon} = this.props;
 		return (
-			<div className="col-25 left">
-				<span className={'icon-' + this.props.icon} onClick={() => this.context.history.goBack()}>
-
-				</span>
+			<div className="col-30 left" onClick={() => this.context.history.goBack()}>
+				<span className={'icon-' + icon}></span>
 			</div>
 		);
 	}

@@ -1,7 +1,5 @@
 import React, { PropTypes, Component } from 'react';
 import selectn from 'selectn';
-const ReactLink = require('react/lib/ReactLink');
-const ReactStateSetters = require('react/lib/ReactStateSetters');
 import RegularTopNavbar from '../components/ui/RegularTopNavbar';
 import TextInput from '../components/ui/TextInput';
 import PasswordInput from '../components/ui/PasswordInput';
@@ -9,25 +7,26 @@ import DateInput from '../components/ui/DateInput';
 import LocationInput from '../components/ui/LocationInput';
 import FullWidthButton from '../components/ui/FullWidthButton';
 import InputCheckbox from '../components/ui/InputCheckbox';
+import TextRadios from '../components/ui/TextRadios';
+import translate from '../i18n/Translate';
+import connectToStores from '../utils/connectToStores';
 import LoginActionCreators from '../actions/LoginActionCreators';
 import ConnectActionCreators from '../actions/ConnectActionCreators';
 import * as UserActionCreators from '../actions/UserActionCreators';
-import connectToStores from '../utils/connectToStores';
 import ConnectStore from '../stores/ConnectStore';
 import ProfileStore from '../stores/ProfileStore';
 import RegisterStore from '../stores/RegisterStore';
-import TextRadios from '../components/ui/TextRadios';
 import { getValidationErrors } from '../utils/StoreUtils';
 
-function getState() {
+function getState(props) {
 
     const token = ConnectStore.token;
     const accessToken = ConnectStore.accessToken;
     const resource = ConnectStore.resource;
     const userId = ConnectStore.userId;
+    const profile = ConnectStore.profile;
     const metadata = ProfileStore.getMetadata();
     const error = RegisterStore.error;
-    const requesting = RegisterStore.requesting();
     const validUsername = RegisterStore.validUsername();
 
     if (error) {
@@ -38,7 +37,7 @@ function getState() {
     }
 
     if (!validUsername) {
-        nekunoApp.alert('Lo sentimos, este nombre de usuario no está disponible');
+        nekunoApp.alert(props.strings.notAvailable);
     }
 
     return {
@@ -46,13 +45,14 @@ function getState() {
         accessToken,
         resource,
         userId,
+        profile,
         metadata,
         error,
-        requesting,
         validUsername
     };
 }
 
+@translate('RegisterJoinPage')
 @connectToStores([ConnectStore, ProfileStore, RegisterStore], getState)
 export default class RegisterJoinPage extends Component {
 
@@ -61,14 +61,16 @@ export default class RegisterJoinPage extends Component {
     };
 
     static propTypes = {
+        // Injected by @translate:
+        strings      : PropTypes.object,
         // Injected by @connectToStores:
         token        : PropTypes.string,
         accessToken  : PropTypes.string,
         resource     : PropTypes.string,
         userId       : PropTypes.string,
+        profile      : PropTypes.object,
         metadata     : PropTypes.object,
         error        : PropTypes.object,
-        requesting   : PropTypes.bool,
         validUsername: PropTypes.bool
     };
 
@@ -92,7 +94,8 @@ export default class RegisterJoinPage extends Component {
         let user = {
             username     : this.refs.username.getValue(),
             plainPassword: this.refs.plainPassword.getValue(),
-            email        : this.refs.email.getValue()
+            email        : this.refs.email.getValue(),
+            picture      : this.props.profile.picture
         };
         let profile = {
             interfaceLanguage  : 'es',
@@ -144,7 +147,7 @@ export default class RegisterJoinPage extends Component {
 
         let descriptiveGender = this.state.descriptiveGender;
         if (descriptiveGender.length === 5 && checked && descriptiveGender.indexOf(value) === -1) {
-            nekunoApp.alert('El máximo de opciones permitidas es 5, desmarca alguna otra opción para elegir esta.');
+            nekunoApp.alert(this.props.strings.maxDescriptiveGender);
         } else {
             if (checked) {
                 descriptiveGender.push(value);
@@ -199,7 +202,7 @@ export default class RegisterJoinPage extends Component {
 
     render() {
 
-        const { metadata, error, requesting } = this.props;
+        const {metadata, error, strings} = this.props;
         const descriptiveGenderChoices = selectn('descriptiveGender.choices', metadata) || {};
         const descriptiveGenderChoicesLength = Object.keys(descriptiveGenderChoices).length || 0;
         let descriptiveGenderFirstColumnCounter = 0;
@@ -207,25 +210,25 @@ export default class RegisterJoinPage extends Component {
 
         return (
             <div className="view view-main">
-                <RegularTopNavbar leftText={'Cancelar'} centerText={'Crear cuenta'}/>
+                <RegularTopNavbar leftText={strings.cancel} centerText={strings.create}/>
                 <div className="page">
                     <div id="page-content" className="register-join-content">
                         <div className="list-block">
                             <ul>
-                                <TextInput placeholder={'Nombre de usuario'} ref="username" onChange={this.onUsernameChange}/>
-                                <TextInput placeholder={'Email'} ref="email"/>
-                                <PasswordInput placeholder={'Contraseña'} ref="plainPassword"/>
-                                <DateInput label={'Fecha de nacimiento'} ref="birthday"/>
-                                <LocationInput placeholder="Ubicación" onSuggestSelect={this.onSuggestSelect}/>
+                                <TextInput placeholder={strings.username} ref="username" onChange={this.onUsernameChange}/>
+                                <TextInput placeholder={strings.email} ref="email"/>
+                                <PasswordInput placeholder={strings.password} ref="plainPassword"/>
+                                <DateInput label={strings.birthday} ref="birthday"/>
                             </ul>
+                            <LocationInput placeholder={strings.location} onSuggestSelect={this.onSuggestSelect}/>
                         </div>
 
-                        <TextRadios title={'Incluirme en las búsquedas como'} labels={[
-						{key: 'male', text: 'Hombre'},
-						{key: 'female', text: 'Mujer'}
+                        <TextRadios title={strings.include} labels={[
+						{key: 'male', text: strings.male},
+						{key: 'female', text: strings.female}
 					]} onClickHandler={this.onClickGender} value={this.state.gender}/>
                         <div style={{textAlign: 'center', marginBottom: '20px'}}>
-                            <a onClick={this.onClickShowDescriptiveGender}>{ this.state.showDescriptiveGender ? 'Ocultar otros géneros' : 'Mostras otros generos'}</a>
+                            <a onClick={this.onClickShowDescriptiveGender}>{ this.state.showDescriptiveGender ? strings.hideDescriptiveGender : strings.showDescriptiveGender}</a>
                         </div>
                         { this.state.showDescriptiveGender && descriptiveGenderChoices ?
                             <div className="list-block">
@@ -263,9 +266,8 @@ export default class RegisterJoinPage extends Component {
                             ''
                         }
 
-                        <FullWidthButton type="submit" onClick={this.register.bind(this)}>Completar registro</FullWidthButton>
+                        <FullWidthButton type="submit" onClick={this.register.bind(this)}>{strings.complete}</FullWidthButton>
                         <div style={{color: '#FFF'}}>
-                            <p>{ requesting ? 'Registrando...' : ''}</p>
                             <p>{ error ? error.error : ''}</p>
                         </div>
                     </div>
@@ -279,4 +281,24 @@ export default class RegisterJoinPage extends Component {
             </div>
         );
     }
-}
+};
+
+RegisterJoinPage.defaultProps = {
+    strings: {
+        cancel               : 'Cancel',
+        create               : 'Create account',
+        username             : 'Username',
+        email                : 'Email',
+        password             : 'Password',
+        birthday             : 'Birthday',
+        location             : 'Location',
+        include              : 'Include on searches as',
+        male                 : 'Male',
+        female               : 'Female',
+        showDescriptiveGender: 'Show other genres',
+        hideDescriptiveGender: 'Hide other genres',
+        complete             : 'Complete registration',
+        notAvailable         : 'Sorry, this username is not available',
+        maxDescriptiveGender : 'The maximum number of options permitted is 5, uncheck any other options to choose this one'
+    }
+};

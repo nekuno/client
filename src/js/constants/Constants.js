@@ -11,10 +11,15 @@ export const API_URLS = {
     REGISTER_USER            : API_ROOT + 'users',
     REGISTER_PROFILE         : API_ROOT + 'profile',
     CONSUME_INVITATION       : API_ROOT + 'invitations/consume/{token}',
+    JOIN_GROUP               : API_ROOT + 'groups/{groupId}/members',
     CONNECT_ACCOUNT          : API_ROOT + 'tokens/{resource}?extend',
+    CREATE_DEFAULT_THREADS   : API_ROOT + 'threads/default',
+    USER_DATA_STATUS         : API_ROOT + 'data/status',
+    CONTENT_TAG_SUGGESTIONS  : API_ROOT + 'recommendations/content/tags?search={search}&limit=4',
+    PROFILE_TAG_SUGGESTIONS  : API_ROOT + 'profile/tags/{type}?search={search}&limit=4',
 
-    OWN_INTERESTS            : API_ROOT + 'content?type={type}',
-    COMPARED_INTERESTS       : API_ROOT + 'content/compare/{userId}?type={type}&showOnlyCommon={showOnlyCommon}'
+    OWN_INTERESTS            : API_ROOT + 'content?type[]={type}',
+    COMPARED_INTERESTS       : API_ROOT + 'content/compare/{userId}?type[]={type}&showOnlyCommon={showOnlyCommon}'
 };
 export const QUESTION_STATS_COLORS = [
     // light green
@@ -32,6 +37,9 @@ export const QUESTION_STATS_COLORS = [
 ];
 export const FACEBOOK_ID = config.FACEBOOK_ID;
 export const FACEBOOK_SCOPE = config.FACEBOOK_SCOPE;
+
+export const TWITTER_ID = config.TWITTER_ID;
+export const TWITTER_SCOPE = config.TWITTER_SCOPE;
 
 export const GOOGLE_ID = config.GOOGLE_ID;
 export const GOOGLE_SCOPE = config.GOOGLE_SCOPE;

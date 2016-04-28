@@ -8,7 +8,6 @@ class RegisterStore extends BaseStore {
         this.subscribe(() => this._registerToActions.bind(this));
         this._validUsername = true;
         this._user = null;
-        this._requesting = false;
         this._error = null;
     }
 
@@ -17,20 +16,17 @@ class RegisterStore extends BaseStore {
         switch (action.type) {
 
             case ActionTypes.REQUEST_REGISTER_USER:
-                this._requesting = true;
                 this._error = null;
                 this.emitChange();
                 break;
 
             case ActionTypes.REQUEST_REGISTER_USER_SUCCESS:
                 this._user = action.response.user;
-                this._requesting = false;
                 this._error = null;
                 this.emitChange();
                 break;
 
             case ActionTypes.REQUEST_REGISTER_USER_ERROR:
-                this._requesting = false;
                 this._error = action.error;
                 this.emitChange();
                 break;
@@ -73,10 +69,6 @@ class RegisterStore extends BaseStore {
 
     deleteUser() {
         this._user = null;
-    }
-
-    requesting() {
-        return this._requesting;
     }
 
 }

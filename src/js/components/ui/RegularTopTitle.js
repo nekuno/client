@@ -10,9 +10,10 @@ export default class RegularTopTitle extends Component {
     shouldComponentUpdate = shouldPureComponentUpdate;
 
     render() {
+        const {textSize, text} = this.props;
         return (
-            <div className={this.props.textSize === 'large' ? "col-50 center large" : "col-50 center"}>
-                {this.props.text}
+            <div className={textSize === 'large' ? "col-40 center large" : "col-40 center"}>
+                {text}
             </div>
         );
     }

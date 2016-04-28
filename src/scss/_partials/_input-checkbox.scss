@@ -1,3 +1,9 @@
+.list-block .checkbox-list {
+	li::after {
+		content: none;
+	}
+}
+
 .label-checkbox {
 	.item-inner {
 		.item-title {
@@ -13,4 +19,8 @@
 	&::after {
 		content: none;
 	}
+}
+
+.label-checkbox.active-state {
+	background-color: transparent !important;
 }

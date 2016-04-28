@@ -1,13 +1,14 @@
 import React, { PropTypes, Component } from 'react';
+import RecommendationList from '../components/recommendations/RecommendationList';
+import RecommendationsTopNavbar from '../components/recommendations/RecommendationsTopNavbar';
+import AuthenticatedComponent from '../components/AuthenticatedComponent';
+import connectToStores from '../utils/connectToStores';
 import * as UserActionCreators from '../actions/UserActionCreators';
-import UserStore from '../stores/UserStore';
+import * as ThreadActionCreators from '../actions/ThreadActionCreators';
 import RecommendationStore from '../stores/RecommendationStore';
 import ThreadStore from '../stores/ThreadStore';
 import RecommendationsByThreadStore from '../stores/RecommendationsByThreadStore';
-import RecommendationList from '../components/recommendations/RecommendationList';
-import RecommendationsTopNavbar from '../components/recommendations/RecommendationsTopNavbar';
-import connectToStores from '../utils/connectToStores';
-import AuthenticatedComponent from '../components/AuthenticatedComponent';
+import FilterStore from '../stores/FilterStore';
 
 function parseThreadId(params) {
     return params.threadId;
@@ -21,11 +22,12 @@ function parseId(params) {
  * Requests data from server for current props.
  */
 function requestData(props) {
-    const { params } = props;
+    const {params} = props;
     const threadId = parseThreadId(params);
     const userId = parseId(params);
 
-    UserActionCreators.requestRecommendationPage(userId, threadId);
+    ThreadActionCreators.requestRecommendationPage(userId, threadId);
+    ThreadActionCreators.requestFilters();
 
 }
 
@@ -34,17 +36,17 @@ function initSwiper(thread) {
     let recommendationsSwiper = nekunoApp.swiper('.swiper-container', {
         onSlideNextStart: onSlideNextStart,
         onSlidePrevStart: onSlidePrevStart,
-        effect: 'coverflow',
-        slidesPerView: 'auto',
-        coverflow: {
-            rotate: 30,
-            stretch: 0,
-            depth: 100,
-            modifier: 1,
-            slideShadows : false
+        effect          : 'coverflow',
+        slidesPerView   : 'auto',
+        coverflow       : {
+            rotate      : 30,
+            stretch     : 0,
+            depth       : 100,
+            modifier    : 1,
+            slideShadows: false
         },
-        centeredSlides: true,
-        grabCursor: true
+        centeredSlides  : true,
+        grabCursor      : true
     });
 
     let activeIndex = recommendationsSwiper.activeIndex;
@@ -52,7 +54,7 @@ function initSwiper(thread) {
     function onSlideNextStart(swiper) {
         while (swiper.activeIndex > activeIndex) {
             activeIndex++;
-            UserActionCreators.recommendationsNext(thread.id);
+            ThreadActionCreators.recommendationsNext(thread.id);
         }
 
     }
@@ -61,7 +63,7 @@ function initSwiper(thread) {
         while (swiper.activeIndex < activeIndex) {
             activeIndex--;
             if (activeIndex >= 0) {
-                UserActionCreators.recommendationsBack(thread.id);
+                ThreadActionCreators.recommendationsBack(thread.id);
             }
         }
     }
@@ -69,18 +71,18 @@ function initSwiper(thread) {
     return recommendationsSwiper;
 }
 
-
 /**
  * Retrieves state from stores for current props.
  */
 function getState(props) {
     const threadId = parseThreadId(props.params);
     const thread = ThreadStore.get(threadId);
-    const recommendationIds = threadId? RecommendationsByThreadStore.getRecommendationsFromThread(threadId) : [];
-    const category = thread? thread.category: null;
+    const recommendationIds = threadId ? RecommendationsByThreadStore.getRecommendationsFromThread(threadId) : [];
+    const category = thread ? thread.category : null;
+    const filters = FilterStore.filters;
 
     let recommendations = [];
-    if (thread && category == 'ThreadUsers'){
+    if (thread && category == 'ThreadUsers') {
         recommendations = RecommendationStore.getUserRecommendations(recommendationIds)
     } else if (thread) {
         recommendations = RecommendationStore.getContentRecommendations(recommendationIds)
@@ -89,27 +91,32 @@ function getState(props) {
     return {
         recommendations,
         category,
-        thread
+        thread,
+        filters
     }
 }
 
-@connectToStores([ThreadStore, RecommendationStore, RecommendationsByThreadStore], getState)
-export default AuthenticatedComponent(class RecommendationPage extends Component {
+@AuthenticatedComponent
+@connectToStores([ThreadStore, RecommendationStore, RecommendationsByThreadStore, FilterStore], getState)
+export default class RecommendationPage extends Component {
+
     static propTypes = {
         // Injected by React Router:
-        params: PropTypes.shape({
+        params         : PropTypes.shape({
             threadId: PropTypes.string.isRequired
         }).isRequired,
-
+        // Injected by @AuthenticatedComponent
+        user           : PropTypes.object.isRequired,
         // Injected by @connectToStores:
         recommendations: PropTypes.array.isRequired,
-        thread: PropTypes.object.isRequired
+        thread         : PropTypes.object.isRequired,
+        filters        : PropTypes.object
     };
 
     constructor() {
         super();
 
-        this.state = {swiper: null}
+        this.state = {swiper: null};
     }
 
     componentWillMount() {
@@ -147,16 +154,20 @@ export default AuthenticatedComponent(class RecommendationPage extends Component
     }
 
     render() {
+        const {recommendations, thread, user, filters} = this.props;
         return (
             <div className="view view-main">
-                <RecommendationsTopNavbar centerText={''} />
+                <RecommendationsTopNavbar centerText={''} thread={thread}/>
                 <div className="page">
                     <div id="page-content" className="recommendation-page">
-                        <RecommendationList recommendations={this.props.recommendations} thread={this.props.thread} userId={this.props.user.qnoow_id} />
+                        {thread.filters && filters && Object.keys(filters).length !== 0 ? 
+                            <RecommendationList recommendations={recommendations} thread={thread} userId={user.id} 
+                                                filters={thread.category === 'ThreadUsers' ? filters.userFilters : filters.contentFilters}/> : ''
+                        }
                     </div>
                 </div>
             </div>
         );
     }
-});
+};
 

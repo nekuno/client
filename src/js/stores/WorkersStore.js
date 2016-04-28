@@ -105,6 +105,22 @@ class WorkersStore extends BaseStore {
                 this.emitChange();
                 break;
 
+            case ActionTypes.REQUEST_USER_DATA_STATUS_SUCCESS:
+                Object.keys(action.response).forEach(resource => {
+                    const data = action.response[resource];
+                    this._add({
+                        resource  : resource,
+                        fetching  : false,
+                        fetched   : data.fetched,
+                        processing: false,
+                        process   : 0,
+                        processed : data.processed
+                    });
+                });
+
+                this.emitChange();
+                break;
+
             default:
                 break;
         }

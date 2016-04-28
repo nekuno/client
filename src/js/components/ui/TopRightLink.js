@@ -10,10 +10,11 @@ export default class TopRightLink extends Component {
 	shouldComponentUpdate = shouldPureComponentUpdate;
 
 	render() {
+		const {text, onClickHandler} = this.props;
 		return (
-			<div className="col-25 right">
-				<a onClick={this.props.onClickHandler}>
-					{this.props.text}
+			<div className="col-30 right">
+				<a onClick={onClickHandler}>
+					{text}
 				</a>
 			</div>
 		);

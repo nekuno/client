@@ -1,3 +1,9 @@
+.list-block .checkbox-title {
+  font-size: 0.8em;
+  font-weight: bold;
+  text-align: center;
+}
+
 .text-radios {
   clear: both;
   margin: auto;
@@ -22,14 +28,6 @@
       line-height: 30px;
       cursor: pointer;
       text-align: center;
-      width: 33%;
-
-    }
-  }
-
-  .text-radios-container.unique-chip {
-    .chip {
-      width: 50%;
     }
   }
 }

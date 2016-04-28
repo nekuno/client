@@ -9,8 +9,9 @@ export default class TopRightSearchLink extends Component {
 	shouldComponentUpdate = shouldPureComponentUpdate;
 
 	render() {
+		const {onClickHandler} = this.props;
 		return (
-			<div className="col-25 right" onClick={this.props.onClickHandler}>
+			<div className="col-30 right" onClick={onClickHandler}>
 				<div className="icon-wrapper">
 					<span className="icon-search"></span>
 				</div>

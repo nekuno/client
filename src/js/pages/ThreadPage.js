@@ -1,72 +1,94 @@
 import React, { PropTypes, Component } from 'react';
-import * as UserActionCreators from '../actions/UserActionCreators';
-import ThreadStore from '../stores/ThreadStore';
-import ThreadsByUserStore from '../stores/ThreadsByUserStore';
 import ThreadList from '../components/threads/ThreadList';
-import LeftMenuTopNavbar from '../components/ui/LeftMenuTopNavbar';
-import connectToStores from '../utils/connectToStores';
+import LeftMenuRightIconTopNavbar from '../components/ui/LeftMenuRightIconTopNavbar';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
-
-function parseId(params) {
-    return params.userId;
-}
+import translate from '../i18n/Translate';
+import connectToStores from '../utils/connectToStores';
+import * as UserActionCreators from '../actions/UserActionCreators';
+import * as ThreadActionCreators from '../actions/ThreadActionCreators';
+import ThreadStore from '../stores/ThreadStore';
+import ProfileStore from '../stores/ProfileStore';
+import ThreadsByUserStore from '../stores/ThreadsByUserStore';
+import FilterStore from '../stores/FilterStore';
 
 /**
  * Requests data from server for current props.
  */
 function requestData(props) {
-    const { params } = props;
-    const userId = parseId(params);
-
-    UserActionCreators.requestThreadPage(userId);
-
+    const userId = props.user.id;
+    ThreadActionCreators.requestThreadPage(userId);
+    UserActionCreators.requestProfile(userId);
+    ThreadActionCreators.requestFilters();
 }
 
 /**
  * Retrieves state from stores for current props.
  */
 function getState(props) {
-    const threadIds = ThreadsByUserStore.getThreadsFromUser(props.user.qnoow_id);
+    const threadIds = ThreadsByUserStore.getThreadsFromUser(props.user.id);
     const threads = threadIds ? threadIds.map(ThreadStore.get) : [];
-
+    const profile = ProfileStore.get(props.user.id) || {};
+    const filters = FilterStore.filters;
     return {
-        threads
+        filters,
+        threads,
+        profile
     };
 }
 
-@connectToStores([ThreadStore, ThreadsByUserStore], getState)
-export default AuthenticatedComponent(class ThreadPage extends Component {
-    static propTypes = {
-        // Injected by React Router:
-        params: PropTypes.shape({
-            userId: PropTypes.string.isRequired
-        }).isRequired,
+@AuthenticatedComponent
+@translate('ThreadPage')
+@connectToStores([ThreadStore, ThreadsByUserStore, ProfileStore, FilterStore], getState)
+export default class ThreadPage extends Component {
 
+    static propTypes = {
+        // Injected by @AuthenticatedComponent
+        user   : PropTypes.object.isRequired,
+        // Injected by @translate:
+        strings: PropTypes.object,
         // Injected by @connectToStores:
-        threads: PropTypes.array
+        threads: PropTypes.array,
+        profile: PropTypes.object,
+        filters: PropTypes.object
     };
+
+    static contextTypes = {
+        history: PropTypes.object.isRequired
+    };
+
+    constructor(props) {
+        super(props);
+
+        this.onAddThreadClickHandler = this.onAddThreadClickHandler.bind(this);
+    }
 
     componentWillMount() {
         requestData(this.props);
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (parseId(nextProps.params) !== parseId(this.props.params)) {
-            requestData(nextProps);
-        }
+    onAddThreadClickHandler() {
+        this.context.history.pushState(null, '/create-thread');
     }
 
     render() {
-
+        const {threads, filters, profile, strings, user} = this.props;
         return (
             <div className="view view-main">
-                <LeftMenuTopNavbar centerText={'Hilos'} centerTextSize={'large'} />
+                <LeftMenuRightIconTopNavbar centerText={strings.threads} centerTextSize={'large'} rightIcon={'plus'} onRightLinkClickHandler={this.onAddThreadClickHandler}/>
                 <div className="page threads-page">
                     <div id="page-content">
-                        <ThreadList threads={this.props.threads} userId={this.props.user.qnoow_id} />
+                        {filters && threads && profile ?
+                            <ThreadList threads={threads} userId={user.id} profile={profile} filters={filters}/> : ''
+                        }
                     </div>
                 </div>
             </div>
         );
     }
-});
+};
+
+ThreadPage.defaultProps = {
+    strings: {
+        threads: 'Threads'
+    }
+};

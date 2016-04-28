@@ -1,6 +1,8 @@
 import keyMirror from 'keymirror';
 
 export default keyMirror({
+    
+    AUTO_LOGIN                              : null,
     REQUEST_LOGIN_USER                      : null,
     REQUEST_LOGIN_USER_SUCCESS              : null,
     REQUEST_LOGIN_USER_ERROR                : null,
@@ -25,6 +27,10 @@ export default keyMirror({
     REQUEST_PROFILE_SUCCESS: null,
     REQUEST_PROFILE_ERROR  : null,
 
+    EDIT_PROFILE        : null,
+    EDIT_PROFILE_SUCCESS: null,
+    EDIT_PROFILE_ERROR  : null,
+
     REQUEST_METADATA        : null,
     REQUEST_METADATA_SUCCESS: null,
     REQUEST_METADATA_ERROR  : null,
@@ -45,9 +51,25 @@ export default keyMirror({
     REQUEST_SIMILARITY_SUCCESS: null,
     REQUEST_SIMILARITY_ERROR  : null,
 
+    REQUEST_FILTERS        : null,
+    REQUEST_FILTERS_SUCCESS: null,
+    REQUEST_FILTERS_ERROR  : null,
+
     REQUEST_THREADS        : null,
     REQUEST_THREADS_SUCCESS: null,
     REQUEST_THREADS_ERROR  : null,
+
+    CREATE_THREAD        : null,
+    CREATE_THREAD_SUCCESS: null,
+    CREATE_THREAD_ERROR  : null,
+
+    UPDATE_THREAD        : null,
+    UPDATE_THREAD_SUCCESS: null,
+    UPDATE_THREAD_ERROR  : null,
+
+    DELETE_THREAD        : null,
+    DELETE_THREAD_SUCCESS: null,
+    DELETE_THREAD_ERROR  : null,
 
     THREADS_PREV: null,
     THREADS_NEXT: null,
@@ -141,6 +163,17 @@ export default keyMirror({
     WORKERS_PROCESS_START : null,
     WORKERS_PROCESS_LINK  : null,
     WORKERS_PROCESS_FINISH: null,
-    WORKERS_USER_STATUS   : null
+    WORKERS_USER_STATUS   : null,
+
+    REQUEST_USER_DATA_STATUS           : null,
+    REQUEST_USER_DATA_STATUS_SUCCESS   : null,
+    REQUEST_USER_DATA_STATUS_ERROR     : null,
+
+    REQUEST_TAG_SUGGESTIONS           : null,
+    REQUEST_TAG_SUGGESTIONS_SUCCESS   : null,
+    REQUEST_TAG_SUGGESTIONS_ERROR     : null,
+    RESET_TAG_SUGGESTIONS             : null,
+    
+    CHANGE_LOCALE: null
 
 });

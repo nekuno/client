@@ -1,14 +1,16 @@
 import React, { PropTypes, Component } from 'react';
-import { Link } from 'react-router';
-import { IMAGES_ROOT } from '../../constants/Constants';
 import { QUESTION_STATS_COLORS } from '../../constants/Constants';
 import QuestionStatsGraphs from './QuestionStatsGraphs';
+import translate from '../../i18n/Translate';
 
+@translate('QuestionStats')
 export default class QuestionStats extends Component {
     static propTypes = {
-        question: PropTypes.object.isRequired,
+        question  : PropTypes.object.isRequired,
         userAnswer: PropTypes.object.isRequired,
-        userId: PropTypes.number.isRequired
+        userId    : PropTypes.number.isRequired,
+        // Injected by @translate:
+        strings   : PropTypes.object
     };
 
     render() {
@@ -22,6 +24,8 @@ export default class QuestionStats extends Component {
             return null;
         }
 
+        const {strings} = this.props;
+
         return (
             <div className="question-stats">
                 <div className="title question-title">
@@ -29,23 +33,22 @@ export default class QuestionStats extends Component {
                 </div>
                 <div className="your-answer">
                     <div className="your-answer-title">
-                        Tu respuesta
+                        {strings.yourAnswer}
                     </div>
                     <div className="your-answer-text sub-title">
                         {answers.map((answer, index) => userAnswer.answerId === answer.answerId ? answer.text : '')}
                     </div>
                 </div>
                 <div className="question-stats-graph-title">
-                    Estadísticas repuestas comunidad
+                    {strings.statistics}
                 </div>
-                <QuestionStatsGraphs question={question} userAnswer={userAnswer} />
+                <QuestionStatsGraphs question={question} userAnswer={userAnswer}/>
                 <div className="answers-colors">
                     <hr align="left"/>
                     {answers.map((answer, index) =>
                         <div key={index} className="answer-color">
                             <span className="icon-circle " style={{'color': QUESTION_STATS_COLORS[index]}}></span>
                             <div className="answer" style={{'fontWeight': answer.answerId === userAnswer.answerId ? 'bold' : 'normal'}}>{answer.text}</div>
-
                         </div>
                     )}
                 </div>
@@ -54,3 +57,10 @@ export default class QuestionStats extends Component {
         );
     }
 }
+
+QuestionStats.defaultProps = {
+    strings: {
+        yourAnswer: 'Your answer',
+        statistics: 'Statistics answers community'
+    }
+};

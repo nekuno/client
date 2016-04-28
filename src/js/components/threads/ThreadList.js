@@ -6,35 +6,23 @@ import ThreadUsers from './ThreadUsers';
 export default class ThreadList extends Component {
     static propTypes = {
         threads: PropTypes.array.isRequired,
-        userId: PropTypes.number.isRequired
+        userId: PropTypes.number.isRequired,
+        profile: PropTypes.object.isRequired,
+        filters: PropTypes.object.isRequired
     };
 
     render() {
-        let threadList = [];
-        let threadsLength = this.getObjectLength(this.props.threads);
-        let counter = 0;
-        for (let threadId in this.props.threads) {
-            let thread = selectn('threads['+threadId+']', this.props);
-            if (thread) {
-                threadList[counter++] = thread.category === 'ThreadUsers' ?
-                    <ThreadUsers key={threadId} thread={thread} last={counter == threadsLength} userId={this.props.userId} /> :
-                    <ThreadContent key={threadId} thread={thread} last={counter == threadsLength} userId={this.props.userId} />;
-            }
-        }
-
+        let {threads, userId, profile, filters} = this.props;
+        const threadsLength = Object.keys(threads).length;
         return (
             <div>
-                {threadList.map(thread => thread)}
+                {threadsLength > 0 ? <div className="threads-vertical-connection"></div> : ''}
+                {Object.keys(threads).map((key, index) => threads[key].category === 'ThreadUsers' ?
+                    <ThreadUsers key={key} thread={threads[key]} last={index + 1 == threadsLength} userId={userId} profile={profile} filters={filters}/>
+                    :
+                    <ThreadContent key={key} thread={threads[key]} last={index + 1 == threadsLength} userId={userId} filters={filters}/>
+                )}
             </div>
         );
     }
-
-    getObjectLength = function(obj) {
-        let size = 0, key;
-        for (key in obj) {
-            if (obj.hasOwnProperty(key)) size++;
-        }
-        return size;
-    };
-
 }

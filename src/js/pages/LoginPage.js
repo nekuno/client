@@ -5,28 +5,29 @@ import RegularTopNavbar from '../components/ui/RegularTopNavbar';
 import TextInput from '../components/ui/TextInput';
 import PasswordInput from '../components/ui/PasswordInput';
 import FullWidthButton from '../components/ui/FullWidthButton';
-import LoginActionCreators from '../actions/LoginActionCreators';
+import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
+import LoginActionCreators from '../actions/LoginActionCreators';
 import LoginStore from '../stores/LoginStore';
 
 function getState(props) {
 
     const error = LoginStore.error;
-    const requesting = LoginStore.requesting();
 
     return {
-        error,
-        requesting
+        error
     };
 }
 
+@translate('LoginPage')
 @connectToStores([LoginStore], getState)
 export default class LoginPage extends Component {
 
     static propTypes = {
+        // Injected by @translate:
+        strings: PropTypes.object,
         // Injected by @connectToStores:
-        error     : PropTypes.object,
-        requesting: PropTypes.bool.isRequired
+        error  : PropTypes.object
     };
 
     constructor() {
@@ -34,18 +35,18 @@ export default class LoginPage extends Component {
         this.login = this.login.bind(this);
         this._onKeyDown = this._onKeyDown.bind(this);
         this.state = {
-            user    : '',
+            username: '',
             password: ''
         };
     }
 
     login() {
-        LoginActionCreators.loginUser(this.state.user, this.state.password);
+        LoginActionCreators.loginUser(this.state.username, this.state.password);
     }
 
     _onKeyDown(event) {
         let ENTER_KEY_CODE = 13;
-        if (event.keyCode === ENTER_KEY_CODE) {
+        if(event.keyCode === ENTER_KEY_CODE) {
             event.preventDefault();
             this.login();
         }
@@ -58,22 +59,24 @@ export default class LoginPage extends Component {
     render() {
         const {
             error,
-            requesting
-            } = this.props;
+            strings
+        } = this.props;
         return (
             <div className="view view-main">
-                <RegularTopNavbar leftText={'Cancelar'} centerText={'Iniciar sesión'}/>
+                <RegularTopNavbar leftText={strings.cancel} centerText={strings.login}/>
                 <div className="page">
                     <div id="page-content" className="login-content">
                         <div className="list-block">
                             <ul>
-                                <TextInput placeholder={'Usuario o email'} valueLink={this.linkState('user')} onKeyDown={this._onKeyDown}/>
-                                <PasswordInput placeholder={'Contraseña'} valueLink={this.linkState('password')} onKeyDown={this._onKeyDown}/>
+                                <TextInput placeholder={strings.username} valueLink={this.linkState('username')} onKeyDown={this._onKeyDown}/>
+                                <PasswordInput placeholder={strings.password} valueLink={this.linkState('password')} onKeyDown={this._onKeyDown}/>
                             </ul>
                         </div>
-                        <FullWidthButton type="submit" onClick={this.login}>Iniciar Sesión</FullWidthButton>
+                        <div className="recover-password">
+                            <a href="https://nekuno.com/resetting/request" target="_blank">{strings.recoverPassword}</a>
+                        </div>
+                        <FullWidthButton type="submit" onClick={this.login}>{strings.login}</FullWidthButton>
                         <div style={{color: '#FFF'}}>
-                            <p>{ requesting ? 'Enviando...' : ''}</p>
                             <p>{ error ? error.error : ''}</p>
                         </div>
                     </div>
@@ -82,3 +85,12 @@ export default class LoginPage extends Component {
         );
     }
 }
+
+LoginPage.defaultProps = {
+    strings: {
+        login   : 'Login',
+        cancel  : 'Cancel',
+        username: 'User or email',
+        password: 'Password'
+    }
+};

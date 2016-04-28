@@ -12,10 +12,12 @@
 @import '_partials/popup';
 @import '_partials/form';
 @import '_partials/text-input';
+@import '_partials/tag-input';
 @import '_partials/date-input';
 @import '_partials/location-input';
 @import '_partials/input-checkbox';
 @import '_partials/text-radios';
+@import '_partials/text-checkboxes';
 @import '_partials/button';
 @import '_partials/full-width-button';
 @import '_partials/chip';
@@ -105,7 +107,7 @@ body {
 					}
 				}
 
-				.icon-wrapper {
+				.icon-wrapper, .small-icon-wrapper {
 					background-color: $deep-purple;
 					border-radius: 50%;
 					display: inline-block;
@@ -121,6 +123,19 @@ body {
 
 					&:last-of-type {
 						margin-left: 15px;
+					}
+				}
+
+				.small-icon-wrapper {
+					height: 22px;
+					width: 22px;
+
+					span {
+						font-size: 0.8em;
+						line-height: 22px;
+					}
+					&:last-of-type {
+						margin-left: 0;
 					}
 				}
 

@@ -3,9 +3,18 @@
 body #root .App .view .page.threads-page  {
   #page-content {
     margin-top: 70px;
+
+    .threads-vertical-connection {
+      background-color: $deep-purple;
+      height: 95%;
+      margin-left: 40.5px;
+      margin-top: 40.5px;
+      position: absolute;
+      width: 1px;
+      z-index: 1;
+    }
     .thread-listed {
       margin: 35px auto;
-
       .thread-first-image {
         background-color: $deep-purple;
         border-radius: 50%;
@@ -24,21 +33,25 @@ body #root .App .view .page.threads-page  {
         }
       }
 
-      .threads-vertical-connection {
-        background-color: $deep-purple;
-        height: 200px;
+      .threads-opposite-vertical-connection {
+        background: $dark-purple;
+        height: 250px;
         margin-left: 40.5px;
         margin-top: 40.5px;
         position: absolute;
-        width: 1px;
-        z-index: 1;
+        width: 2px;
+        z-index: 2;
       }
 
       .thread-info-box {
         display: inline-block;
         margin-left: 15px;
-        max-width: 63%;
+        max-width: 75%;
         vertical-align: top;
+
+        @media only screen and (max-width: 500px) {
+          max-width: 63%;
+        }
 
         .thread-title {
           line-height: 30px;

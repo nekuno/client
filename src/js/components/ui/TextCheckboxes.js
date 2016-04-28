@@ -20,7 +20,7 @@ export default class TextCheckboxes extends Component {
 		return (
 			<div className="text-checkboxes">
 				{this.props.title ? <div className="text-checkboxes-title">{this.props.title}</div> : ''}
-				{this.props.labels.map(label => <Chip key={label.key} label={label.text.length > 45 ? label.text.slice(0, 45) + '...' : label.text} onClickHandler={this.onClickHandler.bind(this, label.key)} disabled={!this.props.values.some(value => value === label.key)} />)}
+				{this.props.labels.map(label => <Chip key={label.key} label={label.text.length > 45 ? label.text.slice(0, 45) + '...' : label.text} onClickHandler={this.onClickHandler.bind(this, label.key)} disabled={!this.props.values.some(value => value == label.key)} />)}
 			</div>
 		);
 	}

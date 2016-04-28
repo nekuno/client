@@ -72,9 +72,6 @@ export default class ThreadPage extends Component {
 
     render() {
         const {threads, filters, profile, strings, user} = this.props;
-        if (!filters || !threads) {
-            return null;
-        }
         return (
             <div className="view view-main">
                 <LeftMenuRightIconTopNavbar centerText={strings.threads} centerTextSize={'large'} rightIcon={'plus'} onRightLinkClickHandler={this.onAddThreadClickHandler}/>

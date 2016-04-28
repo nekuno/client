@@ -92,8 +92,8 @@ export default class CreateThreadPage extends Component {
                                         <TextRadios labels={[{key: 'persons', text: 'Personas'}, {key: 'contents', text: 'Contenidos'}]} onClickHandler={this.handleClickCategory} value={category} />
                                     </div>
                                 </div>
-                                {category === 'contents' ? <CreateContentThread userId={user.id} defaultFilters={filters['contentFilters']} threadName={threadName} tags={tags}/> : ''}
-                                {category === 'persons' ? <CreateUsersThread userId={user.id} defaultFilters={filters['userFilters']} threadName={threadName} tags={tags}/> : ''}
+                                {category === 'contents' ? <CreateContentThread userId={user.id} defaultFilters={filters.contentFilters} threadName={threadName} tags={tags}/> : ''}
+                                {category === 'persons' ? <CreateUsersThread userId={user.id} defaultFilters={filters.userFilters} threadName={threadName} tags={tags}/> : ''}
                             </div>
                             : ''}
                     </div>

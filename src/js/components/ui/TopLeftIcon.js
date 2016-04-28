@@ -14,8 +14,8 @@ export default class TopLeftIcon extends Component {
 	render() {
 		const {icon} = this.props;
 		return (
-			<div className="col-30 left">
-				<span className={'icon-' + icon} onClick={() => this.context.history.goBack()}></span>
+			<div className="col-30 left" onClick={() => this.context.history.goBack()}>
+				<span className={'icon-' + icon}></span>
 			</div>
 		);
 	}

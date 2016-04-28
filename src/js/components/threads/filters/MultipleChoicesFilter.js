@@ -31,7 +31,7 @@ export default class MultipleChoicesFilter extends Component {
     handleClickMultipleChoice(choice) {
         let {filterKey, data} = this.props;
         data = data || [];
-        const valueIndex = data.findIndex(value => value === choice);
+        const valueIndex = data.findIndex(value => value == choice);
         if (valueIndex > -1) {
             data.splice(valueIndex, 1);
         } else {

@@ -40,10 +40,11 @@ body #root .App .view .page {
                   }
                 }
                 .answer-question-other-picture {
+                  background: $dark-blue;
                   text-align: center;
 
                   span {
-                    color: $dark-blue;
+                    color: #fff;
                     line-height: 40px;
                   }
                 }

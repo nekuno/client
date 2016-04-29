@@ -88,7 +88,6 @@ export default class CreateThreadPage extends Component {
     render() {
         const {user, filters, tags, thread} = this.props;
         const {category, threadName} = this.state;
-        console.log(thread)
         return (
             <div className="view view-main">
                 <RegularTopNavbar centerText={'Editar hilo'} leftText={'Cancelar'} />

@@ -55,7 +55,6 @@ export default class QuestionStatsPage extends Component {
     }
 
     handleContinueClick() {
-        console.log('handling');
         this.context.history.pushState(null, `/answer-question/next`);
     }
 

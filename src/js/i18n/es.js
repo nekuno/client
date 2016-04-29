@@ -17,7 +17,7 @@ export default {
         excerpt: 'Conecta con Nekuno todas las redes sociales que quieras para mejorar los resultados de los contenidos recomendados.'
     },
     ConnectSocialNetworksPage        : {
-        top    : 'Conexión con redes sociales',
+        top    : 'Conexión con RRSS',
         title  : 'Conecta con tu mundo',
         excerpt: 'Conecta tus redes sociales con Nekuno para mejorar los resultados de los contenidos recomendados.'
     },

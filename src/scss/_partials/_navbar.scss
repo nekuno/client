@@ -12,6 +12,12 @@
 			margin: auto;
 			width: 95%;
 		}
+		.col-30 {
+			width: 30%;
+		}
+		.col-40 {
+			width: 35%;
+		}
 		.center {
 			display: block;
 			font-size: 0.941176471em;
@@ -22,9 +28,11 @@
 		}
 
 		.left {
+			margin-top: 12px;
 			text-align: left;
 		}
 		.right {
+			margin-top: 8px;
 			text-align: right;
 		}
 		.left, .right {
@@ -36,12 +44,6 @@
 				color: #fff;
 				font-size: 25px;
 			}
-		}
-		.left {
-			margin-top: 12px;
-		}
-		.right {
-			margin-top: 8px;
 		}
 
 		.open-panel .icon-menu {

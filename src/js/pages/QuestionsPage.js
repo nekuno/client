@@ -119,7 +119,7 @@ export default class QuestionsPage extends Component {
                     </div>
                 </div>
                 <ToolBar links={[
-                {'url': `/profile/${selectn('qnoow_id', this.props.user)}`, 'text': strings.about},
+                {'url': '/profile', 'text': strings.about},
                 {'url': '/questions', 'text': strings.questions},
                 {'url': '/interests', 'text': strings.interests}
                 ]} activeLinkIndex={1}/>

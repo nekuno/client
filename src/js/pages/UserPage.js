@@ -1,13 +1,9 @@
 import React, { PropTypes, Component } from 'react';
-import selectn from 'selectn';
 import { IMAGES_ROOT } from '../constants/Constants';
 import User from '../components/User';
-import OtherProfileData from '../components/profile/OtherProfileData';
 import ProfileDataList from '../components/profile/ProfileDataList'
 import LeftMenuTopNavbar from '../components/ui/LeftMenuTopNavbar';
-import OtherUserTopNavbar from '../components/ui/OtherUserTopNavbar';
 import ToolBar from '../components/ui/ToolBar';
-import Button from '../components/ui/Button';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
@@ -15,251 +11,91 @@ import * as UserActionCreators from '../actions/UserActionCreators';
 import UserStore from '../stores/UserStore';
 import ProfileStore from '../stores/ProfileStore';
 import StatsStore from '../stores/StatsStore';
-import ComparedStatsStore from '../stores/ComparedStatsStore';
-import MatchingStore from '../stores/MatchingStore';
-import SimilarityStore from '../stores/SimilarityStore';
-import BlockStore from '../stores/BlockStore';
-import LikeStore from '../stores/LikeStore';
 
-function parseId(params) {
-    return params.userId;
+function parseId(user) {
+    return user.id;
 }
 
 /**
  * Requests data from server for current props.
  */
 function requestData(props) {
-    //user === logged user
-    const {params, user, userLoggedIn} = props;
-    //current === user whose profile is being viewed
-    const currentUserId = parseId(params);
+    const {user} = props;
+    const userId = parseId(user);
 
-    if (!(userLoggedIn && user && (user.qnoow_id == currentUserId))) {
-        if (!MatchingStore.contains(currentUserId, user.qnoow_id)) {
-            UserActionCreators.requestMatching(parseInt(currentUserId), user.qnoow_id);
-        }
-        if (!SimilarityStore.contains(currentUserId, user.qnoow_id)) {
-            UserActionCreators.requestSimilarity(currentUserId, user.qnoow_id);
-        }
-        if (!LikeStore.contains(user.qnoow_id, currentUserId)) {
-            UserActionCreators.requestLikeUser(user.qnoow_id, currentUserId);
-        }
-        if (!BlockStore.contains(user.qnoow_id, currentUserId)) {
-            UserActionCreators.requestBlockUser(user.qnoow_id, currentUserId);
-        }
-        if (!ComparedStatsStore.contains(user.qnoow_id, currentUserId)) {
-            UserActionCreators.requestComparedStats(user.qnoow_id, currentUserId);
-        }
-
-    }
-
-    UserActionCreators.requestUser(currentUserId, ['username', 'email', 'picture', 'status']);
-    UserActionCreators.requestProfile(currentUserId);
+    UserActionCreators.requestUser(userId, ['username', 'email', 'picture', 'status']);
+    UserActionCreators.requestProfile(userId);
     UserActionCreators.requestMetadata();
-    UserActionCreators.requestStats(currentUserId);
-
+    UserActionCreators.requestStats(userId);
 }
 
 /**
  * Retrieves state from stores for current props.
  */
 function getState(props) {
-    const currentUserId = parseId(props.params);
-    const {userLoggedIn, user} = props;
-    //to use when changing route
-    const currentUser = UserStore.get(currentUserId);
-    const profile = ProfileStore.getWithMetadata(currentUserId);
-
-    let matching = 0;
-    let similarity = 0;
-    let like = 0;
-    let block = 0;
-    let comparedStats = {};
-    let stats = {};
-    if (!(userLoggedIn && user && (user.qnoow_id == currentUserId))) {
-
-        matching = MatchingStore.get(currentUserId, user.qnoow_id);
-        similarity = SimilarityStore.get(currentUserId, user.qnoow_id);
-        block = BlockStore.get(user.qnoow_id, currentUserId);
-        like = LikeStore.get(user.qnoow_id, currentUserId);
-        comparedStats = ComparedStatsStore.get(user.qnoow_id, currentUserId);
-    } else {
-        stats = StatsStore.get(currentUserId);
-    }
+    const {user} = props;
+    const userId = parseId(user);
+    const profile = ProfileStore.getWithMetadata(userId);
+    const stats = StatsStore.get(userId);
 
     return {
-        currentUser,
+        user,
         profile,
-        stats,
-        matching,
-        similarity,
-        block,
-        like,
-        comparedStats,
-        userLoggedIn,
-        user
+        stats
     };
-}
-
-function setBlockUser(props) {
-    const {user, currentUser} = props;
-
-    UserActionCreators.blockUser(user.qnoow_id, currentUser.qnoow_id);
-}
-
-function unsetBlockUser(props) {
-    const {user, currentUser} = props;
-
-    UserActionCreators.deleteBlockUser(user.qnoow_id, currentUser.qnoow_id);
-}
-
-function setLikeUser(props) {
-    const {user, currentUser} = props;
-
-    UserActionCreators.likeUser(user.qnoow_id, currentUser.qnoow_id);
-}
-
-function unsetLikeUser(props) {
-    const {user, currentUser} = props;
-
-    UserActionCreators.deleteLikeUser(user.qnoow_id, currentUser.qnoow_id);
 }
 
 @AuthenticatedComponent
 @translate('UserPage')
-@connectToStores([UserStore, ProfileStore, StatsStore, MatchingStore, SimilarityStore, BlockStore, LikeStore, ComparedStatsStore], getState)
+@connectToStores([UserStore, ProfileStore, StatsStore], getState)
 export default class UserPage extends Component {
     static propTypes = {
-        // Injected by React Router:
-        params  : PropTypes.shape({
-            userId: PropTypes.string.isRequired
-        }).isRequired,
         // Injected by @AuthenticatedComponent
         user    : PropTypes.object,
         // Injected by @translate:
         strings : PropTypes.object,
         // Injected by @connectToStores:
-        //currentUser: PropTypes.object,
-        //profile: PropTypes.array,
         stats   : PropTypes.object,
-        matching: PropTypes.number
+        profile: PropTypes.object
 
     };
-
-    constructor(props) {
-        super(props);
-
-        this.onRate = this.onRate.bind(this);
-        this.onBlock = this.onBlock.bind(this);
-    }
 
     componentWillMount() {
         requestData(this.props);
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (parseId(nextProps.params) !== parseId(this.props.params)) {
-            requestData(nextProps);
-        }
-    }
-
-    onBlock() {
-        if (!this.props.block) {
-            setBlockUser(this.props);
-        } else {
-            unsetBlockUser(this.props);
-        }
-    }
-
-    onRate() {
-        if (!this.props.like) {
-            setLikeUser(this.props);
-        } else {
-            unsetLikeUser(this.props);
-        }
-    }
-
     render() {
-        const {userLoggedIn, user, currentUser, profile, stats, matching, similarity, block, like, comparedStats} = this.props;
-        const currentUserId = currentUser ? currentUser.qnoow_id : null;
-        const currentPicture = currentUser && currentUser.picture ? `${IMAGES_ROOT}media/cache/resolve/user_avatar_60x60/user/images/${currentUser.picture}` : `${IMAGES_ROOT}media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
-        const ownPicture = user && user.picture ? `${IMAGES_ROOT}media/cache/resolve/user_avatar_60x60/user/images/${user.picture}` : `${IMAGES_ROOT}media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
-        const strings = this.props.strings;
-        const likeText = like ? strings.dontLike : strings.like;
-        const blockClass = block ? "icon-block blocked" : "icon-block";
-
-        let ownProfile = false;
-        if (userLoggedIn && user && (user.qnoow_id == currentUserId)) {
-            ownProfile = true;
-        }
-
+        const {user, profile, stats, strings} = this.props;
+        const picture = user.picture ? `${IMAGES_ROOT}media/cache/resolve/user_avatar_60x60/user/images/${user.picture}` : `${IMAGES_ROOT}media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
         return (
             <div className="view view-main">
                 <div className="page toolbar-fixed user-page">
-                    {ownProfile ?
-                        <LeftMenuTopNavbar centerText={strings.myProfile}/>
-                        :
-                        <OtherUserTopNavbar centerText={currentUser ? currentUser.username : ''} userId={currentUserId}/>
-                    }
-
-                    <div id="page-content">
-
-                        {currentUser && profile ?
-                            <User user={currentUser} profile={profile}/> :
-                            ''
-                        }
-
-                        {currentUser && profile && ownProfile ?
+                    <LeftMenuTopNavbar centerText={strings.myProfile}/>
+                    {profile && stats ?
+                        <div id="page-content">
+                            <User user={user} profile={profile}/>
                             <div className="user-interests">
                                 <div className="number">
-                                    {selectn('numberOfContentLikes', stats) ? stats.numberOfContentLikes : 0}
+                                    {stats.numberOfContentLikes || 0}
                                 </div>
                                 <div className="label">{strings.interests}</div>
                             </div>
-                            : ''
-                        }
-
-                        {currentUser && profile && !ownProfile ?
-                            <div>
-                                <div className="other-profile-buttons">
-                                    <div className="other-profile-like-button">
-                                        <Button onClick={this.onRate}>{likeText}</Button>
-                                    </div>
-                                    <div className="other-profile-block-button">
-                                        <Button onClick={this.onBlock}><span className={blockClass}></span></Button>
-                                    </div>
-                                </div>
-                                <div className="other-profile-wrapper bold">
-                                    <OtherProfileData matching={matching} similarity={similarity} stats={comparedStats} ownImage={ownPicture} currentImage={currentPicture}/>
-                                </div>
-                            </div>
-                            : ''
-                        }
-
-
-                        {currentUser && profile ?
-                            <ProfileDataList profile={profile}/> :
-                            ''
-                        }
-                        <br />
-                        <br />
-                        <br />
-                        <br />
-                        <br />
-                        <br />
-                    </div>
+                            <ProfileDataList profile={profile}/>
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                        </div>
+                        : ''}
                 </div>
-
-                <ToolBar links={ownProfile ? [
-                {'url': `/profile/${selectn('qnoow_id', currentUser)}`, 'text': strings.aboutMe},
-                {'url': '/questions', 'text': strings.questions},
-                {'url': '/interests', 'text': strings.interests}]
-                : [
-                {'url': `/profile/${selectn('qnoow_id', currentUser)}`, 'text': currentUser ? strings.aboutOther.replace('%username%', currentUser.username) : ''},
-                {'url': `/users/${selectn('qnoow_id', currentUser)}/other-questions`, 'text': strings.questions},
-                {'url': `/users/${selectn('qnoow_id', currentUser)}/other-interests`, 'text': strings.interests}]
-
-                } activeLinkIndex={0}/>
+                {profile && stats ?
+                    <ToolBar links={[
+                    {'url': '/profile', 'text': strings.aboutMe},
+                    {'url': '/questions', 'text': strings.questions},
+                    {'url': '/interests', 'text': strings.interests}]} activeLinkIndex={0}/> 
+                    : ''}
             </div>
         );
     }
@@ -268,11 +104,8 @@ export default class UserPage extends Component {
 UserPage.defaultProps = {
     strings: {
         aboutMe   : 'About me',
-        aboutOther: 'About %username%',
         questions : 'Answers',
         interests : 'Interests',
-        like      : 'Me gusta',
-        dontLike  : 'Ya no me gusta',
-        myProfile : 'Mi Perfil'
+        myProfile : 'My profile'
     }
 };

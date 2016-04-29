@@ -1,18 +1,15 @@
 import React, { PropTypes, Component } from 'react';
-import shouldPureComponentUpdate from 'react-pure-render/function';
-import TopLeftMenuLink from './TopLeftMenuLink';
-import RegularTopTitle from './RegularTopTitle';
+import TopLeftMenuLink from './../ui/TopLeftMenuLink';
+import RegularTopTitle from './../ui/RegularTopTitle';
 import TopRightMessageLink from './TopRightMessageLink';
 
 export default class OtherUserTopNavbar extends Component {
 	static propTypes = {
 		centerText: PropTypes.string,
 		centerTextSize: PropTypes.string,
-		userId: PropTypes.number
+		onClickMessageLink: PropTypes.func.isRequired
 	};
-
-	shouldComponentUpdate = shouldPureComponentUpdate;
-
+	
 	render() {
 		return (
 			<div className="navbar">
@@ -20,7 +17,7 @@ export default class OtherUserTopNavbar extends Component {
 					<div className="row">
 						<TopLeftMenuLink />
 						<RegularTopTitle text={this.props.centerText} textSize={this.props.centerTextSize} />
-						<TopRightMessageLink userId={this.props.userId}/>
+						<TopRightMessageLink onClickMessageLink={this.props.onClickMessageLink}/>
 					</div>
 				</div>
 			</div>

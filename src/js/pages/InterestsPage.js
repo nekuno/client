@@ -183,7 +183,7 @@ export default class InterestsPage extends Component {
                     <br/>
                 </div>
                 <ToolBar links={[
-                {'url': `/profile/${selectn('qnoow_id', user)}`, 'text': strings.about},
+                {'url': '/profile', 'text': strings.about},
                 {'url': '/questions', 'text': strings.questions},
                 {'url': '/interests', 'text': strings.interests}
                 ]} activeLinkIndex={2}/>

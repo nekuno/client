@@ -110,12 +110,16 @@ export default {
     },
     UserPage                         : {
         aboutMe   : 'About me',
+        questions : 'Answers',
+        interests : 'Interests',
+        myProfile : 'My profile'
+    },
+    OtherUserPage                    : {
         aboutOther: 'About %username%',
         questions : 'Answers',
         interests : 'Interests',
         like      : 'Like',
-        dontLike  : 'Don\'t like anymore',
-        myProfile : 'My profile'
+        dontLike  : 'Don\'t like anymore'
     },
     ////////////////
     // Components //

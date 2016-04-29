@@ -16,6 +16,7 @@ import RegisterPage from './pages/RegisterPage';
 import RegisterJoinPage from './pages/RegisterJoinPage';
 import RegisterQuestionsLandingPage from './pages/RegisterQuestionLandingPage';
 import UserPage from './pages/UserPage';
+import OtherUserPage from './pages/OtherUserPage';
 import ThreadPage from './pages/ThreadPage';
 import RecommendationPage from './pages/RecommendationPage';
 import ConnectSocialNetworksOnSignUpPage from './pages/ConnectSocialNetworksOnSignUpPage';
@@ -63,7 +64,8 @@ export default class Root extends Component {
                         <Route name="answer-question" path="/answer-question/:questionId" component={AnswerQuestionPage}/>
                         <Route name="answer-question-next" path="/answer-question/next" component={AnswerQuestionPage}/>
                         <Route name="question-stats" path="/question-stats" component={QuestionStatsPage}/>
-                        <Route name="profile" path="/profile/:userId" component={UserPage}/>
+                        <Route name="profile" path="/profile" component={UserPage}/>
+                        <Route name="other-profile" path="/profile/:userId" component={OtherUserPage}/>
                         <Route name="threads" path="/threads" component={ThreadPage}/>
                         <Route name="recommendations" path="/users/:userId/recommendations/:threadId" component={RecommendationPage}/>
                         <Route name="social-networks-on-sign-up" path="/social-networks-on-sign-up" component={ConnectSocialNetworksOnSignUpPage}/>

@@ -47,7 +47,7 @@ body {
 	margin: auto;
 	max-width: 480px;
 	min-width: 320px;
-	overflow-y: visible;
+	overflow-y: scroll;
 	width: 100%;
 
 	a {
@@ -64,7 +64,7 @@ body {
 			.view {
 				background: $dark-purple;
 				color: #fff;
-				overflow-y: visible;
+				overflow-y: scroll;
 				.title {
 					font-size: 1.785714286em;
 					text-align: center;

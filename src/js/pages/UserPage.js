@@ -69,8 +69,8 @@ export default class UserPage extends Component {
         const picture = user.picture ? `${IMAGES_ROOT}media/cache/resolve/user_avatar_60x60/user/images/${user.picture}` : `${IMAGES_ROOT}media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
         return (
             <div className="view view-main">
-                <div className="page toolbar-fixed user-page">
-                    <LeftMenuTopNavbar centerText={strings.myProfile}/>
+                <LeftMenuTopNavbar centerText={strings.myProfile}/>
+                <div className="page user-page">
                     {profile && stats ?
                         <div id="page-content">
                             <User user={user} profile={profile}/>

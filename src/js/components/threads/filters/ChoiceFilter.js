@@ -9,7 +9,7 @@ export default class ChoiceFilter extends Component {
         filterKey: PropTypes.string.isRequired,
         selected: PropTypes.bool.isRequired,
         filter: PropTypes.object.isRequired,
-        data: PropTypes.object.isRequired,
+        data: PropTypes.string.isRequired,
         handleClickRemoveFilter: PropTypes.func.isRequired,
         handleChangeFilter: PropTypes.func.isRequired,
         handleClickFilter: PropTypes.func.isRequired

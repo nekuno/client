@@ -160,28 +160,7 @@ export default class RegisterJoinPage extends Component {
         });
     }
 
-    onSuggestSelect(suggest) {
-
-        let locality = '', country = '';
-        suggest.gmaps.address_components.forEach(function(component) {
-            component.types.forEach(function(type) {
-                if (!locality && type === 'locality') {
-                    locality = component.long_name;
-                }
-                if (!country && type === 'country') {
-                    country = component.long_name;
-                }
-            });
-        });
-
-        let location = {
-            latitude : suggest.location.lat,
-            longitude: suggest.location.lng,
-            address  : suggest.label,
-            locality : locality,
-            country  : country
-        };
-
+    onSuggestSelect(location) {
         this.setState({
             location: location
         });

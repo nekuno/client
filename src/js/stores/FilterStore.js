@@ -68,8 +68,9 @@ class FilterStore extends BaseStore {
                 text += data ? ' - ' + data : '';
                 return text;
             case 'choice':
-                choice = filter.choices.find(choice => choice.value === data);
-                choiceLabel = choice ? choice.label : '';
+                //choice = filter.choices.find(choice => choice.value === data);
+                //choiceLabel = choice ? choice.label : '';
+                choiceLabel = filter.choices[data];
                 return choiceLabel ? filter.label + ' - ' + choiceLabel : filter.label;
             case 'double_choice':
                 choice = filter.choices[Object.keys(filter.choices).find(key => key === data.choice)];

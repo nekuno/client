@@ -3,6 +3,8 @@ import { createStore, mergeIntoBag, isInBag } from '../utils/StoreUtils';
 import UserStore from '../stores/UserStore';
 import LoginStore from '../stores/LoginStore';
 import ActionTypes from '../constants/ActionTypes';
+import * as UserActionCreators from '../actions/UserActionCreators';
+import * as ThreadActionCreators from '../actions/ThreadActionCreators';
 import selectn from 'selectn';
 
 let _profiles = {};
@@ -139,6 +141,11 @@ ProfileStore.dispatchToken = register(action => {
             ProfileStore.emitChange();
             break;
         case ActionTypes.EDIT_PROFILE_SUCCESS:
+            const currentProfile = _profiles[LoginStore.user.id];
+            if (currentProfile.interfaceLanguage !== action.data.interfaceLanguage){
+                UserActionCreators.requestMetadata();
+                ThreadActionCreators.requestFilters();
+            }
             _profiles[LoginStore.user.id]=action.data;
             break;
         default:

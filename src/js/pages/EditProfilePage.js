@@ -159,32 +159,31 @@ export default class EditProfilePage extends Component {
                             profile && metadata && filters ? Object.keys(profile).map(profileName => {
                                 let data = profile[profileName];
                                 const selected = this.state.selectedFilter === profileName;
-                                let key = profileName;
                                 switch (metadata[profileName]['type']) {
                                     case 'choice':
-                                        return <ChoiceEdit   key={key} filterKey={key}
+                                        return <ChoiceEdit   key={profileName} filterKey={profileName}
                                                              ref={selected ? 'selectedFilter' : ''}
                                                              metadata={metadata[profileName]}
-                                                             data={data}
+                                                             data={data ? data : ''}
                                                              selected={selected}
                                                              handleClickRemoveFilter={this.handleClickRemoveFilter}
                                                              handleChangeFilter={this.handleChangeFilterAndUnSelect}
                                                              handleClickFilter={this.handleClickFilter}
                                         />;
                                     case 'integer':
-                                        return <IntegerEdit key={key} filterKey={key}
+                                        return <IntegerEdit   key={profileName} filterKey={profileName}
                                                               ref={selected ? 'selectedFilter' : ''}
                                                               metadata={metadata[profileName]}
-                                                              data={parseInt(data)}
+                                                              data={data ? parseInt(data) : 0}
                                                               selected={selected}
                                                               handleClickRemoveFilter={this.handleClickRemoveFilter}
                                                               handleChangeFilter={this.handleChangeFilter}
                                                               handleClickFilter={this.handleClickFilter}
                                         />;
                                     case 'location':
-                                        return <LocationEdit key={key} filterKey={key} ref={selected ? 'selectedFilter' : ''}
+                                        return <LocationEdit   key={profileName} filterKey={profileName} ref={selected ? 'selectedFilter' : ''}
                                                                metadata = {metadata[profileName]}
-                                                               data={data}
+                                                               data={data ? data : {}}
                                                                selected={selected}
                                                                handleClickRemoveFilter={this.handleClickRemoveFilter}
                                                                handleChangeFilter={this.handleChangeFilterAndUnSelect}
@@ -193,7 +192,49 @@ export default class EditProfilePage extends Component {
                                     default:
                                         return '';
                                 }
-                            }) : ''
+                            }):''
+                        }
+                        {
+                            profile && metadata && filters ? Object.keys(metadata).map(metadataName => {
+                                let metadataField = metadata[metadataName];
+                                const selected = this.state.selectedFilter === metadataName;
+                                if (profile.hasOwnProperty(metadataName)){
+                                    return '';
+                                }
+                                switch (metadataField['type']) {
+                                    case 'choice':
+                                        return <ChoiceEdit   key={metadataName} filterKey={metadataName}
+                                                             ref={selected ? 'selectedFilter' : ''}
+                                                             metadata={metadata[metadataName]}
+                                                             data={''}
+                                                             selected={selected}
+                                                             handleClickRemoveFilter={this.handleClickRemoveFilter}
+                                                             handleChangeFilter={this.handleChangeFilterAndUnSelect}
+                                                             handleClickFilter={this.handleClickFilter}
+                                        />;
+                                    case 'integer':
+                                        return <IntegerEdit key={metadataName} filterKey={metadataName}
+                                                            ref={selected ? 'selectedFilter' : ''}
+                                                            metadata={metadata[metadataName]}
+                                                            data={0}
+                                                            selected={selected}
+                                                            handleClickRemoveFilter={this.handleClickRemoveFilter}
+                                                            handleChangeFilter={this.handleChangeFilter}
+                                                            handleClickFilter={this.handleClickFilter}
+                                        />;
+                                    case 'location':
+                                        return <LocationEdit key={metadataName} filterKey={metadataName} ref={selected ? 'selectedFilter' : ''}
+                                                             metadata = {metadata[metadataName]}
+                                                             data={{}}
+                                                             selected={selected}
+                                                             handleClickRemoveFilter={this.handleClickRemoveFilter}
+                                                             handleChangeFilter={this.handleChangeFilterAndUnSelect}
+                                                             handleClickFilter={this.handleClickFilter}
+                                        />;
+                                    default:
+                                        return '';
+                                }
+                            }):''
                         }
                     </div>
                 </div>

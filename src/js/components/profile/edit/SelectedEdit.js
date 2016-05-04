@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 
-export default class ThreadSelectedFilter extends Component {
+export default class SelectedEdit extends Component {
     static propTypes = {
         children: PropTypes.object,
         type: PropTypes.string.isRequired,

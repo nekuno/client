@@ -22,27 +22,10 @@ export default class LocationFilter extends Component {
         this.handleClickChoice = this.handleClickChoice.bind(this);
     }
 
-    handleClickLocationSuggestion(suggest) {
+    handleClickLocationSuggestion(location) {
         let {filterKey} = this.props;
-        let locality = '', country = '';
-        suggest.gmaps.address_components.forEach(function(component) {
-            component.types.forEach(function(type) {
-                if (!locality && type === 'locality') {
-                    locality = component.long_name;
-                }
-                if (!country && type === 'country') {
-                    country = component.long_name;
-                }
-            });
-        });
         let data = {
-            location: {
-                latitude: suggest.location.lat,
-                longitude: suggest.location.lng,
-                address: suggest.gmaps.formatted_address,
-                locality: locality || country,
-                country: country
-            },
+            location: location,
             distance: 50
         };
         this.props.handleChangeFilter(filterKey, data);

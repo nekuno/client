@@ -10,7 +10,7 @@ import FilterStore from '../stores/FilterStore';
 import ChoiceEdit from '../components/profile/edit/ChoiceEdit';
 import LocationEdit from '../components/profile/edit/LocationEdit';
 import IntegerEdit from '../components/profile/edit/IntegerEdit';
-import IntegerFilter from '../components/threads/filters/IntegerFilter';
+import TagsAndChoiceEdit from '../components/profile/edit/TagsAndChoiceEdit';
 import LocationInput from '../components/ui/LocationInput';
 import RegularTopNavbar from '../components/ui/RegularTopNavbar';
 
@@ -192,6 +192,15 @@ export default class EditProfilePage extends Component {
                                                                handleChangeFilter={this.handleChangeFilterAndUnSelect}
                                                                handleClickFilter={this.handleClickFilter}
                                         />;
+                                    case 'tags_and_choice':
+                                        return <TagsAndChoiceEdit   key={profileName} filterKey={profileName} ref={selected ? 'selectedFilter' : ''}
+                                                                    metadata = {metadata[profileName]}
+                                                                    data={data ? data : []}
+                                                                    selected={selected}
+                                                                    handleClickRemoveFilter={this.handleClickRemoveFilter}
+                                                                    handleChangeFilter={this.handleChangeFilter}
+                                                                    handleClickFilter={this.handleClickFilter}
+                                        />;
                                     default:
                                         return '';
                                 }
@@ -233,6 +242,15 @@ export default class EditProfilePage extends Component {
                                                              handleClickRemoveFilter={this.handleClickRemoveFilter}
                                                              handleChangeFilter={this.handleChangeFilterAndUnSelect}
                                                              handleClickFilter={this.handleClickFilter}
+                                        />;
+                                    case 'tags_and_choice':
+                                        return <TagsAndChoiceEdit   key={metadataName} filterKey={metadataName} ref={selected ? 'selectedFilter' : ''}
+                                                                    metadata = {metadata[metadataName]}
+                                                                    data={[]}
+                                                                    selected={selected}
+                                                                    handleClickRemoveFilter={this.handleClickRemoveFilter}
+                                                                    handleChangeFilter={this.handleChangeFilter}
+                                                                    handleClickFilter={this.handleClickFilter}
                                         />;
                                     default:
                                         return '';

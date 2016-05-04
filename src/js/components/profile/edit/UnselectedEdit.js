@@ -1,5 +1,5 @@
 import React, { PropTypes, Component } from 'react';
-import FilterStore from '../../../stores/FilterStore';
+import ProfileStore from '../../../stores/ProfileStore';
 import TextCheckboxes from '../../ui/TextCheckboxes';
 
 export default class UnselectedEdit extends Component {
@@ -14,9 +14,9 @@ export default class UnselectedEdit extends Component {
         const {filterKey, filter, data} = this.props;
         return(
             <div className="thread-filter">
-                <TextCheckboxes labels={[{key: filterKey, text: FilterStore.getFilterLabel(filter, data)}]}
+                <TextCheckboxes labels={[{key: filterKey, text: ProfileStore.getMetadataLabel(filter, data)}]}
                                 onClickHandler={this.handleClickFilter.bind(this, filterKey)}
-                                values={FilterStore.isFilterSet(filter, data) ? [filterKey] : []} />
+                                values={ProfileStore.isProfileSet(filter, data) ? [filterKey] : []} />
                 <div className="table-row"></div>
             </div>
         );

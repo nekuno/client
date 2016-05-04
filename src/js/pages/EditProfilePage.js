@@ -8,6 +8,8 @@ import connectToStores from '../utils/connectToStores';
 import ProfileStore from '../stores/ProfileStore';
 import FilterStore from '../stores/FilterStore';
 import ChoiceEdit from '../components/profile/edit/ChoiceEdit';
+import LocationEdit from '../components/profile/edit/LocationEdit';
+import IntegerEdit from '../components/profile/edit/IntegerEdit';
 import IntegerFilter from '../components/threads/filters/IntegerFilter';
 import LocationInput from '../components/ui/LocationInput';
 import RegularTopNavbar from '../components/ui/RegularTopNavbar';
@@ -65,6 +67,7 @@ export default class EditProfilePage extends Component {
         this.handleChangeFilter = this.handleChangeFilter.bind(this);
         this.handleChangeFilterAndUnSelect = this.handleChangeFilterAndUnSelect.bind(this);
         this.handleClickRemoveFilter = this.handleClickRemoveFilter.bind(this);
+        this.handleClickOutside = this.handleClickOutside.bind(this);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -77,6 +80,14 @@ export default class EditProfilePage extends Component {
 
     componentWillMount() {
         requestData(this.props);
+    }
+
+    componentDidMount () {
+        window.nekunoContainer.addEventListener('click', this.handleClickOutside)
+    }
+
+    componentWillUnmount () {
+        window.nekunoContainer.removeEventListener('click', this.handleClickOutside)
     }
 
     onSuggestSelect(location) {
@@ -124,6 +135,13 @@ export default class EditProfilePage extends Component {
         })
     }
 
+    handleClickOutside(e) {
+        const selectedFilter = this.refs.selectedFilter;
+        if (selectedFilter && selectedFilter.getSelectedFilter() && !selectedFilter.selectedFilterContains(e.target)) {
+            this.setState({selectedFilter: null});
+        }
+    }
+
     render() {
         const {user, profile, metadata, filters} = this.props;
         const imgSrc = this.props.user ? `${IMAGES_ROOT}media/cache/resolve/user_avatar_180x180/user/images/${this.props.user.picture}` : `${IMAGES_ROOT}media/cache/user_avatar_180x180/bundles/qnoowweb/images/user-no-img.jpg`;
@@ -137,7 +155,6 @@ export default class EditProfilePage extends Component {
                                 <img src={imgSrc}/>
                             </div>
                         </div>
-
                         {
                             profile && metadata && filters ? Object.keys(profile).map(profileName => {
                                 let data = profile[profileName];
@@ -155,18 +172,24 @@ export default class EditProfilePage extends Component {
                                                              handleClickFilter={this.handleClickFilter}
                                         />;
                                     case 'integer':
-                                        return <IntegerFilter key={key} filterKey={key}
+                                        return <IntegerEdit key={key} filterKey={key}
                                                               ref={selected ? 'selectedFilter' : ''}
-                                                              filter={metadata[profileName]}
+                                                              metadata={metadata[profileName]}
                                                               data={parseInt(data)}
                                                               selected={selected}
-                                                              handleClickRemoveFilter={function(){}}
-                                                              handleChangeFilter={function(){}}
-                                                              handleClickFilter={function(){}}
+                                                              handleClickRemoveFilter={this.handleClickRemoveFilter}
+                                                              handleChangeFilter={this.handleChangeFilter}
+                                                              handleClickFilter={this.handleClickFilter}
                                         />;
                                     case 'location':
-                                        return <LocationInput key={key} placeholder={data.address} onSuggestSelect={this.onSuggestSelect}
-                                            />;
+                                        return <LocationEdit key={key} filterKey={key} ref={selected ? 'selectedFilter' : ''}
+                                                               metadata = {metadata[profileName]}
+                                                               data={data}
+                                                               selected={selected}
+                                                               handleClickRemoveFilter={this.handleClickRemoveFilter}
+                                                               handleChangeFilter={this.handleChangeFilterAndUnSelect}
+                                                               handleClickFilter={this.handleClickFilter}
+                                        />;
                                     default:
                                         return '';
                                 }

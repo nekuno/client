@@ -159,6 +159,9 @@ export default class EditProfilePage extends Component {
                             profile && metadata && filters ? Object.keys(profile).map(profileName => {
                                 let data = profile[profileName];
                                 const selected = this.state.selectedFilter === profileName;
+                                if (metadata[profileName].editable === false){
+                                    return '';
+                                }
                                 switch (metadata[profileName]['type']) {
                                     case 'choice':
                                         return <ChoiceEdit   key={profileName} filterKey={profileName}
@@ -198,7 +201,7 @@ export default class EditProfilePage extends Component {
                             profile && metadata && filters ? Object.keys(metadata).map(metadataName => {
                                 let metadataField = metadata[metadataName];
                                 const selected = this.state.selectedFilter === metadataName;
-                                if (profile.hasOwnProperty(metadataName)){
+                                if (profile.hasOwnProperty(metadataName) || metadataField.editable === false){
                                     return '';
                                 }
                                 switch (metadataField['type']) {

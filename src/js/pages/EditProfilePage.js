@@ -7,7 +7,7 @@ import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import connectToStores from '../utils/connectToStores';
 import ProfileStore from '../stores/ProfileStore';
 import FilterStore from '../stores/FilterStore';
-import ChoiceFilter from '../components/threads/filters/ChoiceFilter';
+import ChoiceEdit from '../components/profile/edit/ChoiceEdit';
 import IntegerFilter from '../components/threads/filters/IntegerFilter';
 import LocationInput from '../components/ui/LocationInput';
 import RegularTopNavbar from '../components/ui/RegularTopNavbar';
@@ -56,10 +56,15 @@ export default class EditProfilePage extends Component {
         super(props);
 
         this.state = {
-            profile: {}
+            profile: {},
+            selectedEdit: null
         };
 
         this.onSuggestSelect = this.onSuggestSelect.bind(this);
+        this.handleClickFilter = this.handleClickFilter.bind(this);
+        this.handleChangeFilter = this.handleChangeFilter.bind(this);
+        this.handleChangeFilterAndUnSelect = this.handleChangeFilterAndUnSelect.bind(this);
+        this.handleClickRemoveFilter = this.handleClickRemoveFilter.bind(this);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -75,11 +80,48 @@ export default class EditProfilePage extends Component {
     }
 
     onSuggestSelect(location) {
-        let profile = this.state.profile;
+        let {profile} = this.state;
         profile.location = location;
         this.setState({
             profile: profile
         });
+    }
+
+    handleClickFilter(key) {
+        let {profile} = this.state;
+        profile[key] = profile[key] || null;
+        //resetTagSuggestions();
+        this.setState({
+            selectedFilter: key,
+            profile: profile
+        });
+    }
+
+    handleChangeFilter(key, data) {
+        let {profile} = this.state;
+        profile[key] = data;
+        this.setState({
+            profile: profile,
+            selectedFilter: key
+        });
+    }
+
+    handleChangeFilterAndUnSelect(key, data) {
+        let {profile} = this.state;
+        profile[key] = data;
+        this.setState({
+            profile: profile,
+            selectedFilter: null
+        });
+    }
+
+    handleClickRemoveFilter() {
+        let {profile, selectedFilter} = this.state;
+        delete profile[selectedFilter];
+        this.setState({
+            profile: profile,
+            selectedFilter: null
+        })
     }
 
     render() {
@@ -98,20 +140,19 @@ export default class EditProfilePage extends Component {
 
                         {
                             profile && metadata && filters ? Object.keys(profile).map(profileName => {
-                                console.log(this);
                                 let data = profile[profileName];
-                                let selected = false;
+                                const selected = this.state.selectedFilter === profileName;
                                 let key = profileName;
                                 switch (metadata[profileName]['type']) {
                                     case 'choice':
-                                        return <ChoiceFilter key={key} filterKey={key}
+                                        return <ChoiceEdit   key={key} filterKey={key}
                                                              ref={selected ? 'selectedFilter' : ''}
-                                                             filter={metadata[profileName]}
+                                                             metadata={metadata[profileName]}
                                                              data={data}
                                                              selected={selected}
-                                                             handleClickRemoveFilter={function(){}}
-                                                             handleChangeFilter={function(){}}
-                                                             handleClickFilter={function(){}}
+                                                             handleClickRemoveFilter={this.handleClickRemoveFilter}
+                                                             handleChangeFilter={this.handleChangeFilterAndUnSelect}
+                                                             handleClickFilter={this.handleClickFilter}
                                         />;
                                     case 'integer':
                                         return <IntegerFilter key={key} filterKey={key}

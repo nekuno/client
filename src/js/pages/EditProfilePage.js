@@ -12,6 +12,7 @@ import LocationEdit from '../components/profile/edit/LocationEdit';
 import IntegerEdit from '../components/profile/edit/IntegerEdit';
 import TagsAndChoiceEdit from '../components/profile/edit/TagsAndChoiceEdit';
 import MultipleChoicesEdit from '../components/profile/edit/MultipleChoicesEdit';
+import DoubleChoiceEdit from '../components/profile/edit/DoubleChoiceEdit';
 import LocationInput from '../components/ui/LocationInput';
 import RegularTopNavbar from '../components/ui/RegularTopNavbar';
 
@@ -211,6 +212,16 @@ export default class EditProfilePage extends Component {
                                                                  handleChangeFilter={this.handleChangeFilter}
                                                                  handleClickFilter={this.handleClickFilter}
                                             />;
+                                    case 'double_choice':
+                                        return <DoubleChoiceEdit key={profileName} filterKey={profileName} ref={selected ? 'selectedFilter' : ''}
+                                                                    metadata={metadata[profileName]}
+                                                                    data={data ? data : {}}
+                                                                    selected={selected}
+                                                                    handleClickRemoveFilter={this.handleClickRemoveFilter}
+                                                                    handleChangeFilter={this.handleChangeFilter}
+                                                                    handleChangeFilterDetail={this.handleChangeFilterAndUnSelect}
+                                                                    handleClickFilter={this.handleClickFilter}
+                                        />;
                                     default:
                                         return '';
                                 }
@@ -271,6 +282,16 @@ export default class EditProfilePage extends Component {
                                                                    handleChangeFilter={this.handleChangeFilter}
                                                                    handleClickFilter={this.handleClickFilter}
                                             />;
+                                    case 'double_choice':
+                                        return <DoubleChoiceEdit key={metadataName} filterKey={metadataName} ref={selected ? 'selectedFilter' : ''}
+                                                                    metadata={metadata[metadataName]}
+                                                                    data={{}}
+                                                                    selected={selected}
+                                                                    handleClickRemoveFilter={this.handleClickRemoveFilter}
+                                                                    handleChangeFilter={this.handleChangeFilter}
+                                                                    handleChangeFilterDetail={this.handleChangeFilterAndUnSelect}
+                                                                    handleClickFilter={this.handleClickFilter}
+                                        />;
                                     default:
                                         return '';
                                 }

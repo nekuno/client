@@ -67,11 +67,9 @@ export default class TagEdit extends Component {
     render() {
         const {filterKey, selected, metadata, data, handleClickRemoveFilter, handleClickFilter} = this.props;
         let tags=this.props.tags.slice(0);
-        console.dir(tags);
         if (this.refs.hasOwnProperty('tagInput')){
             tags.push({name: this.refs.tagInput.getValue()});
         }
-        console.dir(tags);
         return(
             selected ?
                 <SelectedEdit key={'selected-filter'} ref={'selectedFilter'} type={'tag'} plusIcon={true} handleClickRemoveFilter={handleClickRemoveFilter}>

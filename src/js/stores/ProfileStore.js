@@ -127,6 +127,10 @@ const ProfileStore = createStore({
                 text += data && data.min ? ' - Min: ' + data.min : '';
                 text += data && data.max ? ' - Max: ' + data.max : '';
                 return text;
+            case 'birthday':
+                text = filter.label;
+                text += data? ' -  ' + data : '';
+                return text;
             case 'integer':
                 text = filter.label;
                 text += data ? ' - ' + data : '';
@@ -164,8 +168,8 @@ const ProfileStore = createStore({
                 return data  && (data.address || data.location);
             case 'integer_range':
                 return data && (data.min || data.max);
-            case 'birthday_range':
-                return data && (data.min || data.max);
+            case 'birthday':
+                return data;
             case 'integer':
                 return !!data;
             case 'choice':

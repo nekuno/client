@@ -15,6 +15,7 @@ import TagsAndChoiceEdit from '../components/profile/edit/TagsAndChoiceEdit';
 import MultipleChoicesEdit from '../components/profile/edit/MultipleChoicesEdit';
 import DoubleChoiceEdit from '../components/profile/edit/DoubleChoiceEdit';
 import TagEdit from '../components/profile/edit/TagEdit';
+import BirthdayEdit from '../components/profile/edit/BirthdayEdit';
 import LocationInput from '../components/ui/LocationInput';
 import RegularTopNavbar from '../components/ui/RegularTopNavbar';
 
@@ -237,6 +238,15 @@ export default class EditProfilePage extends Component {
                                                                     handleClickFilter={this.handleClickFilter}
                                                                     tags={tags}
                                         />;
+                                    case 'birthday':
+                                        return <BirthdayEdit key={profileName} filterKey={profileName} ref={selected ? 'selectedFilter' : ''}
+                                                        metadata={metadata[profileName]}
+                                                        data={data ? data : null}
+                                                        selected={selected}
+                                                        handleClickRemoveFilter={this.handleClickRemoveFilter}
+                                                        handleChangeFilter={this.handleChangeFilter}
+                                                        handleClickFilter={this.handleClickFilter}
+                                        />;
                                     default:
                                         return '';
                                 }
@@ -316,6 +326,15 @@ export default class EditProfilePage extends Component {
                                                                  handleChangeFilter={this.handleChangeFilterAndUnSelect}
                                                                  handleClickFilter={this.handleClickFilter}
                                                                  tags={tags}
+                                        />;
+                                    case 'birthday':
+                                        return <BirthdayEdit key={metadataName} filterKey={metadataName} ref={selected ? 'selectedFilter' : ''}
+                                                        metadata={metadata[metadataName]}
+                                                        data={null}
+                                                        selected={selected}
+                                                        handleClickRemoveFilter={this.handleClickRemoveFilter}
+                                                        handleChangeFilter={this.handleChangeFilter}
+                                                        handleClickFilter={this.handleClickFilter}
                                         />;
                                     default:
                                         return '';

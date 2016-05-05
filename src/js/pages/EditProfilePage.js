@@ -7,12 +7,14 @@ import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import connectToStores from '../utils/connectToStores';
 import ProfileStore from '../stores/ProfileStore';
 import FilterStore from '../stores/FilterStore';
+import TagSuggestionStore from '../stores/TagSuggestionsStore';
 import ChoiceEdit from '../components/profile/edit/ChoiceEdit';
 import LocationEdit from '../components/profile/edit/LocationEdit';
 import IntegerEdit from '../components/profile/edit/IntegerEdit';
 import TagsAndChoiceEdit from '../components/profile/edit/TagsAndChoiceEdit';
 import MultipleChoicesEdit from '../components/profile/edit/MultipleChoicesEdit';
 import DoubleChoiceEdit from '../components/profile/edit/DoubleChoiceEdit';
+import TagEdit from '../components/profile/edit/TagEdit';
 import LocationInput from '../components/ui/LocationInput';
 import RegularTopNavbar from '../components/ui/RegularTopNavbar';
 
@@ -38,22 +40,25 @@ function getState(props) {
     const profile = ProfileStore.get(parseId(user));
     const metadata = ProfileStore.getMetadata();
     const filters = FilterStore.filters;
+    const tags = TagSuggestionStore.tags;
 
     return {
         profile,
         metadata,
-        filters
+        filters,
+        tags
     };
 }
 
 @AuthenticatedComponent
-@connectToStores([ProfileStore, FilterStore], getState)
+@connectToStores([ProfileStore, FilterStore, TagSuggestionStore], getState)
 export default class EditProfilePage extends Component {
     static propTypes = {
         profile: PropTypes.object,
         metadata: PropTypes.object,
         filters: PropTypes.object,
-        user: PropTypes.object.isRequired
+        user: PropTypes.object.isRequired,
+        tags: PropTypes.array
     };
 
     constructor(props) {
@@ -145,7 +150,7 @@ export default class EditProfilePage extends Component {
     }
 
     render() {
-        const {user, profile, metadata, filters} = this.props;
+        const {user, profile, metadata, filters, tags} = this.props;
         const imgSrc = this.props.user ? `${IMAGES_ROOT}media/cache/resolve/user_avatar_180x180/user/images/${this.props.user.picture}` : `${IMAGES_ROOT}media/cache/user_avatar_180x180/bundles/qnoowweb/images/user-no-img.jpg`;
         return (
             <div className="view view-main">
@@ -222,6 +227,16 @@ export default class EditProfilePage extends Component {
                                                                     handleChangeFilterDetail={this.handleChangeFilterAndUnSelect}
                                                                     handleClickFilter={this.handleClickFilter}
                                         />;
+                                    case 'tags':
+                                        return <TagEdit key={profileName} filterKey={profileName} ref={selected ? 'selectedFilter' : ''}
+                                                                    metadata={metadata[profileName]}
+                                                                    data={data ? data : []}
+                                                                    selected={selected}
+                                                                    handleClickRemoveFilter={this.handleClickRemoveFilter}
+                                                                    handleChangeFilter={this.handleChangeFilterAndUnSelect}
+                                                                    handleClickFilter={this.handleClickFilter}
+                                                                    tags={tags}
+                                        />;
                                     default:
                                         return '';
                                 }
@@ -291,6 +306,16 @@ export default class EditProfilePage extends Component {
                                                                     handleChangeFilter={this.handleChangeFilter}
                                                                     handleChangeFilterDetail={this.handleChangeFilterAndUnSelect}
                                                                     handleClickFilter={this.handleClickFilter}
+                                        />;
+                                    case 'tags':
+                                        return <TagEdit key={metadataName} filterKey={metadataName} ref={selected ? 'selectedFilter' : ''}
+                                                                 metadata={metadata[metadataName]}
+                                                                 data={[]}
+                                                                 selected={selected}
+                                                                 handleClickRemoveFilter={this.handleClickRemoveFilter}
+                                                                 handleChangeFilter={this.handleChangeFilterAndUnSelect}
+                                                                 handleClickFilter={this.handleClickFilter}
+                                                                 tags={tags}
                                         />;
                                     default:
                                         return '';

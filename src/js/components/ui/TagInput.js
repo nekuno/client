@@ -30,6 +30,10 @@ export default class TagInput extends Component {
     setValue(value) {
         return this.refs.tagInput.value = value;
     }
+
+    getValue() {
+        return this.refs.tagInput.value;
+    }
     
     focus() {
         this.refs.tagInput.focus();

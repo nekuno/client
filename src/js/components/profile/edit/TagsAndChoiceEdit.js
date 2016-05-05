@@ -6,7 +6,7 @@ import TagInput from '../../ui/TagInput';
 import TextRadios from '../../ui/TextRadios';
 import TextCheckboxes from '../../ui/TextCheckboxes';
 
-export default class TagsAndChoiceFilter extends Component {
+export default class TagsAndChoiceEdit extends Component {
     static propTypes = {
         filterKey: PropTypes.string.isRequired,
         selected: PropTypes.bool.isRequired,

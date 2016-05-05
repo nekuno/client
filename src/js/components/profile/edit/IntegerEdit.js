@@ -3,7 +3,7 @@ import SelectedEdit from './SelectedEdit';
 import UnselectedEdit from './UnselectedEdit';
 import TextInput from '../../ui/TextInput';
 
-export default class IntegerFilter extends Component {
+export default class IntegerEdit extends Component {
     static propTypes = {
         filterKey: PropTypes.string.isRequired,
         selected: PropTypes.bool.isRequired,

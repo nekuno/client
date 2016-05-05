@@ -18,6 +18,7 @@ import TagEdit from '../components/profile/edit/TagEdit';
 import BirthdayEdit from '../components/profile/edit/BirthdayEdit';
 import LocationInput from '../components/ui/LocationInput';
 import RegularTopNavbar from '../components/ui/RegularTopNavbar';
+import FullWidthButton from '../components/ui/FullWidthButton';
 
 function parseId(user) {
     return user.id;
@@ -76,6 +77,7 @@ export default class EditProfilePage extends Component {
         this.handleChangeFilterAndUnSelect = this.handleChangeFilterAndUnSelect.bind(this);
         this.handleClickRemoveFilter = this.handleClickRemoveFilter.bind(this);
         this.handleClickOutside = this.handleClickOutside.bind(this);
+        this.saveProfile = this.saveProfile.bind(this);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -104,6 +106,10 @@ export default class EditProfilePage extends Component {
         this.setState({
             profile: profile
         });
+    }
+
+    saveProfile() {
+        UserActionCreators.editProfile(this.state.profile);
     }
 
     handleClickFilter(key) {
@@ -341,6 +347,7 @@ export default class EditProfilePage extends Component {
                                 }
                             }):''
                         }
+                        <FullWidthButton onClick={this.saveProfile} > Guardar cambios </FullWidthButton>
                     </div>
                 </div>
             </div>

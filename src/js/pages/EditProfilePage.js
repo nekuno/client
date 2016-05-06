@@ -64,9 +64,9 @@ export default class EditProfilePage extends Component {
         filters: PropTypes.object,
         tags: PropTypes.array,
         // Injected by @AuthenticatedComponent
-        user    : PropTypes.object,
+        user: PropTypes.object,
         // Injected by @translate:
-        strings : PropTypes.object
+        strings: PropTypes.object
     };
 
     constructor(props) {
@@ -84,6 +84,7 @@ export default class EditProfilePage extends Component {
         this.handleClickRemoveFilter = this.handleClickRemoveFilter.bind(this);
         this.handleClickOutside = this.handleClickOutside.bind(this);
         this.saveProfile = this.saveProfile.bind(this);
+        this.renderField = this.renderField.bind(this);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -98,11 +99,11 @@ export default class EditProfilePage extends Component {
         requestData(this.props);
     }
 
-    componentDidMount () {
+    componentDidMount() {
         window.nekunoContainer.addEventListener('click', this.handleClickOutside)
     }
 
-    componentWillUnmount () {
+    componentWillUnmount() {
         window.nekunoContainer.removeEventListener('click', this.handleClickOutside)
     }
 
@@ -162,216 +163,91 @@ export default class EditProfilePage extends Component {
         }
     }
 
+    renderField(dataArray, metadata, dataName) {
+        let data = dataArray.hasOwnProperty(dataName) ? dataArray[dataName] : null;
+        const selected = this.state.selectedFilter === dataName;
+        if (metadata[dataName].editable === false) {
+            return '';
+        }
+        let props = {
+            key: dataName, filterKey: dataName,
+            ref: selected ? 'selectedFilter' : '',
+            metadata: metadata[dataName],
+            selected: selected,
+            handleClickRemoveFilter: this.handleClickRemoveFilter,
+            handleClickFilter: this.handleClickFilter
+        };
+        switch (metadata[dataName]['type']) {
+            case 'choice':
+                props.data = data ? data : '';
+                props.handleChangeFilter = this.handleChangeFilterAndUnSelect;
+                return <ChoiceEdit {...props} />;
+            case 'integer':
+                props.data = data ? parseInt(data) : 0;
+                props.handleChangeFilter = this.handleChangeFilter;
+                return <IntegerEdit {...props}/>;
+            case 'location':
+                props.data = data ? data : {};
+                props.handleChangeFilter = this.handleChangeFilterAndUnSelect;
+                return <LocationEdit {...props}/>;
+            case 'tags_and_choice':
+                props.data = data ? data : [];
+                props.handleChangeFilter = this.handleChangeFilter;
+                return <TagsAndChoiceEdit {...props}/>;
+            case 'multiple_choices':
+                props.data = data ? data : [];
+                props.handleChangeFilter = this.handleChangeFilter;
+                return <MultipleChoicesEdit {...props} />;
+            case 'double_choice':
+                props.data = data ? data : {};
+                props.handleChangeFilter = this.handleChangeFilter;
+                props.handleChangeFilterDetail = this.handleChangeFilterAndUnSelect;
+                return <DoubleChoiceEdit {...props} />;
+            case 'tags':
+                props.data = data ? data : [];
+                props.handleChangeFilter = this.handleChangeFilterAndUnSelect;
+                props.tags = this.props.tags;
+                return <TagEdit {...props} />;
+            case 'birthday':
+                props.data = data ? data : null;
+                props.handleChangeFilter = this.handleChangeFilter;
+                return <BirthdayEdit {...props} />;
+            case 'textarea':
+                props.data = data ? data : null;
+                props.handleChangeFilter = this.handleChangeFilter;
+                return <TextAreaEdit {...props} />;
+            default:
+                return '';
+        }
+    }
+
     render() {
-        const {user, profile, metadata, filters, tags, strings} = this.props;
+        const {user, profile, metadata, filters, strings} = this.props;
         const imgSrc = this.props.user ? `${IMAGES_ROOT}media/cache/resolve/user_avatar_180x180/user/images/${this.props.user.picture}` : `${IMAGES_ROOT}media/cache/user_avatar_180x180/bundles/qnoowweb/images/user-no-img.jpg`;
         return (
             <div className="view view-main">
-                <RegularTopNavbar centerText={strings.title} leftText={strings.cancel} />
+                <RegularTopNavbar centerText={strings.title} leftText={strings.cancel}/>
                 <div className="page">
                     <div id="page-content">
-                        <div className = "user-block">
+                        <div className="user-block">
                             <div className="user-image">
                                 <img src={imgSrc}/>
                             </div>
                         </div>
                         {
                             profile && metadata && filters ? Object.keys(profile).map(profileName => {
-                                let data = profile[profileName];
-                                const selected = this.state.selectedFilter === profileName;
-                                if (metadata[profileName].editable === false){
-                                    return '';
-                                }
-                                switch (metadata[profileName]['type']) {
-                                    case 'choice':
-                                        return <ChoiceEdit   key={profileName} filterKey={profileName}
-                                                             ref={selected ? 'selectedFilter' : ''}
-                                                             metadata={metadata[profileName]}
-                                                             data={data ? data : ''}
-                                                             selected={selected}
-                                                             handleClickRemoveFilter={this.handleClickRemoveFilter}
-                                                             handleChangeFilter={this.handleChangeFilterAndUnSelect}
-                                                             handleClickFilter={this.handleClickFilter}
-                                        />;
-                                    case 'integer':
-                                        return <IntegerEdit   key={profileName} filterKey={profileName}
-                                                              ref={selected ? 'selectedFilter' : ''}
-                                                              metadata={metadata[profileName]}
-                                                              data={data ? parseInt(data) : 0}
-                                                              selected={selected}
-                                                              handleClickRemoveFilter={this.handleClickRemoveFilter}
-                                                              handleChangeFilter={this.handleChangeFilter}
-                                                              handleClickFilter={this.handleClickFilter}
-                                        />;
-                                    case 'location':
-                                        return <LocationEdit   key={profileName} filterKey={profileName} ref={selected ? 'selectedFilter' : ''}
-                                                               metadata = {metadata[profileName]}
-                                                               data={data ? data : {}}
-                                                               selected={selected}
-                                                               handleClickRemoveFilter={this.handleClickRemoveFilter}
-                                                               handleChangeFilter={this.handleChangeFilterAndUnSelect}
-                                                               handleClickFilter={this.handleClickFilter}
-                                        />;
-                                    case 'tags_and_choice':
-                                        return <TagsAndChoiceEdit   key={profileName} filterKey={profileName} ref={selected ? 'selectedFilter' : ''}
-                                                                    metadata = {metadata[profileName]}
-                                                                    data={data ? data : []}
-                                                                    selected={selected}
-                                                                    handleClickRemoveFilter={this.handleClickRemoveFilter}
-                                                                    handleChangeFilter={this.handleChangeFilter}
-                                                                    handleClickFilter={this.handleClickFilter}
-                                        />;
-                                    case 'multiple_choices':
-                                        return <MultipleChoicesEdit key={profileName} filterKey={profileName} ref={selected ? 'selectedFilter' : ''}
-                                                                 metadata={metadata[profileName]}
-                                                                 data={data ? data : []}
-                                                                 selected={selected}
-                                                                 handleClickRemoveFilter={this.handleClickRemoveFilter}
-                                                                 handleChangeFilter={this.handleChangeFilter}
-                                                                 handleClickFilter={this.handleClickFilter}
-                                            />;
-                                    case 'double_choice':
-                                        return <DoubleChoiceEdit key={profileName} filterKey={profileName} ref={selected ? 'selectedFilter' : ''}
-                                                                    metadata={metadata[profileName]}
-                                                                    data={data ? data : {}}
-                                                                    selected={selected}
-                                                                    handleClickRemoveFilter={this.handleClickRemoveFilter}
-                                                                    handleChangeFilter={this.handleChangeFilter}
-                                                                    handleChangeFilterDetail={this.handleChangeFilterAndUnSelect}
-                                                                    handleClickFilter={this.handleClickFilter}
-                                        />;
-                                    case 'tags':
-                                        return <TagEdit key={profileName} filterKey={profileName} ref={selected ? 'selectedFilter' : ''}
-                                                                    metadata={metadata[profileName]}
-                                                                    data={data ? data : []}
-                                                                    selected={selected}
-                                                                    handleClickRemoveFilter={this.handleClickRemoveFilter}
-                                                                    handleChangeFilter={this.handleChangeFilterAndUnSelect}
-                                                                    handleClickFilter={this.handleClickFilter}
-                                                                    tags={tags}
-                                        />;
-                                    case 'birthday':
-                                        return <BirthdayEdit key={profileName} filterKey={profileName} ref={selected ? 'selectedFilter' : ''}
-                                                        metadata={metadata[profileName]}
-                                                        data={data ? data : null}
-                                                        selected={selected}
-                                                        handleClickRemoveFilter={this.handleClickRemoveFilter}
-                                                        handleChangeFilter={this.handleChangeFilter}
-                                                        handleClickFilter={this.handleClickFilter}
-                                        />;
-                                    case 'textarea':
-                                        return <TextAreaEdit key={profileName} filterKey={profileName} ref={selected ? 'selectedFilter' : ''}
-                                                             metadata={metadata[profileName]}
-                                                             data={data ? data : null}
-                                                             selected={selected}
-                                                             handleClickRemoveFilter={this.handleClickRemoveFilter}
-                                                             handleChangeFilter={this.handleChangeFilter}
-                                                             handleClickFilter={this.handleClickFilter}
-                                        />;
-                                    default:
-                                        return '';
-                                }
-                            }):''
+                                return this.renderField(profile, metadata, profileName);
+                            }) : ''
                         }
                         {
                             profile && metadata && filters ? Object.keys(metadata).map(metadataName => {
-                                let metadataField = metadata[metadataName];
-                                const selected = this.state.selectedFilter === metadataName;
-                                if (profile.hasOwnProperty(metadataName) || metadataField.editable === false){
+                                if (profile.hasOwnProperty(metadataName)) {
                                     return '';
                                 }
-                                switch (metadataField['type']) {
-                                    case 'choice':
-                                        return <ChoiceEdit   key={metadataName} filterKey={metadataName}
-                                                             ref={selected ? 'selectedFilter' : ''}
-                                                             metadata={metadata[metadataName]}
-                                                             data={''}
-                                                             selected={selected}
-                                                             handleClickRemoveFilter={this.handleClickRemoveFilter}
-                                                             handleChangeFilter={this.handleChangeFilterAndUnSelect}
-                                                             handleClickFilter={this.handleClickFilter}
-                                        />;
-                                    case 'integer':
-                                        return <IntegerEdit key={metadataName} filterKey={metadataName}
-                                                            ref={selected ? 'selectedFilter' : ''}
-                                                            metadata={metadata[metadataName]}
-                                                            data={0}
-                                                            selected={selected}
-                                                            handleClickRemoveFilter={this.handleClickRemoveFilter}
-                                                            handleChangeFilter={this.handleChangeFilter}
-                                                            handleClickFilter={this.handleClickFilter}
-                                        />;
-                                    case 'location':
-                                        return <LocationEdit key={metadataName} filterKey={metadataName} ref={selected ? 'selectedFilter' : ''}
-                                                             metadata = {metadata[metadataName]}
-                                                             data={{}}
-                                                             selected={selected}
-                                                             handleClickRemoveFilter={this.handleClickRemoveFilter}
-                                                             handleChangeFilter={this.handleChangeFilterAndUnSelect}
-                                                             handleClickFilter={this.handleClickFilter}
-                                        />;
-                                    case 'tags_and_choice':
-                                        return <TagsAndChoiceEdit   key={metadataName} filterKey={metadataName} ref={selected ? 'selectedFilter' : ''}
-                                                                    metadata = {metadata[metadataName]}
-                                                                    data={[]}
-                                                                    selected={selected}
-                                                                    handleClickRemoveFilter={this.handleClickRemoveFilter}
-                                                                    handleChangeFilter={this.handleChangeFilter}
-                                                                    handleClickFilter={this.handleClickFilter}
-                                        />;
-                                    case 'multiple_choices':
-                                        return <MultipleChoicesEdit key={metadataName} filterKey={metadataName} ref={selected ? 'selectedFilter' : ''}
-                                                                   metadata={metadata[metadataName]}
-                                                                   data={[]}
-                                                                   selected={selected}
-                                                                   handleClickRemoveFilter={this.handleClickRemoveFilter}
-                                                                   handleChangeFilter={this.handleChangeFilter}
-                                                                   handleClickFilter={this.handleClickFilter}
-                                            />;
-                                    case 'double_choice':
-                                        return <DoubleChoiceEdit key={metadataName} filterKey={metadataName} ref={selected ? 'selectedFilter' : ''}
-                                                                    metadata={metadata[metadataName]}
-                                                                    data={{}}
-                                                                    selected={selected}
-                                                                    handleClickRemoveFilter={this.handleClickRemoveFilter}
-                                                                    handleChangeFilter={this.handleChangeFilter}
-                                                                    handleChangeFilterDetail={this.handleChangeFilterAndUnSelect}
-                                                                    handleClickFilter={this.handleClickFilter}
-                                        />;
-                                    case 'tags':
-                                        return <TagEdit key={metadataName} filterKey={metadataName} ref={selected ? 'selectedFilter' : ''}
-                                                                 metadata={metadata[metadataName]}
-                                                                 data={[]}
-                                                                 selected={selected}
-                                                                 handleClickRemoveFilter={this.handleClickRemoveFilter}
-                                                                 handleChangeFilter={this.handleChangeFilterAndUnSelect}
-                                                                 handleClickFilter={this.handleClickFilter}
-                                                                 tags={tags}
-                                        />;
-                                    case 'birthday':
-                                        return <BirthdayEdit key={metadataName} filterKey={metadataName} ref={selected ? 'selectedFilter' : ''}
-                                                        metadata={metadata[metadataName]}
-                                                        data={null}
-                                                        selected={selected}
-                                                        handleClickRemoveFilter={this.handleClickRemoveFilter}
-                                                        handleChangeFilter={this.handleChangeFilter}
-                                                        handleClickFilter={this.handleClickFilter}
-                                        />;
-                                    case 'textarea':
-                                        return <TextAreaEdit key={metadataName} filterKey={metadataName} ref={selected ? 'selectedFilter' : ''}
-                                                             metadata={metadata[metadataName]}
-                                                             data={null}
-                                                             selected={selected}
-                                                             handleClickRemoveFilter={this.handleClickRemoveFilter}
-                                                             handleChangeFilter={this.handleChangeFilter}
-                                                             handleClickFilter={this.handleClickFilter}
-                                        />;
-                                    default:
-                                        return '';
-                                }
-                            }):''
+                                return this.renderField([], metadata, metadataName);
+                            }) : ''
                         }
-                        <FullWidthButton onClick={this.saveProfile} > {strings.saveChanges} </FullWidthButton>
+                        <FullWidthButton onClick={this.saveProfile}> {strings.saveChanges} </FullWidthButton>
                     </div>
                 </div>
             </div>

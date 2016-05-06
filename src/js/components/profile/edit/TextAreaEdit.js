@@ -1,10 +1,10 @@
 import React, { PropTypes, Component } from 'react';
 import SelectedEdit from './SelectedEdit';
 import UnselectedEdit from './UnselectedEdit';
-import DateInput from '../../ui/DateInput';
+import TextInput from '../../ui/TextInput';
 import TextRadios from '../../ui/TextRadios';
 
-export default class BirthdayEdit extends Component {
+export default class TextAreaEdit extends Component {
     static propTypes = {
         filterKey: PropTypes.string.isRequired,
         selected: PropTypes.bool.isRequired,
@@ -43,7 +43,7 @@ export default class BirthdayEdit extends Component {
                 <SelectedEdit key={'selected-filter'} ref={'selectedFilter'} type={'location-tag'} addedClass={'tag-filter'} plusIcon={true} handleClickRemoveFilter={handleClickRemoveFilter}>
                     <div className="location-filter-wrapper">
                         <div className="list-block">
-                            <DateInput ref={filterKey} label={metadata.label} initialValue={data} onChange={this.onChangeValue}/>
+                            <TextInput placeholder={metadata.label} ref={filterKey} label={metadata.label} initialValue={data} onChange={this.onChangeValue}/>
                         </div>
                     </div>
                 </SelectedEdit>

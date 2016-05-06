@@ -131,6 +131,10 @@ const ProfileStore = createStore({
                 text = filter.label;
                 text += data? ' -  ' + data : '';
                 return text;
+            case 'textarea':
+                text = filter.label;
+                text += data? ' -  ' + data : '';
+                return text;
             case 'integer':
                 text = filter.label;
                 text += data ? ' - ' + data : '';
@@ -169,6 +173,8 @@ const ProfileStore = createStore({
             case 'integer_range':
                 return data && (data.min || data.max);
             case 'birthday':
+                return data;
+            case 'textarea':
                 return data;
             case 'integer':
                 return !!data;

@@ -1,12 +1,14 @@
 import { dispatchAsync, dispatch } from '../dispatcher/Dispatcher';
 import ActionTypes from '../constants/ActionTypes';
 import * as UserAPI from '../api/UserAPI';
+import * as ThreadActionCreators from './ThreadActionCreators';
 import UserStore from '../stores/UserStore';
 import RecommendationsByThreadStore from '../stores/RecommendationsByThreadStore';
 import ThreadsByUserStore from '../stores/ThreadsByUserStore';
 import ThreadStore from '../stores/ThreadStore';
 import ProfileStore from '../stores/ProfileStore';
 import FilterStore from '../stores/FilterStore';
+import LocaleStore from '../stores/LocaleStore';
 
 export function requestUser(userId, fields) {
     // Exit early if we know enough about this user
@@ -31,7 +33,11 @@ export function requestProfile(userId, fields) {
         request: ActionTypes.REQUEST_PROFILE,
         success: ActionTypes.REQUEST_PROFILE_SUCCESS,
         failure: ActionTypes.REQUEST_PROFILE_ERROR
-    }, {userId});
+    }, {userId})
+        .then(function (response) {
+            checkLocale(response.interfaceLanguage);
+            return null;
+        })
 }
 
 export function editProfile(data) {
@@ -40,6 +46,34 @@ export function editProfile(data) {
         success: ActionTypes.EDIT_PROFILE_SUCCESS,
         failure: ActionTypes.EDIT_PROFILE_ERROR
     }, {data})
+        .then(function (response) {
+            checkLocale(response.interfaceLanguage);
+            return null;
+        })
+}
+
+export function changeLocale(locale) {
+    dispatch(ActionTypes.CHANGE_LOCALE, {locale})
+}
+
+export function checkLocale(locale){
+    if (!locale){
+        return false;
+    }
+
+    if (!LocaleStore.isCurrentLocale(locale)){
+        changeLocale(locale);
+        dispatchAsync(UserAPI.getMetadata(), {
+            request: ActionTypes.REQUEST_METADATA,
+            success: ActionTypes.REQUEST_METADATA_SUCCESS,
+            failure: ActionTypes.REQUEST_METADATA_ERROR
+        });
+        dispatchAsync(UserAPI.getFilters(), {
+            request: ActionTypes.REQUEST_FILTERS,
+            success: ActionTypes.REQUEST_FILTERS_SUCCESS,
+            failure: ActionTypes.REQUEST_FILTERS_ERROR
+        })
+    }
 }
 
 export function requestMetadata() {

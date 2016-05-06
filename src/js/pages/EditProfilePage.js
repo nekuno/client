@@ -4,6 +4,7 @@ import { IMAGES_ROOT } from '../constants/Constants';
 import * as UserActionCreators from '../actions/UserActionCreators';
 import * as ThreadActionCreators from '../actions/ThreadActionCreators';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
+import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
 import ProfileStore from '../stores/ProfileStore';
 import FilterStore from '../stores/FilterStore';
@@ -53,14 +54,19 @@ function getState(props) {
 }
 
 @AuthenticatedComponent
+@translate('EditProfilePage')
 @connectToStores([ProfileStore, FilterStore, TagSuggestionStore], getState)
 export default class EditProfilePage extends Component {
     static propTypes = {
+        // Injected by @connectToStores:
         profile: PropTypes.object,
         metadata: PropTypes.object,
         filters: PropTypes.object,
-        user: PropTypes.object.isRequired,
-        tags: PropTypes.array
+        tags: PropTypes.array,
+        // Injected by @AuthenticatedComponent
+        user    : PropTypes.object,
+        // Injected by @translate:
+        strings : PropTypes.object
     };
 
     constructor(props) {
@@ -157,11 +163,11 @@ export default class EditProfilePage extends Component {
     }
 
     render() {
-        const {user, profile, metadata, filters, tags} = this.props;
+        const {user, profile, metadata, filters, tags, strings} = this.props;
         const imgSrc = this.props.user ? `${IMAGES_ROOT}media/cache/resolve/user_avatar_180x180/user/images/${this.props.user.picture}` : `${IMAGES_ROOT}media/cache/user_avatar_180x180/bundles/qnoowweb/images/user-no-img.jpg`;
         return (
             <div className="view view-main">
-                <RegularTopNavbar centerText={'Editar perfil'} leftText={'Cancelar'} />
+                <RegularTopNavbar centerText={strings.title} leftText={strings.cancel} />
                 <div className="page">
                     <div id="page-content">
                         <div className = "user-block">
@@ -365,7 +371,7 @@ export default class EditProfilePage extends Component {
                                 }
                             }):''
                         }
-                        <FullWidthButton onClick={this.saveProfile} > Guardar cambios </FullWidthButton>
+                        <FullWidthButton onClick={this.saveProfile} > {strings.saveChanges} </FullWidthButton>
                     </div>
                 </div>
             </div>

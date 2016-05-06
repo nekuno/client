@@ -21,6 +21,11 @@ export default {
         title  : 'Connect to your world',
         excerpt: 'Connect your social networks with Nekuno to improve the results of the recommended content.'
     },
+    EditProfilePage                  : {
+        title       : 'Edit profile',
+        cancel      : 'Cancel',
+        saveChanges : 'Save changes'
+    },
     HomePage                         : {
         title1       : 'Discover contents of the topics that interest you',
         title2       : 'Connect only with most compatible people with you',

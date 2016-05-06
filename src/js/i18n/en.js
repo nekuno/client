@@ -24,7 +24,8 @@ export default {
     EditProfilePage                  : {
         title       : 'Edit profile',
         cancel      : 'Cancel',
-        saveChanges : 'Save changes'
+        saveChanges : 'Save changes',
+        cannotRemove: 'This field cannot be deleted'
     },
     HomePage                         : {
         title1       : 'Discover contents of the topics that interest you',

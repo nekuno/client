@@ -24,7 +24,8 @@ export default {
     EditProfilePage                  : {
         title       : 'Editar perfil',
         cancel      : 'Cancelar',
-        saveChanges : 'Guardar cambios'
+        saveChanges : 'Guardar cambios',
+        cannotRemove: 'Este campo no se puede eliminar'
     },
     HomePage                         : {
         title1       : 'Descubre contenidos de los temas que más te interesan',

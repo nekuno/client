@@ -149,6 +149,10 @@ export default class EditProfilePage extends Component {
 
     handleClickRemoveFilter() {
         let {profile, selectedFilter} = this.state;
+        if (this.props.metadata[selectedFilter].required === true){
+            nekunoApp.alert(this.props.strings.cannotRemove);
+            return;
+        }
         delete profile[selectedFilter];
         this.setState({
             profile: profile,

@@ -6,13 +6,13 @@ import TextRadios from '../../ui/TextRadios';
 
 export default class TextAreaEdit extends Component {
     static propTypes = {
-        filterKey: PropTypes.string.isRequired,
+        editKey: PropTypes.string.isRequired,
         selected: PropTypes.bool.isRequired,
         metadata: PropTypes.object.isRequired,
         data: PropTypes.string,
-        handleClickRemoveFilter: PropTypes.func.isRequired,
-        handleChangeFilter: PropTypes.func.isRequired,
-        handleClickFilter: PropTypes.func.isRequired
+        handleClickRemoveEdit: PropTypes.func.isRequired,
+        handleChangeEdit: PropTypes.func.isRequired,
+        handleClickEdit: PropTypes.func.isRequired
     };
 
     constructor(props) {
@@ -21,34 +21,34 @@ export default class TextAreaEdit extends Component {
         this.onChangeValue = this.onChangeValue.bind(this);
     }
 
-    getSelectedFilter() {
-        return this.refs.selectedFilter ? this.refs.selectedFilter.getSelectedFilter() : {};
+    getSelectedEdit() {
+        return this.refs.selectedEdit ? this.refs.selectedEdit.getSelectedEdit() : {};
     }
 
-    selectedFilterContains(target) {
-        return this.refs.selectedFilter && this.refs.selectedFilter.selectedFilterContains(target);
+    selectedEditContains(target) {
+        return this.refs.selectedEdit && this.refs.selectedEdit.selectedEditContains(target);
     }
 
     onChangeValue() {
-        if (this.refs.hasOwnProperty(this.props.filterKey)){
-            const value = this.refs[this.props.filterKey].getValue();
-            this.props.handleChangeFilter(this.props.filterKey, value);
+        if (this.refs.hasOwnProperty(this.props.editKey)){
+            const value = this.refs[this.props.editKey].getValue();
+            this.props.handleChangeEdit(this.props.editKey, value);
         }
     }
 
     render() {
-        const {filterKey, selected, metadata, data, handleClickRemoveFilter, handleClickFilter} = this.props;
+        const {editKey, selected, metadata, data, handleClickRemoveEdit, handleClickEdit} = this.props;
         return(
             selected ?
-                <SelectedEdit key={'selected-filter'} ref={'selectedFilter'} type={'location-tag'} addedClass={'tag-filter'} plusIcon={true} handleClickRemoveFilter={handleClickRemoveFilter}>
+                <SelectedEdit key={'selected-filter'} ref={'selectedEdit'} type={'location-tag'} addedClass={'tag-filter'} plusIcon={true} handleClickRemoveEdit={handleClickRemoveEdit}>
                     <div className="location-filter-wrapper">
                         <div className="list-block">
-                            <TextInput placeholder={metadata.label} ref={filterKey} label={metadata.label} initialValue={data} onChange={this.onChangeValue}/>
+                            <TextInput placeholder={metadata.label} ref={editKey} label={metadata.label} initialValue={data} onChange={this.onChangeValue}/>
                         </div>
                     </div>
                 </SelectedEdit>
                     :
-                <UnselectedEdit key={filterKey} filterKey={filterKey} filter={metadata} data={data} handleClickFilter={handleClickFilter} />
+                <UnselectedEdit key={editKey} editKey={editKey} metadata={metadata} data={data} handleClickEdit={handleClickEdit} />
         );
     }
 }

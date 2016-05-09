@@ -33,8 +33,8 @@ export default class LocationInput extends Component {
         });
 
         let location = {
-            latitude : suggest.location.lat,
-            longitude: suggest.location.lng,
+            latitude : parseFloat(suggest.location.lat),
+            longitude: parseFloat(suggest.location.lng),
             address  : suggest.label,
             locality : locality,
             country  : country

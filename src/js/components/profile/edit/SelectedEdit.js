@@ -7,34 +7,34 @@ export default class SelectedEdit extends Component {
         addedClass: PropTypes.string,
         active: PropTypes.bool,
         plusIcon: PropTypes.bool,
-        handleClickRemoveFilter: PropTypes.func.isRequired
+        handleClickRemoveEdit: PropTypes.func.isRequired
     };
     
-    getSelectedFilter() {
-        return this.refs.selectedFilter;
+    getSelectedEdit() {
+        return this.refs.selectedEdit;
     }
 
-    selectedFilterContains(target) {
-        return this.refs.selectedFilter.contains(target);
+    selectedEditContains(target) {
+        return this.refs.selectedEdit.contains(target);
     }
     
     render() {
         const {type, addedClass, children} = this.props;
         const className = addedClass ? addedClass + ' thread-filter ' + type + '-filter' : 'thread-filter ' + type + '-filter';
         return(
-            <div className={className} ref={'selectedFilter'}>
-                {this.renderSelectedFilterBackground()}
+            <div className={className} ref={'selectedEdit'}>
+                {this.renderSelectedEditBackground()}
                 {children}
-                {this.renderSelectedFilterOppositeBackground()}
+                {this.renderSelectedEditOppositeBackground()}
                 <div className="table-row"></div>
             </div>
         );
     }
 
-    renderSelectedFilterBackground() {
+    renderSelectedEditBackground() {
         return (
             <div className="thread-filter-background">
-                <div className="thread-filter-remove" onClick={this.handleClickRemoveFilter.bind(this)}>
+                <div className="thread-filter-remove" onClick={this.handleClickRemoveEdit.bind(this)}>
                     <div className="small-icon-wrapper">
                         <span className="icon-delete"></span>
                     </div>
@@ -43,13 +43,13 @@ export default class SelectedEdit extends Component {
         );
     }
 
-    renderSelectedFilterOppositeBackground = function() {
+    renderSelectedEditOppositeBackground = function() {
         return (
             <div className="thread-filter-opposite-background"></div>
         );
     };
 
-    handleClickRemoveFilter() {
-        this.props.handleClickRemoveFilter();
+    handleClickRemoveEdit() {
+        this.props.handleClickRemoveEdit();
     }
 }

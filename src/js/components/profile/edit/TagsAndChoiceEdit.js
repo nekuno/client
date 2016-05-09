@@ -8,13 +8,13 @@ import TextCheckboxes from '../../ui/TextCheckboxes';
 
 export default class TagsAndChoiceEdit extends Component {
     static propTypes = {
-        filterKey: PropTypes.string.isRequired,
+        editKey: PropTypes.string.isRequired,
         selected: PropTypes.bool.isRequired,
         metadata: PropTypes.object.isRequired,
         data: PropTypes.array.isRequired,
-        handleClickRemoveFilter: PropTypes.func.isRequired,
-        handleChangeFilter: PropTypes.func.isRequired,
-        handleClickFilter: PropTypes.func.isRequired
+        handleClickRemoveEdit: PropTypes.func.isRequired,
+        handleChangeEdit: PropTypes.func.isRequired,
+        handleClickEdit: PropTypes.func.isRequired
     };
     
     constructor(props) {
@@ -33,16 +33,16 @@ export default class TagsAndChoiceEdit extends Component {
         };
     }
 
-    getSelectedFilter() {
-        return this.refs.selectedFilter ? this.refs.selectedFilter.getSelectedFilter() : {};
+    getSelectedEdit() {
+        return this.refs.selectedEdit ? this.refs.selectedEdit.getSelectedEdit() : {};
     }
 
-    selectedFilterContains(target) {
-        return this.refs.selectedFilter && this.refs.selectedFilter.selectedFilterContains(target);
+    selectedEditContains(target) {
+        return this.refs.selectedEdit && this.refs.selectedEdit.selectedEditContains(target);
     }
 
     handleClickTagAndChoiceTagSuggestion(tagString) {
-        let {filterKey, data} = this.props;
+        let {editKey, data} = this.props;
         this.refs.tagInput.setValue(tagString);
         data = data || [];
         let selectedTagAndChoice = this.state.selectedTagAndChoice;
@@ -58,7 +58,7 @@ export default class TagsAndChoiceEdit extends Component {
             selectedTagAndChoice: selectedTagAndChoice,
             tagSuggestions: []
         });
-        this.props.handleChangeFilter(filterKey, data);
+        this.props.handleChangeEdit(editKey, data);
     }
     
     handleClickAddTagsAndChoice() {
@@ -70,7 +70,7 @@ export default class TagsAndChoiceEdit extends Component {
     }
 
     handleClickTagAndChoiceChoice(choice) {
-        let {filterKey, data} = this.props;
+        let {editKey, data} = this.props;
         this.refs.tagInput.clearValue();
         this.refs.tagInput.focus();
         let selectedTagAndChoice = this.state.selectedTagAndChoice;
@@ -81,11 +81,11 @@ export default class TagsAndChoiceEdit extends Component {
         this.setState({
             selectedTagAndChoice: {}
         });
-        this.props.handleChangeFilter(filterKey, data);
+        this.props.handleChangeEdit(editKey, data);
     }
 
     handleClickRemoveTagsAndChoice() {
-        let {filterKey, data} = this.props;
+        let {editKey, data} = this.props;
         this.refs.tagInput.clearValue();
         this.refs.tagInput.focus();
         const index = this.state.selectedTagAndChoice.index;
@@ -93,7 +93,7 @@ export default class TagsAndChoiceEdit extends Component {
         this.setState({
             selectedTagAndChoice: {}
         });
-        this.props.handleChangeFilter(filterKey, data);
+        this.props.handleChangeEdit(editKey, data);
     }
     
     handleClickTagAndChoiceTag(tag) {
@@ -126,12 +126,12 @@ export default class TagsAndChoiceEdit extends Component {
     }
 
     render() {
-        let {filterKey, selected, metadata, data, handleClickRemoveFilter, handleClickFilter} = this.props;
+        let {editKey, selected, metadata, data, handleClickRemoveEdit, handleClickEdit} = this.props;
         const {tagSuggestions, selectedTagAndChoice} = this.state;
         data = data || [];
         return(
             selected ?
-                <SelectedEdit key={'selected-filter'} ref={'selectedFilter'} type={'tags-and-choice'} active={data && data.some(value => value.tag !== '')} handleClickRemoveFilter={handleClickRemoveFilter}>
+                <SelectedEdit key={'selected-filter'} ref={'selectedEdit'} type={'tags-and-choice'} active={data && data.some(value => value.tag !== '')} handleClickRemoveEdit={handleClickRemoveEdit}>
                     <div className="tags-and-choice-wrapper">
                         <TagInput ref={'tagInput'} placeholder={'Escribe un tag'} tags={tagSuggestions} value={selectedTagAndChoice.tag}
                                   onKeyUpHandler={this.handleKeyUpTagAndChoiceTag} onClickTagHandler={this.handleClickTagAndChoiceTagSuggestion}
@@ -158,7 +158,7 @@ export default class TagsAndChoiceEdit extends Component {
                     </div>
                 </SelectedEdit>
                     :
-                <UnselectedEdit key={filterKey} filterKey={filterKey} filter={metadata} data={data} handleClickFilter={handleClickFilter} />
+                <UnselectedEdit key={editKey} editKey={editKey} metadata={metadata} data={data} handleClickEdit={handleClickEdit} />
         );
     }
 }

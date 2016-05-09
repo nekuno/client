@@ -6,13 +6,13 @@ import TextRadios from '../../ui/TextRadios';
 
 export default class LocationEdit extends Component {
     static propTypes = {
-        filterKey: PropTypes.string.isRequired,
+        editKey: PropTypes.string.isRequired,
         selected: PropTypes.bool.isRequired,
         metadata: PropTypes.object.isRequired,
         data: PropTypes.object,
-        handleClickRemoveFilter: PropTypes.func.isRequired,
-        handleChangeFilter: PropTypes.func.isRequired,
-        handleClickFilter: PropTypes.func.isRequired
+        handleClickRemoveEdit: PropTypes.func.isRequired,
+        handleChangeEdit: PropTypes.func.isRequired,
+        handleClickEdit: PropTypes.func.isRequired
     };
 
     constructor(props) {
@@ -22,24 +22,24 @@ export default class LocationEdit extends Component {
     }
 
     handleClickLocationSuggestion(location) {
-        let {filterKey} = this.props;
+        let {editKey} = this.props;
         let data = location;
-        this.props.handleChangeFilter(filterKey, data);
+        this.props.handleChangeEdit(editKey, data);
     }
 
-    getSelectedFilter() {
-        return this.refs.selectedFilter ? this.refs.selectedFilter.getSelectedFilter() : {};
+    getSelectedEdit() {
+        return this.refs.selectedEdit ? this.refs.selectedEdit.getSelectedEdit() : {};
     }
 
-    selectedFilterContains(target) {
-        return this.refs.selectedFilter && this.refs.selectedFilter.selectedFilterContains(target);
+    selectedEditContains(target) {
+        return this.refs.selectedEdit && this.refs.selectedEdit.selectedEditContains(target);
     }
 
     render() {
-        const {filterKey, selected, metadata, data, handleClickRemoveFilter, handleClickFilter} = this.props;
+        const {editKey, selected, metadata, data, handleClickRemoveEdit, handleClickEdit} = this.props;
         return(
             selected ?
-                <SelectedEdit key={'selected-filter'} ref={'selectedFilter'} type={'location-tag'} addedClass={'tag-filter'} plusIcon={true} handleClickRemoveFilter={handleClickRemoveFilter}>
+                <SelectedEdit key={'selected-filter'} ref={'selectedEdit'} type={'location-tag'} addedClass={'tag-filter'} plusIcon={true} handleClickRemoveEdit={handleClickRemoveEdit}>
                     <div className="location-filter-wrapper">
                         <div className="list-block">
                             <div className="location-title">Ubicación</div>
@@ -48,7 +48,7 @@ export default class LocationEdit extends Component {
                     </div>
                 </SelectedEdit>
                     :
-                <UnselectedEdit key={filterKey} filterKey={filterKey} filter={metadata} data={data} handleClickFilter={handleClickFilter} />
+                <UnselectedEdit key={editKey} editKey={editKey} metadata={metadata} data={data} handleClickEdit={handleClickEdit} />
         );
     }
 }

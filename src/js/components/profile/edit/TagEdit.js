@@ -18,13 +18,13 @@ function resetTagSuggestions() {
 
 export default class TagEdit extends Component {
     static propTypes = {
-        filterKey: PropTypes.string.isRequired,
+        editKey: PropTypes.string.isRequired,
         selected: PropTypes.bool.isRequired,
         metadata: PropTypes.object.isRequired,
         data: PropTypes.array,
-        handleClickRemoveFilter: PropTypes.func.isRequired,
-        handleChangeFilter: PropTypes.func.isRequired,
-        handleClickFilter: PropTypes.func.isRequired,
+        handleClickRemoveEdit: PropTypes.func.isRequired,
+        handleChangeEdit: PropTypes.func.isRequired,
+        handleClickEdit: PropTypes.func.isRequired,
         tags: PropTypes.array.isRequired
     };
 
@@ -35,50 +35,50 @@ export default class TagEdit extends Component {
         this.handleClickTagSuggestion = this.handleClickTagSuggestion.bind(this);
     }
 
-    getSelectedFilter() {
-        return this.refs.selectedFilter ? this.refs.selectedFilter.getSelectedFilter() : {};
+    getSelectedEdit() {
+        return this.refs.selectedEdit ? this.refs.selectedEdit.getSelectedEdit() : {};
     }
 
-    selectedFilterContains(target) {
-        return this.refs.selectedFilter && this.refs.selectedFilter.selectedFilterContains(target);
+    selectedEditContains(target) {
+        return this.refs.selectedEdit && this.refs.selectedEdit.selectedEditContains(target);
     }
 
     handleKeyUpTag(tag) {
-        let {filterKey} = this.props;
-        filterKey = filterKey === 'tags' ? null : filterKey;
+        let {editKey} = this.props;
+        editKey = editKey === 'tags' ? null : editKey;
         if (tag.length > 2) {
-            requestTagSuggestions(tag, filterKey);
+            requestTagSuggestions(tag, editKey);
         } else {
             resetTagSuggestions();
         }
     }
 
     handleClickTagSuggestion(tagString) {
-        let {filterKey, data} = this.props;
+        let {editKey, data} = this.props;
         data = data || [];
         const valueIndex = data.findIndex(value => value.tag === tagString);
         if (!valueIndex > -1) {
             data.push(tagString);
         }
         resetTagSuggestions();
-        this.props.handleChangeFilter(filterKey, data);
+        this.props.handleChangeEdit(editKey, data);
     }
 
     render() {
-        const {filterKey, selected, metadata, data, handleClickRemoveFilter, handleClickFilter} = this.props;
+        const {editKey, selected, metadata, data, handleClickRemoveEdit, handleClickEdit} = this.props;
         let tags=this.props.tags.slice(0);
         if (this.refs.hasOwnProperty('tagInput')){
             tags.push({name: this.refs.tagInput.getValue()});
         }
         return(
             selected ?
-                <SelectedEdit key={'selected-filter'} ref={'selectedFilter'} type={'tag'} plusIcon={true} handleClickRemoveFilter={handleClickRemoveFilter}>
+                <SelectedEdit key={'selected-filter'} ref={'selectedEdit'} type={'tag'} plusIcon={true} handleClickRemoveEdit={handleClickRemoveEdit}>
                     <TagInput ref={'tagInput'} placeholder={'Escribe un tag'} tags={tags.map(tag => tag.name)}
                               onKeyUpHandler={this.handleKeyUpTag} onClickTagHandler={this.handleClickTagSuggestion}
                               title={metadata.label} />
                 </SelectedEdit>
                     :
-                <UnselectedEdit key={filterKey} filterKey={filterKey} filter={metadata} data={data} handleClickFilter={handleClickFilter} />
+                <UnselectedEdit key={editKey} editKey={editKey} metadata={metadata} data={data} handleClickEdit={handleClickEdit} />
         );
     }
 }

@@ -78,10 +78,10 @@ export default class EditProfilePage extends Component {
         };
 
         this.onSuggestSelect = this.onSuggestSelect.bind(this);
-        this.handleClickFilter = this.handleClickFilter.bind(this);
-        this.handleChangeFilter = this.handleChangeFilter.bind(this);
-        this.handleChangeFilterAndUnSelect = this.handleChangeFilterAndUnSelect.bind(this);
-        this.handleClickRemoveFilter = this.handleClickRemoveFilter.bind(this);
+        this.handleClickEdit = this.handleClickEdit.bind(this);
+        this.handleChangeEdit = this.handleChangeEdit.bind(this);
+        this.handleChangeEditAndUnSelect = this.handleChangeEditAndUnSelect.bind(this);
+        this.handleClickRemoveEdit = this.handleClickRemoveEdit.bind(this);
         this.handleClickOutside = this.handleClickOutside.bind(this);
         this.saveProfile = this.saveProfile.bind(this);
         this.renderField = this.renderField.bind(this);
@@ -119,106 +119,106 @@ export default class EditProfilePage extends Component {
         UserActionCreators.editProfile(this.state.profile);
     }
 
-    handleClickFilter(key) {
+    handleClickEdit(key) {
         let {profile} = this.state;
         profile[key] = profile[key] || null;
         //resetTagSuggestions();
         this.setState({
-            selectedFilter: key,
+            selectedEdit: key,
             profile: profile
         });
     }
 
-    handleChangeFilter(key, data) {
+    handleChangeEdit(key, data) {
         let {profile} = this.state;
         profile[key] = data;
         this.setState({
             profile: profile,
-            selectedFilter: key
+            selectedEdit: key
         });
     }
 
-    handleChangeFilterAndUnSelect(key, data) {
+    handleChangeEditAndUnSelect(key, data) {
         let {profile} = this.state;
         profile[key] = data;
         this.setState({
             profile: profile,
-            selectedFilter: null
+            selectedEdit: null
         });
     }
 
-    handleClickRemoveFilter() {
-        let {profile, selectedFilter} = this.state;
-        if (this.props.metadata[selectedFilter].required === true){
+    handleClickRemoveEdit() {
+        let {profile, selectedEdit} = this.state;
+        if (this.props.metadata[selectedEdit].required === true){
             nekunoApp.alert(this.props.strings.cannotRemove);
             return;
         }
-        delete profile[selectedFilter];
+        delete profile[selectedEdit];
         this.setState({
             profile: profile,
-            selectedFilter: null
+            selectedEdit: null
         })
     }
 
     handleClickOutside(e) {
-        const selectedFilter = this.refs.selectedFilter;
-        if (selectedFilter && selectedFilter.getSelectedFilter() && !selectedFilter.selectedFilterContains(e.target)) {
-            this.setState({selectedFilter: null});
+        const selectedEdit = this.refs.selectedEdit;
+        if (selectedEdit && selectedEdit.getSelectedEdit() && !selectedEdit.selectedEditContains(e.target)) {
+            this.setState({selectedEdit: null});
         }
     }
 
     renderField(dataArray, metadata, dataName) {
         let data = dataArray.hasOwnProperty(dataName) ? dataArray[dataName] : null;
-        const selected = this.state.selectedFilter === dataName;
+        const selected = this.state.selectedEdit === dataName;
         if (metadata[dataName].editable === false) {
             return '';
         }
         let props = {
-            key: dataName, filterKey: dataName,
-            ref: selected ? 'selectedFilter' : '',
+            key: dataName, editKey: dataName,
+            ref: selected ? 'selectedEdit' : '',
             metadata: metadata[dataName],
             selected: selected,
-            handleClickRemoveFilter: this.handleClickRemoveFilter,
-            handleClickFilter: this.handleClickFilter
+            handleClickRemoveEdit: this.handleClickRemoveEdit,
+            handleClickEdit: this.handleClickEdit
         };
         switch (metadata[dataName]['type']) {
             case 'choice':
                 props.data = data ? data : '';
-                props.handleChangeFilter = this.handleChangeFilterAndUnSelect;
+                props.handleChangeEdit = this.handleChangeEditAndUnSelect;
                 return <ChoiceEdit {...props} />;
             case 'integer':
                 props.data = data ? parseInt(data) : 0;
-                props.handleChangeFilter = this.handleChangeFilter;
+                props.handleChangeEdit = this.handleChangeEdit;
                 return <IntegerEdit {...props}/>;
             case 'location':
                 props.data = data ? data : {};
-                props.handleChangeFilter = this.handleChangeFilterAndUnSelect;
+                props.handleChangeEdit = this.handleChangeEditAndUnSelect;
                 return <LocationEdit {...props}/>;
             case 'tags_and_choice':
                 props.data = data ? data : [];
-                props.handleChangeFilter = this.handleChangeFilter;
+                props.handleChangeEdit = this.handleChangeEdit;
                 return <TagsAndChoiceEdit {...props}/>;
             case 'multiple_choices':
                 props.data = data ? data : [];
-                props.handleChangeFilter = this.handleChangeFilter;
+                props.handleChangeEdit = this.handleChangeEdit;
                 return <MultipleChoicesEdit {...props} />;
             case 'double_choice':
                 props.data = data ? data : {};
-                props.handleChangeFilter = this.handleChangeFilter;
-                props.handleChangeFilterDetail = this.handleChangeFilterAndUnSelect;
+                props.handleChangeEdit = this.handleChangeEdit;
+                props.handleChangeEditDetail = this.handleChangeEditAndUnSelect;
                 return <DoubleChoiceEdit {...props} />;
             case 'tags':
                 props.data = data ? data : [];
-                props.handleChangeFilter = this.handleChangeFilterAndUnSelect;
+                props.handleChangeEdit = this.handleChangeEditAndUnSelect;
                 props.tags = this.props.tags;
                 return <TagEdit {...props} />;
             case 'birthday':
                 props.data = data ? data : null;
-                props.handleChangeFilter = this.handleChangeFilter;
+                props.handleChangeEdit = this.handleChangeEdit;
                 return <BirthdayEdit {...props} />;
             case 'textarea':
                 props.data = data ? data : null;
-                props.handleChangeFilter = this.handleChangeFilter;
+                props.handleChangeEdit = this.handleChangeEdit;
                 return <TextAreaEdit {...props} />;
             default:
                 return '';

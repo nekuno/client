@@ -5,13 +5,13 @@ import TextCheckboxes from '../../ui/TextCheckboxes';
 
 export default class MultipleChoicesEdit extends Component {
     static propTypes = {
-        filterKey: PropTypes.string.isRequired,
+        editKey: PropTypes.string.isRequired,
         selected: PropTypes.bool.isRequired,
         metadata: PropTypes.object.isRequired,
         data: PropTypes.array,
-        handleClickRemoveFilter: PropTypes.func.isRequired,
-        handleChangeFilter: PropTypes.func.isRequired,
-        handleClickFilter: PropTypes.func.isRequired
+        handleClickRemoveEdit: PropTypes.func.isRequired,
+        handleChangeEdit: PropTypes.func.isRequired,
+        handleClickEdit: PropTypes.func.isRequired
     };
 
     constructor(props) {
@@ -20,16 +20,16 @@ export default class MultipleChoicesEdit extends Component {
         this.handleClickMultipleChoice = this.handleClickMultipleChoice.bind(this);
     }
     
-    getSelectedFilter() {
-        return this.refs.selectedFilter ? this.refs.selectedFilter.getSelectedFilter() : {};
+    getSelectedEdit() {
+        return this.refs.selectedEdit ? this.refs.selectedEdit.getSelectedEdit() : {};
     }
 
-    selectedFilterContains(target) {
-        return this.refs.selectedFilter && this.refs.selectedFilter.selectedFilterContains(target);
+    selectedEditContains(target) {
+        return this.refs.selectedEdit && this.refs.selectedEdit.selectedEditContains(target);
     }
 
     handleClickMultipleChoice(choice) {
-        let {filterKey, data} = this.props;
+        let {editKey, data} = this.props;
         data = data || [];
         const valueIndex = data.findIndex(value => value == choice);
         if (valueIndex > -1) {
@@ -37,20 +37,20 @@ export default class MultipleChoicesEdit extends Component {
         } else {
             data.push(choice);
         }
-        this.props.handleChangeFilter(filterKey, data);
+        this.props.handleChangeEdit(editKey, data);
     }
 
     render() {
-        const {filterKey, selected, metadata, data, handleClickRemoveFilter, handleClickFilter} = this.props;
+        const {editKey, selected, metadata, data, handleClickRemoveEdit, handleClickEdit} = this.props;
         return(
             selected ?
-                <SelectedEdit key={'selected-filter'} ref={'selectedFilter'} type={'checkbox'} active={data && data.length > 0} handleClickRemoveFilter={handleClickRemoveFilter}>
+                <SelectedEdit key={'selected-filter'} ref={'selectedEdit'} type={'checkbox'} active={data && data.length > 0} handleClickRemoveEdit={handleClickRemoveEdit}>
                     <TextCheckboxes labels={Object.keys(metadata.choices).map(key => { return({key: key, text: metadata.choices[key]}) })}
                                     onClickHandler={this.handleClickMultipleChoice} values={data || []} className={'multiple-choice-filter'}
                                     title={metadata.label} />
                 </SelectedEdit>
                     :
-                <UnselectedEdit key={filterKey} filterKey={filterKey} filter={metadata} data={data || []} handleClickFilter={handleClickFilter} />
+                <UnselectedEdit key={editKey} editKey={editKey} metadata={metadata} data={data} handleClickEdit={handleClickEdit} />
         );
     }
 }

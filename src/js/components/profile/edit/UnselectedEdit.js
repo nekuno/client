@@ -4,26 +4,26 @@ import TextCheckboxes from '../../ui/TextCheckboxes';
 
 export default class UnselectedEdit extends Component {
     static propTypes = {
-        filterKey: PropTypes.string.isRequired,
-        filter: PropTypes.object.isRequired,
+        editKey: PropTypes.string.isRequired,
+        metadata: PropTypes.object.isRequired,
         data: PropTypes.oneOfType([PropTypes.object, PropTypes.array, PropTypes.number, PropTypes.string]),
-        handleClickFilter: PropTypes.func.isRequired
+        handleClickEdit: PropTypes.func.isRequired
     };
     
     render() {
-        const {filterKey, filter, data} = this.props;
+        const {editKey, metadata, data} = this.props;
         return(
             <div className="thread-filter">
-                <TextCheckboxes labels={[{key: filterKey, text: ProfileStore.getMetadataLabel(filter, data)}]}
-                                onClickHandler={this.handleClickFilter.bind(this, filterKey)}
-                                values={ProfileStore.isProfileSet(filter, data) ? [filterKey] : []} />
+                <TextCheckboxes labels={[{key: editKey, text: ProfileStore.getMetadataLabel(metadata, data)}]}
+                                onClickHandler={this.handleClickEdit.bind(this, editKey)}
+                                values={ProfileStore.isProfileSet(metadata, data) ? [editKey] : []} />
                 <div className="table-row"></div>
             </div>
         );
     }
 
 
-    handleClickFilter() {
-        this.props.handleClickFilter(this.props.filterKey);
+    handleClickEdit() {
+        this.props.handleClickEdit(this.props.editKey);
     }
 }

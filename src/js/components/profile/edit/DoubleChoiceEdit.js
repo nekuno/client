@@ -6,14 +6,14 @@ import TextRadios from '../../ui/TextRadios';
 
 export default class DoubleChoiceEdit extends Component {
     static propTypes = {
-        filterKey: PropTypes.string.isRequired,
+        editKey: PropTypes.string.isRequired,
         selected: PropTypes.bool.isRequired,
         metadata: PropTypes.object.isRequired,
         data: PropTypes.object.isRequired,
-        handleClickRemoveFilter: PropTypes.func.isRequired,
-        handleChangeFilter: PropTypes.func.isRequired,
-        handleChangeFilterDetail: PropTypes.func.isRequired,
-        handleClickFilter: PropTypes.func.isRequired
+        handleClickRemoveEdit: PropTypes.func.isRequired,
+        handleChangeEdit: PropTypes.func.isRequired,
+        handleChangeEditDetail: PropTypes.func.isRequired,
+        handleClickEdit: PropTypes.func.isRequired
     };
     
     constructor(props) {
@@ -23,36 +23,36 @@ export default class DoubleChoiceEdit extends Component {
         this.handleClickDoubleChoiceChoice = this.handleClickDoubleChoiceChoice.bind(this);
     }
 
-    getSelectedFilter() {
-        return this.refs.selectedFilter ? this.refs.selectedFilter.getSelectedFilter() : {};
+    getSelectedEdit() {
+        return this.refs.selectedEdit ? this.refs.selectedEdit.getSelectedEdit() : {};
     }
 
-    selectedFilterContains(target) {
-        return this.refs.selectedFilter && this.refs.selectedFilter.selectedFilterContains(target);
+    selectedEditContains(target) {
+        return this.refs.selectedEdit && this.refs.selectedEdit.selectedEditContains(target);
     }
 
     handleClickDoubleChoiceChoice(choice) {
-        let {filterKey, data} = this.props;
+        let {editKey, data} = this.props;
         if (choice !== data.choice) {
             data.choice = choice;
             data.detail = null;
         }
-        this.props.handleChangeFilter(filterKey, data);
+        this.props.handleChangeEdit(editKey, data);
     }
 
     handleClickDoubleChoiceDetail(detail) {
-        let {filterKey, data} = this.props;
+        let {editKey, data} = this.props;
         if (detail !== data.detail) {
             data.detail = detail;
         }
-        this.props.handleChangeFilterDetail(filterKey, data);
+        this.props.handleChangeEditDetail(editKey, data);
     }
 
     render() {
-        const {filterKey, selected, metadata, data, handleClickRemoveFilter, handleClickFilter} = this.props;
+        const {editKey, selected, metadata, data, handleClickRemoveEdit, handleClickEdit} = this.props;
         return(
             selected ?
-                <SelectedEdit key={'selected-filter'} ref={'selectedFilter'} type={'radio'} active={data.choice ? true : false} handleClickRemoveFilter={handleClickRemoveFilter}>
+                <SelectedEdit key={'selected-filter'} ref={'selectedEdit'} type={'radio'} active={data.choice ? true : false} handleClickRemoveEdit={handleClickRemoveEdit}>
                     <div className="double-choice-filter">
                         <TextRadios labels={Object.keys(metadata.choices).map(choice => { return({key: choice, text: metadata.choices[choice]}); }) }
                                     onClickHandler={this.handleClickDoubleChoiceChoice} value={data.choice} className={'double-choice-choice'}
@@ -65,7 +65,7 @@ export default class DoubleChoiceEdit extends Component {
                     </div>
                 </SelectedEdit>
                     :
-                <UnselectedEdit key={filterKey} filterKey={filterKey} filter={metadata} data={data} handleClickFilter={handleClickFilter} />
+                <UnselectedEdit key={editKey} editKey={editKey} metadata={metadata} data={data} handleClickEdit={handleClickEdit} />
         );
     }
 }

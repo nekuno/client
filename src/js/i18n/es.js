@@ -98,7 +98,7 @@ export default {
         subtitle: 'Por favor, copia la URL que habrás recibido en tu invitación y pégala en el siguiente campo para poder crear tu cuenta en Nekuno.',
         paste   : 'Pega aquí la URL de la invitación',
         privacy : 'Al registrarte, estás aceptando las <a href="https://nekuno.com/static/legal">Condiciones Legales</a> y la <a href="https://nekuno.com/static/privacy">Política de Privacidad</a> de Nekuno.',
-        correct : 'Invitación correcta! Conecta ahora una red para registrarte en Nekuno'
+        correct : 'Solo queda un último paso! Conecta una de las siguientes redes sociales:'
     },
     RegisterQuestionLandingPage      : {
         title  : 'Queremos conocerte un poco mejor',

@@ -98,7 +98,12 @@ export default class RegisterPage extends Component {
                     var userId = status.id.toString();
                     console.log('userId: ', userId);
                     let profile = {
-                        picture: status.picture
+                        picture: status.picture,
+                        username: status.username,
+                        email: status.email,
+                        birthday: status.birthday,
+                        location: status.location,
+                        gender: status.gender
                     };
                     ConnectActionCreators.connect(token, accessToken, network, userId, profile);
                     history.pushState(null, '/join');

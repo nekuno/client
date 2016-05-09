@@ -1,5 +1,6 @@
 import { FACEBOOK_ID, TWITTER_ID, GOOGLE_ID, SPOTIFY_ID, INSTANT_HOST } from '../constants/Constants';
 import selectn from 'selectn';
+import moment from 'moment';
 
 let helloOAuthCallback = '/oauthcallback.html';
 
@@ -33,6 +34,8 @@ hello.init({
         wrap: {
             me: function(o) {
                 o.picture = selectn('images[0].url', o);
+                o.username = selectn('id', o);
+                o.birthday = o.birthdate;
                 return o;
             }
         }
@@ -62,13 +65,17 @@ let facebookWrap = api.facebook.wrap.me;
 api.facebook.wrap.me = function(o) {
     let res = facebookWrap(o);
     res.picture = res.picture + '?height=480';
+    res.birthday = moment(res.birthday).format('YYYY-MM-DD');
+    res.location = res.location.name;
     return res;
 };
+api.facebook.get.me = api.facebook.get.me + ',location,birthday,gender';
 
 let twitterWrap = api.twitter.wrap.me;
 api.twitter.wrap.me = function(o) {
     let res = twitterWrap(o);
     res.picture = res.thumbnail.replace('_normal', '');
+    res.username = res.screen_name;
     return res;
 };
 

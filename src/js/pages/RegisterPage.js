@@ -118,10 +118,6 @@ export default class RegisterPage extends Component {
 
         let initialToken = this.state.initialToken;
 
-        if (token) {
-            nekunoApp.alert(strings.correct);
-        }
-
         return (
             <div className="view view-main">
                 <RegularTopNavbar leftText={strings.cancel} centerText={strings.register}/>
@@ -130,13 +126,14 @@ export default class RegisterPage extends Component {
                         <div className="register-title bold">
                             <div className="title">{strings.title}</div>
                         </div>
-                        <div className="register-sub-title">{strings.subtitle}</div>
-
-                        <div className="list-block">
-                            <ul>
-                                <TextInput ref="token" defaultValue={initialToken} onChange={this.handleOnChange} placeholder={strings.paste}/>
-                            </ul>
-                        </div>
+                        <div className="register-sub-title">{ token ? strings.correct : strings.subtitle}</div>
+                        { token ? '' :
+                            <div className="list-block">
+                                <ul>
+                                    <TextInput ref="token" defaultValue={initialToken} onChange={this.handleOnChange} placeholder={strings.paste}/>
+                                </ul>
+                            </div>
+                        }
                         <div style={{color: '#FFF'}}>
                             <p>{ error ? error.error : ''}</p>
                         </div>
@@ -166,6 +163,6 @@ RegisterPage.defaultProps = {
         subtitle: 'Please copy the URL that you\'ve received your invitation and paste it into the field below to create your account at Nekuno.',
         paste   : 'Paste the invitation url here',
         privacy : 'By registering, you agree to the <a href="https://nekuno.com/static/legal">Legal Conditions</a> and the Nekuno <a href="https://nekuno.com/static/privacy">Privacy Policy</a>.',
-        correct : 'Invitation is correct! Connect now a social network to join Nekuno'
+        correct : 'Just one last step! Connect one of the following social networks:'
     }
 };

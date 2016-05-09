@@ -181,7 +181,7 @@ export default class RegisterJoinPage extends Component {
 
     render() {
 
-        const {metadata, error, strings} = this.props;
+        const {metadata, error, profile, strings} = this.props;
         const descriptiveGenderChoices = selectn('descriptiveGender.choices', metadata) || {};
         const descriptiveGenderChoicesLength = Object.keys(descriptiveGenderChoices).length || 0;
         let descriptiveGenderFirstColumnCounter = 0;
@@ -194,18 +194,18 @@ export default class RegisterJoinPage extends Component {
                     <div id="page-content" className="register-join-content">
                         <div className="list-block">
                             <ul>
-                                <TextInput placeholder={strings.username} ref="username" onChange={this.onUsernameChange}/>
-                                <TextInput placeholder={strings.email} ref="email"/>
+                                <TextInput defaultValue={profile ? profile.username : null} placeholder={strings.username} ref="username" onChange={this.onUsernameChange}/>
+                                <TextInput defaultValue={profile ? profile.email : null} placeholder={strings.email} ref="email"/>
                                 <PasswordInput placeholder={strings.password} ref="plainPassword"/>
-                                <DateInput label={strings.birthday} ref="birthday"/>
+                                <DateInput defaultValue={profile ? profile.birthday: null} label={strings.birthday} ref="birthday"/>
                             </ul>
-                            <LocationInput placeholder={strings.location} onSuggestSelect={this.onSuggestSelect}/>
+                            <LocationInput initialValue={profile ? profile.location : null} placeholder={strings.location} onSuggestSelect={this.onSuggestSelect}/>
                         </div>
 
                         <TextRadios title={strings.include} labels={[
 						{key: 'male', text: strings.male},
 						{key: 'female', text: strings.female}
-					]} onClickHandler={this.onClickGender} value={this.state.gender}/>
+					]} onClickHandler={this.onClickGender} value={profile ? profile.gender : null}/>
                         <div style={{textAlign: 'center', marginBottom: '20px'}}>
                             <a onClick={this.onClickShowDescriptiveGender}>{ this.state.showDescriptiveGender ? strings.hideDescriptiveGender : strings.showDescriptiveGender}</a>
                         </div>

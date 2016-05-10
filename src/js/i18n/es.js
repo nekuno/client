@@ -92,13 +92,14 @@ export default {
         maxDescriptiveGender : 'El máximo de opciones permitidas es 5, desmarca alguna otra opción para elegir esta.'
     },
     RegisterPage                     : {
-        register: 'Crear cuenta',
-        cancel  : 'Cancelar',
-        title   : 'Nekuno sólo permite el registro por invitación.',
-        subtitle: 'Por favor, copia la URL que habrás recibido en tu invitación y pégala en el siguiente campo para poder crear tu cuenta en Nekuno.',
-        paste   : 'Pega aquí la URL de la invitación',
-        privacy : 'Al registrarte, estás aceptando las <a href="https://nekuno.com/static/legal">Condiciones Legales</a> y la <a href="https://nekuno.com/static/privacy">Política de Privacidad</a> de Nekuno.',
-        correct : 'Solo queda un último paso! Conecta una de las siguientes redes sociales:'
+        register    : 'Crear cuenta',
+        cancel      : 'Cancelar',
+        title       : 'Nekuno sólo permite el registro por invitación.',
+        titleCorrect: '¡Increíble! Has conseguido una invitación!',
+        subtitle    : 'Por favor, copia la URL que habrás recibido en tu invitación y pégala en el siguiente campo para poder crear tu cuenta en Nekuno.',
+        paste       : 'Pega aquí la URL de la invitación',
+        privacy     : 'Al registrarte, estás aceptando las <a href="https://nekuno.com/static/legal">Condiciones Legales</a> y la <a href="https://nekuno.com/static/privacy">Política de Privacidad</a> de Nekuno.',
+        correct     : 'Solo queda un último paso! Conecta una de las siguientes redes sociales:'
     },
     RegisterQuestionLandingPage      : {
         title  : 'Queremos conocerte un poco mejor',
@@ -109,10 +110,10 @@ export default {
         threads: 'Hilos'
     },
     UserPage                         : {
-        aboutMe   : 'Sobre mí',
-        questions : 'Respuestas',
-        interests : 'Intereses',
-        myProfile : 'Mi Perfil'
+        aboutMe  : 'Sobre mí',
+        questions: 'Respuestas',
+        interests: 'Intereses',
+        myProfile: 'Mi Perfil'
     },
     OtherUserPage                    : {
         aboutOther: 'Sobre %username%',

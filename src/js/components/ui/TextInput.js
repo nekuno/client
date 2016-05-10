@@ -5,7 +5,7 @@ export default class TextInput extends Component {
 
     static propTypes = {
         placeholder: PropTypes.string.isRequired,
-        initialValue: PropTypes.string
+        defaultValue: PropTypes.string
     };
 
     constructor() {
@@ -21,14 +21,13 @@ export default class TextInput extends Component {
     }
 
     render() {
-        const initialValue = this.props.initialValue ? this.props.initialValue : null;
         return (
             <li>
                 <div className="item-content">
                     <div className="item-inner">
                         <div className="item-input">
-                            <input {...this.props} ref="input" type="text" defaultValue={initialValue}
-                                   placeholder={this.props.placeholder} onFocus={this.onFocusHandler}/>
+                            <input {...this.props} ref="input" type="text"
+                                   onFocus={this.onFocusHandler}/>
                         </div>
                     </div>
                 </div>

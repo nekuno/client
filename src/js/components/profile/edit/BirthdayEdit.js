@@ -43,7 +43,7 @@ export default class BirthdayEdit extends Component {
                 <SelectedEdit key={'selected-filter'} ref={'selectedEdit'} type={'location-tag'} addedClass={'tag-filter'} plusIcon={true} handleClickRemoveEdit={handleClickRemoveEdit}>
                     <div className="location-filter-wrapper">
                         <div className="list-block">
-                            <DateInput ref={editKey} label={metadata.label} initialValue={data} onChange={this.onChangeValue}/>
+                            <DateInput ref={editKey} label={metadata.label} defaultValue={data} onChange={this.onChangeValue}/>
                         </div>
                     </div>
                 </SelectedEdit>

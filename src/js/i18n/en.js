@@ -92,13 +92,14 @@ export default {
         maxDescriptiveGender : 'The maximum number of options permitted is 5, uncheck any other options to choose this one'
     },
     RegisterPage                     : {
-        register: 'Create account',
-        cancel  : 'Cancel',
-        title   : 'Nekuno only allows registration by invitation.',
-        subtitle: 'Please copy the URL that you\'ve received your invitation and paste it into the field below to create your account at Nekuno.',
-        paste   : 'Paste the invitation url here',
-        privacy : 'By registering, you agree to the <a href="https://nekuno.com/static/legal">Legal Conditions</a> and the Nekuno <a href="https://nekuno.com/static/privacy">Privacy Policy</a>.',
-        correct : 'Just one last step! Connect one of the following social networks:'
+        register    : 'Create account',
+        cancel      : 'Cancel',
+        title       : 'Nekuno only allows registration by invitation.',
+        titleCorrect: 'Awesome! You got an invitation!',
+        subtitle    : 'Please copy the URL that you\'ve received your invitation and paste it into the field below to create your account at Nekuno.',
+        paste       : 'Paste the invitation url here',
+        privacy     : 'By registering, you agree to the <a href="https://nekuno.com/static/legal">Legal Conditions</a> and the Nekuno <a href="https://nekuno.com/static/privacy">Privacy Policy</a>.',
+        correct     : 'Just one last step! Connect one of the following social networks:'
     },
     RegisterQuestionLandingPage      : {
         title  : 'We want to know you a little better',
@@ -109,10 +110,10 @@ export default {
         threads: 'Threads'
     },
     UserPage                         : {
-        aboutMe   : 'About me',
-        questions : 'Answers',
-        interests : 'Interests',
-        myProfile : 'My profile'
+        aboutMe  : 'About me',
+        questions: 'Answers',
+        interests: 'Interests',
+        myProfile: 'My profile'
     },
     OtherUserPage                    : {
         aboutOther: 'About %username%',

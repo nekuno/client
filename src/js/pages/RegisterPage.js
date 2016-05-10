@@ -98,12 +98,12 @@ export default class RegisterPage extends Component {
                     var userId = status.id.toString();
                     console.log('userId: ', userId);
                     let profile = {
-                        picture: status.picture,
+                        picture : status.picture,
                         username: status.username,
-                        email: status.email,
+                        email   : status.email,
                         birthday: status.birthday,
                         location: status.location,
-                        gender: status.gender
+                        gender  : status.gender
                     };
                     ConnectActionCreators.connect(token, accessToken, network, userId, profile);
                     history.pushState(null, '/join');
@@ -129,7 +129,7 @@ export default class RegisterPage extends Component {
                 <div className="page">
                     <div id="page-content" className="register-content">
                         <div className="register-title bold">
-                            <div className="title">{strings.title}</div>
+                            <div className="title">{token ? strings.titleCorrect : strings.title}</div>
                         </div>
                         <div className="register-sub-title">{ token ? strings.correct : strings.subtitle}</div>
                         { token ? '' :
@@ -162,12 +162,13 @@ export default class RegisterPage extends Component {
 
 RegisterPage.defaultProps = {
     strings: {
-        register: 'Create account',
-        cancel  : 'Cancel',
-        title   : 'Nekuno only allows registration by invitation.',
-        subtitle: 'Please copy the URL that you\'ve received your invitation and paste it into the field below to create your account at Nekuno.',
-        paste   : 'Paste the invitation url here',
-        privacy : 'By registering, you agree to the <a href="https://nekuno.com/static/legal">Legal Conditions</a> and the Nekuno <a href="https://nekuno.com/static/privacy">Privacy Policy</a>.',
-        correct : 'Just one last step! Connect one of the following social networks:'
+        register    : 'Create account',
+        cancel      : 'Cancel',
+        title       : 'Nekuno only allows registration by invitation.',
+        titleCorrect: 'Awesome! You got an invitation!',
+        subtitle    : 'Please copy the URL that you\'ve received your invitation and paste it into the field below to create your account at Nekuno.',
+        paste       : 'Paste the invitation url here',
+        privacy     : 'By registering, you agree to the <a href="https://nekuno.com/static/legal">Legal Conditions</a> and the Nekuno <a href="https://nekuno.com/static/privacy">Privacy Policy</a>.',
+        correct     : 'Just one last step! Connect one of the following social networks:'
     }
 };

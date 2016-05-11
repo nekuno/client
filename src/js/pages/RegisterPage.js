@@ -105,7 +105,7 @@ export default class RegisterPage extends Component {
                         location: status.location,
                         gender  : status.gender
                     };
-                    ConnectActionCreators.connect(token, accessToken, network, userId, profile);
+                    ConnectActionCreators.connectRegister(token, accessToken, network, userId, profile);
                     history.pushState(null, '/join');
                 },
                 function(status) {

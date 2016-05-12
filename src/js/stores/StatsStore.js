@@ -5,7 +5,7 @@ import selectn from 'selectn';
 
 const _stats = {};
 
-const ProfileStore = createStore({
+const StatsStore = createStore({
     contains(userId, fields) {
         return isInBag(_stats, userId, fields);
     },
@@ -15,7 +15,7 @@ const ProfileStore = createStore({
     }
 });
 
-ProfileStore.dispatchToken = register(action => {
+StatsStore.dispatchToken = register(action => {
     waitFor([UserStore.dispatchToken]);
     const responseStats = selectn('response.entities.stats', action);
 
@@ -28,8 +28,8 @@ ProfileStore.dispatchToken = register(action => {
         delete responseStats.undefined;
 
         mergeIntoBag(_stats, responseStats);
-        ProfileStore.emitChange();
+        StatsStore.emitChange();
     }
 });
 
-export default ProfileStore;
+export default StatsStore;

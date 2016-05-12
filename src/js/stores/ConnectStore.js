@@ -9,7 +9,7 @@ class ConnectStore extends BaseStore {
         this._token = null;
         this._accessToken = null;
         this._resource = null;
-        this._userId = null;
+        this._resourceId = null;
         this._profile = null;
 
     }
@@ -20,7 +20,7 @@ class ConnectStore extends BaseStore {
                 this._token = action.token;
                 this._accessToken = action.accessToken;
                 this._resource = action.resource;
-                this._userId = action.userId;
+                this._resourceId = action.resourceId;
                 this._profile = action.profile;
                 this.emitChange();
                 break;
@@ -40,8 +40,8 @@ class ConnectStore extends BaseStore {
         return this._resource;
     }
 
-    get userId() {
-        return this._userId;
+    get resourceId() {
+        return this._resourceId;
     }
 
     get profile() {

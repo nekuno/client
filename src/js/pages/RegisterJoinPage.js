@@ -23,7 +23,7 @@ function getState(props) {
     const token = ConnectStore.token;
     const accessToken = ConnectStore.accessToken;
     const resource = ConnectStore.resource;
-    const userId = ConnectStore.userId;
+    const resourceId = ConnectStore.resourceId;
     const profile = ConnectStore.profile;
     const metadata = ProfileStore.getMetadata();
     const error = RegisterStore.error;
@@ -44,7 +44,7 @@ function getState(props) {
         token,
         accessToken,
         resource,
-        userId,
+        resourceId,
         profile,
         metadata,
         error,
@@ -67,7 +67,7 @@ export default class RegisterJoinPage extends Component {
         token        : PropTypes.string,
         accessToken  : PropTypes.string,
         resource     : PropTypes.string,
-        userId       : PropTypes.string,
+        resourceId   : PropTypes.string,
         profile      : PropTypes.object,
         metadata     : PropTypes.object,
         error        : PropTypes.object,
@@ -108,21 +108,22 @@ export default class RegisterJoinPage extends Component {
         let token = this.props.token;
         let oauth = {
             accessToken: this.props.accessToken,
-            resource   : this.props.resource
+            resource   : this.props.resource,
+            resourceId : this.props.resourceId
         };
 
         switch (oauth.resource) {
             case 'facebook':
-                user.facebookID = this.props.userId;
+                user.facebookID = this.props.resourceId;
                 break;
             case 'twitter':
-                user.twitterID = this.props.userId;
+                user.twitterID = this.props.resourceId;
                 break;
             case 'google':
-                user.googleID = this.props.userId;
+                user.googleID = this.props.resourceId;
                 break;
             case 'spotify':
-                user.spotifyID = this.props.userId;
+                user.spotifyID = this.props.resourceId;
                 break;
         }
 
@@ -194,7 +195,7 @@ export default class RegisterJoinPage extends Component {
     }
 
     componentWillMount() {
-        if (!this.props.token || !this.props.accessToken || !this.props.resource || !this.props.userId) {
+        if (!this.props.token || !this.props.accessToken || !this.props.resource || !this.props.resourceId) {
             this.context.history.pushState(null, '/register');
         }
         UserActionCreators.requestMetadata();

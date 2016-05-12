@@ -16,7 +16,7 @@ class ConnectStore extends BaseStore {
 
     _registerToActions(action) {
         switch (action.type) {
-            case ActionTypes.CONNECT_ACCOUNT:
+            case ActionTypes.CONNECT_REGISTER_ACCOUNT:
                 this._token = action.token;
                 this._accessToken = action.accessToken;
                 this._resource = action.resource;

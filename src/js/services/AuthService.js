@@ -128,6 +128,10 @@ class AuthService {
             });
     }
 
+    connect(resource, accessToken, userId) {
+        return APIUtils.postData(API_URLS.CONNECT_ACCOUNT.replace('{resource}', resource), {oauthToken: accessToken, userId: userId});
+    }
+
 }
 
 export default new AuthService();

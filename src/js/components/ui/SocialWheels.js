@@ -118,7 +118,15 @@ export default class SocialWheels extends Component {
             console.log('accessToken:', accessToken);
             hello(resource).api('me').then(function(status) {
                     console.log('api(\'me\')', status);
-                    ConnectActionCreators.connect(resource, accessToken);
+                    var userId = status.id.toString();
+                    console.log('userId: ', userId);
+                    ConnectActionCreators.connect(resource, accessToken, userId)
+                        .then(() => {
+
+                        }, (error) => {
+                            console.log(error);
+                            nekunoApp.alert(error.error);
+                        });
                 },
                 function(status) {
                     nekunoApp.alert(resource + ' login failed: ' + status.error.message);

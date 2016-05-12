@@ -1,76 +1,13 @@
 import React, { PropTypes, Component } from 'react';
+import { FACEBOOK_SCOPE, TWITTER_SCOPE, GOOGLE_SCOPE, SPOTIFY_SCOPE } from '../../constants/Constants';
+import ConnectActionCreators from '../../actions/ConnectActionCreators';
 
 export default class SocialWheels extends Component {
+
     static propTypes = {
         picture : PropTypes.string.isRequired,
         networks: PropTypes.array.isRequired
     };
-
-    render() {
-
-        const posX = 155;
-        const posY = 155;
-        const networks = this.props.networks;
-        const picture = this.props.picture;
-
-        let initialRadius = 37.5;
-
-        return (
-            <div className="social-wheels">
-                <svg width="310" height="310" xmlns="http://www.w3.org/2000/svg">
-                    <g>
-                        {/* Wheel separators */}
-                        <path d={this.describeArc(posX, posY, 112.5, 0, 359.9)} className="wheel-separator"/>
-                        <path d={this.describeArc(posX, posY, 100, 0, 359.9)} className="wheel-separator"/>
-                        <path d={this.describeArc(posX, posY, 87.5, 0, 359.9)} className="wheel-separator"/>
-                        <path d={this.describeArc(posX, posY, 75, 0, 359.9)} className="wheel-separator"/>
-                        <path d={this.describeArc(posX, posY, 62.5, 0, 359.9)} className="wheel-separator"/>
-                        <path d={this.describeArc(posX, posY, 50, 0, 359.9)} className="wheel-separator"/>
-                        <path d={this.describeArc(posX, posY, 37.5, 0, 359.9)} className="wheel-separator"/>
-
-                        {/* User picture */}
-                        <image xlinkHref={picture} x={posX - 25} y={posY - 25} height="50px" width="50px" clipPath="url(#clip)"/>
-                        <clipPath id="clip">
-                            <rect id="rect" x={posX - 25} y={posY - 25} width="50px" height="50px" rx="25"/>
-                        </clipPath>
-                        <path d={this.describeArc(posX, posY, 25, 0, 359.9)} className="wheel-picture"/>
-
-                        {/* Big icons */}
-                        {/* Use custom degrees bellow for new social networks */}
-                        {networks.map((message, index) => {
-                            let captured = message.fetching || message.fetched || message.processing || message.processed;
-                            switch (message.resource) {
-                                case 'facebook':
-                                    return this.renderIcon('facebook', 45, posX, posY, captured, index);
-                                case 'spotify':
-                                    return this.renderIcon('spotify', 135, posX, posY, captured, index);
-                                case 'twitter':
-                                    return this.renderIcon('twitter', 225, posX, posY, captured, index);
-                                case 'google':
-                                    return this.renderIcon('google', 315, posX, posY, captured, index);
-                            }
-                        })}
-
-                        {/* Social networks wheels */}
-                        {networks.map((message, index) => {
-                            let radius = initialRadius + index * 25;
-                            let progress = message.processed ? 359 : message.process * 3.6;
-                            return (
-                                <path key={index} d={this.describeArc(posX, posY, radius, 0, progress)} className={"wheel-" + message.resource}/>
-                            );
-                        })}
-
-                        {/* Small icons */}
-                        {networks.map((message, index) => {
-                            let radius = initialRadius + index * 25;
-                            let progress = message.processed ? 359 : message.process * 3.6;
-                            return this.renderSmallIcon(message.resource, radius, progress, posX, posY, message.fetching, message.fetched, message.processing, message.processed, index);
-                        })}
-                    </g>
-                </svg>
-            </div>
-        );
-    }
 
     renderProcessingIcon = function(resource, radius, degrees, posX, posY, key) {
         return (
@@ -112,14 +49,14 @@ export default class SocialWheels extends Component {
         }
     };
 
-    renderIcon = function(resource, degrees, posX, posY, captured = false, key) {
+    renderIcon = function(resource, scope, degrees, posX, posY, captured = false, key) {
         return (
             <g key={key} opacity={captured ? 0.5 : 1}>
                 <foreignObject x={this.bigIconXValue(posX, posY, 137.5, 0, degrees)} y={this.bigIconYValue(posX, posY, 137.5, 0, degrees)}
                                width="30" height="30" requiredExtensions="http://www.w3.org/1999/xhtml">
                     <div className={"icon-wrapper big-icon-wrapper text-" + resource} style={{ cursor: captured ? 'default' : 'pointer' }}
-                         onClick={captured ? function() { } : function() {
-                            console.log('fire action to connect social network with resource variable')
+                         onClick={captured ? () => { } : () => {
+                            this.connect(resource, scope);
                          }}>
                         <div className={"icon-" + resource}></div>
                     </div>
@@ -173,4 +110,96 @@ export default class SocialWheels extends Component {
 
         return end.y - 15;
     };
+
+    connect = function(resource, scope) {
+
+        hello(resource).login({scope: scope}).then(function(response) {
+            var accessToken = response.authResponse.access_token;
+            console.log('accessToken:', accessToken);
+            hello(resource).api('me').then(function(status) {
+                    console.log('api(\'me\')', status);
+                    var userId = status.id.toString();
+                    console.log('userId: ', userId);
+                    ConnectActionCreators.connect(resource, accessToken, userId)
+                        .then(() => {
+
+                        }, (error) => {
+                            console.log(error);
+                            nekunoApp.alert(error.error);
+                        });
+                },
+                function(status) {
+                    nekunoApp.alert(resource + ' login failed: ' + status.error.message);
+                }
+            )
+        }, function(response) {
+            nekunoApp.alert(resource + ' login failed: ' + response.error.message);
+        });
+    };
+
+    render() {
+
+        const posX = 155;
+        const posY = 155;
+        const networks = this.props.networks;
+        const picture = this.props.picture;
+
+        let initialRadius = 37.5;
+
+        return (
+            <div className="social-wheels">
+                <svg width="310" height="310" xmlns="http://www.w3.org/2000/svg">
+                    <g>
+                        {/* Wheel separators */}
+                        <path d={this.describeArc(posX, posY, 112.5, 0, 359.9)} className="wheel-separator"/>
+                        <path d={this.describeArc(posX, posY, 100, 0, 359.9)} className="wheel-separator"/>
+                        <path d={this.describeArc(posX, posY, 87.5, 0, 359.9)} className="wheel-separator"/>
+                        <path d={this.describeArc(posX, posY, 75, 0, 359.9)} className="wheel-separator"/>
+                        <path d={this.describeArc(posX, posY, 62.5, 0, 359.9)} className="wheel-separator"/>
+                        <path d={this.describeArc(posX, posY, 50, 0, 359.9)} className="wheel-separator"/>
+                        <path d={this.describeArc(posX, posY, 37.5, 0, 359.9)} className="wheel-separator"/>
+
+                        {/* User picture */}
+                        <image xlinkHref={picture} x={posX - 25} y={posY - 25} height="50px" width="50px" clipPath="url(#clip)"/>
+                        <clipPath id="clip">
+                            <rect id="rect" x={posX - 25} y={posY - 25} width="50px" height="50px" rx="25"/>
+                        </clipPath>
+                        <path d={this.describeArc(posX, posY, 25, 0, 359.9)} className="wheel-picture"/>
+
+                        {/* Big icons */}
+                        {/* Use custom degrees bellow for new social networks */}
+                        {networks.map((message, index) => {
+                            let captured = message.fetching || message.fetched || message.processing || message.processed;
+                            switch (message.resource) {
+                                case 'facebook':
+                                    return this.renderIcon(message.resource, FACEBOOK_SCOPE, 45, posX, posY, captured, index);
+                                case 'spotify':
+                                    return this.renderIcon(message.resource, SPOTIFY_SCOPE, 135, posX, posY, captured, index);
+                                case 'twitter':
+                                    return this.renderIcon(message.resource, TWITTER_SCOPE, 225, posX, posY, captured, index);
+                                case 'google':
+                                    return this.renderIcon(message.resource, GOOGLE_SCOPE, 315, posX, posY, captured, index);
+                            }
+                        })}
+
+                        {/* Social networks wheels */}
+                        {networks.map((message, index) => {
+                            let radius = initialRadius + index * 25;
+                            let progress = message.processed ? 359 : message.process * 3.6;
+                            return (
+                                <path key={index} d={this.describeArc(posX, posY, radius, 0, progress)} className={"wheel-" + message.resource}/>
+                            );
+                        })}
+
+                        {/* Small icons */}
+                        {networks.map((message, index) => {
+                            let radius = initialRadius + index * 25;
+                            let progress = message.processed ? 359 : message.process * 3.6;
+                            return this.renderSmallIcon(message.resource, radius, progress, posX, posY, message.fetching, message.fetched, message.processing, message.processed, index);
+                        })}
+                    </g>
+                </svg>
+            </div>
+        );
+    }
 }

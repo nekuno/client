@@ -86,14 +86,14 @@ export default class RegisterPage extends Component {
         return this.handleSocialNetwork('google', GOOGLE_SCOPE);
     }
 
-    handleSocialNetwork(network, scope) {
-        console.log('handleSocialNetwork', network);
+    handleSocialNetwork(resource, scope) {
+        console.log('handleSocialNetwork', resource);
         var history = this.context.history;
         var token = this.props.token;
-        hello(network).login({scope: scope}).then(function(response) {
+        hello(resource).login({scope: scope}).then(function(response) {
             var accessToken = response.authResponse.access_token;
             console.log('accessToken:', accessToken);
-            hello(network).api('me').then(function(status) {
+            hello(resource).api('me').then(function(status) {
                     console.log('api(\'me\')', status);
                     var userId = status.id.toString();
                     console.log('userId: ', userId);
@@ -105,15 +105,15 @@ export default class RegisterPage extends Component {
                         location: status.location,
                         gender  : status.gender
                     };
-                    ConnectActionCreators.connect(token, accessToken, network, userId, profile);
+                    ConnectActionCreators.connectRegister(token, resource, accessToken, userId, profile);
                     history.pushState(null, '/join');
                 },
                 function(status) {
-                    nekunoApp.alert(network + ' login failed: ' + status.error.message);
+                    nekunoApp.alert(resource + ' login failed: ' + status.error.message);
                 }
             )
         }, function(response) {
-            nekunoApp.alert(network + ' login failed: ' + response.error.message);
+            nekunoApp.alert(resource + ' login failed: ' + response.error.message);
         });
     }
 

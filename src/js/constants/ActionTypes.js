@@ -1,7 +1,7 @@
 import keyMirror from 'keymirror';
 
 export default keyMirror({
-    
+
     AUTO_LOGIN                              : null,
     REQUEST_LOGIN_USER                      : null,
     REQUEST_LOGIN_USER_SUCCESS              : null,
@@ -17,7 +17,10 @@ export default keyMirror({
     REQUEST_REGISTER_USER_ERROR             : null,
     LOGOUT_USER                             : null,
 
-    CONNECT_ACCOUNT: null,
+    CONNECT_REGISTER_ACCOUNT: null,
+    CONNECT_ACCOUNT         : null,
+    CONNECT_ACCOUNT_SUCCESS : null,
+    CONNECT_ACCOUNT_ERROR   : null,
 
     REQUEST_USER        : null,
     REQUEST_USER_SUCCESS: null,
@@ -165,15 +168,15 @@ export default keyMirror({
     WORKERS_PROCESS_FINISH: null,
     WORKERS_USER_STATUS   : null,
 
-    REQUEST_USER_DATA_STATUS           : null,
-    REQUEST_USER_DATA_STATUS_SUCCESS   : null,
-    REQUEST_USER_DATA_STATUS_ERROR     : null,
+    REQUEST_USER_DATA_STATUS        : null,
+    REQUEST_USER_DATA_STATUS_SUCCESS: null,
+    REQUEST_USER_DATA_STATUS_ERROR  : null,
 
-    REQUEST_TAG_SUGGESTIONS           : null,
-    REQUEST_TAG_SUGGESTIONS_SUCCESS   : null,
-    REQUEST_TAG_SUGGESTIONS_ERROR     : null,
-    RESET_TAG_SUGGESTIONS             : null,
-    
+    REQUEST_TAG_SUGGESTIONS        : null,
+    REQUEST_TAG_SUGGESTIONS_SUCCESS: null,
+    REQUEST_TAG_SUGGESTIONS_ERROR  : null,
+    RESET_TAG_SUGGESTIONS          : null,
+
     CHANGE_LOCALE: null
 
 });

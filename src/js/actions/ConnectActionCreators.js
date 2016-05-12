@@ -22,23 +22,23 @@ export default {
         }, {username});
     },
 
-    connectRegister: (token, resource, accessToken, userId, profile) => {
+    connectRegister: (token, resource, accessToken, resourceId, profile) => {
         dispatch(ActionTypes.CONNECT_REGISTER_ACCOUNT, {
             token,
             resource,
             accessToken,
-            userId,
+            resourceId,
             profile
         });
     },
 
-    connect: (resource, accessToken, userId) => {
-        let promise = AuthService.connect(resource, accessToken, userId);
+    connect: (resource, accessToken, resourceId) => {
+        let promise = AuthService.connect(resource, accessToken, resourceId);
         dispatchAsync(promise, {
             request: ActionTypes.CONNECT_ACCOUNT,
             success: ActionTypes.CONNECT_ACCOUNT_SUCCESS,
             failure: ActionTypes.CONNECT_ACCOUNT_ERROR
-        }, {resource, accessToken, userId});
+        }, {resource, accessToken, resourceId});
         return promise;
     }
 }

@@ -109,7 +109,7 @@ class AuthService {
                 return [user, profile, invitation]
             })
             .spread(function(user, profile, invitation) {
-                return [user, profile, invitation, APIUtils.postData(API_URLS.CONNECT_ACCOUNT.replace('{resource}', oauth.resource), {oauthToken: oauth.accessToken})];
+                return [user, profile, invitation, APIUtils.postData(API_URLS.CONNECT_ACCOUNT.replace('{resource}', oauth.resource), {oauthToken: oauth.accessToken, resourceId: oauth.resourceId})];
             })
             .spread(function(user, profile, invitation, oauthToken) {
                 console.log('Account connected', oauthToken);
@@ -128,8 +128,8 @@ class AuthService {
             });
     }
 
-    connect(resource, accessToken, userId) {
-        return APIUtils.postData(API_URLS.CONNECT_ACCOUNT.replace('{resource}', resource), {oauthToken: accessToken, userId: userId});
+    connect(resource, accessToken, resourceId) {
+        return APIUtils.postData(API_URLS.CONNECT_ACCOUNT.replace('{resource}', resource), {oauthToken: accessToken, resourceId: resourceId});
     }
 
 }

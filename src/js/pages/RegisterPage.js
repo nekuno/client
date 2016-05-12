@@ -95,8 +95,8 @@ export default class RegisterPage extends Component {
             console.log('accessToken:', accessToken);
             hello(resource).api('me').then(function(status) {
                     console.log('api(\'me\')', status);
-                    var userId = status.id.toString();
-                    console.log('userId: ', userId);
+                    var resourceId = status.id.toString();
+                    console.log('resourceId: ', resourceId);
                     let profile = {
                         picture : status.picture,
                         username: status.username,
@@ -105,7 +105,7 @@ export default class RegisterPage extends Component {
                         location: status.location,
                         gender  : status.gender
                     };
-                    ConnectActionCreators.connectRegister(token, resource, accessToken, userId, profile);
+                    ConnectActionCreators.connectRegister(token, resource, accessToken, resourceId, profile);
                     history.pushState(null, '/join');
                 },
                 function(status) {

@@ -118,9 +118,9 @@ export default class SocialWheels extends Component {
             console.log('accessToken:', accessToken);
             hello(resource).api('me').then(function(status) {
                     console.log('api(\'me\')', status);
-                    var userId = status.id.toString();
-                    console.log('userId: ', userId);
-                    ConnectActionCreators.connect(resource, accessToken, userId)
+                    var resourceId = status.id.toString();
+                    console.log('resourceId: ', resourceId);
+                    ConnectActionCreators.connect(resource, accessToken, resourceId)
                         .then(() => {
 
                         }, (error) => {

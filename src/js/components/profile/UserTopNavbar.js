@@ -1,5 +1,5 @@
 import React, { PropTypes, Component } from 'react';
-import TopLeftIcon from '../ui/TopLeftIcon';
+import TopLeftMenuLink from '../ui/TopLeftMenuLink';
 import RegularTopTitle from '../ui/RegularTopTitle';
 import TopRightUserIcons from './TopRightUserIcons';
 
@@ -13,7 +13,7 @@ export default class UserTopNavbar extends Component {
             <div className="navbar">
                 <div id="navbar-inner" className="navbar-inner">
                     <div className="row">
-                        <TopLeftIcon icon={'left-arrow'}/>
+                        <TopLeftMenuLink />
                         <RegularTopTitle text={this.props.centerText}/>
                         <TopRightUserIcons/>
                     </div>

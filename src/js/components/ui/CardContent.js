@@ -119,7 +119,7 @@ export default class CardContent extends Component {
         if (typeof this.props.onClickHandler !== 'undefined') {
             this.props.onClickHandler();
         } else {
-            window.open(this.props.url);
+            window.cordova ? document.location = this.props.url : window.open(this.props.url);
         }
     }
 }

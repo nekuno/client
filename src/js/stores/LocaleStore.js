@@ -14,7 +14,7 @@ class LocaleStore extends BaseStore {
             this._locale = locale;
         } else if (LoginStore.user && ProfileStore.contains(LoginStore.user.id) && ProfileStore.get(LoginStore.user.id).interfaceLanguage) {
             this.locale = ProfileStore.get(LoginStore.user.id).interfaceLanguage;
-        } else if (navigator.languages.length > 0) {
+        } else if (navigator.languages && navigator.languages.length > 0) {
             this.locale = navigator.languages[0];
         } else if (navigator.language) {
             this.locale = navigator.language;

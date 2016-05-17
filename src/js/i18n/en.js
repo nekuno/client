@@ -122,11 +122,12 @@ export default {
         myProfile: 'My profile'
     },
     OtherUserPage                    : {
-        aboutOther: 'About %username%',
-        questions : 'Answers',
-        interests : 'Interests',
-        like      : 'Like',
-        dontLike  : 'Don\'t like anymore'
+        aboutOther  : 'About %username%',
+        questions   : 'Answers',
+        interests   : 'Interests',
+        like        : 'Like',
+        dontLike    : 'Don\'t like anymore',
+        confirmBlock: 'Are you sure you want to block this user?'
     },
     ////////////////
     // Components //
@@ -177,6 +178,9 @@ export default {
     },
     QuestionStatsInline              : {
         statistics: 'Statistics answers community'
+    },
+    TopRightRecommendationIcons      : {
+        confirmDelete: 'Are you sure you want to delete this thread?'
     },
     ////////////////
     // Framework7 //

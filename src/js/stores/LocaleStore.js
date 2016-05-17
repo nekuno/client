@@ -10,7 +10,7 @@ class LocaleStore extends BaseStore {
         let locale = localStorage.getItem('locale');
         if (locale) {
             this._locale = locale;
-        } else if (navigator.languages.length > 0) {
+        } else if (navigator.languages && navigator.languages.length > 0) {
             let locale = navigator.languages[0];
             if (locale.startsWith('es')) {
                 this._locale = 'es';

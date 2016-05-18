@@ -49,6 +49,13 @@
 		.open-panel .icon-menu {
 			font-size: 25px;
 		}
+
+		.icon-circle {
+			color: $light-green;
+			font-size: 0.6em;
+			margin-left: 5px;
+			position: absolute;
+		}
 	}
 	&::after {
 		content: none;

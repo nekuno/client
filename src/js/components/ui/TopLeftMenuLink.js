@@ -1,17 +1,30 @@
 import React, { PropTypes, Component } from 'react';
-import shouldPureComponentUpdate from 'react-pure-render/function';
+import connectToStores from '../../utils/connectToStores';
+import ChatThreadStore from '../../stores/ChatThreadStore';
 
+function getState() {
+	const hasUnread = ChatThreadStore.hasUnread() || false;
+
+	return {
+		hasUnread
+	};
+}
+
+@connectToStores([ChatThreadStore], getState)
 export default class TopLeftMenuLink extends Component {
-	static propTypes = {};
-
-	shouldComponentUpdate = shouldPureComponentUpdate;
-
+	static propTypes = {
+		hasUnread: PropTypes.bool
+	};
+	
 	render() {
 		return (
 			<div className="col-30 left">
 				<a className="open-panel">
 					<span className="icon-menu"></span>
 				</a>
+				{this.props.hasUnread ? 
+					<span className="icon-circle"></span> : ''
+				}
 			</div>
 		);
 	}

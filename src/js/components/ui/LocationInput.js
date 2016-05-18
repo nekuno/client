@@ -23,7 +23,7 @@ export default class LocationInput extends Component {
         let locality = '', country = '';
         suggest.gmaps.address_components.forEach(function(component) {
             component.types.forEach(function(type) {
-                if (!locality && type === 'locality') {
+                if (!locality && (type === 'locality' || type === 'administrative_area_level_4')) {
                     locality = component.long_name;
                 }
                 if (!country && type === 'country') {

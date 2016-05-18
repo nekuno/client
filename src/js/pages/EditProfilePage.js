@@ -170,7 +170,7 @@ export default class EditProfilePage extends Component {
     renderField(dataArray, metadata, dataName) {
         let data = dataArray.hasOwnProperty(dataName) ? dataArray[dataName] : null;
         const selected = this.state.selectedEdit === dataName;
-        if (metadata[dataName].editable === false) {
+        if (!metadata.hasOwnProperty(dataName) || metadata[dataName].editable === false) {
             return '';
         }
         let props = {

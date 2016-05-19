@@ -21,6 +21,12 @@ export default {
         title  : 'Conecta con tu mundo',
         excerpt: 'Conecta tus redes sociales con Nekuno para mejorar los resultados de los contenidos recomendados.'
     },
+    EditProfilePage                  : {
+        title       : 'Editar perfil',
+        cancel      : 'Cancelar',
+        saveChanges : 'Guardar cambios',
+        cannotRemove: 'Este campo no se puede eliminar'
+    },
     HomePage                         : {
         title1       : 'Descubre contenidos de los temas que más te interesan',
         title2       : 'Conecta sólo con las personas más compatibles contigo',
@@ -116,11 +122,12 @@ export default {
         myProfile: 'Mi Perfil'
     },
     OtherUserPage                    : {
-        aboutOther: 'Sobre %username%',
-        questions : 'Respuestas',
-        interests : 'Intereses',
-        like      : 'Me gusta',
-        dontLike  : 'Ya no me gusta'
+        aboutOther  : 'Sobre %username%',
+        questions   : 'Respuestas',
+        interests   : 'Intereses',
+        like        : 'Me gusta',
+        dontLike    : 'Ya no me gusta',
+        confirmBlock: '¿Estás seguro de que quieres bloquear a este usuario?'
     },
     ////////////////
     // Components //
@@ -171,6 +178,9 @@ export default {
     },
     QuestionStatsInline              : {
         statistics: 'Estadísticas repuestas comunidad'
+    },
+    TopRightRecommendationIcons      : {
+        confirmDelete: '¿Estás seguro de que quieres borrar este hilo?'
     },
     ////////////////
     // Framework7 //

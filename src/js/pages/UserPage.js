@@ -2,7 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import { IMAGES_ROOT } from '../constants/Constants';
 import User from '../components/User';
 import ProfileDataList from '../components/profile/ProfileDataList'
-import LeftMenuTopNavbar from '../components/ui/LeftMenuTopNavbar';
+import UserTopNavbar from '../components/profile/UserTopNavbar';
 import ToolBar from '../components/ui/ToolBar';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
@@ -69,7 +69,7 @@ export default class UserPage extends Component {
         const picture = user.picture ? `${IMAGES_ROOT}media/cache/resolve/user_avatar_60x60/user/images/${user.picture}` : `${IMAGES_ROOT}media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
         return (
             <div className="view view-main">
-                <LeftMenuTopNavbar centerText={strings.myProfile}/>
+                <UserTopNavbar centerText={strings.myProfile}/>
                 <div className="page user-page">
                     {profile && stats ?
                         <div id="page-content">

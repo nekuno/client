@@ -18,6 +18,8 @@ body #root .App .view .page.threads-page  {
       .thread-first-image {
         background-color: $deep-purple;
         border-radius: 50%;
+        -moz-border-radius: 50%;
+        -webkit-border-radius: 50%;
         display: inline-block;
         height: 81px;
         position: relative;
@@ -27,6 +29,8 @@ body #root .App .view .page.threads-page  {
 
         img {
           border-radius: 50%;
+          -moz-border-radius: 50%;
+          -webkit-border-radius: 50%;
           height: 75px;
           margin-top: 3px;
           width: 75px;
@@ -67,6 +71,8 @@ body #root .App .view .page.threads-page  {
           .thread-image {
             background-color: #fff;
             border-radius: 50%;
+            -moz-border-radius: 50%;
+            -webkit-border-radius: 50%;
             display: inline-block;
             height: 32px;
             margin: 10px 10px 10px 0px;
@@ -75,6 +81,8 @@ body #root .App .view .page.threads-page  {
 
             img {
               border-radius: 50%;
+              -moz-border-radius: 50%;
+              -webkit-border-radius: 50%;
               height: 30px;
               margin-top: 1px;
               width: 30px;

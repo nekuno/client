@@ -110,6 +110,8 @@ body {
 				.icon-wrapper, .small-icon-wrapper {
 					background-color: $deep-purple;
 					border-radius: 50%;
+					-moz-border-radius: 50%;
+					-webkit-border-radius: 50%;
 					display: inline-block;
 					height: 35px;
 					text-align: center;

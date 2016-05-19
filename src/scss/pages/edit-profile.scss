@@ -1,85 +1,15 @@
 @import '../_partials/colors';
 
-body #root .App .view .page.create-thread-page  {
+body #root .App .view .page.edit-profile-page  {
   position: relative;
   z-index: 1111;
 
   #page-content {
-    .thread-title ul li input[type="text"] {
-      color: #fff;
-      font-size: 1.7em;
-      margin-bottom: 5px;
-    }
 
-    .persons-first-vertical-line {
-      border-left: 1px solid $green-alert;
-      height: 20%;
-      margin-left: 7px;
-      top: 120px;
-      position: absolute;
-    }
-    .persons-middle-vertical-line {
-      border-left: 1px solid $green-alert;
-      height: 45%;
-      margin-left: 7px;
-      margin-top: -10px;
-      position: absolute;
-    }
-    .persons-last-vertical-line {
-      border-left: 1px solid $green-alert;
-      bottom: 250px;
-      height: 20%;
-      margin-left: 7px;
-      position: absolute;
-    }
-    .opposite-vertical-line {
-      border-left: 2px solid $dark-purple;
-      margin-top: -22px;
-      height: 40%;
-      margin-left: 7px;
-      position: absolute;
-    }
-    .contents-first-vertical-line {
-      border-left: 1px solid $green-alert;
-      height: 15%;
-      margin-left: 7px;
-      top: 120px;
-      position: absolute;
-    }
-    .contents-middle-vertical-line {
-      border-left: 1px solid $green-alert;
-      height: 250px;
-      margin-left: 7px;
-      margin-top: -10px;
-      position: absolute;
-    }
-    .contents-last-vertical-line {
-      border-left: 1px solid $green-alert;
-      bottom: 250px;
-      height: 20%;
-      margin-left: 7px;
-      position: absolute;
-    }
-
-    .main-filter-wprapper, .users-filters-wrapper, .content-filters-wrapper {
-      display: table;
-      height: 100%;
-      width: 100%;
-    }
-
-    .users-filters-wrapper, .content-filters-wrapper {
-      .thread-filter {
-        height: 70px;
-      }
-      .radio-filter {
-        height: 90px;
-      }
-
-    }
     .radio-filter, .tags-and-choice-filter {
       .double-choice-filter, .tags-and-choice-choice {
         display: inline-block;
-        width: 90%;
+        width: 100%;
         vertical-align: middle;
 
         .list-block {
@@ -110,12 +40,13 @@ body #root .App .view .page.create-thread-page  {
       vertical-align: middle;
     }
 
-    .thread-filter {
+    .profile-field {
       display: table-row;
+      height: 70px;
 
-      .thread-filter-background {
+      .profile-field-background {
         background: $deep-purple-translucent;
-        height: 90%;
+        height: 25%;
         left: 0;
         margin-top: -15px;
         opacity: 0.5;
@@ -124,56 +55,22 @@ body #root .App .view .page.create-thread-page  {
         width: 100%;
         z-index: -2;
 
-        .thread-filter-remove {
+        .profile-field-remove {
           cursor: pointer;
           float: right;
           margin: -30px 2% 30px 0;
         }
       }
-      .thread-filter-dot {
-        color: $deep-purple;
-        display: inline-block;
-        margin-right: 15px;
-        width: 15px;
-        z-index: 111;
 
-        .icon-circle {
-          border: 2.5px solid $dark-blue;
-          box-shadow: 0 0 0 2.5px $dark-blue;
-          border-radius: 50%;
-          -moz-border-radius: 50%;
-          -webkit-border-radius: 50%;
-          font-size: 11px;
-          position: absolute;
-          margin-top: -10px;
-        }
-        .icon-plus {
-          border: 2.5px solid $deep-purple;
-          box-shadow: 0 0 0 2.5px $deep-purple;
-          border-radius: 50%;
-          -moz-border-radius: 50%;
-          -webkit-border-radius: 50%;
-          background-color: $deep-purple;
-          color: #fff;
-          font-size: 11px;
-          position: absolute;
-          margin-top: -10px;
-        }
-        .icon-circle.active {
-          color: $green-alert;
-          border: 2.5px solid $green-alert-translucent;
-          box-shadow: 0 0 0 2.5px $deep-purple-translucent;
-        }
-      }
       .text-radios {
         display: inline-block;
-        width: 90%;
+        width: 110%;
         padding: 0;
         z-index: 111;
       }
       .text-checkboxes {
         display: inline-block;
-        max-width: 90%;
+        max-width: 100%;
         padding: 0;
         text-align: left;
         vertical-align: middle;
@@ -185,9 +82,9 @@ body #root .App .view .page.create-thread-page  {
       }
     }
 
-    .thread-filter-opposite-background {
+    .profile-field-opposite-background {
       background: $dark-purple;
-      height: 60%;
+      height: 30%;
       left: 0;
       margin-top: 15px;
       padding: 40px 0;
@@ -207,7 +104,7 @@ body #root .App .view .page.create-thread-page  {
       .list-block {
         display: inline-block;
         margin: 0;
-        width: 80%;
+        width: 100%;
         vertical-align: middle;
 
         .item-title {
@@ -221,7 +118,7 @@ body #root .App .view .page.create-thread-page  {
         display: inline-block;
         margin: 0;
         vertical-align: middle;
-        width: 80%;
+        width: 100%;
 
         .integer-title, .tags-and-choice-title {
           font-size: 0.8em;
@@ -255,18 +152,18 @@ body #root .App .view .page.create-thread-page  {
       width: 100%;
     }
 
-    .location-tag-filter {
+    .location-tag-filter, .birthday-filter {
 
-      .location-filter-wrapper {
+      .location-filter-wrapper, .birthday-filter-wrapper {
         display: inline-block;
-        width: 90%;
+        width: 110%;
         vertical-align: middle;
 
         .list-block {
           display: inline-block;
           margin: 0 0 0 15px;
           vertical-align: middle;
-          width: 80%;
+          width: 100%;
 
           .location-title {
             font-size: 0.8em;
@@ -304,7 +201,7 @@ body #root .App .view .page.create-thread-page  {
             .label-checkbox {
               .item-inner {
                 .item-title {
-                  width: 80%;
+                  width: 100%;
                 }
               }
             }
@@ -351,7 +248,7 @@ body #root .App .view .page.create-thread-page  {
     }
 
     @media only screen and (min-width: 360px) and (max-width: 375px) {
-      .thread-filter {
+      .profile-field {
         .text-radios .chip {
           max-width: 265px;
         }
@@ -362,7 +259,7 @@ body #root .App .view .page.create-thread-page  {
     }
 
     @media only screen and (min-width: 340px) and (max-width: 359px) {
-      .thread-filter {
+      .profile-field {
         .text-radios {
           max-width: 255px;
         }
@@ -373,7 +270,7 @@ body #root .App .view .page.create-thread-page  {
     }
 
     @media only screen and (max-width: 339px) {
-      .thread-filter {
+      .profile-field {
         .text-radios {
           max-width: 220px;
         }

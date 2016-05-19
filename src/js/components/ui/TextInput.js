@@ -4,7 +4,8 @@ import shouldPureComponentUpdate from 'react-pure-render/function';
 export default class TextInput extends Component {
 
     static propTypes = {
-        placeholder: PropTypes.string.isRequired
+        placeholder: PropTypes.string.isRequired,
+        defaultValue: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
     };
 
     constructor() {
@@ -25,7 +26,8 @@ export default class TextInput extends Component {
                 <div className="item-content">
                     <div className="item-inner">
                         <div className="item-input">
-                            <input {...this.props} ref="input" type="text" placeholder={this.props.placeholder} onFocus={this.onFocusHandler}/>
+                            <input {...this.props} ref="input" type="text"
+                                   onFocus={this.onFocusHandler}/>
                         </div>
                     </div>
                 </div>

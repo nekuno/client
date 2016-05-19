@@ -3,13 +3,21 @@
 	text-align: center;
 
 	.user-image {
-		margin: auto;
-		width: 25%;
+		background: white;
+		border-radius: 50%;
+		-moz-border-radius: 50%;
+		-webkit-border-radius: 50%;
+		height: 79px;
+		margin: 10px auto 10px;
+		width: 79px;
 
 		img {
 			border-radius: 50%;
-			height: auto;
-			width: 100%;
+			-moz-border-radius: 50%;
+			-webkit-border-radius: 50%;
+			height: 75px;
+			margin-top: 2px;
+			width: 75px;
 		}
 	}
 }
@@ -27,6 +35,8 @@
 .user-image-wrapper {
 	background-color: #fff;
 	border-radius: 50%;
+	-moz-border-radius: 50%;
+	-webkit-border-radius: 50%;
 	height: 64px;
 	margin: auto;
 	width: 64px;
@@ -37,6 +47,8 @@
 		width: 60px;
 		img {
 			border-radius: 50%;
+			-moz-border-radius: 50%;
+			-webkit-border-radius: 50%;
 			height: 60px;
 			vertical-align: text-top;;
 			width: 60px;

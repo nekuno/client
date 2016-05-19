@@ -73,9 +73,13 @@ body #root .App .view .page.user-page {
           margin-top: 5px;
           margin-bottom: 5px;
           border-radius: 5px;
+          -moz-border-radius: 5px;
+          -webkit-border-radius: 5px;
         }
         [class^="progress-bar"], [class*=" progress-bar-"] {
           border-radius: 5px;
+          -moz-border-radius: 5px;
+          -webkit-border-radius: 5px;
         }
       }
     }

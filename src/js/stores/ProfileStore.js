@@ -3,6 +3,8 @@ import { createStore, mergeIntoBag, isInBag } from '../utils/StoreUtils';
 import UserStore from '../stores/UserStore';
 import LoginStore from '../stores/LoginStore';
 import ActionTypes from '../constants/ActionTypes';
+import * as UserActionCreators from '../actions/UserActionCreators';
+import * as ThreadActionCreators from '../actions/ThreadActionCreators';
 import selectn from 'selectn';
 
 let _profiles = {};
@@ -109,6 +111,92 @@ const ProfileStore = createStore({
         return profile;
     },
 
+    getMetadataLabel(filter, data) {
+        let text, address, choice, choiceLabel, detail, textArray, tags;
+        switch (filter.type) {
+            case 'location':
+                address = data && data && data.address ? data.address : data  && data.location ? data.location : '';
+                return address ? filter.label + ' - ' + address : filter.label;
+            case 'integer_range':
+                text = filter.label;
+                text += data && data.min ? ' - Min: ' + data.min : '';
+                text += data && data.max ? ' - Max: ' + data.max : '';
+                return text;
+            case 'birthday_range':
+                text = filter.label;
+                text += data && data.min ? ' - Min: ' + data.min : '';
+                text += data && data.max ? ' - Max: ' + data.max : '';
+                return text;
+            case 'birthday':
+                text = filter.label;
+                text += data? ' -  ' + data : '';
+                return text;
+            case 'textarea':
+                text = filter.label;
+                text += data? ' -  ' + data : '';
+                return text;
+            case 'integer':
+                text = filter.label;
+                text += data ? ' - ' + data : '';
+                return text;
+            case 'choice':
+                choiceLabel = filter.choices[data];
+                return choiceLabel ? filter.label + ' - ' + choiceLabel : filter.label;
+            case 'double_choice':
+                choice = filter.choices[Object.keys(filter.choices).find(key => key === data.choice)];
+                detail = data.detail ? filter.doubleChoices[data.choice][Object.keys(filter.doubleChoices[data.choice]).find(key => key === data.detail)] : '';
+                return choice ? filter.label + ' - ' + choice + ' ' + detail : filter.label;
+            case 'multiple_choices':
+                data = data || [];
+                textArray = data.map(value => filter.choices[value]);
+                return textArray.length > 0 ? filter.label + ' - ' + textArray.join(', ') : filter.label;
+            case 'double_multiple_choices':
+                data = data || [];
+                textArray = data.map(value => value.detail && filter.doubleChoices[value.choice][value.detail] ? filter.choices[value.choice] + ' ' + filter.doubleChoices[value.choice][value.detail] : filter.choices[value.choice]);
+                return textArray.length > 0 ? filter.label + ' - ' + textArray.join(', ') : filter.label;
+            case 'tags':
+                return data && data.length > 0 ? filter.label + ' - ' + data.join(', ') : filter.label;
+            case 'tags_and_choice':
+                return data && data.length > 0 ? filter.label + ' - ' + data.map(value => value.choice ? value.tag + ' ' + filter.choices[value.choice] : value.tag).join(', ') : filter.label;
+            case 'tags_and_multiple_choices':
+                return data && data.length > 0 ? filter.label + ' - ' + data.map(value => value.choices ? value.tag + ' ' + value.choices.map(choice => filter.choices[choice]['es']).join(', ') : value.tag).join(', ') : filter.label;
+
+        }
+
+        return '';
+    },
+
+    isProfileSet(field, data) {
+        switch (field.type) {
+            case 'location':
+                return data  && (data.address || data.location);
+            case 'integer_range':
+                return data && (data.min || data.max);
+            case 'birthday':
+                return data;
+            case 'textarea':
+                return data;
+            case 'integer':
+                return !!data;
+            case 'choice':
+                return !!data;
+            case 'double_choice':
+                return !!data.choice;
+            case 'multiple_choices':
+                return data && data.length > 0;
+            case 'double_multiple_choices':
+                return data && data.length > 0;
+            case 'tags':
+                return data && data.length > 0;
+            case 'tags_and_choice':
+                return data && data.length > 0;
+            case 'tags_and_multiple_choices':
+                return data && data.length > 0;
+            default:
+                return false;
+        }
+    },
+
     locationToString(location) {
 
         const locality = selectn('locality', location);
@@ -139,6 +227,11 @@ ProfileStore.dispatchToken = register(action => {
             ProfileStore.emitChange();
             break;
         case ActionTypes.EDIT_PROFILE_SUCCESS:
+            const currentProfile = _profiles[LoginStore.user.id];
+            if (currentProfile.interfaceLanguage !== action.data.interfaceLanguage){
+                UserActionCreators.requestMetadata();
+                ThreadActionCreators.requestFilters();
+            }
             _profiles[LoginStore.user.id]=action.data;
             break;
         default:

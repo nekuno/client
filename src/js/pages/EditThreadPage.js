@@ -43,7 +43,7 @@ function getState(props) {
 
 @AuthenticatedComponent
 @connectToStores([ThreadStore, FilterStore, TagSuggestionsStore], getState)
-export default class CreateThreadPage extends Component {
+export default class EditThreadPage extends Component {
     static propTypes = {
         filters: PropTypes.object,
         tags: PropTypes.array,

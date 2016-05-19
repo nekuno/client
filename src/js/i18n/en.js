@@ -21,6 +21,12 @@ export default {
         title  : 'Connect to your world',
         excerpt: 'Connect your social networks with Nekuno to improve the results of the recommended content.'
     },
+    EditProfilePage                  : {
+        title       : 'Edit profile',
+        cancel      : 'Cancel',
+        saveChanges : 'Save changes',
+        cannotRemove: 'This field cannot be deleted'
+    },
     HomePage                         : {
         title1       : 'Discover contents of the topics that interest you',
         title2       : 'Connect only with most compatible people with you',
@@ -116,11 +122,12 @@ export default {
         myProfile: 'My profile'
     },
     OtherUserPage                    : {
-        aboutOther: 'About %username%',
-        questions : 'Answers',
-        interests : 'Interests',
-        like      : 'Like',
-        dontLike  : 'Don\'t like anymore'
+        aboutOther  : 'About %username%',
+        questions   : 'Answers',
+        interests   : 'Interests',
+        like        : 'Like',
+        dontLike    : 'Don\'t like anymore',
+        confirmBlock: 'Are you sure you want to block this user?'
     },
     ////////////////
     // Components //
@@ -144,10 +151,10 @@ export default {
         seeMore: 'See more'
     },
     AcceptedAnswersImportance        : {
-        title     : 'Do you mind the user response?',
+        title     : 'This answer matters to me:',
         irrelevant: 'Irrelevant',
-        few       : 'Little bit',
-        normal    : 'Normal',
+        few       : 'A little',
+        normal    : 'Somewhat',
         aLot      : 'A lot',
         alert     : 'Mark your answer and one or more options in the second column to indicate what would you like to answer another user'
     },
@@ -163,14 +170,17 @@ export default {
     },
     QuestionStats                    : {
         yourAnswer: 'Your answer',
-        statistics: 'Statistics answers community'
+        statistics: 'Community answer statistics'
     },
     QuestionStatsGraph               : {
         females: 'Girls',
         males  : 'Boys'
     },
     QuestionStatsInline              : {
-        statistics: 'Statistics answers community'
+        statistics: 'Community answer statistics'
+    },
+    TopRightRecommendationIcons      : {
+        confirmDelete: 'Are you sure you want to delete this thread?'
     },
     ////////////////
     // Framework7 //

@@ -44,7 +44,7 @@ function requestData(props) {
     if (!ComparedStatsStore.contains(parseId(user), otherUserId)) {
         UserActionCreators.requestComparedStats(parseId(user), otherUserId);
     }
-    
+
     UserActionCreators.requestUser(otherUserId, ['username', 'email', 'picture', 'status']);
     UserActionCreators.requestProfile(otherUserId);
     UserActionCreators.requestMetadata();
@@ -64,7 +64,6 @@ function getState(props) {
     const block = BlockStore.get(parseId(user), otherUserId);
     const like = LikeStore.get(parseId(user), otherUserId);
     const comparedStats = ComparedStatsStore.get(parseId(user), otherUserId);
-    
 
     return {
         otherUser,
@@ -80,7 +79,9 @@ function getState(props) {
 
 function setBlockUser(props) {
     const {user, otherUser} = props;
-    UserActionCreators.blockUser(parseId(user), parseId(otherUser));
+    nekunoApp.confirm(props.strings.confirmBlock, () => {
+        UserActionCreators.blockUser(parseId(user), parseId(otherUser));
+    });
 }
 
 function unsetBlockUser(props) {
@@ -104,20 +105,20 @@ function unsetLikeUser(props) {
 export default class OtherUserPage extends Component {
     static propTypes = {
         // Injected by React Router:
-        params  : PropTypes.shape({
+        params       : PropTypes.shape({
             userId: PropTypes.string.isRequired
         }).isRequired,
         // Injected by @AuthenticatedComponent
-        user    : PropTypes.object,
+        user         : PropTypes.object,
         // Injected by @translate:
-        strings : PropTypes.object,
+        strings      : PropTypes.object,
         // Injected by @connectToStores:
-        otherUser: PropTypes.object,
-        profile: PropTypes.object,
-        matching: PropTypes.number,
-        similarity: PropTypes.number,
-        block: PropTypes.bool,
-        like: PropTypes.bool,
+        otherUser    : PropTypes.object,
+        profile      : PropTypes.object,
+        matching     : PropTypes.number,
+        similarity   : PropTypes.number,
+        block        : PropTypes.bool,
+        like         : PropTypes.bool,
         comparedStats: PropTypes.object
     };
     static contextTypes = {
@@ -195,7 +196,7 @@ export default class OtherUserPage extends Component {
                             <br />
                             <br />
                             <br />
-                        </div> 
+                        </div>
                         : ''}
                 </div>
 
@@ -212,10 +213,11 @@ export default class OtherUserPage extends Component {
 
 OtherUserPage.defaultProps = {
     strings: {
-        aboutOther: 'About %username%',
-        questions : 'Answers',
-        interests : 'Interests',
-        like      : 'Like',
-        dontLike  : 'Don\'t like anymore'
+        aboutOther  : 'About %username%',
+        questions   : 'Answers',
+        interests   : 'Interests',
+        like        : 'Like',
+        dontLike    : 'Don\'t like anymore',
+        confirmBlock: 'Are you sure you want to block this user?'
     }
 };

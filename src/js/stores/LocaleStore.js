@@ -1,5 +1,7 @@
 import ActionTypes from '../constants/ActionTypes';
 import BaseStore from './BaseStore';
+import ProfileStore from './ProfileStore';
+import LoginStore from './LoginStore';
 
 class LocaleStore extends BaseStore {
 
@@ -10,15 +12,12 @@ class LocaleStore extends BaseStore {
         let locale = localStorage.getItem('locale');
         if (locale) {
             this._locale = locale;
+        } else if (LoginStore.user && ProfileStore.contains(LoginStore.user.id) && ProfileStore.get(LoginStore.user.id).interfaceLanguage) {
+            this.locale = ProfileStore.get(LoginStore.user.id).interfaceLanguage;
         } else if (navigator.languages && navigator.languages.length > 0) {
-            let locale = navigator.languages[0];
-            if (locale.startsWith('es')) {
-                this._locale = 'es';
-            }
+            this.locale = navigator.languages[0];
         } else if (navigator.language) {
-            if (navigator.language.startsWith('es')) {
-                this._locale = 'es';
-            }
+            this.locale = navigator.language;
         }
     }
 
@@ -39,6 +38,16 @@ class LocaleStore extends BaseStore {
 
     get locale() {
         return this._locale;
+    }
+
+    set locale(locale) {
+        if (locale.startsWith('es')) {
+            this._locale = 'es';
+        }
+    }
+
+    isCurrentLocale(locale) {
+        return locale === this._locale;
     }
 
 }

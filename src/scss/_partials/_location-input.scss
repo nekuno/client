@@ -49,6 +49,8 @@
 			background: $purple;
 			margin-top: 5px;
 			border-radius: 20px;
+			-moz-border-radius: 20px;
+			-webkit-border-radius: 20px;
 			padding: 0 10px;
 			width: 80%;
 
@@ -64,6 +66,8 @@
 					height: 32px;
 					line-height: 32px;
 					border-radius: 16px;
+					-moz-border-radius: 16px;
+					-webkit-border-radius: 16px;
 					padding: 0 12px;
 					box-sizing: border-box;
 					vertical-align: middle;

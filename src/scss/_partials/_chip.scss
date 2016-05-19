@@ -1,34 +1,36 @@
 .chip {
-    font-weight: 400;
-    background: $deep-purple;
-    display: inline-block;
-    height: 32px;
-    line-height: 32px;
-    border-radius: 16px;
-    padding: 0 12px;
-    box-sizing: border-box;
-    vertical-align: middle;
-    display: -webkit-inline-box;
-    display: -ms-inline-flexbox;
-    display: -webkit-inline-flex;
-    display: inline-flex;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    -webkit-align-items: center;
-    align-items: center;
-    margin: 2px 0;
-    
-    .chip-label {
-		white-space: nowrap;
-		overflow: hidden;
-		text-overflow: ellipsis;
-		position: relative;
-		-webkit-box-flex: 1;
-		-webkit-flex-shrink: 1;
-		-ms-flex: 0 1 auto;
-		flex-shrink: 1;
-		min-width: 0;
-	}
+  font-weight: 400;
+  background: $deep-purple;
+  display: inline-block;
+  height: 32px;
+  line-height: 32px;
+  border-radius: 16px;
+  -moz-border-radius: 16px;
+  -webkit-border-radius: 16px;
+  padding: 0 12px;
+  box-sizing: border-box;
+  vertical-align: middle;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: -webkit-inline-flex;
+  display: inline-flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+  margin: 2px 0;
+
+  .chip-label {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    position: relative;
+    -webkit-box-flex: 1;
+    -webkit-flex-shrink: 1;
+    -ms-flex: 0 1 auto;
+    flex-shrink: 1;
+    min-width: 0;
+  }
 }
 
 .chip.disabled-chip {
@@ -38,18 +40,23 @@
 .chip-1 {
   width: 99%;
 }
+
 .chip-2 {
   width: 49%;
 }
+
 .chip-3 {
   width: 33%;
 }
+
 .chip-4 {
   width: 49%;
 }
+
 .chip-5 {
   width: 33%;
 }
+
 .chip-6 {
   width: 33%;
 }

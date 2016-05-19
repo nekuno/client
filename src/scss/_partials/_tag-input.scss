@@ -39,6 +39,8 @@
     cursor: pointer;
     margin-top: 5px;
     border-radius: 20px;
+    -moz-border-radius: 20px;
+    -webkit-border-radius: 20px;
     padding: 0 10px;
     position: absolute;
     z-index: 2;

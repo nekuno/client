@@ -1,4 +1,6 @@
-.list-block ul li.date-item {
+.list-block li.date-item {
+	list-style-type: none;
+
 	.item-content.date-content {
 		.date-label {
 			width: 50%;

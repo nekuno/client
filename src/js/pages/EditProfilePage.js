@@ -231,7 +231,7 @@ export default class EditProfilePage extends Component {
         return (
             <div className="view view-main">
                 <RegularTopNavbar centerText={strings.title} leftText={strings.cancel}/>
-                <div className="page">
+                <div className="page edit-profile-page">
                     <div id="page-content">
                         <div className="user-block">
                             <div className="user-image">
@@ -241,17 +241,23 @@ export default class EditProfilePage extends Component {
                         {
                             profile && metadata && filters ? Object.keys(profile).map(profileName => {
                                 return this.renderField(profile, metadata, profileName);
-                            }) : ''
+                            }) : null
                         }
                         {
                             profile && metadata && filters ? Object.keys(metadata).map(metadataName => {
                                 if (profile.hasOwnProperty(metadataName)) {
-                                    return '';
+                                    return null;
                                 }
                                 return this.renderField([], metadata, metadataName);
-                            }) : ''
+                            }) : null
                         }
+                        <br />
                         <FullWidthButton onClick={this.saveProfile}> {strings.saveChanges} </FullWidthButton>
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+                        <br />
                     </div>
                 </div>
             </div>

@@ -40,8 +40,8 @@ export default class BirthdayEdit extends Component {
         const {editKey, selected, metadata, data, handleClickRemoveEdit, handleClickEdit} = this.props;
         return(
             selected ?
-                <SelectedEdit key={'selected-filter'} ref={'selectedEdit'} type={'location-tag'} addedClass={'tag-filter'} plusIcon={true} handleClickRemoveEdit={handleClickRemoveEdit}>
-                    <div className="location-filter-wrapper">
+                <SelectedEdit key={'selected-filter'} ref={'selectedEdit'} type={'birthday'} addedClass={'tag-filter'} handleClickRemoveEdit={handleClickRemoveEdit}>
+                    <div className="birthday-filter-wrapper">
                         <div className="list-block">
                             <DateInput ref={editKey} label={metadata.label} defaultValue={data} onChange={this.onChangeValue}/>
                         </div>

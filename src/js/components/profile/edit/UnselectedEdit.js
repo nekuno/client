@@ -13,7 +13,7 @@ export default class UnselectedEdit extends Component {
     render() {
         const {editKey, metadata, data} = this.props;
         return(
-            <div className="thread-filter">
+            <div className="profile-field">
                 <TextCheckboxes labels={[{key: editKey, text: ProfileStore.getMetadataLabel(metadata, data)}]}
                                 onClickHandler={this.handleClickEdit.bind(this, editKey)}
                                 values={ProfileStore.isProfileSet(metadata, data) ? [editKey] : []} />

@@ -20,7 +20,7 @@ export default class SelectedEdit extends Component {
     
     render() {
         const {type, addedClass, children} = this.props;
-        const className = addedClass ? addedClass + ' thread-filter ' + type + '-filter' : 'thread-filter ' + type + '-filter';
+        const className = addedClass ? addedClass + ' profile-field ' + type + '-filter' : 'profile-field ' + type + '-filter';
         return(
             <div className={className} ref={'selectedEdit'}>
                 {this.renderSelectedEditBackground()}
@@ -33,8 +33,8 @@ export default class SelectedEdit extends Component {
 
     renderSelectedEditBackground() {
         return (
-            <div className="thread-filter-background">
-                <div className="thread-filter-remove" onClick={this.handleClickRemoveEdit.bind(this)}>
+            <div className="profile-field-background">
+                <div className="profile-field-remove" onClick={this.handleClickRemoveEdit.bind(this)}>
                     <div className="small-icon-wrapper">
                         <span className="icon-delete"></span>
                     </div>
@@ -45,7 +45,7 @@ export default class SelectedEdit extends Component {
 
     renderSelectedEditOppositeBackground = function() {
         return (
-            <div className="thread-filter-opposite-background"></div>
+            <div className="profile-field-opposite-background"></div>
         );
     };
 

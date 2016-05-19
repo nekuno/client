@@ -5,7 +5,7 @@ export default class TextInput extends Component {
 
     static propTypes = {
         placeholder: PropTypes.string.isRequired,
-        defaultValue: PropTypes.string
+        defaultValue: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
     };
 
     constructor() {

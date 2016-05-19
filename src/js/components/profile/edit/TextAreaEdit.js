@@ -43,7 +43,9 @@ export default class TextAreaEdit extends Component {
                 <SelectedEdit key={'selected-filter'} ref={'selectedEdit'} type={'location-tag'} addedClass={'tag-filter'} plusIcon={true} handleClickRemoveEdit={handleClickRemoveEdit}>
                     <div className="location-filter-wrapper">
                         <div className="list-block">
-                            <TextInput placeholder={metadata.label} ref={editKey} label={metadata.label} defaultValue={data} onChange={this.onChangeValue}/>
+                            <ul>
+                                <TextInput placeholder={metadata.label} ref={editKey} label={metadata.label} defaultValue={data} onChange={this.onChangeValue}/>
+                            </ul>
                         </div>
                     </div>
                 </SelectedEdit>

@@ -166,8 +166,8 @@ const ProfileStore = createStore({
         return '';
     },
 
-    isProfileSet(filter, data) {
-        switch (filter.type) {
+    isProfileSet(field, data) {
+        switch (field.type) {
             case 'location':
                 return data  && (data.address || data.location);
             case 'integer_range':
@@ -179,7 +179,7 @@ const ProfileStore = createStore({
             case 'integer':
                 return !!data;
             case 'choice':
-                return !!data.choice;
+                return !!data;
             case 'double_choice':
                 return !!data.choice;
             case 'multiple_choices':

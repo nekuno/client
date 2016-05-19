@@ -5,7 +5,6 @@ export default class SelectedEdit extends Component {
         children: PropTypes.object,
         type: PropTypes.string.isRequired,
         addedClass: PropTypes.string,
-        active: PropTypes.bool,
         plusIcon: PropTypes.bool,
         handleClickRemoveEdit: PropTypes.func.isRequired
     };

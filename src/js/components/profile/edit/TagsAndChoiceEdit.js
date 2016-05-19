@@ -1,10 +1,22 @@
-/** TODO : Not used yet but useful for editing profile **/
 import React, { PropTypes, Component } from 'react';
 import SelectedEdit from './SelectedEdit';
 import UnselectedEdit from './UnselectedEdit';
 import TagInput from '../../ui/TagInput';
 import TextRadios from '../../ui/TextRadios';
 import TextCheckboxes from '../../ui/TextCheckboxes';
+import * as TagSuggestionsActionCreators from '../../../actions/TagSuggestionsActionCreators';
+
+function requestTagSuggestions(search, type = null) {
+    if (type === null) {
+        TagSuggestionsActionCreators.requestContentTagSuggestions(search);
+    } else {
+        TagSuggestionsActionCreators.requestProfileTagSuggestions(search, type);
+    }
+}
+
+function resetTagSuggestions() {
+    TagSuggestionsActionCreators.resetTagSuggestions();
+}
 
 export default class TagsAndChoiceEdit extends Component {
     static propTypes = {
@@ -14,7 +26,8 @@ export default class TagsAndChoiceEdit extends Component {
         data: PropTypes.array.isRequired,
         handleClickRemoveEdit: PropTypes.func.isRequired,
         handleChangeEdit: PropTypes.func.isRequired,
-        handleClickEdit: PropTypes.func.isRequired
+        handleClickEdit: PropTypes.func.isRequired,
+        tags: PropTypes.array
     };
     
     constructor(props) {
@@ -28,8 +41,7 @@ export default class TagsAndChoiceEdit extends Component {
         this.handleClickTagAndChoiceChoice = this.handleClickTagAndChoiceChoice.bind(this);
         
         this.state = {
-            selectedTagAndChoice: {},
-            tagSuggestions: []
+            selectedTagAndChoice: {}
         };
     }
 
@@ -54,9 +66,9 @@ export default class TagsAndChoiceEdit extends Component {
             selectedTagAndChoice = {tag: tagString, index: data.length};
             data.push(selectedTagAndChoice);
         }
+        resetTagSuggestions();
         this.setState({
-            selectedTagAndChoice: selectedTagAndChoice,
-            tagSuggestions: []
+            selectedTagAndChoice: selectedTagAndChoice
         });
         this.props.handleChangeEdit(editKey, data);
     }
@@ -111,29 +123,26 @@ export default class TagsAndChoiceEdit extends Component {
     }
 
     handleKeyUpTagAndChoiceTag(tag) {
+        let {editKey} = this.props;
         if (tag.length > 2) {
-            // TODO: Call get tags action and save in store
-            // TODO: Replace this example setting the tagSuggestions in getState method as props
-            console.log(tag);
-            this.setState({
-                tagSuggestions: [tag, tag + '2', tag + '3']
-            });
+            requestTagSuggestions(tag, editKey);
         } else {
-            this.setState({
-                tagSuggestions: []
-            });
+            resetTagSuggestions();
         }
     }
 
     render() {
-        let {editKey, selected, metadata, data, handleClickRemoveEdit, handleClickEdit} = this.props;
-        const {tagSuggestions, selectedTagAndChoice} = this.state;
+        let {editKey, selected, metadata, data, tags, handleClickRemoveEdit, handleClickEdit} = this.props;
+        const {selectedTagAndChoice} = this.state;
         data = data || [];
+        if (this.refs.hasOwnProperty('tagInput') && !tags.some(tag => tag.name === this.refs.tagInput.getValue())) {
+            tags.push({name: this.refs.tagInput.getValue()});
+        }
         return(
             selected ?
                 <SelectedEdit key={'selected-filter'} ref={'selectedEdit'} type={'tags-and-choice'} active={data && data.some(value => value.tag !== '')} handleClickRemoveEdit={handleClickRemoveEdit}>
                     <div className="tags-and-choice-wrapper">
-                        <TagInput ref={'tagInput'} placeholder={'Escribe un tag'} tags={tagSuggestions} value={selectedTagAndChoice.tag}
+                        <TagInput ref={'tagInput'} placeholder={'Escribe un tag'} tags={tags.map(tag => tag.name)} value={selectedTagAndChoice.tag}
                                   onKeyUpHandler={this.handleKeyUpTagAndChoiceTag} onClickTagHandler={this.handleClickTagAndChoiceTagSuggestion}
                                   title={metadata.label} />
                         {selectedTagAndChoice.tag ?

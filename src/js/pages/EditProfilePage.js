@@ -8,7 +8,7 @@ import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
 import ProfileStore from '../stores/ProfileStore';
 import FilterStore from '../stores/FilterStore';
-import TagSuggestionStore from '../stores/TagSuggestionsStore';
+import TagSuggestionsStore from '../stores/TagSuggestionsStore';
 import ChoiceEdit from '../components/profile/edit/ChoiceEdit';
 import LocationEdit from '../components/profile/edit/LocationEdit';
 import IntegerEdit from '../components/profile/edit/IntegerEdit';
@@ -43,7 +43,7 @@ function getState(props) {
     const profile = ProfileStore.get(parseId(user));
     const metadata = ProfileStore.getMetadata();
     const filters = FilterStore.filters;
-    const tags = TagSuggestionStore.tags;
+    const tags = TagSuggestionsStore.tags;
 
     return {
         profile,
@@ -55,7 +55,7 @@ function getState(props) {
 
 @AuthenticatedComponent
 @translate('EditProfilePage')
-@connectToStores([ProfileStore, FilterStore, TagSuggestionStore], getState)
+@connectToStores([ProfileStore, FilterStore, TagSuggestionsStore], getState)
 export default class EditProfilePage extends Component {
     static propTypes = {
         // Injected by @connectToStores:
@@ -197,6 +197,7 @@ export default class EditProfilePage extends Component {
             case 'tags_and_choice':
                 props.data = data ? data : [];
                 props.handleChangeEdit = this.handleChangeEdit;
+                props.tags = this.props.tags;
                 return <TagsAndChoiceEdit {...props}/>;
             case 'multiple_choices':
                 props.data = data ? data : [];
@@ -252,7 +253,11 @@ export default class EditProfilePage extends Component {
                             }) : null
                         }
                         <br />
-                        <FullWidthButton onClick={this.saveProfile}> {strings.saveChanges} </FullWidthButton>
+                        {
+                            profile && metadata && filters ? 
+                                <FullWidthButton onClick={this.saveProfile}> {strings.saveChanges} </FullWidthButton>
+                                    : null
+                        }
                         <br />
                         <br />
                         <br />

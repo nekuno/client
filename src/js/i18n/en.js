@@ -151,10 +151,10 @@ export default {
         seeMore: 'See more'
     },
     AcceptedAnswersImportance        : {
-        title     : 'Do you mind the user response?',
+        title     : 'This answer matters to me:',
         irrelevant: 'Irrelevant',
-        few       : 'Little bit',
-        normal    : 'Normal',
+        few       : 'A little',
+        normal    : 'Somewhat',
         aLot      : 'A lot',
         alert     : 'Mark your answer and one or more options in the second column to indicate what would you like to answer another user'
     },
@@ -170,14 +170,14 @@ export default {
     },
     QuestionStats                    : {
         yourAnswer: 'Your answer',
-        statistics: 'Statistics answers community'
+        statistics: 'Community answer statistics'
     },
     QuestionStatsGraph               : {
         females: 'Girls',
         males  : 'Boys'
     },
     QuestionStatsInline              : {
-        statistics: 'Statistics answers community'
+        statistics: 'Community answer statistics'
     },
     TopRightRecommendationIcons      : {
         confirmDelete: 'Are you sure you want to delete this thread?'

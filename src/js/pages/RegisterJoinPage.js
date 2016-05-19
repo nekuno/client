@@ -74,15 +74,15 @@ export default class RegisterJoinPage extends Component {
         validUsername: PropTypes.bool
     };
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.onUsernameChange = this.onUsernameChange.bind(this);
         this.onClickGender = this.onClickGender.bind(this);
         this.onClickDescriptiveGender = this.onClickDescriptiveGender.bind(this);
         this.onSuggestSelect = this.onSuggestSelect.bind(this);
         this.onClickShowDescriptiveGender = this.onClickShowDescriptiveGender.bind(this);
         this.state = {
-            gender               : '',
+            gender               : props.profile ? props.profile.gender : null,
             location             : {},
             descriptiveGender    : [],
             showDescriptiveGender: false
@@ -206,7 +206,7 @@ export default class RegisterJoinPage extends Component {
                         <TextRadios title={strings.include} labels={[
 						{key: 'male', text: strings.male},
 						{key: 'female', text: strings.female}
-					]} onClickHandler={this.onClickGender} value={profile ? profile.gender : null}/>
+					]} onClickHandler={this.onClickGender} value={this.state.gender}/>
                         <div style={{textAlign: 'center', marginBottom: '20px'}}>
                             <a onClick={this.onClickShowDescriptiveGender}>{ this.state.showDescriptiveGender ? strings.hideDescriptiveGender : strings.showDescriptiveGender}</a>
                         </div>

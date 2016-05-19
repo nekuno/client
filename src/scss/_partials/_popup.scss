@@ -23,6 +23,8 @@
 			.icons-large-wrapper {
 				background-color: $deep-purple;
 				border-radius: 50%;
+				-moz-border-radius: 50%;
+				-webkit-border-radius: 50%;
 				cursor: pointer;
 				display: inline-block;
 				height: 90px;

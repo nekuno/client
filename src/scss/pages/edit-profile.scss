@@ -225,6 +225,8 @@ body #root .App .view .page.edit-profile-page  {
         height: 60px;
         line-height: 60px;
         border-radius: 30px;
+        -moz-border-radius: 30px;
+        -webkit-border-radius: 30px;
         padding: 0 24px;
         box-sizing: border-box;
         vertical-align: middle;

@@ -141,6 +141,8 @@ body #root .App .view .page.create-thread-page  {
           border: 2.5px solid $dark-blue;
           box-shadow: 0 0 0 2.5px $dark-blue;
           border-radius: 50%;
+          -moz-border-radius: 50%;
+          -webkit-border-radius: 50%;
           font-size: 11px;
           position: absolute;
           margin-top: -10px;
@@ -149,6 +151,8 @@ body #root .App .view .page.create-thread-page  {
           border: 2.5px solid $deep-purple;
           box-shadow: 0 0 0 2.5px $deep-purple;
           border-radius: 50%;
+          -moz-border-radius: 50%;
+          -webkit-border-radius: 50%;
           background-color: $deep-purple;
           color: #fff;
           font-size: 11px;
@@ -324,6 +328,8 @@ body #root .App .view .page.create-thread-page  {
         height: 60px;
         line-height: 60px;
         border-radius: 30px;
+        -moz-border-radius: 30px;
+        -webkit-border-radius: 30px;
         padding: 0 24px;
         box-sizing: border-box;
         vertical-align: middle;

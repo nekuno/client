@@ -67,22 +67,20 @@ RecommendationStore.dispatchToken = register(action => {
 
     waitFor([ThreadStore.dispatchToken]);
 
+    const { to } = action;
+
     switch (action.type) {
         case ActionTypes.LIKE_USER_SUCCESS:
-            const { to_likeuser } = action;
-            _userRecommendations = setLikedUser(to_likeuser, _userRecommendations);
+            _userRecommendations = setLikedUser(to, _userRecommendations);
             break;
         case ActionTypes.UNLIKE_USER_SUCCESS:
-            const { to_unlikeuser } = action;
-            _userRecommendations = setUnlikedUser(to_unlikeuser, _userRecommendations);
+            _userRecommendations = setUnlikedUser(to, _userRecommendations);
             break;
         case ActionTypes.LIKE_CONTENT_SUCCESS:
-            const { to_likecontent } = action;
-            _contentRecommendations = setLikedContent(to_likecontent, _contentRecommendations);
+            _contentRecommendations = setLikedContent(to, _contentRecommendations);
             break;
         case ActionTypes.UNLIKE_CONTENT_SUCCESS:
-            const { to_unlikecontent } = action;
-            _contentRecommendations = setUnlikedContent(to_unlikecontent, _contentRecommendations);
+            _contentRecommendations = setUnlikedContent(to, _contentRecommendations);
             break;
         case ActionTypes.UPDATE_THREAD_SUCCESS:
             const { threadId } = action;

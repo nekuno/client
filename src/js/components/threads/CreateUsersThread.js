@@ -11,24 +11,25 @@ import TagFilter from './filters/TagFilter';
 import TagsAndMultipleChoicesFilter from './filters/TagsAndMultipleChoicesFilter';
 import * as TagSuggestionsActionCreators from '../../actions/TagSuggestionsActionCreators';
 import selectn from 'selectn';
+import translate from '../../i18n/Translate';
 
-function resetTagSuggestions() {
-    TagSuggestionsActionCreators.resetTagSuggestions();
-}
-
+@translate('CreateUsersThread')
 export default class CreateUsersThread extends Component {
+
     static contextTypes = {
         history: PropTypes.object.isRequired
     };
 
     static propTypes = {
-        userId: PropTypes.number.isRequired,
+        userId        : PropTypes.number.isRequired,
         defaultFilters: PropTypes.object.isRequired,
-        threadName: PropTypes.string,
-        tags: PropTypes.array.isRequired,
-        thread: PropTypes.object
+        threadName    : PropTypes.string,
+        tags          : PropTypes.array.isRequired,
+        thread        : PropTypes.object,
+        // Injected by @translate:
+        strings       : PropTypes.object
     };
-    
+
     constructor(props) {
         super(props);
 
@@ -52,22 +53,22 @@ export default class CreateUsersThread extends Component {
         this.createThread = this.createThread.bind(this);
 
         this.state = {
-            selectFilter: false,
+            selectFilter  : false,
             selectedFilter: null,
-            filters: selectn('thread.filters.userFilters', props) || {}
+            filters       : selectn('thread.filters.userFilters', props) || {}
         }
     }
 
-    componentDidMount () {
+    componentDidMount() {
         window.nekunoContainer.addEventListener('click', this.handleClickOutside)
     }
 
-    componentWillUnmount () {
+    componentWillUnmount() {
         window.nekunoContainer.removeEventListener('click', this.handleClickOutside)
     }
 
     handleClickAddFilter() {
-        resetTagSuggestions();
+        TagSuggestionsActionCreators.resetTagSuggestions();
         this.setState({
             selectFilter: true
         })
@@ -76,19 +77,19 @@ export default class CreateUsersThread extends Component {
     handleClickFilterOnList(checked, value) {
         let filters = this.state.filters;
         let filterData = Object.keys(filters).find(key => key === value) || null;
-        
+
         if (checked) {
             filters[value] = filterData;
             this.setState({
-                selectFilter: false,
+                selectFilter  : false,
                 selectedFilter: value,
-                filters: filters
+                filters       : filters
             });
             this.scrollToFilter();
         } else {
             delete filters[value];
             this.setState({
-                filters: filters,
+                filters       : filters,
                 selectedFilter: null
             });
         }
@@ -137,12 +138,12 @@ export default class CreateUsersThread extends Component {
     }
 
     renderIntegerRangeFilter(filter, key, data, selected) {
-        return(
+        return (
             <IntegerRangeFilter key={key} filterKey={key} ref={selected ? 'selectedFilter' : ''}
                                 filter={filter}
                                 data={data}
                                 selected={selected}
-                                handleClickRemoveFilter={this.handleClickRemoveFilter} 
+                                handleClickRemoveFilter={this.handleClickRemoveFilter}
                                 handleChangeFilter={this.handleChangeFilter}
                                 handleClickFilter={this.handleClickFilter}
             />
@@ -150,7 +151,7 @@ export default class CreateUsersThread extends Component {
     }
 
     renderIntegerFilter(filter, key, data, selected) {
-        return(
+        return (
             <IntegerFilter key={key} filterKey={key} ref={selected ? 'selectedFilter' : ''}
                            filter={filter}
                            data={data}
@@ -187,7 +188,7 @@ export default class CreateUsersThread extends Component {
             />
         );
     }
-    
+
     renderTagFilter(filter, key, data, selected, tags) {
         return (
             <TagFilter key={key} filterKey={key} ref={selected ? 'selectedFilter' : ''}
@@ -220,7 +221,7 @@ export default class CreateUsersThread extends Component {
         let {filters} = this.state;
         filters[key] = data;
         this.setState({
-            filters: filters,
+            filters       : filters,
             selectedFilter: key
         });
     }
@@ -229,18 +230,18 @@ export default class CreateUsersThread extends Component {
         let {filters} = this.state;
         filters[key] = data;
         this.setState({
-            filters: filters,
+            filters       : filters,
             selectedFilter: null
         });
     }
-    
+
     handleClickFilter(key) {
         let {filters} = this.state;
         filters[key] = filters[key] || null;
-        resetTagSuggestions();
+        TagSuggestionsActionCreators.resetTagSuggestions();
         this.setState({
             selectedFilter: key,
-            filters: filters
+            filters       : filters
         });
     }
 
@@ -248,7 +249,7 @@ export default class CreateUsersThread extends Component {
         let {filters, selectedFilter} = this.state;
         delete filters[selectedFilter];
         this.setState({
-            filters: filters,
+            filters       : filters,
             selectedFilter: null
         })
     }
@@ -259,7 +260,7 @@ export default class CreateUsersThread extends Component {
             this.setState({selectedFilter: null});
         }
     }
-    
+
     scrollToFilter() {
         clearTimeout(this.selectFilterTimeout);
         this.selectFilterTimeout = setTimeout(() => {
@@ -273,28 +274,28 @@ export default class CreateUsersThread extends Component {
 
     createThread() {
         let data = {
-            name: this.props.threadName,
-            filters: {userFilters: this.state.filters},
+            name    : this.props.threadName,
+            filters : {userFilters: this.state.filters},
             category: 'ThreadUsers'
         };
 
         let history = this.context.history;
         ThreadActionCreators.createThread(this.props.userId, data)
-            .then(function(){
+            .then(function() {
                 history.pushState(null, `threads`);
             });
     }
 
     editThread() {
         let data = {
-            name: this.props.threadName,
-            filters: {userFilters: this.state.filters},
+            name    : this.props.threadName,
+            filters : {userFilters: this.state.filters},
             category: 'ThreadUsers'
         };
 
         let history = this.context.history;
         ThreadActionCreators.updateThread(this.props.thread.id, data)
-            .then(function(){
+            .then(function() {
                 history.pushState(null, `threads`);
             });
     }
@@ -304,24 +305,29 @@ export default class CreateUsersThread extends Component {
             selectFilter: false
         });
     }
-    
+
     render() {
         let defaultFilters = Object.assign({}, this.props.defaultFilters);
         const data = this.state.filters || {};
         let filterKeys = Object.keys(defaultFilters).filter(key => Object.keys(data).some(dataKey => dataKey === key));
         let filters = {};
-        filterKeys.forEach(key => { if (typeof data[key] !== 'undefined') { filters[key] = defaultFilters[key] } });
+        filterKeys.forEach(key => {
+            if (typeof data[key] !== 'undefined') {
+                filters[key] = defaultFilters[key]
+            }
+        });
+        let strings = this.props.strings;
         return (
             this.state.selectFilter ?
                 <div className="select-filter">
-                    <span className="back-to-selected-filters" onClick={this.goToSelectedFilters}>Volver</span>
-                    <div className="title">Selecciona un filtro</div>
+                    <span className="back-to-selected-filters" onClick={this.goToSelectedFilters}>{strings.back}</span>
+                    <div className="title">{strings.selectFilter}</div>
                     <ThreadFilterList filters={filters}
                                       filtersMetadata={defaultFilters}
                                       handleClickFilterOnList={this.handleClickFilterOnList}
                     />
                 </div>
-                    :
+                :
                 <div className="users-filters-wrapper">
                     <div className="table-row"></div>
                     {this.renderActiveFilters()}
@@ -333,7 +339,7 @@ export default class CreateUsersThread extends Component {
                         <div className="opposite-vertical-line"></div>
                         <div className="add-filter-button-wrapper" onClick={this.handleClickAddFilter}>
                             <div className="add-filter-button">
-                                <span className="add-filter-button-text">Añadir filtro</span>
+                                <span className="add-filter-button-text">{strings.addFilter}</span>
                             </div>
                         </div>
                     </div>
@@ -341,7 +347,7 @@ export default class CreateUsersThread extends Component {
                     <br />
                     <br />
                     <br />
-                    <FullWidthButton onClick={this.props.thread ? this.editThread : this.createThread}>{this.props.thread ? 'Editar hilo' : 'Crear hilo'}</FullWidthButton>
+                    <FullWidthButton onClick={this.props.thread ? this.editThread : this.createThread}>{this.props.thread ? strings.save : strings.create}</FullWidthButton>
                     <br />
                     <br />
                     <br />
@@ -352,3 +358,13 @@ export default class CreateUsersThread extends Component {
         );
     }
 }
+
+CreateUsersThread.defaultProps = {
+    strings: {
+        back        : 'Back',
+        selectFilter: 'Select filter',
+        addFilter   : 'Add filter',
+        save        : 'Save',
+        create      : 'Create'
+    }
+};

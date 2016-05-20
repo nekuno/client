@@ -202,6 +202,27 @@ export default {
         people   : 'Personas',
         channels : 'Canales'
     },
+    CreateContentThread              : {
+        back        : 'Volver',
+        selectFilter: 'Selecciona un filtro',
+        addFilter   : 'Añadir filtro',
+        save        : 'Guardar hilo',
+        create      : 'Crear hilo'
+    },
+    CreateUsersThread                : {
+        back        : 'Volver',
+        selectFilter: 'Selecciona un filtro',
+        addFilter   : 'Añadir filtro',
+        save        : 'Guardar hilo',
+        create      : 'Crear hilo'
+    },
+    ThreadContent                    : {
+        contents: 'Contenidos'
+    },
+    ThreadUsers                      : {
+        people: 'Personas',
+        users : 'Usuarios'
+    },
     ////////////////
     // Framework7 //
     ////////////////

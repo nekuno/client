@@ -149,6 +149,27 @@ export default {
         people   : 'People',
         channels : 'Channels'
     },
+    CreateContentThread              : {
+        back        : 'Back',
+        selectFilter: 'Select filter',
+        addFilter   : 'Add filter',
+        save        : 'Save',
+        create      : 'Create'
+    },
+    CreateUsersThread                : {
+        back        : 'Back',
+        selectFilter: 'Select filter',
+        addFilter   : 'Add filter',
+        save        : 'Save',
+        create      : 'Create'
+    },
+    ThreadContent                    : {
+        contents: 'Contents'
+    },
+    ThreadUsers                      : {
+        people: 'People',
+        users : 'Users'
+    },
     ////////////////
     // Components //
     ////////////////

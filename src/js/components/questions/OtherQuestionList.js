@@ -12,33 +12,21 @@ export default class OtherQuestionList extends Component {
     };
 
     render() {
-        let questions = this.props.questions;
-        let otherQuestions = this.props.otherQuestions;
-        let questionList = [];
-        let questionsLength = this.getObjectLength(otherQuestions);
-        let counter = 0;
-        for (let questionId in otherQuestions) {
-            if (otherQuestions.hasOwnProperty(questionId)) {
-                let otherQuestion = otherQuestions[questionId];
-                let question = selectn(questionId, questions);
-                let userAnswer = selectn('userAnswer', question);
-                questionList[counter++] = <OtherQuestion userId={this.props.userId} otherUserAnswer={otherQuestion.userAnswer} userAnswer={userAnswer} ownPicture={this.props.ownPicture} otherPicture={this.props.otherPicture} key={counter} accessibleKey={counter} question={otherQuestion}
-                                                         last={counter == questionsLength}/>
-            }
-        }
+        const {questions, otherQuestions, userId, ownPicture, otherPicture} = this.props;
         return (
             <div className="question-list">
-                {questionList.map(question => question)}
+                {Object.keys(otherQuestions).map((questionId, index) =>
+                    <OtherQuestion userId={userId}
+                                   userAnswer={selectn('userAnswer', questions[questionId])}
+                                   ownPicture={ownPicture}
+                                   otherPicture={otherPicture}
+                                   question={questions[questionId]}
+                                   key={index}
+                                   accessibleKey={index}
+                                   question={otherQuestions[questionId]}
+                    />
+                )}
             </div>
         );
     }
-
-    getObjectLength = function(obj) {
-        let size = 0, key;
-        for (key in obj) {
-            if (obj.hasOwnProperty(key)) size++;
-        }
-        return size;
-    };
-
 }

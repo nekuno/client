@@ -75,7 +75,8 @@ QuestionStore.dispatchToken = register(action => {
     if (typeof _pagination[userId] === "undefined") {
         _pagination[userId] = {};
     }
-    if (error) {
+    //TODO: Change all to action types switch
+    if (error && action.type === ActionTypes.ANSWER_QUESTION_ERROR) {
         _errors = getValidationErrors(error);
         QuestionStore.emitChange();
     }

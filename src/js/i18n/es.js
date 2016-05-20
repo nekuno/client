@@ -129,6 +129,20 @@ export default {
         dontLike    : 'Ya no me gusta',
         confirmBlock: '¿Estás seguro de que quieres bloquear a este usuario?'
     },
+    CreateThreadPage                 : {
+        create     : 'Crear hilos',
+        cancel     : 'Cancelar',
+        placeholder: 'Escribe un título descriptivo del hilo',
+        people     : 'Personas',
+        contents   : 'Contenidos'
+    },
+    EditThreadPage                   : {
+        edit       : 'Editar hilo',
+        cancel     : 'Cancelar',
+        placeholder: 'Escribe un título descriptivo del hilo',
+        people     : 'Personas',
+        contents   : 'Contenidos'
+    },
     ////////////////
     // Components //
     ////////////////

@@ -129,46 +129,19 @@ export default {
         dontLike    : 'Don\'t like anymore',
         confirmBlock: 'Are you sure you want to block this user?'
     },
-    CardContent                      : {
-        like         : 'Like',
-        unlike       : 'Remove',
-        compatibility: 'Compatibility'
+    CreateThreadPage                 : {
+        create     : 'Create yarn',
+        cancel     : 'Cancel',
+        placeholder: 'Write a descriptive title of the yarn',
+        people     : 'People',
+        contents   : 'Contents'
     },
-    CardUser                         : {
-        like      : 'Like',
-        unlike    : 'Remove',
-        similarity: 'Similarity'
-    },
-    FilterContentPopup               : {
-        close    : 'Close',
-        interests: 'interests',
-        videos   : 'Videos',
-        audios   : 'Audios',
-        photos   : 'Photos',
-        websites : 'Websites',
-        people   : 'People',
-        channels : 'Channels'
-    },
-    CreateContentThread              : {
-        back        : 'Back',
-        selectFilter: 'Select filter',
-        addFilter   : 'Add filter',
-        save        : 'Save',
-        create      : 'Create'
-    },
-    CreateUsersThread                : {
-        back        : 'Back',
-        selectFilter: 'Select filter',
-        addFilter   : 'Add filter',
-        save        : 'Save',
-        create      : 'Create'
-    },
-    ThreadContent                    : {
-        contents: 'Contents'
-    },
-    ThreadUsers                      : {
-        people: 'People',
-        users : 'Users'
+    EditThreadPage                   : {
+        edit       : 'Edit yarn',
+        cancel     : 'Cancel',
+        placeholder: 'Write a descriptive title of the yarn',
+        people     : 'People',
+        contents   : 'Contents'
     },
     ////////////////
     // Components //
@@ -222,6 +195,47 @@ export default {
     },
     TopRightRecommendationIcons      : {
         confirmDelete: 'Are you sure you want to delete this thread?'
+    },
+    CardContent                      : {
+        like         : 'Like',
+        unlike       : 'Remove',
+        compatibility: 'Compatibility'
+    },
+    CardUser                         : {
+        like      : 'Like',
+        unlike    : 'Remove',
+        similarity: 'Similarity'
+    },
+    FilterContentPopup               : {
+        close    : 'Close',
+        interests: 'interests',
+        videos   : 'Videos',
+        audios   : 'Audios',
+        photos   : 'Photos',
+        websites : 'Websites',
+        people   : 'People',
+        channels : 'Channels'
+    },
+    CreateContentThread              : {
+        back        : 'Back',
+        selectFilter: 'Select filter',
+        addFilter   : 'Add filter',
+        save        : 'Save',
+        create      : 'Create'
+    },
+    CreateUsersThread                : {
+        back        : 'Back',
+        selectFilter: 'Select filter',
+        addFilter   : 'Add filter',
+        save        : 'Save',
+        create      : 'Create'
+    },
+    ThreadContent                    : {
+        contents: 'Contents'
+    },
+    ThreadUsers                      : {
+        people: 'People',
+        users : 'Users'
     },
     ////////////////
     // Framework7 //

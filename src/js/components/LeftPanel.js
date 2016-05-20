@@ -67,6 +67,11 @@ export default class LeftPanel extends Component {
         this.context.history.pushState(null, '/social-networks');
     }
 
+    handleGoClickInterests() {
+        nekunoApp.closePanel();
+        this.context.history.pushState(null, '/interests');
+    }
+
     logout(e) {
         e.preventDefault();
         nekunoApp.closePanel();
@@ -87,12 +92,14 @@ export default class LeftPanel extends Component {
                     </div>
                     { userLoggedIn ? <User {...this.props} /> : '' }
                     <div className="user-interests">
-                        <div className="number">
-                            {interests}
-                        </div>
-                        <div className="label">
-                            {strings.interests}
-                        </div>
+                        <Link to="/interests" onClick={this.handleGoClickInterests}>
+                            <div className="number">
+                                {interests}
+                            </div>
+                            <div className="label">
+                                {strings.interests}
+                            </div>
+                        </Link>
                     </div>
                     { userLoggedIn ?
                         <div className="content-block menu">

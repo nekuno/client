@@ -5,7 +5,9 @@ import MultipleChoicesFilter from './filters/MultipleChoicesFilter';
 import TagFilter from './filters/TagFilter';
 import FullWidthButton from '../ui/FullWidthButton';
 import selectn from 'selectn';
+import translate from '../../i18n/Translate';
 
+@translate('CreateContentThread')
 export default class CreateContentThread extends Component {
 
     static contextTypes = {
@@ -13,11 +15,13 @@ export default class CreateContentThread extends Component {
     };
 
     static propTypes = {
-        userId: PropTypes.number.isRequired,
+        userId        : PropTypes.number.isRequired,
         defaultFilters: PropTypes.object.isRequired,
-        threadName: PropTypes.string,
-        tags: PropTypes.array.isRequired,
-        thread: PropTypes.object
+        threadName    : PropTypes.string,
+        tags          : PropTypes.array.isRequired,
+        thread        : PropTypes.object,
+        // Injected by @translate:
+        strings       : PropTypes.object
     };
 
     constructor(props) {
@@ -38,17 +42,17 @@ export default class CreateContentThread extends Component {
         this.handleClickOutside = this.handleClickOutside.bind(this);
 
         this.state = {
-            selectFilter: false,
+            selectFilter  : false,
             selectedFilter: {},
-            filters: selectn('thread.filters.contentFilters', props) || {}
+            filters       : selectn('thread.filters.contentFilters', props) || {}
         }
     }
 
-    componentDidMount () {
+    componentDidMount() {
         window.nekunoContainer.addEventListener('click', this.handleClickOutside)
     }
 
-    componentWillUnmount () {
+    componentWillUnmount() {
         window.nekunoContainer.removeEventListener('click', this.handleClickOutside)
     }
 
@@ -65,15 +69,15 @@ export default class CreateContentThread extends Component {
         if (checked) {
             filters[value] = filterData;
             this.setState({
-                selectFilter: false,
+                selectFilter  : false,
                 selectedFilter: value,
-                filters: filters
+                filters       : filters
             });
             this.scrollToFilter();
         } else {
             delete filters[value];
             this.setState({
-                filters: filters,
+                filters       : filters,
                 selectedFilter: null
             });
         }
@@ -127,7 +131,7 @@ export default class CreateContentThread extends Component {
         let {filters} = this.state;
         filters[key] = data;
         this.setState({
-            filters: filters,
+            filters       : filters,
             selectedFilter: key
         });
     }
@@ -136,7 +140,7 @@ export default class CreateContentThread extends Component {
         let {filters} = this.state;
         filters[key] = data;
         this.setState({
-            filters: filters,
+            filters       : filters,
             selectedFilter: null
         });
     }
@@ -146,7 +150,7 @@ export default class CreateContentThread extends Component {
         filters[key] = filters[key] || null;
         this.setState({
             selectedFilter: key,
-            filters: filters
+            filters       : filters
         });
     }
 
@@ -154,7 +158,7 @@ export default class CreateContentThread extends Component {
         let {filters, selectedFilter} = this.state;
         delete filters[selectedFilter];
         this.setState({
-            filters: filters,
+            filters       : filters,
             selectedFilter: null
         })
     }
@@ -179,57 +183,62 @@ export default class CreateContentThread extends Component {
 
     createThread() {
         let data = {
-            name: this.props.threadName,
-            filters: {contentFilters: this.state.filters},
+            name    : this.props.threadName,
+            filters : {contentFilters: this.state.filters},
             category: 'ThreadContent'
         };
 
         let history = this.context.history;
         ThreadActionCreators.createThread(this.props.userId, data)
-            .then(function(){
+            .then(function() {
                 history.pushState(null, `threads`);
             });
     }
-    
+
     editThread() {
         let data = {
-            name: this.props.threadName,
-            filters: {contentFilters: this.state.filters},
+            name    : this.props.threadName,
+            filters : {contentFilters: this.state.filters},
             category: 'ThreadContent'
         };
 
         let history = this.context.history;
         let threadId = this.props.thread.id;
         ThreadActionCreators.updateThread(this.props.thread.id, data)
-            .then(function(){
+            .then(function() {
                 ThreadActionCreators.requestRecommendation(threadId);
                 history.pushState(null, `threads`);
             });
     }
-    
+
     goToSelectedFilters() {
         this.setState({
             selectFilter: false
         });
     }
-    
+
     render() {
         let defaultFilters = Object.assign({}, this.props.defaultFilters);
         const data = this.state.filters || {};
         let filterKeys = Object.keys(defaultFilters).filter(key => Object.keys(data).some(dataKey => dataKey === key));
         let filters = {};
-        filterKeys.forEach(key => { if (typeof data[key] !== 'undefined') { filters[key] = defaultFilters[key] } });
+        filterKeys.forEach(key => {
+            if (typeof data[key] !== 'undefined') {
+                filters[key] = defaultFilters[key]
+            }
+        });
+        let strings = this.props.strings;
         return (
             this.state.selectFilter ?
                 <div className="select-filter">
-                    <span className="back-to-selected-filters" onClick={this.goToSelectedFilters}>Volver</span>
-                    <div className="title">Selecciona un filtro</div>
+                    <span className="back-to-selected-filters" onClick={this.goToSelectedFilters}>{strings.back}</span>
+                    <div className="title">{strings.selectFilter}</div>
                     <ThreadFilterList filters={filters}
                                       filtersMetadata={defaultFilters}
                                       handleClickFilterOnList={this.handleClickFilterOnList}
                     />
                 </div>
-                    :
+                :
                 <div className="content-filters-wrapper">
                     <div className="table-row"></div>
                     {this.renderActiveFilters()}
@@ -241,7 +250,7 @@ export default class CreateContentThread extends Component {
                         <div className="opposite-vertical-line"></div>
                         <div className="add-filter-button-wrapper" onClick={this.handleClickAddFilter}>
                             <div className="add-filter-button">
-                                <span className="add-filter-button-text">Añadir filtro</span>
+                                <span className="add-filter-button-text">{strings.addFilter}</span>
                             </div>
                         </div>
                     </div>
@@ -249,7 +258,7 @@ export default class CreateContentThread extends Component {
                     <br />
                     <br />
                     <br />
-                    <FullWidthButton onClick={this.props.thread ? this.editThread : this.createThread}>{this.props.thread ? 'Editar hilo' : 'Crear hilo'}</FullWidthButton>
+                    <FullWidthButton onClick={this.props.thread ? this.editThread : this.createThread}>{this.props.thread ? strings.save : strings.create}</FullWidthButton>
                     <br />
                     <br />
                     <br />
@@ -260,3 +269,13 @@ export default class CreateContentThread extends Component {
         )
     }
 }
+
+CreateContentThread.defaultProps = {
+    strings: {
+        back        : 'Back',
+        selectFilter: 'Select filter',
+        addFilter   : 'Add filter',
+        save        : 'Save',
+        create      : 'Create'
+    }
+};

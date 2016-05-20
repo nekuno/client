@@ -8,10 +8,8 @@ export default class OtherQuestion extends Component {
     static propTypes = {
         question       : PropTypes.object.isRequired,
         userAnswer     : PropTypes.object,
-        otherUserAnswer: PropTypes.object.isRequired,
         ownPicture     : PropTypes.string.isRequired,
         otherPicture   : PropTypes.string.isRequired,
-        last           : PropTypes.bool.isRequired,
         userId         : PropTypes.number.isRequired,
         // Injected by @translate:
         strings        : PropTypes.object
@@ -23,7 +21,7 @@ export default class OtherQuestion extends Component {
             return null;
         }
         let userAnswer = this.props.userAnswer || {};
-        let otherUserAnswer = this.props.otherUserAnswer;
+        let otherUserAnswer = this.props.question.userAnswer;
         const {strings} = this.props;
 
         userAnswer.text = otherUserAnswer.text = strings.didntAnswered;
@@ -38,9 +36,11 @@ export default class OtherQuestion extends Component {
 
         return (
             <div className="question">
-                <div className="edit-question-button">
-                    <Link to={`/answer-question/${question.questionId}`}><span className="icon-edit"></span></Link>
-                </div>
+                <Link to={`/answer-question/${question.questionId}`}>
+                    <span className="edit-question-button">
+                        <span className="icon-edit"></span>
+                    </span>
+                </Link>
                 <div className="question-title">
                     {question.text}
                 </div>

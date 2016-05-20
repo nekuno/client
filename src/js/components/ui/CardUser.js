@@ -1,28 +1,12 @@
 import React, { PropTypes, Component } from 'react';
 import { Link } from 'react-router';
 import { IMAGES_ROOT } from '../../constants/Constants';
-import * as UserActionCreators from '../../actions/UserActionCreators'
 import ProgressBar from './ProgressBar';
 import Button from './Button';
+import * as UserActionCreators from '../../actions/UserActionCreators'
+import translate from '../../i18n/Translate';
 
-/**
- * Set user like.
- */
-function setLikeUser(props) {
-    const { loggedUserId, userId } = props;
-
-    UserActionCreators.likeUser(loggedUserId, userId);
-}
-
-/**
- * Unset user like.
- */
-function unsetLikeUser(props) {
-    const { loggedUserId, userId } = props;
-
-    UserActionCreators.deleteLikeUser(loggedUserId, userId);
-}
-
+@translate('CardUser')
 export default class CardUser extends Component {
 
     static contextTypes = {
@@ -38,7 +22,9 @@ export default class CardUser extends Component {
         matching      : PropTypes.number.isRequired,
         liked         : PropTypes.bool.isRequired,
         hideLikeButton: PropTypes.bool.isRequired,
-        loggedUserId  : PropTypes.number.isRequired
+        loggedUserId  : PropTypes.number.isRequired,
+        // Injected by @translate:
+        strings       : PropTypes.object
     };
 
     constructor(props) {
@@ -49,10 +35,11 @@ export default class CardUser extends Component {
     }
 
     onLikeOrDislike() {
+        const {loggedUserId, userId} = this.props;
         if (!this.props.liked) {
-            setLikeUser(this.props);
+            UserActionCreators.likeUser(loggedUserId, userId);
         } else {
-            unsetLikeUser(this.props);
+            UserActionCreators.deleteLikeUser(loggedUserId, userId);
         }
     }
 
@@ -61,9 +48,10 @@ export default class CardUser extends Component {
     }
 
     render() {
+        let strings = this.props.strings;
         let subTitle = this.props.location ? <div><span className="icon-marker"></span>{this.props.location}</div> : <div>&nbsp;</div>;
         let messageButton = this.props.canSendMessage ? <span className="icon-message" onClick={this.handleMessage}></span> : '';
-        let likeButtonText = this.props.liked ? 'Quitar Me gusta' : 'Me gusta';
+        let likeButtonText = this.props.liked ? strings.unlike : strings.like;
         let likeButton = this.props.hideLikeButton ? '' : <div className="like-button-container"><Button {...this.props} onClick={this.onLikeOrDislike}>{likeButtonText}</Button></div>;
         let imgSrc = this.props.picture ? `${IMAGES_ROOT}media/cache/resolve/user_avatar_180x180/user/images/${this.props.picture}` : `${IMAGES_ROOT}media/cache/user_avatar_180x180/bundles/qnoowweb/images/user-no-img.jpg`;
 
@@ -90,7 +78,7 @@ export default class CardUser extends Component {
                             </div>
                         </Link>
                         <div className="matching">
-                            <div className="matching-value">Similaridad {this.props.matching}%</div>
+                            <div className="matching-value">{strings.similarity} {this.props.matching}%</div>
                             <ProgressBar percentage={this.props.matching}/>
                         </div>
                     </div>
@@ -103,3 +91,11 @@ export default class CardUser extends Component {
     }
 
 }
+
+CardUser.defaultProps = {
+    strings: {
+        like      : 'Like',
+        unlike    : 'Remove',
+        similarity: 'Similarity'
+    }
+};

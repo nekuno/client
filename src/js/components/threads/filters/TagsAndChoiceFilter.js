@@ -5,31 +5,36 @@ import ThreadUnselectedFilter from './ThreadUnselectedFilter';
 import TagInput from '../../ui/TagInput';
 import TextRadios from '../../ui/TextRadios';
 import TextCheckboxes from '../../ui/TextCheckboxes';
+import translate from '../../../i18n/Translate';
 
+@translate('TagsAndChoiceFilter')
 export default class TagsAndChoiceFilter extends Component {
+
     static propTypes = {
-        filterKey: PropTypes.string.isRequired,
-        selected: PropTypes.bool.isRequired,
-        filter: PropTypes.object.isRequired,
-        data: PropTypes.array.isRequired,
+        filterKey              : PropTypes.string.isRequired,
+        selected               : PropTypes.bool.isRequired,
+        filter                 : PropTypes.object.isRequired,
+        data                   : PropTypes.array.isRequired,
         handleClickRemoveFilter: PropTypes.func.isRequired,
-        handleChangeFilter: PropTypes.func.isRequired,
-        handleClickFilter: PropTypes.func.isRequired
+        handleChangeFilter     : PropTypes.func.isRequired,
+        handleClickFilter      : PropTypes.func.isRequired,
+        // Injected by @translate:
+        strings                : PropTypes.object
     };
-    
+
     constructor(props) {
         super(props);
-        
+
         this.handleKeyUpTagAndChoiceTag = this.handleKeyUpTagAndChoiceTag.bind(this);
         this.handleClickAddTagsAndChoice = this.handleClickAddTagsAndChoice.bind(this);
         this.handleClickRemoveTagsAndChoice = this.handleClickRemoveTagsAndChoice.bind(this);
         this.handleClickTagAndChoiceTag = this.handleClickTagAndChoiceTag.bind(this);
         this.handleClickTagAndChoiceTagSuggestion = this.handleClickTagAndChoiceTagSuggestion.bind(this);
         this.handleClickTagAndChoiceChoice = this.handleClickTagAndChoiceChoice.bind(this);
-        
+
         this.state = {
             selectedTagAndChoice: {},
-            tagSuggestions: []
+            tagSuggestions      : []
         };
     }
 
@@ -56,11 +61,11 @@ export default class TagsAndChoiceFilter extends Component {
         }
         this.setState({
             selectedTagAndChoice: selectedTagAndChoice,
-            tagSuggestions: []
+            tagSuggestions      : []
         });
         this.props.handleChangeFilter(filterKey, data);
     }
-    
+
     handleClickAddTagsAndChoice() {
         this.refs.tagInput.clearValue();
         this.refs.tagInput.focus();
@@ -95,7 +100,7 @@ export default class TagsAndChoiceFilter extends Component {
         });
         this.props.handleChangeFilter(filterKey, data);
     }
-    
+
     handleClickTagAndChoiceTag(tag) {
         this.refs.tagInput.setValue(tag);
         this.refs.tagInput.focus();
@@ -126,24 +131,24 @@ export default class TagsAndChoiceFilter extends Component {
     }
 
     render() {
-        let {filterKey, selected, filter, data, handleClickRemoveFilter, handleClickFilter} = this.props;
+        let {filterKey, selected, filter, data, handleClickRemoveFilter, handleClickFilter, strings} = this.props;
         const {tagSuggestions, selectedTagAndChoice} = this.state;
         data = data || [];
-        return(
+        return (
             selected ?
                 <ThreadSelectedFilter key={'selected-filter'} ref={'selectedFilter'} type={'tags-and-choice'} active={data && data.some(value => value.tag !== '')} handleClickRemoveFilter={handleClickRemoveFilter}>
                     <div className="tags-and-choice-wrapper">
-                        <TagInput ref={'tagInput'} placeholder={'Escribe un tag'} tags={tagSuggestions} value={selectedTagAndChoice.tag}
+                        <TagInput ref={'tagInput'} placeholder={strings.placeholder} tags={tagSuggestions} value={selectedTagAndChoice.tag}
                                   onKeyUpHandler={this.handleKeyUpTagAndChoiceTag} onClickTagHandler={this.handleClickTagAndChoiceTagSuggestion}
-                                  title={filter.label} />
+                                  title={filter.label}/>
                         {selectedTagAndChoice.tag ?
                             <div className="tags-and-choice-choice">
                                 <TextRadios labels={Object.keys(filter.choices).map(key => { return({key: key, text: filter.choices[key]}); }) }
                                             onClickHandler={this.handleClickTagAndChoiceChoice} value={selectedTagAndChoice.choice} className={'tags-and-choice-choice-radios'}
-                                            title={filter.choiceLabel['es']} />
+                                            title={filter.choiceLabel['es']}/>
                             </div>
                             : ''}
-                        {selectedTagAndChoice.tag ? <div className="remove-tags-and-choice" onClick={this.handleClickRemoveTagsAndChoice}>Eliminar <span className="icon-delete"></span></div> : ''}
+                        {selectedTagAndChoice.tag ? <div className="remove-tags-and-choice" onClick={this.handleClickRemoveTagsAndChoice}>{strings.remove} <span className="icon-delete"></span></div> : ''}
                         {data.length > 0 ?
                             <div className="tags-and-choice-unselected-filters">
                                 {data.filter(value => value.tag !== selectedTagAndChoice.tag).map((value, index) =>
@@ -154,11 +159,19 @@ export default class TagsAndChoiceFilter extends Component {
                                 )}
                             </div> : ''
                         }
-                        {selectedTagAndChoice.tag ? <div className="add-tags-and-choice" onClick={this.handleClickAddTagsAndChoice}>Añadir <span className="icon-plus"></span></div> : ''}
+                        {selectedTagAndChoice.tag ? <div className="add-tags-and-choice" onClick={this.handleClickAddTagsAndChoice}>{strings.add} <span className="icon-plus"></span></div> : ''}
                     </div>
                 </ThreadSelectedFilter>
-                    :
-                <ThreadUnselectedFilter key={filterKey} filterKey={filterKey} filter={filter} data={data} handleClickFilter={handleClickFilter} />
+                :
+                <ThreadUnselectedFilter key={filterKey} filterKey={filterKey} filter={filter} data={data} handleClickFilter={handleClickFilter}/>
         );
     }
 }
+
+TagsAndChoiceFilter.defaultProps = {
+    strings: {
+        placeholder: 'Type a tag',
+        remove     : 'Remove',
+        add        : 'Add'
+    }
+};

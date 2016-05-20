@@ -129,6 +129,20 @@ export default {
         dontLike    : 'Don\'t like anymore',
         confirmBlock: 'Are you sure you want to block this user?'
     },
+    CreateThreadPage                 : {
+        create     : 'Create yarn',
+        cancel     : 'Cancel',
+        placeholder: 'Write a descriptive title of the yarn',
+        people     : 'People',
+        contents   : 'Contents'
+    },
+    EditThreadPage                   : {
+        edit       : 'Edit yarn',
+        cancel     : 'Cancel',
+        placeholder: 'Write a descriptive title of the yarn',
+        people     : 'People',
+        contents   : 'Contents'
+    },
     ////////////////
     // Components //
     ////////////////
@@ -181,6 +195,96 @@ export default {
     },
     TopRightRecommendationIcons      : {
         confirmDelete: 'Are you sure you want to delete this thread?'
+    },
+    CardContent                      : {
+        like         : 'Like',
+        unlike       : 'Remove',
+        compatibility: 'Compatibility'
+    },
+    CardUser                         : {
+        like      : 'Like',
+        unlike    : 'Remove',
+        similarity: 'Similarity'
+    },
+    FilterContentPopup               : {
+        close    : 'Close',
+        interests: 'interests',
+        videos   : 'Videos',
+        audios   : 'Audios',
+        photos   : 'Photos',
+        websites : 'Websites',
+        people   : 'People',
+        channels : 'Channels'
+    },
+    CreateContentThread              : {
+        back        : 'Back',
+        selectFilter: 'Select filter',
+        addFilter   : 'Add filter',
+        save        : 'Save',
+        create      : 'Create'
+    },
+    CreateUsersThread                : {
+        back        : 'Back',
+        selectFilter: 'Select filter',
+        addFilter   : 'Add filter',
+        save        : 'Save',
+        create      : 'Create'
+    },
+    ThreadContent                    : {
+        contents: 'Contents'
+    },
+    ThreadUsers                      : {
+        people: 'People',
+        users : 'Users'
+    },
+    IntegerEdit                      : {
+        minValue   : 'The minimum value of this value is ',
+        maxValue   : 'The maximum value of this value is ',
+        value      : 'This value must be an integer',
+        placeholder: 'Type a number'
+    },
+    TagEdit                          : {
+        placeholder: 'Type a tag'
+    },
+    TagsAndChoiceEdit                : {
+        placeholder: 'Type a tag',
+        remove     : 'Remove',
+        add        : 'Add'
+    },
+    LocationEdit                     : {
+        location   : 'Location',
+        placeholder: 'Type a location'
+    },
+    IntegerFilter                    : {
+        minValue   : 'The minimum value of this value is ',
+        maxValue   : 'The maximum value of this value is ',
+        value      : 'This value must be an integer',
+        placeholder: 'Type a number'
+    },
+    LocationFilter                   : {
+        location   : 'Location',
+        placeholder: 'Type a location',
+        minDistance: 'Minimal distance'
+    },
+    TagFilter                        : {
+        placeholder: 'Type a tag'
+    },
+    TagsAndChoiceFilter              : {
+        placeholder: 'Type a tag',
+        remove     : 'Remove',
+        add        : 'Add'
+    },
+    TagsAndMultipleChoicesFilter     : {
+        placeholder: 'Type a tag',
+        remove     : 'Remove',
+        add        : 'Add'
+    },
+    IntegerRangeFilter               : {
+        minValue      : 'The minimum value of this value is ',
+        maxValue      : 'The maximum value of this value is ',
+        value         : 'This value must be an integer',
+        placeholderMin: 'Min',
+        placeholderMax: 'Max'
     },
     ////////////////
     // Framework7 //

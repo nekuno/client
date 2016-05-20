@@ -3,6 +3,7 @@ const ReactLink = require('react/lib/ReactLink');
 const ReactStateSetters = require('react/lib/ReactStateSetters');
 import * as ThreadActionCreators from '../actions/ThreadActionCreators';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
+import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
 import FilterStore from '../stores/FilterStore';
 import TagSuggestionsStore from '../stores/TagSuggestionsStore';
@@ -12,7 +13,6 @@ import CreateContentThread from '../components/threads/CreateContentThread';
 import CreateUsersThread from '../components/threads/CreateUsersThread';
 import RegularTopNavbar from '../components/ui/RegularTopNavbar';
 
-
 /**
  * Retrieves state from stores for current props.
  */
@@ -20,7 +20,7 @@ function getState(props) {
     const filters = FilterStore.filters;
     const tags = TagSuggestionsStore.tags;
     return {
-        tags: tags,
+        tags   : tags,
         filters: filters
     };
 }
@@ -33,14 +33,17 @@ function requestData(props) {
     ThreadActionCreators.requestFilters(userId);
 }
 
-
 @AuthenticatedComponent
+@translate('CreateThreadPage')
 @connectToStores([FilterStore, TagSuggestionsStore], getState)
 export default class CreateThreadPage extends Component {
+
     static propTypes = {
         filters: PropTypes.object,
-        tags: PropTypes.array,
-        user: PropTypes.object.isRequired
+        tags   : PropTypes.array,
+        user   : PropTypes.object.isRequired,
+        // Injected by @translate:
+        strings: PropTypes.object
     };
 
     constructor(props) {
@@ -50,7 +53,7 @@ export default class CreateThreadPage extends Component {
 
         this.state = {
             threadName: '',
-            category: null
+            category  : null
         };
     }
 
@@ -69,27 +72,28 @@ export default class CreateThreadPage extends Component {
     }
 
     render() {
-        const {user, filters, tags} = this.props;
+        const {user, filters, tags, strings} = this.props;
         const {category, threadName} = this.state;
         return (
             <div className="view view-main">
-                <RegularTopNavbar centerText={'Crear hilos'} leftText={'Cancelar'} />
+                <RegularTopNavbar centerText={strings.create} leftText={strings.cancel}/>
                 <div className="page create-thread-page">
                     <div id="page-content">
                         {filters ?
                             <div>
                                 <div className="thread-title list-block">
                                     <ul>
-                                        <TextInput placeholder={'Escribe un título descriptivo del hilo'} valueLink={this.linkState('threadName')}/>
+                                        <TextInput placeholder={strings.placeholder} valueLink={this.linkState('threadName')}/>
                                     </ul>
                                 </div>
-                                <div key={1} className={category + '-first-vertical-line'}></div><div key={2} className={category + '-last-vertical-line'}></div>
+                                <div key={1} className={category + '-first-vertical-line'}></div>
+                                <div key={2} className={category + '-last-vertical-line'}></div>
                                 <div className="main-filter-wprapper">
                                     <div className="thread-filter radio-filter">
                                         <div className="thread-filter-dot">
                                             <span className={category ? "icon-circle active" : "icon-circle"}></span>
                                         </div>
-                                        <TextRadios labels={[{key: 'persons', text: 'Personas'}, {key: 'contents', text: 'Contenidos'}]} onClickHandler={this.handleClickCategory} value={category} />
+                                        <TextRadios labels={[{key: 'persons', text: strings.people}, {key: 'contents', text: strings.contents}]} onClickHandler={this.handleClickCategory} value={category}/>
                                     </div>
                                 </div>
                                 {category === 'contents' ? <CreateContentThread userId={user.id} defaultFilters={filters.contentFilters} threadName={threadName} tags={tags}/> : ''}
@@ -100,5 +104,15 @@ export default class CreateThreadPage extends Component {
                 </div>
             </div>
         );
+    }
+};
+
+CreateThreadPage.defaultProps = {
+    strings: {
+        create     : 'Create yarn',
+        cancel     : 'Cancel',
+        placeholder: 'Write a descriptive title of the yarn',
+        people     : 'People',
+        contents   : 'Contents'
     }
 };

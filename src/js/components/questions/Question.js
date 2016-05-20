@@ -10,17 +10,15 @@ export default class Question extends Component {
         ownPicture    : PropTypes.string.isRequired,
         defaultPicture: PropTypes.string.isRequired,
         last          : PropTypes.bool.isRequired,
-        userId        : PropTypes.number.isRequired
+        userId        : PropTypes.number.isRequired,
+        onClickHandler: PropTypes.func,
+        graphActive   : PropTypes.bool
     };
 
     constructor(props) {
         super(props);
 
         this.onClickHandler = this.onClickHandler.bind(this);
-
-        this.state = {
-            graphDisplay: false
-        };
     }
 
     render() {
@@ -45,9 +43,11 @@ export default class Question extends Component {
 
         return (
             <div className="question" onClick={this.onClickHandler}>
-                <div className="edit-question-button">
-                    <Link to={`/answer-question/${question.questionId}`}><span className="icon-edit"></span></Link>
-                </div>
+                <Link to={`/answer-question/${question.questionId}`}>
+                    <span className="edit-question-button">
+                        <span className="icon-edit"></span>
+                    </span>
+                </Link>
                 <div className="question-title">
                     {question.text}
                 </div>
@@ -61,7 +61,7 @@ export default class Question extends Component {
                         <Answer key={index} text={answer.text} answered={false} {...this.props} />
                     );
                 })}
-                {this.state.graphDisplay ?
+                {this.props.graphActive ?
                     <QuestionStatsInLine question={question} userAnswer={userAnswer} userId={this.props.userId}/> : ''
                 }
                 <hr/>
@@ -70,8 +70,6 @@ export default class Question extends Component {
     }
 
     onClickHandler() {
-        this.setState({
-            graphDisplay: !this.state.graphDisplay
-        });
+        this.props.onClickHandler(this.props.question.question.questionId);
     }
 }

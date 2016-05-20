@@ -129,6 +129,20 @@ export default {
         dontLike    : 'Ya no me gusta',
         confirmBlock: '¿Estás seguro de que quieres bloquear a este usuario?'
     },
+    CreateThreadPage                 : {
+        create     : 'Crear hilos',
+        cancel     : 'Cancelar',
+        placeholder: 'Escribe un título descriptivo del hilo',
+        people     : 'Personas',
+        contents   : 'Contenidos'
+    },
+    EditThreadPage                   : {
+        edit       : 'Editar hilo',
+        cancel     : 'Cancelar',
+        placeholder: 'Escribe un título descriptivo del hilo',
+        people     : 'Personas',
+        contents   : 'Contenidos'
+    },
     ////////////////
     // Components //
     ////////////////
@@ -181,6 +195,96 @@ export default {
     },
     TopRightRecommendationIcons      : {
         confirmDelete: '¿Estás seguro de que quieres borrar este hilo?'
+    },
+    CardContent                      : {
+        like         : 'Me interesa',
+        unlike       : 'Quitar',
+        compatibility: 'Compatibilidad'
+    },
+    CardUser                         : {
+        like      : 'Me gusta',
+        unlike    : 'Quitar me gusta',
+        similarity: 'Similaridad'
+    },
+    FilterContentPopup               : {
+        close    : 'Cerrar',
+        interests: 'intereses',
+        videos   : 'Videos',
+        audios   : 'Audios',
+        photos   : 'Fotos',
+        websites : 'Sitios web',
+        people   : 'Personas',
+        channels : 'Canales'
+    },
+    CreateContentThread              : {
+        back        : 'Volver',
+        selectFilter: 'Selecciona un filtro',
+        addFilter   : 'Añadir filtro',
+        save        : 'Guardar hilo',
+        create      : 'Crear hilo'
+    },
+    CreateUsersThread                : {
+        back        : 'Volver',
+        selectFilter: 'Selecciona un filtro',
+        addFilter   : 'Añadir filtro',
+        save        : 'Guardar hilo',
+        create      : 'Crear hilo'
+    },
+    ThreadContent                    : {
+        contents: 'Contenidos'
+    },
+    ThreadUsers                      : {
+        people: 'Personas',
+        users : 'Usuarios'
+    },
+    IntegerEdit                      : {
+        minValue   : 'El valor mínimo de este valor es ',
+        maxValue   : 'El valor máximo de este valor es ',
+        value      : 'Este valor debe ser un entero',
+        placeholder: 'Escribe un número'
+    },
+    TagEdit                          : {
+        placeholder: 'Escribe un tag'
+    },
+    TagsAndChoiceEdit                : {
+        placeholder: 'Escribe un tag',
+        remove     : 'Eliminar',
+        add        : 'Añadir'
+    },
+    LocationEdit                     : {
+        location   : 'Ubicación',
+        placeholder: 'Escribe una ubicación'
+    },
+    IntegerFilter                    : {
+        minValue   : 'El valor mínimo de este valor es ',
+        maxValue   : 'El valor máximo de este valor es ',
+        value      : 'Este valor debe ser un entero',
+        placeholder: 'Escribe un número'
+    },
+    LocationFilter                   : {
+        location   : 'Ubicación',
+        placeholder: 'Escribe una ubicación',
+        minDistance: 'Distancia mínima'
+    },
+    TagFilter                        : {
+        placeholder: 'Escribe un tag'
+    },
+    TagsAndChoiceFilter              : {
+        placeholder: 'Escribe un tag',
+        remove     : 'Eliminar',
+        add        : 'Añadir'
+    },
+    TagsAndMultipleChoicesFilter     : {
+        placeholder: 'Escribe un tag en inglés',
+        remove     : 'Eliminar',
+        add        : 'Añadir'
+    },
+    IntegerRangeFilter               : {
+        minValue      : 'El valor mínimo de este valor es ',
+        maxValue      : 'El valor máximo de este valor es ',
+        value         : 'Este valor debe ser un entero',
+        placeholderMin: 'Mínimo',
+        placeholderMax: 'Máximo'
     },
     ////////////////
     // Framework7 //

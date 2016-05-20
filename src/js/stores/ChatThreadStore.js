@@ -17,6 +17,7 @@ class ChatThreadStore extends BaseStore {
 
         switch (action.type) {
 
+            case ActionTypes.CHAT_MARK_AS_READED:
             case ActionTypes.CHAT_MESSAGES:
                 this._addThreads(ChatMessageStore.getAll());
                 this.emitChange();

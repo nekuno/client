@@ -9,30 +9,40 @@ export default class QuestionList extends Component {
         userId        : PropTypes.number.isRequired
     };
 
+    constructor(props) {
+        super(props);
+
+        this.onClickHandler = this.onClickHandler.bind(this);
+
+        this.state = {
+            graphDisplayQuestionId: null
+        };
+    }
+
+    onClickHandler(questionId) {
+        this.setState({
+            graphDisplayQuestionId: questionId
+        });
+    }
+
     render() {
-        let questions = this.props.questions;
-        let questionList = [];
-        let questionsLength = this.getObjectLength(questions);
-        let counter = 0;
-        for (let questionId in questions) {
-            if (questions.hasOwnProperty(questionId)) {
-                let question = questions[questionId];
-                questionList[counter++] = <Question userId={this.props.userId} userAnswer={question.userAnswer} ownPicture={this.props.ownPicture} defaultPicture={this.props.defaultPicture} key={counter} accessibleKey={counter} question={question} last={counter == questionsLength}/>
-            }
-        }
+        const {questions, userId, ownPicture, defaultPicture} = this.props;
         return (
             <div className="question-list">
-                {questionList.map(question => question)}
+                {Object.keys(questions).map((questionId, index) =>
+                    <Question userId={userId} 
+                              userAnswer={questions[questionId].userAnswer} 
+                              ownPicture={ownPicture} 
+                              defaultPicture={defaultPicture} 
+                              key={index} 
+                              accessibleKey={index} 
+                              question={questions[questionId]} 
+                              last={index == questions.length} 
+                              onClickHandler={this.onClickHandler}
+                              graphActive={this.state.graphDisplayQuestionId === questionId}
+                    />
+                )}
             </div>
         );
     }
-
-    getObjectLength = function(obj) {
-        let size = 0, key;
-        for (key in obj) {
-            if (obj.hasOwnProperty(key)) size++;
-        }
-        return size;
-    };
-
 }

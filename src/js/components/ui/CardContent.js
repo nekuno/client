@@ -1,31 +1,13 @@
 import React, { PropTypes, Component } from 'react';
-import { Link } from 'react-router';
-import { IMAGES_ROOT } from '../../constants/Constants';
-import * as UserActionCreators from '../../actions/UserActionCreators'
 import ProgressBar from './ProgressBar';
 import Button from './Button';
 import CardIcons from './CardIcons';
+import * as UserActionCreators from '../../actions/UserActionCreators'
+import translate from '../../i18n/Translate';
 
-/**
- * Set rate like.
- */
-function setLikeContent(props) {
-
-    const {loggedUserId, contentId} = props;
-
-    UserActionCreators.likeContent(loggedUserId, contentId);
-}
-
-/**
- * Unset rate like.
- */
-function unsetLikeContent(props) {
-    const {loggedUserId, contentId} = props;
-
-    UserActionCreators.deleteLikeContent(loggedUserId, contentId);
-}
-
+@translate('CardContent')
 export default class CardContent extends Component {
+
     static propTypes = {
         contentId     : PropTypes.number.isRequired,
         title         : PropTypes.string,
@@ -41,7 +23,9 @@ export default class CardContent extends Component {
         hideLikeButton: PropTypes.bool.isRequired,
         fixedHeight   : PropTypes.bool,
         loggedUserId  : PropTypes.number.isRequired,
-        onClickHandler: PropTypes.func
+        onClickHandler: PropTypes.func,
+        // Injected by @translate:
+        strings       : PropTypes.object
     };
 
     constructor(props) {
@@ -51,11 +35,28 @@ export default class CardContent extends Component {
         this.onClickHandler = this.onClickHandler.bind(this);
     }
 
+    onRate() {
+        const {loggedUserId, contentId} = this.props;
+        if (!this.props.rate) {
+            UserActionCreators.likeContent(loggedUserId, contentId);
+        } else {
+            UserActionCreators.deleteLikeContent(loggedUserId, contentId);
+        }
+    }
+
+    onClickHandler() {
+        if (typeof this.props.onClickHandler !== 'undefined') {
+            this.props.onClickHandler();
+        } else {
+            window.cordova ? document.location = this.props.url : window.open(this.props.url);
+        }
+    }
+
     render() {
-        const {title, description, types, rate, hideLikeButton, fixedHeight, thumbnail, url, matching} = this.props;
-        const cardTitle = title ? <div>{title.substr(0, 20)}{title.length > 20 ? '...' : ''}</div> : <div>Link</div>;
+        const {title, description, types, rate, hideLikeButton, fixedHeight, thumbnail, url, matching, strings} = this.props;
+        const cardTitle = title ? <div>{title.substr(0, 20)}{title.length > 20 ? '...' : ''}</div> : <div></div>;
         const subTitle = description ? <div>{description.substr(0, 20)}{description.length > 20 ? '...' : ''}</div> : fixedHeight ? <div>&nbsp;</div> : '';
-        const likeButtonText = rate ? 'Quitar' : 'Me interesa';
+        const likeButtonText = rate ? strings.unlike : strings.like;
         const likeButton = hideLikeButton ? '' : <div className="like-button-container"><Button {...this.props} onClick={this.onRate}>{likeButtonText}</Button></div>;
         const imageClass = fixedHeight ? 'image fixed-height-image' : 'image';
         let imgSrc = 'img/default-content-image.jpg';
@@ -88,7 +89,7 @@ export default class CardContent extends Component {
                         </a>
                         {typeof matching !== 'undefined' ?
                             <div className="matching">
-                                <div className="matching-value">Compatibilidad {matching}%</div>
+                                <div className="matching-value">{strings.compatibilidy} {matching}%</div>
                                 <ProgressBar percentage={matching}/>
                             </div>
                             :
@@ -107,19 +108,12 @@ export default class CardContent extends Component {
         );
     }
 
-    onRate() {
-        if (!this.props.rate) {
-            setLikeContent(this.props);
-        } else {
-            unsetLikeContent(this.props);
-        }
-    }
-
-    onClickHandler() {
-        if (typeof this.props.onClickHandler !== 'undefined') {
-            this.props.onClickHandler();
-        } else {
-            window.cordova ? document.location = this.props.url : window.open(this.props.url);
-        }
-    }
 }
+
+CardContent.defaultProps = {
+    strings: {
+        like         : 'Like',
+        unlike       : 'Remove',
+        compatibility: 'Compatibility'
+    }
+};

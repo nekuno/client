@@ -3,6 +3,7 @@ import ThreadSelectedFilter from './ThreadSelectedFilter';
 import ThreadUnselectedFilter from './ThreadUnselectedFilter';
 import TagInput from '../../ui/TagInput';
 import * as TagSuggestionsActionCreators from '../../../actions/TagSuggestionsActionCreators';
+import translate from '../../../i18n/Translate';
 
 function requestTagSuggestions(search, type = null) {
     if (type === null) {
@@ -16,16 +17,20 @@ function resetTagSuggestions() {
     TagSuggestionsActionCreators.resetTagSuggestions();
 }
 
+@translate('TagFilter')
 export default class TagFilter extends Component {
+
     static propTypes = {
-        filterKey: PropTypes.string.isRequired,
-        selected: PropTypes.bool.isRequired,
-        filter: PropTypes.object.isRequired,
-        data: PropTypes.array,
+        filterKey              : PropTypes.string.isRequired,
+        selected               : PropTypes.bool.isRequired,
+        filter                 : PropTypes.object.isRequired,
+        data                   : PropTypes.array,
         handleClickRemoveFilter: PropTypes.func.isRequired,
-        handleChangeFilter: PropTypes.func.isRequired,
-        handleClickFilter: PropTypes.func.isRequired,
-        tags: PropTypes.array.isRequired
+        handleChangeFilter     : PropTypes.func.isRequired,
+        handleClickFilter      : PropTypes.func.isRequired,
+        tags                   : PropTypes.array.isRequired,
+        // Injected by @translate:
+        strings                : PropTypes.object
     };
 
     constructor(props) {
@@ -65,16 +70,22 @@ export default class TagFilter extends Component {
     }
 
     render() {
-        const {filterKey, selected, filter, data, tags, handleClickRemoveFilter, handleClickFilter} = this.props;
-        return(
+        const {filterKey, selected, filter, data, tags, handleClickRemoveFilter, handleClickFilter, strings} = this.props;
+        return (
             selected ?
                 <ThreadSelectedFilter key={'selected-filter'} ref={'selectedFilter'} type={'tag'} plusIcon={true} handleClickRemoveFilter={handleClickRemoveFilter}>
-                    <TagInput placeholder={'Escribe un tag'} tags={tags.map(tag => tag.name)}
+                    <TagInput placeholder={strings.placeholder} tags={tags.map(tag => tag.name)}
                               onKeyUpHandler={this.handleKeyUpTag} onClickTagHandler={this.handleClickTagSuggestion}
-                              title={filter.label} />
+                              title={filter.label}/>
                 </ThreadSelectedFilter>
-                    :
-                <ThreadUnselectedFilter key={filterKey} filterKey={filterKey} filter={filter} data={data} handleClickFilter={handleClickFilter} />
+                :
+                <ThreadUnselectedFilter key={filterKey} filterKey={filterKey} filter={filter} data={data} handleClickFilter={handleClickFilter}/>
         );
     }
 }
+
+TagFilter.defaultProps = {
+    strings: {
+        placeholder: 'Type a tag'
+    }
+};

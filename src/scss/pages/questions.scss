@@ -6,7 +6,6 @@ body #root .App .view .page.questions-page  {
       background-color: $deep-purple;
       left: 0;
       max-width: 480px;
-      min-width: 320px;
       padding: 10px 5%;
       position: absolute;
       right: 0;
@@ -18,6 +17,7 @@ body #root .App .view .page.questions-page  {
         .answer-questions-link-title {
           font-size: 1.428571429em;
           font-weight: bold;
+          height: 55px;
         }
 
         .answer-questions-link-stats {
@@ -48,13 +48,14 @@ body #root .App .view .page.questions-page  {
       }
     }
     .question-list {
-      margin-top: 20px;
+      margin-top: 40px;
 
       .question {
         margin-bottom: 15px;
 
         .question-title {
           font-weight: bold;
+          margin-bottom: 10px;
           width: 85%;
         }
         .edit-question-button {
@@ -81,7 +82,7 @@ body #root .App .view .page.questions-page  {
             -webkit-border-radius: 50%;
             display: inline-block;
             height: 22px;
-            margin: 10px 10px 10px 0;
+            margin: 5px 10px 0 0;
             text-align: center;
             width: 22px;
 
@@ -186,6 +187,32 @@ body #root .App .view .page.questions-page  {
           height: 1px;
           margin-top: 15px;
         }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 270px) {
+  body #root .App .view .page.questions-page {
+    #page-content {
+      .question-list {
+        width: 80%;
+      }
+      .answer-questions-link-container {
+        width: 75%;
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 271px) and (max-width: 300px) {
+  body #root .App .view .page.questions-page {
+    #page-content {
+      .question-list {
+        width: 90%;
+      }
+      .answer-questions-link-container {
+        width: 84%;
       }
     }
   }

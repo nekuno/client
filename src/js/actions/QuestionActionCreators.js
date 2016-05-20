@@ -3,7 +3,7 @@ import ActionTypes from '../constants/ActionTypes';
 import * as QuestionAPI from '../api/QuestionAPI';
 import QuestionStore from '../stores/QuestionStore';
 
-export function requestQuestions(userId, link, fields) {
+export function requestQuestions(userId, link) {
     return dispatchAsync(QuestionAPI.getAnswers(link), {
         request: ActionTypes.REQUEST_QUESTIONS,
         success: ActionTypes.REQUEST_QUESTIONS_SUCCESS,

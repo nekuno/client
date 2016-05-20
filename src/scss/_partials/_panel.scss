@@ -21,6 +21,12 @@ body.panels-3d.with-panel-left-reveal .views {
 	.top-menu {
 		margin-top: 12px;
 		position: absolute;
+
+		.icon-circle {
+			color: $green-alert;
+			font-size: 0.3em;
+			position: absolute;
+		}
 	}
 	.close-panel {
 		color: $deep-purple;
@@ -33,6 +39,22 @@ body.panels-3d.with-panel-left-reveal .views {
 			display: block;
 			font-size: 1.142857143em;
 			padding: 20px;
+
+			.unread-messages-count {
+				background: $green-alert;
+				border-radius: 50%;
+				-webkit-border-radius: 50%;
+				-moz-border-radius: 50%;
+				display: inline-block;
+				height: 22.5px;
+				margin-left: 10px;
+				text-align: center;
+				width: 22.5px;
+
+				.unread-messages-count-text {
+					font-size: 0.9em;
+				}
+			}
 		}
 	}
 }

@@ -7,20 +7,23 @@ import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
 import StatsStore from '../stores/StatsStore';
 import LoginActionCreators from '../actions/LoginActionCreators';
+import ChatThreadStore from '../stores/ChatThreadStore';
 
 function getState(props) {
 
     const stats = StatsStore.get(props.user.id);
     const interests = selectn('numberOfContentLikes', stats) || 0;
+    const unreadCount = ChatThreadStore.getUnreadCount() || 0;
 
     return {
-        interests
+        interests,
+        unreadCount
     };
 }
 
 @AuthenticatedComponent
 @translate('LeftPanel')
-@connectToStores([StatsStore], getState)
+@connectToStores([StatsStore, ChatThreadStore], getState)
 export default class LeftPanel extends Component {
 
     static contextTypes = {
@@ -34,7 +37,8 @@ export default class LeftPanel extends Component {
         // Injected by @translate:
         strings     : PropTypes.object,
         // Injected by @connectToStores:
-        interests   : PropTypes.number.isRequired
+        interests   : PropTypes.number.isRequired,
+        unreadCount: PropTypes.number
     };
 
     constructor(props) {
@@ -74,7 +78,7 @@ export default class LeftPanel extends Component {
     }
 
     render() {
-        const {user, userLoggedIn, strings, interests} = this.props;
+        const {user, userLoggedIn, strings, interests, unreadCount} = this.props;
         return (
             <div className="LeftPanel">
                 <div className="panel-overlay"></div>
@@ -82,7 +86,9 @@ export default class LeftPanel extends Component {
                     <div className="content-block top-menu">
                         <a className="close-panel">
                             <span className="icon-notifications"/>
-                            <span className="notifications-alert"/>
+                            {unreadCount ?
+                                <span className="icon-circle"></span> : ''
+                            }
                         </a>
                     </div>
                     { userLoggedIn ? <User {...this.props} /> : '' }
@@ -104,6 +110,9 @@ export default class LeftPanel extends Component {
                             </Link>
                             <Link to="/conversations" onClick={this.handleGoClickConversations}>
                                 {strings.conversations}
+                                {unreadCount ? <span className="unread-messages-count">
+                                    <span className="unread-messages-count-text">{unreadCount}</span>
+                                </span> : ''}
                             </Link>
                             <Link to="/social-networks" onClick={this.handleGoClickSocialNetworks}>
                                 {strings.socialNetworks}

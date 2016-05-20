@@ -14,6 +14,7 @@ import LoginActionCreators from '../actions/LoginActionCreators';
 import ConnectActionCreators from '../actions/ConnectActionCreators';
 import * as UserActionCreators from '../actions/UserActionCreators';
 import ConnectStore from '../stores/ConnectStore';
+import LocaleStore from '../stores/LocaleStore';
 import ProfileStore from '../stores/ProfileStore';
 import RegisterStore from '../stores/RegisterStore';
 import { getValidationErrors } from '../utils/StoreUtils';
@@ -28,6 +29,7 @@ function getState(props) {
     const metadata = ProfileStore.getMetadata();
     const error = RegisterStore.error;
     const validUsername = RegisterStore.validUsername();
+    const interfaceLanguage = LocaleStore.locale;
 
     if (error) {
         let displayErrors = getValidationErrors(error);
@@ -48,7 +50,8 @@ function getState(props) {
         profile,
         metadata,
         error,
-        validUsername
+        validUsername,
+        interfaceLanguage
     };
 }
 
@@ -98,7 +101,7 @@ export default class RegisterJoinPage extends Component {
             picture      : this.props.profile.picture
         };
         let profile = {
-            interfaceLanguage  : 'es',
+            interfaceLanguage  : this.props.interfaceLanguage,
             orientationRequired: false,
             birthday           : this.refs.birthday.getValue(),
             gender             : this.state.gender,

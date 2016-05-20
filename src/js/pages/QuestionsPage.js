@@ -1,6 +1,5 @@
 import React, { PropTypes, Component } from 'react';
 import { Link } from 'react-router';
-import selectn from 'selectn';
 import { IMAGES_ROOT } from '../constants/Constants';
 import LeftMenuTopNavbar from '../components/ui/LeftMenuTopNavbar';
 import ToolBar from '../components/ui/ToolBar';
@@ -15,14 +14,6 @@ import QuestionsByUserIdStore from '../stores/QuestionsByUserIdStore';
 
 function parseId(user) {
     return user.qnoow_id;
-}
-
-/**
- * Requests data from server for current props.
- */
-function requestData(props) {
-    const currentUserId = parseId(props.user);
-    QuestionActionCreators.requestQuestions(currentUserId);
 }
 
 /**
@@ -58,12 +49,6 @@ export default class QuestionsPage extends Component {
         super(props);
 
         this.handleScroll = this.handleScroll.bind(this);
-    }
-
-    componentWillMount() {
-        if (Object.keys(this.props.pagination).length === 0) {
-            requestData(this.props);
-        }
     }
 
     componentWillUnmount() {

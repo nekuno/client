@@ -3,6 +3,7 @@ import SelectedEdit from './SelectedEdit';
 import UnselectedEdit from './UnselectedEdit';
 import TagInput from '../../ui/TagInput';
 import * as TagSuggestionsActionCreators from '../../../actions/TagSuggestionsActionCreators';
+import translate from '../../../i18n/Translate';
 
 function requestTagSuggestions(search, type = null) {
     if (type === null) {
@@ -16,16 +17,20 @@ function resetTagSuggestions() {
     TagSuggestionsActionCreators.resetTagSuggestions();
 }
 
+@translate('TagEdit')
 export default class TagEdit extends Component {
+
     static propTypes = {
-        editKey: PropTypes.string.isRequired,
-        selected: PropTypes.bool.isRequired,
-        metadata: PropTypes.object.isRequired,
-        data: PropTypes.array,
+        editKey              : PropTypes.string.isRequired,
+        selected             : PropTypes.bool.isRequired,
+        metadata             : PropTypes.object.isRequired,
+        data                 : PropTypes.array,
         handleClickRemoveEdit: PropTypes.func.isRequired,
-        handleChangeEdit: PropTypes.func.isRequired,
-        handleClickEdit: PropTypes.func.isRequired,
-        tags: PropTypes.array.isRequired
+        handleChangeEdit     : PropTypes.func.isRequired,
+        handleClickEdit      : PropTypes.func.isRequired,
+        tags                 : PropTypes.array.isRequired,
+        // Injected by @translate:
+        strings              : PropTypes.object
     };
 
     constructor(props) {
@@ -65,20 +70,26 @@ export default class TagEdit extends Component {
     }
 
     render() {
-        const {editKey, selected, metadata, data, handleClickRemoveEdit, handleClickEdit} = this.props;
-        let tags=this.props.tags.slice(0);
-        if (this.refs.hasOwnProperty('tagInput')){
+        const {editKey, selected, metadata, data, handleClickRemoveEdit, handleClickEdit, strings} = this.props;
+        let tags = this.props.tags.slice(0);
+        if (this.refs.hasOwnProperty('tagInput')) {
             tags.push({name: this.refs.tagInput.getValue()});
         }
-        return(
+        return (
             selected ?
                 <SelectedEdit key={'selected-filter'} ref={'selectedEdit'} type={'tag'} plusIcon={true} handleClickRemoveEdit={handleClickRemoveEdit}>
-                    <TagInput ref={'tagInput'} placeholder={'Escribe un tag'} tags={tags.map(tag => tag.name)}
+                    <TagInput ref={'tagInput'} placeholder={strings.placeholder} tags={tags.map(tag => tag.name)}
                               onKeyUpHandler={this.handleKeyUpTag} onClickTagHandler={this.handleClickTagSuggestion}
-                              title={metadata.label} />
+                              title={metadata.label}/>
                 </SelectedEdit>
-                    :
-                <UnselectedEdit key={editKey} editKey={editKey} metadata={metadata} data={data} handleClickEdit={handleClickEdit} />
+                :
+                <UnselectedEdit key={editKey} editKey={editKey} metadata={metadata} data={data} handleClickEdit={handleClickEdit}/>
         );
     }
 }
+
+TagEdit.defaultProps = {
+    strings: {
+        placeholder: 'Type a tag'
+    }
+};

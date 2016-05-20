@@ -237,6 +237,55 @@ export default {
         people: 'Personas',
         users : 'Usuarios'
     },
+    IntegerEdit                      : {
+        minValue   : 'El valor mínimo de este valor es ',
+        maxValue   : 'El valor máximo de este valor es ',
+        value      : 'Este valor debe ser un entero',
+        placeholder: 'Escribe un número'
+    },
+    TagEdit                          : {
+        placeholder: 'Escribe un tag'
+    },
+    TagsAndChoiceEdit                : {
+        placeholder: 'Escribe un tag',
+        remove     : 'Eliminar',
+        add        : 'Añadir'
+    },
+    LocationEdit                     : {
+        location   : 'Ubicación',
+        placeholder: 'Escribe una ubicación'
+    },
+    IntegerFilter                    : {
+        minValue   : 'El valor mínimo de este valor es ',
+        maxValue   : 'El valor máximo de este valor es ',
+        value      : 'Este valor debe ser un entero',
+        placeholder: 'Escribe un número'
+    },
+    LocationFilter                   : {
+        location   : 'Ubicación',
+        placeholder: 'Escribe una ubicación',
+        minDistance: 'Distancia mínima'
+    },
+    TagFilter                        : {
+        placeholder: 'Escribe un tag'
+    },
+    TagsAndChoiceFilter              : {
+        placeholder: 'Escribe un tag',
+        remove     : 'Eliminar',
+        add        : 'Añadir'
+    },
+    TagsAndMultipleChoicesFilter     : {
+        placeholder: 'Escribe un tag en inglés',
+        remove     : 'Eliminar',
+        add        : 'Añadir'
+    },
+    IntegerRangeFilter               : {
+        minValue      : 'El valor mínimo de este valor es ',
+        maxValue      : 'El valor máximo de este valor es ',
+        value         : 'Este valor debe ser un entero',
+        placeholderMin: 'Mínimo',
+        placeholderMax: 'Máximo'
+    },
     ////////////////
     // Framework7 //
     ////////////////

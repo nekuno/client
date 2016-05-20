@@ -3,16 +3,21 @@ import ThreadSelectedFilter from './ThreadSelectedFilter';
 import ThreadUnselectedFilter from './ThreadUnselectedFilter';
 import LocationInput from '../../ui/LocationInput';
 import TextRadios from '../../ui/TextRadios';
+import translate from '../../../i18n/Translate';
 
+@translate('LocationFilter')
 export default class LocationFilter extends Component {
+
     static propTypes = {
-        filterKey: PropTypes.string.isRequired,
-        selected: PropTypes.bool.isRequired,
-        filter: PropTypes.object.isRequired,
-        data: PropTypes.object,
+        filterKey              : PropTypes.string.isRequired,
+        selected               : PropTypes.bool.isRequired,
+        filter                 : PropTypes.object.isRequired,
+        data                   : PropTypes.object,
         handleClickRemoveFilter: PropTypes.func.isRequired,
-        handleChangeFilter: PropTypes.func.isRequired,
-        handleClickFilter: PropTypes.func.isRequired
+        handleChangeFilter     : PropTypes.func.isRequired,
+        handleClickFilter      : PropTypes.func.isRequired,
+        // Injected by @translate:
+        strings                : PropTypes.object
     };
 
     constructor(props) {
@@ -55,27 +60,35 @@ export default class LocationFilter extends Component {
             {key: 500, text: '500 Km'}
         ]
     };
-    
+
     render() {
-        const {filterKey, selected, filter, data, handleClickRemoveFilter, handleClickFilter} = this.props;
-        return(
+        const {filterKey, selected, filter, data, handleClickRemoveFilter, handleClickFilter, strings} = this.props;
+        return (
             selected ?
                 <ThreadSelectedFilter key={'selected-filter'} ref={'selectedFilter'} type={'location-tag'} addedClass={'tag-filter'} plusIcon={true} handleClickRemoveFilter={handleClickRemoveFilter}>
                     <div className="location-filter-wrapper">
                         <div className="list-block">
-                            <div className="location-title">Ubicación</div>
-                            <LocationInput placeholder={'Escribe una ubicación'} onSuggestSelect={this.handleClickLocationSuggestion}/>
+                            <div className="location-title">{strings.location}</div>
+                            <LocationInput placeholder={strings.placeholder} onSuggestSelect={this.handleClickLocationSuggestion}/>
                         </div>
                         {data && data.location ? <div className="table-row"></div> : ''}
                         {data && data.location ?
                             <TextRadios labels={this.getDistanceLabels()}
                                         onClickHandler={this.handleClickChoice} value={data.distance} className={'tags-and-choice-choice-radios'}
-                                        title={'Distancia mínima'} />
+                                        title={strings.minDistance}/>
                             : ''}
                     </div>
                 </ThreadSelectedFilter>
-                    :
-                <ThreadUnselectedFilter key={filterKey} filterKey={filterKey} filter={filter} data={data} handleClickFilter={handleClickFilter} />
+                :
+                <ThreadUnselectedFilter key={filterKey} filterKey={filterKey} filter={filter} data={data} handleClickFilter={handleClickFilter}/>
         );
     }
 }
+
+LocationFilter.defaultProps = {
+    strings: {
+        location   : 'Location',
+        placeholder: 'Type a location',
+        minDistance: 'Minimal distance'
+    }
+};

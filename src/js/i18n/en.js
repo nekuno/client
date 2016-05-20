@@ -237,6 +237,55 @@ export default {
         people: 'People',
         users : 'Users'
     },
+    IntegerEdit                      : {
+        minValue   : 'The minimum value of this value is ',
+        maxValue   : 'The maximum value of this value is ',
+        value      : 'This value must be an integer',
+        placeholder: 'Type a number'
+    },
+    TagEdit                          : {
+        placeholder: 'Type a tag'
+    },
+    TagsAndChoiceEdit                : {
+        placeholder: 'Type a tag',
+        remove     : 'Remove',
+        add        : 'Add'
+    },
+    LocationEdit                     : {
+        location   : 'Location',
+        placeholder: 'Type a location'
+    },
+    IntegerFilter                    : {
+        minValue   : 'The minimum value of this value is ',
+        maxValue   : 'The maximum value of this value is ',
+        value      : 'This value must be an integer',
+        placeholder: 'Type a number'
+    },
+    LocationFilter                   : {
+        location   : 'Location',
+        placeholder: 'Type a location',
+        minDistance: 'Minimal distance'
+    },
+    TagFilter                        : {
+        placeholder: 'Type a tag'
+    },
+    TagsAndChoiceFilter              : {
+        placeholder: 'Type a tag',
+        remove     : 'Remove',
+        add        : 'Add'
+    },
+    TagsAndMultipleChoicesFilter     : {
+        placeholder: 'Type a tag',
+        remove     : 'Remove',
+        add        : 'Add'
+    },
+    IntegerRangeFilter               : {
+        minValue      : 'The minimum value of this value is ',
+        maxValue      : 'The maximum value of this value is ',
+        value         : 'This value must be an integer',
+        placeholderMin: 'Min',
+        placeholderMax: 'Max'
+    },
     ////////////////
     // Framework7 //
     ////////////////

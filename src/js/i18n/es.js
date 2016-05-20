@@ -182,6 +182,16 @@ export default {
     TopRightRecommendationIcons      : {
         confirmDelete: '¿Estás seguro de que quieres borrar este hilo?'
     },
+    CardContent                      : {
+        like         : 'Me interesa',
+        unlike       : 'Quitar',
+        compatibility: 'Compatibilidad'
+    },
+    CardUser                         : {
+        like      : 'Me gusta',
+        unlike    : 'Quitar me gusta',
+        similarity: 'Similaridad'
+    },
     ////////////////
     // Framework7 //
     ////////////////

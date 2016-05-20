@@ -129,6 +129,16 @@ export default {
         dontLike    : 'Don\'t like anymore',
         confirmBlock: 'Are you sure you want to block this user?'
     },
+    CardContent                      : {
+        like         : 'Like',
+        unlike       : 'Remove',
+        compatibility: 'Compatibility'
+    },
+    CardUser                         : {
+        like      : 'Like',
+        unlike    : 'Remove',
+        similarity: 'Similarity'
+    },
     ////////////////
     // Components //
     ////////////////

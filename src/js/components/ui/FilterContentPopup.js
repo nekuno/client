@@ -1,16 +1,19 @@
 import React, { PropTypes, Component } from 'react';
-import { Link } from 'react-router';
-import shouldPureComponentUpdate from 'react-pure-render/function';
 import * as InterestsActionCreators from '../../actions/InterestsActionCreators';
+import translate from '../../i18n/Translate';
 
+@translate('FilterContentPopup')
 export default class FilterContentPopup extends Component {
+
     static propTypes = {
-        userId: PropTypes.number.isRequired,
-        contentsCount: PropTypes.number.isRequired,
-        ownContent: PropTypes.bool.isRequired,
-        ownUserId: PropTypes.number,
+        userId        : PropTypes.number.isRequired,
+        contentsCount : PropTypes.number.isRequired,
+        ownContent    : PropTypes.bool.isRequired,
+        ownUserId     : PropTypes.number,
         onClickHandler: PropTypes.func,
-        commonContent: PropTypes.number
+        commonContent : PropTypes.number,
+        // Injected by @translate:
+        strings       : PropTypes.object
     };
 
     constructor(props) {
@@ -22,51 +25,6 @@ export default class FilterContentPopup extends Component {
         this.onLinksFilterClick = this.onLinksFilterClick.bind(this);
         this.onUsersFilterClick = this.onUsersFilterClick.bind(this);
         this.onChannelsFilterClick = this.onChannelsFilterClick.bind(this);
-    }
-
-    shouldComponentUpdate = shouldPureComponentUpdate;
-
-    render() {
-        const { userId, contentsCount } = this.props;
-        const popupClass = this.props.ownContent ? 'popup popup-filter-contents tablet-fullscreen' : 'popup popup-filter-other-contents tablet-fullscreen';
-
-        return (
-
-            <div className={popupClass}>
-                <div className="content-block">
-                    <p><a className="close-popup">Cerrar</a></p>
-                    <div className="popup-filter-contents-title title">{contentsCount} intereses</div>
-                    <div className="filter-icons-row-wrapper">
-                        <div className="icons-large-wrapper" onClick={this.onVideosFilterClick}>
-                            <div className="icon icon-video"></div>
-                            <div className="icons-large-text">Vídeos</div>
-                        </div>
-                        <div className="icons-large-wrapper" onClick={this.onAudiosFilterClick}>
-                            <div className="icon icon-audio"></div>
-                            <div className="icons-large-text">Audios</div>
-                        </div>
-                        <div className="icons-large-wrapper" onClick={this.onImagesFilterClick}>
-                            <div className="icon icon-photo"></div>
-                            <div className="icons-large-text">Fotos</div>
-                        </div>
-                    </div>
-                    <div className="filter-icons-row-wrapper">
-                        <div className="icons-large-wrapper" onClick={this.onLinksFilterClick}>
-                            <div className="icon icon-web-site"></div>
-                            <div className="icons-large-text">Sitios web</div>
-                        </div>
-                        {/*<div className="icons-large-wrapper" onClick={this.onUsersFilterClick}>
-                            <div className="icon icon-person"></div>
-                            <div className="icons-large-text">Personas</div>
-                        </div>*/
-                        <div className="icons-large-wrapper" onClick={this.onChannelsFilterClick}>
-                            <div className="icon icon-channels"></div>
-                            <div className="icons-large-text">Canales</div>
-                        </div>}
-                    </div>
-                </div>
-            </div>
-        );
     }
 
     onVideosFilterClick() {
@@ -106,4 +64,61 @@ export default class FilterContentPopup extends Component {
             this.props.onClickHandler(type);
         }
     };
+
+    render() {
+        const {contentsCount, strings} = this.props;
+        const popupClass = this.props.ownContent ? 'popup popup-filter-contents tablet-fullscreen' : 'popup popup-filter-other-contents tablet-fullscreen';
+
+        return (
+
+            <div className={popupClass}>
+                <div className="content-block">
+                    <p><a className="close-popup">{strings.close}</a></p>
+                    <div className="popup-filter-contents-title title">{contentsCount} {strings.interests}</div>
+                    <div className="filter-icons-row-wrapper">
+                        <div className="icons-large-wrapper" onClick={this.onVideosFilterClick}>
+                            <div className="icon icon-video"></div>
+                            <div className="icons-large-text">{strings.videos}</div>
+                        </div>
+                        <div className="icons-large-wrapper" onClick={this.onAudiosFilterClick}>
+                            <div className="icon icon-audio"></div>
+                            <div className="icons-large-text">{strings.audios}</div>
+                        </div>
+                        <div className="icons-large-wrapper" onClick={this.onImagesFilterClick}>
+                            <div className="icon icon-photo"></div>
+                            <div className="icons-large-text">{strings.photos}</div>
+                        </div>
+                    </div>
+                    <div className="filter-icons-row-wrapper">
+                        <div className="icons-large-wrapper" onClick={this.onLinksFilterClick}>
+                            <div className="icon icon-web-site"></div>
+                            <div className="icons-large-text">{strings.websites}</div>
+                        </div>
+                        {/*<div className="icons-large-wrapper" onClick={this.onUsersFilterClick}>
+                         <div className="icon icon-person"></div>
+                         <div className="icons-large-text">{strings.people}</div>
+                         </div>*/
+                            <div className="icons-large-wrapper" onClick={this.onChannelsFilterClick}>
+                                <div className="icon icon-channels"></div>
+                                <div className="icons-large-text">{strings.channels}</div>
+                            </div>}
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
 }
+
+FilterContentPopup.defaultProps = {
+    strings: {
+        close    : 'Close',
+        interests: 'interests',
+        videos   : 'Videos',
+        audios   : 'Audios',
+        photos   : 'Photos',
+        websites : 'Websites',
+        people   : 'People',
+        channels : 'Channels'
+    }
+};

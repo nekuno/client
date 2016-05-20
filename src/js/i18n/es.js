@@ -192,6 +192,16 @@ export default {
         unlike    : 'Quitar me gusta',
         similarity: 'Similaridad'
     },
+    FilterContentPopup               : {
+        close    : 'Cerrar',
+        interests: 'intereses',
+        videos   : 'Videos',
+        audios   : 'Audios',
+        photos   : 'Fotos',
+        websites : 'Sitios web',
+        people   : 'Personas',
+        channels : 'Canales'
+    },
     ////////////////
     // Framework7 //
     ////////////////

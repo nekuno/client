@@ -3,6 +3,7 @@ import selectn from 'selectn';
 import { IMAGES_ROOT } from '../constants/Constants';
 import LeftMenuTopNavbar from '../components/ui/LeftMenuTopNavbar';
 import RegularTopNavbar from '../components/ui/RegularTopNavbar';
+import RegisterQuestionsFinishedPopup from '../components/questions/RegisterQuestionsFinishedPopup';
 import AnswerQuestion from '../components/questions/AnswerQuestion';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
@@ -84,19 +85,20 @@ export default class AnswerQuestionPage extends Component {
         super(props);
 
         this.skipQuestionHandler = this.skipQuestionHandler.bind(this);
+        this.onContinue = this.onContinue.bind(this);
+        this.onTests = this.onTests.bind(this);
     }
 
     componentWillMount() {
         if(!this.props.question || this.props.question.questionId !== this.props.params.questionId) {
             let promise = requestData(this.props);
             let isJustRegistered = this.props.isJustRegistered;
-            let history = this.context.history;
             if(typeof promise != 'undefined') {
                 // TODO: Juanlu: I think this should not be done like this, but using some store and flux flow.
                 promise.then(function(data) {
                         const questions = data.entities.question;
                         if(isJustRegistered && questions[Object.keys(questions)[0]].isRegisterQuestion === false) {
-                            history.pushState(null, '/threads');
+                            nekunoApp.popup('.popup-register-finished');
                         }
                     }
                 );
@@ -114,6 +116,14 @@ export default class AnswerQuestionPage extends Component {
         let userId = parseUserId(this.props.user);
         let questionId = this.props.question.questionId;
         QuestionActionCreators.skipQuestion(userId, questionId);
+    }
+
+    onContinue() {
+        this.context.history.pushState(null, '/threads');
+    }
+
+    onTests() {
+        this.context.history.pushState(null, '/profile');
     }
 
     render() {
@@ -139,6 +149,7 @@ export default class AnswerQuestionPage extends Component {
                         }
                     </div>
                 </div>
+                <RegisterQuestionsFinishedPopup onContinue={this.onContinue} onTests={this.onTests} ></RegisterQuestionsFinishedPopup>
             </div>
         );
     }

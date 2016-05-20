@@ -2,6 +2,7 @@ import { dispatchAsync, dispatch } from '../dispatcher/Dispatcher';
 import ActionTypes from '../constants/ActionTypes';
 import * as UserAPI from '../api/UserAPI';
 import * as ThreadActionCreators from './ThreadActionCreators';
+import * as InterestsActionCreators from './InterestsActionCreators';
 import UserStore from '../stores/UserStore';
 import RecommendationsByThreadStore from '../stores/RecommendationsByThreadStore';
 import ThreadsByUserStore from '../stores/ThreadsByUserStore';
@@ -157,6 +158,8 @@ export function likeContent(from, to) {
         success: ActionTypes.LIKE_CONTENT_SUCCESS,
         failure: ActionTypes.LIKE_CONTENT_ERROR
     }, {from, to});
+    InterestsActionCreators.resetInterests(from);
+    InterestsActionCreators.requestOwnInterests(from);
 }
 
 export function deleteLikeContent(from, to) {

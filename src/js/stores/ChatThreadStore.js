@@ -71,6 +71,11 @@ class ChatThreadStore extends BaseStore {
         return this._threads.some(thread => thread.message && thread.message.user.id === thread.message.user_to.id && thread.message.readed != true);
     }
 
+    getUnreadCount() {
+        var unReadMessages = this._threads.filter(thread => thread.message && thread.message.user.id === thread.message.user_to.id && thread.message.readed != true);
+        return unReadMessages.length;
+    }
+
 }
 
 export default new ChatThreadStore();

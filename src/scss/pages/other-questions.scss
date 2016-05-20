@@ -17,6 +17,7 @@ body #root .App .view .page.other-questions-page  {
 
         .question-title {
           font-weight: bold;
+          margin-bottom: 10px;
           width: 85%;
         }
         .edit-question-button {
@@ -43,7 +44,7 @@ body #root .App .view .page.other-questions-page  {
             -webkit-border-radius: 50%;
             display: inline-block;
             height: 22px;
-            margin: 10px 10px 10px 0;
+            margin: 5px 10px 0 0;
             text-align: center;
             width: 22px;
 
@@ -71,6 +72,27 @@ body #root .App .view .page.other-questions-page  {
           height: 1px;
           margin-top: 15px;
         }
+      }
+    }
+  }
+}
+
+
+@media only screen and (max-width: 270px) {
+  body #root .App .view .page.other-questions-page {
+    #page-content {
+      .question-list {
+        width: 80%;
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 271px) and (max-width: 300px) {
+  body #root .App .view .page.other-questions-page {
+    #page-content {
+      .question-list {
+        width: 90%;
       }
     }
   }

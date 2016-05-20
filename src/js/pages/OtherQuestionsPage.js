@@ -107,22 +107,21 @@ export default class OtherQuestionsPage extends Component {
     }
 
     render() {
-        const otherUser = this.props.otherUser;
-        const ownPicture = this.props.user && this.props.user.picture ? `${IMAGES_ROOT}media/cache/resolve/user_avatar_60x60/user/images/${this.props.user.picture}` : `${IMAGES_ROOT}media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
-        const otherPicture = this.props.otherUser && this.props.otherUser.picture ? `${IMAGES_ROOT}media/cache/resolve/user_avatar_60x60/user/images/${this.props.otherUser.picture}` : `${IMAGES_ROOT}media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
-        const strings = this.props.strings;
+        const {otherUser, user, questions, otherQuestions, pagination, strings, params} = this.props;
+        const ownPicture = user && user.picture ? `${IMAGES_ROOT}media/cache/resolve/user_avatar_60x60/user/images/${user.picture}` : `${IMAGES_ROOT}media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
+        const otherPicture = otherUser && otherUser.picture ? `${IMAGES_ROOT}media/cache/resolve/user_avatar_60x60/user/images/${otherUser.picture}` : `${IMAGES_ROOT}media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
         return (
             <div className="view view-main" onScroll={this.handleScroll}>
-                <RegularTopNavbar leftText={strings.cancel} centerText={this.props.otherUser ? this.props.otherUser.username : ''}/>
+                <RegularTopNavbar leftText={strings.cancel} centerText={otherUser ? otherUser.username : ''}/>
                 <div className="page other-questions-page">
-                    {this.props.user && this.props.otherUser ?
+                    {user && otherUser ?
                         <div id="page-content" className="other-questions-content">
                             <div className="other-questions-header-container">
                                 <ProfilesAvatarConnection ownPicture={ownPicture} otherPicture={otherPicture}/>
-                                <div className="other-questions-stats-title title">{this.props.pagination.total || 0} {strings.coincidences}</div>
+                                <div className="other-questions-stats-title title">{pagination.total || 0} {strings.coincidences}</div>
                             </div>
-                            <OtherQuestionList otherQuestions={this.props.otherQuestions} questions={this.props.questions} userId={this.props.user.qnoow_id} ownPicture={ownPicture} otherPicture={otherPicture}/>
-                            <div className="loading-gif" style={this.props.pagination.nextLink ? {} : {display: 'none'}}></div>
+                            <OtherQuestionList otherQuestions={otherQuestions} questions={questions} userId={user.qnoow_id} ownPicture={ownPicture} otherPicture={otherPicture}/>
+                            <div className="loading-gif" style={pagination.nextLink ? {} : {display: 'none'}}></div>
                             <br />
                             <br />
                             <br />
@@ -130,11 +129,14 @@ export default class OtherQuestionsPage extends Component {
                         : ''
                     }
                 </div>
-                <ToolBar links={[
-                {'url': `/profile/${this.props.params.userId}`, 'text': strings.about.replace('%username%', otherUser.username)},
-                {'url': `/users/${this.props.params.userId}/other-questions`, 'text': strings.questions},
-                {'url': `/users/${this.props.params.userId}/other-interests`, 'text': strings.interests}
-                ]} activeLinkIndex={1}/>
+                {otherUser ?
+                    <ToolBar links={[
+                    {'url': `/profile/${params.userId}`, 'text': strings.about.replace('%username%', otherUser.username)},
+                    {'url': `/users/${params.userId}/other-questions`, 'text': strings.questions},
+                    {'url': `/users/${params.userId}/other-interests`, 'text': strings.interests}
+                    ]} activeLinkIndex={1}/>
+                        :
+                    ''}
             </div>
         );
     }

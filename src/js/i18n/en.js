@@ -139,6 +139,16 @@ export default {
         unlike    : 'Remove',
         similarity: 'Similarity'
     },
+    FilterContentPopup               : {
+        close    : 'Close',
+        interests: 'interests',
+        videos   : 'Videos',
+        audios   : 'Audios',
+        photos   : 'Photos',
+        websites : 'Websites',
+        people   : 'People',
+        channels : 'Channels'
+    },
     ////////////////
     // Components //
     ////////////////

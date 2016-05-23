@@ -110,7 +110,7 @@ export default {
         next   : 'DO TEST'
     },
     ThreadPage                       : {
-        threads: 'Threads'
+        threads: 'Yarns'
     },
     UserPage                         : {
         aboutMe  : 'About me',
@@ -145,7 +145,7 @@ export default {
     ////////////////
     LeftPanel                        : {
         interests     : 'Interests',
-        threads       : 'Threads',
+        threads       : 'Yarns',
         myProfile     : 'Profile',
         conversations : 'Messages',
         socialNetworks: 'My social networks',

@@ -61,46 +61,49 @@ export default class HomePage extends Component {
             [1, 2, 3].map(i =>
                 <div key={i} className="swiper-slide">
                     <div id={'login-' + i + '-image'} className="page">
-                        <div className="linear-gradient-rectangle"></div>
-                        <div className="nekuno-logo-wrapper">
-                            <div className="nekuno-logo"></div>
-                        </div>
-                        <div id="page-content" className="home-content">
-                            <div className="title">
-                                {i === 1 ? strings.title1 : i === 2 ? strings.title2 : strings.title3}
-                            </div>
-                        </div>
-                        <div className="swiper-pagination-and-button">
-                            <div className="swiper-pagination"></div>
-                            { this.state.needsUpdating ?
-                                <FullWidthButton onClick={() => window.location = 'https://play.google.com/store/apps/details?id=com.nekuno'}>
-                                    {strings.update}
-                                </FullWidthButton>
-                                :
-                                <div>
-                                    <Link to="/login">
-                                        <FullWidthButton>{strings.login}</FullWidthButton>
-                                    </Link>
-                                    <div className="register">
-                                        <span>{strings.hasInvitation}</span> <Link to="/register">{strings.register}</Link>
-                                    </div>
-                                </div>
-                            }
+                        <div className="title">
+                            {i === 1 ? strings.title1 : i === 2 ? strings.title2 : strings.title3}
                         </div>
                     </div>
                 </div>
+                
             )
         );
     };
 
     render() {
-
+        const {strings} = this.props;
         return (
             <div className="view view-main">
                 <div className="swiper-container swiper-init" data-speed="400" data-space-between="40" data-pagination=".swiper-pagination">
+                    <div className="linear-gradient-rectangle"></div>
+
                     <div className="swiper-wrapper">
                         {this.renderSlides()}
                     </div>
+                </div>
+                <div className="nekuno-logo-wrapper">
+                    <div className="nekuno-logo"></div>
+                </div>
+                <div id="page-content" className="home-content">
+
+                </div>
+                <div className="swiper-pagination-and-button">
+                    <div className="swiper-pagination"></div>
+                    { this.state.needsUpdating ?
+                        <FullWidthButton onClick={() => window.location = 'https://play.google.com/store/apps/details?id=com.nekuno'}>
+                            {strings.update}
+                        </FullWidthButton>
+                        :
+                        <div>
+                            <Link to="/login">
+                                <FullWidthButton>{strings.login}</FullWidthButton>
+                            </Link>
+                            <div className="register">
+                                <span>{strings.hasInvitation}</span> <Link to="/register">{strings.register}</Link>
+                            </div>
+                        </div>
+                    }
                 </div>
             </div>
         );

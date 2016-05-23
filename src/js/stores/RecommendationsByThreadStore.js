@@ -24,6 +24,10 @@ const RecommendationsByThreadStore = createIndexedListStore({
 
     },
 
+    recommendationsReceived(threadId) {
+        return this.getList(threadId).getPageCount() > 0;
+    },
+
     setPosition(threadId, newPosition){
         _position[threadId] = newPosition;
     },

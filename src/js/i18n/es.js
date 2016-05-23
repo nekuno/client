@@ -69,9 +69,6 @@ export default {
     },
     QuestionsPage                    : {
         myProfile: 'Mi Perfil',
-        title    : '¿Quieres que hilemos más fino?',
-        text     : 'Responde más preguntas del test',
-        completed: 'preguntas completadas',
         about    : 'Sobre mí',
         questions: 'Respuestas',
         interests: 'Intereses'
@@ -193,13 +190,19 @@ export default {
     QuestionStatsInline              : {
         statistics: 'Estadísticas repuestas comunidad'
     },
+    QuestionsBanner                  : {
+        title    : '¿Quieres que hilemos más fino?',
+        text     : 'Responde más preguntas del test',
+        completed: 'preguntas completadas'
+    },
     TopRightRecommendationIcons      : {
         confirmDelete: '¿Estás seguro de que quieres borrar este hilo?'
     },
     CardContent                      : {
         like         : 'Me interesa',
         unlike       : 'Quitar',
-        compatibility: 'Compatibilidad'
+        compatibility: 'Compatibilidad',
+        emptyTitle   : 'Contenido'
     },
     CardUser                         : {
         like      : 'Me gusta',
@@ -215,6 +218,18 @@ export default {
         websites : 'Sitios web',
         people   : 'Personas',
         channels : 'Canales'
+    },
+    RegisterQuestionsFinishedPopup   : {
+        title    : '¡Felicidades!',
+        text     : 'Has completado las primeras 4 preguntas indispensables, si quieres seguir contestando preguntas para mejorar las recomendaciones, puedes hacerlo desde tu perfil.',
+        moreTests: 'Hacer más tests',
+        continue : 'Continuar a recomendaciones'
+    },
+    EmptyThreadPopup: {
+        title     : '¡Vaya!',
+        text      : '¡Este hilo está vacío por ahora! Edita sus filtros para conseguir recomendaciones o vuelve a la lista de hilos para intentar otro.',
+        editThread: 'Editar este hilo',
+        goBack    : 'Volver'
     },
     CreateContentThread              : {
         back        : 'Volver',

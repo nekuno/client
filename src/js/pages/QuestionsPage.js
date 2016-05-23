@@ -4,6 +4,7 @@ import { IMAGES_ROOT } from '../constants/Constants';
 import LeftMenuTopNavbar from '../components/ui/LeftMenuTopNavbar';
 import ToolBar from '../components/ui/ToolBar';
 import QuestionList from '../components/questions/QuestionList';
+import QuestionsBanner from '../components/questions/QuestionsBanner';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
@@ -69,7 +70,6 @@ export default class QuestionsPage extends Component {
 
     render() {
         const ownPicture = this.props.user && this.props.user.picture ? `${IMAGES_ROOT}media/cache/resolve/user_avatar_60x60/user/images/${this.props.user.picture}` : `${IMAGES_ROOT}media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
-        const ownBigPicture = this.props.user && this.props.user.picture ? `${IMAGES_ROOT}media/cache/resolve/user_avatar_180x180/user/images/${this.props.user.picture}` : `${IMAGES_ROOT}media/cache/user_avatar_180x180/bundles/qnoowweb/images/user-no-img.jpg`;
         const defaultPicture = `${IMAGES_ROOT}media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
         const strings = this.props.strings;
         return (
@@ -77,19 +77,7 @@ export default class QuestionsPage extends Component {
                 <LeftMenuTopNavbar centerText={strings.myProfile}/>
                 <div className="page questions-page">
                     <div id="page-content" className="questions-content">
-                        <div className="answer-questions-link-container">
-                            <Link to="/answer-question/next">
-                                <div className="title answer-questions-link-title">{strings.title}</div>
-                                <div className="answer-questions-link-text">{strings.text}</div>
-                                <div className="answer-questions-link-stats">
-                                    <p>{this.props.pagination.total || 0}</p>
-                                    <p>{strings.completed}</p>
-                                </div>
-                                <div className="answer-questions-link-picture">
-                                    <img src={ownBigPicture}/>
-                                </div>
-                            </Link>
-                        </div>
+                        <QuestionsBanner user={this.props.user} questionsTotal={this.props.pagination.total || 0}/>
                         <br />
                         <br />
                         <br />
@@ -117,9 +105,6 @@ export default class QuestionsPage extends Component {
 QuestionsPage.defaultProps = {
     strings: {
         myProfile: 'My profile',
-        title    : 'Do you want us to walk a fine line?',
-        text     : 'Answer more test questions',
-        completed: 'completed questions',
         about    : 'About me',
         questions: 'Answers',
         interests: 'Interests'

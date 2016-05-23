@@ -24,7 +24,7 @@ function parseId(user) {
 function requestData(props) {
     const userId = parseId(props.user);
     UserActionCreators.requestUser(props.params.userId, ['username', 'email', 'picture', 'status']);
-    InterestsActionCreators.requestComparedInterests(userId, props.params.userId);
+    InterestsActionCreators.requestComparedInterests(userId, props.params.userId, 'Link', 1);
 }
 
 function getState(props) {
@@ -72,7 +72,7 @@ export default class OtherInterestsPage extends Component {
 
         this.state = {
             type         : '',
-            commonContent: 0,
+            commonContent: 1,
             carousel     : false,
             position     : 0,
             swiper       : null
@@ -202,7 +202,7 @@ export default class OtherInterestsPage extends Component {
                 <div className="page other-interests-page">
                     <div id="page-content" className="other-interests-content">
                         <ProfilesAvatarConnection ownPicture={ownPicture} otherPicture={otherUserPicture}/>
-                        <div className="title">{this.state.commonContent ? strings.similarInterestsCount.replace('%count%', pagination.total) : strings.interestsCount.replace('%count%', pagination.total)}</div>
+                        <div className="title">{this.state.commonContent ? strings.similarInterestsCount.replace('%count%', pagination.total || 0) : strings.interestsCount.replace('%count%', pagination.total || 0)}</div>
                         <div className="common-content-switch">
                             <TextRadios labels={[{key: 0, text: strings.all}, {key: 1, text: strings.common}]} value={this.state.commonContent} onClickHandler={this.onFilterCommonClick}/>
                         </div>

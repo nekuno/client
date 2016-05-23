@@ -69,9 +69,6 @@ export default {
     },
     QuestionsPage                    : {
         myProfile: 'My profile',
-        title    : 'Do you want us to walk a fine line?',
-        text     : 'Answer more test questions',
-        completed: 'completed questions',
         about    : 'About me',
         questions: 'Answers',
         interests: 'Interests'
@@ -113,7 +110,7 @@ export default {
         next   : 'DO TEST'
     },
     ThreadPage                       : {
-        threads: 'Threads'
+        threads: 'Yarns'
     },
     UserPage                         : {
         aboutMe  : 'About me',
@@ -148,7 +145,7 @@ export default {
     ////////////////
     LeftPanel                        : {
         interests     : 'Interests',
-        threads       : 'Threads',
+        threads       : 'Yarns',
         myProfile     : 'Profile',
         conversations : 'Messages',
         socialNetworks: 'My social networks',
@@ -193,13 +190,20 @@ export default {
     QuestionStatsInline              : {
         statistics: 'Community answer statistics'
     },
+    QuestionsBanner                  : {
+        title    : 'Do you want us to walk a fine line?',
+        text     : 'Answer more test questions',
+        completed: 'completed questions'
+    },
     TopRightRecommendationIcons      : {
         confirmDelete: 'Are you sure you want to delete this thread?'
     },
     CardContent                      : {
         like         : 'Like',
         unlike       : 'Remove',
-        compatibility: 'Compatibility'
+        compatibility: 'Compatibility',
+        emptyTitle   : 'Link'
+
     },
     CardUser                         : {
         like      : 'Like',
@@ -215,6 +219,18 @@ export default {
         websites : 'Websites',
         people   : 'People',
         channels : 'Channels'
+    },
+    RegisterQuestionsFinishedPopup   : {
+        title    : 'Congratulations!',
+        text     : 'You´ve completed mandatory 4 questions; if you want to improve your recommendations even more, you can answer more questions from your profile',
+        moreTests: 'Do more tests',
+        continue : 'Continue to recommendations'
+    },
+    EmptyThreadPopup: {
+        title     : 'Oops!',
+        text      : 'This yarn is empty right now! Edit its filters to get recommendations or go back to the yarns list and try another.',
+        editThread: 'Edit this yarn',
+        goBack    : 'Go back'
     },
     CreateContentThread              : {
         back        : 'Back',

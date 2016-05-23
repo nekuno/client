@@ -1,6 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import ThreadList from '../components/threads/ThreadList';
 import LeftMenuRightIconTopNavbar from '../components/ui/LeftMenuRightIconTopNavbar';
+import QuestionsBanner from '../components/questions/QuestionsBanner';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
@@ -10,6 +11,7 @@ import ThreadStore from '../stores/ThreadStore';
 import ProfileStore from '../stores/ProfileStore';
 import ThreadsByUserStore from '../stores/ThreadsByUserStore';
 import FilterStore from '../stores/FilterStore';
+import QuestionStore from '../stores/QuestionStore';
 
 /**
  * Requests data from server for current props.
@@ -29,10 +31,13 @@ function getState(props) {
     const threads = threadIds ? threadIds.map(ThreadStore.get) : [];
     const profile = ProfileStore.get(props.user.id) || {};
     const filters = FilterStore.filters;
+    const pagination = QuestionStore.getPagination(props.user.id) || {};
+
     return {
         filters,
         threads,
-        profile
+        profile,
+        pagination
     };
 }
 
@@ -72,6 +77,7 @@ export default class ThreadPage extends Component {
 
     render() {
         const {threads, filters, profile, strings, user} = this.props;
+
         return (
             <div className="view view-main">
                 <LeftMenuRightIconTopNavbar centerText={strings.threads} centerTextSize={'large'} rightIcon={'plus'} onRightLinkClickHandler={this.onAddThreadClickHandler}/>
@@ -79,6 +85,9 @@ export default class ThreadPage extends Component {
                     <div id="page-content">
                         {filters && threads && profile ?
                             <ThreadList threads={threads} userId={user.id} profile={profile} filters={filters}/> : ''
+                        }
+                        {filters && threads && profile ?
+                            <QuestionsBanner user={user} questionsTotal={this.props.pagination.total || 0}/> : ''
                         }
                     </div>
                 </div>

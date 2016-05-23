@@ -59,24 +59,27 @@ export default class CardContent extends Component {
         const likeButtonText = rate ? strings.unlike : strings.like;
         const likeButton = hideLikeButton ? '' : <div className="like-button-container"><Button {...this.props} onClick={this.onRate}>{likeButtonText}</Button></div>;
         const imageClass = fixedHeight ? 'image fixed-height-image' : 'image';
+        const isImage = types.indexOf('Image') > -1;
         let imgSrc = 'img/default-content-image.jpg';
         if (thumbnail) {
             imgSrc = thumbnail;
-        } else if (types.indexOf('Image') > -1) {
+        } else if (isImage) {
             imgSrc = url;
         }
         return (
             <div className="card person-card">
-                <div className="card-header" onClick={this.onClickHandler}>
-                    <a>
-                        <div className="card-title">
-                            {cardTitle}
+                {isImage ? '' :
+                    <div className="card-header" onClick={this.onClickHandler}>
+                        <a>
+                            <div className="card-title">
+                                {cardTitle}
+                            </div>
+                        </a>
+                        <div className="card-sub-title">
+                            {subTitle}
                         </div>
-                    </a>
-                    <div className="card-sub-title">
-                        {subTitle}
                     </div>
-                </div>
+                }
                 <div className="card-icons" onClick={this.onClickHandler}>
                     <CardIcons types={types}/>
                 </div>

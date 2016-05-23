@@ -216,6 +216,12 @@ export default {
         people   : 'People',
         channels : 'Channels'
     },
+    RegisterQuestionsFinishedPopup   : {
+        title    : 'Congratulations!',
+        text     : 'You´ve completed mandatory 4 questions; if you want to improve your recommendations even more, you can answer more questions from your profile',
+        moreTests: 'Do more tests',
+        continue : 'Continue to recommendations'
+    },
     CreateContentThread              : {
         back        : 'Back',
         selectFilter: 'Select filter',

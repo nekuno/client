@@ -2,12 +2,16 @@ import React, { PropTypes, Component } from 'react';
 import { Link } from 'react-router';
 import * as UserActionCreators from '../../actions/UserActionCreators';
 import shouldPureComponentUpdate from 'react-pure-render/function';
+import translate from '../../i18n/Translate';
 import FullWidthButton from '../ui/FullWidthButton';
 
+@translate('RegisterQuestionsFinishedPopup')
 export default class RegisterQuestionsFinishedPopup extends Component {
     static propTypes = {
         onContinue: PropTypes.func.isRequired,
-        onTests: PropTypes.func.isRequired
+        onTests: PropTypes.func.isRequired,
+        // Injected by @translate:
+        strings       : PropTypes.object
     };
 
     constructor(props) {
@@ -21,21 +25,17 @@ export default class RegisterQuestionsFinishedPopup extends Component {
 
     render() {
         const popupClass = 'popup popup-register-finished tablet-fullscreen';
-
+        const strings = this.props.strings;
         return (
 
             <div className={popupClass}>
                 <div className="content-block">
-                    <div className="popup-register-finished-title title"> ¡Felicidades!</div>
-                    <div className="popup-register-finished-text">
-                        Has completado las primeras 4 preguntas indispensables,
-                        si quieres seguir contestando preguntas para mejorar las recomendaciones,
-                        puedes hacerlo desde tu perfil
-                    </div>
-                    <FullWidthButton onClick={this.onTests}> Hacer más tests</FullWidthButton>
+                    <div className="popup-register-finished-title title"> {strings.title}</div>
+                    <div className="popup-register-finished-text"> {strings.text} </div>
+                    <FullWidthButton onClick={this.onTests}> {strings.moreTests}</FullWidthButton>
                     <br />
                     <br />
-                    <FullWidthButton onClick={this.onContinue}> Continuar</FullWidthButton>
+                    <FullWidthButton onClick={this.onContinue}> {strings.continue}</FullWidthButton>
                 </div>
             </div>
         );
@@ -52,3 +52,12 @@ export default class RegisterQuestionsFinishedPopup extends Component {
         this.props.onContinue();
     }
 }
+
+RegisterQuestionsFinishedPopup.defaultProps = {
+    strings: {
+        title    : 'Congratulations!',
+        text     : 'You´ve completed mandatory 4 questions; if you want to improve your recommendations even more, you can answer more questions from your profile',
+        moreTests: 'Do more tests',
+        continue : 'Continue to recommendations'
+    }
+};

@@ -223,6 +223,12 @@ export default {
         moreTests: 'Hacer más tests',
         continue : 'Continuar a recomendaciones'
     },
+    EmptyThreadPopup: {
+        title     : '¡Vaya!',
+        text      : '¡Este hilo está vacío por ahora! Edita sus filtros para conseguir recomendaciones o vuelve a la lista de hilos para intentar otro.',
+        editThread: 'Editar este hilo',
+        goBack    : 'Volver'
+    },
     CreateContentThread              : {
         back        : 'Volver',
         selectFilter: 'Selecciona un filtro',

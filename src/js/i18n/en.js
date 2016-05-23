@@ -224,6 +224,12 @@ export default {
         moreTests: 'Do more tests',
         continue : 'Continue to recommendations'
     },
+    EmptyThreadPopup: {
+        title     : 'Oops!',
+        text      : 'This yarn is empty right now! Edit its filters to get recommendations or go back to the yarns list and try another.',
+        editThread: 'Edit this yarn',
+        goBack    : 'Go back'
+    },
     CreateContentThread              : {
         back        : 'Back',
         selectFilter: 'Select filter',

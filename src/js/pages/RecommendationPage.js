@@ -1,6 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import RecommendationList from '../components/recommendations/RecommendationList';
 import RecommendationsTopNavbar from '../components/recommendations/RecommendationsTopNavbar';
+import EmptyThreadPopup from '../components/recommendations/EmptyThreadPopup';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import connectToStores from '../utils/connectToStores';
 import * as UserActionCreators from '../actions/UserActionCreators';
@@ -78,6 +79,7 @@ function getState(props) {
     const threadId = parseThreadId(props.params);
     const thread = ThreadStore.get(threadId);
     const recommendationIds = threadId ? RecommendationsByThreadStore.getRecommendationsFromThread(threadId) : [];
+    const recommendationsReceived = RecommendationsByThreadStore.recommendationsReceived(threadId);
     const category = thread ? thread.category : null;
     const filters = FilterStore.filters;
 
@@ -90,6 +92,7 @@ function getState(props) {
 
     return {
         recommendations,
+        recommendationsReceived,
         category,
         thread,
         filters
@@ -109,6 +112,7 @@ export default class RecommendationPage extends Component {
         user           : PropTypes.object.isRequired,
         // Injected by @connectToStores:
         recommendations: PropTypes.array.isRequired,
+        recommendationsReceived: PropTypes.bool.isRequired,
         thread         : PropTypes.object.isRequired,
         filters        : PropTypes.object
     };
@@ -141,6 +145,11 @@ export default class RecommendationPage extends Component {
     }
 
     componentDidUpdate() {
+
+        if (this.props.recommendationsReceived && this.props.recommendations.length == 0){
+            nekunoApp.popup('.popup-empty-thread');
+        }
+
         if (!this.props.thread || this.props.recommendations.length == 0) {
             return;
         }
@@ -166,6 +175,7 @@ export default class RecommendationPage extends Component {
                         }
                     </div>
                 </div>
+                <EmptyThreadPopup threadId={thread.id}/>
             </div>
         );
     }

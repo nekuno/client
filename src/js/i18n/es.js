@@ -69,9 +69,6 @@ export default {
     },
     QuestionsPage                    : {
         myProfile: 'Mi Perfil',
-        title    : '¿Quieres que hilemos más fino?',
-        text     : 'Responde más preguntas del test',
-        completed: 'preguntas completadas',
         about    : 'Sobre mí',
         questions: 'Respuestas',
         interests: 'Intereses'
@@ -192,6 +189,11 @@ export default {
     },
     QuestionStatsInline              : {
         statistics: 'Estadísticas repuestas comunidad'
+    },
+    QuestionsBanner                  : {
+        title    : '¿Quieres que hilemos más fino?',
+        text     : 'Responde más preguntas del test',
+        completed: 'preguntas completadas'
     },
     TopRightRecommendationIcons      : {
         confirmDelete: '¿Estás seguro de que quieres borrar este hilo?'

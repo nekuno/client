@@ -1,6 +1,7 @@
 @import '../_partials/colors';
 
-body #root .App .view .page.questions-page  {
+body #root .App .view .page.questions-page,
+      #root .App .view .page.threads-page  {
   #page-content {
     .answer-questions-link-container {
       background-color: $deep-purple;
@@ -193,8 +194,13 @@ body #root .App .view .page.questions-page  {
   }
 }
 
+body #root .App .view .page.threads-page .answer-questions-link-container {
+  z-index:10000;
+}
+
 @media only screen and (max-width: 270px) {
-  body #root .App .view .page.questions-page {
+  body #root .App .view .page.questions-page,
+        #root .App .view .page.threads-page {
     #page-content {
       .question-list {
         width: 80%;
@@ -207,7 +213,8 @@ body #root .App .view .page.questions-page  {
 }
 
 @media only screen and (min-width: 271px) and (max-width: 300px) {
-  body #root .App .view .page.questions-page {
+  body #root .App .view .page.questions-page,
+        #root .App .view .page.threads-page {
     #page-content {
       .question-list {
         width: 90%;

@@ -69,9 +69,6 @@ export default {
     },
     QuestionsPage                    : {
         myProfile: 'My profile',
-        title    : 'Do you want us to walk a fine line?',
-        text     : 'Answer more test questions',
-        completed: 'completed questions',
         about    : 'About me',
         questions: 'Answers',
         interests: 'Interests'
@@ -192,6 +189,11 @@ export default {
     },
     QuestionStatsInline              : {
         statistics: 'Community answer statistics'
+    },
+    QuestionsBanner                  : {
+        title    : 'Do you want us to walk a fine line?',
+        text     : 'Answer more test questions',
+        completed: 'completed questions'
     },
     TopRightRecommendationIcons      : {
         confirmDelete: 'Are you sure you want to delete this thread?'

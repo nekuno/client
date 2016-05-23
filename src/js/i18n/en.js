@@ -199,7 +199,9 @@ export default {
     CardContent                      : {
         like         : 'Like',
         unlike       : 'Remove',
-        compatibility: 'Compatibility'
+        compatibility: 'Compatibility',
+        emptyTitle   : 'Link'
+
     },
     CardUser                         : {
         like      : 'Like',

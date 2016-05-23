@@ -199,7 +199,8 @@ export default {
     CardContent                      : {
         like         : 'Me interesa',
         unlike       : 'Quitar',
-        compatibility: 'Compatibilidad'
+        compatibility: 'Compatibilidad',
+        emptyTitle   : 'Contenido'
     },
     CardUser                         : {
         like      : 'Me gusta',

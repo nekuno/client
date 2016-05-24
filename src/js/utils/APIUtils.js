@@ -87,29 +87,39 @@ export function doRequest(method, url, data = null) {
 
     return new Bluebird((resolve, reject, onCancel) => {
 
-        var promise = request(
-            {
-                method  : method,
-                protocol: Url.parse(url).protocol,
-                url     : url,
-                qs      : {locale},
-                body    : data,
-                json    : true,
-                headers : headers
-            },
-            (err, response, body) => {
+        var promise;
+        if (LoginStore.user.username == 'guest' && ['PUT', 'POST', 'DELETE'].indexOf(method) > -1){
+            promise = Promise.resolve();
+            nekunoApp.hideProgressbar();
+            let message = locale == 'en' ? 'This feature is available only to registered users. Improve your experience now!'
+                                        : 'Esta función sólo está disponible para usuarios registrados. Mejora tu experiencia ahora!';
+            nekunoApp.alert(message);
+        } else {
+            promise = request(
+                {
+                    method  : method,
+                    protocol: Url.parse(url).protocol,
+                    url     : url,
+                    qs      : {locale},
+                    body    : data,
+                    json    : true,
+                    headers : headers
+                },
+                (err, response, body) => {
 
-                nekunoApp.hideProgressbar();
+                    nekunoApp.hideProgressbar();
 
-                if (err) {
-                    return reject(err);
+                    if (err) {
+                        return reject(err);
+                    }
+                    if (response.statusCode >= 400) {
+                        return reject(body);
+                    }
+                    return resolve(body);
                 }
-                if (response.statusCode >= 400) {
-                    return reject(body);
-                }
-                return resolve(body);
-            }
-        );
+            );
+        }
+
         onCancel(() => {
             promise.abort();
             nekunoApp.hideProgressbar();

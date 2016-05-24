@@ -1,15 +1,6 @@
 import { Dispatcher } from 'flux';
-import ActionTypes from '../constants/ActionTypes';
-import LoginStore from '../stores/LoginStore';
-//import LocaleStore from '../stores/LocaleStore';
 
 const flux = new Dispatcher();
-
-const guest_forbidden = [ActionTypes.EDIT_PROFILE, ActionTypes.UPDATE_THREAD, ActionTypes.CREATE_THREAD, ActionTypes.CONNECT_ACCOUNT,
-                            ActionTypes.LIKE_CONTENT, ActionTypes.LIKE_USER, ActionTypes.UNLIKE_CONTENT, ActionTypes.UNLIKE_USER,
-                            ActionTypes.BLOCK_USER, ActionTypes.UNBLOCK_USER, ActionTypes.REGISTER_USER, ActionTypes.ANSWER_QUESTION,
-                            ActionTypes.SKIP_QUESTION, ActionTypes.DELETE_THREAD];
-const guest_username = 'guest';
 
 export function register(callback) {
     return flux.register(callback);
@@ -30,15 +21,6 @@ export function waitFor(ids) {
 export function dispatch(type, action = {}) {
     if (!type) {
         throw new Error('You forgot to specify type.');
-    }
-
-    if (LoginStore.user && LoginStore.user.username === guest_username && guest_forbidden.indexOf(type) > -1){
-        let message = 'Esta función está disponible solo para usuarios registrados. ¡Mejora tu experiencia con nosotros!';
-        //if (LocaleStore.locale == 'en'){
-        //    message = 'This feature is available only for registered users. Improve your experience with us!';
-        //}
-        nekunoApp.alert(message);
-        throw new Error(message);
     }
 
     // In production, thanks to DefinePlugin in webpack.config.production.js,

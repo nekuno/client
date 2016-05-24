@@ -57,18 +57,18 @@ body {
 	}
 	input {
 		&:-webkit-autofill {
-			background-color: $dark-blue !important;
-			-webkit-box-shadow: 0 0 0 1000px $dark-blue inset;
+			background-color: $dark-purple !important;
+			-webkit-box-shadow: 0 0 0 1000px $dark-purple inset !important;
 			-webkit-text-fill-color: white !important;
 		}
 		&:-webkit-autofill:focus {
-			background-color: $dark-blue !important;
-			-webkit-box-shadow: 0 0 0 1000px $dark-blue inset;
+			background-color: $dark-purple !important;
+			-webkit-box-shadow: 0 0 0 1000px $dark-purple inset !important;
 			-webkit-text-fill-color: white !important;
 		}
 		&:-webkit-autofill:hover {
-			background-color: $dark-blue !important;
-			-webkit-box-shadow: 0 0 0 1000px $dark-blue inset;
+			background-color: $dark-purple !important;
+			-webkit-box-shadow: 0 0 0 1000px $dark-purple inset !important;
 			-webkit-text-fill-color: white !important;
 		}
 	}

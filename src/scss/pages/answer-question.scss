@@ -104,3 +104,9 @@ body #root .App .view .page {
     }
   }
 }
+
+@media only screen and (max-width: 300px) {
+  body #root .App .view .page.answer-question-page {
+    width: 90%;
+  }
+}

@@ -125,3 +125,10 @@ body #root .App .view .page.question-stats-page {
     width: 90%;
   }
 }
+
+@media only screen and (max-width: 300px) {
+  body #root .App .view .page.question-stats-page {
+    margin-left: -10px;
+    width: 95%;
+  }
+}

@@ -54,3 +54,10 @@ body #root .App {
     }
   }
 }
+
+@media only screen and (max-width: 300px) {
+  body #root .App .view .page #page-content.recommendation-page {
+    margin-left: -10px;
+    width: 95%;
+  }
+}

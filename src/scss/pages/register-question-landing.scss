@@ -6,7 +6,7 @@ body #root .App .view .page.register-question-landing-page {
 
     .register-question-landing-button {
       margin: 20px auto;
-      width:90%;
+      width: 90%;
     }
 
     #register-question-landing-image {
@@ -21,6 +21,33 @@ body #root .App .view .page.register-question-landing-page {
     .user-image-wrapper {
       margin-top: -186px;
       margin-bottom: 158px;
+    }
+  }
+}
+
+
+@media only screen and (max-width: 300px) {
+  body #root .App .view .page.register-question-landing-page {
+    width: 85%;
+
+    #page-content.register-question-landing {
+      #register-question-landing-image {
+        width: 250px;
+      }
+      .user-image-wrapper {
+        margin-left: 94px;
+        margin-top: -211px;
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 301px) and (max-width: 350px) {
+  body #root .App .view .page.register-question-landing-page {
+    #page-content.register-question-landing {
+      .user-image-wrapper {
+        margin-left: 118px;
+      }
     }
   }
 }

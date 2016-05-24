@@ -1,6 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import LeftMenuTopNavbar from '../components/ui/LeftMenuTopNavbar';
 import RegularTopNavbar from '../components/ui/RegularTopNavbar';
+import FullWidthButton from '../components/ui/FullWidthButton';
 import QuestionStats from '../components/questions/QuestionStats';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
@@ -78,6 +79,7 @@ export default class QuestionStatsPage extends Component {
                     </div>
                     <br />
                     <br />
+                    <FullWidthButton onClick={this.handleContinueClick}>{strings.next}</FullWidthButton>
                     <br />
                     <br />
                     <br />

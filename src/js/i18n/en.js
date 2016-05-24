@@ -14,12 +14,14 @@ export default {
     ConnectSocialNetworksOnSignUpPage: {
         next   : 'Continue',
         welcome: 'Welcome to Nekuno',
-        excerpt: 'Connect to Nekuno all social networks that you want, to improve the results of the recommended content.'
+        excerpt: 'At last your data will work for you! The more interest you contribute, the better recommendations you’ll get!',
+        footer : 'Remember, you’re in control at all times, we will not publish anything on your social networks'
     },
     ConnectSocialNetworksPage        : {
         top    : 'Social Networks',
         title  : 'Connect to your world',
-        excerpt: 'Connect your social networks with Nekuno to improve the results of the recommended content.'
+        excerpt: 'At last your data will work for you! The more interest you contribute, the better recommendations you’ll get!',
+        footer : 'Remember, you’re in control at all times, we will not publish anything on your social networks'
     },
     EditProfilePage                  : {
         title       : 'Edit profile',

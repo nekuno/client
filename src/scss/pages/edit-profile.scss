@@ -247,6 +247,16 @@ body #root .App .view .page.edit-profile-page  {
       }
     }
 
+    @media only screen and (max-width: 300px) {
+      .profile-field {
+        .profile-field-background {
+          .profile-field-remove .small-icon-wrapper {
+            margin-left: -65px;
+          }
+        }
+      }
+    }
+
     @media only screen and (min-width: 360px) and (max-width: 375px) {
       .profile-field {
         .text-radios .chip {

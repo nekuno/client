@@ -175,7 +175,7 @@ export default class RecommendationPage extends Component {
                         }
                     </div>
                 </div>
-                <EmptyThreadPopup threadId={thread.id}/>
+                {thread.id ? <EmptyThreadPopup threadId={thread.id}/> : ''}
             </div>
         );
     }

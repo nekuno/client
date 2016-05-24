@@ -55,6 +55,21 @@ body {
 		cursor: pointer;
 		font-size: 1em;
 	}
+	input {
+		&:-webkit-autofill {
+			-webkit-box-shadow: 0 0 0 1000px $dark-blue inset;
+			-webkit-text-fill-color: white !important;
+		}
+		&:-webkit-autofill:focus {
+			-webkit-box-shadow: 0 0 0 1000px $dark-blue inset;
+			-webkit-text-fill-color: white !important;
+		}
+		&:-webkit-autofill:hover {
+			-webkit-box-shadow: 0 0 0 1000px $dark-blue inset;
+			-webkit-text-fill-color: white !important;
+		}
+	}
+
 	#root {
 		height: 100%;
 

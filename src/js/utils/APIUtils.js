@@ -91,7 +91,9 @@ export function doRequest(method, url, data = null) {
             nekunoApp.hideProgressbar();
             let message = locale == 'en' ? 'This feature is available only to registered users. Improve your experience now!'
                 : 'Esta función sólo está disponible para usuarios registrados. Mejora tu experiencia ahora!';
-            nekunoApp.alert(message);
+            nekunoApp.confirm(message, () => {
+                console.log('Dispatch logout action and redirect to register');
+            });
             return reject(message);
         }
 

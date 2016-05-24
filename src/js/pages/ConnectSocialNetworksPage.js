@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import { IMAGES_ROOT } from '../constants/Constants';
-import LeftBackIconTopNavbar from '../components/ui/LeftBackIconTopNavbar';
+import LeftMenuTopNavbar from '../components/ui/LeftMenuTopNavbar';
 import SocialWheels from '../components/ui/SocialWheels';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
@@ -41,7 +41,7 @@ export default class ConnectSocialNetworksPage extends Component {
 
         return (
             <div className="view view-main">
-                <LeftBackIconTopNavbar centerText={strings.top}/>
+                <LeftMenuTopNavbar centerText={strings.top}/>
                 <div data-page="index" className="page connect-social-networks-page">
                     <div id="page-content" className="connect-social-networks-content">
                         <div className="title">{strings.title}</div>

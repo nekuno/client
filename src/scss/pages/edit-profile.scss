@@ -170,6 +170,10 @@ body #root .App .view .page.edit-profile-page  {
             font-weight: bold;
             text-align: center;
           }
+
+          input[type="date"] {
+            text-align: left;
+          }
         }
       }
     }

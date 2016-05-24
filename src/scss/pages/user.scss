@@ -105,9 +105,14 @@ body #root .App .view .page.user-page {
           .icon-block {
 
           }
-
         }
       }
     }
+  }
+}
+
+@media only screen and (max-width: 300px) {
+  body #root .App .view .page.user-page {
+    width: 90%;
   }
 }

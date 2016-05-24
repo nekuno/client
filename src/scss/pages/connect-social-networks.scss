@@ -4,3 +4,13 @@ body #root .App .view .page.connect-social-networks-page  {
     width: 85%;
   }
 }
+
+@media only screen and (max-width: 300px) {
+  body #root .App .view .page.connect-social-networks-page {
+    width: 90%;
+
+    svg {
+      margin-left: -35px;
+    }
+  }
+}

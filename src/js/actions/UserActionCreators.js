@@ -50,7 +50,9 @@ export function editProfile(data) {
         .then(function (response) {
             checkLocale(response.interfaceLanguage);
             return null;
-        })
+        }, (error) => {
+            console.error(error);
+        });
 }
 
 export function changeLocale(locale) {

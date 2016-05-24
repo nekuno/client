@@ -11,7 +11,8 @@ export default class SocialWheels extends Component {
 
     renderProcessingIcon = function(resource, radius, degrees, posX, posY, key) {
         return (
-            <foreignObject key={key} x={this.smallIconXValue(posX, posY, radius, 0, degrees)} y={this.smallIconYValue(posX, posY, radius, 0, degrees)} width="15" height="15" requiredExtensions="http://www.w3.org/1999/xhtml">
+            <foreignObject key={key} x={this.smallIconXValue(posX, posY, radius, 0, degrees)} y={this.smallIconYValue(posX, posY, radius, 0, degrees)} width="15" height="15" requiredExtensions="http://www.w3.org/1999/xhtml"
+                           style={degrees ? null : {opacity: 0}}>
                 <div className={"icon-wrapper text-" + resource}>
                     <div className={"icon-" + resource}></div>
                 </div>

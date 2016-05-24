@@ -41,11 +41,15 @@ export default class PaginatedList {
     }
 
     expectPage() {
-        invariant(
-            !this._isExpectingPage,
-            'Cannot call expectPage twice without prior cancelPage or ' +
-            'receivePage call.'
-        );
+        try{
+            invariant(
+                !this._isExpectingPage,
+                'Cannot call expectPage twice without prior cancelPage or ' +
+                'receivePage call.'
+            );
+        } catch (err) {
+            console.log(err.message);
+        }
         this._isExpectingPage = true;
     }
 
@@ -58,10 +62,14 @@ export default class PaginatedList {
     }
 
     receivePage(newIds, nextPageUrl) {
-        invariant(
-            this._isExpectingPage,
-            'Cannot call receivePage without prior expectPage call.'
-        );
+        try{
+            invariant(
+                this._isExpectingPage,
+                'Cannot call receivePage without prior expectPage call.'
+            );
+        } catch (err) {
+            console.log(err.message);
+        }
 
         if (newIds.length) {
             this._ids = union(this._ids, newIds);

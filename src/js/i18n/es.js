@@ -158,6 +158,7 @@ export default {
         similarity      : 'similaridad'
     },
     ProfileAboutMe                   : {
+        aboutMe: 'Sobre mí',
         seeLess: 'Ver menos',
         seeMore: 'Ver más'
     },

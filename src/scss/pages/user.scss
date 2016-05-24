@@ -32,8 +32,9 @@ body #root .App .view .page.user-page {
           margin-top: 1.5ex;
           width: 100%;
           margin-bottom: 3ex;
-          .seeMore {
+          .see-more {
             color: $deep-purple;
+            cursor: pointer;
           }
         }
         .profile-about-me-name {

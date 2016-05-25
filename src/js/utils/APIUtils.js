@@ -88,7 +88,7 @@ export function doRequest(method, url, data = null) {
 
     return new Bluebird((resolve, reject, onCancel) => {
 
-        if (LoginStore.user && LoginStore.user.username == 'guest' && ['PUT', 'POST', 'DELETE'].indexOf(method) > -1) {
+        if (LoginStore.isGuest() && ['PUT', 'POST', 'DELETE'].indexOf(method) > -1) {
             nekunoApp.hideProgressbar();
             let message = locale == 'en' ? 'This feature is available only to registered users. Improve your experience now!'
                 : 'Esta función sólo está disponible para usuarios registrados. Mejora tu experiencia ahora!';

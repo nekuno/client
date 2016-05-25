@@ -78,6 +78,10 @@ class LoginStore extends BaseStore {
     isLoggedIn() {
         return !!this._user;
     }
+
+    isGuest() {
+        return this.isLoggedIn() && this._user.username == 'guest'
+    }
 }
 
 export default new LoginStore();

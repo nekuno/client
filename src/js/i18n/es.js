@@ -304,6 +304,9 @@ export default {
         placeholderMin: 'Mínimo',
         placeholderMax: 'Máximo'
     },
+    GuestBanner                      : {
+        text: 'Estás en modo invitado. Click aquí para loguearte y que Nekuno trabaje para ti'
+    },
     ////////////////
     // Framework7 //
     ////////////////

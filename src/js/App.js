@@ -2,12 +2,14 @@ import React, { PropTypes, Component } from 'react';
 import LeftPanel from './components/LeftPanel';
 import HomePage from './pages/HomePage';
 import TranslationProvider from './i18n/TranslationProvider';
+import GuestBanner from './components/GuestBanner';
 import connectToStores from './utils/connectToStores';
 import LoginStore from './stores/LoginStore';
 
 function getState(props) {
     const isLoggedIn = LoginStore.isLoggedIn();
-    return {isLoggedIn};
+    const isGuest = LoginStore.isGuest();
+    return {isLoggedIn, isGuest};
 }
 
 @connectToStores([LoginStore], getState)
@@ -20,11 +22,12 @@ export default class App extends Component {
     static propTypes = {
         children  : PropTypes.object,
         // Injected by @connectToStores:
-        isLoggedIn: PropTypes.bool.isRequired
+        isLoggedIn: PropTypes.bool.isRequired,
+        isGuest: PropTypes.bool.isRequired
     };
 
     render() {
-        const {children, isLoggedIn} = this.props;
+        const {children, isLoggedIn, isGuest} = this.props;
         return (
             <TranslationProvider>
                 <div className="App">
@@ -32,6 +35,7 @@ export default class App extends Component {
                     <div className="views">
                         {children ? children : <HomePage />}
                     </div>
+                    { isGuest ? <GuestBanner/> : ''}
                 </div>
             </TranslationProvider>
         );

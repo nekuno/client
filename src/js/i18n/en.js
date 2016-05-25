@@ -305,6 +305,9 @@ export default {
         placeholderMin: 'Min',
         placeholderMax: 'Max'
     },
+    GuestBanner                      : {
+        text: 'You are in guest mode. Click here to register and get Nekuno to work for you'
+    },
     ////////////////
     // Framework7 //
     ////////////////

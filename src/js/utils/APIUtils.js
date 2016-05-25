@@ -7,6 +7,7 @@ Bluebird.config({
     cancellation: true
 });
 import { API_ROOT } from '../constants/Constants';
+import LoginActionCreators from '../actions/LoginActionCreators';
 import LoginStore from '../stores/LoginStore';
 import LocaleStore from '../stores/LocaleStore';
 
@@ -92,7 +93,7 @@ export function doRequest(method, url, data = null) {
             let message = locale == 'en' ? 'This feature is available only to registered users. Improve your experience now!'
                 : 'Esta función sólo está disponible para usuarios registrados. Mejora tu experiencia ahora!';
             nekunoApp.confirm(message, () => {
-                console.log('Dispatch logout action and redirect to register');
+                LoginActionCreators.logoutUser('/register');
             });
             return reject(message);
         }

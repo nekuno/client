@@ -93,11 +93,9 @@ export default new class LoginActionCreators {
             });
     }
 
-    logoutUser() {
-        dispatch(ActionTypes.LOGOUT_USER);
+    logoutUser(path = '/') {
+        dispatch(ActionTypes.LOGOUT_USER,{path});
         ChatSocketService.disconnect();
         WorkersSocketService.disconnect();
-        let history = RouterContainer.get();
-        history.replaceState(null, '/');
     }
 }

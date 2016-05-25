@@ -74,7 +74,7 @@ export default class HomePage extends Component {
     render() {
         const {strings} = this.props;
         return (
-            <div className="view view-main">
+            <div className="view view-main home-view">
                 <div className="swiper-container swiper-init" data-speed="400" data-space-between="40" data-pagination=".swiper-pagination">
                     <div className="linear-gradient-rectangle"></div>
 

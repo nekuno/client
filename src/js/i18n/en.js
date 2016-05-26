@@ -36,7 +36,9 @@ export default {
         update       : 'Update',
         login        : 'Login',
         hasInvitation: 'Do you have an invitation?',
-        register     : 'Register'
+        register     : 'Register',
+        wantGuest    : 'Do you want to try it first?',
+        asGuest      : 'Enter as guest'
     },
     InterestsPage                    : {
         cancel   : 'Cancel',

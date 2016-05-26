@@ -6,6 +6,7 @@ import 'moment/locale/es';
 import { LAST_RELEASE_DATE } from '../constants/Constants';
 import { getVersion } from '../utils/APIUtils';
 import translate from '../i18n/Translate';
+import LoginActionCreators from '../actions/LoginActionCreators';
 
 let nekunoSwiper;
 
@@ -55,6 +56,10 @@ export default class HomePage extends Component {
         this.promise.cancel();
     }
 
+    loginAsGuest = function() {
+        LoginActionCreators.loginUser('guest', 'guest');
+    };
+
     renderSlides = function() {
         const {strings} = this.props;
         return (
@@ -102,6 +107,9 @@ export default class HomePage extends Component {
                             <div className="register">
                                 <span>{strings.hasInvitation}</span> <Link to="/register">{strings.register}</Link>
                             </div>
+                            <div className="register">
+                                <span>{strings.wantGuest}</span> <Link to="/" onClick={this.loginAsGuest}>{strings.asGuest}</Link>
+                            </div>
                         </div>
                     }
                 </div>
@@ -119,6 +127,8 @@ HomePage.defaultProps = {
         update       : 'Update',
         login        : 'Login',
         hasInvitation: 'Do you have an invitation?',
-        register     : 'Register'
+        register     : 'Register',
+        wantGuest    : 'Do you want to try it first?',
+        asGuest      : 'Enter as guest'
     }
 };

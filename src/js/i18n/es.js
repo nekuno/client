@@ -36,7 +36,9 @@ export default {
         update       : 'Actualizar',
         login        : 'Iniciar sesión',
         hasInvitation: '¿Tienes una invitación?',
-        register     : 'Regístrate'
+        register     : 'Regístrate',
+        wantGuest    : '¿Quieres probarlo primero?',
+        asGuest      : 'Entra como invitado'
     },
     InterestsPage                    : {
         cancel   : 'Cancelar',

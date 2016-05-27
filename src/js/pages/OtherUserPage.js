@@ -29,11 +29,11 @@ function requestData(props) {
     const {params, user} = props;
     const otherUserId = params.userId;
 
-    if (!MatchingStore.contains(otherUserId, parseId(user))) {
-        UserActionCreators.requestMatching(otherUserId, parseId(user));
+    if (!MatchingStore.contains(parseId(user), otherUserId)) {
+        UserActionCreators.requestMatching(parseId(user), otherUserId);
     }
-    if (!SimilarityStore.contains(otherUserId, parseId(user))) {
-        UserActionCreators.requestSimilarity(otherUserId, parseId(user));
+    if (!SimilarityStore.contains(parseId(user), otherUserId)) {
+        UserActionCreators.requestSimilarity(parseId(user), otherUserId);
     }
     if (!LikeStore.contains(parseId(user), otherUserId)) {
         UserActionCreators.requestLikeUser(parseId(user), otherUserId);

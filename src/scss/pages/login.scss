@@ -6,3 +6,10 @@ body #root .App .view .page #page-content.login-content {
     margin-bottom: 20px;
   }
 }
+
+@media only screen and (max-width: 300px) {
+  body #root .App .view .page #page-content.login-content {
+    margin-left: 20px;
+    width: 75%;
+  }
+}

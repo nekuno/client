@@ -37,7 +37,6 @@ export function dispatch(type, action = {}) {
             console.log(type, action);
         }
     }
-
     flux.dispatch({type, ...action});
 }
 

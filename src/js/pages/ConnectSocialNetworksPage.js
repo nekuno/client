@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import { IMAGES_ROOT } from '../constants/Constants';
-import LeftBackIconTopNavbar from '../components/ui/LeftBackIconTopNavbar';
+import LeftMenuTopNavbar from '../components/ui/LeftMenuTopNavbar';
 import SocialWheels from '../components/ui/SocialWheels';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
@@ -41,13 +41,14 @@ export default class ConnectSocialNetworksPage extends Component {
 
         return (
             <div className="view view-main">
-                <LeftBackIconTopNavbar centerText={strings.top}/>
+                <LeftMenuTopNavbar centerText={strings.top}/>
                 <div data-page="index" className="page connect-social-networks-page">
                     <div id="page-content" className="connect-social-networks-content">
                         <div className="title">{strings.title}</div>
                         <div className="excerpt">{strings.excerpt}</div>
                         <br />
                         <SocialWheels networks={networks} picture={picture}/>
+                        <div className="excerpt">{strings.footer}</div>
                     </div>
                 </div>
             </div>
@@ -59,6 +60,7 @@ ConnectSocialNetworksPage.defaultProps = {
     strings: {
         top    : 'Social Networks',
         title  : 'Connect to your world',
-        excerpt: 'Connect your social networks with Nekuno to improve the results of the recommended content.'
+        excerpt: 'At last your data will work for you! The more interest you contribute, the better recommendations you’ll get!',
+        footer : 'Remember, you’re in control at all times, we will not publish anything on your social networks'
     }
 };

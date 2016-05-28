@@ -7,6 +7,7 @@ Bluebird.config({
     cancellation: true
 });
 import { API_ROOT } from '../constants/Constants';
+import LoginActionCreators from '../actions/LoginActionCreators';
 import LoginStore from '../stores/LoginStore';
 import LocaleStore from '../stores/LocaleStore';
 
@@ -87,6 +88,16 @@ export function doRequest(method, url, data = null) {
 
     return new Bluebird((resolve, reject, onCancel) => {
 
+        if (LoginStore.isGuest() && ['PUT', 'POST', 'DELETE'].indexOf(method) > -1) {
+            nekunoApp.hideProgressbar();
+            let message = locale == 'en' ? 'This feature is available only to registered users. Improve your experience now!'
+                : 'Esta función sólo está disponible para usuarios registrados. Mejora tu experiencia ahora!';
+            nekunoApp.confirm(message, () => {
+                LoginActionCreators.logoutUser('/register');
+            });
+            return reject(message);
+        }
+
         var promise = request(
             {
                 method  : method,
@@ -110,6 +121,7 @@ export function doRequest(method, url, data = null) {
                 return resolve(body);
             }
         );
+
         onCancel(() => {
             promise.abort();
             nekunoApp.hideProgressbar();

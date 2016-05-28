@@ -239,25 +239,19 @@ export default class EditProfilePage extends Component {
                                 <img src={imgSrc}/>
                             </div>
                         </div>
-                        {
-                            profile && metadata && filters ? Object.keys(profile).map(profileName => {
+                        {profile && metadata && filters ? Object.keys(profile).map(profileName => {
                                 return this.renderField(profile, metadata, profileName);
-                            }) : null
-                        }
-                        {
-                            profile && metadata && filters ? Object.keys(metadata).map(metadataName => {
+                            }) : null}
+                        {profile && metadata && filters ? Object.keys(metadata).map(metadataName => {
                                 if (profile.hasOwnProperty(metadataName)) {
                                     return null;
                                 }
                                 return this.renderField([], metadata, metadataName);
-                            }) : null
-                        }
+                            }) : null}
                         <br />
-                        {
-                            profile && metadata && filters ? 
+                        {profile && metadata && filters ? 
                                 <FullWidthButton onClick={this.saveProfile}> {strings.saveChanges} </FullWidthButton>
-                                    : null
-                        }
+                                    : null}
                         <br />
                         <br />
                         <br />

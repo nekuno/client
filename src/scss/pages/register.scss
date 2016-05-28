@@ -19,3 +19,10 @@ body #root .App .view .page {
     text-align: center;
   }
 }
+
+@media only screen and (max-width: 300px) {
+  body #root .App .view .page #page-content.register-content {
+    margin-left: 20px;
+    width: 75%;
+  }
+}

@@ -7,9 +7,7 @@ export default class ProfileDataList extends Component {
     static propTypes = {
         profile: PropTypes.object.isRequired
     };
-
-    //shouldComponentUpdate = shouldPureComponentUpdate;
-
+    
     locationToString(location) {
 
         const locality = selectn('locality', location);
@@ -28,30 +26,11 @@ export default class ProfileDataList extends Component {
     }
 
     render() {
-        let profileDataList = [];
-        let counter = 0;
-        for (let profileDataName in this.props.profile) {
-            //let profileDataValue = selectn('profile['+profileDataName+']', this.props);
-            let profileDataValue = null;
-            if (this.props.profile.hasOwnProperty(profileDataName)) {
-                profileDataValue = this.props.profile[profileDataName];
-            } else {
-                continue;
-            }
-
-            if (profileDataName === 'About Me' || profileDataName === 'Sobre mí') {
-                const profileAboutMeName = 'Sobre mí';
-                profileDataList[counter++] = <ProfileAboutMe key={profileAboutMeName} name={profileAboutMeName} value={profileDataValue}/>;
-            } else {
-
-                profileDataList[counter++] = <ProfileData key={profileDataName} name={profileDataName} value={profileDataValue}/>;
-            }
-
-        }
-
+        const {profile} = this.props;
         return (
             <div className="profile-data-list">
-                {profileDataList.map(profileDataValue => profileDataValue)}
+                {Object.keys(profile).map(profileDataName => profileDataName == 'About me' || profileDataName === 'Sobre mí' ? <ProfileAboutMe key={profileDataName} value={profile[profileDataName]}/> : null)}
+                {Object.keys(profile).map(profileDataName => profileDataName !== 'About me' && profileDataName !== 'Sobre mí' ? <ProfileData key={profileDataName} name={profileDataName} value={profile[profileDataName]}/> : null)}
             </div>
         );
     }

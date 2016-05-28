@@ -6,7 +6,6 @@ import TopRightLink from './TopRightLink';
 
 export default class LeftMenuTopNavbar extends Component {
 	static propTypes = {
-		leftText: PropTypes.string,
 		centerText: PropTypes.string,
 		centerTextSize: PropTypes.string,
 		rightText: PropTypes.string,
@@ -16,13 +15,14 @@ export default class LeftMenuTopNavbar extends Component {
 	shouldComponentUpdate = shouldPureComponentUpdate;
 
 	render() {
+		const {centerText, centerTextSize, rightText, onRightLinkClickHandler} = this.props;
 		return (
 			<div className="navbar">
 				<div id="navbar-inner" className="navbar-inner">
 					<div className="row">
 						<TopLeftMenuLink />
-						<RegularTopTitle text={this.props.centerText} textSize={this.props.centerTextSize} />
-						<TopRightLink text={this.props.rightText} onClickHandler={this.props.onRightLinkClickHandler} />
+						<RegularTopTitle text={centerText} textSize={centerTextSize} />
+						<TopRightLink text={rightText} onClickHandler={onRightLinkClickHandler} />
 					</div>
 				</div>
 			</div>

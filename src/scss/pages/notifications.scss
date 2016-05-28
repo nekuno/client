@@ -14,3 +14,9 @@ body #root .App .view .page.notifications-page  {
     }
   }
 }
+
+@media only screen and (max-width: 300px) {
+  body #root .App .view .page.notifications-page {
+    width: 90%;
+  }
+}

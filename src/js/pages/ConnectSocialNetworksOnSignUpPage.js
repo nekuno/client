@@ -58,6 +58,7 @@ export default class ConnectSocialNetworksOnSignUpPage extends Component {
                         <div className="excerpt">{strings.excerpt}</div>
                         <br />
                         <SocialWheels networks={networks} picture={picture}/>
+                        <div className="excerpt">{strings.footer}</div>
                     </div>
                 </div>
             </div>
@@ -69,6 +70,7 @@ ConnectSocialNetworksOnSignUpPage.defaultProps = {
     strings: {
         next   : 'Continue',
         welcome: 'Welcome to Nekuno',
-        excerpt: 'Connect to Nekuno all social networks that you want, to improve the results of the recommended content.'
+        excerpt: 'At last your data will work for you! The more interest you contribute, the better recommendations you’ll get!',
+        footer : 'Remember, you’re in control at all times, we will not publish anything on your social networks'
     }
 };

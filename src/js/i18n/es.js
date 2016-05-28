@@ -14,12 +14,14 @@ export default {
     ConnectSocialNetworksOnSignUpPage: {
         next   : 'Continuar',
         welcome: 'Bienvenido a Nekuno',
-        excerpt: 'Conecta con Nekuno todas las redes sociales que quieras para mejorar los resultados de los contenidos recomendados.'
+        excerpt: '¡Por fin tus datos trabajarán para ti! ¡Cuantos más intereses aportes, mejores recomendaciones obtendrás!',
+        footer : 'Recuerda, tú tienes el control en todo momento, no publicaremos nada en tus redes sociales'
     },
     ConnectSocialNetworksPage        : {
         top    : 'Conexión con RRSS',
         title  : 'Conecta con tu mundo',
-        excerpt: 'Conecta tus redes sociales con Nekuno para mejorar los resultados de los contenidos recomendados.'
+        excerpt: '¡Por fin tus datos trabajarán para ti! ¡Cuantos más intereses aportes, mejores recomendaciones obtendrás!',
+        footer : 'Recuerda, tú tienes el control en todo momento, no publicaremos nada en tus redes sociales'
     },
     EditProfilePage                  : {
         title       : 'Editar perfil',
@@ -34,7 +36,9 @@ export default {
         update       : 'Actualizar',
         login        : 'Iniciar sesión',
         hasInvitation: '¿Tienes una invitación?',
-        register     : 'Regístrate'
+        register     : 'Regístrate',
+        wantGuest    : '¿Quieres probarlo primero?',
+        asGuest      : 'Entra como invitado'
     },
     InterestsPage                    : {
         cancel   : 'Cancelar',
@@ -158,6 +162,7 @@ export default {
         similarity      : 'similaridad'
     },
     ProfileAboutMe                   : {
+        aboutMe: 'Sobre mí',
         seeLess: 'Ver menos',
         seeMore: 'Ver más'
     },
@@ -300,6 +305,9 @@ export default {
         value         : 'Este valor debe ser un entero',
         placeholderMin: 'Mínimo',
         placeholderMax: 'Máximo'
+    },
+    GuestBanner                      : {
+        text: 'Estás en modo invitado. Click aquí para loguearte y que Nekuno trabaje para ti'
     },
     ////////////////
     // Framework7 //

@@ -12,6 +12,7 @@ body #root .App .view .page.user-page {
 
       .profile-data, .profile-about-me {
         display: table;
+        padding: 5px;
         width: 100%;
 
         span {
@@ -26,14 +27,16 @@ body #root .App .view .page.user-page {
         .profile-data-name {
           font-weight: bold;
           float: left;
-          width: 50%;
+          margin-right: 5%;
+          width: 45%;
         }
         .profile-about-me-value {
           margin-top: 1.5ex;
           width: 100%;
           margin-bottom: 3ex;
-          .seeMore {
+          .see-more {
             color: $deep-purple;
+            cursor: pointer;
           }
         }
         .profile-about-me-name {
@@ -102,9 +105,14 @@ body #root .App .view .page.user-page {
           .icon-block {
 
           }
-
         }
       }
     }
+  }
+}
+
+@media only screen and (max-width: 300px) {
+  body #root .App .view .page.user-page {
+    width: 90%;
   }
 }

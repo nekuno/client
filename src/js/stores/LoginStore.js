@@ -1,3 +1,4 @@
+import RouterContainer from '../services/RouterContainer';
 import ActionTypes from '../constants/ActionTypes';
 import BaseStore from './BaseStore';
 import jwt_decode from 'jwt-decode';
@@ -49,6 +50,11 @@ class LoginStore extends BaseStore {
                 this._user = null;
                 this._jwt = null;
                 localStorage.removeItem('jwt');
+
+                const path = action.path;
+                let history = RouterContainer.get();
+                history.replaceState(null, path);
+
                 this.emitChange();
                 break;
 
@@ -71,6 +77,10 @@ class LoginStore extends BaseStore {
 
     isLoggedIn() {
         return !!this._user;
+    }
+
+    isGuest() {
+        return this.isLoggedIn() && this._user.username == 'guest'
     }
 }
 

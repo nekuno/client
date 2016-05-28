@@ -66,7 +66,7 @@ api.facebook.wrap.me = function(o) {
     let res = facebookWrap(o);
     res.picture = res.picture + '?height=480';
     res.birthday = moment(res.birthday).format('YYYY-MM-DD');
-    res.location = res.location.name;
+    res.location = res.location ? res.location.name : null;
     return res;
 };
 api.facebook.get.me = api.facebook.get.me + ',location,birthday,gender';

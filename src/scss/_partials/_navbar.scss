@@ -3,6 +3,13 @@
 	position: fixed !important;
 }
 
+@media only screen and (max-width: 300px) {
+	.navbar {
+		width: 90%;
+	}
+}
+
+
 .navbar, .subnavbar, .toolbar {
 	background-color: $dark-purple;
 	color: #fff;

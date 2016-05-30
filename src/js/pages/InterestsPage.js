@@ -182,6 +182,7 @@ export default class InterestsPage extends Component {
                     <br/>
                     <br/>
                 </div>
+                <div className="arrow-up" style={{ left: '80%' }}></div>
                 <ToolBar links={[
                 {'url': '/profile', 'text': strings.about},
                 {'url': '/questions', 'text': strings.questions},

@@ -199,10 +199,10 @@ export default class OtherUserPage extends Component {
                         </div>
                         : ''}
                 </div>
-
+                {otherUser && profile ? <div className="arrow-up" style={{ left: '10%' }}></div> : null}
                 {otherUser && profile ?
                     <ToolBar links={[
-                    {'url': `/profile/${parseId(otherUser)}`, 'text': strings.aboutOther.replace('%username%', otherUser.username)},
+                    {'url': `/profile/${parseId(otherUser)}`, 'text': strings.about},
                     {'url': `/users/${parseId(otherUser)}/other-questions`, 'text': strings.questions},
                     {'url': `/users/${parseId(otherUser)}/other-interests`, 'text': strings.interests}]} activeLinkIndex={0}/>
                     : ''}
@@ -213,7 +213,7 @@ export default class OtherUserPage extends Component {
 
 OtherUserPage.defaultProps = {
     strings: {
-        aboutOther  : 'About %username%',
+        about       : 'About',
         questions   : 'Answers',
         interests   : 'Interests',
         like        : 'Like',

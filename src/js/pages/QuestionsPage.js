@@ -91,6 +91,7 @@ export default class QuestionsPage extends Component {
                         <br />
                     </div>
                 </div>
+                <div className="arrow-up" style={{ left: '48%' }}></div>
                 <ToolBar links={[
                 {'url': '/profile', 'text': strings.about},
                 {'url': '/questions', 'text': strings.questions},

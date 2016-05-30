@@ -30,10 +30,10 @@ export default class OtherProfileData extends Component {
                     </div>
                 </div>
                 <div className="other-profile-right">
-                    <span> {matching ? 100 * matching.toFixed(2) : 0}% {strings.compatibility}</span>
-                    <ProgressBar percentage={matching ? 100*matching.toFixed(2) : 0}/>
-                    <span> {similarity ? 100 * similarity.toFixed(2) : 0}% {strings.similarity}</span>
-                    <ProgressBar percentage={similarity ? 100*similarity.toFixed(2) : 0}/>
+                    <span> {matching ? Math.round(100*matching) : 0}% {strings.compatibility}</span>
+                    <ProgressBar percentage={matching ? Math.round(100*matching) : 0}/>
+                    <span> {similarity ? Math.round(100*similarity) : 0}% {strings.similarity}</span>
+                    <ProgressBar percentage={similarity ? Math.round(100*similarity) : 0}/>
                 </div>
 
             </div>

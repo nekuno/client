@@ -20,14 +20,6 @@ export default class MultipleChoicesEdit extends Component {
         this.handleClickMultipleChoice = this.handleClickMultipleChoice.bind(this);
     }
     
-    getSelectedEdit() {
-        return this.refs.selectedEdit ? this.refs.selectedEdit.getSelectedEdit() : {};
-    }
-
-    selectedEditContains(target) {
-        return this.refs.selectedEdit && this.refs.selectedEdit.selectedEditContains(target);
-    }
-
     handleClickMultipleChoice(choice) {
         let {editKey, data} = this.props;
         data = data || [];
@@ -44,7 +36,7 @@ export default class MultipleChoicesEdit extends Component {
         const {editKey, selected, metadata, data, handleClickRemoveEdit, handleClickEdit} = this.props;
         return(
             selected ?
-                <SelectedEdit key={'selected-filter'} ref={'selectedEdit'} type={'checkbox'} active={data && data.length > 0} handleClickRemoveEdit={handleClickRemoveEdit}>
+                <SelectedEdit key={'selected-filter'} type={'checkbox'} active={data && data.length > 0} handleClickRemoveEdit={handleClickRemoveEdit}>
                     <TextCheckboxes labels={Object.keys(metadata.choices).map(key => { return({key: key, text: metadata.choices[key]}) })}
                                     onClickHandler={this.handleClickMultipleChoice} values={data || []} className={'multiple-choice-filter'}
                                     title={metadata.label} />

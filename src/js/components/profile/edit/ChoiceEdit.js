@@ -21,14 +21,6 @@ export default class ChoiceEdit extends Component {
         this.handleClickChoice = this.handleClickChoice.bind(this);
     }
 
-    getSelectedEdit() {
-        return this.refs.selectedEdit ? this.refs.selectedEdit.getSelectedEdit() : {};
-    }
-
-    selectedEditContains(target) {
-        return this.refs.selectedEdit && this.refs.selectedEdit.selectedEditContains(target);
-    }
-
     handleClickChoice(choice) {
         let {editKey, data} = this.props;
         if (choice !== data) {
@@ -40,7 +32,7 @@ export default class ChoiceEdit extends Component {
         const {editKey, selected, metadata, data, handleClickRemoveEdit, handleClickEdit} = this.props;
         return(
             selected ?
-                <SelectedEdit key={'selected-filter'} ref={'selectedEdit'} type={'radio'} active={data ? true : false} handleClickRemoveEdit={handleClickRemoveEdit}>
+                <SelectedEdit key={'selected-filter'} type={'radio'} active={data ? true : false} handleClickRemoveEdit={handleClickRemoveEdit}>
                     <TextRadios labels={Object.keys(metadata.choices).map(key => { return({key: key, text: metadata.choices[key]}); }) }
                                 onClickHandler={this.handleClickChoice} value={data} className={'choice-filter'}
                                 title={metadata.label} />

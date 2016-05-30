@@ -50,14 +50,6 @@ export default class TagsAndChoiceEdit extends Component {
         };
     }
 
-    getSelectedEdit() {
-        return this.refs.selectedEdit ? this.refs.selectedEdit.getSelectedEdit() : {};
-    }
-
-    selectedEditContains(target) {
-        return this.refs.selectedEdit && this.refs.selectedEdit.selectedEditContains(target);
-    }
-
     handleClickTagAndChoiceTagSuggestion(tagString) {
         let {editKey, data} = this.props;
         this.refs.tagInput.setValue(tagString);
@@ -145,7 +137,7 @@ export default class TagsAndChoiceEdit extends Component {
         }
         return (
             selected ?
-                <SelectedEdit key={'selected-filter'} ref={'selectedEdit'} type={'tags-and-choice'} active={data && data.some(value => value.tag !== '')} handleClickRemoveEdit={handleClickRemoveEdit}>
+                <SelectedEdit key={'selected-filter'} type={'tags-and-choice'} active={data && data.some(value => value.tag !== '')} handleClickRemoveEdit={handleClickRemoveEdit}>
                     <div className="tags-and-choice-wrapper">
                         <TagInput ref={'tagInput'} placeholder={strings.placeholder} tags={tags.map(tag => tag.name)} value={selectedTagAndChoice.tag}
                                   onKeyUpHandler={this.handleKeyUpTagAndChoiceTag} onClickTagHandler={this.handleClickTagAndChoiceTagSuggestion}

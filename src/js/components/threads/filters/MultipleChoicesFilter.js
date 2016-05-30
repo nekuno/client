@@ -20,14 +20,6 @@ export default class MultipleChoicesFilter extends Component {
         this.handleClickMultipleChoice = this.handleClickMultipleChoice.bind(this);
     }
     
-    getSelectedFilter() {
-        return this.refs.selectedFilter ? this.refs.selectedFilter.getSelectedFilter() : {};
-    }
-
-    selectedFilterContains(target) {
-        return this.refs.selectedFilter && this.refs.selectedFilter.selectedFilterContains(target);
-    }
-
     handleClickMultipleChoice(choice) {
         let {filterKey, data} = this.props;
         data = data || [];
@@ -44,7 +36,7 @@ export default class MultipleChoicesFilter extends Component {
         const {filterKey, selected, filter, data, handleClickRemoveFilter, handleClickFilter} = this.props;
         return(
             selected ?
-                <ThreadSelectedFilter key={'selected-filter'} ref={'selectedFilter'} type={'checkbox'} active={data && data.length > 0} handleClickRemoveFilter={handleClickRemoveFilter}>
+                <ThreadSelectedFilter key={'selected-filter'} type={'checkbox'} active={data && data.length > 0} handleClickRemoveFilter={handleClickRemoveFilter}>
                     <TextCheckboxes labels={Object.keys(filter.choices).map(key => { return({key: key, text: filter.choices[key]}) })}
                                     onClickHandler={this.handleClickMultipleChoice} values={data || []} className={'multiple-choice-filter'}
                                     title={filter.label} />

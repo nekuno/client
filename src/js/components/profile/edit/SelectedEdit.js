@@ -8,20 +8,12 @@ export default class SelectedEdit extends Component {
         plusIcon: PropTypes.bool,
         handleClickRemoveEdit: PropTypes.func.isRequired
     };
-    
-    getSelectedEdit() {
-        return this.refs.selectedEdit;
-    }
 
-    selectedEditContains(target) {
-        return this.refs.selectedEdit.contains(target);
-    }
-    
     render() {
         const {type, addedClass, children} = this.props;
         const className = addedClass ? addedClass + ' profile-field ' + type + '-filter' : 'profile-field ' + type + '-filter';
         return(
-            <div className={className} ref={'selectedEdit'}>
+            <div className={className}>
                 {this.renderSelectedEditBackground()}
                 {children}
                 {this.renderSelectedEditOppositeBackground()}

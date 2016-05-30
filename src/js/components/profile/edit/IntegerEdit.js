@@ -25,14 +25,6 @@ export default class IntegerEdit extends Component {
         this.handleChangeIntegerInput = this.handleChangeIntegerInput.bind(this);
     }
 
-    getSelectedEdit() {
-        return this.refs.selectedEdit ? this.refs.selectedEdit.getSelectedEdit() : {};
-    }
-
-    selectedEditContains(target) {
-        return this.refs.selectedEdit && this.refs.selectedEdit.selectedEditContains(target);
-    }
-
     handleChangeIntegerInput() {
         clearTimeout(this.integerTimeout);
         const {editKey, metadata, strings} = this.props;
@@ -62,7 +54,7 @@ export default class IntegerEdit extends Component {
         const {editKey, selected, metadata, data, handleClickRemoveEdit, handleClickEdit, strings} = this.props;
         return (
             selected ?
-                <SelectedEdit key={'selected-filter'} ref={'selectedEdit'} type={'integer'} plusIcon={true} handleClickRemoveEdit={handleClickRemoveEdit}>
+                <SelectedEdit key={'selected-filter'} type={'integer'} plusIcon={true} handleClickRemoveEdit={handleClickRemoveEdit}>
                     <div className="list-block">
                         <div className="integer-title">{metadata.label}</div>
                         <ul>

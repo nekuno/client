@@ -21,14 +21,6 @@ export default class BirthdayEdit extends Component {
         this.onChangeValue = this.onChangeValue.bind(this);
     }
 
-    getSelectedEdit() {
-        return this.refs.selectedEdit ? this.refs.selectedEdit.getSelectedEdit() : {};
-    }
-
-    selectedEditContains(target) {
-        return this.refs.selectedEdit && this.refs.selectedEdit.selectedEditContains(target);
-    }
-
     onChangeValue() {
         if (this.refs.hasOwnProperty(this.props.editKey)){
             const value = this.refs[this.props.editKey].getValue();
@@ -40,7 +32,7 @@ export default class BirthdayEdit extends Component {
         const {editKey, selected, metadata, data, handleClickRemoveEdit, handleClickEdit} = this.props;
         return(
             selected ?
-                <SelectedEdit key={'selected-filter'} ref={'selectedEdit'} type={'birthday'} addedClass={'tag-filter'} handleClickRemoveEdit={handleClickRemoveEdit}>
+                <SelectedEdit key={'selected-filter'} type={'birthday'} addedClass={'tag-filter'} handleClickRemoveEdit={handleClickRemoveEdit}>
                     <div className="birthday-filter-wrapper">
                         <div className="list-block">
                             <ul>

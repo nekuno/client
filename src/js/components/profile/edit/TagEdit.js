@@ -40,14 +40,6 @@ export default class TagEdit extends Component {
         this.handleClickTagSuggestion = this.handleClickTagSuggestion.bind(this);
     }
 
-    getSelectedEdit() {
-        return this.refs.selectedEdit ? this.refs.selectedEdit.getSelectedEdit() : {};
-    }
-
-    selectedEditContains(target) {
-        return this.refs.selectedEdit && this.refs.selectedEdit.selectedEditContains(target);
-    }
-
     handleKeyUpTag(tag) {
         let {editKey} = this.props;
         editKey = editKey === 'tags' ? null : editKey;
@@ -77,7 +69,7 @@ export default class TagEdit extends Component {
         }
         return (
             selected ?
-                <SelectedEdit key={'selected-filter'} ref={'selectedEdit'} type={'tag'} plusIcon={true} handleClickRemoveEdit={handleClickRemoveEdit}>
+                <SelectedEdit key={'selected-filter'} type={'tag'} plusIcon={true} handleClickRemoveEdit={handleClickRemoveEdit}>
                     <TagInput ref={'tagInput'} placeholder={strings.placeholder} tags={tags.map(tag => tag.name)}
                               onKeyUpHandler={this.handleKeyUpTag} onClickTagHandler={this.handleClickTagSuggestion}
                               title={metadata.label}/>

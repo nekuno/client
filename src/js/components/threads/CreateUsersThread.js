@@ -102,31 +102,41 @@ export default class CreateUsersThread extends Component {
         return (
             Object.keys(filters).map(key => {
                 const selected = this.state.selectedFilter === key;
+                let filter = null;
                 switch (defaultFilters[key].type) {
                     case 'location_distance':
-                        return this.renderLocationFilter(defaultFilters[key], key, filters[key], selected);
+                        filter =  this.renderLocationFilter(defaultFilters[key], key, filters[key], selected);
+                        break;
                     case 'integer_range':
-                        return this.renderIntegerRangeFilter(defaultFilters[key], key, filters[key], selected);
+                        filter =  this.renderIntegerRangeFilter(defaultFilters[key], key, filters[key], selected);
+                        break;
                     case 'birthday_range':
-                        return this.renderIntegerRangeFilter(defaultFilters[key], key, filters[key], selected);
+                        filter =  this.renderIntegerRangeFilter(defaultFilters[key], key, filters[key], selected);
+                        break;
                     case 'integer':
-                        return this.renderIntegerFilter(defaultFilters[key], key, filters[key], selected);
+                        filter =  this.renderIntegerFilter(defaultFilters[key], key, filters[key], selected);
+                        break;
                     case 'multiple_choices':
-                        return this.renderMultipleChoicesFilter(defaultFilters[key], key, filters[key], selected);
+                        filter =  this.renderMultipleChoicesFilter(defaultFilters[key], key, filters[key], selected);
+                        break;
                     case 'double_multiple_choices':
-                        return this.renderDoubleMultipleChoicesFilter(defaultFilters[key], key, filters[key], selected);
+                        filter =  this.renderDoubleMultipleChoicesFilter(defaultFilters[key], key, filters[key], selected);
+                        break;
                     case 'tags_and_multiple_choices':
-                        return this.renderTagsAndMultipleChoicesFilter(defaultFilters[key], key, filters[key], selected, tags);
+                        filter =  this.renderTagsAndMultipleChoicesFilter(defaultFilters[key], key, filters[key], selected, tags);
+                        break;
                     case 'tags':
-                        return this.renderTagFilter(defaultFilters[key], key, filters[key], selected, tags);
+                        filter =  this.renderTagFilter(defaultFilters[key], key, filters[key], selected, tags);
+                        break;
                 }
+                return <div key={key} ref={selected ? 'selectedFilter' : ''}>{filter}</div>;
             })
         );
     }
 
     renderLocationFilter(filter, key, data, selected) {
         return (
-            <LocationFilter key={key} filterKey={key} ref={selected ? 'selectedFilter' : ''}
+            <LocationFilter filterKey={key}
                             filter={filter}
                             data={data}
                             selected={selected}
@@ -139,7 +149,7 @@ export default class CreateUsersThread extends Component {
 
     renderIntegerRangeFilter(filter, key, data, selected) {
         return (
-            <IntegerRangeFilter key={key} filterKey={key} ref={selected ? 'selectedFilter' : ''}
+            <IntegerRangeFilter filterKey={key}
                                 filter={filter}
                                 data={data}
                                 selected={selected}
@@ -152,7 +162,7 @@ export default class CreateUsersThread extends Component {
 
     renderIntegerFilter(filter, key, data, selected) {
         return (
-            <IntegerFilter key={key} filterKey={key} ref={selected ? 'selectedFilter' : ''}
+            <IntegerFilter filterKey={key}
                            filter={filter}
                            data={data}
                            selected={selected}
@@ -165,7 +175,7 @@ export default class CreateUsersThread extends Component {
 
     renderMultipleChoicesFilter(filter, key, data, selected) {
         return (
-            <MultipleChoicesFilter key={key} filterKey={key} ref={selected ? 'selectedFilter' : ''}
+            <MultipleChoicesFilter filterKey={key}
                                    filter={filter}
                                    data={data}
                                    selected={selected}
@@ -178,7 +188,7 @@ export default class CreateUsersThread extends Component {
 
     renderDoubleMultipleChoicesFilter(filter, key, data, selected) {
         return (
-            <DoubleMultipleChoicesFilter key={key} filterKey={key} ref={selected ? 'selectedFilter' : ''}
+            <DoubleMultipleChoicesFilter filterKey={key}
                                          filter={filter}
                                          data={data}
                                          selected={selected}
@@ -191,7 +201,7 @@ export default class CreateUsersThread extends Component {
 
     renderTagFilter(filter, key, data, selected, tags) {
         return (
-            <TagFilter key={key} filterKey={key} ref={selected ? 'selectedFilter' : ''}
+            <TagFilter filterKey={key}
                        filter={filter}
                        data={data}
                        selected={selected}
@@ -205,7 +215,7 @@ export default class CreateUsersThread extends Component {
 
     renderTagsAndMultipleChoicesFilter(filter, key, data, selected, tags) {
         return (
-            <TagsAndMultipleChoicesFilter key={key} filterKey={key} ref={selected ? 'selectedFilter' : ''}
+            <TagsAndMultipleChoicesFilter filterKey={key}
                                           filter={filter}
                                           data={data}
                                           selected={selected}
@@ -256,7 +266,7 @@ export default class CreateUsersThread extends Component {
 
     handleClickOutside(e) {
         const selectedFilter = this.refs.selectedFilter;
-        if (selectedFilter && selectedFilter.getSelectedFilter() && !selectedFilter.selectedFilterContains(e.target)) {
+        if (selectedFilter && !selectedFilter.contains(e.target)) {
             this.setState({selectedFilter: null});
         }
     }
@@ -266,7 +276,7 @@ export default class CreateUsersThread extends Component {
         this.selectFilterTimeout = setTimeout(() => {
             let selectedFilterElem = this.refs.selectedFilter;
             if (selectedFilterElem) {
-                selectedFilterElem.getSelectedFilter().scrollIntoView();
+                selectedFilterElem.scrollIntoView();
                 document.getElementsByClassName('view')[0].scrollTop -= 100;
             }
         }, 0);

@@ -59,21 +59,21 @@ function getState(props) {
 export default class EditProfilePage extends Component {
     static propTypes = {
         // Injected by @connectToStores:
-        profile: PropTypes.object,
+        profile : PropTypes.object,
         metadata: PropTypes.object,
-        filters: PropTypes.object,
-        tags: PropTypes.array,
+        filters : PropTypes.object,
+        tags    : PropTypes.array,
         // Injected by @AuthenticatedComponent
-        user: PropTypes.object,
+        user    : PropTypes.object,
         // Injected by @translate:
-        strings: PropTypes.object
+        strings : PropTypes.object
     };
 
     constructor(props) {
         super(props);
 
         this.state = {
-            profile: {},
+            profile     : {},
             selectedEdit: null
         };
 
@@ -125,7 +125,7 @@ export default class EditProfilePage extends Component {
         //resetTagSuggestions();
         this.setState({
             selectedEdit: key,
-            profile: profile
+            profile     : profile
         });
     }
 
@@ -133,7 +133,7 @@ export default class EditProfilePage extends Component {
         let {profile} = this.state;
         profile[key] = data;
         this.setState({
-            profile: profile,
+            profile     : profile,
             selectedEdit: key
         });
     }
@@ -142,27 +142,27 @@ export default class EditProfilePage extends Component {
         let {profile} = this.state;
         profile[key] = data;
         this.setState({
-            profile: profile,
+            profile     : profile,
             selectedEdit: null
         });
     }
 
     handleClickRemoveEdit() {
         let {profile, selectedEdit} = this.state;
-        if (this.props.metadata[selectedEdit].required === true){
+        if (this.props.metadata[selectedEdit].required === true) {
             nekunoApp.alert(this.props.strings.cannotRemove);
             return;
         }
         delete profile[selectedEdit];
         this.setState({
-            profile: profile,
+            profile     : profile,
             selectedEdit: null
         })
     }
 
     handleClickOutside(e) {
         const selectedEdit = this.refs.selectedEdit;
-        if (selectedEdit && selectedEdit.getSelectedEdit() && !selectedEdit.selectedEditContains(e.target)) {
+        if (selectedEdit && !selectedEdit.contains(e.target)) {
             this.setState({selectedEdit: null});
         }
     }
@@ -174,56 +174,64 @@ export default class EditProfilePage extends Component {
             return '';
         }
         let props = {
-            key: dataName, editKey: dataName,
-            ref: selected ? 'selectedEdit' : '',
-            metadata: metadata[dataName],
-            selected: selected,
+            editKey              : dataName,
+            metadata             : metadata[dataName],
+            selected             : selected,
             handleClickRemoveEdit: this.handleClickRemoveEdit,
-            handleClickEdit: this.handleClickEdit
+            handleClickEdit      : this.handleClickEdit
         };
+        let filter = null;
         switch (metadata[dataName]['type']) {
             case 'choice':
                 props.data = data ? data : '';
                 props.handleChangeEdit = this.handleChangeEditAndUnSelect;
-                return <ChoiceEdit {...props} />;
+                filter = <ChoiceEdit {...props} />;
+                break;
             case 'integer':
                 props.data = data ? parseInt(data) : 0;
                 props.handleChangeEdit = this.handleChangeEdit;
-                return <IntegerEdit {...props}/>;
+                filter = <IntegerEdit {...props}/>;
+                break;
             case 'location':
                 props.data = data ? data : {};
                 props.handleChangeEdit = this.handleChangeEditAndUnSelect;
-                return <LocationEdit {...props}/>;
+                filter = <LocationEdit {...props}/>;
+                break;
             case 'tags_and_choice':
                 props.data = data ? data : [];
                 props.handleChangeEdit = this.handleChangeEdit;
                 props.tags = this.props.tags;
-                return <TagsAndChoiceEdit {...props}/>;
+                filter = <TagsAndChoiceEdit {...props}/>;
+                break;
             case 'multiple_choices':
                 props.data = data ? data : [];
                 props.handleChangeEdit = this.handleChangeEdit;
-                return <MultipleChoicesEdit {...props} />;
+                filter = <MultipleChoicesEdit {...props} />;
+                break;
             case 'double_choice':
                 props.data = data ? data : {};
                 props.handleChangeEdit = this.handleChangeEdit;
                 props.handleChangeEditDetail = this.handleChangeEditAndUnSelect;
-                return <DoubleChoiceEdit {...props} />;
+                filter = <DoubleChoiceEdit {...props} />;
+                break;
             case 'tags':
                 props.data = data ? data : [];
                 props.handleChangeEdit = this.handleChangeEditAndUnSelect;
                 props.tags = this.props.tags;
-                return <TagEdit {...props} />;
+                filter = <TagEdit {...props} />;
+                break;
             case 'birthday':
                 props.data = data ? data : null;
                 props.handleChangeEdit = this.handleChangeEdit;
-                return <BirthdayEdit {...props} />;
+                filter = <BirthdayEdit {...props} />;
+                break;
             case 'textarea':
                 props.data = data ? data : null;
                 props.handleChangeEdit = this.handleChangeEdit;
-                return <TextAreaEdit {...props} />;
-            default:
-                return '';
+                filter = <TextAreaEdit {...props} />;
+                break;
         }
+        return <div key={dataName} ref={selected ? 'selectedEdit' : ''}>{filter}</div>;
     }
 
     render() {
@@ -240,18 +248,18 @@ export default class EditProfilePage extends Component {
                             </div>
                         </div>
                         {profile && metadata && filters ? Object.keys(profile).map(profileName => {
-                                return this.renderField(profile, metadata, profileName);
-                            }) : null}
+                            return this.renderField(profile, metadata, profileName);
+                        }) : null}
                         {profile && metadata && filters ? Object.keys(metadata).map(metadataName => {
-                                if (profile.hasOwnProperty(metadataName)) {
-                                    return null;
-                                }
-                                return this.renderField([], metadata, metadataName);
-                            }) : null}
+                            if (profile.hasOwnProperty(metadataName)) {
+                                return null;
+                            }
+                            return this.renderField([], metadata, metadataName);
+                        }) : null}
                         <br />
-                        {profile && metadata && filters ? 
-                                <FullWidthButton onClick={this.saveProfile}> {strings.saveChanges} </FullWidthButton>
-                                    : null}
+                        {profile && metadata && filters ?
+                            <FullWidthButton onClick={this.saveProfile}> {strings.saveChanges} </FullWidthButton>
+                            : null}
                         <br />
                         <br />
                         <br />
@@ -261,5 +269,14 @@ export default class EditProfilePage extends Component {
                 </div>
             </div>
         );
+    }
+};
+
+EditProfilePage.defaultProps = {
+    strings: {
+        title       : 'Edit profile',
+        cancel      : 'Cancel',
+        saveChanges : 'Save changes',
+        cannotRemove: 'This field cannot be deleted'
     }
 };

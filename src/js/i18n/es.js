@@ -45,14 +45,19 @@ export default {
         myProfile: 'Mi Perfil',
         about    : 'Sobre mí',
         questions: 'Respuestas',
-        interests: 'Intereses'
+        interests: 'Intereses',
+        empty    : 'No tienes ningún interés todavía. Por favor, conecta tus redes sociales o explora tus hilos y dinos lo que te interesa.'
     },
     LoginPage                        : {
         login          : 'Iniciar sesión',
         cancel         : 'Cancelar',
         username       : 'Usuario o email',
         password       : 'Contraseña',
-        recoverPassword: '¿Has olvidado tu contraseña?'
+        recoverPassword: '¿Has olvidado tu contraseña?',
+        hasInvitation  : '¿Tienes una invitación?',
+        register       : 'Regístrate',
+        wantGuest      : '¿Quieres probarlo primero?',
+        asGuest        : 'Entra como invitado'
     },
     OtherInterestsPage               : {
         cancel               : 'Cancelar',
@@ -62,7 +67,9 @@ export default {
         common               : 'En común',
         about                : 'Acerca de',
         questions            : 'Respuestas',
-        interests            : 'Intereses'
+        interests            : 'Intereses',
+        empty    : 'Este usuario no tiene ningún interés todavía.'
+
     },
     OtherQuestionsPage               : {
         cancel      : 'Cancelar',

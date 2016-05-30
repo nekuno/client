@@ -8,16 +8,19 @@ import connectToStores from '../utils/connectToStores';
 import StatsStore from '../stores/StatsStore';
 import LoginActionCreators from '../actions/LoginActionCreators';
 import ChatThreadStore from '../stores/ChatThreadStore';
+import ProfileStore from '../stores/ProfileStore';
 
 function getState(props) {
 
     const stats = StatsStore.get(props.user.id);
     const interests = selectn('numberOfContentLikes', stats) || 0;
     const unreadCount = ChatThreadStore.getUnreadCount() || 0;
+    const profile = ProfileStore.get(props.user.id);
 
     return {
         interests,
-        unreadCount
+        unreadCount,
+        profile
     };
 }
 

@@ -20,14 +20,6 @@ export default class ChoiceFilter extends Component {
 
         this.handleClickChoice = this.handleClickChoice.bind(this);
     }
-    
-    getSelectedFilter() {
-        return this.refs.selectedFilter ? this.refs.selectedFilter.getSelectedFilter() : {};
-    }
-
-    selectedFilterContains(target) {
-        return this.refs.selectedFilter && this.refs.selectedFilter.selectedFilterContains(target);
-    }
 
     handleClickChoice(choice) {
         let {filterKey, data} = this.props;
@@ -40,7 +32,7 @@ export default class ChoiceFilter extends Component {
         const {filterKey, selected, filter, data, handleClickRemoveFilter, handleClickFilter} = this.props;
         return(
             selected ?
-                <ThreadSelectedFilter key={'selected-filter'} ref={'selectedFilter'} type={'radio'} active={data ? true : false} handleClickRemoveFilter={handleClickRemoveFilter}>
+                <ThreadSelectedFilter key={'selected-filter'} type={'radio'} active={data ? true : false} handleClickRemoveFilter={handleClickRemoveFilter}>
                     <TextRadios labels={filter.choices.map(choice => { return({key: choice.value, text: choice.label}); }) }
                                 onClickHandler={this.handleClickChoice} value={data} className={'choice-filter'}
                                 title={filter.label} />

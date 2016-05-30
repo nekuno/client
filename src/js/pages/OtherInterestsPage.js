@@ -218,9 +218,10 @@ export default class OtherInterestsPage extends Component {
                     <br/>
                     <br/>
                 </div>
+                {otherUser ? <div className="arrow-up" style={{ left: '80%' }}></div> : null}
                 {otherUser ?
                     <ToolBar links={[
-                    {'url': `/profile/${otherUserId}`, 'text': strings.about.replace('%username%', otherUser.username)},
+                    {'url': `/profile/${otherUserId}`, 'text': strings.about},
                     {'url': `/users/${otherUserId}/other-questions`, 'text': strings.questions},
                     {'url': `/users/${otherUserId}/other-interests`, 'text': strings.interests}
                     ]} activeLinkIndex={2}/>
@@ -243,7 +244,7 @@ OtherInterestsPage.defaultProps = {
         similarInterestsCount: '%count% Similar interests',
         all                  : 'All',
         common               : 'In common',
-        about                : 'About %username%',
+        about                : 'About',
         questions            : 'Answers',
         interests            : 'Interests'
     }

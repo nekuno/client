@@ -60,14 +60,14 @@ export default {
         similarInterestsCount: '%count% Intereses similares',
         all                  : 'Todo',
         common               : 'En común',
-        about                : 'Sobre %username%',
+        about                : 'Acerca de',
         questions            : 'Respuestas',
         interests            : 'Intereses'
     },
     OtherQuestionsPage               : {
         cancel      : 'Cancelar',
         coincidences: 'Coincidencias',
-        about       : 'Sobre %username%',
+        about       : 'Acerca de',
         questions   : 'Respuestas',
         interests   : 'Intereses'
     },
@@ -123,7 +123,7 @@ export default {
         myProfile: 'Mi Perfil'
     },
     OtherUserPage                    : {
-        aboutOther  : 'Sobre %username%',
+        about       : 'Acerca de',
         questions   : 'Respuestas',
         interests   : 'Intereses',
         like        : 'Me gusta',

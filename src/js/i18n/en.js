@@ -60,14 +60,14 @@ export default {
         similarInterestsCount: '%count% Similar interests',
         all                  : 'All',
         common               : 'In common',
-        about                : 'About %username%',
+        about                : 'About',
         questions            : 'Answers',
         interests            : 'Interests'
     },
     OtherQuestionsPage               : {
         cancel      : 'Cancel',
         coincidences: 'Coincidences',
-        about       : 'About %username%',
+        about       : 'About',
         questions   : 'Answers',
         interests   : 'Interests'
     },
@@ -123,7 +123,7 @@ export default {
         myProfile: 'My profile'
     },
     OtherUserPage                    : {
-        aboutOther  : 'About %username%',
+        about       : 'About',
         questions   : 'Answers',
         interests   : 'Interests',
         like        : 'Like',
@@ -196,7 +196,7 @@ export default {
         statistics: 'Community answer statistics'
     },
     QuestionsBanner                  : {
-        title    : 'Do you want us to walk a fine line?',
+        title    : 'Do you want better yarns?',
         text     : 'Answer more test questions',
         completed: 'completed questions'
     },

@@ -172,6 +172,16 @@ body {
 					margin: -25px auto auto auto;
 					width: 100px;
 				}
+
+				.arrow-up {
+					bottom: 60px;
+					border-left: 5px solid transparent;
+					border-right: 5px solid transparent;
+					border-bottom: 5px solid $deep-purple;
+					height: 0;
+					position: fixed;
+					width: 0;
+				}
 			}
 		}
 	}

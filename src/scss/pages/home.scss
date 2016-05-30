@@ -88,13 +88,8 @@ body #root .App .view.home-view {
       width: 80%;
     }
 
-    .register {
-
-      color: white;
-
-      a {
-        color: $deep-purple;
-      }
+    .register-text {
+      margin-bottom: 10px;
     }
   }
 }

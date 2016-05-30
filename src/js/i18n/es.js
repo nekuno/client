@@ -53,7 +53,11 @@ export default {
         cancel         : 'Cancelar',
         username       : 'Usuario o email',
         password       : 'Contraseña',
-        recoverPassword: '¿Has olvidado tu contraseña?'
+        recoverPassword: '¿Has olvidado tu contraseña?',
+        hasInvitation  : '¿Tienes una invitación?',
+        register       : 'Regístrate',
+        wantGuest      : '¿Quieres probarlo primero?',
+        asGuest        : 'Entra como invitado'
     },
     OtherInterestsPage               : {
         cancel               : 'Cancelar',

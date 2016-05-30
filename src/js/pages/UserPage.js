@@ -90,6 +90,7 @@ export default class UserPage extends Component {
                         </div>
                         : ''}
                 </div>
+                {profile && stats ? <div className="arrow-up" style={{ left: '13%' }}></div> : null}
                 {profile && stats ?
                     <ToolBar links={[
                     {'url': '/profile', 'text': strings.aboutMe},

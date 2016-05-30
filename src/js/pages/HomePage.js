@@ -104,10 +104,10 @@ export default class HomePage extends Component {
                             <Link to="/login">
                                 <FullWidthButton>{strings.login}</FullWidthButton>
                             </Link>
-                            <div className="register">
+                            <div className="register-text">
                                 <span>{strings.hasInvitation}</span> <Link to="/register">{strings.register}</Link>
                             </div>
-                            <div className="register">
+                            <div className="register-text">
                                 <span>{strings.wantGuest}</span> <Link to="/" onClick={this.loginAsGuest}>{strings.asGuest}</Link>
                             </div>
                         </div>

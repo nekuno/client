@@ -53,7 +53,11 @@ export default {
         cancel         : 'Cancel',
         username       : 'Username or email',
         password       : 'Password',
-        recoverPassword: 'Forgotten your password?'
+        recoverPassword: 'Forgotten your password?',
+        hasInvitation  : 'Do you have an invitation?',
+        register       : 'Register',
+        wantGuest      : 'Do you want to try it first?',
+        asGuest        : 'Enter as guest'
     },
     OtherInterestsPage               : {
         cancel               : 'Cancel',

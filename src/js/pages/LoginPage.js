@@ -1,6 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 const ReactLink = require('react/lib/ReactLink');
 const ReactStateSetters = require('react/lib/ReactStateSetters');
+import { Link } from 'react-router';
 import RegularTopNavbar from '../components/ui/RegularTopNavbar';
 import TextInput from '../components/ui/TextInput';
 import PasswordInput from '../components/ui/PasswordInput';
@@ -43,6 +44,10 @@ export default class LoginPage extends Component {
     login() {
         LoginActionCreators.loginUser(this.state.username, this.state.password);
     }
+    
+    loginAsGuest = function() {
+        LoginActionCreators.loginUser('guest', 'guest');
+    };
 
     _onKeyDown(event) {
         let ENTER_KEY_CODE = 13;
@@ -79,6 +84,15 @@ export default class LoginPage extends Component {
                         <div style={{color: '#FFF'}}>
                             <p>{ error ? error.error : ''}</p>
                         </div>
+                        <div className="register-text">
+                            <span>{strings.hasInvitation}</span> <Link to="/register">{strings.register}</Link>
+                        </div>
+                        <div className="register-text">
+                            <span>{strings.wantGuest}</span> <Link to="/" onClick={this.loginAsGuest}>{strings.asGuest}</Link>
+                        </div>
+                        <br />
+                        <br />
+                        <br />
                     </div>
                 </div>
             </div>
@@ -88,9 +102,14 @@ export default class LoginPage extends Component {
 
 LoginPage.defaultProps = {
     strings: {
-        login   : 'Login',
-        cancel  : 'Cancel',
-        username: 'User or email',
-        password: 'Password'
+        login          : 'Login',
+        cancel         : 'Cancel',
+        username       : 'User or email',
+        password       : 'Password',
+        recoverPassword: 'Forgotten your password?',
+        hasInvitation  : 'Do you have an invitation?',
+        register       : 'Register',
+        wantGuest      : 'Do you want to try it first?',
+        asGuest        : 'Enter as guest'
     }
 };

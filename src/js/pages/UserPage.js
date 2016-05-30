@@ -90,12 +90,11 @@ export default class UserPage extends Component {
                         </div>
                         : ''}
                 </div>
-                {profile && stats ? <div className="arrow-up" style={{ left: '13%' }}></div> : null}
                 {profile && stats ?
                     <ToolBar links={[
                     {'url': '/profile', 'text': strings.aboutMe},
                     {'url': '/questions', 'text': strings.questions},
-                    {'url': '/interests', 'text': strings.interests}]} activeLinkIndex={0}/> 
+                    {'url': '/interests', 'text': strings.interests}]} activeLinkIndex={0} arrowUpLeft={'13%'}/> 
                     : ''}
             </div>
         );

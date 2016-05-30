@@ -27,14 +27,6 @@ export default class IntegerRangeFilter extends Component {
         this.handleChangeMaxIntegerInput = this.handleChangeMaxIntegerInput.bind(this);
     }
 
-    getSelectedFilter() {
-        return this.refs.selectedFilter ? this.refs.selectedFilter.getSelectedFilter() : {};
-    }
-
-    selectedFilterContains(target) {
-        return this.refs.selectedFilter && this.refs.selectedFilter.selectedFilterContains(target);
-    }
-
     handleChangeMinIntegerInput() {
         this.handleChangeIntegerInput('min');
     }
@@ -74,7 +66,7 @@ export default class IntegerRangeFilter extends Component {
         const {filterKey, selected, filter, data, handleClickRemoveFilter, handleClickFilter, strings} = this.props;
         return (
             selected ?
-                <ThreadSelectedFilter key={'selected-filter'} ref={'selectedFilter'} type={'integer'} plusIcon={true} handleClickRemoveFilter={handleClickRemoveFilter}>
+                <ThreadSelectedFilter key={'selected-filter'} type={'integer'} plusIcon={true} handleClickRemoveFilter={handleClickRemoveFilter}>
                     <div className="list-block">
                         <div className="integer-title">{filter.label}</div>
                         <ul>

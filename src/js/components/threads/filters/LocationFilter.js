@@ -42,14 +42,6 @@ export default class LocationFilter extends Component {
         this.props.handleChangeFilter(filterKey, data);
     }
 
-    getSelectedFilter() {
-        return this.refs.selectedFilter ? this.refs.selectedFilter.getSelectedFilter() : {};
-    }
-
-    selectedFilterContains(target) {
-        return this.refs.selectedFilter && this.refs.selectedFilter.selectedFilterContains(target);
-    }
-
     getDistanceLabels = function() {
         return [
             {key: 10, text: '10 Km'},
@@ -65,7 +57,7 @@ export default class LocationFilter extends Component {
         const {filterKey, selected, filter, data, handleClickRemoveFilter, handleClickFilter, strings} = this.props;
         return (
             selected ?
-                <ThreadSelectedFilter key={'selected-filter'} ref={'selectedFilter'} type={'location-tag'} addedClass={'tag-filter'} plusIcon={true} handleClickRemoveFilter={handleClickRemoveFilter}>
+                <ThreadSelectedFilter key={'selected-filter'} type={'location-tag'} addedClass={'tag-filter'} plusIcon={true} handleClickRemoveFilter={handleClickRemoveFilter}>
                     <div className="location-filter-wrapper">
                         <div className="list-block">
                             <div className="location-title">{strings.location}</div>

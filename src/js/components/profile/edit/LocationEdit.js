@@ -31,19 +31,11 @@ export default class LocationEdit extends Component {
         this.props.handleChangeEdit(editKey, data);
     }
 
-    getSelectedEdit() {
-        return this.refs.selectedEdit ? this.refs.selectedEdit.getSelectedEdit() : {};
-    }
-
-    selectedEditContains(target) {
-        return this.refs.selectedEdit && this.refs.selectedEdit.selectedEditContains(target);
-    }
-
     render() {
         const {editKey, selected, metadata, data, handleClickRemoveEdit, handleClickEdit, strings} = this.props;
         return (
             selected ?
-                <SelectedEdit key={'selected-filter'} ref={'selectedEdit'} type={'location-tag'} addedClass={'tag-filter'} plusIcon={true} handleClickRemoveEdit={handleClickRemoveEdit}>
+                <SelectedEdit key={'selected-filter'} type={'location-tag'} addedClass={'tag-filter'} plusIcon={true} handleClickRemoveEdit={handleClickRemoveEdit}>
                     <div className="location-filter-wrapper">
                         <div className="list-block">
                             <div className="location-title">{strings.location}</div>

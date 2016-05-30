@@ -22,14 +22,6 @@ export default class DoubleChoiceFilter extends Component {
         this.handleClickDoubleChoiceChoice = this.handleClickDoubleChoiceChoice.bind(this);
     }
 
-    getSelectedFilter() {
-        return this.refs.selectedFilter ? this.refs.selectedFilter.getSelectedFilter() : {};
-    }
-
-    selectedFilterContains(target) {
-        return this.refs.selectedFilter && this.refs.selectedFilter.selectedFilterContains(target);
-    }
-
     handleClickDoubleChoiceChoice(choice) {
         let {filterKey, data} = this.props;
         if (choice !== data.choice) {
@@ -51,7 +43,7 @@ export default class DoubleChoiceFilter extends Component {
         const {filterKey, selected, filter, data, handleClickRemoveFilter, handleClickFilter} = this.props;
         return(
             selected ?
-                <ThreadSelectedFilter key={'selected-filter'} ref={'selectedFilter'} type={'radio'} active={data.choice ? true : false} handleClickRemoveFilter={handleClickRemoveFilter}>
+                <ThreadSelectedFilter key={'selected-filter'} type={'radio'} active={data.choice ? true : false} handleClickRemoveFilter={handleClickRemoveFilter}>
                     <div className="double-choice-filter">
                         <TextRadios labels={Object.keys(filter.choices).map(choice => { return({key: choice, text: filter.choices[choice]}); }) }
                                     onClickHandler={this.handleClickDoubleChoiceChoice} value={data.choice} className={'double-choice-choice'}

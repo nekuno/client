@@ -40,14 +40,6 @@ export default class TagFilter extends Component {
         this.handleClickTagSuggestion = this.handleClickTagSuggestion.bind(this);
     }
 
-    getSelectedFilter() {
-        return this.refs.selectedFilter ? this.refs.selectedFilter.getSelectedFilter() : {};
-    }
-
-    selectedFilterContains(target) {
-        return this.refs.selectedFilter && this.refs.selectedFilter.selectedFilterContains(target);
-    }
-
     handleKeyUpTag(tag) {
         let {filterKey} = this.props;
         filterKey = filterKey === 'tags' ? null : filterKey;
@@ -73,7 +65,7 @@ export default class TagFilter extends Component {
         const {filterKey, selected, filter, data, tags, handleClickRemoveFilter, handleClickFilter, strings} = this.props;
         return (
             selected ?
-                <ThreadSelectedFilter key={'selected-filter'} ref={'selectedFilter'} type={'tag'} plusIcon={true} handleClickRemoveFilter={handleClickRemoveFilter}>
+                <ThreadSelectedFilter key={'selected-filter'} type={'tag'} plusIcon={true} handleClickRemoveFilter={handleClickRemoveFilter}>
                     <TagInput placeholder={strings.placeholder} tags={tags.map(tag => tag.name)}
                               onKeyUpHandler={this.handleKeyUpTag} onClickTagHandler={this.handleClickTagSuggestion}
                               title={filter.label}/>

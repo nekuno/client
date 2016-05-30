@@ -25,14 +25,6 @@ export default class IntegerFilter extends Component {
         this.handleChangeIntegerInput = this.handleChangeIntegerInput.bind(this);
     }
 
-    getSelectedFilter() {
-        return this.refs.selectedFilter ? this.refs.selectedFilter.getSelectedFilter() : {};
-    }
-
-    selectedFilterContains(target) {
-        return this.refs.selectedFilter && this.refs.selectedFilter.selectedFilterContains(target);
-    }
-
     handleChangeIntegerInput() {
         clearTimeout(this.integerTimeout);
         const {filterKey, filter, strings} = this.props;
@@ -62,7 +54,7 @@ export default class IntegerFilter extends Component {
         const {filterKey, selected, filter, data, handleClickRemoveFilter, handleClickFilter, strings} = this.props;
         return (
             selected ?
-                <ThreadSelectedFilter key={'selected-filter'} ref={'selectedFilter'} type={'integer'} plusIcon={true} handleClickRemoveFilter={handleClickRemoveFilter}>
+                <ThreadSelectedFilter key={'selected-filter'} type={'integer'} plusIcon={true} handleClickRemoveFilter={handleClickRemoveFilter}>
                     <div className="list-block">
                         <div className="integer-title">{filter.label}</div>
                         <ul>

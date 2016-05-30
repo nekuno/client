@@ -182,12 +182,11 @@ export default class InterestsPage extends Component {
                     <br/>
                     <br/>
                 </div>
-                <div className="arrow-up" style={{ left: '80%' }}></div>
                 <ToolBar links={[
                 {'url': '/profile', 'text': strings.about},
                 {'url': '/questions', 'text': strings.questions},
                 {'url': '/interests', 'text': strings.interests}
-                ]} activeLinkIndex={2}/>
+                ]} activeLinkIndex={2} arrowUpLeft={'83%'}/>
                 <FilterContentPopup userId={parseId(user)} contentsCount={pagination.total || 0} ownContent={true}/>
             </div>
         );

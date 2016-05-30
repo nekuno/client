@@ -15,6 +15,7 @@ export default class ToolBar extends Component {
     static propTypes = {
         links          : PropTypes.array.isRequired,
         activeLinkIndex: PropTypes.number.isRequired,
+        arrowUpLeft    : PropTypes.string.isRequired,
         // Injected by @connectToStores:
         isGuest        : PropTypes.bool.isRequired
     };
@@ -22,13 +23,18 @@ export default class ToolBar extends Component {
     shouldComponentUpdate = shouldPureComponentUpdate;
 
     render() {
-        let {activeLinkIndex, isGuest} = this.props;
+        let {activeLinkIndex, links, arrowUpLeft, isGuest} = this.props;
         let className = isGuest ? "toolbar toolbar-guest" : "toolbar";
         return (
             <div className={className}>
+                <div className="arrow-up" style={{ left: arrowUpLeft }}></div>
                 <div className="toolbar-inner">
-                    {this.props.links.map((link, index) => {
-                        return <Link key={index} to={link.url}>{activeLinkIndex === index ? <strong>{link.text}</strong> : link.text}</Link>
+                    {links.map((link, index) => {
+                        return (
+                            <div key={index} className="toolbar-link-wrapper">
+                                <Link to={link.url}>{activeLinkIndex === index ? <strong>{link.text}</strong> : link.text}</Link>
+                            </div>
+                        );
                     })}
                 </div>
             </div>

@@ -218,13 +218,12 @@ export default class OtherInterestsPage extends Component {
                     <br/>
                     <br/>
                 </div>
-                {otherUser ? <div className="arrow-up" style={{ left: '80%' }}></div> : null}
                 {otherUser ?
                     <ToolBar links={[
                     {'url': `/profile/${otherUserId}`, 'text': strings.about},
                     {'url': `/users/${otherUserId}/other-questions`, 'text': strings.questions},
                     {'url': `/users/${otherUserId}/other-interests`, 'text': strings.interests}
-                    ]} activeLinkIndex={2}/>
+                    ]} activeLinkIndex={2} arrowUpLeft={'83%'}/>
                         : 
                     ''}
                 {otherUser ?

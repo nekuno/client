@@ -90,19 +90,23 @@ export default class CreateContentThread extends Component {
         return (
             Object.keys(filters).map(key => {
                 const selected = this.state.selectedFilter === key;
+                let filter = null;
                 switch (defaultFilters[key].type) {
                     case 'multiple_choices':
-                        return this.renderMultipleChoicesFilter(defaultFilters[key], key, filters[key], selected);
+                        filter = this.renderMultipleChoicesFilter(defaultFilters[key], key, filters[key], selected);
+                        break;
                     case 'tags':
-                        return this.renderTagFilter(defaultFilters[key], key, filters[key], selected, tags);
+                        filter = this.renderTagFilter(defaultFilters[key], key, filters[key], selected, tags);
+                        break;
                 }
+                return <div key={key} ref={selected ? 'selectedFilter' : ''}>{filter}</div>;
             })
         );
     }
 
     renderMultipleChoicesFilter(filter, key, data, selected) {
         return (
-            <MultipleChoicesFilter key={key} filterKey={key} ref={selected ? 'selectedFilter' : ''}
+            <MultipleChoicesFilter filterKey={key}
                                    filter={filter}
                                    data={data}
                                    selected={selected}
@@ -115,7 +119,7 @@ export default class CreateContentThread extends Component {
 
     renderTagFilter(filter, key, data, selected, tags) {
         return (
-            <TagFilter key={key} filterKey={key} ref={selected ? 'selectedFilter' : ''}
+            <TagFilter filterKey={key}
                        filter={filter}
                        data={data}
                        selected={selected}
@@ -165,7 +169,7 @@ export default class CreateContentThread extends Component {
 
     handleClickOutside(e) {
         const selectedFilter = this.refs.selectedFilter;
-        if (selectedFilter && selectedFilter.getSelectedFilter() && !selectedFilter.selectedFilterContains(e.target)) {
+        if (selectedFilter && !selectedFilter.contains(e.target)) {
             this.setState({selectedFilter: null});
         }
     }
@@ -175,7 +179,7 @@ export default class CreateContentThread extends Component {
         this.selectFilterTimeout = setTimeout(() => {
             let selectedFilterElem = this.refs.selectedFilter;
             if (selectedFilterElem) {
-                selectedFilterElem.getSelectedFilter().scrollIntoView();
+                selectedFilterElem.scrollIntoView();
                 document.getElementsByClassName('view')[0].scrollTop -= 100;
             }
         }, 0);

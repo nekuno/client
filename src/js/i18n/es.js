@@ -45,7 +45,8 @@ export default {
         myProfile: 'Mi Perfil',
         about    : 'Sobre mí',
         questions: 'Respuestas',
-        interests: 'Intereses'
+        interests: 'Intereses',
+        empty    : 'No tienes ningún interés todavía. Por favor, conecta tus redes sociales o explora tus hilos y dinos lo que te interesa.'
     },
     LoginPage                        : {
         login          : 'Iniciar sesión',
@@ -62,7 +63,9 @@ export default {
         common               : 'En común',
         about                : 'Acerca de',
         questions            : 'Respuestas',
-        interests            : 'Intereses'
+        interests            : 'Intereses',
+        empty    : 'Este usuario no tiene ningún interés todavía.'
+
     },
     OtherQuestionsPage               : {
         cancel      : 'Cancelar',

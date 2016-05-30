@@ -160,6 +160,7 @@ export default class InterestsPage extends Component {
     render() {
 
         const {pagination, interests, user, strings} = this.props;
+        const isArrayEmpty = Array.isArray(interests) && interests.length === 0;
 
         return (
             <div className="view view-main" onScroll={this.state.carousel ? function() {} : this.handleScroll}>
@@ -170,13 +171,20 @@ export default class InterestsPage extends Component {
                 }
                 <div className="page interests-page">
                     <div id="page-content" className="interests-content">
-                        {this.state.carousel ?
-                            <CardContentCarousel contents={interests} userId={parseId(user)}/>
+                        {isArrayEmpty ?
+                            <div className="contents-empty">
+                                {strings.empty}
+                            </div>
                             :
-                            <CardContentList contents={interests} userId={parseId(user)} onClickHandler={this.onContentClick}/>
+                            this.state.carousel ?
+                                <CardContentCarousel contents={interests} userId={parseId(user)}/>
+                                :
+                                <CardContentList contents={interests} userId={parseId(user)}
+                                                 onClickHandler={this.onContentClick}/>
                         }
                         <br />
-                        {this.state.carousel ? '' : <div className="loading-gif" style={pagination.nextLink ? {} : {display: 'none'}}></div>}
+                        {this.state.carousel ? '' :
+                            <div className="loading-gif" style={pagination.nextLink ? {} : {display: 'none'}}></div>}
                     </div>
                     <br/>
                     <br/>
@@ -200,6 +208,7 @@ InterestsPage.defaultProps = {
         myProfile: 'My profile',
         about    : 'About me',
         questions: 'Answers',
-        interests: 'Interests'
+        interests: 'Interests',
+        empty    : 'You have no interests yet. Please, connect more social media or explore your yarns and let us know what are you interested in.'
     }
 };

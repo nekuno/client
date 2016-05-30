@@ -188,6 +188,7 @@ export default class OtherInterestsPage extends Component {
 
     render() {
         const {interests, otherUser, user, params, pagination, strings} = this.props;
+        const isArrayEmpty = Array.isArray(interests) && interests.length === 0;
         const ownUserId = parseId(user);
         const otherUserId = parseInt(params.userId);
         const otherUserPicture = otherUser && otherUser.picture ? `${IMAGES_ROOT}media/cache/resolve/user_avatar_60x60/user/images/${otherUser.picture}` : `${IMAGES_ROOT}media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
@@ -206,10 +207,17 @@ export default class OtherInterestsPage extends Component {
                         <div className="common-content-switch">
                             <TextRadios labels={[{key: 0, text: strings.all}, {key: 1, text: strings.common}]} value={this.state.commonContent} onClickHandler={this.onFilterCommonClick}/>
                         </div>
-                        {this.state.carousel ?
-                            <CardContentCarousel contents={interests} userId={otherUserId}/>
+                        {isArrayEmpty ?
+                            <div className="contents-empty">
+                                {strings.empty}
+                            </div>
                             :
-                            <CardContentList contents={interests} userId={otherUserId} onClickHandler={this.onContentClick}/>
+                            this.state.carousel ?
+                                <CardContentCarousel contents={interests} userId={otherUserId}/>
+                                :
+                                <CardContentList contents={interests} userId={otherUserId}
+                                                 onClickHandler={this.onContentClick}/>
+
                         }
                         <br />
                         {this.state.carousel ? '' : <div className="loading-gif" style={pagination.nextLink ? {} : {display: 'none'}}></div>}
@@ -224,7 +232,7 @@ export default class OtherInterestsPage extends Component {
                     {'url': `/users/${otherUserId}/other-questions`, 'text': strings.questions},
                     {'url': `/users/${otherUserId}/other-interests`, 'text': strings.interests}
                     ]} activeLinkIndex={2} arrowUpLeft={'83%'}/>
-                        : 
+                        :
                     ''}
                 {otherUser ?
                     <FilterContentPopup userId={otherUserId} contentsCount={pagination.total || 0} ownContent={false} ownUserId={ownUserId} onClickHandler={this.onFilterTypeClick} commonContent={this.state.commonContent}/>
@@ -245,6 +253,7 @@ OtherInterestsPage.defaultProps = {
         common               : 'In common',
         about                : 'About',
         questions            : 'Answers',
-        interests            : 'Interests'
+        interests            : 'Interests',
+        empty                : 'This user has no interests yet.'
     }
 };

@@ -11,6 +11,7 @@ class LoginStore extends BaseStore {
         this._error = null;
         this._user = null;
         this._jwt = null;
+        this._justLoggedout = false;
     }
 
     _registerToActions(action) {
@@ -49,6 +50,7 @@ class LoginStore extends BaseStore {
                 this._error = null;
                 this._user = null;
                 this._jwt = null;
+                this._justLoggedout = true;
                 localStorage.removeItem('jwt');
 
                 const path = action.path;
@@ -73,6 +75,12 @@ class LoginStore extends BaseStore {
 
     get jwt() {
         return this._jwt;
+    }
+
+    get justLoggedOut() {
+        const justLoggedOut = !!this._justLoggedout;
+        this._justLoggedout = false;
+        return justLoggedOut;
     }
 
     isLoggedIn() {

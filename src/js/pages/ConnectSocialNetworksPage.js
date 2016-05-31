@@ -50,6 +50,8 @@ export default class ConnectSocialNetworksPage extends Component {
                         <SocialWheels networks={networks} picture={picture}/>
                         <div className="excerpt">{strings.footer}</div>
                     </div>
+                    <br />
+                    <br />
                 </div>
             </div>
         );

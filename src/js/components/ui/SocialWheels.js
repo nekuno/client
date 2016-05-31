@@ -14,7 +14,7 @@ export default class SocialWheels extends Component {
             <foreignObject key={key} x={this.smallIconXValue(posX, posY, radius, 0, degrees)} y={this.smallIconYValue(posX, posY, radius, 0, degrees)} width="15" height="15" requiredExtensions="http://www.w3.org/1999/xhtml"
                            style={degrees ? null : {opacity: 0}}>
                 <div className={"icon-wrapper text-" + resource}>
-                    <div className={"icon-" + resource}></div>
+                    <div className={resource == 'google' ? 'icon-youtube' : 'icon-' + resource}></div>
                 </div>
             </foreignObject>
         );
@@ -24,7 +24,7 @@ export default class SocialWheels extends Component {
         return (
             <foreignObject key={key} x={this.smallIconXValue(posX, posY, radius, 0, 0)} y={this.smallIconYValue(posX, posY, radius, 0, 0)} width="15" height="15" requiredExtensions="http://www.w3.org/1999/xhtml">
                 <div className={"fetching-icon icon-wrapper text-" + resource}>
-                    <div className={"icon-" + resource}></div>
+                    <div className={resource == 'google' ? 'icon-youtube' : 'icon-' + resource}></div>
                 </div>
             </foreignObject>
         );
@@ -34,7 +34,7 @@ export default class SocialWheels extends Component {
         return (
             <foreignObject key={key} x={this.smallIconXValue(posX, posY, radius, 0, 0)} y={this.smallIconYValue(posX, posY, radius, 0, 0)} width="15" height="15" requiredExtensions="http://www.w3.org/1999/xhtml">
                 <div className={"fetched-icon icon-wrapper text-" + resource}>
-                    <div className={"icon-" + resource}></div>
+                    <div className={resource == 'google' ? 'icon-youtube' : 'icon-' + resource}></div>
                 </div>
             </foreignObject>
         );
@@ -59,7 +59,7 @@ export default class SocialWheels extends Component {
                          onClick={captured ? () => { } : () => {
                             this.connect(resource, scope);
                          }}>
-                        <div className={"icon-" + resource}></div>
+                        <div className={resource == 'google' ? 'icon-youtube' : 'icon-' + resource}></div>
                     </div>
                 </foreignObject>
             </g>

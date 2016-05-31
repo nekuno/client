@@ -3,8 +3,10 @@ import { createStore, mergeIntoBag, isInBag } from '../utils/StoreUtils';
 import selectn from 'selectn';
 import ActionTypes from '../constants/ActionTypes';
 import UserStore from './UserStore';
+import { getValidationErrors } from '../utils/StoreUtils';
 
 const _threads = {};
+let _errors = '';
 
 const ThreadStore = createStore({
     contains(id, fields) {
@@ -21,6 +23,15 @@ const ThreadStore = createStore({
 
     getAll() {
         return _threads;
+    },
+
+    getErrors() {
+        return _errors;
+    },
+
+    deleteErrors() {
+        _errors = '';
+        this.emitChange();
     }
 });
 
@@ -39,6 +50,13 @@ ThreadStore.dispatchToken = register(action => {
             let items = [];
             items[item[0].id] = item[0];
             mergeIntoBag(_threads, items);
+            ThreadStore.emitChange();
+            break;
+        case ActionTypes.CREATE_THREAD_ERROR:
+        case ActionTypes.UPDATE_THREAD_ERROR:
+            if (action.error){
+                _errors = getValidationErrors(action.error);
+            }
             ThreadStore.emitChange();
             break;
         case ActionTypes.UPDATE_THREAD_SUCCESS:

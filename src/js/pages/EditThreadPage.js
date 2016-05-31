@@ -35,10 +35,13 @@ function getState(props) {
     const tags = TagSuggestionsStore.tags;
     const threadId = parseThreadId(props.params);
     const thread = ThreadStore.get(threadId);
+    const errors = ThreadStore.getErrors();
+
     return {
-        tags   : tags,
-        filters: filters,
-        thread : thread
+        tags,
+        filters,
+        thread,
+        errors
     };
 }
 
@@ -48,10 +51,13 @@ function getState(props) {
 export default class EditThreadPage extends Component {
 
     static propTypes = {
+        // Injected by @connectToStores:
         filters: PropTypes.object,
         tags   : PropTypes.array,
-        user   : PropTypes.object.isRequired,
         thread : PropTypes.object.isRequired,
+        errors : PropTypes.string,
+        // Injected by @AuthenticatedComponent
+        user   : PropTypes.object.isRequired,
         // Injected by @translate:
         strings: PropTypes.object
     };
@@ -77,6 +83,10 @@ export default class EditThreadPage extends Component {
                 threadName: nextProps.thread.name,
                 category  : nextProps.thread.category == 'ThreadUsers' ? 'persons' : 'contents'
             });
+        }
+        if (nextProps.errors) {
+            nekunoApp.alert(nextProps.errors);
+            ThreadStore.deleteErrors();
         }
     }
 

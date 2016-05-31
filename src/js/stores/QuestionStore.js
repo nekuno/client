@@ -9,6 +9,7 @@ const _questions = {};
 const _pagination = {};
 let _answerQuestion = {};
 let _errors = '';
+let _noMoreQuestions = false;
 let _goToQuestionStats = false;
 
 const QuestionStore = createStore({
@@ -38,6 +39,10 @@ const QuestionStore = createStore({
         return _errors;
     },
 
+    noMoreQuestions() {
+        return _noMoreQuestions;
+    },
+    
     getUserAnswer(userId, questionId) {
         return _questions[userId] ? selectn('userAnswer', _questions[userId][questionId]) : null;
     },
@@ -80,6 +85,10 @@ QuestionStore.dispatchToken = register(action => {
         _errors = getValidationErrors(error);
         QuestionStore.emitChange();
     }
+    else if (error && action.type === ActionTypes.REQUEST_QUESTION_ERROR)   {
+        _noMoreQuestions = true;
+        QuestionStore.emitChange();
+    }  
     else if (items) {
         if (action.type === 'REQUEST_COMPARED_QUESTIONS_SUCCESS') {
             for (let index in items) {
@@ -112,6 +121,11 @@ QuestionStore.dispatchToken = register(action => {
     else if (action.type === 'REQUEST_EXISTING_QUESTION') {
         _answerQuestion = {};
         _answerQuestion[action.questionId] = _questions[userId][action.questionId].question;
+        QuestionStore.emitChange();
+    }
+    else if (action.type === 'REMOVE_PREVIOUS_QUESTION') {
+        _answerQuestion = {};
+        _answerQuestion[action.questionId] = {};
         QuestionStore.emitChange();
     }
 });

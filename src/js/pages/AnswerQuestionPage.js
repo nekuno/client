@@ -24,6 +24,7 @@ function requestData(props) {
     const {user, params} = props;
     const questionId = params.hasOwnProperty('questionId') ? parseInt(params.questionId) : null;
     const currentUserId = parseUserId(user);
+    
     return QuestionActionCreators.requestQuestion(currentUserId, questionId);
 }
 
@@ -39,6 +40,7 @@ function getState(props) {
     const questionId = params.hasOwnProperty('questionId') ? parseInt(params.questionId) : selectn('questionId', question);
     const userAnswer = questionId ? QuestionStore.getUserAnswer(currentUserId, questionId) : {};
     const errors = QuestionStore.getErrors();
+    const noMoreQuestions = QuestionStore.noMoreQuestions();
     const goToQuestionStats = QuestionStore.mustGoToQuestionStats();
     const isJustRegistered = Object.keys(QuestionsByUserIdStore.getByUserId(currentUserId)).length < 4;
 
@@ -49,6 +51,7 @@ function getState(props) {
         userAnswer,
         user,
         errors,
+        noMoreQuestions,
         goToQuestionStats,
         isJustRegistered
     };
@@ -128,10 +131,10 @@ export default class AnswerQuestionPage extends Component {
 
     render() {
 
-        const {user, strings} = this.props;
+        const {user, strings, errors, noMoreQuestions, isFirstQuestion, userAnswer, question} = this.props;
         const userId = selectn('qnoow_id', user);
         const ownPicture = user.picture ? `${IMAGES_ROOT}media/cache/resolve/user_avatar_60x60/user/images/${user.picture}` : `${IMAGES_ROOT}media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
-        const isRegisterQuestion = selectn('question.isRegisterQuestion', this.props);
+        const isRegisterQuestion = selectn('isRegisterQuestion', question);
 
         return (
             <div className="view view-main">
@@ -142,14 +145,10 @@ export default class AnswerQuestionPage extends Component {
                 }
                 <div className="page answer-question-page">
                     <div id="page-content" className="answer-question-content">
-                        {this.props.question ?
-                            <AnswerQuestion question={this.props.question} userAnswer={this.props.userAnswer} isFirstQuestion={this.props.isFirstQuestion} userId={userId} errors={this.props.errors} ownPicture={ownPicture}/>
-                            :
-                            ''
-                        }
+                        <AnswerQuestion question={question} userAnswer={userAnswer} isFirstQuestion={isFirstQuestion} userId={userId} errors={errors} noMoreQuestions={noMoreQuestions} ownPicture={ownPicture}/>
                     </div>
                 </div>
-                <RegisterQuestionsFinishedPopup onContinue={this.onContinue} onTests={this.onTests} ></RegisterQuestionsFinishedPopup>
+                <RegisterQuestionsFinishedPopup onContinue={this.onContinue} onTests={this.onTests} />
             </div>
         );
     }

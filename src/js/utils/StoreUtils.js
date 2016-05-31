@@ -73,14 +73,10 @@ export function removeFromBag(bag, entities) {
 }
 
 export function getValidationErrors(error) {
-  let validationErrors =  selectn('validationErrors', error);
+  let validationErrors =  selectn('validationErrors', error) || {};
   let displayErrors = '';
-
-  for(var key in validationErrors) {
-    if(validationErrors.hasOwnProperty(key)) {
-      displayErrors += validationErrors[key].map(error => error + '<br/>');
-    }
-  }
+  
+  Object.keys(validationErrors).forEach(key => displayErrors += validationErrors[key].map(error => error + '<br/>'));
 
   return displayErrors;
 }

@@ -35,9 +35,11 @@ export function requestNextComparedQuestions(userId, otherUserId, link) {
 
 export function requestQuestion(userId, questionId) {
     if (!questionId) {
+        dispatch(ActionTypes.REMOVE_PREVIOUS_QUESTION, {userId, questionId});
         return requestNextQuestion(userId);
     }
     else if (!QuestionStore.contains(userId, questionId)) {
+        dispatch(ActionTypes.REMOVE_PREVIOUS_QUESTION, {userId, questionId});
         dispatchAsync(QuestionAPI.getQuestion(questionId), {
             request: ActionTypes.REQUEST_QUESTION,
             success: ActionTypes.REQUEST_QUESTION_SUCCESS,
@@ -65,6 +67,7 @@ export function answerQuestion(userId, questionId, answerId, acceptedAnswers, ra
 }
 
 export function skipQuestion(userId, questionId) {
+    dispatch(ActionTypes.REMOVE_PREVIOUS_QUESTION, {userId, questionId});
     let promise = dispatchAsync(QuestionAPI.skipQuestion(questionId), {
         request: ActionTypes.SKIP_QUESTION,
         success: ActionTypes.SKIP_QUESTION_SUCCESS,

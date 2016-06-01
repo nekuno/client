@@ -110,6 +110,7 @@ export default class AnswerQuestionForm extends Component {
     };
 
     render() {
+        const {ownPicture, strings} = this.props;
         let answers = this.props.answers;
         let acceptedAnswers = selectn('userAnswer.acceptedAnswers', this.props) ? selectn('userAnswer.acceptedAnswers', this.props) : [];
         let userAnswerId = selectn('userAnswer.answerId', this.props);
@@ -123,6 +124,7 @@ export default class AnswerQuestionForm extends Component {
                 <form>
                     <div className="answers-block">
                         <div className="list-block accepted-answers">
+                            <div className="answer-question-who-text">{strings.them}</div>
                             <div className="answer-question-picture">
                                 <div className="answer-question-other-picture-container">
                                     <div className="answer-question-other-picture">
@@ -152,10 +154,11 @@ export default class AnswerQuestionForm extends Component {
                             </ul>
                         </div>
                         <div className="list-block answers">
+                            <div className="answer-question-who-text">{strings.you}</div>
                             <div className="answer-question-picture">
                                 <div className="answer-question-own-picture-container">
                                     <div className="answer-question-own-picture">
-                                        <img src={this.props.ownPicture}/>
+                                        <img src={ownPicture}/>
                                     </div>
                                 </div>
                             </div>
@@ -178,6 +181,8 @@ export default class AnswerQuestionForm extends Component {
 
 AnswerQuestionForm.defaultProps = {
     strings: {
+        you        : 'You',
+        them       : 'Them',
         alertFirst : 'Mark your answer in the first column',
         alertSecond: 'Mark one or more options in the second column to indicate what would you like to answer another user'
     }

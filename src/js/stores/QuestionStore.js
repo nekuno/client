@@ -125,7 +125,6 @@ QuestionStore.dispatchToken = register(action => {
     }
     else if (action.type === 'REMOVE_PREVIOUS_QUESTION') {
         _answerQuestion = {};
-        _answerQuestion[action.questionId] = {};
         QuestionStore.emitChange();
     }
 });

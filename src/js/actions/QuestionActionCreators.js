@@ -35,11 +35,10 @@ export function requestNextComparedQuestions(userId, otherUserId, link) {
 
 export function requestQuestion(userId, questionId) {
     if (!questionId) {
-        dispatch(ActionTypes.REMOVE_PREVIOUS_QUESTION, {userId, questionId});
         return requestNextQuestion(userId);
     }
     else if (!QuestionStore.contains(userId, questionId)) {
-        dispatch(ActionTypes.REMOVE_PREVIOUS_QUESTION, {userId, questionId});
+        dispatch(ActionTypes.REMOVE_PREVIOUS_QUESTION, {userId});
         dispatchAsync(QuestionAPI.getQuestion(questionId), {
             request: ActionTypes.REQUEST_QUESTION,
             success: ActionTypes.REQUEST_QUESTION_SUCCESS,
@@ -51,6 +50,7 @@ export function requestQuestion(userId, questionId) {
 }
 
 export function requestNextQuestion(userId) {
+    dispatch(ActionTypes.REMOVE_PREVIOUS_QUESTION, {userId});
     return dispatchAsync(QuestionAPI.getNextQuestion(), {
         request: ActionTypes.REQUEST_QUESTION,
         success: ActionTypes.REQUEST_QUESTION_SUCCESS,

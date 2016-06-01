@@ -77,7 +77,7 @@ export default class QuestionsPage extends Component {
                 <LeftMenuTopNavbar centerText={strings.myProfile}/>
                 <div className="page questions-page">
                     <div id="page-content" className="questions-content">
-                        <QuestionsBanner user={this.props.user} questionsTotal={this.props.pagination.total || this.props.questions.length || 0}/>
+                        <QuestionsBanner user={this.props.user} questionsTotal={this.props.pagination.total || Object.keys(this.props.questions).length || 0}/>
                         <br />
                         <br />
                         <br />

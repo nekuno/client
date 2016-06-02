@@ -16,6 +16,7 @@
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
     <preference name="Orientation" value="portrait" />
+    <preference name="SplashScreen" value="screen" />
     <platform name="android">
         <allow-intent href="market:*" />
         <icon density="ldpi" src="src/scss/img/icons/72 - hdpi.png" />
@@ -30,9 +31,12 @@
     <platform name="ios">
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
+        <splash src="src/scss/img/splash/Default~iphone.png" width="320" height="480"  />
+        <splash src="src/scss/img/splash/Default@2x~iphone.png" width="640" height="960" />
     </platform>
     <engine name="android" spec="~5.0.0" />
     <plugin name="cordova-plugin-whitelist" spec="~1.2.1" />
     <plugin name="cordova-plugin-crosswalk-webview" spec="~1.6.1" />
     <plugin name="cordova-plugin-inappbrowser" spec="~1.3.0" />
+    <plugin name="cordova-plugin-splashscreen" spec="~3.2.2" />
 </widget>

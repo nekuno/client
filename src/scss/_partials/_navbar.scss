@@ -57,8 +57,14 @@
 			}
 		}
 
-		.open-panel .icon-menu {
-			font-size: 25px;
+		.open-panel {
+			display: block;
+			height: 50px;
+			width: 100%;
+
+			.icon-menu {
+				font-size: 25px;
+			}
 		}
 
 		.icon-circle {

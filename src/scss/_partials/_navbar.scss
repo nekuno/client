@@ -20,9 +20,13 @@
 			width: 100%;
 		}
 		.col-30 {
+			cursor: pointer;
+			height: 50px;
 			width: 25%;
 		}
 		.col-40 {
+			cursor: pointer;
+			height: 50px;
 			width: 40%;
 		}
 		.center {
@@ -45,7 +49,7 @@
 		.left, .right {
 			color: $deep-purple;
 			display: block;
-			font-size: 0.823529412em;
+			font-size: 0.882352941em;
 
 			.icon-left-arrow {
 				color: #fff;
@@ -53,8 +57,14 @@
 			}
 		}
 
-		.open-panel .icon-menu {
-			font-size: 25px;
+		.open-panel {
+			display: block;
+			height: 50px;
+			width: 100%;
+
+			.icon-menu {
+				font-size: 25px;
+			}
 		}
 
 		.icon-circle {
@@ -62,6 +72,10 @@
 			font-size: 0.6em;
 			margin-left: 5px;
 			position: absolute;
+		}
+
+		.navbar-link-text {
+			font-weight: bold;
 		}
 	}
 	&::after {

@@ -30,7 +30,9 @@ body.panels-3d.with-panel-left-reveal .views {
 	}
 	.close-panel {
 		color: $deep-purple;
+		display: block;
 		font-size: 29px;
+		width: 100px;
 	}
 	.menu {
 		padding: 30px 30px 0 30px;

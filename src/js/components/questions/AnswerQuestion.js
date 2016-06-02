@@ -1,32 +1,27 @@
 import React, { PropTypes, Component } from 'react';
 import selectn from 'selectn';
+import * as QuestionActionCreators from '../../actions/QuestionActionCreators';
 import AnswerQuestionForm from './AnswerQuestionForm';
 import translate from '../../i18n/Translate';
 
 @translate('AnswerQuestion')
 export default class AnswerQuestion extends Component {
     static propTypes = {
-        question       : PropTypes.object.isRequired,
+        question       : PropTypes.object,
         userAnswer     : PropTypes.object,
         isFirstQuestion: PropTypes.bool.isRequired,
         ownPicture     : PropTypes.string.isRequired,
         userId         : PropTypes.number.isRequired,
         errors         : PropTypes.string.isRequired,
+        noMoreQuestions: PropTypes.bool,
         // Injected by @translate:
         strings        : PropTypes.object
     };
 
     render() {
-        let question = this.props.question;
+        const {noMoreQuestions, strings, question} = this.props;
         let questionId = selectn('questionId', question);
-        let userAnswer = this.props.userAnswer;
         let answers = selectn('answers', question) || [];
-        let errors = this.props.errors;
-        const {strings} = this.props;
-
-        if (errors) {
-            nekunoApp.alert(errors);
-        }
 
         return (
             <div>
@@ -38,7 +33,7 @@ export default class AnswerQuestion extends Component {
                         <AnswerQuestionForm answers={answers} {...this.props} />
                     </div>
                     :
-                    <h1>{strings.noMoreQuestions}</h1>
+                    noMoreQuestions ? <div className="empty-message">{strings.noMoreQuestions}</div> : ''
                 }
             </div>
         );

@@ -9,7 +9,7 @@ import FullWidthButton from '../ui/FullWidthButton';
 export default class RegisterQuestionsFinishedPopup extends Component {
     static propTypes = {
         onContinue: PropTypes.func.isRequired,
-        onTests: PropTypes.func.isRequired,
+        onTests: PropTypes.func,
         // Injected by @translate:
         strings       : PropTypes.object
     };
@@ -43,7 +43,9 @@ export default class RegisterQuestionsFinishedPopup extends Component {
 
     onTests() {
         nekunoApp.closeModal('.popup-register-finished');
-        this.props.onTests();
+        if (this.props.onTests) {
+            this.props.onTests();
+        }
     };
 
 

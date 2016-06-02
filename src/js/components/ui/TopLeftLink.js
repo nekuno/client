@@ -16,7 +16,7 @@ export default class TopLeftLink extends Component {
 		const {onClickHandler, text} = this.props;
 		return (
 			<div className="col-30 left" onClick={typeof onClickHandler !== 'undefined' ? onClickHandler : this.context.history.goBack}>
-				<a>
+				<a className="navbar-link-text">
 					{text}
 				</a>
 			</div>

@@ -15,7 +15,17 @@ body #root .App .view .page {
             float: left;
             width: 82%;
 
+            .answer-question-who-text {
+              height: 30px;
+              margin-right: -10px;
+              float: right;
+              font-size: 0.9em;
+              text-align: center;
+              width: 42px;
+            }
+
             .answer-question-picture {
+              clear: both;
               height: 47px;
               margin-right: -10px;
               text-align: right;

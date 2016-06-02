@@ -61,6 +61,10 @@ export default class LoginPage extends Component {
         return new ReactLink(this.state[key], ReactStateSetters.createStateKeySetter(this, key));
     }
 
+    goHome() {
+        this.context.history.pushState(null, '/');
+    }
+
     render() {
         const {
             error,
@@ -68,7 +72,12 @@ export default class LoginPage extends Component {
         } = this.props;
         return (
             <div className="view view-main">
-                <RegularTopNavbar leftText={strings.cancel} centerText={strings.login}/>
+                {LoginStore.justLoggedOut ?
+                    <RegularTopNavbar leftText={strings.cancel} centerText={strings.login} onLeftLinkClickHandler = {this.goHome.bind(this)}k/>
+                :
+                    <RegularTopNavbar leftText={strings.cancel} centerText={strings.login}/>
+                }
+
                 <div className="page">
                     <div id="page-content" className="login-content">
                         <div className="list-block">

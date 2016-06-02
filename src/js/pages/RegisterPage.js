@@ -146,7 +146,7 @@ export default class RegisterPage extends Component {
                             <div className="social-box">
                                 <div><a onClick={this.handleFacebook}><span className="icon-facebook"></span></a></div>
                                 <div><a onClick={this.handleTwitter}><span className="icon-twitter"></span></a></div>
-                                <div><a onClick={this.handleGoogle}><span className="icon-google"></span></a></div>
+                                <div><a onClick={this.handleGoogle}><span className="icon-youtube"></span></a></div>
                                 <div><a onClick={this.handleSpotify}><span className="icon-spotify"></span></a></div>
                             </div>
                             : '' }

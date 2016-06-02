@@ -93,7 +93,7 @@ export default class LeftPanel extends Component {
                 <div className="panel panel-left panel-reveal">
                     <div className="content-block top-menu">
                         <a className="close-panel">
-                            <span className="icon-notifications"/>
+                            <span className="icon-left-arrow"/>
                             {unreadCount ?
                                 <span className="icon-circle"></span> : ''
                             }

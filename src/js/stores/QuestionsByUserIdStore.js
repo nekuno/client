@@ -10,7 +10,7 @@ import {
 
 const QuestionsByUserIdStore = createIndexedListStore({
     getByUserId(userId) {
-        return this.getIds(userId).map(QuestionStore.get);
+        return QuestionStore.get(userId);
     }
 });
 

@@ -6,6 +6,7 @@ import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
 import FilterStore from '../stores/FilterStore';
+import ThreadStore from '../stores/ThreadStore';
 import TagSuggestionsStore from '../stores/TagSuggestionsStore';
 import TextInput from '../components/ui/TextInput';
 import TextRadios from '../components/ui/TextRadios';
@@ -19,9 +20,12 @@ import RegularTopNavbar from '../components/ui/RegularTopNavbar';
 function getState(props) {
     const filters = FilterStore.filters;
     const tags = TagSuggestionsStore.tags;
+    const errors = ThreadStore.getErrors();
+
     return {
-        tags   : tags,
-        filters: filters
+        tags,
+        filters,
+        errors
     };
 }
 
@@ -35,12 +39,15 @@ function requestData(props) {
 
 @AuthenticatedComponent
 @translate('CreateThreadPage')
-@connectToStores([FilterStore, TagSuggestionsStore], getState)
+@connectToStores([FilterStore, TagSuggestionsStore, ThreadStore], getState)
 export default class CreateThreadPage extends Component {
 
     static propTypes = {
+        // Injected by @connectToStores:
         filters: PropTypes.object,
         tags   : PropTypes.array,
+        errors           : PropTypes.string,
+        // Injected by @AuthenticatedComponent
         user   : PropTypes.object.isRequired,
         // Injected by @translate:
         strings: PropTypes.object
@@ -59,6 +66,13 @@ export default class CreateThreadPage extends Component {
 
     componentWillMount() {
         requestData(this.props);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.errors){
+            nekunoApp.alert(nextProps.errors);
+            ThreadStore.deleteErrors();
+        }
     }
 
     handleClickCategory(category) {

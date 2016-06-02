@@ -24,6 +24,7 @@ function requestData(props) {
     const {user, params} = props;
     const questionId = params.hasOwnProperty('questionId') ? parseInt(params.questionId) : null;
     const currentUserId = parseUserId(user);
+    
     return QuestionActionCreators.requestQuestion(currentUserId, questionId);
 }
 
@@ -39,8 +40,11 @@ function getState(props) {
     const questionId = params.hasOwnProperty('questionId') ? parseInt(params.questionId) : selectn('questionId', question);
     const userAnswer = questionId ? QuestionStore.getUserAnswer(currentUserId, questionId) : {};
     const errors = QuestionStore.getErrors();
+    const noMoreQuestions = QuestionStore.noMoreQuestions();
     const goToQuestionStats = QuestionStore.mustGoToQuestionStats();
-    const isJustRegistered = Object.keys(QuestionsByUserIdStore.getByUserId(currentUserId)).length < 4;
+    const questionsLength = Object.keys(QuestionsByUserIdStore.getByUserId(currentUserId)).length || 0;
+    const isJustRegistered = questionsLength < 4;
+    const isJustCompleted = questionsLength == 4;
 
     return {
         currentUser,
@@ -49,8 +53,10 @@ function getState(props) {
         userAnswer,
         user,
         errors,
+        noMoreQuestions,
         goToQuestionStats,
-        isJustRegistered
+        isJustRegistered,
+        isJustCompleted
     };
 }
 
@@ -74,7 +80,8 @@ export default class AnswerQuestionPage extends Component {
         isFirstQuestion  : PropTypes.bool,
         errors           : PropTypes.string,
         goToQuestionStats: PropTypes.bool,
-        isJustRegistered : PropTypes.bool
+        isJustRegistered : PropTypes.bool,
+        isJustCompleted  : PropTypes.bool
     };
 
     static contextTypes = {
@@ -86,23 +93,14 @@ export default class AnswerQuestionPage extends Component {
 
         this.skipQuestionHandler = this.skipQuestionHandler.bind(this);
         this.onContinue = this.onContinue.bind(this);
-        this.onTests = this.onTests.bind(this);
     }
 
     componentWillMount() {
         if(!this.props.question || this.props.question.questionId !== this.props.params.questionId) {
-            let promise = requestData(this.props);
-            let isJustRegistered = this.props.isJustRegistered;
-            if(typeof promise != 'undefined') {
-                // TODO: Juanlu: I think this should not be done like this, but using some store and flux flow.
-                promise.then(function(data) {
-                        const questions = data.entities.question;
-                        if(isJustRegistered && questions[Object.keys(questions)[0]].isRegisterQuestion === false) {
-                            nekunoApp.popup('.popup-register-finished');
-                        }
-                    }
-                );
-            }
+            requestData(this.props);
+        }
+        if(this.props.isJustCompleted) {
+            window.setTimeout(function() { nekunoApp.popup('.popup-register-finished') }, 0);
         }
     }
 
@@ -122,16 +120,12 @@ export default class AnswerQuestionPage extends Component {
         this.context.history.pushState(null, '/threads');
     }
 
-    onTests() {
-        this.context.history.pushState(null, '/profile');
-    }
-
     render() {
 
-        const {user, strings} = this.props;
+        const {user, strings, errors, noMoreQuestions, isFirstQuestion, userAnswer, question} = this.props;
         const userId = selectn('qnoow_id', user);
         const ownPicture = user.picture ? `${IMAGES_ROOT}media/cache/resolve/user_avatar_60x60/user/images/${user.picture}` : `${IMAGES_ROOT}media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
-        const isRegisterQuestion = selectn('question.isRegisterQuestion', this.props);
+        const isRegisterQuestion = selectn('isRegisterQuestion', question);
 
         return (
             <div className="view view-main">
@@ -142,14 +136,10 @@ export default class AnswerQuestionPage extends Component {
                 }
                 <div className="page answer-question-page">
                     <div id="page-content" className="answer-question-content">
-                        {this.props.question ?
-                            <AnswerQuestion question={this.props.question} userAnswer={this.props.userAnswer} isFirstQuestion={this.props.isFirstQuestion} userId={userId} errors={this.props.errors} ownPicture={ownPicture}/>
-                            :
-                            ''
-                        }
+                        <AnswerQuestion question={question} userAnswer={userAnswer} isFirstQuestion={isFirstQuestion} userId={userId} errors={errors} noMoreQuestions={noMoreQuestions} ownPicture={ownPicture}/>
                     </div>
                 </div>
-                <RegisterQuestionsFinishedPopup onContinue={this.onContinue} onTests={this.onTests} ></RegisterQuestionsFinishedPopup>
+                <RegisterQuestionsFinishedPopup onContinue={this.onContinue} />
             </div>
         );
     }

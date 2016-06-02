@@ -185,6 +185,8 @@ export default {
         noMoreQuestions: 'No hay más preguntas'
     },
     AnswerQuestionForm               : {
+        you        : 'Tú',
+        them       : 'Ellos',
         alertFirst : 'Marca tu respuesta en la primera columna',
         alertSecond: 'Marca una o varias opciones en la segunda columna para indicar qué te gustaría que respondiera otro usuario'
     },
@@ -230,6 +232,14 @@ export default {
         websites : 'Sitios web',
         people   : 'Personas',
         channels : 'Canales'
+    },
+    OrientationRequiredPopup         : {
+        title              : 'Indícanos tu orientación sexual para ver este hilo',
+        orientationRequired: 'Orientación Requerida',
+        heterosexual       : 'Heterosexual',
+        bisexual           : 'Bisexual',
+        homosexual         : 'Homosexual',
+        cancel             : 'Cancelar'
     },
     RegisterQuestionsFinishedPopup   : {
         title    : '¡Felicidades!',

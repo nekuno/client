@@ -12,8 +12,8 @@ export default class TopRightLink extends Component {
 	render() {
 		const {text, onClickHandler} = this.props;
 		return (
-			<div className="col-30 right">
-				<a onClick={onClickHandler}>
+			<div className="col-30 right" onClick={onClickHandler}>
+				<a>
 					{text}
 				</a>
 			</div>

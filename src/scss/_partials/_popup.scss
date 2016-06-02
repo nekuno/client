@@ -12,8 +12,15 @@
 			color: #fff;
 			font-size: 1.1em;
 		}
+		p {
+			.close-popup {
+				display: block;
+				height: 50px;
+				width: 100px;
+			}
+		}
 		.popup-filter-contents-title, .popup-orientation-required-title, .popup-register-finished-title {
-			margin-top: 80px;
+			margin-top: 50px;
 			margin-bottom: 40px;
 		}
 		.popup-register-finished-text {

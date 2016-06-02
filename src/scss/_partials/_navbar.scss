@@ -49,7 +49,7 @@
 		.left, .right {
 			color: $deep-purple;
 			display: block;
-			font-size: 0.823529412em;
+			font-size: 0.882352941em;
 
 			.icon-left-arrow {
 				color: #fff;
@@ -72,6 +72,10 @@
 			font-size: 0.6em;
 			margin-left: 5px;
 			position: absolute;
+		}
+
+		.navbar-link-text {
+			font-weight: bold;
 		}
 	}
 	&::after {

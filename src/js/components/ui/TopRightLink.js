@@ -13,7 +13,7 @@ export default class TopRightLink extends Component {
 		const {text, onClickHandler} = this.props;
 		return (
 			<div className="col-30 right" onClick={onClickHandler}>
-				<a>
+				<a className="navbar-link-text">
 					{text}
 				</a>
 			</div>

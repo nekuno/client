@@ -1,5 +1,4 @@
 import React, { PropTypes, Component } from 'react';
-import { Link } from 'react-router';
 import { IMAGES_ROOT } from '../constants/Constants';
 import shouldPureComponentUpdate from 'react-pure-render/function';
 import selectn from 'selectn';
@@ -25,7 +24,8 @@ export default class User extends Component {
                             {user.username}
                         </div>
                         <div className="user-location">
-                            <span className="icon-marker"></span> {selectn('location.address', profile) ? profile.location.address : 'Madrid'}
+                            {/** TODO: For some reason, profile is different for different renders. This is a temporal fix */}
+                            <span className="icon-marker"></span> {selectn('Location', profile) || selectn('location.locality', profile) || ''}
                         </div>
                     </div>
                 </div>

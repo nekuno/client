@@ -217,7 +217,6 @@ export default {
         unlike       : 'Remove',
         compatibility: 'Compatibility',
         emptyTitle   : 'Link'
-
     },
     CardUser                         : {
         like      : 'Like',
@@ -233,6 +232,14 @@ export default {
         websites : 'Websites',
         people   : 'People',
         channels : 'Channels'
+    },
+    OrientationRequiredPopup         : {
+        title              : 'Select your sexual orientation sexual to see this yarn',
+        orientationRequired: 'Orientation Required',
+        heterosexual       : 'Heterosexual',
+        bisexual           : 'Bisexual',
+        homosexual         : 'Homosexual',
+        cancel             : 'Cancel'
     },
     RegisterQuestionsFinishedPopup   : {
         title    : 'Congratulations!',

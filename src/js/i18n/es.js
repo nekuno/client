@@ -233,6 +233,14 @@ export default {
         people   : 'Personas',
         channels : 'Canales'
     },
+    OrientationRequiredPopup         : {
+        title              : 'Indícanos tu orientación sexual para ver este hilo',
+        orientationRequired: 'Orientación Requerida',
+        heterosexual       : 'Heterosexual',
+        bisexual           : 'Bisexual',
+        homosexual         : 'Homosexual',
+        cancel             : 'Cancelar'
+    },
     RegisterQuestionsFinishedPopup   : {
         title    : '¡Felicidades!',
         text     : 'Has completado las primeras 4 preguntas indispensables, si quieres seguir contestando preguntas para mejorar las recomendaciones, puedes hacerlo desde tu perfil.',

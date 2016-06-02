@@ -39,6 +39,7 @@ export default class ChatMessagesPage extends Component {
         }),
         // Injected by @AuthenticatedComponent
         user     : PropTypes.object.isRequired,
+        isGuest  : PropTypes.bool.isRequired,
         // Injected by @translate:
         strings  : PropTypes.object,
         // Injected by @connectToStores:
@@ -73,7 +74,7 @@ export default class ChatMessagesPage extends Component {
     }
 
     _scrollToBottom() {
-        if(ChatMessageStore.isFresh(this.props.params.userId)) {
+        if (ChatMessageStore.isFresh(this.props.params.userId)) {
             var list = this.refs.list;
             list.scrollTop = list.scrollHeight;
         }
@@ -85,7 +86,7 @@ export default class ChatMessagesPage extends Component {
     }
 
     handleFocus(e) {
-        if(this.props.messages.length > 0) {
+        if (this.props.messages.length > 0) {
             const userId = parseInt(this.props.params.userId);
             let lastMessage = this.props.messages[this.props.messages.length - 1];
             let timestamp = lastMessage.createdAt.toISOString();
@@ -95,8 +96,8 @@ export default class ChatMessagesPage extends Component {
 
     handleScroll() {
         var list = this.refs.list;
-        if(list.scrollTop === 0) {
-            if(ChatMessageStore.noMoreMessages(this.props.params.userId)) {
+        if (list.scrollTop === 0) {
+            if (ChatMessageStore.noMoreMessages(this.props.params.userId)) {
                 list.removeEventListener('scroll', this.handleScroll);
                 this.setState({noMoreMessages: true});
             } else {
@@ -107,7 +108,7 @@ export default class ChatMessagesPage extends Component {
     }
 
     render() {
-        const {messages, strings} = this.props;
+        const {messages, strings, isGuest} = this.props;
         let otherUsername = this.props.otherUser ? this.props.otherUser.username : '';
         return (
 
@@ -121,7 +122,7 @@ export default class ChatMessagesPage extends Component {
                     </div>
                 </div>
                 <div>
-                    <MessagesToolBar onClickHandler={this.sendMessageHandler} onFocusHandler={this.handleFocus} placeholder={strings.placeholder} text={strings.text}/>
+                    { isGuest ? '' : <MessagesToolBar onClickHandler={this.sendMessageHandler} onFocusHandler={this.handleFocus} placeholder={strings.placeholder} text={strings.text}/> }
                 </div>
             </div>
         );

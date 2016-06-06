@@ -3,9 +3,7 @@ import BaseStore from './BaseStore';
 
 class ChatMessageStore extends BaseStore {
 
-    constructor() {
-        super();
-        this.subscribe(() => this._registerToActions.bind(this));
+    setInitial() {
         this._messages = {};
         this._fresh = {};
         this._noMessages = false;
@@ -13,6 +11,8 @@ class ChatMessageStore extends BaseStore {
     }
 
     _registerToActions(action) {
+        super._registerToActions(action);
+
         switch (action.type) {
 
             case ActionTypes.CHAT_MESSAGES:

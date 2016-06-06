@@ -3,9 +3,7 @@ import BaseStore from './BaseStore';
 
 class RouterStore extends BaseStore {
 
-    constructor() {
-        super();
-        this.subscribe(() => this._registerToActions.bind(this));
+    setInitial() {
         this._nextPath = null;
     }
 

@@ -5,9 +5,7 @@ import ChatMessageStore from './ChatMessageStore';
 
 class ChatThreadStore extends BaseStore {
 
-    constructor() {
-        super();
-        this.subscribe(() => this._registerToActions.bind(this));
+    setInitial() {
         this._threads = [];
     }
 
@@ -15,6 +13,7 @@ class ChatThreadStore extends BaseStore {
 
         waitFor([ChatMessageStore.dispatchToken]);
 
+        super._registerToActions(action);
         switch (action.type) {
 
             case ActionTypes.CHAT_MARK_AS_READED:

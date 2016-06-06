@@ -5,9 +5,7 @@ import LoginStore from './LoginStore';
 
 class LocaleStore extends BaseStore {
 
-    constructor() {
-        super();
-        this.subscribe(() => this._registerToActions.bind(this));
+    setInitial() {
         this._locale = 'en';
         let locale = localStorage.getItem('locale');
         if (locale) {
@@ -22,6 +20,7 @@ class LocaleStore extends BaseStore {
     }
 
     _registerToActions(action) {
+        super._registerToActions(action);
 
         switch (action.type) {
 

@@ -5,9 +5,7 @@ import jwt_decode from 'jwt-decode';
 
 class LoginStore extends BaseStore {
 
-    constructor() {
-        super();
-        this.subscribe(() => this._registerToActions.bind(this));
+    setInitial() {
         this._error = null;
         this._user = null;
         this._jwt = null;
@@ -47,9 +45,7 @@ class LoginStore extends BaseStore {
                 break;
 
             case ActionTypes.LOGOUT_USER:
-                this._error = null;
-                this._user = null;
-                this._jwt = null;
+                this.setInitial();
                 this._justLoggedout = true;
                 localStorage.removeItem('jwt');
 

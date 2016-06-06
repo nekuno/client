@@ -183,6 +183,10 @@ export default class RegisterJoinPage extends Component {
         UserActionCreators.requestMetadata();
     }
 
+    componentWillReceiveProps(props) {
+
+    }
+
     render() {
 
         const {metadata, error, profile, strings} = this.props;

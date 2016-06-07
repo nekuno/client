@@ -104,7 +104,7 @@ export default {
         complete             : 'Completar registro',
         notAvailable         : 'Lo sentimos, este nombre de usuario no está disponible',
         maxDescriptiveGender : 'El máximo de opciones permitidas es 5, desmarca alguna otra opción para elegir esta.',
-        privacy              : 'Al registrarte, estás aceptando las <a href="https://nekuno.com/static/legal">Condiciones Legales</a> y la <a href="https://nekuno.com/static/privacy">Política de Privacidad</a> de Nekuno.',
+        privacy              : 'Al registrarte, estás aceptando las <a href="https://nekuno.com/legal-notice" target="_blank">Condiciones Legales</a> y la <a href="https://nekuno.com/privacy-policy" target="_blank">Política de Privacidad</a> de Nekuno.',
     },
     RegisterPage                     : {
         register    : 'Crear cuenta',

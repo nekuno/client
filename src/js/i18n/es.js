@@ -121,7 +121,8 @@ export default {
         next   : 'HACER TEST'
     },
     ThreadPage                       : {
-        threads: 'Hilos'
+        threads: 'Hilos',
+        loadingMessage: 'Cargando hilos'
     },
     UserPage                         : {
         aboutMe  : 'Sobre mí',

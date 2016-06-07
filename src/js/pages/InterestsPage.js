@@ -1,8 +1,8 @@
 import React, { PropTypes, Component } from 'react';
-import selectn from 'selectn';
 import LeftMenuRightSearchTopNavbar from '../components/ui/LeftMenuRightSearchTopNavbar';
 import LeftLinkRightSearchTopNavbar from '../components/ui/LeftLinkRightSearchTopNavbar';
 import ToolBar from '../components/ui/ToolBar';
+import EmptyMessage from '../components/ui/EmptyMessage';
 import FilterContentPopup from '../components/ui/FilterContentPopup';
 import CardContentList from '../components/interests/CardContentList';
 import CardContentCarousel from '../components/interests/CardContentCarousel';
@@ -172,9 +172,7 @@ export default class InterestsPage extends Component {
                 <div className="page interests-page">
                     <div id="page-content" className="interests-content">
                         {isArrayEmpty ?
-                            <div className="contents-empty">
-                                {strings.empty}
-                            </div>
+                            <EmptyMessage text={strings.empty} />
                             :
                             this.state.carousel ?
                                 <CardContentCarousel contents={interests} userId={parseId(user)}/>

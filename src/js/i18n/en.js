@@ -121,7 +121,8 @@ export default {
         next   : 'DO TEST'
     },
     ThreadPage                       : {
-        threads: 'Yarns'
+        threads: 'Yarns',
+        loadingMessage: 'Loading yarns'
     },
     UserPage                         : {
         aboutMe  : 'About me',

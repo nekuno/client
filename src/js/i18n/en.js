@@ -103,7 +103,9 @@ export default {
         hideDescriptiveGender: 'Hide other genres',
         complete             : 'Complete registration',
         notAvailable         : 'Sorry, this username is not available',
-        maxDescriptiveGender : 'The maximum number of options permitted is 5, uncheck any other options to choose this one'
+        maxDescriptiveGender : 'The maximum number of options permitted is 5, uncheck any other options to choose this one',
+        privacy              : 'By registering, you agree to the <a href="https://nekuno.com/static/legal">Legal Conditions</a> and the Nekuno <a href="https://nekuno.com/static/privacy">Privacy Policy</a>.',
+
     },
     RegisterPage                     : {
         register    : 'Create account',
@@ -112,7 +114,6 @@ export default {
         titleCorrect: 'Awesome! You got an invitation!',
         subtitle    : 'Please copy the URL that you\'ve received your invitation and paste it into the field below to create your account at Nekuno.',
         paste       : 'Paste the invitation url here',
-        privacy     : 'By registering, you agree to the <a href="https://nekuno.com/static/legal">Legal Conditions</a> and the Nekuno <a href="https://nekuno.com/static/privacy">Privacy Policy</a>.',
         correct     : 'Just one last step! Connect one of the following social networks:'
     },
     RegisterQuestionLandingPage      : {

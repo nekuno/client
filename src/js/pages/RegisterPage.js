@@ -150,9 +150,6 @@ export default class RegisterPage extends Component {
                                 <div><a onClick={this.handleSpotify}><span className="icon-spotify"></span></a></div>
                             </div>
                             : '' }
-                        <div className="register-title">
-                            <p dangerouslySetInnerHTML={{__html:strings.privacy }}/>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -168,7 +165,6 @@ RegisterPage.defaultProps = {
         titleCorrect: 'Awesome! You got an invitation!',
         subtitle    : 'Please copy the URL that you\'ve received your invitation and paste it into the field below to create your account at Nekuno.',
         paste       : 'Paste the invitation url here',
-        privacy     : 'By registering, you agree to the <a href="https://nekuno.com/static/legal">Legal Conditions</a> and the Nekuno <a href="https://nekuno.com/static/privacy">Privacy Policy</a>.',
         correct     : 'Just one last step! Connect one of the following social networks:'
     }
 };

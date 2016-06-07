@@ -1,8 +1,9 @@
+import ActionTypes from '../constants/ActionTypes';
 import { register } from '../dispatcher/Dispatcher';
 import { createStore, mergeIntoBag, isInBag } from '../utils/StoreUtils';
 import selectn from 'selectn';
 
-const _users = {};
+let _users = {};
 
 const UserStore = createStore({
     contains(userId, fields) {
@@ -19,6 +20,9 @@ UserStore.dispatchToken = register(action => {
     if (responseUsers) {
         mergeIntoBag(_users, responseUsers);
         UserStore.emitChange();
+    }
+    if (action.type == ActionTypes.LOGOUT_USER) {
+        _users = {};
     }
 });
 

@@ -8,7 +8,6 @@ import {
     createListActionHandler
 } from '../utils/PaginatedStoreUtils';
 
-//Move logic to createIndexedListStore?
 let _position = [];
 
 const ThreadsByUserStore = createIndexedListStore({
@@ -70,6 +69,10 @@ register(action => {
             delete_list.remove(action.threadId);
             ThreadsByUserStore.emitChange();
             break;
+        case ActionTypes.LOGOUT_USER:
+            _position = [];
+            ThreadsByUserStore.removeLists();
+            break;
         default:
             break;
     }
@@ -81,6 +84,8 @@ register(action => {
             ThreadsByUserStore.emitChange
         );
     }
+
+
 });
 
 export default ThreadsByUserStore;

@@ -8,9 +8,20 @@ body #root .App .view .page #page-content.login-content {
   .button {
     margin-bottom: 10px;
   }
-  .register-text {
-    margin-bottom: 10px;
+  .register-text-block {
+    height: 50px;
     text-align: center;
+    .register-text {
+      cursor: pointer;
+      display: inline-block;
+      margin: 0 5px 10px;
+      vertical-align: middle;
+      width: 35%;
+
+      a {
+        font-weight: bold;
+      }
+    }
   }
 }
 

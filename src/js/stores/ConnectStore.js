@@ -3,18 +3,17 @@ import BaseStore from './BaseStore';
 
 class ConnectStore extends BaseStore {
 
-    constructor() {
-        super();
-        this.subscribe(() => this._registerToActions.bind(this));
+   setInitial() {
         this._token = null;
         this._accessToken = null;
         this._resource = null;
         this._resourceId = null;
         this._profile = null;
-
     }
 
     _registerToActions(action) {
+        super._registerToActions(action);
+
         switch (action.type) {
             case ActionTypes.CONNECT_REGISTER_ACCOUNT:
                 this._token = action.token;

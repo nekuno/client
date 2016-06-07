@@ -2,6 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import ThreadList from '../components/threads/ThreadList';
 import LeftMenuRightIconTopNavbar from '../components/ui/LeftMenuRightIconTopNavbar';
 import QuestionsBanner from '../components/questions/QuestionsBanner';
+import EmptyMessage from '../components/ui/EmptyMessage';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
@@ -84,7 +85,7 @@ export default class ThreadPage extends Component {
                 <div className="page threads-page">
                     <div id="page-content">
                         {filters && threads && profile ?
-                            <ThreadList threads={threads} userId={user.id} profile={profile} filters={filters}/> : ''
+                            <ThreadList threads={threads} userId={user.id} profile={profile} filters={filters}/> : <EmptyMessage text={strings.loadingMessage} loadingGif={true} />
                         }
                         {filters && threads && profile ?
                             <QuestionsBanner user={user} questionsTotal={this.props.pagination.total || 0}/> : ''
@@ -98,6 +99,7 @@ export default class ThreadPage extends Component {
 
 ThreadPage.defaultProps = {
     strings: {
-        threads: 'Threads'
+        threads: 'Discover',
+        loadingMessage: 'Loading yarns'
     }
 };

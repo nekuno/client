@@ -183,6 +183,10 @@ export default class RegisterJoinPage extends Component {
         UserActionCreators.requestMetadata();
     }
 
+    componentWillReceiveProps(props) {
+
+    }
+
     render() {
 
         const {metadata, error, profile, strings} = this.props;
@@ -253,6 +257,9 @@ export default class RegisterJoinPage extends Component {
                         <div style={{color: '#FFF'}}>
                             <p>{ error ? error.error : ''}</p>
                         </div>
+                        <div className="privacy-terms-text">
+                            <p dangerouslySetInnerHTML={{__html:strings.privacy }}/>
+                        </div>
                     </div>
                     <br />
                     <br />
@@ -282,6 +289,8 @@ RegisterJoinPage.defaultProps = {
         hideDescriptiveGender: 'Hide other genres',
         complete             : 'Complete registration',
         notAvailable         : 'Sorry, this username is not available',
-        maxDescriptiveGender : 'The maximum number of options permitted is 5, uncheck any other options to choose this one'
+        maxDescriptiveGender : 'The maximum number of options permitted is 5, uncheck any other options to choose this one',
+        privacy              : 'By registering, you agree to the <a href="https://nekuno.com/static/legal">Legal Conditions</a> and the Nekuno <a href="https://nekuno.com/static/privacy">Privacy Policy</a>.',
+
     }
 };

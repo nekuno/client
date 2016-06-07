@@ -14,13 +14,13 @@ export default {
     ConnectSocialNetworksOnSignUpPage: {
         next   : 'Continue',
         welcome: 'Welcome to Nekuno',
-        excerpt: 'At last your data will work for you! The more interest you contribute, the better recommendations you’ll get!',
+        excerpt: 'Make your data work for you! The more interest you contribute, the better recommendations you’ll get!',
         footer : 'Remember, you’re in control at all times, we will not publish anything on your social networks'
     },
     ConnectSocialNetworksPage        : {
         top    : 'Social Networks',
         title  : 'Connect to your world',
-        excerpt: 'At last your data will work for you! The more interest you contribute, the better recommendations you’ll get!',
+        excerpt: 'Make your data work for you! The more interest you contribute, the better recommendations you’ll get!',
         footer : 'Remember, you’re in control at all times, we will not publish anything on your social networks'
     },
     EditProfilePage                  : {
@@ -37,7 +37,7 @@ export default {
         login        : 'Login',
         hasInvitation: 'Do you have an invitation?',
         register     : 'Register',
-        wantGuest    : 'Do you want to try it first?',
+        wantGuest    : 'Do you want to try it?',
         asGuest      : 'Enter as guest'
     },
     InterestsPage                    : {
@@ -56,7 +56,7 @@ export default {
         recoverPassword: 'Forgotten your password?',
         hasInvitation  : 'Do you have an invitation?',
         register       : 'Register',
-        wantGuest      : 'Do you want to try it first?',
+        wantGuest      : 'Do you want to try it?',
         asGuest        : 'Enter as guest'
     },
     OtherInterestsPage               : {
@@ -68,7 +68,7 @@ export default {
         about                : 'About',
         questions            : 'Answers',
         interests            : 'Interests',
-        empty    : 'This user has no interests yet.'
+        empty                : 'This user has no interests yet.'
 
     },
     OtherQuestionsPage               : {
@@ -103,7 +103,9 @@ export default {
         hideDescriptiveGender: 'Hide other genres',
         complete             : 'Complete registration',
         notAvailable         : 'Sorry, this username is not available',
-        maxDescriptiveGender : 'The maximum number of options permitted is 5, uncheck any other options to choose this one'
+        maxDescriptiveGender : 'The maximum number of options permitted is 5, uncheck any other options to choose this one',
+        privacy              : 'By registering, you agree to the <a href="https://nekuno.com/legal-notice" target="_blank">Legal Conditions</a> and the Nekuno <a href="https://nekuno.com/privacy-policy" target="_blank">Privacy Policy</a>.',
+
     },
     RegisterPage                     : {
         register    : 'Create account',
@@ -112,7 +114,6 @@ export default {
         titleCorrect: 'Awesome! You got an invitation!',
         subtitle    : 'Please copy the URL that you\'ve received your invitation and paste it into the field below to create your account at Nekuno.',
         paste       : 'Paste the invitation url here',
-        privacy     : 'By registering, you agree to the <a href="https://nekuno.com/static/legal">Legal Conditions</a> and the Nekuno <a href="https://nekuno.com/static/privacy">Privacy Policy</a>.',
         correct     : 'Just one last step! Connect one of the following social networks:'
     },
     RegisterQuestionLandingPage      : {
@@ -121,7 +122,11 @@ export default {
         next   : 'DO TEST'
     },
     ThreadPage                       : {
-        threads: 'Yarns'
+        threads: 'Discover',
+        loadingMessage: 'Loading yarns'
+    },
+    RecommendationPage               : {
+        loadingMessage: 'Loading recommendations'
     },
     UserPage                         : {
         aboutMe  : 'About me',
@@ -156,7 +161,7 @@ export default {
     ////////////////
     LeftPanel                        : {
         interests     : 'Interests',
-        threads       : 'Yarns',
+        threads       : 'Discover',
         myProfile     : 'Profile',
         conversations : 'Messages',
         socialNetworks: 'My social networks',
@@ -324,7 +329,7 @@ export default {
         placeholderMax: 'Max'
     },
     GuestBanner                      : {
-        text: 'You are in guest mode. Click here to register and get Nekuno to work for you'
+        text: 'You are in guest mode. Click here to register'
     },
     ////////////////
     // Framework7 //

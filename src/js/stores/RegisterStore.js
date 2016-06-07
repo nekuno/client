@@ -3,15 +3,14 @@ import BaseStore from './BaseStore';
 
 class RegisterStore extends BaseStore {
 
-    constructor() {
-        super();
-        this.subscribe(() => this._registerToActions.bind(this));
+    setInitial() {
         this._validUsername = true;
         this._user = null;
         this._error = null;
     }
 
     _registerToActions(action) {
+        super._registerToActions(action);
 
         switch (action.type) {
 

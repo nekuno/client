@@ -37,7 +37,7 @@ export default {
         login        : 'Iniciar sesión',
         hasInvitation: '¿Tienes una invitación?',
         register     : 'Regístrate',
-        wantGuest    : '¿Quieres probarlo primero?',
+        wantGuest    : '¿Quieres probarlo?',
         asGuest      : 'Entra como invitado'
     },
     InterestsPage                    : {
@@ -56,7 +56,7 @@ export default {
         recoverPassword: '¿Has olvidado tu contraseña?',
         hasInvitation  : '¿Tienes una invitación?',
         register       : 'Regístrate',
-        wantGuest      : '¿Quieres probarlo primero?',
+        wantGuest      : '¿Quieres probarlo?',
         asGuest        : 'Entra como invitado'
     },
     OtherInterestsPage               : {
@@ -68,7 +68,7 @@ export default {
         about                : 'Acerca de',
         questions            : 'Respuestas',
         interests            : 'Intereses',
-        empty    : 'Este usuario no tiene ningún interés todavía.'
+        empty                : 'Este usuario no tiene ningún interés todavía.'
 
     },
     OtherQuestionsPage               : {
@@ -103,7 +103,8 @@ export default {
         hideDescriptiveGender: 'Ocultar otros géneros',
         complete             : 'Completar registro',
         notAvailable         : 'Lo sentimos, este nombre de usuario no está disponible',
-        maxDescriptiveGender : 'El máximo de opciones permitidas es 5, desmarca alguna otra opción para elegir esta.'
+        maxDescriptiveGender : 'El máximo de opciones permitidas es 5, desmarca alguna otra opción para elegir esta.',
+        privacy              : 'Al registrarte, estás aceptando las <a href="https://nekuno.com/legal-notice" target="_blank">Condiciones Legales</a> y la <a href="https://nekuno.com/privacy-policy" target="_blank">Política de Privacidad</a> de Nekuno.',
     },
     RegisterPage                     : {
         register    : 'Crear cuenta',
@@ -112,7 +113,6 @@ export default {
         titleCorrect: '¡Increíble! Has conseguido una invitación!',
         subtitle    : 'Por favor, copia la URL que habrás recibido en tu invitación y pégala en el siguiente campo para poder crear tu cuenta en Nekuno.',
         paste       : 'Pega aquí la URL de la invitación',
-        privacy     : 'Al registrarte, estás aceptando las <a href="https://nekuno.com/static/legal">Condiciones Legales</a> y la <a href="https://nekuno.com/static/privacy">Política de Privacidad</a> de Nekuno.',
         correct     : 'Solo queda un último paso! Conecta una de las siguientes redes sociales:'
     },
     RegisterQuestionLandingPage      : {
@@ -121,7 +121,11 @@ export default {
         next   : 'HACER TEST'
     },
     ThreadPage                       : {
-        threads: 'Hilos'
+        threads: 'Descubrir',
+        loadingMessage: 'Cargando hilos'
+    },
+    RecommendationPage               : {
+        loadingMessage: 'Cargando recomendaciones'
     },
     UserPage                         : {
         aboutMe  : 'Sobre mí',
@@ -156,7 +160,7 @@ export default {
     ////////////////
     LeftPanel                        : {
         interests     : 'Intereses',
-        threads       : 'Hilos',
+        threads       : 'Descubrir',
         myProfile     : 'Mi perfil',
         conversations : 'Mensajes',
         socialNetworks: 'Mis redes sociales',
@@ -324,7 +328,7 @@ export default {
         placeholderMax: 'Máximo'
     },
     GuestBanner                      : {
-        text: 'Estás en modo invitado. Click aquí para loguearte y que Nekuno trabaje para ti'
+        text: 'Estás en modo invitado. Click aquí para registrarte'
     },
     ////////////////
     // Framework7 //

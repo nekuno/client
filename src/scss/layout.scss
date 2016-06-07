@@ -33,6 +33,7 @@
 @import '_partials/social-wheels';
 @import '_partials/questions_banner';
 @import '_partials/guest-banner';
+@import '_partials/empty-message';
 
 * {
 	-webkit-tap-highlight-color: rgba(0, 0, 0, 0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
@@ -171,12 +172,6 @@ body {
 					height: 100px;
 					margin: -25px auto auto auto;
 					width: 100px;
-				}
-
-				.empty-message {
-					font-size: 1.8em;
-					margin-top: 120px;
-					text-align: center;
 				}
 			}
 		}

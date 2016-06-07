@@ -1,9 +1,10 @@
+import ActionTypes from '../constants/ActionTypes';
 import { register, waitFor } from '../dispatcher/Dispatcher';
 import { createStore, mergeIntoBag, isInBag } from '../utils/StoreUtils';
 import UserStore from '../stores/UserStore'
 import selectn from 'selectn';
 
-const _matching = {};
+let _matching = {};
 
 const MatchingStore = createStore({
     contains(userId1, userId2) {
@@ -40,6 +41,10 @@ MatchingStore.dispatchToken = register(action => {
             MatchingStore.emitChange();
         }
 
+    }
+
+    if (action.type == ActionTypes.LOGOUT_USER){
+        _matching = {};
     }
 });
 

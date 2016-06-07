@@ -53,6 +53,9 @@ body #root .App {
       }
     }
   }
+  .view .popup-empty-thread .content-block {
+    padding: 0 5%;
+  }
 }
 
 @media only screen and (max-width: 300px) {

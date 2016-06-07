@@ -26,7 +26,7 @@ export function requestThreads(userId, url = null) {
         threads = UserAPI.getThreads();
     }
 
-    dispatchAsync(threads, {
+    return dispatchAsync(threads, {
         request: ActionTypes.REQUEST_THREADS,
         success: ActionTypes.REQUEST_THREADS_SUCCESS,
         failure: ActionTypes.REQUEST_THREADS_ERROR
@@ -83,15 +83,15 @@ export function requestFilters() {
 
 export function requestRecommendationPage(userId, threadId) {
 
+    let _self = this;
+    let promise = new Promise(function (resolve) {
+        resolve(true);
+    });
     if (!ThreadStore.contains(threadId)) {
-        this.requestThreads(userId);
+        promise = promise.then(function () { return _self.requestThreads(userId); });
     }
 
-    if (!UserStore.contains(userId)) {
-        UserActionCreators.requestUser(userId, null);
-    }
-
-    requestRecommendation(threadId);
+    promise.then(function () { requestRecommendation(threadId) });
 
 }
 

@@ -5,14 +5,14 @@ import selectn from 'selectn';
 //Store which filters can the logged user apply
 class FilterStore extends BaseStore {
 
-    constructor() {
-        super();
-        this.subscribe(() => this._registerToActions.bind(this));
+    setInitial() {
         this._error = null;
         this._filters = null;
     }
 
     _registerToActions(action) {
+        super._registerToActions(action);
+
         switch (action.type) {
 
             case ActionTypes.REQUEST_FILTERS:

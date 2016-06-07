@@ -2,9 +2,10 @@ import React, { PropTypes, Component } from 'react';
 import RecommendationList from '../components/recommendations/RecommendationList';
 import RecommendationsTopNavbar from '../components/recommendations/RecommendationsTopNavbar';
 import EmptyThreadPopup from '../components/recommendations/EmptyThreadPopup';
+import EmptyMessage from '../components/ui/EmptyMessage';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
+import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
-import * as UserActionCreators from '../actions/UserActionCreators';
 import * as ThreadActionCreators from '../actions/ThreadActionCreators';
 import RecommendationStore from '../stores/RecommendationStore';
 import ThreadStore from '../stores/ThreadStore';
@@ -86,7 +87,7 @@ function getState(props) {
     let recommendations = [];
     if (thread && category == 'ThreadUsers') {
         recommendations = RecommendationStore.getUserRecommendations(recommendationIds)
-    } else if (thread) {
+    } else if (thread && category == 'ThreadContent') {
         recommendations = RecommendationStore.getContentRecommendations(recommendationIds)
     }
 
@@ -100,6 +101,7 @@ function getState(props) {
 }
 
 @AuthenticatedComponent
+@translate('RecommendationPage')
 @connectToStores([ThreadStore, RecommendationStore, RecommendationsByThreadStore, FilterStore], getState)
 export default class RecommendationPage extends Component {
 
@@ -110,6 +112,8 @@ export default class RecommendationPage extends Component {
         }).isRequired,
         // Injected by @AuthenticatedComponent
         user           : PropTypes.object.isRequired,
+        // Injected by @translate:
+        strings: PropTypes.object,
         // Injected by @connectToStores:
         recommendations: PropTypes.array.isRequired,
         recommendationsReceived: PropTypes.bool.isRequired,
@@ -145,8 +149,7 @@ export default class RecommendationPage extends Component {
     }
 
     componentDidUpdate() {
-
-        if (this.props.recommendationsReceived && this.props.recommendations.length == 0){
+        if (this.props.recommendationsReceived && this.props.recommendations.length == 0) {
             nekunoApp.popup('.popup-empty-thread');
         }
 
@@ -163,15 +166,16 @@ export default class RecommendationPage extends Component {
     }
 
     render() {
-        const {recommendations, thread, user, filters} = this.props;
+        const {recommendations, thread, user, filters, recommendationsReceived, strings} = this.props;
         return (
             <div className="view view-main">
                 <RecommendationsTopNavbar centerText={''} thread={thread}/>
                 <div className="page">
                     <div id="page-content" className="recommendation-page">
-                        {thread.filters && filters && Object.keys(filters).length !== 0 ? 
+                        {recommendationsReceived && recommendations.length > 0 && thread.filters && filters && Object.keys(filters).length > 0 ?
                             <RecommendationList recommendations={recommendations} thread={thread} userId={user.id} 
-                                                filters={thread.category === 'ThreadUsers' ? filters.userFilters : filters.contentFilters}/> : ''
+                                                filters={thread.category === 'ThreadUsers' ? filters.userFilters : filters.contentFilters}/> 
+                            : !recommendationsReceived ? <EmptyMessage text={strings.loadingMessage} loadingGif={true} /> : ''
                         }
                     </div>
                 </div>
@@ -181,3 +185,8 @@ export default class RecommendationPage extends Component {
     }
 };
 
+RecommendationPage.defaultProps = {
+    strings: {
+        loadingMessage: 'Loading recommendations'
+    }
+};

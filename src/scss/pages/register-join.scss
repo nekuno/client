@@ -1,3 +1,5 @@
+@import '../_partials/colors';
+
 body #root .App .view .page #page-content.register-join-content {
   margin: 150px auto 0 auto;
 
@@ -22,6 +24,13 @@ body #root .App .view .page #page-content.register-join-content {
       .active-state {
         background-color: transparent;
       }
+    }
+  }
+
+  .privacy-terms-text {
+    text-align: center;
+    a {
+      color: $deep-purple;
     }
   }
 }

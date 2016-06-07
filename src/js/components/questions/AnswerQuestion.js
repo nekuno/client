@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import selectn from 'selectn';
-import * as QuestionActionCreators from '../../actions/QuestionActionCreators';
+import EmptyMessage from '../ui/EmptyMessage';
 import AnswerQuestionForm from './AnswerQuestionForm';
 import translate from '../../i18n/Translate';
 
@@ -33,7 +33,7 @@ export default class AnswerQuestion extends Component {
                         <AnswerQuestionForm answers={answers} {...this.props} />
                     </div>
                     :
-                    noMoreQuestions ? <div className="empty-message">{strings.noMoreQuestions}</div> : ''
+                    noMoreQuestions ? <EmptyMessage text={strings.noMoreQuestions} /> : ''
                 }
             </div>
         );

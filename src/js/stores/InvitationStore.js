@@ -3,9 +3,7 @@ import BaseStore from './BaseStore';
 
 class InvitationStore extends BaseStore {
 
-    constructor() {
-        super();
-        this.subscribe(() => this._registerToActions.bind(this));
+    setInitial() {
         this._error = null;
         this._token = null;
     }

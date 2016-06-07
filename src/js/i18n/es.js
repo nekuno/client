@@ -124,6 +124,9 @@ export default {
         threads: 'Hilos',
         loadingMessage: 'Cargando hilos'
     },
+    RecommendationPage               : {
+        loadingMessage: 'Cargando recomendaciones'
+    },
     UserPage                         : {
         aboutMe  : 'Sobre mí',
         questions: 'Respuestas',

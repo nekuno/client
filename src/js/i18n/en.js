@@ -124,6 +124,9 @@ export default {
         threads: 'Yarns',
         loadingMessage: 'Loading yarns'
     },
+    RecommendationPage               : {
+        loadingMessage: 'Loading recommendations'
+    },
     UserPage                         : {
         aboutMe  : 'About me',
         questions: 'Answers',

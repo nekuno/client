@@ -56,7 +56,7 @@ export default {
         recoverPassword: 'Forgotten your password?',
         hasInvitation  : 'Do you have an invitation?',
         register       : 'Register',
-        wantGuest      : 'Do you want to try it first?',
+        wantGuest      : 'Do you want to try it?',
         asGuest        : 'Enter as guest'
     },
     OtherInterestsPage               : {
@@ -68,7 +68,7 @@ export default {
         about                : 'About',
         questions            : 'Answers',
         interests            : 'Interests',
-        empty    : 'This user has no interests yet.'
+        empty                : 'This user has no interests yet.'
 
     },
     OtherQuestionsPage               : {

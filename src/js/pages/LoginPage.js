@@ -31,10 +31,18 @@ export default class LoginPage extends Component {
         error  : PropTypes.object
     };
 
+    static contextTypes = {
+        history: PropTypes.object.isRequired
+    };
+
     constructor() {
         super();
+        
         this.login = this.login.bind(this);
         this._onKeyDown = this._onKeyDown.bind(this);
+        this.goHome = this.goHome.bind(this);
+        this.goToRegisterPage = this.goToRegisterPage.bind(this);
+        
         this.state = {
             username: '',
             password: ''
@@ -47,6 +55,10 @@ export default class LoginPage extends Component {
     
     loginAsGuest = function() {
         LoginActionCreators.loginUser('guest', 'guest');
+    };
+
+    goToRegisterPage = function() {
+        this.context.history.pushState(null, '/register');
     };
 
     _onKeyDown(event) {
@@ -73,7 +85,7 @@ export default class LoginPage extends Component {
         return (
             <div className="view view-main">
                 {LoginStore.justLoggedOut ?
-                    <RegularTopNavbar leftText={strings.cancel} centerText={strings.login} onLeftLinkClickHandler = {this.goHome.bind(this)}k/>
+                    <RegularTopNavbar leftText={strings.cancel} centerText={strings.login} onLeftLinkClickHandler={this.goHome}/>
                 :
                     <RegularTopNavbar leftText={strings.cancel} centerText={strings.login}/>
                 }
@@ -93,11 +105,13 @@ export default class LoginPage extends Component {
                         <div style={{color: '#FFF'}}>
                             <p>{ error ? error.error : ''}</p>
                         </div>
-                        <div className="register-text">
-                            <span>{strings.hasInvitation}</span> <Link to="/register">{strings.register}</Link>
-                        </div>
-                        <div className="register-text">
-                            <span>{strings.wantGuest}</span> <Link to="/" onClick={this.loginAsGuest}>{strings.asGuest}</Link>
+                        <div className="register-text-block">
+                            <div onClick={this.goToRegisterPage} className="register-text">
+                                <span>{strings.hasInvitation}</span> <a href="javascript:void(0)">{strings.register}</a>
+                            </div>
+                            <div onClick={this.loginAsGuest} className="register-text">
+                                <span>{strings.wantGuest}</span> <a href="javascript:void(0)">{strings.asGuest}</a>
+                            </div>
                         </div>
                         <br />
                         <br />

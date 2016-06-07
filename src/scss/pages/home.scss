@@ -88,8 +88,19 @@ body #root .App .view.home-view {
       width: 80%;
     }
 
-    .register-text {
-      margin-bottom: 10px;
+    .register-text-block {
+      height: 50px;
+      text-align: center;
+      .register-text {
+        cursor: pointer;
+        display: inline-block;
+        margin: 0 5px 10px;
+        width: 35%;
+
+        a {
+          font-weight: bold;
+        }
+      }
     }
   }
 }

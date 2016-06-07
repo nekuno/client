@@ -36,6 +36,9 @@ export default class HomePage extends Component {
 
     constructor(props) {
         super(props);
+        
+        this.goToRegisterPage = this.goToRegisterPage.bind(this);
+        
         this.promise = null;
         this.state = {
             needsUpdating: false
@@ -58,6 +61,10 @@ export default class HomePage extends Component {
 
     loginAsGuest = function() {
         LoginActionCreators.loginUser('guest', 'guest');
+    };
+    
+    goToRegisterPage = function() {
+        this.context.history.pushState(null, '/register');
     };
 
     renderSlides = function() {
@@ -104,11 +111,13 @@ export default class HomePage extends Component {
                             <Link to="/login">
                                 <FullWidthButton>{strings.login}</FullWidthButton>
                             </Link>
-                            <div className="register-text">
-                                <span>{strings.hasInvitation}</span> <Link to="/register">{strings.register}</Link>
-                            </div>
-                            <div className="register-text">
-                                <span>{strings.wantGuest}</span> <Link to="/" onClick={this.loginAsGuest}>{strings.asGuest}</Link>
+                            <div className="register-text-block">
+                                <div onClick={this.goToRegisterPage} className="register-text">
+                                    <span>{strings.hasInvitation}</span> <a href="javascript:void(0)">{strings.register}</a>
+                                </div>
+                                <div onClick={this.loginAsGuest} className="register-text">
+                                    <span>{strings.wantGuest}</span> <a href="javascript:void(0)">{strings.asGuest}</a>
+                                </div>
                             </div>
                         </div>
                     }

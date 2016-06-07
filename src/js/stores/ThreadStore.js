@@ -5,7 +5,7 @@ import ActionTypes from '../constants/ActionTypes';
 import UserStore from './UserStore';
 import { getValidationErrors } from '../utils/StoreUtils';
 
-const _threads = {};
+let _threads = {};
 let _errors = '';
 
 const ThreadStore = createStore({
@@ -70,6 +70,10 @@ ThreadStore.dispatchToken = register(action => {
             const threadId = [action.threadId];
             delete _threads[threadId];
             ThreadStore.emitChange();
+            break;
+        case ActionTypes.LOGOUT_USER:
+            _threads = {};
+            _errors = '';
             break;
         default:
             break;

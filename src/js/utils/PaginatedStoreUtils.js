@@ -7,8 +7,8 @@ const PROXIED_PAGINATED_LIST_METHODS = [
     'isExpectingPage', 'isLastPage'
 ];
 
-function createListStoreSpec({ getList, callListMethod }) {
-    const spec = { getList };
+function createListStoreSpec({ getList, removeLists, callListMethod }) {
+    const spec = { getList, removeLists };
 
     PROXIED_PAGINATED_LIST_METHODS.forEach(method => {
         spec[method] = (...args) => {
@@ -45,7 +45,7 @@ export function createListStore(spec) {
  * passed as first parameter to store methods.
  */
 export function createIndexedListStore(spec) {
-    const lists = {};
+    let lists = {};
     const prefix = 'ID_';
 
     const getList = (id) => {
@@ -56,6 +56,10 @@ export function createIndexedListStore(spec) {
         }
 
         return lists[key];
+    };
+
+    const removeLists = () => {
+        lists = {};
     };
 
     const callListMethod = (method, args) => {
@@ -72,6 +76,7 @@ export function createIndexedListStore(spec) {
     return createStore(
         Object.assign(createListStoreSpec({
             getList,
+            removeLists,
             callListMethod
         }), spec)
     );

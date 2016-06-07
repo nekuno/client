@@ -1,9 +1,10 @@
+import ActionTypes from '../constants/ActionTypes';
 import { register, waitFor } from '../dispatcher/Dispatcher';
 import { createStore, mergeIntoBag, isInBag } from '../utils/StoreUtils';
 import UserStore from '../stores/UserStore'
 import selectn from 'selectn';
 
-const _similarity = {};
+let _similarity = {};
 
 const SimilarityStore = createStore({
     contains(userId1, userId2) {
@@ -39,7 +40,10 @@ SimilarityStore.dispatchToken = register(action => {
             SimilarityStore.merge(userId1, userId2, responseSimilarity);
             SimilarityStore.emitChange();
         }
+    }
 
+    if (action.type == ActionTypes.LOGOUT_USER) {
+        _similarity = {};
     }
 });
 

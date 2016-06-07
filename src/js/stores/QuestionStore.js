@@ -5,8 +5,8 @@ import selectn from 'selectn';
 import UserStore from './UserStore';
 import { getValidationErrors } from '../utils/StoreUtils';
 
-const _questions = {};
-const _pagination = {};
+let _questions = {};
+let _pagination = {};
 let _answerQuestion = {};
 let _errors = '';
 let _noMoreQuestions = false;
@@ -126,6 +126,15 @@ QuestionStore.dispatchToken = register(action => {
     else if (action.type === 'REMOVE_PREVIOUS_QUESTION') {
         _answerQuestion = {};
         QuestionStore.emitChange();
+    }
+
+    if (action.type == ActionTypes.LOGOUT_USER){
+        _questions = {};
+        _pagination = {};
+        _answerQuestion = {};
+        _errors = '';
+        _noMoreQuestions = false;
+        _goToQuestionStats = false;
     }
 });
 

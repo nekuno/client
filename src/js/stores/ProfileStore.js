@@ -234,6 +234,10 @@ ProfileStore.dispatchToken = register(action => {
             }
             _profiles[LoginStore.user.id]=action.data;
             break;
+        case ActionTypes.LOGOUT_USER:
+            _profiles = {};
+            _metadata = null;
+            break;
         default:
             break;
     }

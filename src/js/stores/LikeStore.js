@@ -4,7 +4,7 @@ import UserStore from '../stores/UserStore';
 import ActionTypes from '../constants/ActionTypes';
 import selectn from 'selectn';
 
-const _like = {};
+let _like = {};
 
 const LikeStore = createStore({
     contains(userId1, userId2) {
@@ -49,6 +49,10 @@ LikeStore.dispatchToken = register(action => {
 
         LikeStore.merge(from, to, like);
         LikeStore.emitChange();
+    }
+
+    if (action.type == ActionTypes.LOGOUT_USER){
+        _like = {};
     }
 });
 

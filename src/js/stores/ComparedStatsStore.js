@@ -1,9 +1,10 @@
+import ActionTypes from '../constants/ActionTypes';
 import { register, waitFor } from '../dispatcher/Dispatcher';
 import { createStore, mergeIntoBag, isInBag } from '../utils/StoreUtils';
 import UserStore from '../stores/UserStore'
 import selectn from 'selectn';
 
-const _comparedStats = {};
+let _comparedStats = {};
 
 const ComparedStatsStore = createStore({
     contains(userId1, userId2) {
@@ -39,6 +40,10 @@ ComparedStatsStore.dispatchToken = register(action => {
             ComparedStatsStore.emitChange();
         }
 
+    }
+
+    if (action.type == ActionTypes.LOGOUT_USER){
+        _comparedStats = {};
     }
 });
 

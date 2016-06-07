@@ -8,6 +8,7 @@ class RouterStore extends BaseStore {
     }
 
     _registerToActions(action) {
+        super._registerToActions(action);
         switch (action.type) {
 
             case ActionTypes.ROUTER_NEXT_TRANSITION_PATH:

@@ -1,9 +1,10 @@
+import ActionTypes from '../constants/ActionTypes';
 import { register } from '../dispatcher/Dispatcher';
 import { createStore, mergeIntoBag, isInBag } from '../utils/StoreUtils';
 import selectn from 'selectn';
 
-const _interests = {};
-const _pagination = {};
+let _interests = {};
+let _pagination = {};
 
 const InterestStore = createStore({
     contains(id, fields) {
@@ -63,6 +64,10 @@ InterestStore.dispatchToken = register(action => {
         const { from, to } = action;
         Object.keys(_interests[from]).forEach(key => { if (_interests[from][key].id == to) { _interests[from][key].rate = action.type === 'LIKE_CONTENT_SUCCESS'; } });
         InterestStore.emitChange();
+    }
+    if (action.type == ActionTypes.LOGOUT_USER){
+        _interests = {};
+        _pagination = {};
     }
 });
 

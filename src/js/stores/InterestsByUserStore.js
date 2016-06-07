@@ -7,7 +7,6 @@ import {
     createListActionHandler
 } from '../utils/PaginatedStoreUtils';
 
-//Move logic to createIndexedListStore?
 let _position = [];
 
 const InterestsByUserStore = createIndexedListStore({
@@ -56,6 +55,11 @@ register(action => {
             InterestsByUserStore.getList(userId),
             InterestsByUserStore.emitChange
         );
+    }
+
+    if (action.type == ActionTypes.LOGOUT_USER){
+        InterestsByUserStore.removeLists();
+        _position = [];
     }
 });
 

@@ -32,6 +32,9 @@ QuestionsByUserIdStore.dispatchToken = register(action => {
             QuestionsByUserIdStore.emitChange
         );
     }
+    if (action.type == ActionTypes.LOGOUT_USER){
+        QuestionsByUserIdStore.removeLists();
+    }
 });
 
 export default QuestionsByUserIdStore;

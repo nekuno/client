@@ -4,7 +4,7 @@ import UserStore from '../stores/UserStore';
 import ActionTypes from '../constants/ActionTypes';
 import selectn from 'selectn';
 
-const _block = {};
+let _block = {};
 
 const BlockStore = createStore({
     contains(userId1, userId2) {
@@ -49,6 +49,10 @@ BlockStore.dispatchToken = register(action => {
 
         BlockStore.merge(from, to, block);
         BlockStore.emitChange();
+    }
+
+    if (action.type == ActionTypes.LOGOUT_USER){
+        _block = {};
     }
 });
 

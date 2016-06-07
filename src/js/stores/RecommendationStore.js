@@ -87,6 +87,10 @@ RecommendationStore.dispatchToken = register(action => {
             delete _contentRecommendations[threadId];
             delete _userRecommendations[threadId];
             break;
+        case ActionTypes.LOGOUT_USER:
+            _userRecommendations = [];
+            _contentRecommendations = [];
+            break;
         default:
             const recommendations = selectn('response.entities.recommendation', action);
 

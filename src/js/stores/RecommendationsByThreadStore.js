@@ -66,6 +66,10 @@ register(action => {
             delete_list._ids=[];
             RecommendationsByThreadStore.emitChange();
             break;
+        case ActionTypes.LOGOUT_USER:
+            _position = [];
+            RecommendationsByThreadStore.removeLists();
+            break;
         default:
             break;
     }

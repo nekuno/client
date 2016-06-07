@@ -37,7 +37,7 @@ export default {
         login        : 'Iniciar sesión',
         hasInvitation: '¿Tienes una invitación?',
         register     : 'Regístrate',
-        wantGuest    : '¿Quieres probarlo primero?',
+        wantGuest    : '¿Quieres probarlo?',
         asGuest      : 'Entra como invitado'
     },
     InterestsPage                    : {
@@ -328,7 +328,7 @@ export default {
         placeholderMax: 'Máximo'
     },
     GuestBanner                      : {
-        text: 'Estás en modo invitado. Click aquí para loguearte y que Nekuno trabaje para ti'
+        text: 'Estás en modo invitado. Click aquí para registrarte'
     },
     ////////////////
     // Framework7 //

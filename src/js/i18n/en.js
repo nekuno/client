@@ -37,7 +37,7 @@ export default {
         login        : 'Login',
         hasInvitation: 'Do you have an invitation?',
         register     : 'Register',
-        wantGuest    : 'Do you want to try it first?',
+        wantGuest    : 'Do you want to try it?',
         asGuest      : 'Enter as guest'
     },
     InterestsPage                    : {
@@ -328,7 +328,7 @@ export default {
         placeholderMax: 'Max'
     },
     GuestBanner                      : {
-        text: 'You are in guest mode. Click here to register and get Nekuno to work for you'
+        text: 'You are in guest mode. Click here to register'
     },
     ////////////////
     // Framework7 //

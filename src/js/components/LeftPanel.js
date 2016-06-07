@@ -142,7 +142,7 @@ export default class LeftPanel extends Component {
 LeftPanel.defaultProps = {
     strings: {
         interests     : 'Interests',
-        threads       : 'Threads',
+        threads       : 'Discover',
         myProfile     : 'Profile',
         conversations : 'Messages',
         socialNetworks: 'My social networks',

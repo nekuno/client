@@ -121,7 +121,7 @@ export default {
         next   : 'HACER TEST'
     },
     ThreadPage                       : {
-        threads: 'Hilos',
+        threads: 'Descubrir',
         loadingMessage: 'Cargando hilos'
     },
     RecommendationPage               : {
@@ -160,7 +160,7 @@ export default {
     ////////////////
     LeftPanel                        : {
         interests     : 'Intereses',
-        threads       : 'Hilos',
+        threads       : 'Descubrir',
         myProfile     : 'Mi perfil',
         conversations : 'Mensajes',
         socialNetworks: 'Mis redes sociales',

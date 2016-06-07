@@ -121,7 +121,7 @@ export default {
         next   : 'DO TEST'
     },
     ThreadPage                       : {
-        threads: 'Yarns',
+        threads: 'Discover',
         loadingMessage: 'Loading yarns'
     },
     RecommendationPage               : {
@@ -160,7 +160,7 @@ export default {
     ////////////////
     LeftPanel                        : {
         interests     : 'Interests',
-        threads       : 'Yarns',
+        threads       : 'Discover',
         myProfile     : 'Profile',
         conversations : 'Messages',
         socialNetworks: 'My social networks',

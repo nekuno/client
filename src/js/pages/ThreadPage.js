@@ -99,7 +99,7 @@ export default class ThreadPage extends Component {
 
 ThreadPage.defaultProps = {
     strings: {
-        threads: 'Threads',
+        threads: 'Discover',
         loadingMessage: 'Loading yarns'
     }
 };

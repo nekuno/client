@@ -1,6 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import FilterStore from '../../stores/FilterStore';
 import ChipList from './../ui/ChipList';
+import Image from './../ui/Image';
 import translate from '../../i18n/Translate';
 
 @translate('ThreadContent')
@@ -40,7 +41,8 @@ export default class ThreadContent extends Component {
     };
 
     renderImage = function(recommendation) {
-        let imgSrc = 'img/default-content-image.jpg';
+        const defaultImage = 'img/default-content-image.jpg';
+        let imgSrc = defaultImage;
         if (recommendation && recommendation.thumbnail) {
             imgSrc = recommendation.thumbnail;
         } else if (recommendation && recommendation.url && recommendation.url.match(/\.(jpe?g|gif|png)$/) != null) {
@@ -48,7 +50,7 @@ export default class ThreadContent extends Component {
         }
 
         return (
-            <img src={imgSrc}/>
+            <Image src={imgSrc} defaultSrc={defaultImage}/>
         );
     };
 

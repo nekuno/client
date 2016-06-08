@@ -2,6 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import ProgressBar from './ProgressBar';
 import Button from './Button';
 import CardIcons from './CardIcons';
+import Image from './Image';
 import * as UserActionCreators from '../../actions/UserActionCreators'
 import translate from '../../i18n/Translate';
 
@@ -60,7 +61,8 @@ export default class CardContent extends Component {
         const likeButton = hideLikeButton ? '' : <div className="like-button-container"><Button {...this.props} onClick={this.onRate}>{likeButtonText}</Button></div>;
         const imageClass = fixedHeight ? 'image fixed-height-image' : 'image';
         const isImage = types.indexOf('Image') > -1;
-        let imgSrc = 'img/default-content-image.jpg';
+        const defaultSrc = 'img/default-content-image.jpg';
+        let imgSrc = defaultSrc;
         if (thumbnail) {
             imgSrc = thumbnail;
         } else if (isImage) {
@@ -87,7 +89,7 @@ export default class CardContent extends Component {
                     <div className="card-content-inner">
                         <a>
                             <div className={imageClass}>
-                                <img src={imgSrc}/>
+                                <Image src={imgSrc} defaultSrc={defaultSrc}/>
                             </div>
                         </a>
                         {typeof matching !== 'undefined' ?

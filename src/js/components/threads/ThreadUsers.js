@@ -2,6 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import { IMAGES_ROOT } from '../../constants/Constants';
 import selectn from 'selectn'
 import ChipList from './../ui/ChipList';
+import Image from './../ui/Image';
 import OrientationRequiredPopup from './../ui/OrientationRequiredPopup';
 import FilterStore from '../../stores/FilterStore';
 import translate from '../../i18n/Translate';
@@ -80,13 +81,14 @@ export default class ThreadUsers extends Component {
 
     render() {
         const {thread, last, filters, profile, strings} = this.props;
+        const defaultUserImage = `${IMAGES_ROOT}media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
         let formattedThread = this.mergeImagesWithThread(thread);
         return (
             <div>
                 <div className="thread-listed" onClick={this.goToThread}>
                     {last ? <div className="threads-opposite-vertical-connection"></div> : ''}
                     <div className="thread-first-image">
-                        <img src={formattedThread.cached[0].image}/>
+                        <Image src={formattedThread.cached[0].image} defaultSrc={defaultUserImage} />
                     </div>
                     <div className="thread-info-box">
                         <div className="title thread-title">
@@ -99,7 +101,7 @@ export default class ThreadUsers extends Component {
                         </div>
                         <div className="thread-images">
                             {formattedThread.cached.map((item, index) => index !== 0 && item.image ?
-                                <div key={index} className="thread-image"><img src={item.image}/></div> : '')}
+                                <div key={index} className="thread-image"><Image src={item.image} defaultSrc={defaultUserImage} /></div> : '')}
                         </div>
                         {this.renderChipList(formattedThread.filters.userFilters, filters.userFilters)}
                     </div>

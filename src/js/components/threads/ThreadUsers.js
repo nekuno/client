@@ -87,8 +87,12 @@ export default class ThreadUsers extends Component {
             <div>
                 <div className="thread-listed" onClick={this.goToThread}>
                     {last ? <div className="threads-opposite-vertical-connection"></div> : ''}
-                    <div className="thread-first-image">
-                        <Image src={formattedThread.cached[0].image} defaultSrc={defaultUserImage} />
+                    <div className="thread-first-image-wrapper">
+                        <div className="thread-first-image-centered-wrapper">
+                            <div className="thread-first-image">
+                                <Image src={formattedThread.cached[0].image} defaultSrc={defaultUserImage} />
+                            </div>
+                        </div>
                     </div>
                     <div className="thread-info-box">
                         <div className="title thread-title">
@@ -101,7 +105,7 @@ export default class ThreadUsers extends Component {
                         </div>
                         <div className="thread-images">
                             {formattedThread.cached.map((item, index) => index !== 0 && item.image ?
-                                <div key={index} className="thread-image"><Image src={item.image} defaultSrc={defaultUserImage} /></div> : '')}
+                                <div key={index} className="thread-image-wrapper"><div className="thread-image-centered-wrapper"><div className="thread-image"><Image src={item.image} defaultSrc={defaultUserImage} /></div></div></div> : '')}
                         </div>
                         {this.renderChipList(formattedThread.filters.userFilters, filters.userFilters)}
                     </div>

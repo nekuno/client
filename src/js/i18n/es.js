@@ -15,7 +15,7 @@ export default {
         next   : 'Continuar',
         welcome: 'Bienvenido a Nekuno',
         excerpt: '¡Por fin tus datos trabajarán para ti! ¡Cuantos más intereses aportes, mejores recomendaciones obtendrás!',
-        footer : 'Recuerda, tú tienes el control en todo momento, no publicaremos nada en tus redes sociales'
+        footer : 'Nekuno funciona principalmente gracias a las Redes Sociales que sincronizas. No publicaremos nada. Podrás controlar de qué información se alimenta, y prescindir de ellas si así lo deseas.'
     },
     ConnectSocialNetworksPage        : {
         top    : 'Conexión con RRSS',

@@ -15,7 +15,7 @@ export default {
         next   : 'Continue',
         welcome: 'Welcome to Nekuno',
         excerpt: 'Make your data work for you! The more interest you contribute, the better recommendations you’ll get!',
-        footer : 'Remember, you’re in control at all times, we will not publish anything on your social networks'
+        footer : 'Nekuno primarily works with the social networks you have synced. We don’t post anything. You can control the information you give and block information if you so desire.'
     },
     ConnectSocialNetworksPage        : {
         top    : 'Social Networks',

@@ -21,10 +21,10 @@ export default class TopLeftMenuLink extends Component {
 			<div className="col-30 left">
 				<a className="open-panel">
 					<span className="icon-menu"></span>
+					{this.props.hasUnread ?
+						<span className="icon-circle"></span> : ''
+					}
 				</a>
-				{this.props.hasUnread ? 
-					<span className="icon-circle"></span> : ''
-				}
 			</div>
 		);
 	}

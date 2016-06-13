@@ -3,6 +3,7 @@ import { Link } from 'react-router';
 import { IMAGES_ROOT } from '../../constants/Constants';
 import ProgressBar from './ProgressBar';
 import Button from './Button';
+import Image from './Image';
 import * as UserActionCreators from '../../actions/UserActionCreators'
 import translate from '../../i18n/Translate';
 
@@ -48,19 +49,20 @@ export default class CardUser extends Component {
     }
 
     render() {
-        let strings = this.props.strings;
-        let subTitle = this.props.location ? <div><span className="icon-marker"></span>{this.props.location}</div> : <div>&nbsp;</div>;
-        let messageButton = this.props.canSendMessage ? <span className="icon-message" onClick={this.handleMessage}></span> : '';
-        let likeButtonText = this.props.liked ? strings.unlike : strings.like;
-        let likeButton = this.props.hideLikeButton ? '' : <div className="like-button-container"><Button {...this.props} onClick={this.onLikeOrDislike}>{likeButtonText}</Button></div>;
-        let imgSrc = this.props.picture ? `${IMAGES_ROOT}media/cache/resolve/user_avatar_180x180/user/images/${this.props.picture}` : `${IMAGES_ROOT}media/cache/user_avatar_180x180/bundles/qnoowweb/images/user-no-img.jpg`;
+        const {strings, location, canSendMessage, liked, hideLikeButton, picture, userId, username, matching} = this.props;
+        const subTitle = location ? <div><span className="icon-marker"></span>{location.substr(0, 20)}{location.length > 20 ? '...' : ''}</div> : <div>&nbsp;</div>;
+        const messageButton = canSendMessage ? <span className="icon-message" onClick={this.handleMessage}></span> : '';
+        const likeButtonText = liked ? strings.unlike : strings.like;
+        const likeButton = hideLikeButton ? '' : <div className="like-button-container"><Button {...this.props} onClick={this.onLikeOrDislike}>{likeButtonText}</Button></div>;
+        const defaultSrc = `${IMAGES_ROOT}media/cache/user_avatar_180x180/bundles/qnoowweb/images/user-no-img.jpg`;
+        let imgSrc = picture ? `${IMAGES_ROOT}media/cache/resolve/user_avatar_180x180/user/images/${picture}` : defaultSrc;
 
         return (
             <div className="card person-card">
                 <div className="card-header">
-                    <Link to={`/profile/${this.props.userId}`}>
+                    <Link to={`/profile/${userId}`}>
                         <div className="card-title">
-                            {this.props.username}
+                            {username}
                         </div>
                     </Link>
                     <div className="card-sub-title">
@@ -72,14 +74,14 @@ export default class CardUser extends Component {
                 </div>
                 <div className="card-content">
                     <div className="card-content-inner">
-                        <Link to={`/profile/${this.props.userId}`}>
+                        <Link to={`/profile/${userId}`}>
                             <div className="image">
-                                <img src={imgSrc}/>
+                                <Image src={imgSrc} defaultSrc={defaultSrc}/>
                             </div>
                         </Link>
                         <div className="matching">
-                            <div className="matching-value">{strings.similarity} {this.props.matching}%</div>
-                            <ProgressBar percentage={this.props.matching}/>
+                            <div className="matching-value">{strings.similarity} {matching}%</div>
+                            <ProgressBar percentage={matching}/>
                         </div>
                     </div>
                 </div>

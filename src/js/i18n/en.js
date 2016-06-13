@@ -15,7 +15,7 @@ export default {
         next   : 'Continue',
         welcome: 'Welcome to Nekuno',
         excerpt: 'Make your data work for you! The more interest you contribute, the better recommendations you’ll get!',
-        footer : 'Remember, you’re in control at all times, we will not publish anything on your social networks'
+        footer : 'Nekuno primarily works with the social networks you have synced. We don’t post anything. You can control the information you give and block information if you so desire.'
     },
     ConnectSocialNetworksPage        : {
         top    : 'Social Networks',
@@ -99,8 +99,8 @@ export default {
         include              : 'Include on searches as',
         male                 : 'Male',
         female               : 'Female',
-        showDescriptiveGender: 'Show other genres',
-        hideDescriptiveGender: 'Hide other genres',
+        showDescriptiveGender: 'Show other genders',
+        hideDescriptiveGender: 'Hide other genders',
         complete             : 'Complete registration',
         notAvailable         : 'Sorry, this username is not available',
         maxDescriptiveGender : 'The maximum number of options permitted is 5, uncheck any other options to choose this one',
@@ -118,7 +118,7 @@ export default {
     },
     RegisterQuestionLandingPage      : {
         title  : 'We want to know you a little better',
-        excerpt: 'Make the test answering for you and what you would like to answer another user to be compatible with you',
+        excerpt: 'Make the test answering for you and what you would like to answer another user to be compatible with you. Only 4 answers are required.',
         next   : 'DO TEST'
     },
     ThreadPage                       : {

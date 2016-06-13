@@ -5,6 +5,7 @@ import selectn from 'selectn';
 import UserStore from './UserStore';
 import { getValidationErrors } from '../utils/StoreUtils';
 
+const registerQuestionsLength = 4;
 let _questions = {};
 let _pagination = {};
 let _answerQuestion = {};
@@ -50,7 +51,23 @@ const QuestionStore = createStore({
     mustGoToQuestionStats() {
         return _goToQuestionStats;
     },
+    
+    isJustRegistered(userId) {
+        return this.answersLength(userId) < registerQuestionsLength;
+    },
 
+    isJustCompleted(userId) {
+        return this.answersLength(userId) == registerQuestionsLength;
+    },
+    
+    answersLength(userId) {
+        return Object.keys(_questions[userId]).length || 0;
+    },
+
+    registerQuestionsLength() {
+        return registerQuestionsLength;
+    },
+    
     first(obj) {
         for (let a in obj) {
             if (obj.hasOwnProperty(a)) {

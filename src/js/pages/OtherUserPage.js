@@ -58,7 +58,8 @@ function getState(props) {
     const otherUserId = props.params.userId;
     const {user} = props;
     const otherUser = UserStore.get(otherUserId);
-    const profile = ProfileStore.getWithMetadata(otherUserId);
+    const profile = ProfileStore.get(otherUserId);
+    const profileWithMetadata = ProfileStore.getWithMetadata(otherUserId);
     const matching = MatchingStore.get(otherUserId, parseId(user));
     const similarity = SimilarityStore.get(otherUserId, parseId(user));
     const block = BlockStore.get(parseId(user), otherUserId);
@@ -68,6 +69,7 @@ function getState(props) {
     return {
         otherUser,
         profile,
+        profileWithMetadata,
         matching,
         similarity,
         block,
@@ -105,21 +107,22 @@ function unsetLikeUser(props) {
 export default class OtherUserPage extends Component {
     static propTypes = {
         // Injected by React Router:
-        params       : PropTypes.shape({
+        params             : PropTypes.shape({
             userId: PropTypes.string.isRequired
         }).isRequired,
         // Injected by @AuthenticatedComponent
-        user         : PropTypes.object,
+        user               : PropTypes.object,
         // Injected by @translate:
-        strings      : PropTypes.object,
+        strings            : PropTypes.object,
         // Injected by @connectToStores:
-        otherUser    : PropTypes.object,
-        profile      : PropTypes.object,
-        matching     : PropTypes.number,
-        similarity   : PropTypes.number,
-        block        : PropTypes.bool,
-        like         : PropTypes.bool,
-        comparedStats: PropTypes.object
+        otherUser          : PropTypes.object,
+        profile            : PropTypes.object,
+        profileWithMetadata: PropTypes.object,
+        matching           : PropTypes.number,
+        similarity         : PropTypes.number,
+        block              : PropTypes.bool,
+        like               : PropTypes.bool,
+        comparedStats      : PropTypes.object
     };
     static contextTypes = {
         history: PropTypes.object.isRequired
@@ -164,7 +167,7 @@ export default class OtherUserPage extends Component {
     }
 
     render() {
-        const {user, otherUser, profile, matching, similarity, block, like, comparedStats, strings} = this.props;
+        const {user, otherUser, profile, profileWithMetadata, matching, similarity, block, like, comparedStats, strings} = this.props;
         const otherPicture = otherUser && otherUser.picture ? `${IMAGES_ROOT}media/cache/resolve/user_avatar_60x60/user/images/${otherUser.picture}` : `${IMAGES_ROOT}media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
         const ownPicture = user && user.picture ? `${IMAGES_ROOT}media/cache/resolve/user_avatar_60x60/user/images/${user.picture}` : `${IMAGES_ROOT}media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
         const likeText = like ? strings.dontLike : strings.like;
@@ -189,7 +192,7 @@ export default class OtherUserPage extends Component {
                                     <OtherProfileData matching={matching} similarity={similarity} stats={comparedStats} ownImage={ownPicture} currentImage={otherPicture}/>
                                 </div>
                             </div>
-                            <ProfileDataList profile={profile}/>
+                            <ProfileDataList profile={profileWithMetadata}/>
                             <br />
                             <br />
                             <br />
@@ -199,7 +202,7 @@ export default class OtherUserPage extends Component {
                         </div>
                         : ''}
                 </div>
-                {otherUser && profile ?
+                {otherUser && profileWithMetadata ?
                     <ToolBar links={[
                     {'url': `/profile/${parseId(otherUser)}`, 'text': strings.about},
                     {'url': `/users/${parseId(otherUser)}/other-questions`, 'text': strings.questions},

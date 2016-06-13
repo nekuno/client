@@ -15,7 +15,7 @@ export default {
         next   : 'Continuar',
         welcome: 'Bienvenido a Nekuno',
         excerpt: '¡Por fin tus datos trabajarán para ti! ¡Cuantos más intereses aportes, mejores recomendaciones obtendrás!',
-        footer : 'Recuerda, tú tienes el control en todo momento, no publicaremos nada en tus redes sociales'
+        footer : 'Nekuno funciona principalmente gracias a las Redes Sociales que sincronizas. No publicaremos nada. Podrás controlar de qué información se alimenta, y prescindir de ellas si así lo deseas.'
     },
     ConnectSocialNetworksPage        : {
         top    : 'Conexión con RRSS',
@@ -117,7 +117,7 @@ export default {
     },
     RegisterQuestionLandingPage      : {
         title  : 'Queremos conocerte un poco mejor',
-        excerpt: 'Realiza el test respondiendo por ti y lo que te gustaría que respondiera otro usuario para ser compatible contigo',
+        excerpt: 'Realiza el test respondiendo por ti y lo que te gustaría que respondiera otro usuario para ser compatible contigo. Sólo son necesarias 4 respuestas.',
         next   : 'HACER TEST'
     },
     ThreadPage                       : {

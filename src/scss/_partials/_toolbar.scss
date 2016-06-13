@@ -24,11 +24,15 @@
 		position: relative;
 
 		.toolbar-link-wrapper {
+			height: 60px;
 			text-align: center;
 			width: 30%;
 
 			a {
 				color: #fff;
+				display: block;
+				height: 60px;
+				padding-top: 20px;
 			}
 		}
 	}

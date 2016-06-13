@@ -15,7 +15,7 @@ body #root .App .view .page.threads-page  {
     }
     .thread-listed {
       margin: 35px auto;
-      .thread-first-image {
+      .thread-first-image-wrapper {
         background-color: $deep-purple;
         border-radius: 50%;
         -moz-border-radius: 50%;
@@ -27,13 +27,24 @@ body #root .App .view .page.threads-page  {
         width: 81px;
         z-index: 10;
 
-        img {
+        .thread-first-image-centered-wrapper {
           border-radius: 50%;
           -moz-border-radius: 50%;
           -webkit-border-radius: 50%;
+          margin: 3px;
+          position: relative;
           height: 75px;
-          margin-top: 3px;
-          width: 75px;
+          overflow: hidden;
+          .thread-first-image {
+            margin-left: -62px;
+            position: absolute;
+            width: 200px;
+            height: 75px;
+            img {
+              height: 75px;
+              margin: auto;
+            }
+          }
         }
       }
 
@@ -67,25 +78,38 @@ body #root .App .view .page.threads-page  {
         }
 
         .thread-images {
-
-          .thread-image {
+          .thread-image-wrapper {
             background-color: #fff;
             border-radius: 50%;
             -moz-border-radius: 50%;
             -webkit-border-radius: 50%;
             display: inline-block;
             height: 32px;
-            margin: 10px 10px 10px 0px;
+            margin: 10px 10px 10px 0;
+            position: relative;
             text-align: center;
             width: 32px;
+            z-index: 10;
 
-            img {
+            .thread-image-centered-wrapper {
               border-radius: 50%;
               -moz-border-radius: 50%;
               -webkit-border-radius: 50%;
+              margin: 1px;
+              position: relative;
               height: 30px;
-              margin-top: 1px;
-              width: 30px;
+              overflow: hidden;
+
+              .thread-image {
+                margin-left: -10px;
+                position: absolute;
+                width: 50px;
+                height: 30px;
+                img {
+                  height: 30px;
+                  margin: auto;
+                }
+              }
             }
           }
         }

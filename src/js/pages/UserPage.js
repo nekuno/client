@@ -35,12 +35,14 @@ function requestData(props) {
 function getState(props) {
     const {user} = props;
     const userId = parseId(user);
-    const profile = ProfileStore.getWithMetadata(userId);
+    const profile = ProfileStore.get(userId);
+    const profileWithMetadata = ProfileStore.getWithMetadata(userId);
     const stats = StatsStore.get(userId);
 
     return {
         user,
         profile,
+        profileWithMetadata,
         stats
     };
 }
@@ -51,12 +53,13 @@ function getState(props) {
 export default class UserPage extends Component {
     static propTypes = {
         // Injected by @AuthenticatedComponent
-        user    : PropTypes.object,
+        user               : PropTypes.object,
         // Injected by @translate:
-        strings : PropTypes.object,
+        strings            : PropTypes.object,
         // Injected by @connectToStores:
-        stats   : PropTypes.object,
-        profile: PropTypes.object
+        stats              : PropTypes.object,
+        profile            : PropTypes.object,
+        profileWithMetadata: PropTypes.object
 
     };
 
@@ -65,13 +68,13 @@ export default class UserPage extends Component {
     }
 
     render() {
-        const {user, profile, stats, strings} = this.props;
+        const {user, profile, profileWithMetadata, stats, strings} = this.props;
         const picture = user.picture ? `${IMAGES_ROOT}media/cache/resolve/user_avatar_60x60/user/images/${user.picture}` : `${IMAGES_ROOT}media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
         return (
             <div className="view view-main">
                 <UserTopNavbar centerText={strings.myProfile}/>
                 <div className="page user-page">
-                    {profile && stats ?
+                    {profileWithMetadata && stats ?
                         <div id="page-content">
                             <User user={user} profile={profile}/>
                             <div className="user-interests">
@@ -80,7 +83,7 @@ export default class UserPage extends Component {
                                 </div>
                                 <div className="label">{strings.interests}</div>
                             </div>
-                            <ProfileDataList profile={profile}/>
+                            <ProfileDataList profile={profileWithMetadata}/>
                             <br />
                             <br />
                             <br />
@@ -90,11 +93,11 @@ export default class UserPage extends Component {
                         </div>
                         : ''}
                 </div>
-                {profile && stats ?
+                {profileWithMetadata && stats ?
                     <ToolBar links={[
                     {'url': '/profile', 'text': strings.aboutMe},
                     {'url': '/questions', 'text': strings.questions},
-                    {'url': '/interests', 'text': strings.interests}]} activeLinkIndex={0} arrowUpLeft={'13%'}/> 
+                    {'url': '/interests', 'text': strings.interests}]} activeLinkIndex={0} arrowUpLeft={'13%'}/>
                     : ''}
             </div>
         );
@@ -103,9 +106,9 @@ export default class UserPage extends Component {
 
 UserPage.defaultProps = {
     strings: {
-        aboutMe   : 'About me',
-        questions : 'Answers',
-        interests : 'Interests',
-        myProfile : 'My profile'
+        aboutMe  : 'About me',
+        questions: 'Answers',
+        interests: 'Interests',
+        myProfile: 'My profile'
     }
 };

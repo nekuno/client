@@ -15,7 +15,7 @@ const LikeStore = createStore({
 
     get(userId1, userId2) {
 
-        if (userId1 in _like && (userId2 in _like[userId1])){
+        if (userId1 in _like && (userId2 in _like[userId1])) {
             return _like[userId1][userId2];
         } else if (userId2 in _like && (userId1 in _like[userId2])) {
             return _like[userId2][userId1];
@@ -34,24 +34,22 @@ LikeStore.dispatchToken = register(action => {
 
     waitFor([UserStore.dispatchToken]);
     if (action.type == ActionTypes.LIKE_USER_SUCCESS
-        || action.type == ActionTypes.UNLIKE_USER_SUCCESS)
-    {
+        || action.type == ActionTypes.UNLIKE_USER_SUCCESS) {
         const {from, to} = action;
 
         LikeStore.merge(from, to, action.type == ActionTypes.LIKE_USER_SUCCESS);
         LikeStore.emitChange();
 
     }
-    else if (action.type == ActionTypes.REQUEST_LIKE_USER_SUCCESS)
-    {
+    else if (action.type == ActionTypes.REQUEST_LIKE_USER_SUCCESS) {
         const {from, to} = action;
-        const like = selectn('response.result', action)? 1 : 0 ;
+        const like = selectn('response.result', action) ? true : false;
 
         LikeStore.merge(from, to, like);
         LikeStore.emitChange();
     }
 
-    if (action.type == ActionTypes.LOGOUT_USER){
+    if (action.type == ActionTypes.LOGOUT_USER) {
         _like = {};
     }
 });

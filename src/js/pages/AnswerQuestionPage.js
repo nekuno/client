@@ -129,7 +129,7 @@ export default class AnswerQuestionPage extends Component {
 
         const {user, strings, errors, noMoreQuestions, isFirstQuestion, userAnswer, question, registerQuestionsLength, answersLength, isJustRegistered, isJustCompleted} = this.props;
         const userId = selectn('qnoow_id', user);
-        const navBarTitle = isJustRegistered || isJustCompleted ? strings.question + ' ' + answersLength + '/' + registerQuestionsLength : strings.question;
+        const navBarTitle = isJustRegistered || isJustCompleted ? strings.question + ' ' + (answersLength+1) + '/' + registerQuestionsLength : strings.question;
         const ownPicture = user.picture ? `${IMAGES_ROOT}media/cache/resolve/user_avatar_60x60/user/images/${user.picture}` : `${IMAGES_ROOT}media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
         const isRegisterQuestion = selectn('isRegisterQuestion', question);
 

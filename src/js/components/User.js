@@ -25,7 +25,7 @@ export default class User extends Component {
                         </div>
                         <div className="user-location">
                             {/** TODO: For some reason, profile is different for different renders. This is a temporal fix */}
-                            <span className="icon-marker"></span> {selectn('Location', profile) || selectn('location.locality', profile) || ''}
+                            <span className="icon-marker"></span> {selectn('Location', profile) || selectn('location.locality', profile) || selectn('location.address', profile) || ''}
                         </div>
                     </div>
                 </div>

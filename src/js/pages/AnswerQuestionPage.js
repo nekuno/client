@@ -42,9 +42,10 @@ function getState(props) {
     const errors = QuestionStore.getErrors();
     const noMoreQuestions = QuestionStore.noMoreQuestions();
     const goToQuestionStats = QuestionStore.mustGoToQuestionStats();
-    const questionsLength = Object.keys(QuestionsByUserIdStore.getByUserId(currentUserId)).length || 0;
-    const isJustRegistered = questionsLength < 4;
-    const isJustCompleted = questionsLength == 4;
+    const registerQuestionsLength = QuestionStore.registerQuestionsLength();
+    const answersLength = QuestionStore.answersLength(currentUserId);
+    const isJustRegistered = QuestionStore.isJustRegistered(currentUserId);
+    const isJustCompleted = QuestionStore.isJustCompleted(currentUserId);
 
     return {
         currentUser,
@@ -55,6 +56,8 @@ function getState(props) {
         errors,
         noMoreQuestions,
         goToQuestionStats,
+        registerQuestionsLength,
+        answersLength,
         isJustRegistered,
         isJustCompleted
     };
@@ -67,21 +70,23 @@ export default class AnswerQuestionPage extends Component {
 
     static propTypes = {
         // Injected by React Router:
-        params           : PropTypes.shape({
+        params                 : PropTypes.shape({
             questionId: PropTypes.string
         }),
         // Injected by @AuthenticatedComponent
-        user             : PropTypes.object.isRequired,
+        user                   : PropTypes.object.isRequired,
         // Injected by @translate:
-        strings          : PropTypes.object,
+        strings                : PropTypes.object,
         // Injected by @connectToStores:
-        question         : PropTypes.object,
-        userAnswer       : PropTypes.object,
-        isFirstQuestion  : PropTypes.bool,
-        errors           : PropTypes.string,
-        goToQuestionStats: PropTypes.bool,
-        isJustRegistered : PropTypes.bool,
-        isJustCompleted  : PropTypes.bool
+        question               : PropTypes.object,
+        userAnswer             : PropTypes.object,
+        isFirstQuestion        : PropTypes.bool,
+        errors                 : PropTypes.string,
+        goToQuestionStats      : PropTypes.bool,
+        registerQuestionsLength: PropTypes.number,
+        answersLength          : PropTypes.number,
+        isJustRegistered       : PropTypes.bool,
+        isJustCompleted        : PropTypes.bool
     };
 
     static contextTypes = {
@@ -122,17 +127,18 @@ export default class AnswerQuestionPage extends Component {
 
     render() {
 
-        const {user, strings, errors, noMoreQuestions, isFirstQuestion, userAnswer, question} = this.props;
+        const {user, strings, errors, noMoreQuestions, isFirstQuestion, userAnswer, question, registerQuestionsLength, answersLength, isJustRegistered, isJustCompleted} = this.props;
         const userId = selectn('qnoow_id', user);
+        const navBarTitle = isJustRegistered || isJustCompleted ? strings.question + ' ' + answersLength + '/' + registerQuestionsLength : strings.question;
         const ownPicture = user.picture ? `${IMAGES_ROOT}media/cache/resolve/user_avatar_60x60/user/images/${user.picture}` : `${IMAGES_ROOT}media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
         const isRegisterQuestion = selectn('isRegisterQuestion', question);
 
         return (
             <div className="view view-main">
-                {this.props.isJustRegistered ?
-                    <RegularTopNavbar centerText={strings.question}/>
+                {isJustRegistered ?
+                    <RegularTopNavbar centerText={navBarTitle}/>
                     :
-                    <LeftMenuTopNavbar centerText={strings.question} rightText={isRegisterQuestion ? '' : strings.skip} onRightLinkClickHandler={isRegisterQuestion ? null : this.skipQuestionHandler}/>
+                    <LeftMenuTopNavbar centerText={navBarTitle} rightText={isRegisterQuestion ? '' : strings.skip} onRightLinkClickHandler={isRegisterQuestion ? null : this.skipQuestionHandler}/>
                 }
                 <div className="page answer-question-page">
                     <div id="page-content" className="answer-question-content">

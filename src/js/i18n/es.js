@@ -117,7 +117,7 @@ export default {
     },
     RegisterQuestionLandingPage      : {
         title  : 'Queremos conocerte un poco mejor',
-        excerpt: 'Realiza el test respondiendo por ti y lo que te gustaría que respondiera otro usuario para ser compatible contigo',
+        excerpt: 'Realiza el test respondiendo por ti y lo que te gustaría que respondiera otro usuario para ser compatible contigo. Sólo son necesarias 4 respuestas.',
         next   : 'HACER TEST'
     },
     ThreadPage                       : {

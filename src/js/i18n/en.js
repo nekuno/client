@@ -118,7 +118,7 @@ export default {
     },
     RegisterQuestionLandingPage      : {
         title  : 'We want to know you a little better',
-        excerpt: 'Make the test answering for you and what you would like to answer another user to be compatible with you',
+        excerpt: 'Make the test answering for you and what you would like to answer another user to be compatible with you. Only 4 answers are required.',
         next   : 'DO TEST'
     },
     ThreadPage                       : {

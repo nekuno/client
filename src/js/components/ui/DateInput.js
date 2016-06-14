@@ -1,17 +1,33 @@
 import React, { PropTypes, Component } from 'react';
-import shouldPureComponentUpdate from 'react-pure-render/function';
 
 export default class DateInput extends Component {
 
     static propTypes = {
-        label: PropTypes.string.isRequired,
+        label       : PropTypes.string.isRequired,
+        placeholder : PropTypes.string.isRequired,
         defaultValue: PropTypes.string
     };
 
-    shouldComponentUpdate = shouldPureComponentUpdate;
+    constructor(props) {
+
+        super(props);
+
+        this.state = {
+            calendar: null
+        }
+    }
 
     getValue() {
         return this.refs.input.value;
+    }
+
+    componentDidMount() {
+        let calendar = nekunoApp.calendar({
+            input: '#calendar-input'
+        });
+        this.setState({
+            calendar: calendar
+        });
     }
 
     render() {
@@ -21,7 +37,7 @@ export default class DateInput extends Component {
                     <div className="item-title label date-label">{this.props.label}</div>
                     <div className="item-inner">
                         <div className="item-input">
-                            <input {...this.props} ref="input" type="date" />
+                            <input {...this.props} id="calendar-input" ref="input" type="text" placeholder={this.props.placeholder}/>
                         </div>
                     </div>
                 </div>

@@ -44,9 +44,9 @@ export default class OtherQuestion extends Component {
                 <div className="question-title">
                     {question.text}
                 </div>
-                <Answer text={otherUserAnswer.text} answered={false} defaultPicture={this.props.otherPicture} {...this.props} />
+                <Answer text={otherUserAnswer.text} answered={false} defaultPicture={this.props.otherPicture} accepted={userAnswer.acceptedAnswers.some(acceptedAnswerId => acceptedAnswerId === otherUserAnswer.answerId)} {...this.props}/>
                 {userAnswer.text ?
-                    <Answer text={userAnswer.text} answered={true} {...this.props} />
+                    <Answer text={userAnswer.text} answered={true} accepted={userAnswer.acceptedAnswers.some(acceptedAnswerId => acceptedAnswerId === userAnswer.answerId)} {...this.props}/>
                     :
                     <div className="not-answered-text">{strings.didntAnswered}</div>
                 }

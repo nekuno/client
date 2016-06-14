@@ -51,14 +51,14 @@ export default class Question extends Component {
                 <div className="question-title">
                     {question.text}
                 </div>
-                <Answer text={userAnswerText} answered={true} {...this.props} />
+                <Answer text={userAnswerText} answered={true} accepted={userAnswer.acceptedAnswers.some(acceptedAnswerId => acceptedAnswerId === userAnswer.answerId)} {...this.props}/>
 
                 {answers.map((answer, index) => {
                     if (answer.answerId === userAnswer.answerId) {
                         return null;
                     }
                     return (
-                        <Answer key={index} text={answer.text} answered={false} {...this.props} />
+                        <Answer key={index} text={answer.text} answered={false} accepted={userAnswer.acceptedAnswers.some(acceptedAnswerId => acceptedAnswerId === answer.answerId)} {...this.props}/>
                     );
                 })}
                 {this.props.graphActive ?

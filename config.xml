@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.nekuno" version="0.7.11" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.nekuno" version="0.7.12" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Nekuno</name>
     <description>
         A sample Apache Cordova application that responds to the deviceready event.
@@ -23,10 +23,10 @@
         <icon density="mdpi" src="src/scss/img/icons/96 - xhdpi.png" />
         <icon density="hdpi" src="src/scss/img/icons/144 - xxhdpi.png" />
         <icon density="xhdpi" src="src/scss/img/icons/192 - xxxhpdi.png" />
-        <splash density="port-ldpi" src="src/scss/img/splash/ldpi.png" />
-        <splash density="port-mdpi" src="src/scss/img/splash/mdpi.png" />
-        <splash density="port-hdpi" src="src/scss/img/splash/hdpi.png" />
-        <splash density="port-xhdpi" src="src/scss/img/splash/xhdpi.png" />
+        <splash density="port-ldpi" src="src/scss/img/splash/ldpi.9.png" />
+        <splash density="port-mdpi" src="src/scss/img/splash/mdpi.9.png" />
+        <splash density="port-hdpi" src="src/scss/img/splash/hdpi.9.png" />
+        <splash density="port-xhdpi" src="src/scss/img/splash/xhdpi.9.png" />
     </platform>
     <platform name="ios">
         <allow-intent href="itms:*" />

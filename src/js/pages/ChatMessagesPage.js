@@ -1,5 +1,5 @@
 import React, { PropTypes, Component } from 'react';
-import LeftMenuTopNavbar from '../components/ui/LeftMenuTopNavbar';
+import LeftBackIconTopNavbar from '../components/ui/LeftBackIconTopNavbar';
 import DailyMessages from '../components/ui/DailyMessages';
 import MessagesToolBar from '../components/ui/MessagesToolBar';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
@@ -113,7 +113,7 @@ export default class ChatMessagesPage extends Component {
         return (
 
             <div className="view view-main" ref="list" onScroll={this.handleScroll}>
-                <LeftMenuTopNavbar centerText={otherUsername}/>
+                <LeftBackIconTopNavbar centerText={otherUsername}/>
                 <div className="page notifications-page">
                     <div id="page-content" className="notifications-content">
                         {this.state.noMoreMessages ? <div className="daily-message-title">{strings.noMoreMessages}</div> : '' }

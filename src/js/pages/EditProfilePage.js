@@ -199,6 +199,8 @@ export default class EditProfilePage extends Component {
                 break;
             case 'tags_and_choice':
                 props.data = data ? data : [];
+                // TODO: DRY: Use detail instead of choice once social is offline
+                props.data.forEach(singleData => singleData.choice = singleData.detail ? singleData.detail : null);
                 props.handleChangeEdit = this.handleChangeEdit;
                 props.tags = this.props.tags;
                 filter = <TagsAndChoiceEdit {...props}/>;

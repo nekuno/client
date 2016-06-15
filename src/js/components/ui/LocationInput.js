@@ -48,7 +48,7 @@ export default class LocationInput extends Component {
             <div className="item-content">
                 <div className="item-inner location-inner">
                     <div className="item-input" ref="geosuggestWrapper">
-                        <Geosuggest {...this.props} placeholder={this.props.placeholder} ref="geosuggest" onSuggestSelect={this.onSuggestSelect}
+                        <Geosuggest {...this.props} autoActivateFirstSuggest={true} initialValue={this.props.defaultValue} placeholder={this.props.placeholder} ref="geosuggest" onSuggestSelect={this.onSuggestSelect}
                             getSuggestLabel={function(suggest) { return suggest.description.length > 35 ? suggest.description.slice(0, 35) + '...' : suggest.description }}
                             onFocus={this.onFocusHandler} skipSuggest={function(suggest) { return suggest.terms.length < 2 }} />
                     </div>

@@ -10,7 +10,7 @@
 }
 
 
-.navbar, .subnavbar, .toolbar {
+.navbar, .subnavbar, #bottom-toolbar.toolbar, #messages-toolbar.toolbar {
 	background-color: $dark-purple;
 	color: #fff;
 

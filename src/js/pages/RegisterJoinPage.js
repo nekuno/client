@@ -205,7 +205,7 @@ export default class RegisterJoinPage extends Component {
                                 <TextInput defaultValue={profile ? profile.username : null} placeholder={strings.username} ref="username" onChange={this.onUsernameChange}/>
                                 <TextInput defaultValue={profile ? profile.email : null} placeholder={strings.email} ref="email"/>
                                 <PasswordInput placeholder={strings.password} ref="plainPassword"/>
-                                <DateInput defaultValue={profile ? profile.birthday: null} label={strings.birthday} ref="birthday"/>
+                                <DateInput defaultValue={profile ? profile.birthday: null} label={strings.birthday} placeholder={strings.birthdayPlaceholder} ref="birthday"/>
                             </ul>
                             <LocationInput defaultValue={profile ? profile.location : null} placeholder={strings.location} onSuggestSelect={this.onSuggestSelect}/>
                         </div>
@@ -281,6 +281,7 @@ RegisterJoinPage.defaultProps = {
         email                : 'Email',
         password             : 'Password',
         birthday             : 'Birthday',
+        birthdayPlaceholder  : 'Your birth date',
         location             : 'Location',
         include              : 'Include on searches as',
         male                 : 'Male',

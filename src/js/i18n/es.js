@@ -95,6 +95,7 @@ export default {
         email                : 'Email',
         password             : 'Contraseña',
         birthday             : 'Fecha de nacimiento',
+        birthdayPlaceholder  : 'Tu fecha de nacimiento',
         location             : 'Ubicación',
         include              : 'Incluirme en las búsquedas como',
         male                 : 'Hombre',
@@ -121,7 +122,7 @@ export default {
         next   : 'HACER TEST'
     },
     ThreadPage                       : {
-        threads: 'Descubrir',
+        threads       : 'Descubrir',
         loadingMessage: 'Cargando hilos'
     },
     RecommendationPage               : {
@@ -251,7 +252,7 @@ export default {
         moreTests: 'Hacer más tests',
         continue : 'Continuar a recomendaciones'
     },
-    EmptyThreadPopup: {
+    EmptyThreadPopup                 : {
         title     : '¡Vaya!',
         text      : '¡Este hilo está vacío por ahora! Edita sus filtros para conseguir recomendaciones o vuelve a la lista de hilos para intentar otro.',
         editThread: 'Editar este hilo',
@@ -288,7 +289,7 @@ export default {
         placeholder: 'Escribe un tag'
     },
     TagsAndChoiceEdit                : {
-        placeholder: 'Escribe un tag',
+        placeholder: 'Escribe un tag en inglés',
         remove     : 'Eliminar',
         add        : 'Añadir'
     },
@@ -329,6 +330,9 @@ export default {
     },
     GuestBanner                      : {
         text: 'Estás en modo invitado. Click aquí para registrarte'
+    },
+    BirthdayEdit                     : {
+        birthdayPlaceholder: 'Tu fecha de nacimiento'
     },
     ////////////////
     // Framework7 //

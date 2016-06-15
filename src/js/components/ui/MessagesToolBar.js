@@ -45,7 +45,7 @@ export default class MessagesToolBar extends Component {
         const {placeholder, text} = this.props;
 
         return (
-            <div className="toolbar">
+            <div id="messages-toolbar" className="toolbar">
                 <div className="toolbar-inner">
                     <div className="toolbar messagebar">
                         <div className="toolbar-inner">

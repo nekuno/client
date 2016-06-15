@@ -5,15 +5,12 @@ export default class Answer extends Component {
         text          : PropTypes.string.isRequired,
         answered      : PropTypes.bool.isRequired,
         ownPicture    : PropTypes.string.isRequired,
-        defaultPicture: PropTypes.string
+        defaultPicture: PropTypes.string,
+        accepted      : PropTypes.bool
     };
 
     render() {
-
-        let text = this.props.text;
-        let answered = this.props.answered;
-        let ownPicture = this.props.ownPicture;
-        let defaultPicture = this.props.defaultPicture;
+        const {text, answered, ownPicture, defaultPicture, accepted} = this.props;
 
         if (text) {
             if (answered) {
@@ -22,7 +19,7 @@ export default class Answer extends Component {
                         <div className="answer-answered-picture">
                             <img src={ownPicture}/>
                         </div>
-                        <div className="answer-answered-text">
+                        <div className="answer-answered-text" style={accepted ? {} : {textDecoration: "line-through"}}>
                             {text}
                         </div>
                     </div>
@@ -33,7 +30,7 @@ export default class Answer extends Component {
                         <div className="answer-not-answered-picture">
                             <img src={defaultPicture}/>
                         </div>
-                        <div className="answer-not-answered-text">
+                        <div className="answer-not-answered-text" style={accepted ? {} : {textDecoration: "line-through"}}>
                             {text}
                         </div>
                     </div>

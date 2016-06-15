@@ -26,7 +26,7 @@ export default class ToolBar extends Component {
         let {activeLinkIndex, links, arrowUpLeft, isGuest} = this.props;
         let className = isGuest ? "toolbar toolbar-guest" : "toolbar";
         return (
-            <div className={className}>
+            <div id="bottom-toolbar" className={className}>
                 <div className="arrow-up" style={{ left: arrowUpLeft }}></div>
                 <div className="toolbar-inner">
                     {links.map((link, index) => {

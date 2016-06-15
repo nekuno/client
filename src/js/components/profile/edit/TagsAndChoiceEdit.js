@@ -60,14 +60,14 @@ export default class TagsAndChoiceEdit extends Component {
             selectedTagAndChoice = data[valueIndex];
             selectedTagAndChoice.index = valueIndex;
         } else {
-            selectedTagAndChoice = {tag: tagString, index: data.length};
+            selectedTagAndChoice = {tag: tagString, choice: null, index: data.length};
             data.push(selectedTagAndChoice);
         }
-        resetTagSuggestions();
         this.setState({
             selectedTagAndChoice: selectedTagAndChoice
         });
         this.props.handleChangeEdit(editKey, data);
+        resetTagSuggestions();
     }
 
     handleClickAddTagsAndChoice() {
@@ -85,12 +85,15 @@ export default class TagsAndChoiceEdit extends Component {
         let selectedTagAndChoice = this.state.selectedTagAndChoice;
         const valuesIndex = data.findIndex(value => value.tag === selectedTagAndChoice.tag);
         if (valuesIndex > -1) {
+            // TODO: DRY: Use detail instead of choice once social is offline
+            data[valuesIndex].detail = choice;
             data[valuesIndex].choice = choice;
         }
         this.setState({
             selectedTagAndChoice: {}
         });
         this.props.handleChangeEdit(editKey, data);
+        resetTagSuggestions();
     }
 
     handleClickRemoveTagsAndChoice() {
@@ -103,6 +106,7 @@ export default class TagsAndChoiceEdit extends Component {
             selectedTagAndChoice: {}
         });
         this.props.handleChangeEdit(editKey, data);
+       resetTagSuggestions();
     }
 
     handleClickTagAndChoiceTag(tag) {
@@ -117,6 +121,7 @@ export default class TagsAndChoiceEdit extends Component {
                 selectedTagAndChoice: selectedTagAndChoice
             });
         }
+        resetTagSuggestions();
     }
 
     handleKeyUpTagAndChoiceTag(tag) {
@@ -139,13 +144,13 @@ export default class TagsAndChoiceEdit extends Component {
             selected ?
                 <SelectedEdit key={'selected-filter'} type={'tags-and-choice'} active={data && data.some(value => value.tag !== '')} handleClickRemoveEdit={handleClickRemoveEdit}>
                     <div className="tags-and-choice-wrapper">
-                        <TagInput ref={'tagInput'} placeholder={strings.placeholder} tags={tags.map(tag => tag.name)} value={selectedTagAndChoice.tag}
+                        <TagInput ref={'tagInput'} placeholder={strings.placeholder} tags={tags.length > 0 && tags[0].name ? tags.map(tag => tag.name) : []} value={selectedTagAndChoice.tag}
                                   onKeyUpHandler={this.handleKeyUpTagAndChoiceTag} onClickTagHandler={this.handleClickTagAndChoiceTagSuggestion}
                                   title={metadata.label}/>
                         {selectedTagAndChoice.tag ?
                             <div className="tags-and-choice-choice">
                                 <TextRadios labels={Object.keys(metadata.choices).map(key => { return({key: key, text: metadata.choices[key]}); }) }
-                                            onClickHandler={this.handleClickTagAndChoiceChoice} value={selectedTagAndChoice.choice} className={'tags-and-choice-choice-radios'}
+                                            onClickHandler={this.handleClickTagAndChoiceChoice} value={selectedTagAndChoice.detail} className={'tags-and-choice-choice-radios'}
                                             title={metadata.choiceLabel['es']}/>
                             </div>
                             : ''}
@@ -154,7 +159,7 @@ export default class TagsAndChoiceEdit extends Component {
                             <div className="tags-and-choice-unselected-filters">
                                 {data.filter(value => value.tag !== selectedTagAndChoice.tag).map((value, index) =>
                                     <div className="tags-and-choice-unselected-filter" key={index}>
-                                        <TextCheckboxes labels={[{key: value.tag, text: value.choice ? value.tag + ' ' + metadata.choices[value.choice] : value.tag}]} values={[value.tag]}
+                                        <TextCheckboxes labels={[{key: value.tag, text: value.detail ? value.tag + ' ' + metadata.choices[value.detail] : value.tag}]} values={[value.tag]}
                                                         onClickHandler={this.handleClickTagAndChoiceTag} className={'tags-and-choice-filter'}/>
                                     </div>
                                 )}

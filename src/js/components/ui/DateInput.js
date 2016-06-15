@@ -23,7 +23,27 @@ export default class DateInput extends Component {
 
     componentDidMount() {
         let calendar = nekunoApp.calendar({
-            input: '#calendar-input'
+            input              : '#calendar-input',
+            convertToPopover   : false,
+            closeOnSelect      : true,
+            monthPickerTemplate: '<div class="picker-calendar-month-picker">' +
+            '<a href="javascript:void(0)" class="link icon-only picker-calendar-prev-month">' +
+            '<i class="icon icon-prev"></i>' +
+            '</a>' +
+            '<span class="current-month-value"></span>' +
+            '<a href="javascript:void(0)" class="link icon-only picker-calendar-next-month">' +
+            '<i class="icon icon-next"></i>' +
+            '</a>' +
+            '</div>',
+            yearPickerTemplate : '<div class="picker-calendar-year-picker">' +
+            '<a href="javascript:void(0)" class="link icon-only picker-calendar-prev-year">' +
+            '<i class="icon icon-prev"></i>' +
+            '</a>' +
+            '<span class="current-year-value"></span>' +
+            '<a href="javascript:void(0)" class="link icon-only picker-calendar-next-year">' +
+            '<i class="icon icon-next"></i>' +
+            '</a>' +
+            '</div>'
         });
         this.setState({
             calendar: calendar

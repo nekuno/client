@@ -95,6 +95,7 @@ export default {
         email                : 'Email',
         password             : 'Password',
         birthday             : 'Birthday',
+        birthdayPlaceholder  : 'Your birth date',
         location             : 'Location',
         include              : 'Include on searches as',
         male                 : 'Male',
@@ -122,7 +123,7 @@ export default {
         next   : 'DO TEST'
     },
     ThreadPage                       : {
-        threads: 'Discover',
+        threads       : 'Discover',
         loadingMessage: 'Loading yarns'
     },
     RecommendationPage               : {
@@ -252,7 +253,7 @@ export default {
         moreTests: 'Do more tests',
         continue : 'Continue to recommendations'
     },
-    EmptyThreadPopup: {
+    EmptyThreadPopup                 : {
         title     : 'Oops!',
         text      : 'This yarn is empty right now! Edit its filters to get recommendations or go back to the yarns list and try another.',
         editThread: 'Edit this yarn',
@@ -330,6 +331,9 @@ export default {
     },
     GuestBanner                      : {
         text: 'You are in guest mode. Click here to register'
+    },
+    BirthdayEdit                     : {
+        birthdayPlaceholder: 'Your birth date'
     },
     ////////////////
     // Framework7 //

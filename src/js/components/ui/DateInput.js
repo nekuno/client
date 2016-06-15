@@ -30,7 +30,6 @@ export default class DateInput extends Component {
             convertToPopover   : false,
             closeOnSelect      : true,
             onChange           : this.onChange,
-            value              : [this.props.defaultValue],
             monthPickerTemplate: '<div class="picker-calendar-month-picker">' +
             '<a href="javascript:void(0)" class="link icon-only picker-calendar-prev-month">' +
             '<i class="icon icon-prev"></i>' +
@@ -50,11 +49,16 @@ export default class DateInput extends Component {
             '</a>' +
             '</div>'
         });
+
+        if (this.props.defaultValue) {
+            calendar.setValue([this.props.defaultValue]);
+        }
+
         this.setState({
             calendar: calendar
         });
     }
-    
+
     onChange() {
         typeof this.props.onChange === 'function' ? window.setTimeout(this.props.onChange, 0) : null;
     }

@@ -5,7 +5,8 @@ export default class DateInput extends Component {
     static propTypes = {
         label       : PropTypes.string.isRequired,
         placeholder : PropTypes.string.isRequired,
-        defaultValue: PropTypes.string
+        defaultValue: PropTypes.string,
+        onChange    : PropTypes.func
     };
 
     constructor(props) {
@@ -55,8 +56,7 @@ export default class DateInput extends Component {
     }
     
     onChange() {
-        const {onChange} = this.props;
-        typeof onChange == 'function' ? window.setTimeout(onChange, 0) : null;
+        typeof this.props.onChange === 'function' ? window.setTimeout(this.props.onChange, 0) : null;
     }
 
     render() {

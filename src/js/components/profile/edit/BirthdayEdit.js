@@ -25,9 +25,10 @@ export default class BirthdayEdit extends Component {
     }
 
     onChangeValue() {
-        if (this.refs.hasOwnProperty(this.props.editKey)) {
-            const value = this.refs[this.props.editKey].getValue();
-            this.props.handleChangeEdit(this.props.editKey, value);
+        const {editKey, handleChangeEdit} = this.props;
+        if (this.refs.hasOwnProperty(editKey)) {
+            const value = this.refs[editKey].getValue();
+            handleChangeEdit(editKey, value);
         }
     }
 

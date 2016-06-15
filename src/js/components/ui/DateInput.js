@@ -12,6 +12,8 @@ export default class DateInput extends Component {
 
         super(props);
 
+        this.onChange = this.onChange.bind(this);
+
         this.state = {
             calendar: null
         }
@@ -26,6 +28,8 @@ export default class DateInput extends Component {
             input              : '#calendar-input',
             convertToPopover   : false,
             closeOnSelect      : true,
+            onChange           : this.onChange,
+            value              : [this.props.defaultValue],
             monthPickerTemplate: '<div class="picker-calendar-month-picker">' +
             '<a href="javascript:void(0)" class="link icon-only picker-calendar-prev-month">' +
             '<i class="icon icon-prev"></i>' +
@@ -48,6 +52,11 @@ export default class DateInput extends Component {
         this.setState({
             calendar: calendar
         });
+    }
+    
+    onChange() {
+        const {onChange} = this.props;
+        typeof onChange == 'function' ? window.setTimeout(onChange, 0) : null;
     }
 
     render() {

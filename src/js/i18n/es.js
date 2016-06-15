@@ -288,7 +288,7 @@ export default {
         placeholder: 'Escribe un tag'
     },
     TagsAndChoiceEdit                : {
-        placeholder: 'Escribe un tag',
+        placeholder: 'Escribe un tag en inglés',
         remove     : 'Eliminar',
         add        : 'Añadir'
     },

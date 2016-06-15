@@ -96,6 +96,7 @@ export default class UserPage extends Component {
                 {profileWithMetadata && stats ?
                     <ToolBar links={[
                     {'url': '/profile', 'text': strings.aboutMe},
+                    {'url': '/gallery', 'text': strings.photos},
                     {'url': '/questions', 'text': strings.questions},
                     {'url': '/interests', 'text': strings.interests}]} activeLinkIndex={0} arrowUpLeft={'13%'}/>
                     : ''}
@@ -107,6 +108,7 @@ export default class UserPage extends Component {
 UserPage.defaultProps = {
     strings: {
         aboutMe  : 'About me',
+        photos   : 'Photos',
         questions: 'Answers',
         interests: 'Interests',
         myProfile: 'My profile'

@@ -130,12 +130,14 @@ export default {
     },
     UserPage                         : {
         aboutMe  : 'Sobre mí',
+        photos   : 'Fotos',
         questions: 'Respuestas',
         interests: 'Intereses',
         myProfile: 'Mi Perfil'
     },
     OtherUserPage                    : {
         about       : 'Acerca de',
+        photos      : 'Fotos',
         questions   : 'Respuestas',
         interests   : 'Intereses',
         like        : 'Me gusta',

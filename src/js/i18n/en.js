@@ -131,12 +131,14 @@ export default {
     },
     UserPage                         : {
         aboutMe  : 'About me',
+        photos   : 'Photos',
         questions: 'Answers',
         interests: 'Interests',
         myProfile: 'My profile'
     },
     OtherUserPage                    : {
         about       : 'About',
+        photos      : 'Photos',
         questions   : 'Answers',
         interests   : 'Interests',
         like        : 'Like',

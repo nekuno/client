@@ -216,6 +216,7 @@ export default class OtherUserPage extends Component {
 OtherUserPage.defaultProps = {
     strings: {
         about       : 'About',
+        photos      : 'Photos',
         questions   : 'Answers',
         interests   : 'Interests',
         like        : 'Like',

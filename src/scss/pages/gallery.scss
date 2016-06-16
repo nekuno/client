@@ -1,0 +1,40 @@
+@import '../_partials/colors';
+
+body #root .App .view .page.gallery-page {
+  #page-content {
+    text-align: center;
+    width: 93%;
+    .photo-wrapper {
+      border-radius: 2px;
+      -moz-border-radius: 2px;
+      -webkit-border-radius: 2px;
+      display: inline-block;
+      height: 94px;
+      margin-right: 5px;
+      overflow: hidden;
+      width: 94px;
+
+      .photo-absolute-wrapper {
+        height: 94px;
+        margin-left: -53px;
+        width: 200px;
+
+        img {
+          border-radius: 2px;
+          -moz-border-radius: 2px;
+          -webkit-border-radius: 2px;
+          height: 100%;
+          margin: auto;
+        }
+      }
+    }
+  }
+}
+@media only screen and (max-width: 300px) {
+  body #root .App .view .page.gallery-page {
+    #page-content {
+      margin-left: 5px;
+      width: 85%;
+    }
+  }
+}

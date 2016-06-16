@@ -1,5 +1,4 @@
 import React, { PropTypes, Component } from 'react';
-import { Link } from 'react-router';
 import { IMAGES_ROOT } from '../constants/Constants';
 import LeftMenuTopNavbar from '../components/ui/LeftMenuTopNavbar';
 import ToolBar from '../components/ui/ToolBar';

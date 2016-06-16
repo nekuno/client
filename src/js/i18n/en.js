@@ -49,6 +49,13 @@ export default {
         interests: 'Interests',
         empty    : 'You have no interests yet. Please, connect more social media or explore your yarns and let us know what are you interested in.'
     },
+    GalleryPage                    : {
+        myProfile: 'My profile',
+        about    : 'About me',
+        photos   : 'Photos',
+        questions: 'Answers',
+        interests: 'Interests'
+    },
     LoginPage                        : {
         login          : 'Login',
         cancel         : 'Cancel',

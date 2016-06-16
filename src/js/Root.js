@@ -6,6 +6,7 @@ import HomePage from './pages/HomePage';
 import ChatThreadsPage from './pages/ChatThreadsPage';
 import ChatMessagesPage from './pages/ChatMessagesPage';
 import InterestsPage from './pages/InterestsPage';
+import GalleryPage from './pages/GalleryPage';
 import OtherInterestsPage from './pages/OtherInterestsPage';
 import QuestionsPage from './pages/QuestionsPage';
 import OtherQuestionsPage from './pages/OtherQuestionsPage';
@@ -60,6 +61,7 @@ export default class Root extends Component {
                         <Route name="messages" path="/conversations/:userId" component={ChatMessagesPage}/>
                         <Route name="interests" path="/interests" component={InterestsPage}/>
                         <Route name="other-interests" path="/users/:userId/other-interests" component={OtherInterestsPage}/>
+                        <Route name="gallery" path="/gallery" component={GalleryPage}/>
                         <Route name="questions" path="/questions" component={QuestionsPage}/>
                         <Route name="other-questions" path="/users/:userId/other-questions" component={OtherQuestionsPage}/>
                         <Route name="answer-question" path="/answer-question/:questionId" component={AnswerQuestionPage}/>

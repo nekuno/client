@@ -3,17 +3,19 @@ import shouldPureComponentUpdate from 'react-pure-render/function';
 
 export default class TopRightIconLink extends Component {
 	static propTypes = {
-		icon: PropTypes.string,
-		onClickHandler: PropTypes.func
+		icon			 : PropTypes.string.isRequired,
+		iconWithoutCircle: PropTypes.string,
+		onClickHandler	 : PropTypes.func
 	};
 
 	shouldComponentUpdate = shouldPureComponentUpdate;
 
 	render() {
-		const {icon, onClickHandler} = this.props;
+		const {icon, iconWithoutCircle, onClickHandler} = this.props;
+		const iconWrapperClass = iconWithoutCircle ? 'icon-wrapper no-circle' : 'icon-wrapper';
 		return (
 			<div className="col-30 right" onClick={onClickHandler}>
-				<div className="icon-wrapper">
+				<div className={iconWrapperClass}>
 					<span className={'icon-' + icon}></span>
 				</div>
 			</div>

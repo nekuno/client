@@ -6,23 +6,24 @@ import TopRightIconLink from './TopRightIconLink';
 
 export default class LeftMenuRightIconTopNavbar extends Component {
 	static propTypes = {
-		centerText: PropTypes.string,
-		centerTextSize: PropTypes.string,
-		rightIcon: PropTypes.string.isRequired,
+		centerText			   : PropTypes.string,
+		centerTextSize	       : PropTypes.string,
+		rightIcon              : PropTypes.string.isRequired,
+		iconWithoutCircle	   : PropTypes.bool,
 		onRightLinkClickHandler: PropTypes.func
 	};
 
 	shouldComponentUpdate = shouldPureComponentUpdate;
 
 	render() {
-		const {centerText, centerTextSize, rightIcon, onRightLinkClickHandler} = this.props;
+		const {centerText, centerTextSize, rightIcon, iconWithoutCircle, onRightLinkClickHandler} = this.props;
 		return (
 			<div className="navbar">
 				<div id="navbar-inner" className="navbar-inner">
 					<div className="row">
 						<TopLeftMenuLink />
 						<RegularTopTitle text={centerText} textSize={centerTextSize} />
-						<TopRightIconLink icon={rightIcon} onClickHandler={onRightLinkClickHandler} />
+						<TopRightIconLink icon={rightIcon} iconWithoutCircle={iconWithoutCircle} onClickHandler={onRightLinkClickHandler} />
 					</div>
 				</div>
 			</div>

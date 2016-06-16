@@ -19,10 +19,16 @@ class LoginStore extends BaseStore {
             case ActionTypes.AUTO_LOGIN:
                 const jwt = action.jwt;
                 if (jwt) {
-                    this._jwt = jwt;
-                    this._user = jwt_decode(this._jwt).user;
-                    console.log('Autologin success!');
-                    this.emitChange();
+                    const now = parseInt(((new Date()).getTime() / 1e3), 10);
+                    const exp = jwt_decode(jwt).exp;
+                    if (exp < now) {
+                        console.log('jwt token expired on', (new Date(exp * 1e3).toString()));
+                    } else {
+                        this._jwt = jwt;
+                        this._user = jwt_decode(jwt).user;
+                        console.log('Autologin success!');
+                        this.emitChange();
+                    }
                 }
                 break;
 

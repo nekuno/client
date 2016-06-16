@@ -44,6 +44,7 @@ export default {
         cancel   : 'Cancelar',
         myProfile: 'Mi Perfil',
         about    : 'Sobre mí',
+        photos   : 'Fotos',
         questions: 'Respuestas',
         interests: 'Intereses',
         empty    : 'No tienes ningún interés todavía. Por favor, conecta tus redes sociales o explora tus hilos y dinos lo que te interesa.'
@@ -66,6 +67,7 @@ export default {
         all                  : 'Todo',
         common               : 'En común',
         about                : 'Acerca de',
+        photos               : 'Fotos',
         questions            : 'Respuestas',
         interests            : 'Intereses',
         empty                : 'Este usuario no tiene ningún interés todavía.'
@@ -75,12 +77,14 @@ export default {
         cancel      : 'Cancelar',
         coincidences: 'Coincidencias',
         about       : 'Acerca de',
+        photos      : 'Fotos',
         questions   : 'Respuestas',
         interests   : 'Intereses'
     },
     QuestionsPage                    : {
         myProfile: 'Mi Perfil',
         about    : 'Sobre mí',
+        photos   : 'Fotos',
         questions: 'Respuestas',
         interests: 'Intereses'
     },

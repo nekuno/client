@@ -190,9 +190,10 @@ export default class InterestsPage extends Component {
                 </div>
                 <ToolBar links={[
                 {'url': '/profile', 'text': strings.about},
+                {'url': '/gallery', 'text': strings.photos},
                 {'url': '/questions', 'text': strings.questions},
                 {'url': '/interests', 'text': strings.interests}
-                ]} activeLinkIndex={2} arrowUpLeft={'83%'}/>
+                ]} activeLinkIndex={3} arrowUpLeft={'85%'}/>
                 <FilterContentPopup userId={parseId(user)} contentsCount={pagination.total || 0} ownContent={true}/>
             </div>
         );
@@ -205,6 +206,7 @@ InterestsPage.defaultProps = {
         cancel   : 'Cancel',
         myProfile: 'My profile',
         about    : 'About me',
+        photos   : 'Photos',
         questions: 'Answers',
         interests: 'Interests',
         empty    : 'You have no interests yet. Please, connect more social media or explore your yarns and let us know what are you interested in.'

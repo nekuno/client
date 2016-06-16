@@ -229,9 +229,10 @@ export default class OtherInterestsPage extends Component {
                 {otherUser ?
                     <ToolBar links={[
                     {'url': `/profile/${otherUserId}`, 'text': strings.about},
+                    {'url': `/users/${otherUserId}/gallery`, 'text': strings.photos},
                     {'url': `/users/${otherUserId}/other-questions`, 'text': strings.questions},
                     {'url': `/users/${otherUserId}/other-interests`, 'text': strings.interests}
-                    ]} activeLinkIndex={2} arrowUpLeft={'83%'}/>
+                    ]} activeLinkIndex={3} arrowUpLeft={'85%'}/>
                         :
                     ''}
                 {otherUser ?
@@ -252,6 +253,7 @@ OtherInterestsPage.defaultProps = {
         all                  : 'All',
         common               : 'In common',
         about                : 'About',
+        photos               : 'Photos',
         questions            : 'Answers',
         interests            : 'Interests',
         empty                : 'This user has no interests yet.'

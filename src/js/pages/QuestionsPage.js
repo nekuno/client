@@ -93,9 +93,10 @@ export default class QuestionsPage extends Component {
                 </div>
                 <ToolBar links={[
                 {'url': '/profile', 'text': strings.about},
+                {'url': '/gallery', 'text': strings.photos},
                 {'url': '/questions', 'text': strings.questions},
                 {'url': '/interests', 'text': strings.interests}
-                ]} activeLinkIndex={1} arrowUpLeft={'49%'} />
+                ]} activeLinkIndex={2} arrowUpLeft={'60%'} />
             </div>
         );
     }
@@ -106,6 +107,7 @@ QuestionsPage.defaultProps = {
     strings: {
         myProfile: 'My profile',
         about    : 'About me',
+        photos   : 'Photos',
         questions: 'Answers',
         interests: 'Interests'
     }

@@ -98,7 +98,7 @@ export default class UserPage extends Component {
                     {'url': '/profile', 'text': strings.aboutMe},
                     {'url': '/gallery', 'text': strings.photos},
                     {'url': '/questions', 'text': strings.questions},
-                    {'url': '/interests', 'text': strings.interests}]} activeLinkIndex={0} arrowUpLeft={'13%'}/>
+                    {'url': '/interests', 'text': strings.interests}]} activeLinkIndex={0} arrowUpLeft={'10%'}/>
                     : ''}
             </div>
         );

@@ -132,9 +132,10 @@ export default class OtherQuestionsPage extends Component {
                 {otherUser ?
                     <ToolBar links={[
                     {'url': `/profile/${params.userId}`, 'text': strings.about},
+                    {'url': `/users/${params.userId}/gallery`, 'text': strings.photos},
                     {'url': `/users/${params.userId}/other-questions`, 'text': strings.questions},
                     {'url': `/users/${params.userId}/other-interests`, 'text': strings.interests}
-                    ]} activeLinkIndex={1} arrowUpLeft={'49%'}/>
+                    ]} activeLinkIndex={2} arrowUpLeft={'60%'}/>
                         :
                     ''}
             </div>
@@ -148,6 +149,7 @@ OtherQuestionsPage.defaultProps = {
         cancel      : 'Cancel',
         coincidences: 'Coincidences',
         about       : 'About',
+        photos      : 'Photos',
         questions   : 'Answers',
         interests   : 'Interests'
     }

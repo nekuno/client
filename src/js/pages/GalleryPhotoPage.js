@@ -41,7 +41,7 @@ export default class GalleryPhotoPage extends Component {
         //TODO: This is just an example (selectedPhoto should be retrieved from PhotoStore)
         const selectedPhoto = {
             id: 1,
-            url: 'https://nekuno.com/media/cache/user_avatar_180x180/user/images/msalsas_1445885030.jpg'
+            url: 'http://pbs.twimg.com/profile_images/563611650767331328/fgiDg2uB.png'
         };
         return (
             <div className="view view-main">

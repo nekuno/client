@@ -10,9 +10,12 @@ body #root .App .view .page.gallery-photo-page {
       width: 100%;
 
       img {
-        height: 100%;
         margin: auto;
         max-width: 100%;
+      }
+
+      .ReactCrop {
+        overflow: visible;
       }
 
       .ReactCrop--drag-handle {

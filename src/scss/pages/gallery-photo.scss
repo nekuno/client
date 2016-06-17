@@ -1,16 +1,44 @@
+@import "../_partials/colors";
+
 body #root .App .view .page.gallery-photo-page {
   #page-content {
     text-align: center;
     width: 93%;
 
     .photo-wrapper {
-      margin: 100px auto;
+      margin: 100px auto 20px auto;
       width: 100%;
 
       img {
         height: 100%;
         margin: auto;
         max-width: 100%;
+      }
+
+      .ReactCrop--drag-handle {
+        background-color: $deep-purple;
+        border: 1px solid $deep-purple;
+        border-radius: 50%;
+        -moz-border-radius: 50%;
+        -webkit-border-radius: 50%;
+        width: 14px;
+        height: 14px;
+      }
+      .ReactCrop .ord-ne {
+        margin-top: -7px;
+        margin-right: -7px;
+      }
+      .ReactCrop .ord-nw {
+        margin-top: -7px;
+        margin-left: -7px;
+      }
+      .ReactCrop .ord-se {
+        margin-bottom: -7px;
+        margin-right: -7px;
+      }
+      .ReactCrop .ord-sw {
+        margin-bottom: -7px;
+        margin-left: -7px;
       }
     }
   }

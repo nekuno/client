@@ -1,12 +1,13 @@
 import React, { PropTypes, Component } from 'react';
 import TopNavBar from '../components/ui/TopNavBar';
-import Image from '../components/ui/Image';
+import FullWidthButton from '../components/ui/FullWidthButton';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
+import ReactCrop from 'react-image-crop';
 
 @AuthenticatedComponent
-@translate('GalleryPhotoPage')
-export default class GalleryPhotoPage extends Component {
+@translate('GalleryProfilePhotoPage')
+export default class GalleryProfilePhotoPage extends Component {
 
     static propTypes = {
         // Injected by @AuthenticatedComponent
@@ -17,19 +18,15 @@ export default class GalleryPhotoPage extends Component {
         //...
     };
 
-    static contextTypes = {
-        history: PropTypes.object.isRequired
-    };
-
     constructor(props) {
         super(props);
 
-        this.setAsProfilePhoto = this.setAsProfilePhoto.bind(this);
+        this.cropAndSaveAsProfilePhoto = this.cropAndSaveAsProfilePhoto.bind(this);
         this.deletePhoto = this.deletePhoto.bind(this);
     }
 
-    setAsProfilePhoto() {
-        this.context.history.pushState(null, 'gallery-profile-photo');
+    cropAndSaveAsProfilePhoto() {
+        
     }
 
     deletePhoto() {
@@ -43,16 +40,24 @@ export default class GalleryPhotoPage extends Component {
             id: 1,
             url: 'https://nekuno.com/media/cache/user_avatar_180x180/user/images/msalsas_1445885030.jpg'
         };
+        let crop = { 
+            keepSelection: true,
+            aspect: 1,
+            x: 5,
+            y: 5,
+            width: 90
+        };
         return (
             <div className="view view-main">
-                <TopNavBar leftIcon={'left-arrow'} centerText={strings.photos} rightIcon={'person'} secondRightIcon={'delete'} onRightLinkClickHandler={this.setAsProfilePhoto} onSecondRightLinkClickHandler={this.deletePhoto}/>
+                <TopNavBar leftText={strings.cancel} centerText={strings.photos}/>
                 <div className="page gallery-photo-page">
                     <div id="page-content" className="gallery-photo-content">
                         <div className="photo-wrapper">
-                            <Image src={selectedPhoto.url}/>
+                            <ReactCrop src={selectedPhoto.url} crop={crop} minWidth={30} keepSelection={true}/>
                         </div>
                         <br />
                         <br />
+                        <FullWidthButton onClick={this.cropAndSaveAsProfilePhoto}>{strings.changeProfilePhoto}</FullWidthButton>
                         <br />
                         <br />
                         <br />
@@ -64,8 +69,10 @@ export default class GalleryPhotoPage extends Component {
     }
 };
 
-GalleryPhotoPage.defaultProps = {
+GalleryProfilePhotoPage.defaultProps = {
     strings: {
-        photos: 'Photos'
+        cancel            : 'Cancel',
+        photos            : 'Photos',
+        changeProfilePhoto: 'Change profile photo'
     }
 };

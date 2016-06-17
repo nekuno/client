@@ -56,6 +56,14 @@ export default {
         questions: 'Answers',
         interests: 'Interests'
     },
+    GalleryPhotoPage                    : {
+        photos   : 'Photos'
+    },
+    GalleryProfilePhotoPage                    : {
+        cancel            : 'Cancel',
+        photos            : 'Photos',
+        changeProfilePhoto: 'Change profile photo'
+    },
     LoginPage                        : {
         login          : 'Login',
         cancel         : 'Cancel',

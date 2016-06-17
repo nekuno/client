@@ -97,11 +97,11 @@ export default class FilterContentPopup extends Component {
                         {/*<div className="icons-large-wrapper" onClick={this.onUsersFilterClick}>
                          <div className="icon icon-person"></div>
                          <div className="icons-large-text">{strings.people}</div>
-                         </div>*/
-                            <div className="icons-large-wrapper" onClick={this.onChannelsFilterClick}>
-                                <div className="icon icon-channels"></div>
-                                <div className="icons-large-text">{strings.channels}</div>
-                            </div>}
+                         </div>*/}
+                        <div className="icons-large-wrapper" onClick={this.onChannelsFilterClick}>
+                            <div className="icon icon-channels"></div>
+                            <div className="icons-large-text">{strings.channels}</div>
+                        </div>
                     </div>
                 </div>
             </div>

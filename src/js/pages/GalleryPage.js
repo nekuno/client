@@ -18,13 +18,29 @@ export default class GalleryPage extends Component {
         //...
     };
 
-    onScroll() {
+    static contextTypes = {
+        history: PropTypes.object.isRequired
+    };
 
+    constructor(props) {
+        super(props);
+
+        this.onScroll = this.onScroll.bind(this);
+        this.goToPhotoGalleryPage = this.goToPhotoGalleryPage.bind(this);
+    }
+
+    onScroll() {
+        //TODO: Will be paginated?
+    }
+
+    goToPhotoGalleryPage() {
+        //TODO: Trigger selectPhoto action (and save in PhotoStore, better than using photo ID in the URL)
+        this.context.history.pushState(null, 'gallery-photo');
     }
 
     render() {
         const {strings} = this.props;
-        //TODO: This is just an example
+        //TODO: This is just an example (photos should be retrieved from PhotoStore)
         const photos = [
             {
                 id: 1,
@@ -74,7 +90,7 @@ export default class GalleryPage extends Component {
                 <div className="page gallery-page">
                     <div id="page-content" className="gallery-content">
                         {photos.map(photo => 
-                            <div className="photo-wrapper">
+                            <div key={photo.id} className="photo-wrapper" onClick={this.goToPhotoGalleryPage}>
                                 <div className="photo-absolute-wrapper">
                                     <Image src={photo.url}/>
                                 </div>

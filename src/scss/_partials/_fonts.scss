@@ -153,6 +153,9 @@ $nekuno-logo-font: 'klinic_slabmedium';
 }
 .icon-person:before {
 	content: "\e917";
+	font-size: 1.4em;
+	line-height: 16px;
+	vertical-align: text-bottom;
 }
 .icon-users:before {
 	content: "\e92e";

@@ -1,0 +1,18 @@
+body #root .App .view .page.gallery-photo-page {
+  #page-content {
+    text-align: center;
+    width: 93%;
+
+    .photo-wrapper {
+      margin: 100px auto;
+      width: 100%;
+
+      img {
+        height: 100%;
+        margin: auto;
+        max-width: 100%;
+      }
+    }
+  }
+}
+

@@ -6,7 +6,7 @@ export default class TopRightLink extends Component {
 		icon		      		: PropTypes.string,
 		secondIcon		  		: PropTypes.string,
 		text			  		: PropTypes.string,
-		iconsWithoutCircle		: PropTypes.string,
+		iconsWithoutCircle		: PropTypes.bool,
 		onClickHandler	  		: PropTypes.func,
 		onSecondIconClickHandler: PropTypes.func
 	};

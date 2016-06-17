@@ -29,7 +29,7 @@
     "react-addons-linked-state-mixin": "0.14.8",
     "react-dom": "0.14.8",
     "react-geosuggest": "1.20.1",
-    "react-image-crop": "^1.0.0-rc3",
+    "react-image-crop": "1.0.0-rc3",
     "react-pure-render": "1.0.2",
     "react-router": "1.0.2",
     "request": "2.72.0",

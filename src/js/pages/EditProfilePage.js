@@ -18,7 +18,7 @@ import DoubleChoiceEdit from '../components/profile/edit/DoubleChoiceEdit';
 import TagEdit from '../components/profile/edit/TagEdit';
 import BirthdayEdit from '../components/profile/edit/BirthdayEdit';
 import TextAreaEdit from '../components/profile/edit/TextAreaEdit';
-import RegularTopNavbar from '../components/ui/RegularTopNavbar';
+import TopNavBar from '../components/ui/TopNavBar';
 import FullWidthButton from '../components/ui/FullWidthButton';
 
 function parseId(user) {
@@ -241,7 +241,7 @@ export default class EditProfilePage extends Component {
         const imgSrc = this.props.user ? `${IMAGES_ROOT}media/cache/resolve/user_avatar_180x180/user/images/${this.props.user.picture}` : `${IMAGES_ROOT}media/cache/user_avatar_180x180/bundles/qnoowweb/images/user-no-img.jpg`;
         return (
             <div className="view view-main">
-                <RegularTopNavbar centerText={strings.title} leftText={strings.cancel}/>
+                <TopNavBar centerText={strings.title} leftText={strings.cancel}/>
                 <div className="page edit-profile-page">
                     <div id="page-content">
                         <div className="user-block">

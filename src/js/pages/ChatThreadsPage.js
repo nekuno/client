@@ -1,5 +1,5 @@
 import React, { PropTypes, Component } from 'react';
-import LeftMenuTopNavbar from '../components/ui/LeftMenuTopNavbar';
+import TopNavBar from '../components/ui/TopNavBar';
 import LastMessage from '../components/ui/LastMessage';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import ChatThreadStore from '../stores/ChatThreadStore';
@@ -35,7 +35,7 @@ export default class ChatThreadsPage extends Component {
 
         return (
             <div className="view view-main">
-                <LeftMenuTopNavbar centerText={strings.title}/>
+                <TopNavBar leftMenuIcon={true} centerText={strings.title}/>
                 <div className="page notifications-page">
                     <div id="page-content" className="notifications-content">
                         {

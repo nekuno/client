@@ -1,7 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import { IMAGES_ROOT } from '../constants/Constants';
-import LeftMenuRightSearchTopNavbar from '../components/ui/LeftMenuRightSearchTopNavbar';
-import LeftLinkRightSearchTopNavbar from '../components/ui/LeftLinkRightSearchTopNavbar';
+import TopNavBar from '../components/ui/TopNavBar';
 import ToolBar from '../components/ui/ToolBar';
 import CardContentList from '../components/interests/CardContentList';
 import CardContentCarousel from '../components/interests/CardContentCarousel';
@@ -67,7 +66,7 @@ export default class OtherInterestsPage extends Component {
         this.onFilterTypeClick = this.onFilterTypeClick.bind(this);
         this.handleScroll = this.handleScroll.bind(this);
         this.onContentClick = this.onContentClick.bind(this);
-        this.onNavbarLeftLinkClick = this.onNavbarLeftLinkClick.bind(this);
+        this.onNavBarLeftLinkClick = this.onNavBarLeftLinkClick.bind(this);
         this.initSwiper = this.initSwiper.bind(this);
 
         this.state = {
@@ -140,7 +139,7 @@ export default class OtherInterestsPage extends Component {
         }
     }
 
-    onNavbarLeftLinkClick() {
+    onNavBarLeftLinkClick() {
         this.setState({
             carousel: false
         });
@@ -196,9 +195,9 @@ export default class OtherInterestsPage extends Component {
         return (
             <div className="view view-main" onScroll={this.handleScroll}>
                 {this.state.carousel ?
-                    <LeftLinkRightSearchTopNavbar leftText={strings.cancel} centerText={otherUser ? otherUser.username : ''} onLeftLinkClickHandler={this.onNavbarLeftLinkClick} onRightLinkClickHandler={this.onSearchClick}/>
+                    <TopNavBar leftText={strings.cancel} centerText={otherUser ? otherUser.username : ''} rightIcon={'search'} onLeftLinkClickHandler={this.onNavBarLeftLinkClick} onRightLinkClickHandler={this.onSearchClick}/>
                     :
-                    <LeftMenuRightSearchTopNavbar centerText={otherUser ? otherUser.username : ''} onRightLinkClickHandler={this.onSearchClick}/>
+                    <TopNavBar leftMenuIcon={true} centerText={otherUser ? otherUser.username : ''} rightIcon={'search'} onRightLinkClickHandler={this.onSearchClick}/>
                 }
                 <div className="page other-interests-page">
                     <div id="page-content" className="other-interests-content">

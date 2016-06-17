@@ -1,5 +1,5 @@
 import React, { PropTypes, Component } from 'react';
-import LeftMenuRightIconTopNavbar from '../components/ui/LeftMenuRightIconTopNavbar';
+import TopNavBar from '../components/ui/TopNavBar';
 import ToolBar from '../components/ui/ToolBar';
 import Image from '../components/ui/Image';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
@@ -70,7 +70,7 @@ export default class GalleryPage extends Component {
         ];
         return (
             <div className="view view-main" onScroll={this.handleScroll}>
-                <LeftMenuRightIconTopNavbar centerText={strings.myProfile} rightIcon={'uploadthin'} iconWithoutCircle={true}/>
+                <TopNavBar leftMenuIcon={true} centerText={strings.myProfile} rightIcon={'uploadthin'} rightIconsWithoutCircle={true}/>
                 <div className="page gallery-page">
                     <div id="page-content" className="gallery-content">
                         {photos.map(photo => 

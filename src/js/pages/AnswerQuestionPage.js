@@ -1,8 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import selectn from 'selectn';
 import { IMAGES_ROOT } from '../constants/Constants';
-import LeftMenuTopNavbar from '../components/ui/LeftMenuTopNavbar';
-import RegularTopNavbar from '../components/ui/RegularTopNavbar';
+import TopNavBar from '../components/ui/TopNavBar';
 import RegisterQuestionsFinishedPopup from '../components/questions/RegisterQuestionsFinishedPopup';
 import AnswerQuestion from '../components/questions/AnswerQuestion';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
@@ -136,9 +135,9 @@ export default class AnswerQuestionPage extends Component {
         return (
             <div className="view view-main">
                 {isJustRegistered ?
-                    <RegularTopNavbar centerText={navBarTitle}/>
+                    <TopNavBar centerText={navBarTitle}/>
                     :
-                    <LeftMenuTopNavbar centerText={navBarTitle} rightText={isRegisterQuestion ? '' : strings.skip} onRightLinkClickHandler={isRegisterQuestion ? null : this.skipQuestionHandler}/>
+                    <TopNavBar leftMenuIcon={true} centerText={navBarTitle} rightText={isRegisterQuestion ? '' : strings.skip} onRightLinkClickHandler={isRegisterQuestion ? null : this.skipQuestionHandler}/>
                 }
                 <div className="page answer-question-page">
                     <div id="page-content" className="answer-question-content">

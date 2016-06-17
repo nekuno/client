@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import selectn from 'selectn';
-import RegularTopNavbar from '../components/ui/RegularTopNavbar';
+import TopNavBar from '../components/ui/TopNavBar';
 import TextInput from '../components/ui/TextInput';
 import PasswordInput from '../components/ui/PasswordInput';
 import DateInput from '../components/ui/DateInput';
@@ -197,7 +197,7 @@ export default class RegisterJoinPage extends Component {
 
         return (
             <div className="view view-main">
-                <RegularTopNavbar leftText={strings.cancel} centerText={strings.create}/>
+                <TopNavBar leftText={strings.cancel} centerText={strings.create}/>
                 <div className="page">
                     <div id="page-content" className="register-join-content">
                         <div className="list-block">

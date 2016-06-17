@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import ThreadList from '../components/threads/ThreadList';
-import LeftMenuRightIconTopNavbar from '../components/ui/LeftMenuRightIconTopNavbar';
+import TopNavBar from '../components/ui/TopNavBar';
 import QuestionsBanner from '../components/questions/QuestionsBanner';
 import EmptyMessage from '../components/ui/EmptyMessage';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
@@ -81,7 +81,7 @@ export default class ThreadPage extends Component {
 
         return (
             <div className="view view-main">
-                <LeftMenuRightIconTopNavbar centerText={strings.threads} centerTextSize={'large'} rightIcon={'plus'} onRightLinkClickHandler={this.onAddThreadClickHandler}/>
+                <TopNavBar leftMenuIcon={true} centerText={strings.threads} centerTextSize={'large'} rightIcon={'plus'} onRightLinkClickHandler={this.onAddThreadClickHandler}/>
                 <div className="page threads-page">
                     <div id="page-content">
                         {filters && threads && profile ?

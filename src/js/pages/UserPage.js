@@ -2,7 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import { IMAGES_ROOT } from '../constants/Constants';
 import User from '../components/User';
 import ProfileDataList from '../components/profile/ProfileDataList'
-import UserTopNavbar from '../components/profile/UserTopNavbar';
+import TopNavBar from '../components/ui/TopNavBar';
 import ToolBar from '../components/ui/ToolBar';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
@@ -63,8 +63,22 @@ export default class UserPage extends Component {
 
     };
 
+    static contextTypes = {
+        history: PropTypes.object.isRequired
+    };
+
+    constructor(props) {
+        super(props);
+
+        this.editProfile = this.editProfile.bind(this);
+    }
+
     componentWillMount() {
         requestData(this.props);
+    }
+
+    editProfile() {
+        this.context.history.pushState(null, `edit-profile`);
     }
 
     render() {
@@ -72,7 +86,7 @@ export default class UserPage extends Component {
         const picture = user.picture ? `${IMAGES_ROOT}media/cache/resolve/user_avatar_60x60/user/images/${user.picture}` : `${IMAGES_ROOT}media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
         return (
             <div className="view view-main">
-                <UserTopNavbar centerText={strings.myProfile}/>
+                <TopNavBar leftMenuIcon={true} centerText={strings.myProfile} rightIcon={'edit'} onRightLinkClickHandler={this.editProfile}/>
                 <div className="page user-page">
                     {profileWithMetadata && stats ?
                         <div id="page-content">

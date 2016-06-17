@@ -7,18 +7,23 @@ export default class TopLeftLink extends Component {
 	};
 	static propTypes = {
 		text: PropTypes.string,
+		icon: PropTypes.string,
 		onClickHandler: PropTypes.func
 	};
 
 	shouldComponentUpdate = shouldPureComponentUpdate;
 
 	render() {
-		const {onClickHandler, text} = this.props;
+		const {onClickHandler, text, icon} = this.props;
 		return (
 			<div className="col-30 left" onClick={typeof onClickHandler !== 'undefined' ? onClickHandler : this.context.history.goBack}>
-				<a className="navbar-link-text">
-					{text}
-				</a>
+				{icon ?
+					<span className={'icon-' + icon}></span>
+					:
+					<a className="navbar-link-text">
+						{text}
+					</a>
+				}
 			</div>
 		);
 	}

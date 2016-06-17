@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import { IMAGES_ROOT } from '../constants/Constants';
-import LeftMenuTopNavbar from '../components/ui/LeftMenuTopNavbar';
+import TopNavBar from '../components/ui/TopNavBar';
 import ToolBar from '../components/ui/ToolBar';
 import QuestionList from '../components/questions/QuestionList';
 import QuestionsBanner from '../components/questions/QuestionsBanner';
@@ -73,7 +73,7 @@ export default class QuestionsPage extends Component {
         const strings = this.props.strings;
         return (
             <div className="view view-main" onScroll={this.handleScroll}>
-                <LeftMenuTopNavbar centerText={strings.myProfile}/>
+                <TopNavBar leftMenuIcon={true} centerText={strings.myProfile}/>
                 <div className="page questions-page">
                     <div id="page-content" className="questions-content">
                         <QuestionsBanner user={this.props.user} questionsTotal={this.props.pagination.total || Object.keys(this.props.questions).length || 0}/>

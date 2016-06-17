@@ -1,6 +1,5 @@
 import React, { PropTypes, Component } from 'react';
-import LeftMenuRightSearchTopNavbar from '../components/ui/LeftMenuRightSearchTopNavbar';
-import LeftLinkRightSearchTopNavbar from '../components/ui/LeftLinkRightSearchTopNavbar';
+import TopNavBar from '../components/ui/TopNavBar';
 import ToolBar from '../components/ui/ToolBar';
 import EmptyMessage from '../components/ui/EmptyMessage';
 import FilterContentPopup from '../components/ui/FilterContentPopup';
@@ -54,7 +53,7 @@ export default class InterestsPage extends Component {
         this.onSearchClick = this.onSearchClick.bind(this);
         this.handleScroll = this.handleScroll.bind(this);
         this.onContentClick = this.onContentClick.bind(this);
-        this.onNavbarLeftLinkClick = this.onNavbarLeftLinkClick.bind(this);
+        this.onNavBarLeftLinkClick = this.onNavBarLeftLinkClick.bind(this);
         this.initSwiper = this.initSwiper.bind(this);
 
         this.state = {
@@ -126,7 +125,7 @@ export default class InterestsPage extends Component {
         }
     }
 
-    onNavbarLeftLinkClick() {
+    onNavBarLeftLinkClick() {
         this.setState({
             carousel: false
         });
@@ -165,9 +164,9 @@ export default class InterestsPage extends Component {
         return (
             <div className="view view-main" onScroll={this.state.carousel ? function() {} : this.handleScroll}>
                 {this.state.carousel ?
-                    <LeftLinkRightSearchTopNavbar leftText={strings.cancel} centerText={strings.myProfile} onLeftLinkClickHandler={this.onNavbarLeftLinkClick} onRightLinkClickHandler={this.onSearchClick}/>
+                    <TopNavBar leftText={strings.cancel} centerText={strings.myProfile} rightIcon={'search'} onLeftLinkClickHandler={this.onNavBarLeftLinkClick} onRightLinkClickHandler={this.onSearchClick}/>
                     :
-                    <LeftMenuRightSearchTopNavbar centerText={strings.myProfile} onRightLinkClickHandler={this.onSearchClick}/>
+                    <TopNavBar leftMenuIcon={true} centerText={strings.myProfile} rightIcon={'search'} onRightLinkClickHandler={this.onSearchClick}/>
                 }
                 <div className="page interests-page">
                     <div id="page-content" className="interests-content">

@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import { IMAGES_ROOT } from '../constants/Constants';
-import RegularTopNavbar from '../components/ui/RegularTopNavbar';
+import TopNavBar from '../components/ui/TopNavBar';
 import ToolBar from '../components/ui/ToolBar';
 import OtherQuestionList from '../components/questions/OtherQuestionList';
 import ProfilesAvatarConnection from '../components/ui/ProfilesAvatarConnection';
@@ -112,7 +112,7 @@ export default class OtherQuestionsPage extends Component {
         const otherPicture = otherUser && otherUser.picture ? `${IMAGES_ROOT}media/cache/resolve/user_avatar_60x60/user/images/${otherUser.picture}` : `${IMAGES_ROOT}media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
         return (
             <div className="view view-main" onScroll={this.handleScroll}>
-                <RegularTopNavbar leftText={strings.cancel} centerText={otherUser ? otherUser.username : ''}/>
+                <TopNavBar leftMenuIcon={true} centerText={otherUser ? otherUser.username : ''}/>
                 <div className="page other-questions-page">
                     {user && otherUser ?
                         <div id="page-content" className="other-questions-content">
@@ -146,7 +146,6 @@ export default class OtherQuestionsPage extends Component {
 
 OtherQuestionsPage.defaultProps = {
     strings: {
-        cancel      : 'Cancel',
         coincidences: 'Coincidences',
         about       : 'About',
         photos      : 'Photos',

@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 const ReactLink = require('react/lib/ReactLink');
 const ReactStateSetters = require('react/lib/ReactStateSetters');
-import RegularTopNavbar from '../components/ui/RegularTopNavbar';
+import TopNavBar from '../components/ui/TopNavBar';
 import TextInput from '../components/ui/TextInput';
 import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
@@ -125,7 +125,7 @@ export default class RegisterPage extends Component {
 
         return (
             <div className="view view-main">
-                <RegularTopNavbar leftText={strings.cancel} centerText={strings.register}/>
+                <TopNavBar leftText={strings.cancel} centerText={strings.register}/>
                 <div className="page">
                     <div id="page-content" className="register-content">
                         <div className="register-title bold">

@@ -81,7 +81,6 @@ export default {
 
     },
     OtherQuestionsPage               : {
-        cancel      : 'Cancel',
         coincidences: 'Coincidences',
         about       : 'About',
         photos      : 'Photos',
@@ -138,7 +137,9 @@ export default {
         loadingMessage: 'Loading yarns'
     },
     RecommendationPage               : {
-        loadingMessage: 'Loading recommendations'
+        loadingMessage: 'Loading recommendations',
+        confirmBlock  : 'Are you sure you want to block this user?'
+
     },
     UserPage                         : {
         aboutMe  : 'About me',
@@ -227,9 +228,6 @@ export default {
         title    : 'Do you want better yarns?',
         text     : 'Answer more test questions',
         completed: 'completed questions'
-    },
-    TopRightRecommendationIcons      : {
-        confirmDelete: 'Are you sure you want to delete this thread?'
     },
     CardContent                      : {
         like         : 'Like',

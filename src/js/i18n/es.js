@@ -81,7 +81,6 @@ export default {
 
     },
     OtherQuestionsPage               : {
-        cancel      : 'Cancelar',
         coincidences: 'Coincidencias',
         about       : 'Acerca de',
         photos      : 'Fotos',
@@ -137,7 +136,8 @@ export default {
         loadingMessage: 'Cargando hilos'
     },
     RecommendationPage               : {
-        loadingMessage: 'Cargando recomendaciones'
+        loadingMessage: 'Cargando recomendaciones',
+        confirmDelete : '¿Estás seguro de que quieres borrar este hilo?'
     },
     UserPage                         : {
         aboutMe  : 'Sobre mí',
@@ -226,9 +226,6 @@ export default {
         title    : '¿Quieres que hilemos más fino?',
         text     : 'Responde más preguntas del test',
         completed: 'preguntas completadas'
-    },
-    TopRightRecommendationIcons      : {
-        confirmDelete: '¿Estás seguro de que quieres borrar este hilo?'
     },
     CardContent                      : {
         like         : 'Me interesa',

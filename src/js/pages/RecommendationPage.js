@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import RecommendationList from '../components/recommendations/RecommendationList';
-import RecommendationsTopNavbar from '../components/recommendations/RecommendationsTopNavbar';
+import TopNavBar from '../components/ui/TopNavBar';
 import EmptyThreadPopup from '../components/recommendations/EmptyThreadPopup';
 import EmptyMessage from '../components/ui/EmptyMessage';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
@@ -121,8 +121,15 @@ export default class RecommendationPage extends Component {
         filters        : PropTypes.object
     };
 
+    static contextTypes = {
+        history: PropTypes.object.isRequired
+    };
+
     constructor() {
         super();
+
+        this.deleteThread = this.deleteThread.bind(this);
+        this.editThread = this.editThread.bind(this);
 
         this.state = {swiper: null};
     }
@@ -165,11 +172,26 @@ export default class RecommendationPage extends Component {
         }
     }
 
+    deleteThread() {
+        nekunoApp.confirm(this.props.strings.confirmDelete, () => {
+            const threadId = this.props.thread.id;
+            const history = this.context.history;
+            ThreadActionCreators.deleteThread(threadId)
+                .then(function() {
+                    history.pushState(null, '/threads');
+                });
+        });
+    }
+
+    editThread() {
+        this.context.history.pushState(null, `edit-thread/${this.props.thread.id}`);
+    }
+
     render() {
         const {recommendations, thread, user, filters, recommendationsReceived, strings} = this.props;
         return (
             <div className="view view-main">
-                <RecommendationsTopNavbar centerText={''} thread={thread}/>
+                <TopNavBar leftIcon={'left-arrow'} centerText={''} rightIcon={'edit'} secondRightIcon={'delete'} onRightLinkClickHandler={this.editThread} onSecondRightLinkClickHandler={this.deleteThread}/>
                 <div className="page">
                     <div id="page-content" className="recommendation-page">
                         {recommendationsReceived && recommendations.length > 0 && thread.filters && filters && Object.keys(filters).length > 0 ?
@@ -187,6 +209,7 @@ export default class RecommendationPage extends Component {
 
 RecommendationPage.defaultProps = {
     strings: {
-        loadingMessage: 'Loading recommendations'
+        loadingMessage: 'Loading recommendations',
+        confirmDelete : 'Are you sure you want to delete this thread?'
     }
 };

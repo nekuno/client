@@ -12,7 +12,7 @@ import TextInput from '../components/ui/TextInput';
 import TextRadios from '../components/ui/TextRadios';
 import CreateContentThread from '../components/threads/CreateContentThread';
 import CreateUsersThread from '../components/threads/CreateUsersThread';
-import RegularTopNavbar from '../components/ui/RegularTopNavbar';
+import TopNavBar from '../components/ui/TopNavBar';
 
 function parseThreadId(params) {
     return params.threadId;
@@ -105,7 +105,7 @@ export default class EditThreadPage extends Component {
         const {category, threadName} = this.state;
         return (
             <div className="view view-main">
-                <RegularTopNavbar centerText={strings.edit} leftText={strings.cancel}/>
+                <TopNavBar centerText={strings.edit} leftText={strings.cancel}/>
                 <div className="page create-thread-page">
                     <div id="page-content">
                         {thread && filters ?

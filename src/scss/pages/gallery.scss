@@ -1,3 +1,5 @@
+@import '../_partials/colors';
+
 body #root .App .view .page.gallery-page {
   #page-content {
     text-align: center;
@@ -24,6 +26,23 @@ body #root .App .view .page.gallery-page {
           -webkit-border-radius: 2px;
           height: 100%;
           margin: auto;
+        }
+      }
+      
+      &.import-album-wrapper {
+        background: $deep-purple;
+        position: relative;
+
+        .icon-image {
+          margin: 20px auto;
+        }
+        p {
+          bottom: 0;
+          font-size: 0.8em;
+          margin: 5px auto;
+          position: absolute;
+          text-align: center;
+          width: 100%;
         }
       }
     }

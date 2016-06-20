@@ -3,9 +3,11 @@ import TopNavBar from '../components/ui/TopNavBar';
 import ToolBar from '../components/ui/ToolBar';
 import Image from '../components/ui/Image';
 import EmptyMessage from '../components/ui/EmptyMessage';
+import ImportAlbumPopup from '../components/gallery/ImportAlbumPopup';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
+import ConnectActionCreators from '../actions/ConnectActionCreators';
 
 function parseId(user) {
     return user.qnoow_id;
@@ -54,6 +56,35 @@ export default class GalleryPage extends Component {
     goToPhotoGalleryPage() {
         //TODO: Trigger selectPhoto action (and save in PhotoStore, better than using photo ID in the URL)
         this.context.history.pushState(null, 'gallery-photo');
+    }
+
+    importAlbumPopUp() {
+        nekunoApp.popup('.popup-import-album');
+    }
+
+    importAlbum(resource, scope) {
+        hello(resource).login({scope: scope}).then(function(response) {
+            var accessToken = response.authResponse.access_token;
+            console.log('accessToken:', accessToken);
+            hello(resource).api('me/albums').then(function(status) {
+                    console.log('api(\'me/albums\')', status);
+                    var resourceId = status.id.toString();
+                    console.log('resourceId: ', resourceId);
+                    ConnectActionCreators.connect(resource, accessToken, resourceId)
+                        .then(() => {
+
+                        }, (error) => {
+                            console.log(error);
+                            nekunoApp.alert(error.error);
+                        });
+                },
+                function(status) {
+                    nekunoApp.alert(resource + ' login failed: ' + status.error.message);
+                }
+            )
+        }, function(response) {
+            nekunoApp.alert(resource + ' login failed: ' + response.error.message);
+        });
     }
 
     render() {
@@ -107,6 +138,10 @@ export default class GalleryPage extends Component {
                 <TopNavBar leftMenuIcon={true} centerText={strings.myProfile} rightIcon={'uploadthin'} rightIconsWithoutCircle={true}/>
                 <div className="page gallery-page">
                     <div id="page-content" className="gallery-content">
+                        <div className="import-album-wrapper photo-wrapper" onClick={this.importAlbumPopUp}>
+                            <div className="icon-image"></div>
+                            <p>{strings.importAlbum}</p>
+                        </div>
                         {noPhotos ? <EmptyMessage text={strings.empty}/> : photos.map(photo => 
                             <div key={photo.id} className="photo-wrapper" onClick={this.goToPhotoGalleryPage}>
                                 <div className="photo-absolute-wrapper">
@@ -128,6 +163,7 @@ export default class GalleryPage extends Component {
                 {'url': '/questions', 'text': strings.questions},
                 {'url': '/interests', 'text': strings.interests}
                 ]} activeLinkIndex={1} arrowUpLeft={'36%'} />
+                <ImportAlbumPopup onClickHandler={this.importAlbum}/>
             </div>
         );
     }
@@ -135,11 +171,12 @@ export default class GalleryPage extends Component {
 
 GalleryPage.defaultProps = {
     strings: {
-        empty    : 'You have not imported any photo yet',
-        myProfile: 'My profile',
-        about    : 'About me',
-        photos   : 'Photos',
-        questions: 'Answers',
-        interests: 'Interests'
+        importAlbum: 'Import an album',
+        empty      : 'You have not imported any photo yet',
+        myProfile  : 'My profile',
+        about      : 'About me',
+        photos     : 'Photos',
+        questions  : 'Answers',
+        interests  : 'Interests'
     }
 };

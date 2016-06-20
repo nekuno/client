@@ -6,32 +6,42 @@ import EmptyMessage from '../components/ui/EmptyMessage';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
+import * as UserActionCreators from '../actions/UserActionCreators';
+import UserStore from '../stores/UserStore';
 
-function parseId(user) {
-    return user.qnoow_id;
+function requestData(props) {
+    const userId = props.params.userId;
+    UserActionCreators.requestUser(userId, ['username', 'email', 'picture', 'status']);
 }
 
 function getState(props) {
-    const userId = parseId(props.user);
+    const otherUserId = props.params.userId;
+    const otherUser = UserStore.get(otherUserId);
     //TODO: Retrieve from store
     const noPhotos = false;
-    // const photos = PhotoStore.get(userId);
+    // const photos = PhotoStore.get(otherUserId);
     return {
+        otherUser,
         noPhotos
     };
 }
 
 @AuthenticatedComponent
-@translate('GalleryPage')
-@connectToStores([], getState)
-export default class GalleryPage extends Component {
+@translate('OtherGalleryPage')
+@connectToStores([UserStore], getState)
+export default class OtherGalleryPage extends Component {
 
     static propTypes = {
+        // Injected by React Router:
+        params    : PropTypes.shape({
+            userId: PropTypes.string.isRequired
+        }).isRequired,
         // Injected by @AuthenticatedComponent
         user: PropTypes.object.isRequired,
         // Injected by @translate:
         strings: PropTypes.object,
         // Injected by @connectToStores:
+        otherUser: PropTypes.object,
         noPhotos: PropTypes.bool
         //...
     };
@@ -44,20 +54,25 @@ export default class GalleryPage extends Component {
         super(props);
 
         this.handleScroll = this.handleScroll.bind(this);
-        this.goToPhotoGalleryPage = this.goToPhotoGalleryPage.bind(this);
+        this.goToOtherPhotoGalleryPage = this.goToOtherPhotoGalleryPage.bind(this);
+    }
+
+    componentWillMount() {
+        requestData(this.props);
     }
 
     handleScroll() {
         //TODO: Will be paginated?
     }
 
-    goToPhotoGalleryPage() {
+    goToOtherPhotoGalleryPage() {
         //TODO: Trigger selectPhoto action (and save in PhotoStore, better than using photo ID in the URL)
-        this.context.history.pushState(null, 'gallery-photo');
+        this.context.history.pushState(null, `/users/${this.props.params.userId}/other-gallery-photo`);
     }
 
     render() {
-        const {noPhotos, strings} = this.props;
+        const {otherUser, noPhotos, strings, params} = this.props;
+        const otherUserId = params.userId;
         //TODO: This is just an example (photos should be retrieved from PhotoStore)
         const photos = [
             {
@@ -104,11 +119,11 @@ export default class GalleryPage extends Component {
         ];
         return (
             <div className="view view-main" onScroll={this.handleScroll}>
-                <TopNavBar leftMenuIcon={true} centerText={strings.myProfile} rightIcon={'uploadthin'} rightIconsWithoutCircle={true}/>
+                <TopNavBar leftMenuIcon={true} centerText={otherUser ? otherUser.username : ''}/>
                 <div className="page gallery-page">
                     <div id="page-content" className="gallery-content">
                         {noPhotos ? <EmptyMessage text={strings.empty}/> : photos.map(photo => 
-                            <div key={photo.id} className="photo-wrapper" onClick={this.goToPhotoGalleryPage}>
+                            <div key={photo.id} className="photo-wrapper" onClick={this.goToOtherPhotoGalleryPage}>
                                 <div className="photo-absolute-wrapper">
                                     <Image src={photo.url}/>
                                 </div>
@@ -122,22 +137,24 @@ export default class GalleryPage extends Component {
                         <br />
                     </div>
                 </div>
-                <ToolBar links={[
-                {'url': '/profile', 'text': strings.about},
-                {'url': '/gallery', 'text': strings.photos},
-                {'url': '/questions', 'text': strings.questions},
-                {'url': '/interests', 'text': strings.interests}
-                ]} activeLinkIndex={1} arrowUpLeft={'36%'} />
+                {otherUser ?
+                    <ToolBar links={[
+                    {'url': `/profile/${otherUserId}`, 'text': strings.about},
+                    {'url': `/users/${otherUserId}/other-gallery`, 'text': strings.photos},
+                    {'url': `/users/${otherUserId}/other-questions`, 'text': strings.questions},
+                    {'url': `/users/${otherUserId}/other-interests`, 'text': strings.interests}
+                    ]} activeLinkIndex={1} arrowUpLeft={'36%'}/>
+                    :
+                    ''}
             </div>
         );
     }
 };
 
-GalleryPage.defaultProps = {
+OtherGalleryPage.defaultProps = {
     strings: {
-        empty    : 'You have not imported any photo yet',
-        myProfile: 'My profile',
-        about    : 'About me',
+        empty    : 'User has not imported any photo yet',
+        about    : 'About',
         photos   : 'Photos',
         questions: 'Answers',
         interests: 'Interests'

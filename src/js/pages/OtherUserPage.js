@@ -205,7 +205,7 @@ export default class OtherUserPage extends Component {
                 {otherUser && profileWithMetadata ?
                     <ToolBar links={[
                     {'url': `/profile/${parseId(otherUser)}`, 'text': strings.about},
-                    {'url': `/users/${parseId(otherUser)}/gallery`, 'text': strings.photos},
+                    {'url': `/users/${parseId(otherUser)}/other-gallery`, 'text': strings.photos},
                     {'url': `/users/${parseId(otherUser)}/other-questions`, 'text': strings.questions},
                     {'url': `/users/${parseId(otherUser)}/other-interests`, 'text': strings.interests}]} activeLinkIndex={0} arrowUpLeft={'10%'}/>
                     : ''}

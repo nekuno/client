@@ -50,13 +50,24 @@ export default {
         empty    : 'No tienes ningún interés todavía. Por favor, conecta tus redes sociales o explora tus hilos y dinos lo que te interesa.'
     },
     GalleryPage                    : {
+        empty    : 'No has importado ninguna foto',
         myProfile: 'Mi Perfil',
         about    : 'Sobre mí',
         photos   : 'Fotos',
         questions: 'Respuestas',
         interests: 'Intereses'
     },
+    OtherGalleryPage                    : {
+        empty    : 'El usuario no ha importado ninguna foto',
+        about    : 'Acerca de',
+        photos   : 'Fotos',
+        questions: 'Respuestas',
+        interests: 'Intereses'
+    },
     GalleryPhotoPage                    : {
+        photos   : 'Fotos'
+    },
+    OtherGalleryPhotoPage                    : {
         photos   : 'Fotos'
     },
     GalleryProfilePhotoPage                    : {

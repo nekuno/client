@@ -7,7 +7,9 @@ import ChatThreadsPage from './pages/ChatThreadsPage';
 import ChatMessagesPage from './pages/ChatMessagesPage';
 import InterestsPage from './pages/InterestsPage';
 import GalleryPage from './pages/GalleryPage';
+import OtherGalleryPage from './pages/OtherGalleryPage';
 import GalleryPhotoPage from './pages/GalleryPhotoPage';
+import OtherGalleryPhotoPage from './pages/OtherGalleryPhotoPage';
 import GalleryProfilePhotoPage from './pages/GalleryProfilePhotoPage';
 import OtherInterestsPage from './pages/OtherInterestsPage';
 import QuestionsPage from './pages/QuestionsPage';
@@ -64,7 +66,9 @@ export default class Root extends Component {
                         <Route name="interests" path="/interests" component={InterestsPage}/>
                         <Route name="other-interests" path="/users/:userId/other-interests" component={OtherInterestsPage}/>
                         <Route name="gallery" path="/gallery" component={GalleryPage}/>
+                        <Route name="other-gallery" path="/users/:userId/other-gallery" component={OtherGalleryPage}/>
                         <Route name="gallery-photo" path="/gallery-photo" component={GalleryPhotoPage}/>
+                        <Route name="other-gallery-photo" path="/users/:userId/other-gallery-photo" component={OtherGalleryPhotoPage}/>
                         <Route name="gallery-profile-photo" path="/gallery-profile-photo" component={GalleryProfilePhotoPage}/>
                         <Route name="questions" path="/questions" component={QuestionsPage}/>
                         <Route name="other-questions" path="/users/:userId/other-questions" component={OtherQuestionsPage}/>

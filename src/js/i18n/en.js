@@ -50,13 +50,24 @@ export default {
         empty    : 'You have no interests yet. Please, connect more social media or explore your yarns and let us know what are you interested in.'
     },
     GalleryPage                    : {
+        empty    : 'You have not imported any photo yet',
         myProfile: 'My profile',
         about    : 'About me',
         photos   : 'Photos',
         questions: 'Answers',
         interests: 'Interests'
     },
+    OtherGalleryPage                    : {
+        empty    : 'User has not imported any photo yet',
+        about    : 'About',
+        photos   : 'Photos',
+        questions: 'Answers',
+        interests: 'Interests'
+    },
     GalleryPhotoPage                    : {
+        photos   : 'Photos'
+    },
+    OtherGalleryPhotoPage                    : {
         photos   : 'Photos'
     },
     GalleryProfilePhotoPage                    : {

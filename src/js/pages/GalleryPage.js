@@ -7,7 +7,8 @@ import ImportAlbumPopup from '../components/gallery/ImportAlbumPopup';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
-import ConnectActionCreators from '../actions/ConnectActionCreators';
+import GalleryAlbumStore from '../stores/GalleryAlbumStore';
+import GalleryAlbumActionCreators from '../actions/GalleryAlbumActionCreators';
 
 function parseId(user) {
     return user.qnoow_id;
@@ -46,6 +47,7 @@ export default class GalleryPage extends Component {
         super(props);
 
         this.handleScroll = this.handleScroll.bind(this);
+        this.importAlbum = this.importAlbum.bind(this);
         this.goToPhotoGalleryPage = this.goToPhotoGalleryPage.bind(this);
     }
 
@@ -63,27 +65,9 @@ export default class GalleryPage extends Component {
     }
 
     importAlbum(resource, scope) {
-        hello(resource).login({scope: scope}).then(function(response) {
-            var accessToken = response.authResponse.access_token;
-            console.log('accessToken:', accessToken);
-            hello(resource).api('me/albums').then(function(status) {
-                    console.log('api(\'me/albums\')', status);
-                    var resourceId = status.id.toString();
-                    console.log('resourceId: ', resourceId);
-                    ConnectActionCreators.connect(resource, accessToken, resourceId)
-                        .then(() => {
-
-                        }, (error) => {
-                            console.log(error);
-                            nekunoApp.alert(error.error);
-                        });
-                },
-                function(status) {
-                    nekunoApp.alert(resource + ' login failed: ' + status.error.message);
-                }
-            )
-        }, function(response) {
-            nekunoApp.alert(resource + ' login failed: ' + response.error.message);
+        nekunoApp.closeModal('.popup-import-album');
+        GalleryAlbumActionCreators.getAlbums(resource, scope).then(() => {
+            window.setTimeout(() => { this.context.history.pushState(null, 'gallery-albums') }, 500);
         });
     }
 
@@ -140,7 +124,7 @@ export default class GalleryPage extends Component {
                     <div id="page-content" className="gallery-content">
                         <div className="import-album-wrapper photo-wrapper" onClick={this.importAlbumPopUp}>
                             <div className="icon-image"></div>
-                            <p>{strings.importAlbum}</p>
+                            <div className="text">{strings.importAlbum}</div>
                         </div>
                         {noPhotos ? <EmptyMessage text={strings.empty}/> : photos.map(photo => 
                             <div key={photo.id} className="photo-wrapper" onClick={this.goToPhotoGalleryPage}>

@@ -49,7 +49,7 @@ export default {
         interests: 'Interests',
         empty    : 'You have no interests yet. Please, connect more social media or explore your yarns and let us know what are you interested in.'
     },
-    GalleryPage                    : {
+    GalleryPage                      : {
         importAlbum: 'Import an album',
         empty      : 'You have not imported any photo yet',
         myProfile  : 'My profile',
@@ -58,20 +58,28 @@ export default {
         questions  : 'Answers',
         interests  : 'Interests'
     },
-    OtherGalleryPage                    : {
+    OtherGalleryPage                 : {
         empty    : 'User has not imported any photo yet',
         about    : 'About',
         photos   : 'Photos',
         questions: 'Answers',
         interests: 'Interests'
     },
-    GalleryPhotoPage                    : {
+    GalleryAlbumsPage                : {
+        albums     : '%resource% albums',
+        empty      : 'There are no albums'
+    },
+    GalleryAlbumPhotosPage           : {
+        empty       : 'There are no photos in this album',
+        importPhotos: 'Import photos'
+    },
+    GalleryPhotoPage                 : {
         photos   : 'Photos'
     },
-    OtherGalleryPhotoPage                    : {
+    OtherGalleryPhotoPage            : {
         photos   : 'Photos'
     },
-    GalleryProfilePhotoPage                    : {
+    GalleryProfilePhotoPage          : {
         cancel            : 'Cancel',
         photos            : 'Photos',
         changeProfilePhoto: 'Change profile photo'

@@ -11,6 +11,8 @@ import OtherGalleryPage from './pages/OtherGalleryPage';
 import GalleryPhotoPage from './pages/GalleryPhotoPage';
 import OtherGalleryPhotoPage from './pages/OtherGalleryPhotoPage';
 import GalleryProfilePhotoPage from './pages/GalleryProfilePhotoPage';
+import GalleryAlbumsPage from './pages/GalleryAlbumsPage';
+import GalleryAlbumPhotosPage from './pages/GalleryAlbumPhotosPage';
 import OtherInterestsPage from './pages/OtherInterestsPage';
 import QuestionsPage from './pages/QuestionsPage';
 import OtherQuestionsPage from './pages/OtherQuestionsPage';
@@ -70,6 +72,8 @@ export default class Root extends Component {
                         <Route name="gallery-photo" path="/gallery-photo" component={GalleryPhotoPage}/>
                         <Route name="other-gallery-photo" path="/users/:userId/other-gallery-photo" component={OtherGalleryPhotoPage}/>
                         <Route name="gallery-profile-photo" path="/gallery-profile-photo" component={GalleryProfilePhotoPage}/>
+                        <Route name="gallery-albums" path="/gallery-albums" component={GalleryAlbumsPage}/>
+                        <Route name="gallery-album-photos" path="/gallery-album-photos" component={GalleryAlbumPhotosPage}/>
                         <Route name="questions" path="/questions" component={QuestionsPage}/>
                         <Route name="other-questions" path="/users/:userId/other-questions" component={OtherQuestionsPage}/>
                         <Route name="answer-question" path="/answer-question/:questionId" component={AnswerQuestionPage}/>

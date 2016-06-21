@@ -49,7 +49,7 @@ export default {
         interests: 'Intereses',
         empty    : 'No tienes ningún interés todavía. Por favor, conecta tus redes sociales o explora tus hilos y dinos lo que te interesa.'
     },
-    GalleryPage                    : {
+    GalleryPage                      : {
         importAlbum: 'Importa un álbum',
         empty      : 'No has importado ninguna foto',
         myProfile  : 'Mi Perfil',
@@ -58,20 +58,28 @@ export default {
         questions  : 'Respuestas',
         interests  : 'Intereses'
     },
-    OtherGalleryPage                    : {
+    OtherGalleryPage                 : {
         empty    : 'El usuario no ha importado ninguna foto',
         about    : 'Acerca de',
         photos   : 'Fotos',
         questions: 'Respuestas',
         interests: 'Intereses'
     },
-    GalleryPhotoPage                    : {
+    GalleryAlbumsPage                : {
+        albums     : 'Álbumes de %resource%',
+        empty      : 'No hay álbumes'
+    },
+    GalleryAlbumPhotosPage           : {
+        empty       : 'No hay fotos en este álbum',
+        importPhotos: 'Importar fotos'
+    },
+    GalleryPhotoPage                 : {
         photos   : 'Fotos'
     },
-    OtherGalleryPhotoPage                    : {
+    OtherGalleryPhotoPage            : {
         photos   : 'Fotos'
     },
-    GalleryProfilePhotoPage                    : {
+    GalleryProfilePhotoPage          : {
         cancel            : 'Cancelar',
         photos            : 'Fotos',
         changeProfilePhoto: 'Cambiar foto de perfil'

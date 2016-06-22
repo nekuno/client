@@ -51,12 +51,13 @@ export default {
     },
     GalleryPage                      : {
         importAlbum: 'Importa un álbum',
-        empty      : 'No has importado ninguna foto',
-        myProfile  : 'Mi Perfil',
-        about      : 'Sobre mí',
-        photos     : 'Fotos',
-        questions  : 'Respuestas',
-        interests  : 'Intereses'
+        empty       : 'No has importado ninguna foto',
+        myProfile   : 'Mi Perfil',
+        profilePhoto: 'Foto de perfil',
+        about       : 'Sobre mí',
+        photos      : 'Fotos',
+        questions   : 'Respuestas',
+        interests   : 'Intereses'
     },
     OtherGalleryPage                 : {
         empty    : 'El usuario no ha importado ninguna foto',
@@ -74,15 +75,17 @@ export default {
         importPhotos: 'Importar fotos'
     },
     GalleryPhotoPage                 : {
-        photos   : 'Fotos'
+        photos       : 'Fotos',
+        confirmDelete: '¿Estás seguro de que quieres borrar esta foto?'
     },
     OtherGalleryPhotoPage            : {
         photos   : 'Fotos'
     },
     GalleryProfilePhotoPage          : {
-        cancel            : 'Cancelar',
-        photos            : 'Fotos',
-        changeProfilePhoto: 'Cambiar foto de perfil'
+        confirmSetAsProfilePhoto: '¿Quieres usar esta foto como foto de perfil?',
+        cancel                  : 'Cancelar',
+        photos                  : 'Fotos',
+        changeProfilePhoto      : 'Cambiar foto de perfil'
     },
     LoginPage                        : {
         login          : 'Iniciar sesión',

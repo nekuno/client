@@ -3,43 +3,61 @@ import TopNavBar from '../components/ui/TopNavBar';
 import FullWidthButton from '../components/ui/FullWidthButton';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
+import connectToStores from '../utils/connectToStores';
 import ReactCrop from 'react-image-crop';
+import GalleryPhotoStore from '../stores/GalleryPhotoStore';
+import GalleryPhotoActionCreators from '../actions/GalleryPhotoActionCreators';
+
+function getState() {
+    const photo = GalleryPhotoStore.getSelectedPhoto();
+    
+    return {
+        photo: photo
+    }
+}
 
 @AuthenticatedComponent
 @translate('GalleryProfilePhotoPage')
+@connectToStores([GalleryPhotoStore], getState)
 export default class GalleryProfilePhotoPage extends Component {
 
     static propTypes = {
         // Injected by @AuthenticatedComponent
         user: PropTypes.object.isRequired,
         // Injected by @translate:
-        strings: PropTypes.object
+        strings: PropTypes.object,
         // Injected by @connectToStores:
-        //...
+        photo: PropTypes.object
     };
 
+    static contextTypes = {
+        history: PropTypes.object.isRequired
+    };
+    
     constructor(props) {
         super(props);
 
         this.cropAndSaveAsProfilePhoto = this.cropAndSaveAsProfilePhoto.bind(this);
-        this.deletePhoto = this.deletePhoto.bind(this);
+    }
+
+    componentWillMount() {
+        if (!this.props.photo) {
+            this.context.history.pushState(null, 'gallery');
+        }
     }
 
     cropAndSaveAsProfilePhoto() {
-        
-    }
-
-    deletePhoto() {
-        
+        nekunoApp.confirm(this.props.strings.confirmSetAsProfilePhoto, () => {
+            const photoId = this.props.photo.id;
+            const history = this.context.history;
+            GalleryPhotoActionCreators.setAsProfilePhoto(photoId).then(function() {
+                history.pushState(null, 'gallery');
+            });
+        });
     }
     
     render() {
-        const {strings} = this.props;
-        //TODO: This is just an example (selectedPhoto should be retrieved from PhotoStore)
-        const selectedPhoto = {
-            id: 1,
-            url: 'http://pbs.twimg.com/profile_images/563611650767331328/fgiDg2uB.png'
-        };
+        const {photo, strings} = this.props;
         let crop = { 
             keepSelection: true,
             aspect: 1,
@@ -52,12 +70,17 @@ export default class GalleryProfilePhotoPage extends Component {
                 <TopNavBar leftText={strings.cancel} centerText={strings.photos}/>
                 <div className="page gallery-photo-page">
                     <div id="page-content" className="gallery-photo-content">
-                        <div className="photo-wrapper">
-                            <ReactCrop src={selectedPhoto.url} crop={crop} minWidth={30} keepSelection={true}/>
-                        </div>
+                        {photo ?
+                            <div className="photo-wrapper">
+                                <ReactCrop src={photo.url} crop={crop} minWidth={30} keepSelection={true}/>
+                            </div>
+                                :
+                            ''}
                         <br />
                         <br />
-                        <FullWidthButton onClick={this.cropAndSaveAsProfilePhoto}>{strings.changeProfilePhoto}</FullWidthButton>
+                        {photo ?
+                            <FullWidthButton onClick={this.cropAndSaveAsProfilePhoto}>{strings.changeProfilePhoto}</FullWidthButton>
+                            : ''}
                         <br />
                         <br />
                         <br />
@@ -71,8 +94,9 @@ export default class GalleryProfilePhotoPage extends Component {
 
 GalleryProfilePhotoPage.defaultProps = {
     strings: {
-        cancel            : 'Cancel',
-        photos            : 'Photos',
-        changeProfilePhoto: 'Change profile photo'
+        confirmSetAsProfilePhoto: 'Do you want to use this photo as your profile photo?',
+        cancel                  : 'Cancel',
+        photos                  : 'Photos',
+        changeProfilePhoto      : 'Change profile photo'
     }
 };

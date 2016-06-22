@@ -12,6 +12,7 @@ body #root .App .view .page.gallery-page {
       display: inline-block;
       height: 94px;
       margin-right: 5px;
+      position: relative;
       overflow: hidden;
       width: 94px;
 
@@ -26,6 +27,28 @@ body #root .App .view .page.gallery-page {
           -webkit-border-radius: 2px;
           height: 100%;
           margin: auto;
+        }
+      }
+      .profile-photo-text {
+        background: $deep-purple;
+        font-size: 0.8em;
+        height: 20px;
+        margin-top: -20px;
+        position: absolute;
+        width: 100%;
+
+        .icon-person {
+          font-size: 0.9em;
+          margin-top: 5px;
+
+          &:before {
+            line-height: 20px;
+          }
+        }
+        .text {
+          display: inline-block;
+          height: 20px;
+          vertical-align: bottom;
         }
       }
       

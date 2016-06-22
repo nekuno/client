@@ -1,4 +1,5 @@
 import React, { PropTypes, Component } from 'react';
+import { IMAGES_ROOT } from '../constants/Constants';
 import TopNavBar from '../components/ui/TopNavBar';
 import ToolBar from '../components/ui/ToolBar';
 import Image from '../components/ui/Image';
@@ -7,36 +8,46 @@ import ImportAlbumPopup from '../components/gallery/ImportAlbumPopup';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
-import GalleryAlbumStore from '../stores/GalleryAlbumStore';
+import GalleryPhotoStore from '../stores/GalleryPhotoStore';
+import UserStore from '../stores/UserStore';
 import GalleryAlbumActionCreators from '../actions/GalleryAlbumActionCreators';
+import GalleryPhotoActionCreators from '../actions/GalleryPhotoActionCreators';
 
 function parseId(user) {
     return user.qnoow_id;
 }
 
+function requestData() {
+    GalleryPhotoActionCreators.getPhotos();
+}
+
 function getState(props) {
     const userId = parseId(props.user);
-    //TODO: Retrieve from store
     const noPhotos = false;
-    // const photos = PhotoStore.get(userId);
+    const photos = GalleryPhotoStore.photos;
+    const user = UserStore.get(userId);
+    const profilePhoto = props.user.picture ? `${IMAGES_ROOT}media/cache/resolve/user_avatar_180x180/user/images/${props.user.picture}` : '';
     return {
+        photos,
+        profilePhoto,
         noPhotos
     };
 }
 
 @AuthenticatedComponent
 @translate('GalleryPage')
-@connectToStores([], getState)
+@connectToStores([UserStore, GalleryPhotoStore], getState)
 export default class GalleryPage extends Component {
 
     static propTypes = {
         // Injected by @AuthenticatedComponent
-        user: PropTypes.object.isRequired,
+        user        : PropTypes.object.isRequired,
         // Injected by @translate:
-        strings: PropTypes.object,
+        strings     : PropTypes.object,
         // Injected by @connectToStores:
-        noPhotos: PropTypes.bool
-        //...
+        photos      : PropTypes.array,
+        profilePhoto: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
+        noPhotos    : PropTypes.bool
     };
 
     static contextTypes = {
@@ -49,15 +60,21 @@ export default class GalleryPage extends Component {
         this.handleScroll = this.handleScroll.bind(this);
         this.importAlbum = this.importAlbum.bind(this);
         this.goToPhotoGalleryPage = this.goToPhotoGalleryPage.bind(this);
+        this.triggerUploadFile = this.triggerUploadFile.bind(this);
+        this.uploadFile = this.uploadFile.bind(this);
     }
-
+    
+    componentWillMount() {
+        requestData();
+    }
+    
     handleScroll() {
         //TODO: Will be paginated?
     }
 
-    goToPhotoGalleryPage() {
-        //TODO: Trigger selectPhoto action (and save in PhotoStore, better than using photo ID in the URL)
-        this.context.history.pushState(null, 'gallery-photo');
+    goToPhotoGalleryPage(photo) {
+        GalleryPhotoActionCreators.selectPhoto(photo);
+        window.setTimeout(() => { this.context.history.pushState(null, 'gallery-photo') }, 0);
     }
 
     importAlbumPopUp() {
@@ -71,63 +88,58 @@ export default class GalleryPage extends Component {
         });
     }
 
-    render() {
-        const {noPhotos, strings} = this.props;
-        //TODO: This is just an example (photos should be retrieved from PhotoStore)
-        const photos = [
-            {
-                id: 1,
-                url: 'https://nekuno.com/media/cache/user_avatar_180x180/user/images/msalsas_1445885030.jpg'
-            },
-            {
-                id: 4,
-                url: 'https://nekuno.com/media/cache/resolve/user_avatar_180x180/user/images/juanlu_1446117933.jpg'
-            },
-            {
-                id: 54,
-                url: 'https://nekuno.com/media/cache/resolve/user_avatar_180x180/user/images/yawmoght_1446116493.jpg'
-            },
-            {
-                id: 23,
-                url: 'https://nekuno.com/media/cache/resolve/user_avatar_180x180/user/images/FranRE11_1447096348.jpg'
-            },
-            {
-                id: 7768,
-                url: 'https://nekuno.com/media/cache/resolve/user_avatar_180x180/user/images/eleanombre_1458332606.jpg'
-            },
-            {
-                id: 4354,
-                url: 'https://nekuno.com/media/cache/resolve/user_avatar_180x180/user/images/Neko_1446131816.jpg'
-            },
-            {
-                id: 54344,
-                url: 'https://nekuno.com/media/cache/resolve/user_avatar_180x180/user/images/Elena_1427625582.jpg'
-            },
-            {
-                id: 54354,
-                url: 'https://nekuno.com/media/cache/resolve/user_avatar_180x180/user/images/Pavel_1457487064.jpg'
-            },
-            {
-                id: 436754,
-                url: 'https://nekuno.com/media/cache/resolve/user_avatar_180x180/user/images/Irene_1437241367.jpg'
-            },
-            {
-                id: 5433444,
-                url: 'https://nekuno.com/media/cache/resolve/user_avatar_180x180/user/images/designroot_1440521816.jpg'
-            }
+    triggerUploadFile() {
+        this.refs.fileInput.click();
+    }
+    
+    uploadFile(e) {
+        e.preventDefault();
+        var files;
+        if (e.dataTransfer) {
+            files = e.dataTransfer.files;
+        } else if (e.target) {
+            files = e.target.files;
+        }
+        if (typeof files[0] !== 'undefined') {
+            this.savePhoto(files[0])
+        }
+    }
 
-        ];
+    savePhoto(file) {
+        var fileReader = new FileReader();
+
+        fileReader.onload = function(fileLoadedEvent) {
+            const base64 = fileLoadedEvent.target.result.replace(/^data:image\/(png|jpg);base64,/, "");
+            GalleryPhotoActionCreators.postPhoto({
+                base64: base64
+            })
+            
+        };
+        fileReader.readAsDataURL(file);
+    }
+
+    render() {
+        const {photos, profilePhoto, noPhotos, strings} = this.props;
         return (
             <div className="view view-main" onScroll={this.handleScroll}>
-                <TopNavBar leftMenuIcon={true} centerText={strings.myProfile} rightIcon={'uploadthin'} rightIconsWithoutCircle={true}/>
+                <TopNavBar leftMenuIcon={true} centerText={strings.myProfile} rightIcon={'uploadthin'} rightIconsWithoutCircle={true} onRightLinkClickHandler={this.triggerUploadFile}/>
+                <input style={{display: 'none' }} type='file' multiple ref='fileInput' onChange={this.uploadFile} />
                 <div className="page gallery-page">
                     <div id="page-content" className="gallery-content">
                         <div className="import-album-wrapper photo-wrapper" onClick={this.importAlbumPopUp}>
                             <div className="icon-image"></div>
                             <div className="text">{strings.importAlbum}</div>
                         </div>
+                        {profilePhoto ?
+                            <div className="photo-wrapper" onClick={this.goToPhotoGalleryPage.bind(this, profilePhoto)}>
+                                <div className="photo-absolute-wrapper">
+                                    <Image src={profilePhoto}/>
+                                </div>
+                                <div className="profile-photo-text"><span className="icon-person"></span><div className="text">&nbsp;{strings.profilePhoto}</div></div>
+                            </div>
+                            : null}
                         {noPhotos ? <EmptyMessage text={strings.empty}/> : photos.map(photo => 
-                            <div key={photo.id} className="photo-wrapper" onClick={this.goToPhotoGalleryPage}>
+                            <div key={photo.id} className="photo-wrapper" onClick={this.goToPhotoGalleryPage.bind(this, photo)}>
                                 <div className="photo-absolute-wrapper">
                                     <Image src={photo.url}/>
                                 </div>
@@ -155,12 +167,13 @@ export default class GalleryPage extends Component {
 
 GalleryPage.defaultProps = {
     strings: {
-        importAlbum: 'Import an album',
-        empty      : 'You have not imported any photo yet',
-        myProfile  : 'My profile',
-        about      : 'About me',
-        photos     : 'Photos',
-        questions  : 'Answers',
-        interests  : 'Interests'
+        importAlbum : 'Import an album',
+        empty       : 'You have not imported any photo yet',
+        myProfile   : 'My profile',
+        profilePhoto: 'Profile photo',
+        about       : 'About me',
+        photos      : 'Photos',
+        questions   : 'Answers',
+        interests   : 'Interests'
     }
 };

@@ -20,7 +20,7 @@ export const API_URLS = {
     GALLERY_PHOTOS           : API_ROOT + 'photos',
     GALLERY_PHOTO            : API_ROOT + 'photos/{id}',
     GALLERY_PHOTO_PROFILE    : API_ROOT + 'photos/{id}/profile',
-    OTHER_GALLERY_PHOTOS     : API_ROOT + 'users/{id}/photos',
+    OTHER_GALLERY_PHOTOS     : API_ROOT + 'photos/{id}',
 
     OWN_INTERESTS            : API_ROOT + 'content?type[]={type}',
     COMPARED_INTERESTS       : API_ROOT + 'content/compare/{userId}?type[]={type}&showOnlyCommon={showOnlyCommon}'

@@ -6,7 +6,12 @@ import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
 import ReactCrop from 'react-image-crop';
 import GalleryPhotoStore from '../stores/GalleryPhotoStore';
+import * as UserActionCreators from '../actions/UserActionCreators';
 import GalleryPhotoActionCreators from '../actions/GalleryPhotoActionCreators';
+
+function parseId(user) {
+    return user.qnoow_id;
+}
 
 function getState() {
     const photo = GalleryPhotoStore.getSelectedPhoto();
@@ -47,10 +52,12 @@ export default class GalleryProfilePhotoPage extends Component {
     }
 
     cropAndSaveAsProfilePhoto() {
-        nekunoApp.confirm(this.props.strings.confirmSetAsProfilePhoto, () => {
-            const photoId = this.props.photo.id;
+        const {photo, user, strings} = this.props;
+        nekunoApp.confirm(strings.confirmSetAsProfilePhoto, () => {
+            const photoId = photo.id;
             const history = this.context.history;
             GalleryPhotoActionCreators.setAsProfilePhoto(photoId).then(function() {
+                UserActionCreators.requestUser(parseId(user), ['picture']);
                 history.pushState(null, 'gallery');
             });
         });

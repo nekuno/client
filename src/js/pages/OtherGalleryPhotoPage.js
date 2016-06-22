@@ -3,35 +3,49 @@ import TopNavBar from '../components/ui/TopNavBar';
 import Image from '../components/ui/Image';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
+import connectToStores from '../utils/connectToStores';
+import GalleryPhotoStore from '../stores/GalleryPhotoStore';
+
+function getState() {
+    const photo = GalleryPhotoStore.getSelectedPhoto();
+
+    return {
+        photo: photo
+    }
+}
 
 @AuthenticatedComponent
 @translate('OtherGalleryPhotoPage')
+@connectToStores([GalleryPhotoStore], getState)
 export default class OtherGalleryPhotoPage extends Component {
 
     static propTypes = {
         // Injected by @AuthenticatedComponent
-        user: PropTypes.object.isRequired,
+        user   : PropTypes.object.isRequired,
         // Injected by @translate:
-        strings: PropTypes.object
+        strings: PropTypes.object,
         // Injected by @connectToStores:
-        //...
+        photo  : PropTypes.object
     };
-    
+
+    componentWillMount() {
+        if (!this.props.photo) {
+            this.context.history.pushState(null, 'gallery');
+        }
+    }
+
     render() {
-        const {strings} = this.props;
-        //TODO: This is just an example (selectedPhoto should be retrieved from PhotoStore)
-        const selectedPhoto = {
-            id: 1,
-            url: 'http://pbs.twimg.com/profile_images/563611650767331328/fgiDg2uB.png'
-        };
+        const {photo, strings} = this.props;
         return (
             <div className="view view-main">
                 <TopNavBar leftIcon={'left-arrow'} centerText={strings.photos}/>
                 <div className="page gallery-photo-page">
                     <div id="page-content" className="gallery-photo-content">
-                        <div className="photo-wrapper">
-                            <Image src={selectedPhoto.url}/>
-                        </div>
+                        {photo ?
+                            <div className="photo-wrapper">
+                                <Image src={photo.url}/>
+                            </div> 
+                            : ''}
                         <br />
                         <br />
                         <br />

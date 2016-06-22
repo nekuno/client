@@ -4,23 +4,26 @@ import BaseStore from './BaseStore';
 class GalleryPhotoStore extends BaseStore {
 
     setInitial() {
-        this._photos = [];
-        this._noPhotos = false;
+        this._photos = {};
+        this._noPhotos = {};
         this._error = false;
         this._selectedPhoto = null;
     }
 
     _registerToActions(action) {
+        let userId;
         super._registerToActions(action);
         switch (action.type) {
             case ActionTypes.REQUEST_PHOTOS_SUCCESS:
-                this._photos = action.response;
-                this._noPhotos = this._photos.length === 0;
+                userId = action.userId;
+                this._photos[userId] = action.response;
+                this._noPhotos[userId] = this._photos.length === 0;
                 this.emitChange();
                 break;
             case ActionTypes.UPLOAD_PHOTO_SUCCESS:
-                this._photos.push(action.response);
-                this._noPhotos = this._photos.length === 0;
+                userId = action.userId;
+                this._photos[userId].push(action.response);
+                this._noPhotos[userId] = this._photos.length === 0;
                 this.emitChange();
                 break;
             case ActionTypes.REQUEST_PHOTOS_ERROR:
@@ -36,12 +39,12 @@ class GalleryPhotoStore extends BaseStore {
         }
     }
 
-    get photos() {
-        return this._photos || [];
+    get(userId) {
+        return this._photos[userId] || [];
     }
     
-    noPhotos() {
-        return this._noPhotos;
+    noPhotos(userId) {
+        return this._noPhotos[userId];
     }
     
     getSelectedPhoto() {

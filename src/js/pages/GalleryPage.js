@@ -17,15 +17,14 @@ function parseId(user) {
     return user.qnoow_id;
 }
 
-function requestData() {
-    GalleryPhotoActionCreators.getPhotos();
+function requestData(props) {
+    GalleryPhotoActionCreators.getPhotos(parseId(props.user));
 }
 
 function getState(props) {
     const userId = parseId(props.user);
     const noPhotos = false;
-    const photos = GalleryPhotoStore.photos;
-    const user = UserStore.get(userId);
+    const photos = GalleryPhotoStore.get(userId);
     const profilePhoto = props.user.picture ? `${IMAGES_ROOT}media/cache/resolve/user_avatar_180x180/user/images/${props.user.picture}` : '';
     return {
         photos,
@@ -65,7 +64,7 @@ export default class GalleryPage extends Component {
     }
     
     componentWillMount() {
-        requestData();
+        requestData(this.props);
     }
     
     handleScroll() {
@@ -101,16 +100,17 @@ export default class GalleryPage extends Component {
             files = e.target.files;
         }
         if (typeof files[0] !== 'undefined') {
-            this.savePhoto(files[0])
+            const userId = parseId(this.props.user);
+            this.savePhoto(userId, files[0])
         }
     }
 
-    savePhoto(file) {
+    savePhoto(userId, file) {
         var fileReader = new FileReader();
 
         fileReader.onload = function(fileLoadedEvent) {
             const base64 = fileLoadedEvent.target.result.replace(/^data:image\/(png|jpg);base64,/, "");
-            GalleryPhotoActionCreators.postPhoto({
+            GalleryPhotoActionCreators.postPhoto(userId, {
                 base64: base64
             })
             

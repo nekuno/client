@@ -18,13 +18,13 @@ class GalleryPhotoStore extends BaseStore {
             case ActionTypes.REQUEST_PHOTOS_SUCCESS:
                 userId = action.userId;
                 this._photos[userId] = action.response;
-                this._noPhotos[userId] = this._photos.length === 0;
+                this._noPhotos[userId] = this._photos[userId].length === 0;
                 this.emitChange();
                 break;
             case ActionTypes.UPLOAD_PHOTO_SUCCESS:
                 userId = action.userId;
                 this._photos[userId].push(action.response);
-                this._noPhotos[userId] = this._photos.length === 0;
+                this._noPhotos[userId] = this._photos[userId].length === 0;
                 this.emitChange();
                 break;
             case ActionTypes.UPLOAD_PHOTO_ERROR:
@@ -39,7 +39,7 @@ class GalleryPhotoStore extends BaseStore {
                 userId = action.userId;
                 let index = this._photos[userId].findIndex(photo => photo.id === action.id);
                 this._photos[userId].splice(index, 1);
-                this._noPhotos[userId] = this._photos.length === 0;
+                this._noPhotos[userId] = this._photos[userId].length === 0;
                 this.emitChange();
                 break;
             case ActionTypes.SELECT_PHOTO:

@@ -120,8 +120,7 @@ export default class GalleryPage extends Component {
             const base64 = fileLoadedEvent.target.result.replace(/^data:image\/(png|jpg);base64,/, "");
             GalleryPhotoActionCreators.postPhoto(userId, {
                 base64: base64
-            })
-            
+            });
         };
         fileReader.readAsDataURL(file);
     }

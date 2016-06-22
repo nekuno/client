@@ -7,6 +7,11 @@ import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
 import GalleryAlbumStore from '../stores/GalleryAlbumStore';
+import GalleryPhotoActionCreators from '../actions/GalleryPhotoActionCreators';
+
+function parseId(user) {
+    return user.qnoow_id;
+}
 
 function getState() {
     const name = GalleryAlbumStore.getAlbumName();
@@ -77,7 +82,11 @@ export default class GalleryAlbumPhotosPage extends Component {
     }
 
     importPhotos() {
-        //TODO: Call post photo for each selectedPhoto
+        const userId = parseId(this.props.user);
+        this.state.selectedPhotos.forEach(selectedPhoto => GalleryPhotoActionCreators.postPhoto(userId, {
+            url: selectedPhoto.picture
+        }));
+        this.context.history.pushState(null, 'gallery');
     }
 
     render() {

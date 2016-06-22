@@ -12,16 +12,16 @@ import GalleryPhotoStore from '../stores/GalleryPhotoStore';
 import UserStore from '../stores/UserStore';
 
 function requestData(props) {
-    const userId = props.params.userId;
+    const userId = parseInt(props.params.userId);
     UserActionCreators.requestUser(userId, ['username', 'email', 'picture', 'status']);
     GalleryPhotoActionCreators.getOtherPhotos(userId);
 }
 
 function getState(props) {
-    const otherUserId = props.params.userId;
+    const otherUserId = parseInt(props.params.userId);
     const otherUser = UserStore.get(otherUserId);
-    const noPhotos = GalleryPhotoStore.noPhotos(otherUserId);
     const photos = GalleryPhotoStore.get(otherUserId);
+    const noPhotos = GalleryPhotoStore.noPhotos(otherUserId);
     return {
         otherUser,
         photos,
@@ -31,7 +31,7 @@ function getState(props) {
 
 @AuthenticatedComponent
 @translate('OtherGalleryPage')
-@connectToStores([UserStore], getState)
+@connectToStores([UserStore, GalleryPhotoStore], getState)
 export default class OtherGalleryPage extends Component {
 
     static propTypes = {

@@ -117,7 +117,7 @@ export default class GalleryPage extends Component {
         var fileReader = new FileReader();
 
         fileReader.onload = function(fileLoadedEvent) {
-            const base64 = fileLoadedEvent.target.result.replace(/^data:image\/(png|jpg);base64,/, "");
+            const base64 = fileLoadedEvent.target.result.replace(/^data:image\/(.+);base64,/, "");
             GalleryPhotoActionCreators.postPhoto(userId, {
                 base64: base64
             });

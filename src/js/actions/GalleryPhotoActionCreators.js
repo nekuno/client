@@ -34,12 +34,12 @@ export default {
         }, {userId, data});
     },
 
-    deletePhoto(data) {
-        return dispatchAsync(GalleryPhotosAPI.deletePhoto(data), {
+    deletePhoto(userId, id) {
+        return dispatchAsync(GalleryPhotosAPI.deletePhoto(id), {
             request: ActionTypes.DELETE_PHOTO,
             success: ActionTypes.DELETE_PHOTO_SUCCESS,
             failure: ActionTypes.DELETE_PHOTO_ERROR
-        }, {data});
+        }, {userId, id});
     },
 
     setAsProfilePhoto(photoId) {

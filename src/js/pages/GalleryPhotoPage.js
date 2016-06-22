@@ -7,6 +7,10 @@ import connectToStores from '../utils/connectToStores';
 import GalleryPhotoStore from '../stores/GalleryPhotoStore';
 import GalleryPhotoActionCreators from '../actions/GalleryPhotoActionCreators';
 
+function parseId(user) {
+    return user.qnoow_id;
+}
+
 function getState() {
     const photo = GalleryPhotoStore.getSelectedPhoto();
     
@@ -52,10 +56,11 @@ export default class GalleryPhotoPage extends Component {
     }
 
     deletePhoto() {
+        const userId = parseId(this.props.user)
         nekunoApp.confirm(this.props.strings.confirmDelete, () => {
             const photoId = this.props.photo.id;
             const history = this.context.history;
-            GalleryPhotoActionCreators.deletePhoto(photoId).then(function() {
+            GalleryPhotoActionCreators.deletePhoto(userId, photoId).then(function() {
                 history.pushState(null, 'gallery');
             });
         });

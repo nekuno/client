@@ -30,6 +30,13 @@ class GalleryPhotoStore extends BaseStore {
                 this._error = action.error;
                 this.emitChange();
                 break;
+            case ActionTypes.DELETE_PHOTO_SUCCESS:
+                userId = action.userId;
+                let index = this._photos[userId].findIndex(photo => photo.id === action.id);
+                this._photos[userId].splice(index, 1);
+                this._noPhotos[userId] = this._photos.length === 0;
+                this.emitChange();
+                break;
             case ActionTypes.SELECT_PHOTO:
                 this._selectedPhoto = action.response;
                 this.emitChange();

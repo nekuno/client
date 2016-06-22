@@ -62,6 +62,11 @@ class LoginStore extends BaseStore {
                 this.emitChange();
                 break;
 
+            case ActionTypes.REQUEST_SET_PROFILE_PHOTO_SUCCESS:
+                this._user.picture = action.response.picture;
+                this.emitChange();
+                break;
+                
             default:
                 break;
         }

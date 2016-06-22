@@ -21,8 +21,13 @@ UserStore.dispatchToken = register(action => {
         mergeIntoBag(_users, responseUsers);
         UserStore.emitChange();
     }
-    if (action.type == ActionTypes.LOGOUT_USER) {
-        _users = {};
+    switch(action.type) {
+        case ActionTypes.LOGOUT_USER:
+            _users = {};
+            break;
+
+        default:
+            break;
     }
 });
 

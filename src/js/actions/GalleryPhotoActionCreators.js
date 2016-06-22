@@ -47,6 +47,6 @@ export default {
             request: ActionTypes.REQUEST_SET_PROFILE_PHOTO,
             success: ActionTypes.REQUEST_SET_PROFILE_PHOTO_SUCCESS,
             failure: ActionTypes.REQUEST_SET_PROFILE_PHOTO_ERROR
-        }, {photoId});
+        }, {});
     }
 }

@@ -13,7 +13,7 @@ export default {
     },
 
     selectPhoto(photo) {
-        return dispatch(ActionTypes.SELECT_PHOTO, {
+        dispatch(ActionTypes.SELECT_PHOTO, {
             response : photo
         });
     },

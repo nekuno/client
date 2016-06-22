@@ -1,5 +1,6 @@
 import { dispatch } from '../dispatcher/Dispatcher';
 import ActionTypes from '../constants/ActionTypes';
+import ConnectActionCreators from '../actions/ConnectActionCreators';
 
 export default {
 
@@ -7,13 +8,17 @@ export default {
         return hello(resource).login({scope: scope}).then(function(response) {
             var accessToken = response.authResponse.access_token;
             console.log('accessToken:', accessToken);
-            hello(resource).api('me/albums').then(function(status) {
-                return dispatch(ActionTypes.REQUEST_ALBUMS_SUCCESS, {
-                    response : {
-                        resource: resource,
-                        scope: scope,
-                        items: status.data
-                    }
+            hello(resource).api('me').then(function(status) {
+                var resourceId = status.id.toString();
+                hello(resource).api('me/albums').then(function(status) {
+                    dispatch(ActionTypes.REQUEST_ALBUMS_SUCCESS, {
+                        response: {
+                            resource: resource,
+                            scope: scope,
+                            items: status.data
+                        }
+                    });
+                    return ConnectActionCreators.connect(resource, accessToken, resourceId);
                 });
             });
         }, (error) => {

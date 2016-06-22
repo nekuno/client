@@ -1,12 +1,13 @@
 import ActionTypes from '../constants/ActionTypes';
 import BaseStore from './BaseStore';
+import { getValidationErrors } from '../utils/StoreUtils';
 
 class GalleryPhotoStore extends BaseStore {
 
     setInitial() {
         this._photos = {};
         this._noPhotos = {};
-        this._error = false;
+        this._errors = '';
         this._selectedPhoto = null;
     }
 
@@ -26,8 +27,12 @@ class GalleryPhotoStore extends BaseStore {
                 this._noPhotos[userId] = this._photos.length === 0;
                 this.emitChange();
                 break;
+            case ActionTypes.UPLOAD_PHOTO_ERROR:
+                this._errors = getValidationErrors(action.error);
+                this.emitChange();
+                break;
             case ActionTypes.REQUEST_PHOTOS_ERROR:
-                this._error = action.error;
+                this._errors = getValidationErrors(action.error);
                 this.emitChange();
                 break;
             case ActionTypes.DELETE_PHOTO_SUCCESS:
@@ -56,6 +61,12 @@ class GalleryPhotoStore extends BaseStore {
     
     getSelectedPhoto() {
         return this._selectedPhoto;
+    }
+
+    getErrors() {
+        const errors = this._errors;
+        this._errors = '';
+        return errors;
     }
 }
 

@@ -25,11 +25,13 @@ function getState(props) {
     const userId = parseId(props.user);
     const noPhotos = false;
     const photos = GalleryPhotoStore.get(userId);
+    const errors = GalleryPhotoStore.getErrors();
     const profilePhoto = props.user.picture ? `${IMAGES_ROOT}media/cache/resolve/user_avatar_180x180/user/images/${props.user.picture}` : '';
     return {
         photos,
         profilePhoto,
-        noPhotos
+        noPhotos,
+        errors
     };
 }
 
@@ -65,6 +67,12 @@ export default class GalleryPage extends Component {
     
     componentWillMount() {
         requestData(this.props);
+    }
+    
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.errors) {
+            nekunoApp.alert(nextProps.errors);
+        }
     }
     
     handleScroll() {

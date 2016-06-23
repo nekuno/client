@@ -65,7 +65,7 @@ export default class GalleryProfilePhotoPage extends Component {
             GalleryPhotoActionCreators.setAsProfilePhoto(photoId, crop).then(function() {
                 UserActionCreators.requestUser(parseId(user), ['picture']);
                 history.pushState(null, 'gallery');
-            });
+            }, (error) => { console.log(error) });
         });
     }
 

@@ -101,8 +101,8 @@ export default class GalleryPage extends Component {
                 window.setTimeout(() => {
                     this.context.history.pushState(null, 'gallery-albums')
                 }, 500);
-            });
-        });
+            }, (error) => { console.log(error) });
+        }, (error) => { console.log(error) });
     }
 
     triggerUploadFile() {

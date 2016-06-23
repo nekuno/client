@@ -3,9 +3,9 @@ import {FACEBOOK_SCOPE, TWITTER_SCOPE, GOOGLE_SCOPE, SPOTIFY_SCOPE} from '../con
 class SocialNetworkService {
 
     constructor() {
-        this._accessTokens = [];
-        this._resourceIds = [];
-        this._scopes = [];
+        this._accessTokens = {};
+        this._resourceIds = {};
+        this._scopes = {};
     }
 
     login(resource, scope) {
@@ -16,7 +16,10 @@ class SocialNetworkService {
             return new Promise(function (resolve) {return resolve(true)});
         }
         this._scopes[resource] = scope;
-        return hello(resource).login({scope: scope}).then((response) => this._setResourceData(resource, response));
+        return hello(resource).login({scope: scope}).then(
+            (response) => this._setResourceData(resource, response), 
+            (error) => { console.log(error) }
+        );
     }
     
     isLoggedIn(resource, scope) {
@@ -40,7 +43,10 @@ class SocialNetworkService {
 
     _setResourceData(resource, response) {
         this._accessTokens[resource] = response.authResponse.access_token;
-        return hello(resource).api('me').then((status) => this._resourceIds[resource] = status.id.toString());
+        return hello(resource).api('me').then(
+            (status) => this._resourceIds[resource] = status.id.toString(),
+            (error) => { console.log(error) }
+        );
     }
     
     _getDefaultScope(resource) {

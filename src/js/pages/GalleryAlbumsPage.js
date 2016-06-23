@@ -72,8 +72,8 @@ export default class GalleryAlbumsPage extends Component {
                 window.setTimeout(() => {
                     this.context.history.pushState(null, 'gallery-album-photos');
                 }, 500);
-            });
-        });
+            }, (error) => { console.log(error) });
+        }, (error) => { console.log(error) });
     }
 
     render() {

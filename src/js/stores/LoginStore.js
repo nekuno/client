@@ -72,7 +72,6 @@ class LoginStore extends BaseStore {
             case ActionTypes.REQUEST_OWN_USER_SUCCESS:
                 let userId = action.userId;
                 this._user = action.response.entities.users[userId];
-                this._user.id = this._user.qnoow_id;
                 this.emitChange();
                 break;
             

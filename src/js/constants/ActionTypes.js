@@ -26,6 +26,10 @@ export default keyMirror({
     REQUEST_USER_SUCCESS: null,
     REQUEST_USER_ERROR  : null,
 
+    REQUEST_OWN_USER        : null,
+    REQUEST_OWN_USER_SUCCESS: null,
+    REQUEST_OWN_USER_ERROR  : null,
+
     REQUEST_PROFILE        : null,
     REQUEST_PROFILE_SUCCESS: null,
     REQUEST_PROFILE_ERROR  : null,

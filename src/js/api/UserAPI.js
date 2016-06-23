@@ -22,6 +22,10 @@ import {
     getData
 } from '../utils/APIUtils';
 
+export function getOwnUser(url = `users`) {
+    return fetchUser(url);
+}
+
 export function getUser(userId, url = `users/${userId}`) {
     return fetchUser(url);
 }

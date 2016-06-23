@@ -10,8 +10,11 @@ import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
 import GalleryPhotoStore from '../stores/GalleryPhotoStore';
 import UserStore from '../stores/UserStore';
+import WorkerStore from '../stores/WorkersStore';
 import GalleryAlbumActionCreators from '../actions/GalleryAlbumActionCreators';
 import GalleryPhotoActionCreators from '../actions/GalleryPhotoActionCreators';
+import ConnectActionCreators from '../actions/ConnectActionCreators';
+import SocialNetworkService from '../services/SocialNetworkService';
 
 function parseId(user) {
     return user.qnoow_id;
@@ -90,8 +93,15 @@ export default class GalleryPage extends Component {
 
     importAlbum(resource, scope) {
         nekunoApp.closeModal('.popup-import-album');
-        GalleryAlbumActionCreators.getAlbums(resource, scope).then(() => {
-            window.setTimeout(() => { this.context.history.pushState(null, 'gallery-albums') }, 500);
+        SocialNetworkService.login(resource, scope).then(() => {
+            if (!WorkerStore.isConnected(resource)) {
+                ConnectActionCreators.connect(resource, SocialNetworkService.getAccessToken(resource), SocialNetworkService.getResourceId(resource));
+            }
+            GalleryAlbumActionCreators.getAlbums(resource, scope).then(() => {
+                window.setTimeout(() => {
+                    this.context.history.pushState(null, 'gallery-albums')
+                }, 500);
+            });
         });
     }
 

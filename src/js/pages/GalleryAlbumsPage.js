@@ -6,6 +6,7 @@ import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
 import GalleryAlbumStore from '../stores/GalleryAlbumStore';
 import GalleryAlbumActionCreators from '../actions/GalleryAlbumActionCreators';
+import SocialNetworkService from '../services/SocialNetworkService';
 
 function firstToUpperCase(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
@@ -62,8 +63,16 @@ export default class GalleryAlbumsPage extends Component {
     }
 
     importAlbum(id, name) {
-        GalleryAlbumActionCreators.getAlbum({id: id, name: name}, this.props.resource, this.props.scope).then(() => {
-            window.setTimeout(() => { this.context.history.pushState(null, 'gallery-album-photos') }, 500);
+        const {resource, scope} = this.props;
+        SocialNetworkService.login(resource, scope).then(() => {
+            GalleryAlbumActionCreators.getAlbum({
+                id: id,
+                name: name
+            }, resource, scope).then(() => {
+                window.setTimeout(() => {
+                    this.context.history.pushState(null, 'gallery-album-photos');
+                }, 500);
+            });
         });
     }
 

@@ -42,11 +42,11 @@ export default {
         }, {userId, id});
     },
 
-    setAsProfilePhoto(photoId) {
-        return dispatchAsync(GalleryPhotosAPI.setAsProfilePhoto(photoId), {
+    setAsProfilePhoto(photoId, crop) {
+        return dispatchAsync(GalleryPhotosAPI.setAsProfilePhoto(photoId, crop), {
             request: ActionTypes.REQUEST_SET_PROFILE_PHOTO,
             success: ActionTypes.REQUEST_SET_PROFILE_PHOTO_SUCCESS,
             failure: ActionTypes.REQUEST_SET_PROFILE_PHOTO_ERROR
-        }, {});
+        }, {crop});
     }
 }

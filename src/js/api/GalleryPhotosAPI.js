@@ -17,6 +17,6 @@ export function deletePhoto(id, url = API_URLS.GALLERY_PHOTO.replace('{id}', id)
     return deleteData(url);
 }
 
-export function setAsProfilePhoto(id, url = API_URLS.GALLERY_PHOTO_PROFILE.replace('{id}', id)) {
-    return postData(url);
+export function setAsProfilePhoto(id, crop, url = API_URLS.GALLERY_PHOTO_PROFILE.replace('{id}', id)) {
+    return postData(url, crop);
 }

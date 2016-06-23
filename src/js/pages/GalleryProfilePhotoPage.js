@@ -43,6 +43,11 @@ export default class GalleryProfilePhotoPage extends Component {
         super(props);
 
         this.cropAndSaveAsProfilePhoto = this.cropAndSaveAsProfilePhoto.bind(this);
+        this.onChange = this.onChange.bind(this);
+
+        this.state = {
+            crop: {}
+        };
     }
 
     componentWillMount() {
@@ -53,14 +58,21 @@ export default class GalleryProfilePhotoPage extends Component {
 
     cropAndSaveAsProfilePhoto() {
         const {photo, user, strings} = this.props;
+        const {crop} = this.state;
         nekunoApp.confirm(strings.confirmSetAsProfilePhoto, () => {
             const photoId = photo.id;
             const history = this.context.history;
-            GalleryPhotoActionCreators.setAsProfilePhoto(photoId).then(function() {
+            GalleryPhotoActionCreators.setAsProfilePhoto(photoId, crop).then(function() {
                 UserActionCreators.requestUser(parseId(user), ['picture']);
                 history.pushState(null, 'gallery');
             });
         });
+    }
+
+    onChange(crop) {
+        this.setState({
+            crop: crop
+        })
     }
     
     render() {
@@ -79,7 +91,7 @@ export default class GalleryProfilePhotoPage extends Component {
                     <div id="page-content" className="gallery-photo-content">
                         {photo ?
                             <div className="photo-wrapper">
-                                <ReactCrop src={photo.url} crop={crop} minWidth={30} keepSelection={true}/>
+                                <ReactCrop src={photo.url} crop={crop} minWidth={30} keepSelection={true} onChange={this.onChange} onImageLoaded={this.onChange}/>
                             </div>
                                 :
                             ''}

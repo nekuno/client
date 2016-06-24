@@ -1,6 +1,8 @@
 .notification {
 	padding: 10px 5% 5px 5%;
-
+	.notification-picture {
+		cursor: pointer;
+	}
 	.notification-picture, .notification-picture-right {
 		display: inline-block;
 		margin-right: 5%;

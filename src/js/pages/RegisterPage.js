@@ -8,6 +8,7 @@ import connectToStores from '../utils/connectToStores';
 import ConnectActionCreators from '../actions/ConnectActionCreators';
 import InvitationStore from '../stores/InvitationStore';
 import { FACEBOOK_SCOPE, TWITTER_SCOPE, GOOGLE_SCOPE, SPOTIFY_SCOPE } from '../constants/Constants';
+import SocialNetworkService from '../services/SocialNetworkService';
 
 function getState(props) {
 
@@ -87,34 +88,14 @@ export default class RegisterPage extends Component {
     }
 
     handleSocialNetwork(resource, scope) {
-        console.log('handleSocialNetwork', resource);
-        var history = this.context.history;
-        var token = this.props.token;
-        hello(resource).login({scope: scope}).then(function(response) {
-            var accessToken = response.authResponse.access_token;
-            console.log('accessToken:', accessToken);
-            hello(resource).api('me').then(function(status) {
-                    console.log('api(\'me\')', status);
-                    var resourceId = status.id.toString();
-                    console.log('resourceId: ', resourceId);
-                    let profile = {
-                        picture : status.picture,
-                        username: status.username,
-                        email   : status.email,
-                        birthday: status.birthday,
-                        location: status.location,
-                        gender  : status.gender
-                    };
-                    ConnectActionCreators.connectRegister(token, resource, accessToken, resourceId, profile);
-                    history.pushState(null, '/join');
-                },
-                function(status) {
-                    nekunoApp.alert(resource + ' login failed: ' + status.error.message);
-                }
-            )
-        }, function(response) {
-            nekunoApp.alert(resource + ' login failed: ' + response.error.message);
-        });
+        const {history} = this.context;
+        const {token} = this.props;
+        SocialNetworkService.login(resource, scope).then(() => {
+            const profile = SocialNetworkService.getProfile(resource);
+            ConnectActionCreators.connectRegister(token, resource, SocialNetworkService.getAccessToken(resource), SocialNetworkService.getResourceId(resource), profile);
+            history.pushState(null, '/join');
+            
+        }, (status) => { nekunoApp.alert(resource + ' login failed: ' + status.error.message) });
     }
 
     render() {

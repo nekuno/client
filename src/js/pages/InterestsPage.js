@@ -25,9 +25,11 @@ function getState(props) {
     const userId = parseId(props.user);
     const pagination = InterestStore.getPagination(userId) || {};
     const interests = InterestStore.get(userId) || [];
+    const noInterests = InterestStore.noInterests(userId) || false;
     return {
         pagination,
-        interests
+        interests,
+        noInterests
     };
 }
 
@@ -43,7 +45,8 @@ export default class InterestsPage extends Component {
         strings   : PropTypes.object,
         // Injected by @connectToStores:
         pagination: PropTypes.object,
-        interests : PropTypes.array.isRequired
+        interests : PropTypes.array.isRequired,
+        noInterests : PropTypes.bool
     };
 
     constructor(props) {
@@ -158,8 +161,7 @@ export default class InterestsPage extends Component {
 
     render() {
 
-        const {pagination, interests, user, strings} = this.props;
-        const isArrayEmpty = Array.isArray(interests) && interests.length === 0;
+        const {pagination, interests, noInterests, user, strings} = this.props;
 
         return (
             <div className="view view-main" onScroll={this.state.carousel ? function() {} : this.handleScroll}>
@@ -170,7 +172,7 @@ export default class InterestsPage extends Component {
                 }
                 <div className="page interests-page">
                     <div id="page-content" className="interests-content">
-                        {isArrayEmpty ?
+                        {noInterests ?
                             <EmptyMessage text={strings.empty} />
                             :
                             this.state.carousel ?

@@ -108,8 +108,6 @@ export default {
         photos               : 'Fotos',
         questions            : 'Respuestas',
         interests            : 'Intereses',
-        empty                : 'Este usuario no tiene ningún interés todavía.'
-
     },
     OtherQuestionsPage               : {
         coincidences: 'Coincidencias',

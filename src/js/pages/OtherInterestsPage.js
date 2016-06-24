@@ -30,10 +30,12 @@ function getState(props) {
     const otherUserId = props.params.userId;
     const pagination = InterestStore.getPagination(otherUserId) || {};
     const interests = InterestStore.get(otherUserId) || [];
+    const noInterests = InterestStore.noInterests(otherUserId) || false;
     const otherUser = UserStore.get(otherUserId);
     return {
         pagination,
         interests,
+        noInterests,
         otherUser
     };
 }
@@ -186,8 +188,7 @@ export default class OtherInterestsPage extends Component {
     }
 
     render() {
-        const {interests, otherUser, user, params, pagination, strings} = this.props;
-        const isArrayEmpty = Array.isArray(interests) && interests.length === 0;
+        const {interests, noInterests, otherUser, user, params, pagination, strings} = this.props;
         const ownUserId = parseId(user);
         const otherUserId = parseInt(params.userId);
         const otherUserPicture = otherUser && otherUser.picture ? `${IMAGES_ROOT}media/cache/resolve/user_avatar_60x60/user/images/${otherUser.picture}` : `${IMAGES_ROOT}media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
@@ -206,17 +207,12 @@ export default class OtherInterestsPage extends Component {
                         <div className="common-content-switch">
                             <TextRadios labels={[{key: 0, text: strings.all}, {key: 1, text: strings.common}]} value={this.state.commonContent} onClickHandler={this.onFilterCommonClick}/>
                         </div>
-                        {isArrayEmpty ?
-                            <div className="contents-empty">
-                                {strings.empty}
-                            </div>
-                            :
+                        {noInterests ? '' :
                             this.state.carousel ?
                                 <CardContentCarousel contents={interests} userId={otherUserId}/>
                                 :
                                 <CardContentList contents={interests} userId={otherUserId}
                                                  onClickHandler={this.onContentClick}/>
-
                         }
                         <br />
                         {this.state.carousel ? '' : <div className="loading-gif" style={pagination.nextLink ? {} : {display: 'none'}}></div>}
@@ -241,7 +237,6 @@ export default class OtherInterestsPage extends Component {
             </div>
         );
     }
-
 };
 
 OtherInterestsPage.defaultProps = {
@@ -254,7 +249,6 @@ OtherInterestsPage.defaultProps = {
         about                : 'About',
         photos               : 'Photos',
         questions            : 'Answers',
-        interests            : 'Interests',
-        empty                : 'This user has no interests yet.'
+        interests            : 'Interests'
     }
 };

@@ -107,9 +107,7 @@ export default {
         about                : 'About',
         photos               : 'Photos',
         questions            : 'Answers',
-        interests            : 'Interests',
-        empty                : 'This user has no interests yet.'
-
+        interests            : 'Interests'
     },
     OtherQuestionsPage               : {
         coincidences: 'Coincidences',

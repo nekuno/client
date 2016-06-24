@@ -23,7 +23,7 @@ import {
 } from '../utils/APIUtils';
 
 export function getOwnUser(url = `users`) {
-    return fetchUser(url);
+    return getData(url);
 }
 
 export function getUser(userId, url = `users/${userId}`) {

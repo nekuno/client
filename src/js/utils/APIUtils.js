@@ -18,7 +18,7 @@ import LocaleStore from '../stores/LocaleStore';
 
 // Read more about Normalizr: https://github.com/gaearon/normalizr
 
-const userSchema = new Schema('users', {idAttribute: 'qnoow_id'});
+const userSchema = new Schema('users', {idAttribute: 'id'});
 const profileSchema = new Schema('profiles');
 const statsSchema = new Schema('stats');
 const comparedStatsSchema = new Schema('comparedStats');

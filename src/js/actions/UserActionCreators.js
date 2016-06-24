@@ -11,12 +11,12 @@ import ProfileStore from '../stores/ProfileStore';
 import FilterStore from '../stores/FilterStore';
 import LocaleStore from '../stores/LocaleStore';
 
-export function requestOwnUser(userId) {
+export function requestOwnUser() {
     return dispatchAsync(UserAPI.getOwnUser(), {
         request: ActionTypes.REQUEST_OWN_USER,
         success: ActionTypes.REQUEST_OWN_USER_SUCCESS,
         failure: ActionTypes.REQUEST_OWN_USER_ERROR
-    }, {userId});
+    });
 }
 
 export function requestUser(userId, fields) {

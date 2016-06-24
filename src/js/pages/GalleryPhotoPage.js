@@ -8,7 +8,7 @@ import GalleryPhotoStore from '../stores/GalleryPhotoStore';
 import GalleryPhotoActionCreators from '../actions/GalleryPhotoActionCreators';
 
 function parseId(user) {
-    return user.qnoow_id;
+    return user.id;
 }
 
 function getState() {

@@ -23,7 +23,7 @@ function requestData(props) {
     const {user} = props;
     const userId = parseId(user);
 
-    UserActionCreators.requestUser(userId, ['username', 'email', 'picture', 'status']);
+    UserActionCreators.requestOwnUser();
     UserActionCreators.requestProfile(userId);
     UserActionCreators.requestMetadata();
     UserActionCreators.requestStats(userId);

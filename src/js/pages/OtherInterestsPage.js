@@ -17,7 +17,7 @@ import InterestStore from '../stores/InterestStore';
 import InterestsByUserStore from '../stores/InterestsByUserStore';
 
 function parseId(user) {
-    return user.qnoow_id;
+    return user.id;
 }
 
 function requestData(props) {

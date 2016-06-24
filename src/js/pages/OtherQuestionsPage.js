@@ -14,7 +14,7 @@ import QuestionStore from '../stores/QuestionStore';
 import QuestionsByUserIdStore from '../stores/QuestionsByUserIdStore';
 
 function parseId(user) {
-    return user.qnoow_id;
+    return user.id;
 }
 
 /**

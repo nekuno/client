@@ -14,7 +14,6 @@ class LoginStore extends BaseStore {
 
     _registerToActions(action) {
 
-        var id;
         switch (action.type) {
 
             case ActionTypes.AUTO_LOGIN:
@@ -26,10 +25,7 @@ class LoginStore extends BaseStore {
                         console.log('jwt token expired on', (new Date(exp * 1e3).toString()));
                     } else {
                         this._jwt = jwt;
-                        this._user = {};
-                        id = jwt_decode(this._jwt).user.id;
-                        this._user.id = id;
-                        this._user.qnoow_id = id;
+                        this._user = {id: jwt_decode(this._jwt).user.id};
                         console.log('Autologin success!');
                         this.emitChange();
                     }
@@ -44,11 +40,8 @@ class LoginStore extends BaseStore {
             case ActionTypes.REQUEST_LOGIN_USER_SUCCESS:
                 this._error = null;
                 this._jwt = action.response.jwt;
+                this._user = jwt_decode(this._jwt).user;
                 localStorage.setItem('jwt', this._jwt);
-                this._user = {};
-                id = jwt_decode(this._jwt).user.id;
-                this._user.id = id;
-                this._user.qnoow_id = id;
                 this.emitChange();
                 break;
 
@@ -70,8 +63,7 @@ class LoginStore extends BaseStore {
                 break;
 
             case ActionTypes.REQUEST_OWN_USER_SUCCESS:
-                let userId = action.userId;
-                this._user = action.response.entities.users[userId];
+                this._user = action.response;
                 this.emitChange();
                 break;
             

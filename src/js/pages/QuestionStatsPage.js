@@ -9,15 +9,15 @@ import UserStore from '../stores/UserStore';
 import QuestionStore from '../stores/QuestionStore';
 import QuestionsByUserIdStore from '../stores/QuestionsByUserIdStore';
 
-function parseUserId(user) {
-    return user.qnoow_id;
+function parseId(user) {
+    return user.id;
 }
 
 /**
  * Retrieves state from stores for current props.
  */
 function getState(props) {
-    const currentUserId = parseUserId(props.user);
+    const currentUserId = parseId(props.user);
     const question = QuestionStore.getQuestion();
     const userAnswer = QuestionStore.getUserAnswer(currentUserId, question.questionId);
     const isJustRegistered = Object.keys(QuestionsByUserIdStore.getByUserId(currentUserId)).length < 4;
@@ -71,7 +71,7 @@ export default class QuestionStatsPage extends Component {
                 <div className="page question-stats-page">
                     <div id="page-content" className="question-stats-content">
                         {userAnswer && question ?
-                            <QuestionStats question={question} userAnswer={userAnswer} userId={user.qnoow_id}/>
+                            <QuestionStats question={question} userAnswer={userAnswer} userId={parseId(user)}/>
                             :
                             ''
                         }

@@ -10,7 +10,7 @@ import * as UserActionCreators from '../actions/UserActionCreators';
 import GalleryPhotoActionCreators from '../actions/GalleryPhotoActionCreators';
 
 function parseId(user) {
-    return user.qnoow_id;
+    return user.id;
 }
 
 function getState() {

@@ -17,7 +17,7 @@ import ConnectActionCreators from '../actions/ConnectActionCreators';
 import SocialNetworkService from '../services/SocialNetworkService';
 
 function parseId(user) {
-    return user.qnoow_id;
+    return user.id;
 }
 
 function requestData(props) {

@@ -33,7 +33,7 @@ export default class CardContent extends Component {
         super(props);
 
         this.onRate = this.onRate.bind(this);
-        this.onClickHandler = this.onClickHandler.bind(this);
+        this.handleClick = this.handleClick.bind(this);
 
         this.state = {
             embedHtml: null
@@ -49,7 +49,7 @@ export default class CardContent extends Component {
         }
     }
 
-    onClickHandler() {
+    handleClick() {
         const {url, types, embed_type, embed_id, onClickHandler} = this.props;
         if (typeof onClickHandler !== 'undefined') {
             onClickHandler();
@@ -96,7 +96,7 @@ export default class CardContent extends Component {
         return (
             <div className="card person-card">
                 {isImage ? '' :
-                    <div className="card-header" onClick={this.onClickHandler}>
+                    <div className="card-header" onClick={this.handleClick}>
                         <a>
                             <div className="card-title">
                                 {cardTitle}
@@ -107,10 +107,10 @@ export default class CardContent extends Component {
                         </div>
                     </div>
                 }
-                <div className="card-icons" onClick={this.onClickHandler}>
+                <div className="card-icons" onClick={this.handleClick}>
                     <CardIcons types={types}/>
                 </div>
-                <div className="card-content" onClick={this.onClickHandler}>
+                <div className="card-content" onClick={this.handleClick}>
                     <div className="card-content-inner">
                         {this.state.embedHtml ? this.state.embedHtml :
                             <a>

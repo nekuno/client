@@ -1,6 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import { FACEBOOK_SCOPE, TWITTER_SCOPE, GOOGLE_SCOPE, SPOTIFY_SCOPE } from '../../constants/Constants';
 import ConnectActionCreators from '../../actions/ConnectActionCreators';
+import SocialNetworkService from '../../services/SocialNetworkService';
 
 export default class SocialWheels extends Component {
 
@@ -113,28 +114,10 @@ export default class SocialWheels extends Component {
     };
 
     connect = function(resource, scope) {
-
-        hello(resource).login({scope: scope}).then(function(response) {
-            var accessToken = response.authResponse.access_token;
-            console.log('accessToken:', accessToken);
-            hello(resource).api('me').then(function(status) {
-                    console.log('api(\'me\')', status);
-                    var resourceId = status.id.toString();
-                    console.log('resourceId: ', resourceId);
-                    ConnectActionCreators.connect(resource, accessToken, resourceId)
-                        .then(() => {
-
-                        }, (error) => {
-                            console.log(error);
-                            nekunoApp.alert(error.error);
-                        });
-                },
-                function(status) {
-                    nekunoApp.alert(resource + ' login failed: ' + status.error.message);
-                }
-            )
-        }, function(response) {
-            nekunoApp.alert(resource + ' login failed: ' + response.error.message);
+        SocialNetworkService.login(resource, scope).then(() => {
+            ConnectActionCreators.connect(resource, SocialNetworkService.getAccessToken(resource), SocialNetworkService.getResourceId(resource));
+        }, (status) => {
+            nekunoApp.alert(resource + ' login failed: ' + status.error.message);
         });
     };
 

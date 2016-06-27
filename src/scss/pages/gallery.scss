@@ -1,0 +1,120 @@
+@import '../_partials/colors';
+
+body #root .App .view .page.gallery-page {
+  #page-content {
+    text-align: center;
+    width: 93%;
+    .photo-wrapper {
+      border-radius: 2px;
+      -moz-border-radius: 2px;
+      -webkit-border-radius: 2px;
+      cursor: pointer;
+      display: inline-block;
+      height: 94px;
+      margin-right: 5px;
+      position: relative;
+      overflow: hidden;
+      width: 94px;
+
+      .photo-absolute-wrapper {
+        height: 94px;
+        margin-left: -53px;
+        width: 200px;
+
+        img {
+          border-radius: 2px;
+          -moz-border-radius: 2px;
+          -webkit-border-radius: 2px;
+          height: 100%;
+          margin: auto;
+        }
+      }
+      .profile-photo-text {
+        background: $deep-purple;
+        font-size: 0.8em;
+        height: 20px;
+        margin-top: -20px;
+        position: absolute;
+        width: 100%;
+
+        .icon-person {
+          font-size: 0.9em;
+          margin-top: 5px;
+
+          &:before {
+            line-height: 20px;
+          }
+        }
+        .text {
+          display: inline-block;
+          height: 20px;
+          vertical-align: bottom;
+        }
+      }
+      
+      &.import-album-wrapper {
+        background: $deep-purple;
+        position: relative;
+
+        .icon-image {
+          margin: 20px auto;
+        }
+        .text {
+          bottom: 0;
+          font-size: 0.8em;
+          margin: 5px auto;
+          position: absolute;
+          text-align: center;
+          width: 100%;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+      }
+
+      &.selected-photo {
+
+        position: relative;
+
+        img {
+          opacity: 0.5;
+        }
+        .icon {
+          margin: 35px auto 0 35px;
+          position: absolute;
+          width: 22px;
+          height: 22px;
+          background-color: $deep-purple;
+          border-radius: 22px;
+          border: 1px solid $deep-purple;
+          box-sizing: border-box;
+          z-index: 11;
+
+          &:after {
+            content: " ";
+            background: no-repeat center;
+            background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20x%3D'0px'%20y%3D'0px'%20viewBox%3D'0%200%2012%209'%20xml%3Aspace%3D'preserve'%3E%3Cpolygon%20fill%3D'%23ffffff'%20points%3D'12%2C0.7%2011.3%2C0%203.9%2C7.4%200.7%2C4.2%200%2C4.9%203.9%2C8.8%203.9%2C8.8%203.9%2C8.8%20'%2F%3E%3C%2Fsvg%3E");
+            -webkit-background-size: 12px 9px;
+            background-size: 12px 9px;
+            position: absolute;
+            left: 50%;
+            margin-left: -6px;
+            top: 50%;
+            margin-top: -4px;
+            width: 12px;
+            height: 9px;
+
+          }
+        }
+      }
+    }
+  }
+}
+@media only screen and (max-width: 300px) {
+  body #root .App .view .page.gallery-page {
+    #page-content {
+      margin-left: 5px;
+      width: 85%;
+    }
+  }
+}

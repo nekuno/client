@@ -53,6 +53,14 @@
 					line-height: 0.7;
 				}
 
+				.icon-person {
+					font-size: 1.3em;
+
+					&::before {
+						line-height: normal;
+					}
+				}
+
 				.icons-large-text {
 					font-size: 0.8em;
 					font-weight: bold;

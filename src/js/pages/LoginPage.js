@@ -1,8 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 const ReactLink = require('react/lib/ReactLink');
 const ReactStateSetters = require('react/lib/ReactStateSetters');
-import { Link } from 'react-router';
-import RegularTopNavbar from '../components/ui/RegularTopNavbar';
+import TopNavBar from '../components/ui/TopNavBar';
 import TextInput from '../components/ui/TextInput';
 import PasswordInput from '../components/ui/PasswordInput';
 import FullWidthButton from '../components/ui/FullWidthButton';
@@ -85,9 +84,9 @@ export default class LoginPage extends Component {
         return (
             <div className="view view-main">
                 {LoginStore.justLoggedOut ?
-                    <RegularTopNavbar leftText={strings.cancel} centerText={strings.login} onLeftLinkClickHandler={this.goHome}/>
-                :
-                    <RegularTopNavbar leftText={strings.cancel} centerText={strings.login}/>
+                    <TopNavBar leftText={strings.cancel} centerText={strings.login} onLeftLinkClickHandler={this.goHome}/>
+                    :
+                    <TopNavBar leftText={strings.cancel} centerText={strings.login}/>
                 }
 
                 <div className="page">

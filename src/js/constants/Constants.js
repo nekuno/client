@@ -17,6 +17,10 @@ export const API_URLS = {
     USER_DATA_STATUS         : API_ROOT + 'data/status',
     CONTENT_TAG_SUGGESTIONS  : API_ROOT + 'recommendations/content/tags?search={search}&limit=4',
     PROFILE_TAG_SUGGESTIONS  : API_ROOT + 'profile/tags/{type}?search={search}&limit=4',
+    GALLERY_PHOTOS           : API_ROOT + 'photos',
+    GALLERY_PHOTO            : API_ROOT + 'photos/{id}',
+    GALLERY_PHOTO_PROFILE    : API_ROOT + 'photos/{id}/profile',
+    OTHER_GALLERY_PHOTOS     : API_ROOT + 'photos/{id}',
 
     OWN_INTERESTS            : API_ROOT + 'content?type[]={type}',
     COMPARED_INTERESTS       : API_ROOT + 'content/compare/{userId}?type[]={type}&showOnlyCommon={showOnlyCommon}'

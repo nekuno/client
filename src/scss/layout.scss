@@ -147,6 +147,10 @@ body {
 					&:last-of-type {
 						margin-left: 15px;
 					}
+
+					&.no-circle {
+						background-color: initial;
+					}
 				}
 
 				.small-icon-wrapper {

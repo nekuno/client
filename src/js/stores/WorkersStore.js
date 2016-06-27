@@ -141,6 +141,11 @@ class WorkersStore extends BaseStore {
     getAll() {
         return this._networks;
     }
+    
+    isConnected(resource) {
+        let network = this._networks.find(network => network.resource == resource);
+        return network.fetching || network.fetched || network.processing || network.processed;
+    }
 
 }
 

@@ -1,6 +1,5 @@
 import React, { PropTypes, Component } from 'react';
-import LeftMenuTopNavbar from '../components/ui/LeftMenuTopNavbar';
-import RegularTopNavbar from '../components/ui/RegularTopNavbar';
+import TopNavBar from '../components/ui/TopNavBar';
 import FullWidthButton from '../components/ui/FullWidthButton';
 import QuestionStats from '../components/questions/QuestionStats';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
@@ -10,15 +9,15 @@ import UserStore from '../stores/UserStore';
 import QuestionStore from '../stores/QuestionStore';
 import QuestionsByUserIdStore from '../stores/QuestionsByUserIdStore';
 
-function parseUserId(user) {
-    return user.qnoow_id;
+function parseId(user) {
+    return user.id;
 }
 
 /**
  * Retrieves state from stores for current props.
  */
 function getState(props) {
-    const currentUserId = parseUserId(props.user);
+    const currentUserId = parseId(props.user);
     const question = QuestionStore.getQuestion();
     const userAnswer = QuestionStore.getUserAnswer(currentUserId, question.questionId);
     const isJustRegistered = Object.keys(QuestionsByUserIdStore.getByUserId(currentUserId)).length < 4;
@@ -60,19 +59,19 @@ export default class QuestionStatsPage extends Component {
     }
 
     render() {
-        const {user, strings} = this.props;
+        const {user, question, userAnswer, isJustRegistered, strings} = this.props;
         return (
             <div className="view view-main">
-                {this.props.isJustRegistered ?
-                    <RegularTopNavbar centerText={strings.statistics} rightText={strings.next} onRightLinkClickHandler={this.handleContinueClick}/>
+                {isJustRegistered ?
+                    <TopNavBar centerText={strings.statistics} rightText={strings.next} onRightLinkClickHandler={this.handleContinueClick}/>
                     :
-                    <LeftMenuTopNavbar centerText={strings.statistics} rightText={strings.next} onRightLinkClickHandler={this.handleContinueClick}/>
+                    <TopNavBar leftMenuIcon={true} centerText={strings.statistics} rightText={strings.next} onRightLinkClickHandler={this.handleContinueClick}/>
                 }
 
                 <div className="page question-stats-page">
                     <div id="page-content" className="question-stats-content">
-                        {this.props.userAnswer && this.props.question ?
-                            <QuestionStats question={this.props.question} userAnswer={this.props.userAnswer} userId={user.qnoow_id}/>
+                        {userAnswer && question ?
+                            <QuestionStats question={question} userAnswer={userAnswer} userId={parseId(user)}/>
                             :
                             ''
                         }

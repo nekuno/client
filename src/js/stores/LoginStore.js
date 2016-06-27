@@ -25,7 +25,7 @@ class LoginStore extends BaseStore {
                         console.log('jwt token expired on', (new Date(exp * 1e3).toString()));
                     } else {
                         this._jwt = jwt;
-                        this._user = jwt_decode(jwt).user;
+                        this._user = {id: jwt_decode(this._jwt).user.id};
                         console.log('Autologin success!');
                         this.emitChange();
                     }
@@ -40,8 +40,8 @@ class LoginStore extends BaseStore {
             case ActionTypes.REQUEST_LOGIN_USER_SUCCESS:
                 this._error = null;
                 this._jwt = action.response.jwt;
-                localStorage.setItem('jwt', this._jwt);
                 this._user = jwt_decode(this._jwt).user;
+                localStorage.setItem('jwt', this._jwt);
                 this.emitChange();
                 break;
 
@@ -62,6 +62,16 @@ class LoginStore extends BaseStore {
                 this.emitChange();
                 break;
 
+            case ActionTypes.REQUEST_OWN_USER_SUCCESS:
+                this._user = action.response;
+                this.emitChange();
+                break;
+            
+            case ActionTypes.REQUEST_SET_PROFILE_PHOTO_SUCCESS:
+                this._user = action.response;
+                this.emitChange();
+                break;
+                
             default:
                 break;
         }

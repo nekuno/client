@@ -1,6 +1,5 @@
 import React, { PropTypes, Component } from 'react';
-import LeftMenuRightSearchTopNavbar from '../components/ui/LeftMenuRightSearchTopNavbar';
-import LeftLinkRightSearchTopNavbar from '../components/ui/LeftLinkRightSearchTopNavbar';
+import TopNavBar from '../components/ui/TopNavBar';
 import ToolBar from '../components/ui/ToolBar';
 import EmptyMessage from '../components/ui/EmptyMessage';
 import FilterContentPopup from '../components/ui/FilterContentPopup';
@@ -14,7 +13,7 @@ import InterestStore from '../stores/InterestStore';
 import InterestsByUserStore from '../stores/InterestsByUserStore';
 
 function parseId(user) {
-    return user.qnoow_id;
+    return user.id;
 }
 
 function requestData(props) {
@@ -26,9 +25,11 @@ function getState(props) {
     const userId = parseId(props.user);
     const pagination = InterestStore.getPagination(userId) || {};
     const interests = InterestStore.get(userId) || [];
+    const noInterests = InterestStore.noInterests(userId) || false;
     return {
         pagination,
-        interests
+        interests,
+        noInterests
     };
 }
 
@@ -44,7 +45,8 @@ export default class InterestsPage extends Component {
         strings   : PropTypes.object,
         // Injected by @connectToStores:
         pagination: PropTypes.object,
-        interests : PropTypes.array.isRequired
+        interests : PropTypes.array.isRequired,
+        noInterests : PropTypes.bool
     };
 
     constructor(props) {
@@ -54,7 +56,7 @@ export default class InterestsPage extends Component {
         this.onSearchClick = this.onSearchClick.bind(this);
         this.handleScroll = this.handleScroll.bind(this);
         this.onContentClick = this.onContentClick.bind(this);
-        this.onNavbarLeftLinkClick = this.onNavbarLeftLinkClick.bind(this);
+        this.onNavBarLeftLinkClick = this.onNavBarLeftLinkClick.bind(this);
         this.initSwiper = this.initSwiper.bind(this);
 
         this.state = {
@@ -126,7 +128,7 @@ export default class InterestsPage extends Component {
         }
     }
 
-    onNavbarLeftLinkClick() {
+    onNavBarLeftLinkClick() {
         this.setState({
             carousel: false
         });
@@ -159,19 +161,18 @@ export default class InterestsPage extends Component {
 
     render() {
 
-        const {pagination, interests, user, strings} = this.props;
-        const isArrayEmpty = Array.isArray(interests) && interests.length === 0;
+        const {pagination, interests, noInterests, user, strings} = this.props;
 
         return (
             <div className="view view-main" onScroll={this.state.carousel ? function() {} : this.handleScroll}>
                 {this.state.carousel ?
-                    <LeftLinkRightSearchTopNavbar leftText={strings.cancel} centerText={strings.myProfile} onLeftLinkClickHandler={this.onNavbarLeftLinkClick} onRightLinkClickHandler={this.onSearchClick}/>
+                    <TopNavBar leftText={strings.cancel} centerText={strings.myProfile} rightIcon={'search'} onLeftLinkClickHandler={this.onNavBarLeftLinkClick} onRightLinkClickHandler={this.onSearchClick}/>
                     :
-                    <LeftMenuRightSearchTopNavbar centerText={strings.myProfile} onRightLinkClickHandler={this.onSearchClick}/>
+                    <TopNavBar leftMenuIcon={true} centerText={strings.myProfile} rightIcon={'search'} onRightLinkClickHandler={this.onSearchClick}/>
                 }
                 <div className="page interests-page">
                     <div id="page-content" className="interests-content">
-                        {isArrayEmpty ?
+                        {noInterests ?
                             <EmptyMessage text={strings.empty} />
                             :
                             this.state.carousel ?
@@ -190,9 +191,10 @@ export default class InterestsPage extends Component {
                 </div>
                 <ToolBar links={[
                 {'url': '/profile', 'text': strings.about},
+                {'url': '/gallery', 'text': strings.photos},
                 {'url': '/questions', 'text': strings.questions},
                 {'url': '/interests', 'text': strings.interests}
-                ]} activeLinkIndex={2} arrowUpLeft={'83%'}/>
+                ]} activeLinkIndex={3} arrowUpLeft={'85%'}/>
                 <FilterContentPopup userId={parseId(user)} contentsCount={pagination.total || 0} ownContent={true}/>
             </div>
         );
@@ -205,6 +207,7 @@ InterestsPage.defaultProps = {
         cancel   : 'Cancel',
         myProfile: 'My profile',
         about    : 'About me',
+        photos   : 'Photos',
         questions: 'Answers',
         interests: 'Interests',
         empty    : 'You have no interests yet. Please, connect more social media or explore your yarns and let us know what are you interested in.'

@@ -18,6 +18,14 @@ export default class Image extends Component {
         }
     }
 
+    componentWillReceiveProps(nextProps) {
+        if(this.props.src !== nextProps.src) {
+            this.setState({
+                src: nextProps.src
+            });
+        }
+    }
+
     onImageError() {
         if (!this.props.defaultSrc) {
             this.setState({

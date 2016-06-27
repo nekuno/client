@@ -49,3 +49,27 @@
 		bottom: 80px;
 	}
 }
+
+@media screen and (max-width: 275px) {
+	#bottom-toolbar.toolbar {
+		.toolbar-inner {
+			display: block;
+			.toolbar-link-wrapper {
+				display: inline-block;
+				width: 21%;
+			}
+		}
+	}
+}
+
+@media screen and (min-width: 276px) and (max-width: 305px) {
+	#bottom-toolbar.toolbar {
+		.toolbar-inner {
+			display: block;
+			.toolbar-link-wrapper {
+				display: inline-block;
+				width: 23%;
+			}
+		}
+	}
+}

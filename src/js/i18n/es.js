@@ -44,9 +44,48 @@ export default {
         cancel   : 'Cancelar',
         myProfile: 'Mi Perfil',
         about    : 'Sobre mí',
+        photos   : 'Fotos',
         questions: 'Respuestas',
         interests: 'Intereses',
         empty    : 'No tienes ningún interés todavía. Por favor, conecta tus redes sociales o explora tus hilos y dinos lo que te interesa.'
+    },
+    GalleryPage                      : {
+        importAlbum: 'Importa un álbum',
+        empty       : 'No has importado ninguna foto',
+        myProfile   : 'Mi Perfil',
+        profilePhoto: 'Foto de perfil',
+        about       : 'Sobre mí',
+        photos      : 'Fotos',
+        questions   : 'Respuestas',
+        interests   : 'Intereses'
+    },
+    OtherGalleryPage                 : {
+        empty    : 'El usuario no ha importado ninguna foto',
+        about    : 'Acerca de',
+        photos   : 'Fotos',
+        questions: 'Respuestas',
+        interests: 'Intereses'
+    },
+    GalleryAlbumsPage                : {
+        albums     : 'Álbumes de %resource%',
+        empty      : 'No hay álbumes'
+    },
+    GalleryAlbumPhotosPage           : {
+        empty       : 'No hay fotos en este álbum',
+        importPhotos: 'Importar fotos'
+    },
+    GalleryPhotoPage                 : {
+        photos       : 'Fotos',
+        confirmDelete: '¿Estás seguro de que quieres borrar esta foto?'
+    },
+    OtherGalleryPhotoPage            : {
+        photos   : 'Fotos'
+    },
+    GalleryProfilePhotoPage          : {
+        confirmSetAsProfilePhoto: '¿Quieres usar esta foto como foto de perfil?',
+        cancel                  : 'Cancelar',
+        photos                  : 'Fotos',
+        changeProfilePhoto      : 'Cambiar foto de perfil'
     },
     LoginPage                        : {
         login          : 'Iniciar sesión',
@@ -66,21 +105,21 @@ export default {
         all                  : 'Todo',
         common               : 'En común',
         about                : 'Acerca de',
+        photos               : 'Fotos',
         questions            : 'Respuestas',
         interests            : 'Intereses',
-        empty                : 'Este usuario no tiene ningún interés todavía.'
-
     },
     OtherQuestionsPage               : {
-        cancel      : 'Cancelar',
         coincidences: 'Coincidencias',
         about       : 'Acerca de',
+        photos      : 'Fotos',
         questions   : 'Respuestas',
         interests   : 'Intereses'
     },
     QuestionsPage                    : {
         myProfile: 'Mi Perfil',
         about    : 'Sobre mí',
+        photos   : 'Fotos',
         questions: 'Respuestas',
         interests: 'Intereses'
     },
@@ -126,16 +165,19 @@ export default {
         loadingMessage: 'Cargando hilos'
     },
     RecommendationPage               : {
-        loadingMessage: 'Cargando recomendaciones'
+        loadingMessage: 'Cargando recomendaciones',
+        confirmDelete : '¿Estás seguro de que quieres borrar este hilo?'
     },
     UserPage                         : {
         aboutMe  : 'Sobre mí',
+        photos   : 'Fotos',
         questions: 'Respuestas',
         interests: 'Intereses',
         myProfile: 'Mi Perfil'
     },
     OtherUserPage                    : {
         about       : 'Acerca de',
+        photos      : 'Fotos',
         questions   : 'Respuestas',
         interests   : 'Intereses',
         like        : 'Me gusta',
@@ -214,9 +256,6 @@ export default {
         text     : 'Responde más preguntas del test',
         completed: 'preguntas completadas'
     },
-    TopRightRecommendationIcons      : {
-        confirmDelete: '¿Estás seguro de que quieres borrar este hilo?'
-    },
     CardContent                      : {
         like         : 'Me interesa',
         unlike       : 'Quitar',
@@ -227,6 +266,10 @@ export default {
         like      : 'Me gusta',
         unlike    : 'Quitar me gusta',
         similarity: 'Similaridad'
+    },
+    ImportAlbumPopup                 : {
+        close      : 'Cerrar',
+        importAlbum: 'Importar un álbum'
     },
     FilterContentPopup               : {
         close    : 'Cerrar',

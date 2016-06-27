@@ -26,6 +26,10 @@ export default keyMirror({
     REQUEST_USER_SUCCESS: null,
     REQUEST_USER_ERROR  : null,
 
+    REQUEST_OWN_USER        : null,
+    REQUEST_OWN_USER_SUCCESS: null,
+    REQUEST_OWN_USER_ERROR  : null,
+
     REQUEST_PROFILE        : null,
     REQUEST_PROFILE_SUCCESS: null,
     REQUEST_PROFILE_ERROR  : null,
@@ -169,6 +173,28 @@ export default keyMirror({
     WORKERS_PROCESS_LINK  : null,
     WORKERS_PROCESS_FINISH: null,
     WORKERS_USER_STATUS   : null,
+
+    REQUEST_PHOTOS        : null,
+    REQUEST_PHOTOS_SUCCESS: null,
+    REQUEST_PHOTOS_ERROR  : null,
+    SELECT_PHOTO          : null,
+
+    REQUEST_ALBUMS_SUCCESS: null,
+    REQUEST_ALBUMS_ERROR  : null,
+    REQUEST_ALBUM_SUCCESS : null,
+    REQUEST_ALBUM_ERROR   : null,
+    
+    UPLOAD_PHOTO          : null,
+    UPLOAD_PHOTO_SUCCESS  : null,
+    UPLOAD_PHOTO_ERROR    : null,
+
+    DELETE_PHOTO          : null,
+    DELETE_PHOTO_SUCCESS  : null,
+    DELETE_PHOTO_ERROR    : null,
+
+    REQUEST_SET_PROFILE_PHOTO        : null,
+    REQUEST_SET_PROFILE_PHOTO_SUCCESS: null,
+    REQUEST_SET_PROFILE_PHOTO_ERROR  : null,
 
     REQUEST_USER_DATA_STATUS        : null,
     REQUEST_USER_DATA_STATUS_SUCCESS: null,

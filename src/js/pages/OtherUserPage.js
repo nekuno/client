@@ -3,7 +3,7 @@ import { IMAGES_ROOT } from '../constants/Constants';
 import User from '../components/User';
 import OtherProfileData from '../components/profile/OtherProfileData';
 import ProfileDataList from '../components/profile/ProfileDataList'
-import OtherUserTopNavbar from '../components/profile/OtherUserTopNavbar';
+import TopNavBar from '../components/ui/TopNavBar';
 import ToolBar from '../components/ui/ToolBar';
 import Button from '../components/ui/Button';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
@@ -174,7 +174,7 @@ export default class OtherUserPage extends Component {
         const blockClass = block ? "icon-block blocked" : "icon-block";
         return (
             <div className="view view-main">
-                <OtherUserTopNavbar centerText={otherUser ? otherUser.username : ''} onClickMessageLink={this.handleClickMessageLink}/>
+                <TopNavBar leftMenuIcon={true} centerText={otherUser ? otherUser.username : ''} rightIcon={'message'} onRightLinkClickHandler={this.handleClickMessageLink}/>
                 <div className="page user-page">
                     {otherUser && profile ?
                         <div id="page-content">
@@ -205,8 +205,9 @@ export default class OtherUserPage extends Component {
                 {otherUser && profileWithMetadata ?
                     <ToolBar links={[
                     {'url': `/profile/${parseId(otherUser)}`, 'text': strings.about},
+                    {'url': `/users/${parseId(otherUser)}/other-gallery`, 'text': strings.photos},
                     {'url': `/users/${parseId(otherUser)}/other-questions`, 'text': strings.questions},
-                    {'url': `/users/${parseId(otherUser)}/other-interests`, 'text': strings.interests}]} activeLinkIndex={0} arrowUpLeft={'13%'}/>
+                    {'url': `/users/${parseId(otherUser)}/other-interests`, 'text': strings.interests}]} activeLinkIndex={0} arrowUpLeft={'10%'}/>
                     : ''}
             </div>
         );
@@ -216,6 +217,7 @@ export default class OtherUserPage extends Component {
 OtherUserPage.defaultProps = {
     strings: {
         about       : 'About',
+        photos      : 'Photos',
         questions   : 'Answers',
         interests   : 'Interests',
         like        : 'Like',

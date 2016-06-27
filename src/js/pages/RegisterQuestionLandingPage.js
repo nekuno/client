@@ -7,7 +7,7 @@ import translate from '../i18n/Translate';
 import * as QuestionActionCreators from '../actions/QuestionActionCreators';
 
 function parseUserId(user) {
-    return user.qnoow_id;
+    return user.id;
 }
 
 /**

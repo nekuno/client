@@ -4,6 +4,7 @@ import { createStore, mergeIntoBag, isInBag } from '../utils/StoreUtils';
 import selectn from 'selectn';
 
 let _interests = {};
+let _noInterests = {};
 let _pagination = {};
 
 const InterestStore = createStore({
@@ -13,6 +14,10 @@ const InterestStore = createStore({
 
     get(id) {
         return _interests[id];
+    },
+
+    noInterests(id) {
+        return _noInterests[id];
     },
 
     getPagination(userId) {
@@ -57,6 +62,7 @@ InterestStore.dispatchToken = register(action => {
 
         mergeIntoBag(_interests[currentUserId], orderedInterests);
         _pagination[currentUserId] = pagination;
+        _noInterests[currentUserId] = _interests[currentUserId].length === 0;
         InterestStore.emitChange();
     }
 

@@ -13,7 +13,7 @@ export default class CardContentCarousel extends Component {
                 <div className="swiper-wrapper content-carousel">
                     {this.props.contents.map((content, index) =>
                         <div key={index} className="swiper-slide">
-                            <CardContent {...content} loggedUserId={this.props.userId} hideLikeButton={false}/>
+                            <CardContent {...content} embed_id={content.embed ? content.embed.id : null} embed_type={content.embed ? content.embed.type : null} loggedUserId={this.props.userId} hideLikeButton={false}/>
                         </div>)}
                 </div>
             </div>

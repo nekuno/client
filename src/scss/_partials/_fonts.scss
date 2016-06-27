@@ -115,6 +115,7 @@ $nekuno-logo-font: 'klinic_slabmedium';
 }
 .icon-image:before {
 	content: "\e90a";
+	font-size: 2.7em;
 }
 .icon-instagram:before {
 	content: "\e90b";
@@ -153,6 +154,9 @@ $nekuno-logo-font: 'klinic_slabmedium';
 }
 .icon-person:before {
 	content: "\e917";
+	font-size: 1.4em;
+	line-height: 16px;
+	vertical-align: text-bottom;
 }
 .icon-users:before {
 	content: "\e92e";
@@ -193,6 +197,7 @@ $nekuno-logo-font: 'klinic_slabmedium';
 }
 .icon-uploadthin:before {
 	content: "\e924";
+	font-size: 1.7em;
 }
 .icon-upload-cload-image:before {
 	content: "\e925";

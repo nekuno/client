@@ -1,8 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import selectn from 'selectn';
 import { IMAGES_ROOT } from '../constants/Constants';
-import LeftMenuTopNavbar from '../components/ui/LeftMenuTopNavbar';
-import RegularTopNavbar from '../components/ui/RegularTopNavbar';
+import TopNavBar from '../components/ui/TopNavBar';
 import RegisterQuestionsFinishedPopup from '../components/questions/RegisterQuestionsFinishedPopup';
 import AnswerQuestion from '../components/questions/AnswerQuestion';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
@@ -13,8 +12,8 @@ import UserStore from '../stores/UserStore';
 import QuestionStore from '../stores/QuestionStore';
 import QuestionsByUserIdStore from '../stores/QuestionsByUserIdStore';
 
-function parseUserId(user) {
-    return user.qnoow_id;
+function parseId(user) {
+    return user.id;
 }
 
 /**
@@ -23,7 +22,7 @@ function parseUserId(user) {
 function requestData(props) {
     const {user, params} = props;
     const questionId = params.hasOwnProperty('questionId') ? parseInt(params.questionId) : null;
-    const currentUserId = parseUserId(user);
+    const currentUserId = parseId(user);
     
     return QuestionActionCreators.requestQuestion(currentUserId, questionId);
 }
@@ -33,7 +32,7 @@ function requestData(props) {
  */
 function getState(props) {
     const {user, params} = props;
-    const currentUserId = parseUserId(user);
+    const currentUserId = parseId(user);
     const currentUser = UserStore.get(currentUserId);
     const question = QuestionStore.getQuestion();
     const isFirstQuestion = QuestionStore.isFirstQuestion(currentUserId);
@@ -116,7 +115,7 @@ export default class AnswerQuestionPage extends Component {
     }
 
     skipQuestionHandler() {
-        let userId = parseUserId(this.props.user);
+        let userId = parseId(this.props.user);
         let questionId = this.props.question.questionId;
         QuestionActionCreators.skipQuestion(userId, questionId);
     }
@@ -128,7 +127,7 @@ export default class AnswerQuestionPage extends Component {
     render() {
 
         const {user, strings, errors, noMoreQuestions, isFirstQuestion, userAnswer, question, registerQuestionsLength, answersLength, isJustRegistered, isJustCompleted} = this.props;
-        const userId = selectn('qnoow_id', user);
+        const userId = parseId(user);
         const navBarTitle = isJustRegistered || isJustCompleted ? strings.question + ' ' + (answersLength+1) + '/' + registerQuestionsLength : strings.question;
         const ownPicture = user.picture ? `${IMAGES_ROOT}media/cache/resolve/user_avatar_60x60/user/images/${user.picture}` : `${IMAGES_ROOT}media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
         const isRegisterQuestion = selectn('isRegisterQuestion', question);
@@ -136,9 +135,9 @@ export default class AnswerQuestionPage extends Component {
         return (
             <div className="view view-main">
                 {isJustRegistered ?
-                    <RegularTopNavbar centerText={navBarTitle}/>
+                    <TopNavBar centerText={navBarTitle}/>
                     :
-                    <LeftMenuTopNavbar centerText={navBarTitle} rightText={isRegisterQuestion ? '' : strings.skip} onRightLinkClickHandler={isRegisterQuestion ? null : this.skipQuestionHandler}/>
+                    <TopNavBar leftMenuIcon={true} centerText={navBarTitle} rightText={isRegisterQuestion ? '' : strings.skip} onRightLinkClickHandler={isRegisterQuestion ? null : this.skipQuestionHandler}/>
                 }
                 <div className="page answer-question-page">
                     <div id="page-content" className="answer-question-content">

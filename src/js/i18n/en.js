@@ -44,9 +44,48 @@ export default {
         cancel   : 'Cancel',
         myProfile: 'My profile',
         about    : 'About me',
+        photos   : 'Photos',
         questions: 'Answers',
         interests: 'Interests',
         empty    : 'You have no interests yet. Please, connect more social media or explore your yarns and let us know what are you interested in.'
+    },
+    GalleryPage                      : {
+        importAlbum: 'Import an album',
+        empty       : 'You have not imported any photo yet',
+        myProfile   : 'My profile',
+        profilePhoto: 'Profile photo',
+        about       : 'About me',
+        photos      : 'Photos',
+        questions   : 'Answers',
+        interests   : 'Interests'
+    },
+    OtherGalleryPage                 : {
+        empty    : 'User has not imported any photo yet',
+        about    : 'About',
+        photos   : 'Photos',
+        questions: 'Answers',
+        interests: 'Interests'
+    },
+    GalleryAlbumsPage                : {
+        albums     : '%resource% albums',
+        empty      : 'There are no albums'
+    },
+    GalleryAlbumPhotosPage           : {
+        empty       : 'There are no photos in this album',
+        importPhotos: 'Import photos'
+    },
+    GalleryPhotoPage                 : {
+        photos       : 'Photos',
+        confirmDelete: 'Are you sure you want to delete this photo?'
+    },
+    OtherGalleryPhotoPage            : {
+        photos   : 'Photos'
+    },
+    GalleryProfilePhotoPage          : {
+        confirmSetAsProfilePhoto: 'Do you want to use this photo as your profile photo?',
+        cancel                  : 'Cancel',
+        photos                  : 'Photos',
+        changeProfilePhoto      : 'Change profile photo'
     },
     LoginPage                        : {
         login          : 'Login',
@@ -66,21 +105,21 @@ export default {
         all                  : 'All',
         common               : 'In common',
         about                : 'About',
+        photos               : 'Photos',
         questions            : 'Answers',
-        interests            : 'Interests',
-        empty                : 'This user has no interests yet.'
-
+        interests            : 'Interests'
     },
     OtherQuestionsPage               : {
-        cancel      : 'Cancel',
         coincidences: 'Coincidences',
         about       : 'About',
+        photos      : 'Photos',
         questions   : 'Answers',
         interests   : 'Interests'
     },
     QuestionsPage                    : {
         myProfile: 'My profile',
         about    : 'About me',
+        photos   : 'Photos',
         questions: 'Answers',
         interests: 'Interests'
     },
@@ -127,16 +166,20 @@ export default {
         loadingMessage: 'Loading yarns'
     },
     RecommendationPage               : {
-        loadingMessage: 'Loading recommendations'
+        loadingMessage: 'Loading recommendations',
+        confirmBlock  : 'Are you sure you want to block this user?'
+
     },
     UserPage                         : {
         aboutMe  : 'About me',
+        photos   : 'Photos',
         questions: 'Answers',
         interests: 'Interests',
         myProfile: 'My profile'
     },
     OtherUserPage                    : {
         about       : 'About',
+        photos      : 'Photos',
         questions   : 'Answers',
         interests   : 'Interests',
         like        : 'Like',
@@ -215,9 +258,6 @@ export default {
         text     : 'Answer more test questions',
         completed: 'completed questions'
     },
-    TopRightRecommendationIcons      : {
-        confirmDelete: 'Are you sure you want to delete this thread?'
-    },
     CardContent                      : {
         like         : 'Like',
         unlike       : 'Remove',
@@ -228,6 +268,10 @@ export default {
         like      : 'Like',
         unlike    : 'Remove',
         similarity: 'Similarity'
+    },
+    ImportAlbumPopup                 : {
+        close      : 'Close',
+        importAlbum: 'Import an album'
     },
     FilterContentPopup               : {
         close    : 'Close',

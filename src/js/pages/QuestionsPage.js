@@ -1,7 +1,6 @@
 import React, { PropTypes, Component } from 'react';
-import { Link } from 'react-router';
 import { IMAGES_ROOT } from '../constants/Constants';
-import LeftMenuTopNavbar from '../components/ui/LeftMenuTopNavbar';
+import TopNavBar from '../components/ui/TopNavBar';
 import ToolBar from '../components/ui/ToolBar';
 import QuestionList from '../components/questions/QuestionList';
 import QuestionsBanner from '../components/questions/QuestionsBanner';
@@ -14,7 +13,7 @@ import QuestionStore from '../stores/QuestionStore';
 import QuestionsByUserIdStore from '../stores/QuestionsByUserIdStore';
 
 function parseId(user) {
-    return user.qnoow_id;
+    return user.id;
 }
 
 /**
@@ -69,23 +68,23 @@ export default class QuestionsPage extends Component {
     }
 
     render() {
-        const ownPicture = this.props.user && this.props.user.picture ? `${IMAGES_ROOT}media/cache/resolve/user_avatar_60x60/user/images/${this.props.user.picture}` : `${IMAGES_ROOT}media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
+        const {user, pagination, questions, strings} = this.props;
+        const ownPicture = user && user.picture ? `${IMAGES_ROOT}media/cache/resolve/user_avatar_60x60/user/images/${user.picture}` : `${IMAGES_ROOT}media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
         const defaultPicture = `${IMAGES_ROOT}media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
-        const strings = this.props.strings;
         return (
             <div className="view view-main" onScroll={this.handleScroll}>
-                <LeftMenuTopNavbar centerText={strings.myProfile}/>
+                <TopNavBar leftMenuIcon={true} centerText={strings.myProfile}/>
                 <div className="page questions-page">
                     <div id="page-content" className="questions-content">
-                        <QuestionsBanner user={this.props.user} questionsTotal={this.props.pagination.total || Object.keys(this.props.questions).length || 0}/>
+                        <QuestionsBanner user={user} questionsTotal={pagination.total || Object.keys(questions).length || 0}/>
                         <br />
                         <br />
                         <br />
                         <br />
                         <br />
                         <br />
-                        <QuestionList questions={this.props.questions} userId={this.props.user.qnoow_id} ownPicture={ownPicture} defaultPicture={defaultPicture}/>
-                        <div className="loading-gif" style={this.props.pagination.nextLink ? {} : {display: 'none'}}></div>
+                        <QuestionList questions={questions} userId={parseId(user)} ownPicture={ownPicture} defaultPicture={defaultPicture}/>
+                        <div className="loading-gif" style={pagination.nextLink ? {} : {display: 'none'}}></div>
                         <br />
                         <br />
                         <br />
@@ -93,9 +92,10 @@ export default class QuestionsPage extends Component {
                 </div>
                 <ToolBar links={[
                 {'url': '/profile', 'text': strings.about},
+                {'url': '/gallery', 'text': strings.photos},
                 {'url': '/questions', 'text': strings.questions},
                 {'url': '/interests', 'text': strings.interests}
-                ]} activeLinkIndex={1} arrowUpLeft={'49%'} />
+                ]} activeLinkIndex={2} arrowUpLeft={'60%'} />
             </div>
         );
     }
@@ -106,6 +106,7 @@ QuestionsPage.defaultProps = {
     strings: {
         myProfile: 'My profile',
         about    : 'About me',
+        photos   : 'Photos',
         questions: 'Answers',
         interests: 'Interests'
     }

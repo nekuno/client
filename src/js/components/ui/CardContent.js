@@ -34,6 +34,10 @@ export default class CardContent extends Component {
 
         this.onRate = this.onRate.bind(this);
         this.onClickHandler = this.onClickHandler.bind(this);
+
+        this.state = {
+            embedHtml: null
+        }
     }
 
     onRate() {
@@ -46,12 +50,33 @@ export default class CardContent extends Component {
     }
 
     onClickHandler() {
-        if (typeof this.props.onClickHandler !== 'undefined') {
-            this.props.onClickHandler();
+        const {url, types, embed_type, embed_id, onClickHandler} = this.props;
+        if (typeof onClickHandler !== 'undefined') {
+            onClickHandler();
         } else {
-            window.cordova ? document.location = this.props.url : window.open(this.props.url);
+            const isVideo = types.indexOf('Video') > -1;
+            if (isVideo) {
+                this.preVisualizeYoutube(embed_type, embed_id);
+            } else {
+                window.cordova ? document.location = url : window.open(url);
+            }
         }
     }
+
+    preVisualizeYoutube = function (embed_type, embed_id) {
+        let html = null;
+        switch (embed_type) {
+            case 'youtube':
+                html = <iframe class="discover-video" src={'https://www.youtube.com/embed/' + embed_id + '?autoplay=1'} frameBorder="0" allowFullScreen width="255"></iframe>;
+                break;
+            default:
+                break;
+        }
+        
+        this.setState({
+            embedHtml: html
+        });
+    };
 
     render() {
         const {title, description, types, rate, hideLikeButton, fixedHeight, thumbnail, url, matching, strings} = this.props;
@@ -87,18 +112,20 @@ export default class CardContent extends Component {
                 </div>
                 <div className="card-content" onClick={this.onClickHandler}>
                     <div className="card-content-inner">
-                        <a>
-                            <div className={imageClass}>
-                                <Image src={imgSrc} defaultSrc={defaultSrc}/>
-                            </div>
-                        </a>
-                        {typeof matching !== 'undefined' ?
+                        {this.state.embedHtml ? this.state.embedHtml :
+                            <a>
+                                <div className={imageClass}>
+                                    <Image src={imgSrc} defaultSrc={defaultSrc}/>
+                                </div>
+                            </a>
+                        }
+                        {!this.state.embedHtml && typeof matching !== 'undefined' ?
                             <div className="matching">
-                                <div className="matching-value">{strings.compatibilidy} {matching}%</div>
+                                <div className="matching-value">{strings.compatibility} {matching}%</div>
                                 <ProgressBar percentage={matching}/>
                             </div>
                             :
-                            ''
+                            null
                         }
 
                     </div>

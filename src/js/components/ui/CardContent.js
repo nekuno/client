@@ -121,7 +121,7 @@ export default class CardContent extends Component {
                         }
                         {!this.state.embedHtml && typeof matching !== 'undefined' ?
                             <div className="matching">
-                                <div className="matching-value">{strings.compatibility} {matching}%</div>
+                                <div className="matching-value">{strings.compatibility} {matching ? matching + '%' : '?'}</div>
                                 <ProgressBar percentage={matching}/>
                             </div>
                             :

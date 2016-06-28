@@ -106,7 +106,16 @@ export default class GalleryPage extends Component {
     }
 
     triggerUploadFile() {
-        this.refs.fileInput.click();
+        let {fileInput} = this.refs;
+        if (document.createEvent) {
+            var evt = document.createEvent('MouseEvents');
+            evt.initEvent('click', true, false);
+            fileInput.dispatchEvent(evt);
+        } else if (document.createEventObject) {
+            fileInput.fireEvent('onclick') ;
+        } else if (typeof fileInput.onclick == 'function') {
+            fileInput.onclick();
+        }
     }
     
     uploadFile(e) {
@@ -140,7 +149,7 @@ export default class GalleryPage extends Component {
         return (
             <div className="view view-main" onScroll={this.handleScroll}>
                 <TopNavBar leftMenuIcon={true} centerText={strings.myProfile} rightIcon={'uploadthin'} rightIconsWithoutCircle={true} onRightLinkClickHandler={this.triggerUploadFile}/>
-                <input style={{display: 'none' }} type='file' multiple ref='fileInput' onChange={this.uploadFile} />
+                <input style={{opacity: 0}} type='file' ref='fileInput' onChange={this.uploadFile} />
                 <div className="page gallery-page">
                     <div id="page-content" className="gallery-content">
                         <div className="import-album-wrapper photo-wrapper" onClick={this.importAlbumPopUp}>

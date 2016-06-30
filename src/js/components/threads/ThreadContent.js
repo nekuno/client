@@ -66,7 +66,7 @@ export default class ThreadContent extends Component {
                 <div className="thread-first-image-wrapper">
                     <div className="thread-first-image-centered-wrapper">
                         <div className="thread-first-image">
-                            {this.renderImage(thread.cached[0])}
+                            {this.renderImage(thread.cached[0].content)}
                         </div>
                     </div>
                 </div>
@@ -81,8 +81,8 @@ export default class ThreadContent extends Component {
                     </div>
                     <div className="thread-images">
                         {thread.cached.map((item, index) => {
-                            if (index !== 0) {
-                                return <div key={index} className="thread-image-wrapper"><div className="thread-image-centered-wrapper"><div className="thread-image">{this.renderImage(item)}</div></div></div>
+                            if (index !== 0 && index <= 4) {
+                                return <div key={index} className="thread-image-wrapper"><div className="thread-image-centered-wrapper"><div className="thread-image">{this.renderImage(item.content)}</div></div></div>
                             }
                         })}
                     </div>

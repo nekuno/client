@@ -87,6 +87,31 @@ RecommendationStore.dispatchToken = register(action => {
             delete _contentRecommendations[threadId];
             delete _userRecommendations[threadId];
             break;
+        case ActionTypes.REQUEST_THREADS_SUCCESS:
+            const responseThreads = selectn('response.entities.thread', action);
+            let recommendation = null;
+            Object.keys(responseThreads).forEach((key) => {
+                const thread = responseThreads[key];
+                if (thread.category === 'ThreadUsers') {
+                    let recommendations = [];
+                    let cached = [];
+                    Object.keys(thread.cached).forEach((key) => {
+                        cached = thread.cached[key];
+                        recommendations.push(cached);
+                    });
+                    mergeAndGetRecommendations(recommendations, _userRecommendations);
+                } else {
+                    let recommendations = [];
+                    let cached = [];
+                    Object.keys(thread.cached).forEach((key) => {
+                        cached = thread.cached[key];
+                        recommendations.push(cached);
+                    });
+                    mergeAndGetRecommendations(recommendations, _contentRecommendations);
+                }
+            }) ;
+
+            break;
         case ActionTypes.LOGOUT_USER:
             _userRecommendations = [];
             _contentRecommendations = [];

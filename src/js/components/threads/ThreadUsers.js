@@ -104,7 +104,7 @@ export default class ThreadUsers extends Component {
                             {formattedThread.totalResults} {strings.users}
                         </div>
                         <div className="thread-images">
-                            {formattedThread.cached.map((item, index) => index !== 0 && item.image ?
+                            {formattedThread.cached.map((item, index) => index !== 0 && index <= 4 && item.image ?
                                 <div key={index} className="thread-image-wrapper"><div className="thread-image-centered-wrapper"><div className="thread-image"><Image src={item.image} defaultSrc={defaultUserImage} /></div></div></div> : '')}
                         </div>
                         {this.renderChipList(formattedThread.filters.userFilters, filters.userFilters)}

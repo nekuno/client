@@ -80,7 +80,7 @@ function getState(props) {
     const threadId = parseThreadId(props.params);
     const thread = ThreadStore.get(threadId);
     const recommendationIds = threadId ? RecommendationsByThreadStore.getRecommendationsFromThread(threadId) : [];
-    const recommendationsReceived = RecommendationsByThreadStore.recommendationsReceived(threadId);
+    const recommendationsReceived = RecommendationsByThreadStore.elementsReceived(threadId);
     const category = thread ? thread.category : null;
     const filters = FilterStore.filters;
 
@@ -164,15 +164,10 @@ export default class RecommendationPage extends Component {
             return;
         }
         if (!this.state.swiper) {
-            console.log(this.props.thread);
-            console.log('inicializando swiper');
             this.state = {
                 swiper: initSwiper(this.props.thread)
             };
         } else {
-            console.log(this.state.swiper);
-            console.log('swiper ya inicializado, se supone');
-            console.log(this.state.swiper.updateSlidesSize);
             this.state.swiper.updateSlidesSize();
         }
     }

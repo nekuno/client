@@ -1,7 +1,7 @@
 import { register, waitFor } from '../dispatcher/Dispatcher';
 import ActionTypes from '../constants/ActionTypes';
 import * as Constants from '../constants/Constants';
-import BaseStore from './BaseStore';
+import IndexedListStore from '../stores/IndexedListStore';
 import ThreadStore from '../stores/ThreadStore';
 import RecommendationStore from '../stores/RecommendationStore';
 import {
@@ -10,46 +10,23 @@ import {
 } from '../utils/PaginatedStoreUtils';
 import selectn from 'selectn';
 
-class RecommendationsByThreadStore extends BaseStore {
+class RecommendationsByThreadStore extends IndexedListStore {
 
-    _position = [];
-    _ids = [];
     _nextUrl = null;
 
     setReceivingClasses() {
         this._receivingClasses.push({
-            'request': ActionTypes.REQUEST_RECOMMENDATIONS,
-            'success': ActionTypes.REQUEST_RECOMMENDATIONS_SUCCESS,
-            'error': ActionTypes.REQUEST_RECOMMENDATIONS_ERROR
+            'request': {'type': ActionTypes.REQUEST_RECOMMENDATIONS, 'listId': 'threadId'},
+            'success': {'type': ActionTypes.REQUEST_RECOMMENDATIONS_SUCCESS, 'listId': 'threadId'},
+            'error': {'type': ActionTypes.REQUEST_RECOMMENDATIONS_ERROR, 'listId' : 'threadId'}
         });
         this._receivingClasses.push({
-            'request': ActionTypes.REQUEST_THREADS,
-            'success': ActionTypes.REQUEST_THREADS_SUCCESS,
-            'error': ActionTypes.REQUEST_THREADS_ERROR
+            'request': {'type': ActionTypes.REQUEST_THREADS, 'listId': null},
+            'success': {'type': ActionTypes.REQUEST_THREADS_SUCCESS, 'listId': {'array':'response.result.items'}},
+            'error': {'type': ActionTypes.REQUEST_THREADS_ERROR, 'listId' : null}
         });
     }
 
-    //TODO: Move to IndexedListStore (A by B store)
-    setReceiving(action) {
-        this._receiving[action.threadId] = true;
-    }
-
-    setReceivedSuccess(action) {
-        this._receiving[action.threadId] = false;
-        this._received[action.threadId] = true;
-    }
-
-    setReceivedError(action) {
-        this._receiving[action.threadId] = false;
-    }
-
-    setInitial() {
-        super.setInitial();
-        this._position = [];
-        this._ids = [];
-    }
-
-    //TODO: Move to IndexedListStore renaming to getElements(listId)
     getRecommendationsFromThread(threadId) {
         const thread = ThreadStore.get(threadId);
         if (!thread) {
@@ -57,27 +34,7 @@ class RecommendationsByThreadStore extends BaseStore {
             return null;
         }
 
-        return this._ids[threadId] ? this._ids[threadId] : [];
-    }
-
-    //TODO: Move to IndexedListStore (A by B store) renaming to elementsReceived
-    recommendationsReceived(threadId) {
-        return this._received[threadId] ? this._received[threadId] : false;
-    }
-
-    //TODO: Move to IndexedListStore (A by B store)
-    setPosition(threadId, newPosition) {
-        this._position[threadId] = newPosition;
-    }
-
-    //TODO: Move to IndexedListStore (A by B store)
-    getPosition(threadId) {
-        return this._position[threadId];
-    }
-
-    //TODO: Move to IndexedListStore (A by B store)
-    advancePosition(threadId, number = 1) {
-        this._position[threadId] += number;
+        return this.getElements(threadId);
     }
 
     _registerToActions(action) {
@@ -89,7 +46,7 @@ class RecommendationsByThreadStore extends BaseStore {
         const { threadId } = action;
         switch (action.type) {
             case ActionTypes.REQUEST_RECOMMENDATIONS_SUCCESS:
-                action.result.items.forEach((id) => {
+                action.response.result.items.forEach((id) => {
                    this._ids[threadId].push(id);
                 });
                 this.emitChange();

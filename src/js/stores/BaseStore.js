@@ -28,7 +28,12 @@ export default class BaseStore extends EventEmitter {
         this._received = [];
     };
 
-    setReceivingClasses() {}
+    setReceivingClasses() {
+    }
+
+    setReceiving(action){};
+    setReceivedSuccess(action){};
+    setReceivedError(action){};
 
     _registerToActions(action) {
         switch (action.type) {
@@ -40,21 +45,9 @@ export default class BaseStore extends EventEmitter {
                 break;
         }
 
-        this._receivingClasses.forEach((classes) => {
-            switch (action.type){
-                case classes.request:
-                    this.setReceiving(action);
-                    break;
-                case classes.success:
-                    this.setReceivedSuccess(action);
-                    break;
-                case classes.error:
-                    this.setReceivedError(action);
-                    break;
-                default:
-                    break;
-            }
-        });
+        this.setReceiving(action);
+        this.setReceivedSuccess(action);
+        this.setReceivedError(action);
     }
 
     emitChange() {

@@ -88,7 +88,7 @@ function getState(props) {
     if (thread && category == 'ThreadUsers') {
         recommendations = RecommendationStore.getUserRecommendations(recommendationIds)
     } else if (thread && category == 'ThreadContent') {
-        recommendations = RecommendationStore.getContentRecommendations(recommendationIds)
+        recommendations = RecommendationStore.getContentRecommendations(recommendationIds);
     }
 
     return {
@@ -164,10 +164,15 @@ export default class RecommendationPage extends Component {
             return;
         }
         if (!this.state.swiper) {
+            console.log(this.props.thread);
+            console.log('inicializando swiper');
             this.state = {
                 swiper: initSwiper(this.props.thread)
             };
         } else {
+            console.log(this.state.swiper);
+            console.log('swiper ya inicializado, se supone');
+            console.log(this.state.swiper.updateSlidesSize);
             this.state.swiper.updateSlidesSize();
         }
     }

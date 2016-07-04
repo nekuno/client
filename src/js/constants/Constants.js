@@ -26,10 +26,6 @@ export const API_URLS = {
     COMPARED_INTERESTS       : API_ROOT + 'content/compare/{userId}?type[]={type}&showOnlyCommon={showOnlyCommon}'
 };
 
-export function getRecommendationUrl(threadId) {
-    return `threads/${threadId}/recommendation`;
-}
-
 export const QUESTION_STATS_COLORS = [
     // light green
     '#32ca91',

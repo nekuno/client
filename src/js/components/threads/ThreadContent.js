@@ -66,7 +66,7 @@ export default class ThreadContent extends Component {
                 <div className="thread-first-image-wrapper">
                     <div className="thread-first-image-centered-wrapper">
                         <div className="thread-first-image">
-                            {this.renderImage(thread.cached[0].content)}
+                            {thread.cached.length > 0 ? this.renderImage(thread.cached[0].content) : ''}
                         </div>
                     </div>
                 </div>

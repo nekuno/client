@@ -1,6 +1,7 @@
 import { register, waitFor } from '../dispatcher/Dispatcher';
 import ActionTypes from '../constants/ActionTypes';
 import * as Constants from '../constants/Constants';
+import BaseStore from './BaseStore';
 import ThreadStore from '../stores/ThreadStore';
 import RecommendationStore from '../stores/RecommendationStore';
 import {
@@ -9,93 +10,118 @@ import {
 } from '../utils/PaginatedStoreUtils';
 import selectn from 'selectn';
 
-//Move logic to createIndexedListStore?
-let _position = [];
+class RecommendationsByThreadStore extends BaseStore {
 
-const RecommendationsByThreadStore = createIndexedListStore({
+    _position = [];
+    _ids = [];
+    _nextUrl = null;
 
+    setReceivingClasses() {
+        this._receivingClasses.push({
+            'request': ActionTypes.REQUEST_RECOMMENDATIONS,
+            'success': ActionTypes.REQUEST_RECOMMENDATIONS_SUCCESS,
+            'error': ActionTypes.REQUEST_RECOMMENDATIONS_ERROR
+        });
+        this._receivingClasses.push({
+            'request': ActionTypes.REQUEST_THREADS,
+            'success': ActionTypes.REQUEST_THREADS_SUCCESS,
+            'error': ActionTypes.REQUEST_THREADS_ERROR
+        });
+    }
+
+    //TODO: Move to IndexedListStore (A by B store)
+    setReceiving(action) {
+        this._receiving[action.threadId] = true;
+    }
+
+    setReceivedSuccess(action) {
+        this._receiving[action.threadId] = false;
+        this._received[action.threadId] = true;
+    }
+
+    setReceivedError(action) {
+        this._receiving[action.threadId] = false;
+    }
+
+    setInitial() {
+        super.setInitial();
+        this._position = [];
+        this._ids = [];
+    }
+
+    //TODO: Move to IndexedListStore renaming to getElements(listId)
     getRecommendationsFromThread(threadId) {
-
         const thread = ThreadStore.get(threadId);
         if (!thread) {
             //Shouldn´t happen : UserActionCreators.requestRecommendation checks this
             return null;
         }
 
-        return this.getIds(threadId);
+        return this._ids[threadId] ? this._ids[threadId] : [];
+    }
 
-    },
-
+    //TODO: Move to IndexedListStore (A by B store) renaming to elementsReceived
     recommendationsReceived(threadId) {
-        return this.getList(threadId).getPageCount() > 0;
-    },
-
-    setPosition(threadId, newPosition){
-        _position[threadId] = newPosition;
-    },
-
-    getPosition(threadId){
-        return _position[threadId];
-    },
-
-    advancePosition(threadId, number = 1){
-        _position[threadId] += number;
+        return this._received[threadId] ? this._received[threadId] : false;
     }
-});
 
-const handleListAction = createListActionHandler({
-    request: ActionTypes.REQUEST_RECOMMENDATIONS,
-    success: ActionTypes.REQUEST_RECOMMENDATIONS_SUCCESS,
-    failure: ActionTypes.REQUEST_RECOMMENDATIONS_ERROR
-});
+    //TODO: Move to IndexedListStore (A by B store)
+    setPosition(threadId, newPosition) {
+        this._position[threadId] = newPosition;
+    }
 
-register(action => {
+    //TODO: Move to IndexedListStore (A by B store)
+    getPosition(threadId) {
+        return this._position[threadId];
+    }
 
-    waitFor([ThreadStore.dispatchToken, RecommendationStore.dispatchToken]);
+    //TODO: Move to IndexedListStore (A by B store)
+    advancePosition(threadId, number = 1) {
+        this._position[threadId] += number;
+    }
 
-    const { threadId } = action;
-    switch (action.type) {
-        case ActionTypes.RECOMMENDATIONS_NEXT:
-            RecommendationsByThreadStore.advancePosition(threadId, 1);
-            break;
-        case ActionTypes.RECOMMENDATIONS_PREV:
-            if (RecommendationsByThreadStore.getPosition(threadId) > 0) {
-                RecommendationsByThreadStore.advancePosition(threadId, -1);
-            }
-            break;
-        case ActionTypes.UPDATE_THREAD:
-            let delete_list = RecommendationsByThreadStore.getList(threadId);
-            delete_list._ids = [];
-            RecommendationsByThreadStore.emitChange();
-            break;
-        case ActionTypes.REQUEST_THREADS_SUCCESS:
-            const responseThreads = selectn('response.entities.thread', action);
-            Object.keys(responseThreads).forEach((threadId) => {
-                const thread = responseThreads[threadId];
-                const nextRecommendation = Constants.getRecommendationUrl(threadId) + '?offset=20';
-                let recommendationIds = [];
-                Object.keys(thread.cached).forEach((key) => {
-                    recommendationIds.push(key);
+    _registerToActions(action) {
+
+        waitFor([ThreadStore.dispatchToken, RecommendationStore.dispatchToken]);
+
+        super._registerToActions(action);
+
+        const { threadId } = action;
+        switch (action.type) {
+            case ActionTypes.REQUEST_RECOMMENDATIONS_SUCCESS:
+                action.result.items.forEach((id) => {
+                   this._ids[threadId].push(id);
                 });
-                RecommendationsByThreadStore.getList(threadId).expectPage();
-                RecommendationsByThreadStore.getList(threadId).receivePage(recommendationIds, nextRecommendation);
-            });
-            break;
-        case ActionTypes.LOGOUT_USER:
-            _position = [];
-            RecommendationsByThreadStore.removeLists();
-            break;
-        default:
-            break;
+                this.emitChange();
+                break;
+            case ActionTypes.RECOMMENDATIONS_NEXT:
+                this.advancePosition(threadId, 1);
+                break;
+            case ActionTypes.RECOMMENDATIONS_PREV:
+                if (this.getPosition(threadId) > 0) {
+                    this.advancePosition(threadId, -1);
+                }
+                break;
+            case ActionTypes.UPDATE_THREAD:
+                this._ids[threadId] = [];
+                this.emitChange();
+                break;
+            case ActionTypes.REQUEST_THREADS_SUCCESS:
+                const responseThreads = selectn('response.entities.thread', action);
+                Object.keys(responseThreads).forEach((threadId) => {
+                    const thread = responseThreads[threadId];
+                    this._ids[threadId] = this._ids.hasOwnProperty(threadId) ? this._ids[threadId] : [];
+                    Object.keys(thread.cached).forEach((value, index) => {
+                        this._ids[threadId].push(index);
+                    });
+                    this._nextUrl = thread.recommendationUrl;
+                });
+                this.emitChange();
+                break;
+            default:
+                break;
+        }
     }
+}
 
-    if (threadId) {
-        handleListAction(
-            action,
-            RecommendationsByThreadStore.getList(threadId),
-            RecommendationsByThreadStore.emitChange
-        );
-    }
-});
-
-export default RecommendationsByThreadStore;
+export default new RecommendationsByThreadStore();

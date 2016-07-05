@@ -63,6 +63,9 @@ export const SOCIAL_NETWORKS = [
         scope: config.SPOTIFY_SCOPE
     }
 ];
+
+export const RECOMMENDATIONS_BY_REQUEST = 20;
+
 export const FACEBOOK_ID = config.FACEBOOK_ID;
 export const FACEBOOK_SCOPE = config.FACEBOOK_SCOPE;
 

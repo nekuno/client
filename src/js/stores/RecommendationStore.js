@@ -13,7 +13,7 @@ let _contentRecommendations = [];
 const RecommendationStore = createStore({
 
     containsUserRecommendation(id){
-        return (id in _userRecommendations)
+        return (id in _userRecommendations);
     },
 
     containsContentRecommendation(id){
@@ -25,7 +25,6 @@ const RecommendationStore = createStore({
     },
 
     getUserRecommendation(id){
-
         if (!this.containsUserRecommendation(id)){
             return null;
         }
@@ -33,10 +32,9 @@ const RecommendationStore = createStore({
     },
 
     getUserRecommendations(array){
-        let _self = this;
         let recommendations = [];
-        array.forEach(function(userId){
-            recommendations.push(_self.getUserRecommendation(userId));
+        array.forEach((userId) => {
+            recommendations.push(this.getUserRecommendation(userId));
         });
         return recommendations;
     },
@@ -60,6 +58,26 @@ const RecommendationStore = createStore({
 
     getTotalCount(){
         return _userRecommendations.length + _contentRecommendations.length;
+    },
+
+    //TODO: Move to ElementStore as getElementId(element, list)
+    getRecommendationId(recommendation, category) {
+        let positioner, elementId = null;
+        switch (category) {
+            case 'ThreadContent':
+                positioner = recommendation.match;
+                elementId = recommendation.content.id;
+                break;
+            case 'ThreadUsers':
+                positioner = recommendation.similarity; // Change to depend on recommendation.filters.order when enabled
+                elementId = recommendation.id;
+                break;
+            default:
+                positioner = null;
+                elementId = null;
+        }
+
+        return {positioner, elementId};
     }
 });
 
@@ -92,23 +110,15 @@ RecommendationStore.dispatchToken = register(action => {
             let recommendation = null;
             Object.keys(responseThreads).forEach((key) => {
                 const thread = responseThreads[key];
-                if (thread.category === 'ThreadUsers') {
                     let recommendations = [];
-                    let cached = [];
+                    let cached = null;
                     Object.keys(thread.cached).forEach((key) => {
                         cached = thread.cached[key];
-                        recommendations.push(cached);
+                        const {elementId} = RecommendationStore.getRecommendationId(cached, thread.category);
+                        recommendations[elementId] = cached;
                     });
-                    mergeAndGetRecommendations(recommendations, _userRecommendations);
-                } else {
-                    let recommendations = [];
-                    let cached = [];
-                    Object.keys(thread.cached).forEach((key) => {
-                        cached = thread.cached[key];
-                        recommendations.push(cached);
-                    });
-                    mergeAndGetRecommendations(recommendations, _contentRecommendations);
-                }
+                const _recommendations = thread.category == 'ThreadContent' ? _contentRecommendations : _userRecommendations;
+                    mergeAndGetRecommendations(recommendations, _recommendations);
             }) ;
 
             break;

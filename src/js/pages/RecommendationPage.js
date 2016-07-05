@@ -1,4 +1,5 @@
 import React, { PropTypes, Component } from 'react';
+import { RECOMMENDATIONS_BY_REQUEST } from '../constants/Constants'
 import RecommendationList from '../components/recommendations/RecommendationList';
 import TopNavBar from '../components/ui/TopNavBar';
 import EmptyThreadPopup from '../components/recommendations/EmptyThreadPopup';
@@ -86,7 +87,7 @@ function getState(props) {
 
     let recommendations = [];
     if (thread && category == 'ThreadUsers') {
-        recommendations = RecommendationStore.getUserRecommendations(recommendationIds)
+        recommendations = RecommendationStore.getUserRecommendations(recommendationIds);
     } else if (thread && category == 'ThreadContent') {
         recommendations = RecommendationStore.getContentRecommendations(recommendationIds);
     }
@@ -136,7 +137,7 @@ export default class RecommendationPage extends Component {
 
     componentWillMount() {
         RecommendationsByThreadStore.setPosition(this.props.params.threadId, 0);
-        if (this.props.recommendations.length === 0) {
+        if (this.props.recommendations.length < RECOMMENDATIONS_BY_REQUEST) {
             requestData(this.props);
         }
     }

@@ -1,44 +1,22 @@
 import ActionTypes from '../constants/ActionTypes';
 import BaseStore from './BaseStore';
+import { SOCIAL_NETWORKS } from '../constants/Constants';
 
 class WorkersStore extends BaseStore {
 
     setInitial() {
-        this._networks = [
-            {
-                resource  : 'facebook',
+        this._networks = SOCIAL_NETWORKS.map(socialNetwork => {
+            return {
+                resource  : socialNetwork.resourceOwner,
                 fetching  : false,
                 fetched   : false,
                 processing: false,
                 process   : 0,
                 processed : false
-            },
-            {
-                resource  : 'spotify',
-                fetching  : false,
-                fetched   : false,
-                processing: false,
-                process   : 0,
-                processed : false
-            },
-            {
-                resource  : 'twitter',
-                fetching  : false,
-                fetched   : false,
-                processing: false,
-                process   : 0,
-                processed : false
-            },
-            {
-                resource  : 'google',
-                fetching  : false,
-                fetched   : false,
-                processing: false,
-                process   : 0,
-                processed : false
-            }];
+            }
+        });
     }
-
+    
     _registerToActions(action) {
         super._registerToActions(action);
 
@@ -135,7 +113,6 @@ class WorkersStore extends BaseStore {
         } else {
             this._networks.push(status);
         }
-
     }
 
     getAll() {

@@ -5,7 +5,7 @@ import SocialNetworkService from '../services/SocialNetworkService';
 export default {
 
     getAlbums: (resource, scope) => {
-        return SocialNetworkService.getDataFromUrl(resource, 'me/albums').then((status) => {
+        return SocialNetworkService.getDataFromUrl(resource, scope, 'me/albums').then((status) => {
                 dispatch(ActionTypes.REQUEST_ALBUMS_SUCCESS, {
                     response: {
                         resource: resource,

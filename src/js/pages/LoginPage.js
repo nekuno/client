@@ -57,7 +57,7 @@ export default class LoginPage extends Component {
     
     loginByResourceOwner(resource, scope) {
         SocialNetworkService.login(resource, scope).then(
-            () => LoginActionCreators.loginUserByResourceOwner(resource, SocialNetworkService.getAccessToken()), 
+            () => LoginActionCreators.loginUserByResourceOwner(resource, SocialNetworkService.getAccessToken(resource)), 
             (status) => { nekunoApp.alert(resource + ' login failed: ' + status.error.message) });
     }
     

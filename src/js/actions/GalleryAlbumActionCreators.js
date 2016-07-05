@@ -24,7 +24,7 @@ export default {
     },
 
     getAlbum: (data, resource, scope) => {
-        return SocialNetworkService.getDataFromUrl(resource, 'me/album', 'GET', {id: data.id}).then((status) => {
+        return SocialNetworkService.getDataFromUrl(resource, scope, 'me/album', 'GET', {id: data.id}).then((status) => {
             dispatch(ActionTypes.REQUEST_ALBUM_SUCCESS, {
                 response: {
                     id: data.id,

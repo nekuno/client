@@ -22,9 +22,9 @@ class SocialNetworkService {
         return this._accessTokens[resource] && (!scope || this._scopes[resource] == scope);
     }
 
-    getDataFromUrl(resource, url, method, data) {
+    getDataFromUrl(resource, scope, url, method, data) {
         if (!this._accessTokens[resource]) {
-            this.login(resource)
+            this.login(resource, scope);
         }
         return hello(resource).api(url, method, data);
     }

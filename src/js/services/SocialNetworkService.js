@@ -1,5 +1,3 @@
-import {FACEBOOK_SCOPE, TWITTER_SCOPE, GOOGLE_SCOPE, SPOTIFY_SCOPE} from '../constants/Constants';
-
 class SocialNetworkService {
 
     constructor() {
@@ -10,9 +8,6 @@ class SocialNetworkService {
     }
 
     login(resource, scope) {
-        if (!scope) {
-            scope = this._getDefaultScope(resource);
-        }
         if (this.isLoggedIn(resource, scope)) { 
             return new Promise(function (resolve) {return resolve(true)});
         }
@@ -61,21 +56,6 @@ class SocialNetworkService {
                 };
             }, (error) => { console.log(error) }
         );
-    }
-    
-    _getDefaultScope(resource) {
-        switch(resource) {
-            case 'facebook':
-                return FACEBOOK_SCOPE;
-            case 'twitter':
-                return TWITTER_SCOPE;
-            case 'spotify':
-                return SPOTIFY_SCOPE;
-            case 'google':
-                return GOOGLE_SCOPE;
-            default:
-                return null;
-        }
     }
 }
 

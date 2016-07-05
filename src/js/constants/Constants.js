@@ -40,6 +40,29 @@ export const QUESTION_STATS_COLORS = [
     // flesh-colored
     '#d96484'
 ];
+
+export const SOCIAL_NETWORKS = [
+    {
+        resourceOwner: 'facebook',
+        id: config.FACEBOOK_ID,
+        scope: config.FACEBOOK_SCOPE
+    },
+    {
+        resourceOwner: 'twitter',
+        id: config.TWITTER_ID,
+        scope: config.TWITTER_SCOPE
+    },
+    {
+        resourceOwner: 'google',
+        id: config.GOOGLE_ID,
+        scope: config.GOOGLE_SCOPE
+    },
+    {
+        resourceOwner: 'spotify',
+        id: config.SPOTIFY_ID,
+        scope: config.SPOTIFY_SCOPE
+    }
+];
 export const FACEBOOK_ID = config.FACEBOOK_ID;
 export const FACEBOOK_SCOPE = config.FACEBOOK_SCOPE;
 

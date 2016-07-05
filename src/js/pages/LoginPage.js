@@ -5,10 +5,12 @@ import TopNavBar from '../components/ui/TopNavBar';
 import TextInput from '../components/ui/TextInput';
 import PasswordInput from '../components/ui/PasswordInput';
 import FullWidthButton from '../components/ui/FullWidthButton';
+import SocialBox from '../components/ui/SocialBox';
 import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
 import LoginActionCreators from '../actions/LoginActionCreators';
 import LoginStore from '../stores/LoginStore';
+import SocialNetworkService from '../services/SocialNetworkService';
 
 function getState(props) {
 
@@ -41,6 +43,7 @@ export default class LoginPage extends Component {
         this._onKeyDown = this._onKeyDown.bind(this);
         this.goHome = this.goHome.bind(this);
         this.goToRegisterPage = this.goToRegisterPage.bind(this);
+        this.loginByResourceOwner = this.loginByResourceOwner.bind(this);
         
         this.state = {
             username: '',
@@ -50,6 +53,12 @@ export default class LoginPage extends Component {
 
     login() {
         LoginActionCreators.loginUser(this.state.username, this.state.password);
+    }
+    
+    loginByResourceOwner(resource, scope) {
+        SocialNetworkService.login(resource, scope).then(
+            () => LoginActionCreators.loginUserByResourceOwner(resource, SocialNetworkService.getAccessToken()), 
+            (status) => { nekunoApp.alert(resource + ' login failed: ' + status.error.message) });
     }
     
     loginAsGuest = function() {
@@ -104,6 +113,7 @@ export default class LoginPage extends Component {
                         <div style={{color: '#FFF'}}>
                             <p>{ error ? error.error : ''}</p>
                         </div>
+                        <SocialBox onClickHandler={this.loginByResourceOwner}/>
                         <div className="register-text-block">
                             <div onClick={this.goToRegisterPage} className="register-text">
                                 <span>{strings.hasInvitation}</span> <a href="javascript:void(0)">{strings.register}</a>

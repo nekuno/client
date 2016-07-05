@@ -76,6 +76,11 @@ class AuthService {
         return APIUtils.postData(API_URLS.LOGIN, {username, password});
     }
 
+    resourceOwnerLogin(resourceOwner, accessToken) {
+
+        return APIUtils.postData(API_URLS.LOGIN, {resourceOwner, accessToken});
+    }
+
     register(user, profile, token, oauth) {
 
         return APIUtils.postData(API_URLS.VALIDATE_USER, user)

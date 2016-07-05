@@ -92,6 +92,7 @@ export default {
         cancel         : 'Cancelar',
         username       : 'Usuario o email',
         password       : 'Contraseña',
+        loginResource  : 'O entra con una red social',
         recoverPassword: '¿Has olvidado tu contraseña?',
         hasInvitation  : '¿Tienes una invitación?',
         register       : 'Regístrate',

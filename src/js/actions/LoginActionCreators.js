@@ -51,7 +51,7 @@ export default new class LoginActionCreators {
             request: ActionTypes.REQUEST_LOGIN_USER,
             success: ActionTypes.REQUEST_LOGIN_USER_SUCCESS,
             failure: ActionTypes.REQUEST_LOGIN_USER_ERROR
-        }, {resourceOwner, accessToken})
+        })
             .then(() => {
                 if (!RouterStore.hasNextTransitionPath()) {
                     RouterActionCreators.storeRouterTransitionPath('/threads');

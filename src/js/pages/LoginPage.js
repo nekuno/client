@@ -113,7 +113,9 @@ export default class LoginPage extends Component {
                         <div style={{color: '#FFF'}}>
                             <p>{ error ? error.error : ''}</p>
                         </div>
+                        <p className="center">{strings.loginResource}</p>
                         <SocialBox onClickHandler={this.loginByResourceOwner}/>
+                        <br />
                         <div className="register-text-block">
                             <div onClick={this.goToRegisterPage} className="register-text">
                                 <span>{strings.hasInvitation}</span> <a href="javascript:void(0)">{strings.register}</a>
@@ -138,6 +140,7 @@ LoginPage.defaultProps = {
         cancel         : 'Cancel',
         username       : 'User or email',
         password       : 'Password',
+        loginResource  : 'Or login with a social network',
         recoverPassword: 'Forgotten your password?',
         hasInvitation  : 'Do you have an invitation?',
         register       : 'Register',

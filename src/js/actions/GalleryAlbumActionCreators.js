@@ -31,7 +31,7 @@ export default {
                     name: data.name,
                     resource: resource,
                     scope: scope,
-                    items: status.data
+                    items: status.data || []
                 }
             });
         }, (error) => {

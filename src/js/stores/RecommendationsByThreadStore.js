@@ -12,7 +12,11 @@ import selectn from 'selectn';
 
 class RecommendationsByThreadStore extends IndexedListStore {
 
-    _nextUrl = null;
+    _nextUrl = [];
+
+    getNextPageUrl(threadId) {
+        return this._nextUrl[threadId];
+    }
 
     setReceivingClasses() {
         this._receivingClasses.push({
@@ -50,6 +54,7 @@ class RecommendationsByThreadStore extends IndexedListStore {
                     const thread = ThreadStore.get(threadId);
                     const {positioner, elementId} = RecommendationStore.getRecommendationId(action.response.entities.recommendation[id], thread.category);
                     this.insertId(threadId, elementId, positioner);
+                    this._nextUrl[threadId] = action.response.result.pagination.nextLink;
                 });
                 this.emitChange();
                 break;
@@ -74,7 +79,7 @@ class RecommendationsByThreadStore extends IndexedListStore {
                         const {elementId, positioner} = RecommendationStore.getRecommendationId(thread.cached[value], thread.category);
                         this.insertId(threadId, elementId, positioner);
                     });
-                    this._nextUrl = thread.recommendationUrl;
+                    this._nextUrl[threadId] = thread.recommendationUrl;
                 });
                 this.emitChange();
                 break;

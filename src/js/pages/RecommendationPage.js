@@ -159,6 +159,8 @@ export default class RecommendationPage extends Component {
     componentDidUpdate() {
         if (this.props.recommendationsReceived && this.props.recommendations.length == 0) {
             nekunoApp.popup('.popup-empty-thread');
+        } else {
+            nekunoApp.closeModal('.popup-empty-thread');
         }
 
         if (!this.props.thread || this.props.recommendations.length == 0) {

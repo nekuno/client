@@ -47,7 +47,7 @@ export default new class LoginActionCreators {
 
     loginUserByResourceOwner(resourceOwner, accessToken) {
         let promise = AuthService.resourceOwnerLogin(resourceOwner, accessToken);
-        dispatchAsync(promise, {
+        return dispatchAsync(promise, {
             request: ActionTypes.REQUEST_LOGIN_USER,
             success: ActionTypes.REQUEST_LOGIN_USER_SUCCESS,
             failure: ActionTypes.REQUEST_LOGIN_USER_ERROR
@@ -57,9 +57,9 @@ export default new class LoginActionCreators {
                     RouterActionCreators.storeRouterTransitionPath('/threads');
                 }
                 this.redirect();
-                return null;
-            }, (error) => {
-                console.error(error);
+                return new Promise(function (resolve) {resolve(true)});
+            }, () => {
+                return new Promise(function (resolve, reject) {reject()});
             });
     }
 

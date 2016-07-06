@@ -7,6 +7,7 @@ import SocialBox from '../components/ui/SocialBox';
 import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
 import ConnectActionCreators from '../actions/ConnectActionCreators';
+import LoginActionCreators from '../actions/LoginActionCreators';
 import InvitationStore from '../stores/InvitationStore';
 import SocialNetworkService from '../services/SocialNetworkService';
 
@@ -67,10 +68,14 @@ export default class RegisterPage extends Component {
         const {history} = this.context;
         const {token} = this.props;
         SocialNetworkService.login(resource, scope).then(() => {
-            const profile = SocialNetworkService.getProfile(resource);
-            ConnectActionCreators.connectRegister(token, resource, SocialNetworkService.getAccessToken(resource), SocialNetworkService.getResourceId(resource), profile);
-            history.pushState(null, '/join');
-            
+            LoginActionCreators.loginUserByResourceOwner(resource, SocialNetworkService.getAccessToken(resource))
+                .then(() => {},
+                    () => {
+                        const profile = SocialNetworkService.getProfile(resource);
+                        ConnectActionCreators.connectRegister(token, resource, SocialNetworkService.getAccessToken(resource), SocialNetworkService.getResourceId(resource), profile);
+
+                        history.pushState(null, '/join');
+                    });
         }, (status) => { nekunoApp.alert(resource + ' login failed: ' + status.error.message) });
     }
 

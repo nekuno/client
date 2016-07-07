@@ -114,21 +114,7 @@ export default class RegisterJoinPage extends Component {
             resource   : this.props.resource,
             resourceId : this.props.resourceId
         };
-
-        switch (oauth.resource) {
-            case 'facebook':
-                user.facebookID = this.props.resourceId;
-                break;
-            case 'twitter':
-                user.twitterID = this.props.resourceId;
-                break;
-            case 'google':
-                user.googleID = this.props.resourceId;
-                break;
-            case 'spotify':
-                user.spotifyID = this.props.resourceId;
-                break;
-        }
+        user[oauth.resource + 'ID'] = this.props.resourceId;
 
         LoginActionCreators.register(user, profile, token, oauth);
     }

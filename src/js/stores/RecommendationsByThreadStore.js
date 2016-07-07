@@ -1,86 +1,92 @@
 import { register, waitFor } from '../dispatcher/Dispatcher';
 import ActionTypes from '../constants/ActionTypes';
+import * as Constants from '../constants/Constants';
+import IndexedListStore from '../stores/IndexedListStore';
 import ThreadStore from '../stores/ThreadStore';
 import RecommendationStore from '../stores/RecommendationStore';
 import {
     createIndexedListStore,
     createListActionHandler
 } from '../utils/PaginatedStoreUtils';
+import selectn from 'selectn';
 
-//Move logic to createIndexedListStore?
-let _position = [];
+class RecommendationsByThreadStore extends IndexedListStore {
 
-const RecommendationsByThreadStore = createIndexedListStore({
+    _nextUrl = [];
+
+    getNextPageUrl(threadId) {
+        return this._nextUrl[threadId];
+    }
+
+    setReceivingClasses() {
+        this._receivingClasses.push({
+            'request': {'type': ActionTypes.REQUEST_RECOMMENDATIONS, 'listId': 'threadId'},
+            'success': {'type': ActionTypes.REQUEST_RECOMMENDATIONS_SUCCESS, 'listId': 'threadId'},
+            'error': {'type': ActionTypes.REQUEST_RECOMMENDATIONS_ERROR, 'listId': 'threadId'}
+        });
+        this._receivingClasses.push({
+            'request': {'type': ActionTypes.REQUEST_THREADS, 'listId': null},
+            'success': {'type': ActionTypes.REQUEST_THREADS_SUCCESS, 'listId': {'array': 'response.result.items'}},
+            'error': {'type': ActionTypes.REQUEST_THREADS_ERROR, 'listId': null}
+        });
+    }
 
     getRecommendationsFromThread(threadId) {
-
         const thread = ThreadStore.get(threadId);
-        if (!thread){
+        if (!thread) {
             //Shouldn´t happen : UserActionCreators.requestRecommendation checks this
             return null;
         }
 
-        return this.getIds(threadId);
-
-    },
-
-    recommendationsReceived(threadId) {
-        return this.getList(threadId).getPageCount() > 0;
-    },
-
-    setPosition(threadId, newPosition){
-        _position[threadId] = newPosition;
-    },
-
-    getPosition(threadId){
-        return _position[threadId];
-    },
-
-    advancePosition(threadId, number = 1){
-        _position[threadId] += number;
-    }
-});
-
-const handleListAction = createListActionHandler({
-    request: ActionTypes.REQUEST_RECOMMENDATIONS,
-    success: ActionTypes.REQUEST_RECOMMENDATIONS_SUCCESS,
-    failure: ActionTypes.REQUEST_RECOMMENDATIONS_ERROR
-});
-
-register(action => {
-
-    waitFor([ThreadStore.dispatchToken, RecommendationStore.dispatchToken]);
-
-    const { threadId } = action;
-    switch(action.type){
-        case ActionTypes.RECOMMENDATIONS_NEXT:
-            RecommendationsByThreadStore.advancePosition(threadId, 1);
-            break;
-        case ActionTypes.RECOMMENDATIONS_PREV:
-            if (RecommendationsByThreadStore.getPosition(threadId) > 0){
-                RecommendationsByThreadStore.advancePosition(threadId, -1);
-            }
-            break;
-        case ActionTypes.UPDATE_THREAD:
-            let delete_list = RecommendationsByThreadStore.getList(threadId);
-            delete_list._ids=[];
-            RecommendationsByThreadStore.emitChange();
-            break;
-        case ActionTypes.LOGOUT_USER:
-            _position = [];
-            RecommendationsByThreadStore.removeLists();
-            break;
-        default:
-            break;
+        return this.getElements(threadId);
     }
 
-    if (threadId) {
-        handleListAction(
-            action,
-            RecommendationsByThreadStore.getList(threadId),
-            RecommendationsByThreadStore.emitChange
-        );
-    }
-});
+    _registerToActions(action) {
 
-export default RecommendationsByThreadStore;
+        waitFor([ThreadStore.dispatchToken, RecommendationStore.dispatchToken]);
+
+        super._registerToActions(action);
+
+        const { threadId } = action;
+        switch (action.type) {
+            case ActionTypes.REQUEST_RECOMMENDATIONS_SUCCESS:
+                action.response.result.items.forEach((id) => {
+                    const thread = ThreadStore.get(threadId);
+                    const {positioner, elementId} = RecommendationStore.getRecommendationId(action.response.entities.recommendation[id], thread.category);
+                    this.insertId(threadId, elementId, positioner);
+                    this._nextUrl[threadId] = action.response.result.pagination.nextLink;
+                });
+                this.emitChange();
+                break;
+            case ActionTypes.RECOMMENDATIONS_NEXT:
+                this.advancePosition(threadId, 1);
+                break;
+            case ActionTypes.RECOMMENDATIONS_PREV:
+                if (this.getPosition(threadId) > 0) {
+                    this.advancePosition(threadId, -1);
+                }
+                break;
+            case ActionTypes.UPDATE_THREAD:
+                this._ids[threadId] = [];
+                this.emitChange();
+                break;
+            case ActionTypes.REQUEST_THREADS_SUCCESS:
+                const responseThreads = selectn('response.entities.thread', action);
+                Object.keys(responseThreads).forEach((threadId) => {
+                    const thread = responseThreads[threadId];
+                    this._ids[threadId] = this._ids.hasOwnProperty(threadId) ? this._ids[threadId] : [];
+                    Object.keys(thread.cached).forEach((value) => {
+                        const {elementId, positioner} = RecommendationStore.getRecommendationId(thread.cached[value], thread.category);
+                        this.insertId(threadId, elementId, positioner);
+                    });
+                    this._nextUrl[threadId] = thread.recommendationUrl;
+                });
+                this.emitChange();
+                break;
+            default:
+                break;
+        }
+    }
+}
+
+export default new RecommendationsByThreadStore();

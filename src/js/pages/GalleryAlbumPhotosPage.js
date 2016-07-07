@@ -57,7 +57,7 @@ export default class GalleryAlbumPhotosPage extends Component {
     }
 
     componentWillMount() {
-        if (this.props.photos.length === 0 && !this.props.noPhotos) {
+        if ((!this.props.photos || this.props.photos.length === 0) && !this.props.noPhotos) {
             this.context.history.pushState(null, 'gallery');
         }
     }

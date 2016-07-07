@@ -80,15 +80,15 @@ function getState(props) {
     const threadId = parseThreadId(props.params);
     const thread = ThreadStore.get(threadId);
     const recommendationIds = threadId ? RecommendationsByThreadStore.getRecommendationsFromThread(threadId) : [];
-    const recommendationsReceived = RecommendationsByThreadStore.recommendationsReceived(threadId);
+    const recommendationsReceived = RecommendationsByThreadStore.elementsReceived(threadId);
     const category = thread ? thread.category : null;
     const filters = FilterStore.filters;
 
     let recommendations = [];
     if (thread && category == 'ThreadUsers') {
-        recommendations = RecommendationStore.getUserRecommendations(recommendationIds)
+        recommendations = RecommendationStore.getUserRecommendations(recommendationIds);
     } else if (thread && category == 'ThreadContent') {
-        recommendations = RecommendationStore.getContentRecommendations(recommendationIds)
+        recommendations = RecommendationStore.getContentRecommendations(recommendationIds);
     }
 
     return {
@@ -136,9 +136,7 @@ export default class RecommendationPage extends Component {
 
     componentWillMount() {
         RecommendationsByThreadStore.setPosition(this.props.params.threadId, 0);
-        if (this.props.recommendations.length === 0) {
-            requestData(this.props);
-        }
+        requestData(this.props);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -158,6 +156,8 @@ export default class RecommendationPage extends Component {
     componentDidUpdate() {
         if (this.props.recommendationsReceived && this.props.recommendations.length == 0) {
             nekunoApp.popup('.popup-empty-thread');
+        } else {
+            nekunoApp.closeModal('.popup-empty-thread');
         }
 
         if (!this.props.thread || this.props.recommendations.length == 0) {

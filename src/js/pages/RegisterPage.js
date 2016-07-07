@@ -3,11 +3,12 @@ const ReactLink = require('react/lib/ReactLink');
 const ReactStateSetters = require('react/lib/ReactStateSetters');
 import TopNavBar from '../components/ui/TopNavBar';
 import TextInput from '../components/ui/TextInput';
+import SocialBox from '../components/ui/SocialBox';
 import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
 import ConnectActionCreators from '../actions/ConnectActionCreators';
+import LoginActionCreators from '../actions/LoginActionCreators';
 import InvitationStore from '../stores/InvitationStore';
-import { FACEBOOK_SCOPE, TWITTER_SCOPE, GOOGLE_SCOPE, SPOTIFY_SCOPE } from '../constants/Constants';
 import SocialNetworkService from '../services/SocialNetworkService';
 
 function getState(props) {
@@ -40,10 +41,6 @@ export default class RegisterPage extends Component {
     constructor(props) {
         super(props);
         this.handleOnChange = this.handleOnChange.bind(this);
-        this.handleFacebook = this.handleFacebook.bind(this);
-        this.handleTwitter = this.handleTwitter.bind(this);
-        this.handleGoogle = this.handleGoogle.bind(this);
-        this.handleSpotify = this.handleSpotify.bind(this);
         this.handleSocialNetwork = this.handleSocialNetwork.bind(this);
     }
 
@@ -67,34 +64,18 @@ export default class RegisterPage extends Component {
         }, 500);
     }
 
-    handleFacebook(e) {
-        e.preventDefault();
-        return this.handleSocialNetwork('facebook', FACEBOOK_SCOPE);
-    }
-
-    handleTwitter(e) {
-        e.preventDefault();
-        return this.handleSocialNetwork('twitter', TWITTER_SCOPE);
-    }
-
-    handleSpotify(e) {
-        e.preventDefault();
-        return this.handleSocialNetwork('spotify', SPOTIFY_SCOPE);
-    }
-
-    handleGoogle(e) {
-        e.preventDefault();
-        return this.handleSocialNetwork('google', GOOGLE_SCOPE);
-    }
-
     handleSocialNetwork(resource, scope) {
         const {history} = this.context;
         const {token} = this.props;
         SocialNetworkService.login(resource, scope).then(() => {
-            const profile = SocialNetworkService.getProfile(resource);
-            ConnectActionCreators.connectRegister(token, resource, SocialNetworkService.getAccessToken(resource), SocialNetworkService.getResourceId(resource), profile);
-            history.pushState(null, '/join');
-            
+            LoginActionCreators.loginUserByResourceOwner(resource, SocialNetworkService.getAccessToken(resource))
+                .then(() => {},
+                    () => {
+                        const profile = SocialNetworkService.getProfile(resource);
+                        ConnectActionCreators.connectRegister(token, resource, SocialNetworkService.getAccessToken(resource), SocialNetworkService.getResourceId(resource), profile);
+
+                        history.pushState(null, '/join');
+                    });
         }, (status) => { nekunoApp.alert(resource + ' login failed: ' + status.error.message) });
     }
 
@@ -123,14 +104,7 @@ export default class RegisterPage extends Component {
                         <div style={{color: '#FFF'}}>
                             <p>{ error ? error.error : ''}</p>
                         </div>
-                        { token ?
-                            <div className="social-box">
-                                <div><a onClick={this.handleFacebook}><span className="icon-facebook"></span></a></div>
-                                <div><a onClick={this.handleTwitter}><span className="icon-twitter"></span></a></div>
-                                <div><a onClick={this.handleGoogle}><span className="icon-youtube"></span></a></div>
-                                <div><a onClick={this.handleSpotify}><span className="icon-spotify"></span></a></div>
-                            </div>
-                            : '' }
+                        { token ? <SocialBox onClickHandler={this.handleSocialNetwork} /> : '' }
                     </div>
                 </div>
             </div>

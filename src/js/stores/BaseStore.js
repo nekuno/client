@@ -4,10 +4,15 @@ import { register } from '../dispatcher/Dispatcher';
 
 export default class BaseStore extends EventEmitter {
 
+    _receiving = [];
+    _received = [];
+    _receivingClasses = [];
+
     constructor() {
         super();
         this.subscribe(() => this._registerToActions.bind(this));
         this.setInitial();
+        this.setReceivingClasses();
     }
 
     subscribe(actionSubscribe) {
@@ -18,7 +23,17 @@ export default class BaseStore extends EventEmitter {
         return this._dispatchToken;
     }
 
-    setInitial() {};
+    setInitial() {
+        this._receiving = [];
+        this._received = [];
+    };
+
+    setReceivingClasses() {
+    }
+
+    setReceiving(action){};
+    setReceivedSuccess(action){};
+    setReceivedError(action){};
 
     _registerToActions(action) {
         switch (action.type) {
@@ -29,6 +44,10 @@ export default class BaseStore extends EventEmitter {
             default:
                 break;
         }
+
+        this.setReceiving(action);
+        this.setReceivedSuccess(action);
+        this.setReceivedError(action);
     }
 
     emitChange() {

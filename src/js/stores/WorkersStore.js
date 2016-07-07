@@ -52,7 +52,7 @@ class WorkersStore extends BaseStore {
                     fetching  : false,
                     fetched   : false,
                     processing: true,
-                    process   : 1,
+                    process   : 0,
                     processed : false
                 });
                 this.emitChange();
@@ -64,7 +64,7 @@ class WorkersStore extends BaseStore {
                     fetching  : false,
                     fetched   : false,
                     processing: true,
-                    process   : action.percentage || 1,
+                    process   : action.percentage,
                     processed : false
                 });
                 this.emitChange();

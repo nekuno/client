@@ -87,17 +87,20 @@ export default class IndexedListStore extends BaseStore {
         if (this._ids[listId].indexOf(elementId) !== -1) {
             return;
         }
+        let listPositioners = this._positioners[listId] ? this._positioners[listId] : [];
         this._ids[listId].forEach((each, index) => {
-            if (!inserted && this._positioners[index] && this._positioners[index] < positioner){
+            if (!inserted && listPositioners[index] && listPositioners[index] < positioner){
                 this._ids[listId].splice(index, 0, elementId);
-                this._positioners.splice(index, 0, positioner);
+                listPositioners.splice(index, 0, positioner);
                 inserted = true;
             }
         });
         if (!inserted) {
             this._ids[listId].push(elementId);
-            this._positioners.push(positioner);
+            listPositioners.push(positioner);
         }
+
+        this._positioners[listId] = listPositioners;
     }
 
     getElements(listId) {

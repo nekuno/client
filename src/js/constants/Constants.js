@@ -64,8 +64,6 @@ export const SOCIAL_NETWORKS = [
     }
 ];
 
-export const RECOMMENDATIONS_BY_REQUEST = 20;
-
 export const FACEBOOK_ID = config.FACEBOOK_ID;
 export const FACEBOOK_SCOPE = config.FACEBOOK_SCOPE;
 

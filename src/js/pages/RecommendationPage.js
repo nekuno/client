@@ -1,5 +1,4 @@
 import React, { PropTypes, Component } from 'react';
-import { RECOMMENDATIONS_BY_REQUEST } from '../constants/Constants'
 import RecommendationList from '../components/recommendations/RecommendationList';
 import TopNavBar from '../components/ui/TopNavBar';
 import EmptyThreadPopup from '../components/recommendations/EmptyThreadPopup';
@@ -137,9 +136,7 @@ export default class RecommendationPage extends Component {
 
     componentWillMount() {
         RecommendationsByThreadStore.setPosition(this.props.params.threadId, 0);
-        if (this.props.recommendations.length < RECOMMENDATIONS_BY_REQUEST) {
-            requestData(this.props);
-        }
+        requestData(this.props);
     }
 
     componentWillReceiveProps(nextProps) {

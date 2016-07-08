@@ -40,11 +40,11 @@ $nekuno-logo-font: 'klinic_slabmedium';
 
 @font-face {
 	font-family: 'Nekuno Icons';
-	src:url('fonts/icomoon.eot?6k3dwl');
-	src:url('fonts/icomoon.eot?6k3dwl#iefix') format('embedded-opentype'),
-	url('fonts/icomoon.ttf?6k3dwl') format('truetype'),
-	url('fonts/icomoon.woff?6k3dwl') format('woff'),
-	url('fonts/icomoon.svg?6k3dwl#icomoon') format('svg');
+	src:url('fonts/icomoon.eot?n0sju0');
+	src:url('fonts/icomoon.eot?n0sju0#iefix') format('embedded-opentype'),
+	url('fonts/icomoon.ttf?n0sju0') format('truetype'),
+	url('fonts/icomoon.woff?n0sju0') format('woff'),
+	url('fonts/icomoon.svg?n0sju0#icomoon') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }
@@ -219,6 +219,9 @@ $nekuno-logo-font: 'klinic_slabmedium';
 }
 .icon-youtube:before {
 	content: "\e92d";
+}
+.icon-checkmark:before {
+	content: "\e92f";
 }
 
 ::-webkit-input-placeholder {

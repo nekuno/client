@@ -1,6 +1,5 @@
 import React, { PropTypes, Component } from 'react';
 import TopNavBar from '../components/ui/TopNavBar';
-import FullWidthButton from '../components/ui/FullWidthButton';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
@@ -86,7 +85,7 @@ export default class GalleryProfilePhotoPage extends Component {
         };
         return (
             <div className="view view-main">
-                <TopNavBar leftText={strings.cancel} centerText={strings.photos}/>
+                <TopNavBar leftText={strings.cancel} centerText={strings.photos} rightIcon={'checkmark'} onRightLinkClickHandler={photo ? this.cropAndSaveAsProfilePhoto : null}/>
                 <div className="page gallery-photo-page">
                     <div id="page-content" className="gallery-photo-content">
                         {photo ?
@@ -95,12 +94,6 @@ export default class GalleryProfilePhotoPage extends Component {
                             </div>
                                 :
                             ''}
-                        <br />
-                        <br />
-                        {photo ?
-                            <FullWidthButton onClick={this.cropAndSaveAsProfilePhoto}>{strings.changeProfilePhoto}</FullWidthButton>
-                            : ''}
-                        <br />
                         <br />
                         <br />
                         <br />

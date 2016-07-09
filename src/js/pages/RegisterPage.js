@@ -15,10 +15,12 @@ function getState(props) {
 
     const error = InvitationStore.error;
     const token = InvitationStore.token;
+    const invitation = InvitationStore.invitation;
 
     return {
         error,
-        token
+        token,
+        invitation
     };
 }
 
@@ -32,10 +34,11 @@ export default class RegisterPage extends Component {
 
     static propTypes = {
         // Injected by @translate:
-        strings: PropTypes.object,
+        strings   : PropTypes.object,
         // Injected by @connectToStores:
-        error  : PropTypes.object,
-        token  : PropTypes.string
+        error     : PropTypes.object,
+        token     : PropTypes.string,
+        invitation: PropTypes.object
     };
 
     constructor(props) {
@@ -69,19 +72,22 @@ export default class RegisterPage extends Component {
         const {token} = this.props;
         SocialNetworkService.login(resource, scope).then(() => {
             LoginActionCreators.loginUserByResourceOwner(resource, SocialNetworkService.getAccessToken(resource))
-                .then(() => {},
+                .then(() => {
+                    },
                     () => {
                         const profile = SocialNetworkService.getProfile(resource);
                         ConnectActionCreators.connectRegister(token, resource, SocialNetworkService.getAccessToken(resource), SocialNetworkService.getResourceId(resource), profile);
 
                         history.pushState(null, '/join');
                     });
-        }, (status) => { nekunoApp.alert(resource + ' login failed: ' + status.error.message) });
+        }, (status) => {
+            nekunoApp.alert(resource + ' login failed: ' + status.error.message)
+        });
     }
 
     render() {
 
-        const {error, token, strings} = this.props;
+        const {error, token, invitation, strings} = this.props;
 
         let initialToken = this.state.initialToken;
 
@@ -91,7 +97,7 @@ export default class RegisterPage extends Component {
                 <div className="page">
                     <div id="page-content" className="register-content">
                         <div className="register-title bold">
-                            <div className="title">{token ? strings.titleCorrect : strings.title}</div>
+                            <div className="title">{token ? (invitation.slogan ? invitation.slogan : strings.titleCorrect) : strings.title}</div>
                         </div>
                         <div className="register-sub-title">{ token ? strings.correct : strings.subtitle}</div>
                         { token ? '' :
@@ -104,7 +110,7 @@ export default class RegisterPage extends Component {
                         <div style={{color: '#FFF'}}>
                             <p>{ error ? error.error : ''}</p>
                         </div>
-                        { token ? <SocialBox onClickHandler={this.handleSocialNetwork} /> : '' }
+                        { token ? <SocialBox onClickHandler={this.handleSocialNetwork}/> : '' }
                     </div>
                 </div>
             </div>

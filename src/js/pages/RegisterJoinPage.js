@@ -193,7 +193,7 @@ export default class RegisterJoinPage extends Component {
                                 <PasswordInput placeholder={strings.password} ref="plainPassword"/>
                                 <DateInput defaultValue={profile ? profile.birthday: null} label={strings.birthday} placeholder={strings.birthdayPlaceholder} ref="birthday"/>
                             </ul>
-                            <LocationInput defaultValue={profile ? profile.location : null} placeholder={strings.location} onSuggestSelect={this.onSuggestSelect}/>
+                            <LocationInput defaultValue={null} placeholder={strings.location} onSuggestSelect={this.onSuggestSelect}/>
                         </div>
 
                         <TextRadios title={strings.include} labels={[

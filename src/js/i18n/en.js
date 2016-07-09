@@ -137,7 +137,7 @@ export default {
         birthday             : 'Birthday',
         birthdayPlaceholder  : 'Your birth date',
         location             : 'Location',
-        include              : 'Include on searches as',
+        include              : 'Gender',
         male                 : 'Male',
         female               : 'Female',
         showDescriptiveGender: 'Show other genders',

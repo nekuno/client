@@ -43,7 +43,7 @@ export default class OtherGalleryPhotoPage extends Component {
                     <div id="page-content" className="gallery-photo-content">
                         {photo ?
                             <div className="photo-wrapper">
-                                <Image src={photo.url}/>
+                                <Image src={photo.thumbnail.medium}/>
                             </div> 
                             : ''}
                         <br />

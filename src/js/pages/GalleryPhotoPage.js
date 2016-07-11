@@ -68,7 +68,7 @@ export default class GalleryPhotoPage extends Component {
     
     render() {
         const {photo, strings} = this.props;
-        const isProfilePhoto = photo && typeof photo.url == 'undefined';
+        const isProfilePhoto = photo && typeof photo.thumbnail == 'undefined';
         return (
             <div className="view view-main">
                 {isProfilePhoto ?
@@ -78,9 +78,9 @@ export default class GalleryPhotoPage extends Component {
                 }
                 <div className="page gallery-photo-page">
                     <div id="page-content" className="gallery-photo-content">
-                        {isProfilePhoto || photo && photo.url ?
+                        {isProfilePhoto || photo && photo.thumbnail.medium ?
                             <div className="photo-wrapper">
-                                <Image src={isProfilePhoto ? photo : photo.url}/>
+                                <Image src={isProfilePhoto ? photo : photo.thumbnail.medium}/>
                             </div>
                             : null}
                         <br />

@@ -90,7 +90,7 @@ export default class GalleryProfilePhotoPage extends Component {
                     <div id="page-content" className="gallery-photo-content">
                         {photo ?
                             <div className="photo-wrapper">
-                                <ReactCrop src={photo.url} crop={crop} minWidth={30} keepSelection={true} onChange={this.onChange} onImageLoaded={this.onChange}/>
+                                <ReactCrop src={photo.thumbnail.medium} crop={crop} minWidth={30} keepSelection={true} onChange={this.onChange} onImageLoaded={this.onChange}/>
                             </div>
                                 :
                             ''}

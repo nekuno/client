@@ -83,7 +83,7 @@ export default class OtherGalleryPage extends Component {
                         {noPhotos ? <EmptyMessage text={strings.empty}/> : photos.map(photo => 
                             <div key={photo.id} className="photo-wrapper" onClick={this.goToOtherPhotoGalleryPage.bind(this, photo)}>
                                 <div className="photo-absolute-wrapper">
-                                    <Image src={photo.url}/>
+                                    <Image src={photo.thumbnail.small}/>
                                 </div>
                             </div>
                         )}

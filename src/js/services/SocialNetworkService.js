@@ -42,9 +42,11 @@ class SocialNetworkService {
     }
 
     _setResourceData(resource, response) {
+        console.log(resource, response);
         this._accessTokens[resource] = response.authResponse.access_token;
         return hello(resource).api('me').then(
             (status) => {
+                console.log(status);
                 this._resourceIds[resource] = status.id.toString();
                 this._profiles[resource] = {
                     picture : status.picture,

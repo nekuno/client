@@ -196,7 +196,7 @@ export default class RegisterJoinPage extends Component {
                             <LocationInput defaultValue={profile ? profile.location : null} placeholder={strings.location} onSuggestSelect={this.onSuggestSelect} autoFocus={false}/>
                         </div>
 
-                        <TextRadios title={strings.include} labels={[
+                        <TextRadios title={this.state.descriptiveGender.length > 0 ? strings.include : strings.gender} labels={[
 						{key: 'male', text: strings.male},
 						{key: 'female', text: strings.female}
 					]} onClickHandler={this.onClickGender} value={this.state.gender}/>
@@ -270,6 +270,7 @@ RegisterJoinPage.defaultProps = {
         birthdayPlaceholder  : 'Your birth date',
         location             : 'Location',
         include              : 'Include on searches as',
+        gender               : 'Gender',
         male                 : 'Male',
         female               : 'Female',
         showDescriptiveGender: 'Show other genders',

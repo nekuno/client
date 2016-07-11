@@ -55,13 +55,19 @@ export default class ThreadContent extends Component {
     };
 
     goToThread() {
-        this.context.history.pushState(null, `users/${this.props.userId}/recommendations/${this.props.thread.id}`)
+        if (this.props.thread.disabled === true) {
+            nekunoApp.alert(this.props.strings.disabled)
+        } else {
+            this.context.history.pushState(null, `users/${this.props.userId}/recommendations/${this.props.thread.id}`)
+        }
     }
 
     render() {
         let {thread, last, filters, strings} = this.props;
+        const threadClass = thread.disabled ? "thread-listed thread-disabled" : "thread-listed";
+
         return (
-            <div className="thread-listed" onClick={this.goToThread}>
+            <div className={threadClass} onClick={this.goToThread}>
                 {last ? <div className="threads-opposite-vertical-connection"></div> : ''}
                 <div className="thread-first-image-wrapper">
                     <div className="thread-first-image-centered-wrapper">
@@ -96,6 +102,7 @@ export default class ThreadContent extends Component {
 
 ThreadContent.defaultProps = {
     strings: {
-        contents: 'Contents'
+        contents: 'Contents',
+        disabled: 'We are weaving this yarn, please wait a moment...'
     }
 };

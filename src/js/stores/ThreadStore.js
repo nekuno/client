@@ -6,6 +6,7 @@ import UserStore from './UserStore';
 import { getValidationErrors } from '../utils/StoreUtils';
 
 let _threads = {};
+let _disabled = [];
 let _errors = '';
 
 const ThreadStore = createStore({

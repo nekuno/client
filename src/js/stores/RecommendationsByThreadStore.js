@@ -52,6 +52,7 @@ class RecommendationsByThreadStore extends IndexedListStore {
             case ActionTypes.REQUEST_RECOMMENDATIONS_SUCCESS:
                 action.response.result.items.forEach((id) => {
                     const thread = ThreadStore.get(threadId);
+                    this._ids[threadId] = this._ids.hasOwnProperty(threadId) ? this._ids[threadId] : [];
                     const {positioner, elementId} = RecommendationStore.getRecommendationId(action.response.entities.recommendation[id], thread.category);
                     this.insertId(threadId, elementId, positioner);
                     this._nextUrl[threadId] = action.response.result.pagination.nextLink;

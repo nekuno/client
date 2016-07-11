@@ -323,7 +323,8 @@ export default {
     },
     ThreadUsers                      : {
         people: 'People',
-        users : 'Users'
+        users : 'Users',
+        disabled: 'We are weaving this yarn, please wait a moment...'
     },
     IntegerEdit                      : {
         minValue   : 'The minimum value of this value is ',

@@ -71,7 +71,7 @@ export default class ThreadUsers extends Component {
             nekunoApp.popup('.popup-orientation-required');
             document.getElementsByClassName('view')[0].scrollTop = 0;
         } else if (this.props.thread.disabled === true) {
-            nekunoApp.alert('We are weaving this yarn, please wait a moment...')
+            nekunoApp.alert(this.props.strings.disabled)
         } else {
             this.continue();
         }
@@ -85,10 +85,10 @@ export default class ThreadUsers extends Component {
         const {thread, last, filters, profile, strings} = this.props;
         const defaultUserImage = `${IMAGES_ROOT}media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
         let formattedThread = this.mergeImagesWithThread(thread);
-        const className = thread.disabled ? "thread-listed disabled" : "thread-listed";
+        const threadClass = thread.disabled ? "thread-listed thread-disabled" : "thread-listed";
         return (
             <div>
-                <div className="thread-listed" onClick={this.goToThread}>
+                <div className={threadClass} onClick={this.goToThread}>
                     {last ? <div className="threads-opposite-vertical-connection"></div> : ''}
                     <div className="thread-first-image-wrapper">
                         <div className="thread-first-image-centered-wrapper">
@@ -124,6 +124,7 @@ export default class ThreadUsers extends Component {
 ThreadUsers.defaultProps = {
     strings: {
         people: 'People',
-        users : 'Users'
+        users : 'Users',
+        disabled: 'We are weaving this yarn, please wait a moment...'
     }
 };

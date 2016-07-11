@@ -63,6 +63,7 @@ ThreadStore.dispatchToken = register(action => {
             items[item[0].id] = item[0];
             mergeIntoBag(_threads, items);
             ThreadStore.disable(item[0].id);
+            console.log(item[0].id);
             ThreadStore.emitChange();
             break;
         case ActionTypes.CREATE_THREAD_ERROR:
@@ -70,7 +71,6 @@ ThreadStore.dispatchToken = register(action => {
             if (action.error){
                 _errors = getValidationErrors(action.error);
             }
-            ThreadStore.disable(action.threadId);
             ThreadStore.emitChange();
             break;
         case ActionTypes.UPDATE_THREAD_SUCCESS:
@@ -78,6 +78,7 @@ ThreadStore.dispatchToken = register(action => {
             let update_items = [];
             update_items[update_item[0].id] = update_item[0];
             mergeIntoBag(_threads, update_items);
+            ThreadStore.disable(action.threadId);
             ThreadStore.emitChange();
             break;
         case ActionTypes.DELETE_THREAD_SUCCESS:

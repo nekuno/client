@@ -1,11 +1,16 @@
 import React, { PropTypes, Component } from 'react';
-import Geosuggest from 'react-geosuggest';
+import Geosuggest from './Geosuggest';
 
 export default class LocationInput extends Component {
 
     static propTypes = {
-        placeholder: PropTypes.string.isRequired,
-        onSuggestSelect: PropTypes.func.isRequired
+        placeholder    : PropTypes.string.isRequired,
+        onSuggestSelect: PropTypes.func.isRequired,
+        autoFocus      : PropTypes.bool
+    };
+
+    static defaultProps = {
+        autoFocus: true
     };
 
     constructor() {
@@ -16,7 +21,9 @@ export default class LocationInput extends Component {
     }
 
     componentDidMount() {
-        this.refs.geosuggest.focus();
+        if (this.props.autoFocus) {
+            this.refs.geosuggest.focus();
+        }
     }
 
     onSuggestSelect(suggest) {
@@ -48,9 +55,15 @@ export default class LocationInput extends Component {
             <div className="item-content">
                 <div className="item-inner location-inner">
                     <div className="item-input" ref="geosuggestWrapper">
-                        <Geosuggest {...this.props} autoActivateFirstSuggest={true} initialValue={this.props.defaultValue} placeholder={this.props.placeholder} ref="geosuggest" onSuggestSelect={this.onSuggestSelect}
+                        <Geosuggest {...this.props}
+                            autoActivateFirstSuggest={true}
+                            initialValue={this.props.defaultValue}
+                            placeholder={this.props.placeholder}
+                            ref="geosuggest"
+                            onSuggestSelect={this.onSuggestSelect}
                             getSuggestLabel={function(suggest) { return suggest.description.length > 35 ? suggest.description.slice(0, 35) + '...' : suggest.description }}
-                            onFocus={this.onFocusHandler} skipSuggest={function(suggest) { return suggest.terms.length < 2 }} />
+                            onFocus={this.onFocusHandler}
+                            skipSuggest={function(suggest) { return suggest.terms.length < 2 }}/>
                     </div>
                 </div>
             </div>
@@ -59,7 +72,7 @@ export default class LocationInput extends Component {
 
     onFocusHandler() {
         let geosuggestWrapper = this.refs.geosuggestWrapper;
-        window.setTimeout(function () {
+        window.setTimeout(function() {
             geosuggestWrapper.scrollIntoView();
             document.getElementsByClassName('view')[0].scrollTop -= 100;
         }, 500)

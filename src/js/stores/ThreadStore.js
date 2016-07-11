@@ -14,7 +14,6 @@ const ThreadStore = createStore({
     },
 
     get(id) {
-
         if (!this.contains(id)){
             return {};
         }
@@ -32,6 +31,18 @@ const ThreadStore = createStore({
     deleteErrors() {
         _errors = '';
         this.emitChange();
+    },
+
+    isDisabled(threadId) {
+        return _disabled[threadId] === true;
+    },
+
+    enable(threadId) {
+        _disabled[threadId] = false;
+    },
+
+    disable(threadId) {
+        _disabled[threadId] = true;
     }
 });
 
@@ -50,6 +61,7 @@ ThreadStore.dispatchToken = register(action => {
             let items = [];
             items[item[0].id] = item[0];
             mergeIntoBag(_threads, items);
+            ThreadStore.disable(item[0].id);
             ThreadStore.emitChange();
             break;
         case ActionTypes.CREATE_THREAD_ERROR:
@@ -57,6 +69,7 @@ ThreadStore.dispatchToken = register(action => {
             if (action.error){
                 _errors = getValidationErrors(action.error);
             }
+            ThreadStore.disable(action.threadId);
             ThreadStore.emitChange();
             break;
         case ActionTypes.UPDATE_THREAD_SUCCESS:
@@ -69,6 +82,10 @@ ThreadStore.dispatchToken = register(action => {
         case ActionTypes.DELETE_THREAD_SUCCESS:
             const threadId = [action.threadId];
             delete _threads[threadId];
+            ThreadStore.emitChange();
+            break;
+        case ActionTypes.REQUEST_RECOMMENDATIONS_SUCCESS:
+            ThreadStore.enable(action.threadId);
             ThreadStore.emitChange();
             break;
         case ActionTypes.LOGOUT_USER:

@@ -292,6 +292,7 @@ export default class CreateUsersThread extends Component {
         let history = this.context.history;
         ThreadActionCreators.createThread(this.props.userId, data)
             .then(function() {
+                ThreadActionCreators.requestRecommendation(threadId);
                 history.pushState(null, `threads`);
             });
     }
@@ -306,6 +307,7 @@ export default class CreateUsersThread extends Component {
         let history = this.context.history;
         ThreadActionCreators.updateThread(this.props.thread.id, data)
             .then(function() {
+                ThreadActionCreators.requestRecommendation(threadId);
                 history.pushState(null, `threads`);
             });
     }

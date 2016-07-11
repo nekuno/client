@@ -70,6 +70,8 @@ export default class ThreadUsers extends Component {
             console.log('orientation required');
             nekunoApp.popup('.popup-orientation-required');
             document.getElementsByClassName('view')[0].scrollTop = 0;
+        } else if (this.props.thread.disabled === true) {
+            nekunoApp.alert('We are weaving this yarn, please wait a moment...')
         } else {
             this.continue();
         }
@@ -83,6 +85,7 @@ export default class ThreadUsers extends Component {
         const {thread, last, filters, profile, strings} = this.props;
         const defaultUserImage = `${IMAGES_ROOT}media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
         let formattedThread = this.mergeImagesWithThread(thread);
+        const className = thread.disabled ? "thread-listed disabled" : "thread-listed";
         return (
             <div>
                 <div className="thread-listed" onClick={this.goToThread}>

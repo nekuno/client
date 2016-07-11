@@ -195,6 +195,7 @@ export default class CreateContentThread extends Component {
         let history = this.context.history;
         ThreadActionCreators.createThread(this.props.userId, data)
             .then(function() {
+                ThreadActionCreators.requestRecommendation(threadId);
                 history.pushState(null, `threads`);
             });
     }

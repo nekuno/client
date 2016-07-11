@@ -30,6 +30,9 @@ function requestData(props) {
 function getState(props) {
     const threadIds = ThreadsByUserStore.getThreadsFromUser(props.user.id);
     const threads = threadIds ? threadIds.map(ThreadStore.get) : [];
+    threads.forEach((thread) => {
+        thread.disabled = ThreadStore.isDisabled(thread.id);
+    });
     const profile = ProfileStore.get(props.user.id) || {};
     const filters = FilterStore.filters;
     const pagination = QuestionStore.getPagination(props.user.id) || {};

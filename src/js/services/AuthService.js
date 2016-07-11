@@ -3,6 +3,7 @@ import request from 'request';
 import Bluebird from 'bluebird';
 import { API_URLS } from '../constants/Constants';
 import * as APIUtils from '../utils/APIUtils';
+import * as ThreadActionCreators from '../actions/ThreadActionCreators';
 
 class AuthService {
 
@@ -118,7 +119,16 @@ class AuthService {
             })
             .spread(function(user, profile, invitation, oauthToken) {
                 console.log('Account connected', oauthToken);
-                APIUtils.postData(API_URLS.CREATE_DEFAULT_THREADS);
+                const defaultThreads = APIUtils.postData(API_URLS.CREATE_DEFAULT_THREADS);
+                defaultThreads.then((threads) => {
+                        threads.forEach((thread) => {
+                            ThreadActionCreators.requestRecommendation(thread.id);
+                        })
+                    },
+                    (errorData) => {
+                        console.log('error creating default threads');
+                        console.log(errorData);
+                    });
                 console.log('Default threads created');
                 return [user, profile, invitation, oauthToken]
             })

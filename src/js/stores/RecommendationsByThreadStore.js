@@ -41,6 +41,11 @@ class RecommendationsByThreadStore extends IndexedListStore {
         return this.getElements(threadId);
     }
 
+    getFirst(threadId, amount = 5) {
+        const ids = this.getElements(threadId);
+        return ids.slice(0, amount);
+    }
+
     _registerToActions(action) {
 
         waitFor([ThreadStore.dispatchToken, RecommendationStore.dispatchToken]);

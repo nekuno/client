@@ -8,6 +8,7 @@ import { getValidationErrors } from '../utils/StoreUtils';
 let _threads = {};
 let _disabled = [];
 let _errors = '';
+let _skipping = [];
 
 const ThreadStore = createStore({
     contains(id, fields) {
@@ -44,6 +45,16 @@ const ThreadStore = createStore({
 
     disable(threadId) {
         _disabled[threadId] = true;
+    },
+
+    skipNext(threadId) {
+        _skipping[threadId] = true;
+    },
+
+    mustSkip(threadId) {
+        let must = _skipping[threadId] === true;
+        _skipping[threadId] = false;
+        return must;
     }
 });
 
@@ -52,6 +63,12 @@ ThreadStore.dispatchToken = register(action => {
     const responseThreads = selectn('response.entities.thread', action);
 
     if (responseThreads) {
+        Object.keys(responseThreads).forEach((index) => {
+            const thread = responseThreads[index];
+            if (ThreadStore.mustSkip(thread.id)) {
+                delete responseThreads[index]
+            }
+        });
         mergeIntoBag(_threads, responseThreads);
         ThreadStore.emitChange();
     }
@@ -88,6 +105,9 @@ ThreadStore.dispatchToken = register(action => {
             break;
         case ActionTypes.REQUEST_RECOMMENDATIONS_SUCCESS:
             ThreadStore.enable(action.threadId);
+            let thread = ThreadStore.get(action.threadId);
+            thread.totalResults = action.response.result.pagination.total;
+            ThreadStore.skipNext(action.threadId);
             ThreadStore.emitChange();
             break;
         case ActionTypes.LOGOUT_USER:

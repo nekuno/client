@@ -1,6 +1,4 @@
 import React, { PropTypes, Component } from 'react';
-const ReactLink = require('react/lib/ReactLink');
-const ReactStateSetters = require('react/lib/ReactStateSetters');
 import TopNavBar from '../components/ui/TopNavBar';
 import TextInput from '../components/ui/TextInput';
 import PasswordInput from '../components/ui/PasswordInput';
@@ -38,13 +36,13 @@ export default class LoginPage extends Component {
 
     constructor() {
         super();
-        
+
         this.login = this.login.bind(this);
         this._onKeyDown = this._onKeyDown.bind(this);
         this.goHome = this.goHome.bind(this);
         this.goToRegisterPage = this.goToRegisterPage.bind(this);
         this.loginByResourceOwner = this.loginByResourceOwner.bind(this);
-        
+
         this.state = {
             username: '',
             password: ''
@@ -54,13 +52,15 @@ export default class LoginPage extends Component {
     login() {
         LoginActionCreators.loginUser(this.state.username, this.state.password);
     }
-    
+
     loginByResourceOwner(resource, scope) {
         SocialNetworkService.login(resource, scope).then(
-            () => LoginActionCreators.loginUserByResourceOwner(resource, SocialNetworkService.getAccessToken(resource)), 
-            (status) => { nekunoApp.alert(resource + ' login failed: ' + status.error.message) });
+            () => LoginActionCreators.loginUserByResourceOwner(resource, SocialNetworkService.getAccessToken(resource)),
+            (status) => {
+                nekunoApp.alert(resource + ' login failed: ' + status.error.message)
+            });
     }
-    
+
     loginAsGuest = function() {
         LoginActionCreators.loginUser('guest', 'guest');
     };
@@ -71,14 +71,16 @@ export default class LoginPage extends Component {
 
     _onKeyDown(event) {
         let ENTER_KEY_CODE = 13;
-        if(event.keyCode === ENTER_KEY_CODE) {
+        if (event.keyCode === ENTER_KEY_CODE) {
             event.preventDefault();
             this.login();
         }
     }
 
-    linkState(key) {
-        return new ReactLink(this.state[key], ReactStateSetters.createStateKeySetter(this, key));
+    _onChange(key, event) {
+        var state = {};
+        state[key] = event.target.value;
+        this.setState(state);
     }
 
     goHome() {
@@ -102,8 +104,8 @@ export default class LoginPage extends Component {
                     <div id="page-content" className="login-content">
                         <div className="list-block">
                             <ul>
-                                <TextInput placeholder={strings.username} valueLink={this.linkState('username')} onKeyDown={this._onKeyDown}/>
-                                <PasswordInput placeholder={strings.password} valueLink={this.linkState('password')} onKeyDown={this._onKeyDown}/>
+                                <TextInput placeholder={strings.username} onChange={this._onChange.bind(this, 'username')} onKeyDown={this._onKeyDown}/>
+                                <PasswordInput placeholder={strings.password} onChange={this._onChange.bind(this, 'password')} onKeyDown={this._onKeyDown}/>
                             </ul>
                         </div>
                         <div className="recover-password">

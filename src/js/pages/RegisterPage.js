@@ -1,6 +1,4 @@
 import React, { PropTypes, Component } from 'react';
-const ReactLink = require('react/lib/ReactLink');
-const ReactStateSetters = require('react/lib/ReactStateSetters');
 import TopNavBar from '../components/ui/TopNavBar';
 import TextInput from '../components/ui/TextInput';
 import SocialBox from '../components/ui/SocialBox';

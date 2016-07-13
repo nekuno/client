@@ -13,7 +13,7 @@ export default class SocialWheels extends Component {
 
     renderProcessingIcon = function(resource, radius, degrees, posX, posY, key) {
         return (
-            <foreignObject key={key} x={this.smallIconXValue(posX, posY, radius, 0, degrees)} y={this.smallIconYValue(posX, posY, radius, 0, degrees)} width="15" height="15" requiredExtensions="http://www.w3.org/1999/xhtml">
+            <foreignObject key={key} x={this.smallIconXValue(posX, posY, radius, 0, degrees)} y={this.smallIconYValue(posX, posY, radius, 0, degrees)} width="15" height="15">
                 <div className={"icon-wrapper text-" + resource}>
                     <div className={resource == 'google' ? 'icon-youtube' : 'icon-' + resource}></div>
                 </div>
@@ -23,7 +23,7 @@ export default class SocialWheels extends Component {
 
     renderFetchingIcon = function(resource, radius, posX, posY, key) {
         return (
-            <foreignObject key={key} x={this.smallIconXValue(posX, posY, radius, 0, 0)} y={this.smallIconYValue(posX, posY, radius, 0, 0)} width="15" height="15" requiredExtensions="http://www.w3.org/1999/xhtml">
+            <foreignObject key={key} x={this.smallIconXValue(posX, posY, radius, 0, 0)} y={this.smallIconYValue(posX, posY, radius, 0, 0)} width="15" height="15">
                 <div className={"fetching-icon icon-wrapper text-" + resource}>
                     <div className={resource == 'google' ? 'icon-youtube' : 'icon-' + resource}></div>
                 </div>
@@ -33,7 +33,7 @@ export default class SocialWheels extends Component {
 
     renderFetchedIcon = function(resource, radius, posX, posY, key) {
         return (
-            <foreignObject key={key} x={this.smallIconXValue(posX, posY, radius, 0, 0)} y={this.smallIconYValue(posX, posY, radius, 0, 0)} width="15" height="15" requiredExtensions="http://www.w3.org/1999/xhtml">
+            <foreignObject key={key} x={this.smallIconXValue(posX, posY, radius, 0, 0)} y={this.smallIconYValue(posX, posY, radius, 0, 0)} width="15" height="15">
                 <div className={"fetched-icon icon-wrapper text-" + resource}>
                     <div className={resource == 'google' ? 'icon-youtube' : 'icon-' + resource}></div>
                 </div>
@@ -43,7 +43,7 @@ export default class SocialWheels extends Component {
 
     renderTransparentIcon = function(resource, radius, posX, posY, key) {
         return (
-            <foreignObject key={key} x={this.smallIconXValue(posX, posY, radius, 0, 0)} y={this.smallIconYValue(posX, posY, radius, 0, 0)} width="15" height="15" requiredExtensions="http://www.w3.org/1999/xhtml"
+            <foreignObject key={key} x={this.smallIconXValue(posX, posY, radius, 0, 0)} y={this.smallIconYValue(posX, posY, radius, 0, 0)} width="15" height="15"
                            style={{opacity: 0}}>
                 <div className={"icon-wrapper text-" + resource}>
                     <div className={resource == 'google' ? 'icon-youtube' : 'icon-' + resource}></div>
@@ -119,7 +119,7 @@ export default class SocialWheels extends Component {
             <div className="social-wheels">
                 <SocialBox onClickHandler={this.connect} excludedResources={connectedNetworks.map(network => network.resource)} />
                 {connectedNetworks.length > 0 ?
-                    <svg width="310" height="310" xmlns="http://www.w3.org/2000/svg">
+                    <svg width="310" height="310">
                         <g>
                             {/* Wheel separators */}
                             {networks.map((network, index) => {

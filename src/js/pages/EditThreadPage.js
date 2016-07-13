@@ -80,7 +80,7 @@ export default class EditThreadPage extends Component {
     componentWillReceiveProps(nextProps) {
         if (nextProps.thread) {
             this.setState({
-                threadName: nextProps.thread.name,
+                threadName: this.state.threadName ? this.state.threadName : nextProps.thread.name,
                 category  : nextProps.thread.category == 'ThreadUsers' ? 'persons' : 'contents'
             });
         }

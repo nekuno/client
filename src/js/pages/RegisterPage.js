@@ -97,7 +97,7 @@ export default class RegisterPage extends Component {
                         <div className="register-title bold">
                             <div className="title">{token ? (invitation.slogan ? invitation.slogan : strings.titleCorrect) : strings.title}</div>
                         </div>
-                        <div className="register-sub-title">{ token ? strings.correct : strings.subtitle}</div>
+                        <div className="register-sub-title">{ token ? (invitation.htmlText ? invitation.htmlText : strings.correct) : strings.subtitle}</div>
                         { token ? '' :
                             <div className="list-block">
                                 <ul>

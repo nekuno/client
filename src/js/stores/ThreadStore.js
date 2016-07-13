@@ -6,7 +6,9 @@ import UserStore from './UserStore';
 import { getValidationErrors } from '../utils/StoreUtils';
 
 let _threads = {};
+let _disabled = [];
 let _errors = '';
+let _skipping = [];
 
 const ThreadStore = createStore({
     contains(id, fields) {
@@ -14,7 +16,6 @@ const ThreadStore = createStore({
     },
 
     get(id) {
-
         if (!this.contains(id)){
             return {};
         }
@@ -32,6 +33,28 @@ const ThreadStore = createStore({
     deleteErrors() {
         _errors = '';
         this.emitChange();
+    },
+
+    isDisabled(threadId) {
+        return _disabled[threadId] === true;
+    },
+
+    enable(threadId) {
+        _disabled[threadId] = false;
+    },
+
+    disable(threadId) {
+        _disabled[threadId] = true;
+    },
+
+    skipNext(threadId) {
+        _skipping[threadId] = true;
+    },
+
+    mustSkip(threadId) {
+        let must = _skipping[threadId] === true;
+        _skipping[threadId] = false;
+        return must;
     }
 });
 
@@ -40,6 +63,12 @@ ThreadStore.dispatchToken = register(action => {
     const responseThreads = selectn('response.entities.thread', action);
 
     if (responseThreads) {
+        Object.keys(responseThreads).forEach((index) => {
+            const thread = responseThreads[index];
+            if (ThreadStore.mustSkip(thread.id)) {
+                delete responseThreads[index]
+            }
+        });
         mergeIntoBag(_threads, responseThreads);
         ThreadStore.emitChange();
     }
@@ -50,6 +79,8 @@ ThreadStore.dispatchToken = register(action => {
             let items = [];
             items[item[0].id] = item[0];
             mergeIntoBag(_threads, items);
+            ThreadStore.disable(item[0].id);
+            console.log(item[0].id);
             ThreadStore.emitChange();
             break;
         case ActionTypes.CREATE_THREAD_ERROR:
@@ -64,11 +95,19 @@ ThreadStore.dispatchToken = register(action => {
             let update_items = [];
             update_items[update_item[0].id] = update_item[0];
             mergeIntoBag(_threads, update_items);
+            ThreadStore.disable(action.threadId);
             ThreadStore.emitChange();
             break;
         case ActionTypes.DELETE_THREAD_SUCCESS:
             const threadId = [action.threadId];
             delete _threads[threadId];
+            ThreadStore.emitChange();
+            break;
+        case ActionTypes.REQUEST_RECOMMENDATIONS_SUCCESS:
+            ThreadStore.enable(action.threadId);
+            let thread = ThreadStore.get(action.threadId);
+            thread.totalResults = action.response.result.pagination.total;
+            ThreadStore.skipNext(action.threadId);
             ThreadStore.emitChange();
             break;
         case ActionTypes.LOGOUT_USER:

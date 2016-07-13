@@ -322,7 +322,8 @@ export default {
     },
     ThreadUsers                      : {
         people: 'Personas',
-        users : 'Usuarios'
+        users : 'Usuarios',
+        disabled: 'Estamos tejiendo este hilo, un momento por favor...'
     },
     IntegerEdit                      : {
         minValue   : 'El valor mínimo de este valor es ',

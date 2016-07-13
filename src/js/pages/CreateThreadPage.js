@@ -1,6 +1,4 @@
 import React, { PropTypes, Component } from 'react';
-const ReactLink = require('react/lib/ReactLink');
-const ReactStateSetters = require('react/lib/ReactStateSetters');
 import * as ThreadActionCreators from '../actions/ThreadActionCreators';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
@@ -46,7 +44,7 @@ export default class CreateThreadPage extends Component {
         // Injected by @connectToStores:
         filters: PropTypes.object,
         tags   : PropTypes.array,
-        errors           : PropTypes.string,
+        errors : PropTypes.string,
         // Injected by @AuthenticatedComponent
         user   : PropTypes.object.isRequired,
         // Injected by @translate:
@@ -56,6 +54,7 @@ export default class CreateThreadPage extends Component {
     constructor(props) {
         super(props);
 
+        this._onChange = this._onChange.bind(this);
         this.handleClickCategory = this.handleClickCategory.bind(this);
 
         this.state = {
@@ -69,20 +68,22 @@ export default class CreateThreadPage extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.errors){
+        if (nextProps.errors) {
             nekunoApp.alert(nextProps.errors);
             ThreadStore.deleteErrors();
         }
+    }
+
+    _onChange(event) {
+        this.setState({
+            threadName: event.target.value
+        });
     }
 
     handleClickCategory(category) {
         this.setState({
             category: category
         });
-    }
-
-    linkState(key) {
-        return new ReactLink(this.state[key], ReactStateSetters.createStateKeySetter(this, key));
     }
 
     render() {
@@ -97,7 +98,7 @@ export default class CreateThreadPage extends Component {
                             <div>
                                 <div className="thread-title list-block">
                                     <ul>
-                                        <TextInput placeholder={strings.placeholder} valueLink={this.linkState('threadName')}/>
+                                        <TextInput placeholder={strings.placeholder} onChange={this._onChange}/>
                                     </ul>
                                 </div>
                                 <div key={1} className={category + '-first-vertical-line'}></div>

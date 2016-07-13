@@ -1,5 +1,4 @@
 import React, { PropTypes, Component } from 'react';
-const ReactLink = require('react/lib/ReactLink');
 import { IMAGES_ROOT } from '../constants/Constants';
 import * as UserActionCreators from '../actions/UserActionCreators';
 import * as ThreadActionCreators from '../actions/ThreadActionCreators';

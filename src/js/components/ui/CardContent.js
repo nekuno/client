@@ -83,7 +83,7 @@ export default class CardContent extends Component {
         const cardTitle = title ? <div>{title.substr(0, 20)}{title.length > 20 ? '...' : ''}</div> : <div> {strings.emptyTitle} </div>;
         const subTitle = description ? <div>{description.substr(0, 20)}{description.length > 20 ? '...' : ''}</div> : fixedHeight ? <div>&nbsp;</div> : '';
         const likeButtonText = rate ? strings.unlike : strings.like;
-        const likeButton = hideLikeButton ? '' : <div className="like-button-container"><Button {...this.props} onClick={this.onRate}>{likeButtonText}</Button></div>;
+        const likeButton = hideLikeButton ? '' : <div className="like-button-container"><Button onClick={this.onRate}>{likeButtonText}</Button></div>;
         const imageClass = fixedHeight ? 'image fixed-height-image' : 'image';
         const isImage = types.indexOf('Image') > -1;
         const defaultSrc = 'img/default-content-image.jpg';

@@ -13,6 +13,8 @@ import ProfileStore from '../stores/ProfileStore';
 import ThreadsByUserStore from '../stores/ThreadsByUserStore';
 import FilterStore from '../stores/FilterStore';
 import QuestionStore from '../stores/QuestionStore';
+import RecommendationStore from '../stores/RecommendationStore';
+import RecommendationsByThreadStore from '../stores/RecommendationsByThreadStore';
 
 /**
  * Requests data from server for current props.
@@ -30,6 +32,14 @@ function requestData(props) {
 function getState(props) {
     const threadIds = ThreadsByUserStore.getThreadsFromUser(props.user.id);
     const threads = threadIds ? threadIds.map(ThreadStore.get) : [];
+    threads.forEach((thread) => {
+        thread.disabled = ThreadStore.isDisabled(thread.id);
+        const cachedIds = RecommendationsByThreadStore.getFirst(thread.id, 5);
+        thread.cached = thread.category == 'ThreadContent' ?
+            RecommendationStore.getContentRecommendations(cachedIds)
+            :
+            RecommendationStore.getUserRecommendations(cachedIds);
+    });
     const profile = ProfileStore.get(props.user.id) || {};
     const filters = FilterStore.filters;
     const pagination = QuestionStore.getPagination(props.user.id) || {};
@@ -44,7 +54,7 @@ function getState(props) {
 
 @AuthenticatedComponent
 @translate('ThreadPage')
-@connectToStores([ThreadStore, ThreadsByUserStore, ProfileStore, FilterStore], getState)
+@connectToStores([ThreadStore, ThreadsByUserStore, RecommendationStore, RecommendationsByThreadStore, ProfileStore, FilterStore], getState)
 export default class ThreadPage extends Component {
 
     static propTypes = {

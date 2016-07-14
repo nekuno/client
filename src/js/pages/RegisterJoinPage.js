@@ -215,7 +215,7 @@ export default class RegisterJoinPage extends Component {
                                         let checked = this.state.descriptiveGender.indexOf(id) !== -1;
                                         return (
                                             <li key={id}>
-                                                <InputCheckbox value={id} name={'descriptiveGender[]'} text={text} checked={checked} defaultChecked={false} onClickHandler={this.onClickDescriptiveGender} reverse={true}/>
+                                                <InputCheckbox value={id} name={'descriptiveGender[]'} text={text} checked={checked} onClickHandler={this.onClickDescriptiveGender} reverse={true}/>
                                             </li>
                                         )
                                     })}
@@ -229,7 +229,7 @@ export default class RegisterJoinPage extends Component {
                                         let text = metadata.descriptiveGender.choices[id];
                                         let checked = this.state.descriptiveGender.indexOf(id) !== -1;
                                         return (<li key={id}>
-                                            <InputCheckbox value={id} name={'descriptiveGender[]'} text={text} checked={checked} defaultChecked={false} onClickHandler={this.onClickDescriptiveGender} reverse={true}/>
+                                            <InputCheckbox value={id} name={'descriptiveGender[]'} text={text} checked={checked} onClickHandler={this.onClickDescriptiveGender} reverse={true}/>
                                         </li>)
                                     })}
                                 </ul>

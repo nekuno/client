@@ -7,7 +7,6 @@ export default class InputCheckbox extends Component {
         name          : PropTypes.string.isRequired,
         text          : PropTypes.string.isRequired,
         checked       : PropTypes.bool,
-        defaultChecked: PropTypes.bool.isRequired,
         onClickHandler: PropTypes.func,
         reverse       : PropTypes.bool
     };
@@ -19,24 +18,25 @@ export default class InputCheckbox extends Component {
     }
 
     render() {
+        const {name, value, checked, text} = this.props;
         return (
             <div>
                 {this.props.reverse ?
                     <label className="label-checkbox item-content">
-                        <input type="checkbox" ref="checkbox" name={this.props.name} value={this.props.value} checked={this.props.checked} defaultChecked={this.props.defaultChecked} readOnly/>
+                        <input type="checkbox" ref="checkbox" name={name} value={value} checked={this.props.checked} readOnly/>
                         <div className="item-media" onClick={this.onClickHandler}>
                             <i className="icon icon-form-checkbox"></i>
                         </div>
                         <div className="item-inner">
-                            <div className="item-title" onClick={this.onClickHandler}>{this.props.text}</div>
+                            <div className="item-title" onClick={this.onClickHandler}>{text}</div>
                         </div>
                     </label>
                     :
                     <label className="label-checkbox item-content">
                         <div className="item-inner">
-                            <div className="item-title" onClick={this.onClickHandler}>{this.props.text}</div>
+                            <div className="item-title" onClick={this.onClickHandler}>{text}</div>
                         </div>
-                        <input type="checkbox" ref="checkbox" name={this.props.name} value={this.props.value} checked={this.props.checked} defaultChecked={this.props.defaultChecked} readOnly/>
+                        <input type="checkbox" ref="checkbox" name={name} value={value} checked={checked} readOnly/>
                         <div className="item-media" onClick={this.onClickHandler}>
                             <i className="icon icon-form-checkbox"></i>
                         </div>

@@ -33,7 +33,7 @@ export default class QuestionStatsInline extends Component {
                 </div>
                 <QuestionStatsGraphs question={question} userAnswer={userAnswer}/>
                 <div className="answers-colors">
-                    <hr align="left"/>
+                    <hr/>
                     {answers.map((answer, index) =>
                         <div key={index} className="answer-color">
                             <span className="icon-circle " style={{'color': QUESTION_STATS_COLORS[index]}}></span>

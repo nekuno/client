@@ -136,19 +136,13 @@ export default class AnswerQuestionForm extends Component {
                             <ul>
                                 {answers.map((answer, index) => {
                                     let answerChecked = false;
-                                    let defaultAnswerChecked = false;
-                                    acceptedAnswers.forEach((answerId) => {
-                                        if (answerId === answer.answerId) {
-                                            defaultAnswerChecked = true;
-                                        }
-                                    });
                                     this.state.acceptedAnswers.forEach((answerId) => {
                                         if (answerId === answer.answerId) {
                                             answerChecked = true;
                                         }
                                     });
                                     return (
-                                        <AcceptedAnswerCheckbox key={index} answer={answer} checked={answerChecked} defaultChecked={defaultAnswerChecked} onClickHandler={this.handleOnClickAcceptedAnswer}/>
+                                        <AcceptedAnswerCheckbox key={index} answer={answer} checked={answerChecked} onClickHandler={this.handleOnClickAcceptedAnswer}/>
                                     );
                                 })}
                             </ul>
@@ -165,7 +159,7 @@ export default class AnswerQuestionForm extends Component {
                             <ul>
                                 {answers.map((answer, index) => {
                                     return (
-                                        <AnswerRadio key={index} answer={answer} checked={this.state.answerId === answer.answerId} defaultChecked={userAnswerId === answer.answerId} onClickHandler={this.handleOnClickAnswer}/>
+                                        <AnswerRadio key={index} answer={answer} checked={this.state.answerId === answer.answerId} onClickHandler={this.handleOnClickAnswer}/>
                                     );
                                 })}
                             </ul>

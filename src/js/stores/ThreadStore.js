@@ -83,7 +83,9 @@ ThreadStore.dispatchToken = register(action => {
             ThreadStore.emitChange();
             break;
         case ActionTypes.CREATE_DEFAULT_THREADS_SUCCESS:
-            items[item[0].id] = item[0];
+            item[0].forEach((thread) => {
+                items[thread.id] = thread;
+            });
             mergeIntoBag(_threads, items);
             ThreadStore.disable(item[0].id);
             ThreadStore.emitChange();

@@ -119,7 +119,7 @@ class AuthService {
             })
             .spread(function(user, profile, invitation, oauthToken) {
                 console.log('Account connected', oauthToken);
-                const defaultThreads = APIUtils.postData(API_URLS.CREATE_DEFAULT_THREADS);
+                const defaultThreads = ThreadActionCreators.createDefaultThreads();
                 defaultThreads.then((threads) => {
                         threads.forEach((thread) => {
                             ThreadActionCreators.requestRecommendation(thread.id);

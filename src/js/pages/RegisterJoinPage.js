@@ -25,6 +25,7 @@ function getState(props) {
     const accessToken = ConnectStore.accessToken;
     const resource = ConnectStore.resource;
     const resourceId = ConnectStore.resourceId;
+    const expireTime = ConnectStore.expireTime;
     const profile = ConnectStore.profile;
     const metadata = ProfileStore.getMetadata();
     const error = RegisterStore.error;
@@ -47,6 +48,7 @@ function getState(props) {
         accessToken,
         resource,
         resourceId,
+        expireTime,
         profile,
         metadata,
         error,
@@ -71,6 +73,7 @@ export default class RegisterJoinPage extends Component {
         accessToken  : PropTypes.string,
         resource     : PropTypes.string,
         resourceId   : PropTypes.string,
+        expireTime   : PropTypes.number,
         profile      : PropTypes.object,
         metadata     : PropTypes.object,
         error        : PropTypes.object,
@@ -112,7 +115,8 @@ export default class RegisterJoinPage extends Component {
         let oauth = {
             accessToken: this.props.accessToken,
             resource   : this.props.resource,
-            resourceId : this.props.resourceId
+            resourceId : this.props.resourceId,
+            expireTime : this.props.expireTime
         };
         user[oauth.resource + 'ID'] = this.props.resourceId;
 

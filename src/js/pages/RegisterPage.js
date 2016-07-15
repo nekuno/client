@@ -74,7 +74,7 @@ export default class RegisterPage extends Component {
                     },
                     () => {
                         const profile = SocialNetworkService.getProfile(resource);
-                        ConnectActionCreators.connectRegister(token, resource, SocialNetworkService.getAccessToken(resource), SocialNetworkService.getResourceId(resource), profile);
+                        ConnectActionCreators.connectRegister(token, resource, SocialNetworkService.getAccessToken(resource), SocialNetworkService.getResourceId(resource), SocialNetworkService.getExpireTime(resource), profile);
 
                         history.pushState(null, '/join');
                     });

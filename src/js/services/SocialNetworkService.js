@@ -2,6 +2,7 @@ class SocialNetworkService {
 
     constructor() {
         this._accessTokens = {};
+        this._expireTime = {};
         this._resourceIds = {};
         this._scopes = {};
         this._profiles = {};
@@ -40,10 +41,15 @@ class SocialNetworkService {
     getProfile(resource) {
         return this._profiles[resource] || null;
     }
+    
+    getExpireTime(resource) {
+        return this._expireTime[resource] || null;
+    }
 
     _setResourceData(resource, response) {
         console.log(resource, response);
         this._accessTokens[resource] = response.authResponse.access_token;
+        this._expireTime[resource] = Math.floor(response.authResponse.expires);
         return hello(resource).api('me').then(
             (status) => {
                 console.log(status);

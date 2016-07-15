@@ -19,7 +19,8 @@ import {
     fetchLikeUser,
     postLikeContent,
     deleteLikeContent,
-    getData
+    getData,
+    postData
 } from '../utils/APIUtils';
 
 export function getOwnUser(url = `users`) {
@@ -60,6 +61,10 @@ export function getThreads(url = `threads`){
 
 export function createThread(data, url='threads') {
     return postThread(url, data);
+}
+
+export function createDefaultThreads(url = 'threads/default') {
+    return postData(url);
 }
 
 export function updateThread(threadId, data, url= `threads/${threadId}`) {

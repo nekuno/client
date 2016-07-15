@@ -73,14 +73,21 @@ ThreadStore.dispatchToken = register(action => {
         ThreadStore.emitChange();
     }
 
+    let item = [action.response];
+    let items = [];
     switch(action.type){
         case ActionTypes.CREATE_THREAD_SUCCESS:
-            let item = [action.response];
-            let items = [];
             items[item[0].id] = item[0];
             mergeIntoBag(_threads, items);
             ThreadStore.disable(item[0].id);
-            console.log(item[0].id);
+            ThreadStore.emitChange();
+            break;
+        case ActionTypes.CREATE_DEFAULT_THREADS_SUCCESS:
+            item[0].forEach((thread) => {
+                items[thread.id] = thread;
+            });
+            mergeIntoBag(_threads, items);
+            ThreadStore.disable(item[0].id);
             ThreadStore.emitChange();
             break;
         case ActionTypes.CREATE_THREAD_ERROR:

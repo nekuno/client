@@ -108,7 +108,7 @@ export default new class LoginActionCreators {
             failure: ActionTypes.REQUEST_REGISTER_USER_ERROR
         }, {user, profile, token, oauth})
             .then(() => {
-                return this.loginUser(user.username, user.plainPassword);
+                return this.loginUserByResourceOwner(oauth.resourceOwner, oauth.oauthToken);
             }, (error) => {
                 console.error(error);
             });

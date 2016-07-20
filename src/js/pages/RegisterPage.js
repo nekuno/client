@@ -7,6 +7,7 @@ import connectToStores from '../utils/connectToStores';
 import ConnectActionCreators from '../actions/ConnectActionCreators';
 import LoginActionCreators from '../actions/LoginActionCreators';
 import InvitationStore from '../stores/InvitationStore';
+import LocaleStore from '../stores/LocaleStore';
 import SocialNetworkService from '../services/SocialNetworkService';
 
 function getState(props) {
@@ -14,21 +15,19 @@ function getState(props) {
     const error = InvitationStore.error;
     const token = InvitationStore.token;
     const invitation = InvitationStore.invitation;
+    const interfaceLanguage = LocaleStore.locale;
 
     return {
         error,
         token,
-        invitation
+        invitation,
+        interfaceLanguage
     };
 }
 
 @translate('RegisterPage')
-@connectToStores([InvitationStore], getState)
+@connectToStores([InvitationStore, LocaleStore], getState)
 export default class RegisterPage extends Component {
-
-    static contextTypes = {
-        history: PropTypes.object.isRequired
-    };
 
     static propTypes = {
         // Injected by @translate:
@@ -66,17 +65,22 @@ export default class RegisterPage extends Component {
     }
 
     handleSocialNetwork(resource, scope) {
-        const {history} = this.context;
-        const {token} = this.props;
+        const {token, interfaceLanguage} = this.props;
         SocialNetworkService.login(resource, scope).then(() => {
             LoginActionCreators.loginUserByResourceOwner(resource, SocialNetworkService.getAccessToken(resource))
-                .then(() => {
-                    },
+                .then(() => {},
                     () => {
                         const profile = SocialNetworkService.getProfile(resource);
-                        ConnectActionCreators.connectRegister(token, resource, SocialNetworkService.getAccessToken(resource), SocialNetworkService.getResourceId(resource), SocialNetworkService.getExpireTime(resource), profile);
-
-                        history.pushState(null, '/join');
+                        profile.interfaceLanguage = interfaceLanguage;
+                        profile.orientationRequired = false;
+                        const user = SocialNetworkService.getUser(resource);
+                        user[resource + 'ID'] = SocialNetworkService.getResourceId(resource);
+                        LoginActionCreators.register(user, profile, token, {
+                            resourceOwner: resource,
+                            oauthToken: SocialNetworkService.getAccessToken(resource),
+                            resourceId: SocialNetworkService.getResourceId(resource),
+                            expireTime: SocialNetworkService.getExpireTime(resource)
+                        });
                     });
         }, (status) => {
             nekunoApp.alert(resource + ' login failed: ' + status.error.message)

@@ -91,11 +91,12 @@ class AuthService {
             })
             .then(function() {
                 console.log('Profile valid');
+                user.oauth = oauth;
                 return APIUtils.postData(API_URLS.REGISTER_USER, user);
             })
             .then((registeredUser) => {
                 console.log('User registered', registeredUser);
-                return [registeredUser, this.login(user.username, user.plainPassword)];
+                return [registeredUser, this.resourceOwnerLogin(oauth.resourceOwner, oauth.oauthToken)];
             })
             .spread(function(user, jwt) {
                 console.log('jwt', jwt);
@@ -115,10 +116,6 @@ class AuthService {
                 return [user, profile, invitation]
             })
             .spread(function(user, profile, invitation) {
-                return [user, profile, invitation, APIUtils.postData(API_URLS.CONNECT_ACCOUNT.replace('{resource}', oauth.resource), {oauthToken: oauth.accessToken, resourceId: oauth.resourceId, expireTime: oauth.expireTime})];
-            })
-            .spread(function(user, profile, invitation, oauthToken) {
-                console.log('Account connected', oauthToken);
                 const defaultThreads = ThreadActionCreators.createDefaultThreads();
                 defaultThreads.then((threads) => {
                         threads.forEach((thread) => {

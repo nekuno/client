@@ -43,7 +43,7 @@ export default class LocationField extends Component {
 LocationField.defaultProps = {
     strings: {
         location           : 'Location',
-        title              : '¿Where do you live?',
+        title              : 'Select your location',
         save               : 'Save'
     }
 };

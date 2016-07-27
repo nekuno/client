@@ -229,11 +229,43 @@ export default {
         question      : 'Question',
         loadingMessage: 'Loading questions'
     },
+    AnswerProfileFieldPage           : {
+        question      : 'Question',
+        loadingMessage: 'Loading questions',
+        genderEmpty   : 'Gender is not selected'
+    },
     UsernameField                    : {
         username       : 'username',
         title          : 'Choose your username',
         save           : 'Save',
         invalidUsername: 'This username is not available'
+    },
+    EmailField                       : {
+        email: 'email',
+        title: 'Select your email',
+        save : 'Save'
+    },
+    BirthdayField                    : {
+        birthday           : 'birthday',
+        title              : 'Select your birthday',
+        birthdayPlaceholder: 'Your birthday',
+        save               : 'Save'
+    },
+    GenderField                      : {
+        include              : 'Include on searches as',
+        gender               : 'Gender',
+        male                 : 'Male',
+        female               : 'Female',
+        showDescriptiveGender: 'Show other genders',
+        hideDescriptiveGender: 'Hide other genders',
+        maxDescriptiveGender : 'The maximum number of options permitted is 5, uncheck any other options to choose this one',
+        title                : 'Select your gender',
+        save                 : 'Save'
+    },
+    LocationField                    : {
+        location           : 'Location',
+        title              : 'Select your location',
+        save               : 'Save'
     },
     AcceptedAnswersImportance        : {
         title     : 'This answer matters to me:',

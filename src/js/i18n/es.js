@@ -227,11 +227,43 @@ export default {
         question      : 'Pregunta',
         loadingMessage: 'Cargando preguntas'
     },
+    AnswerProfileFieldPage           : {
+        question      : 'Pregunta',
+        loadingMessage: 'Cargando preguntas',
+        genderEmpty   : 'No has seleccionado el género'
+    },
     UsernameField                    : {
         username       : 'nombre de usuario',
         title          : 'Elige tu nombre de usuario',
         save           : 'Guardar',
         invalidUsername: 'Este nombre de usuario no está disponible'
+    },
+    EmailField                       : {
+        email: 'email',
+        title: 'Selecciona tu email',
+        save : 'Guardar'
+    },
+    BirthdayField                    : {
+        birthday           : 'fecha de nacimiento',
+        title              : 'Selecciona tu fecha de nacimiento',
+        birthdayPlaceholder: 'Tu fecha de nacimiento',
+        save               : 'Guardar'
+    },
+    GenderField                      : {
+        include              : 'Incluirme en las búsquedas como',
+        gender               : 'Género',
+        male                 : 'Hombre',
+        female               : 'Mujer',
+        showDescriptiveGender: 'Mostrar otros géneros',
+        hideDescriptiveGender: 'Ocultar otros géneros',
+        maxDescriptiveGender : 'El máximo de opciones permitidas es 5, desmarca alguna otra opción para elegir esta.',
+        title                : 'Selecciona tu género',
+        save                 : 'Guardar'
+    },
+    LocationField                    : {
+        location           : 'Ubicación',
+        title              : 'Selecciona tu ubicación',
+        save               : 'Guardar'
     },
     AcceptedAnswersImportance        : {
         title     : '¿Te importa la respuesta del usuario?',

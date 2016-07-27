@@ -33,16 +33,7 @@ export function editUser(data) {
         request: ActionTypes.EDIT_USER,
         success: ActionTypes.EDIT_USER_SUCCESS,
         failure: ActionTypes.EDIT_USER_ERROR
-    }, {data}).then(() => {
-        if (!LoginStore.isUsernameAnswered()) {
-            dispatch(ActionTypes.USERNAME_ANSWERED);
-        }
-        return null;
-    }, () => { return null });
-}
-
-export function usernameAnswered() {
-    dispatch(ActionTypes.USERNAME_ANSWERED);
+    });
 }
 
 export function requestOwnProfile(userId) {

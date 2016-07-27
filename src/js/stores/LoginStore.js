@@ -78,6 +78,7 @@ class LoginStore extends BaseStore {
                 this._user = action.response.user;
                 this._jwt = action.response.jwt;
                 localStorage.setItem('jwt', this._jwt);
+                this._usernameAnswered = true;
                 this._requiredUserQuestionsCount++;
                 this.emitChange();
                 break;

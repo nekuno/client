@@ -104,8 +104,7 @@ export default class AnswerProfileFieldPage extends Component {
             nekunoApp.alert(nextProps.errors);
         }
         if (nextProps.profileQuestionsComplete) {
-            console.log('should go to questions')
-            this.context.history.pushState(null, 'answer-question/next');
+            window.setTimeout(() =>  { this.context.history.pushState(null, 'answer-question/next') }, 0);
         }
     }
 

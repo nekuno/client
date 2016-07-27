@@ -2,6 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import TopNavBar from '../components/ui/TopNavBar';
 import EmptyMessage from '../components/ui/EmptyMessage';
 import UsernameField from '../components/fieldsQuestions/userFields/UsernameField';
+import EmailField from '../components/fieldsQuestions/userFields/EmailField';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
@@ -107,7 +108,7 @@ export default class AnswerUserFieldPage extends Component {
             if (!nextProps.profileQuestionsComplete) {
                 path = 'answer-profile-fields';
             }
-            this.context.history.pushState(null, path);
+            window.setTimeout(() =>  { this.context.history.pushState(null, path) }, 0);
         }
     }
 
@@ -127,9 +128,13 @@ export default class AnswerUserFieldPage extends Component {
         const nextUserFiledName = nextUserField ? nextUserField.name : null;
         switch (nextUserFiledName) {
             case 'username':
-                fieldToRender = <UsernameField username={user.username} isUsernameValid={isUsernameValid} onSaveHandler={this.handleClickSave} />
+                fieldToRender = <UsernameField username={user.username} isUsernameValid={isUsernameValid} onSaveHandler={this.handleClickSave} />;
                 break;
-            
+
+            case 'email':
+                fieldToRender = <EmailField email={user.email} onSaveHandler={this.handleClickSave} />;
+                break;
+
             default:
         }
 

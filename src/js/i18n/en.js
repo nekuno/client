@@ -128,27 +128,6 @@ export default {
         statistics: 'Statistics',
         next      : 'Continue'
     },
-    RegisterJoinPage                 : {
-        cancel               : 'Cancel',
-        create               : 'Create account',
-        username             : 'Username',
-        email                : 'Email',
-        password             : 'Password',
-        birthday             : 'Birthday',
-        birthdayPlaceholder  : 'Your birth date',
-        location             : 'Location',
-        include              : 'Include on searches as',
-        gender               : 'Gender',
-        male                 : 'Male',
-        female               : 'Female',
-        showDescriptiveGender: 'Show other genders',
-        hideDescriptiveGender: 'Hide other genders',
-        complete             : 'Complete registration',
-        notAvailable         : 'Sorry, this username is not available',
-        maxDescriptiveGender : 'The maximum number of options permitted is 5, uncheck any other options to choose this one',
-        privacy              : 'By registering, you agree to the <a href="https://nekuno.com/legal-notice" target="_blank">Legal Conditions</a> and the Nekuno <a href="https://nekuno.com/privacy-policy" target="_blank">Privacy Policy</a>.',
-
-    },
     RegisterPage                     : {
         register      : 'Create account',
         cancel        : 'Cancel',
@@ -157,7 +136,8 @@ export default {
         subtitle      : 'Please copy the URL that you\'ve received your invitation and paste it into the field below to create your account at Nekuno.',
         paste         : 'Paste the invitation url here',
         correct       : 'Just one last step! Connect one of the following social networks:',
-        loadingMessage: 'Registering user'
+        loadingMessage: 'Registering user',
+        privacy       : 'By registering, you agree to the <a href="https://nekuno.com/legal-notice" target="_blank">Legal Conditions</a> and the Nekuno <a href="https://nekuno.com/privacy-policy" target="_blank">Privacy Policy</a>.'
     },
     RegisterQuestionLandingPage      : {
         title  : 'We want to know you a little better',
@@ -242,12 +222,12 @@ export default {
     },
     EmailField                       : {
         email: 'email',
-        title: 'Select your email',
+        title: 'What is your email?',
         save : 'Save'
     },
     BirthdayField                    : {
         birthday           : 'birthday',
-        title              : 'Select your birthday',
+        title              : 'When were you born?',
         birthdayPlaceholder: 'Your birthday',
         save               : 'Save'
     },
@@ -264,7 +244,7 @@ export default {
     },
     LocationField                    : {
         location           : 'Location',
-        title              : 'Select your location',
+        title              : 'Where do you live?',
         save               : 'Save'
     },
     AcceptedAnswersImportance        : {

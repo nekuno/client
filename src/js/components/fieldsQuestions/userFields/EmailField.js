@@ -41,7 +41,7 @@ export default class EmailField extends Component {
 EmailField.defaultProps = {
     strings: {
         email: 'email',
-        title: 'Select your email',
+        title: 'What is your email?',
         save : 'Save'
     }
 };

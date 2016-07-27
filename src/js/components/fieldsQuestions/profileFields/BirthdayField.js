@@ -26,7 +26,7 @@ export default class BirthdayField extends Component {
                     </div>
                     <div className="list-block">
                         <ul>
-                            <DateInput defaultValue={birthday} label={strings.birthday} placeholder={strings.birthdayPlaceholder} ref="birthday"/>
+                            <DateInput defaultValue={birthday} placeholder={strings.birthdayPlaceholder} ref="birthday"/>
                         </ul>
                     </div>
                 </div>
@@ -41,7 +41,7 @@ export default class BirthdayField extends Component {
 BirthdayField.defaultProps = {
     strings: {
         birthday           : 'birthday',
-        title              : 'Select your birthday',
+        title              : 'When were you born?',
         birthdayPlaceholder: 'Your birthday',
         save               : 'Save'
     }

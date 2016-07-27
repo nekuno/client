@@ -22,7 +22,7 @@ import RecommendationsByThreadStore from '../stores/RecommendationsByThreadStore
 function requestData(props) {
     const userId = props.user.id;
     ThreadActionCreators.requestThreadPage(userId);
-    UserActionCreators.requestProfile(userId);
+    UserActionCreators.requestOwnProfile(userId);
     ThreadActionCreators.requestFilters();
 }
 

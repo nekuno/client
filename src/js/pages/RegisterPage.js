@@ -2,6 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import TopNavBar from '../components/ui/TopNavBar';
 import TextInput from '../components/ui/TextInput';
 import SocialBox from '../components/ui/SocialBox';
+import EmptyMessage from '../components/ui/EmptyMessage';
 import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
 import ConnectActionCreators from '../actions/ConnectActionCreators';
@@ -42,6 +43,10 @@ export default class RegisterPage extends Component {
         super(props);
         this.handleOnChange = this.handleOnChange.bind(this);
         this.handleSocialNetwork = this.handleSocialNetwork.bind(this);
+        
+        this.state = {
+            registeringUser: false
+        }
     }
 
     componentWillMount() {
@@ -68,7 +73,7 @@ export default class RegisterPage extends Component {
         const {token, interfaceLanguage} = this.props;
         SocialNetworkService.login(resource, scope).then(() => {
             LoginActionCreators.loginUserByResourceOwner(resource, SocialNetworkService.getAccessToken(resource))
-                .then(() => {},
+                .then(() => { return null },
                     () => {
                         const profile = SocialNetworkService.getProfile(resource);
                         profile.interfaceLanguage = interfaceLanguage;
@@ -80,6 +85,9 @@ export default class RegisterPage extends Component {
                             oauthToken: SocialNetworkService.getAccessToken(resource),
                             resourceId: SocialNetworkService.getResourceId(resource),
                             expireTime: SocialNetworkService.getExpireTime(resource)
+                        });
+                        this.setState({
+                            registeringUser: true
                         });
                     });
         }, (status) => {
@@ -97,23 +105,27 @@ export default class RegisterPage extends Component {
             <div className="view view-main">
                 <TopNavBar leftText={strings.cancel} centerText={strings.register}/>
                 <div className="page">
-                    <div id="page-content" className="register-content">
-                        <div className="register-title bold">
-                            <div className="title">{token ? (invitation.slogan ? invitation.slogan : strings.titleCorrect) : strings.title}</div>
-                        </div>
-                        <div className="register-sub-title">{ token ? (invitation.htmlText ? invitation.htmlText : strings.correct) : strings.subtitle}</div>
-                        { token ? '' :
-                            <div className="list-block">
-                                <ul>
-                                    <TextInput ref="token" defaultValue={initialToken} onChange={this.handleOnChange} placeholder={strings.paste}/>
-                                </ul>
+                    {this.state.registeringUser ?
+                        <EmptyMessage text={strings.loadingMessage} loadingGif={true} />
+                        :
+                        <div id="page-content" className="register-content">
+                            <div className="register-title bold">
+                                <div className="title">{token ? (invitation.slogan ? invitation.slogan : strings.titleCorrect) : strings.title}</div>
                             </div>
-                        }
-                        <div style={{color: '#FFF'}}>
-                            <p>{ error ? error.error : ''}</p>
+                            <div className="register-sub-title">{ token ? (invitation.htmlText ? invitation.htmlText : strings.correct) : strings.subtitle}</div>
+                            { token ? '' :
+                                <div className="list-block">
+                                    <ul>
+                                        <TextInput ref="token" defaultValue={initialToken} onChange={this.handleOnChange} placeholder={strings.paste}/>
+                                    </ul>
+                                </div>
+                            }
+                            <div style={{color: '#FFF'}}>
+                                <p>{ error ? error.error : ''}</p>
+                            </div>
+                            { token ? <SocialBox onClickHandler={this.handleSocialNetwork}/> : '' }
                         </div>
-                        { token ? <SocialBox onClickHandler={this.handleSocialNetwork}/> : '' }
-                    </div>
+                    }
                 </div>
             </div>
         );
@@ -122,12 +134,13 @@ export default class RegisterPage extends Component {
 
 RegisterPage.defaultProps = {
     strings: {
-        register    : 'Create account',
-        cancel      : 'Cancel',
-        title       : 'Nekuno only allows registration by invitation.',
-        titleCorrect: 'Awesome! You got an invitation!',
-        subtitle    : 'Please copy the URL that you\'ve received your invitation and paste it into the field below to create your account at Nekuno.',
-        paste       : 'Paste the invitation url here',
-        correct     : 'Just one last step! Connect one of the following social networks:'
+        register      : 'Create account',
+        cancel        : 'Cancel',
+        title         : 'Nekuno only allows registration by invitation.',
+        titleCorrect  : 'Awesome! You got an invitation!',
+        subtitle      : 'Please copy the URL that you\'ve received your invitation and paste it into the field below to create your account at Nekuno.',
+        paste         : 'Paste the invitation url here',
+        correct       : 'Just one last step! Connect one of the following social networks:',
+        loadingMessage: 'Registering user'
     }
 };

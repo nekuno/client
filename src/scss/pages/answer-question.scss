@@ -1,6 +1,9 @@
 @import '../_partials/colors';
 
 body #root .App .view .page {
+  .answer-question-page {
+    height: 100%;
+  }
   #page-content {
     .answer-question {
       margin-top: 70px;

@@ -149,13 +149,14 @@ export default {
         privacy              : 'Al registrarte, estás aceptando las <a href="https://nekuno.com/legal-notice" target="_blank">Condiciones Legales</a> y la <a href="https://nekuno.com/privacy-policy" target="_blank">Política de Privacidad</a> de Nekuno.',
     },
     RegisterPage                     : {
-        register    : 'Crear cuenta',
-        cancel      : 'Cancelar',
-        title       : 'Nekuno sólo permite el registro por invitación.',
-        titleCorrect: '¡Increíble! Has conseguido una invitación!',
-        subtitle    : 'Por favor, copia la URL que habrás recibido en tu invitación y pégala en el siguiente campo para poder crear tu cuenta en Nekuno.',
-        paste       : 'Pega aquí la URL de la invitación',
-        correct     : 'Solo queda un último paso! Conecta una de las siguientes redes sociales:'
+        register      : 'Crear cuenta',
+        cancel        : 'Cancelar',
+        title         : 'Nekuno sólo permite el registro por invitación.',
+        titleCorrect  : '¡Increíble! Has conseguido una invitación!',
+        subtitle      : 'Por favor, copia la URL que habrás recibido en tu invitación y pégala en el siguiente campo para poder crear tu cuenta en Nekuno.',
+        paste         : 'Pega aquí la URL de la invitación',
+        correct       : 'Solo queda un último paso! Conecta una de las siguientes redes sociales:',
+        loadingMessage: 'Registrando usuario'
     },
     RegisterQuestionLandingPage      : {
         title  : 'Queremos conocerte un poco mejor',
@@ -221,6 +222,16 @@ export default {
         aboutMe: 'Sobre mí',
         seeLess: 'Ver menos',
         seeMore: 'Ver más'
+    },
+    AnswerUserFieldPage              : {
+        question      : 'Pregunta',
+        loadingMessage: 'Cargando preguntas'
+    },
+    UsernameField                    : {
+        username       : 'nombre de usuario',
+        title          : 'Elige tu nombre de usuario',
+        save           : 'Guardar',
+        invalidUsername: 'Este nombre de usuario no está disponible'
     },
     AcceptedAnswersImportance        : {
         title     : '¿Te importa la respuesta del usuario?',

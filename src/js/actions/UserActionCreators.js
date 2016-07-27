@@ -1,14 +1,10 @@
 import { dispatchAsync, dispatch } from '../dispatcher/Dispatcher';
 import ActionTypes from '../constants/ActionTypes';
 import * as UserAPI from '../api/UserAPI';
-import * as ThreadActionCreators from './ThreadActionCreators';
 import * as InterestsActionCreators from './InterestsActionCreators';
 import UserStore from '../stores/UserStore';
-import RecommendationsByThreadStore from '../stores/RecommendationsByThreadStore';
-import ThreadsByUserStore from '../stores/ThreadsByUserStore';
-import ThreadStore from '../stores/ThreadStore';
+import LoginStore from '../stores/LoginStore';
 import ProfileStore from '../stores/ProfileStore';
-import FilterStore from '../stores/FilterStore';
 import LocaleStore from '../stores/LocaleStore';
 
 export function requestOwnUser() {
@@ -32,6 +28,35 @@ export function requestUser(userId, fields) {
     }, {userId});
 }
 
+export function editUser(data) {
+    return dispatchAsync(UserAPI.editUser(data), {
+        request: ActionTypes.EDIT_USER,
+        success: ActionTypes.EDIT_USER_SUCCESS,
+        failure: ActionTypes.EDIT_USER_ERROR
+    }, {data}).then(() => {
+        if (!LoginStore.isUsernameAnswered()) {
+            dispatch(ActionTypes.USERNAME_ANSWERED);
+        }
+        return null;
+    }, () => { return null });
+}
+
+export function usernameAnswered() {
+    dispatch(ActionTypes.USERNAME_ANSWERED);
+}
+
+export function requestOwnProfile(userId) {
+    return dispatchAsync(UserAPI.getOwnProfile(), {
+        request: ActionTypes.REQUEST_OWN_PROFILE,
+        success: ActionTypes.REQUEST_OWN_PROFILE_SUCCESS,
+        failure: ActionTypes.REQUEST_OWN_PROFILE_ERROR
+    }, {userId})
+        .then(function (response) {
+            checkLocale(response.interfaceLanguage);
+            return null;
+        });
+}
+
 export function requestProfile(userId, fields) {
     // Exit early if we know enough about this user
     if (ProfileStore.contains(userId, fields)) {
@@ -42,11 +67,7 @@ export function requestProfile(userId, fields) {
         request: ActionTypes.REQUEST_PROFILE,
         success: ActionTypes.REQUEST_PROFILE_SUCCESS,
         failure: ActionTypes.REQUEST_PROFILE_ERROR
-    }, {userId})
-        .then(function (response) {
-            checkLocale(response.interfaceLanguage);
-            return null;
-        })
+    }, {userId});
 }
 
 export function editProfile(data) {
@@ -58,13 +79,13 @@ export function editProfile(data) {
         .then(function (response) {
             checkLocale(response.interfaceLanguage);
             return null;
-        }, (error) => {
-            console.error(error);
+        }, () => {
+            return null;
         });
 }
 
 export function changeLocale(locale) {
-    dispatch(ActionTypes.CHANGE_LOCALE, {locale})
+    dispatch(ActionTypes.CHANGE_LOCALE, {locale});
 }
 
 export function checkLocale(locale){
@@ -83,7 +104,7 @@ export function checkLocale(locale){
             request: ActionTypes.REQUEST_FILTERS,
             success: ActionTypes.REQUEST_FILTERS_SUCCESS,
             failure: ActionTypes.REQUEST_FILTERS_ERROR
-        })
+        });
     }
 }
 

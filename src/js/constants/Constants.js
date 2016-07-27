@@ -78,3 +78,27 @@ export const SPOTIFY_SCOPE = config.SPOTIFY_SCOPE;
 
 export const LAST_RELEASE_DATE = config.LAST_RELEASE_DATE;
 export const INSTANT_HOST = config.INSTANT_HOST;
+
+export const REQUIRED_REGISTER_USER_FIELDS = [
+    {
+        name    : 'username'
+    },
+    {
+        name    : 'email'
+    }
+];
+
+export const REQUIRED_REGISTER_PROFILE_FIELDS = [
+    {
+        name: 'birthday',
+        type: 'birthday'
+    },
+    {
+        name: 'gender',
+        type: 'choice'
+    },
+    {
+        name: 'location',
+        type: 'location'
+    }
+];

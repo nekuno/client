@@ -4,6 +4,8 @@ import AuthService from '../services/AuthService';
 import ChatSocketService from '../services/ChatSocketService';
 import WorkersSocketService from '../services/WorkersSocketService';
 import LoginStore from '../stores/LoginStore';
+import ProfileStore from '../stores/ProfileStore';
+import QuestionStore from '../stores/QuestionStore';
 import RouterStore from '../stores/RouterStore';
 import RouterContainer from '../services/RouterContainer';
 import * as QuestionActionCreators from '../actions/QuestionActionCreators';
@@ -66,37 +68,35 @@ export default new class LoginActionCreators {
     redirect() {
 
         if (LoginStore.isLoggedIn()) {
-
-            UserActionCreators.requestProfile(LoginStore.user.id);
             UserActionCreators.requestStats(LoginStore.user.id);
-
             ChatSocketService.connect();
             WorkersSocketService.connect();
             UserDataStatusActionCreators.requestUserDataStatus();
-
-            QuestionActionCreators.requestQuestions(LoginStore.user.id).then(
-                (data) => {
-                    let path = null;
-                    let answers = selectn('result.pagination.total', data) || 0;
-                    if (answers == 0) {
-                        path = '/social-networks-on-sign-up';
-                    } else if (answers < 4) {
-                        path = '/register-questions-landing';
-                    } else {
-                        path = RouterStore.nextTransitionPath;
-                        if (path) {
-                            console.log('RouterStore.nextTransitionPath found', path);
+            UserActionCreators.requestOwnProfile(LoginStore.user.id).then(() => {
+                QuestionActionCreators.requestQuestions(LoginStore.user.id).then(
+                    () => {
+                        let path = null;
+                        if (!LoginStore.isComplete() || !ProfileStore.isComplete(LoginStore.user.id) || QuestionStore.isJustRegistered(LoginStore.user.id)) {
+                            path = '/register-questions-landing';
+                        } else {
+                            path = RouterStore.nextTransitionPath;
+                            if (path) {
+                                console.log('RouterStore.nextTransitionPath found', path);
+                            }
                         }
+                        if (path) {
+                            console.log('Redirecting to path', path);
+                            let history = RouterContainer.get();
+                            history.replaceState(null, path);
+                        }
+                        return null;
+                    }, (error) => {
+                        console.error(error);
                     }
-                    if (path) {
-                        console.log('Redirecting to path', path);
-                        let history = RouterContainer.get();
-                        history.replaceState(null, path);
-                    }
-                    return null;
-                }, (error) => {
-                    console.error(error);
-                });
+                );
+            }, (error) => {
+                console.error(error);
+            });
         }
     }
 

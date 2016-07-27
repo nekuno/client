@@ -22,6 +22,8 @@ import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import RegisterJoinPage from './pages/RegisterJoinPage';
 import RegisterQuestionsLandingPage from './pages/RegisterQuestionLandingPage';
+import AnswerUserFieldPage from './pages/AnswerUserFieldPage';
+import AnswerProfileFieldPage from './pages/AnswerProfileFieldPage';
 import UserPage from './pages/UserPage';
 import EditProfilePage from './pages/EditProfilePage';
 import OtherUserPage from './pages/OtherUserPage';
@@ -60,9 +62,11 @@ export default class Root extends Component {
                     <Route name="login" path="/login" component={LoginPage}/>
                     <Route name="register" path="/register" component={RegisterPage}/>
                     <Route name="join" path="/join" component={RegisterJoinPage}/>
-                    <Route name="register-questions-landing" path="/register-questions-landing" component={RegisterQuestionsLandingPage}/>
 
                     <Route onEnter={requireAuth}>
+                        <Route name="register-questions-landing" path="/register-questions-landing" component={RegisterQuestionsLandingPage}/>
+                        <Route name="answer-user-fields" path="/answer-user-fields" component={AnswerUserFieldPage}/>
+                        <Route name="answer-profile-fields" path="/answer-profile-fields" component={AnswerProfileFieldPage}/>
                         <Route name="notifications" path="/conversations" component={ChatThreadsPage}/>
                         <Route name="messages" path="/conversations/:userId" component={ChatMessagesPage}/>
                         <Route name="interests" path="/interests" component={InterestsPage}/>

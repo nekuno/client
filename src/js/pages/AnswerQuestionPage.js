@@ -8,9 +8,13 @@ import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
 import * as QuestionActionCreators from '../actions/QuestionActionCreators';
+import * as ThreadActionCreators from '../actions/ThreadActionCreators';
 import UserStore from '../stores/UserStore';
 import QuestionStore from '../stores/QuestionStore';
 import QuestionsByUserIdStore from '../stores/QuestionsByUserIdStore';
+import LoginStore from '../stores/LoginStore';
+import ProfileStore from '../stores/ProfileStore';
+import ThreadStore from '../stores/ThreadStore';
 
 function parseId(user) {
     return user.id;
@@ -23,8 +27,20 @@ function requestData(props) {
     const {user, params} = props;
     const questionId = params.hasOwnProperty('questionId') ? parseInt(params.questionId) : null;
     const currentUserId = parseId(user);
-    
-    return QuestionActionCreators.requestQuestion(currentUserId, questionId);
+    QuestionActionCreators.requestQuestion(currentUserId, questionId);
+    if (props.isFirstQuestion && Object.keys(ThreadStore.getAll()).length === 0) {
+        const defaultThreads = ThreadActionCreators.createDefaultThreads();
+        defaultThreads.then((threads) => {
+                console.log('Default threads created');
+                threads.forEach((thread) => {
+                    ThreadActionCreators.requestRecommendation(thread.id);
+                })
+            },
+            (errorData) => {
+                console.log('error creating default threads');
+                console.log(errorData);
+            });
+    }
 }
 
 /**
@@ -45,6 +61,10 @@ function getState(props) {
     const answersLength = QuestionStore.answersLength(currentUserId);
     const isJustRegistered = QuestionStore.isJustRegistered(currentUserId);
     const isJustCompleted = QuestionStore.isJustCompleted(currentUserId);
+    const initialUserQuestionsCount = LoginStore.getInitialRequiredUserQuestionsCount();
+    const initialProfileQuestionsCount = ProfileStore.getInitialRequiredProfileQuestionsCount();
+    const totalQuestions = initialUserQuestionsCount + initialProfileQuestionsCount + registerQuestionsLength;
+    const questionNumber = initialUserQuestionsCount + initialProfileQuestionsCount + answersLength + 1;
 
     return {
         currentUser,
@@ -55,10 +75,10 @@ function getState(props) {
         errors,
         noMoreQuestions,
         goToQuestionStats,
-        registerQuestionsLength,
-        answersLength,
         isJustRegistered,
-        isJustCompleted
+        isJustCompleted,
+        totalQuestions,
+        questionNumber
     };
 }
 
@@ -82,10 +102,10 @@ export default class AnswerQuestionPage extends Component {
         isFirstQuestion        : PropTypes.bool,
         errors                 : PropTypes.string,
         goToQuestionStats      : PropTypes.bool,
-        registerQuestionsLength: PropTypes.number,
-        answersLength          : PropTypes.number,
         isJustRegistered       : PropTypes.bool,
-        isJustCompleted        : PropTypes.bool
+        isJustCompleted        : PropTypes.bool,
+        totalQuestions         : PropTypes.number,
+        questionNumber         : PropTypes.number
     };
 
     static contextTypes = {
@@ -100,8 +120,9 @@ export default class AnswerQuestionPage extends Component {
     }
 
     componentWillMount() {
-        if(!this.props.question || this.props.question.questionId !== this.props.params.questionId) {
-            requestData(this.props);
+        const questionId = this.props.params.questionId;
+        if(!this.props.question || this.props.question.questionId !== questionId) {
+            window.setTimeout(() => requestData(this.props), 0);
         }
         if(this.props.isJustCompleted) {
             window.setTimeout(function() { nekunoApp.popup('.popup-register-finished') }, 0);
@@ -126,9 +147,9 @@ export default class AnswerQuestionPage extends Component {
 
     render() {
 
-        const {user, strings, errors, noMoreQuestions, isFirstQuestion, userAnswer, question, registerQuestionsLength, answersLength, isJustRegistered, isJustCompleted} = this.props;
+        const {user, strings, errors, noMoreQuestions, isFirstQuestion, userAnswer, question, isJustRegistered, isJustCompleted, totalQuestions, questionNumber} = this.props;
         const userId = parseId(user);
-        const navBarTitle = isJustRegistered || isJustCompleted ? strings.question + ' ' + (answersLength+1) + '/' + registerQuestionsLength : strings.question;
+        const navBarTitle = userAnswer.answerId && (isJustRegistered || isJustCompleted) ? strings.question + ' ' + questionNumber + '/' + totalQuestions : strings.question;
         const ownPicture = user.picture ? `${IMAGES_ROOT}media/cache/resolve/user_avatar_60x60/user/images/${user.picture}` : `${IMAGES_ROOT}media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
         const isRegisterQuestion = selectn('isRegisterQuestion', question);
 

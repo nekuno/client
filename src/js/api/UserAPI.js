@@ -20,7 +20,8 @@ import {
     postLikeContent,
     deleteLikeContent,
     getData,
-    postData
+    postData,
+    putData
 } from '../utils/APIUtils';
 
 export function getOwnUser(url = `users`) {
@@ -29,6 +30,14 @@ export function getOwnUser(url = `users`) {
 
 export function getUser(userId, url = `users/${userId}`) {
     return fetchUser(url);
+}
+
+export function editUser(data, url = `users`) {
+    return putData(url, data);
+}
+
+export function getOwnProfile(url = `profile`) {
+    return fetchProfile(url);
 }
 
 export function getProfile(userId, url = `profile/${userId}`) {

@@ -113,21 +113,7 @@ class AuthService {
                     APIUtils.postData(API_URLS.JOIN_GROUP.replace('{groupId}', invitation.invitation.group.id), user);
                     console.log('Joined to group', invitation.invitation.group);
                 }
-                return [user, profile, invitation]
-            })
-            .spread(function(user, profile, invitation) {
-                const defaultThreads = ThreadActionCreators.createDefaultThreads();
-                defaultThreads.then((threads) => {
-                        threads.forEach((thread) => {
-                            ThreadActionCreators.requestRecommendation(thread.id);
-                        })
-                    },
-                    (errorData) => {
-                        console.log('error creating default threads');
-                        console.log(errorData);
-                    });
-                console.log('Default threads created');
-                return [user, profile, invitation, oauthToken]
+                return [user, profile, invitation, oauth.oauthToken]
             })
             .spread(function(user, profile, invitation, oauthToken) {
                 console.log(user, profile, invitation, oauthToken);

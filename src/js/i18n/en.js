@@ -150,13 +150,14 @@ export default {
 
     },
     RegisterPage                     : {
-        register    : 'Create account',
-        cancel      : 'Cancel',
-        title       : 'Nekuno only allows registration by invitation.',
-        titleCorrect: 'Awesome! You got an invitation!',
-        subtitle    : 'Please copy the URL that you\'ve received your invitation and paste it into the field below to create your account at Nekuno.',
-        paste       : 'Paste the invitation url here',
-        correct     : 'Just one last step! Connect one of the following social networks:'
+        register      : 'Create account',
+        cancel        : 'Cancel',
+        title         : 'Nekuno only allows registration by invitation.',
+        titleCorrect  : 'Awesome! You got an invitation!',
+        subtitle      : 'Please copy the URL that you\'ve received your invitation and paste it into the field below to create your account at Nekuno.',
+        paste         : 'Paste the invitation url here',
+        correct       : 'Just one last step! Connect one of the following social networks:',
+        loadingMessage: 'Registering user'
     },
     RegisterQuestionLandingPage      : {
         title  : 'We want to know you a little better',
@@ -223,6 +224,16 @@ export default {
         aboutMe: 'About me',
         seeLess: 'See less',
         seeMore: 'See more'
+    },
+    AnswerUserFieldPage              : {
+        question      : 'Question',
+        loadingMessage: 'Loading questions'
+    },
+    UsernameField                    : {
+        username       : 'username',
+        title          : 'Choose your username',
+        save           : 'Save',
+        invalidUsername: 'This username is not available'
     },
     AcceptedAnswersImportance        : {
         title     : 'This answer matters to me:',

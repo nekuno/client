@@ -2,6 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import TopNavBar from '../components/ui/TopNavBar';
 import TextInput from '../components/ui/TextInput';
 import SocialBox from '../components/ui/SocialBox';
+import FacebookRegisterButton from '../components/ui/FacebookRegisterButton';
 import EmptyMessage from '../components/ui/EmptyMessage';
 import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
@@ -113,6 +114,8 @@ export default class RegisterPage extends Component {
                                 <div className="title">{token ? (invitation.slogan ? invitation.slogan : strings.titleCorrect) : strings.title}</div>
                             </div>
                             <div className="register-sub-title">{ token ? (invitation.htmlText ? invitation.htmlText : strings.correct) : strings.subtitle}</div>
+                            { token ? <div className="register-sub-title"><strong>{strings.publishMessage}</strong></div> : null}
+                            <br />
                             { token ? '' :
                                 <div className="list-block">
                                     <ul>
@@ -123,7 +126,21 @@ export default class RegisterPage extends Component {
                             <div style={{color: '#FFF'}}>
                                 <p>{ error ? error.error : ''}</p>
                             </div>
-                            { token ? <SocialBox onClickHandler={this.handleSocialNetwork}/> : '' }
+
+                            { token ?
+                                <div>
+                                    {/* Uncomment to enable all social networks */}
+                                    {/* <SocialBox onClickHandler={this.handleSocialNetwork}/> */}
+                                    <FacebookRegisterButton onClickHandler={this.handleSocialNetwork}/>
+                                    <br />
+                                    <div className="register-sub-title privacy-terms-text">
+                                        <p dangerouslySetInnerHTML={{__html:strings.privacy }}/>
+                                    </div>
+                                    <br />
+                                    <br />
+                                </div>
+                                : ''
+                            }
                         </div>
                     }
                 </div>
@@ -140,7 +157,9 @@ RegisterPage.defaultProps = {
         titleCorrect  : 'Awesome! You got an invitation!',
         subtitle      : 'Please copy the URL that you\'ve received your invitation and paste it into the field below to create your account at Nekuno.',
         paste         : 'Paste the invitation url here',
-        correct       : 'Just one last step! Connect one of the following social networks:',
-        loadingMessage: 'Registering user'
+        correct       : 'Just one last step! Connect Facebook:',
+        loadingMessage: 'Registering user',
+        publishMessage: 'We\'ll never publish anything on your wall',
+        privacy       : 'By registering, you agree to the <a href="https://nekuno.com/legal-notice" target="_blank">Legal Conditions</a> and the Nekuno <a href="https://nekuno.com/privacy-policy" target="_blank">Privacy Policy</a>.'
     }
 };

@@ -135,8 +135,9 @@ export default {
         titleCorrect  : '¡Increíble! Has conseguido una invitación!',
         subtitle      : 'Por favor, copia la URL que habrás recibido en tu invitación y pégala en el siguiente campo para poder crear tu cuenta en Nekuno.',
         paste         : 'Pega aquí la URL de la invitación',
-        correct       : 'Solo queda un último paso! Conecta una de las siguientes redes sociales:',
+        correct       : '¡Solo queda un último paso! Conecta Facebook:',
         loadingMessage: 'Registrando usuario',
+        publishMessage: 'Nunca publicaremos nada en tu muro',
         privacy       : 'Al registrarte, estás aceptando las <a href="https://nekuno.com/legal-notice" target="_blank">Condiciones Legales</a> y la <a href="https://nekuno.com/privacy-policy" target="_blank">Política de Privacidad</a> de Nekuno.'
     },
     RegisterQuestionLandingPage      : {
@@ -192,6 +193,9 @@ export default {
         conversations : 'Mensajes',
         socialNetworks: 'Mis redes sociales',
         logout        : 'Salir'
+    },
+    FacebookRegisterButton           : {
+        signUp: 'Regístrate con Facebook'
     },
     OtherProfileData                 : {
         coincidences    : 'Coincidencias',

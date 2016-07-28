@@ -137,6 +137,11 @@ body #root .App .view .page {
             background-color: transparent;
           }
         }
+        .date-content {
+          input {
+            text-align: center;
+          }
+        }
       }
     }
   }

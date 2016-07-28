@@ -321,7 +321,7 @@ export default {
     },
     RegisterQuestionsFinishedPopup   : {
         title    : '¡Felicidades!',
-        text     : 'Has completado las primeras 4 preguntas indispensables, si quieres seguir contestando preguntas para mejorar las recomendaciones, puedes hacerlo desde tu perfil.',
+        text     : 'Has completado las primeras preguntas indispensables, si quieres seguir contestando preguntas para mejorar las recomendaciones, puedes hacerlo desde tu perfil.',
         moreTests: 'Hacer más tests',
         continue : 'Continuar a recomendaciones'
     },

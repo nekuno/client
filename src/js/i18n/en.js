@@ -322,7 +322,7 @@ export default {
     },
     RegisterQuestionsFinishedPopup   : {
         title    : 'Congratulations!',
-        text     : 'You´ve completed mandatory 4 questions; if you want to improve your recommendations even more, you can answer more questions from your profile',
+        text     : 'You´ve completed mandatory questions; if you want to improve your recommendations even more, you can answer more questions from your profile',
         moreTests: 'Do more tests',
         continue : 'Continue to recommendations'
     },

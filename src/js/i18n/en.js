@@ -128,35 +128,17 @@ export default {
         statistics: 'Statistics',
         next      : 'Continue'
     },
-    RegisterJoinPage                 : {
-        cancel               : 'Cancel',
-        create               : 'Create account',
-        username             : 'Username',
-        email                : 'Email',
-        password             : 'Password',
-        birthday             : 'Birthday',
-        birthdayPlaceholder  : 'Your birth date',
-        location             : 'Location',
-        include              : 'Include on searches as',
-        gender               : 'Gender',
-        male                 : 'Male',
-        female               : 'Female',
-        showDescriptiveGender: 'Show other genders',
-        hideDescriptiveGender: 'Hide other genders',
-        complete             : 'Complete registration',
-        notAvailable         : 'Sorry, this username is not available',
-        maxDescriptiveGender : 'The maximum number of options permitted is 5, uncheck any other options to choose this one',
-        privacy              : 'By registering, you agree to the <a href="https://nekuno.com/legal-notice" target="_blank">Legal Conditions</a> and the Nekuno <a href="https://nekuno.com/privacy-policy" target="_blank">Privacy Policy</a>.',
-
-    },
     RegisterPage                     : {
-        register    : 'Create account',
-        cancel      : 'Cancel',
-        title       : 'Nekuno only allows registration by invitation.',
-        titleCorrect: 'Awesome! You got an invitation!',
-        subtitle    : 'Please copy the URL that you\'ve received your invitation and paste it into the field below to create your account at Nekuno.',
-        paste       : 'Paste the invitation url here',
-        correct     : 'Just one last step! Connect one of the following social networks:'
+        register      : 'Create account',
+        cancel        : 'Cancel',
+        title         : 'Nekuno only allows registration by invitation.',
+        titleCorrect  : 'Awesome! You got an invitation!',
+        subtitle      : 'Please copy the URL that you\'ve received your invitation and paste it into the field below to create your account at Nekuno.',
+        paste         : 'Paste the invitation url here',
+        correct       : 'Just one last step! Connect Facebook:',
+        loadingMessage: 'Registering user',
+        publishMessage: 'We\'ll never publish anything on your wall',
+        privacy       : 'By registering, you agree to the <a href="https://nekuno.com/legal-notice" target="_blank">Legal Conditions</a> and the Nekuno <a href="https://nekuno.com/privacy-policy" target="_blank">Privacy Policy</a>.'
     },
     RegisterQuestionLandingPage      : {
         title  : 'We want to know you a little better',
@@ -213,6 +195,9 @@ export default {
         socialNetworks: 'My social networks',
         logout        : 'Logout'
     },
+    FacebookRegisterButton           : {
+        signUp: 'Sign up with Facebook'
+    },
     OtherProfileData                 : {
         coincidences    : 'Coincidences',
         similarInterests: 'Similar interests',
@@ -223,6 +208,48 @@ export default {
         aboutMe: 'About me',
         seeLess: 'See less',
         seeMore: 'See more'
+    },
+    AnswerUserFieldPage              : {
+        question      : 'Question',
+        loadingMessage: 'Loading questions'
+    },
+    AnswerProfileFieldPage           : {
+        question      : 'Question',
+        loadingMessage: 'Loading questions',
+        genderEmpty   : 'Gender is not selected'
+    },
+    UsernameField                    : {
+        username       : 'username',
+        title          : 'Choose your username',
+        save           : 'Save',
+        invalidUsername: 'This username is not available'
+    },
+    EmailField                       : {
+        email: 'email',
+        title: 'What is your email?',
+        save : 'Save'
+    },
+    BirthdayField                    : {
+        birthday           : 'birthday',
+        title              : 'When were you born?',
+        birthdayPlaceholder: 'Your birthday',
+        save               : 'Save'
+    },
+    GenderField                      : {
+        include              : 'Include on searches as',
+        gender               : 'Gender',
+        male                 : 'Male',
+        female               : 'Female',
+        showDescriptiveGender: 'Show other genders',
+        hideDescriptiveGender: 'Hide other genders',
+        maxDescriptiveGender : 'The maximum number of options permitted is 5, uncheck any other options to choose this one',
+        title                : 'Select your gender',
+        save                 : 'Save'
+    },
+    LocationField                    : {
+        location           : 'Location',
+        title              : 'Where do you live?',
+        save               : 'Save'
     },
     AcceptedAnswersImportance        : {
         title     : 'This answer matters to me:',
@@ -295,7 +322,7 @@ export default {
     },
     RegisterQuestionsFinishedPopup   : {
         title    : 'Congratulations!',
-        text     : 'You´ve completed mandatory 4 questions; if you want to improve your recommendations even more, you can answer more questions from your profile',
+        text     : 'You´ve completed mandatory questions; if you want to improve your recommendations even more, you can answer more questions from your profile',
         moreTests: 'Do more tests',
         continue : 'Continue to recommendations'
     },

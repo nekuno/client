@@ -1,11 +1,13 @@
+//TODO: REQUEST_REGISTER errors are no longer displayed, so they can be removed
+
 import ActionTypes from '../constants/ActionTypes';
 import BaseStore from './BaseStore';
+import { getValidationErrors } from '../utils/StoreUtils';
 
 class RegisterStore extends BaseStore {
 
     setInitial() {
         this._validUsername = true;
-        this._user = null;
         this._error = null;
     }
 
@@ -20,13 +22,12 @@ class RegisterStore extends BaseStore {
                 break;
 
             case ActionTypes.REQUEST_REGISTER_USER_SUCCESS:
-                this._user = action.response.user;
                 this._error = null;
                 this.emitChange();
                 break;
 
             case ActionTypes.REQUEST_REGISTER_USER_ERROR:
-                this._error = action.error;
+                this._error = getValidationErrors(action.error);
                 this.emitChange();
                 break;
 
@@ -56,20 +57,11 @@ class RegisterStore extends BaseStore {
         return valid;
     }
 
-    get user() {
-        return this._user;
-    }
-
     get error() {
         let error = this._error;
         this._error = null;
         return error;
     }
-
-    deleteUser() {
-        this._user = null;
-    }
-
 }
 
 export default new RegisterStore();

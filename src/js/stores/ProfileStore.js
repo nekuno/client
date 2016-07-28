@@ -1,3 +1,4 @@
+import { REQUIRED_REGISTER_PROFILE_FIELDS } from '../constants/Constants';
 import { register, waitFor } from '../dispatcher/Dispatcher';
 import { createStore, mergeIntoBag, isInBag } from '../utils/StoreUtils';
 import UserStore from '../stores/UserStore';
@@ -6,9 +7,12 @@ import ActionTypes from '../constants/ActionTypes';
 import * as UserActionCreators from '../actions/UserActionCreators';
 import * as ThreadActionCreators from '../actions/ThreadActionCreators';
 import selectn from 'selectn';
+import { getValidationErrors } from '../utils/StoreUtils';
 
 let _profiles = {};
 let _metadata = null;
+let _initialRequiredProfileQuestionsCount = 0;
+let _errors = null;
 
 const ProfileStore = createStore({
     contains(userId, fields) {
@@ -17,6 +21,12 @@ const ProfileStore = createStore({
 
     get(userId) {
         return _profiles[userId];
+    },
+    
+    getErrors() {
+        const errors = _errors;
+        _errors = null;
+        return errors;    
     },
 
     getMetadata(){
@@ -205,6 +215,42 @@ const ProfileStore = createStore({
         return locality && country ?
         locality + ', ' + country :
             selectn('address', location);
+    },
+
+    isComplete(userId) {
+        return this.getRequiredProfileQuestionsLeftCount(userId) === 0;
+    },
+
+    getInitialRequiredProfileQuestionsCount() {
+        return _initialRequiredProfileQuestionsCount;
+    },
+
+    getRequiredProfileQuestionsLeftCount(userId) {
+        let count = 0;
+        REQUIRED_REGISTER_PROFILE_FIELDS.forEach(field => {
+            if (!_profiles[userId] || !_profiles[userId][field.name] || !ProfileStore.isProfileSet(field, _profiles[userId][field.name])) {
+                count++;
+            }
+        });
+
+        return count;
+    },
+
+    getNextRequiredProfileField(userId) {
+        return typeof _profiles[userId] !== 'undefined' ? REQUIRED_REGISTER_PROFILE_FIELDS.find(field =>
+            !(typeof _profiles[userId][field.name] !== 'undefined' && _profiles[userId][field.name])
+        ) || null : null;
+    },
+
+    _setInitialRequiredProfileQuestionsCount(userId) {
+        let count = 0;
+        REQUIRED_REGISTER_PROFILE_FIELDS.forEach(field => {
+            if (!_profiles[userId] || !ProfileStore.isProfileSet(field, _profiles[userId][field.name])) {
+                count++;
+            }
+        });
+
+        _initialRequiredProfileQuestionsCount = count;
     }
 });
 
@@ -229,10 +275,17 @@ ProfileStore.dispatchToken = register(action => {
         case ActionTypes.EDIT_PROFILE_SUCCESS:
             const currentProfile = _profiles[LoginStore.user.id];
             if (currentProfile.interfaceLanguage !== action.data.interfaceLanguage){
-                UserActionCreators.requestMetadata();
-                ThreadActionCreators.requestFilters();
+                window.setTimeout(() => {
+                    UserActionCreators.requestMetadata();
+                    ThreadActionCreators.requestFilters();
+                }, 0);
             }
             _profiles[LoginStore.user.id]=action.data;
+            ProfileStore.emitChange();
+            break;
+        case ActionTypes.EDIT_PROFILE_ERROR:
+            _errors = getValidationErrors(action.error);
+            ProfileStore.emitChange();
             break;
         case ActionTypes.LOGOUT_USER:
             _profiles = {};
@@ -244,14 +297,15 @@ ProfileStore.dispatchToken = register(action => {
 
     const responseProfiles = selectn('response.entities.profiles', action);
     if (responseProfiles) {
-
-        const { userId } = action;
-
         //undefined comes from not id selected on normalizr
-        responseProfiles[userId] = responseProfiles.undefined;
+        responseProfiles[action.userId] = responseProfiles.undefined;
         delete responseProfiles.undefined;
 
         mergeIntoBag(_profiles, responseProfiles);
+        
+        if (action.type === ActionTypes.REQUEST_OWN_PROFILE_SUCCESS) {
+            ProfileStore._setInitialRequiredProfileQuestionsCount(action.userId);
+        }
         ProfileStore.emitChange();
     }
 

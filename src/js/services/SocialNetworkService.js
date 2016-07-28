@@ -1,3 +1,5 @@
+import GeocoderService from './GeocoderService';
+
 class SocialNetworkService {
 
     constructor() {
@@ -6,6 +8,7 @@ class SocialNetworkService {
         this._resourceIds = {};
         this._scopes = {};
         this._profiles = {};
+        this._users = {};
     }
 
     login(resource, scope) {
@@ -42,6 +45,10 @@ class SocialNetworkService {
         return this._profiles[resource] || null;
     }
     
+    getUser(resource) {
+        return this._users[resource] || null;
+    }
+    
     getExpireTime(resource) {
         return this._expireTime[resource] || null;
     }
@@ -52,18 +59,26 @@ class SocialNetworkService {
         this._expireTime[resource] = Math.floor(response.authResponse.expires);
         return hello(resource).api('me').then(
             (status) => {
-                console.log(status);
                 this._resourceIds[resource] = status.id.toString();
-                this._profiles[resource] = {
-                    picture : status.picture,
-                    username: status.username,
-                    email   : status.email,
-                    birthday: status.birthday,
-                    location: status.location,
-                    gender  : status.gender
-                };
+                GeocoderService.getLocation(status.location).then(
+                    (location) => { this._setUserAndProfile(resource, status, location) }, 
+                    (error) => { this._setUserAndProfile(resource, status, null) }
+                );
             }, (error) => { console.log(error) }
         );
+    }
+    
+    _setUserAndProfile(resource, status, location) {
+        this._users[resource] = {
+            username     : status.username || null,
+            email        : status.email || null,
+            picture      : status.picture || null
+        };
+        this._profiles[resource] = {
+            birthday: status.birthday || null,
+            location: location,
+            gender  : status.gender || null
+        };
     }
 }
 

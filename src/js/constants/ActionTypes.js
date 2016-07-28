@@ -15,6 +15,10 @@ export default keyMirror({
     REQUEST_REGISTER_USER                   : null,
     REQUEST_REGISTER_USER_SUCCESS           : null,
     REQUEST_REGISTER_USER_ERROR             : null,
+    EDIT_USER                               : null,
+    EDIT_USER_SUCCESS                       : null,
+    EDIT_USER_ERROR                         : null,
+    USERNAME_ANSWERED                       : null,
     LOGOUT_USER                             : null,
 
     CONNECT_REGISTER_ACCOUNT: null,
@@ -33,6 +37,10 @@ export default keyMirror({
     REQUEST_PROFILE        : null,
     REQUEST_PROFILE_SUCCESS: null,
     REQUEST_PROFILE_ERROR  : null,
+
+    REQUEST_OWN_PROFILE        : null,
+    REQUEST_OWN_PROFILE_SUCCESS: null,
+    REQUEST_OWN_PROFILE_ERROR  : null,
 
     EDIT_PROFILE        : null,
     EDIT_PROFILE_SUCCESS: null,

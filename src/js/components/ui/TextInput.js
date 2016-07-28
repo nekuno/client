@@ -4,8 +4,10 @@ import shouldPureComponentUpdate from 'react-pure-render/function';
 export default class TextInput extends Component {
 
     static propTypes = {
-        placeholder: PropTypes.string.isRequired,
-        defaultValue: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+        placeholder : PropTypes.string.isRequired,
+        defaultValue: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+        style       : PropTypes.object,
+        onChange    : PropTypes.func
     };
 
     constructor() {

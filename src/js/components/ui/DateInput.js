@@ -3,7 +3,7 @@ import React, { PropTypes, Component } from 'react';
 export default class DateInput extends Component {
 
     static propTypes = {
-        label       : PropTypes.string.isRequired,
+        label       : PropTypes.string,
         placeholder : PropTypes.string.isRequired,
         defaultValue: PropTypes.string,
         onChange    : PropTypes.func
@@ -67,7 +67,10 @@ export default class DateInput extends Component {
         return (
             <li className="date-item">
                 <div className="item-content date-content">
-                    <div className="item-title label date-label">{this.props.label}</div>
+                    {this.props.label ? 
+                        <div className="item-title label date-label">{this.props.label}</div>
+                            :
+                        null}
                     <div className="item-inner">
                         <div className="item-input">
                             <input {...this.props} id="calendar-input" ref="input" type="text" placeholder={this.props.placeholder}/>

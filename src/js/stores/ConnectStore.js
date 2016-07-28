@@ -8,6 +8,7 @@ class ConnectStore extends BaseStore {
         this._accessToken = null;
         this._resource = null;
         this._resourceId = null;
+        this._expireTime = null;
         this._profile = null;
     }
 
@@ -20,6 +21,7 @@ class ConnectStore extends BaseStore {
                 this._accessToken = action.accessToken;
                 this._resource = action.resource;
                 this._resourceId = action.resourceId;
+                this._expireTime = action.expireTime;
                 this._profile = action.profile;
                 this.emitChange();
                 break;
@@ -41,6 +43,10 @@ class ConnectStore extends BaseStore {
 
     get resourceId() {
         return this._resourceId;
+    }
+
+    get expireTime() {
+        return this._expireTime;
     }
 
     get profile() {

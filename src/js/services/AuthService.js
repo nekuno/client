@@ -91,11 +91,12 @@ class AuthService {
             })
             .then(function() {
                 console.log('Profile valid');
+                user.oauth = oauth;
                 return APIUtils.postData(API_URLS.REGISTER_USER, user);
             })
             .then((registeredUser) => {
                 console.log('User registered', registeredUser);
-                return [registeredUser, this.login(user.username, user.plainPassword)];
+                return [registeredUser, this.resourceOwnerLogin(oauth.resourceOwner, oauth.oauthToken)];
             })
             .spread(function(user, jwt) {
                 console.log('jwt', jwt);
@@ -112,25 +113,7 @@ class AuthService {
                     APIUtils.postData(API_URLS.JOIN_GROUP.replace('{groupId}', invitation.invitation.group.id), user);
                     console.log('Joined to group', invitation.invitation.group);
                 }
-                return [user, profile, invitation]
-            })
-            .spread(function(user, profile, invitation) {
-                return [user, profile, invitation, APIUtils.postData(API_URLS.CONNECT_ACCOUNT.replace('{resource}', oauth.resource), {oauthToken: oauth.accessToken, resourceId: oauth.resourceId})];
-            })
-            .spread(function(user, profile, invitation, oauthToken) {
-                console.log('Account connected', oauthToken);
-                const defaultThreads = ThreadActionCreators.createDefaultThreads();
-                defaultThreads.then((threads) => {
-                        threads.forEach((thread) => {
-                            ThreadActionCreators.requestRecommendation(thread.id);
-                        })
-                    },
-                    (errorData) => {
-                        console.log('error creating default threads');
-                        console.log(errorData);
-                    });
-                console.log('Default threads created');
-                return [user, profile, invitation, oauthToken]
+                return [user, profile, invitation, oauth.oauthToken]
             })
             .spread(function(user, profile, invitation, oauthToken) {
                 console.log(user, profile, invitation, oauthToken);
@@ -143,8 +126,8 @@ class AuthService {
             });
     }
 
-    connect(resource, accessToken, resourceId) {
-        return APIUtils.postData(API_URLS.CONNECT_ACCOUNT.replace('{resource}', resource), {oauthToken: accessToken, resourceId: resourceId});
+    connect(resource, accessToken, resourceId, expireTime) {
+        return APIUtils.postData(API_URLS.CONNECT_ACCOUNT.replace('{resource}', resource), {oauthToken: accessToken, resourceId: resourceId, expireTime: expireTime});
     }
 
 }

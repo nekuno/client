@@ -1,0 +1,15 @@
+#facebook-register-button {
+  button {
+    background-color: $facebook-blue;
+    padding-left: 0;
+
+    .icon-facebook {
+      background-color: $facebook-blue-light;
+      font-size: 42px;
+      float: left;
+      line-height: inherit;
+      padding-left: 10px;
+      padding-right: 5px;
+    }
+  }
+}

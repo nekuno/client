@@ -2,11 +2,14 @@ import React, { PropTypes, Component } from 'react';
 import TopNavBar from '../components/ui/TopNavBar';
 import TextInput from '../components/ui/TextInput';
 import SocialBox from '../components/ui/SocialBox';
+import FacebookRegisterButton from '../components/ui/FacebookRegisterButton';
+import EmptyMessage from '../components/ui/EmptyMessage';
 import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
 import ConnectActionCreators from '../actions/ConnectActionCreators';
 import LoginActionCreators from '../actions/LoginActionCreators';
 import InvitationStore from '../stores/InvitationStore';
+import LocaleStore from '../stores/LocaleStore';
 import SocialNetworkService from '../services/SocialNetworkService';
 
 function getState(props) {
@@ -14,21 +17,19 @@ function getState(props) {
     const error = InvitationStore.error;
     const token = InvitationStore.token;
     const invitation = InvitationStore.invitation;
+    const interfaceLanguage = LocaleStore.locale;
 
     return {
         error,
         token,
-        invitation
+        invitation,
+        interfaceLanguage
     };
 }
 
 @translate('RegisterPage')
-@connectToStores([InvitationStore], getState)
+@connectToStores([InvitationStore, LocaleStore], getState)
 export default class RegisterPage extends Component {
-
-    static contextTypes = {
-        history: PropTypes.object.isRequired
-    };
 
     static propTypes = {
         // Injected by @translate:
@@ -43,6 +44,10 @@ export default class RegisterPage extends Component {
         super(props);
         this.handleOnChange = this.handleOnChange.bind(this);
         this.handleSocialNetwork = this.handleSocialNetwork.bind(this);
+        
+        this.state = {
+            registeringUser: false
+        }
     }
 
     componentWillMount() {
@@ -66,17 +71,25 @@ export default class RegisterPage extends Component {
     }
 
     handleSocialNetwork(resource, scope) {
-        const {history} = this.context;
-        const {token} = this.props;
+        const {token, interfaceLanguage} = this.props;
         SocialNetworkService.login(resource, scope).then(() => {
             LoginActionCreators.loginUserByResourceOwner(resource, SocialNetworkService.getAccessToken(resource))
-                .then(() => {
-                    },
+                .then(() => { return null },
                     () => {
                         const profile = SocialNetworkService.getProfile(resource);
-                        ConnectActionCreators.connectRegister(token, resource, SocialNetworkService.getAccessToken(resource), SocialNetworkService.getResourceId(resource), profile);
-
-                        history.pushState(null, '/join');
+                        profile.interfaceLanguage = interfaceLanguage;
+                        profile.orientationRequired = false;
+                        const user = SocialNetworkService.getUser(resource);
+                        user[resource + 'ID'] = SocialNetworkService.getResourceId(resource);
+                        LoginActionCreators.register(user, profile, token, {
+                            resourceOwner: resource,
+                            oauthToken: SocialNetworkService.getAccessToken(resource),
+                            resourceId: SocialNetworkService.getResourceId(resource),
+                            expireTime: SocialNetworkService.getExpireTime(resource)
+                        });
+                        this.setState({
+                            registeringUser: true
+                        });
                     });
         }, (status) => {
             nekunoApp.alert(resource + ' login failed: ' + status.error.message)
@@ -93,23 +106,43 @@ export default class RegisterPage extends Component {
             <div className="view view-main">
                 <TopNavBar leftText={strings.cancel} centerText={strings.register}/>
                 <div className="page">
-                    <div id="page-content" className="register-content">
-                        <div className="register-title bold">
-                            <div className="title">{token ? (invitation.slogan ? invitation.slogan : strings.titleCorrect) : strings.title}</div>
-                        </div>
-                        <div className="register-sub-title">{ token ? (invitation.htmlText ? invitation.htmlText : strings.correct) : strings.subtitle}</div>
-                        { token ? '' :
-                            <div className="list-block">
-                                <ul>
-                                    <TextInput ref="token" defaultValue={initialToken} onChange={this.handleOnChange} placeholder={strings.paste}/>
-                                </ul>
+                    {this.state.registeringUser ?
+                        <EmptyMessage text={strings.loadingMessage} loadingGif={true} />
+                        :
+                        <div id="page-content" className="register-content">
+                            <div className="register-title bold">
+                                <div className="title">{token ? (invitation.slogan ? invitation.slogan : strings.titleCorrect) : strings.title}</div>
                             </div>
-                        }
-                        <div style={{color: '#FFF'}}>
-                            <p>{ error ? error.error : ''}</p>
+                            <div className="register-sub-title">{ token ? (invitation.htmlText ? invitation.htmlText : strings.correct) : strings.subtitle}</div>
+                            { token ? <div className="register-sub-title"><strong>{strings.publishMessage}</strong></div> : null}
+                            <br />
+                            { token ? '' :
+                                <div className="list-block">
+                                    <ul>
+                                        <TextInput ref="token" defaultValue={initialToken} onChange={this.handleOnChange} placeholder={strings.paste}/>
+                                    </ul>
+                                </div>
+                            }
+                            <div style={{color: '#FFF'}}>
+                                <p>{ error ? error.error : ''}</p>
+                            </div>
+
+                            { token ?
+                                <div>
+                                    {/* Uncomment to enable all social networks */}
+                                    {/* <SocialBox onClickHandler={this.handleSocialNetwork}/> */}
+                                    <FacebookRegisterButton onClickHandler={this.handleSocialNetwork}/>
+                                    <br />
+                                    <div className="register-sub-title privacy-terms-text">
+                                        <p dangerouslySetInnerHTML={{__html:strings.privacy }}/>
+                                    </div>
+                                    <br />
+                                    <br />
+                                </div>
+                                : ''
+                            }
                         </div>
-                        { token ? <SocialBox onClickHandler={this.handleSocialNetwork}/> : '' }
-                    </div>
+                    }
                 </div>
             </div>
         );
@@ -118,12 +151,15 @@ export default class RegisterPage extends Component {
 
 RegisterPage.defaultProps = {
     strings: {
-        register    : 'Create account',
-        cancel      : 'Cancel',
-        title       : 'Nekuno only allows registration by invitation.',
-        titleCorrect: 'Awesome! You got an invitation!',
-        subtitle    : 'Please copy the URL that you\'ve received your invitation and paste it into the field below to create your account at Nekuno.',
-        paste       : 'Paste the invitation url here',
-        correct     : 'Just one last step! Connect one of the following social networks:'
+        register      : 'Create account',
+        cancel        : 'Cancel',
+        title         : 'Nekuno only allows registration by invitation.',
+        titleCorrect  : 'Awesome! You got an invitation!',
+        subtitle      : 'Please copy the URL that you\'ve received your invitation and paste it into the field below to create your account at Nekuno.',
+        paste         : 'Paste the invitation url here',
+        correct       : 'Just one last step! Connect Facebook:',
+        loadingMessage: 'Registering user',
+        publishMessage: 'We\'ll never publish anything on your wall',
+        privacy       : 'By registering, you agree to the <a href="https://nekuno.com/legal-notice" target="_blank">Legal Conditions</a> and the Nekuno <a href="https://nekuno.com/privacy-policy" target="_blank">Privacy Policy</a>.'
     }
 };

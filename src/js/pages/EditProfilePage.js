@@ -28,8 +28,7 @@ function parseId(user) {
  * Requests data from server for current props.
  */
 function requestData(props) {
-    const user = props.user;
-    UserActionCreators.requestProfile(parseId(user));
+    UserActionCreators.requestOwnProfile(parseId(props.user));
     UserActionCreators.requestMetadata();
     ThreadActionCreators.requestFilters();
 }

@@ -1,10 +1,11 @@
 import React, { PropTypes, Component } from 'react';
-import { Link } from 'react-router';
 import { IMAGES_ROOT } from '../constants/Constants';
 import FullWidthButton from '../components/ui/FullWidthButton';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
 import * as QuestionActionCreators from '../actions/QuestionActionCreators';
+import LoginStore from '../stores/LoginStore';
+import ProfileStore from '../stores/ProfileStore';
 
 function parseUserId(user) {
     return user.id;
@@ -39,8 +40,23 @@ export default class RegisterQuestionLandingPage extends Component {
         history: PropTypes.object.isRequired
     };
 
+    constructor(props) {
+        super(props);
+
+        this.handleClickAnswerQuestions = this.handleClickAnswerQuestions.bind(this);
+    }
+
     componentWillMount() {
         requestData(this.props);
+    }
+    
+    handleClickAnswerQuestions() {
+        let path = '/answer-question/next';
+        if (!LoginStore.isComplete() || !LoginStore.isUsernameAnswered() || !ProfileStore.isComplete(parseUserId(this.props.user))) {
+            path = '/answer-user-fields';
+        }
+        
+        this.context.history.pushState(null, path);
     }
 
     render() {
@@ -61,9 +77,7 @@ export default class RegisterQuestionLandingPage extends Component {
                             </div>
                         </div>
                         <div className="register-question-landing-button">
-                            <Link to="/answer-question/next">
-                                <FullWidthButton>{strings.next}</FullWidthButton>
-                            </Link>
+                            <FullWidthButton onClick={this.handleClickAnswerQuestions}>{strings.next}</FullWidthButton>
                         </div>
                     </div>
                     <br/>

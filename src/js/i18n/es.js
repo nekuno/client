@@ -128,34 +128,17 @@ export default {
         statistics: 'Estadísticas',
         next      : 'Continuar'
     },
-    RegisterJoinPage                 : {
-        cancel               : 'Cancelar',
-        create               : 'Crear cuenta',
-        username             : 'Nombre de usuario',
-        email                : 'Email',
-        password             : 'Contraseña',
-        birthday             : 'Fecha de nacimiento',
-        birthdayPlaceholder  : 'Tu fecha de nacimiento',
-        location             : 'Ubicación',
-        include              : 'Incluirme en las búsquedas como',
-        gender               : 'Género',
-        male                 : 'Hombre',
-        female               : 'Mujer',
-        showDescriptiveGender: 'Mostrar otros géneros',
-        hideDescriptiveGender: 'Ocultar otros géneros',
-        complete             : 'Completar registro',
-        notAvailable         : 'Lo sentimos, este nombre de usuario no está disponible',
-        maxDescriptiveGender : 'El máximo de opciones permitidas es 5, desmarca alguna otra opción para elegir esta.',
-        privacy              : 'Al registrarte, estás aceptando las <a href="https://nekuno.com/legal-notice" target="_blank">Condiciones Legales</a> y la <a href="https://nekuno.com/privacy-policy" target="_blank">Política de Privacidad</a> de Nekuno.',
-    },
     RegisterPage                     : {
-        register    : 'Crear cuenta',
-        cancel      : 'Cancelar',
-        title       : 'Nekuno sólo permite el registro por invitación.',
-        titleCorrect: '¡Increíble! Has conseguido una invitación!',
-        subtitle    : 'Por favor, copia la URL que habrás recibido en tu invitación y pégala en el siguiente campo para poder crear tu cuenta en Nekuno.',
-        paste       : 'Pega aquí la URL de la invitación',
-        correct     : 'Solo queda un último paso! Conecta una de las siguientes redes sociales:'
+        register      : 'Crear cuenta',
+        cancel        : 'Cancelar',
+        title         : 'Nekuno sólo permite el registro por invitación.',
+        titleCorrect  : '¡Increíble! Has conseguido una invitación!',
+        subtitle      : 'Por favor, copia la URL que habrás recibido en tu invitación y pégala en el siguiente campo para poder crear tu cuenta en Nekuno.',
+        paste         : 'Pega aquí la URL de la invitación',
+        correct       : '¡Solo queda un último paso! Conecta Facebook:',
+        loadingMessage: 'Registrando usuario',
+        publishMessage: 'Nunca publicaremos nada en tu muro',
+        privacy       : 'Al registrarte, estás aceptando las <a href="https://nekuno.com/legal-notice" target="_blank">Condiciones Legales</a> y la <a href="https://nekuno.com/privacy-policy" target="_blank">Política de Privacidad</a> de Nekuno.'
     },
     RegisterQuestionLandingPage      : {
         title  : 'Queremos conocerte un poco mejor',
@@ -211,6 +194,9 @@ export default {
         socialNetworks: 'Mis redes sociales',
         logout        : 'Salir'
     },
+    FacebookRegisterButton           : {
+        signUp: 'Regístrate con Facebook'
+    },
     OtherProfileData                 : {
         coincidences    : 'Coincidencias',
         similarInterests: 'Intereses similares',
@@ -221,6 +207,48 @@ export default {
         aboutMe: 'Sobre mí',
         seeLess: 'Ver menos',
         seeMore: 'Ver más'
+    },
+    AnswerUserFieldPage              : {
+        question      : 'Pregunta',
+        loadingMessage: 'Cargando preguntas'
+    },
+    AnswerProfileFieldPage           : {
+        question      : 'Pregunta',
+        loadingMessage: 'Cargando preguntas',
+        genderEmpty   : 'No has seleccionado el género'
+    },
+    UsernameField                    : {
+        username       : 'nombre de usuario',
+        title          : 'Elige tu nombre de usuario',
+        save           : 'Guardar',
+        invalidUsername: 'Este nombre de usuario no está disponible'
+    },
+    EmailField                       : {
+        email: 'email',
+        title: '¿Cuál es tu email?',
+        save : 'Guardar'
+    },
+    BirthdayField                    : {
+        birthday           : 'fecha de nacimiento',
+        title              : '¿Cúando naciste?',
+        birthdayPlaceholder: 'Tu fecha de nacimiento',
+        save               : 'Guardar'
+    },
+    GenderField                      : {
+        include              : 'Incluirme en las búsquedas como',
+        gender               : 'Género',
+        male                 : 'Hombre',
+        female               : 'Mujer',
+        showDescriptiveGender: 'Mostrar otros géneros',
+        hideDescriptiveGender: 'Ocultar otros géneros',
+        maxDescriptiveGender : 'El máximo de opciones permitidas es 5, desmarca alguna otra opción para elegir esta.',
+        title                : 'Selecciona tu género',
+        save                 : 'Guardar'
+    },
+    LocationField                    : {
+        location           : 'Ubicación',
+        title              : '¿Dónde vives?',
+        save               : 'Guardar'
     },
     AcceptedAnswersImportance        : {
         title     : '¿Te importa la respuesta del usuario?',
@@ -293,7 +321,7 @@ export default {
     },
     RegisterQuestionsFinishedPopup   : {
         title    : '¡Felicidades!',
-        text     : 'Has completado las primeras 4 preguntas indispensables, si quieres seguir contestando preguntas para mejorar las recomendaciones, puedes hacerlo desde tu perfil.',
+        text     : 'Has completado las primeras preguntas indispensables, si quieres seguir contestando preguntas para mejorar las recomendaciones, puedes hacerlo desde tu perfil.',
         moreTests: 'Hacer más tests',
         continue : 'Continuar a recomendaciones'
     },

@@ -1,6 +1,9 @@
 @import '../_partials/colors';
 
 body #root .App .view .page {
+  &.answer-question-page {
+    height: 100%;
+  }
   #page-content {
     .answer-question {
       margin-top: 70px;
@@ -108,6 +111,35 @@ body #root .App .view .page {
                 }
               }
             }
+          }
+        }
+      }
+
+      .list-block {
+        ul.checkbox-genders-list {
+          display: inline-table;
+          padding: 0 2.5%;
+          width: 45%;
+
+          li {
+            .label-checkbox {
+              .item-inner {
+                .item-title {
+                  width: 80%;
+                }
+              }
+            }
+            &::after {
+              content: none;
+            }
+          }
+          .active-state {
+            background-color: transparent;
+          }
+        }
+        .date-content {
+          input {
+            text-align: center;
           }
         }
       }

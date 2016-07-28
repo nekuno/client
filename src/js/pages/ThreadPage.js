@@ -8,6 +8,7 @@ import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
 import * as UserActionCreators from '../actions/UserActionCreators';
 import * as ThreadActionCreators from '../actions/ThreadActionCreators';
+import * as QuestionActionCreators from '../actions/QuestionActionCreators';
 import ThreadStore from '../stores/ThreadStore';
 import ProfileStore from '../stores/ProfileStore';
 import ThreadsByUserStore from '../stores/ThreadsByUserStore';
@@ -24,6 +25,7 @@ function requestData(props) {
     ThreadActionCreators.requestThreadPage(userId);
     UserActionCreators.requestOwnProfile(userId);
     ThreadActionCreators.requestFilters();
+    QuestionActionCreators.requestQuestions(userId);
 }
 
 /**

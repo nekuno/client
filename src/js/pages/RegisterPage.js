@@ -105,7 +105,9 @@ export default class RegisterPage extends Component {
         return (
             <div className="view view-main">
                 <TopNavBar leftText={strings.cancel} centerText={strings.register}/>
-                <div className="page">
+                <div className="page" style={invitation && invitation.image_url ? {background: 'url("' + invitation.image_url + '") no-repeat center top', minHeight: '100%'} : null}>
+                    {invitation && invitation.image_url ? <div className="gradient-transparency"></div> : null}
+
                     {this.state.registeringUser ?
                         <EmptyMessage text={strings.loadingMessage} loadingGif={true} />
                         :

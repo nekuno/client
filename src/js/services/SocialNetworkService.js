@@ -60,7 +60,7 @@ class SocialNetworkService {
         return hello(resource).api('me').then(
             (status) => {
                 this._resourceIds[resource] = status.id.toString();
-                GeocoderService.getLocation(status.location).then(
+                GeocoderService.getLocationFromAddress(status.location).then(
                     (location) => { this._setUserAndProfile(resource, status, location) }, 
                     (error) => { this._setUserAndProfile(resource, status, null) }
                 );

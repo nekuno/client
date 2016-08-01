@@ -69,15 +69,19 @@ class SocialNetworkService {
     }
     
     _setUserAndProfile(resource, status, location) {
+        // age must be greater than 14
+        const birthday = status.birthday && (new Date().getTime() - new Date(status.birthday).getTime() > 441796964000) ? status.birthday : null;
+        const gender = status.gender == "male" || status.gender == "female" ? status.gender : null;
+        location = location && location.latitude && location.longitude && location.address && location.locality && location.country ? location : null;
         this._users[resource] = {
             username     : status.username || null,
             email        : status.email || null,
             picture      : status.picture || null
         };
         this._profiles[resource] = {
-            birthday: status.birthday || null,
+            birthday: birthday,
             location: location,
-            gender  : status.gender || null
+            gender  : gender
         };
     }
 }

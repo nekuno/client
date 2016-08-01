@@ -115,7 +115,8 @@ export default keyMirror({
     REQUEST_QUESTION_SUCCESS : null,
     REQUEST_QUESTION_ERROR   : null,
 
-    REMOVE_PREVIOUS_QUESTION: null,
+    REMOVE_PREVIOUS_QUESTION : null,
+    QUESTIONS_POPUP_DISPLAYED: null,
     
     ANSWER_QUESTION        : null,
     ANSWER_QUESTION_SUCCESS: null,

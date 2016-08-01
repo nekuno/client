@@ -79,3 +79,7 @@ export function skipQuestion(userId, questionId) {
 
     return promise;
 }
+
+export function popupDisplayed() {
+    dispatch(ActionTypes.QUESTIONS_POPUP_DISPLAYED);
+}

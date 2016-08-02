@@ -99,7 +99,7 @@ export default class SocialWheels extends Component {
     };
 
     connect = function(resource, scope) {
-        SocialNetworkService.login(resource, scope).then(() => {
+        SocialNetworkService.login(resource, scope, true).then(() => {
             ConnectActionCreators.connect(resource, SocialNetworkService.getAccessToken(resource), SocialNetworkService.getResourceId(resource), SocialNetworkService.getExpireTime(resource));
         }, (status) => {
             nekunoApp.alert(resource + ' login failed: ' + status.error.message);

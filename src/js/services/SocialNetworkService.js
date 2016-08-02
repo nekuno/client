@@ -11,12 +11,13 @@ class SocialNetworkService {
         this._users = {};
     }
 
-    login(resource, scope) {
+    login(resource, scope, force) {
+        force = force || null;
         if (this.isLoggedIn(resource, scope)) { 
             return new Promise(function (resolve) {return resolve(true)});
         }
         this._scopes[resource] = scope;
-        return hello(resource).login({scope: scope}).then(
+        return hello(resource).login({scope: scope, force: force}).then(
             (response) => this._setResourceData(resource, response), 
             (error) => { console.log(error) }
         );

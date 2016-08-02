@@ -119,7 +119,7 @@ export default class InterestsPage extends Component {
     handleScroll() {
         let pagination = this.props.pagination;
         let nextLink = pagination && pagination.hasOwnProperty('nextLink') ? pagination.nextLink : null;
-        let offsetTop = parseInt(document.getElementsByClassName('view')[0].scrollTop + document.getElementsByClassName('view')[0].offsetHeight - 49);
+        let offsetTop = parseInt(document.getElementsByClassName('view')[0].scrollTop + document.getElementsByClassName('view')[0].offsetHeight - 117);
         let offsetTopMax = parseInt(document.getElementById('page-content').offsetHeight);
 
         if (nextLink && offsetTop >= offsetTopMax) {

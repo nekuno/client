@@ -39,7 +39,7 @@ export default {
             request: ActionTypes.CONNECT_ACCOUNT,
             success: ActionTypes.CONNECT_ACCOUNT_SUCCESS,
             failure: ActionTypes.CONNECT_ACCOUNT_ERROR
-        }, {resource, accessToken, resourceId, expireTime});
+        }, {resource, accessToken, resourceId, expireTime, refreshToken});
         return promise;
     }
 }

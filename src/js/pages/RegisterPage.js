@@ -74,7 +74,7 @@ export default class RegisterPage extends Component {
 
     handleSocialNetwork(resource, scope) {
         const {token, interfaceLanguage} = this.props;
-        SocialNetworkService.login(resource, scope).then(() => {
+        SocialNetworkService.login(resource, scope, true).then(() => {
             LoginActionCreators.loginUserByResourceOwner(resource, SocialNetworkService.getAccessToken(resource)).then(
                 () => { return null }, // User is logged in
                 () => {
@@ -118,7 +118,8 @@ export default class RegisterPage extends Component {
             resourceOwner: resource,
             oauthToken: SocialNetworkService.getAccessToken(resource),
             resourceId: SocialNetworkService.getResourceId(resource),
-            expireTime: SocialNetworkService.getExpireTime(resource)
+            expireTime: SocialNetworkService.getExpireTime(resource),
+            refreshToken: SocialNetworkService.getRefreshToken(resource)
         });
         this.setState({
             registeringUser: true

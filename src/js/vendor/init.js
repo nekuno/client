@@ -39,7 +39,6 @@ hello.init({
                 return o;
             }
         }
-
     }
 });
 
@@ -55,7 +54,8 @@ hello.init(
         popup       : {
             location: 'no'
         },
-        oauth_proxy : INSTANT_HOST + 'oauthproxy'
+        oauth_proxy : INSTANT_HOST + 'oauthproxy',
+        response_type: 'code'
     }
 );
 

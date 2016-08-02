@@ -6,17 +6,19 @@ class SocialNetworkService {
         this._accessTokens = {};
         this._expireTime = {};
         this._resourceIds = {};
+        this._refreshTokens = {};
         this._scopes = {};
         this._profiles = {};
         this._users = {};
     }
 
-    login(resource, scope) {
+    login(resource, scope, force) {
+        force = force || null;
         if (this.isLoggedIn(resource, scope)) { 
             return new Promise(function (resolve) {return resolve(true)});
         }
         this._scopes[resource] = scope;
-        return hello(resource).login({scope: scope}).then(
+        return hello(resource).login({scope: scope, force: force}).then(
             (response) => this._setResourceData(resource, response), 
             (error) => { console.log(error) }
         );
@@ -53,10 +55,16 @@ class SocialNetworkService {
         return this._expireTime[resource] || null;
     }
 
+    getRefreshToken(resource) {
+        return this._refreshTokens[resource] || null;
+    }
+    
     _setResourceData(resource, response) {
         console.log(resource, response);
         this._accessTokens[resource] = response.authResponse.access_token;
         this._expireTime[resource] = Math.floor(response.authResponse.expires);
+        this._refreshTokens[resource] = response.authResponse.refresh_token || null;
+        
         return hello(resource).api('me').then(
             (status) => {
                 this._resourceIds[resource] = status.id.toString();

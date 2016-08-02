@@ -63,7 +63,7 @@ class SocialNetworkService {
         console.log(resource, response);
         this._accessTokens[resource] = response.authResponse.access_token;
         this._expireTime[resource] = Math.floor(response.authResponse.expires);
-        this.refreshTokens[resource] = response.authResponse.refresh_token || null;
+        this._refreshTokens[resource] = response.authResponse.refresh_token || null;
         
         return hello(resource).api('me').then(
             (status) => {

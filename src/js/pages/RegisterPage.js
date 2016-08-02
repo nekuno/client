@@ -118,7 +118,8 @@ export default class RegisterPage extends Component {
             resourceOwner: resource,
             oauthToken: SocialNetworkService.getAccessToken(resource),
             resourceId: SocialNetworkService.getResourceId(resource),
-            expireTime: SocialNetworkService.getExpireTime(resource)
+            expireTime: SocialNetworkService.getExpireTime(resource),
+            refreshToken: SocialNetworkService.getRefreshToken(resource)
         });
         this.setState({
             registeringUser: true

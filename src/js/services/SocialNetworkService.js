@@ -6,6 +6,7 @@ class SocialNetworkService {
         this._accessTokens = {};
         this._expireTime = {};
         this._resourceIds = {};
+        this._refreshTokens = {};
         this._scopes = {};
         this._profiles = {};
         this._users = {};
@@ -54,10 +55,16 @@ class SocialNetworkService {
         return this._expireTime[resource] || null;
     }
 
+    getRefreshToken(resource) {
+        return this._refreshTokens[resource] || null;
+    }
+    
     _setResourceData(resource, response) {
         console.log(resource, response);
         this._accessTokens[resource] = response.authResponse.access_token;
         this._expireTime[resource] = Math.floor(response.authResponse.expires);
+        this.refreshTokens[resource] = response.authResponse.refresh_token || null;
+        
         return hello(resource).api('me').then(
             (status) => {
                 this._resourceIds[resource] = status.id.toString();

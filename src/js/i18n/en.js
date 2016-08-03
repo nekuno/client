@@ -288,10 +288,12 @@ export default {
         completed: 'completed questions'
     },
     CardContent                      : {
-        like         : 'Like',
-        unlike       : 'Remove',
-        compatibility: 'Compatibility',
-        emptyTitle   : 'Link'
+        like           : 'Like',
+        unlike         : 'Remove',
+        compatibility  : 'Compatibility',
+        emptyTitle     : 'Link',
+        copyToClipboard: 'Copy to clipboard: Ctrl+C, Enter',
+        shareError     : 'An error occurred sharing the content'
     },
     CardUser                         : {
         like      : 'Like',

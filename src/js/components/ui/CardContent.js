@@ -33,7 +33,10 @@ export default class CardContent extends Component {
         super(props);
 
         this.onRate = this.onRate.bind(this);
+        this.onShare = this.onShare.bind(this);
         this.handleClick = this.handleClick.bind(this);
+        this.onShareSuccess = this.onShareSuccess.bind(this);
+        this.onShareError = this.onShareError.bind(this);
 
         this.state = {
             embedHtml: null
@@ -41,12 +44,40 @@ export default class CardContent extends Component {
     }
 
     onRate() {
-        const {loggedUserId, contentId} = this.props;
-        if (!this.props.rate) {
+        const {loggedUserId, contentId, rate} = this.props;
+        if (!rate) {
             UserActionCreators.likeContent(loggedUserId, contentId);
         } else {
             UserActionCreators.deleteLikeContent(loggedUserId, contentId);
         }
+    }
+
+    onShare() {
+        const {title, url, strings} = this.props;
+        if (window.cordova) {
+            // this is the complete list of currently supported params you can pass to the plugin (all optional)
+            var options = {
+                //message: 'share this', // not supported on some apps (Facebook, Instagram)
+                subject: title, // fi. for email
+                url: url
+                //chooserTitle: 'Pick an app' // Android only, you can override the default share sheet title
+            };
+            window.plugins.socialsharing.shareWithOptions(options, this.onShareSuccess, this.onShareError);
+        } else {
+            window.prompt(strings.copyToClipboard, url);
+            this.onShareSuccess();
+        }
+    }
+    
+    onShareSuccess() {
+        const {loggedUserId, contentId, rate} = this.props;
+        if (!rate) {
+            UserActionCreators.likeContent(loggedUserId, contentId);
+        }
+    }
+
+    onShareError() {
+        nekunoApp.alert(this.props.strings.shareError)
     }
 
     handleClick() {
@@ -133,6 +164,9 @@ export default class CardContent extends Component {
                 {likeButton ?
                     <div className="card-footer">
                         {likeButton}
+                        <div className="icon-wrapper" onClick={this.onShare}>
+                            <span className="icon-share"></span>
+                        </div>
                     </div>
                     : ''
                 }
@@ -144,9 +178,11 @@ export default class CardContent extends Component {
 
 CardContent.defaultProps = {
     strings: {
-        like         : 'Like',
-        unlike       : 'Remove',
-        compatibility: 'Compatibility',
-        emptyTitle   : 'Title'
+        like           : 'Like',
+        unlike         : 'Remove',
+        compatibility  : 'Compatibility',
+        emptyTitle     : 'Title',
+        copyToClipboard: 'Copy to clipboard: Ctrl+C, Enter',
+        shareError     : 'An error occurred sharing the content'
     }
 };

@@ -308,7 +308,7 @@ export default {
         videos   : 'Videos',
         audios   : 'Audios',
         photos   : 'Photos',
-        websites : 'Websites',
+        websites : 'All',
         people   : 'People',
         channels : 'Channels'
     },

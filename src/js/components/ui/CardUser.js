@@ -80,7 +80,7 @@ export default class CardUser extends Component {
                             </div>
                         </Link>
                         <div className="matching">
-                            <div className="matching-value">{strings.similarity} {matching ? matching + '%' : '?'}</div>
+                            <div className="matching-value">{strings.similarity} {matching ? matching + '%' : '0%'}</div>
                             <ProgressBar percentage={matching}/>
                         </div>
                     </div>

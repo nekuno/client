@@ -78,7 +78,10 @@
 
 		.card-content-inner {
 			padding: 0;
-			
+
+			.discover-video {
+				width: 100%;
+			}
 			.image img {
 				width: 100%;
 				vertical-align: middle;

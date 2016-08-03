@@ -125,6 +125,7 @@ export default class AnswerQuestionPage extends Component {
             window.setTimeout(() => requestData(this.props), 0);
         }
         if(this.props.isJustCompleted) {
+            QuestionActionCreators.popupDisplayed();
             window.setTimeout(function() { nekunoApp.popup('.popup-register-finished') }, 0);
         }
     }

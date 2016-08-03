@@ -48,7 +48,6 @@ export default class ChatThreadsPage extends Component {
                                 )
                             })
                         }
-                        <hr />
                     </div>
                 </div>
             </div>

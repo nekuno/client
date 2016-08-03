@@ -9,11 +9,12 @@ export default class CardContentList extends Component {
     };
 
     render() {
-        const {contents, userId} = this.props;
+        const {contents, userId, onClickHandler} = this.props;
         return (
             <div className="content-list">
                 {contents.map((content, index) => <CardContent key={index} hideLikeButton={false} {...content} loggedUserId={userId}
-                                                               onClickHandler={this.onClickHandler.bind(this, index - 1)}
+                                                               embed_id={content.embed ? content.embed.id : null} embed_type={content.embed ? content.embed.type : null}
+                                                               onClickHandler={onClickHandler ? this.onClickHandler.bind(this, index - 1) : null}
                                                                fixedHeight={true}/>)}
             </div>
         );

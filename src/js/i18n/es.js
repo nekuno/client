@@ -287,10 +287,12 @@ export default {
         completed: 'preguntas completadas'
     },
     CardContent                      : {
-        like         : 'Me interesa',
-        unlike       : 'Quitar',
-        compatibility: 'Compatibilidad',
-        emptyTitle   : 'Contenido'
+        like           : 'Me interesa',
+        unlike         : 'Quitar',
+        compatibility  : 'Compatibilidad',
+        emptyTitle     : 'Contenido',
+        copyToClipboard: 'Copiar al portapapeles: Ctrl+C, Enter',
+        shareError     : 'Ha ocurrido un error compartiendo el contenido.'
     },
     CardUser                         : {
         like      : 'Me gusta',
@@ -307,7 +309,7 @@ export default {
         videos   : 'Videos',
         audios   : 'Audios',
         photos   : 'Fotos',
-        websites : 'Sitios web',
+        websites : 'Todo',
         people   : 'Personas',
         channels : 'Canales'
     },

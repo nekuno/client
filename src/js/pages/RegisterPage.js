@@ -11,6 +11,7 @@ import LoginActionCreators from '../actions/LoginActionCreators';
 import InvitationStore from '../stores/InvitationStore';
 import LocaleStore from '../stores/LocaleStore';
 import SocialNetworkService from '../services/SocialNetworkService';
+import GeocoderService from '../services/GeocoderService';
 
 function getState(props) {
 
@@ -44,6 +45,7 @@ export default class RegisterPage extends Component {
         super(props);
         this.handleOnChange = this.handleOnChange.bind(this);
         this.handleSocialNetwork = this.handleSocialNetwork.bind(this);
+        this._registerUser = this._registerUser.bind(this);
         
         this.state = {
             registeringUser: false
@@ -72,30 +74,58 @@ export default class RegisterPage extends Component {
 
     handleSocialNetwork(resource, scope) {
         const {token, interfaceLanguage} = this.props;
-        SocialNetworkService.login(resource, scope).then(() => {
-            LoginActionCreators.loginUserByResourceOwner(resource, SocialNetworkService.getAccessToken(resource))
-                .then(() => { return null },
-                    () => {
-                        const profile = SocialNetworkService.getProfile(resource);
-                        profile.interfaceLanguage = interfaceLanguage;
-                        profile.orientationRequired = false;
-                        const user = SocialNetworkService.getUser(resource);
-                        user[resource + 'ID'] = SocialNetworkService.getResourceId(resource);
-                        LoginActionCreators.register(user, profile, token, {
-                            resourceOwner: resource,
-                            oauthToken: SocialNetworkService.getAccessToken(resource),
-                            resourceId: SocialNetworkService.getResourceId(resource),
-                            expireTime: SocialNetworkService.getExpireTime(resource)
-                        });
-                        this.setState({
-                            registeringUser: true
-                        });
-                    });
+        SocialNetworkService.login(resource, scope, true).then(() => {
+            LoginActionCreators.loginUserByResourceOwner(resource, SocialNetworkService.getAccessToken(resource)).then(
+                () => { return null }, // User is logged in
+                () => {
+                    let user = SocialNetworkService.getUser(resource);
+                    let profile = SocialNetworkService.getProfile(resource);
+                    user[resource + 'ID'] = SocialNetworkService.getResourceId(resource);
+                    profile.interfaceLanguage = interfaceLanguage;
+                    profile.orientationRequired = false;
+                    if (!profile.location && navigator.geolocation) {
+                        var options = {
+                            enableHighAccuracy: true,
+                            timeout: 5000, // 5s
+                            maximumAge: 14400000 // 4h
+                        };
+                        navigator.geolocation.getCurrentPosition((position) => {
+                            if (position.coords.accuracy < 2000) { // filter by accuracy
+                                GeocoderService.getLocationFromCoords(position.coords.latitude, position.coords.longitude).then(
+                                    (location) => {
+                                        profile.location = location;
+                                        this._registerUser(user, profile, token, resource);
+                                    },
+                                    () => { // Register user without location
+                                        this._registerUser(user, profile, token, resource);
+                                    }
+                                )
+                            } else {
+                                this._registerUser(user, profile, token, resource);
+                            }
+                        }, () => { this._registerUser(user, profile, token, resource) }, options);
+                    } else {
+                        this._registerUser(user, profile, token, resource);
+                    }
+                });
         }, (status) => {
             nekunoApp.alert(resource + ' login failed: ' + status.error.message)
         });
     }
 
+    _registerUser(user, profile, token, resource) {
+        LoginActionCreators.register(user, profile, token, {
+            resourceOwner: resource,
+            oauthToken: SocialNetworkService.getAccessToken(resource),
+            resourceId: SocialNetworkService.getResourceId(resource),
+            expireTime: SocialNetworkService.getExpireTime(resource),
+            refreshToken: SocialNetworkService.getRefreshToken(resource)
+        });
+        this.setState({
+            registeringUser: true
+        });
+    }
+    
     render() {
 
         const {error, token, invitation, strings} = this.props;
@@ -105,7 +135,9 @@ export default class RegisterPage extends Component {
         return (
             <div className="view view-main">
                 <TopNavBar leftText={strings.cancel} centerText={strings.register}/>
-                <div className="page">
+                <div className="page" style={invitation && invitation.image_url ? {background: 'url("' + invitation.image_url + '") no-repeat center top', minHeight: '100%'} : null}>
+                    {invitation && invitation.image_url ? <div className="gradient-transparency"></div> : null}
+
                     {this.state.registeringUser ?
                         <EmptyMessage text={strings.loadingMessage} loadingGif={true} />
                         :

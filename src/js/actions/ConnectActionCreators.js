@@ -33,13 +33,13 @@ export default {
         });
     },
 
-    connect: (resource, accessToken, resourceId, expireTime) => {
-        let promise = AuthService.connect(resource, accessToken, resourceId, expireTime);
+    connect: (resource, accessToken, resourceId, expireTime, refreshToken) => {
+        let promise = AuthService.connect(resource, accessToken, resourceId, expireTime, refreshToken);
         dispatchAsync(promise, {
             request: ActionTypes.CONNECT_ACCOUNT,
             success: ActionTypes.CONNECT_ACCOUNT_SUCCESS,
             failure: ActionTypes.CONNECT_ACCOUNT_ERROR
-        }, {resource, accessToken, resourceId, expireTime});
+        }, {resource, accessToken, resourceId, expireTime, refreshToken});
         return promise;
     }
 }

@@ -12,6 +12,7 @@ let _answerQuestion = {};
 let _errors = '';
 let _noMoreQuestions = false;
 let _goToQuestionStats = false;
+let _isJustCompleted = false;
 
 const QuestionStore = createStore({
     contains(userId, questionId) {
@@ -56,8 +57,8 @@ const QuestionStore = createStore({
         return this.answersLength(userId) < registerQuestionsLength;
     },
 
-    isJustCompleted(userId) {
-        return this.answersLength(userId) == registerQuestionsLength;
+    isJustCompleted() {
+        return _isJustCompleted;
     },
     
     answersLength(userId) {
@@ -133,6 +134,7 @@ QuestionStore.dispatchToken = register(action => {
         _questions[userId][userAnswer.questionId] = { question: userAnswerQuestion, userAnswer: userAnswer };
         _goToQuestionStats = true;
         _pagination[userId].total++;
+        _isJustCompleted = QuestionStore.answersLength(userId) == QuestionStore.registerQuestionsLength();
         QuestionStore.emitChange();
     }
     else if (action.type === 'REQUEST_EXISTING_QUESTION') {
@@ -144,7 +146,10 @@ QuestionStore.dispatchToken = register(action => {
         _answerQuestion = {};
         QuestionStore.emitChange();
     }
-
+    else if (action.type === 'QUESTIONS_POPUP_DISPLAYED') {
+        _isJustCompleted = false;
+        QuestionStore.emitChange();
+    }
     if (action.type == ActionTypes.LOGOUT_USER){
         _questions = {};
         _pagination = {};

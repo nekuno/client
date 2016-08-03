@@ -126,8 +126,8 @@ class AuthService {
             });
     }
 
-    connect(resource, accessToken, resourceId, expireTime) {
-        return APIUtils.postData(API_URLS.CONNECT_ACCOUNT.replace('{resource}', resource), {oauthToken: accessToken, resourceId: resourceId, expireTime: expireTime});
+    connect(resource, accessToken, resourceId, expireTime, refreshToken) {
+        return APIUtils.postData(API_URLS.CONNECT_ACCOUNT.replace('{resource}', resource), {oauthToken: accessToken, resourceId: resourceId, expireTime: expireTime, refreshToken: refreshToken});
     }
 
 }

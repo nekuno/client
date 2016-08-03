@@ -51,7 +51,7 @@ export default class CardContent extends Component {
 
     handleClick() {
         const {url, types, embed_type, embed_id, onClickHandler} = this.props;
-        if (typeof onClickHandler !== 'undefined') {
+        if (typeof onClickHandler !== 'undefined' && onClickHandler) {
             onClickHandler();
         } else {
             const isVideo = types.indexOf('Video') > -1;
@@ -67,7 +67,7 @@ export default class CardContent extends Component {
         let html = null;
         switch (embed_type) {
             case 'youtube':
-                html = <iframe class="discover-video" src={'https://www.youtube.com/embed/' + embed_id + '?autoplay=1'} frameBorder="0" allowFullScreen width="255"></iframe>;
+                html = <iframe className="discover-video" src={'https://www.youtube.com/embed/' + embed_id + '?autoplay=1'} frameBorder="0" allowFullScreen></iframe>;
                 break;
             default:
                 break;

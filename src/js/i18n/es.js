@@ -69,8 +69,9 @@ export default {
         interests: 'Intereses'
     },
     GalleryAlbumsPage                : {
-        albums     : 'Álbumes de %resource%',
-        empty      : 'No hay álbumes'
+        albums        : 'Álbumes de %resource%',
+        empty         : 'No hay álbumes',
+        importingAlbum: 'Importando álbum'
     },
     GalleryAlbumPhotosPage           : {
         empty       : 'No hay fotos en este álbum',

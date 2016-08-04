@@ -106,13 +106,17 @@ export default class GalleryAlbumPhotosPage extends Component {
                         )}
                         <br />
                         <br />
-                        {noPhotos ? '' : <FullWidthButton onClick={this.importPhotos}>{strings.importPhotos}</FullWidthButton>}
                         <br />
                         <br />
                         <br />
                         <br />
                     </div>
                 </div>
+                {noPhotos ? '' :
+                    <div className="fixed-button">
+                        <FullWidthButton onClick={this.importPhotos}>{strings.importPhotos}</FullWidthButton>
+                    </div>
+                }
             </div>
         );
     }

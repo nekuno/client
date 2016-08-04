@@ -69,6 +69,10 @@ body #root .App .view .page.gallery-page {
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
+
+          &.with-background {
+            background: $light-gray-translucent;
+          }
         }
       }
 

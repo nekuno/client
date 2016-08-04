@@ -68,7 +68,7 @@ export default class GalleryPage extends Component {
         this.uploadFile = this.uploadFile.bind(this);
         
         this.state = {
-            importingAlbum: false    
+            importingAlbums: false    
         };
     }
     
@@ -108,7 +108,7 @@ export default class GalleryPage extends Component {
                 }, 500);
             }, (error) => { console.log(error) });
             this.setState({
-                importingAlbum: true
+                importingAlbums: true
             });
         }, (error) => { console.log(error) });
     }
@@ -159,7 +159,7 @@ export default class GalleryPage extends Component {
                 <TopNavBar leftMenuIcon={true} centerText={strings.myProfile} rightIcon={'uploadthin'} rightIconsWithoutCircle={true} onRightLinkClickHandler={this.triggerUploadFile}/>
                 <input style={{opacity: 0}} type='file' ref='fileInput' onChange={this.uploadFile} />
                 <div className="page gallery-page">
-                    {this.state.importingAlbum ? <EmptyMessage text={strings.importingAlbums} loadingGif={true}/>
+                    {this.state.importingAlbums ? <EmptyMessage text={strings.importingAlbums} loadingGif={true}/>
                         :
                         <div id="page-content" className="gallery-content">
                             <div className="import-album-wrapper photo-wrapper" onClick={this.importAlbumPopUp}>

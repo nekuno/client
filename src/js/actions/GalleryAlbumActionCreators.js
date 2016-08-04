@@ -36,7 +36,7 @@ export default {
             });
         }, (status) => {
             nekunoApp.alert(status.error.code);
-            return dispatch(ActionTypes.REQUEST_ALBUM_ERROR, {
+            dispatch(ActionTypes.REQUEST_ALBUM_ERROR, {
                 response : {
                     resource: resource
                 }

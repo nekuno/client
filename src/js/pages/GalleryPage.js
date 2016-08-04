@@ -66,6 +66,10 @@ export default class GalleryPage extends Component {
         this.goToPhotoGalleryPage = this.goToPhotoGalleryPage.bind(this);
         this.triggerUploadFile = this.triggerUploadFile.bind(this);
         this.uploadFile = this.uploadFile.bind(this);
+        
+        this.state = {
+            importingAlbum: false    
+        };
     }
     
     componentWillMount() {
@@ -93,7 +97,8 @@ export default class GalleryPage extends Component {
 
     importAlbum(resource, scope) {
         nekunoApp.closeModal('.popup-import-album');
-        SocialNetworkService.login(resource, scope).then(() => {
+        const force = WorkerStore.isConnected(resource) ? null : true;
+        SocialNetworkService.login(resource, scope, force).then(() => {
             if (!WorkerStore.isConnected(resource)) {
                 ConnectActionCreators.connect(resource, SocialNetworkService.getAccessToken(resource), SocialNetworkService.getResourceId(resource), SocialNetworkService.getExpireTime(resource), SocialNetworkService.getRefreshToken(resource));
             }
@@ -102,6 +107,9 @@ export default class GalleryPage extends Component {
                     this.context.history.pushState(null, 'gallery-albums')
                 }, 500);
             }, (error) => { console.log(error) });
+            this.setState({
+                importingAlbum: true
+            });
         }, (error) => { console.log(error) });
     }
 
@@ -151,33 +159,36 @@ export default class GalleryPage extends Component {
                 <TopNavBar leftMenuIcon={true} centerText={strings.myProfile} rightIcon={'uploadthin'} rightIconsWithoutCircle={true} onRightLinkClickHandler={this.triggerUploadFile}/>
                 <input style={{opacity: 0}} type='file' ref='fileInput' onChange={this.uploadFile} />
                 <div className="page gallery-page">
-                    <div id="page-content" className="gallery-content">
-                        <div className="import-album-wrapper photo-wrapper" onClick={this.importAlbumPopUp}>
-                            <div className="icon-image"></div>
-                            <div className="text">{strings.importAlbum}</div>
+                    {this.state.importingAlbum ? <EmptyMessage text={strings.importingAlbums} loadingGif={true}/>
+                        :
+                        <div id="page-content" className="gallery-content">
+                            <div className="import-album-wrapper photo-wrapper" onClick={this.importAlbumPopUp}>
+                                <div className="icon-image"></div>
+                                <div className="text">{strings.importAlbum}</div>
+                            </div>
+                            {profilePhoto ?
+                                <div className="photo-wrapper" onClick={this.goToPhotoGalleryPage.bind(this, profilePhoto)}>
+                                    <div className="photo-absolute-wrapper">
+                                        <Image src={profilePhoto}/>
+                                    </div>
+                                    <div className="profile-photo-text"><span className="icon-person"></span><div className="text">&nbsp;{strings.profilePhoto}</div></div>
+                                </div>
+                                : null}
+                            {noPhotos ? <EmptyMessage text={strings.empty}/> : photos.map(photo => 
+                                <div key={photo.id} className="photo-wrapper" onClick={this.goToPhotoGalleryPage.bind(this, photo)}>
+                                    <div className="photo-absolute-wrapper">
+                                        <Image src={photo.thumbnail.small}/>
+                                    </div>
+                                </div>
+                            )}
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <br />
                         </div>
-                        {profilePhoto ?
-                            <div className="photo-wrapper" onClick={this.goToPhotoGalleryPage.bind(this, profilePhoto)}>
-                                <div className="photo-absolute-wrapper">
-                                    <Image src={profilePhoto}/>
-                                </div>
-                                <div className="profile-photo-text"><span className="icon-person"></span><div className="text">&nbsp;{strings.profilePhoto}</div></div>
-                            </div>
-                            : null}
-                        {noPhotos ? <EmptyMessage text={strings.empty}/> : photos.map(photo => 
-                            <div key={photo.id} className="photo-wrapper" onClick={this.goToPhotoGalleryPage.bind(this, photo)}>
-                                <div className="photo-absolute-wrapper">
-                                    <Image src={photo.thumbnail.small}/>
-                                </div>
-                            </div>
-                        )}
-                        <br />
-                        <br />
-                        <br />
-                        <br />
-                        <br />
-                        <br />
-                    </div>
+                    }
                 </div>
                 <ToolBar links={[
                 {'url': '/profile', 'text': strings.about},
@@ -193,13 +204,14 @@ export default class GalleryPage extends Component {
 
 GalleryPage.defaultProps = {
     strings: {
-        importAlbum : 'Import an album',
-        empty       : 'You have not imported any photo yet',
-        myProfile   : 'My profile',
-        profilePhoto: 'Profile photo',
-        about       : 'About me',
-        photos      : 'Photos',
-        questions   : 'Answers',
-        interests   : 'Interests'
+        importAlbum    : 'Import an album',
+        empty          : 'You have not imported any photo yet',
+        myProfile      : 'My profile',
+        profilePhoto   : 'Profile photo',
+        about          : 'About me',
+        photos         : 'Photos',
+        questions      : 'Answers',
+        interests      : 'Interests',
+        importingAlbums: 'Importing albums'
     }
 };

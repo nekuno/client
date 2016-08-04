@@ -99,7 +99,9 @@ export default class GalleryAlbumPhotosPage extends Component {
                         {noPhotos ? <EmptyMessage text={strings.empty}/> : photos.map(photo =>
                             <div key={photo.id} className={this.isSelected(photo) ? 'photo-wrapper selected-photo' : 'photo-wrapper'} onClick={this.selectPhoto.bind(this, photo)}>
                                 {this.isSelected(photo) ? <span className="icon icon-form-checkbox"></span> : ''}
-                                <Image src={photo.picture}/>
+                                <div className="photo-absolute-wrapper">
+                                    <Image src={photo.picture}/>
+                                </div>
                             </div>
                         )}
                         <br />

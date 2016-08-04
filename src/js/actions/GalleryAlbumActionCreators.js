@@ -13,9 +13,9 @@ export default {
                         items: status.data
                     }
                 });
-        }, (error) => {
-            nekunoApp.alert(error.error);
-            return dispatch(ActionTypes.REQUEST_ALBUMS_ERROR, {
+        }, (status) => {
+            nekunoApp.alert(status.error.code);
+            dispatch(ActionTypes.REQUEST_ALBUMS_ERROR, {
                 response : {
                     resource: resource
                 }
@@ -34,8 +34,8 @@ export default {
                     items: status.data || []
                 }
             });
-        }, (error) => {
-            nekunoApp.alert(error.error);
+        }, (status) => {
+            nekunoApp.alert(status.error.code);
             return dispatch(ActionTypes.REQUEST_ALBUM_ERROR, {
                 response : {
                     resource: resource

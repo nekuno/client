@@ -108,6 +108,10 @@ export default class CardContent extends Component {
             embedHtml: html
         });
     };
+    
+    preventDefault(e) {
+        e.preventDefault();
+    }
 
     render() {
         const {title, description, types, rate, hideLikeButton, fixedHeight, thumbnail, url, matching, strings} = this.props;
@@ -128,7 +132,7 @@ export default class CardContent extends Component {
             <div className="card person-card">
                 {isImage ? '' :
                     <div className="card-header" onClick={this.handleClick}>
-                        <a>
+                        <a href={url} onClick={this.preventDefault}>
                             <div className="card-title">
                                 {cardTitle}
                             </div>
@@ -144,7 +148,7 @@ export default class CardContent extends Component {
                 <div className="card-content" onClick={this.handleClick}>
                     <div className="card-content-inner">
                         {this.state.embedHtml ? this.state.embedHtml :
-                            <a>
+                            <a href={url} onClick={this.preventDefault}>
                                 <div className={imageClass}>
                                     <Image src={imgSrc} defaultSrc={defaultSrc}/>
                                 </div>

@@ -9,6 +9,8 @@ import connectToStores from '../utils/connectToStores';
 import GalleryAlbumStore from '../stores/GalleryAlbumStore';
 import GalleryPhotoActionCreators from '../actions/GalleryPhotoActionCreators';
 
+const photosPerPage = 8;
+
 function parseId(user) {
     return user.id;
 }
@@ -52,6 +54,8 @@ export default class GalleryAlbumPhotosPage extends Component {
         this.isSelected = this.isSelected.bind(this);
 
         this.state = {
+            displayedPhotos: props.photos.filter((photo, index) => index < photosPerPage),
+            paginationIndex: 0,
             selectedPhotos: []
         };
     }
@@ -61,9 +65,38 @@ export default class GalleryAlbumPhotosPage extends Component {
             this.context.history.pushState(null, 'gallery');
         }
     }
+    
+    componentDidMount() {
+        const {photos} = this.props;
+        const {paginationIndex} = this.state;
+        if (!this.canScroll()) {
+            this.setState({
+                paginationIndex: paginationIndex + 1,
+                displayedPhotos: photos.filter((photo, index) => index < photosPerPage * (paginationIndex + 2))
+
+            });
+        }
+    }
 
     handleScroll() {
-        
+        const {photos} = this.props;
+        const {paginationIndex} = this.state;
+        let offsetTop = parseInt(document.getElementsByClassName('view')[0].scrollTop + document.getElementsByClassName('view')[0].offsetHeight - 50);
+        let offsetTopMax = parseInt(document.getElementById('page-content').offsetHeight);
+
+        if (offsetTop >= offsetTopMax) {
+            document.getElementsByClassName('view')[0].removeEventListener('scroll', this.handleScroll);
+            this.setState({
+                paginationIndex: paginationIndex + 1,
+                displayedPhotos: photos.filter((photo, index) => index < photosPerPage * (paginationIndex + 2))
+            });
+        }
+    }
+
+    canScroll() {
+        const totalHeight = parseInt(document.getElementsByClassName('view')[0].offsetHeight);
+        const scrollHeight = parseInt(document.getElementsByClassName('view')[0].scrollHeight);
+        return totalHeight !== scrollHeight;
     }
     
     selectPhoto(photo) {
@@ -90,13 +123,13 @@ export default class GalleryAlbumPhotosPage extends Component {
     }
 
     render() {
-        const {name, photos, noPhotos, strings} = this.props;
+        const {name, noPhotos, strings} = this.props;
         return (
             <div className="view view-main" onScroll={this.handleScroll}>
                 <TopNavBar leftIcon={'left-arrow'} centerText={name}/>
                 <div className="page gallery-page">
                     <div id="page-content" className="gallery-content">
-                        {noPhotos ? <EmptyMessage text={strings.empty}/> : photos.map(photo =>
+                        {noPhotos ? <EmptyMessage text={strings.empty}/> : this.state.displayedPhotos.map(photo =>
                             <div key={photo.id} className={this.isSelected(photo) ? 'photo-wrapper selected-photo' : 'photo-wrapper'} onClick={this.selectPhoto.bind(this, photo)}>
                                 {this.isSelected(photo) ? <span className="icon icon-form-checkbox"></span> : ''}
                                 <div className="photo-absolute-wrapper">

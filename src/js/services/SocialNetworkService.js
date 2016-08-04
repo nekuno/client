@@ -1,4 +1,5 @@
 import GeocoderService from './GeocoderService';
+import { SOCIAL_NETWORKS_NAMES } from '../constants/Constants';
 
 class SocialNetworkService {
 
@@ -14,6 +15,10 @@ class SocialNetworkService {
 
     login(resource, scope, force) {
         force = force || null;
+        // FB and TW do not need force option to get the refresh token
+        if (resource == SOCIAL_NETWORKS_NAMES.FACEBOOK || resource == SOCIAL_NETWORKS_NAMES.TWITTER) {
+            force = null;
+        }
         if (this.isLoggedIn(resource, scope)) { 
             return new Promise(function (resolve) {return resolve(true)});
         }

@@ -41,24 +41,31 @@ export const QUESTION_STATS_COLORS = [
     '#d96484'
 ];
 
+export const SOCIAL_NETWORKS_NAMES = {
+    FACEBOOK: 'facebook',
+    TWITTER: 'twitter',
+    GOOGLE: 'google',
+    SPOTIFY: 'spotify'
+};
+
 export const SOCIAL_NETWORKS = [
     {
-        resourceOwner: 'facebook',
+        resourceOwner: SOCIAL_NETWORKS_NAMES.FACEBOOK,
         id: config.FACEBOOK_ID,
         scope: config.FACEBOOK_SCOPE
     },
     {
-        resourceOwner: 'twitter',
+        resourceOwner: SOCIAL_NETWORKS_NAMES.TWITTER,
         id: config.TWITTER_ID,
         scope: config.TWITTER_SCOPE
     },
     {
-        resourceOwner: 'google',
+        resourceOwner: SOCIAL_NETWORKS_NAMES.GOOGLE,
         id: config.GOOGLE_ID,
         scope: config.GOOGLE_SCOPE
     },
     {
-        resourceOwner: 'spotify',
+        resourceOwner: SOCIAL_NETWORKS_NAMES.SPOTIFY,
         id: config.SPOTIFY_ID,
         scope: config.SPOTIFY_SCOPE
     }

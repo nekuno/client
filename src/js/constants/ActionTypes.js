@@ -21,7 +21,6 @@ export default keyMirror({
     USERNAME_ANSWERED                       : null,
     LOGOUT_USER                             : null,
 
-    CONNECT_REGISTER_ACCOUNT: null,
     CONNECT_ACCOUNT         : null,
     CONNECT_ACCOUNT_SUCCESS : null,
     CONNECT_ACCOUNT_ERROR   : null,

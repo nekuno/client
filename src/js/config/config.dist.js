@@ -7,8 +7,8 @@ export default {
     TWITTER_ID       : '3tn60KgFss8KfVAmCujtUY8vg',
     TWITTER_SCOPE    : '',
     GOOGLE_ID        : '351352065100-hjnd2afbiirca4nihu9ck461nv14b5l1.apps.googleusercontent.com',
-    GOOGLE_SCOPE     : 'email,profile,openid,photos,offline_access,https://www.googleapis.com/auth/youtube.readonly',
+    GOOGLE_SCOPE     : 'email,profile,openid,photos,https://www.googleapis.com/auth/youtube.readonly,offline_access',
     SPOTIFY_ID       : 'e8c3557e29ad4974a1f41e93aeaf6e79',
-    SPOTIFY_SCOPE    : 'user-read-private user-read-email playlist-read-private',
+    SPOTIFY_SCOPE    : 'user-read-private user-read-email playlist-read-private user-read-birthdate',
     LAST_RELEASE_DATE: '1 de marzo de 2020'
 }

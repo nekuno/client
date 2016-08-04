@@ -69,6 +69,10 @@ body #root .App .view .page.gallery-page {
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
+
+          &.with-background {
+            background: $light-gray-translucent;
+          }
         }
       }
 
@@ -80,7 +84,7 @@ body #root .App .view .page.gallery-page {
           opacity: 0.5;
         }
         .icon {
-          margin: 35px auto 0 35px;
+          margin: 35px auto 0 -10px;
           position: absolute;
           width: 22px;
           height: 22px;

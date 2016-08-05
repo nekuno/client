@@ -17,11 +17,12 @@ function requestData(props) {
 
 function getState(props) {
 
-    const userId = props.params.userId;
-    const messages = ChatMessageStore.getAllForUser(userId);
-    const otherUser = UserStore.get(userId);
+    const otherUserId = props.params.userId;
+    const messages = ChatMessageStore.getAllForUser(otherUserId);
+    const otherUser = UserStore.get(otherUserId);
 
     return {
+        otherUserId,
         messages,
         otherUser
     };
@@ -34,18 +35,23 @@ export default class ChatMessagesPage extends Component {
 
     static propTypes = {
         // Injected by React Router:
-        params   : PropTypes.shape({
+        params     : PropTypes.shape({
             userId: PropTypes.string
         }),
         // Injected by @AuthenticatedComponent
-        user     : PropTypes.object.isRequired,
-        isGuest  : PropTypes.bool.isRequired,
+        user       : PropTypes.object.isRequired,
+        isGuest    : PropTypes.bool.isRequired,
         // Injected by @translate:
-        strings  : PropTypes.object,
+        strings    : PropTypes.object,
         // Injected by @connectToStores:
-        messages : PropTypes.array.isRequired,
-        otherUser: PropTypes.object
+        messages   : PropTypes.array.isRequired,
+        otherUserId: PropTypes.string,
+        otherUser  : PropTypes.object
 
+    };
+
+    static contextTypes = {
+        history: PropTypes.object.isRequired
     };
 
     constructor(props) {
@@ -55,6 +61,7 @@ export default class ChatMessagesPage extends Component {
         this.sendMessageHandler = this.sendMessageHandler.bind(this);
         this.handleFocus = this.handleFocus.bind(this);
         this.handleScroll = this.handleScroll.bind(this);
+        this.goToProfilePage = this.goToProfilePage.bind(this);
 
         this.state = {
             noMoreMessages: false
@@ -107,13 +114,18 @@ export default class ChatMessagesPage extends Component {
         }
     }
 
+    goToProfilePage() {
+        const {otherUserId} = this.props;
+        this.context.history.pushState(null, `profile/${otherUserId}`)
+    }
+
     render() {
-        const {messages, strings, isGuest} = this.props;
-        let otherUsername = this.props.otherUser ? this.props.otherUser.username : '';
+        const {otherUser, messages, strings, isGuest} = this.props;
+        let otherUsername = otherUser ? otherUser.username : '';
         return (
 
             <div className="view view-main" ref="list" onScroll={this.handleScroll}>
-                <TopNavBar leftIcon={'left-arrow'} centerText={otherUsername}/>
+                <TopNavBar leftIcon={'left-arrow'} centerText={otherUsername} onCenterLinkClickHandler={this.goToProfilePage}/>
                 <div className="page notifications-page">
                     <div id="page-content" className="notifications-content">
                         {this.state.noMoreMessages ? <div className="daily-message-title">{strings.noMoreMessages}</div> : '' }

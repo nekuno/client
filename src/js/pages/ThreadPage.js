@@ -93,7 +93,7 @@ export default class ThreadPage extends Component {
 
         return (
             <div className="view view-main">
-                <TopNavBar leftMenuIcon={true} centerText={strings.threads} centerTextSize={'large'} rightIcon={'plus'} onRightLinkClickHandler={this.onAddThreadClickHandler}/>
+                <TopNavBar leftMenuIcon={true} centerText={strings.threads} centerTextSize={'large'} rightText={strings.create} rightIcon={'plus'} onRightLinkClickHandler={this.onAddThreadClickHandler}/>
                 <div className="page threads-page">
                     <div id="page-content">
                         {filters && threads && profile ?
@@ -111,7 +111,8 @@ export default class ThreadPage extends Component {
 
 ThreadPage.defaultProps = {
     strings: {
-        threads: 'Discover',
+        threads       : 'Discover',
+        create        : 'New',
         loadingMessage: 'Loading yarns'
     }
 };

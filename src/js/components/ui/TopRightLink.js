@@ -29,9 +29,14 @@ export default class TopRightLink extends Component {
 				:
 				<div className="col-30 right" onClick={onClickHandler}>
 					{icon ?
-						<div className={iconsWrapperClass}>
-							<span className={'icon-' + icon}></span>
-						</div>
+							text ?
+								<div className={iconsWrapperClass + ' icon-wrapper-with-text'}>
+									<span className={'icon-' + icon}></span>&nbsp;<span className="text">{text}</span>
+								</div>
+								:
+								<div className={iconsWrapperClass}>
+									<span className={'icon-' + icon}></span>
+								</div>
 						:
 						<a className="navbar-link-text">
 							{text}

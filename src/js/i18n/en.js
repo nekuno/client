@@ -149,6 +149,7 @@ export default {
     },
     ThreadPage                       : {
         threads       : 'Discover',
+        create        : 'New',
         loadingMessage: 'Loading yarns'
     },
     RecommendationPage               : {

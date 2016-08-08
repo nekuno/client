@@ -150,6 +150,7 @@ export default {
     },
     ThreadPage                       : {
         threads       : 'Descubrir',
+        create        : 'Crear',
         loadingMessage: 'Cargando hilos'
     },
     RecommendationPage               : {

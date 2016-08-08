@@ -19,6 +19,11 @@ gulp.task('fonts', function() {
         .pipe(gulp.dest('www/fonts/'));
 });
 
+gulp.task('favicons', function() {
+    return gulp.src(['src/*.ico', 'src/*.png', 'manifest.json', 'src/*.svg'])
+        .pipe(gulp.dest('www/'));
+});
+
 gulp.task('images', function() {
     return gulp.src(['src/scss/img/*', 'src/scss/img/**/*'])
         .pipe(gulp.dest('www/img/'));
@@ -90,6 +95,6 @@ gulp.task('serve', function() {
     });
 });
 
-gulp.task('build', ['copy', 'fonts', 'images', 'sass', 'build-js', 'build-vendor-js']);
+gulp.task('build', ['copy', 'fonts', 'favicons', 'images', 'sass', 'build-js', 'build-vendor-js']);
 gulp.task('release', ['minify-js', 'minify-css']);
 gulp.task('dev', ['build', 'serve', 'watch']);

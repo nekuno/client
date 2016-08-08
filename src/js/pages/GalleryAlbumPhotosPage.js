@@ -9,7 +9,7 @@ import connectToStores from '../utils/connectToStores';
 import GalleryAlbumStore from '../stores/GalleryAlbumStore';
 import GalleryPhotoActionCreators from '../actions/GalleryPhotoActionCreators';
 
-const photosPerPage = 8;
+const photosPerPage = 32;
 
 function parseId(user) {
     return user.id;

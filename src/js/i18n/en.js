@@ -290,6 +290,11 @@ export default {
         text     : 'Answer more test questions',
         completed: 'completed questions'
     },
+    ProcessesProgress                 : {
+        linksTitle     : 'Processing links',
+        similarityTitle: 'Calculating similarity',
+        matchingTitle  : 'Calculating matching'
+    },
     CardContent                      : {
         like           : 'Like',
         unlike         : 'Remove',

@@ -25,6 +25,7 @@
     "keymirror": "0.1.1",
     "moment": "2.11.2",
     "normalizr": "1.4.0",
+    "rc-progress": "^1.0.4",
     "react": "15.2.1",
     "react-dom": "15.2.1",
     "react-geosuggest": "1.24.1",

@@ -3,6 +3,7 @@ import ThreadList from '../components/threads/ThreadList';
 import TopNavBar from '../components/ui/TopNavBar';
 import QuestionsBanner from '../components/questions/QuestionsBanner';
 import EmptyMessage from '../components/ui/EmptyMessage';
+import ProcessesProgress from '../components/processes/ProcessesProgress';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
@@ -96,6 +97,7 @@ export default class ThreadPage extends Component {
                 <TopNavBar leftMenuIcon={true} centerText={strings.threads} centerTextSize={'large'} rightText={strings.create} rightIcon={'plus'} onRightLinkClickHandler={this.onAddThreadClickHandler}/>
                 <div className="page threads-page">
                     <div id="page-content">
+                        <ProcessesProgress />
                         {filters && threads && profile ?
                             <ThreadList threads={threads} userId={user.id} profile={profile} filters={filters}/> : <EmptyMessage text={strings.loadingMessage} loadingGif={true} />
                         }

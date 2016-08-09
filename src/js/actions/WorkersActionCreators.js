@@ -23,6 +23,30 @@ export default {
         dispatch(ActionTypes.WORKERS_PROCESS_FINISH, data);
     },
 
+    similarityStart: (data) => {
+        dispatch(ActionTypes.WORKERS_SIMILARITY_START, data);
+    },
+
+    similarityStep: (data) => {
+        dispatch(ActionTypes.WORKERS_SIMILARITY_STEP, data);
+    },
+
+    similarityFinish: (data) => {
+        dispatch(ActionTypes.WORKERS_SIMILARITY_FINISH, data);
+    },
+
+    matchingStart: (data) => {
+        dispatch(ActionTypes.WORKERS_MATCHING_START, data);
+    },
+
+    matchingStep: (data) => {
+        dispatch(ActionTypes.WORKERS_MATCHING_STEP, data);
+    },
+
+    matchingFinish: (data) => {
+        dispatch(ActionTypes.WORKERS_MATCHING_FINISH, data);
+    },
+
     userStatus: (data) => {
         dispatch(ActionTypes.WORKERS_USER_STATUS, data);
     }

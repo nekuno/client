@@ -8,11 +8,15 @@ function getState() {
     const linksPercentage = WorkersStore.getLinksPercentage();
     const similarityPercentage = WorkersStore.getSimilarityPercentage();
     const matchingPercentage = WorkersStore.getMatchingPercentage();
+    const isJustRegistered = WorkersStore.isJustRegistered();
+    const registerWorkersFinish = WorkersStore.hasRegisterWorkersFinished();
 
     return {
         linksPercentage,
         similarityPercentage,
-        matchingPercentage
+        matchingPercentage,
+        isJustRegistered,
+        registerWorkersFinish
     };
 }
 
@@ -20,9 +24,11 @@ function getState() {
 @connectToStores([WorkersStore], getState)
 export default class ProcessesProgress extends Component {
     static propTypes = {
-        linksPercentage     : PropTypes.number,
-        similarityPercentage: PropTypes.number,
-        matchingPercentage  : PropTypes.number
+        linksPercentage      : PropTypes.number,
+        similarityPercentage : PropTypes.number,
+        matchingPercentage   : PropTypes.number,
+        isJustRegistered     : PropTypes.bool,
+        registerWorkersFinish: PropTypes.bool
     };
     
     constructor(props) {
@@ -30,26 +36,33 @@ export default class ProcessesProgress extends Component {
 
         this.renderProgress = this.renderProgress.bind(this);
     }
+
+    componentDidUpdate() {
+        const {registerWorkersFinish, strings} = this.props;
+        if (registerWorkersFinish) {
+            nekunoApp.alert(strings.registerWorkersFinish);
+        }
+    }
     
     renderProgress(type, percent) {
         const {strings} = this.props;
         let title = '';
         switch (type) {
             case 'linksPercentage':
-                title = strings.linksTitle;
+                title = percent ? strings.linksTitle : strings.linksPreparingTitle;
                 break;
             case 'similarityPercentage':
-                title = strings.similarityTitle;
+                title = percent ? strings.similarityTitle : strings.similarityPreparingTitle;
                 break;
             case 'matchingPercentage':
-                title = strings.matchingTitle;
+                title = percent ? strings.matchingTitle : strings.matchingPreparingTitle;
                 break;
             default:
         }
         return (
             <div className="process-progress">
-                <div className="process-progress-title">{title} - {percent}%</div>
-                <Line percent={percent} strokeWidth="2" strokeColor="purple" />
+                <div className="process-progress-title">{title} - {percent || 0}%</div>
+                <Line percent={percent} strokeWidth="2" strokeColor="#32ca91" />
                 <br />
                 <br />
             </div>
@@ -57,21 +70,39 @@ export default class ProcessesProgress extends Component {
     }
 
     render() {
-        const {linksPercentage, similarityPercentage, matchingPercentage} = this.props;
+        const {linksPercentage, similarityPercentage, matchingPercentage, isJustRegistered, strings} = this.props;
+        let layerHeight = 0;
+        layerHeight += linksPercentage !== null || isJustRegistered ? 65 : 0;
+        layerHeight += similarityPercentage !== null || isJustRegistered ? 65 : 0;
+        layerHeight += matchingPercentage !== null || isJustRegistered ? 65 : 0;
+        layerHeight = layerHeight ? layerHeight + 65 : 0;
         return (
-            <div className="processes-progress">
-                {linksPercentage !== null ? this.renderProgress('linksPercentage', linksPercentage) : null}
-                {similarityPercentage !== null ? this.renderProgress('similarityPercentage', similarityPercentage) : null}
-                {matchingPercentage !== null ? this.renderProgress('matchingPercentage', matchingPercentage) : null}
-            </div>
+            linksPercentage !== null || similarityPercentage !== null || matchingPercentage !== null ?
+                <div>
+                    <div className="processes-progress">
+                        <div className="processes-progress-title">{isJustRegistered ? strings.registrationTitle : strings.title}</div>
+                        {linksPercentage !== null || isJustRegistered ? this.renderProgress('linksPercentage', linksPercentage) : null}
+                        {similarityPercentage !== null || isJustRegistered ? this.renderProgress('similarityPercentage', similarityPercentage) : null}
+                        {matchingPercentage !== null || isJustRegistered ? this.renderProgress('matchingPercentage', matchingPercentage) : null}
+                    </div>
+                    <div style={{height: layerHeight + 'px' }}></div>
+                </div>
+                :
+                null
         );
     }
 }
 
 ProcessesProgress.defaultProps = {
     strings: {
-        linksTitle     : 'Processing links',
-        similarityTitle: 'Calculating similarity',
-        matchingTitle  : 'Calculating matching'
+        title                   : 'We are reprocessing your data',
+        registrationTitle       : 'We are analyzing your data',
+        linksTitle              : 'Processing links',
+        similarityTitle         : 'Calculating similarity',
+        matchingTitle           : 'Calculating matching',
+        linksPreparingTitle     : 'Preparing to process links',
+        similarityPreparingTitle: 'Preparing to calculate similarity',
+        matchingPreparingTitle  : 'Preparing to calculate matching',
+        registerWorkersFinish   : 'Congratulations! The registration processes have finished.'
     }
 };

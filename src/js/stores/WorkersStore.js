@@ -17,6 +17,8 @@ class WorkersStore extends BaseStore {
         });
         this._similarityPercentage = null;
         this._matchingPercentage = null;
+        this._isJustRegistered = null;
+        this._registerWorkersFinish = null;
     }
     
     _registerToActions(action) {
@@ -95,7 +97,14 @@ class WorkersStore extends BaseStore {
                 break;
 
             case ActionTypes.WORKERS_SIMILARITY_FINISH:
-                this._similarityPercentage = null;
+                if (this._isJustRegistered && this._matchingPercentage === 100 && this.getLinksPercentage() === 100) {
+                    this._isJustRegistered = null;
+                    this._similarityPercentage = null;
+                    this._matchingPercentage = null;
+                    this._registerWorkersFinish = true;
+                } else {
+                    this._similarityPercentage = this._isJustRegistered ? 100 : null;
+                }
                 this.emitChange();
                 break;
 
@@ -110,7 +119,14 @@ class WorkersStore extends BaseStore {
                 break;
 
             case ActionTypes.WORKERS_MATCHING_FINISH:
-                this._matchingPercentage = null;
+                if (this._isJustRegistered && this._similarityPercentage === 100 && this.getLinksPercentage() === 100) {
+                    this._isJustRegistered = null;
+                    this._similarityPercentage = null;
+                    this._matchingPercentage = null;
+                    this._registerWorkersFinish = true;
+                } else {
+                    this._matchingPercentage = this._isJustRegistered ? 100 : null;
+                }
                 this.emitChange();
                 break;
 
@@ -127,6 +143,11 @@ class WorkersStore extends BaseStore {
                     });
                 });
 
+                this.emitChange();
+                break;
+
+            case ActionTypes.REQUEST_REGISTER_USER_SUCCESS:
+                this._isJustRegistered = true;
                 this.emitChange();
                 break;
 
@@ -162,7 +183,7 @@ class WorkersStore extends BaseStore {
         const totalPercentage = notFinished.length * 100;
         notFinished.forEach(network => linksPercentageSum += network.process ? network.process : 0);
 
-        return totalPercentage ? parseInt(linksPercentageSum*100/totalPercentage) : null;
+        return totalPercentage ? parseInt(linksPercentageSum*100/totalPercentage) : this._isJustRegistered ? 100 : null;
     }
 
     getSimilarityPercentage() {
@@ -171,6 +192,17 @@ class WorkersStore extends BaseStore {
 
     getMatchingPercentage() {
         return this._matchingPercentage;
+    }
+
+    isJustRegistered() {
+        return this._isJustRegistered;
+    }
+
+    hasRegisterWorkersFinished() {
+        const finished = this._registerWorkersFinish;
+        this._registerWorkersFinish = null;
+
+        return finished;
     }
 
 }

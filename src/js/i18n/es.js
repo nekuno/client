@@ -291,9 +291,15 @@ export default {
         completed: 'preguntas completadas'
     },
     ProcessesProgress                 : {
-        linksTitle     : 'Procesando enlaces',
-        similarityTitle: 'Calculando similaridad',
-        matchingTitle  : 'Calculando compatibilidad'
+        title                   : 'Estamos reprocesando tus datos',
+        registrationTitle       : 'Estamos analizando tus datos',
+        linksTitle              : 'Procesando enlaces',
+        similarityTitle         : 'Calculando similaridad',
+        matchingTitle           : 'Calculando compatibilidad',
+        linksPreparingTitle     : 'Preparando para procesar enlaces',
+        similarityPreparingTitle: 'Preparando para calcular similaridad',
+        matchingPreparingTitle  : 'Preparando para calcular compatibilidad',
+        registerWorkersFinish   : '¡Felicidades! Los procesos del registro han finalizado.'
     },
     CardContent                      : {
         like           : 'Me interesa',

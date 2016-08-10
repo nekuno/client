@@ -51,6 +51,7 @@ export default class LeftPanel extends Component {
         this.handleGoClickProfile = this.handleGoClickProfile.bind(this);
         this.handleGoClickConversations = this.handleGoClickConversations.bind(this);
         this.handleGoClickSocialNetworks = this.handleGoClickSocialNetworks.bind(this);
+        this.handleGoClickInvitations = this.handleGoClickInvitations.bind(this);
         this.logout = this.logout.bind(this);
     }
 
@@ -77,6 +78,11 @@ export default class LeftPanel extends Component {
     handleGoClickInterests() {
         nekunoApp.closePanel();
         this.context.history.pushState(null, '/interests');
+    }
+
+    handleGoClickInvitations() {
+        nekunoApp.closePanel();
+        this.context.history.pushState(null, '/invitations');
     }
 
     logout(e) {
@@ -127,6 +133,9 @@ export default class LeftPanel extends Component {
                             <Link to="/social-networks" onClick={this.handleGoClickSocialNetworks}>
                                 {strings.socialNetworks}
                             </Link>
+                            <Link to="/invitations" onClick={this.handleGoClickInvitations} onlyActiveOnIndex={false}>
+                                {strings.invitations}
+                            </Link>
                             <Link to="/" onClick={this.logout}>
                                 {strings.logout}
                             </Link>
@@ -146,6 +155,7 @@ LeftPanel.defaultProps = {
         myProfile     : 'Profile',
         conversations : 'Messages',
         socialNetworks: 'My social networks',
+        invitations   : 'Invitations',
         logout        : 'Logout'
     }
 };

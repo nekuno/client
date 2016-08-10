@@ -155,7 +155,16 @@ export default {
     RecommendationPage               : {
         loadingMessage: 'Loading recommendations',
         confirmBlock  : 'Are you sure you want to block this user?'
-
+    },
+    InvitationsPage                  : {
+        invitations           : 'Invitations',
+        title                 : 'Send an invitation',
+        defaultInvitationTitle: 'One use invitation',
+        sendInvitation        : 'Send invitation',
+        loadingInvitations    : 'Loading invitations',
+        noInvitations         : 'You have no invitations available',
+        expiresAt             : 'Expires at',
+        shareError            : 'An error occurred sending the invitation.'
     },
     UserPage                         : {
         aboutMe  : 'About me',
@@ -196,6 +205,7 @@ export default {
         myProfile     : 'Profile',
         conversations : 'Messages',
         socialNetworks: 'My social networks',
+        invitations   : 'Invitations',
         logout        : 'Logout'
     },
     FacebookRegisterButton           : {

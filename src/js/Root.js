@@ -28,6 +28,7 @@ import EditProfilePage from './pages/EditProfilePage';
 import OtherUserPage from './pages/OtherUserPage';
 import ThreadPage from './pages/ThreadPage';
 import RecommendationPage from './pages/RecommendationPage';
+import InvitationsPage from './pages/InvitationsPage';
 import ConnectSocialNetworksOnSignUpPage from './pages/ConnectSocialNetworksOnSignUpPage';
 import ConnectSocialNetworksPage from './pages/ConnectSocialNetworksPage';
 import CreateThreadPage from './pages/CreateThreadPage';
@@ -84,6 +85,7 @@ export default class Root extends Component {
                         <Route name="profile" path="/profile" component={UserPage}/>
                         <Route name="edit-profile" path="/edit-profile" component={EditProfilePage}/>
                         <Route name="other-profile" path="/profile/:userId" component={OtherUserPage}/>
+                        <Route name="invitations" path="/invitations" component={InvitationsPage}/>
                         <Route name="threads" path="/threads" component={ThreadPage}/>
                         <Route name="recommendations" path="/users/:userId/recommendations/:threadId" component={RecommendationPage}/>
                         <Route name="social-networks-on-sign-up" path="/social-networks-on-sign-up" component={ConnectSocialNetworksOnSignUpPage}/>

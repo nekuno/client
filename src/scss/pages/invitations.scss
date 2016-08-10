@@ -1,0 +1,19 @@
+body #root .App .view .page.invitations-page  {
+  #page-content.invitations-content {
+    margin: 75px auto 0 auto;
+
+    .invitation {
+      margin: 25px 0;
+
+      .invitation-expires-at {
+        font-size: 0.9em;
+        margin: 10px 0;
+        text-align: center;
+      }
+      .send-invitation-button {
+        margin: 10px 0;
+        text-align: center;
+      }
+    }
+  }
+}

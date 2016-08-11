@@ -206,6 +206,7 @@ export default {
         myProfile     : 'Mi perfil',
         conversations : 'Mensajes',
         socialNetworks: 'Mis redes sociales',
+        settings      : 'Ajustes',
         invitations   : 'Invitaciones',
         logout        : 'Salir'
     },

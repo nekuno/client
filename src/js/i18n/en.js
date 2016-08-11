@@ -205,6 +205,7 @@ export default {
         myProfile     : 'Profile',
         conversations : 'Messages',
         socialNetworks: 'My social networks',
+        settings      : 'Settings',
         invitations   : 'Invitations',
         logout        : 'Logout'
     },

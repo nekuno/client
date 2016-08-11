@@ -14,6 +14,12 @@ function requestData() {
     InvitationActionCreator.requestInvitations();
 }
 
+function invitationHasToBeShown(invitation) {
+    return (!invitation.invitation.expiresAt || invitation.invitation.expiresAt - Math.floor(Date.now() / 1000) > 0)
+            && invitation.invitation.available > 0
+            || invitation.invitation.consumedUserEmail
+}
+
 /**
  * Retrieves state from stores for current props.
  */
@@ -89,13 +95,20 @@ export default class InvitationsPage extends Component {
                         {loadingInvitations ? <EmptyMessage text={strings.loadingInvitations} loadingGif={true}/>
                             : noInvitations ? <EmptyMessage text={strings.noInvitations}/>
                                 : invitations.map((invitation, index) =>
-                                    <div key={index} className="invitation">
-                                        <div className="sub-title">{invitation.invitation.slogan ? invitation.invitation.slogan : strings.defaultInvitationTitle}</div>
-                                        <div className="invitation-expires-at">{strings.expiresAt + ': '}{moment(invitation.invitation.expiresAt).format('dddd, D MMMM YYYY')}</div>
-                                        <div className="send-invitation-button">
-                                            <Button onClick={this.onShare.bind(this, invitation)}>{strings.sendInvitation}</Button>
+                                    invitationHasToBeShown(invitation) ?
+                                        <div key={index} className="invitation">
+                                            <div className="sub-title">{invitation.invitation.slogan ? invitation.invitation.slogan : strings.defaultInvitationTitle}</div>
+                                            {invitation.invitation.expiresAt ? <div className="invitation-expires-at">{strings.expiresAt + ': '}{moment.unix(invitation.invitation.expiresAt).format('dddd, D MMMM YYYY')}</div> : null}
+                                            {invitation.invitation.available ?
+                                                <div className="send-invitation-button">
+                                                    <Button
+                                                        onClick={this.onShare.bind(this, invitation)}>{strings.sendInvitation}</Button>
+                                                </div>
+                                                :
+                                                <div className="invitation-consumed">{invitation.invitation.consumedUserEmail ? strings.consumedBy + ' ' + invitation.invitation.consumedUserEmail : null}</div>
+                                            }
                                         </div>
-                                    </div>
+                                        : null
                         )}
                     </div>
                     <br />
@@ -117,6 +130,7 @@ InvitationsPage.defaultProps = {
         loadingInvitations    : 'Loading invitations',
         noInvitations         : 'You have no invitations available',
         expiresAt             : 'Expires at',
+        consumedBy            : 'Consumed by',
         shareError            : 'An error occurred sending the invitation.'
     }
 };

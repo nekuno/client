@@ -157,6 +157,16 @@ export default {
         loadingMessage: 'Cargando recomendaciones',
         confirmDelete : '¿Estás seguro de que quieres borrar este hilo?'
     },
+    InvitationsPage                  : {
+        invitations           : 'Invitaciones',
+        title                 : 'Envía una invitación',
+        defaultInvitationTitle: 'Invitación de un solo uso',
+        sendInvitation        : 'Enviar invitación',
+        loadingInvitations    : 'Cargando invitaciones',
+        noInvitations         : 'No tienes invitaciones disponibles',
+        expiresAt             : 'Fecha de expiración',
+        shareError            : 'Ha ocurrido un error enviando la invitación.'
+    },
     UserPage                         : {
         aboutMe  : 'Sobre mí',
         photos   : 'Fotos',
@@ -196,6 +206,8 @@ export default {
         myProfile     : 'Mi perfil',
         conversations : 'Mensajes',
         socialNetworks: 'Mis redes sociales',
+        settings      : 'Ajustes',
+        invitations   : 'Invitaciones',
         logout        : 'Salir'
     },
     FacebookRegisterButton           : {

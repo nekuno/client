@@ -1,6 +1,7 @@
 import config from '../config/config';
 
 export const API_ROOT = config.API_ROOT;
+export const INVITATIONS_URL = config.INVITATIONS_ROOT + '?token={token}';
 export const IMAGES_ROOT = config.IMAGES_ROOT;
 export const API_URLS = {
     LOGIN                    : API_ROOT + 'login',
@@ -11,6 +12,7 @@ export const API_URLS = {
     REGISTER_USER            : API_ROOT + 'users',
     REGISTER_PROFILE         : API_ROOT + 'profile',
     CONSUME_INVITATION       : API_ROOT + 'invitations/consume/{token}',
+    INVITATIONS              : API_ROOT + 'invitations',
     JOIN_GROUP               : API_ROOT + 'groups/{groupId}/members',
     CONNECT_ACCOUNT          : API_ROOT + 'tokens/{resource}?extend',
     CREATE_DEFAULT_THREADS   : API_ROOT + 'threads/default',

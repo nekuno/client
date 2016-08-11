@@ -137,6 +137,10 @@ export default keyMirror({
     REQUEST_COMPARED_INTERESTS_ERROR  : null,
     REQUEST_NEXT_COMPARED_INTERESTS   : null,
 
+    REQUEST_INVITATIONS        : null,
+    REQUEST_INVITATIONS_SUCCESS: null,
+    REQUEST_INVITATIONS_ERROR  : null,
+
     LIKE_USER        : null,
     LIKE_USER_SUCCESS: null,
     LIKE_USER_ERROR  : null,

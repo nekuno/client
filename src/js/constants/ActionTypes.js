@@ -188,6 +188,12 @@ export default keyMirror({
     WORKERS_PROCESS_START : null,
     WORKERS_PROCESS_LINK  : null,
     WORKERS_PROCESS_FINISH: null,
+    WORKERS_SIMILARITY_START : null,
+    WORKERS_SIMILARITY_STEP  : null,
+    WORKERS_SIMILARITY_FINISH: null,
+    WORKERS_MATCHING_START : null,
+    WORKERS_MATCHING_STEP  : null,
+    WORKERS_MATCHING_FINISH: null,
     WORKERS_USER_STATUS   : null,
 
     REQUEST_PHOTOS        : null,

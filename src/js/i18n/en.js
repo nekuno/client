@@ -301,6 +301,17 @@ export default {
         text     : 'Answer more test questions',
         completed: 'completed questions'
     },
+    ProcessesProgress                 : {
+        title                   : 'We are reprocessing your data',
+        registrationTitle       : 'We are analyzing your data',
+        linksTitle              : 'Processing links',
+        similarityTitle         : 'Calculating similarity',
+        matchingTitle           : 'Calculating matching',
+        linksPreparingTitle     : 'Preparing to process links',
+        similarityPreparingTitle: 'Preparing to calculate similarity',
+        matchingPreparingTitle  : 'Preparing to calculate matching',
+        registerWorkersFinish   : 'Congratulations! The registration processes have finished.'
+    },
     CardContent                      : {
         like           : 'Like',
         unlike         : 'Remove',

@@ -111,7 +111,7 @@ export default {
         about                : 'Acerca de',
         photos               : 'Fotos',
         questions            : 'Respuestas',
-        interests            : 'Intereses',
+        interests            : 'Intereses'
     },
     OtherQuestionsPage               : {
         coincidences: 'Coincidencias',
@@ -301,6 +301,17 @@ export default {
         title    : '¿Quieres que hilemos más fino?',
         text     : 'Responde más preguntas del test',
         completed: 'preguntas completadas'
+    },
+    ProcessesProgress                 : {
+        title                   : 'Estamos reprocesando tus datos',
+        registrationTitle       : 'Estamos analizando tus datos',
+        linksTitle              : 'Procesando enlaces',
+        similarityTitle         : 'Calculando similaridad',
+        matchingTitle           : 'Calculando compatibilidad',
+        linksPreparingTitle     : 'Preparando para procesar enlaces',
+        similarityPreparingTitle: 'Preparando para calcular similaridad',
+        matchingPreparingTitle  : 'Preparando para calcular compatibilidad',
+        registerWorkersFinish   : '¡Felicidades! Los procesos del registro han finalizado.'
     },
     CardContent                      : {
         like           : 'Me interesa',

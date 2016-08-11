@@ -158,12 +158,13 @@ export default {
     },
     InvitationsPage                  : {
         invitations           : 'Invitations',
-        title                 : 'Send an invitation',
+        title                 : 'You have %invitationNumber% invitations',
         defaultInvitationTitle: 'One use invitation',
         sendInvitation        : 'Send invitation',
         loadingInvitations    : 'Loading invitations',
         noInvitations         : 'You have no invitations available',
         expiresAt             : 'Expires at',
+        consumedBy            : 'Consumed by',
         shareError            : 'An error occurred sending the invitation.'
     },
     UserPage                         : {

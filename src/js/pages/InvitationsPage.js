@@ -1,4 +1,5 @@
 import React, { PropTypes, Component } from 'react';
+import { Link } from 'react-router';
 import { INVITATIONS_URL } from '../constants/Constants';
 import TopNavBar from '../components/ui/TopNavBar';
 import Button from '../components/ui/Button';
@@ -17,7 +18,7 @@ function requestData() {
 function invitationHasToBeShown(invitation) {
     return (!invitation.invitation.expiresAt || invitation.invitation.expiresAt - Math.floor(Date.now() / 1000) > 0)
             && invitation.invitation.available > 0
-            || invitation.invitation.consumedUserEmail
+            || invitation.invitation.consumedUserId && invitation.invitation.consumedUsername
 }
 
 /**
@@ -91,13 +92,13 @@ export default class InvitationsPage extends Component {
                 <TopNavBar leftMenuIcon={true} centerText={strings.invitations}/>
                 <div className="page invitations-page">
                     <div id="page-content" className="invitations-content">
-                        {!loadingInvitations && !noInvitations ? <div className="title">{strings.title}</div> : null}
+                        {!loadingInvitations && !noInvitations ? <div className="title">{strings.title.replace('%invitationNumber%', invitations.filter(invitation => invitationHasToBeShown(invitation)).length)}</div> : null}
                         {loadingInvitations ? <EmptyMessage text={strings.loadingInvitations} loadingGif={true}/>
                             : noInvitations ? <EmptyMessage text={strings.noInvitations}/>
                                 : invitations.map((invitation, index) =>
                                     invitationHasToBeShown(invitation) ?
                                         <div key={index} className="invitation">
-                                            <div className="sub-title">{invitation.invitation.slogan ? invitation.invitation.slogan : strings.defaultInvitationTitle}</div>
+                                            <div className="invitation-token">{invitation.invitation.token}</div>
                                             {invitation.invitation.expiresAt ? <div className="invitation-expires-at">{strings.expiresAt + ': '}{moment.unix(invitation.invitation.expiresAt).format('dddd, D MMMM YYYY')}</div> : null}
                                             {invitation.invitation.available ?
                                                 <div className="send-invitation-button">
@@ -105,7 +106,11 @@ export default class InvitationsPage extends Component {
                                                         onClick={this.onShare.bind(this, invitation)}>{strings.sendInvitation}</Button>
                                                 </div>
                                                 :
-                                                <div className="invitation-consumed">{invitation.invitation.consumedUserEmail ? strings.consumedBy + ' ' + invitation.invitation.consumedUserEmail : null}</div>
+                                                invitation.invitation.consumedUserId && invitation.invitation.consumedUsername ?
+                                                    <div className="invitation-consumed">
+                                                        {strings.consumedBy}: <Link to={`profile/${invitation.invitation.consumedUserId}`}>{invitation.invitation.consumedUsername}</Link>
+                                                    </div>
+                                                    : null
                                             }
                                         </div>
                                         : null
@@ -124,7 +129,7 @@ export default class InvitationsPage extends Component {
 InvitationsPage.defaultProps = {
     strings: {
         invitations           : 'Invitations',
-        title                 : 'Send an invitation',
+        title                 : 'You have %invitationNumber% invitations',
         defaultInvitationTitle: 'One use invitation',
         sendInvitation        : 'Send invitation',
         loadingInvitations    : 'Loading invitations',

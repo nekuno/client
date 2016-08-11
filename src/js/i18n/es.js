@@ -159,12 +159,13 @@ export default {
     },
     InvitationsPage                  : {
         invitations           : 'Invitaciones',
-        title                 : 'Envía una invitación',
+        title                 : 'Tienes %invitationNumber% invitaciones',
         defaultInvitationTitle: 'Invitación de un solo uso',
         sendInvitation        : 'Enviar invitación',
         loadingInvitations    : 'Cargando invitaciones',
         noInvitations         : 'No tienes invitaciones disponibles',
         expiresAt             : 'Fecha de expiración',
+        consumedBy            : 'Consumida por',
         shareError            : 'Ha ocurrido un error enviando la invitación.'
     },
     UserPage                         : {

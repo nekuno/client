@@ -5,18 +5,14 @@ body #root .App .view .page.invitations-page  {
     .invitation {
       margin: 25px 0;
 
+      .invitation-token, .invitation-expires-at, .send-invitation-button, .invitation-consumed {
+        text-align: center;
+      }
       .invitation-expires-at {
         font-size: 0.9em;
-        margin: 10px 0;
-        text-align: center;
       }
-      .send-invitation-button {
+      .send-invitation-button, .invitation-consumed {
         margin: 10px 0;
-        text-align: center;
-      }
-      .invitation-consumed {
-        margin: 10px 0;
-        text-align: center;
       }
     }
   }

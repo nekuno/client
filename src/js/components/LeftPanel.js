@@ -77,6 +77,9 @@ export default class LeftPanel extends Component {
 
     handleGoClickSocialNetworks() {
         nekunoApp.closePanel();
+        this.setState({
+            settingsActive: null
+        });
         this.context.history.pushState(null, '/social-networks');
     }
 
@@ -93,12 +96,18 @@ export default class LeftPanel extends Component {
 
     handleGoClickInvitations() {
         nekunoApp.closePanel();
+        this.setState({
+            settingsActive: null
+        });
         this.context.history.pushState(null, '/invitations');
     }
 
     logout(e) {
         e.preventDefault();
         nekunoApp.closePanel();
+        this.setState({
+            settingsActive: null
+        });
         LoginActionCreators.logoutUser();
     }
 
@@ -145,20 +154,20 @@ export default class LeftPanel extends Component {
                             <a onClick={this.handleClickSettings}>
                                 {strings.settings}
                             </a>
-                            <Link to="/" onClick={this.logout}>
-                                {strings.logout}
-                            </Link>
                         </div>
                         : settingsActive ?
                             <div className="content-block menu">
                                 <a onClick={this.handleClickSettings} style={{fontWeight: 'bold'}}>
-                                    {strings.settings}&nbsp;&nbsp;<span className="icon-left-arrow"></span>
+                                    <span className="icon-left-arrow"></span>&nbsp;&nbsp;{strings.settings}
                                 </a>
                                 <Link to="/social-networks" onClick={this.handleGoClickSocialNetworks}>
                                     {strings.socialNetworks}
                                 </Link>
                                 <Link to="/invitations" onClick={this.handleGoClickInvitations} onlyActiveOnIndex={false}>
                                     {strings.invitations}
+                                </Link>
+                                <Link to="/" onClick={this.logout}>
+                                    {strings.logout}
                                 </Link>
                             </div>
                             : '' }

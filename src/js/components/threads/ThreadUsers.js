@@ -89,7 +89,7 @@ export default class ThreadUsers extends Component {
         return (
             <div>
                 <div className={threadClass} onClick={this.goToThread}>
-                    {last ? <div className="threads-opposite-vertical-connection"></div> : ''}
+                    {last ? null : <div className="thread-vertical-connection"></div>}
                     <div className="thread-first-image-wrapper">
                         <div className="thread-first-image-centered-wrapper">
                             <div className="thread-first-image">
@@ -113,7 +113,7 @@ export default class ThreadUsers extends Component {
                         {this.renderChipList(formattedThread.filters.userFilters, filters.userFilters)}
                     </div>
                 </div>
-                <OrientationRequiredPopup profile={profile} onContinue={this.continue}></OrientationRequiredPopup>
+                <OrientationRequiredPopup profile={profile} onContinue={this.continue}/>
             </div>
 
         );

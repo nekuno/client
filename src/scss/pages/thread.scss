@@ -4,17 +4,10 @@ body #root .App .view .page.threads-page  {
   #page-content {
     margin-top: 70px;
 
-    .threads-vertical-connection {
-      background-color: $deep-purple;
-      height: 95%;
-      margin-left: 40.5px;
-      margin-top: 40.5px;
-      position: absolute;
-      width: 1px;
-      z-index: 1;
-    }
     .thread-listed {
-      margin: 35px auto;
+      margin: 0 auto;
+      padding: 35px 0;
+      position: relative;
       .thread-first-image-wrapper {
         background-color: $deep-purple;
         border-radius: 50%;
@@ -48,14 +41,14 @@ body #root .App .view .page.threads-page  {
         }
       }
 
-      .threads-opposite-vertical-connection {
-        background: $dark-purple;
-        height: 250px;
+      .thread-vertical-connection {
+        background: $deep-purple;
+        height: 100%;
         margin-left: 40.5px;
-        margin-top: 40.5px;
+        float: left;
         position: absolute;
-        width: 2px;
-        z-index: 2;
+        width: 1px;
+        z-index: 1;
       }
 
       .thread-info-box {

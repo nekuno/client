@@ -68,7 +68,7 @@ export default class ThreadContent extends Component {
 
         return (
             <div className={threadClass} onClick={this.goToThread}>
-                {last ? <div className="threads-opposite-vertical-connection"></div> : ''}
+                {last ? null : <div className="thread-vertical-connection"></div>}
                 <div className="thread-first-image-wrapper">
                     <div className="thread-first-image-centered-wrapper">
                         <div className="thread-first-image">

@@ -22,17 +22,6 @@ export default {
         }, {username});
     },
 
-    connectRegister: (token, resource, accessToken, resourceId, expireTime, profile) => {
-        dispatch(ActionTypes.CONNECT_REGISTER_ACCOUNT, {
-            token,
-            resource,
-            accessToken,
-            resourceId,
-            expireTime,
-            profile
-        });
-    },
-
     connect: (resource, accessToken, resourceId, expireTime, refreshToken) => {
         let promise = AuthService.connect(resource, accessToken, resourceId, expireTime, refreshToken);
         dispatchAsync(promise, {

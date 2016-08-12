@@ -21,7 +21,6 @@ export default keyMirror({
     USERNAME_ANSWERED                       : null,
     LOGOUT_USER                             : null,
 
-    CONNECT_REGISTER_ACCOUNT: null,
     CONNECT_ACCOUNT         : null,
     CONNECT_ACCOUNT_SUCCESS : null,
     CONNECT_ACCOUNT_ERROR   : null,
@@ -138,6 +137,10 @@ export default keyMirror({
     REQUEST_COMPARED_INTERESTS_ERROR  : null,
     REQUEST_NEXT_COMPARED_INTERESTS   : null,
 
+    REQUEST_INVITATIONS        : null,
+    REQUEST_INVITATIONS_SUCCESS: null,
+    REQUEST_INVITATIONS_ERROR  : null,
+
     LIKE_USER        : null,
     LIKE_USER_SUCCESS: null,
     LIKE_USER_ERROR  : null,
@@ -185,6 +188,12 @@ export default keyMirror({
     WORKERS_PROCESS_START : null,
     WORKERS_PROCESS_LINK  : null,
     WORKERS_PROCESS_FINISH: null,
+    WORKERS_SIMILARITY_START : null,
+    WORKERS_SIMILARITY_STEP  : null,
+    WORKERS_SIMILARITY_FINISH: null,
+    WORKERS_MATCHING_START : null,
+    WORKERS_MATCHING_STEP  : null,
+    WORKERS_MATCHING_FINISH: null,
     WORKERS_USER_STATUS   : null,
 
     REQUEST_PHOTOS        : null,

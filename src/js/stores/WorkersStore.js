@@ -15,6 +15,10 @@ class WorkersStore extends BaseStore {
                 processed : false
             }
         });
+        this._similarityPercentage = null;
+        this._matchingPercentage = null;
+        this._isJustRegistered = null;
+        this._registerWorkersFinish = null;
     }
     
     _registerToActions(action) {
@@ -82,6 +86,50 @@ class WorkersStore extends BaseStore {
                 this.emitChange();
                 break;
 
+            case ActionTypes.WORKERS_SIMILARITY_START:
+                this._similarityPercentage = 0;
+                this.emitChange();
+                break;
+
+            case ActionTypes.WORKERS_SIMILARITY_STEP:
+                this._similarityPercentage = action.percentage;
+                this.emitChange();
+                break;
+
+            case ActionTypes.WORKERS_SIMILARITY_FINISH:
+                if (this._isJustRegistered && this._matchingPercentage === 100 && this.getLinksPercentage() === 100) {
+                    this._isJustRegistered = null;
+                    this._similarityPercentage = null;
+                    this._matchingPercentage = null;
+                    this._registerWorkersFinish = true;
+                } else {
+                    this._similarityPercentage = this._isJustRegistered ? 100 : null;
+                }
+                this.emitChange();
+                break;
+
+            case ActionTypes.WORKERS_MATCHING_START:
+                this._matchingPercentage = 0;
+                this.emitChange();
+                break;
+
+            case ActionTypes.WORKERS_MATCHING_STEP:
+                this._matchingPercentage = action.percentage;
+                this.emitChange();
+                break;
+
+            case ActionTypes.WORKERS_MATCHING_FINISH:
+                if (this._isJustRegistered && this._similarityPercentage === 100 && this.getLinksPercentage() === 100) {
+                    this._isJustRegistered = null;
+                    this._similarityPercentage = null;
+                    this._matchingPercentage = null;
+                    this._registerWorkersFinish = true;
+                } else {
+                    this._matchingPercentage = this._isJustRegistered ? 100 : null;
+                }
+                this.emitChange();
+                break;
+
             case ActionTypes.REQUEST_USER_DATA_STATUS_SUCCESS:
                 Object.keys(action.response).forEach(resource => {
                     const data = action.response[resource];
@@ -95,6 +143,11 @@ class WorkersStore extends BaseStore {
                     });
                 });
 
+                this.emitChange();
+                break;
+
+            case ActionTypes.REQUEST_REGISTER_USER_SUCCESS:
+                this._isJustRegistered = true;
                 this.emitChange();
                 break;
 
@@ -122,6 +175,34 @@ class WorkersStore extends BaseStore {
     isConnected(resource) {
         let network = this._networks.find(network => network.resource == resource);
         return network.fetching || network.fetched || network.processing || network.processed;
+    }
+
+    getLinksPercentage() {
+        var linksPercentageSum = 0;
+        const notFinished = this._networks.filter(network => !network.processed && (network.fetching || network.fetched || network.processing));
+        const totalPercentage = notFinished.length * 100;
+        notFinished.forEach(network => linksPercentageSum += network.process ? network.process : 0);
+
+        return totalPercentage ? parseInt(linksPercentageSum*100/totalPercentage) : this._isJustRegistered ? 100 : null;
+    }
+
+    getSimilarityPercentage() {
+        return this._similarityPercentage;
+    }
+
+    getMatchingPercentage() {
+        return this._matchingPercentage;
+    }
+
+    isJustRegistered() {
+        return this._isJustRegistered;
+    }
+
+    hasRegisterWorkersFinished() {
+        const finished = this._registerWorkersFinish;
+        this._registerWorkersFinish = null;
+
+        return finished;
     }
 
 }

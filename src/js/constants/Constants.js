@@ -1,6 +1,7 @@
 import config from '../config/config';
 
 export const API_ROOT = config.API_ROOT;
+export const INVITATIONS_URL = config.INVITATIONS_ROOT + '?token={token}';
 export const IMAGES_ROOT = config.IMAGES_ROOT;
 export const API_URLS = {
     LOGIN                    : API_ROOT + 'login',
@@ -11,6 +12,7 @@ export const API_URLS = {
     REGISTER_USER            : API_ROOT + 'users',
     REGISTER_PROFILE         : API_ROOT + 'profile',
     CONSUME_INVITATION       : API_ROOT + 'invitations/consume/{token}',
+    INVITATIONS              : API_ROOT + 'invitations',
     JOIN_GROUP               : API_ROOT + 'groups/{groupId}/members',
     CONNECT_ACCOUNT          : API_ROOT + 'tokens/{resource}?extend',
     CREATE_DEFAULT_THREADS   : API_ROOT + 'threads/default',
@@ -41,24 +43,31 @@ export const QUESTION_STATS_COLORS = [
     '#d96484'
 ];
 
+export const SOCIAL_NETWORKS_NAMES = {
+    FACEBOOK: 'facebook',
+    TWITTER: 'twitter',
+    GOOGLE: 'google',
+    SPOTIFY: 'spotify'
+};
+
 export const SOCIAL_NETWORKS = [
     {
-        resourceOwner: 'facebook',
+        resourceOwner: SOCIAL_NETWORKS_NAMES.FACEBOOK,
         id: config.FACEBOOK_ID,
         scope: config.FACEBOOK_SCOPE
     },
     {
-        resourceOwner: 'twitter',
+        resourceOwner: SOCIAL_NETWORKS_NAMES.TWITTER,
         id: config.TWITTER_ID,
         scope: config.TWITTER_SCOPE
     },
     {
-        resourceOwner: 'google',
+        resourceOwner: SOCIAL_NETWORKS_NAMES.GOOGLE,
         id: config.GOOGLE_ID,
         scope: config.GOOGLE_SCOPE
     },
     {
-        resourceOwner: 'spotify',
+        resourceOwner: SOCIAL_NETWORKS_NAMES.SPOTIFY,
         id: config.SPOTIFY_ID,
         scope: config.SPOTIFY_SCOPE
     }

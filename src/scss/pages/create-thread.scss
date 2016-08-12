@@ -298,6 +298,7 @@ body #root .App .view .page.create-thread-page  {
         ul.checkbox-filters-list {
           display: inline-table;
           padding: 0 2.5%;
+          vertical-align: text-top;
           width: 44%;
 
           li {
@@ -379,6 +380,12 @@ body #root .App .view .page.create-thread-page  {
         .text-checkboxes .chip {
           max-width: 255px;
         }
+      }
+    }
+
+    @media only screen and (max-width: 338px) {
+      .select-filter .list-block ul.checkbox-filters-list {
+        width: 88%;
       }
     }
 

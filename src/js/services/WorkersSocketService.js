@@ -32,6 +32,30 @@ class WorkersSocketService extends SocketService {
             WorkersActionCreators.processFinish(data);
         });
 
+        socket.on('similarity.start', function(data) {
+            WorkersActionCreators.similarityStart(data);
+        });
+
+        socket.on('similarity.step', function(data) {
+            WorkersActionCreators.similarityStep(data);
+        });
+
+        socket.on('similarity.finish', function(data) {
+            WorkersActionCreators.similarityFinish(data);
+        });
+
+        socket.on('matching.start', function(data) {
+            WorkersActionCreators.matchingStart(data);
+        });
+
+        socket.on('matching.step', function(data) {
+            WorkersActionCreators.matchingStep(data);
+        });
+
+        socket.on('matching.finish', function(data) {
+            WorkersActionCreators.matchingFinish(data);
+        });
+
         socket.on('user.status', function(data) {
             WorkersActionCreators.userStatus(data);
         });

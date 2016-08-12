@@ -76,7 +76,9 @@ export default new class LoginActionCreators {
                 QuestionActionCreators.requestQuestions(LoginStore.user.id).then(
                     () => {
                         let path = null;
-                        if (!LoginStore.isComplete() || !ProfileStore.isComplete(LoginStore.user.id) || QuestionStore.isJustRegistered(LoginStore.user.id)) {
+                        if (QuestionStore.answersLength(LoginStore.user.id) == 0) {
+                            path = '/social-networks-on-sign-up';
+                        } else if (!LoginStore.isComplete() || !ProfileStore.isComplete(LoginStore.user.id) || QuestionStore.isJustRegistered(LoginStore.user.id)) {
                             path = '/register-questions-landing';
                         } else {
                             path = RouterStore.nextTransitionPath;

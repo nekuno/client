@@ -50,14 +50,15 @@ export default {
         empty    : 'You have no interests yet. Please, connect more social media or explore your yarns and let us know what are you interested in.'
     },
     GalleryPage                      : {
-        importAlbum: 'Import an album',
-        empty       : 'You have not imported any photo yet',
-        myProfile   : 'My profile',
-        profilePhoto: 'Profile photo',
-        about       : 'About me',
-        photos      : 'Photos',
-        questions   : 'Answers',
-        interests   : 'Interests'
+        importAlbum    : 'Import an album',
+        empty          : 'You have not imported any photo yet',
+        myProfile      : 'My profile',
+        profilePhoto   : 'Profile photo',
+        about          : 'About me',
+        photos         : 'Photos',
+        questions      : 'Answers',
+        interests      : 'Interests',
+        importingAlbums: 'Importing albums'
     },
     OtherGalleryPage                 : {
         empty    : 'User has not imported any photo yet',
@@ -67,8 +68,9 @@ export default {
         interests: 'Interests'
     },
     GalleryAlbumsPage                : {
-        albums     : '%resource% albums',
-        empty      : 'There are no albums'
+        albums        : '%resource% albums',
+        empty         : 'There are no albums',
+        importingAlbum: 'Importing album'
     },
     GalleryAlbumPhotosPage           : {
         empty       : 'There are no photos in this album',
@@ -153,7 +155,17 @@ export default {
     RecommendationPage               : {
         loadingMessage: 'Loading recommendations',
         confirmBlock  : 'Are you sure you want to block this user?'
-
+    },
+    InvitationsPage                  : {
+        invitations           : 'Invitations',
+        title                 : 'You have %invitationNumber% invitations',
+        defaultInvitationTitle: 'One use invitation',
+        sendInvitation        : 'Send invitation',
+        loadingInvitations    : 'Loading invitations',
+        noInvitations         : 'You have no invitations available',
+        expiresAt             : 'Expires at',
+        consumedBy            : 'Consumed by',
+        shareError            : 'An error occurred sending the invitation.'
     },
     UserPage                         : {
         aboutMe  : 'About me',
@@ -194,6 +206,8 @@ export default {
         myProfile     : 'Profile',
         conversations : 'Messages',
         socialNetworks: 'My social networks',
+        settings      : 'Settings',
+        invitations   : 'Invitations',
         logout        : 'Logout'
     },
     FacebookRegisterButton           : {
@@ -287,6 +301,17 @@ export default {
         title    : 'Do you want better yarns?',
         text     : 'Answer more test questions',
         completed: 'completed questions'
+    },
+    ProcessesProgress                 : {
+        title                   : 'We are reprocessing your data',
+        registrationTitle       : 'We are analyzing your data',
+        linksTitle              : 'Processing links',
+        similarityTitle         : 'Calculating similarity',
+        matchingTitle           : 'Calculating matching',
+        linksPreparingTitle     : 'Preparing to process links',
+        similarityPreparingTitle: 'Preparing to calculate similarity',
+        matchingPreparingTitle  : 'Preparing to calculate matching',
+        registerWorkersFinish   : 'Congratulations! The registration processes have finished.'
     },
     CardContent                      : {
         like           : 'Like',

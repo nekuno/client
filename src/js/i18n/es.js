@@ -50,14 +50,16 @@ export default {
         empty    : 'No tienes ningún interés todavía. Por favor, conecta tus redes sociales o explora tus hilos y dinos lo que te interesa.'
     },
     GalleryPage                      : {
-        importAlbum: 'Importa un álbum',
-        empty       : 'No has importado ninguna foto',
-        myProfile   : 'Mi Perfil',
-        profilePhoto: 'Foto de perfil',
-        about       : 'Sobre mí',
-        photos      : 'Fotos',
-        questions   : 'Respuestas',
-        interests   : 'Intereses'
+        importAlbum    : 'Importa un álbum',
+        empty          : 'No has importado ninguna foto',
+        myProfile      : 'Mi Perfil',
+        profilePhoto   : 'Foto de perfil',
+        about          : 'Sobre mí',
+        photos         : 'Fotos',
+        questions      : 'Respuestas',
+        interests      : 'Intereses',
+        importingAlbums: 'Importando álbumes'
+
     },
     OtherGalleryPage                 : {
         empty    : 'El usuario no ha importado ninguna foto',
@@ -67,8 +69,9 @@ export default {
         interests: 'Intereses'
     },
     GalleryAlbumsPage                : {
-        albums     : 'Álbumes de %resource%',
-        empty      : 'No hay álbumes'
+        albums        : 'Álbumes de %resource%',
+        empty         : 'No hay álbumes',
+        importingAlbum: 'Importando álbum'
     },
     GalleryAlbumPhotosPage           : {
         empty       : 'No hay fotos en este álbum',
@@ -108,7 +111,7 @@ export default {
         about                : 'Acerca de',
         photos               : 'Fotos',
         questions            : 'Respuestas',
-        interests            : 'Intereses',
+        interests            : 'Intereses'
     },
     OtherQuestionsPage               : {
         coincidences: 'Coincidencias',
@@ -154,6 +157,17 @@ export default {
         loadingMessage: 'Cargando recomendaciones',
         confirmDelete : '¿Estás seguro de que quieres borrar este hilo?'
     },
+    InvitationsPage                  : {
+        invitations           : 'Invitaciones',
+        title                 : 'Tienes %invitationNumber% invitaciones',
+        defaultInvitationTitle: 'Invitación de un solo uso',
+        sendInvitation        : 'Enviar invitación',
+        loadingInvitations    : 'Cargando invitaciones',
+        noInvitations         : 'No tienes invitaciones disponibles',
+        expiresAt             : 'Fecha de expiración',
+        consumedBy            : 'Consumida por',
+        shareError            : 'Ha ocurrido un error enviando la invitación.'
+    },
     UserPage                         : {
         aboutMe  : 'Sobre mí',
         photos   : 'Fotos',
@@ -193,6 +207,8 @@ export default {
         myProfile     : 'Mi perfil',
         conversations : 'Mensajes',
         socialNetworks: 'Mis redes sociales',
+        settings      : 'Ajustes',
+        invitations   : 'Invitaciones',
         logout        : 'Salir'
     },
     FacebookRegisterButton           : {
@@ -286,6 +302,17 @@ export default {
         title    : '¿Quieres que hilemos más fino?',
         text     : 'Responde más preguntas del test',
         completed: 'preguntas completadas'
+    },
+    ProcessesProgress                 : {
+        title                   : 'Estamos reprocesando tus datos',
+        registrationTitle       : 'Estamos analizando tus datos',
+        linksTitle              : 'Procesando enlaces',
+        similarityTitle         : 'Calculando similaridad',
+        matchingTitle           : 'Calculando compatibilidad',
+        linksPreparingTitle     : 'Preparando para procesar enlaces',
+        similarityPreparingTitle: 'Preparando para calcular similaridad',
+        matchingPreparingTitle  : 'Preparando para calcular compatibilidad',
+        registerWorkersFinish   : '¡Felicidades! Los procesos del registro han finalizado.'
     },
     CardContent                      : {
         like           : 'Me interesa',

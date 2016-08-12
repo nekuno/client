@@ -7,6 +7,9 @@ class InvitationStore extends BaseStore {
         this._error = null;
         this._token = null;
         this._invitation = null;
+        this._invitations = [];
+        this._noInvitations = null;
+        this._loadingInvitations = null;
     }
 
     _registerToActions(action) {
@@ -33,6 +36,24 @@ class InvitationStore extends BaseStore {
                 this.emitChange();
                 break;
 
+            case ActionTypes.REQUEST_INVITATIONS:
+                this._loadingInvitations = true;
+                this.emitChange();
+                break;
+
+            case ActionTypes.REQUEST_INVITATIONS_SUCCESS:
+                this._loadingInvitations = null;
+                this._noInvitations = action.response.length > 0 ? null : true;
+                this._invitations = action.response || [];
+                this.emitChange();
+                break;
+
+            case ActionTypes.REQUEST_INVITATIONS_ERROR:
+                this._loadingInvitations = null;
+                this._noInvitations = true;
+                this.emitChange();
+                break;
+
             default:
                 break;
         }
@@ -48,6 +69,18 @@ class InvitationStore extends BaseStore {
 
     get error() {
         return this._error;
+    }
+
+    get invitations() {
+        return this._invitations;
+    }
+
+    get noInvitations() {
+        return this._noInvitations;
+    }
+
+    get loadingInvitations() {
+        return this._loadingInvitations;
     }
 
 }

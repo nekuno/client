@@ -65,6 +65,7 @@ export default class RegisterPage extends Component {
         clearTimeout(this.tokenTimeout);
         var token = this.refs.token.getValue();
         this.tokenTimeout = setTimeout(() => {
+            token = token.replace(/(http[s]?:\/\/)?(m\.)?(client\.)?(pre\.)?(local\.)?nekuno.com\/#\/register\/\?token=/ig, '');
             token = token.replace(/(http[s]?:\/\/)?(www\.)?(pre\.)?(local\.)?(nekuno.com\/)?(invitation\/)?(inv)?/ig, '');
             if (token) {
                 ConnectActionCreators.validateInvitation(token);

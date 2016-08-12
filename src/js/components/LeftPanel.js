@@ -51,7 +51,13 @@ export default class LeftPanel extends Component {
         this.handleGoClickProfile = this.handleGoClickProfile.bind(this);
         this.handleGoClickConversations = this.handleGoClickConversations.bind(this);
         this.handleGoClickSocialNetworks = this.handleGoClickSocialNetworks.bind(this);
+        this.handleGoClickInvitations = this.handleGoClickInvitations.bind(this);
+        this.handleClickSettings = this.handleClickSettings.bind(this);
         this.logout = this.logout.bind(this);
+
+        this.state = {
+            settingsActive: null
+        };
     }
 
     handleGoClickThreads() {
@@ -71,6 +77,9 @@ export default class LeftPanel extends Component {
 
     handleGoClickSocialNetworks() {
         nekunoApp.closePanel();
+        this.setState({
+            settingsActive: null
+        });
         this.context.history.pushState(null, '/social-networks');
     }
 
@@ -79,14 +88,32 @@ export default class LeftPanel extends Component {
         this.context.history.pushState(null, '/interests');
     }
 
+    handleClickSettings() {
+        this.setState({
+            settingsActive: !this.state.settingsActive
+        });
+    }
+
+    handleGoClickInvitations() {
+        nekunoApp.closePanel();
+        this.setState({
+            settingsActive: null
+        });
+        this.context.history.pushState(null, '/invitations');
+    }
+
     logout(e) {
         e.preventDefault();
         nekunoApp.closePanel();
+        this.setState({
+            settingsActive: null
+        });
         LoginActionCreators.logoutUser();
     }
 
     render() {
         const {user, userLoggedIn, strings, interests, unreadCount} = this.props;
+        const {settingsActive} = this.state;
         return (
             <div className="LeftPanel">
                 <div className="panel-overlay"></div>
@@ -110,7 +137,7 @@ export default class LeftPanel extends Component {
                             </div>
                         </Link>
                     </div>
-                    { userLoggedIn ?
+                    { userLoggedIn && !settingsActive ?
                         <div className="content-block menu">
                             <Link to={'/threads'} onClick={this.handleGoClickThreads}>
                                 {strings.threads}
@@ -124,14 +151,26 @@ export default class LeftPanel extends Component {
                                     <span className="unread-messages-count-text">{unreadCount}</span>
                                 </span> : ''}
                             </Link>
-                            <Link to="/social-networks" onClick={this.handleGoClickSocialNetworks}>
-                                {strings.socialNetworks}
-                            </Link>
-                            <Link to="/" onClick={this.logout}>
-                                {strings.logout}
-                            </Link>
+                            <a onClick={this.handleClickSettings}>
+                                {strings.settings}
+                            </a>
                         </div>
-                        : '' }
+                        : settingsActive ?
+                            <div className="content-block menu">
+                                <a onClick={this.handleClickSettings} style={{fontWeight: 'bold'}}>
+                                    <span className="icon-left-arrow"></span>&nbsp;&nbsp;{strings.settings}
+                                </a>
+                                <Link to="/social-networks" onClick={this.handleGoClickSocialNetworks}>
+                                    {strings.socialNetworks}
+                                </Link>
+                                <Link to="/invitations" onClick={this.handleGoClickInvitations} onlyActiveOnIndex={false}>
+                                    {strings.invitations}
+                                </Link>
+                                <Link to="/" onClick={this.logout}>
+                                    {strings.logout}
+                                </Link>
+                            </div>
+                            : '' }
                 </div>
             </div>
         );
@@ -146,6 +185,8 @@ LeftPanel.defaultProps = {
         myProfile     : 'Profile',
         conversations : 'Messages',
         socialNetworks: 'My social networks',
+        settings      : 'Settings',
+        invitations   : 'Invitations',
         logout        : 'Logout'
     }
 };

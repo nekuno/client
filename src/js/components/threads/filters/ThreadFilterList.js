@@ -19,7 +19,7 @@ export default class ThreadFilterList extends Component {
                 <ul className="checkbox-filters-list">
                     {Object.keys(filtersMetadata).map(key => {
                         firstColumnCounter++;
-                        if (firstColumnCounter > choicesLength / 2) {
+                        if (firstColumnCounter > (choicesLength / 2) + 1) {
                             return '';
                         }
                         let text = filtersMetadata[key].label;
@@ -35,7 +35,7 @@ export default class ThreadFilterList extends Component {
                 <ul className="checkbox-filters-list">
                     {Object.keys(filtersMetadata).map(key => {
                         secondColumnCounter++;
-                        if (secondColumnCounter <= choicesLength / 2) {
+                        if (secondColumnCounter <= (choicesLength / 2) + 1) {
                             return '';
                         }
                         let text = filtersMetadata[key].label;

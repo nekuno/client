@@ -141,7 +141,7 @@ EditThreadPage.defaultProps = {
     strings: {
         edit       : 'Edit yarn',
         cancel     : 'Cancel',
-        placeholder: 'Write a descriptive title of the yarn',
+        placeholder: 'Title',
         people     : 'People',
         contents   : 'Contents'
     }

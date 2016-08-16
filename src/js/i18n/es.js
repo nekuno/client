@@ -194,7 +194,7 @@ export default {
     EditThreadPage                   : {
         edit       : 'Editar hilo',
         cancel     : 'Cancelar',
-        placeholder: 'Escribe un título descriptivo del hilo',
+        placeholder: 'Título',
         people     : 'Usuarios de Nekuno',
         contents   : 'Enlaces de Internet'
     },
@@ -363,7 +363,7 @@ export default {
     },
     SetThreadTitlePopup              : {
         title      : '¿Qué titulo quieres que tenga este hilo?',
-        placeholder: 'Escribe un título descriptivo del hilo',
+        placeholder: 'Título',
         finish     : 'Terminar'
     },
     CreateContentThread              : {

@@ -1,6 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import * as ThreadActionCreators from '../../actions/ThreadActionCreators';
 import FullWidthButton from '../ui/FullWidthButton';
+import SetThreadTitlePopup from './SetThreadTitlePopup';
 import ThreadFilterList from './filters/ThreadFilterList';
 import LocationFilter from './filters/LocationFilter';
 import IntegerRangeFilter from './filters/IntegerRangeFilter';
@@ -51,6 +52,7 @@ export default class CreateUsersThread extends Component {
         this.goToSelectedFilters = this.goToSelectedFilters.bind(this);
         this.editThread = this.editThread.bind(this);
         this.createThread = this.createThread.bind(this);
+        this.onSaveTitle = this.onSaveTitle.bind(this);
 
         this.state = {
             selectFilter  : false,
@@ -283,8 +285,15 @@ export default class CreateUsersThread extends Component {
     }
 
     createThread() {
+        window.setTimeout(function() {
+            nekunoApp.popup('.popup-set-thread-title');
+            document.getElementsByClassName('view')[0].scrollTop = 0;
+        }, 0);
+    }
+
+    onSaveTitle(title) {
         let data = {
-            name    : this.props.threadName,
+            name    : title,
             filters : {userFilters: this.state.filters},
             category: 'ThreadUsers'
         };
@@ -345,6 +354,7 @@ export default class CreateUsersThread extends Component {
                     <div className="table-row"></div>
                     {this.renderActiveFilters()}
                     <div className="table-row"></div>
+                    <div className="add-filter-title">{strings.addFilterTitle}</div>
                     <div className="thread-filter add-filter">
                         <div className="thread-filter-dot">
                             <span className="icon-plus active"></span>
@@ -367,6 +377,7 @@ export default class CreateUsersThread extends Component {
                     <br />
                     <br />
                     <br />
+                    <SetThreadTitlePopup onClick={this.onSaveTitle}/>
                 </div>
         );
     }
@@ -374,10 +385,11 @@ export default class CreateUsersThread extends Component {
 
 CreateUsersThread.defaultProps = {
     strings: {
-        back        : 'Back',
-        selectFilter: 'Select filter',
-        addFilter   : 'Add filter',
-        save        : 'Save',
-        create      : 'Create'
+        back          : 'Back',
+        selectFilter  : 'Select filter',
+        addFilterTitle: 'You can add filters to be more specific',
+        addFilter     : 'Add filter',
+        save          : 'Save',
+        create        : 'Create'
     }
 };

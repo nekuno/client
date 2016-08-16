@@ -185,17 +185,17 @@ export default {
     },
     CreateThreadPage                 : {
         create     : 'Create yarn',
+        title      : 'What do you want to discover in this new yarn?',
         cancel     : 'Cancel',
-        placeholder: 'Write a descriptive title of the yarn',
-        people     : 'People',
-        contents   : 'Contents'
+        people     : 'Users of Nekuno',
+        contents   : 'Links of Internet'
     },
     EditThreadPage                   : {
         edit       : 'Edit yarn',
         cancel     : 'Cancel',
         placeholder: 'Write a descriptive title of the yarn',
-        people     : 'People',
-        contents   : 'Contents'
+        people     : 'Users of Nekuno',
+        contents   : 'Links of Internet'
     },
     ////////////////
     // Components //
@@ -360,19 +360,26 @@ export default {
         editThread: 'Edit this yarn',
         goBack    : 'Go back'
     },
+    SetThreadTitlePopup              : {
+        title      : 'What name do you prefer for this yarn?',
+        placeholder: 'Write a descriptive title of the yarn',
+        finish     : 'Finish'
+    },
     CreateContentThread              : {
-        back        : 'Back',
-        selectFilter: 'Select filter',
-        addFilter   : 'Add filter',
-        save        : 'Save',
-        create      : 'Create'
+        back          : 'Back',
+        selectFilter  : 'Select filter',
+        addFilterTitle: 'You can add filters to be more specific',
+        addFilter     : 'Add filter',
+        save          : 'Save',
+        create        : 'Create'
     },
     CreateUsersThread                : {
-        back        : 'Back',
-        selectFilter: 'Select filter',
-        addFilter   : 'Add filter',
-        save        : 'Save',
-        create      : 'Create'
+        back          : 'Back',
+        selectFilter  : 'Select filter',
+        addFilterTitle: 'You can add filters to be more specific',
+        addFilter     : 'Add filter',
+        save          : 'Save',
+        create        : 'Create'
     },
     ThreadContent                    : {
         contents: 'Contents'

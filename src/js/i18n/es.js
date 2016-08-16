@@ -186,17 +186,17 @@ export default {
     },
     CreateThreadPage                 : {
         create     : 'Crear hilos',
+        title      : '¿Qué deseas descubrir en este nuevo hilo?',
         cancel     : 'Cancelar',
-        placeholder: 'Escribe un título descriptivo del hilo',
-        people     : 'Personas',
-        contents   : 'Contenidos'
+        people     : 'Usuarios de Nekuno',
+        contents   : 'Enlaces de Internet'
     },
     EditThreadPage                   : {
         edit       : 'Editar hilo',
         cancel     : 'Cancelar',
         placeholder: 'Escribe un título descriptivo del hilo',
-        people     : 'Personas',
-        contents   : 'Contenidos'
+        people     : 'Usuarios de Nekuno',
+        contents   : 'Enlaces de Internet'
     },
     ////////////////
     // Components //
@@ -361,19 +361,26 @@ export default {
         editThread: 'Editar este hilo',
         goBack    : 'Volver'
     },
+    SetThreadTitlePopup              : {
+        title      : '¿Qué titulo quieres que tenga este hilo?',
+        placeholder: 'Escribe un título descriptivo del hilo',
+        finish     : 'Terminar'
+    },
     CreateContentThread              : {
-        back        : 'Volver',
-        selectFilter: 'Selecciona un filtro',
-        addFilter   : 'Añadir filtro',
-        save        : 'Guardar hilo',
-        create      : 'Crear hilo'
+        back          : 'Volver',
+        selectFilter  : 'Selecciona un filtro',
+        addFilterTitle: 'Puedes añadir filtros para ser más específico',
+        addFilter     : 'Añadir filtro',
+        save          : 'Guardar hilo',
+        create        : 'Crear hilo'
     },
     CreateUsersThread                : {
-        back        : 'Volver',
-        selectFilter: 'Selecciona un filtro',
-        addFilter   : 'Añadir filtro',
-        save        : 'Guardar hilo',
-        create      : 'Crear hilo'
+        back          : 'Volver',
+        selectFilter  : 'Selecciona un filtro',
+        addFilterTitle: 'Puedes añadir filtros para ser más específico',
+        addFilter     : 'Añadir filtro',
+        save          : 'Guardar hilo',
+        create        : 'Crear hilo'
     },
     ThreadContent                    : {
         contents: 'Contenidos'

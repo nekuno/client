@@ -354,6 +354,7 @@ export default class CreateUsersThread extends Component {
                     <div className="table-row"></div>
                     {this.renderActiveFilters()}
                     <div className="table-row"></div>
+                    <div className="add-filter-title">{strings.addFilterTitle}</div>
                     <div className="thread-filter add-filter">
                         <div className="thread-filter-dot">
                             <span className="icon-plus active"></span>
@@ -384,10 +385,11 @@ export default class CreateUsersThread extends Component {
 
 CreateUsersThread.defaultProps = {
     strings: {
-        back        : 'Back',
-        selectFilter: 'Select filter',
-        addFilter   : 'Add filter',
-        save        : 'Save',
-        create      : 'Create'
+        back          : 'Back',
+        selectFilter  : 'Select filter',
+        addFilterTitle: 'You can add filters to be more specific',
+        addFilter     : 'Add filter',
+        save          : 'Save',
+        create        : 'Create'
     }
 };

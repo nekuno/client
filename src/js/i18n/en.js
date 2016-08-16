@@ -366,18 +366,20 @@ export default {
         finish     : 'Finish'
     },
     CreateContentThread              : {
-        back        : 'Back',
-        selectFilter: 'Select filter',
-        addFilter   : 'Add filter',
-        save        : 'Save',
-        create      : 'Create'
+        back          : 'Back',
+        selectFilter  : 'Select filter',
+        addFilterTitle: 'You can add filters to be more specific',
+        addFilter     : 'Add filter',
+        save          : 'Save',
+        create        : 'Create'
     },
     CreateUsersThread                : {
-        back        : 'Back',
-        selectFilter: 'Select filter',
-        addFilter   : 'Add filter',
-        save        : 'Save',
-        create      : 'Create'
+        back          : 'Back',
+        selectFilter  : 'Select filter',
+        addFilterTitle: 'You can add filters to be more specific',
+        addFilter     : 'Add filter',
+        save          : 'Save',
+        create        : 'Create'
     },
     ThreadContent                    : {
         contents: 'Contents'

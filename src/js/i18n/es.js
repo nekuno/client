@@ -367,18 +367,20 @@ export default {
         finish     : 'Terminar'
     },
     CreateContentThread              : {
-        back        : 'Volver',
-        selectFilter: 'Selecciona un filtro',
-        addFilter   : 'Añadir filtro',
-        save        : 'Guardar hilo',
-        create      : 'Crear hilo'
+        back          : 'Volver',
+        selectFilter  : 'Selecciona un filtro',
+        addFilterTitle: 'Puedes añadir filtros para ser más específico',
+        addFilter     : 'Añadir filtro',
+        save          : 'Guardar hilo',
+        create        : 'Crear hilo'
     },
     CreateUsersThread                : {
-        back        : 'Volver',
-        selectFilter: 'Selecciona un filtro',
-        addFilter   : 'Añadir filtro',
-        save        : 'Guardar hilo',
-        create      : 'Crear hilo'
+        back          : 'Volver',
+        selectFilter  : 'Selecciona un filtro',
+        addFilterTitle: 'Puedes añadir filtros para ser más específico',
+        addFilter     : 'Añadir filtro',
+        save          : 'Guardar hilo',
+        create        : 'Crear hilo'
     },
     ThreadContent                    : {
         contents: 'Contenidos'

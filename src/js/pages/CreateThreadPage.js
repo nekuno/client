@@ -6,7 +6,6 @@ import connectToStores from '../utils/connectToStores';
 import FilterStore from '../stores/FilterStore';
 import ThreadStore from '../stores/ThreadStore';
 import TagSuggestionsStore from '../stores/TagSuggestionsStore';
-import TextInput from '../components/ui/TextInput';
 import TextRadios from '../components/ui/TextRadios';
 import CreateContentThread from '../components/threads/CreateContentThread';
 import CreateUsersThread from '../components/threads/CreateUsersThread';
@@ -54,11 +53,9 @@ export default class CreateThreadPage extends Component {
     constructor(props) {
         super(props);
 
-        this._onChange = this._onChange.bind(this);
         this.handleClickCategory = this.handleClickCategory.bind(this);
 
         this.state = {
-            threadName: '',
             category  : null
         };
     }
@@ -74,12 +71,6 @@ export default class CreateThreadPage extends Component {
         }
     }
 
-    _onChange(event) {
-        this.setState({
-            threadName: event.target.value
-        });
-    }
-
     handleClickCategory(category) {
         this.setState({
             category: category
@@ -88,7 +79,7 @@ export default class CreateThreadPage extends Component {
 
     render() {
         const {user, filters, tags, strings} = this.props;
-        const {category, threadName} = this.state;
+        const {category} = this.state;
         return (
             <div className="view view-main">
                 <TopNavBar centerText={strings.create} leftText={strings.cancel}/>
@@ -96,10 +87,8 @@ export default class CreateThreadPage extends Component {
                     <div id="page-content">
                         {filters ?
                             <div>
-                                <div className="thread-title list-block">
-                                    <ul>
-                                        <TextInput placeholder={strings.placeholder} onChange={this._onChange}/>
-                                    </ul>
+                                <div className="thread-title title">
+                                    {strings.title}
                                 </div>
                                 <div key={1} className={category + '-first-vertical-line'}></div>
                                 <div key={2} className={category + '-last-vertical-line'}></div>
@@ -111,8 +100,8 @@ export default class CreateThreadPage extends Component {
                                         <TextRadios labels={[{key: 'persons', text: strings.people}, {key: 'contents', text: strings.contents}]} onClickHandler={this.handleClickCategory} value={category} forceTwoLines={true}/>
                                     </div>
                                 </div>
-                                {category === 'contents' ? <CreateContentThread userId={user.id} defaultFilters={filters.contentFilters} threadName={threadName} tags={tags}/> : ''}
-                                {category === 'persons' ? <CreateUsersThread userId={user.id} defaultFilters={filters.userFilters} threadName={threadName} tags={tags}/> : ''}
+                                {category === 'contents' ? <CreateContentThread userId={user.id} defaultFilters={filters.contentFilters} tags={tags}/> : ''}
+                                {category === 'persons' ? <CreateUsersThread userId={user.id} defaultFilters={filters.userFilters} tags={tags}/> : ''}
                             </div>
                             : ''}
                     </div>
@@ -125,8 +114,8 @@ export default class CreateThreadPage extends Component {
 CreateThreadPage.defaultProps = {
     strings: {
         create     : 'Create yarn',
+        title      : 'What do you want to discover in this new yarn?',
         cancel     : 'Cancel',
-        placeholder: 'Write a descriptive title of the yarn',
         people     : 'Users of Nekuno',
         contents   : 'Links of Internet'
     }

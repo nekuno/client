@@ -185,8 +185,8 @@ export default {
     },
     CreateThreadPage                 : {
         create     : 'Create yarn',
+        title      : 'What do you want to discover in this new yarn?',
         cancel     : 'Cancel',
-        placeholder: 'Write a descriptive title of the yarn',
         people     : 'Users of Nekuno',
         contents   : 'Links of Internet'
     },
@@ -359,6 +359,11 @@ export default {
         text      : 'This yarn is empty right now! Edit its filters to get recommendations or go back to the yarns list and try another.',
         editThread: 'Edit this yarn',
         goBack    : 'Go back'
+    },
+    SetThreadTitlePopup              : {
+        title      : 'What name do you prefer for this yarn?',
+        placeholder: 'Write a descriptive title of the yarn',
+        finish     : 'Finish'
     },
     CreateContentThread              : {
         back        : 'Back',

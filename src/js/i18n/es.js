@@ -186,8 +186,8 @@ export default {
     },
     CreateThreadPage                 : {
         create     : 'Crear hilos',
+        title      : '¿Qué deseas descubrir en este nuevo hilo?',
         cancel     : 'Cancelar',
-        placeholder: 'Escribe un título descriptivo del hilo',
         people     : 'Usuarios de Nekuno',
         contents   : 'Enlaces de Internet'
     },
@@ -360,6 +360,11 @@ export default {
         text      : '¡Este hilo está vacío por ahora! Edita sus filtros para conseguir recomendaciones o vuelve a la lista de hilos para intentar otro.',
         editThread: 'Editar este hilo',
         goBack    : 'Volver'
+    },
+    SetThreadTitlePopup              : {
+        title      : '¿Qué titulo quieres que tenga este hilo?',
+        placeholder: 'Escribe un título descriptivo del hilo',
+        finish     : 'Terminar'
     },
     CreateContentThread              : {
         back        : 'Volver',

@@ -4,6 +4,7 @@ import ThreadFilterList from './filters/ThreadFilterList';
 import MultipleChoicesFilter from './filters/MultipleChoicesFilter';
 import TagFilter from './filters/TagFilter';
 import FullWidthButton from '../ui/FullWidthButton';
+import SetThreadTitlePopup from './SetThreadTitlePopup';
 import selectn from 'selectn';
 import translate from '../../i18n/Translate';
 
@@ -37,6 +38,7 @@ export default class CreateContentThread extends Component {
         this.handleChangeFilterAndUnSelect = this.handleChangeFilterAndUnSelect.bind(this);
         this.handleClickRemoveFilter = this.handleClickRemoveFilter.bind(this);
         this.createThread = this.createThread.bind(this);
+        this.onSaveTitle = this.onSaveTitle.bind(this);
         this.editThread = this.editThread.bind(this);
         this.goToSelectedFilters = this.goToSelectedFilters.bind(this);
         this.handleClickOutside = this.handleClickOutside.bind(this);
@@ -186,8 +188,15 @@ export default class CreateContentThread extends Component {
     }
 
     createThread() {
+        window.setTimeout(function() {
+            nekunoApp.popup('.popup-set-thread-title');
+            document.getElementsByClassName('view')[0].scrollTop = 0;
+        }, 0);
+    }
+
+    onSaveTitle(title) {
         let data = {
-            name    : this.props.threadName,
+            name    : title,
             filters : {contentFilters: this.state.filters},
             category: 'ThreadContent'
         };
@@ -270,6 +279,7 @@ export default class CreateContentThread extends Component {
                     <br />
                     <br />
                     <br />
+                    <SetThreadTitlePopup onClick={this.onSaveTitle}/>
                 </div>
         )
     }

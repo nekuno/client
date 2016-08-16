@@ -187,15 +187,15 @@ export default {
         create     : 'Create yarn',
         cancel     : 'Cancel',
         placeholder: 'Write a descriptive title of the yarn',
-        people     : 'People',
-        contents   : 'Contents'
+        people     : 'Users of Nekuno',
+        contents   : 'Links of Internet'
     },
     EditThreadPage                   : {
         edit       : 'Edit yarn',
         cancel     : 'Cancel',
         placeholder: 'Write a descriptive title of the yarn',
-        people     : 'People',
-        contents   : 'Contents'
+        people     : 'Users of Nekuno',
+        contents   : 'Links of Internet'
     },
     ////////////////
     // Components //

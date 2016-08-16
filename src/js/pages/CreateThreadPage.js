@@ -108,7 +108,7 @@ export default class CreateThreadPage extends Component {
                                         <div className="thread-filter-dot">
                                             <span className={category ? "icon-circle active" : "icon-circle"}></span>
                                         </div>
-                                        <TextRadios labels={[{key: 'persons', text: strings.people}, {key: 'contents', text: strings.contents}]} onClickHandler={this.handleClickCategory} value={category}/>
+                                        <TextRadios labels={[{key: 'persons', text: strings.people}, {key: 'contents', text: strings.contents}]} onClickHandler={this.handleClickCategory} value={category} forceTwoLines={true}/>
                                     </div>
                                 </div>
                                 {category === 'contents' ? <CreateContentThread userId={user.id} defaultFilters={filters.contentFilters} threadName={threadName} tags={tags}/> : ''}
@@ -127,7 +127,7 @@ CreateThreadPage.defaultProps = {
         create     : 'Create yarn',
         cancel     : 'Cancel',
         placeholder: 'Write a descriptive title of the yarn',
-        people     : 'People',
-        contents   : 'Contents'
+        people     : 'Users of Nekuno',
+        contents   : 'Links of Internet'
     }
 };

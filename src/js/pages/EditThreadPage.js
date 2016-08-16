@@ -123,7 +123,7 @@ export default class EditThreadPage extends Component {
                                         <div className="thread-filter-dot">
                                             <span className={category ? "icon-circle active" : "icon-circle"}></span>
                                         </div>
-                                        <TextRadios labels={[{key: 'persons', text: strings.people}, {key: 'contents', text: strings.contents}]} onClickHandler={this.handleClickCategory} value={category}/>
+                                        <TextRadios labels={[{key: 'persons', text: strings.people}, {key: 'contents', text: strings.contents}]} onClickHandler={this.handleClickCategory} value={category} forceTwoLines={true}/>
                                     </div>
                                 </div>
                                 {category === 'contents' ? <CreateContentThread userId={user.id} defaultFilters={filters['contentFilters']} threadName={threadName} tags={tags} thread={thread}/> : ''}

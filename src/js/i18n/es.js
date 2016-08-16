@@ -188,15 +188,15 @@ export default {
         create     : 'Crear hilos',
         cancel     : 'Cancelar',
         placeholder: 'Escribe un título descriptivo del hilo',
-        people     : 'Personas',
-        contents   : 'Contenidos'
+        people     : 'Usuarios de Nekuno',
+        contents   : 'Enlaces de Internet'
     },
     EditThreadPage                   : {
         edit       : 'Editar hilo',
         cancel     : 'Cancelar',
         placeholder: 'Escribe un título descriptivo del hilo',
-        people     : 'Personas',
-        contents   : 'Contenidos'
+        people     : 'Usuarios de Nekuno',
+        contents   : 'Enlaces de Internet'
     },
     ////////////////
     // Components //

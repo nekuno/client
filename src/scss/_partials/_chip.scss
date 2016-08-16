@@ -60,3 +60,20 @@
 .chip-6 {
   width: 33%;
 }
+
+.chip-two-lines {
+  height: 55px !important;
+  border-radius: 32px !important;
+  display: inline-block;
+  -moz-border-radius: 32px !important;
+  -webkit-border-radius: 32px !important;
+  line-height: 52px !important;
+
+  .chip-label {
+    //padding: 0 24px;
+    display: inline-block;
+    line-height: 28px;
+    vertical-align: middle;
+    white-space: normal;
+  }
+}

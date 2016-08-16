@@ -4,11 +4,12 @@ import InputRadio from './InputRadio';
 
 export default class TextRadios extends Component {
 	static propTypes = {
-		title: PropTypes.string,
-		labels: PropTypes.array.isRequired,
-		value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+		title		  : PropTypes.string,
+		labels	      : PropTypes.array.isRequired,
+		value	      : PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 		onClickHandler: PropTypes.func.isRequired,
-		className: PropTypes.string
+		forceTwoLines : PropTypes.bool,
+		className	  : PropTypes.string
 	};
 
 	constructor(props) {
@@ -16,11 +17,11 @@ export default class TextRadios extends Component {
 	}
 
 	render() {
-		const {title, labels, value, className} = this.props;
+		const {title, labels, value, forceTwoLines, className} = this.props;
 		let labelsLength = labels.length;
 		let labelsTextLength = 0;
 		labels.forEach(label => labelsTextLength += label.text.length);
-		let showCheckboxesList = labelsLength > 3 || labelsTextLength > 35;
+		let showCheckboxesList = !forceTwoLines && (labelsLength > 3 || labelsTextLength > 35);
 		return (
 			showCheckboxesList ?
 				<div className={className ? "list-block " + className : "list-block"}>
@@ -38,8 +39,11 @@ export default class TextRadios extends Component {
 					<div className="text-radios-title">{title}</div>
 					<div className={labelsLength ? 'text-radios-container' : ' unique-chip text-radios-container'}>
 						{labels.map(label =>
-							<Chip key={label.key} chipClass={'chip-' + labelsLength} label={label.text}
-								  onClickHandler={this.onClickHandler.bind(this, label.key)} disabled={value !== label.key} />
+							<Chip key={label.key}
+								  chipClass={forceTwoLines ? 'chip-two-lines ' + 'chip-' + labelsLength : 'chip-' + labelsLength}
+								  label={label.text}
+								  onClickHandler={this.onClickHandler.bind(this, label.key)}
+								  disabled={value !== label.key}/>
 						)}
 					</div>
 				</div>

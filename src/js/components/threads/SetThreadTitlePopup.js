@@ -57,7 +57,7 @@ export default class SetThreadTitlePopup extends Component {
 SetThreadTitlePopup.defaultProps = {
     strings: {
         title      : 'What name do you prefer for this yarn?',
-        placeholder: 'Write a descriptive title of the yarn',
+        placeholder: 'Title',
         finish     : 'Finish'
     }
 };

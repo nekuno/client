@@ -193,7 +193,7 @@ export default {
     EditThreadPage                   : {
         edit       : 'Edit yarn',
         cancel     : 'Cancel',
-        placeholder: 'Write a descriptive title of the yarn',
+        placeholder: 'Title',
         people     : 'Users of Nekuno',
         contents   : 'Links of Internet'
     },
@@ -362,7 +362,7 @@ export default {
     },
     SetThreadTitlePopup              : {
         title      : 'What name do you prefer for this yarn?',
-        placeholder: 'Write a descriptive title of the yarn',
+        placeholder: 'Title',
         finish     : 'Finish'
     },
     CreateContentThread              : {

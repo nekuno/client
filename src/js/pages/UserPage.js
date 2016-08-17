@@ -88,7 +88,7 @@ export default class UserPage extends Component {
             <div className="view view-main">
                 <TopNavBar leftMenuIcon={true} centerText={strings.myProfile} rightIcon={'edit'} onRightLinkClickHandler={this.editProfile}/>
                 <div className="page user-page">
-                    {profileWithMetadata && stats ?
+                    {profile && profileWithMetadata && stats ?
                         <div id="page-content">
                             <User user={user} profile={profile}/>
                             <div className="user-interests">
@@ -107,7 +107,7 @@ export default class UserPage extends Component {
                         </div>
                         : ''}
                 </div>
-                {profileWithMetadata && stats ?
+                {profile && profileWithMetadata && stats ?
                     <ToolBar links={[
                     {'url': '/profile', 'text': strings.aboutMe},
                     {'url': '/gallery', 'text': strings.photos},

@@ -176,7 +176,7 @@ export default class OtherUserPage extends Component {
             <div className="view view-main">
                 <TopNavBar leftMenuIcon={true} centerText={otherUser ? otherUser.username : ''} rightIcon={'message'} onRightLinkClickHandler={this.handleClickMessageLink}/>
                 <div className="page user-page">
-                    {otherUser && profile ?
+                    {otherUser && profile && profileWithMetadata ?
                         <div id="page-content">
                             <User user={otherUser} profile={profile}/>
                             <div>
@@ -202,7 +202,7 @@ export default class OtherUserPage extends Component {
                         </div>
                         : ''}
                 </div>
-                {otherUser && profileWithMetadata ?
+                {otherUser && profile && profileWithMetadata ?
                     <ToolBar links={[
                     {'url': `/profile/${parseId(otherUser)}`, 'text': strings.about},
                     {'url': `/users/${parseId(otherUser)}/other-gallery`, 'text': strings.photos},

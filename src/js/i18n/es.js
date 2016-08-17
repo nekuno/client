@@ -409,9 +409,9 @@ export default {
         placeholder: 'Escribe una ubicación'
     },
     IntegerFilter                    : {
-        minValue   : 'El valor mínimo de este valor es ',
-        maxValue   : 'El valor máximo de este valor es ',
-        value      : 'Este valor debe ser un entero',
+        minValue   : 'El valor mínimo es ',
+        maxValue   : 'El valor máximo es ',
+        value      : 'El valor debe ser un entero',
         placeholder: 'Escribe un número'
     },
     LocationFilter                   : {
@@ -433,9 +433,10 @@ export default {
         add        : 'Añadir'
     },
     IntegerRangeFilter               : {
-        minValue      : 'El valor mínimo de este valor es ',
-        maxValue      : 'El valor máximo de este valor es ',
-        value         : 'Este valor debe ser un entero',
+        minValue      : 'El valor mínimo es ',
+        maxValue      : 'El valor máximo es ',
+        minMaxValue   : 'El valor máximo debe ser igual o mayor que el valor mínimo',
+        value         : 'El valor debe ser un entero',
         placeholderMin: 'Mínimo',
         placeholderMax: 'Máximo'
     },

@@ -14,6 +14,7 @@ export default class IntegerRangeFilter extends Component {
         data                   : PropTypes.object,
         handleClickRemoveFilter: PropTypes.func.isRequired,
         handleChangeFilter     : PropTypes.func.isRequired,
+        handleErrorFilter      : PropTypes.func,
         handleClickFilter      : PropTypes.func.isRequired,
         // Injected by @translate:
         strings                : PropTypes.object
@@ -23,43 +24,54 @@ export default class IntegerRangeFilter extends Component {
         super(props);
 
         this.handleChangeIntegerInput = this.handleChangeIntegerInput.bind(this);
-        this.handleChangeMinIntegerInput = this.handleChangeMinIntegerInput.bind(this);
-        this.handleChangeMaxIntegerInput = this.handleChangeMaxIntegerInput.bind(this);
-    }
 
-    handleChangeMinIntegerInput() {
-        this.handleChangeIntegerInput('min');
-    }
-
-    handleChangeMaxIntegerInput() {
-        this.handleChangeIntegerInput('max');
-    }
-
-    handleChangeIntegerInput(minOrMax) {
-        clearTimeout(this['integerTimeout_' + minOrMax]);
-        let {filterKey, filter, data, strings} = this.props;
-        data = data || {};
-        const value = this.refs[filterKey + '_' + minOrMax] ? parseInt(this.refs[filterKey + '_' + minOrMax].getValue()) : 0;
-        if (typeof value === 'number' && (value % 1) === 0 || value === '') {
-            const minValue = Math.max(filter.min, parseInt(data.min) || 0);
-            const maxValue = Math.max(filter.max, parseInt(data.max) || 0);
-            if (typeof value === 'number' && value < minValue) {
-                this['integerTimeout_' + minOrMax] = setTimeout(() => {
-                    nekunoApp.alert(strings.minValue + minValue);
-                }, 1000);
-            } else if (typeof value === 'number' && value > maxValue) {
-                this['integerTimeout_' + minOrMax] = setTimeout(() => {
-                    nekunoApp.alert(strings.maxValue + maxValue);
-                }, 1000);
-            } else {
-                data[minOrMax] = value;
-                this.props.handleChangeFilter(filterKey, data);
-            }
-        } else {
-            this['integerTimeout_' + minOrMax] = setTimeout(() => {
-                nekunoApp.alert(strings.value);
-            }, 1000);
+        this.state = {
+            valueMin: '',
+            valueMax: ''
         }
+    }
+
+    componentWillUpdate(nextProps, nextState) {
+        const {filterKey, filter, selected, handleChangeFilter, handleErrorFilter, strings} = this.props;
+        let {data} = this.props;
+        const {valueMin, valueMax} = nextState;
+        const minValue = filter.min;
+        const maxValue = filter.max;
+        let error = '';
+        if (selected && !nextProps.selected) {
+            if (typeof valueMin !== 'number' || isNaN(valueMin) || typeof valueMax !== 'number' || isNaN(valueMax)) {
+                error += strings.value + '.\n';
+            }
+            if (valueMin < minValue || valueMax < minValue) {
+                error += strings.minValue + minValue + '.\n';
+            }
+            if (valueMin > maxValue || valueMax > maxValue) {
+                error += strings.maxValue + maxValue + '.\n';
+            }
+
+            if (!error && valueMax < valueMin) {
+                error += strings.minMaxValue + '.\n';
+            }
+
+            if (error) {
+                handleErrorFilter(filterKey, error);
+            } else {
+                data = data || {};
+                data.min = valueMin;
+                data.max = valueMax;
+                handleChangeFilter(filterKey, data);
+            }
+        }
+    }
+
+    handleChangeIntegerInput() {
+        const {filterKey} = this.props;
+        const valueMin = this.refs[filterKey + '_min'] ? parseInt(this.refs[filterKey + '_min'].getValue()) : 0;
+        const valueMax = this.refs[filterKey + '_max'] ? parseInt(this.refs[filterKey + '_max'].getValue()) : 0;
+        this.setState({
+            valueMin: valueMin,
+            valueMax: valueMax
+        });
     }
 
     render() {
@@ -70,8 +82,8 @@ export default class IntegerRangeFilter extends Component {
                     <div className="list-block">
                         <div className="integer-title">{filter.label}</div>
                         <ul>
-                            <TextInput ref={filterKey + '_min'} placeholder={strings.placeholderMin} onChange={this.handleChangeMinIntegerInput} defaultValue={data ? data.min : null}/>
-                            <TextInput ref={filterKey + '_max'} placeholder={strings.placeholderMax} onChange={this.handleChangeMaxIntegerInput} defaultValue={data ? data.max : null}/>
+                            <TextInput ref={filterKey + '_min'} placeholder={strings.placeholderMin} onChange={this.handleChangeIntegerInput} defaultValue={data ? data.min : null}/>
+                            <TextInput ref={filterKey + '_max'} placeholder={strings.placeholderMax} onChange={this.handleChangeIntegerInput} defaultValue={data ? data.max : null}/>
                         </ul>
                     </div>
                 </ThreadSelectedFilter>
@@ -83,9 +95,10 @@ export default class IntegerRangeFilter extends Component {
 
 IntegerRangeFilter.defaultProps = {
     strings: {
-        minValue      : 'The minimum value of this value is ',
-        maxValue      : 'The maximum value of this value is ',
-        value         : 'This value must be an integer',
+        minValue      : 'The minimum value is ',
+        maxValue      : 'The maximum value is ',
+        minMaxValue   : 'The maximum value must be equal or greater than minimum value',
+        value         : 'The value must be an integer',
         placeholderMin: 'Min',
         placeholderMax: 'Max'
     }

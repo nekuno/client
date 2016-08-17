@@ -38,6 +38,7 @@ export default class CreateUsersThread extends Component {
         this.handleClickFilterOnList = this.handleClickFilterOnList.bind(this);
         this.renderActiveFilters = this.renderActiveFilters.bind(this);
         this.handleClickFilter = this.handleClickFilter.bind(this);
+        this.handleErrorFilter = this.handleErrorFilter.bind(this);
         this.handleClickRemoveFilter = this.handleClickRemoveFilter.bind(this);
         this.renderLocationFilter = this.renderLocationFilter.bind(this);
         this.renderMultipleChoicesFilter = this.renderMultipleChoicesFilter.bind(this);
@@ -156,8 +157,9 @@ export default class CreateUsersThread extends Component {
                                 data={data}
                                 selected={selected}
                                 handleClickRemoveFilter={this.handleClickRemoveFilter}
-                                handleChangeFilter={this.handleChangeFilter}
+                                handleChangeFilter={this.handleChangeFilterAndUnSelect}
                                 handleClickFilter={this.handleClickFilter}
+                                handleErrorFilter={this.handleErrorFilter}
             />
         )
     }
@@ -227,6 +229,15 @@ export default class CreateUsersThread extends Component {
                                           tags={tags}
             />
         );
+    }
+
+    handleErrorFilter(key, error) {
+        let {filters} = this.state;
+        nekunoApp.alert(error);
+        filters[key] = {};
+        this.setState({
+            selectedFilter: key
+        });
     }
 
     handleChangeFilter(key, data) {

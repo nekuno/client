@@ -70,9 +70,9 @@ export default class IntegerFilter extends Component {
 
 IntegerFilter.defaultProps = {
     strings: {
-        minValue   : 'The minimum value of this value is ',
-        maxValue   : 'The maximum value of this value is ',
-        value      : 'This value must be an integer',
+        minValue   : 'The minimum value is ',
+        maxValue   : 'The maximum value is ',
+        value      : 'The value must be an integer',
         placeholder: 'Type a number'
     }
 };

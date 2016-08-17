@@ -117,7 +117,7 @@ export default class OtherUserPage extends Component {
         // Injected by @connectToStores:
         otherUser          : PropTypes.object,
         profile            : PropTypes.object,
-        profileWithMetadata: PropTypes.object,
+        profileWithMetadata: PropTypes.array,
         matching           : PropTypes.number,
         similarity         : PropTypes.number,
         block              : PropTypes.bool,
@@ -192,7 +192,7 @@ export default class OtherUserPage extends Component {
                                     <OtherProfileData matching={matching} similarity={similarity} stats={comparedStats} ownImage={ownPicture} currentImage={otherPicture}/>
                                 </div>
                             </div>
-                            <ProfileDataList profile={profileWithMetadata}/>
+                            <ProfileDataList profile={profile} profileWithMetadata={profileWithMetadata}/>
                             <br />
                             <br />
                             <br />

@@ -59,7 +59,7 @@ export default class UserPage extends Component {
         // Injected by @connectToStores:
         stats              : PropTypes.object,
         profile            : PropTypes.object,
-        profileWithMetadata: PropTypes.object
+        profileWithMetadata: PropTypes.array
 
     };
 
@@ -97,7 +97,7 @@ export default class UserPage extends Component {
                                 </div>
                                 <div className="label">{strings.interests}</div>
                             </div>
-                            <ProfileDataList profile={profileWithMetadata}/>
+                            <ProfileDataList profile={profile} profileWithMetadata={profileWithMetadata}/>
                             <br />
                             <br />
                             <br />

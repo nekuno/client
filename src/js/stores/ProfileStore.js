@@ -41,88 +41,109 @@ const ProfileStore = createStore({
     getWithMetadata(userId) {
         const basicProfile = this.get(userId);
         const metadata = this.getMetadata();
+        const categories = this.getCategories();
 
-        if (!basicProfile || !metadata) {
-            return {};
+        if (!basicProfile || !metadata || !categories) {
+            return [];
         }
 
-        let profile = {};
-        for (let label in basicProfile) {
-            if (selectn(label, metadata)) {
-                const thisMetadata = metadata[label];
-                const type = thisMetadata.type;
-                let name = thisMetadata.label;
-                let value = '';
-                switch (type) {
-                    case 'choice':
-                        let choices = thisMetadata.choices;
-                        value = choices[basicProfile[label]];
-                        break;
-                    case 'double_choice':
-                        let firstChoices = thisMetadata.choices;
-                        const doubleChoices = thisMetadata.doubleChoices;
-                        let firstChoice = basicProfile[label]['choice'];
-                        let doubleChoiceValue = basicProfile[label]['detail'] ? doubleChoices[firstChoice][basicProfile[label]['detail']] : '';
-                        value = firstChoices[firstChoice] + ' ' + doubleChoiceValue;
-                        break;
-                    case 'tags':
-                        value = basicProfile[label];
-                        break;
-                    case 'multiple_choices':
-                        let multiple_choices = thisMetadata['choices'];
-                        let mchoices = [];
-                        if (typeof basicProfile[label] === 'string') {
-                            mchoices.push(multiple_choices[basicProfile[label]]);
-                        } else {
-                            for (let mchoice_label in basicProfile[label]) {
-                                mchoices.push(multiple_choices[basicProfile[label][mchoice_label]]);
-                            }
-                        }
-                        value = mchoices.join(', ');
-                        break;
-                    case 'tags_and_choice':
-                        let tagChoices = thisMetadata['choices'];
-                        let level = thisMetadata['choiceLabel']['es'];
-                        let objects = basicProfile[label];
-                        let values = []
-                        for (let index in objects) {
-                            let object = objects[index];
-                            let newTag = object['tag'];
-                            if (object['detail']) {
-                                newTag += ': ' + level + ' ' + tagChoices[object['detail']];
-                            }
-                            values.push(newTag);
-                        }
-                        value = values.join(', ');
-                        break;
-                    case 'integer':
-                        value = basicProfile[label];
-                        break;
-                    case 'birthday':
-                        name = thisMetadata.label == 'Birthday' ? 'Age' : 'Edad';
-                        const thatDate = new Date(basicProfile[label]);
-                        const ageDifMs = Date.now() - thatDate.getTime();
-                        const ageDate = new Date(ageDifMs); // miliseconds from epoch
-                        value = Math.abs(ageDate.getUTCFullYear() - 1970);
-                        break;
-                    case 'location':
-                        value = this.locationToString(basicProfile[label]);
-                        break;
-                    case 'textarea':
-                        value = basicProfile[label];
-                        break;
-                    default:
-                        break;
-                }
-                if (value === '') {
-                    continue;
-                } else if (value == false) {
-                    value = 'No';
-                }
-                profile[name] = value.toString();
+        let profile = [];
 
+        for (let id in categories.profile) {
+
+            let category = categories.profile[id];
+            let fields = {};
+
+            for (let id in category.fields) {
+                let field = category.fields[id];
+
+                if (selectn(field, basicProfile) && selectn(field, metadata)) {
+                    const thisMetadata = metadata[field];
+                    const type = thisMetadata.type;
+                    let name = thisMetadata.label;
+                    let value = '';
+                    switch (type) {
+                        case 'choice':
+                            let choices = thisMetadata.choices;
+                            value = choices[basicProfile[field]];
+                            break;
+                        case 'double_choice':
+                            let firstChoices = thisMetadata.choices;
+                            const doubleChoices = thisMetadata.doubleChoices;
+                            let firstChoice = basicProfile[field]['choice'];
+                            let doubleChoiceValue = basicProfile[field]['detail'] ? doubleChoices[firstChoice][basicProfile[field]['detail']] : '';
+                            value = firstChoices[firstChoice] + ' ' + doubleChoiceValue;
+                            break;
+                        case 'tags':
+                            value = basicProfile[field];
+                            break;
+                        case 'multiple_choices':
+                            let multiple_choices = thisMetadata['choices'];
+                            let mchoices = [];
+                            if (typeof basicProfile[field] === 'string') {
+                                mchoices.push(multiple_choices[basicProfile[field]]);
+                            } else {
+                                for (let mchoice_label in basicProfile[field]) {
+                                    mchoices.push(multiple_choices[basicProfile[field][mchoice_label]]);
+                                }
+                            }
+                            value = mchoices.join(', ');
+                            break;
+                        case 'tags_and_choice':
+                            let tagChoices = thisMetadata['choices'];
+                            let level = thisMetadata['choiceLabel']['es'];
+                            let objects = basicProfile[field];
+                            let values = []
+                            for (let index in objects) {
+                                let object = objects[index];
+                                let newTag = object['tag'];
+                                if (object['detail']) {
+                                    newTag += ': ' + level + ' ' + tagChoices[object['detail']];
+                                }
+                                values.push(newTag);
+                            }
+                            value = values.join(', ');
+                            break;
+                        case 'integer':
+                            value = basicProfile[field];
+                            break;
+                        case 'birthday':
+                            name = thisMetadata.label == 'Birthday' ? 'Age' : 'Edad';
+                            const thatDate = new Date(basicProfile[field]);
+                            const ageDifMs = Date.now() - thatDate.getTime();
+                            const ageDate = new Date(ageDifMs); // miliseconds from epoch
+                            value = Math.abs(ageDate.getUTCFullYear() - 1970);
+                            break;
+                        case 'location':
+                            value = this.locationToString(basicProfile[field]);
+                            break;
+                        case 'textarea':
+                            value = basicProfile[field];
+                            break;
+                        default:
+                            break;
+                    }
+                    if (value === '') {
+                        continue;
+                    } else if (value == false) {
+                        value = 'No';
+                    }
+
+                    fields[name] = value.toString();
+                }
             }
+
+            profile.push(
+                {
+                    label: category.label,
+                    fields: fields
+                }
+            )
+
         }
+
+        console.log(profile);
+
         return profile;
     },
 

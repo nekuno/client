@@ -142,8 +142,6 @@ const ProfileStore = createStore({
 
         }
 
-        console.log(profile);
-
         return profile;
     },
 

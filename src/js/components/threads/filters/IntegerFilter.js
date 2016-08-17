@@ -11,9 +11,10 @@ export default class IntegerFilter extends Component {
         filterKey              : PropTypes.string.isRequired,
         selected               : PropTypes.bool.isRequired,
         filter                 : PropTypes.object.isRequired,
-        data                   : PropTypes.number,
+        data                   : PropTypes.oneOfType([PropTypes.object, PropTypes.number]),
         handleClickRemoveFilter: PropTypes.func.isRequired,
         handleChangeFilter     : PropTypes.func.isRequired,
+        handleErrorFilter      : PropTypes.func.isRequired,
         handleClickFilter      : PropTypes.func.isRequired,
         // Injected by @translate:
         strings                : PropTypes.object
@@ -23,31 +24,43 @@ export default class IntegerFilter extends Component {
         super(props);
 
         this.handleChangeIntegerInput = this.handleChangeIntegerInput.bind(this);
+
+        this.state = {
+            value: props.data && typeof props.data == 'number' ? props.data : '',
+        }
+    }
+
+    componentWillUpdate(nextProps, nextState) {
+        const {filterKey, filter, selected, handleChangeFilter, handleErrorFilter, strings} = this.props;
+        const {value} = nextState;
+        const minValue = filter.min;
+        const maxValue = filter.max;
+        let error = '';
+        if (selected && !nextProps.selected) {
+            if (typeof value !== 'number' || isNaN(value)) {
+                error += strings.value + '.\n';
+            }
+            if (value < minValue) {
+                error += strings.minValue + minValue + '.\n';
+            }
+            if (value > maxValue) {
+                error += strings.maxValue + maxValue + '.\n';
+            }
+
+            if (error) {
+                handleErrorFilter(filterKey, error);
+            } else {
+                handleChangeFilter(filterKey, value);
+            }
+        }
     }
 
     handleChangeIntegerInput() {
-        clearTimeout(this.integerTimeout);
-        const {filterKey, filter, strings} = this.props;
+        const {filterKey} = this.props;
         const value = this.refs[filterKey] ? parseInt(this.refs[filterKey].getValue()) : 0;
-        if (typeof value === 'number' && (value % 1) === 0 || value === '') {
-            const minValue = filter.min || 0;
-            const maxValue = filter.max || 0;
-            if (typeof value === 'number' && value < minValue) {
-                this.integerTimeout = setTimeout(() => {
-                    nekunoApp.alert(strings.minValue + minValue);
-                }, 1000);
-            } else if (typeof value === 'number' && value > maxValue) {
-                this.integerTimeout = setTimeout(() => {
-                    nekunoApp.alert(strings.maxValue + maxValue);
-                }, 1000);
-            } else {
-                this.props.handleChangeFilter(filterKey, value);
-            }
-        } else {
-            this.integerTimeout = setTimeout(() => {
-                nekunoApp.alert(strings.value);
-            }, 1000);
-        }
+        this.setState({
+            value: value,
+        });
     }
 
     render() {
@@ -58,12 +71,12 @@ export default class IntegerFilter extends Component {
                     <div className="list-block">
                         <div className="integer-title">{filter.label}</div>
                         <ul>
-                            <TextInput ref={filterKey} placeholder={strings.placeholder} onChange={this.handleChangeIntegerInput} defaultValue={data}/>
+                            <TextInput ref={filterKey} placeholder={strings.placeholder} onChange={this.handleChangeIntegerInput} defaultValue={typeof data == 'number' ? data : null}/>
                         </ul>
                     </div>
                 </ThreadSelectedFilter>
                 :
-                <ThreadUnselectedFilter key={filterKey} filterKey={filterKey} filter={filter} data={data} handleClickFilter={handleClickFilter}/>
+                <ThreadUnselectedFilter key={filterKey} filterKey={filterKey} filter={filter} data={typeof data == 'number' ? data : null} handleClickFilter={handleClickFilter}/>
         );
     }
 }

@@ -14,7 +14,7 @@ export default class IntegerRangeFilter extends Component {
         data                   : PropTypes.object,
         handleClickRemoveFilter: PropTypes.func.isRequired,
         handleChangeFilter     : PropTypes.func.isRequired,
-        handleErrorFilter      : PropTypes.func,
+        handleErrorFilter      : PropTypes.func.isRequired,
         handleClickFilter      : PropTypes.func.isRequired,
         // Injected by @translate:
         strings                : PropTypes.object
@@ -26,8 +26,8 @@ export default class IntegerRangeFilter extends Component {
         this.handleChangeIntegerInput = this.handleChangeIntegerInput.bind(this);
 
         this.state = {
-            valueMin: '',
-            valueMax: ''
+            valueMin: props.data && props.data.min ? props.data.min : '',
+            valueMax: props.data && props.data.max ? props.data.max : ''
         }
     }
 

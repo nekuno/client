@@ -171,8 +171,9 @@ export default class CreateUsersThread extends Component {
                            data={data}
                            selected={selected}
                            handleClickRemoveFilter={this.handleClickRemoveFilter}
-                           handleChangeFilter={this.handleChangeFilter}
+                           handleChangeFilter={this.handleChangeFilterAndUnSelect}
                            handleClickFilter={this.handleClickFilter}
+                           handleErrorFilter={this.handleErrorFilter}
             />
         )
     }

@@ -8,7 +8,6 @@ import {
     fetchUserArray,
     fetchProfile,
     putProfile,
-    fetchMetadata,
     fetchStats,
     fetchComparedStats,
     postBlockUser,
@@ -49,7 +48,11 @@ export function editProfile(data, url = `profile`) {
 }
 
 export function getMetadata(url = `profile/metadata`) {
-    return fetchMetadata(url);
+    return getData(url);
+}
+
+export function getCategories(url = `profile/categories`) {
+    return getData(url);
 }
 
 export function getFilters(url = `filters`) {

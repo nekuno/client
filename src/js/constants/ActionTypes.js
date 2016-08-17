@@ -49,6 +49,10 @@ export default keyMirror({
     REQUEST_METADATA_SUCCESS: null,
     REQUEST_METADATA_ERROR  : null,
 
+    REQUEST_CATEGORIES        : null,
+    REQUEST_CATEGORIES_SUCCESS: null,
+    REQUEST_CATEGORIES_ERROR  : null,
+
     REQUEST_STATS        : null,
     REQUEST_STATS_SUCCESS: null,
     REQUEST_STATS_ERROR  : null,

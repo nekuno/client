@@ -11,6 +11,7 @@ import { getValidationErrors } from '../utils/StoreUtils';
 
 let _profiles = {};
 let _metadata = null;
+let _categories = null;
 let _initialRequiredProfileQuestionsCount = 0;
 let _errors = null;
 
@@ -31,6 +32,10 @@ const ProfileStore = createStore({
 
     getMetadata(){
         return _metadata;
+    },
+
+    getCategories(){
+        return _categories;
     },
 
     getWithMetadata(userId) {
@@ -262,6 +267,10 @@ ProfileStore.dispatchToken = register(action => {
 
         case ActionTypes.REQUEST_METADATA_SUCCESS:
             _metadata = action.response;
+            ProfileStore.emitChange();
+            break;
+        case ActionTypes.REQUEST_CATEGORIES_SUCCESS:
+            _categories = action.response;
             ProfileStore.emitChange();
             break;
         case ActionTypes.LIKE_USER_SUCCESS:

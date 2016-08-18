@@ -122,9 +122,10 @@ export default class LoginPage extends Component {
                             <div onClick={this.goToRegisterPage} className="register-text">
                                 <span>{strings.hasInvitation}</span> <a href="javascript:void(0)">{strings.register}</a>
                             </div>
+                            {/*Uncomment to enable login as guest
                             <div onClick={this.loginAsGuest} className="register-text">
                                 <span>{strings.wantGuest}</span> <a href="javascript:void(0)">{strings.asGuest}</a>
-                            </div>
+                            </div>*/}
                         </div>
                         <br />
                         <br />

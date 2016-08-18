@@ -12,7 +12,7 @@ body #root .App .view .page.user-page {
 
       .profile-category {
         width: 200%;
-        background-color: #1E1542;
+        background-color: $deep-purple-translucent;
         margin-left: -50%;
         margin-top: 10px;
         padding-top: 1px;
@@ -58,7 +58,7 @@ body #root .App .view .page.user-page {
 
     .other-profile-wrapper {
       width: 200%;
-      background-color: #1E1542;
+      background-color: $deep-purple-translucent;
       margin-left: -50%;
       text-align: center;
     }

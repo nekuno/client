@@ -15,6 +15,7 @@ export default class ThreadContent extends Component {
         thread : PropTypes.object.isRequired,
         last   : PropTypes.bool.isRequired,
         userId : PropTypes.number.isRequired,
+        avKey  : PropTypes.number.isRequired,
         // Injected by @translate:
         strings: PropTypes.object
     };
@@ -63,8 +64,9 @@ export default class ThreadContent extends Component {
     }
 
     render() {
-        let {thread, last, filters, strings} = this.props;
-        const threadClass = thread.disabled ? "thread-listed thread-disabled" : "thread-listed";
+        let {thread, last, filters, avKey, strings} = this.props;
+        let threadClass = thread.disabled ? "thread-listed thread-disabled" : "thread-listed";
+        threadClass += avKey % 2 ? ' thread-odd' : '';
 
         return (
             <div className={threadClass} onClick={this.goToThread}>

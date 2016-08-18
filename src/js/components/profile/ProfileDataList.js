@@ -40,7 +40,7 @@ export default class ProfileDataList extends Component {
             });
         return (
             <div className="profile-data-list">
-                <ProfileAboutMe value={profile.description}/>
+                { profile.description ? <ProfileAboutMe value={profile.description}/> : '' }
                 {lines}
             </div>
         );

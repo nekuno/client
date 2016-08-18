@@ -161,7 +161,7 @@ export default class EditProfilePage extends Component {
             nekunoApp.alert(this.props.strings.cannotRemove);
             return;
         }
-        delete profile[selectedEdit];
+        profile[selectedEdit] = null;
         this.setState({
             profile     : profile,
             selectedEdit: null

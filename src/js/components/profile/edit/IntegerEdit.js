@@ -15,6 +15,7 @@ export default class IntegerEdit extends Component {
         handleClickRemoveEdit: PropTypes.func.isRequired,
         handleChangeEdit     : PropTypes.func.isRequired,
         handleClickEdit      : PropTypes.func.isRequired,
+        handleErrorEdit      : PropTypes.func.isRequired,
         // Injected by @translate:
         strings              : PropTypes.object
     };
@@ -23,31 +24,43 @@ export default class IntegerEdit extends Component {
         super(props);
 
         this.handleChangeIntegerInput = this.handleChangeIntegerInput.bind(this);
+
+        this.state = {
+            value: props.data ? props.data : '',
+        }
+    }
+
+    componentWillUpdate(nextProps, nextState) {
+        const {editKey, metadata, selected, handleChangeEdit, handleErrorEdit, strings} = this.props;
+        const {value} = nextState;
+        const minValue = metadata.min;
+        const maxValue = metadata.max;
+        let error = '';
+        if (selected && !nextProps.selected) {
+            if (typeof value !== 'number' || isNaN(value)) {
+                error += strings.value + '.\n';
+            }
+            if (value < minValue) {
+                error += strings.minValue + minValue + '.\n';
+            }
+            if (value > maxValue) {
+                error += strings.maxValue + maxValue + '.\n';
+            }
+
+            if (error) {
+                handleErrorEdit(editKey, error);
+            } else {
+                handleChangeEdit(editKey, value);
+            }
+        }
     }
 
     handleChangeIntegerInput() {
-        clearTimeout(this.integerTimeout);
-        const {editKey, metadata, strings} = this.props;
+        const {editKey} = this.props;
         const value = this.refs[editKey] ? parseInt(this.refs[editKey].getValue()) : 0;
-        if (typeof value === 'number' && (value % 1) === 0 || value === '') {
-            const minValue = metadata.min || 0;
-            const maxValue = metadata.max || 0;
-            if (typeof value === 'number' && value < minValue) {
-                this.integerTimeout = setTimeout(() => {
-                    nekunoApp.alert(strings.minValue + minValue);
-                }, 1000);
-            } else if (typeof value === 'number' && value > maxValue) {
-                this.integerTimeout = setTimeout(() => {
-                    nekunoApp.alert(strings.maxValue + maxValue);
-                }, 1000);
-            } else {
-                this.props.handleChangeEdit(editKey, value);
-            }
-        } else {
-            this.integerTimeout = setTimeout(() => {
-                nekunoApp.alert(strings.value);
-            }, 1000);
-        }
+        this.setState({
+            value: value,
+        });
     }
 
     render() {
@@ -70,8 +83,8 @@ export default class IntegerEdit extends Component {
 
 IntegerEdit.defaultProps = {
     strings: {
-        minValue   : 'The minimum value of this value is ',
-        maxValue   : 'The maximum value of this value is ',
+        minValue   : 'The minimum value is ',
+        maxValue   : 'The maximum value is ',
         value      : 'This value must be an integer',
         placeholder: 'Type a number'
     }

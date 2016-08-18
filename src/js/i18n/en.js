@@ -390,8 +390,8 @@ export default {
         disabled: 'We are weaving this yarn, please wait a moment...'
     },
     IntegerEdit                      : {
-        minValue   : 'The minimum value of this value is ',
-        maxValue   : 'The maximum value of this value is ',
+        minValue   : 'The minimum value is ',
+        maxValue   : 'The maximum value is ',
         value      : 'This value must be an integer',
         placeholder: 'Type a number'
     },

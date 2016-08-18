@@ -77,6 +77,7 @@ export default class EditProfilePage extends Component {
 
         this.onSuggestSelect = this.onSuggestSelect.bind(this);
         this.handleClickEdit = this.handleClickEdit.bind(this);
+        this.handleErrorEdit = this.handleErrorEdit.bind(this);
         this.handleChangeEdit = this.handleChangeEdit.bind(this);
         this.handleChangeEditAndUnSelect = this.handleChangeEditAndUnSelect.bind(this);
         this.handleClickRemoveEdit = this.handleClickRemoveEdit.bind(this);
@@ -124,6 +125,15 @@ export default class EditProfilePage extends Component {
         this.setState({
             selectedEdit: key,
             profile     : profile
+        });
+    }
+
+    handleErrorEdit(key, error) {
+        let {profile} = this.state;
+        nekunoApp.alert(error);
+        profile[key] = {};
+        this.setState({
+            selectedFilter: key
         });
     }
 
@@ -187,7 +197,8 @@ export default class EditProfilePage extends Component {
                 break;
             case 'integer':
                 props.data = data ? parseInt(data) : 0;
-                props.handleChangeEdit = this.handleChangeEdit;
+                props.handleChangeEdit = this.handleChangeEditAndUnSelect;
+                props.handleErrorEdit = this.handleErrorEdit;
                 filter = <IntegerEdit {...props}/>;
                 break;
             case 'location':

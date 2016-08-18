@@ -391,8 +391,8 @@ export default {
         disabled: 'Estamos tejiendo este hilo, un momento por favor...'
     },
     IntegerEdit                      : {
-        minValue   : 'El valor mínimo de este valor es ',
-        maxValue   : 'El valor máximo de este valor es ',
+        minValue   : 'El valor mínimo es ',
+        maxValue   : 'El valor máximo es ',
         value      : 'Este valor debe ser un entero',
         placeholder: 'Escribe un número'
     },

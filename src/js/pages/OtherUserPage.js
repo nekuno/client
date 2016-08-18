@@ -178,7 +178,7 @@ export default class OtherUserPage extends Component {
                 <div className="page user-page">
                     {otherUser && profile && profileWithMetadata ?
                         <div id="page-content">
-                            <User user={otherUser} profile={profile}/>
+                            <User user={otherUser} profile={profile} other={true}/>
                             <div>
                                 <div className="other-profile-buttons">
                                     <div className="other-profile-like-button">
@@ -189,7 +189,10 @@ export default class OtherUserPage extends Component {
                                     </div>
                                 </div>
                                 <div className="other-profile-wrapper bold">
-                                    <OtherProfileData matching={matching} similarity={similarity} stats={comparedStats} ownImage={ownPicture} currentImage={otherPicture}/>
+                                    <OtherProfileData matching={matching} similarity={similarity} stats={comparedStats} ownImage={ownPicture}
+                                                      currentImage={otherPicture}
+                                                      interestsUrl={`/users/${parseId(otherUser)}/other-interests`}
+                                                      questionsUrl={`/users/${parseId(otherUser)}/other-questions`}/>
                                 </div>
                             </div>
                             <ProfileDataList profile={profile} profileWithMetadata={profileWithMetadata}/>

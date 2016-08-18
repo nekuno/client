@@ -49,6 +49,7 @@ export default class LeftPanel extends Component {
 
         this.handleGoClickThreads = this.handleGoClickThreads.bind(this);
         this.handleGoClickProfile = this.handleGoClickProfile.bind(this);
+        this.handleGoClickGallery = this.handleGoClickGallery.bind(this);
         this.handleGoClickConversations = this.handleGoClickConversations.bind(this);
         this.handleGoClickSocialNetworks = this.handleGoClickSocialNetworks.bind(this);
         this.handleGoClickInvitations = this.handleGoClickInvitations.bind(this);
@@ -68,6 +69,11 @@ export default class LeftPanel extends Component {
     handleGoClickProfile() {
         nekunoApp.closePanel();
         this.context.history.pushState(null, `/profile`);
+    }
+
+    handleGoClickGallery() {
+        nekunoApp.closePanel();
+        this.context.history.pushState(null, `/gallery`);
     }
 
     handleGoClickConversations() {
@@ -126,7 +132,7 @@ export default class LeftPanel extends Component {
                             }
                         </a>
                     </div>
-                    { userLoggedIn ? <User {...this.props} /> : '' }
+                    { userLoggedIn ? <User {...this.props} onClick={this.handleGoClickGallery} /> : '' }
                     <div className="user-interests">
                         <Link to="/interests" onClick={this.handleGoClickInterests}>
                             <div className="number">

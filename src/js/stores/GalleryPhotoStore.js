@@ -9,6 +9,7 @@ class GalleryPhotoStore extends BaseStore {
         this._noPhotos = {};
         this._errors = '';
         this._selectedPhoto = null;
+        this._loadingPhoto = null;
     }
 
     _registerToActions(action) {
@@ -21,14 +22,20 @@ class GalleryPhotoStore extends BaseStore {
                 this._noPhotos[userId] = this._photos[userId].length === 0;
                 this.emitChange();
                 break;
+            case ActionTypes.UPLOAD_PHOTO:
+                this._loadingPhoto = true;
+                this.emitChange();
+                break;
             case ActionTypes.UPLOAD_PHOTO_SUCCESS:
                 userId = action.userId;
                 this._photos[userId].push(action.response);
                 this._noPhotos[userId] = this._photos[userId].length === 0;
+                this._loadingPhoto = false;
                 this.emitChange();
                 break;
             case ActionTypes.UPLOAD_PHOTO_ERROR:
                 this._errors = getValidationErrors(action.error);
+                this._loadingPhoto = false;
                 this.emitChange();
                 break;
             case ActionTypes.REQUEST_PHOTOS_ERROR:
@@ -67,6 +74,10 @@ class GalleryPhotoStore extends BaseStore {
         const errors = this._errors;
         this._errors = '';
         return errors;
+    }
+
+    getLoadingPhoto() {
+        return this._loadingPhoto;
     }
 }
 

@@ -133,7 +133,7 @@ export default class EditProfilePage extends Component {
         nekunoApp.alert(error);
         profile[key] = {};
         this.setState({
-            selectedFilter: key
+            selectedEdit: key
         });
     }
 

@@ -131,7 +131,7 @@ export default class EditProfilePage extends Component {
     handleErrorEdit(key, error) {
         let {profile} = this.state;
         nekunoApp.alert(error);
-        profile[key] = {};
+        profile[key] = null;
         this.setState({
             selectedEdit: key
         });

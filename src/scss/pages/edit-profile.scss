@@ -6,6 +6,16 @@ body #root .App .view .page.edit-profile-page  {
 
   #page-content {
 
+    .profile-category {
+      width: 200%;
+      background-color: #1E1542;
+      margin-left: -50%;
+      margin-bottom: 10px;
+      padding-top: 1px;
+      padding-bottom: 1px;
+      padding-left: 50%;
+    }
+
     .radio-filter, .tags-and-choice-filter {
       .double-choice-filter, .tags-and-choice-choice {
         display: inline-block;

@@ -2,7 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import * as ThreadActionCreators from '../../actions/ThreadActionCreators';
 import FullWidthButton from '../ui/FullWidthButton';
 import SetThreadTitlePopup from './SetThreadTitlePopup';
-import ThreadFilterList from './filters/ThreadFilterList';
+import ThreadCategoryFilterList from './filters/ThreadCategoryFilterList';
 import LocationFilter from './filters/LocationFilter';
 import IntegerRangeFilter from './filters/IntegerRangeFilter';
 import IntegerFilter from './filters/IntegerFilter';
@@ -358,7 +358,7 @@ export default class CreateUsersThread extends Component {
                 <div className="select-filter">
                     <span className="back-to-selected-filters" onClick={this.goToSelectedFilters}>{strings.back}</span>
                     <div className="title">{strings.selectFilter}</div>
-                    <ThreadFilterList categories={categories} filters={filters} filtersMetadata={defaultFilters} handleClickFilterOnList={this.handleClickFilterOnList}/>
+                    <ThreadCategoryFilterList categories={categories} filters={filters} filtersMetadata={defaultFilters} handleClickFilterOnList={this.handleClickFilterOnList}/>
                 </div>
                 :
                 <div className="users-filters-wrapper">

@@ -3,7 +3,6 @@ import ActionTypes from '../constants/ActionTypes';
 import * as UserAPI from '../api/UserAPI';
 import * as InterestsActionCreators from './InterestsActionCreators';
 import UserStore from '../stores/UserStore';
-import LoginStore from '../stores/LoginStore';
 import ProfileStore from '../stores/ProfileStore';
 import LocaleStore from '../stores/LocaleStore';
 

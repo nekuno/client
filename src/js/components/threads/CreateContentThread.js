@@ -247,10 +247,7 @@ export default class CreateContentThread extends Component {
                 <div className="select-filter">
                     <span className="back-to-selected-filters" onClick={this.goToSelectedFilters}>{strings.back}</span>
                     <div className="title">{strings.selectFilter}</div>
-                    <ThreadFilterList filters={filters}
-                                      filtersMetadata={defaultFilters}
-                                      handleClickFilterOnList={this.handleClickFilterOnList}
-                    />
+                    <ThreadFilterList filters={filters} filtersMetadata={defaultFilters} handleClickFilterOnList={this.handleClickFilterOnList}/>
                 </div>
                 :
                 <div className="content-filters-wrapper">

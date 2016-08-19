@@ -40,12 +40,14 @@ function getState(props) {
     const user = props.user;
     const profile = ProfileStore.get(parseId(user));
     const metadata = ProfileStore.getMetadata();
+    const categories = ProfileStore.getCategories();
     const filters = FilterStore.filters;
     const tags = TagSuggestionsStore.tags;
 
     return {
         profile,
         metadata,
+        categories,
         filters,
         tags
     };
@@ -57,14 +59,15 @@ function getState(props) {
 export default class EditProfilePage extends Component {
     static propTypes = {
         // Injected by @connectToStores:
-        profile : PropTypes.object,
-        metadata: PropTypes.object,
-        filters : PropTypes.object,
-        tags    : PropTypes.array,
+        profile   : PropTypes.object,
+        metadata  : PropTypes.object,
+        categories: PropTypes.array,
+        filters   : PropTypes.object,
+        tags      : PropTypes.array,
         // Injected by @AuthenticatedComponent
-        user    : PropTypes.object,
+        user      : PropTypes.object,
         // Injected by @translate:
-        strings : PropTypes.object
+        strings   : PropTypes.object
     };
 
     constructor(props) {
@@ -246,8 +249,17 @@ export default class EditProfilePage extends Component {
     }
 
     render() {
-        const {user, profile, metadata, filters, strings} = this.props;
+        const {user, profile, metadata, categories, filters, strings} = this.props;
         const imgSrc = this.props.user ? `${IMAGES_ROOT}media/cache/resolve/user_avatar_180x180/user/images/${this.props.user.picture}` : `${IMAGES_ROOT}media/cache/user_avatar_180x180/bundles/qnoowweb/images/user-no-img.jpg`;
+        let lines = [];
+
+        categories.forEach(category => {
+            lines.push(<div key={category.label} className="profile-category"><h3>{category.label}</h3></div>);
+            category.fields.forEach(field => {
+                lines.push(this.renderField(profile.hasOwnProperty(field) ? profile : [], metadata, field));
+            });
+        });
+
         return (
             <div className="view view-main">
                 <TopNavBar centerText={strings.title} leftText={strings.cancel}/>
@@ -258,15 +270,7 @@ export default class EditProfilePage extends Component {
                                 <img src={imgSrc}/>
                             </div>
                         </div>
-                        {profile && metadata && filters ? Object.keys(profile).map(profileName => {
-                            return this.renderField(profile, metadata, profileName);
-                        }) : null}
-                        {profile && metadata && filters ? Object.keys(metadata).map(metadataName => {
-                            if (profile.hasOwnProperty(metadataName)) {
-                                return null;
-                            }
-                            return this.renderField([], metadata, metadataName);
-                        }) : null}
+                        {lines}
                         <br />
                         {profile && metadata && filters ?
                             <FullWidthButton onClick={this.saveProfile}> {strings.saveChanges} </FullWidthButton>

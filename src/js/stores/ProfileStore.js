@@ -23,11 +23,11 @@ const ProfileStore = createStore({
     get(userId) {
         return _profiles[userId];
     },
-    
+
     getErrors() {
         const errors = _errors;
         _errors = null;
-        return errors;    
+        return errors;
     },
 
     getMetadata(){
@@ -49,12 +49,12 @@ const ProfileStore = createStore({
 
         let profile = [];
 
-        for (let id in categories.profile) {
+        categories.forEach(category => {
 
-            let category = categories.profile[id];
             let fields = {};
 
-            for (let id in category.fields) {
+            Object.keys(category.fields).forEach(id => {
+
                 let field = category.fields[id];
 
                 if (selectn(field, basicProfile) && selectn(field, metadata)) {
@@ -124,23 +124,22 @@ const ProfileStore = createStore({
                             break;
                     }
                     if (value === '') {
-                        continue;
+                        return;
                     } else if (value == false) {
                         value = 'No';
                     }
 
                     fields[name] = value.toString();
                 }
-            }
+            });
 
             profile.push(
                 {
-                    label: category.label,
+                    label : category.label,
                     fields: fields
                 }
-            )
-
-        }
+            );
+        });
 
         return profile;
     },
@@ -149,7 +148,7 @@ const ProfileStore = createStore({
         let text, address, choice, choiceLabel, detail, textArray, tags;
         switch (filter.type) {
             case 'location':
-                address = data && data && data.address ? data.address : data  && data.location ? data.location : '';
+                address = data && data && data.address ? data.address : data && data.location ? data.location : '';
                 return address ? filter.label + ' - ' + address : filter.label;
             case 'integer_range':
                 text = filter.label;
@@ -163,11 +162,11 @@ const ProfileStore = createStore({
                 return text;
             case 'birthday':
                 text = filter.label;
-                text += data? ' -  ' + data : '';
+                text += data ? ' -  ' + data : '';
                 return text;
             case 'textarea':
                 text = filter.label;
-                text += data? ' -  ' + data : '';
+                text += data ? ' -  ' + data : '';
                 return text;
             case 'integer':
                 text = filter.label;
@@ -191,7 +190,7 @@ const ProfileStore = createStore({
             case 'tags':
                 return data && data.length > 0 ? filter.label + ' - ' + data.join(', ') : filter.label;
             case 'tags_and_choice':
-                return data && data.length > 0 ? filter.label + ' - ' + data.map(value => value.choice||value.detail ? value.tag + ' ' + filter.choices[value.choice||value.detail] : value.tag).join(', ') : filter.label;
+                return data && data.length > 0 ? filter.label + ' - ' + data.map(value => value.choice || value.detail ? value.tag + ' ' + filter.choices[value.choice || value.detail] : value.tag).join(', ') : filter.label;
             case 'tags_and_multiple_choices':
                 return data && data.length > 0 ? filter.label + ' - ' + data.map(value => value.choices ? value.tag + ' ' + value.choices.map(choice => filter.choices[choice]['es']).join(', ') : value.tag).join(', ') : filter.label;
 
@@ -203,7 +202,7 @@ const ProfileStore = createStore({
     isProfileSet(field, data) {
         switch (field.type) {
             case 'location':
-                return data  && (data.address || data.location);
+                return data && (data.address || data.location);
             case 'integer_range':
                 return data && (data.min || data.max);
             case 'birthday':
@@ -289,7 +288,7 @@ ProfileStore.dispatchToken = register(action => {
             ProfileStore.emitChange();
             break;
         case ActionTypes.REQUEST_CATEGORIES_SUCCESS:
-            _categories = action.response;
+            _categories = action.response.profile;
             ProfileStore.emitChange();
             break;
         case ActionTypes.LIKE_USER_SUCCESS:
@@ -302,13 +301,13 @@ ProfileStore.dispatchToken = register(action => {
             break;
         case ActionTypes.EDIT_PROFILE_SUCCESS:
             const currentProfile = _profiles[LoginStore.user.id];
-            if (currentProfile.interfaceLanguage !== action.data.interfaceLanguage){
+            if (currentProfile.interfaceLanguage !== action.data.interfaceLanguage) {
                 window.setTimeout(() => {
                     UserActionCreators.requestMetadata();
                     ThreadActionCreators.requestFilters();
                 }, 0);
             }
-            _profiles[LoginStore.user.id]=action.data;
+            _profiles[LoginStore.user.id] = action.data;
             ProfileStore.emitChange();
             break;
         case ActionTypes.EDIT_PROFILE_ERROR:
@@ -330,7 +329,7 @@ ProfileStore.dispatchToken = register(action => {
         delete responseProfiles.undefined;
 
         mergeIntoBag(_profiles, responseProfiles);
-        
+
         if (action.type === ActionTypes.REQUEST_OWN_PROFILE_SUCCESS) {
             ProfileStore._setInitialRequiredProfileQuestionsCount(action.userId);
         }

@@ -32,6 +32,9 @@ export default class ProfileDataList extends Component {
         let lines = [];
         profileWithMetadata.forEach(
             category => {
+                if (Object.keys(category.fields).length === 0) {
+                    return;
+                }
                 lines.push(<div key={category.label} className="profile-category"><h3>{category.label}</h3></div>);
                 Object.keys(category.fields).map(
                     profileDataName => {

@@ -255,10 +255,9 @@ export default class EditProfilePage extends Component {
 
         categories.forEach(category => {
             lines.push(<div key={category.label} className="profile-category"><h3>{category.label}</h3></div>);
-            for (let id in category.fields) {
-                let field = category.fields[id];
+            category.fields.forEach(field => {
                 lines.push(this.renderField(profile.hasOwnProperty(field) ? profile : [], metadata, field));
-            }
+            });
         });
 
         return (

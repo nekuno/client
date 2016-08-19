@@ -6,6 +6,7 @@ import UserStore from './UserStore';
 import { getValidationErrors } from '../utils/StoreUtils';
 
 let _threads = {};
+let _categories = null;
 let _disabled = [];
 let _errors = '';
 let _skipping = [];
@@ -16,7 +17,7 @@ const ThreadStore = createStore({
     },
 
     get(id) {
-        if (!this.contains(id)){
+        if (!this.contains(id)) {
             return {};
         }
         return _threads[id];
@@ -24,6 +25,10 @@ const ThreadStore = createStore({
 
     getAll() {
         return _threads;
+    },
+
+    getCategories(){
+        return _categories;
     },
 
     getErrors() {
@@ -75,7 +80,11 @@ ThreadStore.dispatchToken = register(action => {
 
     let item = [action.response];
     let items = [];
-    switch(action.type){
+    switch (action.type) {
+        case ActionTypes.REQUEST_CATEGORIES_SUCCESS:
+            _categories = action.response.filters;
+            ThreadStore.emitChange();
+            break;
         case ActionTypes.CREATE_THREAD_SUCCESS:
             items[item[0].id] = item[0];
             mergeIntoBag(_threads, items);
@@ -92,7 +101,7 @@ ThreadStore.dispatchToken = register(action => {
             break;
         case ActionTypes.CREATE_THREAD_ERROR:
         case ActionTypes.UPDATE_THREAD_ERROR:
-            if (action.error){
+            if (action.error) {
                 _errors = getValidationErrors(action.error);
             }
             ThreadStore.emitChange();

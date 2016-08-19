@@ -2,9 +2,11 @@ import React, { PropTypes, Component } from 'react';
 import InputCheckbox from '../../ui/InputCheckbox';
 
 export default class ThreadFilterList extends Component {
+
     static propTypes = {
-        filters: PropTypes.object.isRequired,
-        filtersMetadata: PropTypes.object.isRequired,
+        categories             : PropTypes.array,
+        filters                : PropTypes.object.isRequired,
+        filtersMetadata        : PropTypes.object.isRequired,
         handleClickFilterOnList: PropTypes.func.isRequired
     };
 
@@ -14,7 +16,7 @@ export default class ThreadFilterList extends Component {
         let firstColumnCounter = 0;
         let secondColumnCounter = 0;
         document.getElementsByClassName('view')[0].scrollTop = 0;
-        return(
+        return (
             <div className="list-block">
                 <ul className="checkbox-filters-list">
                     {Object.keys(filtersMetadata).map(key => {
@@ -51,5 +53,4 @@ export default class ThreadFilterList extends Component {
         );
     }
 
-    
 }

@@ -61,7 +61,7 @@ export default class EditProfilePage extends Component {
         // Injected by @connectToStores:
         profile   : PropTypes.object,
         metadata  : PropTypes.object,
-        categories: PropTypes.object,
+        categories: PropTypes.array,
         filters   : PropTypes.object,
         tags      : PropTypes.array,
         // Injected by @AuthenticatedComponent
@@ -253,7 +253,7 @@ export default class EditProfilePage extends Component {
         const imgSrc = this.props.user ? `${IMAGES_ROOT}media/cache/resolve/user_avatar_180x180/user/images/${this.props.user.picture}` : `${IMAGES_ROOT}media/cache/user_avatar_180x180/bundles/qnoowweb/images/user-no-img.jpg`;
         let lines = [];
 
-        categories.profile.forEach(category => {
+        categories.forEach(category => {
             lines.push(<div key={category.label} className="profile-category"><h3>{category.label}</h3></div>);
             for (let id in category.fields) {
                 let field = category.fields[id];

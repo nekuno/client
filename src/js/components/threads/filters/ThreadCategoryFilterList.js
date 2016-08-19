@@ -14,21 +14,38 @@ export default class ThreadCategoryFilterList extends Component {
         super(props);
 
         this.renderCategory = this.renderCategory.bind(this);
+        this.renderField = this.renderField.bind(this);
+    }
+
+    renderField(field) {
+        const {filters, filtersMetadata, handleClickFilterOnList} = this.props;
+        let text = filtersMetadata[field].label;
+        let checked = typeof filters[field] !== 'undefined';
+        return <li key={field}>
+            <InputCheckbox value={field} name={field} text={text} checked={checked} onClickHandler={handleClickFilterOnList} reverse={true}/>
+        </li>;
     }
 
     renderCategory(category) {
-        const {filters, filtersMetadata, handleClickFilterOnList} = this.props;
         const choicesLength = Object.keys(category.fields).length || 0;
-        return <ul className="checkbox-filters-list">
-            {category.fields.map(field => {
-                let text = filtersMetadata[field].label;
-                let checked = typeof filters[field] !== 'undefined';
-                return <li key={field}>
-                    <InputCheckbox value={field} name={field} text={text}
-                                   checked={checked} onClickHandler={handleClickFilterOnList} reverse={true}/>
-                </li>;
-            })}
-        </ul>
+        return <div>
+            <ul key="1" className="checkbox-filters-list">
+                {category.fields.map((field, i) => {
+                    if (i >= choicesLength / 2) {
+                        return;
+                    }
+                    return this.renderField(field);
+                })}
+            </ul>
+            <ul key="2" className="checkbox-filters-list">
+                {category.fields.map((field, i) => {
+                    if (i < choicesLength / 2) {
+                        return;
+                    }
+                    return this.renderField(field);
+                })}
+            </ul>
+        </div>
     }
 
     render() {

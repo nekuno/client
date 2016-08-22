@@ -88,7 +88,7 @@ export default class ThreadUsers extends Component {
         let formattedThread = this.mergeImagesWithThread(thread);
         const threadClass = thread.disabled ? "thread-listed thread-disabled" : "thread-listed";
         return (
-            <div className={avKey % 2 ? 'thread-odd' : ''}>
+            <div className={avKey % 2 ? '' : 'thread-odd'}>
                 <div className={threadClass} onClick={this.goToThread}>
                     {last ? null : <div className="thread-vertical-connection"></div>}
                     <div className="thread-first-image-wrapper">

@@ -66,7 +66,7 @@ export default class ThreadContent extends Component {
     render() {
         let {thread, last, filters, avKey, strings} = this.props;
         let threadClass = thread.disabled ? "thread-listed thread-disabled" : "thread-listed";
-        threadClass += avKey % 2 ? ' thread-odd' : '';
+        threadClass += avKey % 2 ? '' : ' thread-odd';
 
         return (
             <div className={threadClass} onClick={this.goToThread}>

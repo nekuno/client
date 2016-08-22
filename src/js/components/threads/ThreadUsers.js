@@ -20,6 +20,7 @@ export default class ThreadUsers extends Component {
         userId : PropTypes.number.isRequired,
         profile: PropTypes.object.isRequired,
         filters: PropTypes.object.isRequired,
+        avKey  : PropTypes.number.isRequired,
         // Injected by @translate:
         strings: PropTypes.object
     };
@@ -82,12 +83,12 @@ export default class ThreadUsers extends Component {
     }
 
     render() {
-        const {thread, last, filters, profile, strings} = this.props;
+        const {thread, last, filters, profile, avKey, strings} = this.props;
         const defaultUserImage = `${IMAGES_ROOT}media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
         let formattedThread = this.mergeImagesWithThread(thread);
         const threadClass = thread.disabled ? "thread-listed thread-disabled" : "thread-listed";
         return (
-            <div>
+            <div className={avKey % 2 ? '' : 'thread-odd'}>
                 <div className={threadClass} onClick={this.goToThread}>
                     {last ? null : <div className="thread-vertical-connection"></div>}
                     <div className="thread-first-image-wrapper">

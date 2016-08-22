@@ -33,12 +33,14 @@ function getState(props) {
     const tags = TagSuggestionsStore.tags;
     const threadId = parseThreadId(props.params);
     const thread = ThreadStore.get(threadId);
+    const categories = ThreadStore.getCategories();
     const errors = ThreadStore.getErrors();
 
     return {
         tags,
         filters,
         thread,
+        categories,
         errors
     };
 }
@@ -50,14 +52,15 @@ export default class EditThreadPage extends Component {
 
     static propTypes = {
         // Injected by @connectToStores:
-        filters: PropTypes.object,
-        tags   : PropTypes.array,
-        thread : PropTypes.object.isRequired,
-        errors : PropTypes.string,
+        filters   : PropTypes.object,
+        tags      : PropTypes.array,
+        thread    : PropTypes.object.isRequired,
+        categories: PropTypes.array,
+        errors    : PropTypes.string,
         // Injected by @AuthenticatedComponent
-        user   : PropTypes.object.isRequired,
+        user      : PropTypes.object.isRequired,
         // Injected by @translate:
-        strings: PropTypes.object
+        strings   : PropTypes.object
     };
 
     constructor(props) {
@@ -102,14 +105,14 @@ export default class EditThreadPage extends Component {
     }
 
     render() {
-        const {user, filters, tags, thread, strings} = this.props;
+        const {user, filters, tags, thread, categories, strings} = this.props;
         const {category, threadName} = this.state;
         return (
             <div className="view view-main">
                 <TopNavBar centerText={strings.edit} leftText={strings.cancel}/>
                 <div className="page create-thread-page">
                     <div id="page-content">
-                        {thread && filters ?
+                        {thread && filters && categories ?
                             <div>
                                 <div className="thread-title list-block">
                                     <ul>
@@ -127,7 +130,7 @@ export default class EditThreadPage extends Component {
                                     </div>
                                 </div>
                                 {category === 'contents' ? <CreateContentThread userId={user.id} defaultFilters={filters['contentFilters']} threadName={threadName} tags={tags} thread={thread}/> : ''}
-                                {category === 'persons' ? <CreateUsersThread userId={user.id} defaultFilters={filters['userFilters']} threadName={threadName} tags={tags} thread={thread}/> : ''}
+                                {category === 'persons' ? <CreateUsersThread userId={user.id} defaultFilters={filters['userFilters']} threadName={threadName} tags={tags} thread={thread} categories={categories}/> : ''}
                             </div>
                             : ''}
                     </div>

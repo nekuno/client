@@ -2,7 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import * as ThreadActionCreators from '../../actions/ThreadActionCreators';
 import FullWidthButton from '../ui/FullWidthButton';
 import SetThreadTitlePopup from './SetThreadTitlePopup';
-import ThreadFilterList from './filters/ThreadFilterList';
+import ThreadCategoryFilterList from './filters/ThreadCategoryFilterList';
 import LocationFilter from './filters/LocationFilter';
 import IntegerRangeFilter from './filters/IntegerRangeFilter';
 import IntegerFilter from './filters/IntegerFilter';
@@ -27,6 +27,7 @@ export default class CreateUsersThread extends Component {
         threadName    : PropTypes.string,
         tags          : PropTypes.array.isRequired,
         thread        : PropTypes.object,
+        categories    : PropTypes.array,
         // Injected by @translate:
         strings       : PropTypes.object
     };
@@ -108,28 +109,28 @@ export default class CreateUsersThread extends Component {
                 let filter = null;
                 switch (defaultFilters[key].type) {
                     case 'location_distance':
-                        filter =  this.renderLocationFilter(defaultFilters[key], key, filters[key], selected);
+                        filter = this.renderLocationFilter(defaultFilters[key], key, filters[key], selected);
                         break;
                     case 'integer_range':
-                        filter =  this.renderIntegerRangeFilter(defaultFilters[key], key, filters[key], selected);
+                        filter = this.renderIntegerRangeFilter(defaultFilters[key], key, filters[key], selected);
                         break;
                     case 'birthday_range':
-                        filter =  this.renderIntegerRangeFilter(defaultFilters[key], key, filters[key], selected);
+                        filter = this.renderIntegerRangeFilter(defaultFilters[key], key, filters[key], selected);
                         break;
                     case 'integer':
-                        filter =  this.renderIntegerFilter(defaultFilters[key], key, filters[key], selected);
+                        filter = this.renderIntegerFilter(defaultFilters[key], key, filters[key], selected);
                         break;
                     case 'multiple_choices':
-                        filter =  this.renderMultipleChoicesFilter(defaultFilters[key], key, filters[key], selected);
+                        filter = this.renderMultipleChoicesFilter(defaultFilters[key], key, filters[key], selected);
                         break;
                     case 'double_multiple_choices':
-                        filter =  this.renderDoubleMultipleChoicesFilter(defaultFilters[key], key, filters[key], selected);
+                        filter = this.renderDoubleMultipleChoicesFilter(defaultFilters[key], key, filters[key], selected);
                         break;
                     case 'tags_and_multiple_choices':
-                        filter =  this.renderTagsAndMultipleChoicesFilter(defaultFilters[key], key, filters[key], selected, tags);
+                        filter = this.renderTagsAndMultipleChoicesFilter(defaultFilters[key], key, filters[key], selected, tags);
                         break;
                     case 'tags':
-                        filter =  this.renderTagFilter(defaultFilters[key], key, filters[key], selected, tags);
+                        filter = this.renderTagFilter(defaultFilters[key], key, filters[key], selected, tags);
                         break;
                 }
                 return <div key={key} ref={selected ? 'selectedFilter' : ''}>{filter}</div>;
@@ -341,6 +342,7 @@ export default class CreateUsersThread extends Component {
     }
 
     render() {
+        let categories = this.props.categories;
         let defaultFilters = Object.assign({}, this.props.defaultFilters);
         const data = this.state.filters || {};
         let filterKeys = Object.keys(defaultFilters).filter(key => Object.keys(data).some(dataKey => dataKey === key));
@@ -356,10 +358,7 @@ export default class CreateUsersThread extends Component {
                 <div className="select-filter">
                     <span className="back-to-selected-filters" onClick={this.goToSelectedFilters}>{strings.back}</span>
                     <div className="title">{strings.selectFilter}</div>
-                    <ThreadFilterList filters={filters}
-                                      filtersMetadata={defaultFilters}
-                                      handleClickFilterOnList={this.handleClickFilterOnList}
-                    />
+                    <ThreadCategoryFilterList categories={categories} filters={filters} filtersMetadata={defaultFilters} handleClickFilterOnList={this.handleClickFilterOnList}/>
                 </div>
                 :
                 <div className="users-filters-wrapper">

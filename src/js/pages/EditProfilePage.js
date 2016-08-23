@@ -270,6 +270,7 @@ export default class EditProfilePage extends Component {
                                 <img src={imgSrc}/>
                             </div>
                         </div>
+                        {this.renderField(profile.hasOwnProperty('description') ? profile : [], metadata, 'description')}
                         {lines}
                         <br />
                         {profile && metadata && filters ?

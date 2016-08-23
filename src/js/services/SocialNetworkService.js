@@ -1,5 +1,6 @@
 import GeocoderService from './GeocoderService';
 import { SOCIAL_NETWORKS_NAMES } from '../constants/Constants';
+import moment from 'moment';
 
 class SocialNetworkService {
 
@@ -11,6 +12,7 @@ class SocialNetworkService {
         this._scopes = {};
         this._profiles = {};
         this._users = {};
+        this._loggedInWithPlugin = false;
     }
 
     login(resource, scope, force) {
@@ -23,10 +25,29 @@ class SocialNetworkService {
             return new Promise(function (resolve) {return resolve(true)});
         }
         this._scopes[resource] = scope;
-        return hello(resource).login({scope: scope, force: force}).then(
-            (response) => this._setResourceData(resource, response), 
-            (error) => { console.log(error) }
-        );
+        if (this._mustUseFacebookPlugin(resource)) {
+            let promise = new Promise(function (resolve, reject) {
+                facebookConnectPlugin.login(['public_profile'], function (response) { resolve(response) }, function(error) { reject(error) });
+            });
+            return promise.then(
+                (response) => { this._setFacebookDataFromPlugin(response) },
+                (error) => {
+                    return hello(resource).login({scope: scope, force: force}).then(
+                        (response) => this._setResourceData(resource, response),
+                        (error) => {
+                            console.log(error)
+                        }
+                    );
+                }
+            );
+        } else {
+            return hello(resource).login({scope: scope, force: force}).then(
+                (response) => this._setResourceData(resource, response),
+                (error) => {
+                    console.log(error)
+                }
+            );
+        }
     }
     
     isLoggedIn(resource, scope) {
@@ -37,7 +58,20 @@ class SocialNetworkService {
         if (!this._accessTokens[resource]) {
             this.login(resource, scope);
         }
-        return hello(resource).api(url, method, data);
+        if (this._mustUseFacebookPlugin(resource)) {
+            const pluginUrl = this._getAnalogPluginUrl(url, data);
+            let promise = new Promise(function(resolve, reject) {
+                facebookConnectPlugin.api(pluginUrl, ['user_photos'], function (response) { resolve(response) }, function(error) { reject(error) });
+            });
+
+            return promise.then(
+                (status) => {
+                    return status;
+                }, (error) => { console.log(error) }
+            );
+        } else {
+            return hello(resource).api(url, method, data);
+        }
     }
     
     getAccessToken(resource) {
@@ -63,24 +97,112 @@ class SocialNetworkService {
     getRefreshToken(resource) {
         return this._refreshTokens[resource] || null;
     }
+
+    _mustUseFacebookPlugin(resource) {
+        if (this.isLoggedIn(resource)) {
+            return this._loggedInWithPlugin;
+        } else {
+            return resource == SOCIAL_NETWORKS_NAMES.FACEBOOK && typeof facebookConnectPlugin !== 'undefined';
+        }
+    }
+
+    _getAnalogPluginUrl = function(url, data) {
+        let analogUrl = null;
+        switch(url) {
+            case 'me':
+                analogUrl = 'me?fields=email,first_name,last_name,name,timezone,verified';
+                break;
+            case 'me/friends':
+                analogUrl = 'me/friends';
+                break;
+            case 'me/following':
+                analogUrl = 'me/friends';
+                break;
+            case 'me/followers':
+                analogUrl = 'me/friends';
+                break;
+            case 'me/share':
+                analogUrl = 'me/feed';
+                break;
+            case 'me/like':
+                analogUrl = 'me/likes';
+                break;
+            case 'me/files':
+                analogUrl = 'me/albums';
+                break;
+            case 'me/albums':
+                analogUrl = 'me/albums?fields=cover_photo,name,picture';
+                break;
+            case 'me/album':
+                analogUrl = '@{id}/photos?fields=picture';
+                break;
+            case 'me/photos':
+                analogUrl = 'me/photos';
+                break;
+            case 'me/photo':
+                analogUrl = '@{id}';
+                break;
+            case 'friend/albums':
+                analogUrl = '@{id}/albums';
+                break;
+            case 'friend/photos':
+                analogUrl = '@{id}/photos';
+                break;
+            default:
+                break;
+        }
+
+        return data && data.id ? analogUrl.replace('@{id}', data.id) : analogUrl;
+    };
     
     _setResourceData(resource, response) {
         console.log(resource, response);
         this._accessTokens[resource] = response.authResponse.access_token;
         this._expireTime[resource] = Math.floor(response.authResponse.expires);
         this._refreshTokens[resource] = response.authResponse.refresh_token || null;
-        
+
         return hello(resource).api('me').then(
             (status) => {
                 this._resourceIds[resource] = status.id.toString();
                 GeocoderService.getLocationFromAddress(status.location).then(
-                    (location) => { this._setUserAndProfile(resource, status, location) }, 
+                    (location) => { this._setUserAndProfile(resource, status, location) },
                     (error) => { this._setUserAndProfile(resource, status, null) }
                 );
             }, (error) => { console.log(error) }
         );
     }
-    
+
+    _setFacebookDataFromPlugin(response) {
+        console.log(SOCIAL_NETWORKS_NAMES.FACEBOOK, response);
+        this._accessTokens[SOCIAL_NETWORKS_NAMES.FACEBOOK] = response.authResponse.accessToken;
+        this._resourceIds[SOCIAL_NETWORKS_NAMES.FACEBOOK] = response.authResponse.userID.toString();
+        const resourceId = this._resourceIds[SOCIAL_NETWORKS_NAMES.FACEBOOK];
+
+        let mePromise = new Promise(function(resolve, reject) {
+            facebookConnectPlugin.api(resourceId + '/?fields=picture,email,birthday,location,gender', ['user_birthday', 'user_location', 'user_likes', 'user_posts'], function (response) { resolve(response) }, function(error) { reject(error) });
+        });
+
+        return mePromise.then(
+            (status) => {
+                let data = {
+                    username: status.username || null,
+                    email: status.email || null,
+                    picture: status.picture + '?height=480',
+                    birthday: moment(status.birthday).format('YYYY-MM-DD') || null,
+                    location: status.location ? status.location.name : null,
+                    gender: status.gender || null
+                };
+
+                GeocoderService.getLocationFromAddress(data.location).then(
+                    (location) => { this._setUserAndProfile(SOCIAL_NETWORKS_NAMES.FACEBOOK, data, location) },
+                    (error) => { this._setUserAndProfile(SOCIAL_NETWORKS_NAMES.FACEBOOK, data, null) }
+                );
+
+                this._loggedInWithPlugin = true;
+            }, (error) => { console.log(error) }
+        );
+    }
+
     _setUserAndProfile(resource, status, location) {
         // age must be greater than 14
         const birthday = status.birthday && (new Date().getTime() - new Date(status.birthday).getTime() > 441796964000) ? status.birthday : null;

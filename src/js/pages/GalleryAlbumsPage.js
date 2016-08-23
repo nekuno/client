@@ -95,7 +95,7 @@ export default class GalleryAlbumsPage extends Component {
                                 albums.map(album =>
                                     <div key={album.id} className="import-album-wrapper photo-wrapper" onClick={this.importAlbum.bind(this, album.id, album.name)}>
                                         <div className="photo-absolute-wrapper">
-                                            <Image src={album.thumbnail}/>
+                                            <Image src={album.thumbnail ? album.thumbnail : album.picture && album.picture.data.url ? album.picture.data.url : null}/>
                                         </div>
                                         <div className="text with-background">{album.name}</div>
                                     </div>

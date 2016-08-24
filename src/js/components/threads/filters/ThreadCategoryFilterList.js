@@ -19,6 +19,9 @@ export default class ThreadCategoryFilterList extends Component {
 
     renderField(field) {
         const {filters, filtersMetadata, handleClickFilterOnList} = this.props;
+        if (!filtersMetadata[field]) {
+            return null;
+        }
         let text = filtersMetadata[field].label;
         let checked = typeof filters[field] !== 'undefined';
         return <li key={field}>

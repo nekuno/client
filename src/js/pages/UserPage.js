@@ -59,7 +59,7 @@ export default class UserPage extends Component {
         // Injected by @connectToStores:
         stats              : PropTypes.object,
         profile            : PropTypes.object,
-        profileWithMetadata: PropTypes.object
+        profileWithMetadata: PropTypes.array
 
     };
 
@@ -88,7 +88,7 @@ export default class UserPage extends Component {
             <div className="view view-main">
                 <TopNavBar leftMenuIcon={true} centerText={strings.myProfile} rightIcon={'edit'} onRightLinkClickHandler={this.editProfile}/>
                 <div className="page user-page">
-                    {profileWithMetadata && stats ?
+                    {profile && profileWithMetadata && stats ?
                         <div id="page-content">
                             <User user={user} profile={profile}/>
                             <div className="user-interests">
@@ -97,7 +97,7 @@ export default class UserPage extends Component {
                                 </div>
                                 <div className="label">{strings.interests}</div>
                             </div>
-                            <ProfileDataList profile={profileWithMetadata}/>
+                            <ProfileDataList profile={profile} profileWithMetadata={profileWithMetadata}/>
                             <br />
                             <br />
                             <br />
@@ -107,7 +107,7 @@ export default class UserPage extends Component {
                         </div>
                         : ''}
                 </div>
-                {profileWithMetadata && stats ?
+                {profile && profileWithMetadata && stats ?
                     <ToolBar links={[
                     {'url': '/profile', 'text': strings.aboutMe},
                     {'url': '/gallery', 'text': strings.photos},

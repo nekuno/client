@@ -76,6 +76,14 @@ body #root .App .view .page.gallery-page {
         }
       }
 
+      &.photo-loading-wrapper {
+        position: relative;
+
+        .loading-gif {
+          margin: 0 auto;
+        }
+      }
+
       &.selected-photo {
 
         position: relative;

@@ -29,12 +29,14 @@ function getState(props) {
     const noPhotos = false;
     const photos = GalleryPhotoStore.get(userId);
     const errors = GalleryPhotoStore.getErrors();
+    const loadingPhoto = GalleryPhotoStore.getLoadingPhoto();
     const profilePhoto = props.user.picture ? `${IMAGES_ROOT}media/cache/resolve/user_avatar_180x180/user/images/${props.user.picture}` : '';
     return {
         photos,
         profilePhoto,
         noPhotos,
-        errors
+        errors,
+        loadingPhoto
     };
 }
 
@@ -51,7 +53,8 @@ export default class GalleryPage extends Component {
         // Injected by @connectToStores:
         photos      : PropTypes.array,
         profilePhoto: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
-        noPhotos    : PropTypes.bool
+        noPhotos    : PropTypes.bool,
+        loadingPhoto: PropTypes.bool
     };
 
     static contextTypes = {
@@ -153,7 +156,7 @@ export default class GalleryPage extends Component {
     }
 
     render() {
-        const {photos, profilePhoto, noPhotos, strings} = this.props;
+        const {photos, profilePhoto, noPhotos, loadingPhoto, strings} = this.props;
         return (
             <div className="view view-main" onScroll={this.handleScroll}>
                 <TopNavBar leftMenuIcon={true} centerText={strings.myProfile} rightIcon={'uploadthin'} rightIconsWithoutCircle={true} onRightLinkClickHandler={this.triggerUploadFile}/>
@@ -181,6 +184,11 @@ export default class GalleryPage extends Component {
                                     </div>
                                 </div>
                             )}
+                            {loadingPhoto ?
+                                <div className="photo-loading-wrapper photo-wrapper">
+                                    <div className="loading-gif"></div>
+                                </div>
+                                : null}
                             <br />
                             <br />
                             <br />

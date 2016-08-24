@@ -5,6 +5,17 @@ body #root .App .view .page.create-thread-page  {
   z-index: 1111;
 
   #page-content {
+
+    .profile-category {
+      width: 200%;
+      background-color: $deep-purple-translucent;
+      margin-left: -50%;
+      margin-bottom: 10px;
+      padding-top: 1px;
+      padding-bottom: 1px;
+      padding-left: 50%;
+    }
+    
     .thread-title {
       height: 105px;
       margin-bottom: 10px;

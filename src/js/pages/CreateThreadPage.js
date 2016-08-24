@@ -15,13 +15,15 @@ import TopNavBar from '../components/ui/TopNavBar';
  * Retrieves state from stores for current props.
  */
 function getState(props) {
+    const categories = ThreadStore.getCategories();
     const filters = FilterStore.filters;
     const tags = TagSuggestionsStore.tags;
     const errors = ThreadStore.getErrors();
 
     return {
-        tags,
+        categories,
         filters,
+        tags,
         errors
     };
 }
@@ -41,13 +43,14 @@ export default class CreateThreadPage extends Component {
 
     static propTypes = {
         // Injected by @connectToStores:
-        filters: PropTypes.object,
-        tags   : PropTypes.array,
-        errors : PropTypes.string,
+        categories: PropTypes.array,
+        filters   : PropTypes.object,
+        tags      : PropTypes.array,
+        errors    : PropTypes.string,
         // Injected by @AuthenticatedComponent
-        user   : PropTypes.object.isRequired,
+        user      : PropTypes.object.isRequired,
         // Injected by @translate:
-        strings: PropTypes.object
+        strings   : PropTypes.object
     };
 
     constructor(props) {
@@ -56,7 +59,7 @@ export default class CreateThreadPage extends Component {
         this.handleClickCategory = this.handleClickCategory.bind(this);
 
         this.state = {
-            category  : null
+            category: null
         };
     }
 
@@ -78,14 +81,14 @@ export default class CreateThreadPage extends Component {
     }
 
     render() {
-        const {user, filters, tags, strings} = this.props;
+        const {user, categories, filters, tags, strings} = this.props;
         const {category} = this.state;
         return (
             <div className="view view-main">
                 <TopNavBar centerText={strings.create} leftText={strings.cancel}/>
                 <div className="page create-thread-page">
                     <div id="page-content">
-                        {filters ?
+                        {categories && filters ?
                             <div>
                                 <div className="thread-title title">
                                     {strings.title}
@@ -101,7 +104,7 @@ export default class CreateThreadPage extends Component {
                                     </div>
                                 </div>
                                 {category === 'contents' ? <CreateContentThread userId={user.id} defaultFilters={filters.contentFilters} tags={tags}/> : ''}
-                                {category === 'persons' ? <CreateUsersThread userId={user.id} defaultFilters={filters.userFilters} tags={tags}/> : ''}
+                                {category === 'persons' ? <CreateUsersThread userId={user.id} defaultFilters={filters.userFilters} tags={tags} categories={categories}/> : ''}
                             </div>
                             : ''}
                     </div>
@@ -113,10 +116,10 @@ export default class CreateThreadPage extends Component {
 
 CreateThreadPage.defaultProps = {
     strings: {
-        create     : 'Create yarn',
-        title      : 'What do you want to discover in this new yarn?',
-        cancel     : 'Cancel',
-        people     : 'Users of Nekuno',
-        contents   : 'Links of Internet'
+        create  : 'Create yarn',
+        title   : 'What do you want to discover in this new yarn?',
+        cancel  : 'Cancel',
+        people  : 'Users of Nekuno',
+        contents: 'Links of Internet'
     }
 };

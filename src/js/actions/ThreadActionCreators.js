@@ -34,7 +34,7 @@ export function requestThreads(userId, url = null) {
 }
 
 export function createThread(userId, data) {
-    return dispatchAsync(UserAPI.createThread(data),{
+    return dispatchAsync(UserAPI.createThread(data), {
         request: ActionTypes.CREATE_THREAD,
         success: ActionTypes.CREATE_THREAD_SUCCESS,
         failure: ActionTypes.CREATE_THREAD_ERROR
@@ -78,28 +78,40 @@ export function threadsNext(userId) {
 }
 
 export function requestFilters() {
-    if (FilterStore.filters != null){
-        return;
+
+    if (FilterStore.filters === null) {
+        dispatchAsync(UserAPI.getFilters(), {
+            request: ActionTypes.REQUEST_FILTERS,
+            success: ActionTypes.REQUEST_FILTERS_SUCCESS,
+            failure: ActionTypes.REQUEST_FILTERS_ERROR
+        });
     }
 
-    dispatchAsync(UserAPI.getFilters(), {
-        request: ActionTypes.REQUEST_FILTERS,
-        success: ActionTypes.REQUEST_FILTERS_SUCCESS,
-        failure: ActionTypes.REQUEST_FILTERS_ERROR
-    })
+    if (!ProfileStore.getCategories()) {
+        dispatchAsync(UserAPI.getCategories(), {
+            request: ActionTypes.REQUEST_CATEGORIES,
+            success: ActionTypes.REQUEST_CATEGORIES_SUCCESS,
+            failure: ActionTypes.REQUEST_CATEGORIES_ERROR
+        });
+    }
+
 }
 
 export function requestRecommendationPage(userId, threadId) {
 
     let _self = this;
-    let promise = new Promise(function (resolve) {
+    let promise = new Promise(function(resolve) {
         resolve(true);
     });
     if (!ThreadStore.contains(threadId)) {
-        promise = promise.then(function () { return _self.requestThreads(userId); });
+        promise = promise.then(function() {
+            return _self.requestThreads(userId);
+        });
     }
 
-    promise.then(function () { requestRecommendation(threadId) });
+    promise.then(function() {
+        requestRecommendation(threadId)
+    });
 
 }
 

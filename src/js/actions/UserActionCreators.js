@@ -3,7 +3,6 @@ import ActionTypes from '../constants/ActionTypes';
 import * as UserAPI from '../api/UserAPI';
 import * as InterestsActionCreators from './InterestsActionCreators';
 import UserStore from '../stores/UserStore';
-import LoginStore from '../stores/LoginStore';
 import ProfileStore from '../stores/ProfileStore';
 import LocaleStore from '../stores/LocaleStore';
 
@@ -91,6 +90,11 @@ export function checkLocale(locale){
             success: ActionTypes.REQUEST_METADATA_SUCCESS,
             failure: ActionTypes.REQUEST_METADATA_ERROR
         });
+        dispatchAsync(UserAPI.getCategories(), {
+            request: ActionTypes.REQUEST_CATEGORIES,
+            success: ActionTypes.REQUEST_CATEGORIES_SUCCESS,
+            failure: ActionTypes.REQUEST_CATEGORIES_ERROR
+        });
         dispatchAsync(UserAPI.getFilters(), {
             request: ActionTypes.REQUEST_FILTERS,
             success: ActionTypes.REQUEST_FILTERS_SUCCESS,
@@ -106,6 +110,13 @@ export function requestMetadata() {
             request: ActionTypes.REQUEST_METADATA,
             success: ActionTypes.REQUEST_METADATA_SUCCESS,
             failure: ActionTypes.REQUEST_METADATA_ERROR
+        });
+    }
+    if (!ProfileStore.getCategories()) {
+        dispatchAsync(UserAPI.getCategories(), {
+            request: ActionTypes.REQUEST_CATEGORIES,
+            success: ActionTypes.REQUEST_CATEGORIES_SUCCESS,
+            failure: ActionTypes.REQUEST_CATEGORIES_ERROR
         });
     }
 }

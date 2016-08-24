@@ -126,7 +126,7 @@ export default class LeftPanel extends Component {
                             }
                         </a>
                     </div>
-                    { userLoggedIn ? <User {...this.props} /> : '' }
+                    { userLoggedIn ? <User {...this.props} onClick={this.handleGoClickProfile} /> : '' }
                     <div className="user-interests">
                         <Link to="/interests" onClick={this.handleGoClickInterests}>
                             <div className="number">

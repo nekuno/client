@@ -390,8 +390,8 @@ export default {
         disabled: 'We are weaving this yarn, please wait a moment...'
     },
     IntegerEdit                      : {
-        minValue   : 'The minimum value of this value is ',
-        maxValue   : 'The maximum value of this value is ',
+        minValue   : 'The minimum value is ',
+        maxValue   : 'The maximum value is ',
         value      : 'This value must be an integer',
         placeholder: 'Type a number'
     },
@@ -408,9 +408,9 @@ export default {
         placeholder: 'Type a location'
     },
     IntegerFilter                    : {
-        minValue   : 'The minimum value of this value is ',
-        maxValue   : 'The maximum value of this value is ',
-        value      : 'This value must be an integer',
+        minValue   : 'The minimum value is ',
+        maxValue   : 'The maximum value is ',
+        value      : 'The value must be an integer',
         placeholder: 'Type a number'
     },
     LocationFilter                   : {
@@ -432,9 +432,10 @@ export default {
         add        : 'Add'
     },
     IntegerRangeFilter               : {
-        minValue      : 'The minimum value of this value is ',
-        maxValue      : 'The maximum value of this value is ',
-        value         : 'This value must be an integer',
+        minValue      : 'The minimum value is ',
+        maxValue      : 'The maximum value is ',
+        minMaxValue   : 'The maximum value must be equal or greater than minimum value',
+        value         : 'The value must be an integer',
         placeholderMin: 'Min',
         placeholderMax: 'Max'
     },

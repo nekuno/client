@@ -4,10 +4,12 @@ import ProfileData from './ProfileData'
 import ProfileAboutMe from './ProfileAboutMe'
 
 export default class ProfileDataList extends Component {
+
     static propTypes = {
-        profile: PropTypes.object.isRequired
+        profile            : PropTypes.object.isRequired,
+        profileWithMetadata: PropTypes.array.isRequired
     };
-    
+
     locationToString(location) {
 
         const locality = selectn('locality', location);
@@ -26,11 +28,23 @@ export default class ProfileDataList extends Component {
     }
 
     render() {
-        const {profile} = this.props;
+        const {profile, profileWithMetadata} = this.props;
+        let lines = [];
+        profileWithMetadata.forEach(
+            category => {
+                if (Object.keys(category.fields).length === 0) {
+                    return;
+                }
+                lines.push(<div key={category.label} className="profile-category"><h3>{category.label}</h3></div>);
+                Object.keys(category.fields).map(
+                    profileDataName => {
+                        lines.push(<ProfileData key={profileDataName} name={profileDataName} value={category.fields[profileDataName]}/>);
+                    });
+            });
         return (
             <div className="profile-data-list">
-                {Object.keys(profile).map(profileDataName => profileDataName == 'About me' || profileDataName === 'Sobre mí' ? <ProfileAboutMe key={profileDataName} value={profile[profileDataName]}/> : null)}
-                {Object.keys(profile).map(profileDataName => profileDataName !== 'About me' && profileDataName !== 'Sobre mí' ? <ProfileData key={profileDataName} name={profileDataName} value={profile[profileDataName]}/> : null)}
+                { profile.description ? <ProfileAboutMe value={profile.description}/> : '' }
+                {lines}
             </div>
         );
     }

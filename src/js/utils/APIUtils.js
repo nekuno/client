@@ -165,10 +165,6 @@ export function putProfile(url, data) {
     return putData(url, data);
 }
 
-export function fetchMetadata(url) {
-    return getData(url);
-}
-
 export function fetchStats(url) {
     return fetchAndNormalize(url, statsSchema);
 }

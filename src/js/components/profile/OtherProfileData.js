@@ -1,4 +1,5 @@
 import React, { PropTypes, Component } from 'react';
+import { Link } from 'react-router';
 import ProgressBar from '../ui/ProgressBar';
 import ProfilesAvatarConnection from '../ui/ProfilesAvatarConnection';
 import translate from '../../i18n/Translate';
@@ -11,12 +12,14 @@ export default class OtherProfileData extends Component {
         stats       : PropTypes.object,
         ownImage    : PropTypes.string,
         currentImage: PropTypes.string,
+        interestsUrl: PropTypes.string.isRequired,
+        questionsUrl: PropTypes.string.isRequired,
         // Injected by @translate:
         strings     : PropTypes.object
     };
 
     render() {
-        const {matching, similarity, stats, ownImage, currentImage, strings} = this.props;
+        const {matching, similarity, stats, ownImage, currentImage, interestsUrl, questionsUrl, strings} = this.props;
         const commonAnswers = stats ? stats.commonAnswers : '?';
         const commonContent = stats ? stats.commonContent : '?';
 
@@ -25,8 +28,12 @@ export default class OtherProfileData extends Component {
                 <div className="other-profile-left">
                     <ProfilesAvatarConnection ownPicture={ownImage} otherPicture={currentImage}/>
                     <div className="other-profile-stats">
-                        <div className="other-profile-stats">{commonAnswers} {strings.coincidences}</div>
-                        <div className="other-profile-stats">{commonContent} {strings.similarInterests}</div>
+                        <div className="other-profile-stats">
+                            <Link to={questionsUrl}>{commonAnswers} {strings.coincidences}</Link>
+                        </div>
+                        <div className="other-profile-stats">
+                            <Link to={interestsUrl}>{commonContent} {strings.similarInterests}</Link>
+                        </div>
                     </div>
                 </div>
                 <div className="other-profile-right">

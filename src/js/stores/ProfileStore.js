@@ -11,6 +11,7 @@ import { getValidationErrors } from '../utils/StoreUtils';
 
 let _profiles = {};
 let _metadata = null;
+let _categories = null;
 let _initialRequiredProfileQuestionsCount = 0;
 let _errors = null;
 
@@ -22,102 +23,124 @@ const ProfileStore = createStore({
     get(userId) {
         return _profiles[userId];
     },
-    
+
     getErrors() {
         const errors = _errors;
         _errors = null;
-        return errors;    
+        return errors;
     },
 
     getMetadata(){
         return _metadata;
     },
 
+    getCategories(){
+        return _categories;
+    },
+
     getWithMetadata(userId) {
         const basicProfile = this.get(userId);
         const metadata = this.getMetadata();
+        const categories = this.getCategories();
 
-        if (!basicProfile || !metadata) {
-            return {};
+        if (!basicProfile || !metadata || !categories) {
+            return [];
         }
 
-        let profile = {};
-        for (let label in basicProfile) {
-            if (selectn(label, metadata)) {
-                const thisMetadata = metadata[label];
-                const type = thisMetadata.type;
-                let name = thisMetadata.label;
-                let value = '';
-                switch (type) {
-                    case 'choice':
-                        let choices = thisMetadata.choices;
-                        value = choices[basicProfile[label]];
-                        break;
-                    case 'double_choice':
-                        let firstChoices = thisMetadata.choices;
-                        const doubleChoices = thisMetadata.doubleChoices;
-                        let firstChoice = basicProfile[label]['choice'];
-                        let doubleChoiceValue = basicProfile[label]['detail'] ? doubleChoices[firstChoice][basicProfile[label]['detail']] : '';
-                        value = firstChoices[firstChoice] + ' ' + doubleChoiceValue;
-                        break;
-                    case 'tags':
-                        value = basicProfile[label];
-                        break;
-                    case 'multiple_choices':
-                        let multiple_choices = thisMetadata['choices'];
-                        let mchoices = [];
-                        if (typeof basicProfile[label] === 'string') {
-                            mchoices.push(multiple_choices[basicProfile[label]]);
-                        } else {
-                            for (let mchoice_label in basicProfile[label]) {
-                                mchoices.push(multiple_choices[basicProfile[label][mchoice_label]]);
-                            }
-                        }
-                        value = mchoices.join(', ');
-                        break;
-                    case 'tags_and_choice':
-                        let tagChoices = thisMetadata['choices'];
-                        let level = thisMetadata['choiceLabel']['es'];
-                        let objects = basicProfile[label];
-                        let values = []
-                        for (let index in objects) {
-                            let object = objects[index];
-                            let newTag = object['tag'];
-                            if (object['detail']) {
-                                newTag += ': ' + level + ' ' + tagChoices[object['detail']];
-                            }
-                            values.push(newTag);
-                        }
-                        value = values.join(', ');
-                        break;
-                    case 'integer':
-                        value = basicProfile[label];
-                        break;
-                    case 'birthday':
-                        name = thisMetadata.label == 'Birthday' ? 'Age' : 'Edad';
-                        const thatDate = new Date(basicProfile[label]);
-                        const ageDifMs = Date.now() - thatDate.getTime();
-                        const ageDate = new Date(ageDifMs); // miliseconds from epoch
-                        value = Math.abs(ageDate.getUTCFullYear() - 1970);
-                        break;
-                    case 'location':
-                        value = this.locationToString(basicProfile[label]);
-                        break;
-                    case 'textarea':
-                        value = basicProfile[label];
-                        break;
-                    default:
-                        break;
-                }
-                if (value === '') {
-                    continue;
-                } else if (value == false) {
-                    value = 'No';
-                }
-                profile[name] = value.toString();
+        let profile = [];
 
-            }
-        }
+        categories.forEach(category => {
+
+            let fields = {};
+
+            Object.keys(category.fields).forEach(id => {
+
+                let field = category.fields[id];
+
+                if (selectn(field, basicProfile) && selectn(field, metadata)) {
+                    const thisMetadata = metadata[field];
+                    const type = thisMetadata.type;
+                    let name = thisMetadata.label;
+                    let value = '';
+                    switch (type) {
+                        case 'choice':
+                            let choices = thisMetadata.choices;
+                            value = choices[basicProfile[field]];
+                            break;
+                        case 'double_choice':
+                            let firstChoices = thisMetadata.choices;
+                            const doubleChoices = thisMetadata.doubleChoices;
+                            let firstChoice = basicProfile[field]['choice'];
+                            let doubleChoiceValue = basicProfile[field]['detail'] ? doubleChoices[firstChoice][basicProfile[field]['detail']] : '';
+                            value = firstChoices[firstChoice] + ' ' + doubleChoiceValue;
+                            break;
+                        case 'tags':
+                            value = basicProfile[field];
+                            break;
+                        case 'multiple_choices':
+                            let multiple_choices = thisMetadata['choices'];
+                            let mchoices = [];
+                            if (typeof basicProfile[field] === 'string') {
+                                mchoices.push(multiple_choices[basicProfile[field]]);
+                            } else {
+                                for (let mchoice_label in basicProfile[field]) {
+                                    mchoices.push(multiple_choices[basicProfile[field][mchoice_label]]);
+                                }
+                            }
+                            value = mchoices.join(', ');
+                            break;
+                        case 'tags_and_choice':
+                            let tagChoices = thisMetadata['choices'];
+                            let level = thisMetadata['choiceLabel']['es'];
+                            let objects = basicProfile[field];
+                            let values = []
+                            for (let index in objects) {
+                                let object = objects[index];
+                                let newTag = object['tag'];
+                                if (object['detail']) {
+                                    newTag += ': ' + level + ' ' + tagChoices[object['detail']];
+                                }
+                                values.push(newTag);
+                            }
+                            value = values.join(', ');
+                            break;
+                        case 'integer':
+                            value = basicProfile[field];
+                            break;
+                        case 'birthday':
+                            name = thisMetadata.label == 'Birthday' ? 'Age' : 'Edad';
+                            const thatDate = new Date(basicProfile[field]);
+                            const ageDifMs = Date.now() - thatDate.getTime();
+                            const ageDate = new Date(ageDifMs); // miliseconds from epoch
+                            value = Math.abs(ageDate.getUTCFullYear() - 1970);
+                            break;
+                        case 'location':
+                            value = this.locationToString(basicProfile[field]);
+                            break;
+                        case 'textarea':
+                            value = basicProfile[field];
+                            break;
+                        default:
+                            break;
+                    }
+                    if (value === '') {
+                        return;
+                    } else if (value == false) {
+                        value = 'No';
+                    }
+
+                    fields[name] = value.toString();
+                }
+            });
+
+            profile.push(
+                {
+                    label : category.label,
+                    fields: fields
+                }
+            );
+        });
+
         return profile;
     },
 
@@ -125,7 +148,7 @@ const ProfileStore = createStore({
         let text, address, choice, choiceLabel, detail, textArray, tags;
         switch (filter.type) {
             case 'location':
-                address = data && data && data.address ? data.address : data  && data.location ? data.location : '';
+                address = data && data && data.address ? data.address : data && data.location ? data.location : '';
                 return address ? filter.label + ' - ' + address : filter.label;
             case 'integer_range':
                 text = filter.label;
@@ -139,11 +162,11 @@ const ProfileStore = createStore({
                 return text;
             case 'birthday':
                 text = filter.label;
-                text += data? ' -  ' + data : '';
+                text += data ? ' -  ' + data : '';
                 return text;
             case 'textarea':
                 text = filter.label;
-                text += data? ' -  ' + data : '';
+                text += data ? ' -  ' + data : '';
                 return text;
             case 'integer':
                 text = filter.label;
@@ -167,7 +190,7 @@ const ProfileStore = createStore({
             case 'tags':
                 return data && data.length > 0 ? filter.label + ' - ' + data.join(', ') : filter.label;
             case 'tags_and_choice':
-                return data && data.length > 0 ? filter.label + ' - ' + data.map(value => value.choice||value.detail ? value.tag + ' ' + filter.choices[value.choice||value.detail] : value.tag).join(', ') : filter.label;
+                return data && data.length > 0 ? filter.label + ' - ' + data.map(value => value.choice || value.detail ? value.tag + ' ' + filter.choices[value.choice || value.detail] : value.tag).join(', ') : filter.label;
             case 'tags_and_multiple_choices':
                 return data && data.length > 0 ? filter.label + ' - ' + data.map(value => value.choices ? value.tag + ' ' + value.choices.map(choice => filter.choices[choice]['es']).join(', ') : value.tag).join(', ') : filter.label;
 
@@ -179,7 +202,7 @@ const ProfileStore = createStore({
     isProfileSet(field, data) {
         switch (field.type) {
             case 'location':
-                return data  && (data.address || data.location);
+                return data && (data.address || data.location);
             case 'integer_range':
                 return data && (data.min || data.max);
             case 'birthday':
@@ -264,6 +287,10 @@ ProfileStore.dispatchToken = register(action => {
             _metadata = action.response;
             ProfileStore.emitChange();
             break;
+        case ActionTypes.REQUEST_CATEGORIES_SUCCESS:
+            _categories = action.response.profile;
+            ProfileStore.emitChange();
+            break;
         case ActionTypes.LIKE_USER_SUCCESS:
             _profiles = setLikedUser(action.to, _profiles);
             ProfileStore.emitChange();
@@ -274,13 +301,13 @@ ProfileStore.dispatchToken = register(action => {
             break;
         case ActionTypes.EDIT_PROFILE_SUCCESS:
             const currentProfile = _profiles[LoginStore.user.id];
-            if (currentProfile.interfaceLanguage !== action.data.interfaceLanguage){
+            if (currentProfile.interfaceLanguage !== action.data.interfaceLanguage) {
                 window.setTimeout(() => {
                     UserActionCreators.requestMetadata();
                     ThreadActionCreators.requestFilters();
                 }, 0);
             }
-            _profiles[LoginStore.user.id]=action.data;
+            _profiles[LoginStore.user.id] = action.data;
             ProfileStore.emitChange();
             break;
         case ActionTypes.EDIT_PROFILE_ERROR:
@@ -302,7 +329,7 @@ ProfileStore.dispatchToken = register(action => {
         delete responseProfiles.undefined;
 
         mergeIntoBag(_profiles, responseProfiles);
-        
+
         if (action.type === ActionTypes.REQUEST_OWN_PROFILE_SUCCESS) {
             ProfileStore._setInitialRequiredProfileQuestionsCount(action.userId);
         }

@@ -117,7 +117,7 @@ export default class OtherUserPage extends Component {
         // Injected by @connectToStores:
         otherUser          : PropTypes.object,
         profile            : PropTypes.object,
-        profileWithMetadata: PropTypes.object,
+        profileWithMetadata: PropTypes.array,
         matching           : PropTypes.number,
         similarity         : PropTypes.number,
         block              : PropTypes.bool,
@@ -176,9 +176,9 @@ export default class OtherUserPage extends Component {
             <div className="view view-main">
                 <TopNavBar leftMenuIcon={true} centerText={otherUser ? otherUser.username : ''} rightIcon={'message'} onRightLinkClickHandler={this.handleClickMessageLink}/>
                 <div className="page user-page">
-                    {otherUser && profile ?
+                    {otherUser && profile && profileWithMetadata ?
                         <div id="page-content">
-                            <User user={otherUser} profile={profile}/>
+                            <User user={otherUser} profile={profile} other={true}/>
                             <div>
                                 <div className="other-profile-buttons">
                                     <div className="other-profile-like-button">
@@ -189,10 +189,13 @@ export default class OtherUserPage extends Component {
                                     </div>
                                 </div>
                                 <div className="other-profile-wrapper bold">
-                                    <OtherProfileData matching={matching} similarity={similarity} stats={comparedStats} ownImage={ownPicture} currentImage={otherPicture}/>
+                                    <OtherProfileData matching={matching} similarity={similarity} stats={comparedStats} ownImage={ownPicture}
+                                                      currentImage={otherPicture}
+                                                      interestsUrl={`/users/${parseId(otherUser)}/other-interests`}
+                                                      questionsUrl={`/users/${parseId(otherUser)}/other-questions`}/>
                                 </div>
                             </div>
-                            <ProfileDataList profile={profileWithMetadata}/>
+                            <ProfileDataList profile={profile} profileWithMetadata={profileWithMetadata}/>
                             <br />
                             <br />
                             <br />
@@ -202,7 +205,7 @@ export default class OtherUserPage extends Component {
                         </div>
                         : ''}
                 </div>
-                {otherUser && profileWithMetadata ?
+                {otherUser && profile && profileWithMetadata ?
                     <ToolBar links={[
                     {'url': `/profile/${parseId(otherUser)}`, 'text': strings.about},
                     {'url': `/users/${parseId(otherUser)}/other-gallery`, 'text': strings.photos},

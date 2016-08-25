@@ -1,6 +1,7 @@
 import GeocoderService from './GeocoderService';
 import { SOCIAL_NETWORKS_NAMES } from '../constants/Constants';
 import moment from 'moment';
+import selectn from 'selectn';
 
 class SocialNetworkService {
 
@@ -187,7 +188,7 @@ class SocialNetworkService {
                 let data = {
                     username: status.username || null,
                     email: status.email || null,
-                    picture: status.picture + '?height=480',
+                    picture: selectn('data.url', status.picture) ? status.picture.data.url + '?height=480' : null,
                     birthday: moment(status.birthday).format('YYYY-MM-DD') || null,
                     location: status.location ? status.location.name : null,
                     gender: status.gender || null

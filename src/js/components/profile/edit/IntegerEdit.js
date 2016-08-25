@@ -1,6 +1,5 @@
 import React, { PropTypes, Component } from 'react';
 import SelectedEdit from './SelectedEdit';
-import UnselectedEdit from './UnselectedEdit';
 import TextInput from '../../ui/TextInput';
 import translate from '../../../i18n/Translate';
 
@@ -12,9 +11,9 @@ export default class IntegerEdit extends Component {
         selected             : PropTypes.bool.isRequired,
         metadata             : PropTypes.object.isRequired,
         data                 : PropTypes.number,
+        handleClickInput     : PropTypes.func.isRequired,
         handleClickRemoveEdit: PropTypes.func.isRequired,
         handleChangeEdit     : PropTypes.func.isRequired,
-        handleClickEdit      : PropTypes.func.isRequired,
         handleErrorEdit      : PropTypes.func.isRequired,
         // Injected by @translate:
         strings              : PropTypes.object
@@ -23,7 +22,9 @@ export default class IntegerEdit extends Component {
     constructor(props) {
         super(props);
 
+        this.handleClickInput = this.handleClickInput.bind(this);
         this.handleChangeIntegerInput = this.handleChangeIntegerInput.bind(this);
+        this.handleClickRemoveEdit = this.handleClickRemoveEdit.bind(this);
 
         this.state = {
             value: props.data ? props.data : '',
@@ -55,6 +56,11 @@ export default class IntegerEdit extends Component {
         }
     }
 
+    handleClickInput() {
+        const {editKey} = this.props;
+        this.props.handleClickInput(editKey);
+    }
+
     handleChangeIntegerInput() {
         const {editKey} = this.props;
         const value = this.refs[editKey] ? parseInt(this.refs[editKey].getValue()) : 0;
@@ -63,20 +69,22 @@ export default class IntegerEdit extends Component {
         });
     }
 
+    handleClickRemoveEdit() {
+        const {editKey, handleClickRemoveEdit} = this.props;
+        handleClickRemoveEdit(editKey);
+    }
+
     render() {
-        const {editKey, selected, metadata, data, handleClickRemoveEdit, handleClickEdit, strings} = this.props;
+        const {editKey, selected, metadata, data, strings} = this.props;
         return (
-            selected ?
-                <SelectedEdit key={'selected-filter'} type={'integer'} plusIcon={true} handleClickRemoveEdit={handleClickRemoveEdit}>
-                    <div className="list-block">
-                        <div className="integer-title">{metadata.label}</div>
-                        <ul>
-                            <TextInput ref={editKey} placeholder={strings.placeholder} onChange={this.handleChangeIntegerInput} defaultValue={data}/>
-                        </ul>
-                    </div>
-                </SelectedEdit>
-                :
-                <UnselectedEdit key={editKey} editKey={editKey} metadata={metadata} data={data} handleClickEdit={handleClickEdit}/>
+            <SelectedEdit key={selected ? 'selected-filter' : editKey} type={'integer'} plusIcon={true} handleClickRemoveEdit={this.handleClickRemoveEdit} onClickHandler={selected ? null : this.handleClickInput}>
+                <div className="list-block">
+                    <div className="integer-title">{metadata.label}</div>
+                    <ul>
+                        <TextInput ref={editKey} placeholder={strings.placeholder} onChange={this.handleChangeIntegerInput} defaultValue={data}/>
+                    </ul>
+                </div>
+            </SelectedEdit>
         );
     }
 }

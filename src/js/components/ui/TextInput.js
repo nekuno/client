@@ -38,10 +38,10 @@ export default class TextInput extends Component {
     }
 
     onFocusHandler() {
-        let inputElem = this.refs.input;
+        /*let inputElem = this.refs.input;
         window.setTimeout(function () {
             inputElem.scrollIntoView();
             document.getElementsByClassName('view')[0].scrollTop -= 100;
-        }, 500)
+        }, 500)*/
     }
 }

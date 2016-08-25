@@ -1,8 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import SelectedEdit from './SelectedEdit';
-import UnselectedEdit from './UnselectedEdit';
 import TextInput from '../../ui/TextInput';
-import TextRadios from '../../ui/TextRadios';
 
 export default class TextAreaEdit extends Component {
     static propTypes = {
@@ -12,13 +10,13 @@ export default class TextAreaEdit extends Component {
         data: PropTypes.string,
         handleClickRemoveEdit: PropTypes.func.isRequired,
         handleChangeEdit: PropTypes.func.isRequired,
-        handleClickEdit: PropTypes.func.isRequired
     };
 
     constructor(props) {
         super(props);
 
         this.onChangeValue = this.onChangeValue.bind(this);
+        this.handleClickRemoveEdit = this.handleClickRemoveEdit.bind(this);
     }
 
     onChangeValue() {
@@ -28,21 +26,23 @@ export default class TextAreaEdit extends Component {
         }
     }
 
+    handleClickRemoveEdit() {
+        const {editKey, handleClickRemoveEdit} = this.props;
+        handleClickRemoveEdit(editKey);
+    }
+
     render() {
-        const {editKey, selected, metadata, data, handleClickRemoveEdit, handleClickEdit} = this.props;
+        const {editKey, selected, metadata, data} = this.props;
         return(
-            selected ?
-                <SelectedEdit key={'selected-filter'} type={'location-tag'} addedClass={'tag-filter'} plusIcon={true} handleClickRemoveEdit={handleClickRemoveEdit}>
-                    <div className="location-filter-wrapper">
-                        <div className="list-block">
-                            <ul>
-                                <TextInput placeholder={metadata.label} ref={editKey} label={metadata.label} defaultValue={data} onChange={this.onChangeValue}/>
-                            </ul>
-                        </div>
+            <SelectedEdit key={selected ? 'selected-filter' : editKey} type={'location-tag'} addedClass={'tag-filter'} plusIcon={true} handleClickRemoveEdit={this.handleClickRemoveEdit}>
+                <div className="location-filter-wrapper">
+                    <div className="list-block">
+                        <ul>
+                            <TextInput placeholder={metadata.label} ref={editKey} label={metadata.label} defaultValue={data} onChange={this.onChangeValue}/>
+                        </ul>
                     </div>
-                </SelectedEdit>
-                    :
-                <UnselectedEdit key={editKey} editKey={editKey} metadata={metadata} data={data} handleClickEdit={handleClickEdit} />
+                </div>
+            </SelectedEdit>
         );
     }
 }

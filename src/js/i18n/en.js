@@ -213,6 +213,9 @@ export default {
     FacebookRegisterButton           : {
         signUp: 'Sign up with Facebook'
     },
+    ProfileDataList                  : {
+        cannotRemove: 'This field cannot be deleted'
+    },
     OtherProfileData                 : {
         coincidences    : 'Coincidences',
         similarInterests: 'Similar interests',
@@ -396,7 +399,8 @@ export default {
         placeholder: 'Type a number'
     },
     TagEdit                          : {
-        placeholder: 'Type a tag'
+        placeholder: 'Type a tag',
+        remove     : 'Remove'
     },
     TagsAndChoiceEdit                : {
         placeholder: 'Type a tag',

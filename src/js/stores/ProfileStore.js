@@ -56,12 +56,14 @@ const ProfileStore = createStore({
             Object.keys(category.fields).forEach(id => {
 
                 let field = category.fields[id];
+                let name = null;
+                let value = '';
 
                 if (selectn(field, basicProfile) && selectn(field, metadata)) {
                     const thisMetadata = metadata[field];
                     const type = thisMetadata.type;
-                    let name = thisMetadata.label;
-                    let value = '';
+                    name = thisMetadata.label;
+                    value = '';
                     switch (type) {
                         case 'choice':
                             let choices = thisMetadata.choices;
@@ -93,7 +95,7 @@ const ProfileStore = createStore({
                             let tagChoices = thisMetadata['choices'];
                             let level = thisMetadata['choiceLabel']['es'];
                             let objects = basicProfile[field];
-                            let values = []
+                            let values = [];
                             for (let index in objects) {
                                 let object = objects[index];
                                 let newTag = object['tag'];
@@ -126,10 +128,12 @@ const ProfileStore = createStore({
                     if (value === '') {
                         return;
                     } else if (value == false) {
-                        value = 'No';
+                        return;
                     }
-
-                    fields[name] = value.toString();
+                }
+                fields[field] = {
+                    text: name,
+                    value: value.toString()
                 }
             });
 

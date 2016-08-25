@@ -2,7 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import { IMAGES_ROOT } from '../constants/Constants';
 import User from '../components/User';
 import OtherProfileData from '../components/profile/OtherProfileData';
-import ProfileDataList from '../components/profile/ProfileDataList'
+import OtherProfileDataList from '../components/profile/OtherProfileDataList'
 import TopNavBar from '../components/ui/TopNavBar';
 import ToolBar from '../components/ui/ToolBar';
 import Button from '../components/ui/Button';
@@ -195,7 +195,7 @@ export default class OtherUserPage extends Component {
                                                       questionsUrl={`/users/${parseId(otherUser)}/other-questions`}/>
                                 </div>
                             </div>
-                            <ProfileDataList profile={profile} profileWithMetadata={profileWithMetadata}/>
+                            <OtherProfileDataList profile={profile} profileWithMetadata={profileWithMetadata}/>
                             <br />
                             <br />
                             <br />

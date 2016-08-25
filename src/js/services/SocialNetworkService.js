@@ -180,7 +180,7 @@ class SocialNetworkService {
         const resourceId = this._resourceIds[SOCIAL_NETWORKS_NAMES.FACEBOOK];
 
         let mePromise = new Promise(function(resolve, reject) {
-            facebookConnectPlugin.api(resourceId + '/?fields=picture,email,birthday,location,gender', ['user_birthday', 'user_location', 'user_likes', 'user_posts'], function (response) { resolve(response) }, function(error) { reject(error) });
+            facebookConnectPlugin.api(resourceId + '/?fields=picture.height(480),email,birthday,location,gender', ['user_birthday', 'user_location', 'user_likes', 'user_posts'], function (response) { resolve(response) }, function(error) { reject(error) });
         });
 
         return mePromise.then(
@@ -188,7 +188,7 @@ class SocialNetworkService {
                 let data = {
                     username: status.username || null,
                     email: status.email || null,
-                    picture: selectn('data.url', status.picture) ? status.picture.data.url + '?height=480' : null,
+                    picture: selectn('data.url', status.picture) ? status.picture.data.url : null,
                     birthday: moment(status.birthday).format('YYYY-MM-DD') || null,
                     location: status.location ? status.location.name : null,
                     gender: status.gender || null

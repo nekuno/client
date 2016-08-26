@@ -112,7 +112,7 @@ export default class EditThreadPage extends Component {
                 <TopNavBar centerText={strings.edit} leftText={strings.cancel}/>
                 <div className="page create-thread-page">
                     <div id="page-content">
-                        {thread && filters && categories ?
+                        {thread && threadName && filters && categories ?
                             <div>
                                 <div className="thread-title list-block">
                                     <ul>

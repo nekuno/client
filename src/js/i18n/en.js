@@ -213,6 +213,10 @@ export default {
     FacebookRegisterButton           : {
         signUp: 'Sign up with Facebook'
     },
+    ProfileDataList                  : {
+        cannotRemove: 'This field cannot be deleted',
+        aboutMe     : 'About Me',
+    },
     OtherProfileData                 : {
         coincidences    : 'Coincidences',
         similarInterests: 'Similar interests',
@@ -308,9 +312,11 @@ export default {
         linksTitle              : 'Processing links',
         similarityTitle         : 'Calculating similarity',
         matchingTitle           : 'Calculating matching',
+        affinityTitle           : 'Calculating affinity',
         linksPreparingTitle     : 'Preparing to process links',
         similarityPreparingTitle: 'Preparing to calculate similarity',
         matchingPreparingTitle  : 'Preparing to calculate matching',
+        affinityPreparingTitle  : 'Preparing to calculate affinity',
         registerWorkersFinish   : 'Congratulations! The registration processes have finished.'
     },
     CardContent                      : {
@@ -396,7 +402,8 @@ export default {
         placeholder: 'Type a number'
     },
     TagEdit                          : {
-        placeholder: 'Type a tag'
+        placeholder: 'Type a tag',
+        remove     : 'Remove'
     },
     TagsAndChoiceEdit                : {
         placeholder: 'Type a tag',

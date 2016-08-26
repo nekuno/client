@@ -109,13 +109,29 @@ class AuthService {
             })
             .spread(function(user, profile, invitation) {
                 console.log('Invitation consumed', invitation);
-                if (invitation.invitation.hasOwnProperty('group')){
-                    APIUtils.postData(API_URLS.JOIN_GROUP.replace('{groupId}', invitation.invitation.group.id), user);
-                    console.log('Joined to group', invitation.invitation.group);
+                if (invitation.invitation.hasOwnProperty('group')) {
+                    console.log('Joining group', invitation.invitation.group);
+                    return [user, profile, invitation, oauth.oauthToken, APIUtils.postData(API_URLS.JOIN_GROUP.replace('{groupId}', invitation.invitation.group.id), user)]
                 }
-                return [user, profile, invitation, oauth.oauthToken]
+                return [user, profile, invitation, oauth.oauthToken, null];
             })
-            .spread(function(user, profile, invitation, oauthToken) {
+            .spread(function(user, profile, invitation, oauthToken, group) {
+                if (group) {
+                    console.log('Joined to group', group);
+                }
+                return [user, profile, invitation, oauthToken, ThreadActionCreators.createDefaultThreads()];
+            })
+            .spread(function(user, profile, invitation, oauthToken, threads) {
+                console.log('Default threads created', threads);
+                let recommendations = [];
+                threads.forEach((thread) => {
+                    recommendations.push(ThreadActionCreators.requestRecommendation(thread.id));
+                });
+
+                return [user, profile, invitation, oauthToken, Promise.all(recommendations)];
+            })
+            .spread(function(user, profile, invitation, oauthToken, recommendations) {
+                console.log('Recommendations created', recommendations);
                 console.log(user, profile, invitation, oauthToken);
                 return {
                     user,

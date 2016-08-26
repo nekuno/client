@@ -24,7 +24,6 @@ import RegisterQuestionsLandingPage from './pages/RegisterQuestionLandingPage';
 import AnswerUserFieldPage from './pages/AnswerUserFieldPage';
 import AnswerProfileFieldPage from './pages/AnswerProfileFieldPage';
 import UserPage from './pages/UserPage';
-import EditProfilePage from './pages/EditProfilePage';
 import OtherUserPage from './pages/OtherUserPage';
 import ThreadPage from './pages/ThreadPage';
 import RecommendationPage from './pages/RecommendationPage';
@@ -83,7 +82,6 @@ export default class Root extends Component {
                         <Route name="answer-question-next" path="/answer-question/next" component={AnswerQuestionPage}/>
                         <Route name="question-stats" path="/question-stats" component={QuestionStatsPage}/>
                         <Route name="profile" path="/profile" component={UserPage}/>
-                        <Route name="edit-profile" path="/edit-profile" component={EditProfilePage}/>
                         <Route name="other-profile" path="/profile/:userId" component={OtherUserPage}/>
                         <Route name="invitations" path="/invitations" component={InvitationsPage}/>
                         <Route name="threads" path="/threads" component={ThreadPage}/>

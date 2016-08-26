@@ -112,11 +112,11 @@ export default class EditThreadPage extends Component {
                 <TopNavBar centerText={strings.edit} leftText={strings.cancel}/>
                 <div className="page create-thread-page">
                     <div id="page-content">
-                        {thread && filters && categories ?
+                        {thread && threadName && filters && categories ?
                             <div>
                                 <div className="thread-title list-block">
                                     <ul>
-                                        <TextInput placeholder={strings.placeholder} onChange={this._onChange} value={threadName}/>
+                                        <TextInput placeholder={strings.placeholder} onChange={this._onChange} defaultValue={threadName}/>
                                     </ul>
                                 </div>
                                 <div key={1} className={category + '-first-vertical-line'}></div>

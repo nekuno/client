@@ -56,6 +56,18 @@ class WorkersSocketService extends SocketService {
             WorkersActionCreators.matchingFinish(data);
         });
 
+        socket.on('affinity.start', function(data) {
+            WorkersActionCreators.affinityStart(data);
+        });
+
+        socket.on('affinity.step', function(data) {
+            WorkersActionCreators.affinityStep(data);
+        });
+
+        socket.on('affinity.finish', function(data) {
+            WorkersActionCreators.affinityFinish(data);
+        });
+
         socket.on('user.status', function(data) {
             WorkersActionCreators.userStatus(data);
         });

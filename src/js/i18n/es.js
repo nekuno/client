@@ -214,6 +214,10 @@ export default {
     FacebookRegisterButton           : {
         signUp: 'Regístrate con Facebook'
     },
+    ProfileDataList                  : {
+        cannotRemove: 'Este campo no se puede eliminar',
+        aboutMe     : 'Sobre mí',
+    },
     OtherProfileData                 : {
         coincidences    : 'Coincidencias',
         similarInterests: 'Intereses similares',
@@ -309,9 +313,11 @@ export default {
         linksTitle              : 'Procesando enlaces',
         similarityTitle         : 'Calculando similaridad',
         matchingTitle           : 'Calculando compatibilidad',
+        affinityTitle           : 'Calculando afinidad',
         linksPreparingTitle     : 'Preparando para procesar enlaces',
         similarityPreparingTitle: 'Preparando para calcular similaridad',
         matchingPreparingTitle  : 'Preparando para calcular compatibilidad',
+        affinityPreparingTitle  : 'Preparando para calcular afinidad',
         registerWorkersFinish   : '¡Felicidades! Los procesos del registro han finalizado.'
     },
     CardContent                      : {
@@ -397,7 +403,8 @@ export default {
         placeholder: 'Escribe un número'
     },
     TagEdit                          : {
-        placeholder: 'Escribe un tag'
+        placeholder: 'Escribe un tag',
+        remove     : 'Eliminar'
     },
     TagsAndChoiceEdit                : {
         placeholder: 'Escribe un tag en inglés',

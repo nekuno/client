@@ -28,19 +28,6 @@ function requestData(props) {
     const questionId = params.hasOwnProperty('questionId') ? parseInt(params.questionId) : null;
     const currentUserId = parseId(user);
     QuestionActionCreators.requestQuestion(currentUserId, questionId);
-    if (props.isFirstQuestion && Object.keys(ThreadStore.getAll()).length === 0) {
-        const defaultThreads = ThreadActionCreators.createDefaultThreads();
-        defaultThreads.then((threads) => {
-                console.log('Default threads created');
-                threads.forEach((thread) => {
-                    ThreadActionCreators.requestRecommendation(thread.id);
-                })
-            },
-            (errorData) => {
-                console.log('error creating default threads');
-                console.log(errorData);
-            });
-    }
 }
 
 /**

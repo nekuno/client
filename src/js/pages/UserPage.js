@@ -8,6 +8,7 @@ import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
 import * as UserActionCreators from '../actions/UserActionCreators';
+import * as ThreadActionCreators from '../actions/ThreadActionCreators';
 import UserStore from '../stores/UserStore';
 import ProfileStore from '../stores/ProfileStore';
 import StatsStore from '../stores/StatsStore';
@@ -27,6 +28,7 @@ function requestData(props) {
     UserActionCreators.requestOwnProfile(userId);
     UserActionCreators.requestMetadata();
     UserActionCreators.requestStats(userId);
+    ThreadActionCreators.requestFilters();
 }
 
 /**
@@ -37,12 +39,14 @@ function getState(props) {
     const userId = parseId(user);
     const profile = ProfileStore.get(userId);
     const profileWithMetadata = ProfileStore.getWithMetadata(userId);
+    const metadata = ProfileStore.getMetadata();
     const stats = StatsStore.get(userId);
 
     return {
         user,
         profile,
         profileWithMetadata,
+        metadata,
         stats
     };
 }
@@ -67,28 +71,18 @@ export default class UserPage extends Component {
         history: PropTypes.object.isRequired
     };
 
-    constructor(props) {
-        super(props);
-
-        this.editProfile = this.editProfile.bind(this);
-    }
-
     componentWillMount() {
         requestData(this.props);
     }
 
-    editProfile() {
-        this.context.history.pushState(null, `edit-profile`);
-    }
-
     render() {
-        const {user, profile, profileWithMetadata, stats, strings} = this.props;
+        const {user, profile, metadata, profileWithMetadata, stats, strings} = this.props;
         const picture = user.picture ? `${IMAGES_ROOT}media/cache/resolve/user_avatar_60x60/user/images/${user.picture}` : `${IMAGES_ROOT}media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
         return (
             <div className="view view-main">
-                <TopNavBar leftMenuIcon={true} centerText={strings.myProfile} rightIcon={'edit'} onRightLinkClickHandler={this.editProfile}/>
+                <TopNavBar leftMenuIcon={true} centerText={strings.myProfile}/>
                 <div className="page user-page">
-                    {profile && profileWithMetadata && stats ?
+                    {profile && metadata && stats ?
                         <div id="page-content">
                             <User user={user} profile={profile}/>
                             <div className="user-interests">
@@ -97,7 +91,7 @@ export default class UserPage extends Component {
                                 </div>
                                 <div className="label">{strings.interests}</div>
                             </div>
-                            <ProfileDataList profile={profile} profileWithMetadata={profileWithMetadata}/>
+                            <ProfileDataList profile={profile} metadata={metadata} profileWithMetadata={profileWithMetadata}/>
                             <br />
                             <br />
                             <br />

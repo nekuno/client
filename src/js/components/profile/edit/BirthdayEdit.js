@@ -1,6 +1,5 @@
 import React, { PropTypes, Component } from 'react';
 import SelectedEdit from './SelectedEdit';
-import UnselectedEdit from './UnselectedEdit';
 import DateInput from '../../ui/DateInput';
 import translate from '../../../i18n/Translate';
 
@@ -11,9 +10,8 @@ export default class BirthdayEdit extends Component {
         selected             : PropTypes.bool.isRequired,
         metadata             : PropTypes.object.isRequired,
         data                 : PropTypes.string,
-        handleClickRemoveEdit: PropTypes.func.isRequired,
+        handleClickRemoveEdit: PropTypes.func,
         handleChangeEdit     : PropTypes.func.isRequired,
-        handleClickEdit      : PropTypes.func.isRequired,
         // Injected by @translate:
         strings              : PropTypes.object
     };
@@ -22,6 +20,7 @@ export default class BirthdayEdit extends Component {
         super(props);
 
         this.onChangeValue = this.onChangeValue.bind(this);
+        this.handleClickRemoveEdit = this.handleClickRemoveEdit.bind(this);
     }
 
     onChangeValue() {
@@ -32,21 +31,24 @@ export default class BirthdayEdit extends Component {
         }
     }
 
+    handleClickRemoveEdit() {
+        const {editKey, handleClickRemoveEdit} = this.props;
+        handleClickRemoveEdit(editKey);
+    }
+
     render() {
-        const {editKey, selected, metadata, data, handleClickRemoveEdit, handleClickEdit, strings} = this.props;
+        const {editKey, selected, metadata, data, handleClickRemoveEdit, strings} = this.props;
         return (
-            selected ?
-                <SelectedEdit key={'selected-filter'} type={'birthday'} addedClass={'tag-filter'} handleClickRemoveEdit={handleClickRemoveEdit}>
-                    <div className="birthday-filter-wrapper">
-                        <div className="list-block">
-                            <ul>
-                                <DateInput ref={editKey} label={metadata.label} placeholder={strings.birthdayPlaceholder} defaultValue={data} onChange={this.onChangeValue}/>
-                            </ul>
-                        </div>
+            <SelectedEdit key={selected ? 'selected-filter' : editKey} type={'birthday'} addedClass={'tag-filter'} handleClickRemoveEdit={handleClickRemoveEdit ? this.handleClickRemoveEdit : null}>
+                <div className="birthday-filter-wrapper">
+                    <div className="list-block">
+                        <ul>
+                            <DateInput ref={editKey} label={metadata.label} placeholder={strings.birthdayPlaceholder} defaultValue={data} onChange={this.onChangeValue}/>
+                        </ul>
                     </div>
-                </SelectedEdit>
-                :
-                <UnselectedEdit key={editKey} editKey={editKey} metadata={metadata} data={data} handleClickEdit={handleClickEdit}/>
+                </div>
+            </SelectedEdit>
+
         );
     }
 }

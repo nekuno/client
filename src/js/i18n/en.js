@@ -308,9 +308,11 @@ export default {
         linksTitle              : 'Processing links',
         similarityTitle         : 'Calculating similarity',
         matchingTitle           : 'Calculating matching',
+        affinityTitle           : 'Calculating affinity',
         linksPreparingTitle     : 'Preparing to process links',
         similarityPreparingTitle: 'Preparing to calculate similarity',
         matchingPreparingTitle  : 'Preparing to calculate matching',
+        affinityPreparingTitle  : 'Preparing to calculate affinity',
         registerWorkersFinish   : 'Congratulations! The registration processes have finished.'
     },
     CardContent                      : {

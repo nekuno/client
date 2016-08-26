@@ -309,9 +309,11 @@ export default {
         linksTitle              : 'Procesando enlaces',
         similarityTitle         : 'Calculando similaridad',
         matchingTitle           : 'Calculando compatibilidad',
+        affinityTitle           : 'Calculando afinidad',
         linksPreparingTitle     : 'Preparando para procesar enlaces',
         similarityPreparingTitle: 'Preparando para calcular similaridad',
         matchingPreparingTitle  : 'Preparando para calcular compatibilidad',
+        affinityPreparingTitle  : 'Preparando para calcular afinidad',
         registerWorkersFinish   : '¡Felicidades! Los procesos del registro han finalizado.'
     },
     CardContent                      : {

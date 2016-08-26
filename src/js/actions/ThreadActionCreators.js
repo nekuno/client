@@ -132,20 +132,15 @@ export function requestRecommendation(threadId, url = null) {
 }
 
 export function requestRecommendations(userId) {
-    //let threadIds = ThreadsByUserStore.getThreadsFromUser(userId);
-    //if (threadIds.length == 0){
-    let threadIds = [];
     requestThreads(userId).then(data => {
-        let threads = data.items;
-        threadIds = threads.map((thread) => {
-            return thread.id
+            let threads = data.result.items;
+            threads.forEach((threadId) => {
+                requestRecommendation(threadId)
+            });
+        },
+        (error) => {
+            console.log(error);
         });
-
-        threadIds.forEach((threadId) => {
-            requestRecommendation(threadId)
-        });
-    });
-    //}
 }
 
 export function recommendationsBack() {

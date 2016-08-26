@@ -1,5 +1,7 @@
 import { dispatch, dispatchAsync } from '../dispatcher/Dispatcher';
 import ActionTypes from '../constants/ActionTypes';
+import * as ThreadActionCreators from '../actions/ThreadActionCreators';
+import LoginStore from '../stores/LoginStore';
 
 export default {
 
@@ -57,6 +59,10 @@ export default {
 
     affinityFinish: (data) => {
         dispatch(ActionTypes.WORKERS_AFFINITY_FINISH, data);
+        if (LoginStore.isLoggedIn()) {
+            let userId = LoginStore.user.id;
+            ThreadActionCreators.requestRecommendations(userId);
+        }
     },
 
     userStatus: (data) => {

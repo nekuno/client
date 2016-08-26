@@ -93,8 +93,6 @@ export default class TagsAndChoiceEdit extends Component {
         let selectedTagAndChoice = this.state.selectedTagAndChoice;
         const valuesIndex = data.findIndex(value => value.tag === selectedTagAndChoice.tag);
         if (valuesIndex > -1) {
-            // TODO: DRY: Use detail instead of choice once social is offline
-            data[valuesIndex].detail = choice;
             data[valuesIndex].choice = choice;
         }
         this.setState({
@@ -164,7 +162,7 @@ export default class TagsAndChoiceEdit extends Component {
                     {selectedTagAndChoice.tag ?
                         <div className="tags-and-choice-choice">
                             <TextRadios labels={Object.keys(metadata.choices).map(key => { return({key: key, text: metadata.choices[key]}); }) }
-                                        onClickHandler={this.handleClickTagAndChoiceChoice} value={selectedTagAndChoice.detail} className={'tags-and-choice-choice-radios'}
+                                        onClickHandler={this.handleClickTagAndChoiceChoice} value={selectedTagAndChoice.choice} className={'tags-and-choice-choice-radios'}
                                         title={metadata.choiceLabel['es']}/>
                         </div>
                         : ''}
@@ -173,7 +171,7 @@ export default class TagsAndChoiceEdit extends Component {
                         <div className="tags-and-choice-unselected-filters">
                             {data.filter(value => value.tag !== selectedTagAndChoice.tag).map((value, index) =>
                                 <div className="tags-and-choice-unselected-filter" key={index}>
-                                    <TextCheckboxes labels={[{key: value.tag, text: value.detail ? value.tag + ' ' + metadata.choices[value.detail] : value.tag}]} values={[value.tag]}
+                                    <TextCheckboxes labels={[{key: value.tag, text: value.choice ? value.tag + ' ' + metadata.choices[value.choice] : value.tag}]} values={[value.tag]}
                                                     onClickHandler={this.handleClickTagAndChoiceTag} className={'tags-and-choice-filter'}/>
                                 </div>
                             )}

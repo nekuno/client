@@ -99,8 +99,8 @@ const ProfileStore = createStore({
                             for (let index in objects) {
                                 let object = objects[index];
                                 let newTag = object['tag'];
-                                if (object['detail']) {
-                                    newTag += ': ' + level + ' ' + tagChoices[object['detail']];
+                                if (object['choice']) {
+                                    newTag += ': ' + level + ' ' + tagChoices[object['choice']];
                                 }
                                 values.push(newTag);
                             }
@@ -194,7 +194,7 @@ const ProfileStore = createStore({
             case 'tags':
                 return data && data.length > 0 ? filter.label + ' - ' + data.join(', ') : filter.label;
             case 'tags_and_choice':
-                return data && data.length > 0 ? filter.label + ' - ' + data.map(value => value.choice || value.detail ? value.tag + ' ' + filter.choices[value.choice || value.detail] : value.tag).join(', ') : filter.label;
+                return data && data.length > 0 ? filter.label + ' - ' + data.map(value => value.choice ? value.tag + ' ' + filter.choices[value.choice] : value.tag).join(', ') : filter.label;
             case 'tags_and_multiple_choices':
                 return data && data.length > 0 ? filter.label + ' - ' + data.map(value => value.choices ? value.tag + ' ' + value.choices.map(choice => filter.choices[choice]['es']).join(', ') : value.tag).join(', ') : filter.label;
 

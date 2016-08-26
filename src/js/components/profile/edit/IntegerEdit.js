@@ -75,13 +75,13 @@ export default class IntegerEdit extends Component {
     }
 
     render() {
-        const {editKey, selected, metadata, data, strings} = this.props;
+        const {editKey, selected, metadata, strings} = this.props;
         return (
             <SelectedEdit key={selected ? 'selected-filter' : editKey} type={'integer'} plusIcon={true} handleClickRemoveEdit={this.handleClickRemoveEdit} onClickHandler={selected ? null : this.handleClickInput}>
                 <div className="list-block">
                     <div className="integer-title">{metadata.label}</div>
                     <ul>
-                        <TextInput ref={editKey} placeholder={strings.placeholder} onChange={this.handleChangeIntegerInput} defaultValue={data}/>
+                        <TextInput ref={editKey} placeholder={strings.placeholder} onChange={this.handleChangeIntegerInput} defaultValue={this.state.value} doNotFocus={!selected}/>
                     </ul>
                 </div>
             </SelectedEdit>

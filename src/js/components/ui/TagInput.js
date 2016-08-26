@@ -9,7 +9,8 @@ export default class TagInput extends Component {
         placeholder: PropTypes.string.isRequired,
         title: PropTypes.string,
         onKeyUpHandler: PropTypes.func,
-        onClickTagHandler: PropTypes.func
+        onClickTagHandler: PropTypes.func,
+        doNotFocus: PropTypes.bool
     };
 
     constructor() {
@@ -20,7 +21,9 @@ export default class TagInput extends Component {
     }
     
     componentDidMount() {
-        this.focus();
+        if (!this.props.doNotFocus) {
+            this.focus();
+        }
     }
     
     clearValue() {
@@ -66,10 +69,10 @@ export default class TagInput extends Component {
     }
 
     onFocusHandler() {
-        let inputElem = this.refs.tagInput;
+        /*let inputElem = this.refs.tagInput;
         window.setTimeout(function () {
             inputElem.scrollIntoView();
             document.getElementsByClassName('view')[0].scrollTop -= 100;
-        }, 500)
+        }, 500)*/
     }
 }

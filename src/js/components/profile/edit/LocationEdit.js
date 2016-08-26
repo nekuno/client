@@ -1,6 +1,5 @@
 import React, { PropTypes, Component } from 'react';
 import SelectedEdit from './SelectedEdit';
-import UnselectedEdit from './UnselectedEdit';
 import LocationInput from '../../ui/LocationInput';
 import translate from '../../../i18n/Translate';
 
@@ -12,9 +11,8 @@ export default class LocationEdit extends Component {
         selected             : PropTypes.bool.isRequired,
         metadata             : PropTypes.object.isRequired,
         data                 : PropTypes.object,
-        handleClickRemoveEdit: PropTypes.func.isRequired,
+        handleClickRemoveEdit: PropTypes.func,
         handleChangeEdit     : PropTypes.func.isRequired,
-        handleClickEdit      : PropTypes.func.isRequired,
         // Injected by @translate:
         strings              : PropTypes.object
     };
@@ -23,28 +21,31 @@ export default class LocationEdit extends Component {
         super(props);
 
         this.handleClickLocationSuggestion = this.handleClickLocationSuggestion.bind(this);
+        this.handleClickRemoveEdit = this.handleClickRemoveEdit.bind(this);
     }
 
     handleClickLocationSuggestion(location) {
         let {editKey} = this.props;
-        let data = location;
-        this.props.handleChangeEdit(editKey, data);
+        this.props.handleChangeEdit(editKey, location);
+    }
+
+
+    handleClickRemoveEdit() {
+        const {editKey, handleClickRemoveEdit} = this.props;
+        handleClickRemoveEdit(editKey);
     }
 
     render() {
-        const {editKey, selected, metadata, data, handleClickRemoveEdit, handleClickEdit, strings} = this.props;
+        const {editKey, selected, data, handleClickRemoveEdit, strings} = this.props;
         return (
-            selected ?
-                <SelectedEdit key={'selected-filter'} type={'location-tag'} addedClass={'tag-filter'} plusIcon={true} handleClickRemoveEdit={handleClickRemoveEdit}>
-                    <div className="location-filter-wrapper">
-                        <div className="list-block">
-                            <div className="location-title">{strings.location}</div>
-                            <LocationInput placeholder={data.address ? data.address : data.location ? data.location : strings.placeholder} onSuggestSelect={this.handleClickLocationSuggestion}/>
-                        </div>
+            <SelectedEdit key={selected ? 'selected-filter' : editKey} type={'location-tag'} addedClass={'tag-filter'} plusIcon={true} handleClickRemoveEdit={handleClickRemoveEdit ? this.handleClickRemoveEdit : null}>
+                <div className="location-filter-wrapper">
+                    <div className="list-block">
+                        <div className="location-title">{strings.location}</div>
+                        <LocationInput placeholder={data.address ? data.address : data.location ? data.location : strings.placeholder} onSuggestSelect={this.handleClickLocationSuggestion} autoFocus={false}/>
                     </div>
-                </SelectedEdit>
-                :
-                <UnselectedEdit key={editKey} editKey={editKey} metadata={metadata} data={data} handleClickEdit={handleClickEdit}/>
+                </div>
+            </SelectedEdit>
         );
     }
 }

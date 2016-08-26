@@ -1,5 +1,4 @@
 import React, { PropTypes, Component } from 'react';
-import shouldPureComponentUpdate from 'react-pure-render/function';
 
 export default class TextInput extends Component {
 
@@ -7,7 +6,9 @@ export default class TextInput extends Component {
         placeholder : PropTypes.string.isRequired,
         defaultValue: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
         style       : PropTypes.object,
-        onChange    : PropTypes.func
+        doNotFocus  : PropTypes.bool,
+        onChange    : PropTypes.func,
+        onKeyDown   : PropTypes.func
     };
 
     constructor() {
@@ -16,19 +17,33 @@ export default class TextInput extends Component {
         this.onFocusHandler = this.onFocusHandler.bind(this);
     }
 
-    shouldComponentUpdate = shouldPureComponentUpdate;
+    componentDidMount() {
+        if (!this.props.doNotFocus) {
+            this.focus();
+        }
+    }
 
     getValue() {
         return this.refs.input.value;
     }
 
+    focus() {
+        this.refs.input.focus();
+    }
+
     render() {
+        const {placeholder, defaultValue, style, onChange, onKeyDown} = this.props;
         return (
             <li>
                 <div className="item-content">
                     <div className="item-inner">
                         <div className="item-input">
-                            <input {...this.props} ref="input" type="text"
+                            <input ref="input" type="text"
+                                   placeholder={placeholder}
+                                   defaultValue={defaultValue}
+                                   style={style}
+                                   onKeyDown={onKeyDown}
+                                   onChange={onChange}
                                    onFocus={this.onFocusHandler}/>
                         </div>
                     </div>
@@ -38,10 +53,10 @@ export default class TextInput extends Component {
     }
 
     onFocusHandler() {
-        let inputElem = this.refs.input;
+        /*let inputElem = this.refs.input;
         window.setTimeout(function () {
             inputElem.scrollIntoView();
             document.getElementsByClassName('view')[0].scrollTop -= 100;
-        }, 500)
+        }, 500)*/
     }
 }

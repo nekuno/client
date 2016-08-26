@@ -1,6 +1,5 @@
 import React, { PropTypes, Component } from 'react';
 import SelectedEdit from './SelectedEdit';
-import UnselectedEdit from './UnselectedEdit';
 import TextCheckboxes from '../../ui/TextCheckboxes';
 
 export default class MultipleChoicesEdit extends Component {
@@ -9,15 +8,15 @@ export default class MultipleChoicesEdit extends Component {
         selected: PropTypes.bool.isRequired,
         metadata: PropTypes.object.isRequired,
         data: PropTypes.array,
-        handleClickRemoveEdit: PropTypes.func.isRequired,
+        handleClickRemoveEdit: PropTypes.func,
         handleChangeEdit: PropTypes.func.isRequired,
-        handleClickEdit: PropTypes.func.isRequired
     };
 
     constructor(props) {
         super(props);
 
         this.handleClickMultipleChoice = this.handleClickMultipleChoice.bind(this);
+        this.handleClickRemoveEdit = this.handleClickRemoveEdit.bind(this);
     }
     
     handleClickMultipleChoice(choice) {
@@ -32,17 +31,19 @@ export default class MultipleChoicesEdit extends Component {
         this.props.handleChangeEdit(editKey, data);
     }
 
+    handleClickRemoveEdit() {
+        const {editKey, handleClickRemoveEdit} = this.props;
+        handleClickRemoveEdit(editKey);
+    }
+
     render() {
-        const {editKey, selected, metadata, data, handleClickRemoveEdit, handleClickEdit} = this.props;
+        const {editKey, selected, metadata, data, handleClickRemoveEdit} = this.props;
         return(
-            selected ?
-                <SelectedEdit key={'selected-filter'} type={'checkbox'} active={data && data.length > 0} handleClickRemoveEdit={handleClickRemoveEdit}>
-                    <TextCheckboxes labels={Object.keys(metadata.choices).map(key => { return({key: key, text: metadata.choices[key]}) })}
-                                    onClickHandler={this.handleClickMultipleChoice} values={data || []} className={'multiple-choice-filter'}
-                                    title={metadata.label} />
-                </SelectedEdit>
-                    :
-                <UnselectedEdit key={editKey} editKey={editKey} metadata={metadata} data={data} handleClickEdit={handleClickEdit} />
+            <SelectedEdit key={selected ? 'selected-filter' : editKey} type={'checkbox'} active={data && data.length > 0} handleClickRemoveEdit={handleClickRemoveEdit ? this.handleClickRemoveEdit : null}>
+                <TextCheckboxes labels={Object.keys(metadata.choices).map(key => { return({key: key, text: metadata.choices[key]}) })}
+                                onClickHandler={this.handleClickMultipleChoice} values={data || []} className={'multiple-choice-filter'}
+                                title={metadata.label} />
+            </SelectedEdit>
         );
     }
 }

@@ -17,7 +17,7 @@ export default class ToolBar extends Component {
         activeLinkIndex: PropTypes.number.isRequired,
         arrowUpLeft    : PropTypes.string.isRequired,
         // Injected by @connectToStores:
-        isGuest        : PropTypes.bool.isRequired
+        isGuest        : PropTypes.bool
     };
 
     shouldComponentUpdate = shouldPureComponentUpdate;

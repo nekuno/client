@@ -198,6 +198,9 @@ export default keyMirror({
     WORKERS_MATCHING_START : null,
     WORKERS_MATCHING_STEP  : null,
     WORKERS_MATCHING_FINISH: null,
+    WORKERS_AFFINITY_START : null,
+    WORKERS_AFFINITY_STEP  : null,
+    WORKERS_AFFINITY_FINISH: null,
     WORKERS_USER_STATUS   : null,
 
     REQUEST_PHOTOS        : null,

@@ -47,6 +47,18 @@ export default {
         dispatch(ActionTypes.WORKERS_MATCHING_FINISH, data);
     },
 
+    affinityStart: (data) => {
+        dispatch(ActionTypes.WORKERS_AFFINITY_START, data);
+    },
+
+    affinityStep: (data) => {
+        dispatch(ActionTypes.WORKERS_AFFINITY_STEP, data);
+    },
+
+    affinityFinish: (data) => {
+        dispatch(ActionTypes.WORKERS_AFFINITY_FINISH, data);
+    },
+
     userStatus: (data) => {
         dispatch(ActionTypes.WORKERS_USER_STATUS, data);
     }

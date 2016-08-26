@@ -124,7 +124,7 @@ export function requestRecommendation(threadId, url = null) {
         recommendation = UserAPI.getRecommendation(threadId);
     }
 
-    dispatchAsync((recommendation), {
+    return dispatchAsync((recommendation), {
         request: ActionTypes.REQUEST_RECOMMENDATIONS,
         success: ActionTypes.REQUEST_RECOMMENDATIONS_SUCCESS,
         failure: ActionTypes.REQUEST_RECOMMENDATIONS_ERROR
@@ -132,7 +132,7 @@ export function requestRecommendation(threadId, url = null) {
 }
 
 export function requestRecommendations(userId) {
-    requestThreads(userId).then(data => {
+    return requestThreads(userId).then(data => {
             let threads = data.result.items;
             threads.forEach((threadId) => {
                 requestRecommendation(threadId)

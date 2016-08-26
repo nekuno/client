@@ -32,7 +32,7 @@ export default class IntegerEdit extends Component {
     }
 
     componentWillUpdate(nextProps, nextState) {
-        const {editKey, metadata, selected, handleChangeEdit, handleErrorEdit, strings} = this.props;
+        const {editKey, metadata, selected, strings} = this.props;
         const {value} = nextState;
         const minValue = metadata.min;
         const maxValue = metadata.max;
@@ -49,9 +49,9 @@ export default class IntegerEdit extends Component {
             }
 
             if (error) {
-                handleErrorEdit(editKey, error);
+                this.props.handleErrorEdit(editKey, error);
             } else {
-                handleChangeEdit(editKey, value);
+                this.props.handleChangeEdit(editKey, value);
             }
         }
     }
@@ -70,17 +70,17 @@ export default class IntegerEdit extends Component {
     }
 
     handleClickRemoveEdit() {
-        const {editKey, handleClickRemoveEdit} = this.props;
-        handleClickRemoveEdit(editKey);
+        const {editKey} = this.props;
+        this.props.handleClickRemoveEdit(editKey);
         this.setState({
             value: null,
         });
     }
 
     render() {
-        const {editKey, selected, metadata, handleClickRemoveEdit, strings} = this.props;
+        const {editKey, selected, metadata, strings} = this.props;
         return (
-            <SelectedEdit key={selected ? 'selected-filter' : editKey} type={'integer'} plusIcon={true} handleClickRemoveEdit={handleClickRemoveEdit ? this.handleClickRemoveEdit : null} onClickHandler={selected ? null : this.handleClickInput}>
+            <SelectedEdit key={selected ? 'selected-filter' : editKey} type={'integer'} plusIcon={true} handleClickRemoveEdit={this.props.handleClickRemoveEdit ? this.handleClickRemoveEdit : null} onClickHandler={selected ? null : this.handleClickInput}>
                 <div className="list-block">
                     <div className="integer-title">{metadata.label}</div>
                     <ul>

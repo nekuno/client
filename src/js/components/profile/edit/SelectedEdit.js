@@ -6,28 +6,29 @@ export default class SelectedEdit extends Component {
         type: PropTypes.string.isRequired,
         addedClass: PropTypes.string,
         plusIcon: PropTypes.bool,
-        handleClickRemoveEdit: PropTypes.func.isRequired,
+        handleClickRemoveEdit: PropTypes.func,
         onClickHandler: PropTypes.func
     };
 
     render() {
-        const {type, addedClass, children, onClickHandler} = this.props;
+        const {type, addedClass, children, onClickHandler, handleClickRemoveEdit} = this.props;
         const className = addedClass ? addedClass + ' profile-field ' + type + '-filter' : 'profile-field ' + type + '-filter';
         return(
             <div className={className} onClick={onClickHandler}>
-                {this.renderSelectedEditBackground()}
+                {this.renderSelectedEditBackground(handleClickRemoveEdit)}
                 {children}
                 <div className="table-row"></div>
             </div>
         );
     }
 
-    renderSelectedEditBackground() {
+    renderSelectedEditBackground(handleClickRemoveEdit) {
         return (
                 <div className="profile-field-remove" onClick={this.handleClickRemoveEdit.bind(this)}>
-                    <div className="small-icon-wrapper">
-                        <span className="icon-delete"></span>
-                    </div>
+                    {handleClickRemoveEdit ?
+                        <div className="small-icon-wrapper">
+                            <span className="icon-delete"></span>
+                        </div> : null}
                 </div>
         );
     }

@@ -10,7 +10,7 @@ export default class BirthdayEdit extends Component {
         selected             : PropTypes.bool.isRequired,
         metadata             : PropTypes.object.isRequired,
         data                 : PropTypes.string,
-        handleClickRemoveEdit: PropTypes.func.isRequired,
+        handleClickRemoveEdit: PropTypes.func,
         handleChangeEdit     : PropTypes.func.isRequired,
         // Injected by @translate:
         strings              : PropTypes.object
@@ -37,9 +37,9 @@ export default class BirthdayEdit extends Component {
     }
 
     render() {
-        const {editKey, selected, metadata, data, strings} = this.props;
+        const {editKey, selected, metadata, data, handleClickRemoveEdit, strings} = this.props;
         return (
-            <SelectedEdit key={selected ? 'selected-filter' : editKey} type={'birthday'} addedClass={'tag-filter'} handleClickRemoveEdit={this.handleClickRemoveEdit}>
+            <SelectedEdit key={selected ? 'selected-filter' : editKey} type={'birthday'} addedClass={'tag-filter'} handleClickRemoveEdit={handleClickRemoveEdit ? this.handleClickRemoveEdit : null}>
                 <div className="birthday-filter-wrapper">
                     <div className="list-block">
                         <ul>

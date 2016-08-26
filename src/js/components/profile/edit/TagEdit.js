@@ -26,7 +26,7 @@ export default class TagEdit extends Component {
         metadata             : PropTypes.object.isRequired,
         data                 : PropTypes.array,
         handleClickInput     : PropTypes.func.isRequired,
-        handleClickRemoveEdit: PropTypes.func.isRequired,
+        handleClickRemoveEdit: PropTypes.func,
         handleChangeEdit     : PropTypes.func.isRequired,
         tags                 : PropTypes.array.isRequired,
         // Injected by @translate:
@@ -115,7 +115,7 @@ export default class TagEdit extends Component {
     }
 
     render() {
-        const {editKey, selected, metadata, data, strings} = this.props;
+        const {editKey, selected, metadata, data, handleClickRemoveEdit, strings} = this.props;
         const {selectedTag} = this.state;
         let tags = this.props.tags.slice(0);
 
@@ -123,7 +123,7 @@ export default class TagEdit extends Component {
             tags.push({name: this.refs['tagInput' + editKey].getValue()});
         }
         return (
-            <SelectedEdit key={selected ? 'selected-filter' : editKey} type={'tag'} plusIcon={true} handleClickRemoveEdit={this.handleClickRemoveEdit} onClickHandler={selected ? null : this.handleClickInput}>
+            <SelectedEdit key={selected ? 'selected-filter' : editKey} type={'tag'} plusIcon={true} handleClickRemoveEdit={handleClickRemoveEdit ? this.handleClickRemoveEdit : null} onClickHandler={selected ? null : this.handleClickInput}>
                 <TagInput ref={'tagInput' + editKey} placeholder={strings.placeholder} tags={selected ? tags.map(tag => tag.name) : []}
                           onKeyUpHandler={this.handleKeyUpTag} onClickTagHandler={this.handleClickTagSuggestion}
                           title={metadata.label} doNotFocus={!selected}/>

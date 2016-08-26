@@ -214,7 +214,8 @@ export default {
         signUp: 'Sign up with Facebook'
     },
     ProfileDataList                  : {
-        cannotRemove: 'This field cannot be deleted'
+        cannotRemove: 'This field cannot be deleted',
+        aboutMe     : 'About Me',
     },
     OtherProfileData                 : {
         coincidences    : 'Coincidences',

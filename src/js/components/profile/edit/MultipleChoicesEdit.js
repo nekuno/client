@@ -8,7 +8,7 @@ export default class MultipleChoicesEdit extends Component {
         selected: PropTypes.bool.isRequired,
         metadata: PropTypes.object.isRequired,
         data: PropTypes.array,
-        handleClickRemoveEdit: PropTypes.func.isRequired,
+        handleClickRemoveEdit: PropTypes.func,
         handleChangeEdit: PropTypes.func.isRequired,
     };
 
@@ -37,9 +37,9 @@ export default class MultipleChoicesEdit extends Component {
     }
 
     render() {
-        const {editKey, selected, metadata, data} = this.props;
+        const {editKey, selected, metadata, data, handleClickRemoveEdit} = this.props;
         return(
-            <SelectedEdit key={selected ? 'selected-filter' : editKey} type={'checkbox'} active={data && data.length > 0} handleClickRemoveEdit={this.handleClickRemoveEdit}>
+            <SelectedEdit key={selected ? 'selected-filter' : editKey} type={'checkbox'} active={data && data.length > 0} handleClickRemoveEdit={handleClickRemoveEdit ? this.handleClickRemoveEdit : null}>
                 <TextCheckboxes labels={Object.keys(metadata.choices).map(key => { return({key: key, text: metadata.choices[key]}) })}
                                 onClickHandler={this.handleClickMultipleChoice} values={data || []} className={'multiple-choice-filter'}
                                 title={metadata.label} />

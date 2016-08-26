@@ -12,7 +12,7 @@ export default class IntegerEdit extends Component {
         metadata             : PropTypes.object.isRequired,
         data                 : PropTypes.number,
         handleClickInput     : PropTypes.func.isRequired,
-        handleClickRemoveEdit: PropTypes.func.isRequired,
+        handleClickRemoveEdit: PropTypes.func,
         handleChangeEdit     : PropTypes.func.isRequired,
         handleErrorEdit      : PropTypes.func.isRequired,
         // Injected by @translate:
@@ -72,12 +72,15 @@ export default class IntegerEdit extends Component {
     handleClickRemoveEdit() {
         const {editKey, handleClickRemoveEdit} = this.props;
         handleClickRemoveEdit(editKey);
+        this.setState({
+            value: null,
+        });
     }
 
     render() {
-        const {editKey, selected, metadata, strings} = this.props;
+        const {editKey, selected, metadata, handleClickRemoveEdit, strings} = this.props;
         return (
-            <SelectedEdit key={selected ? 'selected-filter' : editKey} type={'integer'} plusIcon={true} handleClickRemoveEdit={this.handleClickRemoveEdit} onClickHandler={selected ? null : this.handleClickInput}>
+            <SelectedEdit key={selected ? 'selected-filter' : editKey} type={'integer'} plusIcon={true} handleClickRemoveEdit={handleClickRemoveEdit ? this.handleClickRemoveEdit : null} onClickHandler={selected ? null : this.handleClickInput}>
                 <div className="list-block">
                     <div className="integer-title">{metadata.label}</div>
                     <ul>

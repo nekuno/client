@@ -11,7 +11,7 @@ export default class LocationEdit extends Component {
         selected             : PropTypes.bool.isRequired,
         metadata             : PropTypes.object.isRequired,
         data                 : PropTypes.object,
-        handleClickRemoveEdit: PropTypes.func.isRequired,
+        handleClickRemoveEdit: PropTypes.func,
         handleChangeEdit     : PropTypes.func.isRequired,
         // Injected by @translate:
         strings              : PropTypes.object
@@ -36,13 +36,13 @@ export default class LocationEdit extends Component {
     }
 
     render() {
-        const {editKey, selected, data, strings} = this.props;
+        const {editKey, selected, data, handleClickRemoveEdit, strings} = this.props;
         return (
-            <SelectedEdit key={selected ? 'selected-filter' : editKey} type={'location-tag'} addedClass={'tag-filter'} plusIcon={true} handleClickRemoveEdit={this.handleClickRemoveEdit}>
+            <SelectedEdit key={selected ? 'selected-filter' : editKey} type={'location-tag'} addedClass={'tag-filter'} plusIcon={true} handleClickRemoveEdit={handleClickRemoveEdit ? this.handleClickRemoveEdit : null}>
                 <div className="location-filter-wrapper">
                     <div className="list-block">
                         <div className="location-title">{strings.location}</div>
-                        <LocationInput placeholder={data.address ? data.address : data.location ? data.location : strings.placeholder} onSuggestSelect={this.handleClickLocationSuggestion}/>
+                        <LocationInput placeholder={data.address ? data.address : data.location ? data.location : strings.placeholder} onSuggestSelect={this.handleClickLocationSuggestion} autoFocus={false}/>
                     </div>
                 </div>
             </SelectedEdit>

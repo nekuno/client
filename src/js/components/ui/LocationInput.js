@@ -71,10 +71,12 @@ export default class LocationInput extends Component {
     }
 
     onFocusHandler() {
-        /*let geosuggestWrapper = this.refs.geosuggestWrapper;
-        window.setTimeout(function() {
-            geosuggestWrapper.scrollIntoView();
-            document.getElementsByClassName('view')[0].scrollTop -= 100;
-        }, 500)*/
+        let geosuggestWrapper = this.refs.geosuggestWrapper;
+        if (geosuggestWrapper) {
+            window.setTimeout(function () {
+                geosuggestWrapper.scrollIntoView();
+                document.getElementsByClassName('view')[0].scrollTop -= 100;
+            }, 500);
+        }
     }
 }

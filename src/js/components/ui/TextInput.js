@@ -53,10 +53,12 @@ export default class TextInput extends Component {
     }
 
     onFocusHandler() {
-        /*let inputElem = this.refs.input;
-        window.setTimeout(function () {
-            inputElem.scrollIntoView();
-            document.getElementsByClassName('view')[0].scrollTop -= 100;
-        }, 500)*/
+        let inputElem = this.refs.input;
+        if (inputElem) {
+            window.setTimeout(function () {
+                inputElem.scrollIntoView();
+                document.getElementsByClassName('view')[0].scrollTop -= 100;
+            }, 500);
+        }
     }
 }

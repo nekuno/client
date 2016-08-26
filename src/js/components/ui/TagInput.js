@@ -69,10 +69,12 @@ export default class TagInput extends Component {
     }
 
     onFocusHandler() {
-        /*let inputElem = this.refs.tagInput;
-        window.setTimeout(function () {
-            inputElem.scrollIntoView();
-            document.getElementsByClassName('view')[0].scrollTop -= 100;
-        }, 500)*/
+        let inputElem = this.refs.tagInput;
+        if (inputElem) {
+            window.setTimeout(function () {
+                inputElem.scrollIntoView();
+                document.getElementsByClassName('view')[0].scrollTop -= 100;
+            }, 500);
+        }
     }
 }

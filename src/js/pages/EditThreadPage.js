@@ -116,7 +116,7 @@ export default class EditThreadPage extends Component {
                             <div>
                                 <div className="thread-title list-block">
                                     <ul>
-                                        <TextInput placeholder={strings.placeholder} onChange={this._onChange} value={threadName}/>
+                                        <TextInput placeholder={strings.placeholder} onChange={this._onChange} defaultValue={threadName}/>
                                     </ul>
                                 </div>
                                 <div key={1} className={category + '-first-vertical-line'}></div>

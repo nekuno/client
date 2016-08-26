@@ -63,7 +63,7 @@ export default class IntegerEdit extends Component {
 
     handleChangeIntegerInput() {
         const {editKey} = this.props;
-        const value = this.refs[editKey] ? parseInt(this.refs[editKey].getValue()) : 0;
+        const value = this.refs[editKey] ? parseInt(this.refs[editKey].getValue()) : null;
         this.setState({
             value: value,
         });

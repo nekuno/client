@@ -203,7 +203,7 @@ export default class ProfileDataList extends Component {
                 filter = <ChoiceEdit {...props} />;
                 break;
             case 'integer':
-                props.data = data ? parseInt(data) : 0;
+                props.data = data ? parseInt(data) : null;
                 props.handleClickInput = this.onFilterSelect;
                 props.handleChangeEdit = this.handleChangeEditAndSave;
                 props.handleErrorEdit = this.handleErrorEdit;

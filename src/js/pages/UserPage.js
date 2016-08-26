@@ -71,18 +71,8 @@ export default class UserPage extends Component {
         history: PropTypes.object.isRequired
     };
 
-    constructor(props) {
-        super(props);
-
-        this.editProfile = this.editProfile.bind(this);
-    }
-
     componentWillMount() {
         requestData(this.props);
-    }
-
-    editProfile() {
-        this.context.history.pushState(null, `edit-profile`);
     }
 
     render() {
@@ -90,7 +80,7 @@ export default class UserPage extends Component {
         const picture = user.picture ? `${IMAGES_ROOT}media/cache/resolve/user_avatar_60x60/user/images/${user.picture}` : `${IMAGES_ROOT}media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
         return (
             <div className="view view-main">
-                <TopNavBar leftMenuIcon={true} centerText={strings.myProfile} rightIcon={'edit'} onRightLinkClickHandler={this.editProfile}/>
+                <TopNavBar leftMenuIcon={true} centerText={strings.myProfile}/>
                 <div className="page user-page">
                     {profile && metadata && stats ?
                         <div id="page-content">

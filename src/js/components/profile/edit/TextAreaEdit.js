@@ -29,10 +29,10 @@ export default class TextAreaEdit extends Component {
     }
 
     componentWillUpdate(nextProps, nextState) {
-        const {editKey, selected, handleChangeEdit} = this.props;
+        const {editKey, selected} = this.props;
         const {value} = nextState;
         if (selected && !nextProps.selected) {
-            handleChangeEdit(editKey, value);
+            this.props.handleChangeEdit(editKey, value);
         }
     }
 
@@ -51,17 +51,17 @@ export default class TextAreaEdit extends Component {
     }
 
     handleClickRemoveEdit() {
-        const {editKey, handleClickRemoveEdit} = this.props;
-        handleClickRemoveEdit(editKey);
+        const {editKey} = this.props;
+        this.props.handleClickRemoveEdit(editKey);
         this.setState({
             value: ''
         });
     }
 
     render() {
-        const {editKey, selected, metadata, handleClickRemoveEdit} = this.props;
+        const {editKey, selected, metadata} = this.props;
         return(
-            <SelectedEdit key={selected ? 'selected-filter' : editKey} type={'location-tag'} addedClass={'tag-filter'} plusIcon={true} handleClickRemoveEdit={handleClickRemoveEdit ? this.handleClickRemoveEdit : null} onClickHandler={selected ? null : this.handleClickInput}>
+            <SelectedEdit key={selected ? 'selected-filter' : editKey} type={'location-tag'} addedClass={'tag-filter'} plusIcon={true} handleClickRemoveEdit={this.props.handleClickRemoveEdit ? this.handleClickRemoveEdit : null} onClickHandler={selected ? null : this.handleClickInput}>
                 <div className="location-filter-wrapper">
                     <div className="list-block">
                         <ul>

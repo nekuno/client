@@ -141,12 +141,12 @@ export default class TagsAndChoiceEdit extends Component {
     }
 
     handleClickRemoveEdit() {
-        const {editKey, handleClickRemoveEdit} = this.props;
-        handleClickRemoveEdit(editKey);
+        const {editKey} = this.props;
+        this.props.handleClickRemoveEdit(editKey);
     }
 
     render() {
-        const {editKey, selected, metadata, handleClickRemoveEdit, strings} = this.props;
+        const {editKey, selected, metadata, strings} = this.props;
         const data = this.props.data || [];
         let tags = this.props.tags.slice(0);
         const {selectedTagAndChoice} = this.state;
@@ -154,7 +154,7 @@ export default class TagsAndChoiceEdit extends Component {
             tags.push({name: this.refs['tagInput' + editKey].getValue()});
         }
         return (
-            <SelectedEdit key={selected ? 'selected-filter' : editKey} type={'tags-and-choice'} handleClickRemoveEdit={handleClickRemoveEdit ? this.handleClickRemoveEdit : null} onClickHandler={selected ? null : this.handleClickInput}>
+            <SelectedEdit key={selected ? 'selected-filter' : editKey} type={'tags-and-choice'} handleClickRemoveEdit={this.props.handleClickRemoveEdit ? this.handleClickRemoveEdit : null} onClickHandler={selected ? null : this.handleClickInput}>
                 <div className="tags-and-choice-wrapper">
                     <TagInput ref={'tagInput' + editKey} placeholder={strings.placeholder} tags={selected && tags.length > 0 && tags[0].name ? tags.map(tag => tag.name) : []} value={selectedTagAndChoice.tag}
                               onKeyUpHandler={this.handleKeyUpTagAndChoiceTag} onClickTagHandler={this.handleClickTagAndChoiceTagSuggestion}

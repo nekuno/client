@@ -109,13 +109,24 @@ class AuthService {
             })
             .spread(function(user, profile, invitation) {
                 console.log('Invitation consumed', invitation);
-                if (invitation.invitation.hasOwnProperty('group')){
+                if (invitation.invitation.hasOwnProperty('group')) {
                     APIUtils.postData(API_URLS.JOIN_GROUP.replace('{groupId}', invitation.invitation.group.id), user);
                     console.log('Joined to group', invitation.invitation.group);
                 }
                 return [user, profile, invitation, oauth.oauthToken]
             })
             .spread(function(user, profile, invitation, oauthToken) {
+                const defaultThreads = ThreadActionCreators.createDefaultThreads();
+                defaultThreads.then((threads) => {
+                        console.log('Default threads created');
+                        threads.forEach((thread) => {
+                            ThreadActionCreators.requestRecommendation(thread.id);
+                        })
+                    },
+                    (errorData) => {
+                        console.error('Error creating default threads');
+                        console.error(errorData);
+                    });
                 console.log(user, profile, invitation, oauthToken);
                 return {
                     user,

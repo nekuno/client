@@ -131,6 +131,23 @@ export function requestRecommendation(threadId, url = null) {
     }, {threadId})
 }
 
+export function requestRecommendations(userId) {
+    //let threadIds = ThreadsByUserStore.getThreadsFromUser(userId);
+    //if (threadIds.length == 0){
+    let threadIds = [];
+    requestThreads(userId).then(data => {
+        let threads = data.items;
+        threadIds = threads.map((thread) => {
+            return thread.id
+        });
+
+        threadIds.forEach((threadId) => {
+            requestRecommendation(threadId)
+        });
+    });
+    //}
+}
+
 export function recommendationsBack() {
     dispatch(ActionTypes.RECOMMENDATIONS_PREV);
 }

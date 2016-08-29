@@ -79,7 +79,6 @@ export default class IntegerEdit extends Component {
         const {editKey, selected, metadata, strings} = this.props;
         return (
             <SelectedEdit key={selected ? 'selected-filter' : editKey} type={'integer'} plusIcon={true} handleClickRemoveEdit={this.props.handleClickRemoveEdit ? this.handleClickRemoveEdit : null} onClickHandler={selected ? null : this.handleClickInput}>
-
                 <TagInput ref={'tagInput' + editKey} placeholder={strings.placeholder} tags={selected ? this.state.tag ? [this.state.tag.toString()] : [] : []}
                           onKeyUpHandler={this.handleChangeIntegerInput} onClickTagHandler={this.handleClickTagSuggestion}
                           title={metadata.label} doNotFocus={!selected} value={this.state.value ? this.state.value.toString() : ''}/>

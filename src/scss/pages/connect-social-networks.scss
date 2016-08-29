@@ -1,7 +1,12 @@
 body #root .App .view .page.connect-social-networks-page  {
   #page-content {
     margin: 60px auto 0 auto;
-    width: 85%;
+    width: 100%;
+
+    .title, .excerpt {
+      margin: auto;
+      width: 85%;
+    }
   }
 }
 
@@ -10,7 +15,15 @@ body #root .App .view .page.connect-social-networks-page  {
     width: 90%;
 
     svg {
-      margin-left: -35px;
+      margin-left: -3%;
+    }
+  }
+}
+
+@media only screen and (max-width: 280px) {
+  body #root .App .view .page.connect-social-networks-page {
+    svg {
+      margin-left: -7%;
     }
   }
 }

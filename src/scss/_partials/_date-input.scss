@@ -1,3 +1,12 @@
+.date-input {
+	position: absolute;
+	left: 0;
+	input[type=date] {
+		color: $light-gray;
+		text-align: right;
+	}
+}
+
 .list-block ul li.date-item {
 	.item-content.date-content {
 		.date-label {

@@ -1,12 +1,35 @@
 import React, { PropTypes, Component } from 'react';
+import InfiniteCalendar from 'react-infinite-calendar';
+import {
+    INFINITE_CALENDAR_LOCALE_ES,
+    INFINITE_CALENDAR_LOCALE_EN,
+    INFINITE_CALENDAR_THEME,
+} from '../../constants/InfiniteCalendarConstants';
+import LocaleStore from '../../stores/LocaleStore';
+import connectToStores from '../../utils/connectToStores';
 
+/**
+ * Retrieves state from stores for current props.
+ */
+function getState() {
+    const locale = LocaleStore.locale;
+
+    return {
+        locale: locale
+    }
+
+}
+
+@connectToStores([LocaleStore], getState)
 export default class DateInput extends Component {
 
     static propTypes = {
         label       : PropTypes.string,
         placeholder : PropTypes.string.isRequired,
         defaultValue: PropTypes.string,
-        onChange    : PropTypes.func
+        onChange    : PropTypes.func,
+        autoFocus   : PropTypes.bool,
+        locale      : PropTypes.string
     };
 
     constructor(props) {
@@ -14,70 +37,75 @@ export default class DateInput extends Component {
         super(props);
 
         this.onChange = this.onChange.bind(this);
+        this.toggleSelection = this.toggleSelection.bind(this);
 
         this.state = {
-            calendar: null
+            selected: props.autoFocus ? true : null,
+            selectingYear: true,
+            value: props.defaultValue
         }
     }
 
-    getValue() {
-        return this.refs.input.value;
+    onChange(value) {
+        const {selectingYear} = this.state;
+        const formatedValue = value.format('YYYY-MM-DD');
+        if (!selectingYear) {
+            this.props.onChange(formatedValue);
+            this.setState({
+                selected: null,
+                selectingYear: true,
+                value: formatedValue
+            });
+        } else {
+            this.setState({
+                selectingYear: false,
+                value: formatedValue
+            });
+        }
     }
 
-    componentDidMount() {
-        let calendar = nekunoApp.calendar({
-            input              : '#calendar-input',
-            convertToPopover   : false,
-            closeOnSelect      : true,
-            onChange           : this.onChange,
-            monthPickerTemplate: '<div class="picker-calendar-month-picker">' +
-            '<a href="javascript:void(0)" class="link icon-only picker-calendar-prev-month">' +
-            '<i class="icon icon-prev"></i>' +
-            '</a>' +
-            '<span class="current-month-value"></span>' +
-            '<a href="javascript:void(0)" class="link icon-only picker-calendar-next-month">' +
-            '<i class="icon icon-next"></i>' +
-            '</a>' +
-            '</div>',
-            yearPickerTemplate : '<div class="picker-calendar-year-picker">' +
-            '<a href="javascript:void(0)" class="link icon-only picker-calendar-prev-year">' +
-            '<i class="icon icon-prev"></i>' +
-            '</a>' +
-            '<span class="current-year-value"></span>' +
-            '<a href="javascript:void(0)" class="link icon-only picker-calendar-next-year">' +
-            '<i class="icon icon-next"></i>' +
-            '</a>' +
-            '</div>'
-        });
-
-        if (this.props.defaultValue) {
-            calendar.setValue([this.props.defaultValue]);
-        }
-
+    toggleSelection() {
+        const {selected} = this.state;
         this.setState({
-            calendar: calendar
+            selected: !selected
         });
-    }
-
-    onChange() {
-        typeof this.props.onChange === 'function' ? window.setTimeout(this.props.onChange, 0) : null;
     }
 
     render() {
+        const {label, locale, placeholder} = this.props;
+        const {selected, selectingYear, value} = this.state;
+        const localeObject = locale === 'es' ? INFINITE_CALENDAR_LOCALE_ES : INFINITE_CALENDAR_LOCALE_EN;
+        const today = new Date();
+
         return (
-            <li className="date-item">
-                <div className="item-content date-content">
-                    {this.props.label ? 
-                        <div className="item-title label date-label">{this.props.label}</div>
-                            :
-                        null}
-                    <div className="item-inner">
-                        <div className="item-input">
-                            <input {...this.props} id="calendar-input" ref="input" type="text" placeholder={this.props.placeholder}/>
-                        </div>
-                    </div>
+            !selected ?
+                <div className="list-block">
+                    <ul>
+                        <li className="date-item">
+                            <div className="item-content date-content">
+                                {label ?
+                                    <div className="item-title label date-label">{label}</div>
+                                        :
+                                    null}
+
+                                <input id="calendar-input" type="text" placeholder={placeholder} defaultValue={value} onClick={this.toggleSelection}/>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
-            </li>
+                :
+                <InfiniteCalendar
+                    width={"100%"}
+                    height={250}
+                    className={"date-input"}
+                    selectedDate={value || today}
+                    keyboardSupport={true}
+                    locale={localeObject}
+                    afterSelect={this.onChange}
+                    display={selectingYear ? "years" : "days"}
+                    theme={INFINITE_CALENDAR_THEME}
+                    showTodayHelper={false}
+                />
         );
     }
 }

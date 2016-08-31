@@ -49,18 +49,18 @@ export default class DateInput extends Component {
 
     onChange(value) {
         const {selectingYear} = this.state;
-        const formatedValue = value.format('YYYY-MM-DD');
+        const formattedValue = value.format('YYYY-MM-DD');
         if (!selectingYear) {
-            this.props.onChange(formatedValue);
+            this.props.onChange(formattedValue);
             this.setState({
                 selected: null,
                 selectingYear: true,
-                value: formatedValue
+                value: formattedValue
             });
         } else {
             this.setState({
                 selectingYear: false,
-                value: formatedValue
+                value: formattedValue
             });
         }
     }
@@ -77,6 +77,8 @@ export default class DateInput extends Component {
         const {selected, selectingYear, value} = this.state;
         const localeObject = locale === 'es' ? INFINITE_CALENDAR_LOCALE_ES : INFINITE_CALENDAR_LOCALE_EN;
         const today = new Date();
+        const maxDate = new Date(Number(today) - (24*60*60*1000) * 365 * 18);
+        const minDate = new Date(Number(today) - (24*60*60*1000) * 365 * 110);
 
         return (
             !selected ?
@@ -94,12 +96,17 @@ export default class DateInput extends Component {
                     height={250}
                     className={"date-input"}
                     selectedDate={value || today}
+                    min={minDate}
+                    max={maxDate}
+                    minDate={minDate}
+                    maxDate={maxDate}
                     keyboardSupport={true}
                     locale={localeObject}
                     afterSelect={this.onChange}
                     display={selectingYear ? "years" : "days"}
                     theme={INFINITE_CALENDAR_THEME}
                     showTodayHelper={false}
+                    overscanMonthCount={1}
                 />
         );
     }

@@ -7,6 +7,7 @@ import {
 } from '../../constants/InfiniteCalendarConstants';
 import LocaleStore from '../../stores/LocaleStore';
 import connectToStores from '../../utils/connectToStores';
+import Chip from './Chip';
 
 /**
  * Retrieves state from stores for current props.
@@ -79,19 +80,13 @@ export default class DateInput extends Component {
 
         return (
             !selected ?
-                <div className="list-block">
-                    <ul>
-                        <li className="date-item">
-                            <div className="item-content date-content">
-                                {label ?
-                                    <div className="item-title label date-label">{label}</div>
-                                        :
-                                    null}
-
-                                <input id="calendar-input" type="text" placeholder={placeholder} defaultValue={value} onClick={this.toggleSelection}/>
-                            </div>
-                        </li>
-                    </ul>
+                <div className="text-checkboxes">
+                    <div className="text-checkboxes-title">{label}</div>
+                    <Chip key={label.key}
+                          chipClass={'chip-1'}
+                          label={value ? label + ': ' + value : placeholder}
+                          onClickHandler={this.toggleSelection}
+                    />
                 </div>
                 :
                 <InfiniteCalendar

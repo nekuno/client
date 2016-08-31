@@ -251,8 +251,7 @@ export default {
     BirthdayField                    : {
         birthday           : 'birthday',
         title              : 'When were you born?',
-        birthdayPlaceholder: 'Your birthday',
-        save               : 'Save'
+        birthdayPlaceholder: 'Your birthday'
     },
     GenderField                      : {
         include              : 'Include on searches as',

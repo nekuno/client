@@ -1,6 +1,5 @@
 import React, { PropTypes, Component } from 'react';
 import DateInput from '../../ui/DateInput';
-import FullWidthButton from '../../ui/FullWidthButton';
 import translate from '../../../i18n/Translate';
 
 @translate('BirthdayField')
@@ -11,9 +10,15 @@ export default class BirthdayField extends Component {
         // Injected by @translate:
         strings        : PropTypes.object
     };
-    
-    handleClickSave() {
-        this.props.onSaveHandler('birthday', this.refs.birthday.getValue());
+
+    constructor(props) {
+        super(props);
+
+        this.onChange = this.onChange.bind(this);
+    }
+
+    onChange(date) {
+        this.props.onSaveHandler('birthday', date);
     }
 
     render() {
@@ -24,15 +29,11 @@ export default class BirthdayField extends Component {
                     <div className="title answer-question-title">
                         {strings.title}
                     </div>
-                    <div className="list-block">
-                        <ul>
-                            <DateInput defaultValue={birthday} placeholder={strings.birthdayPlaceholder} ref="birthday"/>
-                        </ul>
-                    </div>
+                    <DateInput defaultValue={birthday} placeholder={strings.birthdayPlaceholder} onChange={this.onChange} autoFocus={true}/>
                 </div>
                 <br />
                 <br />
-                <FullWidthButton type="submit" onClick={this.handleClickSave.bind(this)}>{strings.save}</FullWidthButton>
+                <br />
             </div>
         );
     }
@@ -42,7 +43,6 @@ BirthdayField.defaultProps = {
     strings: {
         birthday           : 'birthday',
         title              : 'When were you born?',
-        birthdayPlaceholder: 'Your birthday',
-        save               : 'Save'
+        birthdayPlaceholder: 'Your birthday'
     }
 };

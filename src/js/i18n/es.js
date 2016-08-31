@@ -252,8 +252,7 @@ export default {
     BirthdayField                    : {
         birthday           : 'fecha de nacimiento',
         title              : '¿Cúando naciste?',
-        birthdayPlaceholder: 'Tu fecha de nacimiento',
-        save               : 'Guardar'
+        birthdayPlaceholder: 'Tu fecha de nacimiento'
     },
     GenderField                      : {
         include              : 'Incluirme en las búsquedas como',

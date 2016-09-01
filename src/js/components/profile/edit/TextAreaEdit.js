@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import SelectedEdit from './SelectedEdit';
-import TagInput from '../../ui/TagInput';
+import TextArea from '../../ui/TextArea';
 
 export default class TextAreaEdit extends Component {
     static propTypes = {
@@ -17,25 +17,15 @@ export default class TextAreaEdit extends Component {
 
         this.handleClickInput = this.handleClickInput.bind(this);
         this.onChangeValue = this.onChangeValue.bind(this);
-        this.handleClickTagSuggestion = this.handleClickTagSuggestion.bind(this);
         this.handleClickRemoveEdit = this.handleClickRemoveEdit.bind(this);
 
         this.state = {
-            tag: null,
             value: props.data
         };
     }
 
     componentWillMount() {
         this.handleClickInput();
-    }
-
-    componentWillUpdate(nextProps, nextState) {
-        const {editKey, selected} = this.props;
-        const {value} = nextState;
-        if (selected && !nextProps.selected) {
-            this.props.handleChangeEdit(editKey, value);
-        }
     }
 
     handleClickInput() {
@@ -45,28 +35,16 @@ export default class TextAreaEdit extends Component {
 
     onChangeValue() {
         const {editKey} = this.props;
-        let value = '';
-        let tag = null;
-        if (this.refs['tagInput' + editKey]) {
-            value = this.refs['tagInput' + editKey].getValue();
-            if (value) {
-                tag = value;
-            }
+        const value = this.refs[editKey].getValue();
+        if (typeof this.textareaTimeout !== 'undefined') {
+            clearTimeout(this.textareaTimeout);
         }
-        this.setState({
-            tag: tag,
-            value: value
-        });
-    }
+        this.textareaTimeout = setTimeout(() => {
+            this.props.handleChangeEdit(editKey, value)
 
-    handleClickTagSuggestion(string) {
-        const {editKey} = this.props;
-        this.refs['tagInput' + editKey].clearValue();
-        this.refs['tagInput' + editKey].focus();
-        this.props.handleChangeEdit(editKey, string);
+        }, 500);
         this.setState({
-            tag: null,
-            value: string
+            value: value
         });
     }
 
@@ -74,7 +52,6 @@ export default class TextAreaEdit extends Component {
         const {editKey} = this.props;
         this.props.handleClickRemoveEdit(editKey);
         this.setState({
-            tag: null,
             value: ''
         });
     }
@@ -82,11 +59,14 @@ export default class TextAreaEdit extends Component {
     render() {
         const {editKey, selected, metadata} = this.props;
         return(
-            <SelectedEdit key={selected ? 'selected-filter' : editKey} type={'location-tag'} addedClass={'tag-filter'} plusIcon={true} handleClickRemoveEdit={this.props.handleClickRemoveEdit ? this.handleClickRemoveEdit : null} onClickHandler={selected ? null : this.handleClickInput}>
-                <TagInput ref={'tagInput' + editKey} placeholder={metadata.label} tags={selected && this.state.value ? [this.state.value] : []}
-                          onKeyUpHandler={this.onChangeValue} onClickTagHandler={this.handleClickTagSuggestion}
-                          title={metadata.label} doNotFocus={!selected} value={this.state.value}/>
-                <div className="table-row"></div>
+            <SelectedEdit key={selected ? 'selected-filter' : editKey} type={'textarea'} plusIcon={true} handleClickRemoveEdit={this.props.handleClickRemoveEdit ? this.handleClickRemoveEdit : null} onClickHandler={selected ? null : this.handleClickInput}>
+                <div className="textarea-filter-wrapper">
+                    <div className="list-block">
+                        <ul>
+                            <TextArea ref={editKey} placeholder={metadata.label} defaultValue={this.state.value} onChange={this.onChangeValue}/>
+                        </ul>
+                    </div>
+                </div>
             </SelectedEdit>
         );
     }

@@ -277,10 +277,12 @@ export default class ProfileDataList extends Component {
         );
         return (
             <div className="profile-data-list">
-                <div key={'description-category'} className="profile-category" ref={'description' == this.state.selectedCategory ? 'selectedCategory' : null}>
-                    <h3>{strings.aboutMe} <span className="icon-wrapper" onClick={this.onCategoryToggle.bind(this, 'description')}><span className={'description' == this.state.selectedCategory ? 'icon-checkmark' : 'icon-edit'}></span></span></h3>
+                <div key={'description'} ref={this.state.selectedCategory == 'description' ? "selectedCategoryEdit" : null}>
+                    <div key={'description-category'} className="profile-category" ref={'description' == this.state.selectedCategory ? 'selectedCategory' : null}>
+                        <h3>{strings.aboutMe} <span className="icon-wrapper" onClick={this.onCategoryToggle.bind(this, 'description')}><span className={'description' == this.state.selectedCategory ? 'icon-checkmark' : 'icon-edit'}></span></span></h3>
+                    </div>
+                    {'description' == this.state.selectedCategory ? this.renderField(profile.hasOwnProperty('description') ? profile : [], metadata, 'description') : <ProfileAboutMe value={profile.description || ''}/>}
                 </div>
-                {'description' == this.state.selectedCategory ? this.renderField(profile.hasOwnProperty('description') ? profile : [], metadata, 'description') : <ProfileAboutMe value={profile.description || ''}/>}
                 {lines}
             </div>
         );

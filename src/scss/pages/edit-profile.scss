@@ -15,6 +15,23 @@ body #root .App .view .page.user-page  {
       padding-left: 50%;
     }
 
+    .textarea-filter-wrapper {
+      height: 100px;
+      min-width: 250px;
+      width: 110%;
+
+      .list-block {
+        margin: 30px 0 0 0;
+
+        textarea {
+          display: block;
+          font-size: 0.85em;
+          height: 100px;
+          width: 100%;
+        }
+      }
+    }
+
     .radio-filter, .tags-and-choice-filter {
       .double-choice-filter, .tags-and-choice-choice {
         display: inline-block;
@@ -256,6 +273,9 @@ body #root .App .view .page.user-page  {
     }
 
     @media only screen and (max-width: 300px) {
+      .textarea-filter-wrapper {
+        min-width: 230px;
+      }
       .profile-field {
         .profile-field-background {
           .profile-field-remove .small-icon-wrapper {

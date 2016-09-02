@@ -28,6 +28,8 @@
     "rc-progress": "^1.0.4",
     "react": "15.3.1",
     "react-dom": "15.3.1",
+    "react-emoji": "^0.4.4",
+    "react-emoji-picker": "^1.0.12",
     "react-geosuggest": "1.24.1",
     "react-image-crop": "1.0.0-rc4",
     "react-infinite-calendar": "^1.1.18",

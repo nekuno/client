@@ -1,6 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import { IMAGES_ROOT } from '../../constants/Constants';
 import moment from 'moment';
+import ReactEmoji from 'react-emoji';
 
 export default class Message extends Component {
 
@@ -15,7 +16,7 @@ export default class Message extends Component {
     render() {
 
         let message = this.props.message;
-        let text = message.text;
+        let text = ReactEmoji.emojify(message.text);
         let readed = message.readed;
         let createdAt = message.createdAt;
         let image = IMAGES_ROOT.slice(0, -1) + message.user_from.image.small;

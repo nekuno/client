@@ -131,6 +131,7 @@ export default class ChatMessagesPage extends Component {
                         {this.state.noMoreMessages ? <div className="daily-message-title">{strings.noMoreMessages}</div> : '' }
                         <DailyMessages messages={messages}/>
                         <br />
+                        <br />
                     </div>
                 </div>
                 <div>

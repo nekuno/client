@@ -4,6 +4,7 @@ import { IMAGES_ROOT } from '../../constants/Constants';
 import moment from 'moment';
 import ChatUserStatusStore from '../../stores/ChatUserStatusStore';
 import connectToStores from '../../utils/connectToStores';
+import ReactEmoji from 'react-emoji';
 
 function getState(props) {
 
@@ -27,7 +28,7 @@ export default class LastMessage extends Component {
     render() {
 
         let message = this.props.message;
-        let text = message.text;
+        let text = ReactEmoji.emojify(message.text);
         let readed = message.readed;
         let createdAt = message.createdAt;
         let image = IMAGES_ROOT.slice(0, -1) + (message.user.id === message.user_from.id ? message.user_to.image.small : message.user_from.image.small);

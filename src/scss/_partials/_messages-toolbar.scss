@@ -1,22 +1,25 @@
-#messages-toolbar .toolbar.messagebar {
-	border-top: 1px solid $light-gray;
-	.toolbar-inner {
-		background: #fff;
-		padding: 0;
-		a {
-			color: $deep-purple;
-			text-align: center;
-			width: 25%;
-		}
-		textarea {
-			border: none;
-			height: 50px;
-			line-height: 42px;
-			width: 75%;
-		}
-	}
+#messages-toolbar .toolbar-inner {
+  background-color: #fff !important;
+  .toolbar.messagebar {
+    border-top: 1px solid $light-gray;
+    .toolbar-inner {
+      background-color: #fff !important;
+      padding: 0;
+      a {
+        color: $deep-purple;
+        text-align: center;
+        width: 25%;
+      }
+      textarea {
+        border: none;
+        height: 50px;
+        line-height: 42px;
+        width: 75%;
+      }
+    }
 
-	&::before {
-		content: none;
-	}
+    &::before {
+      content: none;
+    }
+  }
 }

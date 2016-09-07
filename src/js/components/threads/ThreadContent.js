@@ -15,6 +15,7 @@ export default class ThreadContent extends Component {
         thread : PropTypes.object.isRequired,
         last   : PropTypes.bool.isRequired,
         userId : PropTypes.number.isRequired,
+        isJustRegistered: PropTypes.bool,
         avKey  : PropTypes.number.isRequired,
         // Injected by @translate:
         strings: PropTypes.object
@@ -58,6 +59,9 @@ export default class ThreadContent extends Component {
     goToThread() {
         if (this.props.thread.disabled === true) {
             nekunoApp.alert(this.props.strings.disabled)
+        }
+        else if (this.props.thread.isEmpty === true && this.props.isJustRegistered ) {
+            nekunoApp.alert('This yarn is empty for now. Please wait until we fill it up for you.');
         } else {
             this.context.history.pushState(null, `users/${this.props.userId}/recommendations/${this.props.thread.id}`)
         }

@@ -19,6 +19,7 @@ export default class ThreadUsers extends Component {
         last   : PropTypes.bool.isRequired,
         userId : PropTypes.number.isRequired,
         profile: PropTypes.object.isRequired,
+        isJustRegistered: PropTypes.bool,
         filters: PropTypes.object.isRequired,
         avKey  : PropTypes.number.isRequired,
         // Injected by @translate:
@@ -73,6 +74,8 @@ export default class ThreadUsers extends Component {
             document.getElementsByClassName('view')[0].scrollTop = 0;
         } else if (this.props.thread.disabled === true) {
             nekunoApp.alert(this.props.strings.disabled)
+        } else if (this.props.thread.isEmpty === true && this.props.isJustRegistered) {
+            nekunoApp.alert ('This yarn is empty for now. Please wait until we fill it up for you.');
         } else {
             this.continue();
         }

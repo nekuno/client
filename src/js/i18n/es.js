@@ -155,7 +155,8 @@ export default {
     },
     RecommendationPage               : {
         loadingMessage: 'Cargando recomendaciones',
-        confirmDelete : '¿Estás seguro de que quieres borrar este hilo?'
+        confirmDelete : '¿Estás seguro de que quieres borrar este hilo?',
+        processingThread: 'Estos resultados son provisionales, acabaremos pronto de mejorar esto para ti.'
     },
     InvitationsPage                  : {
         invitations           : 'Invitaciones',

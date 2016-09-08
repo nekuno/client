@@ -11,6 +11,7 @@ import RecommendationStore from '../stores/RecommendationStore';
 import ThreadStore from '../stores/ThreadStore';
 import RecommendationsByThreadStore from '../stores/RecommendationsByThreadStore';
 import FilterStore from '../stores/FilterStore';
+import WorkersStore from '../stores/WorkersStore';
 
 function parseThreadId(params) {
     return params.threadId;
@@ -79,10 +80,12 @@ function initSwiper(thread) {
 function getState(props) {
     const threadId = parseThreadId(props.params);
     const thread = ThreadStore.get(threadId);
+    thread.isEmpty = RecommendationsByThreadStore.isEmpty(thread.id);
     const recommendationIds = threadId ? RecommendationsByThreadStore.getRecommendationsFromThread(threadId) : [];
     const recommendationsReceived = RecommendationsByThreadStore.elementsReceived(threadId);
     const category = thread ? thread.category : null;
     const filters = FilterStore.filters;
+    const isJustRegistered = WorkersStore.isJustRegistered();
 
     let recommendations = [];
     if (thread && category == 'ThreadUsers') {
@@ -96,7 +99,8 @@ function getState(props) {
         recommendationsReceived,
         category,
         thread,
-        filters
+        filters,
+        isJustRegistered
     }
 }
 
@@ -146,6 +150,9 @@ export default class RecommendationPage extends Component {
     }
 
     componentDidMount() {
+        if (this.props.thread && this.props.thread.isEmpty && this.props.isJustRegistered) {
+            nekunoApp.alert(this.props.strings.processingThread);
+        }
         if (this.props.thread && this.props.recommendations.length > 0 && !this.state.swiper) {
             this.state = {
                 swiper: initSwiper(this.props.thread)
@@ -210,6 +217,7 @@ export default class RecommendationPage extends Component {
 RecommendationPage.defaultProps = {
     strings: {
         loadingMessage: 'Loading recommendations',
-        confirmDelete : 'Are you sure you want to delete this thread?'
+        confirmDelete : 'Are you sure you want to delete this thread?',
+        processingThread: 'These results are provisional, we´ll finish improving this for you soon.'
     }
 };

@@ -111,6 +111,10 @@ export default class IndexedListStore extends BaseStore {
         return this._received[listId] ? this._received[listId] : false;
     }
 
+    isEmpty(listId) {
+        return this.elementsReceived(listId) && this.getElements(thread.id).length == 0;
+    }
+
     setPosition(listId, newPosition) {
         this._position[listId] = newPosition;
     }

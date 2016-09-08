@@ -154,7 +154,8 @@ export default {
     },
     RecommendationPage               : {
         loadingMessage: 'Loading recommendations',
-        confirmBlock  : 'Are you sure you want to block this user?'
+        confirmBlock  : 'Are you sure you want to block this user?',
+        processingThread: 'These results are provisional, we´ll finish improving this for you soon.'
     },
     InvitationsPage                  : {
         invitations           : 'Invitations',

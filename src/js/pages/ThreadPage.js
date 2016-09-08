@@ -38,7 +38,7 @@ function getState(props) {
     const threads = threadIds ? threadIds.map(ThreadStore.get) : [];
     threads.forEach((thread) => {
         thread.disabled = ThreadStore.isDisabled(thread.id);
-        thread.isEmpty = RecommendationsByThreadStore.elementsReceived(thread.id) && RecommendationsByThreadStore.getRecommendationsFromThread(thread.id).length == 0;
+        thread.isEmpty = RecommendationsByThreadStore.isEmpty(thread.id);
         const cachedIds = RecommendationsByThreadStore.getFirst(thread.id, 5);
         thread.cached = thread.category == 'ThreadContent' ?
             RecommendationStore.getContentRecommendations(cachedIds)
@@ -61,7 +61,7 @@ function getState(props) {
 
 @AuthenticatedComponent
 @translate('ThreadPage')
-@connectToStores([ThreadStore, ThreadsByUserStore, RecommendationStore, RecommendationsByThreadStore, ProfileStore, FilterStore], getState)
+@connectToStores([ThreadStore, ThreadsByUserStore, RecommendationStore, RecommendationsByThreadStore, ProfileStore, FilterStore, WorkersStore], getState)
 export default class ThreadPage extends Component {
 
     static propTypes = {

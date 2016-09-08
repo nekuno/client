@@ -112,7 +112,7 @@ export default class IndexedListStore extends BaseStore {
     }
 
     isEmpty(listId) {
-        return this.elementsReceived(listId) && this.getElements(thread.id).length == 0;
+        return this.elementsReceived(listId) && this.getElements(listId).length == 0;
     }
 
     setPosition(listId, newPosition) {

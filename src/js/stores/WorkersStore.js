@@ -228,6 +228,16 @@ class WorkersStore extends BaseStore {
         return this._isJustRegistered;
     }
 
+    countNetworksWorking() {
+        let count= 0;
+        this._networks.forEach(network => {
+            if (network.fetching || network.processing) {
+                count++;
+            }
+        });
+        return count;
+    }
+
     hasRegisterWorkersFinished() {
         const finished = this._registerWorkersFinish;
         this._registerWorkersFinish = null;

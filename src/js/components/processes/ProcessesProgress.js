@@ -1,8 +1,11 @@
 import React, { PropTypes, Component } from 'react';
 var Line = require('rc-progress').Line;
+import AuthenticatedComponent from '../../components/AuthenticatedComponent';
 import translate from '../../i18n/Translate';
 import connectToStores from '../../utils/connectToStores';
 import WorkersStore from '../../stores/WorkersStore';
+import ThreadsByUserStore from '../../stores/ThreadsByUserStore';
+import RecommendationsByThreadStore from '../../stores/RecommendationsByThreadStore';
 
 function getState() {
     const linksPercentage = WorkersStore.getLinksPercentage();
@@ -11,25 +14,40 @@ function getState() {
     const affinityPercentage = WorkersStore.getAffinityPercentage();
     const isJustRegistered = WorkersStore.isJustRegistered();
     const registerWorkersFinish = WorkersStore.hasRegisterWorkersFinished();
+    const countNetworksWorking = WorkersStore.countNetworksWorking();
+
+    const threads = ThreadsByUserStore.getThreadsFromUser(this.props.user.id);
+    const emptyThreads = threads.filter(id => RecommendationsByThreadStore.isEmpty(id));
+    const threadsPercentage = 1 - (emptyThreads.length / threads.length);
 
     return {
         linksPercentage,
         similarityPercentage,
         matchingPercentage,
         affinityPercentage,
+        threadsPercentage,
+        countNetworksWorking,
         isJustRegistered,
         registerWorkersFinish
     };
 }
 
+@AuthenticatedComponent
 @translate('ProcessesProgress')
 @connectToStores([WorkersStore], getState)
 export default class ProcessesProgress extends Component {
     static propTypes = {
+        // Injected by @AuthenticatedComponent
+        user   : PropTypes.object.isRequired,
+        // Injected by @translate:
+        strings: PropTypes.object,
+        //Injected by @connectToStores
         linksPercentage      : PropTypes.number,
         similarityPercentage : PropTypes.number,
         matchingPercentage   : PropTypes.number,
         affinityPercentage   : PropTypes.number,
+        threadsPercentage    : PropTypes.number,
+        countNetworksWorking : PropTypes.number,
         isJustRegistered     : PropTypes.bool,
         registerWorkersFinish: PropTypes.bool
     };
@@ -63,6 +81,9 @@ export default class ProcessesProgress extends Component {
             case 'affinityPercentage':
                 title = percent ? strings.affinityTitle : strings.affinityPreparingTitle;
                 break;
+            case 'threadsPercentage':
+                title = strings.threadsTitle;
+                break;
             default:
         }
         return (
@@ -76,7 +97,7 @@ export default class ProcessesProgress extends Component {
     }
 
     render() {
-        const {linksPercentage, similarityPercentage, matchingPercentage, affinityPercentage, isJustRegistered, strings} = this.props;
+        const {linksPercentage, similarityPercentage, matchingPercentage, affinityPercentage, threadsPercentage, countNetworksWorking, isJustRegistered, strings} = this.props;
         let layerHeight = 0;
         layerHeight += linksPercentage !== null || isJustRegistered ? 65 : 0;
         layerHeight += similarityPercentage !== null || isJustRegistered ? 65 : 0;
@@ -92,6 +113,7 @@ export default class ProcessesProgress extends Component {
                         {similarityPercentage !== null || isJustRegistered ? this.renderProgress('similarityPercentage', similarityPercentage) : null}
                         {matchingPercentage !== null || isJustRegistered ? this.renderProgress('matchingPercentage', matchingPercentage) : null}
                         {affinityPercentage !== null || isJustRegistered ? this.renderProgress('affinityPercentage', affinityPercentage) : null}
+                        {threadsPercentage !== null && (countNetworksWorking > 0 || similarityPercentage || matchingPercentage || affinityPercentage) ? this.renderProgress('processingThreads', threadsPercentage) : null}
                     </div>
                     <div style={{height: layerHeight + 'px'}}></div>
                 </div>
@@ -109,6 +131,7 @@ ProcessesProgress.defaultProps = {
         similarityTitle         : 'Calculating similarity',
         matchingTitle           : 'Calculating matching',
         affinityTitle           : 'Calculating affinity',
+        threadsTitle            : 'Creating threads',
         linksPreparingTitle     : 'Preparing to process links',
         similarityPreparingTitle: 'Preparing to calculate similarity',
         matchingPreparingTitle  : 'Preparing to calculate matching',

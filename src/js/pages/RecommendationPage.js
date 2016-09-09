@@ -150,7 +150,7 @@ export default class RecommendationPage extends Component {
     }
 
     componentDidMount() {
-        if (this.props.thread && this.props.thread.isEmpty && this.props.isJustRegistered) {
+        if (this.props.isJustRegistered) {
             nekunoApp.alert(this.props.strings.processingThread);
         }
         if (this.props.thread && this.props.recommendations.length > 0 && !this.state.swiper) {

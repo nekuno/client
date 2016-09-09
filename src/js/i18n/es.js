@@ -314,6 +314,7 @@ export default {
         similarityTitle         : 'Calculando similaridad',
         matchingTitle           : 'Calculando compatibilidad',
         affinityTitle           : 'Calculando afinidad',
+        threadsTitle            : 'Creando más hilos',
         linksPreparingTitle     : 'Preparando para procesar enlaces',
         similarityPreparingTitle: 'Preparando para calcular similaridad',
         matchingPreparingTitle  : 'Preparando para calcular compatibilidad',

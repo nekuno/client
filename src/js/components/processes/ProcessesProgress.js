@@ -7,7 +7,7 @@ import WorkersStore from '../../stores/WorkersStore';
 import ThreadsByUserStore from '../../stores/ThreadsByUserStore';
 import RecommendationsByThreadStore from '../../stores/RecommendationsByThreadStore';
 
-function getState() {
+function getState(props) {
     const linksPercentage = WorkersStore.getLinksPercentage();
     const similarityPercentage = WorkersStore.getSimilarityPercentage();
     const matchingPercentage = WorkersStore.getMatchingPercentage();
@@ -16,7 +16,7 @@ function getState() {
     const registerWorkersFinish = WorkersStore.hasRegisterWorkersFinished();
     const countNetworksWorking = WorkersStore.countNetworksWorking();
 
-    const threads = ThreadsByUserStore.getThreadsFromUser(this.props.user.id);
+    const threads = ThreadsByUserStore.getThreadsFromUser(props.user.id);
     const emptyThreads = threads.filter(id => RecommendationsByThreadStore.isEmpty(id));
     const threadsPercentage = 1 - (emptyThreads.length / threads.length);
 

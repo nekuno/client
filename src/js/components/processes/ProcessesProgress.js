@@ -20,7 +20,7 @@ function getState(props) {
     const threads = ThreadsByUserStore.getThreadsFromUser(props.user.id);
     if (threads){
         const emptyThreads = threads.filter(id => RecommendationsByThreadStore.isEmpty(id));
-        threadsPercentage = threads.length > 0 ? 1 - (emptyThreads.length / threads.length) : null;
+        threadsPercentage = threads.length > 0 ? Math.round(100 * (1 - (emptyThreads.length / threads.length))) : null;
     }
 
     return {
@@ -134,7 +134,7 @@ ProcessesProgress.defaultProps = {
         similarityTitle         : 'Calculating similarity',
         matchingTitle           : 'Calculating matching',
         affinityTitle           : 'Calculating affinity',
-        threadsTitle            : 'Creating threads',
+        threadsTitle            : 'Creating more threads',
         linksPreparingTitle     : 'Preparing to process links',
         similarityPreparingTitle: 'Preparing to calculate similarity',
         matchingPreparingTitle  : 'Preparing to calculate matching',

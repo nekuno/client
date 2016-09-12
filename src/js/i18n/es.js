@@ -390,7 +390,8 @@ export default {
         create        : 'Crear hilo'
     },
     ThreadContent                    : {
-        contents: 'Contenidos'
+        contents: 'Contenidos',
+        working: 'Estos resultados son provisionales, estamos trabajando en mejorarlos para ti.'
     },
     ThreadUsers                      : {
         people: 'Personas',

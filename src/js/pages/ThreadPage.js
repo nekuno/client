@@ -48,14 +48,14 @@ function getState(props) {
     const profile = ProfileStore.get(props.user.id) || {};
     const filters = FilterStore.filters;
     const pagination = QuestionStore.getPagination(props.user.id) || {};
-    const isJustRegistered = WorkersStore.isJustRegistered();
+    const isSomethingWorking = WorkersStore.isSomethingWorking();
 
     return {
         filters,
         threads,
         profile,
         pagination,
-        isJustRegistered
+        isSomethingWorking
     };
 }
 
@@ -94,7 +94,7 @@ export default class ThreadPage extends Component {
     }
 
     render() {
-        const {threads, filters, profile, strings, user, isJustRegistered} = this.props;
+        const {threads, filters, profile, strings, user, isSomethingWorking} = this.props;
 
         return (
             <div className="view view-main">
@@ -103,7 +103,7 @@ export default class ThreadPage extends Component {
                     <div id="page-content">
                         <ProcessesProgress />
                         {filters && threads && profile ?
-                            <ThreadList threads={threads} userId={user.id} profile={profile} isJustRegistered={isJustRegistered} filters={filters}/> : <EmptyMessage text={strings.loadingMessage} loadingGif={true} />
+                            <ThreadList threads={threads} userId={user.id} profile={profile} isSomethingWorking={isSomethingWorking} filters={filters}/> : <EmptyMessage text={strings.loadingMessage} loadingGif={true} />
                         }
                         {filters && threads && profile ?
                             <QuestionsBanner user={user} questionsTotal={this.props.pagination.total || 0}/> : ''

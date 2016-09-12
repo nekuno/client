@@ -389,7 +389,8 @@ export default {
         create        : 'Create'
     },
     ThreadContent                    : {
-        contents: 'Contents'
+        contents: 'Contents',
+        working: 'These results are provisional, we are working on improving them for you.'
     },
     ThreadUsers                      : {
         people: 'People',

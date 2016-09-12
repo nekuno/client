@@ -16,9 +16,12 @@ function getState(props) {
     const registerWorkersFinish = WorkersStore.hasRegisterWorkersFinished();
     const countNetworksWorking = WorkersStore.countNetworksWorking();
 
+    let threadsPercentage = null;
     const threads = ThreadsByUserStore.getThreadsFromUser(props.user.id);
-    const emptyThreads = threads.filter(id => RecommendationsByThreadStore.isEmpty(id));
-    const threadsPercentage = 1 - (emptyThreads.length / threads.length);
+    if (threads){
+        const emptyThreads = threads.filter(id => RecommendationsByThreadStore.isEmpty(id));
+        threadsPercentage = threads.length > 0 ? 1 - (emptyThreads.length / threads.length) : null;
+    }
 
     return {
         linksPercentage,

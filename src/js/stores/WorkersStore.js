@@ -239,7 +239,7 @@ class WorkersStore extends BaseStore {
     }
 
     isSomethingWorking() {
-        return (this.countNetworksWorking() > 0) && (this.getAffinityPercentage() > 0) && (this.getMatchingPercentage() > 0) && (this.getSimilarityPercentage() > 0);
+        return (this.countNetworksWorking() > 0) || (this.getAffinityPercentage() > 0) || (this.getMatchingPercentage() > 0) || (this.getSimilarityPercentage() > 0);
     }
 
     hasRegisterWorkersFinished() {

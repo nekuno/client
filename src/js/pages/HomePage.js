@@ -1,12 +1,13 @@
 import React, { PropTypes, Component } from 'react';
-import { Link } from 'react-router';
 import FullWidthButton from '../components/ui/FullWidthButton';
+import FacebookButton from '../components/ui/FacebookButton';
 import moment from 'moment';
 import 'moment/locale/es';
 import { LAST_RELEASE_DATE } from '../constants/Constants';
 import { getVersion } from '../utils/APIUtils';
 import translate from '../i18n/Translate';
 import LoginActionCreators from '../actions/LoginActionCreators';
+import SocialNetworkService from '../services/SocialNetworkService';
 
 let nekunoSwiper;
 
@@ -36,9 +37,10 @@ export default class HomePage extends Component {
 
     constructor(props) {
         super(props);
-        
+
         this.goToRegisterPage = this.goToRegisterPage.bind(this);
-        
+        this.loginByResourceOwner = this.loginByResourceOwner.bind(this);
+
         this.promise = null;
         this.state = {
             needsUpdating: false
@@ -62,10 +64,27 @@ export default class HomePage extends Component {
     loginAsGuest = function() {
         LoginActionCreators.loginUser('guest', 'guest');
     };
-    
+
     goToRegisterPage = function() {
         this.context.history.pushState(null, '/register');
     };
+
+    loginByResourceOwner(resource, scope) {
+        SocialNetworkService.login(resource, scope).then(
+            () => {
+                LoginActionCreators.loginUserByResourceOwner(resource, SocialNetworkService.getAccessToken(resource)).then(
+                    () => {
+                        return null; // User is logged in
+                    },
+                    (error) => {
+                        nekunoApp.alert(error.error);
+                        this.context.history.pushState(null, '/login');
+                    });
+            },
+            (status) => {
+                nekunoApp.alert(resource + ' login failed: ' + status.error.message)
+            });
+    }
 
     renderSlides = function() {
         const {strings} = this.props;
@@ -78,13 +97,13 @@ export default class HomePage extends Component {
                         </div>
                     </div>
                 </div>
-                
             )
         );
     };
 
     render() {
         const {strings} = this.props;
+
         return (
             <div className="view view-main home-view">
                 <div className="swiper-container swiper-init" data-speed="400" data-space-between="40" data-pagination=".swiper-pagination">
@@ -108,17 +127,15 @@ export default class HomePage extends Component {
                         </FullWidthButton>
                         :
                         <div>
-                            <Link to="/login">
-                                <FullWidthButton>{strings.login}</FullWidthButton>
-                            </Link>
+                            <FacebookButton onClickHandler={this.loginByResourceOwner} text={strings.login}/>
                             <div className="register-text-block">
                                 <div onClick={this.goToRegisterPage} className="register-text">
                                     <span>{strings.hasInvitation}</span> <a href="javascript:void(0)">{strings.register}</a>
                                 </div>
                                 {/*Uncomment to enable login as guest
-                                <div onClick={this.loginAsGuest} className="register-text">
-                                    <span>{strings.wantGuest}</span> <a href="javascript:void(0)">{strings.asGuest}</a>
-                                </div>*/}
+                                 <div onClick={this.loginAsGuest} className="register-text">
+                                 <span>{strings.wantGuest}</span> <a href="javascript:void(0)">{strings.asGuest}</a>
+                                 </div>*/}
                             </div>
                         </div>
                     }

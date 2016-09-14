@@ -41,7 +41,7 @@ function requireAuth(nextState, replaceState) {
         let transitionPath = nextState.location.pathname;
         RouterActionCreators.storeRouterTransitionPath(transitionPath);
         console.log('Unauthorized path ', transitionPath, ' stored, redirecting to login now...');
-        replaceState({nextPathname: nextState.location.pathname}, '/login')
+        replaceState({nextPathname: nextState.location.pathname}, '/')
     }
 }
 

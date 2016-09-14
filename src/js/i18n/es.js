@@ -82,7 +82,7 @@ export default {
         confirmDelete: '¿Estás seguro de que quieres borrar esta foto?'
     },
     OtherGalleryPhotoPage            : {
-        photos   : 'Fotos'
+        photos: 'Fotos'
     },
     GalleryProfilePhotoPage          : {
         confirmSetAsProfilePhoto: '¿Quieres usar esta foto como foto de perfil?',
@@ -93,10 +93,7 @@ export default {
     LoginPage                        : {
         login          : 'Iniciar sesión',
         cancel         : 'Cancelar',
-        username       : 'Usuario o email',
-        password       : 'Contraseña',
-        loginResource  : 'O entra con una red social',
-        recoverPassword: '¿Has olvidado tu contraseña?',
+        loginResource  : 'Entra con una red social',
         hasInvitation  : '¿Tienes una invitación?',
         register       : 'Regístrate',
         wantGuest      : '¿Quieres probarlo?',
@@ -141,7 +138,8 @@ export default {
         correct       : '¡Solo queda un último paso! Conecta Facebook:',
         loadingMessage: 'Registrando usuario',
         publishMessage: 'Nunca publicaremos nada en tu muro',
-        privacy       : 'Al registrarte, estás aceptando las <a href="https://nekuno.com/legal-notice" target="_blank">Condiciones Legales</a> y la <a href="https://nekuno.com/privacy-policy" target="_blank">Política de Privacidad</a> de Nekuno.'
+        privacy       : 'Al registrarte, estás aceptando las <a href="https://nekuno.com/legal-notice" target="_blank">Condiciones Legales</a> y la <a href="https://nekuno.com/privacy-policy" target="_blank">Política de Privacidad</a> de Nekuno.',
+        signUp        : 'Regístrate con Facebook'
     },
     RegisterQuestionLandingPage      : {
         title  : 'Queremos conocerte un poco mejor',
@@ -154,8 +152,8 @@ export default {
         loadingMessage: 'Cargando hilos'
     },
     RecommendationPage               : {
-        loadingMessage: 'Cargando recomendaciones',
-        confirmDelete : '¿Estás seguro de que quieres borrar este hilo?',
+        loadingMessage  : 'Cargando recomendaciones',
+        confirmDelete   : '¿Estás seguro de que quieres borrar este hilo?',
         processingThread: 'Estos resultados son provisionales, acabaremos pronto de mejorar esto para ti.'
     },
     InvitationsPage                  : {
@@ -186,11 +184,11 @@ export default {
         confirmBlock: '¿Estás seguro de que quieres bloquear a este usuario?'
     },
     CreateThreadPage                 : {
-        create     : 'Crear hilos',
-        title      : '¿Qué deseas descubrir en este nuevo hilo?',
-        cancel     : 'Cancelar',
-        people     : 'Usuarios de Nekuno',
-        contents   : 'Enlaces de Internet'
+        create  : 'Crear hilos',
+        title   : '¿Qué deseas descubrir en este nuevo hilo?',
+        cancel  : 'Cancelar',
+        people  : 'Usuarios de Nekuno',
+        contents: 'Enlaces de Internet'
     },
     EditThreadPage                   : {
         edit       : 'Editar hilo',
@@ -211,9 +209,6 @@ export default {
         settings      : 'Ajustes',
         invitations   : 'Invitaciones',
         logout        : 'Salir'
-    },
-    FacebookRegisterButton           : {
-        signUp: 'Regístrate con Facebook'
     },
     ProfileDataList                  : {
         cannotRemove: 'Este campo no se puede eliminar',
@@ -267,9 +262,9 @@ export default {
         save                 : 'Guardar'
     },
     LocationField                    : {
-        location           : 'Ubicación',
-        title              : '¿Dónde vives?',
-        save               : 'Guardar'
+        location: 'Ubicación',
+        title   : '¿Dónde vives?',
+        save    : 'Guardar'
     },
     AcceptedAnswersImportance        : {
         title     : '¿Te importa la respuesta del usuario?',
@@ -307,7 +302,7 @@ export default {
         text     : 'Responde más preguntas del test',
         completed: 'preguntas completadas'
     },
-    ProcessesProgress                 : {
+    ProcessesProgress                : {
         title                   : 'Estamos reprocesando tus datos',
         registrationTitle       : 'Estamos analizando tus datos',
         linksTitle              : 'Procesando enlaces',
@@ -391,11 +386,11 @@ export default {
     },
     ThreadContent                    : {
         contents: 'Contenidos',
-        working: 'Estos resultados son provisionales, estamos trabajando en mejorarlos para ti.'
+        working : 'Estos resultados son provisionales, estamos trabajando en mejorarlos para ti.'
     },
     ThreadUsers                      : {
-        people: 'Personas',
-        users : 'Usuarios',
+        people  : 'Personas',
+        users   : 'Usuarios',
         disabled: 'Estamos tejiendo este hilo, un momento por favor...'
     },
     IntegerEdit                      : {

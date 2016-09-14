@@ -115,8 +115,9 @@ body #root .App .view.home-view {
   body #root .App .view .swiper-container .swiper-slide {
     .page#login-1-image, .page#login-2-image, .page#login-3-image {
       .title {
-        font-size: 22px;
-        line-height: 25px;
+        bottom: 220px !important;
+        font-size: 22px !important;
+        line-height: 25px !important;
       }
     }
   }

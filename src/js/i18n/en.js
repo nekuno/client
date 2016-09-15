@@ -34,7 +34,7 @@ export default {
         title2       : 'Connect only with most compatible people with you',
         title3       : 'You decide the information you share',
         update       : 'Update',
-        login        : 'Login',
+        login        : 'Login with Facebook',
         hasInvitation: 'Do you have an invitation?',
         register     : 'Register',
         wantGuest    : 'Do you want to try it?',

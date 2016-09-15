@@ -34,7 +34,7 @@ export default {
         title2       : 'Conecta sólo con las personas más compatibles contigo',
         title3       : 'Tú decides la información que compartes',
         update       : 'Actualizar',
-        login        : 'Iniciar sesión',
+        login        : 'Iniciar sesión con Facebook',
         hasInvitation: '¿Tienes una invitación?',
         register     : 'Regístrate',
         wantGuest    : '¿Quieres probarlo?',

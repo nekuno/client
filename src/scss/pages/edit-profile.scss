@@ -23,11 +23,16 @@ body #root .App .view .page.user-page  {
       .list-block {
         margin: 30px 0 0 0;
 
-        textarea {
-          display: block;
-          font-size: 0.85em;
-          height: 100px;
-          width: 100%;
+        li {
+          textarea {
+            display: block;
+            font-size: 0.85em;
+            height: 100px;
+            width: 100%;
+          }
+          &::after {
+            content: none;
+          }
         }
       }
     }

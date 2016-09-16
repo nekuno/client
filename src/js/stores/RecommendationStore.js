@@ -88,6 +88,18 @@ RecommendationStore.dispatchToken = register(action => {
     const { to } = action;
 
     switch (action.type) {
+        case ActionTypes.LIKE_USER:
+            _userRecommendations = setSavingUserLike(to, _userRecommendations);
+            break;
+        case ActionTypes.UNLIKE_USER:
+            _userRecommendations = setSavingUserLike(to, _userRecommendations);
+            break;
+        case ActionTypes.LIKE_CONTENT:
+            _contentRecommendations = setSavingContentLike(to, _contentRecommendations);
+            break;
+        case ActionTypes.UNLIKE_CONTENT:
+            _contentRecommendations = setSavingContentLike(to, _contentRecommendations);
+            break;
         case ActionTypes.LIKE_USER_SUCCESS:
             _userRecommendations = setLikedUser(to, _userRecommendations);
             break;
@@ -160,6 +172,14 @@ RecommendationStore.dispatchToken = register(action => {
         return _recommendations;
     }
 
+    function setSavingUserLike(userId, _recommendations) {
+        if (_recommendations.hasOwnProperty(userId)) {
+            _recommendations[userId]['like'] = null;
+        }
+
+        return _recommendations;
+    }
+
     function setLikedUser(userId, _recommendations) {
         if (_recommendations.hasOwnProperty(userId)) {
             _recommendations[userId]['like'] = 1;
@@ -172,6 +192,14 @@ RecommendationStore.dispatchToken = register(action => {
         if (_recommendations.hasOwnProperty(userId)) {
             _recommendations[userId]['like'] = 0;
         }
+        return _recommendations;
+    }
+
+    function setSavingContentLike(contentId, _recommendations) {
+        if (_recommendations.hasOwnProperty(contentId)) {
+            _recommendations[contentId]['rate'] = null;
+        }
+
         return _recommendations;
     }
 

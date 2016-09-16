@@ -323,12 +323,14 @@ export default {
         compatibility  : 'Compatibilidad',
         emptyTitle     : 'Contenido',
         copyToClipboard: 'Copiar al portapapeles: Ctrl+C, Enter',
-        shareError     : 'Ha ocurrido un error compartiendo el contenido.'
+        shareError     : 'Ha ocurrido un error compartiendo el contenido.',
+        saving         : 'Guardando...'
     },
     CardUser                         : {
         like      : 'Me gusta',
         unlike    : 'Quitar me gusta',
-        similarity: 'Similaridad'
+        similarity: 'Similaridad',
+        saving    : 'Guardando...'
     },
     ImportAlbumPopup                 : {
         close      : 'Cerrar',

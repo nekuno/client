@@ -322,12 +322,14 @@ export default {
         compatibility  : 'Compatibility',
         emptyTitle     : 'Link',
         copyToClipboard: 'Copy to clipboard: Ctrl+C, Enter',
-        shareError     : 'An error occurred sharing the content'
+        shareError     : 'An error occurred sharing the content',
+        saving         : 'Saving...'
     },
     CardUser                         : {
         like      : 'Like',
         unlike    : 'Remove',
-        similarity: 'Similarity'
+        similarity: 'Similarity',
+        saving    : 'Saving...'
     },
     ImportAlbumPopup                 : {
         close      : 'Close',

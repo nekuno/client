@@ -60,11 +60,10 @@ export default class GalleryProfilePhotoPage extends Component {
         const {crop} = this.state;
         nekunoApp.confirm(strings.confirmSetAsProfilePhoto, () => {
             const photoId = photo.id;
-            const history = this.context.history;
             GalleryPhotoActionCreators.setAsProfilePhoto(photoId, crop).then(function() {
                 UserActionCreators.requestUser(parseId(user), ['picture']);
-                history.pushState(null, 'gallery');
             }, (error) => { console.log(error) });
+            this.context.history.pushState(null, 'gallery');
         });
     }
 

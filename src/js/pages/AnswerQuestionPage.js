@@ -8,13 +8,11 @@ import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
 import * as QuestionActionCreators from '../actions/QuestionActionCreators';
-import * as ThreadActionCreators from '../actions/ThreadActionCreators';
 import UserStore from '../stores/UserStore';
 import QuestionStore from '../stores/QuestionStore';
 import QuestionsByUserIdStore from '../stores/QuestionsByUserIdStore';
 import LoginStore from '../stores/LoginStore';
 import ProfileStore from '../stores/ProfileStore';
-import ThreadStore from '../stores/ThreadStore';
 
 function parseId(user) {
     return user.id;

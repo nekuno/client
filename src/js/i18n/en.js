@@ -280,7 +280,8 @@ export default {
         you        : 'You',
         them       : 'Them',
         alertFirst : 'Mark your answer in the first column',
-        alertSecond: 'Mark one or more options in the second column to indicate what would you like to answer another user'
+        alertSecond: 'Mark one or more options in the second column to indicate what would you like to answer another user',
+        saving     : 'Saving'
     },
     OtherQuestion                    : {
         didntAnswered: 'You have not answered this question'

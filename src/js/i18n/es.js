@@ -281,7 +281,8 @@ export default {
         you        : 'Tú',
         them       : 'Ellos',
         alertFirst : 'Marca tu respuesta en la primera columna',
-        alertSecond: 'Marca una o varias opciones en la segunda columna para indicar qué te gustaría que respondiera otro usuario'
+        alertSecond: 'Marca una o varias opciones en la segunda columna para indicar qué te gustaría que respondiera otro usuario',
+        saving     : 'Guardando'
     },
     OtherQuestion                    : {
         didntAnswered: 'No has contestado a esta pregunta'

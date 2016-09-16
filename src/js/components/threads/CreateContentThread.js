@@ -201,12 +201,11 @@ export default class CreateContentThread extends Component {
             category: 'ThreadContent'
         };
 
-        let history = this.context.history;
         ThreadActionCreators.createThread(this.props.userId, data)
             .then(function(createdThread) {
                 ThreadActionCreators.requestRecommendation(createdThread.id);
-                history.pushState(null, `threads`);
             });
+        this.context.history.pushState(null, `threads`);
     }
 
     editThread() {
@@ -216,13 +215,12 @@ export default class CreateContentThread extends Component {
             category: 'ThreadContent'
         };
 
-        let history = this.context.history;
         let threadId = this.props.thread.id;
         ThreadActionCreators.updateThread(threadId, data)
             .then(function() {
                 ThreadActionCreators.requestRecommendation(threadId);
-                history.pushState(null, `threads`);
             });
+        this.context.history.pushState(null, `threads`);
     }
 
     goToSelectedFilters() {

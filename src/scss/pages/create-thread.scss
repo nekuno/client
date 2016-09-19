@@ -287,14 +287,13 @@ body #root .App .view .page.create-thread-page  {
 
       .location-filter-wrapper {
         display: inline-block;
-        width: 85%;
         vertical-align: middle;
 
         .list-block {
           display: inline-block;
           margin: 0 0 0 15px;
           vertical-align: middle;
-          width: 90%;
+          width: 100%;
 
           .location-title {
             font-size: 0.8em;

@@ -56,13 +56,11 @@ export default class GalleryPhotoPage extends Component {
     }
 
     deletePhoto() {
-        const userId = parseId(this.props.user)
+        const userId = parseId(this.props.user);
         nekunoApp.confirm(this.props.strings.confirmDelete, () => {
             const photoId = this.props.photo.id;
-            const history = this.context.history;
-            GalleryPhotoActionCreators.deletePhoto(userId, photoId).then(function() {
-                history.pushState(null, 'gallery');
-            });
+            GalleryPhotoActionCreators.deletePhoto(userId, photoId);
+            this.context.history.pushState(null, 'gallery');
         });
     }
     

@@ -181,6 +181,7 @@ export default {
         interests   : 'Intereses',
         like        : 'Me gusta',
         dontLike    : 'Ya no me gusta',
+        saving      : 'Guardando...',
         confirmBlock: '¿Estás seguro de que quieres bloquear a este usuario?'
     },
     CreateThreadPage                 : {
@@ -281,7 +282,8 @@ export default {
         you        : 'Tú',
         them       : 'Ellos',
         alertFirst : 'Marca tu respuesta en la primera columna',
-        alertSecond: 'Marca una o varias opciones en la segunda columna para indicar qué te gustaría que respondiera otro usuario'
+        alertSecond: 'Marca una o varias opciones en la segunda columna para indicar qué te gustaría que respondiera otro usuario',
+        saving     : 'Guardando'
     },
     OtherQuestion                    : {
         didntAnswered: 'No has contestado a esta pregunta'
@@ -322,12 +324,14 @@ export default {
         compatibility  : 'Compatibilidad',
         emptyTitle     : 'Contenido',
         copyToClipboard: 'Copiar al portapapeles: Ctrl+C, Enter',
-        shareError     : 'Ha ocurrido un error compartiendo el contenido.'
+        shareError     : 'Ha ocurrido un error compartiendo el contenido.',
+        saving         : 'Guardando...'
     },
     CardUser                         : {
         like      : 'Me gusta',
         unlike    : 'Quitar me gusta',
-        similarity: 'Similaridad'
+        similarity: 'Similaridad',
+        saving    : 'Guardando...'
     },
     ImportAlbumPopup                 : {
         close      : 'Cerrar',

@@ -20,7 +20,7 @@ export default class CardContent extends Component {
         thumbnail     : PropTypes.string,
         synonymous    : PropTypes.array.isRequired,
         matching      : PropTypes.number,
-        rate          : PropTypes.bool,
+        rate          : PropTypes.number,
         hideLikeButton: PropTypes.bool.isRequired,
         fixedHeight   : PropTypes.bool,
         loggedUserId  : PropTypes.number.isRequired,
@@ -117,8 +117,8 @@ export default class CardContent extends Component {
         const {title, description, types, rate, hideLikeButton, fixedHeight, thumbnail, url, matching, strings} = this.props;
         const cardTitle = title ? <div>{title.substr(0, 20)}{title.length > 20 ? '...' : ''}</div> : <div> {strings.emptyTitle} </div>;
         const subTitle = description ? <div>{description.substr(0, 20)}{description.length > 20 ? '...' : ''}</div> : fixedHeight ? <div>&nbsp;</div> : '';
-        const likeButtonText = rate ? strings.unlike : strings.like;
-        const likeButton = hideLikeButton ? '' : <div className="like-button-container"><Button onClick={this.onRate}>{likeButtonText}</Button></div>;
+        const likeButtonText = rate === null ? strings.saving : rate ? strings.unlike : strings.like;
+        const likeButton = hideLikeButton ? '' : <div className="like-button-container"><Button onClick={this.onRate} disabled={rate === null ? 'disabled' : null}>{likeButtonText}</Button></div>;
         const imageClass = fixedHeight ? 'image fixed-height-image' : 'image';
         const isImage = types.indexOf('Image') > -1;
         const defaultSrc = 'img/default-content-image.jpg';
@@ -187,6 +187,7 @@ CardContent.defaultProps = {
         compatibility  : 'Compatibility',
         emptyTitle     : 'Title',
         copyToClipboard: 'Copy to clipboard: Ctrl+C, Enter',
-        shareError     : 'An error occurred sharing the content'
+        shareError     : 'An error occurred sharing the content',
+        saving         : 'Saving...'
     }
 };

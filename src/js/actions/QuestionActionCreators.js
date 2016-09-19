@@ -80,6 +80,10 @@ export function skipQuestion(userId, questionId) {
     return promise;
 }
 
+export function removePreviousQuestion(userId) {
+    dispatch(ActionTypes.REMOVE_PREVIOUS_QUESTION, {userId});
+}
+
 export function popupDisplayed() {
     dispatch(ActionTypes.QUESTIONS_POPUP_DISPLAYED);
 }

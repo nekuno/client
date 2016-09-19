@@ -180,6 +180,7 @@ export default {
         interests   : 'Interests',
         like        : 'Like',
         dontLike    : 'Don\'t like anymore',
+        saving      : 'Saving...',
         confirmBlock: 'Are you sure you want to block this user?'
     },
     CreateThreadPage                 : {
@@ -280,7 +281,8 @@ export default {
         you        : 'You',
         them       : 'Them',
         alertFirst : 'Mark your answer in the first column',
-        alertSecond: 'Mark one or more options in the second column to indicate what would you like to answer another user'
+        alertSecond: 'Mark one or more options in the second column to indicate what would you like to answer another user',
+        saving     : 'Saving'
     },
     OtherQuestion                    : {
         didntAnswered: 'You have not answered this question'
@@ -321,12 +323,14 @@ export default {
         compatibility  : 'Compatibility',
         emptyTitle     : 'Link',
         copyToClipboard: 'Copy to clipboard: Ctrl+C, Enter',
-        shareError     : 'An error occurred sharing the content'
+        shareError     : 'An error occurred sharing the content',
+        saving         : 'Saving...'
     },
     CardUser                         : {
         like      : 'Like',
         unlike    : 'Remove',
-        similarity: 'Similarity'
+        similarity: 'Similarity',
+        saving    : 'Saving...'
     },
     ImportAlbumPopup                 : {
         close      : 'Close',

@@ -44,7 +44,8 @@ export default class OrientationRequiredPopup extends Component {
         );
     }
 
-    onSelect(key){
+    onSelect(key) {
+        nekunoApp.closeModal('.popup-orientation-required');
         let onContinue = this.props.onContinue;
         let profile = {orientation: key};
         for (key in this.props.profile){
@@ -54,7 +55,6 @@ export default class OrientationRequiredPopup extends Component {
         }
         UserActionCreators.editProfile(profile)
         .then(function(){
-            nekunoApp.closeModal('.popup-orientation-required');
             onContinue();
         });
     }

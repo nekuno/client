@@ -20,7 +20,7 @@ const LikeStore = createStore({
         } else if (userId2 in _like && (userId1 in _like[userId2])) {
             return _like[userId2][userId1];
         } else {
-            return null;
+            return false;
         }
     },
 
@@ -33,24 +33,32 @@ const LikeStore = createStore({
 LikeStore.dispatchToken = register(action => {
 
     waitFor([UserStore.dispatchToken]);
-    if (action.type == ActionTypes.LIKE_USER_SUCCESS
-        || action.type == ActionTypes.UNLIKE_USER_SUCCESS) {
-        const {from, to} = action;
-
-        LikeStore.merge(from, to, action.type == ActionTypes.LIKE_USER_SUCCESS);
-        LikeStore.emitChange();
-
-    }
-    else if (action.type == ActionTypes.REQUEST_LIKE_USER_SUCCESS) {
-        const {from, to} = action;
-        const like = selectn('response.result', action) ? true : false;
-
-        LikeStore.merge(from, to, like);
-        LikeStore.emitChange();
-    }
-
-    if (action.type == ActionTypes.LOGOUT_USER) {
-        _like = {};
+    const {from, to} = action;
+    switch(action.type) {
+        case ActionTypes.LIKE_USER:
+            LikeStore.merge(from, to, null);
+            LikeStore.emitChange();
+            break;
+        case ActionTypes.UNLIKE_USER:
+            LikeStore.merge(from, to, null);
+            LikeStore.emitChange();
+            break;
+        case ActionTypes.LIKE_USER_SUCCESS:
+            LikeStore.merge(from, to, true);
+            LikeStore.emitChange();
+            break;
+        case ActionTypes.UNLIKE_USER_SUCCESS:
+            LikeStore.merge(from, to, false);
+            LikeStore.emitChange();
+            break;
+        case ActionTypes.REQUEST_LIKE_USER_SUCCESS:
+            const like = selectn('response.result', action) ? true : false;
+            LikeStore.merge(from, to, like);
+            LikeStore.emitChange();
+            break;
+        case ActionTypes.LOGOUT_USER:
+            _like = {};
+            break;
     }
 });
 

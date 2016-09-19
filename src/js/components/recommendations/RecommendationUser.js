@@ -11,7 +11,6 @@ export default class RecommendationUser extends Component {
     render() {
         let recommendation = this.props.recommendation;
         let key = this.props.accessibleKey;
-        let liked = recommendation.like == true;
         return (
             <div className="swiper-slide">
                 <div className={'recommendation recommendation-' + key}>
@@ -23,7 +22,7 @@ export default class RecommendationUser extends Component {
                         canSendMessage={true}
                         picture={recommendation.picture}
                         matching={Math.round(recommendation.similarity * 100)}
-                        liked={liked}
+                        like={recommendation.like}
                         hideLikeButton={false}
                     />
                 </div>

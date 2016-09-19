@@ -180,6 +180,7 @@ export default {
         interests   : 'Interests',
         like        : 'Like',
         dontLike    : 'Don\'t like anymore',
+        saving      : 'Saving...',
         confirmBlock: 'Are you sure you want to block this user?'
     },
     CreateThreadPage                 : {

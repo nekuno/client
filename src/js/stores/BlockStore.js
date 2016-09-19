@@ -1,5 +1,5 @@
 import { register, waitFor } from '../dispatcher/Dispatcher';
-import { createStore, mergeIntoBag, isInBag } from '../utils/StoreUtils';
+import { createStore } from '../utils/StoreUtils';
 import UserStore from '../stores/UserStore';
 import ActionTypes from '../constants/ActionTypes';
 import selectn from 'selectn';
@@ -20,7 +20,7 @@ const BlockStore = createStore({
         } else if (userId2 in _block && (userId1 in _block[userId2])) {
             return _block[userId2][userId1];
         } else {
-            return null;
+            return false;
         }
     },
 
@@ -33,26 +33,32 @@ const BlockStore = createStore({
 BlockStore.dispatchToken = register(action => {
 
     waitFor([UserStore.dispatchToken]);
-    if (action.type == ActionTypes.BLOCK_USER_SUCCESS
-        || action.type == ActionTypes.UNBLOCK_USER_SUCCESS)
-    {
-        const {from, to} = action;
-
-        BlockStore.merge(from, to, action.type == ActionTypes.BLOCK_USER_SUCCESS);
-        BlockStore.emitChange();
-
-    }
-    else if (action.type == ActionTypes.REQUEST_BLOCK_USER_SUCCESS)
-    {
-        const {from, to} = action;
-        const block = selectn('response.result', action)? 1 : 0 ;
-
-        BlockStore.merge(from, to, block);
-        BlockStore.emitChange();
-    }
-
-    if (action.type == ActionTypes.LOGOUT_USER){
-        _block = {};
+    const {from, to} = action;
+    switch(action.type) {
+        case ActionTypes.BLOCK_USER:
+            BlockStore.merge(from, to, null);
+            BlockStore.emitChange();
+            break;
+        case ActionTypes.UNBLOCK_USER:
+            BlockStore.merge(from, to, null);
+            BlockStore.emitChange();
+            break;
+        case ActionTypes.BLOCK_USER_SUCCESS:
+            BlockStore.merge(from, to, true);
+            BlockStore.emitChange();
+            break;
+        case ActionTypes.UNBLOCK_USER_SUCCESS:
+            BlockStore.merge(from, to, false);
+            BlockStore.emitChange();
+            break;
+        case ActionTypes.REQUEST_BLOCK_USER_SUCCESS:
+            const block = selectn('response.result', action)? 1 : 0 ;
+            BlockStore.merge(from, to, block);
+            BlockStore.emitChange();
+            break;
+        case ActionTypes.LOGOUT_USER:
+            _block = {};
+            break;
     }
 });
 

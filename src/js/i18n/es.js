@@ -181,6 +181,7 @@ export default {
         interests   : 'Intereses',
         like        : 'Me gusta',
         dontLike    : 'Ya no me gusta',
+        saving      : 'Guardando...',
         confirmBlock: '¿Estás seguro de que quieres bloquear a este usuario?'
     },
     CreateThreadPage                 : {

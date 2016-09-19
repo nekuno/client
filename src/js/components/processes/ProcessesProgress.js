@@ -21,6 +21,7 @@ function getState(props) {
     if (threads){
         const emptyThreads = threads.filter(id => RecommendationsByThreadStore.isEmpty(id));
         threadsPercentage = threads.length > 0 ? Math.round(100 * (1 - (emptyThreads.length / threads.length))) : null;
+        threadsPercentage = threadsPercentage === 100 ? null : threadsPercentage;
     }
 
     return {
@@ -84,7 +85,7 @@ export default class ProcessesProgress extends Component {
             case 'affinityPercentage':
                 title = percent ? strings.affinityTitle : strings.affinityPreparingTitle;
                 break;
-            case 'threadsPercentage':
+            case 'processingThreads':
                 title = strings.threadsTitle;
                 break;
             default:
@@ -106,6 +107,7 @@ export default class ProcessesProgress extends Component {
         layerHeight += similarityPercentage !== null || isJustRegistered ? 65 : 0;
         layerHeight += matchingPercentage !== null || isJustRegistered ? 65 : 0;
         layerHeight += affinityPercentage !== null || isJustRegistered ? 65 : 0;
+        layerHeight += threadsPercentage !== null || isJustRegistered ? 65 : 0;
         layerHeight = layerHeight ? layerHeight + 65 : 0;
         return (
             linksPercentage !== null || similarityPercentage !== null || matchingPercentage !== null || affinityPercentage !== null ?
@@ -134,7 +136,7 @@ ProcessesProgress.defaultProps = {
         similarityTitle         : 'Calculating similarity',
         matchingTitle           : 'Calculating matching',
         affinityTitle           : 'Calculating affinity',
-        threadsTitle            : 'Creating more threads',
+        threadsTitle            : 'Creating more yarns',
         linksPreparingTitle     : 'Preparing to process links',
         similarityPreparingTitle: 'Preparing to calculate similarity',
         matchingPreparingTitle  : 'Preparing to calculate matching',

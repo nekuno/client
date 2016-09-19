@@ -310,7 +310,7 @@ export default {
         similarityTitle         : 'Calculating similarity',
         matchingTitle           : 'Calculating matching',
         affinityTitle           : 'Calculating affinity',
-        threadsTitle            : 'Creating more threads',
+        threadsTitle            : 'Creating more yarns',
         linksPreparingTitle     : 'Preparing to process links',
         similarityPreparingTitle: 'Preparing to calculate similarity',
         matchingPreparingTitle  : 'Preparing to calculate matching',

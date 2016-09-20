@@ -4,10 +4,9 @@ import AuthenticatedComponent from '../../components/AuthenticatedComponent';
 import translate from '../../i18n/Translate';
 import connectToStores from '../../utils/connectToStores';
 import WorkersStore from '../../stores/WorkersStore';
-import ThreadsByUserStore from '../../stores/ThreadsByUserStore';
-import RecommendationsByThreadStore from '../../stores/RecommendationsByThreadStore';
+import ThreadStore from '../../stores/ThreadStore';
 
-function getState(props) {
+function getState() {
     const linksPercentage = WorkersStore.getLinksPercentage();
     const similarityPercentage = WorkersStore.getSimilarityPercentage();
     const matchingPercentage = WorkersStore.getMatchingPercentage();
@@ -16,13 +15,11 @@ function getState(props) {
     const registerWorkersFinish = WorkersStore.hasRegisterWorkersFinished();
     const countNetworksWorking = WorkersStore.countNetworksWorking();
 
-    let threadsPercentage = null;
-    const threads = ThreadsByUserStore.getThreadsFromUser(props.user.id);
-    if (threads){
-        const emptyThreads = threads.filter(id => RecommendationsByThreadStore.isEmpty(id));
-        threadsPercentage = threads.length > 0 ? Math.round(100 * (1 - (emptyThreads.length / threads.length))) : null;
-        threadsPercentage = threadsPercentage === 100 ? null : threadsPercentage;
-    }
+    const threadIds = ThreadStore.getAll();
+    const threads = threadIds ? Object.keys(threadIds).map(threadId => threadIds[threadId]) : [];
+    const emptyThreads = threads.filter(thread => ThreadStore.isDisabled(thread.id));
+    let threadsPercentage = threads.length > 0 ? Math.round(100 * (1 - (emptyThreads.length / threads.length))) : null;
+    threadsPercentage = threadsPercentage === 100 && !isJustRegistered ? null : threadsPercentage;
 
     return {
         linksPercentage,
@@ -38,7 +35,7 @@ function getState(props) {
 
 @AuthenticatedComponent
 @translate('ProcessesProgress')
-@connectToStores([WorkersStore], getState)
+@connectToStores([WorkersStore, ThreadStore], getState)
 export default class ProcessesProgress extends Component {
     static propTypes = {
         // Injected by @AuthenticatedComponent
@@ -103,14 +100,14 @@ export default class ProcessesProgress extends Component {
     render() {
         const {linksPercentage, similarityPercentage, matchingPercentage, affinityPercentage, threadsPercentage, countNetworksWorking, isJustRegistered, strings} = this.props;
         let layerHeight = 0;
-        layerHeight += linksPercentage !== null || isJustRegistered ? 65 : 0;
-        layerHeight += similarityPercentage !== null || isJustRegistered ? 65 : 0;
-        layerHeight += matchingPercentage !== null || isJustRegistered ? 65 : 0;
-        layerHeight += affinityPercentage !== null || isJustRegistered ? 65 : 0;
-        layerHeight += threadsPercentage !== null || isJustRegistered ? 65 : 0;
-        layerHeight = layerHeight ? layerHeight + 65 : 0;
+        layerHeight += linksPercentage !== null || isJustRegistered ? 60 : 0;
+        layerHeight += similarityPercentage !== null || isJustRegistered ? 60 : 0;
+        layerHeight += matchingPercentage !== null || isJustRegistered ? 60 : 0;
+        layerHeight += affinityPercentage !== null || isJustRegistered ? 60 : 0;
+        layerHeight += threadsPercentage !== null || isJustRegistered ? 60 : 0;
+        layerHeight = layerHeight ? layerHeight + 60 : 0;
         return (
-            linksPercentage !== null || similarityPercentage !== null || matchingPercentage !== null || affinityPercentage !== null ?
+            linksPercentage !== null || similarityPercentage !== null || matchingPercentage !== null || affinityPercentage !== null || threadsPercentage !== null ?
                 <div>
                     <div className="processes-progress">
                         <div className="processes-progress-title">{isJustRegistered ? strings.registrationTitle : strings.title}</div>
@@ -118,7 +115,7 @@ export default class ProcessesProgress extends Component {
                         {similarityPercentage !== null || isJustRegistered ? this.renderProgress('similarityPercentage', similarityPercentage) : null}
                         {matchingPercentage !== null || isJustRegistered ? this.renderProgress('matchingPercentage', matchingPercentage) : null}
                         {affinityPercentage !== null || isJustRegistered ? this.renderProgress('affinityPercentage', affinityPercentage) : null}
-                        {threadsPercentage !== null && (countNetworksWorking > 0 || similarityPercentage || matchingPercentage || affinityPercentage) ? this.renderProgress('processingThreads', threadsPercentage) : null}
+                        {threadsPercentage !== null || isJustRegistered ? this.renderProgress('processingThreads', threadsPercentage) : null}
                     </div>
                     <div style={{height: layerHeight + 'px'}}></div>
                 </div>

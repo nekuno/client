@@ -12,7 +12,6 @@ import * as ThreadActionCreators from '../actions/ThreadActionCreators';
 import * as QuestionActionCreators from '../actions/QuestionActionCreators';
 import ThreadStore from '../stores/ThreadStore';
 import ProfileStore from '../stores/ProfileStore';
-import ThreadsByUserStore from '../stores/ThreadsByUserStore';
 import FilterStore from '../stores/FilterStore';
 import QuestionStore from '../stores/QuestionStore';
 import RecommendationStore from '../stores/RecommendationStore';
@@ -34,8 +33,8 @@ function requestData(props) {
  * Retrieves state from stores for current props.
  */
 function getState(props) {
-    const threadIds = ThreadsByUserStore.getThreadsFromUser(props.user.id);
-    const threads = threadIds ? threadIds.map(ThreadStore.get) : [];
+    const threadIds = ThreadStore.getAll();
+    const threads = threadIds ? Object.keys(threadIds).map(threadId => threadIds[threadId]).reverse() : [];
     threads.forEach((thread) => {
         thread.disabled = ThreadStore.isDisabled(thread.id);
         thread.isEmpty = RecommendationsByThreadStore.isEmpty(thread.id);
@@ -61,7 +60,7 @@ function getState(props) {
 
 @AuthenticatedComponent
 @translate('ThreadPage')
-@connectToStores([ThreadStore, ThreadsByUserStore, RecommendationStore, RecommendationsByThreadStore, ProfileStore, FilterStore, WorkersStore], getState)
+@connectToStores([ThreadStore, RecommendationStore, RecommendationsByThreadStore, ProfileStore, FilterStore, WorkersStore], getState)
 export default class ThreadPage extends Component {
 
     static propTypes = {

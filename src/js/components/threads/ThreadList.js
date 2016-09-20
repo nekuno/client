@@ -18,17 +18,14 @@ export default class ThreadList extends Component {
         return (
             <div>
                 {Object.keys(threads).map((key, index) =>
-                    threads[key].isEmpty && isSomethingWorking ?
-                        null
+                    threads[key].category === 'ThreadUsers' ?
+                        <ThreadUsers key={key} avKey={index} thread={threads[key]} last={index + 1 == threadsLength}
+                                     userId={userId} profile={profile} isSomethingWorking={isSomethingWorking}
+                                     filters={filters}/>
                         :
-                        threads[key].category === 'ThreadUsers' ?
-                            <ThreadUsers key={key} avKey={index} thread={threads[key]} last={index + 1 == threadsLength}
-                                         userId={userId} profile={profile} isSomethingWorking={isSomethingWorking}
-                                         filters={filters}/>
-                            :
-                            <ThreadContent key={key} avKey={index} thread={threads[key]}
-                                           last={index + 1 == threadsLength} userId={userId} filters={filters}
-                                           isSomethingWorking={isSomethingWorking}/>
+                        <ThreadContent key={key} avKey={index} thread={threads[key]}
+                                       last={index + 1 == threadsLength} userId={userId} filters={filters}
+                                       isSomethingWorking={isSomethingWorking}/>
                 )}
             </div>
         );

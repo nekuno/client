@@ -1,7 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import RecommendationList from '../components/recommendations/RecommendationList';
 import TopNavBar from '../components/ui/TopNavBar';
-import EmptyThreadPopup from '../components/recommendations/EmptyThreadPopup';
 import EmptyMessage from '../components/ui/EmptyMessage';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
@@ -208,7 +207,6 @@ export default class RecommendationPage extends Component {
                         }
                     </div>
                 </div>
-                {recommendationsReceived && thread.id ? <EmptyThreadPopup threadId={thread.id}/> : ''}
             </div>
         );
     }

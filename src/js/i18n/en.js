@@ -317,6 +317,12 @@ export default {
         affinityPreparingTitle  : 'Preparing to calculate affinity',
         registerWorkersFinish   : 'Congratulations! The registration processes have finished.'
     },
+    ThreadNoResults                  : {
+        emptyThread: 'This yarn is empty. Edit or delete it.',
+        edit       : 'Edit',
+        delete     : 'Delete',
+        deleting   : 'Deleting'
+    },
     CardContent                      : {
         like           : 'Like',
         unlike         : 'Remove',
@@ -360,12 +366,6 @@ export default {
         moreTests: 'Do more tests',
         continue : 'Continue to recommendations'
     },
-    EmptyThreadPopup                 : {
-        title     : 'Oops!',
-        text      : 'This yarn is empty right now! Edit its filters to get recommendations or go back to the yarns list and try another.',
-        editThread: 'Edit this yarn',
-        goBack    : 'Go back'
-    },
     SetThreadTitlePopup              : {
         title      : 'What name do you prefer for this yarn?',
         placeholder: 'Title',
@@ -394,7 +394,8 @@ export default {
     ThreadUsers                      : {
         people  : 'People',
         users   : 'Users',
-        disabled: 'We are weaving this yarn, please wait a moment...'
+        disabled: 'We are weaving this yarn, please wait a moment...',
+        working : 'These results are provisional, we are working on improving them for you.'
     },
     IntegerEdit                      : {
         minValue   : 'The minimum value is ',

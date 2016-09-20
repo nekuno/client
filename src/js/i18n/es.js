@@ -318,6 +318,12 @@ export default {
         affinityPreparingTitle  : 'Preparando para calcular afinidad',
         registerWorkersFinish   : '¡Felicidades! Los procesos del registro han finalizado.'
     },
+    ThreadNoResults                  : {
+        emptyThread: 'Este hilo está vacío. Edítalo o elimínalo',
+        edit       : 'Editar',
+        delete     : 'Eliminar',
+        deleting   : 'Eliminando'
+    },
     CardContent                      : {
         like           : 'Me interesa',
         unlike         : 'Quitar',
@@ -361,12 +367,6 @@ export default {
         moreTests: 'Hacer más tests',
         continue : 'Continuar a recomendaciones'
     },
-    EmptyThreadPopup                 : {
-        title     : '¡Vaya!',
-        text      : '¡Este hilo está vacío por ahora! Edita sus filtros para conseguir recomendaciones o vuelve a la lista de hilos para intentar otro.',
-        editThread: 'Editar este hilo',
-        goBack    : 'Volver'
-    },
     SetThreadTitlePopup              : {
         title      : '¿Qué titulo quieres que tenga este hilo?',
         placeholder: 'Título',
@@ -395,7 +395,8 @@ export default {
     ThreadUsers                      : {
         people  : 'Personas',
         users   : 'Usuarios',
-        disabled: 'Estamos tejiendo este hilo, un momento por favor...'
+        disabled: 'Estamos tejiendo este hilo, un momento por favor...',
+        working : 'Estos resultados son provisionales, estamos mejorándolos para ti.'
     },
     IntegerEdit                      : {
         minValue   : 'El valor mínimo es ',

@@ -4,7 +4,6 @@ import * as UserActionCreators from './UserActionCreators';
 import * as UserAPI from '../api/UserAPI';
 import UserStore from '../stores/UserStore';
 import RecommendationsByThreadStore from '../stores/RecommendationsByThreadStore';
-import ThreadsByUserStore from '../stores/ThreadsByUserStore';
 import ThreadStore from '../stores/ThreadStore';
 import ProfileStore from '../stores/ProfileStore';
 import FilterStore from '../stores/FilterStore';
@@ -63,18 +62,6 @@ export function deleteThread(threadId) {
         success: ActionTypes.DELETE_THREAD_SUCCESS,
         failure: ActionTypes.DELETE_THREAD_ERROR
     }, {threadId})
-}
-
-export function threadsNext(userId) {
-
-    dispatch(ActionTypes.THREADS_NEXT, {userId});
-
-    if (ThreadsByUserStore.getPosition(userId) >= ( ThreadsByUserStore.getIds(userId).length - 3)) {
-        const nextUrl = ThreadsByUserStore.getNextPageUrl(userId);
-        if (nextUrl) {
-            requestThreads(userId, nextUrl);
-        }
-    }
 }
 
 export function requestFilters() {

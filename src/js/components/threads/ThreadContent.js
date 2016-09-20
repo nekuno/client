@@ -2,6 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import FilterStore from '../../stores/FilterStore';
 import ChipList from './../ui/ChipList';
 import Image from './../ui/Image';
+import ThreadNoResults from './ThreadNoResults';
 import translate from '../../i18n/Translate';
 
 @translate('ThreadContent')
@@ -57,48 +58,60 @@ export default class ThreadContent extends Component {
     };
 
     goToThread() {
-        if (this.props.thread.disabled === true) {
-            nekunoApp.alert(this.props.strings.disabled)
+        const {userId, thread, isSomethingWorking, strings} = this.props;
+        const totalResults = thread.totalResults;
+        const mustBeDisabled = thread.disabled || totalResults == 0 && isSomethingWorking;
+        if (mustBeDisabled) {
+            nekunoApp.alert(strings.disabled)
+        } else if (totalResults == 0) {
+            this.context.history.pushState(null, `edit-thread/${thread.id}`)
         } else {
-            if (this.props.isSomethingWorking) {
-                nekunoApp.alert(this.props.strings.working)
+            if (isSomethingWorking) {
+                nekunoApp.alert(strings.working)
             }
-            this.context.history.pushState(null, `users/${this.props.userId}/recommendations/${this.props.thread.id}`)
+            this.context.history.pushState(null, `users/${userId}/recommendations/${thread.id}`)
         }
     }
 
     render() {
-        let {thread, last, filters, avKey, strings} = this.props;
-        let threadClass = thread.disabled ? "thread-listed thread-disabled" : "thread-listed";
-        threadClass += avKey % 2 ? '' : ' thread-odd';
-
+        let {thread, last, filters, isSomethingWorking, avKey, strings} = this.props;
+        const totalResults = thread.totalResults;
+        const mustBeDisabled = thread.disabled || totalResults == 0 && isSomethingWorking;
+        const threadClass = mustBeDisabled ? "thread-listed thread-disabled" :
+            totalResults == 0 ? "thread-listed thread-no-results" : "thread-listed";
         return (
-            <div className={threadClass} onClick={this.goToThread}>
-                {last ? null : <div className="thread-vertical-connection"></div>}
-                <div className="thread-first-image-wrapper">
-                    <div className="thread-first-image-centered-wrapper">
-                        <div className="thread-first-image">
-                            {thread.cached.length > 0 ? this.renderImage(thread.cached[0].content) : ''}
+            <div className={avKey % 2 ? '' : 'thread-odd'}>
+                {!mustBeDisabled && totalResults == 0 ?
+                    <ThreadNoResults threadId={thread.id} deleting={thread.deleting == true} />
+                    : null
+                }
+                <div className={threadClass} onClick={this.goToThread}>
+                    {last ? null : <div className="thread-vertical-connection"></div>}
+                    <div className="thread-first-image-wrapper">
+                        <div className="thread-first-image-centered-wrapper">
+                            <div className="thread-first-image">
+                                {thread.cached.length > 0 ? this.renderImage(thread.cached[0].content) : ''}
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div className="thread-info-box">
-                    <div className="title thread-title">
-                        <a>
-                            {thread.name}
-                        </a>
+                    <div className="thread-info-box">
+                        <div className="title thread-title">
+                            <a>
+                                {thread.name}
+                            </a>
+                        </div>
+                        <div className="recommendations-count">
+                            {thread.totalResults} {strings.contents}
+                        </div>
+                        <div className="thread-images">
+                            {thread.cached.map((item, index) => {
+                                if (index !== 0 && index <= 4) {
+                                    return <div key={index} className="thread-image-wrapper"><div className="thread-image-centered-wrapper"><div className="thread-image">{this.renderImage(item.content)}</div></div></div>
+                                }
+                            })}
+                        </div>
+                        {this.renderChipList(thread.filters.contentFilters, filters.contentFilters)}
                     </div>
-                    <div className="recommendations-count">
-                        {thread.totalResults} {strings.contents}
-                    </div>
-                    <div className="thread-images">
-                        {thread.cached.map((item, index) => {
-                            if (index !== 0 && index <= 4) {
-                                return <div key={index} className="thread-image-wrapper"><div className="thread-image-centered-wrapper"><div className="thread-image">{this.renderImage(item.content)}</div></div></div>
-                            }
-                        })}
-                    </div>
-                    {this.renderChipList(thread.filters.contentFilters, filters.contentFilters)}
                 </div>
             </div>
         );

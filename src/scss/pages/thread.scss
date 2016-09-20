@@ -117,8 +117,30 @@ body #root .App .view .page.threads-page  {
       }
     }
 
+    .no-results-thread {
+      margin: 50px auto;
+      position: absolute;
+      width: 100%;
+      z-index: 1;
+
+      .sub-title {
+        margin-bottom: 10px;
+      }
+      .no-results-thread-buttons {
+        text-align: center;
+        button {
+          font-size: 1em;
+          margin: 10px;
+
+        }
+      }
+    }
+
     .thread-disabled {
-      box-shadow: inset 0 0 0 1000px rgba(100,100,100,0.5);
+      opacity: 0.3;
+    }
+    .thread-no-results {
+      opacity: 0.1;
     }
   }
 }

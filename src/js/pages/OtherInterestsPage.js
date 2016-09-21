@@ -81,9 +81,7 @@ export default class OtherInterestsPage extends Component {
     }
 
     componentWillMount() {
-        if (Object.keys(this.props.pagination).length === 0) {
-            requestData(this.props);
-        }
+        requestData(this.props);
     }
 
     componentWillUnmount() {
@@ -104,6 +102,7 @@ export default class OtherInterestsPage extends Component {
     }
 
     componentDidMount() {
+        this.onSearchClick();
         if (!this.state.carousel || this.props.interests.length == 0) {
             return;
         }

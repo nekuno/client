@@ -2,6 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import TopNavBar from '../components/ui/TopNavBar';
 import FullWidthButton from '../components/ui/FullWidthButton';
 import QuestionStats from '../components/questions/QuestionStats';
+import * as QuestionActionCreators from '../actions/QuestionActionCreators';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
@@ -19,7 +20,7 @@ function parseId(user) {
 function getState(props) {
     const currentUserId = parseId(props.user);
     const question = QuestionStore.getQuestion();
-    const userAnswer = QuestionStore.getUserAnswer(currentUserId, question.questionId);
+    const userAnswer = question ? QuestionStore.getUserAnswer(currentUserId, question.questionId) : null;
     const isJustRegistered = Object.keys(QuestionsByUserIdStore.getByUserId(currentUserId)).length < 4;
 
     return {
@@ -55,6 +56,7 @@ export default class QuestionStatsPage extends Component {
     }
 
     handleContinueClick() {
+        QuestionActionCreators.removePreviousQuestion(parseId(this.props.user));
         this.context.history.pushState(null, `/answer-question/next`);
     }
 

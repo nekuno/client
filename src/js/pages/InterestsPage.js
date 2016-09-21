@@ -62,6 +62,10 @@ export default class InterestsPage extends Component {
         }
     }
 
+    componentDidMount() {
+        this.onSearchClick();
+    }
+
     componentWillUnmount() {
         document.getElementsByClassName('view')[0].removeEventListener('scroll', this.handleScroll);
     }

@@ -2,7 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import TopNavBar from '../components/ui/TopNavBar';
 import TextInput from '../components/ui/TextInput';
 import SocialBox from '../components/ui/SocialBox';
-import FacebookRegisterButton from '../components/ui/FacebookRegisterButton';
+import FacebookButton from '../components/ui/FacebookButton';
 import EmptyMessage from '../components/ui/EmptyMessage';
 import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
@@ -46,7 +46,7 @@ export default class RegisterPage extends Component {
         this.handleOnChange = this.handleOnChange.bind(this);
         this.handleSocialNetwork = this.handleSocialNetwork.bind(this);
         this._registerUser = this._registerUser.bind(this);
-        
+
         this.state = {
             registeringUser: false
         }
@@ -77,7 +77,9 @@ export default class RegisterPage extends Component {
         const {token, interfaceLanguage} = this.props;
         SocialNetworkService.login(resource, scope, true).then(() => {
             LoginActionCreators.loginUserByResourceOwner(resource, SocialNetworkService.getAccessToken(resource)).then(
-                () => { return null }, // User is logged in
+                () => {
+                    return null; // User is logged in
+                },
                 () => {
                     let user = SocialNetworkService.getUser(resource);
                     let profile = SocialNetworkService.getProfile(resource);
@@ -87,8 +89,8 @@ export default class RegisterPage extends Component {
                     if (!profile.location && navigator.geolocation) {
                         var options = {
                             enableHighAccuracy: true,
-                            timeout: 5000, // 5s
-                            maximumAge: 14400000 // 4h
+                            timeout           : 5000, // 5s
+                            maximumAge        : 14400000 // 4h
                         };
                         navigator.geolocation.getCurrentPosition((position) => {
                             if (position.coords.accuracy < 2000) { // filter by accuracy
@@ -104,7 +106,9 @@ export default class RegisterPage extends Component {
                             } else {
                                 this._registerUser(user, profile, token, resource);
                             }
-                        }, () => { this._registerUser(user, profile, token, resource) }, options);
+                        }, () => {
+                            this._registerUser(user, profile, token, resource)
+                        }, options);
                     } else {
                         this._registerUser(user, profile, token, resource);
                     }
@@ -117,16 +121,16 @@ export default class RegisterPage extends Component {
     _registerUser(user, profile, token, resource) {
         LoginActionCreators.register(user, profile, token, {
             resourceOwner: resource,
-            oauthToken: SocialNetworkService.getAccessToken(resource),
-            resourceId: SocialNetworkService.getResourceId(resource),
-            expireTime: SocialNetworkService.getExpireTime(resource),
-            refreshToken: SocialNetworkService.getRefreshToken(resource)
+            oauthToken   : SocialNetworkService.getAccessToken(resource),
+            resourceId   : SocialNetworkService.getResourceId(resource),
+            expireTime   : SocialNetworkService.getExpireTime(resource),
+            refreshToken : SocialNetworkService.getRefreshToken(resource)
         });
         this.setState({
             registeringUser: true
         });
     }
-    
+
     render() {
 
         const {error, token, invitation, strings} = this.props;
@@ -140,7 +144,7 @@ export default class RegisterPage extends Component {
                     {invitation && invitation.image_url ? <div className="gradient-transparency"></div> : null}
 
                     {this.state.registeringUser ?
-                        <EmptyMessage text={strings.loadingMessage} loadingGif={true} />
+                        <EmptyMessage text={strings.loadingMessage} loadingGif={true}/>
                         :
                         <div id="page-content" className="register-content">
                             <div className="register-title bold">
@@ -164,10 +168,10 @@ export default class RegisterPage extends Component {
                                 <div>
                                     {/* Uncomment to enable all social networks */}
                                     {/* <SocialBox onClickHandler={this.handleSocialNetwork}/> */}
-                                    <FacebookRegisterButton onClickHandler={this.handleSocialNetwork}/>
+                                    <FacebookButton onClickHandler={this.handleSocialNetwork} text={strings.signUp}/>
                                     <br />
                                     <div className="register-sub-title privacy-terms-text">
-                                        <p dangerouslySetInnerHTML={{__html:strings.privacy }}/>
+                                        <p dangerouslySetInnerHTML={{__html: strings.privacy}}/>
                                     </div>
                                     <br />
                                     <br />
@@ -193,6 +197,7 @@ RegisterPage.defaultProps = {
         correct       : 'Just one last step! Connect Facebook:',
         loadingMessage: 'Registering user',
         publishMessage: 'We\'ll never publish anything on your wall',
-        privacy       : 'By registering, you agree to the <a href="https://nekuno.com/legal-notice" target="_blank">Legal Conditions</a> and the Nekuno <a href="https://nekuno.com/privacy-policy" target="_blank">Privacy Policy</a>.'
+        privacy       : 'By registering, you agree to the <a href="https://nekuno.com/legal-notice" target="_blank">Legal Conditions</a> and the Nekuno <a href="https://nekuno.com/privacy-policy" target="_blank">Privacy Policy</a>.',
+        signUp        : 'Sign up with Facebook'
     }
 };

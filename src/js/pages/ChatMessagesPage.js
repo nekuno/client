@@ -72,19 +72,20 @@ export default class ChatMessagesPage extends Component {
         requestData(this.props);
     }
 
-    componentDidMount() {
-        this._scrollToBottom();
+    componentDidUpdate() {
+        if (ChatMessageStore.isFresh(this.props.params.userId) && !ChatMessageStore.noMoreMessages(this.props.params.userId)) {
+            this._scrollToBottom();
+        }
     }
 
-    componentDidUpdate() {
-        this._scrollToBottom();
-    }
+    scrollingTimeout = null;
 
     _scrollToBottom() {
-        if (ChatMessageStore.isFresh(this.props.params.userId)) {
-            var list = this.refs.list;
+        var list = this.refs.list;
+        window.clearTimeout(this.scrollingTimeout);
+        this.scrollingTimeout = window.setTimeout(() => {
             list.scrollTop = list.scrollHeight;
-        }
+        }, 800);
     }
 
     sendMessageHandler(messageText) {
@@ -98,10 +99,12 @@ export default class ChatMessagesPage extends Component {
             let lastMessage = this.props.messages[this.props.messages.length - 1];
             let timestamp = lastMessage.createdAt.toISOString();
             ChatActionCreators.markAsReaded(userId, timestamp);
+            this._scrollToBottom();
         }
     }
 
     handleScroll() {
+        window.clearTimeout(this.scrollingTimeout);
         var list = this.refs.list;
         if (list.scrollTop === 0) {
             if (ChatMessageStore.noMoreMessages(this.props.params.userId)) {
@@ -130,6 +133,7 @@ export default class ChatMessagesPage extends Component {
                     <div id="page-content" className="notifications-content">
                         {this.state.noMoreMessages ? <div className="daily-message-title">{strings.noMoreMessages}</div> : '' }
                         <DailyMessages messages={messages}/>
+                        <br />
                         <br />
                     </div>
                 </div>

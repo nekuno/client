@@ -34,7 +34,7 @@ export default {
         title2       : 'Connect only with most compatible people with you',
         title3       : 'You decide the information you share',
         update       : 'Update',
-        login        : 'Login',
+        login        : 'Login with Facebook',
         hasInvitation: 'Do you have an invitation?',
         register     : 'Register',
         wantGuest    : 'Do you want to try it?',
@@ -81,7 +81,7 @@ export default {
         confirmDelete: 'Are you sure you want to delete this photo?'
     },
     OtherGalleryPhotoPage            : {
-        photos   : 'Photos'
+        photos: 'Photos'
     },
     GalleryProfilePhotoPage          : {
         confirmSetAsProfilePhoto: 'Do you want to use this photo as your profile photo?',
@@ -92,10 +92,7 @@ export default {
     LoginPage                        : {
         login          : 'Login',
         cancel         : 'Cancel',
-        username       : 'Username or email',
-        password       : 'Password',
-        loginResource  : 'Or login with a social network',
-        recoverPassword: 'Forgotten your password?',
+        loginResource  : 'Login with a social network',
         hasInvitation  : 'Do you have an invitation?',
         register       : 'Register',
         wantGuest      : 'Do you want to try it?',
@@ -140,7 +137,8 @@ export default {
         correct       : 'Just one last step! Connect Facebook:',
         loadingMessage: 'Registering user',
         publishMessage: 'We\'ll never publish anything on your wall',
-        privacy       : 'By registering, you agree to the <a href="https://nekuno.com/legal-notice" target="_blank">Legal Conditions</a> and the Nekuno <a href="https://nekuno.com/privacy-policy" target="_blank">Privacy Policy</a>.'
+        privacy       : 'By registering, you agree to the <a href="https://nekuno.com/legal-notice" target="_blank">Legal Conditions</a> and the Nekuno <a href="https://nekuno.com/privacy-policy" target="_blank">Privacy Policy</a>.',
+        signUp        : 'Sign up with Facebook'
     },
     RegisterQuestionLandingPage      : {
         title  : 'We want to know you a little better',
@@ -153,8 +151,9 @@ export default {
         loadingMessage: 'Loading yarns'
     },
     RecommendationPage               : {
-        loadingMessage: 'Loading recommendations',
-        confirmBlock  : 'Are you sure you want to block this user?'
+        loadingMessage  : 'Loading recommendations',
+        confirmBlock    : 'Are you sure you want to block this user?',
+        processingThread: 'These results are provisional, we´ll finish improving this for you soon.'
     },
     InvitationsPage                  : {
         invitations           : 'Invitations',
@@ -181,14 +180,15 @@ export default {
         interests   : 'Interests',
         like        : 'Like',
         dontLike    : 'Don\'t like anymore',
+        saving      : 'Saving...',
         confirmBlock: 'Are you sure you want to block this user?'
     },
     CreateThreadPage                 : {
-        create     : 'Create yarn',
-        title      : 'What do you want to discover in this new yarn?',
-        cancel     : 'Cancel',
-        people     : 'Users of Nekuno',
-        contents   : 'Links of Internet'
+        create  : 'Create yarn',
+        title   : 'What do you want to discover in this new yarn?',
+        cancel  : 'Cancel',
+        people  : 'Users of Nekuno',
+        contents: 'Links of Internet'
     },
     EditThreadPage                   : {
         edit       : 'Edit yarn',
@@ -209,9 +209,6 @@ export default {
         settings      : 'Settings',
         invitations   : 'Invitations',
         logout        : 'Logout'
-    },
-    FacebookRegisterButton           : {
-        signUp: 'Sign up with Facebook'
     },
     ProfileDataList                  : {
         cannotRemove: 'This field cannot be deleted',
@@ -251,8 +248,7 @@ export default {
     BirthdayField                    : {
         birthday           : 'birthday',
         title              : 'When were you born?',
-        birthdayPlaceholder: 'Your birthday',
-        save               : 'Save'
+        birthdayPlaceholder: 'Your birthday'
     },
     GenderField                      : {
         include              : 'Include on searches as',
@@ -266,9 +262,9 @@ export default {
         save                 : 'Save'
     },
     LocationField                    : {
-        location           : 'Location',
-        title              : 'Where do you live?',
-        save               : 'Save'
+        location: 'Location',
+        title   : 'Where do you live?',
+        save    : 'Save'
     },
     AcceptedAnswersImportance        : {
         title     : 'This answer matters to me:',
@@ -285,7 +281,8 @@ export default {
         you        : 'You',
         them       : 'Them',
         alertFirst : 'Mark your answer in the first column',
-        alertSecond: 'Mark one or more options in the second column to indicate what would you like to answer another user'
+        alertSecond: 'Mark one or more options in the second column to indicate what would you like to answer another user',
+        saving     : 'Saving'
     },
     OtherQuestion                    : {
         didntAnswered: 'You have not answered this question'
@@ -306,18 +303,25 @@ export default {
         text     : 'Answer more test questions',
         completed: 'completed questions'
     },
-    ProcessesProgress                 : {
+    ProcessesProgress                : {
         title                   : 'We are reprocessing your data',
         registrationTitle       : 'We are analyzing your data',
         linksTitle              : 'Processing links',
         similarityTitle         : 'Calculating similarity',
         matchingTitle           : 'Calculating matching',
         affinityTitle           : 'Calculating affinity',
+        threadsTitle            : 'Creating more yarns',
         linksPreparingTitle     : 'Preparing to process links',
         similarityPreparingTitle: 'Preparing to calculate similarity',
         matchingPreparingTitle  : 'Preparing to calculate matching',
         affinityPreparingTitle  : 'Preparing to calculate affinity',
         registerWorkersFinish   : 'Congratulations! The registration processes have finished.'
+    },
+    ThreadNoResults                  : {
+        emptyThread: 'This yarn is empty. Edit or delete it.',
+        edit       : 'Edit',
+        delete     : 'Delete',
+        deleting   : 'Deleting'
     },
     CardContent                      : {
         like           : 'Like',
@@ -325,12 +329,14 @@ export default {
         compatibility  : 'Compatibility',
         emptyTitle     : 'Link',
         copyToClipboard: 'Copy to clipboard: Ctrl+C, Enter',
-        shareError     : 'An error occurred sharing the content'
+        shareError     : 'An error occurred sharing the content',
+        saving         : 'Saving...'
     },
     CardUser                         : {
         like      : 'Like',
         unlike    : 'Remove',
-        similarity: 'Similarity'
+        similarity: 'Similarity',
+        saving    : 'Saving...'
     },
     ImportAlbumPopup                 : {
         close      : 'Close',
@@ -360,12 +366,6 @@ export default {
         moreTests: 'Do more tests',
         continue : 'Continue to recommendations'
     },
-    EmptyThreadPopup                 : {
-        title     : 'Oops!',
-        text      : 'This yarn is empty right now! Edit its filters to get recommendations or go back to the yarns list and try another.',
-        editThread: 'Edit this yarn',
-        goBack    : 'Go back'
-    },
     SetThreadTitlePopup              : {
         title      : 'What name do you prefer for this yarn?',
         placeholder: 'Title',
@@ -388,12 +388,14 @@ export default {
         create        : 'Create'
     },
     ThreadContent                    : {
-        contents: 'Contents'
+        contents: 'Contents',
+        working : 'These results are provisional, we are working on improving them for you.'
     },
     ThreadUsers                      : {
-        people: 'People',
-        users : 'Users',
-        disabled: 'We are weaving this yarn, please wait a moment...'
+        people  : 'People',
+        users   : 'Users',
+        disabled: 'We are weaving this yarn, please wait a moment...',
+        working : 'These results are provisional, we are working on improving them for you.'
     },
     IntegerEdit                      : {
         minValue   : 'The minimum value is ',

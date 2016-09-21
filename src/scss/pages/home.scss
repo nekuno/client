@@ -41,7 +41,7 @@ body #root .App .view.home-view {
   }
 
   .nekuno-logo-wrapper {
-    height: 101px;
+    height: 120px;
     position: absolute;
     top: 50px;
     width: 100%;
@@ -109,14 +109,15 @@ body #root .App .view.home-view {
 // Default pixel ratio (1)
 @media only screen and (max-width: 320px) {
   body #root .App .view.home-view .nekuno-logo-wrapper .nekuno-logo {
-    background: url('img/logo-107x56.png') no-repeat;
-    width: 107px;
+    background: url('img/logo-beta-160x109.png') no-repeat;
+    width: 160px;
   }
   body #root .App .view .swiper-container .swiper-slide {
     .page#login-1-image, .page#login-2-image, .page#login-3-image {
       .title {
-        font-size: 22px;
-        line-height: 25px;
+        bottom: 220px !important;
+        font-size: 22px !important;
+        line-height: 25px !important;
       }
     }
   }
@@ -136,7 +137,7 @@ body #root .App .view.home-view {
 }
 @media only screen and (min-width: 321px) and (max-width: 480px) {
   .nekuno-logo {
-    background: url('img/logo-160x84.png') no-repeat;
+    background: url('img/logo-beta-160x109.png') no-repeat;
     width: 160px;
   }
   body #root .App .view.home-view {
@@ -179,7 +180,7 @@ body #root .App .view.home-view {
   }
 
   body #root .App .view .nekuno-logo {
-    background: url('img/logo-250x132.png') no-repeat;
+    background: url('img/logo-beta-250x171.png') no-repeat;
     width: 175px;
   }
   body #root .App .page#login-1-image {
@@ -203,7 +204,7 @@ body #root .App .view.home-view {
 
   @media only screen and (max-width: 212px) {
     .nekuno-logo {
-      background: url('img/logo-107x56.png') no-repeat;
+      background: url('img/logo-beta-107x73.png') no-repeat;
     }
     body #root .App .page#login-1-image {
       background: url('img/login-image-1-320x569.jpg') no-repeat;
@@ -217,7 +218,7 @@ body #root .App .view.home-view {
   }
   @media only screen and (min-width: 213px) and (max-width: 320px) {
     .nekuno-logo {
-      background: url('img/logo-160x84.png') no-repeat;
+      background: url('img/logo-beta-160x109.png') no-repeat;
     }
     body #root .App .page#login-1-image {
       background: url('img/login-image-1-480x854.jpg') no-repeat;
@@ -231,7 +232,7 @@ body #root .App .view.home-view {
   }
   @media only screen and (min-width: 321px) {
     .nekuno-logo {
-      background: url('img/logo-250x132.png') no-repeat;
+      background: url('img/logo-beta-250x171.png') no-repeat;
     }
     body #root .App .page#login-1-image {
       background: url('img/login-image-1-compressed-750x1334.jpg') no-repeat;
@@ -252,7 +253,7 @@ body #root .App .view.home-view {
 
   @media only screen and (max-width: 240px) {
     .nekuno-logo {
-      background: url('img/logo-160x84.png') no-repeat;
+      background: url('img/logo-beta-160x109.png') no-repeat;
     }
     body #root .App .page#login-1-image {
       background: url('img/login-image-1-480x854.jpg') no-repeat;
@@ -266,7 +267,7 @@ body #root .App .view.home-view {
   }
   @media only screen and (min-width: 241px) {
     .nekuno-logo {
-      background: url('img/logo-250x132.png') no-repeat;
+      background: url('img/logo-beta-250x171.png') no-repeat;
     }
     body #root .App .page#login-1-image {
       background: url('img/login-image-1-compressed-750x1334.jpg') no-repeat;

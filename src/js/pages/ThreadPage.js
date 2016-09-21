@@ -12,11 +12,11 @@ import * as ThreadActionCreators from '../actions/ThreadActionCreators';
 import * as QuestionActionCreators from '../actions/QuestionActionCreators';
 import ThreadStore from '../stores/ThreadStore';
 import ProfileStore from '../stores/ProfileStore';
-import ThreadsByUserStore from '../stores/ThreadsByUserStore';
 import FilterStore from '../stores/FilterStore';
 import QuestionStore from '../stores/QuestionStore';
 import RecommendationStore from '../stores/RecommendationStore';
 import RecommendationsByThreadStore from '../stores/RecommendationsByThreadStore';
+import WorkersStore from '../stores/WorkersStore';
 
 /**
  * Requests data from server for current props.
@@ -33,10 +33,11 @@ function requestData(props) {
  * Retrieves state from stores for current props.
  */
 function getState(props) {
-    const threadIds = ThreadsByUserStore.getThreadsFromUser(props.user.id);
-    const threads = threadIds ? threadIds.map(ThreadStore.get) : [];
+    const threadIds = ThreadStore.getAll();
+    const threads = threadIds ? Object.keys(threadIds).map(threadId => threadIds[threadId]).reverse() : [];
     threads.forEach((thread) => {
         thread.disabled = ThreadStore.isDisabled(thread.id);
+        thread.isEmpty = RecommendationsByThreadStore.isEmpty(thread.id);
         const cachedIds = RecommendationsByThreadStore.getFirst(thread.id, 5);
         thread.cached = thread.category == 'ThreadContent' ?
             RecommendationStore.getContentRecommendations(cachedIds)
@@ -46,18 +47,20 @@ function getState(props) {
     const profile = ProfileStore.get(props.user.id) || {};
     const filters = FilterStore.filters;
     const pagination = QuestionStore.getPagination(props.user.id) || {};
+    const isSomethingWorking = WorkersStore.isSomethingWorking();
 
     return {
         filters,
         threads,
         profile,
-        pagination
+        pagination,
+        isSomethingWorking
     };
 }
 
 @AuthenticatedComponent
 @translate('ThreadPage')
-@connectToStores([ThreadStore, ThreadsByUserStore, RecommendationStore, RecommendationsByThreadStore, ProfileStore, FilterStore], getState)
+@connectToStores([ThreadStore, RecommendationStore, RecommendationsByThreadStore, ProfileStore, FilterStore, WorkersStore], getState)
 export default class ThreadPage extends Component {
 
     static propTypes = {
@@ -90,7 +93,7 @@ export default class ThreadPage extends Component {
     }
 
     render() {
-        const {threads, filters, profile, strings, user} = this.props;
+        const {threads, filters, profile, strings, user, isSomethingWorking} = this.props;
 
         return (
             <div className="view view-main">
@@ -99,7 +102,7 @@ export default class ThreadPage extends Component {
                     <div id="page-content">
                         <ProcessesProgress />
                         {filters && threads && profile ?
-                            <ThreadList threads={threads} userId={user.id} profile={profile} filters={filters}/> : <EmptyMessage text={strings.loadingMessage} loadingGif={true} />
+                            <ThreadList threads={threads} userId={user.id} profile={profile} isSomethingWorking={isSomethingWorking} filters={filters}/> : <EmptyMessage text={strings.loadingMessage} loadingGif={true} />
                         }
                         {filters && threads && profile ?
                             <QuestionsBanner user={user} questionsTotal={this.props.pagination.total || 0}/> : ''

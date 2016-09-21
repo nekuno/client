@@ -18,7 +18,7 @@ const ThreadStore = createStore({
 
     get(id) {
         if (!this.contains(id)) {
-            return {};
+            return [];
         }
         return _threads[id];
     },
@@ -114,8 +114,13 @@ ThreadStore.dispatchToken = register(action => {
             ThreadStore.disable(action.threadId);
             ThreadStore.emitChange();
             break;
+        case ActionTypes.DELETE_THREAD:
+            let threadId = action.threadId;
+            _threads[threadId].deleting = true;
+            ThreadStore.emitChange();
+            break;
         case ActionTypes.DELETE_THREAD_SUCCESS:
-            const threadId = [action.threadId];
+            threadId = action.threadId;
             delete _threads[threadId];
             ThreadStore.emitChange();
             break;

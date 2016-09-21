@@ -4,6 +4,7 @@ import * as QuestionActionCreators from '../../actions/QuestionActionCreators';
 import AnswerRadio from './AnswerRadio';
 import AcceptedAnswerCheckbox from './AcceptedAnswerCheckbox';
 import AcceptedAnswersImportance from './AcceptedAnswersImportance';
+import EmptyMessage from '../ui/EmptyMessage';
 import translate from '../../i18n/Translate';
 
 @translate('AnswerQuestionForm')
@@ -30,7 +31,8 @@ export default class AnswerQuestionForm extends Component {
 
         this.state = {
             answerId       : null,
-            acceptedAnswers: []
+            acceptedAnswers: [],
+            rated          : false
         };
     }
 
@@ -89,6 +91,9 @@ export default class AnswerQuestionForm extends Component {
 
     handleOnClickImportance(importance) {
         this.answerQuestion(importance);
+        this.setState({
+            rated: true
+        });
     }
 
     getRatingByImportance = function(importance) {
@@ -120,6 +125,7 @@ export default class AnswerQuestionForm extends Component {
         }
 
         return (
+            this.state.rated ? <EmptyMessage text={strings.saving} loadingGif={true}/> :
             <div className="answer-question-form">
                 <form>
                     <div className="answers-block">
@@ -178,6 +184,7 @@ AnswerQuestionForm.defaultProps = {
         you        : 'You',
         them       : 'Them',
         alertFirst : 'Mark your answer in the first column',
-        alertSecond: 'Mark one or more options in the second column to indicate what would you like to answer another user'
+        alertSecond: 'Mark one or more options in the second column to indicate what would you like to answer another user',
+        saving     : 'Saving'
     }
 };

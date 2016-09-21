@@ -60,8 +60,8 @@ export default new class LoginActionCreators {
                 }
                 this.redirect();
                 return new Promise(function (resolve) {resolve(true)});
-            }, () => {
-                return new Promise(function (resolve, reject) {reject()});
+            }, (error) => {
+                return new Promise(function (resolve, reject) {reject(error)});
             });
     }
 

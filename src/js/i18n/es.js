@@ -34,7 +34,7 @@ export default {
         title2       : 'Conecta sólo con las personas más compatibles contigo',
         title3       : 'Tú decides la información que compartes',
         update       : 'Actualizar',
-        login        : 'Iniciar sesión',
+        login        : 'Iniciar sesión con Facebook',
         hasInvitation: '¿Tienes una invitación?',
         register     : 'Regístrate',
         wantGuest    : '¿Quieres probarlo?',
@@ -82,7 +82,7 @@ export default {
         confirmDelete: '¿Estás seguro de que quieres borrar esta foto?'
     },
     OtherGalleryPhotoPage            : {
-        photos   : 'Fotos'
+        photos: 'Fotos'
     },
     GalleryProfilePhotoPage          : {
         confirmSetAsProfilePhoto: '¿Quieres usar esta foto como foto de perfil?',
@@ -93,10 +93,7 @@ export default {
     LoginPage                        : {
         login          : 'Iniciar sesión',
         cancel         : 'Cancelar',
-        username       : 'Usuario o email',
-        password       : 'Contraseña',
-        loginResource  : 'O entra con una red social',
-        recoverPassword: '¿Has olvidado tu contraseña?',
+        loginResource  : 'Entra con una red social',
         hasInvitation  : '¿Tienes una invitación?',
         register       : 'Regístrate',
         wantGuest      : '¿Quieres probarlo?',
@@ -141,7 +138,8 @@ export default {
         correct       : '¡Solo queda un último paso! Conecta Facebook:',
         loadingMessage: 'Registrando usuario',
         publishMessage: 'Nunca publicaremos nada en tu muro',
-        privacy       : 'Al registrarte, estás aceptando las <a href="https://nekuno.com/legal-notice" target="_blank">Condiciones Legales</a> y la <a href="https://nekuno.com/privacy-policy" target="_blank">Política de Privacidad</a> de Nekuno.'
+        privacy       : 'Al registrarte, estás aceptando las <a href="https://nekuno.com/legal-notice" target="_blank">Condiciones Legales</a> y la <a href="https://nekuno.com/privacy-policy" target="_blank">Política de Privacidad</a> de Nekuno.',
+        signUp        : 'Regístrate con Facebook'
     },
     RegisterQuestionLandingPage      : {
         title  : 'Queremos conocerte un poco mejor',
@@ -154,8 +152,9 @@ export default {
         loadingMessage: 'Cargando hilos'
     },
     RecommendationPage               : {
-        loadingMessage: 'Cargando recomendaciones',
-        confirmDelete : '¿Estás seguro de que quieres borrar este hilo?'
+        loadingMessage  : 'Cargando recomendaciones',
+        confirmDelete   : '¿Estás seguro de que quieres borrar este hilo?',
+        processingThread: 'Estos resultados son provisionales, acabaremos pronto de mejorar esto para ti.'
     },
     InvitationsPage                  : {
         invitations           : 'Invitaciones',
@@ -182,14 +181,15 @@ export default {
         interests   : 'Intereses',
         like        : 'Me gusta',
         dontLike    : 'Ya no me gusta',
+        saving      : 'Guardando...',
         confirmBlock: '¿Estás seguro de que quieres bloquear a este usuario?'
     },
     CreateThreadPage                 : {
-        create     : 'Crear hilos',
-        title      : '¿Qué deseas descubrir en este nuevo hilo?',
-        cancel     : 'Cancelar',
-        people     : 'Usuarios de Nekuno',
-        contents   : 'Enlaces de Internet'
+        create  : 'Crear hilos',
+        title   : '¿Qué deseas descubrir en este nuevo hilo?',
+        cancel  : 'Cancelar',
+        people  : 'Usuarios de Nekuno',
+        contents: 'Enlaces de Internet'
     },
     EditThreadPage                   : {
         edit       : 'Editar hilo',
@@ -210,9 +210,6 @@ export default {
         settings      : 'Ajustes',
         invitations   : 'Invitaciones',
         logout        : 'Salir'
-    },
-    FacebookRegisterButton           : {
-        signUp: 'Regístrate con Facebook'
     },
     ProfileDataList                  : {
         cannotRemove: 'Este campo no se puede eliminar',
@@ -252,8 +249,7 @@ export default {
     BirthdayField                    : {
         birthday           : 'fecha de nacimiento',
         title              : '¿Cúando naciste?',
-        birthdayPlaceholder: 'Tu fecha de nacimiento',
-        save               : 'Guardar'
+        birthdayPlaceholder: 'Tu fecha de nacimiento'
     },
     GenderField                      : {
         include              : 'Incluirme en las búsquedas como',
@@ -267,9 +263,9 @@ export default {
         save                 : 'Guardar'
     },
     LocationField                    : {
-        location           : 'Ubicación',
-        title              : '¿Dónde vives?',
-        save               : 'Guardar'
+        location: 'Ubicación',
+        title   : '¿Dónde vives?',
+        save    : 'Guardar'
     },
     AcceptedAnswersImportance        : {
         title     : '¿Te importa la respuesta del usuario?',
@@ -286,7 +282,8 @@ export default {
         you        : 'Tú',
         them       : 'Ellos',
         alertFirst : 'Marca tu respuesta en la primera columna',
-        alertSecond: 'Marca una o varias opciones en la segunda columna para indicar qué te gustaría que respondiera otro usuario'
+        alertSecond: 'Marca una o varias opciones en la segunda columna para indicar qué te gustaría que respondiera otro usuario',
+        saving     : 'Guardando'
     },
     OtherQuestion                    : {
         didntAnswered: 'No has contestado a esta pregunta'
@@ -307,18 +304,25 @@ export default {
         text     : 'Responde más preguntas del test',
         completed: 'preguntas completadas'
     },
-    ProcessesProgress                 : {
+    ProcessesProgress                : {
         title                   : 'Estamos reprocesando tus datos',
         registrationTitle       : 'Estamos analizando tus datos',
         linksTitle              : 'Procesando enlaces',
         similarityTitle         : 'Calculando similaridad',
         matchingTitle           : 'Calculando compatibilidad',
         affinityTitle           : 'Calculando afinidad',
+        threadsTitle            : 'Creando más hilos',
         linksPreparingTitle     : 'Preparando para procesar enlaces',
         similarityPreparingTitle: 'Preparando para calcular similaridad',
         matchingPreparingTitle  : 'Preparando para calcular compatibilidad',
         affinityPreparingTitle  : 'Preparando para calcular afinidad',
         registerWorkersFinish   : '¡Felicidades! Los procesos del registro han finalizado.'
+    },
+    ThreadNoResults                  : {
+        emptyThread: 'Este hilo está vacío. Edítalo o elimínalo',
+        edit       : 'Editar',
+        delete     : 'Eliminar',
+        deleting   : 'Eliminando'
     },
     CardContent                      : {
         like           : 'Me interesa',
@@ -326,12 +330,14 @@ export default {
         compatibility  : 'Compatibilidad',
         emptyTitle     : 'Contenido',
         copyToClipboard: 'Copiar al portapapeles: Ctrl+C, Enter',
-        shareError     : 'Ha ocurrido un error compartiendo el contenido.'
+        shareError     : 'Ha ocurrido un error compartiendo el contenido.',
+        saving         : 'Guardando...'
     },
     CardUser                         : {
         like      : 'Me gusta',
         unlike    : 'Quitar me gusta',
-        similarity: 'Similaridad'
+        similarity: 'Similaridad',
+        saving    : 'Guardando...'
     },
     ImportAlbumPopup                 : {
         close      : 'Cerrar',
@@ -361,12 +367,6 @@ export default {
         moreTests: 'Hacer más tests',
         continue : 'Continuar a recomendaciones'
     },
-    EmptyThreadPopup                 : {
-        title     : '¡Vaya!',
-        text      : '¡Este hilo está vacío por ahora! Edita sus filtros para conseguir recomendaciones o vuelve a la lista de hilos para intentar otro.',
-        editThread: 'Editar este hilo',
-        goBack    : 'Volver'
-    },
     SetThreadTitlePopup              : {
         title      : '¿Qué titulo quieres que tenga este hilo?',
         placeholder: 'Título',
@@ -389,12 +389,14 @@ export default {
         create        : 'Crear hilo'
     },
     ThreadContent                    : {
-        contents: 'Contenidos'
+        contents: 'Contenidos',
+        working : 'Estos resultados son provisionales, estamos trabajando en mejorarlos para ti.'
     },
     ThreadUsers                      : {
-        people: 'Personas',
-        users : 'Usuarios',
-        disabled: 'Estamos tejiendo este hilo, un momento por favor...'
+        people  : 'Personas',
+        users   : 'Usuarios',
+        disabled: 'Estamos tejiendo este hilo, un momento por favor...',
+        working : 'Estos resultados son provisionales, estamos mejorándolos para ti.'
     },
     IntegerEdit                      : {
         minValue   : 'El valor mínimo es ',

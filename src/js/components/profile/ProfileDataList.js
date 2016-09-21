@@ -61,7 +61,6 @@ export default class ProfileDataList extends Component {
         this.onFilterSelect = this.onFilterSelect.bind(this);
         this.onSuggestSelect = this.onSuggestSelect.bind(this);
         this.handleClickEdit = this.handleClickEdit.bind(this);
-        this.handleErrorEdit = this.handleErrorEdit.bind(this);
         this.handleChangeEdit = this.handleChangeEdit.bind(this);
         this.handleChangeEditAndSave = this.handleChangeEditAndSave.bind(this);
         this.handleClickRemoveEdit = this.handleClickRemoveEdit.bind(this);
@@ -118,15 +117,6 @@ export default class ProfileDataList extends Component {
         this.setState({
             selectedEdit: key,
             profile     : profile
-        });
-    }
-
-    handleErrorEdit(key, error) {
-        let {profile} = this.state;
-        nekunoApp.alert(error);
-        profile[key] = null;
-        this.setState({
-            selectedEdit: key
         });
     }
 
@@ -206,7 +196,6 @@ export default class ProfileDataList extends Component {
                 props.data = data ? parseInt(data) : null;
                 props.handleClickInput = this.onFilterSelect;
                 props.handleChangeEdit = this.handleChangeEditAndSave;
-                props.handleErrorEdit = this.handleErrorEdit;
                 filter = <IntegerEdit {...props}/>;
                 break;
             case 'location':
@@ -288,10 +277,12 @@ export default class ProfileDataList extends Component {
         );
         return (
             <div className="profile-data-list">
-                <div key={'description-category'} className="profile-category" ref={'description' == this.state.selectedCategory ? 'selectedCategory' : null}>
-                    <h3>{strings.aboutMe} <span className="icon-wrapper" onClick={this.onCategoryToggle.bind(this, 'description')}><span className={'description' == this.state.selectedCategory ? 'icon-checkmark' : 'icon-edit'}></span></span></h3>
+                <div key={'description'} ref={this.state.selectedCategory == 'description' ? "selectedCategoryEdit" : null}>
+                    <div key={'description-category'} className="profile-category" ref={'description' == this.state.selectedCategory ? 'selectedCategory' : null}>
+                        <h3>{strings.aboutMe} <span className="icon-wrapper" onClick={this.onCategoryToggle.bind(this, 'description')}><span className={'description' == this.state.selectedCategory ? 'icon-checkmark' : 'icon-edit'}></span></span></h3>
+                    </div>
+                    {'description' == this.state.selectedCategory ? this.renderField(profile.hasOwnProperty('description') ? profile : [], metadata, 'description') : <ProfileAboutMe value={profile.description || ''}/>}
                 </div>
-                {'description' == this.state.selectedCategory ? this.renderField(profile.hasOwnProperty('description') ? profile : [], metadata, 'description') : <ProfileAboutMe value={profile.description || ''}/>}
                 {lines}
             </div>
         );

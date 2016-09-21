@@ -3,6 +3,7 @@ import { IMAGES_ROOT } from '../../constants/Constants';
 import selectn from 'selectn'
 import ChipList from './../ui/ChipList';
 import Image from './../ui/Image';
+import ThreadNoResults from './ThreadNoResults';
 import OrientationRequiredPopup from './../ui/OrientationRequiredPopup';
 import FilterStore from '../../stores/FilterStore';
 import translate from '../../i18n/Translate';
@@ -19,6 +20,7 @@ export default class ThreadUsers extends Component {
         last   : PropTypes.bool.isRequired,
         userId : PropTypes.number.isRequired,
         profile: PropTypes.object.isRequired,
+        isSomethingWorking: PropTypes.bool,
         filters: PropTypes.object.isRequired,
         avKey  : PropTypes.number.isRequired,
         // Injected by @translate:
@@ -67,13 +69,20 @@ export default class ThreadUsers extends Component {
     };
 
     goToThread() {
-        if (selectn('orientation', this.props.profile) === undefined) {
-            console.log('orientation required');
+        const {thread, profile, isSomethingWorking, strings} = this.props;
+        const totalResults = thread.totalResults;
+        const mustBeDisabled = thread.disabled || totalResults == 0 && isSomethingWorking;
+        if (!selectn('orientation', profile)) {
             nekunoApp.popup('.popup-orientation-required');
             document.getElementsByClassName('view')[0].scrollTop = 0;
-        } else if (this.props.thread.disabled === true) {
-            nekunoApp.alert(this.props.strings.disabled)
+        } else if (mustBeDisabled) {
+            nekunoApp.alert(strings.disabled)
+        } else if (totalResults == 0) {
+            this.context.history.pushState(null, `edit-thread/${thread.id}`)
         } else {
+            if (isSomethingWorking) {
+                nekunoApp.alert(strings.working)
+            }
             this.continue();
         }
     }
@@ -83,12 +92,19 @@ export default class ThreadUsers extends Component {
     }
 
     render() {
-        const {thread, last, filters, profile, avKey, strings} = this.props;
+        const {thread, last, filters, profile, isSomethingWorking, avKey, strings} = this.props;
         const defaultUserImage = `${IMAGES_ROOT}media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
         let formattedThread = this.mergeImagesWithThread(thread);
-        const threadClass = thread.disabled ? "thread-listed thread-disabled" : "thread-listed";
+        const totalResults = formattedThread.totalResults;
+        const mustBeDisabled = selectn('orientation', profile) && (thread.disabled || totalResults == 0 && isSomethingWorking);
+        const threadClass = mustBeDisabled ? "thread-listed thread-disabled" :
+            selectn('orientation', profile) && totalResults == 0 ? "thread-listed thread-no-results" : "thread-listed";
         return (
             <div className={avKey % 2 ? '' : 'thread-odd'}>
+                {selectn('orientation', profile) && !mustBeDisabled && totalResults == 0 ?
+                    <ThreadNoResults threadId={thread.id} deleting={thread.deleting == true} />
+                    : null
+                }
                 <div className={threadClass} onClick={this.goToThread}>
                     {last ? null : <div className="thread-vertical-connection"></div>}
                     <div className="thread-first-image-wrapper">
@@ -124,8 +140,9 @@ export default class ThreadUsers extends Component {
 
 ThreadUsers.defaultProps = {
     strings: {
-        people: 'People',
-        users : 'Users',
-        disabled: 'We are weaving this yarn, please wait a moment...'
+        people  : 'People',
+        users   : 'Users',
+        disabled: 'We are weaving this yarn, please wait a moment...',
+        working : 'These results are provisional, we are working on improving them for you.'
     }
 };

@@ -170,7 +170,7 @@ export default class OtherUserPage extends Component {
         const {user, otherUser, profile, profileWithMetadata, matching, similarity, block, like, comparedStats, strings} = this.props;
         const otherPicture = otherUser && otherUser.picture ? `${IMAGES_ROOT}media/cache/resolve/user_avatar_60x60/user/images/${otherUser.picture}` : `${IMAGES_ROOT}media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
         const ownPicture = user && user.picture ? `${IMAGES_ROOT}media/cache/resolve/user_avatar_60x60/user/images/${user.picture}` : `${IMAGES_ROOT}media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
-        const likeText = like ? strings.dontLike : strings.like;
+        const likeText = like === null ? strings.saving : like ? strings.dontLike : strings.like;
         const blockClass = block ? "icon-block blocked" : "icon-block";
         return (
             <div className="view view-main">
@@ -182,10 +182,10 @@ export default class OtherUserPage extends Component {
                             <div>
                                 <div className="other-profile-buttons">
                                     <div className="other-profile-like-button">
-                                        <Button onClick={this.onRate}>{likeText}</Button>
+                                        <Button onClick={this.onRate} disabled={like === null ? 'disabled' : null}>{likeText}</Button>
                                     </div>
                                     <div className="other-profile-block-button">
-                                        <Button onClick={this.onBlock}><span className={blockClass}></span></Button>
+                                        <Button onClick={this.onBlock} disabled={block === null ? 'disabled' : null}><span className={blockClass}></span></Button>
                                     </div>
                                 </div>
                                 <div className="other-profile-wrapper bold">
@@ -225,6 +225,7 @@ OtherUserPage.defaultProps = {
         interests   : 'Interests',
         like        : 'Like',
         dontLike    : 'Don\'t like anymore',
+        saving      : 'Saving...',
         confirmBlock: 'Are you sure you want to block this user?'
     }
 };

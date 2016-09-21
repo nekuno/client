@@ -21,12 +21,15 @@ export default class OtherProfileDataList extends Component {
                 lines.push(<div key={category.label} className="profile-category"><h3>{category.label}</h3></div>);
                 Object.keys(category.fields).forEach(
                     profileDataKey => {
-                        lines.push(<ProfileData key={profileDataKey} name={category.fields[profileDataKey].text} value={category.fields[profileDataKey].value}/>);
+                        if (category.fields[profileDataKey].value) {
+                            lines.push(<ProfileData key={profileDataKey} name={category.fields[profileDataKey].text}
+                                                    value={category.fields[profileDataKey].value}/>);
+                        }
                     });
             });
         return (
             <div className="profile-data-list">
-                { profile.description ? <ProfileAboutMe value={profile.description}/> : '' }
+                {profile.description ? <ProfileAboutMe value={profile.description} showTitle={true}/> : ''}
                 {lines}
             </div>
         );

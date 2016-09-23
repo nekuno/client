@@ -91,6 +91,10 @@ class AuthService {
             })
             .then(function() {
                 console.log('Profile valid');
+                return APIUtils.postData(API_URLS.VALIDATE_INVITATION_TOKEN + token, profile);
+            })
+            .then(function() {
+                console.log('Invitation valid');
                 user.oauth = oauth;
                 return APIUtils.postData(API_URLS.REGISTER_USER, user);
             })

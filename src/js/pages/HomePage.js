@@ -96,6 +96,7 @@ export default class HomePage extends Component {
                         let user = SocialNetworkService.getUser(resource);
                         let profile = SocialNetworkService.getProfile(resource);
                         user[resource + 'ID'] = SocialNetworkService.getResourceId(resource);
+                        user.enabled = false;
                         profile.interfaceLanguage = interfaceLanguage;
                         profile.orientationRequired = false;
                         let token = 'join';
@@ -108,7 +109,7 @@ export default class HomePage extends Component {
                         });
 
                         nekunoApp.alert(error.error);
-                        // this.context.history.pushState(null, '/login');
+                        this.context.history.pushState(null, '/login');
                     });
             },
             (status) => {

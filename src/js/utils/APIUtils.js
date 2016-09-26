@@ -22,7 +22,6 @@ const userSchema = new Schema('users', {idAttribute: 'id'});
 const profileSchema = new Schema('profiles');
 const statsSchema = new Schema('stats');
 const comparedStatsSchema = new Schema('comparedStats');
-const threadSchema = new Schema('thread', {idAttribute: 'id'});
 const questionsSchema = new Schema('questions', {idAttribute: 'questionId'});
 const questionSchema = new Schema('question', {idAttribute: 'questionId'});
 const userAnswersSchema = new Schema('userAnswers', {idAttribute: 'questionId'});
@@ -43,15 +42,6 @@ const comparedQuestionsAndAnswersSchema = new Schema('items', {
 const blockedUserSchema = new Schema('blocked', {idAttribute: 'id'});
 const likedUserSchema = new Schema('liked', {idAttribute: 'id'});
 const likedContentSchema = new Schema('rate', {idAttribute: 'id'});
-const recommendationSchema = new Schema('recommendation', {
-    idAttribute: entity => {
-        if (entity.content) {
-            return entity.content.id;
-        } else {
-            return entity.id
-        }
-    }
-});
 
 //TODO: Implement location schema and store
 //TODO: Check pull request https://github.com/gaearon/normalizr/pull/42 for recommendation of different types
@@ -171,32 +161,6 @@ export function fetchStats(url) {
 
 export function fetchComparedStats(url) {
     return fetchAndNormalize(url, comparedStatsSchema);
-}
-
-export function fetchThreads(url) {
-    return fetchAndNormalize(url, {
-        items     : arrayOf(threadSchema),
-        pagination: {}
-    });
-}
-
-export function postThread(url, data) {
-    return postData(url, data);
-}
-
-export function putThread(url, data) {
-    return putData(url, data);
-}
-
-export function deleteThread(url) {
-    return deleteData(url);
-}
-
-export function fetchRecommendation(url) {
-    return fetchAndNormalize(url, {
-        items     : arrayOf(recommendationSchema),
-        pagination: {}
-    });
 }
 
 export function fetchAnswers(url) {

@@ -1,10 +1,5 @@
 import {
     fetchUser,
-    fetchThreads,
-    postThread,
-    putThread,
-    deleteThread,
-    fetchRecommendation,
     fetchUserArray,
     fetchProfile,
     putProfile,
@@ -20,7 +15,8 @@ import {
     deleteLikeContent,
     getData,
     postData,
-    putData
+    putData,
+    deleteData
 } from '../utils/APIUtils';
 
 export function getOwnUser(url = `users`) {
@@ -68,11 +64,11 @@ export function getComparedStats(id, url = `stats/compare/${id}`) {
 }
 
 export function getThreads(url = `threads`){
-    return fetchThreads(url);
+    return getData(url);
 }
 
 export function createThread(data, url='threads') {
-    return postThread(url, data);
+    return postData(url, data);
 }
 
 export function createDefaultThreads(url = 'threads/default') {
@@ -80,15 +76,15 @@ export function createDefaultThreads(url = 'threads/default') {
 }
 
 export function updateThread(threadId, data, url= `threads/${threadId}`) {
-    return putThread(url, data);
+    return putData(url, data);
 }
 
 export function removeThread(threadId, url= `threads/${threadId}`) {
-    return deleteThread(url);
+    return deleteData(url);
 }
 
 export function getRecommendation(threadId, url = `threads/${threadId}/recommendation`) {
-    return fetchRecommendation(url);
+    return getData(url);
 }
 
 export function setBlockUser(to, url = `blocks/${to}`) {

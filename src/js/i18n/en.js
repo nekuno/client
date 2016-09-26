@@ -189,14 +189,16 @@ export default {
         title   : 'What do you want to discover in this new yarn?',
         cancel  : 'Cancel',
         people  : 'Users of Nekuno',
-        contents: 'Links of Internet'
+        contents: 'Links of Internet',
+        creating: 'Creating yarn',
     },
     EditThreadPage                   : {
         edit       : 'Edit yarn',
         cancel     : 'Cancel',
         placeholder: 'Title',
         people     : 'Users of Nekuno',
-        contents   : 'Links of Internet'
+        contents   : 'Links of Internet',
+        updating   : 'Updating yarn',
     },
     ////////////////
     // Components //

@@ -190,14 +190,16 @@ export default {
         title   : '¿Qué deseas descubrir en este nuevo hilo?',
         cancel  : 'Cancelar',
         people  : 'Usuarios de Nekuno',
-        contents: 'Enlaces de Internet'
+        contents: 'Enlaces de Internet',
+        creating: 'Creando hilo',
     },
     EditThreadPage                   : {
         edit       : 'Editar hilo',
         cancel     : 'Cancelar',
         placeholder: 'Título',
         people     : 'Usuarios de Nekuno',
-        contents   : 'Enlaces de Internet'
+        contents   : 'Enlaces de Internet',
+        updating   : 'Editando hilo',
     },
     ////////////////
     // Components //

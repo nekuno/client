@@ -15,7 +15,8 @@ export default class OtherProfileDataList extends Component {
         let lines = [];
         profileWithMetadata.forEach(
             category => {
-                if (Object.keys(category.fields).length === 0) {
+                if (Object.keys(category.fields).length === 0 ||
+                    !Object.keys(category.fields).some(profileDataKey => category.fields[profileDataKey].value)) {
                     return;
                 }
                 lines.push(<div key={category.label} className="profile-category"><h3>{category.label}</h3></div>);

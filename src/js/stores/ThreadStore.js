@@ -12,7 +12,7 @@ let _errors = '';
 
 const ThreadStore = createStore({
     contains(id) {
-        return _threads.some(thread => thread && thread.id == id);
+        return _threads.length > 0 && _threads.some(thread => thread && thread.id == id);
     },
 
     get(id) {
@@ -31,7 +31,7 @@ const ThreadStore = createStore({
     },
 
     isAnyPopular() {
-        return _threads.some(thread => thread && RecommendationStore.arePopularRecommendations(thread.id)) || false;
+        return _threads.length > 0 && _threads.some(thread => thread && RecommendationStore.arePopularRecommendations(thread.id)) || false;
     },
 
     getCategories(){
@@ -131,8 +131,9 @@ ThreadStore.dispatchToken = register(action => {
             ThreadStore.emitChange();
             break;
         case ActionTypes.LOGOUT_USER:
-            _threads = {};
+            _threads = [];
             _errors = '';
+            ThreadStore.emitChange();
             break;
         default:
             break;

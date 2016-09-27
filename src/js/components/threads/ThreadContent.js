@@ -4,6 +4,7 @@ import ChipList from './../ui/ChipList';
 import Image from './../ui/Image';
 import ThreadNoResults from './ThreadNoResults';
 import translate from '../../i18n/Translate';
+import selectn from 'selectn';
 
 @translate('ThreadContent')
 export default class ThreadContent extends Component {
@@ -66,9 +67,6 @@ export default class ThreadContent extends Component {
         } else if (totalResults == 0) {
             this.context.history.pushState(null, `edit-thread/${thread.id}`)
         } else {
-            if (isSomethingWorking) {
-                nekunoApp.alert(strings.working)
-            }
             this.context.history.pushState(null, `users/${userId}/recommendations/${thread.id}`)
         }
     }
@@ -79,6 +77,7 @@ export default class ThreadContent extends Component {
         const mustBeDisabled = thread.disabled || totalResults == 0 && isSomethingWorking;
         const threadClass = mustBeDisabled ? "thread-listed thread-disabled" :
             totalResults == 0 ? "thread-listed thread-no-results" : "thread-listed";
+
         return (
             <div className={avKey % 2 ? '' : 'thread-odd'}>
                 {!mustBeDisabled && totalResults == 0 ?
@@ -90,7 +89,7 @@ export default class ThreadContent extends Component {
                     <div className="thread-first-image-wrapper">
                         <div className="thread-first-image-centered-wrapper">
                             <div className="thread-first-image">
-                                {thread.cached.length > 0 ? this.renderImage(thread.cached[0].content) : ''}
+                                {this.renderImage(selectn('cached[0].content', thread))}
                             </div>
                         </div>
                     </div>
@@ -104,11 +103,17 @@ export default class ThreadContent extends Component {
                             {thread.totalResults} {strings.contents}
                         </div>
                         <div className="thread-images">
-                            {thread.cached.map((item, index) => {
-                                if (index !== 0 && index <= 4) {
-                                    return <div key={index} className="thread-image-wrapper"><div className="thread-image-centered-wrapper"><div className="thread-image">{this.renderImage(item.content)}</div></div></div>
-                                }
-                            })}
+                            {thread.cached.length > 1 ?
+                                thread.cached.map((item, index) => {
+                                    if (index !== 0 && index <= 4) {
+                                        return <div key={index} className="thread-image-wrapper"><div className="thread-image-centered-wrapper"><div className="thread-image">{this.renderImage(item.content)}</div></div></div>
+                                    }
+                                })
+                                :
+                                [1, 2, 3, 4].map(index =>
+                                    <div key={index} className="thread-image-wrapper"><div className="thread-image-centered-wrapper"><div className="thread-image">{this.renderImage(null)}</div></div></div>
+                                )
+                            }
                         </div>
                         {this.renderChipList(thread.filters.contentFilters, filters.contentFilters)}
                     </div>
@@ -123,6 +128,5 @@ ThreadContent.defaultProps = {
     strings: {
         contents: 'Contents',
         disabled: 'We are weaving this yarn, please wait a moment...',
-        working: 'These results are provisional, we are working on improving them for you.'
     }
 };

@@ -14,14 +14,11 @@ export default class IndexedListStore extends BaseStore {
 
     _position = [];
     _ids = [];
-    //Move logic to ElementStore
-    _positioners = [];
 
     setInitial() {
         super.setInitial();
         this._position = [];
         this._ids = [];
-        this._positioners = [];
     }
 
     setReceiving(action) {
@@ -82,27 +79,6 @@ export default class IndexedListStore extends BaseStore {
         return listIds;
     }
 
-    insertId(listId, elementId, positioner) {
-        let inserted = false;
-        if (this._ids[listId].indexOf(elementId) !== -1) {
-            return;
-        }
-        let listPositioners = this._positioners[listId] ? this._positioners[listId] : [];
-        this._ids[listId].forEach((each, index) => {
-            if (!inserted && listPositioners[index] && listPositioners[index] < positioner){
-                this._ids[listId].splice(index, 0, elementId);
-                listPositioners.splice(index, 0, positioner);
-                inserted = true;
-            }
-        });
-        if (!inserted) {
-            this._ids[listId].push(elementId);
-            listPositioners.push(positioner);
-        }
-
-        this._positioners[listId] = listPositioners;
-    }
-
     getElements(listId) {
         return this._ids[listId] ? this._ids[listId] : [];
     }
@@ -113,17 +89,5 @@ export default class IndexedListStore extends BaseStore {
 
     isEmpty(listId) {
         return this.elementsReceived(listId) && this.getElements(listId).length == 0;
-    }
-
-    setPosition(listId, newPosition) {
-        this._position[listId] = newPosition;
-    }
-
-    getPosition(listId) {
-        return this._position[listId];
-    }
-
-    advancePosition(listId, number = 1) {
-        this._position[listId] += number;
     }
 }

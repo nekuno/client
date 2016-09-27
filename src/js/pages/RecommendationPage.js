@@ -8,7 +8,6 @@ import connectToStores from '../utils/connectToStores';
 import * as ThreadActionCreators from '../actions/ThreadActionCreators';
 import RecommendationStore from '../stores/RecommendationStore';
 import ThreadStore from '../stores/ThreadStore';
-import RecommendationsByThreadStore from '../stores/RecommendationsByThreadStore';
 import FilterStore from '../stores/FilterStore';
 import WorkersStore from '../stores/WorkersStore';
 
@@ -27,9 +26,11 @@ function requestData(props) {
     const {params} = props;
     const threadId = parseThreadId(params);
     const userId = parseId(params);
-
-    ThreadActionCreators.requestRecommendationPage(userId, threadId);
-    ThreadActionCreators.requestFilters();
+    const recommendations = RecommendationStore.get(threadId);
+    if (!recommendations || recommendations.length === 0) {
+        ThreadActionCreators.requestRecommendationPage(userId, threadId);
+        ThreadActionCreators.requestFilters();
+    }
 
 }
 
@@ -56,16 +57,17 @@ function initSwiper(thread) {
     function onSlideNextStart(swiper) {
         while (swiper.activeIndex > activeIndex) {
             activeIndex++;
-            ThreadActionCreators.recommendationsNext(thread.id);
+            if (activeIndex == RecommendationStore.getLength(thread.id) - 15) {
+                ThreadActionCreators.recommendationsNext(thread.id);
+            }
         }
 
     }
 
     function onSlidePrevStart(swiper) {
         while (swiper.activeIndex < activeIndex) {
-            activeIndex--;
             if (activeIndex >= 0) {
-                ThreadActionCreators.recommendationsBack(thread.id);
+                activeIndex--;
             }
         }
     }
@@ -78,24 +80,18 @@ function initSwiper(thread) {
  */
 function getState(props) {
     const threadId = parseThreadId(props.params);
-    const thread = ThreadStore.get(threadId);
-    thread.isEmpty = RecommendationsByThreadStore.isEmpty(thread.id);
-    const recommendationIds = threadId ? RecommendationsByThreadStore.getRecommendationsFromThread(threadId) : [];
-    const recommendationsReceived = RecommendationsByThreadStore.elementsReceived(threadId);
+    let thread = ThreadStore.get(threadId);
+    if (Object.keys(thread).length != 0) {
+        thread.isEmpty = RecommendationStore.isEmpty(thread.id);
+    }
     const category = thread ? thread.category : null;
     const filters = FilterStore.filters;
     const isJustRegistered = WorkersStore.isJustRegistered();
 
-    let recommendations = [];
-    if (thread && category == 'ThreadUsers') {
-        recommendations = RecommendationStore.getUserRecommendations(recommendationIds);
-    } else if (thread && category == 'ThreadContent') {
-        recommendations = RecommendationStore.getContentRecommendations(recommendationIds);
-    }
+    const recommendations = threadId && RecommendationStore.get(threadId) ? RecommendationStore.get(threadId) : [];
 
     return {
         recommendations,
-        recommendationsReceived,
         category,
         thread,
         filters,
@@ -105,7 +101,7 @@ function getState(props) {
 
 @AuthenticatedComponent
 @translate('RecommendationPage')
-@connectToStores([ThreadStore, RecommendationStore, RecommendationsByThreadStore, FilterStore], getState)
+@connectToStores([ThreadStore, RecommendationStore, FilterStore], getState)
 export default class RecommendationPage extends Component {
 
     static propTypes = {
@@ -119,7 +115,6 @@ export default class RecommendationPage extends Component {
         strings: PropTypes.object,
         // Injected by @connectToStores:
         recommendations: PropTypes.array.isRequired,
-        recommendationsReceived: PropTypes.bool.isRequired,
         thread         : PropTypes.object.isRequired,
         filters        : PropTypes.object
     };
@@ -138,13 +133,19 @@ export default class RecommendationPage extends Component {
     }
 
     componentWillMount() {
-        RecommendationsByThreadStore.setPosition(this.props.params.threadId, 0);
         requestData(this.props);
     }
 
     componentWillReceiveProps(nextProps) {
         if (parseThreadId(nextProps.params) !== parseThreadId(this.props.params)) {
             requestData(nextProps);
+        }
+        if (RecommendationStore.replaced(parseThreadId(nextProps.params))) {
+            nekunoApp.confirm(nextProps.strings.confirmReplace, () => {
+                // No action needed
+            }, () => {
+                window.setTimeout(() => ThreadActionCreators.addPrevRecommendation(parseThreadId(nextProps.params)), 0);
+            });
         }
     }
 
@@ -160,12 +161,6 @@ export default class RecommendationPage extends Component {
     }
 
     componentDidUpdate() {
-        if (this.props.recommendationsReceived && this.props.recommendations.length == 0) {
-            nekunoApp.popup('.popup-empty-thread');
-        } else {
-            nekunoApp.closeModal('.popup-empty-thread');
-        }
-
         if (!this.props.thread || this.props.recommendations.length == 0) {
             return;
         }
@@ -194,16 +189,19 @@ export default class RecommendationPage extends Component {
     }
 
     render() {
-        const {recommendations, thread, user, filters, recommendationsReceived, strings} = this.props;
+        const {recommendations, thread, user, filters, strings} = this.props;
+        if (Object.keys(thread).length == 0) {
+            return null;
+        }
         return (
             <div className="view view-main">
                 <TopNavBar leftIcon={'left-arrow'} centerText={''} rightIcon={'edit'} secondRightIcon={'delete'} onRightLinkClickHandler={this.editThread} onSecondRightLinkClickHandler={this.deleteThread}/>
                 <div className="page">
                     <div id="page-content" className="recommendation-page">
-                        {recommendationsReceived && recommendations.length > 0 && thread.filters && filters && Object.keys(filters).length > 0 ?
+                        {recommendations.length > 0 && filters && Object.keys(filters).length > 0 ?
                             <RecommendationList recommendations={recommendations} thread={thread} userId={user.id} 
                                                 filters={thread.category === 'ThreadUsers' ? filters.userFilters : filters.contentFilters}/> 
-                            : !recommendationsReceived ? <EmptyMessage text={strings.loadingMessage} loadingGif={true} /> : ''
+                            : !recommendations.length > 0 ? <EmptyMessage text={strings.loadingMessage} loadingGif={true} /> : ''
                         }
                     </div>
                 </div>
@@ -216,6 +214,7 @@ RecommendationPage.defaultProps = {
     strings: {
         loadingMessage: 'Loading recommendations',
         confirmDelete : 'Are you sure you want to delete this thread?',
-        processingThread: 'These results are provisional, we´ll finish improving this for you soon.'
+        processingThread: 'These results are provisional, we´ll finish improving them for you soon.',
+        confirmReplace: 'We have improve your recommendations. Do you whant to reload them?'
     }
 };

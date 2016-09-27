@@ -36,21 +36,24 @@ export default class ThreadUsers extends Component {
     }
 
     mergeImagesWithThread(thread) {
-
+        const defaultImage = `${IMAGES_ROOT}media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
         let images = thread.cached.map((item, index) => item.picture ?
             `${IMAGES_ROOT}media/cache/resolve/profile_picture/user/images/${item.picture}` :
-            `${IMAGES_ROOT}media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`
+            defaultImage
         );
 
         thread.cached[0] = thread.cached[0] ? thread.cached[0] : [];
         images[0] = thread.cached[0].picture ?
             `${IMAGES_ROOT}media/cache/resolve/user_avatar_180x180/user/images/${thread.cached[0].picture}` :
-            `${IMAGES_ROOT}media/cache/user_avatar_180x180/bundles/qnoowweb/images/user-no-img.jpg`;
+            defaultImage;
+
+        if (images.length == 1 && !thread.cached[0].picture) {
+            [1, 2, 3, 4].forEach(index => images[index] = defaultImage);
+        }
 
         images.forEach((item, index) => {
-            if (thread.cached[index]) {
-                thread.cached[index].image = item
-            }
+            thread.cached[index] = thread.cached[index] || {};
+            thread.cached[index].image = item
         });
 
         return thread;
@@ -80,9 +83,6 @@ export default class ThreadUsers extends Component {
         } else if (totalResults == 0) {
             this.context.history.pushState(null, `edit-thread/${thread.id}`)
         } else {
-            if (isSomethingWorking) {
-                nekunoApp.alert(strings.working)
-            }
             this.continue();
         }
     }
@@ -142,7 +142,6 @@ ThreadUsers.defaultProps = {
     strings: {
         people  : 'People',
         users   : 'Users',
-        disabled: 'We are weaving this yarn, please wait a moment...',
-        working : 'These results are provisional, we are working on improving them for you.'
+        disabled: 'We are weaving this yarn, please wait a moment...'
     }
 };

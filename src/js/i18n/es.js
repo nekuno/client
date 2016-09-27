@@ -154,7 +154,8 @@ export default {
     RecommendationPage               : {
         loadingMessage  : 'Cargando recomendaciones',
         confirmDelete   : '¿Estás seguro de que quieres borrar este hilo?',
-        processingThread: 'Estos resultados son provisionales, acabaremos pronto de mejorar esto para ti.'
+        processingThread: 'Estos resultados son provisionales, estamos mejorándolos para ti.',
+        confirmReplace  : 'Hemos mejorado tus recomendaciones. ¿Quieres actualizarlas?'
     },
     InvitationsPage                  : {
         invitations           : 'Invitaciones',
@@ -189,14 +190,16 @@ export default {
         title   : '¿Qué deseas descubrir en este nuevo hilo?',
         cancel  : 'Cancelar',
         people  : 'Usuarios de Nekuno',
-        contents: 'Enlaces de Internet'
+        contents: 'Enlaces de Internet',
+        creating: 'Creando hilo',
     },
     EditThreadPage                   : {
         edit       : 'Editar hilo',
         cancel     : 'Cancelar',
         placeholder: 'Título',
         people     : 'Usuarios de Nekuno',
-        contents   : 'Enlaces de Internet'
+        contents   : 'Enlaces de Internet',
+        updating   : 'Editando hilo',
     },
     ////////////////
     // Components //
@@ -390,13 +393,12 @@ export default {
     },
     ThreadContent                    : {
         contents: 'Contenidos',
-        working : 'Estos resultados son provisionales, estamos trabajando en mejorarlos para ti.'
+        disabled: 'Estamos tejiendo este hilo, un momento por favor...',
     },
     ThreadUsers                      : {
         people  : 'Personas',
         users   : 'Usuarios',
         disabled: 'Estamos tejiendo este hilo, un momento por favor...',
-        working : 'Estos resultados son provisionales, estamos mejorándolos para ti.'
     },
     IntegerEdit                      : {
         minValue   : 'El valor mínimo es ',

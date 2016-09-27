@@ -1,5 +1,4 @@
 import React, { PropTypes, Component } from 'react';
-import shouldPureComponentUpdate from 'react-pure-render/function';
 
 export default class Chip extends Component {
 
@@ -18,7 +17,9 @@ export default class Chip extends Component {
     }
 
     handleClick(event) {
-        this.props.onClickHandler(this.props.value, event);
+        if (typeof this.props.onClickHandler == 'function') {
+            this.props.onClickHandler(this.props.value, event);
+        }
     }
 
     render() {

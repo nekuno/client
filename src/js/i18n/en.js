@@ -153,7 +153,8 @@ export default {
     RecommendationPage               : {
         loadingMessage  : 'Loading recommendations',
         confirmBlock    : 'Are you sure you want to block this user?',
-        processingThread: 'These results are provisional, we´ll finish improving this for you soon.'
+        processingThread: 'These results are provisional, we are working on improving them for you.',
+        confirmReplace  : 'We have improve your recommendations. Do you whant to reload them?'
     },
     InvitationsPage                  : {
         invitations           : 'Invitations',
@@ -188,14 +189,16 @@ export default {
         title   : 'What do you want to discover in this new yarn?',
         cancel  : 'Cancel',
         people  : 'Users of Nekuno',
-        contents: 'Links of Internet'
+        contents: 'Links of Internet',
+        creating: 'Creating yarn',
     },
     EditThreadPage                   : {
         edit       : 'Edit yarn',
         cancel     : 'Cancel',
         placeholder: 'Title',
         people     : 'Users of Nekuno',
-        contents   : 'Links of Internet'
+        contents   : 'Links of Internet',
+        updating   : 'Updating yarn',
     },
     ////////////////
     // Components //
@@ -389,13 +392,12 @@ export default {
     },
     ThreadContent                    : {
         contents: 'Contents',
-        working : 'These results are provisional, we are working on improving them for you.'
+        disabled: 'We are weaving this yarn, please wait a moment...',
     },
     ThreadUsers                      : {
         people  : 'People',
         users   : 'Users',
         disabled: 'We are weaving this yarn, please wait a moment...',
-        working : 'These results are provisional, we are working on improving them for you.'
     },
     IntegerEdit                      : {
         minValue   : 'The minimum value is ',

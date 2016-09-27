@@ -5,9 +5,11 @@ import moment from 'moment';
 import 'moment/locale/es';
 import { LAST_RELEASE_DATE } from '../constants/Constants';
 import { getVersion } from '../utils/APIUtils';
+import connectToStores from '../utils/connectToStores';
 import translate from '../i18n/Translate';
 import LoginActionCreators from '../actions/LoginActionCreators';
 import SocialNetworkService from '../services/SocialNetworkService';
+import LocaleStore from '../stores/LocaleStore';
 
 let nekunoSwiper;
 
@@ -23,12 +25,24 @@ function destroySwiper() {
     nekunoSwiper.destroy(true);
 }
 
+function getState(props) {
+
+    const interfaceLanguage = LocaleStore.locale;
+
+    return {
+        interfaceLanguage
+    };
+}
+
 @translate('HomePage')
+@connectToStores([LocaleStore], getState)
 export default class HomePage extends Component {
 
     static propTypes = {
         // Injected by @translate:
-        strings: PropTypes.object
+        strings          : PropTypes.object,
+        // Injected by @connectToStores:
+        interfaceLanguage: PropTypes.string
     };
 
     static contextTypes = {
@@ -70,6 +84,7 @@ export default class HomePage extends Component {
     };
 
     loginByResourceOwner(resource, scope) {
+        const {interfaceLanguage} = this.props;
         SocialNetworkService.login(resource, scope).then(
             () => {
                 LoginActionCreators.loginUserByResourceOwner(resource, SocialNetworkService.getAccessToken(resource)).then(
@@ -77,6 +92,22 @@ export default class HomePage extends Component {
                         return null; // User is logged in
                     },
                     (error) => {
+                        // User not present. Register user.
+                        let user = SocialNetworkService.getUser(resource);
+                        let profile = SocialNetworkService.getProfile(resource);
+                        user[resource + 'ID'] = SocialNetworkService.getResourceId(resource);
+                        user.enabled = false;
+                        profile.interfaceLanguage = interfaceLanguage;
+                        profile.orientationRequired = false;
+                        let token = 'join';
+                        LoginActionCreators.register(user, profile, token, {
+                            resourceOwner: resource,
+                            oauthToken   : SocialNetworkService.getAccessToken(resource),
+                            resourceId   : SocialNetworkService.getResourceId(resource),
+                            expireTime   : SocialNetworkService.getExpireTime(resource),
+                            refreshToken : SocialNetworkService.getRefreshToken(resource)
+                        });
+
                         nekunoApp.alert(error.error);
                         this.context.history.pushState(null, '/login');
                     });

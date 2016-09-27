@@ -1,5 +1,4 @@
 import React, { PropTypes, Component } from 'react';
-import * as ThreadActionCreators from '../../actions/ThreadActionCreators';
 import FullWidthButton from '../ui/FullWidthButton';
 import SetThreadTitlePopup from './SetThreadTitlePopup';
 import ThreadCategoryFilterList from './filters/ThreadCategoryFilterList';
@@ -17,10 +16,6 @@ import translate from '../../i18n/Translate';
 @translate('CreateUsersThread')
 export default class CreateUsersThread extends Component {
 
-    static contextTypes = {
-        history: PropTypes.object.isRequired
-    };
-
     static propTypes = {
         userId        : PropTypes.number.isRequired,
         defaultFilters: PropTypes.object.isRequired,
@@ -28,6 +23,7 @@ export default class CreateUsersThread extends Component {
         tags          : PropTypes.array.isRequired,
         thread        : PropTypes.object,
         categories    : PropTypes.array,
+        onSave        : PropTypes.func.isRequired,
         // Injected by @translate:
         strings       : PropTypes.object
     };
@@ -311,11 +307,7 @@ export default class CreateUsersThread extends Component {
             category: 'ThreadUsers'
         };
 
-        ThreadActionCreators.createThread(this.props.userId, data)
-            .then(function(createdThread) {
-                ThreadActionCreators.requestRecommendation(createdThread.id);
-            });
-        this.context.history.pushState(null, `threads`);
+        this.props.onSave(data);
     }
 
     editThread() {
@@ -325,12 +317,7 @@ export default class CreateUsersThread extends Component {
             category: 'ThreadUsers'
         };
 
-        let threadId = this.props.thread.id;
-        ThreadActionCreators.updateThread(threadId, data)
-            .then(function() {
-                ThreadActionCreators.requestRecommendation(threadId);
-            });
-        this.context.history.pushState(null, `threads`);
+        this.props.onSave(data);
     }
 
     goToSelectedFilters() {

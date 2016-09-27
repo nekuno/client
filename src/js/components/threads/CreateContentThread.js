@@ -1,5 +1,4 @@
 import React, { PropTypes, Component } from 'react';
-import * as ThreadActionCreators from '../../actions/ThreadActionCreators';
 import ThreadFilterList from './filters/ThreadFilterList';
 import MultipleChoicesFilter from './filters/MultipleChoicesFilter';
 import TagFilter from './filters/TagFilter';
@@ -11,16 +10,13 @@ import translate from '../../i18n/Translate';
 @translate('CreateContentThread')
 export default class CreateContentThread extends Component {
 
-    static contextTypes = {
-        history: PropTypes.object.isRequired
-    };
-
     static propTypes = {
         userId        : PropTypes.number.isRequired,
         defaultFilters: PropTypes.object.isRequired,
         threadName    : PropTypes.string,
         tags          : PropTypes.array.isRequired,
         thread        : PropTypes.object,
+        onSave        : PropTypes.func.isRequired,
         // Injected by @translate:
         strings       : PropTypes.object
     };
@@ -201,11 +197,7 @@ export default class CreateContentThread extends Component {
             category: 'ThreadContent'
         };
 
-        ThreadActionCreators.createThread(this.props.userId, data)
-            .then(function(createdThread) {
-                ThreadActionCreators.requestRecommendation(createdThread.id);
-            });
-        this.context.history.pushState(null, `threads`);
+        this.props.onSave(data);
     }
 
     editThread() {
@@ -215,12 +207,7 @@ export default class CreateContentThread extends Component {
             category: 'ThreadContent'
         };
 
-        let threadId = this.props.thread.id;
-        ThreadActionCreators.updateThread(threadId, data)
-            .then(function() {
-                ThreadActionCreators.requestRecommendation(threadId);
-            });
-        this.context.history.pushState(null, `threads`);
+        this.props.onSave(data);
     }
 
     goToSelectedFilters() {

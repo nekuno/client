@@ -11,6 +11,7 @@ import TextRadios from '../components/ui/TextRadios';
 import CreateContentThread from '../components/threads/CreateContentThread';
 import CreateUsersThread from '../components/threads/CreateUsersThread';
 import TopNavBar from '../components/ui/TopNavBar';
+import EmptyMessage from '../components/ui/EmptyMessage';
 
 function parseThreadId(params) {
     return params.threadId;
@@ -50,6 +51,10 @@ function getState(props) {
 @connectToStores([ThreadStore, FilterStore, TagSuggestionsStore], getState)
 export default class EditThreadPage extends Component {
 
+    static contextTypes = {
+        history: PropTypes.object.isRequired
+    };
+
     static propTypes = {
         // Injected by @connectToStores:
         filters   : PropTypes.object,
@@ -68,10 +73,12 @@ export default class EditThreadPage extends Component {
 
         this._onChange = this._onChange.bind(this);
         this.handleClickCategory = this.handleClickCategory.bind(this);
+        this.onEdit = this.onEdit.bind(this);
 
         this.state = {
             threadName: '',
-            category  : null
+            category  : null,
+            updating  : false,
         };
     }
 
@@ -104,35 +111,47 @@ export default class EditThreadPage extends Component {
         });
     }
 
+    onEdit(data) {
+        let threadId = this.props.thread.id;
+        ThreadActionCreators.updateThread(threadId, data)
+            .then(() => {
+                ThreadActionCreators.requestRecommendation(threadId);
+                this.setState({updating: false});
+                this.context.history.pushState(null, `threads`);
+            });
+        this.setState({updating: true});
+    }
+
     render() {
         const {user, filters, tags, thread, categories, strings} = this.props;
-        const {category, threadName} = this.state;
+        const {category, threadName, updating} = this.state;
         return (
             <div className="view view-main">
                 <TopNavBar centerText={strings.edit} leftText={strings.cancel}/>
                 <div className="page create-thread-page">
                     <div id="page-content">
-                        {thread && threadName && filters && categories ?
-                            <div>
-                                <div className="thread-title list-block">
-                                    <ul>
-                                        <TextInput placeholder={strings.placeholder} onChange={this._onChange} defaultValue={threadName}/>
-                                    </ul>
-                                </div>
-                                <div key={1} className={category + '-first-vertical-line'}></div>
-                                <div key={2} className={category + '-last-vertical-line'}></div>
-                                <div className="main-filter-wprapper">
-                                    <div className="thread-filter radio-filter">
-                                        <div className="thread-filter-dot">
-                                            <span className={category ? "icon-circle active" : "icon-circle"}></span>
-                                        </div>
-                                        <TextRadios labels={[{key: 'persons', text: strings.people}, {key: 'contents', text: strings.contents}]} onClickHandler={this.handleClickCategory} value={category} forceTwoLines={true}/>
+                        {updating ? <EmptyMessage text={strings.updating} loadingGif={true}/> :
+                            thread && threadName && filters && categories ?
+                                <div>
+                                    <div className="thread-title list-block">
+                                        <ul>
+                                            <TextInput placeholder={strings.placeholder} onChange={this._onChange} defaultValue={threadName}/>
+                                        </ul>
                                     </div>
+                                    <div key={1} className={category + '-first-vertical-line'}></div>
+                                    <div key={2} className={category + '-last-vertical-line'}></div>
+                                    <div className="main-filter-wprapper">
+                                        <div className="thread-filter radio-filter">
+                                            <div className="thread-filter-dot">
+                                                <span className={category ? "icon-circle active" : "icon-circle"}></span>
+                                            </div>
+                                            <TextRadios labels={[{key: 'persons', text: strings.people}, {key: 'contents', text: strings.contents}]} onClickHandler={this.handleClickCategory} value={category} forceTwoLines={true}/>
+                                        </div>
+                                    </div>
+                                    {category === 'contents' ? <CreateContentThread userId={user.id} defaultFilters={filters['contentFilters']} threadName={threadName} tags={tags} thread={thread} onSave={this.onEdit}/> : ''}
+                                    {category === 'persons' ? <CreateUsersThread userId={user.id} defaultFilters={filters['userFilters']} threadName={threadName} tags={tags} thread={thread} categories={categories} onSave={this.onEdit}/> : ''}
                                 </div>
-                                {category === 'contents' ? <CreateContentThread userId={user.id} defaultFilters={filters['contentFilters']} threadName={threadName} tags={tags} thread={thread}/> : ''}
-                                {category === 'persons' ? <CreateUsersThread userId={user.id} defaultFilters={filters['userFilters']} threadName={threadName} tags={tags} thread={thread} categories={categories}/> : ''}
-                            </div>
-                            : ''}
+                                : ''}
                     </div>
                 </div>
             </div>
@@ -145,7 +164,8 @@ EditThreadPage.defaultProps = {
         edit       : 'Edit yarn',
         cancel     : 'Cancel',
         placeholder: 'Title',
-        people     : 'People',
-        contents   : 'Contents'
+        people     : 'Users of Nekuno',
+        contents   : 'Links of Internet',
+        updating   : 'Updating yarn',
     }
 };

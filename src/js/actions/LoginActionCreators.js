@@ -68,6 +68,11 @@ export default new class LoginActionCreators {
     redirect() {
 
         if (LoginStore.isLoggedIn()) {
+
+            if (LoginStore.user.enabled === false) {
+                return this.logoutUser();
+            }
+
             UserActionCreators.requestStats(LoginStore.user.id);
             ChatSocketService.connect();
             WorkersSocketService.connect();

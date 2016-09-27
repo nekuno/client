@@ -34,11 +34,12 @@ export default class RegisterPage extends Component {
 
     static propTypes = {
         // Injected by @translate:
-        strings   : PropTypes.object,
+        strings          : PropTypes.object,
         // Injected by @connectToStores:
-        error     : PropTypes.object,
-        token     : PropTypes.string,
-        invitation: PropTypes.object
+        error            : PropTypes.object,
+        token            : PropTypes.string,
+        invitation       : PropTypes.object,
+        interfaceLanguage: PropTypes.string
     };
 
     constructor(props) {

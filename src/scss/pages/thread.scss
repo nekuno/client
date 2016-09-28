@@ -5,8 +5,24 @@ body #root .App .view .page.threads-page  {
     margin-top: 70px;
     width: 100%;
 
+    .thread-odd, .thread-even {
+      position: relative;
+
+      .thread-background-image {
+        background-size: 100% auto !important;
+        height: 100%;
+        opacity: 0.3;
+        -webkit-filter: blur(7px);
+        -moz-filter: blur(7px);
+        -o-filter: blur(7px);
+        -ms-filter: blur(7px);
+        filter: blur(7px);
+        position: absolute;
+        width: 100%;
+      }
+    }
     .thread-odd {
-      background: $deep-purple-translucent;
+      //background: $deep-purple-translucent;
     }
     .thread-listed {
       margin: 0 auto;

@@ -17,6 +17,7 @@ body #root .App .view .page.threads-page  {
         -o-filter: blur(7px);
         -ms-filter: blur(7px);
         filter: blur(7px);
+        overflow: hidden;
         position: absolute;
         width: 100%;
       }

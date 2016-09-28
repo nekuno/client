@@ -12,6 +12,7 @@ import TagsAndMultipleChoicesFilter from './filters/TagsAndMultipleChoicesFilter
 import * as TagSuggestionsActionCreators from '../../actions/TagSuggestionsActionCreators';
 import selectn from 'selectn';
 import translate from '../../i18n/Translate';
+import FilterStore from '../../stores/FilterStore';
 
 @translate('CreateUsersThread')
 export default class CreateUsersThread extends Component {
@@ -51,6 +52,7 @@ export default class CreateUsersThread extends Component {
         this.editThread = this.editThread.bind(this);
         this.createThread = this.createThread.bind(this);
         this.onSaveTitle = this.onSaveTitle.bind(this);
+        this.getDefaultTitle = this.getDefaultTitle.bind(this);
 
         this.state = {
             selectFilter  : false,
@@ -294,10 +296,14 @@ export default class CreateUsersThread extends Component {
     }
 
     createThread() {
-        window.setTimeout(function() {
-            nekunoApp.popup('.popup-set-thread-title');
-            document.getElementsByClassName('view')[0].scrollTop = 0;
-        }, 0);
+        if (this.getDefaultTitle()) {
+            window.setTimeout(function () {
+                nekunoApp.popup('.popup-set-thread-title');
+                document.getElementsByClassName('view')[0].scrollTop = 0;
+            }, 0);
+        } else {
+            nekunoApp.alert(this.props.strings.addFilters);
+        }
     }
 
     onSaveTitle(title) {
@@ -325,6 +331,18 @@ export default class CreateUsersThread extends Component {
             selectFilter: false
         });
     }
+
+    getDefaultTitle() {
+        const {filters} = this.state;
+        const {defaultFilters} = this.props;
+        const firstFilterIndex = Object.keys(filters).find((filterIndex, index) => index == 0);
+        if (firstFilterIndex && FilterStore.isFilterSet(defaultFilters[firstFilterIndex], filters[firstFilterIndex])) {
+            return FilterStore.getFilterLabel(defaultFilters[firstFilterIndex], filters[firstFilterIndex]);
+        }
+
+        return null;
+    }
+
 
     render() {
         let categories = this.props.categories;
@@ -373,7 +391,7 @@ export default class CreateUsersThread extends Component {
                     <br />
                     <br />
                     <br />
-                    <SetThreadTitlePopup onClick={this.onSaveTitle}/>
+                    {this.getDefaultTitle() ? <SetThreadTitlePopup onClick={this.onSaveTitle} defaultTitle={this.getDefaultTitle()}/> : null}
                 </div>
         );
     }
@@ -386,6 +404,7 @@ CreateUsersThread.defaultProps = {
         addFilterTitle: 'You can add filters to be more specific',
         addFilter     : 'Add filter',
         save          : 'Save',
-        create        : 'Create'
+        create        : 'Create',
+        addFilters    : 'Add a filter first'
     }
 };

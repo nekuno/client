@@ -380,7 +380,8 @@ export default {
         addFilterTitle: 'You can add filters to be more specific',
         addFilter     : 'Add filter',
         save          : 'Save',
-        create        : 'Create'
+        create        : 'Create',
+        addFilters    : 'Add a filter first'
     },
     CreateUsersThread                : {
         back          : 'Back',
@@ -388,7 +389,8 @@ export default {
         addFilterTitle: 'You can add filters to be more specific',
         addFilter     : 'Add filter',
         save          : 'Save',
-        create        : 'Create'
+        create        : 'Create',
+        addFilters    : 'Add a filter first'
     },
     ThreadContent                    : {
         contents: 'Contents',

@@ -381,7 +381,8 @@ export default {
         addFilterTitle: 'Puedes añadir filtros para ser más específico',
         addFilter     : 'Añadir filtro',
         save          : 'Guardar hilo',
-        create        : 'Crear hilo'
+        create        : 'Crear hilo',
+        addFilters    : 'Añade un filtro primero'
     },
     CreateUsersThread                : {
         back          : 'Volver',
@@ -389,7 +390,8 @@ export default {
         addFilterTitle: 'Puedes añadir filtros para ser más específico',
         addFilter     : 'Añadir filtro',
         save          : 'Guardar hilo',
-        create        : 'Crear hilo'
+        create        : 'Crear hilo',
+        addFilters    : 'Añade un filtro primero'
     },
     ThreadContent                    : {
         contents: 'Contenidos',

@@ -3,6 +3,7 @@ import { IMAGES_ROOT } from '../../constants/Constants';
 import selectn from 'selectn'
 import ChipList from './../ui/ChipList';
 import Image from './../ui/Image';
+import LoadingSpinnerCSS from './../ui/LoadingSpinnerCSS';
 import ThreadNoResults from './ThreadNoResults';
 import OrientationRequiredPopup from './../ui/OrientationRequiredPopup';
 import FilterStore from '../../stores/FilterStore';
@@ -99,6 +100,8 @@ export default class ThreadUsers extends Component {
         const mustBeDisabled = selectn('orientation', profile) && (thread.disabled || totalResults == 0 && isSomethingWorking);
         const threadClass = mustBeDisabled ? "thread-listed thread-disabled" :
             selectn('orientation', profile) && totalResults == 0 ? "thread-listed thread-no-results" : "thread-listed";
+        const recommendationsAreLoading = totalResults && !thread.cached.some(item => item.picture);
+
         return (
             <div className={avKey % 2 ? '' : 'thread-odd'}>
                 {selectn('orientation', profile) && !mustBeDisabled && totalResults == 0 ?
@@ -109,9 +112,13 @@ export default class ThreadUsers extends Component {
                     {last ? null : <div className="thread-vertical-connection"></div>}
                     <div className="thread-first-image-wrapper">
                         <div className="thread-first-image-centered-wrapper">
-                            <div className="thread-first-image">
+                            <div className="thread-first-image" style={recommendationsAreLoading ? {opacity: 0.5} : {}}>
                                 <Image src={formattedThread.cached[0].image} defaultSrc={defaultUserImage} />
                             </div>
+                            {recommendationsAreLoading ?
+                                <LoadingSpinnerCSS /> : null
+                            }
+
                         </div>
                     </div>
                     <div className="thread-info-box">
@@ -125,7 +132,17 @@ export default class ThreadUsers extends Component {
                         </div>
                         <div className="thread-images">
                             {formattedThread.cached.map((item, index) => index !== 0 && index <= 4 && item.image ?
-                                <div key={index} className="thread-image-wrapper"><div className="thread-image-centered-wrapper"><div className="thread-image"><Image src={item.image} defaultSrc={defaultUserImage} /></div></div></div> : '')}
+                                <div key={index} className="thread-image-wrapper">
+                                    <div className="thread-image-centered-wrapper">
+                                        <div className="thread-image" style={recommendationsAreLoading ? {opacity: 0.5} : {}}>
+                                            <Image src={item.image} defaultSrc={defaultUserImage} />
+                                        </div>
+                                        {recommendationsAreLoading ?
+                                            <LoadingSpinnerCSS small={true}/> : null
+                                        }
+                                    </div>
+                                </div>
+                                : '')}
                         </div>
                         {this.renderChipList(formattedThread.filters.userFilters, filters.userFilters)}
                     </div>

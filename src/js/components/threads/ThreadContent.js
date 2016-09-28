@@ -2,6 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import FilterStore from '../../stores/FilterStore';
 import ChipList from './../ui/ChipList';
 import Image from './../ui/Image';
+import LoadingSpinnerCSS from './../ui/LoadingSpinnerCSS';
 import ThreadNoResults from './ThreadNoResults';
 import translate from '../../i18n/Translate';
 import selectn from 'selectn';
@@ -46,16 +47,21 @@ export default class ThreadContent extends Component {
 
     renderImage = function(recommendation) {
         const defaultImage = 'img/default-content-image.jpg';
-        let imgSrc = defaultImage;
-        if (recommendation && recommendation.thumbnail) {
-            imgSrc = recommendation.thumbnail;
-        } else if (recommendation && recommendation.url && recommendation.url.match(/\.(jpe?g|gif|png)$/) != null) {
-            imgSrc = recommendation.url;
-        }
+        const imgSrc = this.getImage(recommendation) || defaultImage;
 
         return (
             <Image src={imgSrc} defaultSrc={defaultImage}/>
         );
+    };
+
+    getImage = function(recommendation) {
+        if (recommendation && recommendation.thumbnail) {
+            return recommendation.thumbnail;
+        } else if (recommendation && recommendation.url && recommendation.url.match(/\.(jpe?g|gif|png)$/) != null) {
+            return recommendation.url;
+        }
+
+        return null;
     };
 
     goToThread() {
@@ -77,6 +83,7 @@ export default class ThreadContent extends Component {
         const mustBeDisabled = thread.disabled || totalResults == 0 && isSomethingWorking;
         const threadClass = mustBeDisabled ? "thread-listed thread-disabled" :
             totalResults == 0 ? "thread-listed thread-no-results" : "thread-listed";
+        const recommendationsAreLoading = totalResults && !thread.cached.some(item => item.content);
 
         return (
             <div className={avKey % 2 ? '' : 'thread-odd'}>
@@ -88,9 +95,12 @@ export default class ThreadContent extends Component {
                     {last ? null : <div className="thread-vertical-connection"></div>}
                     <div className="thread-first-image-wrapper">
                         <div className="thread-first-image-centered-wrapper">
-                            <div className="thread-first-image">
+                            <div className="thread-first-image" style={recommendationsAreLoading ? {opacity: 0.5} : {}}>
                                 {this.renderImage(selectn('cached[0].content', thread))}
                             </div>
+                            {recommendationsAreLoading ?
+                                <LoadingSpinnerCSS /> : null
+                            }
                         </div>
                     </div>
                     <div className="thread-info-box">
@@ -106,12 +116,23 @@ export default class ThreadContent extends Component {
                             {thread.cached.length > 1 ?
                                 thread.cached.map((item, index) => {
                                     if (index !== 0 && index <= 4) {
-                                        return <div key={index} className="thread-image-wrapper"><div className="thread-image-centered-wrapper"><div className="thread-image">{this.renderImage(item.content)}</div></div></div>
+                                        return <div key={index} className="thread-image-wrapper">
+                                            <div className="thread-image-centered-wrapper">
+                                                <div className="thread-image">{this.renderImage(item.content)}</div>
+                                            </div>
+                                        </div>
                                     }
                                 })
                                 :
                                 [1, 2, 3, 4].map(index =>
-                                    <div key={index} className="thread-image-wrapper"><div className="thread-image-centered-wrapper"><div className="thread-image">{this.renderImage(null)}</div></div></div>
+                                    <div key={index} className="thread-image-wrapper">
+                                        <div className="thread-image-centered-wrapper">
+                                            <div className="thread-image" style={recommendationsAreLoading ? {opacity: 0.5} : {}}>{this.renderImage(null)}</div>
+                                            {recommendationsAreLoading ?
+                                                <LoadingSpinnerCSS small={true}/> : null
+                                            }
+                                        </div>
+                                    </div>
                                 )
                             }
                         </div>

@@ -6,20 +6,24 @@ body #root .App .view .page.threads-page  {
     width: 100%;
 
     .thread-odd, .thread-even {
+      background-color: #000;
       position: relative;
 
       .thread-background-image {
         background-size: 100% auto !important;
         height: 100%;
-        opacity: 0.3;
-        -webkit-filter: blur(7px);
-        -moz-filter: blur(7px);
-        -o-filter: blur(7px);
-        -ms-filter: blur(7px);
-        filter: blur(7px);
+        opacity: 0.7;
+        -webkit-filter: blur(50px);
+        -moz-filter: blur(50px);
+        -o-filter: blur(50px);
+        -ms-filter: blur(50px);
+        filter: blur(50px);
         overflow: hidden;
         position: absolute;
         width: 100%;
+        -webkit-box-shadow: inset 0 0 200px #000000;
+        -moz-box-shadow: inset 0 0 200px #000000;
+        box-shadow: inset 0 0 200px #000000;
       }
     }
     .thread-odd {
@@ -30,7 +34,7 @@ body #root .App .view .page.threads-page  {
       padding: 30px 7.5%;
       position: relative;
       .thread-first-image-wrapper {
-        background-color: $deep-purple;
+        background-color: #fff;
         border-radius: 50%;
         -moz-border-radius: 50%;
         -webkit-border-radius: 50%;
@@ -63,7 +67,7 @@ body #root .App .view .page.threads-page  {
       }
 
       .thread-vertical-connection {
-        background: $deep-purple;
+        background: #fff;
         height: 100%;
         margin-left: 40.5px;
         float: left;
@@ -130,6 +134,15 @@ body #root .App .view .page.threads-page  {
 
         .recommendations-count {
           line-height: 20px;
+        }
+
+        .chip-list {
+          .chip-wrapper {
+            .chip {
+              background: transparent;
+              border: 1px solid #fff;
+            }
+          }
         }
       }
     }

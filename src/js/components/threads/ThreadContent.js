@@ -94,7 +94,7 @@ export default class ThreadContent extends Component {
                 <div className={threadClass} onClick={this.goToThread}>
                     {last ? null : <div className="thread-vertical-connection"></div>}
                     <div className="thread-first-image-wrapper">
-                        <div className="thread-first-image-centered-wrapper">
+                        <div className="thread-first-image-centered-wrapper" style={recommendationsAreLoading ? {backgroundColor: '#555'} : {}}>
                             <div className="thread-first-image" style={recommendationsAreLoading ? {opacity: 0.5} : {}}>
                                 {this.renderImage(selectn('cached[0].content', thread))}
                             </div>
@@ -125,7 +125,7 @@ export default class ThreadContent extends Component {
                                 })
                                 :
                                 [1, 2, 3, 4].map(index =>
-                                    <div key={index} className="thread-image-wrapper">
+                                    <div key={index} className="thread-image-wrapper" style={recommendationsAreLoading ? {backgroundColor: '#555'} : {}}>
                                         <div className="thread-image-centered-wrapper">
                                             <div className="thread-image" style={recommendationsAreLoading ? {opacity: 0.5} : {}}>{this.renderImage(null)}</div>
                                             {recommendationsAreLoading ?

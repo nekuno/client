@@ -111,7 +111,7 @@ export default class ThreadUsers extends Component {
                 <div className={threadClass} onClick={this.goToThread}>
                     {last ? null : <div className="thread-vertical-connection"></div>}
                     <div className="thread-first-image-wrapper">
-                        <div className="thread-first-image-centered-wrapper">
+                        <div className="thread-first-image-centered-wrapper" style={recommendationsAreLoading ? {backgroundColor: '#555'} : {}}>
                             <div className="thread-first-image" style={recommendationsAreLoading ? {opacity: 0.5} : {}}>
                                 <Image src={formattedThread.cached[0].image} defaultSrc={defaultUserImage} />
                             </div>
@@ -132,7 +132,7 @@ export default class ThreadUsers extends Component {
                         </div>
                         <div className="thread-images">
                             {formattedThread.cached.map((item, index) => index !== 0 && index <= 4 && item.image ?
-                                <div key={index} className="thread-image-wrapper">
+                                <div key={index} className="thread-image-wrapper"  style={recommendationsAreLoading ? {backgroundColor: '#555'} : {}}>
                                     <div className="thread-image-centered-wrapper">
                                         <div className="thread-image" style={recommendationsAreLoading ? {opacity: 0.5} : {}}>
                                             <Image src={item.image} defaultSrc={defaultUserImage} />

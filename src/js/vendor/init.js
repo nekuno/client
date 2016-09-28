@@ -70,6 +70,7 @@ api.facebook.wrap.me = function(o) {
     return res;
 };
 api.facebook.get.me = api.facebook.get.me + ',location,birthday,gender';
+api.facebook.get['me/album'] = api.facebook.get['me/album'] + ',images';
 
 let twitterWrap = api.twitter.wrap.me;
 api.twitter.wrap.me = function(o) {

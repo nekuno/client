@@ -140,9 +140,9 @@ export default class ThreadUsers extends Component {
                                         <div className="thread-image" style={recommendationsAreLoading ? {opacity: 0.5} : {}}>
                                             <Image src={item.image} defaultSrc={defaultUserImage} />
                                         </div>
-                                        {recommendationsAreLoading ?
+                                        {/*recommendationsAreLoading ?
                                             <LoadingSpinnerCSS small={true}/> : null
-                                        }
+                                        */}
                                     </div>
                                 </div>
                                 : '')}

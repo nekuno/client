@@ -135,9 +135,9 @@ export default class ThreadContent extends Component {
                                     <div key={index} className="thread-image-wrapper" style={recommendationsAreLoading ? {backgroundColor: '#555'} : {}}>
                                         <div className="thread-image-centered-wrapper">
                                             <div className="thread-image" style={recommendationsAreLoading ? {opacity: 0.5} : {}}>{this.renderImage(null)}</div>
-                                            {recommendationsAreLoading ?
+                                            {/*recommendationsAreLoading ?
                                                 <LoadingSpinnerCSS small={true}/> : null
-                                            }
+                                            */}
                                         </div>
                                     </div>
                                 )

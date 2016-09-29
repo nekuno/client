@@ -98,9 +98,7 @@ export default class ThreadContent extends Component {
                     : null
                 }
                 <div className="thread-background-image-wrapper">
-                    <div className="thread-background-image">
-                        <Image src={this.getImage(selectn('cached[0]', thread))}/>
-                    </div>
+                    <div className="thread-background-image" style={{background: 'url(' + this.getImage(selectn('cached[0]', thread)) + ') no-repeat center'}}></div>
                 </div>
                 <div className={threadClass} onClick={this.goToThread}>
                     {last ? null : <div className="thread-vertical-connection"></div>}

@@ -59,7 +59,7 @@ export default class ThreadContent extends Component {
             return recommendation.staticThumbnail;
         } else if (recommendation && recommendation.content && recommendation.content.thumbnail) {
             return recommendation.content.thumbnail;
-        } else if (recommendation && recommendation.content && recommendation.content.url && recommendation.content.url.match(/\.(jpe?g|gif|png|bmp|svg)$/) != null) {
+        } else if (recommendation && recommendation.content && recommendation.content.url && recommendation.content.url.match(/\.(jpe?g|gif|png|bmp|svg)$/i) != null) {
             return recommendation.content.url;
         }
 

@@ -55,10 +55,12 @@ export default class ThreadContent extends Component {
     };
 
     getImage = function(recommendation) {
-        if (recommendation && recommendation.thumbnail) {
-            return recommendation.thumbnail;
-        } else if (recommendation && recommendation.url && recommendation.url.match(/\.(jpe?g|gif|png)$/) != null) {
-            return recommendation.url;
+        if (recommendation && recommendation.staticThumbnail) {
+            return recommendation.staticThumbnail;
+        } else if (recommendation && recommendation.content && recommendation.content.thumbnail) {
+            return recommendation.content.thumbnail;
+        } else if (recommendation && recommendation.content && recommendation.content.url && recommendation.content.url.match(/\.(jpe?g|gif|png|bmp|svg)$/) != null) {
+            return recommendation.content.url;
         }
 
         return this.getDefaultImage();
@@ -96,14 +98,16 @@ export default class ThreadContent extends Component {
                     : null
                 }
                 <div className="thread-background-image-wrapper">
-                    <div className="thread-background-image" style={{background: 'url(' + this.getImage(selectn('cached[0].content', thread)) + ') no-repeat center'}}></div>
+                    <div className="thread-background-image">
+                        <Image src={this.getImage(selectn('cached[0]', thread))}/>
+                    </div>
                 </div>
                 <div className={threadClass} onClick={this.goToThread}>
                     {last ? null : <div className="thread-vertical-connection"></div>}
                     <div className="thread-first-image-wrapper">
                         <div className="thread-first-image-centered-wrapper" style={recommendationsAreLoading ? {backgroundColor: '#555'} : {}}>
                             <div className="thread-first-image" style={recommendationsAreLoading ? {opacity: 0.5} : {}}>
-                                {this.renderImage(selectn('cached[0].content', thread))}
+                                {this.renderImage(selectn('cached[0]', thread))}
                             </div>
                             {recommendationsAreLoading ?
                                 <LoadingSpinnerCSS /> : null
@@ -125,7 +129,7 @@ export default class ThreadContent extends Component {
                                     if (index !== 0 && index <= 4) {
                                         return <div key={index} className="thread-image-wrapper">
                                             <div className="thread-image-centered-wrapper">
-                                                <div className="thread-image">{this.renderImage(item.content)}</div>
+                                                <div className="thread-image">{this.renderImage(item)}</div>
                                             </div>
                                         </div>
                                     }

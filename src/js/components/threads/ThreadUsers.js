@@ -109,7 +109,9 @@ export default class ThreadUsers extends Component {
                     : null
                 }
                 <div className="thread-background-image-wrapper">
-                    <div className="thread-background-image" style={{background: 'url(' + formattedThread.cached[0].image + ') no-repeat center'}}></div>
+                    <div className="thread-background-image">
+                        <Image src={formattedThread.cached[0].image} />
+                    </div>
                 </div>
                 <div className={threadClass} onClick={this.goToThread}>
                     {last ? null : <div className="thread-vertical-connection"></div>}

@@ -122,7 +122,7 @@ body {
 					height: auto;
 
 					#page-content {
-						margin: 50px auto 0 auto;
+						margin: 60px auto 0 auto;
 						width: 85%;
 
 						.sub-title {
@@ -162,7 +162,8 @@ body {
 						-webkit-border-radius: 16px;
 						font-family: $nekuno-font !important;
 						line-height: 35px;
-						max-width: 60%;
+						margin-left: 0 !important;
+						max-width: 75%;
 						padding: 0 12px;
 						width: auto;
 						white-space: nowrap;
@@ -173,7 +174,6 @@ body {
 							text-align: left;
 							text-overflow: ellipsis;
 							vertical-align: top;
-							width: 50px;
 						}
 					}
 

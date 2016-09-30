@@ -103,11 +103,14 @@ export default class ThreadUsers extends Component {
         const recommendationsAreLoading = totalResults && !thread.cached.some(item => item.picture);
 
         return (
-            <div className={avKey % 2 ? '' : 'thread-odd'}>
+            <div className={avKey % 2 ? 'thread-even' : 'thread-odd'}>
                 {selectn('orientation', profile) && !mustBeDisabled && totalResults == 0 ?
                     <ThreadNoResults threadId={thread.id} deleting={thread.deleting == true} />
                     : null
                 }
+                <div className="thread-background-image-wrapper">
+                    <div className="thread-background-image" style={{background: 'url(' + formattedThread.cached[0].image + ') no-repeat center'}}></div>
+                </div>
                 <div className={threadClass} onClick={this.goToThread}>
                     {last ? null : <div className="thread-vertical-connection"></div>}
                     <div className="thread-first-image-wrapper">
@@ -137,9 +140,9 @@ export default class ThreadUsers extends Component {
                                         <div className="thread-image" style={recommendationsAreLoading ? {opacity: 0.5} : {}}>
                                             <Image src={item.image} defaultSrc={defaultUserImage} />
                                         </div>
-                                        {recommendationsAreLoading ?
+                                        {/*recommendationsAreLoading ?
                                             <LoadingSpinnerCSS small={true}/> : null
-                                        }
+                                        */}
                                     </div>
                                 </div>
                                 : '')}

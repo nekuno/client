@@ -117,7 +117,7 @@ export default class GalleryAlbumPhotosPage extends Component {
     importPhotos() {
         const userId = parseId(this.props.user);
         this.state.selectedPhotos.forEach(selectedPhoto => GalleryPhotoActionCreators.postPhoto(userId, {
-            url: selectedPhoto.picture
+            url: selectedPhoto.images && selectedPhoto.images[selectedPhoto.images.length - 1] ? selectedPhoto.images[selectedPhoto.images.length - 1].source : selectedPhoto.picture
         }));
         this.context.history.pushState(null, 'gallery');
     }

@@ -8,6 +8,7 @@ export default class SetThreadTitlePopup extends Component {
     static propTypes = {
         onClick     : PropTypes.func.isRequired,
         defaultTitle: PropTypes.string,
+        displaying  : PropTypes.bool,
         // Injected by @translate:
         strings     : PropTypes.object
     };
@@ -21,6 +22,16 @@ export default class SetThreadTitlePopup extends Component {
         this.state = {
             threadName: props.defaultTitle
         };
+    }
+
+    componentDidUpdate() {
+        if (this.props.displaying) {
+            this.focusThreadTitle();
+        }
+    }
+
+    focusThreadTitle() {
+        this.refs.threadTitle.focus();
     }
 
     _onChange(event) {
@@ -44,7 +55,7 @@ export default class SetThreadTitlePopup extends Component {
                     <div className="popup-set-thread-title-title title"> {strings.title}</div>
                     <div className="list-block">
                         <ul>
-                            <TextInput placeholder={strings.placeholder} onChange={this._onChange} defaultValue={defaultTitle}/>
+                            <TextInput ref="threadTitle" placeholder={strings.placeholder} onChange={this._onChange} defaultValue={defaultTitle}/>
                         </ul>
                     </div>
                     <br />

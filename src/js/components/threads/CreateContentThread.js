@@ -42,9 +42,10 @@ export default class CreateContentThread extends Component {
         this.getDefaultTitle = this.getDefaultTitle.bind(this);
 
         this.state = {
-            selectFilter  : false,
-            selectedFilter: {},
-            filters       : selectn('thread.filters.contentFilters', props) || {}
+            selectFilter        : false,
+            selectedFilter      : {},
+            filters             : selectn('thread.filters.contentFilters', props) || {},
+            displayingTitlePopup: null
         }
     }
 
@@ -187,9 +188,10 @@ export default class CreateContentThread extends Component {
 
     createThread() {
         if (this.getDefaultTitle()) {
-            window.setTimeout(function () {
+            window.setTimeout(() => {
                 nekunoApp.popup('.popup-set-thread-title');
                 document.getElementsByClassName('view')[0].scrollTop = 0;
+                window.setTimeout(() => { this.setState({'displayingTitlePopup': true}) }, 200);
             }, 0);
         } else {
             nekunoApp.alert(this.props.strings.addFilters);
@@ -279,7 +281,7 @@ export default class CreateContentThread extends Component {
                     <br />
                     <br />
                     <br />
-                    {this.getDefaultTitle() ? <SetThreadTitlePopup onClick={this.onSaveTitle} defaultTitle={this.getDefaultTitle()}/> : null}
+                    {this.getDefaultTitle() ? <SetThreadTitlePopup displaying={this.state.displayingTitlePopup} onClick={this.onSaveTitle} defaultTitle={this.getDefaultTitle()}/> : null}
                 </div>
         )
     }

@@ -395,11 +395,13 @@ export default {
     ThreadContent                    : {
         contents: 'Contents',
         disabled: 'We are weaving this yarn, please wait a moment...',
+        filters : 'Filters: ',
     },
     ThreadUsers                      : {
         people  : 'People',
         users   : 'Users',
         disabled: 'We are weaving this yarn, please wait a moment...',
+        filters : 'Filters: ',
     },
     IntegerEdit                      : {
         minValue   : 'The minimum value is ',

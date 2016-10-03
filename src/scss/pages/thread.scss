@@ -19,12 +19,11 @@ body #root .App .view .page.threads-page  {
           background-size: 100% auto !important;
           height: 120%;
           margin: -5% 0 0 -10%;
-          opacity: 0.7;
-          -webkit-filter: blur(50px);
-          -moz-filter: blur(50px);
-          -o-filter: blur(50px);
-          -ms-filter: blur(50px);
-          filter: blur(50px);
+          -webkit-filter: blur(100px);
+          -moz-filter: blur(100px);
+          -o-filter: blur(100px);
+          -ms-filter: blur(100px);
+          filter: blur(100px);
           overflow: hidden;
           width: 120%;
           /* A circled shadow around background image
@@ -65,8 +64,9 @@ body #root .App .view .page.threads-page  {
             width: 200px;
             height: 75px;
             img {
-              height: 76px;
-              margin: auto;
+              min-height: 86px;
+              margin: -5px auto;
+              width: 52%;
             }
           }
         }
@@ -143,6 +143,7 @@ body #root .App .view .page.threads-page  {
         }
 
         .chip-list {
+          display: inline-block;
           .chip-wrapper {
             .chip {
               background: transparent;

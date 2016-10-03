@@ -396,11 +396,13 @@ export default {
     ThreadContent                    : {
         contents: 'Contenidos',
         disabled: 'Estamos tejiendo este hilo, un momento por favor...',
+        filters : 'Filtros: ',
     },
     ThreadUsers                      : {
         people  : 'Personas',
         users   : 'Usuarios',
         disabled: 'Estamos tejiendo este hilo, un momento por favor...',
+        filters : 'Filtros: ',
     },
     IntegerEdit                      : {
         minValue   : 'El valor mínimo es ',

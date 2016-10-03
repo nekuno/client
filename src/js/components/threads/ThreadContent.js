@@ -43,7 +43,7 @@ export default class ThreadContent extends Component {
         });
 
         return (
-            <ChipList chips={chips} small={false}/>
+            <ChipList chips={chips} small={true}/>
         );
     };
 
@@ -145,6 +145,7 @@ export default class ThreadContent extends Component {
                                 )
                             }
                         </div>
+                        <span>{strings.filters}</span>
                         {this.renderChipList(thread.filters.contentFilters, filters.contentFilters)}
                     </div>
                 </div>
@@ -158,5 +159,6 @@ ThreadContent.defaultProps = {
     strings: {
         contents: 'Contents',
         disabled: 'We are weaving this yarn, please wait a moment...',
+        filters : 'Filters: '
     }
 };

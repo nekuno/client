@@ -68,7 +68,7 @@ export default class ThreadUsers extends Component {
         });
 
         return (
-            <ChipList chips={chips} small={false}/>
+            <ChipList chips={chips} small={true}/>
         );
     };
 
@@ -147,6 +147,7 @@ export default class ThreadUsers extends Component {
                                 </div>
                                 : '')}
                         </div>
+                        <span>{strings.filters}</span>
                         {this.renderChipList(formattedThread.filters.userFilters, filters.userFilters)}
                     </div>
                 </div>
@@ -162,6 +163,7 @@ ThreadUsers.defaultProps = {
     strings: {
         people  : 'People',
         users   : 'Users',
-        disabled: 'We are weaving this yarn, please wait a moment...'
+        disabled: 'We are weaving this yarn, please wait a moment...',
+        filters : 'Filters: '
     }
 };

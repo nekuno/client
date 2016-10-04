@@ -12,7 +12,6 @@ export default class AnswerQuestionForm extends Component {
     static propTypes = {
         answers        : PropTypes.array.isRequired,
         userAnswer     : PropTypes.object,
-        isFirstQuestion: PropTypes.bool.isRequired,
         ownPicture     : PropTypes.string.isRequired,
         userId         : PropTypes.number.isRequired,
         question       : PropTypes.object.isRequired
@@ -78,10 +77,6 @@ export default class AnswerQuestionForm extends Component {
     }
 
     handleOnClickAnswer(value) {
-        if (!this.state.answerId && this.props.isFirstQuestion) {
-            nekunoApp.alert(this.props.strings.alertSecond);
-        }
-
         let answerId = parseInt(value);
 
         this.setState({
@@ -157,7 +152,7 @@ export default class AnswerQuestionForm extends Component {
                             <div className="answer-question-who-text">{strings.you}</div>
                             <div className="answer-question-picture">
                                 <div className="answer-question-own-picture-container">
-                                    <div className="answer-question-own-picture">
+                                    <div id="joyride-container-2" className="answer-question-own-picture">
                                         <img src={ownPicture}/>
                                     </div>
                                 </div>
@@ -184,7 +179,6 @@ AnswerQuestionForm.defaultProps = {
         you        : 'You',
         them       : 'Them',
         alertFirst : 'Mark your answer in the first column',
-        alertSecond: 'Mark one or more options in the second column to indicate what would you like to answer another user',
         saving     : 'Saving'
     }
 };

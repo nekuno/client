@@ -215,6 +215,14 @@ body {
 					margin: -25px auto auto auto;
 					width: 100px;
 				}
+
+				.joyride-tooltip {
+					max-width: 70%;
+
+                  .joyride-tooltip__button {
+                    color: #fff;
+                  }
+				}
 			}
 		}
 	}

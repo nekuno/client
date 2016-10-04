@@ -1,7 +1,10 @@
 export default {
     AnswerQuestionPage               : {
-        question: 'Pregunta',
-        skip    : 'Omitir'
+        question               : 'Pregunta',
+        skip                   : 'Omitir',
+        tutorialFirstStep      : 'Selecciona primero tu respuesta en la primera columna. Luego, selecciona las repuestas que aceptarías de otros usuarios en la segunda columna',
+        tutorialSecondStepTitle: 'Importancia de las respuestas',
+        tutorialSecondStep     : 'Selecciona cómo son de importantes estas respuestas para ti'
     },
     ChatMessagesPage                 : {
         noMoreMessages: 'No tienes más mensajes',
@@ -282,7 +285,6 @@ export default {
         you        : 'Tú',
         them       : 'Ellos',
         alertFirst : 'Marca tu respuesta en la primera columna',
-        alertSecond: 'Marca una o varias opciones en la segunda columna para indicar qué te gustaría que respondiera otro usuario',
         saving     : 'Guardando'
     },
     OtherQuestion                    : {
@@ -462,5 +464,15 @@ export default {
         modalTitle       : 'AVISO',
         modalButtonOk    : 'ACEPTAR',
         modalButtonCancel: 'CANCELAR'
+    },
+    ////////////////
+    // Tutorial //
+    ////////////////
+    TutorialComponent                : {
+        back : 'Volver',
+        close: 'Cerrar',
+        last : 'Último',
+        next : 'Siguiente',
+        skip : 'Omitir'
     }
 }

@@ -56,14 +56,11 @@ export default function tutorial() {
                 super(props);
 
                 this.state = {
-                    defaultSteps: props.steps,
-                    steps: props.steps,
                     displayed: false
                 };
 
                 this.start = this.start.bind(this);
                 this.reset = this.reset.bind(this);
-                this.removeSteps = this.removeSteps.bind(this);
             }
 
             addSteps(steps, joyride, strings) {
@@ -73,16 +70,7 @@ export default function tutorial() {
 
                 steps = setStepsStyles(steps);
                 steps = setStepsStrings(steps, strings);
-                this.setState({
-                    steps: joyride.parseSteps(steps)
-                });
-            }
-
-            removeSteps() {
-                this.setState({
-                    steps: [],
-                    displayed: false
-                });
+                joyride.parseSteps(steps);
             }
 
             addTooltip(data) {
@@ -90,8 +78,7 @@ export default function tutorial() {
             }
 
             start(joyride) {
-                let steps = this.state.defaultSteps.slice(0);
-                const {strings} = this.props;
+                const {strings, steps} = this.props;
                 if (!this.state.displayed) {
                     this.addSteps(steps, joyride, strings);
                     window.setTimeout(() => { joyride.start() }, 0);
@@ -102,7 +89,6 @@ export default function tutorial() {
             reset(joyride) {
                 joyride.stop();
                 joyride.reset();
-                this.removeSteps();
             }
 
             render() {

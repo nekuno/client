@@ -9,7 +9,6 @@ import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
 import * as InterestsActionCreators from '../actions/InterestsActionCreators';
 import InterestStore from '../stores/InterestStore';
-import InterestsByUserStore from '../stores/InterestsByUserStore';
 
 function parseId(user) {
     return user.id;
@@ -34,7 +33,7 @@ function getState(props) {
 
 @AuthenticatedComponent
 @translate('InterestsPage')
-@connectToStores([InterestStore, InterestsByUserStore], getState)
+@connectToStores([InterestStore], getState)
 export default class InterestsPage extends Component {
 
     static propTypes = {

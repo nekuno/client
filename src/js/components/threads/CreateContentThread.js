@@ -1,5 +1,4 @@
 import React, { PropTypes, Component } from 'react';
-import * as ThreadActionCreators from '../../actions/ThreadActionCreators';
 import ThreadFilterList from './filters/ThreadFilterList';
 import MultipleChoicesFilter from './filters/MultipleChoicesFilter';
 import TagFilter from './filters/TagFilter';
@@ -7,13 +6,10 @@ import FullWidthButton from '../ui/FullWidthButton';
 import SetThreadTitlePopup from './SetThreadTitlePopup';
 import selectn from 'selectn';
 import translate from '../../i18n/Translate';
+import FilterStore from '../../stores/FilterStore';
 
 @translate('CreateContentThread')
 export default class CreateContentThread extends Component {
-
-    static contextTypes = {
-        history: PropTypes.object.isRequired
-    };
 
     static propTypes = {
         userId        : PropTypes.number.isRequired,
@@ -21,6 +17,7 @@ export default class CreateContentThread extends Component {
         threadName    : PropTypes.string,
         tags          : PropTypes.array.isRequired,
         thread        : PropTypes.object,
+        onSave        : PropTypes.func.isRequired,
         // Injected by @translate:
         strings       : PropTypes.object
     };
@@ -42,11 +39,13 @@ export default class CreateContentThread extends Component {
         this.editThread = this.editThread.bind(this);
         this.goToSelectedFilters = this.goToSelectedFilters.bind(this);
         this.handleClickOutside = this.handleClickOutside.bind(this);
+        this.getDefaultTitle = this.getDefaultTitle.bind(this);
 
         this.state = {
-            selectFilter  : false,
-            selectedFilter: {},
-            filters       : selectn('thread.filters.contentFilters', props) || {}
+            selectFilter        : false,
+            selectedFilter      : {},
+            filters             : selectn('thread.filters.contentFilters', props) || {},
+            displayingTitlePopup: null
         }
     }
 
@@ -188,10 +187,15 @@ export default class CreateContentThread extends Component {
     }
 
     createThread() {
-        window.setTimeout(function() {
-            nekunoApp.popup('.popup-set-thread-title');
-            document.getElementsByClassName('view')[0].scrollTop = 0;
-        }, 0);
+        if (this.getDefaultTitle()) {
+            window.setTimeout(() => {
+                nekunoApp.popup('.popup-set-thread-title');
+                document.getElementsByClassName('view')[0].scrollTop = 0;
+                window.setTimeout(() => { this.setState({'displayingTitlePopup': true}) }, 200);
+            }, 0);
+        } else {
+            nekunoApp.alert(this.props.strings.addFilters);
+        }
     }
 
     onSaveTitle(title) {
@@ -201,11 +205,7 @@ export default class CreateContentThread extends Component {
             category: 'ThreadContent'
         };
 
-        ThreadActionCreators.createThread(this.props.userId, data)
-            .then(function(createdThread) {
-                ThreadActionCreators.requestRecommendation(createdThread.id);
-            });
-        this.context.history.pushState(null, `threads`);
+        this.props.onSave(data);
     }
 
     editThread() {
@@ -215,18 +215,24 @@ export default class CreateContentThread extends Component {
             category: 'ThreadContent'
         };
 
-        let threadId = this.props.thread.id;
-        ThreadActionCreators.updateThread(threadId, data)
-            .then(function() {
-                ThreadActionCreators.requestRecommendation(threadId);
-            });
-        this.context.history.pushState(null, `threads`);
+        this.props.onSave(data);
     }
 
     goToSelectedFilters() {
         this.setState({
             selectFilter: false
         });
+    }
+
+    getDefaultTitle() {
+        const {filters} = this.state;
+        const {defaultFilters} = this.props;
+        const firstFilterIndex = Object.keys(filters).find((filterIndex, index) => index == 0);
+        if (firstFilterIndex && FilterStore.isFilterSet(defaultFilters[firstFilterIndex], filters[firstFilterIndex])) {
+            return FilterStore.getFilterLabel(defaultFilters[firstFilterIndex], filters[firstFilterIndex]);
+        }
+
+        return null;
     }
 
     render() {
@@ -275,7 +281,7 @@ export default class CreateContentThread extends Component {
                     <br />
                     <br />
                     <br />
-                    <SetThreadTitlePopup onClick={this.onSaveTitle}/>
+                    {this.getDefaultTitle() ? <SetThreadTitlePopup displaying={this.state.displayingTitlePopup} onClick={this.onSaveTitle} defaultTitle={this.getDefaultTitle()}/> : null}
                 </div>
         )
     }
@@ -288,6 +294,7 @@ CreateContentThread.defaultProps = {
         addFilterTitle: 'You can add filters to be more specific',
         addFilter     : 'Add filter',
         save          : 'Save',
-        create        : 'Create'
+        create        : 'Create',
+        addFilters    : 'Add a filter first'
     }
 };

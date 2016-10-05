@@ -156,7 +156,8 @@ export default {
     RecommendationPage               : {
         loadingMessage  : 'Loading recommendations',
         confirmBlock    : 'Are you sure you want to block this user?',
-        processingThread: 'These results are provisional, we´ll finish improving this for you soon.'
+        processingThread: 'These results are provisional, we are working on improving them for you.',
+        confirmReplace  : 'We have improve your recommendations. Do you whant to reload them?'
     },
     InvitationsPage                  : {
         invitations           : 'Invitations',
@@ -191,14 +192,16 @@ export default {
         title   : 'What do you want to discover in this new yarn?',
         cancel  : 'Cancel',
         people  : 'Users of Nekuno',
-        contents: 'Links of Internet'
+        contents: 'Links of Internet',
+        creating: 'Creating yarn',
     },
     EditThreadPage                   : {
         edit       : 'Edit yarn',
         cancel     : 'Cancel',
         placeholder: 'Title',
         people     : 'Users of Nekuno',
-        contents   : 'Links of Internet'
+        contents   : 'Links of Internet',
+        updating   : 'Updating yarn',
     },
     ////////////////
     // Components //
@@ -379,7 +382,8 @@ export default {
         addFilterTitle: 'You can add filters to be more specific',
         addFilter     : 'Add filter',
         save          : 'Save',
-        create        : 'Create'
+        create        : 'Create',
+        addFilters    : 'Add a filter first'
     },
     CreateUsersThread                : {
         back          : 'Back',
@@ -387,17 +391,19 @@ export default {
         addFilterTitle: 'You can add filters to be more specific',
         addFilter     : 'Add filter',
         save          : 'Save',
-        create        : 'Create'
+        create        : 'Create',
+        addFilters    : 'Add a filter first'
     },
     ThreadContent                    : {
         contents: 'Contents',
-        working : 'These results are provisional, we are working on improving them for you.'
+        disabled: 'We are weaving this yarn, please wait a moment...',
+        filters : 'Filters: ',
     },
     ThreadUsers                      : {
         people  : 'People',
         users   : 'Users',
         disabled: 'We are weaving this yarn, please wait a moment...',
-        working : 'These results are provisional, we are working on improving them for you.'
+        filters : 'Filters: ',
     },
     IntegerEdit                      : {
         minValue   : 'The minimum value is ',

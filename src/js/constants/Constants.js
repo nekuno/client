@@ -28,6 +28,11 @@ export const API_URLS = {
     COMPARED_INTERESTS       : API_ROOT + 'content/compare/{userId}?type[]={type}&showOnlyCommon={showOnlyCommon}'
 };
 
+export const THREAD_TYPES = {
+    THREAD_CONTENTS: 'THREAD_CONTENTS',
+    THREAD_USERS   : 'THREAD_USERS',
+};
+
 export const QUESTION_STATS_COLORS = [
     // light green
     '#32ca91',

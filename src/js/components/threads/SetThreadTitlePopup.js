@@ -6,9 +6,11 @@ import FullWidthButton from '../ui/FullWidthButton';
 @translate('SetThreadTitlePopup')
 export default class SetThreadTitlePopup extends Component {
     static propTypes = {
-        onClick: PropTypes.func.isRequired,
+        onClick     : PropTypes.func.isRequired,
+        defaultTitle: PropTypes.string,
+        displaying  : PropTypes.bool,
         // Injected by @translate:
-        strings       : PropTypes.object
+        strings     : PropTypes.object
     };
 
     constructor(props) {
@@ -18,8 +20,18 @@ export default class SetThreadTitlePopup extends Component {
         this._onChange = this._onChange.bind(this);
 
         this.state = {
-            threadName: ''
+            threadName: props.defaultTitle
         };
+    }
+
+    componentDidUpdate() {
+        if (this.props.displaying) {
+            this.focusThreadTitle();
+        }
+    }
+
+    focusThreadTitle() {
+        this.refs.threadTitle.focus();
     }
 
     _onChange(event) {
@@ -35,7 +47,7 @@ export default class SetThreadTitlePopup extends Component {
 
     render() {
         const popupClass = 'popup popup-set-thread-title tablet-fullscreen';
-        const strings = this.props.strings;
+        const {defaultTitle, strings} = this.props;
         return (
 
             <div className={popupClass}>
@@ -43,7 +55,7 @@ export default class SetThreadTitlePopup extends Component {
                     <div className="popup-set-thread-title-title title"> {strings.title}</div>
                     <div className="list-block">
                         <ul>
-                            <TextInput placeholder={strings.placeholder} onChange={this._onChange}/>
+                            <TextInput ref="threadTitle" placeholder={strings.placeholder} onChange={this._onChange} defaultValue={defaultTitle}/>
                         </ul>
                     </div>
                     <br />

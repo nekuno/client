@@ -10,6 +10,7 @@ import TextRadios from '../components/ui/TextRadios';
 import CreateContentThread from '../components/threads/CreateContentThread';
 import CreateUsersThread from '../components/threads/CreateUsersThread';
 import TopNavBar from '../components/ui/TopNavBar';
+import EmptyMessage from '../components/ui/EmptyMessage';
 
 /**
  * Retrieves state from stores for current props.
@@ -41,6 +42,10 @@ function requestData(props) {
 @connectToStores([FilterStore, TagSuggestionsStore, ThreadStore], getState)
 export default class CreateThreadPage extends Component {
 
+    static contextTypes = {
+        history: PropTypes.object.isRequired
+    };
+
     static propTypes = {
         // Injected by @connectToStores:
         categories: PropTypes.array,
@@ -57,9 +62,11 @@ export default class CreateThreadPage extends Component {
         super(props);
 
         this.handleClickCategory = this.handleClickCategory.bind(this);
+        this.onCreate = this.onCreate.bind(this);
 
         this.state = {
-            category: null
+            category: null,
+            creating: false,
         };
     }
 
@@ -80,33 +87,44 @@ export default class CreateThreadPage extends Component {
         });
     }
 
+    onCreate(data) {
+        ThreadActionCreators.createThread(this.props.user.id, data)
+            .then((createdThread) => {
+                ThreadActionCreators.requestRecommendation(createdThread.id);
+                this.setState({creating: false});
+                this.context.history.pushState(null, `threads`);
+            });
+        this.setState({creating: true});
+    }
+
     render() {
         const {user, categories, filters, tags, strings} = this.props;
-        const {category} = this.state;
+        const {category, creating} = this.state;
         return (
             <div className="view view-main">
                 <TopNavBar centerText={strings.create} leftText={strings.cancel}/>
                 <div className="page create-thread-page">
                     <div id="page-content">
-                        {categories && filters ?
-                            <div>
-                                <div className="thread-title title">
-                                    {strings.title}
-                                </div>
-                                <div key={1} className={category + '-first-vertical-line'}></div>
-                                <div key={2} className={category + '-last-vertical-line'}></div>
-                                <div className="main-filter-wprapper">
-                                    <div className="thread-filter radio-filter">
-                                        <div className="thread-filter-dot">
-                                            <span className={category ? "icon-circle active" : "icon-circle"}></span>
-                                        </div>
-                                        <TextRadios labels={[{key: 'persons', text: strings.people}, {key: 'contents', text: strings.contents}]} onClickHandler={this.handleClickCategory} value={category} forceTwoLines={true}/>
+                        {creating ? <EmptyMessage text={strings.creating} loadingGif={true}/> :
+                            categories && filters ?
+                                <div>
+                                    <div className="thread-title title">
+                                        {strings.title}
                                     </div>
+                                    <div key={1} className={category + '-first-vertical-line'}></div>
+                                    <div key={2} className={category + '-last-vertical-line'}></div>
+                                    <div className="main-filter-wprapper">
+                                        <div className="thread-filter radio-filter">
+                                            <div className="thread-filter-dot">
+                                                <span className={category ? "icon-circle active" : "icon-circle"}></span>
+                                            </div>
+                                            <TextRadios labels={[{key: 'persons', text: strings.people}, {key: 'contents', text: strings.contents}]} onClickHandler={this.handleClickCategory} value={category} forceTwoLines={true}/>
+                                        </div>
+                                    </div>
+                                    {category === 'contents' ? <CreateContentThread userId={user.id} defaultFilters={filters.contentFilters} tags={tags} onSave={this.onCreate}/> : ''}
+                                    {category === 'persons' ? <CreateUsersThread userId={user.id} defaultFilters={filters.userFilters} tags={tags} categories={categories} onSave={this.onCreate}/> : ''}
                                 </div>
-                                {category === 'contents' ? <CreateContentThread userId={user.id} defaultFilters={filters.contentFilters} tags={tags}/> : ''}
-                                {category === 'persons' ? <CreateUsersThread userId={user.id} defaultFilters={filters.userFilters} tags={tags} categories={categories}/> : ''}
-                            </div>
-                            : ''}
+                                : ''}
                     </div>
                 </div>
             </div>
@@ -120,6 +138,7 @@ CreateThreadPage.defaultProps = {
         title   : 'What do you want to discover in this new yarn?',
         cancel  : 'Cancel',
         people  : 'Users of Nekuno',
-        contents: 'Links of Internet'
+        contents: 'Links of Internet',
+        creating: 'Creating yarn',
     }
 };

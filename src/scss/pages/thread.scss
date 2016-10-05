@@ -5,15 +5,41 @@ body #root .App .view .page.threads-page  {
     margin-top: 70px;
     width: 100%;
 
-    .thread-odd {
-      background: $deep-purple-translucent;
+    .thread-odd, .thread-even {
+      background-color: #000;
+      position: relative;
+
+      .thread-background-image-wrapper {
+        height: 100%;
+        overflow: hidden;
+        position: absolute;
+        width: 100%;
+
+        .thread-background-image {
+          background-size: 100% auto !important;
+          height: 120%;
+          margin: -5% 0 0 -10%;
+          -webkit-filter: blur(100px);
+          -moz-filter: blur(100px);
+          -o-filter: blur(100px);
+          -ms-filter: blur(100px);
+          filter: blur(100px);
+          overflow: hidden;
+          width: 120%;
+          /* A circled shadow around background image
+          -webkit-box-shadow: inset 0 0 200px #000000;
+          -moz-box-shadow: inset 0 0 200px #000000;
+          box-shadow: inset 0 0 200px #000000;*/
+        }
+      }
     }
+
     .thread-listed {
       margin: 0 auto;
       padding: 30px 7.5%;
       position: relative;
       .thread-first-image-wrapper {
-        background-color: $deep-purple;
+        background-color: #fff;
         border-radius: 50%;
         -moz-border-radius: 50%;
         -webkit-border-radius: 50%;
@@ -38,15 +64,16 @@ body #root .App .view .page.threads-page  {
             width: 200px;
             height: 75px;
             img {
-              height: 76px;
-              margin: auto;
+              min-height: 86px;
+              margin: -5px auto;
+              width: 52%;
             }
           }
         }
       }
 
       .thread-vertical-connection {
-        background: $deep-purple;
+        background: #fff;
         height: 100%;
         margin-left: 40.5px;
         float: left;
@@ -113,6 +140,16 @@ body #root .App .view .page.threads-page  {
 
         .recommendations-count {
           line-height: 20px;
+        }
+
+        .chip-list {
+          display: inline-block;
+          .chip-wrapper {
+            .chip {
+              background: transparent;
+              border: 1px solid #fff;
+            }
+          }
         }
       }
     }

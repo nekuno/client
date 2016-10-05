@@ -157,7 +157,8 @@ export default {
     RecommendationPage               : {
         loadingMessage  : 'Cargando recomendaciones',
         confirmDelete   : '¿Estás seguro de que quieres borrar este hilo?',
-        processingThread: 'Estos resultados son provisionales, acabaremos pronto de mejorar esto para ti.'
+        processingThread: 'Estos resultados son provisionales, estamos mejorándolos para ti.',
+        confirmReplace  : 'Hemos mejorado tus recomendaciones. ¿Quieres actualizarlas?'
     },
     InvitationsPage                  : {
         invitations           : 'Invitaciones',
@@ -192,14 +193,16 @@ export default {
         title   : '¿Qué deseas descubrir en este nuevo hilo?',
         cancel  : 'Cancelar',
         people  : 'Usuarios de Nekuno',
-        contents: 'Enlaces de Internet'
+        contents: 'Enlaces de Internet',
+        creating: 'Creando hilo',
     },
     EditThreadPage                   : {
         edit       : 'Editar hilo',
         cancel     : 'Cancelar',
         placeholder: 'Título',
         people     : 'Usuarios de Nekuno',
-        contents   : 'Enlaces de Internet'
+        contents   : 'Enlaces de Internet',
+        updating   : 'Editando hilo',
     },
     ////////////////
     // Components //
@@ -380,7 +383,8 @@ export default {
         addFilterTitle: 'Puedes añadir filtros para ser más específico',
         addFilter     : 'Añadir filtro',
         save          : 'Guardar hilo',
-        create        : 'Crear hilo'
+        create        : 'Crear hilo',
+        addFilters    : 'Añade un filtro primero'
     },
     CreateUsersThread                : {
         back          : 'Volver',
@@ -388,17 +392,19 @@ export default {
         addFilterTitle: 'Puedes añadir filtros para ser más específico',
         addFilter     : 'Añadir filtro',
         save          : 'Guardar hilo',
-        create        : 'Crear hilo'
+        create        : 'Crear hilo',
+        addFilters    : 'Añade un filtro primero'
     },
     ThreadContent                    : {
         contents: 'Contenidos',
-        working : 'Estos resultados son provisionales, estamos trabajando en mejorarlos para ti.'
+        disabled: 'Estamos tejiendo este hilo, un momento por favor...',
+        filters : 'Filtros: ',
     },
     ThreadUsers                      : {
         people  : 'Personas',
         users   : 'Usuarios',
         disabled: 'Estamos tejiendo este hilo, un momento por favor...',
-        working : 'Estos resultados son provisionales, estamos mejorándolos para ti.'
+        filters : 'Filtros: ',
     },
     IntegerEdit                      : {
         minValue   : 'El valor mínimo es ',

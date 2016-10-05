@@ -14,7 +14,6 @@ import * as UserActionCreators from '../actions/UserActionCreators';
 import * as InterestsActionCreators from '../actions/InterestsActionCreators';
 import UserStore from '../stores/UserStore';
 import InterestStore from '../stores/InterestStore';
-import InterestsByUserStore from '../stores/InterestsByUserStore';
 
 function parseId(user) {
     return user.id;
@@ -42,7 +41,7 @@ function getState(props) {
 
 @AuthenticatedComponent
 @translate('OtherInterestsPage')
-@connectToStores([UserStore, InterestStore, InterestsByUserStore], getState)
+@connectToStores([UserStore, InterestStore], getState)
 export default class OtherInterestsPage extends Component {
     static propTypes = {
         // Injected by React Router:

@@ -15,7 +15,6 @@ import ProfileStore from '../stores/ProfileStore';
 import FilterStore from '../stores/FilterStore';
 import QuestionStore from '../stores/QuestionStore';
 import RecommendationStore from '../stores/RecommendationStore';
-import RecommendationsByThreadStore from '../stores/RecommendationsByThreadStore';
 import WorkersStore from '../stores/WorkersStore';
 
 /**
@@ -23,27 +22,25 @@ import WorkersStore from '../stores/WorkersStore';
  */
 function requestData(props) {
     const userId = props.user.id;
-    ThreadActionCreators.requestThreadPage(userId);
-    UserActionCreators.requestOwnProfile(userId);
-    ThreadActionCreators.requestFilters();
-    QuestionActionCreators.requestQuestions(userId);
+    if (ThreadStore.noThreads() || ThreadStore.isAnyPopular()) {
+        ThreadActionCreators.requestThreadPage(userId);
+        UserActionCreators.requestOwnProfile(userId);
+        ThreadActionCreators.requestFilters();
+        QuestionActionCreators.requestQuestions(userId);
+    }
 }
 
 /**
  * Retrieves state from stores for current props.
  */
 function getState(props) {
-    const threadIds = ThreadStore.getAll();
-    const threads = threadIds ? Object.keys(threadIds).map(threadId => threadIds[threadId]).reverse() : [];
-    threads.forEach((thread) => {
+    const threads = Object.keys(ThreadStore.getAll()).map(threadId => ThreadStore.getAll()[threadId]);
+    threads.forEach(thread => {
         thread.disabled = ThreadStore.isDisabled(thread.id);
-        thread.isEmpty = RecommendationsByThreadStore.isEmpty(thread.id);
-        const cachedIds = RecommendationsByThreadStore.getFirst(thread.id, 5);
-        thread.cached = thread.category == 'ThreadContent' ?
-            RecommendationStore.getContentRecommendations(cachedIds)
-            :
-            RecommendationStore.getUserRecommendations(cachedIds);
+        thread.isEmpty = RecommendationStore.isEmpty(thread.id);
+        thread.cached =  RecommendationStore.getFirst(thread.id, 5);
     });
+
     const profile = ProfileStore.get(props.user.id) || {};
     const filters = FilterStore.filters;
     const pagination = QuestionStore.getPagination(props.user.id) || {};
@@ -60,7 +57,7 @@ function getState(props) {
 
 @AuthenticatedComponent
 @translate('ThreadPage')
-@connectToStores([ThreadStore, RecommendationStore, RecommendationsByThreadStore, ProfileStore, FilterStore, WorkersStore], getState)
+@connectToStores([ThreadStore, RecommendationStore, ProfileStore, FilterStore, WorkersStore], getState)
 export default class ThreadPage extends Component {
 
     static propTypes = {
@@ -94,7 +91,6 @@ export default class ThreadPage extends Component {
 
     render() {
         const {threads, filters, profile, strings, user, isSomethingWorking} = this.props;
-
         return (
             <div className="view view-main">
                 <TopNavBar leftMenuIcon={true} centerText={strings.threads} centerTextSize={'large'} rightText={strings.create} rightIcon={'plus'} onRightLinkClickHandler={this.onAddThreadClickHandler}/>

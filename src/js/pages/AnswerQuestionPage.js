@@ -38,7 +38,6 @@ function getState(props) {
     const currentUserId = parseId(user);
     const currentUser = UserStore.get(currentUserId);
     const question = QuestionStore.getQuestion();
-    const isFirstQuestion = QuestionStore.isFirstQuestion(currentUserId);
     const questionId = params.hasOwnProperty('questionId') ? parseInt(params.questionId) : selectn('questionId', question);
     const userAnswer = questionId ? QuestionStore.getUserAnswer(currentUserId, questionId) : {};
     const errors = QuestionStore.getErrors();
@@ -56,7 +55,6 @@ function getState(props) {
     return {
         currentUser,
         question,
-        isFirstQuestion,
         userAnswer,
         user,
         errors,
@@ -88,11 +86,11 @@ export default class AnswerQuestionPage extends Component {
         steps                  : PropTypes.array,
         startTutorial          : PropTypes.func,
         resetTutorial          : PropTypes.func,
+        endTutorialHandler     : PropTypes.func,
         tutorialLocale         : PropTypes.object,
         // Injected by @connectToStores:
         question               : PropTypes.object,
         userAnswer             : PropTypes.object,
-        isFirstQuestion        : PropTypes.bool,
         errors                 : PropTypes.string,
         goToQuestionStats      : PropTypes.bool,
         isJustRegistered       : PropTypes.bool,
@@ -124,16 +122,16 @@ export default class AnswerQuestionPage extends Component {
     }
 
     componentDidUpdate() {
-        const {goToQuestionStats, isFirstQuestion, question} = this.props;
+        const {goToQuestionStats, question} = this.props;
         if(goToQuestionStats) {
             this.context.history.pushState(null, `/question-stats`);
-        } else if (isFirstQuestion && question && question.questionId) {
-            this.props.startTutorial(this.refs.joyride);
+        } else if (question && question.questionId) {
+            this.props.startTutorial(this.refs.joyrideAnswerQuestion);
         }
     }
 
     componentWillUnmount() {
-        this.props.resetTutorial(this.refs.joyride);
+        this.props.resetTutorial(this.refs.joyrideAnswerQuestion);
     }
 
     skipQuestionHandler() {
@@ -147,8 +145,7 @@ export default class AnswerQuestionPage extends Component {
     }
 
     render() {
-
-        const {user, strings, errors, noMoreQuestions, userAnswer, question, isJustRegistered, isJustCompleted, totalQuestions, questionNumber, steps, tutorialLocale} = this.props;
+        const {user, strings, errors, noMoreQuestions, userAnswer, question, isJustRegistered, isJustCompleted, totalQuestions, questionNumber, steps, tutorialLocale, endTutorialHandler} = this.props;
         const userId = parseId(user);
         const navBarTitle = question && (isJustRegistered || isJustCompleted) ? strings.question + ' ' + questionNumber + '/' + totalQuestions : strings.question;
         const ownPicture = user.picture ? `${IMAGES_ROOT}media/cache/resolve/user_avatar_60x60/user/images/${user.picture}` : `${IMAGES_ROOT}media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
@@ -161,7 +158,7 @@ export default class AnswerQuestionPage extends Component {
                     :
                     <TopNavBar leftMenuIcon={true} centerText={navBarTitle} rightText={isRegisterQuestion ? '' : strings.skip} onRightLinkClickHandler={isRegisterQuestion ? null : this.skipQuestionHandler}/>
                 }
-                <Joyride ref="joyride" steps={steps} locale={tutorialLocale}/>
+                <Joyride ref="joyrideAnswerQuestion" steps={steps} locale={tutorialLocale} callback={endTutorialHandler}/>
                 <div className="page answer-question-page">
                     <div id="page-content" className="answer-question-content">
                         <AnswerQuestion question={question} userAnswer={userAnswer} userId={userId} errors={errors} noMoreQuestions={noMoreQuestions} ownPicture={ownPicture}/>

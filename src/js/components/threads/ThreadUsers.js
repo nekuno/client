@@ -38,15 +38,10 @@ export default class ThreadUsers extends Component {
 
     mergeImagesWithThread(thread) {
         const defaultImage = `${IMAGES_ROOT}media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
-        let images = thread.cached.map((item, index) => item.picture ?
-            `${IMAGES_ROOT}media/cache/resolve/profile_picture/user/images/${item.picture}` :
-            defaultImage
-        );
+        let images = thread.cached.map((item, index) => item.photo ? item.photo.thumbnail.small : defaultImage);
 
         thread.cached[0] = thread.cached[0] ? thread.cached[0] : [];
-        images[0] = thread.cached[0].picture ?
-            `${IMAGES_ROOT}media/cache/resolve/user_avatar_180x180/user/images/${thread.cached[0].picture}` :
-            defaultImage;
+        images[0] = thread.cached[0].photo ? thread.cached[0].photo.thumbnail.medium : defaultImage;
 
         if (images.length == 1 && !thread.cached[0].picture) {
             [1, 2, 3, 4].forEach(index => images[index] = defaultImage);

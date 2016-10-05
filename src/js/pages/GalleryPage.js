@@ -26,11 +26,12 @@ function requestData(props) {
 
 function getState(props) {
     const userId = parseId(props.user);
+    const user = props.user;
     const noPhotos = false;
     const photos = GalleryPhotoStore.get(userId);
     const errors = GalleryPhotoStore.getErrors();
     const loadingPhoto = GalleryPhotoStore.getLoadingPhoto();
-    const profilePhoto = props.user.picture ? `${IMAGES_ROOT}media/cache/resolve/user_avatar_180x180/user/images/${props.user.picture}` : '';
+    const profilePhoto = user.photo ? user.photo.thumbnail.medium : '';
     return {
         photos,
         profilePhoto,

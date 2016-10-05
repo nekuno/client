@@ -136,7 +136,7 @@ export default class AnswerQuestionPage extends Component {
         const {user, strings, errors, noMoreQuestions, isFirstQuestion, userAnswer, question, isJustRegistered, isJustCompleted, totalQuestions, questionNumber} = this.props;
         const userId = parseId(user);
         const navBarTitle = question && (isJustRegistered || isJustCompleted) ? strings.question + ' ' + questionNumber + '/' + totalQuestions : strings.question;
-        const ownPicture = user.picture ? `${IMAGES_ROOT}media/cache/resolve/user_avatar_60x60/user/images/${user.picture}` : `${IMAGES_ROOT}media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
+        const ownPicture = user.photo ? user.photo.thumbnail.medium : `${IMAGES_ROOT}media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
         const isRegisterQuestion = selectn('isRegisterQuestion', question);
 
         return (

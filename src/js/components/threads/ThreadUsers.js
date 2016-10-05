@@ -43,7 +43,7 @@ export default class ThreadUsers extends Component {
         thread.cached[0] = thread.cached[0] ? thread.cached[0] : [];
         images[0] = thread.cached[0].photo ? thread.cached[0].photo.thumbnail.medium : defaultImage;
 
-        if (images.length == 1 && !thread.cached[0].picture) {
+        if (images.length == 1 && !thread.cached[0].photo) {
             [1, 2, 3, 4].forEach(index => images[index] = defaultImage);
         }
 
@@ -95,7 +95,7 @@ export default class ThreadUsers extends Component {
         const mustBeDisabled = selectn('orientation', profile) && (thread.disabled || totalResults == 0 && isSomethingWorking);
         const threadClass = mustBeDisabled ? "thread-listed thread-disabled" :
             selectn('orientation', profile) && totalResults == 0 ? "thread-listed thread-no-results" : "thread-listed";
-        const recommendationsAreLoading = totalResults && !thread.cached.some(item => item.picture);
+        const recommendationsAreLoading = totalResults && !thread.cached.some(item => item.photo);
 
         return (
             <div className={avKey % 2 ? 'thread-even' : 'thread-odd'}>

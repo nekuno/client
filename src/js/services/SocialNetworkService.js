@@ -212,7 +212,7 @@ class SocialNetworkService {
         this._users[resource] = {
             username     : status.username || null,
             email        : status.email || null,
-            picture      : status.picture || null
+            photo        : status.picture || null
         };
         this._profiles[resource] = {
             birthday: birthday,

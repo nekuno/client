@@ -1,7 +1,7 @@
 import { default as React } from 'react';
-import en from '../i18n/en';
-import es from '../i18n/es';
-import LocalStorageService from '../services/LocalStorageService';
+import en from '../../i18n/en';
+import es from '../../i18n/es';
+import LocalStorageService from '../../services/LocalStorageService';
 
 const locales = {en, es};
 
@@ -77,7 +77,7 @@ export default function tutorial() {
 
             start(joyride) {
                 const {strings, steps, route} = this.props;
-                if (!LocalStorageService.get(route.name) && !this.state.displayed) {
+                if (!LocalStorageService.getObjectProperty('nekuno_tutorial', route.name) && !this.state.displayed) {
                     this.addSteps(steps, joyride, strings);
                     window.setTimeout(() => {
                         joyride.start()
@@ -94,7 +94,7 @@ export default function tutorial() {
             onCallback(tour) {
                 const {route} = this.props;
                 if (tour.type === 'finished') {
-                    LocalStorageService.set(route.name);
+                    LocalStorageService.setObjectProperty('nekuno_tutorial', route.name);
                 }
             }
 

@@ -6,7 +6,7 @@ import RegisterQuestionsFinishedPopup from '../components/questions/RegisterQues
 import AnswerQuestion from '../components/questions/AnswerQuestion';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
-import tutorial from '../tutorial/Tutorial';
+import tutorial from '../components/tutorial/Tutorial';
 import connectToStores from '../utils/connectToStores';
 import * as QuestionActionCreators from '../actions/QuestionActionCreators';
 import UserStore from '../stores/UserStore';

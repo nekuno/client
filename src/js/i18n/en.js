@@ -475,7 +475,7 @@ export default {
     ////////////////
     TutorialComponent                 : {
         back : 'Back',
-        close: 'Close',
+        close: 'Understood',
         last : 'Last',
         next : 'Next',
         skip : 'Skip'

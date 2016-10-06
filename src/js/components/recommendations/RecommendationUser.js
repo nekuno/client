@@ -20,7 +20,7 @@ export default class RecommendationUser extends Component {
                         username={recommendation.username}
                         location={recommendation.location}
                         canSendMessage={true}
-                        picture={recommendation.picture}
+                        photo={recommendation.photo}
                         matching={Math.round(recommendation.similarity * 100)}
                         like={recommendation.like}
                         hideLikeButton={false}

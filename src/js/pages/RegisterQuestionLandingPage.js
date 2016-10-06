@@ -61,7 +61,8 @@ export default class RegisterQuestionLandingPage extends Component {
 
     render() {
 
-        let imgSrc = this.props.user && this.props.user.picture ? `${IMAGES_ROOT}media/cache/resolve/user_avatar_60x60/user/images/${this.props.user.picture}` : `${IMAGES_ROOT}media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
+        let user = this.props.user;
+        let imgSrc = user && user.photo ? user.photo.thumbnail.medium : `${IMAGES_ROOT}media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
         const strings = this.props.strings;
 
         return (

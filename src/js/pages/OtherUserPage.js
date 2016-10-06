@@ -168,8 +168,8 @@ export default class OtherUserPage extends Component {
 
     render() {
         const {user, otherUser, profile, profileWithMetadata, matching, similarity, block, like, comparedStats, strings} = this.props;
-        const otherPicture = otherUser && otherUser.picture ? `${IMAGES_ROOT}media/cache/resolve/user_avatar_60x60/user/images/${otherUser.picture}` : `${IMAGES_ROOT}media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
-        const ownPicture = user && user.picture ? `${IMAGES_ROOT}media/cache/resolve/user_avatar_60x60/user/images/${user.picture}` : `${IMAGES_ROOT}media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
+        const otherPicture = otherUser && otherUser.photo ? otherUser.photo.thumbnail.medium : `${IMAGES_ROOT}media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
+        const ownPicture = user && user.photo ? user.photo.thumbnail.medium : `${IMAGES_ROOT}media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
         const likeText = like === null ? strings.saving : like ? strings.dontLike : strings.like;
         const blockClass = block ? "icon-block blocked" : "icon-block";
         return (

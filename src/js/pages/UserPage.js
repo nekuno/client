@@ -77,7 +77,6 @@ export default class UserPage extends Component {
 
     render() {
         const {user, profile, metadata, profileWithMetadata, stats, strings} = this.props;
-        const picture = user.picture ? `${IMAGES_ROOT}media/cache/resolve/user_avatar_60x60/user/images/${user.picture}` : `${IMAGES_ROOT}media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
         return (
             <div className="view view-main">
                 <TopNavBar leftMenuIcon={true} centerText={strings.myProfile}/>

@@ -1,6 +1,5 @@
 import React, { PropTypes, Component } from 'react';
 import { Link } from 'react-router';
-import { IMAGES_ROOT } from '../../constants/Constants';
 import moment from 'moment';
 import ChatUserStatusStore from '../../stores/ChatUserStatusStore';
 import connectToStores from '../../utils/connectToStores';
@@ -31,7 +30,7 @@ export default class LastMessage extends Component {
         let text = ReactEmoji.emojify(message.text);
         let readed = message.readed;
         let createdAt = message.createdAt;
-        let image = IMAGES_ROOT.slice(0, -1) + (message.user.id === message.user_from.id ? message.user_to.image.small : message.user_from.image.small);
+        let imageSrc = message.user.id === message.user_from.id ? message.user_to.photo.thumbnail.medium : message.user_from.photo.thumbnail.medium;
         let user = this.props.user;
         let online = this.props.online;
         let mine = message.user.id === message.user_from.id;
@@ -41,7 +40,7 @@ export default class LastMessage extends Component {
             <div className="notification">
                 <Link to={`/conversations/${user.id}`}>
                     <div className="notification-picture">
-                        <img src={image}/>
+                        <img src={imageSrc}/>
                     </div>
                     <div className="notification-text">
                         <div className="notification-title">

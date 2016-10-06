@@ -33,6 +33,7 @@
     "react-geosuggest": "1.24.1",
     "react-image-crop": "1.0.0-rc4",
     "react-infinite-calendar": "^1.1.18",
+    "react-joyride": "git+https://github.com/msalsas/react-joyride.git",
     "react-pure-render": "1.0.2",
     "react-router": "1.0.2",
     "request": "2.73.0",

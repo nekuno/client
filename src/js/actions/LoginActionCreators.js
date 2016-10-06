@@ -12,12 +12,12 @@ import * as QuestionActionCreators from '../actions/QuestionActionCreators';
 import * as UserActionCreators from '../actions/UserActionCreators';
 import UserDataStatusActionCreators from '../actions/UserDataStatusActionCreators';
 import RouterActionCreators from '../actions/RouterActionCreators';
-import selectn from 'selectn';
+import LocalStorageService from '../services/LocalStorageService';
 
 export default new class LoginActionCreators {
 
     autologin() {
-        let jwt = localStorage.getItem('jwt');
+        let jwt = LocalStorageService.get('jwt');
         console.log('Attempting auto-login...');
         dispatch(ActionTypes.AUTO_LOGIN, {jwt});
         if (LoginStore.isLoggedIn()) {

@@ -2,12 +2,13 @@ import ActionTypes from '../constants/ActionTypes';
 import BaseStore from './BaseStore';
 import ProfileStore from './ProfileStore';
 import LoginStore from './LoginStore';
+import LocalStorageService from '../services/LocalStorageService';
 
 class LocaleStore extends BaseStore {
 
     setInitial() {
         this._locale = 'en';
-        let locale = localStorage.getItem('locale');
+        let locale = LocalStorageService.get('locale');
         if (locale) {
             this._locale = locale;
         } else if (LoginStore.user && ProfileStore.contains(LoginStore.user.id) && ProfileStore.get(LoginStore.user.id).interfaceLanguage) {
@@ -26,7 +27,7 @@ class LocaleStore extends BaseStore {
 
             case ActionTypes.CHANGE_LOCALE:
                 this._locale = action.locale;
-                localStorage.setItem('locale', this._locale);
+                LocalStorageService.set('locale', this._locale);
                 this.emitChange();
                 break;
 

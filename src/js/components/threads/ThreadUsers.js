@@ -72,7 +72,7 @@ export default class ThreadUsers extends Component {
         const totalResults = thread.totalResults;
         const mustBeDisabled = thread.disabled || totalResults == 0 && isSomethingWorking;
         if (!selectn('orientation', profile)) {
-            nekunoApp.popup('.popup-orientation-required');
+            nekunoApp.popup('.popup-orientation-required-' + thread.id);
             document.getElementsByClassName('view')[0].scrollTop = 0;
         } else if (mustBeDisabled) {
             nekunoApp.alert(strings.disabled)
@@ -146,7 +146,7 @@ export default class ThreadUsers extends Component {
                         {this.renderChipList(formattedThread.filters.userFilters, filters.userFilters)}
                     </div>
                 </div>
-                <OrientationRequiredPopup profile={profile} onContinue={this.continue}/>
+                <OrientationRequiredPopup profile={profile} onContinue={this.continue} threadId={thread.id}/>
             </div>
 
         );

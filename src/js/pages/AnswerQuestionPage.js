@@ -6,6 +6,7 @@ import RegisterQuestionsFinishedPopup from '../components/questions/RegisterQues
 import AnswerQuestion from '../components/questions/AnswerQuestion';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
+import tutorial from '../components/tutorial/Tutorial';
 import connectToStores from '../utils/connectToStores';
 import * as QuestionActionCreators from '../actions/QuestionActionCreators';
 import UserStore from '../stores/UserStore';
@@ -13,6 +14,7 @@ import QuestionStore from '../stores/QuestionStore';
 import QuestionsByUserIdStore from '../stores/QuestionsByUserIdStore';
 import LoginStore from '../stores/LoginStore';
 import ProfileStore from '../stores/ProfileStore';
+import Joyride from 'react-joyride';
 
 function parseId(user) {
     return user.id;
@@ -36,7 +38,6 @@ function getState(props) {
     const currentUserId = parseId(user);
     const currentUser = UserStore.get(currentUserId);
     const question = QuestionStore.getQuestion();
-    const isFirstQuestion = QuestionStore.isFirstQuestion(currentUserId);
     const questionId = params.hasOwnProperty('questionId') ? parseInt(params.questionId) : selectn('questionId', question);
     const userAnswer = questionId ? QuestionStore.getUserAnswer(currentUserId, questionId) : {};
     const errors = QuestionStore.getErrors();
@@ -54,7 +55,6 @@ function getState(props) {
     return {
         currentUser,
         question,
-        isFirstQuestion,
         userAnswer,
         user,
         errors,
@@ -69,6 +69,7 @@ function getState(props) {
 
 @AuthenticatedComponent
 @translate('AnswerQuestionPage')
+@tutorial()
 @connectToStores([UserStore, QuestionStore, QuestionsByUserIdStore], getState)
 export default class AnswerQuestionPage extends Component {
 
@@ -81,16 +82,21 @@ export default class AnswerQuestionPage extends Component {
         user                   : PropTypes.object.isRequired,
         // Injected by @translate:
         strings                : PropTypes.object,
+        // Injected by @tutorial:
+        steps                  : PropTypes.array,
+        startTutorial          : PropTypes.func,
+        resetTutorial          : PropTypes.func,
+        endTutorialHandler     : PropTypes.func,
+        tutorialLocale         : PropTypes.object,
         // Injected by @connectToStores:
         question               : PropTypes.object,
         userAnswer             : PropTypes.object,
-        isFirstQuestion        : PropTypes.bool,
         errors                 : PropTypes.string,
         goToQuestionStats      : PropTypes.bool,
         isJustRegistered       : PropTypes.bool,
         isJustCompleted        : PropTypes.bool,
         totalQuestions         : PropTypes.number,
-        questionNumber         : PropTypes.number
+        questionNumber         : PropTypes.number,
     };
 
     static contextTypes = {
@@ -116,9 +122,16 @@ export default class AnswerQuestionPage extends Component {
     }
 
     componentDidUpdate() {
-        if(this.props.goToQuestionStats) {
+        const {goToQuestionStats, question} = this.props;
+        if(goToQuestionStats) {
             this.context.history.pushState(null, `/question-stats`);
+        } else if (question && question.questionId) {
+            this.props.startTutorial(this.refs.joyrideAnswerQuestion);
         }
+    }
+
+    componentWillUnmount() {
+        this.props.resetTutorial(this.refs.joyrideAnswerQuestion);
     }
 
     skipQuestionHandler() {
@@ -132,8 +145,7 @@ export default class AnswerQuestionPage extends Component {
     }
 
     render() {
-
-        const {user, strings, errors, noMoreQuestions, isFirstQuestion, userAnswer, question, isJustRegistered, isJustCompleted, totalQuestions, questionNumber} = this.props;
+        const {user, strings, errors, noMoreQuestions, userAnswer, question, isJustRegistered, isJustCompleted, totalQuestions, questionNumber, steps, tutorialLocale, endTutorialHandler} = this.props;
         const userId = parseId(user);
         const navBarTitle = question && (isJustRegistered || isJustCompleted) ? strings.question + ' ' + questionNumber + '/' + totalQuestions : strings.question;
         const ownPicture = user.picture ? `${IMAGES_ROOT}media/cache/resolve/user_avatar_60x60/user/images/${user.picture}` : `${IMAGES_ROOT}media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
@@ -146,9 +158,10 @@ export default class AnswerQuestionPage extends Component {
                     :
                     <TopNavBar leftMenuIcon={true} centerText={navBarTitle} rightText={isRegisterQuestion ? '' : strings.skip} onRightLinkClickHandler={isRegisterQuestion ? null : this.skipQuestionHandler}/>
                 }
+                <Joyride ref="joyrideAnswerQuestion" steps={steps} locale={tutorialLocale} callback={endTutorialHandler}/>
                 <div className="page answer-question-page">
                     <div id="page-content" className="answer-question-content">
-                        <AnswerQuestion question={question} userAnswer={userAnswer} isFirstQuestion={isFirstQuestion} userId={userId} errors={errors} noMoreQuestions={noMoreQuestions} ownPicture={ownPicture}/>
+                        <AnswerQuestion question={question} userAnswer={userAnswer} userId={userId} errors={errors} noMoreQuestions={noMoreQuestions} ownPicture={ownPicture}/>
                     </div>
                 </div>
                 <RegisterQuestionsFinishedPopup onContinue={this.onContinue} />
@@ -159,7 +172,24 @@ export default class AnswerQuestionPage extends Component {
 
 AnswerQuestionPage.defaultProps = {
     strings: {
-        question: 'Pregunta',
-        skip    : 'Omitir'
-    }
+        question: 'Question',
+        skip: 'Skip',
+        tutorialFirstStep: 'Select first your answer in the first column. Then, select the answers that you would accept from other users in the second column',
+        tutorialSecondStepTitle: 'Answers importance',
+        tutorialSecondStep: 'Select how important are these answers for you'
+    },
+    steps: [
+        {
+            titleRef: 'question',
+            textRef: 'tutorialFirstStep',
+            selector: '#joyride-1-question',
+            position: 'bottom',
+        },
+        {
+            titleRef: 'tutorialSecondStepTitle',
+            textRef: 'tutorialSecondStep',
+            selector: '#joyride-2-answer-importance',
+            position: 'top',
+        }
+    ]
 };

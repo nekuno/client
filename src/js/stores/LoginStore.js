@@ -4,6 +4,7 @@ import ActionTypes from '../constants/ActionTypes';
 import BaseStore from './BaseStore';
 import jwt_decode from 'jwt-decode';
 import {getValidationErrors} from '../utils/StoreUtils';
+import LocalStorageService from '../services/LocalStorageService';
 
 class LoginStore extends BaseStore {
 
@@ -46,7 +47,7 @@ class LoginStore extends BaseStore {
                 this._error = null;
                 this._jwt = action.response.jwt;
                 this._user = jwt_decode(this._jwt).user;
-                localStorage.setItem('jwt', this._jwt);
+                LocalStorageService.set('jwt', this._jwt);
                 this._setInitialRequiredUserQuestionsCount();
                 this.emitChange();
                 break;
@@ -59,7 +60,7 @@ class LoginStore extends BaseStore {
             case ActionTypes.LOGOUT_USER:
                 this.setInitial();
                 this._justLoggedout = true;
-                localStorage.removeItem('jwt');
+                LocalStorageService.remove('jwt');
 
                 const path = action.path;
                 let history = RouterContainer.get();
@@ -77,7 +78,7 @@ class LoginStore extends BaseStore {
             case ActionTypes.EDIT_USER_SUCCESS:
                 this._user = action.response.user;
                 this._jwt = action.response.jwt;
-                localStorage.setItem('jwt', this._jwt);
+                LocalStorageService.set('jwt', this._jwt);
                 this._usernameAnswered = true;
                 this._requiredUserQuestionsCount++;
                 this.emitChange();

@@ -9,7 +9,6 @@ export default class AnswerQuestion extends Component {
     static propTypes = {
         question       : PropTypes.object,
         userAnswer     : PropTypes.object,
-        isFirstQuestion: PropTypes.bool.isRequired,
         ownPicture     : PropTypes.string.isRequired,
         userId         : PropTypes.number.isRequired,
         errors         : PropTypes.string.isRequired,
@@ -27,7 +26,7 @@ export default class AnswerQuestion extends Component {
             <div>
                 {questionId ?
                     <div className="answer-question">
-                        <div className="title answer-question-title">
+                        <div id="joyride-1-question" className="title answer-question-title">
                             {question.text}
                         </div>
                         <AnswerQuestionForm answers={answers} {...this.props} />

@@ -101,7 +101,7 @@ export default class OtherInterestsPage extends Component {
     }
 
     componentDidMount() {
-        this.onSearchClick();
+
         if (!this.state.carousel || this.props.interests.length == 0) {
             return;
         }

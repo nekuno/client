@@ -24,7 +24,7 @@ export default class QuestionsBanner extends Component {
     render() {
 
         const {strings, questionsTotal, user} = this.props;
-        const ownBigPicture = user && user.photo ? user.photo.thumbnail.big : `${IMAGES_ROOT}media/cache/user_avatar_180x180/bundles/qnoowweb/images/user-no-img.jpg`;
+        const ownPicture = user && user.photo ? user.photo.thumbnail.medium : `${IMAGES_ROOT}media/cache/user_avatar_180x180/bundles/qnoowweb/images/user-no-img.jpg`;
 
         return (
             <div className="answer-questions-link-container">
@@ -36,7 +36,7 @@ export default class QuestionsBanner extends Component {
                         <p>{strings.completed}</p>
                     </div>
                     <div className="answer-questions-link-picture">
-                        <img src={ownBigPicture}/>
+                        <img src={ownPicture}/>
                     </div>
                 </Link>
             </div>

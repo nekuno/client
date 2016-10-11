@@ -103,9 +103,11 @@ export default class ThreadUsers extends Component {
                     <ThreadNoResults threadId={thread.id} deleting={thread.deleting == true} />
                     : null
                 }
+                {/*
                 <div className="thread-background-image-wrapper">
                     <div className="thread-background-image" style={{background: 'url(' + formattedThread.cached[0].image + ') no-repeat center'}}></div>
                 </div>
+                */}
                 <div className={threadClass} onClick={this.goToThread}>
                     {last ? null : <div className="thread-vertical-connection"></div>}
                     <div className="thread-first-image-wrapper">

@@ -62,7 +62,7 @@ export default class InterestsPage extends Component {
     }
 
     componentDidMount() {
-        this.onSearchClick();
+
     }
 
     componentWillUnmount() {

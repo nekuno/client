@@ -37,7 +37,7 @@ export default class ConnectSocialNetworksPage extends Component {
     render() {
 
         const {networks, user, strings} = this.props;
-        const picture = user && user.photo ? user.photo.thumbnail.big : `${IMAGES_ROOT}media/cache/user_avatar_180x180/bundles/qnoowweb/images/user-no-img.jpg`;
+        const picture = user && user.photo ? user.photo.thumbnail.medium : `${IMAGES_ROOT}media/cache/user_avatar_180x180/bundles/qnoowweb/images/user-no-img.jpg`;
 
         return (
             <div className="view view-main">

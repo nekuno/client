@@ -41,7 +41,7 @@ export default class ThreadUsers extends Component {
         let images = thread.cached.map((item, index) => item.photo ? item.photo.thumbnail.small : `${IMAGES_ROOT}media/cache/profile_picture/bundles/qnoowweb/images/user-no-img.jpg`);
 
         thread.cached[0] = thread.cached[0] ? thread.cached[0] : [];
-        images[0] = thread.cached[0].photo ? thread.cached[0].photo.thumbnail.big : `${IMAGES_ROOT}media/cache/user_avatar_180x180/bundles/qnoowweb/images/user-no-img.jpg`;
+        images[0] = thread.cached[0].photo ? thread.cached[0].photo.thumbnail.medium : `${IMAGES_ROOT}media/cache/user_avatar_180x180/bundles/qnoowweb/images/user-no-img.jpg`;
 
         if (images.length == 1 && !thread.cached[0].photo) {
             [1, 2, 3, 4].forEach(index => images[index] = `${IMAGES_ROOT}media/cache/profile_picture/bundles/qnoowweb/images/user-no-img.jpg`);

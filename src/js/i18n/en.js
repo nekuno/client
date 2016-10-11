@@ -1,7 +1,10 @@
 export default {
     AnswerQuestionPage               : {
-        question: 'Question',
-        skip    : 'Skip'
+        question               : 'Question',
+        skip                   : 'Skip',
+        tutorialFirstStep      : 'Select first your answer in the first column. Then, select the answers that you would accept from other users in the second column',
+        tutorialSecondStepTitle: 'Answers importance',
+        tutorialSecondStep     : 'Select how important are these answers for you'
     },
     ChatMessagesPage                 : {
         noMoreMessages: 'You have no messages',
@@ -284,7 +287,6 @@ export default {
         you        : 'You',
         them       : 'Them',
         alertFirst : 'Mark your answer in the first column',
-        alertSecond: 'Mark one or more options in the second column to indicate what would you like to answer another user',
         saving     : 'Saving'
     },
     OtherQuestion                    : {
@@ -380,7 +382,8 @@ export default {
         addFilterTitle: 'You can add filters to be more specific',
         addFilter     : 'Add filter',
         save          : 'Save',
-        create        : 'Create'
+        create        : 'Create',
+        addFilters    : 'Add a filter first'
     },
     CreateUsersThread                : {
         back          : 'Back',
@@ -388,16 +391,19 @@ export default {
         addFilterTitle: 'You can add filters to be more specific',
         addFilter     : 'Add filter',
         save          : 'Save',
-        create        : 'Create'
+        create        : 'Create',
+        addFilters    : 'Add a filter first'
     },
     ThreadContent                    : {
         contents: 'Contents',
         disabled: 'We are weaving this yarn, please wait a moment...',
+        filters : 'Filters: ',
     },
     ThreadUsers                      : {
         people  : 'People',
         users   : 'Users',
         disabled: 'We are weaving this yarn, please wait a moment...',
+        filters : 'Filters: ',
     },
     IntegerEdit                      : {
         minValue   : 'The minimum value is ',
@@ -463,5 +469,15 @@ export default {
         modalTitle       : 'NOTICE',
         modalButtonOk    : 'OK',
         modalButtonCancel: 'CANCEL'
+    },
+    ////////////////
+    // Tutorial //
+    ////////////////
+    TutorialComponent                 : {
+        back : 'Back',
+        close: 'Understood',
+        last : 'Last',
+        next : 'Next',
+        skip : 'Skip'
     }
 }

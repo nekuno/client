@@ -19,7 +19,7 @@ export default class CardUser extends Component {
         username      : PropTypes.string.isRequired,
         location      : PropTypes.string,
         canSendMessage: PropTypes.bool.isRequired,
-        picture       : PropTypes.string,
+        photo         : PropTypes.object,
         matching      : PropTypes.number.isRequired,
         like          : PropTypes.number,
         hideLikeButton: PropTypes.bool.isRequired,
@@ -49,13 +49,13 @@ export default class CardUser extends Component {
     }
 
     render() {
-        const {strings, location, canSendMessage, like, hideLikeButton, picture, userId, username, matching} = this.props;
+        const {strings, location, canSendMessage, like, hideLikeButton, photo, userId, username, matching} = this.props;
         const subTitle = location ? <div><span className="icon-marker"></span>{location.substr(0, 20)}{location.length > 20 ? '...' : ''}</div> : <div>&nbsp;</div>;
         const messageButton = canSendMessage ? <span className="icon-message" onClick={this.handleMessage}></span> : '';
         const likeButtonText = like === null ? strings.saving : like ? strings.unlike : strings.like;
         const likeButton = hideLikeButton ? '' : <div className="like-button-container"><Button onClick={this.onLikeOrDislike} disabled={like === null ? 'disabled' : null}>{likeButtonText}</Button></div>;
         const defaultSrc = `${IMAGES_ROOT}media/cache/user_avatar_180x180/bundles/qnoowweb/images/user-no-img.jpg`;
-        let imgSrc = picture ? `${IMAGES_ROOT}media/cache/resolve/user_avatar_180x180/user/images/${picture}` : defaultSrc;
+        let imgSrc = photo ? photo.url : defaultSrc;
 
         return (
             <div className="card person-card">

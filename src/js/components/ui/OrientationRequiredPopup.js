@@ -1,6 +1,5 @@
 import React, { PropTypes, Component } from 'react';
 import * as UserActionCreators from '../../actions/UserActionCreators';
-import shouldPureComponentUpdate from 'react-pure-render/function';
 import TextRadios from './TextRadios';
 import FullWidthButton from './FullWidthButton';
 import translate from '../../i18n/Translate';
@@ -8,10 +7,11 @@ import translate from '../../i18n/Translate';
 @translate('OrientationRequiredPopup')
 export default class OrientationRequiredPopup extends Component {
     static propTypes = {
-        profile: PropTypes.object.isRequired,
+        profile   : PropTypes.object.isRequired,
         onContinue: PropTypes.func.isRequired,
+        threadId  : PropTypes.number.isRequired,
         // Injected by @translate:
-        strings     : PropTypes.object
+        strings   : PropTypes.object
     };
 
     constructor(props) {
@@ -21,11 +21,9 @@ export default class OrientationRequiredPopup extends Component {
         this.onCancel = this.onCancel.bind(this);
     }
 
-    shouldComponentUpdate = shouldPureComponentUpdate;
-
     render() {
-        const popupClass = 'popup popup-orientation-required tablet-fullscreen';
-        const {strings} = this.props;
+        const {threadId, strings} = this.props;
+        const popupClass = 'popup popup-orientation-required-' + threadId + ' tablet-fullscreen';
 
         return (
 
@@ -45,8 +43,8 @@ export default class OrientationRequiredPopup extends Component {
     }
 
     onSelect(key) {
-        nekunoApp.closeModal('.popup-orientation-required');
-        let onContinue = this.props.onContinue;
+        const {threadId} = this.props;
+        nekunoApp.closeModal('.popup-orientation-required-' + threadId);
         let profile = {orientation: key};
         for (key in this.props.profile){
             if (this.props.profile.hasOwnProperty(key)){
@@ -54,13 +52,14 @@ export default class OrientationRequiredPopup extends Component {
             }
         }
         UserActionCreators.editProfile(profile)
-        .then(function(){
-            onContinue();
-        });
+        .then(() => {
+            this.props.onContinue();
+        }, () => { console.log('error editing profile') });
     }
 
-    onCancel(){
-        nekunoApp.closeModal('.popup-orientation-required');
+    onCancel() {
+        const {threadId} = this.props;
+        nekunoApp.closeModal('.popup-orientation-required-' + threadId);
     }
 }
 

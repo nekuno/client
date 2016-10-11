@@ -1,7 +1,10 @@
 export default {
     AnswerQuestionPage               : {
-        question: 'Pregunta',
-        skip    : 'Omitir'
+        question               : 'Pregunta',
+        skip                   : 'Omitir',
+        tutorialFirstStep      : 'Selecciona primero tu respuesta en la primera columna. Luego, selecciona las repuestas que aceptarías de otros usuarios en la segunda columna',
+        tutorialSecondStepTitle: 'Importancia de las respuestas',
+        tutorialSecondStep     : 'Selecciona cómo son de importantes estas respuestas para ti'
     },
     ChatMessagesPage                 : {
         noMoreMessages: 'No tienes más mensajes',
@@ -285,7 +288,6 @@ export default {
         you        : 'Tú',
         them       : 'Ellos',
         alertFirst : 'Marca tu respuesta en la primera columna',
-        alertSecond: 'Marca una o varias opciones en la segunda columna para indicar qué te gustaría que respondiera otro usuario',
         saving     : 'Guardando'
     },
     OtherQuestion                    : {
@@ -381,7 +383,8 @@ export default {
         addFilterTitle: 'Puedes añadir filtros para ser más específico',
         addFilter     : 'Añadir filtro',
         save          : 'Guardar hilo',
-        create        : 'Crear hilo'
+        create        : 'Crear hilo',
+        addFilters    : 'Añade un filtro primero'
     },
     CreateUsersThread                : {
         back          : 'Volver',
@@ -389,16 +392,19 @@ export default {
         addFilterTitle: 'Puedes añadir filtros para ser más específico',
         addFilter     : 'Añadir filtro',
         save          : 'Guardar hilo',
-        create        : 'Crear hilo'
+        create        : 'Crear hilo',
+        addFilters    : 'Añade un filtro primero'
     },
     ThreadContent                    : {
         contents: 'Contenidos',
         disabled: 'Estamos tejiendo este hilo, un momento por favor...',
+        filters : 'Filtros: ',
     },
     ThreadUsers                      : {
         people  : 'Personas',
         users   : 'Usuarios',
         disabled: 'Estamos tejiendo este hilo, un momento por favor...',
+        filters : 'Filtros: ',
     },
     IntegerEdit                      : {
         minValue   : 'El valor mínimo es ',
@@ -464,5 +470,15 @@ export default {
         modalTitle       : 'AVISO',
         modalButtonOk    : 'ACEPTAR',
         modalButtonCancel: 'CANCELAR'
+    },
+    ////////////////
+    // Tutorial //
+    ////////////////
+    TutorialComponent                : {
+        back : 'Volver',
+        close: 'Entendido',
+        last : 'Último',
+        next : 'Siguiente',
+        skip : 'Omitir'
     }
 }

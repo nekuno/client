@@ -1,5 +1,4 @@
 import React, { PropTypes, Component } from 'react';
-import { IMAGES_ROOT } from '../../constants/Constants';
 import moment from 'moment';
 import ReactEmoji from 'react-emoji';
 
@@ -19,7 +18,7 @@ export default class Message extends Component {
         let text = ReactEmoji.emojify(message.text);
         let readed = message.readed;
         let createdAt = message.createdAt;
-        let image = IMAGES_ROOT.slice(0, -1) + message.user_from.image.small;
+        let imageSrc = message.user_from.photo.thumbnail.medium;
         let mine = message.user.id === message.user_from.id;
         let style = readed ? {} : {fontWeight: 'bold', color: '#000'};
 
@@ -37,13 +36,13 @@ export default class Message extends Component {
                             </div>
                         </div>
                         <div className="notification-picture-right">
-                            <img src={image}/>
+                            <img src={imageSrc}/>
                         </div>
                     </div>
                     :
                     <div className="notification">
                         <div className="notification-picture" onClick={() => this.context.history.pushState(null, `profile/${message.user_from.id}`)}>
-                            <img src={image}/>
+                            <img src={imageSrc}/>
                         </div>
                         <div className="notification-text">
                             <div className="notification-excerpt" style={style}>

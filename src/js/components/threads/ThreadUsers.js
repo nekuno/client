@@ -3,6 +3,7 @@ import { IMAGES_ROOT } from '../../constants/Constants';
 import selectn from 'selectn'
 import ChipList from './../ui/ChipList';
 import Image from './../ui/Image';
+import LoadingSpinnerCSS from './../ui/LoadingSpinnerCSS';
 import ThreadNoResults from './ThreadNoResults';
 import OrientationRequiredPopup from './../ui/OrientationRequiredPopup';
 import FilterStore from '../../stores/FilterStore';
@@ -36,19 +37,14 @@ export default class ThreadUsers extends Component {
     }
 
     mergeImagesWithThread(thread) {
-        const defaultImage = `${IMAGES_ROOT}media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
-        let images = thread.cached.map((item, index) => item.picture ?
-            `${IMAGES_ROOT}media/cache/resolve/profile_picture/user/images/${item.picture}` :
-            defaultImage
-        );
+
+        let images = thread.cached.map((item, index) => item.photo ? item.photo.thumbnail.small : `${IMAGES_ROOT}media/cache/profile_picture/bundles/qnoowweb/images/user-no-img.jpg`);
 
         thread.cached[0] = thread.cached[0] ? thread.cached[0] : [];
-        images[0] = thread.cached[0].picture ?
-            `${IMAGES_ROOT}media/cache/resolve/user_avatar_180x180/user/images/${thread.cached[0].picture}` :
-            defaultImage;
+        images[0] = thread.cached[0].photo ? thread.cached[0].photo.thumbnail.big : `${IMAGES_ROOT}media/cache/user_avatar_180x180/bundles/qnoowweb/images/user-no-img.jpg`;
 
-        if (images.length == 1 && !thread.cached[0].picture) {
-            [1, 2, 3, 4].forEach(index => images[index] = defaultImage);
+        if (images.length == 1 && !thread.cached[0].photo) {
+            [1, 2, 3, 4].forEach(index => images[index] = `${IMAGES_ROOT}media/cache/profile_picture/bundles/qnoowweb/images/user-no-img.jpg`);
         }
 
         images.forEach((item, index) => {
@@ -67,7 +63,7 @@ export default class ThreadUsers extends Component {
         });
 
         return (
-            <ChipList chips={chips} small={false}/>
+            <ChipList chips={chips} small={true}/>
         );
     };
 
@@ -76,7 +72,7 @@ export default class ThreadUsers extends Component {
         const totalResults = thread.totalResults;
         const mustBeDisabled = thread.disabled || totalResults == 0 && isSomethingWorking;
         if (!selectn('orientation', profile)) {
-            nekunoApp.popup('.popup-orientation-required');
+            nekunoApp.popup('.popup-orientation-required-' + thread.id);
             document.getElementsByClassName('view')[0].scrollTop = 0;
         } else if (mustBeDisabled) {
             nekunoApp.alert(strings.disabled)
@@ -99,19 +95,30 @@ export default class ThreadUsers extends Component {
         const mustBeDisabled = selectn('orientation', profile) && (thread.disabled || totalResults == 0 && isSomethingWorking);
         const threadClass = mustBeDisabled ? "thread-listed thread-disabled" :
             selectn('orientation', profile) && totalResults == 0 ? "thread-listed thread-no-results" : "thread-listed";
+        const recommendationsAreLoading = totalResults && !thread.cached.some(item => item.photo);
+
         return (
-            <div className={avKey % 2 ? '' : 'thread-odd'}>
+            <div className={avKey % 2 ? 'thread-even' : 'thread-odd'}>
                 {selectn('orientation', profile) && !mustBeDisabled && totalResults == 0 ?
                     <ThreadNoResults threadId={thread.id} deleting={thread.deleting == true} />
                     : null
                 }
+                {/*
+                <div className="thread-background-image-wrapper">
+                    <div className="thread-background-image" style={{background: 'url(' + formattedThread.cached[0].image + ') no-repeat center'}}></div>
+                </div>
+                */}
                 <div className={threadClass} onClick={this.goToThread}>
                     {last ? null : <div className="thread-vertical-connection"></div>}
                     <div className="thread-first-image-wrapper">
-                        <div className="thread-first-image-centered-wrapper">
-                            <div className="thread-first-image">
+                        <div className="thread-first-image-centered-wrapper" style={recommendationsAreLoading ? {backgroundColor: '#555'} : {}}>
+                            <div className="thread-first-image" style={recommendationsAreLoading ? {opacity: 0.5} : {}}>
                                 <Image src={formattedThread.cached[0].image} defaultSrc={defaultUserImage} />
                             </div>
+                            {recommendationsAreLoading ?
+                                <LoadingSpinnerCSS /> : null
+                            }
+
                         </div>
                     </div>
                     <div className="thread-info-box">
@@ -125,12 +132,23 @@ export default class ThreadUsers extends Component {
                         </div>
                         <div className="thread-images">
                             {formattedThread.cached.map((item, index) => index !== 0 && index <= 4 && item.image ?
-                                <div key={index} className="thread-image-wrapper"><div className="thread-image-centered-wrapper"><div className="thread-image"><Image src={item.image} defaultSrc={defaultUserImage} /></div></div></div> : '')}
+                                <div key={index} className="thread-image-wrapper"  style={recommendationsAreLoading ? {backgroundColor: '#555'} : {}}>
+                                    <div className="thread-image-centered-wrapper">
+                                        <div className="thread-image" style={recommendationsAreLoading ? {opacity: 0.5} : {}}>
+                                            <Image src={item.image} defaultSrc={defaultUserImage} />
+                                        </div>
+                                        {/*recommendationsAreLoading ?
+                                            <LoadingSpinnerCSS small={true}/> : null
+                                        */}
+                                    </div>
+                                </div>
+                                : '')}
                         </div>
+                        <span>{strings.filters}</span>
                         {this.renderChipList(formattedThread.filters.userFilters, filters.userFilters)}
                     </div>
                 </div>
-                <OrientationRequiredPopup profile={profile} onContinue={this.continue}/>
+                <OrientationRequiredPopup profile={profile} onContinue={this.continue} threadId={thread.id}/>
             </div>
 
         );
@@ -142,6 +160,7 @@ ThreadUsers.defaultProps = {
     strings: {
         people  : 'People',
         users   : 'Users',
-        disabled: 'We are weaving this yarn, please wait a moment...'
+        disabled: 'We are weaving this yarn, please wait a moment...',
+        filters : 'Filters: '
     }
 };

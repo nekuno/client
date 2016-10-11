@@ -23,7 +23,7 @@ export default class App extends Component {
         children  : PropTypes.object,
         // Injected by @connectToStores:
         isLoggedIn: PropTypes.bool.isRequired,
-        isGuest: PropTypes.bool.isRequired
+        isGuest   : PropTypes.bool.isRequired
     };
 
     render() {

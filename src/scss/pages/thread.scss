@@ -32,7 +32,9 @@ body #root .App .view .page.threads-page  {
         }
       }
     }
-
+    .thread-odd {
+      background: $deep-purple-translucent;
+    }
     .thread-listed {
       margin: 0 auto;
       padding: 30px 7.5%;

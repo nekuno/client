@@ -31,7 +31,7 @@ function getState(props) {
     const photos = GalleryPhotoStore.get(userId);
     const errors = GalleryPhotoStore.getErrors();
     const loadingPhoto = GalleryPhotoStore.getLoadingPhoto();
-    const profilePhoto = user.photo ? user.photo.thumbnail.big : '';
+    const profilePhoto = user.photo ? user.photo.thumbnail.medium : '';
     return {
         photos,
         profilePhoto,

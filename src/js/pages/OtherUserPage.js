@@ -1,5 +1,4 @@
 import React, { PropTypes, Component } from 'react';
-import { IMAGES_ROOT } from '../constants/Constants';
 import User from '../components/User';
 import OtherProfileData from '../components/profile/OtherProfileData';
 import OtherProfileDataList from '../components/profile/OtherProfileDataList'
@@ -168,8 +167,8 @@ export default class OtherUserPage extends Component {
 
     render() {
         const {user, otherUser, profile, profileWithMetadata, matching, similarity, block, like, comparedStats, strings} = this.props;
-        const otherPicture = otherUser && otherUser.photo ? otherUser.photo.thumbnail.small : `${IMAGES_ROOT}media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
-        const ownPicture = user && user.photo ? user.photo.thumbnail.small : `${IMAGES_ROOT}media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
+        const otherPicture = otherUser && otherUser.photo ? otherUser.photo.thumbnail.small : 'img/no-img/small.jpg';
+        const ownPicture = user && user.photo ? user.photo.thumbnail.small : 'img/no-img/small.jpg';
         const likeText = like === null ? strings.saving : like ? strings.dontLike : strings.like;
         const blockClass = block ? "icon-block blocked" : "icon-block";
         return (

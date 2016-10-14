@@ -1,5 +1,4 @@
 import React, { PropTypes, Component } from 'react';
-import { IMAGES_ROOT } from '../constants/Constants';
 import TopNavBar from '../components/ui/TopNavBar';
 import ToolBar from '../components/ui/ToolBar';
 import CardContentList from '../components/interests/CardContentList';
@@ -189,8 +188,8 @@ export default class OtherInterestsPage extends Component {
         const {interests, noInterests, otherUser, user, params, pagination, strings} = this.props;
         const ownUserId = parseId(user);
         const otherUserId = parseInt(params.userId);
-        const otherUserPicture = otherUser && otherUser.photo ? otherUser.photo.thumbnail.small : `${IMAGES_ROOT}media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
-        const ownPicture = user && user.photo ? user.photo.thumbnail.small : `${IMAGES_ROOT}media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
+        const otherUserPicture = otherUser && otherUser.photo ? otherUser.photo.thumbnail.small : 'img/no-img/small.jpg';
+        const ownPicture = user && user.photo ? user.photo.thumbnail.small : 'img/no-img/small.jpg';
         return (
             <div className="view view-main" onScroll={this.handleScroll}>
                 {this.state.carousel ?

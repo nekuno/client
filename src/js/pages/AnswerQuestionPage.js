@@ -1,6 +1,5 @@
 import React, { PropTypes, Component } from 'react';
 import selectn from 'selectn';
-import { IMAGES_ROOT } from '../constants/Constants';
 import TopNavBar from '../components/ui/TopNavBar';
 import RegisterQuestionsFinishedPopup from '../components/questions/RegisterQuestionsFinishedPopup';
 import AnswerQuestion from '../components/questions/AnswerQuestion';
@@ -148,7 +147,7 @@ export default class AnswerQuestionPage extends Component {
         const {user, strings, errors, noMoreQuestions, userAnswer, question, isJustRegistered, isJustCompleted, totalQuestions, questionNumber, steps, tutorialLocale, endTutorialHandler} = this.props;
         const userId = parseId(user);
         const navBarTitle = question && (isJustRegistered || isJustCompleted) ? strings.question + ' ' + questionNumber + '/' + totalQuestions : strings.question;
-        const ownPicture = user.photo ? user.photo.thumbnail.small : `${IMAGES_ROOT}media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
+        const ownPicture = user.photo ? user.photo.thumbnail.small : 'img/no-img/small.jpg';
         const isRegisterQuestion = selectn('isRegisterQuestion', question);
 
         return (

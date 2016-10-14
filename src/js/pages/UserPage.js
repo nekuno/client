@@ -1,5 +1,4 @@
 import React, { PropTypes, Component } from 'react';
-import { IMAGES_ROOT } from '../constants/Constants';
 import User from '../components/User';
 import ProfileDataList from '../components/profile/ProfileDataList'
 import TopNavBar from '../components/ui/TopNavBar';

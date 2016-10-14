@@ -41,8 +41,9 @@ export function requestOwnProfile(userId) {
         success: ActionTypes.REQUEST_OWN_PROFILE_SUCCESS,
         failure: ActionTypes.REQUEST_OWN_PROFILE_ERROR
     }, {userId})
-        .then(function (response) {
-            checkLocale(response.interfaceLanguage);
+        .then(function () {
+            let profile = ProfileStore.get(userId);
+            checkLocale(profile.interfaceLanguage);
             return null;
         });
 }

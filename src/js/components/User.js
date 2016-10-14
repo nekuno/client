@@ -18,7 +18,7 @@ export default class User extends Component {
 
     render() {
         const {user, profile, other, onClick} = this.props;
-        let imgSrc = user.photo ? user.photo.thumbnail.medium : `${IMAGES_ROOT}media/cache/user_avatar_180x180/bundles/qnoowweb/images/user-no-img.jpg`;
+        let imgSrc = user.photo ? user.photo.thumbnail.medium : 'img/no-img/medium.jpg';
         const galleryLink = other ? `/users/${parseId(user)}/other-gallery` : 'gallery';
         return (
             <div className="User" onClick={onClick}>

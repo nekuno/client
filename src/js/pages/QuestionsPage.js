@@ -69,8 +69,8 @@ export default class QuestionsPage extends Component {
 
     render() {
         const {user, pagination, questions, strings} = this.props;
-        const ownPicture = user && user.photo ? user.photo.thumbnail.small : `${IMAGES_ROOT}media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
-        const defaultPicture = `${IMAGES_ROOT}media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
+        const ownPicture = user && user.photo ? user.photo.thumbnail.small : 'img/no-img/small.jpg';
+        const defaultPicture = 'img/no-img/small.jpg';
         return (
             <div className="view view-main" onScroll={this.handleScroll}>
                 <TopNavBar leftMenuIcon={true} centerText={strings.myProfile}/>

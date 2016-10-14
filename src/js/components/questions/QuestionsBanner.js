@@ -24,7 +24,7 @@ export default class QuestionsBanner extends Component {
     render() {
 
         const {strings, questionsTotal, user} = this.props;
-        const ownPicture = user && user.photo ? user.photo.thumbnail.medium : `${IMAGES_ROOT}media/cache/user_avatar_180x180/bundles/qnoowweb/images/user-no-img.jpg`;
+        const ownPicture = user && user.photo ? user.photo.thumbnail.medium : 'img/no-img/medium.jpg';
 
         return (
             <div className="answer-questions-link-container">

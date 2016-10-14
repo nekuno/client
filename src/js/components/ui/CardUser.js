@@ -1,6 +1,5 @@
 import React, { PropTypes, Component } from 'react';
 import { Link } from 'react-router';
-import { IMAGES_ROOT } from '../../constants/Constants';
 import ProgressBar from './ProgressBar';
 import Button from './Button';
 import Image from './Image';

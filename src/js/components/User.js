@@ -1,6 +1,5 @@
 import React, { PropTypes, Component } from 'react';
 import { Link } from 'react-router';
-import { IMAGES_ROOT } from '../constants/Constants';
 import selectn from 'selectn';
 import Image from './ui/Image';
 

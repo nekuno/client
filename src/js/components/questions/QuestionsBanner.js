@@ -1,5 +1,4 @@
 import React, { PropTypes, Component } from 'react';
-import { IMAGES_ROOT } from '../../constants/Constants';
 import { Link } from 'react-router';
 import translate from '../../i18n/Translate';
 

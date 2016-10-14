@@ -1,5 +1,4 @@
 import React, { PropTypes, Component } from 'react';
-import { IMAGES_ROOT } from '../constants/Constants';
 import TopNavBar from '../components/ui/TopNavBar';
 import ToolBar from '../components/ui/ToolBar';
 import OtherQuestionList from '../components/questions/OtherQuestionList';
@@ -108,8 +107,8 @@ export default class OtherQuestionsPage extends Component {
 
     render() {
         const {otherUser, user, questions, otherQuestions, pagination, strings, params} = this.props;
-        const ownPicture = user && user.photo ? user.photo.thumbnail.small : `${IMAGES_ROOT}media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
-        const otherPicture = otherUser && otherUser.photo ? otherUser.photo.thumbnail.small : `${IMAGES_ROOT}media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
+        const ownPicture = user && user.photo ? user.photo.thumbnail.small : 'img/no-img/small.jpg';
+        const otherPicture = otherUser && otherUser.photo ? otherUser.photo.thumbnail.small : 'img/no-img/small.jpg';
         return (
             <div className="view view-main" onScroll={this.handleScroll}>
                 <TopNavBar leftMenuIcon={true} centerText={otherUser ? otherUser.username : ''}/>

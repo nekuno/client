@@ -1,6 +1,5 @@
 import React, { PropTypes, Component } from 'react';
 import { Link } from 'react-router';
-import { IMAGES_ROOT } from '../../constants/Constants';
 import ProgressBar from './ProgressBar';
 import Button from './Button';
 import Image from './Image';
@@ -54,7 +53,7 @@ export default class CardUser extends Component {
         const messageButton = canSendMessage ? <span className="icon-message" onClick={this.handleMessage}></span> : '';
         const likeButtonText = like === null ? strings.saving : like ? strings.unlike : strings.like;
         const likeButton = hideLikeButton ? '' : <div className="like-button-container"><Button onClick={this.onLikeOrDislike} disabled={like === null ? 'disabled' : null}>{likeButtonText}</Button></div>;
-        const defaultSrc = `${IMAGES_ROOT}media/cache/user_avatar_180x180/bundles/qnoowweb/images/user-no-img.jpg`;
+        const defaultSrc = 'img/no-img/big.jpg';
         let imgSrc = photo ? photo.thumbnail.big : defaultSrc;
 
         return (

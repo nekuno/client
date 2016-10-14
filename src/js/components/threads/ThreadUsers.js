@@ -1,5 +1,4 @@
 import React, { PropTypes, Component } from 'react';
-import { IMAGES_ROOT } from '../../constants/Constants';
 import selectn from 'selectn'
 import ChipList from './../ui/ChipList';
 import Image from './../ui/Image';
@@ -38,13 +37,13 @@ export default class ThreadUsers extends Component {
 
     mergeImagesWithThread(thread) {
 
-        let images = thread.cached.map((item, index) => item.photo ? item.photo.thumbnail.small : `${IMAGES_ROOT}media/cache/profile_picture/bundles/qnoowweb/images/user-no-img.jpg`);
+        let images = thread.cached.map((item, index) => item.photo ? item.photo.thumbnail.small : 'img/no-img/small.jpg');
 
         thread.cached[0] = thread.cached[0] ? thread.cached[0] : [];
-        images[0] = thread.cached[0].photo ? thread.cached[0].photo.thumbnail.medium : `${IMAGES_ROOT}media/cache/user_avatar_180x180/bundles/qnoowweb/images/user-no-img.jpg`;
+        images[0] = thread.cached[0].photo ? thread.cached[0].photo.thumbnail.medium : 'img/no-img/medium.jpg';
 
         if (images.length == 1 && !thread.cached[0].photo) {
-            [1, 2, 3, 4].forEach(index => images[index] = `${IMAGES_ROOT}media/cache/profile_picture/bundles/qnoowweb/images/user-no-img.jpg`);
+            [1, 2, 3, 4].forEach(index => images[index] = 'img/no-img/small.jpg');
         }
 
         images.forEach((item, index) => {
@@ -89,7 +88,7 @@ export default class ThreadUsers extends Component {
 
     render() {
         const {thread, last, filters, profile, isSomethingWorking, avKey, strings} = this.props;
-        const defaultUserImage = `${IMAGES_ROOT}media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
+        const defaultUserImage = 'img/no-img/small.jpg';
         let formattedThread = this.mergeImagesWithThread(thread);
         const totalResults = formattedThread.totalResults;
         const mustBeDisabled = selectn('orientation', profile) && (thread.disabled || totalResults == 0 && isSomethingWorking);

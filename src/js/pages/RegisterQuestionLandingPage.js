@@ -1,5 +1,4 @@
 import React, { PropTypes, Component } from 'react';
-import { IMAGES_ROOT } from '../constants/Constants';
 import FullWidthButton from '../components/ui/FullWidthButton';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
@@ -62,7 +61,7 @@ export default class RegisterQuestionLandingPage extends Component {
     render() {
 
         let user = this.props.user;
-        let imgSrc = user && user.photo ? user.photo.thumbnail.medium : `${IMAGES_ROOT}media/cache/user_avatar_60x60/bundles/qnoowweb/images/user-no-img.jpg`;
+        let imgSrc = user && user.photo ? user.photo.thumbnail.medium : 'img/no-img/small.jpg';
         const strings = this.props.strings;
 
         return (

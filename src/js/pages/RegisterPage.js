@@ -85,6 +85,7 @@ export default class RegisterPage extends Component {
                     let user = SocialNetworkService.getUser(resource);
                     let profile = SocialNetworkService.getProfile(resource);
                     user[resource + 'ID'] = SocialNetworkService.getResourceId(resource);
+                    user.enabled = true;
                     profile.interfaceLanguage = interfaceLanguage;
                     profile.orientationRequired = false;
                     if (!profile.location && navigator.geolocation) {

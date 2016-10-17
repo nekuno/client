@@ -171,23 +171,32 @@ export default class AnswerQuestionPage extends Component {
 
 AnswerQuestionPage.defaultProps = {
     strings: {
-        question: 'Question',
-        skip: 'Skip',
-        tutorialFirstStep: 'Select first your answer in the first column. Then, select the answers that you would accept from other users in the second column',
-        tutorialSecondStepTitle: 'Answers importance',
-        tutorialSecondStep: 'Select how important are these answers for you'
+        question               : 'Question',
+        skip                   : 'Skip',
+        tutorialFirstStepTitle : 'Your answer',
+        tutorialFirstStep      : 'This is your answer to the above question.',
+        tutorialSecondStepTitle: 'Others answers',
+        tutorialSecondStep     : 'Here you choose what other person should answer to be compatible with you; you can choose more than one answer.',
+        tutorialThirdStepTitle : 'Answers importance',
+        tutorialThirdStep      : 'Select how important are these answers for you.'
     },
     steps: [
         {
-            titleRef: 'question',
+            titleRef: 'tutorialFirstStepTitle',
             textRef: 'tutorialFirstStep',
-            selector: '#joyride-1-question',
-            position: 'bottom',
+            selector: '#joyride-1-your-answer',
+            position: 'top',
         },
         {
             titleRef: 'tutorialSecondStepTitle',
             textRef: 'tutorialSecondStep',
-            selector: '#joyride-2-answer-importance',
+            selector: '#joyride-2-others-answers',
+            position: 'top',
+        },
+        {
+            titleRef: 'tutorialThirdStepTitle',
+            textRef: 'tutorialThirdStep',
+            selector: '#joyride-3-answer-importance',
             position: 'top',
         }
     ]

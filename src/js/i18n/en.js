@@ -2,9 +2,12 @@ export default {
     AnswerQuestionPage               : {
         question               : 'Question',
         skip                   : 'Skip',
-        tutorialFirstStep      : 'Select first your answer in the first column. Then, select the answers that you would accept from other users in the second column',
-        tutorialSecondStepTitle: 'Answers importance',
-        tutorialSecondStep     : 'Select how important are these answers for you'
+        tutorialFirstStepTitle : 'Your answer',
+        tutorialFirstStep      : 'This is your answer to the above question.',
+        tutorialSecondStepTitle: 'Others answers',
+        tutorialSecondStep     : 'Here you choose what other person should answer to be compatible with you; you can choose more than one answer.',
+        tutorialThirdStepTitle : 'Answers importance',
+        tutorialThirdStep      : 'Select how important are these answers for you.'
     },
     ChatMessagesPage                 : {
         noMoreMessages: 'You have no messages',

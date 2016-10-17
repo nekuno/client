@@ -2,9 +2,12 @@ export default {
     AnswerQuestionPage               : {
         question               : 'Pregunta',
         skip                   : 'Omitir',
-        tutorialFirstStep      : 'Selecciona primero tu respuesta en la primera columna. Luego, selecciona las repuestas que aceptarías de otros usuarios en la segunda columna',
-        tutorialSecondStepTitle: 'Importancia de las respuestas',
-        tutorialSecondStep     : 'Selecciona cómo son de importantes estas respuestas para ti'
+        tutorialFirstStepTitle : 'Tu respuesta',
+        tutorialFirstStep      : 'Esta es tu respuesta a la pregunta de arriba.',
+        tutorialSecondStepTitle: 'Respuestas de otros',
+        tutorialSecondStep     : 'Aquí eliges qué debería de contestar otra persona para que sea compatible contigo; puedes elegir más de una respuesta.',
+        tutorialThirdStepTitle : 'Importancia de las respuestas',
+        tutorialThirdStep      : 'Selecciona cómo son de importantes estas respuestas para ti.'
     },
     ChatMessagesPage                 : {
         noMoreMessages: 'No tienes más mensajes',

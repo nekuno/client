@@ -93,6 +93,8 @@ export default class CreateThreadPage extends Component {
                 ThreadActionCreators.requestRecommendation(createdThread.id);
                 this.setState({creating: false});
                 this.context.history.pushState(null, `threads`);
+            }, () => {
+                this.setState({creating: false});
             });
         this.setState({creating: true});
     }

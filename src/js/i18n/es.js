@@ -478,10 +478,11 @@ export default {
     // Tutorial //
     ////////////////
     TutorialComponent                : {
-        back : 'Volver',
-        close: 'Entendido',
-        last : 'Último',
-        next : 'Siguiente',
-        skip : 'Omitir'
+        back   : 'Volver',
+        close  : 'Entendido',
+        last   : 'Último',
+        next   : 'Siguiente',
+        skip   : 'Omitir',
+        seeMore: '<a href="https://nekuno.com" target="_blank">Ver más sobre Nekuno</a>'
     }
 }

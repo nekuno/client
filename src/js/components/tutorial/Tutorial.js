@@ -21,10 +21,13 @@ function setStepsStyles(steps) {
     return steps;
 }
 
-function setStepsStrings(steps, strings) {
+function setStepsStrings(props, steps) {
+    const strings =  locales[props.locale]['TutorialComponent'];
+    const customStrings = props.strings;
     steps.forEach(step => {
-        step.title = strings[step.titleRef];
-        step.text = strings[step.textRef];
+        step.title = customStrings[step.titleRef];
+        step.text = customStrings[step.textRef];
+        step.text += ' ' + strings.seeMore;
     });
 
     return steps;
@@ -65,20 +68,21 @@ export default function tutorial() {
                 this.onCallback = this.onCallback.bind(this);
             }
 
-            addSteps(steps, joyride, strings) {
+            addSteps(props, joyride) {
+                let steps = props.steps;
                 if (!steps.length) {
                     return false;
                 }
 
                 steps = setStepsStyles(steps);
-                steps = setStepsStrings(steps, strings);
+                steps = setStepsStrings(props, steps);
                 joyride.parseSteps(steps);
             }
 
             start(joyride) {
-                const {strings, steps, route} = this.props;
+                const {route} = this.props;
                 if (!LocalStorageService.getObjectProperty('nekuno_tutorial', route.name) && !this.state.displayed) {
-                    this.addSteps(steps, joyride, strings);
+                    this.addSteps(this.props, joyride);
                     window.setTimeout(() => {
                         joyride.start()
                     }, 0);

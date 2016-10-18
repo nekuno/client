@@ -153,9 +153,15 @@ export default {
         next   : 'HACER TEST'
     },
     ThreadPage                       : {
-        threads       : 'Descubrir',
-        create        : 'Crear',
-        loadingMessage: 'Cargando hilos'
+        threads                : 'Descubrir',
+        create                 : 'Crear',
+        loadingMessage         : 'Cargando hilos',
+        tutorialFirstStepTitle : 'Ovillos',
+        tutorialFirstStep      : 'En un Ovillo de Nekuno encontrarás aquello que sea más compatible contigo; tú puedes borrarlos o editarlos para introducir nuevos filtros sobre los aspectos que quieras.',
+        tutorialSecondStepTitle: 'Crear un Ovillo',
+        tutorialSecondStep     : 'Desde aquí puedes crear un nuevo Ovillo sobre lo que más te interese.',
+        tutorialThirdStepTitle : 'Menú',
+        tutorialThirdStep      : 'Este es el botón para abrir el menú y este punto verde indica que tienes mensajes nuevos. ¡Te invitamos a que explores todo Nekuno! ¡Gracias por participar en esta Beta privada!'
     },
     RecommendationPage               : {
         loadingMessage  : 'Cargando recomendaciones',

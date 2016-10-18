@@ -6,6 +6,7 @@ import EmptyMessage from '../components/ui/EmptyMessage';
 import ProcessesProgress from '../components/processes/ProcessesProgress';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
+import tutorial from '../components/tutorial/Tutorial';
 import connectToStores from '../utils/connectToStores';
 import * as UserActionCreators from '../actions/UserActionCreators';
 import * as ThreadActionCreators from '../actions/ThreadActionCreators';
@@ -16,6 +17,7 @@ import FilterStore from '../stores/FilterStore';
 import QuestionStore from '../stores/QuestionStore';
 import RecommendationStore from '../stores/RecommendationStore';
 import WorkersStore from '../stores/WorkersStore';
+import Joyride from 'react-joyride';
 
 /**
  * Requests data from server for current props.
@@ -57,18 +59,25 @@ function getState(props) {
 
 @AuthenticatedComponent
 @translate('ThreadPage')
+@tutorial()
 @connectToStores([ThreadStore, RecommendationStore, ProfileStore, FilterStore, WorkersStore], getState)
 export default class ThreadPage extends Component {
 
     static propTypes = {
         // Injected by @AuthenticatedComponent
-        user   : PropTypes.object.isRequired,
+        user              : PropTypes.object.isRequired,
         // Injected by @translate:
-        strings: PropTypes.object,
+        strings           : PropTypes.object,
+        // Injected by @tutorial:
+        steps             : PropTypes.array,
+        startTutorial     : PropTypes.func,
+        resetTutorial     : PropTypes.func,
+        endTutorialHandler: PropTypes.func,
+        tutorialLocale    : PropTypes.object,
         // Injected by @connectToStores:
-        threads: PropTypes.array,
-        profile: PropTypes.object,
-        filters: PropTypes.object
+        threads           : PropTypes.array,
+        profile           : PropTypes.object,
+        filters           : PropTypes.object
     };
 
     static contextTypes = {
@@ -85,15 +94,26 @@ export default class ThreadPage extends Component {
         requestData(this.props);
     }
 
+    componentDidUpdate() {
+        if (Object.keys(this.props.threads).length > 0) {
+            window.setTimeout(() => this.props.startTutorial(this.refs.joyrideThreads), 0);
+        }
+    }
+
+    componentWillUnmount() {
+        this.props.resetTutorial(this.refs.joyrideThreads);
+    }
+
     onAddThreadClickHandler() {
         this.context.history.pushState(null, '/create-thread');
     }
 
     render() {
-        const {threads, filters, profile, strings, user, isSomethingWorking} = this.props;
+        const {threads, filters, profile, strings, user, isSomethingWorking, steps, tutorialLocale, endTutorialHandler} = this.props;
         return (
             <div className="view view-main">
                 <TopNavBar leftMenuIcon={true} centerText={strings.threads} centerTextSize={'large'} rightText={strings.create} rightIcon={'plus'} onRightLinkClickHandler={this.onAddThreadClickHandler}/>
+                <Joyride ref="joyrideThreads" steps={steps} locale={tutorialLocale} callback={endTutorialHandler} type="continuous"/>
                 <div className="page threads-page">
                     <div id="page-content">
                         <ProcessesProgress />
@@ -112,8 +132,34 @@ export default class ThreadPage extends Component {
 
 ThreadPage.defaultProps = {
     strings: {
-        threads       : 'Discover',
-        create        : 'New',
-        loadingMessage: 'Loading yarns'
-    }
+        threads                : 'Discover',
+        create                 : 'New',
+        loadingMessage         : 'Loading yarns',
+        tutorialFirstStepTitle : 'Yarns',
+        tutorialFirstStep      : 'In a Nekuno yarn you will find that which is most compatible with you; you can delete or edit them to introduce new filters on the issues you want.',
+        tutorialSecondStepTitle: 'Create a yarn',
+        tutorialSecondStep     : 'Here you can create a new yarn about what most interests you.',
+        tutorialThirdStepTitle : 'Menu',
+        tutorialThirdStep      : 'This is the button to open the menu and this green dot indicates you have new messages. We invite you to explore all Nekuno! Thank you for participating in this private Beta!'
+    },
+    steps: [
+        {
+            titleRef: 'tutorialFirstStepTitle',
+            textRef: 'tutorialFirstStep',
+            selector: '#joyride-1-yarns',
+            position: 'bottom',
+        },
+        {
+            titleRef: 'tutorialSecondStepTitle',
+            textRef: 'tutorialSecondStep',
+            selector: '#joyride-2-create-yarn',
+            position: 'bottom',
+        },
+        {
+            titleRef: 'tutorialThirdStepTitle',
+            textRef: 'tutorialThirdStep',
+            selector: '#joyride-3-menu',
+            position: 'bottom',
+        }
+    ]
 };

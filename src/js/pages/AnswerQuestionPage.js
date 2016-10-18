@@ -157,7 +157,7 @@ export default class AnswerQuestionPage extends Component {
                     :
                     <TopNavBar leftMenuIcon={true} centerText={navBarTitle} rightText={isRegisterQuestion ? '' : strings.skip} onRightLinkClickHandler={isRegisterQuestion ? null : this.skipQuestionHandler}/>
                 }
-                <Joyride ref="joyrideAnswerQuestion" steps={steps} locale={tutorialLocale} callback={endTutorialHandler}/>
+                <Joyride ref="joyrideAnswerQuestion" steps={steps} locale={tutorialLocale} callback={endTutorialHandler} type="continuous"/>
                 <div className="page answer-question-page">
                     <div id="page-content" className="answer-question-content">
                         <AnswerQuestion question={question} userAnswer={userAnswer} userId={userId} errors={errors} noMoreQuestions={noMoreQuestions} ownPicture={ownPicture}/>
@@ -177,8 +177,8 @@ AnswerQuestionPage.defaultProps = {
         tutorialFirstStep      : 'This is your answer to the above question.',
         tutorialSecondStepTitle: 'Others answers',
         tutorialSecondStep     : 'Here you choose what other person should answer to be compatible with you; you can choose more than one answer.',
-        tutorialThirdStepTitle : 'Answers importance',
-        tutorialThirdStep      : 'Select how important are these answers for you.'
+        tutorialThirdStepTitle : 'Importance',
+        tutorialThirdStep      : 'This will be the question`s importance when making compatibility calculations.'
     },
     steps: [
         {

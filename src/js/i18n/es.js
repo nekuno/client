@@ -6,8 +6,8 @@ export default {
         tutorialFirstStep      : 'Esta es tu respuesta a la pregunta de arriba.',
         tutorialSecondStepTitle: 'Respuestas de otros',
         tutorialSecondStep     : 'Aquí eliges qué debería de contestar otra persona para que sea compatible contigo; puedes elegir más de una respuesta.',
-        tutorialThirdStepTitle : 'Importancia de las respuestas',
-        tutorialThirdStep      : 'Selecciona cómo son de importantes estas respuestas para ti.'
+        tutorialThirdStepTitle : 'Importancia',
+        tutorialThirdStep      : 'Esta será la importancia que tendrá la pregunta a la hora de hacer los cálculos de compatibilidad.'
     },
     ChatMessagesPage                 : {
         noMoreMessages: 'No tienes más mensajes',
@@ -480,7 +480,7 @@ export default {
     TutorialComponent                : {
         back   : 'Volver',
         close  : 'Entendido',
-        last   : 'Último',
+        last   : 'Entendido',
         next   : 'Siguiente',
         skip   : 'Omitir',
         seeMore: '<a href="https://nekuno.com" target="_blank">Ver más sobre Nekuno</a>'

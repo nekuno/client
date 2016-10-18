@@ -85,7 +85,7 @@ export default function tutorial() {
                 if (!LocalStorageService.getObjectProperty('nekuno_tutorial', route.name) && !this.state.displayed) {
                     this.addSteps(this.props, joyride);
                     window.setTimeout(() => {
-                        joyride.start()
+                        joyride.start(true);
                     }, 0);
                     this.setState({displayed: true});
                 }

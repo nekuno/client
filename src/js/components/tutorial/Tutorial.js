@@ -27,7 +27,8 @@ function setStepsStrings(props, steps) {
     steps.forEach(step => {
         step.title = customStrings[step.titleRef];
         step.text = customStrings[step.textRef];
-        step.text += ' ' + strings.seeMore;
+        // TODO: Uncomment to show "see more" link
+        //step.text += ' ' + strings.seeMore;
     });
 
     return steps;

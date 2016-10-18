@@ -16,6 +16,7 @@ body #root .App .view .page {
           .list-block.answers, .list-block.accepted-answers {
             margin: auto;
             float: left;
+            position: relative;
             width: 82%;
 
             .answer-question-who-text {
@@ -111,6 +112,14 @@ body #root .App .view .page {
                 }
               }
             }
+          }
+
+          .answers-tutorial-block {
+            height: 100%;
+            left: 100%;
+            margin-left: -32px;
+            position: absolute;
+            width: 42px;
           }
         }
       }

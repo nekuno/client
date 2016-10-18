@@ -35,7 +35,7 @@ export default class TextRadios extends Component {
 					</ul>
 				</div>
 				:
-				<div id="joyride-2-answer-importance" className={className ? "text-radios " + className : "text-radios"}>
+				<div id="joyride-3-answer-importance" className={className ? "text-radios " + className : "text-radios"}>
 					<div className="text-radios-title">{title}</div>
 					<div className={labelsLength ? 'text-radios-container' : ' unique-chip text-radios-container'}>
 						{labels.map(label =>

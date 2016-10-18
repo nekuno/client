@@ -2,9 +2,12 @@ export default {
     AnswerQuestionPage               : {
         question               : 'Pregunta',
         skip                   : 'Omitir',
-        tutorialFirstStep      : 'Selecciona primero tu respuesta en la primera columna. Luego, selecciona las repuestas que aceptarías de otros usuarios en la segunda columna',
-        tutorialSecondStepTitle: 'Importancia de las respuestas',
-        tutorialSecondStep     : 'Selecciona cómo son de importantes estas respuestas para ti'
+        tutorialFirstStepTitle : 'Tu respuesta',
+        tutorialFirstStep      : 'Esta es tu respuesta a la pregunta de arriba.',
+        tutorialSecondStepTitle: 'Respuestas de otros',
+        tutorialSecondStep     : 'Aquí eliges qué debería de contestar otra persona para que sea compatible contigo; puedes elegir más de una respuesta.',
+        tutorialThirdStepTitle : 'Importancia',
+        tutorialThirdStep      : 'Esta será la importancia que tendrá la pregunta a la hora de hacer los cálculos de compatibilidad.'
     },
     ChatMessagesPage                 : {
         noMoreMessages: 'No tienes más mensajes',
@@ -22,7 +25,7 @@ export default {
     },
     ConnectSocialNetworksPage        : {
         top    : 'Conexión con RRSS',
-        title  : 'Conecta con tu mundo',
+        title  : 'Mejora las recomendaciones',
         excerpt: '¡Por fin tus datos trabajarán para ti! ¡Cuantos más intereses aportes, mejores recomendaciones obtendrás!',
         footer : 'Recuerda: tú tienes el control en todo momento, no publicaremos nada en tus redes sociales'
     },
@@ -50,7 +53,7 @@ export default {
         photos   : 'Fotos',
         questions: 'Respuestas',
         interests: 'Intereses',
-        empty    : 'No tienes ningún interés todavía. Por favor, conecta tus redes sociales o explora tus hilos y cuéntanos lo que te interesa.'
+        empty    : 'No tienes ningún interés todavía. Por favor, conecta tus redes sociales o explora tus ovillos y cuéntanos lo que te interesa.'
     },
     GalleryPage                      : {
         importAlbum    : 'Importa un álbum',
@@ -150,13 +153,19 @@ export default {
         next   : 'HACER TEST'
     },
     ThreadPage                       : {
-        threads       : 'Descubrir',
-        create        : 'Crear',
-        loadingMessage: 'Cargando hilos'
+        threads                : 'Descubrir',
+        create                 : 'Crear',
+        loadingMessage         : 'Cargando ovillos',
+        tutorialFirstStepTitle : 'Ovillos',
+        tutorialFirstStep      : 'En un Ovillo de Nekuno encontrarás aquello que sea más compatible contigo; tú puedes borrarlos o editarlos para introducir nuevos filtros sobre los aspectos que quieras.',
+        tutorialSecondStepTitle: 'Crear un Ovillo',
+        tutorialSecondStep     : 'Desde aquí puedes crear un nuevo Ovillo sobre lo que más te interese.',
+        tutorialThirdStepTitle : 'Menú',
+        tutorialThirdStep      : 'Este es el botón para abrir el menú y este punto verde indica que tienes mensajes nuevos. ¡Te invitamos a que explores todo Nekuno! ¡Gracias por participar en esta Beta privada!'
     },
     RecommendationPage               : {
         loadingMessage  : 'Cargando recomendaciones',
-        confirmDelete   : '¿Estás seguro de que quieres borrar este hilo?',
+        confirmDelete   : '¿Estás seguro de que quieres borrar este ovillo?',
         processingThread: 'Estos resultados son provisionales, en breve mejorarán',
         confirmReplace  : 'Hemos mejorado tus recomendaciones. ¿Quieres actualizarlas?'
     },
@@ -189,20 +198,20 @@ export default {
         confirmBlock: '¿Estás seguro de que quieres bloquear a este usuario?'
     },
     CreateThreadPage                 : {
-        create  : 'Crear hilos',
-        title   : '¿Qué deseas descubrir en este nuevo hilo?',
+        create  : 'Crear ovillos',
+        title   : '¿Qué deseas descubrir en este nuevo ovillo?',
         cancel  : 'Cancelar',
-        people  : 'Usuarios de Nekuno',
-        contents: 'Enlaces de internet',
-        creating: 'Creando hilo',
+        people  : 'Gente compatible',
+        contents: 'Contenido interesante',
+        creating: 'Creando ovillo',
     },
     EditThreadPage                   : {
-        edit       : 'Editar hilo',
+        edit       : 'Editar ovillo',
         cancel     : 'Cancelar',
         placeholder: 'Título',
-        people     : 'Usuarios de Nekuno',
-        contents   : 'Enlaces de internet',
-        updating   : 'Editando hilo',
+        people     : 'Gente compatible',
+        contents   : 'Contenido interesante',
+        updating   : 'Editando ovillo',
     },
     ////////////////
     // Components //
@@ -316,7 +325,7 @@ export default {
         similarityTitle         : 'Calculando similitud',
         matchingTitle           : 'Calculando compatibilidad',
         affinityTitle           : 'Calculando afinidad',
-        threadsTitle            : 'Creando más hilos',
+        threadsTitle            : 'Creando más ovillos',
         linksPreparingTitle     : 'Preparando para procesar enlaces',
         similarityPreparingTitle: 'Preparando para calcular similitud',
         matchingPreparingTitle  : 'Preparando para calcular compatibilidad',
@@ -324,7 +333,7 @@ export default {
         registerWorkersFinish   : '¡Felicidades! Los procesos de registro han finalizado'
     },
     ThreadNoResults                  : {
-        emptyThread: 'Este hilo está vacío. Edítalo o elimínalo',
+        emptyThread: 'Este ovillo está vacío. Edítalo o elimínalo',
         edit       : 'Editar',
         delete     : 'Eliminar',
         deleting   : 'Eliminando'
@@ -352,14 +361,14 @@ export default {
         close    : 'Cerrar',
         interests: 'Intereses',
         videos   : 'Videos',
-        audios   : 'Audios',
+        audios   : 'Música',
         photos   : 'Fotos',
         websites : 'Todo',
         people   : 'Personas',
         channels : 'Canales'
     },
     OrientationRequiredPopup         : {
-        title              : 'Indícanos tu orientación sexual para ver este hilo',
+        title              : 'Indícanos tu orientación sexual para ver este ovillo',
         orientationRequired: 'Orientación sexual requerida',
         heterosexual       : 'Heterosexual',
         bisexual           : 'Bisexual',
@@ -373,7 +382,7 @@ export default {
         continue : 'Continuar a recomendaciones'
     },
     SetThreadTitlePopup              : {
-        title      : '¿Qué título quieres que tenga este hilo?',
+        title      : '¿Qué título quieres que tenga este ovillo?',
         placeholder: 'Título',
         finish     : 'Terminar'
     },
@@ -382,8 +391,8 @@ export default {
         selectFilter  : 'Selecciona un filtro',
         addFilterTitle: 'Puedes añadir filtros para que los resultados sean más específicos',
         addFilter     : 'Añadir filtro',
-        save          : 'Guardar hilo',
-        create        : 'Crear hilo',
+        save          : 'Guardar ovillo',
+        create        : 'Crear ovillo',
         addFilters    : 'Añade un filtro primero'
     },
     CreateUsersThread                : {
@@ -391,8 +400,8 @@ export default {
         selectFilter  : 'Selecciona un filtro',
         addFilterTitle: 'Puedes añadir filtros para que los resultados sean más específicos',
         addFilter     : 'Añadir filtro',
-        save          : 'Guardar hilo',
-        create        : 'Crear hilo',
+        save          : 'Guardar ovillo',
+        create        : 'Crear ovillo',
         addFilters    : 'Añade un filtro primero'
     },
     ThreadContent                    : {
@@ -413,11 +422,11 @@ export default {
         placeholder: 'Escribe un número'
     },
     TagEdit                          : {
-        placeholder: 'Escribe un tag',
+        placeholder: 'Escribe una palabra',
         remove     : 'Eliminar'
     },
     TagsAndChoiceEdit                : {
-        placeholder: 'Escribe un tag en inglés',
+        placeholder: 'Escribe una palabra en inglés',
         remove     : 'Eliminar',
         add        : 'Añadir'
     },
@@ -437,15 +446,15 @@ export default {
         minDistance: 'Distancia mínima'
     },
     TagFilter                        : {
-        placeholder: 'Escribe un tag'
+        placeholder: 'Escribe una palabra'
     },
     TagsAndChoiceFilter              : {
-        placeholder: 'Escribe un tag',
+        placeholder: 'Escribe una palabra',
         remove     : 'Eliminar',
         add        : 'Añadir'
     },
     TagsAndMultipleChoicesFilter     : {
-        placeholder: 'Escribe un tag en inglés',
+        placeholder: 'Escribe una palabra en inglés',
         remove     : 'Eliminar',
         add        : 'Añadir'
     },
@@ -475,10 +484,11 @@ export default {
     // Tutorial //
     ////////////////
     TutorialComponent                : {
-        back : 'Volver',
-        close: 'Entendido',
-        last : 'Último',
-        next : 'Siguiente',
-        skip : 'Omitir'
+        back   : 'Volver',
+        close  : 'Entendido',
+        last   : 'Entendido',
+        next   : 'Siguiente',
+        skip   : 'Omitir',
+        seeMore: '<a href="https://nekuno.com" target="_blank">Ver más sobre Nekuno</a>'
     }
 }

@@ -30,7 +30,7 @@ export default class TopRightLink extends Component {
 				<div className="col-30 right" onClick={onClickHandler}>
 					{icon ?
 							text ?
-								<div className={iconsWrapperClass + ' icon-wrapper-with-text'}>
+								<div id="joyride-2-create-yarn" className={iconsWrapperClass + ' icon-wrapper-with-text'}>
 									<span className={'icon-' + icon}></span>&nbsp;<span className="text">{text}</span>
 								</div>
 								:

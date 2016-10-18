@@ -125,6 +125,7 @@ export default class AnswerQuestionForm extends Component {
                 <form>
                     <div className="answers-block">
                         <div className="list-block accepted-answers">
+                            <div id="joyride-2-others-answers" className="answers-tutorial-block"></div>
                             <div className="answer-question-who-text">{strings.them}</div>
                             <div className="answer-question-picture">
                                 <div className="answer-question-other-picture-container">
@@ -149,6 +150,7 @@ export default class AnswerQuestionForm extends Component {
                             </ul>
                         </div>
                         <div className="list-block answers">
+                            <div id="joyride-1-your-answer" className="answers-tutorial-block"></div>
                             <div className="answer-question-who-text">{strings.you}</div>
                             <div className="answer-question-picture">
                                 <div className="answer-question-own-picture-container">

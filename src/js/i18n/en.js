@@ -2,9 +2,12 @@ export default {
     AnswerQuestionPage               : {
         question               : 'Question',
         skip                   : 'Skip',
-        tutorialFirstStep      : 'Select first your answer in the first column. Then, select the answers that you would accept from other users in the second column',
-        tutorialSecondStepTitle: 'Answers importance',
-        tutorialSecondStep     : 'Select how important are these answers for you'
+        tutorialFirstStepTitle : 'Your answer',
+        tutorialFirstStep      : 'This is your answer to the above question.',
+        tutorialSecondStepTitle: 'Others answers',
+        tutorialSecondStep     : 'Here you choose what other person should answer to be compatible with you; you can choose more than one answer.',
+        tutorialThirdStepTitle : 'Importance',
+        tutorialThirdStep      : 'This will be the question`s importance when making compatibility calculations.'
     },
     ChatMessagesPage                 : {
         noMoreMessages: 'You have no messages',
@@ -22,7 +25,7 @@ export default {
     },
     ConnectSocialNetworksPage        : {
         top    : 'Social Networks',
-        title  : 'Connect to your world',
+        title  : 'Improve recommendations',
         excerpt: 'Make your data work for you! The more interest you contribute, the better recommendations you’ll get!',
         footer : 'Remember, you’re in control at all times, we will not publish anything on your social networks'
     },
@@ -149,9 +152,15 @@ export default {
         next   : 'DO TEST'
     },
     ThreadPage                       : {
-        threads       : 'Discover',
-        create        : 'New',
-        loadingMessage: 'Loading yarns'
+        threads                : 'Discover',
+        create                 : 'New',
+        loadingMessage         : 'Loading yarns',
+        tutorialFirstStepTitle : 'Yarns',
+        tutorialFirstStep      : 'In a Nekuno Yarn you will find that which is most compatible with you; you can delete or edit them to introduce new filters on the issues you want.',
+        tutorialSecondStepTitle: 'Create a Yarn',
+        tutorialSecondStep     : 'Here you can create a new Yarn about what most interests you.',
+        tutorialThirdStepTitle : 'Menu',
+        tutorialThirdStep      : 'This is the button to open the menu and this green dot indicates you have new messages. We invite you to explore all Nekuno! Thank you for participating in this private Beta!'
     },
     RecommendationPage               : {
         loadingMessage  : 'Loading recommendations',
@@ -191,16 +200,16 @@ export default {
         create  : 'Create yarn',
         title   : 'What do you want to discover in this new yarn?',
         cancel  : 'Cancel',
-        people  : 'Users of Nekuno',
-        contents: 'Links of Internet',
+        people  : 'Compatible people',
+        contents: 'Interesting content',
         creating: 'Creating yarn',
     },
     EditThreadPage                   : {
         edit       : 'Edit yarn',
         cancel     : 'Cancel',
         placeholder: 'Title',
-        people     : 'Users of Nekuno',
-        contents   : 'Links of Internet',
+        people     : 'Compatible people',
+        contents   : 'Interesting content',
         updating   : 'Updating yarn',
     },
     ////////////////
@@ -351,7 +360,7 @@ export default {
         close    : 'Close',
         interests: 'interests',
         videos   : 'Videos',
-        audios   : 'Audios',
+        audios   : 'Music',
         photos   : 'Photos',
         websites : 'All',
         people   : 'People',
@@ -412,11 +421,11 @@ export default {
         placeholder: 'Type a number'
     },
     TagEdit                          : {
-        placeholder: 'Type a tag',
+        placeholder: 'Type a keyword',
         remove     : 'Remove'
     },
     TagsAndChoiceEdit                : {
-        placeholder: 'Type a tag',
+        placeholder: 'Type a keyword',
         remove     : 'Remove',
         add        : 'Add'
     },
@@ -436,15 +445,15 @@ export default {
         minDistance: 'Minimal distance'
     },
     TagFilter                        : {
-        placeholder: 'Type a tag'
+        placeholder: 'Type a keyword'
     },
     TagsAndChoiceFilter              : {
-        placeholder: 'Type a tag',
+        placeholder: 'Type a keyword',
         remove     : 'Remove',
         add        : 'Add'
     },
     TagsAndMultipleChoicesFilter     : {
-        placeholder: 'Type a tag',
+        placeholder: 'Type a keyword',
         remove     : 'Remove',
         add        : 'Add'
     },
@@ -474,10 +483,11 @@ export default {
     // Tutorial //
     ////////////////
     TutorialComponent                 : {
-        back : 'Back',
-        close: 'Understood',
-        last : 'Last',
-        next : 'Next',
-        skip : 'Skip'
+        back   : 'Back',
+        close  : 'Understood',
+        last   : 'Understood',
+        next   : 'Next',
+        skip   : 'Skip',
+        seeMore: '<a href="https://nekuno.com" target="_blank">See more about Nekuno</a>'
     }
 }

@@ -97,7 +97,7 @@ export default class ThreadUsers extends Component {
         const recommendationsAreLoading = totalResults && !thread.cached.some(item => item.photo);
 
         return (
-            <div className={avKey % 2 ? 'thread-even' : 'thread-odd'}>
+            <div id={avKey === 0 ? "joyride-1-yarns" : ""} className={avKey % 2 ? 'thread-even' : 'thread-odd'}>
                 {selectn('orientation', profile) && !mustBeDisabled && totalResults == 0 ?
                     <ThreadNoResults threadId={thread.id} deleting={thread.deleting == true} />
                     : null

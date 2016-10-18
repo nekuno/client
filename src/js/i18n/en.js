@@ -25,7 +25,7 @@ export default {
     },
     ConnectSocialNetworksPage        : {
         top    : 'Social Networks',
-        title  : 'Connect to your world',
+        title  : 'Improve recommendations',
         excerpt: 'Make your data work for you! The more interest you contribute, the better recommendations you’ll get!',
         footer : 'Remember, you’re in control at all times, we will not publish anything on your social networks'
     },
@@ -200,16 +200,16 @@ export default {
         create  : 'Create yarn',
         title   : 'What do you want to discover in this new yarn?',
         cancel  : 'Cancel',
-        people  : 'Users of Nekuno',
-        contents: 'Links of Internet',
+        people  : 'Compatible people',
+        contents: 'Interesting content',
         creating: 'Creating yarn',
     },
     EditThreadPage                   : {
         edit       : 'Edit yarn',
         cancel     : 'Cancel',
         placeholder: 'Title',
-        people     : 'Users of Nekuno',
-        contents   : 'Links of Internet',
+        people     : 'Compatible people',
+        contents   : 'Interesting content',
         updating   : 'Updating yarn',
     },
     ////////////////
@@ -360,7 +360,7 @@ export default {
         close    : 'Close',
         interests: 'interests',
         videos   : 'Videos',
-        audios   : 'Audios',
+        audios   : 'Music',
         photos   : 'Photos',
         websites : 'All',
         people   : 'People',
@@ -421,11 +421,11 @@ export default {
         placeholder: 'Type a number'
     },
     TagEdit                          : {
-        placeholder: 'Type a tag',
+        placeholder: 'Type a keyword',
         remove     : 'Remove'
     },
     TagsAndChoiceEdit                : {
-        placeholder: 'Type a tag',
+        placeholder: 'Type a keyword',
         remove     : 'Remove',
         add        : 'Add'
     },
@@ -445,15 +445,15 @@ export default {
         minDistance: 'Minimal distance'
     },
     TagFilter                        : {
-        placeholder: 'Type a tag'
+        placeholder: 'Type a keyword'
     },
     TagsAndChoiceFilter              : {
-        placeholder: 'Type a tag',
+        placeholder: 'Type a keyword',
         remove     : 'Remove',
         add        : 'Add'
     },
     TagsAndMultipleChoicesFilter     : {
-        placeholder: 'Type a tag',
+        placeholder: 'Type a keyword',
         remove     : 'Remove',
         add        : 'Add'
     },

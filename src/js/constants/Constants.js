@@ -1,7 +1,7 @@
 import config from '../config/config';
 
 export const API_ROOT = config.API_ROOT;
-export const INVITATIONS_URL = config.INVITATIONS_ROOT + '?token={token}';
+export const INVITATIONS_URL = config.INVITATIONS_ROOT + '{token}';
 export const API_URLS = {
     LOGIN                    : API_ROOT + 'login',
     VALIDATE_INVITATION_TOKEN: API_ROOT + 'invitations/token/validate/',

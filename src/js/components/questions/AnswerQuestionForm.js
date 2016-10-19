@@ -14,7 +14,8 @@ export default class AnswerQuestionForm extends Component {
         userAnswer     : PropTypes.object,
         ownPicture     : PropTypes.string.isRequired,
         userId         : PropTypes.number.isRequired,
-        question       : PropTypes.object.isRequired
+        question       : PropTypes.object.isRequired,
+        startTutorial  : PropTypes.func
     };
 
     static contextTypes = {
@@ -153,6 +154,9 @@ export default class AnswerQuestionForm extends Component {
                             <div id="joyride-1-your-answer" className="answers-tutorial-block"></div>
                             <div className="answer-question-who-text">{strings.you}</div>
                             <div className="answer-question-picture">
+                                <div className="joyride-start-button-wrapper" onClick={this.props.startTutorial.bind(true)}>
+                                    <div className="joyride-start-button">?</div>
+                                </div>
                                 <div className="answer-question-own-picture-container">
                                     <div id="joyride-container-2" className="answer-question-own-picture">
                                         <img src={ownPicture}/>

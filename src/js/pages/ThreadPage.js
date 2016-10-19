@@ -96,7 +96,7 @@ export default class ThreadPage extends Component {
 
     componentDidUpdate() {
         if (Object.keys(this.props.threads).length > 0) {
-            window.setTimeout(() => this.props.startTutorial(this.refs.joyrideThreads), 0);
+            window.setTimeout(() => this.props.startTutorial(this.refs.joyrideThreads), 1000);
         }
     }
 

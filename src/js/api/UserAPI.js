@@ -3,7 +3,6 @@ import {
     fetchUserArray,
     fetchProfile,
     putProfile,
-    fetchStats,
     fetchComparedStats,
     postBlockUser,
     deleteBlockUser,
@@ -56,7 +55,7 @@ export function getFilters(url = `filters`) {
 }
 
 export function getStats(url = `stats`) {
-    return fetchStats(url);
+    return getData(url);
 }
 
 export function getComparedStats(id, url = `stats/compare/${id}`) {

@@ -96,6 +96,13 @@ export default {
         photos                  : 'Fotos',
         changeProfilePhoto      : 'Cambiar foto de perfil'
     },
+    GroupPage                        : {
+        groups  : 'Tus grupos',
+        create   : 'Crear',
+        enter_name : 'Nombre del grupo',
+        join: 'Unirte',
+        enter_token : 'Código de invitación'
+    },
     LoginPage                        : {
         login        : 'Iniciar sesión',
         cancel       : 'Cancelar',
@@ -219,6 +226,7 @@ export default {
     LeftPanel                        : {
         interests     : 'Intereses',
         threads       : 'Descubrir',
+        groups        : 'Grupos',
         myProfile     : 'Mi perfil',
         conversations : 'Mensajes',
         socialNetworks: 'Mis redes sociales',
@@ -471,6 +479,9 @@ export default {
     },
     BirthdayEdit                     : {
         birthdayPlaceholder: 'Tu fecha de nacimiento'
+    },
+    Group                            : {
+        users : 'usuarios'
     },
     ////////////////
     // Framework7 //

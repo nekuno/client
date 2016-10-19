@@ -13,6 +13,8 @@ export const API_URLS = {
     CONSUME_INVITATION       : API_ROOT + 'invitations/consume/{token}',
     INVITATIONS              : API_ROOT + 'invitations',
     JOIN_GROUP               : API_ROOT + 'groups/{groupId}/members',
+    EXIT_GROUP               : API_ROOT + 'groups/{groupId]/members',
+    CREATE_GROUP             : API_ROOT + 'groups',
     CONNECT_ACCOUNT          : API_ROOT + 'tokens/{resource}?extend',
     CREATE_DEFAULT_THREADS   : API_ROOT + 'threads/default',
     USER_DATA_STATUS         : API_ROOT + 'data/status',

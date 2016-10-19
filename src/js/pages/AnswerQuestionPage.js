@@ -126,7 +126,7 @@ export default class AnswerQuestionPage extends Component {
         if(goToQuestionStats) {
             this.context.history.pushState(null, `/question-stats`);
         } else if (question && question.questionId) {
-            this.props.startTutorial(this.refs.joyrideAnswerQuestion);
+            window.setTimeout(() => this.props.startTutorial(this.refs.joyrideAnswerQuestion), 1000);
         }
     }
 

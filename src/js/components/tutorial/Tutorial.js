@@ -109,6 +109,7 @@ export default function tutorial() {
             reset(joyride) {
                 joyride.stop();
                 joyride.reset();
+                this.setState({displayed: false});
             }
 
             onCallback(tour) {
@@ -116,8 +117,11 @@ export default function tutorial() {
                 if (tour.type === 'finished') {
                     let userData = {};
                     userData.tutorials = user.tutorials || [];
-                    userData.tutorials.push(route.name);
+                    if (!userData.tutorials.some(value => value === route.name)) {
+                        userData.tutorials.push(route.name);
+                    }
                     UserActionCreators.editUser(userData);
+                    this.setState({displayed: false});
                 }
             }
 

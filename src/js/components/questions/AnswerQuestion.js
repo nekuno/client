@@ -13,6 +13,7 @@ export default class AnswerQuestion extends Component {
         userId         : PropTypes.number.isRequired,
         errors         : PropTypes.string.isRequired,
         noMoreQuestions: PropTypes.bool,
+        startTutorial  : PropTypes.func,
         // Injected by @translate:
         strings        : PropTypes.object
     };

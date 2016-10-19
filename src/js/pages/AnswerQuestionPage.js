@@ -107,6 +107,7 @@ export default class AnswerQuestionPage extends Component {
 
         this.skipQuestionHandler = this.skipQuestionHandler.bind(this);
         this.onContinue = this.onContinue.bind(this);
+        this.forceStartTutorial = this.forceStartTutorial.bind(this);
     }
 
     componentWillMount() {
@@ -143,6 +144,11 @@ export default class AnswerQuestionPage extends Component {
         this.context.history.pushState(null, '/threads');
     }
 
+    forceStartTutorial() {
+        this.props.resetTutorial(this.refs.joyrideAnswerQuestion);
+        this.props.startTutorial(this.refs.joyrideAnswerQuestion, true);
+    }
+
     render() {
         const {user, strings, errors, noMoreQuestions, userAnswer, question, isJustRegistered, isJustCompleted, totalQuestions, questionNumber, steps, tutorialLocale, endTutorialHandler} = this.props;
         const userId = parseId(user);
@@ -160,7 +166,7 @@ export default class AnswerQuestionPage extends Component {
                 <Joyride ref="joyrideAnswerQuestion" steps={steps} locale={tutorialLocale} callback={endTutorialHandler} type="continuous"/>
                 <div className="page answer-question-page">
                     <div id="page-content" className="answer-question-content">
-                        <AnswerQuestion question={question} userAnswer={userAnswer} userId={userId} errors={errors} noMoreQuestions={noMoreQuestions} ownPicture={ownPicture}/>
+                        <AnswerQuestion question={question} userAnswer={userAnswer} userId={userId} errors={errors} noMoreQuestions={noMoreQuestions} ownPicture={ownPicture} startTutorial={this.forceStartTutorial}/>
                     </div>
                 </div>
                 <RegisterQuestionsFinishedPopup onContinue={this.onContinue} />

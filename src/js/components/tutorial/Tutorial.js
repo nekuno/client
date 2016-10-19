@@ -1,7 +1,9 @@
 import { default as React } from 'react';
 import en from '../../i18n/en';
 import es from '../../i18n/es';
-import LocalStorageService from '../../services/LocalStorageService';
+import connectToStores from '../../utils/connectToStores';
+import * as UserActionCreators from '../../actions/UserActionCreators';
+import LoginStore from '../../stores/LoginStore';
 
 const locales = {en, es};
 
@@ -45,16 +47,29 @@ function getLocale(props) {
     };
 }
 
+/**
+ * Retrieves state from stores for current props.
+ */
+function getState(props) {
+    const user = LoginStore.user;
+
+    return {
+        user
+    };
+}
+
 export default function tutorial() {
 
     return Component => {
+        @connectToStores([LoginStore], getState)
         class TutorialComponent extends React.Component {
 
             static propTypes = {
                 steps         : React.PropTypes.array,
                 startTutorial : React.PropTypes.bool,
                 tutorialLocale: React.PropTypes.object,
-                strings       : React.PropTypes.object
+                strings       : React.PropTypes.object,
+                user          : React.PropTypes.object
             };
 
             constructor(props) {
@@ -80,9 +95,9 @@ export default function tutorial() {
                 joyride.parseSteps(steps);
             }
 
-            start(joyride) {
-                const {route} = this.props;
-                if (!LocalStorageService.getObjectProperty('nekuno_tutorial', route.name) && !this.state.displayed) {
+            start(joyride, force = false) {
+                const {route, user} = this.props;
+                if ((force || !user.tutorials || !user.tutorials.some(tutorial => tutorial === route.name)) && !this.state.displayed) {
                     this.addSteps(this.props, joyride);
                     window.setTimeout(() => {
                         joyride.start(true);
@@ -94,12 +109,19 @@ export default function tutorial() {
             reset(joyride) {
                 joyride.stop();
                 joyride.reset();
+                this.setState({displayed: false});
             }
 
             onCallback(tour) {
-                const {route} = this.props;
+                const {route, user} = this.props;
                 if (tour.type === 'finished') {
-                    LocalStorageService.setObjectProperty('nekuno_tutorial', route.name);
+                    let userData = {};
+                    userData.tutorials = user.tutorials || [];
+                    if (!userData.tutorials.some(value => value === route.name)) {
+                        userData.tutorials.push(route.name);
+                    }
+                    UserActionCreators.editUser(userData);
+                    this.setState({displayed: false});
                 }
             }
 

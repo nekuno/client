@@ -34,6 +34,30 @@ body #root .App .view .page {
               margin-right: -10px;
               text-align: right;
 
+              .joyride-start-button-wrapper {
+                background-color: #fff;
+                border-radius: 50%;
+                -moz-border-radius: 50%;
+                -webkit-border-radius: 50%;
+                cursor: pointer;
+                position: absolute;
+                height: 42px;
+                width: 42px;
+                
+                .joyride-start-button {
+                  background-color: $dark-blue;
+                  border-radius: 50%;
+                  -moz-border-radius: 50%;
+                  -webkit-border-radius: 50%;
+                  font-size: 1.6em;
+                  margin: 1px 0 0 1px;
+                  text-align: center;
+                  font-weight: bold;
+                  height: 40px;
+                  width: 40px;
+                }
+              }
+
               .answer-question-own-picture-container, .answer-question-other-picture-container {
                 background-color: #fff;
                 border-radius: 50%;

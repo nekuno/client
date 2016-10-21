@@ -22,11 +22,11 @@ body #root .App .view .page.threads-page  {
           margin: -5% 0 0 -10%;
           overflow: hidden;
           width: 120%;
-          -webkit-filter: blur(10px);
-          -moz-filter: blur(10px);
-          -o-filter: blur(10px);
-          -ms-filter: blur(10px);
-          filter: blur(10px);
+          -webkit-filter: blur(20px);
+          -moz-filter: blur(20px);
+          -o-filter: blur(20px);
+          -ms-filter: blur(20px);
+          filter: blur(20px);
           opacity: 0.3;
           backface-visibility: hidden;
           perspective: 1000;

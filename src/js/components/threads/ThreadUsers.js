@@ -95,6 +95,10 @@ export default class ThreadUsers extends Component {
         const threadClass = mustBeDisabled ? "thread-listed thread-disabled" :
             selectn('orientation', profile) && totalResults == 0 ? "thread-listed thread-no-results" : "thread-listed";
         const recommendationsAreLoading = totalResults && !thread.cached.some(item => item.photo);
+        let colorKey = avKey;
+        while (colorKey > 19) {
+            colorKey -= 20;
+        }
 
         return (
             <div id={avKey === 0 ? "joyride-1-yarns" : ""} className={avKey % 2 ? 'thread-even' : 'thread-odd'}>
@@ -104,7 +108,7 @@ export default class ThreadUsers extends Component {
                 }
 
                 <div className="thread-background-image-wrapper">
-                    <div className="thread-background-image" style={{background: 'url(' + formattedThread.cached[0].image + ') no-repeat center'}}></div>
+                    <div className={"thread-background-image" + " thread-background-" + colorKey}></div>
                 </div>
 
                 <div className={threadClass} onClick={this.goToThread}>

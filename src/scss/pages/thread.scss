@@ -22,20 +22,111 @@ body #root .App .view .page.threads-page  {
           margin: -5% 0 0 -10%;
           overflow: hidden;
           width: 120%;
-          -webkit-filter: blur(20px);
-          -moz-filter: blur(20px);
-          -o-filter: blur(20px);
-          -ms-filter: blur(20px);
-          filter: blur(20px);
-          opacity: 0.3;
-          backface-visibility: hidden;
-          perspective: 1000;
-          -webkit-backface-visibility: hidden;
-          -webkit-perspective: 1000;
           /* A circled shadow around background image
           -webkit-box-shadow: inset 0 0 200px #000000;
           -moz-box-shadow: inset 0 0 200px #000000;
           box-shadow: inset 0 0 200px #000000;*/
+
+          &.thread-background-0 {
+            -webkit-box-shadow: inset 0 0 200px $material-red;
+            -moz-box-shadow: inset 0 0 200px $material-red;
+            box-shadow: inset 0 0 200px $material-red;
+          }
+          &.thread-background-1 {
+            -webkit-box-shadow: inset 0 0 200px $material-pink;
+            -moz-box-shadow: inset 0 0 200px $material-pink;
+            box-shadow: inset 0 0 200px $material-pink;
+          }
+          &.thread-background-2 {
+            -webkit-box-shadow: inset 0 0 200px $material-purple;
+            -moz-box-shadow: inset 0 0 200px $material-purple;
+            box-shadow: inset 0 0 200px $material-purple;
+          }
+          &.thread-background-3 {
+            -webkit-box-shadow: inset 0 0 200px $material-deep-purple;
+            -moz-box-shadow: inset 0 0 200px $material-deep-purple;
+            box-shadow: inset 0 0 200px $material-deep-purple;
+          }
+          &.thread-background-4 {
+            -webkit-box-shadow: inset 0 0 200px $material-indigo;
+            -moz-box-shadow: inset 0 0 200px $material-indigo;
+            box-shadow: inset 0 0 200px $material-indigo;
+          }
+          &.thread-background-5 {
+            -webkit-box-shadow: inset 0 0 200px $material-blue;
+            -moz-box-shadow: inset 0 0 200px $material-blue;
+            box-shadow: inset 0 0 200px $material-blue;
+          }
+          &.thread-background-6 {
+            -webkit-box-shadow: inset 0 0 200px $material-light-blue;
+            -moz-box-shadow: inset 0 0 200px $material-light-blue;
+            box-shadow: inset 0 0 200px $material-light-blue;
+          }
+          &.thread-background-7 {
+            -webkit-box-shadow: inset 0 0 200px $material-cyan;
+            -moz-box-shadow: inset 0 0 200px $material-cyan;
+            box-shadow: inset 0 0 200px $material-cyan;
+          }
+          &.thread-background-8 {
+            -webkit-box-shadow: inset 0 0 200px $material-teal;
+            -moz-box-shadow: inset 0 0 200px $material-teal;
+            box-shadow: inset 0 0 200px $material-teal;
+          }
+          &.thread-background-9 {
+            -webkit-box-shadow: inset 0 0 200px $material-green;
+            -moz-box-shadow: inset 0 0 200px $material-green;
+            box-shadow: inset 0 0 200px $material-green;
+          }
+          &.thread-background-10 {
+            -webkit-box-shadow: inset 0 0 200px $material-light-green;
+            -moz-box-shadow: inset 0 0 200px $material-light-green;
+            box-shadow: inset 0 0 200px $material-light-green;
+          }
+          &.thread-background-11 {
+            -webkit-box-shadow: inset 0 0 200px $material-lime;
+            -moz-box-shadow: inset 0 0 200px $material-lime;
+            box-shadow: inset 0 0 200px $material-lime;
+          }
+          &.thread-background-12 {
+            -webkit-box-shadow: inset 0 0 200px $material-yellow;
+            -moz-box-shadow: inset 0 0 200px $material-yellow;
+            box-shadow: inset 0 0 200px $material-yellow;
+          }
+          &.thread-background-13 {
+            -webkit-box-shadow: inset 0 0 200px $material-amber;
+            -moz-box-shadow: inset 0 0 200px $material-amber;
+            box-shadow: inset 0 0 200px $material-amber;
+          }
+          &.thread-background-14 {
+            -webkit-box-shadow: inset 0 0 200px $material-orange;
+            -moz-box-shadow: inset 0 0 200px $material-orange;
+            box-shadow: inset 0 0 200px $material-orange;
+          }
+          &.thread-background-15 {
+            -webkit-box-shadow: inset 0 0 200px $material-deep-orange;
+            -moz-box-shadow: inset 0 0 200px $material-deep-orange;
+            box-shadow: inset 0 0 200px $material-deep-orange;
+          }
+          &.thread-background-16 {
+            -webkit-box-shadow: inset 0 0 200px $material-brown;
+            -moz-box-shadow: inset 0 0 200px $material-brown;
+            box-shadow: inset 0 0 200px $material-brown;
+          }
+          &.thread-background-17 {
+            -webkit-box-shadow: inset 0 0 200px $material-grey;
+            -moz-box-shadow: inset 0 0 200px $material-grey;
+            box-shadow: inset 0 0 200px $material-grey;
+          }
+          &.thread-background-18 {
+            -webkit-box-shadow: inset 0 0 200px $material-grey;
+            -moz-box-shadow: inset 0 0 200px $material-grey;
+            box-shadow: inset 0 0 200px $material-grey;
+          }
+          &.thread-background-19 {
+            -webkit-box-shadow: inset 0 0 200px $material-blue-grey;
+            -moz-box-shadow: inset 0 0 200px $material-blue-grey;
+            box-shadow: inset 0 0 200px $material-blue-grey;
+          }
         }
       }
     }

@@ -91,8 +91,8 @@ export default class ThreadContent extends Component {
             totalResults == 0 ? "thread-listed thread-no-results" : "thread-listed";
         const recommendationsAreLoading = totalResults && !thread.cached.some(item => item.content);
         let colorKey = avKey;
-        while (colorKey > 19) {
-            colorKey -= 20;
+        while (colorKey > 18) {
+            colorKey -= 19;
         }
 
         return (

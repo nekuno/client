@@ -18,109 +18,128 @@ body #root .App .view .page.threads-page  {
 
         .thread-background-image {
           background-size: 100% auto !important;
-          height: 120%;
-          margin: -5% 0 0 -10%;
+          height: 100%;
+          opacity: 0.7;
           overflow: hidden;
-          width: 120%;
+          width: 100%;
           /* A circled shadow around background image
           -webkit-box-shadow: inset 0 0 200px #000000;
           -moz-box-shadow: inset 0 0 200px #000000;
           box-shadow: inset 0 0 200px #000000;*/
 
           &.thread-background-0 {
-            -webkit-box-shadow: inset 0 0 200px $material-red;
-            -moz-box-shadow: inset 0 0 200px $material-red;
-            box-shadow: inset 0 0 200px $material-red;
+            background-image: -moz-radial-gradient(ellipse farthest-side at center, $material-red, transparent 180%);
+            background-image: -o-radial-gradient(ellipse farthest-side at center, $material-red, transparent 180%);
+            background-image: -webkit-radial-gradient(ellipse farthest-side at center, $material-red, transparent 180%);
+            background-image: radial-gradient(ellipse farthest-side at center, $material-red, transparent 180%);
           }
           &.thread-background-1 {
-            -webkit-box-shadow: inset 0 0 200px $material-pink;
-            -moz-box-shadow: inset 0 0 200px $material-pink;
-            box-shadow: inset 0 0 200px $material-pink;
+            background-image: -moz-radial-gradient(ellipse farthest-side at center, $material-pink, transparent 180%);
+            background-image: -o-radial-gradient(ellipse farthest-side at center, $material-pink, transparent 180%);
+            background-image: -webkit-radial-gradient(ellipse farthest-side at center, $material-pink, transparent 180%);
+            background-image: radial-gradient(ellipse farthest-side at center, $material-pink, transparent 180%);
           }
           &.thread-background-2 {
-            -webkit-box-shadow: inset 0 0 200px $material-purple;
-            -moz-box-shadow: inset 0 0 200px $material-purple;
-            box-shadow: inset 0 0 200px $material-purple;
+            background-image: -moz-radial-gradient(ellipse farthest-side at center, $material-purple, transparent 180%);
+            background-image: -o-radial-gradient(ellipse farthest-side at center, $material-purple, transparent 180%);
+            background-image: -webkit-radial-gradient(ellipse farthest-side at center, $material-purple, transparent 180%);
+            background-image: radial-gradient(ellipse farthest-side at center, $material-purple, transparent 180%);
           }
           &.thread-background-3 {
-            -webkit-box-shadow: inset 0 0 200px $material-deep-purple;
-            -moz-box-shadow: inset 0 0 200px $material-deep-purple;
-            box-shadow: inset 0 0 200px $material-deep-purple;
+            background-image: -moz-radial-gradient(ellipse farthest-side at center, $material-deep-purple, transparent 180%);
+            background-image: -o-radial-gradient(ellipse farthest-side at center, $material-deep-purple, transparent 180%);
+            background-image: -webkit-radial-gradient(ellipse farthest-side at center, $material-deep-purple, transparent 180%);
+            background-image: radial-gradient(ellipse farthest-side at center, $material-deep-purple, transparent 180%);
           }
           &.thread-background-4 {
-            -webkit-box-shadow: inset 0 0 200px $material-indigo;
-            -moz-box-shadow: inset 0 0 200px $material-indigo;
-            box-shadow: inset 0 0 200px $material-indigo;
+            background-image: -moz-radial-gradient(ellipse farthest-side at center, $material-indigo, transparent 180%);
+            background-image: -o-radial-gradient(ellipse farthest-side at center, $material-indigo, transparent 180%);
+            background-image: -webkit-radial-gradient(ellipse farthest-side at center, $material-indigo, transparent 180%);
+            background-image: radial-gradient(ellipse farthest-side at center, $material-indigo, transparent 180%);
           }
           &.thread-background-5 {
-            -webkit-box-shadow: inset 0 0 200px $material-blue;
-            -moz-box-shadow: inset 0 0 200px $material-blue;
-            box-shadow: inset 0 0 200px $material-blue;
+            background-image: -moz-radial-gradient(ellipse farthest-side at center, $material-blue, transparent 180%);
+            background-image: -o-radial-gradient(ellipse farthest-side at center, $material-blue, transparent 180%);
+            background-image: -webkit-radial-gradient(ellipse farthest-side at center, $material-blue, transparent 180%);
+            background-image: radial-gradient(ellipse farthest-side at center, $material-blue, transparent 180%);
           }
           &.thread-background-6 {
-            -webkit-box-shadow: inset 0 0 200px $material-light-blue;
-            -moz-box-shadow: inset 0 0 200px $material-light-blue;
-            box-shadow: inset 0 0 200px $material-light-blue;
+            background-image: -moz-radial-gradient(ellipse farthest-side at center, $material-light-blue, transparent 180%);
+            background-image: -o-radial-gradient(ellipse farthest-side at center, $material-light-blue, transparent 180%);
+            background-image: -webkit-radial-gradient(ellipse farthest-side at center, $material-light-blue, transparent 180%);
+            background-image: radial-gradient(ellipse farthest-side at center, $material-light-blue, transparent 180%);
           }
           &.thread-background-7 {
-            -webkit-box-shadow: inset 0 0 200px $material-cyan;
-            -moz-box-shadow: inset 0 0 200px $material-cyan;
-            box-shadow: inset 0 0 200px $material-cyan;
+            background-image: -moz-radial-gradient(ellipse farthest-side at center, $material-cyan, transparent 180%);
+            background-image: -o-radial-gradient(ellipse farthest-side at center, $material-cyan, transparent 180%);
+            background-image: -webkit-radial-gradient(ellipse farthest-side at center, $material-cyan, transparent 180%);
+            background-image: radial-gradient(ellipse farthest-side at center, $material-cyan, transparent 180%);
           }
           &.thread-background-8 {
-            -webkit-box-shadow: inset 0 0 200px $material-teal;
-            -moz-box-shadow: inset 0 0 200px $material-teal;
-            box-shadow: inset 0 0 200px $material-teal;
+            background-image: -moz-radial-gradient(ellipse farthest-side at center, $material-teal, transparent 180%);
+            background-image: -o-radial-gradient(ellipse farthest-side at center, $material-teal, transparent 180%);
+            background-image: -webkit-radial-gradient(ellipse farthest-side at center, $material-teal, transparent 180%);
+            background-image: radial-gradient(ellipse farthest-side at center, $material-teal, transparent 180%);
           }
           &.thread-background-9 {
-            -webkit-box-shadow: inset 0 0 200px $material-green;
-            -moz-box-shadow: inset 0 0 200px $material-green;
-            box-shadow: inset 0 0 200px $material-green;
+            background-image: -moz-radial-gradient(ellipse farthest-side at center, $material-green, transparent 180%);
+            background-image: -o-radial-gradient(ellipse farthest-side at center, $material-green, transparent 180%);
+            background-image: -webkit-radial-gradient(ellipse farthest-side at center, $material-green, transparent 180%);
+            background-image: radial-gradient(ellipse farthest-side at center, $material-green, transparent 180%);
           }
           &.thread-background-10 {
-            -webkit-box-shadow: inset 0 0 200px $material-light-green;
-            -moz-box-shadow: inset 0 0 200px $material-light-green;
-            box-shadow: inset 0 0 200px $material-light-green;
+            background-image: -moz-radial-gradient(ellipse farthest-side at center, $material-light-green, transparent 180%);
+            background-image: -o-radial-gradient(ellipse farthest-side at center, $material-light-green, transparent 180%);
+            background-image: -webkit-radial-gradient(ellipse farthest-side at center, $material-light-green, transparent 180%);
+            background-image: radial-gradient(ellipse farthest-side at center, $material-light-green, transparent 180%);
           }
           &.thread-background-11 {
-            -webkit-box-shadow: inset 0 0 200px $material-lime;
-            -moz-box-shadow: inset 0 0 200px $material-lime;
-            box-shadow: inset 0 0 200px $material-lime;
+            background-image: -moz-radial-gradient(ellipse farthest-side at center, $material-lime, transparent 180%);
+            background-image: -o-radial-gradient(ellipse farthest-side at center, $material-lime, transparent 180%);
+            background-image: -webkit-radial-gradient(ellipse farthest-side at center, $material-lime, transparent 180%);
+            background-image: radial-gradient(ellipse farthest-side at center, $material-lime, transparent 180%);
           }
           &.thread-background-12 {
-            -webkit-box-shadow: inset 0 0 200px $material-yellow;
-            -moz-box-shadow: inset 0 0 200px $material-yellow;
-            box-shadow: inset 0 0 200px $material-yellow;
+            background-image: -moz-radial-gradient(ellipse farthest-side at center, $material-yellow, transparent 180%);
+            background-image: -o-radial-gradient(ellipse farthest-side at center, $material-yellow, transparent 180%);
+            background-image: -webkit-radial-gradient(ellipse farthest-side at center, $material-yellow, transparent 180%);
+            background-image: radial-gradient(ellipse farthest-side at center, $material-yellow, transparent 180%);
           }
           &.thread-background-13 {
-            -webkit-box-shadow: inset 0 0 200px $material-amber;
-            -moz-box-shadow: inset 0 0 200px $material-amber;
-            box-shadow: inset 0 0 200px $material-amber;
+            background-image: -moz-radial-gradient(ellipse farthest-side at center, $material-amber, transparent 180%);
+            background-image: -o-radial-gradient(ellipse farthest-side at center, $material-amber, transparent 180%);
+            background-image: -webkit-radial-gradient(ellipse farthest-side at center, $material-amber, transparent 180%);
+            background-image: radial-gradient(ellipse farthest-side at center, $material-amber, transparent 180%);
           }
           &.thread-background-14 {
-            -webkit-box-shadow: inset 0 0 200px $material-orange;
-            -moz-box-shadow: inset 0 0 200px $material-orange;
-            box-shadow: inset 0 0 200px $material-orange;
+            background-image: -moz-radial-gradient(ellipse farthest-side at center, $material-orange, transparent 180%);
+            background-image: -o-radial-gradient(ellipse farthest-side at center, $material-orange, transparent 180%);
+            background-image: -webkit-radial-gradient(ellipse farthest-side at center, $material-orange, transparent 180%);
+            background-image: radial-gradient(ellipse farthest-side at center, $material-orange, transparent 180%);
           }
           &.thread-background-15 {
-            -webkit-box-shadow: inset 0 0 200px $material-deep-orange;
-            -moz-box-shadow: inset 0 0 200px $material-deep-orange;
-            box-shadow: inset 0 0 200px $material-deep-orange;
+            background-image: -moz-radial-gradient(ellipse farthest-side at center, $material-deep-orange, transparent 180%);
+            background-image: -o-radial-gradient(ellipse farthest-side at center, $material-deep-orange, transparent 180%);
+            background-image: -webkit-radial-gradient(ellipse farthest-side at center, $material-deep-orange, transparent 180%);
+            background-image: radial-gradient(ellipse farthest-side at center, $material-deep-orange, transparent 180%);
           }
           &.thread-background-16 {
-            -webkit-box-shadow: inset 0 0 200px $material-brown;
-            -moz-box-shadow: inset 0 0 200px $material-brown;
-            box-shadow: inset 0 0 200px $material-brown;
+            background-image: -moz-radial-gradient(ellipse farthest-side at center, $material-brown, transparent 180%);
+            background-image: -o-radial-gradient(ellipse farthest-side at center, $material-brown, transparent 180%);
+            background-image: -webkit-radial-gradient(ellipse farthest-side at center, $material-brown, transparent 180%);
+            background-image: radial-gradient(ellipse farthest-side at center, $material-brown, transparent 180%);
           }
           &.thread-background-17 {
-            -webkit-box-shadow: inset 0 0 200px $material-grey;
-            -moz-box-shadow: inset 0 0 200px $material-grey;
-            box-shadow: inset 0 0 200px $material-grey;
+            background-image: -moz-radial-gradient(ellipse farthest-side at center, $material-grey, transparent 180%);
+            background-image: -o-radial-gradient(ellipse farthest-side at center, $material-grey, transparent 180%);
+            background-image: -webkit-radial-gradient(ellipse farthest-side at center, $material-grey, transparent 180%);
+            background-image: radial-gradient(ellipse farthest-side at center, $material-grey, transparent 180%);
           }
           &.thread-background-18 {
-            -webkit-box-shadow: inset 0 0 200px $material-blue-grey;
-            -moz-box-shadow: inset 0 0 200px $material-blue-grey;
-            box-shadow: inset 0 0 200px $material-blue-grey;
+            background-image: -moz-radial-gradient(ellipse farthest-side at center, $material-blue-grey, transparent 180%);
+            background-image: -o-radial-gradient(ellipse farthest-side at center, $material-blue-grey, transparent 180%);
+            background-image: -webkit-radial-gradient(ellipse farthest-side at center, $material-blue-grey, transparent 180%);
+            background-image: radial-gradient(ellipse farthest-side at center, $material-blue-grey, transparent 180%);
           }
         }
       }

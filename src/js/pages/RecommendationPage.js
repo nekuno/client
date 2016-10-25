@@ -1,7 +1,9 @@
 import React, { PropTypes, Component } from 'react';
 import RecommendationList from '../components/recommendations/RecommendationList';
 import TopNavBar from '../components/ui/TopNavBar';
+import ThreadToolBar from '../components/ui/ThreadToolBar';
 import EmptyMessage from '../components/ui/EmptyMessage';
+import * as UserActionCreators from '../actions/UserActionCreators'
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
@@ -16,7 +18,7 @@ function parseThreadId(params) {
 }
 
 function parseId(params) {
-    return params.userId;
+    return params.id;
 }
 
 /**
@@ -25,7 +27,7 @@ function parseId(params) {
 function requestData(props) {
     const {params} = props;
     const threadId = parseThreadId(params);
-    const userId = parseId(params);
+    const userId = parseId(props.user);
     const recommendations = RecommendationStore.get(threadId);
     if (!recommendations || recommendations.length === 0) {
         ThreadActionCreators.requestRecommendationPage(userId, threadId);
@@ -49,7 +51,8 @@ function initSwiper(thread) {
             slideShadows: false
         },
         centeredSlides  : true,
-        grabCursor      : true
+        allowSwipeToPrev: false,
+        swipeHandler    : '.thread-toolbar-item.center',
     });
 
     let activeIndex = recommendationsSwiper.activeIndex;
@@ -80,6 +83,7 @@ function initSwiper(thread) {
  */
 function getState(props) {
     const threadId = parseThreadId(props.params);
+    const userId = parseId(props.user);
     let thread = ThreadStore.get(threadId);
     if (Object.keys(thread).length != 0) {
         thread.isEmpty = RecommendationStore.isEmpty(thread.id);
@@ -91,6 +95,7 @@ function getState(props) {
     const recommendations = threadId && RecommendationStore.get(threadId) ? RecommendationStore.get(threadId) : [];
 
     return {
+        userId,
         recommendations,
         category,
         thread,
@@ -128,6 +133,12 @@ export default class RecommendationPage extends Component {
 
         this.deleteThread = this.deleteThread.bind(this);
         this.editThread = this.editThread.bind(this);
+        this.skip = this.skip.bind(this);
+        this.dislike = this.dislike.bind(this);
+        this.like = this.like.bind(this);
+        this.onShare = this.onShare.bind(this);
+        this.onShareSuccess = this.onShareSuccess.bind(this);
+        this.onShareError = this.onShareError.bind(this);
 
         this.state = {swiper: null};
     }
@@ -188,6 +199,82 @@ export default class RecommendationPage extends Component {
         this.context.history.pushState(null, `edit-thread/${this.props.thread.id}`);
     }
 
+    skip() {
+        const activeIndex = this.state.swiper.activeIndex;
+        const recommendation = this.props.recommendations[activeIndex];
+        const thread = this.props.thread;
+
+        if (thread.category === 'ThreadUsers') {
+            //TODO: Skip the user
+        } else if (thread.category === 'ThreadContent') {
+            //TODO: Skip the content
+        }
+        this.state.swiper.slideNext();
+    }
+
+    dislike() {
+        const activeIndex = this.state.swiper.activeIndex;
+        const recommendation = this.props.recommendations[activeIndex];
+        const thread = this.props.thread;
+
+        if (thread.category === 'ThreadUsers') {
+            //TODO: Dislike the user
+        } else if (thread.category === 'ThreadContent') {
+            //TODO: Dislike the content
+        }
+    }
+
+    like() {
+        const activeIndex = this.state.swiper.activeIndex;
+        const {userId, recommendations, thread} = this.props;
+        const recommendation = recommendations[activeIndex];
+
+        if (thread.category === 'ThreadUsers') {
+            if (recommendation.like) {
+                UserActionCreators.deleteLikeUser(userId, recommendation.id);
+            } else {
+                UserActionCreators.likeUser(userId, recommendation.id);
+            }
+        } else if (thread.category === 'ThreadContent') {
+            if (recommendation.rate) {
+                UserActionCreators.deleteLikeContent(userId, recommendation.content.id);
+            } else {
+                UserActionCreators.likeContent(userId, recommendation.content.id);
+            }
+        }
+    }
+
+    onShare() {
+        const activeIndex = this.state.swiper.activeIndex;
+        const recommendation = this.props.recommendations[activeIndex];
+        if (window.cordova) {
+            // this is the complete list of currently supported params you can pass to the plugin (all optional)
+            var options = {
+                //message: 'share this', // not supported on some apps (Facebook, Instagram)
+                subject: recommendation.content.title, // fi. for email
+                url: recommendation.content.url
+                //chooserTitle: 'Pick an app' // Android only, you can override the default share sheet title
+            };
+            window.plugins.socialsharing.shareWithOptions(options, this.onShareSuccess, this.onShareError);
+        } else {
+            window.prompt(this.props.strings.copyToClipboard, recommendation.content.url);
+            this.onShareSuccess();
+        }
+    }
+
+    onShareSuccess() {
+        const activeIndex = this.state.swiper.activeIndex;
+        const {userId, recommendations} = this.props;
+        const recommendation = recommendations[activeIndex];
+        if (!recommendation.rate) {
+            UserActionCreators.likeContent(userId, recommendation.content.id);
+        }
+    }
+
+    onShareError() {
+        nekunoApp.alert(this.props.strings.shareError)
+    }
+
     render() {
         const {recommendations, thread, user, filters, strings} = this.props;
         if (Object.keys(thread).length == 0) {
@@ -205,6 +292,7 @@ export default class RecommendationPage extends Component {
                         }
                     </div>
                 </div>
+                <ThreadToolBar like={this.like} dislike={this.dislike} skip={this.skip} category={thread.category} share={this.onShare}/>
             </div>
         );
     }

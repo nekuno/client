@@ -1,0 +1,78 @@
+#thread-toolbar {
+	background: $deep-purple;
+	bottom: 0;
+	height: 50px;
+	position: fixed !important;
+	padding: 0;
+	width: 100%;
+
+	.thread-toolbar-inner {
+		font-size: 0.823529412em;
+		height: 50px;
+		margin: auto;
+		max-width: 480px;
+		padding: 0;
+		position: relative;
+		width: 100%;
+
+		.thread-toolbar-items {
+			color: #fff;
+			height: 50px;
+			text-align: center;
+			width: 100%;
+			margin: auto;
+
+			.thread-toolbar-item {
+				font-size: 2em;
+				cursor: pointer;
+				display: inline-block;
+				padding: 0 10px;
+				vertical-align: middle;
+				width: 70px;
+
+				&.center {
+					font-size: 5em;
+					margin-top: -15px;
+
+					.icon-wrapper {
+						margin-left: 0;
+						line-height: 70px;
+						height: 70px;
+						width: 70px;
+					}
+				}
+				&.right, &.left {
+					height: 90%;
+				}
+
+				.active {
+					color: $light-green;
+				}
+			}
+			&.right {
+				bottom: 0;
+				position: absolute;
+				padding: 0;
+				right: 10%;
+				height: 38px;
+				width: 38px;
+
+				.thread-toolbar-item {
+					margin-top: 0;
+					padding: 0;
+				}
+			}
+
+			a {
+				color: #fff;
+				display: block;
+				height: 60px;
+				padding-top: 20px;
+			}
+		}
+	}
+}
+
+.thread-toolbar-guest {
+	bottom: 20px;
+}

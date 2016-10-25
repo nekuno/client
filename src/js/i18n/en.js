@@ -166,7 +166,9 @@ export default {
         loadingMessage  : 'Loading recommendations',
         confirmBlock    : 'Are you sure you want to block this user?',
         processingThread: 'These results are provisional, we are working on improving them for you.',
-        confirmReplace  : 'We have improve your recommendations. Do you whant to reload them?'
+        confirmReplace  : 'We have improve your recommendations. Do you whant to reload them?',
+        copyToClipboard : 'Copy to clipboard: Ctrl+C, Enter',
+        shareError      : 'An error occurred sharing the content'
     },
     InvitationsPage                  : {
         invitations           : 'Invitations',

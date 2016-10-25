@@ -264,10 +264,12 @@ export default class RecommendationPage extends Component {
 
     onShareSuccess() {
         const activeIndex = this.state.swiper.activeIndex;
-        const {userId, recommendations} = this.props;
+        const {userId, recommendations, thread} = this.props;
         const recommendation = recommendations[activeIndex];
-        if (!recommendation.rate) {
-            UserActionCreators.likeContent(userId, recommendation.content.id);
+        if (thread.category === 'ThreadContent') {
+            if (!recommendation.rate) {
+                UserActionCreators.likeContent(userId, recommendation.content.id);
+            }
         }
     }
 
@@ -300,9 +302,11 @@ export default class RecommendationPage extends Component {
 
 RecommendationPage.defaultProps = {
     strings: {
-        loadingMessage: 'Loading recommendations',
-        confirmDelete : 'Are you sure you want to delete this thread?',
+        loadingMessage  : 'Loading recommendations',
+        confirmDelete   : 'Are you sure you want to delete this thread?',
         processingThread: 'These results are provisional, we´ll finish improving them for you soon.',
-        confirmReplace: 'We have improve your recommendations. Do you whant to reload them?'
+        confirmReplace  : 'We have improve your recommendations. Do you whant to reload them?',
+        copyToClipboard : 'Copy to clipboard: Ctrl+C, Enter',
+        shareError      : 'An error occurred sharing the content'
     }
 };

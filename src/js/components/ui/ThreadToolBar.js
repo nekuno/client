@@ -20,6 +20,7 @@ export default class ToolBar extends Component {
         like: PropTypes.func,
         dislike: PropTypes.func,
         skip: PropTypes.func,
+        share: PropTypes.func,
         // Injected by @connectToStores:
         isGuest        : PropTypes.bool
     };
@@ -30,6 +31,7 @@ export default class ToolBar extends Component {
         this.skip = this.skip.bind(this);
         this.dislike = this.dislike.bind(this);
         this.like = this.like.bind(this);
+        this.share = this.share.bind(this);
 
         this.state = {
             liked: false,
@@ -50,6 +52,11 @@ export default class ToolBar extends Component {
     like() {
         this.props.like();
         this.setState({liked: !this.state.liked});
+    }
+
+    share() {
+        this.props.share();
+        this.setState({liked: true});
     }
 
     render() {
@@ -73,7 +80,7 @@ export default class ToolBar extends Component {
                         </div>
                     </div>
                     {category === 'ThreadContent' ?
-                        <div className="thread-toolbar-items right">
+                        <div className="thread-toolbar-items right" onClick={this.share}>
                             <div className="thread-toolbar-item">
                                 <span className={"icon-share"}></span>
                             </div>

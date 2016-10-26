@@ -33,6 +33,7 @@ import ConnectSocialNetworksPage from './pages/ConnectSocialNetworksPage';
 import CreateThreadPage from './pages/CreateThreadPage';
 import EditThreadPage from './pages/EditThreadPage';
 import GroupPage from './pages/GroupPage';
+import GroupStatsPage from './pages/GroupStatsPage';
 import RouterActionCreators from './actions/RouterActionCreators';
 import LoginStore from './stores/LoginStore';
 
@@ -92,6 +93,7 @@ export default class Root extends Component {
                         <Route name="create-thread" path="/create-thread" component={CreateThreadPage}/>
                         <Route name="edit-thread" path="/edit-thread/:threadId" component={EditThreadPage}/>
                         <Route name="groups" path="/groups" component={GroupPage}/>
+                        <Route name="group-stats" path="/groups/:groupId" component={GroupStatsPage}/>
                     </Route>
                 </Route>
             </Router>

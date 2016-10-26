@@ -97,11 +97,20 @@ export default {
         changeProfilePhoto      : 'Cambiar foto de perfil'
     },
     GroupPage                        : {
-        groups  : 'Tus grupos',
-        create   : 'Crear',
-        enter_name : 'Nombre del grupo',
-        join: 'Unirte',
+        groups      : 'Tus grupos',
+        create      : 'Crear',
+        creating    : 'Creando grupo',
+        enter_name  : 'Nombre del grupo',
+        join        : 'Unirte',
+        joining     : 'Uniendo al grupo',
         enter_token : 'Código de invitación'
+    },
+    GroupStatsPage                   : {
+        group: 'Grupo',
+        leave: 'Salir',
+        confirm_leave: 'Confirmar salir',
+        leaving: 'Saliendo'
+
     },
     LoginPage                        : {
         login        : 'Iniciar sesión',

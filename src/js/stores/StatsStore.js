@@ -26,15 +26,12 @@ class StatsStore extends BaseStore {
         switch (action.type) {
 
             case ActionTypes.REQUEST_STATS:
-                this.setInitial();
                 this.emitChange();
                 break;
 
             case ActionTypes.REQUEST_STATS_SUCCESS:
                 this._error = null;
-                //const responseStats = action.response;
                 this._stats = action.response;
-                //Object.assign(this._stats, responseStats);
                 this.emitChange();
                 break;
 

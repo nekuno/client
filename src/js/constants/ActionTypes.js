@@ -180,6 +180,10 @@ export default keyMirror({
     UNLIKE_CONTENT_SUCCESS: null,
     UNLIKE_CONTENT_ERROR  : null,
 
+    REQUEST_GROUP        : null,
+    REQUEST_GROUP_SUCCESS: null,
+    REQUEST_GROUP_ERROR  : null,
+
     JOIN_GROUP            : null,
     JOIN_GROUP_SUCCESS    : null,
     JOIN_GROUP_ERROR      : null,
@@ -187,6 +191,10 @@ export default keyMirror({
     CREATE_GROUP          : null,
     CREATE_GROUP_SUCCESS  : null,
     CREATE_GROUP_ERROR    : null,
+
+    LEAVE_GROUP          : null,
+    LEAVE_GROUP_SUCCESS  : null,
+    LEAVE_GROUP_ERROR    : null,
 
     ROUTER_NEXT_TRANSITION_PATH: null,
 

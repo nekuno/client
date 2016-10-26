@@ -3,6 +3,7 @@ import { API_URLS } from '../constants/Constants';
 import TopNavBar from '../components/ui/TopNavBar';
 import FullWidthButton from '../components/ui/FullWidthButton';
 import Group from '../components/groups/Group';
+import EmptyMessage from '../components/ui/EmptyMessage';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
@@ -42,11 +43,11 @@ function getState(props) {
 export default class GroupPage extends Component {
     static propTypes = {
         // Injected by @AuthenticatedComponent
-        user               : PropTypes.object,
+        user: PropTypes.object,
         // Injected by @translate:
-        strings            : PropTypes.object,
+        strings: PropTypes.object,
         // Injected by @connectToStores:
-        groups              : PropTypes.array
+        groups: PropTypes.array
 
     };
 
@@ -58,6 +59,11 @@ export default class GroupPage extends Component {
         super(props);
         this.create = this.create.bind(this);
         this.join = this.join.bind(this);
+
+        this.state = {
+            joining: false,
+            creating: false
+        };
     }
 
     componentWillMount() {
@@ -65,27 +71,30 @@ export default class GroupPage extends Component {
     }
 
     create() {
-            nekunoApp.prompt(this.props.strings.enter_name, function (value) {
-                const data = {'name': value};
-                GroupActionCreators.createGroup(data).then(() => {
-                    nekunoApp.alert('We would go to the created group page here, but it´s created');
-                    //this.context.history.pushState(null, '/groups/groupId');
-                }, (error) => {
-                    console.log(error);
-                    nekunoApp.alert('Sorry! We couldn´t create this group');
-                });
+        nekunoApp.prompt(this.props.strings.enter_name, (value) => {
+            const data = {'name': value};
+            this.setState({creating: true});
+            GroupActionCreators.createGroup(data).then((group) => {
+                this.setState({creating: false});
+                console.log(group);
+                this.context.history.pushState(null, '/groups/' + group.id);
+            }, (error) => {
+                this.setState({creating: false});
+                console.log(error);
+                nekunoApp.alert('Sorry! We couldn´t create this group');
             });
+        });
     }
 
     join() {
-        nekunoApp.prompt(this.props.strings.enter_token, function (value) {
+        nekunoApp.prompt(this.props.strings.enter_token, (value) => {
 
             const invitation = APIUtils.postData(API_URLS.CONSUME_INVITATION.replace('{token}', value));
+            this.setState({joining: true});
 
-            invitation.then((data)=>{
-                console.log('data');
-                console.log(data);
-                if (!null == data.invitation.group){
+            invitation.then((data)=> {
+                this.setState({joining: false});
+                if (!null == data.invitation.group) {
                     nekunoApp.alert('This invitation is of no group');
                 } else {
                     GroupActionCreators.joinGroup(data.invitation.group.id).then(() => {
@@ -96,7 +105,8 @@ export default class GroupPage extends Component {
                         nekunoApp.alert('Sorry! We couldn´t join to this group');
                     });
                 }
-            },  (error) => {
+            }, (error) => {
+                this.setState({joining: false});
                 console.log(error);
                 nekunoApp.alert('Sorry! We couldn´t join to this group');
             });
@@ -106,18 +116,24 @@ export default class GroupPage extends Component {
 
     render() {
         const {groups, strings} = this.props;
+        const {creating, joining} = this.state;
         return (
             <div className="view view-main">
                 <TopNavBar leftMenuIcon={true} centerText={strings.groups}/>
                 <div className="page group-page">
                     {groups ?
                         <div id="page-content">
-                            <FullWidthButton onClick={this.create}> {strings.create}</FullWidthButton>
-                            <FullWidthButton onClick = {this.join}> {strings.join}</FullWidthButton>
-                            {console.log(groups)}
-                            {groups.map((group) => {
-                                return <Group key={group.id} group={group} />
-                            })}
+                            {creating ? <EmptyMessage text={strings.creating} loadingGif={true}/> :
+                                joining ? <EmptyMessage text={strings.joining} loadingGif={true}/> :
+
+                                    <div>
+                                        <FullWidthButton onClick={this.create}> {strings.create}</FullWidthButton>
+                                        <FullWidthButton onClick={this.join}> {strings.join}</FullWidthButton>
+                                        {groups.map((group) => {
+                                            return <Group key={group.id} group={group}/>
+                                        })}
+                                    </div>
+                            }
                         </div>
                         : ''}
 
@@ -129,10 +145,12 @@ export default class GroupPage extends Component {
 
 GroupPage.defaultProps = {
     strings: {
-        groups  : 'Your groups',
-        create   : 'Create',
-        enter_name : 'Name of the group',
+        groups: 'Your groups',
+        create: 'Create',
+        creating: 'Creating group',
+        enter_name: 'Name of the group',
         join: 'Join',
-        enter_token : 'Invitation code'
+        joining: 'Joining group',
+        enter_token: 'Invitation code'
     }
 };

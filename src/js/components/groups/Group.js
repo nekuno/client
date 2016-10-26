@@ -1,4 +1,5 @@
 import React, { PropTypes, Component } from 'react';
+import { Link } from 'react-router';
 import translate from '../../i18n/Translate';
 import selectn from 'selectn';
 
@@ -29,9 +30,10 @@ export default class Group extends Component {
     render() {
         let {group, strings} = this.props;
 
+        const groupUrl="groups/"+group.id;
         return (
             <div className="group">
-                <span className="group-name">{group.name}</span>
+                <Link to={groupUrl}>{group.name}</Link>
                 <div className="group-chat-button" onClick={this.goToChat}> Chat </div>
                 <span className="group-number-users"> {group.usersCount} {strings.users}</span>
             </div>

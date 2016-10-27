@@ -12,6 +12,7 @@ import RecommendationStore from '../stores/RecommendationStore';
 import ThreadStore from '../stores/ThreadStore';
 import FilterStore from '../stores/FilterStore';
 import WorkersStore from '../stores/WorkersStore';
+import LikeStore from '../stores/LikeStore';
 
 function parseThreadId(params) {
     return params.threadId;
@@ -106,7 +107,7 @@ function getState(props) {
 
 @AuthenticatedComponent
 @translate('RecommendationPage')
-@connectToStores([ThreadStore, RecommendationStore, FilterStore], getState)
+@connectToStores([ThreadStore, RecommendationStore, FilterStore, LikeStore], getState)
 export default class RecommendationPage extends Component {
 
     static propTypes = {
@@ -133,7 +134,7 @@ export default class RecommendationPage extends Component {
 
         this.deleteThread = this.deleteThread.bind(this);
         this.editThread = this.editThread.bind(this);
-        this.skip = this.skip.bind(this);
+        this.ignore = this.ignore.bind(this);
         this.dislike = this.dislike.bind(this);
         this.like = this.like.bind(this);
         this.onShare = this.onShare.bind(this);
@@ -199,28 +200,36 @@ export default class RecommendationPage extends Component {
         this.context.history.pushState(null, `edit-thread/${this.props.thread.id}`);
     }
 
-    skip() {
+    ignore() {
         const activeIndex = this.state.swiper.activeIndex;
-        const recommendation = this.props.recommendations[activeIndex];
-        const thread = this.props.thread;
+        const {userId, recommendations, thread} = this.props;
+        const recommendation = recommendations[activeIndex];
 
         if (thread.category === 'ThreadUsers') {
-            //TODO: Skip the user
+            UserActionCreators.ignoreUser(userId, recommendation.id);
         } else if (thread.category === 'ThreadContent') {
-            //TODO: Skip the content
+            UserActionCreators.ignoreContent(userId, recommendation.content.id);
         }
         this.state.swiper.slideNext();
     }
 
     dislike() {
         const activeIndex = this.state.swiper.activeIndex;
-        const recommendation = this.props.recommendations[activeIndex];
-        const thread = this.props.thread;
+        const {userId, recommendations, thread} = this.props;
+        const recommendation = recommendations[activeIndex];
 
         if (thread.category === 'ThreadUsers') {
-            //TODO: Dislike the user
+            if (recommendation.like === -1) {
+                UserActionCreators.deleteLikeUser(userId, recommendation.id);
+            } else {
+                UserActionCreators.dislikeUser(userId, recommendation.id);
+            }
         } else if (thread.category === 'ThreadContent') {
-            //TODO: Dislike the content
+            if (recommendation.rate === -1) {
+                UserActionCreators.deleteRateContent(userId, recommendation.content.id);
+            } else {
+                UserActionCreators.dislikeContent(userId, recommendation.content.id);
+            }
         }
     }
 
@@ -230,14 +239,14 @@ export default class RecommendationPage extends Component {
         const recommendation = recommendations[activeIndex];
 
         if (thread.category === 'ThreadUsers') {
-            if (recommendation.like) {
+            if (recommendation.like && recommendation.like !== -1) {
                 UserActionCreators.deleteLikeUser(userId, recommendation.id);
             } else {
                 UserActionCreators.likeUser(userId, recommendation.id);
             }
         } else if (thread.category === 'ThreadContent') {
-            if (recommendation.rate) {
-                UserActionCreators.deleteLikeContent(userId, recommendation.content.id);
+            if (recommendation.rate && recommendation.rate !== -1) {
+                UserActionCreators.deleteRateContent(userId, recommendation.content.id);
             } else {
                 UserActionCreators.likeContent(userId, recommendation.content.id);
             }
@@ -267,7 +276,7 @@ export default class RecommendationPage extends Component {
         const {userId, recommendations, thread} = this.props;
         const recommendation = recommendations[activeIndex];
         if (thread.category === 'ThreadContent') {
-            if (!recommendation.rate) {
+            if (!recommendation.rate && recommendation.rate !== -1) {
                 UserActionCreators.likeContent(userId, recommendation.content.id);
             }
         }
@@ -294,7 +303,7 @@ export default class RecommendationPage extends Component {
                         }
                     </div>
                 </div>
-                <ThreadToolBar like={this.like} dislike={this.dislike} skip={this.skip} category={thread.category} share={this.onShare}/>
+                <ThreadToolBar recommendation={this.state.swiper ? recommendations[this.state.swiper.activeIndex] : null} like={this.like} dislike={this.dislike} ignore={this.ignore} category={thread.category} share={this.onShare}/>
             </div>
         );
     }

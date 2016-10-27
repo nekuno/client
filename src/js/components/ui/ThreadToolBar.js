@@ -12,14 +12,11 @@ function getState() {
 @connectToStores([LoginStore], getState)
 export default class ToolBar extends Component {
     static propTypes = {
-        disliked: PropTypes.bool,
-        liked: PropTypes.bool,
-        skipped: PropTypes.bool,
         category: PropTypes.string,
         recommendation: PropTypes.object,
         like: PropTypes.func,
         dislike: PropTypes.func,
-        skip: PropTypes.func,
+        ignore: PropTypes.func,
         share: PropTypes.func,
         // Injected by @connectToStores:
         isGuest        : PropTypes.bool
@@ -28,55 +25,56 @@ export default class ToolBar extends Component {
     constructor() {
         super();
 
-        this.skip = this.skip.bind(this);
+        this.ignore = this.ignore.bind(this);
         this.dislike = this.dislike.bind(this);
         this.like = this.like.bind(this);
         this.share = this.share.bind(this);
-
-        this.state = {
-            liked: false,
-            disliked: false,
-        };
     }
 
-    skip() {
-        this.props.skip();
-        this.setState({liked: false, disliked: false});
+    ignore() {
+        this.props.ignore();
     }
 
     dislike() {
         this.props.dislike();
-        this.setState({disliked: !this.state.dislike});
     }
 
     like() {
         this.props.like();
-        this.setState({liked: !this.state.liked});
     }
 
     share() {
         this.props.share();
-        this.setState({liked: true});
     }
 
     render() {
-        let {skipped, category, recommendation, isGuest} = this.props;
-        const {liked, disliked} = this.state;
-        let className = isGuest ? "thread-toolbar-guest" : "";
+        const {recommendation, category, isGuest} = this.props;
+        const className = isGuest ? "thread-toolbar-guest" : "";
+        let liked, disliked, saving = null;
+        if (category === 'ThreadContent') {
+            liked = recommendation && recommendation.rate === 1;
+            disliked = recommendation && recommendation.rate === -1;
+            saving = recommendation && recommendation.rate === null;
+        } else if (category === 'ThreadUsers') {
+            liked = recommendation && recommendation.like === 1;
+            disliked = recommendation && recommendation.like === -1;
+            saving = recommendation && recommendation.like === null;
+        }
+
         return (
             <div id="thread-toolbar" className={className}>
                 <div className="thread-toolbar-inner">
                     <div className="thread-toolbar-items center">
-                        <div className="thread-toolbar-item left" onClick={this.dislike}>
-                            <span className={disliked ? "icon-thumbs-down active" : "icon-thumbs-down"}></span>
+                        <div className="thread-toolbar-item left" onClick={saving ? null : this.dislike}>
+                            <span className={saving ? "icon-spinner" : disliked ? "icon-thumbs-down active" : "icon-thumbs-down"}></span>
                         </div>
-                        <div className="thread-toolbar-item center" onClick={this.skip}>
+                        <div className="thread-toolbar-item center" onClick={this.ignore}>
                             <div className="icon-wrapper">
                                 <span className="icon-nekuno"></span>
                             </div>
                         </div>
-                        <div className="thread-toolbar-item right" onClick={this.like}>
-                            <span className={liked ? "icon-thumbs-up active" : "icon-thumbs-up"}></span>
+                        <div className="thread-toolbar-item right" onClick={saving ? null : this.like}>
+                            <span className={saving ? "icon-spinner" : liked ? "icon-thumbs-up active" : "icon-thumbs-up"}></span>
                         </div>
                     </div>
                     {category === 'ThreadContent' ?

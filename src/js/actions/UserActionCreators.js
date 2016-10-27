@@ -178,8 +178,24 @@ export function likeUser(from, to) {
     }, {from, to});
 }
 
+export function dislikeUser(from, to) {
+    dispatchAsync(UserAPI.setDislikeUser(to), {
+        request: ActionTypes.DISLIKE_USER,
+        success: ActionTypes.DISLIKE_USER_SUCCESS,
+        failure: ActionTypes.DISLIKE_USER_ERROR
+    }, {from, to});
+}
+
+export function ignoreUser(from, to) {
+    dispatchAsync(UserAPI.setIgnoreUser(to), {
+        request: ActionTypes.IGNORE_USER,
+        success: ActionTypes.IGNORE_USER_SUCCESS,
+        failure: ActionTypes.IGNORE_USER_ERROR
+    }, {from, to});
+}
+
 export function deleteLikeUser(from, to) {
-    dispatchAsync(UserAPI.unsetLikeUser(to), {
+    dispatchAsync(UserAPI.unsetRateUser(to), {
         request: ActionTypes.UNLIKE_USER,
         success: ActionTypes.UNLIKE_USER_SUCCESS,
         failure: ActionTypes.UNLIKE_USER_ERROR
@@ -196,12 +212,32 @@ export function likeContent(from, to) {
     InterestsActionCreators.requestOwnInterests(from);
 }
 
-export function deleteLikeContent(from, to) {
-    dispatchAsync(UserAPI.unsetLikeContent(to), {
-        request: ActionTypes.UNLIKE_CONTENT,
-        success: ActionTypes.UNLIKE_CONTENT_SUCCESS,
-        failure: ActionTypes.UNLIKE_CONTENT_ERROR
+export function dislikeContent(from, to) {
+    dispatchAsync(UserAPI.setDislikeContent(to), {
+        request: ActionTypes.DISLIKE_CONTENT,
+        success: ActionTypes.DISLIKE_CONTENT_SUCCESS,
+        failure: ActionTypes.DISLIKE_CONTENT_ERROR
     }, {from, to});
+    InterestsActionCreators.resetInterests(from);
+    InterestsActionCreators.requestOwnInterests(from);
+}
+
+export function ignoreContent(from, to) {
+    dispatchAsync(UserAPI.setIgnoreContent(to), {
+        request: ActionTypes.IGNORE_CONTENT,
+        success: ActionTypes.IGNORE_CONTENT_SUCCESS,
+        failure: ActionTypes.IGNORE_CONTENT_ERROR
+    }, {from, to});
+}
+
+export function deleteRateContent(from, to) {
+    dispatchAsync(UserAPI.unsetRateContent(to), {
+        request: ActionTypes.UNRATE_CONTENT,
+        success: ActionTypes.UNRATE_CONTENT_SUCCESS,
+        failure: ActionTypes.UNRATE_CONTENT_ERROR
+    }, {from, to});
+    InterestsActionCreators.resetInterests(from);
+    InterestsActionCreators.requestOwnInterests(from);
 }
 
 export function requestBlockUser(from, to) {

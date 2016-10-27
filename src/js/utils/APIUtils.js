@@ -41,7 +41,6 @@ const comparedQuestionsAndAnswersSchema = new Schema('items', {
 });
 const blockedUserSchema = new Schema('blocked', {idAttribute: 'id'});
 const likedUserSchema = new Schema('liked', {idAttribute: 'id'});
-const likedContentSchema = new Schema('rate', {idAttribute: 'id'});
 
 //TODO: Implement location schema and store
 //TODO: Check pull request https://github.com/gaearon/normalizr/pull/42 for recommendation of different types
@@ -228,22 +227,22 @@ export function fetchBlockUser(url) {
     return fetchAndNormalize(url, blockedUserSchema);
 }
 
-export function postLikeUser(url) {
-    return postData(url, null, likedUserSchema);
-}
-
-export function deleteLikeUser(url) {
-    return deleteData(url, null, likedUserSchema);
-}
-
 export function fetchLikeUser(url) {
     return fetchAndNormalize(url, likedUserSchema);
 }
 
 export function postLikeContent(url, to) {
-    return postData(url, {linkId: to, rate: "LIKES"}, likedContentSchema);
+    return postData(url, {linkId: to, rate: "LIKES"});
 }
 
-export function deleteLikeContent(url, to) {
-    return postData(url, {linkId: to, rate: "DISLIKES"}, likedContentSchema);
+export function postDislikeContent(url, to) {
+    return postData(url, {linkId: to, rate: "DISLIKES"});
+}
+
+export function postIgnoreContent(url, to) {
+    return postData(url, {linkId: to, rate: "IGNORES"});
+}
+
+export function deleteRateContent(url, to) {
+    return postData(url, {linkId: to, rate: "UNRATES"});
 }

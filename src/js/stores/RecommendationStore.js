@@ -126,6 +126,13 @@ RecommendationStore.dispatchToken = register(action => {
             setSavingUserLike(to, _recommendations);
             RecommendationStore.emitChange();
             break;
+        case ActionTypes.DISLIKE_USER:
+            setSavingUserLike(to, _recommendations);
+            RecommendationStore.emitChange();
+            break;
+        case ActionTypes.IGNORE_USER:
+            RecommendationStore.emitChange();
+            break;
         case ActionTypes.UNLIKE_USER:
             setSavingUserLike(to, _recommendations);
             RecommendationStore.emitChange();
@@ -134,8 +141,15 @@ RecommendationStore.dispatchToken = register(action => {
             setSavingContentLike(to, _recommendations);
             RecommendationStore.emitChange();
             break;
-        case ActionTypes.UNLIKE_CONTENT:
+        case ActionTypes.DISLIKE_CONTENT:
             setSavingContentLike(to, _recommendations);
+            RecommendationStore.emitChange();
+            break;
+        case ActionTypes.UNRATE_CONTENT:
+            setSavingContentLike(to, _recommendations);
+            RecommendationStore.emitChange();
+            break;
+        case ActionTypes.IGNORE_CONTENT:
             RecommendationStore.emitChange();
             break;
         case ActionTypes.LIKE_USER_SUCCESS:
@@ -143,15 +157,29 @@ RecommendationStore.dispatchToken = register(action => {
             RecommendationStore.emitChange();
             break;
         case ActionTypes.UNLIKE_USER_SUCCESS:
-            setUnlikedUser(to, _recommendations);
+            deleteRatedUser(to, _recommendations);
+            RecommendationStore.emitChange();
+            break;
+        case ActionTypes.DISLIKE_USER_SUCCESS:
+            setDislikedUser(to, _recommendations);
+            RecommendationStore.emitChange();
+            break;
+        case ActionTypes.IGNORE_USER_SUCCESS:
             RecommendationStore.emitChange();
             break;
         case ActionTypes.LIKE_CONTENT_SUCCESS:
             setLikedContent(to, _recommendations);
             RecommendationStore.emitChange();
             break;
-        case ActionTypes.UNLIKE_CONTENT_SUCCESS:
-            setUnlikedContent(to, _recommendations);
+        case ActionTypes.DISLIKE_CONTENT_SUCCESS:
+            setDislikedContent(to, _recommendations);
+            RecommendationStore.emitChange();
+            break;
+        case ActionTypes.IGNORE_CONTENT_SUCCESS:
+            RecommendationStore.emitChange();
+            break;
+        case ActionTypes.UNRATE_CONTENT_SUCCESS:
+            deleteRatedContent(to, _recommendations);
             RecommendationStore.emitChange();
             break;
         case ActionTypes.UPDATE_THREAD_SUCCESS:
@@ -226,7 +254,12 @@ RecommendationStore.dispatchToken = register(action => {
         return _recommendations;
     }
 
-    function setUnlikedUser(userId, _recommendations) {
+    function setDislikedUser(userId, _recommendations) {
+        setUserLike(-1, userId, _recommendations);
+        return _recommendations;
+    }
+
+    function deleteRatedUser(userId, _recommendations) {
         setUserLike(0, userId, _recommendations);
         return _recommendations;
     }
@@ -252,7 +285,12 @@ RecommendationStore.dispatchToken = register(action => {
         return _recommendations;
     }
 
-    function setUnlikedContent(contentId, _recommendations) {
+    function setDislikedContent(contentId, _recommendations) {
+        setContentLike(-1, contentId, _recommendations);
+        return _recommendations;
+    }
+
+    function deleteRatedContent(contentId, _recommendations) {
         setContentLike(0, contentId, _recommendations);
         return _recommendations;
     }

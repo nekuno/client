@@ -8,11 +8,11 @@ import {
     postBlockUser,
     deleteBlockUser,
     fetchBlockUser,
-    postLikeUser,
-    deleteLikeUser,
     fetchLikeUser,
     postLikeContent,
-    deleteLikeContent,
+    postDislikeContent,
+    postIgnoreContent,
+    deleteRateContent,
     getData,
     postData,
     putData,
@@ -100,11 +100,19 @@ export function getBlockUser(to, url = `blocks/${to}`) {
 }
 
 export function setLikeUser(to, url = `likes/${to}`) {
-    return postLikeUser(url);
+    return postData(url);
 }
 
-export function unsetLikeUser(to, url = `likes/${to}`) {
-    return deleteLikeUser(url);
+export function setDislikeUser(to, url = `dislikes/${to}`) {
+    return postData(url);
+}
+
+export function setIgnoreUser(to, url = `ignores/${to}`) {
+    return postData(url);
+}
+
+export function unsetRateUser(to, url = `likes/${to}`) {
+    return deleteData(url);
 }
 
 export function getLikeUser(to, url = `likes/${to}`) {
@@ -115,8 +123,16 @@ export function setLikeContent(to, url = `content/rate`) {
     return postLikeContent(url, to);
 }
 
-export function unsetLikeContent(to, url = `content/rate`) {
-    return deleteLikeContent(url, to);
+export function setDislikeContent(to, url = `content/rate`) {
+    return postDislikeContent(url, to);
+}
+
+export function setIgnoreContent(to, url = `content/rate`) {
+    return postIgnoreContent(url, to);
+}
+
+export function unsetRateContent(to, url = `content/rate`) {
+    return deleteRateContent(url, to);
 }
 
 export function getMatching(userId, url = `matching/${userId}`) {

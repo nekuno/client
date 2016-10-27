@@ -120,7 +120,7 @@ export default class OtherUserPage extends Component {
         matching           : PropTypes.number,
         similarity         : PropTypes.number,
         block              : PropTypes.bool,
-        like               : PropTypes.bool,
+        like               : PropTypes.number,
         comparedStats      : PropTypes.object
     };
     static contextTypes = {
@@ -154,7 +154,7 @@ export default class OtherUserPage extends Component {
     }
 
     onRate() {
-        if (!this.props.like) {
+        if (!this.props.like || this.props.like === -1) {
             setLikeUser(this.props);
         } else {
             unsetLikeUser(this.props);
@@ -169,7 +169,7 @@ export default class OtherUserPage extends Component {
         const {user, otherUser, profile, profileWithMetadata, matching, similarity, block, like, comparedStats, strings} = this.props;
         const otherPicture = otherUser && otherUser.photo ? otherUser.photo.thumbnail.small : 'img/no-img/small.jpg';
         const ownPicture = user && user.photo ? user.photo.thumbnail.small : 'img/no-img/small.jpg';
-        const likeText = like === null ? strings.saving : like ? strings.dontLike : strings.like;
+        const likeText = like === null ? strings.saving : like && like !== -1 ? strings.dontLike : strings.like;
         const blockClass = block ? "icon-block blocked" : "icon-block";
         return (
             <div className="view view-main">

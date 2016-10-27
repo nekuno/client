@@ -20,7 +20,7 @@ const BlockStore = createStore({
         } else if (userId2 in _block && (userId1 in _block[userId2])) {
             return _block[userId2][userId1];
         } else {
-            return false;
+            return 0;
         }
     },
 

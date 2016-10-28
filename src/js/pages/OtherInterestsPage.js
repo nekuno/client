@@ -206,9 +206,9 @@ export default class OtherInterestsPage extends Component {
                         </div>
                         {noInterests ? '' :
                             this.state.carousel ?
-                                <CardContentCarousel contents={interests} userId={otherUserId}/>
+                                <CardContentCarousel contents={interests} userId={ownUserId} otherUserId={otherUserId}/>
                                 :
-                                <CardContentList contents={interests} userId={otherUserId}
+                                <CardContentList contents={interests} userId={ownUserId} otherUserId={otherUserId}
                                                  onClickHandler={this.onContentClick}/>
                         }
                         <br />

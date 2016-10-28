@@ -183,7 +183,9 @@ export default {
         loadingMessage  : 'Cargando recomendaciones',
         confirmDelete   : '¿Estás seguro de que quieres borrar este ovillo?',
         processingThread: 'Estos resultados son provisionales, en breve mejorarán',
-        confirmReplace  : 'Hemos mejorado tus recomendaciones. ¿Quieres actualizarlas?'
+        confirmReplace  : 'Hemos mejorado tus recomendaciones. ¿Quieres actualizarlas?',
+        copyToClipboard : 'Copiar al portapapeles: Ctrl+C, Enter',
+        shareError      : 'Parece que ha habido un error mientras compartías este contenido'
     },
     InvitationsPage                  : {
         invitations           : 'Invitaciones',
@@ -354,6 +356,9 @@ export default {
         edit       : 'Editar',
         delete     : 'Eliminar',
         deleting   : 'Eliminando'
+    },
+    ThreadToolBar                    : {
+        next: 'Siguiente'
     },
     CardContent                      : {
         like           : 'Me interesa',

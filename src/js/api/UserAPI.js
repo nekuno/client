@@ -99,16 +99,16 @@ export function getBlockUser(to, url = `blocks/${to}`) {
     return fetchBlockUser(url);
 }
 
-export function setLikeUser(to, url = `likes/${to}`) {
-    return postData(url);
+export function setLikeUser(to, originContext, originName, url = `likes/${to}`) {
+    return postData(url, {originContext: originContext, originName: originName});
 }
 
-export function setDislikeUser(to, url = `dislikes/${to}`) {
-    return postData(url);
+export function setDislikeUser(to, originContext, originName, url = `dislikes/${to}`) {
+    return postData(url, {originContext: originContext, originName: originName});
 }
 
-export function setIgnoreUser(to, url = `ignores/${to}`) {
-    return postData(url);
+export function setIgnoreUser(to, originContext, originName, url = `ignores/${to}`) {
+    return postData(url, {originContext: originContext, originName: originName});
 }
 
 export function unsetRateUser(to, url = `likes/${to}`) {

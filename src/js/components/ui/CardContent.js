@@ -4,6 +4,7 @@ import ProgressBar from './ProgressBar';
 import Button from './Button';
 import CardIcons from './CardIcons';
 import Image from './Image';
+import UserStore from '../../stores/UserStore';
 import * as UserActionCreators from '../../actions/UserActionCreators'
 import translate from '../../i18n/Translate';
 
@@ -49,7 +50,7 @@ export default class CardContent extends Component {
         const {loggedUserId, otherUserId, contentId, rate} = this.props;
         if (!rate) {
             const originContext = otherUserId ? ORIGIN_CONTEXT.OTHER_INTERESTS_PAGE : ORIGIN_CONTEXT.OWN_INTERESTS_PAGE;
-            const originName = otherUserId ? otherUserId : null;
+            const originName = otherUserId && UserStore.get(otherUserId) ? UserStore.get(otherUserId).username : null;
             UserActionCreators.likeContent(loggedUserId, contentId, originContext, originName);
         } else {
             UserActionCreators.deleteRateContent(loggedUserId, contentId);

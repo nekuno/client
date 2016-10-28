@@ -1,4 +1,5 @@
 import React, { PropTypes, Component } from 'react';
+import { ORIGIN_CONTEXT } from '../constants/Constants';
 import User from '../components/User';
 import OtherProfileData from '../components/profile/OtherProfileData';
 import OtherProfileDataList from '../components/profile/OtherProfileDataList'
@@ -92,7 +93,7 @@ function unsetBlockUser(props) {
 
 function setLikeUser(props) {
     const {user, otherUser} = props;
-    UserActionCreators.likeUser(parseId(user), parseId(otherUser));
+    UserActionCreators.likeUser(parseId(user), parseId(otherUser), ORIGIN_CONTEXT.OTHER_USER_PAGE, otherUser.username);
 }
 
 function unsetLikeUser(props) {

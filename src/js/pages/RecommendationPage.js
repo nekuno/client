@@ -207,7 +207,7 @@ export default class RecommendationPage extends Component {
         const recommendation = recommendations[activeIndex];
 
         if (thread.category === 'ThreadUsers') {
-            UserActionCreators.ignoreUser(userId, recommendation.id);
+            UserActionCreators.ignoreUser(userId, recommendation.id, ORIGIN_CONTEXT.RECOMMENDATIONS_PAGE, thread.name);
         } else if (thread.category === 'ThreadContent') {
             UserActionCreators.ignoreContent(userId, recommendation.content.id, ORIGIN_CONTEXT.RECOMMENDATIONS_PAGE, thread.name);
         }
@@ -223,7 +223,7 @@ export default class RecommendationPage extends Component {
             if (recommendation.like === -1) {
                 UserActionCreators.deleteLikeUser(userId, recommendation.id);
             } else {
-                UserActionCreators.dislikeUser(userId, recommendation.id);
+                UserActionCreators.dislikeUser(userId, recommendation.id, ORIGIN_CONTEXT.RECOMMENDATIONS_PAGE, thread.name);
             }
         } else if (thread.category === 'ThreadContent') {
             if (recommendation.rate === -1) {
@@ -243,7 +243,7 @@ export default class RecommendationPage extends Component {
             if (recommendation.like && recommendation.like !== -1) {
                 UserActionCreators.deleteLikeUser(userId, recommendation.id);
             } else {
-                UserActionCreators.likeUser(userId, recommendation.id);
+                UserActionCreators.likeUser(userId, recommendation.id, ORIGIN_CONTEXT.RECOMMENDATIONS_PAGE, thread.name);
             }
         } else if (thread.category === 'ThreadContent') {
             if (recommendation.rate && recommendation.rate !== -1) {

@@ -170,24 +170,24 @@ export function deleteBlockUser(from, to) {
     }, {from, to});
 }
 
-export function likeUser(from, to) {
-    dispatchAsync(UserAPI.setLikeUser(to), {
+export function likeUser(from, to, originContext, originName) {
+    dispatchAsync(UserAPI.setLikeUser(to, originContext, originName), {
         request: ActionTypes.LIKE_USER,
         success: ActionTypes.LIKE_USER_SUCCESS,
         failure: ActionTypes.LIKE_USER_ERROR
     }, {from, to});
 }
 
-export function dislikeUser(from, to) {
-    dispatchAsync(UserAPI.setDislikeUser(to), {
+export function dislikeUser(from, to, originContext, originName) {
+    dispatchAsync(UserAPI.setDislikeUser(to, originContext, originName), {
         request: ActionTypes.DISLIKE_USER,
         success: ActionTypes.DISLIKE_USER_SUCCESS,
         failure: ActionTypes.DISLIKE_USER_ERROR
     }, {from, to});
 }
 
-export function ignoreUser(from, to) {
-    dispatchAsync(UserAPI.setIgnoreUser(to), {
+export function ignoreUser(from, to, originContext, originName) {
+    dispatchAsync(UserAPI.setIgnoreUser(to, originContext, originName), {
         request: ActionTypes.IGNORE_USER,
         success: ActionTypes.IGNORE_USER_SUCCESS,
         failure: ActionTypes.IGNORE_USER_ERROR

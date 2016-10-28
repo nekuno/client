@@ -120,4 +120,5 @@ export const ORIGIN_CONTEXT = {
     RECOMMENDATIONS_PAGE: 'recommendationsPage',
     OTHER_INTERESTS_PAGE: 'otherInterestsPage',
     OWN_INTERESTS_PAGE  : 'ownInterestsPage',
+    OTHER_USER_PAGE     : 'otherUserPage',
 };

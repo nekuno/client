@@ -1,39 +1,50 @@
 import ActionTypes from '../constants/ActionTypes';
+import BaseStore from './BaseStore';
 import { register, waitFor } from '../dispatcher/Dispatcher';
 import { createStore, mergeIntoBag, isInBag } from '../utils/StoreUtils';
 import UserStore from '../stores/UserStore'
 import selectn from 'selectn';
 
-let _stats = {};
+class StatsStore extends BaseStore {
 
-const StatsStore = createStore({
-    contains(userId, fields) {
-        return isInBag(_stats, userId, fields);
-    },
-
-    get(userId) {
-        return _stats[userId];
+    setInitial() {
+        this._stats = null;
     }
-});
 
-StatsStore.dispatchToken = register(action => {
-    waitFor([UserStore.dispatchToken]);
-    const responseStats = selectn('response.entities.stats', action);
-
-    if (responseStats) {
-
-        const {userId} = action;
-
-        //undefined comes from not id selected on normalizr
-        responseStats[userId] = responseStats.undefined;
-        delete responseStats.undefined;
-
-        mergeIntoBag(_stats, responseStats);
-        StatsStore.emitChange();
+    get stats() {
+        return this._stats;
     }
-    if (action.type == ActionTypes.LOGOUT_USER) {
-        _stats = {};
-    }
-});
 
-export default StatsStore;
+    getGroups() {
+        return this.stats ? this.stats.groupsBelonged : null;
+    }
+
+    _registerToActions(action) {
+        waitFor([UserStore.dispatchToken]);
+        super._registerToActions(action);
+
+        switch (action.type) {
+
+            case ActionTypes.REQUEST_STATS:
+                this.emitChange();
+                break;
+
+            case ActionTypes.REQUEST_STATS_SUCCESS:
+                this._error = null;
+                this._stats = action.response;
+                this.emitChange();
+                break;
+
+            case ActionTypes.REQUEST_STATS_ERROR:
+                this._error = action.error;
+                this._stats = null;
+                this.emitChange();
+                break;
+
+            default:
+                break;
+        }
+    }
+}
+
+export default new StatsStore();

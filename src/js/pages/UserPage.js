@@ -39,7 +39,7 @@ function getState(props) {
     const profile = ProfileStore.get(userId);
     const profileWithMetadata = ProfileStore.getWithMetadata(userId);
     const metadata = ProfileStore.getMetadata();
-    const stats = StatsStore.get(userId);
+    const stats = StatsStore.stats;
 
     return {
         user,

@@ -95,6 +95,22 @@ export default {
         photos                  : 'Photos',
         changeProfilePhoto      : 'Change profile photo'
     },
+    GroupPage                        : {
+        groups      : 'Your groups',
+        create      : 'Create',
+        creating    : 'Creating group',
+        enter_name  : 'Name of the group',
+        join        : 'Join',
+        joining     : 'Joining group',
+        enter_token : 'Invitation code'
+    },
+    GroupStatsPage                   : {
+        group: 'Group',
+        leave: 'Leave',
+        confirm_leave: 'Confirm leave',
+        leaving: 'Leaving'
+
+    },
     LoginPage                        : {
         login          : 'Login',
         cancel         : 'Cancel',
@@ -220,6 +236,7 @@ export default {
     LeftPanel                        : {
         interests     : 'Interests',
         threads       : 'Discover',
+        groups        : 'Groups',
         myProfile     : 'Profile',
         conversations : 'Messages',
         socialNetworks: 'My social networks',
@@ -475,6 +492,9 @@ export default {
     },
     BirthdayEdit                     : {
         birthdayPlaceholder: 'Your birth date'
+    },
+    Group                            : {
+        users : 'users'
     },
     ////////////////
     // Framework7 //

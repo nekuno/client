@@ -12,7 +12,10 @@ export const API_URLS = {
     REGISTER_PROFILE         : API_ROOT + 'profile',
     CONSUME_INVITATION       : API_ROOT + 'invitations/consume/{token}',
     INVITATIONS              : API_ROOT + 'invitations',
+    REQUEST_GROUP            : API_ROOT + 'groups/{groupId}',
     JOIN_GROUP               : API_ROOT + 'groups/{groupId}/members',
+    LEAVE_GROUP               : API_ROOT + 'groups/{groupId}/members',
+    CREATE_GROUP             : API_ROOT + 'groups',
     CONNECT_ACCOUNT          : API_ROOT + 'tokens/{resource}?extend',
     CREATE_DEFAULT_THREADS   : API_ROOT + 'threads/default',
     USER_DATA_STATUS         : API_ROOT + 'data/status',
@@ -29,7 +32,7 @@ export const API_URLS = {
 
 export const THREAD_TYPES = {
     THREAD_CONTENTS: 'THREAD_CONTENTS',
-    THREAD_USERS   : 'THREAD_USERS',
+    THREAD_USERS   : 'THREAD_USERS'
 };
 
 export const QUESTION_STATS_COLORS = [

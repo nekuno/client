@@ -300,11 +300,13 @@ export default class RecommendationPage extends Component {
                         {recommendations.length > 0 && filters && Object.keys(filters).length > 0 ?
                             <RecommendationList recommendations={recommendations} thread={thread} userId={user.id} 
                                                 filters={thread.category === 'ThreadUsers' ? filters.userFilters : filters.contentFilters}/> 
-                            : !recommendations.length > 0 ? <EmptyMessage text={strings.loadingMessage} loadingGif={true} /> : ''
+                            : <EmptyMessage text={strings.loadingMessage} loadingGif={true} />
                         }
                     </div>
                 </div>
-                <ThreadToolBar recommendation={this.state.swiper ? recommendations[this.state.swiper.activeIndex] : null} like={this.like} dislike={this.dislike} ignore={this.ignore} category={thread.category} share={this.onShare}/>
+                {recommendations.length > 0 && filters && Object.keys(filters).length > 0 ?
+                    <ThreadToolBar recommendation={this.state.swiper ? recommendations[this.state.swiper.activeIndex] : null} like={this.like} dislike={this.dislike} ignore={this.ignore} category={thread.category} share={this.onShare}/>
+                    : null}
             </div>
         );
     }

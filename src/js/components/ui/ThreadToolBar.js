@@ -69,7 +69,7 @@ export default class ThreadToolBar extends Component {
                 <div className="thread-toolbar-inner">
                     <div className="thread-toolbar-items center">
                         <div className="thread-toolbar-item left" onClick={saving ? null : this.dislike}>
-                            <span className={saving ? "icon-spinner" : disliked ? "icon-thumbs-down active" : "icon-thumbs-down"}></span>
+                            <span className={saving ? "icon-spinner" : disliked ? "icon-thumbs-down active-red" : "icon-thumbs-down"}></span>
                         </div>
                         <div className="thread-toolbar-item center" onClick={this.ignore}>
                             <div className="icon-wrapper">
@@ -78,7 +78,7 @@ export default class ThreadToolBar extends Component {
                             <div className="thread-toolbar-ignore-text">{strings.next}</div>
                         </div>
                         <div className="thread-toolbar-item right" onClick={saving ? null : this.like}>
-                            <span className={saving ? "icon-spinner" : liked ? "icon-thumbs-up active" : "icon-thumbs-up"}></span>
+                            <span className={saving ? "icon-spinner" : liked ? "icon-thumbs-up active-green" : "icon-thumbs-up"}></span>
                         </div>
                     </div>
                     {category === 'ThreadContent' ?

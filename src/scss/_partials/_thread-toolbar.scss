@@ -52,8 +52,11 @@
 					line-height: 50px;
 				}
 
-				.active {
+				.active-green {
 					color: $light-green;
+				}
+				.active-red {
+					color: #F44336;
 				}
 			}
 			&.right {

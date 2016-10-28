@@ -1,4 +1,5 @@
 import React, { PropTypes, Component } from 'react';
+import { ORIGIN_CONTEXT } from '../constants/Constants';
 import RecommendationList from '../components/recommendations/RecommendationList';
 import TopNavBar from '../components/ui/TopNavBar';
 import ThreadToolBar from '../components/ui/ThreadToolBar';
@@ -208,7 +209,7 @@ export default class RecommendationPage extends Component {
         if (thread.category === 'ThreadUsers') {
             UserActionCreators.ignoreUser(userId, recommendation.id);
         } else if (thread.category === 'ThreadContent') {
-            UserActionCreators.ignoreContent(userId, recommendation.content.id);
+            UserActionCreators.ignoreContent(userId, recommendation.content.id, ORIGIN_CONTEXT.RECOMMENDATIONS_PAGE, thread.name);
         }
         this.state.swiper.slideNext();
     }
@@ -228,7 +229,7 @@ export default class RecommendationPage extends Component {
             if (recommendation.rate === -1) {
                 UserActionCreators.deleteRateContent(userId, recommendation.content.id);
             } else {
-                UserActionCreators.dislikeContent(userId, recommendation.content.id);
+                UserActionCreators.dislikeContent(userId, recommendation.content.id, ORIGIN_CONTEXT.RECOMMENDATIONS_PAGE, thread.name);
             }
         }
     }
@@ -248,7 +249,7 @@ export default class RecommendationPage extends Component {
             if (recommendation.rate && recommendation.rate !== -1) {
                 UserActionCreators.deleteRateContent(userId, recommendation.content.id);
             } else {
-                UserActionCreators.likeContent(userId, recommendation.content.id);
+                UserActionCreators.likeContent(userId, recommendation.content.id, ORIGIN_CONTEXT.RECOMMENDATIONS_PAGE, thread.name);
             }
         }
     }
@@ -277,7 +278,7 @@ export default class RecommendationPage extends Component {
         const recommendation = recommendations[activeIndex];
         if (thread.category === 'ThreadContent') {
             if (!recommendation.rate && recommendation.rate !== -1) {
-                UserActionCreators.likeContent(userId, recommendation.content.id);
+                UserActionCreators.likeContent(userId, recommendation.content.id, ORIGIN_CONTEXT.RECOMMENDATIONS_PAGE, thread.name);
             }
         }
     }

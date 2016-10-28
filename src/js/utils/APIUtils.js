@@ -231,16 +231,16 @@ export function fetchLikeUser(url) {
     return fetchAndNormalize(url, likedUserSchema);
 }
 
-export function postLikeContent(url, to) {
-    return postData(url, {linkId: to, rate: "LIKES"});
+export function postLikeContent(url, to, originContext, originName) {
+    return postData(url, {linkId: to, rate: "LIKES", originContext: originContext, originName: originName});
 }
 
-export function postDislikeContent(url, to) {
-    return postData(url, {linkId: to, rate: "DISLIKES"});
+export function postDislikeContent(url, to, originContext, originName) {
+    return postData(url, {linkId: to, rate: "DISLIKES", originContext: originContext, originName: originName});
 }
 
-export function postIgnoreContent(url, to) {
-    return postData(url, {linkId: to, rate: "IGNORES"});
+export function postIgnoreContent(url, to, originContext, originName) {
+    return postData(url, {linkId: to, rate: "IGNORES", originContext: originContext, originName: originName});
 }
 
 export function deleteRateContent(url, to) {

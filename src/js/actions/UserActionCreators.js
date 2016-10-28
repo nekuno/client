@@ -202,8 +202,8 @@ export function deleteLikeUser(from, to) {
     }, {from, to});
 }
 
-export function likeContent(from, to) {
-    dispatchAsync(UserAPI.setLikeContent(to), {
+export function likeContent(from, to, originContext, originName) {
+    dispatchAsync(UserAPI.setLikeContent(to, originContext, originName), {
         request: ActionTypes.LIKE_CONTENT,
         success: ActionTypes.LIKE_CONTENT_SUCCESS,
         failure: ActionTypes.LIKE_CONTENT_ERROR
@@ -212,8 +212,8 @@ export function likeContent(from, to) {
     InterestsActionCreators.requestOwnInterests(from);
 }
 
-export function dislikeContent(from, to) {
-    dispatchAsync(UserAPI.setDislikeContent(to), {
+export function dislikeContent(from, to, originContext, originName) {
+    dispatchAsync(UserAPI.setDislikeContent(to, originContext, originName), {
         request: ActionTypes.DISLIKE_CONTENT,
         success: ActionTypes.DISLIKE_CONTENT_SUCCESS,
         failure: ActionTypes.DISLIKE_CONTENT_ERROR
@@ -222,8 +222,8 @@ export function dislikeContent(from, to) {
     InterestsActionCreators.requestOwnInterests(from);
 }
 
-export function ignoreContent(from, to) {
-    dispatchAsync(UserAPI.setIgnoreContent(to), {
+export function ignoreContent(from, to, originContext, originName) {
+    dispatchAsync(UserAPI.setIgnoreContent(to, originContext, originName), {
         request: ActionTypes.IGNORE_CONTENT,
         success: ActionTypes.IGNORE_CONTENT_SUCCESS,
         failure: ActionTypes.IGNORE_CONTENT_ERROR

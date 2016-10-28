@@ -119,16 +119,16 @@ export function getLikeUser(to, url = `likes/${to}`) {
     return fetchLikeUser(url);
 }
 
-export function setLikeContent(to, url = `content/rate`) {
-    return postLikeContent(url, to);
+export function setLikeContent(to, originContext, originName, url = `content/rate`) {
+    return postLikeContent(url, to, originContext, originName);
 }
 
-export function setDislikeContent(to, url = `content/rate`) {
-    return postDislikeContent(url, to);
+export function setDislikeContent(to, originContext, originName, url = `content/rate`) {
+    return postDislikeContent(url, to, originContext, originName);
 }
 
-export function setIgnoreContent(to, url = `content/rate`) {
-    return postIgnoreContent(url, to);
+export function setIgnoreContent(to, originContext, originName, url = `content/rate`) {
+    return postIgnoreContent(url, to, originContext, originName);
 }
 
 export function unsetRateContent(to, url = `content/rate`) {

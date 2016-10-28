@@ -339,6 +339,9 @@ export default {
         delete     : 'Delete',
         deleting   : 'Deleting'
     },
+    ThreadToolBar                    : {
+        next: 'Next'
+    },
     CardContent                      : {
         like           : 'Like',
         unlike         : 'Remove',

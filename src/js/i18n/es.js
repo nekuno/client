@@ -340,6 +340,9 @@ export default {
         delete     : 'Eliminar',
         deleting   : 'Eliminando'
     },
+    ThreadToolBar                    : {
+        next: 'Siguiente'
+    },
     CardContent                      : {
         like           : 'Me interesa',
         unlike         : 'Quitar',

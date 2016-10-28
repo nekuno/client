@@ -28,21 +28,28 @@
 				display: inline-block;
 				padding: 0 10px;
 				vertical-align: middle;
-				width: 70px;
+				width: 60px;
 
 				&.center {
-					font-size: 5em;
+					font-size: 3em;
 					margin-top: -15px;
 
 					.icon-wrapper {
 						margin-left: 0;
-						line-height: 70px;
-						height: 70px;
-						width: 70px;
+						line-height: 45px;
+						height: 45px;
+						width: 45px;
+					}
+
+					.thread-toolbar-ignore-text {
+						font-size: 0.4em;
+						font-weight: bold;
+						margin-top: -10px;
 					}
 				}
 				&.right, &.left {
-					height: 90%;
+					height: 100%;
+					line-height: 50px;
 				}
 
 				.active {
@@ -75,4 +82,10 @@
 
 .thread-toolbar-guest {
 	bottom: 20px;
+}
+
+@media only screen and (max-width: 300px) {
+	#thread-toolbar {
+		width: 94%;
+	}
 }

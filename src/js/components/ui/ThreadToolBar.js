@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from 'react';
-import { Link } from 'react-router';
 import connectToStores from '../../utils/connectToStores';
 import LoginStore from '../../stores/LoginStore';
+import translate from '../../i18n/Translate';
 
 function getState() {
     const isGuest = LoginStore.isGuest();
@@ -9,8 +9,9 @@ function getState() {
     return {isGuest};
 }
 
+@translate('ThreadToolBar')
 @connectToStores([LoginStore], getState)
-export default class ToolBar extends Component {
+export default class ThreadToolBar extends Component {
     static propTypes = {
         category: PropTypes.string,
         recommendation: PropTypes.object,
@@ -19,7 +20,9 @@ export default class ToolBar extends Component {
         ignore: PropTypes.func,
         share: PropTypes.func,
         // Injected by @connectToStores:
-        isGuest        : PropTypes.bool
+        isGuest        : PropTypes.bool,
+        // Injected by @translate:
+        strings: PropTypes.object,
     };
 
     constructor() {
@@ -48,7 +51,7 @@ export default class ToolBar extends Component {
     }
 
     render() {
-        const {recommendation, category, isGuest} = this.props;
+        const {recommendation, category, isGuest, strings} = this.props;
         const className = isGuest ? "thread-toolbar-guest" : "";
         let liked, disliked, saving = null;
         if (category === 'ThreadContent') {
@@ -72,6 +75,7 @@ export default class ToolBar extends Component {
                             <div className="icon-wrapper">
                                 <span className="icon-nekuno"></span>
                             </div>
+                            <div className="thread-toolbar-ignore-text">{strings.next}</div>
                         </div>
                         <div className="thread-toolbar-item right" onClick={saving ? null : this.like}>
                             <span className={saving ? "icon-spinner" : liked ? "icon-thumbs-up active" : "icon-thumbs-up"}></span>
@@ -89,3 +93,9 @@ export default class ToolBar extends Component {
         );
     }
 }
+
+ThreadToolBar.defaultProps = {
+    strings: {
+        next  : 'Next',
+    }
+};

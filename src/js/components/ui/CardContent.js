@@ -1,4 +1,5 @@
 import React, { PropTypes, Component } from 'react';
+import { ORIGIN_CONTEXT } from '../../constants/Constants';
 import ProgressBar from './ProgressBar';
 import Button from './Button';
 import CardIcons from './CardIcons';
@@ -20,11 +21,12 @@ export default class CardContent extends Component {
         thumbnail     : PropTypes.string,
         synonymous    : PropTypes.array.isRequired,
         matching      : PropTypes.number,
-        rate          : PropTypes.number,
+        rate          : PropTypes.oneOfType([PropTypes.number, PropTypes.bool]),
         hideLikeButton: PropTypes.bool.isRequired,
         fixedHeight   : PropTypes.bool,
         loggedUserId  : PropTypes.number.isRequired,
         onClickHandler: PropTypes.func,
+        otherUserId   : PropTypes.number,
         // Injected by @translate:
         strings       : PropTypes.object
     };
@@ -44,9 +46,11 @@ export default class CardContent extends Component {
     }
 
     onRate() {
-        const {loggedUserId, contentId, rate} = this.props;
+        const {loggedUserId, otherUserId, contentId, rate} = this.props;
         if (!rate) {
-            UserActionCreators.likeContent(loggedUserId, contentId);
+            const originContext = otherUserId ? ORIGIN_CONTEXT.OTHER_INTERESTS_PAGE : ORIGIN_CONTEXT.OWN_INTERESTS_PAGE;
+            const originName = otherUserId ? otherUserId : null;
+            UserActionCreators.likeContent(loggedUserId, contentId, originContext, originName);
         } else {
             UserActionCreators.deleteRateContent(loggedUserId, contentId);
         }
@@ -70,9 +74,11 @@ export default class CardContent extends Component {
     }
     
     onShareSuccess() {
-        const {loggedUserId, contentId, rate} = this.props;
+        const {loggedUserId, otherUserId, contentId, rate} = this.props;
         if (!rate) {
-            UserActionCreators.likeContent(loggedUserId, contentId);
+            const originContext = otherUserId ? ORIGIN_CONTEXT.OTHER_INTERESTS_PAGE : ORIGIN_CONTEXT.OWN_INTERESTS_PAGE;
+            const originName = otherUserId ? otherUserId : null;
+            UserActionCreators.likeContent(loggedUserId, contentId, originContext, originName);
         }
     }
 

@@ -7,6 +7,7 @@ import RecommendationStore from '../stores/RecommendationStore';
 import ThreadStore from '../stores/ThreadStore';
 import ProfileStore from '../stores/ProfileStore';
 import FilterStore from '../stores/FilterStore';
+import LoginStore from '../stores/LoginStore';
 
 export function requestThreadPage(userId) {
     if (!UserStore.contains(userId)) {
@@ -19,7 +20,11 @@ export function requestThreadPage(userId) {
     });
 }
 
-export function requestThreads(userId, url = null) {
+export function requestThreads(userId = null, url = null) {
+
+    if (null == userId){
+        userId = LoginStore.user.id;
+    }
 
     let threads = {};
     if (url) {

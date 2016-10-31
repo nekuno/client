@@ -1,6 +1,7 @@
 import { dispatchAsync, dispatch } from '../dispatcher/Dispatcher';
 import ActionTypes from '../constants/ActionTypes';
 import * as GroupAPI from '../api/GroupAPI';
+import * as ThreadActionCreators from './ThreadActionCreators';
 
 export function requestGroup(groupId) {
     return dispatchAsync(GroupAPI.requestGroup(groupId), {
@@ -15,7 +16,10 @@ export function joinGroup(groupId) {
         request: ActionTypes.JOIN_GROUP,
         success: ActionTypes.JOIN_GROUP_SUCCESS,
         failure: ActionTypes.JOIN_GROUP_ERROR
-    }, {groupId});
+    }, {groupId}).then((data) => {
+        ThreadActionCreators.requestThreads();
+        return data;
+    });
 }
 
 export function createGroup(data) {
@@ -23,6 +27,9 @@ export function createGroup(data) {
         request: ActionTypes.CREATE_GROUP,
         success: ActionTypes.CREATE_GROUP_SUCCESS,
         failure: ActionTypes.CREATE_GROUP_ERROR
+    }).then((data) => {
+        ThreadActionCreators.requestThreads();
+        return data;
     });
 }
 
@@ -31,5 +38,8 @@ export function leaveGroup(groupId) {
         request: ActionTypes.LEAVE_GROUP,
         success: ActionTypes.LEAVE_GROUP_SUCCESS,
         failure: ActionTypes.LEAVE_GROUP_ERROR
+    }).then((data) => {
+        ThreadActionCreators.requestThreads();
+        return data;
     });
 }

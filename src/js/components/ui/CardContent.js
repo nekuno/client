@@ -92,7 +92,8 @@ export default class CardContent extends Component {
         if (typeof onClickHandler !== 'undefined' && onClickHandler) {
             onClickHandler();
         } else {
-            const isVideo = types.indexOf('Video') > -1;
+            // TODO: Embed videos from FB too
+            const isVideo = types.indexOf('Video') > -1 && embed_type === 'youtube';
             if (isVideo) {
                 this.preVisualizeYoutube(embed_type, embed_id);
             } else {

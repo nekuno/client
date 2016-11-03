@@ -71,7 +71,7 @@ export default class ThreadContent extends Component {
     }
 
     goToThread() {
-        const {userId, thread, isSomethingWorking, strings} = this.props;
+        const { thread, isSomethingWorking, strings} = this.props;
         const totalResults = thread.totalResults;
         const mustBeDisabled = thread.disabled || totalResults == 0 && isSomethingWorking;
         if (mustBeDisabled) {
@@ -79,7 +79,7 @@ export default class ThreadContent extends Component {
         } else if (totalResults == 0) {
             this.context.history.pushState(null, `edit-thread/${thread.id}`)
         } else {
-            this.context.history.pushState(null, `users/${userId}/recommendations/${thread.id}`)
+            this.context.history.pushState(null, `recommendations/${thread.id}`)
         }
     }
 

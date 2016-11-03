@@ -37,6 +37,19 @@ class GroupStore extends BaseStore {
                 this.emitChange();
                 break;
 
+            case ActionTypes.REQUEST_STATS_SUCCESS:
+                const groups = action.response.groupsBelonged;
+                if (null == groups){
+                    break;
+                }
+                groups.forEach(group => {
+                    if (! (group.id in this.groups)){
+                        this._groups[group.id] = group;
+                    }
+                });
+                this.emitChange();
+                break;
+
             default:
                 break;
         }

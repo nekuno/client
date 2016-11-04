@@ -3,8 +3,8 @@
 	height: 58px;
 	margin: 8px;
 	.rotation-animation {
-		animation: div-rotate 2s linear infinite;
-		font-size: 4.2em;
+		animation: div-rotate 1s infinite steps(8);
+		font-size: 4.3em;
 	}
 }
 .spinner-wrapper-small {

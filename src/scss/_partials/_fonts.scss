@@ -83,6 +83,9 @@ $nekuno-logo-font: 'klinic_slabmedium';
 .icon-spinner:before {
 	content: "\e97a";
 }
+.icon-spinner, .icon-thumbs-up, .icon-thumbs-down {
+	display: inline-block;
+}
 .icon-circle:before {
 	content: "\e929";
 }

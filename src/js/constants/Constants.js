@@ -1,7 +1,7 @@
 import config from '../config/config';
 
 export const API_ROOT = config.API_ROOT;
-export const INVITATIONS_URL = config.INVITATIONS_ROOT + '?token={token}';
+export const INVITATIONS_URL = config.INVITATIONS_ROOT + '{token}';
 export const API_URLS = {
     LOGIN                    : API_ROOT + 'login',
     VALIDATE_INVITATION_TOKEN: API_ROOT + 'invitations/token/validate/',
@@ -12,7 +12,10 @@ export const API_URLS = {
     REGISTER_PROFILE         : API_ROOT + 'profile',
     CONSUME_INVITATION       : API_ROOT + 'invitations/consume/{token}',
     INVITATIONS              : API_ROOT + 'invitations',
+    REQUEST_GROUP            : API_ROOT + 'groups/{groupId}',
     JOIN_GROUP               : API_ROOT + 'groups/{groupId}/members',
+    LEAVE_GROUP               : API_ROOT + 'groups/{groupId}/members',
+    CREATE_GROUP             : API_ROOT + 'groups',
     CONNECT_ACCOUNT          : API_ROOT + 'tokens/{resource}?extend',
     CREATE_DEFAULT_THREADS   : API_ROOT + 'threads/default',
     USER_DATA_STATUS         : API_ROOT + 'data/status',
@@ -29,7 +32,7 @@ export const API_URLS = {
 
 export const THREAD_TYPES = {
     THREAD_CONTENTS: 'THREAD_CONTENTS',
-    THREAD_USERS   : 'THREAD_USERS',
+    THREAD_USERS   : 'THREAD_USERS'
 };
 
 export const QUESTION_STATS_COLORS = [
@@ -115,3 +118,10 @@ export const REQUIRED_REGISTER_PROFILE_FIELDS = [
         type: 'location'
     }
 ];
+
+export const ORIGIN_CONTEXT = {
+    RECOMMENDATIONS_PAGE: 'recommendationsPage',
+    OTHER_INTERESTS_PAGE: 'otherInterestsPage',
+    OWN_INTERESTS_PAGE  : 'ownInterestsPage',
+    OTHER_USER_PAGE     : 'otherUserPage',
+};

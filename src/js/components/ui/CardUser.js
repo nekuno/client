@@ -35,8 +35,8 @@ export default class CardUser extends Component {
     }
 
     onLikeOrDislike() {
-        const {loggedUserId, userId} = this.props;
-        if (!this.props.like) {
+        const {like, loggedUserId, userId} = this.props;
+        if (!like || like === -1) {
             UserActionCreators.likeUser(loggedUserId, userId);
         } else {
             UserActionCreators.deleteLikeUser(loggedUserId, userId);

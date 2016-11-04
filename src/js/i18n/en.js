@@ -95,6 +95,22 @@ export default {
         photos                  : 'Photos',
         changeProfilePhoto      : 'Change profile photo'
     },
+    GroupPage                        : {
+        groups      : 'Your groups',
+        create      : 'Create',
+        creating    : 'Creating group',
+        enter_name  : 'Name of the group',
+        join        : 'Join',
+        joining     : 'Joining group',
+        enter_token : 'Invitation code'
+    },
+    GroupStatsPage                   : {
+        group: 'Group',
+        leave: 'Leave',
+        confirm_leave: 'Confirm leave',
+        leaving: 'Leaving'
+
+    },
     LoginPage                        : {
         login          : 'Login',
         cancel         : 'Cancel',
@@ -166,7 +182,9 @@ export default {
         loadingMessage  : 'Loading recommendations',
         confirmBlock    : 'Are you sure you want to block this user?',
         processingThread: 'These results are provisional, we are working on improving them for you.',
-        confirmReplace  : 'We have improve your recommendations. Do you whant to reload them?'
+        confirmReplace  : 'We have improve your recommendations. Do you whant to reload them?',
+        copyToClipboard : 'Copy to clipboard: Ctrl+C, Enter',
+        shareError      : 'An error occurred sharing the content'
     },
     InvitationsPage                  : {
         invitations           : 'Invitations',
@@ -218,6 +236,7 @@ export default {
     LeftPanel                        : {
         interests     : 'Interests',
         threads       : 'Discover',
+        groups        : 'Groups',
         myProfile     : 'Profile',
         conversations : 'Messages',
         socialNetworks: 'My social networks',
@@ -336,6 +355,9 @@ export default {
         edit       : 'Edit',
         delete     : 'Delete',
         deleting   : 'Deleting'
+    },
+    ThreadToolBar                    : {
+        next: 'Next'
     },
     CardContent                      : {
         like           : 'Like',
@@ -470,6 +492,9 @@ export default {
     },
     BirthdayEdit                     : {
         birthdayPlaceholder: 'Your birth date'
+    },
+    Group                            : {
+        users : 'users'
     },
     ////////////////
     // Framework7 //

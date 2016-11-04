@@ -32,6 +32,8 @@ import ConnectSocialNetworksOnSignUpPage from './pages/ConnectSocialNetworksOnSi
 import ConnectSocialNetworksPage from './pages/ConnectSocialNetworksPage';
 import CreateThreadPage from './pages/CreateThreadPage';
 import EditThreadPage from './pages/EditThreadPage';
+import GroupPage from './pages/GroupPage';
+import GroupStatsPage from './pages/GroupStatsPage';
 import RouterActionCreators from './actions/RouterActionCreators';
 import LoginStore from './stores/LoginStore';
 
@@ -85,11 +87,13 @@ export default class Root extends Component {
                         <Route name="other-profile" path="/profile/:userId" component={OtherUserPage}/>
                         <Route name="invitations" path="/invitations" component={InvitationsPage}/>
                         <Route name="threads" path="/threads" component={ThreadPage}/>
-                        <Route name="recommendations" path="/users/:userId/recommendations/:threadId" component={RecommendationPage}/>
+                        <Route name="recommendations" path="/recommendations/:threadId" component={RecommendationPage}/>
                         <Route name="social-networks-on-sign-up" path="/social-networks-on-sign-up" component={ConnectSocialNetworksOnSignUpPage}/>
                         <Route name="social-networks" path="/social-networks" component={ConnectSocialNetworksPage}/>
                         <Route name="create-thread" path="/create-thread" component={CreateThreadPage}/>
                         <Route name="edit-thread" path="/edit-thread/:threadId" component={EditThreadPage}/>
+                        <Route name="groups" path="/groups" component={GroupPage}/>
+                        <Route name="group-stats" path="/groups/:groupId" component={GroupStatsPage}/>
                     </Route>
                 </Route>
             </Router>

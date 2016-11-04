@@ -83,7 +83,8 @@ export default class ThreadUsers extends Component {
     }
 
     continue() {
-        this.context.history.pushState(null, `users/${this.props.userId}/recommendations/${this.props.thread.id}`)
+        const { thread } = this.props;
+        this.context.history.pushState(null, `recommendations/${thread.id}`)
     }
 
     render() {

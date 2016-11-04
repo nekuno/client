@@ -96,6 +96,22 @@ export default {
         photos                  : 'Fotos',
         changeProfilePhoto      : 'Cambiar foto de perfil'
     },
+    GroupPage                        : {
+        groups      : 'Tus grupos',
+        create      : 'Crear',
+        creating    : 'Creando grupo',
+        enter_name  : 'Nombre del grupo',
+        join        : 'Unirte',
+        joining     : 'Uniendo al grupo',
+        enter_token : 'Código de invitación'
+    },
+    GroupStatsPage                   : {
+        group: 'Grupo',
+        leave: 'Salir',
+        confirm_leave: 'Confirmar salir',
+        leaving: 'Saliendo'
+
+    },
     LoginPage                        : {
         login        : 'Iniciar sesión',
         cancel       : 'Cancelar',
@@ -167,7 +183,9 @@ export default {
         loadingMessage  : 'Cargando recomendaciones',
         confirmDelete   : '¿Estás seguro de que quieres borrar este ovillo?',
         processingThread: 'Estos resultados son provisionales, en breve mejorarán',
-        confirmReplace  : 'Hemos mejorado tus recomendaciones. ¿Quieres actualizarlas?'
+        confirmReplace  : 'Hemos mejorado tus recomendaciones. ¿Quieres actualizarlas?',
+        copyToClipboard : 'Copiar al portapapeles: Ctrl+C, Enter',
+        shareError      : 'Parece que ha habido un error mientras compartías este contenido'
     },
     InvitationsPage                  : {
         invitations           : 'Invitaciones',
@@ -219,6 +237,7 @@ export default {
     LeftPanel                        : {
         interests     : 'Intereses',
         threads       : 'Descubrir',
+        groups        : 'Grupos',
         myProfile     : 'Mi perfil',
         conversations : 'Mensajes',
         socialNetworks: 'Mis redes sociales',
@@ -337,6 +356,9 @@ export default {
         edit       : 'Editar',
         delete     : 'Eliminar',
         deleting   : 'Eliminando'
+    },
+    ThreadToolBar                    : {
+        next: 'Siguiente'
     },
     CardContent                      : {
         like           : 'Me interesa',
@@ -471,6 +493,9 @@ export default {
     },
     BirthdayEdit                     : {
         birthdayPlaceholder: 'Tu fecha de nacimiento'
+    },
+    Group                            : {
+        users : 'usuarios'
     },
     ////////////////
     // Framework7 //

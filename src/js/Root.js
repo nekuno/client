@@ -34,6 +34,8 @@ import CreateThreadPage from './pages/CreateThreadPage';
 import EditThreadPage from './pages/EditThreadPage';
 import GroupPage from './pages/GroupPage';
 import GroupStatsPage from './pages/GroupStatsPage';
+import GroupMembersPage from './pages/GroupMembersPage';
+import GroupContentsPage from './pages/GroupContentsPage';
 import RouterActionCreators from './actions/RouterActionCreators';
 import LoginStore from './stores/LoginStore';
 
@@ -94,6 +96,8 @@ export default class Root extends Component {
                         <Route name="edit-thread" path="/edit-thread/:threadId" component={EditThreadPage}/>
                         <Route name="groups" path="/groups" component={GroupPage}/>
                         <Route name="group-stats" path="/groups/:groupId" component={GroupStatsPage}/>
+                        <Route name="group-members" path="/groups/:groupId/members" component={GroupMembersPage}/>
+                        <Route name="group-contents" path="/groups/:groupId/contents" component={GroupContentsPage}/>
                     </Route>
                 </Route>
             </Router>

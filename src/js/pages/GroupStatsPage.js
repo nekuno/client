@@ -1,22 +1,25 @@
 import React, { PropTypes, Component } from 'react';
-import { API_URLS } from '../constants/Constants';
+import { API_URLS, INVITATIONS_URL } from '../constants/Constants';
 import TopNavBar from '../components/ui/TopNavBar';
 import FullWidthButton from '../components/ui/FullWidthButton';
 import EmptyMessage from '../components/ui/EmptyMessage';
+import ToolBar from '../components/ui/ToolBar';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
 import * as APIUtils from '../utils/APIUtils';
 import * as UserActionCreators from '../actions/UserActionCreators';
 import * as GroupActionCreators from '../actions/GroupActionCreators';
-import StatsStore from '../stores/StatsStore';
 import GroupStore from '../stores/GroupStore';
 
 /**
  * Requests data from server for current props.
  */
 function requestData(props) {
-    GroupActionCreators.requestGroup(props.params.groupId);
+    const groupId = props.params.groupId;
+    GroupActionCreators.requestGroup(groupId);
+    GroupActionCreators.requestGroupContents(groupId);
+    GroupActionCreators.requestGroupMembers(groupId);
 }
 
 /**
@@ -31,9 +34,14 @@ function getState(props) {
     };
 }
 
+function buildInvitationUrl(props) {
+    const group = props.group;
+    return group ? INVITATIONS_URL.replace('{token}', group.invitation.invitation_token) : null;
+}
+
 @AuthenticatedComponent
 @translate('GroupStatsPage')
-@connectToStores([StatsStore, GroupStore], getState)
+@connectToStores([GroupStore], getState)
 export default class GroupStatsPage extends Component {
     static propTypes = {
         // Injected by React Router:
@@ -56,6 +64,7 @@ export default class GroupStatsPage extends Component {
     constructor(props) {
         super(props);
         this.leave = this.leave.bind(this);
+        this.share = this.share.bind(this);
 
         this.state = {
             leaving: false
@@ -75,27 +84,65 @@ export default class GroupStatsPage extends Component {
             }, (error) => {
                 console.log(error);
                 this.setState({leaving: false});
-                nekunoApp.alert('Sorry! We couldn´t leave this group');
+                nekunoApp.alert(this.props.strings.leave_error);
             });
         });
     }
 
+    share() {
+        const invitationUrl = buildInvitationUrl(this.props);
+        const invitationSubject = this.props.strings.shareSubject + this.props.group.name;
+        if (window.cordova) {
+            // this is the complete list of currently supported params you can pass to the plugin (all optional)
+            var options = {
+                //message: 'share this', // not supported on some apps (Facebook, Instagram)
+                subject: invitationSubject,// fi. for email
+                url: invitationUrl
+                //chooserTitle: 'Pick an app' // Android only, you can override the default share sheet title
+            };
+            window.plugins.socialsharing.shareWithOptions(options, this.onShareSuccess, this.onShareError);
+        } else {
+            window.prompt(this.props.strings.copyToClipboard, invitationUrl);
+            this.onShareSuccess();
+        }
+    }
+
+    onShareSuccess() {
+    }
+
+    onShareError() {
+        nekunoApp.alert(this.props.strings.shareError)
+    }
+
     render() {
-        const {group, strings} = this.props;
+        const {group, strings, user} = this.props;
         const {leaving} = this.state;
+        const invitation_url = buildInvitationUrl(this.props);
         return (
             <div className="view view-main">
                 <TopNavBar leftMenuIcon={true} centerText={strings.group}/>
-                <div className="page group-page">
-                    {leaving ? <EmptyMessage text={strings.leaving} loadingGif={true}/> :
-                        group ?
-                            <div id="page-content">
-                                Datos del grupo aqui. Consoleado el group.
-                                {console.log(group)}
-                                <FullWidthButton onClick={this.leave}>{strings.leave}</FullWidthButton>
+                {leaving ? <EmptyMessage text={strings.leaving} loadingGif={true}/> :
+                    group ?
+                        <div>
+                            <div className="page group-page">
+                                <div id="page-content">
+                                    {console.log(group)}
+                                    <br />
+                                    Nombre: {group.name} <br />
+                                    Usuarios: {group.usersCount} <br />
+                                    <div onClick={this.share}
+                                         className="invitation-share">{strings.share}: {invitation_url}</div>
+                                    <FullWidthButton onClick={this.leave}>{strings.leave}</FullWidthButton>
+
+                                </div>
                             </div>
-                            : ''}
-                </div>
+                            <ToolBar links={[
+                {'url': '/groups/'+group.id, 'text': 'Grupo'},
+                {'url': '/groups/'+group.id+'/members', 'text': 'Miembros'},
+                {'url': '/groups/'+group.id+'/contents', 'text': 'Intereses'}
+                ]} activeLinkIndex={0} arrowUpLeft={'85%'}/>
+                        </div>
+                        : ''}
             </div>
         );
     }
@@ -103,9 +150,6 @@ export default class GroupStatsPage extends Component {
 
 GroupStatsPage.defaultProps = {
     strings: {
-        group: 'Group',
-        leave: 'Leave',
-        confirm_leave: 'Confirm leave',
-        leaving: 'Leaving group'
+        group: 'Group'
     }
 };

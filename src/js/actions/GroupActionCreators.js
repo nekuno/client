@@ -43,3 +43,19 @@ export function leaveGroup(groupId) {
         return data;
     });
 }
+
+export function requestGroupMembers(groupId, url = null) {
+    return dispatchAsync(GroupAPI.requestGroupMembers(groupId, url), {
+        request: ActionTypes.REQUEST_GROUP_MEMBERS,
+        success: ActionTypes.REQUEST_GROUP_MEMBERS_SUCCESS,
+        failure: ActionTypes.REQUEST_GROUP_MEMBERS_ERROR
+    }, {groupId});
+}
+
+export function requestGroupContents(groupId, url = null) {
+    return dispatchAsync(GroupAPI.requestGroupContents(groupId, url), {
+        request: ActionTypes.REQUEST_GROUP_CONTENTS,
+        success: ActionTypes.REQUEST_GROUP_CONTENTS_SUCCESS,
+        failure: ActionTypes.REQUEST_GROUP_CONTENTS_ERROR
+    }, {groupId});
+}

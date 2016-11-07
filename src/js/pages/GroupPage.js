@@ -126,8 +126,8 @@ export default class GroupPage extends Component {
                                 joining ? <EmptyMessage text={strings.joining} loadingGif={true}/> :
 
                                     <div>
-                                        <FullWidthButton onClick={this.create}> {strings.create}</FullWidthButton>
-                                        <FullWidthButton onClick={this.join}> {strings.join}</FullWidthButton>
+                                        <FullWidthButton onClick={this.create}> {strings.create} </FullWidthButton>
+                                        <FullWidthButton onClick={this.join}> {strings.join} </FullWidthButton>
                                         {groups.map((group) => {
                                             return <Group key={group.id} group={group}/>
                                         })}

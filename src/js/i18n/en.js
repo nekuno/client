@@ -106,10 +106,12 @@ export default {
     },
     GroupStatsPage                   : {
         group: 'Group',
+        share: 'Sharing URL',
+        shareSubject: 'Join the Nekuno group ',
         leave: 'Leave',
         confirm_leave: 'Confirm leave',
-        leaving: 'Leaving'
-
+        leaving: 'Leaving group',
+        leave_error: 'Sorry! Please, try again to leave the group'
     },
     LoginPage                        : {
         login          : 'Login',

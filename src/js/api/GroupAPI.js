@@ -19,3 +19,13 @@ export function leaveGroup(groupId){
     let url = API_URLS.LEAVE_GROUP.replace('{groupId}', groupId);
     return deleteData(url);
 }
+
+export function requestGroupMembers(groupId, url){
+    url = null !== url ? url : API_URLS.REQUEST_GROUP_MEMBERS.replace('{groupId}', groupId);
+    return getData(url);
+}
+
+export function requestGroupContents(groupId, url){
+    url = null !== url ? url : API_URLS.REQUEST_GROUP_CONTENTS.replace('{groupId}', groupId);
+    return getData(url);
+}

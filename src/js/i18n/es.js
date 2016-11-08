@@ -502,6 +502,7 @@ export default {
     },
     RecommendationUser               : {
         similarity: 'Similaridad',
+        message   : 'Mensaje',
     },
     ////////////////
     // Framework7 //

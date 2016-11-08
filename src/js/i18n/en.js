@@ -500,6 +500,7 @@ export default {
     },
     RecommendationUser               : {
         similarity: 'Similarity',
+        message   : 'Message',
     },
     ////////////////
     // Framework7 //

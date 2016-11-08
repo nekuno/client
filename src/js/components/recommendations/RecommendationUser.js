@@ -60,18 +60,21 @@ export default class RecommendationUser extends Component {
                 <div className={'recommendation recommendation-' + accessibleKey}>
                     <div className="user-images">
                         <div className="user-images-wrapper">
-                            <Image src={imgSrc} defaultSrc={defaultSrc}/>
+                            <Link to={`/profile/${recommendation.id}`}>
+                                <Image src={imgSrc} defaultSrc={defaultSrc}/>
+                            </Link>
                         </div>
                     </div>
                     <Link to={`/profile/${recommendation.id}`} className="username-title">
                         {recommendation.username}
                     </Link>
-                    <div className="send-message-button icon-wrapper">
-                        <span className="icon-message" onClick={this.handleMessage}></span>
+                    <div className="send-message-button icon-wrapper icon-wrapper-with-text" onClick={this.handleMessage}>
+                        <span className="icon-message"></span>
+                        <span className="text">{strings.message}</span>
                     </div>
                     <div className="user-description">
                         {recommendation.location ? <span className="icon-marker"></span> : null}
-                        {recommendation.location ? recommendation.location.substr(0, 20) : null}
+                        {recommendation.location ? ' ' + recommendation.location.substr(0, 20) : null}
                         {recommendation.location && recommendation.location.length > 20 ? '...' : null}
                         {recommendation.location ? ' - ' : null}
                         <span className="similarity">{strings.similarity} {matching ? matching + '%' : '0%'}</span>
@@ -91,5 +94,6 @@ export default class RecommendationUser extends Component {
 RecommendationUser.defaultProps = {
     strings: {
         similarity: 'Similarity',
+        message   : 'Message',
     }
 };

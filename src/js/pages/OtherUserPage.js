@@ -174,7 +174,7 @@ export default class OtherUserPage extends Component {
         const blockClass = block ? "icon-block blocked" : "icon-block";
         return (
             <div className="view view-main">
-                <TopNavBar leftMenuIcon={true} centerText={otherUser ? otherUser.username : ''} rightIcon={'message'} onRightLinkClickHandler={this.handleClickMessageLink}/>
+                <TopNavBar leftIcon={'left-arrow'} centerText={otherUser ? otherUser.username : ''} rightIcon={'message'} onRightLinkClickHandler={this.handleClickMessageLink}/>
                 <div className="page user-page">
                     {otherUser && profile && profileWithMetadata ?
                         <div id="page-content">

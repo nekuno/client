@@ -76,10 +76,14 @@ body #root .App {
           }
           .username-title {
             font-size: 2em;
-
+            margin-right: 15px;
           }
           .send-message-button {
             margin: 10px 0 0 20px;
+
+            .icon-message {
+              margin-right: 5px;
+            }
           }
           .user-description {
             margin-top: 10px;

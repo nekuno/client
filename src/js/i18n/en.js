@@ -496,6 +496,9 @@ export default {
     Group                            : {
         users : 'users'
     },
+    RecommendationUser               : {
+        similarity: 'Similarity',
+    },
     ////////////////
     // Framework7 //
     ////////////////

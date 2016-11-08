@@ -212,6 +212,9 @@ export default class RecommendationPage extends Component {
             UserActionCreators.ignoreContent(userId, recommendation.content.id, ORIGIN_CONTEXT.RECOMMENDATIONS_PAGE, thread.name);
         }
         this.state.swiper.slideNext();
+        if (thread.category == "ThreadUser") {
+            //TODO: get OtherGallery
+        }
     }
 
     dislike() {

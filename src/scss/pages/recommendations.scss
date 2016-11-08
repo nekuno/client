@@ -47,6 +47,53 @@ body #root .App {
         }
       }
 
+      .recommendation-users {
+        text-align: center;
+
+        .chip-list {
+          margin: auto;
+          max-width: 85%;
+        }
+        .recommendation-list {
+
+          .swiper-slide {
+            background-color: $dark-purple;
+            width: 100%;
+          }
+          .user-images {
+            height: 250px;
+            overflow: hidden;
+            width: 100%;
+            .user-images-wrapper {
+              height: 400px;
+              margin-top: -75px;
+              width: 100%;
+              img {
+                margin: auto;
+                width: 100%;
+              }
+            }
+          }
+          .username-title {
+            font-size: 2em;
+
+          }
+          .send-message-button {
+            margin: 10px 0 0 20px;
+          }
+          .user-description {
+            margin-top: 10px;
+
+            .similarity {
+              font-weight: bold;
+            }
+          }
+        }
+          .recommendation {
+            margin: 25px auto 0;
+          }
+      }
+
       .loading {
         margin: 100px auto;
         text-align: center;

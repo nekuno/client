@@ -27,7 +27,7 @@ export default class RecommendationList extends Component {
     render() {
         const {thread, recommendations, filters, userId} = this.props;
         return (
-            <div className="recommendation-content">
+            <div className={thread.category === 'ThreadUsers' ? "recommendation-users" : "recommendation-content"}>
                 <div className="title thread-title">
                     {thread.name}
                 </div>

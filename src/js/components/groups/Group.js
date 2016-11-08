@@ -33,9 +33,8 @@ export default class Group extends Component {
         const groupUrl="groups/"+group.id;
         return (
             <div className="group">
-                <Link to={groupUrl}>{group.name}</Link>
-                <div className="group-chat-button" onClick={this.goToChat}> Chat </div>
-                <span className="group-number-users"> {group.usersCount} {strings.users}</span>
+                <div className="group-title" ><Link to={groupUrl}>{group.name}</Link></div>
+                <div className="group-number-users"> {group.usersCount} {strings.users}</div>
             </div>
         );
     }

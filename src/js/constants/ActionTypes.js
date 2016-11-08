@@ -212,6 +212,14 @@ export default keyMirror({
     LEAVE_GROUP_SUCCESS  : null,
     LEAVE_GROUP_ERROR    : null,
 
+    REQUEST_GROUP_MEMBERS        : null,
+    REQUEST_GROUP_MEMBERS_SUCCESS: null,
+    REQUEST_GROUP_MEMBERS_ERROR  : null,
+
+    REQUEST_GROUP_CONTENTS        : null,
+    REQUEST_GROUP_CONTENTS_SUCCESS: null,
+    REQUEST_GROUP_CONTENTS_ERROR  : null,
+
     ROUTER_NEXT_TRANSITION_PATH: null,
 
     CHAT_MESSAGES        : null,

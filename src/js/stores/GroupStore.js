@@ -7,6 +7,8 @@ class GroupStore extends BaseStore {
     setInitial() {
         this._error = null;
         this._groups = [];
+        this._contents = [];
+        this._members = [];
     }
 
     _registerToActions(action) {
@@ -37,6 +39,37 @@ class GroupStore extends BaseStore {
                 this.emitChange();
                 break;
 
+            case ActionTypes.REQUEST_STATS_SUCCESS:
+                const groups = action.response.groupsBelonged;
+                if (null == groups){
+                    break;
+                }
+                groups.forEach(group => {
+                    if (! (group.id in this.groups)){
+                        this._groups[group.id] = group;
+                    }
+                });
+                this.emitChange();
+                break;
+
+            case ActionTypes.REQUEST_GROUP_CONTENTS_SUCCESS:
+                const contents = action.response.items;
+                this._contents[action.groupId] = this._contents[action.groupId] ? this._contents[action.groupId] : [];
+                contents.forEach(content => {
+                    this._contents[action.groupId][content.content.id] = content;
+                });
+                this.emitChange();
+                break;
+
+            case ActionTypes.REQUEST_GROUP_MEMBERS_SUCCESS:
+                const members = action.response.items;
+                this._members[action.groupId] = this._members[action.groupId] ? this._members[action.groupId] : [];
+                members.forEach(member => {
+                    this._members[action.groupId][member.id] = member;
+                });
+                this.emitChange();
+                break;
+
             default:
                 break;
         }
@@ -50,8 +83,24 @@ class GroupStore extends BaseStore {
         return this._groups;
     }
 
+    get contents() {
+        return this._contents;
+    }
+
+    get members() {
+        return this._members;
+    }
+
     getGroup(groupId) {
         return this.groups[groupId] ? this.groups[groupId] : null;
+    }
+
+    getContents(groupId) {
+        return this.contents[groupId] ? this.contents[groupId] : null;
+    }
+
+    getMembers(groupId) {
+        return this.members[groupId] ? this.members[groupId] : null;
     }
 
 }

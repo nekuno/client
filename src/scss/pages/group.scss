@@ -1,0 +1,35 @@
+@import '../_partials/colors';
+
+body #root .App {
+
+  .view .page.group-page {
+    #page-content {
+      margin-top: 70px;
+      width: 100%;
+
+      .group {
+        width: 80%;
+        height: 50px;
+        margin-top: 10px;
+        margin-left: 10%;
+        position: relative;
+        background-color: $deep-purple-translucent;
+        .group-title {
+          max-width: 50%;
+          height: 100%;
+          left: 0;
+          overflow-x: hidden;
+          position: absolute;
+          font-size: 30px;
+        }
+        .group-number-users {
+          max-width: 50%;
+          height: 100%;
+          right: 0;
+          position: absolute;
+          font-size: 20px;
+        }
+      }
+    }
+  }
+}

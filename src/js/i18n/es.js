@@ -107,9 +107,12 @@ export default {
     },
     GroupStatsPage                   : {
         group: 'Grupo',
-        leave: 'Salir',
-        confirm_leave: 'Confirmar salir',
-        leaving: 'Saliendo'
+        share: 'Url a compartir',
+        shareSubject: 'Únete al grupo de Nekuno ',
+        leave: 'Salir del grupo',
+        confirm_leave: 'Confirmar para salir',
+        leaving: 'Saliendo',
+        leave_error: '¡Lo sentimos! Por favor, intenta salir de nuevo'
 
     },
     LoginPage                        : {

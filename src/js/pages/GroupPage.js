@@ -10,7 +10,7 @@ import connectToStores from '../utils/connectToStores';
 import * as APIUtils from '../utils/APIUtils';
 import * as UserActionCreators from '../actions/UserActionCreators';
 import * as GroupActionCreators from '../actions/GroupActionCreators';
-import StatsStore from '../stores/StatsStore';
+import GroupStore from '../stores/GroupStore';
 
 function parseId(user) {
     return user.id;
@@ -30,7 +30,7 @@ function requestData(props) {
  * Retrieves state from stores for current props.
  */
 function getState(props) {
-    const groups = StatsStore.getGroups();
+    const groups = GroupStore.groups;
 
     return {
         groups
@@ -39,7 +39,7 @@ function getState(props) {
 
 @AuthenticatedComponent
 @translate('GroupPage')
-@connectToStores([StatsStore], getState)
+@connectToStores([GroupStore], getState)
 export default class GroupPage extends Component {
     static propTypes = {
         // Injected by @AuthenticatedComponent
@@ -76,7 +76,6 @@ export default class GroupPage extends Component {
             this.setState({creating: true});
             GroupActionCreators.createGroup(data).then((group) => {
                 this.setState({creating: false});
-                console.log(group);
                 this.context.history.pushState(null, '/groups/' + group.id);
             }, (error) => {
                 this.setState({creating: false});
@@ -127,8 +126,8 @@ export default class GroupPage extends Component {
                                 joining ? <EmptyMessage text={strings.joining} loadingGif={true}/> :
 
                                     <div>
-                                        <FullWidthButton onClick={this.create}> {strings.create}</FullWidthButton>
-                                        <FullWidthButton onClick={this.join}> {strings.join}</FullWidthButton>
+                                        <FullWidthButton onClick={this.create}> {strings.create} </FullWidthButton>
+                                        <FullWidthButton onClick={this.join}> {strings.join} </FullWidthButton>
                                         {groups.map((group) => {
                                             return <Group key={group.id} group={group}/>
                                         })}

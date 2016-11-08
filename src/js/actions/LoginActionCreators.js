@@ -21,12 +21,16 @@ export default new class LoginActionCreators {
         console.log('Attempting auto-login...');
         dispatch(ActionTypes.AUTO_LOGIN, {jwt});
         if (LoginStore.isLoggedIn()) {
-            UserActionCreators.requestOwnUser();
+            UserActionCreators.requestOwnUser().then(() => {
+                if (!RouterStore.hasNextTransitionPath() && (document.location.hash === '' || document.location.hash.indexOf('#/?') === 0)) {
+                    RouterActionCreators.storeRouterTransitionPath('/threads');
+                }
+                this.redirect();
+            }, (error) => {
+                console.log(error);
+            });
         }
-        if (!RouterStore.hasNextTransitionPath() && LoginStore.isLoggedIn() && (document.location.hash === '' || document.location.hash.indexOf('#/?') === 0)) {
-            RouterActionCreators.storeRouterTransitionPath('/threads');
-        }
-        this.redirect();
+
     }
 
     loginUser(username, password) {
@@ -59,9 +63,13 @@ export default new class LoginActionCreators {
                     RouterActionCreators.storeRouterTransitionPath('/threads');
                 }
                 this.redirect();
-                return new Promise(function (resolve) {resolve(true)});
+                return new Promise(function(resolve) {
+                    resolve(true)
+                });
             }, (error) => {
-                return new Promise(function (resolve, reject) {reject(error)});
+                return new Promise(function(resolve, reject) {
+                    reject(error)
+                });
             });
     }
 
@@ -80,6 +88,10 @@ export default new class LoginActionCreators {
             UserActionCreators.requestOwnProfile(LoginStore.user.id).then(() => {
                 QuestionActionCreators.requestQuestions(LoginStore.user.id).then(
                     () => {
+                        console.log('QuestionActionCreators.requestQuestions', QuestionStore.answersLength(LoginStore.user.id));
+                        console.log('LoginStore.isComplete()', LoginStore.isComplete());
+                        console.log('ProfileStore.isComplete(LoginStore.user.id)', ProfileStore.isComplete(LoginStore.user.id));
+                        console.log('QuestionStore.isJustRegistered(LoginStore.user.id)', QuestionStore.isJustRegistered(LoginStore.user.id));
                         let path = null;
                         if (QuestionStore.answersLength(LoginStore.user.id) == 0) {
                             path = '/social-networks-on-sign-up';
@@ -122,7 +134,7 @@ export default new class LoginActionCreators {
     }
 
     logoutUser(path = '/') {
-        dispatch(ActionTypes.LOGOUT_USER,{path});
+        dispatch(ActionTypes.LOGOUT_USER, {path});
         ChatSocketService.disconnect();
         WorkersSocketService.disconnect();
     }

@@ -6,7 +6,7 @@ class GroupStore extends BaseStore {
 
     setInitial() {
         this._error = null;
-        this._groups = [];
+        this._groups = {};
         this._contents = [];
         this._members = [];
     }

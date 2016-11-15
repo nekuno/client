@@ -220,7 +220,7 @@ export default class RecommendationPage extends Component {
             const history = this.context.history;
             ThreadActionCreators.deleteThread(threadId)
                 .then(function() {
-                    history.pushState(null, '/threads');
+                    history.pushState(null, '/discover');
                 });
         });
     }

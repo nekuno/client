@@ -141,7 +141,7 @@ export default class AnswerQuestionPage extends Component {
     }
 
     onContinue() {
-        this.context.history.pushState(null, '/threads');
+        this.context.history.pushState(null, '/discover');
     }
 
     forceStartTutorial() {

@@ -1,6 +1,6 @@
 import ActionTypes from '../constants/ActionTypes';
 import { register, waitFor } from '../dispatcher/Dispatcher';
-import { createStore, mergeIntoBag, isInBag } from '../utils/StoreUtils';
+import { createStore } from '../utils/StoreUtils';
 import UserStore from '../stores/UserStore'
 import selectn from 'selectn';
 

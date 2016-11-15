@@ -499,8 +499,8 @@ export default {
         users : 'users'
     },
     RecommendationUser               : {
-        similarity: 'Similarity',
-        message   : 'Message',
+        age    : 'Age',
+        message: 'Message',
     },
     ////////////////
     // Framework7 //

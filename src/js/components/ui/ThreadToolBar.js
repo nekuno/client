@@ -78,7 +78,7 @@ export default class ThreadToolBar extends Component {
                             <div className="thread-toolbar-ignore-text">{strings.next}</div>
                         </div>
                         <div className="thread-toolbar-item right" onClick={saving ? null : this.like}>
-                            <div className={saving ? "icon-spinner rotation-animation" : liked ? "icon-thumbs-up active-green" : "icon-thumbs-up"}></div>
+                            <div className={saving ? "icon-spinner rotation-animation" : liked ? "icon-star active-green" : "icon-star"}></div>
                         </div>
                     </div>
                     {category === 'ThreadContent' ?

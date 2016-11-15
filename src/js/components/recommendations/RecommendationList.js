@@ -32,7 +32,7 @@ export default class RecommendationList extends Component {
                     {thread.name}
                 </div>
                 {this.renderChipList(thread, filters)}
-                <div className="swiper-container">
+                <div className="swiper-container recommendations-swiper-container">
                     <div className="swiper-wrapper recommendation-list">
                         {thread.category === 'ThreadUsers' ? 
                             Object.keys(recommendations).map((key, index) => <RecommendationUser userId={userId} key={index} accessibleKey={index} recommendation={recommendations[key]}/>)

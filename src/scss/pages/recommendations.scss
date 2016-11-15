@@ -68,9 +68,13 @@ body #root .App {
               height: 400px;
               margin-top: -75px;
               width: 100%;
-              img {
-                margin: auto;
-                width: 100%;
+              .swiper-custom {
+                height: 100%;
+                position: relative;
+                img {
+                  margin: auto;
+                  width: 100%;
+                }
               }
             }
           }
@@ -90,6 +94,98 @@ body #root .App {
 
             .similarity {
               font-weight: bold;
+            }
+          }
+          .profile-data-list {
+            margin-top: 30px;
+            text-align: left;
+
+            .profile-category {
+              width: 100%;
+              background-color: $deep-purple-translucent;
+              margin-top: 10px;
+              padding-top: 1px;
+              padding-left: 5%;
+              padding-bottom: 1px;
+            }
+
+            .profile-data, .profile-about-me {
+              display: table;
+              padding: 5px 5%;
+              width: 100%;
+
+              span {
+                width: 50%;
+                margin-top: 5px;
+              }
+
+              .profile-data-value {
+                float: right;
+                width: 50%;
+              }
+              .profile-data-name {
+                font-weight: bold;
+                float: left;
+                margin-right: 5%;
+                width: 45%;
+              }
+              .profile-about-me-value {
+                margin-top: 1.5ex;
+                width: 100%;
+                margin-bottom: 3ex;
+                .see-more {
+                  color: $deep-purple;
+                  cursor: pointer;
+                }
+              }
+              .profile-about-me-name {
+                font-weight: bold;
+                width: 100%;
+              }
+            }
+          }
+
+          .other-profile-wrapper {
+            background-color: $deep-purple-translucent;
+            margin-top: 20px;
+            text-align: center;
+          }
+
+          .other-profile-data {
+            color: white;
+            margin: 10px auto;
+            display: inline-block;
+            width: 100%;
+            .other-profile-left {
+              width: 50%;
+              height: 100%;
+              float: left;
+
+              .other-profile-stats {
+                width: 100%;
+
+                a {
+                  color: #fff;
+                }
+              }
+            }
+            .other-profile-right {
+              width: 40%;
+              height: 100%;
+              float: left;
+
+              .progress-bar {
+                margin-top: 5px;
+                margin-bottom: 5px;
+                border-radius: 5px;
+                -moz-border-radius: 5px;
+                -webkit-border-radius: 5px;
+              }
+              [class^="progress-bar"], [class*=" progress-bar-"] {
+                border-radius: 5px;
+                -moz-border-radius: 5px;
+                -webkit-border-radius: 5px;
+              }
             }
           }
         }

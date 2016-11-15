@@ -4,7 +4,8 @@ import RecommendationList from '../components/recommendations/RecommendationList
 import TopNavBar from '../components/ui/TopNavBar';
 import ThreadToolBar from '../components/ui/ThreadToolBar';
 import EmptyMessage from '../components/ui/EmptyMessage';
-import * as UserActionCreators from '../actions/UserActionCreators'
+import * as UserActionCreators from '../actions/UserActionCreators';
+import GalleryPhotoActionCreators from '../actions/GalleryPhotoActionCreators';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
@@ -14,6 +15,9 @@ import ThreadStore from '../stores/ThreadStore';
 import FilterStore from '../stores/FilterStore';
 import WorkersStore from '../stores/WorkersStore';
 import LikeStore from '../stores/LikeStore';
+import ProfileStore from '../stores/ProfileStore';
+import ComparedStatsStore from '../stores/ComparedStatsStore';
+import GalleryPhotoStore from '../stores/GalleryPhotoStore';
 
 function parseThreadId(params) {
     return params.threadId;
@@ -35,12 +39,24 @@ function requestData(props) {
         ThreadActionCreators.requestRecommendationPage(userId, threadId);
         ThreadActionCreators.requestFilters();
     }
-
+    UserActionCreators.requestMetadata();
 }
 
-function initSwiper(thread) {
-    // Init slider and store its instance in recommendationsSwiper variable
-    let recommendationsSwiper = nekunoApp.swiper('.swiper-container', {
+function requestRecommendationData(props, activeIndex) {
+     if (props.thread.category == "ThreadUsers") {
+        const userId = parseId(props.user);
+        const otherUserRecommendation = props.recommendations.find((recommendation, index) => index === activeIndex) || null;
+        if (otherUserRecommendation) {
+            const otherUserId = parseInt(otherUserRecommendation.id);
+            UserActionCreators.requestComparedStats(userId, otherUserId);
+            GalleryPhotoActionCreators.getOtherPhotos(otherUserId);
+        }
+    }
+}
+
+function initSwiper(props) {
+    // Init slider
+    let recommendationsSwiper = nekunoApp.swiper('.recommendations-swiper-container', {
         onSlideNextStart: onSlideNextStart,
         onSlidePrevStart: onSlidePrevStart,
         effect          : 'coverflow',
@@ -58,15 +74,18 @@ function initSwiper(thread) {
     });
 
     let activeIndex = recommendationsSwiper.activeIndex;
+    let requestRecommendationsTimeout = null;
+
+    getRecommendationData();
 
     function onSlideNextStart(swiper) {
         while (swiper.activeIndex > activeIndex) {
             activeIndex++;
-            if (activeIndex == RecommendationStore.getLength(thread.id) - 15) {
-                ThreadActionCreators.recommendationsNext(thread.id);
+            if (activeIndex == RecommendationStore.getLength(props.thread.id) - 15) {
+                ThreadActionCreators.recommendationsNext(props.thread.id);
             }
         }
-
+        getRecommendationData();
     }
 
     function onSlidePrevStart(swiper) {
@@ -74,6 +93,15 @@ function initSwiper(thread) {
             if (activeIndex >= 0) {
                 activeIndex--;
             }
+        }
+    }
+
+    function getRecommendationData() {
+        if (!requestRecommendationsTimeout) {
+            requestRecommendationsTimeout = window.setTimeout(() => {
+                requestRecommendationData(props, activeIndex);
+                requestRecommendationsTimeout = null;
+            }, 1000);
         }
     }
 
@@ -108,7 +136,7 @@ function getState(props) {
 
 @AuthenticatedComponent
 @translate('RecommendationPage')
-@connectToStores([ThreadStore, RecommendationStore, FilterStore, LikeStore], getState)
+@connectToStores([ThreadStore, RecommendationStore, FilterStore, LikeStore, ProfileStore, ComparedStatsStore, GalleryPhotoStore], getState)
 export default class RecommendationPage extends Component {
 
     static propTypes = {
@@ -168,7 +196,7 @@ export default class RecommendationPage extends Component {
         }
         if (this.props.thread && this.props.recommendations.length > 0 && !this.state.swiper) {
             this.state = {
-                swiper: initSwiper(this.props.thread)
+                swiper: initSwiper(this.props)
             };
         }
     }
@@ -179,7 +207,7 @@ export default class RecommendationPage extends Component {
         }
         if (!this.state.swiper) {
             this.state = {
-                swiper: initSwiper(this.props.thread)
+                swiper: initSwiper(this.props)
             };
         } else {
             this.state.swiper.updateSlidesSize();
@@ -212,7 +240,7 @@ export default class RecommendationPage extends Component {
             UserActionCreators.ignoreContent(userId, recommendation.content.id, ORIGIN_CONTEXT.RECOMMENDATIONS_PAGE, thread.name);
         }
         this.state.swiper.slideNext();
-        if (thread.category == "ThreadUser") {
+        if (thread.category == "ThreadUsers") {
             //TODO: get OtherGallery
         }
     }
@@ -292,15 +320,14 @@ export default class RecommendationPage extends Component {
 
     render() {
         const {recommendations, thread, user, filters, strings} = this.props;
-        if (Object.keys(thread).length == 0) {
-            return null;
-        }
         return (
             <div className="view view-main">
-                <TopNavBar leftIcon={'left-arrow'} centerText={''} rightIcon={'edit'} secondRightIcon={'delete'} onRightLinkClickHandler={this.editThread} onSecondRightLinkClickHandler={this.deleteThread}/>
+                {Object.keys(thread).length > 0 ?
+                    <TopNavBar leftIcon={'left-arrow'} centerText={''} rightIcon={'edit'} secondRightIcon={'delete'} onRightLinkClickHandler={this.editThread} onSecondRightLinkClickHandler={this.deleteThread}/>
+                    : <TopNavBar leftIcon={'left-arrow'} centerText={''}/>}
                 <div className="page">
                     <div id="page-content" className="recommendation-page">
-                        {recommendations.length > 0 && filters && Object.keys(filters).length > 0 ?
+                        {Object.keys(thread).length > 0 && recommendations.length > 0 && filters && Object.keys(filters).length > 0 ?
                             <RecommendationList recommendations={recommendations} thread={thread} userId={user.id} 
                                                 filters={thread.category === 'ThreadUsers' ? filters.userFilters : filters.contentFilters}/> 
                             : <EmptyMessage text={strings.loadingMessage} loadingGif={true} />

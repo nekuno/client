@@ -501,8 +501,8 @@ export default {
         users : 'usuarios'
     },
     RecommendationUser               : {
-        similarity: 'Similaridad',
-        message   : 'Mensaje',
+        age    : 'Edad',
+        message: 'Mensaje',
     },
     ////////////////
     // Framework7 //

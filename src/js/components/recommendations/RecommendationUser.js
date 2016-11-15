@@ -3,28 +3,50 @@ import { Link } from 'react-router';
 import Image from '../ui/Image';
 import translate from '../../i18n/Translate';
 import connectToStores from '../../utils/connectToStores';
-import * as UserActionCreators from '../../actions/UserActionCreators';
-import GalleryPhotoActionCreators from '../../actions/GalleryPhotoActionCreators';
+import ProfileStore from '../../stores/ProfileStore';
+import ComparedStatsStore from '../../stores/ComparedStatsStore';
 import GalleryPhotoStore from '../../stores/GalleryPhotoStore';
-
-function requestData(props) {
-    const userId = parseInt(props.recommendation.id);
-    //UserActionCreators.requestUser(userId, ['username', 'email', 'picture', 'status']);
-    //GalleryPhotoActionCreators.getOtherPhotos(userId);
-}
+import OtherProfileData from '../profile/OtherProfileData';
+import OtherProfileDataList from '../profile/OtherProfileDataList';
+import selectn from 'selectn';
 
 function getState(props) {
+    const userId = parseInt(props.userId);
     const otherUserId = parseInt(props.recommendation.id);
+    const profileWithMetadata = ProfileStore.getWithMetadata(otherUserId);
+    const stats = ComparedStatsStore.get(userId, otherUserId);
     const photos = GalleryPhotoStore.get(otherUserId);
     const noPhotos = GalleryPhotoStore.noPhotos(otherUserId);
     return {
+        profileWithMetadata,
+        stats,
         photos,
         noPhotos
     };
 }
 
+function initPhotosSwiper(id) {
+    // Init slider
+    return nekunoApp.swiper('#photos-swiper-container-' + id, {
+        effect          : 'coverflow',
+        slidesPerView   : 'auto',
+        coverflow       : {
+            rotate      : 30,
+            stretch     : 0,
+            depth       : 100,
+            modifier    : 1,
+            slideShadows: false
+        },
+        centeredSlides  : true,
+        paginationHide: false,
+        paginationClickable: true,
+        nextButton: '.swiper-button-next',
+        prevButton: '.swiper-button-prev',
+    });
+}
+
 @translate('RecommendationUser')
-//@connectToStores([GalleryPhotoStore], getState)
+@connectToStores([], getState)
 export default class RecommendationUser extends Component {
     static propTypes = {
         recommendation: PropTypes.object.isRequired,
@@ -40,10 +62,17 @@ export default class RecommendationUser extends Component {
         super(props);
 
         this.handleMessage = this.handleMessage.bind(this);
+
+        this.state = {
+            photosLoaded: null
+        }
     }
 
-    componentDidMount() {
-        requestData(this.props);
+    componentDidUpdate() {
+        if (this.props.photos.length > 0 && !this.state.photosLoaded) {
+            initPhotosSwiper(this.props.recommendation.id);
+            this.setState({photosLoaded: true})
+        }
     }
 
     handleMessage() {
@@ -51,18 +80,31 @@ export default class RecommendationUser extends Component {
     }
 
     render() {
-        const {recommendation, accessibleKey, photos, strings} = this.props;
+        const {recommendation, accessibleKey, profileWithMetadata, stats, photos, strings} = this.props;
         const defaultSrc = 'img/no-img/big.jpg';
-        const matching = Math.round(recommendation.similarity * 100);
         let imgSrc = recommendation.photo ? recommendation.photo.thumbnail.big : defaultSrc;
+
         return (
             <div className="swiper-slide">
                 <div className={'recommendation recommendation-' + accessibleKey}>
                     <div className="user-images">
                         <div className="user-images-wrapper">
-                            <Link to={`/profile/${recommendation.id}`}>
-                                <Image src={imgSrc} defaultSrc={defaultSrc}/>
-                            </Link>
+                            <div className="swiper-custom">
+                                <div id={"photos-swiper-container-" + recommendation.id} className="swiper-container">
+                                    <div className="swiper-wrapper">
+                                        <div className="swiper-slide" key={0}>
+                                            <Image src={imgSrc} defaultSrc={defaultSrc}/>
+                                        </div>
+                                        {photos && photos.length > 0 ? photos.map((photo, index) =>
+                                            <div className="swiper-slide" key={index + 1}>
+                                                <Image src={photo.thumbnail.big} defaultSrc={defaultSrc}/>
+                                            </div>
+                                        ) : null}
+                                    </div>
+                                </div>
+                                <div className="swiper-button-prev"></div>
+                                <div className="swiper-button-next"></div>
+                            </div>
                         </div>
                     </div>
                     <Link to={`/profile/${recommendation.id}`} className="username-title">
@@ -73,11 +115,17 @@ export default class RecommendationUser extends Component {
                         <span className="text">{strings.message}</span>
                     </div>
                     <div className="user-description">
-                        {recommendation.location ? <span className="icon-marker"></span> : null}
-                        {recommendation.location ? ' ' + recommendation.location.substr(0, 20) : null}
-                        {recommendation.location && recommendation.location.length > 20 ? '...' : null}
-                        {recommendation.location ? ' - ' : null}
-                        <span className="similarity">{strings.similarity} {matching ? matching + '%' : '0%'}</span>
+                        <span className="icon-marker"></span> {selectn('location.locality', recommendation.profile) || selectn('location.address', recommendation.profile)} -
+                        <span className="age"> {strings.age}: {recommendation.age}</span>
+                    </div>
+                    <div>
+                        <div className="other-profile-wrapper bold">
+                            <OtherProfileData matching={recommendation.matching} similarity={recommendation.similarity} stats={stats} ownImage={null}
+                                              currentImage={imgSrc}
+                                              interestsUrl={`/users/${recommendation.id}/other-interests`}
+                                              questionsUrl={`/users/${recommendation.id}/other-questions`}/>
+                        </div>
+                        <OtherProfileDataList profile={recommendation.profile} profileWithMetadata={profileWithMetadata}/>
                     </div>
                 </div>
                 <br />
@@ -93,7 +141,7 @@ export default class RecommendationUser extends Component {
 
 RecommendationUser.defaultProps = {
     strings: {
-        similarity: 'Similarity',
-        message   : 'Message',
+        age    : 'Age',
+        message: 'Message',
     }
 };

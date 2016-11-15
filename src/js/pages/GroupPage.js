@@ -128,7 +128,8 @@ export default class GroupPage extends Component {
                                     <div>
                                         <FullWidthButton onClick={this.create}> {strings.create} </FullWidthButton>
                                         <FullWidthButton onClick={this.join}> {strings.join} </FullWidthButton>
-                                        {groups.map((group) => {
+                                        {Object.keys(groups).map((key) => {
+                                            let group = groups[key];
                                             return <Group key={group.id} group={group}/>
                                         })}
                                     </div>

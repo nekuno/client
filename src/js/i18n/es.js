@@ -501,10 +501,18 @@ export default {
         users : 'usuarios'
     },
     RecommendationUser               : {
-        age      : 'Edad',
-        message  : 'Mensaje',
-        questions: 'Preguntas',
-        interests: 'Intereses',
+        age    : 'Edad',
+        message: 'Mensaje',
+    },
+    RecommendationUserDetails        : {
+        questions            : 'Preguntas',
+        coincidences         : 'Coincidencias',
+        interests            : 'Intereses',
+        noInterests          : 'No hay intereses',
+        common               : 'En común',
+        all                  : 'Todos',
+        interestsCount       : '%count% Intereses',
+        similarInterestsCount: '%count% Intereses similares',
     },
     ////////////////
     // Framework7 //

@@ -82,6 +82,7 @@ body #root .App {
             }
           }
           .username-title {
+            display: inline-block;
             font-size: 2em;
             margin-right: 15px;
           }
@@ -192,6 +193,21 @@ body #root .App {
             }
           }
 
+          .other-interests-container {
+            margin-top: 20px;
+          }
+          .common-content-switch {
+            margin: auto;
+            width: 75%;
+
+            .text-radios {
+              padding: 5px 0 35px 0;
+
+              .chip {
+                width: 49%;
+              }
+            }
+          }
           .content-list {
             .card {
               display: inline-block;

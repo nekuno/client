@@ -499,10 +499,18 @@ export default {
         users : 'users'
     },
     RecommendationUser               : {
-        age      : 'Age',
-        message  : 'Message',
-        questions: 'Questions',
-        interests: 'Interests',
+        age    : 'Age',
+        message: 'Message',
+    },
+    RecommendationUserDetails        : {
+        questions            : 'Questions',
+        coincidences         : 'Coincidences',
+        interests            : 'Interests',
+        noInterests          : 'There are no interests',
+        common               : 'In common',
+        all                  : 'All',
+        interestsCount       : '%count% Interests',
+        similarInterestsCount: '%count% Similar interests',
     },
     ////////////////
     // Framework7 //

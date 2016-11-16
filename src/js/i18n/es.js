@@ -501,8 +501,10 @@ export default {
         users : 'usuarios'
     },
     RecommendationUser               : {
-        age    : 'Edad',
-        message: 'Mensaje',
+        age      : 'Edad',
+        message  : 'Mensaje',
+        questions: 'Preguntas',
+        interests: 'Intereses',
     },
     ////////////////
     // Framework7 //

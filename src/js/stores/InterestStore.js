@@ -6,6 +6,7 @@ import selectn from 'selectn';
 let _interests = {};
 let _noInterests = {};
 let _pagination = {};
+let _loadingComparedInterests = null;
 
 const InterestStore = createStore({
     contains(id, fields) {
@@ -26,6 +27,10 @@ const InterestStore = createStore({
 
     getAll() {
         return _interests;
+    },
+
+    isLoadingComparedInterests() {
+        return _loadingComparedInterests;
     }
 });
 
@@ -63,6 +68,12 @@ InterestStore.dispatchToken = register(action => {
         mergeIntoBag(_interests[currentUserId], orderedInterests);
         _pagination[currentUserId] = pagination;
         _noInterests[currentUserId] = _interests[currentUserId].length === 0;
+        _loadingComparedInterests = false;
+        InterestStore.emitChange();
+    }
+
+    if (action.type === 'REQUEST_COMPARED_INTERESTS') {
+        _loadingComparedInterests = true;
         InterestStore.emitChange();
     }
 

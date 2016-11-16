@@ -10,7 +10,10 @@ export default class RecommendationList extends Component {
         recommendations: PropTypes.array.isRequired,
         thread         : PropTypes.object.isRequired,
         filters        : PropTypes.object.isRequired,
-        userId         : PropTypes.number.isRequired
+        userId         : PropTypes.number.isRequired,
+        ownPicture     : PropTypes.string,
+        currentTab     : PropTypes.string,
+        onTabClick     : PropTypes.func
     };
 
     renderChipList = function(thread, filters) {
@@ -25,17 +28,17 @@ export default class RecommendationList extends Component {
     };
 
     render() {
-        const {thread, recommendations, filters, userId} = this.props;
+        const {thread, recommendations, filters, userId, ownPicture, currentTab} = this.props;
         return (
             <div className={thread.category === 'ThreadUsers' ? "recommendation-users" : "recommendation-content"}>
                 <div className="title thread-title">
                     {thread.name}
                 </div>
                 {this.renderChipList(thread, filters)}
-                <div className="swiper-container recommendations-swiper-container">
+                <div id="recommendations-swiper-container" className="swiper-container">
                     <div className="swiper-wrapper recommendation-list">
                         {thread.category === 'ThreadUsers' ? 
-                            Object.keys(recommendations).map((key, index) => <RecommendationUser userId={userId} key={index} accessibleKey={index} recommendation={recommendations[key]}/>)
+                            Object.keys(recommendations).map((key, index) => <RecommendationUser userId={userId} key={index} accessibleKey={index} recommendation={recommendations[key]} ownPicture={ownPicture} currentTab={currentTab} onTabClick={this.props.onTabClick}/>)
                             :
                             Object.keys(recommendations).map((key, index) => <RecommendationContent userId={userId} key={index} accessibleKey={index} recommendation={recommendations[key]}/>)
                         }

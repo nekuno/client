@@ -6,8 +6,12 @@ import connectToStores from '../../utils/connectToStores';
 import ProfileStore from '../../stores/ProfileStore';
 import ComparedStatsStore from '../../stores/ComparedStatsStore';
 import GalleryPhotoStore from '../../stores/GalleryPhotoStore';
+import QuestionStore from '../../stores/QuestionStore';
+import InterestStore from '../../stores/InterestStore';
 import OtherProfileData from '../profile/OtherProfileData';
 import OtherProfileDataList from '../profile/OtherProfileDataList';
+import OtherQuestionList from '../questions/OtherQuestionList';
+import CardContentList from '../interests/CardContentList';
 import selectn from 'selectn';
 
 function getState(props) {
@@ -17,11 +21,28 @@ function getState(props) {
     const stats = ComparedStatsStore.get(userId, otherUserId);
     const photos = GalleryPhotoStore.get(otherUserId);
     const noPhotos = GalleryPhotoStore.noPhotos(otherUserId);
+    const questions = QuestionStore.get(userId);
+    const otherQuestions = QuestionStore.get(otherUserId) || {};
+    const questionsPagination = QuestionStore.getPagination(otherUserId) || {};
+    const isLoadingComparedQuestions = QuestionStore.isLoadingComparedQuestions();
+    const interestsPagination = InterestStore.getPagination(otherUserId) || {};
+    const interests = InterestStore.get(otherUserId) || [];
+    const noInterests = InterestStore.noInterests(otherUserId) || false;
+    const isLoadingComparedInterests = InterestStore.isLoadingComparedInterests(otherUserId) || false;
+
     return {
         profileWithMetadata,
         stats,
         photos,
-        noPhotos
+        noPhotos,
+        questions,
+        otherQuestions,
+        questionsPagination,
+        isLoadingComparedQuestions,
+        interestsPagination,
+        interests,
+        noInterests,
+        isLoadingComparedInterests
     };
 }
 
@@ -51,7 +72,10 @@ export default class RecommendationUser extends Component {
     static propTypes = {
         recommendation: PropTypes.object.isRequired,
         accessibleKey : PropTypes.number.isRequired,
-        userId        : PropTypes.number.isRequired
+        userId        : PropTypes.number.isRequired,
+        ownPicture    : PropTypes.string,
+        currentTab    : PropTypes.string,
+        onTabClick    : PropTypes.func
     };
 
     static contextTypes = {
@@ -62,10 +86,13 @@ export default class RecommendationUser extends Component {
         super(props);
 
         this.handleMessage = this.handleMessage.bind(this);
+        this.onQuestionsLinkClick = this.onQuestionsLinkClick.bind(this);
+        this.onInterestsLinkClick = this.onInterestsLinkClick.bind(this);
+        this.onBackLinkClick = this.onBackLinkClick.bind(this);
 
         this.state = {
             photosLoaded: null
-        }
+        };
     }
 
     componentDidUpdate() {
@@ -79,10 +106,24 @@ export default class RecommendationUser extends Component {
         this.context.history.pushState(null, `/conversations/${this.props.recommendation.id}`);
     }
 
+    onQuestionsLinkClick() {
+        this.props.onTabClick('questions');
+    }
+
+    onInterestsLinkClick() {
+        this.props.onTabClick('interests');
+    }
+
+    onBackLinkClick() {
+        this.props.onTabClick(null);
+    }
+
     render() {
-        const {recommendation, accessibleKey, profileWithMetadata, stats, photos, strings} = this.props;
+        const {recommendation, accessibleKey, profileWithMetadata, stats, photos, questions, otherQuestions, questionsPagination,
+            isLoadingComparedQuestions, interests, interestsPagination, isLoadingComparedInterests, userId, ownPicture, currentTab, strings} = this.props;
         const defaultSrc = 'img/no-img/big.jpg';
         let imgSrc = recommendation.photo ? recommendation.photo.thumbnail.big : defaultSrc;
+        let ownImgSrc = ownPicture ? ownPicture : defaultSrc;
 
         return (
             <div className="swiper-slide">
@@ -118,15 +159,55 @@ export default class RecommendationUser extends Component {
                         <span className="icon-marker"></span> {selectn('location.locality', recommendation.profile) || selectn('location.address', recommendation.profile)} -
                         <span className="age"> {strings.age}: {recommendation.age}</span>
                     </div>
-                    <div>
-                        <div className="other-profile-wrapper bold">
-                            <OtherProfileData matching={recommendation.matching} similarity={recommendation.similarity} stats={stats} ownImage={null}
-                                              currentImage={imgSrc}
-                                              interestsUrl={`/users/${recommendation.id}/other-interests`}
-                                              questionsUrl={`/users/${recommendation.id}/other-questions`}/>
-                        </div>
-                        <OtherProfileDataList profile={recommendation.profile} profileWithMetadata={profileWithMetadata}/>
+                    <div className="other-profile-wrapper bold">
+                        <OtherProfileData matching={recommendation.matching}
+                                          similarity={recommendation.similarity} stats={stats} ownImage={ownImgSrc}
+                                          currentImage={imgSrc}
+                                          interestsUrl={`/users/${recommendation.id}/other-interests`}
+                                          questionsUrl={`/users/${recommendation.id}/other-questions`}
+                        />
                     </div>
+                    {currentTab == 'questions' ?
+                        <div className="other-user-links single" onClick={this.onBackLinkClick}>
+                            <div className="other-user-link-back">
+                                <span className="icon-left-arrow"></span>
+                            </div>
+                            <div className="other-user-link-text">{strings.questions}</div>
+                        </div>
+                        : currentTab == 'interests' ?
+                        <div className="other-user-links single" onClick={this.onBackLinkClick}>
+                            <div className="other-user-link-back">
+                                <span className="icon-left-arrow"></span>
+                            </div>
+                            <div className="other-user-link-text">{strings.interests}</div>
+                        </div>
+                        :
+                        <div className="other-user-links">
+                            <div className="other-user-questions-link"
+                                 onClick={this.onQuestionsLinkClick}>{strings.questions}</div>
+                            <div className="other-user-interests-link"
+                                 onClick={this.onInterestsLinkClick}>{strings.interests}</div>
+                        </div>
+                    }
+                    {currentTab == 'questions' ?
+                        <div className={"other-questions-container paginated paginated-" +  + recommendation.id}>
+                            <OtherQuestionList otherQuestions={otherQuestions} questions={questions}
+                                               userId={recommendation.id} ownPicture={ownImgSrc}
+                                               otherPicture={imgSrc}/>
+                            {isLoadingComparedQuestions ? <div className="loading-gif" style={questionsPagination.nextLink ? {} : {display: 'none'}}></div> : null}
+                        </div>
+                        : currentTab == 'interests' ?
+                        <div className={"other-interests-container paginated paginated-" +  + recommendation.id}>
+                            <CardContentList contents={interests} userId={userId} otherUserId={recommendation.id}/>
+                            <br />
+                            {isLoadingComparedInterests ? <div className="loading-gif" style={interestsPagination.nextLink ? {} : {display: 'none'}}></div> : null}
+                        </div>
+                        :
+                        <div>
+                            <OtherProfileDataList profile={recommendation.profile}
+                                                  profileWithMetadata={profileWithMetadata}/>
+                        </div>
+                    }
                 </div>
                 <br />
                 <br />
@@ -143,5 +224,7 @@ RecommendationUser.defaultProps = {
     strings: {
         age    : 'Age',
         message: 'Message',
+        questions: 'Questions',
+        interests: 'Interests',
     }
 };

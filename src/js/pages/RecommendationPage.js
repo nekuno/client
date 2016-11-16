@@ -6,6 +6,8 @@ import ThreadToolBar from '../components/ui/ThreadToolBar';
 import EmptyMessage from '../components/ui/EmptyMessage';
 import * as UserActionCreators from '../actions/UserActionCreators';
 import GalleryPhotoActionCreators from '../actions/GalleryPhotoActionCreators';
+import * as QuestionActionCreators from '../actions/QuestionActionCreators';
+import * as InterestsActionCreators from '../actions/InterestsActionCreators';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
@@ -18,6 +20,8 @@ import LikeStore from '../stores/LikeStore';
 import ProfileStore from '../stores/ProfileStore';
 import ComparedStatsStore from '../stores/ComparedStatsStore';
 import GalleryPhotoStore from '../stores/GalleryPhotoStore';
+import QuestionStore from '../stores/QuestionStore';
+import InterestStore from '../stores/InterestStore';
 
 function parseThreadId(params) {
     return params.threadId;
@@ -50,13 +54,15 @@ function requestRecommendationData(props, activeIndex) {
             const otherUserId = parseInt(otherUserRecommendation.id);
             UserActionCreators.requestComparedStats(userId, otherUserId);
             GalleryPhotoActionCreators.getOtherPhotos(otherUserId);
+            QuestionActionCreators.requestComparedQuestions(userId, otherUserId, ['showOnlyCommon']);
+            InterestsActionCreators.requestComparedInterests(userId, otherUserId, 'Link', 0);
         }
     }
 }
 
 function initSwiper(props) {
     // Init slider
-    let recommendationsSwiper = nekunoApp.swiper('.recommendations-swiper-container', {
+    let recommendationsSwiper = nekunoApp.swiper('#recommendations-swiper-container', {
         onSlideNextStart: onSlideNextStart,
         onSlidePrevStart: onSlidePrevStart,
         effect          : 'coverflow',
@@ -69,7 +75,7 @@ function initSwiper(props) {
             slideShadows: false
         },
         centeredSlides  : true,
-        allowSwipeToPrev: false,
+        allowSwipeToPrev: true,
         swipeHandler    : '.thread-toolbar-item.center',
     });
 
@@ -121,6 +127,8 @@ function getState(props) {
     const category = thread ? thread.category : null;
     const filters = FilterStore.filters;
     const isJustRegistered = WorkersStore.isJustRegistered();
+    const isLoadingComparedQuestions = QuestionStore.isLoadingComparedQuestions();
+    const isLoadingComparedInterests = InterestStore.isLoadingComparedInterests();
 
     const recommendations = threadId && RecommendationStore.get(threadId) ? RecommendationStore.get(threadId) : [];
 
@@ -130,13 +138,15 @@ function getState(props) {
         category,
         thread,
         filters,
-        isJustRegistered
+        isJustRegistered,
+        isLoadingComparedQuestions,
+        isLoadingComparedInterests
     }
 }
 
 @AuthenticatedComponent
 @translate('RecommendationPage')
-@connectToStores([ThreadStore, RecommendationStore, FilterStore, LikeStore, ProfileStore, ComparedStatsStore, GalleryPhotoStore], getState)
+@connectToStores([ThreadStore, RecommendationStore, FilterStore, LikeStore, ProfileStore, ComparedStatsStore, GalleryPhotoStore, QuestionStore, InterestStore], getState)
 export default class RecommendationPage extends Component {
 
     static propTypes = {
@@ -169,8 +179,13 @@ export default class RecommendationPage extends Component {
         this.onShare = this.onShare.bind(this);
         this.onShareSuccess = this.onShareSuccess.bind(this);
         this.onShareError = this.onShareError.bind(this);
+        this.handleScroll = this.handleScroll.bind(this);
+        this.onOtherUserTabClick = this.onOtherUserTabClick.bind(this);
 
-        this.state = {swiper: null};
+        this.state = {
+            swiper: null,
+            currentTab: null
+        };
     }
 
     componentWillMount() {
@@ -206,9 +221,9 @@ export default class RecommendationPage extends Component {
             return;
         }
         if (!this.state.swiper) {
-            this.state = {
+            this.setState({
                 swiper: initSwiper(this.props)
-            };
+            });
         } else {
             this.state.swiper.updateSlidesSize();
         }
@@ -318,10 +333,43 @@ export default class RecommendationPage extends Component {
         nekunoApp.alert(this.props.strings.shareError)
     }
 
+    handleScroll() {
+        const {recommendations, userId, isLoadingComparedQuestions, isLoadingComparedInterests} = this.props;
+        const {swiper, currentTab} = this.state;
+        const activeIndex = swiper.activeIndex;
+        const recommendation = recommendations[activeIndex];
+        let pagination = null;
+        switch (currentTab) {
+            case 'questions':
+                pagination = QuestionStore.getPagination(recommendation.id);
+                break;
+            case 'interests':
+                pagination = InterestStore.getPagination(recommendation.id);
+                break;
+        }
+
+        let nextLink = pagination && pagination.hasOwnProperty('nextLink') ? pagination.nextLink : null;
+        let offsetTop = parseInt(document.getElementsByClassName('view')[0].scrollTop) - 28;
+        let offsetTopMax = parseInt(document.getElementsByClassName('view')[0].offsetHeight + document.getElementsByClassName('paginated-' + recommendation.id)[0].offsetHeight);
+
+        if (pagination && nextLink && offsetTop >= offsetTopMax) {
+            document.getElementsByClassName('view')[0].removeEventListener('scroll', this.handleScroll);
+            if (currentTab == 'questions' && !isLoadingComparedQuestions) {
+                QuestionActionCreators.requestNextComparedQuestions(userId, recommendation.id, nextLink);
+            } else if (currentTab == 'interests' && !isLoadingComparedInterests) {
+                InterestsActionCreators.requestComparedInterests(userId, recommendation.id, 'Link', 0, nextLink);
+            }
+        }
+    }
+
+    onOtherUserTabClick(currentTab) {
+        this.setState({currentTab: currentTab});
+    }
+
     render() {
         const {recommendations, thread, user, filters, strings} = this.props;
         return (
-            <div className="view view-main">
+            <div className="view view-main" onScroll={this.state.currentTab ? this.handleScroll : null}>
                 {Object.keys(thread).length > 0 ?
                     <TopNavBar leftIcon={'left-arrow'} centerText={''} rightIcon={'edit'} secondRightIcon={'delete'} onRightLinkClickHandler={this.editThread} onSecondRightLinkClickHandler={this.deleteThread}/>
                     : <TopNavBar leftIcon={'left-arrow'} centerText={''}/>}
@@ -329,7 +377,11 @@ export default class RecommendationPage extends Component {
                     <div id="page-content" className="recommendation-page">
                         {Object.keys(thread).length > 0 && recommendations.length > 0 && filters && Object.keys(filters).length > 0 ?
                             <RecommendationList recommendations={recommendations} thread={thread} userId={user.id} 
-                                                filters={thread.category === 'ThreadUsers' ? filters.userFilters : filters.contentFilters}/> 
+                                                filters={thread.category === 'ThreadUsers' ? filters.userFilters : filters.contentFilters}
+                                                ownPicture={user.photo.thumbnail.small || null}
+                                                currentTab={this.state.currentTab}
+                                                onTabClick={this.onOtherUserTabClick}
+                            />
                             : <EmptyMessage text={strings.loadingMessage} loadingGif={true} />
                         }
                     </div>

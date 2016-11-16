@@ -63,7 +63,7 @@ export default class LeftPanel extends Component {
 
     handleGoClickThreads() {
         nekunoApp.closePanel();
-        this.context.history.pushState(null, '/threads');
+        this.context.history.pushState(null, '/discover');
     }
 
     handleGoClickProfile() {
@@ -145,7 +145,7 @@ export default class LeftPanel extends Component {
                     </div>
                     { userLoggedIn && !settingsActive ?
                         <div className="content-block menu">
-                            <Link to={'/threads'} onClick={this.handleGoClickThreads}>
+                            <Link to={'/discover'} onClick={this.handleGoClickThreads}>
                                 {strings.threads}
                             </Link>
                             <Link to={'/profile'} onClick={this.handleGoClickProfile}>
@@ -157,9 +157,9 @@ export default class LeftPanel extends Component {
                                     <span className="unread-messages-count-text">{unreadCount}</span>
                                 </span> : ''}
                             </Link>
-                            <Link to="/groups" onClick={this.handleGoClickGroups}>
-                                {strings.groups}
-                            </Link>
+                            {/*<Link to="/groups" onClick={this.handleGoClickGroups}>*/}
+                                {/*{strings.groups}*/}
+                            {/*</Link>*/}
                             <a onClick={this.handleClickSettings}>
                                 {strings.settings}
                             </a>
@@ -172,9 +172,9 @@ export default class LeftPanel extends Component {
                                 <Link to="/social-networks" onClick={this.handleGoClickSocialNetworks}>
                                     {strings.socialNetworks}
                                 </Link>
-                                <Link to="/invitations" onClick={this.handleGoClickInvitations} onlyActiveOnIndex={false}>
-                                    {strings.invitations}
-                                </Link>
+                                {/*<Link to="/invitations" onClick={this.handleGoClickInvitations} onlyActiveOnIndex={false}>*/}
+                                    {/*{strings.invitations}*/}
+                                {/*</Link>*/}
                                 <Link to="/" onClick={this.logout}>
                                     {strings.logout}
                                 </Link>

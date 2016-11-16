@@ -23,7 +23,7 @@ export default new class LoginActionCreators {
         if (LoginStore.isLoggedIn()) {
             UserActionCreators.requestOwnUser().then(() => {
                 if (!RouterStore.hasNextTransitionPath() && (document.location.hash === '' || document.location.hash.indexOf('#/?') === 0)) {
-                    RouterActionCreators.storeRouterTransitionPath('/threads');
+                    RouterActionCreators.storeRouterTransitionPath('/discover');
                 }
                 this.redirect();
             }, (error) => {
@@ -42,7 +42,7 @@ export default new class LoginActionCreators {
         }, {username, password})
             .then(() => {
                 if (!RouterStore.hasNextTransitionPath()) {
-                    RouterActionCreators.storeRouterTransitionPath('/threads');
+                    RouterActionCreators.storeRouterTransitionPath('/discover');
                 }
                 this.redirect();
                 return null;
@@ -60,7 +60,7 @@ export default new class LoginActionCreators {
         }, {resourceOwner, accessToken})
             .then(() => {
                 if (!RouterStore.hasNextTransitionPath()) {
-                    RouterActionCreators.storeRouterTransitionPath('/threads');
+                    RouterActionCreators.storeRouterTransitionPath('/discover');
                 }
                 this.redirect();
                 return new Promise(function(resolve) {

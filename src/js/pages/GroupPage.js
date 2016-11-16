@@ -47,7 +47,7 @@ export default class GroupPage extends Component {
         // Injected by @translate:
         strings: PropTypes.object,
         // Injected by @connectToStores:
-        groups: PropTypes.array
+        groups: PropTypes.object
 
     };
 

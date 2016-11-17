@@ -1,5 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import TopNavBar from '../components/ui/TopNavBar';
+import CardUserList from '../components/user/CardUserList';
 import QuestionsBanner from '../components/questions/QuestionsBanner';
 import ProcessesProgress from '../components/processes/ProcessesProgress';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
@@ -133,9 +134,10 @@ export default class DiscoverPage extends Component {
                     <TopNavBar leftMenuIcon={true} centerText={strings.discover} rightIcon={'edit'} onRightLinkClickHandler={this.editThread}/>
                     : <TopNavBar leftMenuIcon={true} centerText={strings.discover}/>}
                 <Joyride ref="joyrideThreads" steps={steps} locale={tutorialLocale} callback={endTutorialHandler} type="continuous"/>
-                <div className="page threads-page">
+                <div className="page discover-page">
                     <div id="page-content">
                         <ProcessesProgress />
+                        <CardUserList recommendations={recommendations} userId={user.id}s/>
                         {filters && thread && profile ?
                             <QuestionsBanner user={user} questionsTotal={pagination.total || 0}/> : ''
                         }

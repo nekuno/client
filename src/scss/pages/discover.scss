@@ -1,0 +1,18 @@
+@import '../_partials/colors';
+
+body #root .App .view .page.discover-page {
+
+  #page-content {
+    margin-top: 30px !important;
+    width: 100% !important;
+
+    .user-list {
+      .card {
+        display: inline-block;
+        margin: 5px 1% 5px 1%;
+        width: 48%;
+      }
+    }
+  }
+
+}

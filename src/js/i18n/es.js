@@ -180,6 +180,17 @@ export default {
         tutorialThirdStepTitle : 'Menú',
         tutorialThirdStep      : 'Este es el botón para abrir el menú y este punto verde indica que tienes mensajes nuevos. ¡Te invitamos a que explores todo Nekuno! ¡Gracias por participar en esta Beta privada!'
     },
+    DiscoverPage                     : {
+        discover               : 'Descubrir',
+        create                 : 'Crear',
+        loadingMessage         : 'Cargando ovillos',
+        tutorialFirstStepTitle : 'Ovillos',
+        tutorialFirstStep      : 'En un Ovillo de Nekuno encontrarás aquello que sea más compatible contigo; tú puedes borrarlos o editarlos para introducir nuevos filtros sobre los aspectos que quieras.',
+        tutorialSecondStepTitle: 'Crear un Ovillo',
+        tutorialSecondStep     : 'Desde aquí puedes crear un nuevo Ovillo sobre lo que más te interese.',
+        tutorialThirdStepTitle : 'Menú',
+        tutorialThirdStep      : 'Este es el botón para abrir el menú y este punto verde indica que tienes mensajes nuevos. ¡Te invitamos a que explores todo Nekuno! ¡Gracias por participar en esta Beta privada!'
+    },
     DiscoverLitePage                 : {
         discover      : 'Descubrir',
         loadingMessage: 'Cargando recomendaciones',

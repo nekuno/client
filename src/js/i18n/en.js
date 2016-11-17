@@ -67,11 +67,8 @@ export default {
         importingAlbums: 'Importing albums'
     },
     OtherGalleryPage                 : {
-        empty    : 'User has not imported any photo yet',
-        about    : 'About',
-        photos   : 'Photos',
-        questions: 'Answers',
-        interests: 'Interests'
+        empty  : 'User has not imported any photo yet',
+        loading: 'Loading photos'
     },
     GalleryAlbumsPage                : {
         albums        : '%resource% albums',

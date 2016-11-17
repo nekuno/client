@@ -80,6 +80,13 @@ export default class RecommendationUser extends Component {
         this.context.history.pushState(null, `/conversations/${this.props.recommendation.id}`);
     }
 
+    handlePhotoClick(url) {
+        const {photos, recommendation} = this.props;
+        const selectedPhoto = photos.find(photo => photo.url === url) || recommendation.photo;
+        const selectedPhotoId = selectedPhoto.id || 'profile';
+        this.context.history.pushState(null, `/users/${recommendation.id}/other-gallery/${selectedPhotoId}`);
+    }
+
     render() {
         const {recommendation, accessibleKey, stats, photos, userId, ownPicture, currentTab, strings} = this.props;
         const defaultSrc = 'img/no-img/big.jpg';
@@ -94,11 +101,11 @@ export default class RecommendationUser extends Component {
                             <div className="swiper-custom">
                                 <div id={"photos-swiper-container-" + recommendation.id} className="swiper-container">
                                     <div className="swiper-wrapper">
-                                        <div className="swiper-slide" key={0}>
+                                        <div className="swiper-slide" key={0} onClick={this.handlePhotoClick.bind(this, recommendation.photo.url)}>
                                             <Image src={imgSrc} defaultSrc={defaultSrc}/>
                                         </div>
                                         {photos && photos.length > 0 ? photos.map((photo, index) =>
-                                            <div className="swiper-slide" key={index + 1}>
+                                            <div className="swiper-slide" key={index + 1} onClick={this.handlePhotoClick.bind(this, photo.url)}>
                                                 <Image src={photo.thumbnail.big} defaultSrc={defaultSrc}/>
                                             </div>
                                         ) : null}

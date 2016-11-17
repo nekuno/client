@@ -10,6 +10,7 @@ let _nextUrl = [];
 let _replaced = [];
 let _prevRecommendations = [];
 let _prevNextUrl = [];
+let _savedIndex = 0;
 
 const RecommendationStore = createStore({
 
@@ -112,6 +113,12 @@ const RecommendationStore = createStore({
         _replaced[threadId] = false;
         return replaced;
     },
+
+    getSavedIndex() {
+        const savedIndex = _savedIndex;
+        _savedIndex = 0;
+        return savedIndex;
+    }
 });
 
 RecommendationStore.dispatchToken = register(action => {
@@ -238,6 +245,10 @@ RecommendationStore.dispatchToken = register(action => {
                 _nextUrl[action.threadId] = action.response.pagination.nextLink;
                 RecommendationStore.emitChange();
             }
+            break;
+        case ActionTypes.SAVE_RECOMMENDATIONS_INDEX:
+            _savedIndex = action.index;
+            RecommendationStore.emitChange();
     }
 
     function mergeRecommendations(recommendations, _recommendations) {

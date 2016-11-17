@@ -74,7 +74,7 @@ export default class Root extends Component {
                         <Route name="interests" path="/interests" component={InterestsPage}/>
                         <Route name="other-interests" path="/users/:userId/other-interests" component={OtherInterestsPage}/>
                         <Route name="gallery" path="/gallery" component={GalleryPage}/>
-                        <Route name="other-gallery" path="/users/:userId/other-gallery" component={OtherGalleryPage}/>
+                        <Route name="other-gallery" path="/users/:userId/other-gallery/:photoId" component={OtherGalleryPage}/>
                         <Route name="gallery-photo" path="/gallery-photo" component={GalleryPhotoPage}/>
                         <Route name="other-gallery-photo" path="/users/:userId/other-gallery-photo" component={OtherGalleryPhotoPage}/>
                         <Route name="gallery-profile-photo" path="/gallery-profile-photo" component={GalleryProfilePhotoPage}/>

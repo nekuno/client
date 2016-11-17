@@ -60,9 +60,10 @@ function requestRecommendationData(props, activeIndex) {
     }
 }
 
-function initSwiper(props) {
+function initSwiper(props, index = 0) {
     // Init slider
     let recommendationsSwiper = nekunoApp.swiper('#recommendations-swiper-container', {
+        initialSlide    : index,
         onSlideNextStart: onSlideNextStart,
         onSlidePrevStart: onSlidePrevStart,
         effect          : 'coverflow',
@@ -210,8 +211,9 @@ export default class RecommendationPage extends Component {
             nekunoApp.alert(this.props.strings.processingThread);
         }
         if (this.props.thread && this.props.recommendations.length > 0 && !this.state.swiper) {
+            const index = RecommendationStore.getSavedIndex();
             this.state = {
-                swiper: initSwiper(this.props)
+                swiper: initSwiper(this.props, index)
             };
         }
     }
@@ -221,12 +223,17 @@ export default class RecommendationPage extends Component {
             return;
         }
         if (!this.state.swiper) {
+            const index = RecommendationStore.getSavedIndex();
             this.setState({
-                swiper: initSwiper(this.props)
+                swiper: initSwiper(this.props, index)
             });
         } else {
             this.state.swiper.updateSlidesSize();
         }
+    }
+
+    componentWillUnmount() {
+        ThreadActionCreators.saveIndex(this.state.swiper.activeIndex);
     }
 
     deleteThread() {

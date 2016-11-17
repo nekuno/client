@@ -1,6 +1,5 @@
 import React, { PropTypes, Component } from 'react';
 import TopNavBar from '../components/ui/TopNavBar';
-import ToolBar from '../components/ui/ToolBar';
 import Image from '../components/ui/Image';
 import EmptyMessage from '../components/ui/EmptyMessage';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
@@ -22,11 +21,35 @@ function getState(props) {
     const otherUser = UserStore.get(otherUserId);
     const photos = GalleryPhotoStore.get(otherUserId);
     const noPhotos = GalleryPhotoStore.noPhotos(otherUserId);
+    const loadingPhotos = GalleryPhotoStore.getLoadingPhotos();
+
     return {
         otherUser,
         photos,
-        noPhotos
+        noPhotos,
+        loadingPhotos
     };
+}
+
+function initPhotosSwiper(photoIndex) {
+    // Init slider
+    return nekunoApp.swiper('#gallery-swiper-container', {
+        initialSlide: photoIndex,
+        effect: 'coverflow',
+        slidesPerView: 'auto',
+        coverflow: {
+            rotate: 30,
+            stretch: 0,
+            depth: 100,
+            modifier: 1,
+            slideShadows: false
+        },
+        centeredSlides: true,
+        paginationHide: false,
+        paginationClickable: true,
+        nextButton: '.swiper-button-next',
+        prevButton: '.swiper-button-prev',
+    });
 }
 
 @AuthenticatedComponent
@@ -37,7 +60,8 @@ export default class OtherGalleryPage extends Component {
     static propTypes = {
         // Injected by React Router:
         params   : PropTypes.shape({
-            userId: PropTypes.string.isRequired
+            userId : PropTypes.string.isRequired,
+            photoId: PropTypes.string
         }).isRequired,
         // Injected by @AuthenticatedComponent
         user     : PropTypes.object.isRequired,
@@ -49,44 +73,65 @@ export default class OtherGalleryPage extends Component {
         photos   : PropTypes.array
     };
 
-    static contextTypes = {
-        history: PropTypes.object.isRequired
-    };
-
     constructor(props) {
         super(props);
 
-        this.handleScroll = this.handleScroll.bind(this);
+        this.state = {
+            photosLoaded: null,
+            swiper: null
+        }
     }
 
     componentWillMount() {
         requestData(this.props);
     }
 
-    handleScroll() {
-        //TODO: Will be paginated?
-    }
-
-    goToOtherPhotoGalleryPage(photo) {
-        GalleryPhotoActionCreators.selectPhoto(photo);
-        this.context.history.pushState(null, `/users/${this.props.params.userId}/other-gallery-photo`);
+    componentDidUpdate() {
+        const {photos, otherUser, params} = this.props;
+        if (this.props.photos.length > 0 && otherUser && otherUser.photo && !this.state.photosLoaded) {
+            const photoIndex = photos.findIndex(photo => photo.id == params.photoId) + 1 || 0;
+            initPhotosSwiper(photoIndex);
+            this.setState({photosLoaded: true,});
+        }
     }
 
     render() {
-        const {otherUser, photos, noPhotos, strings, params} = this.props;
-        const otherUserId = params.userId;
+        const {otherUser, photos, noPhotos, strings} = this.props;
         return (
             <div className="view view-main" onScroll={this.handleScroll}>
-                <TopNavBar leftMenuIcon={true} centerText={otherUser ? otherUser.username : ''}/>
-                <div className="page gallery-page">
-                    <div id="page-content" className="gallery-content">
-                        {noPhotos ? <EmptyMessage text={strings.empty}/> : photos.map(photo => 
-                            <div key={photo.id} className="photo-wrapper" onClick={this.goToOtherPhotoGalleryPage.bind(this, photo)}>
-                                <div className="photo-absolute-wrapper">
-                                    <Image src={photo.thumbnail.small}/>
+                <TopNavBar leftIcon={'left-arrow'} centerText={otherUser ? otherUser.username : ''}/>
+                <div className="page">
+                    <div id="page-content" className="gallery-photo-content">
+                        {noPhotos ?
+                            <EmptyMessage text={strings.empty}/>
+                            :
+                            photos.length > 0 && otherUser && otherUser.photo ?
+                                <div className="swiper-custom">
+                                    <div id="gallery-swiper-container" className="swiper-container">
+                                        <div className="swiper-wrapper">
+                                            <div className="swiper-slide" key={0}>
+                                                <div className="photo-absolute-wrapper">
+                                                    <Image src={otherUser.photo.url}/>
+                                                    <div className="swiper-button-prev"></div>
+                                                    <div className="swiper-button-next"></div>
+                                                </div>
+                                            </div>
+                                            {photos.map((photo, index) =>
+                                                <div className="swiper-slide" key={index + 1}>
+                                                    <div className="photo-absolute-wrapper">
+                                                        <Image src={photo.url}/>
+                                                        <div className="swiper-button-prev"></div>
+                                                        <div className="swiper-button-next"></div>
+                                                    </div>
+
+                                                </div>
+                                            )}
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        )}
+                                :
+                                <EmptyMessage text={strings.loading} loadingGif={true}/>
+                        }
                         <br />
                         <br />
                         <br />
@@ -95,15 +140,6 @@ export default class OtherGalleryPage extends Component {
                         <br />
                     </div>
                 </div>
-                {otherUser ?
-                    <ToolBar links={[
-                    {'url': `/profile/${otherUserId}`, 'text': strings.about},
-                    {'url': `/users/${otherUserId}/other-gallery`, 'text': strings.photos},
-                    {'url': `/users/${otherUserId}/other-questions`, 'text': strings.questions},
-                    {'url': `/users/${otherUserId}/other-interests`, 'text': strings.interests}
-                    ]} activeLinkIndex={1} arrowUpLeft={'36%'}/>
-                    :
-                    ''}
             </div>
         );
     }
@@ -111,10 +147,7 @@ export default class OtherGalleryPage extends Component {
 
 OtherGalleryPage.defaultProps = {
     strings: {
-        empty    : 'User has not imported any photo yet',
-        about    : 'About',
-        photos   : 'Photos',
-        questions: 'Answers',
-        interests: 'Interests'
+        empty  : 'User has not imported any photo yet',
+        loading: 'Loading photos',
     }
 };

@@ -10,16 +10,22 @@ class GalleryPhotoStore extends BaseStore {
         this._errors = '';
         this._selectedPhoto = null;
         this._loadingPhoto = null;
+        this._loadingPhotos = null;
     }
 
     _registerToActions(action) {
         let userId;
         super._registerToActions(action);
         switch (action.type) {
+            case ActionTypes.REQUEST_PHOTOS:
+                this._loadingPhotos = true;
+                this.emitChange();
+                break;
             case ActionTypes.REQUEST_PHOTOS_SUCCESS:
                 userId = action.userId;
                 this._photos[userId] = action.response;
                 this._noPhotos[userId] = this._photos[userId].length === 0;
+                this._loadingPhotos = false;
                 this.emitChange();
                 break;
             case ActionTypes.UPLOAD_PHOTO:
@@ -78,6 +84,10 @@ class GalleryPhotoStore extends BaseStore {
 
     getLoadingPhoto() {
         return this._loadingPhoto;
+    }
+
+    getLoadingPhotos() {
+        return this._loadingPhotos;
     }
 }
 

@@ -106,6 +106,8 @@ export default keyMirror({
 
     ADD_PREV_RECOMMENDATIONS: null,
 
+    SAVE_RECOMMENDATIONS_INDEX: null,
+
     REQUEST_QUESTIONS        : null,
     REQUEST_QUESTIONS_SUCCESS: null,
     REQUEST_QUESTIONS_ERROR  : null,

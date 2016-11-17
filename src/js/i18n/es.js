@@ -68,11 +68,8 @@ export default {
 
     },
     OtherGalleryPage                 : {
-        empty    : 'El usuario no ha importado ninguna foto',
-        about    : 'Acerca de',
-        photos   : 'Fotos',
-        questions: 'Respuestas',
-        interests: 'Intereses'
+        empty  : 'El usuario no ha importado ninguna foto',
+        loading: 'Cargando fotos'
     },
     GalleryAlbumsPage                : {
         albums        : 'Álbumes de %resource%',

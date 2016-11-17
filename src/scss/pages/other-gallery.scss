@@ -1,0 +1,23 @@
+body #root .App .view .page {
+  #page-content.gallery-photo-content {
+    text-align: center;
+    width: 93%;
+    .swiper-custom {
+      height: 100%;
+      position: relative;
+      .photo-absolute-wrapper {
+        img {
+          max-width: 100%;
+        }
+      }
+    }
+  }
+}
+@media only screen and (max-width: 300px) {
+  body #root .App .view .page.gallery-page {
+    #page-content {
+      margin-left: 5px;
+      width: 85%;
+    }
+  }
+}

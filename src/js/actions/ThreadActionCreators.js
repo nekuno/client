@@ -151,3 +151,7 @@ export function recommendationsNext(threadId) {
     }
 }
 
+export function saveIndex(index) {
+    dispatch(ActionTypes.SAVE_RECOMMENDATIONS_INDEX, {index});
+}
+

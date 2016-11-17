@@ -302,7 +302,6 @@ export default class DiscoverLitePage extends Component {
 
         let nextLink = pagination && pagination.hasOwnProperty('nextLink') ? pagination.nextLink : null;
         let offsetTop = parseInt(document.getElementsByClassName('view')[0].scrollTop + document.getElementsByClassName('view')[0].offsetHeight);
-        // TODO: Replace 700 with 800 when removing lite version
         let offsetTopMax = parseInt(document.getElementsByClassName('paginated-' + recommendation.id)[0].offsetHeight) + 700;
 
         if (pagination && nextLink && offsetTop >= offsetTopMax) {

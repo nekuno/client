@@ -89,8 +89,7 @@ export default class Root extends Component {
                         <Route name="profile" path="/profile" component={UserPage}/>
                         <Route name="other-profile" path="/profile/:userId" component={OtherUserPage}/>
                         <Route name="invitations" path="/invitations" component={InvitationsPage}/>
-                        <Route name="discover" path="/discover" component={ThreadPage}/>
-                        <Route name="discover-lite" path="/discover-lite" component={DiscoverLitePage}/>
+                        <Route name="discover" path="/discover" component={DiscoverLitePage}/>
                         <Route name="recommendations" path="/recommendations/:threadId" component={RecommendationPage}/>
                         <Route name="social-networks-on-sign-up" path="/social-networks-on-sign-up" component={ConnectSocialNetworksOnSignUpPage}/>
                         <Route name="social-networks" path="/social-networks" component={ConnectSocialNetworksPage}/>

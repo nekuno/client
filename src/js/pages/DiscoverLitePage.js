@@ -201,7 +201,7 @@ export default class DiscoverLitePage extends Component {
     }
 
     componentDidMount() {
-        if (this.props.thread && this.props.recommendations.length > 0 && !this.state.swiper) {
+        if (this.props.thread.id && this.props.recommendations.length > 0 && !this.state.swiper) {
             const index = RecommendationStore.getSavedIndex();
             this.state = {
                 swiper: initSwiper(this.props, index)
@@ -210,7 +210,7 @@ export default class DiscoverLitePage extends Component {
     }
 
     componentDidUpdate() {
-        if (!this.props.thread || this.props.recommendations.length == 0) {
+        if (!this.props.thread.id || this.props.recommendations.length == 0) {
             return;
         }
         if (!this.state.swiper) {
@@ -218,7 +218,6 @@ export default class DiscoverLitePage extends Component {
             this.setState({
                 swiper: initSwiper(this.props, index)
             });
-            console.log('initSwiper')
         } else {
             this.state.swiper.updateSlidesSize();
         }

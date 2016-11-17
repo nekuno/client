@@ -357,7 +357,7 @@ export default class RecommendationPage extends Component {
 
         let nextLink = pagination && pagination.hasOwnProperty('nextLink') ? pagination.nextLink : null;
         let offsetTop = parseInt(document.getElementsByClassName('view')[0].scrollTop + document.getElementsByClassName('view')[0].offsetHeight);
-        let offsetTopMax = parseInt(document.getElementsByClassName('view')[0].offsetHeight + document.getElementsByClassName('paginated-' + recommendation.id)[0].offsetHeight);
+        let offsetTopMax = parseInt(document.getElementsByClassName('paginated-' + recommendation.id)[0].offsetHeight) + 800;
 
         if (pagination && nextLink && offsetTop >= offsetTopMax) {
             document.getElementsByClassName('view')[0].removeEventListener('scroll', this.handleScroll);

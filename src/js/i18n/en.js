@@ -36,15 +36,16 @@ export default {
         cannotRemove: 'This field cannot be deleted'
     },
     HomePage                         : {
-        title1       : 'Discover contents of the topics that interest you',
-        title2       : 'Connect only with most compatible people with you',
-        title3       : 'You decide the information you share',
-        update       : 'Update',
-        login        : 'Login with Facebook',
-        hasInvitation: 'Do you have an invitation?',
-        register     : 'Register',
-        wantGuest    : 'Do you want to try it?',
-        asGuest      : 'Enter as guest'
+        title1        : 'Discover contents of the topics that interest you',
+        title2        : 'Connect only with most compatible people with you',
+        title3        : 'You decide the information you share',
+        update        : 'Update',
+        login         : 'Login with Facebook',
+        hasInvitation : 'Do you have an invitation?',
+        register      : 'Register',
+        loadingMessage: 'Registering user',
+        wantGuest     : 'Do you want to try it?',
+        asGuest       : 'Enter as guest'
     },
     InterestsPage                    : {
         cancel   : 'Cancel',
@@ -93,31 +94,31 @@ export default {
         changeProfilePhoto      : 'Change profile photo'
     },
     GroupPage                        : {
-        groups      : 'Your groups',
-        create      : 'Create',
-        creating    : 'Creating group',
-        enter_name  : 'Name of the group',
-        join        : 'Join',
-        joining     : 'Joining group',
-        enter_token : 'Invitation code'
+        groups     : 'Your groups',
+        create     : 'Create',
+        creating   : 'Creating group',
+        enter_name : 'Name of the group',
+        join       : 'Join',
+        joining    : 'Joining group',
+        enter_token: 'Invitation code'
     },
     GroupStatsPage                   : {
-        group: 'Group',
-        share: 'Sharing URL',
-        shareSubject: 'Join the Nekuno group ',
-        leave: 'Leave',
+        group        : 'Group',
+        share        : 'Sharing URL',
+        shareSubject : 'Join the Nekuno group ',
+        leave        : 'Leave',
         confirm_leave: 'Confirm leave',
-        leaving: 'Leaving group',
-        leave_error: 'Sorry! Please, try again to leave the group'
+        leaving      : 'Leaving group',
+        leave_error  : 'Sorry! Please, try again to leave the group'
     },
     LoginPage                        : {
-        login          : 'Login',
-        cancel         : 'Cancel',
-        loginResource  : 'Login with a social network',
-        hasInvitation  : 'Do you have an invitation?',
-        register       : 'Register',
-        wantGuest      : 'Do you want to try it?',
-        asGuest        : 'Enter as guest'
+        login        : 'Login',
+        cancel       : 'Cancel',
+        loginResource: 'Login with a social network',
+        hasInvitation: 'Do you have an invitation?',
+        register     : 'Register',
+        wantGuest    : 'Do you want to try it?',
+        asGuest      : 'Enter as guest'
     },
     OtherInterestsPage               : {
         cancel               : 'Cancel',
@@ -178,9 +179,9 @@ export default {
         tutorialThirdStep      : 'This is the button to open the menu and this green dot indicates you have new messages. We invite you to explore all Nekuno! Thank you for participating in this private Beta!'
     },
     DiscoverLitePage                 : {
-        discover        : 'Discover',
-        loadingMessage  : 'Loading recommendations',
-        confirmReplace  : 'We have improved your recommendations. Do you want to reload them?'
+        discover      : 'Discover',
+        loadingMessage: 'Loading recommendations',
+        confirmReplace: 'We have improved your recommendations. Do you want to reload them?'
     },
     RecommendationPage               : {
         loadingMessage  : 'Loading recommendations',
@@ -324,10 +325,10 @@ export default {
         noMoreQuestions: 'No more questions'
     },
     AnswerQuestionForm               : {
-        you        : 'You',
-        them       : 'Them',
-        alertFirst : 'Mark your answer in the first column',
-        saving     : 'Saving'
+        you       : 'You',
+        them      : 'Them',
+        alertFirst: 'Mark your answer in the first column',
+        saving    : 'Saving'
     },
     OtherQuestion                    : {
         didntAnswered: 'You have not answered this question'
@@ -506,7 +507,7 @@ export default {
         birthdayPlaceholder: 'Your birth date'
     },
     Group                            : {
-        users : 'users'
+        users: 'users'
     },
     RecommendationUser               : {
         age    : 'Age',
@@ -533,7 +534,7 @@ export default {
     ////////////////
     // Tutorial //
     ////////////////
-    TutorialComponent                 : {
+    TutorialComponent                : {
         back   : 'Back',
         close  : 'Understood',
         last   : 'Understood',

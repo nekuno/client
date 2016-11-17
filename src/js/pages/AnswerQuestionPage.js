@@ -141,7 +141,8 @@ export default class AnswerQuestionPage extends Component {
     }
 
     onContinue() {
-        this.context.history.pushState(null, '/discover');
+        // TODO: Replace discover-lite with discover when removing lite version
+        this.context.history.pushState(null, '/discover-lite');
     }
 
     forceStartTutorial() {

@@ -63,7 +63,8 @@ export default class LeftPanel extends Component {
 
     handleGoClickThreads() {
         nekunoApp.closePanel();
-        this.context.history.pushState(null, '/discover');
+        // TODO: Replace discover-lite with discover when removing lite version
+        this.context.history.pushState(null, '/discover-lite');
     }
 
     handleGoClickProfile() {
@@ -145,7 +146,8 @@ export default class LeftPanel extends Component {
                     </div>
                     { userLoggedIn && !settingsActive ?
                         <div className="content-block menu">
-                            <Link to={'/discover'} onClick={this.handleGoClickThreads}>
+                            {/* TODO: Replace discover-lite with discover when removing lite version*/}
+                            <Link to={'/discover-lite'} onClick={this.handleGoClickThreads}>
                                 {strings.threads}
                             </Link>
                             <Link to={'/profile'} onClick={this.handleGoClickProfile}>

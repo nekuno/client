@@ -179,6 +179,11 @@ export default {
         tutorialThirdStepTitle : 'Menú',
         tutorialThirdStep      : 'Este es el botón para abrir el menú y este punto verde indica que tienes mensajes nuevos. ¡Te invitamos a que explores todo Nekuno! ¡Gracias por participar en esta Beta privada!'
     },
+    DiscoverLitePage                 : {
+        discover        : 'Descubrir',
+        loadingMessage  : 'Cargando recomendaciones',
+        confirmReplace  : 'Hemos mejorado tus recomendaciones. ¿Quieres actualizarlas?'
+    },
     RecommendationPage               : {
         loadingMessage  : 'Cargando recomendaciones',
         confirmDelete   : '¿Estás seguro de que quieres borrar este ovillo?',

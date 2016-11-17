@@ -26,6 +26,7 @@ import AnswerProfileFieldPage from './pages/AnswerProfileFieldPage';
 import UserPage from './pages/UserPage';
 import OtherUserPage from './pages/OtherUserPage';
 import ThreadPage from './pages/ThreadPage';
+import DiscoverLitePage from './pages/DiscoverLitePage';
 import RecommendationPage from './pages/RecommendationPage';
 import InvitationsPage from './pages/InvitationsPage';
 import ConnectSocialNetworksOnSignUpPage from './pages/ConnectSocialNetworksOnSignUpPage';
@@ -89,6 +90,7 @@ export default class Root extends Component {
                         <Route name="other-profile" path="/profile/:userId" component={OtherUserPage}/>
                         <Route name="invitations" path="/invitations" component={InvitationsPage}/>
                         <Route name="discover" path="/discover" component={ThreadPage}/>
+                        <Route name="discover-lite" path="/discover-lite" component={DiscoverLitePage}/>
                         <Route name="recommendations" path="/recommendations/:threadId" component={RecommendationPage}/>
                         <Route name="social-networks-on-sign-up" path="/social-networks-on-sign-up" component={ConnectSocialNetworksOnSignUpPage}/>
                         <Route name="social-networks" path="/social-networks" component={ConnectSocialNetworksPage}/>

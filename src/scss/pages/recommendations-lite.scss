@@ -1,0 +1,11 @@
+@import '../_partials/colors';
+
+body #root .App {
+
+  .view .page {
+    #page-content.recommendation-page.lite {
+      margin-top: 30px !important;
+      width: 100% !important;
+    }
+  }
+}

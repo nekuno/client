@@ -177,11 +177,16 @@ export default {
         tutorialThirdStepTitle : 'Menu',
         tutorialThirdStep      : 'This is the button to open the menu and this green dot indicates you have new messages. We invite you to explore all Nekuno! Thank you for participating in this private Beta!'
     },
+    DiscoverLitePage                 : {
+        discover        : 'Discover',
+        loadingMessage  : 'Loading recommendations',
+        confirmReplace  : 'We have improved your recommendations. Do you want to reload them?'
+    },
     RecommendationPage               : {
         loadingMessage  : 'Loading recommendations',
         confirmBlock    : 'Are you sure you want to block this user?',
         processingThread: 'These results are provisional, we are working on improving them for you.',
-        confirmReplace  : 'We have improve your recommendations. Do you whant to reload them?',
+        confirmReplace  : 'We have improved your recommendations. Do you want to reload them?',
         copyToClipboard : 'Copy to clipboard: Ctrl+C, Enter',
         shareError      : 'An error occurred sharing the content'
     },

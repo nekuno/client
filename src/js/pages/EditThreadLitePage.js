@@ -47,9 +47,9 @@ function getState(props) {
 }
 
 @AuthenticatedComponent
-@translate('EditThreadPage')
+@translate('EditThreadLitePage')
 @connectToStores([ThreadStore, FilterStore, TagSuggestionsStore], getState)
-export default class EditThreadPage extends Component {
+export default class EditThreadLitePage extends Component {
 
     static contextTypes = {
         history: PropTypes.object.isRequired
@@ -71,9 +71,9 @@ export default class EditThreadPage extends Component {
     constructor(props) {
         super(props);
 
-        this._onChange = this._onChange.bind(this);
         this.handleClickCategory = this.handleClickCategory.bind(this);
         this.onEdit = this.onEdit.bind(this);
+        this.goToDiscover = this.goToDiscover.bind(this);
 
         this.state = {
             threadName: '',
@@ -99,12 +99,6 @@ export default class EditThreadPage extends Component {
         }
     }
 
-    _onChange(event) {
-        this.setState({
-            threadName: event.target.value
-        });
-    }
-
     handleClickCategory(category) {
         this.setState({
             category: category
@@ -122,34 +116,27 @@ export default class EditThreadPage extends Component {
         this.setState({updating: true});
     }
 
+    goToDiscover() {
+        this.context.history.pushState(null, `discover`);
+    }
+
     render() {
         const {user, filters, tags, thread, categories, strings} = this.props;
         const {category, threadName, updating} = this.state;
         return (
             <div className="view view-main">
-                <TopNavBar centerText={strings.edit} leftText={strings.cancel}/>
-                <div className="page create-thread-page">
+                <TopNavBar centerText={strings.edit} leftText={strings.cancel} onLeftLinkClickHandler={this.goToDiscover}/>
+                <div className="page create-thread-page lite">
                     <div id="page-content">
                         {updating ? <EmptyMessage text={strings.updating} loadingGif={true}/> :
                             thread && threadName && filters && categories ?
                                 <div>
-                                    <div className="thread-title list-block">
-                                        <ul>
-                                            <TextInput placeholder={strings.placeholder} onChange={this._onChange} defaultValue={threadName}/>
-                                        </ul>
+                                    <div className="thread-title">
+                                        {threadName}
                                     </div>
                                     <div key={1} className={category + '-first-vertical-line'}></div>
                                     <div key={2} className={category + '-last-vertical-line'}></div>
-                                    <div className="main-filter-wprapper">
-                                        <div className="thread-filter radio-filter">
-                                            <div className="thread-filter-dot">
-                                                <span className={category ? "icon-circle active" : "icon-circle"}></span>
-                                            </div>
-                                            <TextRadios labels={[{key: 'persons', text: strings.people}, {key: 'contents', text: strings.contents}]} onClickHandler={this.handleClickCategory} value={category} forceTwoLines={true}/>
-                                        </div>
-                                    </div>
-                                    {category === 'contents' ? <CreateContentThread userId={user.id} defaultFilters={filters['contentFilters']} threadName={threadName} tags={tags} thread={thread} onSave={this.onEdit}/> : ''}
-                                    {category === 'persons' ? <CreateUsersThread userId={user.id} defaultFilters={filters['userFilters']} threadName={threadName} tags={tags} thread={thread} categories={categories} onSave={this.onEdit}/> : ''}
+                                    <CreateUsersThread userId={user.id} defaultFilters={filters['userFilters']} threadName={threadName} tags={tags} thread={thread} categories={categories} onSave={this.onEdit}/>
                                 </div>
                                 : ''}
                     </div>
@@ -159,7 +146,7 @@ export default class EditThreadPage extends Component {
     }
 };
 
-EditThreadPage.defaultProps = {
+EditThreadLitePage.defaultProps = {
     strings: {
         edit       : 'Edit yarn',
         cancel     : 'Cancel',

@@ -236,6 +236,14 @@ export default {
         contents   : 'Contenido interesante',
         updating   : 'Editando ovillo',
     },
+    EditThreadLitePage               : {
+        edit       : 'Editar ovillo',
+        cancel     : 'Cancelar',
+        placeholder: 'Título',
+        people     : 'Gente compatible',
+        contents   : 'Contenido interesante',
+        updating   : 'Editando ovillo',
+    },
     ////////////////
     // Components //
     ////////////////

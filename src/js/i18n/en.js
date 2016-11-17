@@ -234,6 +234,14 @@ export default {
         contents   : 'Interesting content',
         updating   : 'Updating yarn',
     },
+    EditThreadLitePage               : {
+        edit       : 'Edit yarn',
+        cancel     : 'Cancel',
+        placeholder: 'Title',
+        people     : 'Compatible people',
+        contents   : 'Interesting content',
+        updating   : 'Updating yarn',
+    },
     ////////////////
     // Components //
     ////////////////

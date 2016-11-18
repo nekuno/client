@@ -223,12 +223,14 @@ export default class OtherUserPage extends Component {
         const defaultImgBig = 'img/no-img/big.jpg';
         //const blockClass = block ? "icon-block blocked" : "icon-block";
         const birthdayDataSet = profileWithMetadata.find(profileDataSet => selectn('fields.birthday.value', profileDataSet) !== null);
+        const genderDataSet = profileWithMetadata.find(profileDataSet => selectn('fields.gender.value', profileDataSet) !== null);
         const age = selectn('fields.birthday.value', birthdayDataSet);
+        const gender = selectn('fields.gender.value', genderDataSet);
         const location = selectn('location.locality', profile) || selectn('location.country', profile);
 
         return (
             <div className="view view-main">
-                <TopNavBar leftIcon={'left-arrow'} centerText={otherUser ? otherUser.username : ''}/>
+                <TopNavBar leftIcon={'left-arrow'} centerText={strings.profile}/>
                 <div className="page other-user-page">
                     {otherUser && profile && profileWithMetadata ?
                         <div id="page-content">
@@ -256,16 +258,17 @@ export default class OtherUserPage extends Component {
                                 <div className="username-title">
                                     {otherUser.username}
                                 </div>
+                                <div className="user-description">
+                                    <span className="icon-marker"></span> {location} -
+                                    <span className="age"> {strings.age}: {age}</span> -
+                                    <span className="gender"> {gender}</span>
+                                </div>
                                 <div className="send-message-button icon-wrapper icon-wrapper-with-text" onClick={this.handleClickMessageLink}>
                                     <span className="icon-message"></span>
                                     <span className="text">{strings.message}</span>
                                 </div>
                                 <div className="like-button icon-wrapper" onClick={like !== null ? this.onRate : null}>
-                                    <span className={like === null ? 'icon-spinner rotation-animation' : like && like !== -1 ? 'icon-cross' : 'icon-checkmark'}></span>
-                                </div>
-                                <div className="user-description">
-                                    <span className="icon-marker"></span> {location} -
-                                    <span className="age"> {strings.age}: {age}</span>
+                                    <span className={like === null ? 'icon-spinner rotation-animation' : like && like !== -1 ? 'icon-star yellow' : 'icon-star'}></span>
                                 </div>
                                 <div className="other-profile-wrapper bold">
                                     <OtherProfileData matching={matching} similarity={similarity} stats={comparedStats} ownImage={ownPicture}
@@ -297,6 +300,7 @@ export default class OtherUserPage extends Component {
 
 OtherUserPage.defaultProps = {
     strings: {
+        profile     : 'Profile',
         loading     : 'Loading profile',
         age         : 'Age',
         message     : 'Message',

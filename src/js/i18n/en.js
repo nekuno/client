@@ -221,6 +221,7 @@ export default {
         myProfile: 'My profile'
     },
     OtherUserPage                    : {
+        profile     : 'Profile',
         loading     : 'Loading profile',
         age         : 'Age',
         message     : 'Message',

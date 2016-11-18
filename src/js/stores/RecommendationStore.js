@@ -233,15 +233,17 @@ RecommendationStore.dispatchToken = register(action => {
             break;
         case ActionTypes.REQUEST_NEXT_RECOMMENDATIONS:
             _loadingRecommendations[action.threadId] = true;
+            RecommendationStore.emitChange();
             break;
         case ActionTypes.REQUEST_NEXT_RECOMMENDATIONS_SUCCESS:
             mergeRecommendations(recommendations, _recommendations[action.threadId]);
             _nextUrl[action.threadId] = action.response.pagination.nextLink;
-            RecommendationStore.emitChange();
             _loadingRecommendations[action.threadId] = false;
+            RecommendationStore.emitChange();
             break;
         case ActionTypes.REQUEST_NEXT_RECOMMENDATIONS_ERROR:
             _loadingRecommendations[action.threadId] = false;
+            RecommendationStore.emitChange();
             break;
         case ActionTypes.REQUEST_RECOMMENDATIONS_SUCCESS:
             _recommendations[action.threadId] = _recommendations[action.threadId] || [];

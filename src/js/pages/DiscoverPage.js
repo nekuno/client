@@ -31,10 +31,10 @@ function parseThreadId(thread) {
  */
 function requestData(props) {
     const userId = parseId(props.user);
-        ThreadActionCreators.requestThreadPage(userId);
-        ThreadActionCreators.requestFilters();
-        QuestionActionCreators.requestQuestions(userId);
-        UserActionCreators.requestMetadata();
+    ThreadActionCreators.requestThreadPage(userId);
+    ThreadActionCreators.requestFilters();
+    QuestionActionCreators.requestQuestions(userId);
+    UserActionCreators.requestMetadata();
 }
 
 /**
@@ -58,6 +58,7 @@ function getState(props) {
         filters = FilterStore.filters;
         recommendations = RecommendationStore.get(parseThreadId(thread)) ? RecommendationStore.get(parseThreadId(thread)) : [];
     }
+    let isLoadingRecommendations = RecommendationStore.isLoadingRecommendations(parseThreadId(thread));
 
     return {
         pagination,
@@ -65,6 +66,7 @@ function getState(props) {
         filters,
         recommendations,
         thread,
+        isLoadingRecommendations
     };
 }
 
@@ -75,15 +77,16 @@ export default class DiscoverPage extends Component {
 
     static propTypes = {
         // Injected by @AuthenticatedComponent
-        user              : PropTypes.object.isRequired,
+        user                    : PropTypes.object.isRequired,
         // Injected by @translate:
-        strings           : PropTypes.object,
+        strings                 : PropTypes.object,
         // Injected by @connectToStores:
-        pagination        : PropTypes.object,
-        isSomethingWorking: PropTypes.bool,
-        filters           : PropTypes.object,
-        recommendations   : PropTypes.array,
-        thread            : PropTypes.object
+        pagination              : PropTypes.object,
+        isSomethingWorking      : PropTypes.bool,
+        filters                 : PropTypes.object,
+        recommendations         : PropTypes.array,
+        thread                  : PropTypes.object,
+        isLoadingRecommendations: PropTypes.bool
     };
 
     static contextTypes = {
@@ -138,7 +141,7 @@ export default class DiscoverPage extends Component {
     };
 
     render() {
-        const {user, strings, pagination, isSomethingWorking, filters, recommendations, thread} = this.props;
+        const {user, strings, pagination, isSomethingWorking, filters, recommendations, thread, isLoadingRecommendations} = this.props;
         return (
             <div className="view view-main" onScroll={this.handleScroll}>
                 {Object.keys(thread).length > 0 ?
@@ -150,7 +153,7 @@ export default class DiscoverPage extends Component {
                         <ProcessesProgress />
                         {filters && thread ? <QuestionsBanner user={user} questionsTotal={pagination.total || 0}/> : '' }
                         { recommendations.length > 0 ? <CardUserList recommendations={recommendations} userId={user.id} s/> : <EmptyMessage text={strings.loadingMessage} loadingGif={true}/>}
-                        <div className="loading-gif" style={RecommendationStore.isLoadingRecommendations(parseThreadId(thread)) ? {} : {display: 'none'}}></div>
+                        <div className="loading-gif" style={isLoadingRecommendations ? {} : {display: 'none'}}></div>
                     </div>
                 </div>
             </div>
@@ -160,7 +163,7 @@ export default class DiscoverPage extends Component {
 
 DiscoverPage.defaultProps = {
     strings: {
-        discover               : 'Discover',
-        loadingMessage         : 'Loading recommendations',
+        discover      : 'Discover',
+        loadingMessage: 'Loading recommendations',
     }
 };

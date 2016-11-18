@@ -5,6 +5,7 @@ import OtherProfileDataList from '../components/profile/OtherProfileDataList'
 import TopNavBar from '../components/ui/TopNavBar';
 import ToolBar from '../components/ui/ToolBar';
 import Image from '../components/ui/Image';
+import EmptyMessage from '../components/ui/EmptyMessage';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
@@ -85,7 +86,7 @@ function getState(props) {
     const profileWithMetadata = ProfileStore.getWithMetadata(otherUserId);
     const matching = MatchingStore.get(otherUserId, parseId(user));
     const similarity = SimilarityStore.get(otherUserId, parseId(user));
-    const block = BlockStore.get(parseId(user), otherUserId);
+    //const block = BlockStore.get(parseId(user), otherUserId);
     const like = LikeStore.get(parseId(user), otherUserId);
     const comparedStats = ComparedStatsStore.get(parseId(user), otherUserId);
     const photos = GalleryPhotoStore.get(otherUserId);
@@ -97,7 +98,7 @@ function getState(props) {
         profileWithMetadata,
         matching,
         similarity,
-        block,
+        //block,
         like,
         comparedStats,
         user,
@@ -147,7 +148,7 @@ export default class OtherUserPage extends Component {
         profileWithMetadata: PropTypes.array,
         matching           : PropTypes.number,
         similarity         : PropTypes.number,
-        block              : PropTypes.bool,
+        //block              : PropTypes.bool,
         like               : PropTypes.number,
         comparedStats      : PropTypes.object,
         photos             : PropTypes.array,
@@ -260,7 +261,7 @@ export default class OtherUserPage extends Component {
                                     <span className="text">{strings.message}</span>
                                 </div>
                                 <div className="like-button icon-wrapper" onClick={like !== null ? this.onRate : null}>
-                                    <span className={like === null ? 'icon-spinner' : like && like !== -1 ? 'icon-cross' : 'icon-checkmark'}></span>
+                                    <span className={like === null ? 'icon-spinner rotation-animation' : like && like !== -1 ? 'icon-cross' : 'icon-checkmark'}></span>
                                 </div>
                                 <div className="user-description">
                                     <span className="icon-marker"></span> {location} -
@@ -281,7 +282,7 @@ export default class OtherUserPage extends Component {
                             <br />
                             <br />
                         </div>
-                        : ''}
+                        : <EmptyMessage text={strings.loading} loadingGif={true}/>}
                 </div>
                 {otherUser && profile && profileWithMetadata ?
                     <ToolBar links={[
@@ -296,6 +297,7 @@ export default class OtherUserPage extends Component {
 
 OtherUserPage.defaultProps = {
     strings: {
+        loading     : 'Loading profile',
         age         : 'Age',
         message     : 'Message',
         about       : 'About',

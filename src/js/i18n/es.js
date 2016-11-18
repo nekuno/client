@@ -223,6 +223,7 @@ export default {
         myProfile: 'Mi Perfil'
     },
     OtherUserPage                    : {
+        loading     : 'Cargando perfil',
         age         : 'Edad',
         message     : 'Mensaje',
         about       : 'Acerca de',

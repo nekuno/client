@@ -150,7 +150,7 @@ export default class DiscoverPage extends Component {
                         <ProcessesProgress />
                         {filters && thread ? <QuestionsBanner user={user} questionsTotal={pagination.total || 0}/> : '' }
                         { recommendations.length > 0 ? <CardUserList recommendations={recommendations} userId={user.id} s/> : <EmptyMessage text={strings.loadingMessage} loadingGif={true}/>}
-                        {/*<div className="loading-gif" style={{true} ? {} : {display: 'none'}}></div>*/}
+                        <div className="loading-gif" style={RecommendationStore.isLoadingRecommendations(parseThreadId(thread)) ? {} : {display: 'none'}}></div>
                     </div>
                 </div>
             </div>

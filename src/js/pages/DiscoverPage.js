@@ -136,7 +136,7 @@ export default class DiscoverPage extends Component {
     renderChipList = function(thread, filters) {
         if (Object.keys(thread).length > 0 && Object.keys(filters).length > 0) {
             let threadFilters = thread.category === 'ThreadUsers' ? thread.filters.userFilters : thread.filters.contentFilters;
-            let chips = [{label: thread.category === 'ThreadUsers' ? 'Personas' : 'Contenidos'}];
+            let chips = [];
             let currentFilters = thread.category === 'ThreadUsers' ? filters.userFilters : filters.contentFilters;
             Object.keys(threadFilters).filter(key => typeof currentFilters[key] !== 'undefined').forEach(key => {
                 chips.push({label: FilterStore.getFilterLabel(currentFilters[key], threadFilters[key])})

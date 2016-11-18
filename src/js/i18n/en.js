@@ -257,6 +257,7 @@ export default {
         people     : 'Compatible people',
         contents   : 'Interesting content',
         updating   : 'Updating yarn',
+        filters    : 'Filters'
     },
     ////////////////
     // Components //

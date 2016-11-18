@@ -259,6 +259,7 @@ export default {
         people     : 'Gente compatible',
         contents   : 'Contenido interesante',
         updating   : 'Editando ovillo',
+        filters    : 'Filtros'
     },
     ////////////////
     // Components //

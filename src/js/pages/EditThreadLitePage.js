@@ -132,7 +132,7 @@ export default class EditThreadLitePage extends Component {
                             thread && threadName && filters && categories ?
                                 <div>
                                     <div className="thread-title">
-                                        {threadName}
+                                        {strings.filters}:
                                     </div>
                                     <div key={1} className={category + '-first-vertical-line'}></div>
                                     <div key={2} className={category + '-last-vertical-line'}></div>
@@ -154,5 +154,6 @@ EditThreadLitePage.defaultProps = {
         people     : 'Users of Nekuno',
         contents   : 'Links of Internet',
         updating   : 'Updating yarn',
+        filters    : 'Filters'
     }
 };

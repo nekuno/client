@@ -181,7 +181,7 @@ export default {
     DiscoverPage                     : {
         discover               : 'Discover',
         create                 : 'New',
-        loadingMessage         : 'Loading yarns',
+        loadingMessage         : 'Loading recommendations',
         tutorialFirstStepTitle : 'Yarns',
         tutorialFirstStep      : 'In a Nekuno Yarn you will find that which is most compatible with you; you can delete or edit them to introduce new filters on the issues you want.',
         tutorialSecondStepTitle: 'Create a Yarn',

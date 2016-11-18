@@ -1,6 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import TopNavBar from '../components/ui/TopNavBar';
 import CardUserList from '../components/user/CardUserList';
+import EmptyMessage from '../components/ui/EmptyMessage';
 import QuestionsBanner from '../components/questions/QuestionsBanner';
 import ProcessesProgress from '../components/processes/ProcessesProgress';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
@@ -132,7 +133,7 @@ export default class DiscoverPage extends Component {
                     <div id="page-content">
                         <ProcessesProgress />
                         {filters && thread ? <QuestionsBanner user={user} questionsTotal={pagination.total || 0}/> : '' }
-                        <CardUserList recommendations={recommendations} userId={user.id} s/>
+                        { recommendations.length > 0 ? <CardUserList recommendations={recommendations} userId={user.id} s/> : <EmptyMessage text={strings.loadingMessage} loadingGif={true}/>}
                     </div>
                 </div>
             </div>

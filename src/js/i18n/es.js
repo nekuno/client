@@ -183,7 +183,7 @@ export default {
     DiscoverPage                     : {
         discover               : 'Descubrir',
         create                 : 'Crear',
-        loadingMessage         : 'Cargando ovillos',
+        loadingMessage         : 'Cargando recomendaciones',
         tutorialFirstStepTitle : 'Ovillos',
         tutorialFirstStep      : 'En un Ovillo de Nekuno encontrarás aquello que sea más compatible contigo; tú puedes borrarlos o editarlos para introducir nuevos filtros sobre los aspectos que quieras.',
         tutorialSecondStepTitle: 'Crear un Ovillo',

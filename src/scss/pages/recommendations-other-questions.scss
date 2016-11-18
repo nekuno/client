@@ -1,15 +1,13 @@
 @import '../_partials/colors';
 
-body #root .App .view .page.other-questions-page  {
-  #page-content {
-    .other-questions-header-container {
-      padding-top: 10px;
-      text-align: center;
+body #root .App .view .page {
+  #page-content.recommendation-page .other-questions-container {
+    text-align: left;
+    margin: 30px auto 0;
+    width: 85%;
 
-      .other-questions-stats-title {
-        padding-top: 10px;
-        padding-bottom: 20px;
-      }
+    .other-questions-stats-title {
+      padding-bottom: 20px;
     }
     .question-list {
       .question {

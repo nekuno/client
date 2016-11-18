@@ -212,6 +212,8 @@ export default {
         myProfile: 'Mi Perfil'
     },
     OtherUserPage                    : {
+        age         : 'Edad',
+        message     : 'Mensaje',
         about       : 'Acerca de',
         photos      : 'Fotos',
         questions   : 'Respuestas',

@@ -195,7 +195,7 @@ export default class OtherInterestsPage extends Component {
                 {this.state.carousel ?
                     <TopNavBar leftText={strings.cancel} centerText={otherUser ? otherUser.username : ''} rightIcon={'search'} onLeftLinkClickHandler={this.onNavBarLeftLinkClick} onRightLinkClickHandler={this.onSearchClick}/>
                     :
-                    <TopNavBar leftMenuIcon={true} centerText={otherUser ? otherUser.username : ''} rightIcon={'search'} onRightLinkClickHandler={this.onSearchClick}/>
+                    <TopNavBar leftIcon={'left-arrow'} centerText={otherUser ? otherUser.username : ''} rightIcon={'search'} onRightLinkClickHandler={this.onSearchClick}/>
                 }
                 <div className="page other-interests-page">
                     <div id="page-content" className="other-interests-content">
@@ -221,10 +221,9 @@ export default class OtherInterestsPage extends Component {
                 {otherUser ?
                     <ToolBar links={[
                     {'url': `/profile/${otherUserId}`, 'text': strings.about},
-                    {'url': `/users/${otherUserId}/other-gallery`, 'text': strings.photos},
                     {'url': `/users/${otherUserId}/other-questions`, 'text': strings.questions},
                     {'url': `/users/${otherUserId}/other-interests`, 'text': strings.interests}
-                    ]} activeLinkIndex={3} arrowUpLeft={'85%'}/>
+                    ]} activeLinkIndex={2} arrowUpLeft={'83%'}/>
                         :
                     ''}
                 {otherUser ?

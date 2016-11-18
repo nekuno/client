@@ -210,6 +210,8 @@ export default {
         myProfile: 'My profile'
     },
     OtherUserPage                    : {
+        age         : 'Age',
+        message     : 'Message',
         about       : 'About',
         photos      : 'Photos',
         questions   : 'Answers',

@@ -1,0 +1,160 @@
+@import '../_partials/colors';
+
+body #root .App .view .page.other-user-page {
+  #page-content {
+    width: 100%;
+    .user-interests {
+      .label {
+        font-size: 0.857142857em;
+      }
+    }
+    .user-images {
+      cursor: pointer;
+      height: 250px;
+      overflow: hidden;
+      width: 100%;
+      .user-images-wrapper {
+        height: 400px;
+        margin-top: -75px;
+        width: 100%;
+        .swiper-custom {
+          height: 100%;
+          position: relative;
+          img {
+            margin: auto;
+            width: 100%;
+          }
+        }
+      }
+    }
+    .other-user-main-data {
+      margin: 0 7.5%;
+      text-align: center;
+      .username-title {
+        display: inline-block;
+        font-size: 2em;
+        margin-right: 15px;
+      }
+      .send-message-button {
+        margin: 10px 0 0 20px;
+
+        .icon-message {
+          margin-right: 5px;
+        }
+      }
+      .user-description {
+        margin-top: 10px;
+        margin-bottom: 20px;
+
+        .similarity {
+          font-weight: bold;
+        }
+      }
+    }
+    .profile-data-list {
+      margin: 30px 7.5% 0 7.5%;
+
+      .profile-category {
+        width: 200%;
+        background-color: $deep-purple-translucent;
+        margin-left: -50%;
+        margin-top: 10px;
+        padding-top: 1px;
+        padding-bottom: 1px;
+        padding-left: 50%;
+      }
+
+      .profile-data, .profile-about-me {
+        display: table;
+        padding: 5px;
+        width: 100%;
+
+        span {
+          width: 50%;
+          margin-top: 5px;
+        }
+
+        .profile-data-value {
+          float: right;
+          width: 50%;
+        }
+        .profile-data-name {
+          font-weight: bold;
+          float: left;
+          margin-right: 5%;
+          width: 45%;
+        }
+        .profile-about-me-value {
+          margin-top: 1.5ex;
+          width: 100%;
+          margin-bottom: 3ex;
+          .see-more {
+            color: $deep-purple;
+            cursor: pointer;
+          }
+        }
+        .profile-about-me-name {
+          font-weight: bold;
+          width: 100%;
+        }
+      }
+    }
+
+    .other-profile-wrapper {
+      width: 200%;
+      background-color: $deep-purple-translucent;
+      margin-left: -50%;
+      text-align: center;
+    }
+
+    .other-profile-data {
+      color: white;
+      margin: 10px auto;
+      display: inline-block;
+      width: 50%;
+      .other-profile-left {
+        width: 50%;
+        height: 100%;
+        float: left;
+
+        .other-profile-stats {
+          width: 100%;
+
+          a {
+            color: #fff;
+          }
+        }
+      }
+      .other-profile-right {
+        width: 50%;
+        height: 100%;
+        float: right;
+
+        .progress-bar {
+          margin-top: 5px;
+          margin-bottom: 5px;
+          border-radius: 5px;
+          -moz-border-radius: 5px;
+          -webkit-border-radius: 5px;
+        }
+        [class^="progress-bar"], [class*=" progress-bar-"] {
+          border-radius: 5px;
+          -moz-border-radius: 5px;
+          -webkit-border-radius: 5px;
+        }
+      }
+    }
+
+    .like-button {
+      margin-top: -10px !important;
+      margin-left: 10px;
+      vertical-align: middle;
+    }
+  }
+}
+
+@media only screen and (max-width: 300px) {
+  body #root .App .view .page.user-page {
+    width: 90%;
+  }
+}

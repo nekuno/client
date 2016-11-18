@@ -101,6 +101,7 @@ export default class DiscoverPage extends Component {
         super(props);
 
         this.editThread = this.editThread.bind(this);
+        this.handleScroll = this.handleScroll.bind(this);
     }
 
     componentWillMount() {
@@ -115,16 +116,27 @@ export default class DiscoverPage extends Component {
 
     componentWillUnmount() {
         this.props.resetTutorial(this.refs.joyrideThreads);
+        document.getElementsByClassName('view')[0].removeEventListener('scroll', this.handleScroll);
     }
 
     editThread() {
         this.context.history.pushState(null, `edit-thread/${parseThreadId(this.props.thread)}`);
     }
 
+    handleScroll() {
+        let offsetTop = parseInt(document.getElementsByClassName('view')[0].scrollTop + document.getElementsByClassName('view')[0].offsetHeight);
+        let offsetTopMax = parseInt(document.getElementById('page-content').offsetHeight);
+
+        if (offsetTop >= offsetTopMax) {
+            document.getElementsByClassName('view')[0].removeEventListener('scroll', this.handleScroll);
+            ThreadActionCreators.recommendationsNext(parseThreadId(this.props.thread));
+        }
+    }
+
     render() {
         const {user, strings, steps, endTutorialHandler, tutorialLocale, pagination, isSomethingWorking, filters, recommendations, thread} = this.props;
         return (
-            <div className="view view-main">
+            <div className="view view-main" onScroll={this.handleScroll}>
                 {Object.keys(thread).length > 0 ?
                     <TopNavBar leftMenuIcon={true} centerText={strings.discover} rightIcon={'edit'} onRightLinkClickHandler={this.editThread}/>
                     : <TopNavBar leftMenuIcon={true} centerText={strings.discover}/>}
@@ -134,6 +146,7 @@ export default class DiscoverPage extends Component {
                         <ProcessesProgress />
                         {filters && thread ? <QuestionsBanner user={user} questionsTotal={pagination.total || 0}/> : '' }
                         { recommendations.length > 0 ? <CardUserList recommendations={recommendations} userId={user.id} s/> : <EmptyMessage text={strings.loadingMessage} loadingGif={true}/>}
+                        <div className="loading-gif" style={{true} ? {} : {display: 'none'}}></div>
                     </div>
                 </div>
             </div>

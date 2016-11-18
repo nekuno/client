@@ -31,12 +31,10 @@ function parseThreadId(thread) {
  */
 function requestData(props) {
     const userId = parseId(props.user);
-    if (ThreadStore.noThreads() || ThreadStore.isAnyPopular()) {
         ThreadActionCreators.requestThreadPage(userId);
         ThreadActionCreators.requestFilters();
         QuestionActionCreators.requestQuestions(userId);
         UserActionCreators.requestMetadata();
-    }
 }
 
 /**
@@ -148,9 +146,9 @@ export default class DiscoverPage extends Component {
                     : <TopNavBar leftMenuIcon={true} centerText={strings.discover}/>}
                 <div className="page discover-page">
                     <div id="page-content">
+                        {this.renderChipList(thread, filters)}
                         <ProcessesProgress />
                         {filters && thread ? <QuestionsBanner user={user} questionsTotal={pagination.total || 0}/> : '' }
-                        {this.renderChipList(thread, filters)}
                         { recommendations.length > 0 ? <CardUserList recommendations={recommendations} userId={user.id} s/> : <EmptyMessage text={strings.loadingMessage} loadingGif={true}/>}
                         {/*<div className="loading-gif" style={{true} ? {} : {display: 'none'}}></div>*/}
                     </div>

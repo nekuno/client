@@ -7,11 +7,9 @@ import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
 import tutorial from '../components/tutorial/Tutorial';
 import connectToStores from '../utils/connectToStores';
-import * as UserActionCreators from '../actions/UserActionCreators';
 import * as ThreadActionCreators from '../actions/ThreadActionCreators';
 import * as QuestionActionCreators from '../actions/QuestionActionCreators';
 import ThreadStore from '../stores/ThreadStore';
-import ProfileStore from '../stores/ProfileStore';
 import FilterStore from '../stores/FilterStore';
 import QuestionStore from '../stores/QuestionStore';
 import RecommendationStore from '../stores/RecommendationStore';
@@ -33,7 +31,6 @@ function requestData(props) {
     const userId = parseId(props.user);
     if (ThreadStore.noThreads() || ThreadStore.isAnyPopular()) {
         ThreadActionCreators.requestThreadPage(userId);
-        UserActionCreators.requestOwnProfile(userId);
         ThreadActionCreators.requestFilters();
         QuestionActionCreators.requestQuestions(userId);
     }
@@ -45,7 +42,6 @@ function requestData(props) {
 function getState(props) {
 
     let userId = parseId(props.user);
-    let profile = ProfileStore.get(userId) || {};
     let pagination = QuestionStore.getPagination(userId) || {};
     let isSomethingWorking = WorkersStore.isSomethingWorking();
     let filters = {};
@@ -63,7 +59,6 @@ function getState(props) {
     }
 
     return {
-        profile,
         pagination,
         isSomethingWorking,
         filters,
@@ -75,7 +70,7 @@ function getState(props) {
 @AuthenticatedComponent
 @translate('DiscoverPage')
 @tutorial()
-@connectToStores([ThreadStore, RecommendationStore, ProfileStore, FilterStore, WorkersStore], getState)
+@connectToStores([ThreadStore, RecommendationStore, FilterStore, WorkersStore], getState)
 export default class DiscoverPage extends Component {
 
     static propTypes = {
@@ -90,7 +85,6 @@ export default class DiscoverPage extends Component {
         endTutorialHandler: PropTypes.func,
         tutorialLocale    : PropTypes.object,
         // Injected by @connectToStores:
-        profile           : PropTypes.object,
         pagination        : PropTypes.object,
         isSomethingWorking: PropTypes.bool,
         filters           : PropTypes.object,
@@ -127,7 +121,7 @@ export default class DiscoverPage extends Component {
     }
 
     render() {
-        const {user, strings, steps, endTutorialHandler, tutorialLocale, profile, pagination, isSomethingWorking, filters, recommendations, thread} = this.props;
+        const {user, strings, steps, endTutorialHandler, tutorialLocale, pagination, isSomethingWorking, filters, recommendations, thread} = this.props;
         return (
             <div className="view view-main">
                 {Object.keys(thread).length > 0 ?
@@ -138,7 +132,7 @@ export default class DiscoverPage extends Component {
                     <div id="page-content">
                         <ProcessesProgress />
                         <CardUserList recommendations={recommendations} userId={user.id}s/>
-                        {filters && thread && profile ?
+                        {filters && thread ?
                             <QuestionsBanner user={user} questionsTotal={pagination.total || 0}/> : ''
                         }
                     </div>

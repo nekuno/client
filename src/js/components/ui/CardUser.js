@@ -75,7 +75,7 @@ export default class CardUser extends Component {
                 <div className="card-content">
                     <div className="card-content-inner">
                         <Link to={`/profile/${userId}`}>
-                            <div className="image">
+                            <div className="image fixed-height-image">
                                 <Image src={imgSrc} defaultSrc={defaultSrc}/>
                             </div>
                         </Link>

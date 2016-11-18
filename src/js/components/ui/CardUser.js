@@ -80,7 +80,7 @@ export default class CardUser extends Component {
                             </div>
                         </Link>
                         <div className="matching">
-                            <div className="matching-value">{strings.similarity} {matching ? matching + '%' : '0%'}</div>
+                            <div className="matching-value">{strings.matching} {matching ? matching + '%' : '0%'}</div>
                             <ProgressBar percentage={matching}/>
                         </div>
                     </div>
@@ -96,10 +96,10 @@ export default class CardUser extends Component {
 
 CardUser.defaultProps = {
     strings: {
-        like      : 'Like',
-        unlike    : 'Remove',
-        similarity: 'Similarity',
-        saving    : 'Saving...',
-        age       : 'Age',
+        like    : 'Like',
+        unlike  : 'Remove',
+        matching: 'Matching',
+        saving  : 'Saving...',
+        age     : 'Age',
     }
 };

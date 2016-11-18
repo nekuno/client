@@ -21,7 +21,7 @@ export default class CardUserList extends Component {
                         location={selectn('profile.location.locality', recommendation) || selectn('profile.location.country', recommendation) || ''}
                         canSendMessage={true}
                         photo={recommendation.photo}
-                        matching={Math.round(recommendation.similarity * 100)}
+                        matching={Math.round(recommendation.matching * 100)}
                         age={recommendation.age}
                         like={recommendation.like}
                         hideLikeButton={false}

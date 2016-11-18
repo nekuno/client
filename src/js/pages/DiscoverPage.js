@@ -18,7 +18,6 @@ import QuestionStore from '../stores/QuestionStore';
 import RecommendationStore from '../stores/RecommendationStore';
 import WorkersStore from '../stores/WorkersStore';
 import ProfileStore from '../stores/ProfileStore';
-import Joyride from 'react-joyride';
 
 function parseId(user) {
     return user.id;
@@ -113,13 +112,10 @@ export default class DiscoverPage extends Component {
     }
 
     componentDidUpdate() {
-        if (this.props.thread) {
-            window.setTimeout(() => this.props.startTutorial(this.refs.joyrideThreads), 1000);
-        }
+
     }
 
     componentWillUnmount() {
-        this.props.resetTutorial(this.refs.joyrideThreads);
         document.getElementsByClassName('view')[0].removeEventListener('scroll', this.handleScroll);
     }
 
@@ -157,7 +153,6 @@ export default class DiscoverPage extends Component {
                 {Object.keys(thread).length > 0 ?
                     <TopNavBar leftMenuIcon={true} centerText={strings.discover} rightIcon={'edit'} onRightLinkClickHandler={this.editThread}/>
                     : <TopNavBar leftMenuIcon={true} centerText={strings.discover}/>}
-                <Joyride ref="joyrideThreads" steps={steps} locale={tutorialLocale} callback={endTutorialHandler} type="continuous"/>
                 <div className="page discover-page">
                     <div id="page-content">
                         <ProcessesProgress />
@@ -183,25 +178,5 @@ DiscoverPage.defaultProps = {
         tutorialSecondStep     : 'Here you can create a new yarn about what most interests you.',
         tutorialThirdStepTitle : 'Menu',
         tutorialThirdStep      : 'This is the button to open the menu and this green dot indicates you have new messages. We invite you to explore all Nekuno! Thank you for participating in this private Beta!'
-    },
-    steps  : [
-        {
-            titleRef: 'tutorialFirstStepTitle',
-            textRef : 'tutorialFirstStep',
-            selector: '#joyride-1-yarns',
-            position: 'bottom',
-        },
-        {
-            titleRef: 'tutorialSecondStepTitle',
-            textRef : 'tutorialSecondStep',
-            selector: '#joyride-2-create-yarn',
-            position: 'bottom',
-        },
-        {
-            titleRef: 'tutorialThirdStepTitle',
-            textRef : 'tutorialThirdStep',
-            selector: '#joyride-3-menu',
-            position: 'bottom',
-        }
-    ]
+    }
 };

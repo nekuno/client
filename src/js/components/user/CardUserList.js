@@ -1,5 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import CardUser from '../ui/CardUser';
+import selectn from 'selectn';
 
 export default class CardUserList extends Component {
 
@@ -17,10 +18,11 @@ export default class CardUserList extends Component {
                         key={index}
                         userId={recommendation.id}
                         username={recommendation.username}
-                        location={recommendation.location.locality}
+                        location={selectn('profile.location.locality', recommendation)}
                         canSendMessage={true}
                         photo={recommendation.photo}
                         matching={Math.round(recommendation.similarity * 100)}
+                        age={recommendation.age}
                         like={recommendation.like}
                         hideLikeButton={false}
                         loggedUserId={userId}

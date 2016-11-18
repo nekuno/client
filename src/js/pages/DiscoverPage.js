@@ -131,10 +131,8 @@ export default class DiscoverPage extends Component {
                 <div className="page discover-page">
                     <div id="page-content">
                         <ProcessesProgress />
-                        <CardUserList recommendations={recommendations} userId={user.id}s/>
-                        {filters && thread ?
-                            <QuestionsBanner user={user} questionsTotal={pagination.total || 0}/> : ''
-                        }
+                        {filters && thread ? <QuestionsBanner user={user} questionsTotal={pagination.total || 0}/> : '' }
+                        <CardUserList recommendations={recommendations} userId={user.id} s/>
                     </div>
                 </div>
             </div>

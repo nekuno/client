@@ -20,6 +20,7 @@ export default class CardUser extends Component {
         canSendMessage: PropTypes.bool.isRequired,
         photo         : PropTypes.object,
         matching      : PropTypes.number.isRequired,
+        age           : PropTypes.number,
         like          : PropTypes.number,
         hideLikeButton: PropTypes.bool.isRequired,
         loggedUserId  : PropTypes.number.isRequired,
@@ -48,8 +49,8 @@ export default class CardUser extends Component {
     }
 
     render() {
-        const {strings, location, canSendMessage, like, hideLikeButton, photo, userId, username, matching} = this.props;
-        const subTitle = location ? <div><span className="icon-marker"></span>{location.substr(0, 20)}{location.length > 20 ? '...' : ''}</div> : <div>&nbsp;</div>;
+        const {strings, location, canSendMessage, like, hideLikeButton, photo, userId, username, matching, age} = this.props;
+        const subTitle = location ? <div><span className="icon-marker"></span>{location.substr(0, 20)}{location.length > 20 ? '...' : ''} - {age}</div> : <div>{age}</div>;
         const messageButton = canSendMessage ? <span className="icon-message" onClick={this.handleMessage}></span> : '';
         const likeButtonText = like === null ? strings.saving : like ? strings.unlike : strings.like;
         const likeButton = hideLikeButton ? '' : <div className="like-button-container"><Button onClick={this.onLikeOrDislike} disabled={like === null ? 'disabled' : null}>{likeButtonText}</Button></div>;

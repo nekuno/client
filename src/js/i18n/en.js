@@ -178,6 +178,17 @@ export default {
         tutorialThirdStepTitle : 'Menu',
         tutorialThirdStep      : 'This is the button to open the menu and this green dot indicates you have new messages. We invite you to explore all Nekuno! Thank you for participating in this private Beta!'
     },
+    DiscoverPage                     : {
+        discover               : 'Discover',
+        create                 : 'New',
+        loadingMessage         : 'Loading yarns',
+        tutorialFirstStepTitle : 'Yarns',
+        tutorialFirstStep      : 'In a Nekuno Yarn you will find that which is most compatible with you; you can delete or edit them to introduce new filters on the issues you want.',
+        tutorialSecondStepTitle: 'Create a Yarn',
+        tutorialSecondStep     : 'Here you can create a new Yarn about what most interests you.',
+        tutorialThirdStepTitle : 'Menu',
+        tutorialThirdStep      : 'This is the button to open the menu and this green dot indicates you have new messages. We invite you to explore all Nekuno! Thank you for participating in this private Beta!'
+    },
     DiscoverLitePage                 : {
         discover      : 'Discover',
         loadingMessage: 'Loading recommendations',

@@ -25,14 +25,12 @@ import AnswerUserFieldPage from './pages/AnswerUserFieldPage';
 import AnswerProfileFieldPage from './pages/AnswerProfileFieldPage';
 import UserPage from './pages/UserPage';
 import OtherUserPage from './pages/OtherUserPage';
-import ThreadPage from './pages/ThreadPage';
-import DiscoverLitePage from './pages/DiscoverLitePage';
+import DiscoverPage from './pages/DiscoverPage';
 import RecommendationPage from './pages/RecommendationPage';
 import InvitationsPage from './pages/InvitationsPage';
 import ConnectSocialNetworksOnSignUpPage from './pages/ConnectSocialNetworksOnSignUpPage';
 import ConnectSocialNetworksPage from './pages/ConnectSocialNetworksPage';
 import CreateThreadPage from './pages/CreateThreadPage';
-import EditThreadPage from './pages/EditThreadPage';
 import EditThreadLitePage from './pages/EditThreadLitePage';
 import GroupPage from './pages/GroupPage';
 import GroupStatsPage from './pages/GroupStatsPage';
@@ -90,7 +88,7 @@ export default class Root extends Component {
                         <Route name="profile" path="/profile" component={UserPage}/>
                         <Route name="other-profile" path="/profile/:userId" component={OtherUserPage}/>
                         <Route name="invitations" path="/invitations" component={InvitationsPage}/>
-                        <Route name="discover" path="/discover" component={DiscoverLitePage}/>
+                        <Route name="discover" path="/discover" component={DiscoverPage}/>
                         <Route name="recommendations" path="/recommendations/:threadId" component={RecommendationPage}/>
                         <Route name="social-networks-on-sign-up" path="/social-networks-on-sign-up" component={ConnectSocialNetworksOnSignUpPage}/>
                         <Route name="social-networks" path="/social-networks" component={ConnectSocialNetworksPage}/>

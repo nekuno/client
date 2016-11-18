@@ -47,8 +47,8 @@ function getState(props) {
     let filters = {};
     let recommendations = [];
     let thread = ThreadStore.getAll().find((thread) => {
-            recommendations = RecommendationStore.get(parseThreadId(thread)) || [];
-            return recommendations.length > 0;
+            let items = RecommendationStore.get(parseThreadId(thread)) || [];
+            return items.length > 0 && thread.category === 'ThreadUsers';
         }) || {};
     if (parseThreadId(thread)) {
         if (Object.keys(thread).length !== 0) {

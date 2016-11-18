@@ -124,7 +124,7 @@ export default class DiscoverPage extends Component {
     }
 
     handleScroll() {
-        let offsetTop = parseInt(document.getElementsByClassName('view')[0].scrollTop + document.getElementsByClassName('view')[0].offsetHeight - 60);
+        let offsetTop = parseInt(document.getElementsByClassName('view')[0].scrollTop + document.getElementsByClassName('view')[0].offsetHeight - 58);
         let offsetTopMax = parseInt(document.getElementById('page-content').offsetHeight);
 
         if (offsetTop >= offsetTopMax) {
@@ -135,10 +135,11 @@ export default class DiscoverPage extends Component {
 
     renderChipList = function(thread, filters) {
         if (Object.keys(thread).length > 0 && Object.keys(filters).length > 0) {
-            const threadFilters = thread.category === 'ThreadUsers' ? thread.filters.userFilters : thread.filters.contentFilters;
+            let threadFilters = thread.category === 'ThreadUsers' ? thread.filters.userFilters : thread.filters.contentFilters;
             let chips = [{label: thread.category === 'ThreadUsers' ? 'Personas' : 'Contenidos'}];
-            Object.keys(threadFilters).filter(key => typeof filters[key] !== 'undefined').forEach(key => {
-                chips.push({label: FilterStore.getFilterLabel(filters[key], threadFilters[key])})
+            let currentFilters = thread.category === 'ThreadUsers' ? filters.userFilters : filters.contentFilters;
+            Object.keys(threadFilters).filter(key => typeof currentFilters[key] !== 'undefined').forEach(key => {
+                chips.push({label: FilterStore.getFilterLabel(currentFilters[key], threadFilters[key])})
             });
             return (
                 <ChipList chips={chips} small={true}/>

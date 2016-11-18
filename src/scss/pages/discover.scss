@@ -5,6 +5,10 @@ body #root .App .view .page.discover-page {
   #page-content {
     width: 100% !important;
 
+    .answer-questions-link-container {
+      position: relative;
+    }
+
     .user-list {
       .card {
         display: inline-block;

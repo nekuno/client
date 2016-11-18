@@ -400,7 +400,8 @@ export default {
         like      : 'Like',
         unlike    : 'Remove',
         similarity: 'Similarity',
-        saving    : 'Saving...'
+        saving    : 'Saving...',
+        age       : 'Age',
     },
     ImportAlbumPopup                 : {
         close      : 'Close',

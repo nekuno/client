@@ -2,12 +2,14 @@ import React, { PropTypes, Component } from 'react';
 import TopNavBar from '../components/ui/TopNavBar';
 import CardUserList from '../components/user/CardUserList';
 import EmptyMessage from '../components/ui/EmptyMessage';
+import ChipList from './../components/ui/ChipList';
 import QuestionsBanner from '../components/questions/QuestionsBanner';
 import ProcessesProgress from '../components/processes/ProcessesProgress';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
 import tutorial from '../components/tutorial/Tutorial';
 import connectToStores from '../utils/connectToStores';
+import * as UserActionCreators from '../actions/UserActionCreators';
 import * as ThreadActionCreators from '../actions/ThreadActionCreators';
 import * as QuestionActionCreators from '../actions/QuestionActionCreators';
 import ThreadStore from '../stores/ThreadStore';
@@ -15,6 +17,7 @@ import FilterStore from '../stores/FilterStore';
 import QuestionStore from '../stores/QuestionStore';
 import RecommendationStore from '../stores/RecommendationStore';
 import WorkersStore from '../stores/WorkersStore';
+import ProfileStore from '../stores/ProfileStore';
 import Joyride from 'react-joyride';
 
 function parseId(user) {
@@ -34,6 +37,7 @@ function requestData(props) {
         ThreadActionCreators.requestThreadPage(userId);
         ThreadActionCreators.requestFilters();
         QuestionActionCreators.requestQuestions(userId);
+        UserActionCreators.requestMetadata();
     }
 }
 
@@ -71,7 +75,7 @@ function getState(props) {
 @AuthenticatedComponent
 @translate('DiscoverPage')
 @tutorial()
-@connectToStores([ThreadStore, RecommendationStore, FilterStore, WorkersStore], getState)
+@connectToStores([ThreadStore, RecommendationStore, FilterStore, WorkersStore, ProfileStore], getState)
 export default class DiscoverPage extends Component {
 
     static propTypes = {
@@ -124,7 +128,7 @@ export default class DiscoverPage extends Component {
     }
 
     handleScroll() {
-        let offsetTop = parseInt(document.getElementsByClassName('view')[0].scrollTop + document.getElementsByClassName('view')[0].offsetHeight);
+        let offsetTop = parseInt(document.getElementsByClassName('view')[0].scrollTop + document.getElementsByClassName('view')[0].offsetHeight - 60);
         let offsetTopMax = parseInt(document.getElementById('page-content').offsetHeight);
 
         if (offsetTop >= offsetTopMax) {
@@ -132,6 +136,19 @@ export default class DiscoverPage extends Component {
             ThreadActionCreators.recommendationsNext(parseThreadId(this.props.thread));
         }
     }
+
+    renderChipList = function(thread, filters) {
+        if (Object.keys(thread).length > 0 && Object.keys(filters).length > 0) {
+            const threadFilters = thread.category === 'ThreadUsers' ? thread.filters.userFilters : thread.filters.contentFilters;
+            let chips = [{label: thread.category === 'ThreadUsers' ? 'Personas' : 'Contenidos'}];
+            Object.keys(threadFilters).filter(key => typeof filters[key] !== 'undefined').forEach(key => {
+                chips.push({label: FilterStore.getFilterLabel(filters[key], threadFilters[key])})
+            });
+            return (
+                <ChipList chips={chips} small={true}/>
+            );
+        }
+    };
 
     render() {
         const {user, strings, steps, endTutorialHandler, tutorialLocale, pagination, isSomethingWorking, filters, recommendations, thread} = this.props;
@@ -145,8 +162,9 @@ export default class DiscoverPage extends Component {
                     <div id="page-content">
                         <ProcessesProgress />
                         {filters && thread ? <QuestionsBanner user={user} questionsTotal={pagination.total || 0}/> : '' }
+                        {this.renderChipList(thread, filters)}
                         { recommendations.length > 0 ? <CardUserList recommendations={recommendations} userId={user.id} s/> : <EmptyMessage text={strings.loadingMessage} loadingGif={true}/>}
-                        <div className="loading-gif" style={{true} ? {} : {display: 'none'}}></div>
+                        {/*<div className="loading-gif" style={{true} ? {} : {display: 'none'}}></div>*/}
                     </div>
                 </div>
             </div>

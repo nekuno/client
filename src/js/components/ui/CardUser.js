@@ -50,7 +50,7 @@ export default class CardUser extends Component {
 
     render() {
         const {strings, location, canSendMessage, like, hideLikeButton, photo, userId, username, matching, age} = this.props;
-        const subTitle = location ? <div><span className="icon-marker"></span>{location.substr(0, 20)}{location.length > 20 ? '...' : ''} - {age}</div> : <div>{age}</div>;
+        const subTitle = <div><span className="icon-marker"></span>{location.substr(0, 20)}{location.length > 20 ? '...' : ''} - {strings.age}: {age}</div>;
         const messageButton = canSendMessage ? <span className="icon-message" onClick={this.handleMessage}></span> : '';
         const likeButtonText = like === null ? strings.saving : like ? strings.unlike : strings.like;
         const likeButton = hideLikeButton ? '' : <div className="like-button-container"><Button onClick={this.onLikeOrDislike} disabled={like === null ? 'disabled' : null}>{likeButtonText}</Button></div>;
@@ -68,9 +68,9 @@ export default class CardUser extends Component {
                     <div className="card-sub-title">
                         {subTitle}
                     </div>
-                    <div className="send-message-button icon-wrapper">
-                        {messageButton}
-                    </div>
+                    {/*<div className="send-message-button icon-wrapper">*/}
+                    {/*{messageButton}*/}
+                    {/*</div>*/}
                 </div>
                 <div className="card-content">
                     <div className="card-content-inner">
@@ -99,6 +99,7 @@ CardUser.defaultProps = {
         like      : 'Like',
         unlike    : 'Remove',
         similarity: 'Similarity',
-        saving    : 'Saving...'
+        saving    : 'Saving...',
+        age       : 'Age',
     }
 };

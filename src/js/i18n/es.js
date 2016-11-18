@@ -402,7 +402,8 @@ export default {
         like      : 'Me gusta',
         unlike    : 'Ya no me gusta',
         similarity: 'Similitud',
-        saving    : 'Guardando...'
+        saving    : 'Guardando...',
+        age       : 'Edad',
     },
     ImportAlbumPopup                 : {
         close      : 'Cerrar',

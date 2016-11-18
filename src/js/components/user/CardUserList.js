@@ -18,7 +18,7 @@ export default class CardUserList extends Component {
                         key={index}
                         userId={recommendation.id}
                         username={recommendation.username}
-                        location={selectn('profile.location.locality', recommendation)}
+                        location={selectn('profile.location.locality', recommendation) || selectn('profile.location.country', recommendation) || ''}
                         canSendMessage={true}
                         photo={recommendation.photo}
                         matching={Math.round(recommendation.similarity * 100)}

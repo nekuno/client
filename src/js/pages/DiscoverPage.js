@@ -7,7 +7,6 @@ import QuestionsBanner from '../components/questions/QuestionsBanner';
 import ProcessesProgress from '../components/processes/ProcessesProgress';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
-import tutorial from '../components/tutorial/Tutorial';
 import connectToStores from '../utils/connectToStores';
 import * as UserActionCreators from '../actions/UserActionCreators';
 import * as ThreadActionCreators from '../actions/ThreadActionCreators';
@@ -73,7 +72,6 @@ function getState(props) {
 
 @AuthenticatedComponent
 @translate('DiscoverPage')
-@tutorial()
 @connectToStores([ThreadStore, RecommendationStore, FilterStore, WorkersStore, ProfileStore], getState)
 export default class DiscoverPage extends Component {
 
@@ -82,12 +80,6 @@ export default class DiscoverPage extends Component {
         user              : PropTypes.object.isRequired,
         // Injected by @translate:
         strings           : PropTypes.object,
-        // Injected by @tutorial:
-        steps             : PropTypes.array,
-        startTutorial     : PropTypes.func,
-        resetTutorial     : PropTypes.func,
-        endTutorialHandler: PropTypes.func,
-        tutorialLocale    : PropTypes.object,
         // Injected by @connectToStores:
         pagination        : PropTypes.object,
         isSomethingWorking: PropTypes.bool,
@@ -148,7 +140,7 @@ export default class DiscoverPage extends Component {
     };
 
     render() {
-        const {user, strings, steps, endTutorialHandler, tutorialLocale, pagination, isSomethingWorking, filters, recommendations, thread} = this.props;
+        const {user, strings, pagination, isSomethingWorking, filters, recommendations, thread} = this.props;
         return (
             <div className="view view-main" onScroll={this.handleScroll}>
                 {Object.keys(thread).length > 0 ?
@@ -173,11 +165,5 @@ DiscoverPage.defaultProps = {
         discover               : 'Discover',
         create                 : 'New',
         loadingMessage         : 'Loading yarns',
-        tutorialFirstStepTitle : 'Yarns',
-        tutorialFirstStep      : 'In a Nekuno yarn you will find that which is most compatible with you; you can delete or edit them to introduce new filters on the issues you want.',
-        tutorialSecondStepTitle: 'Create a yarn',
-        tutorialSecondStep     : 'Here you can create a new yarn about what most interests you.',
-        tutorialThirdStepTitle : 'Menu',
-        tutorialThirdStep      : 'This is the button to open the menu and this green dot indicates you have new messages. We invite you to explore all Nekuno! Thank you for participating in this private Beta!'
     }
 };

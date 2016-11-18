@@ -50,7 +50,7 @@ export default class CardUser extends Component {
 
     render() {
         const {strings, location, canSendMessage, like, hideLikeButton, photo, userId, username, matching, age} = this.props;
-        const subTitle = <div><span className="icon-marker"></span>{location.substr(0, 20)}{location.length > 20 ? '...' : ''} - {strings.age}: {age}</div>;
+        const subTitle = <div><span className="icon-marker"></span>{location.substr(0, 15)}{location.length > 15 ? '...' : ''} - {strings.age}: {age}</div>;
         const messageButton = canSendMessage ? <span className="icon-message" onClick={this.handleMessage}></span> : '';
         const likeButtonText = like === null ? strings.saving : like ? strings.unlike : strings.like;
         const likeButton = hideLikeButton ? '' : <div className="like-button-container"><Button onClick={this.onLikeOrDislike} disabled={like === null ? 'disabled' : null}>{likeButtonText}</Button></div>;

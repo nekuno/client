@@ -1,6 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import FullWidthButton from '../components/ui/FullWidthButton';
 import FacebookButton from '../components/ui/FacebookButton';
+import EmptyMessage from '../components/ui/EmptyMessage';
 import moment from 'moment';
 import 'moment/locale/es';
 import { LAST_RELEASE_DATE } from '../constants/Constants';
@@ -57,7 +58,8 @@ export default class HomePage extends Component {
 
         this.promise = null;
         this.state = {
-            needsUpdating: false
+            needsUpdating  : false,
+            registeringUser: false
         };
     }
 
@@ -96,7 +98,7 @@ export default class HomePage extends Component {
                         let user = SocialNetworkService.getUser(resource);
                         let profile = SocialNetworkService.getProfile(resource);
                         user[resource + 'ID'] = SocialNetworkService.getResourceId(resource);
-                        user.enabled = false;
+                        user.enabled = true;
                         profile.interfaceLanguage = interfaceLanguage;
                         profile.orientationRequired = false;
                         let token = 'join';
@@ -108,8 +110,10 @@ export default class HomePage extends Component {
                             refreshToken : SocialNetworkService.getRefreshToken(resource)
                         });
 
-                        nekunoApp.alert(error.error);
-                        this.context.history.pushState(null, '/login');
+                        console.log(error);
+                        this.setState({
+                            registeringUser: true
+                        });
                     });
             },
             (status) => {
@@ -136,42 +140,44 @@ export default class HomePage extends Component {
         const {strings} = this.props;
 
         return (
-            <div className="view view-main home-view">
-                <div className="swiper-container swiper-init" data-speed="400" data-space-between="40" data-pagination=".swiper-pagination">
-                    <div className="linear-gradient-rectangle"></div>
+            this.state.registeringUser ? <div className="view view-main home-view"><EmptyMessage text={strings.loadingMessage} loadingGif={true}/></div> :
+                <div className="view view-main home-view">
+                    <div className="swiper-container swiper-init" data-speed="400" data-space-between="40" data-pagination=".swiper-pagination">
+                        <div className="linear-gradient-rectangle"></div>
 
-                    <div className="swiper-wrapper">
-                        {this.renderSlides()}
+                        <div className="swiper-wrapper">
+                            {this.renderSlides()}
+                        </div>
+                    </div>
+                    <div className="nekuno-logo-wrapper">
+                        <div className="nekuno-logo"></div>
+                    </div>
+                    <div id="page-content" className="home-content">
+
+                    </div>
+                    <div className="swiper-pagination-and-button">
+                        <div className="swiper-pagination"></div>
+                        { this.state.needsUpdating ?
+                            <FullWidthButton onClick={() => window.location = 'https://play.google.com/store/apps/details?id=com.nekuno'}>
+                                {strings.update}
+                            </FullWidthButton>
+                            :
+                            <div>
+                                <FacebookButton onClickHandler={this.loginByResourceOwner} text={strings.login}/>
+                                {/*<div className="register-text-block">*/}
+                                {/*<div onClick={this.goToRegisterPage} className="register-text">*/}
+                                {/*<span>{strings.hasInvitation}</span> <a href="javascript:void(0)">{strings.register}</a>*/}
+                                {/*</div>*/}
+                                {/*/!*Uncomment to enable login as guest*/}
+                                {/*<div onClick={this.loginAsGuest} className="register-text">*/}
+                                {/*<span>{strings.wantGuest}</span> <a href="javascript:void(0)">{strings.asGuest}</a>*/}
+                                {/*</div>*!/*/}
+                                {/*</div>*/}
+                            </div>
+                        }
                     </div>
                 </div>
-                <div className="nekuno-logo-wrapper">
-                    <div className="nekuno-logo"></div>
-                </div>
-                <div id="page-content" className="home-content">
 
-                </div>
-                <div className="swiper-pagination-and-button">
-                    <div className="swiper-pagination"></div>
-                    { this.state.needsUpdating ?
-                        <FullWidthButton onClick={() => window.location = 'https://play.google.com/store/apps/details?id=com.nekuno'}>
-                            {strings.update}
-                        </FullWidthButton>
-                        :
-                        <div>
-                            <FacebookButton onClickHandler={this.loginByResourceOwner} text={strings.login}/>
-                            <div className="register-text-block">
-                                <div onClick={this.goToRegisterPage} className="register-text">
-                                    <span>{strings.hasInvitation}</span> <a href="javascript:void(0)">{strings.register}</a>
-                                </div>
-                                {/*Uncomment to enable login as guest
-                                 <div onClick={this.loginAsGuest} className="register-text">
-                                 <span>{strings.wantGuest}</span> <a href="javascript:void(0)">{strings.asGuest}</a>
-                                 </div>*/}
-                            </div>
-                        </div>
-                    }
-                </div>
-            </div>
         );
     }
 
@@ -179,14 +185,15 @@ export default class HomePage extends Component {
 
 HomePage.defaultProps = {
     strings: {
-        title1       : 'Discover contents of the topics that interest you',
-        title2       : 'Connect only with most compatible people with you',
-        title3       : 'You decide the information you share',
-        update       : 'Update',
-        login        : 'Login with Facebook',
-        hasInvitation: 'Do you have an invitation?',
-        register     : 'Register',
-        wantGuest    : 'Do you want to try it?',
-        asGuest      : 'Enter as guest'
+        title1        : 'Discover contents of the topics that interest you',
+        title2        : 'Connect only with most compatible people with you',
+        title3        : 'You decide the information you share',
+        update        : 'Update',
+        login         : 'Login with Facebook',
+        hasInvitation : 'Do you have an invitation?',
+        register      : 'Register',
+        loadingMessage: 'Registering user',
+        wantGuest     : 'Do you want to try it?',
+        asGuest       : 'Enter as guest'
     }
 };

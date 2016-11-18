@@ -6,7 +6,7 @@ export default class OtherQuestionList extends Component {
     static propTypes = {
         questions     : PropTypes.object.isRequired,
         otherQuestions: PropTypes.object.isRequired,
-        ownPicture    : PropTypes.string.isRequired,
+        ownPicture    : PropTypes.string,
         otherPicture  : PropTypes.string.isRequired,
         userId        : PropTypes.number.isRequired
     };
@@ -20,7 +20,6 @@ export default class OtherQuestionList extends Component {
                                    userAnswer={selectn('userAnswer', questions[questionId])}
                                    ownPicture={ownPicture}
                                    otherPicture={otherPicture}
-                                   question={questions[questionId]}
                                    key={index}
                                    accessibleKey={index}
                                    question={otherQuestions[questionId]}

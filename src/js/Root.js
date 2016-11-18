@@ -25,13 +25,17 @@ import AnswerUserFieldPage from './pages/AnswerUserFieldPage';
 import AnswerProfileFieldPage from './pages/AnswerProfileFieldPage';
 import UserPage from './pages/UserPage';
 import OtherUserPage from './pages/OtherUserPage';
-import ThreadPage from './pages/ThreadPage';
+import DiscoverPage from './pages/DiscoverPage';
 import RecommendationPage from './pages/RecommendationPage';
 import InvitationsPage from './pages/InvitationsPage';
 import ConnectSocialNetworksOnSignUpPage from './pages/ConnectSocialNetworksOnSignUpPage';
 import ConnectSocialNetworksPage from './pages/ConnectSocialNetworksPage';
 import CreateThreadPage from './pages/CreateThreadPage';
-import EditThreadPage from './pages/EditThreadPage';
+import EditThreadLitePage from './pages/EditThreadLitePage';
+import GroupPage from './pages/GroupPage';
+import GroupStatsPage from './pages/GroupStatsPage';
+import GroupMembersPage from './pages/GroupMembersPage';
+import GroupContentsPage from './pages/GroupContentsPage';
 import RouterActionCreators from './actions/RouterActionCreators';
 import LoginStore from './stores/LoginStore';
 
@@ -70,7 +74,7 @@ export default class Root extends Component {
                         <Route name="interests" path="/interests" component={InterestsPage}/>
                         <Route name="other-interests" path="/users/:userId/other-interests" component={OtherInterestsPage}/>
                         <Route name="gallery" path="/gallery" component={GalleryPage}/>
-                        <Route name="other-gallery" path="/users/:userId/other-gallery" component={OtherGalleryPage}/>
+                        <Route name="other-gallery" path="/users/:userId/other-gallery/:photoId" component={OtherGalleryPage}/>
                         <Route name="gallery-photo" path="/gallery-photo" component={GalleryPhotoPage}/>
                         <Route name="other-gallery-photo" path="/users/:userId/other-gallery-photo" component={OtherGalleryPhotoPage}/>
                         <Route name="gallery-profile-photo" path="/gallery-profile-photo" component={GalleryProfilePhotoPage}/>
@@ -84,12 +88,16 @@ export default class Root extends Component {
                         <Route name="profile" path="/profile" component={UserPage}/>
                         <Route name="other-profile" path="/profile/:userId" component={OtherUserPage}/>
                         <Route name="invitations" path="/invitations" component={InvitationsPage}/>
-                        <Route name="threads" path="/threads" component={ThreadPage}/>
-                        <Route name="recommendations" path="/users/:userId/recommendations/:threadId" component={RecommendationPage}/>
+                        <Route name="discover" path="/discover" component={DiscoverPage}/>
+                        <Route name="recommendations" path="/recommendations/:threadId" component={RecommendationPage}/>
                         <Route name="social-networks-on-sign-up" path="/social-networks-on-sign-up" component={ConnectSocialNetworksOnSignUpPage}/>
                         <Route name="social-networks" path="/social-networks" component={ConnectSocialNetworksPage}/>
                         <Route name="create-thread" path="/create-thread" component={CreateThreadPage}/>
-                        <Route name="edit-thread" path="/edit-thread/:threadId" component={EditThreadPage}/>
+                        <Route name="edit-thread" path="/edit-thread/:threadId" component={EditThreadLitePage}/>
+                        <Route name="groups" path="/groups" component={GroupPage}/>
+                        <Route name="group-stats" path="/groups/:groupId" component={GroupStatsPage}/>
+                        <Route name="group-members" path="/groups/:groupId/members" component={GroupMembersPage}/>
+                        <Route name="group-contents" path="/groups/:groupId/contents" component={GroupContentsPage}/>
                     </Route>
                 </Route>
             </Router>

@@ -13,6 +13,7 @@ let _errors = '';
 let _noMoreQuestions = false;
 let _goToQuestionStats = false;
 let _isJustCompleted = false;
+let _loadingComparedQuestions = false;
 
 const QuestionStore = createStore({
     contains(userId, questionId) {
@@ -75,6 +76,10 @@ const QuestionStore = createStore({
                 return obj[a];
             }
         }
+    },
+
+    isLoadingComparedQuestions() {
+        return _loadingComparedQuestions;
     }
 });
 
@@ -119,6 +124,7 @@ QuestionStore.dispatchToken = register(action => {
             newItems[userId] = items;
             _pagination[userId] = pagination;
         }
+        _loadingComparedQuestions = false;
         mergeIntoBag(_questions, newItems);
 
         QuestionStore.emitChange();
@@ -148,6 +154,10 @@ QuestionStore.dispatchToken = register(action => {
     }
     else if (action.type === 'QUESTIONS_POPUP_DISPLAYED') {
         _isJustCompleted = false;
+        QuestionStore.emitChange();
+    }
+    else if (action.type === 'REQUEST_COMPARED_QUESTIONS') {
+        _loadingComparedQuestions = true;
         QuestionStore.emitChange();
     }
     if (action.type == ActionTypes.LOGOUT_USER){

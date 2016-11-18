@@ -8,7 +8,7 @@ export default class OtherQuestion extends Component {
     static propTypes = {
         question       : PropTypes.object.isRequired,
         userAnswer     : PropTypes.object,
-        ownPicture     : PropTypes.string.isRequired,
+        ownPicture     : PropTypes.string,
         otherPicture   : PropTypes.string.isRequired,
         userId         : PropTypes.number.isRequired,
         // Injected by @translate:

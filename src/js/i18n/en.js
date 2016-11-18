@@ -36,15 +36,16 @@ export default {
         cannotRemove: 'This field cannot be deleted'
     },
     HomePage                         : {
-        title1       : 'Discover contents of the topics that interest you',
-        title2       : 'Connect only with most compatible people with you',
-        title3       : 'You decide the information you share',
-        update       : 'Update',
-        login        : 'Login with Facebook',
-        hasInvitation: 'Do you have an invitation?',
-        register     : 'Register',
-        wantGuest    : 'Do you want to try it?',
-        asGuest      : 'Enter as guest'
+        title1        : 'Discover contents of the topics that interest you',
+        title2        : 'Connect only with most compatible people with you',
+        title3        : 'You decide the information you share',
+        update        : 'Update',
+        login         : 'Login with Facebook',
+        hasInvitation : 'Do you have an invitation?',
+        register      : 'Register',
+        loadingMessage: 'Registering user',
+        wantGuest     : 'Do you want to try it?',
+        asGuest       : 'Enter as guest'
     },
     InterestsPage                    : {
         cancel   : 'Cancel',
@@ -67,11 +68,8 @@ export default {
         importingAlbums: 'Importing albums'
     },
     OtherGalleryPage                 : {
-        empty    : 'User has not imported any photo yet',
-        about    : 'About',
-        photos   : 'Photos',
-        questions: 'Answers',
-        interests: 'Interests'
+        empty  : 'User has not imported any photo yet',
+        loading: 'Loading photos'
     },
     GalleryAlbumsPage                : {
         albums        : '%resource% albums',
@@ -95,14 +93,32 @@ export default {
         photos                  : 'Photos',
         changeProfilePhoto      : 'Change profile photo'
     },
+    GroupPage                        : {
+        groups     : 'Your groups',
+        create     : 'Create',
+        creating   : 'Creating group',
+        enter_name : 'Name of the group',
+        join       : 'Join',
+        joining    : 'Joining group',
+        enter_token: 'Invitation code'
+    },
+    GroupStatsPage                   : {
+        group        : 'Group',
+        share        : 'Sharing URL',
+        shareSubject : 'Join the Nekuno group ',
+        leave        : 'Leave',
+        confirm_leave: 'Confirm leave',
+        leaving      : 'Leaving group',
+        leave_error  : 'Sorry! Please, try again to leave the group'
+    },
     LoginPage                        : {
-        login          : 'Login',
-        cancel         : 'Cancel',
-        loginResource  : 'Login with a social network',
-        hasInvitation  : 'Do you have an invitation?',
-        register       : 'Register',
-        wantGuest      : 'Do you want to try it?',
-        asGuest        : 'Enter as guest'
+        login        : 'Login',
+        cancel       : 'Cancel',
+        loginResource: 'Login with a social network',
+        hasInvitation: 'Do you have an invitation?',
+        register     : 'Register',
+        wantGuest    : 'Do you want to try it?',
+        asGuest      : 'Enter as guest'
     },
     OtherInterestsPage               : {
         cancel               : 'Cancel',
@@ -162,11 +178,22 @@ export default {
         tutorialThirdStepTitle : 'Menu',
         tutorialThirdStep      : 'This is the button to open the menu and this green dot indicates you have new messages. We invite you to explore all Nekuno! Thank you for participating in this private Beta!'
     },
+    DiscoverPage                     : {
+        discover               : 'Discover',
+        loadingMessage         : 'Loading recommendations'
+    },
+    DiscoverLitePage                 : {
+        discover      : 'Discover',
+        loadingMessage: 'Loading recommendations',
+        confirmReplace: 'We have improved your recommendations. Do you want to reload them?'
+    },
     RecommendationPage               : {
         loadingMessage  : 'Loading recommendations',
         confirmBlock    : 'Are you sure you want to block this user?',
         processingThread: 'These results are provisional, we are working on improving them for you.',
-        confirmReplace  : 'We have improve your recommendations. Do you whant to reload them?'
+        confirmReplace  : 'We have improved your recommendations. Do you want to reload them?',
+        copyToClipboard : 'Copy to clipboard: Ctrl+C, Enter',
+        shareError      : 'An error occurred sharing the content'
     },
     InvitationsPage                  : {
         invitations           : 'Invitations',
@@ -187,6 +214,10 @@ export default {
         myProfile: 'My profile'
     },
     OtherUserPage                    : {
+        profile     : 'Profile',
+        loading     : 'Loading profile',
+        age         : 'Age',
+        message     : 'Message',
         about       : 'About',
         photos      : 'Photos',
         questions   : 'Answers',
@@ -212,12 +243,22 @@ export default {
         contents   : 'Interesting content',
         updating   : 'Updating yarn',
     },
+    EditThreadLitePage               : {
+        edit       : 'Edit yarn',
+        cancel     : 'Cancel',
+        placeholder: 'Title',
+        people     : 'Compatible people',
+        contents   : 'Interesting content',
+        updating   : 'Updating yarn',
+        filters    : 'Filters'
+    },
     ////////////////
     // Components //
     ////////////////
     LeftPanel                        : {
         interests     : 'Interests',
         threads       : 'Discover',
+        groups        : 'Groups',
         myProfile     : 'Profile',
         conversations : 'Messages',
         socialNetworks: 'My social networks',
@@ -293,10 +334,10 @@ export default {
         noMoreQuestions: 'No more questions'
     },
     AnswerQuestionForm               : {
-        you        : 'You',
-        them       : 'Them',
-        alertFirst : 'Mark your answer in the first column',
-        saving     : 'Saving'
+        you       : 'You',
+        them      : 'Them',
+        alertFirst: 'Mark your answer in the first column',
+        saving    : 'Saving'
     },
     OtherQuestion                    : {
         didntAnswered: 'You have not answered this question'
@@ -337,6 +378,9 @@ export default {
         delete     : 'Delete',
         deleting   : 'Deleting'
     },
+    ThreadToolBar                    : {
+        next: 'Next'
+    },
     CardContent                      : {
         like           : 'Like',
         unlike         : 'Remove',
@@ -347,10 +391,11 @@ export default {
         saving         : 'Saving...'
     },
     CardUser                         : {
-        like      : 'Like',
-        unlike    : 'Remove',
-        similarity: 'Similarity',
-        saving    : 'Saving...'
+        like    : 'Like',
+        unlike  : 'Remove',
+        matching: 'Matching',
+        saving  : 'Saving...',
+        age     : 'Age',
     },
     ImportAlbumPopup                 : {
         close      : 'Close',
@@ -471,6 +516,23 @@ export default {
     BirthdayEdit                     : {
         birthdayPlaceholder: 'Your birth date'
     },
+    Group                            : {
+        users: 'users'
+    },
+    RecommendationUser               : {
+        age    : 'Age',
+        message: 'Message',
+    },
+    RecommendationUserDetails        : {
+        questions            : 'Questions',
+        coincidences         : 'Coincidences',
+        interests            : 'Interests',
+        noInterests          : 'There are no interests',
+        common               : 'In common',
+        all                  : 'All',
+        interestsCount       : '%count% Interests',
+        similarInterestsCount: '%count% Similar interests',
+    },
     ////////////////
     // Framework7 //
     ////////////////
@@ -482,7 +544,7 @@ export default {
     ////////////////
     // Tutorial //
     ////////////////
-    TutorialComponent                 : {
+    TutorialComponent                : {
         back   : 'Back',
         close  : 'Understood',
         last   : 'Understood',

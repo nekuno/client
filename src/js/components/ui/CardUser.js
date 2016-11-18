@@ -20,6 +20,7 @@ export default class CardUser extends Component {
         canSendMessage: PropTypes.bool.isRequired,
         photo         : PropTypes.object,
         matching      : PropTypes.number.isRequired,
+        age           : PropTypes.number,
         like          : PropTypes.number,
         hideLikeButton: PropTypes.bool.isRequired,
         loggedUserId  : PropTypes.number.isRequired,
@@ -35,8 +36,8 @@ export default class CardUser extends Component {
     }
 
     onLikeOrDislike() {
-        const {loggedUserId, userId} = this.props;
-        if (!this.props.like) {
+        const {like, loggedUserId, userId} = this.props;
+        if (!like || like === -1) {
             UserActionCreators.likeUser(loggedUserId, userId);
         } else {
             UserActionCreators.deleteLikeUser(loggedUserId, userId);
@@ -48,8 +49,8 @@ export default class CardUser extends Component {
     }
 
     render() {
-        const {strings, location, canSendMessage, like, hideLikeButton, photo, userId, username, matching} = this.props;
-        const subTitle = location ? <div><span className="icon-marker"></span>{location.substr(0, 20)}{location.length > 20 ? '...' : ''}</div> : <div>&nbsp;</div>;
+        const {strings, location, canSendMessage, like, hideLikeButton, photo, userId, username, matching, age} = this.props;
+        const subTitle = <div><span className="icon-marker"></span>{location.substr(0, 15)}{location.length > 15 ? '...' : ''} - {strings.age}: {age}</div>;
         const messageButton = canSendMessage ? <span className="icon-message" onClick={this.handleMessage}></span> : '';
         const likeButtonText = like === null ? strings.saving : like ? strings.unlike : strings.like;
         const likeButton = hideLikeButton ? '' : <div className="like-button-container"><Button onClick={this.onLikeOrDislike} disabled={like === null ? 'disabled' : null}>{likeButtonText}</Button></div>;
@@ -67,19 +68,19 @@ export default class CardUser extends Component {
                     <div className="card-sub-title">
                         {subTitle}
                     </div>
-                    <div className="send-message-button icon-wrapper">
-                        {messageButton}
-                    </div>
+                    {/*<div className="send-message-button icon-wrapper">*/}
+                    {/*{messageButton}*/}
+                    {/*</div>*/}
                 </div>
                 <div className="card-content">
                     <div className="card-content-inner">
                         <Link to={`/profile/${userId}`}>
-                            <div className="image">
+                            <div className="image fixed-height-image">
                                 <Image src={imgSrc} defaultSrc={defaultSrc}/>
                             </div>
                         </Link>
                         <div className="matching">
-                            <div className="matching-value">{strings.similarity} {matching ? matching + '%' : '0%'}</div>
+                            <div className="matching-value">{strings.matching} {matching ? matching + '%' : '0%'}</div>
                             <ProgressBar percentage={matching}/>
                         </div>
                     </div>
@@ -95,9 +96,10 @@ export default class CardUser extends Component {
 
 CardUser.defaultProps = {
     strings: {
-        like      : 'Like',
-        unlike    : 'Remove',
-        similarity: 'Similarity',
-        saving    : 'Saving...'
+        like    : 'Like',
+        unlike  : 'Remove',
+        matching: 'Matching',
+        saving  : 'Saving...',
+        age     : 'Age',
     }
 };

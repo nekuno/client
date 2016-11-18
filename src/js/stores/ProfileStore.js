@@ -318,6 +318,10 @@ ProfileStore.dispatchToken = register(action => {
             _errors = getValidationErrors(action.error);
             ProfileStore.emitChange();
             break;
+        case ActionTypes.REQUEST_RECOMMENDATIONS_SUCCESS:
+            action.response.items.forEach(item => _profiles[item.id] = item.profile ? item.profile : null);
+            ProfileStore.emitChange();
+            break;
         case ActionTypes.LOGOUT_USER:
             _profiles = {};
             _metadata = null;

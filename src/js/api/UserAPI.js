@@ -3,16 +3,15 @@ import {
     fetchUserArray,
     fetchProfile,
     putProfile,
-    fetchStats,
     fetchComparedStats,
     postBlockUser,
     deleteBlockUser,
     fetchBlockUser,
-    postLikeUser,
-    deleteLikeUser,
     fetchLikeUser,
     postLikeContent,
-    deleteLikeContent,
+    postDislikeContent,
+    postIgnoreContent,
+    deleteRateContent,
     getData,
     postData,
     putData,
@@ -56,7 +55,7 @@ export function getFilters(url = `filters`) {
 }
 
 export function getStats(url = `stats`) {
-    return fetchStats(url);
+    return getData(url);
 }
 
 export function getComparedStats(id, url = `stats/compare/${id}`) {
@@ -99,24 +98,40 @@ export function getBlockUser(to, url = `blocks/${to}`) {
     return fetchBlockUser(url);
 }
 
-export function setLikeUser(to, url = `likes/${to}`) {
-    return postLikeUser(url);
+export function setLikeUser(to, originContext, originName, url = `likes/${to}`) {
+    return postData(url, {originContext: originContext, originName: originName});
 }
 
-export function unsetLikeUser(to, url = `likes/${to}`) {
-    return deleteLikeUser(url);
+export function setDislikeUser(to, originContext, originName, url = `dislikes/${to}`) {
+    return postData(url, {originContext: originContext, originName: originName});
+}
+
+export function setIgnoreUser(to, originContext, originName, url = `ignores/${to}`) {
+    return postData(url, {originContext: originContext, originName: originName});
+}
+
+export function unsetRateUser(to, url = `likes/${to}`) {
+    return deleteData(url);
 }
 
 export function getLikeUser(to, url = `likes/${to}`) {
     return fetchLikeUser(url);
 }
 
-export function setLikeContent(to, url = `content/rate`) {
-    return postLikeContent(url, to);
+export function setLikeContent(to, originContext, originName, url = `content/rate`) {
+    return postLikeContent(url, to, originContext, originName);
 }
 
-export function unsetLikeContent(to, url = `content/rate`) {
-    return deleteLikeContent(url, to);
+export function setDislikeContent(to, originContext, originName, url = `content/rate`) {
+    return postDislikeContent(url, to, originContext, originName);
+}
+
+export function setIgnoreContent(to, originContext, originName, url = `content/rate`) {
+    return postIgnoreContent(url, to, originContext, originName);
+}
+
+export function unsetRateContent(to, url = `content/rate`) {
+    return deleteRateContent(url, to);
 }
 
 export function getMatching(userId, url = `matching/${userId}`) {

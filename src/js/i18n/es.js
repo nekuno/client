@@ -36,15 +36,16 @@ export default {
         cannotRemove: 'Este campo no se puede eliminar'
     },
     HomePage                         : {
-        title1       : 'Descubre contenidos de los temas que más te interesan',
-        title2       : 'Conecta sólo con las personas compatibles contigo',
-        title3       : 'Tú decides la información que compartes',
-        update       : 'Actualizar',
-        login        : 'Iniciar sesión con Facebook',
-        hasInvitation: '¿Tienes una invitación?',
-        register     : 'Regístrate',
-        wantGuest    : '¿Quieres probarlo?',
-        asGuest      : 'Entra como invitado'
+        title1        : 'Descubre contenidos de los temas que más te interesan',
+        title2        : 'Conecta sólo con las personas compatibles contigo',
+        title3        : 'Tú decides la información que compartes',
+        update        : 'Actualizar',
+        login         : 'Iniciar sesión con Facebook',
+        hasInvitation : '¿Tienes una invitación?',
+        register      : 'Regístrate',
+        loadingMessage: 'Registrando usuario',
+        wantGuest     : '¿Quieres probarlo?',
+        asGuest       : 'Entra como invitado'
     },
     InterestsPage                    : {
         cancel   : 'Cancelar',
@@ -68,11 +69,8 @@ export default {
 
     },
     OtherGalleryPage                 : {
-        empty    : 'El usuario no ha importado ninguna foto',
-        about    : 'Acerca de',
-        photos   : 'Fotos',
-        questions: 'Respuestas',
-        interests: 'Intereses'
+        empty  : 'El usuario no ha importado ninguna foto',
+        loading: 'Cargando fotos'
     },
     GalleryAlbumsPage                : {
         albums        : 'Álbumes de %resource%',
@@ -95,6 +93,25 @@ export default {
         cancel                  : 'Cancelar',
         photos                  : 'Fotos',
         changeProfilePhoto      : 'Cambiar foto de perfil'
+    },
+    GroupPage                        : {
+        groups     : 'Tus grupos',
+        create     : 'Crear',
+        creating   : 'Creando grupo',
+        enter_name : 'Nombre del grupo',
+        join       : 'Unirte',
+        joining    : 'Uniendo al grupo',
+        enter_token: 'Código de invitación'
+    },
+    GroupStatsPage                   : {
+        group        : 'Grupo',
+        share        : 'Url a compartir',
+        shareSubject : 'Únete al grupo de Nekuno ',
+        leave        : 'Salir del grupo',
+        confirm_leave: 'Confirmar para salir',
+        leaving      : 'Saliendo',
+        leave_error  : '¡Lo sentimos! Por favor, intenta salir de nuevo'
+
     },
     LoginPage                        : {
         login        : 'Iniciar sesión',
@@ -163,11 +180,22 @@ export default {
         tutorialThirdStepTitle : 'Menú',
         tutorialThirdStep      : 'Este es el botón para abrir el menú y este punto verde indica que tienes mensajes nuevos. ¡Te invitamos a que explores todo Nekuno! ¡Gracias por participar en esta Beta privada!'
     },
+    DiscoverPage                     : {
+        discover               : 'Descubrir',
+        loadingMessage         : 'Cargando recomendaciones'
+    },
+    DiscoverLitePage                 : {
+        discover      : 'Descubrir',
+        loadingMessage: 'Cargando recomendaciones',
+        confirmReplace: 'Hemos mejorado tus recomendaciones. ¿Quieres actualizarlas?'
+    },
     RecommendationPage               : {
         loadingMessage  : 'Cargando recomendaciones',
         confirmDelete   : '¿Estás seguro de que quieres borrar este ovillo?',
         processingThread: 'Estos resultados son provisionales, en breve mejorarán',
-        confirmReplace  : 'Hemos mejorado tus recomendaciones. ¿Quieres actualizarlas?'
+        confirmReplace  : 'Hemos mejorado tus recomendaciones. ¿Quieres actualizarlas?',
+        copyToClipboard : 'Copiar al portapapeles: Ctrl+C, Enter',
+        shareError      : 'Parece que ha habido un error mientras compartías este contenido'
     },
     InvitationsPage                  : {
         invitations           : 'Invitaciones',
@@ -188,6 +216,10 @@ export default {
         myProfile: 'Mi Perfil'
     },
     OtherUserPage                    : {
+        profile     : 'Perfil',
+        loading     : 'Cargando perfil',
+        age         : 'Edad',
+        message     : 'Mensaje',
         about       : 'Acerca de',
         photos      : 'Fotos',
         questions   : 'Respuestas',
@@ -213,12 +245,22 @@ export default {
         contents   : 'Contenido interesante',
         updating   : 'Editando ovillo',
     },
+    EditThreadLitePage               : {
+        edit       : 'Editar ovillo',
+        cancel     : 'Cancelar',
+        placeholder: 'Título',
+        people     : 'Gente compatible',
+        contents   : 'Contenido interesante',
+        updating   : 'Editando ovillo',
+        filters    : 'Filtros'
+    },
     ////////////////
     // Components //
     ////////////////
     LeftPanel                        : {
         interests     : 'Intereses',
         threads       : 'Descubrir',
+        groups        : 'Grupos',
         myProfile     : 'Mi perfil',
         conversations : 'Mensajes',
         socialNetworks: 'Mis redes sociales',
@@ -338,6 +380,9 @@ export default {
         delete     : 'Eliminar',
         deleting   : 'Eliminando'
     },
+    ThreadToolBar                    : {
+        next: 'Siguiente'
+    },
     CardContent                      : {
         like           : 'Me interesa',
         unlike         : 'Quitar',
@@ -348,10 +393,11 @@ export default {
         saving         : 'Guardando...'
     },
     CardUser                         : {
-        like      : 'Me gusta',
-        unlike    : 'Ya no me gusta',
-        similarity: 'Similitud',
-        saving    : 'Guardando...'
+        like    : 'Me gusta',
+        unlike  : 'Ya no me gusta',
+        matching: 'Compatibilidad',
+        saving  : 'Guardando...',
+        age     : 'Edad',
     },
     ImportAlbumPopup                 : {
         close      : 'Cerrar',
@@ -471,6 +517,23 @@ export default {
     },
     BirthdayEdit                     : {
         birthdayPlaceholder: 'Tu fecha de nacimiento'
+    },
+    Group                            : {
+        users: 'usuarios'
+    },
+    RecommendationUser               : {
+        age    : 'Edad',
+        message: 'Mensaje',
+    },
+    RecommendationUserDetails        : {
+        questions            : 'Preguntas',
+        coincidences         : 'Coincidencias',
+        interests            : 'Intereses',
+        noInterests          : 'No hay intereses',
+        common               : 'En común',
+        all                  : 'Todos',
+        interestsCount       : '%count% Intereses',
+        similarInterestsCount: '%count% Intereses similares',
     },
     ////////////////
     // Framework7 //

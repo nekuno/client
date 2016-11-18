@@ -40,11 +40,11 @@ $nekuno-logo-font: 'klinic_slabmedium';
 
 @font-face {
 	font-family: 'Nekuno Icons';
-	src:  url('fonts/icomoon.eot?9xqxbg');
-	src:  url('fonts/icomoon.eot?9xqxbg#iefix') format('embedded-opentype'),
-	url('fonts/icomoon.ttf?9xqxbg') format('truetype'),
-	url('fonts/icomoon.woff?9xqxbg') format('woff'),
-	url('fonts/icomoon.svg?9xqxbg#icomoon') format('svg');
+	src:  url('fonts/icomoon.eot?ib1907');
+	src:  url('fonts/icomoon.eot?ib1907#iefix') format('embedded-opentype'),
+	url('fonts/icomoon.ttf?ib1907') format('truetype'),
+	url('fonts/icomoon.woff?ib1907') format('woff'),
+	url('fonts/icomoon.svg?ib1907#icomoon') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }
@@ -68,6 +68,27 @@ $nekuno-logo-font: 'klinic_slabmedium';
 	opacity: 0.5;
 }
 
+.icon-cross:before {
+	content: "\ea0f";
+}
+.icon-heart:before {
+	content: "\f004";
+}
+.icon-star:before {
+	content: "\f005";
+}
+.icon-thumbs-up:before {
+	content: "\f164";
+}
+.icon-thumbs-down:before {
+	content: "\f165";
+}
+.icon-spinner:before {
+	content: "\e97a";
+}
+.icon-spinner, .icon-thumbs-up, .icon-thumbs-down, .icon-star {
+	display: inline-block;
+}
 .icon-circle:before {
 	content: "\e929";
 }

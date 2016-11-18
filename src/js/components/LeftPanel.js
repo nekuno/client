@@ -12,7 +12,7 @@ import ProfileStore from '../stores/ProfileStore';
 
 function getState(props) {
 
-    const stats = StatsStore.get(props.user.id);
+    const stats = StatsStore.stats;
     const interests = selectn('numberOfContentLikes', stats) || 0;
     const unreadCount = ChatThreadStore.getUnreadCount() || 0;
     const profile = ProfileStore.get(props.user.id);
@@ -52,6 +52,7 @@ export default class LeftPanel extends Component {
         this.handleGoClickConversations = this.handleGoClickConversations.bind(this);
         this.handleGoClickSocialNetworks = this.handleGoClickSocialNetworks.bind(this);
         this.handleGoClickInvitations = this.handleGoClickInvitations.bind(this);
+        this.handleGoClickGroups = this.handleGoClickGroups.bind(this);
         this.handleClickSettings = this.handleClickSettings.bind(this);
         this.logout = this.logout.bind(this);
 
@@ -62,7 +63,7 @@ export default class LeftPanel extends Component {
 
     handleGoClickThreads() {
         nekunoApp.closePanel();
-        this.context.history.pushState(null, '/threads');
+        this.context.history.pushState(null, '/discover');
     }
 
     handleGoClickProfile() {
@@ -102,6 +103,11 @@ export default class LeftPanel extends Component {
         this.context.history.pushState(null, '/invitations');
     }
 
+    handleGoClickGroups() {
+        nekunoApp.closePanel();
+        this.context.history.pushState(null, '/groups');
+    }
+
     logout(e) {
         e.preventDefault();
         nekunoApp.closePanel();
@@ -139,7 +145,7 @@ export default class LeftPanel extends Component {
                     </div>
                     { userLoggedIn && !settingsActive ?
                         <div className="content-block menu">
-                            <Link to={'/threads'} onClick={this.handleGoClickThreads}>
+                            <Link to={'/discover'} onClick={this.handleGoClickThreads}>
                                 {strings.threads}
                             </Link>
                             <Link to={'/profile'} onClick={this.handleGoClickProfile}>
@@ -151,6 +157,9 @@ export default class LeftPanel extends Component {
                                     <span className="unread-messages-count-text">{unreadCount}</span>
                                 </span> : ''}
                             </Link>
+                            {/*<Link to="/groups" onClick={this.handleGoClickGroups}>*/}
+                                {/*{strings.groups}*/}
+                            {/*</Link>*/}
                             <a onClick={this.handleClickSettings}>
                                 {strings.settings}
                             </a>
@@ -163,9 +172,9 @@ export default class LeftPanel extends Component {
                                 <Link to="/social-networks" onClick={this.handleGoClickSocialNetworks}>
                                     {strings.socialNetworks}
                                 </Link>
-                                <Link to="/invitations" onClick={this.handleGoClickInvitations} onlyActiveOnIndex={false}>
-                                    {strings.invitations}
-                                </Link>
+                                {/*<Link to="/invitations" onClick={this.handleGoClickInvitations} onlyActiveOnIndex={false}>*/}
+                                    {/*{strings.invitations}*/}
+                                {/*</Link>*/}
                                 <Link to="/" onClick={this.logout}>
                                     {strings.logout}
                                 </Link>
@@ -182,6 +191,7 @@ LeftPanel.defaultProps = {
     strings: {
         interests     : 'Interests',
         threads       : 'Discover',
+        groups        : 'Groups',
         myProfile     : 'Profile',
         conversations : 'Messages',
         socialNetworks: 'My social networks',

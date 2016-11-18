@@ -1,4 +1,4 @@
-import {THREAD_TYPES} from '../constants/Constants';
+import { THREAD_TYPES } from '../constants/Constants';
 import { register, waitFor } from '../dispatcher/Dispatcher';
 import { createStore } from '../utils/StoreUtils';
 import selectn from 'selectn';
@@ -10,6 +10,8 @@ let _nextUrl = [];
 let _replaced = [];
 let _prevRecommendations = [];
 let _prevNextUrl = [];
+let _savedIndex = 0;
+let _loadingRecommendations = {};
 
 const RecommendationStore = createStore({
 
@@ -18,14 +20,14 @@ const RecommendationStore = createStore({
     },
 
     get(threadId) {
-        if (!this.contains(threadId)){
+        if (!this.contains(threadId)) {
             return null;
         }
         return _recommendations[threadId];
     },
 
     getLength(threadId) {
-        if (!this.contains(threadId)){
+        if (!this.contains(threadId)) {
             return 0;
         }
         return _recommendations[threadId].length;
@@ -36,7 +38,7 @@ const RecommendationStore = createStore({
     },
 
     getNextUrl(threadId) {
-        return _nextUrl[threadId];
+        return _loadingRecommendations[threadId] ? null : _nextUrl[threadId];
     },
 
     getType(recommendation) {
@@ -79,13 +81,13 @@ const RecommendationStore = createStore({
     },
 
     getFirst(threadId, amount = 5) {
-        if (!this.contains(threadId)){
+        if (!this.contains(threadId)) {
             return [];
         }
 
         let recommendations = [];
         this.get(threadId).forEach(value => {
-            if(recommendations.length >= amount) {
+            if (recommendations.length >= amount) {
                 return recommendations;
             }
             recommendations.push(value);
@@ -112,18 +114,35 @@ const RecommendationStore = createStore({
         _replaced[threadId] = false;
         return replaced;
     },
+
+    getSavedIndex() {
+        const savedIndex = _savedIndex;
+        _savedIndex = 0;
+        return savedIndex;
+    },
+
+    isLoadingRecommendations(threadId) {
+        return _loadingRecommendations[threadId];
+    }
 });
 
 RecommendationStore.dispatchToken = register(action => {
 
     waitFor([ThreadStore.dispatchToken]);
 
-    const { to } = action;
+    const {to} = action;
     const recommendations = selectn('response.items', action);
 
     switch (action.type) {
         case ActionTypes.LIKE_USER:
             setSavingUserLike(to, _recommendations);
+            RecommendationStore.emitChange();
+            break;
+        case ActionTypes.DISLIKE_USER:
+            setSavingUserLike(to, _recommendations);
+            RecommendationStore.emitChange();
+            break;
+        case ActionTypes.IGNORE_USER:
             RecommendationStore.emitChange();
             break;
         case ActionTypes.UNLIKE_USER:
@@ -134,8 +153,15 @@ RecommendationStore.dispatchToken = register(action => {
             setSavingContentLike(to, _recommendations);
             RecommendationStore.emitChange();
             break;
-        case ActionTypes.UNLIKE_CONTENT:
+        case ActionTypes.DISLIKE_CONTENT:
             setSavingContentLike(to, _recommendations);
+            RecommendationStore.emitChange();
+            break;
+        case ActionTypes.UNRATE_CONTENT:
+            setSavingContentLike(to, _recommendations);
+            RecommendationStore.emitChange();
+            break;
+        case ActionTypes.IGNORE_CONTENT:
             RecommendationStore.emitChange();
             break;
         case ActionTypes.LIKE_USER_SUCCESS:
@@ -143,42 +169,56 @@ RecommendationStore.dispatchToken = register(action => {
             RecommendationStore.emitChange();
             break;
         case ActionTypes.UNLIKE_USER_SUCCESS:
-            setUnlikedUser(to, _recommendations);
+            deleteRatedUser(to, _recommendations);
+            RecommendationStore.emitChange();
+            break;
+        case ActionTypes.DISLIKE_USER_SUCCESS:
+            setDislikedUser(to, _recommendations);
+            RecommendationStore.emitChange();
+            break;
+        case ActionTypes.IGNORE_USER_SUCCESS:
             RecommendationStore.emitChange();
             break;
         case ActionTypes.LIKE_CONTENT_SUCCESS:
             setLikedContent(to, _recommendations);
             RecommendationStore.emitChange();
             break;
-        case ActionTypes.UNLIKE_CONTENT_SUCCESS:
-            setUnlikedContent(to, _recommendations);
+        case ActionTypes.DISLIKE_CONTENT_SUCCESS:
+            setDislikedContent(to, _recommendations);
+            RecommendationStore.emitChange();
+            break;
+        case ActionTypes.IGNORE_CONTENT_SUCCESS:
+            RecommendationStore.emitChange();
+            break;
+        case ActionTypes.UNRATE_CONTENT_SUCCESS:
+            deleteRatedContent(to, _recommendations);
             RecommendationStore.emitChange();
             break;
         case ActionTypes.UPDATE_THREAD_SUCCESS:
-            const { threadId } = action;
+            const {threadId} = action;
             delete _recommendations[threadId];
             RecommendationStore.emitChange();
             break;
         case ActionTypes.REQUEST_THREADS_SUCCESS:
             /*const responseThreads = selectn('response.entities.thread', action);
-            let recommendation = null;
-            Object.keys(responseThreads).forEach((key) => {
-                const thread = responseThreads[key];
-                let recommendations = [];
-                let cached = null;
-                Object.keys(thread.cached).forEach((key) => {
-                    cached = thread.cached[key];
-                    const elementId = RecommendationStore.getRecommendationId(cached, thread.category);
-                    recommendations[elementId] = cached;
-                });
-                const _recommendations = thread.category == 'ThreadContent' ? _contentRecommendations : _userRecommendations;
-                if (RecommendationStore.recommendationsMustBeReplaced(_recommendations, thread.category)) {
-                    replaceRecommendations(recommendations, _recommendations);
-                } else {
-                    mergeAndGetRecommendations(recommendations, _recommendations);
-                }
-            });
-            RecommendationStore.emitChange();*/
+             let recommendation = null;
+             Object.keys(responseThreads).forEach((key) => {
+             const thread = responseThreads[key];
+             let recommendations = [];
+             let cached = null;
+             Object.keys(thread.cached).forEach((key) => {
+             cached = thread.cached[key];
+             const elementId = RecommendationStore.getRecommendationId(cached, thread.category);
+             recommendations[elementId] = cached;
+             });
+             const _recommendations = thread.category == 'ThreadContent' ? _contentRecommendations : _userRecommendations;
+             if (RecommendationStore.recommendationsMustBeReplaced(_recommendations, thread.category)) {
+             replaceRecommendations(recommendations, _recommendations);
+             } else {
+             mergeAndGetRecommendations(recommendations, _recommendations);
+             }
+             });
+             RecommendationStore.emitChange();*/
             break;
         case ActionTypes.LOGOUT_USER:
             _recommendations = [];
@@ -191,9 +231,18 @@ RecommendationStore.dispatchToken = register(action => {
             _nextUrl[action.threadId] = _prevNextUrl[action.threadId];
             RecommendationStore.emitChange();
             break;
+        case ActionTypes.REQUEST_NEXT_RECOMMENDATIONS:
+            _loadingRecommendations[action.threadId] = true;
+            RecommendationStore.emitChange();
+            break;
         case ActionTypes.REQUEST_NEXT_RECOMMENDATIONS_SUCCESS:
             mergeRecommendations(recommendations, _recommendations[action.threadId]);
             _nextUrl[action.threadId] = action.response.pagination.nextLink;
+            _loadingRecommendations[action.threadId] = false;
+            RecommendationStore.emitChange();
+            break;
+        case ActionTypes.REQUEST_NEXT_RECOMMENDATIONS_ERROR:
+            _loadingRecommendations[action.threadId] = false;
             RecommendationStore.emitChange();
             break;
         case ActionTypes.REQUEST_RECOMMENDATIONS_SUCCESS:
@@ -210,6 +259,10 @@ RecommendationStore.dispatchToken = register(action => {
                 _nextUrl[action.threadId] = action.response.pagination.nextLink;
                 RecommendationStore.emitChange();
             }
+            break;
+        case ActionTypes.SAVE_RECOMMENDATIONS_INDEX:
+            _savedIndex = action.index;
+            RecommendationStore.emitChange();
     }
 
     function mergeRecommendations(recommendations, _recommendations) {
@@ -226,7 +279,12 @@ RecommendationStore.dispatchToken = register(action => {
         return _recommendations;
     }
 
-    function setUnlikedUser(userId, _recommendations) {
+    function setDislikedUser(userId, _recommendations) {
+        setUserLike(-1, userId, _recommendations);
+        return _recommendations;
+    }
+
+    function deleteRatedUser(userId, _recommendations) {
         setUserLike(0, userId, _recommendations);
         return _recommendations;
     }
@@ -252,7 +310,12 @@ RecommendationStore.dispatchToken = register(action => {
         return _recommendations;
     }
 
-    function setUnlikedContent(contentId, _recommendations) {
+    function setDislikedContent(contentId, _recommendations) {
+        setContentLike(-1, contentId, _recommendations);
+        return _recommendations;
+    }
+
+    function deleteRatedContent(contentId, _recommendations) {
         setContentLike(0, contentId, _recommendations);
         return _recommendations;
     }

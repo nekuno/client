@@ -111,7 +111,7 @@ export default class OtherQuestionsPage extends Component {
         const otherPicture = otherUser && otherUser.photo ? otherUser.photo.thumbnail.small : 'img/no-img/small.jpg';
         return (
             <div className="view view-main" onScroll={this.handleScroll}>
-                <TopNavBar leftMenuIcon={true} centerText={otherUser ? otherUser.username : ''}/>
+                <TopNavBar leftIcon={'left-arrow'} centerText={otherUser ? otherUser.username : ''}/>
                 <div className="page other-questions-page">
                     {user && otherUser ?
                         <div id="page-content" className="other-questions-content">
@@ -131,10 +131,9 @@ export default class OtherQuestionsPage extends Component {
                 {otherUser ?
                     <ToolBar links={[
                     {'url': `/profile/${params.userId}`, 'text': strings.about},
-                    {'url': `/users/${params.userId}/other-gallery`, 'text': strings.photos},
                     {'url': `/users/${params.userId}/other-questions`, 'text': strings.questions},
                     {'url': `/users/${params.userId}/other-interests`, 'text': strings.interests}
-                    ]} activeLinkIndex={2} arrowUpLeft={'60%'}/>
+                    ]} activeLinkIndex={1} arrowUpLeft={'48%'}/>
                         :
                     ''}
             </div>

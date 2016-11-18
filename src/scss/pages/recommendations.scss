@@ -47,6 +47,219 @@ body #root .App {
         }
       }
 
+      .recommendation-users {
+        text-align: center;
+
+        .chip-list {
+          margin: auto;
+          max-width: 85%;
+        }
+        .recommendation-list {
+
+          .swiper-slide {
+            background-color: $dark-purple;
+
+            &.active {
+              width: 100%;
+            }
+          }
+          .user-images {
+            cursor: pointer;
+            height: 250px;
+            overflow: hidden;
+            width: 100%;
+            .user-images-wrapper {
+              height: 400px;
+              margin-top: -75px;
+              width: 100%;
+              .swiper-custom {
+                height: 100%;
+                position: relative;
+                img {
+                  margin: auto;
+                  width: 100%;
+                }
+              }
+            }
+          }
+          .username-title {
+            display: inline-block;
+            font-size: 2em;
+            margin-right: 15px;
+          }
+          .send-message-button {
+            margin: 10px 0 0 20px;
+
+            .icon-message {
+              margin-right: 5px;
+            }
+          }
+          .user-description {
+            margin-top: 10px;
+
+            .similarity {
+              font-weight: bold;
+            }
+          }
+          .profile-data-list {
+            margin-top: 30px;
+            text-align: left;
+
+            .profile-category {
+              background-color: $deep-purple-translucent;
+              margin-top: 10px;
+              padding-top: 1px;
+              padding-left: 8%;
+              padding-bottom: 1px;
+              width: 92%;
+            }
+
+            .profile-data, .profile-about-me {
+              display: table;
+              padding: 5px 8%;
+              width: 84%;
+
+              span {
+                width: 50%;
+                margin-top: 5px;
+              }
+
+              .profile-data-value {
+                float: right;
+                width: 50%;
+              }
+              .profile-data-name {
+                font-weight: bold;
+                float: left;
+                margin-right: 5%;
+                width: 45%;
+              }
+              .profile-about-me-value {
+                margin-top: 1.5ex;
+                width: 100%;
+                margin-bottom: 3ex;
+                .see-more {
+                  color: $deep-purple;
+                  cursor: pointer;
+                }
+              }
+              .profile-about-me-name {
+                font-weight: bold;
+                width: 100%;
+              }
+            }
+          }
+
+          .other-profile-wrapper {
+            background-color: $deep-purple-translucent;
+            margin-top: 20px;
+            text-align: center;
+          }
+
+          .other-profile-data {
+            color: white;
+            margin: 10px auto;
+            display: inline-block;
+            width: 100%;
+            .other-profile-left {
+              width: 50%;
+              height: 100%;
+              float: left;
+
+              .other-profile-stats {
+                width: 100%;
+
+                a {
+                  color: #fff;
+                }
+              }
+            }
+            .other-profile-right {
+              width: 40%;
+              height: 100%;
+              float: left;
+
+              .progress-bar {
+                margin-top: 5px;
+                margin-bottom: 5px;
+                border-radius: 5px;
+                -moz-border-radius: 5px;
+                -webkit-border-radius: 5px;
+              }
+              [class^="progress-bar"], [class*=" progress-bar-"] {
+                border-radius: 5px;
+                -moz-border-radius: 5px;
+                -webkit-border-radius: 5px;
+              }
+            }
+          }
+
+          .other-interests-container {
+            margin-top: 20px;
+          }
+          .common-content-switch {
+            margin: auto;
+            width: 75%;
+
+            .text-radios {
+              padding: 5px 0 35px 0;
+
+              .chip {
+                width: 49%;
+              }
+            }
+          }
+          .content-list {
+            .card {
+              display: inline-block;
+              margin: 5px 1% 5px 1%;
+              width: 48%;
+            }
+          }
+          .content-carousel .swiper-slide {
+            width: 275px;
+          }
+          .contents-empty {
+            text-align: center;
+            margin-top: 30%;
+          }
+
+          .other-user-links {
+            margin: 0 auto;
+            padding: 20px 0;
+            .other-user-questions-link, .other-user-interests-link {
+              color: $deep-purple;
+              cursor: pointer;
+              display: inline-block;
+              margin: 0 5%;
+              font-size: 1.2em;
+              font-weight: bold;
+            }
+            &.single {
+              background-color: $deep-purple-translucent;
+              color: #fff;
+              cursor: pointer;
+              font-size: 1.5em;
+              text-align: left;
+              padding-left: 10%;
+
+              .other-user-link-back, .other-user-link-text {
+                display: inline-block;
+              }
+              .other-user-link-back {
+                font-size: 0.7em;
+              }
+              .other-user-link-text {
+                margin-left: 5%;
+              }
+            }
+          }
+        }
+          .recommendation {
+            margin: 25px auto 0;
+          }
+      }
+
       .loading {
         margin: 100px auto;
         text-align: center;

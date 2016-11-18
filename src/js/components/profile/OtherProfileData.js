@@ -20,8 +20,8 @@ export default class OtherProfileData extends Component {
 
     render() {
         const {matching, similarity, stats, ownImage, currentImage, interestsUrl, questionsUrl, strings} = this.props;
-        const commonAnswers = stats ? stats.commonAnswers : '?';
-        const commonContent = stats ? stats.commonContent : '?';
+        const commonAnswers = stats ? stats.commonAnswers : <span className="icon-spinner rotation-animation"></span>;
+        const commonContent = stats ? stats.commonContent : <span className="icon-spinner rotation-animation"></span>;
 
         return (
             <div className="other-profile-data">

@@ -117,7 +117,7 @@ export default class EditThreadPage extends Component {
             .then(() => {
                 ThreadActionCreators.requestRecommendation(threadId);
                 this.setState({updating: false});
-                this.context.history.pushState(null, `threads`);
+                this.context.history.pushState(null, `discover`);
             });
         this.setState({updating: true});
     }

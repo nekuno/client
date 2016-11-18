@@ -1,0 +1,26 @@
+@import '../_partials/colors';
+
+body #root .App .view .page.discover-page {
+
+  #page-content {
+    width: 100% !important;
+
+    .answer-questions-link-container {
+      position: relative;
+    }
+
+    .small-chip-list {
+      margin: 20px auto;
+      text-align: center;
+    }
+
+    .user-list {
+      .card {
+        display: inline-block;
+        margin: 5px 1% 5px 1%;
+        width: 48%;
+      }
+    }
+  }
+
+}

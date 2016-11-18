@@ -106,6 +106,8 @@ export default keyMirror({
 
     ADD_PREV_RECOMMENDATIONS: null,
 
+    SAVE_RECOMMENDATIONS_INDEX: null,
+
     REQUEST_QUESTIONS        : null,
     REQUEST_QUESTIONS_SUCCESS: null,
     REQUEST_QUESTIONS_ERROR  : null,
@@ -156,6 +158,14 @@ export default keyMirror({
     UNLIKE_USER_SUCCESS: null,
     UNLIKE_USER_ERROR  : null,
 
+    DISLIKE_USER        : null,
+    DISLIKE_USER_SUCCESS: null,
+    DISLIKE_USER_ERROR  : null,
+
+    IGNORE_USER        : null,
+    IGNORE_USER_SUCCESS: null,
+    IGNORE_USER_ERROR  : null,
+
     REQUEST_LIKE_USER        : null,
     REQUEST_LIKE_USER_SUCCESS: null,
     REQUEST_LIKE_USER_ERROR  : null,
@@ -176,9 +186,41 @@ export default keyMirror({
     LIKE_CONTENT_SUCCESS: null,
     LIKE_CONTENT_ERROR  : null,
 
-    UNLIKE_CONTENT        : null,
-    UNLIKE_CONTENT_SUCCESS: null,
-    UNLIKE_CONTENT_ERROR  : null,
+    DISLIKE_CONTENT        : null,
+    DISLIKE_CONTENT_SUCCESS: null,
+    DISLIKE_CONTENT_ERROR  : null,
+
+    IGNORE_CONTENT        : null,
+    IGNORE_CONTENT_SUCCESS: null,
+    IGNORE_CONTENT_ERROR  : null,
+
+    UNRATE_CONTENT        : null,
+    UNRATE_CONTENT_SUCCESS: null,
+    UNRATE_CONTENT_ERROR  : null,
+
+    REQUEST_GROUP        : null,
+    REQUEST_GROUP_SUCCESS: null,
+    REQUEST_GROUP_ERROR  : null,
+
+    JOIN_GROUP            : null,
+    JOIN_GROUP_SUCCESS    : null,
+    JOIN_GROUP_ERROR      : null,
+
+    CREATE_GROUP          : null,
+    CREATE_GROUP_SUCCESS  : null,
+    CREATE_GROUP_ERROR    : null,
+
+    LEAVE_GROUP          : null,
+    LEAVE_GROUP_SUCCESS  : null,
+    LEAVE_GROUP_ERROR    : null,
+
+    REQUEST_GROUP_MEMBERS        : null,
+    REQUEST_GROUP_MEMBERS_SUCCESS: null,
+    REQUEST_GROUP_MEMBERS_ERROR  : null,
+
+    REQUEST_GROUP_CONTENTS        : null,
+    REQUEST_GROUP_CONTENTS_SUCCESS: null,
+    REQUEST_GROUP_CONTENTS_ERROR  : null,
 
     ROUTER_NEXT_TRANSITION_PATH: null,
 

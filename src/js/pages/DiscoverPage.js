@@ -161,7 +161,6 @@ export default class DiscoverPage extends Component {
 DiscoverPage.defaultProps = {
     strings: {
         discover               : 'Discover',
-        create                 : 'New',
-        loadingMessage         : 'Loading yarns',
+        loadingMessage         : 'Loading recommendations',
     }
 };

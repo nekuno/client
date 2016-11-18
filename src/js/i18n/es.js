@@ -399,11 +399,11 @@ export default {
         saving         : 'Guardando...'
     },
     CardUser                         : {
-        like      : 'Me gusta',
-        unlike    : 'Ya no me gusta',
-        similarity: 'Similitud',
-        saving    : 'Guardando...',
-        age       : 'Edad',
+        like    : 'Me gusta',
+        unlike  : 'Ya no me gusta',
+        matching: 'Compatibilidad',
+        saving  : 'Guardando...',
+        age     : 'Edad',
     },
     ImportAlbumPopup                 : {
         close      : 'Cerrar',

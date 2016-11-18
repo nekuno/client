@@ -397,11 +397,11 @@ export default {
         saving         : 'Saving...'
     },
     CardUser                         : {
-        like      : 'Like',
-        unlike    : 'Remove',
-        similarity: 'Similarity',
-        saving    : 'Saving...',
-        age       : 'Age',
+        like    : 'Like',
+        unlike  : 'Remove',
+        matching: 'Matching',
+        saving  : 'Saving...',
+        age     : 'Age',
     },
     ImportAlbumPopup                 : {
         close      : 'Close',

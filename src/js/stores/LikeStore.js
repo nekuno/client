@@ -1,32 +1,28 @@
 import { register, waitFor } from '../dispatcher/Dispatcher';
-import { createStore, mergeIntoBag, isInBag } from '../utils/StoreUtils';
+import { createStore } from '../utils/StoreUtils';
 import UserStore from '../stores/UserStore';
 import ActionTypes from '../constants/ActionTypes';
 import selectn from 'selectn';
 
-let _like = {};
+let _likes = [];
 
 const LikeStore = createStore({
     contains(userId1, userId2) {
-
-        return (userId1 in _like && (userId2 in _like[userId1])) ||
-            (userId2 in _like && (userId1 in _like[userId2]));
+        return _likes.some(like => like.from == userId1 && like.to == userId2);
     },
 
     get(userId1, userId2) {
-
-        if (userId1 in _like && (userId2 in _like[userId1])) {
-            return _like[userId1][userId2];
-        } else if (userId2 in _like && (userId1 in _like[userId2])) {
-            return _like[userId2][userId1];
-        } else {
-            return 0;
-        }
+        const like = _likes.find(like => like.from == userId1 && like.to == userId2) || {value: 0};
+        return like.value;
     },
 
-    merge(userId1, userId2, value){
-        _like[userId1] = (userId1 in _like) ? _like[userId1] : [];
-        _like[userId1][userId2] = value;
+    merge(userId1, userId2, value) {
+        if (_likes.some(like => like.from == userId1 && like.to == userId2)) {
+            const index = _likes.findIndex(like => like.from == userId1 && like.to == userId2);
+            _likes[index] = {from: userId1, to: userId2, value: value};
+        } else {
+            _likes.push({from: userId1, to: userId2, value: value});
+        }
     }
 });
 
@@ -71,7 +67,7 @@ LikeStore.dispatchToken = register(action => {
             LikeStore.emitChange();
             break;
         case ActionTypes.LOGOUT_USER:
-            _like = {};
+            _likes = [];
             break;
     }
 });

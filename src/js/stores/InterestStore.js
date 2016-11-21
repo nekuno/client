@@ -7,6 +7,7 @@ let _interests = {};
 let _noInterests = {};
 let _pagination = {};
 let _loadingComparedInterests = null;
+let _loadingOwnInterests = null;
 
 const InterestStore = createStore({
     contains(id, fields) {
@@ -31,6 +32,10 @@ const InterestStore = createStore({
 
     isLoadingComparedInterests() {
         return _loadingComparedInterests;
+    },
+
+    isLoadingOwnInterests() {
+        return _loadingOwnInterests;
     }
 });
 
@@ -69,11 +74,16 @@ InterestStore.dispatchToken = register(action => {
         _pagination[currentUserId] = pagination;
         _noInterests[currentUserId] = _interests[currentUserId].length === 0;
         _loadingComparedInterests = false;
+        _loadingOwnInterests = false;
         InterestStore.emitChange();
     }
 
     if (action.type === 'REQUEST_COMPARED_INTERESTS') {
         _loadingComparedInterests = true;
+        InterestStore.emitChange();
+    }
+    if (action.type === 'REQUEST_OWN_INTERESTS') {
+        _loadingOwnInterests = true;
         InterestStore.emitChange();
     }
 

@@ -24,10 +24,13 @@ function getState(props) {
     const pagination = InterestStore.getPagination(userId) || {};
     const interests = InterestStore.get(userId) || [];
     const noInterests = InterestStore.noInterests(userId) || false;
+    const isLoadingOwnInterests = InterestStore.isLoadingOwnInterests();
+
     return {
         pagination,
         interests,
-        noInterests
+        noInterests,
+        isLoadingOwnInterests
     };
 }
 
@@ -38,13 +41,14 @@ export default class InterestsPage extends Component {
 
     static propTypes = {
         // Injected by @AuthenticatedComponent
-        user      : PropTypes.object.isRequired,
+        user                 : PropTypes.object.isRequired,
         // Injected by @translate:
-        strings   : PropTypes.object,
+        strings              : PropTypes.object,
         // Injected by @connectToStores:
-        pagination: PropTypes.object,
-        interests : PropTypes.array.isRequired,
-        noInterests : PropTypes.bool
+        pagination           : PropTypes.object,
+        interests            : PropTypes.array.isRequired,
+        noInterests          : PropTypes.bool,
+        isLoadingOwnInterests: PropTypes.bool
     };
 
     constructor(props) {
@@ -74,12 +78,12 @@ export default class InterestsPage extends Component {
     };
 
     handleScroll() {
-        let pagination = this.props.pagination;
+        const {pagination, isLoadingOwnInterests} = this.props;
         let nextLink = pagination && pagination.hasOwnProperty('nextLink') ? pagination.nextLink : null;
         let offsetTop = parseInt(document.getElementsByClassName('view')[0].scrollTop + document.getElementsByClassName('view')[0].offsetHeight - 117);
         let offsetTopMax = parseInt(document.getElementById('page-content').offsetHeight);
 
-        if (nextLink && offsetTop >= offsetTopMax) {
+        if (nextLink && offsetTop >= offsetTopMax && !isLoadingOwnInterests) {
             document.getElementsByClassName('view')[0].removeEventListener('scroll', this.handleScroll);
             InterestsActionCreators.requestNextOwnInterests(parseId(this.props.user), nextLink);
         }

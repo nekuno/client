@@ -29,11 +29,13 @@ function getState(props) {
     const pagination = InterestStore.getPagination(otherUserId) || {};
     const interests = InterestStore.get(otherUserId) || [];
     const noInterests = InterestStore.noInterests(otherUserId) || false;
+    const isLoadingComparedInterests = InterestStore.isLoadingComparedInterests();
     const otherUser = UserStore.get(otherUserId);
     return {
         pagination,
         interests,
         noInterests,
+        isLoadingComparedInterests,
         otherUser
     };
 }
@@ -44,17 +46,18 @@ function getState(props) {
 export default class OtherInterestsPage extends Component {
     static propTypes = {
         // Injected by React Router:
-        params    : PropTypes.shape({
+        params                    : PropTypes.shape({
             userId: PropTypes.string.isRequired
         }).isRequired,
         // Injected by @AuthenticatedComponent
-        user      : PropTypes.object.isRequired,
+        user                      : PropTypes.object.isRequired,
         // Injected by @translate:
-        strings   : PropTypes.object,
+        strings                   : PropTypes.object,
         // Injected by @connectToStores:
-        pagination: PropTypes.object,
-        interests : PropTypes.array.isRequired,
-        otherUser : PropTypes.object
+        pagination                : PropTypes.object,
+        interests                 : PropTypes.array.isRequired,
+        isLoadingComparedInterests: PropTypes.bool,
+        otherUser                 : PropTypes.object
     };
 
     constructor(props) {
@@ -127,12 +130,12 @@ export default class OtherInterestsPage extends Component {
     };
 
     handleScroll() {
-        let pagination = this.props.pagination;
+        const {pagination, isLoadingComparedInterests} = this.props;
         let nextLink = pagination && pagination.hasOwnProperty('nextLink') ? pagination.nextLink : null;
         let offsetTop = parseInt(document.getElementsByClassName('view')[0].scrollTop + document.getElementsByClassName('view')[0].offsetHeight - 117);
         let offsetTopMax = parseInt(document.getElementById('page-content').offsetHeight);
 
-        if (nextLink && offsetTop >= offsetTopMax) {
+        if (nextLink && offsetTop >= offsetTopMax && !isLoadingComparedInterests) {
             document.getElementsByClassName('view')[0].removeEventListener('scroll', this.handleScroll);
             InterestsActionCreators.requestNextComparedInterests(parseId(this.props.user), this.props.params.userId, nextLink);
         }

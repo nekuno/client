@@ -128,7 +128,8 @@ export default class AnswerUserFieldPage extends Component {
         const nextUserFiledName = nextUserField ? nextUserField.name : null;
         switch (nextUserFiledName) {
             case 'username':
-                fieldToRender = <UsernameField username={user.username} isUsernameValid={isUsernameValid} onSaveHandler={this.handleClickSave} />;
+            {/* Don't pass user.username because we don't want userX to be displayed */}
+                fieldToRender = <UsernameField username={''} isUsernameValid={isUsernameValid} onSaveHandler={this.handleClickSave} />;
                 break;
 
             case 'email':

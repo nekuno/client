@@ -10,7 +10,6 @@ import connectToStores from '../utils/connectToStores';
 import * as QuestionActionCreators from '../actions/QuestionActionCreators';
 import UserStore from '../stores/UserStore';
 import QuestionStore from '../stores/QuestionStore';
-import QuestionsByUserIdStore from '../stores/QuestionsByUserIdStore';
 import LoginStore from '../stores/LoginStore';
 import ProfileStore from '../stores/ProfileStore';
 import Joyride from 'react-joyride';
@@ -69,7 +68,7 @@ function getState(props) {
 @AuthenticatedComponent
 @translate('AnswerQuestionPage')
 @tutorial()
-@connectToStores([UserStore, QuestionStore, QuestionsByUserIdStore], getState)
+@connectToStores([UserStore, QuestionStore], getState)
 export default class AnswerQuestionPage extends Component {
 
     static propTypes = {

@@ -10,7 +10,6 @@ import * as QuestionActionCreators from '../actions/QuestionActionCreators';
 import * as UserActionCreators from '../actions/UserActionCreators';
 import UserStore from '../stores/UserStore';
 import QuestionStore from '../stores/QuestionStore';
-import QuestionsByUserIdStore from '../stores/QuestionsByUserIdStore';
 
 function parseId(user) {
     return user.id;
@@ -48,7 +47,7 @@ function getState(props) {
 
 @AuthenticatedComponent
 @translate('OtherQuestionsPage')
-@connectToStores([UserStore, QuestionStore, QuestionsByUserIdStore], getState)
+@connectToStores([UserStore, QuestionStore], getState)
 export default class OtherQuestionsPage extends Component {
     static propTypes = {
         // Injected by React Router:

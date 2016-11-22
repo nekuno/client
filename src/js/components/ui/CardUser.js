@@ -1,5 +1,4 @@
 import React, { PropTypes, Component } from 'react';
-import { Link } from 'react-router';
 import ProgressBar from './ProgressBar';
 import Button from './Button';
 import Image from './Image';
@@ -24,6 +23,9 @@ export default class CardUser extends Component {
         like          : PropTypes.number,
         hideLikeButton: PropTypes.bool.isRequired,
         loggedUserId  : PropTypes.number.isRequired,
+        profile       : PropTypes.object.isRequired,
+        handleSelectProfile: PropTypes.func,
+
         // Injected by @translate:
         strings       : PropTypes.object
     };
@@ -33,6 +35,7 @@ export default class CardUser extends Component {
 
         this.onLikeOrDislike = this.onLikeOrDislike.bind(this);
         this.handleMessage = this.handleMessage.bind(this);
+        this.handleGoToProfile = this.handleGoToProfile.bind(this);
     }
 
     onLikeOrDislike() {
@@ -48,8 +51,18 @@ export default class CardUser extends Component {
         this.context.history.pushState(null, `/conversations/${this.props.userId}`);
     }
 
+    handleGoToProfile() {
+        const {userId, profile} = this.props;
+        if (!profile.orientation) {
+            nekunoApp.popup('.popup-orientation-required');
+            this.props.handleSelectProfile(userId);
+        } else {
+            this.context.history.pushState(null, `/profile/${userId}`);
+        }
+    }
+
     render() {
-        const {strings, location, canSendMessage, like, hideLikeButton, photo, userId, username, matching, age} = this.props;
+        const {location, canSendMessage, like, hideLikeButton, photo, userId, username, matching, age, strings} = this.props;
         const subTitle = <div><span className="icon-marker"></span>{location.substr(0, 15)}{location.length > 15 ? '...' : ''} - {strings.age}: {age}</div>;
         const messageButton = canSendMessage ? <span className="icon-message" onClick={this.handleMessage}></span> : '';
         const likeButtonText = like === null ? strings.saving : like ? strings.unlike : strings.like;
@@ -60,11 +73,9 @@ export default class CardUser extends Component {
         return (
             <div className="card person-card">
                 <div className="card-header">
-                    <Link to={`/profile/${userId}`}>
-                        <div className="card-title">
-                            {username}
-                        </div>
-                    </Link>
+                    <div className="card-title" onClick={this.handleGoToProfile}>
+                        {username}
+                    </div>
                     <div className="card-sub-title">
                         {subTitle}
                     </div>
@@ -74,11 +85,9 @@ export default class CardUser extends Component {
                 </div>
                 <div className="card-content">
                     <div className="card-content-inner">
-                        <Link to={`/profile/${userId}`}>
-                            <div className="image fixed-height-image">
-                                <Image src={imgSrc} defaultSrc={defaultSrc}/>
-                            </div>
-                        </Link>
+                        <div className="image fixed-height-image" onClick={this.handleGoToProfile}>
+                            <Image src={imgSrc} defaultSrc={defaultSrc}/>
+                        </div>
                         <div className="matching">
                             <div className="matching-value">{strings.matching} {matching ? matching + '%' : '0%'}</div>
                             <ProgressBar percentage={matching}/>

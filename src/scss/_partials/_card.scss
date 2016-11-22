@@ -8,6 +8,7 @@
 		
 		.card-title {
 			color: #000;
+			cursor: pointer;
 			font-size: 0.941176471em;
 			font-weight: bold;
 		}
@@ -75,6 +76,7 @@
 		}
 	}
 	.card-content {
+		cursor: pointer;
 
 		.card-content-inner {
 			padding: 0;

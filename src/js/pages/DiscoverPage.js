@@ -5,6 +5,7 @@ import EmptyMessage from '../components/ui/EmptyMessage';
 import ChipList from './../components/ui/ChipList';
 import QuestionsBanner from '../components/questions/QuestionsBanner';
 import ProcessesProgress from '../components/processes/ProcessesProgress';
+import OrientationRequiredPopup from '../components/ui/OrientationRequiredPopup';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
@@ -43,6 +44,7 @@ function requestData(props) {
 function getState(props) {
 
     let userId = parseId(props.user);
+    const profile = ProfileStore.get(userId);
     let pagination = QuestionStore.getPagination(userId) || {};
     let isSomethingWorking = WorkersStore.isSomethingWorking();
     let filters = {};
@@ -61,6 +63,7 @@ function getState(props) {
     let isLoadingRecommendations = RecommendationStore.isLoadingRecommendations(parseThreadId(thread));
 
     return {
+        profile,
         pagination,
         isSomethingWorking,
         filters,
@@ -81,6 +84,7 @@ export default class DiscoverPage extends Component {
         // Injected by @translate:
         strings                 : PropTypes.object,
         // Injected by @connectToStores:
+        profile                 : PropTypes.object,
         pagination              : PropTypes.object,
         isSomethingWorking      : PropTypes.bool,
         filters                 : PropTypes.object,
@@ -98,6 +102,12 @@ export default class DiscoverPage extends Component {
 
         this.editThread = this.editThread.bind(this);
         this.handleScroll = this.handleScroll.bind(this);
+        this.goToProfile = this.goToProfile.bind(this);
+        this.selectProfile = this.selectProfile.bind(this);
+
+        this.state = {
+            selectedUserId: null
+        };
     }
 
     componentWillMount() {
@@ -126,6 +136,15 @@ export default class DiscoverPage extends Component {
         }
     }
 
+    goToProfile() {
+        const {selectedUserId} = this.state;
+        this.context.history.pushState(null, `/profile/${selectedUserId}`);
+    }
+
+    selectProfile(userId) {
+        this.setState({selectedUserId: userId});
+    }
+
     renderChipList = function(thread, filters) {
         if (thread && filters && Object.keys(thread).length > 0 && Object.keys(filters).length > 0) {
             let threadFilters = thread.category === 'ThreadUsers' ? thread.filters.userFilters : thread.filters.contentFilters;
@@ -141,7 +160,7 @@ export default class DiscoverPage extends Component {
     };
 
     render() {
-        const {user, strings, pagination, isSomethingWorking, filters, recommendations, thread, isLoadingRecommendations} = this.props;
+        const {user, profile, strings, pagination, isSomethingWorking, filters, recommendations, thread, isLoadingRecommendations} = this.props;
         return (
             <div className="view view-main" onScroll={this.handleScroll}>
                 {Object.keys(thread).length > 0 ?
@@ -151,11 +170,12 @@ export default class DiscoverPage extends Component {
                     <div id="page-content">
                         {this.renderChipList(thread, filters)}
                         <ProcessesProgress />
-                        {filters && thread ? <QuestionsBanner user={user} questionsTotal={pagination.total || 0}/> : '' }
-                        { recommendations.length > 0 ? <CardUserList recommendations={recommendations} userId={user.id} s/> : <EmptyMessage text={strings.loadingMessage} loadingGif={true}/>}
+                        {profile && filters && thread ? <QuestionsBanner user={user} questionsTotal={pagination.total || 0}/> : '' }
+                        {profile && recommendations.length > 0 ? <CardUserList recommendations={recommendations} userId={user.id} profile={profile} handleSelectProfile={this.selectProfile}/> : <EmptyMessage text={strings.loadingMessage} loadingGif={true}/>}
                         <div className="loading-gif" style={isLoadingRecommendations ? {} : {display: 'none'}}></div>
                     </div>
                 </div>
+                {profile && !profile.orientation ? <OrientationRequiredPopup profile={profile} onContinue={this.goToProfile}/> : null}
             </div>
         );
     }

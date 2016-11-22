@@ -5,12 +5,14 @@ import selectn from 'selectn';
 export default class CardUserList extends Component {
 
     static propTypes = {
-        recommendations: PropTypes.array.isRequired,
-        userId         : PropTypes.number.isRequired
+        recommendations    : PropTypes.array.isRequired,
+        userId             : PropTypes.number.isRequired,
+        profile            : PropTypes.object.isRequired,
+        handleSelectProfile: PropTypes.func.isRequired
     };
 
     render() {
-        const {recommendations, userId} = this.props;
+        const {recommendations, userId, profile} = this.props;
         return (
             <div className="user-list">
                 {recommendations.map((recommendation, index) =>
@@ -26,6 +28,8 @@ export default class CardUserList extends Component {
                         like={recommendation.like}
                         hideLikeButton={false}
                         loggedUserId={userId}
+                        profile={profile}
+                        handleSelectProfile={this.props.handleSelectProfile}
                     />
                 )}
             </div>

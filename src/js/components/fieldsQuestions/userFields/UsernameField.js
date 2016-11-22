@@ -21,7 +21,7 @@ export default class UsernameField extends Component {
         this.usernameTimeout = setTimeout(() => {
             let username = this.refs.username.getValue();
             ConnectActionCreators.validateUsername(username);
-        }, 500);
+        }, 0);
     }
     
     handleClickSave() {
@@ -44,7 +44,7 @@ export default class UsernameField extends Component {
                 </div>
                 <br />
                 <br />
-                <FullWidthButton type="submit" onClick={this.handleClickSave.bind(this)}>{strings.save}</FullWidthButton>
+                {isUsernameValid ? <FullWidthButton type="submit" onClick={this.handleClickSave.bind(this)}>{strings.save}</FullWidthButton> : null}
             </div>
         );
     }

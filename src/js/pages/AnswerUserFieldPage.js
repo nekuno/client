@@ -100,7 +100,10 @@ export default class AnswerUserFieldPage extends Component {
     }
     
     componentWillUpdate(nextProps) {
-        if (nextProps.errors) {
+        if (!nextProps.isUsernameValid) {
+            nekunoApp.alert(nextProps.strings.usernameInvalid);
+        }
+        else if (nextProps.errors) {
             nekunoApp.alert(nextProps.errors);
         }
         else if (nextProps.usernameAnswered && nextProps.userQuestionsComplete) {
@@ -154,7 +157,8 @@ export default class AnswerUserFieldPage extends Component {
 
 AnswerUserFieldPage.defaultProps = {
     strings: {
-        question      : 'Question',
-        loadingMessage: 'Loading questions'
+        question       : 'Question',
+        loadingMessage : 'Loading questions',
+        usernameInvalid: 'Username is invalid or already in use'
     }
 };

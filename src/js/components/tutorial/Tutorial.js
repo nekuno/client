@@ -16,6 +16,9 @@ function setStepsStyles(steps) {
                 offsetY: 0,
                 inner: '#a350f0',
                 outer: '#a350f0'
+            },
+            close: {
+                display: 'none'
             }
         };
     });

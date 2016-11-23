@@ -172,6 +172,7 @@ export default class DiscoverPage extends Component {
                         <ProcessesProgress />
                         {profile && filters && thread ? <QuestionsBanner user={user} questionsTotal={pagination.total || 0}/> : '' }
                         {profile && recommendations.length > 0 ? <CardUserList recommendations={recommendations} userId={user.id} profile={profile} handleSelectProfile={this.selectProfile}/> : <EmptyMessage text={strings.loadingMessage} loadingGif={true}/>}
+                        <br />
                         <div className="loading-gif" style={isLoadingRecommendations ? {} : {display: 'none'}}></div>
                     </div>
                 </div>

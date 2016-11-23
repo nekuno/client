@@ -102,10 +102,10 @@ export default class OtherGalleryPage extends Component {
                 <TopNavBar leftIcon={'left-arrow'} centerText={otherUser ? otherUser.username : ''}/>
                 <div className="page">
                     <div id="page-content" className="gallery-photo-content">
-                        {noPhotos ?
+                        {otherUser && !otherUser.photo && noPhotos ?
                             <EmptyMessage text={strings.empty}/>
                             :
-                            photos.length > 0 && otherUser && otherUser.photo ?
+                            otherUser && otherUser.photo ?
                                 <div className="swiper-custom">
                                     <div id="gallery-swiper-container" className="swiper-container">
                                         <div className="swiper-wrapper">

@@ -50,7 +50,7 @@ function requestData(props) {
         UserActionCreators.requestComparedStats(parseId(user), otherUserId);
     }
 
-    UserActionCreators.requestUser(otherUserId, ['username', 'email', 'picture', 'status']);
+    UserActionCreators.requestUser(otherUserId, ['username', 'photo', 'status']);
     UserActionCreators.requestProfile(otherUserId);
     UserActionCreators.requestMetadata();
     UserActionCreators.requestStats(otherUserId);

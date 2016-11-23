@@ -12,7 +12,7 @@ import UserStore from '../stores/UserStore';
 
 function requestData(props) {
     const userId = parseInt(props.params.userId);
-    UserActionCreators.requestUser(userId, ['username', 'email', 'picture', 'status']);
+    UserActionCreators.requestUser(userId, ['username', 'photo', 'status']);
     GalleryPhotoActionCreators.getOtherPhotos(userId);
 }
 

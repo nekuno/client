@@ -22,7 +22,7 @@ function requestData(props, state) {
     const {params} = props;
     const userId = parseId(props.user);
     const otherUserId = parseInt(params.userId);
-    UserActionCreators.requestUser(otherUserId, ['username', 'email', 'picture', 'status']);
+    UserActionCreators.requestUser(otherUserId, ['username', 'photo', 'status']);
     QuestionActionCreators.requestComparedQuestions(userId, otherUserId, state.filters);
 }
 

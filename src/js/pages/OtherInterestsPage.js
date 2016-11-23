@@ -20,7 +20,7 @@ function parseId(user) {
 
 function requestData(props) {
     const userId = parseId(props.user);
-    UserActionCreators.requestUser(props.params.userId, ['username', 'email', 'picture', 'status']);
+    UserActionCreators.requestUser(props.params.userId, ['username', 'photo', 'status']);
     InterestsActionCreators.requestComparedInterests(userId, props.params.userId, 'Link', 1);
 }
 

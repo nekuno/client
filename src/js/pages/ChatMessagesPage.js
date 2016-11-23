@@ -12,7 +12,7 @@ import ChatMessageStore from '../stores/ChatMessageStore';
 
 function requestData(props) {
     const userId = props.params.userId;
-    UserActionCreators.requestUser(userId, ['username', 'email', 'picture', 'status']);
+    UserActionCreators.requestUser(userId, ['username', 'photo', 'status']);
 }
 
 function getState(props) {

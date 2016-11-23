@@ -2,17 +2,14 @@ import ActionTypes from '../constants/ActionTypes';
 import { EventEmitter } from 'events';
 import { register } from '../dispatcher/Dispatcher';
 
-export default class BaseStore extends EventEmitter {
+const CHANGE_EVENT = 'change';
 
-    _receiving = [];
-    _received = [];
-    _receivingClasses = [];
+export default class BaseStore extends EventEmitter {
 
     constructor() {
         super();
         this.subscribe(() => this._registerToActions.bind(this));
         this.setInitial();
-        this.setReceivingClasses();
     }
 
     subscribe(actionSubscribe) {
@@ -24,16 +21,8 @@ export default class BaseStore extends EventEmitter {
     }
 
     setInitial() {
-        this._receiving = [];
-        this._received = [];
+
     };
-
-    setReceivingClasses() {
-    }
-
-    setReceiving(action){};
-    setReceivedSuccess(action){};
-    setReceivedError(action){};
 
     _registerToActions(action) {
         switch (action.type) {
@@ -44,21 +33,17 @@ export default class BaseStore extends EventEmitter {
             default:
                 break;
         }
-
-        this.setReceiving(action);
-        this.setReceivedSuccess(action);
-        this.setReceivedError(action);
     }
 
     emitChange() {
-        this.emit('CHANGE');
+        this.emit(CHANGE_EVENT);
     }
 
     addChangeListener(cb) {
-        this.on('CHANGE', cb)
+        this.on(CHANGE_EVENT, cb)
     }
 
     removeChangeListener(cb) {
-        this.removeListener('CHANGE', cb);
+        this.removeListener(CHANGE_EVENT, cb);
     }
 }

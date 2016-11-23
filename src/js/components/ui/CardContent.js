@@ -137,7 +137,7 @@ export default class CardContent extends Component {
             imgSrc = url;
         }
         return (
-            <div className="card person-card">
+            <div className="card content-card">
                 {isImage ? '' :
                     <div className="card-header" onClick={this.handleClick}>
                         <a href={url} onClick={this.preventDefault}>

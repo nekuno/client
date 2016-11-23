@@ -88,14 +88,14 @@ export default class CardUser extends Component {
                         <div className="image fixed-height-image" onClick={this.handleGoToProfile}>
                             <Image src={imgSrc} defaultSrc={defaultSrc}/>
                         </div>
+                        {like ? <div className="like-icon-container" onClick={this.handleGoToProfile}><span className="icon-star"></span></div> : null}
                         <div className="matching">
-                            <div className="matching-value">{strings.matching} {matching ? matching + '%' : '0%'}</div>
                             <ProgressBar percentage={matching}/>
                         </div>
                     </div>
                 </div>
                 <div className="card-footer">
-                    {likeButton}
+                    <div className="matching-value">{strings.matching} {matching ? matching + '%' : '0%'}</div>
                 </div>
             </div>
         );

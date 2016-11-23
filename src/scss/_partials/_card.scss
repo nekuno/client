@@ -113,4 +113,27 @@
 			margin-left: 5px !important;
 		}
 	}
-} 
+
+	&.person-card {
+		.card-content {
+			.card-content-inner {
+				.like-icon-container {
+					color: $material-yellow;
+					margin-top: -35px;
+					height: 35px;
+					font-size: 1.4em;
+				}
+				.matching {
+					margin-top: -7px;
+				}
+			}
+		}
+		.card-footer {
+			.matching-value {
+				color: $regular-gray;
+				font-weight: bold;
+				margin: auto;
+			}
+		}
+	}
+}

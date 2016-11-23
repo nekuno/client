@@ -60,32 +60,41 @@ export default class ChatMessagesPage extends Component {
 
         this.sendMessageHandler = this.sendMessageHandler.bind(this);
         this.handleFocus = this.handleFocus.bind(this);
+        this.markReaded = this.markReaded.bind(this);
         this.handleScroll = this.handleScroll.bind(this);
         this.goToProfilePage = this.goToProfilePage.bind(this);
 
         this.state = {
-            noMoreMessages: false
+            noMoreMessages: ChatMessageStore.noMoreMessages(props.params.userId),
+            timestamp     : null
         };
     }
 
-    componentWillMount() {
+    componentDidMount() {
         requestData(this.props);
-    }
-
-    componentDidUpdate() {
-        if (ChatMessageStore.isFresh(this.props.params.userId) && !ChatMessageStore.noMoreMessages(this.props.params.userId)) {
-            this._scrollToBottom();
+        this._scrollToBottom();
+        this.markReaded();
+        if (!ChatMessageStore.noMoreMessages(this.props.params.userId)) {
+            this.refs.list.addEventListener('scroll', this.handleScroll, false);
         }
     }
 
-    scrollingTimeout = null;
+    componentWillUnmount() {
+        this.refs.list.removeEventListener('scroll', this.handleScroll, false);
+    }
+
+    componentDidUpdate() {
+        if (ChatMessageStore.isFresh(this.props.params.userId)) {
+            this._scrollToBottom();
+            this.markReaded();
+        }
+    }
 
     _scrollToBottom() {
         var list = this.refs.list;
-        window.clearTimeout(this.scrollingTimeout);
-        this.scrollingTimeout = window.setTimeout(() => {
+        window.setTimeout(() => {
             list.scrollTop = list.scrollHeight;
-        }, 800);
+        }, 0);
     }
 
     sendMessageHandler(messageText) {
@@ -93,22 +102,27 @@ export default class ChatMessagesPage extends Component {
         ChatActionCreators.sendMessage(userId, messageText);
     }
 
-    handleFocus(e) {
+    handleFocus() {
+
+    }
+
+    markReaded() {
         if (this.props.messages.length > 0) {
             const userId = parseInt(this.props.params.userId);
             let lastMessage = this.props.messages[this.props.messages.length - 1];
             let timestamp = lastMessage.createdAt.toISOString();
-            ChatActionCreators.markAsReaded(userId, timestamp);
-            this._scrollToBottom();
+            if (!this.state.timestamp || this.state.timestamp < timestamp) {
+                window.setTimeout(() => ChatActionCreators.markAsReaded(userId, timestamp), 0);
+                this.setState({timestamp});
+            }
         }
     }
 
     handleScroll() {
-        window.clearTimeout(this.scrollingTimeout);
         var list = this.refs.list;
         if (list.scrollTop === 0) {
             if (ChatMessageStore.noMoreMessages(this.props.params.userId)) {
-                list.removeEventListener('scroll', this.handleScroll);
+                list.removeEventListener('scroll', this.handleScroll, false);
                 this.setState({noMoreMessages: true});
             } else {
                 list.scrollTop = 150;
@@ -127,7 +141,7 @@ export default class ChatMessagesPage extends Component {
         let otherUsername = otherUser ? otherUser.username : '';
         return (
 
-            <div className="view view-main" ref="list" onScroll={this.handleScroll}>
+            <div className="view view-main" ref="list">
                 <TopNavBar leftIcon={'left-arrow'} centerText={otherUsername} onCenterLinkClickHandler={this.goToProfilePage}/>
                 <div className="page notifications-page">
                     <div id="page-content" className="notifications-content">

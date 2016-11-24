@@ -4,33 +4,23 @@ import TextArea from '../../ui/TextArea';
 
 export default class TextAreaEdit extends Component {
     static propTypes = {
-        editKey: PropTypes.string.isRequired,
-        selected: PropTypes.bool.isRequired,
-        metadata: PropTypes.object.isRequired,
-        data: PropTypes.string,
+        editKey              : PropTypes.string.isRequired,
+        selected             : PropTypes.bool.isRequired,
+        metadata             : PropTypes.object.isRequired,
+        data                 : PropTypes.string,
         handleClickRemoveEdit: PropTypes.func,
-        handleChangeEdit: PropTypes.func.isRequired,
+        handleChangeEdit     : PropTypes.func.isRequired,
     };
 
     constructor(props) {
         super(props);
 
-        this.handleClickInput = this.handleClickInput.bind(this);
         this.onChangeValue = this.onChangeValue.bind(this);
         this.handleClickRemoveEdit = this.handleClickRemoveEdit.bind(this);
 
         this.state = {
             value: props.data
         };
-    }
-
-    componentWillMount() {
-        this.handleClickInput();
-    }
-
-    handleClickInput() {
-        const {editKey} = this.props;
-        this.props.handleClickInput(editKey);
     }
 
     onChangeValue() {
@@ -40,12 +30,11 @@ export default class TextAreaEdit extends Component {
             clearTimeout(this.textareaTimeout);
         }
         this.textareaTimeout = setTimeout(() => {
-            this.props.handleChangeEdit(editKey, value)
-
+            this.setState({
+                value: value
+            });
+            this.props.handleChangeEdit(editKey, value);
         }, 500);
-        this.setState({
-            value: value
-        });
     }
 
     handleClickRemoveEdit() {
@@ -58,8 +47,8 @@ export default class TextAreaEdit extends Component {
 
     render() {
         const {editKey, selected, metadata} = this.props;
-        return(
-            <SelectedEdit key={selected ? 'selected-filter' : editKey} type={'textarea'} plusIcon={true} handleClickRemoveEdit={this.props.handleClickRemoveEdit ? this.handleClickRemoveEdit : null} onClickHandler={selected ? null : this.handleClickInput}>
+        return (
+            <SelectedEdit key={selected ? 'selected-filter' : editKey} type={'textarea'} plusIcon={true} handleClickRemoveEdit={this.props.handleClickRemoveEdit ? this.handleClickRemoveEdit : null} >
                 <div className="textarea-filter-wrapper">
                     <div className="list-block">
                         <ul>

@@ -235,7 +235,6 @@ export default class ProfileDataList extends Component {
                 break;
             case 'textarea':
                 props.data = data ? data : null;
-                props.handleClickInput = this.onFilterSelect;
                 props.handleChangeEdit = this.handleChangeEditAndSave;
                 filter = <TextAreaEdit {...props} />;
                 break;

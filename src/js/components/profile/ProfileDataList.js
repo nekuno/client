@@ -165,10 +165,12 @@ export default class ProfileDataList extends Component {
         if (selectedCategoryRef && !selectedCategoryRef.contains(e.target) && selectedCategoryEditRef && !selectedCategoryEditRef.contains(e.target)) {
             selectedCategory = null;
         }
-        this.setState({
-            selectedEdit: selectedEdit,
-            selectedCategory: selectedCategory
-        });
+        if (selectedEdit !== this.state.selectedEdit || selectedCategory !== this.state.selectedCategory) {
+            this.setState({
+                selectedEdit: selectedEdit,
+                selectedCategory: selectedCategory
+            });
+        }
     }
 
     renderField(dataArray, metadata, dataName) {

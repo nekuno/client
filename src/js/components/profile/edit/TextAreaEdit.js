@@ -63,7 +63,7 @@ export default class TextAreaEdit extends Component {
                 <div className="textarea-filter-wrapper">
                     <div className="list-block">
                         <ul>
-                            <TextArea ref={editKey} placeholder={metadata.label} defaultValue={this.state.value} onChange={this.onChangeValue}/>
+                            <TextArea ref={editKey} placeholder={metadata.labelEdit} defaultValue={this.state.value} onChange={this.onChangeValue}/>
                         </ul>
                     </div>
                 </div>

@@ -42,7 +42,7 @@ export default class MultipleChoicesEdit extends Component {
             <SelectedEdit key={selected ? 'selected-filter' : editKey} type={'checkbox'} active={data && data.length > 0} handleClickRemoveEdit={this.props.handleClickRemoveEdit ? this.handleClickRemoveEdit : null}>
                 <TextCheckboxes labels={Object.keys(metadata.choices).map(key => { return({key: key, text: metadata.choices[key]}) })}
                                 onClickHandler={this.handleClickMultipleChoice} values={data || []} className={'multiple-choice-filter'}
-                                title={metadata.label} />
+                                title={metadata.labelEdit} />
             </SelectedEdit>
         );
     }

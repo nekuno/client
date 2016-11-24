@@ -126,7 +126,7 @@ export default class TagEdit extends Component {
             <SelectedEdit key={selected ? 'selected-filter' : editKey} type={'tag'} plusIcon={true} handleClickRemoveEdit={this.props.handleClickRemoveEdit ? this.handleClickRemoveEdit : null} onClickHandler={selected ? null : this.handleClickInput}>
                 <TagInput ref={'tagInput' + editKey} placeholder={strings.placeholder} tags={selected ? tags.map(tag => tag.name) : []}
                           onKeyUpHandler={this.handleKeyUpTag} onClickTagHandler={this.handleClickTagSuggestion}
-                          title={metadata.label} doNotFocus={!selected}/>
+                          title={metadata.labelEdit} doNotFocus={!selected}/>
                 <div className="table-row"></div>
                 {selectedTag ? <div className="table-row"></div> : null}
                 {selectedTag ? <div className="table-row"></div> : null}

@@ -50,7 +50,7 @@ export default class DoubleChoiceEdit extends Component {
                 <div className="double-choice-filter">
                     <TextRadios labels={Object.keys(metadata.choices).map(choice => { return({key: choice, text: metadata.choices[choice]}); }) }
                                 onClickHandler={this.handleClickDoubleChoiceChoice} value={data.choice} className={'double-choice-choice'}
-                                title={metadata.label} />
+                                title={metadata.labelEdit} />
                     {data.choice ? <div className="table-row"></div> : ''}
                     {data.choice ?
                         <TextRadios labels={Object.keys(metadata.doubleChoices[data.choice]).map(doubleChoice => { return({key: doubleChoice, text: metadata.doubleChoices[data.choice][doubleChoice]}); }) }

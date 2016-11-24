@@ -158,7 +158,7 @@ export default class TagsAndChoiceEdit extends Component {
                 <div className="tags-and-choice-wrapper">
                     <TagInput ref={'tagInput' + editKey} placeholder={strings.placeholder} tags={selected && tags.length > 0 && tags[0].name ? tags.map(tag => tag.name) : []} value={selectedTagAndChoice.tag}
                               onKeyUpHandler={this.handleKeyUpTagAndChoiceTag} onClickTagHandler={this.handleClickTagAndChoiceTagSuggestion}
-                              title={metadata.label} doNotFocus={!selected}/>
+                              title={metadata.labelEdit} doNotFocus={!selected}/>
                     {selectedTagAndChoice.tag ?
                         <div className="tags-and-choice-choice">
                             <TextRadios labels={Object.keys(metadata.choices).map(key => { return({key: key, text: metadata.choices[key]}); }) }

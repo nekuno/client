@@ -81,7 +81,7 @@ export default class IntegerEdit extends Component {
             <SelectedEdit key={selected ? 'selected-filter' : editKey} type={'integer'} plusIcon={true} handleClickRemoveEdit={this.props.handleClickRemoveEdit ? this.handleClickRemoveEdit : null} onClickHandler={selected ? null : this.handleClickInput}>
                 <TagInput ref={'tagInput' + editKey} placeholder={strings.placeholder} tags={selected ? this.state.tag ? [this.state.tag.toString()] : [] : []}
                           onKeyUpHandler={this.handleChangeIntegerInput} onClickTagHandler={this.handleClickTagSuggestion}
-                          title={metadata.label} doNotFocus={!selected} value={this.state.value ? this.state.value.toString() : ''}/>
+                          title={metadata.labelEdit} doNotFocus={!selected} value={this.state.value ? this.state.value.toString() : ''}/>
                 <div className="table-row"></div>
             </SelectedEdit>
         );

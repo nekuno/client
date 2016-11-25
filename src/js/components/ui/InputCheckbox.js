@@ -18,27 +18,25 @@ export default class InputCheckbox extends Component {
     }
 
     render() {
-        const {name, value, checked, text} = this.props;
+        const {checked, text} = this.props;
         return (
             <div>
                 {this.props.reverse ?
-                    <label className="label-checkbox item-content">
-                        <input type="checkbox" ref="checkbox" name={name} value={value} checked={this.props.checked} readOnly/>
-                        <div className="item-media" onClick={this.onClickHandler}>
-                            <i className="icon icon-form-checkbox"></i>
+                    <label className="label-checkbox item-content" onClick={this.onClickHandler}>
+                        <div className="item-media">
+                            <i className={checked ? 'icon icon-form-checkbox checked' : 'icon icon-form-checkbox'}/>
                         </div>
                         <div className="item-inner">
-                            <div className="item-title" onClick={this.onClickHandler}>{text}</div>
+                            <div className="item-title">{text}</div>
                         </div>
                     </label>
                     :
-                    <label className="label-checkbox item-content">
+                    <label className="label-checkbox item-content" onClick={this.onClickHandler}>
                         <div className="item-inner">
-                            <div className="item-title" onClick={this.onClickHandler}>{text}</div>
+                            <div className="item-title">{text}</div>
                         </div>
-                        <input type="checkbox" ref="checkbox" name={name} value={value} checked={checked} readOnly/>
-                        <div className="item-media" onClick={this.onClickHandler}>
-                            <i className="icon icon-form-checkbox"></i>
+                        <div className="item-media">
+                            <i className={checked ? 'icon icon-form-checkbox checked' : 'icon icon-form-checkbox'}/>
                         </div>
                     </label>
                 }
@@ -48,8 +46,6 @@ export default class InputCheckbox extends Component {
     }
 
     onClickHandler() {
-        setTimeout(() => {
-            this.props.onClickHandler(!this.props.checked, this.props.value);
-        }, 50);
+        this.props.onClickHandler(!this.props.checked, this.props.value);
     }
 }

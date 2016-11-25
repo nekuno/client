@@ -9,6 +9,7 @@ import * as UserActionCreators from '../actions/UserActionCreators';
 import ChatActionCreators from '../actions/ChatActionCreators';
 import UserStore from '../stores/UserStore';
 import ChatMessageStore from '../stores/ChatMessageStore';
+import ChatUserStatusStore from '../stores/ChatUserStatusStore';
 
 function requestData(props) {
     const userId = props.params.userId;
@@ -20,17 +21,19 @@ function getState(props) {
     const otherUserId = props.params.userId;
     const messages = ChatMessageStore.getAllForUser(otherUserId);
     const otherUser = UserStore.get(otherUserId);
+    const online = ChatUserStatusStore.isOnline(otherUserId) || false;
 
     return {
         otherUserId,
         messages,
-        otherUser
+        otherUser,
+        online
     };
 }
 
 @AuthenticatedComponent
 @translate('ChatMessagesPage')
-@connectToStores([ChatMessageStore, UserStore], getState)
+@connectToStores([ChatMessageStore, ChatUserStatusStore, UserStore], getState)
 export default class ChatMessagesPage extends Component {
 
     static propTypes = {
@@ -46,7 +49,8 @@ export default class ChatMessagesPage extends Component {
         // Injected by @connectToStores:
         messages   : PropTypes.array.isRequired,
         otherUserId: PropTypes.string,
-        otherUser  : PropTypes.object
+        otherUser  : PropTypes.object,
+        online     : PropTypes.bool
 
     };
 
@@ -137,12 +141,12 @@ export default class ChatMessagesPage extends Component {
     }
 
     render() {
-        const {otherUser, messages, strings, isGuest} = this.props;
+        const {otherUser, messages, online, strings, isGuest} = this.props;
         let otherUsername = otherUser ? otherUser.username : '';
         return (
 
             <div className="view view-main" ref="list">
-                <TopNavBar leftIcon={'left-arrow'} centerText={otherUsername} onCenterLinkClickHandler={this.goToProfilePage}/>
+                <TopNavBar leftIcon={'left-arrow'} centerText={otherUsername} bottomText={online ? 'Online' : null} onCenterLinkClickHandler={this.goToProfilePage}/>
                 <div className="page notifications-page">
                     <div id="page-content" className="notifications-content">
                         {this.state.noMoreMessages ? <div className="daily-message-title">{strings.noMoreMessages}</div> : '' }

@@ -59,6 +59,12 @@
 				font-size: 25px;
 			}
 		}
+		.bottom-text {
+			margin-top: -25px;
+			font-size: 0.7em;
+			color: $light-green;
+			font-weight: bold;
+		}
 
 		.open-panel {
 			display: block;

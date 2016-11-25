@@ -8,7 +8,6 @@ import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
 import UserStore from '../stores/UserStore';
 import QuestionStore from '../stores/QuestionStore';
-import QuestionsByUserIdStore from '../stores/QuestionsByUserIdStore';
 
 function parseId(user) {
     return user.id;
@@ -21,7 +20,7 @@ function getState(props) {
     const currentUserId = parseId(props.user);
     const question = QuestionStore.getQuestion();
     const userAnswer = question ? QuestionStore.getUserAnswer(currentUserId, question.questionId) : null;
-    const isJustRegistered = Object.keys(QuestionsByUserIdStore.getByUserId(currentUserId)).length < 4;
+    const isJustRegistered = QuestionStore.isJustRegistered(currentUserId);
 
     return {
         question,
@@ -32,7 +31,7 @@ function getState(props) {
 
 @AuthenticatedComponent
 @translate('QuestionStatsPage')
-@connectToStores([UserStore, QuestionStore, QuestionsByUserIdStore], getState)
+@connectToStores([UserStore, QuestionStore], getState)
 export default class QuestionStatsPage extends Component {
 
     static propTypes = {

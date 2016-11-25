@@ -165,10 +165,12 @@ export default class ProfileDataList extends Component {
         if (selectedCategoryRef && !selectedCategoryRef.contains(e.target) && selectedCategoryEditRef && !selectedCategoryEditRef.contains(e.target)) {
             selectedCategory = null;
         }
-        this.setState({
-            selectedEdit: selectedEdit,
-            selectedCategory: selectedCategory
-        });
+        if (selectedEdit !== this.state.selectedEdit || selectedCategory !== this.state.selectedCategory) {
+            this.setState({
+                selectedEdit: selectedEdit,
+                selectedCategory: selectedCategory
+            });
+        }
     }
 
     renderField(dataArray, metadata, dataName) {
@@ -235,7 +237,6 @@ export default class ProfileDataList extends Component {
                 break;
             case 'textarea':
                 props.data = data ? data : null;
-                props.handleClickInput = this.onFilterSelect;
                 props.handleChangeEdit = this.handleChangeEditAndSave;
                 filter = <TextAreaEdit {...props} />;
                 break;

@@ -31,7 +31,9 @@ function parseId(user) {
 function requestData(props) {
     const {params, user} = props;
     const otherUserId = params.userId;
-
+    if (!ProfileStore.contains(parseId(user))) {
+        UserActionCreators.requestOwnProfile(parseId(user));
+    }
     if (!MatchingStore.contains(parseId(user), otherUserId)) {
         UserActionCreators.requestMatching(parseId(user), otherUserId);
     }
@@ -48,7 +50,7 @@ function requestData(props) {
         UserActionCreators.requestComparedStats(parseId(user), otherUserId);
     }
 
-    UserActionCreators.requestUser(otherUserId, ['username', 'email', 'picture', 'status']);
+    UserActionCreators.requestUser(otherUserId, ['username', 'photo', 'status']);
     UserActionCreators.requestProfile(otherUserId);
     UserActionCreators.requestMetadata();
     UserActionCreators.requestStats(otherUserId);
@@ -91,6 +93,7 @@ function getState(props) {
     const comparedStats = ComparedStatsStore.get(parseId(user), otherUserId);
     const photos = GalleryPhotoStore.get(otherUserId);
     const noPhotos = GalleryPhotoStore.noPhotos(otherUserId);
+    const ownProfile = ProfileStore.get(parseId(user));
 
     return {
         otherUser,
@@ -103,7 +106,8 @@ function getState(props) {
         comparedStats,
         user,
         photos,
-        noPhotos
+        noPhotos,
+        ownProfile
     };
 }
 
@@ -152,7 +156,8 @@ export default class OtherUserPage extends Component {
         like               : PropTypes.number,
         comparedStats      : PropTypes.object,
         photos             : PropTypes.array,
-        noPhotos           : PropTypes.bool
+        noPhotos           : PropTypes.bool,
+        ownProfile         : PropTypes.object
     };
     static contextTypes = {
         history: PropTypes.object.isRequired
@@ -172,11 +177,18 @@ export default class OtherUserPage extends Component {
     }
 
     componentWillMount() {
-        requestData(this.props);
+        if (this.props.ownProfile && !this.props.ownProfile.orientation) {
+            window.setTimeout(() => this.context.history.pushState(null, `/discover`), 0);
+        } else {
+            requestData(this.props);
+        }
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.params.userId !== this.props.params.userId) {
+        if (nextProps.ownProfile && !nextProps.ownProfile.orientation) {
+            window.setTimeout(() => this.context.history.pushState(null, `/discover`), 0);
+        }
+        else if (nextProps.params.userId !== this.props.params.userId) {
             requestData(nextProps);
         }
     }

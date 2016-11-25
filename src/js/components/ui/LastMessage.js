@@ -47,7 +47,7 @@ export default class LastMessage extends Component {
                             <span className="notification-title-text">{user.username}</span>
                             {online ? <span className="status-online icon-circle"></span> : ''}
                         </div>
-                        <div className="notification-excerpt" style={style}>
+                        <div className="notification-excerpt truncate" style={style}>
                             {text}
                         </div>
                         <div className="notification-time" title={createdAt.toLocaleString()}>

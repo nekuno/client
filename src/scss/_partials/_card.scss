@@ -8,6 +8,7 @@
 		
 		.card-title {
 			color: #000;
+			cursor: pointer;
 			font-size: 0.941176471em;
 			font-weight: bold;
 		}
@@ -75,6 +76,7 @@
 		}
 	}
 	.card-content {
+		cursor: pointer;
 
 		.card-content-inner {
 			padding: 0;
@@ -111,4 +113,40 @@
 			margin-left: 5px !important;
 		}
 	}
-} 
+
+	&.person-card {
+		.card-content {
+			.card-content-inner {
+				.matching {
+					margin-top: -7px;
+				}
+			}
+		}
+		.card-footer {
+			.like-icon-container {
+				color: #fff;
+				font-size: 1.4em;
+				height: 31px;
+				margin: auto;
+
+				.icon-star {
+					vertical-align: middle;
+				}
+			}
+			.matching-value {
+				color: $regular-gray;
+				font-weight: bold;
+				margin: auto;
+			}
+
+			&.liked {
+				background: $material-orange-light;
+				padding: 0;
+			}
+
+			&::before {
+				height: 0;
+			}
+		}
+	}
+}

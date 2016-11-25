@@ -30,10 +30,13 @@ export default class ThreadCategoryFilterList extends Component {
     }
 
     renderCategory(category) {
-        const choicesLength = Object.keys(category.fields).length || 0;
+        const {filtersMetadata} = this.props;
+        // TODO: Don't filter to show tags (just use category.fields)
+        const filteredCategoryFields = category.fields.filter(field => filtersMetadata[field] && filtersMetadata[field].type !== 'tags');
+        const choicesLength = filteredCategoryFields.length || 0;
         return <div>
             <ul key="1" className="checkbox-filters-list">
-                {category.fields.map((field, i) => {
+                {filteredCategoryFields.map((field, i) => {
                     if (i >= choicesLength / 2) {
                         return;
                     }
@@ -41,7 +44,7 @@ export default class ThreadCategoryFilterList extends Component {
                 })}
             </ul>
             <ul key="2" className="checkbox-filters-list">
-                {category.fields.map((field, i) => {
+                {filteredCategoryFields.map((field, i) => {
                     if (i < choicesLength / 2) {
                         return;
                     }
@@ -66,5 +69,4 @@ export default class ThreadCategoryFilterList extends Component {
             </div>
         );
     }
-
 }

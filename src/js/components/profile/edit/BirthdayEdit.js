@@ -38,7 +38,7 @@ export default class BirthdayEdit extends Component {
         return (
             <SelectedEdit key={selected ? 'selected-filter' : editKey} type={'birthday'} addedClass={'tag-filter'} handleClickRemoveEdit={this.props.handleClickRemoveEdit ? this.handleClickRemoveEdit : null}>
                 <div className="birthday-filter-wrapper">
-                    <DateInput label={metadata.label} placeholder={strings.birthdayPlaceholder} defaultValue={data} onChange={this.onChangeValue}/>
+                    <DateInput label={metadata.labelEdit} placeholder={strings.birthdayPlaceholder} defaultValue={data} onChange={this.onChangeValue}/>
                 </div>
             </SelectedEdit>
 

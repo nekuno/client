@@ -10,7 +10,6 @@ import * as QuestionActionCreators from '../actions/QuestionActionCreators';
 import * as UserActionCreators from '../actions/UserActionCreators';
 import UserStore from '../stores/UserStore';
 import QuestionStore from '../stores/QuestionStore';
-import QuestionsByUserIdStore from '../stores/QuestionsByUserIdStore';
 
 function parseId(user) {
     return user.id;
@@ -23,7 +22,7 @@ function requestData(props, state) {
     const {params} = props;
     const userId = parseId(props.user);
     const otherUserId = parseInt(params.userId);
-    UserActionCreators.requestUser(otherUserId, ['username', 'email', 'picture', 'status']);
+    UserActionCreators.requestUser(otherUserId, ['username', 'photo', 'status']);
     QuestionActionCreators.requestComparedQuestions(userId, otherUserId, state.filters);
 }
 
@@ -48,7 +47,7 @@ function getState(props) {
 
 @AuthenticatedComponent
 @translate('OtherQuestionsPage')
-@connectToStores([UserStore, QuestionStore, QuestionsByUserIdStore], getState)
+@connectToStores([UserStore, QuestionStore], getState)
 export default class OtherQuestionsPage extends Component {
     static propTypes = {
         // Injected by React Router:

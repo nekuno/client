@@ -63,7 +63,7 @@ const QuestionStore = createStore({
     },
     
     answersLength(userId) {
-        return Object.keys(_questions[userId]).length || 0;
+        return _questions[userId] && Object.keys(_questions[userId]).length || 0;
     },
 
     registerQuestionsLength() {

@@ -9,7 +9,6 @@ import connectToStores from '../utils/connectToStores';
 import * as QuestionActionCreators from '../actions/QuestionActionCreators';
 import UserStore from '../stores/UserStore';
 import QuestionStore from '../stores/QuestionStore';
-import QuestionsByUserIdStore from '../stores/QuestionsByUserIdStore';
 
 function parseId(user) {
     return user.id;
@@ -30,7 +29,7 @@ function getState(props) {
 
 @AuthenticatedComponent
 @translate('QuestionsPage')
-@connectToStores([UserStore, QuestionStore, QuestionsByUserIdStore], getState)
+@connectToStores([UserStore, QuestionStore], getState)
 export default class QuestionsPage extends Component {
 
     static propTypes = {

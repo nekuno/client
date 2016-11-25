@@ -7,9 +7,8 @@ import translate from '../../i18n/Translate';
 @translate('OrientationRequiredPopup')
 export default class OrientationRequiredPopup extends Component {
     static propTypes = {
-        profile   : PropTypes.object.isRequired,
+        profile   : PropTypes.object,
         onContinue: PropTypes.func.isRequired,
-        threadId  : PropTypes.number.isRequired,
         // Injected by @translate:
         strings   : PropTypes.object
     };
@@ -22,8 +21,8 @@ export default class OrientationRequiredPopup extends Component {
     }
 
     render() {
-        const {threadId, strings} = this.props;
-        const popupClass = 'popup popup-orientation-required-' + threadId + ' tablet-fullscreen';
+        const {strings} = this.props;
+        const popupClass = 'popup popup-orientation-required tablet-fullscreen';
 
         return (
 
@@ -43,8 +42,7 @@ export default class OrientationRequiredPopup extends Component {
     }
 
     onSelect(key) {
-        const {threadId} = this.props;
-        nekunoApp.closeModal('.popup-orientation-required-' + threadId);
+        nekunoApp.closeModal('.popup-orientation-required');
         let profile = {orientation: key};
         for (key in this.props.profile){
             if (this.props.profile.hasOwnProperty(key)){
@@ -58,8 +56,7 @@ export default class OrientationRequiredPopup extends Component {
     }
 
     onCancel() {
-        const {threadId} = this.props;
-        nekunoApp.closeModal('.popup-orientation-required-' + threadId);
+        nekunoApp.closeModal('.popup-orientation-required');
     }
 }
 

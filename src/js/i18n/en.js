@@ -282,8 +282,9 @@ export default {
         seeMore: 'See more'
     },
     AnswerUserFieldPage              : {
-        question      : 'Question',
-        loadingMessage: 'Loading questions'
+        question       : 'Question',
+        loadingMessage : 'Loading questions',
+        usernameInvalid: 'Username is invalid or already in use.'
     },
     AnswerProfileFieldPage           : {
         question      : 'Question',

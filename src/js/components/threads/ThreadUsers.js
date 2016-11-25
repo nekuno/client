@@ -152,6 +152,7 @@ export default class ThreadUsers extends Component {
                         {this.renderChipList(formattedThread.filters.userFilters, filters.userFilters)}
                     </div>
                 </div>
+                {/* TODO: Refactor moving to ThreadPage (otherwise won't work) */}
                 <OrientationRequiredPopup profile={profile} onContinue={this.continue} threadId={thread.id}/>
             </div>
 

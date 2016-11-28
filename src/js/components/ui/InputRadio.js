@@ -4,7 +4,6 @@ export default class InputRadio extends Component {
 
     static propTypes = {
         value         : PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
-        name          : PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
         text          : PropTypes.string.isRequired,
         checked       : PropTypes.bool.isRequired,
         onClickHandler: PropTypes.func.isRequired,

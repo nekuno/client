@@ -28,8 +28,7 @@ export default class ThreadFilterList extends Component {
                         let checked = typeof filters[key] !== 'undefined';
                         return (
                             <li key={key}>
-                                <InputCheckbox value={key} name={key} text={text}
-                                               checked={checked} onClickHandler={handleClickFilterOnList} reverse={true}/>
+                                <InputCheckbox value={key} text={text} checked={checked} onClickHandler={handleClickFilterOnList} reverse={true}/>
                             </li>
                         )
                     })}
@@ -44,7 +43,7 @@ export default class ThreadFilterList extends Component {
                         let checked = typeof filters[key] !== 'undefined';
                         return (
                             <li key={key}>
-                                <InputCheckbox value={key} name={key} text={text} checked={checked} onClickHandler={handleClickFilterOnList} reverse={true}/>
+                                <InputCheckbox value={key} text={text} checked={checked} onClickHandler={handleClickFilterOnList} reverse={true}/>
                             </li>
                         )
                     })}

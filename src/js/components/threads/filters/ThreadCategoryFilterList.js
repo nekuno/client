@@ -25,7 +25,7 @@ export default class ThreadCategoryFilterList extends Component {
         let text = filtersMetadata[field].label;
         let checked = typeof filters[field] !== 'undefined';
         return <li key={field}>
-            <InputCheckbox value={field} name={field} text={text} checked={checked} onClickHandler={handleClickFilterOnList} reverse={true}/>
+            <InputCheckbox value={field} text={text} checked={checked} onClickHandler={handleClickFilterOnList} reverse={true}/>
         </li>;
     }
 

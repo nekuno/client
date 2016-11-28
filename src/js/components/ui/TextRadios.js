@@ -29,7 +29,7 @@ export default class TextRadios extends Component {
 					<ul className="checkbox-list">
 						{labels.map(label =>
 							<li key={label.key}>
-								<InputRadio value={label.key} name={label.key} text={label.text} checked={value === label.key} onClickHandler={this.onClickHandler.bind(this, label.key)} reverse={true}/>
+								<InputRadio value={label.key} text={label.text} checked={value === label.key} onClickHandler={this.onClickHandler.bind(this, label.key)} reverse={true}/>
 							</li>
 						)}
 					</ul>

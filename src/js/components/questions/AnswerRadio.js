@@ -12,7 +12,7 @@ export default class AnswerRadio extends Component {
         const {answer, checked} = this.props;
         return (
             <li>
-                <InputRadio value={answer.answerId} name={'answerId'} text={answer.text} checked={checked} onClickHandler={this.props.onClickHandler}/>
+                <InputRadio value={answer.answerId} text={answer.text} checked={checked} onClickHandler={this.props.onClickHandler}/>
             </li>
         );
     }

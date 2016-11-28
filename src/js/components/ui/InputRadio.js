@@ -3,8 +3,7 @@ import React, { PropTypes, Component } from 'react';
 export default class InputRadio extends Component {
 
     static propTypes = {
-        value         : PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-        name          : PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+        value         : PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
         text          : PropTypes.string.isRequired,
         checked       : PropTypes.bool.isRequired,
         onClickHandler: PropTypes.func.isRequired,
@@ -17,35 +16,33 @@ export default class InputRadio extends Component {
         this.onClickHandler = this.onClickHandler.bind(this);
     }
 
+    onClickHandler() {
+        this.props.onClickHandler(this.props.value);
+    }
+
     render() {
-        const {reverse, name, value, checked, text} = this.props;
+        const {reverse, checked, text} = this.props;
+        const className = checked ? 'icon icon-form-checkbox checked' : 'icon icon-form-checkbox';
         return (
             reverse ?
-                <label className="label-checkbox item-content">
-                    <input type="radio" name={name} value={value} checked={checked}readOnly/>
-                    <div className="item-media" onClick={this.onClickHandler}>
-                        <i className="icon icon-form-checkbox"></i>
+                <label className="label-checkbox item-content" onClick={this.onClickHandler}>
+                    <div className="item-media">
+                        <i className={className}/>
                     </div>
                     <div className="item-inner">
-                        <div className="item-title" onClick={this.onClickHandler}>{text}</div>
+                        <div className="item-title">{text}</div>
                     </div>
                 </label>
                 :
-                <label className="label-checkbox item-content">
+                <label className="label-checkbox item-content" onClick={this.onClickHandler}>
                     <div className="item-inner">
-                        <div className="item-title" onClick={this.onClickHandler}>{text}</div>
+                        <div className="item-title">{text}</div>
                     </div>
-                    <input type="radio" name={name} value={value} checked={checked} readOnly/>
-                    <div className="item-media" onClick={this.onClickHandler}>
-                        <i className="icon icon-form-checkbox"></i>
+                    <div className="item-media">
+                        <i className={className}/>
                     </div>
                 </label>
         );
     }
 
-    onClickHandler() {
-        setTimeout(() => {
-            this.props.onClickHandler(this.props.value);
-        }, 50);
-    }
 }

@@ -13,7 +13,7 @@ export default class AcceptedAnswerCheckbox extends Component {
         const {answer, checked} = this.props;
         return (
             <li>
-                <InputCheckbox value={answer.answerId} name={'acceptedAnswerId'} text={answer.text} checked={checked} onClickHandler={this.props.onClickHandler}/>
+                <InputCheckbox value={answer.answerId} text={answer.text} checked={checked} onClickHandler={this.props.onClickHandler}/>
             </li>
         );
     }

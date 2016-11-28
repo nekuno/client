@@ -6,6 +6,14 @@ import UserStore from '../stores/UserStore';
 import ProfileStore from '../stores/ProfileStore';
 import LocaleStore from '../stores/LocaleStore';
 
+export function validateUsername(username) {
+    return dispatchAsync(UserAPI.validateUsername(username), {
+        request: ActionTypes.REQUEST_VALIDATE_USERNAME,
+        success: ActionTypes.REQUEST_VALIDATE_USERNAME_SUCCESS,
+        failure: ActionTypes.REQUEST_VALIDATE_USERNAME_ERROR
+    }, {username});
+}
+
 export function requestOwnUser() {
     return dispatchAsync(UserAPI.getOwnUser(), {
         request: ActionTypes.REQUEST_OWN_USER,

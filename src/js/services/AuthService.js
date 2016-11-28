@@ -42,36 +42,6 @@ class AuthService {
         });
     }
 
-    validateUsername(username) {
-
-        nekunoApp.showProgressbar();
-
-        return new Bluebird((resolve, reject) => {
-
-            if (this._usernamePromise) {
-                this._usernamePromise.abort();
-            }
-            this._usernamePromise = request.get(
-                {
-                    protocol: Url.parse(API_URLS.VALIDATE_USERNAME + username).protocol,
-                    url     : API_URLS.VALIDATE_USERNAME + username,
-                    body    : {},
-                    json    : true
-                },
-                (err, response, body) => {
-                    nekunoApp.hideProgressbar();
-                    if (err) {
-                        return reject(err);
-                    }
-                    if (response.statusCode >= 400) {
-                        return reject(body);
-                    }
-                    return resolve(body);
-                }
-            );
-        });
-    }
-
     login(username, password) {
 
         return APIUtils.postData(API_URLS.LOGIN, {username, password});

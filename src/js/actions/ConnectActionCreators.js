@@ -1,4 +1,4 @@
-import { dispatch, dispatchAsync } from '../dispatcher/Dispatcher';
+import { dispatchAsync } from '../dispatcher/Dispatcher';
 import ActionTypes from '../constants/ActionTypes';
 import AuthService from '../services/AuthService';
 
@@ -11,15 +11,6 @@ export default {
             success: ActionTypes.REQUEST_VALIDATE_INVITATION_USER_SUCCESS,
             failure: ActionTypes.REQUEST_VALIDATE_INVITATION_USER_ERROR
         }, {token});
-    },
-
-    validateUsername: (username) => {
-        let promise = AuthService.validateUsername(username);
-        dispatchAsync(promise, {
-            request: ActionTypes.REQUEST_VALIDATE_USERNAME,
-            success: ActionTypes.REQUEST_VALIDATE_USERNAME_SUCCESS,
-            failure: ActionTypes.REQUEST_VALIDATE_USERNAME_ERROR
-        }, {username});
     },
 
     connect: (resource, accessToken, resourceId, expireTime, refreshToken) => {

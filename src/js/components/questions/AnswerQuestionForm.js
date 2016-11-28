@@ -95,16 +95,16 @@ export default class AnswerQuestionForm extends Component {
     getRatingByImportance = function(importance) {
         let rating;
         if (importance === 'few') {
-            rating = 0;
-        }
-        else if (importance === 'normal') {
             rating = 1;
         }
-        else if (importance === 'aLot') {
+        else if (importance === 'normal') {
             rating = 2;
         }
-        else if (importance === 'irrelevant') {
+        else if (importance === 'aLot') {
             rating = 3;
+        }
+        else if (importance === 'irrelevant') {
+            rating = 0;
         }
 
         return rating;

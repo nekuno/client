@@ -2,7 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import TextInput from '../../ui/TextInput';
 import FullWidthButton from '../../ui/FullWidthButton';
 import translate from '../../../i18n/Translate';
-import ConnectActionCreators from '../../../actions/ConnectActionCreators';
+import  * as UserActionCreators from '../../../actions/UserActionCreators';
 
 @translate('UsernameField')
 export default class UsernameField extends Component {
@@ -20,8 +20,8 @@ export default class UsernameField extends Component {
         }
         this.usernameTimeout = setTimeout(() => {
             let username = this.refs.username.getValue();
-            ConnectActionCreators.validateUsername(username);
-        }, 0);
+            UserActionCreators.validateUsername(username);
+        }, 500);
     }
     
     handleClickSave() {

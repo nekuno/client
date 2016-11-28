@@ -87,6 +87,12 @@ InterestStore.dispatchToken = register(action => {
         InterestStore.emitChange();
     }
 
+
+    if (action.type === 'LIKE_CONTENT' || action.type === 'DISLIKE_CONTENT' || action.type === 'UNRATE_CONTENT') {
+        const { from, to } = action;
+        Object.keys(_interests).forEach(userId => _interests[userId].forEach((interest, index) => { if (interest.id == to) { _interests[userId][index].rate = null; } }));
+        InterestStore.emitChange();
+    }
     if (action.type === 'LIKE_CONTENT_SUCCESS' || action.type === 'DISLIKE_CONTENT_SUCCESS' || action.type === 'UNRATE_CONTENT_SUCCESS') {
         const { from, to } = action;
         const rate = action.type === 'LIKE_CONTENT_SUCCESS' ? 1 : action.type === 'DISLIKE_CONTENT_SUCCESS' ? -1 : 0;

@@ -90,7 +90,7 @@ InterestStore.dispatchToken = register(action => {
     if (action.type === 'LIKE_CONTENT_SUCCESS' || action.type === 'DISLIKE_CONTENT_SUCCESS' || action.type === 'UNRATE_CONTENT_SUCCESS') {
         const { from, to } = action;
         const rate = action.type === 'LIKE_CONTENT_SUCCESS' ? 1 : action.type === 'DISLIKE_CONTENT_SUCCESS' ? -1 : 0;
-        Object.keys(_interests[from]).forEach(key => { if (_interests[from][key].id == to) { _interests[from][key].rate = rate; } });
+        Object.keys(_interests).forEach(userId => _interests[userId].forEach((interest, index) => { if (interest.id == to) { _interests[userId][index].rate = rate; } }));
         InterestStore.emitChange();
     }
     if (action.type == ActionTypes.LOGOUT_USER){

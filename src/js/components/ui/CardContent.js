@@ -1,7 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import { ORIGIN_CONTEXT } from '../../constants/Constants';
 import ProgressBar from './ProgressBar';
-import Button from './Button';
 import CardIcons from './CardIcons';
 import Image from './Image';
 import UserStore from '../../stores/UserStore';
@@ -125,8 +124,6 @@ export default class CardContent extends Component {
         const {title, description, types, rate, hideLikeButton, fixedHeight, thumbnail, url, matching, strings} = this.props;
         const cardTitle = title ? <div>{title.substr(0, 20)}{title.length > 20 ? '...' : ''}</div> : <div> {strings.emptyTitle} </div>;
         const subTitle = description ? <div>{description.substr(0, 20)}{description.length > 20 ? '...' : ''}</div> : fixedHeight ? <div>&nbsp;</div> : '';
-        const likeButtonText = rate === null ? strings.saving : rate && rate !== -1 ? strings.unlike : strings.like;
-        const likeButton = hideLikeButton ? '' : <div className="like-button-container"><Button onClick={this.onRate} disabled={rate === null ? 'disabled' : null}>{likeButtonText}</Button></div>;
         const imageClass = fixedHeight ? 'image fixed-height-image' : 'image';
         const isImage = types.indexOf('Image') > -1;
         const defaultSrc = 'img/default-content-image.jpg';
@@ -173,9 +170,11 @@ export default class CardContent extends Component {
 
                     </div>
                 </div>
-                {likeButton ?
+                {!hideLikeButton ?
                     <div className="card-footer">
-                        {likeButton}
+                        <div className="like-button icon-wrapper" onClick={rate !== null ? this.onRate : null}>
+                            <span className={rate === null ? 'icon-spinner rotation-animation' : rate && rate !== -1 ? 'icon-star yellow' : 'icon-star'}></span>
+                        </div>
                         <div className="icon-wrapper" onClick={this.onShare}>
                             <span className="icon-share"></span>
                         </div>

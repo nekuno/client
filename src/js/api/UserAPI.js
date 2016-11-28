@@ -1,6 +1,5 @@
 import {
     fetchUser,
-    fetchUserArray,
     fetchProfile,
     putProfile,
     fetchComparedStats,
@@ -17,6 +16,10 @@ import {
     putData,
     deleteData
 } from '../utils/APIUtils';
+
+export function validateUsername(username, url = `users/available/${username}`) {
+    return getData(url);
+}
 
 export function getOwnUser(url = `users`) {
     return getData(url);

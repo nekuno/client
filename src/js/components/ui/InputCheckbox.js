@@ -17,14 +17,19 @@ export default class InputCheckbox extends Component {
         this.onClickHandler = this.onClickHandler.bind(this);
     }
 
+    onClickHandler() {
+        this.props.onClickHandler(!this.props.checked, this.props.value);
+    }
+
     render() {
         const {checked, text} = this.props;
+        const className = checked ? 'icon icon-form-checkbox checked' : 'icon icon-form-checkbox';
         return (
             <div>
                 {this.props.reverse ?
                     <label className="label-checkbox item-content" onClick={this.onClickHandler}>
                         <div className="item-media">
-                            <i className={checked ? 'icon icon-form-checkbox checked' : 'icon icon-form-checkbox'}/>
+                            <i className={className}/>
                         </div>
                         <div className="item-inner">
                             <div className="item-title">{text}</div>
@@ -36,16 +41,12 @@ export default class InputCheckbox extends Component {
                             <div className="item-title">{text}</div>
                         </div>
                         <div className="item-media">
-                            <i className={checked ? 'icon icon-form-checkbox checked' : 'icon icon-form-checkbox'}/>
+                            <i className={className}/>
                         </div>
                     </label>
                 }
             </div>
-
         );
     }
 
-    onClickHandler() {
-        this.props.onClickHandler(!this.props.checked, this.props.value);
-    }
 }

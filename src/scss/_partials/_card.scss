@@ -105,12 +105,13 @@
 	}
 
 	.card-footer {
-
-		.like-button-container {
-			margin: 7px auto;
-		}
-		.icon-wrapper {
-			margin-left: 5px !important;
+		display: block;
+		.like-button {
+			margin-left: -5px;
+			margin-right: 15px;
+			.yellow {
+				color: $material-yellow !important;
+			}
 		}
 	}
 

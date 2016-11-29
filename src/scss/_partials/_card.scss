@@ -57,6 +57,9 @@
 				.icon-audio {
 					font-size: 1.3em !important;
 				}
+				.icon-twitter {
+					font-size: 2.2em !important;
+				}
 				.icon-spotify {
 					font-size: 2.5em !important;
 				}
@@ -68,6 +71,10 @@
 
 			.spotify-icon-wrapper {
 				background-color: $spotify-green !important;
+			}
+
+			.twitter-icon-wrapper {
+				background-color: $twitter-blue !important;
 			}
 
 			.youtube-icon-wrapper {

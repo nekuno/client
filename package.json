@@ -1,6 +1,6 @@
 {
   "name": "client",
-  "version": "0.20.4",
+  "version": "0.20.5",
   "description": "Nekuno Hybrid Mobile Client",
   "main": "index.js",
   "scripts": {

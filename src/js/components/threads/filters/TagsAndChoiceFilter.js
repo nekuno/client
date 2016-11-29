@@ -155,7 +155,7 @@ export default class TagsAndChoiceFilter extends Component {
                     </div>
                 </ThreadSelectedFilter>
                 :
-                <ThreadUnselectedFilter key={filterKey} filterKey={filterKey} filter={filter} data={data} handleClickFilter={handleClickFilter}/>
+                <ThreadUnselectedFilter key={filterKey} filterKey={filterKey} filter={filter} data={data} handleClickFilter={handleClickFilter} handleClickRemoveFilter={handleClickRemoveFilter}/>
         );
     }
 }

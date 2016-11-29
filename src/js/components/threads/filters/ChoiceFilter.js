@@ -38,7 +38,7 @@ export default class ChoiceFilter extends Component {
                                 title={filter.label} />
                 </ThreadSelectedFilter>
             :
-                <ThreadUnselectedFilter key={filterKey} filterKey={filterKey} filter={filter} data={data} handleClickFilter={handleClickFilter} />
+                <ThreadUnselectedFilter key={filterKey} filterKey={filterKey} filter={filter} data={data} handleClickFilter={handleClickFilter} handleClickRemoveFilter={handleClickRemoveFilter}/>
         );
     }
 }

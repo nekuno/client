@@ -25,14 +25,11 @@ export default class LastMessage extends Component {
     };
 
     render() {
-
-        let message = this.props.message;
+        const {message, user, online} = this.props;
         let text = ReactEmoji.emojify(message.text);
         let readed = message.readed;
         let createdAt = message.createdAt;
         let imageSrc = message.user.id === message.user_from.id ? message.user_to.photo.thumbnail.medium : message.user_from.photo.thumbnail.medium;
-        let user = this.props.user;
-        let online = this.props.online;
         let mine = message.user.id === message.user_from.id;
         let style = readed || mine ? {} : {fontWeight: 'bold', color: '#000'};
 
@@ -41,11 +38,11 @@ export default class LastMessage extends Component {
                 <Link to={`/conversations/${user.id}`}>
                     <div className="notification-picture">
                         <img src={imageSrc}/>
+                        {online ? <div className="status-online">Online</div> : ''}
                     </div>
                     <div className="notification-text">
                         <div className="notification-title">
                             <span className="notification-title-text">{user.username}</span>
-                            {online ? <span className="status-online icon-circle"></span> : ''}
                         </div>
                         <div className="notification-excerpt truncate" style={style}>
                             {text}

@@ -12,6 +12,7 @@ export default class TopNavBar extends Component {
 		leftText			   		 : PropTypes.string,
 		centerText			   		 : PropTypes.string,
 		centerTextSize	       		 : PropTypes.string,
+		bottomText   	       		 : PropTypes.string,
 		rightIcon              		 : PropTypes.string,
 		secondRightIcon        		 : PropTypes.string,
 		rightText              		 : PropTypes.string,
@@ -25,14 +26,14 @@ export default class TopNavBar extends Component {
 	shouldComponentUpdate = shouldPureComponentUpdate;
 
 	render() {
-		const {leftMenuIcon, leftIcon, leftText, centerText, centerTextSize, rightIcon, secondRightIcon, rightText, rightIconsWithoutCircle, onLeftLinkClickHandler, onCenterLinkClickHandler, onRightLinkClickHandler, onSecondRightLinkClickHandler} = this.props;
+		const {leftMenuIcon, leftIcon, leftText, centerText, centerTextSize, bottomText, rightIcon, secondRightIcon, rightText, rightIconsWithoutCircle, onLeftLinkClickHandler, onCenterLinkClickHandler, onRightLinkClickHandler, onSecondRightLinkClickHandler} = this.props;
 		const navBarInnerClass = secondRightIcon ? 'two-right-icons-navbar navbar-inner' : 'navbar-inner';
 		return (
 			<div className="navbar">
 				<div id="navbar-inner" className={navBarInnerClass}>
 					<div className="row">
 						{leftMenuIcon ? <TopLeftMenuLink /> : <TopLeftLink icon={leftIcon} text={leftText} onClickHandler={onLeftLinkClickHandler}/>}
-						<RegularTopTitle text={centerText} textSize={centerTextSize} onClickHandler={onCenterLinkClickHandler}/>
+						<RegularTopTitle text={centerText} textSize={centerTextSize} bottomText={bottomText} onClickHandler={onCenterLinkClickHandler}/>
 						<TopRightLink icon={rightIcon} secondIcon={secondRightIcon} text={rightText} iconsWithoutCircle={rightIconsWithoutCircle} onClickHandler={onRightLinkClickHandler} onSecondIconClickHandler={onSecondRightLinkClickHandler} />
 					</div>
 				</div>

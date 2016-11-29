@@ -26,6 +26,10 @@ class ChatUserStatusStore extends BaseStore {
         return this._users[id] && this._users[id] === 'online';
     }
 
+    getOnlineUserIds() {
+        return Object.keys(this._users).filter(id => this._users[id] === 'online');
+    }
+
 }
 
 export default new ChatUserStatusStore();

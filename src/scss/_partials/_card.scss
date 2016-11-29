@@ -115,6 +115,13 @@
 	}
 
 	&.person-card {
+		.card-header {
+			.online-status {
+				font-size: 0.8em;
+				color: $light-green;
+				font-weight: bold;
+			}
+		}
 		.card-content {
 			.card-content-inner {
 				.matching {

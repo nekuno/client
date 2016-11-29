@@ -50,6 +50,12 @@ body #root .App .view .page.other-user-page {
           font-weight: bold;
         }
       }
+      .online-status {
+        font-size: 0.9em;
+        color: $light-green;
+        font-weight: bold;
+        margin-right: 15px;
+      }
     }
     .profile-data-list {
       margin: 30px 7.5% 0 7.5%;

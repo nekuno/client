@@ -7,6 +7,7 @@ import EmptyMessage from '../components/ui/EmptyMessage';
 import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
 import ConnectActionCreators from '../actions/ConnectActionCreators';
+import * as GroupActionCreators from '../actions/GroupActionCreators';
 import LoginActionCreators from '../actions/LoginActionCreators';
 import InvitationStore from '../stores/InvitationStore';
 import LocaleStore from '../stores/LocaleStore';
@@ -75,10 +76,15 @@ export default class RegisterPage extends Component {
     }
 
     handleSocialNetwork(resource, scope) {
-        const {token, interfaceLanguage} = this.props;
+        const {token, invitation, interfaceLanguage} = this.props;
         SocialNetworkService.login(resource, scope, true).then(() => {
             LoginActionCreators.loginUserByResourceOwner(resource, SocialNetworkService.getAccessToken(resource)).then(
                 () => {
+                    console.log('User already logged in. Using invitation', invitation);
+                    if (invitation.hasOwnProperty('group')) {
+                        console.log('Joining group', invitation.group);
+                        return GroupActionCreators.joinGroup(invitation.group.id);
+                    }
                     return null; // User is logged in
                 },
                 () => {

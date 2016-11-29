@@ -7,39 +7,9 @@ import * as ThreadActionCreators from '../actions/ThreadActionCreators';
 
 class AuthService {
 
-    constructor() {
-        this._invitationPromise = null;
-        this._usernamePromise = null;
-    }
-
     validateInvitation(token) {
 
-        nekunoApp.showProgressbar();
-
-        return new Bluebird((resolve, reject) => {
-
-            if (this._invitationPromise) {
-                this._invitationPromise.abort();
-            }
-            this._invitationPromise = request.post(
-                {
-                    protocol: Url.parse(API_URLS.VALIDATE_INVITATION_TOKEN + token).protocol,
-                    url     : API_URLS.VALIDATE_INVITATION_TOKEN + token,
-                    body    : {},
-                    json    : true
-                },
-                (err, response, body) => {
-                    nekunoApp.hideProgressbar();
-                    if (err) {
-                        return reject(err);
-                    }
-                    if (response.statusCode >= 400) {
-                        return reject(body);
-                    }
-                    return resolve(body);
-                }
-            );
-        });
+        return APIUtils.postData(API_URLS.VALIDATE_INVITATION_TOKEN + token);
     }
 
     login(username, password) {

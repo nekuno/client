@@ -21,6 +21,8 @@ export default class SocialNetworksBanner extends Component {
 
     constructor(props) {
         super(props);
+
+        this.goToSocialNetworks = this.goToSocialNetworks.bind(this);
     }
 
     connect = function(resource, scope) {
@@ -47,7 +49,7 @@ export default class SocialNetworksBanner extends Component {
                     <div className="title social-networks-link-title">{strings.title}</div>
                     <div className="social-networks-link-text">{strings.text}</div>
                     <div className="social-networks-link-stats">
-                        {connectedNetworks.length > 1 ? <SocialBox onClickHandler={this.connect} excludedResources={connectedNetworks.map(network => network.resource)} />
+                        {connectedNetworks.length > 0 ? <SocialBox onClickHandler={this.connect} excludedResources={connectedNetworks.map(network => network.resource)} />
                             : <div><LoadingSpinnerCSS /></div>}
                         <p>{strings.publishMessage}</p>
                     </div>

@@ -122,6 +122,10 @@ export default {
         wantGuest    : '¿Quieres probarlo?',
         asGuest      : 'Entra como invitado'
     },
+    AutoLoginPage                    : {
+        loginUser      : 'Intentando iniciar sesión',
+        registeringUser: 'Registrando usuario',
+    },
     OtherInterestsPage               : {
         cancel               : 'Cancelar',
         interestsCount       : '%count% Intereses',

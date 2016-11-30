@@ -20,6 +20,7 @@ import AnswerQuestionPage from './pages/AnswerQuestionPage';
 import QuestionStatsPage from './pages/QuestionStatsPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
+import AutoLoginPage from './pages/AutoLoginPage';
 import RegisterQuestionsLandingPage from './pages/RegisterQuestionLandingPage';
 import AnswerUserFieldPage from './pages/AnswerUserFieldPage';
 import AnswerProfileFieldPage from './pages/AnswerProfileFieldPage';
@@ -64,6 +65,7 @@ export default class Root extends Component {
                     <Route name="splash" path="/splash" component={HomePage}/>
                     <Route name="login" path="/login" component={LoginPage}/>
                     <Route name="register" path="/register" component={RegisterPage}/>
+                    <Route name="auto-login" path="/auto-login" component={AutoLoginPage}/>
 
                     <Route onEnter={requireAuth}>
                         <Route name="register-questions-landing" path="/register-questions-landing" component={RegisterQuestionsLandingPage}/>

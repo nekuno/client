@@ -120,6 +120,10 @@ export default {
         wantGuest    : 'Do you want to try it?',
         asGuest      : 'Enter as guest'
     },
+    AutoLoginPage                    : {
+        loginUser      : 'Trying to login user',
+        registeringUser: 'Registering user',
+    },
     OtherInterestsPage               : {
         cancel               : 'Cancel',
         interestsCount       : '%count% Interests',

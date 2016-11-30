@@ -179,8 +179,9 @@ export default {
         tutorialThirdStep      : 'This is the button to open the menu and this green dot indicates you have new messages. We invite you to explore all Nekuno! Thank you for participating in this private Beta!'
     },
     DiscoverPage                     : {
-        discover               : 'Discover',
-        loadingMessage         : 'Loading recommendations'
+        discover         : 'Discover',
+        loadingMessage   : 'Loading recommendations',
+        noRecommendations: 'There are no recommendations with selected filters'
     },
     DiscoverLitePage                 : {
         discover      : 'Discover',

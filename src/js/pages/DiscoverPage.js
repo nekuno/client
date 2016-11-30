@@ -52,15 +52,18 @@ function getState(props) {
     let thread = ThreadStore.getAll().find((thread) => {
             let items = RecommendationStore.get(parseThreadId(thread)) || [];
             return items.length > 0 && thread.category === 'ThreadUsers';
+        }) || ThreadStore.getAll().find((thread) => {
+            return thread.category === 'ThreadUsers';
         }) || {};
+    let isLoadingRecommendations = true;
     if (parseThreadId(thread)) {
         if (Object.keys(thread).length !== 0) {
             thread.isEmpty = RecommendationStore.isEmpty(parseThreadId(thread));
         }
         filters = FilterStore.filters;
         recommendations = RecommendationStore.get(parseThreadId(thread)) ? RecommendationStore.get(parseThreadId(thread)) : [];
+        isLoadingRecommendations = RecommendationStore.isLoadingRecommendations(parseThreadId(thread));
     }
-    let isLoadingRecommendations = RecommendationStore.isLoadingRecommendations(parseThreadId(thread));
 
     return {
         profile,
@@ -171,7 +174,10 @@ export default class DiscoverPage extends Component {
                         {this.renderChipList(thread, filters)}
                         <ProcessesProgress />
                         {profile && filters && thread ? <QuestionsBanner user={user} questionsTotal={pagination.total || 0}/> : '' }
-                        {profile && recommendations.length > 0 ? <CardUserList recommendations={recommendations} userId={user.id} profile={profile} handleSelectProfile={this.selectProfile}/> : <EmptyMessage text={strings.loadingMessage} loadingGif={true}/>}
+                        {profile && recommendations.length > 0 ?
+                            <CardUserList recommendations={recommendations} userId={user.id} profile={profile} handleSelectProfile={this.selectProfile}/>
+                            :
+                            <EmptyMessage text={isLoadingRecommendations ? strings.loadingMessage : strings.noRecommendations}/>}
                         <br />
                         <div className="loading-gif" style={isLoadingRecommendations ? {} : {display: 'none'}}></div>
                     </div>
@@ -184,7 +190,8 @@ export default class DiscoverPage extends Component {
 
 DiscoverPage.defaultProps = {
     strings: {
-        discover      : 'Discover',
-        loadingMessage: 'Loading recommendations',
+        discover         : 'Discover',
+        loadingMessage   : 'Loading recommendations',
+        noRecommendations: 'There are no recommendations with selected filters'
     }
 };

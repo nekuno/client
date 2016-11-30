@@ -360,6 +360,11 @@ export default {
         text     : 'Answer more test questions',
         completed: 'completed questions'
     },
+    SocialNetworksBanner             : {
+        title         : 'Do you want us to walk a fine line?',
+        text          : 'Let`s discover your interests automatically',
+        publishMessage: 'We won`t publish anything'
+    },
     ProcessesProgress                : {
         title                   : 'We are reprocessing your data',
         registrationTitle       : 'We are analyzing your data',

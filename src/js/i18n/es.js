@@ -363,6 +363,11 @@ export default {
         text     : 'Responde más preguntas',
         completed: 'Preguntas completadas'
     },
+    SocialNetworksBanner             : {
+        title         : '¿Quieres que hilemos más fino?',
+        text          : 'Descubramos automáticamente tus intereses',
+        publishMessage: 'No públicaremos nada'
+    },
     ProcessesProgress                : {
         title                   : 'Estamos reprocesando tus datos',
         registrationTitle       : 'Estamos analizando tus datos',

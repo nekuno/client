@@ -36,16 +36,17 @@ export default {
         cannotRemove: 'This field cannot be deleted'
     },
     HomePage                         : {
-        title1        : 'Discover contents of the topics that interest you',
-        title2        : 'Connect only with most compatible people with you',
-        title3        : 'You decide the information you share',
-        update        : 'Update',
-        login         : 'Login with Facebook',
-        hasInvitation : 'Do you have an invitation?',
-        register      : 'Register',
-        loadingMessage: 'Registering user',
-        wantGuest     : 'Do you want to try it?',
-        asGuest       : 'Enter as guest'
+        title1         : 'Discover contents of the topics that interest you',
+        title2         : 'Connect only with most compatible people with you',
+        title3         : 'You decide the information you share',
+        update         : 'Update',
+        login          : 'Login with Facebook',
+        hasInvitation  : 'Do you have an invitation?',
+        register       : 'Register',
+        loginUser      : 'Trying to login user',
+        registeringUser: 'Registering user',
+        wantGuest      : 'Do you want to try it?',
+        asGuest        : 'Enter as guest'
     },
     InterestsPage                    : {
         cancel   : 'Cancel',
@@ -119,10 +120,6 @@ export default {
         register     : 'Register',
         wantGuest    : 'Do you want to try it?',
         asGuest      : 'Enter as guest'
-    },
-    AutoLoginPage                    : {
-        loginUser      : 'Trying to login user',
-        registeringUser: 'Registering user',
     },
     OtherInterestsPage               : {
         cancel               : 'Cancel',

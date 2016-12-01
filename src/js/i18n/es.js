@@ -36,16 +36,17 @@ export default {
         cannotRemove: 'Este campo no se puede eliminar'
     },
     HomePage                         : {
-        title1        : 'Descubre contenidos de los temas que más te interesan',
-        title2        : 'Conecta sólo con las personas compatibles contigo',
-        title3        : 'Tú decides la información que compartes',
-        update        : 'Actualizar',
-        login         : 'Iniciar sesión con Facebook',
-        hasInvitation : '¿Tienes una invitación?',
-        register      : 'Regístrate',
-        loadingMessage: 'Registrando usuario',
-        wantGuest     : '¿Quieres probarlo?',
-        asGuest       : 'Entra como invitado'
+        title1         : 'Descubre contenidos de los temas que más te interesan',
+        title2         : 'Conecta sólo con las personas compatibles contigo',
+        title3         : 'Tú decides la información que compartes',
+        update         : 'Actualizar',
+        login          : 'Iniciar sesión con Facebook',
+        hasInvitation  : '¿Tienes una invitación?',
+        register       : 'Regístrate',
+        loginUser      : 'Intentando iniciar sesión',
+        registeringUser: 'Registrando usuario',
+        wantGuest      : '¿Quieres probarlo?',
+        asGuest        : 'Entra como invitado'
     },
     InterestsPage                    : {
         cancel   : 'Cancelar',
@@ -121,10 +122,6 @@ export default {
         register     : 'Regístrate',
         wantGuest    : '¿Quieres probarlo?',
         asGuest      : 'Entra como invitado'
-    },
-    AutoLoginPage                    : {
-        loginUser      : 'Intentando iniciar sesión',
-        registeringUser: 'Registrando usuario',
     },
     OtherInterestsPage               : {
         cancel               : 'Cancelar',

@@ -16,15 +16,15 @@ export default class ProfileData extends Component {
 
     constructor(props) {
         super(props);
-        this.toggleSeeMore = this.toggleSeeMore.bind(this);
+        this.toggleOpened = this.toggleOpened.bind(this);
         this.split = this.split.bind(this);
         this.state = {
-            seeMore: false
+            opened: false
         };
     }
 
-    toggleSeeMore() {
-        this.setState({seeMore: !this.state.seeMore});
+    toggleOpened() {
+        this.setState({opened: !this.state.opened});
     }
 
     split(text) {
@@ -37,16 +37,16 @@ export default class ProfileData extends Component {
 
     render() {
         const {name, value, forceLong, strings} = this.props;
-        const {seeMore} = this.state;
-        const long = value.length > maxLength;
+        const {opened} = this.state;
+        const isLong = value.length > maxLength;
 
         return (
-            forceLong || long ?
+            forceLong || isLong ?
                 <div className="profile-data">
                     <div className="profile-data-name-long">{name}</div>
                     <div className="profile-data-value-long">
-                        { long ? seeMore ? this.split(value) : this.split(value.substring(0, maxLength) + '...') : this.split(value)}
-                        { long ? <span className="see-more" onClick={this.toggleSeeMore}> {seeMore ? strings.seeLess : strings.seeMore}</span> : ''}
+                        { isLong ? opened ? this.split(value) : this.split(value.substring(0, maxLength) + '...') : this.split(value)}
+                        { isLong ? <span className="see-more" onClick={this.toggleOpened}> {opened ? strings.seeLess : strings.seeMore}</span> : ''}
                     </div>
                 </div>
                 :

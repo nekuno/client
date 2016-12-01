@@ -19,7 +19,7 @@ export default class OtherProfileDataList extends Component {
                 Object.keys(category.fields).forEach(
                     profileDataKey => {
                         if (category.fields[profileDataKey].value) {
-                            lines.push(<ProfileData key={profileDataKey} name={category.fields[profileDataKey].text} value={category.fields[profileDataKey].value} forceLong={category.fields[profileDataKey].value === 'textarea'}/>);
+                            lines.push(<ProfileData key={profileDataKey} name={category.fields[profileDataKey].text} value={category.fields[profileDataKey].value} forceLong={category.fields[profileDataKey].type === 'textarea'}/>);
                         }
                     });
             });

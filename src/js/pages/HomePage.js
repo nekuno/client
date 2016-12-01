@@ -1,4 +1,6 @@
 import React, { PropTypes, Component } from 'react';
+import { SOCIAL_NETWORKS, SOCIAL_NETWORKS_NAMES } from '../constants/Constants';
+import selectn from 'selectn';
 import FullWidthButton from '../components/ui/FullWidthButton';
 import FacebookButton from '../components/ui/FacebookButton';
 import EmptyMessage from '../components/ui/EmptyMessage';
@@ -23,7 +25,9 @@ function initSwiper() {
 }
 
 function destroySwiper() {
-    nekunoSwiper.destroy(true);
+    if (typeof nekunoSwiper.destroy !== 'undefined') {
+        nekunoSwiper.destroy(true);
+    }
 }
 
 function getState(props) {
@@ -59,22 +63,32 @@ export default class HomePage extends Component {
         this.promise = null;
         this.state = {
             needsUpdating  : false,
-            registeringUser: false
+            loginUser: selectn('location.query.autoLogin', props),
+            registeringUser: null,
         };
     }
 
     componentDidMount() {
         initSwiper();
-        this.promise = getVersion().then((response) => {
-            var lastVersion = moment(response, 'DD [de] MMMM [de] YYYY');
-            var thisVersion = moment(LAST_RELEASE_DATE, 'DD [de] MMMM [de] YYYY');
-            this.setState({needsUpdating: lastVersion > thisVersion});
-        });
+        if (this.state.loginUser) {
+            const facebookNetwork = SOCIAL_NETWORKS.find(socialNetwork => socialNetwork.resourceOwner == SOCIAL_NETWORKS_NAMES.FACEBOOK);
+            const resource = facebookNetwork.resourceOwner;
+            const scope = facebookNetwork.scope;
+            this.loginByResourceOwner(resource, scope);
+        } else {
+            this.promise = getVersion().then((response) => {
+                var lastVersion = moment(response, 'DD [de] MMMM [de] YYYY');
+                var thisVersion = moment(LAST_RELEASE_DATE, 'DD [de] MMMM [de] YYYY');
+                this.setState({needsUpdating: lastVersion > thisVersion});
+            });
+        }
     }
 
     componentWillUnmount() {
         destroySwiper();
-        this.promise.cancel();
+        if (this.promise) {
+            this.promise.cancel();
+        }
     }
 
     loginAsGuest = function() {
@@ -138,9 +152,14 @@ export default class HomePage extends Component {
 
     render() {
         const {strings} = this.props;
+        const {loginUser, registeringUser} = this.state;
 
         return (
-            this.state.registeringUser ? <div className="view view-main home-view"><EmptyMessage text={strings.loadingMessage} loadingGif={true}/></div> :
+            registeringUser || loginUser ?
+                <div className="view view-main home-view">
+                    <EmptyMessage text={registeringUser ? strings.registeringUser : strings.loginUser} loadingGif={true}/>
+                </div>
+                :
                 <div className="view view-main home-view">
                     <div className="swiper-container swiper-init" data-speed="400" data-space-between="40" data-pagination=".swiper-pagination">
                         <div className="linear-gradient-rectangle"></div>
@@ -185,15 +204,16 @@ export default class HomePage extends Component {
 
 HomePage.defaultProps = {
     strings: {
-        title1        : 'Discover contents of the topics that interest you',
-        title2        : 'Connect only with most compatible people with you',
-        title3        : 'You decide the information you share',
-        update        : 'Update',
-        login         : 'Login with Facebook',
-        hasInvitation : 'Do you have an invitation?',
-        register      : 'Register',
-        loadingMessage: 'Registering user',
-        wantGuest     : 'Do you want to try it?',
-        asGuest       : 'Enter as guest'
+        title1         : 'Discover contents of the topics that interest you',
+        title2         : 'Connect only with most compatible people with you',
+        title3         : 'You decide the information you share',
+        update         : 'Update',
+        login          : 'Login with Facebook',
+        hasInvitation  : 'Do you have an invitation?',
+        register       : 'Register',
+        loginUser      : 'Trying to login user',
+        registeringUser: 'Registering user',
+        wantGuest      : 'Do you want to try it?',
+        asGuest        : 'Enter as guest'
     }
 };

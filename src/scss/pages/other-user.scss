@@ -70,12 +70,12 @@ body #root .App .view .page.other-user-page {
         padding-left: 50%;
       }
 
-      .profile-data, .profile-about-me {
+      .profile-data {
         display: table;
         padding: 5px;
         width: 100%;
 
-        span {
+        > span {
           width: 50%;
           margin-top: 5px;
         }
@@ -90,7 +90,7 @@ body #root .App .view .page.other-user-page {
           margin-right: 5%;
           width: 45%;
         }
-        .profile-about-me-value {
+        .profile-data-value-long {
           margin-top: 1.5ex;
           width: 100%;
           margin-bottom: 3ex;
@@ -99,9 +99,10 @@ body #root .App .view .page.other-user-page {
             cursor: pointer;
           }
         }
-        .profile-about-me-name {
+        .profile-data-name-long {
           font-weight: bold;
           width: 100%;
+          margin-top: 5px;
         }
       }
     }

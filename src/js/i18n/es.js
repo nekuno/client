@@ -283,8 +283,7 @@ export default {
         compatibility   : 'Compatibilidad',
         similarity      : 'Similitud'
     },
-    ProfileAboutMe                   : {
-        aboutMe: 'Sobre mi',
+    ProfileData                      : {
         seeLess: 'Ver menos',
         seeMore: 'Ver más'
     },

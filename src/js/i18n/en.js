@@ -280,8 +280,7 @@ export default {
         compatibility   : 'compatibility',
         similarity      : 'similarity'
     },
-    ProfileAboutMe                   : {
-        aboutMe: 'About me',
+    ProfileData                      : {
         seeLess: 'See less',
         seeMore: 'See more'
     },

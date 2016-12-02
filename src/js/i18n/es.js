@@ -273,7 +273,6 @@ export default {
     },
     ProfileDataList                  : {
         cannotRemove: 'Este campo no se puede eliminar',
-        aboutMe     : 'Sobre mi',
     },
     OtherProfileData                 : {
         coincidences    : 'Coincidencias',
@@ -281,8 +280,7 @@ export default {
         compatibility   : 'Compatibilidad',
         similarity      : 'Similitud'
     },
-    ProfileAboutMe                   : {
-        aboutMe: 'Sobre mi',
+    ProfileData                      : {
         seeLess: 'Ver menos',
         seeMore: 'Ver más'
     },

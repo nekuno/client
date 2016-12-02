@@ -92,8 +92,10 @@ export default class RecommendationUserDetails extends Component {
     }
 
     render() {
-        const {recommendation, profileWithMetadata, questions, otherQuestions, questionsPagination, isLoadingComparedQuestions,
-            interests, interestsPagination, isLoadingComparedInterests, userId, ownPicture, currentTab, noInterests, strings} = this.props;
+        const {
+            recommendation, profileWithMetadata, questions, otherQuestions, questionsPagination, isLoadingComparedQuestions,
+            interests, interestsPagination, isLoadingComparedInterests, userId, ownPicture, currentTab, noInterests, strings
+        } = this.props;
         const defaultSrc = 'img/no-img/big.jpg';
         let imgSrc = recommendation.photo ? recommendation.photo.thumbnail.big : defaultSrc;
         let ownImgSrc = ownPicture ? ownPicture : defaultSrc;
@@ -107,14 +109,14 @@ export default class RecommendationUserDetails extends Component {
                         </div>
                         <div className="other-user-link-text">{strings.questions}</div>
                     </div>
-                : currentTab == 'interests' ?
+                    : currentTab == 'interests' ?
                     <div className="other-user-links single" onClick={this.onBackLinkClick}>
                         <div className="other-user-link-back">
                             <span className="icon-left-arrow"></span>
                         </div>
                         <div className="other-user-link-text">{strings.interests}</div>
                     </div>
-                :
+                    :
                     <div className="other-user-links">
                         <div className="other-user-questions-link"
                              onClick={this.onQuestionsLinkClick}>{strings.questions}</div>
@@ -123,16 +125,17 @@ export default class RecommendationUserDetails extends Component {
                     </div>
                 }
                 {currentTab == 'questions' ?
-                    <div className={"other-questions-container paginated paginated-" +  + recommendation.id}>
+                    <div className={"other-questions-container paginated paginated-" + +recommendation.id}>
                         <div className="other-questions-stats-title title">{questionsPagination.total || 0} {strings.coincidences}</div>
                         <OtherQuestionList otherQuestions={otherQuestions} questions={questions}
                                            userId={recommendation.id} ownPicture={ownImgSrc}
                                            otherPicture={imgSrc}/>
                         {isLoadingComparedQuestions ? <div className="loading-gif" style={questionsPagination.nextLink ? {} : {display: 'none'}}></div> : null}
                     </div>
-                : currentTab == 'interests' ?
-                    <div className={"other-interests-container paginated paginated-" +  + recommendation.id}>
-                        <div className="title">{isLoadingComparedInterests ? <span className="icon-spinner rotation-animation"></span> : this.state.commonContent ? strings.similarInterestsCount.replace('%count%', interestsPagination.total || 0) : strings.interestsCount.replace('%count%', interestsPagination.total || 0)}</div>
+                    : currentTab == 'interests' ?
+                    <div className={"other-interests-container paginated paginated-" + +recommendation.id}>
+                        <div className="title">{isLoadingComparedInterests ?
+                            <span className="icon-spinner rotation-animation"></span> : this.state.commonContent ? strings.similarInterestsCount.replace('%count%', interestsPagination.total || 0) : strings.interestsCount.replace('%count%', interestsPagination.total || 0)}</div>
                         <div className="common-content-switch">
                             <TextRadios labels={[{key: 0, text: strings.all}, {key: 1, text: strings.common}]} value={this.state.commonContent} onClickHandler={this.onFilterCommonClick}/>
                         </div>
@@ -144,10 +147,9 @@ export default class RecommendationUserDetails extends Component {
                         <br />
                         {isLoadingComparedInterests ? <div className="loading-gif" style={interestsPagination.nextLink ? {} : {display: 'none'}}></div> : null}
                     </div>
-                :
+                    :
                     <div>
-                        <OtherProfileDataList profile={recommendation.profile}
-                                              profileWithMetadata={profileWithMetadata}/>
+                        <OtherProfileDataList profileWithMetadata={profileWithMetadata}/>
                     </div>
                 }
             </div>

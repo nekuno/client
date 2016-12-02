@@ -4,21 +4,32 @@ export default class TextArea extends Component {
 
     static propTypes = {
         placeholder : PropTypes.string.isRequired,
+        title       : PropTypes.string.isRequired,
         defaultValue: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
         style       : PropTypes.object,
-        doNotFocus  : PropTypes.bool,
+        focus       : PropTypes.bool,
         onChange    : PropTypes.func
     };
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
 
         this.onFocusHandler = this.onFocusHandler.bind(this);
+        this.onChange = this.onChange.bind(this);
+        this.state = {
+            value: props.defaultValue || ''
+        };
     }
 
     componentDidMount() {
-        if (!this.props.doNotFocus) {
+        if (this.props.focus) {
             this.focus();
+        }
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (this.state.value !== nextProps.defaultValue && nextProps.defaultValue !== null) {
+            this.setState({value: nextProps.defaultValue});
         }
     }
 
@@ -30,27 +41,34 @@ export default class TextArea extends Component {
         this.refs.textarea.focus();
     }
 
-    render() {
-        const {placeholder, defaultValue, style, onChange} = this.props;
-        return (
-            <li>
-                <textarea ref="textarea"
-                          placeholder={placeholder}
-                          style={style}
-                          onChange={onChange}
-                          defaultValue={defaultValue}
-                          onFocus={this.onFocusHandler}/>
-            </li>
-        );
-    }
-
     onFocusHandler() {
         let textareaElem = this.refs.textarea;
         if (textareaElem) {
-            window.setTimeout(function () {
+            window.setTimeout(function() {
                 textareaElem.scrollIntoView();
                 document.getElementsByClassName('view')[0].scrollTop -= 100;
             }, 500);
         }
     }
+
+    onChange() {
+        this.setState({value: this.getValue()});
+        this.props.onChange();
+    }
+
+    render() {
+        const {placeholder, title, style} = this.props;
+        return (
+            <li>
+                { this.state.value ? <div className="textarea-title">{title}</div> : null}
+                <textarea ref="textarea"
+                          placeholder={placeholder}
+                          style={style}
+                          onChange={this.onChange}
+                          value={this.state.value}
+                          onFocus={this.onFocusHandler}/>
+            </li>
+        );
+    }
+
 }

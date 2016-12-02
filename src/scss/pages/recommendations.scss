@@ -114,12 +114,12 @@ body #root .App {
               width: 92%;
             }
 
-            .profile-data, .profile-about-me {
+            .profile-data {
               display: table;
               padding: 5px 8%;
               width: 84%;
 
-              span {
+              > span {
                 width: 50%;
                 margin-top: 5px;
               }
@@ -134,7 +134,7 @@ body #root .App {
                 margin-right: 5%;
                 width: 45%;
               }
-              .profile-about-me-value {
+              .profile-data-value-long {
                 margin-top: 1.5ex;
                 width: 100%;
                 margin-bottom: 3ex;
@@ -143,9 +143,10 @@ body #root .App {
                   cursor: pointer;
                 }
               }
-              .profile-about-me-name {
+              .profile-data-name-long {
                 font-weight: bold;
                 width: 100%;
+                margin-top: 5px;
               }
             }
           }

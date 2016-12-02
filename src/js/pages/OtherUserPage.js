@@ -275,17 +275,17 @@ export default class OtherUserPage extends Component {
                                     {otherUser.username}
                                 </div>
                                 <div className="user-description">
-                                    <span className="icon-marker"></span> {location} -
+                                    <span className="icon-marker" /> {location} -
                                     <span className="age"> {strings.age}: {age}</span> -
                                     <span className="gender"> {gender}</span>
                                 </div>
                                 {online ? <div className="online-status">Online</div> : null}
                                 <div className="send-message-button icon-wrapper icon-wrapper-with-text" onClick={this.handleClickMessageLink}>
-                                    <span className="icon-message"></span>
+                                    <span className="icon-message" />
                                     <span className="text">{strings.message}</span>
                                 </div>
                                 <div className="like-button icon-wrapper" onClick={like !== null ? this.onRate : null}>
-                                    <span className={like === null ? 'icon-spinner rotation-animation' : like && like !== -1 ? 'icon-star yellow' : 'icon-star'}></span>
+                                    <span className={like === null ? 'icon-spinner rotation-animation' : like && like !== -1 ? 'icon-star yellow' : 'icon-star'} />
                                 </div>
                                 <div className="other-profile-wrapper bold">
                                     <OtherProfileData matching={matching} similarity={similarity} stats={comparedStats} ownImage={ownPicture}
@@ -294,7 +294,7 @@ export default class OtherUserPage extends Component {
                                                       questionsUrl={`/users/${parseId(otherUser)}/other-questions`}/>
                                 </div>
                             </div>
-                            <OtherProfileDataList profile={profile} profileWithMetadata={profileWithMetadata}/>
+                            <OtherProfileDataList profileWithMetadata={profileWithMetadata}/>
                             <br />
                             <br />
                             <br />

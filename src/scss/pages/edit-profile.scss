@@ -15,9 +15,13 @@ body #root .App .view .page.user-page  {
       padding-left: 50%;
     }
 
+    .profile-field.textarea-filter {
+      display: block;
+      height: 100%;
+      margin-bottom: -20px;
+      margin-top: -35px;
+    }
     .textarea-filter-wrapper {
-      height: 100px;
-      min-width: 250px;
       width: 100%;
 
       .list-block {
@@ -27,6 +31,7 @@ body #root .App .view .page.user-page  {
           .textarea-title {
             font-size: 0.8em;
             font-weight: bold;
+            max-width: 90%;
           }
           textarea {
             display: block;
@@ -88,6 +93,7 @@ body #root .App .view .page.user-page  {
         cursor: pointer;
         right: 10%;
         position: absolute;
+        z-index: 11;
       }
 
       .text-radios {
@@ -283,7 +289,13 @@ body #root .App .view .page.user-page  {
 
     @media only screen and (max-width: 300px) {
       .textarea-filter-wrapper {
-        min-width: 230px;
+        .list-block {
+          li {
+            .textarea-title {
+              max-width: 70%;
+            }
+          }
+        }
       }
       .profile-field {
         .profile-field-background {

@@ -131,6 +131,9 @@ export default class HomePage extends Component {
                     });
             },
             (status) => {
+                this.setState({
+                    loginUser: false
+                });
                 nekunoApp.alert(resource + ' login failed: ' + status.error.message)
             });
     }

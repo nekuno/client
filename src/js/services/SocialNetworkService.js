@@ -36,7 +36,8 @@ class SocialNetworkService {
                     return hello(resource).login({scope: scope, force: force}).then(
                         (response) => this._setResourceData(resource, response),
                         (error) => {
-                            console.log(error)
+                            console.log(error);
+                            return Promise.reject(error);
                         }
                     );
                 }
@@ -45,7 +46,8 @@ class SocialNetworkService {
             return hello(resource).login({scope: scope, force: force}).then(
                 (response) => this._setResourceData(resource, response),
                 (error) => {
-                    console.log(error)
+                    console.log(error);
+                    return Promise.reject(error);
                 }
             );
         }

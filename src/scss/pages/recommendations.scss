@@ -112,6 +112,10 @@ body #root .App {
               padding-left: 8%;
               padding-bottom: 1px;
               width: 92%;
+
+              h3 {
+                font-size: 1.3em;
+              }
             }
 
             .profile-data {
@@ -147,6 +151,7 @@ body #root .App {
                 font-weight: bold;
                 width: 100%;
                 margin-top: 5px;
+                font-size: 1.2em;
               }
             }
           }

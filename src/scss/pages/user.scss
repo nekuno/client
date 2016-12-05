@@ -18,6 +18,10 @@ body #root .App .view .page.user-page {
         padding-top: 1px;
         padding-bottom: 1px;
         padding-left: 50%;
+
+        h3 {
+          font-size: 1.3em;
+        }
       }
 
       .profile-data {
@@ -67,6 +71,7 @@ body #root .App .view .page.user-page {
           font-weight: bold;
           width: 100%;
           margin-top: 5px;
+          font-size: 1.2em;
         }
       }
     }

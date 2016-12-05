@@ -39,17 +39,20 @@ export default class IntegerRangeFilter extends Component {
         const maxValue = filter.max;
         let error = '';
         if (selected && !nextProps.selected) {
-            if (typeof valueMin !== 'number' || isNaN(valueMin) || typeof valueMax !== 'number' || isNaN(valueMax)) {
+
+            if (null !== valueMin && isNaN(valueMin)) {
                 error += strings.value + '.\n';
             }
-            if (valueMin < minValue || valueMax < minValue) {
+
+            if ((null !== valueMin && valueMin < minValue ) || (null !== valueMax && valueMax < minValue)) {
                 error += strings.minValue + minValue + '.\n';
             }
-            if (valueMin > maxValue || valueMax > maxValue) {
+
+            if ((null !== valueMin && valueMin > maxValue ) || (null !== valueMax && valueMax > maxValue)) {
                 error += strings.maxValue + maxValue + '.\n';
             }
 
-            if (!error && valueMax < valueMin) {
+            if (!error && null !== valueMax && null !== valueMin && valueMax < valueMin) {
                 error += strings.minMaxValue + '.\n';
             }
 
@@ -66,8 +69,8 @@ export default class IntegerRangeFilter extends Component {
 
     handleChangeIntegerInput() {
         const {filterKey} = this.props;
-        const valueMin = this.refs[filterKey + '_min'] ? parseInt(this.refs[filterKey + '_min'].getValue()) : 0;
-        const valueMax = this.refs[filterKey + '_max'] ? parseInt(this.refs[filterKey + '_max'].getValue()) : 0;
+        const valueMin = this.refs[filterKey + '_min'].getValue() ? parseInt(this.refs[filterKey + '_min'].getValue()) : null;
+        const valueMax = this.refs[filterKey + '_max'].getValue() ? parseInt(this.refs[filterKey + '_max'].getValue()) : null;
         this.setState({
             valueMin: valueMin,
             valueMax: valueMax
@@ -88,7 +91,7 @@ export default class IntegerRangeFilter extends Component {
                     </div>
                 </ThreadSelectedFilter>
                 :
-                <ThreadUnselectedFilter key={filterKey} filterKey={filterKey} filter={filter} data={data} handleClickFilter={handleClickFilter}/>
+                <ThreadUnselectedFilter key={filterKey} filterKey={filterKey} filter={filter} data={data} handleClickFilter={handleClickFilter} handleClickRemoveFilter={handleClickRemoveFilter}/>
         );
     }
 }

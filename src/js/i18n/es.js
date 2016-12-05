@@ -36,16 +36,17 @@ export default {
         cannotRemove: 'Este campo no se puede eliminar'
     },
     HomePage                         : {
-        title1        : 'Descubre contenidos de los temas que más te interesan',
-        title2        : 'Conecta sólo con las personas compatibles contigo',
-        title3        : 'Tú decides la información que compartes',
-        update        : 'Actualizar',
-        login         : 'Iniciar sesión con Facebook',
-        hasInvitation : '¿Tienes una invitación?',
-        register      : 'Regístrate',
-        loadingMessage: 'Registrando usuario',
-        wantGuest     : '¿Quieres probarlo?',
-        asGuest       : 'Entra como invitado'
+        title1         : 'Descubre contenidos de los temas que más te interesan',
+        title2         : 'Conecta sólo con las personas compatibles contigo',
+        title3         : 'Tú decides la información que compartes',
+        update         : 'Actualizar',
+        login          : 'Iniciar sesión con Facebook',
+        hasInvitation  : '¿Tienes una invitación?',
+        register       : 'Regístrate',
+        loginUser      : 'Intentando iniciar sesión',
+        registeringUser: 'Registrando usuario',
+        wantGuest      : '¿Quieres probarlo?',
+        asGuest        : 'Entra como invitado'
     },
     InterestsPage                    : {
         cancel   : 'Cancelar',
@@ -181,8 +182,10 @@ export default {
         tutorialThirdStep      : 'Este es el botón para abrir el menú y este punto verde indica que tienes mensajes nuevos. ¡Te invitamos a que explores todo Nekuno! ¡Gracias por participar en esta Beta privada!'
     },
     DiscoverPage                     : {
-        discover               : 'Descubrir',
-        loadingMessage         : 'Cargando recomendaciones'
+        discover         : 'Descubrir',
+        loadingMessage   : 'Cargando recomendaciones',
+        noRecommendations: 'No hay recomendaciones con los filtros seleccionados'
+
     },
     DiscoverLitePage                 : {
         discover      : 'Descubrir',
@@ -270,7 +273,6 @@ export default {
     },
     ProfileDataList                  : {
         cannotRemove: 'Este campo no se puede eliminar',
-        aboutMe     : 'Sobre mi',
     },
     OtherProfileData                 : {
         coincidences    : 'Coincidencias',
@@ -278,8 +280,7 @@ export default {
         compatibility   : 'Compatibilidad',
         similarity      : 'Similitud'
     },
-    ProfileAboutMe                   : {
-        aboutMe: 'Sobre mi',
+    ProfileData                      : {
         seeLess: 'Ver menos',
         seeMore: 'Ver más'
     },
@@ -360,6 +361,11 @@ export default {
         title    : '¿Quieres que hilemos más fino?',
         text     : 'Responde más preguntas',
         completed: 'Preguntas completadas'
+    },
+    SocialNetworksBanner             : {
+        title         : '¿Quieres que hilemos más fino?',
+        text          : 'Descubramos automáticamente tus intereses',
+        publishMessage: 'No públicaremos nada'
     },
     ProcessesProgress                : {
         title                   : 'Estamos reprocesando tus datos',

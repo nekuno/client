@@ -19,6 +19,7 @@ import SimilarityStore from '../stores/SimilarityStore';
 import BlockStore from '../stores/BlockStore';
 import LikeStore from '../stores/LikeStore';
 import GalleryPhotoStore from '../stores/GalleryPhotoStore';
+import ChatUserStatusStore from '../stores/ChatUserStatusStore';
 import selectn from 'selectn';
 
 function parseId(user) {
@@ -94,6 +95,7 @@ function getState(props) {
     const photos = GalleryPhotoStore.get(otherUserId);
     const noPhotos = GalleryPhotoStore.noPhotos(otherUserId);
     const ownProfile = ProfileStore.get(parseId(user));
+    const online = ChatUserStatusStore.isOnline(otherUserId) || false;
 
     return {
         otherUser,
@@ -107,7 +109,8 @@ function getState(props) {
         user,
         photos,
         noPhotos,
-        ownProfile
+        ownProfile,
+        online
     };
 }
 
@@ -135,7 +138,7 @@ function unsetLikeUser(props) {
 
 @AuthenticatedComponent
 @translate('OtherUserPage')
-@connectToStores([UserStore, ProfileStore, MatchingStore, SimilarityStore, BlockStore, LikeStore, ComparedStatsStore, GalleryPhotoStore], getState)
+@connectToStores([UserStore, ProfileStore, MatchingStore, SimilarityStore, BlockStore, LikeStore, ComparedStatsStore, GalleryPhotoStore, ChatUserStatusStore], getState)
 export default class OtherUserPage extends Component {
     static propTypes = {
         // Injected by React Router:
@@ -157,7 +160,8 @@ export default class OtherUserPage extends Component {
         comparedStats      : PropTypes.object,
         photos             : PropTypes.array,
         noPhotos           : PropTypes.bool,
-        ownProfile         : PropTypes.object
+        ownProfile         : PropTypes.object,
+        online             : PropTypes.bool
     };
     static contextTypes = {
         history: PropTypes.object.isRequired
@@ -228,7 +232,7 @@ export default class OtherUserPage extends Component {
     }
 
     render() {
-        const {user, otherUser, profile, profileWithMetadata, matching, similarity, block, like, comparedStats, photos, noPhotos, strings} = this.props;
+        const {user, otherUser, profile, profileWithMetadata, matching, similarity, block, like, comparedStats, photos, noPhotos, online, strings} = this.props;
         const otherPictureSmall = selectn('photo.thumbnail.small', otherUser);
         const otherPictureBig = selectn('photo.thumbnail.big', otherUser);
         const ownPicture = selectn('photo.thumbnail.small', user);
@@ -271,16 +275,17 @@ export default class OtherUserPage extends Component {
                                     {otherUser.username}
                                 </div>
                                 <div className="user-description">
-                                    <span className="icon-marker"></span> {location} -
+                                    <span className="icon-marker" /> {location} -
                                     <span className="age"> {strings.age}: {age}</span> -
                                     <span className="gender"> {gender}</span>
                                 </div>
+                                {online ? <div className="online-status">Online</div> : null}
                                 <div className="send-message-button icon-wrapper icon-wrapper-with-text" onClick={this.handleClickMessageLink}>
-                                    <span className="icon-message"></span>
+                                    <span className="icon-message" />
                                     <span className="text">{strings.message}</span>
                                 </div>
                                 <div className="like-button icon-wrapper" onClick={like !== null ? this.onRate : null}>
-                                    <span className={like === null ? 'icon-spinner rotation-animation' : like && like !== -1 ? 'icon-star yellow' : 'icon-star'}></span>
+                                    <span className={like === null ? 'icon-spinner rotation-animation' : like && like !== -1 ? 'icon-star yellow' : 'icon-star'} />
                                 </div>
                                 <div className="other-profile-wrapper bold">
                                     <OtherProfileData matching={matching} similarity={similarity} stats={comparedStats} ownImage={ownPicture}
@@ -289,7 +294,7 @@ export default class OtherUserPage extends Component {
                                                       questionsUrl={`/users/${parseId(otherUser)}/other-questions`}/>
                                 </div>
                             </div>
-                            <OtherProfileDataList profile={profile} profileWithMetadata={profileWithMetadata}/>
+                            <OtherProfileDataList profileWithMetadata={profileWithMetadata}/>
                             <br />
                             <br />
                             <br />

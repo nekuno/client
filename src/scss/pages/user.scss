@@ -20,12 +20,12 @@ body #root .App .view .page.user-page {
         padding-left: 50%;
       }
 
-      .profile-data, .profile-about-me {
+      .profile-data {
         display: table;
         padding: 5px;
         width: 100%;
 
-        span {
+        > span {
           width: 50%;
           margin-top: 5px;
         }
@@ -40,18 +40,33 @@ body #root .App .view .page.user-page {
           margin-right: 5%;
           width: 45%;
         }
-        .profile-about-me-value {
+        .profile-data-value-long {
           margin-top: 1.5ex;
           width: 100%;
           margin-bottom: 3ex;
+          overflow-wrap: break-word;
+          word-wrap: break-word;
+          //https://css-tricks.com/snippets/css/prevent-long-urls-from-breaking-out-of-container/
+          -ms-word-break: break-all;
+          /* This is the dangerous one in WebKit, as it breaks things wherever */
+          word-break: break-all;
+          /* Instead use this non-standard one: */
+          word-break: break-word;
+
+          /* Adds a hyphen where the word breaks, if supported (No Blink) */
+          -ms-hyphens: auto;
+          -moz-hyphens: auto;
+          -webkit-hyphens: auto;
+          hyphens: auto;
           .see-more {
             color: $deep-purple;
             cursor: pointer;
           }
         }
-        .profile-about-me-name {
+        .profile-data-name-long {
           font-weight: bold;
           width: 100%;
+          margin-top: 5px;
         }
       }
     }

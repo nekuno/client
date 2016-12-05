@@ -33,7 +33,7 @@ export default class App extends Component {
                 <div className="App">
                     { isLoggedIn ? <LeftPanel/> : '' }
                     <div className="views">
-                        {children ? children : <HomePage />}
+                        {children ? children : <HomePage {...this.props}/>}
                     </div>
                     { isGuest ? <GuestBanner/> : ''}
                 </div>

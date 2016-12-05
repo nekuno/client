@@ -58,10 +58,11 @@ const ProfileStore = createStore({
                 let field = category.fields[id];
                 let name = null;
                 let value = '';
+                let type = null;
 
                 if (selectn(field, basicProfile) && selectn(field, metadata)) {
                     const thisMetadata = metadata[field];
-                    const type = thisMetadata.type;
+                    type = thisMetadata.type;
                     name = thisMetadata.label;
                     value = '';
                     switch (type) {
@@ -132,8 +133,9 @@ const ProfileStore = createStore({
                     }
                 }
                 fields[field] = {
-                    text: name,
-                    value: value.toString()
+                    text : name,
+                    value: value.toString(),
+                    type : type
                 }
             });
 

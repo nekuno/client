@@ -6,6 +6,7 @@ import ChipList from './../components/ui/ChipList';
 import QuestionsBanner from '../components/questions/QuestionsBanner';
 import ProcessesProgress from '../components/processes/ProcessesProgress';
 import OrientationRequiredPopup from '../components/ui/OrientationRequiredPopup';
+import SocialNetworksBanner from '../components/socialNetworks/SocialNetworksBanner';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
@@ -52,15 +53,19 @@ function getState(props) {
     let thread = ThreadStore.getAll().find((thread) => {
             let items = RecommendationStore.get(parseThreadId(thread)) || [];
             return items.length > 0 && thread.category === 'ThreadUsers';
+        }) || ThreadStore.getAll().find((thread) => {
+            return thread.category === 'ThreadUsers';
         }) || {};
+    let isLoadingRecommendations = true;
     if (parseThreadId(thread)) {
         if (Object.keys(thread).length !== 0) {
             thread.isEmpty = RecommendationStore.isEmpty(parseThreadId(thread));
+            isLoadingRecommendations = !RecommendationStore.get(parseThreadId(thread)) || RecommendationStore.isLoadingRecommendations(parseThreadId(thread));
         }
         filters = FilterStore.filters;
         recommendations = RecommendationStore.get(parseThreadId(thread)) ? RecommendationStore.get(parseThreadId(thread)) : [];
     }
-    let isLoadingRecommendations = RecommendationStore.isLoadingRecommendations(parseThreadId(thread));
+    const networks = WorkersStore.getAll();
 
     return {
         profile,
@@ -69,7 +74,8 @@ function getState(props) {
         filters,
         recommendations,
         thread,
-        isLoadingRecommendations
+        isLoadingRecommendations,
+        networks
     };
 }
 
@@ -90,7 +96,8 @@ export default class DiscoverPage extends Component {
         filters                 : PropTypes.object,
         recommendations         : PropTypes.array,
         thread                  : PropTypes.object,
-        isLoadingRecommendations: PropTypes.bool
+        isLoadingRecommendations: PropTypes.bool,
+        networks                : PropTypes.array.isRequired,
     };
 
     static contextTypes = {
@@ -160,7 +167,9 @@ export default class DiscoverPage extends Component {
     };
 
     render() {
-        const {user, profile, strings, pagination, isSomethingWorking, filters, recommendations, thread, isLoadingRecommendations} = this.props;
+        const {user, profile, strings, pagination, isSomethingWorking, filters, recommendations, thread, isLoadingRecommendations, networks} = this.props;
+        const connectedNetworks = networks.filter(network => network.fetching || network.fetched || network.processing || network.processed);
+
         return (
             <div className="view view-main" onScroll={this.handleScroll}>
                 {Object.keys(thread).length > 0 ?
@@ -170,8 +179,13 @@ export default class DiscoverPage extends Component {
                     <div id="page-content">
                         {this.renderChipList(thread, filters)}
                         <ProcessesProgress />
-                        {profile && filters && thread ? <QuestionsBanner user={user} questionsTotal={pagination.total || 0}/> : '' }
-                        {profile && recommendations.length > 0 ? <CardUserList recommendations={recommendations} userId={user.id} profile={profile} handleSelectProfile={this.selectProfile}/> : <EmptyMessage text={strings.loadingMessage} loadingGif={true}/>}
+                        {profile && filters && thread && pagination.total <= 100 ? <QuestionsBanner user={user} questionsTotal={pagination.total || 0}/>
+                            : profile && filters && thread && connectedNetworks.length < 3 ? <SocialNetworksBanner networks={networks} user={user}/>
+                            : '' }
+                        {profile && recommendations.length > 0 ?
+                            <CardUserList recommendations={recommendations} userId={user.id} profile={profile} handleSelectProfile={this.selectProfile}/>
+                            :
+                            <EmptyMessage text={isLoadingRecommendations ? strings.loadingMessage : strings.noRecommendations}/>}
                         <br />
                         <div className="loading-gif" style={isLoadingRecommendations ? {} : {display: 'none'}}></div>
                     </div>
@@ -184,7 +198,8 @@ export default class DiscoverPage extends Component {
 
 DiscoverPage.defaultProps = {
     strings: {
-        discover      : 'Discover',
-        loadingMessage: 'Loading recommendations',
+        discover         : 'Discover',
+        loadingMessage   : 'Loading recommendations',
+        noRecommendations: 'There are no recommendations with selected filters'
     }
 };

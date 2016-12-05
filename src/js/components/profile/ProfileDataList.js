@@ -1,6 +1,5 @@
 import React, { PropTypes, Component } from 'react';
 import ProfileData from './ProfileData';
-import ProfileAboutMe from './ProfileAboutMe';
 import * as UserActionCreators from '../../actions/UserActionCreators';
 import translate from '../../i18n/Translate';
 import connectToStores from '../../utils/connectToStores';
@@ -53,8 +52,8 @@ export default class ProfileDataList extends Component {
         super(props);
 
         this.state = {
-            profile     : {},
-            selectedEdit: null,
+            profile         : {},
+            selectedEdit    : null,
             selectedCategory: null
         };
 
@@ -91,8 +90,7 @@ export default class ProfileDataList extends Component {
         });
     }
 
-    onFilterSelect(key)
-    {
+    onFilterSelect(key) {
         this.setState({
             selectedEdit: key,
         });
@@ -167,7 +165,7 @@ export default class ProfileDataList extends Component {
         }
         if (selectedEdit !== this.state.selectedEdit || selectedCategory !== this.state.selectedCategory) {
             this.setState({
-                selectedEdit: selectedEdit,
+                selectedEdit    : selectedEdit,
                 selectedCategory: selectedCategory
             });
         }
@@ -245,55 +243,45 @@ export default class ProfileDataList extends Component {
     }
 
     render() {
-        const {profile, metadata, profileWithMetadata, strings} = this.props;
 
-        let lines = [];
-        profileWithMetadata.forEach(
-            category => {
-                let iconClass = category.label == this.state.selectedCategory ? 'icon-checkmark' : 'icon-edit';
-                lines.push(
-                    <div key={category.label} ref={this.state.selectedCategory == category.label ? "selectedCategoryEdit" : null}>
-                        <div className="profile-category" ref={category.label == this.state.selectedCategory ? 'selectedCategory' : null}>
-                            <h3>{category.label} <span className="icon-wrapper" onClick={this.onCategoryToggle.bind(this, category.label)}><span className={iconClass}></span></span></h3>
-                        </div>
-                        {this.state.selectedCategory == category.label ?
-                            Object.keys(category.fields).map(field =>
-                                <div key={'parent-' + field}>
-                                    <hr/>
-                                    <br/>
-                                    {this.renderField(profile.hasOwnProperty(field) ? profile : [], metadata, field)}
-                                </div>
-                           )
-                        :
-                            Object.keys(category.fields).map(
-                                profileDataKey =>
-                                    category.fields[profileDataKey].value ? <ProfileData key={profileDataKey} name={category.fields[profileDataKey].text}
-                                                            value={category.fields[profileDataKey].value}/>
-                                    : null
-                                )
-                        }
-                    </div>
-                )
-            }
-        );
+        const {profile, metadata, profileWithMetadata} = this.props;
+
         return (
             <div className="profile-data-list">
-                <div key={'description'} ref={this.state.selectedCategory == 'description' ? "selectedCategoryEdit" : null}>
-                    <div key={'description-category'} className="profile-category" ref={'description' == this.state.selectedCategory ? 'selectedCategory' : null}>
-                        <h3>{strings.aboutMe} <span className="icon-wrapper" onClick={this.onCategoryToggle.bind(this, 'description')}><span className={'description' == this.state.selectedCategory ? 'icon-checkmark' : 'icon-edit'}></span></span></h3>
-                    </div>
-                    {'description' == this.state.selectedCategory ? this.renderField(profile.hasOwnProperty('description') ? profile : [], metadata, 'description') : <ProfileAboutMe value={profile.description || ''}/>}
-                </div>
-                {lines}
+                {profileWithMetadata.map(
+                    category => {
+                        return (
+                            <div key={category.label} ref={this.state.selectedCategory == category.label ? "selectedCategoryEdit" : null}>
+                                <div className="profile-category" ref={category.label == this.state.selectedCategory ? 'selectedCategory' : null}>
+                                    <h3>{category.label} <span className="icon-wrapper" onClick={this.onCategoryToggle.bind(this, category.label)}><span className={category.label == this.state.selectedCategory ? 'icon-checkmark' : 'icon-edit'}/></span></h3>
+                                </div>
+                                {this.state.selectedCategory == category.label ?
+                                    Object.keys(category.fields).map(field =>
+                                        <div key={'parent-' + field}>
+                                            <hr/>
+                                            <br/>
+                                            {this.renderField(profile.hasOwnProperty(field) ? profile : [], metadata, field)}
+                                        </div>
+                                    )
+                                    :
+                                    Object.keys(category.fields).map(
+                                        profileDataKey =>
+                                            category.fields[profileDataKey].value ?
+                                                <ProfileData key={profileDataKey} name={category.fields[profileDataKey].text} value={category.fields[profileDataKey].value} forceLong={category.fields[profileDataKey].type === 'textarea'}/>
+                                                : null
+                                    )
+                                }
+                            </div>
+                        )
+                    }
+                )}
             </div>
         );
     }
-
 }
 
 ProfileDataList.defaultProps = {
     strings: {
-        aboutMe     : 'About Me',
         cannotRemove: 'This field cannot be deleted'
     }
 };

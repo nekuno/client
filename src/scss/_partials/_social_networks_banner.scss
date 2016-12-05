@@ -1,0 +1,50 @@
+body #root .App .view {
+  .social-networks-link-container {
+    background-color: $deep-purple;
+    left: 0;
+    max-width: 480px;
+    padding: 10px 5%;
+    position: relative;
+    right: 0;
+    text-align: center;
+
+    div {
+      color: white;
+
+      .social-networks-link-title {
+        font-size: 1.428571429em;
+        font-weight: bold;
+        height: 55px;
+      }
+
+      .social-networks-link-stats {
+        font-size: 0.857142857em;
+        margin-top: 10px;
+
+        .spinner-wrapper {
+          margin: auto;
+          font-size: 0.8em;
+        }
+        p {
+          margin: 0;
+        }
+      }
+      .social-networks-link-picture {
+        float: right;
+        max-height: 45px;
+        margin-bottom: -90px;
+        margin-top: -35px;
+        overflow: hidden;
+        width: 90px;
+        -webkit-backface-visibility: hidden;
+
+        img {
+          border-radius: 50%;
+          -moz-border-radius: 50%;
+          -webkit-border-radius: 50%;
+          width: 90px;
+        }
+      }
+    }
+  }
+}

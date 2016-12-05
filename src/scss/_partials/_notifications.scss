@@ -16,6 +16,12 @@
 			-webkit-border-radius: 50%;
 			width: 100%;
 		}
+		.status-online {
+			color: $light-green;
+			text-align: center;
+			font-weight: bold;
+			font-size: 0.9em;
+		}
 	}
 	.notification-picture-right {
 		margin-right: 0;
@@ -28,11 +34,6 @@
 		.notification-title {
 			.last-notification-title-text {
 				font-weight: bold;
-			}
-			.status-online {
-				color: $light-green;
-				float: right;
-				font-size: 0.6em;
 			}
 		}
 		.notification-excerpt {

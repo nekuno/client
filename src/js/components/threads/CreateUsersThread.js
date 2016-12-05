@@ -269,9 +269,13 @@ export default class CreateUsersThread extends Component {
         });
     }
 
-    handleClickRemoveFilter() {
+    handleClickRemoveFilter(key) {
         let {filters, selectedFilter} = this.state;
-        delete filters[selectedFilter];
+        if (key) {
+            delete filters[key];
+        } else {
+            delete filters[selectedFilter];
+        }
         this.setState({
             filters       : filters,
             selectedFilter: null

@@ -25,6 +25,7 @@ export default class CardUser extends Component {
         loggedUserId  : PropTypes.number.isRequired,
         profile       : PropTypes.object.isRequired,
         handleSelectProfile: PropTypes.func,
+        online        : PropTypes.bool,
 
         // Injected by @translate:
         strings       : PropTypes.object
@@ -62,7 +63,7 @@ export default class CardUser extends Component {
     }
 
     render() {
-        const {location, canSendMessage, like, hideLikeButton, photo, userId, username, matching, age, strings} = this.props;
+        const {location, canSendMessage, like, hideLikeButton, photo, userId, username, matching, age, online, strings} = this.props;
         const subTitle = <div><span className="icon-marker"></span>{location.substr(0, 15)}{location.length > 15 ? '...' : ''} - {strings.age}: {age}</div>;
         const messageButton = canSendMessage ? <span className="icon-message" onClick={this.handleMessage}></span> : '';
         const likeButtonText = like === null ? strings.saving : like ? strings.unlike : strings.like;
@@ -79,6 +80,7 @@ export default class CardUser extends Component {
                     <div className="card-sub-title">
                         {subTitle}
                     </div>
+                    {online ? <div className="online-status">Online</div> : null}
                     {/*<div className="send-message-button icon-wrapper">*/}
                     {/*{messageButton}*/}
                     {/*</div>*/}

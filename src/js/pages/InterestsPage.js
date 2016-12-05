@@ -4,11 +4,13 @@ import ToolBar from '../components/ui/ToolBar';
 import EmptyMessage from '../components/ui/EmptyMessage';
 import FilterContentPopup from '../components/ui/FilterContentPopup';
 import CardContentList from '../components/interests/CardContentList';
+import SocialNetworksBanner from '../components/socialNetworks/SocialNetworksBanner';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
 import * as InterestsActionCreators from '../actions/InterestsActionCreators';
 import InterestStore from '../stores/InterestStore';
+import WorkersStore from '../stores/WorkersStore';
 
 function parseId(user) {
     return user.id;
@@ -25,18 +27,20 @@ function getState(props) {
     const interests = InterestStore.get(userId) || [];
     const noInterests = InterestStore.noInterests(userId) || false;
     const isLoadingOwnInterests = InterestStore.isLoadingOwnInterests();
+    const networks = WorkersStore.getAll();
 
     return {
         pagination,
         interests,
         noInterests,
-        isLoadingOwnInterests
+        isLoadingOwnInterests,
+        networks
     };
 }
 
 @AuthenticatedComponent
 @translate('InterestsPage')
-@connectToStores([InterestStore], getState)
+@connectToStores([InterestStore, WorkersStore], getState)
 export default class InterestsPage extends Component {
 
     static propTypes = {
@@ -48,7 +52,8 @@ export default class InterestsPage extends Component {
         pagination           : PropTypes.object,
         interests            : PropTypes.array.isRequired,
         noInterests          : PropTypes.bool,
-        isLoadingOwnInterests: PropTypes.bool
+        isLoadingOwnInterests: PropTypes.bool,
+        networks             : PropTypes.array.isRequired,
     };
 
     constructor(props) {
@@ -90,14 +95,15 @@ export default class InterestsPage extends Component {
     }
 
     render() {
-
-        const {pagination, interests, noInterests, user, strings} = this.props;
+        const {pagination, interests, noInterests, user, networks, strings} = this.props;
+        const connectedNetworks = networks.filter(network => network.fetching || network.fetched || network.processing || network.processed);
 
         return (
             <div className="view view-main" onScroll={this.handleScroll}>
                 <TopNavBar leftMenuIcon={true} centerText={strings.myProfile} rightIcon={'search'} onRightLinkClickHandler={this.onSearchClick}/>
                 <div className="page interests-page">
                     <div id="page-content" className="interests-content">
+                        {connectedNetworks.length < 4 ? <SocialNetworksBanner networks={networks} user={user}/> : null}
                         {noInterests ?
                             <EmptyMessage text={strings.empty} />
                             :

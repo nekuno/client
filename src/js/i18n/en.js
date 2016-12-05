@@ -36,16 +36,17 @@ export default {
         cannotRemove: 'This field cannot be deleted'
     },
     HomePage                         : {
-        title1        : 'Discover contents of the topics that interest you',
-        title2        : 'Connect only with most compatible people with you',
-        title3        : 'You decide the information you share',
-        update        : 'Update',
-        login         : 'Login with Facebook',
-        hasInvitation : 'Do you have an invitation?',
-        register      : 'Register',
-        loadingMessage: 'Registering user',
-        wantGuest     : 'Do you want to try it?',
-        asGuest       : 'Enter as guest'
+        title1         : 'Discover contents of the topics that interest you',
+        title2         : 'Connect only with most compatible people with you',
+        title3         : 'You decide the information you share',
+        update         : 'Update',
+        login          : 'Login with Facebook',
+        hasInvitation  : 'Do you have an invitation?',
+        register       : 'Register',
+        loginUser      : 'Trying to login user',
+        registeringUser: 'Registering user',
+        wantGuest      : 'Do you want to try it?',
+        asGuest        : 'Enter as guest'
     },
     InterestsPage                    : {
         cancel   : 'Cancel',
@@ -179,8 +180,9 @@ export default {
         tutorialThirdStep      : 'This is the button to open the menu and this green dot indicates you have new messages. We invite you to explore all Nekuno! Thank you for participating in this private Beta!'
     },
     DiscoverPage                     : {
-        discover               : 'Discover',
-        loadingMessage         : 'Loading recommendations'
+        discover         : 'Discover',
+        loadingMessage   : 'Loading recommendations',
+        noRecommendations: 'There are no recommendations with selected filters'
     },
     DiscoverLitePage                 : {
         discover      : 'Discover',
@@ -268,7 +270,6 @@ export default {
     },
     ProfileDataList                  : {
         cannotRemove: 'This field cannot be deleted',
-        aboutMe     : 'About Me',
     },
     OtherProfileData                 : {
         coincidences    : 'Coincidences',
@@ -276,8 +277,7 @@ export default {
         compatibility   : 'compatibility',
         similarity      : 'similarity'
     },
-    ProfileAboutMe                   : {
-        aboutMe: 'About me',
+    ProfileData                      : {
         seeLess: 'See less',
         seeMore: 'See more'
     },
@@ -358,6 +358,11 @@ export default {
         title    : 'Do you want better yarns?',
         text     : 'Answer more test questions',
         completed: 'completed questions'
+    },
+    SocialNetworksBanner             : {
+        title         : 'Do you want us to walk a fine line?',
+        text          : 'Let`s discover your interests automatically',
+        publishMessage: 'We won`t publish anything'
     },
     ProcessesProgress                : {
         title                   : 'We are reprocessing your data',

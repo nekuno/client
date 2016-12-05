@@ -3,6 +3,7 @@ import SelectedEdit from './SelectedEdit';
 import TextArea from '../../ui/TextArea';
 
 export default class TextAreaEdit extends Component {
+
     static propTypes = {
         editKey              : PropTypes.string.isRequired,
         selected             : PropTypes.bool.isRequired,
@@ -38,21 +39,23 @@ export default class TextAreaEdit extends Component {
     }
 
     handleClickRemoveEdit() {
-        const {editKey} = this.props;
-        this.props.handleClickRemoveEdit(editKey);
-        this.setState({
-            value: ''
-        });
+        if (this.props.handleClickRemoveEdit) {
+            const {editKey} = this.props;
+            this.props.handleClickRemoveEdit(editKey);
+            this.setState({
+                value: ''
+            });
+        }
     }
 
     render() {
         const {editKey, selected, metadata} = this.props;
         return (
-            <SelectedEdit key={selected ? 'selected-filter' : editKey} type={'textarea'} plusIcon={true} handleClickRemoveEdit={this.props.handleClickRemoveEdit ? this.handleClickRemoveEdit : null} >
+            <SelectedEdit key={selected ? 'selected-filter' : editKey} type={'textarea'} plusIcon={true} handleClickRemoveEdit={this.handleClickRemoveEdit}>
                 <div className="textarea-filter-wrapper">
                     <div className="list-block">
                         <ul>
-                            <TextArea ref={editKey} placeholder={metadata.labelEdit} defaultValue={this.state.value} onChange={this.onChangeValue}/>
+                            <TextArea ref={editKey} title={metadata.labelEdit} placeholder={metadata.labelEdit} defaultValue={this.state.value} onChange={this.onChangeValue}/>
                         </ul>
                     </div>
                 </div>

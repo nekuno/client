@@ -7,8 +7,16 @@ export default class ThreadUnselectedFilter extends Component {
         filterKey: PropTypes.string.isRequired,
         filter: PropTypes.object.isRequired,
         data: PropTypes.oneOfType([PropTypes.object, PropTypes.array, PropTypes.number, PropTypes.string]),
-        handleClickFilter: PropTypes.func.isRequired
+        handleClickFilter: PropTypes.func.isRequired,
+        handleClickRemoveFilter: PropTypes.func.isRequired
     };
+
+    constructor(props) {
+        super(props);
+
+        this.handleClickFilter = this.handleClickFilter.bind(this);
+        this.handleClickRemoveFilter = this.handleClickRemoveFilter.bind(this);
+    }
     
     render() {
         const {filterKey, filter, data} = this.props;
@@ -19,13 +27,17 @@ export default class ThreadUnselectedFilter extends Component {
                     <span className="icon-circle active"></span>
                 </div>
                 <TextCheckboxes labels={[{key: filterKey, text: FilterStore.getFilterLabel(filter, data)}]}
-                                onClickHandler={this.handleClickFilter.bind(this, filterKey)}
+                                onClickHandler={this.handleClickFilter}
                                 values={FilterStore.isFilterSet(filter, data) ? [filterKey] : []} />
+                <div className="delete-filter icon-wrapper" onClick={this.handleClickRemoveFilter}><span className="icon-delete"></span></div>
                 <div className="table-row"></div>
             </div>
         );
     }
 
+    handleClickRemoveFilter() {
+        this.props.handleClickRemoveFilter(this.props.filterKey);
+    }
 
     handleClickFilter() {
         this.props.handleClickFilter(this.props.filterKey);

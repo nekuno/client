@@ -21,6 +21,15 @@ body #root .App .view .page.create-thread-page  {
       margin-bottom: 10px;
       margin-top: 75px;
     }
+    .delete-filter {
+      height:30px;
+      width: 30px;
+      vertical-align: middle;
+
+      .icon-delete {
+        line-height: 30px;
+      }
+    }
     .thread-title ul li input[type="text"] {
       color: #fff;
       font-size: 1.7em;

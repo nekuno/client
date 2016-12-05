@@ -245,6 +245,9 @@ RecommendationStore.dispatchToken = register(action => {
             _loadingRecommendations[action.threadId] = false;
             RecommendationStore.emitChange();
             break;
+        case ActionTypes.REQUEST_RECOMMENDATIONS:
+            _loadingRecommendations[action.threadId] = true;
+            break;
         case ActionTypes.REQUEST_RECOMMENDATIONS_SUCCESS:
             _recommendations[action.threadId] = _recommendations[action.threadId] || [];
             if (RecommendationStore.areBetter(action.threadId, recommendations)) {
@@ -256,6 +259,7 @@ RecommendationStore.dispatchToken = register(action => {
                     _prevNextUrl[action.threadId] = _nextUrl[action.threadId];
                 }
                 mergeRecommendations(recommendations, _recommendations[action.threadId]);
+                _loadingRecommendations[action.threadId] = false;
                 _nextUrl[action.threadId] = action.response.pagination.nextLink;
                 RecommendationStore.emitChange();
             }

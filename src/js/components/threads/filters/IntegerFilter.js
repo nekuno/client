@@ -76,7 +76,7 @@ export default class IntegerFilter extends Component {
                     </div>
                 </ThreadSelectedFilter>
                 :
-                <ThreadUnselectedFilter key={filterKey} filterKey={filterKey} filter={filter} data={typeof data == 'number' ? data : null} handleClickFilter={handleClickFilter}/>
+                <ThreadUnselectedFilter key={filterKey} filterKey={filterKey} filter={filter} data={typeof data == 'number' ? data : null} handleClickFilter={handleClickFilter} handleClickRemoveFilter={handleClickRemoveFilter}/>
         );
     }
 }

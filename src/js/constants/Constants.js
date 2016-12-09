@@ -1,5 +1,6 @@
 import config from '../config/config';
 
+export const VERSION = require('../../../package.json').version;
 export const API_ROOT = config.API_ROOT;
 export const INVITATIONS_URL = config.INVITATIONS_ROOT + '{token}';
 export const API_URLS = {
@@ -94,7 +95,8 @@ export const GOOGLE_SCOPE = config.GOOGLE_SCOPE;
 export const SPOTIFY_ID = config.SPOTIFY_ID;
 export const SPOTIFY_SCOPE = config.SPOTIFY_SCOPE;
 
-export const TRACKER_ID = config.TRACKER_ID;
+export const TRACKER_ID_WEB = config.TRACKER_ID_WEB;
+export const TRACKER_ID_APP = config.TRACKER_ID_APP;
 export const LAST_RELEASE_DATE = config.LAST_RELEASE_DATE;
 export const INSTANT_HOST = config.INSTANT_HOST;
 

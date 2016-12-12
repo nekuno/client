@@ -69,4 +69,5 @@
         <variable name="APP_ID" value="900844543277969" />
         <variable name="APP_NAME" value="fornekuno" />
     </plugin>
+    <plugin name="cordova-plugin-google-analytics" spec="~1.7.4" />
 </widget>

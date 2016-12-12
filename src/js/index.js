@@ -6,7 +6,9 @@ import Root from './Root';
 import RouterContainer from './services/RouterContainer';
 import LoginActionsCreator from './actions/LoginActionCreators';
 import './vendor/init';
+import AnalyticsService from './services/AnalyticsService';
 
+AnalyticsService.init();
 const history = createHashHistory();
 RouterContainer.set(history);
 LoginActionsCreator.autologin();

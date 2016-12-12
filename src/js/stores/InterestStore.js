@@ -98,7 +98,11 @@ InterestStore.dispatchToken = register(action => {
 
                 if (currentInterest.url == newInterest.url){
                     if (newInterest.processed == 1){
+                        const currentRate = currentInterests[key].rate;
+                        const currentUserRates = currentInterests[key].user_rates;
                         currentInterests[key] = newInterest;
+                        currentInterests[key].rate = currentRate;
+                        currentInterests[key].user_rates = currentUserRates;
                     } else {
                         delete currentInterests[key];
                     }

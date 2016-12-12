@@ -139,20 +139,46 @@ export default class GalleryPage extends Component {
         }
         if (typeof files[0] !== 'undefined') {
             const userId = parseId(this.props.user);
-            this.savePhoto(userId, files[0])
+            this.savePhoto(userId, files[0]);
         }
     }
 
     savePhoto(userId, file) {
-        var fileReader = new FileReader();
+        const MAX_WIDTH = 500;
+        const MAX_HEIGHT = 1000;
 
-        fileReader.onload = function(fileLoadedEvent) {
-            const base64 = fileLoadedEvent.target.result.replace(/^data:image\/(.+);base64,/, "");
+        let reader = new FileReader();
+        reader.onload = function(fileLoadedEvent) {
+            let canvas = document.createElement('canvas');
+            let img = document.createElement("img");
+            img.src = fileLoadedEvent.target.result;
+
+            let ctx = canvas.getContext("2d");
+            ctx.drawImage(img, 0, 0);
+
+            let width = img.width;
+            let height = img.height;
+
+            if (width > height) {
+                if (width > MAX_WIDTH) {
+                    height *= MAX_WIDTH / width;
+                    width = MAX_WIDTH;
+                }
+            } else {
+                if (height > MAX_HEIGHT) {
+                    width *= MAX_HEIGHT / height;
+                    height = MAX_HEIGHT;
+                }
+            }
+            canvas.width = width;
+            canvas.height = height;
+            ctx = canvas.getContext("2d");
+            ctx.drawImage(img, 0, 0, width, height);
             GalleryPhotoActionCreators.postPhoto(userId, {
-                base64: base64
+                base64: canvas.toDataURL("image/png").replace(/^data:image\/(.+);base64,/, "")
             });
         };
-        fileReader.readAsDataURL(file);
+        reader.readAsDataURL(file);
     }
 
     render() {

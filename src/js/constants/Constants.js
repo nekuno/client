@@ -29,7 +29,8 @@ export const API_URLS = {
     OTHER_GALLERY_PHOTOS     : API_ROOT + 'photos/{id}',
 
     OWN_INTERESTS            : API_ROOT + 'content?type[]={type}',
-    COMPARED_INTERESTS       : API_ROOT + 'content/compare/{userId}?type[]={type}&showOnlyCommon={showOnlyCommon}'
+    COMPARED_INTERESTS       : API_ROOT + 'content/compare/{userId}?type[]={type}&showOnlyCommon={showOnlyCommon}',
+    CHECK_IMAGES             : API_ROOT + 'links/images'
 };
 
 export const THREAD_TYPES = {

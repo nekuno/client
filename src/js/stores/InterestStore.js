@@ -87,6 +87,27 @@ InterestStore.dispatchToken = register(action => {
         InterestStore.emitChange();
     }
 
+    if (action.type === 'CHECK_IMAGES_SUCCESS') {
+        const currentInterests = _interests[currentUserId];
+
+        Object.keys(action.response).forEach((key) => {
+            const newInterest = action.response[key];
+
+            Object.keys(currentInterests).forEach((key) => {
+                const currentInterest = currentInterests[key];
+
+                if (currentInterest.url == newInterest.url){
+                    if (newInterest.processed == 1){
+                        currentInterests[key] = newInterest;
+                    } else {
+                        delete currentInterests[key];
+                    }
+                }
+            });
+        });
+
+        InterestStore.emitChange();
+    }
 
     if (action.type === 'LIKE_CONTENT' || action.type === 'DISLIKE_CONTENT' || action.type === 'UNRATE_CONTENT') {
         const { from, to } = action;

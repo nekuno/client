@@ -238,8 +238,8 @@ export default class OtherUserPage extends Component {
         const ownPicture = selectn('photo.thumbnail.small', user);
         const defaultImgBig = 'img/no-img/big.jpg';
         //const blockClass = block ? "icon-block blocked" : "icon-block";
-        const birthdayDataSet = profileWithMetadata.find(profileDataSet => selectn('fields.birthday.value', profileDataSet) !== null);
-        const genderDataSet = profileWithMetadata.find(profileDataSet => selectn('fields.gender.value', profileDataSet) !== null);
+        const birthdayDataSet = profileWithMetadata.find(profileDataSet => typeof selectn('fields.birthday.value', profileDataSet) !== 'undefined');
+        const genderDataSet = profileWithMetadata.find(profileDataSet => typeof selectn('fields.gender.value', profileDataSet) !== 'undefined');
         const age = selectn('fields.birthday.value', birthdayDataSet);
         const gender = selectn('fields.gender.value', genderDataSet);
         const location = selectn('location.locality', profile) || selectn('location.country', profile);

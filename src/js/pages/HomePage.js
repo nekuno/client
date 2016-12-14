@@ -186,6 +186,9 @@ export default class HomePage extends Component {
                             :
                             <div>
                                 <FacebookButton onClickHandler={this.loginByResourceOwner} text={strings.login}/>
+                                <div className="register-sub-title privacy-terms-text">
+                                    <p dangerouslySetInnerHTML={{__html: strings.privacy}}/>
+                                </div>
                                 {/*<div className="register-text-block">*/}
                                 {/*<div onClick={this.goToRegisterPage} className="register-text">*/}
                                 {/*<span>{strings.hasInvitation}</span> <a href="javascript:void(0)">{strings.register}</a>*/}
@@ -217,6 +220,7 @@ HomePage.defaultProps = {
         loginUser      : 'Trying to login user',
         registeringUser: 'Registering user',
         wantGuest      : 'Do you want to try it?',
-        asGuest        : 'Enter as guest'
+        asGuest        : 'Enter as guest',
+        privacy        : 'By registering, you agree to the <a href="https://nekuno.com/legal-notice" target="_blank">Legal Conditions</a> and the Nekuno <a href="https://nekuno.com/privacy-policy" target="_blank">Privacy Policy</a>.'
     }
 };

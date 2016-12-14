@@ -6,6 +6,7 @@ import selectn from 'selectn';
 let _interests = {};
 let _noInterests = {};
 let _pagination = {};
+let _totals = {};
 let _loadingComparedInterests = null;
 let _loadingOwnInterests = null;
 
@@ -26,6 +27,10 @@ const InterestStore = createStore({
         return _pagination[userId];
     },
 
+    getTotals(userId) {
+        return _totals[userId];
+    },
+
     getAll() {
         return _interests;
     },
@@ -42,6 +47,7 @@ const InterestStore = createStore({
 InterestStore.dispatchToken = register(action => {
     const interests = selectn('response.result.items', action);
     const pagination = selectn('response.result.pagination', action);
+    const totals = selectn('response.result.totals', action);
     const userId = selectn('userId', action);
     const otherUserId = selectn('otherUserId', action);
     let currentUserId = otherUserId ? otherUserId : userId;
@@ -71,6 +77,7 @@ InterestStore.dispatchToken = register(action => {
         }
 
         mergeIntoBag(_interests[currentUserId], orderedInterests);
+        _totals[currentUserId] = totals;
         _pagination[currentUserId] = pagination;
         _noInterests[currentUserId] = _interests[currentUserId].length === 0;
         _loadingComparedInterests = false;

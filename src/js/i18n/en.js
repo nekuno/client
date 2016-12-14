@@ -417,6 +417,14 @@ export default {
         people   : 'People',
         channels : 'Channels'
     },
+    FilterContentButtons             : {
+        videos   : 'Videos',
+        audios   : 'Music',
+        photos   : 'Photos',
+        websites : 'All',
+        people   : 'People',
+        channels : 'Channels'
+    },
     OrientationRequiredPopup         : {
         title              : 'Select your sexual orientation sexual to see this yarn',
         orientationRequired: 'Orientation Required',

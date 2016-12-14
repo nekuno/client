@@ -2,7 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import TopNavBar from '../components/ui/TopNavBar';
 import ToolBar from '../components/ui/ToolBar';
 import EmptyMessage from '../components/ui/EmptyMessage';
-import FilterContentPopup from '../components/ui/FilterContentPopup';
+import FilterContentButtons from '../components/ui/FilterContentButtons';
 import CardContentList from '../components/interests/CardContentList';
 import SocialNetworksBanner from '../components/socialNetworks/SocialNetworksBanner';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
@@ -24,6 +24,7 @@ function requestData(props) {
 function getState(props) {
     const userId = parseId(props.user);
     const pagination = InterestStore.getPagination(userId) || {};
+    const totals = InterestStore.getTotals(userId) || {};
     const interests = InterestStore.get(userId) || [];
     const noInterests = InterestStore.noInterests(userId) || false;
     const isLoadingOwnInterests = InterestStore.isLoadingOwnInterests();
@@ -31,6 +32,7 @@ function getState(props) {
 
     return {
         pagination,
+        totals,
         interests,
         noInterests,
         isLoadingOwnInterests,
@@ -50,6 +52,7 @@ export default class InterestsPage extends Component {
         strings              : PropTypes.object,
         // Injected by @connectToStores:
         pagination           : PropTypes.object,
+        totals               : PropTypes.object,
         interests            : PropTypes.array.isRequired,
         noInterests          : PropTypes.bool,
         isLoadingOwnInterests: PropTypes.bool,
@@ -60,7 +63,6 @@ export default class InterestsPage extends Component {
 
         super(props);
 
-        this.onSearchClick = this.onSearchClick.bind(this);
         this.handleScroll = this.handleScroll.bind(this);
     }
 
@@ -78,10 +80,6 @@ export default class InterestsPage extends Component {
         document.getElementsByClassName('view')[0].removeEventListener('scroll', this.handleScroll);
     }
 
-    onSearchClick() {
-        nekunoApp.popup('.popup-filter-contents');
-    };
-
     handleScroll() {
         const {pagination, isLoadingOwnInterests} = this.props;
         let nextLink = pagination && pagination.hasOwnProperty('nextLink') ? pagination.nextLink : null;
@@ -95,15 +93,22 @@ export default class InterestsPage extends Component {
     }
 
     render() {
-        const {pagination, interests, noInterests, user, networks, strings} = this.props;
+        const {pagination, totals, interests, noInterests, user, networks, strings} = this.props;
         const connectedNetworks = networks.filter(network => network.fetching || network.fetched || network.processing || network.processed);
 
         return (
             <div className="view view-main" onScroll={this.handleScroll}>
-                <TopNavBar leftMenuIcon={true} centerText={strings.myProfile} rightIcon={'search'} onRightLinkClickHandler={this.onSearchClick}/>
+                <TopNavBar leftMenuIcon={true} centerText={strings.myProfile}/>
                 <div className="page interests-page">
                     <div id="page-content" className="interests-content">
                         {connectedNetworks.length < 4 ? <SocialNetworksBanner networks={networks} user={user}/> : null}
+                        <FilterContentButtons userId={parseId(user)} contentsCount={pagination.total || 0} ownContent={true}
+                                              linksCount={totals.Link}
+                                              audiosCount={totals.Audio}
+                                              videosCount={totals.Video}
+                                              imagesCount={totals.Image}
+                                              channelsCount={totals.Creator}
+                        />
                         {noInterests ?
                             <EmptyMessage text={strings.empty} />
                             :
@@ -122,7 +127,6 @@ export default class InterestsPage extends Component {
                 {'url': '/questions', 'text': strings.questions},
                 {'url': '/interests', 'text': strings.interests}
                 ]} activeLinkIndex={3} arrowUpLeft={'85%'}/>
-                <FilterContentPopup userId={parseId(user)} contentsCount={pagination.total || 0} ownContent={true}/>
             </div>
         );
     }

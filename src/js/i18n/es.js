@@ -420,6 +420,14 @@ export default {
         people   : 'Personas',
         channels : 'Canales'
     },
+    FilterContentButtons             : {
+        videos   : 'Videos',
+        audios   : 'Música',
+        photos   : 'Fotos',
+        websites : 'Todo',
+        people   : 'Personas',
+        channels : 'Canales'
+    },
     OrientationRequiredPopup         : {
         title              : 'Indícanos tu orientación sexual para ver este ovillo',
         orientationRequired: 'Orientación sexual requerida',

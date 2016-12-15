@@ -99,7 +99,9 @@ export default class CardUser extends Component {
                     {like ?
                         <div className="like-icon-container"><span className="icon-star"></span></div>
                         :
-                        <div className="matching-value">{strings.matching} {matching ? matching + '%' : '0%'}</div>
+                        <div className="matching-value">
+                            <div className="matching-string">{strings.matching}</div><div className="matching-percentage">{matching ? matching + '%' : '0%'}</div>
+                        </div>
                     }
                 </div>
             </div>

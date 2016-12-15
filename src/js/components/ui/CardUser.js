@@ -87,7 +87,7 @@ export default class CardUser extends Component {
                 </div>
                 <div className="card-content">
                     <div className="card-content-inner">
-                        <div className="image fixed-height-image" onClick={this.handleGoToProfile}>
+                        <div className="image fixed-max-height-image" onClick={this.handleGoToProfile}>
                             <Image src={imgSrc} defaultSrc={defaultSrc}/>
                         </div>
                         <div className="matching">

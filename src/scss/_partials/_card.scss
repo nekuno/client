@@ -95,8 +95,8 @@
 				width: 100%;
 				vertical-align: middle;
 			}
-			.image.fixed-height-image {
-				height: 180px;
+			.image.fixed-max-height-image {
+				max-height: 500px;
 				overflow: hidden;
 			}
 			.matching {

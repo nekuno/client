@@ -257,7 +257,7 @@ export default class ProfileDataList extends Component {
                                 </div>
                                 {this.state.selectedCategory == category.label ?
                                     Object.keys(category.fields).map(field =>
-                                        <div key={'parent-' + field}>
+                                        <div key={'parent-' + field} className="profile-category-edition">
                                             <hr/>
                                             <br/>
                                             {this.renderField(profile.hasOwnProperty(field) ? profile : [], metadata, field)}

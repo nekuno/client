@@ -77,35 +77,35 @@ export default class UserPage extends Component {
     render() {
         const {user, profile, metadata, profileWithMetadata, stats, strings} = this.props;
         return (
-            <div className="view view-main">
+            <div className="views">
                 <TopNavBar leftMenuIcon={true} centerText={strings.myProfile}/>
-                <div className="page user-page">
-                    {profile && metadata && stats ?
-                        <div id="page-content">
-                            <User user={user} profile={profile}/>
-                            <div className="user-interests">
-                                <div className="number">
-                                    {stats.numberOfContentLikes || 0}
-                                </div>
-                                <div className="label">{strings.interests}</div>
-                            </div>
-                            <ProfileDataList profile={profile} metadata={metadata} profileWithMetadata={profileWithMetadata}/>
-                            <br />
-                            <br />
-                            <br />
-                            <br />
-                            <br />
-                            <br />
-                        </div>
-                        : ''}
-                </div>
-                {profile && profileWithMetadata && stats ?
-                    <ToolBar links={[
+                <ToolBar links={[
                     {'url': '/profile', 'text': strings.aboutMe},
                     {'url': '/gallery', 'text': strings.photos},
                     {'url': '/questions', 'text': strings.questions},
                     {'url': '/interests', 'text': strings.interests}]} activeLinkIndex={0} arrowUpLeft={'10%'}/>
-                    : ''}
+                <div className="view view-main">
+                    <div className="page user-page">
+                        {profile && metadata && stats ?
+                            <div id="page-content">
+                                <User user={user} profile={profile}/>
+                                <div className="user-interests">
+                                    <div className="number">
+                                        {stats.numberOfContentLikes || 0}
+                                    </div>
+                                    <div className="label">{strings.interests}</div>
+                                </div>
+                                <ProfileDataList profile={profile} metadata={metadata} profileWithMetadata={profileWithMetadata}/>
+                                <br />
+                                <br />
+                                <br />
+                                <br />
+                                <br />
+                                <br />
+                            </div>
+                            : ''}
+                    </div>
+                </div>
             </div>
         );
     }

@@ -63,7 +63,7 @@ body #root .App .view .page.other-questions-page  {
             display: inline-block;
             margin-top: -8px;
             vertical-align: text-top;
-            width: 82%;
+            max-width: 80%;
           }
         }
 
@@ -73,27 +73,6 @@ body #root .App .view .page.other-questions-page  {
           height: 1px;
           margin-top: 15px;
         }
-      }
-    }
-  }
-}
-
-
-@media only screen and (max-width: 270px) {
-  body #root .App .view .page.other-questions-page {
-    #page-content {
-      .question-list {
-        width: 80%;
-      }
-    }
-  }
-}
-
-@media only screen and (min-width: 271px) and (max-width: 300px) {
-  body #root .App .view .page.other-questions-page {
-    #page-content {
-      .question-list {
-        width: 90%;
       }
     }
   }

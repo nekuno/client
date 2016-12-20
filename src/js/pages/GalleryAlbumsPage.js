@@ -86,27 +86,29 @@ export default class GalleryAlbumsPage extends Component {
     render() {
         const {albums, noAlbums, resource, strings} = this.props;
         return (
-            <div className="view view-main" onScroll={this.handleScroll}>
+            <div className="views">
                 <TopNavBar leftIcon={'left-arrow'} centerText={resource ? strings.albums.replace('%resource%', firstToUpperCase(resource)) : ''}/>
-                <div className="page gallery-page">
-                    <div id="page-content" className="gallery-content">
-                        {noAlbums ? <EmptyMessage text={strings.empty}/> :
-                            this.state.importingAlbum ? <EmptyMessage text={strings.importingAlbum} loadingGif={true}/> :
-                                albums.map(album =>
-                                    <div key={album.id} className="import-album-wrapper photo-wrapper" onClick={this.importAlbum.bind(this, album.id, album.name)}>
-                                        <div className="photo-absolute-wrapper">
-                                            <Image src={album.thumbnail ? album.thumbnail : album.picture && album.picture.data.url ? album.picture.data.url : null}/>
+                <div className="view view-main" onScroll={this.handleScroll}>
+                    <div className="page gallery-page">
+                        <div id="page-content" className="gallery-content">
+                            {noAlbums ? <EmptyMessage text={strings.empty}/> :
+                                this.state.importingAlbum ? <EmptyMessage text={strings.importingAlbum} loadingGif={true}/> :
+                                    albums.map(album =>
+                                        <div key={album.id} className="import-album-wrapper photo-wrapper" onClick={this.importAlbum.bind(this, album.id, album.name)}>
+                                            <div className="photo-absolute-wrapper">
+                                                <Image src={album.thumbnail ? album.thumbnail : album.picture && album.picture.data.url ? album.picture.data.url : null}/>
+                                            </div>
+                                            <div className="text with-background">{album.name}</div>
                                         </div>
-                                        <div className="text with-background">{album.name}</div>
-                                    </div>
-                                )
-                        }
-                        <br />
-                        <br />
-                        <br />
-                        <br />
-                        <br />
-                        <br />
+                                    )
+                            }
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                        </div>
                     </div>
                 </div>
             </div>

@@ -188,48 +188,50 @@ export default class OtherInterestsPage extends Component {
         const otherUserPicture = otherUser && otherUser.photo ? otherUser.photo.thumbnail.small : 'img/no-img/small.jpg';
         const ownPicture = user && user.photo ? user.photo.thumbnail.small : 'img/no-img/small.jpg';
         return (
-            <div className="view view-main" onScroll={this.handleScroll}>
+            <div className="views">
                 {this.state.carousel ?
                     <TopNavBar leftText={strings.cancel} centerText={otherUser ? otherUser.username : ''} onLeftLinkClickHandler={this.onNavBarLeftLinkClick}/>
                     :
                     <TopNavBar leftIcon={'left-arrow'} centerText={otherUser ? otherUser.username : ''}/>
                 }
-                <div className="page other-interests-page">
-                    <div id="page-content" className="other-interests-content">
-                        <ProfilesAvatarConnection ownPicture={ownPicture} otherPicture={otherUserPicture}/>
-                        <div className="title">{this.state.commonContent ? strings.similarInterestsCount.replace('%count%', pagination.total || 0) : strings.interestsCount.replace('%count%', pagination.total || 0)}</div>
-                        {otherUser ? <FilterContentButtons userId={otherUserId} contentsCount={pagination.total || 0} ownContent={false} ownUserId={ownUserId} onClickHandler={this.onFilterTypeClick} commonContent={this.state.commonContent}
-                                              linksCount={totals.Link}
-                                              audiosCount={totals.Audio}
-                                              videosCount={totals.Video}
-                                              imagesCount={totals.Image}
-                                              channelsCount={totals.Creator}
-                        /> : ''}
-                        <div className="common-content-switch">
-                            <TextRadios labels={[{key: 0, text: strings.all}, {key: 1, text: strings.common}]} value={this.state.commonContent} onClickHandler={this.onFilterCommonClick}/>
-                        </div>
-                        {noInterests ? '' :
-                            this.state.carousel ?
-                                <CardContentCarousel contents={interests} userId={ownUserId} otherUserId={otherUserId}/>
-                                :
-                                <CardContentList contents={interests} userId={ownUserId} otherUserId={otherUserId}
-                                                 onClickHandler={this.onContentClick}/>
-                        }
-                        <br />
-                        {this.state.carousel ? '' : <div className="loading-gif" style={pagination.nextLink ? {} : {display: 'none'}}></div>}
-                    </div>
-                    <br/>
-                    <br/>
-                    <br/>
-                </div>
                 {otherUser ?
                     <ToolBar links={[
-                    {'url': `/profile/${otherUserId}`, 'text': strings.about},
-                    {'url': `/users/${otherUserId}/other-questions`, 'text': strings.questions},
-                    {'url': `/users/${otherUserId}/other-interests`, 'text': strings.interests}
+                        {'url': `/profile/${otherUserId}`, 'text': strings.about},
+                        {'url': `/users/${otherUserId}/other-questions`, 'text': strings.questions},
+                        {'url': `/users/${otherUserId}/other-interests`, 'text': strings.interests}
                     ]} activeLinkIndex={2} arrowUpLeft={'83%'}/>
-                        :
+                    :
                     ''}
+                <div className="view view-main" onScroll={this.handleScroll}>
+                    <div className="page other-interests-page">
+                        <div id="page-content" className="other-interests-content">
+                            <ProfilesAvatarConnection ownPicture={ownPicture} otherPicture={otherUserPicture}/>
+                            <div className="title">{this.state.commonContent ? strings.similarInterestsCount.replace('%count%', pagination.total || 0) : strings.interestsCount.replace('%count%', pagination.total || 0)}</div>
+                            {otherUser ? <FilterContentButtons userId={otherUserId} contentsCount={pagination.total || 0} ownContent={false} ownUserId={ownUserId} onClickHandler={this.onFilterTypeClick} commonContent={this.state.commonContent}
+                                                  linksCount={totals.Link}
+                                                  audiosCount={totals.Audio}
+                                                  videosCount={totals.Video}
+                                                  imagesCount={totals.Image}
+                                                  channelsCount={totals.Creator}
+                            /> : ''}
+                            <div className="common-content-switch">
+                                <TextRadios labels={[{key: 0, text: strings.all}, {key: 1, text: strings.common}]} value={this.state.commonContent} onClickHandler={this.onFilterCommonClick}/>
+                            </div>
+                            {noInterests ? '' :
+                                this.state.carousel ?
+                                    <CardContentCarousel contents={interests} userId={ownUserId} otherUserId={otherUserId}/>
+                                    :
+                                    <CardContentList contents={interests} userId={ownUserId} otherUserId={otherUserId}
+                                                     onClickHandler={this.onContentClick}/>
+                            }
+                            <br />
+                            {this.state.carousel ? '' : <div className="loading-gif" style={pagination.nextLink ? {} : {display: 'none'}}></div>}
+                        </div>
+                        <br/>
+                        <br/>
+                        <br/>
+                    </div>
+                </div>
             </div>
         );
     }

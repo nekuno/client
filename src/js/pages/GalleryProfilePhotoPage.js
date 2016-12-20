@@ -83,19 +83,21 @@ export default class GalleryProfilePhotoPage extends Component {
             width: 90
         };
         return (
-            <div className="view view-main">
+            <div className="views">
                 <TopNavBar leftText={strings.cancel} centerText={strings.photos} rightIcon={'checkmark'} onRightLinkClickHandler={photo ? this.cropAndSaveAsProfilePhoto : null}/>
-                <div className="page gallery-photo-page">
-                    <div id="page-content" className="gallery-photo-content">
-                        {photo ?
-                            <div className="photo-wrapper">
-                                <ReactCrop src={photo.thumbnail.medium} crop={crop} minWidth={30} keepSelection={true} onChange={this.onChange} onImageLoaded={this.onChange}/>
-                            </div>
-                                :
-                            ''}
-                        <br />
-                        <br />
-                        <br />
+                <div className="view view-main">
+                    <div className="page gallery-photo-page">
+                        <div id="page-content" className="gallery-photo-content">
+                            {photo ?
+                                <div className="photo-wrapper">
+                                    <ReactCrop src={photo.thumbnail.medium} crop={crop} minWidth={30} keepSelection={true} onChange={this.onChange} onImageLoaded={this.onChange}/>
+                                </div>
+                                    :
+                                ''}
+                            <br />
+                            <br />
+                            <br />
+                        </div>
                     </div>
                 </div>
             </div>

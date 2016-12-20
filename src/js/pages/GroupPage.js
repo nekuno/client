@@ -117,26 +117,27 @@ export default class GroupPage extends Component {
         const {groups, strings} = this.props;
         const {creating, joining} = this.state;
         return (
-            <div className="view view-main">
-                <TopNavBar leftMenuIcon={true} centerText={strings.groups}/>
-                <div className="page group-page">
-                    {groups ?
-                        <div id="page-content">
-                            {creating ? <EmptyMessage text={strings.creating} loadingGif={true}/> :
-                                joining ? <EmptyMessage text={strings.joining} loadingGif={true}/> :
+            <div className="views">
+                <div className="view view-main">
+                    <TopNavBar leftMenuIcon={true} centerText={strings.groups}/>
+                    <div className="page group-page">
+                        {groups ?
+                            <div id="page-content">
+                                {creating ? <EmptyMessage text={strings.creating} loadingGif={true}/> :
+                                    joining ? <EmptyMessage text={strings.joining} loadingGif={true}/> :
 
-                                    <div>
-                                        <FullWidthButton onClick={this.create}> {strings.create} </FullWidthButton>
-                                        <FullWidthButton onClick={this.join}> {strings.join} </FullWidthButton>
-                                        {Object.keys(groups).map((key) => {
-                                            let group = groups[key];
-                                            return <Group key={group.id} group={group}/>
-                                        })}
-                                    </div>
-                            }
-                        </div>
-                        : ''}
-
+                                        <div>
+                                            <FullWidthButton onClick={this.create}> {strings.create} </FullWidthButton>
+                                            <FullWidthButton onClick={this.join}> {strings.join} </FullWidthButton>
+                                            {Object.keys(groups).map((key) => {
+                                                let group = groups[key];
+                                                return <Group key={group.id} group={group}/>
+                                            })}
+                                        </div>
+                                }
+                            </div>
+                            : ''}
+                    </div>
                 </div>
             </div>
         );

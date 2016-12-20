@@ -1,14 +1,6 @@
 .navbar {
-	height: 52px;
-	overflow-y: scroll;
-	overflow-x: hidden;
-	position: fixed !important;
-}
-
-@media only screen and (max-width: 300px) {
-	.navbar {
-		width: 90%;
-	}
+  height: 52px;
+  z-index: 11111;
 }
 
 .navbar, .subnavbar, #bottom-toolbar.toolbar, #messages-toolbar.toolbar {

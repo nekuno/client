@@ -245,71 +245,72 @@ export default class OtherUserPage extends Component {
         const location = selectn('location.locality', profile) || selectn('location.country', profile);
 
         return (
-            <div className="view view-main">
+            <div className="views">
                 <TopNavBar leftIcon={'left-arrow'} centerText={strings.profile}/>
-                <div className="page other-user-page">
-                    {otherUser && profile && profileWithMetadata ?
-                        <div id="page-content">
-                            <div className="user-images">
-                                <div className="user-images-wrapper">
-                                    <div className="swiper-custom">
-                                        <div id={"photos-swiper-container"} className="swiper-container">
-                                            <div className="swiper-wrapper">
-                                                <div className="swiper-slide" key={0} onClick={this.handlePhotoClick.bind(this, otherUser.photo.url)}>
-                                                    <Image src={otherPictureBig} defaultSrc={defaultImgBig}/>
-                                                </div>
-                                                {photos && photos.length > 0 ? photos.map((photo, index) =>
-                                                    <div className="swiper-slide" key={index + 1} onClick={this.handlePhotoClick.bind(this, photo.url)}>
-                                                        <Image src={photo.thumbnail.big} defaultSrc={defaultImgBig}/>
-                                                    </div>
-                                                ) : null}
-                                            </div>
-                                        </div>
-                                        <div className="swiper-button-prev"></div>
-                                        <div className="swiper-button-next"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="other-user-main-data">
-                                <div className="username-title">
-                                    {otherUser.username}
-                                </div>
-                                <div className="user-description">
-                                    <span className="icon-marker" /> {location} -
-                                    <span className="age"> {strings.age}: {age}</span> -
-                                    <span className="gender"> {gender}</span>
-                                </div>
-                                {online ? <div className="online-status">Online</div> : null}
-                                <div className="send-message-button icon-wrapper icon-wrapper-with-text" onClick={this.handleClickMessageLink}>
-                                    <span className="icon-message" />
-                                    <span className="text">{strings.message}</span>
-                                </div>
-                                <div className="like-button icon-wrapper" onClick={like !== null ? this.onRate : null}>
-                                    <span className={like === null ? 'icon-spinner rotation-animation' : like && like !== -1 ? 'icon-star yellow' : 'icon-star'} />
-                                </div>
-                                <div className="other-profile-wrapper bold">
-                                    <OtherProfileData matching={matching} similarity={similarity} stats={comparedStats} ownImage={ownPicture}
-                                                      currentImage={otherPictureSmall}
-                                                      interestsUrl={`/users/${parseId(otherUser)}/other-interests`}
-                                                      questionsUrl={`/users/${parseId(otherUser)}/other-questions`}/>
-                                </div>
-                            </div>
-                            <OtherProfileDataList profileWithMetadata={profileWithMetadata}/>
-                            <br />
-                            <br />
-                            <br />
-                            <br />
-                            <br />
-                            <br />
-                        </div>
-                        : <EmptyMessage text={strings.loading} loadingGif={true}/>}
-                </div>
-                {otherUser && profile && profileWithMetadata ?
-                    <ToolBar links={[
+                {otherUser && profile && profileWithMetadata ? <ToolBar links={[
                     {'url': `/profile/${parseId(otherUser)}`, 'text': strings.about},
                     {'url': `/users/${parseId(otherUser)}/other-questions`, 'text': strings.questions},
                     {'url': `/users/${parseId(otherUser)}/other-interests`, 'text': strings.interests}]} activeLinkIndex={0} arrowUpLeft={'13%'}/>
-                    : ''}
+                    : null}
+                <div className="view view-main">
+                    <div className="page other-user-page">
+                        {otherUser && profile && profileWithMetadata ?
+                            <div id="page-content">
+                                <div className="user-images">
+                                    <div className="user-images-wrapper">
+                                        <div className="swiper-custom">
+                                            <div id={"photos-swiper-container"} className="swiper-container">
+                                                <div className="swiper-wrapper">
+                                                    <div className="swiper-slide" key={0} onClick={this.handlePhotoClick.bind(this, otherUser.photo.url)}>
+                                                        <Image src={otherPictureBig} defaultSrc={defaultImgBig}/>
+                                                    </div>
+                                                    {photos && photos.length > 0 ? photos.map((photo, index) =>
+                                                        <div className="swiper-slide" key={index + 1} onClick={this.handlePhotoClick.bind(this, photo.url)}>
+                                                            <Image src={photo.thumbnail.big} defaultSrc={defaultImgBig}/>
+                                                        </div>
+                                                    ) : null}
+                                                </div>
+                                            </div>
+                                            <div className="swiper-button-prev"></div>
+                                            <div className="swiper-button-next"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="other-user-main-data">
+                                    <div className="username-title">
+                                        {otherUser.username}
+                                    </div>
+                                    <div className="user-description">
+                                        <span className="icon-marker" /> {location} -
+                                        <span className="age"> {strings.age}: {age}</span> -
+                                        <span className="gender"> {gender}</span>
+                                    </div>
+                                    {online ? <div className="online-status">Online</div> : null}
+                                    <div className="send-message-button icon-wrapper icon-wrapper-with-text" onClick={this.handleClickMessageLink}>
+                                        <span className="icon-message" />
+                                        <span className="text">{strings.message}</span>
+                                    </div>
+                                    <div className="like-button icon-wrapper" onClick={like !== null ? this.onRate : null}>
+                                        <span className={like === null ? 'icon-spinner rotation-animation' : like && like !== -1 ? 'icon-star yellow' : 'icon-star'} />
+                                    </div>
+                                    <div className="other-profile-wrapper bold">
+                                        <OtherProfileData matching={matching} similarity={similarity} stats={comparedStats} ownImage={ownPicture}
+                                                          currentImage={otherPictureSmall}
+                                                          interestsUrl={`/users/${parseId(otherUser)}/other-interests`}
+                                                          questionsUrl={`/users/${parseId(otherUser)}/other-questions`}/>
+                                    </div>
+                                </div>
+                                <OtherProfileDataList profileWithMetadata={profileWithMetadata}/>
+                                <br />
+                                <br />
+                                <br />
+                                <br />
+                                <br />
+                                <br />
+                            </div>
+                            : <EmptyMessage text={strings.loading} loadingGif={true}/>}
+                    </div>
+                </div>
             </div>
         );
     }

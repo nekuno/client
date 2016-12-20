@@ -88,38 +88,40 @@ export default class InvitationsPage extends Component {
     render() {
         const {invitations, noInvitations, loadingInvitations, strings} = this.props;
         return (
-            <div className="view view-main" onScroll={this.handleScroll}>
+            <div className="views">
                 <TopNavBar leftMenuIcon={true} centerText={strings.invitations}/>
-                <div className="page invitations-page">
-                    <div id="page-content" className="invitations-content">
-                        {!loadingInvitations && !noInvitations ? <div className="title">{strings.title.replace('%invitationNumber%', invitations.filter(invitation => invitationHasToBeShown(invitation)).length)}</div> : null}
-                        {loadingInvitations ? <EmptyMessage text={strings.loadingInvitations} loadingGif={true}/>
-                            : noInvitations ? <EmptyMessage text={strings.noInvitations}/>
-                                : invitations.map((invitation, index) =>
-                                    invitationHasToBeShown(invitation) ?
-                                        <div key={index} className="invitation">
-                                            <div className="invitation-token">{invitation.invitation.token}</div>
-                                            {invitation.invitation.expiresAt ? <div className="invitation-expires-at">{strings.expiresAt + ': '}{moment.unix(invitation.invitation.expiresAt).format('dddd, D MMMM YYYY')}</div> : null}
-                                            {invitation.invitation.available ?
-                                                <div className="send-invitation-button">
-                                                    <Button
-                                                        onClick={this.onShare.bind(this, invitation)}>{strings.sendInvitation}</Button>
-                                                </div>
-                                                :
-                                                invitation.invitation.consumedUserId && invitation.invitation.consumedUsername ?
-                                                    <div className="invitation-consumed">
-                                                        {strings.consumedBy}: <Link to={`profile/${invitation.invitation.consumedUserId}`}>{invitation.invitation.consumedUsername}</Link>
+                <div className="view view-main" onScroll={this.handleScroll}>
+                    <div className="page invitations-page">
+                        <div id="page-content" className="invitations-content">
+                            {!loadingInvitations && !noInvitations ? <div className="title">{strings.title.replace('%invitationNumber%', invitations.filter(invitation => invitationHasToBeShown(invitation)).length)}</div> : null}
+                            {loadingInvitations ? <EmptyMessage text={strings.loadingInvitations} loadingGif={true}/>
+                                : noInvitations ? <EmptyMessage text={strings.noInvitations}/>
+                                    : invitations.map((invitation, index) =>
+                                        invitationHasToBeShown(invitation) ?
+                                            <div key={index} className="invitation">
+                                                <div className="invitation-token">{invitation.invitation.token}</div>
+                                                {invitation.invitation.expiresAt ? <div className="invitation-expires-at">{strings.expiresAt + ': '}{moment.unix(invitation.invitation.expiresAt).format('dddd, D MMMM YYYY')}</div> : null}
+                                                {invitation.invitation.available ?
+                                                    <div className="send-invitation-button">
+                                                        <Button
+                                                            onClick={this.onShare.bind(this, invitation)}>{strings.sendInvitation}</Button>
                                                     </div>
-                                                    : null
-                                            }
-                                        </div>
-                                        : null
-                        )}
+                                                    :
+                                                    invitation.invitation.consumedUserId && invitation.invitation.consumedUsername ?
+                                                        <div className="invitation-consumed">
+                                                            {strings.consumedBy}: <Link to={`profile/${invitation.invitation.consumedUserId}`}>{invitation.invitation.consumedUsername}</Link>
+                                                        </div>
+                                                        : null
+                                                }
+                                            </div>
+                                            : null
+                            )}
+                        </div>
+                        <br />
+                        <br />
+                        <br />
+                        <br />
                     </div>
-                    <br />
-                    <br />
-                    <br />
-                    <br />
                 </div>
             </div>
         );

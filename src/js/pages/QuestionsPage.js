@@ -70,30 +70,32 @@ export default class QuestionsPage extends Component {
         const ownPicture = user && user.photo ? user.photo.thumbnail.small : 'img/no-img/small.jpg';
         const defaultPicture = 'img/no-img/small.jpg';
         return (
-            <div className="view view-main" onScroll={this.handleScroll}>
+            <div className="views">
                 <TopNavBar leftMenuIcon={true} centerText={strings.myProfile}/>
-                <div className="page questions-page">
-                    <div id="page-content" className="questions-content">
-                        <QuestionsBanner user={user} questionsTotal={pagination.total || Object.keys(questions).length || 0}/>
-                        <br />
-                        <br />
-                        <br />
-                        <br />
-                        <br />
-                        <br />
-                        <QuestionList questions={questions} userId={parseId(user)} ownPicture={ownPicture} defaultPicture={defaultPicture}/>
-                        <div className="loading-gif" style={pagination.nextLink ? {} : {display: 'none'}}></div>
-                        <br />
-                        <br />
-                        <br />
+                <ToolBar links={[
+                    {'url': '/profile', 'text': strings.about},
+                    {'url': '/gallery', 'text': strings.photos},
+                    {'url': '/questions', 'text': strings.questions},
+                    {'url': '/interests', 'text': strings.interests}
+                ]} activeLinkIndex={2} arrowUpLeft={'60%'} />
+                <div className="view view-main" onScroll={this.handleScroll}>
+                    <div className="page questions-page">
+                        <div id="page-content" className="questions-content">
+                            <QuestionsBanner user={user} questionsTotal={pagination.total || Object.keys(questions).length || 0}/>
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <QuestionList questions={questions} userId={parseId(user)} ownPicture={ownPicture} defaultPicture={defaultPicture}/>
+                            <div className="loading-gif" style={pagination.nextLink ? {} : {display: 'none'}}></div>
+                            <br />
+                            <br />
+                            <br />
+                        </div>
                     </div>
                 </div>
-                <ToolBar links={[
-                {'url': '/profile', 'text': strings.about},
-                {'url': '/gallery', 'text': strings.photos},
-                {'url': '/questions', 'text': strings.questions},
-                {'url': '/interests', 'text': strings.interests}
-                ]} activeLinkIndex={2} arrowUpLeft={'60%'} />
             </div>
         );
     }

@@ -156,19 +156,21 @@ export default class AnswerQuestionPage extends Component {
         const isRegisterQuestion = selectn('isRegisterQuestion', question);
 
         return (
-            <div className="view view-main">
+            <div className="views">
                 {isJustRegistered ?
                     <TopNavBar centerText={navBarTitle}/>
                     :
                     <TopNavBar leftMenuIcon={true} centerText={navBarTitle} rightText={isRegisterQuestion ? '' : strings.skip} onRightLinkClickHandler={isRegisterQuestion ? null : this.skipQuestionHandler}/>
                 }
-                <Joyride ref="joyrideAnswerQuestion" steps={steps} locale={tutorialLocale} callback={endTutorialHandler} type="continuous"/>
-                <div className="page answer-question-page">
-                    <div id="page-content" className="answer-question-content">
-                        <AnswerQuestion question={question} userAnswer={userAnswer} userId={userId} errors={errors} noMoreQuestions={noMoreQuestions} ownPicture={ownPicture} startTutorial={this.forceStartTutorial}/>
+                <div className="view view-main">
+                    <Joyride ref="joyrideAnswerQuestion" steps={steps} locale={tutorialLocale} callback={endTutorialHandler} type="continuous"/>
+                    <div className="page answer-question-page">
+                        <div id="page-content" className="answer-question-content">
+                            <AnswerQuestion question={question} userAnswer={userAnswer} userId={userId} errors={errors} noMoreQuestions={noMoreQuestions} ownPicture={ownPicture} startTutorial={this.forceStartTutorial}/>
+                        </div>
                     </div>
+                    <RegisterQuestionsFinishedPopup onContinue={this.onContinue} />
                 </div>
-                <RegisterQuestionsFinishedPopup onContinue={this.onContinue} />
             </div>
         );
     }

@@ -13,11 +13,4 @@ body #root .App .view .page {
     }
   }
 }
-@media only screen and (max-width: 300px) {
-  body #root .App .view .page.gallery-page {
-    #page-content {
-      margin-left: 5px;
-      width: 85%;
-    }
-  }
-}
+

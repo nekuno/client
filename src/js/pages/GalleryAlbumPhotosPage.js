@@ -125,31 +125,33 @@ export default class GalleryAlbumPhotosPage extends Component {
     render() {
         const {name, noPhotos, strings} = this.props;
         return (
-            <div className="view view-main" onScroll={this.handleScroll}>
+            <div className="views">
                 <TopNavBar leftIcon={'left-arrow'} centerText={name}/>
-                <div className="page gallery-page">
-                    <div id="page-content" className="gallery-content">
-                        {noPhotos ? <EmptyMessage text={strings.empty}/> : this.state.displayedPhotos.map(photo =>
-                            <div key={photo.id} className={this.isSelected(photo) ? 'photo-wrapper selected-photo' : 'photo-wrapper'} onClick={this.selectPhoto.bind(this, photo)}>
-                                {this.isSelected(photo) ? <span className="icon icon-form-checkbox"></span> : ''}
-                                <div className="photo-absolute-wrapper">
-                                    <Image src={photo.picture}/>
+                <div className="view view-main" onScroll={this.handleScroll}>
+                    <div className="page gallery-page">
+                        <div id="page-content" className="gallery-content">
+                            {noPhotos ? <EmptyMessage text={strings.empty}/> : this.state.displayedPhotos.map(photo =>
+                                <div key={photo.id} className={this.isSelected(photo) ? 'photo-wrapper selected-photo' : 'photo-wrapper'} onClick={this.selectPhoto.bind(this, photo)}>
+                                    {this.isSelected(photo) ? <span className="icon icon-form-checkbox"></span> : ''}
+                                    <div className="photo-absolute-wrapper">
+                                        <Image src={photo.picture}/>
+                                    </div>
                                 </div>
-                            </div>
-                        )}
-                        <br />
-                        <br />
-                        <br />
-                        <br />
-                        <br />
-                        <br />
+                            )}
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                        </div>
                     </div>
+                    {noPhotos ? '' :
+                        <div className="fixed-button">
+                            <FullWidthButton onClick={this.importPhotos}>{strings.importPhotos}</FullWidthButton>
+                        </div>
+                    }
                 </div>
-                {noPhotos ? '' :
-                    <div className="fixed-button">
-                        <FullWidthButton onClick={this.importPhotos}>{strings.importPhotos}</FullWidthButton>
-                    </div>
-                }
             </div>
         );
     }

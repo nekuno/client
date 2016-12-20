@@ -1,75 +1,36 @@
-#bottom-toolbar.toolbar, #messages-toolbar.toolbar, #messages-toolbar .toolbar {
-	background: none;
-	position: fixed !important;
-	padding: 30px 0;
+.toolbar {
+  height: 60px;
+  z-index: 11111;
 
-	.arrow-up {
-		border-left: 5px solid transparent;
-		border-right: 5px solid transparent;
-		border-bottom: 5px solid $deep-purple;
-		bottom: 60px;
-		height: 0;
-		position: fixed;
-		width: 0;
-	}
+  .arrow-up {
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 5px solid $deep-purple;
+    bottom: 60px;
+    margin-top: -5px;
+    position: absolute;
+    height: 0;
+    width: 0;
+  }
 
-	.toolbar-inner {
-		background-color: $deep-purple;
-		font-size: 0.823529412em;
-		height: 60px;
-		margin: -30px auto 40px auto;
-		max-width: 480px;
-		min-width: 320px;
-		padding: 0;
-		position: relative;
+  .toolbar-inner {
+    background-color: $deep-purple;
+    font-size: 0.823529412em;
+    height: 60px;
 
-		.toolbar-link-wrapper {
-			height: 60px;
-			text-align: center;
-			width: 30%;
+    .toolbar-link-wrapper {
+      height: 60px;
+      text-align: center;
+      width: 30%;
 
-			a {
-				color: #fff;
-				display: block;
-				height: 60px;
-				padding-top: 20px;
-			}
-		}
-	}
-
-	&::before {
-		content: none;
-	}
-}
-
-.toolbar-guest {
-	bottom: 20px;
-
-	.arrow-up {
-		bottom: 80px;
-	}
-}
-
-@media screen and (max-width: 275px) {
-	#bottom-toolbar.toolbar {
-		.toolbar-inner {
-			display: block;
-			.toolbar-link-wrapper {
-				display: inline-block;
-				width: 21%;
-			}
-		}
-	}
-}
-
-@media screen and (min-width: 276px) and (max-width: 305px) {
-	#bottom-toolbar.toolbar {
-		.toolbar-inner {
-			display: block;
-			.toolbar-link-wrapper {
-				display: inline-block;
-				width: 23%;
-			}
-		}
-	}
+      a {
+        color: #fff;
+        display: block;
+        padding-top: 20px;
+      }
+    }
+  }
+  &::before {
+    content: none;
+  }
 }

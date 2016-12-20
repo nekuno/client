@@ -111,18 +111,20 @@ export default class ThreadPage extends Component {
     render() {
         const {threads, filters, profile, strings, user, isSomethingWorking, steps, tutorialLocale, endTutorialHandler} = this.props;
         return (
-            <div className="view view-main">
+            <div className="views">
                 <TopNavBar leftMenuIcon={true} centerText={strings.threads} centerTextSize={'large'} rightText={strings.create} rightIcon={'plus'} onRightLinkClickHandler={this.onAddThreadClickHandler}/>
-                <Joyride ref="joyrideThreads" steps={steps} locale={tutorialLocale} callback={endTutorialHandler} type="continuous"/>
-                <div className="page threads-page">
-                    <div id="page-content">
-                        <ProcessesProgress />
-                        {filters && threads && profile ?
-                            <ThreadList threads={threads} userId={user.id} profile={profile} isSomethingWorking={isSomethingWorking} filters={filters}/> : <EmptyMessage text={strings.loadingMessage} loadingGif={true} />
-                        }
-                        {filters && threads && profile ?
-                            <QuestionsBanner user={user} questionsTotal={this.props.pagination.total || 0}/> : ''
-                        }
+                <div className="view view-main">
+                    <Joyride ref="joyrideThreads" steps={steps} locale={tutorialLocale} callback={endTutorialHandler} type="continuous"/>
+                    <div className="page threads-page">
+                        <div id="page-content">
+                            <ProcessesProgress />
+                            {filters && threads && profile ?
+                                <ThreadList threads={threads} userId={user.id} profile={profile} isSomethingWorking={isSomethingWorking} filters={filters}/> : <EmptyMessage text={strings.loadingMessage} loadingGif={true} />
+                            }
+                            {filters && threads && profile ?
+                                <QuestionsBanner user={user} questionsTotal={this.props.pagination.total || 0}/> : ''
+                            }
+                        </div>
                     </div>
                 </div>
             </div>

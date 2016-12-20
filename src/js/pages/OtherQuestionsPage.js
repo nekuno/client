@@ -109,32 +109,33 @@ export default class OtherQuestionsPage extends Component {
         const ownPicture = user && user.photo ? user.photo.thumbnail.small : 'img/no-img/small.jpg';
         const otherPicture = otherUser && otherUser.photo ? otherUser.photo.thumbnail.small : 'img/no-img/small.jpg';
         return (
-            <div className="view view-main" onScroll={this.handleScroll}>
+            <div className="views">
                 <TopNavBar leftIcon={'left-arrow'} centerText={otherUser ? otherUser.username : ''}/>
-                <div className="page other-questions-page">
-                    {user && otherUser ?
-                        <div id="page-content" className="other-questions-content">
-                            <div className="other-questions-header-container">
-                                <ProfilesAvatarConnection ownPicture={ownPicture} otherPicture={otherPicture}/>
-                                <div className="other-questions-stats-title title">{pagination.total || 0} {strings.coincidences}</div>
-                            </div>
-                            <OtherQuestionList otherQuestions={otherQuestions} questions={questions} userId={user.qnoow_id} ownPicture={ownPicture} otherPicture={otherPicture}/>
-                            <div className="loading-gif" style={pagination.nextLink ? {} : {display: 'none'}}></div>
-                            <br />
-                            <br />
-                            <br />
-                        </div>
-                        : ''
-                    }
-                </div>
                 {otherUser ?
                     <ToolBar links={[
-                    {'url': `/profile/${params.userId}`, 'text': strings.about},
-                    {'url': `/users/${params.userId}/other-questions`, 'text': strings.questions},
-                    {'url': `/users/${params.userId}/other-interests`, 'text': strings.interests}
+                        {'url': `/profile/${params.userId}`, 'text': strings.about},
+                        {'url': `/users/${params.userId}/other-questions`, 'text': strings.questions},
+                        {'url': `/users/${params.userId}/other-interests`, 'text': strings.interests}
                     ]} activeLinkIndex={1} arrowUpLeft={'48%'}/>
-                        :
-                    ''}
+                    : null}
+                <div className="view view-main" onScroll={this.handleScroll}>
+                    <div className="page other-questions-page">
+                        {user && otherUser ?
+                            <div id="page-content" className="other-questions-content">
+                                <div className="other-questions-header-container">
+                                    <ProfilesAvatarConnection ownPicture={ownPicture} otherPicture={otherPicture}/>
+                                    <div className="other-questions-stats-title title">{pagination.total || 0} {strings.coincidences}</div>
+                                </div>
+                                <OtherQuestionList otherQuestions={otherQuestions} questions={questions} userId={user.qnoow_id} ownPicture={ownPicture} otherPicture={otherPicture}/>
+                                <div className="loading-gif" style={pagination.nextLink ? {} : {display: 'none'}}></div>
+                                <br />
+                                <br />
+                                <br />
+                            </div>
+                            : ''
+                        }
+                    </div>
+                </div>
             </div>
         );
     }

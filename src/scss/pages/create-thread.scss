@@ -1,6 +1,6 @@
 @import '../_partials/colors';
 
-body #root .App .view .page.create-thread-page  {
+body #root .App .views .view .page.create-thread-page  {
   position: relative;
   z-index: 1111;
 
@@ -24,7 +24,9 @@ body #root .App .view .page.create-thread-page  {
     .delete-filter {
       height:30px;
       width: 30px;
-      vertical-align: middle;
+      position: absolute;
+      margin-top: 5px;
+      margin-left: 5px;
 
       .icon-delete {
         line-height: 30px;
@@ -317,7 +319,7 @@ body #root .App .view .page.create-thread-page  {
       background: $dark-purple;
       height: 500px;
       left: 0;
-      padding-top: 30px;
+      padding-top: 60px;
       position: absolute;
       top: -80px;
       width: 100%;
@@ -383,16 +385,6 @@ body #root .App .view .page.create-thread-page  {
         .add-filter-button {
           cursor: pointer;
           font-size: 1.3em;
-        }
-      }
-    }
-
-    @media only screen and (max-width: 300px) {
-      .thread-filter {
-        .thread-filter-background {
-          .thread-filter-remove .small-icon-wrapper {
-            margin-left: -65px;
-          }
         }
       }
     }

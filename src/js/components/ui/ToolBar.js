@@ -33,7 +33,7 @@ export default class ToolBar extends Component {
                 <div className="toolbar-inner">
                     {links.map((link, index) => {
                         return (
-                            <div key={index} className="toolbar-link-wrapper" onClick={() => this.context.history.pushState(null, link.url)}>
+                            <div key={index} className="toolbar-link-wrapper" onClick={() => this.context.history.replace(link.url)}>
                                 <a href="javascript:void(0)">{activeLinkIndex === index ? <strong>{link.text}</strong> : link.text}</a>
                             </div>
                         );

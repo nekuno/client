@@ -192,13 +192,13 @@ AnswerQuestionPage.defaultProps = {
             titleRef: 'tutorialFirstStepTitle',
             textRef: 'tutorialFirstStep',
             selector: '#joyride-1-your-answer',
-            position: 'top',
+            position: 'bottom',
         },
         {
             titleRef: 'tutorialSecondStepTitle',
             textRef: 'tutorialSecondStep',
             selector: '#joyride-2-others-answers',
-            position: 'top',
+            position: 'bottom',
         },
         {
             titleRef: 'tutorialThirdStepTitle',

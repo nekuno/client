@@ -75,24 +75,3 @@ body #root .App .view .page {
     }
   }
 }
-
-
-@media only screen and (max-width: 270px) {
-  body #root .App .view .page.other-questions-page {
-    #page-content {
-      .question-list {
-        width: 80%;
-      }
-    }
-  }
-}
-
-@media only screen and (min-width: 271px) and (max-width: 300px) {
-  body #root .App .view .page.other-questions-page {
-    #page-content {
-      .question-list {
-        width: 90%;
-      }
-    }
-  }
-}

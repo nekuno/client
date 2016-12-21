@@ -39,18 +39,20 @@ export default class ConnectSocialNetworksPage extends Component {
         const picture = user && user.photo ? user.photo.thumbnail.medium : 'img/no-img/medium.jpg';
 
         return (
-            <div className="view view-main">
+            <div className="views">
                 <TopNavBar leftMenuIcon={true} centerText={strings.top}/>
-                <div data-page="index" className="page connect-social-networks-page">
-                    <div id="page-content" className="connect-social-networks-content">
-                        <div className="title">{strings.title}</div>
-                        <div className="excerpt">{strings.excerpt}</div>
+                <div className="view view-main">
+                    <div data-page="index" className="page connect-social-networks-page">
+                        <div id="page-content" className="connect-social-networks-content">
+                            <div className="title">{strings.title}</div>
+                            <div className="excerpt">{strings.excerpt}</div>
+                            <br />
+                            <SocialWheels networks={networks} picture={picture}/>
+                            <div className="excerpt">{strings.footer}</div>
+                        </div>
                         <br />
-                        <SocialWheels networks={networks} picture={picture}/>
-                        <div className="excerpt">{strings.footer}</div>
+                        <br />
                     </div>
-                    <br />
-                    <br />
                 </div>
             </div>
         );

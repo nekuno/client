@@ -150,11 +150,13 @@ export default class AnswerProfileFieldPage extends Component {
         }
 
         return (
-            <div className="view view-main">
+            <div className="views">
                 <TopNavBar centerText={navBarTitle}/>
-                <div className="page answer-question-page">
-                    <div id="page-content" className="answer-question-content">
-                        {typeof profile != 'undefined' ? fieldToRender : <EmptyMessage text={strings.loadingMessage} loadingGif={true} />}
+                <div className="view view-main">
+                    <div className="page answer-question-page">
+                        <div id="page-content" className="answer-question-content">
+                            {typeof profile != 'undefined' ? fieldToRender : <EmptyMessage text={strings.loadingMessage} loadingGif={true} />}
+                        </div>
                     </div>
                 </div>
             </div>

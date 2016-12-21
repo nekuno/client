@@ -376,26 +376,30 @@ export default class RecommendationPage extends Component {
     render() {
         const {recommendations, thread, user, filters, strings} = this.props;
         return (
-            <div className="view view-main" onScroll={this.state.currentTab ? this.handleScroll : null}>
+            <div className="views">
                 {Object.keys(thread).length > 0 ?
                     <TopNavBar leftIcon={'left-arrow'} centerText={''} rightIcon={'edit'} secondRightIcon={'delete'} onRightLinkClickHandler={this.editThread} onSecondRightLinkClickHandler={this.deleteThread}/>
-                    : <TopNavBar leftIcon={'left-arrow'} centerText={''}/>}
-                <div className="page">
-                    <div id="page-content" className="recommendation-page">
-                        {Object.keys(thread).length > 0 && recommendations.length > 0 && filters && Object.keys(filters).length > 0 ?
-                            <RecommendationList recommendations={recommendations} thread={thread} userId={user.id} 
-                                                filters={thread.category === 'ThreadUsers' ? filters.userFilters : filters.contentFilters}
-                                                ownPicture={user.photo.thumbnail.small || null}
-                                                currentTab={this.state.currentTab}
-                                                onTabClick={this.onOtherUserTabClick}
-                            />
-                            : <EmptyMessage text={strings.loadingMessage} loadingGif={true} />
-                        }
-                    </div>
-                </div>
+                    :
+                    <TopNavBar leftIcon={'left-arrow'} centerText={''}/>
+                }
                 {recommendations.length > 0 && filters && Object.keys(filters).length > 0 ?
                     <ThreadToolBar recommendation={this.state.swiper ? recommendations[this.state.swiper.activeIndex] : null} like={this.like} dislike={this.dislike} ignore={this.ignore} category={thread.category} share={this.onShare}/>
                     : null}
+                <div className="view view-main" onScroll={this.state.currentTab ? this.handleScroll : null}>
+                    <div className="page">
+                        <div id="page-content" className="recommendation-page">
+                            {Object.keys(thread).length > 0 && recommendations.length > 0 && filters && Object.keys(filters).length > 0 ?
+                                <RecommendationList recommendations={recommendations} thread={thread} userId={user.id}
+                                                    filters={thread.category === 'ThreadUsers' ? filters.userFilters : filters.contentFilters}
+                                                    ownPicture={user.photo.thumbnail.small || null}
+                                                    currentTab={this.state.currentTab}
+                                                    onTabClick={this.onOtherUserTabClick}
+                                />
+                                : <EmptyMessage text={strings.loadingMessage} loadingGif={true} />
+                            }
+                        </div>
+                    </div>
+                </div>
             </div>
         );
     }

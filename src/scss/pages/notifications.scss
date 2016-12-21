@@ -1,6 +1,6 @@
 @import "../_partials/colors";
 
-body #root .App .view .page.notifications-page  {
+body #root .App .views .view .page.notifications-page  {
   background: #fff;
   height: inherit;
 
@@ -12,11 +12,5 @@ body #root .App .view .page.notifications-page  {
     hr {
       opacity: 0.2;
     }
-  }
-}
-
-@media only screen and (max-width: 300px) {
-  body #root .App .view .page.notifications-page {
-    width: 90%;
   }
 }

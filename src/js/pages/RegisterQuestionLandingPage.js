@@ -65,24 +65,26 @@ export default class RegisterQuestionLandingPage extends Component {
         const strings = this.props.strings;
 
         return (
-            <div className="view view-main">
-                <div className="page register-question-landing-page">
-                    <div id="page-content" className="register-question-landing">
-                        <div className="title">{strings.title}</div>
-                        <div className="excerpt">{strings.excerpt}</div>
-                        <div id="register-question-landing-image"></div>
-                        <div className="user-image-wrapper">
-                            <div className="user-image">
-                                <img src={imgSrc}/>
+            <div className="views">
+                <div className="view view-main">
+                    <div className="page register-question-landing-page">
+                        <div id="page-content" className="register-question-landing">
+                            <div className="title">{strings.title}</div>
+                            <div className="excerpt">{strings.excerpt}</div>
+                            <div id="register-question-landing-image"></div>
+                            <div className="user-image-wrapper">
+                                <div className="user-image">
+                                    <img src={imgSrc}/>
+                                </div>
+                            </div>
+                            <div className="register-question-landing-button">
+                                <FullWidthButton onClick={this.handleClickAnswerQuestions}>{strings.next}</FullWidthButton>
                             </div>
                         </div>
-                        <div className="register-question-landing-button">
-                            <FullWidthButton onClick={this.handleClickAnswerQuestions}>{strings.next}</FullWidthButton>
-                        </div>
+                        <br/>
+                        <br/>
+                        <br/>
                     </div>
-                    <br/>
-                    <br/>
-                    <br/>
                 </div>
             </div>
         );

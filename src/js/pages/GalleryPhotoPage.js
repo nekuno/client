@@ -68,25 +68,27 @@ export default class GalleryPhotoPage extends Component {
         const {photo, strings} = this.props;
         const isProfilePhoto = photo && typeof photo.thumbnail == 'undefined';
         return (
-            <div className="view view-main">
+            <div className="views">
                 {isProfilePhoto ?
                     <TopNavBar leftIcon={'left-arrow'} centerText={strings.photos}/>
                     :
                     <TopNavBar leftIcon={'left-arrow'} centerText={strings.photos} rightIcon={'person'} secondRightIcon={'delete'} onRightLinkClickHandler={this.setAsProfilePhoto} onSecondRightLinkClickHandler={this.deletePhoto}/>
                 }
-                <div className="page gallery-photo-page">
-                    <div id="page-content" className="gallery-photo-content">
-                        {isProfilePhoto || photo && photo.thumbnail.medium ?
-                            <div className="photo-wrapper">
-                                <Image src={isProfilePhoto ? photo : photo.thumbnail.medium}/>
-                            </div>
-                            : null}
-                        <br />
-                        <br />
-                        <br />
-                        <br />
-                        <br />
-                        <br />
+                <div className="view view-main">
+                    <div className="page gallery-photo-page">
+                        <div id="page-content" className="gallery-photo-content">
+                            {isProfilePhoto || photo && photo.thumbnail.medium ?
+                                <div className="photo-wrapper">
+                                    <Image src={isProfilePhoto ? photo : photo.thumbnail.medium}/>
+                                </div>
+                                : null}
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                        </div>
                     </div>
                 </div>
             </div>

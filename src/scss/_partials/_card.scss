@@ -1,5 +1,6 @@
 .card {
 	text-align: center;
+	vertical-align: top;
 	z-index: 100;
 
 	.card-header {
@@ -167,8 +168,6 @@
 				.matching-percentage {
 					display: inline-block;
 					margin: auto;
-					overflow: hidden;
-					text-overflow: ellipsis;
 					width: 31px;
 				}
 			}

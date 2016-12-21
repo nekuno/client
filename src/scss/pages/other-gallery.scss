@@ -1,4 +1,4 @@
-body #root .App .view .page {
+body #root .App .views .view .page {
   #page-content.gallery-photo-content {
     text-align: center;
     width: 93%;
@@ -13,11 +13,4 @@ body #root .App .view .page {
     }
   }
 }
-@media only screen and (max-width: 300px) {
-  body #root .App .view .page.gallery-page {
-    #page-content {
-      margin-left: 5px;
-      width: 85%;
-    }
-  }
-}
+

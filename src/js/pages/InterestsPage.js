@@ -97,36 +97,38 @@ export default class InterestsPage extends Component {
         const connectedNetworks = networks.filter(network => network.fetching || network.fetched || network.processing || network.processed);
 
         return (
-            <div className="view view-main" onScroll={this.handleScroll}>
+            <div className="views">
                 <TopNavBar leftMenuIcon={true} centerText={strings.myProfile}/>
-                <div className="page interests-page">
-                    <div id="page-content" className="interests-content">
-                        {connectedNetworks.length < 4 ? <SocialNetworksBanner networks={networks} user={user}/> : null}
-                        <FilterContentButtons userId={parseId(user)} contentsCount={pagination.total || 0} ownContent={true}
-                                              linksCount={totals.Link}
-                                              audiosCount={totals.Audio}
-                                              videosCount={totals.Video}
-                                              imagesCount={totals.Image}
-                                              channelsCount={totals.Creator}
-                        />
-                        {noInterests ?
-                            <EmptyMessage text={strings.empty} />
-                            :
-                            <CardContentList contents={interests} userId={parseId(user)}/>
-                        }
-                        <br />
-                        <div className="loading-gif" style={pagination.nextLink ? {} : {display: 'none'}}></div>
-                    </div>
-                    <br/>
-                    <br/>
-                    <br/>
-                </div>
                 <ToolBar links={[
-                {'url': '/profile', 'text': strings.about},
-                {'url': '/gallery', 'text': strings.photos},
-                {'url': '/questions', 'text': strings.questions},
-                {'url': '/interests', 'text': strings.interests}
+                    {'url': '/profile', 'text': strings.about},
+                    {'url': '/gallery', 'text': strings.photos},
+                    {'url': '/questions', 'text': strings.questions},
+                    {'url': '/interests', 'text': strings.interests}
                 ]} activeLinkIndex={3} arrowUpLeft={'85%'}/>
+                <div className="view view-main" onScroll={this.handleScroll}>
+                    <div className="page interests-page">
+                        <div id="page-content" className="interests-content">
+                            {connectedNetworks.length < 4 ? <SocialNetworksBanner networks={networks} user={user}/> : null}
+                            <FilterContentButtons userId={parseId(user)} contentsCount={pagination.total || 0} ownContent={true}
+                                                  linksCount={totals.Link}
+                                                  audiosCount={totals.Audio}
+                                                  videosCount={totals.Video}
+                                                  imagesCount={totals.Image}
+                                                  channelsCount={totals.Creator}
+                            />
+                            {noInterests ?
+                                <EmptyMessage text={strings.empty} />
+                                :
+                                <CardContentList contents={interests} userId={parseId(user)}/>
+                            }
+                            <br />
+                            <div className="loading-gif" style={pagination.nextLink ? {} : {display: 'none'}}></div>
+                        </div>
+                        <br/>
+                        <br/>
+                        <br/>
+                    </div>
+                </div>
             </div>
         );
     }

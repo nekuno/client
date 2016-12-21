@@ -98,46 +98,48 @@ export default class OtherGalleryPage extends Component {
     render() {
         const {otherUser, photos, noPhotos, strings} = this.props;
         return (
-            <div className="view view-main" onScroll={this.handleScroll}>
+            <div className="views">
                 <TopNavBar leftIcon={'left-arrow'} centerText={otherUser ? otherUser.username : ''}/>
-                <div className="page">
-                    <div id="page-content" className="gallery-photo-content">
-                        {otherUser && !otherUser.photo && noPhotos ?
-                            <EmptyMessage text={strings.empty}/>
-                            :
-                            otherUser && otherUser.photo ?
-                                <div className="swiper-custom">
-                                    <div id="gallery-swiper-container" className="swiper-container">
-                                        <div className="swiper-wrapper">
-                                            <div className="swiper-slide" key={0}>
-                                                <div className="photo-absolute-wrapper">
-                                                    <Image src={otherUser.photo.url}/>
-                                                    <div className="swiper-button-prev"></div>
-                                                    <div className="swiper-button-next"></div>
-                                                </div>
-                                            </div>
-                                            {photos.map((photo, index) =>
-                                                <div className="swiper-slide" key={index + 1}>
+                <div className="view view-main" onScroll={this.handleScroll}>
+                    <div className="page">
+                        <div id="page-content" className="gallery-photo-content">
+                            {otherUser && !otherUser.photo && noPhotos ?
+                                <EmptyMessage text={strings.empty}/>
+                                :
+                                otherUser && otherUser.photo ?
+                                    <div className="swiper-custom">
+                                        <div id="gallery-swiper-container" className="swiper-container">
+                                            <div className="swiper-wrapper">
+                                                <div className="swiper-slide" key={0}>
                                                     <div className="photo-absolute-wrapper">
-                                                        <Image src={photo.url}/>
+                                                        <Image src={otherUser.photo.url}/>
                                                         <div className="swiper-button-prev"></div>
                                                         <div className="swiper-button-next"></div>
                                                     </div>
-
                                                 </div>
-                                            )}
+                                                {photos.map((photo, index) =>
+                                                    <div className="swiper-slide" key={index + 1}>
+                                                        <div className="photo-absolute-wrapper">
+                                                            <Image src={photo.url}/>
+                                                            <div className="swiper-button-prev"></div>
+                                                            <div className="swiper-button-next"></div>
+                                                        </div>
+
+                                                    </div>
+                                                )}
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                :
-                                <EmptyMessage text={strings.loading} loadingGif={true}/>
-                        }
-                        <br />
-                        <br />
-                        <br />
-                        <br />
-                        <br />
-                        <br />
+                                    :
+                                    <EmptyMessage text={strings.loading} loadingGif={true}/>
+                            }
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                        </div>
                     </div>
                 </div>
             </div>

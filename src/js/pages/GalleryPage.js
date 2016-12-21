@@ -184,53 +184,55 @@ export default class GalleryPage extends Component {
     render() {
         const {photos, profilePhoto, noPhotos, loadingPhoto, strings} = this.props;
         return (
-            <div className="view view-main" onScroll={this.handleScroll}>
+            <div className="views">
                 <TopNavBar leftMenuIcon={true} centerText={strings.myProfile} rightIcon={'uploadthin'} rightIconsWithoutCircle={true} onRightLinkClickHandler={this.triggerUploadFile}/>
-                <input style={{opacity: 0}} type='file' ref='fileInput' onChange={this.uploadFile} />
-                <div className="page gallery-page">
-                    {this.state.importingAlbums ? <EmptyMessage text={strings.importingAlbums} loadingGif={true}/>
-                        :
-                        <div id="page-content" className="gallery-content">
-                            <div className="import-album-wrapper photo-wrapper" onClick={this.importAlbumPopUp}>
-                                <div className="icon-image"></div>
-                                <div className="text">{strings.importAlbum}</div>
-                            </div>
-                            {profilePhoto ?
-                                <div className="photo-wrapper" onClick={this.goToPhotoGalleryPage.bind(this, profilePhoto)}>
-                                    <div className="photo-absolute-wrapper">
-                                        <Image src={profilePhoto}/>
-                                    </div>
-                                    <div className="profile-photo-text"><span className="icon-person"></span><div className="text">&nbsp;{strings.profilePhoto}</div></div>
-                                </div>
-                                : null}
-                            {noPhotos ? <EmptyMessage text={strings.empty}/> : photos.map(photo => 
-                                <div key={photo.id} className="photo-wrapper" onClick={this.goToPhotoGalleryPage.bind(this, photo)}>
-                                    <div className="photo-absolute-wrapper">
-                                        <Image src={photo.thumbnail.small}/>
-                                    </div>
-                                </div>
-                            )}
-                            {loadingPhoto ?
-                                <div className="photo-loading-wrapper photo-wrapper">
-                                    <div className="loading-gif"></div>
-                                </div>
-                                : null}
-                            <br />
-                            <br />
-                            <br />
-                            <br />
-                            <br />
-                            <br />
-                        </div>
-                    }
-                </div>
                 <ToolBar links={[
-                {'url': '/profile', 'text': strings.about},
-                {'url': '/gallery', 'text': strings.photos},
-                {'url': '/questions', 'text': strings.questions},
-                {'url': '/interests', 'text': strings.interests}
+                    {'url': '/profile', 'text': strings.about},
+                    {'url': '/gallery', 'text': strings.photos},
+                    {'url': '/questions', 'text': strings.questions},
+                    {'url': '/interests', 'text': strings.interests}
                 ]} activeLinkIndex={1} arrowUpLeft={'36%'} />
-                <ImportAlbumPopup onClickHandler={this.importAlbum}/>
+                <div className="view view-main" onScroll={this.handleScroll}>
+                    <input style={{opacity: 0}} type='file' ref='fileInput' onChange={this.uploadFile} />
+                    <div className="page gallery-page">
+                        {this.state.importingAlbums ? <EmptyMessage text={strings.importingAlbums} loadingGif={true}/>
+                            :
+                            <div id="page-content" className="gallery-content">
+                                <div className="import-album-wrapper photo-wrapper" onClick={this.importAlbumPopUp}>
+                                    <div className="icon-image"></div>
+                                    <div className="text">{strings.importAlbum}</div>
+                                </div>
+                                {profilePhoto ?
+                                    <div className="photo-wrapper" onClick={this.goToPhotoGalleryPage.bind(this, profilePhoto)}>
+                                        <div className="photo-absolute-wrapper">
+                                            <Image src={profilePhoto}/>
+                                        </div>
+                                        <div className="profile-photo-text"><span className="icon-person"></span><div className="text">&nbsp;{strings.profilePhoto}</div></div>
+                                    </div>
+                                    : null}
+                                {noPhotos ? <EmptyMessage text={strings.empty}/> : photos.map(photo =>
+                                    <div key={photo.id} className="photo-wrapper" onClick={this.goToPhotoGalleryPage.bind(this, photo)}>
+                                        <div className="photo-absolute-wrapper">
+                                            <Image src={photo.thumbnail.small}/>
+                                        </div>
+                                    </div>
+                                )}
+                                {loadingPhoto ?
+                                    <div className="photo-loading-wrapper photo-wrapper">
+                                        <div className="loading-gif"></div>
+                                    </div>
+                                    : null}
+                                <br />
+                                <br />
+                                <br />
+                                <br />
+                                <br />
+                                <br />
+                            </div>
+                        }
+                    </div>
+                    <ImportAlbumPopup onClickHandler={this.importAlbum}/>
+                </div>
             </div>
         );
     }

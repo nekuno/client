@@ -1,18 +1,22 @@
 @import '../_partials/colors';
 
-body #root .App .view .page.user-page  {
+body #root .App .views .view .page.user-page  {
   position: relative;
 
   #page-content {
-
+    width: 100%;
     .profile-category {
-      width: 200%;
+      width: 100%;
       background-color: $deep-purple-translucent;
-      margin-left: -50%;
+      margin-left: 10%;
       margin-bottom: 10px;
       padding-top: 1px;
       padding-bottom: 1px;
-      padding-left: 50%;
+    }
+
+    .profile-category-edition {
+      margin-left: 5%;
+      margin-right: 5%;
     }
 
     .profile-field.textarea-filter {
@@ -62,11 +66,11 @@ body #root .App .view .page.user-page  {
         }
       }
       .tags-and-choice-choice {
-        margin-left: 30px;
+        margin-top: 20px;
       }
       .tags-and-choice-unselected-filters {
         display: inline-block;
-        margin-left: 30px;
+        margin-left: 15px;
 
         .tags-and-choice-unselected-filter {
           display: inline-block;
@@ -83,7 +87,7 @@ body #root .App .view .page.user-page  {
     }
 
     .tag-input-wrapper {
-      min-width: 250px;
+      min-width: 220px;
     }
 
     .profile-field {
@@ -92,7 +96,7 @@ body #root .App .view .page.user-page  {
 
       .profile-field-remove {
         cursor: pointer;
-        right: 10%;
+        right: 5%;
         position: absolute;
         z-index: 11;
       }
@@ -152,7 +156,7 @@ body #root .App .view .page.user-page  {
       .list-block {
         display: inline-block;
         margin: 0;
-        min-width: 250px;
+        min-width: 220px;
         vertical-align: middle;
         width: 100%;
 
@@ -189,18 +193,16 @@ body #root .App .view .page.user-page  {
     }
 
     .location-tag-filter, .birthday-filter {
-
       .location-filter-wrapper, .birthday-filter-wrapper {
         display: inline-block;
         min-width: 250px;
-        width: 110%;
+        width: 100%;
         vertical-align: middle;
 
         .list-block {
           display: inline-block;
           margin: 0 0 0 15px;
           vertical-align: middle;
-          width: 100%;
 
           .location-title {
             font-size: 0.8em;
@@ -295,13 +297,6 @@ body #root .App .view .page.user-page  {
             .textarea-title {
               max-width: 70%;
             }
-          }
-        }
-      }
-      .profile-field {
-        .profile-field-background {
-          .profile-field-remove .small-icon-wrapper {
-            margin-left: -65px;
           }
         }
       }

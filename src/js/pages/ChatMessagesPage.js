@@ -144,19 +144,18 @@ export default class ChatMessagesPage extends Component {
         const {otherUser, messages, online, strings, isGuest} = this.props;
         let otherUsername = otherUser ? otherUser.username : '';
         return (
-
-            <div className="view view-main" ref="list">
+            <div className="views">
                 <TopNavBar leftIcon={'left-arrow'} centerText={otherUsername} bottomText={online ? 'Online' : null} onCenterLinkClickHandler={this.goToProfilePage}/>
-                <div className="page notifications-page">
-                    <div id="page-content" className="notifications-content">
-                        {this.state.noMoreMessages ? <div className="daily-message-title">{strings.noMoreMessages}</div> : '' }
-                        <DailyMessages messages={messages}/>
-                        <br />
-                        <br />
+                { isGuest ? '' : <MessagesToolBar onClickHandler={this.sendMessageHandler} onFocusHandler={this.handleFocus} placeholder={strings.placeholder} text={strings.text}/> }
+                <div className="view view-main" ref="list">
+                    <div className="page notifications-page">
+                        <div id="page-content" className="notifications-content">
+                            {this.state.noMoreMessages ? <div className="daily-message-title">{strings.noMoreMessages}</div> : '' }
+                            <DailyMessages messages={messages}/>
+                            <br />
+                            <br />
+                        </div>
                     </div>
-                </div>
-                <div>
-                    { isGuest ? '' : <MessagesToolBar onClickHandler={this.sendMessageHandler} onFocusHandler={this.handleFocus} placeholder={strings.placeholder} text={strings.text}/> }
                 </div>
             </div>
         );

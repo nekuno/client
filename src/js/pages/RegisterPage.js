@@ -146,48 +146,50 @@ export default class RegisterPage extends Component {
         let initialToken = this.state.initialToken;
 
         return (
-            <div className="view view-main">
+            <div className="views">
                 <TopNavBar leftText={strings.cancel} centerText={strings.register}/>
-                <div className="page" style={invitation && invitation.image_url ? {background: 'url("' + invitation.image_url + '") no-repeat center top', minHeight: '100%'} : null}>
-                    {invitation && invitation.image_url ? <div className="gradient-transparency"></div> : null}
+                <div className="view view-main">
+                    <div className="page" style={invitation && invitation.image_url ? {background: 'url("' + invitation.image_url + '") no-repeat center top', minHeight: '100%'} : null}>
+                        {invitation && invitation.image_url ? <div className="gradient-transparency"></div> : null}
 
-                    {this.state.registeringUser ?
-                        <EmptyMessage text={strings.loadingMessage} loadingGif={true}/>
-                        :
-                        <div id="page-content" className="register-content">
-                            <div className="register-title bold">
-                                <div className="title">{token ? (invitation.slogan ? invitation.slogan : strings.titleCorrect) : strings.title}</div>
-                            </div>
-                            <div className="register-sub-title">{ token ? (invitation.htmlText ? invitation.htmlText : strings.correct) : strings.subtitle}</div>
-                            { token ? <div className="register-sub-title"><strong>{strings.publishMessage}</strong></div> : null}
-                            <br />
-                            { token ? '' :
-                                <div className="list-block">
-                                    <ul>
-                                        <TextInput ref="token" defaultValue={initialToken} onChange={this.handleOnChange} placeholder={strings.paste}/>
-                                    </ul>
+                        {this.state.registeringUser ?
+                            <EmptyMessage text={strings.loadingMessage} loadingGif={true}/>
+                            :
+                            <div id="page-content" className="register-content">
+                                <div className="register-title bold">
+                                    <div className="title">{token ? (invitation.slogan ? invitation.slogan : strings.titleCorrect) : strings.title}</div>
                                 </div>
-                            }
-                            <div style={{color: '#FFF'}}>
-                                <p>{ error ? error.error : ''}</p>
-                            </div>
-
-                            { token ?
-                                <div>
-                                    {/* Uncomment to enable all social networks */}
-                                    {/* <SocialBox onClickHandler={this.handleSocialNetwork}/> */}
-                                    <FacebookButton onClickHandler={this.handleSocialNetwork} text={strings.signUp}/>
-                                    <br />
-                                    <div className="register-sub-title privacy-terms-text">
-                                        <p dangerouslySetInnerHTML={{__html: strings.privacy}}/>
+                                <div className="register-sub-title">{ token ? (invitation.htmlText ? invitation.htmlText : strings.correct) : strings.subtitle}</div>
+                                { token ? <div className="register-sub-title"><strong>{strings.publishMessage}</strong></div> : null}
+                                <br />
+                                { token ? '' :
+                                    <div className="list-block">
+                                        <ul>
+                                            <TextInput ref="token" defaultValue={initialToken} onChange={this.handleOnChange} placeholder={strings.paste}/>
+                                        </ul>
                                     </div>
-                                    <br />
-                                    <br />
+                                }
+                                <div style={{color: '#FFF'}}>
+                                    <p>{ error ? error.error : ''}</p>
                                 </div>
-                                : ''
-                            }
-                        </div>
-                    }
+
+                                { token ?
+                                    <div>
+                                        {/* Uncomment to enable all social networks */}
+                                        {/* <SocialBox onClickHandler={this.handleSocialNetwork}/> */}
+                                        <FacebookButton onClickHandler={this.handleSocialNetwork} text={strings.signUp}/>
+                                        <br />
+                                        <div className="register-sub-title privacy-terms-text">
+                                            <p dangerouslySetInnerHTML={{__html: strings.privacy}}/>
+                                        </div>
+                                        <br />
+                                        <br />
+                                    </div>
+                                    : ''
+                                }
+                            </div>
+                        }
+                    </div>
                 </div>
             </div>
         );

@@ -73,6 +73,7 @@ function initPhotosSwiper() {
         centeredSlides  : true,
         paginationHide: false,
         paginationClickable: true,
+        pagination:'.swiper-pagination',
         nextButton: '.swiper-button-next',
         prevButton: '.swiper-button-prev',
     });
@@ -257,6 +258,7 @@ export default class OtherUserPage extends Component {
                         {otherUser && profile && profileWithMetadata ?
                             <div id="page-content">
                                 <div className="user-images">
+                                    <div className="swiper-pagination"></div>
                                     <div className="user-images-wrapper">
                                         <div className="swiper-custom">
                                             <div id={"photos-swiper-container"} className="swiper-container">

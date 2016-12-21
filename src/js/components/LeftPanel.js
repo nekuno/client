@@ -62,31 +62,31 @@ export default class LeftPanel extends Component {
     }
 
     handleGoClickThreads() {
-        nekunoApp.closePanel();
         this.context.history.pushState(null, '/discover');
+        setTimeout(() => nekunoApp.closePanel(), 0);
     }
 
     handleGoClickProfile() {
-        nekunoApp.closePanel();
         this.context.history.pushState(null, `/profile`);
+        setTimeout(() => nekunoApp.closePanel(), 0);
     }
 
     handleGoClickConversations() {
-        nekunoApp.closePanel();
         this.context.history.pushState(null, '/conversations');
+        setTimeout(() => nekunoApp.closePanel(), 0);
     }
 
     handleGoClickSocialNetworks() {
-        nekunoApp.closePanel();
         this.setState({
             settingsActive: null
         });
         this.context.history.pushState(null, '/social-networks');
+        setTimeout(() => nekunoApp.closePanel(), 0);
     }
 
     handleGoClickInterests() {
-        nekunoApp.closePanel();
         this.context.history.pushState(null, '/interests');
+        setTimeout(() => nekunoApp.closePanel(), 0);
     }
 
     handleClickSettings() {
@@ -96,16 +96,16 @@ export default class LeftPanel extends Component {
     }
 
     handleGoClickInvitations() {
-        nekunoApp.closePanel();
         this.setState({
             settingsActive: null
         });
         this.context.history.pushState(null, '/invitations');
+        setTimeout(() => nekunoApp.closePanel(), 0);
     }
 
     handleGoClickGroups() {
-        nekunoApp.closePanel();
         this.context.history.pushState(null, '/groups');
+        setTimeout(() => nekunoApp.closePanel(), 0);
     }
 
     logout(e) {
@@ -134,29 +134,29 @@ export default class LeftPanel extends Component {
                     </div>
                     { userLoggedIn ? <User {...this.props} onClick={this.handleGoClickProfile} /> : '' }
                     <div className="user-interests">
-                        <Link to="/interests" onClick={this.handleGoClickInterests}>
+                        <a href="javascript:void(0)" onClick={this.handleGoClickInterests}>
                             <div className="number">
                                 {interests}
                             </div>
                             <div className="label">
                                 {strings.interests}
                             </div>
-                        </Link>
+                        </a>
                     </div>
                     { userLoggedIn && !settingsActive ?
                         <div className="content-block menu">
-                            <Link to={'/discover'} onClick={this.handleGoClickThreads}>
+                            <a href="javascript:void(0)" onClick={this.handleGoClickThreads}>
                                 {strings.threads}
-                            </Link>
-                            <Link to={'/profile'} onClick={this.handleGoClickProfile}>
+                            </a>
+                            <a href="javascript:void(0)" onClick={this.handleGoClickProfile}>
                                 {strings.myProfile}
-                            </Link>
-                            <Link to="/conversations" onClick={this.handleGoClickConversations}>
+                            </a>
+                            <a href="javascript:void(0)" onClick={this.handleGoClickConversations}>
                                 {strings.conversations}
                                 {unreadCount ? <span className="unread-messages-count">
                                     <span className="unread-messages-count-text">{unreadCount}</span>
                                 </span> : ''}
-                            </Link>
+                            </a>
                             {/*<Link to="/groups" onClick={this.handleGoClickGroups}>*/}
                                 {/*{strings.groups}*/}
                             {/*</Link>*/}
@@ -169,15 +169,15 @@ export default class LeftPanel extends Component {
                                 <a onClick={this.handleClickSettings} style={{fontWeight: 'bold'}}>
                                     <span className="icon-left-arrow"></span>&nbsp;&nbsp;{strings.settings}
                                 </a>
-                                <Link to="/social-networks" onClick={this.handleGoClickSocialNetworks}>
+                                <a href="javascript:void(0)" onClick={this.handleGoClickSocialNetworks}>
                                     {strings.socialNetworks}
-                                </Link>
+                                </a>
                                 {/*<Link to="/invitations" onClick={this.handleGoClickInvitations} onlyActiveOnIndex={false}>*/}
                                     {/*{strings.invitations}*/}
                                 {/*</Link>*/}
-                                <Link to="/" onClick={this.logout}>
+                                <a href="javascript:void(0)" onClick={this.logout}>
                                     {strings.logout}
-                                </Link>
+                                </a>
                             </div>
                             : '' }
                 </div>

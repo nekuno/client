@@ -84,7 +84,9 @@ export default class OtherInterestsPage extends Component {
     }
 
     componentWillMount() {
-        requestData(this.props);
+        if (this.props.interests.length === 0) {
+            requestData(this.props);
+        }
     }
 
     componentWillUnmount() {

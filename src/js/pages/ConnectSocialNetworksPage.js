@@ -33,6 +33,14 @@ export default class ConnectSocialNetworksPage extends Component {
         networks: PropTypes.array.isRequired
     };
 
+    componentDidMount() {
+        nekunoApp.closePanel();
+    }
+
+    componentDidUpdate() {
+        nekunoApp.closePanel();
+    }
+
     render() {
 
         const {networks, user, strings} = this.props;

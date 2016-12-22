@@ -121,8 +121,12 @@ export default class DiscoverPage extends Component {
         requestData(this.props);
     }
 
-    componentDidUpdate() {
+    componentDidMount() {
+        nekunoApp.closePanel();
+    }
 
+    componentDidUpdate() {
+        nekunoApp.closePanel();
     }
 
     componentWillUnmount() {

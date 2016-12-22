@@ -73,7 +73,11 @@ export default class InterestsPage extends Component {
     }
 
     componentDidMount() {
+        nekunoApp.closePanel();
+    }
 
+    componentDidUpdate() {
+        nekunoApp.closePanel();
     }
 
     componentWillUnmount() {

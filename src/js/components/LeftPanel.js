@@ -1,6 +1,5 @@
 import React, { PropTypes, Component } from 'react';
 import selectn from 'selectn';
-import { Link } from 'react-router';
 import User from '../components/User';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
@@ -63,17 +62,14 @@ export default class LeftPanel extends Component {
 
     handleGoClickThreads() {
         this.context.history.pushState(null, '/discover');
-        setTimeout(() => nekunoApp.closePanel(), 0);
     }
 
     handleGoClickProfile() {
         this.context.history.pushState(null, `/profile`);
-        setTimeout(() => nekunoApp.closePanel(), 0);
     }
 
     handleGoClickConversations() {
         this.context.history.pushState(null, '/conversations');
-        setTimeout(() => nekunoApp.closePanel(), 0);
     }
 
     handleGoClickSocialNetworks() {
@@ -81,12 +77,10 @@ export default class LeftPanel extends Component {
             settingsActive: null
         });
         this.context.history.pushState(null, '/social-networks');
-        setTimeout(() => nekunoApp.closePanel(), 0);
     }
 
     handleGoClickInterests() {
         this.context.history.pushState(null, '/interests');
-        setTimeout(() => nekunoApp.closePanel(), 0);
     }
 
     handleClickSettings() {
@@ -100,12 +94,10 @@ export default class LeftPanel extends Component {
             settingsActive: null
         });
         this.context.history.pushState(null, '/invitations');
-        setTimeout(() => nekunoApp.closePanel(), 0);
     }
 
     handleGoClickGroups() {
         this.context.history.pushState(null, '/groups');
-        setTimeout(() => nekunoApp.closePanel(), 0);
     }
 
     logout(e) {

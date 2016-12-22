@@ -72,14 +72,6 @@ export default class InterestsPage extends Component {
         }
     }
 
-    componentDidMount() {
-        nekunoApp.closePanel();
-    }
-
-    componentDidUpdate() {
-        nekunoApp.closePanel();
-    }
-
     componentWillUnmount() {
         document.getElementsByClassName('view')[0].removeEventListener('scroll', this.handleScroll);
     }

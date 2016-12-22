@@ -61,14 +61,6 @@ export default class InvitationsPage extends Component {
         requestData();
     }
 
-    componentDidMount() {
-        nekunoApp.closePanel();
-    }
-
-    componentDidUpdate() {
-        nekunoApp.closePanel();
-    }
-
     onShare(invitation) {
         const {strings} = this.props;
         const url = INVITATIONS_URL.replace('{token}', invitation.invitation.token);

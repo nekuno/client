@@ -29,14 +29,6 @@ export default class ChatThreadsPage extends Component {
         threads: PropTypes.array.isRequired
     };
 
-    componentDidMount() {
-        nekunoApp.closePanel();
-    }
-
-    componentDidUpdate() {
-        nekunoApp.closePanel();
-    }
-
     render() {
 
         const {threads, strings} = this.props;

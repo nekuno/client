@@ -70,14 +70,6 @@ export default class GroupPage extends Component {
         requestData(this.props);
     }
 
-    componentDidMount() {
-        nekunoApp.closePanel();
-    }
-
-    componentDidUpdate() {
-        nekunoApp.closePanel();
-    }
-
     create() {
         nekunoApp.prompt(this.props.strings.enter_name, (value) => {
             const data = {'name': value};

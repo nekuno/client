@@ -61,26 +61,41 @@ export default class LeftPanel extends Component {
     }
 
     handleGoClickThreads() {
-        this.context.history.pushState(null, '/discover');
+        nekunoApp.closePanel();
+        $$('.panel-left').once('closed', () => {
+            this.context.history.pushState(null, '/discover');
+        });
     }
 
     handleGoClickProfile() {
-        this.context.history.pushState(null, `/profile`);
+        nekunoApp.closePanel();
+        $$('.panel-left').once('closed', () => {
+            this.context.history.pushState(null, `/profile`);
+        });
     }
 
     handleGoClickConversations() {
-        this.context.history.pushState(null, '/conversations');
+        nekunoApp.closePanel();
+        $$('.panel-left').once('closed', () => {
+            this.context.history.pushState(null, '/conversations');
+        });
     }
 
     handleGoClickSocialNetworks() {
+        nekunoApp.closePanel();
         this.setState({
             settingsActive: null
         });
-        this.context.history.pushState(null, '/social-networks');
+        $$('.panel-left').once('closed', () => {
+            this.context.history.pushState(null, '/social-networks');
+        });
     }
 
     handleGoClickInterests() {
-        this.context.history.pushState(null, '/interests');
+        nekunoApp.closePanel();
+        $$('.panel-left').once('closed', () => {
+            this.context.history.pushState(null, '/interests');
+        });
     }
 
     handleClickSettings() {
@@ -93,11 +108,17 @@ export default class LeftPanel extends Component {
         this.setState({
             settingsActive: null
         });
-        this.context.history.pushState(null, '/invitations');
+        nekunoApp.closePanel();
+        $$('.panel-left').once('closed', () => {
+            this.context.history.pushState(null, '/invitations');
+        });
     }
 
     handleGoClickGroups() {
-        this.context.history.pushState(null, '/groups');
+        nekunoApp.closePanel();
+        $$('.panel-left').once('closed', () => {
+            this.context.history.pushState(null, '/groups');
+        });
     }
 
     logout(e) {

@@ -74,14 +74,6 @@ export default class UserPage extends Component {
         requestData(this.props);
     }
 
-    componentDidMount() {
-        nekunoApp.closePanel();
-    }
-
-    componentDidUpdate() {
-        nekunoApp.closePanel();
-    }
-
     render() {
         const {user, profile, metadata, profileWithMetadata, stats, strings} = this.props;
         return (

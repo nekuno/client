@@ -67,6 +67,7 @@ export default class ChatMessagesPage extends Component {
         this.markReaded = this.markReaded.bind(this);
         this.handleScroll = this.handleScroll.bind(this);
         this.goToProfilePage = this.goToProfilePage.bind(this);
+        this.scrollIfNeeded = this.scrollIfNeeded.bind(this);
 
         this.state = {
             noMoreMessages: ChatMessageStore.noMoreMessages(props.params.userId),
@@ -81,10 +82,12 @@ export default class ChatMessagesPage extends Component {
         if (!ChatMessageStore.noMoreMessages(this.props.params.userId)) {
             this.refs.list.addEventListener('scroll', this.handleScroll, false);
         }
+        window.addEventListener('resize', this.scrollIfNeeded, false);
     }
 
     componentWillUnmount() {
         this.refs.list.removeEventListener('scroll', this.handleScroll, false);
+        window.removeEventListener('resize', this.scrollIfNeeded, false);
     }
 
     componentDidUpdate() {
@@ -94,8 +97,17 @@ export default class ChatMessagesPage extends Component {
         }
     }
 
+    scrollIfNeeded() {
+        let list = this.refs.list;
+        console.log(list.scrollTop)
+        console.log(list.scrollHeight)
+        if (list.scrollTop * 4 >= list.scrollHeight) {
+            this._scrollToBottom();
+        }
+    }
+
     _scrollToBottom() {
-        var list = this.refs.list;
+        let list = this.refs.list;
         window.setTimeout(() => {
             list.scrollTop = list.scrollHeight;
         }, 0);

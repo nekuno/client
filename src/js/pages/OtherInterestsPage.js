@@ -21,6 +21,7 @@ function parseId(user) {
 function requestData(props) {
     const userId = parseId(props.user);
     UserActionCreators.requestUser(parseInt(props.params.userId), ['username', 'photo', 'status']);
+    InterestsActionCreators.resetInterests(parseInt(props.params.userId));
     InterestsActionCreators.requestComparedInterests(userId, parseInt(props.params.userId), 'Link', 1);
 }
 
@@ -84,9 +85,7 @@ export default class OtherInterestsPage extends Component {
     }
 
     componentWillMount() {
-        if (this.props.interests.length === 0) {
-            requestData(this.props);
-        }
+        requestData(this.props);
     }
 
     componentWillUnmount() {

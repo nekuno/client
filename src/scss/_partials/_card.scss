@@ -1,5 +1,6 @@
 .card {
 	text-align: center;
+	vertical-align: top;
 	z-index: 100;
 
 	.card-header {
@@ -95,8 +96,8 @@
 				width: 100%;
 				vertical-align: middle;
 			}
-			.image.fixed-height-image {
-				height: 180px;
+			.image.fixed-max-height-image {
+				max-height: 500px;
 				overflow: hidden;
 			}
 			.matching {
@@ -140,23 +141,39 @@
 		.card-footer {
 			.like-icon-container {
 				color: #fff;
-				font-size: 1.4em;
-				height: 31px;
 				margin: auto;
 
 				.icon-star {
 					vertical-align: middle;
+
+					&:before {
+						font-size: 1.3em;
+					}
 				}
 			}
 			.matching-value {
 				color: $regular-gray;
+				display: inline-flex;
 				font-weight: bold;
 				margin: auto;
+				width: 100%;
+
+				.matching-string {
+					display: inline-block;
+					margin: auto;
+					white-space: nowrap;
+					overflow: hidden;
+					text-overflow: ellipsis;
+				}
+				.matching-percentage {
+					display: inline-block;
+					margin: auto;
+					width: 31px;
+				}
 			}
 
 			&.liked {
 				background: $material-orange-light;
-				padding: 0;
 			}
 
 			&::before {

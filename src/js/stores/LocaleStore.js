@@ -41,7 +41,7 @@ class LocaleStore extends BaseStore {
     }
 
     set locale(locale) {
-        if (locale.startsWith('es')) {
+        if (['es', 'an', 'ca', 'eu', 'gl'].some(current => locale.startsWith(current))) {
             this._locale = 'es';
         }
     }

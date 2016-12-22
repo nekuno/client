@@ -87,7 +87,7 @@ export default class CardUser extends Component {
                 </div>
                 <div className="card-content">
                     <div className="card-content-inner">
-                        <div className="image fixed-height-image" onClick={this.handleGoToProfile}>
+                        <div className="image fixed-max-height-image" onClick={this.handleGoToProfile}>
                             <Image src={imgSrc} defaultSrc={defaultSrc}/>
                         </div>
                         <div className="matching">
@@ -99,7 +99,9 @@ export default class CardUser extends Component {
                     {like ?
                         <div className="like-icon-container"><span className="icon-star"></span></div>
                         :
-                        <div className="matching-value">{strings.matching} {matching ? matching + '%' : '0%'}</div>
+                        <div className="matching-value">
+                            <div className="matching-string">{strings.matching}</div><div className="matching-percentage">{matching ? matching + '%' : '0%'}</div>
+                        </div>
                     }
                 </div>
             </div>

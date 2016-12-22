@@ -126,32 +126,34 @@ export default class EditThreadPage extends Component {
         const {user, filters, tags, thread, categories, strings} = this.props;
         const {category, threadName, updating} = this.state;
         return (
-            <div className="view view-main">
+            <div className="views">
                 <TopNavBar centerText={strings.edit} leftText={strings.cancel}/>
-                <div className="page create-thread-page">
-                    <div id="page-content">
-                        {updating ? <EmptyMessage text={strings.updating} loadingGif={true}/> :
-                            thread && threadName && filters && categories ?
-                                <div>
-                                    <div className="thread-title list-block">
-                                        <ul>
-                                            <TextInput placeholder={strings.placeholder} onChange={this._onChange} defaultValue={threadName}/>
-                                        </ul>
-                                    </div>
-                                    <div key={1} className={category + '-first-vertical-line'}></div>
-                                    <div key={2} className={category + '-last-vertical-line'}></div>
-                                    <div className="main-filter-wprapper">
-                                        <div className="thread-filter radio-filter">
-                                            <div className="thread-filter-dot">
-                                                <span className={category ? "icon-circle active" : "icon-circle"}></span>
-                                            </div>
-                                            <TextRadios labels={[{key: 'persons', text: strings.people}, {key: 'contents', text: strings.contents}]} onClickHandler={this.handleClickCategory} value={category} forceTwoLines={true}/>
+                <div className="view view-main">
+                    <div className="page create-thread-page">
+                        <div id="page-content">
+                            {updating ? <EmptyMessage text={strings.updating} loadingGif={true}/> :
+                                thread && threadName && filters && categories ?
+                                    <div>
+                                        <div className="thread-title list-block">
+                                            <ul>
+                                                <TextInput placeholder={strings.placeholder} onChange={this._onChange} defaultValue={threadName}/>
+                                            </ul>
                                         </div>
+                                        <div key={1} className={category + '-first-vertical-line'}></div>
+                                        <div key={2} className={category + '-last-vertical-line'}></div>
+                                        <div className="main-filter-wprapper">
+                                            <div className="thread-filter radio-filter">
+                                                <div className="thread-filter-dot">
+                                                    <span className={category ? "icon-circle active" : "icon-circle"}></span>
+                                                </div>
+                                                <TextRadios labels={[{key: 'persons', text: strings.people}, {key: 'contents', text: strings.contents}]} onClickHandler={this.handleClickCategory} value={category} forceTwoLines={true}/>
+                                            </div>
+                                        </div>
+                                        {category === 'contents' ? <CreateContentThread userId={user.id} defaultFilters={filters['contentFilters']} threadName={threadName} tags={tags} thread={thread} onSave={this.onEdit}/> : ''}
+                                        {category === 'persons' ? <CreateUsersThread userId={user.id} defaultFilters={filters['userFilters']} threadName={threadName} tags={tags} thread={thread} categories={categories} onSave={this.onEdit}/> : ''}
                                     </div>
-                                    {category === 'contents' ? <CreateContentThread userId={user.id} defaultFilters={filters['contentFilters']} threadName={threadName} tags={tags} thread={thread} onSave={this.onEdit}/> : ''}
-                                    {category === 'persons' ? <CreateUsersThread userId={user.id} defaultFilters={filters['userFilters']} threadName={threadName} tags={tags} thread={thread} categories={categories} onSave={this.onEdit}/> : ''}
-                                </div>
-                                : ''}
+                                    : ''}
+                        </div>
                     </div>
                 </div>
             </div>

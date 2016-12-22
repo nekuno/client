@@ -46,7 +46,8 @@ export default {
         loginUser      : 'Intentando iniciar sesión',
         registeringUser: 'Registrando usuario',
         wantGuest      : '¿Quieres probarlo?',
-        asGuest        : 'Entra como invitado'
+        asGuest        : 'Entra como invitado',
+        privacy        : 'Al registrarte, estás aceptando las <a href="https://nekuno.com/legal-notice" target="_blank">Condiciones Legales</a> y la <a href="https://nekuno.com/privacy-policy" target="_blank">Política de Privacidad</a> de Nekuno.'
     },
     InterestsPage                    : {
         cancel   : 'Cancelar',
@@ -413,6 +414,14 @@ export default {
     FilterContentPopup               : {
         close    : 'Cerrar',
         interests: 'Intereses',
+        videos   : 'Videos',
+        audios   : 'Música',
+        photos   : 'Fotos',
+        websites : 'Todo',
+        people   : 'Personas',
+        channels : 'Canales'
+    },
+    FilterContentButtons             : {
         videos   : 'Videos',
         audios   : 'Música',
         photos   : 'Fotos',

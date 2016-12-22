@@ -119,30 +119,33 @@ export default class GroupStatsPage extends Component {
         const {leaving} = this.state;
         const invitation_url = buildInvitationUrl(this.props);
         return (
-            <div className="view view-main">
+            <div className="views">
                 <TopNavBar leftMenuIcon={true} centerText={strings.group}/>
-                {leaving ? <EmptyMessage text={strings.leaving} loadingGif={true}/> :
-                    group ?
-                        <div>
-                            <div className="page group-page">
-                                <div id="page-content">
-                                    {console.log(group)}
-                                    <br />
-                                    Nombre: {group.name} <br />
-                                    Usuarios: {group.usersCount} <br />
-                                    <div onClick={this.share}
-                                         className="invitation-share">{strings.share}: {invitation_url}</div>
-                                    <FullWidthButton onClick={this.leave}>{strings.leave}</FullWidthButton>
+                {group ?
+                    <ToolBar links={[
+                        {'url': '/groups/'+group.id, 'text': 'Grupo'},
+                        {'url': '/groups/'+group.id+'/members', 'text': 'Miembros'},
+                        {'url': '/groups/'+group.id+'/contents', 'text': 'Intereses'}
+                    ]} activeLinkIndex={0} arrowUpLeft={'85%'}/>
+                    : null}
+                <div className="view view-main">
+                    {leaving ? <EmptyMessage text={strings.leaving} loadingGif={true}/> :
+                        group ?
+                            <div>
+                                <div className="page group-page">
+                                    <div id="page-content">
+                                        <br />
+                                        Nombre: {group.name} <br />
+                                        Usuarios: {group.usersCount} <br />
+                                        <div onClick={this.share}
+                                             className="invitation-share">{strings.share}: {invitation_url}</div>
+                                        <FullWidthButton onClick={this.leave}>{strings.leave}</FullWidthButton>
 
+                                    </div>
                                 </div>
                             </div>
-                            <ToolBar links={[
-                {'url': '/groups/'+group.id, 'text': 'Grupo'},
-                {'url': '/groups/'+group.id+'/members', 'text': 'Miembros'},
-                {'url': '/groups/'+group.id+'/contents', 'text': 'Intereses'}
-                ]} activeLinkIndex={0} arrowUpLeft={'85%'}/>
-                        </div>
-                        : ''}
+                            : ''}
+                </div>
             </div>
         );
     }

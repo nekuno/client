@@ -72,9 +72,17 @@ export default class GroupContentsPage extends Component {
     render() {
         const {group, contents, strings, user} = this.props;
         return (
-            <div className="view view-main">
+            <div className="views">
                 <TopNavBar leftMenuIcon={true} centerText={strings.group}/>
                 {group && contents ?
+                    <ToolBar links={[
+                        {'url': '/groups/'+group.id, 'text': 'Grupo'},
+                        {'url': '/groups/'+group.id+'/members', 'text': 'Miembros'},
+                        {'url': '/groups/'+group.id+'/contents', 'text': 'Intereses'}
+                    ]} activeLinkIndex={1} arrowUpLeft={'85%'}/>
+                    : null}
+                <div className="view view-main">
+                    {group && contents ?
                         <div>
                             <div className="page group-page">
                                 <div id="page-content">
@@ -83,13 +91,9 @@ export default class GroupContentsPage extends Component {
                                 </div>
                                 <CardContentList contents={contents} userId={user.id}/>
                             </div>
-                            <ToolBar links={[
-                {'url': '/groups/'+group.id, 'text': 'Grupo'},
-                {'url': '/groups/'+group.id+'/members', 'text': 'Miembros'},
-                {'url': '/groups/'+group.id+'/contents', 'text': 'Intereses'}
-                ]} activeLinkIndex={1} arrowUpLeft={'85%'}/>
                         </div>
                         : ''}
+                </div>
             </div>
         );
     }

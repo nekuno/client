@@ -1,5 +1,4 @@
 import React, { PropTypes, Component } from 'react';
-import { Link } from 'react-router';
 import connectToStores from '../../utils/connectToStores';
 import shouldPureComponentUpdate from '../../../../node_modules/react-pure-render/function';
 import LoginStore from '../../stores/LoginStore';
@@ -19,6 +18,9 @@ export default class ToolBar extends Component {
         // Injected by @connectToStores:
         isGuest        : PropTypes.bool
     };
+    static contextTypes = {
+        history: PropTypes.object.isRequired
+    };
 
     shouldComponentUpdate = shouldPureComponentUpdate;
 
@@ -26,13 +28,13 @@ export default class ToolBar extends Component {
         let {activeLinkIndex, links, arrowUpLeft, isGuest} = this.props;
         let className = isGuest ? "toolbar toolbar-guest" : "toolbar";
         return (
-            <div id="bottom-toolbar" className={className}>
+            <div id="toolbar-bottom" className={className}>
                 <div className="arrow-up" style={{ left: arrowUpLeft }}></div>
                 <div className="toolbar-inner">
                     {links.map((link, index) => {
                         return (
-                            <div key={index} className="toolbar-link-wrapper">
-                                <Link to={link.url}>{activeLinkIndex === index ? <strong>{link.text}</strong> : link.text}</Link>
+                            <div key={index} className="toolbar-link-wrapper" onClick={() => this.context.history.replace(link.url)}>
+                                <a href="javascript:void(0)">{activeLinkIndex === index ? <strong>{link.text}</strong> : link.text}</a>
                             </div>
                         );
                     })}

@@ -121,10 +121,6 @@ export default class DiscoverPage extends Component {
         requestData(this.props);
     }
 
-    componentDidUpdate() {
-
-    }
-
     componentWillUnmount() {
         document.getElementsByClassName('view')[0].removeEventListener('scroll', this.handleScroll);
     }
@@ -171,26 +167,28 @@ export default class DiscoverPage extends Component {
         const connectedNetworks = networks.filter(network => network.fetching || network.fetched || network.processing || network.processed);
 
         return (
-            <div className="view view-main" onScroll={this.handleScroll}>
+            <div className="views">
                 {Object.keys(thread).length > 0 ?
                     <TopNavBar leftMenuIcon={true} centerText={strings.discover} rightIcon={'edit'} onRightLinkClickHandler={this.editThread}/>
                     : <TopNavBar leftMenuIcon={true} centerText={strings.discover}/>}
-                <div className="page discover-page">
-                    <div id="page-content">
-                        {this.renderChipList(thread, filters)}
-                        <ProcessesProgress />
-                        {profile && filters && thread && pagination.total <= 100 ? <QuestionsBanner user={user} questionsTotal={pagination.total || 0}/>
-                            : profile && filters && thread && connectedNetworks.length < 3 ? <SocialNetworksBanner networks={networks} user={user}/>
-                            : '' }
-                        {profile && recommendations.length > 0 ?
-                            <CardUserList recommendations={recommendations} userId={user.id} profile={profile} handleSelectProfile={this.selectProfile}/>
-                            :
-                            <EmptyMessage text={isLoadingRecommendations ? strings.loadingMessage : strings.noRecommendations}/>}
-                        <br />
-                        <div className="loading-gif" style={isLoadingRecommendations ? {} : {display: 'none'}}></div>
+                <div className="view view-main" onScroll={this.handleScroll}>
+                    <div className="page discover-page">
+                        <div id="page-content">
+                            {this.renderChipList(thread, filters)}
+                            <ProcessesProgress />
+                            {profile && filters && thread && pagination.total <= 100 ? <QuestionsBanner user={user} questionsTotal={pagination.total || 0}/>
+                                : profile && filters && thread && connectedNetworks.length < 3 ? <SocialNetworksBanner networks={networks} user={user}/>
+                                : '' }
+                            {profile && recommendations.length > 0 ?
+                                <CardUserList recommendations={recommendations} userId={user.id} profile={profile} handleSelectProfile={this.selectProfile}/>
+                                :
+                                <EmptyMessage text={isLoadingRecommendations ? strings.loadingMessage : strings.noRecommendations}/>}
+                            <br />
+                            <div className="loading-gif" style={isLoadingRecommendations ? {} : {display: 'none'}}></div>
+                        </div>
                     </div>
+                    {profile && !profile.orientation ? <OrientationRequiredPopup profile={profile} onContinue={this.goToProfile}/> : null}
                 </div>
-                {profile && !profile.orientation ? <OrientationRequiredPopup profile={profile} onContinue={this.goToProfile}/> : null}
             </div>
         );
     }

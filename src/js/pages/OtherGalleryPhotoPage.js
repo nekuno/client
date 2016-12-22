@@ -37,21 +37,23 @@ export default class OtherGalleryPhotoPage extends Component {
     render() {
         const {photo, strings} = this.props;
         return (
-            <div className="view view-main">
-                <TopNavBar leftIcon={'left-arrow'} centerText={strings.photos}/>
-                <div className="page gallery-photo-page">
-                    <div id="page-content" className="gallery-photo-content">
-                        {photo ?
-                            <div className="photo-wrapper">
-                                <Image src={photo.thumbnail.medium}/>
-                            </div> 
-                            : ''}
-                        <br />
-                        <br />
-                        <br />
-                        <br />
-                        <br />
-                        <br />
+            <div className="views">
+                <div className="view view-main">
+                    <TopNavBar leftIcon={'left-arrow'} centerText={strings.photos}/>
+                    <div className="page gallery-photo-page">
+                        <div id="page-content" className="gallery-photo-content">
+                            {photo ?
+                                <div className="photo-wrapper">
+                                    <Image src={photo.thumbnail.medium}/>
+                                </div>
+                                : ''}
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                        </div>
                     </div>
                 </div>
             </div>

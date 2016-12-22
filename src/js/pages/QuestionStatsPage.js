@@ -62,28 +62,29 @@ export default class QuestionStatsPage extends Component {
     render() {
         const {user, question, userAnswer, isJustRegistered, strings} = this.props;
         return (
-            <div className="view view-main">
+            <div className="views">
                 {isJustRegistered ?
                     <TopNavBar centerText={strings.statistics} rightText={strings.next} onRightLinkClickHandler={this.handleContinueClick}/>
                     :
                     <TopNavBar leftMenuIcon={true} centerText={strings.statistics} rightText={strings.next} onRightLinkClickHandler={this.handleContinueClick}/>
                 }
-
-                <div className="page question-stats-page">
-                    <div id="page-content" className="question-stats-content">
-                        {userAnswer && question ?
-                            <QuestionStats question={question} userAnswer={userAnswer} userId={parseId(user)}/>
-                            :
-                            ''
-                        }
+                <div className="view view-main">
+                    <div className="page question-stats-page">
+                        <div id="page-content" className="question-stats-content">
+                            {userAnswer && question ?
+                                <QuestionStats question={question} userAnswer={userAnswer} userId={parseId(user)}/>
+                                :
+                                ''
+                            }
+                        </div>
+                        <br />
+                        <br />
+                        <FullWidthButton onClick={this.handleContinueClick}>{strings.next}</FullWidthButton>
+                        <br />
+                        <br />
+                        <br />
+                        <br />
                     </div>
-                    <br />
-                    <br />
-                    <FullWidthButton onClick={this.handleContinueClick}>{strings.next}</FullWidthButton>
-                    <br />
-                    <br />
-                    <br />
-                    <br />
                 </div>
             </div>
         );

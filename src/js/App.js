@@ -32,9 +32,7 @@ export default class App extends Component {
             <TranslationProvider>
                 <div className="App">
                     { isLoggedIn ? <LeftPanel/> : '' }
-                    <div className="views">
-                        {children ? children : <HomePage {...this.props}/>}
-                    </div>
+                    { children ? children : <HomePage {...this.props}/> }
                     { isGuest ? <GuestBanner/> : ''}
                 </div>
             </TranslationProvider>

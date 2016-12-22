@@ -3,7 +3,7 @@ import TopNavBar from '../components/ui/TopNavBar';
 import ToolBar from '../components/ui/ToolBar';
 import CardContentList from '../components/interests/CardContentList';
 import CardContentCarousel from '../components/interests/CardContentCarousel';
-import FilterContentPopup from '../components/ui/FilterContentPopup';
+import FilterContentButtons from '../components/ui/FilterContentButtons';
 import TextRadios from '../components/ui/TextRadios';
 import ProfilesAvatarConnection from '../components/ui/ProfilesAvatarConnection';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
@@ -21,18 +21,21 @@ function parseId(user) {
 function requestData(props) {
     const userId = parseId(props.user);
     UserActionCreators.requestUser(parseInt(props.params.userId), ['username', 'photo', 'status']);
+    InterestsActionCreators.resetInterests(parseInt(props.params.userId));
     InterestsActionCreators.requestComparedInterests(userId, parseInt(props.params.userId), 'Link', 1);
 }
 
 function getState(props) {
     const otherUserId = props.params.userId;
     const pagination = InterestStore.getPagination(otherUserId) || {};
+    const totals = InterestStore.getTotals(otherUserId) || {};
     const interests = InterestStore.get(otherUserId) || [];
     const noInterests = InterestStore.noInterests(otherUserId) || false;
     const isLoadingComparedInterests = InterestStore.isLoadingComparedInterests();
     const otherUser = UserStore.get(otherUserId);
     return {
         pagination,
+        totals,
         interests,
         noInterests,
         isLoadingComparedInterests,
@@ -55,6 +58,7 @@ export default class OtherInterestsPage extends Component {
         strings                   : PropTypes.object,
         // Injected by @connectToStores:
         pagination                : PropTypes.object,
+        totals                    : PropTypes.object,
         interests                 : PropTypes.array.isRequired,
         isLoadingComparedInterests: PropTypes.bool,
         otherUser                 : PropTypes.object
@@ -64,7 +68,6 @@ export default class OtherInterestsPage extends Component {
 
         super(props);
 
-        this.onSearchClick = this.onSearchClick.bind(this);
         this.onFilterCommonClick = this.onFilterCommonClick.bind(this);
         this.onFilterTypeClick = this.onFilterTypeClick.bind(this);
         this.handleScroll = this.handleScroll.bind(this);
@@ -112,14 +115,6 @@ export default class OtherInterestsPage extends Component {
             carousel: true
         };
     }
-
-    onSearchClick() {
-        nekunoApp.popup('.popup-filter-other-contents');
-        this.setState({
-            carousel: false,
-            swiper  : null
-        });
-    };
 
     onContentClick(contentKey) {
         this.setState({
@@ -188,51 +183,56 @@ export default class OtherInterestsPage extends Component {
     }
 
     render() {
-        const {interests, noInterests, otherUser, user, params, pagination, strings} = this.props;
+        const {interests, noInterests, otherUser, user, params, pagination, totals, strings} = this.props;
         const ownUserId = parseId(user);
         const otherUserId = parseInt(params.userId);
         const otherUserPicture = otherUser && otherUser.photo ? otherUser.photo.thumbnail.small : 'img/no-img/small.jpg';
         const ownPicture = user && user.photo ? user.photo.thumbnail.small : 'img/no-img/small.jpg';
         return (
-            <div className="view view-main" onScroll={this.handleScroll}>
+            <div className="views">
                 {this.state.carousel ?
-                    <TopNavBar leftText={strings.cancel} centerText={otherUser ? otherUser.username : ''} rightIcon={'search'} onLeftLinkClickHandler={this.onNavBarLeftLinkClick} onRightLinkClickHandler={this.onSearchClick}/>
+                    <TopNavBar leftText={strings.cancel} centerText={otherUser ? otherUser.username : ''} onLeftLinkClickHandler={this.onNavBarLeftLinkClick}/>
                     :
-                    <TopNavBar leftIcon={'left-arrow'} centerText={otherUser ? otherUser.username : ''} rightIcon={'search'} onRightLinkClickHandler={this.onSearchClick}/>
+                    <TopNavBar leftIcon={'left-arrow'} centerText={otherUser ? otherUser.username : ''}/>
                 }
-                <div className="page other-interests-page">
-                    <div id="page-content" className="other-interests-content">
-                        <ProfilesAvatarConnection ownPicture={ownPicture} otherPicture={otherUserPicture}/>
-                        <div className="title">{this.state.commonContent ? strings.similarInterestsCount.replace('%count%', pagination.total || 0) : strings.interestsCount.replace('%count%', pagination.total || 0)}</div>
-                        <div className="common-content-switch">
-                            <TextRadios labels={[{key: 0, text: strings.all}, {key: 1, text: strings.common}]} value={this.state.commonContent} onClickHandler={this.onFilterCommonClick}/>
-                        </div>
-                        {noInterests ? '' :
-                            this.state.carousel ?
-                                <CardContentCarousel contents={interests} userId={ownUserId} otherUserId={otherUserId}/>
-                                :
-                                <CardContentList contents={interests} userId={ownUserId} otherUserId={otherUserId}
-                                                 onClickHandler={this.onContentClick}/>
-                        }
-                        <br />
-                        {this.state.carousel ? '' : <div className="loading-gif" style={pagination.nextLink ? {} : {display: 'none'}}></div>}
-                    </div>
-                    <br/>
-                    <br/>
-                    <br/>
-                </div>
                 {otherUser ?
                     <ToolBar links={[
-                    {'url': `/profile/${otherUserId}`, 'text': strings.about},
-                    {'url': `/users/${otherUserId}/other-questions`, 'text': strings.questions},
-                    {'url': `/users/${otherUserId}/other-interests`, 'text': strings.interests}
+                        {'url': `/profile/${otherUserId}`, 'text': strings.about},
+                        {'url': `/users/${otherUserId}/other-questions`, 'text': strings.questions},
+                        {'url': `/users/${otherUserId}/other-interests`, 'text': strings.interests}
                     ]} activeLinkIndex={2} arrowUpLeft={'83%'}/>
-                        :
+                    :
                     ''}
-                {otherUser ?
-                    <FilterContentPopup userId={otherUserId} contentsCount={pagination.total || 0} ownContent={false} ownUserId={ownUserId} onClickHandler={this.onFilterTypeClick} commonContent={this.state.commonContent}/>
-                        :
-                    ''}
+                <div className="view view-main" onScroll={this.handleScroll}>
+                    <div className="page other-interests-page">
+                        <div id="page-content" className="other-interests-content">
+                            <ProfilesAvatarConnection ownPicture={ownPicture} otherPicture={otherUserPicture}/>
+                            <div className="title">{this.state.commonContent ? strings.similarInterestsCount.replace('%count%', pagination.total || 0) : strings.interestsCount.replace('%count%', pagination.total || 0)}</div>
+                            {otherUser ? <FilterContentButtons userId={otherUserId} contentsCount={pagination.total || 0} ownContent={false} ownUserId={ownUserId} onClickHandler={this.onFilterTypeClick} commonContent={this.state.commonContent}
+                                                  linksCount={totals.Link}
+                                                  audiosCount={totals.Audio}
+                                                  videosCount={totals.Video}
+                                                  imagesCount={totals.Image}
+                                                  channelsCount={totals.Creator}
+                            /> : ''}
+                            <div className="common-content-switch">
+                                <TextRadios labels={[{key: 0, text: strings.all}, {key: 1, text: strings.common}]} value={this.state.commonContent} onClickHandler={this.onFilterCommonClick}/>
+                            </div>
+                            {noInterests ? '' :
+                                this.state.carousel ?
+                                    <CardContentCarousel contents={interests} userId={ownUserId} otherUserId={otherUserId}/>
+                                    :
+                                    <CardContentList contents={interests} userId={ownUserId} otherUserId={otherUserId}
+                                                     onClickHandler={this.onContentClick}/>
+                            }
+                            <br />
+                            {this.state.carousel ? '' : <div className="loading-gif" style={pagination.nextLink ? {} : {display: 'none'}}></div>}
+                        </div>
+                        <br/>
+                        <br/>
+                        <br/>
+                    </div>
+                </div>
             </div>
         );
     }

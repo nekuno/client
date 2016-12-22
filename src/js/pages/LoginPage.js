@@ -58,30 +58,31 @@ export default class LoginPage extends Component {
     render() {
         const {strings} = this.props;
         return (
-            <div className="view view-main">
+            <div className="views">
                 {LoginStore.justLoggedOut ?
                     <TopNavBar leftText={strings.cancel} centerText={strings.login} onLeftLinkClickHandler={this.goHome}/>
                     :
                     <TopNavBar leftText={strings.cancel} centerText={strings.login}/>
                 }
-
-                <div className="page">
-                    <div id="page-content" className="login-content">
-                        <p className="center">{strings.loginResource}</p>
-                        <SocialBox onClickHandler={this.loginByResourceOwner}/>
-                        <br />
-                        <div className="register-text-block">
-                            <div onClick={this.goToRegisterPage} className="register-text">
-                                <span>{strings.hasInvitation}</span> <a href="javascript:void(0)">{strings.register}</a>
+                <div className="view view-main">
+                    <div className="page">
+                        <div id="page-content" className="login-content">
+                            <p className="center">{strings.loginResource}</p>
+                            <SocialBox onClickHandler={this.loginByResourceOwner}/>
+                            <br />
+                            <div className="register-text-block">
+                                <div onClick={this.goToRegisterPage} className="register-text">
+                                    <span>{strings.hasInvitation}</span> <a href="javascript:void(0)">{strings.register}</a>
+                                </div>
+                                {/*Uncomment to enable login as guest
+                                 <div onClick={this.loginAsGuest} className="register-text">
+                                 <span>{strings.wantGuest}</span> <a href="javascript:void(0)">{strings.asGuest}</a>
+                                 </div>*/}
                             </div>
-                            {/*Uncomment to enable login as guest
-                             <div onClick={this.loginAsGuest} className="register-text">
-                             <span>{strings.wantGuest}</span> <a href="javascript:void(0)">{strings.asGuest}</a>
-                             </div>*/}
+                            <br />
+                            <br />
+                            <br />
                         </div>
-                        <br />
-                        <br />
-                        <br />
                     </div>
                 </div>
             </div>

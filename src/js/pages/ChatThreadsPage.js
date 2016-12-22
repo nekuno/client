@@ -34,20 +34,22 @@ export default class ChatThreadsPage extends Component {
         const {threads, strings} = this.props;
 
         return (
-            <div className="view view-main">
+            <div className="views">
                 <TopNavBar leftMenuIcon={true} centerText={strings.title}/>
-                <div className="page notifications-page">
-                    <div id="page-content" className="notifications-content">
-                        {
-                            threads.map((thread, key) => {
-                                return (
-                                    <div key={key}>
-                                        <LastMessage user={thread.user} message={thread.message}/>
-                                        <hr />
-                                    </div>
-                                )
-                            })
-                        }
+                <div className="view view-main">
+                    <div className="page notifications-page">
+                        <div id="page-content" className="notifications-content">
+                            {
+                                threads.map((thread, key) => {
+                                    return (
+                                        <div key={key}>
+                                            <LastMessage user={thread.user} message={thread.message}/>
+                                            <hr />
+                                        </div>
+                                    )
+                                })
+                            }
+                        </div>
                     </div>
                 </div>
             </div>

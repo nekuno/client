@@ -1,0 +1,53 @@
+.filter-content-buttons {
+	.content-block {
+		padding: 0;
+		a {
+			color: #fff;
+			font-size: 1.1em;
+		}
+
+		.filter-icons-row-wrapper {
+			margin-top: 20px;
+			text-align: center;
+
+			.icons-large-wrapper {
+				background-color: $deep-purple;
+				border-radius: 50%;
+				-moz-border-radius: 50%;
+				-webkit-border-radius: 50%;
+				cursor: pointer;
+				display: inline-block;
+				height: 40px;
+				margin: 0 2% 0 2%;
+				text-align: center;
+				width: 40px;
+
+				.icon {
+					font-size: 1.9em;
+					padding-top: 5.5px;
+					&::before {
+						font-size: 0.9em;
+					}
+				}
+
+
+				.icons-large-text {
+					font-size: 0.8em;
+					font-weight: bold;
+					margin-top: 10px;
+				}
+
+				&.active {
+					background-color: transparent;
+					border: 1px solid #fff;
+					height: 38px;
+					width: 38px;
+
+					.icon {
+						padding-top: 4.5px;
+					}
+				}
+			}
+		}
+	}
+}

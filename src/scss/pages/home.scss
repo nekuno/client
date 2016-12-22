@@ -1,7 +1,7 @@
 @import '../_partials/colors';
 
-body #root .App .view.home-view {
-  max-height: 569px;
+body #root .App .views .view.home-view {
+  max-height: 800px;
 
   .swiper-container {
     height: 100%;
@@ -86,6 +86,12 @@ body #root .App .view.home-view {
       margin: 5% auto;
       position: relative;
       width: 80%;
+    }
+
+    .register-sub-title {
+      font-size: 0.9em;
+      padding: 0 10%;
+      margin-top: -20px;
     }
 
     .register-text-block {

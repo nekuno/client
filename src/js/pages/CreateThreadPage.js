@@ -103,30 +103,32 @@ export default class CreateThreadPage extends Component {
         const {user, categories, filters, tags, strings} = this.props;
         const {category, creating} = this.state;
         return (
-            <div className="view view-main">
+            <div className="views">
                 <TopNavBar centerText={strings.create} leftText={strings.cancel}/>
-                <div className="page create-thread-page">
-                    <div id="page-content">
-                        {creating ? <EmptyMessage text={strings.creating} loadingGif={true}/> :
-                            categories && filters ?
-                                <div>
-                                    <div className="thread-title title">
-                                        {strings.title}
-                                    </div>
-                                    <div key={1} className={category + '-first-vertical-line'}></div>
-                                    <div key={2} className={category + '-last-vertical-line'}></div>
-                                    <div className="main-filter-wprapper">
-                                        <div className="thread-filter radio-filter">
-                                            <div className="thread-filter-dot">
-                                                <span className={category ? "icon-circle active" : "icon-circle"}></span>
-                                            </div>
-                                            <TextRadios labels={[{key: 'persons', text: strings.people}, {key: 'contents', text: strings.contents}]} onClickHandler={this.handleClickCategory} value={category} forceTwoLines={true}/>
+                <div className="view view-main">
+                    <div className="page create-thread-page">
+                        <div id="page-content">
+                            {creating ? <EmptyMessage text={strings.creating} loadingGif={true}/> :
+                                categories && filters ?
+                                    <div>
+                                        <div className="thread-title title">
+                                            {strings.title}
                                         </div>
+                                        <div key={1} className={category + '-first-vertical-line'}></div>
+                                        <div key={2} className={category + '-last-vertical-line'}></div>
+                                        <div className="main-filter-wprapper">
+                                            <div className="thread-filter radio-filter">
+                                                <div className="thread-filter-dot">
+                                                    <span className={category ? "icon-circle active" : "icon-circle"}></span>
+                                                </div>
+                                                <TextRadios labels={[{key: 'persons', text: strings.people}, {key: 'contents', text: strings.contents}]} onClickHandler={this.handleClickCategory} value={category} forceTwoLines={true}/>
+                                            </div>
+                                        </div>
+                                        {category === 'contents' ? <CreateContentThread userId={user.id} defaultFilters={filters.contentFilters} tags={tags} onSave={this.onCreate}/> : ''}
+                                        {category === 'persons' ? <CreateUsersThread userId={user.id} defaultFilters={filters.userFilters} tags={tags} categories={categories} onSave={this.onCreate}/> : ''}
                                     </div>
-                                    {category === 'contents' ? <CreateContentThread userId={user.id} defaultFilters={filters.contentFilters} tags={tags} onSave={this.onCreate}/> : ''}
-                                    {category === 'persons' ? <CreateUsersThread userId={user.id} defaultFilters={filters.userFilters} tags={tags} categories={categories} onSave={this.onCreate}/> : ''}
-                                </div>
-                                : ''}
+                                    : ''}
+                        </div>
                     </div>
                 </div>
             </div>

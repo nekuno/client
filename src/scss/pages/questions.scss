@@ -118,9 +118,9 @@ body #root .App .view .page.questions-page {
                 display: inline-block;
                 margin-left: 5px;
                 overflow: hidden;
+                max-width: 90%;
                 text-overflow: ellipsis;
                 vertical-align: bottom;
-                width: 95%;
                 white-space: nowrap;
               }
             }
@@ -150,32 +150,4 @@ body #root .App .view .page.questions-page {
 
 body #root .App .view .page.threads-page .answer-questions-link-container {
   z-index:10000;
-}
-
-@media only screen and (max-width: 270px) {
-  body #root .App .view .page.questions-page,
-        #root .App .view .page.threads-page {
-    #page-content {
-      .question-list {
-        width: 80%;
-      }
-      .answer-questions-link-container {
-        width: 75%;
-      }
-    }
-  }
-}
-
-@media only screen and (min-width: 271px) and (max-width: 300px) {
-  body #root .App .view .page.questions-page,
-        #root .App .view .page.threads-page {
-    #page-content {
-      .question-list {
-        width: 90%;
-      }
-      .answer-questions-link-container {
-        width: 84%;
-      }
-    }
-  }
 }

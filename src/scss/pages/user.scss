@@ -1,7 +1,8 @@
 @import '../_partials/colors';
 
-body #root .App .view .page.user-page {
+body #root .App .views .view .page.user-page {
   #page-content {
+    width: 100%;
     .user-interests {
       .label {
         font-size: 0.857142857em;
@@ -11,7 +12,7 @@ body #root .App .view .page.user-page {
       margin-top: 30px;
 
       .profile-category {
-        width: 200%;
+        width: 100%;
         background-color: $deep-purple-translucent;
         margin-left: -50%;
         margin-top: 10px;
@@ -21,13 +22,15 @@ body #root .App .view .page.user-page {
 
         h3 {
           font-size: 1.3em;
+          margin-left: 10%;
         }
       }
 
       .profile-data {
         display: table;
         padding: 5px;
-        width: 100%;
+        margin: 0 10%;
+        width: 80%;
 
         > span {
           width: 50%;
@@ -142,11 +145,5 @@ body #root .App .view .page.user-page {
         }
       }
     }
-  }
-}
-
-@media only screen and (max-width: 300px) {
-  body #root .App .view .page.user-page {
-    width: 90%;
   }
 }

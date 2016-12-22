@@ -1,6 +1,6 @@
 @import '../_partials/colors';
 
-body #root .App .view .page.gallery-page {
+body #root .App .views .view .page.gallery-page {
   #page-content {
     text-align: center;
     width: 93%;
@@ -55,6 +55,7 @@ body #root .App .view .page.gallery-page {
       &.import-album-wrapper {
         background: $deep-purple;
         position: relative;
+        vertical-align: top;
 
         .icon-image {
           margin: 20px auto;

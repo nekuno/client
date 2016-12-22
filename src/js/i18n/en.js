@@ -46,7 +46,8 @@ export default {
         loginUser      : 'Trying to login user',
         registeringUser: 'Registering user',
         wantGuest      : 'Do you want to try it?',
-        asGuest        : 'Enter as guest'
+        asGuest        : 'Enter as guest',
+        privacy        : 'By registering, you agree to the <a href="https://nekuno.com/legal-notice" target="_blank">Legal Conditions</a> and the Nekuno <a href="https://nekuno.com/privacy-policy" target="_blank">Privacy Policy</a>.'
     },
     InterestsPage                    : {
         cancel   : 'Cancel',
@@ -410,6 +411,14 @@ export default {
     FilterContentPopup               : {
         close    : 'Close',
         interests: 'interests',
+        videos   : 'Videos',
+        audios   : 'Music',
+        photos   : 'Photos',
+        websites : 'All',
+        people   : 'People',
+        channels : 'Channels'
+    },
+    FilterContentButtons             : {
         videos   : 'Videos',
         audios   : 'Music',
         photos   : 'Photos',

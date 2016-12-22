@@ -158,48 +158,53 @@ export default class HomePage extends Component {
         const {loginUser, registeringUser} = this.state;
 
         return (
-            registeringUser || loginUser ?
-                <div className="view view-main home-view">
-                    <EmptyMessage text={registeringUser ? strings.registeringUser : strings.loginUser} loadingGif={true}/>
-                </div>
-                :
-                <div className="view view-main home-view">
-                    <div className="swiper-container swiper-init" data-speed="400" data-space-between="40" data-pagination=".swiper-pagination">
-                        <div className="linear-gradient-rectangle"></div>
+            <div className="views">
+                {registeringUser || loginUser ?
+                    <div className="view view-main home-view">
+                        <EmptyMessage text={registeringUser ? strings.registeringUser : strings.loginUser} loadingGif={true}/>
+                    </div>
+                    :
+                    <div className="view view-main home-view">
+                        <div className="swiper-container swiper-init" data-speed="400" data-space-between="40" data-pagination=".swiper-pagination">
+                            <div className="linear-gradient-rectangle"></div>
 
-                        <div className="swiper-wrapper">
-                            {this.renderSlides()}
+                            <div className="swiper-wrapper">
+                                {this.renderSlides()}
+                            </div>
+                        </div>
+                        <div className="nekuno-logo-wrapper">
+                            <div className="nekuno-logo"></div>
+                        </div>
+                        <div id="page-content" className="home-content">
+
+                        </div>
+                        <div className="swiper-pagination-and-button">
+                            <div className="swiper-pagination"></div>
+                            { this.state.needsUpdating ?
+                                <FullWidthButton onClick={() => window.location = 'https://play.google.com/store/apps/details?id=com.nekuno'}>
+                                    {strings.update}
+                                </FullWidthButton>
+                                :
+                                <div>
+                                    <FacebookButton onClickHandler={this.loginByResourceOwner} text={strings.login}/>
+                                    <div className="register-sub-title privacy-terms-text">
+                                        <p dangerouslySetInnerHTML={{__html: strings.privacy}}/>
+                                    </div>
+                                    {/*<div className="register-text-block">*/}
+                                    {/*<div onClick={this.goToRegisterPage} className="register-text">*/}
+                                    {/*<span>{strings.hasInvitation}</span> <a href="javascript:void(0)">{strings.register}</a>*/}
+                                    {/*</div>*/}
+                                    {/*/!*Uncomment to enable login as guest*/}
+                                    {/*<div onClick={this.loginAsGuest} className="register-text">*/}
+                                    {/*<span>{strings.wantGuest}</span> <a href="javascript:void(0)">{strings.asGuest}</a>*/}
+                                    {/*</div>*!/*/}
+                                    {/*</div>*/}
+                                </div>
+                            }
                         </div>
                     </div>
-                    <div className="nekuno-logo-wrapper">
-                        <div className="nekuno-logo"></div>
-                    </div>
-                    <div id="page-content" className="home-content">
-
-                    </div>
-                    <div className="swiper-pagination-and-button">
-                        <div className="swiper-pagination"></div>
-                        { this.state.needsUpdating ?
-                            <FullWidthButton onClick={() => window.location = 'https://play.google.com/store/apps/details?id=com.nekuno'}>
-                                {strings.update}
-                            </FullWidthButton>
-                            :
-                            <div>
-                                <FacebookButton onClickHandler={this.loginByResourceOwner} text={strings.login}/>
-                                {/*<div className="register-text-block">*/}
-                                {/*<div onClick={this.goToRegisterPage} className="register-text">*/}
-                                {/*<span>{strings.hasInvitation}</span> <a href="javascript:void(0)">{strings.register}</a>*/}
-                                {/*</div>*/}
-                                {/*/!*Uncomment to enable login as guest*/}
-                                {/*<div onClick={this.loginAsGuest} className="register-text">*/}
-                                {/*<span>{strings.wantGuest}</span> <a href="javascript:void(0)">{strings.asGuest}</a>*/}
-                                {/*</div>*!/*/}
-                                {/*</div>*/}
-                            </div>
-                        }
-                    </div>
-                </div>
-
+                }
+            </div>
         );
     }
 
@@ -217,6 +222,7 @@ HomePage.defaultProps = {
         loginUser      : 'Trying to login user',
         registeringUser: 'Registering user',
         wantGuest      : 'Do you want to try it?',
-        asGuest        : 'Enter as guest'
+        asGuest        : 'Enter as guest',
+        privacy        : 'By registering, you agree to the <a href="https://nekuno.com/legal-notice" target="_blank">Legal Conditions</a> and the Nekuno <a href="https://nekuno.com/privacy-policy" target="_blank">Privacy Policy</a>.'
     }
 };

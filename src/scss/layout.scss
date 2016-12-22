@@ -39,6 +39,7 @@
 @import '_partials/processes-progress';
 @import '_partials/loading-spinner-css';
 @import '_partials/thread-toolbar';
+@import '_partials/filter-content-buttons';
 
 * {
 	-webkit-tap-highlight-color: rgba(0, 0, 0, 0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
@@ -54,7 +55,7 @@ body {
 	font-size: 10px;
 	margin: auto;
 	max-width: 480px;
-	min-width: 320px;
+	min-width: 261px;
 	overflow-y: scroll;
 	width: 100%;
 
@@ -91,68 +92,13 @@ body {
 			font-size: 1.4em;
 			height: 100%;
 
-			.view {
-				background: $dark-purple;
-				color: #fff;
-				overflow-y: scroll;
-				.title {
-					font-size: 1.785714286em;
-					text-align: center;
-				}
-
-				.content-block {
-					color: #fff;
-				}
-
-				.bold {
-					font-weight: bold;
-				}
-
-				.icon-wrapper {
-					cursor: pointer;
-				}
-
-				.fixed-button {
-					bottom: 20px;
-					left: 5%;
-					position: fixed;
-					width: 85%;
-				}
-
-				.page {
-					background: $dark-purple;
-					height: auto;
-
-					#page-content {
-						margin: 60px auto 0 auto;
-						width: 85%;
-
-						.sub-title {
-							font-size: 1.214285714em;
-							text-align: center;
-						}
-
-						.excerpt {
-							margin-top: 10px;
-							text-align: center;
-						}
-
-						.list-block .item-content {
-							font-size: 0.823529412em;
-							padding-left: 0;
-						}
-
-						.center {
-							text-align: center;
-						}
-					}
-				}
-
+			.views {
 				.icon-wrapper, .small-icon-wrapper {
 					background-color: $deep-purple;
 					border-radius: 50%;
 					-moz-border-radius: 50%;
 					-webkit-border-radius: 50%;
+					cursor: pointer;
 					display: inline-block;
 					height: 35px;
 					text-align: center;
@@ -211,20 +157,75 @@ body {
 					min-width: 85px;
 				}
 
-				.loading-gif {
-					background: url('img/loading.gif') no-repeat;
-					background-size: 100px 100px;
-					height: 100px;
-					margin: -25px auto auto auto;
-					width: 100px;
-				}
+				.view {
+					background: $dark-purple;
+					color: #fff;
+					overflow-y: scroll;
+					-webkit-overflow-scrolling: touch;
+					.title {
+						font-size: 1.785714286em;
+						text-align: center;
+					}
 
-				.joyride-tooltip {
-					max-width: 70%;
+					.content-block {
+						color: #fff;
+					}
 
-                  .joyride-tooltip__button {
-                    color: #fff;
-                  }
+					.bold {
+						font-weight: bold;
+					}
+
+					.fixed-button {
+						bottom: 20px;
+						left: 5%;
+						position: fixed;
+						width: 85%;
+					}
+
+					.page {
+						background: $dark-purple;
+						height: auto;
+
+						#page-content {
+							margin: 60px auto 0 auto;
+							width: 85%;
+
+							.sub-title {
+								font-size: 1.214285714em;
+								text-align: center;
+							}
+
+							.excerpt {
+								margin-top: 10px;
+								text-align: center;
+							}
+
+							.list-block .item-content {
+								font-size: 0.823529412em;
+								padding-left: 0;
+							}
+
+							.center {
+								text-align: center;
+							}
+						}
+					}
+
+					.loading-gif {
+						background: url('img/loading.gif') no-repeat;
+						background-size: 100px 100px;
+						height: 100px;
+						margin: -25px auto auto auto;
+						width: 100px;
+					}
+
+					.joyride-tooltip {
+						max-width: 70%;
+
+						.joyride-tooltip__button {
+							color: #fff;
+						}
+					}
 				}
 			}
 		}

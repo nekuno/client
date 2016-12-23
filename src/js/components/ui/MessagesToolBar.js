@@ -20,7 +20,7 @@ export default class MessagesToolBar extends Component {
 
     componentDidMount() {
         this.myMessagebar = nekunoApp.messagebar('.messagebar', {
-            maxHeight: 150
+            maxHeight: 100
         });
     }
 

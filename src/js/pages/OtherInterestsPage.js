@@ -219,7 +219,8 @@ export default class OtherInterestsPage extends Component {
                                 <TextRadios labels={[{key: 0, text: strings.all}, {key: 1, text: strings.common}]} value={this.state.commonContent} onClickHandler={this.onFilterCommonClick}/>
                             </div>
                             {noInterests ? '' :
-                                /*this.state.carousel ?
+                                /* Uncomment to enable carousel
+                                this.state.carousel ?
                                     <CardContentCarousel contents={interests} userId={ownUserId} otherUserId={otherUserId}/>
                                     :
                                     <CardContentList contents={interests} userId={ownUserId} otherUserId={otherUserId}

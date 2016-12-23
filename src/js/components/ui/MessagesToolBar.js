@@ -14,6 +14,18 @@ export default class MessagesToolBar extends Component {
         this.handleClick = this.handleClick.bind(this);
         this.handleFocus = this.handleFocus.bind(this);
         this._onKeyDown = this._onKeyDown.bind(this);
+
+        this.myMessagebar = {};
+    }
+
+    componentDidMount() {
+        this.myMessagebar = nekunoApp.messagebar('.messagebar', {
+            maxHeight: 200
+        });
+    }
+
+    componentWillUnmount() {
+        this.myMessagebar.destroy();
     }
 
     handleClick() {
@@ -21,7 +33,7 @@ export default class MessagesToolBar extends Component {
         if (text) {
             this.props.onClickHandler(text);
         }
-        this.refs.textarea.value = '';
+        this.myMessagebar.clear();
     }
 
     handleFocus(e) {
@@ -41,14 +53,10 @@ export default class MessagesToolBar extends Component {
         const {placeholder, text} = this.props;
 
         return (
-            <div id="messages-toolbar" className="toolbar">
+            <div className="toolbar messagebar">
                 <div className="toolbar-inner">
-                    <div className="toolbar messagebar">
-                        <div className="toolbar-inner">
-                            <textarea placeholder={placeholder} ref="textarea" onKeyDown={this._onKeyDown} onFocus={this.handleFocus}/>
-                            <a onClick={this.handleClick}>{text}</a>
-                        </div>
-                    </div>
+                    <textarea placeholder={placeholder} ref="textarea" onKeyDown={this._onKeyDown} onFocus={this.handleFocus}/>
+                    <a className="link" onClick={this.handleClick}>{text}</a>
                 </div>
             </div>
         );

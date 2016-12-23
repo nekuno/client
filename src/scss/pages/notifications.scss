@@ -1,11 +1,14 @@
 @import "../_partials/colors";
-
+body #root .App .views .view.notifications-view {
+  overflow-y: hidden;
+}
 body #root .App .views .view .page.notifications-page  {
   background: #fff;
-  height: inherit;
-
+  height: 100%;
+  position: absolute;
   #page-content {
     background: #fff;
+    margin-top: 50px;
     padding: 10px 0 10px 0;
     width: 100%;
 

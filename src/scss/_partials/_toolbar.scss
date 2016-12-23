@@ -1,6 +1,9 @@
 .toolbar {
-  height: 60px;
   z-index: 11111;
+}
+
+.toolbar:not(.messagebar) {
+  height: 60px;
 
   .arrow-up {
     border-left: 5px solid transparent;

@@ -99,8 +99,6 @@ export default class ChatMessagesPage extends Component {
 
     scrollIfNeeded() {
         let list = this.refs.list;
-        console.log(list.scrollTop)
-        console.log(list.scrollHeight)
         if (list.scrollTop * 4 >= list.scrollHeight) {
             this._scrollToBottom();
         }
@@ -158,12 +156,14 @@ export default class ChatMessagesPage extends Component {
         return (
             <div className="views">
                 <TopNavBar leftIcon={'left-arrow'} centerText={otherUsername} bottomText={online ? 'Online' : null} onCenterLinkClickHandler={this.goToProfilePage}/>
-                { isGuest ? '' : <MessagesToolBar onClickHandler={this.sendMessageHandler} onFocusHandler={this.handleFocus} placeholder={strings.placeholder} text={strings.text}/> }
-                <div className="view view-main" ref="list">
-                    <div className="page notifications-page">
-                        <div id="page-content" className="notifications-content">
+                <div className="view view-main notifications-view">
+                    <div className="page toolbar-fixed notifications-page">
+                        { isGuest ? '' : <MessagesToolBar onClickHandler={this.sendMessageHandler} onFocusHandler={this.handleFocus} placeholder={strings.placeholder} text={strings.text}/> }
+                        <div id="page-content" className="page-content notifications-content messages-content" ref="list">
                             {this.state.noMoreMessages ? <div className="daily-message-title">{strings.noMoreMessages}</div> : '' }
                             <DailyMessages messages={messages}/>
+                            <br />
+                            <br />
                             <br />
                             <br />
                         </div>

@@ -219,11 +219,13 @@ export default class OtherInterestsPage extends Component {
                                 <TextRadios labels={[{key: 0, text: strings.all}, {key: 1, text: strings.common}]} value={this.state.commonContent} onClickHandler={this.onFilterCommonClick}/>
                             </div>
                             {noInterests ? '' :
-                                this.state.carousel ?
+                                /*this.state.carousel ?
                                     <CardContentCarousel contents={interests} userId={ownUserId} otherUserId={otherUserId}/>
                                     :
                                     <CardContentList contents={interests} userId={ownUserId} otherUserId={otherUserId}
                                                      onClickHandler={this.onContentClick}/>
+                                 */
+                                <CardContentList contents={interests} userId={ownUserId} otherUserId={otherUserId}/>
                             }
                             <br />
                             {this.state.carousel ? '' : <div className="loading-gif" style={pagination.nextLink ? {} : {display: 'none'}}></div>}

@@ -37,7 +37,8 @@
 			}
 		}
 		.notification-excerpt {
-			color: $light-gray;
+			color: #000;
+			font-size: 1.1em;
 
 			&.break-words {
 				overflow-wrap: break-word;
@@ -62,7 +63,7 @@
 			}
 		}
 		.notification-time {
-			color: $light-gray;
+			color: #000;
 			font-size: 0.8em;
 			padding-top: 5px;
 

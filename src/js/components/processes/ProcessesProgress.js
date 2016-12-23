@@ -90,7 +90,9 @@ export default class ProcessesProgress extends Component {
         return (
             <div className="process-progress">
                 <div className="process-progress-title">{title} - {percent || 0}%</div>
-                <Line percent={percent} strokeWidth="2" strokeColor="#32ca91"/>
+                <div className="progress-line">
+                    <Line percent={percent} strokeWidth="2" strokeColor="#32ca91"/>
+                </div>
                 <br />
                 <br />
             </div>

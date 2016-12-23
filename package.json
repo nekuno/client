@@ -1,6 +1,6 @@
 {
   "name": "client",
-  "version": "0.23.0",
+  "version": "0.24.0",
   "description": "Nekuno Hybrid Mobile Client",
   "main": "index.js",
   "scripts": {
@@ -25,7 +25,7 @@
     "keymirror": "0.1.1",
     "moment": "2.16.0",
     "normalizr": "1.4.0",
-    "rc-progress": "^1.0.4",
+    "rc-progress": "2.0.3",
     "react": "^15.4.1",
     "react-addons-css-transition-group": "^15.4.1",
     "react-dom": "^15.4.1",

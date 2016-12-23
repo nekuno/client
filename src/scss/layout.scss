@@ -93,6 +93,7 @@ body {
 			height: 100%;
 
 			.views {
+				overflow: hidden;
 				.icon-wrapper, .small-icon-wrapper {
 					background-color: $deep-purple;
 					border-radius: 50%;

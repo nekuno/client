@@ -67,6 +67,7 @@ export default class ChatMessagesPage extends Component {
         this.markReaded = this.markReaded.bind(this);
         this.handleScroll = this.handleScroll.bind(this);
         this.goToProfilePage = this.goToProfilePage.bind(this);
+        this.scrollIfNeeded = this.scrollIfNeeded.bind(this);
 
         this.state = {
             noMoreMessages: ChatMessageStore.noMoreMessages(props.params.userId),
@@ -81,10 +82,12 @@ export default class ChatMessagesPage extends Component {
         if (!ChatMessageStore.noMoreMessages(this.props.params.userId)) {
             this.refs.list.addEventListener('scroll', this.handleScroll, false);
         }
+        window.addEventListener('resize', this.scrollIfNeeded, false);
     }
 
     componentWillUnmount() {
         this.refs.list.removeEventListener('scroll', this.handleScroll, false);
+        window.removeEventListener('resize', this.scrollIfNeeded, false);
     }
 
     componentDidUpdate() {
@@ -94,8 +97,15 @@ export default class ChatMessagesPage extends Component {
         }
     }
 
+    scrollIfNeeded() {
+        let list = this.refs.list;
+        if (list.scrollTop * 4 >= list.scrollHeight) {
+            this._scrollToBottom();
+        }
+    }
+
     _scrollToBottom() {
-        var list = this.refs.list;
+        let list = this.refs.list;
         window.setTimeout(() => {
             list.scrollTop = list.scrollHeight;
         }, 0);
@@ -146,12 +156,14 @@ export default class ChatMessagesPage extends Component {
         return (
             <div className="views">
                 <TopNavBar leftIcon={'left-arrow'} centerText={otherUsername} bottomText={online ? 'Online' : null} onCenterLinkClickHandler={this.goToProfilePage}/>
-                { isGuest ? '' : <MessagesToolBar onClickHandler={this.sendMessageHandler} onFocusHandler={this.handleFocus} placeholder={strings.placeholder} text={strings.text}/> }
-                <div className="view view-main" ref="list">
-                    <div className="page notifications-page">
-                        <div id="page-content" className="notifications-content">
+                <div className="view view-main notifications-view">
+                    <div className="page toolbar-fixed notifications-page">
+                        { isGuest ? '' : <MessagesToolBar onClickHandler={this.sendMessageHandler} onFocusHandler={this.handleFocus} placeholder={strings.placeholder} text={strings.text}/> }
+                        <div id="page-content" className="page-content notifications-content messages-content" ref="list">
                             {this.state.noMoreMessages ? <div className="daily-message-title">{strings.noMoreMessages}</div> : '' }
                             <DailyMessages messages={messages}/>
+                            <br />
+                            <br />
                             <br />
                             <br />
                         </div>

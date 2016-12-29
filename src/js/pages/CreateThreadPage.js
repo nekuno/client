@@ -43,7 +43,7 @@ function requestData(props) {
 export default class CreateThreadPage extends Component {
 
     static contextTypes = {
-        history: PropTypes.object.isRequired
+        router: PropTypes.object.isRequired
     };
 
     static propTypes = {
@@ -92,7 +92,7 @@ export default class CreateThreadPage extends Component {
             .then((createdThread) => {
                 ThreadActionCreators.requestRecommendation(createdThread.id);
                 this.setState({creating: false});
-                this.context.history.pushState(null, `threads`);
+                this.context.router.push(`threads`);
             }, () => {
                 this.setState({creating: false});
             });

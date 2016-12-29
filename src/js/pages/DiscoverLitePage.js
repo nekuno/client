@@ -167,7 +167,7 @@ export default class DiscoverLitePage extends Component {
     };
 
     static contextTypes = {
-        history: PropTypes.object.isRequired
+        router: PropTypes.object.isRequired
     };
 
     constructor() {
@@ -228,7 +228,7 @@ export default class DiscoverLitePage extends Component {
     }
 
     editThread() {
-        this.context.history.pushState(null, `edit-thread/${parseThreadId(this.props.thread)}`);
+        this.context.router.push(`edit-thread/${parseThreadId(this.props.thread)}`);
     }
 
     ignore() {

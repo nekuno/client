@@ -81,7 +81,7 @@ export default class ThreadPage extends Component {
     };
 
     static contextTypes = {
-        history: PropTypes.object.isRequired
+        router: PropTypes.object.isRequired
     };
 
     constructor(props) {
@@ -105,7 +105,7 @@ export default class ThreadPage extends Component {
     }
 
     onAddThreadClickHandler() {
-        this.context.history.pushState(null, '/create-thread');
+        this.context.router.push('/create-thread');
     }
 
     render() {

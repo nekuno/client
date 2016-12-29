@@ -35,7 +35,7 @@ export default class GalleryProfilePhotoPage extends Component {
     };
 
     static contextTypes = {
-        history: PropTypes.object.isRequired
+        router: PropTypes.object.isRequired
     };
     
     constructor(props) {
@@ -51,7 +51,7 @@ export default class GalleryProfilePhotoPage extends Component {
 
     componentWillMount() {
         if (!this.props.photo) {
-            this.context.history.pushState(null, 'gallery');
+            this.context.router.push('gallery');
         }
     }
 
@@ -63,7 +63,7 @@ export default class GalleryProfilePhotoPage extends Component {
             GalleryPhotoActionCreators.setAsProfilePhoto(photoId, crop).then(function() {
                 UserActionCreators.requestUser(parseId(user), ['photo']);
             }, (error) => { console.log(error) });
-            this.context.history.pushState(null, 'gallery');
+            this.context.router.push('gallery');
         });
     }
 

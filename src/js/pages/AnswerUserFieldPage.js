@@ -86,7 +86,7 @@ export default class AnswerUserFieldPage extends Component {
     };
 
     static contextTypes = {
-        history: PropTypes.object.isRequired
+        router: PropTypes.object.isRequired
     };
 
     constructor(props) {
@@ -111,7 +111,7 @@ export default class AnswerUserFieldPage extends Component {
             if (!nextProps.profileQuestionsComplete) {
                 path = 'answer-profile-fields';
             }
-            window.setTimeout(() =>  { this.context.history.pushState(null, path) }, 0);
+            window.setTimeout(() =>  { this.context.router.push(path) }, 0);
         }
     }
 

@@ -16,7 +16,7 @@ function getState(props) {
 export default class App extends Component {
 
     static contextTypes = {
-        history: PropTypes.object.isRequired
+        router: PropTypes.object.isRequired
     };
 
     static propTypes = {

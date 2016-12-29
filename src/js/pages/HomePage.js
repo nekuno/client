@@ -51,7 +51,7 @@ export default class HomePage extends Component {
     };
 
     static contextTypes = {
-        history: PropTypes.object.isRequired
+        router: PropTypes.object.isRequired
     };
 
     constructor(props) {
@@ -96,7 +96,7 @@ export default class HomePage extends Component {
     };
 
     goToRegisterPage = function() {
-        this.context.history.pushState(null, '/register');
+        this.context.router.push('/register');
     };
 
     loginByResourceOwner(resource, scope) {

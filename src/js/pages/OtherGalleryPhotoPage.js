@@ -28,9 +28,13 @@ export default class OtherGalleryPhotoPage extends Component {
         photo  : PropTypes.object
     };
 
+    static contextTypes = {
+        router: PropTypes.object.isRequired
+    };
+
     componentWillMount() {
         if (!this.props.photo) {
-            this.context.history.pushState(null, 'gallery');
+            this.context.router.push('gallery');
         }
     }
 

@@ -36,7 +36,7 @@ export default class RegisterQuestionLandingPage extends Component {
     };
 
     static contextTypes = {
-        history: PropTypes.object.isRequired
+        router: PropTypes.object.isRequired
     };
 
     constructor(props) {
@@ -55,7 +55,7 @@ export default class RegisterQuestionLandingPage extends Component {
             path = '/answer-user-fields';
         }
         
-        this.context.history.pushState(null, path);
+        this.context.router.push(path);
     }
 
     render() {

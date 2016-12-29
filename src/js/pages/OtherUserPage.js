@@ -165,7 +165,7 @@ export default class OtherUserPage extends Component {
         online             : PropTypes.bool
     };
     static contextTypes = {
-        history: PropTypes.object.isRequired
+        router: PropTypes.object.isRequired
     };
 
     constructor(props) {
@@ -183,7 +183,7 @@ export default class OtherUserPage extends Component {
 
     componentWillMount() {
         if (this.props.ownProfile && !this.props.ownProfile.orientation) {
-            window.setTimeout(() => this.context.history.pushState(null, `/discover`), 0);
+            window.setTimeout(() => this.context.router.push(`/discover`), 0);
         } else {
             requestData(this.props);
         }
@@ -191,7 +191,7 @@ export default class OtherUserPage extends Component {
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.ownProfile && !nextProps.ownProfile.orientation) {
-            window.setTimeout(() => this.context.history.pushState(null, `/discover`), 0);
+            window.setTimeout(() => this.context.router.push(`/discover`), 0);
         }
         else if (nextProps.params.userId !== this.props.params.userId) {
             requestData(nextProps);
@@ -222,14 +222,14 @@ export default class OtherUserPage extends Component {
     }
 
     handleClickMessageLink() {
-        this.context.history.pushState(null, `/conversations/${this.props.params.userId}`)
+        this.context.router.push(`/conversations/${this.props.params.userId}`)
     }
 
     handlePhotoClick(url) {
         const {photos, otherUser} = this.props;
         const selectedPhoto = photos.find(photo => photo.url === url) || otherUser.photo;
         const selectedPhotoId = selectedPhoto.id || 'profile';
-        this.context.history.pushState(null, `/users/${otherUser.id}/other-gallery/${selectedPhotoId}`);
+        this.context.router.push(`/users/${otherUser.id}/other-gallery/${selectedPhotoId}`);
     }
 
     render() {

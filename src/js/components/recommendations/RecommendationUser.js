@@ -56,7 +56,7 @@ export default class RecommendationUser extends Component {
     };
 
     static contextTypes = {
-        history: PropTypes.object.isRequired
+        router: PropTypes.object.isRequired
     };
 
     constructor(props) {
@@ -77,14 +77,14 @@ export default class RecommendationUser extends Component {
     }
 
     handleMessage() {
-        this.context.history.pushState(null, `/conversations/${this.props.recommendation.id}`);
+        this.context.router.push(`/conversations/${this.props.recommendation.id}`);
     }
 
     handlePhotoClick(url) {
         const {photos, recommendation} = this.props;
         const selectedPhoto = photos.find(photo => photo.url === url) || recommendation.photo;
         const selectedPhotoId = selectedPhoto.id || 'profile';
-        this.context.history.pushState(null, `/users/${recommendation.id}/other-gallery/${selectedPhotoId}`);
+        this.context.router.push(`/users/${recommendation.id}/other-gallery/${selectedPhotoId}`);
     }
 
     render() {

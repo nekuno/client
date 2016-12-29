@@ -9,7 +9,7 @@ export default class Message extends Component {
     };
 
     static contextTypes = {
-        history: PropTypes.object.isRequired
+        router: PropTypes.object.isRequired
     };
 
     render() {
@@ -41,7 +41,7 @@ export default class Message extends Component {
                     </div>
                     :
                     <div className="notification">
-                        <div className="notification-picture" onClick={() => this.context.history.pushState(null, `profile/${message.user_from.id}`)}>
+                        <div className="notification-picture" onClick={() => this.context.router.push(`profile/${message.user_from.id}`)}>
                             <img src={imageSrc}/>
                         </div>
                         <div className="notification-text">

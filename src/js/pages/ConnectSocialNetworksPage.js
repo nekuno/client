@@ -21,7 +21,7 @@ function getState(props) {
 export default class ConnectSocialNetworksPage extends Component {
 
     static contextTypes = {
-        history: PropTypes.object.isRequired
+        router: PropTypes.object.isRequired
     };
 
     static propTypes = {

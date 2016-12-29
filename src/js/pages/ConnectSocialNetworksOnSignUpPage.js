@@ -21,7 +21,7 @@ function getState(props) {
 export default class ConnectSocialNetworksOnSignUpPage extends Component {
 
     static contextTypes = {
-        history: PropTypes.object.isRequired
+        router: PropTypes.object.isRequired
     };
 
     static propTypes = {
@@ -39,7 +39,7 @@ export default class ConnectSocialNetworksOnSignUpPage extends Component {
     }
 
     goToRegisterLandingPage() {
-        this.context.history.pushState(null, 'register-questions-landing')
+        this.context.router.push('register-questions-landing');
     }
 
     render() {

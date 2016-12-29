@@ -1,4 +1,5 @@
 import React, { PropTypes, Component } from 'react';
+import { ScrollContainer } from 'react-router-scroll';
 import TopNavBar from '../components/ui/TopNavBar';
 import ToolBar from '../components/ui/ToolBar';
 import CardContentList from '../components/interests/CardContentList';
@@ -203,39 +204,41 @@ export default class OtherInterestsPage extends Component {
                     ]} activeLinkIndex={2} arrowUpLeft={'83%'}/>
                     :
                     ''}
-                <div className="view view-main" onScroll={this.handleScroll}>
-                    <div className="page other-interests-page">
-                        <div id="page-content" className="other-interests-content">
-                            <ProfilesAvatarConnection ownPicture={ownPicture} otherPicture={otherUserPicture}/>
-                            <div className="title">{this.state.commonContent ? strings.similarInterestsCount.replace('%count%', pagination.total || 0) : strings.interestsCount.replace('%count%', pagination.total || 0)}</div>
-                            {otherUser ? <FilterContentButtons userId={otherUserId} contentsCount={pagination.total || 0} ownContent={false} ownUserId={ownUserId} onClickHandler={this.onFilterTypeClick} commonContent={this.state.commonContent}
-                                                  linksCount={totals.Link}
-                                                  audiosCount={totals.Audio}
-                                                  videosCount={totals.Video}
-                                                  imagesCount={totals.Image}
-                                                  channelsCount={totals.Creator}
-                            /> : ''}
-                            <div className="common-content-switch">
-                                <TextRadios labels={[{key: 0, text: strings.all}, {key: 1, text: strings.common}]} value={this.state.commonContent} onClickHandler={this.onFilterCommonClick}/>
+                <ScrollContainer scrollKey={"other-interests-" + otherUserId}>
+                    <div className="view view-main" onScroll={this.handleScroll}>
+                        <div className="page other-interests-page">
+                            <div id="page-content" className="other-interests-content">
+                                <ProfilesAvatarConnection ownPicture={ownPicture} otherPicture={otherUserPicture}/>
+                                <div className="title">{this.state.commonContent ? strings.similarInterestsCount.replace('%count%', pagination.total || 0) : strings.interestsCount.replace('%count%', pagination.total || 0)}</div>
+                                {otherUser ? <FilterContentButtons userId={otherUserId} contentsCount={pagination.total || 0} ownContent={false} ownUserId={ownUserId} onClickHandler={this.onFilterTypeClick} commonContent={this.state.commonContent}
+                                                      linksCount={totals.Link}
+                                                      audiosCount={totals.Audio}
+                                                      videosCount={totals.Video}
+                                                      imagesCount={totals.Image}
+                                                      channelsCount={totals.Creator}
+                                /> : ''}
+                                <div className="common-content-switch">
+                                    <TextRadios labels={[{key: 0, text: strings.all}, {key: 1, text: strings.common}]} value={this.state.commonContent} onClickHandler={this.onFilterCommonClick}/>
+                                </div>
+                                {noInterests ? '' :
+                                    /* Uncomment to enable carousel
+                                    this.state.carousel ?
+                                        <CardContentCarousel contents={interests} userId={ownUserId} otherUserId={otherUserId}/>
+                                        :
+                                        <CardContentList contents={interests} userId={ownUserId} otherUserId={otherUserId}
+                                                         onClickHandler={this.onContentClick}/>
+                                     */
+                                    <CardContentList contents={interests} userId={ownUserId} otherUserId={otherUserId}/>
+                                }
+                                <br />
+                                {this.state.carousel ? '' : <div className="loading-gif" style={pagination.nextLink ? {} : {display: 'none'}}></div>}
                             </div>
-                            {noInterests ? '' :
-                                /* Uncomment to enable carousel
-                                this.state.carousel ?
-                                    <CardContentCarousel contents={interests} userId={ownUserId} otherUserId={otherUserId}/>
-                                    :
-                                    <CardContentList contents={interests} userId={ownUserId} otherUserId={otherUserId}
-                                                     onClickHandler={this.onContentClick}/>
-                                 */
-                                <CardContentList contents={interests} userId={ownUserId} otherUserId={otherUserId}/>
-                            }
-                            <br />
-                            {this.state.carousel ? '' : <div className="loading-gif" style={pagination.nextLink ? {} : {display: 'none'}}></div>}
+                            <br/>
+                            <br/>
+                            <br/>
                         </div>
-                        <br/>
-                        <br/>
-                        <br/>
                     </div>
-                </div>
+                </ScrollContainer>
             </div>
         );
     }

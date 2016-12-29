@@ -63,8 +63,8 @@ class LoginStore extends BaseStore {
                 LocalStorageService.remove('jwt');
 
                 const path = action.path;
-                let history = RouterContainer.get();
-                history.replaceState(null, path);
+                let router = RouterContainer.get();
+                router.replace(path);
 
                 this.emitChange();
                 break;

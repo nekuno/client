@@ -9,7 +9,7 @@ import SocialNetworkService from '../../services/SocialNetworkService';
 export default class SocialNetworksBanner extends Component {
 
     static contextTypes = {
-        history: PropTypes.object.isRequired
+        router: PropTypes.object.isRequired
     };
 
     static propTypes = {
@@ -34,7 +34,7 @@ export default class SocialNetworksBanner extends Component {
     };
 
     goToSocialNetworks() {
-        this.context.history.pushState(null, '/social-networks');
+        this.context.router.push('/social-networks');
     }
 
     render() {

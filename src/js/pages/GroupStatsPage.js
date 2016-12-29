@@ -58,7 +58,7 @@ export default class GroupStatsPage extends Component {
     };
 
     static contextTypes = {
-        history: PropTypes.object.isRequired
+        router: PropTypes.object.isRequired
     };
 
     constructor(props) {
@@ -80,7 +80,7 @@ export default class GroupStatsPage extends Component {
             this.setState({leaving: true});
             GroupActionCreators.leaveGroup(this.props.group.id).then(() => {
                 this.setState({leaving: false});
-                this.context.history.pushState(null, '/groups');
+                this.context.router.push('/groups');
             }, (error) => {
                 console.log(error);
                 this.setState({leaving: false});

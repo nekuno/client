@@ -1,4 +1,5 @@
 import React, { PropTypes, Component } from 'react';
+import { ScrollContainer } from 'react-router-scroll';
 import TopNavBar from '../components/ui/TopNavBar';
 import ToolBar from '../components/ui/ToolBar';
 import OtherQuestionList from '../components/questions/OtherQuestionList';
@@ -118,24 +119,26 @@ export default class OtherQuestionsPage extends Component {
                         {'url': `/users/${params.userId}/other-interests`, 'text': strings.interests}
                     ]} activeLinkIndex={1} arrowUpLeft={'48%'}/>
                     : null}
-                <div className="view view-main" onScroll={this.handleScroll}>
-                    <div className="page other-questions-page">
-                        {user && otherUser ?
-                            <div id="page-content" className="other-questions-content">
-                                <div className="other-questions-header-container">
-                                    <ProfilesAvatarConnection ownPicture={ownPicture} otherPicture={otherPicture}/>
-                                    <div className="other-questions-stats-title title">{pagination.total || 0} {strings.coincidences}</div>
+                <ScrollContainer scrollKey={"other-questions-" + params.userId}>
+                    <div className="view view-main" onScroll={this.handleScroll}>
+                        <div className="page other-questions-page">
+                            {user && otherUser ?
+                                <div id="page-content" className="other-questions-content">
+                                    <div className="other-questions-header-container">
+                                        <ProfilesAvatarConnection ownPicture={ownPicture} otherPicture={otherPicture}/>
+                                        <div className="other-questions-stats-title title">{pagination.total || 0} {strings.coincidences}</div>
+                                    </div>
+                                    <OtherQuestionList otherQuestions={otherQuestions} questions={questions} userId={user.qnoow_id} ownPicture={ownPicture} otherPicture={otherPicture}/>
+                                    <div className="loading-gif" style={pagination.nextLink ? {} : {display: 'none'}}></div>
+                                    <br />
+                                    <br />
+                                    <br />
                                 </div>
-                                <OtherQuestionList otherQuestions={otherQuestions} questions={questions} userId={user.qnoow_id} ownPicture={ownPicture} otherPicture={otherPicture}/>
-                                <div className="loading-gif" style={pagination.nextLink ? {} : {display: 'none'}}></div>
-                                <br />
-                                <br />
-                                <br />
-                            </div>
-                            : ''
-                        }
+                                : ''
+                            }
+                        </div>
                     </div>
-                </div>
+                </ScrollContainer>
             </div>
         );
     }

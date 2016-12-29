@@ -58,7 +58,7 @@ export default class GalleryPage extends Component {
     };
 
     static contextTypes = {
-        history: PropTypes.object.isRequired
+        router: PropTypes.object.isRequired
     };
 
     constructor(props) {
@@ -91,7 +91,7 @@ export default class GalleryPage extends Component {
 
     goToPhotoGalleryPage(photo) {
         GalleryPhotoActionCreators.selectPhoto(photo);
-        window.setTimeout(() => { this.context.history.pushState(null, 'gallery-photo') }, 0);
+        window.setTimeout(() => { this.context.router.push('gallery-photo') }, 0);
     }
 
     importAlbumPopUp() {
@@ -107,7 +107,7 @@ export default class GalleryPage extends Component {
             }
             GalleryAlbumActionCreators.getAlbums(resource, scope).then(() => {
                 window.setTimeout(() => {
-                    this.context.history.pushState(null, 'gallery-albums')
+                    this.context.router.push('gallery-albums')
                 }, 500);
             }, (error) => { console.log(error) });
             this.setState({

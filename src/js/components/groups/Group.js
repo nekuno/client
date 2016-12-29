@@ -7,7 +7,7 @@ import selectn from 'selectn';
 export default class Group extends Component {
 
     static contextTypes = {
-        history: PropTypes.object.isRequired
+        router: PropTypes.object.isRequired
     };
 
     static propTypes = {

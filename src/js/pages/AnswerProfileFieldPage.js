@@ -85,7 +85,7 @@ export default class AnswerProfileFieldPage extends Component {
     };
 
     static contextTypes = {
-        history: PropTypes.object.isRequired
+        router: PropTypes.object.isRequired
     };
 
     constructor(props) {
@@ -104,7 +104,7 @@ export default class AnswerProfileFieldPage extends Component {
             nekunoApp.alert(nextProps.errors);
         }
         if (nextProps.profileQuestionsComplete) {
-            window.setTimeout(() =>  { this.context.history.pushState(null, 'answer-question/next') }, 0);
+            window.setTimeout(() =>  { this.context.router.push('answer-question/next') }, 0);
         }
     }
 

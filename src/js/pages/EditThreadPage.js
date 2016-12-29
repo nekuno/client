@@ -52,7 +52,7 @@ function getState(props) {
 export default class EditThreadPage extends Component {
 
     static contextTypes = {
-        history: PropTypes.object.isRequired
+        router: PropTypes.object.isRequired
     };
 
     static propTypes = {
@@ -117,7 +117,7 @@ export default class EditThreadPage extends Component {
             .then(() => {
                 ThreadActionCreators.requestRecommendation(threadId);
                 this.setState({updating: false});
-                this.context.history.pushState(null, `discover`);
+                this.context.router.push(`discover`);
             });
         this.setState({updating: true});
     }

@@ -250,6 +250,7 @@ RecommendationStore.dispatchToken = register(action => {
             break;
         case ActionTypes.REQUEST_RECOMMENDATIONS_SUCCESS:
             _recommendations[action.threadId] = _recommendations[action.threadId] || [];
+            _loadingRecommendations[action.threadId] = false;
             if (RecommendationStore.areBetter(action.threadId, recommendations)) {
                 if (_recommendations[action.threadId].length > 0) {
                     _prevRecommendations[action.threadId] = [];
@@ -259,10 +260,9 @@ RecommendationStore.dispatchToken = register(action => {
                     _prevNextUrl[action.threadId] = _nextUrl[action.threadId];
                 }
                 mergeRecommendations(recommendations, _recommendations[action.threadId]);
-                _loadingRecommendations[action.threadId] = false;
                 _nextUrl[action.threadId] = action.response.pagination.nextLink;
-                RecommendationStore.emitChange();
             }
+            RecommendationStore.emitChange();
             break;
         case ActionTypes.SAVE_RECOMMENDATIONS_INDEX:
             _savedIndex = action.index;

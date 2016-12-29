@@ -40,7 +40,7 @@ export default {
         title2         : 'Conecta sólo con las personas compatibles contigo',
         title3         : 'Tú decides la información que compartes',
         update         : 'Actualizar',
-        login          : 'Iniciar sesión con Facebook',
+        login          : 'Entrar con Facebook',
         hasInvitation  : '¿Tienes una invitación?',
         register       : 'Regístrate',
         loginUser      : 'Intentando iniciar sesión',

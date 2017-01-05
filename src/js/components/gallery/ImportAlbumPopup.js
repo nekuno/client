@@ -6,13 +6,14 @@ import translate from '../../i18n/Translate';
 export default class ImportAlbumPopup extends Component {
 
     static propTypes = {
-        onClickHandler: PropTypes.func,
+        onAlbumClickHandler     : PropTypes.func,
+        onFileUploadClickHandler: PropTypes.func,
         // Injected by @translate:
         strings       : PropTypes.object
     };
 
     onResourceClick(resource, scope) {
-        this.props.onClickHandler(resource, scope);
+        this.props.onAlbumClickHandler(resource, scope);
     }
 
     render() {
@@ -25,6 +26,9 @@ export default class ImportAlbumPopup extends Component {
                     <div className="title">{strings.importAlbum}</div>
                     <br />
                     <div className="social-icons-row-wrapper social-box">
+                        <div className="icon-wrapper no-circle" onClick={this.props.onFileUploadClickHandler} style={{marginRight: '10px'}}>
+                            <span className="icon icon-uploadthin" style={{fontSize: '0.6em'}}></span>
+                        </div>
                         <div className="icon-wrapper text-facebook" onClick={this.onResourceClick.bind(this, 'facebook', FACEBOOK_SCOPE)}>
                             <span className="icon icon-facebook"></span>
                         </div>
@@ -36,7 +40,6 @@ export default class ImportAlbumPopup extends Component {
             </div>
         );
     }
-
 }
 
 ImportAlbumPopup.defaultProps = {

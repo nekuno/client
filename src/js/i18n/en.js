@@ -59,7 +59,7 @@ export default {
         empty    : 'You have no interests yet. Please, connect more social media or explore your yarns and let us know what are you interested in.'
     },
     GalleryPage                      : {
-        importAlbum    : 'Import an album',
+        importAlbum    : 'Import photos',
         empty          : 'You have not imported any photo yet',
         myProfile      : 'My profile',
         profilePhoto   : 'Profile photo',

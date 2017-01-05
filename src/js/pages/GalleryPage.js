@@ -117,6 +117,7 @@ export default class GalleryPage extends Component {
     }
 
     triggerUploadFile() {
+        nekunoApp.closeModal('.popup-import-album');
         let {fileInput} = this.refs;
         if (document.createEvent) {
             var evt = document.createEvent('MouseEvents');
@@ -231,7 +232,7 @@ export default class GalleryPage extends Component {
                             </div>
                         }
                     </div>
-                    <ImportAlbumPopup onClickHandler={this.importAlbum}/>
+                    <ImportAlbumPopup onAlbumClickHandler={this.importAlbum} onFileUploadClickHandler={this.triggerUploadFile}/>
                 </div>
             </div>
         );
@@ -240,7 +241,7 @@ export default class GalleryPage extends Component {
 
 GalleryPage.defaultProps = {
     strings: {
-        importAlbum    : 'Import an album',
+        importAlbum    : 'Import photos',
         empty          : 'You have not imported any photo yet',
         myProfile      : 'My profile',
         profilePhoto   : 'Profile photo',

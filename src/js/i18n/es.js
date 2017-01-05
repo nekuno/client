@@ -59,7 +59,7 @@ export default {
         empty    : 'No tienes ningún interés todavía. Por favor, conecta tus redes sociales o explora tus ovillos y cuéntanos lo que te interesa.'
     },
     GalleryPage                      : {
-        importAlbum    : 'Importa un álbum',
+        importAlbum    : 'Importar fotos',
         empty          : 'No has importado ninguna foto',
         myProfile      : 'Mi Perfil',
         profilePhoto   : 'Foto de perfil',

@@ -1,5 +1,5 @@
 import React, { PropTypes, Component } from 'react';
-import { Router, Route, useRouterHistory, applyRouterMiddleware } from 'react-router';
+import { Router, Route, applyRouterMiddleware } from 'react-router';
 import { useScroll } from 'react-router-scroll';
 
 import App from './App';

@@ -185,11 +185,6 @@ export default {
         loadingMessage   : 'Loading recommendations',
         noRecommendations: 'There are no recommendations with selected filters'
     },
-    DiscoverLitePage                 : {
-        discover      : 'Discover',
-        loadingMessage: 'Loading recommendations',
-        confirmReplace: 'We have improved your recommendations. Do you want to reload them?'
-    },
     RecommendationPage               : {
         loadingMessage  : 'Loading recommendations',
         confirmBlock    : 'Are you sure you want to block this user?',

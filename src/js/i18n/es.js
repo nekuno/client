@@ -188,11 +188,6 @@ export default {
         noRecommendations: 'No hay recomendaciones con los filtros seleccionados'
 
     },
-    DiscoverLitePage                 : {
-        discover      : 'Descubrir',
-        loadingMessage: 'Cargando recomendaciones',
-        confirmReplace: 'Hemos mejorado tus recomendaciones. ¿Quieres actualizarlas?'
-    },
     RecommendationPage               : {
         loadingMessage  : 'Cargando recomendaciones',
         confirmDelete   : '¿Estás seguro de que quieres borrar este ovillo?',

@@ -94,19 +94,31 @@ export default class CardContent extends Component {
             // TODO: Embed videos from FB too
             const isVideo = types.indexOf('Video') > -1 && embed_type === 'youtube';
             if (isVideo) {
-                this.preVisualizeYoutube(embed_type, embed_id);
+                this.preVisualizeVideo(embed_type, embed_id, url);
             } else {
                 window.cordova ? document.location = url : window.open(url);
             }
         }
     }
 
-    preVisualizeYoutube = function (embed_type, embed_id) {
+    preVisualizeVideo = function (embed_type, embed_id, url) {
         let html = null;
         switch (embed_type) {
             case 'youtube':
                 html = <iframe className="discover-video" src={'https://www.youtube.com/embed/' + embed_id + '?autoplay=1'} frameBorder="0" allowFullScreen></iframe>;
                 break;
+            /*case 'facebook':
+                html = <div className="card-video-wrapper">
+                    <div id="fb-root"></div>
+                    <script>{(function(d, s, id) {
+                        var js, fjs = d.getElementsByTagName(s)[0];
+                        if (d.getElementById(id)) return;
+                        js = d.createElement(s); js.id = id;
+                        js.src = "//connect.facebook.net/es_ES/sdk.js#xfbml=1&version=v2.8";
+                        fjs.parentNode.insertBefore(js, fjs);
+                    }(document, 'script', 'facebook-jssdk'))}</script>
+                    <div className="fb-video" data-href={url} data-show-text="false" data-autoplay="true"></div>
+                </div>;*/
             default:
                 break;
         }
@@ -115,7 +127,11 @@ export default class CardContent extends Component {
             embedHtml: html
         });
     };
-    
+
+    isFacebookLink = function (url) {
+        return url.match(/^https?:\/\/(www\.)?facebook\.com(\/.*)?$/i);
+    };
+
     preventDefault(e) {
         e.preventDefault();
     }
@@ -133,6 +149,19 @@ export default class CardContent extends Component {
         } else if (isImage) {
             imgSrc = url;
         }
+
+        // TODO: Facebook type may be returned from brain
+        let realTypes = types.slice(0);
+        if (this.isFacebookLink(url)) {
+            if (realTypes.some(type => type === 'Video')) {
+                realTypes.push('FacebookVideo');
+                const index = realTypes.findIndex(type => type === 'Video');
+                realTypes.splice(index, 1);
+            } else {
+                realTypes.push('FacebookLink');
+            }
+        }
+
         return (
             <div className="card content-card">
                 {isImage ? '' :
@@ -148,7 +177,7 @@ export default class CardContent extends Component {
                     </div>
                 }
                 <div className="card-icons" onClick={this.handleClick}>
-                    <CardIcons types={types}/>
+                    <CardIcons types={realTypes}/>
                 </div>
                 <div className="card-content" onClick={this.handleClick}>
                     <div className="card-content-inner">

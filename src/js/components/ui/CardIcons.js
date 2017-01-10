@@ -26,6 +26,10 @@ export default class CardIcons extends Component {
                             return this.renderAudioIcons(index);
                         case 'Creator':
                             return this.renderCreatorIcons(index);
+                        case 'FacebookLink':
+                            return this.renderFacebookLinkIcons(index);
+                        case 'FacebookVideo':
+                            return this.renderFacebookVideoIcons(index);
                     }
                 })}
             </div>
@@ -71,6 +75,24 @@ export default class CardIcons extends Component {
             <div className="absolute-wrapper" key={index + 1}>
                 <div className="icon-wrapper"><span className="icon-channels"></span></div>
                 <div className="icon-wrapper twitter-icon-wrapper"><span className="icon-twitter"></span></div>
+            </div>
+        );
+    };
+
+    renderFacebookLinkIcons = function(index) {
+        return (
+            <div className="absolute-wrapper" key={index + 1}>
+                <div className="icon-wrapper link-icon-wrapper"><span className="icon-web-site"></span></div>
+                <div className="icon-wrapper facebook-icon-wrapper"><span className="icon-facebook"></span></div>
+            </div>
+        );
+    };
+
+    renderFacebookVideoIcons = function(index) {
+        return (
+            <div className="absolute-wrapper" key={index + 1}>
+                <div className="icon-wrapper"><span className="icon-video"></span></div>
+                <div className="icon-wrapper facebook-icon-wrapper"><span className="icon-facebook"></span></div>
             </div>
         );
     };

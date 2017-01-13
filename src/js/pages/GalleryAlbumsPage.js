@@ -43,7 +43,7 @@ export default class GalleryAlbumsPage extends Component {
     };
 
     static contextTypes = {
-        history: PropTypes.object.isRequired
+        router: PropTypes.object.isRequired
     };
 
     constructor(props) {
@@ -58,7 +58,7 @@ export default class GalleryAlbumsPage extends Component {
 
     componentWillMount() {
         if (this.props.albums.length === 0 && !this.props.noAlbums) {
-            this.context.history.pushState(null, 'gallery');
+            this.context.router.push('gallery');
         }
     }
 
@@ -74,7 +74,7 @@ export default class GalleryAlbumsPage extends Component {
                 name: name
             }, resource, scope).then(() => {
                 window.setTimeout(() => {
-                    this.context.history.pushState(null, 'gallery-album-photos');
+                    this.context.router.push('gallery-album-photos');
                 }, 500);
             }, (error) => { console.log(error) });
             this.setState({

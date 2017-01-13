@@ -31,12 +31,10 @@ export default class RecommendationList extends Component {
         const {thread, recommendations, filters, userId, ownPicture, currentTab} = this.props;
         return (
             <div className={thread.category === 'ThreadUsers' ? "recommendation-users" : "recommendation-content"}>
-                {/*TODO: Disabled for lite version
                 <div className="title thread-title">
                     {thread.name}
                 </div>
                 {this.renderChipList(thread, filters)}
-                */}
                 <div id="recommendations-swiper-container" className="swiper-container">
                     <div className="swiper-wrapper recommendation-list">
                         {thread.category === 'ThreadUsers' ? 

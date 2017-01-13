@@ -34,7 +34,7 @@ export default class GalleryPhotoPage extends Component {
     };
 
     static contextTypes = {
-        history: PropTypes.object.isRequired
+        router: PropTypes.object.isRequired
     };
 
     constructor(props) {
@@ -47,12 +47,12 @@ export default class GalleryPhotoPage extends Component {
 
     componentWillMount() {
         if (!this.props.photo) {
-            this.context.history.pushState(null, 'gallery');
+            this.context.router.push('gallery');
         }
     }
 
     setAsProfilePhoto() {
-        this.context.history.pushState(null, 'gallery-profile-photo');
+        this.context.router.push('gallery-profile-photo');
     }
 
     deletePhoto() {
@@ -60,7 +60,7 @@ export default class GalleryPhotoPage extends Component {
         nekunoApp.confirm(this.props.strings.confirmDelete, () => {
             const photoId = this.props.photo.id;
             GalleryPhotoActionCreators.deletePhoto(userId, photoId);
-            this.context.history.pushState(null, 'gallery');
+            this.context.router.push('gallery');
         });
     }
     

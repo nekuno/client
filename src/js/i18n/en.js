@@ -59,7 +59,7 @@ export default {
         empty    : 'You have no interests yet. Please, connect more social media or explore your yarns and let us know what are you interested in.'
     },
     GalleryPage                      : {
-        importAlbum    : 'Import an album',
+        importAlbum    : 'Import photos',
         empty          : 'You have not imported any photo yet',
         myProfile      : 'My profile',
         profilePhoto   : 'Profile photo',
@@ -184,11 +184,6 @@ export default {
         discover         : 'Discover',
         loadingMessage   : 'Loading recommendations',
         noRecommendations: 'There are no recommendations with selected filters'
-    },
-    DiscoverLitePage                 : {
-        discover      : 'Discover',
-        loadingMessage: 'Loading recommendations',
-        confirmReplace: 'We have improved your recommendations. Do you want to reload them?'
     },
     RecommendationPage               : {
         loadingMessage  : 'Loading recommendations',

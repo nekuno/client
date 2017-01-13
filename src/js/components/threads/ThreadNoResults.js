@@ -13,7 +13,7 @@ export default class ThreadNoResults extends Component {
     };
 
     static contextTypes = {
-        history: PropTypes.object.isRequired
+        router: PropTypes.object.isRequired
     };
 
     constructor(props) {
@@ -28,7 +28,7 @@ export default class ThreadNoResults extends Component {
     }
 
     onEdit() {
-        this.context.history.pushState(null, `edit-thread/${this.props.threadId}`)
+        this.context.router.push(`edit-thread/${this.props.threadId}`)
     }
 
     onDelete() {

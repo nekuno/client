@@ -1,4 +1,5 @@
 import React, { PropTypes, Component } from 'react';
+import { ScrollContainer } from 'react-router-scroll';
 import TopNavBar from '../components/ui/TopNavBar';
 import ToolBar from '../components/ui/ToolBar';
 import QuestionList from '../components/questions/QuestionList';
@@ -78,24 +79,26 @@ export default class QuestionsPage extends Component {
                     {'url': '/questions', 'text': strings.questions},
                     {'url': '/interests', 'text': strings.interests}
                 ]} activeLinkIndex={2} arrowUpLeft={'60%'} />
-                <div className="view view-main" onScroll={this.handleScroll}>
-                    <div className="page questions-page">
-                        <div id="page-content" className="questions-content">
-                            <QuestionsBanner user={user} questionsTotal={pagination.total || Object.keys(questions).length || 0}/>
-                            <br />
-                            <br />
-                            <br />
-                            <br />
-                            <br />
-                            <br />
-                            <QuestionList questions={questions} userId={parseId(user)} ownPicture={ownPicture} defaultPicture={defaultPicture}/>
-                            <div className="loading-gif" style={pagination.nextLink ? {} : {display: 'none'}}></div>
-                            <br />
-                            <br />
-                            <br />
+                <ScrollContainer scrollKey="own-questions">
+                    <div className="view view-main" onScroll={this.handleScroll}>
+                        <div className="page questions-page">
+                            <div id="page-content" className="questions-content">
+                                <QuestionsBanner user={user} questionsTotal={pagination.total || Object.keys(questions).length || 0}/>
+                                <br />
+                                <br />
+                                <br />
+                                <br />
+                                <br />
+                                <br />
+                                <QuestionList questions={questions} userId={parseId(user)} ownPicture={ownPicture} defaultPicture={defaultPicture}/>
+                                <div className="loading-gif" style={pagination.nextLink ? {} : {display: 'none'}}></div>
+                                <br />
+                                <br />
+                                <br />
+                            </div>
                         </div>
                     </div>
-                </div>
+                </ScrollContainer>
             </div>
         );
     }

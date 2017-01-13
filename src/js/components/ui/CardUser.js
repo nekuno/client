@@ -9,7 +9,7 @@ import translate from '../../i18n/Translate';
 export default class CardUser extends Component {
 
     static contextTypes = {
-        history: PropTypes.object.isRequired
+        router: PropTypes.object.isRequired
     };
 
     static propTypes = {
@@ -49,7 +49,7 @@ export default class CardUser extends Component {
     }
 
     handleMessage() {
-        this.context.history.pushState(null, `/conversations/${this.props.userId}`);
+        this.context.router.push(`/conversations/${this.props.userId}`);
     }
 
     handleGoToProfile() {
@@ -58,7 +58,7 @@ export default class CardUser extends Component {
             nekunoApp.popup('.popup-orientation-required');
             this.props.handleSelectProfile(userId);
         } else {
-            this.context.history.pushState(null, `/profile/${userId}`);
+            this.context.router.push(`/profile/${userId}`);
         }
     }
 

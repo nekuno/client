@@ -6,7 +6,7 @@ import translate from '../../i18n/Translate';
 export default class QuestionsBanner extends Component {
 
     static contextTypes = {
-        history: PropTypes.object.isRequired
+        router: PropTypes.object.isRequired
     };
 
     static propTypes = {

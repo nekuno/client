@@ -43,7 +43,7 @@ export default class GalleryAlbumPhotosPage extends Component {
     };
 
     static contextTypes = {
-        history: PropTypes.object.isRequired
+        router: PropTypes.object.isRequired
     };
 
     constructor(props) {
@@ -62,7 +62,7 @@ export default class GalleryAlbumPhotosPage extends Component {
 
     componentWillMount() {
         if ((!this.props.photos || this.props.photos.length === 0) && !this.props.noPhotos) {
-            this.context.history.pushState(null, 'gallery');
+            this.context.router.push('gallery');
         }
     }
     
@@ -119,7 +119,7 @@ export default class GalleryAlbumPhotosPage extends Component {
         this.state.selectedPhotos.forEach(selectedPhoto => GalleryPhotoActionCreators.postPhoto(userId, {
             url: selectedPhoto.images && selectedPhoto.images[selectedPhoto.images.length - 1] ? selectedPhoto.images[selectedPhoto.images.length - 1].source : selectedPhoto.picture
         }));
-        this.context.history.pushState(null, 'gallery');
+        this.context.router.push('gallery');
     }
 
     render() {

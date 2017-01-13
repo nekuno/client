@@ -1,25 +1,21 @@
 {
   "name": "client",
-  "version": "0.24.0",
+  "version": "0.25.0",
   "description": "Nekuno Hybrid Mobile Client",
   "main": "index.js",
   "scripts": {
     "test": "echo test"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+ssh://git@bitbucket.org/nekuno/client.git"
-  },
   "author": "Nekuno",
-  "license": "MIT",
-  "homepage": "https://bitbucket.org/nekuno/client#readme",
+  "license": "AGPL-3.0",
+  "homepage": "https://github.com/nekuno/client#readme",
   "dependencies": {
     "Framework7-3D-Panels": "git+https://github.com/nolimits4web/Framework7-3D-Panels.git",
     "bluebird": "3.4.6",
     "chart.js": "1.0.2",
     "flux": "2.1.1",
-    "framework7": "1.4.0",
-    "history": "1.13.1",
+    "framework7": "1.5.2",
+    "history": "3.2.0",
     "invariant": "2.2.2",
     "jwt-decode": "1.4.0",
     "keymirror": "0.1.1",
@@ -36,7 +32,8 @@
     "react-infinite-calendar": "^1.1.18",
     "react-joyride": "git+https://github.com/msalsas/react-joyride.git#master",
     "react-pure-render": "1.0.2",
-    "react-router": "1.0.2",
+    "react-router": "3.0.0",
+    "react-router-scroll": "0.4.1",
     "request": "2.79.0",
     "selectn": "0.10.0",
     "underscore": "1.8.3"

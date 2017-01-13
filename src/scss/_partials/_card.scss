@@ -64,6 +64,9 @@
 				.icon-spotify {
 					font-size: 2.5em !important;
 				}
+				.icon-facebook {
+					font-size: 2.5em !important;
+				}
 			}
 
 			.link-icon-wrapper {
@@ -80,6 +83,10 @@
 
 			.youtube-icon-wrapper {
 				background-color: $youtube-red !important;
+			}
+
+			.facebook-icon-wrapper {
+				background-color: $facebook-blue !important;
 			}
 		}
 	}

@@ -58,7 +58,7 @@ export default class GroupMembersPage extends Component {
     };
 
     static contextTypes = {
-        history: PropTypes.object.isRequired
+        router: PropTypes.object.isRequired
     };
 
     constructor(props) {

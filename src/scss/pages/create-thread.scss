@@ -24,7 +24,6 @@ body #root .App .views .view .page.create-thread-page  {
     .delete-filter {
       height:30px;
       width: 30px;
-      position: absolute;
       margin-top: 5px;
       margin-left: 5px;
 
@@ -39,14 +38,14 @@ body #root .App .views .view .page.create-thread-page  {
 
     .persons-first-vertical-line {
       border-left: 1px solid $green-alert;
-      height: 20%;
+      height: 40%;
       margin-left: 7px;
       top: 160px;
       position: absolute;
     }
     .persons-middle-vertical-line {
       border-left: 1px solid $green-alert;
-      height: 45%;
+      height: 453px;
       margin-left: 7px;
       margin-top: -10px;
       position: absolute;
@@ -54,15 +53,15 @@ body #root .App .views .view .page.create-thread-page  {
     .persons-last-vertical-line {
       border-left: 1px solid $green-alert;
       bottom: 250px;
-      height: 20%;
+      height: 30%;
       margin-left: 7px;
       position: absolute;
     }
     .opposite-vertical-line {
-      border-left: 2px solid $dark-purple;
-      margin-top: -22px;
-      height: 40%;
-      margin-left: 7px;
+      border-left: 6px solid $dark-purple;
+      margin-top: -21px;
+      height: 280px;
+      margin-left: 5px;
       position: absolute;
     }
     .contents-first-vertical-line {
@@ -74,7 +73,7 @@ body #root .App .views .view .page.create-thread-page  {
     }
     .contents-middle-vertical-line {
       border-left: 1px solid $green-alert;
-      height: 250px;
+      height: 375px;
       margin-left: 7px;
       margin-top: -10px;
       position: absolute;
@@ -154,7 +153,7 @@ body #root .App .views .view .page.create-thread-page  {
 
       .thread-filter-background {
         background: $deep-purple-translucent;
-        height: 90%;
+        height: 590px;
         left: 0;
         margin-top: -15px;
         opacity: 0.5;
@@ -220,13 +219,14 @@ body #root .App .views .view .page.create-thread-page  {
 
         .chip {
           margin: 5px;
+          max-width: 320px;
         }
       }
     }
 
     .thread-filter-opposite-background {
       background: $dark-purple;
-      height: 60%;
+      height: 491px;
       left: 0;
       margin-top: 15px;
       padding: 40px 0;
@@ -389,7 +389,7 @@ body #root .App .views .view .page.create-thread-page  {
       }
     }
 
-    @media only screen and (min-width: 360px) and (max-width: 375px) {
+    @media only screen and (min-width: 400px) and (max-width: 476px) {
       .thread-filter {
         .text-radios .chip {
           max-width: 265px;
@@ -400,13 +400,35 @@ body #root .App .views .view .page.create-thread-page  {
       }
     }
 
+    @media only screen and (min-width: 376px) and (max-width: 399px) {
+      .thread-filter {
+        .text-radios .chip {
+          max-width: 235px;
+        }
+        .text-checkboxes .chip {
+          max-width: 235px;
+        }
+      }
+    }
+
+    @media only screen and (min-width: 360px) and (max-width: 375px) {
+      .thread-filter {
+        .text-radios .chip {
+          max-width: 225px;
+        }
+        .text-checkboxes .chip {
+          max-width: 225px;
+        }
+      }
+    }
+
     @media only screen and (min-width: 340px) and (max-width: 359px) {
       .thread-filter {
         .text-radios {
-          max-width: 255px;
+          max-width: 205px;
         }
         .text-checkboxes .chip {
-          max-width: 255px;
+          max-width: 205px;
         }
       }
     }
@@ -417,15 +439,27 @@ body #root .App .views .view .page.create-thread-page  {
       }
     }
 
-    @media only screen and (max-width: 339px) {
+    @media only screen and (min-width: 300px) and (max-width: 339px) {
       .thread-filter {
         .text-radios {
-          max-width: 220px;
+          max-width: 179px;
         }
         .text-checkboxes .chip {
-          max-width: 220px;
+          max-width: 179px;
         }
       }
     }
+
+    @media only screen and (max-width: 299px) {
+      .thread-filter {
+        .text-radios {
+          max-width: 140px;
+        }
+        .text-checkboxes .chip {
+          max-width: 140px;
+        }
+      }
+    }
+
   }
 }

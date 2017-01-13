@@ -55,7 +55,7 @@ export default class ChatMessagesPage extends Component {
     };
 
     static contextTypes = {
-        history: PropTypes.object.isRequired
+        router: PropTypes.object.isRequired
     };
 
     constructor(props) {
@@ -147,7 +147,7 @@ export default class ChatMessagesPage extends Component {
 
     goToProfilePage() {
         const {otherUserId} = this.props;
-        this.context.history.pushState(null, `profile/${otherUserId}`)
+        this.context.router.push(`profile/${otherUserId}`)
     }
 
     render() {

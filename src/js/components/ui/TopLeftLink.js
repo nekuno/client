@@ -3,7 +3,7 @@ import shouldPureComponentUpdate from 'react-pure-render/function';
 
 export default class TopLeftLink extends Component {
 	static contextTypes = {
-		history: PropTypes.object.isRequired
+		router: PropTypes.object.isRequired
 	};
 	static propTypes = {
 		text: PropTypes.string,
@@ -16,7 +16,7 @@ export default class TopLeftLink extends Component {
 	render() {
 		const {onClickHandler, text, icon} = this.props;
 		return (
-			<div className="col-30 left" onClick={typeof onClickHandler !== 'undefined' ? onClickHandler : this.context.history.goBack}>
+			<div className="col-30 left" onClick={typeof onClickHandler !== 'undefined' ? onClickHandler : this.context.router.goBack}>
 				{icon ?
 					<span className={'icon-' + icon}></span>
 					:

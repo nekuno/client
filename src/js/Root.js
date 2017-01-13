@@ -1,5 +1,6 @@
 import React, { PropTypes, Component } from 'react';
-import { Router, Route } from 'react-router';
+import { Router, Route, applyRouterMiddleware } from 'react-router';
+import { useScroll } from 'react-router-scroll';
 
 import App from './App';
 import HomePage from './pages/HomePage';
@@ -58,7 +59,7 @@ export default class Root extends Component {
     render() {
         const {history} = this.props;
         return (
-            <Router history={history}>
+            <Router history={history} render={applyRouterMiddleware(useScroll())}>
                 <Route name="home" path="/" component={App}>
 
                     <Route name="splash" path="/splash" component={HomePage}/>

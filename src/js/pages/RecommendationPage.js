@@ -166,7 +166,7 @@ export default class RecommendationPage extends Component {
     };
 
     static contextTypes = {
-        history: PropTypes.object.isRequired
+        router: PropTypes.object.isRequired
     };
 
     constructor() {
@@ -239,16 +239,16 @@ export default class RecommendationPage extends Component {
     deleteThread() {
         nekunoApp.confirm(this.props.strings.confirmDelete, () => {
             const threadId = this.props.thread.id;
-            const history = this.context.history;
+            const router = this.context.router;
             ThreadActionCreators.deleteThread(threadId)
                 .then(function() {
-                    history.pushState(null, '/discover');
+                    router.push('/discover');
                 });
         });
     }
 
     editThread() {
-        this.context.history.pushState(null, `edit-thread/${this.props.thread.id}`);
+        this.context.router.push(`edit-thread/${this.props.thread.id}`);
     }
 
     ignore() {

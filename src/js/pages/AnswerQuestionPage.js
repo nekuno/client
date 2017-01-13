@@ -98,7 +98,7 @@ export default class AnswerQuestionPage extends Component {
     };
 
     static contextTypes = {
-        history: PropTypes.object.isRequired
+        router: PropTypes.object.isRequired
     };
 
     constructor(props) {
@@ -123,7 +123,7 @@ export default class AnswerQuestionPage extends Component {
     componentDidUpdate() {
         const {goToQuestionStats, question} = this.props;
         if(goToQuestionStats) {
-            this.context.history.pushState(null, `/question-stats`);
+            this.context.router.push(`/question-stats`);
         } else if (question && question.questionId) {
             window.setTimeout(() => this.props.startTutorial(this.refs.joyrideAnswerQuestion), 1000);
         }
@@ -140,7 +140,7 @@ export default class AnswerQuestionPage extends Component {
     }
 
     onContinue() {
-        this.context.history.pushState(null, '/discover');
+        this.context.router.push('/discover');
     }
 
     forceStartTutorial() {

@@ -11,7 +11,7 @@ import selectn from 'selectn';
 export default class ThreadContent extends Component {
 
     static contextTypes = {
-        history: PropTypes.object.isRequired
+        router: PropTypes.object.isRequired
     };
 
     static propTypes = {
@@ -77,9 +77,9 @@ export default class ThreadContent extends Component {
         if (mustBeDisabled) {
             nekunoApp.alert(strings.disabled)
         } else if (totalResults == 0) {
-            this.context.history.pushState(null, `edit-thread/${thread.id}`)
+            this.context.router.push(`edit-thread/${thread.id}`)
         } else {
-            this.context.history.pushState(null, `recommendations/${thread.id}`)
+            this.context.router.push(`recommendations/${thread.id}`)
         }
     }
 

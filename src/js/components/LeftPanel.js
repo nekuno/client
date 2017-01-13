@@ -29,7 +29,7 @@ function getState(props) {
 export default class LeftPanel extends Component {
 
     static contextTypes = {
-        history: PropTypes.object.isRequired
+        router: PropTypes.object.isRequired
     };
 
     static propTypes = {
@@ -63,21 +63,21 @@ export default class LeftPanel extends Component {
     handleGoClickThreads() {
         nekunoApp.closePanel();
         $$('.panel-left').once('closed', () => {
-            this.context.history.pushState(null, '/discover');
+            this.context.router.push('/discover');
         });
     }
 
     handleGoClickProfile() {
         nekunoApp.closePanel();
         $$('.panel-left').once('closed', () => {
-            this.context.history.pushState(null, `/profile`);
+            this.context.router.push(`/profile`);
         });
     }
 
     handleGoClickConversations() {
         nekunoApp.closePanel();
         $$('.panel-left').once('closed', () => {
-            this.context.history.pushState(null, '/conversations');
+            this.context.router.push('/conversations');
         });
     }
 
@@ -87,14 +87,14 @@ export default class LeftPanel extends Component {
             settingsActive: null
         });
         $$('.panel-left').once('closed', () => {
-            this.context.history.pushState(null, '/social-networks');
+            this.context.router.push('/social-networks');
         });
     }
 
     handleGoClickInterests() {
         nekunoApp.closePanel();
         $$('.panel-left').once('closed', () => {
-            this.context.history.pushState(null, '/interests');
+            this.context.router.push('/interests');
         });
     }
 
@@ -110,14 +110,14 @@ export default class LeftPanel extends Component {
         });
         nekunoApp.closePanel();
         $$('.panel-left').once('closed', () => {
-            this.context.history.pushState(null, '/invitations');
+            this.context.router.push('/invitations');
         });
     }
 
     handleGoClickGroups() {
         nekunoApp.closePanel();
         $$('.panel-left').once('closed', () => {
-            this.context.history.pushState(null, '/groups');
+            this.context.router.push('/groups');
         });
     }
 

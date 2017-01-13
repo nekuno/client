@@ -141,6 +141,36 @@ body #root .App .views .view.home-view {
     background-size: 320px auto !important;
   }
 }
+@media only screen and (max-height: 450px) {
+  body #root .App .views .view.home-view .swiper-container .swiper-slide {
+    .page#login-1-image, .page#login-2-image, .page#login-3-image {
+      .title {
+        bottom: 180px !important;
+        font-size: 19px !important;
+        line-height: 25px !important;
+      }
+    }
+  }
+}
+@media only screen and (max-height: 405px) {
+  body #root .App .views .view.home-view .swiper-container .swiper-slide {
+    .page#login-1-image, .page#login-2-image, .page#login-3-image {
+      .title {
+        font-size: 15px !important;
+        line-height: 20px !important;
+      }
+    }
+  }
+}
+@media only screen and (max-height: 370px) {
+  body #root .App .views .view.home-view .swiper-container .swiper-slide {
+    .page#login-1-image, .page#login-2-image, .page#login-3-image {
+      .title {
+        display: none;
+      }
+    }
+  }
+}
 @media only screen and (min-width: 321px) and (max-width: 480px) {
   .nekuno-logo {
     background: url('img/logo-beta-160x109.png') no-repeat;

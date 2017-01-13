@@ -1,4 +1,5 @@
 import React, { PropTypes, Component } from 'react';
+import { ScrollContainer } from 'react-router-scroll';
 import TopNavBar from '../components/ui/TopNavBar';
 import ToolBar from '../components/ui/ToolBar';
 import EmptyMessage from '../components/ui/EmptyMessage';
@@ -101,30 +102,32 @@ export default class InterestsPage extends Component {
                     {'url': '/questions', 'text': strings.questions},
                     {'url': '/interests', 'text': strings.interests}
                 ]} activeLinkIndex={3} arrowUpLeft={'85%'}/>
-                <div className="view view-main" onScroll={this.handleScroll}>
-                    <div className="page interests-page">
-                        <div id="page-content" className="interests-content">
-                            {connectedNetworks.length < 4 ? <SocialNetworksBanner networks={networks} user={user}/> : null}
-                            <FilterContentButtons userId={parseId(user)} contentsCount={pagination.total || 0} ownContent={true}
-                                                  linksCount={totals.Link}
-                                                  audiosCount={totals.Audio}
-                                                  videosCount={totals.Video}
-                                                  imagesCount={totals.Image}
-                                                  channelsCount={totals.Creator}
-                            />
-                            {noInterests ?
-                                <EmptyMessage text={strings.empty} />
-                                :
-                                <CardContentList contents={interests} userId={parseId(user)}/>
-                            }
-                            <br />
-                            <div className="loading-gif" style={pagination.nextLink ? {} : {display: 'none'}}></div>
+                <ScrollContainer scrollKey="own-interests">
+                    <div className="view view-main" onScroll={this.handleScroll}>
+                        <div className="page interests-page">
+                            <div id="page-content" className="interests-content">
+                                {connectedNetworks.length < 4 ? <SocialNetworksBanner networks={networks} user={user}/> : null}
+                                <FilterContentButtons userId={parseId(user)} contentsCount={pagination.total || 0} ownContent={true}
+                                                      linksCount={totals.Link}
+                                                      audiosCount={totals.Audio}
+                                                      videosCount={totals.Video}
+                                                      imagesCount={totals.Image}
+                                                      channelsCount={totals.Creator}
+                                />
+                                {noInterests ?
+                                    <EmptyMessage text={strings.empty} />
+                                    :
+                                    <CardContentList contents={interests} userId={parseId(user)}/>
+                                }
+                                <br />
+                                <div className="loading-gif" style={pagination.nextLink ? {} : {display: 'none'}}></div>
+                            </div>
+                            <br/>
+                            <br/>
+                            <br/>
                         </div>
-                        <br/>
-                        <br/>
-                        <br/>
                     </div>
-                </div>
+                </ScrollContainer>
             </div>
         );
     }

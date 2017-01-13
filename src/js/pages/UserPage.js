@@ -67,7 +67,7 @@ export default class UserPage extends Component {
     };
 
     static contextTypes = {
-        history: PropTypes.object.isRequired
+        router: PropTypes.object.isRequired
     };
 
     componentWillMount() {

@@ -44,7 +44,7 @@ export default class QuestionStatsPage extends Component {
     };
 
     static contextTypes = {
-        history: PropTypes.object.isRequired
+        router: PropTypes.object.isRequired
     };
 
     constructor(props) {
@@ -56,7 +56,7 @@ export default class QuestionStatsPage extends Component {
 
     handleContinueClick() {
         QuestionActionCreators.removePreviousQuestion(parseId(this.props.user));
-        this.context.history.pushState(null, `/answer-question/next`);
+        this.context.router.push(`/answer-question/next`);
     }
 
     render() {

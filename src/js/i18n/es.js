@@ -40,7 +40,7 @@ export default {
         title2         : 'Conecta sólo con las personas compatibles contigo',
         title3         : 'Tú decides la información que compartes',
         update         : 'Actualizar',
-        login          : 'Iniciar sesión con Facebook',
+        login          : 'Entrar con Facebook',
         hasInvitation  : '¿Tienes una invitación?',
         register       : 'Regístrate',
         loginUser      : 'Intentando iniciar sesión',
@@ -59,7 +59,7 @@ export default {
         empty    : 'No tienes ningún interés todavía. Por favor, conecta tus redes sociales o explora tus ovillos y cuéntanos lo que te interesa.'
     },
     GalleryPage                      : {
-        importAlbum    : 'Importa un álbum',
+        importAlbum    : 'Importar fotos',
         empty          : 'No has importado ninguna foto',
         myProfile      : 'Mi Perfil',
         profilePhoto   : 'Foto de perfil',
@@ -187,11 +187,6 @@ export default {
         loadingMessage   : 'Cargando recomendaciones',
         noRecommendations: 'No hay recomendaciones con los filtros seleccionados'
 
-    },
-    DiscoverLitePage                 : {
-        discover      : 'Descubrir',
-        loadingMessage: 'Cargando recomendaciones',
-        confirmReplace: 'Hemos mejorado tus recomendaciones. ¿Quieres actualizarlas?'
     },
     RecommendationPage               : {
         loadingMessage  : 'Cargando recomendaciones',

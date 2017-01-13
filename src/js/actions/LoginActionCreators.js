@@ -22,7 +22,7 @@ export default new class LoginActionCreators {
         dispatch(ActionTypes.AUTO_LOGIN, {jwt});
         if (LoginStore.isLoggedIn()) {
             UserActionCreators.requestOwnUser().then(() => {
-                if (!RouterStore.hasNextTransitionPath() && (document.location.hash === '' || document.location.hash.indexOf('#/?') === 0)) {
+                if (!RouterStore.hasNextTransitionPath() && (document.location.hash === '' || document.location.hash === '#/' || document.location.hash.indexOf('#/?') === 0)) {
                     RouterActionCreators.storeRouterTransitionPath('/discover');
                 }
                 this.redirect();
@@ -105,8 +105,8 @@ export default new class LoginActionCreators {
                         }
                         if (path) {
                             console.log('Redirecting to path', path);
-                            let history = RouterContainer.get();
-                            history.replaceState(null, path);
+                            let router = RouterContainer.get();
+                            router.replace(path);
                         }
                         return null;
                     }, (error) => {

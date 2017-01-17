@@ -67,6 +67,7 @@ function getState(props) {
         recommendations = RecommendationStore.get(parseThreadId(thread)) ? RecommendationStore.get(parseThreadId(thread)) : [];
     }
     const networks = WorkersStore.getAll();
+    const similarityOrder = thread && thread.filters && thread.filters.userFilters && thread.filters.userFilters.order === 'similarity' || false;
 
     return {
         profile,
@@ -76,7 +77,8 @@ function getState(props) {
         recommendations,
         thread,
         isLoadingRecommendations,
-        networks
+        networks,
+        similarityOrder
     };
 }
 
@@ -99,6 +101,7 @@ export default class DiscoverPage extends Component {
         thread                  : PropTypes.object,
         isLoadingRecommendations: PropTypes.bool,
         networks                : PropTypes.array.isRequired,
+        similarityOrder         : PropTypes.bool.isRequired,
     };
 
     static contextTypes = {
@@ -155,7 +158,9 @@ export default class DiscoverPage extends Component {
             let chips = [];
             let currentFilters = thread.category === 'ThreadUsers' ? filters.userFilters : filters.contentFilters;
             Object.keys(threadFilters).filter(key => typeof currentFilters[key] !== 'undefined').forEach(key => {
-                chips.push({label: FilterStore.getFilterLabel(currentFilters[key], threadFilters[key])})
+                if (key !== 'order') {
+                    chips.push({label: FilterStore.getFilterLabel(currentFilters[key], threadFilters[key])})
+                }
             });
             return (
                 <ChipList chips={chips} small={true}/>
@@ -164,7 +169,7 @@ export default class DiscoverPage extends Component {
     };
 
     render() {
-        const {user, profile, strings, pagination, isSomethingWorking, filters, recommendations, thread, isLoadingRecommendations, networks} = this.props;
+        const {user, profile, strings, pagination, isSomethingWorking, filters, recommendations, thread, isLoadingRecommendations, networks, similarityOrder} = this.props;
         const connectedNetworks = networks.filter(network => network.fetching || network.fetched || network.processing || network.processed);
 
         return (
@@ -182,7 +187,7 @@ export default class DiscoverPage extends Component {
                                     : profile && filters && thread && connectedNetworks.length < 3 ? <SocialNetworksBanner networks={networks} user={user}/>
                                     : '' }
                                 {profile && recommendations.length > 0 ?
-                                    <CardUserList recommendations={recommendations} userId={user.id} profile={profile} handleSelectProfile={this.selectProfile}/>
+                                    <CardUserList recommendations={recommendations} userId={user.id} profile={profile} handleSelectProfile={this.selectProfile} similarityOrder={similarityOrder}/>
                                     :
                                     <EmptyMessage text={isLoadingRecommendations ? strings.loadingMessage : strings.noRecommendations}/>}
                                 <br />

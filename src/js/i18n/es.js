@@ -396,11 +396,12 @@ export default {
         saving         : 'Guardando...'
     },
     CardUser                         : {
-        like    : 'Me gusta',
-        unlike  : 'Ya no me gusta',
-        matching: 'Compatibilidad',
-        saving  : 'Guardando...',
-        age     : 'Edad',
+        like      : 'Me gusta',
+        unlike    : 'Ya no me gusta',
+        matching  : 'Compatibilidad',
+        similarity: 'Similaridad',
+        saving    : 'Guardando...',
+        age       : 'Edad',
     },
     ImportAlbumPopup                 : {
         close      : 'Cerrar',
@@ -459,7 +460,10 @@ export default {
         addFilter     : 'Añadir filtro',
         save          : 'Guardar ovillo',
         create        : 'Crear ovillo',
-        addFilters    : 'Añade un filtro primero'
+        addFilters    : 'Añade un filtro primero',
+        order         : 'Orden',
+        matching      : 'Compatibilidad',
+        similarity    : 'Similaridad',
     },
     ThreadContent                    : {
         contents: 'Contenidos',

@@ -1,4 +1,3 @@
-/** TODO : Not used yet but useful for editing profile **/
 import React, { PropTypes, Component } from 'react';
 import ThreadSelectedFilter from './ThreadSelectedFilter';
 import ThreadUnselectedFilter from './ThreadUnselectedFilter';
@@ -12,7 +11,8 @@ export default class ChoiceFilter extends Component {
         data: PropTypes.string.isRequired,
         handleClickRemoveFilter: PropTypes.func.isRequired,
         handleChangeFilter: PropTypes.func.isRequired,
-        handleClickFilter: PropTypes.func.isRequired
+        handleClickFilter: PropTypes.func.isRequired,
+        cantRemove: PropTypes.bool
     };
 
     constructor(props) {
@@ -29,16 +29,16 @@ export default class ChoiceFilter extends Component {
     }
 
     render() {
-        const {filterKey, selected, filter, data, handleClickRemoveFilter, handleClickFilter} = this.props;
+        const {filterKey, selected, filter, data, handleClickRemoveFilter, handleClickFilter, cantRemove} = this.props;
         return(
             selected ?
-                <ThreadSelectedFilter key={'selected-filter'} type={'radio'} active={data ? true : false} handleClickRemoveFilter={handleClickRemoveFilter}>
+                <ThreadSelectedFilter key={'selected-filter'} type={'radio'} active={!!data} handleClickRemoveFilter={handleClickRemoveFilter} cantRemove={cantRemove}>
                     <TextRadios labels={filter.choices.map(choice => { return({key: choice.value, text: choice.label}); }) }
                                 onClickHandler={this.handleClickChoice} value={data} className={'choice-filter'}
                                 title={filter.label} />
                 </ThreadSelectedFilter>
             :
-                <ThreadUnselectedFilter key={filterKey} filterKey={filterKey} filter={filter} data={data} handleClickFilter={handleClickFilter} handleClickRemoveFilter={handleClickRemoveFilter}/>
+                <ThreadUnselectedFilter key={filterKey} filterKey={filterKey} filter={filter} data={data} handleClickFilter={handleClickFilter} handleClickRemoveFilter={handleClickRemoveFilter} cantRemove={cantRemove}/>
         );
     }
 }

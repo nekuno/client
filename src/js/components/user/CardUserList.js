@@ -23,11 +23,12 @@ export default class CardUserList extends Component {
         userId             : PropTypes.number.isRequired,
         profile            : PropTypes.object.isRequired,
         handleSelectProfile: PropTypes.func.isRequired,
-        onlineUserIds      : PropTypes.array.isRequired
+        onlineUserIds      : PropTypes.array.isRequired,
+        similarityOrder    : PropTypes.bool
     };
 
     render() {
-        const {recommendations, userId, profile, onlineUserIds} = this.props;
+        const {recommendations, userId, profile, onlineUserIds, similarityOrder} = this.props;
         return (
             <div className="user-list">
                 {recommendations.map((recommendation, index) =>
@@ -39,6 +40,7 @@ export default class CardUserList extends Component {
                         canSendMessage={true}
                         photo={recommendation.photo}
                         matching={Math.round(recommendation.matching * 100)}
+                        similarity={Math.round(recommendation.similarity * 100)}
                         age={recommendation.age}
                         like={recommendation.like}
                         hideLikeButton={false}
@@ -46,6 +48,7 @@ export default class CardUserList extends Component {
                         profile={profile}
                         handleSelectProfile={this.props.handleSelectProfile}
                         online={onlineUserIds.some(id => id == recommendation.id)}
+                        similarityOrder={similarityOrder}
                     />
                 )}
             </div>

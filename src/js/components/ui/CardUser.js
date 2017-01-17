@@ -13,19 +13,21 @@ export default class CardUser extends Component {
     };
 
     static propTypes = {
-        userId        : PropTypes.number.isRequired,
-        username      : PropTypes.string.isRequired,
-        location      : PropTypes.string,
-        canSendMessage: PropTypes.bool.isRequired,
-        photo         : PropTypes.object,
-        matching      : PropTypes.number.isRequired,
-        age           : PropTypes.number,
-        like          : PropTypes.number,
-        hideLikeButton: PropTypes.bool.isRequired,
-        loggedUserId  : PropTypes.number.isRequired,
-        profile       : PropTypes.object.isRequired,
+        userId             : PropTypes.number.isRequired,
+        username           : PropTypes.string.isRequired,
+        location           : PropTypes.string,
+        canSendMessage     : PropTypes.bool.isRequired,
+        photo              : PropTypes.object,
+        matching           : PropTypes.number.isRequired,
+        similarity         : PropTypes.number,
+        age                : PropTypes.number,
+        like               : PropTypes.number,
+        hideLikeButton     : PropTypes.bool.isRequired,
+        loggedUserId       : PropTypes.number.isRequired,
+        profile            : PropTypes.object.isRequired,
         handleSelectProfile: PropTypes.func,
-        online        : PropTypes.bool,
+        online             : PropTypes.bool,
+        similarityOrder    : PropTypes.bool,
 
         // Injected by @translate:
         strings       : PropTypes.object
@@ -63,7 +65,7 @@ export default class CardUser extends Component {
     }
 
     render() {
-        const {location, canSendMessage, like, hideLikeButton, photo, userId, username, matching, age, online, strings} = this.props;
+        const {location, canSendMessage, like, hideLikeButton, photo, userId, username, matching, similarity, age, online, similarityOrder, strings} = this.props;
         const subTitle = <div><span className="icon-marker"></span>{location.substr(0, 15)}{location.length > 15 ? '...' : ''} - {strings.age}: {age}</div>;
         const messageButton = canSendMessage ? <span className="icon-message" onClick={this.handleMessage}></span> : '';
         const likeButtonText = like === null ? strings.saving : like ? strings.unlike : strings.like;
@@ -100,7 +102,7 @@ export default class CardUser extends Component {
                         <div className="like-icon-container"><span className="icon-star"></span></div>
                         :
                         <div className="matching-value">
-                            <div className="matching-string">{strings.matching}</div><div className="matching-percentage">{matching ? matching + '%' : '0%'}</div>
+                            <div className="matching-string">{similarityOrder ? strings.similarity : strings.matching}</div><div className="matching-percentage">{similarityOrder ? similarity ? similarity + '%' : '0%' : matching ? matching + '%' : '0%'}</div>
                         </div>
                     }
                 </div>
@@ -112,10 +114,11 @@ export default class CardUser extends Component {
 
 CardUser.defaultProps = {
     strings: {
-        like    : 'Like',
-        unlike  : 'Remove',
-        matching: 'Matching',
-        saving  : 'Saving...',
-        age     : 'Age',
+        like      : 'Like',
+        unlike    : 'Remove',
+        matching  : 'Matching',
+        similarity: 'Similarity',
+        saving    : 'Saving...',
+        age       : 'Age',
     }
 };

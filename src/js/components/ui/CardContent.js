@@ -45,6 +45,18 @@ export default class CardContent extends Component {
         }
     }
 
+    componentDidMount() {
+        if (this.state.embedHtml && this.props.embed_type === 'facebook') {
+            FB.XFBML.parse();
+        }
+    }
+
+    componentDidUpdate() {
+        if (this.state.embedHtml && this.props.embed_type === 'facebook') {
+            FB.XFBML.parse();
+        }
+    }
+
     onRate() {
         const {loggedUserId, otherUserId, contentId, rate} = this.props;
         if (!rate) {
@@ -91,8 +103,7 @@ export default class CardContent extends Component {
         if (typeof onClickHandler !== 'undefined' && onClickHandler) {
             onClickHandler();
         } else {
-            // TODO: Embed videos from FB too
-            const isVideo = types.indexOf('Video') > -1 && embed_type === 'youtube';
+            const isVideo = types.indexOf('Video') > -1;
             if (isVideo) {
                 this.preVisualizeVideo(embed_type, embed_id, url);
             } else {
@@ -107,18 +118,9 @@ export default class CardContent extends Component {
             case 'youtube':
                 html = <iframe className="discover-video" src={'https://www.youtube.com/embed/' + embed_id + '?autoplay=1'} frameBorder="0" allowFullScreen></iframe>;
                 break;
-            /*case 'facebook':
-                html = <div className="card-video-wrapper">
-                    <div id="fb-root"></div>
-                    <script>{(function(d, s, id) {
-                        var js, fjs = d.getElementsByTagName(s)[0];
-                        if (d.getElementById(id)) return;
-                        js = d.createElement(s); js.id = id;
-                        js.src = "//connect.facebook.net/es_ES/sdk.js#xfbml=1&version=v2.8";
-                        fjs.parentNode.insertBefore(js, fjs);
-                    }(document, 'script', 'facebook-jssdk'))}</script>
-                    <div className="fb-video" data-href={url} data-show-text="false" data-autoplay="true"></div>
-                </div>;*/
+            case 'facebook':
+                html = <div className="fb-video" data-href={url} data-show-text="false" data-autoplay="true"></div>;
+                break;
             default:
                 break;
         }

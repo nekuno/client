@@ -93,7 +93,7 @@ export default class CardUser extends Component {
                             <Image src={imgSrc} defaultSrc={defaultSrc}/>
                         </div>
                         <div className="matching">
-                            <ProgressBar percentage={matching}/>
+                            <ProgressBar percentage={similarityOrder ? similarity : matching}/>
                         </div>
                     </div>
                 </div>

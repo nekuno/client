@@ -63,7 +63,7 @@ export default class LocationInput extends Component {
                             onSuggestSelect={this.onSuggestSelect}
                             getSuggestLabel={function(suggest) { return suggest.description.length > 35 ? suggest.description.slice(0, 35) + '...' : suggest.description }}
                             onFocus={this.onFocusHandler}
-                            skipSuggest={function(suggest) { return suggest.terms.length < 2 }}/>
+                            skipSuggest={function(suggest) { return suggest.terms.length < 2 || !suggest.types.some(type => type === 'locality') }}/>
                     </div>
                 </div>
             </div>

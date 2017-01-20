@@ -46,13 +46,13 @@ export default class CardContent extends Component {
     }
 
     componentDidMount() {
-        if (this.state.embedHtml && this.props.embed_type === 'facebook') {
+        if (!window.cordova && this.state.embedHtml && this.props.embed_type === 'facebook') {
             FB.XFBML.parse();
         }
     }
 
     componentDidUpdate() {
-        if (this.state.embedHtml && this.props.embed_type === 'facebook') {
+        if (!window.cordova && this.state.embedHtml && this.props.embed_type === 'facebook') {
             FB.XFBML.parse();
         }
     }
@@ -104,7 +104,7 @@ export default class CardContent extends Component {
             onClickHandler();
         } else {
             const isVideo = types.indexOf('Video') > -1;
-            if (isVideo) {
+            if (isVideo && !window.cordova) {
                 this.preVisualizeVideo(embed_type, embed_id, url);
             } else {
                 window.cordova ? document.location = url : window.open(url);

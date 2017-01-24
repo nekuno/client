@@ -393,11 +393,12 @@ export default {
         saving         : 'Saving...'
     },
     CardUser                         : {
-        like    : 'Like',
-        unlike  : 'Remove',
-        matching: 'Matching',
-        saving  : 'Saving...',
-        age     : 'Age',
+        like      : 'Like',
+        unlike    : 'Remove',
+        matching  : 'Matching',
+        similarity: 'Similarity',
+        saving    : 'Saving...',
+        age       : 'Age',
     },
     ImportAlbumPopup                 : {
         close      : 'Close',
@@ -456,7 +457,10 @@ export default {
         addFilter     : 'Add filter',
         save          : 'Save',
         create        : 'Create',
-        addFilters    : 'Add a filter first'
+        addFilters    : 'Add a filter first',
+        order         : 'Order',
+        matching      : 'Matching',
+        similarity    : 'Similarity',
     },
     ThreadContent                    : {
         contents: 'Contents',

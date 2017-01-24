@@ -37,6 +37,7 @@ function getState(props) {
     const {user} = props;
     const userId = parseId(user);
     const profile = ProfileStore.get(userId);
+    const errors = ProfileStore.getErrors(userId);
     const profileWithMetadata = ProfileStore.getWithMetadata(userId);
     const metadata = ProfileStore.getMetadata();
     const stats = StatsStore.stats;
@@ -44,6 +45,7 @@ function getState(props) {
     return {
         user,
         profile,
+        errors,
         profileWithMetadata,
         metadata,
         stats
@@ -62,6 +64,7 @@ export default class UserPage extends Component {
         // Injected by @connectToStores:
         stats              : PropTypes.object,
         profile            : PropTypes.object,
+        errors             : PropTypes.string,
         profileWithMetadata: PropTypes.array
 
     };
@@ -72,6 +75,12 @@ export default class UserPage extends Component {
 
     componentWillMount() {
         requestData(this.props);
+    }
+
+    componentDidUpdate() {
+        if (this.props.errors) {
+            nekunoApp.alert(this.props.errors);
+        }
     }
 
     render() {

@@ -2,7 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import FullWidthButton from '../ui/FullWidthButton';
 import SetThreadTitlePopup from './SetThreadTitlePopup';
 import ThreadCategoryFilterList from './filters/ThreadCategoryFilterList';
-import LocationFilter from './filters/LocationFilter';
+import ChoiceFilter from './filters/ChoiceFilter';
 import IntegerRangeFilter from './filters/IntegerRangeFilter';
 import IntegerFilter from './filters/IntegerFilter';
 import MultipleChoicesFilter from './filters/MultipleChoicesFilter';
@@ -38,6 +38,7 @@ export default class CreateUsersThread extends Component {
         this.handleClickFilter = this.handleClickFilter.bind(this);
         this.handleErrorFilter = this.handleErrorFilter.bind(this);
         this.handleClickRemoveFilter = this.handleClickRemoveFilter.bind(this);
+        this.renderChoiceFilter = this.renderChoiceFilter.bind(this);
         this.renderLocationFilter = this.renderLocationFilter.bind(this);
         this.renderMultipleChoicesFilter = this.renderMultipleChoicesFilter.bind(this);
         this.renderDoubleMultipleChoicesFilter = this.renderDoubleMultipleChoicesFilter.bind(this);
@@ -53,6 +54,7 @@ export default class CreateUsersThread extends Component {
         this.createThread = this.createThread.bind(this);
         this.onSaveTitle = this.onSaveTitle.bind(this);
         this.getDefaultTitle = this.getDefaultTitle.bind(this);
+        this.getOrderDefaultFilter = this.getOrderDefaultFilter.bind(this);
 
         this.state = {
             selectFilter        : false,
@@ -106,6 +108,9 @@ export default class CreateUsersThread extends Component {
             Object.keys(filters).map(key => {
                 const selected = this.state.selectedFilter === key;
                 let filter = null;
+                if (key == 'order') {
+                    return null;
+                }
                 switch (defaultFilters[key].type) {
                     case 'location_distance':
                         filter = this.renderLocationFilter(defaultFilters[key], key, filters[key], selected);
@@ -134,6 +139,21 @@ export default class CreateUsersThread extends Component {
                 }
                 return <div key={key} ref={selected ? 'selectedFilter' : ''}>{filter}</div>;
             })
+        );
+    }
+
+
+    renderChoiceFilter(filter, key, data, selected) {
+        return (
+            <ChoiceFilter filterKey={key}
+                          filter={filter}
+                          data={data}
+                          selected={selected}
+                          handleClickRemoveFilter={this.handleClickRemoveFilter}
+                          handleChangeFilter={this.handleChangeFilterAndUnSelect}
+                          handleClickFilter={this.handleClickFilter}
+                          cantRemove={key === 'order'}
+            />
         );
     }
 
@@ -343,10 +363,31 @@ export default class CreateUsersThread extends Component {
         const {defaultFilters} = this.props;
         const firstFilterIndex = Object.keys(filters).find((filterIndex, index) => index == 0);
         if (firstFilterIndex && FilterStore.isFilterSet(defaultFilters[firstFilterIndex], filters[firstFilterIndex])) {
+            if (defaultFilters[firstFilterIndex].type === 'order') {
+                defaultFilters[firstFilterIndex] = this.getOrderDefaultFilter();
+            }
             return FilterStore.getFilterLabel(defaultFilters[firstFilterIndex], filters[firstFilterIndex]);
         }
 
         return null;
+    }
+
+    getOrderDefaultFilter() {
+        const {strings} = this.props;
+        return {
+            label: strings.order,
+            type: 'order',
+            choices: [
+                {
+                    label: strings.matching,
+                    value: 'matching'
+                },
+                {
+                    label: strings.similarity,
+                    value: 'similarity'
+                }
+            ]
+        }
     }
 
 
@@ -373,6 +414,7 @@ export default class CreateUsersThread extends Component {
                 <div className="users-filters-wrapper">
                     <div className="table-row"></div>
                     {this.renderActiveFilters()}
+                    {this.renderChoiceFilter(this.getOrderDefaultFilter(), 'order', data['order'] || 'matching', this.state.selectedFilter === 'order')}
                     <div className="table-row"></div>
                     <div className="add-filter-title">{strings.addFilterTitle}</div>
                     <div className="thread-filter add-filter">
@@ -411,6 +453,9 @@ CreateUsersThread.defaultProps = {
         addFilter     : 'Add filter',
         save          : 'Save',
         create        : 'Create',
-        addFilters    : 'Add a filter first'
+        addFilters    : 'Add a filter first',
+        order         : 'Order',
+        matching      : 'Matching',
+        similarity    : 'Similarity',
     }
 };

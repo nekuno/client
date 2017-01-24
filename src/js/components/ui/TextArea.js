@@ -16,20 +16,11 @@ export default class TextArea extends Component {
 
         this.onFocusHandler = this.onFocusHandler.bind(this);
         this.onChange = this.onChange.bind(this);
-        this.state = {
-            value: props.defaultValue || ''
-        };
     }
 
     componentDidMount() {
         if (this.props.focus) {
             this.focus();
-        }
-    }
-
-    componentWillReceiveProps(nextProps) {
-        if (this.state.value !== nextProps.defaultValue && nextProps.defaultValue !== null) {
-            this.setState({value: nextProps.defaultValue});
         }
     }
 
@@ -52,21 +43,20 @@ export default class TextArea extends Component {
     }
 
     onChange() {
-        this.setState({value: this.getValue()});
         this.props.onChange();
     }
 
     render() {
-        const {placeholder, title, style} = this.props;
+        const {placeholder, title, style, defaultValue} = this.props;
         return (
             <li>
-                { this.state.value ? <div className="textarea-title">{title}</div> : null}
+                <div className="textarea-title">{title}</div>
                 <textarea ref="textarea"
                           placeholder={placeholder}
                           style={style}
                           onChange={this.onChange}
-                          value={this.state.value}
-                          onFocus={this.onFocusHandler}/>
+                          onFocus={this.onFocusHandler}
+                          defaultValue={defaultValue}/>
             </li>
         );
     }

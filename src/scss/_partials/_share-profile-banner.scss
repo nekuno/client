@@ -3,7 +3,7 @@ body #root .App .view {
     background-color: $deep-purple;
     left: 0;
     margin-top: 20px;
-    padding: 10px 5%;
+    padding: 10px 10px 5%;
     right: 0;
     text-align: center;
 
@@ -12,10 +12,6 @@ body #root .App .view {
       font-weight: bold;
       height: 55px;
       margin-top: 10px;
-    }
-
-    .share-profile-button {
-      margin: 10px 0;
     }
   }
 }

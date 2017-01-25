@@ -1,6 +1,5 @@
 import React, { PropTypes, Component } from 'react';
 import { SHARE_PROFILE_URL } from '../../constants/Constants';
-import Button from '../../components/ui/Button';
 import translate from '../../i18n/Translate';
 
 @translate('ShareProfileBanner')
@@ -38,12 +37,9 @@ export default class ShareProfileBanner extends Component {
         const {strings, user} = this.props;
 
         return (
-            <div className="share-profile-container">
+            <div className="share-profile-container" onClick={this.onShare.bind(this, user)}>
                 <div className="title share-profile-title">{strings.title}</div>
                 <div className="share-profile-text">{strings.text}</div>
-                <div className="share-profile-button">
-                    <Button onClick={this.onShare.bind(this, user)}>{strings.shareLink}</Button>
-                </div>
             </div>
         );
     }
@@ -53,7 +49,6 @@ ShareProfileBanner.defaultProps = {
     strings: {
         title                 : 'Who are you most compatible with?',
         text                  : 'Share the url of your profile to know it!',
-        shareLink             : 'Share the link',
         compatibilityCheckWith: 'Check your compatibility with %username%',
         copyToClipboard       : 'Copy to clipboard: Ctrl+C, Enter',
         shareError            : 'An error occurred sending the link.'

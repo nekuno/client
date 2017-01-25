@@ -366,7 +366,6 @@ export default {
     ShareProfileBanner               : {
         title                 : '¿Con quienes eres más compatible?',
         text                  : '¡Comparte la url de tu perfil para saberlo!',
-        shareLink             : 'Comparte el enlace',
         compatibilityCheckWith: 'Comprueba tu compatibilidad con %username%',
         copyToClipboard       : 'Copiar al portapapeles: Ctrl+C, Enter',
         shareError            : 'Ha ocurrido un error compartiendo el enlace.'

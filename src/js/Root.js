@@ -26,6 +26,7 @@ import AnswerUserFieldPage from './pages/AnswerUserFieldPage';
 import AnswerProfileFieldPage from './pages/AnswerProfileFieldPage';
 import UserPage from './pages/UserPage';
 import OtherUserPage from './pages/OtherUserPage';
+import SharedUserPage from './pages/SharedUserPage';
 import DiscoverPage from './pages/DiscoverPage';
 import RecommendationPage from './pages/RecommendationPage';
 import InvitationsPage from './pages/InvitationsPage';
@@ -63,8 +64,9 @@ export default class Root extends Component {
                 <Route name="home" path="/" component={App}>
 
                     <Route name="splash" path="/splash" component={HomePage}/>
-                    <Route name="login" path="/login" component={LoginPage}/>
+                    <Route name="login" path="/logind" component={LoginPage}/>
                     <Route name="register" path="/register" component={RegisterPage}/>
+                    <Route name="shared-user" path="/p/:id" component={SharedUserPage}/>
 
                     <Route onEnter={requireAuth}>
                         <Route name="register-questions-landing" path="/register-questions-landing" component={RegisterQuestionsLandingPage}/>

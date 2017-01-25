@@ -228,6 +228,14 @@ export default {
         saving      : 'Guardando...',
         confirmBlock: '¿Estás seguro de que quieres bloquear a este usuario?'
     },
+    SharedUserPage                  : {
+        title          : '¿Quieres ver tu compatibilidad con %username%?',
+        signUp         : 'Entra con Facebook',
+        loginUser      : 'Intentando iniciar sesión',
+        registeringUser: 'Registrando usuario',
+        loadingProfile : 'Cargando perfil',
+        privacy        : 'Al registrarte, estás aceptando las <a href="https://nekuno.com/legal-notice" target="_blank">Condiciones Legales</a> y la <a href="https://nekuno.com/privacy-policy" target="_blank">Política de Privacidad</a> de Nekuno'
+    },
     CreateThreadPage                 : {
         create  : 'Crear ovillos',
         title   : '¿Qué deseas descubrir en este nuevo ovillo?',

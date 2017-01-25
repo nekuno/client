@@ -360,6 +360,14 @@ export default {
         text          : 'Let`s discover your interests automatically',
         publishMessage: 'We won`t publish anything'
     },
+    ShareProfileBanner               : {
+        title                 : 'Who are you most compatible with?',
+        text                  : 'Share the url of your profile to know it!',
+        shareLink             : 'Share the link',
+        compatibilityCheckWith: 'Check your compatibility with %username%',
+        copyToClipboard       : 'Copy to clipboard: Ctrl+C, Enter',
+        shareError            : 'An error occurred sending the link.'
+    },
     ProcessesProgress                : {
         title                   : 'We are reprocessing your data',
         registrationTitle       : 'We are analyzing your data',

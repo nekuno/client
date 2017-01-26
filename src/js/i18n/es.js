@@ -234,6 +234,7 @@ export default {
         loginUser      : 'Intentando iniciar sesión',
         registeringUser: 'Registrando usuario',
         loadingProfile : 'Cargando perfil',
+        invalidUrl     : 'URL Inválida',
         privacy        : 'Al registrarte, estás aceptando las <a href="https://nekuno.com/legal-notice" target="_blank">Condiciones Legales</a> y la <a href="https://nekuno.com/privacy-policy" target="_blank">Política de Privacidad</a> de Nekuno'
     },
     CreateThreadPage                 : {

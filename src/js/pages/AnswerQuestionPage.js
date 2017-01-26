@@ -12,6 +12,7 @@ import UserStore from '../stores/UserStore';
 import QuestionStore from '../stores/QuestionStore';
 import LoginStore from '../stores/LoginStore';
 import ProfileStore from '../stores/ProfileStore';
+import RouterStore from '../stores/RouterStore';
 import Joyride from 'react-joyride';
 
 function parseId(user) {
@@ -125,7 +126,7 @@ export default class AnswerQuestionPage extends Component {
         if(goToQuestionStats) {
             this.context.router.push(`/question-stats`);
         } else if (question && question.questionId) {
-            window.setTimeout(() => this.props.startTutorial(this.refs.joyrideAnswerQuestion), 1000);
+            window.setTimeout(() => this.props.startTutorial(this.refs.joyrideAnswerQuestion), 2000);
         }
     }
 
@@ -140,7 +141,12 @@ export default class AnswerQuestionPage extends Component {
     }
 
     onContinue() {
-        this.context.router.push('/discover');
+        if (RouterStore.hasNextTransitionPath()) {
+            const route = RouterStore.nextTransitionPath;
+            this.context.router.push(route);
+        } else {
+            this.context.router.push('/discover');
+        }
     }
 
     forceStartTutorial() {

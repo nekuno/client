@@ -6,6 +6,7 @@ import TopNavBar from '../components/ui/TopNavBar';
 import ToolBar from '../components/ui/ToolBar';
 import Image from '../components/ui/Image';
 import EmptyMessage from '../components/ui/EmptyMessage';
+import OrientationRequiredPopup from '../components/ui/OrientationRequiredPopup';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
@@ -175,30 +176,34 @@ export default class OtherUserPage extends Component {
         this.onBlock = this.onBlock.bind(this);
         this.handleClickMessageLink = this.handleClickMessageLink.bind(this);
         this.handlePhotoClick = this.handlePhotoClick.bind(this);
+        this.goToDiscover = this.goToDiscover.bind(this);
+        this.setOrientationAnswered = this.setOrientationAnswered.bind(this);
 
         this.state = {
-            photosLoaded: null
+            photosLoaded: null,
+            orientationAnswered: null
         };
     }
 
     componentWillMount() {
+        requestData(this.props);
         if (this.props.ownProfile && !this.props.ownProfile.orientation) {
-            window.setTimeout(() => this.context.router.push(`/discover`), 0);
-        } else {
-            requestData(this.props);
+            this.setState({orientationRequired: true});
         }
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.ownProfile && !nextProps.ownProfile.orientation) {
-            window.setTimeout(() => this.context.router.push(`/discover`), 0);
-        }
-        else if (nextProps.params.userId !== this.props.params.userId) {
+        if (nextProps.params.userId !== this.props.params.userId) {
             requestData(nextProps);
         }
     }
 
-    componentDidUpdate() {
+    componentDidUpdate(prevProps) {
+        if (this.state.orientationRequired) {
+            nekunoApp.popup('.popup-orientation-required');
+        } else if (!prevProps.ownProfile && this.props.ownProfile && !this.props.ownProfile.orientation) {
+            this.setState({orientationRequired: true});
+        }
         if (this.props.photos.length > 0 && !this.state.photosLoaded) {
             initPhotosSwiper();
             this.setState({photosLoaded: true})
@@ -222,7 +227,7 @@ export default class OtherUserPage extends Component {
     }
 
     handleClickMessageLink() {
-        this.context.router.push(`/conversations/${this.props.params.userId}`)
+        this.context.router.push(`/conversations/${this.props.params.userId}`);
     }
 
     handlePhotoClick(url) {
@@ -232,8 +237,16 @@ export default class OtherUserPage extends Component {
         this.context.router.push(`/users/${otherUser.id}/other-gallery/${selectedPhotoId}`);
     }
 
+    goToDiscover() {
+        this.context.router.push(`discover`);
+    }
+
+    setOrientationAnswered() {
+        this.setState({orientationRequired: false});
+    }
+
     render() {
-        const {user, otherUser, profile, profileWithMetadata, matching, similarity, block, like, comparedStats, photos, noPhotos, online, strings} = this.props;
+        const {user, otherUser, profile, ownProfile, profileWithMetadata, matching, similarity, block, like, comparedStats, photos, noPhotos, online, strings} = this.props;
         const otherPictureSmall = selectn('photo.thumbnail.small', otherUser);
         const otherPictureBig = selectn('photo.thumbnail.big', otherUser);
         const ownPicture = selectn('photo.thumbnail.small', user);
@@ -248,14 +261,15 @@ export default class OtherUserPage extends Component {
         return (
             <div className="views">
                 <TopNavBar leftIcon={'left-arrow'} centerText={strings.profile}/>
-                {otherUser && profile && profileWithMetadata ? <ToolBar links={[
-                    {'url': `/profile/${parseId(otherUser)}`, 'text': strings.about},
-                    {'url': `/users/${parseId(otherUser)}/other-questions`, 'text': strings.questions},
-                    {'url': `/users/${parseId(otherUser)}/other-interests`, 'text': strings.interests}]} activeLinkIndex={0} arrowUpLeft={'13%'}/>
+                {otherUser && profile && profileWithMetadata && ownProfile && ownProfile.orientation ?
+                    <ToolBar links={[
+                        {'url': `/profile/${parseId(otherUser)}`, 'text': strings.about},
+                        {'url': `/users/${parseId(otherUser)}/other-questions`, 'text': strings.questions},
+                        {'url': `/users/${parseId(otherUser)}/other-interests`, 'text': strings.interests}]} activeLinkIndex={0} arrowUpLeft={'13%'}/>
                     : null}
                 <div className="view view-main">
                     <div className="page other-user-page">
-                        {otherUser && profile && profileWithMetadata ?
+                        {otherUser && profile && profileWithMetadata && ownProfile && ownProfile.orientation ?
                             <div id="page-content">
                                 <div className="user-images">
                                     <div className="swiper-pagination"></div>
@@ -312,6 +326,7 @@ export default class OtherUserPage extends Component {
                             </div>
                             : <EmptyMessage text={strings.loading} loadingGif={true}/>}
                     </div>
+                    {ownProfile && !ownProfile.orientation ? <OrientationRequiredPopup profile={ownProfile} onCancel={this.goToDiscover} onClick={this.setOrientationAnswered}/> : null}
                 </div>
             </div>
         );

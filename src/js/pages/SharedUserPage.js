@@ -20,10 +20,12 @@ function requestData(props) {
 function getState(props) {
     const interfaceLanguage = LocaleStore.locale;
     const sharedUser = UserStore.get(parseInt(props.params.id));
+    const error = UserStore.getError();
 
     return {
         interfaceLanguage,
-        sharedUser
+        sharedUser,
+        error
     };
 }
 
@@ -35,7 +37,8 @@ export default class SharedUserPage extends Component {
         // Injected by @translate:
         strings          : PropTypes.object,
         // Injected by @connectToStores:
-        interfaceLanguage: PropTypes.string
+        interfaceLanguage: PropTypes.string,
+        error            : PropTypes.string
     };
 
     static contextTypes = {
@@ -61,7 +64,6 @@ export default class SharedUserPage extends Component {
             const facebookNetwork = SOCIAL_NETWORKS.find(socialNetwork => socialNetwork.resourceOwner == SOCIAL_NETWORKS_NAMES.FACEBOOK);
             const resource = facebookNetwork.resourceOwner;
             const scope = facebookNetwork.scope;
-            RouterActionCreators.storeRouterTransitionPath(`discover`);
             RouterActionCreators.storeRouterTransitionPath(`profile/${params.id}`);
             SocialNetworkService.login(resource, scope).then(
                 () => {
@@ -88,7 +90,7 @@ export default class SharedUserPage extends Component {
     }
 
     loginByResourceOwner(resource, scope) {
-        const {interfaceLanguage} = this.props;
+        const {interfaceLanguage, params} = this.props;
         SocialNetworkService.login(resource, scope).then(
             () => {
                 LoginActionCreators.loginUserByResourceOwner(resource, SocialNetworkService.getAccessToken(resource)).then(
@@ -103,7 +105,7 @@ export default class SharedUserPage extends Component {
                         user.enabled = true;
                         profile.interfaceLanguage = interfaceLanguage;
                         profile.orientationRequired = false;
-                        let token = 'join';
+                        let token = 'shared_user-' + params.id;
                         LoginActionCreators.register(user, profile, token, {
                             resourceOwner: resource,
                             oauthToken   : SocialNetworkService.getAccessToken(resource),
@@ -126,7 +128,7 @@ export default class SharedUserPage extends Component {
     }
 
     render() {
-        const {sharedUser, strings} = this.props;
+        const {sharedUser, error, strings} = this.props;
         const {loginUser, registeringUser} = this.state;
 
         return (
@@ -145,8 +147,8 @@ export default class SharedUserPage extends Component {
                                     <p dangerouslySetInnerHTML={{__html: strings.privacy}}/>
                                 </div>
                             </div>
-                            :
-                            <EmptyMessage text={strings.loadingProfile} loadingGif={true}/>
+                            : error ? <EmptyMessage text={strings.invalidUrl}/>
+                                    : <EmptyMessage text={strings.loadingProfile} loadingGif={true}/>
                     }
                 </div>
             </div>
@@ -161,6 +163,7 @@ SharedUserPage.defaultProps = {
         loginUser      : 'Trying to login user',
         registeringUser: 'Registering user',
         loadingProfile : 'Loading profile',
+        invalidUrl     : 'Invalid URL',
         privacy        : 'By registering, you agree to the <a href="https://nekuno.com/legal-notice" target="_blank">Legal Conditions</a> and the Nekuno <a href="https://nekuno.com/privacy-policy" target="_blank">Privacy Policy</a>.'
     }
 };

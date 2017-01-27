@@ -225,6 +225,15 @@ export default {
         saving      : 'Saving...',
         confirmBlock: 'Are you sure you want to block this user?'
     },
+    SharedUserPage                  : {
+        title          : 'Do you want to see your compatibility with %username%?',
+        signUp         : 'Sign up with Facebook',
+        loginUser      : 'Trying to login user',
+        registeringUser: 'Registering user',
+        loadingProfile : 'Loading profile',
+        invalidUrl     : 'Invalid URL',
+        privacy        : 'By registering, you agree to the <a href="https://nekuno.com/legal-notice" target="_blank">Legal Conditions</a> and the Nekuno <a href="https://nekuno.com/privacy-policy" target="_blank">Privacy Policy</a>.'
+    },
     CreateThreadPage                 : {
         create  : 'Create yarn',
         title   : 'What do you want to discover in this new yarn?',
@@ -359,6 +368,13 @@ export default {
         title         : 'Do you want us to walk a fine line?',
         text          : 'Let`s discover your interests automatically',
         publishMessage: 'We won`t publish anything'
+    },
+    ShareProfileBanner               : {
+        title                 : 'Who are you most compatible with?',
+        text                  : 'Share the url of your profile to know it!',
+        compatibilityCheckWith: 'Check your compatibility with %username%',
+        copyToClipboard       : 'Copy to clipboard: Ctrl+C, Enter',
+        shareError            : 'An error occurred sending the link.'
     },
     ProcessesProgress                : {
         title                   : 'We are reprocessing your data',

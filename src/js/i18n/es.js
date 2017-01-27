@@ -228,6 +228,15 @@ export default {
         saving      : 'Guardando...',
         confirmBlock: '¿Estás seguro de que quieres bloquear a este usuario?'
     },
+    SharedUserPage                  : {
+        title          : '¿Quieres ver tu compatibilidad con %username%?',
+        signUp         : 'Entra con Facebook',
+        loginUser      : 'Intentando iniciar sesión',
+        registeringUser: 'Registrando usuario',
+        loadingProfile : 'Cargando perfil',
+        invalidUrl     : 'URL Inválida',
+        privacy        : 'Al registrarte, estás aceptando las <a href="https://nekuno.com/legal-notice" target="_blank">Condiciones Legales</a> y la <a href="https://nekuno.com/privacy-policy" target="_blank">Política de Privacidad</a> de Nekuno'
+    },
     CreateThreadPage                 : {
         create  : 'Crear ovillos',
         title   : '¿Qué deseas descubrir en este nuevo ovillo?',
@@ -362,6 +371,13 @@ export default {
         title         : '¿Quieres que hilemos más fino?',
         text          : 'Descubramos automáticamente tus intereses',
         publishMessage: 'No públicaremos nada'
+    },
+    ShareProfileBanner               : {
+        title                 : '¿Con quienes eres más compatible?',
+        text                  : '¡Comparte la url de tu perfil para saberlo!',
+        compatibilityCheckWith: 'Comprueba tu compatibilidad con %username%',
+        copyToClipboard       : 'Copiar al portapapeles: Ctrl+C, Enter',
+        shareError            : 'Ha ocurrido un error compartiendo el enlace.'
     },
     ProcessesProgress                : {
         title                   : 'Estamos reprocesando tus datos',

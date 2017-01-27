@@ -1,0 +1,17 @@
+body #root .App .view {
+  .share-profile-container {
+    background-color: $deep-purple;
+    left: 0;
+    margin-top: 20px;
+    padding: 10px 10px 5%;
+    right: 0;
+    text-align: center;
+
+    .share-profile-title {
+      font-size: 1.428571429em !important;
+      font-weight: bold;
+      height: 55px;
+      margin-top: 10px;
+    }
+  }
+}

@@ -8,7 +8,9 @@ import translate from '../../i18n/Translate';
 export default class OrientationRequiredPopup extends Component {
     static propTypes = {
         profile   : PropTypes.object,
-        onContinue: PropTypes.func.isRequired,
+        onContinue: PropTypes.func,
+        onClick: PropTypes.func,
+        onCancel: PropTypes.func,
         // Injected by @translate:
         strings   : PropTypes.object
     };
@@ -18,6 +20,32 @@ export default class OrientationRequiredPopup extends Component {
 
         this.onSelect = this.onSelect.bind(this);
         this.onCancel = this.onCancel.bind(this);
+    }
+
+    onSelect(key) {
+        nekunoApp.closeModal('.popup-orientation-required');
+        if (this.props.onClick) {
+            this.props.onClick();
+        }
+        let profile = {orientation: key};
+        for (key in this.props.profile){
+            if (this.props.profile.hasOwnProperty(key)){
+                profile[key] = this.props.profile[key];
+            }
+        }
+        UserActionCreators.editProfile(profile)
+            .then(() => {
+                if (this.props.onContinue) {
+                    this.props.onContinue();
+                }
+            }, () => { console.log('error editing profile') });
+    }
+
+    onCancel() {
+        nekunoApp.closeModal('.popup-orientation-required');
+        if (this.props.onCancel) {
+            this.props.onCancel();
+        }
     }
 
     render() {
@@ -39,24 +67,6 @@ export default class OrientationRequiredPopup extends Component {
                 </div>
             </div>
         );
-    }
-
-    onSelect(key) {
-        nekunoApp.closeModal('.popup-orientation-required');
-        let profile = {orientation: key};
-        for (key in this.props.profile){
-            if (this.props.profile.hasOwnProperty(key)){
-                profile[key] = this.props.profile[key];
-            }
-        }
-        UserActionCreators.editProfile(profile)
-        .then(() => {
-            this.props.onContinue();
-        }, () => { console.log('error editing profile') });
-    }
-
-    onCancel() {
-        nekunoApp.closeModal('.popup-orientation-required');
     }
 }
 

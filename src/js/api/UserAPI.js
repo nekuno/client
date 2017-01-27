@@ -29,6 +29,10 @@ export function getUser(userId, url = `users/${userId}`) {
     return fetchUser(url);
 }
 
+export function getPublicUser(userId, url = `public/users/${userId}`) {
+    return fetchUser(url);
+}
+
 export function editUser(data, url = `users`) {
     return putData(url, data);
 }

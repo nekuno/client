@@ -66,7 +66,7 @@ export default class Root extends Component {
                     <Route name="splash" path="/splash" component={HomePage}/>
                     <Route name="login" path="/logind" component={LoginPage}/>
                     <Route name="register" path="/register" component={RegisterPage}/>
-                    <Route name="shared-user" path="/p/:id" component={SharedUserPage}/>
+                    <Route name="shared-user" path="/p/:slug" component={SharedUserPage}/>
 
                     <Route onEnter={requireAuth}>
                         <Route name="register-questions-landing" path="/register-questions-landing" component={RegisterQuestionsLandingPage}/>

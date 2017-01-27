@@ -15,6 +15,11 @@ const UserStore = createStore({
         return _users[userId];
     },
 
+    getBySlug(slug) {
+        const index = Object.keys(_users).find(userId => _users[userId].slug === slug);
+        return index && index > -1 ? _users[index] : null;
+    },
+
     getError() {
         let error = _error;
         _error = null;
@@ -31,7 +36,7 @@ UserStore.dispatchToken = register(action => {
     }
     switch(action.type) {
         case ActionTypes.REQUEST_PUBLIC_USER_ERROR:
-            _error = action.error;
+            _error = action.error.error;
             UserStore.emitChange();
             break;
         case ActionTypes.LOGOUT_USER:

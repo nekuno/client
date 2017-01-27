@@ -29,7 +29,7 @@ export function getUser(userId, url = `users/${userId}`) {
     return fetchUser(url);
 }
 
-export function getPublicUser(userId, url = `public/users/${userId}`) {
+export function getPublicUser(slug, url = `public/users/${slug}`) {
     return fetchUser(url);
 }
 

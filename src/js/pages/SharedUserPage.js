@@ -14,12 +14,12 @@ import LoginStore from '../stores/LoginStore';
 import UserStore from '../stores/UserStore';
 
 function requestData(props) {
-    UserActionCreators.requestSharedUser(parseInt(props.params.id));
+    UserActionCreators.requestSharedUser(props.params.slug);
 }
 
 function getState(props) {
     const interfaceLanguage = LocaleStore.locale;
-    const sharedUser = UserStore.get(parseInt(props.params.id));
+    const sharedUser = UserStore.getBySlug(props.params.slug);
     const error = UserStore.getError();
 
     return {
@@ -52,47 +52,29 @@ export default class SharedUserPage extends Component {
 
         this.state = {
             registeringUser: null,
-            loginUser: true,
+            loginUser: null,
         };
     }
 
     componentDidMount() {
-        const {params} = this.props;
-        if (LoginStore.isLoggedIn()) {
-            this.context.router.push(`profile/${params.id}`);
-        } else {
-            const facebookNetwork = SOCIAL_NETWORKS.find(socialNetwork => socialNetwork.resourceOwner == SOCIAL_NETWORKS_NAMES.FACEBOOK);
-            const resource = facebookNetwork.resourceOwner;
-            const scope = facebookNetwork.scope;
-            RouterActionCreators.storeRouterTransitionPath(`profile/${params.id}`);
-            SocialNetworkService.login(resource, scope).then(
-                () => {
-                    LoginActionCreators.loginUserByResourceOwner(resource, SocialNetworkService.getAccessToken(resource)).then(
-                        () => {
-                            // User has logged in
-                        },
-                        (error) => {
-                            // User not present.
-                            this.setState({
-                                loginUser: false
-                            });
-                            requestData(this.props);
-                        });
-                },
-                (error) => {
-                    this.setState({
-                        loginUser: false
-                    });
-                    requestData(this.props);
-                }
-            );
+        requestData(this.props);
+    }
+
+    componentDidUpdate() {
+        const {sharedUser} = this.props;
+
+        if (sharedUser && sharedUser.id) {
+            setTimeout(() => RouterActionCreators.storeRouterTransitionPath(`profile/${sharedUser.id}`), 0);
         }
     }
 
     loginByResourceOwner(resource, scope) {
-        const {interfaceLanguage, params} = this.props;
+        const {interfaceLanguage, sharedUser} = this.props;
         SocialNetworkService.login(resource, scope).then(
             () => {
+                this.setState({
+                    loginUser: true
+                });
                 LoginActionCreators.loginUserByResourceOwner(resource, SocialNetworkService.getAccessToken(resource)).then(
                     () => {
                         return null; // User is logged in
@@ -105,7 +87,7 @@ export default class SharedUserPage extends Component {
                         user.enabled = true;
                         profile.interfaceLanguage = interfaceLanguage;
                         profile.orientationRequired = false;
-                        let token = 'shared_user-' + params.id;
+                        let token = 'shared_user-' + sharedUser.id;
                         LoginActionCreators.register(user, profile, token, {
                             resourceOwner: resource,
                             oauthToken   : SocialNetworkService.getAccessToken(resource),
@@ -134,21 +116,21 @@ export default class SharedUserPage extends Component {
         return (
             <div className="views">
                 <div className="view view-main">
-                    {registeringUser || loginUser ?
-                        <EmptyMessage text={registeringUser ? strings.registeringUser : strings.loginUser} loadingGif={true}/>
-                        : sharedUser && sharedUser.username && sharedUser.photo.thumbnail ?
-                            <div id="page-content" className="shared-user-content">
-                                <div className="shared-user-picture">
-                                    <Image src={sharedUser.photo.thumbnail.medium}/>
+                    {error ? <EmptyMessage text={strings.invalidUrl}/>
+                        : registeringUser || loginUser ?
+                            <EmptyMessage text={registeringUser ? strings.registeringUser : strings.loginUser} loadingGif={true}/>
+                            : sharedUser && sharedUser.username && sharedUser.photo.thumbnail ?
+                                <div id="page-content" className="shared-user-content">
+                                    <div className="shared-user-picture">
+                                        <Image src={sharedUser.photo.thumbnail.medium}/>
+                                    </div>
+                                    <div className="title">{strings.title.replace('%username%', sharedUser.username)}</div>
+                                    <FacebookButton onClickHandler={this.loginByResourceOwner} text={strings.signUp}/>
+                                    <div className="register-sub-title privacy-terms-text">
+                                        <p dangerouslySetInnerHTML={{__html: strings.privacy}}/>
+                                    </div>
                                 </div>
-                                <div className="title">{strings.title.replace('%username%', sharedUser.username)}</div>
-                                <FacebookButton onClickHandler={this.loginByResourceOwner} text={strings.signUp}/>
-                                <div className="register-sub-title privacy-terms-text">
-                                    <p dangerouslySetInnerHTML={{__html: strings.privacy}}/>
-                                </div>
-                            </div>
-                            : error ? <EmptyMessage text={strings.invalidUrl}/>
-                                    : <EmptyMessage text={strings.loadingProfile} loadingGif={true}/>
+                                : <EmptyMessage text={strings.loadingProfile} loadingGif={true}/>
                     }
                 </div>
             </div>

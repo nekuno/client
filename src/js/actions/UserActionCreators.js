@@ -69,12 +69,12 @@ export function requestProfile(userId, fields) {
     }, {userId});
 }
 
-export function requestSharedUser(userId) {
-    dispatchAsync(UserAPI.getPublicUser(userId), {
+export function requestSharedUser(slug) {
+    dispatchAsync(UserAPI.getPublicUser(slug), {
         request: ActionTypes.REQUEST_PUBLIC_USER,
         success: ActionTypes.REQUEST_PUBLIC_USER_SUCCESS,
         failure: ActionTypes.REQUEST_PUBLIC_USER_ERROR
-    }, {userId});
+    }, {slug});
 }
 
 export function editProfile(data) {

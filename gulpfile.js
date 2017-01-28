@@ -16,18 +16,13 @@ gulp.task('copy', function() {
         .pipe(gulp.dest('www/'));
 });
 
-gulp.task('manifest', function() {
-    return gulp.src('src/manifest.json')
-        .pipe(gulp.dest('www/'));
-});
-
 gulp.task('fonts', function() {
     return gulp.src('src/scss/fonts/*')
         .pipe(gulp.dest('www/fonts/'));
 });
 
-gulp.task('favicons', function() {
-    return gulp.src(['src/*.ico', 'src/*.png', 'manifest.json', 'src/*.svg'])
+gulp.task('assets', function() {
+    return gulp.src(['src/*.ico', 'src/*.png', 'src/manifest.json', 'src/*.svg', './node_modules/framework7/dist/js/framework7.min.js.map'])
         .pipe(gulp.dest('www/'));
 });
 
@@ -104,6 +99,6 @@ gulp.task('serve', function() {
     });
 });
 
-gulp.task('build', ['copy', 'manifest', 'fonts', 'favicons', 'images', 'sass', 'build-js', 'build-vendor-js']);
+gulp.task('build', ['copy', 'fonts', 'assets', 'images', 'sass', 'build-js', 'build-vendor-js']);
 gulp.task('release', ['minify-js', 'minify-css']);
 gulp.task('dev', ['build', 'serve', 'watch']);

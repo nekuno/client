@@ -3,6 +3,7 @@ import FullWidthButton from '../ui/FullWidthButton';
 import SetThreadTitlePopup from './SetThreadTitlePopup';
 import ThreadCategoryFilterList from './filters/ThreadCategoryFilterList';
 import ChoiceFilter from './filters/ChoiceFilter';
+import LocationFilter from './filters/LocationFilter';
 import IntegerRangeFilter from './filters/IntegerRangeFilter';
 import IntegerFilter from './filters/IntegerFilter';
 import MultipleChoicesFilter from './filters/MultipleChoicesFilter';

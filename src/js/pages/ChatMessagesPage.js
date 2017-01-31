@@ -88,8 +88,8 @@ export default class ChatMessagesPage extends Component {
         window.removeEventListener('resize', this.scrollIfNeeded, false);
     }
 
-    componentDidUpdate() {
-        if (this.props.otherUserId && ChatMessageStore.isFresh(this.props.otherUserId)) {
+    componentDidUpdate(prevProps) {
+        if (this.props.otherUserId && (!prevProps.otherUserId || ChatMessageStore.isFresh(this.props.otherUserId))) {
             this._scrollToBottom();
             this.markReaded();
         }

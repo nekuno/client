@@ -29,6 +29,20 @@ function parseThreadId(thread) {
     return thread.id;
 }
 
+function getDisplayedThread(props) {
+
+    if (props.params.groupId) {
+        return ThreadStore.getByGroup(props.params.threadId) || {};
+    }
+
+    return ThreadStore.getAll().find((thread) => {
+        let items = RecommendationStore.get(parseThreadId(thread)) || [];
+        return items.length > 0 && thread.category === 'ThreadUsers';
+    }) || ThreadStore.getAll().find((thread) => {
+        return thread.category === 'ThreadUsers';
+    }) || {};
+}
+
 /**
  * Requests data from server for current props.
  */
@@ -51,12 +65,7 @@ function getState(props) {
     let isSomethingWorking = WorkersStore.isSomethingWorking();
     let filters = {};
     let recommendations = [];
-    let thread = ThreadStore.getAll().find((thread) => {
-            let items = RecommendationStore.get(parseThreadId(thread)) || [];
-            return items.length > 0 && thread.category === 'ThreadUsers';
-        }) || ThreadStore.getAll().find((thread) => {
-            return thread.category === 'ThreadUsers';
-        }) || {};
+    let thread = getDisplayedThread(props);
     let isLoadingRecommendations = true;
     if (parseThreadId(thread)) {
         if (Object.keys(thread).length !== 0) {
@@ -112,6 +121,7 @@ export default class DiscoverPage extends Component {
         super(props);
 
         this.editThread = this.editThread.bind(this);
+        this.leftClickHandler = this.leftClickHandler.bind(this);
         this.handleScroll = this.handleScroll.bind(this);
         this.goToProfile = this.goToProfile.bind(this);
         this.selectProfile = this.selectProfile.bind(this);
@@ -131,6 +141,12 @@ export default class DiscoverPage extends Component {
 
     editThread() {
         this.context.router.push(`edit-thread/${parseThreadId(this.props.thread)}`);
+    }
+
+    leftClickHandler() {
+        if (this.props.thread && this.props.thread.groupId != null){
+            this.context.router.push(`groups`);
+        }
     }
 
     handleScroll() {
@@ -171,11 +187,11 @@ export default class DiscoverPage extends Component {
     render() {
         const {user, profile, strings, pagination, isSomethingWorking, filters, recommendations, thread, isLoadingRecommendations, networks, similarityOrder} = this.props;
         const connectedNetworks = networks.filter(network => network.fetching || network.fetched || network.processing || network.processed);
-
+        const leftMenuIcon = !(thread != undefined && thread.groupId != null);
         return (
             <div className="views">
                 {Object.keys(thread).length > 0 ?
-                    <TopNavBar leftMenuIcon={true} centerText={strings.discover} rightIcon={'edit'} onRightLinkClickHandler={this.editThread}/>
+                    <TopNavBar leftMenuIcon={leftMenuIcon} centerText={strings.discover} rightIcon={'edit'} onRightLinkClickHandler={this.editThread} onLeftLinkClickHandler={this.leftClickHandler()}/>
                     : <TopNavBar leftMenuIcon={true} centerText={strings.discover}/>}
                 <ScrollContainer scrollKey="discover">
                     <div className="view view-main" onScroll={this.handleScroll}>

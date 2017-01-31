@@ -98,6 +98,7 @@ export default class Root extends Component {
                         <Route name="create-thread" path="/create-thread" component={CreateThreadPage}/>
                         <Route name="edit-thread" path="/edit-thread/:threadId" component={EditThreadLitePage}/>
                         <Route name="groups" path="/groups" component={GroupPage}/>
+                        <Route name="group-discover" path="/groups/:groupId/discover" component={DiscoverPage}/>
                         <Route name="group-stats" path="/groups/:groupId" component={GroupStatsPage}/>
                         <Route name="group-members" path="/groups/:groupId/members" component={GroupMembersPage}/>
                         <Route name="group-contents" path="/groups/:groupId/contents" component={GroupContentsPage}/>

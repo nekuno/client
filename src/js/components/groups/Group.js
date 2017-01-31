@@ -31,9 +31,11 @@ export default class Group extends Component {
         let {group, strings} = this.props;
 
         const groupUrl="groups/"+group.id;
+        const groupDiscoverUrl = groupUrl+"/discover";
         return (
             <div className="group">
                 <div className="group-title" ><Link to={groupUrl}>{group.name}</Link></div>
+                <div className="group-discover-button"><Link to={groupDiscoverUrl}>Discover </Link></div>
                 <div className="group-number-users"> {group.usersCount} {strings.users}</div>
             </div>
         );

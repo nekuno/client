@@ -1,6 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import selectn from 'selectn';
 import User from '../components/User';
+import { Link } from 'react-router';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
@@ -170,9 +171,9 @@ export default class LeftPanel extends Component {
                                     <span className="unread-messages-count-text">{unreadCount}</span>
                                 </span> : ''}
                             </a>
-                            {/*<Link to="/groups" onClick={this.handleGoClickGroups}>*/}
-                                {/*{strings.groups}*/}
-                            {/*</Link>*/}
+                            <Link to="/groups" onClick={this.handleGoClickGroups}>
+                                {strings.groups}
+                            </Link>
                             <a onClick={this.handleClickSettings}>
                                 {strings.settings}
                             </a>

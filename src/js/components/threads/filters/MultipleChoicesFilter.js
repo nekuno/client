@@ -11,7 +11,8 @@ export default class MultipleChoicesFilter extends Component {
         data: PropTypes.array,
         handleClickRemoveFilter: PropTypes.func.isRequired,
         handleChangeFilter: PropTypes.func.isRequired,
-        handleClickFilter: PropTypes.func.isRequired
+        handleClickFilter: PropTypes.func.isRequired,
+        cantRemove: PropTypes.bool
     };
 
     constructor(props) {
@@ -33,16 +34,16 @@ export default class MultipleChoicesFilter extends Component {
     }
 
     render() {
-        const {filterKey, selected, filter, data, handleClickRemoveFilter, handleClickFilter} = this.props;
+        const {filterKey, selected, filter, data, handleClickRemoveFilter, handleClickFilter, cantRemove} = this.props;
         return(
             selected ?
-                <ThreadSelectedFilter key={'selected-filter'} type={'checkbox'} active={data && data.length > 0} handleClickRemoveFilter={handleClickRemoveFilter}>
+                <ThreadSelectedFilter key={'selected-filter'} type={'checkbox'} active={data && data.length > 0} handleClickRemoveFilter={handleClickRemoveFilter} cantRemove={cantRemove}>
                     <TextCheckboxes labels={Object.keys(filter.choices).map(key => { return({key: key, text: filter.choices[key]}) })}
                                     onClickHandler={this.handleClickMultipleChoice} values={data || []} className={'multiple-choice-filter'}
                                     title={filter.label} />
                 </ThreadSelectedFilter>
                     :
-                <ThreadUnselectedFilter key={filterKey} filterKey={filterKey} filter={filter} data={data || []} handleClickFilter={handleClickFilter} handleClickRemoveFilter={handleClickRemoveFilter}/>
+                <ThreadUnselectedFilter key={filterKey} filterKey={filterKey} filter={filter} data={data || []} handleClickFilter={handleClickFilter} handleClickRemoveFilter={handleClickRemoveFilter} cantRemove={cantRemove}/>
         );
     }
 }

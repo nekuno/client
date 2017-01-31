@@ -10,6 +10,7 @@ import connectToStores from '../utils/connectToStores';
 import * as APIUtils from '../utils/APIUtils';
 import * as UserActionCreators from '../actions/UserActionCreators';
 import * as GroupActionCreators from '../actions/GroupActionCreators';
+import * as ThreadActionCreators from '../actions/ThreadActionCreators';
 import GroupStore from '../stores/GroupStore';
 
 function parseId(user) {
@@ -24,6 +25,7 @@ function requestData(props) {
     const userId = parseId(user);
 
     UserActionCreators.requestStats(userId);
+    ThreadActionCreators.requestThreadPage();
 }
 
 /**

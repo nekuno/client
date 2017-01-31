@@ -43,7 +43,7 @@ export default class OtherProfileData extends Component {
 
     componentDidUpdate(prevProps) {
         if (prevProps.isSomethingWorking && !this.props.isSomethingWorking) {
-            requestData(this.props);
+            setTimeout(() => { requestData(this.props) }, 0);
         }
     }
 

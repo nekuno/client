@@ -53,8 +53,6 @@ function requestData(props) {
         },
         (status) => { console.log(status.error) }
     );
-
-
 }
 
 function initPhotosSwiper() {
@@ -312,7 +310,10 @@ export default class OtherUserPage extends Component {
                                         <OtherProfileData matching={matching} similarity={similarity} stats={comparedStats} ownImage={ownPicture}
                                                           currentImage={otherPictureSmall}
                                                           interestsUrl={`/users/${params.slug}/other-interests`}
-                                                          questionsUrl={`/users/${params.slug}/other-questions`}/>
+                                                          questionsUrl={`/users/${params.slug}/other-questions`}
+                                                          userId={user.id}
+                                                          otherUserId={otherUser.id}
+                                        />
                                     </div>
                                 </div>
                                 <OtherProfileDataList profileWithMetadata={profileWithMetadata}/>

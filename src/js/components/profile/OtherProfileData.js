@@ -4,7 +4,15 @@ import ProgressBar from '../ui/ProgressBar';
 import ProfilesAvatarConnection from '../ui/ProfilesAvatarConnection';
 import translate from '../../i18n/Translate';
 import connectToStores from '../../utils/connectToStores';
+import * as UserActionCreators from '../../actions/UserActionCreators';
 import WorkersStore from '../../stores/WorkersStore';
+
+function requestData(props) {
+    const {userId, otherUserId} = props;
+    UserActionCreators.requestMatching(userId, otherUserId);
+    UserActionCreators.requestSimilarity(userId, otherUserId);
+    UserActionCreators.requestComparedStats(userId, otherUserId);
+}
 
 function getState(props) {
     const isSomethingWorking = WorkersStore.isSomethingWorking();
@@ -26,9 +34,18 @@ export default class OtherProfileData extends Component {
         interestsUrl      : PropTypes.string.isRequired,
         questionsUrl      : PropTypes.string.isRequired,
         isSomethingWorking: PropTypes.bool.isRequired,
+        userId            : PropTypes.number.isRequired,
+        otherUserId       : PropTypes.number.isRequired,
         // Injected by @translate:
         strings           : PropTypes.object
     };
+
+
+    componentDidUpdate(prevProps) {
+        if (prevProps.isSomethingWorking && !this.props.isSomethingWorking) {
+            requestData(this.props);
+        }
+    }
 
     render() {
         const {matching, similarity, stats, ownImage, currentImage, interestsUrl, questionsUrl, isSomethingWorking, strings} = this.props;

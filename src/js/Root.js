@@ -64,7 +64,7 @@ export default class Root extends Component {
                 <Route name="home" path="/" component={App}>
 
                     <Route name="splash" path="/splash" component={HomePage}/>
-                    <Route name="login" path="/logind" component={LoginPage}/>
+                    <Route name="login" path="/login" component={LoginPage}/>
                     <Route name="register" path="/register" component={RegisterPage}/>
                     <Route name="shared-user" path="/p/:slug" component={SharedUserPage}/>
 
@@ -73,23 +73,23 @@ export default class Root extends Component {
                         <Route name="answer-user-fields" path="/answer-user-fields" component={AnswerUserFieldPage}/>
                         <Route name="answer-profile-fields" path="/answer-profile-fields" component={AnswerProfileFieldPage}/>
                         <Route name="notifications" path="/conversations" component={ChatThreadsPage}/>
-                        <Route name="messages" path="/conversations/:userId" component={ChatMessagesPage}/>
+                        <Route name="messages" path="/conversations/:slug" component={ChatMessagesPage}/>
                         <Route name="interests" path="/interests" component={InterestsPage}/>
-                        <Route name="other-interests" path="/users/:userId/other-interests" component={OtherInterestsPage}/>
+                        <Route name="other-interests" path="/users/:slug/other-interests" component={OtherInterestsPage}/>
                         <Route name="gallery" path="/gallery" component={GalleryPage}/>
-                        <Route name="other-gallery" path="/users/:userId/other-gallery/:photoId" component={OtherGalleryPage}/>
+                        <Route name="other-gallery" path="/users/:slug/other-gallery/:photoId" component={OtherGalleryPage}/>
                         <Route name="gallery-photo" path="/gallery-photo" component={GalleryPhotoPage}/>
                         <Route name="other-gallery-photo" path="/users/:userId/other-gallery-photo" component={OtherGalleryPhotoPage}/>
                         <Route name="gallery-profile-photo" path="/gallery-profile-photo" component={GalleryProfilePhotoPage}/>
                         <Route name="gallery-albums" path="/gallery-albums" component={GalleryAlbumsPage}/>
                         <Route name="gallery-album-photos" path="/gallery-album-photos" component={GalleryAlbumPhotosPage}/>
                         <Route name="questions" path="/questions" component={QuestionsPage}/>
-                        <Route name="other-questions" path="/users/:userId/other-questions" component={OtherQuestionsPage}/>
+                        <Route name="other-questions" path="/users/:slug/other-questions" component={OtherQuestionsPage}/>
                         <Route name="answer-question" path="/answer-question/:questionId" component={AnswerQuestionPage}/>
                         <Route name="answer-question-next" path="/answer-question/next" component={AnswerQuestionPage}/>
                         <Route name="question-stats" path="/question-stats" component={QuestionStatsPage}/>
                         <Route name="profile" path="/profile" component={UserPage}/>
-                        <Route name="other-profile" path="/profile/:userId" component={OtherUserPage}/>
+                        <Route name="other-profile" path="/profile/:slug" component={OtherUserPage}/>
                         <Route name="invitations" path="/invitations" component={InvitationsPage}/>
                         <Route name="discover" path="/discover" component={DiscoverPage}/>
                         <Route name="recommendations" path="/recommendations/:threadId" component={RecommendationPage}/>

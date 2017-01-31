@@ -32,31 +32,29 @@ function parseId(user) {
  */
 function requestData(props) {
     const {params, user} = props;
-    const otherUserId = params.userId;
-    if (!ProfileStore.contains(parseId(user))) {
-        UserActionCreators.requestOwnProfile(parseId(user));
-    }
-    if (!MatchingStore.contains(parseId(user), otherUserId)) {
-        UserActionCreators.requestMatching(parseId(user), otherUserId);
-    }
-    if (!SimilarityStore.contains(parseId(user), otherUserId)) {
-        UserActionCreators.requestSimilarity(parseId(user), otherUserId);
-    }
-    if (!LikeStore.contains(parseId(user), otherUserId)) {
-        UserActionCreators.requestLikeUser(parseId(user), otherUserId);
-    }
-    if (!BlockStore.contains(parseId(user), otherUserId)) {
-        UserActionCreators.requestBlockUser(parseId(user), otherUserId);
-    }
-    if (!ComparedStatsStore.contains(parseId(user), otherUserId)) {
-        UserActionCreators.requestComparedStats(parseId(user), otherUserId);
-    }
+    const otherUserSlug = params.slug;
 
-    UserActionCreators.requestUser(otherUserId, ['username', 'photo', 'status']);
-    UserActionCreators.requestProfile(otherUserId);
-    UserActionCreators.requestMetadata();
-    UserActionCreators.requestStats(otherUserId);
-    GalleryPhotoActionCreators.getOtherPhotos(otherUserId);
+    UserActionCreators.requestUser(otherUserSlug, ['username', 'photo', 'status']).then(
+        () => {
+            const otherUser = UserStore.getBySlug(params.slug);
+            UserActionCreators.requestMetadata();
+            if (!ProfileStore.contains(parseId(user))) {
+                UserActionCreators.requestOwnProfile(parseId(user));
+            }
+            const otherUserId = parseId(otherUser);
+            UserActionCreators.requestMatching(parseId(user), otherUserId);
+            UserActionCreators.requestSimilarity(parseId(user), otherUserId);
+            UserActionCreators.requestLikeUser(parseId(user), otherUserId);
+            UserActionCreators.requestBlockUser(parseId(user), otherUserId);
+            UserActionCreators.requestComparedStats(parseId(user), otherUserId);
+            UserActionCreators.requestProfile(otherUserId);
+            UserActionCreators.requestStats(otherUserId);
+            GalleryPhotoActionCreators.getOtherPhotos(otherUserId);
+        },
+        (status) => { console.log(status.error) }
+    );
+
+
 }
 
 function initPhotosSwiper() {
@@ -84,20 +82,21 @@ function initPhotosSwiper() {
  * Retrieves state from stores for current props.
  */
 function getState(props) {
-    const otherUserId = props.params.userId;
+    const otherUserSlug = props.params.slug;
+    const otherUser = UserStore.getBySlug(otherUserSlug);
+    const otherUserId = otherUser ? parseId(otherUser) : null;
     const {user} = props;
-    const otherUser = UserStore.get(otherUserId);
-    const profile = ProfileStore.get(otherUserId);
-    const profileWithMetadata = ProfileStore.getWithMetadata(otherUserId);
-    const matching = MatchingStore.get(otherUserId, parseId(user));
-    const similarity = SimilarityStore.get(otherUserId, parseId(user));
+    const profile = otherUserId ? ProfileStore.get(otherUserId) : null;
+    const profileWithMetadata = otherUserId ? ProfileStore.getWithMetadata(otherUserId) : [];
+    const matching = otherUserId ? MatchingStore.get(otherUserId, parseId(user)) : null;
+    const similarity = otherUserId ? SimilarityStore.get(otherUserId, parseId(user)) : null;
     //const block = BlockStore.get(parseId(user), otherUserId);
-    const like = LikeStore.get(parseId(user), otherUserId);
-    const comparedStats = ComparedStatsStore.get(parseId(user), otherUserId);
-    const photos = GalleryPhotoStore.get(otherUserId);
-    const noPhotos = GalleryPhotoStore.noPhotos(otherUserId);
+    const like = otherUserId ? LikeStore.get(parseId(user), otherUserId) : null;
+    const comparedStats = otherUserId ? ComparedStatsStore.get(parseId(user), otherUserId) : null;
+    const photos = otherUserId ? GalleryPhotoStore.get(otherUserId) : [];
+    const noPhotos = otherUserId ? GalleryPhotoStore.noPhotos(otherUserId) : null;
     const ownProfile = ProfileStore.get(parseId(user));
-    const online = ChatUserStatusStore.isOnline(otherUserId) || false;
+    const online = otherUserId ? ChatUserStatusStore.isOnline(otherUserId) || false : null;
 
     return {
         otherUser,
@@ -145,7 +144,7 @@ export default class OtherUserPage extends Component {
     static propTypes = {
         // Injected by React Router:
         params             : PropTypes.shape({
-            userId: PropTypes.string.isRequired
+            slug: PropTypes.string.isRequired
         }).isRequired,
         // Injected by @AuthenticatedComponent
         user               : PropTypes.object,
@@ -193,7 +192,7 @@ export default class OtherUserPage extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.params.userId !== this.props.params.userId) {
+        if (nextProps.params.slug !== this.props.params.slug) {
             requestData(nextProps);
         }
     }
@@ -227,14 +226,14 @@ export default class OtherUserPage extends Component {
     }
 
     handleClickMessageLink() {
-        this.context.router.push(`/conversations/${this.props.params.userId}`);
+        this.context.router.push(`/conversations/${this.props.params.slug}`);
     }
 
     handlePhotoClick(url) {
-        const {photos, otherUser} = this.props;
+        const {photos, otherUser, params} = this.props;
         const selectedPhoto = photos.find(photo => photo.url === url) || otherUser.photo;
         const selectedPhotoId = selectedPhoto.id || 'profile';
-        this.context.router.push(`/users/${otherUser.id}/other-gallery/${selectedPhotoId}`);
+        this.context.router.push(`/users/${params.slug}/other-gallery/${selectedPhotoId}`);
     }
 
     goToDiscover() {
@@ -246,7 +245,7 @@ export default class OtherUserPage extends Component {
     }
 
     render() {
-        const {user, otherUser, profile, ownProfile, profileWithMetadata, matching, similarity, block, like, comparedStats, photos, noPhotos, online, strings} = this.props;
+        const {user, otherUser, profile, ownProfile, profileWithMetadata, matching, similarity, block, like, comparedStats, photos, noPhotos, online, params, strings} = this.props;
         const otherPictureSmall = selectn('photo.thumbnail.small', otherUser);
         const otherPictureBig = selectn('photo.thumbnail.big', otherUser);
         const ownPicture = selectn('photo.thumbnail.small', user);
@@ -263,9 +262,9 @@ export default class OtherUserPage extends Component {
                 <TopNavBar leftIcon={'left-arrow'} centerText={strings.profile}/>
                 {otherUser && profile && profileWithMetadata && ownProfile && ownProfile.orientation ?
                     <ToolBar links={[
-                        {'url': `/profile/${parseId(otherUser)}`, 'text': strings.about},
-                        {'url': `/users/${parseId(otherUser)}/other-questions`, 'text': strings.questions},
-                        {'url': `/users/${parseId(otherUser)}/other-interests`, 'text': strings.interests}]} activeLinkIndex={0} arrowUpLeft={'13%'}/>
+                        {'url': `/profile/${params.slug}`, 'text': strings.about},
+                        {'url': `/users/${params.slug}/other-questions`, 'text': strings.questions},
+                        {'url': `/users/${params.slug}/other-interests`, 'text': strings.interests}]} activeLinkIndex={0} arrowUpLeft={'13%'}/>
                     : null}
                 <div className="view view-main">
                     <div className="page other-user-page">

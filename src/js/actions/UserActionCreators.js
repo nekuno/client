@@ -22,17 +22,17 @@ export function requestOwnUser() {
     });
 }
 
-export function requestUser(userId, fields) {
+export function requestUser(userSlug, fields) {
     // Exit early if we know enough about this user
-    if (UserStore.contains(userId, fields)) {
-        return;
+    if (UserStore.containsSlug(userSlug, fields)) {
+        return new Promise((resolve) => { resolve(true) });
     }
 
-    return dispatchAsync(UserAPI.getUser(userId), {
+    return dispatchAsync(UserAPI.getUser(userSlug), {
         request: ActionTypes.REQUEST_USER,
         success: ActionTypes.REQUEST_USER_SUCCESS,
         failure: ActionTypes.REQUEST_USER_ERROR
-    }, {userId});
+    }, {userSlug});
 }
 
 export function editUser(data) {

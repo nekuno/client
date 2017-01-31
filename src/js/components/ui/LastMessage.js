@@ -35,7 +35,7 @@ export default class LastMessage extends Component {
 
         return (
             <div className="notification">
-                <Link to={`/conversations/${user.id}`}>
+                <Link to={`/conversations/${user.slug}`}>
                     <div className="notification-picture">
                         <img src={imageSrc}/>
                         {online ? <div className="status-online">Online</div> : ''}

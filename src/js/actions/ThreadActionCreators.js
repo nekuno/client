@@ -10,9 +10,6 @@ import FilterStore from '../stores/FilterStore';
 import LoginStore from '../stores/LoginStore';
 
 export function requestThreadPage(userId) {
-    if (!UserStore.contains(userId)) {
-        UserActionCreators.requestUser(userId, null);
-    }
     requestThreads(userId).then((action) => {
         action.items.forEach(item => {
             this.requestRecommendation(item.id);

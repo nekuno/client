@@ -34,6 +34,10 @@ function getState(props) {
 export default class SharedUserPage extends Component {
 
     static propTypes = {
+        // Injected by React Router:
+        params           : PropTypes.shape({
+            slug: PropTypes.string.isRequired
+        }).isRequired,
         // Injected by @translate:
         strings          : PropTypes.object,
         // Injected by @connectToStores:
@@ -58,14 +62,7 @@ export default class SharedUserPage extends Component {
 
     componentDidMount() {
         requestData(this.props);
-    }
-
-    componentDidUpdate() {
-        const {sharedUser} = this.props;
-
-        if (sharedUser && sharedUser.id) {
-            setTimeout(() => RouterActionCreators.storeRouterTransitionPath(`profile/${sharedUser.id}`), 0);
-        }
+        setTimeout(() => RouterActionCreators.storeRouterTransitionPath(`profile/${this.props.params.slug}`), 0);
     }
 
     loginByResourceOwner(resource, scope) {

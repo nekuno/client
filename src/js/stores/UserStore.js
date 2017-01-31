@@ -15,6 +15,11 @@ const UserStore = createStore({
         return _users[userId];
     },
 
+    containsSlug(slug, fields) {
+        const index = Object.keys(_users).find(userId => _users[userId].slug === slug);
+        return isInBag(_users, index, fields);
+    },
+
     getBySlug(slug) {
         const index = Object.keys(_users).find(userId => _users[userId].slug === slug);
         return index && index > -1 ? _users[index] : null;

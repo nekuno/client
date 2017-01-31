@@ -117,7 +117,7 @@ export default class DiscoverPage extends Component {
         this.selectProfile = this.selectProfile.bind(this);
 
         this.state = {
-            selectedUserId: null
+            selectedUserSlug: null
         };
     }
 
@@ -144,12 +144,12 @@ export default class DiscoverPage extends Component {
     }
 
     goToProfile() {
-        const {selectedUserId} = this.state;
-        this.context.router.push(`/profile/${selectedUserId}`);
+        const {selectedUserSlug} = this.state;
+        this.context.router.push(`/profile/${selectedUserSlug}`);
     }
 
-    selectProfile(userId) {
-        this.setState({selectedUserId: userId});
+    selectProfile(userSlug) {
+        this.setState({selectedUserSlug: userSlug});
     }
 
     renderChipList = function(thread, filters) {

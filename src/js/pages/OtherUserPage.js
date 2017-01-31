@@ -311,8 +311,8 @@ export default class OtherUserPage extends Component {
                                     <div className="other-profile-wrapper bold">
                                         <OtherProfileData matching={matching} similarity={similarity} stats={comparedStats} ownImage={ownPicture}
                                                           currentImage={otherPictureSmall}
-                                                          interestsUrl={`/users/${parseId(otherUser)}/other-interests`}
-                                                          questionsUrl={`/users/${parseId(otherUser)}/other-questions`}/>
+                                                          interestsUrl={`/users/${params.slug}/other-interests`}
+                                                          questionsUrl={`/users/${params.slug}/other-questions`}/>
                                     </div>
                                 </div>
                                 <OtherProfileDataList profileWithMetadata={profileWithMetadata}/>

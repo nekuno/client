@@ -277,10 +277,11 @@ export default {
         cannotRemove: 'This field cannot be deleted',
     },
     OtherProfileData                 : {
-        coincidences    : 'Coincidences',
-        similarInterests: 'Similar interests',
-        compatibility   : 'compatibility',
-        similarity      : 'similarity'
+        coincidences       : 'Coincidences',
+        similarInterests   : 'Similar interests',
+        compatibility      : 'compatibility',
+        similarity         : 'similarity',
+        calculatingMatching: 'Calculating matching...'
     },
     ProfileData                      : {
         seeLess: 'See less',

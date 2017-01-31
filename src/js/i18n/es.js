@@ -280,10 +280,11 @@ export default {
         cannotRemove: 'Este campo no se puede eliminar',
     },
     OtherProfileData                 : {
-        coincidences    : 'Coincidencias',
-        similarInterests: 'Intereses similares',
-        compatibility   : 'Compatibilidad',
-        similarity      : 'Similitud'
+        coincidences       : 'Coincidencias',
+        similarInterests   : 'Intereses similares',
+        compatibility      : 'Compatibilidad',
+        similarity         : 'Similitud',
+        calculatingMatching: 'Calculando compatibilidad...'
     },
     ProfileData                      : {
         seeLess: 'Ver menos',

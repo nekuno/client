@@ -3,23 +3,35 @@ import { Link } from 'react-router';
 import ProgressBar from '../ui/ProgressBar';
 import ProfilesAvatarConnection from '../ui/ProfilesAvatarConnection';
 import translate from '../../i18n/Translate';
+import connectToStores from '../../utils/connectToStores';
+import WorkersStore from '../../stores/WorkersStore';
+
+function getState(props) {
+    const isSomethingWorking = WorkersStore.isSomethingWorking();
+
+    return {
+        isSomethingWorking
+    };
+}
 
 @translate('OtherProfileData')
+@connectToStores([WorkersStore], getState)
 export default class OtherProfileData extends Component {
     static propTypes = {
-        matching    : PropTypes.number,
-        similarity  : PropTypes.number,
-        stats       : PropTypes.object,
-        ownImage    : PropTypes.string,
-        currentImage: PropTypes.string,
-        interestsUrl: PropTypes.string.isRequired,
-        questionsUrl: PropTypes.string.isRequired,
+        matching          : PropTypes.number,
+        similarity        : PropTypes.number,
+        stats             : PropTypes.object,
+        ownImage          : PropTypes.string,
+        currentImage      : PropTypes.string,
+        interestsUrl      : PropTypes.string.isRequired,
+        questionsUrl      : PropTypes.string.isRequired,
+        isSomethingWorking: PropTypes.bool.isRequired,
         // Injected by @translate:
-        strings     : PropTypes.object
+        strings           : PropTypes.object
     };
 
     render() {
-        const {matching, similarity, stats, ownImage, currentImage, interestsUrl, questionsUrl, strings} = this.props;
+        const {matching, similarity, stats, ownImage, currentImage, interestsUrl, questionsUrl, isSomethingWorking, strings} = this.props;
         const commonAnswers = stats ? stats.commonAnswers : <span className="icon-spinner rotation-animation"></span>;
         const commonContent = stats ? stats.commonContent : <span className="icon-spinner rotation-animation"></span>;
 
@@ -36,13 +48,21 @@ export default class OtherProfileData extends Component {
                         </div>
                     </div>
                 </div>
-                <div className="other-profile-right">
-                    <span> {matching ? Math.round(100*matching) : 0}% {strings.compatibility}</span>
-                    <ProgressBar percentage={matching ? Math.round(100*matching) : 0}/>
-                    <span> {similarity ? Math.round(100*similarity) : 0}% {strings.similarity}</span>
-                    <ProgressBar percentage={similarity ? Math.round(100*similarity) : 0}/>
-                </div>
-
+                {isSomethingWorking && !matching ?
+                    <div className="other-profile-right">
+                        <div className="calculating-matching">
+                            {strings.calculatingMatching}
+                            <div className={'icon-spinner rotation-animation'}></div>
+                        </div>
+                    </div>
+                    :
+                    <div className="other-profile-right">
+                        <span> {matching ? Math.round(100*matching) : 0}% {strings.compatibility}</span>
+                        <ProgressBar percentage={matching ? Math.round(100*matching) : 0}/>
+                        <span> {similarity ? Math.round(100*similarity) : 0}% {strings.similarity}</span>
+                        <ProgressBar percentage={similarity ? Math.round(100*similarity) : 0}/>
+                    </div>
+                }
             </div>
         );
     }
@@ -50,9 +70,10 @@ export default class OtherProfileData extends Component {
 
 OtherProfileData.defaultProps = {
     strings: {
-        coincidences    : 'Coincidences',
-        similarInterests: 'Similar interests',
-        compatibility   : 'compatibility',
-        similarity      : 'similarity'
+        coincidences       : 'Coincidences',
+        similarInterests   : 'Similar interests',
+        compatibility      : 'compatibility',
+        similarity         : 'similarity',
+        calculatingMatching: 'Calculating matching...'
     }
 };

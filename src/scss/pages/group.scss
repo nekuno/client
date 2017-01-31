@@ -15,7 +15,7 @@ body #root .App {
         position: relative;
         background-color: $deep-purple-translucent;
         .group-title {
-          max-width: 50%;
+          max-width: 33%;
           height: 100%;
           left: 0;
           overflow-x: hidden;
@@ -23,9 +23,16 @@ body #root .App {
           font-size: 30px;
         }
         .group-number-users {
-          max-width: 50%;
+          max-width: 33%;
           height: 100%;
           right: 0;
+          position: absolute;
+          font-size: 20px;
+        }
+        .group-discover-button {
+          max-width: 33%;
+          height: 100%;
+          right: 33%;
           position: absolute;
           font-size: 20px;
         }

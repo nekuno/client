@@ -26,6 +26,10 @@ const ThreadStore = createStore({
         return _threads;
     },
 
+    getByGroup(groupId) {
+        return _threads.find(thread => thread && thread.groupId == groupId);
+    },
+
     noThreads() {
         return this.getAll().length === 0
     },

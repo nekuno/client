@@ -104,7 +104,7 @@ export default class CreateUsersThread extends Component {
     renderActiveFilters() {
         const defaultFilters = Object.assign({}, this.props.defaultFilters);
         const {filters} = this.state;
-        const {tags} = this.props;
+        const {tags, thread} = this.props;
         return (
             Object.keys(filters).map(key => {
                 const selected = this.state.selectedFilter === key;
@@ -126,7 +126,8 @@ export default class CreateUsersThread extends Component {
                         filter = this.renderIntegerFilter(defaultFilters[key], key, filters[key], selected);
                         break;
                     case 'multiple_choices':
-                        filter = this.renderMultipleChoicesFilter(defaultFilters[key], key, filters[key], selected);
+                        const cantRemove = thread.groupId != null;
+                        filter = this.renderMultipleChoicesFilter(defaultFilters[key], key, filters[key], selected, cantRemove);
                         break;
                     case 'double_multiple_choices':
                         filter = this.renderDoubleMultipleChoicesFilter(defaultFilters[key], key, filters[key], selected);
@@ -199,12 +200,13 @@ export default class CreateUsersThread extends Component {
         )
     }
 
-    renderMultipleChoicesFilter(filter, key, data, selected) {
+    renderMultipleChoicesFilter(filter, key, data, selected, cantRemove) {
         return (
             <MultipleChoicesFilter filterKey={key}
                                    filter={filter}
                                    data={data}
                                    selected={selected}
+                                   cantRemove={cantRemove}
                                    handleClickRemoveFilter={this.handleClickRemoveFilter}
                                    handleChangeFilter={this.handleChangeFilter}
                                    handleClickFilter={this.handleClickFilter}

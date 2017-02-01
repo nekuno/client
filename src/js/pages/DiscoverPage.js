@@ -33,12 +33,12 @@ function parseThreadId(thread) {
 function getDisplayedThread(props) {
 
     if (props.params.groupId) {
-        return ThreadStore.getByGroup(props.params.threadId) || {};
+        return ThreadStore.getByGroup(props.params.groupId) || {};
     }
 
     return ThreadStore.getAll().find((thread) => {
         let items = RecommendationStore.get(parseThreadId(thread)) || [];
-        return items.length > 0 && thread.category === 'ThreadUsers';
+        return items.length > 0 && thread.category === 'ThreadUsers' && thread.groupId === null;
     }) || ThreadStore.getAll().find((thread) => {
         return thread.category === 'ThreadUsers';
     }) || {};
@@ -78,6 +78,7 @@ function getState(props) {
     }
     const networks = WorkersStore.getAll();
     const similarityOrder = thread && thread.filters && thread.filters.userFilters && thread.filters.userFilters.order === 'similarity' || false;
+    const isThreadGroup = thread != undefined && thread.groupId != null;
 
     return {
         profile,
@@ -88,7 +89,8 @@ function getState(props) {
         thread,
         isLoadingRecommendations,
         networks,
-        similarityOrder
+        similarityOrder,
+        isThreadGroup
     };
 }
 
@@ -186,14 +188,14 @@ export default class DiscoverPage extends Component {
     };
 
     render() {
-        const {user, profile, strings, pagination, isSomethingWorking, filters, recommendations, thread, isLoadingRecommendations, networks, similarityOrder} = this.props;
+        const {user, profile, strings, pagination, isSomethingWorking, filters, recommendations, thread, isLoadingRecommendations, networks, similarityOrder, isThreadGroup} = this.props;
         const connectedNetworks = networks.filter(network => network.fetching || network.fetched || network.processing || network.processed);
-        const leftMenuIcon = !(thread != undefined && thread.groupId != null);
+        const title = isThreadGroup ? thread.name : strings.discover ;
         return (
             <div className="views">
                 {Object.keys(thread).length > 0 ?
-                    <TopNavBar leftMenuIcon={leftMenuIcon} centerText={strings.discover} rightIcon={'edit'} onRightLinkClickHandler={this.editThread} onLeftLinkClickHandler={this.leftClickHandler()}/>
-                    : <TopNavBar leftMenuIcon={true} centerText={strings.discover}/>}
+                    <TopNavBar leftMenuIcon={!isThreadGroup} leftIcon="left-arrow" centerText={title} rightIcon={'edit'} onRightLinkClickHandler={this.editThread} onLeftLinkClickHandler={this.leftClickHandler}/>
+                    : <TopNavBar leftMenuIcon={true} centerText={title}/>}
                 <ScrollContainer scrollKey="discover">
                     <div className="view view-main" onScroll={this.handleScroll}>
                         <div className="page discover-page">

@@ -283,6 +283,9 @@ export default class CreateUsersThread extends Component {
     }
 
     handleClickFilter(key) {
+        if (this.props.thread.groupId != null && key=="groups"){
+            return;
+        }
         let {filters} = this.state;
         filters[key] = filters[key] || null;
         TagSuggestionsActionCreators.resetTagSuggestions();

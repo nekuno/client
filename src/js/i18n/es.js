@@ -97,13 +97,14 @@ export default {
         changeProfilePhoto      : 'Cambiar foto de perfil'
     },
     GroupPage                        : {
-        groups     : 'Tus grupos',
-        create     : 'Crear',
-        creating   : 'Creando grupo',
-        enter_name : 'Nombre del grupo',
-        join       : 'Unirte',
-        joining    : 'Uniendo al grupo',
-        enter_token: 'Código de invitación'
+        groups        : 'Tus insignias',
+        create        : 'Crear insignia',
+        creating      : 'Creando insignia',
+        enterName     : 'Nombre de la insignia',
+        join          : 'Desbloquear insignia',
+        joining       : 'Desbloqueando la insignia',
+        enterToken    : 'CÓDIGO DE INSIGNIA',
+        enterTokenText: 'Escribe el código de la insignia'
     },
     GroupStatsPage                   : {
         group        : 'Grupo',
@@ -206,7 +207,8 @@ export default {
         noInvitations         : 'No tienes invitaciones disponibles',
         expiresAt             : 'Fecha de expiración',
         consumedBy            : 'Utilizada por',
-        shareError            : 'Ha ocurrido un error enviando la invitación.'
+        shareError            : 'Ha ocurrido un error enviando la invitación.',
+        copyToClipboard       : 'Copiar al portapapeles: Ctrl+C, Enter'
     },
     UserPage                         : {
         aboutMe  : 'Sobre mi',
@@ -553,7 +555,11 @@ export default {
         birthdayPlaceholder: 'Tu fecha de nacimiento'
     },
     Group                            : {
-        users: 'usuarios'
+        users          : 'usuarios',
+        sendInvitation : 'Enviar invitación',
+        invitationTitle: 'Invitación a insignia',
+        shareError     : 'Ha ocurrido un error compartiendo el enlace.',
+        copyToClipboard: 'Copiar al portapapeles: Ctrl+C, Enter'
     },
     RecommendationUser               : {
         age    : 'Edad',

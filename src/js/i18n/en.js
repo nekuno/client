@@ -96,13 +96,14 @@ export default {
         changeProfilePhoto      : 'Change profile photo'
     },
     GroupPage                        : {
-        groups     : 'Your groups',
-        create     : 'Create',
-        creating   : 'Creating group',
-        enter_name : 'Name of the group',
-        join       : 'Join',
-        joining    : 'Joining group',
-        enter_token: 'Invitation code'
+        groups        : 'Your badges',
+        create        : 'Create badge',
+        creating      : 'Creating badge',
+        enterName     : 'Name of the badge',
+        join          : 'Unlock badge',
+        joining       : 'Unlocking badge',
+        enterToken    : 'BADGE CODE',
+        enterTokenText: 'Enter the badge code'
     },
     GroupStatsPage                   : {
         group        : 'Group',
@@ -203,7 +204,8 @@ export default {
         noInvitations         : 'You have no invitations available',
         expiresAt             : 'Expires at',
         consumedBy            : 'Consumed by',
-        shareError            : 'An error occurred sending the invitation.'
+        shareError            : 'An error occurred sending the invitation.',
+        copyToClipboard       : 'Copy to clipboard: Ctrl+C, Enter'
     },
     UserPage                         : {
         aboutMe  : 'About me',
@@ -550,7 +552,11 @@ export default {
         birthdayPlaceholder: 'Your birth date'
     },
     Group                            : {
-        users: 'users'
+        users          : 'users',
+        sendInvitation : 'Send invitation',
+        invitationTitle: 'Badge invitation',
+        shareError     : 'An error occurred sending the invitation.',
+        copyToClipboard: 'Copy to clipboard: Ctrl+C, Enter'
     },
     RecommendationUser               : {
         age    : 'Age',

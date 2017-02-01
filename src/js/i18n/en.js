@@ -182,6 +182,7 @@ export default {
     },
     DiscoverPage                     : {
         discover         : 'Discover',
+        editFilters      : 'Edit filters',
         loadingMessage   : 'Loading recommendations',
         noRecommendations: 'There are no recommendations with selected filters'
     },

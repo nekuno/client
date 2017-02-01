@@ -4,6 +4,7 @@ import TopNavBar from '../components/ui/TopNavBar';
 import CardUserList from '../components/user/CardUserList';
 import EmptyMessage from '../components/ui/EmptyMessage';
 import ChipList from './../components/ui/ChipList';
+import Button from './../components/ui/Button';
 import QuestionsBanner from '../components/questions/QuestionsBanner';
 import ProcessesProgress from '../components/processes/ProcessesProgress';
 import OrientationRequiredPopup from '../components/ui/OrientationRequiredPopup';
@@ -179,7 +180,7 @@ export default class DiscoverPage extends Component {
                 }
             });
             return (
-                <ChipList chips={chips} small={true}/>
+                <ChipList chips={chips} small={true} onClick={this.editThread}/>
             );
         }
     };
@@ -198,6 +199,12 @@ export default class DiscoverPage extends Component {
                         <div className="page discover-page">
                             <div id="page-content">
                                 {this.renderChipList(thread, filters)}
+                                {profile && thread && filters && Object.keys(thread).length > 0 ?
+                                    <div className="edit-thread-button">
+                                        <Button onClick={this.editThread}><span className="icon-edit"></span> {strings.editFilters}</Button>
+                                    </div>
+                                    :
+                                    null}
                                 <ProcessesProgress />
                                 {profile && filters && thread && pagination.total <= 100 ? <QuestionsBanner user={user} questionsTotal={pagination.total || 0}/>
                                     : profile && filters && thread && connectedNetworks.length < 3 ? <SocialNetworksBanner networks={networks} user={user}/>
@@ -221,6 +228,7 @@ export default class DiscoverPage extends Component {
 DiscoverPage.defaultProps = {
     strings: {
         discover         : 'Discover',
+        editFilters      : 'Edit filters',
         loadingMessage   : 'Loading recommendations',
         noRecommendations: 'There are no recommendations with selected filters'
     }

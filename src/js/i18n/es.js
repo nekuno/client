@@ -184,6 +184,7 @@ export default {
     },
     DiscoverPage                     : {
         discover         : 'Descubrir',
+        editFilters      : 'Editar filtros',
         loadingMessage   : 'Cargando recomendaciones',
         noRecommendations: 'No hay recomendaciones con los filtros seleccionados'
 

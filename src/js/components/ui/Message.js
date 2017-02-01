@@ -5,7 +5,8 @@ import ReactEmoji from 'react-emoji';
 export default class Message extends Component {
 
     static propTypes = {
-        message: PropTypes.object.isRequired
+        message : PropTypes.object.isRequired,
+        userLink: PropTypes.object.isRequired
     };
 
     static contextTypes = {
@@ -14,7 +15,7 @@ export default class Message extends Component {
 
     render() {
 
-        let message = this.props.message;
+        let {message, userLink} = this.props;
         let text = ReactEmoji.emojify(message.text);
         let readed = message.readed;
         let createdAt = message.createdAt;
@@ -41,7 +42,7 @@ export default class Message extends Component {
                     </div>
                     :
                     <div className="notification">
-                        <div className="notification-picture" onClick={() => this.context.router.push(`profile/${message.user_from.id}`)}>
+                        <div className="notification-picture" onClick={() => this.context.router.push(userLink)}>
                             <img src={imageSrc}/>
                         </div>
                         <div className="notification-text">

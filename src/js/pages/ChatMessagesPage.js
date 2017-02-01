@@ -150,7 +150,7 @@ export default class ChatMessagesPage extends Component {
     }
 
     render() {
-        const {otherUser, messages, online, strings, isGuest} = this.props;
+        const {otherUser, messages, online, strings, params, isGuest} = this.props;
         let otherUsername = otherUser ? otherUser.username : '';
         return (
             <div className="views">
@@ -160,7 +160,7 @@ export default class ChatMessagesPage extends Component {
                         { isGuest ? '' : <MessagesToolBar onClickHandler={this.sendMessageHandler} onFocusHandler={this.handleFocus} placeholder={strings.placeholder} text={strings.text}/> }
                         <div id="page-content" className="page-content notifications-content messages-content" ref="list">
                             {this.state.noMoreMessages ? <div className="daily-message-title">{strings.noMoreMessages}</div> : '' }
-                            <DailyMessages messages={messages}/>
+                            <DailyMessages messages={messages} userLink={`profile/${params.slug}`}/>
                             <br />
                             <br />
                             <br />

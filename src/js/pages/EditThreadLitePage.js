@@ -111,13 +111,18 @@ export default class EditThreadLitePage extends Component {
             .then(() => {
                 ThreadActionCreators.requestRecommendation(threadId);
                 this.setState({updating: false});
-                this.context.router.push(`discover`);
+                this.goToDiscover();
             });
         this.setState({updating: true});
     }
 
-    goToDiscover() {
-        this.context.router.push(`discover`);
+    goToDiscover(){
+        if (this.props.thread.groupId != null){
+            const groupUrl="groups/"+this.props.thread.groupId;
+            this.context.router.push(groupUrl+"/discover");
+        } else {
+            this.context.router.push(`discover`);
+        }
     }
 
     render() {

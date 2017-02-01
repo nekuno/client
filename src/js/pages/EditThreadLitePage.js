@@ -118,7 +118,7 @@ export default class EditThreadLitePage extends Component {
 
     goToDiscover(){
         if (this.props.thread.groupId != null){
-            const groupUrl="groups/"+this.props.thread.groupId;
+            const groupUrl="badges/"+this.props.thread.groupId;
             this.context.router.push(groupUrl+"/discover");
         } else {
             this.context.router.push(`discover`);

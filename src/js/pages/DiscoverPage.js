@@ -62,7 +62,6 @@ function getState(props) {
     let filters = {};
     let recommendations = [];
     let thread = getDisplayedThread(props);
-    console.log(thread);
     let isLoadingRecommendations = true;
     if (parseThreadId(thread)) {
         if (Object.keys(thread).length !== 0) {
@@ -74,9 +73,7 @@ function getState(props) {
     }
     const networks = WorkersStore.getAll();
     const similarityOrder = thread && thread.filters && thread.filters.userFilters && thread.filters.userFilters.order === 'similarity' || false;
-    console.log(thread.groupId);
     const isThreadGroup = thread.groupId != null;
-    console.log(isThreadGroup);
 
     return {
         profile,
@@ -189,7 +186,6 @@ export default class DiscoverPage extends Component {
         const {user, profile, strings, pagination, isSomethingWorking, filters, recommendations, thread, isLoadingRecommendations, networks, similarityOrder, isThreadGroup} = this.props;
         const connectedNetworks = networks.filter(network => network.fetching || network.fetched || network.processing || network.processed);
         const title = isThreadGroup ? thread.name : strings.discover ;
-        console.log(title);
         return (
             <div className="views">
                 {Object.keys(thread).length > 0 ?

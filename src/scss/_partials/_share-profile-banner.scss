@@ -11,8 +11,19 @@ body #root .App .view {
     .share-profile-title {
       font-size: 1.428571429em !important;
       font-weight: bold;
-      height: 55px;
+      height: 40px;
       margin-top: 10px;
+    }
+
+    .share-profile-button {
+      margin-top: 15px;
+      .button {
+        background: #fff;
+        color: $deep-purple;
+        .icon-share {
+          color: $deep-purple;
+        }
+      }
     }
   }
 }

@@ -371,8 +371,9 @@ export default {
         publishMessage: 'We won`t publish anything'
     },
     ShareProfileBanner               : {
-        title                 : 'Who are you most compatible with?',
-        text                  : 'Share the url of your profile to know it! Click here',
+        title                 : 'Share now with your friends and followers!',
+        text                  : 'Discover the most compatibles sharing your profile url',
+        copyLink              : 'Copy profile url',
         compatibilityCheckWith: 'Check your compatibility with %username%',
         copyToClipboard       : 'Copy to clipboard: Ctrl+C, Enter',
         shareError            : 'An error occurred sending the link.'

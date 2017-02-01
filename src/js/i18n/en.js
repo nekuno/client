@@ -268,7 +268,7 @@ export default {
     LeftPanel                        : {
         interests     : 'Interests',
         threads       : 'Discover',
-        groups        : 'Groups',
+        groups        : 'Badges',
         myProfile     : 'Profile',
         conversations : 'Messages',
         socialNetworks: 'My social networks',

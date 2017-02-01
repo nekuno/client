@@ -30,7 +30,7 @@ export default class Group extends Component {
 
     goToDiscover() {
         const {group} = this.props;
-        this.context.router.push(`groups/${group.id}/discover`);
+        this.context.router.push(`badges/${group.id}/discover`);
     }
 
     onShare(group) {

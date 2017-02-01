@@ -118,7 +118,7 @@ export default class LeftPanel extends Component {
     handleGoClickGroups() {
         nekunoApp.closePanel();
         $$('.panel-left').once('closed', () => {
-            this.context.router.push('/groups');
+            this.context.router.push('/badges');
         });
     }
 
@@ -171,9 +171,9 @@ export default class LeftPanel extends Component {
                                     <span className="unread-messages-count-text">{unreadCount}</span>
                                 </span> : ''}
                             </a>
-                            <Link to="/groups" onClick={this.handleGoClickGroups}>
+                            <a href="javascript:void(0)" onClick={this.handleGoClickGroups}>
                                 {strings.groups}
-                            </Link>
+                            </a>
                             <a onClick={this.handleClickSettings}>
                                 {strings.settings}
                             </a>
@@ -205,7 +205,7 @@ LeftPanel.defaultProps = {
     strings: {
         interests     : 'Interests',
         threads       : 'Discover',
-        groups        : 'Groups',
+        groups        : 'Badges',
         myProfile     : 'Profile',
         conversations : 'Messages',
         socialNetworks: 'My social networks',

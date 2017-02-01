@@ -78,7 +78,7 @@ export default class GroupPage extends Component {
             this.setState({creating: true});
             GroupActionCreators.createGroup(data).then((group) => {
                 this.setState({creating: false});
-                this.context.router.push('/groups/' + group.id);
+                this.context.router.push('/badges/' + group.id);
             }, (error) => {
                 this.setState({creating: false});
                 console.log(error);
@@ -100,7 +100,7 @@ export default class GroupPage extends Component {
                 } else {
                     GroupActionCreators.joinGroup(data.invitation.group.id).then(() => {
                         nekunoApp.alert('We would go to the joined group page here, but it´s joined to it');
-                        //this.context.router.push('/groups/groupId');
+                        //this.context.router.push('/badges/groupId');
                     }, (error) => {
                         console.log(error);
                         nekunoApp.alert('Sorry! We couldn´t join to this group');

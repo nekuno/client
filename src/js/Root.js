@@ -97,11 +97,11 @@ export default class Root extends Component {
                         <Route name="social-networks" path="/social-networks" component={ConnectSocialNetworksPage}/>
                         <Route name="create-thread" path="/create-thread" component={CreateThreadPage}/>
                         <Route name="edit-thread" path="/edit-thread/:threadId" component={EditThreadLitePage}/>
-                        <Route name="groups" path="/groups" component={GroupPage}/>
-                        <Route name="group-discover" path="/groups/:groupId/discover" component={DiscoverPage}/>
-                        <Route name="group-stats" path="/groups/:groupId" component={GroupStatsPage}/>
-                        <Route name="group-members" path="/groups/:groupId/members" component={GroupMembersPage}/>
-                        <Route name="group-contents" path="/groups/:groupId/contents" component={GroupContentsPage}/>
+                        <Route name="groups" path="/badges" component={GroupPage}/>
+                        <Route name="group-discover" path="/badges/:groupId/discover" component={DiscoverPage}/>
+                        {/*<Route name="group-stats" path="/badges/:groupId" component={GroupStatsPage}/>
+                        <Route name="group-members" path="/badges/:groupId/members" component={GroupMembersPage}/>
+                        <Route name="group-contents" path="/badges/:groupId/contents" component={GroupContentsPage}/>*/}
                     </Route>
                 </Route>
             </Router>

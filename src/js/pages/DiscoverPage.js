@@ -148,7 +148,7 @@ export default class DiscoverPage extends Component {
 
     leftClickHandler() {
         if (this.props.thread && this.props.thread.groupId != null){
-            this.context.router.push(`groups`);
+            this.context.router.push(`badges`);
         }
     }
 

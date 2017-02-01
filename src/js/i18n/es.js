@@ -271,7 +271,7 @@ export default {
     LeftPanel                        : {
         interests     : 'Intereses',
         threads       : 'Descubrir',
-        groups        : 'Grupos',
+        groups        : 'Insignias',
         myProfile     : 'Mi perfil',
         conversations : 'Mensajes',
         socialNetworks: 'Mis redes sociales',

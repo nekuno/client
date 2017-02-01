@@ -189,7 +189,7 @@ export default class DiscoverPage extends Component {
         return (
             <div className="views">
                 {Object.keys(thread).length > 0 ?
-                    <TopNavBar leftMenuIcon={!isThreadGroup} leftIcon="left-arrow" centerText={title} rightIcon={'edit'} onRightLinkClickHandler={this.editThread} onLeftLinkClickHandler={this.leftClickHandler}/>
+                    <TopNavBar leftMenuIcon={!isThreadGroup} leftIcon="left-arrow" centerText={title} onLeftLinkClickHandler={this.leftClickHandler}/>
                     : <TopNavBar leftMenuIcon={true} centerText={title}/>}
                 <ScrollContainer scrollKey="discover">
                     <div className="view view-main" onScroll={this.handleScroll}>

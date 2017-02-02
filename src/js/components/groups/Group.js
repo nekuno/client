@@ -1,5 +1,5 @@
 import React, { PropTypes, Component } from 'react';
-import { ADMIN_URL, INVITATIONS_URL } from '../../constants/Constants';
+import { INVITATIONS_URL } from '../../constants/Constants';
 import Button from '../ui/Button';
 import Image from '../ui/Image';
 import translate from '../../i18n/Translate';
@@ -66,7 +66,7 @@ export default class Group extends Component {
                 <div className="invitation-image-wrapper" onClick={this.goToDiscover}>
                     <div className="invitation-image-centered-wrapper">
                         <div className="invitation-image">
-                            <Image src={group.invitation.invitation_image_path ? ADMIN_URL + group.invitation.invitation_image_path : defaultSrc} defaultSrc={defaultSrc}/>
+                            <Image src={group.invitation.invitation_image_url ? group.invitation.invitation_image_url : defaultSrc} defaultSrc={defaultSrc}/>
                         </div>
                     </div>
                 </div>

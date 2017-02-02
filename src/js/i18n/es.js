@@ -377,7 +377,7 @@ export default {
         publishMessage: 'No públicaremos nada'
     },
     ShareProfileBanner               : {
-        title                 : '¡Comparate ya con tus amigos y seguidores!',
+        title                 : '¡Compárate ya con tus amigos y seguidores!',
         text                  : 'Descubre a los más compatibles compartiendo la url de tu perfil',
         copyLink              : 'Copiar url de perfil',
         compatibilityCheckWith: 'Comprueba tu compatibilidad con %username%',

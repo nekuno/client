@@ -482,7 +482,7 @@ export default {
         save          : 'Guardar ovillo',
         create        : 'Crear ovillo',
         addFilters    : 'Añade un filtro primero',
-        order         : 'Orden',
+        order         : 'Ordenación',
         matching      : 'Compatibilidad',
         similarity    : 'Similaridad',
     },

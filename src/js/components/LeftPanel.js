@@ -162,9 +162,9 @@ export default class LeftPanel extends Component {
                             <a href="javascript:void(0)" onClick={this.handleGoClickThreads}>
                                 {strings.threads}
                             </a>
-                            <a href="javascript:void(0)" onClick={this.handleGoClickProfile}>
+                            {/*<a href="javascript:void(0)" onClick={this.handleGoClickProfile}>
                                 {strings.myProfile}
-                            </a>
+                            </a>*/}
                             <a href="javascript:void(0)" onClick={this.handleGoClickConversations}>
                                 {strings.conversations}
                                 {unreadCount ? <span className="unread-messages-count">

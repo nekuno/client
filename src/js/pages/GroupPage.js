@@ -99,7 +99,6 @@ export default class GroupPage extends Component {
                     nekunoApp.alert('This invitation is of no group');
                 } else {
                     GroupActionCreators.joinGroup(data.invitation.group.id).then(() => {
-                        nekunoApp.alert('We would go to the joined group page here, but it´s joined to it');
                         //this.context.router.push('/badges/groupId');
                     }, (error) => {
                         console.log(error);

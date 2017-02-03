@@ -56,7 +56,10 @@ function requestData(props) {
 }
 
 function initPhotosSwiper() {
-    // Init slider
+    // Init slider if id exists
+    if (!document.getElementById('photos-swiper-container')) {
+        return null;
+    }
     return nekunoApp.swiper('#photos-swiper-container', {
         effect          : 'coverflow',
         slidesPerView   : 'auto',
@@ -177,8 +180,8 @@ export default class OtherUserPage extends Component {
         this.setOrientationAnswered = this.setOrientationAnswered.bind(this);
 
         this.state = {
-            photosLoaded: null,
-            orientationAnswered: null
+            orientationAnswered: null,
+            photosLoaded: null
         };
     }
 
@@ -202,8 +205,9 @@ export default class OtherUserPage extends Component {
             this.setState({orientationRequired: true});
         }
         if (this.props.photos.length > 0 && !this.state.photosLoaded) {
-            initPhotosSwiper();
-            this.setState({photosLoaded: true})
+            if (initPhotosSwiper()) {
+                this.setState({photosLoaded: true});
+            }
         }
     }
 

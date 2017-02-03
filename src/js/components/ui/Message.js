@@ -6,7 +6,7 @@ export default class Message extends Component {
 
     static propTypes = {
         message : PropTypes.object.isRequired,
-        userLink: PropTypes.object.isRequired
+        userLink: PropTypes.string.isRequired
     };
 
     static contextTypes = {

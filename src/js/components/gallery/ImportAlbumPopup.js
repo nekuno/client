@@ -26,15 +26,15 @@ export default class ImportAlbumPopup extends Component {
                     <div className="title">{strings.importAlbum}</div>
                     <br />
                     <div className="social-icons-row-wrapper social-box">
-                        <div className="icon-wrapper no-circle" onClick={this.props.onFileUploadClickHandler} style={{marginRight: '10px'}}>
-                            <span className="icon icon-uploadthin" style={{fontSize: '0.6em'}}></span>
-                        </div>
                         <div className="icon-wrapper text-facebook" onClick={this.onResourceClick.bind(this, 'facebook', FACEBOOK_SCOPE)}>
                             <span className="icon icon-facebook"></span>
                         </div>
                         <div className="icon-wrapper text-google" onClick={this.onResourceClick.bind(this, 'google', GOOGLE_SCOPE)}>
                             <span className="icon icon-google"></span>
                         </div>
+                    </div>
+                    <div className="upload-wrapper social-box" onClick={this.props.onFileUploadClickHandler}>
+                        <span className="icon icon-uploadthin"></span> <span className="">{strings.uploadFromDevice}</span>
                     </div>
                 </div>
             </div>
@@ -44,7 +44,8 @@ export default class ImportAlbumPopup extends Component {
 
 ImportAlbumPopup.defaultProps = {
     strings: {
-        close      : 'Close',
-        importAlbum: 'Import an album'
+        close           : 'Close',
+        importAlbum     : 'Import an album',
+        uploadFromDevice: 'Upload from device'
     }
 };

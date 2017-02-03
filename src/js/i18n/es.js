@@ -425,8 +425,9 @@ export default {
         age       : 'Edad',
     },
     ImportAlbumPopup                 : {
-        close      : 'Cerrar',
-        importAlbum: 'Importar un álbum'
+        close           : 'Cerrar',
+        importAlbum     : 'Importar un álbum',
+        uploadFromDevice: 'Subir desde dispositivo'
     },
     FilterContentPopup               : {
         close    : 'Cerrar',

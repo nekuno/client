@@ -79,7 +79,7 @@ export default class Group extends Component {
                     <div className="group-users-count" onClick={this.goToDiscover}>
                         {group.usersCount} {strings.users}
                     </div>
-                    <Button onClick={this.onShare.bind(this, group)}>{strings.sendInvitation}</Button>
+                    {/*<Button onClick={this.onShare.bind(this, group)}>{strings.sendInvitation}</Button>*/}
                 </div>
             </div>
         );

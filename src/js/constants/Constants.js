@@ -3,8 +3,7 @@ import config from '../config/config';
 export const VERSION = require('../../../package.json').version;
 export const API_ROOT = config.API_ROOT;
 export const INVITATIONS_URL = config.INVITATIONS_ROOT + '{token}';
-export const SHARE_PROFILE_URL = config.INVITATIONS_ROOT + 'p/{slug}';
-export const ADMIN_URL = config.ADMIN_HOST;
+export const SHARED_USER_URL = config.SHARED_USER_ROOT + '{slug}';
 export const API_URLS = {
     LOGIN                    : API_ROOT + 'login',
     VALIDATE_INVITATION_TOKEN: API_ROOT + 'invitations/token/validate/',

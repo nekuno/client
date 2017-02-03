@@ -1,5 +1,5 @@
 import React, { PropTypes, Component } from 'react';
-import { SHARE_PROFILE_URL } from '../../constants/Constants';
+import { SHARED_USER_URL } from '../../constants/Constants';
 import Button from '../ui/Button';
 import translate from '../../i18n/Translate';
 
@@ -14,7 +14,7 @@ export default class ShareProfileBanner extends Component {
 
     onShare() {
         const {user, strings} = this.props;
-        const url = SHARE_PROFILE_URL.replace('{slug}', user.slug || encodeURI(user.usernameCanonical));
+        const url = SHARED_USER_URL.replace('{slug}', user.slug || encodeURI(user.usernameCanonical));
         if (window.cordova) {
             var options = {
                 subject: strings.compatibilityCheckWith.replace('%username%', user.username), // fi. for email

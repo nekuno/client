@@ -135,7 +135,7 @@ export default class GroupPage extends Component {
                                             </div>
                                             {Object.keys(groups).map((key) => {
                                                 let group = groups[key];
-                                                return <Group key={group.id} group={group}/>
+                                                return <Group key={key} group={group}/>
                                             })}
                                         </div>
                                 }

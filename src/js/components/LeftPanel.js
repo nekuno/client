@@ -1,7 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import selectn from 'selectn';
 import User from '../components/User';
-import { Link } from 'react-router';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
@@ -36,12 +35,12 @@ export default class LeftPanel extends Component {
     static propTypes = {
         // Injected by @AuthenticatedComponent
         user        : PropTypes.object,
-        userLoggedIn: PropTypes.bool.isRequired,
+        userLoggedIn: PropTypes.bool,
         // Injected by @translate:
         strings     : PropTypes.object,
         // Injected by @connectToStores:
-        interests   : PropTypes.number.isRequired,
-        unreadCount: PropTypes.number
+        interests   : PropTypes.number,
+        unreadCount : PropTypes.number
     };
 
     constructor(props) {
@@ -132,7 +131,7 @@ export default class LeftPanel extends Component {
     }
 
     render() {
-        const {user, userLoggedIn, strings, interests, unreadCount} = this.props;
+        const {userLoggedIn, strings, interests, unreadCount} = this.props;
         const {settingsActive} = this.state;
         return (
             <div className="LeftPanel">
@@ -143,7 +142,7 @@ export default class LeftPanel extends Component {
                             <span className="icon-left-arrow"/>
                         </a>
                     </div>
-                    { userLoggedIn ? <User {...this.props} onClick={this.handleGoClickProfile} /> : '' }
+                    { userLoggedIn ? <User {...this.props} onClick={this.handleGoClickProfile}/> : '' }
                     <div className="user-interests">
                         <a href="javascript:void(0)" onClick={this.handleGoClickInterests}>
                             <div className="number">
@@ -160,8 +159,8 @@ export default class LeftPanel extends Component {
                                 {strings.threads}
                             </a>
                             {/*<a href="javascript:void(0)" onClick={this.handleGoClickProfile}>
-                                {strings.myProfile}
-                            </a>*/}
+                             {strings.myProfile}
+                             </a>*/}
                             <a href="javascript:void(0)" onClick={this.handleGoClickConversations}>
                                 {strings.conversations}
                                 {unreadCount ? <span className="unread-messages-count">
@@ -176,21 +175,21 @@ export default class LeftPanel extends Component {
                             </a>
                         </div>
                         : settingsActive ?
-                            <div className="content-block menu">
-                                <a onClick={this.handleClickSettings} style={{fontWeight: 'bold'}}>
-                                    <span className="icon-left-arrow"></span>&nbsp;&nbsp;{strings.settings}
-                                </a>
-                                <a href="javascript:void(0)" onClick={this.handleGoClickSocialNetworks}>
-                                    {strings.socialNetworks}
-                                </a>
-                                {/*<Link to="/invitations" onClick={this.handleGoClickInvitations} onlyActiveOnIndex={false}>*/}
-                                    {/*{strings.invitations}*/}
-                                {/*</Link>*/}
-                                <a href="javascript:void(0)" onClick={this.logout}>
-                                    {strings.logout}
-                                </a>
-                            </div>
-                            : '' }
+                        <div className="content-block menu">
+                            <a onClick={this.handleClickSettings} style={{fontWeight: 'bold'}}>
+                                <span className="icon-left-arrow"></span>&nbsp;&nbsp;{strings.settings}
+                            </a>
+                            <a href="javascript:void(0)" onClick={this.handleGoClickSocialNetworks}>
+                                {strings.socialNetworks}
+                            </a>
+                            {/*<Link to="/invitations" onClick={this.handleGoClickInvitations} onlyActiveOnIndex={false}>*/}
+                            {/*{strings.invitations}*/}
+                            {/*</Link>*/}
+                            <a href="javascript:void(0)" onClick={this.logout}>
+                                {strings.logout}
+                            </a>
+                        </div>
+                        : '' }
                 </div>
             </div>
         );

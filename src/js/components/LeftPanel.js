@@ -141,9 +141,6 @@ export default class LeftPanel extends Component {
                     <div className="content-block top-menu">
                         <a className="close-panel">
                             <span className="icon-left-arrow"/>
-                            {unreadCount ?
-                                <span className="icon-circle"></span> : ''
-                            }
                         </a>
                     </div>
                     { userLoggedIn ? <User {...this.props} onClick={this.handleGoClickProfile} /> : '' }

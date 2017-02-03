@@ -109,7 +109,7 @@ export default class ProcessesProgress extends Component {
         layerHeight += threadsPercentage !== null || isJustRegistered ? 62 : 0;
         layerHeight = layerHeight ? layerHeight + 72 : 0;
         return (
-            linksPercentage !== null || similarityPercentage !== null || matchingPercentage !== null || affinityPercentage !== null || threadsPercentage !== null ?
+            linksPercentage !== null || similarityPercentage !== null || matchingPercentage !== null || affinityPercentage !== null ?
                 <div>
                     <div className="processes-progress">
                         <div className="processes-progress-title">{isJustRegistered ? strings.registrationTitle : strings.title}</div>

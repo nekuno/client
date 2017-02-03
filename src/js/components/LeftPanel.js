@@ -50,9 +50,10 @@ export default class LeftPanel extends Component {
         this.handleGoClickProfile = this.handleGoClickProfile.bind(this);
         this.handleGoClickConversations = this.handleGoClickConversations.bind(this);
         this.handleGoClickSocialNetworks = this.handleGoClickSocialNetworks.bind(this);
+        this.handleGoClickInterests = this.handleGoClickInterests.bind(this);
+        this.handleClickSettings = this.handleClickSettings.bind(this);
         this.handleGoClickInvitations = this.handleGoClickInvitations.bind(this);
         this.handleGoClickGroups = this.handleGoClickGroups.bind(this);
-        this.handleClickSettings = this.handleClickSettings.bind(this);
         this.logout = this.logout.bind(this);
 
         this.state = {

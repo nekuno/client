@@ -81,6 +81,9 @@ export default class CreateUsersThread extends Component {
     }
 
     handleClickFilterOnList(checked, value) {
+        if (this.props.thread.groupId != null && value === 'groups'){
+            return;
+        }
         let filters = this.state.filters;
         let filterData = Object.keys(filters).find(key => key === value) || null;
 

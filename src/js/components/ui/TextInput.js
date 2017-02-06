@@ -8,7 +8,8 @@ export default class TextInput extends Component {
         style       : PropTypes.object,
         doNotFocus  : PropTypes.bool,
         onChange    : PropTypes.func,
-        onKeyDown   : PropTypes.func
+        onKeyDown   : PropTypes.func,
+        maxLength   : PropTypes.string
     };
 
     constructor() {
@@ -32,7 +33,7 @@ export default class TextInput extends Component {
     }
 
     render() {
-        const {placeholder, defaultValue, style, onChange, onKeyDown} = this.props;
+        const {placeholder, defaultValue, style, maxLength, onChange, onKeyDown} = this.props;
         return (
             <li>
                 <div className="item-content">
@@ -44,7 +45,8 @@ export default class TextInput extends Component {
                                    style={style}
                                    onKeyDown={onKeyDown}
                                    onChange={onChange}
-                                   onFocus={this.onFocusHandler}/>
+                                   onFocus={this.onFocusHandler}
+                                   maxLength={maxLength}/>
                         </div>
                     </div>
                 </div>

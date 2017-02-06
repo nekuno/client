@@ -296,7 +296,7 @@ export default {
     AnswerUserFieldPage              : {
         question       : 'Pregunta',
         loadingMessage : 'Cargando preguntas',
-        usernameInvalid: 'El nombre de usuario no es válido o ya está en uso.'
+        usernameInvalid: 'El nombre de usuario no es válido o ya está en uso. Los caracteres válidos son letras, números y _'
     },
     AnswerProfileFieldPage           : {
         question      : 'Pregunta',

@@ -293,7 +293,7 @@ export default {
     AnswerUserFieldPage              : {
         question       : 'Question',
         loadingMessage : 'Loading questions',
-        usernameInvalid: 'Username is invalid or already in use.'
+        usernameInvalid: 'Username is invalid or already in use. Valid characters are letters, numbers and _.'
     },
     AnswerProfileFieldPage           : {
         question      : 'Question',

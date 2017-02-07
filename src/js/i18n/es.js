@@ -104,7 +104,8 @@ export default {
         join          : 'Desbloquear insignia',
         joining       : 'Desbloqueando la insignia',
         enterToken    : 'CÓDIGO DE INSIGNIA',
-        enterTokenText: 'Escribe el código de la insignia'
+        enterTokenText: 'Escribe el código de la insignia',
+        tokenNoBadge  : 'Este código no tiene insignia asociada'
     },
     GroupStatsPage                   : {
         group        : 'Grupo',

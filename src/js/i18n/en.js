@@ -103,7 +103,8 @@ export default {
         join          : 'Unlock badge',
         joining       : 'Unlocking badge',
         enterToken    : 'BADGE CODE',
-        enterTokenText: 'Enter the badge code'
+        enterTokenText: 'Enter the badge code',
+        tokenNoBadge  : 'This token has no related badge'
     },
     GroupStatsPage                   : {
         group        : 'Group',

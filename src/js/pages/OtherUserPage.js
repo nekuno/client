@@ -74,8 +74,6 @@ function initPhotosSwiper() {
         paginationHide: false,
         paginationClickable: true,
         pagination:'.swiper-pagination',
-        nextButton: '.swiper-button-next',
-        prevButton: '.swiper-button-prev',
     });
 }
 
@@ -261,7 +259,7 @@ export default class OtherUserPage extends Component {
 
         return (
             <div className="views">
-                <TopNavBar leftIcon={'left-arrow'} centerText={strings.profile}/>
+                <TopNavBar leftIcon={'left-arrow'} translucentBackground={true}/>
                 {otherUser && profile && profileWithMetadata && ownProfile && ownProfile.orientation ?
                     <ToolBar links={[
                         {'url': `/profile/${params.slug}`, 'text': strings.about},
@@ -288,8 +286,6 @@ export default class OtherUserPage extends Component {
                                                     ) : null}
                                                 </div>
                                             </div>
-                                            <div className="swiper-button-prev"></div>
-                                            <div className="swiper-button-next"></div>
                                         </div>
                                     </div>
                                 </div>

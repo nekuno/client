@@ -127,6 +127,13 @@ body {
 						}
 					}
 
+					&.translucent-icon-wrapper {
+						background-color: rgba(50, 50, 50, 0.5);
+						.icon-left-arrow {
+							margin-left: -3px;
+						}
+					}
+
 					span {
 						color: #fff;
 						font-size: 1em;

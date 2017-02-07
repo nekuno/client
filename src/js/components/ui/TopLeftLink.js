@@ -6,19 +6,25 @@ export default class TopLeftLink extends Component {
 		router: PropTypes.object.isRequired
 	};
 	static propTypes = {
-		text: PropTypes.string,
-		icon: PropTypes.string,
-		onClickHandler: PropTypes.func
+		text		  : PropTypes.string,
+		icon		  : PropTypes.string,
+		onClickHandler: PropTypes.func,
+		wrapIcon      : PropTypes.func
 	};
 
 	shouldComponentUpdate = shouldPureComponentUpdate;
 
 	render() {
-		const {onClickHandler, text, icon} = this.props;
+		const {onClickHandler, text, icon, wrapIcon} = this.props;
 		return (
 			<div className="col-30 left" onClick={typeof onClickHandler !== 'undefined' ? onClickHandler : this.context.router.goBack}>
 				{icon ?
-					<span className={'icon-' + icon}></span>
+                    wrapIcon ?
+						<div className="icon-wrapper translucent-icon-wrapper">
+							<span className={'icon-' + icon}></span>
+						</div>
+						:
+						<span className={'icon-' + icon}></span>
 					:
 					<a className="navbar-link-text">
 						{text}

@@ -26,6 +26,19 @@ const ThreadStore = createStore({
         return _threads;
     },
 
+    getByGroup(groupId) {
+        return _threads.find(thread => thread && thread.groupId == groupId);
+    },
+
+    getMainDiscoverThread() {
+        return _threads.find((thread) => {
+                let items = RecommendationStore.get(thread.id) || [];
+                return items.length > 0 && thread.category === 'ThreadUsers' && thread.groupId === null;
+            }) || _threads.find((thread) => {
+                return thread.category === 'ThreadUsers' && thread.groupId === null;
+            }) || {};
+    },
+
     noThreads() {
         return this.getAll().length === 0
     },

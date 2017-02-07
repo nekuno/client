@@ -35,12 +35,12 @@ export default class LeftPanel extends Component {
     static propTypes = {
         // Injected by @AuthenticatedComponent
         user        : PropTypes.object,
-        userLoggedIn: PropTypes.bool.isRequired,
+        userLoggedIn: PropTypes.bool,
         // Injected by @translate:
         strings     : PropTypes.object,
         // Injected by @connectToStores:
-        interests   : PropTypes.number.isRequired,
-        unreadCount: PropTypes.number
+        interests   : PropTypes.number,
+        unreadCount : PropTypes.number
     };
 
     constructor(props) {
@@ -50,9 +50,10 @@ export default class LeftPanel extends Component {
         this.handleGoClickProfile = this.handleGoClickProfile.bind(this);
         this.handleGoClickConversations = this.handleGoClickConversations.bind(this);
         this.handleGoClickSocialNetworks = this.handleGoClickSocialNetworks.bind(this);
+        this.handleGoClickInterests = this.handleGoClickInterests.bind(this);
+        this.handleClickSettings = this.handleClickSettings.bind(this);
         this.handleGoClickInvitations = this.handleGoClickInvitations.bind(this);
         this.handleGoClickGroups = this.handleGoClickGroups.bind(this);
-        this.handleClickSettings = this.handleClickSettings.bind(this);
         this.logout = this.logout.bind(this);
 
         this.state = {
@@ -117,7 +118,7 @@ export default class LeftPanel extends Component {
     handleGoClickGroups() {
         nekunoApp.closePanel();
         $$('.panel-left').once('closed', () => {
-            this.context.router.push('/groups');
+            this.context.router.push('/badges');
         });
     }
 
@@ -131,7 +132,7 @@ export default class LeftPanel extends Component {
     }
 
     render() {
-        const {user, userLoggedIn, strings, interests, unreadCount} = this.props;
+        const {userLoggedIn, strings, interests, unreadCount} = this.props;
         const {settingsActive} = this.state;
         return (
             <div className="LeftPanel">
@@ -140,12 +141,9 @@ export default class LeftPanel extends Component {
                     <div className="content-block top-menu">
                         <a className="close-panel">
                             <span className="icon-left-arrow"/>
-                            {unreadCount ?
-                                <span className="icon-circle"></span> : ''
-                            }
                         </a>
                     </div>
-                    { userLoggedIn ? <User {...this.props} onClick={this.handleGoClickProfile} /> : '' }
+                    { userLoggedIn ? <User {...this.props} onClick={this.handleGoClickProfile}/> : '' }
                     <div className="user-interests">
                         <a href="javascript:void(0)" onClick={this.handleGoClickInterests}>
                             <div className="number">
@@ -161,38 +159,38 @@ export default class LeftPanel extends Component {
                             <a href="javascript:void(0)" onClick={this.handleGoClickThreads}>
                                 {strings.threads}
                             </a>
-                            <a href="javascript:void(0)" onClick={this.handleGoClickProfile}>
-                                {strings.myProfile}
-                            </a>
+                            {/*<a href="javascript:void(0)" onClick={this.handleGoClickProfile}>
+                             {strings.myProfile}
+                             </a>*/}
                             <a href="javascript:void(0)" onClick={this.handleGoClickConversations}>
                                 {strings.conversations}
                                 {unreadCount ? <span className="unread-messages-count">
                                     <span className="unread-messages-count-text">{unreadCount}</span>
                                 </span> : ''}
                             </a>
-                            {/*<Link to="/groups" onClick={this.handleGoClickGroups}>*/}
-                                {/*{strings.groups}*/}
-                            {/*</Link>*/}
+                            <a href="javascript:void(0)" onClick={this.handleGoClickGroups}>
+                                {strings.groups}
+                            </a>
                             <a onClick={this.handleClickSettings}>
                                 {strings.settings}
                             </a>
                         </div>
                         : settingsActive ?
-                            <div className="content-block menu">
-                                <a onClick={this.handleClickSettings} style={{fontWeight: 'bold'}}>
-                                    <span className="icon-left-arrow"></span>&nbsp;&nbsp;{strings.settings}
-                                </a>
-                                <a href="javascript:void(0)" onClick={this.handleGoClickSocialNetworks}>
-                                    {strings.socialNetworks}
-                                </a>
-                                {/*<Link to="/invitations" onClick={this.handleGoClickInvitations} onlyActiveOnIndex={false}>*/}
-                                    {/*{strings.invitations}*/}
-                                {/*</Link>*/}
-                                <a href="javascript:void(0)" onClick={this.logout}>
-                                    {strings.logout}
-                                </a>
-                            </div>
-                            : '' }
+                        <div className="content-block menu">
+                            <a onClick={this.handleClickSettings} style={{fontWeight: 'bold'}}>
+                                <span className="icon-left-arrow"></span>&nbsp;&nbsp;{strings.settings}
+                            </a>
+                            <a href="javascript:void(0)" onClick={this.handleGoClickSocialNetworks}>
+                                {strings.socialNetworks}
+                            </a>
+                            {/*<Link to="/invitations" onClick={this.handleGoClickInvitations} onlyActiveOnIndex={false}>*/}
+                            {/*{strings.invitations}*/}
+                            {/*</Link>*/}
+                            <a href="javascript:void(0)" onClick={this.logout}>
+                                {strings.logout}
+                            </a>
+                        </div>
+                        : '' }
                 </div>
             </div>
         );
@@ -204,7 +202,7 @@ LeftPanel.defaultProps = {
     strings: {
         interests     : 'Interests',
         threads       : 'Discover',
-        groups        : 'Groups',
+        groups        : 'Badges',
         myProfile     : 'Profile',
         conversations : 'Messages',
         socialNetworks: 'My social networks',

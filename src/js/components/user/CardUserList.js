@@ -49,6 +49,7 @@ export default class CardUserList extends Component {
                         handleSelectProfile={this.props.handleSelectProfile}
                         online={onlineUserIds.some(id => id == recommendation.id)}
                         similarityOrder={similarityOrder}
+                        slug={recommendation.slug ? recommendation.slug : encodeURI(recommendation.username.toLowerCase())}
                     />
                 )}
             </div>

@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import { API_URLS } from '../constants/Constants';
 import TopNavBar from '../components/ui/TopNavBar';
-import FullWidthButton from '../components/ui/FullWidthButton';
+import Button from '../components/ui/Button';
 import Group from '../components/groups/Group';
 import EmptyMessage from '../components/ui/EmptyMessage';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
@@ -10,6 +10,7 @@ import connectToStores from '../utils/connectToStores';
 import * as APIUtils from '../utils/APIUtils';
 import * as UserActionCreators from '../actions/UserActionCreators';
 import * as GroupActionCreators from '../actions/GroupActionCreators';
+import * as ThreadActionCreators from '../actions/ThreadActionCreators';
 import GroupStore from '../stores/GroupStore';
 
 function parseId(user) {
@@ -24,6 +25,7 @@ function requestData(props) {
     const userId = parseId(user);
 
     UserActionCreators.requestStats(userId);
+    ThreadActionCreators.requestThreadPage();
 }
 
 /**
@@ -71,12 +73,12 @@ export default class GroupPage extends Component {
     }
 
     create() {
-        nekunoApp.prompt(this.props.strings.enter_name, (value) => {
+        nekunoApp.prompt(this.props.strings.enterName, (value) => {
             const data = {'name': value};
             this.setState({creating: true});
             GroupActionCreators.createGroup(data).then((group) => {
                 this.setState({creating: false});
-                this.context.router.push('/groups/' + group.id);
+                this.context.router.push('/badges/' + group.id);
             }, (error) => {
                 this.setState({creating: false});
                 console.log(error);
@@ -86,7 +88,7 @@ export default class GroupPage extends Component {
     }
 
     join() {
-        nekunoApp.prompt(this.props.strings.enter_token, (value) => {
+        nekunoApp.prompt(this.props.strings.enterTokenText, this.props.strings.enterToken, (value) => {
 
             const invitation = APIUtils.postData(API_URLS.CONSUME_INVITATION.replace('{token}', value));
             this.setState({joining: true});
@@ -97,8 +99,7 @@ export default class GroupPage extends Component {
                     nekunoApp.alert('This invitation is of no group');
                 } else {
                     GroupActionCreators.joinGroup(data.invitation.group.id).then(() => {
-                        nekunoApp.alert('We would go to the joined group page here, but it´s joined to it');
-                        //this.context.router.push('/groups/groupId');
+                        //this.context.router.push('/badges/groupId');
                     }, (error) => {
                         console.log(error);
                         nekunoApp.alert('Sorry! We couldn´t join to this group');
@@ -127,11 +128,13 @@ export default class GroupPage extends Component {
                                     joining ? <EmptyMessage text={strings.joining} loadingGif={true}/> :
 
                                         <div>
-                                            <FullWidthButton onClick={this.create}> {strings.create} </FullWidthButton>
-                                            <FullWidthButton onClick={this.join}> {strings.join} </FullWidthButton>
+                                            <div className="group-buttons">
+                                                {/*<Button onClick={this.create}> {strings.create} </Button>*/}
+                                                <Button onClick={this.join}> {strings.join} </Button>
+                                            </div>
                                             {Object.keys(groups).map((key) => {
                                                 let group = groups[key];
-                                                return <Group key={group.id} group={group}/>
+                                                return <Group key={key} group={group}/>
                                             })}
                                         </div>
                                 }
@@ -146,12 +149,13 @@ export default class GroupPage extends Component {
 
 GroupPage.defaultProps = {
     strings: {
-        groups: 'Your groups',
-        create: 'Create',
-        creating: 'Creating group',
-        enter_name: 'Name of the group',
-        join: 'Join',
-        joining: 'Joining group',
-        enter_token: 'Invitation code'
+        groups        : 'Your badges',
+        create        : 'Create badge',
+        creating      : 'Creating badge',
+        enterName     : 'Name of the badge',
+        join          : 'Unlock badge',
+        joining       : 'Unlocking badge',
+        enterToken    : 'BADGE CODE',
+        enterTokenText: 'Enter the badge code'
     }
 };

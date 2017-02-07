@@ -22,21 +22,29 @@ function parseId(user) {
 function requestData(props, state) {
     const {params} = props;
     const userId = parseId(props.user);
-    const otherUserId = parseInt(params.userId);
-    UserActionCreators.requestUser(otherUserId, ['username', 'photo', 'status']);
-    QuestionActionCreators.requestComparedQuestions(userId, otherUserId, state.filters);
+    const otherUserSlug = params.slug;
+
+    UserActionCreators.requestUser(otherUserSlug, ['username', 'photo']).then(
+        () => {
+            const otherUser = UserStore.getBySlug(params.slug);
+            const otherUserId = parseId(otherUser);
+            QuestionActionCreators.requestComparedQuestions(userId, otherUserId, state.filters);
+        },
+        (status) => { console.log(status.error) }
+    );
 }
 
 /**
  * Retrieves state from stores for current props.
  */
 function getState(props) {
+    const otherUserSlug = props.params.slug;
+    const otherUser = UserStore.getBySlug(otherUserSlug);
+    const otherUserId = otherUser ? parseId(otherUser) : null;
     const currentUserId = parseId(props.user);
-    const otherUserId = parseInt(props.params.userId);
-    const pagination = QuestionStore.getPagination(otherUserId) || {};
-    const questions = QuestionStore.get(currentUserId);
-    const otherQuestions = QuestionStore.get(otherUserId) || {};
-    const otherUser = UserStore.get(otherUserId);
+    const pagination = otherUser ? QuestionStore.getPagination(otherUserId) || {} : {};
+    const questions = QuestionStore.get(currentUserId) || {};
+    const otherQuestions = otherUser ? QuestionStore.get(otherUserId) || {} : {};
 
     return {
         pagination,
@@ -53,7 +61,7 @@ export default class OtherQuestionsPage extends Component {
     static propTypes = {
         // Injected by React Router:
         params        : PropTypes.shape({
-            userId: PropTypes.string.isRequired
+            slug: PropTypes.string.isRequired
         }),
         // Injected by @AuthenticatedComponent
         user          : PropTypes.object.isRequired,
@@ -88,7 +96,7 @@ export default class OtherQuestionsPage extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (parseId(nextProps.params) !== parseId(this.props.params)) {
+        if (nextProps.params.slug !== this.props.params.slug) {
             requestData(nextProps);
         }
     }
@@ -114,12 +122,12 @@ export default class OtherQuestionsPage extends Component {
                 <TopNavBar leftIcon={'left-arrow'} centerText={otherUser ? otherUser.username : ''}/>
                 {otherUser ?
                     <ToolBar links={[
-                        {'url': `/profile/${params.userId}`, 'text': strings.about},
-                        {'url': `/users/${params.userId}/other-questions`, 'text': strings.questions},
-                        {'url': `/users/${params.userId}/other-interests`, 'text': strings.interests}
+                        {'url': `/profile/${params.slug}`, 'text': strings.about},
+                        {'url': `/users/${params.slug}/other-questions`, 'text': strings.questions},
+                        {'url': `/users/${params.slug}/other-interests`, 'text': strings.interests}
                     ]} activeLinkIndex={1} arrowUpLeft={'48%'}/>
                     : null}
-                <ScrollContainer scrollKey={"other-questions-" + params.userId}>
+                <ScrollContainer scrollKey={"other-questions-" + params.slug}>
                     <div className="view view-main" onScroll={this.handleScroll}>
                         <div className="page other-questions-page">
                             {user && otherUser ?
@@ -128,7 +136,7 @@ export default class OtherQuestionsPage extends Component {
                                         <ProfilesAvatarConnection ownPicture={ownPicture} otherPicture={otherPicture}/>
                                         <div className="other-questions-stats-title title">{pagination.total || 0} {strings.coincidences}</div>
                                     </div>
-                                    <OtherQuestionList otherQuestions={otherQuestions} questions={questions} userId={user.qnoow_id} ownPicture={ownPicture} otherPicture={otherPicture}/>
+                                    <OtherQuestionList otherQuestions={otherQuestions} questions={questions} userId={user.id} ownPicture={ownPicture} otherPicture={otherPicture}/>
                                     <div className="loading-gif" style={pagination.nextLink ? {} : {display: 'none'}}></div>
                                     <br />
                                     <br />

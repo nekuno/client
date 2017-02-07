@@ -15,6 +15,7 @@ export default class CardUser extends Component {
     static propTypes = {
         userId             : PropTypes.number.isRequired,
         username           : PropTypes.string.isRequired,
+        slug               : PropTypes.string.isRequired,
         location           : PropTypes.string,
         canSendMessage     : PropTypes.bool.isRequired,
         photo              : PropTypes.object,
@@ -51,16 +52,16 @@ export default class CardUser extends Component {
     }
 
     handleMessage() {
-        this.context.router.push(`/conversations/${this.props.userId}`);
+        this.context.router.push(`/conversations/${this.props.slug}`);
     }
 
     handleGoToProfile() {
-        const {userId, profile} = this.props;
+        const {profile, slug} = this.props;
         if (!profile.orientation) {
             nekunoApp.popup('.popup-orientation-required');
-            this.props.handleSelectProfile(userId);
+            this.props.handleSelectProfile(slug);
         } else {
-            this.context.router.push(`/profile/${userId}`);
+            this.context.router.push(`/profile/${slug}`);
         }
     }
 

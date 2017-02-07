@@ -6,28 +6,82 @@ body #root .App {
     #page-content {
       margin-top: 70px;
       width: 100%;
+      
+      .group-buttons {
+        margin: 0 auto;
+        text-align: center;
+
+        .button {
+          margin: 0 1% 20px;
+        }
+      }
 
       .group {
         width: 80%;
-        height: 50px;
-        margin-top: 10px;
+        margin-top: 20px;
+        margin-bottom: 20px;
         margin-left: 10%;
         position: relative;
-        background-color: $deep-purple-translucent;
-        .group-title {
-          max-width: 50%;
-          height: 100%;
-          left: 0;
-          overflow-x: hidden;
-          position: absolute;
-          font-size: 30px;
+
+        .invitation-image-wrapper {
+          background-color: #fff;
+          border-radius: 50%;
+          -moz-border-radius: 50%;
+          -webkit-border-radius: 50%;
+          display: inline-block;
+          height: 81px;
+          position: relative;
+          text-align: center;
+          width: 81px;
+          z-index: 11;
+          .invitation-image-centered-wrapper {
+            border-radius: 50%;
+            -moz-border-radius: 50%;
+            -webkit-border-radius: 50%;
+            margin: 3px;
+            position: relative;
+            height: 75px;
+            overflow: hidden;
+
+            .invitation-image {
+              margin-left: -62px;
+              position: absolute;
+              width: 200px;
+              height: 75px;
+              img {
+                min-height: 86px;
+                margin: -5px auto;
+                width: 52%;
+              }
+            }
+          }
         }
-        .group-number-users {
-          max-width: 50%;
-          height: 100%;
-          right: 0;
-          position: absolute;
-          font-size: 20px;
+        .group-info-box {
+          display: inline-block;
+          margin-left: 15px;
+          max-width: 70%;
+          vertical-align: top;
+
+          @media only screen and (max-width: 500px) {
+            max-width: 58%;
+          }
+
+          .group-title {
+            line-height: 30px;
+            text-align: left;
+
+            a {
+              color: #fff;
+            }
+          }
+
+          .group-users-count {
+            line-height: 20px;
+          }
+
+          .button {
+            margin: 10px auto;
+          }
         }
       }
     }

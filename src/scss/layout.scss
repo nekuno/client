@@ -40,6 +40,7 @@
 @import '_partials/loading-spinner-css';
 @import '_partials/thread-toolbar';
 @import '_partials/filter-content-buttons';
+@import '_partials/share-profile-banner';
 
 * {
 	-webkit-tap-highlight-color: rgba(0, 0, 0, 0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
@@ -123,6 +124,13 @@ body {
 							text-align: left;
 							text-overflow: ellipsis;
 							vertical-align: top;
+						}
+					}
+
+					&.translucent-icon-wrapper {
+						background-color: rgba(50, 50, 50, 0.5);
+						.icon-left-arrow {
+							margin-left: -3px;
 						}
 					}
 

@@ -12,16 +12,16 @@ import ChatMessageStore from '../stores/ChatMessageStore';
 import ChatUserStatusStore from '../stores/ChatUserStatusStore';
 
 function requestData(props) {
-    const userId = props.params.userId;
-    UserActionCreators.requestUser(userId, ['username', 'photo', 'status']);
+    const otherUserSlug = props.params.slug;
+    UserActionCreators.requestUser(otherUserSlug, ['username', 'photo', 'status']);
 }
 
 function getState(props) {
-
-    const otherUserId = props.params.userId;
-    const messages = ChatMessageStore.getAllForUser(otherUserId);
-    const otherUser = UserStore.get(otherUserId);
-    const online = ChatUserStatusStore.isOnline(otherUserId) || false;
+    const otherUserSlug = props.params.slug;
+    const otherUser = UserStore.getBySlug(otherUserSlug);
+    const otherUserId = otherUser ? otherUser.id : null;
+    const messages = otherUserId ? ChatMessageStore.getAllForUser(otherUserId) : [];
+    const online = otherUserId ? ChatUserStatusStore.isOnline(otherUserId) || false : false;
 
     return {
         otherUserId,
@@ -39,7 +39,7 @@ export default class ChatMessagesPage extends Component {
     static propTypes = {
         // Injected by React Router:
         params     : PropTypes.shape({
-            userId: PropTypes.string
+            slug: PropTypes.string
         }),
         // Injected by @AuthenticatedComponent
         user       : PropTypes.object.isRequired,
@@ -48,7 +48,7 @@ export default class ChatMessagesPage extends Component {
         strings    : PropTypes.object,
         // Injected by @connectToStores:
         messages   : PropTypes.array.isRequired,
-        otherUserId: PropTypes.string,
+        otherUserId: PropTypes.number,
         otherUser  : PropTypes.object,
         online     : PropTypes.bool
 
@@ -70,7 +70,7 @@ export default class ChatMessagesPage extends Component {
         this.scrollIfNeeded = this.scrollIfNeeded.bind(this);
 
         this.state = {
-            noMoreMessages: ChatMessageStore.noMoreMessages(props.params.userId),
+            noMoreMessages: null,
             timestamp     : null
         };
     }
@@ -79,9 +79,7 @@ export default class ChatMessagesPage extends Component {
         requestData(this.props);
         this._scrollToBottom();
         this.markReaded();
-        if (!ChatMessageStore.noMoreMessages(this.props.params.userId)) {
-            this.refs.list.addEventListener('scroll', this.handleScroll, false);
-        }
+        this.refs.list.addEventListener('scroll', this.handleScroll, false);
         window.addEventListener('resize', this.scrollIfNeeded, false);
     }
 
@@ -90,8 +88,8 @@ export default class ChatMessagesPage extends Component {
         window.removeEventListener('resize', this.scrollIfNeeded, false);
     }
 
-    componentDidUpdate() {
-        if (ChatMessageStore.isFresh(this.props.params.userId)) {
+    componentDidUpdate(prevProps) {
+        if (this.props.otherUserId && (!prevProps.otherUserId || ChatMessageStore.isFresh(this.props.otherUserId))) {
             this._scrollToBottom();
             this.markReaded();
         }
@@ -112,7 +110,7 @@ export default class ChatMessagesPage extends Component {
     }
 
     sendMessageHandler(messageText) {
-        const userId = this.props.params.userId;
+        const userId = this.props.otherUserId;
         ChatActionCreators.sendMessage(userId, messageText);
     }
 
@@ -121,12 +119,12 @@ export default class ChatMessagesPage extends Component {
     }
 
     markReaded() {
-        if (this.props.messages.length > 0) {
-            const userId = parseInt(this.props.params.userId);
-            let lastMessage = this.props.messages[this.props.messages.length - 1];
+        const {otherUserId, messages} = this.props;
+        if (otherUserId && messages.length > 0) {
+            let lastMessage = messages[messages.length - 1];
             let timestamp = lastMessage.createdAt.toISOString();
             if (!this.state.timestamp || this.state.timestamp < timestamp) {
-                window.setTimeout(() => ChatActionCreators.markAsReaded(userId, timestamp), 0);
+                window.setTimeout(() => ChatActionCreators.markAsReaded(otherUserId, timestamp), 0);
                 this.setState({timestamp});
             }
         }
@@ -134,24 +132,25 @@ export default class ChatMessagesPage extends Component {
 
     handleScroll() {
         var list = this.refs.list;
-        if (list.scrollTop === 0) {
-            if (ChatMessageStore.noMoreMessages(this.props.params.userId)) {
+        const {otherUserId, messages} = this.props;
+        if (otherUserId && list.scrollTop === 0) {
+            if (ChatMessageStore.noMoreMessages(otherUserId)) {
                 list.removeEventListener('scroll', this.handleScroll, false);
                 this.setState({noMoreMessages: true});
             } else {
                 list.scrollTop = 150;
-                ChatActionCreators.getMessages(this.props.otherUser.id, this.props.messages.length);
+                ChatActionCreators.getMessages(otherUserId, messages.length);
             }
         }
     }
 
     goToProfilePage() {
-        const {otherUserId} = this.props;
-        this.context.router.push(`profile/${otherUserId}`)
+        const {params} = this.props;
+        this.context.router.push(`profile/${params.slug}`)
     }
 
     render() {
-        const {otherUser, messages, online, strings, isGuest} = this.props;
+        const {otherUser, messages, online, strings, params, isGuest} = this.props;
         let otherUsername = otherUser ? otherUser.username : '';
         return (
             <div className="views">
@@ -161,7 +160,7 @@ export default class ChatMessagesPage extends Component {
                         { isGuest ? '' : <MessagesToolBar onClickHandler={this.sendMessageHandler} onFocusHandler={this.handleFocus} placeholder={strings.placeholder} text={strings.text}/> }
                         <div id="page-content" className="page-content notifications-content messages-content" ref="list">
                             {this.state.noMoreMessages ? <div className="daily-message-title">{strings.noMoreMessages}</div> : '' }
-                            <DailyMessages messages={messages}/>
+                            <DailyMessages messages={messages} userLink={`profile/${params.slug}`}/>
                             <br />
                             <br />
                             <br />

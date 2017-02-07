@@ -186,7 +186,7 @@ export default class GalleryPage extends Component {
         const {photos, profilePhoto, noPhotos, loadingPhoto, strings} = this.props;
         return (
             <div className="views">
-                <TopNavBar leftMenuIcon={true} centerText={strings.myProfile} rightIcon={'uploadthin'} rightIconsWithoutCircle={true} onRightLinkClickHandler={this.triggerUploadFile}/>
+                <TopNavBar leftMenuIcon={true} centerText={strings.myProfile} rightIcon={'uploadthin'} rightIconsWithoutCircle={true} onRightLinkClickHandler={this.importAlbumPopUp}/>
                 <ToolBar links={[
                     {'url': '/profile', 'text': strings.about},
                     {'url': '/gallery', 'text': strings.photos},

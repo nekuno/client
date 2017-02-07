@@ -96,13 +96,14 @@ export default {
         changeProfilePhoto      : 'Change profile photo'
     },
     GroupPage                        : {
-        groups     : 'Your groups',
-        create     : 'Create',
-        creating   : 'Creating group',
-        enter_name : 'Name of the group',
-        join       : 'Join',
-        joining    : 'Joining group',
-        enter_token: 'Invitation code'
+        groups        : 'Your badges',
+        create        : 'Create badge',
+        creating      : 'Creating badge',
+        enterName     : 'Name of the badge',
+        join          : 'Unlock badge',
+        joining       : 'Unlocking badge',
+        enterToken    : 'BADGE CODE',
+        enterTokenText: 'Enter the badge code'
     },
     GroupStatsPage                   : {
         group        : 'Group',
@@ -182,6 +183,7 @@ export default {
     },
     DiscoverPage                     : {
         discover         : 'Discover',
+        editFilters      : 'Edit filters',
         loadingMessage   : 'Loading recommendations',
         noRecommendations: 'There are no recommendations with selected filters'
     },
@@ -202,7 +204,8 @@ export default {
         noInvitations         : 'You have no invitations available',
         expiresAt             : 'Expires at',
         consumedBy            : 'Consumed by',
-        shareError            : 'An error occurred sending the invitation.'
+        shareError            : 'An error occurred sending the invitation.',
+        copyToClipboard       : 'Copy to clipboard: Ctrl+C, Enter'
     },
     UserPage                         : {
         aboutMe  : 'About me',
@@ -224,6 +227,15 @@ export default {
         dontLike    : 'Don\'t like anymore',
         saving      : 'Saving...',
         confirmBlock: 'Are you sure you want to block this user?'
+    },
+    SharedUserPage                  : {
+        title          : 'Do you want to see your compatibility with %username%?',
+        signUp         : 'Sign up with Facebook',
+        loginUser      : 'Trying to login user',
+        registeringUser: 'Registering user',
+        loadingProfile : 'Loading profile',
+        invalidUrl     : 'Invalid URL',
+        privacy        : 'By registering, you agree to the <a href="https://nekuno.com/legal-notice" target="_blank">Legal Conditions</a> and the Nekuno <a href="https://nekuno.com/privacy-policy" target="_blank">Privacy Policy</a>.'
     },
     CreateThreadPage                 : {
         create  : 'Create yarn',
@@ -256,7 +268,7 @@ export default {
     LeftPanel                        : {
         interests     : 'Interests',
         threads       : 'Discover',
-        groups        : 'Groups',
+        groups        : 'Badges',
         myProfile     : 'Profile',
         conversations : 'Messages',
         socialNetworks: 'My social networks',
@@ -268,10 +280,11 @@ export default {
         cannotRemove: 'This field cannot be deleted',
     },
     OtherProfileData                 : {
-        coincidences    : 'Coincidences',
-        similarInterests: 'Similar interests',
-        compatibility   : 'compatibility',
-        similarity      : 'similarity'
+        coincidences       : 'Coincidences',
+        similarInterests   : 'Similar interests',
+        compatibility      : 'compatibility',
+        similarity         : 'similarity',
+        calculatingMatching: 'Calculating matching...'
     },
     ProfileData                      : {
         seeLess: 'See less',
@@ -280,7 +293,7 @@ export default {
     AnswerUserFieldPage              : {
         question       : 'Question',
         loadingMessage : 'Loading questions',
-        usernameInvalid: 'Username is invalid or already in use.'
+        usernameInvalid: 'Username is invalid or already in use. Valid characters are letters, numbers and _.'
     },
     AnswerProfileFieldPage           : {
         question      : 'Question',
@@ -360,6 +373,14 @@ export default {
         text          : 'Let`s discover your interests automatically',
         publishMessage: 'We won`t publish anything'
     },
+    ShareProfileBanner               : {
+        title                 : 'Share now with your friends and followers!',
+        text                  : 'Discover the most compatibles sharing your profile url',
+        copyLink              : 'Copy profile url',
+        compatibilityCheckWith: 'Check your compatibility with %username%',
+        copyToClipboard       : 'Copy to clipboard: Ctrl+C, Enter',
+        shareError            : 'An error occurred sending the link.'
+    },
     ProcessesProgress                : {
         title                   : 'We are reprocessing your data',
         registrationTitle       : 'We are analyzing your data',
@@ -401,8 +422,9 @@ export default {
         age       : 'Age',
     },
     ImportAlbumPopup                 : {
-        close      : 'Close',
-        importAlbum: 'Import an album'
+        close           : 'Close',
+        importAlbum     : 'Import an album',
+        uploadFromDevice: 'Upload from device'
     },
     FilterContentPopup               : {
         close    : 'Close',
@@ -531,7 +553,11 @@ export default {
         birthdayPlaceholder: 'Your birth date'
     },
     Group                            : {
-        users: 'users'
+        users          : 'users',
+        sendInvitation : 'Send invitation',
+        invitationTitle: 'Badge invitation',
+        shareError     : 'An error occurred sending the invitation.',
+        copyToClipboard: 'Copy to clipboard: Ctrl+C, Enter'
     },
     RecommendationUser               : {
         age    : 'Age',

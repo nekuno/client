@@ -1,0 +1,22 @@
+body #root .App .views .view #page-content.shared-user-content {
+  margin: 30px auto 0 auto;
+  padding: 0 10%;
+
+  .shared-user-picture {
+    text-align: center;
+    margin-bottom: 20px;
+
+    img {
+      border-radius: 5px;
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+      width: 200px;
+    }
+  }
+  .title {
+    margin: 20px auto;
+  }
+  .register-sub-title {
+    text-align: center;
+  }
+}

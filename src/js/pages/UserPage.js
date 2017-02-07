@@ -1,6 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import User from '../components/User';
 import ProfileDataList from '../components/profile/ProfileDataList'
+import ShareProfileBanner from '../components/user/ShareProfileBanner';
 import TopNavBar from '../components/ui/TopNavBar';
 import ToolBar from '../components/ui/ToolBar';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
@@ -104,6 +105,7 @@ export default class UserPage extends Component {
                                     </div>
                                     <div className="label">{strings.interests}</div>
                                 </div>
+                                <ShareProfileBanner user={user}/>
                                 <ProfileDataList profile={profile} metadata={metadata} profileWithMetadata={profileWithMetadata}/>
                                 <br />
                                 <br />

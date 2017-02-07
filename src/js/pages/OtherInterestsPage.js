@@ -20,20 +20,30 @@ function parseId(user) {
 }
 
 function requestData(props) {
+    const {params} = props;
     const userId = parseId(props.user);
-    UserActionCreators.requestUser(parseInt(props.params.userId), ['username', 'photo', 'status']);
-    InterestsActionCreators.resetInterests(parseInt(props.params.userId));
-    InterestsActionCreators.requestComparedInterests(userId, parseInt(props.params.userId), 'Link', 1);
+    const otherUserSlug = params.slug;
+
+    UserActionCreators.requestUser(otherUserSlug, ['username', 'photo']).then(
+        () => {
+            const otherUser = UserStore.getBySlug(params.slug);
+            const otherUserId = parseId(otherUser);
+            InterestsActionCreators.resetInterests(otherUserId);
+            InterestsActionCreators.requestComparedInterests(userId, otherUserId, 'Link', 1);
+        },
+        (status) => { console.log(status.error) }
+    );
 }
 
 function getState(props) {
-    const otherUserId = props.params.userId;
-    const pagination = InterestStore.getPagination(otherUserId) || {};
-    const totals = InterestStore.getTotals(otherUserId) || {};
-    const interests = InterestStore.get(otherUserId) || [];
-    const noInterests = InterestStore.noInterests(otherUserId) || false;
+    const otherUserSlug = props.params.slug;
+    const otherUser = UserStore.getBySlug(otherUserSlug);
+    const otherUserId = otherUser ? parseId(otherUser) : null;
+    const pagination = otherUserId ? InterestStore.getPagination(otherUserId) || {} : {};
+    const totals = otherUserId ? InterestStore.getTotals(otherUserId) || {} : {};
+    const interests = otherUserId ? InterestStore.get(otherUserId) || [] : [];
+    const noInterests = otherUserId ? InterestStore.noInterests(otherUserId) || false : null;
     const isLoadingComparedInterests = InterestStore.isLoadingComparedInterests();
-    const otherUser = UserStore.get(otherUserId);
     return {
         pagination,
         totals,
@@ -51,7 +61,7 @@ export default class OtherInterestsPage extends Component {
     static propTypes = {
         // Injected by React Router:
         params                    : PropTypes.shape({
-            userId: PropTypes.string.isRequired
+            slug: PropTypes.string.isRequired
         }).isRequired,
         // Injected by @AuthenticatedComponent
         user                      : PropTypes.object.isRequired,
@@ -91,6 +101,12 @@ export default class OtherInterestsPage extends Component {
 
     componentWillUnmount() {
         document.getElementsByClassName('view')[0].removeEventListener('scroll', this.handleScroll);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.params.slug !== this.props.params.slug) {
+            requestData(nextProps);
+        }
     }
 
     componentDidUpdate() {
@@ -133,7 +149,7 @@ export default class OtherInterestsPage extends Component {
 
         if (nextLink && offsetTop >= offsetTopMax && !isLoadingComparedInterests) {
             document.getElementsByClassName('view')[0].removeEventListener('scroll', this.handleScroll);
-            InterestsActionCreators.requestNextComparedInterests(parseId(this.props.user), this.props.params.userId, nextLink);
+            InterestsActionCreators.requestNextComparedInterests(parseId(this.props.user), parseId(this.props.otherUser), nextLink);
         }
     }
 
@@ -164,13 +180,13 @@ export default class OtherInterestsPage extends Component {
         function onReachEnd() {
             let pagination = _self.props.pagination;
             let nextLink = pagination && pagination.hasOwnProperty('nextLink') ? pagination.nextLink : null;
-            InterestsActionCreators.requestNextComparedInterests(parseId(_self.props.user), _self.props.params.userId, nextLink);
+            InterestsActionCreators.requestNextComparedInterests(parseId(_self.props.user), parseId(_self.props.otherUser), nextLink);
         }
     }
 
     onFilterCommonClick(key) {
-        InterestsActionCreators.resetInterests(this.props.params.userId);
-        InterestsActionCreators.requestComparedInterests(parseId(this.props.user), parseInt(this.props.params.userId), this.state.type, key);
+        InterestsActionCreators.resetInterests(parseId(this.props.otherUser));
+        InterestsActionCreators.requestComparedInterests(parseId(this.props.user), parseId(this.props.otherUser), this.state.type, key);
         this.setState({
             commonContent: key,
             carousel     : false
@@ -186,7 +202,7 @@ export default class OtherInterestsPage extends Component {
     render() {
         const {interests, noInterests, otherUser, user, params, pagination, totals, strings} = this.props;
         const ownUserId = parseId(user);
-        const otherUserId = parseInt(params.userId);
+        const otherUserId = otherUser ? parseId(otherUser) : null;
         const otherUserPicture = otherUser && otherUser.photo ? otherUser.photo.thumbnail.small : 'img/no-img/small.jpg';
         const ownPicture = user && user.photo ? user.photo.thumbnail.small : 'img/no-img/small.jpg';
         return (
@@ -198,13 +214,13 @@ export default class OtherInterestsPage extends Component {
                 }
                 {otherUser ?
                     <ToolBar links={[
-                        {'url': `/profile/${otherUserId}`, 'text': strings.about},
-                        {'url': `/users/${otherUserId}/other-questions`, 'text': strings.questions},
-                        {'url': `/users/${otherUserId}/other-interests`, 'text': strings.interests}
+                        {'url': `/profile/${params.slug}`, 'text': strings.about},
+                        {'url': `/users/${params.slug}/other-questions`, 'text': strings.questions},
+                        {'url': `/users/${params.slug}/other-interests`, 'text': strings.interests}
                     ]} activeLinkIndex={2} arrowUpLeft={'83%'}/>
                     :
                     ''}
-                <ScrollContainer scrollKey={"other-interests-" + otherUserId}>
+                <ScrollContainer scrollKey={"other-interests-" + params.slug}>
                     <div className="view view-main" onScroll={this.handleScroll}>
                         <div className="page other-interests-page">
                             <div id="page-content" className="other-interests-content">

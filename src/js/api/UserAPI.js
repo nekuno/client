@@ -25,7 +25,11 @@ export function getOwnUser(url = `users`) {
     return getData(url);
 }
 
-export function getUser(userId, url = `users/${userId}`) {
+export function getUser(userSlug, url = `users/${userSlug}`) {
+    return fetchUser(url);
+}
+
+export function getPublicUser(slug, url = `public/users/${slug}`) {
     return fetchUser(url);
 }
 

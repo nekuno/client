@@ -11,16 +11,25 @@ import GalleryPhotoStore from '../stores/GalleryPhotoStore';
 import UserStore from '../stores/UserStore';
 
 function requestData(props) {
-    const userId = parseInt(props.params.userId);
-    UserActionCreators.requestUser(userId, ['username', 'photo', 'status']);
-    GalleryPhotoActionCreators.getOtherPhotos(userId);
+    const {params} = props;
+    const otherUserSlug = params.slug;
+
+    UserActionCreators.requestUser(otherUserSlug, ['username', 'photo']).then(
+        () => {
+            const otherUser = UserStore.getBySlug(params.slug);
+            const otherUserId = otherUser.id;
+            GalleryPhotoActionCreators.getOtherPhotos(otherUserId);
+        },
+        (status) => { console.log(status.error) }
+    );
 }
 
 function getState(props) {
-    const otherUserId = parseInt(props.params.userId);
-    const otherUser = UserStore.get(otherUserId);
-    const photos = GalleryPhotoStore.get(otherUserId);
-    const noPhotos = GalleryPhotoStore.noPhotos(otherUserId);
+    const otherUserSlug = props.params.slug;
+    const otherUser = UserStore.getBySlug(otherUserSlug);
+    const otherUserId = otherUser ? otherUser.id : null;
+    const photos = otherUserId ? GalleryPhotoStore.get(otherUserId) : [];
+    const noPhotos = otherUserId ? GalleryPhotoStore.noPhotos(otherUserId) : false;
     const loadingPhotos = GalleryPhotoStore.getLoadingPhotos();
 
     return {
@@ -60,7 +69,7 @@ export default class OtherGalleryPage extends Component {
     static propTypes = {
         // Injected by React Router:
         params   : PropTypes.shape({
-            userId : PropTypes.string.isRequired,
+            slug : PropTypes.string.isRequired,
             photoId: PropTypes.string
         }).isRequired,
         // Injected by @AuthenticatedComponent

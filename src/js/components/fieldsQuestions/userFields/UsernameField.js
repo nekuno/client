@@ -38,7 +38,7 @@ export default class UsernameField extends Component {
                     </div>
                     <div className="list-block">
                         <ul>
-                            <TextInput defaultValue={username} placeholder={strings.username} ref="username" onChange={this.onUsernameChange.bind(this)} style={isUsernameValid ? {} : {color: 'red'}}/>
+                            <TextInput defaultValue={username} placeholder={strings.username} ref="username" maxLength="25" onChange={this.onUsernameChange.bind(this)} style={isUsernameValid ? {} : {color: 'red'}}/>
                         </ul>
                     </div>
                 </div>

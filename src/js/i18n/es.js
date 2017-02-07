@@ -97,13 +97,14 @@ export default {
         changeProfilePhoto      : 'Cambiar foto de perfil'
     },
     GroupPage                        : {
-        groups     : 'Tus grupos',
-        create     : 'Crear',
-        creating   : 'Creando grupo',
-        enter_name : 'Nombre del grupo',
-        join       : 'Unirte',
-        joining    : 'Uniendo al grupo',
-        enter_token: 'Código de invitación'
+        groups        : 'Tus insignias',
+        create        : 'Crear insignia',
+        creating      : 'Creando insignia',
+        enterName     : 'Nombre de la insignia',
+        join          : 'Desbloquear insignia',
+        joining       : 'Desbloqueando la insignia',
+        enterToken    : 'CÓDIGO DE INSIGNIA',
+        enterTokenText: 'Escribe el código de la insignia'
     },
     GroupStatsPage                   : {
         group        : 'Grupo',
@@ -184,6 +185,7 @@ export default {
     },
     DiscoverPage                     : {
         discover         : 'Descubrir',
+        editFilters      : 'Editar filtros',
         loadingMessage   : 'Cargando recomendaciones',
         noRecommendations: 'No hay recomendaciones con los filtros seleccionados'
 
@@ -205,7 +207,8 @@ export default {
         noInvitations         : 'No tienes invitaciones disponibles',
         expiresAt             : 'Fecha de expiración',
         consumedBy            : 'Utilizada por',
-        shareError            : 'Ha ocurrido un error enviando la invitación.'
+        shareError            : 'Ha ocurrido un error enviando la invitación.',
+        copyToClipboard       : 'Copiar al portapapeles: Ctrl+C, Enter'
     },
     UserPage                         : {
         aboutMe  : 'Sobre mi',
@@ -227,6 +230,15 @@ export default {
         dontLike    : 'Ya no me gusta',
         saving      : 'Guardando...',
         confirmBlock: '¿Estás seguro de que quieres bloquear a este usuario?'
+    },
+    SharedUserPage                  : {
+        title          : '¿Quieres ver tu compatibilidad con %username%?',
+        signUp         : 'Entra con Facebook',
+        loginUser      : 'Intentando iniciar sesión',
+        registeringUser: 'Registrando usuario',
+        loadingProfile : 'Cargando perfil',
+        invalidUrl     : 'URL Inválida',
+        privacy        : 'Al registrarte, estás aceptando las <a href="https://nekuno.com/legal-notice" target="_blank">Condiciones Legales</a> y la <a href="https://nekuno.com/privacy-policy" target="_blank">Política de Privacidad</a> de Nekuno'
     },
     CreateThreadPage                 : {
         create  : 'Crear ovillos',
@@ -259,7 +271,7 @@ export default {
     LeftPanel                        : {
         interests     : 'Intereses',
         threads       : 'Descubrir',
-        groups        : 'Grupos',
+        groups        : 'Insignias',
         myProfile     : 'Mi perfil',
         conversations : 'Mensajes',
         socialNetworks: 'Mis redes sociales',
@@ -271,10 +283,11 @@ export default {
         cannotRemove: 'Este campo no se puede eliminar',
     },
     OtherProfileData                 : {
-        coincidences    : 'Coincidencias',
-        similarInterests: 'Intereses similares',
-        compatibility   : 'Compatibilidad',
-        similarity      : 'Similitud'
+        coincidences       : 'Coincidencias',
+        similarInterests   : 'Intereses similares',
+        compatibility      : 'Compatibilidad',
+        similarity         : 'Similitud',
+        calculatingMatching: 'Calculando compatibilidad...'
     },
     ProfileData                      : {
         seeLess: 'Ver menos',
@@ -283,7 +296,7 @@ export default {
     AnswerUserFieldPage              : {
         question       : 'Pregunta',
         loadingMessage : 'Cargando preguntas',
-        usernameInvalid: 'El nombre de usuario no es válido o ya está en uso.'
+        usernameInvalid: 'El nombre de usuario no es válido o ya está en uso. Los caracteres válidos son letras, números y _'
     },
     AnswerProfileFieldPage           : {
         question      : 'Pregunta',
@@ -363,6 +376,14 @@ export default {
         text          : 'Descubramos automáticamente tus intereses',
         publishMessage: 'No públicaremos nada'
     },
+    ShareProfileBanner               : {
+        title                 : '¡Compárate ya con tus amigos y seguidores!',
+        text                  : 'Descubre a los más compatibles compartiendo la url de tu perfil',
+        copyLink              : 'Copiar url de perfil',
+        compatibilityCheckWith: 'Comprueba tu compatibilidad con %username%',
+        copyToClipboard       : 'Copiar al portapapeles: Ctrl+C, Enter',
+        shareError            : 'Ha ocurrido un error compartiendo el enlace.'
+    },
     ProcessesProgress                : {
         title                   : 'Estamos reprocesando tus datos',
         registrationTitle       : 'Estamos analizando tus datos',
@@ -404,8 +425,9 @@ export default {
         age       : 'Edad',
     },
     ImportAlbumPopup                 : {
-        close      : 'Cerrar',
-        importAlbum: 'Importar un álbum'
+        close           : 'Cerrar',
+        importAlbum     : 'Importar un álbum',
+        uploadFromDevice: 'Subir desde dispositivo'
     },
     FilterContentPopup               : {
         close    : 'Cerrar',
@@ -461,7 +483,7 @@ export default {
         save          : 'Guardar ovillo',
         create        : 'Crear ovillo',
         addFilters    : 'Añade un filtro primero',
-        order         : 'Orden',
+        order         : 'Ordenación',
         matching      : 'Compatibilidad',
         similarity    : 'Similaridad',
     },
@@ -534,7 +556,11 @@ export default {
         birthdayPlaceholder: 'Tu fecha de nacimiento'
     },
     Group                            : {
-        users: 'usuarios'
+        users          : 'usuarios',
+        sendInvitation : 'Enviar invitación',
+        invitationTitle: 'Invitación a insignia',
+        shareError     : 'Ha ocurrido un error compartiendo el enlace.',
+        copyToClipboard: 'Copiar al portapapeles: Ctrl+C, Enter'
     },
     RecommendationUser               : {
         age    : 'Edad',

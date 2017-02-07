@@ -22,17 +22,17 @@ export function requestOwnUser() {
     });
 }
 
-export function requestUser(userId, fields) {
+export function requestUser(userSlug, fields) {
     // Exit early if we know enough about this user
-    if (UserStore.contains(userId, fields)) {
-        return;
+    if (UserStore.containsSlug(userSlug, fields)) {
+        return new Promise((resolve) => { resolve(true) });
     }
 
-    return dispatchAsync(UserAPI.getUser(userId), {
+    return dispatchAsync(UserAPI.getUser(userSlug), {
         request: ActionTypes.REQUEST_USER,
         success: ActionTypes.REQUEST_USER_SUCCESS,
         failure: ActionTypes.REQUEST_USER_ERROR
-    }, {userId});
+    }, {userSlug});
 }
 
 export function editUser(data) {
@@ -67,6 +67,14 @@ export function requestProfile(userId, fields) {
         success: ActionTypes.REQUEST_PROFILE_SUCCESS,
         failure: ActionTypes.REQUEST_PROFILE_ERROR
     }, {userId});
+}
+
+export function requestSharedUser(slug) {
+    dispatchAsync(UserAPI.getPublicUser(slug), {
+        request: ActionTypes.REQUEST_PUBLIC_USER,
+        success: ActionTypes.REQUEST_PUBLIC_USER_SUCCESS,
+        failure: ActionTypes.REQUEST_PUBLIC_USER_ERROR
+    }, {slug});
 }
 
 export function editProfile(data) {

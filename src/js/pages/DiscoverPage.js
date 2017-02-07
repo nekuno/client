@@ -4,6 +4,7 @@ import TopNavBar from '../components/ui/TopNavBar';
 import CardUserList from '../components/user/CardUserList';
 import EmptyMessage from '../components/ui/EmptyMessage';
 import ChipList from './../components/ui/ChipList';
+import Button from './../components/ui/Button';
 import QuestionsBanner from '../components/questions/QuestionsBanner';
 import ProcessesProgress from '../components/processes/ProcessesProgress';
 import OrientationRequiredPopup from '../components/ui/OrientationRequiredPopup';
@@ -29,6 +30,15 @@ function parseThreadId(thread) {
     return thread.id;
 }
 
+function getDisplayedThread(props) {
+
+    if (props.params.groupId) {
+        return ThreadStore.getByGroup(props.params.groupId) || {};
+    }
+
+    return ThreadStore.getMainDiscoverThread();
+}
+
 /**
  * Requests data from server for current props.
  */
@@ -51,12 +61,7 @@ function getState(props) {
     let isSomethingWorking = WorkersStore.isSomethingWorking();
     let filters = {};
     let recommendations = [];
-    let thread = ThreadStore.getAll().find((thread) => {
-            let items = RecommendationStore.get(parseThreadId(thread)) || [];
-            return items.length > 0 && thread.category === 'ThreadUsers';
-        }) || ThreadStore.getAll().find((thread) => {
-            return thread.category === 'ThreadUsers';
-        }) || {};
+    let thread = getDisplayedThread(props);
     let isLoadingRecommendations = true;
     if (parseThreadId(thread)) {
         if (Object.keys(thread).length !== 0) {
@@ -68,6 +73,7 @@ function getState(props) {
     }
     const networks = WorkersStore.getAll();
     const similarityOrder = thread && thread.filters && thread.filters.userFilters && thread.filters.userFilters.order === 'similarity' || false;
+    const isThreadGroup = thread.groupId != null;
 
     return {
         profile,
@@ -78,7 +84,8 @@ function getState(props) {
         thread,
         isLoadingRecommendations,
         networks,
-        similarityOrder
+        similarityOrder,
+        isThreadGroup
     };
 }
 
@@ -112,12 +119,13 @@ export default class DiscoverPage extends Component {
         super(props);
 
         this.editThread = this.editThread.bind(this);
+        this.leftClickHandler = this.leftClickHandler.bind(this);
         this.handleScroll = this.handleScroll.bind(this);
         this.goToProfile = this.goToProfile.bind(this);
         this.selectProfile = this.selectProfile.bind(this);
 
         this.state = {
-            selectedUserId: null
+            selectedUserSlug: null
         };
     }
 
@@ -133,6 +141,12 @@ export default class DiscoverPage extends Component {
         this.context.router.push(`edit-thread/${parseThreadId(this.props.thread)}`);
     }
 
+    leftClickHandler() {
+        if (this.props.thread && this.props.thread.groupId != null){
+            this.context.router.push(`badges`);
+        }
+    }
+
     handleScroll() {
         let offsetTop = parseInt(document.getElementsByClassName('view')[0].scrollTop + document.getElementsByClassName('view')[0].offsetHeight - 58);
         let offsetTopMax = parseInt(document.getElementById('page-content').offsetHeight);
@@ -144,12 +158,12 @@ export default class DiscoverPage extends Component {
     }
 
     goToProfile() {
-        const {selectedUserId} = this.state;
-        this.context.router.push(`/profile/${selectedUserId}`);
+        const {selectedUserSlug} = this.state;
+        this.context.router.push(`/profile/${selectedUserSlug}`);
     }
 
-    selectProfile(userId) {
-        this.setState({selectedUserId: userId});
+    selectProfile(userSlug) {
+        this.setState({selectedUserSlug: userSlug});
     }
 
     renderChipList = function(thread, filters) {
@@ -163,25 +177,31 @@ export default class DiscoverPage extends Component {
                 }
             });
             return (
-                <ChipList chips={chips} small={true}/>
+                <ChipList chips={chips} small={true} onClick={this.editThread}/>
             );
         }
     };
 
     render() {
-        const {user, profile, strings, pagination, isSomethingWorking, filters, recommendations, thread, isLoadingRecommendations, networks, similarityOrder} = this.props;
+        const {user, profile, strings, pagination, isSomethingWorking, filters, recommendations, thread, isLoadingRecommendations, networks, similarityOrder, isThreadGroup} = this.props;
         const connectedNetworks = networks.filter(network => network.fetching || network.fetched || network.processing || network.processed);
-
+        const title = isThreadGroup ? thread.name : strings.discover ;
         return (
             <div className="views">
                 {Object.keys(thread).length > 0 ?
-                    <TopNavBar leftMenuIcon={true} centerText={strings.discover} rightIcon={'edit'} onRightLinkClickHandler={this.editThread}/>
-                    : <TopNavBar leftMenuIcon={true} centerText={strings.discover}/>}
+                    <TopNavBar leftMenuIcon={!isThreadGroup} leftIcon="left-arrow" centerText={title} onLeftLinkClickHandler={this.leftClickHandler}/>
+                    : <TopNavBar leftMenuIcon={true} centerText={title}/>}
                 <ScrollContainer scrollKey="discover">
                     <div className="view view-main" onScroll={this.handleScroll}>
                         <div className="page discover-page">
                             <div id="page-content">
                                 {this.renderChipList(thread, filters)}
+                                {profile && thread && filters && Object.keys(thread).length > 0 ?
+                                    <div className="edit-thread-button">
+                                        <Button onClick={this.editThread}><span className="icon-edit"></span> {strings.editFilters}</Button>
+                                    </div>
+                                    :
+                                    null}
                                 <ProcessesProgress />
                                 {profile && filters && thread && pagination.total <= 100 ? <QuestionsBanner user={user} questionsTotal={pagination.total || 0}/>
                                     : profile && filters && thread && connectedNetworks.length < 3 ? <SocialNetworksBanner networks={networks} user={user}/>
@@ -205,6 +225,7 @@ export default class DiscoverPage extends Component {
 DiscoverPage.defaultProps = {
     strings: {
         discover         : 'Discover',
+        editFilters      : 'Edit filters',
         loadingMessage   : 'Loading recommendations',
         noRecommendations: 'There are no recommendations with selected filters'
     }

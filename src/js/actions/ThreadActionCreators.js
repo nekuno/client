@@ -45,14 +45,6 @@ export function createThread(userId, data) {
     }, {userId, data})
 }
 
-export function createDefaultThreads() {
-    return dispatchAsync(UserAPI.createDefaultThreads(), {
-        request: ActionTypes.CREATE_DEFAULT_THREADS,
-        success: ActionTypes.CREATE_DEFAULT_THREADS_SUCCESS,
-        failure: ActionTypes.CREATE_DEFAULT_THREADS_ERROR
-    })
-}
-
 export function updateThread(threadId, data) {
     return dispatchAsync(UserAPI.updateThread(threadId, data), {
         request: ActionTypes.UPDATE_THREAD,

@@ -61,15 +61,7 @@ function initPhotosSwiper() {
         return null;
     }
     return nekunoApp.swiper('#photos-swiper-container', {
-        effect          : 'coverflow',
         slidesPerView   : 'auto',
-        coverflow       : {
-            rotate      : 30,
-            stretch     : 0,
-            depth       : 100,
-            modifier    : 1,
-            slideShadows: false
-        },
         centeredSlides  : true,
         paginationHide: false,
         paginationClickable: true,

@@ -95,11 +95,6 @@ ThreadStore.dispatchToken = register(action => {
             ThreadStore.disable(response.id);
             ThreadStore.emitChange();
             break;
-        case ActionTypes.CREATE_DEFAULT_THREADS_SUCCESS:
-            _threads = response;
-            _threads.forEach(thread => ThreadStore.disable(thread.id));
-            ThreadStore.emitChange();
-            break;
         case ActionTypes.REQUEST_THREADS_SUCCESS:
             const threads = response.items;
             if (threads) {

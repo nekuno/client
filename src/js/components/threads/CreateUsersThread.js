@@ -129,7 +129,7 @@ export default class CreateUsersThread extends Component {
                         filter = this.renderIntegerFilter(defaultFilters[key], key, filters[key], selected);
                         break;
                     case 'multiple_choices':
-                        const cantRemove = thread.groupId != null;
+                        const cantRemove = thread.groupId != null && key == 'groups';
                         filter = this.renderMultipleChoicesFilter(defaultFilters[key], key, filters[key], selected, cantRemove);
                         break;
                     case 'double_multiple_choices':

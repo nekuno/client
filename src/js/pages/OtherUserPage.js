@@ -251,7 +251,7 @@ export default class OtherUserPage extends Component {
 
         return (
             <div className="views">
-                <TopNavBar leftIcon={'left-arrow'} translucentBackground={true}/>
+                <TopNavBar leftIcon={'left-arrow'} transparentBackground={true}/>
                 {otherUser && profile && profileWithMetadata && ownProfile && ownProfile.orientation ?
                     <ToolBar links={[
                         {'url': `/profile/${params.slug}`, 'text': strings.about},

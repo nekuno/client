@@ -91,6 +91,10 @@ export default class SharedUserPage extends Component {
                             resourceId   : SocialNetworkService.getResourceId(resource),
                             expireTime   : SocialNetworkService.getExpireTime(resource),
                             refreshToken : SocialNetworkService.getRefreshToken(resource)
+                        }).catch(() => {
+                            this.setState({
+                                registeringUser: false
+                            });
                         });
 
                         this.setState({

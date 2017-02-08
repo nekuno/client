@@ -122,6 +122,10 @@ export default class HomePage extends Component {
                             resourceId   : SocialNetworkService.getResourceId(resource),
                             expireTime   : SocialNetworkService.getExpireTime(resource),
                             refreshToken : SocialNetworkService.getRefreshToken(resource)
+                        }).catch(() => {
+                            this.setState({
+                                registeringUser: false
+                            });
                         });
 
                         console.log(error);

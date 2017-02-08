@@ -3,7 +3,7 @@ import shouldPureComponentUpdate from 'react-pure-render/function';
 
 export default class RegularTopTitle extends Component {
     static propTypes = {
-        text          : PropTypes.string.isRequired,
+        text          : PropTypes.string,
         onClickHandler: PropTypes.func,
         textSize      : PropTypes.string,
         bottomText    : PropTypes.string

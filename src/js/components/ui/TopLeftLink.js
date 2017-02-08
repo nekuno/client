@@ -9,7 +9,7 @@ export default class TopLeftLink extends Component {
 		text		  : PropTypes.string,
 		icon		  : PropTypes.string,
 		onClickHandler: PropTypes.func,
-		wrapIcon      : PropTypes.func
+		wrapIcon      : PropTypes.bool
 	};
 
 	shouldComponentUpdate = shouldPureComponentUpdate;

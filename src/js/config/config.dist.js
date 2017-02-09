@@ -12,6 +12,5 @@ export default {
     SPOTIFY_ID       : 'e8c3557e29ad4974a1f41e93aeaf6e79',
     SPOTIFY_SCOPE    : 'user-read-private user-read-email playlist-read-private user-read-birthdate',
     TRACKER_ID_WEB   : '',
-    TRACKER_ID_APP   : '',
-    LAST_RELEASE_DATE: '1 de marzo de 2020'
+    TRACKER_ID_APP   : ''
 }

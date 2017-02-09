@@ -97,7 +97,6 @@ export const SPOTIFY_SCOPE = config.SPOTIFY_SCOPE;
 
 export const TRACKER_ID_WEB = config.TRACKER_ID_WEB;
 export const TRACKER_ID_APP = config.TRACKER_ID_APP;
-export const LAST_RELEASE_DATE = config.LAST_RELEASE_DATE;
 export const INSTANT_HOST = config.INSTANT_HOST;
 
 export const REQUIRED_REGISTER_USER_FIELDS = [

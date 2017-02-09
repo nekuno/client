@@ -20,7 +20,9 @@ body #root .App .views .view .page.other-user-page {
         width: 100%;
         margin-top: 288px;
         .swiper-pagination-bullet {
+          background: #fff;
           margin: 0 5px;
+          opacity: 0.5;
 
           &.swiper-pagination-bullet-active {
             background-color: $light-green;

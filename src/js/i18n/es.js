@@ -67,7 +67,7 @@ export default {
         photos         : 'Fotos',
         questions      : 'Respuestas',
         interests      : 'Intereses',
-        importingAlbums: 'Importando álbumes'
+        importingAlbums: 'Cargando álbumes'
 
     },
     OtherGalleryPage                 : {
@@ -77,7 +77,7 @@ export default {
     GalleryAlbumsPage                : {
         albums        : 'Álbumes de %resource%',
         empty         : 'No hay álbumes',
-        importingAlbum: 'Importando álbum'
+        importingAlbum: 'Cargando álbum'
     },
     GalleryAlbumPhotosPage           : {
         empty       : 'No hay fotos en este álbum',
@@ -104,7 +104,8 @@ export default {
         join          : 'Desbloquear insignia',
         joining       : 'Desbloqueando la insignia',
         enterToken    : 'CÓDIGO DE INSIGNIA',
-        enterTokenText: 'Escribe el código de la insignia'
+        enterTokenText: 'Escribe el código de la insignia',
+        tokenNoBadge  : 'Este código no tiene insignia asociada'
     },
     GroupStatsPage                   : {
         group        : 'Grupo',
@@ -380,7 +381,7 @@ export default {
         title                 : '¡Compárate ya con tus amigos y seguidores!',
         text                  : 'Descubre a los más compatibles compartiendo la url de tu perfil',
         copyLink              : 'Copiar url de perfil',
-        compatibilityCheckWith: 'Comprueba tu compatibilidad con %username%',
+        compatibilityCheckWith: 'Descubre tu compatibilidad con %username%',
         copyToClipboard       : 'Copiar al portapapeles: Ctrl+C, Enter',
         shareError            : 'Ha ocurrido un error compartiendo el enlace.'
     },

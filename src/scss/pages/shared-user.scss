@@ -3,14 +3,21 @@ body #root .App .views .view #page-content.shared-user-content {
   padding: 0 10%;
 
   .shared-user-picture {
+    background-color: #fff;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    height: 158px;
+    margin: auto;
     text-align: center;
-    margin-bottom: 20px;
-
+    width: 158px;
     img {
-      border-radius: 5px;
-      -webkit-border-radius: 5px;
-      -moz-border-radius: 5px;
-      width: 200px;
+      border-radius: 50%;
+      -webkit-border-radius: 50%;
+      -moz-border-radius: 50%;
+      height: 150px;
+      padding: 4px;
+      width: 150px;
     }
   }
   .title {

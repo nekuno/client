@@ -61,6 +61,7 @@ export default class GroupPage extends Component {
         super(props);
         this.create = this.create.bind(this);
         this.join = this.join.bind(this);
+        this.consumeInvitation = this.consumeInvitation.bind(this);
 
         this.state = {
             joining: false,
@@ -89,29 +90,49 @@ export default class GroupPage extends Component {
 
     join() {
         nekunoApp.prompt(this.props.strings.enterTokenText, this.props.strings.enterToken, (value) => {
-
-            const invitation = APIUtils.postData(API_URLS.CONSUME_INVITATION.replace('{token}', value));
-            this.setState({joining: true});
-
-            invitation.then((data)=> {
-                this.setState({joining: false});
-                if (!null == data.invitation.group) {
-                    nekunoApp.alert('This invitation is of no group');
+            const validatedInvitation = APIUtils.postData(API_URLS.VALIDATE_INVITATION_TOKEN + value);
+            validatedInvitation.then((data)=> {
+                if (!null == data.invitation.group || data.invitation.group == undefined){
+                    this.manageNotInvitationGroup();
                 } else {
-                    GroupActionCreators.joinGroup(data.invitation.group.id).then(() => {
-                        //this.context.router.push('/badges/groupId');
-                    }, (error) => {
-                        console.log(error);
-                        nekunoApp.alert('Sorry! We couldn´t join to this group');
-                    });
+                    this.consumeInvitation(value);
                 }
             }, (error) => {
-                this.setState({joining: false});
-                console.log(error);
-                nekunoApp.alert('Sorry! We couldn´t join to this group');
+                this.manageError(error);
             });
 
         });
+    }
+
+    consumeInvitation(value){
+        const invitation = APIUtils.postData(API_URLS.CONSUME_INVITATION.replace('{token}', value));
+        this.setState({joining: true});
+
+        invitation.then((data)=> {
+            this.setState({joining: false});
+            if (!null == data.invitation.group || data.invitation.group == undefined) {
+                this.manageNotInvitationGroup();
+            } else {
+                GroupActionCreators.joinGroup(data.invitation.group.id).then(() => {
+                    //this.context.router.push('/badges/groupId');
+                }, (error) => {
+                    this.manageError(error);
+
+                });
+            }
+        }, (error) => {
+            this.setState({joining: false});
+            this.manageError(error);
+        });
+    }
+
+    manageError(error) {
+        console.log(error);
+        nekunoApp.alert('Sorry! We couldn´t join to this group');
+    }
+
+    manageNotInvitationGroup() {
+        nekunoApp.alert('This invitation is of no group');
     }
 
     render() {
@@ -156,6 +177,7 @@ GroupPage.defaultProps = {
         join          : 'Unlock badge',
         joining       : 'Unlocking badge',
         enterToken    : 'BADGE CODE',
-        enterTokenText: 'Enter the badge code'
+        enterTokenText: 'Enter the badge code',
+        tokenNoBadge  : 'This token has no related badge'
     }
 };

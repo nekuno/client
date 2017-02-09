@@ -378,7 +378,7 @@ export default {
         title                 : 'Share now with your friends and followers!',
         text                  : 'Discover the most compatibles sharing your profile url',
         copyLink              : 'Copy profile url',
-        compatibilityCheckWith: 'Check your compatibility with %username%',
+        compatibilityCheckWith: 'Discover your compatibility with %username%',
         copyToClipboard       : 'Copy to clipboard: Ctrl+C, Enter',
         shareError            : 'An error occurred sending the link.'
     },

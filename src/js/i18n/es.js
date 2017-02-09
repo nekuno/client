@@ -381,7 +381,7 @@ export default {
         title                 : '¡Compárate ya con tus amigos y seguidores!',
         text                  : 'Descubre a los más compatibles compartiendo la url de tu perfil',
         copyLink              : 'Copiar url de perfil',
-        compatibilityCheckWith: 'Comprueba tu compatibilidad con %username%',
+        compatibilityCheckWith: 'Descubre tu compatibilidad con %username%',
         copyToClipboard       : 'Copiar al portapapeles: Ctrl+C, Enter',
         shareError            : 'Ha ocurrido un error compartiendo el enlace.'
     },

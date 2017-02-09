@@ -31,11 +31,12 @@ export default class LastMessage extends Component {
         let createdAt = message.createdAt;
         let imageSrc = message.user.id === message.user_from.id ? message.user_to.photo.thumbnail.medium : message.user_from.photo.thumbnail.medium;
         let mine = message.user.id === message.user_from.id;
+        let slug = mine ? message.user_to.slug : message.user_from.slug;
         let style = readed || mine ? {} : {fontWeight: 'bold', color: '#000'};
 
         return (
             <div className="notification">
-                <Link to={`/conversations/${message.user_from.slug}`}>
+                <Link to={`/conversations/${slug}`}>
                     <div className="notification-picture">
                         <img src={imageSrc}/>
                         {online ? <div className="status-online">Online</div> : ''}

@@ -1,9 +1,5 @@
-import Url from 'url';
-import request from 'request';
-import Bluebird from 'bluebird';
 import { API_URLS } from '../constants/Constants';
 import * as APIUtils from '../utils/APIUtils';
-import * as ThreadActionCreators from '../actions/ThreadActionCreators';
 
 class AuthService {
 
@@ -24,9 +20,10 @@ class AuthService {
 
     register(user, profile, token, oauth) {
         user.oauth = oauth;
-        return APIUtils.postData(API_URLS.REGISTER.replace('{token}', token), {
+        return APIUtils.postData(API_URLS.REGISTER, {
                 user: user,
-                profile: profile
+                profile: profile,
+                token: token,
             }).then((registeredUser) => {
                 return [registeredUser, this.resourceOwnerLogin(oauth.resourceOwner, oauth.oauthToken)];
             }).spread(function(user, jwt) {

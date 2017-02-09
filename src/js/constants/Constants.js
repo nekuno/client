@@ -10,7 +10,7 @@ export const API_URLS = {
     VALIDATE_USERNAME        : API_ROOT + 'users/available/',
     VALIDATE_USER            : API_ROOT + 'users/validate',
     VALIDATE_PROFILE         : API_ROOT + 'profile/validate',
-    REGISTER                 : API_ROOT + 'register/{token}',
+    REGISTER                 : API_ROOT + 'register',
     CONSUME_INVITATION       : API_ROOT + 'invitations/consume/{token}',
     INVITATIONS              : API_ROOT + 'invitations',
     REQUEST_GROUP            : API_ROOT + 'groups/{groupId}',

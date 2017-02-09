@@ -67,7 +67,7 @@ export default {
         photos         : 'Fotos',
         questions      : 'Respuestas',
         interests      : 'Intereses',
-        importingAlbums: 'Importando álbumes'
+        importingAlbums: 'Cargando álbumes'
 
     },
     OtherGalleryPage                 : {
@@ -77,7 +77,7 @@ export default {
     GalleryAlbumsPage                : {
         albums        : 'Álbumes de %resource%',
         empty         : 'No hay álbumes',
-        importingAlbum: 'Importando álbum'
+        importingAlbum: 'Cargando álbum'
     },
     GalleryAlbumPhotosPage           : {
         empty       : 'No hay fotos en este álbum',

@@ -66,7 +66,7 @@ export default {
         photos         : 'Photos',
         questions      : 'Answers',
         interests      : 'Interests',
-        importingAlbums: 'Importing albums'
+        importingAlbums: 'Loading albums'
     },
     OtherGalleryPage                 : {
         empty  : 'User has not imported any photo yet',
@@ -75,7 +75,7 @@ export default {
     GalleryAlbumsPage                : {
         albums        : '%resource% albums',
         empty         : 'There are no albums',
-        importingAlbum: 'Importing album'
+        importingAlbum: 'Loading album'
     },
     GalleryAlbumPhotosPage           : {
         empty       : 'There are no photos in this album',
@@ -102,7 +102,8 @@ export default {
         join          : 'Unlock badge',
         joining       : 'Unlocking badge',
         enterToken    : 'BADGE CODE',
-        enterTokenText: 'Enter the badge code'
+        enterTokenText: 'Enter the badge code',
+        tokenNoBadge  : 'This token has no related badge'
     },
     GroupStatsPage                   : {
         group        : 'Group',
@@ -376,7 +377,7 @@ export default {
         title                 : 'Share now with your friends and followers!',
         text                  : 'Discover the most compatibles sharing your profile url',
         copyLink              : 'Copy profile url',
-        compatibilityCheckWith: 'Check your compatibility with %username%',
+        compatibilityCheckWith: 'Discover your compatibility with %username%',
         copyToClipboard       : 'Copy to clipboard: Ctrl+C, Enter',
         shareError            : 'An error occurred sending the link.'
     },

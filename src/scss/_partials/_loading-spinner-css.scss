@@ -14,7 +14,7 @@
 }
 
 .rotation-animation {
-	animation: div-rotate 3s linear infinite;
+	animation: div-rotate 0.7s infinite steps(8);
 	transform: translateZ(0);
 	-webkit-transform: translateZ(0);
 }

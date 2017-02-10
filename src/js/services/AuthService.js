@@ -19,17 +19,11 @@ class AuthService {
     }
 
     register(user, profile, token, oauth) {
-        user.oauth = oauth;
         return APIUtils.postData(API_URLS.REGISTER, {
                 user: user,
                 profile: profile,
                 token: token,
-            }).then((registeredUser) => {
-                return [registeredUser, this.resourceOwnerLogin(oauth.resourceOwner, oauth.oauthToken)];
-            }).spread(function(user, jwt) {
-                console.log('jwt', jwt);
-                APIUtils.setJwt(jwt.jwt);
-                return user;
+                oauth: oauth
             }).catch((error) => {
                 throw error;
             });

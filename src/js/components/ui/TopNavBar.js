@@ -21,20 +21,20 @@ export default class TopNavBar extends Component {
 		onCenterLinkClickHandler     : PropTypes.func,
 		onRightLinkClickHandler      : PropTypes.func,
 		onSecondRightLinkClickHandler: PropTypes.func,
-		translucentBackground        : PropTypes.bool,
+		transparentBackground        : PropTypes.bool,
 	};
 
 	shouldComponentUpdate = shouldPureComponentUpdate;
 
 	render() {
-		const {leftMenuIcon, leftIcon, leftText, centerText, centerTextSize, bottomText, rightIcon, secondRightIcon, rightText, rightIconsWithoutCircle, onLeftLinkClickHandler, onCenterLinkClickHandler, onRightLinkClickHandler, onSecondRightLinkClickHandler, translucentBackground} = this.props;
-		const navBarClass = translucentBackground ? 'navbar translucent-background-navbar' : 'navbar';
+		const {leftMenuIcon, leftIcon, leftText, centerText, centerTextSize, bottomText, rightIcon, secondRightIcon, rightText, rightIconsWithoutCircle, onLeftLinkClickHandler, onCenterLinkClickHandler, onRightLinkClickHandler, onSecondRightLinkClickHandler, transparentBackground} = this.props;
+		const navBarClass = transparentBackground ? 'navbar transparent-background-navbar' : 'navbar';
 		const navBarInnerClass = secondRightIcon ? 'two-right-icons-navbar navbar-inner' : 'navbar-inner';
 		return (
 			<div className={navBarClass}>
 				<div id="navbar-inner" className={navBarInnerClass}>
 					<div className="row">
-						{leftMenuIcon ? <TopLeftMenuLink /> : <TopLeftLink icon={leftIcon} wrapIcon={translucentBackground} text={leftText} onClickHandler={onLeftLinkClickHandler}/>}
+						{leftMenuIcon ? <TopLeftMenuLink /> : <TopLeftLink icon={leftIcon} wrapIcon={transparentBackground} text={leftText} onClickHandler={onLeftLinkClickHandler}/>}
 						<RegularTopTitle text={centerText} textSize={centerTextSize} bottomText={bottomText} onClickHandler={onCenterLinkClickHandler}/>
 						<TopRightLink icon={rightIcon} secondIcon={secondRightIcon} text={rightText} iconsWithoutCircle={rightIconsWithoutCircle} onClickHandler={onRightLinkClickHandler} onSecondIconClickHandler={onSecondRightLinkClickHandler} />
 					</div>

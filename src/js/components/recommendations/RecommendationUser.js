@@ -92,7 +92,6 @@ export default class RecommendationUser extends Component {
         const defaultSrc = 'img/no-img/big.jpg';
         let imgSrc = recommendation.photo ? recommendation.photo.thumbnail.big : defaultSrc;
         let ownImgSrc = ownPicture ? ownPicture : defaultSrc;
-        const slug = recommendation.slug ? recommendation.slug : encodeURI(recommendation.username.toLowerCase());
 
         return (
             <div className="swiper-slide">
@@ -132,8 +131,8 @@ export default class RecommendationUser extends Component {
                         <OtherProfileData matching={recommendation.matching}
                                           similarity={recommendation.similarity} stats={stats} ownImage={ownImgSrc}
                                           currentImage={imgSrc}
-                                          interestsUrl={`/users/${slug}/other-interests`}
-                                          questionsUrl={`/users/${slug}/other-questions`}
+                                          interestsUrl={`/users/${recommendation.slug}/other-interests`}
+                                          questionsUrl={`/users/${recommendation.slug}/other-questions`}
                                           userId={userId}
                                           otherUserId={recommendation.id}
                         />

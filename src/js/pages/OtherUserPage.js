@@ -61,15 +61,7 @@ function initPhotosSwiper() {
         return null;
     }
     return nekunoApp.swiper('#photos-swiper-container', {
-        effect          : 'coverflow',
         slidesPerView   : 'auto',
-        coverflow       : {
-            rotate      : 30,
-            stretch     : 0,
-            depth       : 100,
-            modifier    : 1,
-            slideShadows: false
-        },
         centeredSlides  : true,
         paginationHide: false,
         paginationClickable: true,
@@ -259,7 +251,7 @@ export default class OtherUserPage extends Component {
 
         return (
             <div className="views">
-                <TopNavBar leftIcon={'left-arrow'} translucentBackground={true}/>
+                <TopNavBar leftIcon={'left-arrow'} transparentBackground={true}/>
                 {otherUser && profile && profileWithMetadata && ownProfile && ownProfile.orientation ?
                     <ToolBar links={[
                         {'url': `/profile/${params.slug}`, 'text': strings.about},

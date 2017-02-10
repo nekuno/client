@@ -14,7 +14,7 @@ export default class ShareProfileBanner extends Component {
 
     onShare() {
         const {user, strings} = this.props;
-        const url = SHARED_USER_URL.replace('{slug}', user.slug || encodeURI(user.usernameCanonical));
+        const url = SHARED_USER_URL.replace('{slug}', user.slug);
         if (window.cordova) {
             var options = {
                 subject: strings.compatibilityCheckWith.replace('%username%', user.username), // fi. for email

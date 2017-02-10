@@ -5,12 +5,9 @@
 
 .navbar, .subnavbar, #bottom-toolbar.toolbar, #messages-toolbar.toolbar {
 	background-color: $dark-purple;
-
 	color: #fff;
-	&.translucent-background-navbar {
+	&.transparent-background-navbar {
 		background-color: transparent;
-		background: -prefix-linear-gradient(top, #222, transparent);
-		background: linear-gradient(to bottom, #222, transparent);
 	}
 
 	#navbar-inner {

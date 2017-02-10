@@ -39,6 +39,10 @@ class AuthService {
         return APIUtils.postData(API_URLS.CONNECT_ACCOUNT.replace('{resource}', resource), {oauthToken: accessToken, resourceId: resourceId, expireTime: expireTime, refreshToken: refreshToken});
     }
 
+    reConnect(resource, accessToken, resourceId, expireTime, refreshToken) {
+        return APIUtils.putData(API_URLS.CONNECT_ACCOUNT.replace('{resource}', resource), {oauthToken: accessToken, resourceId: resourceId, expireTime: expireTime, refreshToken: refreshToken});
+    }
+
 }
 
 export default new AuthService();

@@ -85,12 +85,14 @@ export const SOCIAL_NETWORKS = [
 
 export const FACEBOOK_ID = config.FACEBOOK_ID;
 export const FACEBOOK_SCOPE = config.FACEBOOK_SCOPE;
+export const FACEBOOK_PHOTOS_SCOPE = config.FACEBOOK_PHOTOS_SCOPE;
 
 export const TWITTER_ID = config.TWITTER_ID;
 export const TWITTER_SCOPE = config.TWITTER_SCOPE;
 
 export const GOOGLE_ID = config.GOOGLE_ID;
 export const GOOGLE_SCOPE = config.GOOGLE_SCOPE;
+export const GOOGLE_PHOTOS_SCOPE = config.GOOGLE_PHOTOS_SCOPE;
 
 export const SPOTIFY_ID = config.SPOTIFY_ID;
 export const SPOTIFY_SCOPE = config.SPOTIFY_SCOPE;

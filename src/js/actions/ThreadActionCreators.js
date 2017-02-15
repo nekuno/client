@@ -120,18 +120,6 @@ export function addPrevRecommendation(threadId) {
     dispatch(ActionTypes.ADD_PREV_RECOMMENDATIONS, {threadId});
 }
 
-export function requestRecommendations(userId) {
-    return requestThreads(userId).then(data => {
-            let threads = data.items;
-            threads.forEach((thread) => {
-                requestRecommendation(thread.id)
-            });
-        },
-        (error) => {
-            console.log(error);
-        });
-}
-
 export function recommendationsNext(threadId) {
     const nextUrl = RecommendationStore.getNextUrl(threadId);
     if (nextUrl) {

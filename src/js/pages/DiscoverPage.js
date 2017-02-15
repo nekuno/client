@@ -44,8 +44,8 @@ function getDisplayedThread(props) {
  */
 function requestData(props) {
     const userId = parseId(props.user);
-    const groupId = props.thread.groupId || null;
-    ThreadActionCreators.requestThreadPage(userId, groupId);
+    const groupId = props.params.groupId || null;
+    ThreadActionCreators.requestThreadPage(userId, parseInt(groupId));
     ThreadActionCreators.requestFilters();
     if (!groupId) {
         QuestionActionCreators.requestQuestions(userId);

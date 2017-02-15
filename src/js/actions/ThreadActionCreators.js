@@ -9,10 +9,13 @@ import ProfileStore from '../stores/ProfileStore';
 import FilterStore from '../stores/FilterStore';
 import LoginStore from '../stores/LoginStore';
 
-export function requestThreadPage(userId) {
+export function requestThreadPage(userId, groupId = null) {
     requestThreads(userId).then((action) => {
+        const existsDefault = action.items.some(item => !!item.default);
         action.items.forEach(item => {
-            this.requestRecommendation(item.id);
+            if ((groupId && groupId === item.groupId) || !groupId && !item.groupId && (item.default || !existsDefault)) {
+                this.requestRecommendation(item.id);
+            }
         });
     });
 }

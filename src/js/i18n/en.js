@@ -404,6 +404,9 @@ export default {
     ThreadToolBar                    : {
         next: 'Next'
     },
+    MessagesToolBar                    : {
+        maxLengthIs: 'Maximum message length is '
+    },
     CardContent                      : {
         like           : 'Like',
         unlike         : 'Remove',

@@ -407,6 +407,9 @@ export default {
     ThreadToolBar                    : {
         next: 'Siguiente'
     },
+    MessagesToolBar                    : {
+        maxLengthIs: 'La máxima longitud del mensaje es  '
+    },
     CardContent                      : {
         like           : 'Me interesa',
         unlike         : 'Quitar',

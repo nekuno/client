@@ -131,3 +131,5 @@ export const ORIGIN_CONTEXT = {
     OWN_INTERESTS_PAGE  : 'ownInterestsPage',
     OTHER_USER_PAGE     : 'otherUserPage',
 };
+
+export const MAX_MESSAGES_LENGTH = 1024;

@@ -62,6 +62,11 @@ gulp.task('build-vendor-js', function() {
         .pipe(connect.reload());
 });
 
+gulp.task('build-hello-js', function() {
+    return gulp.src('./src/js/vendor/hello.js')
+        .pipe(gulp.dest('www/'));
+});
+
 gulp.task('build-js', function() {
     return browserify('./src/js/index.js')
         .transform(babelify)
@@ -99,6 +104,6 @@ gulp.task('serve', function() {
     });
 });
 
-gulp.task('build', ['copy', 'fonts', 'assets', 'images', 'sass', 'build-js', 'build-vendor-js']);
+gulp.task('build', ['copy', 'fonts', 'assets', 'images', 'sass', 'build-js', 'build-vendor-js', 'build-hello-js']);
 gulp.task('release', ['minify-js', 'minify-css']);
 gulp.task('dev', ['build', 'serve', 'watch']);

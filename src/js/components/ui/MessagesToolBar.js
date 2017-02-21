@@ -1,12 +1,17 @@
 import React, { PropTypes, Component } from 'react';
+import { MAX_MESSAGES_LENGTH } from '../../constants/Constants';
+import translate from '../../i18n/Translate';
 
+@translate('MessagesToolBar')
 export default class MessagesToolBar extends Component {
 
     static propTypes = {
         placeholder   : PropTypes.string.isRequired,
         text          : PropTypes.string.isRequired,
         onClickHandler: PropTypes.func.isRequired,
-        onFocusHandler: PropTypes.func.isRequired
+        onFocusHandler: PropTypes.func.isRequired,
+        // Injected by @translate:
+        strings    : PropTypes.object
     };
 
     constructor(props) {
@@ -14,8 +19,12 @@ export default class MessagesToolBar extends Component {
         this.handleClick = this.handleClick.bind(this);
         this.handleFocus = this.handleFocus.bind(this);
         this._onKeyDown = this._onKeyDown.bind(this);
+        this._onKeyUp = this._onKeyUp.bind(this);
 
         this.myMessagebar = {};
+        this.state = {
+            disable: false
+        };
     }
 
     componentDidMount() {
@@ -29,7 +38,13 @@ export default class MessagesToolBar extends Component {
     }
 
     handleClick() {
+        const {strings} = this.props;
         let text = this.refs.textarea.value.trim();
+        if (text.length > MAX_MESSAGES_LENGTH) {
+            nekunoApp.alert(strings.maxLengthIs + MAX_MESSAGES_LENGTH);
+            this.setState({disable: true});
+            return;
+        }
         if (text) {
             this.props.onClickHandler(text);
         }
@@ -41,28 +56,44 @@ export default class MessagesToolBar extends Component {
     }
 
     _onKeyDown(event) {
-        let ENTER_KEY_CODE = 13;
+        const ENTER_KEY_CODE = 13;
         if (event.keyCode === ENTER_KEY_CODE) {
             event.preventDefault();
             this.handleClick();
         }
     }
 
-    render() {
-
-        const {placeholder, text} = this.props;
-
-        return (
-            <div className="toolbar messagebar">
-                <div className="toolbar-inner">
-                    <textarea placeholder={placeholder} ref="textarea" onKeyDown={this._onKeyDown} onFocus={this.handleFocus}/>
-                    <a className="link" onClick={this.handleClick}>{text}</a>
-                </div>
-            </div>
-        );
+    _onKeyUp() {
+        const {disable} = this.state;
+        const {strings} = this.props;
+        let text = this.refs.textarea.value.trim();
+        if (text.length > MAX_MESSAGES_LENGTH && disable === false) {
+            nekunoApp.alert(strings.maxLengthIs + MAX_MESSAGES_LENGTH);
+            this.setState({disable: true});
+        } else if (text.length <= MAX_MESSAGES_LENGTH && disable === true) {
+            this.setState({disable: false});
+        }
     }
 
     onClickHandler() {
         this.props.onClickHandler();
     }
+
+    render() {
+        const {placeholder, text} = this.props;
+        return (
+            <div className="toolbar messagebar">
+                <div className="toolbar-inner">
+                    <textarea placeholder={placeholder} ref="textarea" onKeyDown={this._onKeyDown} onKeyUp={this._onKeyUp} onFocus={this.handleFocus}/>
+                    <a className="link" onClick={this.handleClick} disabled={this.state.disable ? "disabled" : ""} style={this.state.disable ? {color: "#F44336"} : {}}>{text}</a>
+                </div>
+            </div>
+        );
+    }
 }
+
+MessagesToolBar.defaultProps = {
+    strings: {
+        maxLengthIs: 'Maximum message length is '
+    }
+};

@@ -9,10 +9,13 @@ import ProfileStore from '../stores/ProfileStore';
 import FilterStore from '../stores/FilterStore';
 import LoginStore from '../stores/LoginStore';
 
-export function requestThreadPage(userId) {
+export function requestThreadPage(userId, groupId = null) {
     requestThreads(userId).then((action) => {
+        const existsDefault = action.items.some(item => !!item.default);
         action.items.forEach(item => {
-            this.requestRecommendation(item.id);
+            if ((groupId && groupId === item.groupId) || !groupId && !item.groupId && (item.default || !existsDefault)) {
+                this.requestRecommendation(item.id);
+            }
         });
     });
 }
@@ -43,14 +46,6 @@ export function createThread(userId, data) {
         success: ActionTypes.CREATE_THREAD_SUCCESS,
         failure: ActionTypes.CREATE_THREAD_ERROR
     }, {userId, data})
-}
-
-export function createDefaultThreads() {
-    return dispatchAsync(UserAPI.createDefaultThreads(), {
-        request: ActionTypes.CREATE_DEFAULT_THREADS,
-        success: ActionTypes.CREATE_DEFAULT_THREADS_SUCCESS,
-        failure: ActionTypes.CREATE_DEFAULT_THREADS_ERROR
-    })
 }
 
 export function updateThread(threadId, data) {
@@ -123,18 +118,6 @@ export function requestRecommendation(threadId, url = null) {
 
 export function addPrevRecommendation(threadId) {
     dispatch(ActionTypes.ADD_PREV_RECOMMENDATIONS, {threadId});
-}
-
-export function requestRecommendations(userId) {
-    return requestThreads(userId).then(data => {
-            let threads = data.items;
-            threads.forEach((thread) => {
-                requestRecommendation(thread.id)
-            });
-        },
-        (error) => {
-            console.log(error);
-        });
 }
 
 export function recommendationsNext(threadId) {

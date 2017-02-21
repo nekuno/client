@@ -85,10 +85,6 @@ export default keyMirror({
     CREATE_THREAD_SUCCESS: null,
     CREATE_THREAD_ERROR  : null,
 
-    CREATE_DEFAULT_THREADS        : null,
-    CREATE_DEFAULT_THREADS_SUCCESS: null,
-    CREATE_DEFAULT_THREADS_ERROR  : null,
-
     UPDATE_THREAD        : null,
     UPDATE_THREAD_SUCCESS: null,
     UPDATE_THREAD_ERROR  : null,

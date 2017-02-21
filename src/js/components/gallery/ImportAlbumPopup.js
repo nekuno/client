@@ -1,5 +1,5 @@
 import React, { PropTypes, Component } from 'react';
-import { FACEBOOK_SCOPE, GOOGLE_SCOPE } from '../../constants/Constants';
+import { FACEBOOK_PHOTOS_SCOPE, GOOGLE_PHOTOS_SCOPE } from '../../constants/Constants';
 import translate from '../../i18n/Translate';
 
 @translate('ImportAlbumPopup')
@@ -26,10 +26,10 @@ export default class ImportAlbumPopup extends Component {
                     <div className="title">{strings.importAlbum}</div>
                     <br />
                     <div className="social-icons-row-wrapper social-box">
-                        <div className="icon-wrapper text-facebook" onClick={this.onResourceClick.bind(this, 'facebook', FACEBOOK_SCOPE)}>
+                        <div className="icon-wrapper text-facebook" onClick={this.onResourceClick.bind(this, 'facebook', FACEBOOK_PHOTOS_SCOPE)}>
                             <span className="icon icon-facebook"></span>
                         </div>
-                        <div className="icon-wrapper text-google" onClick={this.onResourceClick.bind(this, 'google', GOOGLE_SCOPE)}>
+                        <div className="icon-wrapper text-google" onClick={this.onResourceClick.bind(this, 'google', GOOGLE_PHOTOS_SCOPE)}>
                             <span className="icon icon-google"></span>
                         </div>
                     </div>

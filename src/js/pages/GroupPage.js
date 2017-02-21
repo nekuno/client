@@ -25,7 +25,7 @@ function requestData(props) {
     const userId = parseId(user);
 
     UserActionCreators.requestStats(userId);
-    ThreadActionCreators.requestThreadPage();
+    ThreadActionCreators.requestThreads();
 }
 
 /**

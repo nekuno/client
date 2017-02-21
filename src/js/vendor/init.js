@@ -75,7 +75,7 @@ api.facebook.get['me/album'] = api.facebook.get['me/album'] + ',images';
 let twitterWrap = api.twitter.wrap.me;
 api.twitter.wrap.me = function(o) {
     let res = twitterWrap(o);
-    res.picture = res.thumbnail.replace('_normal', '');
+    res.picture = res.thumbnail ? res.thumbnail.replace('_normal', '') : null;
     res.username = res.screen_name;
     return res;
 };

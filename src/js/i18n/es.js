@@ -39,7 +39,6 @@ export default {
         title1         : 'Descubre contenidos de los temas que más te interesan',
         title2         : 'Conecta sólo con las personas compatibles contigo',
         title3         : 'Tú decides la información que compartes',
-        update         : 'Actualizar',
         login          : 'Entrar con Facebook',
         hasInvitation  : '¿Tienes una invitación?',
         register       : 'Regístrate',
@@ -407,6 +406,9 @@ export default {
     },
     ThreadToolBar                    : {
         next: 'Siguiente'
+    },
+    MessagesToolBar                    : {
+        maxLengthIs: 'La máxima longitud del mensaje es  '
     },
     CardContent                      : {
         like           : 'Me interesa',

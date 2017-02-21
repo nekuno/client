@@ -77,10 +77,6 @@ export function createThread(data, url='threads') {
     return postData(url, data);
 }
 
-export function createDefaultThreads(url = 'threads/default') {
-    return postData(url);
-}
-
 export function updateThread(threadId, data, url= `threads/${threadId}`) {
     return putData(url, data);
 }

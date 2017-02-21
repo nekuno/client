@@ -121,7 +121,7 @@ export default new class LoginActionCreators {
 
     register(user, profile, token, oauth) {
         let promise = AuthService.register(user, profile, token, oauth);
-        dispatchAsync(promise, {
+        return dispatchAsync(promise, {
             request: ActionTypes.REQUEST_REGISTER_USER,
             success: ActionTypes.REQUEST_REGISTER_USER_SUCCESS,
             failure: ActionTypes.REQUEST_REGISTER_USER_ERROR
@@ -130,6 +130,8 @@ export default new class LoginActionCreators {
                 return this.loginUserByResourceOwner(oauth.resourceOwner, oauth.oauthToken);
             }, (error) => {
                 console.error(error);
+                nekunoApp.alert('Error registering. Please contact enredos@nekuno.com');
+                throw error;
             });
     }
 

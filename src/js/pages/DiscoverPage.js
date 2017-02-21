@@ -44,9 +44,12 @@ function getDisplayedThread(props) {
  */
 function requestData(props) {
     const userId = parseId(props.user);
-    ThreadActionCreators.requestThreadPage(userId);
+    const groupId = props.params.groupId || null;
+    ThreadActionCreators.requestThreadPage(userId, parseInt(groupId));
     ThreadActionCreators.requestFilters();
-    QuestionActionCreators.requestQuestions(userId);
+    if (!groupId) {
+        QuestionActionCreators.requestQuestions(userId);
+    }
     UserActionCreators.requestMetadata();
 }
 
@@ -129,7 +132,7 @@ export default class DiscoverPage extends Component {
         };
     }
 
-    componentWillMount() {
+    componentDidMount() {
         requestData(this.props);
     }
 

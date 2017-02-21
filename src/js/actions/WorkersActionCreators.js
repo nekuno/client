@@ -61,7 +61,7 @@ export default {
         dispatch(ActionTypes.WORKERS_AFFINITY_FINISH, data);
         if (LoginStore.isLoggedIn()) {
             let userId = LoginStore.user.id;
-            ThreadActionCreators.requestRecommendations(userId);
+            ThreadActionCreators.requestThreadPage(userId);
         }
     },
 

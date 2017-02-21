@@ -1,13 +1,8 @@
 import React, { PropTypes, Component } from 'react';
 import { SOCIAL_NETWORKS, SOCIAL_NETWORKS_NAMES } from '../constants/Constants';
 import selectn from 'selectn';
-import FullWidthButton from '../components/ui/FullWidthButton';
 import FacebookButton from '../components/ui/FacebookButton';
 import EmptyMessage from '../components/ui/EmptyMessage';
-import moment from 'moment';
-import 'moment/locale/es';
-import { LAST_RELEASE_DATE } from '../constants/Constants';
-import { getVersion } from '../utils/APIUtils';
 import connectToStores from '../utils/connectToStores';
 import translate from '../i18n/Translate';
 import LoginActionCreators from '../actions/LoginActionCreators';
@@ -62,7 +57,6 @@ export default class HomePage extends Component {
 
         this.promise = null;
         this.state = {
-            needsUpdating  : false,
             loginUser: selectn('location.query.autoLogin', props),
             registeringUser: null,
         };
@@ -75,12 +69,6 @@ export default class HomePage extends Component {
             const resource = facebookNetwork.resourceOwner;
             const scope = facebookNetwork.scope;
             this.loginByResourceOwner(resource, scope);
-        } else {
-            this.promise = getVersion().then((response) => {
-                var lastVersion = moment(response, 'DD [de] MMMM [de] YYYY');
-                var thisVersion = moment(LAST_RELEASE_DATE, 'DD [de] MMMM [de] YYYY');
-                this.setState({needsUpdating: lastVersion > thisVersion});
-            });
         }
     }
 
@@ -122,6 +110,10 @@ export default class HomePage extends Component {
                             resourceId   : SocialNetworkService.getResourceId(resource),
                             expireTime   : SocialNetworkService.getExpireTime(resource),
                             refreshToken : SocialNetworkService.getRefreshToken(resource)
+                        }).catch(() => {
+                            this.setState({
+                                registeringUser: false
+                            });
                         });
 
                         console.log(error);
@@ -180,27 +172,21 @@ export default class HomePage extends Component {
                         </div>
                         <div className="swiper-pagination-and-button">
                             <div className="swiper-pagination"></div>
-                            { this.state.needsUpdating ?
-                                <FullWidthButton onClick={() => window.location = 'https://play.google.com/store/apps/details?id=com.nekuno'}>
-                                    {strings.update}
-                                </FullWidthButton>
-                                :
-                                <div>
-                                    <FacebookButton onClickHandler={this.loginByResourceOwner} text={strings.login}/>
-                                    <div className="register-sub-title privacy-terms-text">
-                                        <p dangerouslySetInnerHTML={{__html: strings.privacy}}/>
-                                    </div>
-                                    {/*<div className="register-text-block">*/}
-                                    {/*<div onClick={this.goToRegisterPage} className="register-text">*/}
-                                    {/*<span>{strings.hasInvitation}</span> <a href="javascript:void(0)">{strings.register}</a>*/}
-                                    {/*</div>*/}
-                                    {/*/!*Uncomment to enable login as guest*/}
-                                    {/*<div onClick={this.loginAsGuest} className="register-text">*/}
-                                    {/*<span>{strings.wantGuest}</span> <a href="javascript:void(0)">{strings.asGuest}</a>*/}
-                                    {/*</div>*!/*/}
-                                    {/*</div>*/}
+                            <div>
+                                <FacebookButton onClickHandler={this.loginByResourceOwner} text={strings.login}/>
+                                <div className="register-sub-title privacy-terms-text">
+                                    <p dangerouslySetInnerHTML={{__html: strings.privacy}}/>
                                 </div>
-                            }
+                                {/*<div className="register-text-block">*/}
+                                {/*<div onClick={this.goToRegisterPage} className="register-text">*/}
+                                {/*<span>{strings.hasInvitation}</span> <a href="javascript:void(0)">{strings.register}</a>*/}
+                                {/*</div>*/}
+                                {/*/!*Uncomment to enable login as guest*/}
+                                {/*<div onClick={this.loginAsGuest} className="register-text">*/}
+                                {/*<span>{strings.wantGuest}</span> <a href="javascript:void(0)">{strings.asGuest}</a>*/}
+                                {/*</div>*!/*/}
+                                {/*</div>*/}
+                            </div>
                         </div>
                     </div>
                 }
@@ -215,7 +201,6 @@ HomePage.defaultProps = {
         title1         : 'Discover contents of the topics that interest you',
         title2         : 'Connect only with most compatible people with you',
         title3         : 'You decide the information you share',
-        update         : 'Update',
         login          : 'Login with Facebook',
         hasInvitation  : 'Do you have an invitation?',
         register       : 'Register',

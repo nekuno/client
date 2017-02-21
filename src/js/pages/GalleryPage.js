@@ -102,9 +102,7 @@ export default class GalleryPage extends Component {
         nekunoApp.closeModal('.popup-import-album');
         const force = WorkerStore.isConnected(resource) ? null : true;
         SocialNetworkService.login(resource, scope, force).then(() => {
-            if (!WorkerStore.isConnected(resource)) {
-                ConnectActionCreators.connect(resource, SocialNetworkService.getAccessToken(resource), SocialNetworkService.getResourceId(resource), SocialNetworkService.getExpireTime(resource), SocialNetworkService.getRefreshToken(resource));
-            }
+            ConnectActionCreators.connect(resource, SocialNetworkService.getAccessToken(resource), SocialNetworkService.getResourceId(resource), SocialNetworkService.getExpireTime(resource), SocialNetworkService.getRefreshToken(resource));
             GalleryAlbumActionCreators.getAlbums(resource, scope).then(() => {
                 window.setTimeout(() => {
                     this.context.router.push('gallery-albums')

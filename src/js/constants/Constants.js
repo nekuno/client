@@ -10,8 +10,7 @@ export const API_URLS = {
     VALIDATE_USERNAME        : API_ROOT + 'users/available/',
     VALIDATE_USER            : API_ROOT + 'users/validate',
     VALIDATE_PROFILE         : API_ROOT + 'profile/validate',
-    REGISTER_USER            : API_ROOT + 'users',
-    REGISTER_PROFILE         : API_ROOT + 'profile',
+    REGISTER                 : API_ROOT + 'register',
     CONSUME_INVITATION       : API_ROOT + 'invitations/consume/{token}',
     INVITATIONS              : API_ROOT + 'invitations',
     REQUEST_GROUP            : API_ROOT + 'groups/{groupId}',
@@ -21,7 +20,6 @@ export const API_URLS = {
     REQUEST_GROUP_MEMBERS    : API_ROOT + 'groups/{groupId}/members',
     REQUEST_GROUP_CONTENTS   : API_ROOT + 'groups/{groupId}/contents',
     CONNECT_ACCOUNT          : API_ROOT + 'tokens/{resource}?extend',
-    CREATE_DEFAULT_THREADS   : API_ROOT + 'threads/default',
     USER_DATA_STATUS         : API_ROOT + 'data/status',
     CONTENT_TAG_SUGGESTIONS  : API_ROOT + 'recommendations/content/tags?search={search}&limit=4',
     PROFILE_TAG_SUGGESTIONS  : API_ROOT + 'profile/tags/{type}?search={search}&limit=4',
@@ -87,19 +85,20 @@ export const SOCIAL_NETWORKS = [
 
 export const FACEBOOK_ID = config.FACEBOOK_ID;
 export const FACEBOOK_SCOPE = config.FACEBOOK_SCOPE;
+export const FACEBOOK_PHOTOS_SCOPE = config.FACEBOOK_PHOTOS_SCOPE;
 
 export const TWITTER_ID = config.TWITTER_ID;
 export const TWITTER_SCOPE = config.TWITTER_SCOPE;
 
 export const GOOGLE_ID = config.GOOGLE_ID;
 export const GOOGLE_SCOPE = config.GOOGLE_SCOPE;
+export const GOOGLE_PHOTOS_SCOPE = config.GOOGLE_PHOTOS_SCOPE;
 
 export const SPOTIFY_ID = config.SPOTIFY_ID;
 export const SPOTIFY_SCOPE = config.SPOTIFY_SCOPE;
 
 export const TRACKER_ID_WEB = config.TRACKER_ID_WEB;
 export const TRACKER_ID_APP = config.TRACKER_ID_APP;
-export const LAST_RELEASE_DATE = config.LAST_RELEASE_DATE;
 export const INSTANT_HOST = config.INSTANT_HOST;
 
 export const REQUIRED_REGISTER_USER_FIELDS = [
@@ -132,3 +131,5 @@ export const ORIGIN_CONTEXT = {
     OWN_INTERESTS_PAGE  : 'ownInterestsPage',
     OTHER_USER_PAGE     : 'otherUserPage',
 };
+
+export const MAX_MESSAGES_LENGTH = 1024;

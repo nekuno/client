@@ -30,6 +30,8 @@ export default class CardIcons extends Component {
                             return this.renderFacebookLinkIcons(index);
                         case 'FacebookVideo':
                             return this.renderFacebookVideoIcons(index);
+                        case 'FacebookCreator':
+                            return this.renderFacebookCreatorIcons(index);
                     }
                 })}
             </div>
@@ -92,6 +94,15 @@ export default class CardIcons extends Component {
         return (
             <div className="absolute-wrapper" key={index + 1}>
                 <div className="icon-wrapper"><span className="icon-video"></span></div>
+                <div className="icon-wrapper facebook-icon-wrapper"><span className="icon-facebook"></span></div>
+            </div>
+        );
+    };
+
+    renderFacebookCreatorIcons = function(index) {
+        return (
+            <div className="absolute-wrapper" key={index + 1}>
+                <div className="icon-wrapper"><span className="icon-channels"></span></div>
                 <div className="icon-wrapper facebook-icon-wrapper"><span className="icon-facebook"></span></div>
             </div>
         );

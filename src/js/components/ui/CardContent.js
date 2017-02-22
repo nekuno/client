@@ -159,6 +159,10 @@ export default class CardContent extends Component {
                 realTypes.push('FacebookVideo');
                 const index = realTypes.findIndex(type => type === 'Video');
                 realTypes.splice(index, 1);
+            } else if (realTypes.some(type => type === 'Creator')) {
+                realTypes.push('FacebookCreator');
+                const index = realTypes.findIndex(type => type === 'Creator');
+                realTypes.splice(index, 1);
             } else {
                 realTypes.push('FacebookLink');
             }

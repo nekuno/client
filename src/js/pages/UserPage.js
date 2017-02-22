@@ -98,7 +98,7 @@ export default class UserPage extends Component {
                     <div className="page user-page">
                         {profile && metadata && stats ?
                             <div id="page-content">
-                                <User user={user} profile={profile}/>
+                                <User user={user} profile={profile} onClick={() => this.context.router.push(`/gallery`)}/>
                                 <div className="user-interests">
                                     <div className="number">
                                         {stats.numberOfContentLikes || 0}

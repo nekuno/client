@@ -13,6 +13,7 @@ import * as UserActionCreators from '../actions/UserActionCreators';
 import UserDataStatusActionCreators from '../actions/UserDataStatusActionCreators';
 import RouterActionCreators from '../actions/RouterActionCreators';
 import LocalStorageService from '../services/LocalStorageService';
+import AnalyticsService from '../services/AnalyticsService';
 
 export default new class LoginActionCreators {
 
@@ -59,6 +60,9 @@ export default new class LoginActionCreators {
             failure: ActionTypes.REQUEST_LOGIN_USER_ERROR
         }, {resourceOwner, accessToken})
             .then(() => {
+                const userId = LoginStore.user.id;
+                AnalyticsService.setUserId(userId);
+                AnalyticsService.trackEvent('Login', resourceOwner + ' login', document.referrer);
                 if (!RouterStore.hasNextTransitionPath()) {
                     RouterActionCreators.storeRouterTransitionPath('/discover');
                 }
@@ -126,7 +130,9 @@ export default new class LoginActionCreators {
             success: ActionTypes.REQUEST_REGISTER_USER_SUCCESS,
             failure: ActionTypes.REQUEST_REGISTER_USER_ERROR
         }, {user, profile, token, oauth})
-            .then(() => {
+            .then((user) => {
+                AnalyticsService.setUserId(user.id);
+                AnalyticsService.trackEvent('Registration', 'Registration success', document.referrer);
                 return this.loginUserByResourceOwner(oauth.resourceOwner, oauth.oauthToken);
             }, (error) => {
                 console.error(error);

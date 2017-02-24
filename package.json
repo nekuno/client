@@ -17,6 +17,7 @@
     "framework7": "1.5.2",
     "history": "3.2.0",
     "invariant": "2.2.2",
+    "json-prune": "1.0.1",
     "jwt-decode": "1.4.0",
     "keymirror": "0.1.1",
     "moment": "2.16.0",

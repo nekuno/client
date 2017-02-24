@@ -13,6 +13,6 @@ export default {
     GOOGLE_PHOTOS_SCOPE  : 'email,profile,openid,https://www.googleapis.com/auth/youtube.readonly,offline_access,photos',
     SPOTIFY_ID           : 'e8c3557e29ad4974a1f41e93aeaf6e79',
     SPOTIFY_SCOPE        : 'user-read-private user-read-email playlist-read-private user-read-birthdate',
-    TRACKER_ID_WEB       : '',
-    TRACKER_ID_APP       : ''
+    TRACKER_ID_WEB       : 'UA-55709950-6',
+    TRACKER_ID_APP       : 'UA-55709950-7'
 }

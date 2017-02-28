@@ -257,7 +257,7 @@ export default class OtherUserPage extends Component {
                 <TopNavBar leftIcon={'left-arrow'} transparentBackground={true}/>
                 {otherUser && profile && profileWithMetadata && ownProfile && ownProfile.orientation ?
                     <ToolBar links={[
-                        {'url': `/profile/${params.slug}`, 'text': strings.about},
+                        {'url': `/p/${params.slug}`, 'text': strings.about},
                         {'url': `/users/${params.slug}/other-questions`, 'text': strings.questions},
                         {'url': `/users/${params.slug}/other-interests`, 'text': strings.interests}]} activeLinkIndex={0} arrowUpLeft={'13%'}/>
                     : null}

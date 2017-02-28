@@ -162,7 +162,7 @@ export default class DiscoverPage extends Component {
 
     goToProfile() {
         const {selectedUserSlug} = this.state;
-        this.context.router.push(`/profile/${selectedUserSlug}`);
+        this.context.router.push(`/p/${selectedUserSlug}`);
     }
 
     selectProfile(userSlug) {

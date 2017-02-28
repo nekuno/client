@@ -214,7 +214,7 @@ export default class OtherInterestsPage extends Component {
                 }
                 {otherUser ?
                     <ToolBar links={[
-                        {'url': `/profile/${params.slug}`, 'text': strings.about},
+                        {'url': `/p/${params.slug}`, 'text': strings.about},
                         {'url': `/users/${params.slug}/other-questions`, 'text': strings.questions},
                         {'url': `/users/${params.slug}/other-interests`, 'text': strings.interests}
                     ]} activeLinkIndex={2} arrowUpLeft={'83%'}/>

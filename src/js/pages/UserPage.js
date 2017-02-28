@@ -92,7 +92,7 @@ export default class UserPage extends Component {
             <div className="views">
                 <TopNavBar leftMenuIcon={true} centerText={strings.myProfile}/>
                 <ToolBar links={[
-                    {'url': '/profile', 'text': strings.aboutMe},
+                    {'url': `/p/${user.slug}`, 'text': strings.aboutMe},
                     {'url': '/gallery', 'text': strings.photos},
                     {'url': '/questions', 'text': strings.questions},
                     {'url': '/interests', 'text': strings.interests}]} activeLinkIndex={0} arrowUpLeft={'10%'}/>

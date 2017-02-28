@@ -71,7 +71,7 @@ export default class LeftPanel extends Component {
     handleGoClickProfile() {
         nekunoApp.closePanel();
         $$('.panel-left').once('closed', () => {
-            this.context.router.push(`/profile`);
+            this.context.router.push(`/p/${this.props.user.slug}`);
         });
     }
 

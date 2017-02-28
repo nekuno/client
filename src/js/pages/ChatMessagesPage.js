@@ -146,7 +146,7 @@ export default class ChatMessagesPage extends Component {
 
     goToProfilePage() {
         const {params} = this.props;
-        this.context.router.push(`profile/${params.slug}`)
+        this.context.router.push(`p/${params.slug}`)
     }
 
     render() {
@@ -160,7 +160,7 @@ export default class ChatMessagesPage extends Component {
                         { isGuest ? '' : <MessagesToolBar onClickHandler={this.sendMessageHandler} onFocusHandler={this.handleFocus} placeholder={strings.placeholder} text={strings.text}/> }
                         <div id="page-content" className="page-content notifications-content messages-content" ref="list">
                             {this.state.noMoreMessages ? <div className="daily-message-title">{strings.noMoreMessages}</div> : '' }
-                            <DailyMessages messages={messages} userLink={`profile/${params.slug}`}/>
+                            <DailyMessages messages={messages} userLink={`p/${params.slug}`}/>
                             <br />
                             <br />
                             <br />

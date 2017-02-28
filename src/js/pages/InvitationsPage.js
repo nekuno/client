@@ -109,6 +109,7 @@ export default class InvitationsPage extends Component {
                                                     :
                                                     invitation.invitation.consumedUserId && invitation.invitation.consumedUsername ?
                                                         <div className="invitation-consumed">
+                                                            {/* /profile/id is no longer available. brain must return slug and the route must be /p/slug */}
                                                             {strings.consumedBy}: <Link to={`profile/${invitation.invitation.consumedUserId}`}>{invitation.invitation.consumedUsername}</Link>
                                                         </div>
                                                         : null

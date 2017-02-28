@@ -24,7 +24,7 @@ export default {
         footer : 'Nekuno funciona principalmente sincronizando tus redes sociales; puedes estar tranquilo, no publicaremos nada sin tu permiso. Podrás elegir qué información suministras y qué redes sincronizas en todo momento.'
     },
     ConnectSocialNetworksPage        : {
-        top    : 'Conexión con RRSS',
+        top    : 'Redes Sociales',
         title  : 'Mejora las recomendaciones',
         excerpt: '¡Por fin tus datos trabajarán para ti! ¡Cuantos más intereses aportes, mejores recomendaciones obtendrás!',
         footer : 'Recuerda: tú tienes el control en todo momento, no publicaremos nada en tus redes sociales'

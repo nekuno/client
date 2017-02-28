@@ -132,4 +132,4 @@ export const ORIGIN_CONTEXT = {
     OTHER_USER_PAGE     : 'otherUserPage',
 };
 
-export const MAX_MESSAGES_LENGTH = 1024;
+export const MAX_MESSAGES_LENGTH = 3000;

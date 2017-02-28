@@ -27,6 +27,7 @@ import AnswerProfileFieldPage from './pages/AnswerProfileFieldPage';
 import UserPage from './pages/UserPage';
 import OtherUserPage from './pages/OtherUserPage';
 import SharedUserPage from './pages/SharedUserPage';
+import ProfilePage from './pages/ProfilePage';
 import DiscoverPage from './pages/DiscoverPage';
 import RecommendationPage from './pages/RecommendationPage';
 import InvitationsPage from './pages/InvitationsPage';
@@ -66,7 +67,7 @@ export default class Root extends Component {
                     <Route name="splash" path="/splash" component={HomePage}/>
                     <Route name="login" path="/login" component={LoginPage}/>
                     <Route name="register" path="/register" component={RegisterPage}/>
-                    <Route name="shared-user" path="/p/:slug" component={SharedUserPage}/>
+                    <Route name="shared-user" path="/p/:slug" component={ProfilePage}/>
 
                     <Route onEnter={requireAuth}>
                         <Route name="register-questions-landing" path="/register-questions-landing" component={RegisterQuestionsLandingPage}/>
@@ -88,8 +89,6 @@ export default class Root extends Component {
                         <Route name="answer-question" path="/answer-question/:questionId" component={AnswerQuestionPage}/>
                         <Route name="answer-question-next" path="/answer-question/next" component={AnswerQuestionPage}/>
                         <Route name="question-stats" path="/question-stats" component={QuestionStatsPage}/>
-                        <Route name="profile" path="/profile" component={UserPage}/>
-                        <Route name="other-profile" path="/profile/:slug" component={OtherUserPage}/>
                         <Route name="invitations" path="/invitations" component={InvitationsPage}/>
                         <Route name="discover" path="/discover" component={DiscoverPage}/>
                         <Route name="recommendations" path="/recommendations/:threadId" component={RecommendationPage}/>

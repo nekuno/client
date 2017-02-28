@@ -1,5 +1,4 @@
 import React, { PropTypes, Component } from 'react';
-import { SOCIAL_NETWORKS, SOCIAL_NETWORKS_NAMES } from '../constants/Constants';
 import FacebookButton from '../components/ui/FacebookButton';
 import EmptyMessage from '../components/ui/EmptyMessage';
 import Image from '../components/ui/Image';
@@ -10,7 +9,6 @@ import RouterActionCreators from '../actions/RouterActionCreators';
 import * as UserActionCreators from '../actions/UserActionCreators';
 import SocialNetworkService from '../services/SocialNetworkService';
 import LocaleStore from '../stores/LocaleStore';
-import LoginStore from '../stores/LoginStore';
 import UserStore from '../stores/UserStore';
 
 function requestData(props) {
@@ -62,7 +60,7 @@ export default class SharedUserPage extends Component {
 
     componentDidMount() {
         requestData(this.props);
-        setTimeout(() => RouterActionCreators.storeRouterTransitionPath(`profile/${this.props.params.slug}`), 0);
+        setTimeout(() => RouterActionCreators.storeRouterTransitionPath(`p/${this.props.params.slug}`), 0);
     }
 
     loginByResourceOwner(resource, scope) {

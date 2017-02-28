@@ -24,11 +24,13 @@ function requestData(props) {
     const {user} = props;
     const userId = parseId(user);
 
-    UserActionCreators.requestOwnUser();
-    UserActionCreators.requestOwnProfile(userId);
-    UserActionCreators.requestMetadata();
-    UserActionCreators.requestStats(userId);
-    ThreadActionCreators.requestFilters();
+    setTimeout(() => {
+        UserActionCreators.requestOwnUser();
+        UserActionCreators.requestOwnProfile(userId);
+        UserActionCreators.requestMetadata();
+        UserActionCreators.requestStats(userId);
+        ThreadActionCreators.requestFilters();
+    }, 0);
 }
 
 /**
@@ -74,7 +76,7 @@ export default class UserPage extends Component {
         router: PropTypes.object.isRequired
     };
 
-    componentWillMount() {
+    componentDidMount() {
         requestData(this.props);
     }
 

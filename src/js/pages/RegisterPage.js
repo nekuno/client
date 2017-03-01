@@ -90,7 +90,6 @@ export default class RegisterPage extends Component {
                 () => {
                     let user = SocialNetworkService.getUser(resource);
                     let profile = SocialNetworkService.getProfile(resource);
-                    user[resource + 'ID'] = SocialNetworkService.getResourceId(resource);
                     user.enabled = true;
                     profile.interfaceLanguage = interfaceLanguage;
                     profile.orientationRequired = false;
@@ -127,13 +126,9 @@ export default class RegisterPage extends Component {
     }
 
     _registerUser(user, profile, token, resource) {
-        LoginActionCreators.register(user, profile, token, {
-            resourceOwner: resource,
-            oauthToken   : SocialNetworkService.getAccessToken(resource),
-            resourceId   : SocialNetworkService.getResourceId(resource),
-            expireTime   : SocialNetworkService.getExpireTime(resource),
-            refreshToken : SocialNetworkService.getRefreshToken(resource)
-        });
+        const oauthData = SocialNetworkService.buildOauthData(resource);
+        LoginActionCreators.register(user, profile, token, oauthData);
+
         this.setState({
             registeringUser: true
         });

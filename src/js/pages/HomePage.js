@@ -99,21 +99,16 @@ export default class HomePage extends Component {
                         // User not present. Register user.
                         let user = SocialNetworkService.getUser(resource);
                         let profile = SocialNetworkService.getProfile(resource);
-                        user[resource + 'ID'] = SocialNetworkService.getResourceId(resource);
                         user.enabled = true;
                         profile.interfaceLanguage = interfaceLanguage;
                         profile.orientationRequired = false;
                         let token = 'join';
-                        LoginActionCreators.register(user, profile, token, {
-                            resourceOwner: resource,
-                            oauthToken   : SocialNetworkService.getAccessToken(resource),
-                            resourceId   : SocialNetworkService.getResourceId(resource),
-                            expireTime   : SocialNetworkService.getExpireTime(resource),
-                            refreshToken : SocialNetworkService.getRefreshToken(resource)
-                        }).catch(() => {
-                            this.setState({
-                                registeringUser: false
-                            });
+                        const oauthData = SocialNetworkService.buildOauthData(resource);
+                        LoginActionCreators.register(user, profile, token, oauthData)
+                            .catch(() => {
+                                this.setState({
+                                    registeringUser: false
+                                });
                         });
 
                         console.log(error);

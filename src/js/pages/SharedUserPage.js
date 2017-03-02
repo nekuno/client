@@ -70,7 +70,8 @@ export default class SharedUserPage extends Component {
                 this.setState({
                     loginUser: true
                 });
-                LoginActionCreators.loginUserByResourceOwner(resource, SocialNetworkService.getAccessToken(resource)).then(
+                const oauthData = SocialNetworkService.buildOauthData(resource);
+                LoginActionCreators.loginUserByResourceOwner(oauthData).then(
                     () => {
                         return null; // User is logged in
                     },
@@ -82,7 +83,6 @@ export default class SharedUserPage extends Component {
                         profile.interfaceLanguage = interfaceLanguage;
                         profile.orientationRequired = false;
                         let token = 'shared_user-' + sharedUser.id;
-                        const oauthData = SocialNetworkService.buildOauthData(resource);
                         LoginActionCreators.register(user, profile, token, oauthData)
                             .catch(() => {
                                 this.setState({

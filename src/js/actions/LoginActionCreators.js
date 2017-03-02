@@ -52,8 +52,12 @@ export default new class LoginActionCreators {
             });
     }
 
-    loginUserByResourceOwner(resourceOwner, accessToken) {
-        let promise = AuthService.resourceOwnerLogin(resourceOwner, accessToken);
+    loginUserByResourceOwner(oauthData) {
+
+        const resourceOwner = oauthData['resourceOwner'];
+        const accessToken = oauthData['oauthToken'];
+
+        let promise = AuthService.resourceOwnerLogin(oauthData);
         return dispatchAsync(promise, {
             request: ActionTypes.REQUEST_LOGIN_USER,
             success: ActionTypes.REQUEST_LOGIN_USER_SUCCESS,
@@ -133,7 +137,7 @@ export default new class LoginActionCreators {
             .then((user) => {
                 AnalyticsService.setUserId(user.id);
                 AnalyticsService.trackEvent('Registration', 'Registration success', document.referrer);
-                return this.loginUserByResourceOwner(oauth.resourceOwner, oauth.oauthToken);
+                return this.loginUserByResourceOwner(oauth);
             }, (error) => {
                 console.error(error);
                 nekunoApp.alert('Error registering. Please contact enredos@nekuno.com');

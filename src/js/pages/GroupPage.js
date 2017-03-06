@@ -86,6 +86,10 @@ export default class GroupPage extends Component {
                 nekunoApp.alert('Sorry! We couldn´t create this group');
             });
         });
+        setTimeout(() => {
+            let textInput = document.querySelector(".modal-inner .input-field input");
+            textInput.focus();
+        }, 0);
     }
 
     join() {
@@ -102,6 +106,10 @@ export default class GroupPage extends Component {
             });
 
         });
+        setTimeout(() => {
+            let textInput = document.querySelector(".modal-inner .input-field input");
+            textInput.focus();
+        }, 0);
     }
 
     consumeInvitation(value){

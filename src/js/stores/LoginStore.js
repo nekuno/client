@@ -16,6 +16,7 @@ class LoginStore extends BaseStore {
         this._initialRequiredUserQuestionsCount = 0;
         this._requiredUserQuestionsCount = 0;
         this._usernameAnswered = false;
+        this._tryingToLogin = null;
     }
 
     _registerToActions(action) {
@@ -23,6 +24,7 @@ class LoginStore extends BaseStore {
         switch (action.type) {
 
             case ActionTypes.AUTO_LOGIN:
+                this._tryingToLogin = true;
                 const jwt = action.jwt;
                 if (jwt) {
                     const now = parseInt(((new Date()).getTime() / 1e3), 10);
@@ -32,14 +34,18 @@ class LoginStore extends BaseStore {
                     } else {
                         this._jwt = jwt;
                         this._user = {id: jwt_decode(this._jwt).user.id};
+                        this._tryingToLogin = false;
                         console.log('Autologin success!');
                         this.emitChange();
                     }
+                } else {
+                    this._tryingToLogin = false;
                 }
                 break;
 
             case ActionTypes.REQUEST_LOGIN_USER:
                 this._error = null;
+                this._tryingToLogin = true;
                 this.emitChange();
                 break;
 
@@ -47,6 +53,7 @@ class LoginStore extends BaseStore {
                 this._error = null;
                 this._jwt = action.response.jwt;
                 this._user = jwt_decode(this._jwt).user;
+                this._tryingToLogin = false;
                 LocalStorageService.set('jwt', this._jwt);
                 this._setInitialRequiredUserQuestionsCount();
                 this.emitChange();
@@ -54,6 +61,7 @@ class LoginStore extends BaseStore {
 
             case ActionTypes.REQUEST_LOGIN_USER_ERROR:
                 this._error = action.error;
+                this._tryingToLogin = false;
                 this.emitChange();
                 break;
 
@@ -122,6 +130,10 @@ class LoginStore extends BaseStore {
         const justLoggedOut = !!this._justLoggedout;
         this._justLoggedout = false;
         return justLoggedOut;
+    }
+
+    get isTryingToLogin() {
+        return this._tryingToLogin;
     }
 
     isLoggedIn() {

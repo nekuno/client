@@ -74,7 +74,7 @@ export default class QuestionsPage extends Component {
             <div className="views">
                 <TopNavBar leftMenuIcon={true} centerText={strings.myProfile}/>
                 <ToolBar links={[
-                    {'url': '/profile', 'text': strings.about},
+                    {'url': `/p/${user.slug}`, 'text': strings.about},
                     {'url': '/gallery', 'text': strings.photos},
                     {'url': '/questions', 'text': strings.questions},
                     {'url': '/interests', 'text': strings.interests}

@@ -61,7 +61,7 @@ export default class CardUser extends Component {
             nekunoApp.popup('.popup-orientation-required');
             this.props.handleSelectProfile(slug);
         } else {
-            this.context.router.push(`/profile/${slug}`);
+            this.context.router.push(`/p/${slug}`);
         }
     }
 

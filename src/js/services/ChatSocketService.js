@@ -11,6 +11,7 @@ class ChatSocketService extends SocketService {
     sendMessage(userTo, messageText) {
         this._socket.emit('sendMessage', userTo, messageText, (error) => {
             console.log('Error from sockets', error);
+            nekunoApp.alert('Error: ' + error);
         });
     }
 

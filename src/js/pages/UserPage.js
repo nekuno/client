@@ -24,11 +24,13 @@ function requestData(props) {
     const {user} = props;
     const userId = parseId(user);
 
-    UserActionCreators.requestOwnUser();
-    UserActionCreators.requestOwnProfile(userId);
-    UserActionCreators.requestMetadata();
-    UserActionCreators.requestStats(userId);
-    ThreadActionCreators.requestFilters();
+    setTimeout(() => {
+        UserActionCreators.requestOwnUser();
+        UserActionCreators.requestOwnProfile(userId);
+        UserActionCreators.requestMetadata();
+        UserActionCreators.requestStats(userId);
+        ThreadActionCreators.requestFilters();
+    }, 0);
 }
 
 /**
@@ -74,7 +76,7 @@ export default class UserPage extends Component {
         router: PropTypes.object.isRequired
     };
 
-    componentWillMount() {
+    componentDidMount() {
         requestData(this.props);
     }
 
@@ -90,7 +92,7 @@ export default class UserPage extends Component {
             <div className="views">
                 <TopNavBar leftMenuIcon={true} centerText={strings.myProfile}/>
                 <ToolBar links={[
-                    {'url': '/profile', 'text': strings.aboutMe},
+                    {'url': `/p/${user.slug}`, 'text': strings.aboutMe},
                     {'url': '/gallery', 'text': strings.photos},
                     {'url': '/questions', 'text': strings.questions},
                     {'url': '/interests', 'text': strings.interests}]} activeLinkIndex={0} arrowUpLeft={'10%'}/>
@@ -98,7 +100,7 @@ export default class UserPage extends Component {
                     <div className="page user-page">
                         {profile && metadata && stats ?
                             <div id="page-content">
-                                <User user={user} profile={profile}/>
+                                <User user={user} profile={profile} onClick={() => this.context.router.push(`/gallery`)}/>
                                 <div className="user-interests">
                                     <div className="number">
                                         {stats.numberOfContentLikes || 0}

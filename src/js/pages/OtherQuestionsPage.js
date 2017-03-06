@@ -122,7 +122,7 @@ export default class OtherQuestionsPage extends Component {
                 <TopNavBar leftIcon={'left-arrow'} centerText={otherUser ? otherUser.username : ''}/>
                 {otherUser ?
                     <ToolBar links={[
-                        {'url': `/profile/${params.slug}`, 'text': strings.about},
+                        {'url': `/p/${params.slug}`, 'text': strings.about},
                         {'url': `/users/${params.slug}/other-questions`, 'text': strings.questions},
                         {'url': `/users/${params.slug}/other-interests`, 'text': strings.interests}
                     ]} activeLinkIndex={1} arrowUpLeft={'48%'}/>

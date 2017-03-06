@@ -33,26 +33,29 @@ function parseId(user) {
 function requestData(props) {
     const {params, user} = props;
     const otherUserSlug = params.slug;
-
-    UserActionCreators.requestUser(otherUserSlug, ['username', 'photo', 'status']).then(
-        () => {
-            const otherUser = UserStore.getBySlug(params.slug);
-            UserActionCreators.requestMetadata();
-            if (!ProfileStore.contains(parseId(user))) {
-                UserActionCreators.requestOwnProfile(parseId(user));
+    setTimeout(() => {
+        UserActionCreators.requestUser(otherUserSlug, ['username', 'photo', 'status']).then(
+            () => {
+                const otherUser = UserStore.getBySlug(params.slug);
+                UserActionCreators.requestMetadata();
+                if (!ProfileStore.contains(parseId(user))) {
+                    UserActionCreators.requestOwnProfile(parseId(user));
+                }
+                const otherUserId = parseId(otherUser);
+                UserActionCreators.requestMatching(parseId(user), otherUserId);
+                UserActionCreators.requestSimilarity(parseId(user), otherUserId);
+                UserActionCreators.requestLikeUser(parseId(user), otherUserId);
+                UserActionCreators.requestBlockUser(parseId(user), otherUserId);
+                UserActionCreators.requestComparedStats(parseId(user), otherUserId);
+                UserActionCreators.requestProfile(otherUserId);
+                UserActionCreators.requestStats(otherUserId);
+                GalleryPhotoActionCreators.getOtherPhotos(otherUserId);
+            },
+            (status) => {
+                console.log(status.error)
             }
-            const otherUserId = parseId(otherUser);
-            UserActionCreators.requestMatching(parseId(user), otherUserId);
-            UserActionCreators.requestSimilarity(parseId(user), otherUserId);
-            UserActionCreators.requestLikeUser(parseId(user), otherUserId);
-            UserActionCreators.requestBlockUser(parseId(user), otherUserId);
-            UserActionCreators.requestComparedStats(parseId(user), otherUserId);
-            UserActionCreators.requestProfile(otherUserId);
-            UserActionCreators.requestStats(otherUserId);
-            GalleryPhotoActionCreators.getOtherPhotos(otherUserId);
-        },
-        (status) => { console.log(status.error) }
-    );
+        );
+    }, 0);
 }
 
 function initPhotosSwiper() {
@@ -254,7 +257,7 @@ export default class OtherUserPage extends Component {
                 <TopNavBar leftIcon={'left-arrow'} transparentBackground={true}/>
                 {otherUser && profile && profileWithMetadata && ownProfile && ownProfile.orientation ?
                     <ToolBar links={[
-                        {'url': `/profile/${params.slug}`, 'text': strings.about},
+                        {'url': `/p/${params.slug}`, 'text': strings.about},
                         {'url': `/users/${params.slug}/other-questions`, 'text': strings.questions},
                         {'url': `/users/${params.slug}/other-interests`, 'text': strings.interests}]} activeLinkIndex={0} arrowUpLeft={'13%'}/>
                     : null}

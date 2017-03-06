@@ -36,6 +36,28 @@ class AnalyticsService {
         }
 
     }
+
+    setUserId(userId) {
+        if (window.cordova && TRACKER_ID_APP) {
+            console.log('Setting APP userId ' + userId);
+            window.ga.setUserId(userId);
+            window.ga.addCustomDimension(1, userId);
+        } else if (TRACKER_ID_WEB) {
+            console.log('Setting WEB userId ' + userId);
+            ga('set', 'userId', userId);
+            ga('set', 'dimension1', userId);
+        }
+    }
+
+    trackEvent(category, action, tag = null) {
+        if (window.cordova && TRACKER_ID_APP) {
+            console.log('Tracking APP event ' + category + ' ' + action);
+            window.ga.trackEvent(category, action, tag);
+        } else if (TRACKER_ID_WEB) {
+            console.log('Tracking WEB event ' + category + ' ' + action);
+            ga('send', 'event', category, action, tag);
+        }
+    }
 }
 
 export default new AnalyticsService();

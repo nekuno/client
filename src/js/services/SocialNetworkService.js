@@ -101,6 +101,16 @@ class SocialNetworkService {
         return this._refreshTokens[resource] || null;
     }
 
+    buildOauthData(resource) {
+        return {
+            resourceOwner: resource,
+            oauthToken   : this.getAccessToken(resource),
+            resourceId   : this.getResourceId(resource),
+            expireTime   : this.getExpireTime(resource),
+            refreshToken : this.getRefreshToken(resource)
+        }
+    }
+
     _mustUseFacebookPlugin(resource) {
         if (this.isLoggedIn(resource)) {
             return this._loggedInWithPlugin;

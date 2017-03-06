@@ -78,7 +78,8 @@ export default class RegisterPage extends Component {
     handleSocialNetwork(resource, scope) {
         const {token, invitation, interfaceLanguage} = this.props;
         SocialNetworkService.login(resource, scope, true).then(() => {
-            LoginActionCreators.loginUserByResourceOwner(resource, SocialNetworkService.getAccessToken(resource)).then(
+            const oauthData = SocialNetworkService.buildOauthData(resource);
+            LoginActionCreators.loginUserByResourceOwner(oauthData).then(
                 () => {
                     console.log('User already logged in. Using invitation', invitation);
                     if (invitation.hasOwnProperty('group')) {
@@ -90,7 +91,6 @@ export default class RegisterPage extends Component {
                 () => {
                     let user = SocialNetworkService.getUser(resource);
                     let profile = SocialNetworkService.getProfile(resource);
-                    user[resource + 'ID'] = SocialNetworkService.getResourceId(resource);
                     user.enabled = true;
                     profile.interfaceLanguage = interfaceLanguage;
                     profile.orientationRequired = false;
@@ -105,20 +105,20 @@ export default class RegisterPage extends Component {
                                 GeocoderService.getLocationFromCoords(position.coords.latitude, position.coords.longitude).then(
                                     (location) => {
                                         profile.location = location;
-                                        this._registerUser(user, profile, token, resource);
+                                        this._registerUser(user, profile, token, oauthData);
                                     },
                                     () => { // Register user without location
-                                        this._registerUser(user, profile, token, resource);
+                                        this._registerUser(user, profile, token, oauthData);
                                     }
                                 )
                             } else {
-                                this._registerUser(user, profile, token, resource);
+                                this._registerUser(user, profile, token, oauthData);
                             }
                         }, () => {
-                            this._registerUser(user, profile, token, resource)
+                            this._registerUser(user, profile, token, oauthData)
                         }, options);
                     } else {
-                        this._registerUser(user, profile, token, resource);
+                        this._registerUser(user, profile, token, oauthData);
                     }
                 });
         }, (status) => {
@@ -126,14 +126,9 @@ export default class RegisterPage extends Component {
         });
     }
 
-    _registerUser(user, profile, token, resource) {
-        LoginActionCreators.register(user, profile, token, {
-            resourceOwner: resource,
-            oauthToken   : SocialNetworkService.getAccessToken(resource),
-            resourceId   : SocialNetworkService.getResourceId(resource),
-            expireTime   : SocialNetworkService.getExpireTime(resource),
-            refreshToken : SocialNetworkService.getRefreshToken(resource)
-        });
+    _registerUser(user, profile, token, oauthData) {
+        LoginActionCreators.register(user, profile, token, oauthData);
+
         this.setState({
             registeringUser: true
         });

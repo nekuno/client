@@ -101,9 +101,8 @@ export default {
         enterName     : 'Name of the badge',
         join          : 'Unlock badge',
         joining       : 'Unlocking badge',
-        enterToken    : 'BADGE CODE',
-        enterTokenText: 'Enter the badge code',
-        tokenNoBadge  : 'This token has no related badge'
+        joiningError  : 'Error joining to this badge',
+        noGroupToken  : 'This code has not any related badge'
     },
     GroupStatsPage                   : {
         group        : 'Group',
@@ -113,6 +112,12 @@ export default {
         confirm_leave: 'Confirm leave',
         leaving      : 'Leaving group',
         leave_error  : 'Sorry! Please, try again to leave the group'
+    },
+    UnlockGroupPopup                 : {
+        enterToken    : 'Badge Code',
+        enterTokenText: 'Enter the badge code',
+        close         : 'Close',
+        ok            : 'Ok'
     },
     LoginPage                        : {
         login        : 'Login',

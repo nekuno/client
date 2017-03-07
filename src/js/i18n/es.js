@@ -102,9 +102,8 @@ export default {
         enterName     : 'Nombre de la insignia',
         join          : 'Desbloquear insignia',
         joining       : 'Desbloqueando la insignia',
-        enterToken    : 'CÓDIGO DE INSIGNIA',
-        enterTokenText: 'Escribe el código de la insignia',
-        tokenNoBadge  : 'Este código no tiene insignia asociada'
+        joiningError  : 'Error desbloqueando esta insignia',
+        noGroupToken  : 'Este código no tiene ninguna insignia asociada'
     },
     GroupStatsPage                   : {
         group        : 'Grupo',
@@ -114,7 +113,12 @@ export default {
         confirm_leave: 'Confirmar para salir',
         leaving      : 'Saliendo',
         leave_error  : '¡Lo sentimos! Por favor, intenta salir de nuevo'
-
+    },
+    UnlockGroupPopup                 : {
+        enterToken    : 'Código de insignia',
+        enterTokenText: 'Escribe el código de la insignia',
+        close         : 'Cerrar',
+        ok            : 'Aceptar'
     },
     LoginPage                        : {
         login        : 'Iniciar sesión',

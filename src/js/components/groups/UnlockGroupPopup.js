@@ -16,6 +16,19 @@ export default class UnlockGroupPopup extends Component {
     constructor(props) {
         super(props);
         this.onOkClick = this.onOkClick.bind(this);
+
+        this.state = {
+            opened: false
+        };
+    }
+
+    componentDidMount() {
+        $$('.popup-unlock-group').on('popup:opened', () => {
+            this.setState({opened: true});
+        });
+        $$('.popup-unlock-group').on('popup:closed', () => {
+            this.setState({opened: false});
+        });
     }
 
     onOkClick() {
@@ -25,6 +38,7 @@ export default class UnlockGroupPopup extends Component {
 
     render() {
         const {joining, strings} = this.props;
+        const {opened} = this.state;
 
         return (
             <div className="popup popup-unlock-group tablet-fullscreen">
@@ -33,7 +47,7 @@ export default class UnlockGroupPopup extends Component {
                     <div className="title">{strings.enterToken}</div>
                     <div className="list-block">
                         <ul>
-                            <TextInput ref="token" placeholder={strings.enterTokenText} maxLength={"200"} />
+                            {opened ? <TextInput ref="token" placeholder={strings.enterTokenText} maxLength={"200"} /> : null}
                         </ul>
                     </div>
                     <FullWidthButton onClick={this.onOkClick} disabled={joining ? "disabled" : ""}>{strings.ok}</FullWidthButton>

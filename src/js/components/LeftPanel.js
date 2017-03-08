@@ -122,13 +122,14 @@ export default class LeftPanel extends Component {
         });
     }
 
-    logout(e) {
-        e.preventDefault();
+    logout() {
         nekunoApp.closePanel();
-        this.setState({
-            settingsActive: null
+        $$('.panel-left').once('closed', () => {
+            this.setState({
+                settingsActive: null
+            });
+            LoginActionCreators.logoutUser();
         });
-        LoginActionCreators.logoutUser();
     }
 
     render() {

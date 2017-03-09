@@ -154,7 +154,7 @@ export default class AnswerQuestionForm extends Component {
                             <div id="joyride-1-your-answer" className="answers-tutorial-block"></div>
                             <div className="answer-question-who-text">{strings.you}</div>
                             <div className="answer-question-picture">
-                                <div className="joyride-start-button-wrapper" onClick={this.props.startTutorial.bind(true)}>
+                                <div className="joyride-start-button-wrapper" onClick={this.props.startTutorial ? this.props.startTutorial.bind(true) : null}>
                                     <div className="joyride-start-button">?</div>
                                 </div>
                                 <div className="answer-question-own-picture-container">

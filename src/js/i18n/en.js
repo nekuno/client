@@ -1,5 +1,9 @@
 export default {
     AnswerQuestionPage               : {
+        question: 'Question',
+        skip    : 'Skip'
+    },
+    AnswerNextQuestionPage          : {
         question               : 'Question',
         skip                   : 'Skip',
         tutorialFirstStepTitle : 'Your answer',
@@ -154,6 +158,10 @@ export default {
         interests: 'Interests'
     },
     QuestionStatsPage                : {
+        statistics: 'Statistics',
+        next      : 'Continue'
+    },
+    QuestionEditedStatsPage          : {
         statistics: 'Statistics',
         next      : 'Continue'
     },

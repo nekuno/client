@@ -1,5 +1,4 @@
 import React, { PropTypes, Component } from 'react';
-import { Link } from 'react-router';
 import Answer from './Answer';
 import QuestionStatsInLine from './QuestionStatsInline';
 
@@ -10,15 +9,25 @@ export default class Question extends Component {
         ownPicture    : PropTypes.string.isRequired,
         defaultPicture: PropTypes.string.isRequired,
         last          : PropTypes.bool.isRequired,
-        userId        : PropTypes.number.isRequired,
+        userSlug      : PropTypes.string.isRequired,
         onClickHandler: PropTypes.func,
         graphActive   : PropTypes.bool
+    };
+
+    static contextTypes = {
+        router: PropTypes.object.isRequired
     };
 
     constructor(props) {
         super(props);
 
         this.onClickHandler = this.onClickHandler.bind(this);
+        this.goToPreviousPage = this.goToPreviousPage.bind(this);
+    }
+
+    goToPreviousPage() {
+        const {question, userSlug} = this.props;
+        this.context.router.replace(`/answer-question/${question.question.questionId}/${userSlug}`);
     }
 
     render() {
@@ -26,7 +35,7 @@ export default class Question extends Component {
         if (!question) {
             return null;
         }
-        let userAnswer = this.props.userAnswer;
+        let {userAnswer} = this.props;
         let answers = question && question.answers.length > 0 ? question.answers : [];
         let userAnswerText = '';
 
@@ -43,11 +52,11 @@ export default class Question extends Component {
 
         return (
             <div className="question" onClick={this.onClickHandler}>
-                <Link to={`/answer-question/${question.questionId}`}>
+                <a href="javascript:void(0)" onClick={this.goToPreviousPage}>
                     <span className="edit-question-button">
                         <span className="icon-edit"></span>
                     </span>
-                </Link>
+                </a>
                 <div className="question-title">
                     {question.text}
                 </div>
@@ -62,7 +71,7 @@ export default class Question extends Component {
                     );
                 })}
                 {this.props.graphActive ?
-                    <QuestionStatsInLine question={question} userAnswer={userAnswer} userId={this.props.userId}/> : ''
+                    <QuestionStatsInLine question={question} userAnswer={userAnswer}/> : ''
                 }
                 <hr/>
             </div>

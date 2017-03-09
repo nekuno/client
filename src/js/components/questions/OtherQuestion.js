@@ -1,5 +1,4 @@
 import React, { PropTypes, Component } from 'react';
-import { Link } from 'react-router';
 import Answer from './Answer';
 import translate from '../../i18n/Translate';
 
@@ -10,10 +9,25 @@ export default class OtherQuestion extends Component {
         userAnswer     : PropTypes.object,
         ownPicture     : PropTypes.string,
         otherPicture   : PropTypes.string.isRequired,
-        userId         : PropTypes.number.isRequired,
+        otherUserSlug  : PropTypes.string.isRequired,
         // Injected by @translate:
         strings        : PropTypes.object
     };
+
+    static contextTypes = {
+        router: PropTypes.object.isRequired
+    };
+
+    constructor(props) {
+        super(props);
+
+        this.goToPreviousPage = this.goToPreviousPage.bind(this);
+    }
+
+    goToPreviousPage() {
+        const {question, otherUserSlug} = this.props;
+        this.context.router.replace(`/answer-question/${question.question.questionId}/${otherUserSlug}`);
+    }
 
     render() {
         let question = this.props.question.question;
@@ -36,11 +50,11 @@ export default class OtherQuestion extends Component {
 
         return (
             <div className="question">
-                <Link to={`/answer-question/${question.questionId}`}>
+                <a href="javascript:void(0)" onClick={this.goToPreviousPage}>
                     <span className="edit-question-button">
                         <span className="icon-edit"></span>
                     </span>
-                </Link>
+                </a>
                 <div className="question-title">
                     {question.text}
                 </div>

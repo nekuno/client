@@ -6,7 +6,7 @@ export default class QuestionList extends Component {
         questions     : PropTypes.object.isRequired,
         ownPicture    : PropTypes.string.isRequired,
         defaultPicture: PropTypes.string.isRequired,
-        userId        : PropTypes.number.isRequired
+        userSlug      : PropTypes.string.isRequired
     };
 
     constructor(props) {
@@ -26,12 +26,12 @@ export default class QuestionList extends Component {
     }
 
     render() {
-        const {questions, userId, ownPicture, defaultPicture} = this.props;
+        const {questions, userSlug, ownPicture, defaultPicture} = this.props;
         return (
             <div className="question-list">
                 {Object.keys(questions).map((questionId, index) =>
-                    <Question userId={userId} 
-                              userAnswer={questions[questionId].userAnswer} 
+                    <Question userSlug={userSlug}
+                              userAnswer={questions[questionId].userAnswer}
                               ownPicture={ownPicture} 
                               defaultPicture={defaultPicture} 
                               key={index} 

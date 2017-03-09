@@ -8,7 +8,6 @@ export default class QuestionStatsInline extends Component {
     static propTypes = {
         question  : PropTypes.object.isRequired,
         userAnswer: PropTypes.object.isRequired,
-        userId    : PropTypes.number.isRequired,
         // Injected by @translate:
         strings   : PropTypes.object
     };
@@ -18,7 +17,6 @@ export default class QuestionStatsInline extends Component {
         let question = this.props.question;
         let userAnswer = this.props.userAnswer;
         let answers = question.answers;
-        let userId = this.props.userId;
 
         if (!question || !answers) {
             return null;

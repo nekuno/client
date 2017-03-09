@@ -97,9 +97,15 @@ export default class AnswerQuestionPage extends Component {
     }
 
     skipQuestionHandler() {
-        let userId = parseId(this.props.user);
-        let questionId = this.props.question.questionId;
+        const {user, question, params} = this.props;
+        let userId = parseId(user);
+        let questionId = question.questionId;
         QuestionActionCreators.skipQuestion(userId, questionId);
+        if (user.slug === params.from) {
+            this.context.router.replace(`/questions`);
+        } else {
+            this.context.router.replace(`/users/${params.from}/other-questions`);
+        }
     }
 
     render() {

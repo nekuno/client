@@ -160,6 +160,14 @@ QuestionStore.dispatchToken = register(action => {
         _loadingComparedQuestions = true;
         QuestionStore.emitChange();
     }
+    else if (action.type === 'SKIP_QUESTION_SUCCESS') {
+        Object.keys(_questions).forEach(userId => {
+            if(_questions[userId][action.questionId]) {
+                delete _questions[userId][action.questionId];
+            }
+        });
+        QuestionStore.emitChange();
+    }
     if (action.type == ActionTypes.LOGOUT_USER){
         _questions = {};
         _pagination = {};

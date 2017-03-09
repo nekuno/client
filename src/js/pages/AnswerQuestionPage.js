@@ -1,4 +1,5 @@
 import React, { PropTypes, Component } from 'react';
+import selectn from 'selectn';
 import TopNavBar from '../components/ui/TopNavBar';
 import AnswerQuestion from '../components/questions/AnswerQuestion';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
@@ -105,10 +106,11 @@ export default class AnswerQuestionPage extends Component {
         const {user, strings, errors, noMoreQuestions, userAnswer, question} = this.props;
         const userId = parseId(user);
         const ownPicture = user.photo ? user.photo.thumbnail.small : 'img/no-img/small.jpg';
+        const isRegisterQuestion = selectn('isRegisterQuestion', question);
 
         return (
             <div className="views">
-                <TopNavBar leftMenuIcon={true} centerText={strings.question} rightText={strings.skip} onRightLinkClickHandler={this.skipQuestionHandler}/>
+                <TopNavBar leftMenuIcon={true} centerText={strings.question} rightIcon={isRegisterQuestion ? '' : 'delete'} onRightLinkClickHandler={isRegisterQuestion ? null : this.skipQuestionHandler}/>
                 <div className="view view-main">
                     <div className="page answer-question-page">
                         <div id="page-content" className="answer-question-content">

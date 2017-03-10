@@ -9,7 +9,7 @@ class AnalyticsService {
             document.addEventListener('deviceready', onDeviceReady, false);
 
             function onDeviceReady() {
-                console.log('Tracking APP with...'. TRACKER_ID_APP);
+                console.log('Tracking APP with...' + TRACKER_ID_APP);
                 window.ga.startTrackerWithId(TRACKER_ID_APP);
                 window.ga.trackView('Home');
                 window.ga.setAppVersion(VERSION);
@@ -17,7 +17,7 @@ class AnalyticsService {
 
         } else if (TRACKER_ID_WEB) {
 
-            console.log('Tracking WEB with...'. TRACKER_ID_WEB);
+            console.log('Tracking WEB with...' + TRACKER_ID_WEB);
             (function(i, s, o, g, r, a, m) {
                 i['GoogleAnalyticsObject'] = r;
                 i[r] = i[r] || function() {

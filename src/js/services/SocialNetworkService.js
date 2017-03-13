@@ -48,7 +48,7 @@ class SocialNetworkService {
         this._scopes[resource] = scope;
         if (this._mustUseFacebookPlugin(resource)) {
             let promise = new Promise(function (resolve, reject) {
-                facebookConnectPlugin.login(['public_profile'], function (response) { resolve(response) }, function(error) { reject(error) });
+                facebookConnectPlugin.login(scope.split(','), function (response) { resolve(response) }, function(error) { reject(error) });
             });
             return promise.then(
                 (response) => { this._setFacebookDataFromPlugin(response) },
@@ -196,6 +196,7 @@ class SocialNetworkService {
 
         return hello(resource).api('me').then(
             (status) => {
+                console.log('hellojs api(\'me\')', status);
                 this._resourceIds[resource] = status.id.toString();
                 GeocoderService.getLocationFromAddress(status.location).then(
                     (location) => { this._setUserAndProfile(resource, status, location) },
@@ -212,11 +213,12 @@ class SocialNetworkService {
         const resourceId = this._resourceIds[SOCIAL_NETWORKS_NAMES.FACEBOOK];
 
         let mePromise = new Promise(function(resolve, reject) {
-            facebookConnectPlugin.api(resourceId + '/?fields=picture.height(480),email,birthday,location,gender', ['user_birthday', 'user_location', 'user_likes', 'user_posts'], function (response) { resolve(response) }, function(error) { reject(error) });
+            facebookConnectPlugin.api(resourceId + '/?fields=picture.height(480),email,birthday,location,gender', [], function (response) { resolve(response) }, function(error) { reject(error) });
         });
 
         return mePromise.then(
             (status) => {
+                console.log('facebookConnectPlugin api(\'me\')', status);
                 let data = {
                     username: status.username || null,
                     email: status.email || null,

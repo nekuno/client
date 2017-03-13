@@ -1,6 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import { SHARED_USER_URL } from '../../constants/Constants';
 import Button from '../ui/Button';
+import ShareService from '../../services/ShareService';
 import translate from '../../i18n/Translate';
 
 @translate('ShareProfileBanner')
@@ -15,16 +16,13 @@ export default class ShareProfileBanner extends Component {
     onShare() {
         const {user, strings} = this.props;
         const url = SHARED_USER_URL.replace('{slug}', user.slug);
-        if (window.cordova) {
-            var options = {
-                subject: strings.compatibilityCheckWith.replace('%username%', user.username), // fi. for email
-                url: url
-            };
-            window.plugins.socialsharing.shareWithOptions(options, this.onShareSuccess, this.onShareError);
-        } else {
-            window.prompt(strings.copyToClipboard, url);
-            this.onShareSuccess();
-        }
+        ShareService.share(
+            strings.compatibilityCheckWith.replace('%username%', user.username),
+            url,
+            this.onShareSuccess,
+            this.onShareError,
+            strings.copiedToClipboard
+        );
     }
 
     onShareSuccess() {}
@@ -56,6 +54,7 @@ ShareProfileBanner.defaultProps = {
         copyLink              : 'Copy profile url',
         compatibilityCheckWith: 'Check your compatibility with %username%',
         copyToClipboard       : 'Copy to clipboard: Ctrl+C, Enter',
+        copiedToClipboard     : 'Copied to clipboard',
         shareError            : 'An error occurred sending the link.'
     }
 };

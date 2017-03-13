@@ -9,6 +9,7 @@ import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
 import * as InvitationActionCreator from '../actions/InvitationActionCreator';
 import InvitationStore from '../stores/InvitationStore';
+import ShareService from '../services/ShareService';
 import moment from 'moment';
 
 function requestData() {
@@ -64,19 +65,13 @@ export default class InvitationsPage extends Component {
     onShare(invitation) {
         const {strings} = this.props;
         const url = INVITATIONS_URL.replace('{token}', invitation.invitation.token);
-        if (window.cordova) {
-            // this is the complete list of currently supported params you can pass to the plugin (all optional)
-            var options = {
-                //message: 'share this', // not supported on some apps (Facebook, Instagram)
-                subject: invitation.invitation.slogan || strings.defaultInvitationTitle, // fi. for email
-                url: url
-                //chooserTitle: 'Pick an app' // Android only, you can override the default share sheet title
-            };
-            window.plugins.socialsharing.shareWithOptions(options, this.onShareSuccess, this.onShareError);
-        } else {
-            window.prompt(strings.copyToClipboard, url);
-            this.onShareSuccess();
-        }
+        ShareService.share(
+            invitation.invitation.slogan || strings.defaultInvitationTitle,
+            url,
+            this.onShareSuccess,
+            this.onShareError,
+            strings.copiedToClipboard
+        );
     }
 
     onShareSuccess() {}
@@ -139,6 +134,7 @@ InvitationsPage.defaultProps = {
         noInvitations         : 'You have no invitations available',
         expiresAt             : 'Expires at',
         consumedBy            : 'Consumed by',
-        shareError            : 'An error occurred sending the invitation.'
+        shareError            : 'An error occurred sending the invitation.',
+        copiedToClipboard     : 'Copied to clipboard',
     }
 };

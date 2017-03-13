@@ -109,13 +109,14 @@ export default {
         noGroupToken  : 'This code has not any related badge'
     },
     GroupStatsPage                   : {
-        group        : 'Group',
-        share        : 'Sharing URL',
-        shareSubject : 'Join the Nekuno group ',
-        leave        : 'Leave',
-        confirm_leave: 'Confirm leave',
-        leaving      : 'Leaving group',
-        leave_error  : 'Sorry! Please, try again to leave the group'
+        group            : 'Group',
+        share            : 'Sharing URL',
+        shareSubject     : 'Join the Nekuno group ',
+        leave            : 'Leave',
+        confirm_leave    : 'Confirm leave',
+        leaving          : 'Leaving group',
+        leave_error      : 'Sorry! Please, try again to leave the group',
+        copiedToClipboard: 'Copied to clipboard'
     },
     UnlockGroupPopup                 : {
         enterToken    : 'Badge Code',
@@ -201,12 +202,12 @@ export default {
         noRecommendations: 'There are no recommendations with selected filters'
     },
     RecommendationPage               : {
-        loadingMessage  : 'Loading recommendations',
-        confirmBlock    : 'Are you sure you want to block this user?',
-        processingThread: 'These results are provisional, we are working on improving them for you.',
-        confirmReplace  : 'We have improved your recommendations. Do you want to reload them?',
-        copyToClipboard : 'Copy to clipboard: Ctrl+C, Enter',
-        shareError      : 'An error occurred sharing the content'
+        loadingMessage   : 'Loading recommendations',
+        confirmBlock     : 'Are you sure you want to block this user?',
+        processingThread : 'These results are provisional, we are working on improving them for you.',
+        confirmReplace   : 'We have improved your recommendations. Do you want to reload them?',
+        copiedToClipboard: 'Copied to clipboard',
+        shareError       : 'An error occurred sharing the content'
     },
     InvitationsPage                  : {
         invitations           : 'Invitations',
@@ -218,7 +219,7 @@ export default {
         expiresAt             : 'Expires at',
         consumedBy            : 'Consumed by',
         shareError            : 'An error occurred sending the invitation.',
-        copyToClipboard       : 'Copy to clipboard: Ctrl+C, Enter'
+        copiedToClipboard     : 'Copied to clipboard',
     },
     UserPage                         : {
         aboutMe  : 'About me',
@@ -391,7 +392,7 @@ export default {
         text                  : 'Discover the most compatibles sharing your profile url',
         copyLink              : 'Copy profile url',
         compatibilityCheckWith: 'Discover your compatibility with %username%',
-        copyToClipboard       : 'Copy to clipboard: Ctrl+C, Enter',
+        copiedToClipboard     : 'Copied to clipboard',
         shareError            : 'An error occurred sending the link.'
     },
     ProcessesProgress                : {
@@ -421,13 +422,13 @@ export default {
         maxLengthIs: 'Maximum message length is '
     },
     CardContent                      : {
-        like           : 'Like',
-        unlike         : 'Remove',
-        compatibility  : 'Compatibility',
-        emptyTitle     : 'Link',
-        copyToClipboard: 'Copy to clipboard: Ctrl+C, Enter',
-        shareError     : 'An error occurred sharing the content',
-        saving         : 'Saving...'
+        like             : 'Like',
+        unlike           : 'Remove',
+        compatibility    : 'Compatibility',
+        emptyTitle       : 'Link',
+        copiedToClipboard: 'Copied to clipboard',
+        shareError       : 'An error occurred sharing the content',
+        saving           : 'Saving...'
     },
     CardUser                         : {
         like      : 'Like',
@@ -569,11 +570,11 @@ export default {
         birthdayPlaceholder: 'Your birth date'
     },
     Group                            : {
-        users          : 'users',
-        sendInvitation : 'Send invitation',
-        invitationTitle: 'Badge invitation',
-        shareError     : 'An error occurred sending the invitation.',
-        copyToClipboard: 'Copy to clipboard: Ctrl+C, Enter'
+        users            : 'users',
+        sendInvitation   : 'Send invitation',
+        invitationTitle  : 'Badge invitation',
+        shareError       : 'An error occurred sending the invitation.',
+        copiedToClipboard: 'Copied to clipboard',
     },
     RecommendationUser               : {
         age    : 'Age',

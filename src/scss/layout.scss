@@ -239,5 +239,22 @@ body {
 			}
 		}
 	}
+
+	.fixed-top-message {
+		position: fixed;
+		top: 0;
+		z-index: 11111;
+		text-align: center;
+		width: 100%;
+		color: $green-alert;
+		font-size: 1.2em;
+		opacity: 0;
+		transition: opacity 1s linear;
+	}
+
+	.fixed-top-message.visible {
+		opacity: 1;
+		transition: opacity 1s linear;
+	}
 }
 

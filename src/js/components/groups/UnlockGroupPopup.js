@@ -24,10 +24,10 @@ export default class UnlockGroupPopup extends Component {
 
     componentDidMount() {
         $$('.popup-unlock-group').on('popup:opened', () => {
-            setTimeout(() => { this.setState({opened: true}) }, 0);
+            this.setState({opened: true});
         });
         $$('.popup-unlock-group').on('popup:closed', () => {
-            setTimeout(() => { this.setState({opened: false}) }, 0);
+            this.setState({opened: false});
         });
     }
 

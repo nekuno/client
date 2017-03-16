@@ -37,18 +37,6 @@ export default class Question extends Component {
         }
         let {userAnswer} = this.props;
         let answers = question && question.answers.length > 0 ? question.answers : [];
-        let userAnswerText = '';
-
-        if (userAnswer) {
-            for (let index in answers) {
-                if (!answers.hasOwnProperty(index)) {
-                    continue;
-                }
-                if (answers[index].hasOwnProperty('answerId') && answers[index].answerId === userAnswer.answerId) {
-                    userAnswerText = answers[index].text;
-                }
-            }
-        }
 
         return (
             <div className="question" onClick={this.onClickHandler}>
@@ -60,16 +48,14 @@ export default class Question extends Component {
                 <div className="question-title">
                     {question.text}
                 </div>
-                <Answer text={userAnswerText} answered={true} accepted={userAnswer.acceptedAnswers.some(acceptedAnswerId => acceptedAnswerId === userAnswer.answerId)} {...this.props}/>
-
-                {answers.map((answer, index) => {
-                    if (answer.answerId === userAnswer.answerId) {
-                        return null;
-                    }
-                    return (
-                        <Answer key={index} text={answer.text} answered={false} accepted={userAnswer.acceptedAnswers.some(acceptedAnswerId => acceptedAnswerId === answer.answerId)} {...this.props}/>
-                    );
-                })}
+                {answers.map((answer, index) =>
+                    <Answer key={index}
+                            text={answer.text}
+                            answered={answer.answerId === userAnswer.answerId}
+                            accepted={userAnswer.acceptedAnswers.some(acceptedAnswerId => acceptedAnswerId === answer.answerId)}
+                            {...this.props}
+                    />
+                )}
                 {this.props.graphActive ?
                     <QuestionStatsInLine question={question} userAnswer={userAnswer}/> : ''
                 }

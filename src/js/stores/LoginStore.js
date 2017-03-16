@@ -51,10 +51,9 @@ class LoginStore extends BaseStore {
 
             case ActionTypes.REQUEST_LOGIN_USER_SUCCESS:
                 this._error = null;
-                this._jwt = action.response.jwt;
+                this.jwt = action.response.jwt;
                 this._user = jwt_decode(this._jwt).user;
                 this._tryingToLogin = false;
-                LocalStorageService.set('jwt', this._jwt);
                 this._setInitialRequiredUserQuestionsCount();
                 this.emitChange();
                 break;
@@ -85,8 +84,7 @@ class LoginStore extends BaseStore {
 
             case ActionTypes.EDIT_USER_SUCCESS:
                 this._user = action.response.user;
-                this._jwt = action.response.jwt;
-                LocalStorageService.set('jwt', this._jwt);
+                this.jwt = action.response.jwt;
                 this._usernameAnswered = true;
                 this._requiredUserQuestionsCount++;
                 this.emitChange();
@@ -124,6 +122,11 @@ class LoginStore extends BaseStore {
 
     get jwt() {
         return this._jwt;
+    }
+
+    set jwt(jwt) {
+        this._jwt = jwt;
+        LocalStorageService.set('jwt', jwt);
     }
 
     get justLoggedOut() {

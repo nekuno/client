@@ -31,6 +31,7 @@ class LoginStore extends BaseStore {
                     const exp = jwt_decode(jwt).exp;
                     if (exp < now) {
                         console.log('jwt token expired on', (new Date(exp * 1e3).toString()));
+                        this._tryingToLogin = false;
                     } else {
                         this._jwt = jwt;
                         this._user = {id: jwt_decode(this._jwt).user.id};

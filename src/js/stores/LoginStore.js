@@ -3,7 +3,7 @@ import RouterContainer from '../services/RouterContainer';
 import ActionTypes from '../constants/ActionTypes';
 import BaseStore from './BaseStore';
 import jwt_decode from 'jwt-decode';
-import {getValidationErrors} from '../utils/StoreUtils';
+import { getValidationErrors } from '../utils/StoreUtils';
 import LocalStorageService from '../services/LocalStorageService';
 
 class LoginStore extends BaseStore {
@@ -32,16 +32,18 @@ class LoginStore extends BaseStore {
                     if (exp < now) {
                         console.log('jwt token expired on', (new Date(exp * 1e3).toString()));
                         this._tryingToLogin = false;
+                        this.setInitial();
+                        LocalStorageService.remove('jwt');
                     } else {
                         this._jwt = jwt;
                         this._user = {id: jwt_decode(this._jwt).user.id};
                         this._tryingToLogin = false;
                         console.log('Autologin success!');
-                        this.emitChange();
                     }
                 } else {
                     this._tryingToLogin = false;
                 }
+                this.emitChange();
                 break;
 
             case ActionTypes.REQUEST_LOGIN_USER:
@@ -105,7 +107,7 @@ class LoginStore extends BaseStore {
                 this._user = action.response;
                 this.emitChange();
                 break;
-                
+
             default:
                 break;
         }

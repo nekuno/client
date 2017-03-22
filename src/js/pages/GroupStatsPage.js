@@ -7,9 +7,8 @@ import ToolBar from '../components/ui/ToolBar';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
-import * as APIUtils from '../utils/APIUtils';
-import * as UserActionCreators from '../actions/UserActionCreators';
 import * as GroupActionCreators from '../actions/GroupActionCreators';
+import ShareService from '../services/ShareService';
 import GroupStore from '../stores/GroupStore';
 
 /**
@@ -92,19 +91,13 @@ export default class GroupStatsPage extends Component {
     share() {
         const invitationUrl = buildInvitationUrl(this.props);
         const invitationSubject = this.props.strings.shareSubject + this.props.group.name;
-        if (window.cordova) {
-            // this is the complete list of currently supported params you can pass to the plugin (all optional)
-            var options = {
-                //message: 'share this', // not supported on some apps (Facebook, Instagram)
-                subject: invitationSubject,// fi. for email
-                url: invitationUrl
-                //chooserTitle: 'Pick an app' // Android only, you can override the default share sheet title
-            };
-            window.plugins.socialsharing.shareWithOptions(options, this.onShareSuccess, this.onShareError);
-        } else {
-            window.prompt(this.props.strings.copyToClipboard, invitationUrl);
-            this.onShareSuccess();
-        }
+        ShareService.share(
+            invitationSubject,
+            invitationUrl,
+            this.onShareSuccess,
+            this.onShareError,
+            this.props.strings.copiedToClipboard
+        );
     }
 
     onShareSuccess() {
@@ -153,6 +146,13 @@ export default class GroupStatsPage extends Component {
 
 GroupStatsPage.defaultProps = {
     strings: {
-        group: 'Group'
+        group            : 'Group',
+        share            : 'Sharing URL',
+        shareSubject     : 'Join the Nekuno group ',
+        leave            : 'Leave',
+        confirm_leave    : 'Confirm leave',
+        leaving          : 'Leaving group',
+        leave_error      : 'Sorry! Please, try again to leave the group',
+        copiedToClipboard: 'Copied to clipboard'
     }
 };

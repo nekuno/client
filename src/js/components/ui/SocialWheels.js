@@ -2,6 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import SocialBox from './SocialBox';
 import ConnectActionCreators from '../../actions/ConnectActionCreators';
 import SocialNetworkService from '../../services/SocialNetworkService';
+import {Motion, spring} from 'react-motion';
 
 export default class SocialWheels extends Component {
 
@@ -9,6 +10,25 @@ export default class SocialWheels extends Component {
         picture : PropTypes.string.isRequired,
         networks: PropTypes.array.isRequired
     };
+
+    constructor(props) {
+        super(props);
+        this.posX = 155;
+        this.posY = 155;
+        this.initialRadius = 37.5;
+        this.separation = 12.5;
+
+        this.state = {
+            prevNetworks: props.networks.slice(0)
+        };
+    }
+
+    componentWillReceiveProps() {
+        const {networks} = this.props;
+        this.setState({
+            prevNetworks: networks
+        })
+    }
 
     renderProcessingIcon = function(resource, radius, degrees, posX, posY, key) {
         return (
@@ -106,11 +126,7 @@ export default class SocialWheels extends Component {
     };
 
     render() {
-
-        const posX = 155;
-        const posY = 155;
-        const initialRadius = 37.5;
-        const separation = 12.5;
+        const {prevNetworks} = this.state;
         const {networks, picture} = this.props;
         const connectedNetworks = networks.filter(network => network.fetching || network.fetched || network.processing || network.processed);
         
@@ -122,34 +138,54 @@ export default class SocialWheels extends Component {
                         <g>
                             {/* Wheel separators */}
                             {networks.map((network, index) => {
-                                let value = initialRadius + index * separation;
-                                return (<path key={'wheel-separator-' + index} d={this.describeArc(posX, posY, value, 0, 359.9)} className="wheel-separator"/>);
+                                let value = this.initialRadius + index * this.separation;
+                                return (<path key={'wheel-separator-' + index} d={this.describeArc(this.posX, this.posY, value, 0, 359.9)} className="wheel-separator"/>);
                             })}
                             {networks.map((network, index) => {
                                 let realIndex = index + networks.length - 1;
-                                let value = initialRadius + realIndex * separation;
-                                return (<path key={'wheel-separator-' + index * 2} d={this.describeArc(posX, posY, value, 0, 359.9)} className="wheel-separator"/>);
+                                let value = this.initialRadius + realIndex * this.separation;
+                                return (<path key={'wheel-separator-' + index * 2} d={this.describeArc(this.posX, this.posY, value, 0, 359.9)} className="wheel-separator"/>);
                             })}
                             
                             {/* User picture */}
-                            <image xlinkHref={picture} x={posX - 25} y={posY - 25} height="50px" width="50px" clipPath="url(#clip)"/>
+                            <image xlinkHref={picture} x={this.posX - 25} y={this.posY - 25} height="50px" width="50px" clipPath="url(#clip)"/>
                             <clipPath id="clip">
-                                <rect id="rect" x={posX - 25} y={posY - 25} width="50px" height="50px" rx="25"/>
+                                <rect id="rect" x={this.posX - 25} y={this.posY - 25} width="50px" height="50px" rx="25"/>
                             </clipPath>
-                            <path d={this.describeArc(posX, posY, 25, 0, 359.9)} className="wheel-picture"/>
+                            <path d={this.describeArc(this.posX, this.posY, 25, 0, 359.9)} className="wheel-picture"/>
     
                             {/* Social networks wheels */}
                             {networks.map((message, index) => {
-                                let radius = initialRadius + index * separation * 2;
+                                let radius = this.initialRadius + index * this.separation * 2;
                                 let progress = message.processed ? 359 : message.process * 3.6;
-                                return (<path key={'wheel' + index} d={this.describeArc(posX, posY, radius, 0, progress)} className={"wheel-" + message.resource}/>);
+                                return (
+                                    <Motion
+                                        key={index}
+                                        defaultStyle={{progress: prevNetworks[index] ? prevNetworks[index].processed ? 359 : prevNetworks[index].process * 3.6 : progress}}
+                                        style={{progress: spring(progress)}}
+                                    >
+                                        {val =>
+                                            <path key={'wheel' + index} d={this.describeArc(this.posX, this.posY, radius, 0, val.progress)} className={"wheel-" + message.resource}/>
+                                        }
+                                    </Motion>
+                                );
                             })}
                             
                             {/* Small icons */}
                             {networks.map((message, index) => {
-                                let radius = initialRadius + index * separation * 2;
-                                let progress = message.process * 3.6;
-                                return this.renderSmallIcon(message.resource, radius, progress, posX, posY, message.fetching, message.fetched, message.processing, message.processed, index);
+                                let radius = this.initialRadius + index * this.separation * 2;
+                                let progress = message.processed ? 359 : message.process * 3.6;
+                                return (
+                                    <Motion
+                                        key={index}
+                                        defaultStyle={{progress: prevNetworks[index] ? prevNetworks[index].processed ? 359 : prevNetworks[index].process * 3.6 : progress}}
+                                        style={{progress: spring(progress)}}
+                                    >
+                                        {val =>
+                                            this.renderSmallIcon(message.resource, radius, val.progress, this.posX, this.posY, message.fetching, message.fetched, message.processing, message.processed, index)
+                                        }
+                                    </Motion>
+                                )
                             })}
                         </g>
                     </svg>

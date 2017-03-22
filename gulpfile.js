@@ -27,7 +27,7 @@ gulp.task('assets', function() {
 });
 
 gulp.task('images', function() {
-    return gulp.src(['src/scss/img/*', 'src/scss/img/**/*'])
+    return gulp.src(['src/img/*', 'src/scss/img/*', 'src/scss/img/**/*'])
         .pipe(gulp.dest('www/img/'));
 });
 
@@ -54,7 +54,8 @@ gulp.task('build-vendor-js', function() {
         './node_modules/framework7/dist/js/framework7.min.js',
         './node_modules/Framework7-3D-Panels/dist/framework7.3dpanels.min.js',
         './src/js/vendor/hello.js',
-        './src/js/vendor/socket.io.min.js'
+        './src/js/vendor/socket.io.min.js',
+        './src/js/vendor/manup.min.js'
     ];
     return gulp.src(paths)
         .pipe(concat('vendor.js'))

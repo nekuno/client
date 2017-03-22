@@ -22,6 +22,7 @@ import ComparedStatsStore from '../stores/ComparedStatsStore';
 import GalleryPhotoStore from '../stores/GalleryPhotoStore';
 import QuestionStore from '../stores/QuestionStore';
 import InterestStore from '../stores/InterestStore';
+import ShareService from '../services/ShareService';
 
 function parseThreadId(params) {
     return params.threadId;
@@ -310,19 +311,13 @@ export default class RecommendationPage extends Component {
     onShare() {
         const activeIndex = this.state.swiper.activeIndex;
         const recommendation = this.props.recommendations[activeIndex];
-        if (window.cordova) {
-            // this is the complete list of currently supported params you can pass to the plugin (all optional)
-            var options = {
-                //message: 'share this', // not supported on some apps (Facebook, Instagram)
-                subject: recommendation.content.title, // fi. for email
-                url: recommendation.content.url
-                //chooserTitle: 'Pick an app' // Android only, you can override the default share sheet title
-            };
-            window.plugins.socialsharing.shareWithOptions(options, this.onShareSuccess, this.onShareError);
-        } else {
-            window.prompt(this.props.strings.copyToClipboard, recommendation.content.url);
-            this.onShareSuccess();
-        }
+        ShareService.share(
+            recommendation.content.title,
+            recommendation.content.url,
+            this.onShareSuccess,
+            this.onShareError,
+            this.props.strings.copiedToClipboard
+        );
     }
 
     onShareSuccess() {
@@ -407,11 +402,11 @@ export default class RecommendationPage extends Component {
 
 RecommendationPage.defaultProps = {
     strings: {
-        loadingMessage  : 'Loading recommendations',
-        confirmDelete   : 'Are you sure you want to delete this thread?',
-        processingThread: 'These results are provisional, we´ll finish improving them for you soon.',
-        confirmReplace  : 'We have improve your recommendations. Do you whant to reload them?',
-        copyToClipboard : 'Copy to clipboard: Ctrl+C, Enter',
-        shareError      : 'An error occurred sharing the content'
+        loadingMessage   : 'Loading recommendations',
+        confirmDelete    : 'Are you sure you want to delete this thread?',
+        processingThread : 'These results are provisional, we´ll finish improving them for you soon.',
+        confirmReplace   : 'We have improve your recommendations. Do you whant to reload them?',
+        copiedToClipboard: 'Copied to clipboard',
+        shareError       : 'An error occurred sharing the content'
     }
 };

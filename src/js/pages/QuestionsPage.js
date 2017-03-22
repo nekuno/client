@@ -90,7 +90,7 @@ export default class QuestionsPage extends Component {
                                 <br />
                                 <br />
                                 <br />
-                                <QuestionList questions={questions} userId={parseId(user)} ownPicture={ownPicture} defaultPicture={defaultPicture}/>
+                                <QuestionList questions={questions} userSlug={user.slug || ''} ownPicture={ownPicture} defaultPicture={defaultPicture}/>
                                 <div className="loading-gif" style={pagination.nextLink ? {} : {display: 'none'}}></div>
                                 <br />
                                 <br />

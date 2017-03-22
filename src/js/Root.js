@@ -18,7 +18,9 @@ import OtherInterestsPage from './pages/OtherInterestsPage';
 import QuestionsPage from './pages/QuestionsPage';
 import OtherQuestionsPage from './pages/OtherQuestionsPage';
 import AnswerQuestionPage from './pages/AnswerQuestionPage';
+import AnswerNextQuestionPage from './pages/AnswerNextQuestionPage';
 import QuestionStatsPage from './pages/QuestionStatsPage';
+import QuestionEditedStatsPage from './pages/QuestionEditedStatsPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import RegisterQuestionsLandingPage from './pages/RegisterQuestionLandingPage';
@@ -86,9 +88,10 @@ export default class Root extends Component {
                         <Route name="gallery-album-photos" path="/gallery-album-photos" component={GalleryAlbumPhotosPage}/>
                         <Route name="questions" path="/questions" component={QuestionsPage}/>
                         <Route name="other-questions" path="/users/:slug/other-questions" component={OtherQuestionsPage}/>
-                        <Route name="answer-question" path="/answer-question/:questionId" component={AnswerQuestionPage}/>
-                        <Route name="answer-question-next" path="/answer-question/next" component={AnswerQuestionPage}/>
+                        <Route name="answer-question" path="/answer-question/:questionId/:from" component={AnswerQuestionPage}/>
+                        <Route name="answer-question-next" path="/answer-question/next" component={AnswerNextQuestionPage}/>
                         <Route name="question-stats" path="/question-stats" component={QuestionStatsPage}/>
+                        <Route name="question-stats" path="/question-stats/:from" component={QuestionEditedStatsPage}/>
                         <Route name="invitations" path="/invitations" component={InvitationsPage}/>
                         <Route name="discover" path="/discover" component={DiscoverPage}/>
                         <Route name="recommendations" path="/recommendations/:threadId" component={RecommendationPage}/>

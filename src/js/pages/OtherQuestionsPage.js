@@ -136,7 +136,7 @@ export default class OtherQuestionsPage extends Component {
                                         <ProfilesAvatarConnection ownPicture={ownPicture} otherPicture={otherPicture}/>
                                         <div className="other-questions-stats-title title">{pagination.total || 0} {strings.coincidences}</div>
                                     </div>
-                                    <OtherQuestionList otherQuestions={otherQuestions} questions={questions} userId={user.id} ownPicture={ownPicture} otherPicture={otherPicture}/>
+                                    <OtherQuestionList otherQuestions={otherQuestions} questions={questions} otherUserSlug={otherUser.slug || ''} ownPicture={ownPicture} otherPicture={otherPicture}/>
                                     <div className="loading-gif" style={pagination.nextLink ? {} : {display: 'none'}}></div>
                                     <br />
                                     <br />

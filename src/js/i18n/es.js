@@ -1,5 +1,9 @@
 export default {
     AnswerQuestionPage               : {
+        question: 'Pregunta',
+        skip    : 'Omitir'
+    },
+    AnswerNextQuestionPage           : {
         question               : 'Pregunta',
         skip                   : 'Omitir',
         tutorialFirstStepTitle : 'Tu respuesta',
@@ -106,13 +110,14 @@ export default {
         noGroupToken  : 'Este código no tiene ninguna insignia asociada'
     },
     GroupStatsPage                   : {
-        group        : 'Grupo',
-        share        : 'Url a compartir',
-        shareSubject : 'Únete al grupo de Nekuno ',
-        leave        : 'Salir del grupo',
-        confirm_leave: 'Confirmar para salir',
-        leaving      : 'Saliendo',
-        leave_error  : '¡Lo sentimos! Por favor, intenta salir de nuevo'
+        group            : 'Grupo',
+        share            : 'Url a compartir',
+        shareSubject     : 'Únete al grupo de Nekuno ',
+        leave            : 'Salir del grupo',
+        confirm_leave    : 'Confirmar para salir',
+        leaving          : 'Saliendo',
+        leave_error      : '¡Lo sentimos! Por favor, intenta salir de nuevo',
+        copiedToClipboard: 'Copiado al portapapeles'
     },
     UnlockGroupPopup                 : {
         enterToken    : 'Código de insignia',
@@ -158,6 +163,10 @@ export default {
         statistics: 'Estadísticas',
         next      : 'Continuar'
     },
+    QuestionEditedStatsPage          : {
+        statistics: 'Estadísticas',
+        next      : 'Continuar'
+    },
     RegisterPage                     : {
         register      : 'Crear cuenta',
         cancel        : 'Cancelar',
@@ -195,12 +204,12 @@ export default {
 
     },
     RecommendationPage               : {
-        loadingMessage  : 'Cargando recomendaciones',
-        confirmDelete   : '¿Estás seguro de que quieres borrar este ovillo?',
-        processingThread: 'Estos resultados son provisionales, en breve mejorarán',
-        confirmReplace  : 'Hemos mejorado tus recomendaciones. ¿Quieres actualizarlas?',
-        copyToClipboard : 'Copiar al portapapeles: Ctrl+C, Enter',
-        shareError      : 'Parece que ha habido un error mientras compartías este contenido'
+        loadingMessage   : 'Cargando recomendaciones',
+        confirmDelete    : '¿Estás seguro de que quieres borrar este ovillo?',
+        processingThread : 'Estos resultados son provisionales, en breve mejorarán',
+        confirmReplace   : 'Hemos mejorado tus recomendaciones. ¿Quieres actualizarlas?',
+        copiedToClipboard: 'Copiado al portapapeles',
+        shareError       : 'Parece que ha habido un error mientras compartías este contenido'
     },
     InvitationsPage                  : {
         invitations           : 'Invitaciones',
@@ -212,7 +221,7 @@ export default {
         expiresAt             : 'Fecha de expiración',
         consumedBy            : 'Utilizada por',
         shareError            : 'Ha ocurrido un error enviando la invitación.',
-        copyToClipboard       : 'Copiar al portapapeles: Ctrl+C, Enter'
+        copiedToClipboard     : 'Copiado al portapapeles'
     },
     UserPage                         : {
         aboutMe  : 'Sobre mi',
@@ -385,7 +394,7 @@ export default {
         text                  : 'Descubre a los más compatibles compartiendo la url de tu perfil',
         copyLink              : 'Copiar url de perfil',
         compatibilityCheckWith: 'Descubre tu compatibilidad con %username%',
-        copyToClipboard       : 'Copiar al portapapeles: Ctrl+C, Enter',
+        copiedToClipboard     : 'Copiado al portapapeles',
         shareError            : 'Ha ocurrido un error compartiendo el enlace.'
     },
     ProcessesProgress                : {
@@ -415,13 +424,13 @@ export default {
         maxLengthIs: 'La máxima longitud del mensaje es  '
     },
     CardContent                      : {
-        like           : 'Me interesa',
-        unlike         : 'Quitar',
-        compatibility  : 'Compatibilidad',
-        emptyTitle     : 'Contenido',
-        copyToClipboard: 'Copiar al portapapeles: Ctrl+C, Enter',
-        shareError     : 'Parece que ha habido un error mientras compartías este contenido',
-        saving         : 'Guardando...'
+        like             : 'Me interesa',
+        unlike           : 'Quitar',
+        compatibility    : 'Compatibilidad',
+        emptyTitle       : 'Contenido',
+        copiedToClipboard: 'Copiado al portapapeles',
+        shareError       : 'Parece que ha habido un error mientras compartías este contenido',
+        saving           : 'Guardando...'
     },
     CardUser                         : {
         like      : 'Me gusta',
@@ -563,11 +572,11 @@ export default {
         birthdayPlaceholder: 'Tu fecha de nacimiento'
     },
     Group                            : {
-        users          : 'usuarios',
-        sendInvitation : 'Enviar invitación',
-        invitationTitle: 'Invitación a insignia',
-        shareError     : 'Ha ocurrido un error compartiendo el enlace.',
-        copyToClipboard: 'Copiar al portapapeles: Ctrl+C, Enter'
+        users            : 'usuarios',
+        sendInvitation   : 'Enviar invitación',
+        invitationTitle  : 'Invitación a insignia',
+        shareError       : 'Ha ocurrido un error compartiendo el enlace.',
+        copiedToClipboard: 'Copiado al portapapeles'
     },
     RecommendationUser               : {
         age    : 'Edad',

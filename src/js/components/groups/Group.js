@@ -2,6 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import { INVITATIONS_URL } from '../../constants/Constants';
 import Button from '../ui/Button';
 import Image from '../ui/Image';
+import ShareService from '../../services/ShareService';
 import translate from '../../i18n/Translate';
 
 @translate('Group')
@@ -36,19 +37,13 @@ export default class Group extends Component {
     onShare(group) {
         const {strings} = this.props;
         const url = INVITATIONS_URL.replace('{token}', group.invitation.invitation_token);
-        if (window.cordova) {
-            // this is the complete list of currently supported params you can pass to the plugin (all optional)
-            var options = {
-                //message: 'share this', // not supported on some apps (Facebook, Instagram)
-                subject: strings.invitationTitle, // fi. for email
-                url: url
-                //chooserTitle: 'Pick an app' // Android only, you can override the default share sheet title
-            };
-            window.plugins.socialsharing.shareWithOptions(options, this.onShareSuccess, this.onShareError);
-        } else {
-            window.prompt(strings.copyToClipboard, url);
-            this.onShareSuccess();
-        }
+        ShareService.share(
+            strings.invitationTitle,
+            url,
+            this.onShareSuccess,
+            this.onShareError,
+            strings.copiedToClipboard
+        );
     }
 
     onShareSuccess() {}
@@ -88,10 +83,10 @@ export default class Group extends Component {
 
 Group.defaultProps = {
     strings: {
-        users          : 'Users',
-        sendInvitation : 'Send invitation',
-        invitationTitle: 'Badge invitation',
-        shareError     : 'An error occurred sending the invitation.',
-        copyToClipboard: 'Copy to clipboard: Ctrl+C, Enter'
+        users            : 'Users',
+        sendInvitation   : 'Send invitation',
+        invitationTitle  : 'Badge invitation',
+        shareError       : 'An error occurred sending the invitation.',
+        copiedToClipboard: 'Copied to clipboard',
     }
 };

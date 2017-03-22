@@ -3,7 +3,7 @@ import RouterContainer from '../services/RouterContainer';
 import ActionTypes from '../constants/ActionTypes';
 import BaseStore from './BaseStore';
 import jwt_decode from 'jwt-decode';
-import {getValidationErrors} from '../utils/StoreUtils';
+import { getValidationErrors } from '../utils/StoreUtils';
 import LocalStorageService from '../services/LocalStorageService';
 
 class LoginStore extends BaseStore {
@@ -31,16 +31,19 @@ class LoginStore extends BaseStore {
                     const exp = jwt_decode(jwt).exp;
                     if (exp < now) {
                         console.log('jwt token expired on', (new Date(exp * 1e3).toString()));
+                        this._tryingToLogin = false;
+                        this.setInitial();
+                        LocalStorageService.remove('jwt');
                     } else {
                         this._jwt = jwt;
                         this._user = {id: jwt_decode(this._jwt).user.id};
                         this._tryingToLogin = false;
                         console.log('Autologin success!');
-                        this.emitChange();
                     }
                 } else {
                     this._tryingToLogin = false;
                 }
+                this.emitChange();
                 break;
 
             case ActionTypes.REQUEST_LOGIN_USER:
@@ -51,10 +54,9 @@ class LoginStore extends BaseStore {
 
             case ActionTypes.REQUEST_LOGIN_USER_SUCCESS:
                 this._error = null;
-                this._jwt = action.response.jwt;
+                this.jwt = action.response.jwt;
                 this._user = jwt_decode(this._jwt).user;
                 this._tryingToLogin = false;
-                LocalStorageService.set('jwt', this._jwt);
                 this._setInitialRequiredUserQuestionsCount();
                 this.emitChange();
                 break;
@@ -85,8 +87,7 @@ class LoginStore extends BaseStore {
 
             case ActionTypes.EDIT_USER_SUCCESS:
                 this._user = action.response.user;
-                this._jwt = action.response.jwt;
-                LocalStorageService.set('jwt', this._jwt);
+                this.jwt = action.response.jwt;
                 this._usernameAnswered = true;
                 this._requiredUserQuestionsCount++;
                 this.emitChange();
@@ -106,7 +107,7 @@ class LoginStore extends BaseStore {
                 this._user = action.response;
                 this.emitChange();
                 break;
-                
+
             default:
                 break;
         }
@@ -124,6 +125,11 @@ class LoginStore extends BaseStore {
 
     get jwt() {
         return this._jwt;
+    }
+
+    set jwt(jwt) {
+        this._jwt = jwt;
+        LocalStorageService.set('jwt', jwt);
     }
 
     get justLoggedOut() {

@@ -1,5 +1,5 @@
 import GeocoderService from './GeocoderService';
-import { SOCIAL_NETWORKS_NAMES } from '../constants/Constants';
+import { SOCIAL_NETWORKS_NAMES, FACEBOOK_ID } from '../constants/Constants';
 import moment from 'moment';
 import selectn from 'selectn';
 
@@ -14,6 +14,26 @@ class SocialNetworkService {
         this._profiles = {};
         this._users = {};
         this._loggedInWithPlugin = false;
+    }
+
+    initFacebookSDK() {
+        if (!window.cordova) {
+            window.fbAsyncInit = function () {
+                FB.init({
+                    appId: FACEBOOK_ID,
+                    xfbml: true,
+                    version: 'v2.8'
+                });
+                FB.AppEvents.logPageView();
+            };
+            (function(d, s, id) {
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) return;
+                js = d.createElement(s); js.id = id;
+                js.src = "https://connect.facebook.net/es_ES/sdk.js#xfbml=1&version=v2.8";
+                fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'))
+        }
     }
 
     login(resource, scope, force) {

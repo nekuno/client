@@ -6,6 +6,7 @@ import Image from './Image';
 import UserStore from '../../stores/UserStore';
 import * as UserActionCreators from '../../actions/UserActionCreators'
 import translate from '../../i18n/Translate';
+import Shareservice from '../../services/ShareService';
 
 @translate('CardContent')
 export default class CardContent extends Component {
@@ -70,19 +71,7 @@ export default class CardContent extends Component {
 
     onShare() {
         const {title, url, strings} = this.props;
-        if (window.cordova) {
-            // this is the complete list of currently supported params you can pass to the plugin (all optional)
-            var options = {
-                //message: 'share this', // not supported on some apps (Facebook, Instagram)
-                subject: title, // fi. for email
-                url: url
-                //chooserTitle: 'Pick an app' // Android only, you can override the default share sheet title
-            };
-            window.plugins.socialsharing.shareWithOptions(options, this.onShareSuccess, this.onShareError);
-        } else {
-            window.prompt(strings.copyToClipboard, url);
-            this.onShareSuccess();
-        }
+        Shareservice.share(title, url, this.onShareSuccess, this.onShareError, strings.copiedToClipboard);
     }
     
     onShareSuccess() {
@@ -104,7 +93,7 @@ export default class CardContent extends Component {
             onClickHandler();
         } else {
             const isVideo = types.indexOf('Video') > -1;
-            if (isVideo && !window.cordova) {
+            if (isVideo && !window.cordova && window.screen.width > 320) {
                 this.preVisualizeVideo(embed_type, embed_id, url);
             } else {
                 window.cordova ? document.location = url : window.open(url);
@@ -224,12 +213,12 @@ export default class CardContent extends Component {
 
 CardContent.defaultProps = {
     strings: {
-        like           : 'Like',
-        unlike         : 'Remove',
-        compatibility  : 'Compatibility',
-        emptyTitle     : 'Title',
-        copyToClipboard: 'Copy to clipboard: Ctrl+C, Enter',
-        shareError     : 'An error occurred sharing the content',
-        saving         : 'Saving...'
+        like             : 'Like',
+        unlike           : 'Remove',
+        compatibility    : 'Compatibility',
+        emptyTitle       : 'Title',
+        copiedToClipboard: 'Copied to clipboard',
+        shareError       : 'An error occurred sharing the content',
+        saving           : 'Saving...'
     }
 };

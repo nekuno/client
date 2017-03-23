@@ -618,6 +618,10 @@ export default {
         Message : {
             title: 'Nuevo mensaje',
             body : '%username% te acaba de enviar un mensaje.'
+        },
+        ProcessFinish : {
+            title: 'Proceso finalizado',
+            body : 'Hemos acabado de procesar tu red de %resource%.'
         }
     }
 }

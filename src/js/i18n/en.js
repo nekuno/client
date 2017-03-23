@@ -613,9 +613,13 @@ export default {
     // NotificationService //
     /////////////////////////
     NotificationService              : {
-        Message : {
+        Message       : {
             title: 'New message',
             body : '%username% has just sent you a message.'
+        },
+        ProcessFinish : {
+            title: 'Process finished',
+            body : 'We have finished to process your network %resource%.'
         }
     }
 }

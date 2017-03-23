@@ -14,6 +14,9 @@ class NotificationService {
             case 'message':
                 this.notifyMessage(data, lang);
                 break;
+            case 'process_finish':
+                this.notifyProcessFinish(data, lang);
+                break;
             default:
                 this.notifyGeneric(data, lang);
         }
@@ -26,14 +29,22 @@ class NotificationService {
         this.showNotification(strings.title, strings.body.replace('%username%', username), lang, icon, url);
     }
 
+    notifyProcessFinish(data, lang) {
+        const {resource} = data;
+        const url = `/social-networks`;
+        const strings = locales[LocaleStore.locale]['NotificationService']['ProcessFinish'];
+        this.showNotification(strings.title, strings.body.replace('%resource%', resource), lang, null, url);
+    }
+
     notifyGeneric(data, lang) {
         const {title, body, icon} = data;
-        if (title && body && icon) {
+        if (title && body) {
             this.showNotification(title, body, lang, icon, null);
         }
     }
 
     showNotification(title, body, lang, icon, url) {
+        icon = this._iconOrDefaultIcon(icon);
         let options = {
             body: body,
             icon: icon,
@@ -86,6 +97,10 @@ class NotificationService {
         }
 
         return lang;
+    };
+
+    _iconOrDefaultIcon = function(icon) {
+        return typeof icon !== 'undefined' && icon ? icon : 'https://nekuno.com/favicon-64.png';
     };
 
 }

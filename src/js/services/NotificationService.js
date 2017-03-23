@@ -71,7 +71,6 @@ class NotificationService {
                     setTimeout(RouterContainer.get().push(url), 0);
                 }
             };
-            setTimeout(notification.close.bind(notification), 5000);
         }).catch((error) => {
             console.log(error)
         });

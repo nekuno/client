@@ -13,7 +13,6 @@ class NotificationsSocketService extends SocketService {
         var socket = this._socket;
 
         socket.on('message', function(data) {
-            console.log('message', data)
             const {slug, title, body, lang, icon} = data;
             NotificationService.notifyMessage(slug, title, body, lang, icon);
         });

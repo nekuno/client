@@ -14,38 +14,43 @@ class NotificationService {
             lang: lang
         };
 
-        if(this._grant()) {
+        this._grant().then(() => {
             let notification = new Notification(title, options);
-            notification.onclick = function() {
+            notification.onclick = function () {
                 window.focus();
-                if(url !== RouterContainer.get().getCurrentLocation().pathname) {
+                if (url !== RouterContainer.get().getCurrentLocation().pathname) {
                     setTimeout(RouterContainer.get().push(url), 0);
                 }
             };
             setTimeout(notification.close.bind(notification), 5000);
-        }
+        }).catch((error) => {
+            console.log(error)
+        });
     }
 
     _grant = function() {
+        let resolve = new Promise((resolve) => { resolve(true) });
         if (!("Notification" in window)) {
-            return false;
+            return new Promise((resolve, reject) => { reject('notifications not supported') });
         }
 
         // Let's check whether notification permissions have already been granted
         else if (Notification.permission === "granted") {
-            return true;
+            return resolve;
         }
 
         // Otherwise, we need to ask the user for permission
         else if (Notification.permission !== 'denied') {
-            Notification.requestPermission((permission) => {
+            return Notification.requestPermission((permission) => {
                 if (permission === "granted") {
-                    return true;
+                    return resolve;
                 }
             });
         }
 
-        return false;
+        else {
+            return new Promise((resolve, reject) => { reject('notifications not granted') });
+        }
     };
 
 }

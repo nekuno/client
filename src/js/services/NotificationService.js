@@ -1,13 +1,39 @@
 import RouterContainer from './RouterContainer';
+import en from '../i18n/en';
+import es from '../i18n/es';
+import LocaleStore from '../stores/LocaleStore';
+
+const locales = {en, es};
 
 class NotificationService {
 
-    notifyMessage(slug, title, body, lang, icon) {
-        const url = `/conversations/${slug}`;
-        this.notify(title, body, lang, icon, url);
+    notify(data) {
+        const {type} = data;
+        const lang = this._localeToLang(LocaleStore.locale);
+        switch (type) {
+            case 'message':
+                this.notifyMessage(data, lang);
+                break;
+            default:
+                this.notifyGeneric(data, lang);
+        }
     }
 
-    notify(title, body, lang, icon, url) {
+    notifyMessage(data, lang) {
+        const {slug, username, icon} = data;
+        const url = `/conversations/${slug}`;
+        const strings = locales[LocaleStore.locale]['NotificationService']['Message'];
+        this.showNotification(strings.title, strings.body.replace('%username%', username), lang, icon, url);
+    }
+
+    notifyGeneric(data, lang) {
+        const {title, body, icon} = data;
+        if (title && body && icon) {
+            this.showNotification(title, body, lang, icon, null);
+        }
+    }
+
+    showNotification(title, body, lang, icon, url) {
         let options = {
             body: body,
             icon: icon,
@@ -18,7 +44,7 @@ class NotificationService {
             let notification = new Notification(title, options);
             notification.onclick = function () {
                 window.focus();
-                if (url !== RouterContainer.get().getCurrentLocation().pathname) {
+                if (url && url !== RouterContainer.get().getCurrentLocation().pathname) {
                     setTimeout(RouterContainer.get().push(url), 0);
                 }
             };
@@ -51,6 +77,15 @@ class NotificationService {
         else {
             return new Promise((resolve, reject) => { reject('notifications not granted') });
         }
+    };
+
+    _localeToLang = function(locale) {
+        let lang = "en-US";
+        if (locale && locale.indexOf("es") !== -1) {
+            lang = "es-ES";
+        }
+
+        return lang;
     };
 
 }

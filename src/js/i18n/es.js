@@ -622,6 +622,10 @@ export default {
         ProcessFinish : {
             title: 'Proceso finalizado',
             body : 'Hemos acabado de procesar tu red de %resource%.'
+        },
+        UserLiked     : {
+            title: 'Nuevo "like"',
+            body : '%username% te ha hecho "like".'
         }
     }
 }

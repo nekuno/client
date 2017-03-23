@@ -17,14 +17,18 @@ class NotificationService {
             case 'process_finish':
                 this.notifyProcessFinish(data, lang);
                 break;
+            case 'user_liked':
+                this.notifyUserLiked(data, lang);
+                break;
             default:
                 this.notifyGeneric(data, lang);
         }
     }
 
     notifyMessage(data, lang) {
-        const {slug, username, icon} = data;
+        const {slug, username, photo} = data;
         const url = `/conversations/${slug}`;
+        const icon = this._getUserThumbnail(photo);
         const strings = locales[LocaleStore.locale]['NotificationService']['Message'];
         this.showNotification(strings.title, strings.body.replace('%username%', username), lang, icon, url);
     }
@@ -34,6 +38,14 @@ class NotificationService {
         const url = `/social-networks`;
         const strings = locales[LocaleStore.locale]['NotificationService']['ProcessFinish'];
         this.showNotification(strings.title, strings.body.replace('%resource%', resource), lang, null, url);
+    }
+
+    notifyUserLiked(data, lang) {
+        const {slug, username, photo} = data;
+        const url = `/p/${slug}`;
+        const icon = this._getUserThumbnail(photo);
+        const strings = locales[LocaleStore.locale]['NotificationService']['UserLiked'];
+        this.showNotification(strings.title, strings.body.replace('%username%', username), lang, icon, url);
     }
 
     notifyGeneric(data, lang) {
@@ -65,7 +77,7 @@ class NotificationService {
         });
     }
 
-    _grant = function() {
+    _grant = function () {
         let resolve = new Promise((resolve) => { resolve(true) });
         if (!("Notification" in window)) {
             return new Promise((resolve, reject) => { reject('notifications not supported') });
@@ -90,7 +102,7 @@ class NotificationService {
         }
     };
 
-    _localeToLang = function(locale) {
+    _localeToLang = function (locale) {
         let lang = "en-US";
         if (locale && locale.indexOf("es") !== -1) {
             lang = "es-ES";
@@ -99,7 +111,12 @@ class NotificationService {
         return lang;
     };
 
-    _iconOrDefaultIcon = function(icon) {
+    _getUserThumbnail = function (photo) {
+        return photo && photo.thumbnail && photo.thumbnail.small ?
+            photo.thumbnail.small : photo && photo.url ? photo.url : null;
+    };
+
+    _iconOrDefaultIcon = function (icon) {
         return typeof icon !== 'undefined' && icon ? icon : 'https://nekuno.com/favicon-64.png';
     };
 

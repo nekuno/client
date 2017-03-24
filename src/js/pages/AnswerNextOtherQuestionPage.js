@@ -104,7 +104,7 @@ export default class AnswerNextOtherQuestionPage extends Component {
 
         return (
             <div className="views">
-                <TopNavBar leftMenuIcon={true} centerText={strings.question}/>
+                <TopNavBar leftIcon={'left-arrow'} centerText={strings.question}/>
                 <div className="view view-main">
                     <div className="page answer-question-page">
                         <div id="page-content" className="answer-question-content">

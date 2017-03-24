@@ -608,5 +608,22 @@ export default {
         next   : 'Next',
         skip   : 'Skip',
         seeMore: '<a href="https://nekuno.com" target="_blank">See more about Nekuno</a>'
+    },
+    /////////////////////////
+    // NotificationService //
+    /////////////////////////
+    NotificationService              : {
+        Message       : {
+            title: 'New message',
+            body : '%username% has just sent you a message.'
+        },
+        ProcessFinish : {
+            title: 'Process finished',
+            body : 'We have finished to process your network %resource%.'
+        },
+        UserLiked     : {
+            title: 'New like',
+            body : '%username% has liked you.'
+        }
     }
 }

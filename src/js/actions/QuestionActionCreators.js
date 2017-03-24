@@ -87,3 +87,8 @@ export function removePreviousQuestion(userId) {
 export function popupDisplayed() {
     dispatch(ActionTypes.QUESTIONS_POPUP_DISPLAYED);
 }
+
+export function setQuestionEditable(questionId)
+{
+    dispatch(ActionTypes.SET_QUESTION_EDITABLE, {questionId});
+}

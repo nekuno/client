@@ -366,6 +366,9 @@ export default {
     OtherQuestion                    : {
         didntAnswered: 'You have not answered this question'
     },
+    QuestionEditCountdown            : {
+        text: 'Please wait %s% to answer again'
+    },
     QuestionStats                    : {
         yourAnswer: 'Your answer',
         statistics: 'Community answer statistics'

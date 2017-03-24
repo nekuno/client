@@ -64,13 +64,21 @@ class NotificationService {
         };
 
         this._grant().then(() => {
-            let notification = new Notification(title, options);
-            notification.onclick = function () {
-                window.focus();
-                if (url && url !== RouterContainer.get().getCurrentLocation().pathname) {
-                    setTimeout(RouterContainer.get().push(url), 0);
-                }
-            };
+            if (window.cordova) {
+                window.cordova.plugins.notification.local.schedule({
+                    title: title,
+                    text: body,
+                    icon: icon
+                });
+                window.cordova.plugins.notification.local.on("click", (notification) => {
+                    this._onClickAction(url);
+                });
+            } else {
+                let notification = new Notification(title, options);
+                notification.addEventListener('click', () => {
+                    this._onClickAction(url);
+                });
+            }
         }).catch((error) => {
             console.log(error)
         });
@@ -78,26 +86,36 @@ class NotificationService {
 
     _grant = function () {
         let resolve = new Promise((resolve) => { resolve(true) });
-        if (!("Notification" in window)) {
-            return new Promise((resolve, reject) => { reject('notifications not supported') });
-        }
-
-        // Let's check whether notification permissions have already been granted
-        else if (Notification.permission === "granted") {
+        if (window.cordova) {
+            // No need to grant permission explicitly
             return resolve;
-        }
+        } else {
+            if (!("Notification" in window)) {
+                return new Promise((resolve, reject) => {
+                    reject('notifications not supported')
+                });
+            }
 
-        // Otherwise, we need to ask the user for permission
-        else if (Notification.permission !== 'denied') {
-            return Notification.requestPermission((permission) => {
-                if (permission === "granted") {
-                    return resolve;
-                }
-            });
-        }
+            // Let's check whether notification permissions have already been granted
+            else if (Notification.permission === "granted") {
+                return resolve;
+            }
 
-        else {
-            return new Promise((resolve, reject) => { reject('notifications not granted') });
+
+            // Otherwise, we need to ask the user for permission
+            else if (Notification.permission !== 'denied') {
+                return Notification.requestPermission((permission) => {
+                    if (permission === "granted") {
+                        return resolve;
+                    }
+                });
+            }
+
+            else {
+                return new Promise((resolve, reject) => {
+                    reject('notifications not granted')
+                });
+            }
         }
     };
 
@@ -117,6 +135,13 @@ class NotificationService {
 
     _iconOrDefaultIcon = function (icon) {
         return typeof icon !== 'undefined' && icon ? icon : 'https://nekuno.com/favicon-64.png';
+    };
+
+    _onClickAction = function (url) {
+        window.focus();
+        if (url && url !== RouterContainer.get().getCurrentLocation().pathname) {
+            setTimeout(RouterContainer.get().push(url), 0);
+        }
     };
 
 }

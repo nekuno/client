@@ -70,4 +70,5 @@
         <variable name="APP_NAME" value="fornekuno" />
     </plugin>
     <plugin name="cordova-plugin-google-analytics" spec="~1.7.4" />
+    <plugin name="de.appplant.cordova.plugin.local-notification" spec="https://github.com/katzer/cordova-plugin-local-notifications#0.8.4" />
 </widget>

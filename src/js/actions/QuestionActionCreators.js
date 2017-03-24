@@ -58,6 +58,15 @@ export function requestNextQuestion(userId) {
     }, {userId});
 }
 
+export function requestNextOtherQuestion(userId, otherUserId) {
+    dispatch(ActionTypes.REMOVE_PREVIOUS_QUESTION, {userId});
+    return dispatchAsync(QuestionAPI.getNextOtherQuestion(otherUserId), {
+        request: ActionTypes.REQUEST_QUESTION,
+        success: ActionTypes.REQUEST_QUESTION_SUCCESS,
+        failure: ActionTypes.REQUEST_QUESTION_ERROR
+    }, {userId, otherUserId});
+}
+
 export function answerQuestion(userId, questionId, answerId, acceptedAnswers, rating) {
     return dispatchAsync(QuestionAPI.answerQuestion(questionId, answerId, acceptedAnswers, rating), {
         request: ActionTypes.ANSWER_QUESTION,

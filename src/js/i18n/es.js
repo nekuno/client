@@ -13,6 +13,10 @@ export default {
         tutorialThirdStepTitle : 'Importancia',
         tutorialThirdStep      : 'Esta será la importancia que tendrá la pregunta a la hora de hacer los cálculos de compatibilidad.'
     },
+    AnswerNextOtherQuestionPage      : {
+        question       : 'Pregunta',
+        noMoreQuestions: 'No hay más preguntas de este usuario'
+    },
     ChatMessagesPage                 : {
         noMoreMessages: 'No tienes más mensajes',
         placeholder   : 'Escribe un mensaje...',
@@ -382,6 +386,11 @@ export default {
     QuestionsBanner                  : {
         title    : '¿Quieres que hilemos más fino?',
         text     : 'Responde más preguntas',
+        completed: 'Preguntas completadas'
+    },
+    OtherQuestionsBanner                  : {
+        title    : '¿Quieres responder las preguntas de este usuario?',
+        text     : '',
         completed: 'Preguntas completadas'
     },
     SocialNetworksBanner             : {

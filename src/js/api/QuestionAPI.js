@@ -16,6 +16,10 @@ export function getNextQuestion(url = `questions/next?locale=es`){
     return fetchQuestion(url);
 }
 
+export function getNextOtherQuestion(otherUserId, url = `other-questions/${otherUserId}/next?locale=es`){
+    return fetchQuestion(url);
+}
+
 export function answerQuestion(questionId, answerId, acceptedAnswers, rating, url = `answers`){
     return postAnswer(url, questionId, answerId, acceptedAnswers, rating);
 }

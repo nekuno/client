@@ -13,6 +13,10 @@ export default {
         tutorialThirdStepTitle : 'Importance',
         tutorialThirdStep      : 'This will be the question`s importance when making compatibility calculations.'
     },
+    AnswerNextOtherQuestionPage      : {
+        question       : 'Question',
+        noMoreQuestions: 'No more questions from this user'
+    },
     ChatMessagesPage                 : {
         noMoreMessages: 'You have no messages',
         placeholder   : 'Type a message...',
@@ -385,6 +389,11 @@ export default {
         text     : 'Answer more test questions',
         completed: 'completed questions'
     },
+    OtherQuestionsBanner                  : {
+        title    : 'Do you want to answer the questions of this user?',
+        text     : '',
+        completed: 'Completed questions'
+    },
     SocialNetworksBanner             : {
         title         : 'Do you want us to walk a fine line?',
         text          : 'Let`s discover your interests automatically',
@@ -611,5 +620,21 @@ export default {
         next   : 'Next',
         skip   : 'Skip',
         seeMore: '<a href="https://nekuno.com" target="_blank">See more about Nekuno</a>'
+    },
+    /////////////////////////
+    // NotificationService //
+    /////////////////////////
+    NotificationService              : {
+        Message       : {
+            title: 'New message from %username%'
+        },
+        ProcessFinish : {
+            title: 'Process finished',
+            body : 'We have finished to process your network %resource%.'
+        },
+        UserLiked     : {
+            title: 'Mutual like',
+            body : '%username% and you have mutual like.'
+        }
     }
 }

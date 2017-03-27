@@ -4,6 +4,7 @@ import TopNavBar from '../components/ui/TopNavBar';
 import ToolBar from '../components/ui/ToolBar';
 import OtherQuestionList from '../components/questions/OtherQuestionList';
 import ProfilesAvatarConnection from '../components/ui/ProfilesAvatarConnection';
+import OtherQuestionsBanner from '../components/questions/OtherQuestionsBanner';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
@@ -132,6 +133,7 @@ export default class OtherQuestionsPage extends Component {
                         <div className="page other-questions-page">
                             {user && otherUser ?
                                 <div id="page-content" className="other-questions-content">
+                                    <OtherQuestionsBanner user={otherUser} questionsTotal={pagination.total || Object.keys(questions).length || 0}/>
                                     <div className="other-questions-header-container">
                                         <ProfilesAvatarConnection ownPicture={ownPicture} otherPicture={otherPicture}/>
                                         <div className="other-questions-stats-title title">{pagination.total || 0} {strings.coincidences}</div>

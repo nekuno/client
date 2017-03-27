@@ -1,12 +1,11 @@
 import React, { PropTypes, Component } from 'react';
 import translate from '../../i18n/Translate';
 import moment from 'moment';
-//require("moment-duration-format");
 
 @translate('QuestionEditCountdown')
 export default class QuestionEditCountdown extends Component {
     static propTypes = {
-        questionId: PropTypes.number,
+        questionId: PropTypes.number.isRequired,
         seconds: PropTypes.number,
         onTimerEnd: PropTypes.func,
         // Injected by @translate:
@@ -17,6 +16,9 @@ export default class QuestionEditCountdown extends Component {
         super(props);
 
         this.setSeconds = this.setSeconds.bind(this);
+        this.checkFinishTick = this.checkFinishTick.bind(this);
+
+        this.state = {seconds: props.seconds};
     }
 
     setSeconds(seconds) {
@@ -26,19 +28,20 @@ export default class QuestionEditCountdown extends Component {
     }
 
     componentDidMount() {
-        this.setSeconds(this.props.seconds);
-
         const tickLength = 1;
         this.tickInterval = setInterval(() => {
             const seconds = this.state.seconds;
             this.setSeconds(seconds - tickLength);
 
-            if (this.state.seconds == 0)
-            {
-                clearInterval(this.tickInterval);
-                this.props.onTimerEnd(this.props.questionId);
-            }
+            this.checkFinishTick();
         }, tickLength * 1000)
+    }
+
+    checkFinishTick() {
+        if (this.state.seconds <= 0) {
+            clearInterval(this.tickInterval);
+            this.props.onTimerEnd(this.props.questionId);
+        }
     }
 
     componentWillUnmount() {
@@ -46,8 +49,7 @@ export default class QuestionEditCountdown extends Component {
     }
 
     render() {
-        const isLoaded = !!this.state;
-        const seconds = isLoaded ? this.state.seconds : 0;
+        const seconds = this.state.seconds;
         const time = moment.duration(seconds, "seconds").humanize();
         const text = this.props.strings.text.replace('%s%', time);
 
@@ -63,5 +65,7 @@ QuestionEditCountdown.defaultProps = {
     strings: {
         text: 'Please wait %s% to answer again'
     },
-    locale: 'en'
+    locale: 'en',
+    seconds: 0,
+    onTimerEnd: () => {}
 };

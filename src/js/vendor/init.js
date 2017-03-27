@@ -1,6 +1,15 @@
 import { FACEBOOK_ID, TWITTER_ID, GOOGLE_ID, SPOTIFY_ID, INSTANT_HOST } from '../constants/Constants';
 import selectn from 'selectn';
 import moment from 'moment';
+import LocaleStore from '../stores/LocaleStore';
+import 'moment/locale/es';
+
+//Moment JS //
+
+const locale = LocaleStore.locale;
+moment.locale(locale);
+
+//Hello JS//
 
 let helloOAuthCallback = '/oauthcallback.html';
 

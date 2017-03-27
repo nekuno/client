@@ -6,7 +6,8 @@ export default class QuestionList extends Component {
         questions     : PropTypes.object.isRequired,
         ownPicture    : PropTypes.string.isRequired,
         defaultPicture: PropTypes.string.isRequired,
-        userSlug      : PropTypes.string.isRequired
+        userSlug      : PropTypes.string.isRequired,
+        onTimerEnd    : PropTypes.func
     };
 
     constructor(props) {
@@ -26,7 +27,7 @@ export default class QuestionList extends Component {
     }
 
     render() {
-        const {questions, userSlug, ownPicture, defaultPicture} = this.props;
+        const {questions, userSlug, ownPicture, defaultPicture, onTimerEnd} = this.props;
         return (
             <div className="question-list">
                 {Object.keys(questions).map((questionId, index) =>
@@ -39,6 +40,7 @@ export default class QuestionList extends Component {
                               question={questions[questionId]} 
                               last={index == questions.length} 
                               onClickHandler={this.onClickHandler}
+                              onTimerEnd={onTimerEnd}
                               graphActive={this.state.graphDisplayQuestionId == questionId}
                     />
                 )}

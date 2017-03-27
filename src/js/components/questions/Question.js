@@ -1,6 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import Answer from './Answer';
 import QuestionStatsInLine from './QuestionStatsInline';
+import QuestionEditCountdown from './QuestionEditCountdown';
 
 export default class Question extends Component {
     static propTypes = {
@@ -11,6 +12,7 @@ export default class Question extends Component {
         last          : PropTypes.bool.isRequired,
         userSlug      : PropTypes.string.isRequired,
         onClickHandler: PropTypes.func,
+        onTimerEnd    : PropTypes.func,
         graphActive   : PropTypes.bool
     };
 
@@ -22,29 +24,36 @@ export default class Question extends Component {
         super(props);
 
         this.onClickHandler = this.onClickHandler.bind(this);
-        this.goToPreviousPage = this.goToPreviousPage.bind(this);
+        this.goToAnswerQuestion = this.goToAnswerQuestion.bind(this);
     }
 
-    goToPreviousPage() {
+    goToAnswerQuestion() {
         const {question, userSlug} = this.props;
         this.context.router.replace(`/answer-question/${question.question.questionId}/${userSlug}`);
     }
 
     render() {
         let question = this.props.question.question;
+        let onTimerEnd = this.props.onTimerEnd;
         if (!question) {
             return null;
         }
         let {userAnswer} = this.props;
+        let editable = userAnswer.editable;
         let answers = question && question.answers.length > 0 ? question.answers : [];
 
         return (
             <div className="question" onClick={this.onClickHandler}>
-                <a href="javascript:void(0)" onClick={this.goToPreviousPage}>
-                    <span className="edit-question-button">
-                        <span className="icon-edit"></span>
-                    </span>
-                </a>
+                {editable ?
+                    <a href="javascript:void(0)" onClick={this.goToAnswerQuestion}>
+                        <span className="edit-question-button">
+                            <span className="icon-edit"></span>
+                        </span>
+                    </a>
+                    :
+                    ''
+                }
+
                 <div className="question-title">
                     {question.text}
                 </div>
@@ -56,6 +65,9 @@ export default class Question extends Component {
                             {...this.props}
                     />
                 )}
+                {editable ? '' :
+                    <QuestionEditCountdown seconds={userAnswer.nextEdit} questionId={question.questionId} onTimerEnd={onTimerEnd} />
+                }
                 {this.props.graphActive ?
                     <QuestionStatsInLine question={question} userAnswer={userAnswer}/> : ''
                 }

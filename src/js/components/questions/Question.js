@@ -66,7 +66,7 @@ export default class Question extends Component {
                     />
                 )}
                 {editable ? '' :
-                    <QuestionEditCountdown seconds={userAnswer.nextEdit} locale={question.locale} questionId={question.questionId} onTimerEnd={onTimerEnd} />
+                    <QuestionEditCountdown seconds={userAnswer.nextEdit} questionId={question.questionId} onTimerEnd={onTimerEnd} />
                 }
                 {this.props.graphActive ?
                     <QuestionStatsInLine question={question} userAnswer={userAnswer}/> : ''

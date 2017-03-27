@@ -9,7 +9,6 @@ export default class QuestionEditCountdown extends Component {
         questionId: PropTypes.number,
         seconds: PropTypes.number,
         onTimerEnd: PropTypes.func,
-        locale: PropTypes.string,
         // Injected by @translate:
         strings: PropTypes.object
     };
@@ -49,7 +48,7 @@ export default class QuestionEditCountdown extends Component {
     render() {
         const isLoaded = !!this.state;
         const seconds = isLoaded ? this.state.seconds : 0;
-        const time = moment.duration(seconds, "seconds").locale(this.props.locale).humanize();
+        const time = moment.duration(seconds, "seconds").humanize();
         const text = this.props.strings.text.replace('%s%', time);
 
         return (

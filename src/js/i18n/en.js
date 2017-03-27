@@ -623,16 +623,15 @@ export default {
     /////////////////////////
     NotificationService              : {
         Message       : {
-            title: 'New message',
-            body : '%username% has just sent you a message.'
+            title: 'New message from %username%'
         },
         ProcessFinish : {
             title: 'Process finished',
             body : 'We have finished to process your network %resource%.'
         },
         UserLiked     : {
-            title: 'New like',
-            body : '%username% has liked you.'
+            title: 'Mutual like',
+            body : '%username% and you have mutual like.'
         }
     }
 }

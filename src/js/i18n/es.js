@@ -625,16 +625,15 @@ export default {
     /////////////////////////
     NotificationService              : {
         Message : {
-            title: 'Nuevo mensaje',
-            body : '%username% te acaba de enviar un mensaje.'
+            title: 'Nuevo mensaje de %username%'
         },
         ProcessFinish : {
             title: 'Proceso finalizado',
             body : 'Hemos acabado de procesar tu red de %resource%.'
         },
         UserLiked     : {
-            title: 'Nuevo "like"',
-            body : '%username% te ha hecho "like".'
+            title: '"like" mutuo',
+            body : '%username% y tú os habéis hecho "like" mutuamente.'
         }
     }
 }

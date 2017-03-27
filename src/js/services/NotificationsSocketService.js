@@ -1,5 +1,5 @@
 import SocketService from './SocketService';
-import NotificationService from './NotificationService';
+import NotificationActionCreators from '../actions/NotificationActionCreators';
 
 class NotificationsSocketService extends SocketService {
 
@@ -12,8 +12,8 @@ class NotificationsSocketService extends SocketService {
 
         var socket = this._socket;
 
-        socket.on('notification', function(data) {
-            NotificationService.notify(data);
+        socket.on('notification', function(category, data) {
+            NotificationActionCreators.notify(category, data);
         });
 
     }

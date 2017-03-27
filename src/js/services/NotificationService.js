@@ -7,30 +7,32 @@ const locales = {en, es};
 
 class NotificationService {
 
-    notify(data) {
-        const {type} = data;
+    notify(category, data) {
         const lang = this._localeToLang(LocaleStore.locale);
-        switch (type) {
+        switch (category) {
             case 'message':
                 this.notifyMessage(data, lang);
                 break;
             case 'process_finish':
                 this.notifyProcessFinish(data, lang);
                 break;
-            case 'user_liked':
+            case 'user_both_liked':
                 this.notifyUserLiked(data, lang);
                 break;
-            default:
+            case 'generic':
                 this.notifyGeneric(data, lang);
+                break;
         }
     }
 
     notifyMessage(data, lang) {
-        const {slug, username, photo} = data;
+        const {slug, username, photo, text} = data;
         const url = `/conversations/${slug}`;
-        const icon = this._getUserThumbnail(photo);
-        const strings = locales[LocaleStore.locale]['NotificationService']['Message'];
-        this.showNotification(strings.title, strings.body.replace('%username%', username), lang, icon, url);
+        if (url !== RouterContainer.get().getCurrentLocation().pathname) {
+            const icon = this._getUserThumbnail(photo);
+            const strings = locales[LocaleStore.locale]['NotificationService']['Message'];
+            this.showNotification(strings.title.replace('%username%', username), text, lang, icon, url);
+        }
     }
 
     notifyProcessFinish(data, lang) {

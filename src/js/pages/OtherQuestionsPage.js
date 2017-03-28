@@ -102,6 +102,10 @@ export default class OtherQuestionsPage extends Component {
         }
     }
 
+    onTimerEnd(questionId) {
+        QuestionActionCreators.setQuestionEditable(questionId);
+    }
+
     handleScroll() {
         let pagination = this.props.pagination;
         let nextLink = pagination && pagination.hasOwnProperty('nextLink') ? pagination.nextLink : null;
@@ -138,7 +142,7 @@ export default class OtherQuestionsPage extends Component {
                                         <ProfilesAvatarConnection ownPicture={ownPicture} otherPicture={otherPicture}/>
                                         <div className="other-questions-stats-title title">{pagination.total || 0} {strings.coincidences}</div>
                                     </div>
-                                    <OtherQuestionList otherQuestions={otherQuestions} questions={questions} otherUserSlug={otherUser.slug || ''} ownPicture={ownPicture} otherPicture={otherPicture}/>
+                                    <OtherQuestionList otherQuestions={otherQuestions} questions={questions} otherUserSlug={otherUser.slug || ''} ownPicture={ownPicture} otherPicture={otherPicture} onTimerEnd={this.onTimerEnd}/>
                                     <div className="loading-gif" style={pagination.nextLink ? {} : {display: 'none'}}></div>
                                     <br />
                                     <br />

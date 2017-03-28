@@ -8,11 +8,12 @@ export default class OtherQuestionList extends Component {
         otherQuestions: PropTypes.object.isRequired,
         ownPicture    : PropTypes.string,
         otherPicture  : PropTypes.string.isRequired,
-        otherUserSlug : PropTypes.string.isRequired
+        otherUserSlug : PropTypes.string.isRequired,
+        onTimerEnd    : PropTypes.func
     };
 
     render() {
-        const {questions, otherQuestions, otherUserSlug, ownPicture, otherPicture} = this.props;
+        const {questions, otherQuestions, otherUserSlug, ownPicture, otherPicture, onTimerEnd} = this.props;
         return (
             <div className="question-list">
                 {Object.keys(otherQuestions).map((questionId, index) =>
@@ -23,6 +24,7 @@ export default class OtherQuestionList extends Component {
                                    key={index}
                                    accessibleKey={index}
                                    question={otherQuestions[questionId]}
+                                   onTimerEnd={onTimerEnd}
                     />
                 )}
             </div>

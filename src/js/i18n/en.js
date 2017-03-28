@@ -474,7 +474,7 @@ export default {
         channels : 'Channels'
     },
     OrientationRequiredPopup         : {
-        title              : 'Select your sexual orientation sexual to see this yarn',
+        title              : 'Select your sexual orientation sexual to see this profile',
         orientationRequired: 'Orientation Required',
         heterosexual       : 'Heterosexual',
         bisexual           : 'Bisexual',

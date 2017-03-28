@@ -12,7 +12,7 @@ export function requestQuestions(userId, link) {
 }
 
 export function requestComparedQuestions(userId, otherUserId, filters, link) {
-    dispatchAsync(QuestionAPI.getComparedAnswers(otherUserId, filters, link), {
+    return dispatchAsync(QuestionAPI.getComparedAnswers(otherUserId, filters, link), {
         request: ActionTypes.REQUEST_COMPARED_QUESTIONS,
         success: ActionTypes.REQUEST_COMPARED_QUESTIONS_SUCCESS,
         failure: ActionTypes.REQUEST_COMPARED_QUESTIONS_ERROR

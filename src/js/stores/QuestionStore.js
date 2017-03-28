@@ -1,89 +1,179 @@
-import { register, waitFor } from '../dispatcher/Dispatcher';
-import { createStore, mergeIntoBag, isInBag } from '../utils/StoreUtils';
+import { waitFor } from '../dispatcher/Dispatcher';
+import { mergeIntoBag } from '../utils/StoreUtils';
 import ActionTypes from '../constants/ActionTypes';
 import selectn from 'selectn';
 import UserStore from './UserStore';
 import LoginStore from './LoginStore';
 import { getValidationErrors } from '../utils/StoreUtils';
+import BaseStore from './BaseStore';
 
-const registerQuestionsLength = 4;
-let _questions = {};
-let _pagination = {};
-let _answerQuestion = {};
-let _errors = '';
-let _noMoreQuestions = false;
-let _goToQuestionStats = false;
-let _isJustCompleted = false;
-let _loadingComparedQuestions = false;
 
-const QuestionStore = createStore({
+class QuestionStore extends BaseStore {
+    setInitial() {
+        this._registerQuestionsLength = 4;
+        this._questions = {};
+        this._pagination = {};
+        this._answerQuestion = {};
+        this._errors = '';
+        this._noMoreQuestions = false;
+        this._goToQuestionStats = false;
+        this._isJustCompleted = false;
+        this._loadingComparedQuestions = false;
+    }
+
+    _registerToActions(action) {
+        waitFor([UserStore.dispatchToken]);
+        let newItems = {};
+        switch (action.type) {
+            case ActionTypes.REQUEST_QUESTIONS:
+                break;
+            case ActionTypes.REQUEST_COMPARED_QUESTIONS:
+                this._loadingComparedQuestions = true;
+                this.emitChange();
+                break;
+            case ActionTypes.REQUEST_QUESTION:
+                break;
+            case ActionTypes.REQUEST_EXISTING_QUESTION:
+                this._answerQuestion = {};
+                this._answerQuestion[action.questionId] = this._questions[action.userId][action.questionId].question;
+                this.emitChange();
+                break;
+            case ActionTypes.QUESTIONS_NEXT:
+                break;
+            case ActionTypes.REMOVE_PREVIOUS_QUESTION:
+                this._answerQuestion = {};
+                this.emitChange();
+                break;
+            case ActionTypes.ANSWER_QUESTION:
+                break;
+            case ActionTypes.SKIP_QUESTION:
+                break;
+            case ActionTypes.SET_QUESTION_EDITABLE:
+                this.setEditable(action.questionId);
+                this.emitChange();
+                break;
+            case ActionTypes.QUESTIONS_POPUP_DISPLAYED:
+                this._isJustCompleted = false;
+                this.emitChange();
+                break;
+            case ActionTypes.REQUEST_QUESTIONS_SUCCESS:
+                newItems[action.userId] = action.response.entities.items;
+                this._pagination[action.userId] = action.response.result.pagination;
+                this._loadingComparedQuestions = false;
+                mergeIntoBag(this._questions, newItems);
+                this.emitChange();
+                break;
+            case ActionTypes.REQUEST_COMPARED_QUESTIONS_SUCCESS:
+                let items = action.response.entities.items;
+                const otherUserId = action.otherUserId;
+                Object.keys(items).forEach(index => { newItems[index] = items[index].questions });
+                this._pagination[otherUserId] = action.response.result.pagination;
+                this._loadingComparedQuestions = false;
+                mergeIntoBag(this._questions, newItems);
+                this.emitChange();
+                break;
+            case ActionTypes.REQUEST_QUESTION_SUCCESS:
+                this._answerQuestion = action.response.entities.question;
+                this.emitChange();
+                break;
+            case ActionTypes.ANSWER_QUESTION_SUCCESS:
+                const userAnswer = action.response.userAnswer;
+                const userAnswerQuestion = action.response.question;
+                this._questions[action.userId] =  this._questions[action.userId] || {};
+                this._questions[action.userId][userAnswer.questionId] = {question: userAnswerQuestion, userAnswer: userAnswer};
+                this._goToQuestionStats = true;
+                this._pagination[action.userId] = this._pagination[action.userId] || {};
+                this._pagination[action.userId].total++;
+                this._isJustCompleted = this.answersLength(action.userId) == this.registerQuestionsLength();
+                this.emitChange();
+                break;
+            case ActionTypes.SKIP_QUESTION_SUCCESS:
+                Object.keys(this._questions).forEach(questionUserId => {
+                    if (this._questions[questionUserId][action.questionId]) {
+                        delete this._questions[questionUserId][action.questionId];
+                        this._pagination[questionUserId].total--;
+                    }
+                });
+                this.emitChange();
+                break;
+            case ActionTypes.REQUEST_QUESTIONS_ERROR:
+            case ActionTypes.REQUEST_COMPARED_QUESTIONS_ERROR:
+                break;
+            case ActionTypes.REQUEST_QUESTION_ERROR:
+                this._noMoreQuestions = true;
+                this.emitChange();
+                break;
+            case ActionTypes.ANSWER_QUESTION_ERROR:
+                this._errors = getValidationErrors(action.error);
+                this.emitChange();
+                break;
+            case ActionTypes.SKIP_QUESTION_ERROR:
+                break;
+        }
+    }
+
     contains(userId, questionId) {
-        let question = selectn(userId + '.' + questionId, _questions);
+        let question = selectn(userId + '.' + questionId, this._questions);
         return question && question.hasOwnProperty('question');
-    },
+    }
 
     get(userId) {
-        return _questions[userId];
-    },
-
-    getByQuestionId(questionId) {
-        let questions = _questions.filter((question) => {
-            return question.questionId === questionId;
-        });
-        return this.first(questions);
-    },
+        return this._questions[userId];
+    }
 
     setEditable(questionId) {
         let userId = LoginStore.user.id;
-        if (_questions[userId][questionId]) {
-            _questions[userId][questionId].userAnswer.editable = true;
+        if (this._questions[userId][questionId]) {
+            this._questions[userId][questionId].userAnswer.editable = true;
         }
-    },
+    }
 
     isFirstQuestion(userId) {
-        return !_questions.hasOwnProperty(userId) ||
-            _questions.hasOwnProperty(userId) && Object.keys(_questions[userId]).length === 0;
-    },
+        return !this._questions.hasOwnProperty(userId) ||
+            this._questions.hasOwnProperty(userId) && Object.keys(this._questions[userId]).length === 0;
+    }
 
     getPagination(userId) {
-        return _pagination[userId];
-    },
+        return this._pagination[userId];
+    }
 
     getQuestion() {
-        return this.first(_answerQuestion);
-    },
+        return this.first(this._answerQuestion);
+    }
 
     getErrors() {
-        return _errors;
-    },
+        return this._errors;
+    }
 
     noMoreQuestions() {
-        return _noMoreQuestions;
-    },
+        return this._noMoreQuestions;
+    }
 
     getUserAnswer(userId, questionId) {
-        return _questions[userId] ? selectn('userAnswer', _questions[userId][questionId]) : null;
-    },
+        return this._questions[userId] ? selectn('userAnswer', this._questions[userId][questionId]) : null;
+    }
 
     mustGoToQuestionStats() {
-        return _goToQuestionStats;
-    },
+        const goToQuestionStats = this._goToQuestionStats;
+        this._goToQuestionStats = false;
+        return goToQuestionStats;
+    }
 
     isJustRegistered(userId) {
-        return this.answersLength(userId) < registerQuestionsLength;
-    },
+        return this.answersLength(userId) < this._registerQuestionsLength;
+    }
 
     isJustCompleted() {
-        return _isJustCompleted;
-    },
+        return this._isJustCompleted;
+    }
 
     answersLength(userId) {
-        return _questions[userId] && Object.keys(_questions[userId]).length || 0;
-    },
+        return this._questions[userId] && Object.keys(this._questions[userId]).length || 0;
+    }
 
     registerQuestionsLength() {
-        return registerQuestionsLength;
-    },
+        return this._registerQuestionsLength;
+    }
 
     first(obj) {
         for (let a in obj) {
@@ -91,112 +181,11 @@ const QuestionStore = createStore({
                 return obj[a];
             }
         }
-    },
+    }
 
     isLoadingComparedQuestions() {
-        return _loadingComparedQuestions;
+        return this._loadingComparedQuestions;
     }
-});
+}
 
-QuestionStore.dispatchToken = register(action => {
-    waitFor([UserStore.dispatchToken]);
-
-    const items = selectn('response.entities.items', action);
-    const pagination = selectn('response.result.pagination', action);
-    const question = selectn('response.entities.question', action);
-    const userAnswer = selectn('response.userAnswer', action);
-    const userAnswerQuestion = selectn('response.question', action);
-    const error = selectn('error', action);
-    const userId = selectn('userId', action);
-    const otherUserId = selectn('otherUserId', action);
-    let newItems = {};
-    _goToQuestionStats = false;
-
-    if (typeof _questions[userId] === "undefined") {
-        _questions[userId] = {};
-    }
-    if (typeof _pagination[userId] === "undefined") {
-        _pagination[userId] = {};
-    }
-    //TODO: Change all to action types switch
-    if (error && action.type === ActionTypes.ANSWER_QUESTION_ERROR) {
-        _errors = getValidationErrors(error);
-        QuestionStore.emitChange();
-    }
-    else if (error && action.type === ActionTypes.REQUEST_QUESTION_ERROR) {
-        _noMoreQuestions = true;
-        QuestionStore.emitChange();
-    }
-    else if (items) {
-        if (action.type === 'REQUEST_COMPARED_QUESTIONS_SUCCESS') {
-            for (let index in items) {
-                if (items.hasOwnProperty(index)) {
-                    newItems[index] = items[index].questions;
-                }
-            }
-            _pagination[otherUserId] = pagination;
-        } else {
-            newItems[userId] = items;
-            _pagination[userId] = pagination;
-        }
-        _loadingComparedQuestions = false;
-        mergeIntoBag(_questions, newItems);
-
-        QuestionStore.emitChange();
-    }
-    else if (question) {
-        _answerQuestion = question;
-        QuestionStore.emitChange();
-    }
-    else if (userAnswer && userAnswerQuestion) {
-        // TODO: mergeIntoBag does not work here (maybe should)
-        //let userAnswerAndQuestion = { question: userAnswerQuestion, userAnswer: userAnswer };
-        //mergeIntoBag(_questions[userId], userAnswerAndQuestion);
-        _questions[userId][userAnswer.questionId] = {question: userAnswerQuestion, userAnswer: userAnswer};
-        _goToQuestionStats = true;
-        _pagination[userId].total++;
-        _isJustCompleted = QuestionStore.answersLength(userId) == QuestionStore.registerQuestionsLength();
-        QuestionStore.emitChange();
-    }
-    else if (action.type === 'REQUEST_EXISTING_QUESTION') {
-        _answerQuestion = {};
-        _answerQuestion[action.questionId] = _questions[userId][action.questionId].question;
-        QuestionStore.emitChange();
-    }
-    else if (action.type === 'REMOVE_PREVIOUS_QUESTION') {
-        _answerQuestion = {};
-        QuestionStore.emitChange();
-    }
-    else if (action.type === 'QUESTIONS_POPUP_DISPLAYED') {
-        _isJustCompleted = false;
-        QuestionStore.emitChange();
-    }
-    else if (action.type === 'REQUEST_COMPARED_QUESTIONS') {
-        _loadingComparedQuestions = true;
-        QuestionStore.emitChange();
-    }
-    else if (action.type === 'SKIP_QUESTION_SUCCESS') {
-        Object.keys(_questions).forEach(questionUserId => {
-            if (_questions[questionUserId][action.questionId]) {
-                delete _questions[questionUserId][action.questionId];
-                _pagination[questionUserId].total--;
-            }
-        });
-        QuestionStore.emitChange();
-    }
-    else if (action.type === ActionTypes.SET_QUESTION_EDITABLE) {
-        let questionId = action.questionId;
-        QuestionStore.setEditable(questionId);
-        QuestionStore.emitChange();
-    }
-    if (action.type == ActionTypes.LOGOUT_USER) {
-        _questions = {};
-        _pagination = {};
-        _answerQuestion = {};
-        _errors = '';
-        _noMoreQuestions = false;
-        _goToQuestionStats = false;
-    }
-});
-
-export default QuestionStore;
+export default new QuestionStore();

@@ -44,6 +44,7 @@ function getState(props) {
     const errors = QuestionStore.getErrors();
     const noMoreQuestions = QuestionStore.noMoreQuestions();
     const goToQuestionStats = QuestionStore.mustGoToQuestionStats();
+    const otherUser = UserStore.getBySlug(params.slug);
 
     return {
         question,
@@ -52,7 +53,8 @@ function getState(props) {
         user,
         errors,
         noMoreQuestions,
-        goToQuestionStats
+        goToQuestionStats,
+        otherUser
     };
 }
 
@@ -75,7 +77,8 @@ export default class AnswerNextOtherQuestionPage extends Component {
         userAnswer             : PropTypes.object,
         errors                 : PropTypes.string,
         noMoreQuestions        : PropTypes.bool,
-        goToQuestionStats      : PropTypes.bool
+        goToQuestionStats      : PropTypes.bool,
+        otherUser              : PropTypes.object
     };
 
     static contextTypes = {
@@ -87,9 +90,13 @@ export default class AnswerNextOtherQuestionPage extends Component {
     }
 
     componentDidUpdate() {
-        const {goToQuestionStats, noMoreQuestions, question, params, strings} = this.props;
+        const {goToQuestionStats, noMoreQuestions, question, user, otherUser, params, strings} = this.props;
         if (goToQuestionStats) {
-            this.context.router.replace(`/question-other-stats/${params.slug}`);
+            setTimeout(() => {
+                QuestionActionCreators.requestComparedQuestions(parseId(user), parseId(otherUser), ['showOnlyCommon']).then(() =>
+                    this.context.router.replace(`/question-other-stats/${params.slug}`)
+                ).catch((error) => console.log(error));
+            }, 0);
         }
         if (noMoreQuestions) {
             nekunoApp.alert(strings.noMoreQuestions);

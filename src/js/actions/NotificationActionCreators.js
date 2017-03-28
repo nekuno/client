@@ -6,6 +6,6 @@ export default {
 
     notify: (category, data) => {
         NotificationService.notify(category, data);
-        dispatch(ActionTypes.NOTIFICATION_RECEIVED, {category, data});
+        dispatch(ActionTypes.NOTIFICATION_NEW, {category, data});
     }
 }

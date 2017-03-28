@@ -252,7 +252,7 @@ export default keyMirror({
     WORKERS_AFFINITY_FINISH: null,
     WORKERS_USER_STATUS   : null,
 
-    NOTIFICATION_RECEIVED: null,
+    NOTIFICATION_NEW: null,
 
     REQUEST_PHOTOS        : null,
     REQUEST_PHOTOS_SUCCESS: null,

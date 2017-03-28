@@ -19,7 +19,7 @@ function getState() {
     const threads = threadIds ? Object.keys(threadIds).map(threadId => threadIds[threadId]) : [];
     const emptyThreads = threads.filter(thread => ThreadStore.isDisabled(thread.id));
     let threadsPercentage = threads.length > 0 ? Math.round(100 * (1 - (emptyThreads.length / threads.length))) : null;
-    threadsPercentage = threadsPercentage === 100 && !isJustRegistered ? null : threadsPercentage;
+    threadsPercentage = threadsPercentage === 100 ? null : threadsPercentage;
 
     return {
         linksPercentage,
@@ -101,25 +101,17 @@ export default class ProcessesProgress extends Component {
 
     render() {
         const {linksPercentage, similarityPercentage, matchingPercentage, affinityPercentage, threadsPercentage, countNetworksWorking, isJustRegistered, strings} = this.props;
-        let layerHeight = 0;
-        layerHeight += linksPercentage !== null || isJustRegistered ? 62 : 0;
-        layerHeight += similarityPercentage !== null || isJustRegistered ? 62 : 0;
-        layerHeight += matchingPercentage !== null || isJustRegistered ? 62 : 0;
-        layerHeight += affinityPercentage !== null || isJustRegistered ? 62 : 0;
-        layerHeight += threadsPercentage !== null || isJustRegistered ? 62 : 0;
-        layerHeight = layerHeight ? layerHeight + 72 : 0;
         return (
             linksPercentage !== null || similarityPercentage !== null || matchingPercentage !== null || affinityPercentage !== null ?
                 <div>
                     <div className="processes-progress">
                         <div className="processes-progress-title">{isJustRegistered ? strings.registrationTitle : strings.title}</div>
-                        {linksPercentage !== null || isJustRegistered ? this.renderProgress('linksPercentage', linksPercentage) : null}
-                        {similarityPercentage !== null || isJustRegistered ? this.renderProgress('similarityPercentage', similarityPercentage) : null}
-                        {matchingPercentage !== null || isJustRegistered ? this.renderProgress('matchingPercentage', matchingPercentage) : null}
-                        {affinityPercentage !== null || isJustRegistered ? this.renderProgress('affinityPercentage', affinityPercentage) : null}
-                        {threadsPercentage !== null || isJustRegistered ? this.renderProgress('processingThreads', threadsPercentage) : null}
+                        {linksPercentage !== null ? this.renderProgress('linksPercentage', linksPercentage) : null}
+                        {similarityPercentage !== null ? this.renderProgress('similarityPercentage', similarityPercentage) : null}
+                        {matchingPercentage !== null ? this.renderProgress('matchingPercentage', matchingPercentage) : null}
+                        {affinityPercentage !== null ? this.renderProgress('affinityPercentage', affinityPercentage) : null}
+                        {threadsPercentage !== null ? this.renderProgress('processingThreads', threadsPercentage) : null}
                     </div>
-                    <div style={{height: layerHeight + 'px'}}></div>
                 </div>
                 :
                 null

@@ -3,6 +3,7 @@ import { createStore, mergeIntoBag, isInBag } from '../utils/StoreUtils';
 import ActionTypes from '../constants/ActionTypes';
 import selectn from 'selectn';
 import UserStore from './UserStore';
+import LoginStore from './LoginStore';
 import { getValidationErrors } from '../utils/StoreUtils';
 
 const registerQuestionsLength = 4;
@@ -17,7 +18,7 @@ let _loadingComparedQuestions = false;
 
 const QuestionStore = createStore({
     contains(userId, questionId) {
-        let question = selectn(userId+'.'+questionId, _questions);
+        let question = selectn(userId + '.' + questionId, _questions);
         return question && question.hasOwnProperty('question');
     },
 
@@ -25,8 +26,22 @@ const QuestionStore = createStore({
         return _questions[userId];
     },
 
+    getByQuestionId(questionId) {
+        let questions = _questions.filter((question) => {
+            return question.questionId === questionId;
+        });
+        return this.first(questions);
+    },
+
+    setEditable(questionId) {
+        let userId = LoginStore.user.id;
+        if (_questions[userId][questionId]) {
+            _questions[userId][questionId].userAnswer.editable = true;
+        }
+    },
+
     isFirstQuestion(userId) {
-        return !_questions.hasOwnProperty(userId)  ||
+        return !_questions.hasOwnProperty(userId) ||
             _questions.hasOwnProperty(userId) && Object.keys(_questions[userId]).length === 0;
     },
 
@@ -45,7 +60,7 @@ const QuestionStore = createStore({
     noMoreQuestions() {
         return _noMoreQuestions;
     },
-    
+
     getUserAnswer(userId, questionId) {
         return _questions[userId] ? selectn('userAnswer', _questions[userId][questionId]) : null;
     },
@@ -53,7 +68,7 @@ const QuestionStore = createStore({
     mustGoToQuestionStats() {
         return _goToQuestionStats;
     },
-    
+
     isJustRegistered(userId) {
         return this.answersLength(userId) < registerQuestionsLength;
     },
@@ -61,7 +76,7 @@ const QuestionStore = createStore({
     isJustCompleted() {
         return _isJustCompleted;
     },
-    
+
     answersLength(userId) {
         return _questions[userId] && Object.keys(_questions[userId]).length || 0;
     },
@@ -69,7 +84,7 @@ const QuestionStore = createStore({
     registerQuestionsLength() {
         return registerQuestionsLength;
     },
-    
+
     first(obj) {
         for (let a in obj) {
             if (obj.hasOwnProperty(a)) {
@@ -108,10 +123,10 @@ QuestionStore.dispatchToken = register(action => {
         _errors = getValidationErrors(error);
         QuestionStore.emitChange();
     }
-    else if (error && action.type === ActionTypes.REQUEST_QUESTION_ERROR)   {
+    else if (error && action.type === ActionTypes.REQUEST_QUESTION_ERROR) {
         _noMoreQuestions = true;
         QuestionStore.emitChange();
-    }  
+    }
     else if (items) {
         if (action.type === 'REQUEST_COMPARED_QUESTIONS_SUCCESS') {
             for (let index in items) {
@@ -137,7 +152,7 @@ QuestionStore.dispatchToken = register(action => {
         // TODO: mergeIntoBag does not work here (maybe should)
         //let userAnswerAndQuestion = { question: userAnswerQuestion, userAnswer: userAnswer };
         //mergeIntoBag(_questions[userId], userAnswerAndQuestion);
-        _questions[userId][userAnswer.questionId] = { question: userAnswerQuestion, userAnswer: userAnswer };
+        _questions[userId][userAnswer.questionId] = {question: userAnswerQuestion, userAnswer: userAnswer};
         _goToQuestionStats = true;
         _pagination[userId].total++;
         _isJustCompleted = QuestionStore.answersLength(userId) == QuestionStore.registerQuestionsLength();
@@ -162,14 +177,19 @@ QuestionStore.dispatchToken = register(action => {
     }
     else if (action.type === 'SKIP_QUESTION_SUCCESS') {
         Object.keys(_questions).forEach(questionUserId => {
-            if(_questions[questionUserId][action.questionId]) {
+            if (_questions[questionUserId][action.questionId]) {
                 delete _questions[questionUserId][action.questionId];
                 _pagination[questionUserId].total--;
             }
         });
         QuestionStore.emitChange();
     }
-    if (action.type == ActionTypes.LOGOUT_USER){
+    else if (action.type === ActionTypes.SET_QUESTION_EDITABLE) {
+        let questionId = action.questionId;
+        QuestionStore.setEditable(questionId);
+        QuestionStore.emitChange();
+    }
+    if (action.type == ActionTypes.LOGOUT_USER) {
         _questions = {};
         _pagination = {};
         _answerQuestion = {};

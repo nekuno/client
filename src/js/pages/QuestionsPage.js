@@ -54,6 +54,10 @@ export default class QuestionsPage extends Component {
         document.getElementsByClassName('view')[0].removeEventListener('scroll', this.handleScroll);
     }
 
+    onTimerEnd(questionId) {
+        QuestionActionCreators.setQuestionEditable(questionId);
+    }
+
     handleScroll() {
         let pagination = this.props.pagination;
         let nextLink = pagination && pagination.hasOwnProperty('nextLink') ? pagination.nextLink : null;
@@ -90,7 +94,7 @@ export default class QuestionsPage extends Component {
                                 <br />
                                 <br />
                                 <br />
-                                <QuestionList questions={questions} userSlug={user.slug || ''} ownPicture={ownPicture} defaultPicture={defaultPicture}/>
+                                <QuestionList questions={questions} userSlug={user.slug || ''} ownPicture={ownPicture} defaultPicture={defaultPicture} onTimerEnd={this.onTimerEnd}/>
                                 <div className="loading-gif" style={pagination.nextLink ? {} : {display: 'none'}}></div>
                                 <br />
                                 <br />

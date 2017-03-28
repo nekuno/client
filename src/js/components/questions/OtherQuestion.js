@@ -21,10 +21,10 @@ export default class OtherQuestion extends Component {
     constructor(props) {
         super(props);
 
-        this.goToPreviousPage = this.goToPreviousPage.bind(this);
+        this.goToAnswerQuestion = this.goToAnswerQuestion.bind(this);
     }
 
-    goToPreviousPage() {
+    goToAnswerQuestion() {
         const {question, otherUserSlug} = this.props;
         this.context.router.replace(`/answer-question/${question.question.questionId}/${otherUserSlug}`);
     }
@@ -50,7 +50,7 @@ export default class OtherQuestion extends Component {
 
         return (
             <div className="question">
-                <a href="javascript:void(0)" onClick={this.goToPreviousPage}>
+                <a href="javascript:void(0)" onClick={this.goToAnswerQuestion}>
                     <span className="edit-question-button">
                         <span className="icon-edit"></span>
                     </span>

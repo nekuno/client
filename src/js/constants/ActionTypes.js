@@ -125,6 +125,7 @@ export default keyMirror({
 
     REMOVE_PREVIOUS_QUESTION : null,
     QUESTIONS_POPUP_DISPLAYED: null,
+    SET_QUESTION_EDITABLE    : null,
     
     ANSWER_QUESTION        : null,
     ANSWER_QUESTION_SUCCESS: null,

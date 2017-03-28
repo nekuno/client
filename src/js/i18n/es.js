@@ -75,7 +75,6 @@ export default {
         questions      : 'Respuestas',
         interests      : 'Intereses',
         importingAlbums: 'Cargando álbumes'
-
     },
     OtherGalleryPage                 : {
         empty  : 'El usuario no ha importado ninguna foto',
@@ -205,7 +204,6 @@ export default {
         editFilters      : 'Editar filtros',
         loadingMessage   : 'Cargando recomendaciones',
         noRecommendations: 'No hay recomendaciones con los filtros seleccionados'
-
     },
     RecommendationPage               : {
         loadingMessage   : 'Cargando recomendaciones',
@@ -371,6 +369,9 @@ export default {
     },
     OtherQuestion                    : {
         didntAnswered: 'No has contestado a esta pregunta'
+    },
+    QuestionEditCountdown            : {
+        text: 'Por favor espera %s% para responder de nuevo'
     },
     QuestionStats                    : {
         yourAnswer: 'Tu respuesta',

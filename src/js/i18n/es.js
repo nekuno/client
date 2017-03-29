@@ -474,7 +474,7 @@ export default {
         channels : 'Canales'
     },
     OrientationRequiredPopup         : {
-        title              : 'Indícanos tu orientación sexual para ver este ovillo',
+        title              : 'Indícanos tu orientación sexual para ver este perfil',
         orientationRequired: 'Orientación sexual requerida',
         heterosexual       : 'Heterosexual',
         bisexual           : 'Bisexual',

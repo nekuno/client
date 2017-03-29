@@ -27,10 +27,9 @@ class LoginStore extends BaseStore {
                 this._tryingToLogin = true;
                 const jwt = action.jwt;
                 if (jwt) {
-                    const now = parseInt(((new Date()).getTime() / 1e3), 10);
-                    const exp = jwt_decode(jwt).exp;
-                    if (exp < now) {
-                        console.log('jwt token expired on', (new Date(exp * 1e3).toString()));
+                    const expired = this.isJwtExpired(jwt);
+                    if (expired) {
+                        console.log('jwt token expired on', (new Date(expired * 1e3).toString()));
                         this._tryingToLogin = false;
                         this.setInitial();
                         LocalStorageService.remove('jwt');
@@ -171,6 +170,23 @@ class LoginStore extends BaseStore {
 
     isUsernameAnswered() {
         return this._usernameAnswered;
+    }
+
+    isJwtExpired(jwt)
+    {
+        if (typeof jwt != 'string' || jwt == 'true'){
+            return true;
+        }
+
+        const jwtDecoded = jwt_decode(jwt);
+
+        if (!jwtDecoded.hasOwnProperty('exp')){
+            return true;
+        }
+        const exp = jwt_decode(jwt).exp;
+        const now = parseInt(((new Date()).getTime() / 1e3), 10);
+
+        return now > exp ? exp : false;
     }
 
     getNextRequiredUserField() {

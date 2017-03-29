@@ -103,9 +103,6 @@ export const INSTANT_HOST = config.INSTANT_HOST;
 
 export const REQUIRED_REGISTER_USER_FIELDS = [
     {
-        name    : 'username'
-    },
-    {
         name    : 'email'
     }
 ];

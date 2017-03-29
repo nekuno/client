@@ -15,7 +15,6 @@ class LoginStore extends BaseStore {
         this._justLoggedout = false;
         this._initialRequiredUserQuestionsCount = 0;
         this._requiredUserQuestionsCount = 0;
-        this._usernameAnswered = false;
         this._tryingToLogin = null;
     }
 
@@ -87,18 +86,12 @@ class LoginStore extends BaseStore {
             case ActionTypes.EDIT_USER_SUCCESS:
                 this._user = action.response.user;
                 this.jwt = action.response.jwt;
-                this._usernameAnswered = true;
                 this._requiredUserQuestionsCount++;
                 this.emitChange();
                 break;
 
             case ActionTypes.EDIT_USER_ERROR:
                 this._error = getValidationErrors(action.error);
-                this.emitChange();
-                break;
-
-            case ActionTypes.USERNAME_ANSWERED:
-                this._usernameAnswered = true;
                 this.emitChange();
                 break;
 
@@ -168,10 +161,6 @@ class LoginStore extends BaseStore {
         return this._requiredUserQuestionsCount;
     }
 
-    isUsernameAnswered() {
-        return this._usernameAnswered;
-    }
-
     isJwtExpired(jwt)
     {
         if (typeof jwt != 'string' || jwt == 'true'){
@@ -190,13 +179,13 @@ class LoginStore extends BaseStore {
     }
 
     getNextRequiredUserField() {
-        return this.isUsernameAnswered() ? REQUIRED_REGISTER_USER_FIELDS.find(field =>
+        return REQUIRED_REGISTER_USER_FIELDS.find(field =>
             !(typeof this._user[field.name] !== 'undefined' && this._user[field.name])
-        ) || null : {name: 'username'};
+        ) || null;
     }
 
     _setInitialRequiredUserQuestionsCount() {
-        let count = 1; // Username also counts although it's set
+        let count = 0;
         REQUIRED_REGISTER_USER_FIELDS.forEach(field => {
             if (!(typeof this._user[field.name] !== 'undefined' && this._user[field.name])) {
                 count++;

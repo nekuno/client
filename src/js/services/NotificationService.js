@@ -2,6 +2,9 @@ import RouterContainer from './RouterContainer';
 import en from '../i18n/en';
 import es from '../i18n/es';
 import LocaleStore from '../stores/LocaleStore';
+import LoginStore from '../stores/LoginStore';
+import ProfileStore from '../stores/ProfileStore';
+import QuestionStore from '../stores/QuestionStore';
 
 const locales = {en, es};
 
@@ -28,7 +31,7 @@ class NotificationService {
     notifyMessage(data, lang) {
         const {slug, username, photo, text} = data;
         const url = `/conversations/${slug}`;
-        if (url !== RouterContainer.get().getCurrentLocation().pathname) {
+        if (url !== RouterContainer.get().getCurrentLocation().pathname && this._userIsFullyComplete()) {
             const icon = this._getUserThumbnail(photo);
             const strings = locales[LocaleStore.locale]['NotificationService']['Message'];
             this.showNotification(strings.title.replace('%username%', username), text, lang, icon, url);
@@ -37,7 +40,10 @@ class NotificationService {
 
     notifyProcessFinish(data, lang) {
         const {resource} = data;
-        const url = `/social-networks`;
+        let url = null;
+        if (this._userIsFullyComplete()) {
+            url = `/social-networks`;
+        }
         const strings = locales[LocaleStore.locale]['NotificationService']['ProcessFinish'];
         this.showNotification(strings.title, strings.body.replace('%resource%', resource), lang, null, url);
     }
@@ -73,12 +79,12 @@ class NotificationService {
                     icon: icon
                 });
                 window.cordova.plugins.notification.local.on("click", (notification) => {
-                    this._onClickAction(url);
+                    this._onClickAction(notification, url);
                 });
             } else {
                 let notification = new Notification(title, options);
                 notification.addEventListener('click', () => {
-                    this._onClickAction(url);
+                    this._onClickAction(notification, url);
                 });
             }
         }).catch((error) => {
@@ -139,12 +145,19 @@ class NotificationService {
         return typeof icon !== 'undefined' && icon ? icon : 'https://nekuno.com/favicon-64.png';
     };
 
-    _onClickAction = function (url) {
+    _onClickAction = function (notification, url) {
         window.focus();
         if (url && url !== RouterContainer.get().getCurrentLocation().pathname) {
-            setTimeout(RouterContainer.get().push(url), 0);
+            setTimeout(() => {
+                setTimeout(notification.close.bind(notification), 100);
+                RouterContainer.get().push(url);
+            }, 0);
         }
     };
+
+    _userIsFullyComplete() {
+        return LoginStore.isComplete() && ProfileStore.isComplete(LoginStore.user.id) && !QuestionStore.isJustRegistered(LoginStore.user.id);
+    }
 
 }
 

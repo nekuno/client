@@ -9,12 +9,26 @@ class RegisterStore extends BaseStore {
     setInitial() {
         this._validUsername = true;
         this._error = null;
+        this._user = null;
+        this._profile = null;
+        this._token = null;
+        this._oauth = null;
     }
 
     _registerToActions(action) {
         super._registerToActions(action);
 
         switch (action.type) {
+
+            case ActionTypes.PRE_REGISTER_USER:
+                const {user, profile, token, oauth} = action;
+                this._user = user;
+                this._profile = profile;
+                this._token = token;
+                this._oauth = oauth;
+                this._error = null;
+                this.emitChange();
+                break;
 
             case ActionTypes.REQUEST_REGISTER_USER:
                 this._error = null;
@@ -55,6 +69,15 @@ class RegisterStore extends BaseStore {
         let valid = this._validUsername;
         this._validUsername = true;
         return valid;
+    }
+
+    getData() {
+        return {
+            user: this._user,
+            profile: this._profile,
+            token: this._token,
+            oauth: this._oauth
+        }
     }
 
     get error() {

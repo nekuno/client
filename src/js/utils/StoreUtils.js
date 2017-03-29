@@ -76,7 +76,13 @@ export function getValidationErrors(error) {
   let validationErrors =  selectn('validationErrors', error) || {};
   let displayErrors = '';
   
-  Object.keys(validationErrors).forEach(key => displayErrors += validationErrors[key].map(error => error + '<br/>'));
+  Object.keys(validationErrors).forEach(key => {
+    if (typeof validationErrors[key] === 'string') {
+        displayErrors += validationErrors[key] + '<br/>';
+    } else if (validationErrors[key].isArray()) {
+        displayErrors += validationErrors[key].map(error => error + '<br/>');
+    }
+  });
 
   return displayErrors;
 }

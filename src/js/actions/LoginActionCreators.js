@@ -129,6 +129,10 @@ export default new class LoginActionCreators {
         }
     }
 
+    preRegister(user, profile, token, oauth) {
+        dispatch(ActionTypes.PRE_REGISTER_USER, {user, profile, token, oauth});
+    }
+
     register(user, profile, token, oauth) {
         let promise = AuthService.register(user, profile, token, oauth);
         return dispatchAsync(promise, {

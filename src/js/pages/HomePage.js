@@ -104,17 +104,8 @@ export default class HomePage extends Component {
                         profile.interfaceLanguage = interfaceLanguage;
                         profile.orientationRequired = false;
                         let token = 'join';
-                        LoginActionCreators.register(user, profile, token, oauthData)
-                            .catch(() => {
-                                this.setState({
-                                    registeringUser: false
-                                });
-                        });
-
-                        console.log(error);
-                        this.setState({
-                            registeringUser: true
-                        });
+                        LoginActionCreators.preRegister(user, profile, token, oauthData);
+                        setTimeout(() => this.context.router.push('answer-username'), 0);
                     });
             },
             (status) => {

@@ -308,10 +308,13 @@ export default {
         seeLess: 'Ver menos',
         seeMore: 'Ver más'
     },
+    AnswerUsernamePage               : {
+        username        : 'Nombre de usuario',
+        loadingMessage  : 'Registrando usuario'
+    },
     AnswerUserFieldPage              : {
         question       : 'Pregunta',
-        loadingMessage : 'Cargando preguntas',
-        usernameInvalid: 'El nombre de usuario no es válido o ya está en uso. Los caracteres válidos son letras, números y _'
+        loadingMessage : 'Cargando preguntas'
     },
     AnswerProfileFieldPage           : {
         question      : 'Pregunta',
@@ -322,7 +325,7 @@ export default {
         username       : 'Nombre de usuario',
         title          : 'Elige tu nombre de usuario',
         save           : 'Guardar',
-        invalidUsername: 'Este nombre de usuario no está disponible'
+        invalidUsername: 'El nombre de usuario no es válido o ya está en uso. Los caracteres válidos son letras, números y _'
     },
     EmailField                       : {
         email: 'e-mail',

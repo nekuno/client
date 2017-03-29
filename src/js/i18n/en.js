@@ -308,10 +308,13 @@ export default {
         seeLess: 'See less',
         seeMore: 'See more'
     },
+    AnswerUsernamePage               : {
+        username        : 'Username',
+        loadingMessage  : 'Registering user'
+    },
     AnswerUserFieldPage              : {
         question       : 'Question',
-        loadingMessage : 'Loading questions',
-        usernameInvalid: 'Username is invalid or already in use. Valid characters are letters, numbers and _.'
+        loadingMessage : 'Loading questions'
     },
     AnswerProfileFieldPage           : {
         question      : 'Question',
@@ -322,7 +325,7 @@ export default {
         username       : 'username',
         title          : 'Choose your username',
         save           : 'Save',
-        invalidUsername: 'This username is not available'
+        invalidUsername: 'Username is invalid or already in use. Valid characters are letters, numbers and _.'
     },
     EmailField                       : {
         email: 'email',

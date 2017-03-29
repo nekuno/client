@@ -148,11 +148,9 @@ class NotificationService {
     _onClickAction = function (notification, url) {
         window.focus();
         if (url && url !== RouterContainer.get().getCurrentLocation().pathname) {
-            setTimeout(() => {
-                setTimeout(notification.close.bind(notification), 100);
-                RouterContainer.get().push(url);
-            }, 0);
+            setTimeout(RouterContainer.get().push(url), 0);
         }
+        setTimeout(notification.close.bind(notification), 100);
     };
 
     _userIsFullyComplete() {

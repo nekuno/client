@@ -7,7 +7,6 @@ import LoginStore from './LoginStore';
 import { getValidationErrors } from '../utils/StoreUtils';
 import BaseStore from './BaseStore';
 
-
 class QuestionStore extends BaseStore {
     setInitial() {
         this._registerQuestionsLength = 4;
@@ -84,7 +83,7 @@ class QuestionStore extends BaseStore {
                 this._goToQuestionStats = true;
                 this._pagination[action.userId] = this._pagination[action.userId] || {};
                 this._pagination[action.userId].total++;
-                this._isJustCompleted = this.answersLength(action.userId) == this.registerQuestionsLength();
+                this._isJustCompleted = this.answersLength(action.userId) == this._registerQuestionsLength;
                 this.emitChange();
                 break;
             case ActionTypes.SKIP_QUESTION_SUCCESS:

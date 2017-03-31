@@ -92,9 +92,8 @@ export default class OtherQuestionsPage extends Component {
     }
 
     componentWillMount() {
-        if (Object.keys(this.props.pagination).length === 0) {
-            requestData(this.props, this.state);
-        }
+        requestData(this.props, this.state);
+
     }
 
     componentWillUnmount() {

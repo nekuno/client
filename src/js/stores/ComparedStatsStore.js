@@ -35,10 +35,8 @@ ComparedStatsStore.dispatchToken = register(action => {
     if (responseComparedStats) {
         const {userId1, userId2} = action;
 
-        if (!ComparedStatsStore.contains(userId1, userId2)){
-            ComparedStatsStore.merge(userId1, userId2, responseComparedStats.undefined);
-            ComparedStatsStore.emitChange();
-        }
+        ComparedStatsStore.merge(userId1, userId2, responseComparedStats.undefined);
+        ComparedStatsStore.emitChange();
 
     }
 

@@ -149,7 +149,7 @@ export default {
         interests            : 'Interests'
     },
     OtherQuestionsPage               : {
-        coincidences: 'Coincidences',
+        coincidences: 'Coincidences of',
         about       : 'About',
         photos      : 'Photos',
         questions   : 'Answers',

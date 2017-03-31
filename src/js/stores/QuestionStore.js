@@ -25,9 +25,12 @@ class QuestionStore extends BaseStore {
         let newItems = {};
         switch (action.type) {
             case ActionTypes.REQUEST_QUESTIONS:
+                this._noMoreQuestions = false;
+                this.emitChange();
                 break;
             case ActionTypes.REQUEST_COMPARED_QUESTIONS:
                 this._loadingComparedQuestions = true;
+                this._noMoreQuestions = false;
                 this.emitChange();
                 break;
             case ActionTypes.REQUEST_QUESTION:

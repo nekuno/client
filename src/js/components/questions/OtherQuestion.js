@@ -38,7 +38,7 @@ export default class OtherQuestion extends Component {
             return null;
         }
         let userAnswer = this.props.userAnswer || {};
-        let editable = userAnswer.hasOwnProperty('editable') ? userAnswer.editable : true;
+        let editable = userAnswer.hasOwnProperty('isEditable') ? userAnswer.isEditable : true;
 
         let otherUserAnswer = this.props.question.userAnswer;
         const {strings} = this.props;
@@ -74,7 +74,7 @@ export default class OtherQuestion extends Component {
                     <div className="not-answered-text">{strings.didntAnswered}</div>
                 }
                 {editable ? '' :
-                    <QuestionEditCountdown seconds={userAnswer.nextEdit} questionId={question.questionId} onTimerEnd={this.props.onTimerEnd} />
+                    <QuestionEditCountdown seconds={userAnswer.editableIn} questionId={question.questionId} onTimerEnd={this.props.onTimerEnd} />
                 }
                 <hr/>
             </div>

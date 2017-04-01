@@ -126,7 +126,7 @@ class QuestionStore extends BaseStore {
     setEditable(questionId) {
         let userId = LoginStore.user.id;
         if (this._questions[userId][questionId]) {
-            this._questions[userId][questionId].userAnswer.editable = true;
+            this._questions[userId][questionId].userAnswer.isEditable = true;
         }
     }
 

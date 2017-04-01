@@ -39,7 +39,7 @@ export default class Question extends Component {
             return null;
         }
         let {userAnswer} = this.props;
-        let editable = userAnswer.editable;
+        let editable = userAnswer.hasOwnProperty('isEditable') ? userAnswer.isEditable : true;
         let answers = question && question.answers.length > 0 ? question.answers : [];
 
         return (
@@ -66,7 +66,7 @@ export default class Question extends Component {
                     />
                 )}
                 {editable ? '' :
-                    <QuestionEditCountdown seconds={userAnswer.nextEdit} questionId={question.questionId} onTimerEnd={onTimerEnd} />
+                    <QuestionEditCountdown seconds={userAnswer.editableIn} questionId={question.questionId} onTimerEnd={onTimerEnd} />
                 }
                 {this.props.graphActive ?
                     <QuestionStatsInLine question={question} userAnswer={userAnswer}/> : ''

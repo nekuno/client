@@ -19,7 +19,7 @@ class LoginStore extends BaseStore {
     }
 
     _registerToActions(action) {
-
+        super._registerToActions(action);
         switch (action.type) {
 
             case ActionTypes.AUTO_LOGIN:

@@ -1,50 +1,51 @@
 import ActionTypes from '../constants/ActionTypes';
-import { register, waitFor } from '../dispatcher/Dispatcher';
-import { createStore, mergeIntoBag, isInBag } from '../utils/StoreUtils';
+import { waitFor } from '../dispatcher/Dispatcher';
+import BaseStore from './BaseStore';
 import UserStore from '../stores/UserStore'
-import selectn from 'selectn';
 
-let _similarity = {};
+class SimilarityStore extends BaseStore {
 
-const SimilarityStore = createStore({
+    setInitial() {
+        this._similarity = {};
+    }
+
+    _registerToActions(action) {
+        waitFor([UserStore.dispatchToken]);
+        super._registerToActions(action);
+
+        switch (action.type) {
+            case ActionTypes.REQUEST_SIMILARITY:
+            case ActionTypes.REQUEST_SIMILARITY_ERROR:
+                break;
+            case ActionTypes.REQUEST_SIMILARITY_SUCCESS:
+                const {userId1, userId2} = action;
+                this.merge(userId1, userId2, action.response.similarity);
+                this.emitChange();
+                break;
+        }
+    }
+
     contains(userId1, userId2) {
 
-        return (userId1 in _similarity && (userId2 in _similarity[userId1])) ||
-            (userId2 in _similarity && (userId1 in _similarity[userId2]));
-    },
+        return (userId1 in this._similarity && (userId2 in this._similarity[userId1])) ||
+            (userId2 in this._similarity && (userId1 in this._similarity[userId2]));
+    }
 
     get(userId1, userId2) {
 
-        if (userId1 in _similarity && (userId2 in _similarity[userId1])){
-            return _similarity[userId1][userId2];
-        } else if (userId2 in _similarity && (userId1 in _similarity[userId2])) {
-            return _similarity[userId2][userId1];
+        if (userId1 in this._similarity && (userId2 in this._similarity[userId1])){
+            return this._similarity[userId1][userId2];
+        } else if (userId2 in this._similarity && (userId1 in this._similarity[userId2])) {
+            return this._similarity[userId2][userId1];
         } else {
             return null;
         }
-    },
+    }
 
     merge(userId1, userId2, value){
-        _similarity[userId1] = (userId1 in _similarity) ? _similarity[userId1] : [];
-        _similarity[userId1][userId2] = value;
+        this._similarity[userId1] = (userId1 in this._similarity) ? this._similarity[userId1] : [];
+        this._similarity[userId1][userId2] = value;
     }
-});
+}
 
-SimilarityStore.dispatchToken = register(action => {
-    waitFor([UserStore.dispatchToken]);
-    const responseSimilarity = selectn('response.similarity', action);
-    if (responseSimilarity) {
-        const {userId1, userId2} = action;
-
-        if (!SimilarityStore.contains(userId1, userId2)){
-            SimilarityStore.merge(userId1, userId2, responseSimilarity);
-            SimilarityStore.emitChange();
-        }
-    }
-
-    if (action.type == ActionTypes.LOGOUT_USER) {
-        _similarity = {};
-    }
-});
-
-export default SimilarityStore;
+export default new SimilarityStore();

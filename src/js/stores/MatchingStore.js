@@ -10,6 +10,7 @@ class MatchingStore extends BaseStore {
 
     _registerToActions(action) {
         waitFor([UserStore.dispatchToken]);
+        super._registerToActions(action);
         switch (action.type) {
             case ActionTypes.REQUEST_MATCHING:
             case ActionTypes.REQUEST_MATCHING_ERROR:

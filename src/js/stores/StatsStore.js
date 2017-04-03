@@ -1,9 +1,7 @@
 import ActionTypes from '../constants/ActionTypes';
 import BaseStore from './BaseStore';
-import { register, waitFor } from '../dispatcher/Dispatcher';
-import { createStore, mergeIntoBag, isInBag } from '../utils/StoreUtils';
+import { waitFor } from '../dispatcher/Dispatcher';
 import UserStore from '../stores/UserStore'
-import selectn from 'selectn';
 
 class StatsStore extends BaseStore {
 

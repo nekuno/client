@@ -11,6 +11,7 @@ class LikeStore extends BaseStore {
 
     _registerToActions(action) {
         waitFor([UserStore.dispatchToken]);
+        super._registerToActions(action);
         const {from, to} = action;
         switch (action.type) {
             case ActionTypes.LIKE_USER:

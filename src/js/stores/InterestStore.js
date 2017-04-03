@@ -13,6 +13,7 @@ class InterestStore extends BaseStore {
     }
 
     _registerToActions(action) {
+        super._registerToActions(action);
         let newItems = {};
         let to, rate;
         switch (action.type) {

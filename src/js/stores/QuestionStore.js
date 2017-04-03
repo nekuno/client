@@ -22,6 +22,7 @@ class QuestionStore extends BaseStore {
 
     _registerToActions(action) {
         waitFor([UserStore.dispatchToken]);
+        super._registerToActions(action);
         let newItems = {};
         switch (action.type) {
             case ActionTypes.REQUEST_QUESTIONS:

@@ -93,7 +93,6 @@ export default class OtherQuestionsPage extends Component {
 
     componentWillMount() {
         requestData(this.props, this.state);
-
     }
 
     componentWillUnmount() {

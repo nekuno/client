@@ -95,7 +95,6 @@ export default class EditThreadLitePage extends Component {
         }
         if (nextProps.errors) {
             nekunoApp.alert(nextProps.errors);
-            ThreadStore.deleteErrors();
         }
     }
 

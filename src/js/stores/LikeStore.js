@@ -49,9 +49,6 @@ class LikeStore extends BaseStore {
                 this.merge(from, to, like);
                 this.emitChange();
                 break;
-            case ActionTypes.LOGOUT_USER:
-                this._likes = [];
-                break;
         }
     }
 

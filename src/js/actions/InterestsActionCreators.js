@@ -43,7 +43,7 @@ export function requestComparedInterests(userId, otherUserId, type, showOnlyComm
                 const link = data.result.items[key];
                 return link.url;
             });
-            checkImages(userId, urls);
+            checkImages(otherUserId, urls);
             return data;
         })
         .catch((error) => {

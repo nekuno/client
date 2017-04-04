@@ -19,11 +19,14 @@ import QuestionsPage from './pages/QuestionsPage';
 import OtherQuestionsPage from './pages/OtherQuestionsPage';
 import AnswerQuestionPage from './pages/AnswerQuestionPage';
 import AnswerNextQuestionPage from './pages/AnswerNextQuestionPage';
+import AnswerNextOtherQuestionPage from './pages/AnswerNextOtherQuestionPage';
 import QuestionStatsPage from './pages/QuestionStatsPage';
 import QuestionEditedStatsPage from './pages/QuestionEditedStatsPage';
+import QuestionOtherStatsPage from './pages/QuestionOtherStatsPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import RegisterQuestionsLandingPage from './pages/RegisterQuestionLandingPage';
+import AnswerUsernamePage from './pages/AnswerUsernamePage';
 import AnswerUserFieldPage from './pages/AnswerUserFieldPage';
 import AnswerProfileFieldPage from './pages/AnswerProfileFieldPage';
 import UserPage from './pages/UserPage';
@@ -70,6 +73,7 @@ export default class Root extends Component {
                     <Route name="login" path="/login" component={LoginPage}/>
                     <Route name="register" path="/register" component={RegisterPage}/>
                     <Route name="shared-user" path="/p/:slug" component={ProfilePage}/>
+                    <Route name="answer-username" path="/answer-username" component={AnswerUsernamePage}/>
 
                     <Route onEnter={requireAuth}>
                         <Route name="register-questions-landing" path="/register-questions-landing" component={RegisterQuestionsLandingPage}/>
@@ -90,8 +94,10 @@ export default class Root extends Component {
                         <Route name="other-questions" path="/users/:slug/other-questions" component={OtherQuestionsPage}/>
                         <Route name="answer-question" path="/answer-question/:questionId/:from" component={AnswerQuestionPage}/>
                         <Route name="answer-question-next" path="/answer-question/next" component={AnswerNextQuestionPage}/>
+                        <Route name="answer-other-question-next" path="/answer-other-question/:slug/next" component={AnswerNextOtherQuestionPage}/>
                         <Route name="question-stats" path="/question-stats" component={QuestionStatsPage}/>
-                        <Route name="question-stats" path="/question-stats/:from" component={QuestionEditedStatsPage}/>
+                        <Route name="question-stats-from" path="/question-stats/:from" component={QuestionEditedStatsPage}/>
+                        <Route name="question-stats-other" path="/question-other-stats/:slug" component={QuestionOtherStatsPage}/>
                         <Route name="invitations" path="/invitations" component={InvitationsPage}/>
                         <Route name="discover" path="/discover" component={DiscoverPage}/>
                         <Route name="recommendations" path="/recommendations/:threadId" component={RecommendationPage}/>

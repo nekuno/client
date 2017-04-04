@@ -11,6 +11,7 @@ class LikeStore extends BaseStore {
 
     _registerToActions(action) {
         waitFor([UserStore.dispatchToken]);
+        super._registerToActions(action);
         const {from, to} = action;
         switch (action.type) {
             case ActionTypes.LIKE_USER:
@@ -47,9 +48,6 @@ class LikeStore extends BaseStore {
                 const like = selectn('response.result', action) ? 1 : 0;
                 this.merge(from, to, like);
                 this.emitChange();
-                break;
-            case ActionTypes.LOGOUT_USER:
-                this._likes = [];
                 break;
         }
     }

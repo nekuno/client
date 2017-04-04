@@ -1,7 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import TopNavBar from '../components/ui/TopNavBar';
 import EmptyMessage from '../components/ui/EmptyMessage';
-import UsernameField from '../components/fieldsQuestions/userFields/UsernameField';
 import EmailField from '../components/fieldsQuestions/userFields/EmailField';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
@@ -30,7 +29,6 @@ function requestData(props) {
  */
 function getState(props) {
     const userId = parseId(props.user);
-    const isUsernameValid = RegisterStore.validUsername();
     const profile = ProfileStore.get(userId);
     const errors = LoginStore.error;
     const registerQuestionsLength = QuestionStore.registerQuestionsLength();
@@ -38,7 +36,6 @@ function getState(props) {
     const initialUserQuestionsCount = LoginStore.getInitialRequiredUserQuestionsCount();
     const userQuestionsCount = LoginStore.getRequiredUserQuestionsCount();
     const userQuestionsComplete = LoginStore.isComplete();
-    const usernameAnswered = LoginStore.isUsernameAnswered();
     const nextUserField = LoginStore.getNextRequiredUserField();
     const initialProfileQuestionsCount = ProfileStore.getInitialRequiredProfileQuestionsCount();
     const profileQuestionsLeftCount = ProfileStore.getRequiredProfileQuestionsLeftCount(userId);
@@ -49,10 +46,8 @@ function getState(props) {
 
     return {
         profile,
-        isUsernameValid,
         errors,
         userQuestionsComplete,
-        usernameAnswered,
         nextUserField,
         profileQuestionsComplete,
         totalQuestions,
@@ -66,19 +61,13 @@ function getState(props) {
 export default class AnswerUserFieldPage extends Component {
 
     static propTypes = {
-        // Injected by React Router:
-        params                  : PropTypes.shape({
-            questionId: PropTypes.string
-        }),
         // Injected by @AuthenticatedComponent
         user                    : PropTypes.object.isRequired,
         // Injected by @translate:
         strings                 : PropTypes.object,
         // Injected by @connectToStores:
-        isUsernameValid         : PropTypes.bool,
         errors                  : PropTypes.string,
         userQuestionsComplete   : PropTypes.bool,
-        usernameAnswered        : PropTypes.bool,
         nextUserField           : PropTypes.object,
         profileQuestionsComplete: PropTypes.bool,
         totalQuestions          : PropTypes.number,
@@ -100,13 +89,10 @@ export default class AnswerUserFieldPage extends Component {
     }
     
     componentWillUpdate(nextProps) {
-        if (!nextProps.isUsernameValid) {
-            nekunoApp.alert(nextProps.strings.usernameInvalid);
-        }
-        else if (nextProps.errors) {
+        if (nextProps.errors) {
             nekunoApp.alert(nextProps.errors);
         }
-        else if (nextProps.usernameAnswered && nextProps.userQuestionsComplete) {
+        else if (nextProps.userQuestionsComplete) {
             let path = 'answer-question/next';
             if (!nextProps.profileQuestionsComplete) {
                 path = 'answer-profile-fields';
@@ -123,18 +109,13 @@ export default class AnswerUserFieldPage extends Component {
     
     render() {
 
-        const {user, profile, strings, isUsernameValid, nextUserField, totalQuestions, questionNumber} = this.props;
+        const {user, profile, strings, nextUserField, totalQuestions, questionNumber} = this.props;
         const navBarTitle = typeof profile != 'undefined' ?
             strings.question + ' ' + questionNumber + '/' + totalQuestions
             : '';
         let fieldToRender = null;
-        const nextUserFiledName = nextUserField ? nextUserField.name : null;
-        switch (nextUserFiledName) {
-            case 'username':
-            {/* Don't pass user.username because we don't want userX to be displayed */}
-                fieldToRender = <UsernameField username={''} isUsernameValid={isUsernameValid} onSaveHandler={this.handleClickSave} />;
-                break;
-
+        const nextUserFieldName = nextUserField ? nextUserField.name : null;
+        switch (nextUserFieldName) {
             case 'email':
                 fieldToRender = <EmailField email={user.email} onSaveHandler={this.handleClickSave} />;
                 break;
@@ -160,7 +141,6 @@ export default class AnswerUserFieldPage extends Component {
 AnswerUserFieldPage.defaultProps = {
     strings: {
         question       : 'Question',
-        loadingMessage : 'Loading questions',
-        usernameInvalid: 'Username is invalid or already in use'
+        loadingMessage : 'Loading questions'
     }
 };

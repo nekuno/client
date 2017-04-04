@@ -12,7 +12,7 @@ export function requestQuestions(userId, link) {
 }
 
 export function requestComparedQuestions(userId, otherUserId, filters, link) {
-    dispatchAsync(QuestionAPI.getComparedAnswers(otherUserId, filters, link), {
+    return dispatchAsync(QuestionAPI.getComparedAnswers(otherUserId, filters, link), {
         request: ActionTypes.REQUEST_COMPARED_QUESTIONS,
         success: ActionTypes.REQUEST_COMPARED_QUESTIONS_SUCCESS,
         failure: ActionTypes.REQUEST_COMPARED_QUESTIONS_ERROR
@@ -58,6 +58,15 @@ export function requestNextQuestion(userId) {
     }, {userId});
 }
 
+export function requestNextOtherQuestion(userId, otherUserId) {
+    dispatch(ActionTypes.REMOVE_PREVIOUS_QUESTION, {userId});
+    return dispatchAsync(QuestionAPI.getNextOtherQuestion(otherUserId), {
+        request: ActionTypes.REQUEST_QUESTION,
+        success: ActionTypes.REQUEST_QUESTION_SUCCESS,
+        failure: ActionTypes.REQUEST_QUESTION_ERROR
+    }, {userId, otherUserId});
+}
+
 export function answerQuestion(userId, questionId, answerId, acceptedAnswers, rating) {
     return dispatchAsync(QuestionAPI.answerQuestion(questionId, answerId, acceptedAnswers, rating), {
         request: ActionTypes.ANSWER_QUESTION,
@@ -86,4 +95,9 @@ export function removePreviousQuestion(userId) {
 
 export function popupDisplayed() {
     dispatch(ActionTypes.QUESTIONS_POPUP_DISPLAYED);
+}
+
+export function setQuestionEditable(questionId)
+{
+    dispatch(ActionTypes.SET_QUESTION_EDITABLE, {questionId});
 }

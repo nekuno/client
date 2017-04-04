@@ -15,22 +15,19 @@ class LoginStore extends BaseStore {
         this._justLoggedout = false;
         this._initialRequiredUserQuestionsCount = 0;
         this._requiredUserQuestionsCount = 0;
-        this._usernameAnswered = false;
         this._tryingToLogin = null;
     }
 
     _registerToActions(action) {
-
         switch (action.type) {
 
             case ActionTypes.AUTO_LOGIN:
                 this._tryingToLogin = true;
                 const jwt = action.jwt;
                 if (jwt) {
-                    const now = parseInt(((new Date()).getTime() / 1e3), 10);
-                    const exp = jwt_decode(jwt).exp;
-                    if (exp < now) {
-                        console.log('jwt token expired on', (new Date(exp * 1e3).toString()));
+                    const expired = this.isJwtExpired(jwt);
+                    if (expired) {
+                        console.log('jwt token expired on', (new Date(expired * 1e3).toString()));
                         this._tryingToLogin = false;
                         this.setInitial();
                         LocalStorageService.remove('jwt');
@@ -88,18 +85,12 @@ class LoginStore extends BaseStore {
             case ActionTypes.EDIT_USER_SUCCESS:
                 this._user = action.response.user;
                 this.jwt = action.response.jwt;
-                this._usernameAnswered = true;
                 this._requiredUserQuestionsCount++;
                 this.emitChange();
                 break;
 
             case ActionTypes.EDIT_USER_ERROR:
                 this._error = getValidationErrors(action.error);
-                this.emitChange();
-                break;
-
-            case ActionTypes.USERNAME_ANSWERED:
-                this._usernameAnswered = true;
                 this.emitChange();
                 break;
 
@@ -169,18 +160,31 @@ class LoginStore extends BaseStore {
         return this._requiredUserQuestionsCount;
     }
 
-    isUsernameAnswered() {
-        return this._usernameAnswered;
+    isJwtExpired(jwt)
+    {
+        if (typeof jwt != 'string' || jwt == 'true'){
+            return true;
+        }
+
+        const jwtDecoded = jwt_decode(jwt);
+
+        if (!jwtDecoded.hasOwnProperty('exp')){
+            return true;
+        }
+        const exp = jwt_decode(jwt).exp;
+        const now = parseInt(((new Date()).getTime() / 1e3), 10);
+
+        return now > exp ? exp : false;
     }
 
     getNextRequiredUserField() {
-        return this.isUsernameAnswered() ? REQUIRED_REGISTER_USER_FIELDS.find(field =>
+        return REQUIRED_REGISTER_USER_FIELDS.find(field =>
             !(typeof this._user[field.name] !== 'undefined' && this._user[field.name])
-        ) || null : {name: 'username'};
+        ) || null;
     }
 
     _setInitialRequiredUserQuestionsCount() {
-        let count = 1; // Username also counts although it's set
+        let count = 0;
         REQUIRED_REGISTER_USER_FIELDS.forEach(field => {
             if (!(typeof this._user[field.name] !== 'undefined' && this._user[field.name])) {
                 count++;

@@ -51,7 +51,7 @@ export default class RegisterQuestionLandingPage extends Component {
     
     handleClickAnswerQuestions() {
         let path = '/answer-question/next';
-        if (!LoginStore.isComplete() || !LoginStore.isUsernameAnswered() || !ProfileStore.isComplete(parseUserId(this.props.user))) {
+        if (!LoginStore.isComplete() || !ProfileStore.isComplete(parseUserId(this.props.user))) {
             path = '/answer-user-fields';
         }
         

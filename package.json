@@ -1,6 +1,6 @@
 {
   "name": "client",
-  "version": "0.30.1",
+  "version": "0.31.0",
   "description": "Nekuno Hybrid Mobile Client",
   "main": "index.js",
   "scripts": {
@@ -20,7 +20,7 @@
     "json-prune": "1.0.1",
     "jwt-decode": "1.4.0",
     "keymirror": "0.1.1",
-    "moment": "2.16.0",
+    "moment": "2.17.1",
     "normalizr": "1.4.0",
     "rc-progress": "2.0.3",
     "react": "^15.4.1",

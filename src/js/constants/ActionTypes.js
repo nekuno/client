@@ -6,6 +6,7 @@ export default keyMirror({
     REQUEST_LOGIN_USER                      : null,
     REQUEST_LOGIN_USER_SUCCESS              : null,
     REQUEST_LOGIN_USER_ERROR                : null,
+    PRE_REGISTER_USER                       : null,
     REQUEST_VALIDATE_INVITATION_USER        : null,
     REQUEST_VALIDATE_INVITATION_USER_SUCCESS: null,
     REQUEST_VALIDATE_INVITATION_USER_ERROR  : null,
@@ -18,7 +19,6 @@ export default keyMirror({
     EDIT_USER                               : null,
     EDIT_USER_SUCCESS                       : null,
     EDIT_USER_ERROR                         : null,
-    USERNAME_ANSWERED                       : null,
     LOGOUT_USER                             : null,
 
     CONNECT_ACCOUNT         : null,
@@ -125,6 +125,7 @@ export default keyMirror({
 
     REMOVE_PREVIOUS_QUESTION : null,
     QUESTIONS_POPUP_DISPLAYED: null,
+    SET_QUESTION_EDITABLE    : null,
     
     ANSWER_QUESTION        : null,
     ANSWER_QUESTION_SUCCESS: null,
@@ -251,6 +252,8 @@ export default keyMirror({
     WORKERS_AFFINITY_STEP  : null,
     WORKERS_AFFINITY_FINISH: null,
     WORKERS_USER_STATUS   : null,
+
+    NOTIFICATION_NEW: null,
 
     REQUEST_PHOTOS        : null,
     REQUEST_PHOTOS_SUCCESS: null,

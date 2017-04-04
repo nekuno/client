@@ -4,6 +4,7 @@ import TopNavBar from '../components/ui/TopNavBar';
 import ToolBar from '../components/ui/ToolBar';
 import OtherQuestionList from '../components/questions/OtherQuestionList';
 import ProfilesAvatarConnection from '../components/ui/ProfilesAvatarConnection';
+import OtherQuestionsBanner from '../components/questions/OtherQuestionsBanner';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
@@ -11,6 +12,7 @@ import * as QuestionActionCreators from '../actions/QuestionActionCreators';
 import * as UserActionCreators from '../actions/UserActionCreators';
 import UserStore from '../stores/UserStore';
 import QuestionStore from '../stores/QuestionStore';
+import ComparedStatsStore from '../stores/ComparedStatsStore';
 
 function parseId(user) {
     return user.id;
@@ -29,6 +31,7 @@ function requestData(props, state) {
             const otherUser = UserStore.getBySlug(params.slug);
             const otherUserId = parseId(otherUser);
             QuestionActionCreators.requestComparedQuestions(userId, otherUserId, state.filters);
+            UserActionCreators.requestComparedStats(userId, otherUserId);
         },
         (status) => { console.log(status.error) }
     );
@@ -45,18 +48,20 @@ function getState(props) {
     const pagination = otherUser ? QuestionStore.getPagination(otherUserId) || {} : {};
     const questions = QuestionStore.get(currentUserId) || {};
     const otherQuestions = otherUser ? QuestionStore.get(otherUserId) || {} : {};
+    const comparedStats = otherUserId ? ComparedStatsStore.get(currentUserId, otherUserId) : null;
 
     return {
         pagination,
         questions,
         otherQuestions,
-        otherUser
+        otherUser,
+        comparedStats
     };
 }
 
 @AuthenticatedComponent
 @translate('OtherQuestionsPage')
-@connectToStores([UserStore, QuestionStore], getState)
+@connectToStores([UserStore, QuestionStore, ComparedStatsStore], getState)
 export default class OtherQuestionsPage extends Component {
     static propTypes = {
         // Injected by React Router:
@@ -71,7 +76,8 @@ export default class OtherQuestionsPage extends Component {
         pagination    : PropTypes.object.isRequired,
         questions     : PropTypes.object,
         otherQuestions: PropTypes.object.isRequired,
-        otherUser     : PropTypes.object
+        otherUser     : PropTypes.object,
+        comparedStats : PropTypes.object
     };
 
     constructor(props) {
@@ -86,9 +92,7 @@ export default class OtherQuestionsPage extends Component {
     }
 
     componentWillMount() {
-        if (Object.keys(this.props.pagination).length === 0) {
-            requestData(this.props, this.state);
-        }
+        requestData(this.props, this.state);
     }
 
     componentWillUnmount() {
@@ -97,8 +101,12 @@ export default class OtherQuestionsPage extends Component {
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.params.slug !== this.props.params.slug) {
-            requestData(nextProps);
+            requestData(nextProps, this.state);
         }
+    }
+
+    onTimerEnd(questionId) {
+        QuestionActionCreators.setQuestionEditable(questionId);
     }
 
     handleScroll() {
@@ -114,7 +122,7 @@ export default class OtherQuestionsPage extends Component {
     }
 
     render() {
-        const {otherUser, user, questions, otherQuestions, pagination, strings, params} = this.props;
+        const {otherUser, user, questions, otherQuestions, pagination, comparedStats, strings, params} = this.props;
         const ownPicture = user && user.photo ? user.photo.thumbnail.small : 'img/no-img/small.jpg';
         const otherPicture = otherUser && otherUser.photo ? otherUser.photo.thumbnail.small : 'img/no-img/small.jpg';
         return (
@@ -132,11 +140,12 @@ export default class OtherQuestionsPage extends Component {
                         <div className="page other-questions-page">
                             {user && otherUser ?
                                 <div id="page-content" className="other-questions-content">
+                                    <OtherQuestionsBanner user={otherUser} questionsTotal={pagination.total || Object.keys(questions).length || 0}/>
                                     <div className="other-questions-header-container">
                                         <ProfilesAvatarConnection ownPicture={ownPicture} otherPicture={otherPicture}/>
-                                        <div className="other-questions-stats-title title">{pagination.total || 0} {strings.coincidences}</div>
+                                        <div className="other-questions-stats-title title">{comparedStats ? comparedStats.commonAnswers : 0} {strings.coincidences} {pagination.total || 0}</div>
                                     </div>
-                                    <OtherQuestionList otherQuestions={otherQuestions} questions={questions} otherUserSlug={otherUser.slug || ''} ownPicture={ownPicture} otherPicture={otherPicture}/>
+                                    <OtherQuestionList otherQuestions={otherQuestions} questions={questions} otherUserSlug={otherUser.slug || ''} ownPicture={ownPicture} otherPicture={otherPicture} onTimerEnd={this.onTimerEnd}/>
                                     <div className="loading-gif" style={pagination.nextLink ? {} : {display: 'none'}}></div>
                                     <br />
                                     <br />
@@ -155,7 +164,7 @@ export default class OtherQuestionsPage extends Component {
 
 OtherQuestionsPage.defaultProps = {
     strings: {
-        coincidences: 'Coincidences',
+        coincidences: 'Coincidences of',
         about       : 'About',
         photos      : 'Photos',
         questions   : 'Answers',

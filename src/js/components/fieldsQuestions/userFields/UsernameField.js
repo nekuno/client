@@ -20,12 +20,22 @@ export default class UsernameField extends Component {
         }
         this.usernameTimeout = setTimeout(() => {
             let username = this.refs.username.getValue();
-            UserActionCreators.validateUsername(username);
+            UserActionCreators.validateUsername(username).then(() => {
+                // Username valid
+            }).catch(() => {
+                nekunoApp.alert(this.props.strings.invalidUsername);
+            });
         }, 500);
     }
     
     handleClickSave() {
-        this.props.onSaveHandler('username', this.refs.username.getValue());
+        const {strings} = this.props;
+        let username = this.refs.username.getValue();
+        UserActionCreators.validateUsername(username).then(() => {
+            this.props.onSaveHandler(username);
+        }).catch(() => {
+            nekunoApp.alert(strings.invalidUsername);
+        });
     }
 
     render() {
@@ -55,6 +65,6 @@ UsernameField.defaultProps = {
         username       : 'username',
         title          : 'Choose your username',
         save           : 'Save',
-        invalidUsername: 'This username is not available'
+        invalidUsername: 'Username is invalid or already in use. Valid characters are letters, numbers and _.'
     }
 };

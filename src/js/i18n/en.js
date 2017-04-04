@@ -13,6 +13,10 @@ export default {
         tutorialThirdStepTitle : 'Importance',
         tutorialThirdStep      : 'This will be the question`s importance when making compatibility calculations.'
     },
+    AnswerNextOtherQuestionPage      : {
+        question       : 'Question',
+        noMoreQuestions: 'No more questions from this user'
+    },
     ChatMessagesPage                 : {
         noMoreMessages: 'You have no messages',
         placeholder   : 'Type a message...',
@@ -145,7 +149,7 @@ export default {
         interests            : 'Interests'
     },
     OtherQuestionsPage               : {
-        coincidences: 'Coincidences',
+        coincidences: 'Coincidences of',
         about       : 'About',
         photos      : 'Photos',
         questions   : 'Answers',
@@ -304,10 +308,13 @@ export default {
         seeLess: 'See less',
         seeMore: 'See more'
     },
+    AnswerUsernamePage               : {
+        username        : 'Username',
+        loadingMessage  : 'Registering user'
+    },
     AnswerUserFieldPage              : {
         question       : 'Question',
-        loadingMessage : 'Loading questions',
-        usernameInvalid: 'Username is invalid or already in use. Valid characters are letters, numbers and _.'
+        loadingMessage : 'Loading questions'
     },
     AnswerProfileFieldPage           : {
         question      : 'Question',
@@ -318,7 +325,7 @@ export default {
         username       : 'username',
         title          : 'Choose your username',
         save           : 'Save',
-        invalidUsername: 'This username is not available'
+        invalidUsername: 'Username is invalid or already in use. Valid characters are letters, numbers and _.'
     },
     EmailField                       : {
         email: 'email',
@@ -366,6 +373,9 @@ export default {
     OtherQuestion                    : {
         didntAnswered: 'You have not answered this question'
     },
+    QuestionEditCountdown            : {
+        text: 'Please wait %s% to answer again'
+    },
     QuestionStats                    : {
         yourAnswer: 'Your answer',
         statistics: 'Community answer statistics'
@@ -381,6 +391,11 @@ export default {
         title    : 'Do you want better yarns?',
         text     : 'Answer more test questions',
         completed: 'completed questions'
+    },
+    OtherQuestionsBanner                  : {
+        title    : 'Do you want to answer the questions of this user?',
+        text     : '',
+        completed: 'Completed questions'
     },
     SocialNetworksBanner             : {
         title         : 'Do you want us to walk a fine line?',
@@ -462,7 +477,7 @@ export default {
         channels : 'Channels'
     },
     OrientationRequiredPopup         : {
-        title              : 'Select your sexual orientation sexual to see this yarn',
+        title              : 'Select your sexual orientation sexual to see this profile',
         orientationRequired: 'Orientation Required',
         heterosexual       : 'Heterosexual',
         bisexual           : 'Bisexual',
@@ -608,5 +623,21 @@ export default {
         next   : 'Next',
         skip   : 'Skip',
         seeMore: '<a href="https://nekuno.com" target="_blank">See more about Nekuno</a>'
+    },
+    /////////////////////////
+    // NotificationService //
+    /////////////////////////
+    NotificationService              : {
+        Message       : {
+            title: 'New message from %username%'
+        },
+        ProcessFinish : {
+            title: 'Process finished',
+            body : 'We have finished to process your network %resource%.'
+        },
+        UserLiked     : {
+            title: 'Mutual like',
+            body : '%username% and you have mutual like.'
+        }
     }
 }

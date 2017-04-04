@@ -7,6 +7,9 @@ class GeocoderService {
 
     getLocationFromAddress(address) {
         return new Bluebird((resolve, reject) => {
+            if (!address) {
+                return reject();
+            }
             this._geocoder.geocode({'address': address}, function(results, status) {
                 if (status === google.maps.GeocoderStatus.OK) {
                     if (typeof results[0].address_components == 'undefined') {
@@ -34,6 +37,9 @@ class GeocoderService {
 
     getLocationFromCoords(lat, lng) {
         return new Bluebird((resolve, reject) => {
+            if (!lat || !lng) {
+                return reject();
+            }
             var latLng = new google.maps.LatLng(parseFloat(lat), parseFloat(lng));
             this._geocoder.geocode({
                 'latLng': latLng

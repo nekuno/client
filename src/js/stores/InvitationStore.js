@@ -13,6 +13,7 @@ class InvitationStore extends BaseStore {
     }
 
     _registerToActions(action) {
+        super._registerToActions(action);
         switch (action.type) {
 
             case ActionTypes.REQUEST_VALIDATE_INVITATION_USER:

@@ -3,6 +3,7 @@ import BaseStore from './BaseStore';
 import ProfileStore from './ProfileStore';
 import LoginStore from './LoginStore';
 import LocalStorageService from '../services/LocalStorageService';
+import moment from 'moment';
 
 class LocaleStore extends BaseStore {
 
@@ -28,6 +29,7 @@ class LocaleStore extends BaseStore {
             case ActionTypes.CHANGE_LOCALE:
                 this._locale = action.locale;
                 LocalStorageService.set('locale', this._locale);
+                moment.locale(this._locale);
                 this.emitChange();
                 break;
 

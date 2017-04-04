@@ -147,7 +147,7 @@ export function requestStats(userId) {
 }
 
 export function requestComparedStats(userId1, userId2) {
-    dispatchAsync(UserAPI.getComparedStats(userId2), {
+    return dispatchAsync(UserAPI.getComparedStats(userId2), {
         request: ActionTypes.REQUEST_COMPARED_STATS,
         success: ActionTypes.REQUEST_COMPARED_STATS_SUCCESS,
         failure: ActionTypes.REQUEST_COMPARED_STATS_ERROR

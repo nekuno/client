@@ -1,6 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import Answer from './Answer';
 import translate from '../../i18n/Translate';
+import QuestionEditCountdown from './QuestionEditCountdown';
 
 @translate('OtherQuestion')
 export default class OtherQuestion extends Component {
@@ -10,6 +11,8 @@ export default class OtherQuestion extends Component {
         ownPicture     : PropTypes.string,
         otherPicture   : PropTypes.string.isRequired,
         otherUserSlug  : PropTypes.string.isRequired,
+        onTimerEnd    : PropTypes.func,
+
         // Injected by @translate:
         strings        : PropTypes.object
     };
@@ -21,10 +24,10 @@ export default class OtherQuestion extends Component {
     constructor(props) {
         super(props);
 
-        this.goToPreviousPage = this.goToPreviousPage.bind(this);
+        this.goToAnswerQuestion = this.goToAnswerQuestion.bind(this);
     }
 
-    goToPreviousPage() {
+    goToAnswerQuestion() {
         const {question, otherUserSlug} = this.props;
         this.context.router.replace(`/answer-question/${question.question.questionId}/${otherUserSlug}`);
     }
@@ -35,6 +38,8 @@ export default class OtherQuestion extends Component {
             return null;
         }
         let userAnswer = this.props.userAnswer || {};
+        let editable = userAnswer.hasOwnProperty('isEditable') ? userAnswer.isEditable : true;
+
         let otherUserAnswer = this.props.question.userAnswer;
         const {strings} = this.props;
 
@@ -50,11 +55,15 @@ export default class OtherQuestion extends Component {
 
         return (
             <div className="question">
-                <a href="javascript:void(0)" onClick={this.goToPreviousPage}>
-                    <span className="edit-question-button">
-                        <span className="icon-edit"></span>
-                    </span>
-                </a>
+                {editable ?
+                    <a href="javascript:void(0)" onClick={this.goToAnswerQuestion}>
+                        <span className="edit-question-button">
+                            <span className="icon-edit"></span>
+                        </span>
+                    </a>
+                    :
+                    ''
+                }
                 <div className="question-title">
                     {question.text}
                 </div>
@@ -63,6 +72,9 @@ export default class OtherQuestion extends Component {
                     <Answer text={userAnswer.text} answered={true} accepted={otherUserAnswer.acceptedAnswers.some(acceptedAnswerId => acceptedAnswerId === userAnswer.answerId)} {...this.props}/>
                     :
                     <div className="not-answered-text">{strings.didntAnswered}</div>
+                }
+                {editable ? '' :
+                    <QuestionEditCountdown seconds={userAnswer.editableIn} questionId={question.questionId} onTimerEnd={this.props.onTimerEnd} />
                 }
                 <hr/>
             </div>

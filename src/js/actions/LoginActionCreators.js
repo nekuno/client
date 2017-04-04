@@ -3,6 +3,7 @@ import ActionTypes from '../constants/ActionTypes';
 import AuthService from '../services/AuthService';
 import ChatSocketService from '../services/ChatSocketService';
 import WorkersSocketService from '../services/WorkersSocketService';
+import NotificationsSocketService from '../services/NotificationsSocketService';
 import LoginStore from '../stores/LoginStore';
 import ProfileStore from '../stores/ProfileStore';
 import QuestionStore from '../stores/QuestionStore';
@@ -92,6 +93,7 @@ export default new class LoginActionCreators {
             UserActionCreators.requestStats(LoginStore.user.id);
             ChatSocketService.connect();
             WorkersSocketService.connect();
+            NotificationsSocketService.connect();
             UserDataStatusActionCreators.requestUserDataStatus();
             UserActionCreators.requestOwnProfile(LoginStore.user.id).then(() => {
                 QuestionActionCreators.requestQuestions(LoginStore.user.id).then(
@@ -127,6 +129,10 @@ export default new class LoginActionCreators {
         }
     }
 
+    preRegister(user, profile, token, oauth) {
+        dispatch(ActionTypes.PRE_REGISTER_USER, {user, profile, token, oauth});
+    }
+
     register(user, profile, token, oauth) {
         let promise = AuthService.register(user, profile, token, oauth);
         return dispatchAsync(promise, {
@@ -149,5 +155,6 @@ export default new class LoginActionCreators {
         dispatch(ActionTypes.LOGOUT_USER, {path});
         ChatSocketService.disconnect();
         WorkersSocketService.disconnect();
+        NotificationsSocketService.disconnect();
     }
 }

@@ -77,7 +77,6 @@ export default class CreateThreadPage extends Component {
     componentWillReceiveProps(nextProps) {
         if (nextProps.errors) {
             nekunoApp.alert(nextProps.errors);
-            ThreadStore.deleteErrors();
         }
     }
 

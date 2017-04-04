@@ -13,6 +13,10 @@ export default {
         tutorialThirdStepTitle : 'Importancia',
         tutorialThirdStep      : 'Esta será la importancia que tendrá la pregunta a la hora de hacer los cálculos de compatibilidad.'
     },
+    AnswerNextOtherQuestionPage      : {
+        question       : 'Pregunta',
+        noMoreQuestions: 'No hay más preguntas de este usuario'
+    },
     ChatMessagesPage                 : {
         noMoreMessages: 'No tienes más mensajes',
         placeholder   : 'Escribe un mensaje...',
@@ -71,7 +75,6 @@ export default {
         questions      : 'Respuestas',
         interests      : 'Intereses',
         importingAlbums: 'Cargando álbumes'
-
     },
     OtherGalleryPage                 : {
         empty  : 'El usuario no ha importado ninguna foto',
@@ -146,7 +149,7 @@ export default {
         interests            : 'Intereses'
     },
     OtherQuestionsPage               : {
-        coincidences: 'Coincidencias',
+        coincidences: 'Coincidencias de',
         about       : 'Acerca de',
         photos      : 'Fotos',
         questions   : 'Respuestas',
@@ -201,7 +204,6 @@ export default {
         editFilters      : 'Editar filtros',
         loadingMessage   : 'Cargando recomendaciones',
         noRecommendations: 'No hay recomendaciones con los filtros seleccionados'
-
     },
     RecommendationPage               : {
         loadingMessage   : 'Cargando recomendaciones',
@@ -306,10 +308,13 @@ export default {
         seeLess: 'Ver menos',
         seeMore: 'Ver más'
     },
+    AnswerUsernamePage               : {
+        username        : 'Nombre de usuario',
+        loadingMessage  : 'Registrando usuario'
+    },
     AnswerUserFieldPage              : {
         question       : 'Pregunta',
-        loadingMessage : 'Cargando preguntas',
-        usernameInvalid: 'El nombre de usuario no es válido o ya está en uso. Los caracteres válidos son letras, números y _'
+        loadingMessage : 'Cargando preguntas'
     },
     AnswerProfileFieldPage           : {
         question      : 'Pregunta',
@@ -320,7 +325,7 @@ export default {
         username       : 'Nombre de usuario',
         title          : 'Elige tu nombre de usuario',
         save           : 'Guardar',
-        invalidUsername: 'Este nombre de usuario no está disponible'
+        invalidUsername: 'El nombre de usuario no es válido o ya está en uso. Los caracteres válidos son letras, números y _'
     },
     EmailField                       : {
         email: 'e-mail',
@@ -368,6 +373,9 @@ export default {
     OtherQuestion                    : {
         didntAnswered: 'No has contestado a esta pregunta'
     },
+    QuestionEditCountdown            : {
+        text: 'Por favor espera %s% para responder de nuevo'
+    },
     QuestionStats                    : {
         yourAnswer: 'Tu respuesta',
         statistics: 'Estadísticas de la comunidad Nekuno'
@@ -382,6 +390,11 @@ export default {
     QuestionsBanner                  : {
         title    : '¿Quieres que hilemos más fino?',
         text     : 'Responde más preguntas',
+        completed: 'Preguntas completadas'
+    },
+    OtherQuestionsBanner                  : {
+        title    : '¿Quieres responder las preguntas de este usuario?',
+        text     : '',
         completed: 'Preguntas completadas'
     },
     SocialNetworksBanner             : {
@@ -464,7 +477,7 @@ export default {
         channels : 'Canales'
     },
     OrientationRequiredPopup         : {
-        title              : 'Indícanos tu orientación sexual para ver este ovillo',
+        title              : 'Indícanos tu orientación sexual para ver este perfil',
         orientationRequired: 'Orientación sexual requerida',
         heterosexual       : 'Heterosexual',
         bisexual           : 'Bisexual',
@@ -610,5 +623,21 @@ export default {
         next   : 'Siguiente',
         skip   : 'Omitir',
         seeMore: '<a href="https://nekuno.com" target="_blank">Ver más sobre Nekuno</a>'
+    },
+    /////////////////////////
+    // NotificationService //
+    /////////////////////////
+    NotificationService              : {
+        Message : {
+            title: 'Nuevo mensaje de %username%'
+        },
+        ProcessFinish : {
+            title: 'Proceso finalizado',
+            body : 'Hemos acabado de procesar tu red de %resource%.'
+        },
+        UserLiked     : {
+            title: '"like" mutuo',
+            body : '%username% y tú os habéis hecho "like" mutuamente.'
+        }
     }
 }

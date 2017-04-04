@@ -15,6 +15,7 @@ class WorkersStore extends BaseStore {
                 processed : false
             }
         });
+        this._linksPercentage = null;
         this._similarityPercentage = null;
         this._matchingPercentage = null;
         this._affinityPercentage = null;
@@ -26,7 +27,6 @@ class WorkersStore extends BaseStore {
         super._registerToActions(action);
 
         switch (action.type) {
-
             case ActionTypes.WORKERS_FETCH_START:
                 this._add({
                     resource  : action.resource,
@@ -72,6 +72,7 @@ class WorkersStore extends BaseStore {
                     process   : action.percentage,
                     processed : false
                 });
+                this._setLinksPercentage();
                 this.emitChange();
                 break;
 
@@ -84,6 +85,7 @@ class WorkersStore extends BaseStore {
                     process   : 0,
                     processed : true
                 });
+                this._setLinksPercentage();
                 this.emitChange();
                 break;
 
@@ -98,14 +100,10 @@ class WorkersStore extends BaseStore {
                 break;
 
             case ActionTypes.WORKERS_SIMILARITY_FINISH:
-                if (this._isJustRegistered && this._matchingPercentage === 100 && this.getLinksPercentage() === 100 && this._affinityPercentage === 100) {
+                this._similarityPercentage = null;
+                if (this._isJustRegistered && this._matchingPercentage === null && this._linksPercentage === null && this._affinityPercentage === null) {
                     this._isJustRegistered = null;
-                    this._similarityPercentage = null;
-                    this._matchingPercentage = null;
-                    this._affinityPercentage = null;
                     this._registerWorkersFinish = true;
-                } else {
-                    this._similarityPercentage = this._isJustRegistered ? 100 : null;
                 }
                 this.emitChange();
                 break;
@@ -121,14 +119,10 @@ class WorkersStore extends BaseStore {
                 break;
 
             case ActionTypes.WORKERS_MATCHING_FINISH:
-                if (this._isJustRegistered && this._similarityPercentage === 100 && this.getLinksPercentage() === 100 && this._affinityPercentage === 100) {
+                this._matchingPercentage = null;
+                if (this._isJustRegistered && this._similarityPercentage === null && this._linksPercentage === null && this._affinityPercentage === null) {
                     this._isJustRegistered = null;
-                    this._similarityPercentage = null;
-                    this._matchingPercentage = null;
-                    this._affinityPercentage = null;
                     this._registerWorkersFinish = true;
-                } else {
-                    this._matchingPercentage = this._isJustRegistered ? 100 : null;
                 }
                 this.emitChange();
                 break;
@@ -144,14 +138,10 @@ class WorkersStore extends BaseStore {
                 break;
 
             case ActionTypes.WORKERS_AFFINITY_FINISH:
-                if (this._isJustRegistered && this._similarityPercentage === 100 && this.getLinksPercentage() === 100 && this._affinityPercentage === 100) {
+                this._affinityPercentage = null;
+                if (this._isJustRegistered && this._similarityPercentage === null && this._linksPercentage === null && this._matchingPercentage === null) {
                     this._isJustRegistered = null;
-                    this._similarityPercentage = null;
-                    this._matchingPercentage = null;
-                    this._affinityPercentage = null;
                     this._registerWorkersFinish = true;
-                } else {
-                    this._affinityPercentage = this._isJustRegistered ? 100 : null;
                 }
                 this.emitChange();
                 break;
@@ -168,12 +158,16 @@ class WorkersStore extends BaseStore {
                         processed : data.processed
                     });
                 });
-
+                this._setLinksPercentage();
                 this.emitChange();
                 break;
 
             case ActionTypes.REQUEST_REGISTER_USER_SUCCESS:
                 this._isJustRegistered = true;
+                this._linksPercentage = 0;
+                this._similarityPercentage = 0;
+                this._matchingPercentage = 0;
+                this._affinityPercentage = 0;
                 this.emitChange();
                 break;
 
@@ -194,6 +188,15 @@ class WorkersStore extends BaseStore {
         }
     }
 
+    _setLinksPercentage() {
+        let linksPercentageSum = 0;
+        const notFinished = this._networks.filter(network => !network.processed && (network.fetching || network.fetched || network.processing));
+        const totalPercentage = notFinished.length * 100;
+        notFinished.forEach(network => linksPercentageSum += network.process ? network.process : 0);
+
+        this._linksPercentage = totalPercentage ? parseInt(linksPercentageSum*100/totalPercentage) : null;
+    }
+
     getAll() {
         return this._networks;
     }
@@ -204,12 +207,7 @@ class WorkersStore extends BaseStore {
     }
 
     getLinksPercentage() {
-        var linksPercentageSum = 0;
-        const notFinished = this._networks.filter(network => !network.processed && (network.fetching || network.fetched || network.processing));
-        const totalPercentage = notFinished.length * 100;
-        notFinished.forEach(network => linksPercentageSum += network.process ? network.process : 0);
-
-        return totalPercentage ? parseInt(linksPercentageSum*100/totalPercentage) : this._isJustRegistered ? 100 : null;
+        return this._linksPercentage;
     }
 
     getSimilarityPercentage() {

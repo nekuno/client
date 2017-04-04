@@ -18,6 +18,7 @@ class UserStore extends BaseStore {
             case ActionTypes.REQUEST_OWN_USER_SUCCESS:
             case ActionTypes.EDIT_USER_SUCCESS:
             case ActionTypes.REQUEST_USER_SUCCESS:
+            case ActionTypes.REQUEST_PUBLIC_USER_SUCCESS:
                 mergeIntoBag(this._users, responseUsers);
                 this.emitChange();
                 break;

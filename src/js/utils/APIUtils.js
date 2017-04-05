@@ -19,9 +19,6 @@ import LocaleStore from '../stores/LocaleStore';
 // Read more about Normalizr: https://github.com/gaearon/normalizr
 
 const userSchema = new Schema('users', {idAttribute: 'id'});
-const profileSchema = new Schema('profiles');
-const statsSchema = new Schema('stats');
-const comparedStatsSchema = new Schema('comparedStats');
 const questionsSchema = new Schema('questions', {idAttribute: 'questionId'});
 const questionSchema = new Schema('question', {idAttribute: 'questionId'});
 const userAnswersSchema = new Schema('userAnswers', {idAttribute: 'questionId'});
@@ -40,7 +37,6 @@ const comparedQuestionsAndAnswersSchema = new Schema('items', {
     }
 });
 const blockedUserSchema = new Schema('blocked', {idAttribute: 'id'});
-const likedUserSchema = new Schema('liked', {idAttribute: 'id'});
 
 //TODO: Implement location schema and store
 //TODO: Check pull request https://github.com/gaearon/normalizr/pull/42 for recommendation of different types
@@ -138,22 +134,6 @@ export function fetchUser(url) {
     return fetchAndNormalize(url, userSchema);
 }
 
-export function fetchUserArray(url) {
-    return fetchAndNormalize(url, arrayOf(userSchema));
-}
-
-export function fetchProfile(url) {
-    return fetchAndNormalize(url, profileSchema);
-}
-
-export function putProfile(url, data) {
-    return putData(url, data);
-}
-
-export function fetchComparedStats(url) {
-    return fetchAndNormalize(url, comparedStatsSchema);
-}
-
 export function fetchAnswers(url) {
     return fetchAndNormalize(url, {
         items     : arrayOf(questionsAndAnswersSchema),
@@ -187,20 +167,6 @@ export function fetchQuestion(url) {
     return fetchAndNormalize(url, questionSchema);
 }
 
-export function fetchOwnInterests(url) {
-    return fetchAndNormalize(url, {
-        items     : [],
-        pagination: {}
-    });
-}
-
-export function fetchComparedInterests(url) {
-    return fetchAndNormalize(url, {
-        items     : [],
-        pagination: {}
-    });
-}
-
 export function fetchUserDataStatus(url) {
     return getData(url).then(function(json) {
         return json;
@@ -217,10 +183,6 @@ export function deleteBlockUser(url) {
 
 export function fetchBlockUser(url) {
     return fetchAndNormalize(url, blockedUserSchema);
-}
-
-export function fetchLikeUser(url) {
-    return fetchAndNormalize(url, likedUserSchema);
 }
 
 export function postLikeContent(url, to, originContext, originName) {

@@ -1,12 +1,8 @@
 import {
     fetchUser,
-    fetchProfile,
-    putProfile,
-    fetchComparedStats,
     postBlockUser,
     deleteBlockUser,
     fetchBlockUser,
-    fetchLikeUser,
     postLikeContent,
     postDislikeContent,
     postIgnoreContent,
@@ -38,15 +34,15 @@ export function editUser(data, url = `users`) {
 }
 
 export function getOwnProfile(url = `profile`) {
-    return fetchProfile(url);
+    return getData(url);
 }
 
 export function getProfile(userId, url = `profile/${userId}`) {
-    return fetchProfile(url);
+    return getData(url);
 }
 
 export function editProfile(data, url = `profile`) {
-    return putProfile(url, data);
+    return putData(url, data);
 }
 
 export function getMetadata(url = `profile/metadata`) {
@@ -66,7 +62,7 @@ export function getStats(url = `stats`) {
 }
 
 export function getComparedStats(id, url = `stats/compare/${id}`) {
-    return fetchComparedStats(url);
+    return getData(url);
 }
 
 export function getThreads(url = `threads`){
@@ -118,7 +114,7 @@ export function unsetRateUser(to, url = `likes/${to}`) {
 }
 
 export function getLikeUser(to, url = `likes/${to}`) {
-    return fetchLikeUser(url);
+    return getData(url);
 }
 
 export function setLikeContent(to, originContext, originName, url = `content/rate`) {

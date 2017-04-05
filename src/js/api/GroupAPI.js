@@ -1,5 +1,5 @@
 import { API_URLS } from '../constants/Constants';
-import { getData, postData, deleteData, fetchComparedInterests } from '../utils/APIUtils';
+import { getData, postData, deleteData } from '../utils/APIUtils';
 
 export function requestGroup(groupId){
     let url = API_URLS.REQUEST_GROUP.replace('{groupId}', groupId);

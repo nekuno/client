@@ -130,6 +130,7 @@ export default class GalleryPage extends Component {
     
     uploadFile(e) {
         e.preventDefault();
+        const {strings} = this.props;
         var files;
         if (e.dataTransfer) {
             files = e.dataTransfer.files;
@@ -137,6 +138,10 @@ export default class GalleryPage extends Component {
             files = e.target.files;
         }
         if (typeof files[0] !== 'undefined') {
+            if (!this.isValidMimetype(files[0].type)) {
+                nekunoApp.alert(strings.invalidMimeType);
+                return;
+            }
             const userId = parseId(this.props.user);
             this.savePhoto(userId, files[0]);
         }
@@ -179,6 +184,17 @@ export default class GalleryPage extends Component {
         };
         reader.readAsDataURL(file);
     }
+
+    isValidMimetype = function (mimeType) {
+        switch (mimeType) {
+            case 'image/png':
+            case 'image/jpeg':
+            case 'image/gif':
+                return true;
+        }
+
+        return false;
+    };
 
     render() {
         const {user, photos, profilePhoto, noPhotos, loadingPhoto, strings} = this.props;
@@ -247,6 +263,7 @@ GalleryPage.defaultProps = {
         photos         : 'Photos',
         questions      : 'Answers',
         interests      : 'Interests',
-        importingAlbums: 'Importing albums'
+        importingAlbums: 'Importing albums',
+        invalidMimeType: 'Invalid image'
     }
 };

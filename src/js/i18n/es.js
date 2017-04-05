@@ -74,7 +74,8 @@ export default {
         photos         : 'Fotos',
         questions      : 'Respuestas',
         interests      : 'Intereses',
-        importingAlbums: 'Cargando álbumes'
+        importingAlbums: 'Cargando álbumes',
+        invalidMimeType: 'Imagen inválida'
     },
     OtherGalleryPage                 : {
         empty  : 'El usuario no ha importado ninguna foto',

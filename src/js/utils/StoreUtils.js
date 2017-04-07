@@ -75,13 +75,13 @@ export function removeFromBag(bag, entities) {
 export function getValidationErrors(error) {
   let validationErrors =  selectn('validationErrors', error) || {};
   let displayErrors = '';
-  
+
   Object.keys(validationErrors).forEach(key => {
-    if (typeof validationErrors[key] === 'string') {
-        displayErrors += validationErrors[key] + '<br/>';
-    } else if (validationErrors[key].isArray()) {
-        displayErrors += validationErrors[key].map(error => error + '<br/>');
-    }
+      if (typeof validationErrors[key] === 'string') {
+          displayErrors += validationErrors[key] + '<br/>';
+      } else if (Array.isArray(validationErrors[key])) {
+          displayErrors += validationErrors[key].map(error => error + '<br/>');
+      }
   });
 
   return displayErrors;

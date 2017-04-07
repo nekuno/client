@@ -12,7 +12,7 @@ var gulpHtmlVersion = require('gulp-html-version');
 
 gulp.task('copy', function() {
     return gulp.src('src/*.html')
-        .pipe(gulpHtmlVersion())
+        .pipe(gulpHtmlVersion({paramType: 'timestamp'}))
         .pipe(gulp.dest('www/'));
 });
 

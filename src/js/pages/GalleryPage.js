@@ -155,7 +155,7 @@ export default class GalleryPage extends Component {
         reader.onload = function(fileLoadedEvent) {
             let canvas = document.createElement('canvas');
             let img = new Image();
-            img.src = fileLoadedEvent.target.result;
+
             img.onload = function () {
                 let ctx = canvas.getContext("2d");
                 ctx.drawImage(img, 0, 0);
@@ -178,11 +178,22 @@ export default class GalleryPage extends Component {
                 canvas.height = height;
                 ctx = canvas.getContext("2d");
                 ctx.drawImage(img, 0, 0, width, height);
+
+                const mimeType = fileLoadedEvent.target.result
+                    .substr(5, 20)
+                    .replace(/;base64,.*/, "");
+
+                let base64 = canvas.toDataURL(mimeType);
+                if(!base64.search(mimeType) >= 0) {
+                    // image/png is always supported
+                    base64 = canvas.toDataURL("image/png");
+                }
+
                 GalleryPhotoActionCreators.postPhoto(userId, {
-                    base64: canvas.toDataURL("image/png").replace(/^data:image\/(.+);base64,/, "")
+                    base64: base64.replace(/^data:image\/(.+);base64,/, "")
                 });
             };
-
+            img.src = fileLoadedEvent.target.result;
 
         };
         reader.readAsDataURL(file);

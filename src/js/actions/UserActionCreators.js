@@ -35,6 +35,14 @@ export function requestUser(userSlug, fields) {
     }, {userSlug});
 }
 
+export function setOwnEnabled(enabled) {
+    return dispatchAsync(UserAPI.setOwnEnabled(enabled), {
+        request: ActionTypes.SET_ENABLED,
+        success: ActionTypes.SET_ENABLED_SUCCESS,
+        failure: ActionTypes.SET_ENABLED_ERROR
+    }, {enabled});
+}
+
 export function editUser(data) {
     return dispatchAsync(UserAPI.editUser(data), {
         request: ActionTypes.EDIT_USER,

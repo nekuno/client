@@ -29,6 +29,10 @@ export function getPublicUser(slug, url = `public/users/${slug}`) {
     return fetchUser(url);
 }
 
+export function setOwnEnabled(enabled, url = `users/enable`) {
+    return postData(url, {enabled: enabled});
+}
+
 export function editUser(data, url = `users`) {
     return putData(url, data);
 }

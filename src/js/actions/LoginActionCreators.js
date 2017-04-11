@@ -85,48 +85,63 @@ export default new class LoginActionCreators {
     redirect() {
 
         if (LoginStore.isLoggedIn()) {
-
-            if (LoginStore.user.enabled === false) {
-                return this.logoutUser();
+            if (LoginStore.isEnabled()) {
+                this.successfulRedirect();
+            } else {
+                this.confirmReenable();
             }
-
-            UserActionCreators.requestStats(LoginStore.user.id);
-            ChatSocketService.connect();
-            WorkersSocketService.connect();
-            NotificationsSocketService.connect();
-            UserDataStatusActionCreators.requestUserDataStatus();
-            UserActionCreators.requestOwnProfile(LoginStore.user.id).then(() => {
-                QuestionActionCreators.requestQuestions(LoginStore.user.id).then(
-                    () => {
-                        console.log('QuestionActionCreators.requestQuestions', QuestionStore.answersLength(LoginStore.user.id));
-                        console.log('LoginStore.isComplete()', LoginStore.isComplete());
-                        console.log('ProfileStore.isComplete(LoginStore.user.id)', ProfileStore.isComplete(LoginStore.user.id));
-                        console.log('QuestionStore.isJustRegistered(LoginStore.user.id)', QuestionStore.isJustRegistered(LoginStore.user.id));
-                        let path = null;
-                        if (QuestionStore.answersLength(LoginStore.user.id) == 0) {
-                            path = '/social-networks-on-sign-up';
-                        } else if (!LoginStore.isComplete() || !ProfileStore.isComplete(LoginStore.user.id) || QuestionStore.isJustRegistered(LoginStore.user.id)) {
-                            path = '/register-questions-landing';
-                        } else {
-                            path = RouterStore.nextTransitionPath;
-                            if (path) {
-                                console.log('RouterStore.nextTransitionPath found', path);
-                            }
-                        }
-                        if (path) {
-                            console.log('Redirecting to path', path);
-                            let router = RouterContainer.get();
-                            router.replace(path);
-                        }
-                        return null;
-                    }, (error) => {
-                        console.error(error);
-                    }
-                );
-            }, (error) => {
-                console.error(error);
-            });
         }
+    }
+
+    confirmReenable() {
+        nekunoApp.confirm('Your account is deactivated. Do you want to reactivate it?', 'Inactive account',
+            () => {
+                UserActionCreators.setOwnEnabled(true).then(() => {
+                    this.successfulRedirect();
+                });
+            },
+            () => {
+                return this.logoutUser();
+            });
+    }
+
+    successfulRedirect() {
+        UserActionCreators.requestStats(LoginStore.user.id);
+        ChatSocketService.connect();
+        WorkersSocketService.connect();
+        NotificationsSocketService.connect();
+        UserDataStatusActionCreators.requestUserDataStatus();
+        UserActionCreators.requestOwnProfile(LoginStore.user.id).then(() => {
+            QuestionActionCreators.requestQuestions(LoginStore.user.id).then(
+                () => {
+                    console.log('QuestionActionCreators.requestQuestions', QuestionStore.answersLength(LoginStore.user.id));
+                    console.log('LoginStore.isComplete()', LoginStore.isComplete());
+                    console.log('ProfileStore.isComplete(LoginStore.user.id)', ProfileStore.isComplete(LoginStore.user.id));
+                    console.log('QuestionStore.isJustRegistered(LoginStore.user.id)', QuestionStore.isJustRegistered(LoginStore.user.id));
+                    let path = null;
+                    if (QuestionStore.answersLength(LoginStore.user.id) == 0) {
+                        path = '/social-networks-on-sign-up';
+                    } else if (!LoginStore.isComplete() || !ProfileStore.isComplete(LoginStore.user.id) || QuestionStore.isJustRegistered(LoginStore.user.id)) {
+                        path = '/register-questions-landing';
+                    } else {
+                        path = RouterStore.nextTransitionPath;
+                        if (path) {
+                            console.log('RouterStore.nextTransitionPath found', path);
+                        }
+                    }
+                    if (path) {
+                        console.log('Redirecting to path', path);
+                        let router = RouterContainer.get();
+                        router.replace(path);
+                    }
+                    return null;
+                }, (error) => {
+                    console.error(error);
+                }
+            );
+        }, (error) => {
+            console.error(error);
+        });
     }
 
     preRegister(user, profile, token, oauth) {

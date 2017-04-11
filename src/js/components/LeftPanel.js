@@ -6,6 +6,7 @@ import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
 import StatsStore from '../stores/StatsStore';
 import LoginActionCreators from '../actions/LoginActionCreators';
+import * as UserActionCreators from '../actions/UserActionCreators';
 import ChatThreadStore from '../stores/ChatThreadStore';
 import ProfileStore from '../stores/ProfileStore';
 
@@ -34,13 +35,13 @@ export default class LeftPanel extends Component {
 
     static propTypes = {
         // Injected by @AuthenticatedComponent
-        user        : PropTypes.object,
+        user: PropTypes.object,
         userLoggedIn: PropTypes.bool,
         // Injected by @translate:
-        strings     : PropTypes.object,
+        strings: PropTypes.object,
         // Injected by @connectToStores:
-        interests   : PropTypes.number,
-        unreadCount : PropTypes.number
+        interests: PropTypes.number,
+        unreadCount: PropTypes.number
     };
 
     constructor(props) {
@@ -54,6 +55,7 @@ export default class LeftPanel extends Component {
         this.handleClickSettings = this.handleClickSettings.bind(this);
         this.handleGoClickInvitations = this.handleGoClickInvitations.bind(this);
         this.handleGoClickGroups = this.handleGoClickGroups.bind(this);
+        this.disableAccount = this.disableAccount.bind(this);
         this.logout = this.logout.bind(this);
 
         this.state = {
@@ -122,6 +124,25 @@ export default class LeftPanel extends Component {
         });
     }
 
+    disableAccount() {
+        nekunoApp.confirm('Do you want to deactivate your account?', 'Deactivate account',
+            () => {
+                UserActionCreators.setOwnEnabled(false).then(
+                    () => {
+                        this.logout();
+                    }
+                ).catch(
+                    (error) => {
+                        nekunoApp.alert('We could not deactivate your account. Please wait a little and try again.');
+                        console.log(error);
+                    }
+                );
+            },
+            () => {
+            }
+        )
+    }
+
     logout() {
         nekunoApp.closePanel();
         $$('.panel-left').once('closed', () => {
@@ -184,6 +205,9 @@ export default class LeftPanel extends Component {
                             <a href="javascript:void(0)" onClick={this.handleGoClickSocialNetworks}>
                                 {strings.socialNetworks}
                             </a>
+                            <a href="javascript:void(0)" onClick={this.disableAccount}>
+                                Deactivate Account
+                            </a>
                             {/*<Link to="/invitations" onClick={this.handleGoClickInvitations} onlyActiveOnIndex={false}>*/}
                             {/*{strings.invitations}*/}
                             {/*</Link>*/}
@@ -201,14 +225,14 @@ export default class LeftPanel extends Component {
 
 LeftPanel.defaultProps = {
     strings: {
-        interests     : 'Interests',
-        threads       : 'Discover',
-        groups        : 'Badges',
-        myProfile     : 'Profile',
-        conversations : 'Messages',
+        interests: 'Interests',
+        threads: 'Discover',
+        groups: 'Badges',
+        myProfile: 'Profile',
+        conversations: 'Messages',
         socialNetworks: 'My social networks',
-        settings      : 'Settings',
-        invitations   : 'Invitations',
-        logout        : 'Logout'
+        settings: 'Settings',
+        invitations: 'Invitations',
+        logout: 'Logout'
     }
 };

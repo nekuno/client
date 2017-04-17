@@ -2,6 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import TopNavBar from '../components/ui/TopNavBar';
 import DailyMessages from '../components/ui/DailyMessages';
 import MessagesToolBar from '../components/ui/MessagesToolBar';
+import MessagesToolBarDisabled from '../components/ui/MessagesToolBarDisabled';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
@@ -151,16 +152,22 @@ export default class ChatMessagesPage extends Component {
 
     render() {
         const {otherUser, messages, online, strings, params, isGuest} = this.props;
+        let isOtherEnabled = otherUser ? otherUser.enabled : false;
         let otherUsername = otherUser ? otherUser.username : '';
         return (
             <div className="views">
                 <TopNavBar leftIcon={'left-arrow'} centerText={otherUsername} bottomText={online ? 'Online' : null} onCenterLinkClickHandler={this.goToProfilePage}/>
                 <div className="view view-main notifications-view">
                     <div className="page toolbar-fixed notifications-page">
-                        { isGuest ? '' : <MessagesToolBar onClickHandler={this.sendMessageHandler} onFocusHandler={this.handleFocus} placeholder={strings.placeholder} text={strings.text}/> }
+                        { isGuest ? '' :
+                            isOtherEnabled ?
+                                <MessagesToolBar onClickHandler={this.sendMessageHandler} onFocusHandler={this.handleFocus} placeholder={strings.placeholder} text={strings.text}/>
+                                :
+                                <MessagesToolBarDisabled placeholder={strings.placeholderDisabled} text={strings.text}/>
+                        }
                         <div id="page-content" className="page-content notifications-content messages-content" ref="list">
                             {this.state.noMoreMessages ? <div className="daily-message-title">{strings.noMoreMessages}</div> : '' }
-                            <DailyMessages messages={messages} userLink={`p/${params.slug}`}/>
+                            <DailyMessages messages={messages} userLink={`p/${params.slug}`} enabled={isOtherEnabled}/>
                             <br />
                             <br />
                             <br />
@@ -177,6 +184,7 @@ ChatMessagesPage.defaultProps = {
     strings: {
         noMoreMessages: 'You have no messages',
         placeholder   : 'Type a message...',
+        placeholderDisabled: 'That user does not accept messages right now.',
         text          : 'Send'
     }
 };

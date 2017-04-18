@@ -23,6 +23,7 @@ class UserStore extends BaseStore {
                 this.emitChange();
                 break;
             case ActionTypes.REQUEST_PUBLIC_USER_ERROR:
+            case ActionTypes.REQUEST_USER_ERROR:
                 this._error = action.error.error;
                 this.emitChange();
                 break;

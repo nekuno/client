@@ -6,22 +6,16 @@ import MessagesToolBarDisabled from '../components/ui/MessagesToolBarDisabled';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
-import * as UserActionCreators from '../actions/UserActionCreators';
 import ChatActionCreators from '../actions/ChatActionCreators';
-import UserStore from '../stores/UserStore';
+import LoginStore from '../stores/LoginStore';
 import ChatMessageStore from '../stores/ChatMessageStore';
 import ChatUserStatusStore from '../stores/ChatUserStatusStore';
 
-function requestData(props) {
-    const otherUserSlug = props.params.slug;
-    UserActionCreators.requestUser(otherUserSlug, ['username', 'photo', 'status']);
-}
-
 function getState(props) {
     const otherUserSlug = props.params.slug;
-    const otherUser = UserStore.getBySlug(otherUserSlug);
+    const messages = otherUserSlug ? ChatMessageStore.getAllForSlug(otherUserSlug) : [];
+    const otherUser = getOtherUser(messages);
     const otherUserId = otherUser ? otherUser.id : null;
-    const messages = otherUserId ? ChatMessageStore.getAllForUser(otherUserId) : [];
     const online = otherUserId ? ChatUserStatusStore.isOnline(otherUserId) || false : false;
 
     return {
@@ -32,9 +26,29 @@ function getState(props) {
     };
 }
 
+function getOtherUser(messages)
+{
+    const ownSlug = LoginStore.user.slug;
+    let otherUser = {};
+
+    messages.some(message => {
+        if (message.user_from.slug !== ownSlug) {
+            otherUser = message.user_from;
+            return true;
+        }
+        if (message.user_to.slug !== ownSlug) {
+            otherUser = message.user_to;
+            return true;
+        }
+        return false;
+    });
+
+    return otherUser;
+}
+
 @AuthenticatedComponent
 @translate('ChatMessagesPage')
-@connectToStores([ChatMessageStore, ChatUserStatusStore, UserStore], getState)
+@connectToStores([ChatMessageStore, ChatUserStatusStore, LoginStore], getState)
 export default class ChatMessagesPage extends Component {
 
     static propTypes = {
@@ -77,7 +91,6 @@ export default class ChatMessagesPage extends Component {
     }
 
     componentDidMount() {
-        requestData(this.props);
         this._scrollToBottom();
         this.markReaded();
         this.refs.list.addEventListener('scroll', this.handleScroll, false);
@@ -163,7 +176,7 @@ export default class ChatMessagesPage extends Component {
                             isOtherEnabled ?
                                 <MessagesToolBar onClickHandler={this.sendMessageHandler} onFocusHandler={this.handleFocus} placeholder={strings.placeholder} text={strings.text}/>
                                 :
-                                <MessagesToolBarDisabled placeholder={strings.placeholderDisabled} text={strings.text}/>
+                                <MessagesToolBarDisabled text={strings.text}/>
                         }
                         <div id="page-content" className="page-content notifications-content messages-content" ref="list">
                             {this.state.noMoreMessages ? <div className="daily-message-title">{strings.noMoreMessages}</div> : '' }
@@ -184,7 +197,6 @@ ChatMessagesPage.defaultProps = {
     strings: {
         noMoreMessages: 'You have no messages',
         placeholder   : 'Type a message...',
-        placeholderDisabled: 'That user does not accept messages right now.',
         text          : 'Send'
     }
 };

@@ -76,7 +76,30 @@ class ChatMessageStore extends BaseStore {
             }
         }
 
-        userMessages.sort((a, b) => {
+        this._sortMessagesByDate(userMessages);
+
+        return userMessages;
+    }
+
+    getAllForSlug(slug)
+    {
+        let userMessages = [];
+
+        for (var messageId in this._messages) {
+            let message = this._messages[messageId];
+            if (message.user_from.slug === slug || message.user_to.slug === slug) {
+                userMessages.push(message);
+            }
+        }
+
+        this._sortMessagesByDate(userMessages);
+
+        return userMessages;
+    }
+
+    _sortMessagesByDate(messages)
+    {
+        messages.sort((a, b) => {
             if (a.createdAt < b.createdAt) {
                 return -1;
             } else if (a.createdAt > b.createdAt) {
@@ -84,8 +107,6 @@ class ChatMessageStore extends BaseStore {
             }
             return 0;
         });
-
-        return userMessages;
     }
 
     isFresh(id) {

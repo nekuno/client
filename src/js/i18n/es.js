@@ -437,6 +437,9 @@ export default {
     MessagesToolBar                    : {
         maxLengthIs: 'La máxima longitud del mensaje es  '
     },
+    MessagesToolBarDisabled          : {
+        forbidden: 'Este usuario no acepta mensajes'
+    },
     CardContent                      : {
         like             : 'Me interesa',
         unlike           : 'Quitar',

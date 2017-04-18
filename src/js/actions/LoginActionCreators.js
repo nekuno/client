@@ -97,7 +97,6 @@ export default new class LoginActionCreators {
         nekunoApp.confirm('Your account is deactivated. Do you want to reactivate it?', 'Inactive account',
             () => {
                 UserActionCreators.setOwnEnabled(true).then(() => {
-                    //this.successfulRedirect();
                     location.reload();
                 });
             },

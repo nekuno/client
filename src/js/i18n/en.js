@@ -437,6 +437,9 @@ export default {
     MessagesToolBar                    : {
         maxLengthIs: 'Maximum message length is '
     },
+    MessagesToolBarDisabled          : {
+        forbidden: 'This user does not accept messages right now'
+    },
     CardContent                      : {
         like             : 'Like',
         unlike           : 'Remove',

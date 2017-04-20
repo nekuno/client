@@ -3,7 +3,7 @@ export default {
         question: 'Question',
         skip    : 'Skip'
     },
-    AnswerNextQuestionPage          : {
+    AnswerNextQuestionPage           : {
         question               : 'Question',
         skip                   : 'Skip',
         tutorialFirstStepTitle : 'Your answer',
@@ -104,14 +104,14 @@ export default {
         changeProfilePhoto      : 'Change profile photo'
     },
     GroupPage                        : {
-        groups        : 'Your badges',
-        create        : 'Create badge',
-        creating      : 'Creating badge',
-        enterName     : 'Name of the badge',
-        join          : 'Unlock badge',
-        joining       : 'Unlocking badge',
-        joiningError  : 'Error joining to this badge',
-        noGroupToken  : 'This code has not any related badge'
+        groups      : 'Your badges',
+        create      : 'Create badge',
+        creating    : 'Creating badge',
+        enterName   : 'Name of the badge',
+        join        : 'Unlock badge',
+        joining     : 'Unlocking badge',
+        joiningError: 'Error joining to this badge',
+        noGroupToken: 'This code has not any related badge'
     },
     GroupStatsPage                   : {
         group            : 'Group',
@@ -247,7 +247,7 @@ export default {
         saving      : 'Saving...',
         confirmBlock: 'Are you sure you want to block this user?'
     },
-    SharedUserPage                  : {
+    SharedUserPage                   : {
         title          : 'Do you want to see your compatibility with %username%?',
         signUp         : 'Sign up with Facebook',
         loginUser      : 'Trying to login user',
@@ -293,6 +293,9 @@ export default {
         socialNetworks: 'My social networks',
         settings      : 'Settings',
         invitations   : 'Invitations',
+        disableConfirm: 'Do you want to disable your account?',
+        disableTitle  : 'Disable account',
+        disableError  : 'We couldn´t disable your account',
         logout        : 'Logout'
     },
     ProfileDataList                  : {
@@ -310,12 +313,12 @@ export default {
         seeMore: 'See more'
     },
     AnswerUsernamePage               : {
-        username        : 'Username',
-        loadingMessage  : 'Registering user'
+        username      : 'Username',
+        loadingMessage: 'Registering user'
     },
     AnswerUserFieldPage              : {
-        question       : 'Question',
-        loadingMessage : 'Loading questions'
+        question      : 'Question',
+        loadingMessage: 'Loading questions'
     },
     AnswerProfileFieldPage           : {
         question      : 'Question',
@@ -393,7 +396,7 @@ export default {
         text     : 'Answer more test questions',
         completed: 'completed questions'
     },
-    OtherQuestionsBanner                  : {
+    OtherQuestionsBanner             : {
         title    : 'Do you want to answer the questions of this user?',
         text     : '',
         completed: 'Completed questions'
@@ -434,7 +437,7 @@ export default {
     ThreadToolBar                    : {
         next: 'Next'
     },
-    MessagesToolBar                    : {
+    MessagesToolBar                  : {
         maxLengthIs: 'Maximum message length is '
     },
     MessagesToolBarDisabled          : {
@@ -473,12 +476,12 @@ export default {
         channels : 'Channels'
     },
     FilterContentButtons             : {
-        videos   : 'Videos',
-        audios   : 'Music',
-        photos   : 'Photos',
-        websites : 'All',
-        people   : 'People',
-        channels : 'Channels'
+        videos  : 'Videos',
+        audios  : 'Music',
+        photos  : 'Photos',
+        websites: 'All',
+        people  : 'People',
+        channels: 'Channels'
     },
     OrientationRequiredPopup         : {
         title              : 'Select your sexual orientation sexual to see this profile',
@@ -632,16 +635,23 @@ export default {
     // NotificationService //
     /////////////////////////
     NotificationService              : {
-        Message       : {
+        Message      : {
             title: 'New message from %username%'
         },
-        ProcessFinish : {
+        ProcessFinish: {
             title: 'Process finished',
             body : 'We have finished to process your network %resource%.'
         },
-        UserLiked     : {
+        UserLiked    : {
             title: 'Mutual like',
             body : '%username% and you have mutual like.'
         }
+    },
+    /////////////////////////
+    // LoginActionCreators //
+    ////////////////////////
+    LoginActionCreators: {
+        inactiveAccount: 'Inactive account',
+        enableQuestion: 'Your account is disabled. Do you want to reenable it?'
     }
 }

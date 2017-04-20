@@ -125,7 +125,7 @@ export default class LeftPanel extends Component {
     }
 
     disableAccount() {
-        nekunoApp.confirm('Do you want to deactivate your account?', 'Deactivate account',
+        nekunoApp.confirm(this.props.strings.disableConfirm, this.props.strings.disableTitle,
             () => {
                 UserActionCreators.setOwnEnabled(false).then(
                     () => {
@@ -133,7 +133,7 @@ export default class LeftPanel extends Component {
                     }
                 ).catch(
                     (error) => {
-                        nekunoApp.alert('We could not deactivate your account. Please wait a little and try again.');
+                        nekunoApp.alert(this.props.strings.disableError);
                         console.log(error);
                     }
                 );
@@ -206,7 +206,7 @@ export default class LeftPanel extends Component {
                                 {strings.socialNetworks}
                             </a>
                             <a href="javascript:void(0)" onClick={this.disableAccount}>
-                                Deactivate Account
+                                {strings.disableTitle}
                             </a>
                             {/*<Link to="/invitations" onClick={this.handleGoClickInvitations} onlyActiveOnIndex={false}>*/}
                             {/*{strings.invitations}*/}
@@ -233,6 +233,9 @@ LeftPanel.defaultProps = {
         socialNetworks: 'My social networks',
         settings: 'Settings',
         invitations: 'Invitations',
+        disableConfirm: 'Do you want to disable your account?',
+        disableTitle  : 'Disable account',
+        disableError  : 'We couldn´t disable your account',
         logout: 'Logout'
     }
 };

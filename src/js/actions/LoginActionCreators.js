@@ -15,6 +15,7 @@ import UserDataStatusActionCreators from '../actions/UserDataStatusActionCreator
 import RouterActionCreators from '../actions/RouterActionCreators';
 import LocalStorageService from '../services/LocalStorageService';
 import AnalyticsService from '../services/AnalyticsService';
+import TranslationService from '../services/TranslationService';
 
 export default new class LoginActionCreators {
 
@@ -94,7 +95,9 @@ export default new class LoginActionCreators {
     }
 
     confirmReenable() {
-        nekunoApp.confirm('Your account is deactivated. Do you want to reactivate it?', 'Inactive account',
+        const question = TranslationService.getTranslatedString('LoginActionCreators', 'enableQuestion');
+        const title = TranslationService.getTranslatedString('LoginActionCreators', 'inactiveAccount');
+        nekunoApp.confirm(question, title,
             () => {
                 UserActionCreators.setOwnEnabled(true).then(() => {
                     location.reload();

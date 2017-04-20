@@ -1,11 +1,8 @@
 import { default as React } from 'react';
-import en from '../../i18n/en';
-import es from '../../i18n/es';
 import connectToStores from '../../utils/connectToStores';
 import * as UserActionCreators from '../../actions/UserActionCreators';
+import TranslationService from '../../services/TranslationService';
 import LoginStore from '../../stores/LoginStore';
-
-const locales = {en, es};
 
 function setStepsStyles(steps) {
     steps.forEach(step => {
@@ -27,7 +24,7 @@ function setStepsStyles(steps) {
 }
 
 function setStepsStrings(props, steps) {
-    const strings =  locales[props.locale]['TutorialComponent'];
+    const strings =  TranslationService.getCategoryStrings(props.locale, 'TutorialComponent');
     const customStrings = props.strings;
     steps.forEach(step => {
         step.title = customStrings[step.titleRef];
@@ -40,7 +37,7 @@ function setStepsStrings(props, steps) {
 }
 
 function getLocale(props) {
-    const strings = locales[props.locale]['TutorialComponent'];
+    const strings = TranslationService.getCategoryStrings(props.locale, 'TutorialComponent');
     return {
         back: strings.back,
         close: strings.close,

@@ -52,6 +52,16 @@ class LocaleStore extends BaseStore {
         return locale === this._locale;
     }
 
+    getLanguage() {
+        const locale = this.locale;
+        let lang = "en-US";
+        if (locale && locale.indexOf("es") !== -1) {
+            lang = "es-ES";
+        }
+
+        return lang;
+    };
+
 }
 
 export default new LocaleStore();

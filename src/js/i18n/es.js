@@ -293,6 +293,9 @@ export default {
         socialNetworks: 'Mis redes sociales',
         settings      : 'Ajustes',
         invitations   : 'Invitaciones',
+        disableConfirm: '¿Quieres desactivar tu cuenta?',
+        disableTitle  : 'Desactivar cuenta',
+        disableError  : 'No pudimos desactivar tu cuenta',
         logout        : 'Salir'
     },
     ProfileDataList                  : {
@@ -643,5 +646,12 @@ export default {
             title: '"like" mutuo',
             body : '%username% y tú os habéis hecho "like" mutuamente.'
         }
+    },
+    /////////////////////////
+    // LoginActionCreators //
+    ////////////////////////
+    LoginActionCreators: {
+        inactiveAccount: 'Cuenta desactivada',
+        enableQuestion: 'Tu cuenta está desactivada. ¿Quieres reactivarla?'
     }
 }

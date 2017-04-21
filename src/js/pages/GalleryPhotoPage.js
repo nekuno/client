@@ -77,9 +77,9 @@ export default class GalleryPhotoPage extends Component {
                 <div className="view view-main">
                     <div className="page gallery-photo-page">
                         <div id="page-content" className="gallery-photo-content">
-                            {isProfilePhoto || photo && photo.thumbnail.medium ?
+                            {isProfilePhoto || photo && photo.thumbnail.big ?
                                 <div className="photo-wrapper">
-                                    <Image src={isProfilePhoto ? photo : photo.thumbnail.medium}/>
+                                    <Image src={isProfilePhoto ? photo : photo.thumbnail.big}/>
                                 </div>
                                 : null}
                             <br />

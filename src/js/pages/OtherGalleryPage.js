@@ -113,7 +113,7 @@ export default class OtherGalleryPage extends Component {
                                             <div className="swiper-wrapper">
                                                 <div className="swiper-slide" key={0}>
                                                     <div className="photo-absolute-wrapper">
-                                                        <Image src={otherUser.photo.url}/>
+                                                        <Image src={otherUser.photo.thumbnail.big}/>
                                                         <div className="swiper-button-prev"></div>
                                                         <div className="swiper-button-next"></div>
                                                     </div>
@@ -121,7 +121,7 @@ export default class OtherGalleryPage extends Component {
                                                 {photos.map((photo, index) =>
                                                     <div className="swiper-slide" key={index + 1}>
                                                         <div className="photo-absolute-wrapper">
-                                                            <Image src={photo.url}/>
+                                                            <Image src={photo.thumbnail.big}/>
                                                             <div className="swiper-button-prev"></div>
                                                             <div className="swiper-button-next"></div>
                                                         </div>

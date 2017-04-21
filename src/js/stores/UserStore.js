@@ -13,17 +13,16 @@ class UserStore extends BaseStore {
     _registerToActions(action) {
         super._registerToActions(action);
 
-        const responseUsers = selectn('response.entities.users', action);
         switch(action.type) {
             case ActionTypes.REQUEST_OWN_USER_SUCCESS:
             case ActionTypes.EDIT_USER_SUCCESS:
             case ActionTypes.REQUEST_USER_SUCCESS:
             case ActionTypes.REQUEST_PUBLIC_USER_SUCCESS:
+                const responseUsers = selectn('response.entities.users', action);
                 mergeIntoBag(this._users, responseUsers);
                 this.emitChange();
                 break;
             case ActionTypes.REQUEST_PUBLIC_USER_ERROR:
-            case ActionTypes.REQUEST_USER_ERROR:
                 this._error = action.error.error;
                 this.emitChange();
                 break;

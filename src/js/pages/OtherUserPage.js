@@ -202,13 +202,6 @@ export default class OtherUserPage extends Component {
                 this.setState({photosLoaded: true});
             }
         }
-
-        const UserStoreError = UserStore.getError();
-        if (UserStoreError){
-            nekunoApp.alert(UserStoreError, () => {
-                this.context.router.goBack();
-            });
-        }
     }
 
     onBlock() {

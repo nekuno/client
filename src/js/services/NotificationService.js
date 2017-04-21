@@ -1,87 +1,85 @@
 import RouterContainer from './RouterContainer';
-import en from '../i18n/en';
-import es from '../i18n/es';
 import LocaleStore from '../stores/LocaleStore';
+import TranslationService from './TranslationService';
 import LoginStore from '../stores/LoginStore';
 import ProfileStore from '../stores/ProfileStore';
 import QuestionStore from '../stores/QuestionStore';
 
-const locales = {en, es};
-
 class NotificationService {
 
     notify(category, data) {
-        const lang = this._localeToLang(LocaleStore.locale);
         switch (category) {
             case 'message':
-                this.notifyMessage(data, lang);
+                this.notifyMessage(data);
                 break;
             case 'process_finish':
-                this.notifyProcessFinish(data, lang);
+                this.notifyProcessFinish(data);
                 break;
             case 'user_both_liked':
-                this.notifyUserLiked(data, lang);
+                this.notifyUserLiked(data);
                 break;
             case 'generic':
-                this.notifyGeneric(data, lang);
+                this.notifyGeneric(data);
                 break;
         }
     }
 
-    notifyMessage(data, lang) {
+    notifyMessage(data) {
         const {slug, username, photo, text} = data;
         const url = `/conversations/${slug}`;
         if (url !== RouterContainer.get().getCurrentLocation().pathname && this._userIsFullyComplete()) {
             const icon = this._getUserThumbnail(photo);
-            const strings = locales[LocaleStore.locale]['NotificationService']['Message'];
-            this.showNotification(strings.title.replace('%username%', username), text, lang, icon, url);
+            const strings = TranslationService.getTranslatedString('NotificationService', 'Message');
+            this.showNotification(strings.title.replace('%username%', username), text, icon, url);
         }
     }
 
-    notifyProcessFinish(data, lang) {
+    notifyProcessFinish(data) {
         const {resource} = data;
         let url = null;
         if (this._userIsFullyComplete()) {
             url = `/social-networks`;
         }
-        const strings = locales[LocaleStore.locale]['NotificationService']['ProcessFinish'];
-        this.showNotification(strings.title, strings.body.replace('%resource%', resource), lang, null, url);
+        const strings = TranslationService.getTranslatedString('NotificationService', 'ProcessFinish');
+        this.showNotification(strings.title, strings.body.replace('%resource%', resource), null, url);
     }
 
-    notifyUserLiked(data, lang) {
+    notifyUserLiked(data) {
         const {slug, username, photo} = data;
         const url = `/p/${slug}`;
         const icon = this._getUserThumbnail(photo);
-        const strings = locales[LocaleStore.locale]['NotificationService']['UserLiked'];
-        this.showNotification(strings.title, strings.body.replace('%username%', username), lang, icon, url);
+        const strings = TranslationService.getTranslatedString('NotificationService', 'UserLiked');
+        this.showNotification(strings.title, strings.body.replace('%username%', username), icon, url);
     }
 
-    notifyGeneric(data, lang) {
+    notifyGeneric(data) {
         const {title, body, icon} = data;
         if (title && body) {
-            this.showNotification(title, body, lang, icon, null);
+            this.showNotification(title, body, icon, null);
         }
     }
 
-    showNotification(title, body, lang, icon, url) {
+    showNotification(title, body, icon, url) {
         icon = this._iconOrDefaultIcon(icon);
-        let options = {
-            body: body,
-            icon: icon,
-            lang: lang
-        };
 
         this._grant().then(() => {
             if (window.cordova) {
                 window.cordova.plugins.notification.local.schedule({
                     title: title,
-                    text: body,
-                    icon: icon
+                    text : body,
+                    icon : icon
                 });
                 window.cordova.plugins.notification.local.on("click", (notification) => {
                     this._onClickAction(notification, url);
                 });
             } else {
+                const lang = LocaleStore.getLanguage();
+
+                let options = {
+                    body: body,
+                    icon: icon,
+                    lang: lang
+                };
                 let notification = new Notification(title, options);
                 notification.addEventListener('click', () => {
                     this._onClickAction(notification, url);
@@ -92,8 +90,10 @@ class NotificationService {
         });
     }
 
-    _grant = function () {
-        let resolve = new Promise((resolve) => { resolve(true) });
+    _grant = function() {
+        let resolve = new Promise((resolve) => {
+            resolve(true)
+        });
         if (window.cordova) {
             // No need to grant permission explicitly
             return resolve;
@@ -127,25 +127,16 @@ class NotificationService {
         }
     };
 
-    _localeToLang = function (locale) {
-        let lang = "en-US";
-        if (locale && locale.indexOf("es") !== -1) {
-            lang = "es-ES";
-        }
-
-        return lang;
-    };
-
-    _getUserThumbnail = function (photo) {
+    _getUserThumbnail = function(photo) {
         return photo && photo.thumbnail && photo.thumbnail.small ?
             photo.thumbnail.small : photo && photo.url ? photo.url : null;
     };
 
-    _iconOrDefaultIcon = function (icon) {
+    _iconOrDefaultIcon = function(icon) {
         return typeof icon !== 'undefined' && icon ? icon : 'https://nekuno.com/favicon-64.png';
     };
 
-    _onClickAction = function (notification, url) {
+    _onClickAction = function(notification, url) {
         window.focus();
         if (url && url !== RouterContainer.get().getCurrentLocation().pathname) {
             setTimeout(RouterContainer.get().push(url), 0);

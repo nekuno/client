@@ -63,6 +63,17 @@ export default class SharedUserPage extends Component {
         setTimeout(() => RouterActionCreators.storeRouterTransitionPath(`p/${this.props.params.slug}`), 0);
     }
 
+    componentDidUpdate() {
+        if (this.props.error){
+            nekunoApp.alert(this.props.error, () => {
+                const path = '/discover';
+                console.log('Redirecting to path', path);
+                this.context.router.replace(path);
+
+            });
+        }
+    }
+
     loginByResourceOwner(resource, scope) {
         const {interfaceLanguage, sharedUser} = this.props;
         SocialNetworkService.login(resource, scope).then(

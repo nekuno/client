@@ -90,7 +90,6 @@ export default class SharedUserPage extends Component {
                         // User not present. Register user.
                         let user = SocialNetworkService.getUser(resource);
                         let profile = SocialNetworkService.getProfile(resource);
-                        user.enabled = true;
                         profile.interfaceLanguage = interfaceLanguage;
                         profile.orientationRequired = false;
                         let token = 'shared_user-' + sharedUser.id;

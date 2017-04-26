@@ -7,14 +7,25 @@ import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
 import ChatActionCreators from '../actions/ChatActionCreators';
+import * as UserActionCreators from '../actions/UserActionCreators';
 import LoginStore from '../stores/LoginStore';
+import UserStore from '../stores/UserStore';
 import ChatMessageStore from '../stores/ChatMessageStore';
 import ChatUserStatusStore from '../stores/ChatUserStatusStore';
 
+function requestData(props) {
+    const otherUserSlug = props.params.slug;
+    const messages = getMessages(otherUserSlug);
+    if (messages.length === 0) {
+        const requiredFields = ['username', 'photo', 'status'];
+        UserActionCreators.requestUser(otherUserSlug, requiredFields);
+    }
+}
+
 function getState(props) {
     const otherUserSlug = props.params.slug;
-    const messages = otherUserSlug ? ChatMessageStore.getAllForSlug(otherUserSlug) : [];
-    const otherUser = getOtherUser(messages);
+    const messages = getMessages(otherUserSlug);
+    const otherUser = getOtherUser(messages, otherUserSlug) ;
     const otherUserId = otherUser ? otherUser.id : null;
     const online = otherUserId ? ChatUserStatusStore.isOnline(otherUserId) || false : false;
 
@@ -26,8 +37,17 @@ function getState(props) {
     };
 }
 
-function getOtherUser(messages)
+function getMessages(otherUserSlug)
 {
+    return otherUserSlug ? ChatMessageStore.getAllForSlug(otherUserSlug) : [];
+}
+
+function getOtherUser(messages, otherUserSlug)
+{
+    if (messages.length === 0) {
+        return UserStore.getBySlug(otherUserSlug);
+    }
+
     const ownSlug = LoginStore.user.slug;
     let otherUser = {};
 
@@ -48,7 +68,7 @@ function getOtherUser(messages)
 
 @AuthenticatedComponent
 @translate('ChatMessagesPage')
-@connectToStores([ChatMessageStore, ChatUserStatusStore, LoginStore], getState)
+@connectToStores([ChatMessageStore, ChatUserStatusStore, LoginStore, UserStore], getState)
 export default class ChatMessagesPage extends Component {
 
     static propTypes = {
@@ -88,6 +108,10 @@ export default class ChatMessagesPage extends Component {
             noMoreMessages: null,
             timestamp     : null
         };
+    }
+
+    componentWillMount() {
+        requestData(this.props);
     }
 
     componentDidMount() {

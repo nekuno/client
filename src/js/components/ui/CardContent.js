@@ -35,6 +35,7 @@ export default class CardContent extends Component {
     constructor(props) {
         super(props);
 
+        this.onDropDown = this.onDropDown.bind(this);
         this.onRate = this.onRate.bind(this);
         this.onShare = this.onShare.bind(this);
         this.handleClick = this.handleClick.bind(this);
@@ -56,6 +57,39 @@ export default class CardContent extends Component {
         if (!window.cordova && this.state.embedHtml && this.props.embed_type === 'facebook') {
             FB.XFBML.parse();
         }
+    }
+
+    onDropDown() {
+        const {rate, title, strings} = this.props;
+        const likeText = rate ? strings.unlike : strings.like;
+        const buttons = [
+            {
+                text: title,
+                label: true
+            },
+            {
+                color: 'gray',
+                text: '<span class="icon-star"></span> ' + likeText,
+                onClick: this.onRate
+            },
+            {
+                color: 'gray',
+                text: '<span class="icon-share"></span> ' + strings.share,
+                onClick: this.onShare
+            },
+            {
+                color: 'gray',
+                text: '<span class="icon-warning"></span> ' + strings.report,
+                onClick: function() {
+
+                }
+            },
+            {
+                color: 'red',
+                text: strings.cancel
+            }
+        ];
+        nekunoApp.actions(buttons);
     }
 
     onRate() {
@@ -129,7 +163,7 @@ export default class CardContent extends Component {
 
     render() {
         const {title, description, types, rate, hideLikeButton, fixedHeight, thumbnail, url, matching, strings} = this.props;
-        const cardTitle = title ? <div>{title.substr(0, 20)}{title.length > 20 ? '...' : ''}</div> : <div> {strings.emptyTitle} </div>;
+        const cardTitle = title ? title.length > 20 ? title.substr(0, 20) +  '...' : title : strings.emptyTitle;
         const subTitle = description ? <div>{description.substr(0, 20)}{description.length > 20 ? '...' : ''}</div> : fixedHeight ? <div>&nbsp;</div> : '';
         const imageClass = fixedHeight ? 'image fixed-max-height-image' : 'image';
         const isImage = types.indexOf('Image') > -1;
@@ -159,14 +193,21 @@ export default class CardContent extends Component {
 
         return (
             <div className="card content-card">
-                {isImage ? '' :
-                    <div className="card-header" onClick={this.handleClick}>
-                        <a href={url} onClick={this.preventDefault}>
-                            <div className="card-title">
+                {isImage ?
+                    <div className={"card-drop-down-menu"} onClick={this.onDropDown}>
+                        <span className="icon-angle-down"></span>
+                    </div>
+                    :
+                    <div className="card-header">
+                        <div className={"card-drop-down-menu"} onClick={this.onDropDown}>
+                            <span className="icon-angle-down"></span>
+                        </div>
+                        <div className="card-title" onClick={this.handleClick}>
+                            <a href={url} onClick={this.preventDefault}>
                                 {cardTitle}
-                            </div>
-                        </a>
-                        <div className="card-sub-title">
+                            </a>
+                        </div>
+                        <div className="card-sub-title" onClick={this.handleClick}>
                             {subTitle}
                         </div>
                     </div>
@@ -214,7 +255,10 @@ export default class CardContent extends Component {
 CardContent.defaultProps = {
     strings: {
         like             : 'Like',
-        unlike           : 'Remove',
+        unlike           : 'Remove like',
+        share            : 'Share',
+        report           : 'Report',
+        cancel           : 'Cancel',
         compatibility    : 'Compatibility',
         emptyTitle       : 'Title',
         copiedToClipboard: 'Copied to clipboard',

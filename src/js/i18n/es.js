@@ -445,7 +445,10 @@ export default {
     },
     CardContent                      : {
         like             : 'Me interesa',
-        unlike           : 'Quitar',
+        unlike           : 'No me interesa',
+        share            : 'Compartir',
+        report           : 'Reportar',
+        cancel           : 'Cancelar',
         compatibility    : 'Compatibilidad',
         emptyTitle       : 'Contenido',
         copiedToClipboard: 'Copiado al portapapeles',

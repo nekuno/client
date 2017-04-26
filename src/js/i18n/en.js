@@ -445,7 +445,10 @@ export default {
     },
     CardContent                      : {
         like             : 'Like',
-        unlike           : 'Remove',
+        unlike           : 'Remove like',
+        share            : 'Share',
+        report           : 'Report',
+        cancel           : 'Cancel',
         compatibility    : 'Compatibility',
         emptyTitle       : 'Link',
         copiedToClipboard: 'Copied to clipboard',

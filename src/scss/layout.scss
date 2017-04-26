@@ -256,5 +256,13 @@ body {
 		opacity: 1;
 		transition: opacity 1s linear;
 	}
+
+	.actions-modal {
+		.actions-modal-button {
+			[class^="icon-"], [class*=" icon-"] {
+				font-size: 0.8em;
+			}
+		}
+	}
 }
 

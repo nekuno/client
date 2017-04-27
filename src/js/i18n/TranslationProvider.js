@@ -1,4 +1,4 @@
-import {PropTypes, Component} from 'react';
+import { PropTypes, Component } from 'react';
 import connectToStores from '../utils/connectToStores';
 import LocaleStore from '../stores/LocaleStore';
 
@@ -15,8 +15,8 @@ function getState(props) {
 export default class TranslationProvider extends Component {
 
     static propTypes = {
-        children       : PropTypes.object,
-        locale: PropTypes.string
+        children: PropTypes.object,
+        locale  : PropTypes.string
     };
 
     static childContextTypes = {

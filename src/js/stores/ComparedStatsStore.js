@@ -20,9 +20,9 @@ class ComparedStatsStore extends BaseStore {
             case ActionTypes.REQUEST_COMPARED_STATS_ERROR:
                 break;
             case ActionTypes.REQUEST_COMPARED_STATS_SUCCESS:
-                const responseComparedStats = selectn('response.entities.comparedStats', action);
+                const responseComparedStats = action.response;
                 const {userId1, userId2} = action;
-                this.merge(userId1, userId2, responseComparedStats.undefined);
+                this.merge(userId1, userId2, responseComparedStats);
                 this.emitChange();
                 break;
             default:

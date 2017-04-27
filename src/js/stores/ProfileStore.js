@@ -23,7 +23,6 @@ class ProfileStore extends BaseStore {
     _registerToActions(action) {
         waitFor([UserStore.dispatchToken, LoginStore.dispatchToken]);
         super._registerToActions(action);
-        const responseProfiles = selectn('response.entities.profiles', action);
         switch (action.type) {
             case ActionTypes.REQUEST_OWN_PROFILE:
             case ActionTypes.REQUEST_PROFILE:
@@ -31,18 +30,14 @@ class ProfileStore extends BaseStore {
             case ActionTypes.REQUEST_PROFILE_ERROR:
                 break;
             case ActionTypes.REQUEST_OWN_PROFILE_SUCCESS:
-                responseProfiles[action.userId] = responseProfiles.undefined;
-                delete responseProfiles.undefined;
-
-                mergeIntoBag(this._profiles, responseProfiles);
+                this._profiles[action.userId] = this._profiles[action.userId] || {};
+                mergeIntoBag(this._profiles[action.userId], action.response);
                 this._setInitialRequiredProfileQuestionsCount(action.userId);
                 this.emitChange();
                 break;
             case ActionTypes.REQUEST_PROFILE_SUCCESS:
-                responseProfiles[action.userId] = responseProfiles.undefined;
-                delete responseProfiles.undefined;
-
-                mergeIntoBag(this._profiles, responseProfiles);
+                this._profiles[action.userId] = this._profiles[action.userId] || {};
+                mergeIntoBag(this._profiles[action.userId], action.response);
                 this.emitChange();
                 break;
             case ActionTypes.REQUEST_METADATA_SUCCESS:

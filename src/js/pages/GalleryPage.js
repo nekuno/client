@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import TopNavBar from '../components/ui/TopNavBar';
 import ToolBar from '../components/ui/ToolBar';
-import Image from '../components/ui/Image';
+import ImageComponent from '../components/ui/Image';
 import EmptyMessage from '../components/ui/EmptyMessage';
 import ImportAlbumPopup from '../components/gallery/ImportAlbumPopup';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
@@ -148,39 +148,53 @@ export default class GalleryPage extends Component {
     }
 
     savePhoto(userId, file) {
-        const MAX_WIDTH = 500;
-        const MAX_HEIGHT = 1000;
+        const MAX_WIDTH = 2048;
+        const MAX_HEIGHT = 2048;
 
         let reader = new FileReader();
         reader.onload = function(fileLoadedEvent) {
             let canvas = document.createElement('canvas');
-            let img = document.createElement("img");
+            let img = new Image();
+
+            img.onload = function () {
+                let ctx = canvas.getContext("2d");
+                ctx.drawImage(img, 0, 0);
+
+                let width = img.width;
+                let height = img.height;
+
+                if (width > height) {
+                    if (width > MAX_WIDTH) {
+                        height *= MAX_WIDTH / width;
+                        width = MAX_WIDTH;
+                    }
+                } else {
+                    if (height > MAX_HEIGHT) {
+                        width *= MAX_HEIGHT / height;
+                        height = MAX_HEIGHT;
+                    }
+                }
+                canvas.width = width;
+                canvas.height = height;
+                ctx = canvas.getContext("2d");
+                ctx.drawImage(img, 0, 0, width, height);
+
+                const mimeType = fileLoadedEvent.target.result
+                    .substr(5, 20)
+                    .replace(/;base64,.*/, "");
+
+                let base64 = canvas.toDataURL(mimeType);
+                if(!base64.search(mimeType) >= 0) {
+                    // image/png is always supported
+                    base64 = canvas.toDataURL("image/png");
+                }
+
+                GalleryPhotoActionCreators.postPhoto(userId, {
+                    base64: base64.replace(/^data:image\/(.+);base64,/, "")
+                });
+            };
             img.src = fileLoadedEvent.target.result;
 
-            let ctx = canvas.getContext("2d");
-            ctx.drawImage(img, 0, 0);
-
-            let width = img.width;
-            let height = img.height;
-
-            if (width > height) {
-                if (width > MAX_WIDTH) {
-                    height *= MAX_WIDTH / width;
-                    width = MAX_WIDTH;
-                }
-            } else {
-                if (height > MAX_HEIGHT) {
-                    width *= MAX_HEIGHT / height;
-                    height = MAX_HEIGHT;
-                }
-            }
-            canvas.width = width;
-            canvas.height = height;
-            ctx = canvas.getContext("2d");
-            ctx.drawImage(img, 0, 0, width, height);
-            GalleryPhotoActionCreators.postPhoto(userId, {
-                base64: canvas.toDataURL("image/png").replace(/^data:image\/(.+);base64,/, "")
-            });
         };
         reader.readAsDataURL(file);
     }
@@ -220,7 +234,7 @@ export default class GalleryPage extends Component {
                                 {profilePhoto ?
                                     <div className="photo-wrapper" onClick={this.goToPhotoGalleryPage.bind(this, profilePhoto)}>
                                         <div className="photo-absolute-wrapper">
-                                            <Image src={profilePhoto}/>
+                                            <ImageComponent src={profilePhoto}/>
                                         </div>
                                         <div className="profile-photo-text"><span className="icon-person"></span><div className="text">&nbsp;{strings.profilePhoto}</div></div>
                                     </div>
@@ -228,7 +242,7 @@ export default class GalleryPage extends Component {
                                 {noPhotos ? <EmptyMessage text={strings.empty}/> : photos.map(photo =>
                                     <div key={photo.id} className="photo-wrapper" onClick={this.goToPhotoGalleryPage.bind(this, photo)}>
                                         <div className="photo-absolute-wrapper">
-                                            <Image src={photo.thumbnail.small}/>
+                                            <ImageComponent src={photo.thumbnail.small}/>
                                         </div>
                                     </div>
                                 )}

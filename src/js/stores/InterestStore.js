@@ -37,25 +37,25 @@ class InterestStore extends BaseStore {
                 this.emitChange();
                 break;
             case ActionTypes.REQUEST_OWN_INTERESTS_SUCCESS:
-                newItems[action.userId] = action.response.result.items;
+                newItems[action.userId] = action.response.items;
                 this._interests[action.userId] = this._interests[action.userId] || [];
                 newItems = this._setExtraFields(newItems, action.userId);
                 Object.keys(newItems[action.userId]).forEach(index => this._interests[action.userId].push(newItems[action.userId][index]));
 
-                this._totals[action.userId] = action.response.result.totals;
-                this._pagination[action.userId] = action.response.result.pagination;
+                this._totals[action.userId] = action.response.totals;
+                this._pagination[action.userId] = action.response.pagination;
                 this._noInterests[action.userId] = this._interests[action.userId].length === 0;
                 this._loadingOwnInterests = false;
                 this.emitChange();
                 break;
             case ActionTypes.REQUEST_COMPARED_INTERESTS_SUCCESS:
-                newItems[action.otherUserId] = action.response.result.items;
+                newItems[action.otherUserId] = action.response.items;
                 this._interests[action.otherUserId] = this._interests[action.otherUserId] || [];
                 newItems = this._setExtraFields(newItems, action.otherUserId, action.userId);
                 Object.keys(newItems[action.otherUserId]).forEach(index => this._interests[action.otherUserId].push(newItems[action.otherUserId][index]));
 
-                this._totals[action.otherUserId] = action.response.result.totals;
-                this._pagination[action.otherUserId] = action.response.result.pagination;
+                this._totals[action.otherUserId] = action.response.totals;
+                this._pagination[action.otherUserId] = action.response.pagination;
                 this._noInterests[action.otherUserId] = this._interests[action.otherUserId].length === 0;
                 this._loadingComparedInterests = false;
                 this.emitChange();

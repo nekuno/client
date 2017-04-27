@@ -2,6 +2,7 @@ import { dispatchAsync, dispatch } from '../dispatcher/Dispatcher';
 import ActionTypes from '../constants/ActionTypes';
 import * as UserAPI from '../api/UserAPI';
 import * as InterestsActionCreators from './InterestsActionCreators';
+import RouterContainer from '../services/RouterContainer';
 import UserStore from '../stores/UserStore';
 import ProfileStore from '../stores/ProfileStore';
 import LocaleStore from '../stores/LocaleStore';
@@ -25,14 +26,33 @@ export function requestOwnUser() {
 export function requestUser(userSlug, fields) {
     // Exit early if we know enough about this user
     if (UserStore.containsSlug(userSlug, fields)) {
-        return new Promise((resolve) => { resolve(true) });
+        return new Promise((resolve) => {
+            resolve(true)
+        });
     }
 
     return dispatchAsync(UserAPI.getUser(userSlug), {
         request: ActionTypes.REQUEST_USER,
         success: ActionTypes.REQUEST_USER_SUCCESS,
         failure: ActionTypes.REQUEST_USER_ERROR
-    }, {userSlug});
+    }, {userSlug})
+        .catch((error) => {
+            nekunoApp.alert(error.error, () => {
+                const path = '/discover';
+                console.log('Redirecting to path', path);
+                let router = RouterContainer.get();
+                router.replace(path);
+            });
+            throw error;
+        });
+}
+
+export function setOwnEnabled(enabled) {
+    return dispatchAsync(UserAPI.setOwnEnabled(enabled), {
+        request: ActionTypes.SET_ENABLED,
+        success: ActionTypes.SET_ENABLED_SUCCESS,
+        failure: ActionTypes.SET_ENABLED_ERROR
+    }, {enabled});
 }
 
 export function editUser(data) {
@@ -49,7 +69,7 @@ export function requestOwnProfile(userId) {
         success: ActionTypes.REQUEST_OWN_PROFILE_SUCCESS,
         failure: ActionTypes.REQUEST_OWN_PROFILE_ERROR
     }, {userId})
-        .then(function () {
+        .then(function() {
             let profile = ProfileStore.get(userId);
             checkLocale(profile.interfaceLanguage);
             return null;
@@ -83,7 +103,7 @@ export function editProfile(data) {
         success: ActionTypes.EDIT_PROFILE_SUCCESS,
         failure: ActionTypes.EDIT_PROFILE_ERROR
     }, {data})
-        .then(function (response) {
+        .then(function(response) {
             checkLocale(response.interfaceLanguage);
             return null;
         }, () => {
@@ -95,12 +115,12 @@ export function changeLocale(locale) {
     dispatch(ActionTypes.CHANGE_LOCALE, {locale});
 }
 
-export function checkLocale(locale){
-    if (!locale){
+export function checkLocale(locale) {
+    if (!locale) {
         return false;
     }
 
-    if (!LocaleStore.isCurrentLocale(locale)){
+    if (!LocaleStore.isCurrentLocale(locale)) {
         changeLocale(locale);
         dispatchAsync(UserAPI.getMetadata(), {
             request: ActionTypes.REQUEST_METADATA,

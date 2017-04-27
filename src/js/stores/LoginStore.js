@@ -99,6 +99,12 @@ class LoginStore extends BaseStore {
                 this.emitChange();
                 break;
 
+            case ActionTypes.SET_ENABLED_SUCCESS:
+                let enabled = action.enabled;
+                this._user['enabled'] = enabled;
+                this.emitChange();
+                break;
+
             default:
                 break;
         }
@@ -150,6 +156,10 @@ class LoginStore extends BaseStore {
         });
 
         return count === 0;
+    }
+
+    isEnabled() {
+        return this._user.enabled == true;
     }
 
     getInitialRequiredUserQuestionsCount() {

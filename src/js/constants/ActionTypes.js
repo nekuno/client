@@ -19,6 +19,9 @@ export default keyMirror({
     EDIT_USER                               : null,
     EDIT_USER_SUCCESS                       : null,
     EDIT_USER_ERROR                         : null,
+    SET_ENABLED                             : null,
+    SET_ENABLED_SUCCESS                     : null,
+    SET_ENABLED_ERROR                       : null,
     LOGOUT_USER                             : null,
 
     CONNECT_ACCOUNT         : null,

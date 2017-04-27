@@ -2,25 +2,31 @@ import React, { PropTypes, Component } from 'react';
 import TopNavBar from '../components/ui/TopNavBar';
 import DailyMessages from '../components/ui/DailyMessages';
 import MessagesToolBar from '../components/ui/MessagesToolBar';
+import MessagesToolBarDisabled from '../components/ui/MessagesToolBarDisabled';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
-import * as UserActionCreators from '../actions/UserActionCreators';
 import ChatActionCreators from '../actions/ChatActionCreators';
+import * as UserActionCreators from '../actions/UserActionCreators';
+import LoginStore from '../stores/LoginStore';
 import UserStore from '../stores/UserStore';
 import ChatMessageStore from '../stores/ChatMessageStore';
 import ChatUserStatusStore from '../stores/ChatUserStatusStore';
 
 function requestData(props) {
     const otherUserSlug = props.params.slug;
-    UserActionCreators.requestUser(otherUserSlug, ['username', 'photo', 'status']);
+    const messages = getMessages(otherUserSlug);
+    if (messages.length === 0) {
+        const requiredFields = ['username', 'photo', 'status'];
+        UserActionCreators.requestUser(otherUserSlug, requiredFields);
+    }
 }
 
 function getState(props) {
     const otherUserSlug = props.params.slug;
-    const otherUser = UserStore.getBySlug(otherUserSlug);
+    const messages = getMessages(otherUserSlug);
+    const otherUser = getOtherUser(messages, otherUserSlug) ;
     const otherUserId = otherUser ? otherUser.id : null;
-    const messages = otherUserId ? ChatMessageStore.getAllForUser(otherUserId) : [];
     const online = otherUserId ? ChatUserStatusStore.isOnline(otherUserId) || false : false;
 
     return {
@@ -31,9 +37,38 @@ function getState(props) {
     };
 }
 
+function getMessages(otherUserSlug)
+{
+    return otherUserSlug ? ChatMessageStore.getAllForSlug(otherUserSlug) : [];
+}
+
+function getOtherUser(messages, otherUserSlug)
+{
+    if (messages.length === 0) {
+        return UserStore.getBySlug(otherUserSlug);
+    }
+
+    const ownSlug = LoginStore.user.slug;
+    let otherUser = {};
+
+    messages.some(message => {
+        if (message.user_from.slug !== ownSlug) {
+            otherUser = message.user_from;
+            return true;
+        }
+        if (message.user_to.slug !== ownSlug) {
+            otherUser = message.user_to;
+            return true;
+        }
+        return false;
+    });
+
+    return otherUser;
+}
+
 @AuthenticatedComponent
 @translate('ChatMessagesPage')
-@connectToStores([ChatMessageStore, ChatUserStatusStore, UserStore], getState)
+@connectToStores([ChatMessageStore, ChatUserStatusStore, LoginStore, UserStore], getState)
 export default class ChatMessagesPage extends Component {
 
     static propTypes = {
@@ -75,8 +110,11 @@ export default class ChatMessagesPage extends Component {
         };
     }
 
-    componentDidMount() {
+    componentWillMount() {
         requestData(this.props);
+    }
+
+    componentDidMount() {
         this._scrollToBottom();
         this.markReaded();
         this.refs.list.addEventListener('scroll', this.handleScroll, false);
@@ -151,16 +189,22 @@ export default class ChatMessagesPage extends Component {
 
     render() {
         const {otherUser, messages, online, strings, params, isGuest} = this.props;
+        let isOtherEnabled = otherUser ? otherUser.enabled : false;
         let otherUsername = otherUser ? otherUser.username : '';
         return (
             <div className="views">
                 <TopNavBar leftIcon={'left-arrow'} centerText={otherUsername} bottomText={online ? 'Online' : null} onCenterLinkClickHandler={this.goToProfilePage}/>
                 <div className="view view-main notifications-view">
                     <div className="page toolbar-fixed notifications-page">
-                        { isGuest ? '' : <MessagesToolBar onClickHandler={this.sendMessageHandler} onFocusHandler={this.handleFocus} placeholder={strings.placeholder} text={strings.text}/> }
+                        { isGuest ? '' :
+                            isOtherEnabled ?
+                                <MessagesToolBar onClickHandler={this.sendMessageHandler} onFocusHandler={this.handleFocus} placeholder={strings.placeholder} text={strings.text}/>
+                                :
+                                <MessagesToolBarDisabled text={strings.text}/>
+                        }
                         <div id="page-content" className="page-content notifications-content messages-content" ref="list">
                             {this.state.noMoreMessages ? <div className="daily-message-title">{strings.noMoreMessages}</div> : '' }
-                            <DailyMessages messages={messages} userLink={`p/${params.slug}`}/>
+                            <DailyMessages messages={messages} userLink={`p/${params.slug}`} enabled={isOtherEnabled}/>
                             <br />
                             <br />
                             <br />

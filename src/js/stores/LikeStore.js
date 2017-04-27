@@ -15,13 +15,7 @@ class LikeStore extends BaseStore {
         const {from, to} = action;
         switch (action.type) {
             case ActionTypes.LIKE_USER:
-                this.merge(from, to, null);
-                this.emitChange();
-                break;
             case ActionTypes.UNLIKE_USER:
-                this.merge(from, to, null);
-                this.emitChange();
-                break;
             case ActionTypes.DISLIKE_USER:
                 this.merge(from, to, null);
                 this.emitChange();
@@ -45,7 +39,7 @@ class LikeStore extends BaseStore {
                 this.emitChange();
                 break;
             case ActionTypes.REQUEST_LIKE_USER_SUCCESS:
-                const like = selectn('response.result', action) ? 1 : 0;
+                const like = Object.keys(action.response).length === 0 ? 0 : 1;
                 this.merge(from, to, like);
                 this.emitChange();
                 break;

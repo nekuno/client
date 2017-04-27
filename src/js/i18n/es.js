@@ -293,6 +293,9 @@ export default {
         socialNetworks: 'Mis redes sociales',
         settings      : 'Ajustes',
         invitations   : 'Invitaciones',
+        disableConfirm: '¿Quieres desactivar tu cuenta?',
+        disableTitle  : 'Desactivar cuenta',
+        disableError  : 'No pudimos desactivar tu cuenta',
         logout        : 'Salir'
     },
     ProfileDataList                  : {
@@ -436,6 +439,9 @@ export default {
     },
     MessagesToolBar                    : {
         maxLengthIs: 'La máxima longitud del mensaje es  '
+    },
+    MessagesToolBarDisabled          : {
+        forbidden: 'Este usuario no acepta mensajes'
     },
     CardContent                      : {
         like             : 'Me interesa',
@@ -640,5 +646,12 @@ export default {
             title: '"like" mutuo',
             body : '%username% y tú os habéis hecho "like" mutuamente.'
         }
+    },
+    /////////////////////////
+    // LoginActionCreators //
+    ////////////////////////
+    LoginActionCreators: {
+        inactiveAccount: 'Cuenta desactivada',
+        enableQuestion: 'Tu cuenta está desactivada. ¿Quieres reactivarla?'
     }
 }

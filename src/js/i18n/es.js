@@ -445,12 +445,19 @@ export default {
     },
     CardContent                      : {
         like             : 'Me interesa',
-        unlike           : 'Quitar',
+        unlike           : 'No me interesa',
+        share            : 'Compartir',
+        report           : 'Reportar',
+        cancel           : 'Cancelar',
         compatibility    : 'Compatibilidad',
         emptyTitle       : 'Contenido',
         copiedToClipboard: 'Copiado al portapapeles',
         shareError       : 'Parece que ha habido un error mientras compartías este contenido',
-        saving           : 'Guardando...'
+        saving           : 'Guardando...',
+        notInteresting   : 'No me interesa este contenido',
+        harmful          : 'Este contenido es abusivo o perjudicial',
+        spam             : 'Este contenido es spam',
+        otherReasons     : 'Otros motivos'
     },
     CardUser                         : {
         like      : 'Me gusta',
@@ -474,6 +481,12 @@ export default {
         websites : 'Todo',
         people   : 'Personas',
         channels : 'Canales'
+    },
+    ReportContentPopup               : {
+        title      : 'Escribe brevemente el motivo del reporte',
+        placeholder: 'Texto...',
+        send       : 'Enviar reporte',
+        close      : 'Cerrar'
     },
     FilterContentButtons             : {
         videos   : 'Videos',

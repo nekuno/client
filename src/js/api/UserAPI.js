@@ -137,6 +137,10 @@ export function unsetRateContent(to, url = `content/rate`) {
     return deleteRateContent(url, to);
 }
 
+export function reportContent(data, url = `content/report`) {
+    return postData(url, data);
+}
+
 export function getMatching(userId, url = `matching/${userId}`) {
     return getData(url);
 }

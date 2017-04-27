@@ -7,6 +7,7 @@ import CardContentCarousel from '../components/interests/CardContentCarousel';
 import FilterContentButtons from '../components/ui/FilterContentButtons';
 import TextRadios from '../components/ui/TextRadios';
 import ProfilesAvatarConnection from '../components/ui/ProfilesAvatarConnection';
+import ReportContentPopup from '../components/interests/ReportContentPopup';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
@@ -31,7 +32,9 @@ function requestData(props) {
             InterestsActionCreators.resetInterests(otherUserId);
             InterestsActionCreators.requestComparedInterests(userId, otherUserId, 'Link', 1);
         },
-        (status) => { console.log(status.error) }
+        (status) => {
+            console.log(status.error)
+        }
     );
 }
 
@@ -85,13 +88,17 @@ export default class OtherInterestsPage extends Component {
         this.onContentClick = this.onContentClick.bind(this);
         this.onNavBarLeftLinkClick = this.onNavBarLeftLinkClick.bind(this);
         this.initSwiper = this.initSwiper.bind(this);
+        this.onReport = this.onReport.bind(this);
+        this.onReportReasonText = this.onReportReasonText.bind(this);
 
         this.state = {
-            type         : '',
-            commonContent: 1,
-            carousel     : false,
-            position     : 0,
-            swiper       : null
+            type           : '',
+            commonContent  : 1,
+            carousel       : false,
+            position       : 0,
+            swiper         : null,
+            reportContentId: null,
+            reportReason   : null,
         }
     }
 
@@ -199,6 +206,24 @@ export default class OtherInterestsPage extends Component {
         });
     }
 
+    onReport(contentId, reason) {
+        this.setState({
+            reportContentId: contentId,
+            reportReason   : reason
+        });
+        setTimeout(() => nekunoApp.popup('.popup-report-content'), 0);
+    }
+
+    onReportReasonText(reasonText) {
+        const {reportContentId, reportReason} = this.state;
+        const data = {
+            contentId: reportContentId,
+            reason: reportReason,
+            reasonText: reasonText
+        };
+        UserActionCreators.reportContent(data);
+    }
+
     render() {
         const {interests, noInterests, otherUser, user, params, pagination, totals, strings} = this.props;
         const ownUserId = parseId(user);
@@ -227,24 +252,24 @@ export default class OtherInterestsPage extends Component {
                                 <ProfilesAvatarConnection ownPicture={ownPicture} otherPicture={otherUserPicture}/>
                                 <div className="title">{this.state.commonContent ? strings.similarInterestsCount.replace('%count%', pagination.total || 0) : strings.interestsCount.replace('%count%', pagination.total || 0)}</div>
                                 {otherUser ? <FilterContentButtons userId={otherUserId} contentsCount={pagination.total || 0} ownContent={false} ownUserId={ownUserId} onClickHandler={this.onFilterTypeClick} commonContent={this.state.commonContent}
-                                                      linksCount={totals.Link}
-                                                      audiosCount={totals.Audio}
-                                                      videosCount={totals.Video}
-                                                      imagesCount={totals.Image}
-                                                      channelsCount={totals.Creator}
-                                /> : ''}
+                                                                   linksCount={totals.Link}
+                                                                   audiosCount={totals.Audio}
+                                                                   videosCount={totals.Video}
+                                                                   imagesCount={totals.Image}
+                                                                   channelsCount={totals.Creator}
+                                    /> : ''}
                                 <div className="common-content-switch">
                                     <TextRadios labels={[{key: 0, text: strings.all}, {key: 1, text: strings.common}]} value={this.state.commonContent} onClickHandler={this.onFilterCommonClick}/>
                                 </div>
                                 {noInterests ? '' :
                                     /* Uncomment to enable carousel
-                                    this.state.carousel ?
-                                        <CardContentCarousel contents={interests} userId={ownUserId} otherUserId={otherUserId}/>
-                                        :
-                                        <CardContentList contents={interests} userId={ownUserId} otherUserId={otherUserId}
-                                                         onClickHandler={this.onContentClick}/>
+                                     this.state.carousel ?
+                                     <CardContentCarousel contents={interests} userId={ownUserId} otherUserId={otherUserId}/>
+                                     :
+                                     <CardContentList contents={interests} userId={ownUserId} otherUserId={otherUserId}
+                                     onClickHandler={this.onContentClick}/>
                                      */
-                                    <CardContentList contents={interests} userId={ownUserId} otherUserId={otherUserId}/>
+                                    <CardContentList contents={interests} userId={ownUserId} otherUserId={otherUserId} onReport={this.onReport}/>
                                 }
                                 <br />
                                 {this.state.carousel ? '' : <div className="loading-gif" style={pagination.nextLink ? {} : {display: 'none'}}></div>}
@@ -255,6 +280,7 @@ export default class OtherInterestsPage extends Component {
                         </div>
                     </div>
                 </ScrollContainer>
+                <ReportContentPopup onClick={this.onReportReasonText}/>
             </div>
         );
     }

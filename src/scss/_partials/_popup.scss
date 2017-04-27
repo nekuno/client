@@ -71,4 +71,15 @@
 			}
 		}
 	}
+
+	&.popup-report-content {
+		margin-top: 0;
+		z-index: 1111111;
+
+		.textarea-title {
+			color: #fff;
+			margin: auto;
+			text-align: center;
+		}
+	}
 }

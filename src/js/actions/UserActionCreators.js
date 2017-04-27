@@ -276,6 +276,14 @@ export function deleteRateContent(from, to) {
     InterestsActionCreators.requestOwnInterests(from);
 }
 
+export function reportContent(data) {
+    dispatchAsync(UserAPI.reportContent(data), {
+        request: ActionTypes.REPORT_CONTENT,
+        success: ActionTypes.REPORT_CONTENT_SUCCESS,
+        failure: ActionTypes.REPORT_CONTENT_ERROR
+    }, {data});
+}
+
 export function requestBlockUser(from, to) {
     dispatchAsync(UserAPI.getBlockUser(to), {
         request: ActionTypes.REQUEST_BLOCK_USER,

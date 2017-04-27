@@ -453,7 +453,11 @@ export default {
         emptyTitle       : 'Link',
         copiedToClipboard: 'Copied to clipboard',
         shareError       : 'An error occurred sharing the content',
-        saving           : 'Saving...'
+        saving           : 'Saving...',
+        notInteresting   : 'I’m not interested in this content',
+        harmful          : 'This content is abusive or harmful',
+        spam             : 'This content is spam',
+        otherReasons     : 'Other reasons'
     },
     CardUser                         : {
         like      : 'Like',
@@ -477,6 +481,12 @@ export default {
         websites : 'All',
         people   : 'People',
         channels : 'Channels'
+    },
+    ReportContentPopup               : {
+        title      : 'Write a brief explanation of the report',
+        placeholder: 'Text...',
+        send       : 'Send report',
+        close      : 'Close'
     },
     FilterContentButtons             : {
         videos  : 'Videos',

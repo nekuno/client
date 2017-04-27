@@ -206,6 +206,10 @@ export default keyMirror({
     UNRATE_CONTENT_SUCCESS: null,
     UNRATE_CONTENT_ERROR  : null,
 
+    REPORT_CONTENT        : null,
+    REPORT_CONTENT_SUCCESS: null,
+    REPORT_CONTENT_ERROR  : null,
+
     REQUEST_GROUP        : null,
     REQUEST_GROUP_SUCCESS: null,
     REQUEST_GROUP_ERROR  : null,

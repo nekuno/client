@@ -26,7 +26,7 @@ export default class CardContent extends Component {
         hideLikeButton: PropTypes.bool.isRequired,
         fixedHeight   : PropTypes.bool,
         loggedUserId  : PropTypes.number.isRequired,
-        onClickHandler: PropTypes.func,
+        onReport      : PropTypes.func,
         otherUserId   : PropTypes.number,
         // Injected by @translate:
         strings       : PropTypes.object
@@ -38,6 +38,7 @@ export default class CardContent extends Component {
         this.onDropDown = this.onDropDown.bind(this);
         this.onRate = this.onRate.bind(this);
         this.onShare = this.onShare.bind(this);
+        this.onReport = this.onReport.bind(this);
         this.handleClick = this.handleClick.bind(this);
         this.onShareSuccess = this.onShareSuccess.bind(this);
         this.onShareError = this.onShareError.bind(this);
@@ -62,7 +63,7 @@ export default class CardContent extends Component {
     onDropDown() {
         const {rate, title, strings} = this.props;
         const likeText = rate ? strings.unlike : strings.like;
-        const buttons = [
+        let buttons = [
             {
                 text: title,
                 label: true
@@ -76,19 +77,24 @@ export default class CardContent extends Component {
                 color: 'gray',
                 text: '<span class="icon-share"></span> ' + strings.share,
                 onClick: this.onShare
-            },
-            {
-                color: 'gray',
-                text: '<span class="icon-warning"></span> ' + strings.report,
-                onClick: function() {
-
+            }
+        ];
+        if (this.props.onReport) {
+            buttons.push(
+                {
+                    color: 'gray',
+                    text: '<span class="icon-warning"></span> ' + strings.report,
+                    onClick: this.onReport
                 }
-            },
+            );
+        }
+        buttons.push(
             {
                 color: 'red',
                 text: strings.cancel
             }
-        ];
+        );
+
         nekunoApp.actions(buttons);
     }
 
@@ -121,18 +127,56 @@ export default class CardContent extends Component {
         nekunoApp.alert(this.props.strings.shareError)
     }
 
-    handleClick() {
-        const {url, types, embed_type, embed_id, onClickHandler} = this.props;
-        if (typeof onClickHandler !== 'undefined' && onClickHandler) {
-            onClickHandler();
-        } else {
-            const isVideo = types.indexOf('Video') > -1;
-            if (isVideo && !window.cordova && window.screen.width > 320) {
-                this.preVisualizeVideo(embed_type, embed_id, url);
-            } else {
-                window.cordova ? document.location = url : window.open(url);
+    onReport() {
+        const {strings} = this.props;
+        const buttons = [
+            {
+                color: 'gray',
+                text: strings.notInteresting,
+                onClick: this.onReportReason.bind(this, 'not interesting')
+            },
+            {
+                color: 'gray',
+                text: strings.harmful,
+                onClick: this.onReportReason.bind(this, 'harmful')
+            },
+            {
+                color: 'gray',
+                text: strings.spam,
+                onClick: this.onReportReason.bind(this, 'spam')
+            },
+            {
+                color: 'gray',
+                text: strings.otherReasons,
+                onClick: this.onReportReason.bind(this, 'other')
+            },
+            {
+                color: 'red',
+                text: strings.cancel
             }
+        ];
+        nekunoApp.actions(buttons);
+    }
+
+    onReportReason(reason) {
+        const {loggedUserId, contentId, rate} = this.props;
+        if (rate) {
+            UserActionCreators.deleteRateContent(loggedUserId, contentId);
         }
+        setTimeout(() => this.props.onReport(contentId, reason), 0);
+
+    }
+
+    handleClick() {
+        const {url, types, embed_type, embed_id} = this.props;
+
+        const isVideo = types.indexOf('Video') > -1;
+        if (isVideo && !window.cordova && window.screen.width > 320) {
+            this.preVisualizeVideo(embed_type, embed_id, url);
+        } else {
+            window.cordova ? document.location = url : window.open(url);
+        }
+
     }
 
     preVisualizeVideo = function (embed_type, embed_id, url) {
@@ -263,6 +307,10 @@ CardContent.defaultProps = {
         emptyTitle       : 'Title',
         copiedToClipboard: 'Copied to clipboard',
         shareError       : 'An error occurred sharing the content',
-        saving           : 'Saving...'
+        saving           : 'Saving...',
+        notInteresting   : 'I’m not interested in this content',
+        harmful          : 'This content is abusive or harmful',
+        spam             : 'This content is spam',
+        otherReasons     : 'Other reasons',
     }
 };

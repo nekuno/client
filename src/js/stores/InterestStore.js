@@ -38,7 +38,7 @@ class InterestStore extends BaseStore {
                 break;
             case ActionTypes.REPORT_CONTENT:
                 to = action.data.contentId;
-                Object.keys(this._interests).forEach(userId => this._interests[userId].forEach((interest, index) => { if (interest.id == to) { this._interests[userId].splice(index, 1); console.log('content deleted') } }));
+                Object.keys(this._interests).forEach(userId => this._interests[userId].forEach((interest, index) => { if (interest.id == to) { this._interests[userId].splice(index, 1) } }));
                 this.emitChange();
                 break;
             case ActionTypes.REQUEST_OWN_INTERESTS_SUCCESS:

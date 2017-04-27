@@ -199,7 +199,7 @@ body #root .App .views .view .page.other-user-page {
       }
     }
 
-    .like-button {
+    .like-button, .block-button {
       font-size: 1.3em;
       margin-top: -10px !important;
       margin-left: 10px;
@@ -207,6 +207,10 @@ body #root .App .views .view .page.other-user-page {
 
       .yellow {
         color: $material-yellow;
+      }
+
+      .blocked {
+        color: red;
       }
     }
   }

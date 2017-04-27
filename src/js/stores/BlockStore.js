@@ -42,13 +42,7 @@ class BlockStore extends BaseStore {
     }
 
     getBidirectional(userId1, userId2) {
-        if (this._isUserBblockedByUserA(userId1, userId2)) {
-            return this._get(userId1, userId2);
-        } else if (this._isUserBblockedByUserA(userId2, userId1)) {
-            return this._get(userId2, userId1);
-        } else {
-            return 0;
-        }
+        return this.get(userId1, userId2) || this.get(userId2, userId1);
     }
 
     get(userId1, userId2) {

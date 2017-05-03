@@ -98,7 +98,7 @@ export function unsetBlockUser(to, url = `blocks/${to}`) {
 }
 
 export function getBlockUser(to, url = `blocks/${to}`) {
-    return fetchBlockUser(url);
+    return getData(url);
 }
 
 export function setLikeUser(to, originContext, originName, url = `likes/${to}`) {

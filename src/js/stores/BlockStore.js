@@ -1,7 +1,6 @@
 import { waitFor } from '../dispatcher/Dispatcher';
 import UserStore from '../stores/UserStore';
 import ActionTypes from '../constants/ActionTypes';
-import selectn from 'selectn';
 import BaseStore from './BaseStore';
 
 class BlockStore extends BaseStore {
@@ -15,47 +14,52 @@ class BlockStore extends BaseStore {
         const {from, to} = action;
         switch (action.type) {
             case ActionTypes.BLOCK_USER:
-                this.merge(from, to, null);
+                this._merge(from, to, null);
                 this.emitChange();
                 break;
             case ActionTypes.UNBLOCK_USER:
-                this.merge(from, to, null);
+                this._merge(from, to, null);
                 this.emitChange();
                 break;
             case ActionTypes.BLOCK_USER_SUCCESS:
-                this.merge(from, to, true);
+                this._merge(from, to, true);
                 this.emitChange();
                 break;
             case ActionTypes.UNBLOCK_USER_SUCCESS:
-                this.merge(from, to, false);
+                this._merge(from, to, false);
                 this.emitChange();
                 break;
             case ActionTypes.REQUEST_BLOCK_USER_SUCCESS:
-                const block = selectn('response.result', action) ? 1 : 0;
-                this.merge(from, to, block);
+                const block = Object.keys(action.response).length > 0;
+                this._merge(from, to, block);
                 this.emitChange();
                 break;
         }
     }
 
     contains(userId1, userId2) {
-        return (userId1 in this._block && (userId2 in this._block[userId1])) ||
-            (userId2 in this._block && (userId1 in this._block[userId2]));
+        return this._isUserBblockedByUserA(userId1, userId2) || this._isUserBblockedByUserA(userId2, userId1);
+    }
+
+    getBidirectional(userId1, userId2) {
+        return this.get(userId1, userId2) || this.get(userId2, userId1);
     }
 
     get(userId1, userId2) {
-        if (userId1 in this._block && (userId2 in this._block[userId1])) {
-            return this._block[userId1][userId2];
-        } else if (userId2 in this._block && (userId1 in this._block[userId2])) {
-            return this._block[userId2][userId1];
-        } else {
-            return 0;
-        }
+        return this._isUserBblockedByUserA(userId1, userId2) ? this._get(userId1, userId2) : false;
     }
 
-    merge(userId1, userId2, value) {
+    _get(userId1, userId2) {
+        return this._block[userId1][userId2];
+    }
+
+    _merge(userId1, userId2, value) {
         this._block[userId1] = (userId1 in this._block) ? this._block[userId1] : [];
         this._block[userId1][userId2] = value;
+    }
+
+    _isUserBblockedByUserA(userA, userB) {
+        return userA in this._block && (userB in this._block[userA]);
     }
 }
 

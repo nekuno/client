@@ -84,7 +84,7 @@ function getState(props) {
     const profileWithMetadata = otherUserId ? ProfileStore.getWithMetadata(otherUserId) : [];
     const matching = otherUserId ? MatchingStore.get(otherUserId, parseId(user)) : null;
     const similarity = otherUserId ? SimilarityStore.get(otherUserId, parseId(user)) : null;
-    //const block = BlockStore.get(parseId(user), otherUserId);
+    const blocked = otherUserId ? BlockStore.get(parseId(user), otherUserId) : null;
     const like = otherUserId ? LikeStore.get(parseId(user), otherUserId) : null;
     const comparedStats = otherUserId ? ComparedStatsStore.get(parseId(user), otherUserId) : null;
     const photos = otherUserId ? GalleryPhotoStore.get(otherUserId) : [];
@@ -98,7 +98,7 @@ function getState(props) {
         profileWithMetadata,
         matching,
         similarity,
-        //block,
+        blocked,
         like,
         comparedStats,
         user,
@@ -205,7 +205,7 @@ export default class OtherUserPage extends Component {
     }
 
     onBlock() {
-        if (!this.props.block) {
+        if (!this.props.blocked) {
             setBlockUser(this.props);
         } else {
             unsetBlockUser(this.props);
@@ -240,12 +240,12 @@ export default class OtherUserPage extends Component {
     }
 
     render() {
-        const {user, otherUser, profile, ownProfile, profileWithMetadata, matching, similarity, block, like, comparedStats, photos, noPhotos, online, params, strings} = this.props;
+        const {user, otherUser, profile, ownProfile, profileWithMetadata, matching, similarity, blocked, like, comparedStats, photos, noPhotos, online, params, strings} = this.props;
         const otherPictureSmall = selectn('photo.thumbnail.small', otherUser);
         const otherPictureBig = selectn('photo.thumbnail.big', otherUser);
         const ownPicture = selectn('photo.thumbnail.small', user);
         const defaultImgBig = 'img/no-img/big.jpg';
-        //const blockClass = block ? "icon-block blocked" : "icon-block";
+        const blockClass = blocked ? "icon-block blocked" : "icon-block";
         const birthdayDataSet = profileWithMetadata.find(profileDataSet => typeof selectn('fields.birthday.value', profileDataSet) !== 'undefined');
         const genderDataSet = profileWithMetadata.find(profileDataSet => typeof selectn('fields.gender.value', profileDataSet) !== 'undefined');
         const age = selectn('fields.birthday.value', birthdayDataSet);
@@ -300,6 +300,9 @@ export default class OtherUserPage extends Component {
                                     </div>
                                     <div className="like-button icon-wrapper" onClick={like !== null ? this.onRate : null}>
                                         <span className={like === null ? 'icon-spinner rotation-animation' : like && like !== -1 ? 'icon-star yellow' : 'icon-star'} />
+                                    </div>
+                                    <div className="block-button icon-wrapper" onClick={blocked !== null ? this.onBlock : null}>
+                                        <span className={blockClass} />
                                     </div>
                                     <div className="other-profile-wrapper bold">
                                         <OtherProfileData matching={matching} similarity={similarity} stats={comparedStats} ownImage={ownPicture}

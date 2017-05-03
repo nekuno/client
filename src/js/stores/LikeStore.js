@@ -28,6 +28,7 @@ class LikeStore extends BaseStore {
                 this.emitChange();
                 break;
             case ActionTypes.UNLIKE_USER_SUCCESS:
+            case ActionTypes.BLOCK_USER_SUCCESS:
                 this.merge(from, to, 0);
                 this.emitChange();
                 break;

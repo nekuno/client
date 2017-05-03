@@ -181,10 +181,6 @@ export function deleteBlockUser(url) {
     return deleteData(url, null, blockedUserSchema);
 }
 
-export function fetchBlockUser(url) {
-    return fetchAndNormalize(url, blockedUserSchema);
-}
-
 export function postLikeContent(url, to, originContext, originName) {
     return postData(url, {linkId: to, rate: "LIKES", originContext: originContext, originName: originName});
 }

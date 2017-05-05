@@ -22,6 +22,7 @@ class BlockStore extends BaseStore {
                 this.emitChange();
                 break;
             case ActionTypes.BLOCK_USER_SUCCESS:
+            case ActionTypes.REPORT_USER_SUCCESS:
                 this._merge(from, to, true);
                 this.emitChange();
                 break;

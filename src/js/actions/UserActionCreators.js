@@ -238,6 +238,14 @@ export function deleteLikeUser(from, to) {
     }, {from, to});
 }
 
+export function reportUser(from, to, data) {
+    dispatchAsync(UserAPI.reportUser(to, data), {
+        request: ActionTypes.REPORT_USER,
+        success: ActionTypes.REPORT_USER_SUCCESS,
+        failure: ActionTypes.REPORT_USER_ERROR
+    }, {from, to, data});
+}
+
 export function likeContent(from, to, originContext, originName) {
     dispatchAsync(UserAPI.setLikeContent(to, originContext, originName), {
         request: ActionTypes.LIKE_CONTENT,

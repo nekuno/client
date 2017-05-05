@@ -234,18 +234,25 @@ export default {
         myProfile: 'My profile'
     },
     OtherUserPage                    : {
-        profile     : 'Profile',
-        loading     : 'Loading profile',
-        age         : 'Age',
-        message     : 'Message',
-        about       : 'About',
-        photos      : 'Photos',
-        questions   : 'Answers',
-        interests   : 'Interests',
-        like        : 'Like',
-        dontLike    : 'Don\'t like anymore',
-        saving      : 'Saving...',
-        confirmBlock: 'Are you sure you want to block this user?'
+        profile       : 'Profile',
+        loading       : 'Loading profile',
+        age           : 'Age',
+        message       : 'Message',
+        about         : 'About',
+        photos        : 'Photos',
+        questions     : 'Answers',
+        interests     : 'Interests',
+        like          : 'Like',
+        dontLike      : 'Don\'t like anymore',
+        saving        : 'Saving...',
+        block         : 'Block user',
+        blockAndReport: 'Block and report user',
+        cancel        : 'Cancel',
+        confirmBlock  : 'Are you sure you want to block this user?',
+        notAPerson    : 'This user is not a person',
+        harmful       : 'This user is abusive or harmful',
+        spam          : 'This user sends spam',
+        otherReasons  : 'Other reasons'
     },
     SharedUserPage                   : {
         title          : 'Do you want to see your compatibility with %username%?',
@@ -663,8 +670,8 @@ export default {
     /////////////////////////
     // LoginActionCreators //
     ////////////////////////
-    LoginActionCreators: {
+    LoginActionCreators              : {
         inactiveAccount: 'Inactive account',
-        enableQuestion: 'Your account is disabled. Do you want to reenable it?'
+        enableQuestion : 'Your account is disabled. Do you want to reenable it?'
     }
 }

@@ -2,7 +2,6 @@ import {
     fetchUser,
     postBlockUser,
     deleteBlockUser,
-    fetchBlockUser,
     postLikeContent,
     postDislikeContent,
     postIgnoreContent,
@@ -99,6 +98,10 @@ export function unsetBlockUser(to, url = `blocks/${to}`) {
 
 export function getBlockUser(to, url = `blocks/${to}`) {
     return getData(url);
+}
+
+export function reportUser(to, data, url = `reports/${to}`) {
+    return postData(url, data);
 }
 
 export function setLikeUser(to, originContext, originName, url = `likes/${to}`) {

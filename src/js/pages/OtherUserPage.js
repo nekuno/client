@@ -7,6 +7,7 @@ import ToolBar from '../components/ui/ToolBar';
 import Image from '../components/ui/Image';
 import EmptyMessage from '../components/ui/EmptyMessage';
 import OrientationRequiredPopup from '../components/ui/OrientationRequiredPopup';
+import ReportContentPopup from '../components/interests/ReportContentPopup';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
@@ -64,11 +65,11 @@ function initPhotosSwiper() {
         return null;
     }
     return nekunoApp.swiper('#photos-swiper-container', {
-        slidesPerView   : 'auto',
-        centeredSlides  : true,
-        paginationHide: false,
+        slidesPerView      : 'auto',
+        centeredSlides     : true,
+        paginationHide     : false,
         paginationClickable: true,
-        pagination:'.swiper-pagination',
+        pagination         : '.swiper-pagination',
     });
 }
 
@@ -107,28 +108,6 @@ function getState(props) {
         ownProfile,
         online
     };
-}
-
-function setBlockUser(props) {
-    const {user, otherUser} = props;
-    nekunoApp.confirm(props.strings.confirmBlock, () => {
-        UserActionCreators.blockUser(parseId(user), parseId(otherUser));
-    });
-}
-
-function unsetBlockUser(props) {
-    const {user, otherUser} = props;
-    UserActionCreators.deleteBlockUser(parseId(user), parseId(otherUser));
-}
-
-function setLikeUser(props) {
-    const {user, otherUser} = props;
-    UserActionCreators.likeUser(parseId(user), parseId(otherUser), ORIGIN_CONTEXT.OTHER_USER_PAGE, otherUser.username);
-}
-
-function unsetLikeUser(props) {
-    const {user, otherUser} = props;
-    UserActionCreators.deleteLikeUser(parseId(user), parseId(otherUser));
 }
 
 @AuthenticatedComponent
@@ -171,10 +150,16 @@ export default class OtherUserPage extends Component {
         this.handlePhotoClick = this.handlePhotoClick.bind(this);
         this.goToDiscover = this.goToDiscover.bind(this);
         this.setOrientationAnswered = this.setOrientationAnswered.bind(this);
+        this.showBlockActions = this.showBlockActions.bind(this);
+        this.reportReasonButton = this.reportReasonButton.bind(this);
+        this.onReportReason = this.onReportReason.bind(this);
+        this.onReportReasonOther = this.onReportReasonOther.bind(this);
+        this.optionButton = this.optionButton.bind(this);
+        this.cancelButton = this.optionButton.bind(this);
 
         this.state = {
             orientationAnswered: null,
-            photosLoaded: null
+            photosLoaded       : null
         };
     }
 
@@ -204,20 +189,111 @@ export default class OtherUserPage extends Component {
         }
     }
 
+    /** Block-Related */
+
     onBlock() {
         if (!this.props.blocked) {
-            setBlockUser(this.props);
+            this.showBlockActions();
         } else {
-            unsetBlockUser(this.props);
+            this.unsetBlockUser(this.props);
         }
     }
 
+    showBlockActions() {
+        const {strings} = this.props;
+        const reportButtons = [
+            this.optionButton(strings.block, this.blockUser.bind(this, this.props)),
+            this.optionButton(strings.blockAndReport, this.showReportActions.bind(this, this.props)),
+            this.cancelButton(strings.cancel)
+        ];
+
+        nekunoApp.actions(reportButtons);
+    }
+
+    optionButton(text, callback) {
+        return {
+            color  : 'gray',
+            text   : text,
+            onClick: callback
+        }
+    }
+
+    showReportActions(props) {
+        const {strings} = props;
+
+        const reportButtons = [
+            this.reportReasonButton(strings.notAPerson, 'not a person'),
+            this.reportReasonButton(strings.harmful, 'harmful'),
+            this.reportReasonButton(strings.spam, 'spam'),
+            this.reportReasonButton(strings.otherReasons, 'other', this.showOtherReasonPopup),
+            this.cancelButton(strings.cancel)
+        ];
+        nekunoApp.actions(reportButtons);
+    }
+
+    reportReasonButton(text, reason, callback = null)
+    {
+        callback = callback ? callback : this.onReportReason.bind(this, reason, null);
+
+        return this.optionButton(text, callback);
+    }
+
+    showOtherReasonPopup() {
+        nekunoApp.popup('.popup-report-content');
+    }
+
+    cancelButton(text)
+    {
+        return {
+            color: 'red',
+            text : text
+        }
+    }
+
+    onReportReasonOther(reasonText)
+    {
+        return this.onReportReason('other', reasonText);
+    }
+
+    onReportReason(reason, reasonText = null)
+    {
+        const {user, otherUser} = this.props;
+        const data = {
+            reason: reason,
+            reasonText: reasonText
+        };
+        UserActionCreators.reportUser(parseId(user), parseId(otherUser), data);
+    }
+
+    blockUser(props)
+    {
+        const {user, otherUser} = props;
+        UserActionCreators.blockUser(parseId(user), parseId(otherUser));
+    }
+
+    unsetBlockUser(props) {
+        const {user, otherUser} = props;
+        UserActionCreators.deleteBlockUser(parseId(user), parseId(otherUser));
+    }
+
+    /** Like-related **/
+
     onRate() {
         if (!this.props.like || this.props.like === -1) {
-            setLikeUser(this.props);
+            this.setLikeUser(this.props);
         } else {
-            unsetLikeUser(this.props);
+            this.unsetLikeUser(this.props);
         }
+    }
+
+    setLikeUser(props) {
+        const {user, otherUser} = props;
+        UserActionCreators.likeUser(parseId(user), parseId(otherUser), ORIGIN_CONTEXT.OTHER_USER_PAGE, otherUser.username);
+    }
+
+    unsetLikeUser(props) {
+        const {user, otherUser} = props;
+        UserActionCreators.deleteLikeUser(parseId(user), parseId(otherUser));
     }
 
     handleClickMessageLink() {
@@ -289,20 +365,20 @@ export default class OtherUserPage extends Component {
                                         {otherUser.username}
                                     </div>
                                     <div className="user-description">
-                                        <span className="icon-marker" /> {location} -
+                                        <span className="icon-marker"/> {location} -
                                         <span className="age"> {strings.age}: {age}</span> -
                                         <span className="gender"> {gender}</span>
                                     </div>
                                     {online ? <div className="online-status">Online</div> : null}
                                     <div className="send-message-button icon-wrapper icon-wrapper-with-text" onClick={this.handleClickMessageLink}>
-                                        <span className="icon-message" />
+                                        <span className="icon-message"/>
                                         <span className="text">{strings.message}</span>
                                     </div>
                                     <div className="like-button icon-wrapper" onClick={like !== null ? this.onRate : null}>
-                                        <span className={like === null ? 'icon-spinner rotation-animation' : like && like !== -1 ? 'icon-star yellow' : 'icon-star'} />
+                                        <span className={like === null ? 'icon-spinner rotation-animation' : like && like !== -1 ? 'icon-star yellow' : 'icon-star'}/>
                                     </div>
                                     <div className="block-button icon-wrapper" onClick={blocked !== null ? this.onBlock : null}>
-                                        <span className={blockClass} />
+                                        <span className={blockClass}/>
                                     </div>
                                     <div className="other-profile-wrapper bold">
                                         <OtherProfileData matching={matching} similarity={similarity} stats={comparedStats} ownImage={ownPicture}
@@ -326,6 +402,7 @@ export default class OtherUserPage extends Component {
                     </div>
                     {ownProfile && !ownProfile.orientation ? <OrientationRequiredPopup profile={ownProfile} onCancel={this.goToDiscover} onClick={this.setOrientationAnswered}/> : null}
                 </div>
+                <ReportContentPopup onClick={this.onReportReasonOther}/>
             </div>
         );
     }

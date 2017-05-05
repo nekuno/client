@@ -1,3 +1,5 @@
+@import '../_partials/colors';
+
 body #root .App .views .view #page-content.shared-user-content {
   margin: 30px auto 0 auto;
   padding: 0 10%;
@@ -25,5 +27,10 @@ body #root .App .views .view #page-content.shared-user-content {
   }
   .register-sub-title {
     text-align: center;
+
+    a {
+      color: $material-grey;
+      text-decoration: underline;
+    }
   }
 }

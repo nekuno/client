@@ -92,6 +92,11 @@ body #root .App .views .view.home-view {
       font-size: 0.9em;
       padding: 0 10%;
       margin-top: -20px;
+      
+      a {
+        color: $material-grey;
+        text-decoration: underline;
+      }
     }
 
     .register-text-block {

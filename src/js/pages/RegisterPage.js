@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import TopNavBar from '../components/ui/TopNavBar';
-import TextInput from '../components/ui/TextInput';
+import Input from '../components/ui/Input';
 import SocialBox from '../components/ui/SocialBox';
 import FacebookButton from '../components/ui/FacebookButton';
 import EmptyMessage from '../components/ui/EmptyMessage';
@@ -159,7 +159,7 @@ export default class RegisterPage extends Component {
                                 { token ? '' :
                                     <div className="list-block">
                                         <ul>
-                                            <TextInput ref="token" defaultValue={initialToken} onChange={this.handleOnChange} placeholder={strings.paste}/>
+                                            <Input ref="token" defaultValue={initialToken} onChange={this.handleOnChange} placeholder={strings.paste}/>
                                         </ul>
                                     </div>
                                 }

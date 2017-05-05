@@ -1,9 +1,10 @@
 import React, { PropTypes, Component } from 'react';
 
-export default class TextInput extends Component {
+export default class Input extends Component {
 
     static propTypes = {
         placeholder : PropTypes.string.isRequired,
+        type        : PropTypes.string,
         defaultValue: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
         style       : PropTypes.object,
         doNotFocus  : PropTypes.bool,
@@ -33,13 +34,13 @@ export default class TextInput extends Component {
     }
 
     render() {
-        const {placeholder, defaultValue, style, maxLength, onChange, onKeyDown} = this.props;
+        const {placeholder, type, defaultValue, style, maxLength, onChange, onKeyDown} = this.props;
         return (
             <li>
                 <div className="item-content">
                     <div className="item-inner">
                         <div className="item-input">
-                            <input ref="input" type="text"
+                            <input ref="input" type={type || "text"}
                                    placeholder={placeholder}
                                    defaultValue={defaultValue}
                                    style={style}

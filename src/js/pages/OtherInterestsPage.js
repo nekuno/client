@@ -216,12 +216,16 @@ export default class OtherInterestsPage extends Component {
 
     onReportReasonText(reasonText) {
         const {reportContentId, reportReason} = this.state;
+        const {strings} = this.props;
         const data = {
             contentId: reportContentId,
             reason: reportReason,
             reasonText: reasonText
         };
-        UserActionCreators.reportContent(data);
+        UserActionCreators.reportContent(data).then(
+            () => nekunoApp.alert(strings.reported),
+            (error) => console.log(error),
+        );
     }
 
     render() {
@@ -296,6 +300,7 @@ OtherInterestsPage.defaultProps = {
         about                : 'About',
         photos               : 'Photos',
         questions            : 'Answers',
-        interests            : 'Interests'
+        interests            : 'Interests',
+        reported             : 'The content has been reported. We will review it within next 24 hours'
     }
 };

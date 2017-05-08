@@ -285,7 +285,7 @@ export function deleteRateContent(from, to) {
 }
 
 export function reportContent(data) {
-    dispatchAsync(UserAPI.reportContent(data), {
+    return dispatchAsync(UserAPI.reportContent(data), {
         request: ActionTypes.REPORT_CONTENT,
         success: ActionTypes.REPORT_CONTENT_SUCCESS,
         failure: ActionTypes.REPORT_CONTENT_ERROR

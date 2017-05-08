@@ -1,5 +1,5 @@
 import React, { PropTypes, Component } from 'react';
-import TextInput from '../../ui/TextInput';
+import Input from '../../ui/Input';
 import FullWidthButton from '../../ui/FullWidthButton';
 import translate from '../../../i18n/Translate';
 import  * as UserActionCreators from '../../../actions/UserActionCreators';
@@ -48,7 +48,7 @@ export default class UsernameField extends Component {
                     </div>
                     <div className="list-block">
                         <ul>
-                            <TextInput defaultValue={username} placeholder={strings.username} ref="username" maxLength="25" onChange={this.onUsernameChange.bind(this)} style={isUsernameValid ? {} : {color: 'red'}}/>
+                            <Input defaultValue={username} placeholder={strings.username} ref="username" maxLength="25" onChange={this.onUsernameChange.bind(this)} style={isUsernameValid ? {} : {color: 'red'}}/>
                         </ul>
                     </div>
                 </div>

@@ -4,13 +4,14 @@ import Chip from './Chip';
 export default class TagInput extends Component {
 
     static propTypes = {
-        value: PropTypes.string,
-        tags: PropTypes.array.isRequired,
-        placeholder: PropTypes.string.isRequired,
-        title: PropTypes.string,
-        onKeyUpHandler: PropTypes.func,
+        value            : PropTypes.string,
+        tags             : PropTypes.array.isRequired,
+        placeholder      : PropTypes.string.isRequired,
+        type             : PropTypes.string,
+        title            : PropTypes.string,
+        onKeyUpHandler   : PropTypes.func,
         onClickTagHandler: PropTypes.func,
-        doNotFocus: PropTypes.bool
+        doNotFocus       : PropTypes.bool
     };
 
     constructor() {
@@ -19,13 +20,13 @@ export default class TagInput extends Component {
         this.onKeyUpHandler = this.onKeyUpHandler.bind(this);
         this.onFocusHandler = this.onFocusHandler.bind(this);
     }
-    
+
     componentDidMount() {
         if (!this.props.doNotFocus) {
             this.focus();
         }
     }
-    
+
     clearValue() {
         return this.refs.tagInput.value = '';
     }
@@ -37,22 +38,22 @@ export default class TagInput extends Component {
     getValue() {
         return this.refs.tagInput.value;
     }
-    
+
     focus() {
         this.refs.tagInput.focus();
     }
 
     render() {
-        const {tags, placeholder, title, value} = this.props;
+        const {tags, placeholder, type, title, value} = this.props;
         return (
             <div className="tag-input-wrapper">
                 <div className="tag-input-title">{title ? title : ''}</div>
                 <div className="tag-input">
-                    <input placeholder={placeholder} ref="tagInput" type="text" defaultValue={value} onKeyUp={this.onKeyUpHandler} onFocus={this.onFocusHandler}/>
+                    <input placeholder={placeholder} ref="tagInput" type={type || "text"} defaultValue={value} onKeyUp={this.onKeyUpHandler} onFocus={this.onFocusHandler}/>
                 </div>
                 <div className="tag-suggestions">
                     <ul>
-                        {tags.map((tag, index) => <li key={index} className="tag-suggestion" ><Chip onClickHandler={this.onClickTagHandler.bind(this, tag)} label={tag} value={tag}/></li>)}
+                        {tags.map((tag, index) => <li key={index} className="tag-suggestion"><Chip onClickHandler={this.onClickTagHandler.bind(this, tag)} label={tag} value={tag}/></li>)}
                     </ul>
                 </div>
             </div>
@@ -71,7 +72,7 @@ export default class TagInput extends Component {
     onFocusHandler() {
         let inputElem = this.refs.tagInput;
         if (inputElem) {
-            window.setTimeout(function () {
+            window.setTimeout(function() {
                 inputElem.scrollIntoView();
                 document.getElementsByClassName('view')[0].scrollTop -= 100;
             }, 500);

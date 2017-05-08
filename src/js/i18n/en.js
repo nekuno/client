@@ -147,7 +147,8 @@ export default {
         about                : 'About',
         photos               : 'Photos',
         questions            : 'Answers',
-        interests            : 'Interests'
+        interests            : 'Interests',
+        reported             : 'The content has been reported. We will review it within next 24 hours'
     },
     OtherQuestionsPage               : {
         coincidences: 'Coincidences of',

@@ -6,7 +6,7 @@ import connectToStores from '../utils/connectToStores';
 import FilterStore from '../stores/FilterStore';
 import TagSuggestionsStore from '../stores/TagSuggestionsStore';
 import ThreadStore from '../stores/ThreadStore';
-import TextInput from '../components/ui/TextInput';
+import Input from '../components/ui/Input';
 import TextRadios from '../components/ui/TextRadios';
 import CreateContentThread from '../components/threads/CreateContentThread';
 import CreateUsersThread from '../components/threads/CreateUsersThread';
@@ -135,7 +135,7 @@ export default class EditThreadPage extends Component {
                                     <div>
                                         <div className="thread-title list-block">
                                             <ul>
-                                                <TextInput placeholder={strings.placeholder} onChange={this._onChange} defaultValue={threadName}/>
+                                                <Input placeholder={strings.placeholder} onChange={this._onChange} defaultValue={threadName}/>
                                             </ul>
                                         </div>
                                         <div key={1} className={category + '-first-vertical-line'}></div>

@@ -147,7 +147,8 @@ export default {
         about                : 'Acerca de',
         photos               : 'Fotos',
         questions            : 'Respuestas',
-        interests            : 'Intereses'
+        interests            : 'Intereses',
+        reported             : 'El contenido ha sido reportado. Lo revisaremos en las próximas 24 horas'
     },
     OtherQuestionsPage               : {
         coincidences: 'Coincidencias de',

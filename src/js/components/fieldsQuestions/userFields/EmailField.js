@@ -1,5 +1,5 @@
 import React, { PropTypes, Component } from 'react';
-import TextInput from '../../ui/TextInput';
+import Input from '../../ui/Input';
 import FullWidthButton from '../../ui/FullWidthButton';
 import translate from '../../../i18n/Translate';
 
@@ -26,7 +26,7 @@ export default class EmailField extends Component {
                     </div>
                     <div className="list-block">
                         <ul>
-                            <TextInput defaultValue={email} placeholder={strings.email} ref="email" />
+                            <Input defaultValue={email} placeholder={strings.email} ref="email" type="email" />
                         </ul>
                     </div>
                 </div>

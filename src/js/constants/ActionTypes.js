@@ -24,9 +24,9 @@ export default keyMirror({
     SET_ENABLED_ERROR                       : null,
     LOGOUT_USER                             : null,
 
-    CONNECT_ACCOUNT         : null,
-    CONNECT_ACCOUNT_SUCCESS : null,
-    CONNECT_ACCOUNT_ERROR   : null,
+    CONNECT_ACCOUNT        : null,
+    CONNECT_ACCOUNT_SUCCESS: null,
+    CONNECT_ACCOUNT_ERROR  : null,
 
     REQUEST_USER        : null,
     REQUEST_USER_SUCCESS: null,
@@ -103,7 +103,7 @@ export default keyMirror({
     REQUEST_RECOMMENDATIONS_SUCCESS: null,
     REQUEST_RECOMMENDATIONS_ERROR  : null,
 
-    REQUEST_NEXT_RECOMMENDATIONS       : null,
+    REQUEST_NEXT_RECOMMENDATIONS        : null,
     REQUEST_NEXT_RECOMMENDATIONS_SUCCESS: null,
     REQUESTS_NEXT_RECOMMENDATION_ERROR  : null,
 
@@ -129,7 +129,7 @@ export default keyMirror({
     REMOVE_PREVIOUS_QUESTION : null,
     QUESTIONS_POPUP_DISPLAYED: null,
     SET_QUESTION_EDITABLE    : null,
-    
+
     ANSWER_QUESTION        : null,
     ANSWER_QUESTION_SUCCESS: null,
     ANSWER_QUESTION_ERROR  : null,
@@ -150,9 +150,9 @@ export default keyMirror({
     REQUEST_COMPARED_INTERESTS_ERROR  : null,
     REQUEST_NEXT_COMPARED_INTERESTS   : null,
 
-    CHECK_IMAGES            : null,
-    CHECK_IMAGES_SUCCESS    : null,
-    CHECK_IMAGES_ERROR      : null,
+    CHECK_IMAGES        : null,
+    CHECK_IMAGES_SUCCESS: null,
+    CHECK_IMAGES_ERROR  : null,
 
     REQUEST_INVITATIONS        : null,
     REQUEST_INVITATIONS_SUCCESS: null,
@@ -190,6 +190,10 @@ export default keyMirror({
     REQUEST_BLOCK_USER_SUCCESS: null,
     REQUEST_BLOCK_USER_ERROR  : null,
 
+    REPORT_USER        : null,
+    REPORT_USER_SUCCESS: null,
+    REPORT_USER_ERROR  : null,
+
     LIKE_CONTENT        : null,
     LIKE_CONTENT_SUCCESS: null,
     LIKE_CONTENT_ERROR  : null,
@@ -214,17 +218,17 @@ export default keyMirror({
     REQUEST_GROUP_SUCCESS: null,
     REQUEST_GROUP_ERROR  : null,
 
-    JOIN_GROUP            : null,
-    JOIN_GROUP_SUCCESS    : null,
-    JOIN_GROUP_ERROR      : null,
+    JOIN_GROUP        : null,
+    JOIN_GROUP_SUCCESS: null,
+    JOIN_GROUP_ERROR  : null,
 
-    CREATE_GROUP          : null,
-    CREATE_GROUP_SUCCESS  : null,
-    CREATE_GROUP_ERROR    : null,
+    CREATE_GROUP        : null,
+    CREATE_GROUP_SUCCESS: null,
+    CREATE_GROUP_ERROR  : null,
 
-    LEAVE_GROUP          : null,
-    LEAVE_GROUP_SUCCESS  : null,
-    LEAVE_GROUP_ERROR    : null,
+    LEAVE_GROUP        : null,
+    LEAVE_GROUP_SUCCESS: null,
+    LEAVE_GROUP_ERROR  : null,
 
     REQUEST_GROUP_MEMBERS        : null,
     REQUEST_GROUP_MEMBERS_SUCCESS: null,
@@ -244,21 +248,21 @@ export default keyMirror({
     CHAT_NO_MORE_MESSAGES: null,
     CHAT_MARK_AS_READED  : null,
 
-    WORKERS_FETCH_START   : null,
-    WORKERS_FETCH_FINISH  : null,
-    WORKERS_PROCESS_START : null,
-    WORKERS_PROCESS_LINK  : null,
-    WORKERS_PROCESS_FINISH: null,
+    WORKERS_FETCH_START      : null,
+    WORKERS_FETCH_FINISH     : null,
+    WORKERS_PROCESS_START    : null,
+    WORKERS_PROCESS_LINK     : null,
+    WORKERS_PROCESS_FINISH   : null,
     WORKERS_SIMILARITY_START : null,
     WORKERS_SIMILARITY_STEP  : null,
     WORKERS_SIMILARITY_FINISH: null,
-    WORKERS_MATCHING_START : null,
-    WORKERS_MATCHING_STEP  : null,
-    WORKERS_MATCHING_FINISH: null,
-    WORKERS_AFFINITY_START : null,
-    WORKERS_AFFINITY_STEP  : null,
-    WORKERS_AFFINITY_FINISH: null,
-    WORKERS_USER_STATUS   : null,
+    WORKERS_MATCHING_START   : null,
+    WORKERS_MATCHING_STEP    : null,
+    WORKERS_MATCHING_FINISH  : null,
+    WORKERS_AFFINITY_START   : null,
+    WORKERS_AFFINITY_STEP    : null,
+    WORKERS_AFFINITY_FINISH  : null,
+    WORKERS_USER_STATUS      : null,
 
     NOTIFICATION_NEW: null,
 
@@ -271,14 +275,14 @@ export default keyMirror({
     REQUEST_ALBUMS_ERROR  : null,
     REQUEST_ALBUM_SUCCESS : null,
     REQUEST_ALBUM_ERROR   : null,
-    
-    UPLOAD_PHOTO          : null,
-    UPLOAD_PHOTO_SUCCESS  : null,
-    UPLOAD_PHOTO_ERROR    : null,
 
-    DELETE_PHOTO          : null,
-    DELETE_PHOTO_SUCCESS  : null,
-    DELETE_PHOTO_ERROR    : null,
+    UPLOAD_PHOTO        : null,
+    UPLOAD_PHOTO_SUCCESS: null,
+    UPLOAD_PHOTO_ERROR  : null,
+
+    DELETE_PHOTO        : null,
+    DELETE_PHOTO_SUCCESS: null,
+    DELETE_PHOTO_ERROR  : null,
 
     REQUEST_SET_PROFILE_PHOTO        : null,
     REQUEST_SET_PROFILE_PHOTO_SUCCESS: null,

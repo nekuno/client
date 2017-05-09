@@ -289,6 +289,15 @@ export default {
         updating   : 'Editando ovillo',
         filters    : 'Filtros'
     },
+    SettingsPage                     : {
+        title         : 'Ajustes',
+        version       : 'Versión de Nekuno',
+        policyPrivacy : 'Acceso a la política de privacidad',
+        disable       : 'Desactivar cuenta (y después de 3 meses será eliminada)',
+        disableConfirm: '¿Quieres desactivar tu cuenta?',
+        disableTitle  : 'Desactivar cuenta',
+        disableError  : 'No pudimos desactivar tu cuenta',
+    },
     ////////////////
     // Components //
     ////////////////
@@ -299,6 +308,8 @@ export default {
         myProfile     : 'Mi perfil',
         conversations : 'Mensajes',
         socialNetworks: 'Mis redes sociales',
+        more          : 'Más',
+        less          : 'Menos',
         settings      : 'Ajustes',
         invitations   : 'Invitaciones',
         disableConfirm: '¿Quieres desactivar tu cuenta?',

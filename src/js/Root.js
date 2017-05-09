@@ -44,6 +44,7 @@ import GroupPage from './pages/GroupPage';
 import GroupStatsPage from './pages/GroupStatsPage';
 import GroupMembersPage from './pages/GroupMembersPage';
 import GroupContentsPage from './pages/GroupContentsPage';
+import SettingsPage from './pages/SettingsPage';
 import RouterActionCreators from './actions/RouterActionCreators';
 import LoginStore from './stores/LoginStore';
 
@@ -110,6 +111,7 @@ export default class Root extends Component {
                         {/*<Route name="group-stats" path="/badges/:groupId" component={GroupStatsPage}/>
                         <Route name="group-members" path="/badges/:groupId/members" component={GroupMembersPage}/>
                         <Route name="group-contents" path="/badges/:groupId/contents" component={GroupContentsPage}/>*/}
+                        <Route name="settings" path="/settings" component={SettingsPage}/>
                     </Route>
                 </Route>
             </Router>

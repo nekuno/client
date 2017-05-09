@@ -289,6 +289,15 @@ export default {
         updating   : 'Updating yarn',
         filters    : 'Filters'
     },
+    SettingsPage                     : {
+        title         : 'Settings',
+        version       : 'Nekuno version',
+        policyPrivacy : 'Access to privacy policy',
+        disable       : 'Disable account (and it will be deleted after 3 months)',
+        disableConfirm: 'Do you want to disable your account?',
+        disableTitle  : 'Disable account',
+        disableError  : 'We couldn´t disable your account'
+    },
     ////////////////
     // Components //
     ////////////////
@@ -299,6 +308,8 @@ export default {
         myProfile     : 'Profile',
         conversations : 'Messages',
         socialNetworks: 'My social networks',
+        more          : 'More',
+        less          : 'Less',
         settings      : 'Settings',
         invitations   : 'Invitations',
         disableConfirm: 'Do you want to disable your account?',

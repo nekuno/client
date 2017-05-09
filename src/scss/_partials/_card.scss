@@ -133,6 +133,8 @@
 	}
 
 	&.person-card {
+		cursor: pointer;
+
 		.card-header {
 			.online-status {
 				font-size: 0.8em;

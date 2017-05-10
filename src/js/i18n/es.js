@@ -44,9 +44,12 @@ export default {
         cannotRemove: 'Este campo no se puede eliminar'
     },
     HomePage                         : {
-        title1         : 'Descubre contenidos de los temas que más te interesan',
-        title2         : 'Conecta sólo con las personas compatibles contigo',
-        title3         : 'Tú decides la información que compartes',
+        title1         : 'Agrega tus redes y descubre',
+        title1Details  : ['a tus compañeros de vida', 'proyectos', 'aventuras'],
+        title2         : 'Desbloquea insignias para redescubrir tu',
+        title2Details  : ['grupo', 'organizacion', 'ong', 'escuela', 'instituto', 'trabajo', 'universidad', 'evento', 'tribu', 'foro', 'canal'],
+        title3         : '100% gratuito' + "\n" + '100% software libre' + "\n" + 'Tú decides la información que compartes',
+        title3Details  : [],
         login          : 'Entrar con Facebook',
         hasInvitation  : '¿Tienes una invitación?',
         register       : 'Regístrate',
@@ -104,14 +107,14 @@ export default {
         changeProfilePhoto      : 'Cambiar foto de perfil'
     },
     GroupPage                        : {
-        groups        : 'Tus insignias',
-        create        : 'Crear insignia',
-        creating      : 'Creando insignia',
-        enterName     : 'Nombre de la insignia',
-        join          : 'Desbloquear insignia',
-        joining       : 'Desbloqueando la insignia',
-        joiningError  : 'Error desbloqueando esta insignia',
-        noGroupToken  : 'Este código no tiene ninguna insignia asociada'
+        groups      : 'Tus insignias',
+        create      : 'Crear insignia',
+        creating    : 'Creando insignia',
+        enterName   : 'Nombre de la insignia',
+        join        : 'Desbloquear insignia',
+        joining     : 'Desbloqueando la insignia',
+        joiningError: 'Error desbloqueando esta insignia',
+        noGroupToken: 'Este código no tiene ninguna insignia asociada'
     },
     GroupStatsPage                   : {
         group            : 'Grupo',
@@ -255,7 +258,7 @@ export default {
         spam          : 'Este usuario envía spam',
         otherReasons  : 'Otros motivos'
     },
-    SharedUserPage                  : {
+    SharedUserPage                   : {
         title          : '¿Quieres ver tu compatibilidad con %username%?',
         signUp         : 'Entra con Facebook',
         loginUser      : 'Intentando iniciar sesión',
@@ -332,12 +335,12 @@ export default {
         seeMore: 'Ver más'
     },
     AnswerUsernamePage               : {
-        username        : 'Nombre de usuario',
-        loadingMessage  : 'Registrando usuario'
+        username      : 'Nombre de usuario',
+        loadingMessage: 'Registrando usuario'
     },
     AnswerUserFieldPage              : {
-        question       : 'Pregunta',
-        loadingMessage : 'Cargando preguntas'
+        question      : 'Pregunta',
+        loadingMessage: 'Cargando preguntas'
     },
     AnswerProfileFieldPage           : {
         question      : 'Pregunta',
@@ -415,7 +418,7 @@ export default {
         text     : 'Responde más preguntas',
         completed: 'Preguntas completadas'
     },
-    OtherQuestionsBanner                  : {
+    OtherQuestionsBanner             : {
         title    : '¿Quieres responder las preguntas de este usuario?',
         text     : '',
         completed: 'Preguntas completadas'
@@ -456,7 +459,7 @@ export default {
     ThreadToolBar                    : {
         next: 'Siguiente'
     },
-    MessagesToolBar                    : {
+    MessagesToolBar                  : {
         maxLengthIs: 'La máxima longitud del mensaje es  '
     },
     MessagesToolBarDisabled          : {
@@ -508,12 +511,12 @@ export default {
         close      : 'Cerrar'
     },
     FilterContentButtons             : {
-        videos   : 'Videos',
-        audios   : 'Música',
-        photos   : 'Fotos',
-        websites : 'Todo',
-        people   : 'Personas',
-        channels : 'Canales'
+        videos  : 'Videos',
+        audios  : 'Música',
+        photos  : 'Fotos',
+        websites: 'Todo',
+        people  : 'Personas',
+        channels: 'Canales'
     },
     OrientationRequiredPopup         : {
         title              : 'Indícanos tu orientación sexual para ver este perfil',
@@ -667,14 +670,14 @@ export default {
     // NotificationService //
     /////////////////////////
     NotificationService              : {
-        Message : {
+        Message      : {
             title: 'Nuevo mensaje de %username%'
         },
-        ProcessFinish : {
+        ProcessFinish: {
             title: 'Proceso finalizado',
             body : 'Hemos acabado de procesar tu red de %resource%.'
         },
-        UserLiked     : {
+        UserLiked    : {
             title: '"like" mutuo',
             body : '%username% y tú os habéis hecho "like" mutuamente.'
         }
@@ -682,8 +685,8 @@ export default {
     /////////////////////////
     // LoginActionCreators //
     ////////////////////////
-    LoginActionCreators: {
+    LoginActionCreators              : {
         inactiveAccount: 'Cuenta desactivada',
-        enableQuestion: 'Tu cuenta está desactivada. ¿Quieres reactivarla?'
+        enableQuestion : 'Tu cuenta está desactivada. ¿Quieres reactivarla?'
     }
 }

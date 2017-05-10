@@ -54,10 +54,11 @@ export default class HomePage extends Component {
 
         this.goToRegisterPage = this.goToRegisterPage.bind(this);
         this.loginByResourceOwner = this.loginByResourceOwner.bind(this);
+        this.split = this.split.bind(this);
 
         this.promise = null;
         this.state = {
-            loginUser: selectn('location.query.autoLogin', props),
+            loginUser      : selectn('location.query.autoLogin', props),
             registeringUser: null,
         };
     }
@@ -115,6 +116,14 @@ export default class HomePage extends Component {
             });
     }
 
+    split(text) {
+        return text.split("\n").map(function(item, key) {
+            return (
+                key + 1 === text.split("\n").length ? <span key={key}>{item}</span> : <span key={key}>{item}<br/></span>
+            )
+        });
+    }
+
     renderSlides = function() {
         const {strings} = this.props;
         return (
@@ -122,7 +131,7 @@ export default class HomePage extends Component {
                 <div key={i} className="swiper-slide">
                     <div id={'login-' + i + '-image'} className="page">
                         <div className="title">
-                            {i === 1 ? strings.title1 : i === 2 ? strings.title2 : strings.title3}
+                            {this.split(strings['title' + i])}
                         </div>
                     </div>
                 </div>
@@ -183,9 +192,12 @@ export default class HomePage extends Component {
 
 HomePage.defaultProps = {
     strings: {
-        title1         : 'Discover contents of the topics that interest you',
-        title2         : 'Connect only with most compatible people with you',
-        title3         : 'You decide the information you share',
+        title1         : 'Add your networks and discover',
+        title1Details  : ['your life partners', 'projects', 'adventure'],
+        title2         : 'Unlock badges to rediscover your',
+        title2Details  : ['group', 'organization', 'ngo', 'school', 'institute', 'work', 'university', 'event', 'tribe', 'forum', 'channel'],
+        title3         : '100% Free' + "\n" + '100% Open source' + "\n" + 'You decide the information you share',
+        title3Details  : [],
         login          : 'Login with Facebook',
         hasInvitation  : 'Do you have an invitation?',
         register       : 'Register',

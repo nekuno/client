@@ -135,15 +135,15 @@ body #root .App .views .view.home-view {
   }
 
   body #root .App .page#login-1-image {
-    background: url('img/login-image-1-320x569.jpg') no-repeat center;
+    background: url('img/login/1-320x569.jpg') no-repeat center;
     background-size: 320px auto !important;
   }
   body #root .App .page#login-2-image {
-    background: url('img/login-image-2-320x569.jpg') no-repeat center;
+    background: url('img/login/2-320x569.jpg') no-repeat center;
     background-size: 320px auto !important;
   }
   body #root .App .page#login-3-image {
-    background: url('img/login-image-3-320x569.jpg') no-repeat center;
+    background: url('img/login/3-320x569.jpg') no-repeat center;
     background-size: 320px auto !important;
   }
 }
@@ -196,15 +196,15 @@ body #root .App .views .view.home-view {
   }
 
   body #root .App .page#login-1-image {
-    background: url('img/login-image-1-480x854.jpg') no-repeat center;
+    background: url('img/login/1-480x854.jpg') no-repeat center;
     background-size: 480px auto !important;
   }
   body #root .App .page#login-2-image {
-    background: url('img/login-image-2-480x854.jpg') no-repeat center;
+    background: url('img/login/2-480x854.jpg') no-repeat center;
     background-size: 480px auto !important;
   }
   body #root .App .page#login-3-image {
-    background: url('img/login-image-3-480x854.jpg') no-repeat center;
+    background: url('img/login/3-480x854.jpg') no-repeat center;
     background-size: 480px auto !important;
   }
 }
@@ -226,15 +226,15 @@ body #root .App .views .view.home-view {
     width: 175px;
   }
   body #root .App .page#login-1-image {
-    background: url('img/login-image-1-compressed-750x1334.jpg') no-repeat;
+    background: url('img/login/1-750x1334.jpg') no-repeat;
     background-size: 750px auto;
   }
   body #root .App .page#login-2-image {
-    background: url('img/login-image-2-compressed-750x1334.jpg') no-repeat;
+    background: url('img/login/2-750x1334.jpg') no-repeat;
     background-size: 750px auto;
   }
   body #root .App .page#login-3-image {
-    background: url('img/login-image-3-compressed-750x1334.jpg') no-repeat;
+    background: url('img/login/3-750x1334.jpg') no-repeat;
     background-size: 750px auto;
   }
 }
@@ -249,13 +249,13 @@ body #root .App .views .view.home-view {
       background: url('img/logo-107x56.png') no-repeat;
     }
     body #root .App .page#login-1-image {
-      background: url('img/login-image-1-320x569.jpg') no-repeat;
+      background: url('img/login/1-320x569.jpg') no-repeat;
     }
     body #root .App .page#login-2-image {
-      background: url('img/login-image-2-320x569.jpg') no-repeat;
+      background: url('img/login/2-320x569.jpg') no-repeat;
     }
     body #root .App .page#login-3-image {
-      background: url('img/login-image-3-320x569.jpg') no-repeat;
+      background: url('img/login/3-320x569.jpg') no-repeat;
     }
   }
   @media only screen and (min-width: 213px) and (max-width: 320px) {
@@ -263,13 +263,13 @@ body #root .App .views .view.home-view {
       background: url('img/logo-160x84.png') no-repeat;
     }
     body #root .App .page#login-1-image {
-      background: url('img/login-image-1-480x854.jpg') no-repeat;
+      background: url('img/login/1-480x854.jpg') no-repeat;
     }
     body #root .App .page#login-2-image {
-      background: url('img/login-image-2-480x854.jpg') no-repeat;
+      background: url('img/login/2-480x854.jpg') no-repeat;
     }
     body #root .App .page#login-3-image {
-      background: url('img/login-image-3-480x854.jpg') no-repeat;
+      background: url('img/login/3-480x854.jpg') no-repeat;
     }
   }
   @media only screen and (min-width: 321px) {
@@ -277,13 +277,13 @@ body #root .App .views .view.home-view {
       background: url('img/logo-250x132.png') no-repeat;
     }
     body #root .App .page#login-1-image {
-      background: url('img/login-image-1-compressed-750x1334.jpg') no-repeat;
+      background: url('img/login/1-750x1334.jpg') no-repeat;
     }
     body #root .App .page#login-2-image {
-      background: url('img/login-image-2-compressed-750x1334.jpg') no-repeat;
+      background: url('img/login/2-750x1334.jpg') no-repeat;
     }
     body #root .App .page#login-3-image {
-      background: url('img/login-image-3-compressed-750x1334.jpg') no-repeat;
+      background: url('img/login/3-750x1334.jpg') no-repeat;
     }
   }
 }
@@ -298,13 +298,13 @@ body #root .App .views .view.home-view {
       background: url('img/logo-160x84.png') no-repeat;
     }
     body #root .App .page#login-1-image {
-      background: url('img/login-image-1-480x854.jpg') no-repeat;
+      background: url('img/login/1-480x854.jpg') no-repeat;
     }
     body #root .App .page#login-2-image {
-      background: url('img/login-image-2-480x854.jpg') no-repeat;
+      background: url('img/login/2-480x854.jpg') no-repeat;
     }
     body #root .App .page#login-3-image {
-      background: url('img/login-image-3-480x854.jpg') no-repeat;
+      background: url('img/login/3-480x854.jpg') no-repeat;
     }
   }
   @media only screen and (min-width: 241px) {
@@ -312,13 +312,13 @@ body #root .App .views .view.home-view {
       background: url('img/logo-250x132.png') no-repeat;
     }
     body #root .App .page#login-1-image {
-      background: url('img/login-image-1-compressed-750x1334.jpg') no-repeat;
+      background: url('img/login/1-750x1334.jpg') no-repeat;
     }
     body #root .App .page#login-2-image {
-      background: url('img/login-image-2-compressed-750x1334.jpg') no-repeat;
+      background: url('img/login/2-750x1334.jpg') no-repeat;
     }
     body #root .App .page#login-3-image {
-      background: url('img/login-image-3-compressed-750x1334.jpg') no-repeat;
+      background: url('img/login/3-750x1334.jpg') no-repeat;
     }
   }
 }

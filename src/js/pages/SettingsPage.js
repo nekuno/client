@@ -53,7 +53,7 @@ export default class SettingsPage extends Component {
                     <div className="page settings-page">
                         <div id="page-content" className="settings-content">
                             <p>{strings.version}: {VERSION}</p>
-                            <p><a href="https://nekuno.com/legal-notice">{strings.legalTerms}</a></p>
+                            <p><a href="https://nekuno.com/legal-notice" target="_blank">{strings.legalTerms}</a></p>
                             <p><a href="javascript:void(0)" onClick={this.disableAccount}><span className="icon-warning"></span>&nbsp;&nbsp;{strings.disable}</a></p>
                         </div>
                     </div>

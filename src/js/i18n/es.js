@@ -295,9 +295,9 @@ export default {
     SettingsPage                     : {
         title         : 'Ajustes',
         version       : 'Versión de Nekuno',
-        policyPrivacy : 'Acceso a la política de privacidad',
-        disable       : 'Desactivar cuenta (y después de 3 meses será eliminada)',
-        disableConfirm: '¿Quieres desactivar tu cuenta?',
+        legalTerms    : 'Términos legales',
+        disable       : 'Desactivar cuenta',
+        disableConfirm: '¿Quieres desactivar tu cuenta? Después de 3 meses será eliminada si no la vuelves a activar',
         disableTitle  : 'Desactivar cuenta',
         disableError  : 'No pudimos desactivar tu cuenta',
     },

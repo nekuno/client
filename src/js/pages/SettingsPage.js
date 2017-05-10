@@ -53,7 +53,7 @@ export default class SettingsPage extends Component {
                     <div className="page settings-page">
                         <div id="page-content" className="settings-content">
                             <p>{strings.version}: {VERSION}</p>
-                            <p><a href="https://nekuno.com/privacy-policy">{strings.policyPrivacy}</a></p>
+                            <p><a href="https://nekuno.com/legal-notice">{strings.legalTerms}</a></p>
                             <p><a href="javascript:void(0)" onClick={this.disableAccount}>{strings.disable}</a></p>
                         </div>
                     </div>
@@ -65,11 +65,11 @@ export default class SettingsPage extends Component {
 
 SettingsPage.defaultProps = {
     strings: {
-        title: 'Settings',
-        version: 'Nekuno version',
-        policyPrivacy: 'Access to privacy policy',
-        disable: 'Disable account (and it will be deleted after 3 months)',
-        disableConfirm: 'Do you want to disable your account?',
+        title         : 'Settings',
+        version       : 'Nekuno version',
+        legalTerms    : 'End-user license agreement',
+        disable       : 'Disable account',
+        disableConfirm: 'Do you want to disable your account? It will be deleted after 3 months if you don`t enable it again.',
         disableTitle  : 'Disable account',
         disableError  : 'We couldn´t disable your account'
     }

@@ -295,9 +295,9 @@ export default {
     SettingsPage                     : {
         title         : 'Settings',
         version       : 'Nekuno version',
-        policyPrivacy : 'Access to privacy policy',
-        disable       : 'Disable account (and it will be deleted after 3 months)',
-        disableConfirm: 'Do you want to disable your account?',
+        legalTerms    : 'End-user license agreement',
+        disable       : 'Disable account',
+        disableConfirm: 'Do you want to disable your account? It will be deleted after 3 months if you don`t enable it again.',
         disableTitle  : 'Disable account',
         disableError  : 'We couldn´t disable your account'
     },

@@ -44,11 +44,11 @@ export default {
         cannotRemove: 'Este campo no se puede eliminar'
     },
     HomePage                         : {
-        title1         : 'Agrega tus redes y descubre',
-        title1Details  : ['a tus compañeros de vida', 'proyectos', 'aventuras'],
-        title2         : 'Desbloquea insignias para redescubrir tu',
-        title2Details  : ['grupo', 'organizacion', 'ong', 'escuela', 'instituto', 'trabajo', 'universidad', 'evento', 'tribu', 'foro', 'canal'],
-        title3         : '100% gratuito' + "\n" + '100% software libre' + "\n" + 'Tú decides la información que compartes',
+        title1         : 'Agrega tus redes y descubre a tus compañeros de %detail%',
+        title1Details  : ['vida', 'proyectos', 'aventuras'],
+        title2         : 'Desbloquea insignias para redescubrir tu %detail%',
+        title2Details  : ['grupo', 'organización', 'ong', 'escuela', 'instituto', 'trabajo', 'universidad', 'evento', 'tribu', 'foro', 'canal'],
+        title3         : '100% Gratuito' + "\n" + '100% Software libre',
         title3Details  : [],
         login          : 'Entrar con Facebook',
         hasInvitation  : '¿Tienes una invitación?',

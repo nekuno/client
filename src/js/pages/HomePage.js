@@ -149,16 +149,18 @@ export default class HomePage extends Component {
         const {strings} = this.props;
         const {details} = this.state;
         return (
-            [1, 2, 3].map(i =>
-                <div key={i} className="swiper-slide">
-                    <div id={'login-' + i + '-image'} className="page">
-                        <div className="title">
-                            {this.split(strings['title' + i])}
-                            {' '}
-                            {strings['title' + i + 'Details'][details['title' + i]]}
+            [1, 2, 3].map(i => {
+                    const detail = strings['title' + i + 'Details'][details['title' + i]];
+                    return (
+                        <div key={i} className="swiper-slide">
+                            <div id={'login-' + i + '-image'} className="page">
+                                <div className="title">
+                                    {this.split(strings['title' + i].replace('%detail%', detail))}
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
+                    )
+                }
             )
         );
     };
@@ -216,11 +218,11 @@ export default class HomePage extends Component {
 
 HomePage.defaultProps = {
     strings: {
-        title1         : 'Add your networks and discover',
-        title1Details  : ['your life partners', 'projects', 'adventures'],
-        title2         : 'Unlock badges to rediscover your',
+        title1         : 'Add your networks and discover your %detail% partners',
+        title1Details  : ['life', 'projects', 'adventures'],
+        title2         : 'Unlock badges to rediscover your %detail%',
         title2Details  : ['group', 'organization', 'ngo', 'school', 'institute', 'work', 'university', 'event', 'tribe', 'forum', 'channel'],
-        title3         : '100% Free' + "\n" + '100% Open source' + "\n" + 'You decide the information you share',
+        title3         : '100% Free' + "\n" + '100% Open source',
         title3Details  : [],
         login          : 'Login with Facebook',
         hasInvitation  : 'Do you have an invitation?',

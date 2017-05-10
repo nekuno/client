@@ -179,7 +179,6 @@ export default class HomePage extends Component {
                     <div className="view view-main home-view">
                         <div className="swiper-container swiper-init" data-speed="400" data-space-between="40" data-pagination=".swiper-pagination">
                             <div className="linear-gradient-rectangle"></div>
-
                             <div className="swiper-wrapper">
                                 {this.renderSlides()}
                             </div>
@@ -190,22 +189,26 @@ export default class HomePage extends Component {
                         <div id="page-content" className="home-content">
 
                         </div>
-                        <div className="swiper-pagination-and-button">
-                            <div className="swiper-pagination"></div>
-                            <div>
-                                <FacebookButton onClickHandler={this.loginByResourceOwner} text={strings.login}/>
-                                <div className="register-sub-title privacy-terms-text">
-                                    <p dangerouslySetInnerHTML={{__html: strings.privacy}}/>
+                        <div className="bottom-layer">
+                            <div className="swiper-pagination-and-button">
+                                <div className="swiper-pagination"></div>
+                                <div>
+                                    <FacebookButton onClickHandler={this.loginByResourceOwner} text={strings.login}/>
+                                    {/*<div className="register-text-block">*/}
+                                    {/*<div onClick={this.goToRegisterPage} className="register-text">*/}
+                                    {/*<span>{strings.hasInvitation}</span> <a href="javascript:void(0)">{strings.register}</a>*/}
+                                    {/*</div>*/}
+                                    {/*/!*Uncomment to enable login as guest*/}
+                                    {/*<div onClick={this.loginAsGuest} className="register-text">*/}
+                                    {/*<span>{strings.wantGuest}</span> <a href="javascript:void(0)">{strings.asGuest}</a>*/}
+                                    {/*</div>*!/*/}
+                                    {/*</div>*/}
                                 </div>
-                                {/*<div className="register-text-block">*/}
-                                {/*<div onClick={this.goToRegisterPage} className="register-text">*/}
-                                {/*<span>{strings.hasInvitation}</span> <a href="javascript:void(0)">{strings.register}</a>*/}
-                                {/*</div>*/}
-                                {/*/!*Uncomment to enable login as guest*/}
-                                {/*<div onClick={this.loginAsGuest} className="register-text">*/}
-                                {/*<span>{strings.wantGuest}</span> <a href="javascript:void(0)">{strings.asGuest}</a>*/}
-                                {/*</div>*!/*/}
-                                {/*</div>*/}
+                            </div>
+                            <div className="bottom-text">
+                                <div className="register-sub-title privacy-terms-text">
+                                    <p dangerouslySetInnerHTML={{__html: strings.legalTerms}}/>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -231,6 +234,6 @@ HomePage.defaultProps = {
         registeringUser: 'Registering user',
         wantGuest      : 'Do you want to try it?',
         asGuest        : 'Enter as guest',
-        privacy        : 'By registering, you agree to the <a href="https://nekuno.com/legal-notice" target="_blank">Legal Conditions</a> and the Nekuno <a href="https://nekuno.com/privacy-policy" target="_blank">Privacy Policy</a>.'
+        legalTerms     : 'We will never post anything on your networks.</br>By registering, you agree to the <a href="https://nekuno.com/legal-notice" target="_blank">End-user license agreement</a>.'
     }
 };

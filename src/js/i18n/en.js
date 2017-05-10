@@ -57,7 +57,7 @@ export default {
         registeringUser: 'Registering user',
         wantGuest      : 'Do you want to try it?',
         asGuest        : 'Enter as guest',
-        privacy        : 'By registering, you agree to the <a href="https://nekuno.com/legal-notice" target="_blank">Legal Conditions</a> and the Nekuno <a href="https://nekuno.com/privacy-policy" target="_blank">Privacy Policy</a>.'
+        legalTerms     : 'We will never post anything on your networks.</br>By registering, you agree to the <a href="https://nekuno.com/legal-notice" target="_blank">End-user license agreement</a>.'
     },
     InterestsPage                    : {
         cancel   : 'Cancel',
@@ -265,7 +265,7 @@ export default {
         registeringUser: 'Registering user',
         loadingProfile : 'Loading profile',
         invalidUrl     : 'Invalid URL',
-        privacy        : 'By registering, you agree to the <a href="https://nekuno.com/legal-notice" target="_blank">Legal Conditions</a> and the Nekuno <a href="https://nekuno.com/privacy-policy" target="_blank">Privacy Policy</a>.'
+        legalTerms     : 'We will never post anything on your networks.</br>By registering, you agree to the <a href="https://nekuno.com/legal-notice" target="_blank">End-user license agreement</a>.'
     },
     CreateThreadPage                 : {
         create  : 'Create yarn',

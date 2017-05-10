@@ -57,7 +57,7 @@ export default {
         registeringUser: 'Registrando usuario',
         wantGuest      : '¿Quieres probarlo?',
         asGuest        : 'Entra como invitado',
-        privacy        : 'Al registrarte, estás aceptando las <a href="https://nekuno.com/legal-notice" target="_blank">Condiciones Legales</a> y la <a href="https://nekuno.com/privacy-policy" target="_blank">Política de Privacidad</a> de Nekuno.'
+        legalTerms     : 'Nunca publicaremos nada en tus redes.</br>Al registrarte, estás aceptando los <a href="https://nekuno.com/legal-notice" target="_blank">Términos Legales</a>.'
     },
     InterestsPage                    : {
         cancel   : 'Cancelar',
@@ -265,7 +265,7 @@ export default {
         registeringUser: 'Registrando usuario',
         loadingProfile : 'Cargando perfil',
         invalidUrl     : 'URL Inválida',
-        privacy        : 'Al registrarte, estás aceptando las <a href="https://nekuno.com/legal-notice" target="_blank">Condiciones Legales</a> y la <a href="https://nekuno.com/privacy-policy" target="_blank">Política de Privacidad</a> de Nekuno'
+        legalTerms     : 'Nunca publicaremos nada en tus redes.</br>Al registrarte, estás aceptando los <a href="https://nekuno.com/legal-notice" target="_blank">Términos Legales</a>.'
     },
     CreateThreadPage                 : {
         create  : 'Crear ovillos',

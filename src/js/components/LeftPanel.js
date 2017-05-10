@@ -6,7 +6,6 @@ import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
 import StatsStore from '../stores/StatsStore';
 import LoginActionCreators from '../actions/LoginActionCreators';
-import * as UserActionCreators from '../actions/UserActionCreators';
 import ChatThreadStore from '../stores/ChatThreadStore';
 import ProfileStore from '../stores/ProfileStore';
 
@@ -56,7 +55,6 @@ export default class LeftPanel extends Component {
         this.handleClickSettings = this.handleClickSettings.bind(this);
         this.handleGoClickInvitations = this.handleGoClickInvitations.bind(this);
         this.handleGoClickGroups = this.handleGoClickGroups.bind(this);
-        this.disableAccount = this.disableAccount.bind(this);
         this.logout = this.logout.bind(this);
 
         this.state = {
@@ -124,25 +122,6 @@ export default class LeftPanel extends Component {
         $$('.panel-left').once('closed', () => {
             this.context.router.push('/badges');
         });
-    }
-
-    disableAccount() {
-        nekunoApp.confirm(this.props.strings.disableConfirm, this.props.strings.disableTitle,
-            () => {
-                UserActionCreators.setOwnEnabled(false).then(
-                    () => {
-                        this.logout();
-                    }
-                ).catch(
-                    (error) => {
-                        nekunoApp.alert(this.props.strings.disableError);
-                        console.log(error);
-                    }
-                );
-            },
-            () => {
-            }
-        )
     }
 
     logout() {
@@ -213,9 +192,6 @@ export default class LeftPanel extends Component {
                                 <a href="javascript:void(0)" onClick={this.handleClickSettings}>
                                     <span className="icon-preferences"></span>&nbsp;&nbsp;{strings.settings}
                                 </a>
-                                <a href="javascript:void(0)" onClick={this.disableAccount}>
-                                    <span className="icon-warning"></span>&nbsp;&nbsp;{strings.disableTitle}
-                                </a>
                                 {/*<Link to="/invitations" onClick={this.handleGoClickInvitations} onlyActiveOnIndex={false}>*/}
                                 {/*{strings.invitations}*/}
                                 {/*</Link>*/}
@@ -243,9 +219,6 @@ LeftPanel.defaultProps = {
         less          : 'Less',
         settings      : 'Settings',
         invitations   : 'Invitations',
-        disableConfirm: 'Do you want to disable your account?',
-        disableTitle  : 'Disable account',
-        disableError  : 'We couldn´t disable your account',
         logout        : 'Logout'
     }
 };

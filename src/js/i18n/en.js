@@ -315,9 +315,6 @@ export default {
         less          : 'Less',
         settings      : 'Settings',
         invitations   : 'Invitations',
-        disableConfirm: 'Do you want to disable your account?',
-        disableTitle  : 'Disable account',
-        disableError  : 'We couldn´t disable your account',
         logout        : 'Logout'
     },
     ProfileDataList                  : {

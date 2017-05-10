@@ -315,9 +315,6 @@ export default {
         less          : 'Menos',
         settings      : 'Ajustes',
         invitations   : 'Invitaciones',
-        disableConfirm: '¿Quieres desactivar tu cuenta?',
-        disableTitle  : 'Desactivar cuenta',
-        disableError  : 'No pudimos desactivar tu cuenta',
         logout        : 'Salir'
     },
     ProfileDataList                  : {

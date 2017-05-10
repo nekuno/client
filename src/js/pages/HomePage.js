@@ -10,6 +10,7 @@ import SocialNetworkService from '../services/SocialNetworkService';
 import LocaleStore from '../stores/LocaleStore';
 
 let nekunoSwiper;
+let delay = 2000;
 
 function initSwiper() {
     // Init slider and store its instance in nekunoSwiper variable
@@ -60,7 +61,13 @@ export default class HomePage extends Component {
         this.state = {
             loginUser      : selectn('location.query.autoLogin', props),
             registeringUser: null,
+            details        : {
+                title1: 0,
+                title2: 0,
+                title3: 0
+            }
         };
+        this.interval = null;
     }
 
     componentDidMount() {
@@ -71,6 +78,19 @@ export default class HomePage extends Component {
             const scope = facebookNetwork.scope;
             this.loginByResourceOwner(resource, scope);
         }
+        this.interval = setInterval(() => {
+            const {strings} = this.props;
+            const details = this.state.details;
+            [1, 2, 3].map(i => {
+                if (strings['title' + i + 'Details'].length > 0 && details['title' + i] + 1 === strings['title' + i + 'Details'].length) {
+                    details['title' + i] = 0;
+                } else {
+                    details['title' + i]++;
+                }
+            });
+            this.setState({details: details});
+
+        }, delay);
     }
 
     componentWillUnmount() {
@@ -78,6 +98,7 @@ export default class HomePage extends Component {
         if (this.promise) {
             this.promise.cancel();
         }
+        clearInterval(this.interval);
     }
 
     loginAsGuest = function() {
@@ -126,12 +147,15 @@ export default class HomePage extends Component {
 
     renderSlides = function() {
         const {strings} = this.props;
+        const {details} = this.state;
         return (
             [1, 2, 3].map(i =>
                 <div key={i} className="swiper-slide">
                     <div id={'login-' + i + '-image'} className="page">
                         <div className="title">
                             {this.split(strings['title' + i])}
+                            {' '}
+                            {strings['title' + i + 'Details'][details['title' + i]]}
                         </div>
                     </div>
                 </div>

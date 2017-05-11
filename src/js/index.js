@@ -7,9 +7,11 @@ import RouterContainer from './services/RouterContainer';
 import LoginActionsCreator from './actions/LoginActionCreators';
 import './vendor/init';
 import AnalyticsService from './services/AnalyticsService';
+import GeocoderService from './services/GeocoderService';
 import SocialNetworkService from './services/SocialNetworkService';
 
 AnalyticsService.init();
+GeocoderService.init();
 SocialNetworkService.initFacebookSDK();
 RouterContainer.set(hashHistory);
 LoginActionsCreator.autologin();

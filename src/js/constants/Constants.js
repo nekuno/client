@@ -101,6 +101,9 @@ export const TRACKER_ID_WEB = config.TRACKER_ID_WEB;
 export const TRACKER_ID_APP = config.TRACKER_ID_APP;
 export const INSTANT_HOST = config.INSTANT_HOST;
 
+export const GOOGLE_MAPS_API_KEY = config.GOOGLE_MAPS_API_KEY;
+export const GOOGLE_MAPS_URL = 'https://maps.googleapis.com/maps/api/js?libraries=places&key=%API_KEY%&sensor=true&callback=onMapsApiLoaded'.replace('%API_KEY%', GOOGLE_MAPS_API_KEY);
+
 export const REQUIRED_REGISTER_USER_FIELDS = [
     {
         name    : 'email'

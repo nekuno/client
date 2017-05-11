@@ -2,6 +2,7 @@ import config from '../config/config';
 
 export const VERSION = require('../../../package.json').version;
 export const API_ROOT = config.API_ROOT;
+export const OFFLINE_CHECK_IMAGE = config.OFFLINE_CHECK_IMAGE + '?timestamp=%timestamp%';
 export const INVITATIONS_URL = config.INVITATIONS_ROOT + '{token}';
 export const SHARED_USER_URL = config.SHARED_USER_ROOT + '{slug}';
 export const API_URLS = {

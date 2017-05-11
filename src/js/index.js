@@ -9,7 +9,9 @@ import './vendor/init';
 import AnalyticsService from './services/AnalyticsService';
 import GeocoderService from './services/GeocoderService';
 import SocialNetworkService from './services/SocialNetworkService';
+import OfflineService from './services/OfflineService';
 
+OfflineService.check();
 AnalyticsService.init();
 GeocoderService.init();
 SocialNetworkService.initFacebookSDK();

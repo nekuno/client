@@ -663,9 +663,9 @@ export default {
         skip   : 'Omitir',
         seeMore: '<a href="https://nekuno.com" target="_blank">Ver más sobre Nekuno</a>'
     },
-    /////////////////////////
-    // NotificationService //
-    /////////////////////////
+    //////////////
+    // Services //
+    //////////////
     NotificationService              : {
         Message      : {
             title: 'Nuevo mensaje de %username%'
@@ -678,6 +678,9 @@ export default {
             title: '"like" mutuo',
             body : '%username% y tú os habéis hecho "like" mutuamente.'
         }
+    },
+    OfflineService                   : {
+        isOffline: 'La aplicación no funcionará correctamente porque no tienes conexión a Internet'
     },
     /////////////////////////
     // LoginActionCreators //

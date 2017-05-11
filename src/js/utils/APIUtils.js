@@ -1,5 +1,6 @@
 import { Schema, arrayOf, normalize } from 'normalizr';
 import selectn from 'selectn';
+import OfflineService from '../services/OfflineService';
 import Url from 'url';
 import request from 'request';
 import Bluebird from 'bluebird';
@@ -73,43 +74,46 @@ export function doRequest(method, url, data = null) {
 
     return new Bluebird((resolve, reject, onCancel) => {
 
-        if (LoginStore.isGuest() && ['PUT', 'POST', 'DELETE'].indexOf(method) > -1) {
-            nekunoApp.hideProgressbar();
-            let message = locale == 'en' ? 'This feature is available only to registered users. Improve your experience now!'
-                : 'Esta función sólo está disponible para usuarios registrados. Mejora tu experiencia ahora!';
-            nekunoApp.confirm(message, () => {
-                LoginActionCreators.logoutUser('/register');
-            });
-            return reject(message);
-        }
-
-        var promise = request(
-            {
-                method  : method,
-                protocol: Url.parse(url).protocol,
-                url     : url,
-                qs      : {locale},
-                body    : data,
-                json    : true,
-                headers : headers
-            },
-            (err, response, body) => {
-
+        OfflineService.check().then(() => {
+            if (LoginStore.isGuest() && ['PUT', 'POST', 'DELETE'].indexOf(method) > -1) {
                 nekunoApp.hideProgressbar();
-
-                if (err) {
-                    return reject(err);
-                }
-                if (response.statusCode >= 400) {
-                    return reject(body);
-                }
-                return resolve(body);
+                let message = locale == 'en' ? 'This feature is available only to registered users. Improve your experience now!'
+                    : 'Esta función sólo está disponible para usuarios registrados. Mejora tu experiencia ahora!';
+                nekunoApp.confirm(message, () => {
+                    LoginActionCreators.logoutUser('/register');
+                });
+                return reject(message);
             }
-        );
 
-        onCancel(() => {
-            promise.abort();
-            nekunoApp.hideProgressbar();
+            var promise = request(
+                {
+                    method  : method,
+                    protocol: Url.parse(url).protocol,
+                    url     : url,
+                    qs      : {locale},
+                    body    : data,
+                    json    : true,
+                    headers : headers
+                },
+                (err, response, body) => {
+
+                    nekunoApp.hideProgressbar();
+
+                    if (err) {
+                        return reject(err);
+                    }
+                    if (response.statusCode >= 400) {
+                        return reject(body);
+                    }
+                    return resolve(body);
+                }
+            );
+
+            onCancel(() => {
+                promise.abort();
+            });
+        }, (status) => {
+            return reject(status);
         });
     });
 }

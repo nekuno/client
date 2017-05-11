@@ -11,11 +11,12 @@ import GeocoderService from './services/GeocoderService';
 import SocialNetworkService from './services/SocialNetworkService';
 import OfflineService from './services/OfflineService';
 
-OfflineService.check();
-AnalyticsService.init();
-GeocoderService.init();
-SocialNetworkService.initFacebookSDK();
-RouterContainer.set(hashHistory);
-LoginActionsCreator.autologin();
-window.nekunoContainer = document.getElementById('root');
-render(<Root history={hashHistory}/>, window.nekunoContainer);
+OfflineService.check().then(() => {
+    AnalyticsService.init();
+    GeocoderService.init();
+    SocialNetworkService.initFacebookSDK();
+    RouterContainer.set(hashHistory);
+    LoginActionsCreator.autologin();
+    window.nekunoContainer = document.getElementById('root');
+    render(<Root history={hashHistory}/>, window.nekunoContainer);
+}, (status) => { console.log(status) });

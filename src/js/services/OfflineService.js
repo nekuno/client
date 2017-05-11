@@ -1,19 +1,52 @@
-import { OFFLINE_CHECK_IMAGE } from '../constants/Constants';
+import { API_URLS } from '../constants/Constants';
 import TranslationService from './TranslationService';
+import Url from 'url';
+import request from 'request';
+import Bluebird from 'bluebird';
+Bluebird.config({
+    cancellation: true
+});
 
 class OfflineService {
+
+    constructor() {
+        this._alertPresent = false;
+    }
+
     check() {
-        let i = new Image();
-        i.onload = doConnectFunction;
-        i.onerror = doNotConnectFunction;
+        return new Bluebird((resolve, reject, onCancel) => {
+            let promise = request(
+                {
+                    method  : 'GET',
+                    protocol: Url.parse(API_URLS.CONNECTION_STATUS).protocol,
+                    url     : API_URLS.CONNECTION_STATUS,
+                    json    : true
+                },
+                (err, response, body) => {
+                    nekunoApp.hideProgressbar();
+                    if (err) {
+                        this.alertOffline();
+                        return reject(err);
+                    }
+                    if (response.statusCode >= 400) {
+                        this.alertOffline();
+                        return reject(body);
+                    }
+                    return resolve(body);
+                }
+            );
 
-        i.src = OFFLINE_CHECK_IMAGE.replace('%timestamp%', new Date());
+            onCancel(() => {
+                this.alertOffline();
+                promise.abort();
+            });
+        });
+    }
 
-        function doConnectFunction() {
-            console.log('Connected to Internet');
-        }
-        function doNotConnectFunction() {
-            nekunoApp.alert(TranslationService.getTranslatedString('OfflineService', 'isOffline'));
+    alertOffline() {
+        if (!this._alertPresent) {
+            nekunoApp.alert(TranslationService.getTranslatedString('OfflineService', 'isOffline'), () => { this._alertPresent = false });
+            this._alertPresent = true;
         }
     }
 }

@@ -154,6 +154,7 @@ export default class HomePage extends Component {
                     return (
                         <div key={i} className="swiper-slide">
                             <div id={'login-' + i + '-image'} className="page">
+                                <div className="linear-gradient-rectangle"></div>
                                 <div className="title">
                                     {this.split(strings['title' + i].replace('%detail%', detail))}
                                 </div>
@@ -178,7 +179,6 @@ export default class HomePage extends Component {
                     :
                     <div className="view view-main home-view">
                         <div className="swiper-container swiper-init" data-speed="400" data-space-between="40" data-pagination=".swiper-pagination">
-                            <div className="linear-gradient-rectangle"></div>
                             <div className="swiper-wrapper">
                                 {this.renderSlides()}
                             </div>

@@ -147,16 +147,19 @@ export default class LeftPanel extends Component {
                         </a>
                     </div>
                     { userLoggedIn ? <User {...this.props} onClick={this.handleGoClickProfile}/> : '' }
-                    <div className="user-interests">
-                        <a href="javascript:void(0)" onClick={this.handleGoClickInterests}>
-                            <div className="number">
-                                {interests}
-                            </div>
-                            <div className="label">
-                                {strings.interests}
-                            </div>
-                        </a>
-                    </div>
+                    { userLoggedIn && !moreActive ?
+                        <div className="user-interests">
+                            <a href="javascript:void(0)" onClick={this.handleGoClickInterests}>
+                                <div className="number">
+                                    {interests}
+                                </div>
+                                <div className="label">
+                                    {strings.interests}
+                                </div>
+                            </a>
+                        </div>
+                        : null
+                    }
                     { userLoggedIn && !moreActive ?
                         <div className="content-block menu">
                             <a href="javascript:void(0)" onClick={this.handleGoClickThreads}>

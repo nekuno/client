@@ -80,24 +80,24 @@ body #root .App .views .view.home-view {
     height: 100%;
     overflow-y: visible;
 
-    .linear-gradient-rectangle {
-      background-image: linear-gradient(180deg, black 0%, rgba(0, 0, 0, 0.76) 24%, transparent 100%);
-      height: 338px;
-      opacity: 0.8;
-      position: absolute;
-      top: 0;
-      width: 100%;
-      z-index: 10;
-    }
-
     .swiper-slide {
       height: 100%;
       text-align: center;
 
       .page#login-1-image, .page#login-2-image, .page#login-3-image {
         background-size: 100% auto;
+        background-position: center;
         height: 100%;
         width: 100%;
+
+        .linear-gradient-rectangle {
+          background-image: linear-gradient(180deg, black 0%, rgba(0, 0, 0, 0.76) 24%, transparent 100%);
+          height: 338px;
+          opacity: 0.8;
+          position: absolute;
+          top: 0;
+          width: 100%;
+        }
 
         .title {
           color: white;
@@ -180,7 +180,7 @@ body #root .App .views .view.home-view {
     }
   }
 }
-@media only screen and (max-height: 370px) {
+@media only screen and (max-height: 375px) {
   body #root .App .views .view.home-view .swiper-container .swiper-slide {
     .page#login-1-image, .page#login-2-image, .page#login-3-image {
       .title {

@@ -1,5 +1,5 @@
 import React, { PropTypes, Component } from 'react';
-import { ORIGIN_CONTEXT } from '../constants/Constants';
+import { ORIGIN_CONTEXT, SHARED_USER_URL } from '../constants/Constants';
 import OtherProfileData from '../components/profile/OtherProfileData';
 import OtherProfileDataList from '../components/profile/OtherProfileDataList'
 import TopNavBar from '../components/ui/TopNavBar';
@@ -8,6 +8,7 @@ import Image from '../components/ui/Image';
 import EmptyMessage from '../components/ui/EmptyMessage';
 import OrientationRequiredPopup from '../components/ui/OrientationRequiredPopup';
 import ReportContentPopup from '../components/interests/ReportContentPopup';
+import ShareService from '../services/ShareService';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
@@ -151,11 +152,13 @@ export default class OtherUserPage extends Component {
         this.goToDiscover = this.goToDiscover.bind(this);
         this.setOrientationAnswered = this.setOrientationAnswered.bind(this);
         this.showBlockActions = this.showBlockActions.bind(this);
+        this.showUnblockActions = this.showUnblockActions.bind(this);
         this.reportReasonButton = this.reportReasonButton.bind(this);
         this.onReportReason = this.onReportReason.bind(this);
         this.onReportReasonOther = this.onReportReasonOther.bind(this);
         this.optionButton = this.optionButton.bind(this);
         this.cancelButton = this.optionButton.bind(this);
+        this.onShareError = this.onShareError.bind(this);
 
         this.state = {
             orientationAnswered: null,
@@ -195,19 +198,58 @@ export default class OtherUserPage extends Component {
         if (!this.props.blocked) {
             this.showBlockActions();
         } else {
-            this.unsetBlockUser(this.props);
+            this.showUnblockActions();
         }
     }
 
     showBlockActions() {
-        const {strings} = this.props;
+        const {otherUser, strings} = this.props;
         const reportButtons = [
+            this.optionTitle(otherUser.username),
+            this.optionButton(strings.share, this.shareUser.bind(this, this.props)),
             this.optionButton(strings.block, this.blockUser.bind(this, this.props)),
             this.optionButton(strings.blockAndReport, this.showReportActions.bind(this, this.props)),
             this.cancelButton(strings.cancel)
         ];
 
         nekunoApp.actions(reportButtons);
+    }
+
+    shareUser() {
+        const {otherUser, params, strings} = this.props;
+        const url = SHARED_USER_URL.replace('{slug}', params.slug);
+        ShareService.share(
+            strings.compatibilityCheckWith.replace('%username%', otherUser.username),
+            url,
+            this.onShareSuccess,
+            this.onShareError,
+            strings.copiedToClipboard
+        );
+    }
+
+    onShareSuccess() {
+    }
+
+    onShareError() {
+        nekunoApp.alert(this.props.strings.shareError)
+    }
+
+    showUnblockActions() {
+        const {otherUser, strings} = this.props;
+        const buttons = [
+            this.optionTitle(otherUser.username),
+            this.optionButton(strings.unblock, this.unsetBlockUser.bind(this, this.props)),
+            this.cancelButton(strings.cancel)
+        ];
+
+        nekunoApp.actions(buttons);
+    }
+
+    optionTitle(title) {
+        return {
+            text : title,
+            label: true
+        }
     }
 
     optionButton(text, callback) {
@@ -219,9 +261,10 @@ export default class OtherUserPage extends Component {
     }
 
     showReportActions(props) {
-        const {strings} = props;
+        const {otherUser, strings} = props;
 
         const reportButtons = [
+            this.optionTitle(otherUser.username),
             this.reportReasonButton(strings.notAPerson, 'not a person'),
             this.reportReasonButton(strings.harmful, 'harmful'),
             this.reportReasonButton(strings.spam, 'spam'),
@@ -231,8 +274,7 @@ export default class OtherUserPage extends Component {
         nekunoApp.actions(reportButtons);
     }
 
-    reportReasonButton(text, reason, callback = null)
-    {
+    reportReasonButton(text, reason, callback = null) {
         callback = callback ? callback : this.onReportReason.bind(this, reason, null);
 
         return this.optionButton(text, callback);
@@ -242,31 +284,27 @@ export default class OtherUserPage extends Component {
         nekunoApp.popup('.popup-report-content');
     }
 
-    cancelButton(text)
-    {
+    cancelButton(text) {
         return {
             color: 'red',
             text : text
         }
     }
 
-    onReportReasonOther(reasonText)
-    {
+    onReportReasonOther(reasonText) {
         return this.onReportReason('other', reasonText);
     }
 
-    onReportReason(reason, reasonText = null)
-    {
+    onReportReason(reason, reasonText = null) {
         const {user, otherUser} = this.props;
         const data = {
-            reason: reason,
+            reason    : reason,
             reasonText: reasonText
         };
         UserActionCreators.reportUser(parseId(user), parseId(otherUser), data);
     }
 
-    blockUser(props)
-    {
+    blockUser(props) {
         const {user, otherUser} = props;
         UserActionCreators.blockUser(parseId(user), parseId(otherUser));
     }
@@ -321,7 +359,6 @@ export default class OtherUserPage extends Component {
         const otherPictureBig = selectn('photo.thumbnail.big', otherUser);
         const ownPicture = selectn('photo.thumbnail.small', user);
         const defaultImgBig = 'img/no-img/big.jpg';
-        const blockClass = blocked ? "icon-block blocked" : "icon-block";
         const birthdayDataSet = profileWithMetadata.find(profileDataSet => typeof selectn('fields.birthday.value', profileDataSet) !== 'undefined');
         const genderDataSet = profileWithMetadata.find(profileDataSet => typeof selectn('fields.gender.value', profileDataSet) !== 'undefined');
         const age = selectn('fields.birthday.value', birthdayDataSet);
@@ -351,10 +388,10 @@ export default class OtherUserPage extends Component {
                                                         <Image src={otherPictureBig} defaultSrc={defaultImgBig}/>
                                                     </div>
                                                     {photos && photos.length > 0 ? photos.map((photo, index) =>
-                                                        <div className="swiper-slide" key={index + 1} onClick={this.handlePhotoClick.bind(this, photo.url)}>
-                                                            <Image src={photo.thumbnail.big} defaultSrc={defaultImgBig}/>
-                                                        </div>
-                                                    ) : null}
+                                                            <div className="swiper-slide" key={index + 1} onClick={this.handlePhotoClick.bind(this, photo.url)}>
+                                                                <Image src={photo.thumbnail.big} defaultSrc={defaultImgBig}/>
+                                                            </div>
+                                                        ) : null}
                                                 </div>
                                             </div>
                                         </div>
@@ -378,7 +415,7 @@ export default class OtherUserPage extends Component {
                                         <span className={like === null ? 'icon-spinner rotation-animation' : like && like !== -1 ? 'icon-star yellow' : 'icon-star'}/>
                                     </div>
                                     <div className="block-button icon-wrapper" onClick={blocked !== null ? this.onBlock : null}>
-                                        <span className={blockClass}/>
+                                        <span className="icon-fa-plus"/>
                                     </div>
                                     <div className="other-profile-wrapper bold">
                                         <OtherProfileData matching={matching} similarity={similarity} stats={comparedStats} ownImage={ownPicture}
@@ -410,17 +447,29 @@ export default class OtherUserPage extends Component {
 
 OtherUserPage.defaultProps = {
     strings: {
-        profile     : 'Profile',
-        loading     : 'Loading profile',
-        age         : 'Age',
-        message     : 'Message',
-        about       : 'About',
-        photos      : 'Photos',
-        questions   : 'Answers',
-        interests   : 'Interests',
-        like        : 'Like',
-        dontLike    : 'Don\'t like anymore',
-        saving      : 'Saving...',
-        confirmBlock: 'Are you sure you want to block this user?'
+        profile               : 'Profile',
+        loading               : 'Loading profile',
+        age                   : 'Age',
+        message               : 'Message',
+        about                 : 'About',
+        photos                : 'Photos',
+        questions             : 'Answers',
+        interests             : 'Interests',
+        like                  : 'Like',
+        dontLike              : 'Don\'t like anymore',
+        saving                : 'Saving...',
+        share                 : 'Share this profile',
+        shareError            : 'An error occurred sending the link.',
+        compatibilityCheckWith: 'Check your compatibility with %username%',
+        copiedToClipboard     : 'Copied to clipboard',
+        block                 : 'Block user',
+        unblock               : 'Unblock user',
+        blockAndReport        : 'Block and report user',
+        cancel                : 'Cancel',
+        confirmBlock          : 'Are you sure you want to block this user?',
+        notAPerson            : 'This user is not a person',
+        harmful               : 'This user is abusive or harmful',
+        spam                  : 'This user sends spam',
+        otherReasons          : 'Other reasons'
     }
 };

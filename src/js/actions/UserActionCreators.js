@@ -36,14 +36,16 @@ export function requestUser(userSlug, fields) {
         success: ActionTypes.REQUEST_USER_SUCCESS,
         failure: ActionTypes.REQUEST_USER_ERROR
     }, {userSlug})
-        .catch((error) => {
-            nekunoApp.alert(error.error, () => {
-                const path = '/discover';
-                console.log('Redirecting to path', path);
-                let router = RouterContainer.get();
-                router.replace(path);
-            });
-            throw error;
+        .catch((status) => {
+            if (status.error) {
+                nekunoApp.alert(status.error, () => {
+                    const path = '/discover';
+                    console.log('Redirecting to path', path);
+                    let router = RouterContainer.get();
+                    router.replace(path);
+                });
+            }
+            throw status;
         });
 }
 

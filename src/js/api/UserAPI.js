@@ -2,7 +2,6 @@ import {
     fetchUser,
     postBlockUser,
     deleteBlockUser,
-    fetchBlockUser,
     postLikeContent,
     postDislikeContent,
     postIgnoreContent,
@@ -98,7 +97,11 @@ export function unsetBlockUser(to, url = `blocks/${to}`) {
 }
 
 export function getBlockUser(to, url = `blocks/${to}`) {
-    return fetchBlockUser(url);
+    return getData(url);
+}
+
+export function reportUser(to, data, url = `reports/${to}`) {
+    return postData(url, data);
 }
 
 export function setLikeUser(to, originContext, originName, url = `likes/${to}`) {
@@ -135,6 +138,10 @@ export function setIgnoreContent(to, originContext, originName, url = `content/r
 
 export function unsetRateContent(to, url = `content/rate`) {
     return deleteRateContent(url, to);
+}
+
+export function reportContent(data, url = `content/report`) {
+    return postData(url, data);
 }
 
 export function getMatching(userId, url = `matching/${userId}`) {

@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import translate from '../../i18n/Translate';
-import TextInput from '../ui/TextInput';
+import Input from '../ui/Input';
 import FullWidthButton from '../ui/FullWidthButton';
 
 @translate('SetThreadTitlePopup')
@@ -55,7 +55,7 @@ export default class SetThreadTitlePopup extends Component {
                     <div className="popup-set-thread-title-title title"> {strings.title}</div>
                     <div className="list-block">
                         <ul>
-                            <TextInput ref="threadTitle" placeholder={strings.placeholder} onChange={this._onChange} defaultValue={defaultTitle}/>
+                            <Input ref="threadTitle" placeholder={strings.placeholder} onChange={this._onChange} defaultValue={defaultTitle}/>
                         </ul>
                     </div>
                     <br />

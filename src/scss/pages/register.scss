@@ -26,6 +26,11 @@ body #root .App .views .view .page {
   .register-sub-title {
     margin-top: 10px;
     text-align: center;
+
+    a {
+      color: $material-grey;
+      text-decoration: underline;
+    }
   }
 }
 

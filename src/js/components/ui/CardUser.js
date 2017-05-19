@@ -75,9 +75,9 @@ export default class CardUser extends Component {
         let imgSrc = photo ? photo.thumbnail.big : defaultSrc;
 
         return (
-            <div className="card person-card">
+            <div className="card person-card" onClick={this.handleGoToProfile}>
                 <div className="card-header">
-                    <div className="card-title" onClick={this.handleGoToProfile}>
+                    <div className="card-title">
                         {username}
                     </div>
                     <div className="card-sub-title">
@@ -90,7 +90,7 @@ export default class CardUser extends Component {
                 </div>
                 <div className="card-content">
                     <div className="card-content-inner">
-                        <div className="image fixed-max-height-image" onClick={this.handleGoToProfile}>
+                        <div className="image fixed-max-height-image">
                             <Image src={imgSrc} defaultSrc={defaultSrc}/>
                         </div>
                         <div className="matching">

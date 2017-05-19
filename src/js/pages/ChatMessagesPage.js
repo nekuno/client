@@ -10,8 +10,13 @@ import ChatActionCreators from '../actions/ChatActionCreators';
 import * as UserActionCreators from '../actions/UserActionCreators';
 import LoginStore from '../stores/LoginStore';
 import UserStore from '../stores/UserStore';
+import BlockStore from '../stores/BlockStore';
 import ChatMessageStore from '../stores/ChatMessageStore';
 import ChatUserStatusStore from '../stores/ChatUserStatusStore';
+
+function parseUserId(user) {
+    return user ? user.id : null;
+}
 
 function requestData(props) {
     const otherUserSlug = props.params.slug;
@@ -22,28 +27,38 @@ function requestData(props) {
     }
 }
 
+function getCanContact(user) {
+    const otherUserId = parseUserId(user);
+
+    const anyBlocked = otherUserId ? BlockStore.getBidirectional(LoginStore.user.id, otherUserId) : false;
+    const isOtherEnabled = user ? user.enabled : false;
+
+    return !anyBlocked && isOtherEnabled;
+}
+
 function getState(props) {
     const otherUserSlug = props.params.slug;
     const messages = getMessages(otherUserSlug);
-    const otherUser = getOtherUser(messages, otherUserSlug) ;
-    const otherUserId = otherUser ? otherUser.id : null;
+    const otherUser = getOtherUser(messages, otherUserSlug);
+    const otherUserId = parseUserId(otherUser);
     const online = otherUserId ? ChatUserStatusStore.isOnline(otherUserId) || false : false;
+
+    const canContact = getCanContact(otherUser);
 
     return {
         otherUserId,
         messages,
         otherUser,
-        online
+        online,
+        canContact
     };
 }
 
-function getMessages(otherUserSlug)
-{
+function getMessages(otherUserSlug) {
     return otherUserSlug ? ChatMessageStore.getAllForSlug(otherUserSlug) : [];
 }
 
-function getOtherUser(messages, otherUserSlug)
-{
+function getOtherUser(messages, otherUserSlug) {
     if (messages.length === 0) {
         return UserStore.getBySlug(otherUserSlug);
     }
@@ -68,7 +83,7 @@ function getOtherUser(messages, otherUserSlug)
 
 @AuthenticatedComponent
 @translate('ChatMessagesPage')
-@connectToStores([ChatMessageStore, ChatUserStatusStore, LoginStore, UserStore], getState)
+@connectToStores([ChatMessageStore, ChatUserStatusStore, LoginStore, UserStore, BlockStore], getState)
 export default class ChatMessagesPage extends Component {
 
     static propTypes = {
@@ -85,7 +100,8 @@ export default class ChatMessagesPage extends Component {
         messages   : PropTypes.array.isRequired,
         otherUserId: PropTypes.number,
         otherUser  : PropTypes.object,
-        online     : PropTypes.bool
+        online     : PropTypes.bool,
+        canContact : PropTypes.bool
 
     };
 
@@ -124,6 +140,14 @@ export default class ChatMessagesPage extends Component {
     componentWillUnmount() {
         this.refs.list.removeEventListener('scroll', this.handleScroll, false);
         window.removeEventListener('resize', this.scrollIfNeeded, false);
+    }
+
+    componentWillUpdate(nextProps) {
+        if (nextProps.otherUser && !this.props.otherUser) {
+            window.setTimeout(() => {
+                UserActionCreators.requestBlockUser(LoginStore.user.id, parseUserId(nextProps.otherUser))
+            }, 0);
+        }
     }
 
     componentDidUpdate(prevProps) {
@@ -169,7 +193,7 @@ export default class ChatMessagesPage extends Component {
     }
 
     handleScroll() {
-        var list = this.refs.list;
+        let list = this.refs.list;
         const {otherUserId, messages} = this.props;
         if (otherUserId && list.scrollTop === 0) {
             if (ChatMessageStore.noMoreMessages(otherUserId)) {
@@ -188,8 +212,7 @@ export default class ChatMessagesPage extends Component {
     }
 
     render() {
-        const {otherUser, messages, online, strings, params, isGuest} = this.props;
-        let isOtherEnabled = otherUser ? otherUser.enabled : false;
+        const {otherUser, messages, online, strings, params, isGuest, canContact} = this.props;
         let otherUsername = otherUser ? otherUser.username : '';
         return (
             <div className="views">
@@ -197,14 +220,14 @@ export default class ChatMessagesPage extends Component {
                 <div className="view view-main notifications-view">
                     <div className="page toolbar-fixed notifications-page">
                         { isGuest ? '' :
-                            isOtherEnabled ?
+                            canContact ?
                                 <MessagesToolBar onClickHandler={this.sendMessageHandler} onFocusHandler={this.handleFocus} placeholder={strings.placeholder} text={strings.text}/>
                                 :
                                 <MessagesToolBarDisabled text={strings.text}/>
                         }
                         <div id="page-content" className="page-content notifications-content messages-content" ref="list">
                             {this.state.noMoreMessages ? <div className="daily-message-title">{strings.noMoreMessages}</div> : '' }
-                            <DailyMessages messages={messages} userLink={`p/${params.slug}`} enabled={isOtherEnabled}/>
+                            <DailyMessages messages={messages} userLink={`p/${params.slug}`} enabled={canContact}/>
                             <br />
                             <br />
                             <br />

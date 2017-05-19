@@ -1,5 +1,5 @@
 import React, { PropTypes, Component } from 'react';
-import { ORIGIN_CONTEXT } from '../constants/Constants';
+import { ORIGIN_CONTEXT, SHARED_USER_URL } from '../constants/Constants';
 import OtherProfileData from '../components/profile/OtherProfileData';
 import OtherProfileDataList from '../components/profile/OtherProfileDataList'
 import TopNavBar from '../components/ui/TopNavBar';
@@ -7,6 +7,8 @@ import ToolBar from '../components/ui/ToolBar';
 import Image from '../components/ui/Image';
 import EmptyMessage from '../components/ui/EmptyMessage';
 import OrientationRequiredPopup from '../components/ui/OrientationRequiredPopup';
+import ReportContentPopup from '../components/interests/ReportContentPopup';
+import ShareService from '../services/ShareService';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
@@ -64,11 +66,11 @@ function initPhotosSwiper() {
         return null;
     }
     return nekunoApp.swiper('#photos-swiper-container', {
-        slidesPerView   : 'auto',
-        centeredSlides  : true,
-        paginationHide: false,
+        slidesPerView      : 'auto',
+        centeredSlides     : true,
+        paginationHide     : false,
         paginationClickable: true,
-        pagination:'.swiper-pagination',
+        pagination         : '.swiper-pagination',
     });
 }
 
@@ -84,7 +86,7 @@ function getState(props) {
     const profileWithMetadata = otherUserId ? ProfileStore.getWithMetadata(otherUserId) : [];
     const matching = otherUserId ? MatchingStore.get(otherUserId, parseId(user)) : null;
     const similarity = otherUserId ? SimilarityStore.get(otherUserId, parseId(user)) : null;
-    //const block = BlockStore.get(parseId(user), otherUserId);
+    const blocked = otherUserId ? BlockStore.get(parseId(user), otherUserId) : null;
     const like = otherUserId ? LikeStore.get(parseId(user), otherUserId) : null;
     const comparedStats = otherUserId ? ComparedStatsStore.get(parseId(user), otherUserId) : null;
     const photos = otherUserId ? GalleryPhotoStore.get(otherUserId) : [];
@@ -98,7 +100,7 @@ function getState(props) {
         profileWithMetadata,
         matching,
         similarity,
-        //block,
+        blocked,
         like,
         comparedStats,
         user,
@@ -107,28 +109,6 @@ function getState(props) {
         ownProfile,
         online
     };
-}
-
-function setBlockUser(props) {
-    const {user, otherUser} = props;
-    nekunoApp.confirm(props.strings.confirmBlock, () => {
-        UserActionCreators.blockUser(parseId(user), parseId(otherUser));
-    });
-}
-
-function unsetBlockUser(props) {
-    const {user, otherUser} = props;
-    UserActionCreators.deleteBlockUser(parseId(user), parseId(otherUser));
-}
-
-function setLikeUser(props) {
-    const {user, otherUser} = props;
-    UserActionCreators.likeUser(parseId(user), parseId(otherUser), ORIGIN_CONTEXT.OTHER_USER_PAGE, otherUser.username);
-}
-
-function unsetLikeUser(props) {
-    const {user, otherUser} = props;
-    UserActionCreators.deleteLikeUser(parseId(user), parseId(otherUser));
 }
 
 @AuthenticatedComponent
@@ -171,10 +151,18 @@ export default class OtherUserPage extends Component {
         this.handlePhotoClick = this.handlePhotoClick.bind(this);
         this.goToDiscover = this.goToDiscover.bind(this);
         this.setOrientationAnswered = this.setOrientationAnswered.bind(this);
+        this.showBlockActions = this.showBlockActions.bind(this);
+        this.showUnblockActions = this.showUnblockActions.bind(this);
+        this.reportReasonButton = this.reportReasonButton.bind(this);
+        this.onReportReason = this.onReportReason.bind(this);
+        this.onReportReasonOther = this.onReportReasonOther.bind(this);
+        this.optionButton = this.optionButton.bind(this);
+        this.cancelButton = this.optionButton.bind(this);
+        this.onShareError = this.onShareError.bind(this);
 
         this.state = {
             orientationAnswered: null,
-            photosLoaded: null
+            photosLoaded       : null
         };
     }
 
@@ -204,20 +192,146 @@ export default class OtherUserPage extends Component {
         }
     }
 
+    /** Block-Related */
+
     onBlock() {
-        if (!this.props.block) {
-            setBlockUser(this.props);
+        if (!this.props.blocked) {
+            this.showBlockActions();
         } else {
-            unsetBlockUser(this.props);
+            this.showUnblockActions();
         }
     }
 
+    showBlockActions() {
+        const {otherUser, strings} = this.props;
+        const reportButtons = [
+            this.optionTitle(otherUser.username),
+            this.optionButton(strings.share, this.shareUser.bind(this, this.props)),
+            this.optionButton(strings.block, this.blockUser.bind(this, this.props)),
+            this.optionButton(strings.blockAndReport, this.showReportActions.bind(this, this.props)),
+            this.cancelButton(strings.cancel)
+        ];
+
+        nekunoApp.actions(reportButtons);
+    }
+
+    shareUser() {
+        const {otherUser, params, strings} = this.props;
+        const url = SHARED_USER_URL.replace('{slug}', params.slug);
+        ShareService.share(
+            strings.compatibilityCheckWith.replace('%username%', otherUser.username),
+            url,
+            this.onShareSuccess,
+            this.onShareError,
+            strings.copiedToClipboard
+        );
+    }
+
+    onShareSuccess() {
+    }
+
+    onShareError() {
+        nekunoApp.alert(this.props.strings.shareError)
+    }
+
+    showUnblockActions() {
+        const {otherUser, strings} = this.props;
+        const buttons = [
+            this.optionTitle(otherUser.username),
+            this.optionButton(strings.unblock, this.unsetBlockUser.bind(this, this.props)),
+            this.cancelButton(strings.cancel)
+        ];
+
+        nekunoApp.actions(buttons);
+    }
+
+    optionTitle(title) {
+        return {
+            text : title,
+            label: true
+        }
+    }
+
+    optionButton(text, callback) {
+        return {
+            color  : 'gray',
+            text   : text,
+            onClick: callback
+        }
+    }
+
+    showReportActions(props) {
+        const {otherUser, strings} = props;
+
+        const reportButtons = [
+            this.optionTitle(otherUser.username),
+            this.reportReasonButton(strings.notAPerson, 'not a person'),
+            this.reportReasonButton(strings.harmful, 'harmful'),
+            this.reportReasonButton(strings.spam, 'spam'),
+            this.reportReasonButton(strings.otherReasons, 'other', this.showOtherReasonPopup),
+            this.cancelButton(strings.cancel)
+        ];
+        nekunoApp.actions(reportButtons);
+    }
+
+    reportReasonButton(text, reason, callback = null) {
+        callback = callback ? callback : this.onReportReason.bind(this, reason, null);
+
+        return this.optionButton(text, callback);
+    }
+
+    showOtherReasonPopup() {
+        nekunoApp.popup('.popup-report-content');
+    }
+
+    cancelButton(text) {
+        return {
+            color: 'red',
+            text : text
+        }
+    }
+
+    onReportReasonOther(reasonText) {
+        return this.onReportReason('other', reasonText);
+    }
+
+    onReportReason(reason, reasonText = null) {
+        const {user, otherUser} = this.props;
+        const data = {
+            reason    : reason,
+            reasonText: reasonText
+        };
+        UserActionCreators.reportUser(parseId(user), parseId(otherUser), data);
+    }
+
+    blockUser(props) {
+        const {user, otherUser} = props;
+        UserActionCreators.blockUser(parseId(user), parseId(otherUser));
+    }
+
+    unsetBlockUser(props) {
+        const {user, otherUser} = props;
+        UserActionCreators.deleteBlockUser(parseId(user), parseId(otherUser));
+    }
+
+    /** Like-related **/
+
     onRate() {
         if (!this.props.like || this.props.like === -1) {
-            setLikeUser(this.props);
+            this.setLikeUser(this.props);
         } else {
-            unsetLikeUser(this.props);
+            this.unsetLikeUser(this.props);
         }
+    }
+
+    setLikeUser(props) {
+        const {user, otherUser} = props;
+        UserActionCreators.likeUser(parseId(user), parseId(otherUser), ORIGIN_CONTEXT.OTHER_USER_PAGE, otherUser.username);
+    }
+
+    unsetLikeUser(props) {
+        const {user, otherUser} = props;
+        UserActionCreators.deleteLikeUser(parseId(user), parseId(otherUser));
     }
 
     handleClickMessageLink() {
@@ -240,12 +354,11 @@ export default class OtherUserPage extends Component {
     }
 
     render() {
-        const {user, otherUser, profile, ownProfile, profileWithMetadata, matching, similarity, block, like, comparedStats, photos, noPhotos, online, params, strings} = this.props;
+        const {user, otherUser, profile, ownProfile, profileWithMetadata, matching, similarity, blocked, like, comparedStats, photos, noPhotos, online, params, strings} = this.props;
         const otherPictureSmall = selectn('photo.thumbnail.small', otherUser);
         const otherPictureBig = selectn('photo.thumbnail.big', otherUser);
         const ownPicture = selectn('photo.thumbnail.small', user);
         const defaultImgBig = 'img/no-img/big.jpg';
-        //const blockClass = block ? "icon-block blocked" : "icon-block";
         const birthdayDataSet = profileWithMetadata.find(profileDataSet => typeof selectn('fields.birthday.value', profileDataSet) !== 'undefined');
         const genderDataSet = profileWithMetadata.find(profileDataSet => typeof selectn('fields.gender.value', profileDataSet) !== 'undefined');
         const age = selectn('fields.birthday.value', birthdayDataSet);
@@ -275,10 +388,10 @@ export default class OtherUserPage extends Component {
                                                         <Image src={otherPictureBig} defaultSrc={defaultImgBig}/>
                                                     </div>
                                                     {photos && photos.length > 0 ? photos.map((photo, index) =>
-                                                        <div className="swiper-slide" key={index + 1} onClick={this.handlePhotoClick.bind(this, photo.url)}>
-                                                            <Image src={photo.thumbnail.big} defaultSrc={defaultImgBig}/>
-                                                        </div>
-                                                    ) : null}
+                                                            <div className="swiper-slide" key={index + 1} onClick={this.handlePhotoClick.bind(this, photo.url)}>
+                                                                <Image src={photo.thumbnail.big} defaultSrc={defaultImgBig}/>
+                                                            </div>
+                                                        ) : null}
                                                 </div>
                                             </div>
                                         </div>
@@ -289,17 +402,20 @@ export default class OtherUserPage extends Component {
                                         {otherUser.username}
                                     </div>
                                     <div className="user-description">
-                                        <span className="icon-marker" /> {location} -
+                                        <span className="icon-marker"/> {location} -
                                         <span className="age"> {strings.age}: {age}</span> -
                                         <span className="gender"> {gender}</span>
                                     </div>
                                     {online ? <div className="online-status">Online</div> : null}
                                     <div className="send-message-button icon-wrapper icon-wrapper-with-text" onClick={this.handleClickMessageLink}>
-                                        <span className="icon-message" />
+                                        <span className="icon-message"/>
                                         <span className="text">{strings.message}</span>
                                     </div>
                                     <div className="like-button icon-wrapper" onClick={like !== null ? this.onRate : null}>
-                                        <span className={like === null ? 'icon-spinner rotation-animation' : like && like !== -1 ? 'icon-star yellow' : 'icon-star'} />
+                                        <span className={like === null ? 'icon-spinner rotation-animation' : like && like !== -1 ? 'icon-star yellow' : 'icon-star'}/>
+                                    </div>
+                                    <div className="block-button icon-wrapper" onClick={blocked !== null ? this.onBlock : null}>
+                                        <span className="icon-fa-plus"/>
                                     </div>
                                     <div className="other-profile-wrapper bold">
                                         <OtherProfileData matching={matching} similarity={similarity} stats={comparedStats} ownImage={ownPicture}
@@ -323,6 +439,7 @@ export default class OtherUserPage extends Component {
                     </div>
                     {ownProfile && !ownProfile.orientation ? <OrientationRequiredPopup profile={ownProfile} onCancel={this.goToDiscover} onClick={this.setOrientationAnswered}/> : null}
                 </div>
+                <ReportContentPopup onClick={this.onReportReasonOther}/>
             </div>
         );
     }
@@ -330,17 +447,29 @@ export default class OtherUserPage extends Component {
 
 OtherUserPage.defaultProps = {
     strings: {
-        profile     : 'Profile',
-        loading     : 'Loading profile',
-        age         : 'Age',
-        message     : 'Message',
-        about       : 'About',
-        photos      : 'Photos',
-        questions   : 'Answers',
-        interests   : 'Interests',
-        like        : 'Like',
-        dontLike    : 'Don\'t like anymore',
-        saving      : 'Saving...',
-        confirmBlock: 'Are you sure you want to block this user?'
+        profile               : 'Profile',
+        loading               : 'Loading profile',
+        age                   : 'Age',
+        message               : 'Message',
+        about                 : 'About',
+        photos                : 'Photos',
+        questions             : 'Answers',
+        interests             : 'Interests',
+        like                  : 'Like',
+        dontLike              : 'Don\'t like anymore',
+        saving                : 'Saving...',
+        share                 : 'Share this profile',
+        shareError            : 'An error occurred sending the link.',
+        compatibilityCheckWith: 'Check your compatibility with %username%',
+        copiedToClipboard     : 'Copied to clipboard',
+        block                 : 'Block user',
+        unblock               : 'Unblock user',
+        blockAndReport        : 'Block and report user',
+        cancel                : 'Cancel',
+        confirmBlock          : 'Are you sure you want to block this user?',
+        notAPerson            : 'This user is not a person',
+        harmful               : 'This user is abusive or harmful',
+        spam                  : 'This user sends spam',
+        otherReasons          : 'Other reasons'
     }
 };

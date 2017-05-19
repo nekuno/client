@@ -14,5 +14,6 @@ export default {
     SPOTIFY_ID           : 'e8c3557e29ad4974a1f41e93aeaf6e79',
     SPOTIFY_SCOPE        : 'user-read-private user-read-email playlist-read-private user-read-birthdate',
     TRACKER_ID_WEB       : 'UA-55709950-6',
-    TRACKER_ID_APP       : 'UA-55709950-7'
+    TRACKER_ID_APP       : 'UA-55709950-7',
+    GOOGLE_MAPS_API_KEY  : 'AIzaSyDPRiBUXY4zmP1dUd45lJb9se8n7IGMQBg'
 }

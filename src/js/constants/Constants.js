@@ -30,7 +30,8 @@ export const API_URLS = {
 
     OWN_INTERESTS            : API_ROOT + 'content?type[]={type}',
     COMPARED_INTERESTS       : API_ROOT + 'content/compare/{userId}?type[]={type}&showOnlyCommon={showOnlyCommon}',
-    CHECK_IMAGES             : API_ROOT + 'links/images'
+    CHECK_IMAGES             : API_ROOT + 'links/images',
+    CONNECTION_STATUS        : API_ROOT + 'client/status',
 };
 
 export const THREAD_TYPES = {
@@ -100,6 +101,9 @@ export const SPOTIFY_SCOPE = config.SPOTIFY_SCOPE;
 export const TRACKER_ID_WEB = config.TRACKER_ID_WEB;
 export const TRACKER_ID_APP = config.TRACKER_ID_APP;
 export const INSTANT_HOST = config.INSTANT_HOST;
+
+export const GOOGLE_MAPS_API_KEY = config.GOOGLE_MAPS_API_KEY;
+export const GOOGLE_MAPS_URL = 'https://maps.googleapis.com/maps/api/js?libraries=places&key=%API_KEY%&sensor=true&callback=onMapsApiLoaded'.replace('%API_KEY%', GOOGLE_MAPS_API_KEY);
 
 export const REQUIRED_REGISTER_USER_FIELDS = [
     {

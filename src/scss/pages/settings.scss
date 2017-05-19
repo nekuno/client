@@ -1,0 +1,17 @@
+@import "../_partials/colors";
+body #root .App .views .view .page.settings-page  {
+  background: #fff;
+  height: 100%;
+  position: absolute;
+  #page-content {
+    background: #fff;
+    color: #000;
+    font-weight: bold;
+    margin-top: 100px;
+    width: 85%;
+
+    hr {
+      opacity: 0.2;
+    }
+  }
+}

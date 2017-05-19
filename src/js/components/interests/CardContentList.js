@@ -6,25 +6,28 @@ export default class CardContentList extends Component {
         contents      : PropTypes.array.isRequired,
         userId        : PropTypes.number.isRequired,
         otherUserId   : PropTypes.number,
-        onClickHandler: PropTypes.func
+        onReport      : PropTypes.func,
     };
 
+    constructor(props) {
+        super(props);
+
+        this.onReport = this.onReport.bind(this);
+    }
+
+    onReport(contentId, reason) {
+        this.props.onReport(contentId, reason);
+    }
+
     render() {
-        const {contents, userId, otherUserId, onClickHandler} = this.props;
+        const {contents, userId, otherUserId} = this.props;
         return (
             <div className="content-list">
                 {contents.map((content, index) => <CardContent key={index} hideLikeButton={false} {...content} loggedUserId={userId} otherUserId={otherUserId}
                                                                embed_id={content.embed ? content.embed.id : null} embed_type={content.embed ? content.embed.type : null}
-                                                               onClickHandler={onClickHandler ? this.onClickHandler.bind(this, index - 1) : null}
-                                                               fixedHeight={true}/>)}
+                                                               fixedHeight={true}
+                                                               onReport={this.props.onReport ? this.onReport : null}/>)}
             </div>
         );
     }
-
-    onClickHandler(key) {
-        if (typeof this.props.onClickHandler !== 'undefined') {
-            this.props.onClickHandler(key);
-        }
-    }
-
 }

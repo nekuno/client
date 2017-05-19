@@ -44,9 +44,12 @@ export default {
         cannotRemove: 'Este campo no se puede eliminar'
     },
     HomePage                         : {
-        title1         : 'Descubre contenidos de los temas que más te interesan',
-        title2         : 'Conecta sólo con las personas compatibles contigo',
-        title3         : 'Tú decides la información que compartes',
+        title1         : 'Agrega tus redes y descubre a tus compañeros de %detail%',
+        title1Details  : ['vida', 'proyectos', 'aventuras'],
+        title2         : 'Desbloquea insignias para redescubrir %detail%',
+        title2Details  : ['tu tribu', 'tu centro', 'a tus seguidores', 'a tus vecinos', 'tu festival', ' a tus co-workers'],
+        title3         : '100% Gratuito' + "\n" + '100% Software libre',
+        title3Details  : [],
         login          : 'Entrar con Facebook',
         hasInvitation  : '¿Tienes una invitación?',
         register       : 'Regístrate',
@@ -54,7 +57,7 @@ export default {
         registeringUser: 'Registrando usuario',
         wantGuest      : '¿Quieres probarlo?',
         asGuest        : 'Entra como invitado',
-        privacy        : 'Al registrarte, estás aceptando las <a href="https://nekuno.com/legal-notice" target="_blank">Condiciones Legales</a> y la <a href="https://nekuno.com/privacy-policy" target="_blank">Política de Privacidad</a> de Nekuno.'
+        legalTerms     : 'Nunca publicaremos nada en tus redes.</br>Al registrarte, estás aceptando los <a href="https://nekuno.com/terms-and-conditions" target="_blank">Términos Legales</a>.'
     },
     InterestsPage                    : {
         cancel   : 'Cancelar',
@@ -104,14 +107,14 @@ export default {
         changeProfilePhoto      : 'Cambiar foto de perfil'
     },
     GroupPage                        : {
-        groups        : 'Tus insignias',
-        create        : 'Crear insignia',
-        creating      : 'Creando insignia',
-        enterName     : 'Nombre de la insignia',
-        join          : 'Desbloquear insignia',
-        joining       : 'Desbloqueando la insignia',
-        joiningError  : 'Error desbloqueando esta insignia',
-        noGroupToken  : 'Este código no tiene ninguna insignia asociada'
+        groups      : 'Tus insignias',
+        create      : 'Crear insignia',
+        creating    : 'Creando insignia',
+        enterName   : 'Nombre de la insignia',
+        join        : 'Desbloquear insignia',
+        joining     : 'Desbloqueando la insignia',
+        joiningError: 'Error desbloqueando esta insignia',
+        noGroupToken: 'Este código no tiene ninguna insignia asociada'
     },
     GroupStatsPage                   : {
         group            : 'Grupo',
@@ -147,7 +150,8 @@ export default {
         about                : 'Acerca de',
         photos               : 'Fotos',
         questions            : 'Respuestas',
-        interests            : 'Intereses'
+        interests            : 'Intereses',
+        reported             : 'El contenido ha sido reportado. Lo revisaremos en las próximas 24 horas'
     },
     OtherQuestionsPage               : {
         coincidences: 'Coincidencias de',
@@ -181,7 +185,7 @@ export default {
         correct       : '¡Solo queda un último paso! Conecta Facebook:',
         loadingMessage: 'Registrando usuario',
         publishMessage: 'Nunca publicaremos nada en tu muro',
-        privacy       : 'Al registrarte, estás aceptando las <a href="https://nekuno.com/legal-notice" target="_blank">Condiciones Legales</a> y la <a href="https://nekuno.com/privacy-policy" target="_blank">Política de Privacidad</a> de Nekuno',
+        privacy       : 'Al registrarte, estás aceptando las <a href="https://nekuno.com/terms-and-conditions" target="_blank">Condiciones Legales</a> y la <a href="https://nekuno.com/privacy-policy" target="_blank">Política de Privacidad</a> de Nekuno',
         signUp        : 'Regístrate con Facebook'
     },
     RegisterQuestionLandingPage      : {
@@ -234,27 +238,39 @@ export default {
         myProfile: 'Mi Perfil'
     },
     OtherUserPage                    : {
-        profile     : 'Perfil',
-        loading     : 'Cargando perfil',
-        age         : 'Edad',
-        message     : 'Mensaje',
-        about       : 'Acerca de',
-        photos      : 'Fotos',
-        questions   : 'Respuestas',
-        interests   : 'Intereses',
-        like        : 'Me gusta',
-        dontLike    : 'Ya no me gusta',
-        saving      : 'Guardando...',
-        confirmBlock: '¿Estás seguro de que quieres bloquear a este usuario?'
+        profile               : 'Perfil',
+        loading               : 'Cargando perfil',
+        age                   : 'Edad',
+        message               : 'Mensaje',
+        about                 : 'Acerca de',
+        photos                : 'Fotos',
+        questions             : 'Respuestas',
+        interests             : 'Intereses',
+        like                  : 'Me gusta',
+        dontLike              : 'Ya no me gusta',
+        saving                : 'Guardando...',
+        share                 : 'Comparte este perfil',
+        shareError            : 'Ha ocurrido un error compartiendo el enlace.',
+        compatibilityCheckWith: 'Descubre tu compatibilidad con %username%',
+        copiedToClipboard     : 'Copiado al portapapeles',
+        block                 : 'Bloquear usuario',
+        unblock               : 'Desbloquear usuario',
+        blockAndReport        : 'Bloquear y reportar usuario',
+        cancel                : 'Cancelar',
+        confirmBlock          : '¿Estás seguro de que quieres bloquear a este usuario?',
+        notAPerson            : 'Este usuario no es una persona',
+        harmful               : 'Este usuario es abusivo o perjudicial',
+        spam                  : 'Este usuario envía spam',
+        otherReasons          : 'Otros motivos'
     },
-    SharedUserPage                  : {
+    SharedUserPage                   : {
         title          : '¿Quieres ver tu compatibilidad con %username%?',
         signUp         : 'Entra con Facebook',
         loginUser      : 'Intentando iniciar sesión',
         registeringUser: 'Registrando usuario',
         loadingProfile : 'Cargando perfil',
         invalidUrl     : 'URL Inválida',
-        privacy        : 'Al registrarte, estás aceptando las <a href="https://nekuno.com/legal-notice" target="_blank">Condiciones Legales</a> y la <a href="https://nekuno.com/privacy-policy" target="_blank">Política de Privacidad</a> de Nekuno'
+        legalTerms     : 'Nunca publicaremos nada en tus redes.</br>Al registrarte, estás aceptando los <a href="https://nekuno.com/terms-and-conditions" target="_blank">Términos Legales</a>.'
     },
     CreateThreadPage                 : {
         create  : 'Crear ovillos',
@@ -281,6 +297,16 @@ export default {
         updating   : 'Editando ovillo',
         filters    : 'Filtros'
     },
+    SettingsPage                     : {
+        title         : 'Ajustes',
+        version       : 'Versión de Nekuno',
+        legalTerms    : 'Términos legales',
+        privacyPolicy : 'Política de Privacidad',
+        disable       : 'Desactivar cuenta',
+        disableConfirm: '¿Quieres desactivar tu cuenta? Después de 3 meses será eliminada si no la vuelves a activar',
+        disableTitle  : 'Desactivar cuenta',
+        disableError  : 'No pudimos desactivar tu cuenta',
+    },
     ////////////////
     // Components //
     ////////////////
@@ -291,11 +317,10 @@ export default {
         myProfile     : 'Mi perfil',
         conversations : 'Mensajes',
         socialNetworks: 'Mis redes sociales',
+        more          : 'Más',
+        less          : 'Menos',
         settings      : 'Ajustes',
         invitations   : 'Invitaciones',
-        disableConfirm: '¿Quieres desactivar tu cuenta?',
-        disableTitle  : 'Desactivar cuenta',
-        disableError  : 'No pudimos desactivar tu cuenta',
         logout        : 'Salir'
     },
     ProfileDataList                  : {
@@ -313,12 +338,12 @@ export default {
         seeMore: 'Ver más'
     },
     AnswerUsernamePage               : {
-        username        : 'Nombre de usuario',
-        loadingMessage  : 'Registrando usuario'
+        username      : 'Nombre de usuario',
+        loadingMessage: 'Registrando usuario'
     },
     AnswerUserFieldPage              : {
-        question       : 'Pregunta',
-        loadingMessage : 'Cargando preguntas'
+        question      : 'Pregunta',
+        loadingMessage: 'Cargando preguntas'
     },
     AnswerProfileFieldPage           : {
         question      : 'Pregunta',
@@ -396,7 +421,7 @@ export default {
         text     : 'Responde más preguntas',
         completed: 'Preguntas completadas'
     },
-    OtherQuestionsBanner                  : {
+    OtherQuestionsBanner             : {
         title    : '¿Quieres responder las preguntas de este usuario?',
         text     : '',
         completed: 'Preguntas completadas'
@@ -437,7 +462,7 @@ export default {
     ThreadToolBar                    : {
         next: 'Siguiente'
     },
-    MessagesToolBar                    : {
+    MessagesToolBar                  : {
         maxLengthIs: 'La máxima longitud del mensaje es  '
     },
     MessagesToolBarDisabled          : {
@@ -445,12 +470,19 @@ export default {
     },
     CardContent                      : {
         like             : 'Me interesa',
-        unlike           : 'Quitar',
+        unlike           : 'No me interesa',
+        share            : 'Compartir',
+        report           : 'Reportar',
+        cancel           : 'Cancelar',
         compatibility    : 'Compatibilidad',
         emptyTitle       : 'Contenido',
         copiedToClipboard: 'Copiado al portapapeles',
         shareError       : 'Parece que ha habido un error mientras compartías este contenido',
-        saving           : 'Guardando...'
+        saving           : 'Guardando...',
+        notInteresting   : 'No me interesa este contenido',
+        harmful          : 'Este contenido es abusivo o perjudicial',
+        spam             : 'Este contenido es spam',
+        otherReasons     : 'Otros motivos'
     },
     CardUser                         : {
         like      : 'Me gusta',
@@ -475,13 +507,19 @@ export default {
         people   : 'Personas',
         channels : 'Canales'
     },
+    ReportContentPopup               : {
+        title      : 'Escribe brevemente el motivo del reporte',
+        placeholder: 'Texto...',
+        send       : 'Enviar reporte',
+        close      : 'Cerrar'
+    },
     FilterContentButtons             : {
-        videos   : 'Videos',
-        audios   : 'Música',
-        photos   : 'Fotos',
-        websites : 'Todo',
-        people   : 'Personas',
-        channels : 'Canales'
+        videos  : 'Videos',
+        audios  : 'Música',
+        photos  : 'Fotos',
+        websites: 'Todo',
+        people  : 'Personas',
+        channels: 'Canales'
     },
     OrientationRequiredPopup         : {
         title              : 'Indícanos tu orientación sexual para ver este perfil',
@@ -631,27 +669,30 @@ export default {
         skip   : 'Omitir',
         seeMore: '<a href="https://nekuno.com" target="_blank">Ver más sobre Nekuno</a>'
     },
-    /////////////////////////
-    // NotificationService //
-    /////////////////////////
+    //////////////
+    // Services //
+    //////////////
     NotificationService              : {
-        Message : {
+        Message      : {
             title: 'Nuevo mensaje de %username%'
         },
-        ProcessFinish : {
+        ProcessFinish: {
             title: 'Proceso finalizado',
             body : 'Hemos acabado de procesar tu red de %resource%.'
         },
-        UserLiked     : {
+        UserLiked    : {
             title: '"like" mutuo',
             body : '%username% y tú os habéis hecho "like" mutuamente.'
         }
     },
+    OfflineService                   : {
+        isOffline: 'La aplicación no funcionará correctamente porque no tienes conexión a Internet'
+    },
     /////////////////////////
     // LoginActionCreators //
     ////////////////////////
-    LoginActionCreators: {
+    LoginActionCreators              : {
         inactiveAccount: 'Cuenta desactivada',
-        enableQuestion: 'Tu cuenta está desactivada. ¿Quieres reactivarla?'
+        enableQuestion : 'Tu cuenta está desactivada. ¿Quieres reactivarla?'
     }
 }

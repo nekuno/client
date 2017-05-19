@@ -26,7 +26,7 @@ export default class CardContent extends Component {
         hideLikeButton: PropTypes.bool.isRequired,
         fixedHeight   : PropTypes.bool,
         loggedUserId  : PropTypes.number.isRequired,
-        onClickHandler: PropTypes.func,
+        onReport      : PropTypes.func,
         otherUserId   : PropTypes.number,
         // Injected by @translate:
         strings       : PropTypes.object
@@ -35,8 +35,10 @@ export default class CardContent extends Component {
     constructor(props) {
         super(props);
 
+        this.onDropDown = this.onDropDown.bind(this);
         this.onRate = this.onRate.bind(this);
         this.onShare = this.onShare.bind(this);
+        this.onReport = this.onReport.bind(this);
         this.handleClick = this.handleClick.bind(this);
         this.onShareSuccess = this.onShareSuccess.bind(this);
         this.onShareError = this.onShareError.bind(this);
@@ -56,6 +58,44 @@ export default class CardContent extends Component {
         if (!window.cordova && this.state.embedHtml && this.props.embed_type === 'facebook') {
             FB.XFBML.parse();
         }
+    }
+
+    onDropDown() {
+        const {rate, title, strings} = this.props;
+        const likeText = rate ? strings.unlike : strings.like;
+        let buttons = [
+            {
+                text: title,
+                label: true
+            },
+            {
+                color: 'gray',
+                text: '<span class="icon-star"></span> ' + likeText,
+                onClick: this.onRate
+            },
+            {
+                color: 'gray',
+                text: '<span class="icon-share"></span> ' + strings.share,
+                onClick: this.onShare
+            }
+        ];
+        if (this.props.onReport) {
+            buttons.push(
+                {
+                    color: 'gray',
+                    text: '<span class="icon-warning"></span> ' + strings.report,
+                    onClick: this.onReport
+                }
+            );
+        }
+        buttons.push(
+            {
+                color: 'red',
+                text: strings.cancel
+            }
+        );
+
+        nekunoApp.actions(buttons);
     }
 
     onRate() {
@@ -87,18 +127,56 @@ export default class CardContent extends Component {
         nekunoApp.alert(this.props.strings.shareError)
     }
 
-    handleClick() {
-        const {url, types, embed_type, embed_id, onClickHandler} = this.props;
-        if (typeof onClickHandler !== 'undefined' && onClickHandler) {
-            onClickHandler();
-        } else {
-            const isVideo = types.indexOf('Video') > -1;
-            if (isVideo && !window.cordova && window.screen.width > 320) {
-                this.preVisualizeVideo(embed_type, embed_id, url);
-            } else {
-                window.cordova ? document.location = url : window.open(url);
+    onReport() {
+        const {strings} = this.props;
+        const buttons = [
+            {
+                color: 'gray',
+                text: strings.notInteresting,
+                onClick: this.onReportReason.bind(this, 'not interesting')
+            },
+            {
+                color: 'gray',
+                text: strings.harmful,
+                onClick: this.onReportReason.bind(this, 'harmful')
+            },
+            {
+                color: 'gray',
+                text: strings.spam,
+                onClick: this.onReportReason.bind(this, 'spam')
+            },
+            {
+                color: 'gray',
+                text: strings.otherReasons,
+                onClick: this.onReportReason.bind(this, 'other')
+            },
+            {
+                color: 'red',
+                text: strings.cancel
             }
+        ];
+        nekunoApp.actions(buttons);
+    }
+
+    onReportReason(reason) {
+        const {loggedUserId, contentId, rate} = this.props;
+        if (rate) {
+            UserActionCreators.deleteRateContent(loggedUserId, contentId);
         }
+        setTimeout(() => this.props.onReport(contentId, reason), 0);
+
+    }
+
+    handleClick() {
+        const {url, types, embed_type, embed_id} = this.props;
+
+        const isVideo = types.indexOf('Video') > -1;
+        if (isVideo && !window.cordova && window.screen.width > 320) {
+            this.preVisualizeVideo(embed_type, embed_id, url);
+        } else {
+            window.cordova ? document.location = url : window.open(url);
+        }
+
     }
 
     preVisualizeVideo = function (embed_type, embed_id, url) {
@@ -129,7 +207,7 @@ export default class CardContent extends Component {
 
     render() {
         const {title, description, types, rate, hideLikeButton, fixedHeight, thumbnail, url, matching, strings} = this.props;
-        const cardTitle = title ? <div>{title.substr(0, 20)}{title.length > 20 ? '...' : ''}</div> : <div> {strings.emptyTitle} </div>;
+        const cardTitle = title ? title.length > 20 ? title.substr(0, 20) +  '...' : title : strings.emptyTitle;
         const subTitle = description ? <div>{description.substr(0, 20)}{description.length > 20 ? '...' : ''}</div> : fixedHeight ? <div>&nbsp;</div> : '';
         const imageClass = fixedHeight ? 'image fixed-max-height-image' : 'image';
         const isImage = types.indexOf('Image') > -1;
@@ -159,14 +237,21 @@ export default class CardContent extends Component {
 
         return (
             <div className="card content-card">
-                {isImage ? '' :
-                    <div className="card-header" onClick={this.handleClick}>
-                        <a href={url} onClick={this.preventDefault}>
-                            <div className="card-title">
+                {isImage ?
+                    <div className={"card-drop-down-menu"} onClick={this.onDropDown}>
+                        <span className="icon-angle-down"></span>
+                    </div>
+                    :
+                    <div className="card-header">
+                        <div className={"card-drop-down-menu"} onClick={this.onDropDown}>
+                            <span className="icon-angle-down"></span>
+                        </div>
+                        <div className="card-title" onClick={this.handleClick}>
+                            <a href={url} onClick={this.preventDefault}>
                                 {cardTitle}
-                            </div>
-                        </a>
-                        <div className="card-sub-title">
+                            </a>
+                        </div>
+                        <div className="card-sub-title" onClick={this.handleClick}>
                             {subTitle}
                         </div>
                     </div>
@@ -214,11 +299,18 @@ export default class CardContent extends Component {
 CardContent.defaultProps = {
     strings: {
         like             : 'Like',
-        unlike           : 'Remove',
+        unlike           : 'Remove like',
+        share            : 'Share',
+        report           : 'Report',
+        cancel           : 'Cancel',
         compatibility    : 'Compatibility',
         emptyTitle       : 'Title',
         copiedToClipboard: 'Copied to clipboard',
         shareError       : 'An error occurred sharing the content',
-        saving           : 'Saving...'
+        saving           : 'Saving...',
+        notInteresting   : 'I’m not interested in this content',
+        harmful          : 'This content is abusive or harmful',
+        spam             : 'This content is spam',
+        otherReasons     : 'Other reasons',
     }
 };

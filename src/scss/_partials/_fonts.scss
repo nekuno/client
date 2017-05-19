@@ -40,11 +40,11 @@ $nekuno-logo-font: 'klinic_slabmedium';
 
 @font-face {
 	font-family: 'Nekuno Icons';
-	src:  url('fonts/icomoon.eot?ib1907');
-	src:  url('fonts/icomoon.eot?ib1907#iefix') format('embedded-opentype'),
-	url('fonts/icomoon.ttf?ib1907') format('truetype'),
-	url('fonts/icomoon.woff?ib1907') format('woff'),
-	url('fonts/icomoon.svg?ib1907#icomoon') format('svg');
+	src:  url('fonts/icomoon.eot?r8zmbq');
+	src:  url('fonts/icomoon.eot?r8zmbq#iefix') format('embedded-opentype'),
+	url('fonts/icomoon.ttf?r8zmbq') format('truetype'),
+	url('fonts/icomoon.woff?r8zmbq') format('woff'),
+	url('fonts/icomoon.svg?r8zmbq#icomoon') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }
@@ -68,8 +68,29 @@ $nekuno-logo-font: 'klinic_slabmedium';
 	opacity: 0.5;
 }
 
+.icon-fa-plus:before {
+	content: "\f067";
+}
+.icon-sign-out:before {
+	content: "\f08b";
+}
+.icon-plug:before {
+	content: "\f1e6";
+}
+.icon-commenting:before {
+	content: "\f27a";
+}
+.icon-warning:before {
+	content: "\ea07";
+}
+.icon-info:before {
+	content: "\ea0c";
+}
 .icon-cross:before {
 	content: "\ea0f";
+}
+.icon-puzzle-piece:before {
+	content: "\f12e";
 }
 .icon-heart:before {
 	content: "\f004";
@@ -249,6 +270,12 @@ $nekuno-logo-font: 'klinic_slabmedium';
 }
 .icon-grin2:before {
 	content: "\e931";
+}
+.icon-angle-up:before {
+	content: "\f106";
+}
+.icon-angle-down:before {
+	content: "\f107";
 }
 
 ::-webkit-input-placeholder {

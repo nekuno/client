@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import ThreadSelectedFilter from './ThreadSelectedFilter';
 import ThreadUnselectedFilter from './ThreadUnselectedFilter';
-import TextInput from '../../ui/TextInput';
+import Input from '../../ui/Input';
 import translate from '../../../i18n/Translate';
 
 @translate('IntegerFilter')
@@ -71,7 +71,7 @@ export default class IntegerFilter extends Component {
                     <div className="list-block">
                         <div className="integer-title">{filter.label}</div>
                         <ul>
-                            <TextInput ref={filterKey} placeholder={strings.placeholder} onChange={this.handleChangeIntegerInput} defaultValue={typeof data == 'number' ? data : null}/>
+                            <Input ref={filterKey} placeholder={strings.placeholder} type="number" onChange={this.handleChangeIntegerInput} defaultValue={typeof data == 'number' ? data : null}/>
                         </ul>
                     </div>
                 </ThreadSelectedFilter>

@@ -7,11 +7,11 @@ export default class DailyMessages extends Component {
     static propTypes = {
         messages: PropTypes.array.isRequired,
         userLink: PropTypes.string.isRequired,
-        isOtherEnabled: PropTypes.bool
+        canContact: PropTypes.bool
     };
 
     render() {
-        const {userLink, isOtherEnabled} = this.props;
+        const {userLink, canContact} = this.props;
         let dates = [];
         let messagesByDate = [];
         this.props.messages.forEach((message) => {

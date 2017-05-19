@@ -3,19 +3,82 @@
 body #root .App .views .view.home-view {
   max-height: 800px;
 
+  .bottom-layer {
+    bottom: 0;
+    position: absolute;
+    width: 100%;
+    z-index: 111;
+
+    .swiper-pagination-and-button {
+      text-align: center;
+      bottom: 45px;
+      width: 100%;
+      z-index: 100;
+
+      .swiper-pagination {
+        margin: auto;
+        position: relative;
+      }
+      .swiper-pagination.color-nekuno .swiper-pagination-bullet-active, .swiper-pagination .swiper-pagination-bullet-active {
+        background-color: white;
+        border-radius: 5px;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        width: 30px;
+      }
+
+      .swiper-pagination-bullet {
+        background-color: white;
+        height: 6px;
+        margin: 0 5px;
+        opacity: 1;
+        width: 6px;
+      }
+
+      .button.button-big.button-round {
+        margin: 5% auto 10px;
+        position: relative;
+        width: 80%;
+      }
+
+      .register-text-block {
+        height: 50px;
+        text-align: center;
+        .register-text {
+          cursor: pointer;
+          display: inline-block;
+          margin: 0 5px 10px;
+          vertical-align: middle;
+          //width: 35%; Uncomment to enable login as guest link styles
+
+          a {
+            font-weight: bold;
+          }
+        }
+      }
+    }
+
+    .bottom-text {
+      background: rgba(0, 0, 0, 0.5);
+      .register-sub-title {
+        height: 100%;
+        text-align: center;
+        width: 80%;
+        font-size: 0.9em;
+        padding: 1px 10%;
+
+        a {
+          color: $material-grey;
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+
+
   .swiper-container {
     height: 100%;
     overflow-y: visible;
-
-    .linear-gradient-rectangle {
-      background-image: linear-gradient(180deg, black 0%, rgba(0, 0, 0, 0.76) 24%, transparent 100%);
-      height: 338px;
-      opacity: 0.8;
-      position: absolute;
-      top: 0;
-      width: 100%;
-      z-index: 10;
-    }
 
     .swiper-slide {
       height: 100%;
@@ -23,8 +86,18 @@ body #root .App .views .view.home-view {
 
       .page#login-1-image, .page#login-2-image, .page#login-3-image {
         background-size: 100% auto;
+        background-position: center;
         height: 100%;
         width: 100%;
+
+        .linear-gradient-rectangle {
+          background-image: linear-gradient(180deg, black 0%, rgba(0, 0, 0, 0.76) 24%, transparent 100%);
+          height: 338px;
+          opacity: 0.8;
+          position: absolute;
+          top: 0;
+          width: 100%;
+        }
 
         .title {
           color: white;
@@ -35,6 +108,7 @@ body #root .App .views .view.home-view {
           position: absolute;
           text-align: center;
           bottom: 175px;
+          width: 80%;
         }
       }
     }
@@ -52,62 +126,6 @@ body #root .App .views .view.home-view {
       height: 100%;
       margin: auto;
       position: relative;
-    }
-  }
-
-  .swiper-pagination-and-button {
-    position: absolute;
-    text-align: center;
-    bottom: 20px;
-    width: 100%;
-    z-index: 100;
-
-    .swiper-pagination {
-      margin: auto;
-      position: relative;
-    }
-    .swiper-pagination.color-nekuno .swiper-pagination-bullet-active, .swiper-pagination .swiper-pagination-bullet-active {
-      background-color: white;
-      border-radius: 5px;
-      -webkit-border-radius: 5px;
-      -moz-border-radius: 5px;
-      width: 30px;
-    }
-
-    .swiper-pagination-bullet {
-      background-color: white;
-      height: 6px;
-      margin: 0 5px;
-      opacity: 1;
-      width: 6px;
-    }
-
-    .button.button-big.button-round {
-      margin: 5% auto;
-      position: relative;
-      width: 80%;
-    }
-
-    .register-sub-title {
-      font-size: 0.9em;
-      padding: 0 10%;
-      margin-top: -20px;
-    }
-
-    .register-text-block {
-      height: 50px;
-      text-align: center;
-      .register-text {
-        cursor: pointer;
-        display: inline-block;
-        margin: 0 5px 10px;
-        vertical-align: middle;
-        //width: 35%; Uncomment to enable login as guest link styles
-
-        a {
-          font-weight: bold;
-        }
-      }
     }
   }
 }
@@ -129,15 +147,15 @@ body #root .App .views .view.home-view {
   }
 
   body #root .App .page#login-1-image {
-    background: url('img/login-image-1-320x569.jpg') no-repeat center;
+    background: url('img/login/1-320x569.jpg') no-repeat center;
     background-size: 320px auto !important;
   }
   body #root .App .page#login-2-image {
-    background: url('img/login-image-2-320x569.jpg') no-repeat center;
+    background: url('img/login/2-320x569.jpg') no-repeat center;
     background-size: 320px auto !important;
   }
   body #root .App .page#login-3-image {
-    background: url('img/login-image-3-320x569.jpg') no-repeat center;
+    background: url('img/login/3-320x569.jpg') no-repeat center;
     background-size: 320px auto !important;
   }
 }
@@ -145,7 +163,7 @@ body #root .App .views .view.home-view {
   body #root .App .views .view.home-view .swiper-container .swiper-slide {
     .page#login-1-image, .page#login-2-image, .page#login-3-image {
       .title {
-        bottom: 180px !important;
+        bottom: 195px !important;
         font-size: 19px !important;
         line-height: 25px !important;
       }
@@ -162,7 +180,7 @@ body #root .App .views .view.home-view {
     }
   }
 }
-@media only screen and (max-height: 370px) {
+@media only screen and (max-height: 375px) {
   body #root .App .views .view.home-view .swiper-container .swiper-slide {
     .page#login-1-image, .page#login-2-image, .page#login-3-image {
       .title {
@@ -190,15 +208,15 @@ body #root .App .views .view.home-view {
   }
 
   body #root .App .page#login-1-image {
-    background: url('img/login-image-1-480x854.jpg') no-repeat center;
+    background: url('img/login/1-480x854.jpg') no-repeat center;
     background-size: 480px auto !important;
   }
   body #root .App .page#login-2-image {
-    background: url('img/login-image-2-480x854.jpg') no-repeat center;
+    background: url('img/login/2-480x854.jpg') no-repeat center;
     background-size: 480px auto !important;
   }
   body #root .App .page#login-3-image {
-    background: url('img/login-image-3-480x854.jpg') no-repeat center;
+    background: url('img/login/3-480x854.jpg') no-repeat center;
     background-size: 480px auto !important;
   }
 }
@@ -220,15 +238,15 @@ body #root .App .views .view.home-view {
     width: 175px;
   }
   body #root .App .page#login-1-image {
-    background: url('img/login-image-1-compressed-750x1334.jpg') no-repeat;
+    background: url('img/login/1-750x1334.jpg') no-repeat;
     background-size: 750px auto;
   }
   body #root .App .page#login-2-image {
-    background: url('img/login-image-2-compressed-750x1334.jpg') no-repeat;
+    background: url('img/login/2-750x1334.jpg') no-repeat;
     background-size: 750px auto;
   }
   body #root .App .page#login-3-image {
-    background: url('img/login-image-3-compressed-750x1334.jpg') no-repeat;
+    background: url('img/login/3-750x1334.jpg') no-repeat;
     background-size: 750px auto;
   }
 }
@@ -243,13 +261,13 @@ body #root .App .views .view.home-view {
       background: url('img/logo-107x56.png') no-repeat;
     }
     body #root .App .page#login-1-image {
-      background: url('img/login-image-1-320x569.jpg') no-repeat;
+      background: url('img/login/1-320x569.jpg') no-repeat;
     }
     body #root .App .page#login-2-image {
-      background: url('img/login-image-2-320x569.jpg') no-repeat;
+      background: url('img/login/2-320x569.jpg') no-repeat;
     }
     body #root .App .page#login-3-image {
-      background: url('img/login-image-3-320x569.jpg') no-repeat;
+      background: url('img/login/3-320x569.jpg') no-repeat;
     }
   }
   @media only screen and (min-width: 213px) and (max-width: 320px) {
@@ -257,13 +275,13 @@ body #root .App .views .view.home-view {
       background: url('img/logo-160x84.png') no-repeat;
     }
     body #root .App .page#login-1-image {
-      background: url('img/login-image-1-480x854.jpg') no-repeat;
+      background: url('img/login/1-480x854.jpg') no-repeat;
     }
     body #root .App .page#login-2-image {
-      background: url('img/login-image-2-480x854.jpg') no-repeat;
+      background: url('img/login/2-480x854.jpg') no-repeat;
     }
     body #root .App .page#login-3-image {
-      background: url('img/login-image-3-480x854.jpg') no-repeat;
+      background: url('img/login/3-480x854.jpg') no-repeat;
     }
   }
   @media only screen and (min-width: 321px) {
@@ -271,13 +289,13 @@ body #root .App .views .view.home-view {
       background: url('img/logo-250x132.png') no-repeat;
     }
     body #root .App .page#login-1-image {
-      background: url('img/login-image-1-compressed-750x1334.jpg') no-repeat;
+      background: url('img/login/1-750x1334.jpg') no-repeat;
     }
     body #root .App .page#login-2-image {
-      background: url('img/login-image-2-compressed-750x1334.jpg') no-repeat;
+      background: url('img/login/2-750x1334.jpg') no-repeat;
     }
     body #root .App .page#login-3-image {
-      background: url('img/login-image-3-compressed-750x1334.jpg') no-repeat;
+      background: url('img/login/3-750x1334.jpg') no-repeat;
     }
   }
 }
@@ -292,13 +310,13 @@ body #root .App .views .view.home-view {
       background: url('img/logo-160x84.png') no-repeat;
     }
     body #root .App .page#login-1-image {
-      background: url('img/login-image-1-480x854.jpg') no-repeat;
+      background: url('img/login/1-480x854.jpg') no-repeat;
     }
     body #root .App .page#login-2-image {
-      background: url('img/login-image-2-480x854.jpg') no-repeat;
+      background: url('img/login/2-480x854.jpg') no-repeat;
     }
     body #root .App .page#login-3-image {
-      background: url('img/login-image-3-480x854.jpg') no-repeat;
+      background: url('img/login/3-480x854.jpg') no-repeat;
     }
   }
   @media only screen and (min-width: 241px) {
@@ -306,13 +324,13 @@ body #root .App .views .view.home-view {
       background: url('img/logo-250x132.png') no-repeat;
     }
     body #root .App .page#login-1-image {
-      background: url('img/login-image-1-compressed-750x1334.jpg') no-repeat;
+      background: url('img/login/1-750x1334.jpg') no-repeat;
     }
     body #root .App .page#login-2-image {
-      background: url('img/login-image-2-compressed-750x1334.jpg') no-repeat;
+      background: url('img/login/2-750x1334.jpg') no-repeat;
     }
     body #root .App .page#login-3-image {
-      background: url('img/login-image-3-compressed-750x1334.jpg') no-repeat;
+      background: url('img/login/3-750x1334.jpg') no-repeat;
     }
   }
 }

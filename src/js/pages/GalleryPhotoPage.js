@@ -11,12 +11,43 @@ function parseId(user) {
     return user.id;
 }
 
-function getState() {
+function requestData(props) {
+    GalleryPhotoActionCreators.getPhotos(parseId(props.user));
+}
+
+function getState(props) {
+    const userId = parseId(props.user);
+    const photos = GalleryPhotoStore.get(userId);
     const photo = GalleryPhotoStore.getSelectedPhoto();
-    
+
     return {
+        photos: photos,
         photo: photo
     }
+}
+
+function initPhotosSwiper(photos, profilePhoto, photoIndex) {
+    // Init slider
+    let gallerySwiper = nekunoApp.swiper('#gallery-swiper-container', {
+        initialSlide: photoIndex,
+        onSlideChangeEnd: onSlideChangeEnd,
+        slidesPerView: 'auto',
+        centeredSlides: true,
+        paginationHide: false,
+        paginationClickable: true,
+        nextButton: '.swiper-button-next',
+        prevButton: '.swiper-button-prev',
+    });
+
+    let activeIndex = gallerySwiper.activeIndex;
+
+    function onSlideChangeEnd(swiper) {
+        activeIndex = swiper.activeIndex;
+        const photo = activeIndex === 0 ? profilePhoto : photos[activeIndex - 1];
+        GalleryPhotoActionCreators.selectPhoto(photo);
+    }
+
+    return gallerySwiper;
 }
 
 @AuthenticatedComponent
@@ -30,7 +61,8 @@ export default class GalleryPhotoPage extends Component {
         // Injected by @translate:
         strings: PropTypes.object,
         // Injected by @connectToStores:
-        photo: PropTypes.oneOfType([PropTypes.object, PropTypes.string])
+        photo: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
+        photos: PropTypes.array.isRequired,
     };
 
     static contextTypes = {
@@ -42,12 +74,30 @@ export default class GalleryPhotoPage extends Component {
 
         this.setAsProfilePhoto = this.setAsProfilePhoto.bind(this);
         this.deletePhoto = this.deletePhoto.bind(this);
+
+        this.state = {
+            photosLoaded: null,
+            swiper: null
+        }
     }
 
 
     componentWillMount() {
         if (!this.props.photo) {
             this.context.router.push('gallery');
+        }
+    }
+
+    componentDidMount() {
+        requestData(this.props);
+    }
+
+    componentDidUpdate() {
+        const {photos, photo, user} = this.props;
+        if (this.props.photos.length > 0 && photo && !this.state.photosLoaded) {
+            const photoIndex = photos.findIndex(singlePhoto => singlePhoto.id == photo.id) + 1 || 0;
+            initPhotosSwiper(photos, user.photo, photoIndex);
+            this.setState({photosLoaded: true});
         }
     }
 
@@ -65,8 +115,8 @@ export default class GalleryPhotoPage extends Component {
     }
     
     render() {
-        const {photo, strings} = this.props;
-        const isProfilePhoto = photo && typeof photo.thumbnail == 'undefined';
+        const {user, photos, photo, strings} = this.props;
+        const isProfilePhoto = photo && photo.id == null;
         return (
             <div className="views">
                 {isProfilePhoto ?
@@ -77,11 +127,31 @@ export default class GalleryPhotoPage extends Component {
                 <div className="view view-main">
                     <div className="page gallery-photo-page">
                         <div id="page-content" className="gallery-photo-content">
-                            {isProfilePhoto || photo && photo.thumbnail.big ?
-                                <div className="photo-wrapper">
-                                    <Image src={isProfilePhoto ? photo : photo.thumbnail.big}/>
-                                </div>
-                                : null}
+                            <div className="swiper-custom">
+                                {user.photo && photos ?
+                                    <div id="gallery-swiper-container" className="swiper-container">
+                                        <div className="swiper-wrapper">
+                                            <div className="swiper-slide" key={0}>
+                                                <div className="photo-absolute-wrapper">
+                                                    <Image src={user.photo.thumbnail.big}/>
+                                                    <div className="swiper-button-prev"></div>
+                                                    <div className="swiper-button-next"></div>
+                                                </div>
+                                            </div>
+                                            {photos.map((photo, index) =>
+                                                <div className="swiper-slide" key={index + 1}>
+                                                    <div className="photo-absolute-wrapper">
+                                                        <Image src={photo.thumbnail.big}/>
+                                                        <div className="swiper-button-prev"></div>
+                                                        <div className="swiper-button-next"></div>
+                                                    </div>
+
+                                                </div>
+                                            )}
+                                        </div>
+                                    </div>
+                                    : null}
+                            </div>
                             <br />
                             <br />
                             <br />

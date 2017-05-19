@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import translate from '../../i18n/Translate';
-import TextInput from '../ui/TextInput';
+import Input from '../ui/Input';
 import FullWidthButton from '../ui/FullWidthButton';
 
 @translate('UnlockGroupPopup')
@@ -47,7 +47,7 @@ export default class UnlockGroupPopup extends Component {
                     <div className="title">{strings.enterToken}</div>
                     <div className="list-block">
                         <ul>
-                            {opened ? <TextInput ref="token" placeholder={strings.enterTokenText} maxLength={"200"} /> : null}
+                            {opened ? <Input ref="token" placeholder={strings.enterTokenText} maxLength={"200"} /> : null}
                         </ul>
                     </div>
                     <FullWidthButton onClick={this.onOkClick} disabled={joining ? "disabled" : ""}>{strings.ok}</FullWidthButton>

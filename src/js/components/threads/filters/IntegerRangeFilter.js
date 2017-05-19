@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import ThreadSelectedFilter from './ThreadSelectedFilter';
 import ThreadUnselectedFilter from './ThreadUnselectedFilter';
-import TextInput from '../../ui/TextInput';
+import Input from '../../ui/Input';
 import translate from '../../../i18n/Translate';
 
 @translate('IntegerRangeFilter')
@@ -85,8 +85,8 @@ export default class IntegerRangeFilter extends Component {
                     <div className="list-block">
                         <div className="integer-title">{filter.label}</div>
                         <ul>
-                            <TextInput ref={filterKey + '_min'} placeholder={strings.placeholderMin} onChange={this.handleChangeIntegerInput} defaultValue={data ? data.min : null}/>
-                            <TextInput ref={filterKey + '_max'} placeholder={strings.placeholderMax} onChange={this.handleChangeIntegerInput} defaultValue={data ? data.max : null}/>
+                            <Input ref={filterKey + '_min'} placeholder={strings.placeholderMin} type="number" onChange={this.handleChangeIntegerInput} defaultValue={data ? data.min : null}/>
+                            <Input ref={filterKey + '_max'} placeholder={strings.placeholderMax} type="number" onChange={this.handleChangeIntegerInput} defaultValue={data ? data.max : null}/>
                         </ul>
                     </div>
                 </ThreadSelectedFilter>

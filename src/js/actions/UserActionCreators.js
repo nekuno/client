@@ -36,14 +36,16 @@ export function requestUser(userSlug, fields) {
         success: ActionTypes.REQUEST_USER_SUCCESS,
         failure: ActionTypes.REQUEST_USER_ERROR
     }, {userSlug})
-        .catch((error) => {
-            nekunoApp.alert(error.error, () => {
-                const path = '/discover';
-                console.log('Redirecting to path', path);
-                let router = RouterContainer.get();
-                router.replace(path);
-            });
-            throw error;
+        .catch((status) => {
+            if (status.error) {
+                nekunoApp.alert(status.error, () => {
+                    const path = '/discover';
+                    console.log('Redirecting to path', path);
+                    let router = RouterContainer.get();
+                    router.replace(path);
+                });
+            }
+            throw status;
         });
 }
 
@@ -238,6 +240,14 @@ export function deleteLikeUser(from, to) {
     }, {from, to});
 }
 
+export function reportUser(from, to, data) {
+    dispatchAsync(UserAPI.reportUser(to, data), {
+        request: ActionTypes.REPORT_USER,
+        success: ActionTypes.REPORT_USER_SUCCESS,
+        failure: ActionTypes.REPORT_USER_ERROR
+    }, {from, to, data});
+}
+
 export function likeContent(from, to, originContext, originName) {
     dispatchAsync(UserAPI.setLikeContent(to, originContext, originName), {
         request: ActionTypes.LIKE_CONTENT,
@@ -274,6 +284,14 @@ export function deleteRateContent(from, to) {
     }, {from, to});
     InterestsActionCreators.resetInterests(from);
     InterestsActionCreators.requestOwnInterests(from);
+}
+
+export function reportContent(data) {
+    return dispatchAsync(UserAPI.reportContent(data), {
+        request: ActionTypes.REPORT_CONTENT,
+        success: ActionTypes.REPORT_CONTENT_SUCCESS,
+        failure: ActionTypes.REPORT_CONTENT_ERROR
+    }, {data});
 }
 
 export function requestBlockUser(from, to) {

@@ -44,9 +44,12 @@ export default {
         cannotRemove: 'This field cannot be deleted'
     },
     HomePage                         : {
-        title1         : 'Discover contents of the topics that interest you',
-        title2         : 'Connect only with most compatible people with you',
-        title3         : 'You decide the information you share',
+        title1         : 'Add your networks and discover your %detail% partners',
+        title1Details  : ['life', 'project', 'adventure'],
+        title2         : 'Unlock badges to rediscover your %detail%',
+        title2Details  : ['tribe', 'classmates', 'followers', 'co-workers', 'attendees', 'neighbors'],
+        title3         : '100% Free' + "\n" + '100% Open source',
+        title3Details  : [],
         login          : 'Login with Facebook',
         hasInvitation  : 'Do you have an invitation?',
         register       : 'Register',
@@ -54,7 +57,7 @@ export default {
         registeringUser: 'Registering user',
         wantGuest      : 'Do you want to try it?',
         asGuest        : 'Enter as guest',
-        privacy        : 'By registering, you agree to the <a href="https://nekuno.com/legal-notice" target="_blank">Legal Conditions</a> and the Nekuno <a href="https://nekuno.com/privacy-policy" target="_blank">Privacy Policy</a>.'
+        legalTerms     : 'We will never post anything on your networks.</br>By registering, you agree to the <a href="https://nekuno.com/terms-and-conditions" target="_blank">End-user license agreement</a>.'
     },
     InterestsPage                    : {
         cancel   : 'Cancel',
@@ -147,7 +150,8 @@ export default {
         about                : 'About',
         photos               : 'Photos',
         questions            : 'Answers',
-        interests            : 'Interests'
+        interests            : 'Interests',
+        reported             : 'The content has been reported. We will review it within next 24 hours'
     },
     OtherQuestionsPage               : {
         coincidences: 'Coincidences of',
@@ -181,7 +185,7 @@ export default {
         correct       : 'Just one last step! Connect Facebook:',
         loadingMessage: 'Registering user',
         publishMessage: 'We\'ll never publish anything on your wall',
-        privacy       : 'By registering, you agree to the <a href="https://nekuno.com/legal-notice" target="_blank">Legal Conditions</a> and the Nekuno <a href="https://nekuno.com/privacy-policy" target="_blank">Privacy Policy</a>.',
+        privacy       : 'By registering, you agree to the <a href="https://nekuno.com/terms-and-conditions" target="_blank">Legal Conditions</a> and the Nekuno <a href="https://nekuno.com/privacy-policy" target="_blank">Privacy Policy</a>.',
         signUp        : 'Sign up with Facebook'
     },
     RegisterQuestionLandingPage      : {
@@ -234,18 +238,30 @@ export default {
         myProfile: 'My profile'
     },
     OtherUserPage                    : {
-        profile     : 'Profile',
-        loading     : 'Loading profile',
-        age         : 'Age',
-        message     : 'Message',
-        about       : 'About',
-        photos      : 'Photos',
-        questions   : 'Answers',
-        interests   : 'Interests',
-        like        : 'Like',
-        dontLike    : 'Don\'t like anymore',
-        saving      : 'Saving...',
-        confirmBlock: 'Are you sure you want to block this user?'
+        profile               : 'Profile',
+        loading               : 'Loading profile',
+        age                   : 'Age',
+        message               : 'Message',
+        about                 : 'About',
+        photos                : 'Photos',
+        questions             : 'Answers',
+        interests             : 'Interests',
+        like                  : 'Like',
+        dontLike              : 'Don\'t like anymore',
+        saving                : 'Saving...',
+        share                 : 'Share this profile',
+        shareError            : 'An error occurred sending the link.',
+        compatibilityCheckWith: 'Check your compatibility with %username%',
+        copiedToClipboard     : 'Copied to clipboard',
+        block                 : 'Block user',
+        unblock               : 'Unblock user',
+        blockAndReport        : 'Block and report user',
+        cancel                : 'Cancel',
+        confirmBlock          : 'Are you sure you want to block this user?',
+        notAPerson            : 'This user is not a person',
+        harmful               : 'This user is abusive or harmful',
+        spam                  : 'This user sends spam',
+        otherReasons          : 'Other reasons'
     },
     SharedUserPage                   : {
         title          : 'Do you want to see your compatibility with %username%?',
@@ -254,7 +270,7 @@ export default {
         registeringUser: 'Registering user',
         loadingProfile : 'Loading profile',
         invalidUrl     : 'Invalid URL',
-        privacy        : 'By registering, you agree to the <a href="https://nekuno.com/legal-notice" target="_blank">Legal Conditions</a> and the Nekuno <a href="https://nekuno.com/privacy-policy" target="_blank">Privacy Policy</a>.'
+        legalTerms     : 'We will never post anything on your networks.</br>By registering, you agree to the <a href="https://nekuno.com/terms-and-conditions" target="_blank">End-user license agreement</a>.'
     },
     CreateThreadPage                 : {
         create  : 'Create yarn',
@@ -281,6 +297,16 @@ export default {
         updating   : 'Updating yarn',
         filters    : 'Filters'
     },
+    SettingsPage                     : {
+        title         : 'Settings',
+        version       : 'Nekuno version',
+        legalTerms    : 'End-user license agreement',
+        privacyPolicy : 'Privacy Policy',
+        disable       : 'Disable account',
+        disableConfirm: 'Do you want to disable your account? It will be deleted after 3 months if you don`t enable it again.',
+        disableTitle  : 'Disable account',
+        disableError  : 'We couldn´t disable your account'
+    },
     ////////////////
     // Components //
     ////////////////
@@ -291,11 +317,10 @@ export default {
         myProfile     : 'Profile',
         conversations : 'Messages',
         socialNetworks: 'My social networks',
+        more          : 'More',
+        less          : 'Less',
         settings      : 'Settings',
         invitations   : 'Invitations',
-        disableConfirm: 'Do you want to disable your account?',
-        disableTitle  : 'Disable account',
-        disableError  : 'We couldn´t disable your account',
         logout        : 'Logout'
     },
     ProfileDataList                  : {
@@ -445,12 +470,19 @@ export default {
     },
     CardContent                      : {
         like             : 'Like',
-        unlike           : 'Remove',
+        unlike           : 'Remove like',
+        share            : 'Share',
+        report           : 'Report',
+        cancel           : 'Cancel',
         compatibility    : 'Compatibility',
         emptyTitle       : 'Link',
         copiedToClipboard: 'Copied to clipboard',
         shareError       : 'An error occurred sharing the content',
-        saving           : 'Saving...'
+        saving           : 'Saving...',
+        notInteresting   : 'I’m not interested in this content',
+        harmful          : 'This content is abusive or harmful',
+        spam             : 'This content is spam',
+        otherReasons     : 'Other reasons'
     },
     CardUser                         : {
         like      : 'Like',
@@ -474,6 +506,12 @@ export default {
         websites : 'All',
         people   : 'People',
         channels : 'Channels'
+    },
+    ReportContentPopup               : {
+        title      : 'Write a brief explanation of the report',
+        placeholder: 'Text...',
+        send       : 'Send report',
+        close      : 'Close'
     },
     FilterContentButtons             : {
         videos  : 'Videos',
@@ -631,9 +669,9 @@ export default {
         skip   : 'Skip',
         seeMore: '<a href="https://nekuno.com" target="_blank">See more about Nekuno</a>'
     },
-    /////////////////////////
-    // NotificationService //
-    /////////////////////////
+    //////////////
+    // Services //
+    //////////////
     NotificationService              : {
         Message      : {
             title: 'New message from %username%'
@@ -647,11 +685,14 @@ export default {
             body : '%username% and you have mutual like.'
         }
     },
+    OfflineService                   : {
+        isOffline: 'The application will not work as expected because you are not connected to Internet.'
+    },
     /////////////////////////
     // LoginActionCreators //
     ////////////////////////
-    LoginActionCreators: {
+    LoginActionCreators              : {
         inactiveAccount: 'Inactive account',
-        enableQuestion: 'Your account is disabled. Do you want to reenable it?'
+        enableQuestion : 'Your account is disabled. Do you want to reenable it?'
     }
 }

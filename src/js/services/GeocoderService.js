@@ -1,8 +1,22 @@
 import Bluebird from 'bluebird';
+import { GOOGLE_MAPS_URL } from '../constants/Constants';
 
 class GeocoderService {
-    constructor() {
-        this._geocoder = new google.maps.Geocoder();
+    init() {
+        let _self = this;
+
+        global.onMapsApiLoaded = function () {
+            _self._geocoder = new google.maps.Geocoder();
+        };
+
+        if (window.cordova) {
+            document.addEventListener('deviceready', onDeviceReady, false);
+            function onDeviceReady() {
+                _self.loadScript(GOOGLE_MAPS_URL, onMapsApiLoaded);
+            }
+        } else {
+            _self.loadScript(GOOGLE_MAPS_URL, onMapsApiLoaded);
+        }
     }
 
     getLocationFromAddress(address) {
@@ -15,7 +29,7 @@ class GeocoderService {
                     if (typeof results[0].address_components == 'undefined') {
                         return reject();
                     }
-                    var components = {};
+                    let components = {};
                     results[0].address_components.forEach(v1 => {
                         v1.types.forEach(v2 => {
                             components[v2] = v1.long_name;
@@ -40,7 +54,7 @@ class GeocoderService {
             if (!lat || !lng) {
                 return reject();
             }
-            var latLng = new google.maps.LatLng(parseFloat(lat), parseFloat(lng));
+            let latLng = new google.maps.LatLng(parseFloat(lat), parseFloat(lng));
             this._geocoder.geocode({
                 'latLng': latLng
             }, function (results, status) {
@@ -48,7 +62,7 @@ class GeocoderService {
                     if (typeof results[0].address_components == 'undefined') {
                         return reject();
                     }
-                    var components = {};
+                    let components = {};
                     results[0].address_components.forEach(v1 => {
                         v1.types.forEach(v2 => {
                             components[v2] = v1.long_name;
@@ -67,6 +81,18 @@ class GeocoderService {
                 }
             });
         });
+    }
+
+    loadScript = function (url, callback) {
+        let head = document.getElementsByTagName('head')[0];
+        let script = document.createElement('script');
+        script.type = 'text/javascript';
+        script.src = url;
+
+        script.onload = callback;
+
+        // Fire the loading
+        head.appendChild(script);
     }
 
 }

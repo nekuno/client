@@ -131,7 +131,7 @@ export default class SharedUserPage extends Component {
                                     <div className="title">{strings.title.replace('%username%', sharedUser.username)}</div>
                                     <FacebookButton onClickHandler={this.loginByResourceOwner} text={strings.signUp}/>
                                     <div className="register-sub-title privacy-terms-text">
-                                        <p dangerouslySetInnerHTML={{__html: strings.privacy}}/>
+                                        <p dangerouslySetInnerHTML={{__html: strings.legalTerms}}/>
                                     </div>
                                 </div>
                                 : <EmptyMessage text={strings.loadingProfile} loadingGif={true}/>
@@ -150,6 +150,6 @@ SharedUserPage.defaultProps = {
         registeringUser: 'Registering user',
         loadingProfile : 'Loading profile',
         invalidUrl     : 'Invalid URL',
-        privacy        : 'By registering, you agree to the <a href="https://nekuno.com/legal-notice" target="_blank">Legal Conditions</a> and the Nekuno <a href="https://nekuno.com/privacy-policy" target="_blank">Privacy Policy</a>.'
+        legalTerms     : 'We will never post anything on your networks.</br>By registering, you agree to the <a href="https://nekuno.com/terms-and-conditions" target="_blank">End-user license agreement</a>.'
     }
 };

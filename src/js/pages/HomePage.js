@@ -10,6 +10,7 @@ import SocialNetworkService from '../services/SocialNetworkService';
 import LocaleStore from '../stores/LocaleStore';
 
 let nekunoSwiper;
+let delay = 2000;
 
 function initSwiper() {
     // Init slider and store its instance in nekunoSwiper variable
@@ -54,12 +55,19 @@ export default class HomePage extends Component {
 
         this.goToRegisterPage = this.goToRegisterPage.bind(this);
         this.loginByResourceOwner = this.loginByResourceOwner.bind(this);
+        this.split = this.split.bind(this);
 
         this.promise = null;
         this.state = {
-            loginUser: selectn('location.query.autoLogin', props),
+            loginUser      : selectn('location.query.autoLogin', props),
             registeringUser: null,
+            details        : {
+                title1: 0,
+                title2: 0,
+                title3: 0
+            }
         };
+        this.interval = null;
     }
 
     componentDidMount() {
@@ -70,6 +78,19 @@ export default class HomePage extends Component {
             const scope = facebookNetwork.scope;
             this.loginByResourceOwner(resource, scope);
         }
+        this.interval = setInterval(() => {
+            const {strings} = this.props;
+            const details = this.state.details;
+            [1, 2, 3].map(i => {
+                if (strings['title' + i + 'Details'].length > 0 && details['title' + i] + 1 === strings['title' + i + 'Details'].length) {
+                    details['title' + i] = 0;
+                } else {
+                    details['title' + i]++;
+                }
+            });
+            this.setState({details: details});
+
+        }, delay);
     }
 
     componentWillUnmount() {
@@ -77,6 +98,7 @@ export default class HomePage extends Component {
         if (this.promise) {
             this.promise.cancel();
         }
+        clearInterval(this.interval);
     }
 
     loginAsGuest = function() {
@@ -115,17 +137,31 @@ export default class HomePage extends Component {
             });
     }
 
+    split(text) {
+        return text.split("\n").map(function(item, key) {
+            return (
+                key + 1 === text.split("\n").length ? <span key={key}>{item}</span> : <span key={key}>{item}<br/></span>
+            )
+        });
+    }
+
     renderSlides = function() {
         const {strings} = this.props;
+        const {details} = this.state;
         return (
-            [1, 2, 3].map(i =>
-                <div key={i} className="swiper-slide">
-                    <div id={'login-' + i + '-image'} className="page">
-                        <div className="title">
-                            {i === 1 ? strings.title1 : i === 2 ? strings.title2 : strings.title3}
+            [1, 2, 3].map(i => {
+                    const detail = strings['title' + i + 'Details'][details['title' + i]];
+                    return (
+                        <div key={i} className="swiper-slide">
+                            <div id={'login-' + i + '-image'} className="page">
+                                <div className="linear-gradient-rectangle"></div>
+                                <div className="title">
+                                    {this.split(strings['title' + i].replace('%detail%', detail))}
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
+                    )
+                }
             )
         );
     };
@@ -143,8 +179,6 @@ export default class HomePage extends Component {
                     :
                     <div className="view view-main home-view">
                         <div className="swiper-container swiper-init" data-speed="400" data-space-between="40" data-pagination=".swiper-pagination">
-                            <div className="linear-gradient-rectangle"></div>
-
                             <div className="swiper-wrapper">
                                 {this.renderSlides()}
                             </div>
@@ -155,22 +189,26 @@ export default class HomePage extends Component {
                         <div id="page-content" className="home-content">
 
                         </div>
-                        <div className="swiper-pagination-and-button">
-                            <div className="swiper-pagination"></div>
-                            <div>
-                                <FacebookButton onClickHandler={this.loginByResourceOwner} text={strings.login}/>
-                                <div className="register-sub-title privacy-terms-text">
-                                    <p dangerouslySetInnerHTML={{__html: strings.privacy}}/>
+                        <div className="bottom-layer">
+                            <div className="swiper-pagination-and-button">
+                                <div className="swiper-pagination"></div>
+                                <div>
+                                    <FacebookButton onClickHandler={this.loginByResourceOwner} text={strings.login}/>
+                                    {/*<div className="register-text-block">*/}
+                                    {/*<div onClick={this.goToRegisterPage} className="register-text">*/}
+                                    {/*<span>{strings.hasInvitation}</span> <a href="javascript:void(0)">{strings.register}</a>*/}
+                                    {/*</div>*/}
+                                    {/*/!*Uncomment to enable login as guest*/}
+                                    {/*<div onClick={this.loginAsGuest} className="register-text">*/}
+                                    {/*<span>{strings.wantGuest}</span> <a href="javascript:void(0)">{strings.asGuest}</a>*/}
+                                    {/*</div>*!/*/}
+                                    {/*</div>*/}
                                 </div>
-                                {/*<div className="register-text-block">*/}
-                                {/*<div onClick={this.goToRegisterPage} className="register-text">*/}
-                                {/*<span>{strings.hasInvitation}</span> <a href="javascript:void(0)">{strings.register}</a>*/}
-                                {/*</div>*/}
-                                {/*/!*Uncomment to enable login as guest*/}
-                                {/*<div onClick={this.loginAsGuest} className="register-text">*/}
-                                {/*<span>{strings.wantGuest}</span> <a href="javascript:void(0)">{strings.asGuest}</a>*/}
-                                {/*</div>*!/*/}
-                                {/*</div>*/}
+                            </div>
+                            <div className="bottom-text">
+                                <div className="register-sub-title privacy-terms-text">
+                                    <p dangerouslySetInnerHTML={{__html: strings.legalTerms}}/>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -183,9 +221,12 @@ export default class HomePage extends Component {
 
 HomePage.defaultProps = {
     strings: {
-        title1         : 'Discover contents of the topics that interest you',
-        title2         : 'Connect only with most compatible people with you',
-        title3         : 'You decide the information you share',
+        title1         : 'Add your networks and discover your %detail% partners',
+        title1Details  : ['life', 'project', 'adventure'],
+        title2         : 'Unlock badges to rediscover your %detail%',
+        title2Details  : ['group', 'organization', 'ngo', 'school', 'institute', 'work', 'university', 'event', 'tribe', 'forum', 'channel'],
+        title3         : '100% Free' + "\n" + '100% Open source',
+        title3Details  : [],
         login          : 'Login with Facebook',
         hasInvitation  : 'Do you have an invitation?',
         register       : 'Register',
@@ -193,6 +234,6 @@ HomePage.defaultProps = {
         registeringUser: 'Registering user',
         wantGuest      : 'Do you want to try it?',
         asGuest        : 'Enter as guest',
-        privacy        : 'By registering, you agree to the <a href="https://nekuno.com/legal-notice" target="_blank">Legal Conditions</a> and the Nekuno <a href="https://nekuno.com/privacy-policy" target="_blank">Privacy Policy</a>.'
+        legalTerms     : 'We will never post anything on your networks.</br>By registering, you agree to the <a href="https://nekuno.com/terms-and-conditions" target="_blank">End-user license agreement</a>.'
     }
 };

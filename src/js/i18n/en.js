@@ -47,7 +47,7 @@ export default {
         title1         : 'Add your networks and discover your %detail% partners',
         title1Details  : ['life', 'project', 'adventure'],
         title2         : 'Unlock badges to rediscover your %detail%',
-        title2Details  : ['group', 'organization', 'ngo', 'school', 'institute', 'work', 'university', 'event', 'tribe', 'forum', 'channel'],
+        title2Details  : ['tribe', 'classmates', 'followers', 'co-workers', 'attendees', 'neighbors'],
         title3         : '100% Free' + "\n" + '100% Open source',
         title3Details  : [],
         login          : 'Login with Facebook',

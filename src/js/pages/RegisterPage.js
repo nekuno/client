@@ -201,7 +201,7 @@ RegisterPage.defaultProps = {
         correct       : 'Just one last step! Connect Facebook:',
         loadingMessage: 'Registering user',
         publishMessage: 'We\'ll never publish anything on your wall',
-        privacy       : 'By registering, you agree to the <a href="https://nekuno.com/legal-notice" target="_blank">Legal Conditions</a> and the Nekuno <a href="https://nekuno.com/privacy-policy" target="_blank">Privacy Policy</a>.',
+        privacy       : 'By registering, you agree to the <a href="https://nekuno.com/terms-and-conditions" target="_blank">Legal Conditions</a> and the Nekuno <a href="https://nekuno.com/privacy-policy" target="_blank">Privacy Policy</a>.',
         signUp        : 'Sign up with Facebook'
     }
 };

@@ -234,6 +234,6 @@ HomePage.defaultProps = {
         registeringUser: 'Registering user',
         wantGuest      : 'Do you want to try it?',
         asGuest        : 'Enter as guest',
-        legalTerms     : 'We will never post anything on your networks.</br>By registering, you agree to the <a href="https://nekuno.com/legal-notice" target="_blank">End-user license agreement</a>.'
+        legalTerms     : 'We will never post anything on your networks.</br>By registering, you agree to the <a href="https://nekuno.com/terms-and-conditions" target="_blank">End-user license agreement</a>.'
     }
 };

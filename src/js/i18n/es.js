@@ -57,7 +57,7 @@ export default {
         registeringUser: 'Registrando usuario',
         wantGuest      : '¿Quieres probarlo?',
         asGuest        : 'Entra como invitado',
-        legalTerms     : 'Nunca publicaremos nada en tus redes.</br>Al registrarte, estás aceptando los <a href="https://nekuno.com/legal-notice" target="_blank">Términos Legales</a>.'
+        legalTerms     : 'Nunca publicaremos nada en tus redes.</br>Al registrarte, estás aceptando los <a href="https://nekuno.com/terms-and-conditions" target="_blank">Términos Legales</a>.'
     },
     InterestsPage                    : {
         cancel   : 'Cancelar',
@@ -185,7 +185,7 @@ export default {
         correct       : '¡Solo queda un último paso! Conecta Facebook:',
         loadingMessage: 'Registrando usuario',
         publishMessage: 'Nunca publicaremos nada en tu muro',
-        privacy       : 'Al registrarte, estás aceptando las <a href="https://nekuno.com/legal-notice" target="_blank">Condiciones Legales</a> y la <a href="https://nekuno.com/privacy-policy" target="_blank">Política de Privacidad</a> de Nekuno',
+        privacy       : 'Al registrarte, estás aceptando las <a href="https://nekuno.com/terms-and-conditions" target="_blank">Condiciones Legales</a> y la <a href="https://nekuno.com/privacy-policy" target="_blank">Política de Privacidad</a> de Nekuno',
         signUp        : 'Regístrate con Facebook'
     },
     RegisterQuestionLandingPage      : {
@@ -270,7 +270,7 @@ export default {
         registeringUser: 'Registrando usuario',
         loadingProfile : 'Cargando perfil',
         invalidUrl     : 'URL Inválida',
-        legalTerms     : 'Nunca publicaremos nada en tus redes.</br>Al registrarte, estás aceptando los <a href="https://nekuno.com/legal-notice" target="_blank">Términos Legales</a>.'
+        legalTerms     : 'Nunca publicaremos nada en tus redes.</br>Al registrarte, estás aceptando los <a href="https://nekuno.com/terms-and-conditions" target="_blank">Términos Legales</a>.'
     },
     CreateThreadPage                 : {
         create  : 'Crear ovillos',
@@ -301,6 +301,7 @@ export default {
         title         : 'Ajustes',
         version       : 'Versión de Nekuno',
         legalTerms    : 'Términos legales',
+        privacyPolicy : 'Política de Privacidad',
         disable       : 'Desactivar cuenta',
         disableConfirm: '¿Quieres desactivar tu cuenta? Después de 3 meses será eliminada si no la vuelves a activar',
         disableTitle  : 'Desactivar cuenta',

@@ -124,6 +124,7 @@ export default class DiscoverPage extends Component {
         this.editThread = this.editThread.bind(this);
         this.leftClickHandler = this.leftClickHandler.bind(this);
         this.handleScroll = this.handleScroll.bind(this);
+        this.onBottomScroll = this.onBottomScroll.bind(this);
         this.goToProfile = this.goToProfile.bind(this);
         this.selectProfile = this.selectProfile.bind(this);
 
@@ -137,7 +138,7 @@ export default class DiscoverPage extends Component {
     }
 
     componentWillUnmount() {
-        document.getElementsByClassName('view')[0].removeEventListener('scroll', this.handleScroll);
+        // document.getElementsByClassName('view')[0].removeEventListener('scroll', this.handleScroll);
     }
 
     editThread() {
@@ -151,13 +152,18 @@ export default class DiscoverPage extends Component {
     }
 
     handleScroll() {
-        let offsetTop = parseInt(document.getElementsByClassName('view')[0].scrollTop + document.getElementsByClassName('view')[0].offsetHeight - 58);
-        let offsetTopMax = parseInt(document.getElementById('page-content').offsetHeight);
+        // let offsetTop = parseInt(document.getElementsByClassName('view')[0].scrollTop + document.getElementsByClassName('view')[0].offsetHeight - 58);
+        // let offsetTopMax = parseInt(document.getElementById('page-content').offsetHeight);
+        //
+        // if (offsetTop >= offsetTopMax) {
+        //     document.getElementsByClassName('view')[0].removeEventListener('scroll', this.handleScroll);
+        //     ThreadActionCreators.recommendationsNext(parseThreadId(this.props.thread));
+        // }
+    }
 
-        if (offsetTop >= offsetTopMax) {
-            document.getElementsByClassName('view')[0].removeEventListener('scroll', this.handleScroll);
-            ThreadActionCreators.recommendationsNext(parseThreadId(this.props.thread));
-        }
+    onBottomScroll() {
+        const threadId = parseThreadId(this.props.thread);
+        return ThreadActionCreators.recommendationsNext(threadId);
     }
 
     goToProfile() {
@@ -189,13 +195,15 @@ export default class DiscoverPage extends Component {
         const {user, profile, strings, pagination, isSomethingWorking, filters, recommendations, thread, isLoadingRecommendations, networks, similarityOrder, isThreadGroup} = this.props;
         const connectedNetworks = networks.filter(network => network.fetching || network.fetched || network.processing || network.processed);
         const title = isThreadGroup ? thread.name : strings.discover ;
+        const mustShowQuestionsBanner = profile && filters && thread && pagination.total <= 100;
+        const mustShowSocialNetworksBanner = profile && filters && thread && connectedNetworks.length < 3;
         return (
-            <div className="views">
+            <div id="discover-views" className="views" >
                 {Object.keys(thread).length > 0 ?
                     <TopNavBar leftMenuIcon={!isThreadGroup} leftIcon="left-arrow" centerText={title} onLeftLinkClickHandler={this.leftClickHandler}/>
                     : <TopNavBar leftMenuIcon={true} centerText={title}/>}
-                <ScrollContainer scrollKey="discover">
-                    <div className="view view-main" onScroll={this.handleScroll}>
+                {/*<ScrollContainer scrollKey="discover">*/}
+                    <div className="view view-main" id="discover-view-main" style={{overflow: 'hidden'}}>
                         <div className="page discover-page">
                             <div id="page-content">
                                 {this.renderChipList(thread, filters)}
@@ -206,20 +214,17 @@ export default class DiscoverPage extends Component {
                                     :
                                     null}
                                 <ProcessesProgress />
-                                {profile && filters && thread && pagination.total <= 100 ? <QuestionsBanner user={user} questionsTotal={pagination.total || 0}/>
-                                    : profile && filters && thread && connectedNetworks.length < 3 ? <SocialNetworksBanner networks={networks} user={user}/>
-                                    : '' }
-                                {profile && recommendations.length > 0 ?
-                                    <CardUserList recommendations={recommendations} userId={user.id} profile={profile} handleSelectProfile={this.selectProfile} similarityOrder={similarityOrder}/>
+                                {profile ?
+                                    <CardUserList recommendations={recommendations} user={user} profile={profile} handleSelectProfile={this.selectProfile} similarityOrder={similarityOrder} onBottomScroll={this.onBottomScroll}
+                                                    mustShowQuestionsBanner = {mustShowQuestionsBanner} mustShowSocialNetworksBanner = {mustShowSocialNetworksBanner} networks = {networks} pagination = {pagination} />
                                     :
                                     <EmptyMessage text={isLoadingRecommendations ? strings.loadingMessage : strings.noRecommendations}/>}
                                 <br />
-                                <div className="loading-gif" style={isLoadingRecommendations ? {} : {display: 'none'}}></div>
                             </div>
                         </div>
                         {profile && !profile.orientation ? <OrientationRequiredPopup profile={profile} onContinue={this.goToProfile}/> : null}
                     </div>
-                </ScrollContainer>
+                {/*</ScrollContainer>*/}
             </div>
         );
     }

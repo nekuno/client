@@ -122,13 +122,15 @@ export function addPrevRecommendation(threadId) {
 
 export function recommendationsNext(threadId) {
     const nextUrl = RecommendationStore.getNextUrl(threadId);
-    if (nextUrl) {
+    if (nextUrl && !RecommendationStore.isLoadingRecommendations(threadId)) {
         return dispatchAsync((UserAPI.getRecommendation(threadId, nextUrl)), {
             request: ActionTypes.REQUEST_NEXT_RECOMMENDATIONS,
             success: ActionTypes.REQUEST_NEXT_RECOMMENDATIONS_SUCCESS,
             failure: ActionTypes.REQUEST_NEXT_RECOMMENDATIONS_ERROR
         }, {threadId});
     }
+
+    return Promise.resolve();
 }
 
 export function saveIndex(index) {

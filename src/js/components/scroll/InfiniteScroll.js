@@ -68,6 +68,7 @@ export default class InfiniteScroll extends Component {
                     // preloadAdditionalHeight={window.innerHeight*2}
                     {...this.props}
                     onInfiniteLoad={this.onInfiniteLoad}
+                    preloadBatchSize={10} //small values can cause infinite loop https://github.com/seatgeek/react-infinite/pull/48
                 />
             </div>
         );

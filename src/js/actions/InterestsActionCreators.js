@@ -1,9 +1,10 @@
 import { dispatchAsync, dispatch } from '../dispatcher/Dispatcher';
 import ActionTypes from '../constants/ActionTypes';
 import * as InterestsAPI from '../api/InterestsAPI';
+import InterestStore from '../stores/InterestStore';
 
 export function requestOwnInterests(userId, type, link) {
-    dispatchAsync(InterestsAPI.getOwnInterests(type, link), {
+    return dispatchAsync(InterestsAPI.getOwnInterests(type, link), {
         request: ActionTypes.REQUEST_OWN_INTERESTS,
         success: ActionTypes.REQUEST_OWN_INTERESTS_SUCCESS,
         failure: ActionTypes.REQUEST_OWN_INTERESTS_ERROR
@@ -52,10 +53,16 @@ export function requestComparedInterests(userId, otherUserId, type, showOnlyComm
 }
 
 export function requestNextOwnInterests(userId, link) {
+    const isLoading = InterestStore.isLoadingOwnInterests();
+    if (isLoading){
+        return Promise.resolve();
+    }
     dispatch(ActionTypes.REQUEST_NEXT_OWN_INTERESTS, {userId});
     if (link) {
-        requestOwnInterests(userId, null, link);
+        return requestOwnInterests(userId, null, link);
     }
+
+    return Promise.resolve();
 }
 
 export function requestNextComparedInterests(userId, otherUserId, link) {

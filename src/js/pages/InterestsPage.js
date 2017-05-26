@@ -3,9 +3,7 @@ import { ScrollContainer } from 'react-router-scroll';
 import TopNavBar from '../components/ui/TopNavBar';
 import ToolBar from '../components/ui/ToolBar';
 import EmptyMessage from '../components/ui/EmptyMessage';
-import FilterContentButtons from '../components/ui/FilterContentButtons';
 import CardContentList from '../components/interests/CardContentList';
-import SocialNetworksBanner from '../components/socialNetworks/SocialNetworksBanner';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
@@ -78,20 +76,27 @@ export default class InterestsPage extends Component {
     }
 
     handleScroll() {
-        const {pagination, isLoadingOwnInterests} = this.props;
-        let nextLink = pagination && pagination.hasOwnProperty('nextLink') ? pagination.nextLink : null;
-        let offsetTop = parseInt(document.getElementsByClassName('view')[0].scrollTop + document.getElementsByClassName('view')[0].offsetHeight - 117);
-        let offsetTopMax = parseInt(document.getElementById('page-content').offsetHeight);
+        // const {pagination, isLoadingOwnInterests} = this.props;
+        // let nextLink = pagination && pagination.hasOwnProperty('nextLink') ? pagination.nextLink : null;
+        // let offsetTop = parseInt(document.getElementsByClassName('view')[0].scrollTop + document.getElementsByClassName('view')[0].offsetHeight - 117);
+        // let offsetTopMax = parseInt(document.getElementById('page-content').offsetHeight);
+        //
+        // if (nextLink && offsetTop >= offsetTopMax && !isLoadingOwnInterests) {
+        //     document.getElementsByClassName('view')[0].removeEventListener('scroll', this.handleScroll);
+        //     InterestsActionCreators.requestNextOwnInterests(parseId(this.props.user), nextLink);
+        // }
+    }
 
-        if (nextLink && offsetTop >= offsetTopMax && !isLoadingOwnInterests) {
-            document.getElementsByClassName('view')[0].removeEventListener('scroll', this.handleScroll);
-            InterestsActionCreators.requestNextOwnInterests(parseId(this.props.user), nextLink);
-        }
+    onBottomScroll() {
+        const {pagination} = this.props;
+        const nextLink = pagination && pagination.hasOwnProperty('nextLink') ? pagination.nextLink : null;
+        const userId = parseId(this.props.user);
+
+        return InterestsActionCreators.requestNextOwnInterests(userId, nextLink);
     }
 
     render() {
-        const {pagination, totals, interests, noInterests, user, networks, strings} = this.props;
-        const connectedNetworks = networks.filter(network => network.fetching || network.fetched || network.processing || network.processed);
+        const {interests, noInterests, user, strings, networks, pagination, totals} = this.props;
 
         return (
             <div className="views">
@@ -102,32 +107,23 @@ export default class InterestsPage extends Component {
                     {'url': '/questions', 'text': strings.questions},
                     {'url': '/interests', 'text': strings.interests}
                 ]} activeLinkIndex={3} arrowUpLeft={'85%'}/>
-                <ScrollContainer scrollKey="own-interests">
-                    <div className="view view-main" onScroll={this.handleScroll}>
-                        <div className="page interests-page">
-                            <div id="page-content" className="interests-content">
-                                {connectedNetworks.length < 4 ? <SocialNetworksBanner networks={networks} user={user}/> : null}
-                                <FilterContentButtons userId={parseId(user)} contentsCount={pagination.total || 0} ownContent={true}
-                                                      linksCount={totals.Link}
-                                                      audiosCount={totals.Audio}
-                                                      videosCount={totals.Video}
-                                                      imagesCount={totals.Image}
-                                                      channelsCount={totals.Creator}
-                                />
-                                {noInterests ?
-                                    <EmptyMessage text={strings.empty} />
-                                    :
-                                    <CardContentList contents={interests} userId={parseId(user)}/>
-                                }
-                                <br />
-                                <div className="loading-gif" style={pagination.nextLink ? {} : {display: 'none'}}></div>
-                            </div>
-                            <br/>
-                            <br/>
-                            <br/>
+                {/*<ScrollContainer scrollKey="own-interests">*/}
+                <div className="view view-main" id="interests-view-main" onScroll={this.handleScroll}>
+                    <div className="page interests-page">
+                        <div id="page-content" className="interests-content">
+                            {noInterests ?
+                                <EmptyMessage text={strings.empty}/>
+                                :
+                                <CardContentList contents={interests} userId={parseId(user)} networks={networks} pagination={pagination} totals={totals} onBottomScroll={this.onBottomScroll.bind(this)} user={user}/>
+                            }
+                            <br />
                         </div>
+                        <br/>
+                        <br/>
+                        <br/>
                     </div>
-                </ScrollContainer>
+                </div>
+                {/*</ScrollContainer>*/}
             </div>
         );
     }

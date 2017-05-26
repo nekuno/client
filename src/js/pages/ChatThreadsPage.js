@@ -6,6 +6,7 @@ import InfiniteAnyHeight from '../components/scroll/InfiniteAnyHeight.jsx';
 import ChatThreadStore from '../stores/ChatThreadStore';
 import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
+import InfiniteScroll from "../components/scroll/InfiniteScroll";
 
 function getState() {
 
@@ -54,13 +55,14 @@ export default class ChatThreadsPage extends Component {
         return (
             <div className="views">
                 <TopNavBar leftMenuIcon={true} centerText={strings.title}/>
-                <div className="view view-main">
+                <div className="view view-main" id="chat-threads-view-main">
                     <div className="page notifications-page">
                         <div id="page-content" className="notifications-content">
-                            <InfiniteAnyHeight
+                            <InfiniteScroll
                                 list={this.renderMessages()}
+                                scrollContainer={document.getElementById("chat-threads-view-main")}
                                 // preloadAdditionalHeight={window.innerHeight*2}
-                                useWindowAsScrollContainer
+                                // useWindowAsScrollContainer
                             />
                             {/*<InfiniteAnyHeightViewer/>*/}
                         </div>

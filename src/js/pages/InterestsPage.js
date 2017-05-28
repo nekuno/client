@@ -1,9 +1,10 @@
 import React, { PropTypes, Component } from 'react';
-import { ScrollContainer } from 'react-router-scroll';
 import TopNavBar from '../components/ui/TopNavBar';
 import ToolBar from '../components/ui/ToolBar';
 import EmptyMessage from '../components/ui/EmptyMessage';
 import CardContentList from '../components/interests/CardContentList';
+import FilterContentButtons from '../components/ui/FilterContentButtons';
+import SocialNetworksBanner from '../components/socialNetworks/SocialNetworksBanner';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
@@ -72,7 +73,7 @@ export default class InterestsPage extends Component {
     }
 
     componentWillUnmount() {
-        document.getElementsByClassName('view')[0].removeEventListener('scroll', this.handleScroll);
+        // document.getElementsByClassName('view')[0].removeEventListener('scroll', this.handleScroll);
     }
 
     handleScroll() {
@@ -95,8 +96,33 @@ export default class InterestsPage extends Component {
         return InterestsActionCreators.requestNextOwnInterests(userId, nextLink);
     }
 
+    getBanner() {
+        const {networks, user} = this.props;
+        const connectedNetworks = networks.filter(network => network.fetching || network.fetched || network.processing || network.processed);
+        return connectedNetworks.length < 4 ? <SocialNetworksBanner networks={networks} user={user}/> : ''
+    }
+
+    getFilterButtons() {
+        const {pagination, totals, user} = this.props;
+        const userId = parseId(user);
+        return <FilterContentButtons userId={userId} contentsCount={pagination.total || 0} ownContent={true}
+                                     linksCount={totals.Link}
+                                     audiosCount={totals.Audio}
+                                     videosCount={totals.Video}
+                                     imagesCount={totals.Image}
+                                     channelsCount={totals.Creator}
+        />
+    }
+
+    getFirstItems() {
+        return [
+            this.getBanner.bind(this)(),
+            this.getFilterButtons.bind(this)()
+        ];
+    }
+
     render() {
-        const {interests, noInterests, user, strings, networks, pagination, totals} = this.props;
+        const {interests, noInterests, user, strings} = this.props;
 
         return (
             <div className="views">
@@ -114,7 +140,7 @@ export default class InterestsPage extends Component {
                             {noInterests ?
                                 <EmptyMessage text={strings.empty}/>
                                 :
-                                <CardContentList contents={interests} userId={parseId(user)} networks={networks} pagination={pagination} totals={totals} onBottomScroll={this.onBottomScroll.bind(this)} user={user}/>
+                                <CardContentList firstItems={this.getFirstItems.bind(this)()} contents={interests} userId={parseId(user)} onBottomScroll={this.onBottomScroll.bind(this)}/>
                             }
                             <br />
                         </div>

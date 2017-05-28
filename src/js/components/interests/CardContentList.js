@@ -1,18 +1,16 @@
 import React, { PropTypes, Component } from 'react';
 import CardContent from '../ui/CardContent';
 import InfiniteScroll from '../scroll/InfiniteScroll';
-import FilterContentButtons from '../ui/FilterContentButtons';
-import SocialNetworksBanner from '../socialNetworks/SocialNetworksBanner';
 
 
 export default class CardContentList extends Component {
     static propTypes = {
+        firstItems    : PropTypes.array,
         contents      : PropTypes.array.isRequired,
         userId        : PropTypes.number.isRequired,
         otherUserId   : PropTypes.number,
         onReport      : PropTypes.func,
-        items         : PropTypes.array,
-        networks      : PropTypes.array
+        onBottomScroll: PropTypes.func,
     };
 
     constructor(props) {
@@ -26,30 +24,11 @@ export default class CardContentList extends Component {
         this.props.onReport(contentId, reason);
     }
 
-    getBanner() {
-        const {networks, user} = this.props;
-        const connectedNetworks = networks.filter(network => network.fetching || network.fetched || network.processing || network.processed);
-        return connectedNetworks.length < 4 ? <SocialNetworksBanner networks={networks} user={user}/> : ''
-    }
-
-    getFilterButtons() {
-        const {pagination, totals, userId} = this.props;
-        return <FilterContentButtons userId={userId} contentsCount={pagination.total || 0} ownContent={true}
-                                     linksCount={totals.Link}
-                                     audiosCount={totals.Audio}
-                                     videosCount={totals.Video}
-                                     imagesCount={totals.Image}
-                                     channelsCount={totals.Creator}
-        />
-    }
-
     getItems() {
-        const banner = this.getBanner.bind(this)();
-        const filterButtons = this.getFilterButtons.bind(this)();
+        const firstItems = this.props.firstItems;
         const contents = this.getCardContents.bind(this)();
         return [
-            banner,
-            filterButtons,
+            ...firstItems,
             ...contents
         ];
     }
@@ -78,3 +57,8 @@ export default class CardContentList extends Component {
         );
     }
 }
+
+CardContentList.defaultProps = {
+    'firstItems': [],
+    'onBottomScroll': () => {}
+};

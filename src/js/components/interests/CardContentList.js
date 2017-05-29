@@ -2,7 +2,6 @@ import React, { PropTypes, Component } from 'react';
 import CardContent from '../ui/CardContent';
 import InfiniteScroll from '../scroll/InfiniteScroll';
 
-
 export default class CardContentList extends Component {
     static propTypes = {
         firstItems    : PropTypes.array,
@@ -33,13 +32,53 @@ export default class CardContentList extends Component {
         ];
     }
 
-    getCardContents() {
-        const {contents, userId, otherUserId} = this.props;
+    buildCardUser(content, index) {
+        const {userId, otherUserId} = this.props;
 
-        return contents.map((content, index) => <CardContent key={index} hideLikeButton={false} {...content} loggedUserId={userId} otherUserId={otherUserId}
-                                                             embed_id={content.embed ? content.embed.id : null} embed_type={content.embed ? content.embed.type : null}
-                                                             fixedHeight={true}
-                                                             onReport={this.props.onReport ? this.onReport : null}/>)
+        return <CardContent key={index} hideLikeButton={false} {...content} loggedUserId={userId} otherUserId={otherUserId}
+                            embed_id={content.embed ? content.embed.id : null} embed_type={content.embed ? content.embed.type : null}
+                            fixedHeight={true}
+                            onReport={this.props.onReport ? this.onReport : null}/>
+    }
+
+    buildCardWrapper(card1, card2)
+    {
+        let cards = [Object.assign({}, card1)];
+        if (card2 instanceof Object){
+            cards.push(Object.assign({}, card2));
+        }
+
+        const wrapper = <div>
+            {cards}
+        </div>;
+
+        card1 = null;
+
+        return wrapper;
+    }
+
+    getCardContents() {
+
+        let savedContentCard = null;
+        let contentComponents = [];
+
+        this.props.contents.forEach((content, index) => {
+            let thisContentCard = this.buildCardUser.bind(this)(content, index);
+
+            if (savedContentCard === null) {
+                savedContentCard = thisContentCard;
+            } else {
+                contentComponents.push(this.buildCardWrapper(savedContentCard, thisContentCard));
+                savedContentCard = null;
+            }
+        });
+
+        if (savedContentCard !== null){
+            contentComponents.push(this.buildCardWrapper(savedContentCard))
+            savedContentCard = null;
+        }
+
+        return contentComponents;
     }
 
     render() {
@@ -58,6 +97,7 @@ export default class CardContentList extends Component {
 }
 
 CardContentList.defaultProps = {
-    'firstItems': [],
-    'onBottomScroll': () => {}
+    'firstItems'    : [],
+    'onBottomScroll': () => {
+    }
 };

@@ -39,7 +39,7 @@ export default class CardUserList extends Component {
         super(props);
 
         this.getItems = this.getItems.bind(this);
-        this.renderCards = this.renderCards.bind(this);
+        this.getCardUsers = this.getCardUsers.bind(this);
     }
 
     getItems() {
@@ -49,34 +49,71 @@ export default class CardUserList extends Component {
                 : mustShowSocialNetworksBanner ? <SocialNetworksBanner networks={networks} user={user}/>
                 : '';
 
-        const cards = this.renderCards();
+        const cards = this.getCardUsers();
         return [banner, ...cards];
     }
 
-    renderCards() {
-        const {recommendations, user, profile, onlineUserIds, similarityOrder, handleSelectProfile} = this.props;
+    buildCardWrapper(card1, card2)
+    {
+        let cards = [Object.assign({}, card1)];
+        if (card2 instanceof Object){
+            cards.push(Object.assign({}, card2));
+        }
 
-        return recommendations.map((recommendation, index) =>
-            <CardUser
-                key={index}
-                userId={recommendation.id}
-                username={recommendation.username}
-                location={selectn('profile.location.locality', recommendation) || selectn('profile.location.country', recommendation) || ''}
-                canSendMessage={true}
-                photo={recommendation.photo}
-                matching={Math.round(recommendation.matching * 100)}
-                similarity={Math.round(recommendation.similarity * 100)}
-                age={recommendation.age}
-                like={recommendation.like}
-                hideLikeButton={false}
-                loggedUserId={user.id}
-                profile={profile}
-                handleSelectProfile={handleSelectProfile}
-                online={onlineUserIds.some(id => id == recommendation.id)}
-                similarityOrder={similarityOrder}
-                slug={recommendation.slug}
-            />
-        )
+        const wrapper = <div>
+            {cards}
+        </div>;
+
+        card1 = null;
+
+        return wrapper;
+    }
+
+    buildCardUser(recommendation, index) {
+        const {user, profile, onlineUserIds, similarityOrder, handleSelectProfile} = this.props;
+
+        return <CardUser
+            key={index}
+            userId={recommendation.id}
+            username={recommendation.username}
+            location={selectn('profile.location.locality', recommendation) || selectn('profile.location.country', recommendation) || ''}
+            canSendMessage={true}
+            photo={recommendation.photo}
+            matching={Math.round(recommendation.matching * 100)}
+            similarity={Math.round(recommendation.similarity * 100)}
+            age={recommendation.age}
+            like={recommendation.like}
+            hideLikeButton={false}
+            loggedUserId={user.id}
+            profile={profile}
+            handleSelectProfile={handleSelectProfile}
+            online={onlineUserIds.some(id => id == recommendation.id)}
+            similarityOrder={similarityOrder}
+            slug={recommendation.slug}
+        />
+    }
+
+    getCardUsers() {
+        let savedCard = null;
+        let userComponents = [];
+
+        this.props.recommendations.forEach((recommendation, index) => {
+            let thisCard = this.buildCardUser.bind(this)(recommendation, index);
+
+            if (savedCard === null) {
+                savedCard = thisCard;
+            } else {
+                userComponents.push(this.buildCardWrapper(savedCard, thisCard));
+                savedCard = null;
+            }
+        });
+
+        if (savedCard !== null){
+            userComponents.push(this.buildCardWrapper(savedCard));
+            savedCard = null;
+        }
+
+        return userComponents;
     }
 
     render() {

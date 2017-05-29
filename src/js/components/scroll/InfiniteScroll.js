@@ -56,7 +56,7 @@ export default class InfiniteScroll extends Component {
         const containerHeight = this.props.scrollContainer ? scrollContainer.clientHeight : window.innerHeight;
 
         return (
-            <div className="user-list" onScroll={this.handleScroll} id="user-list">
+            <div id="infinite-scroll">
                 <InfiniteAnyHeight
                     isInfiniteLoading={isInfiniteLoading}
                     infiniteLoadBeginEdgeOffset={10}
@@ -68,7 +68,7 @@ export default class InfiniteScroll extends Component {
                     // preloadAdditionalHeight={window.innerHeight*2}
                     {...this.props}
                     onInfiniteLoad={this.onInfiniteLoad}
-                    preloadBatchSize={10} //small values can cause infinite loop https://github.com/seatgeek/react-infinite/pull/48
+                    preloadBatchSize={100} //small values can cause infinite loop https://github.com/seatgeek/react-infinite/pull/48
                 />
             </div>
         );

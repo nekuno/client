@@ -134,7 +134,7 @@ export default class InterestsPage extends Component {
                     {'url': '/interests', 'text': strings.interests}
                 ]} activeLinkIndex={3} arrowUpLeft={'85%'}/>
                 {/*<ScrollContainer scrollKey="own-interests">*/}
-                <div className="view view-main" id="interests-view-main" onScroll={this.handleScroll}>
+                <div className="view view-main" id="interests-view-main">
                     <div className="page interests-page">
                         <div id="page-content" className="interests-content">
                             {noInterests ?

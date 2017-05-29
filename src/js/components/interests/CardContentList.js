@@ -47,7 +47,6 @@ export default class CardContentList extends Component {
             <div className="content-list">
                 <InfiniteScroll
                     list={this.getItems()}
-                    // list={this.getItems()}
                     // preloadAdditionalHeight={window.innerHeight*2}
                     // useWindowAsScrollContainer
                     onInfiniteLoad={this.props.onBottomScroll}

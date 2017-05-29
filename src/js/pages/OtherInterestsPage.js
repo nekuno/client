@@ -290,7 +290,7 @@ export default class OtherInterestsPage extends Component {
                     ]} activeLinkIndex={2} arrowUpLeft={'83%'}/>
                     :
                     ''}
-                <div className="view view-main" onScroll={this.handleScroll}>
+                <div className="view view-main" id="interests-view-main">
                     <div className="page other-interests-page">
                         <div id="page-content" className="other-interests-content">
                             {noInterests && false ? '' :

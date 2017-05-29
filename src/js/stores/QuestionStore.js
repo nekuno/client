@@ -18,6 +18,7 @@ class QuestionStore extends BaseStore {
         this._goToQuestionStats = false;
         this._isJustCompleted = false;
         this._loadingComparedQuestions = false;
+        this._loadingOwnQuestions = false;
     }
 
     _registerToActions(action) {
@@ -27,6 +28,7 @@ class QuestionStore extends BaseStore {
         switch (action.type) {
             case ActionTypes.REQUEST_QUESTIONS:
                 this._noMoreQuestions = false;
+                this._loadingOwnQuestions = true;
                 this.emitChange();
                 break;
             case ActionTypes.REQUEST_COMPARED_QUESTIONS:
@@ -63,6 +65,7 @@ class QuestionStore extends BaseStore {
                 newItems[action.userId] = action.response.entities.items;
                 this._pagination[action.userId] = action.response.result.pagination;
                 this._loadingComparedQuestions = false;
+                this._loadingOwnQuestions = false;
                 mergeIntoBag(this._questions, newItems);
                 this.emitChange();
                 break;
@@ -100,6 +103,8 @@ class QuestionStore extends BaseStore {
                 this.emitChange();
                 break;
             case ActionTypes.REQUEST_QUESTIONS_ERROR:
+                this._loadingOwnQuestions = false;
+                break;
             case ActionTypes.REQUEST_COMPARED_QUESTIONS_ERROR:
                 break;
             case ActionTypes.REQUEST_QUESTION_ERROR:
@@ -188,6 +193,10 @@ class QuestionStore extends BaseStore {
 
     isLoadingComparedQuestions() {
         return this._loadingComparedQuestions;
+    }
+
+    isLoadingOwnQuestions() {
+        return this._loadingOwnQuestions;
     }
 }
 

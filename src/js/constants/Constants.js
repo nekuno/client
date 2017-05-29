@@ -4,6 +4,13 @@ export const VERSION = require('../../../package.json').version;
 export const API_ROOT = config.API_ROOT;
 export const INVITATIONS_URL = config.INVITATIONS_ROOT + '{token}';
 export const SHARED_USER_URL = config.SHARED_USER_ROOT + '{slug}';
+export const FIREBASE_SCRIPT = config.FIREBASE_SCRIPT;
+export const FCM_URL = config.FCM_URL;
+export const FCM_API_KEY = config.FCM_API_KEY;
+export const FCM_AUTH_DOMAIN = config.FCM_AUTH_DOMAIN;
+export const FCM_PROJECT_ID = config.FCM_PROJECT_ID;
+export const FCM_SENDER_ID = config.FCM_SENDER_ID;
+export const PUSH_PUBLIC_KEY = config.PUSH_PUBLIC_KEY;
 export const API_URLS = {
     LOGIN                    : API_ROOT + 'login',
     VALIDATE_INVITATION_TOKEN: API_ROOT + 'invitations/token/validate/',
@@ -27,10 +34,10 @@ export const API_URLS = {
     GALLERY_PHOTO            : API_ROOT + 'photos/{id}',
     GALLERY_PHOTO_PROFILE    : API_ROOT + 'photos/{id}/profile',
     OTHER_GALLERY_PHOTOS     : API_ROOT + 'photos/{id}',
-
     OWN_INTERESTS            : API_ROOT + 'content?type[]={type}',
     COMPARED_INTERESTS       : API_ROOT + 'content/compare/{userId}?type[]={type}&showOnlyCommon={showOnlyCommon}',
     CHECK_IMAGES             : API_ROOT + 'links/images',
+    NOTIFICATIONS_SUBSCRIBE  : API_ROOT + 'notifications/subscribe',
     CONNECTION_STATUS        : API_ROOT + 'client/status',
 };
 
@@ -103,7 +110,7 @@ export const TRACKER_ID_APP = config.TRACKER_ID_APP;
 export const INSTANT_HOST = config.INSTANT_HOST;
 
 export const GOOGLE_MAPS_API_KEY = config.GOOGLE_MAPS_API_KEY;
-export const GOOGLE_MAPS_URL = 'https://maps.googleapis.com/maps/api/js?libraries=places&key=%API_KEY%&sensor=true&callback=onMapsApiLoaded'.replace('%API_KEY%', GOOGLE_MAPS_API_KEY);
+export const GOOGLE_MAPS_URL = 'https://maps.googleapis.com/maps/api/js?libraries=places&key=%API_KEY%&callback=onMapsApiLoaded'.replace('%API_KEY%', GOOGLE_MAPS_API_KEY);
 
 export const REQUIRED_REGISTER_USER_FIELDS = [
     {

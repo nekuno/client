@@ -22,7 +22,7 @@ gulp.task('fonts', function() {
 });
 
 gulp.task('assets', function() {
-    return gulp.src(['src/*.ico', 'src/*.png', 'src/manifest.json', 'src/*.svg', './node_modules/framework7/dist/js/framework7.min.js.map'])
+    return gulp.src(['src/*.ico', 'src/*.png', 'src/manifest.json', 'src/google-services.json', 'src/*.svg', './node_modules/framework7/dist/js/framework7.min.js.map'])
         .pipe(gulp.dest('www/'));
 });
 
@@ -77,6 +77,15 @@ gulp.task('build-js', function() {
         .pipe(connect.reload());
 });
 
+gulp.task('build-service-worker', function() {
+    return browserify('./src/js/firebase-messaging-sw.js')
+        .transform(babelify)
+        .bundle()
+        .pipe(source('firebase-messaging-sw.js'))
+        .pipe(gulp.dest('./www'))
+        .pipe(connect.reload());
+});
+
 gulp.task('minify-js', ['build'], function() {
     return gulp.src('www/bundle.js')
         .pipe(uglify())
@@ -105,6 +114,6 @@ gulp.task('serve', function() {
     });
 });
 
-gulp.task('build', ['copy', 'fonts', 'assets', 'images', 'sass', 'build-js', 'build-vendor-js', 'build-hello-js']);
+gulp.task('build', ['copy', 'fonts', 'assets', 'images', 'sass', 'build-js', 'build-service-worker', 'build-vendor-js', 'build-hello-js']);
 gulp.task('release', ['minify-js', 'minify-css']);
 gulp.task('dev', ['build', 'serve', 'watch']);

@@ -672,19 +672,6 @@ export default {
     //////////////
     // Services //
     //////////////
-    NotificationService              : {
-        Message      : {
-            title: 'New message from %username%'
-        },
-        ProcessFinish: {
-            title: 'Process finished',
-            body : 'We have finished to process your network %resource%.'
-        },
-        UserLiked    : {
-            title: 'Mutual like',
-            body : '%username% and you have mutual like.'
-        }
-    },
     OfflineService                   : {
         isOffline: 'The application will not work as expected because you are not connected to Internet.'
     },

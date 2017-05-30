@@ -1,14 +1,11 @@
 import React, { PropTypes, Component } from 'react';
-import { ScrollContainer } from 'react-router-scroll';
 import TopNavBar from '../components/ui/TopNavBar';
 import CardUserList from '../components/user/CardUserList';
 import EmptyMessage from '../components/ui/EmptyMessage';
 import ChipList from './../components/ui/ChipList';
 import Button from './../components/ui/Button';
-import QuestionsBanner from '../components/questions/QuestionsBanner';
 import ProcessesProgress from '../components/processes/ProcessesProgress';
 import OrientationRequiredPopup from '../components/ui/OrientationRequiredPopup';
-import SocialNetworksBanner from '../components/socialNetworks/SocialNetworksBanner';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
@@ -202,7 +199,6 @@ export default class DiscoverPage extends Component {
                 {Object.keys(thread).length > 0 ?
                     <TopNavBar leftMenuIcon={!isThreadGroup} leftIcon="left-arrow" centerText={title} onLeftLinkClickHandler={this.leftClickHandler}/>
                     : <TopNavBar leftMenuIcon={true} centerText={title}/>}
-                {/*<ScrollContainer scrollKey="discover">*/}
                     <div className="view view-main" id="discover-view-main" style={{overflow: 'hidden'}}>
                         <div className="page discover-page">
                             <div id="page-content">
@@ -224,7 +220,6 @@ export default class DiscoverPage extends Component {
                         </div>
                         {profile && !profile.orientation ? <OrientationRequiredPopup profile={profile} onContinue={this.goToProfile}/> : null}
                     </div>
-                {/*</ScrollContainer>*/}
             </div>
         );
     }

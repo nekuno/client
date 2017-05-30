@@ -63,7 +63,7 @@ export default class InfiniteScroll extends Component {
         const scrollBehavior = this.context.scrollBehavior.scrollBehavior;
         const containerId = this.props.scrollContainer ? this.props.scrollContainer.id : 'window';
 
-        console.log(scrollBehavior._saveElementPosition(containerId));
+        scrollBehavior._saveElementPosition(containerId);
     }
 
     render() {
@@ -73,7 +73,7 @@ export default class InfiniteScroll extends Component {
         const containerId = this.props.scrollContainer ? this.props.scrollContainer.id : 'window';
 
         return (<div id="infinite-scroll">
-                ({ scrollContainer !== null ?
+                { scrollContainer !== null ?
                 <ScrollContainer scrollKey={containerId}>
                     <InfiniteAnyHeight
                         isInfiniteLoading={isInfiniteLoading}
@@ -91,7 +91,7 @@ export default class InfiniteScroll extends Component {
                 </ScrollContainer>
 
                 :
-                '' })
+                '' }
             </div>
         );
     }

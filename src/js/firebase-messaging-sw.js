@@ -20,9 +20,9 @@ messaging.setBackgroundMessageHandler(function(payload) {
     const {data} = payload;
     const notificationOptions = {
         body: data.body,
-        image: data.image,
+        icon: data.image,
         data: {
-            action: data.on_click_path
+            action: data.on_click_path || null
         }
     };
 
@@ -32,7 +32,7 @@ messaging.setBackgroundMessageHandler(function(payload) {
 self.addEventListener('notificationclick', function(event) {
     event.notification.close();
     const baseUrl = location.protocol+'//'+ location.hostname + '/#';
-    const path = '/#' + event.notification.data.action;
+    const path = event.notification.data.action ? '/#' + event.notification.data.action : null;
     const url = baseUrl + event.notification.data.action;
 
     // This looks to see if the current is already open and
@@ -40,10 +40,11 @@ self.addEventListener('notificationclick', function(event) {
     event.waitUntil(clients.matchAll({includeUncontrolled: true, type: 'window'}).then(function(clientList) {
         for (let i = 0; i < clientList.length; i++) {
             let client = clientList[i];
-            if (client.url == url && 'focus' in client)
+            if (client.url == url && 'focus' in client || !path && client.url.substring(0, baseUrl.length) === baseUrl)
                 return client.focus();
         }
-        if (clients.openWindow)
-            return clients.openWindow(path);
+        if (clients.openWindow) {
+            return path ? clients.openWindow(path) : clients.openWindow(baseUrl + '/');
+        }
     }));
 });

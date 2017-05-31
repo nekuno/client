@@ -24,7 +24,7 @@
         "cordova-plugin-splashscreen": "^3.2.2",
         "cordova-plugin-whitelist": "^1.2.2",
         "cordova-plugin-x-socialsharing": "^5.1.8",
-        "de.appplant.cordova.plugin.local-notification": "git+https://github.com/katzer/cordova-plugin-local-notifications.git#0.8.4",
+        "de.appplant.cordova.plugin.local-notification": "0.8.4",
         "envify": "^4.0.0",
         "flux": "2.1.1",
         "framework7": "1.5.2",

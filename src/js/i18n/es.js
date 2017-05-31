@@ -46,8 +46,8 @@ export default {
     HomePage                         : {
         title1         : 'Agrega tus redes y descubre a tus compañeros de %detail%',
         title1Details  : ['vida', 'proyectos', 'aventuras'],
-        title2         : 'Desbloquea insignias para redescubrir tu %detail%',
-        title2Details  : ['grupo', 'organización', 'ong', 'escuela', 'instituto', 'trabajo', 'universidad', 'evento', 'tribu', 'foro', 'canal'],
+        title2         : 'Desbloquea insignias para redescubrir %detail%',
+        title2Details  : ['tu tribu', 'tu centro', 'a tus seguidores', 'a tus vecinos', 'tu festival', ' a tus co-workers'],
         title3         : '100% Gratuito' + "\n" + '100% Software libre',
         title3Details  : [],
         login          : 'Entrar con Facebook',

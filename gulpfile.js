@@ -22,7 +22,7 @@ gulp.task('fonts', function() {
 });
 
 gulp.task('assets', function() {
-    return gulp.src(['src/*.ico', 'src/*.png', 'src/manifest.json', 'src/google-services.json', 'src/*.svg', './node_modules/framework7/dist/js/framework7.min.js.map'])
+    return gulp.src(['src/*.ico', 'src/*.png', 'src/manifest.json', 'src/google-services.json', 'src/GoogleService-Info.plist', 'src/*.svg', './node_modules/framework7/dist/js/framework7.min.js.map'])
         .pipe(gulp.dest('www/'));
 });
 

@@ -25,8 +25,7 @@ class ServiceWorkerService {
                     alert: "true",
                     badge: "true",
                     sound: "true"
-                },
-                windows: {}
+                }
             });
 
             push.on('registration', (data) => {
@@ -50,6 +49,12 @@ class ServiceWorkerService {
                 if (onClickPath && onClickPath !== RouterContainer.get().getCurrentLocation().pathname) {
                     setTimeout(RouterContainer.get().push(onClickPath), 0);
                 }
+                // This is for iOS. notId must be sent
+                push.finish(function() {
+                    console.log("processing of push data is finished");
+                }, function() {
+                    console.log("something went wrong with push.finish for ID = " + data.additionalData.notId)
+                }, data.additionalData.notId);
             });
 
             push.on('error', (e) => {

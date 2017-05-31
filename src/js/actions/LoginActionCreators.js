@@ -4,6 +4,7 @@ import AuthService from '../services/AuthService';
 import ChatSocketService from '../services/ChatSocketService';
 import WorkersSocketService from '../services/WorkersSocketService';
 import NotificationsSocketService from '../services/NotificationsSocketService';
+import ServiceWorkerService from '../services/ServiceWorkerService';
 import LoginStore from '../stores/LoginStore';
 import ProfileStore from '../stores/ProfileStore';
 import QuestionStore from '../stores/QuestionStore';
@@ -109,6 +110,7 @@ export default new class LoginActionCreators {
     }
 
     successfulRedirect() {
+        ServiceWorkerService.init(LoginStore.user.id);
         UserActionCreators.requestStats(LoginStore.user.id);
         ChatSocketService.connect();
         WorkersSocketService.connect();

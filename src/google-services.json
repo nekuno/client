@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "345837503310",
+    "firebase_url": "https://nekuno-a44f7.firebaseio.com",
+    "project_id": "nekuno-a44f7",
+    "storage_bucket": "nekuno-a44f7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:345837503310:android:b84c0c19dec1e1b2",
+        "android_client_info": {
+          "package_name": "com.nekuno"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "345837503310-5kmqubahiivk89p7iode6bite305224b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDKyq9s49mzf_W9SYPaMyjcYGKEowZWymM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

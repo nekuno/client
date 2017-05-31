@@ -1,5 +1,10 @@
-body #root .App .views .view .page.interests-page  {
-  #page-content {
+body #root .App .views {
+
+  #interests-view-main{
+    overflow-y: hidden;
+  }
+
+  .view .page.interests-page #page-content {
     margin: 65px auto 0 auto;
     width: 100%;
 

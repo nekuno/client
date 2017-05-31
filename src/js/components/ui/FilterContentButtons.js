@@ -119,11 +119,11 @@ export default class FilterContentButtons extends Component {
 
 FilterContentButtons.defaultProps = {
     strings: {
-        videos   : 'Videos',
-        audios   : 'Audios',
-        photos   : 'Photos',
-        websites : 'All',
-        people   : 'People',
-        channels : 'Channels'
+        videos  : 'Videos',
+        audios  : 'Audios',
+        photos  : 'Photos',
+        websites: 'All',
+        people  : 'People',
+        channels: 'Channels'
     }
 };

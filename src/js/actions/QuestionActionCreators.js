@@ -4,6 +4,11 @@ import * as QuestionAPI from '../api/QuestionAPI';
 import QuestionStore from '../stores/QuestionStore';
 
 export function requestQuestions(userId, link) {
+    const isLoading = QuestionStore.isLoadingOwnQuestions();
+    if (isLoading){
+        return Promise.resolve();
+    }
+
     return dispatchAsync(QuestionAPI.getAnswers(link), {
         request: ActionTypes.REQUEST_QUESTIONS,
         success: ActionTypes.REQUEST_QUESTIONS_SUCCESS,
@@ -22,8 +27,10 @@ export function requestComparedQuestions(userId, otherUserId, filters, link) {
 export function requestNextQuestions(userId, link) {
     dispatch(ActionTypes.QUESTIONS_NEXT, {userId});
     if (link) {
-        requestQuestions(userId, link);
+        return requestQuestions(userId, link);
     }
+
+    return Promise.resolve();
 }
 
 export function requestNextComparedQuestions(userId, otherUserId, link) {

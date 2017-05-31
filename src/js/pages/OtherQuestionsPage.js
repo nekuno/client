@@ -18,6 +18,10 @@ function parseId(user) {
     return user.id;
 }
 
+function parsePicture(user) {
+    return user && user.photo ? user.photo.thumbnail.small : 'img/no-img/small.jpg';
+}
+
 /**
  * Requests data from server for current props.
  */
@@ -33,7 +37,9 @@ function requestData(props, state) {
             QuestionActionCreators.requestComparedQuestions(userId, otherUserId, state.filters);
             UserActionCreators.requestComparedStats(userId, otherUserId);
         },
-        (status) => { console.log(status.error) }
+        (status) => {
+            console.log(status.error)
+        }
     );
 }
 
@@ -110,21 +116,55 @@ export default class OtherQuestionsPage extends Component {
     }
 
     handleScroll() {
-        let pagination = this.props.pagination;
-        let nextLink = pagination && pagination.hasOwnProperty('nextLink') ? pagination.nextLink : null;
-        let offsetTop = parseInt(document.getElementsByClassName('view')[0].scrollTop + document.getElementsByClassName('view')[0].offsetHeight - 49);
-        let offsetTopMax = parseInt(document.getElementById('page-content').offsetHeight);
+        // let pagination = this.props.pagination;
+        // let nextLink = pagination && pagination.hasOwnProperty('nextLink') ? pagination.nextLink : null;
+        // let offsetTop = parseInt(document.getElementsByClassName('view')[0].scrollTop + document.getElementsByClassName('view')[0].offsetHeight - 49);
+        // let offsetTopMax = parseInt(document.getElementById('page-content').offsetHeight);
+        //
+        // if (nextLink && offsetTop >= offsetTopMax) {
+        //     document.getElementsByClassName('view')[0].removeEventListener('scroll', this.handleScroll);
+        //     QuestionActionCreators.requestNextComparedQuestions(parseId(this.props.user), parseId(this.props.otherUser), nextLink);
+        // }
+    }
 
-        if (nextLink && offsetTop >= offsetTopMax) {
-            document.getElementsByClassName('view')[0].removeEventListener('scroll', this.handleScroll);
-            QuestionActionCreators.requestNextComparedQuestions(parseId(this.props.user), parseId(this.props.otherUser), nextLink);
+    onBottomScroll() {
+        const pagination = this.props.pagination;
+        const nextLink = pagination && pagination.hasOwnProperty('nextLink') ? pagination.nextLink : null;
+
+        if (nextLink) {
+            const userId = parseId(this.props.user);
+            const otherUserId = parseId(this.props.otherUser);
+            return QuestionActionCreators.requestNextComparedQuestions(userId, otherUserId, nextLink);
         }
     }
 
+    getBanner() {
+        const {otherUser, pagination, questions} = this.props;
+        return <OtherQuestionsBanner user={otherUser} questionsTotal={pagination.total || Object.keys(questions).length || 0}/>
+    }
+
+    getQuestionsHeader() {
+        const {user, otherUser, comparedStats, strings, pagination} = this.props;
+        const ownPicture = parsePicture(user);
+        const otherPicture = parsePicture(otherUser);
+
+        return <div className="other-questions-header-container">
+            <ProfilesAvatarConnection ownPicture={ownPicture} otherPicture={otherPicture}/>
+            <div className="other-questions-stats-title title">{comparedStats ? comparedStats.commonAnswers : 0} {strings.coincidences} {pagination.total || 0}</div>
+        </div>
+    }
+
+    getFirstItems() {
+        return [
+            this.getBanner.bind(this)(),
+            this.getQuestionsHeader.bind(this)()
+        ]
+    }
+
     render() {
-        const {otherUser, user, questions, otherQuestions, pagination, comparedStats, strings, params} = this.props;
-        const ownPicture = user && user.photo ? user.photo.thumbnail.small : 'img/no-img/small.jpg';
-        const otherPicture = otherUser && otherUser.photo ? otherUser.photo.thumbnail.small : 'img/no-img/small.jpg';
+        const {otherUser, user, questions, otherQuestions, strings, params} = this.props;
+        const ownPicture = parsePicture(user);
+        const otherPicture = parsePicture(otherUser);
         return (
             <div className="views">
                 <TopNavBar leftIcon={'left-arrow'} centerText={otherUser ? otherUser.username : ''}/>
@@ -135,27 +175,19 @@ export default class OtherQuestionsPage extends Component {
                         {'url': `/users/${params.slug}/other-interests`, 'text': strings.interests}
                     ]} activeLinkIndex={1} arrowUpLeft={'48%'}/>
                     : null}
-                <ScrollContainer scrollKey={"other-questions-" + params.slug}>
-                    <div className="view view-main" onScroll={this.handleScroll}>
-                        <div className="page other-questions-page">
-                            {user && otherUser ?
-                                <div id="page-content" className="other-questions-content">
-                                    <OtherQuestionsBanner user={otherUser} questionsTotal={pagination.total || Object.keys(questions).length || 0}/>
-                                    <div className="other-questions-header-container">
-                                        <ProfilesAvatarConnection ownPicture={ownPicture} otherPicture={otherPicture}/>
-                                        <div className="other-questions-stats-title title">{comparedStats ? comparedStats.commonAnswers : 0} {strings.coincidences} {pagination.total || 0}</div>
-                                    </div>
-                                    <OtherQuestionList otherQuestions={otherQuestions} questions={questions} otherUserSlug={otherUser.slug || ''} ownPicture={ownPicture} otherPicture={otherPicture} onTimerEnd={this.onTimerEnd}/>
-                                    <div className="loading-gif" style={pagination.nextLink ? {} : {display: 'none'}}></div>
-                                    <br />
-                                    <br />
-                                    <br />
-                                </div>
-                                : ''
-                            }
-                        </div>
+                <div className="view view-main" id="questions-view-main">
+                    <div className="page other-questions-page">
+                        {user && otherUser ?
+                            <div id="page-content" className="other-questions-content">
+                                <OtherQuestionList firstItems={this.getFirstItems.bind(this)()} otherQuestions={otherQuestions} questions={questions} otherUserSlug={otherUser.slug || ''} ownPicture={ownPicture} otherPicture={otherPicture} onTimerEnd={this.onTimerEnd}/>
+                                <br />
+                                <br />
+                                <br />
+                            </div>
+                            : ''
+                        }
                     </div>
-                </ScrollContainer>
+                </div>
             </div>
         );
     }

@@ -13,16 +13,19 @@
         "Framework7-3D-Panels": "git+https://github.com/nolimits4web/Framework7-3D-Panels.git",
         "bluebird": "3.4.6",
         "chart.js": "1.0.2",
-        "envify": "^4.0.0",
         "cordova-android": "^6.2.3",
+        "cordova-plugin-app-event": "file:node_modules/cordova-plugin-app-event",
         "cordova-plugin-crosswalk-webview": "^2.3.0",
         "cordova-plugin-device": "^1.1.6",
         "cordova-plugin-facebook4": "~1.7.4",
         "cordova-plugin-google-analytics": "^1.7.11",
         "cordova-plugin-inappbrowser": "^1.3.0",
+        "cordova-plugin-local-notifications": "^1.0.0",
         "cordova-plugin-splashscreen": "^3.2.2",
         "cordova-plugin-whitelist": "^1.2.2",
         "cordova-plugin-x-socialsharing": "^5.1.8",
+        "de.appplant.cordova.plugin.local-notification": "git+https://github.com/katzer/cordova-plugin-local-notifications.git#0.8.4",
+        "envify": "^4.0.0",
         "flux": "2.1.1",
         "framework7": "1.5.2",
         "history": "3.2.0",
@@ -91,7 +94,8 @@
             "cordova-plugin-x-socialsharing": {},
             "phonegap-plugin-push": {
                 "SENDER_ID": "345837503310"
-            }
+            },
+            "de.appplant.cordova.plugin.local-notification": {}
         },
         "platforms": [
             "android"

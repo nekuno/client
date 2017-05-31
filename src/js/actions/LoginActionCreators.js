@@ -3,7 +3,6 @@ import ActionTypes from '../constants/ActionTypes';
 import AuthService from '../services/AuthService';
 import ChatSocketService from '../services/ChatSocketService';
 import WorkersSocketService from '../services/WorkersSocketService';
-import NotificationsSocketService from '../services/NotificationsSocketService';
 import ServiceWorkerService from '../services/ServiceWorkerService';
 import LoginStore from '../stores/LoginStore';
 import ProfileStore from '../stores/ProfileStore';
@@ -114,7 +113,6 @@ export default new class LoginActionCreators {
         UserActionCreators.requestStats(LoginStore.user.id);
         ChatSocketService.connect();
         WorkersSocketService.connect();
-        NotificationsSocketService.connect();
         UserDataStatusActionCreators.requestUserDataStatus();
         UserActionCreators.requestOwnProfile(LoginStore.user.id).then(() => {
             QuestionActionCreators.requestQuestions(LoginStore.user.id).then(
@@ -175,6 +173,5 @@ export default new class LoginActionCreators {
         dispatch(ActionTypes.LOGOUT_USER, {path});
         ChatSocketService.disconnect();
         WorkersSocketService.disconnect();
-        NotificationsSocketService.disconnect();
     }
 }

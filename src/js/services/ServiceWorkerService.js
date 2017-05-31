@@ -15,7 +15,6 @@ class ServiceWorkerService {
             let push = PushNotification.init({
                 android: {
                     senderID: FCM_SENDER_ID,
-                    forceShow: true,
                     applicationServerKey: PUSH_PUBLIC_KEY
                 },
                 browser: {
@@ -43,12 +42,17 @@ class ServiceWorkerService {
                 // data.sound,
                 // data.image,
                 // data.additionalData
-                console.log('Notification clicked');
+                console.log('Notification clicked or received in foreground');
                 const onClickPath = data.additionalData ? data.additionalData['on_click_path'] : null;
+                const notification = {
+                    title: data.title,
+                    body: data.message,
+                    icon: data.image,
+                    on_click_path: onClickPath,
+                    force_show: data.additionalData.force_show
+                };
+                setTimeout(NotificationActionCreators.notify(notification));
 
-                if (onClickPath && onClickPath !== RouterContainer.get().getCurrentLocation().pathname) {
-                    setTimeout(RouterContainer.get().push(onClickPath), 0);
-                }
                 // This is for iOS. notId must be sent
                 push.finish(function() {
                     console.log("processing of push data is finished");

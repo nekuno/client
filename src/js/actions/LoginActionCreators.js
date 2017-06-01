@@ -174,6 +174,11 @@ export default new class LoginActionCreators {
             dispatch(ActionTypes.LOGOUT_USER, {path});
             ChatSocketService.disconnect();
             WorkersSocketService.disconnect();
-        }, () => console.log('Error unsubscribing user'));
+        }, () => {
+            console.log('Error unsubscribing user')
+            dispatch(ActionTypes.LOGOUT_USER, {path});
+            ChatSocketService.disconnect();
+            WorkersSocketService.disconnect();
+        });
     }
 }

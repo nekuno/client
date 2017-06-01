@@ -19,6 +19,7 @@ export default class InfiniteScroll extends Component {
         };
 
         this.onInfiniteLoad = this.onInfiniteLoad.bind(this);
+        this.getHeight = this.getHeight.bind(this);
     }
 
     componentDidUpdate() {
@@ -66,32 +67,40 @@ export default class InfiniteScroll extends Component {
         scrollBehavior._saveElementPosition(containerId);
     }
 
+    getHeight() {
+        return (
+            !this.props.scrollContainer ? null :
+                this.props.scrollContainer.clientHeight ? this.props.scrollContainer.clientHeight :
+                    this.props.scrollContainer.offsetHeight ? this.props.scrollContainer.offsetHeight : null
+        );
+    }
+
     render() {
         const isInfiniteLoading = this.state.loading;
         const scrollContainer = this.props.scrollContainer ? this.props.scrollContainer : null;
-        const containerHeight = this.props.scrollContainer ? scrollContainer.clientHeight : window.innerHeight;
+        const containerHeight = this.getHeight();
         const containerId = this.props.scrollContainer ? this.props.scrollContainer.id : 'window';
 
         return (<div id="infinite-scroll">
-                { scrollContainer !== null ?
-                <ScrollContainer scrollKey={containerId}>
-                    <InfiniteAnyHeight
-                        isInfiniteLoading={isInfiniteLoading}
-                        infiniteLoadBeginEdgeOffset={10}
-                        loadingSpinnerDelegate={this.getLoadingGif()}
-                        // useWindowAsScrollContainer
-                        handleScroll={this.handleScroll.bind(this)}
-                        scrollContainer={scrollContainer}
-                        containerHeight={containerHeight}
-                        // preloadAdditionalHeight={window.innerHeight*2}
-                        {...this.props}
-                        onInfiniteLoad={this.onInfiniteLoad}
-                        preloadBatchSize={100} //small values can cause infinite loop https://github.com/seatgeek/react-infinite/pull/48
-                    />
-                </ScrollContainer>
+                { scrollContainer !== null && containerHeight !== null ?
+                    <ScrollContainer scrollKey={containerId}>
+                        <InfiniteAnyHeight
+                            isInfiniteLoading={isInfiniteLoading}
+                            infiniteLoadBeginEdgeOffset={10}
+                            loadingSpinnerDelegate={this.getLoadingGif()}
+                            // useWindowAsScrollContainer
+                            handleScroll={this.handleScroll.bind(this)}
+                            scrollContainer={scrollContainer}
+                            containerHeight={containerHeight}
+                            // preloadAdditionalHeight={window.innerHeight*2}
+                            {...this.props}
+                            onInfiniteLoad={this.onInfiniteLoad}
+                            preloadBatchSize={100} //small values can cause infinite loop https://github.com/seatgeek/react-infinite/pull/48
+                        />
+                    </ScrollContainer>
 
-                :
-                '' }
+                    :
+                    '' }
             </div>
         );
     }

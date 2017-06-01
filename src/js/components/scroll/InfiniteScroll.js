@@ -73,7 +73,7 @@ export default class InfiniteScroll extends Component {
         const containerId = this.props.scrollContainer ? this.props.scrollContainer.id : 'window';
 
         return (<div id="infinite-scroll">
-                { scrollContainer !== null ?
+                { scrollContainer !== null && containerHeight !== null ?
                 <ScrollContainer scrollKey={containerId}>
                     <InfiniteAnyHeight
                         isInfiniteLoading={isInfiniteLoading}

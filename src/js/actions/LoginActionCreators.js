@@ -173,5 +173,6 @@ export default new class LoginActionCreators {
         dispatch(ActionTypes.LOGOUT_USER, {path});
         ChatSocketService.disconnect();
         WorkersSocketService.disconnect();
+        ServiceWorkerService.removeSetTokenSentToServer();
     }
 }

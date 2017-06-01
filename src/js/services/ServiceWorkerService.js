@@ -1,5 +1,5 @@
 import NotificationActionCreators from '../actions/NotificationActionCreators';
-import RouterContainer from './RouterContainer';
+import LocalStorageService from '../services/LocalStorageService';
 import Bluebird from 'bluebird';
 Bluebird.config({
     cancellation: true
@@ -140,7 +140,7 @@ class ServiceWorkerService {
         // - send messages back to this app
         // - subscribe/unsubscribe the token from topics
         function sendTokenToServer(currentToken) {
-            if (isTokenSentToServer()) {
+            if (!isTokenSentToServer()) {
                 console.log('Sending token to server...');
                 NotificationActionCreators.subscribe({
                     endpoint: FCM_URL + currentToken,
@@ -153,10 +153,10 @@ class ServiceWorkerService {
             }
         }
         function isTokenSentToServer() {
-            return window.localStorage.getItem('sentToServer') == 1;
+            return LocalStorageService.get('sentToServer') == 1;
         }
         function setTokenSentToServer(sent) {
-            window.localStorage.setItem('sentToServer', sent ? 1 : 0);
+            LocalStorageService.set('sentToServer', sent ? 1 : 0);
         }
         function requestPermission() {
             console.log('Requesting permission...');
@@ -185,6 +185,10 @@ class ServiceWorkerService {
         } else {
             console.log('Not subscribed');
         }
+    }
+
+    removeSetTokenSentToServer() {
+        LocalStorageService.remove('sentToServer');
     }
 
     loadScript = function (url, callback) {

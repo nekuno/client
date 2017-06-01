@@ -14,10 +14,22 @@ export default class TopLeftLink extends Component {
 
 	shouldComponentUpdate = shouldPureComponentUpdate;
 
+	constructor(props) {
+		super(props);
+
+		this.goBack = this.goBack.bind(this);
+	}
+
+	goBack() {
+		if (!this.context.router.goBack()) {
+			setTimeout(this.context.router.push('/discover'), 0);
+		}
+	}
+
 	render() {
 		const {onClickHandler, text, icon, wrapIcon} = this.props;
 		return (
-			<div className="col-30 left" onClick={typeof onClickHandler !== 'undefined' ? onClickHandler : this.context.router.goBack}>
+			<div className="col-30 left" onClick={typeof onClickHandler !== 'undefined' ? onClickHandler : this.goBack}>
 				{icon ?
                     wrapIcon ?
 						<div className="icon-wrapper translucent-icon-wrapper">

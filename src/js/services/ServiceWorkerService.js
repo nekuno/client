@@ -1,5 +1,6 @@
 import NotificationActionCreators from '../actions/NotificationActionCreators';
-import LocalStorageService from '../services/LocalStorageService';
+import NotificationService from './NotificationService';
+import LocalStorageService from './LocalStorageService';
 import Bluebird from 'bluebird';
 Bluebird.config({
     cancellation: true
@@ -9,10 +10,16 @@ import { FIREBASE_SCRIPT, FCM_URL, FCM_API_KEY, FCM_AUTH_DOMAIN, FCM_PROJECT_ID,
 
 class ServiceWorkerService {
 
+    constructor() {
+        this._push = null; // Native
+        this._messaging = null; // Web
+        this._subscriptionData = null;
+    }
+
     init() {
         if (window.cordova) {
             // Device is native
-            let push = PushNotification.init({
+            this._push = PushNotification.init({
                 android: {
                     senderID: FCM_SENDER_ID,
                     applicationServerKey: PUSH_PUBLIC_KEY
@@ -27,23 +34,25 @@ class ServiceWorkerService {
                 }
             });
 
-            push.on('registration', (data) => {
+            this._push.on('registration', (data) => {
                 console.log('User IS subscribed with registration_id: ' + data.registrationId);
                 const subscriptionData = {
-                    endpoint: FCM_URL + data.registrationId
+                    endpoint: FCM_URL + data.registrationId,
+                    platform: device.platform
                 };
                 this.updateSubscriptionOnServer(subscriptionData);
+                this._subscriptionData = subscriptionData;
             });
 
-            push.on('notification', (data) => {
+            this._push.on('notification', (data) => {
                 // data.message,
                 // data.title,
                 // data.count,
                 // data.sound,
                 // data.image,
                 // data.additionalData
-                console.log('Notification clicked or received in foreground');
-                const onClickPath = data.additionalData ? data.additionalData['on_click_path'] : null;
+                const isForeground = data.additionalData.foreground;
+                const onClickPath = data.additionalData.on_click_path;
                 const notification = {
                     title: data.title,
                     body: data.message,
@@ -51,24 +60,30 @@ class ServiceWorkerService {
                     on_click_path: onClickPath,
                     force_show: data.additionalData.force_show
                 };
-                setTimeout(NotificationActionCreators.notify(notification));
+                if (isForeground) {
+                    console.log('Notification received in foreground');
+                    setTimeout(NotificationActionCreators.notify(notification));
+                } else {
+                    console.log('Background notification clicked');
+                    setTimeout(NotificationService.onClickAction(notification, onClickPath));
+                }
 
                 // This is for iOS. notId must be sent
-                push.finish(function() {
+                this._push.finish(function() {
                     console.log("processing of push data is finished");
                 }, function() {
                     console.log("something went wrong with push.finish for ID = " + data.additionalData.notId)
                 }, data.additionalData.notId);
             });
 
-            push.on('error', (e) => {
+            this._push.on('error', (e) => {
                 console.log('Notification error');
                 console.log(e);
             });
 
         } else if ('serviceWorker' in navigator && 'PushManager' in window) {
             // It's is a browser and Push is supported
-            this.loadScript(FIREBASE_SCRIPT, this.onFirebaseLoaded);
+            this.loadScript(FIREBASE_SCRIPT, () => this.onFirebaseLoaded());
         }
 
         return false;
@@ -83,107 +98,136 @@ class ServiceWorkerService {
             messagingSenderId: FCM_SENDER_ID
         };
         firebase.initializeApp(config);
-        const messaging = firebase.messaging();
+        this._messaging = firebase.messaging();
 
-        requestPermission();
-        // [START refresh_token]
+        this.requestPermission();
+
         // Callback fired if Instance ID token is updated.
-        messaging.onTokenRefresh(() => {
-            messaging.getToken()
-                .then(function(refreshedToken) {
+        this._messaging.onTokenRefresh(() => {
+            this._messaging.getToken()
+                .then((refreshedToken) => {
                     console.log('Token refreshed.');
                     // Indicate that the new Instance ID token has not yet been sent to the
                     // app server.
-                    setTokenSentToServer(false);
+                    this.setTokenSentToServer(false);
                     // Send Instance ID token to app server.
-                    sendTokenToServer(refreshedToken);
+                    this.sendTokenToServer(refreshedToken);
                 })
                 .catch(function(err) {
                     console.log('Unable to retrieve refreshed token ', err);
                 });
         });
-        // [END refresh_token]
-        // [START receive_message]
+
         // Handle incoming messages. Called when:
         // - a message is received while the app has focus
         // - the user clicks on an app notification created by a sevice worker
         //   `messaging.setBackgroundMessageHandler` handler.
-        messaging.onMessage(function(payload) {
+        this._messaging.onMessage(function(payload) {
             console.log("Message received. ", payload);
             const data = payload.data;
 
             NotificationActionCreators.notify(data);
         });
-        // [END receive_message]
-        function getToken() {
-            // [START get_token]
-            // Get Instance ID token. Initially this makes a network call, once retrieved
-            // subsequent calls to getToken will return from cache.
-            return messaging.getToken()
-                .then(function(currentToken) {
-                    if (currentToken) {
-                        sendTokenToServer(currentToken);
-                    } else {
-                        // Show permission request.
-                        console.log('No Instance ID token available. Request permission to generate one.');
-                        // Show permission UI.
-                        setTokenSentToServer(false);
-                    }
-                })
-                .catch(function(err) {
-                    console.log('An error occurred while retrieving token. ', err);
-                    setTokenSentToServer(false);
-                });
+    }
+
+    requestPermission() {
+        console.log('Requesting permission...');
+        return this._messaging.requestPermission()
+            .then(() => {
+                console.log('Notification permission granted.');
+                this.getToken();
+            })
+            .catch(function(err) {
+                console.log('Unable to get permission to notify.', err);
+            });
+    }
+
+    getToken() {
+        // Get Instance ID token. Initially this makes a network call, once retrieved
+        // subsequent calls to getToken will return from cache.
+        return this._messaging.getToken()
+            .then((currentToken) => {
+                if (currentToken) {
+                    this.sendTokenToServer(currentToken);
+                } else {
+                    // Show permission request.
+                    console.log('No Instance ID token available. Request permission to generate one.');
+                    this.setTokenSentToServer(false);
+                }
+            })
+            .catch(function(err) {
+                console.log('An error occurred while retrieving token. ', err);
+                this.setTokenSentToServer(false);
+            });
+    }
+
+    sendTokenToServer(currentToken) {
+        const subscriptionData = {
+            endpoint: FCM_URL + currentToken,
+            platform: 'Web'
+        };
+        if (!this.isTokenSentToServer()) {
+            console.log('Sending token to server...');
+            this.updateSubscriptionOnServer(subscriptionData);
+        } else {
+            console.log('Token already sent to server so won\'t send it again ' +
+                'unless it changes');
         }
-        // [END get_token]
-        // Send the Instance ID token your application server, so that it can:
-        // - send messages back to this app
-        // - subscribe/unsubscribe the token from topics
-        function sendTokenToServer(currentToken) {
-            if (!isTokenSentToServer()) {
-                console.log('Sending token to server...');
-                NotificationActionCreators.subscribe({
-                    endpoint: FCM_URL + currentToken,
-                    platform: 'Web'
-                });
-                setTokenSentToServer(true);
-            } else {
-                console.log('Token already sent to server so won\'t send it again ' +
-                    'unless it changes');
-            }
-        }
-        function isTokenSentToServer() {
-            return LocalStorageService.get('sentToServer') == 1;
-        }
-        function setTokenSentToServer(sent) {
-            LocalStorageService.set('sentToServer', sent ? 1 : 0);
-        }
-        function requestPermission() {
-            console.log('Requesting permission...');
-            // [START request_permission]
-            return messaging.requestPermission()
-                .then(() => {
-                    console.log('Notification permission granted.');
-                    // TODO(developer): Retrieve an Instance ID token for use with FCM.
-                    // [START_EXCLUDE]
-                    // In many cases once an app has been granted notification permission, it
-                    // should update its UI reflecting this.
-                    getToken();
-                    // [END_EXCLUDE]
-                })
-                .catch(function(err) {
-                    console.log('Unable to get permission to notify.', err);
-                });
-            // [END request_permission]
-        }
+        this._subscriptionData = subscriptionData;
+    }
+
+    isTokenSentToServer() {
+        return LocalStorageService.get('sentToServer') == 1;
+    }
+
+    setTokenSentToServer(sent) {
+        LocalStorageService.set('sentToServer', sent ? 1 : 0);
     }
 
     updateSubscriptionOnServer(subscriptionData) {
         if (subscriptionData) {
-            subscriptionData.platform = typeof device == 'undefined' || !device.platform ? 'Web' : device.platform;
             NotificationActionCreators.subscribe(subscriptionData);
+            this.setTokenSentToServer(true);
+            this._subscriptionData = subscriptionData;
         } else {
             console.log('Not subscribed');
+        }
+    }
+
+    unSubscribe() {
+        this.removeSetTokenSentToServer();
+        if (window.cordova) {
+            return new Promise((resolve, reject) => {
+                this._push.unregister(() => {
+                    console.log('User unregistered from push notifications.');
+                    resolve(NotificationActionCreators.unSubscribe(this._subscriptionData));
+                }, () => {
+                    console.log('Error unregistering user from push notifications.');
+                    reject(error)
+                });
+            });
+
+        } else {
+            return this._messaging.getToken()
+                .then((currentToken) => {
+                    return this._messaging.deleteToken(currentToken)
+                        .then(() => {
+                            console.log('Token deleted.');
+                            return NotificationActionCreators.unSubscribe(this._subscriptionData);
+                        })
+                        .catch(function(err) {
+                            console.log('Unable to delete token. ', err);
+                            return new Promise(function(resolve, reject) {
+                                reject(error)
+                            });
+                        });
+                })
+                .catch(function(err) {
+                    console.log('Error retrieving Instance ID token. ', err);
+                    return new Promise(function(resolve, reject) {
+                        reject(error)
+                    });
+                });
         }
     }
 

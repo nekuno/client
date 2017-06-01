@@ -1,4 +1,5 @@
 import RouterContainer from './RouterContainer';
+import RouterActionCreators from '../actions/RouterActionCreators';
 import LocaleStore from '../stores/LocaleStore';
 
 class NotificationService {
@@ -25,7 +26,7 @@ class NotificationService {
                 icon : icon
             });
             window.cordova.plugins.notification.local.on("click", (notification) => {
-                this._onClickAction(notification, path);
+                this.onClickAction(notification, path);
             });
         } else {
             const lang = LocaleStore.getLanguage();
@@ -36,7 +37,7 @@ class NotificationService {
             };
             let notification = new Notification(title, options);
             notification.addEventListener('click', () => {
-                this._onClickAction(notification, path);
+                this.onClickAction(notification, path);
             });
         }
     }
@@ -45,9 +46,10 @@ class NotificationService {
         return path && path === RouterContainer.get().getCurrentLocation().pathname;
     }
 
-    _onClickAction(notification, path) {
+    onClickAction(notification, path) {
         window.focus();
         if (!this._isSamePath(path)) {
+            RouterActionCreators.storeRouterTransitionPath(path);
             setTimeout(RouterContainer.get().push(path), 0);
         }
         setTimeout(() => {

@@ -38,6 +38,7 @@ export const API_URLS = {
     COMPARED_INTERESTS       : API_ROOT + 'content/compare/{userId}?type[]={type}&showOnlyCommon={showOnlyCommon}',
     CHECK_IMAGES             : API_ROOT + 'links/images',
     NOTIFICATIONS_SUBSCRIBE  : API_ROOT + 'notifications/subscribe',
+    NOTIFICATIONS_UNSUBSCRIBE: API_ROOT + 'notifications/unsubscribe',
     CONNECTION_STATUS        : API_ROOT + 'client/status',
 };
 

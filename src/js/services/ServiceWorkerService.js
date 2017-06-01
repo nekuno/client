@@ -107,11 +107,13 @@ class ServiceWorkerService {
             this._messaging.getToken()
                 .then((refreshedToken) => {
                     console.log('Token refreshed.');
-                    // Indicate that the new Instance ID token has not yet been sent to the
-                    // app server.
-                    this.setTokenSentToServer(false);
-                    // Send Instance ID token to app server.
-                    this.sendTokenToServer(refreshedToken);
+                    NotificationActionCreators.unSubscribe(this._subscriptionData).then(() => {
+                        // Indicate that the new Instance ID token has not yet been sent to the
+                        // app server.
+                        this.setTokenSentToServer(false);
+                        // Send Instance ID token to app server.
+                        this.sendTokenToServer(refreshedToken);
+                    }, () => console.log('Error unsubscribing user'));
                 })
                 .catch(function(err) {
                     console.log('Unable to retrieve refreshed token ', err);

@@ -124,7 +124,7 @@ export default class CardUserList extends Component {
                     // preloadAdditionalHeight={window.innerHeight*2}
                     // useWindowAsScrollContainer
                     onInfiniteLoad={this.props.onBottomScroll}
-                    scrollContainer={document.getElementById("discover-view-main")}
+                    containerId="discover-view-main"
                 />
             </div>
         );

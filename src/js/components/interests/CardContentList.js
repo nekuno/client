@@ -89,7 +89,7 @@ export default class CardContentList extends Component {
                     // preloadAdditionalHeight={window.innerHeight*2}
                     // useWindowAsScrollContainer
                     onInfiniteLoad={this.props.onBottomScroll}
-                    scrollContainer={document.getElementById("interests-view-main")}
+                    containerId="interests-view-main"
                 />
             </div>
         );

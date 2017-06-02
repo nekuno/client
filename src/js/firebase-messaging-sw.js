@@ -20,7 +20,8 @@ messaging.setBackgroundMessageHandler(function(payload) {
     const {data} = payload;
     const notificationOptions = {
         body: data.body,
-        icon: data.image,
+        icon: '/img/icons/192 - xxxhpdi.png',
+        image: data.image,
         data: {
             action: data.on_click_path || null
         }

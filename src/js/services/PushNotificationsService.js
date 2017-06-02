@@ -3,7 +3,7 @@ import NotificationService from './NotificationService';
 import LocalStorageService from './LocalStorageService';
 import { FIREBASE_SCRIPT, FCM_API_KEY, FCM_AUTH_DOMAIN, FCM_PROJECT_ID, FCM_SENDER_ID, PUSH_PUBLIC_KEY } from '../constants/Constants';
 
-class ServiceWorkerService {
+class PushNotificationsService {
 
     constructor() {
         this._push = null; // Native
@@ -33,7 +33,6 @@ class ServiceWorkerService {
                     platform: device.platform
                 };
                 this.updateSubscriptionOnServer(subscriptionData);
-                this._subscriptionData = subscriptionData;
             });
 
             this._push.on('notification', (data) => {
@@ -48,7 +47,7 @@ class ServiceWorkerService {
                 const notification = {
                     title: data.title,
                     body: data.message,
-                    icon: data.image,
+                    image: data.image,
                     on_click_path: onClickPath,
                     force_show: data.additionalData.force_show
                 };
@@ -100,9 +99,6 @@ class ServiceWorkerService {
                 .then((refreshedToken) => {
                     console.log('Token refreshed.');
                     NotificationActionCreators.unSubscribe(this._subscriptionData).then(() => {
-                        // Indicate that the new Instance ID token has not yet been sent to the
-                        // app server.
-                        this.setTokenSentToServer(false);
                         // Send Instance ID token to app server.
                         this.sendTokenToServer(refreshedToken);
                     }, () => console.log('Error unsubscribing user'));
@@ -119,7 +115,6 @@ class ServiceWorkerService {
         this._messaging.onMessage(function(payload) {
             console.log("Message received. ", payload);
             const data = payload.data;
-            data.icon = data.image ? data.image : data.icon;
             // TODO: This should prevent to show one notification for each tab (but doesn't)
             if (LocalStorageService.get('lastNotificationId') != parseInt(data.notId)) {
                 LocalStorageService.set('lastNotificationId', parseInt(data.notId));
@@ -148,14 +143,11 @@ class ServiceWorkerService {
                 if (currentToken) {
                     this.sendTokenToServer(currentToken);
                 } else {
-                    // Show permission request.
                     console.log('No Instance ID token available. Request permission to generate one.');
-                    this.setTokenSentToServer(false);
                 }
             })
             .catch(function(err) {
                 console.log('An error occurred while retrieving token. ', err);
-                this.setTokenSentToServer(false);
             });
     }
 
@@ -164,28 +156,13 @@ class ServiceWorkerService {
             registrationId: currentToken,
             platform: 'Web'
         };
-        if (!this.isTokenSentToServer()) {
-            console.log('Sending token to server...');
-            this.updateSubscriptionOnServer(subscriptionData);
-        } else {
-            console.log('Token already sent to server so won\'t send it again ' +
-                'unless it changes');
-        }
-        this._subscriptionData = subscriptionData;
-    }
 
-    isTokenSentToServer() {
-        return LocalStorageService.get('sentToServer') == 1;
-    }
-
-    setTokenSentToServer(sent) {
-        LocalStorageService.set('sentToServer', sent ? 1 : 0);
+        this.updateSubscriptionOnServer(subscriptionData);
     }
 
     updateSubscriptionOnServer(subscriptionData) {
         if (subscriptionData) {
             NotificationActionCreators.subscribe(subscriptionData);
-            this.setTokenSentToServer(true);
             this._subscriptionData = subscriptionData;
         } else {
             console.log('Not subscribed');
@@ -193,7 +170,6 @@ class ServiceWorkerService {
     }
 
     unSubscribe() {
-        this.removeSetTokenSentToServer();
         if (window.cordova) {
             return new Promise((resolve, reject) => {
                 this._push.unregister(() => {
@@ -229,10 +205,6 @@ class ServiceWorkerService {
         }
     }
 
-    removeSetTokenSentToServer() {
-        LocalStorageService.remove('sentToServer');
-    }
-
     loadScript = function (url, callback) {
         let head = document.getElementsByTagName('head')[0];
         let script = document.createElement('script');
@@ -247,4 +219,4 @@ class ServiceWorkerService {
 
 }
 
-export default new ServiceWorkerService();
+export default new PushNotificationsService();

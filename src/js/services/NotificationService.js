@@ -5,13 +5,13 @@ import LocaleStore from '../stores/LocaleStore';
 class NotificationService {
 
     notify(data) {
-        const {title, body, icon, on_click_path, force_show} = data;
+        const {title, body, image, on_click_path, force_show} = data;
         if (title && body) {
-            this.showNotification(title, body, icon, on_click_path, force_show);
+            this.showNotification(title, body, image, on_click_path, force_show);
         }
     }
 
-    showNotification(title, body, icon, path, force_show) {
+    showNotification(title, body, image, path, force_show) {
         force_show = parseInt(force_show);
         const isSamePath = this._isSamePath(path);
         if (!force_show && isSamePath) {
@@ -23,7 +23,7 @@ class NotificationService {
             window.cordova.plugins.notification.local.schedule({
                 title: title,
                 text : body,
-                icon : icon
+                icon: this._getDefaultIcon()
             });
             window.cordova.plugins.notification.local.on("click", (notification) => {
                 this.onClickAction(notification, path);
@@ -32,13 +32,18 @@ class NotificationService {
             const lang = LocaleStore.getLanguage();
             let options = {
                 body: body,
-                icon: this._iconOrDefaultIcon(icon),
+                icon: this._getDefaultIcon(),
                 lang: lang
             };
-            let notification = new Notification(title, options);
-            notification.addEventListener('click', () => {
-                this.onClickAction(notification, path);
-            });
+            try {
+                let notification = new Notification(title, options);
+                notification.addEventListener('click', () => {
+                    this.onClickAction(notification, path);
+                });
+            } catch (e) {
+                // TODO: We may show an alert instead
+                console.log('new Notification not supported.')
+            }
         }
     }
 
@@ -59,8 +64,8 @@ class NotificationService {
         }, 100);
     }
 
-    _iconOrDefaultIcon = function(icon) {
-        return typeof icon !== 'undefined' && icon ? icon : 'https://nekuno.com/favicon-64.png';
+    _getDefaultIcon = function() {
+        return 'img/icons/192 - xxxhpdi.png';
     };
 }
 

@@ -3,7 +3,7 @@ import ActionTypes from '../constants/ActionTypes';
 import AuthService from '../services/AuthService';
 import ChatSocketService from '../services/ChatSocketService';
 import WorkersSocketService from '../services/WorkersSocketService';
-import ServiceWorkerService from '../services/ServiceWorkerService';
+import PushNotificationsService from '../services/PushNotificationsService';
 import LoginStore from '../stores/LoginStore';
 import ProfileStore from '../stores/ProfileStore';
 import QuestionStore from '../stores/QuestionStore';
@@ -109,7 +109,7 @@ export default new class LoginActionCreators {
     }
 
     successfulRedirect() {
-        ServiceWorkerService.init(LoginStore.user.id);
+        PushNotificationsService.init();
         UserActionCreators.requestStats(LoginStore.user.id);
         ChatSocketService.connect();
         WorkersSocketService.connect();
@@ -170,7 +170,7 @@ export default new class LoginActionCreators {
     }
 
     logoutUser(path = '/') {
-        ServiceWorkerService.unSubscribe().then(() => {
+        PushNotificationsService.unSubscribe().then(() => {
             dispatch(ActionTypes.LOGOUT_USER, {path});
             ChatSocketService.disconnect();
             WorkersSocketService.disconnect();

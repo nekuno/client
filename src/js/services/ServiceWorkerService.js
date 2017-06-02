@@ -1,12 +1,7 @@
 import NotificationActionCreators from '../actions/NotificationActionCreators';
 import NotificationService from './NotificationService';
 import LocalStorageService from './LocalStorageService';
-import Bluebird from 'bluebird';
-Bluebird.config({
-    cancellation: true
-});
-import { FIREBASE_SCRIPT, FCM_URL, FCM_API_KEY, FCM_AUTH_DOMAIN, FCM_PROJECT_ID, FCM_SENDER_ID, PUSH_PUBLIC_KEY } from '../constants/Constants';
-
+import { FIREBASE_SCRIPT, FCM_API_KEY, FCM_AUTH_DOMAIN, FCM_PROJECT_ID, FCM_SENDER_ID, PUSH_PUBLIC_KEY } from '../constants/Constants';
 
 class ServiceWorkerService {
 
@@ -24,9 +19,6 @@ class ServiceWorkerService {
                     senderID: FCM_SENDER_ID,
                     applicationServerKey: PUSH_PUBLIC_KEY
                 },
-                browser: {
-                    pushServiceURL: FCM_URL
-                },
                 ios: {
                     alert: "true",
                     badge: "true",
@@ -37,7 +29,7 @@ class ServiceWorkerService {
             this._push.on('registration', (data) => {
                 console.log('User IS subscribed with registration_id: ' + data.registrationId);
                 const subscriptionData = {
-                    endpoint: FCM_URL + data.registrationId,
+                    registrationId: data.registrationId,
                     platform: device.platform
                 };
                 this.updateSubscriptionOnServer(subscriptionData);
@@ -127,8 +119,12 @@ class ServiceWorkerService {
         this._messaging.onMessage(function(payload) {
             console.log("Message received. ", payload);
             const data = payload.data;
-
-            NotificationActionCreators.notify(data);
+            data.icon = data.image ? data.image : data.icon;
+            // TODO: This should prevent to show one notification for each tab (but doesn't)
+            if (LocalStorageService.get('lastNotificationId') != parseInt(data.notId)) {
+                LocalStorageService.set('lastNotificationId', parseInt(data.notId));
+                NotificationActionCreators.notify(data);
+            }
         });
     }
 
@@ -165,7 +161,7 @@ class ServiceWorkerService {
 
     sendTokenToServer(currentToken) {
         const subscriptionData = {
-            endpoint: FCM_URL + currentToken,
+            registrationId: currentToken,
             platform: 'Web'
         };
         if (!this.isTokenSentToServer()) {

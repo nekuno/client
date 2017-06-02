@@ -17,7 +17,6 @@ export default {
     TRACKER_ID_APP       : 'UA-55709950-7',
     GOOGLE_MAPS_API_KEY  : 'AIzaSyDPRiBUXY4zmP1dUd45lJb9se8n7IGMQBg',
     FIREBASE_SCRIPT      : 'https://www.gstatic.com/firebasejs/4.0.0/firebase.js',
-    FCM_URL              : 'https://fcm.googleapis.com/fcm/send/',
     FCM_API_KEY          : '',
     FCM_AUTH_DOMAIN      : '',
     FCM_PROJECT_ID       : '',

@@ -5,7 +5,6 @@ export const API_ROOT = config.API_ROOT;
 export const INVITATIONS_URL = config.INVITATIONS_ROOT + '{token}';
 export const SHARED_USER_URL = config.SHARED_USER_ROOT + '{slug}';
 export const FIREBASE_SCRIPT = config.FIREBASE_SCRIPT;
-export const FCM_URL = config.FCM_URL;
 export const FCM_API_KEY = config.FCM_API_KEY;
 export const FCM_AUTH_DOMAIN = config.FCM_AUTH_DOMAIN;
 export const FCM_PROJECT_ID = config.FCM_PROJECT_ID;

@@ -4,7 +4,9 @@ import { ScrollContainer } from 'react-router-scroll';
 
 export default class InfiniteScroll extends Component {
 
-    static propTypes = {};
+    static propTypes = {
+        containerId: PropTypes.string.isRequired
+    };
 
     static contextTypes = {
         scrollBehavior: PropTypes.object
@@ -16,17 +18,32 @@ export default class InfiniteScroll extends Component {
         this.state = {
             'firstTimeTried': false,
             'loading'       : undefined,
+            'mustRender'    : undefined,
         };
 
+        this.checkRender = this.checkRender.bind(this);
         this.onInfiniteLoad = this.onInfiniteLoad.bind(this);
         this.getHeight = this.getHeight.bind(this);
+        this.getScrollContainer = this.getScrollContainer.bind(this);
+    }
+
+    componentWillMount() {
+        setTimeout(this.checkRender, 200);
+    }
+
+    checkRender() {
+        const mustRender = this.state.mustRender;
+
+        if (!mustRender && this.getScrollContainer()) {
+            this._setMustRender(true);
+        }
     }
 
     componentDidUpdate() {
-        const scrollBehavior = this.context.scrollBehavior.scrollBehavior;
-        const containerId = this.props.scrollContainer ? this.props.scrollContainer.id : 'window';
+        this.checkRender();
 
-        scrollBehavior._updateElementScroll(containerId, this.context, this.context);
+        const scrollBehavior = this.context.scrollBehavior.scrollBehavior;
+        scrollBehavior.updateScroll(this.context, this.context);
     }
 
     _setLoadingState(bool) {
@@ -41,12 +58,15 @@ export default class InfiniteScroll extends Component {
         })
     }
 
+    _setMustRender(bool) {
+        this.setState({
+            'mustRender': bool
+        })
+    }
+
     onInfiniteLoad() {
         if (this.state.firstTimeTried) {
             this._setLoadingState(true);
-            // setTimeout(this.props.onInfiniteLoad().then(() => {
-            //     this._setLoadingState(false)
-            // }), 0);
             this.props.onInfiniteLoad().then(() => {
                 this._setLoadingState(false)
             });
@@ -62,47 +82,55 @@ export default class InfiniteScroll extends Component {
 
     handleScroll() {
         const scrollBehavior = this.context.scrollBehavior.scrollBehavior;
-        const containerId = this.props.scrollContainer ? this.props.scrollContainer.id : 'window';
+        const containerId = this.props.containerId;
 
         scrollBehavior._saveElementPosition(containerId);
     }
 
     getHeight() {
+        const scrollContainer = this.getScrollContainer();
         return (
-            !this.props.scrollContainer ? null :
-                this.props.scrollContainer.clientHeight ? this.props.scrollContainer.clientHeight :
-                    this.props.scrollContainer.offsetHeight ? this.props.scrollContainer.offsetHeight : null
+            !scrollContainer ? null :
+                scrollContainer.clientHeight ? scrollContainer.clientHeight :
+                    scrollContainer.offsetHeight ? scrollContainer.offsetHeight : null
         );
     }
 
-    render() {
+    getScrollContainer() {
+        return document.getElementById(this.props.containerId);
+    }
+
+    renderScroll() {
         const isInfiniteLoading = this.state.loading;
-        const scrollContainer = this.props.scrollContainer ? this.props.scrollContainer : null;
+        const scrollContainer = this.getScrollContainer();
         const containerHeight = this.getHeight();
-        const containerId = this.props.scrollContainer ? this.props.scrollContainer.id : 'window';
+        const containerId = this.props.containerId;
 
-        return (<div id="infinite-scroll">
-                { scrollContainer !== null && containerHeight !== null ?
-                    <ScrollContainer scrollKey={containerId}>
-                        <InfiniteAnyHeight
-                            isInfiniteLoading={isInfiniteLoading}
-                            infiniteLoadBeginEdgeOffset={10}
-                            loadingSpinnerDelegate={this.getLoadingGif()}
-                            // useWindowAsScrollContainer
-                            handleScroll={this.handleScroll.bind(this)}
-                            scrollContainer={scrollContainer}
-                            containerHeight={containerHeight}
-                            // preloadAdditionalHeight={window.innerHeight*2}
-                            {...this.props}
-                            onInfiniteLoad={this.onInfiniteLoad}
-                            preloadBatchSize={100} //small values can cause infinite loop https://github.com/seatgeek/react-infinite/pull/48
-                        />
-                    </ScrollContainer>
+        return <ScrollContainer scrollKey={containerId}>
+            <InfiniteAnyHeight
+                isInfiniteLoading={isInfiniteLoading}
+                infiniteLoadBeginEdgeOffset={10}
+                loadingSpinnerDelegate={this.getLoadingGif()}
+                // useWindowAsScrollContainer
+                handleScroll={this.handleScroll.bind(this)}
+                scrollContainer={scrollContainer}
+                containerHeight={containerHeight}
+                // preloadAdditionalHeight={window.innerHeight*2}
+                {...this.props}
+                onInfiniteLoad={this.onInfiniteLoad}
+                preloadBatchSize={100} //small values can cause infinite loop https://github.com/seatgeek/react-infinite/pull/48
+            />
+        </ScrollContainer>
+    }
 
-                    :
-                    '' }
-            </div>
-        );
+    render() {
+        return <div id="infinite-scroll">
+            { this.state.mustRender ?
+                this.renderScroll.bind(this)()
+                :
+                '' }
+        </div>
+            ;
     }
 }
 

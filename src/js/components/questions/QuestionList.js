@@ -65,7 +65,7 @@ export default class QuestionList extends Component {
                 // preloadAdditionalHeight={window.innerHeight*2}
                 // useWindowAsScrollContainer
                 onInfiniteLoad={this.props.onBottomScroll}
-                scrollContainer={document.getElementById("questions-view-main")}
+                containerId="questions-view-main"
             />
         );
     }

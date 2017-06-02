@@ -60,7 +60,7 @@ export default class ChatThreadsPage extends Component {
                         <div id="page-content" className="notifications-content">
                             <InfiniteScroll
                                 list={this.renderMessages()}
-                                scrollContainer={document.getElementById("chat-threads-view-main")}
+                                containerId="chat-threads-view-main"
                                 // preloadAdditionalHeight={window.innerHeight*2}
                                 // useWindowAsScrollContainer
                             />

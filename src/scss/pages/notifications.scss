@@ -1,4 +1,7 @@
 @import "../_partials/colors";
+body #root .App .views #chat-threads-view-main {
+  overflow-y: hidden;
+}
 body #root .App .views .view.notifications-view {
   overflow-y: hidden;
 }

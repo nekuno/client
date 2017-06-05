@@ -16,7 +16,7 @@ export default class OtherQuestionList extends Component {
     getOtherQuestions() {
         const {questions, otherQuestions, otherUserSlug, ownPicture, otherPicture, onTimerEnd} = this.props;
 
-        return Object.keys(otherQuestions).map((questionId, index) =>
+        const questionComponents = Object.keys(otherQuestions).map((questionId, index) =>
             <OtherQuestion otherUserSlug={otherUserSlug}
                            userAnswer={selectn('userAnswer', questions[questionId])}
                            ownPicture={ownPicture}
@@ -27,6 +27,10 @@ export default class OtherQuestionList extends Component {
                            onTimerEnd={onTimerEnd}
             />
         );
+
+        return <div className="question-list">
+            {questionComponents}
+        </div>
     }
 
     getItems() {
@@ -34,21 +38,19 @@ export default class OtherQuestionList extends Component {
         const questions = this.getOtherQuestions.bind(this)();
         return [
             ...firstItems,
-            ...questions
+            questions
         ];
     }
 
     render() {
         return (
-            <div className="question-list">
-                <InfiniteScroll
-                    list={this.getItems()}
-                    // preloadAdditionalHeight={window.innerHeight*2}
-                    // useWindowAsScrollContainer
-                    onInfiniteLoad={this.props.onBottomScroll}
-                    containerId="questions-view-main"
-                />
-            </div>
+            <InfiniteScroll
+                list={this.getItems()}
+                // preloadAdditionalHeight={window.innerHeight*2}
+                // useWindowAsScrollContainer
+                onInfiniteLoad={this.props.onBottomScroll}
+                containerId="questions-view-main"
+            />
         );
     }
 }

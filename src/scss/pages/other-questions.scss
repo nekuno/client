@@ -2,8 +2,9 @@
 
 body #root .App .view .page.other-questions-page  {
   #page-content {
+    width: 100% !important;
     .other-questions-header-container {
-      padding-top: 160px;
+      padding-top: 20px;
       text-align: center;
 
       .other-questions-stats-title {
@@ -12,6 +13,10 @@ body #root .App .view .page.other-questions-page  {
       }
     }
     .question-list {
+      width:85%;
+      margin-left:7.5%;
+      margin-top: 20px;
+
       .question {
         margin-bottom: 15px;
 

@@ -92,8 +92,6 @@ export default class InfiniteScroll extends Component {
         const toolbarHeight = this.getToolbarHeight();
         const scrollContainerHeight = this.getScrollContainerHeight.bind(this)();
 
-        console.log(topMargin);
-        console.log(scrollContainerHeight - (topMargin + toolbarHeight));
         return scrollContainerHeight - (topMargin + toolbarHeight);
     }
 

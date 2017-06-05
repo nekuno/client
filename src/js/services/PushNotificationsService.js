@@ -164,8 +164,8 @@ class PushNotificationsService {
 
     updateSubscriptionOnServer(subscriptionData) {
         if (subscriptionData) {
+            this._subscriptionData = Object.assign({}, subscriptionData);
             NotificationActionCreators.subscribe(subscriptionData);
-            this._subscriptionData = subscriptionData;
         } else {
             console.log('Not subscribed');
         }

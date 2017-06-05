@@ -6,6 +6,8 @@ import ChipList from './../components/ui/ChipList';
 import Button from './../components/ui/Button';
 import ProcessesProgress from '../components/processes/ProcessesProgress';
 import OrientationRequiredPopup from '../components/ui/OrientationRequiredPopup';
+import QuestionsBanner from '../components/questions/QuestionsBanner';
+import SocialNetworksBanner from '../components/socialNetworks/SocialNetworksBanner';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
@@ -109,6 +111,7 @@ export default class DiscoverPage extends Component {
         isLoadingRecommendations: PropTypes.bool,
         networks                : PropTypes.array.isRequired,
         similarityOrder         : PropTypes.bool.isRequired,
+        isThreadGroup           : PropTypes.bool
     };
 
     static contextTypes = {
@@ -143,7 +146,7 @@ export default class DiscoverPage extends Component {
     }
 
     leftClickHandler() {
-        if (this.props.thread && this.props.thread.groupId != null){
+        if (this.props.thread && this.props.thread.groupId != null) {
             this.context.router.push(`badges`);
         }
     }
@@ -172,7 +175,8 @@ export default class DiscoverPage extends Component {
         this.setState({selectedUserSlug: userSlug});
     }
 
-    renderChipList = function(thread, filters) {
+    renderChipList = function() {
+        const {thread, filters} = this.props;
         if (thread && filters && Object.keys(thread).length > 0 && Object.keys(filters).length > 0) {
             let threadFilters = thread.category === 'ThreadUsers' ? thread.filters.userFilters : thread.filters.contentFilters;
             let chips = [];
@@ -188,42 +192,71 @@ export default class DiscoverPage extends Component {
         }
     };
 
-    render() {
-        const {user, profile, strings, pagination, isSomethingWorking, filters, recommendations, thread, isLoadingRecommendations, networks, similarityOrder, isThreadGroup} = this.props;
+    getEditButton() {
+        const {strings, profile, thread, filters} = this.props;
+
+        if (profile && thread && filters && Object.keys(thread).length > 0) {
+            return <div className="edit-thread-button">
+                <Button onClick={this.editThread}><span className="icon-edit"></span> {strings.editFilters}</Button>
+            </div>
+        } else {
+            return '';
+        }
+    }
+
+    getProcessesProgress() {
+        return <ProcessesProgress />
+    }
+
+    getBanner() {
+        const {user, pagination, networks, thread, profile, filters} = this.props;
         const connectedNetworks = networks.filter(network => network.fetching || network.fetched || network.processing || network.processed);
-        const title = isThreadGroup ? thread.name : strings.discover ;
         const mustShowQuestionsBanner = profile && filters && thread && pagination.total <= 100;
         const mustShowSocialNetworksBanner = profile && filters && thread && connectedNetworks.length < 3;
+
+        const banner =
+            mustShowQuestionsBanner ? <QuestionsBanner user={user} questionsTotal={pagination.total || 0}/>
+                : mustShowSocialNetworksBanner ? <SocialNetworksBanner networks={networks} user={user}/>
+                : '';
+        return banner;
+    }
+    getFirstItems() {
+        return [
+            this.renderChipList.bind(this)(),
+            this.getEditButton.bind(this)(),
+            this.getBanner.bind(this)(),
+            this.getProcessesProgress.bind(this)()
+        ];
+    }
+
+    render() {
+        const {user, profile, strings, recommendations, thread, isLoadingRecommendations, similarityOrder, isThreadGroup} = this.props;
+        const title = isThreadGroup ? thread.name : strings.discover;
+        const emptyMessageText = isLoadingRecommendations ? strings.loadingMessage : strings.noRecommendations;
+
         return (
-            <div id="discover-views" className="views" >
+            <div id="discover-views" className="views">
                 {Object.keys(thread).length > 0 ?
                     <TopNavBar leftMenuIcon={!isThreadGroup} leftIcon="left-arrow" centerText={title} onLeftLinkClickHandler={this.leftClickHandler}/>
                     : <TopNavBar leftMenuIcon={true} centerText={title}/>}
-                    <div className="view view-main" id="discover-view-main" style={{overflow: 'hidden'}}>
-                        <div className="page discover-page">
-                            <div id="page-content">
-                                {this.renderChipList(thread, filters)}
-                                {profile && thread && filters && Object.keys(thread).length > 0 ?
-                                    <div className="edit-thread-button">
-                                        <Button onClick={this.editThread}><span className="icon-edit"></span> {strings.editFilters}</Button>
-                                    </div>
-                                    :
-                                    null}
-                                <ProcessesProgress />
-                                {profile ?
-                                    <CardUserList recommendations={recommendations} user={user} profile={profile} handleSelectProfile={this.selectProfile} similarityOrder={similarityOrder} onBottomScroll={this.onBottomScroll}
-                                                    mustShowQuestionsBanner = {mustShowQuestionsBanner} mustShowSocialNetworksBanner = {mustShowSocialNetworksBanner} networks = {networks} pagination = {pagination} />
-                                    :
-                                    <EmptyMessage text={isLoadingRecommendations ? strings.loadingMessage : strings.noRecommendations}/>}
-                                <br />
-                            </div>
+                <div className="view view-main" id="discover-view-main" style={{overflow: 'hidden'}}>
+                    <div className="page discover-page">
+                        <div id="page-content">
+                            {profile ?
+                                <CardUserList firstItems ={this.getFirstItems.bind(this)()} recommendations={recommendations} user={user} profile={profile}
+                                              handleSelectProfile={this.selectProfile} similarityOrder={similarityOrder} onBottomScroll={this.onBottomScroll}/>
+                                :
+                                <EmptyMessage text={emptyMessageText}/>}
+                            <br />
                         </div>
-                        {profile && !profile.orientation ? <OrientationRequiredPopup profile={profile} onContinue={this.goToProfile}/> : null}
                     </div>
+                    {profile ? <OrientationRequiredPopup profile={profile} onContinue={this.goToProfile}/> : null}
+                </div>
             </div>
         );
     }
-};
+}
+;
 
 DiscoverPage.defaultProps = {
     strings: {

@@ -150,7 +150,7 @@ export default class OtherUserPage extends Component {
         this.handleClickMessageLink = this.handleClickMessageLink.bind(this);
         this.handlePhotoClick = this.handlePhotoClick.bind(this);
         this.goToDiscover = this.goToDiscover.bind(this);
-        this.setOrientationAnswered = this.setOrientationAnswered.bind(this);
+        this.setOrientationRequired = this.setOrientationRequired.bind(this);
         this.showBlockActions = this.showBlockActions.bind(this);
         this.showUnblockActions = this.showUnblockActions.bind(this);
         this.reportReasonButton = this.reportReasonButton.bind(this);
@@ -161,16 +161,13 @@ export default class OtherUserPage extends Component {
         this.onShareError = this.onShareError.bind(this);
 
         this.state = {
-            orientationAnswered: null,
+            orientationRequired: null,
             photosLoaded       : null
         };
     }
 
     componentWillMount() {
         requestData(this.props);
-        if (this.props.ownProfile && !this.props.ownProfile.orientation) {
-            this.setState({orientationRequired: true});
-        }
     }
 
     componentWillReceiveProps(nextProps) {
@@ -180,10 +177,10 @@ export default class OtherUserPage extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (this.state.orientationRequired) {
+        if (this.state.orientationRequired && !this.props.ownProfile.orientation) {
             nekunoApp.popup('.popup-orientation-required');
-        } else if (!prevProps.ownProfile && this.props.ownProfile && !this.props.ownProfile.orientation) {
-            this.setState({orientationRequired: true});
+        } else if (this.state.orientationRequired === null && this.props.ownProfile && this.props.ownProfile.orientationRequired) {
+            this.setOrientationRequired(true);
         }
         if (this.props.photos.length > 0 && !this.state.photosLoaded) {
             if (initPhotosSwiper()) {
@@ -349,8 +346,8 @@ export default class OtherUserPage extends Component {
         this.context.router.push(`discover`);
     }
 
-    setOrientationAnswered() {
-        this.setState({orientationRequired: false});
+    setOrientationRequired(bool) {
+        this.setState({orientationRequired: bool});
     }
 
     render() {
@@ -364,11 +361,13 @@ export default class OtherUserPage extends Component {
         const age = selectn('fields.birthday.value', birthdayDataSet);
         const gender = selectn('fields.gender.value', genderDataSet);
         const location = selectn('location.locality', profile) || selectn('location.country', profile);
+        const canLookOtherProfiles = !(ownProfile && ownProfile.orientationRequired && !ownProfile.orientation);
+        const enoughData = otherUser && profile && profileWithMetadata && ownProfile;
 
         return (
             <div className="views">
                 <TopNavBar leftIcon={'left-arrow'} transparentBackground={true}/>
-                {otherUser && profile && profileWithMetadata && ownProfile && ownProfile.orientation ?
+                {enoughData ?
                     <ToolBar links={[
                         {'url': `/p/${params.slug}`, 'text': strings.about},
                         {'url': `/users/${params.slug}/other-questions`, 'text': strings.questions},
@@ -376,7 +375,7 @@ export default class OtherUserPage extends Component {
                     : null}
                 <div className="view view-main">
                     <div className="page other-user-page">
-                        {otherUser && profile && profileWithMetadata && ownProfile && ownProfile.orientation ?
+                        {enoughData && canLookOtherProfiles ?
                             <div id="page-content">
                                 <div className="user-images">
                                     <div className="swiper-pagination"></div>
@@ -437,7 +436,7 @@ export default class OtherUserPage extends Component {
                             </div>
                             : <EmptyMessage text={strings.loading} loadingGif={true}/>}
                     </div>
-                    {ownProfile && !ownProfile.orientation ? <OrientationRequiredPopup profile={ownProfile} onCancel={this.goToDiscover} onClick={this.setOrientationAnswered}/> : null}
+                    {ownProfile ? <OrientationRequiredPopup profile={ownProfile} onCancel={this.goToDiscover} onClick={this.setOrientationRequired.bind(this, false)}/> : null}
                 </div>
                 <ReportContentPopup onClick={this.onReportReasonOther}/>
             </div>

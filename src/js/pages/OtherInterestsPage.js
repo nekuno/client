@@ -29,8 +29,8 @@ function requestData(props) {
         () => {
             const otherUser = UserStore.getBySlug(params.slug);
             const otherUserId = parseId(otherUser);
-            InterestsActionCreators.resetInterests(otherUserId);
             InterestsActionCreators.requestComparedInterests(userId, otherUserId, 'Link', 1);
+            InterestsActionCreators.resetInterests(otherUserId);
         },
         (status) => {
             console.log(status.error)
@@ -134,10 +134,10 @@ export default class OtherInterestsPage extends Component {
         if (!this.state.carousel || this.props.interests.length == 0) {
             return;
         }
-        this.state = {
-            swiper  : this.initSwiper(),
-            carousel: true
-        };
+        // this.state = {
+        //     swiper  : this.initSwiper(),
+        //     carousel: true
+        // };
     }
 
     onContentClick(contentKey) {

@@ -6,5 +6,5 @@ export function sendSubscription(data, url = API_URLS.NOTIFICATIONS_SUBSCRIBE) {
 }
 
 export function deleteSubscription(data, url = API_URLS.NOTIFICATIONS_UNSUBSCRIBE) {
-    return deleteData(url, data);
+    return postData(url, data);
 }

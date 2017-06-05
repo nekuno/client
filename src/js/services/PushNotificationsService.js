@@ -115,11 +115,13 @@ class PushNotificationsService {
         this._messaging.onMessage(function(payload) {
             console.log("Message received. ", payload);
             const data = payload.data;
-            // TODO: This should prevent to show one notification for each tab (but doesn't)
-            if (LocalStorageService.get('lastNotificationId') != parseInt(data.notId)) {
-                LocalStorageService.set('lastNotificationId', parseInt(data.notId));
-                NotificationActionCreators.notify(data);
-            }
+            // This prevents to show one notification for each tab
+            setTimeout(() => {
+                if (LocalStorageService.get('lastNotificationId') != parseInt(data.notId)) {
+                    LocalStorageService.set('lastNotificationId', parseInt(data.notId));
+                    NotificationActionCreators.notify(data);
+                }
+            }, Math.random() * 1000);
         });
     }
 

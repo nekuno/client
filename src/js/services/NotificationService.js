@@ -33,6 +33,7 @@ class NotificationService {
             let options = {
                 body: body,
                 icon: this._getDefaultIcon(),
+                image: image,
                 lang: lang
             };
             try {

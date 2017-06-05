@@ -88,16 +88,46 @@ export default class InfiniteScroll extends Component {
     }
 
     getHeight() {
-        const scrollContainer = this.getScrollContainer();
-        return (
-            !scrollContainer ? null :
-                scrollContainer.clientHeight ? scrollContainer.clientHeight :
-                    scrollContainer.offsetHeight ? scrollContainer.offsetHeight : null
-        );
+        const topMargin = this.getTopMargin();
+        const toolbarHeight = this.getToolbarHeight();
+        const scrollContainerHeight = this.getScrollContainerHeight.bind(this)();
+
+        return scrollContainerHeight - (topMargin + toolbarHeight);
+    }
+
+    getTopMargin() {
+        const pageContent = document.getElementById('page-content');
+
+        if (!pageContent) {
+            return 0;
+        }
+
+        const style = window.getComputedStyle(pageContent);
+        const property = style.getPropertyValue('margin-top');
+        return parseInt(property.slice(0, -2));
+    }
+
+    getToolbarHeight() {
+        const toolbars = document.getElementsByClassName('toolbar');
+
+        if (toolbars.length === 0) {
+            return null;
+        }
+
+        const style = window.getComputedStyle(toolbars[0]);
+        const property = style.getPropertyValue('height');
+        return parseInt(property.slice(0, -2));
     }
 
     getScrollContainer() {
         return document.getElementById(this.props.containerId);
+    }
+
+    getScrollContainerHeight() {
+        const scrollContainer = this.getScrollContainer();
+        return !scrollContainer ? null :
+            scrollContainer.clientHeight ? scrollContainer.clientHeight :
+                scrollContainer.offsetHeight ? scrollContainer.offsetHeight : null;
     }
 
     renderScroll() {

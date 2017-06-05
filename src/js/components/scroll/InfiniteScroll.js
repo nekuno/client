@@ -69,6 +69,8 @@ export default class InfiniteScroll extends Component {
             this._setLoadingState(true);
             this.props.onInfiniteLoad().then(() => {
                 this._setLoadingState(false)
+            }) .catch(() => {
+                this._setLoadingState(false)
             });
 
         } else {

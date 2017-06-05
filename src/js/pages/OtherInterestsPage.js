@@ -251,6 +251,20 @@ export default class OtherInterestsPage extends Component {
         return <div className="title">{this.state.commonContent ? strings.similarInterestsCount.replace('%count%', pagination.total || 0) : strings.interestsCount.replace('%count%', pagination.total || 0)}</div>;
     }
 
+    getFilterContentButtons() {
+        const {otherUser, pagination, user, totals} = this.props;
+        const ownUserId = parseId(user);
+        const otherUserId = otherUser ? parseId(otherUser) : null;
+
+        return otherUser ? <FilterContentButtons userId={otherUserId} contentsCount={pagination.total || 0} ownContent={false} ownUserId={ownUserId} onClickHandler={this.onFilterTypeClick} commonContent={this.state.commonContent}
+                                           linksCount={totals.Link}
+                                           audiosCount={totals.Audio}
+                                           videosCount={totals.Video}
+                                           imagesCount={totals.Image}
+                                           channelsCount={totals.Creator}
+        /> : '';
+    }
+
     getCommonContentSwitch() {
         const strings = this.props.strings;
         return <div className="common-content-switch">
@@ -261,17 +275,19 @@ export default class OtherInterestsPage extends Component {
     getFirstItems() {
         const profileAvatarsConnection = this.getProfileAvatarsConnection.bind(this)();
         const title = this.getTitle.bind(this)();
+        const filterButtons = this.getFilterContentButtons.bind(this)();
         const commonContentSwitch = this.getCommonContentSwitch.bind(this)();
 
         return [
             profileAvatarsConnection,
             title,
+            filterButtons,
             commonContentSwitch
         ]
     }
 
     render() {
-        const {interests, noInterests, otherUser, user, params, pagination, totals, strings} = this.props;
+        const {interests, noInterests, otherUser, user, params, strings} = this.props;
         const ownUserId = parseId(user);
         const otherUserId = otherUser ? parseId(otherUser) : null;
 

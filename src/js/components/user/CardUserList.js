@@ -5,8 +5,6 @@ import CardUser from '../ui/CardUser';
 import selectn from 'selectn';
 import ChatUserStatusStore from '../../stores/ChatUserStatusStore';
 import InfiniteScroll from "../scroll/InfiniteScroll";
-import QuestionsBanner from '../questions/QuestionsBanner';
-import SocialNetworksBanner from '../socialNetworks/SocialNetworksBanner';
 
 /**
  * Retrieves state from stores for current props.
@@ -29,10 +27,9 @@ export default class CardUserList extends Component {
         profile                     : PropTypes.object.isRequired,
         handleSelectProfile         : PropTypes.func.isRequired,
         onBottomScroll              : PropTypes.func,
-        onlineUserIds               : PropTypes.array.isRequired,
         similarityOrder             : PropTypes.bool,
-        mustShowQuestionsBanner     : PropTypes.bool,
-        mustShowSocialNetworksBanner: PropTypes.bool
+        //Injected by connectToStores
+        onlineUserIds               : PropTypes.array,
     };
 
     constructor(props) {
@@ -43,20 +40,17 @@ export default class CardUserList extends Component {
     }
 
     getItems() {
-        const {mustShowSocialNetworksBanner, mustShowQuestionsBanner, user, pagination, networks} = this.props;
-        const banner =
-            mustShowQuestionsBanner ? <QuestionsBanner user={user} questionsTotal={pagination.total || 0}/>
-                : mustShowSocialNetworksBanner ? <SocialNetworksBanner networks={networks} user={user}/>
-                : '';
-
+        const firstItems = this.props.firstItems;
         const cards = this.getCardUsers();
-        return [banner, ...cards];
+        return [
+            ...firstItems,
+            ...cards
+        ];
     }
 
-    buildCardWrapper(card1, card2)
-    {
+    buildCardWrapper(card1, card2) {
         let cards = [Object.assign({}, card1)];
-        if (card2 instanceof Object){
+        if (card2 instanceof Object) {
             cards.push(Object.assign({}, card2));
         }
 
@@ -108,7 +102,7 @@ export default class CardUserList extends Component {
             }
         });
 
-        if (savedCard !== null){
+        if (savedCard !== null) {
             userComponents.push(this.buildCardWrapper(savedCard));
             savedCard = null;
         }

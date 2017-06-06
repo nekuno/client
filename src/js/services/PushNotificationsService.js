@@ -174,6 +174,9 @@ class PushNotificationsService {
     unSubscribe() {
         if (window.cordova) {
             return new Promise((resolve, reject) => {
+                if (!this._push) {
+                    reject('No subscription');
+                }
                 this._push.unregister(() => {
                     console.log('User unregistered from push notifications.');
                     resolve(NotificationActionCreators.unSubscribe(this._subscriptionData));
@@ -184,6 +187,11 @@ class PushNotificationsService {
             });
 
         } else {
+            if (!this._messaging) {
+                return new Promise(function(resolve, reject) {
+                    reject('No subscription')
+                });
+            }
             return this._messaging.getToken()
                 .then((currentToken) => {
                     return this._messaging.deleteToken(currentToken)

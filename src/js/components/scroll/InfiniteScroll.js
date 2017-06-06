@@ -1,5 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import InfiniteAnyHeight from './InfiniteAnyHeight.jsx';
+import Infinite from 'react-infinite';
 import { ScrollContainer } from 'react-router-scroll';
 
 export default class InfiniteScroll extends Component {
@@ -94,7 +95,7 @@ export default class InfiniteScroll extends Component {
         const toolbarHeight = this.getToolbarHeight();
         const scrollContainerHeight = this.getScrollContainerHeight.bind(this)();
 
-        return scrollContainerHeight - (topMargin + toolbarHeight);
+        return parseInt(scrollContainerHeight - (topMargin + toolbarHeight));
     }
 
     getTopMargin() {
@@ -151,6 +152,7 @@ export default class InfiniteScroll extends Component {
                 {...this.props}
                 onInfiniteLoad={this.onInfiniteLoad}
                 preloadBatchSize={100} //small values can cause infinite loop https://github.com/seatgeek/react-infinite/pull/48
+                preloadAdditionalHeight={Infinite.containerHeightScaleFactor(5)}
             />
         </ScrollContainer>
     }

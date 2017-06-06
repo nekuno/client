@@ -15,5 +15,11 @@ export default {
     SPOTIFY_SCOPE        : 'user-read-private user-read-email playlist-read-private user-read-birthdate',
     TRACKER_ID_WEB       : 'UA-55709950-6',
     TRACKER_ID_APP       : 'UA-55709950-7',
-    GOOGLE_MAPS_API_KEY  : 'AIzaSyDPRiBUXY4zmP1dUd45lJb9se8n7IGMQBg'
+    GOOGLE_MAPS_API_KEY  : 'AIzaSyDPRiBUXY4zmP1dUd45lJb9se8n7IGMQBg',
+    FIREBASE_SCRIPT      : 'https://www.gstatic.com/firebasejs/4.0.0/firebase.js',
+    FCM_API_KEY          : '',
+    FCM_AUTH_DOMAIN      : '',
+    FCM_PROJECT_ID       : '',
+    FCM_SENDER_ID        : '',
+    PUSH_PUBLIC_KEY      : ''
 }

@@ -2,6 +2,7 @@
 	"name": "Nekuno",
 	"short_name": "Nekuno",
 	"start_url": "\/#\/",
+	"gcm_sender_id": "103953800507",
 	"scope": "\/#\/",
 	"background_color": "#151232",
 	"lang": "en-US",
@@ -53,6 +54,7 @@
 			"id": "com.nekuno"
 		}, {
 			"platform": "itunes",
-			"url": ""
-		}]
+			"url": "https:\/\/itunes.apple.com\/us\/app\/nekuno\/id1220091640"
+		}],
+	"supports_share": true
 }

@@ -669,22 +669,6 @@ export default {
         skip   : 'Omitir',
         seeMore: '<a href="https://nekuno.com" target="_blank">Ver más sobre Nekuno</a>'
     },
-    //////////////
-    // Services //
-    //////////////
-    NotificationService              : {
-        Message      : {
-            title: 'Nuevo mensaje de %username%'
-        },
-        ProcessFinish: {
-            title: 'Proceso finalizado',
-            body : 'Hemos acabado de procesar tu red de %resource%.'
-        },
-        UserLiked    : {
-            title: '"like" mutuo',
-            body : '%username% y tú os habéis hecho "like" mutuamente.'
-        }
-    },
     OfflineService                   : {
         isOffline: 'La aplicación no funcionará correctamente porque no tienes conexión a Internet'
     },

@@ -29,8 +29,8 @@ function requestData(props) {
         () => {
             const otherUser = UserStore.getBySlug(params.slug);
             const otherUserId = parseId(otherUser);
-            InterestsActionCreators.resetInterests(otherUserId);
             InterestsActionCreators.requestComparedInterests(userId, otherUserId, 'Link', 1);
+            InterestsActionCreators.resetInterests(otherUserId);
         },
         (status) => {
             console.log(status.error)
@@ -107,7 +107,7 @@ export default class OtherInterestsPage extends Component {
     }
 
     componentWillUnmount() {
-        document.getElementsByClassName('view')[0].removeEventListener('scroll', this.handleScroll);
+        // document.getElementsByClassName('view')[0].removeEventListener('scroll', this.handleScroll);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -134,10 +134,10 @@ export default class OtherInterestsPage extends Component {
         if (!this.state.carousel || this.props.interests.length == 0) {
             return;
         }
-        this.state = {
-            swiper  : this.initSwiper(),
-            carousel: true
-        };
+        // this.state = {
+        //     swiper  : this.initSwiper(),
+        //     carousel: true
+        // };
     }
 
     onContentClick(contentKey) {
@@ -149,15 +149,24 @@ export default class OtherInterestsPage extends Component {
     };
 
     handleScroll() {
-        const {pagination, isLoadingComparedInterests} = this.props;
-        let nextLink = pagination && pagination.hasOwnProperty('nextLink') ? pagination.nextLink : null;
-        let offsetTop = parseInt(document.getElementsByClassName('view')[0].scrollTop + document.getElementsByClassName('view')[0].offsetHeight - 117);
-        let offsetTopMax = parseInt(document.getElementById('page-content').offsetHeight);
+        // const {pagination, isLoadingComparedInterests} = this.props;
+        // let nextLink = pagination && pagination.hasOwnProperty('nextLink') ? pagination.nextLink : null;
+        // let offsetTop = parseInt(document.getElementsByClassName('view')[0].scrollTop + document.getElementsByClassName('view')[0].offsetHeight - 117);
+        // let offsetTopMax = parseInt(document.getElementById('page-content').offsetHeight);
+        //
+        // if (nextLink && offsetTop >= offsetTopMax && !isLoadingComparedInterests) {
+        //     document.getElementsByClassName('view')[0].removeEventListener('scroll', this.handleScroll);
+        //     InterestsActionCreators.requestNextComparedInterests(parseId(this.props.user), parseId(this.props.otherUser), nextLink);
+        // }
+    }
 
-        if (nextLink && offsetTop >= offsetTopMax && !isLoadingComparedInterests) {
-            document.getElementsByClassName('view')[0].removeEventListener('scroll', this.handleScroll);
-            InterestsActionCreators.requestNextComparedInterests(parseId(this.props.user), parseId(this.props.otherUser), nextLink);
-        }
+    onBottomScroll() {
+        const {pagination, user, otherUser} = this.props;
+        const nextLink = pagination && pagination.hasOwnProperty('nextLink') ? pagination.nextLink : null;
+        const userId = user ? parseId(user) : null;
+        const otherUserId = otherUser ? parseId(otherUser) : null;
+
+        return InterestsActionCreators.requestNextComparedInterests(userId, otherUserId, nextLink);
     }
 
     onNavBarLeftLinkClick() {
@@ -218,8 +227,8 @@ export default class OtherInterestsPage extends Component {
         const {reportContentId, reportReason} = this.state;
         const {strings} = this.props;
         const data = {
-            contentId: reportContentId,
-            reason: reportReason,
+            contentId : reportContentId,
+            reason    : reportReason,
             reasonText: reasonText
         };
         UserActionCreators.reportContent(data).then(
@@ -228,12 +237,60 @@ export default class OtherInterestsPage extends Component {
         );
     }
 
-    render() {
-        const {interests, noInterests, otherUser, user, params, pagination, totals, strings} = this.props;
-        const ownUserId = parseId(user);
-        const otherUserId = otherUser ? parseId(otherUser) : null;
+    getProfileAvatarsConnection() {
+        const {user, otherUser} = this.props;
+
         const otherUserPicture = otherUser && otherUser.photo ? otherUser.photo.thumbnail.small : 'img/no-img/small.jpg';
         const ownPicture = user && user.photo ? user.photo.thumbnail.small : 'img/no-img/small.jpg';
+
+        return <ProfilesAvatarConnection ownPicture={ownPicture} otherPicture={otherUserPicture}/>
+    }
+
+    getTitle() {
+        const {strings, pagination} = this.props;
+        return <div className="title">{this.state.commonContent ? strings.similarInterestsCount.replace('%count%', pagination.total || 0) : strings.interestsCount.replace('%count%', pagination.total || 0)}</div>;
+    }
+
+    getFilterContentButtons() {
+        const {otherUser, pagination, user, totals} = this.props;
+        const ownUserId = parseId(user);
+        const otherUserId = otherUser ? parseId(otherUser) : null;
+
+        return otherUser ? <FilterContentButtons userId={otherUserId} contentsCount={pagination.total || 0} ownContent={false} ownUserId={ownUserId} onClickHandler={this.onFilterTypeClick} commonContent={this.state.commonContent}
+                                           linksCount={totals.Link}
+                                           audiosCount={totals.Audio}
+                                           videosCount={totals.Video}
+                                           imagesCount={totals.Image}
+                                           channelsCount={totals.Creator}
+        /> : '';
+    }
+
+    getCommonContentSwitch() {
+        const strings = this.props.strings;
+        return <div className="common-content-switch">
+            <TextRadios labels={[{key: 0, text: strings.all}, {key: 1, text: strings.common}]} value={this.state.commonContent} onClickHandler={this.onFilterCommonClick}/>
+        </div>;
+    }
+
+    getFirstItems() {
+        const profileAvatarsConnection = this.getProfileAvatarsConnection.bind(this)();
+        const title = this.getTitle.bind(this)();
+        const filterButtons = this.getFilterContentButtons.bind(this)();
+        const commonContentSwitch = this.getCommonContentSwitch.bind(this)();
+
+        return [
+            profileAvatarsConnection,
+            title,
+            filterButtons,
+            commonContentSwitch
+        ]
+    }
+
+    render() {
+        const {interests, noInterests, otherUser, user, params, strings} = this.props;
+        const ownUserId = parseId(user);
+        const otherUserId = otherUser ? parseId(otherUser) : null;
+
         return (
             <div className="views">
                 {this.state.carousel ?
@@ -249,41 +306,26 @@ export default class OtherInterestsPage extends Component {
                     ]} activeLinkIndex={2} arrowUpLeft={'83%'}/>
                     :
                     ''}
-                <ScrollContainer scrollKey={"other-interests-" + params.slug}>
-                    <div className="view view-main" onScroll={this.handleScroll}>
-                        <div className="page other-interests-page">
-                            <div id="page-content" className="other-interests-content">
-                                <ProfilesAvatarConnection ownPicture={ownPicture} otherPicture={otherUserPicture}/>
-                                <div className="title">{this.state.commonContent ? strings.similarInterestsCount.replace('%count%', pagination.total || 0) : strings.interestsCount.replace('%count%', pagination.total || 0)}</div>
-                                {otherUser ? <FilterContentButtons userId={otherUserId} contentsCount={pagination.total || 0} ownContent={false} ownUserId={ownUserId} onClickHandler={this.onFilterTypeClick} commonContent={this.state.commonContent}
-                                                                   linksCount={totals.Link}
-                                                                   audiosCount={totals.Audio}
-                                                                   videosCount={totals.Video}
-                                                                   imagesCount={totals.Image}
-                                                                   channelsCount={totals.Creator}
-                                    /> : ''}
-                                <div className="common-content-switch">
-                                    <TextRadios labels={[{key: 0, text: strings.all}, {key: 1, text: strings.common}]} value={this.state.commonContent} onClickHandler={this.onFilterCommonClick}/>
-                                </div>
-                                {noInterests ? '' :
-                                    /* Uncomment to enable carousel
-                                     this.state.carousel ?
-                                     <CardContentCarousel contents={interests} userId={ownUserId} otherUserId={otherUserId}/>
-                                     :
-                                     <CardContentList contents={interests} userId={ownUserId} otherUserId={otherUserId}
-                                     onClickHandler={this.onContentClick}/>
-                                     */
-                                    <CardContentList contents={interests} userId={ownUserId} otherUserId={otherUserId} onReport={this.onReport}/>
-                                }
-                                <br />
-                                {this.state.carousel ? '' : <div className="loading-gif" style={pagination.nextLink ? {} : {display: 'none'}}></div>}
-                            </div>
-                            <br/>
-                            <br/>
-                            <br/>
+                <div className="view view-main" id="interests-view-main">
+                    <div className="page other-interests-page">
+                        <div id="page-content" className="other-interests-content">
+                            {noInterests && false ? '' :
+                                /* Uncomment to enable carousel
+                                 this.state.carousel ?
+                                 <CardContentCarousel contents={interests} userId={ownUserId} otherUserId={otherUserId}/>
+                                 :
+                                 <CardContentList contents={interests} userId={ownUserId} otherUserId={otherUserId}
+                                 onClickHandler={this.onContentClick}/>
+                                 */
+                                <CardContentList firstItems={this.getFirstItems.bind(this)()} contents={interests} userId={ownUserId} otherUserId={otherUserId} onBottomScroll={this.onBottomScroll.bind(this)}/>
+                            }
+                            <br />
                         </div>
+                        <br/>
+                        <br/>
+                        <br/>
                     </div>
-                </ScrollContainer>
+                </div>
                 <ReportContentPopup onClick={this.onReportReasonText}/>
             </div>
         );

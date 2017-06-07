@@ -450,7 +450,7 @@ export default {
     ShareProfileBanner               : {
         title                 : '¡Compárate ya con tus amigos y seguidores!',
         text                  : 'Descubre a los más compatibles compartiendo la url de tu perfil',
-        copyLink              : 'Copiar url de perfil',
+        copyLink              : 'Compartir url de perfil',
         compatibilityCheckWith: 'Descubre tu compatibilidad con %username%',
         copiedToClipboard     : 'Copiado al portapapeles',
         shareError            : 'Ha ocurrido un error compartiendo el enlace.'

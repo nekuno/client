@@ -450,7 +450,7 @@ export default {
     ShareProfileBanner               : {
         title                 : 'Share now with your friends and followers!',
         text                  : 'Discover the most compatibles sharing your profile url',
-        copyLink              : 'Copy profile url',
+        copyLink              : 'Share profile url',
         compatibilityCheckWith: 'Discover your compatibility with %username%',
         copiedToClipboard     : 'Copied to clipboard',
         shareError            : 'An error occurred sending the link.'

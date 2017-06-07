@@ -72,6 +72,9 @@ export default class LeftPanel extends Component {
     handleGoClickProfile() {
         nekunoApp.closePanel();
         $$('.panel-left').once('closed', () => {
+            this.setState({
+                moreActive: false
+            });
             this.context.router.push(`/p/${this.props.user.slug}`);
         });
     }
@@ -86,6 +89,9 @@ export default class LeftPanel extends Component {
     handleGoClickSocialNetworks() {
         nekunoApp.closePanel();
         $$('.panel-left').once('closed', () => {
+            this.setState({
+                moreActive: false
+            });
             this.context.router.push('/social-networks');
         });
     }
@@ -106,6 +112,9 @@ export default class LeftPanel extends Component {
     handleClickSettings() {
         nekunoApp.closePanel();
         $$('.panel-left').once('closed', () => {
+            this.setState({
+                moreActive: false
+            });
             this.context.router.push('/settings');
         });
     }
@@ -113,6 +122,9 @@ export default class LeftPanel extends Component {
     handleGoClickInvitations() {
         nekunoApp.closePanel();
         $$('.panel-left').once('closed', () => {
+            this.setState({
+                moreActive: false
+            });
             this.context.router.push('/invitations');
         });
     }

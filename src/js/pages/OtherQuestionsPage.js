@@ -140,7 +140,18 @@ export default class OtherQuestionsPage extends Component {
 
     getBanner() {
         const {otherUser, pagination, questions} = this.props;
-        return <OtherQuestionsBanner user={otherUser} questionsTotal={pagination.total || Object.keys(questions).length || 0}/>
+        const mustRenderBanner = !this.areAllQuestionsAnswered();
+        return mustRenderBanner ? <OtherQuestionsBanner user={otherUser} questionsTotal={pagination.total || Object.keys(questions).length || 0}/> : '';
+    }
+
+    areAllQuestionsAnswered() {
+        const {questions, otherQuestions} = this.props;
+        const questionsAnswered = Object.keys(questions);
+        const otherQuestionsAnswered = Object.keys(otherQuestions);
+
+        return otherQuestionsAnswered.every((otherQuestion, otherQuestionKey) => {
+            return otherQuestionKey in questionsAnswered;
+        });
     }
 
     getQuestionsHeader() {

@@ -95,6 +95,7 @@ export default {
     },
     GalleryPhotoPage                 : {
         photos       : 'Fotos',
+        profilePhoto : 'Foto de perfil',
         confirmDelete: '¿Estás seguro de que quieres borrar esta foto?'
     },
     OtherGalleryPhotoPage            : {

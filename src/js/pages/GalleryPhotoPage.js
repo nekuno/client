@@ -120,7 +120,7 @@ export default class GalleryPhotoPage extends Component {
         return (
             <div className="views">
                 {isProfilePhoto ?
-                    <TopNavBar leftIcon={'left-arrow'} centerText={strings.photos}/>
+                    <TopNavBar leftIcon={'left-arrow'} centerText={strings.profilePhoto}/>
                     :
                     <TopNavBar leftIcon={'left-arrow'} centerText={strings.photos} rightIcon={'person'} secondRightIcon={'delete'} onRightLinkClickHandler={this.setAsProfilePhoto} onSecondRightLinkClickHandler={this.deletePhoto}/>
                 }
@@ -169,6 +169,7 @@ export default class GalleryPhotoPage extends Component {
 GalleryPhotoPage.defaultProps = {
     strings: {
         photos       : 'Photos',
+        profilePhoto : 'Profile photo',
         confirmDelete: 'Are you sure you want to delete this photo?'
     }
 };

@@ -16,7 +16,7 @@ export function requestQuestions(userId, link) {
     }, {userId});
 }
 
-export function requestComparedQuestions(userId, otherUserId, filters, link) {
+export function requestComparedQuestions(userId, otherUserId, filters = [], link) {
     return dispatchAsync(QuestionAPI.getComparedAnswers(otherUserId, filters, link), {
         request: ActionTypes.REQUEST_COMPARED_QUESTIONS,
         success: ActionTypes.REQUEST_COMPARED_QUESTIONS_SUCCESS,
@@ -36,8 +36,10 @@ export function requestNextQuestions(userId, link) {
 export function requestNextComparedQuestions(userId, otherUserId, link) {
     dispatch(ActionTypes.QUESTIONS_NEXT, {userId, otherUserId});
     if (link) {
-        requestComparedQuestions(userId, otherUserId, [], link);
+        return requestComparedQuestions(userId, otherUserId, [], link);
     }
+
+    return Promise.resolve();
 }
 
 export function requestQuestion(userId, questionId) {

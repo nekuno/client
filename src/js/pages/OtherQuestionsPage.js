@@ -35,7 +35,7 @@ function requestData(props, state) {
         () => {
             const otherUser = UserStore.getBySlug(params.slug);
             const otherUserId = parseId(otherUser);
-            QuestionActionCreators.requestComparedQuestions(userId, otherUserId, state.filters);
+            QuestionActionCreators.requestComparedQuestions(userId, otherUserId);
             UserActionCreators.requestComparedStats(userId, otherUserId);
         },
         (status) => {
@@ -140,6 +140,8 @@ export default class OtherQuestionsPage extends Component {
             const otherUserId = parseId(this.props.otherUser);
             return QuestionActionCreators.requestNextComparedQuestions(userId, otherUserId, nextLink);
         }
+
+        return Promise.resolve();
     }
 
     getBanner() {
@@ -196,7 +198,8 @@ export default class OtherQuestionsPage extends Component {
                     <div className="page other-questions-page">
                         {user && otherUser ?
                             <div id="page-content" className="other-questions-content">
-                                <OtherQuestionList firstItems={this.getFirstItems.bind(this)()} otherQuestions={otherQuestions} questions={questions} otherUserSlug={otherUser.slug || ''} ownPicture={ownPicture} otherPicture={otherPicture} onTimerEnd={this.onTimerEnd} isLoadingComparedQuestions={isLoadingComparedQuestions}/>
+                                <OtherQuestionList firstItems={this.getFirstItems.bind(this)()} otherQuestions={otherQuestions} questions={questions} otherUserSlug={otherUser.slug || ''} ownPicture={ownPicture} otherPicture={otherPicture}
+                                                   onTimerEnd={this.onTimerEnd} isLoadingComparedQuestions={isLoadingComparedQuestions} onBottomScroll={this.onBottomScroll.bind(this)}/>
                                 <br />
                                 <br />
                                 <br />

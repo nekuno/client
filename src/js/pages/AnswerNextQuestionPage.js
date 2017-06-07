@@ -118,7 +118,8 @@ export default class AnswerNextQuestionPage extends Component {
         if(goToQuestionStats) {
             this.context.router.push(`/question-stats`);
         } else if (question && question.questionId) {
-            window.setTimeout(() => this.props.startTutorial(this.refs.joyrideAnswerQuestion), 2000);
+            // TODO: Uncomment to start the tutorial the first time
+            //window.setTimeout(() => this.props.startTutorial(this.refs.joyrideAnswerQuestion), 2000);
         }
     }
 

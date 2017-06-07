@@ -1,7 +1,13 @@
 export default {
     AnswerQuestionPage               : {
         question: 'Pregunta',
-        skip    : 'Omitir'
+        skip    : 'Omitir',
+        tutorialFirstStepTitle : 'Tu respuesta',
+        tutorialFirstStep      : 'Esta es tu respuesta a la pregunta de arriba.',
+        tutorialSecondStepTitle: 'Respuestas de otros',
+        tutorialSecondStep     : 'Aquí eliges qué debería de contestar otra persona para que sea compatible contigo; puedes elegir más de una respuesta.',
+        tutorialThirdStepTitle : 'Importancia',
+        tutorialThirdStep      : 'Esta será la importancia que tendrá la pregunta a la hora de hacer los cálculos de compatibilidad.'
     },
     AnswerNextQuestionPage           : {
         question               : 'Pregunta',
@@ -15,7 +21,13 @@ export default {
     },
     AnswerNextOtherQuestionPage      : {
         question       : 'Pregunta',
-        noMoreQuestions: 'No hay más preguntas de este usuario'
+        noMoreQuestions: 'No hay más preguntas de este usuario',
+        tutorialFirstStepTitle : 'Tu respuesta',
+        tutorialFirstStep      : 'Esta es tu respuesta a la pregunta de arriba.',
+        tutorialSecondStepTitle: 'Respuestas de otros',
+        tutorialSecondStep     : 'Aquí eliges qué debería de contestar otra persona para que sea compatible contigo; puedes elegir más de una respuesta.',
+        tutorialThirdStepTitle : 'Importancia',
+        tutorialThirdStep      : 'Esta será la importancia que tendrá la pregunta a la hora de hacer los cálculos de compatibilidad.'
     },
     ChatMessagesPage                 : {
         noMoreMessages: 'No tienes más mensajes',

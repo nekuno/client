@@ -4,10 +4,12 @@ import TopNavBar from '../components/ui/TopNavBar';
 import AnswerQuestion from '../components/questions/AnswerQuestion';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
+import tutorial from '../components/tutorial/Tutorial';
 import connectToStores from '../utils/connectToStores';
 import * as QuestionActionCreators from '../actions/QuestionActionCreators';
 import UserStore from '../stores/UserStore';
 import QuestionStore from '../stores/QuestionStore';
+import Joyride from 'react-joyride';
 
 function parseId(user) {
     return user.id;
@@ -52,6 +54,7 @@ function getState(props) {
 
 @AuthenticatedComponent
 @translate('AnswerQuestionPage')
+@tutorial()
 @connectToStores([UserStore, QuestionStore], getState)
 export default class AnswerQuestionPage extends Component {
 
@@ -65,6 +68,12 @@ export default class AnswerQuestionPage extends Component {
         user                   : PropTypes.object.isRequired,
         // Injected by @translate:
         strings                : PropTypes.object,
+        // Injected by @tutorial:
+        steps                  : PropTypes.array,
+        startTutorial          : PropTypes.func,
+        resetTutorial          : PropTypes.func,
+        endTutorialHandler     : PropTypes.func,
+        tutorialLocale         : PropTypes.object,
         // Injected by @connectToStores:
         question               : PropTypes.object,
         userAnswer             : PropTypes.object,
@@ -80,6 +89,7 @@ export default class AnswerQuestionPage extends Component {
         super(props);
 
         this.skipQuestionHandler = this.skipQuestionHandler.bind(this);
+        this.forceStartTutorial = this.forceStartTutorial.bind(this);
     }
 
     componentWillMount() {
@@ -96,6 +106,10 @@ export default class AnswerQuestionPage extends Component {
         }
     }
 
+    componentWillUnmount() {
+        this.props.resetTutorial(this.refs.joyrideAnswerQuestion);
+    }
+
     skipQuestionHandler() {
         const {user, question, params} = this.props;
         let userId = parseId(user);
@@ -108,8 +122,13 @@ export default class AnswerQuestionPage extends Component {
         }
     }
 
+    forceStartTutorial() {
+        this.props.resetTutorial(this.refs.joyrideAnswerQuestion);
+        this.props.startTutorial(this.refs.joyrideAnswerQuestion, true);
+    }
+
     render() {
-        const {user, strings, errors, noMoreQuestions, userAnswer, question} = this.props;
+        const {user, strings, errors, noMoreQuestions, userAnswer, question, steps, tutorialLocale, endTutorialHandler} = this.props;
         const userId = parseId(user);
         const ownPicture = user.photo ? user.photo.thumbnail.small : 'img/no-img/small.jpg';
         const isRegisterQuestion = selectn('isRegisterQuestion', question);
@@ -118,9 +137,10 @@ export default class AnswerQuestionPage extends Component {
             <div className="views">
                 <TopNavBar leftMenuIcon={true} centerText={strings.question} rightIcon={isRegisterQuestion ? '' : 'delete'} onRightLinkClickHandler={isRegisterQuestion ? null : this.skipQuestionHandler}/>
                 <div className="view view-main">
+                    <Joyride ref="joyrideAnswerQuestion" steps={steps} locale={tutorialLocale} callback={endTutorialHandler} type="continuous"/>
                     <div className="page answer-question-page">
                         <div id="page-content" className="answer-question-content">
-                            <AnswerQuestion question={question} userAnswer={userAnswer} userId={userId} errors={errors} noMoreQuestions={noMoreQuestions} ownPicture={ownPicture}/>
+                            <AnswerQuestion question={question} userAnswer={userAnswer} userId={userId} errors={errors} noMoreQuestions={noMoreQuestions} ownPicture={ownPicture} startTutorial={this.forceStartTutorial}/>
                         </div>
                     </div>
                 </div>
@@ -132,6 +152,32 @@ export default class AnswerQuestionPage extends Component {
 AnswerQuestionPage.defaultProps = {
     strings: {
         question: 'Question',
-        skip    : 'Skip'
-    }
+        skip    : 'Skip',
+        tutorialFirstStepTitle : 'Your answer',
+        tutorialFirstStep      : 'This is your answer to the above question.',
+        tutorialSecondStepTitle: 'Others answers',
+        tutorialSecondStep     : 'Here you choose what other person should answer to be compatible with you; you can choose more than one answer.',
+        tutorialThirdStepTitle : 'Importance',
+        tutorialThirdStep      : 'This will be the question`s importance when making compatibility calculations.'
+    },
+    steps: [
+        {
+            titleRef: 'tutorialFirstStepTitle',
+            textRef: 'tutorialFirstStep',
+            selector: '#joyride-1-your-answer',
+            position: 'bottom',
+        },
+        {
+            titleRef: 'tutorialSecondStepTitle',
+            textRef: 'tutorialSecondStep',
+            selector: '#joyride-2-others-answers',
+            position: 'bottom',
+        },
+        {
+            titleRef: 'tutorialThirdStepTitle',
+            textRef: 'tutorialThirdStep',
+            selector: '#joyride-3-answer-importance',
+            position: 'top',
+        }
+    ]
 };

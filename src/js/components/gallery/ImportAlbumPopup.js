@@ -33,8 +33,10 @@ export default class ImportAlbumPopup extends Component {
                             <span className="icon icon-google"></span>
                         </div>
                     </div>
-                    <div className="upload-wrapper social-box" onClick={this.props.onFileUploadClickHandler}>
-                        <span className="icon icon-uploadthin"></span> <span className="">{strings.uploadFromDevice}</span>
+                    <div className="upload-wrapper" onClick={this.props.onFileUploadClickHandler}>
+                        <div className="button button-fill button-round">
+                            <span className="icon icon-uploadthin"></span> <span className="">{strings.uploadFromDevice}</span>
+                        </div>
                     </div>
                 </div>
             </div>

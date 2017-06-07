@@ -2,6 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import { ScrollContainer } from 'react-router-scroll';
 import TopNavBar from '../components/ui/TopNavBar';
 import ToolBar from '../components/ui/ToolBar';
+import LoadingSpinnerCSS from '../components/ui/LoadingSpinnerCSS'
 import OtherQuestionList from '../components/questions/OtherQuestionList';
 import ProfilesAvatarConnection from '../components/ui/ProfilesAvatarConnection';
 import OtherQuestionsBanner from '../components/questions/OtherQuestionsBanner';
@@ -55,13 +56,15 @@ function getState(props) {
     const questions = QuestionStore.get(currentUserId) || {};
     const otherQuestions = otherUser ? QuestionStore.get(otherUserId) || {} : {};
     const comparedStats = otherUserId ? ComparedStatsStore.get(currentUserId, otherUserId) : null;
+    const isLoadingComparedQuestions = otherUserId ? QuestionStore.isLoadingComparedQuestions() : true;
 
     return {
         pagination,
         questions,
         otherQuestions,
         otherUser,
-        comparedStats
+        comparedStats,
+        isLoadingComparedQuestions
     };
 }
 
@@ -83,7 +86,8 @@ export default class OtherQuestionsPage extends Component {
         questions     : PropTypes.object,
         otherQuestions: PropTypes.object.isRequired,
         otherUser     : PropTypes.object,
-        comparedStats : PropTypes.object
+        comparedStats : PropTypes.object,
+        isLoadingComparedQuestions: PropTypes.bool
     };
 
     constructor(props) {
@@ -144,13 +148,15 @@ export default class OtherQuestionsPage extends Component {
     }
 
     getQuestionsHeader() {
-        const {user, otherUser, comparedStats, strings, pagination} = this.props;
+        const {user, otherUser, comparedStats, isLoadingComparedQuestions, strings, pagination} = this.props;
         const ownPicture = parsePicture(user);
         const otherPicture = parsePicture(otherUser);
+        const totalComparedStats = isLoadingComparedQuestions || !comparedStats ? <LoadingSpinnerCSS small={true}/> : comparedStats.commonAnswers || 0;
+        const totalPagination = isLoadingComparedQuestions ? <LoadingSpinnerCSS small={true}/> : pagination.total || 0;
 
         return <div className="other-questions-header-container">
             <ProfilesAvatarConnection ownPicture={ownPicture} otherPicture={otherPicture}/>
-            <div className="other-questions-stats-title title">{comparedStats ? comparedStats.commonAnswers : 0} {strings.coincidences} {pagination.total || 0}</div>
+            <div className="other-questions-stats-title title">{totalComparedStats} {strings.coincidences} {totalPagination}</div>
         </div>
     }
 

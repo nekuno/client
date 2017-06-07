@@ -10,6 +10,12 @@ body #root .App .view .page.other-questions-page  {
       .other-questions-stats-title {
         padding-top: 10px;
         padding-bottom: 20px;
+
+        .spinner-wrapper {
+          font-size: 0.2em;
+          display: inline-block;
+          margin: auto 5px;
+        }
       }
     }
     .question-list {

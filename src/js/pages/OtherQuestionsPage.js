@@ -179,7 +179,7 @@ export default class OtherQuestionsPage extends Component {
     }
 
     render() {
-        const {otherUser, user, questions, otherQuestions, strings, params} = this.props;
+        const {otherUser, user, questions, otherQuestions, isLoadingComparedQuestions, strings, params} = this.props;
         const ownPicture = parsePicture(user);
         const otherPicture = parsePicture(otherUser);
         return (
@@ -196,7 +196,7 @@ export default class OtherQuestionsPage extends Component {
                     <div className="page other-questions-page">
                         {user && otherUser ?
                             <div id="page-content" className="other-questions-content">
-                                <OtherQuestionList firstItems={this.getFirstItems.bind(this)()} otherQuestions={otherQuestions} questions={questions} otherUserSlug={otherUser.slug || ''} ownPicture={ownPicture} otherPicture={otherPicture} onTimerEnd={this.onTimerEnd}/>
+                                <OtherQuestionList firstItems={this.getFirstItems.bind(this)()} otherQuestions={otherQuestions} questions={questions} otherUserSlug={otherUser.slug || ''} ownPicture={ownPicture} otherPicture={otherPicture} onTimerEnd={this.onTimerEnd} isLoadingComparedQuestions={isLoadingComparedQuestions}/>
                                 <br />
                                 <br />
                                 <br />

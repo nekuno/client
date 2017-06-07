@@ -412,6 +412,9 @@ export default {
         alertFirst: 'Mark your answer in the first column',
         saving    : 'Saving'
     },
+    OtherQuestionList                : {
+        loading: 'Loading questions'
+    },
     OtherQuestion                    : {
         didntAnswered: 'You have not answered this question'
     },

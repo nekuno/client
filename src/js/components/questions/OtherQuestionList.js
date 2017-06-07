@@ -1,20 +1,26 @@
 import React, { PropTypes, Component } from 'react';
 import selectn from 'selectn';
+import EmptyMessage from '../ui/EmptyMessage';
 import OtherQuestion from './OtherQuestion';
 import InfiniteScroll from "../scroll/InfiniteScroll";
+import translate from '../../i18n/Translate';
 
+@translate('OtherQuestionList')
 export default class OtherQuestionList extends Component {
     static propTypes = {
-        questions     : PropTypes.object.isRequired,
-        otherQuestions: PropTypes.object.isRequired,
-        ownPicture    : PropTypes.string,
-        otherPicture  : PropTypes.string.isRequired,
-        otherUserSlug : PropTypes.string.isRequired,
-        onTimerEnd    : PropTypes.func
+        questions                 : PropTypes.object.isRequired,
+        otherQuestions            : PropTypes.object.isRequired,
+        ownPicture                : PropTypes.string,
+        otherPicture              : PropTypes.string.isRequired,
+        otherUserSlug             : PropTypes.string.isRequired,
+        onTimerEnd                : PropTypes.func,
+        isLoadingComparedQuestions: PropTypes.bool,
+        // Injected by @translate:
+        strings                   : PropTypes.object
     };
 
     getOtherQuestions() {
-        const {questions, otherQuestions, otherUserSlug, ownPicture, otherPicture, onTimerEnd} = this.props;
+        const {questions, otherQuestions, otherUserSlug, ownPicture, otherPicture, onTimerEnd, isLoadingComparedQuestions, strings} = this.props;
 
         const questionComponents = Object.keys(otherQuestions).map((questionId, index) =>
             <OtherQuestion otherUserSlug={otherUserSlug}
@@ -28,9 +34,11 @@ export default class OtherQuestionList extends Component {
             />
         );
 
-        return <div className="question-list">
-            {questionComponents}
-        </div>
+        return !isLoadingComparedQuestions ?
+            <div className="question-list">
+                {questionComponents}
+            </div>
+            : <EmptyMessage text={strings.loading} loadingGif={true}/>
     }
 
     getItems() {
@@ -54,3 +62,9 @@ export default class OtherQuestionList extends Component {
         );
     }
 }
+
+OtherQuestionList.defaultProps = {
+    strings: {
+        loading: 'Loading questions'
+    }
+};

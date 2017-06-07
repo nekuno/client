@@ -412,6 +412,9 @@ export default {
         alertFirst: 'Marca tu respuesta en la primera columna',
         saving    : 'Guardando'
     },
+    OtherQuestionList                : {
+        loading: 'Cargando preguntas'
+    },
     OtherQuestion                    : {
         didntAnswered: 'No has contestado a esta pregunta'
     },

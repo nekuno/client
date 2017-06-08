@@ -6,6 +6,7 @@ import AnswerQuestion from '../components/questions/AnswerQuestion';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
 import tutorial from '../components/tutorial/Tutorial';
+import popup from '../components/Popup';
 import connectToStores from '../utils/connectToStores';
 import * as QuestionActionCreators from '../actions/QuestionActionCreators';
 import UserStore from '../stores/UserStore';
@@ -68,6 +69,7 @@ function getState(props) {
 @AuthenticatedComponent
 @translate('AnswerNextQuestionPage')
 @tutorial()
+@popup('popup-register-finished')
 @connectToStores([UserStore, QuestionStore], getState)
 export default class AnswerNextQuestionPage extends Component {
 
@@ -91,6 +93,10 @@ export default class AnswerNextQuestionPage extends Component {
         isJustCompleted        : PropTypes.bool,
         totalQuestions         : PropTypes.number,
         questionNumber         : PropTypes.number,
+        // Injected by @popup:
+        showPopup     : PropTypes.func,
+        closePopup     : PropTypes.func,
+        contentRef: PropTypes.func,
     };
 
     static contextTypes = {
@@ -102,6 +108,7 @@ export default class AnswerNextQuestionPage extends Component {
 
         this.skipQuestionHandler = this.skipQuestionHandler.bind(this);
         this.onContinue = this.onContinue.bind(this);
+        this.onClosePopup = this.onClosePopup.bind(this);
         this.forceStartTutorial = this.forceStartTutorial.bind(this);
     }
 
@@ -109,7 +116,7 @@ export default class AnswerNextQuestionPage extends Component {
         window.setTimeout(() => requestData(this.props), 0);
         if(this.props.isJustCompleted) {
             QuestionActionCreators.popupDisplayed();
-            window.setTimeout(function() { nekunoApp.popup('.popup-register-finished') }, 0);
+            window.setTimeout(() => { this.props.showPopup() }, 0);
         }
     }
 
@@ -142,6 +149,10 @@ export default class AnswerNextQuestionPage extends Component {
         }
     }
 
+    onClosePopup() {
+        this.props.closePopup();
+    }
+
     forceStartTutorial() {
         this.props.resetTutorial(this.refs.joyrideAnswerQuestion);
         this.props.startTutorial(this.refs.joyrideAnswerQuestion, true);
@@ -168,7 +179,7 @@ export default class AnswerNextQuestionPage extends Component {
                             <AnswerQuestion question={question} userAnswer={userAnswer} userId={userId} errors={errors} noMoreQuestions={noMoreQuestions} ownPicture={ownPicture} startTutorial={this.forceStartTutorial}/>
                         </div>
                     </div>
-                    <RegisterQuestionsFinishedPopup onContinue={this.onContinue} />
+                    <RegisterQuestionsFinishedPopup onContinue={this.onContinue} onClose={this.onClosePopup} contentRef={this.props.popupContentRef}/>
                 </div>
             </div>
         );

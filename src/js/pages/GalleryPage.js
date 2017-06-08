@@ -6,6 +6,7 @@ import EmptyMessage from '../components/ui/EmptyMessage';
 import ImportAlbumPopup from '../components/gallery/ImportAlbumPopup';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
+import popup from '../components/Popup';
 import connectToStores from '../utils/connectToStores';
 import GalleryPhotoStore from '../stores/GalleryPhotoStore';
 import UserStore from '../stores/UserStore';
@@ -42,6 +43,7 @@ function getState(props) {
 
 @AuthenticatedComponent
 @translate('GalleryPage')
+@popup('popup-import-album')
 @connectToStores([UserStore, GalleryPhotoStore], getState)
 export default class GalleryPage extends Component {
 
@@ -50,6 +52,10 @@ export default class GalleryPage extends Component {
         user        : PropTypes.object.isRequired,
         // Injected by @translate:
         strings     : PropTypes.object,
+        // Injected by @popup:
+        showPopup     : PropTypes.func,
+        closePopup     : PropTypes.func,
+        popupContentRef     : PropTypes.func,
         // Injected by @connectToStores:
         photos      : PropTypes.array,
         profilePhoto: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
@@ -66,6 +72,7 @@ export default class GalleryPage extends Component {
 
         this.handleScroll = this.handleScroll.bind(this);
         this.importAlbum = this.importAlbum.bind(this);
+        this.importAlbumPopUp = this.importAlbumPopUp.bind(this);
         this.goToPhotoGalleryPage = this.goToPhotoGalleryPage.bind(this);
         this.triggerUploadFile = this.triggerUploadFile.bind(this);
         this.uploadFile = this.uploadFile.bind(this);
@@ -95,11 +102,11 @@ export default class GalleryPage extends Component {
     }
 
     importAlbumPopUp() {
-        nekunoApp.popup('.popup-import-album');
+        this.props.showPopup();
     }
 
     importAlbum(resource, scope) {
-        nekunoApp.closeModal('.popup-import-album');
+        this.props.closePopup();
         const force = WorkerStore.isConnected(resource) ? null : true;
         SocialNetworkService.login(resource, scope, force).then(() => {
             ConnectActionCreators.connect(resource, SocialNetworkService.getAccessToken(resource), SocialNetworkService.getResourceId(resource), SocialNetworkService.getExpireTime(resource), SocialNetworkService.getRefreshToken(resource));
@@ -115,7 +122,7 @@ export default class GalleryPage extends Component {
     }
 
     triggerUploadFile() {
-        nekunoApp.closeModal('.popup-import-album');
+        this.props.closePopup();
         let {fileInput} = this.refs;
         if (document.createEvent) {
             var evt = document.createEvent('MouseEvents');
@@ -260,7 +267,7 @@ export default class GalleryPage extends Component {
                             </div>
                         }
                     </div>
-                    <ImportAlbumPopup onAlbumClickHandler={this.importAlbum} onFileUploadClickHandler={this.triggerUploadFile}/>
+                    <ImportAlbumPopup onAlbumClickHandler={this.importAlbum} onFileUploadClickHandler={this.triggerUploadFile} contentRef={this.props.popupContentRef}/>
                 </div>
             </div>
         );

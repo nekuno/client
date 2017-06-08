@@ -54,7 +54,7 @@ function getState(props) {
     const currentUserId = parseId(props.user);
     const pagination = otherUser ? QuestionStore.getPagination(otherUserId) || {} : {};
     const questions = QuestionStore.get(currentUserId) || {};
-    const otherQuestions = otherUser ? QuestionStore.get(otherUserId) || {} : {};
+    const otherQuestions = otherUser ? QuestionStore.getCompared(otherUserId) || {} : {};
     const comparedStats = otherUserId ? ComparedStatsStore.get(currentUserId, otherUserId) : null;
     const isLoadingComparedQuestions = otherUserId ? QuestionStore.isLoadingComparedQuestions() : true;
 

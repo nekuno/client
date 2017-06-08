@@ -19,6 +19,7 @@ class QuestionStore extends BaseStore {
         this._isJustCompleted = false;
         this._loadingComparedQuestions = false;
         this._loadingOwnQuestions = false;
+        this._comparedOrder = {};
     }
 
     _registerToActions(action) {
@@ -70,11 +71,18 @@ class QuestionStore extends BaseStore {
                 this.emitChange();
                 break;
             case ActionTypes.REQUEST_COMPARED_QUESTIONS_SUCCESS:
-                let items = action.response.entities.items;
+                let items = action.response.items;
                 const otherUserId = action.otherUserId;
-                Object.keys(items).forEach(index => { newItems[index] = items[index].questions });
-                this._pagination[otherUserId] = action.response.result.pagination;
+                Object.keys(items).forEach(index => {
+                    const userId = items[index].userId;
+                    const questions = items[index].questions || [];
+                    this._setQuestionsOrder(otherUserId, questions);
+
+                    newItems[userId] = questions;
+                });
+                this._pagination[otherUserId] = action.response.pagination;
                 this._loadingComparedQuestions = false;
+
                 mergeIntoBag(this._questions, newItems);
                 this.emitChange();
                 break;
@@ -85,7 +93,7 @@ class QuestionStore extends BaseStore {
             case ActionTypes.ANSWER_QUESTION_SUCCESS:
                 const userAnswer = action.response.userAnswer;
                 const userAnswerQuestion = action.response.question;
-                this._questions[action.userId] =  this._questions[action.userId] || {};
+                this._questions[action.userId] = this._questions[action.userId] || {};
                 this._questions[action.userId][userAnswer.questionId] = {question: userAnswerQuestion, userAnswer: userAnswer};
                 this._goToQuestionStats = true;
                 this._pagination[action.userId] = this._pagination[action.userId] || {};
@@ -127,6 +135,19 @@ class QuestionStore extends BaseStore {
 
     get(userId) {
         return this._questions[userId];
+    }
+
+    getCompared(otherUserId)
+    {
+        const questions = this._questions[otherUserId] ? Object.assign({}, this._questions[otherUserId]) : {};
+
+        let orderedQuestions = {};
+        Object.keys(questions).forEach((questionId) => {
+            const position = this._comparedOrder[otherUserId][questionId];
+            orderedQuestions[position] = questions[questionId];
+        });
+
+        return orderedQuestions;
     }
 
     setEditable(questionId) {
@@ -198,6 +219,30 @@ class QuestionStore extends BaseStore {
     isLoadingOwnQuestions() {
         return this._loadingOwnQuestions;
     }
+
+    _setQuestionsOrder(userId, questions) {
+        let sortable = Object.keys(questions).map((questionId) => {
+            return questions[questionId];
+        });
+
+        //sort by id first to keep same order
+        sortable = sortable.sort((questionA, questionB) => {
+            return questionA.question.questionId - questionB.question.questionId;
+        });
+
+        sortable = sortable.sort((questionA, questionB) => {
+            const questionApriority = questionA.question.hasOwnProperty('isCommon') && questionA.question.isCommon === true ? 1 : 0;
+            const questionBpriority = questionB.question.hasOwnProperty('isCommon') && questionB.question.isCommon === true ? 1 : 0;
+            return questionBpriority - questionApriority;
+        });
+
+        this._comparedOrder[userId] = this._comparedOrder[userId] ? this._comparedOrder[userId] : {};
+        const comparedOrderLength = Object.keys(this._comparedOrder[userId]).length;
+        sortable.forEach((question, index) => {
+            this._comparedOrder[userId][question.question.questionId] = this._comparedOrder[userId][question.question.questionId] !== undefined ? this._comparedOrder[userId][question.question.questionId] : index + comparedOrderLength;
+        });
+    }
+
 }
 
 export default new QuestionStore();

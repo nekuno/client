@@ -170,6 +170,10 @@ class QuestionStore extends BaseStore {
         return this.first(this._answerQuestion);
     }
 
+    hasQuestion() {
+        return !!this.getQuestion();
+    }
+
     getErrors() {
         return this._errors;
     }

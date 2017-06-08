@@ -36,6 +36,7 @@ function requestData(props, state) {
             const otherUser = UserStore.getBySlug(params.slug);
             const otherUserId = parseId(otherUser);
             QuestionActionCreators.requestComparedQuestions(userId, otherUserId);
+            QuestionActionCreators.requestNextOtherQuestion(userId, otherUserId);
             UserActionCreators.requestComparedStats(userId, otherUserId);
         },
         (status) => {
@@ -57,6 +58,7 @@ function getState(props) {
     const otherQuestions = otherUser ? QuestionStore.getCompared(otherUserId) || {} : {};
     const comparedStats = otherUserId ? ComparedStatsStore.get(currentUserId, otherUserId) : null;
     const isLoadingComparedQuestions = otherUserId ? QuestionStore.isLoadingComparedQuestions() : true;
+    const hasNextComparedQuestion = QuestionStore.hasQuestion();
 
     return {
         pagination,
@@ -64,7 +66,8 @@ function getState(props) {
         otherQuestions,
         otherUser,
         comparedStats,
-        isLoadingComparedQuestions
+        isLoadingComparedQuestions,
+        hasNextComparedQuestion
     };
 }
 
@@ -87,7 +90,8 @@ export default class OtherQuestionsPage extends Component {
         otherQuestions: PropTypes.object.isRequired,
         otherUser     : PropTypes.object,
         comparedStats : PropTypes.object,
-        isLoadingComparedQuestions: PropTypes.bool
+        isLoadingComparedQuestions: PropTypes.bool,
+        hasNextComparedQuestion: PropTypes.bool,
     };
 
     constructor(props) {
@@ -151,13 +155,7 @@ export default class OtherQuestionsPage extends Component {
     }
 
     areAllQuestionsAnswered() {
-        const {questions, otherQuestions} = this.props;
-        const questionsAnswered = Object.keys(questions);
-        const otherQuestionsAnswered = Object.keys(otherQuestions);
-
-        return otherQuestionsAnswered.every((otherQuestion, otherQuestionKey) => {
-            return otherQuestionKey in questionsAnswered;
-        });
+        return this.props.hasNextComparedQuestion;
     }
 
     getQuestionsHeader() {

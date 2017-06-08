@@ -146,9 +146,8 @@ export function fetchAnswers(url) {
 }
 
 export function fetchComparedAnswers(url) {
-    return fetchAndNormalize(url, {
-        items     : arrayOf(comparedQuestionsAndAnswersSchema),
-        pagination: {}
+    return getData(url).then(function(json) {
+        return json;
     });
 }
 

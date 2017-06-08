@@ -6,15 +6,15 @@ import QuestionEditCountdown from './QuestionEditCountdown';
 @translate('OtherQuestion')
 export default class OtherQuestion extends Component {
     static propTypes = {
-        question       : PropTypes.object.isRequired,
-        userAnswer     : PropTypes.object,
-        ownPicture     : PropTypes.string,
-        otherPicture   : PropTypes.string.isRequired,
-        otherUserSlug  : PropTypes.string.isRequired,
-        onTimerEnd    : PropTypes.func,
+        question     : PropTypes.object.isRequired,
+        userAnswer   : PropTypes.object,
+        ownPicture   : PropTypes.string,
+        otherPicture : PropTypes.string.isRequired,
+        otherUserSlug: PropTypes.string.isRequired,
+        onTimerEnd   : PropTypes.func,
 
         // Injected by @translate:
-        strings        : PropTypes.object
+        strings: PropTypes.object
     };
 
     static contextTypes = {
@@ -30,6 +30,14 @@ export default class OtherQuestion extends Component {
     goToAnswerQuestion() {
         const {question, otherUserSlug} = this.props;
         this.context.router.replace(`/answer-question/${question.question.questionId}/${otherUserSlug}`);
+    }
+
+    isAnswerAcceptedByOtherAnswer(answer, otherAnswer) {
+        if (!answer.hasOwnProperty('acceptedAnswers') || !otherAnswer.hasOwnProperty('answerId')){
+            return true;
+        }
+
+        return answer.acceptedAnswers.some(acceptedAnswerId => acceptedAnswerId === otherAnswer.answerId);
     }
 
     render() {
@@ -67,14 +75,14 @@ export default class OtherQuestion extends Component {
                 <div className="question-title">
                     {question.text}
                 </div>
-                <Answer text={otherUserAnswer.text} answered={false} defaultPicture={this.props.otherPicture} accepted={userAnswer.acceptedAnswers.some(acceptedAnswerId => acceptedAnswerId === otherUserAnswer.answerId)} {...this.props}/>
+                <Answer text={otherUserAnswer.text} answered={false} defaultPicture={this.props.otherPicture} accepted={this.isAnswerAcceptedByOtherAnswer(userAnswer, otherUserAnswer)} {...this.props}/>
                 {userAnswer.text ?
-                    <Answer text={userAnswer.text} answered={true} accepted={otherUserAnswer.acceptedAnswers.some(acceptedAnswerId => acceptedAnswerId === userAnswer.answerId)} {...this.props}/>
+                    <Answer text={userAnswer.text} answered={true} accepted={this.isAnswerAcceptedByOtherAnswer(otherUserAnswer, userAnswer)} {...this.props}/>
                     :
                     <div className="not-answered-text">{strings.didntAnswered}</div>
                 }
                 {editable ? '' :
-                    <QuestionEditCountdown seconds={userAnswer.editableIn} questionId={question.questionId} onTimerEnd={this.props.onTimerEnd} />
+                    <QuestionEditCountdown seconds={userAnswer.editableIn} questionId={question.questionId} onTimerEnd={this.props.onTimerEnd}/>
                 }
                 <hr/>
             </div>

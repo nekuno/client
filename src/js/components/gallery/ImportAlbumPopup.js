@@ -23,7 +23,6 @@ export default class ImportAlbumPopup extends Component {
         return (
             <div className="popup popup-import-album tablet-fullscreen">
                 <div ref={contentRef} className="content-block">
-                    <p><a className="close-popup">{strings.close}</a></p>
                     <div className="title">{strings.importAlbum}</div>
                     <br />
                     <div className="social-icons-row-wrapper social-box">

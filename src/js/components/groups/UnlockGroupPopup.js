@@ -44,7 +44,6 @@ export default class UnlockGroupPopup extends Component {
         return (
             <div className="popup popup-unlock-group tablet-fullscreen">
                 <div ref={contentRef} className="content-block">
-                    <p><a className="close-popup">{strings.close}</a></p>
                     <div className="title">{strings.enterToken}</div>
                     <div className="list-block">
                         <ul>

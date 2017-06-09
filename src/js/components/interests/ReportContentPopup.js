@@ -39,7 +39,6 @@ export default class ReportContentPopup extends Component {
         return (
             <div className="popup popup-report-content tablet-fullscreen">
                 <div ref={contentRef} className="content-block">
-                    <p><a className="close-popup">{strings.close}</a></p>
                     <div className="list-block">
                         <ul>
                             <TextArea ref="reportTextarea" title={strings.title} placeholder={strings.placeholder} onChange={this.onChange}/>

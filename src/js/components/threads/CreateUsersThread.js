@@ -13,21 +13,27 @@ import TagsAndMultipleChoicesFilter from './filters/TagsAndMultipleChoicesFilter
 import * as TagSuggestionsActionCreators from '../../actions/TagSuggestionsActionCreators';
 import selectn from 'selectn';
 import translate from '../../i18n/Translate';
+import popup from '../Popup';
 import FilterStore from '../../stores/FilterStore';
 
 @translate('CreateUsersThread')
+@popup('popup-set-thread-title')
 export default class CreateUsersThread extends Component {
 
     static propTypes = {
-        userId        : PropTypes.number.isRequired,
-        defaultFilters: PropTypes.object.isRequired,
-        threadName    : PropTypes.string,
-        tags          : PropTypes.array.isRequired,
-        thread        : PropTypes.object,
-        categories    : PropTypes.array,
-        onSave        : PropTypes.func.isRequired,
+        userId         : PropTypes.number.isRequired,
+        defaultFilters : PropTypes.object.isRequired,
+        threadName     : PropTypes.string,
+        tags           : PropTypes.array.isRequired,
+        thread         : PropTypes.object,
+        categories     : PropTypes.array,
+        onSave         : PropTypes.func.isRequired,
         // Injected by @translate:
-        strings       : PropTypes.object
+        strings        : PropTypes.object,
+        // Injected by @popup:
+        showPopup      : PropTypes.func,
+        closePopup     : PropTypes.func,
+        popupContentRef: PropTypes.func,
     };
 
     constructor(props) {
@@ -81,7 +87,7 @@ export default class CreateUsersThread extends Component {
     }
 
     handleClickFilterOnList(checked, value) {
-        if (this.props.thread.groupId != null && value === 'groups'){
+        if (this.props.thread.groupId != null && value === 'groups') {
             return;
         }
         let filters = this.state.filters;
@@ -146,7 +152,6 @@ export default class CreateUsersThread extends Component {
             })
         );
     }
-
 
     renderChoiceFilter(filter, key, data, selected) {
         return (
@@ -286,7 +291,7 @@ export default class CreateUsersThread extends Component {
     }
 
     handleClickFilter(key) {
-        if (this.props.thread.groupId != null && key=="groups"){
+        if (this.props.thread.groupId != null && key == "groups") {
             return;
         }
         let {filters} = this.state;
@@ -332,9 +337,11 @@ export default class CreateUsersThread extends Component {
     createThread() {
         if (this.getDefaultTitle()) {
             window.setTimeout(() => {
-                nekunoApp.popup('.popup-set-thread-title');
+                this.props.showPopup();
                 document.getElementsByClassName('view')[0].scrollTop = 0;
-                window.setTimeout(() => { this.setState({'displayingTitlePopup': true}) }, 200);
+                window.setTimeout(() => {
+                    this.setState({'displayingTitlePopup': true})
+                }, 200);
             }, 0);
         } else {
             nekunoApp.alert(this.props.strings.addFilters);
@@ -384,8 +391,8 @@ export default class CreateUsersThread extends Component {
     getOrderDefaultFilter() {
         const {strings} = this.props;
         return {
-            label: strings.order,
-            type: 'order',
+            label  : strings.order,
+            type   : 'order',
             choices: [
                 {
                     label: strings.matching,
@@ -398,7 +405,6 @@ export default class CreateUsersThread extends Component {
             ]
         }
     }
-
 
     render() {
         let categories = this.props.categories;
@@ -448,7 +454,7 @@ export default class CreateUsersThread extends Component {
                     <br />
                     <br />
                     <br />
-                    {this.getDefaultTitle() ? <SetThreadTitlePopup displaying={this.state.displayingTitlePopup} onClick={this.onSaveTitle} defaultTitle={this.getDefaultTitle()}/> : null}
+                    {this.getDefaultTitle() ? <SetThreadTitlePopup displaying={this.state.displayingTitlePopup} onClick={this.onSaveTitle} defaultTitle={this.getDefaultTitle()} contentRef={this.props.popupContentRef}/> : null}
                 </div>
         );
     }

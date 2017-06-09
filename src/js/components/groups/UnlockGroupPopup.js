@@ -9,6 +9,7 @@ export default class UnlockGroupPopup extends Component {
     static propTypes = {
         onClickOkHandler: PropTypes.func,
         joining         : PropTypes.bool,
+        contentRef: PropTypes.func,
         // Injected by @translate:
         strings             : PropTypes.object
     };
@@ -37,13 +38,12 @@ export default class UnlockGroupPopup extends Component {
     }
 
     render() {
-        const {joining, strings} = this.props;
+        const {joining, contentRef, strings} = this.props;
         const {opened} = this.state;
 
         return (
             <div className="popup popup-unlock-group tablet-fullscreen">
-                <div className="content-block">
-                    <p><a className="close-popup">{strings.close}</a></p>
+                <div ref={contentRef} className="content-block">
                     <div className="title">{strings.enterToken}</div>
                     <div className="list-block">
                         <ul>

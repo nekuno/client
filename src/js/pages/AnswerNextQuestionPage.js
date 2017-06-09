@@ -6,6 +6,7 @@ import AnswerQuestion from '../components/questions/AnswerQuestion';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
 import tutorial from '../components/tutorial/Tutorial';
+import popup from '../components/Popup';
 import connectToStores from '../utils/connectToStores';
 import * as QuestionActionCreators from '../actions/QuestionActionCreators';
 import UserStore from '../stores/UserStore';
@@ -68,29 +69,34 @@ function getState(props) {
 @AuthenticatedComponent
 @translate('AnswerNextQuestionPage')
 @tutorial()
+@popup('popup-register-finished')
 @connectToStores([UserStore, QuestionStore], getState)
 export default class AnswerNextQuestionPage extends Component {
 
     static propTypes = {
         // Injected by @AuthenticatedComponent
-        user                   : PropTypes.object.isRequired,
+        user              : PropTypes.object.isRequired,
         // Injected by @translate:
-        strings                : PropTypes.object,
+        strings           : PropTypes.object,
         // Injected by @tutorial:
-        steps                  : PropTypes.array,
-        startTutorial          : PropTypes.func,
-        resetTutorial          : PropTypes.func,
-        endTutorialHandler     : PropTypes.func,
-        tutorialLocale         : PropTypes.object,
+        steps             : PropTypes.array,
+        startTutorial     : PropTypes.func,
+        resetTutorial     : PropTypes.func,
+        endTutorialHandler: PropTypes.func,
+        tutorialLocale    : PropTypes.object,
         // Injected by @connectToStores:
-        question               : PropTypes.object,
-        userAnswer             : PropTypes.object,
-        errors                 : PropTypes.string,
-        goToQuestionStats      : PropTypes.bool,
-        isJustRegistered       : PropTypes.bool,
-        isJustCompleted        : PropTypes.bool,
-        totalQuestions         : PropTypes.number,
-        questionNumber         : PropTypes.number,
+        question          : PropTypes.object,
+        userAnswer        : PropTypes.object,
+        errors            : PropTypes.string,
+        goToQuestionStats : PropTypes.bool,
+        isJustRegistered  : PropTypes.bool,
+        isJustCompleted   : PropTypes.bool,
+        totalQuestions    : PropTypes.number,
+        questionNumber    : PropTypes.number,
+        // Injected by @popup:
+        showPopup         : PropTypes.func,
+        closePopup        : PropTypes.func,
+        popupContentRef   : PropTypes.func,
     };
 
     static contextTypes = {
@@ -102,20 +108,23 @@ export default class AnswerNextQuestionPage extends Component {
 
         this.skipQuestionHandler = this.skipQuestionHandler.bind(this);
         this.onContinue = this.onContinue.bind(this);
+        this.onClosePopup = this.onClosePopup.bind(this);
         this.forceStartTutorial = this.forceStartTutorial.bind(this);
     }
 
     componentWillMount() {
         window.setTimeout(() => requestData(this.props), 0);
-        if(this.props.isJustCompleted) {
+        if (this.props.isJustCompleted) {
             QuestionActionCreators.popupDisplayed();
-            window.setTimeout(function() { nekunoApp.popup('.popup-register-finished') }, 0);
+            window.setTimeout(() => {
+                this.props.showPopup()
+            }, 0);
         }
     }
 
     componentDidUpdate() {
         const {goToQuestionStats, question} = this.props;
-        if(goToQuestionStats) {
+        if (goToQuestionStats) {
             this.context.router.push(`/question-stats`);
         } else if (question && question.questionId) {
             // TODO: Uncomment to start the tutorial the first time
@@ -140,6 +149,10 @@ export default class AnswerNextQuestionPage extends Component {
         } else {
             this.context.router.push('/discover');
         }
+    }
+
+    onClosePopup() {
+        this.props.closePopup();
     }
 
     forceStartTutorial() {
@@ -168,7 +181,7 @@ export default class AnswerNextQuestionPage extends Component {
                             <AnswerQuestion question={question} userAnswer={userAnswer} userId={userId} errors={errors} noMoreQuestions={noMoreQuestions} ownPicture={ownPicture} startTutorial={this.forceStartTutorial}/>
                         </div>
                     </div>
-                    <RegisterQuestionsFinishedPopup onContinue={this.onContinue} />
+                    <RegisterQuestionsFinishedPopup onContinue={this.onContinue} onClose={this.onClosePopup} contentRef={this.props.popupContentRef}/>
                 </div>
             </div>
         );
@@ -186,22 +199,22 @@ AnswerNextQuestionPage.defaultProps = {
         tutorialThirdStepTitle : 'Importance',
         tutorialThirdStep      : 'This will be the question`s importance when making compatibility calculations.'
     },
-    steps: [
+    steps  : [
         {
             titleRef: 'tutorialFirstStepTitle',
-            textRef: 'tutorialFirstStep',
+            textRef : 'tutorialFirstStep',
             selector: '#joyride-1-your-answer',
             position: 'bottom',
         },
         {
             titleRef: 'tutorialSecondStepTitle',
-            textRef: 'tutorialSecondStep',
+            textRef : 'tutorialSecondStep',
             selector: '#joyride-2-others-answers',
             position: 'bottom',
         },
         {
             titleRef: 'tutorialThirdStepTitle',
-            textRef: 'tutorialThirdStep',
+            textRef : 'tutorialThirdStep',
             selector: '#joyride-3-answer-importance',
             position: 'top',
         }

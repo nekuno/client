@@ -6,20 +6,26 @@ import FullWidthButton from '../ui/FullWidthButton';
 import SetThreadTitlePopup from './SetThreadTitlePopup';
 import selectn from 'selectn';
 import translate from '../../i18n/Translate';
+import popup from '../Popup';
 import FilterStore from '../../stores/FilterStore';
 
 @translate('CreateContentThread')
+@popup('popup-set-thread-title')
 export default class CreateContentThread extends Component {
 
     static propTypes = {
-        userId        : PropTypes.number.isRequired,
-        defaultFilters: PropTypes.object.isRequired,
-        threadName    : PropTypes.string,
-        tags          : PropTypes.array.isRequired,
-        thread        : PropTypes.object,
-        onSave        : PropTypes.func.isRequired,
+        userId         : PropTypes.number.isRequired,
+        defaultFilters : PropTypes.object.isRequired,
+        threadName     : PropTypes.string,
+        tags           : PropTypes.array.isRequired,
+        thread         : PropTypes.object,
+        onSave         : PropTypes.func.isRequired,
         // Injected by @translate:
-        strings       : PropTypes.object
+        strings        : PropTypes.object,
+        // Injected by @popup:
+        showPopup      : PropTypes.func,
+        closePopup     : PropTypes.func,
+        popupContentRef: PropTypes.func,
     };
 
     constructor(props) {
@@ -189,9 +195,11 @@ export default class CreateContentThread extends Component {
     createThread() {
         if (this.getDefaultTitle()) {
             window.setTimeout(() => {
-                nekunoApp.popup('.popup-set-thread-title');
+                this.props.showPopup();
                 document.getElementsByClassName('view')[0].scrollTop = 0;
-                window.setTimeout(() => { this.setState({'displayingTitlePopup': true}) }, 200);
+                window.setTimeout(() => {
+                    this.setState({'displayingTitlePopup': true})
+                }, 200);
             }, 0);
         } else {
             nekunoApp.alert(this.props.strings.addFilters);
@@ -281,7 +289,7 @@ export default class CreateContentThread extends Component {
                     <br />
                     <br />
                     <br />
-                    {this.getDefaultTitle() ? <SetThreadTitlePopup displaying={this.state.displayingTitlePopup} onClick={this.onSaveTitle} defaultTitle={this.getDefaultTitle()}/> : null}
+                    {this.getDefaultTitle() ? <SetThreadTitlePopup displaying={this.state.displayingTitlePopup} onClick={this.onSaveTitle} defaultTitle={this.getDefaultTitle()} contentRef={this.props.popupContentRef}/> : null}
                 </div>
         )
     }

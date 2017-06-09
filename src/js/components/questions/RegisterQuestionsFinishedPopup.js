@@ -1,6 +1,4 @@
 import React, { PropTypes, Component } from 'react';
-import { Link } from 'react-router';
-import * as UserActionCreators from '../../actions/UserActionCreators';
 import shouldPureComponentUpdate from 'react-pure-render/function';
 import translate from '../../i18n/Translate';
 import FullWidthButton from '../ui/FullWidthButton';
@@ -9,7 +7,8 @@ import FullWidthButton from '../ui/FullWidthButton';
 export default class RegisterQuestionsFinishedPopup extends Component {
     static propTypes = {
         onContinue: PropTypes.func.isRequired,
-        onTests: PropTypes.func,
+        onClose: PropTypes.func.isRequired,
+        contentRef: PropTypes.func,
         // Injected by @translate:
         strings       : PropTypes.object
     };
@@ -23,13 +22,22 @@ export default class RegisterQuestionsFinishedPopup extends Component {
 
     shouldComponentUpdate = shouldPureComponentUpdate;
 
+    onTests() {
+        this.props.onClose();
+    };
+
+
+    onContinue() {
+        this.props.onContinue();
+    }
+
     render() {
         const popupClass = 'popup popup-register-finished tablet-fullscreen';
-        const strings = this.props.strings;
+        const {contentRef, strings} = this.props;
         return (
 
             <div className={popupClass}>
-                <div className="content-block">
+                <div ref={contentRef} className="content-block">
                     <div className="popup-register-finished-title title"> {strings.title}</div>
                     <div className="popup-register-finished-text"> {strings.text} </div>
                     <FullWidthButton onClick={this.onTests}> {strings.moreTests}</FullWidthButton>
@@ -39,19 +47,6 @@ export default class RegisterQuestionsFinishedPopup extends Component {
                 </div>
             </div>
         );
-    }
-
-    onTests() {
-        nekunoApp.closeModal('.popup-register-finished');
-        if (this.props.onTests) {
-            this.props.onTests();
-        }
-    };
-
-
-    onContinue() {
-        nekunoApp.closeModal('.popup-register-finished');
-        this.props.onContinue();
     }
 }
 

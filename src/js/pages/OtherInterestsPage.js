@@ -10,6 +10,7 @@ import ProfilesAvatarConnection from '../components/ui/ProfilesAvatarConnection'
 import ReportContentPopup from '../components/interests/ReportContentPopup';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
+import popup from '../components/Popup';
 import connectToStores from '../utils/connectToStores';
 import * as UserActionCreators from '../actions/UserActionCreators';
 import * as InterestsActionCreators from '../actions/InterestsActionCreators';
@@ -59,6 +60,7 @@ function getState(props) {
 
 @AuthenticatedComponent
 @translate('OtherInterestsPage')
+@popup('popup-report-content')
 @connectToStores([UserStore, InterestStore], getState)
 export default class OtherInterestsPage extends Component {
     static propTypes = {
@@ -75,7 +77,11 @@ export default class OtherInterestsPage extends Component {
         totals                    : PropTypes.object,
         interests                 : PropTypes.array.isRequired,
         isLoadingComparedInterests: PropTypes.bool,
-        otherUser                 : PropTypes.object
+        otherUser                 : PropTypes.object,
+        // Injected by @popup:
+        showPopup                 : PropTypes.func,
+        closePopup                : PropTypes.func,
+        popupContentRef           : PropTypes.func,
     };
 
     constructor(props) {
@@ -220,7 +226,7 @@ export default class OtherInterestsPage extends Component {
             reportContentId: contentId,
             reportReason   : reason
         });
-        setTimeout(() => nekunoApp.popup('.popup-report-content'), 0);
+        setTimeout(() => this.props.showPopup(), 0);
     }
 
     onReportReasonText(reasonText) {
@@ -231,6 +237,7 @@ export default class OtherInterestsPage extends Component {
             reason    : reportReason,
             reasonText: reasonText
         };
+        this.props.closePopup();
         UserActionCreators.reportContent(data).then(
             () => nekunoApp.alert(strings.reported),
             (error) => console.log(error),
@@ -257,12 +264,12 @@ export default class OtherInterestsPage extends Component {
         const otherUserId = otherUser ? parseId(otherUser) : null;
 
         return otherUser ? <FilterContentButtons userId={otherUserId} contentsCount={pagination.total || 0} ownContent={false} ownUserId={ownUserId} onClickHandler={this.onFilterTypeClick} commonContent={this.state.commonContent}
-                                           linksCount={totals.Link}
-                                           audiosCount={totals.Audio}
-                                           videosCount={totals.Video}
-                                           imagesCount={totals.Image}
-                                           channelsCount={totals.Creator}
-        /> : '';
+                                                 linksCount={totals.Link}
+                                                 audiosCount={totals.Audio}
+                                                 videosCount={totals.Video}
+                                                 imagesCount={totals.Image}
+                                                 channelsCount={totals.Creator}
+            /> : '';
     }
 
     getCommonContentSwitch() {
@@ -327,7 +334,7 @@ export default class OtherInterestsPage extends Component {
                         <br/>
                     </div>
                 </div>
-                <ReportContentPopup onClick={this.onReportReasonText}/>
+                <ReportContentPopup onClick={this.onReportReasonText} contentRef={this.props.popupContentRef}/>
             </div>
         );
     }

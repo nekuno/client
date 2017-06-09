@@ -324,7 +324,8 @@ export default class OtherInterestsPage extends Component {
                                  <CardContentList contents={interests} userId={ownUserId} otherUserId={otherUserId}
                                  onClickHandler={this.onContentClick}/>
                                  */
-                                <CardContentList firstItems={this.getFirstItems.bind(this)()} contents={interests} userId={ownUserId} otherUserId={otherUserId} onBottomScroll={this.onBottomScroll.bind(this)}/>
+                                <CardContentList firstItems={this.getFirstItems.bind(this)()} contents={interests} userId={ownUserId} otherUserId={otherUserId}
+                                                 onBottomScroll={this.onBottomScroll.bind(this)} onReport={this.onReport.bind(this)}/>
                             }
                             <br />
                         </div>

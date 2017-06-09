@@ -75,28 +75,28 @@ export default class AnswerNextQuestionPage extends Component {
 
     static propTypes = {
         // Injected by @AuthenticatedComponent
-        user                   : PropTypes.object.isRequired,
+        user              : PropTypes.object.isRequired,
         // Injected by @translate:
-        strings                : PropTypes.object,
+        strings           : PropTypes.object,
         // Injected by @tutorial:
-        steps                  : PropTypes.array,
-        startTutorial          : PropTypes.func,
-        resetTutorial          : PropTypes.func,
-        endTutorialHandler     : PropTypes.func,
-        tutorialLocale         : PropTypes.object,
+        steps             : PropTypes.array,
+        startTutorial     : PropTypes.func,
+        resetTutorial     : PropTypes.func,
+        endTutorialHandler: PropTypes.func,
+        tutorialLocale    : PropTypes.object,
         // Injected by @connectToStores:
-        question               : PropTypes.object,
-        userAnswer             : PropTypes.object,
-        errors                 : PropTypes.string,
-        goToQuestionStats      : PropTypes.bool,
-        isJustRegistered       : PropTypes.bool,
-        isJustCompleted        : PropTypes.bool,
-        totalQuestions         : PropTypes.number,
-        questionNumber         : PropTypes.number,
+        question          : PropTypes.object,
+        userAnswer        : PropTypes.object,
+        errors            : PropTypes.string,
+        goToQuestionStats : PropTypes.bool,
+        isJustRegistered  : PropTypes.bool,
+        isJustCompleted   : PropTypes.bool,
+        totalQuestions    : PropTypes.number,
+        questionNumber    : PropTypes.number,
         // Injected by @popup:
-        showPopup     : PropTypes.func,
-        closePopup     : PropTypes.func,
-        contentRef: PropTypes.func,
+        showPopup         : PropTypes.func,
+        closePopup        : PropTypes.func,
+        popupContentRef   : PropTypes.func,
     };
 
     static contextTypes = {
@@ -114,15 +114,17 @@ export default class AnswerNextQuestionPage extends Component {
 
     componentWillMount() {
         window.setTimeout(() => requestData(this.props), 0);
-        if(this.props.isJustCompleted) {
+        if (this.props.isJustCompleted) {
             QuestionActionCreators.popupDisplayed();
-            window.setTimeout(() => { this.props.showPopup() }, 0);
+            window.setTimeout(() => {
+                this.props.showPopup()
+            }, 0);
         }
     }
 
     componentDidUpdate() {
         const {goToQuestionStats, question} = this.props;
-        if(goToQuestionStats) {
+        if (goToQuestionStats) {
             this.context.router.push(`/question-stats`);
         } else if (question && question.questionId) {
             // TODO: Uncomment to start the tutorial the first time
@@ -197,22 +199,22 @@ AnswerNextQuestionPage.defaultProps = {
         tutorialThirdStepTitle : 'Importance',
         tutorialThirdStep      : 'This will be the question`s importance when making compatibility calculations.'
     },
-    steps: [
+    steps  : [
         {
             titleRef: 'tutorialFirstStepTitle',
-            textRef: 'tutorialFirstStep',
+            textRef : 'tutorialFirstStep',
             selector: '#joyride-1-your-answer',
             position: 'bottom',
         },
         {
             titleRef: 'tutorialSecondStepTitle',
-            textRef: 'tutorialSecondStep',
+            textRef : 'tutorialSecondStep',
             selector: '#joyride-2-others-answers',
             position: 'bottom',
         },
         {
             titleRef: 'tutorialThirdStepTitle',
-            textRef: 'tutorialThirdStep',
+            textRef : 'tutorialThirdStep',
             selector: '#joyride-3-answer-importance',
             position: 'top',
         }

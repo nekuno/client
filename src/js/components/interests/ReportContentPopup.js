@@ -6,9 +6,10 @@ import FullWidthButton from '../ui/FullWidthButton';
 @translate('ReportContentPopup')
 export default class ReportContentPopup extends Component {
     static propTypes = {
-        onClick: PropTypes.func.isRequired,
+        onClick   : PropTypes.func.isRequired,
+        contentRef: PropTypes.func,
         // Injected by @translate:
-        strings       : PropTypes.object
+        strings   : PropTypes.object
     };
 
     constructor(props) {
@@ -30,15 +31,14 @@ export default class ReportContentPopup extends Component {
     }
 
     onReport() {
-        nekunoApp.closeModal('.popup-report-content');
         this.props.onClick(this.state.reportText);
     }
 
     render() {
-        const strings = this.props.strings;
+        const {contentRef, strings} = this.props;
         return (
             <div className="popup popup-report-content tablet-fullscreen">
-                <div className="content-block">
+                <div ref={contentRef} className="content-block">
                     <p><a className="close-popup">{strings.close}</a></p>
                     <div className="list-block">
                         <ul>

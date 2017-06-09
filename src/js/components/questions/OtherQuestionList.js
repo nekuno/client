@@ -43,9 +43,9 @@ export default class OtherQuestionList extends Component {
                 </div>
         });
 
-        return !(isLoadingComparedQuestions && Object.keys(otherQuestions).length === 0) ?
+        return !isLoadingComparedQuestions || Object.keys(otherQuestions).length !== 0 ?
                 questionComponents
-            : <EmptyMessage text={strings.loading} loadingGif={true}/>
+            : [<EmptyMessage text={strings.loading} loadingGif={true} shortMarginTop={true}/>]
     }
 
     getItems() {

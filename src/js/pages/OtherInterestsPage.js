@@ -315,7 +315,7 @@ export default class OtherInterestsPage extends Component {
                 <div className="view view-main" id="interests-view-main">
                     <div className="page other-interests-page">
                         <div id="page-content" className="other-interests-content">
-                            { isLoadingComparedInterests ?
+                            { isLoadingComparedInterests && interests.length === 0 ?
                                 <EmptyMessage text={strings.loading} loadingGif={true}/>
                                 :
 

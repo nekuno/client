@@ -137,7 +137,7 @@ export default class InterestsPage extends Component {
                 <div className="view view-main" id="interests-view-main">
                     <div className="page interests-page">
                         <div id="page-content" className="interests-content">
-                            {isLoadingOwnInterests ?
+                            {isLoadingOwnInterests && interests.length === 0?
                                 <EmptyMessage text={strings.loading} loadingGif={true}/>
                                 :
                                 noInterests ?

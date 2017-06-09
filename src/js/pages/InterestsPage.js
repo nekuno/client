@@ -122,7 +122,7 @@ export default class InterestsPage extends Component {
     }
 
     render() {
-        const {interests, noInterests, user, strings} = this.props;
+        const {interests, noInterests, user, strings, isLoadingOwnInterests} = this.props;
 
         return (
             <div className="views">
@@ -137,10 +137,13 @@ export default class InterestsPage extends Component {
                 <div className="view view-main" id="interests-view-main">
                     <div className="page interests-page">
                         <div id="page-content" className="interests-content">
-                            {noInterests ?
-                                <EmptyMessage text={strings.empty}/>
+                            {isLoadingOwnInterests ?
+                                <EmptyMessage text={strings.loading} loadingGif={true}/>
                                 :
-                                <CardContentList firstItems={this.getFirstItems.bind(this)()} contents={interests} userId={parseId(user)} onBottomScroll={this.onBottomScroll.bind(this)}/>
+                                noInterests ?
+                                    <EmptyMessage text={strings.empty}/>
+                                    :
+                                    <CardContentList firstItems={this.getFirstItems.bind(this)()} contents={interests} userId={parseId(user)} onBottomScroll={this.onBottomScroll.bind(this)}/>
                             }
                             <br />
                         </div>
@@ -164,6 +167,7 @@ InterestsPage.defaultProps = {
         photos   : 'Photos',
         questions: 'Answers',
         interests: 'Interests',
+        loading  : 'Loading interests',
         empty    : 'You have no interests yet. Please, connect more social media or explore your yarns and let us know what are you interested in.'
     }
 };

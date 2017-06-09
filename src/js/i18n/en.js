@@ -1,7 +1,7 @@
 export default {
     AnswerQuestionPage               : {
-        question: 'Question',
-        skip    : 'Skip',
+        question               : 'Question',
+        skip                   : 'Skip',
         tutorialFirstStepTitle : 'Your answer',
         tutorialFirstStep      : 'This is your answer to the above question.',
         tutorialSecondStepTitle: 'Others answers',
@@ -20,8 +20,8 @@ export default {
         tutorialThirdStep      : 'This will be the question`s importance when making compatibility calculations.'
     },
     AnswerNextOtherQuestionPage      : {
-        question       : 'Question',
-        noMoreQuestions: 'No more questions from this user',
+        question               : 'Question',
+        noMoreQuestions        : 'No more questions from this user',
         tutorialFirstStepTitle : 'Your answer',
         tutorialFirstStep      : 'This is your answer to the above question.',
         tutorialSecondStepTitle: 'Others answers',
@@ -78,6 +78,7 @@ export default {
         photos   : 'Photos',
         questions: 'Answers',
         interests: 'Interests',
+        loading  : 'Loading interests',
         empty    : 'You have no interests yet. Please, connect more social media or explore your yarns and let us know what are you interested in.'
     },
     GalleryPage                      : {
@@ -164,6 +165,8 @@ export default {
         photos               : 'Photos',
         questions            : 'Answers',
         interests            : 'Interests',
+        loading              : 'Loading interests',
+        empty                : 'No interests to show with this filters',
         reported             : 'The content has been reported. We will review it within next 24 hours'
     },
     OtherQuestionsPage               : {

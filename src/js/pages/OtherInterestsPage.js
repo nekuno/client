@@ -1,13 +1,12 @@
 import React, { PropTypes, Component } from 'react';
-import { ScrollContainer } from 'react-router-scroll';
 import TopNavBar from '../components/ui/TopNavBar';
 import ToolBar from '../components/ui/ToolBar';
 import CardContentList from '../components/interests/CardContentList';
-import CardContentCarousel from '../components/interests/CardContentCarousel';
 import FilterContentButtons from '../components/ui/FilterContentButtons';
 import TextRadios from '../components/ui/TextRadios';
 import ProfilesAvatarConnection from '../components/ui/ProfilesAvatarConnection';
 import ReportContentPopup from '../components/interests/ReportContentPopup';
+import EmptyMessage from '../components/ui/EmptyMessage';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
 import popup from '../components/Popup';
@@ -269,7 +268,7 @@ export default class OtherInterestsPage extends Component {
                                                  videosCount={totals.Video}
                                                  imagesCount={totals.Image}
                                                  channelsCount={totals.Creator}
-            /> : '';
+        /> : '';
     }
 
     getCommonContentSwitch() {
@@ -294,7 +293,7 @@ export default class OtherInterestsPage extends Component {
     }
 
     render() {
-        const {interests, noInterests, otherUser, user, params, strings} = this.props;
+        const {interests, noInterests, isLoadingComparedInterests, otherUser, user, params, strings} = this.props;
         const ownUserId = parseId(user);
         const otherUserId = otherUser ? parseId(otherUser) : null;
 
@@ -316,7 +315,10 @@ export default class OtherInterestsPage extends Component {
                 <div className="view view-main" id="interests-view-main">
                     <div className="page other-interests-page">
                         <div id="page-content" className="other-interests-content">
-                            {noInterests && false ? '' :
+                            { isLoadingComparedInterests ?
+                                <EmptyMessage text={strings.loading} loadingGif={true}/>
+                                :
+
                                 /* Uncomment to enable carousel
                                  this.state.carousel ?
                                  <CardContentCarousel contents={interests} userId={ownUserId} otherUserId={otherUserId}/>
@@ -351,6 +353,8 @@ OtherInterestsPage.defaultProps = {
         photos               : 'Photos',
         questions            : 'Answers',
         interests            : 'Interests',
+        loading              : 'Loading interests',
+        empty                : 'No interests to show with this filters',
         reported             : 'The content has been reported. We will review it within next 24 hours'
     }
 };

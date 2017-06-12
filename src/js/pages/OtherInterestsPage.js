@@ -46,13 +46,13 @@ function getState(props) {
     const totals = otherUserId ? InterestStore.getTotals(otherUserId) || {} : {};
     const interests = otherUserId ? InterestStore.get(otherUserId) || [] : [];
     const noInterests = otherUserId ? InterestStore.noInterests(otherUserId) || false : null;
-    const isLoadingComparedInterests = InterestStore.isLoadingComparedInterests();
+    const loading = InterestStore.isLoadingComparedInterests() && interests.length === 0;
     return {
         pagination,
         totals,
         interests,
         noInterests,
-        isLoadingComparedInterests,
+        loading,
         otherUser
     };
 }
@@ -64,23 +64,24 @@ function getState(props) {
 export default class OtherInterestsPage extends Component {
     static propTypes = {
         // Injected by React Router:
-        params                    : PropTypes.shape({
+        params         : PropTypes.shape({
             slug: PropTypes.string.isRequired
         }).isRequired,
         // Injected by @AuthenticatedComponent
-        user                      : PropTypes.object.isRequired,
+        user           : PropTypes.object.isRequired,
         // Injected by @translate:
-        strings                   : PropTypes.object,
+        strings        : PropTypes.object,
         // Injected by @connectToStores:
-        pagination                : PropTypes.object,
-        totals                    : PropTypes.object,
-        interests                 : PropTypes.array.isRequired,
-        isLoadingComparedInterests: PropTypes.bool,
-        otherUser                 : PropTypes.object,
+        pagination     : PropTypes.object,
+        totals         : PropTypes.object,
+        interests      : PropTypes.array.isRequired,
+        noInterests    : PropTypes.bool,
+        loading        : PropTypes.bool,
+        otherUser      : PropTypes.object,
         // Injected by @popup:
-        showPopup                 : PropTypes.func,
-        closePopup                : PropTypes.func,
-        popupContentRef           : PropTypes.func,
+        showPopup      : PropTypes.func,
+        closePopup     : PropTypes.func,
+        popupContentRef: PropTypes.func,
     };
 
     constructor(props) {
@@ -122,7 +123,7 @@ export default class OtherInterestsPage extends Component {
     }
 
     componentDidUpdate() {
-        if (!this.state.carousel || this.props.interests.length == 0) {
+        if (!this.state.carousel || this.props.interests.length === 0) {
             return;
         }
         if (!this.state.swiper) {
@@ -136,7 +137,7 @@ export default class OtherInterestsPage extends Component {
 
     componentDidMount() {
 
-        if (!this.state.carousel || this.props.interests.length == 0) {
+        if (!this.state.carousel || this.props.interests.length === 0) {
             return;
         }
         // this.state = {
@@ -293,7 +294,7 @@ export default class OtherInterestsPage extends Component {
     }
 
     render() {
-        const {interests, noInterests, isLoadingComparedInterests, otherUser, user, params, strings} = this.props;
+        const {interests, noInterests, loading, otherUser, user, params, strings} = this.props;
         const ownUserId = parseId(user);
         const otherUserId = otherUser ? parseId(otherUser) : null;
 
@@ -315,19 +316,18 @@ export default class OtherInterestsPage extends Component {
                 <div className="view view-main" id="interests-view-main">
                     <div className="page other-interests-page">
                         <div id="page-content" className="other-interests-content">
-                            { isLoadingComparedInterests && interests.length === 0 ?
-                                <EmptyMessage text={strings.loading} loadingGif={true}/>
-                                :
-
-                                /* Uncomment to enable carousel
-                                 this.state.carousel ?
-                                 <CardContentCarousel contents={interests} userId={ownUserId} otherUserId={otherUserId}/>
-                                 :
-                                 <CardContentList contents={interests} userId={ownUserId} otherUserId={otherUserId}
-                                 onClickHandler={this.onContentClick}/>
-                                 */
-                                <CardContentList firstItems={this.getFirstItems.bind(this)()} contents={interests} userId={ownUserId} otherUserId={otherUserId}
-                                                 onBottomScroll={this.onBottomScroll.bind(this)} onReport={this.onReport.bind(this)}/>
+                            {    /* Uncomment to enable carousel
+                             this.state.carousel ?
+                             <CardContentCarousel contents={interests} userId={ownUserId} otherUserId={otherUserId}/>
+                             :
+                             <CardContentList contents={interests} userId={ownUserId} otherUserId={otherUserId}
+                             onClickHandler={this.onContentClick}/>
+                             */
+                                noInterests ?
+                                    <EmptyMessage text={strings.empty}/>
+                                    :
+                                    <CardContentList firstItems={this.getFirstItems.bind(this)()} contents={interests} userId={ownUserId} otherUserId={otherUserId}
+                                                     onBottomScroll={this.onBottomScroll.bind(this)} onReport={this.onReport.bind(this)} isLoading={loading}/>
                             }
                             <br />
                         </div>

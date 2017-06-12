@@ -27,7 +27,7 @@ function getState(props) {
     const totals = InterestStore.getTotals(userId) || {};
     const interests = InterestStore.get(userId) || [];
     const noInterests = InterestStore.noInterests(userId) || false;
-    const isLoadingOwnInterests = InterestStore.isLoadingOwnInterests();
+    const loading = InterestStore.isLoadingOwnInterests() && interests.length === 0;
     const networks = WorkersStore.getAll();
 
     return {
@@ -35,7 +35,7 @@ function getState(props) {
         totals,
         interests,
         noInterests,
-        isLoadingOwnInterests,
+        loading,
         networks
     };
 }
@@ -47,16 +47,16 @@ export default class InterestsPage extends Component {
 
     static propTypes = {
         // Injected by @AuthenticatedComponent
-        user                 : PropTypes.object.isRequired,
+        user       : PropTypes.object.isRequired,
         // Injected by @translate:
-        strings              : PropTypes.object,
+        strings    : PropTypes.object,
         // Injected by @connectToStores:
-        pagination           : PropTypes.object,
-        totals               : PropTypes.object,
-        interests            : PropTypes.array.isRequired,
-        noInterests          : PropTypes.bool,
-        isLoadingOwnInterests: PropTypes.bool,
-        networks             : PropTypes.array.isRequired,
+        pagination : PropTypes.object,
+        totals     : PropTypes.object,
+        interests  : PropTypes.array.isRequired,
+        noInterests: PropTypes.bool,
+        loading    : PropTypes.bool,
+        networks   : PropTypes.array.isRequired,
     };
 
     constructor(props) {
@@ -122,8 +122,7 @@ export default class InterestsPage extends Component {
     }
 
     render() {
-        const {interests, noInterests, user, strings, isLoadingOwnInterests} = this.props;
-
+        const {interests, noInterests, user, strings, loading} = this.props;
         return (
             <div className="views">
                 <TopNavBar leftMenuIcon={true} centerText={strings.myProfile}/>
@@ -137,13 +136,11 @@ export default class InterestsPage extends Component {
                 <div className="view view-main" id="interests-view-main">
                     <div className="page interests-page">
                         <div id="page-content" className="interests-content">
-                            {isLoadingOwnInterests && interests.length === 0?
-                                <EmptyMessage text={strings.loading} loadingGif={true}/>
-                                :
+                            {
                                 noInterests ?
                                     <EmptyMessage text={strings.empty}/>
                                     :
-                                    <CardContentList firstItems={this.getFirstItems.bind(this)()} contents={interests} userId={parseId(user)} onBottomScroll={this.onBottomScroll.bind(this)}/>
+                                    <CardContentList firstItems={this.getFirstItems.bind(this)()} contents={interests} userId={parseId(user)} onBottomScroll={this.onBottomScroll.bind(this)} isLoading={loading}/>
                             }
                             <br />
                         </div>

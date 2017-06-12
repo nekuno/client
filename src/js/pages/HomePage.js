@@ -55,13 +55,12 @@ export default class HomePage extends Component {
 
         this.goToRegisterPage = this.goToRegisterPage.bind(this);
         this.loginByResourceOwner = this.loginByResourceOwner.bind(this);
-        this.setLoggingState = this.setLoggingState.bind(this);
+        this.setLoginUserState = this.setLoginUserState.bind(this);
         this.split = this.split.bind(this);
 
         this.promise = null;
         this.state = {
             loginUser      : selectn('location.query.autoLogin', props),
-            logging        : false,
             registeringUser: null,
             details        : {
                 title1: 0,
@@ -113,7 +112,7 @@ export default class HomePage extends Component {
 
     loginByResourceOwner(resource, scope) {
         const {interfaceLanguage} = this.props;
-        this.setLoggingState(true);
+        this.setLoginUserState(true);
         SocialNetworkService.login(resource, scope).then(
             () => {
                 const oauthData = SocialNetworkService.buildOauthData(resource);
@@ -129,22 +128,19 @@ export default class HomePage extends Component {
                         profile.orientationRequired = false;
                         let token = 'join';
                         LoginActionCreators.preRegister(user, profile, token, oauthData);
-                        this.setLoggingState(false);
+                        this.setLoginUserState(false);
                         setTimeout(() => this.context.router.push('answer-username'), 0);
                     });
             },
             (status) => {
-                this.setState({
-                    loginUser: false
-                });
-                this.setLoggingState(false);
+                this.setLoginUserState(false);
                 nekunoApp.alert(resource + ' login failed: ' + status.error.message)
             });
     }
 
-    setLoggingState(bool) {
+    setLoginUserState(bool) {
         this.setState({
-            logging: bool,
+            loginUser: bool,
         })
     }
 
@@ -179,11 +175,11 @@ export default class HomePage extends Component {
 
     render() {
         const {strings} = this.props;
-        const {loginUser, registeringUser, logging} = this.state;
+        const {loginUser, registeringUser} = this.state;
 
         return (
             <div className="views">
-                {registeringUser || loginUser ?
+                {registeringUser ?
                     <div className="view view-main home-view">
                         <EmptyMessage text={registeringUser ? strings.registeringUser : strings.loginUser} loadingGif={true}/>
                     </div>
@@ -204,7 +200,7 @@ export default class HomePage extends Component {
                             <div className="swiper-pagination-and-button">
                                 <div className="swiper-pagination"></div>
                                 <div>
-                                    {logging ?
+                                    {loginUser ?
                                         <div>
                                             <br/>
                                             <span className="icon-spinner rotation-animation"/>

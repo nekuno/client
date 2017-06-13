@@ -344,11 +344,9 @@ export default class OtherUserPage extends Component {
         this.context.router.push(`/conversations/${this.props.params.slug}`);
     }
 
-    handlePhotoClick(url) {
-        const {photos, otherUser, params} = this.props;
-        const selectedPhoto = photos.find(photo => photo.url === url) || otherUser.photo;
-        const selectedPhotoId = selectedPhoto.id || 'profile';
-        this.context.router.push(`/users/${params.slug}/other-gallery/${selectedPhotoId}`);
+    handlePhotoClick(photo) {
+        const {params} = this.props;
+        this.context.router.push(`/users/${params.slug}/other-gallery/${photo.id}`);
     }
 
     goToDiscover() {
@@ -372,6 +370,7 @@ export default class OtherUserPage extends Component {
         const location = selectn('location.locality', profile) || selectn('location.country', profile);
         const canLookOtherProfiles = !(ownProfile && ownProfile.orientationRequired && !ownProfile.orientation);
         const enoughData = otherUser && profile && profileWithMetadata && ownProfile;
+        const profilePhoto = photos.find((photo) => photo.isProfilePhoto === true);
 
         return (
             <div className="views">
@@ -392,14 +391,19 @@ export default class OtherUserPage extends Component {
                                         <div className="swiper-custom">
                                             <div id={"photos-swiper-container"} className="swiper-container">
                                                 <div className="swiper-wrapper">
-                                                    <div className="swiper-slide" key={0} onClick={this.handlePhotoClick.bind(this, otherUser.photo.url)}>
-                                                        <Image src={otherPictureBig} defaultSrc={defaultImgBig}/>
-                                                    </div>
-                                                    {photos && photos.length > 0 ? photos.map((photo, index) =>
-                                                            <div className="swiper-slide" key={index + 1} onClick={this.handlePhotoClick.bind(this, photo.url)}>
+                                                    {profilePhoto ?
+                                                        <div className="swiper-slide" key={0} onClick={this.handlePhotoClick.bind(this, profilePhoto)}>
+                                                            <Image src={profilePhoto.thumbnail.big} defaultSrc={defaultImgBig}/>
+                                                        </div>
+                                                        : null
+                                                    }
+
+                                                    {photos.map((photo, index) =>
+                                                        photo.isProfilePhoto ? null :
+                                                            <div className="swiper-slide" key={index + 1} onClick={this.handlePhotoClick.bind(this, photo)}>
                                                                 <Image src={photo.thumbnail.big} defaultSrc={defaultImgBig}/>
                                                             </div>
-                                                        ) : null}
+                                                        )}
                                                 </div>
                                             </div>
                                         </div>

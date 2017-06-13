@@ -13,7 +13,6 @@
         "Framework7-3D-Panels": "git+https://github.com/nolimits4web/Framework7-3D-Panels.git",
         "bluebird": "3.4.6",
         "chart.js": "1.0.2",
-        "create-react-class": "^15.5.0",
         "cordova-android": "^6.2.3",
         "cordova-ios": "^4.4.0",
         "cordova-plugin-app-event": "^1.2.0",
@@ -26,6 +25,7 @@
         "cordova-plugin-splashscreen": "^3.2.2",
         "cordova-plugin-whitelist": "^1.2.2",
         "cordova-plugin-x-socialsharing": "^5.1.8",
+        "create-react-class": "^15.5.0",
         "de.appplant.cordova.plugin.local-notification": "0.8.4",
         "envify": "^4.0.0",
         "flux": "2.1.1",
@@ -37,7 +37,7 @@
         "keymirror": "0.1.1",
         "moment": "2.17.1",
         "normalizr": "1.4.0",
-        "phonegap-plugin-push": "^1.10.4",
+        "phonegap-plugin-push": "^2.0.0-rc4",
         "rc-progress": "2.0.3",
         "react": "^15.5.4",
         "react-addons-css-transition-group": "^15.4.1",
@@ -94,10 +94,10 @@
             "cordova-plugin-splashscreen": {},
             "cordova-plugin-whitelist": {},
             "cordova-plugin-x-socialsharing": {},
+            "de.appplant.cordova.plugin.local-notification": {},
             "phonegap-plugin-push": {
                 "SENDER_ID": "345837503310"
-            },
-            "de.appplant.cordova.plugin.local-notification": {}
+            }
         },
         "platforms": [
             "android",

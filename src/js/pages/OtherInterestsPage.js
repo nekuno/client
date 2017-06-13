@@ -2,7 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import TopNavBar from '../components/ui/TopNavBar';
 import ToolBar from '../components/ui/ToolBar';
 import CardContentList from '../components/interests/CardContentList';
-import FilterContentButtons from '../components/ui/FilterContentButtons';
+import FilterContentButtonsList from '../components/ui/FilterContentButtonsList';
 import TextRadios from '../components/ui/TextRadios';
 import ProfilesAvatarConnection from '../components/ui/ProfilesAvatarConnection';
 import ReportContentPopup from '../components/interests/ReportContentPopup';
@@ -46,13 +46,13 @@ function getState(props) {
     const totals = otherUserId ? InterestStore.getTotals(otherUserId) || {} : {};
     const interests = otherUserId ? InterestStore.get(otherUserId) || [] : [];
     const noInterests = otherUserId ? InterestStore.noInterests(otherUserId) || false : null;
-    const loading = InterestStore.isLoadingComparedInterests() && interests.length === 0;
+    const isLoadingComparedInterests = InterestStore.isLoadingComparedInterests();
     return {
         pagination,
         totals,
         interests,
         noInterests,
-        loading,
+        isLoadingComparedInterests,
         otherUser
     };
 }
@@ -64,24 +64,24 @@ function getState(props) {
 export default class OtherInterestsPage extends Component {
     static propTypes = {
         // Injected by React Router:
-        params         : PropTypes.shape({
+        params                    : PropTypes.shape({
             slug: PropTypes.string.isRequired
         }).isRequired,
         // Injected by @AuthenticatedComponent
-        user           : PropTypes.object.isRequired,
+        user                      : PropTypes.object.isRequired,
         // Injected by @translate:
-        strings        : PropTypes.object,
+        strings                   : PropTypes.object,
         // Injected by @connectToStores:
-        pagination     : PropTypes.object,
-        totals         : PropTypes.object,
-        interests      : PropTypes.array.isRequired,
-        noInterests    : PropTypes.bool,
-        loading        : PropTypes.bool,
-        otherUser      : PropTypes.object,
+        pagination                : PropTypes.object,
+        totals                    : PropTypes.object,
+        interests                 : PropTypes.array.isRequired,
+        noInterests               : PropTypes.bool,
+        isLoadingComparedInterests: PropTypes.bool,
+        otherUser                 : PropTypes.object,
         // Injected by @popup:
-        showPopup      : PropTypes.func,
-        closePopup     : PropTypes.func,
-        popupContentRef: PropTypes.func,
+        showPopup                 : PropTypes.func,
+        closePopup                : PropTypes.func,
+        popupContentRef           : PropTypes.func,
     };
 
     constructor(props) {
@@ -90,7 +90,6 @@ export default class OtherInterestsPage extends Component {
 
         this.onFilterCommonClick = this.onFilterCommonClick.bind(this);
         this.onFilterTypeClick = this.onFilterTypeClick.bind(this);
-        this.handleScroll = this.handleScroll.bind(this);
         this.onContentClick = this.onContentClick.bind(this);
         this.onNavBarLeftLinkClick = this.onNavBarLeftLinkClick.bind(this);
         this.initSwiper = this.initSwiper.bind(this);
@@ -153,18 +152,6 @@ export default class OtherInterestsPage extends Component {
             swiper  : null
         });
     };
-
-    handleScroll() {
-        // const {pagination, isLoadingComparedInterests} = this.props;
-        // let nextLink = pagination && pagination.hasOwnProperty('nextLink') ? pagination.nextLink : null;
-        // let offsetTop = parseInt(document.getElementsByClassName('view')[0].scrollTop + document.getElementsByClassName('view')[0].offsetHeight - 117);
-        // let offsetTopMax = parseInt(document.getElementById('page-content').offsetHeight);
-        //
-        // if (nextLink && offsetTop >= offsetTopMax && !isLoadingComparedInterests) {
-        //     document.getElementsByClassName('view')[0].removeEventListener('scroll', this.handleScroll);
-        //     InterestsActionCreators.requestNextComparedInterests(parseId(this.props.user), parseId(this.props.otherUser), nextLink);
-        // }
-    }
 
     onBottomScroll() {
         const {pagination, user, otherUser} = this.props;
@@ -258,17 +245,18 @@ export default class OtherInterestsPage extends Component {
         return <div className="title">{this.state.commonContent ? strings.similarInterestsCount.replace('%count%', pagination.total || 0) : strings.interestsCount.replace('%count%', pagination.total || 0)}</div>;
     }
 
-    getFilterContentButtons() {
-        const {otherUser, pagination, user, totals} = this.props;
+    getFilterContentButtonsList() {
+        const {otherUser, pagination, user, totals, isLoadingComparedInterests} = this.props;
         const ownUserId = parseId(user);
         const otherUserId = otherUser ? parseId(otherUser) : null;
 
-        return otherUser ? <FilterContentButtons userId={otherUserId} contentsCount={pagination.total || 0} ownContent={false} ownUserId={ownUserId} onClickHandler={this.onFilterTypeClick} commonContent={this.state.commonContent}
-                                                 linksCount={totals.Link}
-                                                 audiosCount={totals.Audio}
-                                                 videosCount={totals.Video}
-                                                 imagesCount={totals.Image}
-                                                 channelsCount={totals.Creator}
+        return otherUser ? <FilterContentButtonsList userId={otherUserId} contentsCount={pagination.total || 0} ownContent={false} ownUserId={ownUserId} onClickHandler={this.onFilterTypeClick} commonContent={this.state.commonContent}
+                                                     loading={isLoadingComparedInterests}
+                                                     linksCount={totals.Link}
+                                                     audiosCount={totals.Audio}
+                                                     videosCount={totals.Video}
+                                                     imagesCount={totals.Image}
+                                                     channelsCount={totals.Creator}
         /> : '';
     }
 
@@ -282,7 +270,7 @@ export default class OtherInterestsPage extends Component {
     getFirstItems() {
         const profileAvatarsConnection = this.getProfileAvatarsConnection.bind(this)();
         const title = this.getTitle.bind(this)();
-        const filterButtons = this.getFilterContentButtons.bind(this)();
+        const filterButtons = this.getFilterContentButtonsList.bind(this)();
         const commonContentSwitch = this.getCommonContentSwitch.bind(this)();
 
         return [
@@ -294,7 +282,9 @@ export default class OtherInterestsPage extends Component {
     }
 
     render() {
-        const {interests, noInterests, loading, otherUser, user, params, strings} = this.props;
+        const {interests, noInterests, isLoadingComparedInterests, otherUser, user, params, strings} = this.props;
+        const loading = isLoadingComparedInterests && interests.length === 0;
+        const {type} = this.state;
         const ownUserId = parseId(user);
         const otherUserId = otherUser ? parseId(otherUser) : null;
 
@@ -316,19 +306,19 @@ export default class OtherInterestsPage extends Component {
                 <div className="view view-main" id="interests-view-main">
                     <div className="page other-interests-page">
                         <div id="page-content" className="other-interests-content">
-                            {    /* Uncomment to enable carousel
-                             this.state.carousel ?
-                             <CardContentCarousel contents={interests} userId={ownUserId} otherUserId={otherUserId}/>
-                             :
-                             <CardContentList contents={interests} userId={ownUserId} otherUserId={otherUserId}
-                             onClickHandler={this.onContentClick}/>
-                             */
-                                noInterests ?
-                                    <EmptyMessage text={strings.empty}/>
-                                    :
-                                    <CardContentList firstItems={this.getFirstItems.bind(this)()} contents={interests} userId={ownUserId} otherUserId={otherUserId}
-                                                     onBottomScroll={this.onBottomScroll.bind(this)} onReport={this.onReport.bind(this)} isLoading={loading}/>
+                            {
+                                /* Uncomment to enable carousel
+                                 this.state.carousel ?
+                                 <CardContentCarousel contents={interests} userId={ownUserId} otherUserId={otherUserId}/>
+                                 :
+                                 <CardContentList contents={interests} userId={ownUserId} otherUserId={otherUserId}
+                                 onClickHandler={this.onContentClick}/>
+                                 */
                             }
+
+                            <CardContentList firstItems={this.getFirstItems.bind(this)()} contents={interests} userId={ownUserId} otherUserId={otherUserId}
+                                             onBottomScroll={this.onBottomScroll.bind(this)} onReport={this.onReport.bind(this)} isLoading={loading}/>
+
                             <br />
                         </div>
                         <br/>

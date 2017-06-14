@@ -66,7 +66,7 @@ class InfiniteAnyHeight extends React.Component {
       this.getScrollContainer().scrollTop += scrollDiff
     heights[i] = height
     this.props.heightsUpdateCallback(heights)
-    this.setState({heights})
+    // this.setState({heights})
   }
 
   componentDidMount() {

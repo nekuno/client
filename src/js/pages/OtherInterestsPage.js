@@ -257,6 +257,7 @@ export default class OtherInterestsPage extends Component {
                                                      videosCount={totals.Video}
                                                      imagesCount={totals.Image}
                                                      channelsCount={totals.Creator}
+                                                     type = {this.state.type}
         /> : '';
     }
 

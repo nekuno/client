@@ -93,15 +93,16 @@ export default class InterestsPage extends Component {
     getFilterButtons() {
         const {pagination, totals, user, isLoadingOwnInterests} = this.props;
         const userId = parseId(user);
-        return  <FilterContentButtonsList userId={userId} contentsCount={pagination.total || 0} ownContent={true} onClickHandler={this.onFilterTypeClick}
-                                      linksCount={totals.Link}
-                                      audiosCount={totals.Audio}
-                                      videosCount={totals.Video}
-                                      imagesCount={totals.Image}
-                                      channelsCount={totals.Creator}
-                                      loading={isLoadingOwnInterests}
-                                      onFilter={this.onFilter}
-            />
+        return <FilterContentButtonsList userId={userId} contentsCount={pagination.total || 0} ownContent={true} onClickHandler={this.onFilterTypeClick}
+                                         linksCount={totals.Link}
+                                         audiosCount={totals.Audio}
+                                         videosCount={totals.Video}
+                                         imagesCount={totals.Image}
+                                         channelsCount={totals.Creator}
+                                         loading={isLoadingOwnInterests}
+                                         onFilter={this.onFilter}
+                                         type={this.state.type}
+        />
     }
 
     onFilterTypeClick(type) {
@@ -117,21 +118,20 @@ export default class InterestsPage extends Component {
         const banner = this.getBanner.bind(this)();
         let firstItems = [banner];
 
-        if (noInterests && !isLoadingOwnInterests && type === ''){
+        if (noInterests && !isLoadingOwnInterests && type === '') {
             firstItems.push(this.getEmptyMessage(strings.empty));
         } else {
             const filterButtons = this.getFilterButtons.bind(this)();
             firstItems.push(filterButtons);
-            if (noInterests && !isLoadingOwnInterests){
-            //     firstItems.push(this.getEmptyMessage(strings.empty));
+            if (noInterests && !isLoadingOwnInterests) {
+                //     firstItems.push(this.getEmptyMessage(strings.empty));
             }
         }
 
         return firstItems;
     }
 
-    getEmptyMessage(text)
-    {
+    getEmptyMessage(text) {
         return <EmptyMessage text={text}/>;
     }
 

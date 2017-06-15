@@ -2,6 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import connectToStores from '../../utils/connectToStores';
 import shouldPureComponentUpdate from '../../../../node_modules/react-pure-render/function';
 import LoginStore from '../../stores/LoginStore';
+import RouterActionCreators from '../../actions/RouterActionCreators';
 
 function getState() {
     const isGuest = LoginStore.isGuest();
@@ -24,6 +25,11 @@ export default class ToolBar extends Component {
 
     shouldComponentUpdate = shouldPureComponentUpdate;
 
+    onLinkClick(url) {
+        RouterActionCreators.removePreviousRoute();
+        this.context.router.replace(url)
+    }
+
     render() {
         let {activeLinkIndex, links, arrowUpLeft, isGuest} = this.props;
         let className = isGuest ? "toolbar toolbar-guest" : "toolbar";
@@ -33,7 +39,7 @@ export default class ToolBar extends Component {
                 <div className="toolbar-inner">
                     {links.map((link, index) => {
                         return (
-                            <div key={index} className="toolbar-link-wrapper" onClick={() => this.context.router.replace(link.url)}>
+                            <div key={index} className="toolbar-link-wrapper" onClick={this.onLinkClick.bind(this, link.url)}>
                                 <a href="javascript:void(0)">{activeLinkIndex === index ? <strong>{link.text}</strong> : link.text}</a>
                             </div>
                         );

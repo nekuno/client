@@ -1,5 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import shouldPureComponentUpdate from 'react-pure-render/function';
+import RouterActionCreators from '../../actions/RouterActionCreators';
 
 export default class TopLeftLink extends Component {
 	static contextTypes = {
@@ -21,9 +22,7 @@ export default class TopLeftLink extends Component {
 	}
 
 	goBack() {
-		if (!this.context.router.goBack()) {
-			setTimeout(this.context.router.push('/discover'), 0);
-		}
+		RouterActionCreators.previousRoute(this.context.router.getCurrentLocation().pathname);
 	}
 
 	render() {

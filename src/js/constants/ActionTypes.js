@@ -24,6 +24,10 @@ export default keyMirror({
     SET_ENABLED_ERROR                       : null,
     LOGOUT_USER                             : null,
 
+    NEXT_ROUTE       : null,
+    REMOVE_PREV_ROUTE: null,
+    PREVIOUS_ROUTE   : null,
+
     CONNECT_ACCOUNT        : null,
     CONNECT_ACCOUNT_SUCCESS: null,
     CONNECT_ACCOUNT_ERROR  : null,

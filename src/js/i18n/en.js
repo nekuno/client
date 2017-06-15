@@ -532,7 +532,7 @@ export default {
         send       : 'Send report',
         close      : 'Close'
     },
-    FilterContentButtons             : {
+    FilterContentButtonsList         : {
         videos  : 'Videos',
         audios  : 'Music',
         photos  : 'Photos',

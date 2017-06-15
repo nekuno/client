@@ -14,13 +14,12 @@ export default class FilterContentButton extends Component {
 
     render() {
         const {text, active, onClickHandler, count, loading} = this.props;
-        const iconClass = " icon icon-" + this.props.icon;
+        const iconClass = loading && active ? "icon icon-spinner rotation-animation" : " icon icon-" + this.props.icon;
 
         return (
-            loading && active ? <div className="spinner-wrapper"><LoadingSpinnerCSS small={true}/></div> :
-            <div className={active ? "icons-large-wrapper active" : "icons-large-wrapper"} onClick={onClickHandler}>
-                <div className={iconClass}></div>
-                <div className="icons-large-text">{count}<br/>{text}</div>
+            <div className={active ? "icons-large-wrapper active" : "icons-large-wrapper"} onClick={onClickHandler} disabled={loading ? 'disabled' : null}>
+                <div className={iconClass} disabled={loading ? 'disabled' : null}></div>
+                <div className="icons-large-text">{loading && active ? "" : count}<br/>{loading && active ? <span>&nbsp;</span> : text}</div>
             </div>
         );
     }

@@ -62,6 +62,14 @@ export default class LeftPanel extends Component {
         };
     }
 
+    componentDidMount() {
+        $$('.panel-left').on('closed', () => {
+            this.setState({
+                moreActive: false
+            });
+        });
+    }
+
     handleGoClickThreads() {
         nekunoApp.closePanel();
         $$('.panel-left').once('closed', () => {
@@ -72,9 +80,6 @@ export default class LeftPanel extends Component {
     handleGoClickProfile() {
         nekunoApp.closePanel();
         $$('.panel-left').once('closed', () => {
-            this.setState({
-                moreActive: false
-            });
             this.context.router.push(`/p/${this.props.user.slug}`);
         });
     }
@@ -89,9 +94,6 @@ export default class LeftPanel extends Component {
     handleGoClickSocialNetworks() {
         nekunoApp.closePanel();
         $$('.panel-left').once('closed', () => {
-            this.setState({
-                moreActive: false
-            });
             this.context.router.push('/social-networks');
         });
     }
@@ -112,9 +114,6 @@ export default class LeftPanel extends Component {
     handleClickSettings() {
         nekunoApp.closePanel();
         $$('.panel-left').once('closed', () => {
-            this.setState({
-                moreActive: false
-            });
             this.context.router.push('/settings');
         });
     }
@@ -122,9 +121,6 @@ export default class LeftPanel extends Component {
     handleGoClickInvitations() {
         nekunoApp.closePanel();
         $$('.panel-left').once('closed', () => {
-            this.setState({
-                moreActive: false
-            });
             this.context.router.push('/invitations');
         });
     }
@@ -139,9 +135,6 @@ export default class LeftPanel extends Component {
     logout() {
         nekunoApp.closePanel();
         $$('.panel-left').once('closed', () => {
-            this.setState({
-                moreActive: null
-            });
             LoginActionCreators.logoutUser();
         });
     }

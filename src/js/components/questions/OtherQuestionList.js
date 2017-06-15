@@ -1,36 +1,51 @@
 import React, { PropTypes, Component } from 'react';
 import selectn from 'selectn';
+import EmptyMessage from '../ui/EmptyMessage';
 import OtherQuestion from './OtherQuestion';
 import InfiniteScroll from "../scroll/InfiniteScroll";
+import translate from '../../i18n/Translate';
 
+@translate('OtherQuestionList')
 export default class OtherQuestionList extends Component {
     static propTypes = {
-        questions     : PropTypes.object.isRequired,
-        otherQuestions: PropTypes.object.isRequired,
-        ownPicture    : PropTypes.string,
-        otherPicture  : PropTypes.string.isRequired,
-        otherUserSlug : PropTypes.string.isRequired,
-        onTimerEnd    : PropTypes.func
+        questions                 : PropTypes.object.isRequired,
+        otherQuestions            : PropTypes.object.isRequired,
+        ownPicture                : PropTypes.string,
+        otherPicture              : PropTypes.string.isRequired,
+        otherUserSlug             : PropTypes.string.isRequired,
+        onTimerEnd                : PropTypes.func,
+        isLoadingComparedQuestions: PropTypes.bool,
+        // Injected by @translate:
+        strings                   : PropTypes.object
     };
 
     getOtherQuestions() {
-        const {questions, otherQuestions, otherUserSlug, ownPicture, otherPicture, onTimerEnd} = this.props;
+        const {questions, otherQuestions, otherUserSlug, ownPicture, otherPicture, onTimerEnd, isLoadingComparedQuestions, strings} = this.props;
 
-        const questionComponents = Object.keys(otherQuestions).map((questionId, index) =>
-            <OtherQuestion otherUserSlug={otherUserSlug}
-                           userAnswer={selectn('userAnswer', questions[questionId])}
-                           ownPicture={ownPicture}
-                           otherPicture={otherPicture}
-                           key={index}
-                           accessibleKey={index}
-                           question={otherQuestions[questionId]}
-                           onTimerEnd={onTimerEnd}
-            />
-        );
+        const questionComponents = Object.keys(otherQuestions).map((position, index) => {
+                // const question = Object.keys(otherQuestions).find((index) => {
+                //     const otherQuestion = otherQuestions[index];
+                //     return otherQuestion.question.questionId === questionId;
+                // });
+            const question = otherQuestions[position];
+            const questionId = question.question.questionId;
 
-        return <div className="question-list">
-            {questionComponents}
-        </div>
+                return <div className="question-list">
+                    <OtherQuestion otherUserSlug={otherUserSlug}
+                                   userAnswer={selectn('userAnswer', questions[questionId])}
+                                   ownPicture={ownPicture}
+                                   otherPicture={otherPicture}
+                                   key={index}
+                                   accessibleKey={index}
+                                   question={question}
+                                   onTimerEnd={onTimerEnd}
+                    />
+                </div>
+        });
+
+        return !isLoadingComparedQuestions || Object.keys(otherQuestions).length !== 0 ?
+                questionComponents
+            : [<EmptyMessage text={strings.loading} loadingGif={true} shortMarginTop={true}/>]
     }
 
     getItems() {
@@ -38,7 +53,7 @@ export default class OtherQuestionList extends Component {
         const questions = this.getOtherQuestions.bind(this)();
         return [
             ...firstItems,
-            questions
+            ...questions
         ];
     }
 
@@ -54,3 +69,9 @@ export default class OtherQuestionList extends Component {
         );
     }
 }
+
+OtherQuestionList.defaultProps = {
+    strings: {
+        loading: 'Loading questions'
+    }
+};

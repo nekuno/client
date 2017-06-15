@@ -246,7 +246,7 @@ export default class DiscoverPage extends Component {
                                 <CardUserList firstItems ={this.getFirstItems.bind(this)()} recommendations={recommendations} user={user} profile={profile}
                                               handleSelectProfile={this.selectProfile} similarityOrder={similarityOrder} onBottomScroll={this.onBottomScroll}/>
                                 :
-                                <EmptyMessage text={emptyMessageText}/>}
+                                <EmptyMessage text={emptyMessageText} loadingGif={true}/>}
                             <br />
                         </div>
                     </div>

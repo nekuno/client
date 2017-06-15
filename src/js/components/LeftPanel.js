@@ -62,6 +62,14 @@ export default class LeftPanel extends Component {
         };
     }
 
+    componentDidMount() {
+        $$('.panel-left').on('closed', () => {
+            this.setState({
+                moreActive: false
+            });
+        });
+    }
+
     handleGoClickThreads() {
         nekunoApp.closePanel();
         $$('.panel-left').once('closed', () => {
@@ -127,9 +135,6 @@ export default class LeftPanel extends Component {
     logout() {
         nekunoApp.closePanel();
         $$('.panel-left').once('closed', () => {
-            this.setState({
-                moreActive: null
-            });
             LoginActionCreators.logoutUser();
         });
     }

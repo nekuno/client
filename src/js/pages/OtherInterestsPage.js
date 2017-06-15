@@ -1,15 +1,15 @@
 import React, { PropTypes, Component } from 'react';
-import { ScrollContainer } from 'react-router-scroll';
 import TopNavBar from '../components/ui/TopNavBar';
 import ToolBar from '../components/ui/ToolBar';
 import CardContentList from '../components/interests/CardContentList';
-import CardContentCarousel from '../components/interests/CardContentCarousel';
-import FilterContentButtons from '../components/ui/FilterContentButtons';
+import FilterContentButtonsList from '../components/ui/FilterContentButtonsList';
 import TextRadios from '../components/ui/TextRadios';
 import ProfilesAvatarConnection from '../components/ui/ProfilesAvatarConnection';
 import ReportContentPopup from '../components/interests/ReportContentPopup';
+import EmptyMessage from '../components/ui/EmptyMessage';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
+import popup from '../components/Popup';
 import connectToStores from '../utils/connectToStores';
 import * as UserActionCreators from '../actions/UserActionCreators';
 import * as InterestsActionCreators from '../actions/InterestsActionCreators';
@@ -59,6 +59,7 @@ function getState(props) {
 
 @AuthenticatedComponent
 @translate('OtherInterestsPage')
+@popup('popup-report-content')
 @connectToStores([UserStore, InterestStore], getState)
 export default class OtherInterestsPage extends Component {
     static propTypes = {
@@ -74,8 +75,13 @@ export default class OtherInterestsPage extends Component {
         pagination                : PropTypes.object,
         totals                    : PropTypes.object,
         interests                 : PropTypes.array.isRequired,
+        noInterests               : PropTypes.bool,
         isLoadingComparedInterests: PropTypes.bool,
-        otherUser                 : PropTypes.object
+        otherUser                 : PropTypes.object,
+        // Injected by @popup:
+        showPopup                 : PropTypes.func,
+        closePopup                : PropTypes.func,
+        popupContentRef           : PropTypes.func,
     };
 
     constructor(props) {
@@ -84,7 +90,6 @@ export default class OtherInterestsPage extends Component {
 
         this.onFilterCommonClick = this.onFilterCommonClick.bind(this);
         this.onFilterTypeClick = this.onFilterTypeClick.bind(this);
-        this.handleScroll = this.handleScroll.bind(this);
         this.onContentClick = this.onContentClick.bind(this);
         this.onNavBarLeftLinkClick = this.onNavBarLeftLinkClick.bind(this);
         this.initSwiper = this.initSwiper.bind(this);
@@ -117,7 +122,7 @@ export default class OtherInterestsPage extends Component {
     }
 
     componentDidUpdate() {
-        if (!this.state.carousel || this.props.interests.length == 0) {
+        if (!this.state.carousel || this.props.interests.length === 0) {
             return;
         }
         if (!this.state.swiper) {
@@ -131,7 +136,7 @@ export default class OtherInterestsPage extends Component {
 
     componentDidMount() {
 
-        if (!this.state.carousel || this.props.interests.length == 0) {
+        if (!this.state.carousel || this.props.interests.length === 0) {
             return;
         }
         // this.state = {
@@ -147,18 +152,6 @@ export default class OtherInterestsPage extends Component {
             swiper  : null
         });
     };
-
-    handleScroll() {
-        // const {pagination, isLoadingComparedInterests} = this.props;
-        // let nextLink = pagination && pagination.hasOwnProperty('nextLink') ? pagination.nextLink : null;
-        // let offsetTop = parseInt(document.getElementsByClassName('view')[0].scrollTop + document.getElementsByClassName('view')[0].offsetHeight - 117);
-        // let offsetTopMax = parseInt(document.getElementById('page-content').offsetHeight);
-        //
-        // if (nextLink && offsetTop >= offsetTopMax && !isLoadingComparedInterests) {
-        //     document.getElementsByClassName('view')[0].removeEventListener('scroll', this.handleScroll);
-        //     InterestsActionCreators.requestNextComparedInterests(parseId(this.props.user), parseId(this.props.otherUser), nextLink);
-        // }
-    }
 
     onBottomScroll() {
         const {pagination, user, otherUser} = this.props;
@@ -220,7 +213,7 @@ export default class OtherInterestsPage extends Component {
             reportContentId: contentId,
             reportReason   : reason
         });
-        setTimeout(() => nekunoApp.popup('.popup-report-content'), 0);
+        setTimeout(() => this.props.showPopup(), 0);
     }
 
     onReportReasonText(reasonText) {
@@ -231,6 +224,7 @@ export default class OtherInterestsPage extends Component {
             reason    : reportReason,
             reasonText: reasonText
         };
+        this.props.closePopup();
         UserActionCreators.reportContent(data).then(
             () => nekunoApp.alert(strings.reported),
             (error) => console.log(error),
@@ -251,17 +245,19 @@ export default class OtherInterestsPage extends Component {
         return <div className="title">{this.state.commonContent ? strings.similarInterestsCount.replace('%count%', pagination.total || 0) : strings.interestsCount.replace('%count%', pagination.total || 0)}</div>;
     }
 
-    getFilterContentButtons() {
-        const {otherUser, pagination, user, totals} = this.props;
+    getFilterContentButtonsList() {
+        const {otherUser, pagination, user, totals, isLoadingComparedInterests} = this.props;
         const ownUserId = parseId(user);
         const otherUserId = otherUser ? parseId(otherUser) : null;
 
-        return otherUser ? <FilterContentButtons userId={otherUserId} contentsCount={pagination.total || 0} ownContent={false} ownUserId={ownUserId} onClickHandler={this.onFilterTypeClick} commonContent={this.state.commonContent}
-                                           linksCount={totals.Link}
-                                           audiosCount={totals.Audio}
-                                           videosCount={totals.Video}
-                                           imagesCount={totals.Image}
-                                           channelsCount={totals.Creator}
+        return otherUser ? <FilterContentButtonsList userId={otherUserId} contentsCount={pagination.total || 0} ownContent={false} ownUserId={ownUserId} onClickHandler={this.onFilterTypeClick} commonContent={this.state.commonContent}
+                                                     loading={isLoadingComparedInterests}
+                                                     linksCount={totals.Link}
+                                                     audiosCount={totals.Audio}
+                                                     videosCount={totals.Video}
+                                                     imagesCount={totals.Image}
+                                                     channelsCount={totals.Creator}
+                                                     type = {this.state.type}
         /> : '';
     }
 
@@ -275,7 +271,7 @@ export default class OtherInterestsPage extends Component {
     getFirstItems() {
         const profileAvatarsConnection = this.getProfileAvatarsConnection.bind(this)();
         const title = this.getTitle.bind(this)();
-        const filterButtons = this.getFilterContentButtons.bind(this)();
+        const filterButtons = this.getFilterContentButtonsList.bind(this)();
         const commonContentSwitch = this.getCommonContentSwitch.bind(this)();
 
         return [
@@ -287,7 +283,9 @@ export default class OtherInterestsPage extends Component {
     }
 
     render() {
-        const {interests, noInterests, otherUser, user, params, strings} = this.props;
+        const {interests, noInterests, isLoadingComparedInterests, otherUser, user, params, strings} = this.props;
+        const loading = isLoadingComparedInterests && interests.length === 0;
+        const {type} = this.state;
         const ownUserId = parseId(user);
         const otherUserId = otherUser ? parseId(otherUser) : null;
 
@@ -309,7 +307,7 @@ export default class OtherInterestsPage extends Component {
                 <div className="view view-main" id="interests-view-main">
                     <div className="page other-interests-page">
                         <div id="page-content" className="other-interests-content">
-                            {noInterests && false ? '' :
+                            {
                                 /* Uncomment to enable carousel
                                  this.state.carousel ?
                                  <CardContentCarousel contents={interests} userId={ownUserId} otherUserId={otherUserId}/>
@@ -317,8 +315,11 @@ export default class OtherInterestsPage extends Component {
                                  <CardContentList contents={interests} userId={ownUserId} otherUserId={otherUserId}
                                  onClickHandler={this.onContentClick}/>
                                  */
-                                <CardContentList firstItems={this.getFirstItems.bind(this)()} contents={interests} userId={ownUserId} otherUserId={otherUserId} onBottomScroll={this.onBottomScroll.bind(this)}/>
                             }
+
+                            <CardContentList firstItems={this.getFirstItems.bind(this)()} contents={interests} userId={ownUserId} otherUserId={otherUserId}
+                                             onBottomScroll={this.onBottomScroll.bind(this)} onReport={this.onReport.bind(this)} isLoading={loading}/>
+
                             <br />
                         </div>
                         <br/>
@@ -326,7 +327,7 @@ export default class OtherInterestsPage extends Component {
                         <br/>
                     </div>
                 </div>
-                <ReportContentPopup onClick={this.onReportReasonText}/>
+                <ReportContentPopup onClick={this.onReportReasonText} contentRef={this.props.popupContentRef}/>
             </div>
         );
     }
@@ -343,6 +344,8 @@ OtherInterestsPage.defaultProps = {
         photos               : 'Photos',
         questions            : 'Answers',
         interests            : 'Interests',
+        loading              : 'Loading interests',
+        empty                : 'No interests to show with this filters',
         reported             : 'The content has been reported. We will review it within next 24 hours'
     }
 };

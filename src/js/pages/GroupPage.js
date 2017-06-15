@@ -8,6 +8,7 @@ import EmptyMessage from '../components/ui/EmptyMessage';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
+import popup from '../components/Popup';
 import * as APIUtils from '../utils/APIUtils';
 import * as UserActionCreators from '../actions/UserActionCreators';
 import * as GroupActionCreators from '../actions/GroupActionCreators';
@@ -42,16 +43,20 @@ function getState(props) {
 
 @AuthenticatedComponent
 @translate('GroupPage')
+@popup('popup-unlock-group')
 @connectToStores([GroupStore], getState)
 export default class GroupPage extends Component {
     static propTypes = {
         // Injected by @AuthenticatedComponent
-        user: PropTypes.object,
+        user           : PropTypes.object,
         // Injected by @translate:
-        strings: PropTypes.object,
+        strings        : PropTypes.object,
         // Injected by @connectToStores:
-        groups: PropTypes.object
-
+        groups         : PropTypes.object,
+        // Injected by @popup:
+        showPopup      : PropTypes.func,
+        closePopup     : PropTypes.func,
+        popupContentRef: PropTypes.func,
     };
 
     static contextTypes = {
@@ -65,9 +70,11 @@ export default class GroupPage extends Component {
         this.consumeInvitation = this.consumeInvitation.bind(this);
         this.manageError = this.manageError.bind(this);
         this.manageNotInvitationGroup = this.manageNotInvitationGroup.bind(this);
+        this.openJoinPopup = this.openJoinPopup.bind(this);
+        this.closeJoinPopup = this.closeJoinPopup.bind(this);
 
         this.state = {
-            joining: false,
+            joining : false,
             creating: false
         };
     }
@@ -96,18 +103,18 @@ export default class GroupPage extends Component {
     }
 
     openJoinPopup() {
-        nekunoApp.popup('.popup-unlock-group');
+        this.props.showPopup();
     }
 
     closeJoinPopup() {
-        nekunoApp.closeModal('.popup-unlock-group');
+        this.props.closePopup();
     }
 
     join(token) {
         this.setState({joining: true});
         const validatedInvitation = APIUtils.postData(API_URLS.VALIDATE_INVITATION_TOKEN + token);
-        validatedInvitation.then((data)=> {
-            if (!null == data.invitation.group || data.invitation.group == undefined){
+        validatedInvitation.then((data) => {
+            if (!null == data.invitation.group || data.invitation.group == undefined) {
                 this.manageNotInvitationGroup();
                 this.setState({joining: false});
             } else {
@@ -119,9 +126,9 @@ export default class GroupPage extends Component {
         });
     }
 
-    consumeInvitation(value){
+    consumeInvitation(value) {
         const invitation = APIUtils.postData(API_URLS.CONSUME_INVITATION.replace('{token}', value));
-        invitation.then((data)=> {
+        invitation.then((data) => {
             if (!null == data.invitation.group || data.invitation.group == undefined) {
                 this.manageNotInvitationGroup();
             } else {
@@ -178,7 +185,7 @@ export default class GroupPage extends Component {
                             </div>
                             : ''}
                     </div>
-                    <UnlockGroupPopup onClickOkHandler={this.join} joining={joining}/>
+                    <UnlockGroupPopup onClickOkHandler={this.join} joining={joining} contentRef={this.props.popupContentRef}/>
                 </div>
             </div>
         );
@@ -187,13 +194,13 @@ export default class GroupPage extends Component {
 
 GroupPage.defaultProps = {
     strings: {
-        groups        : 'Your badges',
-        create        : 'Create badge',
-        creating      : 'Creating badge',
-        enterName     : 'Name of the badge',
-        join          : 'Unlock badge',
-        joining       : 'Unlocking badge',
-        joiningError  : 'Error joining to this badge',
-        noGroupToken  : 'This code has not any related badge'
+        groups      : 'Your badges',
+        create      : 'Create badge',
+        creating    : 'Creating badge',
+        enterName   : 'Name of the badge',
+        join        : 'Unlock badge',
+        joining     : 'Unlocking badge',
+        joiningError: 'Error joining to this badge',
+        noGroupToken: 'This code has not any related badge'
     }
 };

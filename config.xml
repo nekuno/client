@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.nekuno" version="0.34.2" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.nekuno" version="0.35.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Nekuno</name>
     <description>
         A sample Apache Cordova application that responds to the deviceready event.
@@ -31,6 +31,7 @@
         <splash density="port-xhdpi" src="src/scss/img/splash/xhdpi.9.png" />
     </platform>
     <platform name="ios">
+        <resource-file src="src/GoogleService-Info.plist" />
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
         <!-- iOS 8.0+ -->
@@ -82,7 +83,7 @@
     <plugin name="cordova-plugin-whitelist" spec="^1.2.2" />
     <plugin name="cordova-plugin-x-socialsharing" spec="^5.1.8" />
     <plugin name="de.appplant.cordova.plugin.local-notification" spec="0.8.4" />
-    <plugin name="phonegap-plugin-push" spec="^1.10.4">
+    <plugin name="phonegap-plugin-push" spec="^2.0.0-rc4">
         <variable name="SENDER_ID" value="345837503310" />
     </plugin>
 </widget>

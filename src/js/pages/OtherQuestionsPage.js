@@ -2,6 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import { ScrollContainer } from 'react-router-scroll';
 import TopNavBar from '../components/ui/TopNavBar';
 import ToolBar from '../components/ui/ToolBar';
+import LoadingSpinnerCSS from '../components/ui/LoadingSpinnerCSS'
 import OtherQuestionList from '../components/questions/OtherQuestionList';
 import ProfilesAvatarConnection from '../components/ui/ProfilesAvatarConnection';
 import OtherQuestionsBanner from '../components/questions/OtherQuestionsBanner';
@@ -34,7 +35,8 @@ function requestData(props, state) {
         () => {
             const otherUser = UserStore.getBySlug(params.slug);
             const otherUserId = parseId(otherUser);
-            QuestionActionCreators.requestComparedQuestions(userId, otherUserId, state.filters);
+            QuestionActionCreators.requestComparedQuestions(userId, otherUserId);
+            QuestionActionCreators.requestNextOtherQuestion(userId, otherUserId);
             UserActionCreators.requestComparedStats(userId, otherUserId);
         },
         (status) => {
@@ -53,15 +55,19 @@ function getState(props) {
     const currentUserId = parseId(props.user);
     const pagination = otherUser ? QuestionStore.getPagination(otherUserId) || {} : {};
     const questions = QuestionStore.get(currentUserId) || {};
-    const otherQuestions = otherUser ? QuestionStore.get(otherUserId) || {} : {};
+    const otherQuestions = otherUser ? QuestionStore.getCompared(otherUserId) || {} : {};
     const comparedStats = otherUserId ? ComparedStatsStore.get(currentUserId, otherUserId) : null;
+    const isLoadingComparedQuestions = otherUserId ? QuestionStore.isLoadingComparedQuestions() : true;
+    const hasNextComparedQuestion = QuestionStore.hasQuestion();
 
     return {
         pagination,
         questions,
         otherQuestions,
         otherUser,
-        comparedStats
+        comparedStats,
+        isLoadingComparedQuestions,
+        hasNextComparedQuestion
     };
 }
 
@@ -83,7 +89,9 @@ export default class OtherQuestionsPage extends Component {
         questions     : PropTypes.object,
         otherQuestions: PropTypes.object.isRequired,
         otherUser     : PropTypes.object,
-        comparedStats : PropTypes.object
+        comparedStats : PropTypes.object,
+        isLoadingComparedQuestions: PropTypes.bool,
+        hasNextComparedQuestion: PropTypes.bool,
     };
 
     constructor(props) {
@@ -136,21 +144,30 @@ export default class OtherQuestionsPage extends Component {
             const otherUserId = parseId(this.props.otherUser);
             return QuestionActionCreators.requestNextComparedQuestions(userId, otherUserId, nextLink);
         }
+
+        return Promise.resolve();
     }
 
     getBanner() {
         const {otherUser, pagination, questions} = this.props;
-        return <OtherQuestionsBanner user={otherUser} questionsTotal={pagination.total || Object.keys(questions).length || 0}/>
+        const mustRenderBanner = !this.areAllQuestionsAnswered();
+        return mustRenderBanner ? <OtherQuestionsBanner user={otherUser} questionsTotal={pagination.total || Object.keys(questions).length || 0}/> : '';
+    }
+
+    areAllQuestionsAnswered() {
+        return this.props.hasNextComparedQuestion;
     }
 
     getQuestionsHeader() {
-        const {user, otherUser, comparedStats, strings, pagination} = this.props;
+        const {user, otherUser, comparedStats, isLoadingComparedQuestions, strings, pagination} = this.props;
         const ownPicture = parsePicture(user);
         const otherPicture = parsePicture(otherUser);
+        const totalComparedStats = isLoadingComparedQuestions || !comparedStats ? <LoadingSpinnerCSS small={true}/> : comparedStats.commonAnswers || 0;
+        const totalPagination = isLoadingComparedQuestions ? <LoadingSpinnerCSS small={true}/> : pagination.total || 0;
 
         return <div className="other-questions-header-container">
             <ProfilesAvatarConnection ownPicture={ownPicture} otherPicture={otherPicture}/>
-            <div className="other-questions-stats-title title">{comparedStats ? comparedStats.commonAnswers : 0} {strings.coincidences} {pagination.total || 0}</div>
+            <div className="other-questions-stats-title title">{totalComparedStats} {strings.coincidences} {totalPagination}</div>
         </div>
     }
 
@@ -162,7 +179,7 @@ export default class OtherQuestionsPage extends Component {
     }
 
     render() {
-        const {otherUser, user, questions, otherQuestions, strings, params} = this.props;
+        const {otherUser, user, questions, otherQuestions, isLoadingComparedQuestions, strings, params} = this.props;
         const ownPicture = parsePicture(user);
         const otherPicture = parsePicture(otherUser);
         return (
@@ -179,7 +196,8 @@ export default class OtherQuestionsPage extends Component {
                     <div className="page other-questions-page">
                         {user && otherUser ?
                             <div id="page-content" className="other-questions-content">
-                                <OtherQuestionList firstItems={this.getFirstItems.bind(this)()} otherQuestions={otherQuestions} questions={questions} otherUserSlug={otherUser.slug || ''} ownPicture={ownPicture} otherPicture={otherPicture} onTimerEnd={this.onTimerEnd}/>
+                                <OtherQuestionList firstItems={this.getFirstItems.bind(this)()} otherQuestions={otherQuestions} questions={questions} otherUserSlug={otherUser.slug || ''} ownPicture={ownPicture} otherPicture={otherPicture}
+                                                   onTimerEnd={this.onTimerEnd} isLoadingComparedQuestions={isLoadingComparedQuestions} onBottomScroll={this.onBottomScroll.bind(this)}/>
                                 <br />
                                 <br />
                                 <br />

@@ -45,8 +45,20 @@
 
 					.icon {
 						padding-top: 4.5px;
+
+						&.icon-spinner {
+							line-height: 20px;
+							height: 26px;
+							margin-top: 2px;
+						}
 					}
 				}
+			}
+
+			.spinner-wrapper {
+				display: inline-block;
+				margin: auto;
+				font-size: 0.8em;
 			}
 		}
 	}

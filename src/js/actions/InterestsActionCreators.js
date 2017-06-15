@@ -57,8 +57,8 @@ export function requestNextOwnInterests(userId, link) {
     if (isLoading){
         return Promise.resolve();
     }
-    dispatch(ActionTypes.REQUEST_NEXT_OWN_INTERESTS, {userId});
     if (link) {
+        dispatch(ActionTypes.REQUEST_NEXT_OWN_INTERESTS, {userId});
         return requestOwnInterests(userId, null, link);
     }
 
@@ -70,8 +70,8 @@ export function requestNextComparedInterests(userId, otherUserId, link) {
     if (isLoading){
         return Promise.resolve();
     }
-    dispatch(ActionTypes.REQUEST_NEXT_COMPARED_INTERESTS, {userId, otherUserId});
     if (link) {
+        dispatch(ActionTypes.REQUEST_NEXT_COMPARED_INTERESTS, {userId, otherUserId});
         return requestComparedInterests(userId, otherUserId, null, null, link);
     }
 

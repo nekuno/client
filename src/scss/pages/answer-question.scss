@@ -145,6 +145,13 @@ body #root .App .view .page {
             position: absolute;
             width: 42px;
           }
+
+          .accepted-answers-importance {
+            .text-radios .text-radios-title {
+              width: 115%;
+              margin-left: -7.5%;
+            }
+          }
         }
       }
 

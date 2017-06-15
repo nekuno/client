@@ -56,12 +56,15 @@ export default class Group extends Component {
     render() {
         let {group, strings} = this.props;
         const defaultSrc = 'img/default-content-image.jpg';
+        const image = group.photo ? group.photo.thumbnail.medium :
+            group.invitation.invitation_image_url ? group.invitation.invitation_image_url
+                : defaultSrc;
         return (
             <div className="group">
                 <div className="invitation-image-wrapper" onClick={this.goToDiscover}>
                     <div className="invitation-image-centered-wrapper">
                         <div className="invitation-image">
-                            <Image src={group.invitation.invitation_image_url ? group.invitation.invitation_image_url : defaultSrc} defaultSrc={defaultSrc}/>
+                            <Image src={image} defaultSrc={defaultSrc}/>
                         </div>
                     </div>
                 </div>

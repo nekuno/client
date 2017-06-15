@@ -6,7 +6,8 @@ import { ScrollContainer } from 'react-router-scroll';
 export default class InfiniteScroll extends Component {
 
     static propTypes = {
-        containerId: PropTypes.string.isRequired
+        containerId: PropTypes.string.isRequired,
+        list: PropTypes.array
     };
 
     static contextTypes = {
@@ -133,6 +134,10 @@ export default class InfiniteScroll extends Component {
                 scrollContainer.offsetHeight ? scrollContainer.offsetHeight : null;
     }
 
+    getList() {
+        return this.props.list.slice(0);
+    }
+
     renderScroll() {
         const isInfiniteLoading = this.state.loading;
         const scrollContainer = this.getScrollContainer();
@@ -148,6 +153,7 @@ export default class InfiniteScroll extends Component {
                 handleScroll={this.handleScroll.bind(this)}
                 scrollContainer={scrollContainer}
                 containerHeight={containerHeight}
+                list={this.getList()}
                 // preloadAdditionalHeight={window.innerHeight*2}
                 {...this.props}
                 onInfiniteLoad={this.onInfiniteLoad}
@@ -171,5 +177,6 @@ export default class InfiniteScroll extends Component {
 InfiniteScroll.defaultProps = {
     'onInfiniteLoad': () => {
         return Promise.resolve()
-    }
+    },
+    'list': []
 };

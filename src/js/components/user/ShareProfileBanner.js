@@ -51,7 +51,7 @@ ShareProfileBanner.defaultProps = {
     strings: {
         title                 : 'Share now with your friends and followers!',
         text                  : 'Discover the most compatibles sharing your profile url',
-        copyLink              : 'Copy profile url',
+        copyLink              : 'Share profile url',
         compatibilityCheckWith: 'Check your compatibility with %username%',
         copyToClipboard       : 'Copy to clipboard: Ctrl+C, Enter',
         copiedToClipboard     : 'Copied to clipboard',

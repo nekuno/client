@@ -55,6 +55,7 @@ export default class HomePage extends Component {
 
         this.goToRegisterPage = this.goToRegisterPage.bind(this);
         this.loginByResourceOwner = this.loginByResourceOwner.bind(this);
+        this.setLoginUserState = this.setLoginUserState.bind(this);
         this.split = this.split.bind(this);
 
         this.promise = null;
@@ -111,6 +112,7 @@ export default class HomePage extends Component {
 
     loginByResourceOwner(resource, scope) {
         const {interfaceLanguage} = this.props;
+        this.setLoginUserState(true);
         SocialNetworkService.login(resource, scope).then(
             () => {
                 const oauthData = SocialNetworkService.buildOauthData(resource);
@@ -126,15 +128,20 @@ export default class HomePage extends Component {
                         profile.orientationRequired = false;
                         let token = 'join';
                         LoginActionCreators.preRegister(user, profile, token, oauthData);
+                        this.setLoginUserState(false);
                         setTimeout(() => this.context.router.push('answer-username'), 0);
                     });
             },
             (status) => {
-                this.setState({
-                    loginUser: false
-                });
+                this.setLoginUserState(false);
                 nekunoApp.alert(resource + ' login failed: ' + status.error.message)
             });
+    }
+
+    setLoginUserState(bool) {
+        this.setState({
+            loginUser: bool,
+        })
     }
 
     split(text) {
@@ -172,7 +179,7 @@ export default class HomePage extends Component {
 
         return (
             <div className="views">
-                {registeringUser || loginUser ?
+                {registeringUser ?
                     <div className="view view-main home-view">
                         <EmptyMessage text={registeringUser ? strings.registeringUser : strings.loginUser} loadingGif={true}/>
                     </div>
@@ -193,7 +200,17 @@ export default class HomePage extends Component {
                             <div className="swiper-pagination-and-button">
                                 <div className="swiper-pagination"></div>
                                 <div>
-                                    <FacebookButton onClickHandler={this.loginByResourceOwner} text={strings.login}/>
+                                    {loginUser ?
+                                        <div>
+                                            <br/>
+                                            <span className="icon-spinner rotation-animation"/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                        </div>
+                                        :
+                                        <FacebookButton onClickHandler={this.loginByResourceOwner} text={strings.login}/>
+                                    }
                                     {/*<div className="register-text-block">*/}
                                     {/*<div onClick={this.goToRegisterPage} className="register-text">*/}
                                     {/*<span>{strings.hasInvitation}</span> <a href="javascript:void(0)">{strings.register}</a>*/}

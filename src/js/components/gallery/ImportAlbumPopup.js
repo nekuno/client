@@ -8,6 +8,7 @@ export default class ImportAlbumPopup extends Component {
     static propTypes = {
         onAlbumClickHandler     : PropTypes.func,
         onFileUploadClickHandler: PropTypes.func,
+        contentRef: PropTypes.func,
         // Injected by @translate:
         strings       : PropTypes.object
     };
@@ -17,12 +18,11 @@ export default class ImportAlbumPopup extends Component {
     }
 
     render() {
-        const {strings} = this.props;
+        const {contentRef, strings} = this.props;
 
         return (
             <div className="popup popup-import-album tablet-fullscreen">
-                <div className="content-block">
-                    <p><a className="close-popup">{strings.close}</a></p>
+                <div ref={contentRef} className="content-block">
                     <div className="title">{strings.importAlbum}</div>
                     <br />
                     <div className="social-icons-row-wrapper social-box">
@@ -33,8 +33,10 @@ export default class ImportAlbumPopup extends Component {
                             <span className="icon icon-google"></span>
                         </div>
                     </div>
-                    <div className="upload-wrapper social-box" onClick={this.props.onFileUploadClickHandler}>
-                        <span className="icon icon-uploadthin"></span> <span className="">{strings.uploadFromDevice}</span>
+                    <div className="upload-wrapper" onClick={this.props.onFileUploadClickHandler}>
+                        <div className="button button-fill button-round">
+                            <span className="icon icon-uploadthin"></span> <span className="">{strings.uploadFromDevice}</span>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -11,6 +11,7 @@ import ReportContentPopup from '../components/interests/ReportContentPopup';
 import ShareService from '../services/ShareService';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
+import popup from '../components/Popup';
 import connectToStores from '../utils/connectToStores';
 import * as UserActionCreators from '../actions/UserActionCreators';
 import GalleryPhotoActionCreators from '../actions/GalleryPhotoActionCreators';
@@ -113,6 +114,7 @@ function getState(props) {
 
 @AuthenticatedComponent
 @translate('OtherUserPage')
+@popup('popup-report-content')
 @connectToStores([UserStore, ProfileStore, MatchingStore, SimilarityStore, BlockStore, LikeStore, ComparedStatsStore, GalleryPhotoStore, ChatUserStatusStore], getState)
 export default class OtherUserPage extends Component {
     static propTypes = {
@@ -136,7 +138,11 @@ export default class OtherUserPage extends Component {
         photos             : PropTypes.array,
         noPhotos           : PropTypes.bool,
         ownProfile         : PropTypes.object,
-        online             : PropTypes.bool
+        online             : PropTypes.bool,
+        // Injected by @popup:
+        showPopup          : PropTypes.func,
+        closePopup         : PropTypes.func,
+        popupContentRef    : PropTypes.func,
     };
     static contextTypes = {
         router: PropTypes.object.isRequired
@@ -156,6 +162,7 @@ export default class OtherUserPage extends Component {
         this.reportReasonButton = this.reportReasonButton.bind(this);
         this.onReportReason = this.onReportReason.bind(this);
         this.onReportReasonOther = this.onReportReasonOther.bind(this);
+        this.showOtherReasonPopup = this.showOtherReasonPopup.bind(this);
         this.optionButton = this.optionButton.bind(this);
         this.cancelButton = this.optionButton.bind(this);
         this.onShareError = this.onShareError.bind(this);
@@ -179,6 +186,7 @@ export default class OtherUserPage extends Component {
     componentDidUpdate(prevProps) {
         if (this.state.orientationRequired && !this.props.ownProfile.orientation) {
             nekunoApp.popup('.popup-orientation-required');
+            this.props.showPopup();
         } else if (this.state.orientationRequired === null && this.props.ownProfile && this.props.ownProfile.orientationRequired) {
             this.setOrientationRequired(true);
         }
@@ -278,7 +286,7 @@ export default class OtherUserPage extends Component {
     }
 
     showOtherReasonPopup() {
-        nekunoApp.popup('.popup-report-content');
+        this.props.showPopup()
     }
 
     cancelButton(text) {
@@ -289,6 +297,7 @@ export default class OtherUserPage extends Component {
     }
 
     onReportReasonOther(reasonText) {
+        this.props.closePopup();
         return this.onReportReason('other', reasonText);
     }
 
@@ -438,7 +447,7 @@ export default class OtherUserPage extends Component {
                     </div>
                     {ownProfile ? <OrientationRequiredPopup profile={ownProfile} onCancel={this.goToDiscover} onClick={this.setOrientationRequired.bind(this, false)}/> : null}
                 </div>
-                <ReportContentPopup onClick={this.onReportReasonOther}/>
+                <ReportContentPopup onClick={this.onReportReasonOther} contentRef={this.props.popupContentRef}/>
             </div>
         );
     }

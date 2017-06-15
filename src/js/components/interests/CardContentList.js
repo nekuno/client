@@ -10,6 +10,7 @@ export default class CardContentList extends Component {
         otherUserId   : PropTypes.number,
         onReport      : PropTypes.func,
         onBottomScroll: PropTypes.func,
+        isLoading     : PropTypes.bool
     };
 
     constructor(props) {
@@ -25,7 +26,7 @@ export default class CardContentList extends Component {
 
     getItems() {
         const firstItems = this.props.firstItems;
-        const contents = this.getCardContents.bind(this)();
+        const contents = this.props.isLoading ? [] : this.getCardContents.bind(this)();
         return [
             ...firstItems,
             ...contents
@@ -37,14 +38,12 @@ export default class CardContentList extends Component {
 
         return <CardContent key={index} hideLikeButton={false} {...content} loggedUserId={userId} otherUserId={otherUserId}
                             embed_id={content.embed ? content.embed.id : null} embed_type={content.embed ? content.embed.type : null}
-                            fixedHeight={true}
-                            onReport={this.props.onReport ? this.onReport : null}/>
+                            fixedHeight={true} onReport={this.onReport}/>
     }
 
-    buildCardWrapper(card1, card2)
-    {
+    buildCardWrapper(card1, card2) {
         let cards = [Object.assign({}, card1)];
-        if (card2 instanceof Object){
+        if (card2 instanceof Object) {
             cards.push(Object.assign({}, card2));
         }
 
@@ -73,7 +72,7 @@ export default class CardContentList extends Component {
             }
         });
 
-        if (savedContentCard !== null){
+        if (savedContentCard !== null) {
             contentComponents.push(this.buildCardWrapper(savedContentCard))
             savedContentCard = null;
         }
@@ -99,5 +98,8 @@ export default class CardContentList extends Component {
 CardContentList.defaultProps = {
     'firstItems'    : [],
     'onBottomScroll': () => {
-    }
+    },
+    'onReport'      : () => {
+    },
+    'isLoading'     : false
 };

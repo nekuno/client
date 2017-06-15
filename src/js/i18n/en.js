@@ -1,7 +1,13 @@
 export default {
     AnswerQuestionPage               : {
-        question: 'Question',
-        skip    : 'Skip'
+        question               : 'Question',
+        skip                   : 'Skip',
+        tutorialFirstStepTitle : 'Your answer',
+        tutorialFirstStep      : 'This is your answer to the above question.',
+        tutorialSecondStepTitle: 'Others answers',
+        tutorialSecondStep     : 'Here you choose what other person should answer to be compatible with you; you can choose more than one answer.',
+        tutorialThirdStepTitle : 'Importance',
+        tutorialThirdStep      : 'This will be the question`s importance when making compatibility calculations.'
     },
     AnswerNextQuestionPage           : {
         question               : 'Question',
@@ -14,8 +20,14 @@ export default {
         tutorialThirdStep      : 'This will be the question`s importance when making compatibility calculations.'
     },
     AnswerNextOtherQuestionPage      : {
-        question       : 'Question',
-        noMoreQuestions: 'No more questions from this user'
+        question               : 'Question',
+        noMoreQuestions        : 'No more questions from this user',
+        tutorialFirstStepTitle : 'Your answer',
+        tutorialFirstStep      : 'This is your answer to the above question.',
+        tutorialSecondStepTitle: 'Others answers',
+        tutorialSecondStep     : 'Here you choose what other person should answer to be compatible with you; you can choose more than one answer.',
+        tutorialThirdStepTitle : 'Importance',
+        tutorialThirdStep      : 'This will be the question`s importance when making compatibility calculations.'
     },
     ChatMessagesPage                 : {
         noMoreMessages: 'You have no messages',
@@ -66,6 +78,7 @@ export default {
         photos   : 'Photos',
         questions: 'Answers',
         interests: 'Interests',
+        loading  : 'Loading interests',
         empty    : 'You have no interests yet. Please, connect more social media or explore your yarns and let us know what are you interested in.'
     },
     GalleryPage                      : {
@@ -95,6 +108,7 @@ export default {
     },
     GalleryPhotoPage                 : {
         photos       : 'Photos',
+        profilePhoto : 'Profile photo',
         confirmDelete: 'Are you sure you want to delete this photo?'
     },
     OtherGalleryPhotoPage            : {
@@ -151,6 +165,8 @@ export default {
         photos               : 'Photos',
         questions            : 'Answers',
         interests            : 'Interests',
+        loading              : 'Loading interests',
+        empty                : 'No interests to show with this filters',
         reported             : 'The content has been reported. We will review it within next 24 hours'
     },
     OtherQuestionsPage               : {
@@ -399,6 +415,9 @@ export default {
         alertFirst: 'Mark your answer in the first column',
         saving    : 'Saving'
     },
+    OtherQuestionList                : {
+        loading: 'Loading questions'
+    },
     OtherQuestion                    : {
         didntAnswered: 'You have not answered this question'
     },
@@ -434,7 +453,7 @@ export default {
     ShareProfileBanner               : {
         title                 : 'Share now with your friends and followers!',
         text                  : 'Discover the most compatibles sharing your profile url',
-        copyLink              : 'Copy profile url',
+        copyLink              : 'Share profile url',
         compatibilityCheckWith: 'Discover your compatibility with %username%',
         copiedToClipboard     : 'Copied to clipboard',
         shareError            : 'An error occurred sending the link.'
@@ -513,7 +532,7 @@ export default {
         send       : 'Send report',
         close      : 'Close'
     },
-    FilterContentButtons             : {
+    FilterContentButtonsList         : {
         videos  : 'Videos',
         audios  : 'Music',
         photos  : 'Photos',

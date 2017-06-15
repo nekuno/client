@@ -10,6 +10,12 @@ body #root .App .view .page.other-questions-page  {
       .other-questions-stats-title {
         padding-top: 10px;
         padding-bottom: 20px;
+
+        .spinner-wrapper {
+          font-size: 0.2em;
+          display: inline-block;
+          margin: auto 5px;
+        }
       }
     }
     .question-list {
@@ -37,9 +43,14 @@ body #root .App .view .page.other-questions-page  {
             float: right;
             font-size: 10px;
             height: 22px;
-            line-height: 24px;
+            line-height: 22px;
             text-align: center;
             width: 22px;
+
+            .icon-edit:before {
+              font-size: 10px;
+              line-height: 22px;
+            }
           }
         }
         .answer-answered, .answer-not-answered {

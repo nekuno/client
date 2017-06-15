@@ -9,6 +9,7 @@ export default class SetThreadTitlePopup extends Component {
         onClick     : PropTypes.func.isRequired,
         defaultTitle: PropTypes.string,
         displaying  : PropTypes.bool,
+        contentRef  : PropTypes.func,
         // Injected by @translate:
         strings     : PropTypes.object
     };
@@ -47,11 +48,11 @@ export default class SetThreadTitlePopup extends Component {
 
     render() {
         const popupClass = 'popup popup-set-thread-title tablet-fullscreen';
-        const {defaultTitle, strings} = this.props;
+        const {defaultTitle, contentRef, strings} = this.props;
         return (
 
             <div className={popupClass}>
-                <div className="content-block">
+                <div ref={contentRef} className="content-block">
                     <div className="popup-set-thread-title-title title"> {strings.title}</div>
                     <div className="list-block">
                         <ul>

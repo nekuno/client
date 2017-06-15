@@ -1,7 +1,13 @@
 export default {
     AnswerQuestionPage               : {
-        question: 'Pregunta',
-        skip    : 'Omitir'
+        question               : 'Pregunta',
+        skip                   : 'Omitir',
+        tutorialFirstStepTitle : 'Tu respuesta',
+        tutorialFirstStep      : 'Esta es tu respuesta a la pregunta de arriba.',
+        tutorialSecondStepTitle: 'Respuestas de otros',
+        tutorialSecondStep     : 'Aquí eliges qué debería de contestar otra persona para que sea compatible contigo; puedes elegir más de una respuesta.',
+        tutorialThirdStepTitle : 'Importancia',
+        tutorialThirdStep      : 'Esta será la importancia que tendrá la pregunta a la hora de hacer los cálculos de compatibilidad.'
     },
     AnswerNextQuestionPage           : {
         question               : 'Pregunta',
@@ -14,8 +20,14 @@ export default {
         tutorialThirdStep      : 'Esta será la importancia que tendrá la pregunta a la hora de hacer los cálculos de compatibilidad.'
     },
     AnswerNextOtherQuestionPage      : {
-        question       : 'Pregunta',
-        noMoreQuestions: 'No hay más preguntas de este usuario'
+        question               : 'Pregunta',
+        noMoreQuestions        : 'No hay más preguntas de este usuario',
+        tutorialFirstStepTitle : 'Tu respuesta',
+        tutorialFirstStep      : 'Esta es tu respuesta a la pregunta de arriba.',
+        tutorialSecondStepTitle: 'Respuestas de otros',
+        tutorialSecondStep     : 'Aquí eliges qué debería de contestar otra persona para que sea compatible contigo; puedes elegir más de una respuesta.',
+        tutorialThirdStepTitle : 'Importancia',
+        tutorialThirdStep      : 'Esta será la importancia que tendrá la pregunta a la hora de hacer los cálculos de compatibilidad.'
     },
     ChatMessagesPage                 : {
         noMoreMessages: 'No tienes más mensajes',
@@ -66,6 +78,7 @@ export default {
         photos   : 'Fotos',
         questions: 'Respuestas',
         interests: 'Intereses',
+        loading  : 'Cargando intereses',
         empty    : 'No tienes ningún interés todavía. Por favor, conecta tus redes sociales o explora tus ovillos y cuéntanos lo que te interesa.'
     },
     GalleryPage                      : {
@@ -95,6 +108,7 @@ export default {
     },
     GalleryPhotoPage                 : {
         photos       : 'Fotos',
+        profilePhoto : 'Foto de perfil',
         confirmDelete: '¿Estás seguro de que quieres borrar esta foto?'
     },
     OtherGalleryPhotoPage            : {
@@ -151,6 +165,8 @@ export default {
         photos               : 'Fotos',
         questions            : 'Respuestas',
         interests            : 'Intereses',
+        loading              : 'Cargando intereses',
+        empty                : 'No hay intereses con estos filtros',
         reported             : 'El contenido ha sido reportado. Lo revisaremos en las próximas 24 horas'
     },
     OtherQuestionsPage               : {
@@ -399,6 +415,9 @@ export default {
         alertFirst: 'Marca tu respuesta en la primera columna',
         saving    : 'Guardando'
     },
+    OtherQuestionList                : {
+        loading: 'Cargando preguntas'
+    },
     OtherQuestion                    : {
         didntAnswered: 'No has contestado a esta pregunta'
     },
@@ -434,7 +453,7 @@ export default {
     ShareProfileBanner               : {
         title                 : '¡Compárate ya con tus amigos y seguidores!',
         text                  : 'Descubre a los más compatibles compartiendo la url de tu perfil',
-        copyLink              : 'Copiar url de perfil',
+        copyLink              : 'Compartir url de perfil',
         compatibilityCheckWith: 'Descubre tu compatibilidad con %username%',
         copiedToClipboard     : 'Copiado al portapapeles',
         shareError            : 'Ha ocurrido un error compartiendo el enlace.'
@@ -513,7 +532,7 @@ export default {
         send       : 'Enviar reporte',
         close      : 'Cerrar'
     },
-    FilterContentButtons             : {
+    FilterContentButtonsList         : {
         videos  : 'Videos',
         audios  : 'Música',
         photos  : 'Fotos',

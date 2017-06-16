@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import TopNavBar from '../components/ui/TopNavBar';
-import FullWidthButton from '../components/ui/FullWidthButton';
+import ButtonFloating from '../components/ui/ButtonFloating';
 import QuestionStats from '../components/questions/QuestionStats';
 import * as QuestionActionCreators from '../actions/QuestionActionCreators';
 import RouterActionCreators from '../actions/RouterActionCreators';
@@ -78,13 +78,9 @@ export default class QuestionOtherStatsPage extends Component {
                         </div>
                         <br />
                         <br />
-                        <FullWidthButton onClick={this.handleContinueClick}>{strings.next}</FullWidthButton>
-                        <br />
-                        <br />
-                        <br />
-                        <br />
                     </div>
                 </div>
+                <ButtonFloating icon={'arrow-right'} onClickHandler={this.handleContinueClick}/>
             </div>
         );
     }

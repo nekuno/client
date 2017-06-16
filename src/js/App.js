@@ -30,7 +30,7 @@ export default class App extends Component {
     componentWillReceiveProps(nextProps) {
         const routeChanged = nextProps.location.pathname !== this.props.location.pathname;
         if (routeChanged) {
-            RouterActionCreators.nextRoute(nextProps.location.pathname);
+            setTimeout(() => RouterActionCreators.nextRoute(nextProps.location.pathname), 0);
         }
     }
 

@@ -19,7 +19,7 @@ export default class FilterContentButton extends Component {
         return (
             <div className={active ? "icons-large-wrapper active" : "icons-large-wrapper"} onClick={onClickHandler} disabled={loading ? 'disabled' : null}>
                 <div className={iconClass} disabled={loading ? 'disabled' : null}></div>
-                <div className="icons-large-text">{loading && active ? "" : count}<br/>{loading && active ? <span>&nbsp;</span> : text}</div>
+                <div className={loading && active ? "icons-large-text spinner-text" : "icons-large-text"}>{count}<br/>{text}</div>
             </div>
         );
     }

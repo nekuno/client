@@ -176,6 +176,7 @@ export default class HomePage extends Component {
     render() {
         const {strings} = this.props;
         const {loginUser, registeringUser} = this.state;
+        const text = loginUser ? <span className="icon-spinner rotation-animation"/> : strings.login;
 
         return (
             <div className="views">
@@ -200,17 +201,7 @@ export default class HomePage extends Component {
                             <div className="swiper-pagination-and-button">
                                 <div className="swiper-pagination"></div>
                                 <div>
-                                    {loginUser ?
-                                        <div>
-                                            <br/>
-                                            <span className="icon-spinner rotation-animation"/>
-                                            <br/>
-                                            <br/>
-                                            <br/>
-                                        </div>
-                                        :
-                                        <FacebookButton onClickHandler={this.loginByResourceOwner} text={strings.login}/>
-                                    }
+                                    <FacebookButton onClickHandler={this.loginByResourceOwner} text={text} disabled={loginUser}/>
                                     {/*<div className="register-text-block">*/}
                                     {/*<div onClick={this.goToRegisterPage} className="register-text">*/}
                                     {/*<span>{strings.hasInvitation}</span> <a href="javascript:void(0)">{strings.register}</a>*/}

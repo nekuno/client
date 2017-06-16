@@ -6,7 +6,8 @@ export default class FacebookButton extends Component {
 
     static propTypes = {
         onClickHandler: PropTypes.func,
-        text          : PropTypes.string.isRequired
+        text          : PropTypes.string.isRequired,
+        disabled      : PropTypes.bool,
     };
 
     handleClick() {
@@ -14,12 +15,11 @@ export default class FacebookButton extends Component {
     }
 
     render() {
-
-        const {text} = this.props;
+        const {text, disabled} = this.props;
 
         return (
             <div id="facebook-register-button">
-                <FullWidthButton onClick={this.handleClick.bind(this)}>
+                <FullWidthButton onClick={this.handleClick.bind(this)} disabled={disabled}>
                     <span className={'icon-facebook'}></span>
                     <span>{text}</span>
                 </FullWidthButton>
@@ -27,3 +27,9 @@ export default class FacebookButton extends Component {
         );
     }
 }
+
+FacebookButton.defaultProps = {
+    onClickHandler: () => {
+    },
+    disabled      : false,
+};

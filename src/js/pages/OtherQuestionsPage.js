@@ -155,7 +155,7 @@ export default class OtherQuestionsPage extends Component {
     }
 
     areAllQuestionsAnswered() {
-        return this.props.hasNextComparedQuestion;
+        return !this.props.hasNextComparedQuestion;
     }
 
     getQuestionsHeader() {

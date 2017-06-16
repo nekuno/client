@@ -7,6 +7,7 @@ import tutorial from '../components/tutorial/Tutorial';
 import connectToStores from '../utils/connectToStores';
 import * as QuestionActionCreators from '../actions/QuestionActionCreators';
 import * as UserActionCreators from '../actions/UserActionCreators';
+import RouterActionCreators from '../actions/RouterActionCreators';
 import UserStore from '../stores/UserStore';
 import QuestionStore from '../stores/QuestionStore';
 import Joyride from 'react-joyride';
@@ -109,9 +110,10 @@ export default class AnswerNextOtherQuestionPage extends Component {
         if (goToQuestionStats) {
             setTimeout(() => {
                 QuestionActionCreators.requestComparedQuestions(parseId(user), parseId(otherUser), ['showOnlyCommon']).then(() =>
-                    UserActionCreators.requestComparedStats(parseId(user), parseId(otherUser))).then(() =>
-                        this.context.router.replace(`/question-other-stats/${params.slug}`)
-                ).catch((error) => console.log(error));
+                    UserActionCreators.requestComparedStats(parseId(user), parseId(otherUser))).then(() => {
+                        RouterActionCreators.removePreviousRoute();
+                        this.context.router.replace(`/question-other-stats/${params.slug}`);
+                    }).catch((error) => console.log(error));
             }, 0);
         }
         if (noMoreQuestions) {

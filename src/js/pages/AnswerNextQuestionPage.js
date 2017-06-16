@@ -9,6 +9,7 @@ import tutorial from '../components/tutorial/Tutorial';
 import popup from '../components/Popup';
 import connectToStores from '../utils/connectToStores';
 import * as QuestionActionCreators from '../actions/QuestionActionCreators';
+import RouterActionCreators from '../actions/RouterActionCreators';
 import UserStore from '../stores/UserStore';
 import QuestionStore from '../stores/QuestionStore';
 import LoginStore from '../stores/LoginStore';
@@ -125,7 +126,10 @@ export default class AnswerNextQuestionPage extends Component {
     componentDidUpdate() {
         const {goToQuestionStats, question} = this.props;
         if (goToQuestionStats) {
-            this.context.router.push(`/question-stats`);
+            setTimeout(() => {
+                RouterActionCreators.removePreviousRoute();
+                this.context.router.replace(`/question-stats`);
+            }, 0);
         } else if (question && question.questionId) {
             // TODO: Uncomment to start the tutorial the first time
             //window.setTimeout(() => this.props.startTutorial(this.refs.joyrideAnswerQuestion), 2000);
@@ -163,7 +167,7 @@ export default class AnswerNextQuestionPage extends Component {
     render() {
         const {user, strings, errors, noMoreQuestions, userAnswer, question, isJustRegistered, isJustCompleted, totalQuestions, questionNumber, steps, tutorialLocale, endTutorialHandler} = this.props;
         const userId = parseId(user);
-        const navBarTitle = question && (isJustRegistered || isJustCompleted) ? strings.question + ' ' + questionNumber + '/' + totalQuestions : strings.question;
+        const navBarTitle = question && question.id && (isJustRegistered || isJustCompleted) ? strings.question + ' ' + questionNumber + '/' + totalQuestions : strings.question;
         const ownPicture = user.photo ? user.photo.thumbnail.small : 'img/no-img/small.jpg';
         const isRegisterQuestion = selectn('isRegisterQuestion', question);
 
@@ -172,7 +176,7 @@ export default class AnswerNextQuestionPage extends Component {
                 {isJustRegistered ?
                     <TopNavBar centerText={navBarTitle}/>
                     :
-                    <TopNavBar leftMenuIcon={true} centerText={navBarTitle} rightText={isRegisterQuestion ? '' : strings.skip} onRightLinkClickHandler={isRegisterQuestion ? null : this.skipQuestionHandler}/>
+                    <TopNavBar leftIcon={'left-arrow'} centerText={navBarTitle} rightText={isRegisterQuestion ? '' : strings.skip} onRightLinkClickHandler={isRegisterQuestion ? null : this.skipQuestionHandler}/>
                 }
                 <div className="view view-main">
                     <Joyride ref="joyrideAnswerQuestion" steps={steps} locale={tutorialLocale} callback={endTutorialHandler} type="continuous"/>

@@ -3,6 +3,7 @@ import TopNavBar from '../components/ui/TopNavBar';
 import FullWidthButton from '../components/ui/FullWidthButton';
 import QuestionStats from '../components/questions/QuestionStats';
 import * as QuestionActionCreators from '../actions/QuestionActionCreators';
+import RouterActionCreators from '../actions/RouterActionCreators';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
@@ -56,7 +57,8 @@ export default class QuestionStatsPage extends Component {
 
     handleContinueClick() {
         QuestionActionCreators.removePreviousQuestion(parseId(this.props.user));
-        this.context.router.push(`/answer-question/next`);
+        RouterActionCreators.removePreviousRoute();
+        this.context.router.replace(`/answer-question/next`);
     }
 
     render() {
@@ -66,7 +68,7 @@ export default class QuestionStatsPage extends Component {
                 {isJustRegistered ?
                     <TopNavBar centerText={strings.statistics} rightText={strings.next} onRightLinkClickHandler={this.handleContinueClick}/>
                     :
-                    <TopNavBar leftMenuIcon={true} centerText={strings.statistics} rightText={strings.next} onRightLinkClickHandler={this.handleContinueClick}/>
+                    <TopNavBar leftIcon={'left-arrow'} centerText={strings.statistics} rightText={strings.next} onRightLinkClickHandler={this.handleContinueClick}/>
                 }
                 <div className="view view-main">
                     <div className="page question-stats-page">

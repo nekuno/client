@@ -407,7 +407,8 @@ export default {
         alert     : 'Marca tu respuesta y una o varias opciones en la segunda columna para indicar qué te gustaría que respondiera otro usuario para ser compatible contigo'
     },
     AnswerQuestion                   : {
-        noMoreQuestions: 'No hay más preguntas'
+        noMoreQuestions: 'No hay más preguntas',
+        loading        : 'Cargando pregunta'
     },
     AnswerQuestionForm               : {
         you       : 'Tú',

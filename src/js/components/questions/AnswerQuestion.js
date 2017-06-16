@@ -33,7 +33,9 @@ export default class AnswerQuestion extends Component {
                         <AnswerQuestionForm answers={answers} {...this.props} />
                     </div>
                     :
-                    noMoreQuestions ? <EmptyMessage text={strings.noMoreQuestions} /> : ''
+                    noMoreQuestions ? <EmptyMessage text={strings.noMoreQuestions}/>
+                        :
+                        <EmptyMessage text={strings.loading} loadingGif={true}/>
                 }
             </div>
         );
@@ -42,6 +44,7 @@ export default class AnswerQuestion extends Component {
 
 AnswerQuestion.defaultProps = {
     strings: {
-        noMoreQuestions: 'No more questions'
+        noMoreQuestions: 'No more questions',
+        loading        : 'Loading question'
     }
 };

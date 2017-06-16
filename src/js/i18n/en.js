@@ -407,7 +407,8 @@ export default {
         alert     : 'Mark your answer and one or more options in the second column to indicate what would you like to answer another user'
     },
     AnswerQuestion                   : {
-        noMoreQuestions: 'No more questions'
+        noMoreQuestions: 'No more questions',
+        loading        : 'Loading question'
     },
     AnswerQuestionForm               : {
         you       : 'You',

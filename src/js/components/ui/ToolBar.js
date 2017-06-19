@@ -19,15 +19,11 @@ export default class ToolBar extends Component {
         // Injected by @connectToStores:
         isGuest        : PropTypes.bool
     };
-    static contextTypes = {
-        router: PropTypes.object.isRequired
-    };
 
     shouldComponentUpdate = shouldPureComponentUpdate;
 
     onLinkClick(url) {
-        RouterActionCreators.removePreviousRoute();
-        this.context.router.replace(url)
+        RouterActionCreators.replaceRoute(url);
     }
 
     render() {

@@ -10,9 +10,8 @@ export default {
         dispatch(ActionTypes.NEXT_ROUTE, {route});
     },
 
-
-    removePreviousRoute: () => {
-        dispatch(ActionTypes.REMOVE_PREV_ROUTE, {});
+    replaceRoute: (path) => {
+        dispatch(ActionTypes.REPLACE_ROUTE, {path});
     },
 
     previousRoute: (route) => {

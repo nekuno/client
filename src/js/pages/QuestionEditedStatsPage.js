@@ -44,10 +44,6 @@ export default class QuestionEditedStatsPage extends Component {
         userAnswer      : PropTypes.object
     };
 
-    static contextTypes = {
-        router: PropTypes.object.isRequired
-    };
-
     constructor(props) {
 
         super(props);
@@ -58,11 +54,10 @@ export default class QuestionEditedStatsPage extends Component {
     handleContinueClick() {
         const {params, user} = this.props;
         QuestionActionCreators.removePreviousQuestion(parseId(user));
-        RouterActionCreators.removePreviousRoute();
         if (user.slug === params.from) {
-            this.context.router.replace(`/questions`);
+            RouterActionCreators.replaceRoute(`/questions`);
         } else {
-            this.context.router.replace(`/users/${params.from}/other-questions`);
+            RouterActionCreators.replaceRoute(`/users/${params.from}/other-questions`);
         }
     }
 

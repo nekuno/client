@@ -127,8 +127,7 @@ export default class AnswerNextQuestionPage extends Component {
         const {goToQuestionStats, question} = this.props;
         if (goToQuestionStats) {
             setTimeout(() => {
-                RouterActionCreators.removePreviousRoute();
-                this.context.router.replace(`/question-stats`);
+                RouterActionCreators.replaceRoute(`/question-stats`);
             }, 0);
         } else if (question && question.questionId) {
             // TODO: Uncomment to start the tutorial the first time

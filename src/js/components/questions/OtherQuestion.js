@@ -29,7 +29,7 @@ export default class OtherQuestion extends Component {
 
     goToAnswerQuestion() {
         const {question, otherUserSlug} = this.props;
-        this.context.router.replace(`/answer-question/${question.question.questionId}/${otherUserSlug}`);
+        this.context.router.push(`/answer-question/${question.question.questionId}/${otherUserSlug}`);
     }
 
     isAnswerAcceptedByOtherAnswer(answer, otherAnswer) {

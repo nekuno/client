@@ -29,7 +29,7 @@ export default class Question extends Component {
 
     goToAnswerQuestion() {
         const {question, userSlug} = this.props;
-        this.context.router.replace(`/answer-question/${question.question.questionId}/${userSlug}`);
+        this.context.router.push(`/answer-question/${question.question.questionId}/${userSlug}`);
     }
 
     render() {

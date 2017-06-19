@@ -93,7 +93,7 @@ body #root .App{
               margin-bottom: 15px;
             }
             .community-question-stats {
-              .female-answer-chart-container, .male-answer-chart-container {
+              .first-answer-chart-container, .second-answer-chart-container {
                 display: inline-block;
                 height: 100px;
                 width: 100px;
@@ -102,7 +102,7 @@ body #root .App{
                   height: 100px;
                   width: 100px;
                 }
-                .genre-icon {
+                .stats-icon {
                   color: $deep-purple;
                   margin-top: -70px;
                 }
@@ -110,14 +110,14 @@ body #root .App{
                   font-size: 1.1em;
                   margin-top: -70px;
                 }
-                .genre-text {
+                .stats-text {
                   font-size: 0.8em;
                 }
               }
-              .female-answer-chart-container {
+              .first-answer-chart-container {
                 margin-right: 5%;
               }
-              .male-answer-chart-container {
+              .second-answer-chart-container {
 
               }
             }

@@ -431,7 +431,9 @@ export default {
     },
     QuestionStatsGraph               : {
         females: 'Girls',
-        males  : 'Boys'
+        males  : 'Boys',
+        young  : '- than 30',
+        old    : '+ than 30'
     },
     QuestionStatsInline              : {
         statistics: 'Community answer statistics'

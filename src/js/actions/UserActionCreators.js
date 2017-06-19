@@ -161,7 +161,7 @@ export function requestMetadata() {
 }
 
 export function requestStats(userId) {
-    dispatchAsync(UserAPI.getStats(), {
+    return dispatchAsync(UserAPI.getStats(), {
         request: ActionTypes.REQUEST_STATS,
         success: ActionTypes.REQUEST_STATS_SUCCESS,
         failure: ActionTypes.REQUEST_STATS_ERROR

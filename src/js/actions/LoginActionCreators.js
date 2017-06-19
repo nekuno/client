@@ -110,41 +110,55 @@ export default new class LoginActionCreators {
 
     successfulRedirect() {
         PushNotificationsService.init();
-        UserActionCreators.requestStats(LoginStore.user.id);
+        const userId = LoginStore.user.id;
+        const necessaryData = this.requestDataOnLogin(userId);
         ChatSocketService.connect();
         WorkersSocketService.connect();
-        UserDataStatusActionCreators.requestUserDataStatus();
-        UserActionCreators.requestOwnProfile(LoginStore.user.id).then(() => {
-            QuestionActionCreators.requestQuestions(LoginStore.user.id).then(
-                () => {
-                    console.log('QuestionActionCreators.requestQuestions', QuestionStore.answersLength(LoginStore.user.id));
-                    console.log('LoginStore.isComplete()', LoginStore.isComplete());
-                    console.log('ProfileStore.isComplete(LoginStore.user.id)', ProfileStore.isComplete(LoginStore.user.id));
-                    console.log('QuestionStore.isJustRegistered(LoginStore.user.id)', QuestionStore.isJustRegistered(LoginStore.user.id));
-                    let path = null;
-                    if (QuestionStore.answersLength(LoginStore.user.id) == 0) {
-                        path = '/social-networks-on-sign-up';
-                    } else if (!LoginStore.isComplete() || !ProfileStore.isComplete(LoginStore.user.id) || QuestionStore.isJustRegistered(LoginStore.user.id)) {
-                        path = '/register-questions-landing';
-                    } else {
-                        path = RouterStore.nextTransitionPath;
-                        if (path) {
-                            console.log('RouterStore.nextTransitionPath found', path);
-                        }
-                    }
-                    if (path) {
-                        console.log('Redirecting to path', path);
-                        let router = RouterContainer.get();
-                        router.replace(path);
-                    }
-                    return null;
-                }, (error) => {
-                    console.error(error);
+        Promise.all(necessaryData).then(
+            () => {
+                console.log('QuestionActionCreators.requestQuestions', QuestionStore.answersLength(userId));
+                console.log('LoginStore.isComplete()', LoginStore.isComplete());
+                console.log('ProfileStore.isComplete(userId)', ProfileStore.isComplete(userId));
+                console.log('QuestionStore.isJustRegistered(userId)', QuestionStore.isJustRegistered(userId));
+                const path = this.choosePath(userId);
+                if (path) {
+                    console.log('Redirecting to path', path);
+                    let router = RouterContainer.get();
+                    router.replace(path);
                 }
-            );
-        }, (error) => {
+                return null;
+            }, (error) => {
+                console.error(error);
+            }
+        ) .catch((error) => {
             console.error(error);
         });
+    }
+
+    requestDataOnLogin(userId) {
+        const statsPromise = UserActionCreators.requestStats(userId);
+        UserDataStatusActionCreators.requestUserDataStatus();
+        const profilePromise = UserActionCreators.requestOwnProfile(userId);
+
+        const necessaryData = [statsPromise, profilePromise];
+
+        return necessaryData;
+    }
+
+    choosePath(userId) {
+        let path = null;
+        if (QuestionStore.answersLength(userId) === 0) {
+            path = '/social-networks-on-sign-up';
+        } else if (!LoginStore.isComplete() || !ProfileStore.isComplete(userId) || QuestionStore.isJustRegistered(userId)) {
+            path = '/register-questions-landing';
+        } else {
+            path = RouterStore.nextTransitionPath;
+            if (path) {
+                console.log('RouterStore.nextTransitionPath found', path);
+            }
+        }
+
+        return path;
     }
 
     preRegister(user, profile, token, oauth) {

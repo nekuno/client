@@ -13,6 +13,7 @@ class QuestionStore extends BaseStore {
         this._questions = {};
         this._pagination = {};
         this._answerQuestion = {};
+        this._answersLength = null;
         this._errors = '';
         this._noMoreQuestions = false;
         this._goToQuestionStats = false;
@@ -125,6 +126,8 @@ class QuestionStore extends BaseStore {
                 break;
             case ActionTypes.SKIP_QUESTION_ERROR:
                 break;
+            case ActionTypes.REQUEST_STATS_SUCCESS:
+                this._answersLength = action.response.numberOfQuestionsAnswered;
         }
     }
 
@@ -201,7 +204,7 @@ class QuestionStore extends BaseStore {
     }
 
     answersLength(userId) {
-        return this._questions[userId] && Object.keys(this._questions[userId]).length || 0;
+        return this._answersLength || this._questions[userId] && Object.keys(this._questions[userId]).length || 0;
     }
 
     registerQuestionsLength() {

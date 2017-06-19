@@ -1,5 +1,4 @@
 import React, { PropTypes, Component } from 'react';
-import { ScrollContainer } from 'react-router-scroll';
 import TopNavBar from '../components/ui/TopNavBar';
 import ToolBar from '../components/ui/ToolBar';
 import QuestionList from '../components/questions/QuestionList';
@@ -10,9 +9,17 @@ import connectToStores from '../utils/connectToStores';
 import * as QuestionActionCreators from '../actions/QuestionActionCreators';
 import UserStore from '../stores/UserStore';
 import QuestionStore from '../stores/QuestionStore';
+import StatsStore from '../stores/StatsStore';
 
 function parseId(user) {
     return user.id;
+}
+
+function requestData(props) {
+    const userId = parseId(props.user);
+    if (Object.keys(props.pagination).length === 0) {
+        QuestionActionCreators.requestQuestions(userId);
+    }
 }
 
 /**
@@ -30,7 +37,7 @@ function getState(props) {
 
 @AuthenticatedComponent
 @translate('QuestionsPage')
-@connectToStores([UserStore, QuestionStore], getState)
+@connectToStores([UserStore, QuestionStore, StatsStore], getState)
 export default class QuestionsPage extends Component {
 
     static propTypes = {
@@ -46,28 +53,14 @@ export default class QuestionsPage extends Component {
     constructor(props) {
 
         super(props);
-
-        this.handleScroll = this.handleScroll.bind(this);
     }
 
-    componentWillUnmount() {
-        document.getElementsByClassName('view')[0].removeEventListener('scroll', this.handleScroll);
+    componentWillMount() {
+        requestData(this.props);
     }
 
     onTimerEnd(questionId) {
         QuestionActionCreators.setQuestionEditable(questionId);
-    }
-
-    handleScroll() {
-        // let pagination = this.props.pagination;
-        // let nextLink = pagination && pagination.hasOwnProperty('nextLink') ? pagination.nextLink : null;
-        // let offsetTop = parseInt(document.getElementsByClassName('view')[0].scrollTop + document.getElementsByClassName('view')[0].offsetHeight - 49);
-        // let offsetTopMax = parseInt(document.getElementById('page-content').offsetHeight);
-        //
-        // if (nextLink && offsetTop >= offsetTopMax) {
-        //     document.getElementsByClassName('view')[0].removeEventListener('scroll', this.handleScroll);
-        //     QuestionActionCreators.requestNextQuestions(parseId(this.props.user), nextLink);
-        // }
     }
 
     onBottomScroll() {
@@ -104,23 +97,14 @@ export default class QuestionsPage extends Component {
                     {'url': '/gallery', 'text': strings.photos},
                     {'url': '/questions', 'text': strings.questions},
                     {'url': '/interests', 'text': strings.interests}
-                ]} activeLinkIndex={2} arrowUpLeft={'60%'} />
-                    <div className="view view-main" id="questions-view-main">
-                        <div className="page questions-page">
-                            <div id="page-content" className="questions-content">
-                                {/*<br />*/}
-                                {/*<br />*/}
-                                {/*<br />*/}
-                                {/*<br />*/}
-                                {/*<br />*/}
-                                {/*<br />*/}
-                                <QuestionList firstItems={this.getFirstItems.bind(this)()} questions={questions} userSlug={user.slug || ''} ownPicture={ownPicture} defaultPicture={defaultPicture} onTimerEnd={this.onTimerEnd} onBottomScroll = {this.onBottomScroll.bind(this)}/>
-                                {/*<br />*/}
-                                {/*<br />*/}
-                                {/*<br />*/}
-                            </div>
+                ]} activeLinkIndex={2} arrowUpLeft={'60%'}/>
+                <div className="view view-main" id="questions-view-main">
+                    <div className="page questions-page">
+                        <div id="page-content" className="questions-content">
+                            <QuestionList firstItems={this.getFirstItems.bind(this)()} questions={questions} userSlug={user.slug || ''} ownPicture={ownPicture} defaultPicture={defaultPicture} onTimerEnd={this.onTimerEnd} onBottomScroll={this.onBottomScroll.bind(this)}/>
                         </div>
                     </div>
+                </div>
             </div>
         );
     }

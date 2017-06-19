@@ -22,12 +22,13 @@ export default class AnswerQuestion extends Component {
         const {noMoreQuestions, strings, question} = this.props;
         let questionId = selectn('questionId', question);
         let answers = selectn('answers', question) || [];
+        const questionTitleClass = questionId && question.text.length > 60 ? "title answer-question-title answer-question-title-long" : "title answer-question-title";
 
         return (
             <div>
                 {questionId ?
                     <div className="answer-question">
-                        <div className="title answer-question-title">
+                        <div className={questionTitleClass}>
                             {question.text}
                         </div>
                         <AnswerQuestionForm answers={answers} {...this.props} />

@@ -431,7 +431,9 @@ export default {
     },
     QuestionStatsGraph               : {
         females: 'Mujeres',
-        males  : 'Hombres'
+        males  : 'Hombres',
+        young  : '- than 30',
+        old    : '+ than 30'
     },
     QuestionStatsInline              : {
         statistics: 'Estadísticas de la comunidad Nekuno'

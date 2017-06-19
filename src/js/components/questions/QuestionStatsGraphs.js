@@ -33,59 +33,84 @@ export default class QuestionStatsGraph extends Component {
     };
 
     initQuestionStatsGraphs(question, userAnswer, options) {
-        let femaleStats = [];
-        let maleStats = [];
+        const isGenderDiffGreater = this.isGenderDiffGreater(question);
+        let firstProperty = "youngAnswersCount";
+        let secondProperty = "oldAnswersCount";
+        let firstGraphClass = "young-answer-chart-" + userAnswer.answerId;
+        let secondGraphClass = "old-answer-chart-" + userAnswer.answerId;
+        if (isGenderDiffGreater) {
+            firstProperty = "femaleAnswersCount";
+            secondProperty = "maleAnswersCount";
+            firstGraphClass = "female-answer-chart-" + userAnswer.answerId;
+            secondGraphClass = "male-answer-chart-" + userAnswer.answerId;
+        }
+        let firstStats = [];
+        let secondStats = [];
         question.answers.forEach((answer, index) => {
-            femaleStats.push({
-                value: this.getPercentage(answer.femaleAnswersCount, question.femaleAnswersCount),
+            firstStats.push({
+                value: this.getPercentage(answer[firstProperty], question[firstProperty]),
                 color: QUESTION_STATS_COLORS[index]
             });
-            maleStats.push({
-                value: this.getPercentage(answer.maleAnswersCount, question.maleAnswersCount),
+            secondStats.push({
+                value: this.getPercentage(answer[secondProperty], question[secondProperty]),
                 color: QUESTION_STATS_COLORS[index]
             });
         });
 
-        let femaleElem = document.getElementById("female-answer-chart-" + userAnswer.answerId);
-        let maleElem = document.getElementById("male-answer-chart-" + userAnswer.answerId);
-        let canvasWidth = femaleElem.style.width;
-        let canvasHeight = femaleElem.style.height;
+        let firstElem = document.getElementById(firstGraphClass);
+        let secondElem = document.getElementById(secondGraphClass);
+        let canvasWidth = firstElem.style.width;
+        let canvasHeight = firstElem.style.height;
 
-        femaleElem.width = canvasWidth;
-        femaleElem.height = canvasHeight;
-        maleElem.width = canvasWidth;
-        maleElem.height = canvasHeight;
+        firstElem.width = canvasWidth;
+        firstElem.height = canvasHeight;
+        secondElem.width = canvasWidth;
+        secondElem.height = canvasHeight;
 
-        let ctx1 = femaleElem.getContext("2d");
-        let ctx2 = maleElem.getContext("2d");
+        let ctx1 = firstElem.getContext("2d");
+        let ctx2 = secondElem.getContext("2d");
 
-        if (question.femaleAnswersCount) {
-            new Chart(ctx1).Doughnut(femaleStats, options);
+        if (question[firstProperty]) {
+            new Chart(ctx1).Doughnut(firstStats, options);
         }
-        if (question.maleAnswersCount) {
-            new Chart(ctx2).Doughnut(maleStats, options);
+        if (question[secondProperty]) {
+            new Chart(ctx2).Doughnut(secondStats, options);
         }
     }
 
+
+    isGenderDiffGreater = function(question) {
+        const genderDiff = Math.abs(question.femaleAnswersCount - question.maleAnswersCount);
+        const ageDiff = Math.abs(question.youngAnswersCount - question.oldAnswersCount);
+
+        return genderDiff > ageDiff;
+    };
+
     render() {
-        let userAnswer = this.props.userAnswer;
+        const {userAnswer, strings} = this.props;
         let question = this.props.question;
         if (!question) {
             return null;
         }
-        const {strings} = this.props;
+        const isGenderDiffGreater = this.isGenderDiffGreater(question);
+        const firstIcon = isGenderDiffGreater ? 'icon-female stats-icon' : 'icon-cool stats-icon';
+        const secondIcon = isGenderDiffGreater ? 'icon-male stats-icon' : 'icon-hipster stats-icon';
+        const firstGraphClass = isGenderDiffGreater ? "female-answer-chart-" + userAnswer.answerId : "young-answer-chart-" + userAnswer.answerId
+        const secondGraphClass = isGenderDiffGreater ? "male-answer-chart-" + userAnswer.answerId : "old-answer-chart-" + userAnswer.answerId
+        const firstText = isGenderDiffGreater ? strings.females : strings.young;
+        const secondText = isGenderDiffGreater ? strings.males : strings.old;
 
         return (
             <div className="community-question-stats">
-                <div className="female-answer-chart-container">
-                    <canvas id={"female-answer-chart-" + userAnswer.answerId}></canvas>
-                    <div className="icon-female genre-icon"></div>
-                    <div className="genre-text female">{strings.females}</div>
+                <div className="first-answer-chart-container">
+                    <canvas id={firstGraphClass}></canvas>
+                    <div className={firstIcon}></div>
+                    <div className="stats-text">{firstText}</div>
                 </div>
-                <div className="male-answer-chart-container">
-                    <canvas id={"male-answer-chart-" + userAnswer.answerId}></canvas>
-                    <div className="icon-male genre-icon"></div>
-                    <div className="genre-text male">{strings.males}</div>
+                <div className="second-answer-chart-container">
+                    <canvas id={secondGraphClass}></canvas>
+                    <div className={secondIcon}></div>
+                    <div className="stats-text">{secondText}</div>
                 </div>
             </div>
         );
@@ -95,6 +120,8 @@ export default class QuestionStatsGraph extends Component {
 QuestionStatsGraph.defaultProps = {
     strings: {
         females: 'Girls',
-        males  : 'Boys'
+        males  : 'Boys',
+        young  : '- than 30',
+        old    : '+ than 30',
     }
 };

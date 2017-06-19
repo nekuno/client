@@ -80,8 +80,12 @@ export default class QuestionStatsGraph extends Component {
 
 
     isGenderDiffGreater = function(question) {
-        const genderDiff = Math.abs(question.femaleAnswersCount - question.maleAnswersCount);
-        const ageDiff = Math.abs(question.youngAnswersCount - question.oldAnswersCount);
+        let genderDiff = 0;
+        let ageDiff = 0;
+        question.answers.forEach((answer) => {
+            genderDiff += Math.abs(answer.femaleAnswersCount - answer.maleAnswersCount);
+            ageDiff += Math.abs(answer.youngAnswersCount - answer.oldAnswersCount);
+        });
 
         return genderDiff > ageDiff;
     };

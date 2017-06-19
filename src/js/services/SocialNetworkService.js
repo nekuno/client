@@ -47,30 +47,32 @@ class SocialNetworkService {
         }
         this._scopes[resource] = scope;
         if (this._mustUseFacebookPlugin(resource)) {
-            let promise = new Promise(function (resolve, reject) {
-                facebookConnectPlugin.login(scope.split(','), function (response) { resolve(response) }, function(error) { reject(error) });
-            });
+            let promise = this._loginUsingFacebookPlugin(scope);
             return promise.then(
                 (response) => { this._setFacebookDataFromPlugin(response) },
                 (error) => {
-                    return hello(resource).login({scope: scope, force: force}).then(
-                        (response) => this._setResourceData(resource, response),
-                        (error) => {
-                            console.log(error);
-                            return Promise.reject(error);
-                        }
-                    );
+                    return this._loginUsingHello(resource, scope, force);
                 }
             );
         } else {
-            return hello(resource).login({scope: scope, force: force}).then(
-                (response) => this._setResourceData(resource, response),
-                (error) => {
-                    console.log(error);
-                    return Promise.reject(error);
-                }
-            );
+            return this._loginUsingHello(resource, scope, force);
         }
+    }
+
+    _loginUsingFacebookPlugin(scope) {
+        return new Promise(function (resolve, reject) {
+            facebookConnectPlugin.login(scope.split(','), function (response) { resolve(response) }, function(error) { reject(error) });
+        });
+    }
+
+    _loginUsingHello(resource, scope, force) {
+        return hello(resource).login({scope: scope, force: force}).then(
+            (response) => this._setResourceData(resource, response),
+            (error) => {
+                console.log(error);
+                return Promise.reject(error);
+            }
+        );
     }
     
     isLoggedIn(resource, scope) {

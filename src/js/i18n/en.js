@@ -144,7 +144,7 @@ export default {
         enterToken    : 'Badge Code',
         enterTokenText: 'Enter the badge code',
         close         : 'Close',
-        ok            : 'Unblock'
+        ok            : 'Unlock'
     },
     LoginPage                        : {
         login        : 'Login',
@@ -270,7 +270,7 @@ export default {
         compatibilityCheckWith: 'Check your compatibility with %username%',
         copiedToClipboard     : 'Copied to clipboard',
         block                 : 'Block user',
-        unblock               : 'Unblock user',
+        unlock                : 'Unlock user',
         blockAndReport        : 'Block and report user',
         cancel                : 'Cancel',
         confirmBlock          : 'Are you sure you want to block this user?',

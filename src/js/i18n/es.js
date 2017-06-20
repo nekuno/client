@@ -270,7 +270,7 @@ export default {
         compatibilityCheckWith: 'Descubre tu compatibilidad con %username%',
         copiedToClipboard     : 'Copiado al portapapeles',
         block                 : 'Bloquear usuario',
-        unblock               : 'Desbloquear usuario',
+        unlock                : 'Desbloquear usuario',
         blockAndReport        : 'Bloquear y reportar usuario',
         cancel                : 'Cancelar',
         confirmBlock          : '¿Estás seguro de que quieres bloquear a este usuario?',

@@ -62,6 +62,6 @@ UnlockGroupPopup.defaultProps = {
         enterToken    : 'Badge Code',
         enterTokenText: 'Enter the badge code',
         close         : 'Close',
-        ok            : 'Unblock'
+        ok            : 'Unlock'
     }
 };

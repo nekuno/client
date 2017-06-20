@@ -112,6 +112,7 @@ export default class GroupPage extends Component {
 
     join(token) {
         this.setState({joining: true});
+        this.closeJoinPopup();
         const validatedInvitation = APIUtils.postData(API_URLS.VALIDATE_INVITATION_TOKEN + token);
         validatedInvitation.then((data) => {
             if (!null == data.invitation.group || data.invitation.group == undefined) {
@@ -133,7 +134,6 @@ export default class GroupPage extends Component {
                 this.manageNotInvitationGroup();
             } else {
                 GroupActionCreators.joinGroup(data.invitation.group.id).then(() => {
-                    this.closeJoinPopup();
                     this.setState({joining: false});
                     //this.context.router.push('/badges/groupId');
                 }, (error) => {
@@ -150,11 +150,13 @@ export default class GroupPage extends Component {
     manageError(error) {
         const {strings} = this.props;
         console.log(error);
+        this.openJoinPopup();
         nekunoApp.alert(strings.joiningError);
     }
 
     manageNotInvitationGroup() {
         const {strings} = this.props;
+        this.openJoinPopup();
         nekunoApp.alert(strings.noGroupToken);
     }
 

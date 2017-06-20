@@ -144,7 +144,7 @@ export default {
         enterToken    : 'Código de insignia',
         enterTokenText: 'Escribe el código de la insignia',
         close         : 'Cerrar',
-        ok            : 'Aceptar'
+        ok            : 'Desbloquear'
     },
     LoginPage                        : {
         login        : 'Iniciar sesión',

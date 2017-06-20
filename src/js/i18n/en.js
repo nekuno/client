@@ -144,7 +144,7 @@ export default {
         enterToken    : 'Badge Code',
         enterTokenText: 'Enter the badge code',
         close         : 'Close',
-        ok            : 'Ok'
+        ok            : 'Unblock'
     },
     LoginPage                        : {
         login        : 'Login',

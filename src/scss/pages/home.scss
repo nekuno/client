@@ -165,6 +165,12 @@ body #root .App .views .view.home-view {
     background-size: 320px auto !important;
   }
 }
+
+@media only screen and (max-width: 350px) {
+  body #root .App .views .view.home-view .bottom-layer .bottom-text .register-sub-title {
+    font-size: 0.8em;
+  }
+}
 @media only screen and (max-height: 450px) {
   body #root .App .views .view.home-view .swiper-container .swiper-slide {
     .page#login-1-image, .page#login-2-image, .page#login-3-image {

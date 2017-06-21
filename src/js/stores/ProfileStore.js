@@ -35,6 +35,12 @@ class ProfileStore extends BaseStore {
                 this._setInitialRequiredProfileQuestionsCount(action.userId);
                 this.emitChange();
                 break;
+            case ActionTypes.REQUEST_LOGIN_USER_SUCCESS:
+                this._profiles[LoginStore.user.id] = this._profiles[LoginStore.user.id] || {};
+                mergeIntoBag(this._profiles[LoginStore.user.id], action.response.profile);
+                this._setInitialRequiredProfileQuestionsCount(LoginStore.user.id);
+                this.emitChange();
+                break;
             case ActionTypes.REQUEST_PROFILE_SUCCESS:
                 this._profiles[action.userId] = this._profiles[action.userId] || {};
                 mergeIntoBag(this._profiles[action.userId], action.response);

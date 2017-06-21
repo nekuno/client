@@ -24,8 +24,10 @@ export default new class LoginActionCreators {
         console.log('Attempting auto-login...');
         dispatch(ActionTypes.AUTO_LOGIN, {jwt});
         if (LoginStore.isLoggedIn()) {
-            UserActionCreators.requestOwnUser().then(() => {
+            const autologinRequests = this.autologinRequests(LoginStore.user.id);
+            Promise.all(autologinRequests).then(() => {
                 if (!RouterStore.hasNextTransitionPath() && (document.location.hash === '' || document.location.hash === '#/' || document.location.hash.indexOf('#/?') === 0)) {
+                    console.log('storing');
                     RouterActionCreators.storeRouterTransitionPath('/discover');
                 }
                 this.redirect();
@@ -33,7 +35,17 @@ export default new class LoginActionCreators {
                 console.log(error);
             });
         }
+    }
 
+    autologinRequests(userId) {
+        const userPromise = UserActionCreators.requestOwnUser();
+        const statsPromise = UserActionCreators.requestStats(userId);
+        // UserDataStatusActionCreators.requestUserDataStatus();
+        const profilePromise = UserActionCreators.requestOwnProfile(userId);
+
+        const necessaryData = [statsPromise, profilePromise, userPromise];
+
+        return necessaryData;
     }
 
     loginUser(username, password) {
@@ -111,14 +123,15 @@ export default new class LoginActionCreators {
     successfulRedirect() {
         PushNotificationsService.init();
         const userId = LoginStore.user.id;
-        const necessaryData = this.requestDataOnLogin(userId);
+        this.requestDataOnLogin(userId);
         ChatSocketService.connect();
         WorkersSocketService.connect();
-        Promise.all(necessaryData).then(
-            () => {
+        // Promise.all(necessaryData).then(
+        //     () => {
                 console.log('QuestionActionCreators.requestQuestions', QuestionStore.answersLength(userId));
                 console.log('LoginStore.isComplete()', LoginStore.isComplete());
                 console.log('ProfileStore.isComplete(userId)', ProfileStore.isComplete(userId));
+                console.log(ProfileStore.get(userId));
                 console.log('QuestionStore.isJustRegistered(userId)', QuestionStore.isJustRegistered(userId));
                 const path = this.choosePath(userId);
                 if (path) {
@@ -127,22 +140,23 @@ export default new class LoginActionCreators {
                     router.replace(path);
                 }
                 return null;
-            }, (error) => {
-                console.error(error);
-            }
-        ) .catch((error) => {
-            console.error(error);
-        });
+            // }
+            // , (error) => {
+            //     console.error(error);
+            // // }
+        // ) .catch((error) => {
+        //     console.error(error);
+        // });
     }
 
     requestDataOnLogin(userId) {
-        const statsPromise = UserActionCreators.requestStats(userId);
+        // const statsPromise = UserActionCreators.requestStats(userId);
         UserDataStatusActionCreators.requestUserDataStatus();
-        const profilePromise = UserActionCreators.requestOwnProfile(userId);
+        // const profilePromise = UserActionCreators.requestOwnProfile(userId);
 
-        const necessaryData = [statsPromise, profilePromise];
+        // const necessaryData = [statsPromise, profilePromise];
 
-        return necessaryData;
+        // return necessaryData;
     }
 
     choosePath(userId) {

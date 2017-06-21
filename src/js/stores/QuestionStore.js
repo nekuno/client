@@ -13,7 +13,7 @@ class QuestionStore extends BaseStore {
         this._questions = {};
         this._pagination = {};
         this._answerQuestion = {};
-        this._answersLength = null;
+        this._answersLength = [];
         this._errors = '';
         this._noMoreQuestions = false;
         this._goToQuestionStats = false;
@@ -24,7 +24,7 @@ class QuestionStore extends BaseStore {
     }
 
     _registerToActions(action) {
-        waitFor([UserStore.dispatchToken]);
+        waitFor([UserStore.dispatchToken], LoginStore.dispatchToken);
         super._registerToActions(action);
         let newItems = {};
         switch (action.type) {
@@ -85,6 +85,10 @@ class QuestionStore extends BaseStore {
                 this._loadingComparedQuestions = false;
 
                 mergeIntoBag(this._questions, newItems);
+                this.emitChange();
+                break;
+            case ActionTypes.REQUEST_LOGIN_USER_SUCCESS:
+                this._answersLength = parseInt(action.response.questionsTotal);
                 this.emitChange();
                 break;
             case ActionTypes.REQUEST_QUESTION_SUCCESS:

@@ -39,10 +39,10 @@ class SocialNetworkService {
     login(resource, scope, force) {
         force = force || null;
         // FB and TW do not need force option to get the refresh token
-        if (resource == SOCIAL_NETWORKS_NAMES.FACEBOOK || resource == SOCIAL_NETWORKS_NAMES.TWITTER) {
+        if (resource === SOCIAL_NETWORKS_NAMES.FACEBOOK || resource === SOCIAL_NETWORKS_NAMES.TWITTER) {
             force = null;
         }
-        if (this.isLoggedIn(resource, scope)) { 
+        if (this.isLoggedIn(resource, scope)) {
             return new Promise(function (resolve) {return resolve(true)});
         }
         this._scopes[resource] = scope;
@@ -74,7 +74,7 @@ class SocialNetworkService {
             }
         );
     }
-    
+
     isLoggedIn(resource, scope) {
         return this._accessTokens[resource] && (!scope || this._scopes[resource] == scope);
     }
@@ -98,7 +98,7 @@ class SocialNetworkService {
             return hello(resource).api(url, method, data);
         }
     }
-    
+
     getAccessToken(resource) {
         return this._accessTokens[resource] || null;
     }
@@ -110,11 +110,11 @@ class SocialNetworkService {
     getProfile(resource) {
         return this._profiles[resource] || null;
     }
-    
+
     getUser(resource) {
         return this._users[resource] || null;
     }
-    
+
     getExpireTime(resource) {
         return this._expireTime[resource] || null;
     }
@@ -189,7 +189,7 @@ class SocialNetworkService {
 
         return data && data.id ? analogUrl.replace('@{id}', data.id) : analogUrl;
     };
-    
+
     _setResourceData(resource, response) {
         console.log(resource, response);
         this._accessTokens[resource] = response.authResponse.access_token;

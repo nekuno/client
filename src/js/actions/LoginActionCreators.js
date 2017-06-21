@@ -37,15 +37,11 @@ export default new class LoginActionCreators {
         }
     }
 
-    autologinRequests(userId) {
-        const userPromise = UserActionCreators.requestOwnUser();
-        const statsPromise = UserActionCreators.requestStats(userId);
-        // UserDataStatusActionCreators.requestUserDataStatus();
-        const profilePromise = UserActionCreators.requestOwnProfile(userId);
+    autologinRequests() {
+        UserDataStatusActionCreators.requestUserDataStatus();
 
-        const necessaryData = [statsPromise, profilePromise, userPromise];
-
-        return necessaryData;
+        const autologinDataPromise = UserActionCreators.requestAutologinData();
+        return [autologinDataPromise];
     }
 
     loginUser(username, password) {
@@ -126,37 +122,22 @@ export default new class LoginActionCreators {
         this.requestDataOnLogin(userId);
         ChatSocketService.connect();
         WorkersSocketService.connect();
-        // Promise.all(necessaryData).then(
-        //     () => {
-                console.log('QuestionActionCreators.requestQuestions', QuestionStore.answersLength(userId));
-                console.log('LoginStore.isComplete()', LoginStore.isComplete());
-                console.log('ProfileStore.isComplete(userId)', ProfileStore.isComplete(userId));
-                console.log(ProfileStore.get(userId));
-                console.log('QuestionStore.isJustRegistered(userId)', QuestionStore.isJustRegistered(userId));
-                const path = this.choosePath(userId);
-                if (path) {
-                    console.log('Redirecting to path', path);
-                    let router = RouterContainer.get();
-                    router.replace(path);
-                }
-                return null;
-            // }
-            // , (error) => {
-            //     console.error(error);
-            // // }
-        // ) .catch((error) => {
-        //     console.error(error);
-        // });
+        console.log('QuestionActionCreators.requestQuestions', QuestionStore.answersLength(userId));
+        console.log('LoginStore.isComplete()', LoginStore.isComplete());
+        console.log('ProfileStore.isComplete(userId)', ProfileStore.isComplete(userId));
+        console.log(ProfileStore.get(userId));
+        console.log('QuestionStore.isJustRegistered(userId)', QuestionStore.isJustRegistered(userId));
+        const path = this.choosePath(userId);
+        if (path) {
+            console.log('Redirecting to path', path);
+            let router = RouterContainer.get();
+            router.replace(path);
+        }
+        return null;
     }
 
     requestDataOnLogin(userId) {
-        // const statsPromise = UserActionCreators.requestStats(userId);
         UserDataStatusActionCreators.requestUserDataStatus();
-        // const profilePromise = UserActionCreators.requestOwnProfile(userId);
-
-        // const necessaryData = [statsPromise, profilePromise];
-
-        // return necessaryData;
     }
 
     choosePath(userId) {

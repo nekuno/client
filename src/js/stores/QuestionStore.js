@@ -88,6 +88,7 @@ class QuestionStore extends BaseStore {
                 this.emitChange();
                 break;
             case ActionTypes.REQUEST_LOGIN_USER_SUCCESS:
+            case ActionTypes.REQUEST_AUTOLOGIN_SUCCESS:
                 this._answersLength = parseInt(action.response.questionsTotal);
                 this.emitChange();
                 break;
@@ -103,7 +104,8 @@ class QuestionStore extends BaseStore {
                 this._goToQuestionStats = true;
                 this._pagination[action.userId] = this._pagination[action.userId] || {};
                 this._pagination[action.userId].total++;
-                this._isJustCompleted = this.answersLength(action.userId) == this._registerQuestionsLength;
+                this._answersLength++;
+                this._isJustCompleted = this.answersLength(action.userId) === this._registerQuestionsLength;
                 this.emitChange();
                 break;
             case ActionTypes.SKIP_QUESTION_SUCCESS:
@@ -144,8 +146,7 @@ class QuestionStore extends BaseStore {
         return this._questions[userId];
     }
 
-    getCompared(otherUserId)
-    {
+    getCompared(otherUserId) {
         const questions = this._questions[otherUserId] ? Object.assign({}, this._questions[otherUserId]) : {};
 
         let orderedQuestions = {};
@@ -170,7 +171,7 @@ class QuestionStore extends BaseStore {
     }
 
     getPagination(userId) {
-        return this._pagination[userId];
+        return this._pagination[userId] || {};
     }
 
     getQuestion() {
@@ -208,7 +209,9 @@ class QuestionStore extends BaseStore {
     }
 
     answersLength(userId) {
-        return this._answersLength || this._questions[userId] && Object.keys(this._questions[userId]).length || 0;
+        return this._answersLength > 0 ? this._answersLength :
+        this.getPagination(userId).hasOwnProperty('total') ? this.getPagination(userId).total :
+            Array.isArray(this._questions[userId]) ? Object.keys(this._questions[userId]).length : 0;
     }
 
     registerQuestionsLength() {

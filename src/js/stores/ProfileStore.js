@@ -36,6 +36,7 @@ class ProfileStore extends BaseStore {
                 this.emitChange();
                 break;
             case ActionTypes.REQUEST_LOGIN_USER_SUCCESS:
+            case ActionTypes.REQUEST_AUTOLOGIN_SUCCESS:
                 this._profiles[LoginStore.user.id] = this._profiles[LoginStore.user.id] || {};
                 mergeIntoBag(this._profiles[LoginStore.user.id], action.response.profile);
                 this._setInitialRequiredProfileQuestionsCount(LoginStore.user.id);

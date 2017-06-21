@@ -15,6 +15,14 @@ export function validateUsername(username) {
     }, {username});
 }
 
+export function requestAutologinData() {
+    return dispatchAsync(UserAPI.getAutologinData(), {
+        request: ActionTypes.REQUEST_AUTOLOGIN,
+        success: ActionTypes.REQUEST_AUTOLOGIN_SUCCESS,
+        failure: ActionTypes.REQUEST_AUTOLOGIN_ERROR
+    });
+}
+
 export function requestOwnUser() {
     return dispatchAsync(UserAPI.getOwnUser(), {
         request: ActionTypes.REQUEST_OWN_USER,

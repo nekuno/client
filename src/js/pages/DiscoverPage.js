@@ -13,7 +13,6 @@ import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
 import * as UserActionCreators from '../actions/UserActionCreators';
 import * as ThreadActionCreators from '../actions/ThreadActionCreators';
-import * as QuestionActionCreators from '../actions/QuestionActionCreators';
 import ThreadStore from '../stores/ThreadStore';
 import FilterStore from '../stores/FilterStore';
 import QuestionStore from '../stores/QuestionStore';
@@ -46,9 +45,6 @@ function requestData(props) {
     const groupId = props.params.groupId || null;
     ThreadActionCreators.requestThreadPage(userId, parseInt(groupId));
     ThreadActionCreators.requestFilters();
-    if (!groupId) {
-        QuestionActionCreators.requestQuestions(userId);
-    }
     UserActionCreators.requestMetadata();
 }
 
@@ -59,7 +55,7 @@ function getState(props) {
 
     let userId = parseId(props.user);
     const profile = ProfileStore.get(userId);
-    let pagination = QuestionStore.getPagination(userId) || {};
+    const questionsTotal = QuestionStore.answersLength(userId);
     let isSomethingWorking = WorkersStore.isSomethingWorking();
     let filters = {};
     let recommendations = [];
@@ -75,11 +71,11 @@ function getState(props) {
     }
     const networks = WorkersStore.getAll();
     const similarityOrder = thread && thread.filters && thread.filters.userFilters && thread.filters.userFilters.order === 'similarity' || false;
-    const isThreadGroup = thread.groupId != null;
+    const isThreadGroup = thread.groupId !== null;
 
     return {
         profile,
-        pagination,
+        questionsTotal,
         isSomethingWorking,
         filters,
         recommendations,
@@ -93,7 +89,7 @@ function getState(props) {
 
 @AuthenticatedComponent
 @translate('DiscoverPage')
-@connectToStores([ThreadStore, RecommendationStore, FilterStore, WorkersStore, ProfileStore], getState)
+@connectToStores([ThreadStore, RecommendationStore, FilterStore, WorkersStore, ProfileStore, QuestionStore], getState)
 export default class DiscoverPage extends Component {
 
     static propTypes = {
@@ -103,7 +99,7 @@ export default class DiscoverPage extends Component {
         strings                 : PropTypes.object,
         // Injected by @connectToStores:
         profile                 : PropTypes.object,
-        pagination              : PropTypes.object,
+        questionsTotal          : PropTypes.number,
         isSomethingWorking      : PropTypes.bool,
         filters                 : PropTypes.object,
         recommendations         : PropTypes.array,
@@ -123,7 +119,6 @@ export default class DiscoverPage extends Component {
 
         this.editThread = this.editThread.bind(this);
         this.leftClickHandler = this.leftClickHandler.bind(this);
-        this.handleScroll = this.handleScroll.bind(this);
         this.onBottomScroll = this.onBottomScroll.bind(this);
         this.goToProfile = this.goToProfile.bind(this);
         this.selectProfile = this.selectProfile.bind(this);
@@ -137,28 +132,14 @@ export default class DiscoverPage extends Component {
         requestData(this.props);
     }
 
-    componentWillUnmount() {
-        // document.getElementsByClassName('view')[0].removeEventListener('scroll', this.handleScroll);
-    }
-
     editThread() {
         this.context.router.push(`edit-thread/${parseThreadId(this.props.thread)}`);
     }
 
     leftClickHandler() {
-        if (this.props.thread && this.props.thread.groupId != null) {
+        if (this.props.thread && this.props.thread.groupId !== null) {
             this.context.router.push(`badges`);
         }
-    }
-
-    handleScroll() {
-        // let offsetTop = parseInt(document.getElementsByClassName('view')[0].scrollTop + document.getElementsByClassName('view')[0].offsetHeight - 58);
-        // let offsetTopMax = parseInt(document.getElementById('page-content').offsetHeight);
-        //
-        // if (offsetTop >= offsetTopMax) {
-        //     document.getElementsByClassName('view')[0].removeEventListener('scroll', this.handleScroll);
-        //     ThreadActionCreators.recommendationsNext(parseThreadId(this.props.thread));
-        // }
     }
 
     onBottomScroll() {
@@ -209,13 +190,13 @@ export default class DiscoverPage extends Component {
     }
 
     getBanner() {
-        const {user, pagination, networks, thread, profile, filters} = this.props;
+        const {user, questionsTotal, networks, thread, profile, filters} = this.props;
         const connectedNetworks = networks.filter(network => network.fetching || network.fetched || network.processing || network.processed);
-        const mustShowQuestionsBanner = profile && filters && thread && pagination.total <= 100;
+        const mustShowQuestionsBanner = profile && filters && thread && questionsTotal <= 100;
         const mustShowSocialNetworksBanner = profile && filters && thread && connectedNetworks.length < 3;
 
         const banner =
-            mustShowQuestionsBanner ? <QuestionsBanner user={user} questionsTotal={pagination.total || 0}/>
+            mustShowQuestionsBanner ? <QuestionsBanner user={user} questionsTotal={questionsTotal || 0}/>
                 : mustShowSocialNetworksBanner ? <SocialNetworksBanner networks={networks} user={user}/>
                 : '';
         return banner;

@@ -24,6 +24,10 @@ export function getUser(userSlug, url = `users/${userSlug}`) {
     return fetchUser(url);
 }
 
+export function getAutologinData(url = `autologin`) {
+    return getData(url);
+}
+
 export function getPublicUser(slug, url = `public/users/${slug}`) {
     return fetchUser(url);
 }

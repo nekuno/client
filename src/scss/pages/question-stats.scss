@@ -24,7 +24,7 @@ body #root .App .views .view .page.question-stats-page {
         margin-bottom: 30px;
       }
       .community-question-stats {
-        .female-answer-chart-container, .male-answer-chart-container {
+        .first-answer-chart-container, .second-answer-chart-container {
           display: inline-block;
           height: 150px;
           width: 150px;
@@ -51,7 +51,7 @@ body #root .App .views .view .page.question-stats-page {
               width: 120px;
             }
           }
-          .genre-icon {
+          .stats-icon {
             color: $deep-purple;
             margin-top: -100px;
             font-size: 23px;
@@ -74,7 +74,7 @@ body #root .App .views .view .page.question-stats-page {
               margin-top: -90px;
             }
           }
-          .genre-text {
+          .stats-text {
             font-size: 1.214285714em;
 
             @media only screen and (max-width: 346px) {
@@ -82,10 +82,10 @@ body #root .App .views .view .page.question-stats-page {
             }
           }
         }
-        .female-answer-chart-container {
+        .first-answer-chart-container {
           margin-right: 5%;
         }
-        .male-answer-chart-container {
+        .second-answer-chart-container {
 
         }
       }

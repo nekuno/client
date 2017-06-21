@@ -10,6 +10,7 @@ export default class CardContentList extends Component {
         otherUserId   : PropTypes.number,
         onReport      : PropTypes.func,
         onBottomScroll: PropTypes.func,
+        isLoading     : PropTypes.bool
     };
 
     constructor(props) {
@@ -25,7 +26,7 @@ export default class CardContentList extends Component {
 
     getItems() {
         const firstItems = this.props.firstItems;
-        const contents = this.getCardContents.bind(this)();
+        const contents = this.props.isLoading ? [] : this.getCardContents.bind(this)();
         return [
             ...firstItems,
             ...contents
@@ -99,5 +100,6 @@ CardContentList.defaultProps = {
     'onBottomScroll': () => {
     },
     'onReport'      : () => {
-    }
+    },
+    'isLoading'     : false
 };

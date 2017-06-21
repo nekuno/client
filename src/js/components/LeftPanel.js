@@ -55,6 +55,7 @@ export default class LeftPanel extends Component {
         this.handleClickSettings = this.handleClickSettings.bind(this);
         this.handleGoClickInvitations = this.handleGoClickInvitations.bind(this);
         this.handleGoClickGroups = this.handleGoClickGroups.bind(this);
+        this.pushRoute = this.pushRoute.bind(this);
         this.logout = this.logout.bind(this);
 
         this.state = {
@@ -62,44 +63,46 @@ export default class LeftPanel extends Component {
         };
     }
 
+    componentDidMount() {
+        $$('.panel-left').on('closed', () => {
+            this.setState({
+                moreActive: false
+            });
+        });
+    }
+
     handleGoClickThreads() {
         nekunoApp.closePanel();
         $$('.panel-left').once('closed', () => {
-            this.context.router.push('/discover');
+            this.pushRoute('/discover');
         });
     }
 
     handleGoClickProfile() {
         nekunoApp.closePanel();
         $$('.panel-left').once('closed', () => {
-            this.setState({
-                moreActive: false
-            });
-            this.context.router.push(`/p/${this.props.user.slug}`);
+            this.pushRoute(`/p/${this.props.user.slug}`);
         });
     }
 
     handleGoClickConversations() {
         nekunoApp.closePanel();
         $$('.panel-left').once('closed', () => {
-            this.context.router.push('/conversations');
+            this.pushRoute('/conversations');
         });
     }
 
     handleGoClickSocialNetworks() {
         nekunoApp.closePanel();
         $$('.panel-left').once('closed', () => {
-            this.setState({
-                moreActive: false
-            });
-            this.context.router.push('/social-networks');
+            this.pushRoute('/social-networks');
         });
     }
 
     handleGoClickInterests() {
         nekunoApp.closePanel();
         $$('.panel-left').once('closed', () => {
-            this.context.router.push('/interests');
+            this.pushRoute('/interests');
         });
     }
 
@@ -112,37 +115,32 @@ export default class LeftPanel extends Component {
     handleClickSettings() {
         nekunoApp.closePanel();
         $$('.panel-left').once('closed', () => {
-            this.setState({
-                moreActive: false
-            });
-            this.context.router.push('/settings');
+            this.pushRoute('/settings');
         });
     }
 
     handleGoClickInvitations() {
         nekunoApp.closePanel();
         $$('.panel-left').once('closed', () => {
-            this.setState({
-                moreActive: false
-            });
-            this.context.router.push('/invitations');
+            this.pushRoute('/invitations');
         });
     }
 
     handleGoClickGroups() {
         nekunoApp.closePanel();
         $$('.panel-left').once('closed', () => {
-            this.context.router.push('/badges');
+            this.pushRoute('/badges');
         });
+    }
+
+    pushRoute(route) {
+        setTimeout(() => { this.context.router.push(route) }, 0);
     }
 
     logout() {
         nekunoApp.closePanel();
         $$('.panel-left').once('closed', () => {
-            this.setState({
-                moreActive: null
-            });
-            LoginActionCreators.logoutUser();
+            setTimeout(() => LoginActionCreators.logoutUser(), 0);
         });
     }
 

@@ -41,8 +41,7 @@ export function requestUser(userSlug, fields) {
                 nekunoApp.alert(status.error, () => {
                     const path = '/discover';
                     console.log('Redirecting to path', path);
-                    let router = RouterContainer.get();
-                    router.replace(path);
+                    RouterContainer.replaceRoute(path);
                 });
             }
             throw status;

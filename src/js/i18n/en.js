@@ -144,7 +144,7 @@ export default {
         enterToken    : 'Badge Code',
         enterTokenText: 'Enter the badge code',
         close         : 'Close',
-        ok            : 'Ok'
+        ok            : 'Unlock'
     },
     LoginPage                        : {
         login        : 'Login',
@@ -270,7 +270,7 @@ export default {
         compatibilityCheckWith: 'Check your compatibility with %username%',
         copiedToClipboard     : 'Copied to clipboard',
         block                 : 'Block user',
-        unblock               : 'Unblock user',
+        unlock                : 'Unlock user',
         blockAndReport        : 'Block and report user',
         cancel                : 'Cancel',
         confirmBlock          : 'Are you sure you want to block this user?',
@@ -407,7 +407,8 @@ export default {
         alert     : 'Mark your answer and one or more options in the second column to indicate what would you like to answer another user'
     },
     AnswerQuestion                   : {
-        noMoreQuestions: 'No more questions'
+        noMoreQuestions: 'No more questions',
+        loading        : 'Loading question'
     },
     AnswerQuestionForm               : {
         you       : 'You',
@@ -430,7 +431,9 @@ export default {
     },
     QuestionStatsGraph               : {
         females: 'Girls',
-        males  : 'Boys'
+        males  : 'Boys',
+        young  : '- than 30',
+        old    : '+ than 30'
     },
     QuestionStatsInline              : {
         statistics: 'Community answer statistics'
@@ -532,7 +535,7 @@ export default {
         send       : 'Send report',
         close      : 'Close'
     },
-    FilterContentButtons             : {
+    FilterContentButtonsList         : {
         videos  : 'Videos',
         audios  : 'Music',
         photos  : 'Photos',

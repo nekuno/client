@@ -5,6 +5,7 @@ import TranslationProvider from './i18n/TranslationProvider';
 import GuestBanner from './components/GuestBanner';
 import connectToStores from './utils/connectToStores';
 import LoginStore from './stores/LoginStore';
+import RouterActionCreators from './actions/RouterActionCreators';
 
 function getState(props) {
     const isLoggedIn = LoginStore.isLoggedIn();
@@ -25,6 +26,14 @@ export default class App extends Component {
         isLoggedIn: PropTypes.bool.isRequired,
         isGuest   : PropTypes.bool.isRequired
     };
+
+    componentWillReceiveProps(nextProps) {
+        const routeChanged = nextProps.location.pathname !== this.props.location.pathname;
+        if (routeChanged) {
+            nekunoApp.closePanel();
+            setTimeout(() => RouterActionCreators.nextRoute(nextProps.location.pathname), 0);
+        }
+    }
 
     render() {
         const {children, isLoggedIn, isGuest} = this.props;

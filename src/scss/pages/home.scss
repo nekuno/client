@@ -115,7 +115,9 @@ body #root .App .views .view.home-view {
   }
 
   .icon-spinner {
-    font-size: 30px;
+    font-size: 40px;
+    margin-top: 9px;
+    margin-left: -42px;
   }
 
   .nekuno-logo-wrapper {
@@ -161,6 +163,12 @@ body #root .App .views .view.home-view {
   body #root .App .page#login-3-image {
     background: url('img/login/3-320x569.jpg') no-repeat center;
     background-size: 320px auto !important;
+  }
+}
+
+@media only screen and (max-width: 350px) {
+  body #root .App .views .view.home-view .bottom-layer .bottom-text .register-sub-title {
+    font-size: 0.8em;
   }
 }
 @media only screen and (max-height: 450px) {

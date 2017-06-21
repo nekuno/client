@@ -158,7 +158,7 @@ export default class OtherUserPage extends Component {
         this.goToDiscover = this.goToDiscover.bind(this);
         this.setOrientationRequired = this.setOrientationRequired.bind(this);
         this.showBlockActions = this.showBlockActions.bind(this);
-        this.showUnblockActions = this.showUnblockActions.bind(this);
+        this.showUnlockActions = this.showUnlockActions.bind(this);
         this.reportReasonButton = this.reportReasonButton.bind(this);
         this.onReportReason = this.onReportReason.bind(this);
         this.onReportReasonOther = this.onReportReasonOther.bind(this);
@@ -203,7 +203,7 @@ export default class OtherUserPage extends Component {
         if (!this.props.blocked) {
             this.showBlockActions();
         } else {
-            this.showUnblockActions();
+            this.showUnlockActions();
         }
     }
 
@@ -239,11 +239,11 @@ export default class OtherUserPage extends Component {
         nekunoApp.alert(this.props.strings.shareError)
     }
 
-    showUnblockActions() {
+    showUnlockActions() {
         const {otherUser, strings} = this.props;
         const buttons = [
             this.optionTitle(otherUser.username),
-            this.optionButton(strings.unblock, this.unsetBlockUser.bind(this, this.props)),
+            this.optionButton(strings.unlock, this.unsetBlockUser.bind(this, this.props)),
             this.cancelButton(strings.cancel)
         ];
 
@@ -475,7 +475,7 @@ OtherUserPage.defaultProps = {
         compatibilityCheckWith: 'Check your compatibility with %username%',
         copiedToClipboard     : 'Copied to clipboard',
         block                 : 'Block user',
-        unblock               : 'Unblock user',
+        unlock                : 'Unlock user',
         blockAndReport        : 'Block and report user',
         cancel                : 'Cancel',
         confirmBlock          : 'Are you sure you want to block this user?',

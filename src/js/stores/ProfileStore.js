@@ -16,6 +16,7 @@ class ProfileStore extends BaseStore {
         this._profiles = {};
         this._metadata = null;
         this._categories = null;
+        this._isLoadingCategories = false;
         this._initialRequiredProfileQuestionsCount = 0;
         this._errors = null;
     }
@@ -51,7 +52,12 @@ class ProfileStore extends BaseStore {
                 this._metadata = action.response;
                 this.emitChange();
                 break;
+            case ActionTypes.REQUEST_CATEGORIES:
+                this._isLoadingCategories = true;
+                this.emitChange();
+                break;
             case ActionTypes.REQUEST_CATEGORIES_SUCCESS:
+                this._isLoadingCategories = false;
                 this._categories = action.response.profile;
                 this.emitChange();
                 break;
@@ -107,6 +113,10 @@ class ProfileStore extends BaseStore {
 
     getCategories(){
         return this._categories;
+    }
+
+    isLoadingCategories(){
+        return this._isLoadingCategories;
     }
 
     getWithMetadata(userId) {

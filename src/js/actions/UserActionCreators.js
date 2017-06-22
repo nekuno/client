@@ -159,7 +159,7 @@ export function requestMetadata() {
             failure: ActionTypes.REQUEST_METADATA_ERROR
         });
     }
-    if (!ProfileStore.getCategories()) {
+    if (!ProfileStore.getCategories() && !ProfileStore.isLoadingCategories()) {
         dispatchAsync(UserAPI.getCategories(), {
             request: ActionTypes.REQUEST_CATEGORIES,
             success: ActionTypes.REQUEST_CATEGORIES_SUCCESS,

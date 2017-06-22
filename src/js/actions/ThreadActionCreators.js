@@ -74,7 +74,7 @@ export function requestFilters() {
         });
     }
 
-    if (!ProfileStore.getCategories()) {
+    if (!ProfileStore.getCategories() && !ProfileStore.isLoadingCategories()) {
         dispatchAsync(UserAPI.getCategories(), {
             request: ActionTypes.REQUEST_CATEGORIES,
             success: ActionTypes.REQUEST_CATEGORIES_SUCCESS,

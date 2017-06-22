@@ -17,9 +17,7 @@ function parseId(user) {
 
 function requestData(props) {
     const userId = parseId(props.user);
-    if (Object.keys(props.pagination).length === 0) {
-        QuestionActionCreators.requestQuestions(userId);
-    }
+    QuestionActionCreators.requestQuestions(userId);
 }
 
 /**

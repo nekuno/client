@@ -98,8 +98,6 @@ export default class OtherQuestionsPage extends Component {
 
         super(props);
 
-        this.handleScroll = this.handleScroll.bind(this);
-
         this.state = {
             filters: ['showOnlyCommon']
         }
@@ -107,10 +105,6 @@ export default class OtherQuestionsPage extends Component {
 
     componentWillMount() {
         requestData(this.props, this.state);
-    }
-
-    componentWillUnmount() {
-        document.getElementsByClassName('view')[0].removeEventListener('scroll', this.handleScroll);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -121,18 +115,6 @@ export default class OtherQuestionsPage extends Component {
 
     onTimerEnd(questionId) {
         QuestionActionCreators.setQuestionEditable(questionId);
-    }
-
-    handleScroll() {
-        // let pagination = this.props.pagination;
-        // let nextLink = pagination && pagination.hasOwnProperty('nextLink') ? pagination.nextLink : null;
-        // let offsetTop = parseInt(document.getElementsByClassName('view')[0].scrollTop + document.getElementsByClassName('view')[0].offsetHeight - 49);
-        // let offsetTopMax = parseInt(document.getElementById('page-content').offsetHeight);
-        //
-        // if (nextLink && offsetTop >= offsetTopMax) {
-        //     document.getElementsByClassName('view')[0].removeEventListener('scroll', this.handleScroll);
-        //     QuestionActionCreators.requestNextComparedQuestions(parseId(this.props.user), parseId(this.props.otherUser), nextLink);
-        // }
     }
 
     onBottomScroll() {
@@ -194,7 +176,7 @@ export default class OtherQuestionsPage extends Component {
                     : null}
                 <div className="view view-main" id="questions-view-main">
                     <div className="page other-questions-page">
-                        {user && otherUser ?
+                        {user && otherUser && questions ?
                             <div id="page-content" className="other-questions-content">
                                 <OtherQuestionList firstItems={this.getFirstItems.bind(this)()} otherQuestions={otherQuestions} questions={questions} otherUserSlug={otherUser.slug || ''} ownPicture={ownPicture} otherPicture={otherPicture}
                                                    onTimerEnd={this.onTimerEnd} isLoadingComparedQuestions={isLoadingComparedQuestions} onBottomScroll={this.onBottomScroll.bind(this)}/>

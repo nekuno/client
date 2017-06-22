@@ -24,8 +24,7 @@ export default new class LoginActionCreators {
         console.log('Attempting auto-login...');
         dispatch(ActionTypes.AUTO_LOGIN, {jwt});
         if (LoginStore.isLoggedIn()) {
-            const autologinRequests = this.autologinRequests(LoginStore.user.id);
-            Promise.all(autologinRequests).then(() => {
+            UserActionCreators.requestAutologinData().then(() => {
                 if (!RouterStore.hasNextTransitionPath() && (document.location.hash === '' || document.location.hash === '#/' || document.location.hash.indexOf('#/?') === 0)) {
                     console.log('storing');
                     RouterActionCreators.storeRouterTransitionPath('/discover');
@@ -35,13 +34,6 @@ export default new class LoginActionCreators {
                 console.log(error);
             });
         }
-    }
-
-    autologinRequests() {
-        UserDataStatusActionCreators.requestUserDataStatus();
-
-        const autologinDataPromise = UserActionCreators.requestAutologinData();
-        return [autologinDataPromise];
     }
 
     loginUser(username, password) {
@@ -92,7 +84,6 @@ export default new class LoginActionCreators {
     }
 
     redirect() {
-
         if (LoginStore.isLoggedIn()) {
             if (LoginStore.isEnabled()) {
                 this.successfulRedirect();
@@ -125,7 +116,6 @@ export default new class LoginActionCreators {
         console.log('QuestionActionCreators.requestQuestions', QuestionStore.answersLength(userId));
         console.log('LoginStore.isComplete()', LoginStore.isComplete());
         console.log('ProfileStore.isComplete(userId)', ProfileStore.isComplete(userId));
-        console.log(ProfileStore.get(userId));
         console.log('QuestionStore.isJustRegistered(userId)', QuestionStore.isJustRegistered(userId));
         const path = this.choosePath(userId);
         if (path) {
@@ -138,6 +128,7 @@ export default new class LoginActionCreators {
 
     requestDataOnLogin(userId) {
         UserDataStatusActionCreators.requestUserDataStatus();
+        QuestionActionCreators.requestQuestions(userId);
     }
 
     choosePath(userId) {

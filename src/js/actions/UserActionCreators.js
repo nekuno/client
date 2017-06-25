@@ -100,6 +100,9 @@ export function requestProfile(userId, fields) {
 }
 
 export function requestSharedUser(slug) {
+    if (UserStore.containsSlug(slug)){
+        return;
+    }
     dispatchAsync(UserAPI.getPublicUser(slug), {
         request: ActionTypes.REQUEST_PUBLIC_USER,
         success: ActionTypes.REQUEST_PUBLIC_USER_SUCCESS,

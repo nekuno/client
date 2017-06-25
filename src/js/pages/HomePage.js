@@ -53,7 +53,6 @@ export default class HomePage extends Component {
     constructor(props) {
         super(props);
 
-        this.goToRegisterPage = this.goToRegisterPage.bind(this);
         this.loginByResourceOwner = this.loginByResourceOwner.bind(this);
         this.setLoginUserState = this.setLoginUserState.bind(this);
         this.split = this.split.bind(this);
@@ -106,10 +105,6 @@ export default class HomePage extends Component {
         LoginActionCreators.loginUser('guest', 'guest');
     };
 
-    goToRegisterPage = function() {
-        this.context.router.push('/register');
-    };
-
     loginByResourceOwner(resource, scope) {
         const {interfaceLanguage} = this.props;
         this.setLoginUserState(true);
@@ -128,7 +123,6 @@ export default class HomePage extends Component {
                         profile.orientationRequired = false;
                         let token = 'join';
                         LoginActionCreators.preRegister(user, profile, token, oauthData);
-                        this.setLoginUserState(false);
                         setTimeout(() => this.context.router.push('answer-username'), 0);
                     });
             },
@@ -175,52 +169,45 @@ export default class HomePage extends Component {
 
     render() {
         const {strings} = this.props;
-        const {loginUser, registeringUser} = this.state;
-        const text = loginUser ? <span className="icon-spinner rotation-animation"/> : strings.login;
+        const {loginUser} = this.state;
 
         return (
             <div className="views">
-                {registeringUser ?
-                    <div className="view view-main home-view">
-                        <EmptyMessage text={registeringUser ? strings.registeringUser : strings.loginUser} loadingGif={true}/>
+                <div className="view view-main home-view">
+                    <div className="swiper-container swiper-init" data-speed="400" data-space-between="40" data-pagination=".swiper-pagination">
+                        <div className="swiper-wrapper">
+                            {this.renderSlides()}
+                        </div>
                     </div>
-                    :
-                    <div className="view view-main home-view">
-                        <div className="swiper-container swiper-init" data-speed="400" data-space-between="40" data-pagination=".swiper-pagination">
-                            <div className="swiper-wrapper">
-                                {this.renderSlides()}
-                            </div>
-                        </div>
-                        <div className="nekuno-logo-wrapper">
-                            <div className="nekuno-logo"></div>
-                        </div>
-                        <div id="page-content" className="home-content">
+                    <div className="nekuno-logo-wrapper">
+                        <div className="nekuno-logo"></div>
+                    </div>
+                    <div id="page-content" className="home-content">
 
-                        </div>
-                        <div className="bottom-layer">
-                            <div className="swiper-pagination-and-button">
-                                <div className="swiper-pagination"></div>
-                                <div>
-                                    <FacebookButton onClickHandler={this.loginByResourceOwner} text={text} disabled={loginUser}/>
-                                    {/*<div className="register-text-block">*/}
-                                    {/*<div onClick={this.goToRegisterPage} className="register-text">*/}
-                                    {/*<span>{strings.hasInvitation}</span> <a href="javascript:void(0)">{strings.register}</a>*/}
-                                    {/*</div>*/}
-                                    {/*/!*Uncomment to enable login as guest*/}
-                                    {/*<div onClick={this.loginAsGuest} className="register-text">*/}
-                                    {/*<span>{strings.wantGuest}</span> <a href="javascript:void(0)">{strings.asGuest}</a>*/}
-                                    {/*</div>*!/*/}
-                                    {/*</div>*/}
-                                </div>
+                    </div>
+                    <div className="bottom-layer">
+                        <div className="swiper-pagination-and-button">
+                            <div className="swiper-pagination"></div>
+                            <div>
+                                <FacebookButton onClickHandler={this.loginByResourceOwner} text={strings.login} disabled={loginUser}/>
+                                {/*<div className="register-text-block">*/}
+                                {/*<div onClick={this.goToRegisterPage} className="register-text">*/}
+                                {/*<span>{strings.hasInvitation}</span> <a href="javascript:void(0)">{strings.register}</a>*/}
+                                {/*</div>*/}
+                                {/*/!*Uncomment to enable login as guest*/}
+                                {/*<div onClick={this.loginAsGuest} className="register-text">*/}
+                                {/*<span>{strings.wantGuest}</span> <a href="javascript:void(0)">{strings.asGuest}</a>*/}
+                                {/*</div>*!/*/}
+                                {/*</div>*/}
                             </div>
-                            <div className="bottom-text">
-                                <div className="register-sub-title privacy-terms-text">
-                                    <p dangerouslySetInnerHTML={{__html: strings.legalTerms}}/>
-                                </div>
+                        </div>
+                        <div className="bottom-text">
+                            <div className="register-sub-title privacy-terms-text">
+                                <p dangerouslySetInnerHTML={{__html: strings.legalTerms}}/>
                             </div>
                         </div>
                     </div>
-                }
+                </div>
             </div>
         );
     }

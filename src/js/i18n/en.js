@@ -416,6 +416,9 @@ export default {
         alertFirst: 'Mark your answer in the first column',
         saving    : 'Saving'
     },
+    QuestionList                     : {
+        loading: 'Loading questions'
+    },
     OtherQuestionList                : {
         loading: 'Loading questions'
     },

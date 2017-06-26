@@ -7,7 +7,9 @@ export default class InfiniteScroll extends Component {
 
     static propTypes = {
         containerId: PropTypes.string.isRequired,
-        list: PropTypes.array
+        firstItems : PropTypes.array,
+        items      : PropTypes.array,
+        columns    : PropTypes.number,
     };
 
     static contextTypes = {
@@ -71,7 +73,7 @@ export default class InfiniteScroll extends Component {
             this._setLoadingState(true);
             this.props.onInfiniteLoad().then(() => {
                 this._setLoadingState(false)
-            }) .catch(() => {
+            }).catch(() => {
                 this._setLoadingState(false)
             });
 
@@ -134,8 +136,52 @@ export default class InfiniteScroll extends Component {
                 scrollContainer.offsetHeight ? scrollContainer.offsetHeight : null;
     }
 
+    wrap(items, columns) {
+        if (columns === 1) {
+            return items;
+        }
+
+        let savedItem = null;
+        let wrappedItems = [];
+
+        items.forEach((item) => {
+
+            if (savedItem === null) {
+                savedItem = item;
+            } else {
+                wrappedItems.push(this.buildWrapper(savedItem, item));
+                savedItem = null;
+            }
+        });
+
+        if (savedItem !== null) {
+            wrappedItems.push(this.buildWrapper(savedItem));
+            savedItem = null;
+        }
+
+        return wrappedItems;
+    }
+
+    buildWrapper(card1, card2) {
+        let cards = [Object.assign({}, card1)];
+        if (card2 instanceof Object) {
+            cards.push(Object.assign({}, card2));
+        }
+
+        const wrapper = <div>
+            {cards}
+        </div>;
+
+        card1 = null;
+
+        return wrapper;
+    }
+
     getList() {
-        return this.props.list.slice(0);
+        const {firstItems, items, columns} = this.props;
+        const wrappedItems = this.wrap(items, columns);
+        const list = [...firstItems, ...wrappedItems];
+        return list.slice(0);
     }
 
     renderScroll() {
@@ -178,5 +224,7 @@ InfiniteScroll.defaultProps = {
     'onInfiniteLoad': () => {
         return Promise.resolve()
     },
-    'list': []
+    'firstItems'    : [],
+    'items'         : [],
+    'columns'       : 1,
 };

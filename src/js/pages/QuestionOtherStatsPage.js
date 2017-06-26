@@ -1,8 +1,9 @@
 import React, { PropTypes, Component } from 'react';
 import TopNavBar from '../components/ui/TopNavBar';
-import FullWidthButton from '../components/ui/FullWidthButton';
+import ButtonFloating from '../components/ui/ButtonFloating';
 import QuestionStats from '../components/questions/QuestionStats';
 import * as QuestionActionCreators from '../actions/QuestionActionCreators';
+import RouterActionCreators from '../actions/RouterActionCreators';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
@@ -43,10 +44,6 @@ export default class QuestionOtherStatsPage extends Component {
         userAnswer      : PropTypes.object
     };
 
-    static contextTypes = {
-        router: PropTypes.object.isRequired
-    };
-
     constructor(props) {
 
         super(props);
@@ -57,14 +54,14 @@ export default class QuestionOtherStatsPage extends Component {
     handleContinueClick() {
         const {params, user} = this.props;
         QuestionActionCreators.removePreviousQuestion(parseId(user));
-        this.context.router.replace(`/answer-other-question/${params.slug}/next`);
+        RouterActionCreators.replaceRoute(`/answer-other-question/${params.slug}/next`);
     }
 
     render() {
         const {user, question, userAnswer, strings} = this.props;
         return (
             <div className="views">
-                <TopNavBar leftMenuIcon={true} centerText={strings.statistics} rightText={strings.next} onRightLinkClickHandler={this.handleContinueClick}/>
+                <TopNavBar leftIcon={'left-arrow'} centerText={strings.statistics} rightText={strings.next} onRightLinkClickHandler={this.handleContinueClick}/>
                 <div className="view view-main">
                     <div className="page question-stats-page">
                         <div id="page-content" className="question-stats-content">
@@ -76,13 +73,9 @@ export default class QuestionOtherStatsPage extends Component {
                         </div>
                         <br />
                         <br />
-                        <FullWidthButton onClick={this.handleContinueClick}>{strings.next}</FullWidthButton>
-                        <br />
-                        <br />
-                        <br />
-                        <br />
                     </div>
                 </div>
+                <ButtonFloating icon={'arrow-right'} onClickHandler={this.handleContinueClick}/>
             </div>
         );
     }

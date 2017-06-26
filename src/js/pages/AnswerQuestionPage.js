@@ -7,6 +7,7 @@ import translate from '../i18n/Translate';
 import tutorial from '../components/tutorial/Tutorial';
 import connectToStores from '../utils/connectToStores';
 import * as QuestionActionCreators from '../actions/QuestionActionCreators';
+import RouterActionCreators from '../actions/RouterActionCreators';
 import UserStore from '../stores/UserStore';
 import QuestionStore from '../stores/QuestionStore';
 import Joyride from 'react-joyride';
@@ -81,10 +82,6 @@ export default class AnswerQuestionPage extends Component {
         goToQuestionStats      : PropTypes.bool
     };
 
-    static contextTypes = {
-        router: PropTypes.object.isRequired
-    };
-
     constructor(props) {
         super(props);
 
@@ -102,7 +99,9 @@ export default class AnswerQuestionPage extends Component {
     componentDidUpdate() {
         const {goToQuestionStats, question, from} = this.props;
         if (goToQuestionStats) {
-            this.context.router.replace(`/question-stats/${from}`);
+            setTimeout(() => {
+                RouterActionCreators.replaceRoute(`/question-stats/${from}`);
+            }, 0);
         }
     }
 
@@ -116,9 +115,9 @@ export default class AnswerQuestionPage extends Component {
         let questionId = question.questionId;
         QuestionActionCreators.skipQuestion(userId, questionId);
         if (user.slug === params.from) {
-            this.context.router.replace(`/questions`);
+            RouterActionCreators.replaceRoute(`/questions`);
         } else {
-            this.context.router.replace(`/users/${params.from}/other-questions`);
+            RouterActionCreators.replaceRoute(`/users/${params.from}/other-questions`);
         }
     }
 
@@ -135,7 +134,7 @@ export default class AnswerQuestionPage extends Component {
 
         return (
             <div className="views">
-                <TopNavBar leftMenuIcon={true} centerText={strings.question} rightIcon={isRegisterQuestion ? '' : 'delete'} onRightLinkClickHandler={isRegisterQuestion ? null : this.skipQuestionHandler}/>
+                <TopNavBar leftIcon={'left-arrow'} centerText={strings.question} rightIcon={isRegisterQuestion ? '' : 'delete'} onRightLinkClickHandler={isRegisterQuestion ? null : this.skipQuestionHandler}/>
                 <div className="view view-main">
                     <Joyride ref="joyrideAnswerQuestion" steps={steps} locale={tutorialLocale} callback={endTutorialHandler} type="continuous"/>
                     <div className="page answer-question-page">

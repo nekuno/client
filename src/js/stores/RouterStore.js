@@ -11,6 +11,7 @@ class RouterStore extends BaseStore {
 
     _registerToActions(action) {
         super._registerToActions(action);
+        let router = RouterContainer.get();
         switch (action.type) {
 
             case ActionTypes.ROUTER_NEXT_TRANSITION_PATH:
@@ -22,14 +23,14 @@ class RouterStore extends BaseStore {
                 this.emitChange();
                 break;
 
-            case ActionTypes.REMOVE_PREV_ROUTE:
+            case ActionTypes.REPLACE_ROUTE:
                 this._routes.pop();
+                setTimeout(router.replace(action.path), 0);
                 this.emitChange();
                 break;
 
             case ActionTypes.PREVIOUS_ROUTE:
                 this._routes.pop();
-                let router = RouterContainer.get();
                 if (this._routes.length > 0) {
                     const lastRoute = this._routes[this._routes.length - 1];
                     if (action.route === lastRoute) {

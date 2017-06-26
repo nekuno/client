@@ -10,6 +10,10 @@ body #root .App .view .page {
 
       .answer-question-title {
         margin-bottom: 20px;
+
+        &.answer-question-title-long {
+          font-size: 1.2em;
+        }
       }
       .answer-question-form {
         form {

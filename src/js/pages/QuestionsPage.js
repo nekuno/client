@@ -22,9 +22,11 @@ function getState(props) {
     const currentUserId = parseId(props.user);
     const pagination = QuestionStore.getPagination(currentUserId) || {};
     const questions = QuestionStore.get(currentUserId) || {};
+    const isLoadingOwnQuestions = QuestionStore.isLoadingOwnQuestions();
     return {
         pagination,
-        questions
+        questions,
+        isLoadingOwnQuestions
     };
 }
 
@@ -35,12 +37,13 @@ export default class QuestionsPage extends Component {
 
     static propTypes = {
         // Injected by @AuthenticatedComponent
-        user      : PropTypes.object.isRequired,
+        user                 : PropTypes.object.isRequired,
         // Injected by @translate:
-        strings   : PropTypes.object,
+        strings              : PropTypes.object,
         // Injected by @connectToStores:
-        pagination: PropTypes.object.isRequired,
-        questions : PropTypes.object.isRequired
+        pagination           : PropTypes.object.isRequired,
+        questions            : PropTypes.object.isRequired,
+        isLoadingOwnQuestions: PropTypes.bool.isRequired,
     };
 
     constructor(props) {
@@ -93,7 +96,7 @@ export default class QuestionsPage extends Component {
     }
 
     render() {
-        const {user, questions, strings} = this.props;
+        const {user, questions, strings, isLoadingOwnQuestions} = this.props;
         const ownPicture = user && user.photo ? user.photo.thumbnail.small : 'img/no-img/small.jpg';
         const defaultPicture = 'img/no-img/small.jpg';
         return (
@@ -104,23 +107,24 @@ export default class QuestionsPage extends Component {
                     {'url': '/gallery', 'text': strings.photos},
                     {'url': '/questions', 'text': strings.questions},
                     {'url': '/interests', 'text': strings.interests}
-                ]} activeLinkIndex={2} arrowUpLeft={'60%'} />
-                    <div className="view view-main" id="questions-view-main">
-                        <div className="page questions-page">
-                            <div id="page-content" className="questions-content">
-                                {/*<br />*/}
-                                {/*<br />*/}
-                                {/*<br />*/}
-                                {/*<br />*/}
-                                {/*<br />*/}
-                                {/*<br />*/}
-                                <QuestionList firstItems={this.getFirstItems.bind(this)()} questions={questions} userSlug={user.slug || ''} ownPicture={ownPicture} defaultPicture={defaultPicture} onTimerEnd={this.onTimerEnd} onBottomScroll = {this.onBottomScroll.bind(this)}/>
-                                {/*<br />*/}
-                                {/*<br />*/}
-                                {/*<br />*/}
-                            </div>
+                ]} activeLinkIndex={2} arrowUpLeft={'60%'}/>
+                <div className="view view-main" id="questions-view-main">
+                    <div className="page questions-page">
+                        <div id="page-content" className="questions-content">
+                            {/*<br />*/}
+                            {/*<br />*/}
+                            {/*<br />*/}
+                            {/*<br />*/}
+                            {/*<br />*/}
+                            {/*<br />*/}
+                            <QuestionList firstItems={this.getFirstItems.bind(this)()} questions={questions} userSlug={user.slug || ''} ownPicture={ownPicture}
+                                          defaultPicture={defaultPicture} onTimerEnd={this.onTimerEnd} onBottomScroll={this.onBottomScroll.bind(this)} isLoadingOwnQuestions={isLoadingOwnQuestions}/>
+                            {/*<br />*/}
+                            {/*<br />*/}
+                            {/*<br />*/}
                         </div>
                     </div>
+                </div>
             </div>
         );
     }

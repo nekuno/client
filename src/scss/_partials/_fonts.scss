@@ -40,11 +40,11 @@ $nekuno-logo-font: 'klinic_slabmedium';
 
 @font-face {
 	font-family: 'Nekuno Icons';
-	src:  url('fonts/icomoon.eot?r8zmbq');
-	src:  url('fonts/icomoon.eot?r8zmbq#iefix') format('embedded-opentype'),
-	url('fonts/icomoon.ttf?r8zmbq') format('truetype'),
-	url('fonts/icomoon.woff?r8zmbq') format('woff'),
-	url('fonts/icomoon.svg?r8zmbq#icomoon') format('svg');
+	src:  url('fonts/icomoon.eot?hd8e4e');
+	src:  url('fonts/icomoon.eot?hd8e4e#iefix') format('embedded-opentype'),
+	url('fonts/icomoon.ttf?hd8e4e') format('truetype'),
+	url('fonts/icomoon.woff?hd8e4e') format('woff'),
+	url('fonts/icomoon.svg?hd8e4e#icomoon') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }
@@ -68,6 +68,18 @@ $nekuno-logo-font: 'klinic_slabmedium';
 	opacity: 0.5;
 }
 
+.icon-cool:before {
+	content: "\e9eb";
+}
+.icon-hipster:before {
+	content: "\e9f9";
+}
+.icon-arrow-left:before {
+	content: "\f060";
+}
+.icon-arrow-right:before {
+	content: "\f061";
+}
 .icon-fa-plus:before {
 	content: "\f067";
 }

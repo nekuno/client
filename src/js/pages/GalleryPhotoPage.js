@@ -26,7 +26,7 @@ function getState(props) {
     }
 }
 
-function initPhotosSwiper(photos, profilePhoto, photoIndex) {
+function initPhotosSwiper(photos, photoIndex) {
     // Init slider
     let gallerySwiper = nekunoApp.swiper('#gallery-swiper-container', {
         initialSlide: photoIndex,
@@ -43,7 +43,7 @@ function initPhotosSwiper(photos, profilePhoto, photoIndex) {
 
     function onSlideChangeEnd(swiper) {
         activeIndex = swiper.activeIndex;
-        const photo = activeIndex === 0 ? profilePhoto : photos[activeIndex - 1];
+        const photo = photos[activeIndex];
         GalleryPhotoActionCreators.selectPhoto(photo);
     }
 
@@ -95,8 +95,8 @@ export default class GalleryPhotoPage extends Component {
     componentDidUpdate() {
         const {photos, photo, user} = this.props;
         if (this.props.photos.length > 0 && photo && !this.state.photosLoaded) {
-            const photoIndex = photos.findIndex(singlePhoto => singlePhoto.id == photo.id) + 1 || 0;
-            initPhotosSwiper(photos, user.photo, photoIndex);
+            const photoIndex = photos.findIndex(singlePhoto => singlePhoto.id == photo.id);
+            initPhotosSwiper(photos, photoIndex);
             this.setState({photosLoaded: true});
         }
     }
@@ -116,7 +116,7 @@ export default class GalleryPhotoPage extends Component {
     
     render() {
         const {user, photos, photo, strings} = this.props;
-        const isProfilePhoto = photo && photo.id == null;
+        const isProfilePhoto = photo && photo.isProfilePhoto;
         return (
             <div className="views">
                 {isProfilePhoto ?
@@ -131,15 +131,8 @@ export default class GalleryPhotoPage extends Component {
                                 {user.photo && photos ?
                                     <div id="gallery-swiper-container" className="swiper-container">
                                         <div className="swiper-wrapper">
-                                            <div className="swiper-slide" key={0}>
-                                                <div className="photo-absolute-wrapper">
-                                                    <Image src={user.photo.thumbnail.big}/>
-                                                    <div className="swiper-button-prev"></div>
-                                                    <div className="swiper-button-next"></div>
-                                                </div>
-                                            </div>
                                             {photos.map((photo, index) =>
-                                                <div className="swiper-slide" key={index + 1}>
+                                                <div className="swiper-slide" key={index}>
                                                     <div className="photo-absolute-wrapper">
                                                         <Image src={photo.thumbnail.big}/>
                                                         <div className="swiper-button-prev"></div>

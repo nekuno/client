@@ -23,10 +23,6 @@ export default class OtherQuestionList extends Component {
         const {questions, otherQuestions, otherUserSlug, ownPicture, otherPicture, onTimerEnd, isLoadingComparedQuestions, strings} = this.props;
 
         const questionComponents = Object.keys(otherQuestions).map((position, index) => {
-                // const question = Object.keys(otherQuestions).find((index) => {
-                //     const otherQuestion = otherQuestions[index];
-                //     return otherQuestion.question.questionId === questionId;
-                // });
             const question = otherQuestions[position];
             const questionId = question.question.questionId;
 
@@ -48,19 +44,11 @@ export default class OtherQuestionList extends Component {
             : [<EmptyMessage text={strings.loading} loadingGif={true} shortMarginTop={true}/>]
     }
 
-    getItems() {
-        const firstItems = this.props.firstItems;
-        const questions = this.getOtherQuestions.bind(this)();
-        return [
-            ...firstItems,
-            ...questions
-        ];
-    }
-
     render() {
         return (
             <InfiniteScroll
-                list={this.getItems()}
+                items = {this.getOtherQuestions.bind(this)()}
+                firstItems={this.props.firstItems}
                 // preloadAdditionalHeight={window.innerHeight*2}
                 // useWindowAsScrollContainer
                 onInfiniteLoad={this.props.onBottomScroll}

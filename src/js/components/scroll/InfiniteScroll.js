@@ -29,10 +29,20 @@ export default class InfiniteScroll extends Component {
         this.onInfiniteLoad = this.onInfiniteLoad.bind(this);
         this.getHeight = this.getHeight.bind(this);
         this.getScrollContainer = this.getScrollContainer.bind(this);
+        this.updateStateHeight = this.updateStateHeight.bind(this);
     }
 
     componentWillMount() {
+        this.updateStateHeight();
         setTimeout(this.checkRender, 200);
+    }
+
+    componentDidMount() {
+        window.addEventListener('resize', this.updateStateHeight);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.updateStateHeight);
     }
 
     checkRender() {
@@ -91,6 +101,13 @@ export default class InfiniteScroll extends Component {
         const containerId = this.props.containerId;
 
         scrollBehavior._saveElementPosition(containerId);
+    }
+
+    updateStateHeight() {
+        const scrollHeight = this.getHeight();
+        this.setState({
+            'height': scrollHeight
+        });
     }
 
     getHeight() {
@@ -185,9 +202,8 @@ export default class InfiniteScroll extends Component {
     }
 
     renderScroll() {
-        const isInfiniteLoading = this.state.loading;
+        const {isInfiniteLoading, height} = this.state;
         const scrollContainer = this.getScrollContainer();
-        const containerHeight = this.getHeight();
         const containerId = this.props.containerId;
 
         return <ScrollContainer scrollKey={containerId}>
@@ -198,7 +214,7 @@ export default class InfiniteScroll extends Component {
                 // useWindowAsScrollContainer
                 handleScroll={this.handleScroll.bind(this)}
                 scrollContainer={scrollContainer}
-                containerHeight={containerHeight}
+                containerHeight={height}
                 list={this.getList()}
                 // preloadAdditionalHeight={window.innerHeight*2}
                 {...this.props}

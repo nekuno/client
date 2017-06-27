@@ -1,4 +1,4 @@
-import { dispatchAsync } from '../dispatcher/Dispatcher';
+import { dispatch, dispatchAsync } from '../dispatcher/Dispatcher';
 import ActionTypes from '../constants/ActionTypes';
 import AuthService from '../services/AuthService';
 import WorkersStore from '../stores/WorkersStore';
@@ -24,6 +24,10 @@ export default {
             failure: ActionTypes.CONNECT_ACCOUNT_ERROR
         }, {resource, accessToken, resourceId, expireTime, refreshToken});
         return promise;
+    },
+
+    removeError: () => {
+        dispatch(ActionTypes.CONNECT_ACCOUNT_REMOVE_ERROR);
     },
 
 }

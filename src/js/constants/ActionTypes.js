@@ -28,9 +28,10 @@ export default keyMirror({
     REPLACE_ROUTE : null,
     PREVIOUS_ROUTE: null,
 
-    CONNECT_ACCOUNT        : null,
-    CONNECT_ACCOUNT_SUCCESS: null,
-    CONNECT_ACCOUNT_ERROR  : null,
+    CONNECT_ACCOUNT             : null,
+    CONNECT_ACCOUNT_SUCCESS     : null,
+    CONNECT_ACCOUNT_ERROR       : null,
+    CONNECT_ACCOUNT_REMOVE_ERROR: null,
 
     REQUEST_USER        : null,
     REQUEST_USER_SUCCESS: null,

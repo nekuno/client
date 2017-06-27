@@ -24,15 +24,16 @@ export default class SocialWheels extends Component {
         };
     }
 
-    componentWillReceiveProps() {
-        const {networks, error} = this.props;
+    componentWillReceiveProps(nextProps) {
+        const {networks} = this.props;
+        const {error} = nextProps;
         this.setState({
             prevNetworks: networks
         });
 
         if (error) {
             nekunoApp.alert(error);
-            ConnectActionCreators.removeConnectError();
+            setTimeout(ConnectActionCreators.removeError, 0);
         }
     }
 

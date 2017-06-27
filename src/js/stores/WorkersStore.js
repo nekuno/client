@@ -42,10 +42,20 @@ class WorkersStore extends BaseStore {
                 break;
 
             case ActionTypes.CONNECT_ACCOUNT_ERROR:
-                this._remove({
+                this._add({
                     resource  : action.resource,
+                    fetching  : false,
+                    fetched   : false,
+                    processing: false,
+                    process   : 0,
+                    processed : false
                 });
-                this._connectError = true;
+                this.setConnectError();
+                this.emitChange();
+                break;
+
+            case ActionTypes.CONNECT_ACCOUNT_REMOVE_ERROR:
+                this.removeConnectError();
                 this.emitChange();
                 break;
 
@@ -210,18 +220,12 @@ class WorkersStore extends BaseStore {
         }
     }
 
-    _remove(status) {
-        let index = this._networks.findIndex((network) => {
-            return network.resource === status.resource;
-        });
-
-        if (index !== -1) {
-            this._networks.splice(index, 1);
-        }
-    }
-
     getConnectError() {
         return this._connectError;
+    }
+
+    setConnectError() {
+        this._connectError = true;
     }
 
     removeConnectError() {

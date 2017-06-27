@@ -8,7 +8,8 @@ export default class SocialWheels extends Component {
 
     static propTypes = {
         picture : PropTypes.string.isRequired,
-        networks: PropTypes.array.isRequired
+        networks: PropTypes.array.isRequired,
+        error   : PropTypes.string
     };
 
     constructor(props) {
@@ -23,11 +24,17 @@ export default class SocialWheels extends Component {
         };
     }
 
-    componentWillReceiveProps() {
+    componentWillReceiveProps(nextProps) {
         const {networks} = this.props;
+        const {error} = nextProps;
         this.setState({
             prevNetworks: networks
-        })
+        });
+
+        if (error) {
+            nekunoApp.alert(error);
+            setTimeout(ConnectActionCreators.removeError, 0);
+        }
     }
 
     renderProcessingIcon = function(resource, radius, degrees, posX, posY, key) {

@@ -41,13 +41,15 @@ export default {
         next   : 'Continuar',
         welcome: 'Bienvenido a Nekuno',
         excerpt: '¡Por fin tus datos trabajarán para ti! ¡Cuantos más intereses incluyas, mejores recomendaciones obtendrás!',
-        footer : 'Nekuno funciona principalmente sincronizando tus redes sociales; puedes estar tranquilo, no publicaremos nada sin tu permiso. Podrás elegir qué información suministras y qué redes sincronizas en todo momento.'
+        footer : 'Nekuno funciona principalmente sincronizando tus redes sociales; puedes estar tranquilo, no publicaremos nada sin tu permiso. Podrás elegir qué información suministras y qué redes sincronizas en todo momento.',
+        error  : 'Error conectando red. Quizás ya la has conectado con otro usuario.'
     },
     ConnectSocialNetworksPage        : {
         top    : 'Redes Sociales',
         title  : 'Mejora las recomendaciones',
         excerpt: '¡Por fin tus datos trabajarán para ti! ¡Cuantos más intereses aportes, mejores recomendaciones obtendrás!',
-        footer : 'Recuerda: tú tienes el control en todo momento, no publicaremos nada en tus redes sociales'
+        footer : 'Recuerda: tú tienes el control en todo momento, no publicaremos nada en tus redes sociales',
+        error  : 'Error conectando red. Quizás ya la has conectado con otro usuario.'
     },
     EditProfilePage                  : {
         title       : 'Editar perfil',

@@ -202,7 +202,8 @@ export default class InfiniteScroll extends Component {
     }
 
     renderScroll() {
-        const {isInfiniteLoading, height} = this.state;
+        const {isInfiniteLoading} = this.state;
+        const height = this.getHeight();
         const scrollContainer = this.getScrollContainer();
         const containerId = this.props.containerId;
 

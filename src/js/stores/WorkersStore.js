@@ -15,6 +15,7 @@ class WorkersStore extends BaseStore {
                 processed : false
             }
         });
+        this._connectError = null;
         this._linksPercentage = null;
         this._similarityPercentage = null;
         this._matchingPercentage = null;
@@ -27,6 +28,27 @@ class WorkersStore extends BaseStore {
         super._registerToActions(action);
 
         switch (action.type) {
+
+            case ActionTypes.CONNECT_ACCOUNT:
+                this._add({
+                    resource  : action.resource,
+                    fetching  : true,
+                    fetched   : false,
+                    processing: false,
+                    process   : 0,
+                    processed : false
+                });
+                this.emitChange();
+                break;
+
+            case ActionTypes.CONNECT_ACCOUNT_ERROR:
+                this._remove({
+                    resource  : action.resource,
+                });
+                this._connectError = true;
+                this.emitChange();
+                break;
+
             case ActionTypes.WORKERS_FETCH_START:
                 this._add({
                     resource  : action.resource,
@@ -186,6 +208,24 @@ class WorkersStore extends BaseStore {
         } else {
             this._networks.push(status);
         }
+    }
+
+    _remove(status) {
+        let index = this._networks.findIndex((network) => {
+            return network.resource === status.resource;
+        });
+
+        if (index !== -1) {
+            this._networks.splice(index, 1);
+        }
+    }
+
+    getConnectError() {
+        return this._connectError;
+    }
+
+    removeConnectError() {
+        this._connectError = null;
     }
 
     _setLinksPercentage() {

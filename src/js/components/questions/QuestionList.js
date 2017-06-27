@@ -1,14 +1,20 @@
 import React, { PropTypes, Component } from 'react';
 import Question from './Question';
+import EmptyMessage from '../ui/EmptyMessage';
 import InfiniteScroll from "../scroll/InfiniteScroll";
+import translate from '../../i18n/Translate';
 
+@translate('QuestionList')
 export default class QuestionList extends Component {
     static propTypes = {
         questions     : PropTypes.object.isRequired,
         ownPicture    : PropTypes.string.isRequired,
         defaultPicture: PropTypes.string.isRequired,
         userSlug      : PropTypes.string.isRequired,
-        onTimerEnd    : PropTypes.func
+        onTimerEnd    : PropTypes.func,
+        isLoadingOwnQuestions: PropTypes.bool,
+        // Injected by @translate:
+        strings                   : PropTypes.object
     };
 
     constructor(props) {
@@ -28,9 +34,10 @@ export default class QuestionList extends Component {
     }
 
     getQuestions() {
-        const {questions, userSlug, ownPicture, defaultPicture, onTimerEnd} = this.props;
+        const {questions, userSlug, ownPicture, defaultPicture, onTimerEnd, isLoadingOwnQuestions, strings} = this.props;
 
         const questionComponents = Object.keys(questions).map((questionId, index) =>
+        <div className="question-list">
             <Question userSlug={userSlug}
                       userAnswer={questions[questionId].userAnswer}
                       ownPicture={ownPicture}
@@ -38,30 +45,22 @@ export default class QuestionList extends Component {
                       key={index}
                       accessibleKey={index}
                       question={questions[questionId]}
-                      last={index == questions.length}
+                      last={index === questions.length}
                       onClickHandler={this.onClickHandler}
                       onTimerEnd={onTimerEnd}
-                      graphActive={this.state.graphDisplayQuestionId == questionId}
-            />);
-        return <div className="question-list">
-            {questionComponents}
-        </div>
-            ;
-    }
-
-    getItems() {
-        const firstItems = this.props.firstItems;
-        const questions = this.getQuestions.bind(this)();
-        return [
-            ...firstItems,
-            questions
-        ];
+                      graphActive={this.state.graphDisplayQuestionId === questionId}
+            />
+        </div>);
+        return !isLoadingOwnQuestions || Object.keys(questions).length !== 0 ?
+            questionComponents
+            : [<EmptyMessage text={strings.loading} loadingGif={true} shortMarginTop={true}/>];
     }
 
     render() {
         return (
             <InfiniteScroll
-                list={this.getItems()}
+                items={this.getQuestions.bind(this)()}
+                firstItems ={this.props.firstItems}
                 // preloadAdditionalHeight={window.innerHeight*2}
                 // useWindowAsScrollContainer
                 onInfiniteLoad={this.props.onBottomScroll}
@@ -70,3 +69,9 @@ export default class QuestionList extends Component {
         );
     }
 }
+
+QuestionList.defaultProps = {
+    strings: {
+        loading: 'Loading questions'
+    }
+};

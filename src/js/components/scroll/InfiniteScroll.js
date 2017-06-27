@@ -7,7 +7,9 @@ export default class InfiniteScroll extends Component {
 
     static propTypes = {
         containerId: PropTypes.string.isRequired,
-        list: PropTypes.array
+        firstItems : PropTypes.array,
+        items      : PropTypes.array,
+        columns    : PropTypes.number,
     };
 
     static contextTypes = {
@@ -27,10 +29,20 @@ export default class InfiniteScroll extends Component {
         this.onInfiniteLoad = this.onInfiniteLoad.bind(this);
         this.getHeight = this.getHeight.bind(this);
         this.getScrollContainer = this.getScrollContainer.bind(this);
+        this.updateStateHeight = this.updateStateHeight.bind(this);
     }
 
     componentWillMount() {
+        this.updateStateHeight();
         setTimeout(this.checkRender, 200);
+    }
+
+    componentDidMount() {
+        window.addEventListener('resize', this.updateStateHeight);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.updateStateHeight);
     }
 
     checkRender() {
@@ -71,7 +83,7 @@ export default class InfiniteScroll extends Component {
             this._setLoadingState(true);
             this.props.onInfiniteLoad().then(() => {
                 this._setLoadingState(false)
-            }) .catch(() => {
+            }).catch(() => {
                 this._setLoadingState(false)
             });
 
@@ -89,6 +101,13 @@ export default class InfiniteScroll extends Component {
         const containerId = this.props.containerId;
 
         scrollBehavior._saveElementPosition(containerId);
+    }
+
+    updateStateHeight() {
+        const scrollHeight = this.getHeight();
+        this.setState({
+            'height': scrollHeight
+        });
     }
 
     getHeight() {
@@ -134,14 +153,58 @@ export default class InfiniteScroll extends Component {
                 scrollContainer.offsetHeight ? scrollContainer.offsetHeight : null;
     }
 
+    wrap(items, columns) {
+        if (columns === 1) {
+            return items;
+        }
+
+        let savedItem = null;
+        let wrappedItems = [];
+
+        items.forEach((item) => {
+
+            if (savedItem === null) {
+                savedItem = item;
+            } else {
+                wrappedItems.push(this.buildWrapper(savedItem, item));
+                savedItem = null;
+            }
+        });
+
+        if (savedItem !== null) {
+            wrappedItems.push(this.buildWrapper(savedItem));
+            savedItem = null;
+        }
+
+        return wrappedItems;
+    }
+
+    buildWrapper(card1, card2) {
+        let cards = [Object.assign({}, card1)];
+        if (card2 instanceof Object) {
+            cards.push(Object.assign({}, card2));
+        }
+
+        const wrapper = <div>
+            {cards}
+        </div>;
+
+        card1 = null;
+
+        return wrapper;
+    }
+
     getList() {
-        return this.props.list.slice(0);
+        const {firstItems, items, columns} = this.props;
+        const wrappedItems = this.wrap(items, columns);
+        const list = [...firstItems, ...wrappedItems];
+        return list.slice(0);
     }
 
     renderScroll() {
-        const isInfiniteLoading = this.state.loading;
+        const {isInfiniteLoading} = this.state;
+        const height = this.getHeight();
         const scrollContainer = this.getScrollContainer();
-        const containerHeight = this.getHeight();
         const containerId = this.props.containerId;
 
         return <ScrollContainer scrollKey={containerId}>
@@ -152,7 +215,7 @@ export default class InfiniteScroll extends Component {
                 // useWindowAsScrollContainer
                 handleScroll={this.handleScroll.bind(this)}
                 scrollContainer={scrollContainer}
-                containerHeight={containerHeight}
+                containerHeight={height}
                 list={this.getList()}
                 // preloadAdditionalHeight={window.innerHeight*2}
                 {...this.props}
@@ -178,5 +241,7 @@ InfiniteScroll.defaultProps = {
     'onInfiniteLoad': () => {
         return Promise.resolve()
     },
-    'list': []
+    'firstItems'    : [],
+    'items'         : [],
+    'columns'       : 1,
 };

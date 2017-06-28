@@ -31,7 +31,8 @@ class ProfileStore extends BaseStore {
                 break;
             case ActionTypes.REQUEST_OWN_PROFILE_SUCCESS:
                 this._profiles[action.userId] = this._profiles[action.userId] || {};
-                mergeIntoBag(this._profiles[action.userId], action.response);
+                const newProfiles = {[action.userId]: action.response};
+                mergeIntoBag(this._profiles, newProfiles);
                 this._setInitialRequiredProfileQuestionsCount(action.userId);
                 this.emitChange();
                 break;

@@ -18,7 +18,7 @@
         "cordova-plugin-app-event": "^1.2.0",
         "cordova-plugin-crosswalk-webview": "^2.3.0",
         "cordova-plugin-device": "^1.1.6",
-        "cordova-plugin-facebook4": "^1.9.1",
+        "cordova-plugin-facebook4": "1.7.4",
         "cordova-plugin-google-analytics": "^1.8.3",
         "cordova-plugin-inappbrowser": "^1.7.1",
         "cordova-plugin-local-notifications": "^1.0.0",

@@ -62,7 +62,7 @@
         <variable name="XWALK_MULTIPLEAPK" value="true" />
     </plugin>
     <plugin name="cordova-plugin-device" spec="^1.1.6" />
-    <plugin name="cordova-plugin-facebook4" spec="^1.9.1">
+    <plugin name="cordova-plugin-facebook4" spec="1.7.4">
         <variable name="APP_ID" value="900844543277969" />
         <variable name="APP_NAME" value="fornekuno" />
     </plugin>

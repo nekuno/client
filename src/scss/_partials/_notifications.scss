@@ -61,6 +61,10 @@
 				overflow: hidden;
 				text-overflow: ellipsis;
 			}
+			
+			> span {
+				text-align: left;
+			}
 		}
 		.notification-time {
 			color: #000;

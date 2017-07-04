@@ -6,7 +6,7 @@ export default class Image extends Component {
         className  : PropTypes.string,
         src        : PropTypes.string,
         defaultSrc : PropTypes.string,
-        showLoading: PropTypes.boolean
+        showLoading: PropTypes.bool
     };
 
     constructor(props) {

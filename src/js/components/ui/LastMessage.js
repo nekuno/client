@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 import moment from 'moment';
 import ChatUserStatusStore from '../../stores/ChatUserStatusStore';
 import connectToStores from '../../utils/connectToStores';
-import ReactEmoji from 'react-emoji';
+import Emojify from 'react-emojione';
 
 function getState(props) {
 
@@ -26,7 +26,6 @@ export default class LastMessage extends Component {
 
     render() {
         const {message, user, online} = this.props;
-        let text = ReactEmoji.emojify(message.text);
         let readed = message.readed;
         let createdAt = message.createdAt;
         let imageSrc = message.user.id === message.user_from.id ? message.user_to.photo.thumbnail.medium : message.user_from.photo.thumbnail.medium;
@@ -46,7 +45,7 @@ export default class LastMessage extends Component {
                             <span className="notification-title-text">{user.username}</span>
                         </div>
                         <div className="notification-excerpt truncate" style={style}>
-                            {text}
+                            <Emojify>{message.text}</Emojify>
                         </div>
                         <div className="notification-time" title={createdAt.toLocaleString()}>
                             <span className="icon-clock"></span>&nbsp;

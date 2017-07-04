@@ -240,7 +240,7 @@ export default class GalleryPage extends Component {
                                 {profilePhoto ?
                                     <div className="photo-wrapper" onClick={this.goToPhotoGalleryPage.bind(this, profilePhoto)}>
                                         <div className="photo-absolute-wrapper">
-                                            <ImageComponent src={profilePhoto.thumbnail.small}/>
+                                            <ImageComponent src={profilePhoto.thumbnail.small} showLoading={true}/>
                                         </div>
                                         <div className="profile-photo-text"><span className="icon-person"></span><div className="text">&nbsp;{strings.profilePhoto}</div></div>
                                     </div>
@@ -249,7 +249,7 @@ export default class GalleryPage extends Component {
                                         photo.isProfilePhoto ? null :
                                             <div key={photo.id} className="photo-wrapper" onClick={this.goToPhotoGalleryPage.bind(this, photo)}>
                                                 <div className="photo-absolute-wrapper">
-                                                    <ImageComponent src={photo.thumbnail.small}/>
+                                                    <ImageComponent src={photo.thumbnail.small} showLoading={true}/>
                                                 </div>
                                             </div>
                                 )}

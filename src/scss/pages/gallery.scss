@@ -21,6 +21,9 @@ body #root .App .views .view .page.gallery-page {
         margin-left: -53px;
         width: 200px;
 
+        .loading-gif {
+          margin: auto;
+        }
         img {
           border-radius: 2px;
           -moz-border-radius: 2px;

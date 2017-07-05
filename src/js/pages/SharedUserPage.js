@@ -43,10 +43,6 @@ export default class SharedUserPage extends Component {
         error            : PropTypes.string
     };
 
-    static contextTypes = {
-        router: PropTypes.object.isRequired
-    };
-
     constructor(props) {
         super(props);
 
@@ -69,7 +65,7 @@ export default class SharedUserPage extends Component {
             nekunoApp.alert(this.props.error, () => {
                 const path = '/discover';
                 console.log('Redirecting to path', path);
-                this.context.router.replace(path);
+                RouterActionCreators.replaceRoute(path);
 
             });
         }

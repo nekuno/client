@@ -90,9 +90,9 @@ export default class OtherGalleryPage extends Component {
     componentDidUpdate() {
         const {photos, otherUser, params} = this.props;
         if (this.props.photos.length > 0 && otherUser && otherUser.photo && !this.state.photosLoaded) {
-            const photoIndex = photos.findIndex(photo => photo.id == params.photoId) + 1 || 0;
+            const photoIndex = photos.findIndex(photo => photo.id == params.photoId);
             initPhotosSwiper(photoIndex);
-            this.setState({photosLoaded: true,});
+            this.setState({photosLoaded: true});
         }
     }
 
@@ -111,15 +111,8 @@ export default class OtherGalleryPage extends Component {
                                     <div className="swiper-custom">
                                         <div id="gallery-swiper-container" className="swiper-container">
                                             <div className="swiper-wrapper">
-                                                <div className="swiper-slide" key={0}>
-                                                    <div className="photo-absolute-wrapper">
-                                                        <Image src={otherUser.photo.thumbnail.big}/>
-                                                        <div className="swiper-button-prev"></div>
-                                                        <div className="swiper-button-next"></div>
-                                                    </div>
-                                                </div>
                                                 {photos.map((photo, index) =>
-                                                    <div className="swiper-slide" key={index + 1}>
+                                                    <div className="swiper-slide" key={index}>
                                                         <div className="photo-absolute-wrapper">
                                                             <Image src={photo.thumbnail.big}/>
                                                             <div className="swiper-button-prev"></div>

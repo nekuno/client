@@ -47,13 +47,11 @@ class ChatMessageStore extends BaseStore {
 
     _addMessages(messages, fresh) {
         messages.forEach((message) => {
-            if (!this._messages[message.id]) {
-                message.createdAt = new Date(message.createdAt);
-                message.readed = message.readed === 1;
-                this._messages[message.id] = message;
-                let user = message.user.id === message.user_from.id ? message.user_to : message.user_from;
-                this._fresh[user.id] = fresh;
-            }
+            message.createdAt = new Date(message.createdAt);
+            message.readed = message.readed === 1;
+            this._messages[message.id] = message;
+            let user = message.user.id === message.user_from.id ? message.user_to : message.user_from;
+            this._fresh[user.id] = fresh;
         })
     }
 

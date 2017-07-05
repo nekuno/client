@@ -41,13 +41,15 @@ export default {
         next   : 'Continue',
         welcome: 'Welcome to Nekuno',
         excerpt: 'Make your data work for you! The more interest you contribute, the better recommendations you’ll get!',
-        footer : 'Nekuno primarily works with the social networks you have synced. We don’t post anything. You can control the information you give and block information if you so desire.'
+        footer : 'Nekuno primarily works with the social networks you have synced. We don’t post anything. You can control the information you give and block information if you so desire.',
+        error  : 'Error connecting network. You may have connected it with other user.'
     },
     ConnectSocialNetworksPage        : {
         top    : 'Social Networks',
         title  : 'Improve recommendations',
         excerpt: 'Make your data work for you! The more interest you contribute, the better recommendations you’ll get!',
-        footer : 'Remember, you’re in control at all times, we will not publish anything on your social networks'
+        footer : 'Remember, you’re in control at all times, we will not publish anything on your social networks',
+        error  : 'Error connecting network. You may have connected it with other user.'
     },
     EditProfilePage                  : {
         title       : 'Edit profile',
@@ -144,7 +146,7 @@ export default {
         enterToken    : 'Badge Code',
         enterTokenText: 'Enter the badge code',
         close         : 'Close',
-        ok            : 'Ok'
+        ok            : 'Unlock'
     },
     LoginPage                        : {
         login        : 'Login',
@@ -270,7 +272,7 @@ export default {
         compatibilityCheckWith: 'Check your compatibility with %username%',
         copiedToClipboard     : 'Copied to clipboard',
         block                 : 'Block user',
-        unblock               : 'Unblock user',
+        unlock                : 'Unlock user',
         blockAndReport        : 'Block and report user',
         cancel                : 'Cancel',
         confirmBlock          : 'Are you sure you want to block this user?',
@@ -416,6 +418,9 @@ export default {
         alertFirst: 'Mark your answer in the first column',
         saving    : 'Saving'
     },
+    QuestionList                     : {
+        loading: 'Loading questions'
+    },
     OtherQuestionList                : {
         loading: 'Loading questions'
     },
@@ -431,7 +436,9 @@ export default {
     },
     QuestionStatsGraph               : {
         females: 'Girls',
-        males  : 'Boys'
+        males  : 'Boys',
+        young  : '- than 30',
+        old    : '+ than 30'
     },
     QuestionStatsInline              : {
         statistics: 'Community answer statistics'

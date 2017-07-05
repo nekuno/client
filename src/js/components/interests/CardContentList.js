@@ -18,23 +18,14 @@ export default class CardContentList extends Component {
         super(props);
 
         this.onReport = this.onReport.bind(this);
-        this.getItems = this.getItems.bind(this);
+        this.getCardContents = this.getCardContents.bind(this);
     }
 
     onReport(contentId, reason) {
         this.props.onReport(contentId, reason);
     }
 
-    getItems() {
-        const firstItems = this.props.firstItems;
-        const contents = this.props.loadingFirst ? [] : this.getCardContents.bind(this)();
-        return [
-            ...firstItems,
-            ...contents
-        ];
-    }
-
-    buildCardUser(content, index) {
+    buildCardContent(content, index) {
         const {userId, otherUserId} = this.props;
 
         return <CardContent key={index} hideLikeButton={false} {...content} loggedUserId={userId} otherUserId={otherUserId}
@@ -42,50 +33,19 @@ export default class CardContentList extends Component {
                             fixedHeight={true} onReport={this.onReport}/>
     }
 
-    buildCardWrapper(card1, card2) {
-        let cards = [Object.assign({}, card1)];
-        if (card2 instanceof Object) {
-            cards.push(Object.assign({}, card2));
-        }
-
-        const wrapper = <div>
-            {cards}
-        </div>;
-
-        card1 = null;
-
-        return wrapper;
-    }
-
     getCardContents() {
-
-        let savedContentCard = null;
-        let contentComponents = [];
-
-        this.props.contents.forEach((content, index) => {
-            let thisContentCard = this.buildCardUser.bind(this)(content, index);
-
-            if (savedContentCard === null) {
-                savedContentCard = thisContentCard;
-            } else {
-                contentComponents.push(this.buildCardWrapper(savedContentCard, thisContentCard));
-                savedContentCard = null;
-            }
+        return this.props.contents.map((content, index) => {
+            return this.buildCardContent(content, index);
         });
-
-        if (savedContentCard !== null) {
-            contentComponents.push(this.buildCardWrapper(savedContentCard));
-            savedContentCard = null;
-        }
-
-        return contentComponents;
     }
 
     render() {
         return (
             <div className="content-list">
                 <InfiniteScroll
-                    list={this.getItems()}
+                    items = {this.getCardContents()}
+                    firstItems={this.props.firstItems}
+                    columns = {2}
                     // preloadAdditionalHeight={window.innerHeight*2}
                     // useWindowAsScrollContainer
                     onInfiniteLoad={this.props.onBottomScroll}

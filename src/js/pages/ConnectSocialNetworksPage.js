@@ -9,9 +9,11 @@ import WorkersStore from '../stores/WorkersStore';
 function getState(props) {
 
     const networks = WorkersStore.getAll();
+    const error = WorkersStore.getConnectError();
 
     return {
-        networks
+        networks,
+        error
     };
 }
 
@@ -30,12 +32,13 @@ export default class ConnectSocialNetworksPage extends Component {
         // Injected by @translate:
         strings : PropTypes.object,
         // Injected by @connectToStores:
-        networks: PropTypes.array.isRequired
+        networks: PropTypes.array.isRequired,
+        error   : PropTypes.bool,
     };
 
     render() {
 
-        const {networks, user, strings} = this.props;
+        const {networks, error, user, strings} = this.props;
         const picture = user && user.photo ? user.photo.thumbnail.medium : 'img/no-img/medium.jpg';
 
         return (
@@ -47,7 +50,7 @@ export default class ConnectSocialNetworksPage extends Component {
                             <div className="title">{strings.title}</div>
                             <div className="excerpt">{strings.excerpt}</div>
                             <br />
-                            <SocialWheels networks={networks} picture={picture}/>
+                            <SocialWheels networks={networks} picture={picture} error={error ? strings.error : null}/>
                             <div className="excerpt">{strings.footer}</div>
                         </div>
                         <br />
@@ -64,6 +67,7 @@ ConnectSocialNetworksPage.defaultProps = {
         top    : 'Social Networks',
         title  : 'Connect to your world',
         excerpt: 'At last your data will work for you! The more interest you contribute, the better recommendations you’ll get!',
-        footer : 'Remember, you’re in control at all times, we will not publish anything on your social networks'
+        footer : 'Remember, you’re in control at all times, we will not publish anything on your social networks',
+        error  : 'Error connecting network. You may have connected it with other user.',
     }
 };

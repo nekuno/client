@@ -127,8 +127,7 @@ export default class AnswerNextQuestionPage extends Component {
         const {goToQuestionStats, question} = this.props;
         if (goToQuestionStats) {
             setTimeout(() => {
-                RouterActionCreators.removePreviousRoute();
-                this.context.router.replace(`/question-stats`);
+                RouterActionCreators.replaceRoute(`/question-stats`);
             }, 0);
         } else if (question && question.questionId) {
             // TODO: Uncomment to start the tutorial the first time
@@ -167,7 +166,7 @@ export default class AnswerNextQuestionPage extends Component {
     render() {
         const {user, strings, errors, noMoreQuestions, userAnswer, question, isJustRegistered, isJustCompleted, totalQuestions, questionNumber, steps, tutorialLocale, endTutorialHandler} = this.props;
         const userId = parseId(user);
-        const navBarTitle = question && question.id && (isJustRegistered || isJustCompleted) ? strings.question + ' ' + questionNumber + '/' + totalQuestions : strings.question;
+        const navBarTitle = question && question.questionId && (isJustRegistered || isJustCompleted) ? strings.question + ' ' + questionNumber + '/' + totalQuestions : strings.question;
         const ownPicture = user.photo ? user.photo.thumbnail.small : 'img/no-img/small.jpg';
         const isRegisterQuestion = selectn('isRegisterQuestion', question);
 

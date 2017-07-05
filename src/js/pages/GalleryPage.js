@@ -31,10 +31,8 @@ function getState(props) {
     const photos = GalleryPhotoStore.get(userId);
     const errors = GalleryPhotoStore.getErrors();
     const loadingPhoto = GalleryPhotoStore.getLoadingPhoto();
-    const profilePhoto = user.photo ? user.photo.thumbnail.medium : '';
     return {
         photos,
-        profilePhoto,
         noPhotos,
         errors,
         loadingPhoto
@@ -58,7 +56,6 @@ export default class GalleryPage extends Component {
         popupContentRef     : PropTypes.func,
         // Injected by @connectToStores:
         photos      : PropTypes.array,
-        profilePhoto: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
         noPhotos    : PropTypes.bool,
         loadingPhoto: PropTypes.bool
     };
@@ -218,7 +215,9 @@ export default class GalleryPage extends Component {
     };
 
     render() {
-        const {user, photos, profilePhoto, noPhotos, loadingPhoto, strings} = this.props;
+        const {user, photos, noPhotos, loadingPhoto, strings} = this.props;
+        const profilePhoto = photos.find((photo) => photo.isProfilePhoto === true);
+
         return (
             <div className="views">
                 <TopNavBar leftMenuIcon={true} centerText={strings.myProfile} rightIcon={'uploadthin'} rightIconsWithoutCircle={true} onRightLinkClickHandler={this.importAlbumPopUp}/>
@@ -241,17 +240,18 @@ export default class GalleryPage extends Component {
                                 {profilePhoto ?
                                     <div className="photo-wrapper" onClick={this.goToPhotoGalleryPage.bind(this, profilePhoto)}>
                                         <div className="photo-absolute-wrapper">
-                                            <ImageComponent src={profilePhoto}/>
+                                            <ImageComponent src={profilePhoto.thumbnail.small} showLoading={true}/>
                                         </div>
                                         <div className="profile-photo-text"><span className="icon-person"></span><div className="text">&nbsp;{strings.profilePhoto}</div></div>
                                     </div>
                                     : null}
                                 {noPhotos ? <EmptyMessage text={strings.empty}/> : photos.map(photo =>
-                                    <div key={photo.id} className="photo-wrapper" onClick={this.goToPhotoGalleryPage.bind(this, photo)}>
-                                        <div className="photo-absolute-wrapper">
-                                            <ImageComponent src={photo.thumbnail.small}/>
-                                        </div>
-                                    </div>
+                                        photo.isProfilePhoto ? null :
+                                            <div key={photo.id} className="photo-wrapper" onClick={this.goToPhotoGalleryPage.bind(this, photo)}>
+                                                <div className="photo-absolute-wrapper">
+                                                    <ImageComponent src={photo.thumbnail.small} showLoading={true}/>
+                                                </div>
+                                            </div>
                                 )}
                                 {loadingPhoto ?
                                     <div className="photo-loading-wrapper photo-wrapper">

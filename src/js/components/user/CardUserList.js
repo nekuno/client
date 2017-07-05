@@ -36,32 +36,7 @@ export default class CardUserList extends Component {
     constructor(props) {
         super(props);
 
-        this.getItems = this.getItems.bind(this);
         this.getCardUsers = this.getCardUsers.bind(this);
-    }
-
-    getItems() {
-        const firstItems = this.props.firstItems;
-        const cards = this.getCardUsers();
-        return [
-            ...firstItems,
-            ...cards
-        ];
-    }
-
-    buildCardWrapper(card1, card2) {
-        let cards = [Object.assign({}, card1)];
-        if (card2 instanceof Object) {
-            cards.push(Object.assign({}, card2));
-        }
-
-        const wrapper = <div>
-            {cards}
-        </div>;
-
-        card1 = null;
-
-        return wrapper;
     }
 
     buildCardUser(recommendation, index) {
@@ -82,40 +57,25 @@ export default class CardUserList extends Component {
             loggedUserId={user.id}
             profile={profile}
             handleSelectProfile={handleSelectProfile}
-            online={onlineUserIds.some(id => id == recommendation.id)}
+            online={onlineUserIds.some(id => id === recommendation.id)}
             similarityOrder={similarityOrder}
             slug={recommendation.slug}
         />
     }
 
     getCardUsers() {
-        let savedCard = null;
-        let userComponents = [];
-
-        this.props.recommendations.forEach((recommendation, index) => {
-            let thisCard = this.buildCardUser.bind(this)(recommendation, index);
-
-            if (savedCard === null) {
-                savedCard = thisCard;
-            } else {
-                userComponents.push(this.buildCardWrapper(savedCard, thisCard));
-                savedCard = null;
-            }
-        });
-
-        if (savedCard !== null) {
-            userComponents.push(this.buildCardWrapper(savedCard));
-            savedCard = null;
-        }
-
-        return userComponents;
+        return this.props.recommendations.map((recommendation, index) => {
+            return this.buildCardUser(recommendation, index);
+        })
     }
 
     render() {
         return (
             <div className="user-list" id="user-list">
                 <InfiniteScroll
-                    list={this.getItems()}
+                    items = {this.getCardUsers()}
+                    firstItems={this.props.firstItems}
+                    columns = {2}
                     // preloadAdditionalHeight={window.innerHeight*2}
                     // useWindowAsScrollContainer
                     onInfiniteLoad={this.props.onBottomScroll}

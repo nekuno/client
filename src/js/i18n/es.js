@@ -41,13 +41,15 @@ export default {
         next   : 'Continuar',
         welcome: 'Bienvenido a Nekuno',
         excerpt: '¡Por fin tus datos trabajarán para ti! ¡Cuantos más intereses incluyas, mejores recomendaciones obtendrás!',
-        footer : 'Nekuno funciona principalmente sincronizando tus redes sociales; puedes estar tranquilo, no publicaremos nada sin tu permiso. Podrás elegir qué información suministras y qué redes sincronizas en todo momento.'
+        footer : 'Nekuno funciona principalmente sincronizando tus redes sociales; puedes estar tranquilo, no publicaremos nada sin tu permiso. Podrás elegir qué información suministras y qué redes sincronizas en todo momento.',
+        error  : 'Error conectando red. Quizás ya la has conectado con otro usuario.'
     },
     ConnectSocialNetworksPage        : {
         top    : 'Redes Sociales',
         title  : 'Mejora las recomendaciones',
         excerpt: '¡Por fin tus datos trabajarán para ti! ¡Cuantos más intereses aportes, mejores recomendaciones obtendrás!',
-        footer : 'Recuerda: tú tienes el control en todo momento, no publicaremos nada en tus redes sociales'
+        footer : 'Recuerda: tú tienes el control en todo momento, no publicaremos nada en tus redes sociales',
+        error  : 'Error conectando red. Quizás ya la has conectado con otro usuario.'
     },
     EditProfilePage                  : {
         title       : 'Editar perfil',
@@ -144,7 +146,7 @@ export default {
         enterToken    : 'Código de insignia',
         enterTokenText: 'Escribe el código de la insignia',
         close         : 'Cerrar',
-        ok            : 'Aceptar'
+        ok            : 'Desbloquear'
     },
     LoginPage                        : {
         login        : 'Iniciar sesión',
@@ -270,7 +272,7 @@ export default {
         compatibilityCheckWith: 'Descubre tu compatibilidad con %username%',
         copiedToClipboard     : 'Copiado al portapapeles',
         block                 : 'Bloquear usuario',
-        unblock               : 'Desbloquear usuario',
+        unlock                : 'Desbloquear usuario',
         blockAndReport        : 'Bloquear y reportar usuario',
         cancel                : 'Cancelar',
         confirmBlock          : '¿Estás seguro de que quieres bloquear a este usuario?',
@@ -416,6 +418,9 @@ export default {
         alertFirst: 'Marca tu respuesta en la primera columna',
         saving    : 'Guardando'
     },
+    QuestionList                     : {
+        loading: 'Cargando preguntas'
+    },
     OtherQuestionList                : {
         loading: 'Cargando preguntas'
     },
@@ -431,7 +436,9 @@ export default {
     },
     QuestionStatsGraph               : {
         females: 'Mujeres',
-        males  : 'Hombres'
+        males  : 'Hombres',
+        young  : '- de 30',
+        old    : '+ de 30'
     },
     QuestionStatsInline              : {
         statistics: 'Estadísticas de la comunidad Nekuno'

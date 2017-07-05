@@ -82,10 +82,6 @@ export default class AnswerQuestionPage extends Component {
         goToQuestionStats      : PropTypes.bool
     };
 
-    static contextTypes = {
-        router: PropTypes.object.isRequired
-    };
-
     constructor(props) {
         super(props);
 
@@ -104,8 +100,7 @@ export default class AnswerQuestionPage extends Component {
         const {goToQuestionStats, question, from} = this.props;
         if (goToQuestionStats) {
             setTimeout(() => {
-                RouterActionCreators.removePreviousRoute();
-                this.context.router.replace(`/question-stats/${from}`);
+                RouterActionCreators.replaceRoute(`/question-stats/${from}`);
             }, 0);
         }
     }
@@ -119,11 +114,10 @@ export default class AnswerQuestionPage extends Component {
         let userId = parseId(user);
         let questionId = question.questionId;
         QuestionActionCreators.skipQuestion(userId, questionId);
-        RouterActionCreators.removePreviousRoute();
         if (user.slug === params.from) {
-            this.context.router.replace(`/questions`);
+            RouterActionCreators.replaceRoute(`/questions`);
         } else {
-            this.context.router.replace(`/users/${params.from}/other-questions`);
+            RouterActionCreators.replaceRoute(`/users/${params.from}/other-questions`);
         }
     }
 

@@ -34,7 +34,7 @@ class GalleryPhotoStore extends BaseStore {
                 break;
             case ActionTypes.UPLOAD_PHOTO_SUCCESS:
                 userId = action.userId;
-                this._photos[userId].push(action.response);
+                this._photos[userId].unshift(action.response);
                 this._noPhotos[userId] = this._photos[userId].length === 0;
                 this._loadingPhoto = false;
                 this.emitChange();

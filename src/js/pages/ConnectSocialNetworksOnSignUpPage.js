@@ -9,9 +9,11 @@ import WorkersStore from '../stores/WorkersStore';
 function getState(props) {
 
     const networks = WorkersStore.getAll();
+    const error = WorkersStore.getConnectError();
 
     return {
-        networks
+        networks,
+        error
     };
 }
 
@@ -30,7 +32,8 @@ export default class ConnectSocialNetworksOnSignUpPage extends Component {
         // Injected by @translate:
         strings : PropTypes.object,
         // Injected by @connectToStores:
-        networks: PropTypes.array.isRequired
+        networks: PropTypes.array.isRequired,
+        error   : PropTypes.bool,
     };
 
     constructor(props) {
@@ -44,7 +47,7 @@ export default class ConnectSocialNetworksOnSignUpPage extends Component {
 
     render() {
 
-        const {networks, user, strings} = this.props;
+        const {networks, error, user, strings} = this.props;
         const username = user.username;
         const picture = user && user.photo ? user.photo.thumbnail.medium : 'img/no-img/medium.jpg';
 
@@ -57,7 +60,7 @@ export default class ConnectSocialNetworksOnSignUpPage extends Component {
                             <div className="title">{strings.welcome} <br />{username}</div>
                             <div className="excerpt">{strings.excerpt}</div>
                             <br />
-                            <SocialWheels networks={networks} picture={picture}/>
+                            <SocialWheels networks={networks} picture={picture} error={error ? strings.error : null}/>
                             <div className="excerpt">{strings.footer}</div>
                         </div>
                         <br />
@@ -74,6 +77,7 @@ ConnectSocialNetworksOnSignUpPage.defaultProps = {
         next   : 'Continue',
         welcome: 'Welcome to Nekuno',
         excerpt: 'At last your data will work for you! The more interest you contribute, the better recommendations you’ll get!',
-        footer : 'Nekuno primarily works with the social networks you have synced. We don’t post anything. You can control the information you give and block information if you so desire.'
+        footer : 'Nekuno primarily works with the social networks you have synced. We don’t post anything. You can control the information you give and block information if you so desire.',
+        error  : 'Error connecting network. You may have connected it with other user.',
     }
 };

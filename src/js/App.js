@@ -30,6 +30,7 @@ export default class App extends Component {
     componentWillReceiveProps(nextProps) {
         const routeChanged = nextProps.location.pathname !== this.props.location.pathname;
         if (routeChanged) {
+            nekunoApp.closePanel();
             setTimeout(() => RouterActionCreators.nextRoute(nextProps.location.pathname), 0);
         }
     }

@@ -196,6 +196,7 @@ body #root .App .views .view .page.create-thread-page  {
           font-size: 11px;
           position: absolute;
           margin-top: -10px;
+          z-index: 1;
         }
         .icon-circle.active {
           color: $green-alert;

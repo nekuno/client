@@ -91,10 +91,6 @@ export default class AnswerNextOtherQuestionPage extends Component {
         otherUser              : PropTypes.object
     };
 
-    static contextTypes = {
-        router: PropTypes.object.isRequired
-    };
-
     constructor(props) {
         super(props);
 
@@ -111,14 +107,13 @@ export default class AnswerNextOtherQuestionPage extends Component {
             setTimeout(() => {
                 QuestionActionCreators.requestComparedQuestions(parseId(user), parseId(otherUser), ['showOnlyCommon']).then(() =>
                     UserActionCreators.requestComparedStats(parseId(user), parseId(otherUser))).then(() => {
-                        RouterActionCreators.removePreviousRoute();
-                        this.context.router.replace(`/question-other-stats/${params.slug}`);
+                        RouterActionCreators.replaceRoute(`/question-other-stats/${params.slug}`);
                     }).catch((error) => console.log(error));
             }, 0);
         }
         if (noMoreQuestions) {
             nekunoApp.alert(strings.noMoreQuestions);
-            this.context.router.replace(`/users/${params.slug}/other-questions`);
+            RouterActionCreators.replaceRoute(`/users/${params.slug}/other-questions`);
         }
     }
 

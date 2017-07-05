@@ -44,10 +44,6 @@ export default class QuestionOtherStatsPage extends Component {
         userAnswer      : PropTypes.object
     };
 
-    static contextTypes = {
-        router: PropTypes.object.isRequired
-    };
-
     constructor(props) {
 
         super(props);
@@ -58,8 +54,7 @@ export default class QuestionOtherStatsPage extends Component {
     handleContinueClick() {
         const {params, user} = this.props;
         QuestionActionCreators.removePreviousQuestion(parseId(user));
-        RouterActionCreators.removePreviousRoute();
-        this.context.router.replace(`/answer-other-question/${params.slug}/next`);
+        RouterActionCreators.replaceRoute(`/answer-other-question/${params.slug}/next`);
     }
 
     render() {

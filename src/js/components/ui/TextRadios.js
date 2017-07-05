@@ -9,15 +9,16 @@ export default class TextRadios extends Component {
 		value	      : PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 		onClickHandler: PropTypes.func.isRequired,
 		forceTwoLines : PropTypes.bool,
-		className	  : PropTypes.string
-	};
+        className     : PropTypes.string,
+        disabled      : PropTypes.bool,
+    };
 
 	constructor(props) {
 		super(props);
 	}
 
 	render() {
-		const {title, labels, value, forceTwoLines, className} = this.props;
+		const {title, labels, value, forceTwoLines, className, disabled} = this.props;
 		let labelsLength = labels.length;
 		let labelsTextLength = 0;
 		labels.forEach(label => labelsTextLength += label.text.length);
@@ -43,7 +44,7 @@ export default class TextRadios extends Component {
 								  chipClass={forceTwoLines ? 'chip-two-lines ' + 'chip-' + labelsLength : 'chip-' + labelsLength}
 								  label={label.text}
 								  onClickHandler={this.onClickHandler.bind(this, label.key)}
-								  disabled={value !== label.key}/>
+								  disabled={value !== label.key || disabled}/>
 						)}
 					</div>
 				</div>
@@ -51,6 +52,14 @@ export default class TextRadios extends Component {
 	}
 
 	onClickHandler(key) {
+	    if (this.props.disabled){
+	        return;
+        }
+
 		this.props.onClickHandler(key);
 	}
 }
+
+TextRadios.defaultProps = {
+    disabled: false,
+};

@@ -263,9 +263,9 @@ export default class OtherInterestsPage extends Component {
     }
 
     getCommonContentSwitch() {
-        const {strings, showOnlyCommon} = this.props;
+        const {strings, showOnlyCommon, isLoadingComparedInterests} = this.props;
         return <div className="common-content-switch">
-            <TextRadios labels={[{key: 0, text: strings.all}, {key: 1, text: strings.common}]} value={showOnlyCommon} onClickHandler={this.onFilterCommonClick}/>
+            <TextRadios labels={[{key: 0, text: strings.all}, {key: 1, text: strings.common}]} value={showOnlyCommon} onClickHandler={this.onFilterCommonClick} disabled={isLoadingComparedInterests}/>
         </div>;
     }
 

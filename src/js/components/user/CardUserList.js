@@ -22,14 +22,15 @@ function getState(props) {
 export default class CardUserList extends Component {
 
     static propTypes = {
-        recommendations             : PropTypes.array.isRequired,
-        user                        : PropTypes.object.isRequired,
-        profile                     : PropTypes.object.isRequired,
-        handleSelectProfile         : PropTypes.func.isRequired,
-        onBottomScroll              : PropTypes.func,
-        similarityOrder             : PropTypes.bool,
+        recommendations    : PropTypes.array.isRequired,
+        user               : PropTypes.object.isRequired,
+        profile            : PropTypes.object.isRequired,
+        handleSelectProfile: PropTypes.func.isRequired,
+        onBottomScroll     : PropTypes.func,
+        similarityOrder    : PropTypes.bool,
+        isLoading          : PropTypes.bool,
         //Injected by connectToStores
-        onlineUserIds               : PropTypes.array,
+        onlineUserIds      : PropTypes.array,
     };
 
     constructor(props) {
@@ -119,6 +120,7 @@ export default class CardUserList extends Component {
                     // useWindowAsScrollContainer
                     onInfiniteLoad={this.props.onBottomScroll}
                     containerId="discover-view-main"
+                    loading={this.props.isLoading}
                 />
             </div>
         );

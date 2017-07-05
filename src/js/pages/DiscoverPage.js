@@ -238,7 +238,7 @@ export default class DiscoverPage extends Component {
                         <div id="page-content">
                             {profile ?
                                 <CardUserList firstItems={this.getFirstItems.bind(this)()} recommendations={recommendations} user={user} profile={profile}
-                                              handleSelectProfile={this.selectProfile} similarityOrder={similarityOrder} onBottomScroll={this.onBottomScroll}/>
+                                              handleSelectProfile={this.selectProfile} similarityOrder={similarityOrder} onBottomScroll={this.onBottomScroll} isLoading={isLoadingRecommendations}/>
                                 :
                                 <EmptyMessage text={emptyMessageText} loadingGif={true}/>}
                             <br />

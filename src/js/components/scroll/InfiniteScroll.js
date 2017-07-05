@@ -31,6 +31,7 @@ export default class InfiniteScroll extends Component {
         this.getHeight = this.getHeight.bind(this);
         this.getScrollContainer = this.getScrollContainer.bind(this);
         this.updateStateHeight = this.updateStateHeight.bind(this);
+        this.getLoadingGif = this.getLoadingGif.bind(this);
     }
 
     componentWillMount() {
@@ -70,7 +71,7 @@ export default class InfiniteScroll extends Component {
     }
 
     getLoadingGif() {
-        return <div className="loading-gif"></div>
+        return this.props.loading ? <div className="loading-gif"></div> : '';
     }
 
     handleScroll() {

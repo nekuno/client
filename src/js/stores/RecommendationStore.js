@@ -154,11 +154,9 @@ class RecommendationStore extends BaseStore {
                 //         this._replaced[action.threadId] = true;
                 //         this._prevNextUrl[action.threadId] = this._nextUrl[action.threadId];
                 //     }
-                    console.log(this._recommendations[action.threadId].length);
                     this._recommendations[action.threadId] = this.mergeRecommendations(recommendations, this._recommendations[action.threadId]);
                     this._nextUrl[action.threadId] = action.response.pagination.nextLink;
                     this._pagination[action.threadId] = action.response.pagination;
-                    console.log(this._recommendations[action.threadId].length);
                 // }
                 this.emitChange();
                 break;

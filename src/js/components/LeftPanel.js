@@ -7,6 +7,7 @@ import connectToStores from '../utils/connectToStores';
 import StatsStore from '../stores/StatsStore';
 import LoginActionCreators from '../actions/LoginActionCreators';
 import ChatThreadStore from '../stores/ChatThreadStore';
+import UserStore from '../stores/UserStore';
 import ProfileStore from '../stores/ProfileStore';
 
 function getState(props) {
@@ -25,7 +26,7 @@ function getState(props) {
 
 @AuthenticatedComponent
 @translate('LeftPanel')
-@connectToStores([StatsStore, ChatThreadStore], getState)
+@connectToStores([UserStore, StatsStore, ChatThreadStore], getState)
 export default class LeftPanel extends Component {
 
     static contextTypes = {

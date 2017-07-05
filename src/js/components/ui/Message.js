@@ -1,6 +1,8 @@
 import React, { PropTypes, Component } from 'react';
 import moment from 'moment';
 import Emojify from 'react-emojione';
+import Image from './Image';
+import ChatActionCreators from '../../actions/ChatActionCreators';
 
 export default class Message extends Component {
 
@@ -12,6 +14,19 @@ export default class Message extends Component {
     static contextTypes = {
         router: PropTypes.object.isRequired
     };
+
+    constructor(props) {
+        super(props);
+
+        this.requestMessages = this.requestMessages.bind(this);
+    }
+
+    requestMessages() {
+        let {message} = this.props;
+        let mine = message.user.id === message.user_from.id;
+        const userId = mine ?  message.user_to.id :  message.user_from.id;
+        ChatActionCreators.getMessages(userId, 0);
+    }
 
     render() {
 
@@ -37,13 +52,13 @@ export default class Message extends Component {
                             </div>
                         </div>
                         <div className="notification-picture-right">
-                            <img src={imageSrc}/>
+                            <Image src={imageSrc} onError={this.requestMessages}/>
                         </div>
                     </div>
                     :
                     <div className="notification">
                         <div className="notification-picture" onClick={() => this.context.router.push(userLink)}>
-                            <img src={imageSrc}/>
+                            <Image src={imageSrc} onError={this.requestMessages}/>
                         </div>
                         <div className="notification-text">
                             <div className="notification-excerpt" style={style}>

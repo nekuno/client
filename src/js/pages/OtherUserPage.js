@@ -166,6 +166,7 @@ export default class OtherUserPage extends Component {
         this.optionButton = this.optionButton.bind(this);
         this.cancelButton = this.optionButton.bind(this);
         this.onShareError = this.onShareError.bind(this);
+        this.requestOtherUserPhoto = this.requestOtherUserPhoto.bind(this);
 
         this.state = {
             orientationRequired: null,
@@ -357,6 +358,10 @@ export default class OtherUserPage extends Component {
         this.setState({orientationRequired: bool});
     }
 
+    requestOtherUserPhoto() {
+        UserActionCreators.requestUser(this.props.params.slug, ['photo', 'force']);
+    }
+
     render() {
         const {user, otherUser, profile, ownProfile, profileWithMetadata, matching, similarity, blocked, like, comparedStats, photos, noPhotos, online, params, strings} = this.props;
         const otherPictureSmall = selectn('photo.thumbnail.small', otherUser);
@@ -393,7 +398,7 @@ export default class OtherUserPage extends Component {
                                                 <div className="swiper-wrapper">
                                                     {profilePhoto ?
                                                         <div className="swiper-slide" key={0} onClick={this.handlePhotoClick.bind(this, profilePhoto)}>
-                                                            <Image src={profilePhoto.thumbnail.big} defaultSrc={defaultImgBig}/>
+                                                            <Image src={profilePhoto.thumbnail.big} defaultSrc={defaultImgBig} onError={this.requestOtherUserPhoto}/>
                                                         </div>
                                                         : null
                                                     }

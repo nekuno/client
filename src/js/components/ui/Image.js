@@ -6,7 +6,8 @@ export default class Image extends Component {
         className  : PropTypes.string,
         src        : PropTypes.string,
         defaultSrc : PropTypes.string,
-        showLoading: PropTypes.bool
+        showLoading: PropTypes.bool,
+        onError    : PropTypes.func
     };
 
     constructor(props) {
@@ -30,6 +31,9 @@ export default class Image extends Component {
     }
 
     onImageError() {
+        if (this.props.onError) {
+            this.props.onError();
+        }
         if (!this.props.defaultSrc) {
             this.setState({
                 src: "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=",

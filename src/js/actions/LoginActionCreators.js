@@ -113,7 +113,7 @@ export default new class LoginActionCreators {
         this.requestDataOnLogin(userId);
         ChatSocketService.connect();
         WorkersSocketService.connect();
-        console.log('QuestionActionCreators.requestQuestions', QuestionStore.answersLength(userId));
+        console.log('QuestionActionCreators.requestQuestions', QuestionStore.ownAnswersLength(userId));
         console.log('LoginStore.isComplete()', LoginStore.isComplete());
         console.log('ProfileStore.isComplete(userId)', ProfileStore.isComplete(userId));
         console.log('QuestionStore.isJustRegistered(userId)', QuestionStore.isJustRegistered(userId));
@@ -128,12 +128,13 @@ export default new class LoginActionCreators {
 
     requestDataOnLogin(userId) {
         UserDataStatusActionCreators.requestUserDataStatus();
-        QuestionActionCreators.requestQuestions(userId);
+        const requestQuestionsLink = QuestionStore.getRequestQuestionsUrl(userId);
+        QuestionActionCreators.requestQuestions(userId, requestQuestionsLink);
     }
 
     choosePath(userId) {
         let path = null;
-        if (QuestionStore.answersLength(userId) === 0) {
+        if (QuestionStore.ownAnswersLength(userId) === 0) {
             path = '/social-networks-on-sign-up';
         } else if (!LoginStore.isComplete() || !ProfileStore.isComplete(userId) || QuestionStore.isJustRegistered(userId)) {
             path = '/register-questions-landing';

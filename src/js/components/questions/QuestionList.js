@@ -4,11 +4,12 @@ import InfiniteScroll from "../scroll/InfiniteScroll";
 
 export default class QuestionList extends Component {
     static propTypes = {
-        questions     : PropTypes.object.isRequired,
-        ownPicture    : PropTypes.string.isRequired,
-        defaultPicture: PropTypes.string.isRequired,
-        userSlug      : PropTypes.string.isRequired,
-        onTimerEnd    : PropTypes.func
+        questions            : PropTypes.object.isRequired,
+        ownPicture           : PropTypes.string.isRequired,
+        defaultPicture       : PropTypes.string.isRequired,
+        userSlug             : PropTypes.string.isRequired,
+        onTimerEnd           : PropTypes.func,
+        isLoadingOwnQuestions: PropTypes.bool,
     };
 
     constructor(props) {
@@ -66,6 +67,7 @@ export default class QuestionList extends Component {
                 // useWindowAsScrollContainer
                 onInfiniteLoad={this.props.onBottomScroll}
                 containerId="questions-view-main"
+                loading={this.props.isLoadingOwnQuestions}
             />
         );
     }

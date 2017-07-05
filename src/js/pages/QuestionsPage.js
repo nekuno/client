@@ -15,9 +15,11 @@ function parseId(user) {
     return user.id;
 }
 
+function parsePicture(user) {
+    return user && user.photo ? user.photo.thumbnail.small : 'img/no-img/small.jpg';
+}
+
 function requestData(props) {
-    const userId = parseId(props.user);
-    QuestionActionCreators.requestQuestions(userId);
 }
 
 /**
@@ -25,11 +27,15 @@ function requestData(props) {
  */
 function getState(props) {
     const currentUserId = parseId(props.user);
-    const pagination = QuestionStore.getPagination(currentUserId) || {};
+    const questionsTotal = QuestionStore.ownAnswersLength(currentUserId);
     const questions = QuestionStore.get(currentUserId) || {};
+    const requestQuestionsUrl = QuestionStore.getRequestQuestionsUrl(currentUserId);
+    const isLoadingOwnQuestions = QuestionStore.isLoadingOwnQuestions();
     return {
-        pagination,
-        questions
+        questionsTotal,
+        questions,
+        requestQuestionsUrl,
+        isLoadingOwnQuestions
     };
 }
 
@@ -40,18 +46,15 @@ export default class QuestionsPage extends Component {
 
     static propTypes = {
         // Injected by @AuthenticatedComponent
-        user      : PropTypes.object.isRequired,
+        user                 : PropTypes.object.isRequired,
         // Injected by @translate:
-        strings   : PropTypes.object,
+        strings              : PropTypes.object,
         // Injected by @connectToStores:
-        pagination: PropTypes.object.isRequired,
-        questions : PropTypes.object.isRequired
+        questionsTotal       : PropTypes.number.isRequired,
+        questions            : PropTypes.object.isRequired,
+        requestQuestionsUrl  : PropTypes.string.isRequired,
+        isLoadingOwnQuestions: PropTypes.bool.isRequired,
     };
-
-    constructor(props) {
-
-        super(props);
-    }
 
     componentWillMount() {
         requestData(this.props);
@@ -62,19 +65,17 @@ export default class QuestionsPage extends Component {
     }
 
     onBottomScroll() {
-        const pagination = this.props.pagination;
-        const nextLink = pagination && pagination.hasOwnProperty('nextLink') ? pagination.nextLink : null;
-        if (nextLink) {
-            const userId = parseId(this.props.user);
-            return QuestionActionCreators.requestNextQuestions(userId, nextLink);
+        const {user, requestQuestionsUrl, isLoadingOwnQuestions} = this.props;
+        if (isLoadingOwnQuestions || !requestQuestionsUrl) {
+            return Promise.resolve();
         }
-
-        return Promise.resolve();
+        const userId = parseId(user);
+        return QuestionActionCreators.requestQuestions(userId, requestQuestionsUrl);
     }
 
     getBanner() {
-        const {user, pagination, questions} = this.props;
-        return <QuestionsBanner user={user} questionsTotal={pagination.total || Object.keys(questions).length || 0}/>
+        const {user, questionsTotal} = this.props;
+        return <QuestionsBanner user={user} questionsTotal={questionsTotal}/>
     }
 
     getFirstItems() {
@@ -84,8 +85,8 @@ export default class QuestionsPage extends Component {
     }
 
     render() {
-        const {user, questions, strings} = this.props;
-        const ownPicture = user && user.photo ? user.photo.thumbnail.small : 'img/no-img/small.jpg';
+        const {user, questions, strings, isLoadingOwnQuestions} = this.props;
+        const ownPicture = parsePicture(user);
         const defaultPicture = 'img/no-img/small.jpg';
         return (
             <div className="views">
@@ -99,7 +100,8 @@ export default class QuestionsPage extends Component {
                 <div className="view view-main" id="questions-view-main">
                     <div className="page questions-page">
                         <div id="page-content" className="questions-content">
-                            <QuestionList firstItems={this.getFirstItems.bind(this)()} questions={questions} userSlug={user.slug || ''} ownPicture={ownPicture} defaultPicture={defaultPicture} onTimerEnd={this.onTimerEnd} onBottomScroll={this.onBottomScroll.bind(this)}/>
+                            <QuestionList firstItems={this.getFirstItems.bind(this)()} questions={questions} userSlug={user.slug || ''} ownPicture={ownPicture}
+                                          defaultPicture={defaultPicture} onTimerEnd={this.onTimerEnd} onBottomScroll={this.onBottomScroll.bind(this)} isLoadingOwnQuestions={isLoadingOwnQuestions}/>
                         </div>
                     </div>
                 </div>

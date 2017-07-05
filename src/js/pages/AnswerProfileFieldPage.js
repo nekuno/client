@@ -38,7 +38,7 @@ function getState(props) {
     const metadata = ProfileStore.getMetadata();
     const errors = ProfileStore.getErrors();
     const registerQuestionsLength = QuestionStore.registerQuestionsLength();
-    const answersLength = QuestionStore.answersLength(userId);
+    const answersLength = QuestionStore.ownAnswersLength(userId);
     const initialUserQuestionsCount = LoginStore.getInitialRequiredUserQuestionsCount();
     const userQuestionsCount = LoginStore.getRequiredUserQuestionsCount();
     const nextProfileField = ProfileStore.getNextRequiredProfileField(userId);

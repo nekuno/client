@@ -1,4 +1,4 @@
-import { THREAD_TYPES } from '../constants/Constants';
+import { THREAD_TYPES, API_URLS } from '../constants/Constants';
 import { waitFor } from '../dispatcher/Dispatcher';
 import selectn from 'selectn';
 import ActionTypes from '../constants/ActionTypes';
@@ -8,6 +8,7 @@ import ThreadStore from '../stores/ThreadStore';
 class RecommendationStore extends BaseStore {
 
     setInitial() {
+        super.setInitial();
         this._recommendations = [];
         this._nextUrl = [];
         this._replaced = [];
@@ -15,6 +16,7 @@ class RecommendationStore extends BaseStore {
         this._prevNextUrl = [];
         this._savedIndex = [];
         this._loadingRecommendations = [];
+        this._initialPaginationUrl = API_URLS.RECOMMENDATIONS;
     }
 
     _registerToActions(action) {
@@ -129,6 +131,7 @@ class RecommendationStore extends BaseStore {
             case ActionTypes.REQUEST_NEXT_RECOMMENDATIONS_SUCCESS:
                 this._recommendations[action.threadId] = this.mergeRecommendations(recommendations, this._recommendations[action.threadId]);
                 this._nextUrl[action.threadId] = action.response.pagination.nextLink;
+                this._pagination[action.threadId] = action.response.pagination;
                 this._loadingRecommendations[action.threadId] = false;
                 this.emitChange();
                 break;
@@ -143,17 +146,20 @@ class RecommendationStore extends BaseStore {
             case ActionTypes.REQUEST_RECOMMENDATIONS_SUCCESS:
                 this._recommendations[action.threadId] = this._recommendations[action.threadId] || [];
                 this._loadingRecommendations[action.threadId] = false;
-                if (this.areBetter(action.threadId, recommendations)) {
-                    if (this._recommendations[action.threadId].length > 0) {
-                        this._prevRecommendations[action.threadId] = [];
-                        this._prevRecommendations[action.threadId] = this.mergeRecommendations(this._recommendations[action.threadId], this._prevRecommendations[action.threadId]);
-                        this._recommendations[action.threadId] = [];
-                        this._replaced[action.threadId] = true;
-                        this._prevNextUrl[action.threadId] = this._nextUrl[action.threadId];
-                    }
+                // if (this.areBetter(action.threadId, recommendations)) {
+                //     if (this._recommendations[action.threadId].length > 0) {
+                //         this._prevRecommendations[action.threadId] = [];
+                //         this._prevRecommendations[action.threadId] = this.mergeRecommendations(this._recommendations[action.threadId], this._prevRecommendations[action.threadId]);
+                //         this._recommendations[action.threadId] = [];
+                //         this._replaced[action.threadId] = true;
+                //         this._prevNextUrl[action.threadId] = this._nextUrl[action.threadId];
+                //     }
+                    console.log(this._recommendations[action.threadId].length);
                     this._recommendations[action.threadId] = this.mergeRecommendations(recommendations, this._recommendations[action.threadId]);
                     this._nextUrl[action.threadId] = action.response.pagination.nextLink;
-                }
+                    this._pagination[action.threadId] = action.response.pagination;
+                    console.log(this._recommendations[action.threadId].length);
+                // }
                 this.emitChange();
                 break;
             case ActionTypes.SAVE_RECOMMENDATIONS_INDEX:
@@ -193,6 +199,12 @@ class RecommendationStore extends BaseStore {
             return THREAD_TYPES.THREAD_CONTENTS;
         }
         return THREAD_TYPES.THREAD_USERS
+    }
+
+    getRecommendationUrl(threadId) {
+        let url = this.getPaginationUrl(threadId, this._initialPaginationUrl);
+        url = url.replace('{threadId}', threadId);
+        return url;
     }
 
     getId(recommendation) {

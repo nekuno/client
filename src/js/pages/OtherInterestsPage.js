@@ -17,25 +17,14 @@ import UserStore from '../stores/UserStore';
 import InterestStore from '../stores/InterestStore';
 
 function parseId(user) {
-    return user.id;
+    return user ? user.id : null;
 }
 
 function requestData(props) {
     const {params} = props;
-    const userId = parseId(props.user);
     const otherUserSlug = params.slug;
 
-    UserActionCreators.requestUser(otherUserSlug, ['username', 'photo']).then(
-        () => {
-            const otherUser = UserStore.getBySlug(params.slug);
-            const otherUserId = parseId(otherUser);
-            InterestsActionCreators.requestComparedInterests(userId, otherUserId, 'Link', 1);
-            InterestsActionCreators.resetInterests(otherUserId);
-        },
-        (status) => {
-            console.log(status.error)
-        }
-    );
+    UserActionCreators.requestUser(otherUserSlug, ['username', 'photo']);
 }
 
 function getState(props) {
@@ -47,13 +36,20 @@ function getState(props) {
     const interests = otherUserId ? InterestStore.get(otherUserId) || [] : [];
     const noInterests = otherUserId ? InterestStore.noInterests(otherUserId) || false : null;
     const isLoadingComparedInterests = InterestStore.isLoadingComparedInterests();
+    const type = InterestStore.getType(otherUserId);
+    const showOnlyCommon = InterestStore.getShowOnlyCommon(otherUserId);
+    const requestComparedInterestsUrl = InterestStore.getRequestComparedInterestsUrl(otherUserId);
+
     return {
         pagination,
         totals,
         interests,
         noInterests,
         isLoadingComparedInterests,
-        otherUser
+        otherUser,
+        type,
+        showOnlyCommon,
+        requestComparedInterestsUrl
     };
 }
 
@@ -64,24 +60,27 @@ function getState(props) {
 export default class OtherInterestsPage extends Component {
     static propTypes = {
         // Injected by React Router:
-        params                    : PropTypes.shape({
+        params                     : PropTypes.shape({
             slug: PropTypes.string.isRequired
         }).isRequired,
         // Injected by @AuthenticatedComponent
-        user                      : PropTypes.object.isRequired,
+        user                       : PropTypes.object.isRequired,
         // Injected by @translate:
-        strings                   : PropTypes.object,
+        strings                    : PropTypes.object,
         // Injected by @connectToStores:
-        pagination                : PropTypes.object,
-        totals                    : PropTypes.object,
-        interests                 : PropTypes.array.isRequired,
-        noInterests               : PropTypes.bool,
-        isLoadingComparedInterests: PropTypes.bool,
-        otherUser                 : PropTypes.object,
+        pagination                 : PropTypes.object,
+        totals                     : PropTypes.object,
+        interests                  : PropTypes.array.isRequired,
+        noInterests                : PropTypes.bool,
+        isLoadingComparedInterests : PropTypes.bool,
+        otherUser                  : PropTypes.object,
+        type                       : PropTypes.string.isRequired,
+        showOnlyCommon             : PropTypes.number.isRequired,
+        requestComparedInterestsUrl: PropTypes.string,
         // Injected by @popup:
-        showPopup                 : PropTypes.func,
-        closePopup                : PropTypes.func,
-        popupContentRef           : PropTypes.func,
+        showPopup                  : PropTypes.func,
+        closePopup                 : PropTypes.func,
+        popupContentRef            : PropTypes.func,
     };
 
     constructor(props) {
@@ -97,8 +96,6 @@ export default class OtherInterestsPage extends Component {
         this.onReportReasonText = this.onReportReasonText.bind(this);
 
         this.state = {
-            type           : '',
-            commonContent  : 1,
             carousel       : false,
             position       : 0,
             swiper         : null,
@@ -111,17 +108,22 @@ export default class OtherInterestsPage extends Component {
         requestData(this.props);
     }
 
-    componentWillUnmount() {
-        // document.getElementsByClassName('view')[0].removeEventListener('scroll', this.handleScroll);
-    }
+    componentDidUpdate(prevProps) {
+        const {user, otherUser, showOnlyCommon, type} = this.props;
+        //Change to one action to multiple api calls (a queue) instead of timeout. Maybe merging with requestUser on requestData. See https://github.com/facebook/flux/issues/47#issuecomment-54716863
+        // setTimeout(() => {
+            const showOnlyCommonChanged = prevProps.showOnlyCommon !== showOnlyCommon;
+            const otherUserChanged = parseId(prevProps.otherUser) !== parseId(otherUser);
+            const typeChanged = prevProps.type !== type;
+            if (showOnlyCommonChanged || otherUserChanged || typeChanged) {
+                const otherUserId = parseId(otherUser);
+                const userId = parseId(user);
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.params.slug !== this.props.params.slug) {
-            requestData(nextProps);
-        }
-    }
+                InterestsActionCreators.resetInterests(otherUserId);
+                InterestsActionCreators.requestComparedInterests(userId, otherUserId, this.props.requestComparedInterestsUrl);
+            }
+        // }, 0);
 
-    componentDidUpdate() {
         if (!this.state.carousel || this.props.interests.length === 0) {
             return;
         }
@@ -154,12 +156,14 @@ export default class OtherInterestsPage extends Component {
     };
 
     onBottomScroll() {
-        const {pagination, user, otherUser} = this.props;
-        const nextLink = pagination && pagination.hasOwnProperty('nextLink') ? pagination.nextLink : null;
+        const {user, otherUser, requestComparedInterestsUrl} = this.props;
         const userId = user ? parseId(user) : null;
         const otherUserId = otherUser ? parseId(otherUser) : null;
+        if (userId && otherUserId && requestComparedInterestsUrl) {
+            return InterestsActionCreators.requestComparedInterests(userId, otherUserId, requestComparedInterestsUrl);
+        }
 
-        return InterestsActionCreators.requestNextComparedInterests(userId, otherUserId, nextLink);
+        return Promise.resolve();
     }
 
     onNavBarLeftLinkClick() {
@@ -187,25 +191,22 @@ export default class OtherInterestsPage extends Component {
         });
 
         function onReachEnd() {
-            let pagination = _self.props.pagination;
-            let nextLink = pagination && pagination.hasOwnProperty('nextLink') ? pagination.nextLink : null;
-            InterestsActionCreators.requestNextComparedInterests(parseId(_self.props.user), parseId(_self.props.otherUser), nextLink);
+            InterestsActionCreators.requestComparedInterests(parseId(_self.props.user), parseId(_self.props.otherUser), _self.props.requestComparedInterestsUrl);
         }
     }
 
     onFilterCommonClick(key) {
         InterestsActionCreators.resetInterests(parseId(this.props.otherUser));
-        InterestsActionCreators.requestComparedInterests(parseId(this.props.user), parseId(this.props.otherUser), this.state.type, key);
+        InterestsActionCreators.setShowOnlyCommon(key, parseId(this.props.otherUser));
         this.setState({
-            commonContent: key,
             carousel     : false
         });
     }
 
     onFilterTypeClick(type) {
-        this.setState({
-            type: type
-        });
+        const otherUserId = parseId(this.props.otherUser);
+        InterestsActionCreators.resetInterests(this.props.otherUser);
+        InterestsActionCreators.setType(type, otherUserId);
     }
 
     onReport(contentId, reason) {
@@ -241,30 +242,30 @@ export default class OtherInterestsPage extends Component {
     }
 
     getTitle() {
-        const {strings, pagination} = this.props;
-        return <div className="title">{this.state.commonContent ? strings.similarInterestsCount.replace('%count%', pagination.total || 0) : strings.interestsCount.replace('%count%', pagination.total || 0)}</div>;
+        const {strings, pagination, showOnlyCommon} = this.props;
+        return <div className="title">{showOnlyCommon ? strings.similarInterestsCount.replace('%count%', pagination.total || 0) : strings.interestsCount.replace('%count%', pagination.total || 0)}</div>;
     }
 
     getFilterContentButtonsList() {
-        const {otherUser, pagination, user, totals, isLoadingComparedInterests} = this.props;
+        const {otherUser, pagination, user, totals, isLoadingComparedInterests, showOnlyCommon, type} = this.props;
         const ownUserId = parseId(user);
         const otherUserId = otherUser ? parseId(otherUser) : null;
 
-        return otherUser ? <FilterContentButtonsList userId={otherUserId} contentsCount={pagination.total || 0} ownContent={false} ownUserId={ownUserId} onClickHandler={this.onFilterTypeClick} commonContent={this.state.commonContent}
+        return otherUser ? <FilterContentButtonsList userId={otherUserId} contentsCount={pagination.total || 0} ownContent={false} ownUserId={ownUserId} onClickHandler={this.onFilterTypeClick} commonContent={showOnlyCommon}
                                                      loading={isLoadingComparedInterests}
                                                      linksCount={totals.Link}
                                                      audiosCount={totals.Audio}
                                                      videosCount={totals.Video}
                                                      imagesCount={totals.Image}
                                                      channelsCount={totals.Creator}
-                                                     type = {this.state.type}
+                                                     type={type}
         /> : '';
     }
 
     getCommonContentSwitch() {
-        const strings = this.props.strings;
+        const {strings, showOnlyCommon} = this.props;
         return <div className="common-content-switch">
-            <TextRadios labels={[{key: 0, text: strings.all}, {key: 1, text: strings.common}]} value={this.state.commonContent} onClickHandler={this.onFilterCommonClick}/>
+            <TextRadios labels={[{key: 0, text: strings.all}, {key: 1, text: strings.common}]} value={showOnlyCommon} onClickHandler={this.onFilterCommonClick}/>
         </div>;
     }
 
@@ -284,8 +285,7 @@ export default class OtherInterestsPage extends Component {
 
     render() {
         const {interests, noInterests, isLoadingComparedInterests, otherUser, user, params, strings} = this.props;
-        const loading = isLoadingComparedInterests && interests.length === 0;
-        const {type} = this.state;
+        const firstLoading = isLoadingComparedInterests && interests.length === 0;
         const ownUserId = parseId(user);
         const otherUserId = otherUser ? parseId(otherUser) : null;
 
@@ -318,7 +318,7 @@ export default class OtherInterestsPage extends Component {
                             }
 
                             <CardContentList firstItems={this.getFirstItems.bind(this)()} contents={interests} userId={ownUserId} otherUserId={otherUserId}
-                                             onBottomScroll={this.onBottomScroll.bind(this)} onReport={this.onReport.bind(this)} isLoading={loading}/>
+                                             onBottomScroll={this.onBottomScroll.bind(this)} onReport={this.onReport.bind(this)} firstLoading={firstLoading} isLoading={isLoadingComparedInterests}/>
 
                             <br />
                         </div>

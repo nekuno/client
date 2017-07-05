@@ -1,15 +1,20 @@
 import ActionTypes from '../constants/ActionTypes';
+import { API_URLS } from '../constants/Constants';
 import { isInBag } from '../utils/StoreUtils';
 import BaseStore from './BaseStore';
 
 class InterestStore extends BaseStore {
     setInitial() {
+        super.setInitial();
         this._interests = {};
         this._noInterests = {};
-        this._pagination = {};
         this._totals = {};
+        this._type = {};
+        this._showOnlyCommon = {};
         this._loadingComparedInterests = null;
         this._loadingOwnInterests = null;
+        this._initialPaginationUrl = API_URLS.OWN_INTERESTS;
+        this._initialComparedPaginationUrl = API_URLS.COMPARED_INTERESTS;
     }
 
     _registerToActions(action) {
@@ -25,6 +30,14 @@ class InterestStore extends BaseStore {
                 this._loadingComparedInterests = true;
                 this.emitChange();
                 break;
+            case ActionTypes.SET_CONTENTS_TYPE:
+                this.setType(action.userId, action.contentType);
+                this.emitChange();
+                break;
+            case ActionTypes.SET_CONTENTS_SHOWONLYCOMMON:
+                this.setShowOnlyCommon(action.userId, action.showOnlyCommon);
+                this.emitChange();
+                break;
             case ActionTypes.LIKE_CONTENT:
             case ActionTypes.DISLIKE_CONTENT:
             case ActionTypes.UNRATE_CONTENT:
@@ -34,6 +47,7 @@ class InterestStore extends BaseStore {
                 break;
             case ActionTypes.RESET_INTERESTS:
                 this._interests[action.userId] = [];
+                this._pagination = {};
                 this.emitChange();
                 break;
             case ActionTypes.REPORT_CONTENT:
@@ -53,6 +67,10 @@ class InterestStore extends BaseStore {
                 this._loadingOwnInterests = false;
                 this.emitChange();
                 break;
+            case ActionTypes.REQUEST_OWN_INTERESTS_ERROR:
+                this._loadingOwnInterests = false;
+                this.emitChange();
+                break;
             case ActionTypes.REQUEST_COMPARED_INTERESTS_SUCCESS:
                 newItems[action.otherUserId] = action.response.items;
                 this._interests[action.otherUserId] = this._interests[action.otherUserId] || [];
@@ -62,6 +80,10 @@ class InterestStore extends BaseStore {
                 this._totals[action.otherUserId] = action.response.totals;
                 this._pagination[action.otherUserId] = action.response.pagination;
                 this._noInterests[action.otherUserId] = this._interests[action.otherUserId].length === 0;
+                this._loadingComparedInterests = false;
+                this.emitChange();
+                break;
+            case ActionTypes.REQUEST_COMPARED_INTERESTS_ERROR:
                 this._loadingComparedInterests = false;
                 this.emitChange();
                 break;
@@ -122,6 +144,47 @@ class InterestStore extends BaseStore {
 
     getPagination(userId) {
         return this._pagination[userId];
+    }
+    
+    getType(userId) {
+        return this._type.hasOwnProperty(userId) ? this._type[userId] : '';
+    }
+    
+    setType(userId, type) {
+        this._type[userId] = type;
+    }
+    
+    getShowOnlyCommon(userId) {
+        return this._showOnlyCommon.hasOwnProperty(userId) ? this._showOnlyCommon[userId] : 1;
+    }
+
+    setShowOnlyCommon(userId, showOnlyCommon) {
+        this._showOnlyCommon[userId] = showOnlyCommon;
+    }
+
+    getRequestInterestsUrl(userId) {
+        let url = this.getPaginationUrl(userId, this._initialPaginationUrl);
+        if (url === this._initialPaginationUrl){
+            url = this._formatInterestUrl(url, userId);
+        }
+
+        return url;
+    }
+
+    getRequestComparedInterestsUrl(userId) {
+        let url = this.getPaginationUrl(userId, this._initialComparedPaginationUrl);
+        if (url === this._initialComparedPaginationUrl){
+            url = this._formatInterestUrl(url, userId);
+        }
+        return url;
+    }
+
+    _formatInterestUrl(url, userId) {
+        url = url.replace('{userId}', userId);
+        url = url.replace('{type}', this.getType(userId));
+        url = url.replace('{showOnlyCommon}', this.getShowOnlyCommon(userId))
+
+        return url;
     }
 
     getTotals(userId) {

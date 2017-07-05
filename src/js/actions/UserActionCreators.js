@@ -265,8 +265,8 @@ export function likeContent(from, to, originContext, originName) {
         success: ActionTypes.LIKE_CONTENT_SUCCESS,
         failure: ActionTypes.LIKE_CONTENT_ERROR
     }, {from, to});
-    InterestsActionCreators.resetInterests(from);
-    InterestsActionCreators.requestOwnInterests(from);
+    // InterestsActionCreators.resetInterests(from);
+    // InterestsActionCreators.requestOwnInterests(from);
 }
 
 export function dislikeContent(from, to, originContext, originName) {
@@ -275,8 +275,8 @@ export function dislikeContent(from, to, originContext, originName) {
         success: ActionTypes.DISLIKE_CONTENT_SUCCESS,
         failure: ActionTypes.DISLIKE_CONTENT_ERROR
     }, {from, to});
-    InterestsActionCreators.resetInterests(from);
-    InterestsActionCreators.requestOwnInterests(from);
+    // InterestsActionCreators.resetInterests(from);
+    // InterestsActionCreators.requestOwnInterests(from);
 }
 
 export function ignoreContent(from, to, originContext, originName) {

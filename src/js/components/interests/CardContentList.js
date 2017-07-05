@@ -10,7 +10,8 @@ export default class CardContentList extends Component {
         otherUserId   : PropTypes.number,
         onReport      : PropTypes.func,
         onBottomScroll: PropTypes.func,
-        isLoading     : PropTypes.bool
+        isLoading     : PropTypes.bool,
+        loadingFirst  : PropTypes.bool,
     };
 
     constructor(props) {
@@ -26,7 +27,7 @@ export default class CardContentList extends Component {
 
     getItems() {
         const firstItems = this.props.firstItems;
-        const contents = this.props.isLoading ? [] : this.getCardContents.bind(this)();
+        const contents = this.props.loadingFirst ? [] : this.getCardContents.bind(this)();
         return [
             ...firstItems,
             ...contents
@@ -73,7 +74,7 @@ export default class CardContentList extends Component {
         });
 
         if (savedContentCard !== null) {
-            contentComponents.push(this.buildCardWrapper(savedContentCard))
+            contentComponents.push(this.buildCardWrapper(savedContentCard));
             savedContentCard = null;
         }
 
@@ -89,6 +90,7 @@ export default class CardContentList extends Component {
                     // useWindowAsScrollContainer
                     onInfiniteLoad={this.props.onBottomScroll}
                     containerId="interests-view-main"
+                    loading = {this.props.isLoading}
                 />
             </div>
         );
@@ -101,5 +103,6 @@ CardContentList.defaultProps = {
     },
     'onReport'      : () => {
     },
-    'isLoading'     : false
+    'isLoading'     : false,
+    'loadingFirst' : false,
 };

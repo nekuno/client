@@ -1,8 +1,6 @@
 import { dispatchAsync, dispatch } from '../dispatcher/Dispatcher';
 import ActionTypes from '../constants/ActionTypes';
-import * as UserActionCreators from './UserActionCreators';
 import * as UserAPI from '../api/UserAPI';
-import UserStore from '../stores/UserStore';
 import RecommendationStore from '../stores/RecommendationStore';
 import ThreadStore from '../stores/ThreadStore';
 import ProfileStore from '../stores/ProfileStore';
@@ -10,19 +8,20 @@ import FilterStore from '../stores/FilterStore';
 import LoginStore from '../stores/LoginStore';
 
 export function requestThreadPage(userId, groupId = null) {
-    requestThreads(userId).then((action) => {
-        const existsDefault = action.items.some(item => !!item.default);
-        action.items.forEach(item => {
-            if ((groupId && groupId === item.groupId) || !groupId && !item.groupId && (item.default || !existsDefault)) {
-                this.requestRecommendation(item.id);
-            }
-        });
-    });
+    // requestThreads(userId).then((action) => {
+    //     const existsDefault = action.items.some(item => !!item.default);
+    //     action.items.forEach(item => {
+    //         if ((groupId && groupId === item.groupId) || !groupId && !item.groupId && (item.default || !existsDefault)) {
+    //             this.requestRecommendations(item.id);
+    //         }
+    //     });
+    // });
+    return requestThreads(userId);
 }
 
 export function requestThreads(userId = null, url = null) {
 
-    if (null == userId){
+    if (null === userId){
         userId = LoginStore.user.id;
     }
 
@@ -81,7 +80,6 @@ export function requestFilters() {
             failure: ActionTypes.REQUEST_CATEGORIES_ERROR
         });
     }
-
 }
 
 export function requestRecommendationPage(userId, threadId) {
@@ -95,21 +93,13 @@ export function requestRecommendationPage(userId, threadId) {
     }
 
     promise.then(function() {
-        requestRecommendation(threadId)
+        requestRecommendations(threadId)
     });
 
 }
 
-export function requestRecommendation(threadId, url = null) {
-
-    let recommendation = {};
-    if (url) {
-        recommendation = UserAPI.getRecommendation(threadId, url);
-    } else {
-        recommendation = UserAPI.getRecommendation(threadId);
-    }
-
-    return dispatchAsync((recommendation), {
+export function requestRecommendations(threadId, url) {
+    return dispatchAsync((UserAPI.getRecommendations(url)), {
         request: ActionTypes.REQUEST_RECOMMENDATIONS,
         success: ActionTypes.REQUEST_RECOMMENDATIONS_SUCCESS,
         failure: ActionTypes.REQUEST_RECOMMENDATIONS_ERROR
@@ -123,7 +113,7 @@ export function addPrevRecommendation(threadId) {
 export function recommendationsNext(threadId) {
     const nextUrl = RecommendationStore.getNextUrl(threadId);
     if (nextUrl && !RecommendationStore.isLoadingRecommendations(threadId)) {
-        return dispatchAsync((UserAPI.getRecommendation(threadId, nextUrl)), {
+        return dispatchAsync((UserAPI.getRecommendations(threadId, nextUrl)), {
             request: ActionTypes.REQUEST_NEXT_RECOMMENDATIONS,
             success: ActionTypes.REQUEST_NEXT_RECOMMENDATIONS_SUCCESS,
             failure: ActionTypes.REQUEST_NEXT_RECOMMENDATIONS_ERROR

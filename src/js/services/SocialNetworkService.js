@@ -167,7 +167,7 @@ class SocialNetworkService {
                 analogUrl = 'me/albums?fields=cover_photo,name,picture';
                 break;
             case 'me/album':
-                analogUrl = '@{id}/photos?fields=picture';
+                analogUrl = '@{id}/photos?fields=picture&type=album';
                 break;
             case 'me/photos':
                 analogUrl = 'me/photos';

@@ -60,7 +60,7 @@ function getState(props) {
     let recommendations = [];
     let thread = getDisplayedThread(props);
     const threadId = parseThreadId(thread);
-    let isLoadingRecommendations = true;
+    let isLoadingRecommendations = false;
     if (threadId) {
         if (Object.keys(thread).length !== 0) {
             thread.isEmpty = RecommendationStore.isEmpty(threadId);
@@ -136,8 +136,11 @@ export default class DiscoverPage extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (parseId(prevProps.thread) !== parseId(this.props.thread)) {
-            ThreadActionCreators.requestRecommendations(parseId(this.props.thread), this.props.recommendationUrl);
+        const threadId = parseId(this.props.thread);
+        const receivedThread = parseId(prevProps.thread) !== threadId;
+        const canRequestFirstInterests = this.props.recommendationUrl && this.props.recommendations.length === 0;
+        if ((receivedThread || canRequestFirstInterests) && !this.props.isLoadingRecommendations && threadId) {
+            ThreadActionCreators.requestRecommendations(threadId, this.props.recommendationUrl);
         }
     }
 

@@ -90,28 +90,29 @@ class RecommendationStore extends BaseStore {
             case ActionTypes.UPDATE_THREAD_SUCCESS:
                 const {threadId} = action;
                 delete this._recommendations[threadId];
+                this._pagination = {};
                 this.emitChange();
                 break;
             case ActionTypes.REQUEST_THREADS_SUCCESS:
-                /*const responseThreads = selectn('response.entities.thread', action);
-                 let recommendation = null;
-                 Object.keys(responseThreads).forEach((key) => {
-                 const thread = responseThreads[key];
-                 let recommendations = [];
-                 let cached = null;
-                 Object.keys(thread.cached).forEach((key) => {
-                 cached = thread.cached[key];
-                 const elementId = this.getRecommendationId(cached, thread.category);
-                 recommendations[elementId] = cached;
-                 });
-                 const _recommendations = thread.category == 'ThreadContent' ? _contentRecommendations : _userRecommendations;
-                 if (this.recommendationsMustBeReplaced(_recommendations, thread.category)) {
-                 replaceRecommendations(recommendations, _recommendations);
-                 } else {
-                 mergeAndGetRecommendations(recommendations, _recommendations);
-                 }
-                 });
-                 this.emitChange();*/
+                const responseThreads = action.response.items;
+                Object.keys(responseThreads).forEach((key) => {
+                    const thread = responseThreads[key];
+                    // let recommendations = [];
+                    // let cached = null;
+                    // Object.keys(thread.cached).forEach((key) => {
+                    //     cached = thread.cached[key];
+                    //     const elementId = this.getRecommendationId(cached, thread.category);
+                    //     recommendations[elementId] = cached;
+                    // });
+                    // const _recommendations = thread.category == 'ThreadContent' ? _contentRecommendations : _userRecommendations;
+                    // if (this.recommendationsMustBeReplaced(_recommendations, thread.category)) {
+                    //     replaceRecommendations(recommendations, _recommendations);
+                    // } else {
+                    //     mergeAndGetRecommendations(recommendations, _recommendations);
+                    // }
+                    this._recommendations[thread.id] = [];
+                });
+                this.emitChange();
                 break;
             case ActionTypes.LOGOUT_USER:
                 this._recommendations = [];
@@ -154,9 +155,9 @@ class RecommendationStore extends BaseStore {
                 //         this._replaced[action.threadId] = true;
                 //         this._prevNextUrl[action.threadId] = this._nextUrl[action.threadId];
                 //     }
-                    this._recommendations[action.threadId] = this.mergeRecommendations(recommendations, this._recommendations[action.threadId]);
-                    this._nextUrl[action.threadId] = action.response.pagination.nextLink;
-                    this._pagination[action.threadId] = action.response.pagination;
+                this._recommendations[action.threadId] = this.mergeRecommendations(recommendations, this._recommendations[action.threadId]);
+                this._nextUrl[action.threadId] = action.response.pagination.nextLink;
+                this._pagination[action.threadId] = action.response.pagination;
                 // }
                 this.emitChange();
                 break;

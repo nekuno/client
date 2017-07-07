@@ -30,7 +30,11 @@ export default class LoginPage extends Component {
     loginByResourceOwner(resource, scope) {
         SocialNetworkService.login(resource, scope).then(
             () => {
-                LoginActionCreators.loginUserByResourceOwner(SocialNetworkService.buildOauthData(resource)).then(
+                LoginActionCreators.loginUserByResourceOwner(
+                    resource,
+                    SocialNetworkService.getAccessToken(resource),
+                    SocialNetworkService.getRefreshToken(resource)
+                ).then(
                     () => {
                         return null; // User is logged in
                     },

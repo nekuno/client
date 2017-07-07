@@ -9,9 +9,9 @@ export default class UnlockGroupPopup extends Component {
     static propTypes = {
         onClickOkHandler: PropTypes.func,
         joining         : PropTypes.bool,
-        contentRef: PropTypes.func,
+        contentRef      : PropTypes.func,
         // Injected by @translate:
-        strings             : PropTypes.object
+        strings         : PropTypes.object
     };
 
     constructor(props) {
@@ -47,10 +47,10 @@ export default class UnlockGroupPopup extends Component {
                     <div className="title">{strings.enterToken}</div>
                     <div className="list-block">
                         <ul>
-                            {opened ? <Input ref="token" placeholder={strings.enterTokenText} maxLength={"200"} /> : null}
+                            {opened ? <Input ref="token" placeholder={strings.enterTokenText} maxLength={"200"}/> : null}
                         </ul>
                     </div>
-                    <FullWidthButton onClick={this.onOkClick} disabled={joining ? "disabled" : ""}>{strings.ok}</FullWidthButton>
+                    <FullWidthButton onClick={this.onOkClick} disabled={ joining }>{strings.ok}</FullWidthButton>
                 </div>
             </div>
         );

@@ -51,7 +51,7 @@ export default class OtherQuestionList extends Component {
 
         return !isLoadingComparedQuestions || Object.keys(otherQuestions).length !== 0 ?
             questionComponents
-            : [<EmptyMessage text={strings.loading} loadingGif={true} shortMarginTop={true}/>]
+            : [<EmptyMessage text={strings.loading} loadingGif={false} shortMarginTop={true}/>]
     }
 
     render() {

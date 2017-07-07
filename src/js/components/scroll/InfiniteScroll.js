@@ -24,6 +24,7 @@ export default class InfiniteScroll extends Component {
 
         this.state = {
             'mustRender': false,
+            'firstOnInfiniteLoadTried': false,
         };
 
         this.checkMustRender = this.checkMustRender.bind(this);
@@ -65,9 +66,16 @@ export default class InfiniteScroll extends Component {
     }
 
     onInfiniteLoad() {
-        if (!isDispatching()) {
-            return this.props.onInfiniteLoad();
+        if (this.state.firstOnInfiniteLoadTried){
+            if (!isDispatching()) {
+                return this.props.onInfiniteLoad();
+            }
+        } else {
+            this.setState({
+                firstOnInfiniteLoadTried: true,
+            })
         }
+
     }
 
     getLoadingGif() {
@@ -122,6 +130,10 @@ export default class InfiniteScroll extends Component {
 
     getScrollContainer() {
         return document.getElementById(this.props.containerId);
+    }
+
+    getScrollTop() {
+        return document.getElementsByClassName('react-infinite-div')[0].scrollTop;
     }
 
     getScrollContainerHeight() {
@@ -194,6 +206,7 @@ export default class InfiniteScroll extends Component {
                 containerHeight={height}
                 list={this.getList()}
                 // preloadAdditionalHeight={window.innerHeight*2}
+                className='react-infinite-div'
                 {...this.props}
                 onInfiniteLoad={this.onInfiniteLoad}
                 preloadBatchSize={100} //small values can cause infinite loop https://github.com/seatgeek/react-infinite/pull/48

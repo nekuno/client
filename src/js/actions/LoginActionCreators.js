@@ -11,6 +11,7 @@ import RouterStore from '../stores/RouterStore';
 import RouterContainer from '../services/RouterContainer';
 import * as QuestionActionCreators from '../actions/QuestionActionCreators';
 import * as UserActionCreators from '../actions/UserActionCreators';
+import * as ThreadActionCreators from '../actions/ThreadActionCreators';
 import UserDataStatusActionCreators from '../actions/UserDataStatusActionCreators';
 import RouterActionCreators from '../actions/RouterActionCreators';
 import LocalStorageService from '../services/LocalStorageService';
@@ -128,6 +129,9 @@ export default new class LoginActionCreators {
 
     requestDataOnLogin(userId) {
         UserDataStatusActionCreators.requestUserDataStatus();
+        UserActionCreators.requestStats(userId);
+        UserActionCreators.requestMetadata();
+        ThreadActionCreators.requestFilters();
         const requestQuestionsLink = QuestionStore.getRequestQuestionsUrl(userId);
         QuestionActionCreators.requestQuestions(userId, requestQuestionsLink);
     }

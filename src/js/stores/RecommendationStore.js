@@ -202,8 +202,17 @@ class RecommendationStore extends BaseStore {
 
     getRecommendationUrl(threadId) {
         let url = this.getPaginationUrl(threadId, this._initialPaginationUrl);
-        url = url.replace('{threadId}', threadId);
+        url = this._formatUrl(url, threadId);
         return url;
+    }
+
+    isInitialRequestUrl(requestUrl, threadId) {
+        const initialRequest = this._formatUrl(this._initialPaginationUrl, threadId);
+        return initialRequest === requestUrl;
+    }
+
+    _formatUrl(url, threadId) {
+        return url.replace('{threadId}', threadId);
     }
 
     getId(recommendation) {
@@ -280,7 +289,7 @@ class RecommendationStore extends BaseStore {
     }
 
     isLoadingRecommendations(threadId) {
-        return this._loadingRecommendations[threadId];
+        return this._loadingRecommendations[threadId] ? this._loadingRecommendations[threadId] : false;
     }
 
     mergeRecommendations(recommendations, _recommendations) {

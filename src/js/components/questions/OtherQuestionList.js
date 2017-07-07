@@ -19,6 +19,12 @@ export default class OtherQuestionList extends Component {
         strings                   : PropTypes.object
     };
 
+    constructor(props) {
+        super(props);
+
+        this.getOtherQuestions = this.getOtherQuestions.bind(this);
+    }
+
     getOtherQuestions() {
         const {questions, otherQuestions, otherUserSlug, ownPicture, otherPicture, onTimerEnd, isLoadingComparedQuestions, strings} = this.props;
 
@@ -48,19 +54,11 @@ export default class OtherQuestionList extends Component {
             : [<EmptyMessage text={strings.loading} loadingGif={true} shortMarginTop={true}/>]
     }
 
-    getItems() {
-        const firstItems = this.props.firstItems;
-        const questions = this.getOtherQuestions.bind(this)();
-        return [
-            ...firstItems,
-            ...questions
-        ];
-    }
-
     render() {
         return (
             <InfiniteScroll
-                list={this.getItems()}
+                items = {this.getOtherQuestions()}
+                firstItems={this.props.firstItems}
                 // preloadAdditionalHeight={window.innerHeight*2}
                 // useWindowAsScrollContainer
                 onInfiniteLoad={this.props.onBottomScroll}

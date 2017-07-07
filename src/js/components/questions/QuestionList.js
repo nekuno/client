@@ -16,6 +16,7 @@ export default class QuestionList extends Component {
         super(props);
 
         this.onClickHandler = this.onClickHandler.bind(this);
+        this.getQuestions = this.getQuestions.bind(this);
 
         this.state = {
             graphDisplayQuestionId: null
@@ -32,37 +33,29 @@ export default class QuestionList extends Component {
         const {questions, userSlug, ownPicture, defaultPicture, onTimerEnd} = this.props;
 
         const questionComponents = Object.keys(questions).map((questionId, index) =>
-            <Question userSlug={userSlug}
-                      userAnswer={questions[questionId].userAnswer}
-                      ownPicture={ownPicture}
-                      defaultPicture={defaultPicture}
-                      key={index}
-                      accessibleKey={index}
-                      question={questions[questionId]}
-                      last={index == questions.length}
-                      onClickHandler={this.onClickHandler}
-                      onTimerEnd={onTimerEnd}
-                      graphActive={this.state.graphDisplayQuestionId == questionId}
-            />);
-        return <div className="question-list">
-            {questionComponents}
-        </div>
-            ;
-    }
+            <div className="question-list">
+                <Question userSlug={userSlug}
+                          userAnswer={questions[questionId].userAnswer}
+                          ownPicture={ownPicture}
+                          defaultPicture={defaultPicture}
+                          key={index}
+                          accessibleKey={index}
+                          question={questions[questionId]}
+                          last={index === questions.length}
+                          onClickHandler={this.onClickHandler}
+                          onTimerEnd={onTimerEnd}
+                          graphActive={this.state.graphDisplayQuestionId === questionId}
+                />
+            </div>);
 
-    getItems() {
-        const firstItems = this.props.firstItems;
-        const questions = this.getQuestions.bind(this)();
-        return [
-            ...firstItems,
-            questions
-        ];
+        return questionComponents;
     }
 
     render() {
         return (
             <InfiniteScroll
-                list={this.getItems()}
+                items={this.getQuestions()}
+                firstItems={this.props.firstItems}
                 // preloadAdditionalHeight={window.innerHeight*2}
                 // useWindowAsScrollContainer
                 onInfiniteLoad={this.props.onBottomScroll}

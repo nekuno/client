@@ -65,7 +65,7 @@ export function deleteThread(threadId) {
 
 export function requestFilters() {
 
-    if (FilterStore.filters === null) {
+    if (FilterStore.filters === null && !FilterStore.isLoading()) {
         dispatchAsync(UserAPI.getFilters(), {
             request: ActionTypes.REQUEST_FILTERS,
             success: ActionTypes.REQUEST_FILTERS_SUCCESS,

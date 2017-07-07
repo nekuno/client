@@ -11,7 +11,6 @@ import SocialNetworksBanner from '../components/socialNetworks/SocialNetworksBan
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
-import * as UserActionCreators from '../actions/UserActionCreators';
 import * as ThreadActionCreators from '../actions/ThreadActionCreators';
 import ThreadStore from '../stores/ThreadStore';
 import FilterStore from '../stores/FilterStore';
@@ -25,7 +24,7 @@ function parseId(user) {
 }
 
 function parseThreadId(thread) {
-    return thread.id;
+    return thread && thread.hasOwnProperty('id') ? thread.id : null;
 }
 
 function getDisplayedThread(props) {
@@ -41,10 +40,11 @@ function getDisplayedThread(props) {
  * Requests data from server for current props.
  */
 function requestData(props) {
-    const userId = parseId(props.user);
-    ThreadActionCreators.requestThreads(userId);
+    if (Object.keys(props.thread).length === 0) {
+        const userId = parseId(props.user);
+        ThreadActionCreators.requestThreads(userId);
+    }
     ThreadActionCreators.requestFilters();
-    UserActionCreators.requestMetadata();
 }
 
 /**
@@ -60,11 +60,12 @@ function getState(props) {
     let recommendations = [];
     let thread = getDisplayedThread(props);
     const threadId = parseThreadId(thread);
+    const isLoadingThread = ThreadStore.isRequesting();
     let isLoadingRecommendations = false;
     if (threadId) {
         if (Object.keys(thread).length !== 0) {
             thread.isEmpty = RecommendationStore.isEmpty(threadId);
-            isLoadingRecommendations = !RecommendationStore.get(threadId) || RecommendationStore.isLoadingRecommendations(threadId);
+            isLoadingRecommendations = RecommendationStore.isLoadingRecommendations(threadId);
         }
         filters = FilterStore.filters;
         recommendations = RecommendationStore.get(threadId) ? RecommendationStore.get(threadId) : [];
@@ -73,6 +74,8 @@ function getState(props) {
     const similarityOrder = thread && thread.filters && thread.filters.userFilters && thread.filters.userFilters.order === 'similarity' || false;
     const isThreadGroup = thread.groupId !== null;
     const recommendationUrl = RecommendationStore.getRecommendationUrl(threadId);
+    const isInitialRequest = RecommendationStore.isInitialRequestUrl(recommendationUrl, threadId);
+    const editThreadUrl = ThreadStore.getEditThreadUrl(threadId);
 
     return {
         profile,
@@ -82,10 +85,13 @@ function getState(props) {
         recommendations,
         thread,
         isLoadingRecommendations,
+        isLoadingThread,
         networks,
         similarityOrder,
         isThreadGroup,
         recommendationUrl,
+        isInitialRequest,
+        editThreadUrl,
     };
 }
 
@@ -107,10 +113,13 @@ export default class DiscoverPage extends Component {
         recommendations         : PropTypes.array,
         thread                  : PropTypes.object,
         isLoadingRecommendations: PropTypes.bool,
+        isLoadingThread         : PropTypes.bool,
         networks                : PropTypes.array.isRequired,
         similarityOrder         : PropTypes.bool.isRequired,
         isThreadGroup           : PropTypes.bool,
         recommendationUrl       : PropTypes.string,
+        isInitialRequest        : PropTypes.bool,
+        editThreadUrl           : PropTypes.string,
     };
 
     static contextTypes = {
@@ -136,16 +145,17 @@ export default class DiscoverPage extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        const threadId = parseId(this.props.thread);
+        const {thread, recommendationUrl, isLoadingRecommendations, recommendations} = this.props;
+        const threadId = parseId(thread);
         const receivedThread = parseId(prevProps.thread) !== threadId;
-        const canRequestFirstInterests = this.props.recommendationUrl && this.props.recommendations.length === 0;
-        if ((receivedThread || canRequestFirstInterests) && !this.props.isLoadingRecommendations && threadId) {
-            ThreadActionCreators.requestRecommendations(threadId, this.props.recommendationUrl);
+        const canRequestFirstInterests = recommendationUrl && recommendations.length === 0;
+        if ((receivedThread || canRequestFirstInterests) && !isLoadingRecommendations && threadId) {
+            ThreadActionCreators.requestRecommendations(threadId, recommendationUrl);
         }
     }
 
     editThread() {
-        this.context.router.push(`edit-thread/${parseThreadId(this.props.thread)}`);
+        this.context.router.push(this.props.editThreadUrl);
     }
 
     leftClickHandler() {
@@ -155,9 +165,9 @@ export default class DiscoverPage extends Component {
     }
 
     onBottomScroll() {
-        const {thread, recommendationUrl, isLoadingRecommendations} = this.props;
+        const {thread, recommendationUrl, isLoadingRecommendations, isLoadingThread, isInitialRequest} = this.props;
         const threadId = parseThreadId(thread);
-        if (threadId && recommendationUrl && !isLoadingRecommendations) {
+        if (threadId && recommendationUrl && !isInitialRequest && !isLoadingRecommendations && !isLoadingThread) {
             ThreadActionCreators.requestRecommendations(threadId, recommendationUrl);
         }
     }
@@ -205,11 +215,10 @@ export default class DiscoverPage extends Component {
     }
 
     getBanner() {
-        const {user, questionsTotal, networks, thread, profile, filters} = this.props;
+        const {user, questionsTotal, networks} = this.props;
         const connectedNetworks = networks.filter(network => network.fetching || network.fetched || network.processing || network.processed);
-        const mustShowQuestionsBanner = profile && filters && thread && questionsTotal <= 100;
-        const mustShowSocialNetworksBanner = profile && filters && thread && connectedNetworks.length < 3;
-
+        const mustShowQuestionsBanner = user && questionsTotal <= 100;
+        const mustShowSocialNetworksBanner = user && networks && connectedNetworks.length < 3;
         const banner =
             mustShowQuestionsBanner ? <QuestionsBanner user={user} questionsTotal={questionsTotal || 0}/>
                 : mustShowSocialNetworksBanner ? <SocialNetworksBanner networks={networks} user={user}/>
@@ -218,18 +227,38 @@ export default class DiscoverPage extends Component {
     }
 
     getFirstItems() {
-        return [
+        let firstItems = [
             this.renderChipList.bind(this)(),
             this.getEditButton.bind(this)(),
             this.getBanner.bind(this)(),
             this.getProcessesProgress.bind(this)()
         ];
+
+        const noRecommendations = this.props.recommendations.length === 0;
+        const isSomethingLoading = Object.keys(this.props.thread).length === 0 || this.props.isLoadingRecommendations;
+        const noUserInfo = Object.keys(this.props.profile).length === 0;
+
+        if ((isSomethingLoading && noRecommendations ) || noUserInfo) {
+            firstItems.push(this.getEmptyMessage(this.props, !this.props.isLoadingRecommendations));
+        }
+
+        return firstItems;
+    }
+
+    getEmptyMessage(props, loadingGif) {
+        const text = this.getEmptyMessageText(props);
+
+        return <EmptyMessage text={text} loadingGif={loadingGif}/>;
+    }
+
+    getEmptyMessageText(props) {
+        const {thread, isLoadingRecommendations, strings} = props;
+        return !parseThreadId(thread) || isLoadingRecommendations ? strings.loadingMessage : strings.noRecommendations;
     }
 
     render() {
         const {user, profile, strings, recommendations, thread, isLoadingRecommendations, similarityOrder, isThreadGroup} = this.props;
         const title = isThreadGroup ? thread.name : strings.discover;
-        const emptyMessageText = isLoadingRecommendations ? strings.loadingMessage : strings.noRecommendations;
 
         return (
             <div id="discover-views" className="views">
@@ -243,7 +272,8 @@ export default class DiscoverPage extends Component {
                                 <CardUserList firstItems={this.getFirstItems.bind(this)()} recommendations={recommendations} user={user} profile={profile}
                                               handleSelectProfile={this.selectProfile} similarityOrder={similarityOrder} onBottomScroll={this.onBottomScroll} isLoading={isLoadingRecommendations}/>
                                 :
-                                <EmptyMessage text={emptyMessageText} loadingGif={true}/>}
+                                this.getEmptyMessage(this.props, true)
+                            }
                             <br />
                         </div>
                     </div>

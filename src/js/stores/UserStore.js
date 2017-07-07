@@ -30,7 +30,6 @@ class UserStore extends BaseStore {
             case ActionTypes.REQUEST_AUTOLOGIN_SUCCESS:
                 const userId = action.response.user.id;
                 responseUsers[userId] = action.response.user;
-                console.log(responseUsers);
                 mergeIntoBag(this._users, responseUsers);
                 this.emitChange();
                 break;

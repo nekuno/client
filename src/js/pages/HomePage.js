@@ -111,7 +111,11 @@ export default class HomePage extends Component {
         SocialNetworkService.login(resource, scope).then(
             () => {
                 const oauthData = SocialNetworkService.buildOauthData(resource);
-                LoginActionCreators.loginUserByResourceOwner(oauthData).then(
+                LoginActionCreators.loginUserByResourceOwner(
+                    resource,
+                    SocialNetworkService.getAccessToken(resource),
+                    SocialNetworkService.getRefreshToken(resource)
+                ).then(
                     () => {
                         return null; // User is logged in
                     },

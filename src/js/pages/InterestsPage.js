@@ -16,11 +16,6 @@ function parseId(user) {
     return user.id;
 }
 
-function requestData(props) {
-    const userId = parseId(props.user);
-    InterestsActionCreators.requestOwnInterests(userId);
-}
-
 function getState(props) {
     const userId = parseId(props.user);
     const pagination = InterestStore.getPagination(userId) || {};
@@ -72,17 +67,13 @@ export default class InterestsPage extends Component {
         this.onFilterTypeClick = this.onFilterTypeClick.bind(this);
     }
 
-    componentWillMount() {
-        if (Object.keys(this.props.pagination).length === 0) {
-            requestData(this.props);
-        }
-    }
-
     onBottomScroll() {
         const {requestInterestsUrl, user} = this.props;
         const userId = parseId(user);
 
-        return InterestsActionCreators.requestOwnInterests(userId, requestInterestsUrl);
+        if (requestInterestsUrl) {
+            return InterestsActionCreators.requestOwnInterests(userId, requestInterestsUrl);
+        }
     }
 
     getBanner() {

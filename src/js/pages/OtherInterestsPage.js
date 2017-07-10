@@ -119,7 +119,6 @@ export default class OtherInterestsPage extends Component {
                 const otherUserId = parseId(otherUser);
                 const userId = parseId(user);
 
-                InterestsActionCreators.resetInterests(otherUserId);
                 InterestsActionCreators.requestComparedInterests(userId, otherUserId, this.props.requestComparedInterestsUrl);
             }
         // }, 0);
@@ -196,7 +195,6 @@ export default class OtherInterestsPage extends Component {
     }
 
     onFilterCommonClick(key) {
-        InterestsActionCreators.resetInterests(parseId(this.props.otherUser));
         InterestsActionCreators.setShowOnlyCommon(key, parseId(this.props.otherUser));
         this.setState({
             carousel     : false
@@ -205,7 +203,6 @@ export default class OtherInterestsPage extends Component {
 
     onFilterTypeClick(type) {
         const otherUserId = parseId(this.props.otherUser);
-        InterestsActionCreators.resetInterests(this.props.otherUser);
         InterestsActionCreators.setType(type, otherUserId);
     }
 

@@ -32,27 +32,36 @@ class InterestStore extends BaseStore {
                 break;
             case ActionTypes.SET_CONTENTS_TYPE:
                 this.setType(action.userId, action.contentType);
+                this._resetInterests(action.userId);
                 this.emitChange();
                 break;
             case ActionTypes.SET_CONTENTS_SHOWONLYCOMMON:
                 this.setShowOnlyCommon(action.userId, action.showOnlyCommon);
+                this._resetInterests(action.userId);
                 this.emitChange();
                 break;
             case ActionTypes.LIKE_CONTENT:
             case ActionTypes.DISLIKE_CONTENT:
             case ActionTypes.UNRATE_CONTENT:
                 to = action.to;
-                Object.keys(this._interests).forEach(userId => this._interests[userId].forEach((interest, index) => { if (interest.id == to) { this._interests[userId][index].rate = null; } }));
+                Object.keys(this._interests).forEach(userId => this._interests[userId].forEach((interest, index) => {
+                    if (interest.id === to) {
+                        this._interests[userId][index].rate = null;
+                    }
+                }));
                 this.emitChange();
                 break;
             case ActionTypes.RESET_INTERESTS:
-                this._interests[action.userId] = [];
-                this._pagination = {};
+                this._resetInterests(action.userId);
                 this.emitChange();
                 break;
             case ActionTypes.REPORT_CONTENT:
                 to = action.data.contentId;
-                Object.keys(this._interests).forEach(userId => this._interests[userId].forEach((interest, index) => { if (interest.id == to) { this._interests[userId].splice(index, 1) } }));
+                Object.keys(this._interests).forEach(userId => this._interests[userId].forEach((interest, index) => {
+                    if (interest.id === to) {
+                        this._interests[userId].splice(index, 1)
+                    }
+                }));
                 this.emitChange();
                 break;
             case ActionTypes.REQUEST_OWN_INTERESTS_SUCCESS:
@@ -90,19 +99,31 @@ class InterestStore extends BaseStore {
             case ActionTypes.LIKE_CONTENT_SUCCESS:
                 to = action.to;
                 rate = 1;
-                Object.keys(this._interests).forEach(userId => this._interests[userId].forEach((interest, index) => { if (interest.id == to) { this._interests[userId][index].rate = rate; } }));
+                Object.keys(this._interests).forEach(userId => this._interests[userId].forEach((interest, index) => {
+                    if (interest.id === to) {
+                        this._interests[userId][index].rate = rate;
+                    }
+                }));
                 this.emitChange();
                 break;
             case ActionTypes.DISLIKE_CONTENT_SUCCESS:
                 to = action.to;
                 rate = -1;
-                Object.keys(this._interests).forEach(userId => this._interests[userId].forEach((interest, index) => { if (interest.id == to) { this._interests[userId][index].rate = rate; } }));
+                Object.keys(this._interests).forEach(userId => this._interests[userId].forEach((interest, index) => {
+                    if (interest.id === to) {
+                        this._interests[userId][index].rate = rate;
+                    }
+                }));
                 this.emitChange();
                 break;
             case ActionTypes.UNRATE_CONTENT_SUCCESS:
                 to = action.to;
                 rate = 0;
-                Object.keys(this._interests).forEach(userId => this._interests[userId].forEach((interest, index) => { if (interest.id == to) { this._interests[userId][index].rate = rate; } }));
+                Object.keys(this._interests).forEach(userId => this._interests[userId].forEach((interest, index) => {
+                    if (interest.id === to) {
+                        this._interests[userId][index].rate = rate;
+                    }
+                }));
                 this.emitChange();
                 break;
             case ActionTypes.CHECK_IMAGES_SUCCESS:
@@ -112,8 +133,8 @@ class InterestStore extends BaseStore {
                     const newInterest = action.response[key];
                     Object.keys(currentInterests).forEach((key2) => {
                         const currentInterest = currentInterests[key2];
-                        if (currentInterest.url == newInterest.url){
-                            if (newInterest.processed == 1){
+                        if (currentInterest.url === newInterest.url) {
+                            if (newInterest.processed === 1) {
                                 const currentRate = currentInterests[key2].rate;
                                 const currentUserRates = currentInterests[key2].user_rates;
                                 currentInterests[key2] = newInterest;
@@ -145,15 +166,15 @@ class InterestStore extends BaseStore {
     getPagination(userId) {
         return this._pagination[userId];
     }
-    
+
     getType(userId) {
         return this._type.hasOwnProperty(userId) ? this._type[userId] : '';
     }
-    
+
     setType(userId, type) {
         this._type[userId] = type;
     }
-    
+
     getShowOnlyCommon(userId) {
         return this._showOnlyCommon.hasOwnProperty(userId) ? this._showOnlyCommon[userId] : 1;
     }
@@ -173,7 +194,7 @@ class InterestStore extends BaseStore {
 
     getRequestComparedInterestsUrl(userId) {
         let url = this.getPaginationUrl(userId, this._initialComparedPaginationUrl);
-        if (url === this._initialComparedPaginationUrl){
+        if (url === this._initialComparedPaginationUrl) {
             url = this._formatInterestUrl(url, userId);
         }
         return url;
@@ -182,9 +203,14 @@ class InterestStore extends BaseStore {
     _formatInterestUrl(url, userId) {
         url = url.replace('{userId}', userId);
         url = url.replace('{type}', this.getType(userId));
-        url = url.replace('{showOnlyCommon}', this.getShowOnlyCommon(userId))
+        url = url.replace('{showOnlyCommon}', this.getShowOnlyCommon(userId));
 
         return url;
+    }
+
+    _resetInterests(userId) {
+        this._interests[userId] = [];
+        delete this._pagination[userId];
     }
 
     getTotals(userId) {

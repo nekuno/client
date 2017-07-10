@@ -264,7 +264,7 @@ export function likeContent(from, to, originContext, originName) {
         success: ActionTypes.LIKE_CONTENT_SUCCESS,
         failure: ActionTypes.LIKE_CONTENT_ERROR
     }, {from, to});
-    // InterestsActionCreators.resetInterests(from);
+    InterestsActionCreators.resetInterests(from);
     // InterestsActionCreators.requestOwnInterests(from);
 }
 
@@ -274,7 +274,7 @@ export function dislikeContent(from, to, originContext, originName) {
         success: ActionTypes.DISLIKE_CONTENT_SUCCESS,
         failure: ActionTypes.DISLIKE_CONTENT_ERROR
     }, {from, to});
-    // InterestsActionCreators.resetInterests(from);
+    InterestsActionCreators.resetInterests(from);
     // InterestsActionCreators.requestOwnInterests(from);
 }
 
@@ -293,7 +293,7 @@ export function deleteRateContent(from, to) {
         failure: ActionTypes.UNRATE_CONTENT_ERROR
     }, {from, to});
     InterestsActionCreators.resetInterests(from);
-    InterestsActionCreators.requestOwnInterests(from);
+    // InterestsActionCreators.requestOwnInterests(from);
 }
 
 export function reportContent(data) {

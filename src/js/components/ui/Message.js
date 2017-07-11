@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import moment from 'moment';
-import ReactEmoji from 'react-emoji';
+import Emojify from 'react-emojione';
 import Image from './Image';
 import ChatActionCreators from '../../actions/ChatActionCreators';
 
@@ -31,7 +31,7 @@ export default class Message extends Component {
     render() {
 
         let {message, userLink} = this.props;
-        let text = ReactEmoji.emojify(message.text);
+        let text = message.text;
         let readed = message.readed;
         let createdAt = message.createdAt;
         let imageSrc = message.user_from.photo.thumbnail.medium;
@@ -44,7 +44,7 @@ export default class Message extends Component {
                     <div className="notification">
                         <div className="notification-text-right">
                             <div className="notification-excerpt break-words">
-                                {text}
+                                <Emojify><span>{text}</span></Emojify>
                             </div>
                             <div className="notification-time" title={createdAt.toLocaleString()}>
                                 <span className="icon-clock"></span>&nbsp;
@@ -62,7 +62,7 @@ export default class Message extends Component {
                         </div>
                         <div className="notification-text">
                             <div className="notification-excerpt" style={style}>
-                                {text}
+                                <Emojify><span>{text}</span></Emojify>
                             </div>
                             <div className="notification-time" title={createdAt.toLocaleString()}>
                                 <span className="icon-clock"></span>&nbsp;

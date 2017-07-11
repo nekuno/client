@@ -79,7 +79,11 @@ export default class RegisterPage extends Component {
         const {token, invitation, interfaceLanguage} = this.props;
         SocialNetworkService.login(resource, scope, true).then(() => {
             const oauthData = SocialNetworkService.buildOauthData(resource);
-            LoginActionCreators.loginUserByResourceOwner(oauthData).then(
+            LoginActionCreators.loginUserByResourceOwner(
+                resource,
+                SocialNetworkService.getAccessToken(resource),
+                SocialNetworkService.getRefreshToken(resource)
+            ).then(
                 () => {
                     console.log('User already logged in. Using invitation', invitation);
                     if (invitation.hasOwnProperty('group')) {

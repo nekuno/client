@@ -33,12 +33,17 @@ export const API_URLS = {
     GALLERY_PHOTO            : API_ROOT + 'photos/{id}',
     GALLERY_PHOTO_PROFILE    : API_ROOT + 'photos/{id}/profile',
     OTHER_GALLERY_PHOTOS     : API_ROOT + 'photos/{id}',
-    OWN_INTERESTS            : API_ROOT + 'content?type[]={type}',
-    COMPARED_INTERESTS       : API_ROOT + 'content/compare/{userId}?type[]={type}&showOnlyCommon={showOnlyCommon}',
     CHECK_IMAGES             : API_ROOT + 'links/images',
     NOTIFICATIONS_SUBSCRIBE  : API_ROOT + 'notifications/subscribe',
     NOTIFICATIONS_UNSUBSCRIBE: API_ROOT + 'notifications/unsubscribe',
     CONNECTION_STATUS        : API_ROOT + 'client/status',
+
+    //Pagination urls
+    ANSWERS           : API_ROOT + 'answers',
+    COMPARED_ANSWERS  : API_ROOT + 'answers/compare/{otherUserId}',
+    OWN_INTERESTS     : API_ROOT + 'content?type[]={type}',
+    COMPARED_INTERESTS: API_ROOT + 'content/compare/{userId}?type[]={type}&showOnlyCommon={showOnlyCommon}',
+    RECOMMENDATIONS   : API_ROOT + 'threads/{threadId}/recommendation',
 };
 
 export const THREAD_TYPES = {
@@ -63,31 +68,31 @@ export const QUESTION_STATS_COLORS = [
 
 export const SOCIAL_NETWORKS_NAMES = {
     FACEBOOK: 'facebook',
-    TWITTER: 'twitter',
-    GOOGLE: 'google',
-    SPOTIFY: 'spotify'
+    TWITTER : 'twitter',
+    GOOGLE  : 'google',
+    SPOTIFY : 'spotify'
 };
 
 export const SOCIAL_NETWORKS = [
     {
         resourceOwner: SOCIAL_NETWORKS_NAMES.FACEBOOK,
-        id: config.FACEBOOK_ID,
-        scope: config.FACEBOOK_SCOPE
+        id           : config.FACEBOOK_ID,
+        scope        : config.FACEBOOK_SCOPE
     },
     {
         resourceOwner: SOCIAL_NETWORKS_NAMES.TWITTER,
-        id: config.TWITTER_ID,
-        scope: config.TWITTER_SCOPE
+        id           : config.TWITTER_ID,
+        scope        : config.TWITTER_SCOPE
     },
     {
         resourceOwner: SOCIAL_NETWORKS_NAMES.GOOGLE,
-        id: config.GOOGLE_ID,
-        scope: config.GOOGLE_SCOPE
+        id           : config.GOOGLE_ID,
+        scope        : config.GOOGLE_SCOPE
     },
     {
         resourceOwner: SOCIAL_NETWORKS_NAMES.SPOTIFY,
-        id: config.SPOTIFY_ID,
-        scope: config.SPOTIFY_SCOPE
+        id           : config.SPOTIFY_ID,
+        scope        : config.SPOTIFY_SCOPE
     }
 ];
 
@@ -114,7 +119,7 @@ export const GOOGLE_MAPS_URL = 'https://maps.googleapis.com/maps/api/js?librarie
 
 export const REQUIRED_REGISTER_USER_FIELDS = [
     {
-        name    : 'email'
+        name: 'email'
     }
 ];
 

@@ -87,7 +87,7 @@ export default class EditThreadLitePage extends Component {
         if (nextProps.thread) {
             this.setState({
                 threadName: nextProps.thread.name,
-                category  : nextProps.thread.category == 'ThreadUsers' ? 'persons' : 'contents'
+                category  : nextProps.thread.category === 'ThreadUsers' ? 'persons' : 'contents'
             });
         }
         if (nextProps.errors) {
@@ -105,7 +105,6 @@ export default class EditThreadLitePage extends Component {
         let threadId = this.props.thread.id;
         ThreadActionCreators.updateThread(threadId, data)
             .then(() => {
-                ThreadActionCreators.requestRecommendation(threadId);
                 this.setState({updating: false});
                 this.goToDiscover();
             });
@@ -113,7 +112,7 @@ export default class EditThreadLitePage extends Component {
     }
 
     goToDiscover(){
-        if (this.props.thread.groupId != null){
+        if (this.props.thread.groupId !== null){
             const groupUrl="badges/"+this.props.thread.groupId;
             this.context.router.push(groupUrl+"/discover");
         } else {

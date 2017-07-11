@@ -44,7 +44,7 @@ function getState(props) {
     const noMoreQuestions = QuestionStore.noMoreQuestions();
     const goToQuestionStats = QuestionStore.mustGoToQuestionStats();
     const registerQuestionsLength = QuestionStore.registerQuestionsLength();
-    const answersLength = QuestionStore.answersLength(currentUserId);
+    const answersLength = QuestionStore.ownAnswersLength(currentUserId);
     const isJustRegistered = QuestionStore.isJustRegistered(currentUserId);
     const isJustCompleted = QuestionStore.isJustCompleted(currentUserId);
     const initialUserQuestionsCount = LoginStore.getInitialRequiredUserQuestionsCount();

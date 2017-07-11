@@ -15,6 +15,14 @@ export function validateUsername(username) {
     }, {username});
 }
 
+export function requestAutologinData() {
+    return dispatchAsync(UserAPI.getAutologinData(), {
+        request: ActionTypes.REQUEST_AUTOLOGIN,
+        success: ActionTypes.REQUEST_AUTOLOGIN_SUCCESS,
+        failure: ActionTypes.REQUEST_AUTOLOGIN_ERROR
+    });
+}
+
 export function requestOwnUser() {
     return dispatchAsync(UserAPI.getOwnUser(), {
         request: ActionTypes.REQUEST_OWN_USER,
@@ -91,6 +99,9 @@ export function requestProfile(userId, fields) {
 }
 
 export function requestSharedUser(slug) {
+    if (UserStore.containsSlug(slug)){
+        return;
+    }
     dispatchAsync(UserAPI.getPublicUser(slug), {
         request: ActionTypes.REQUEST_PUBLIC_USER,
         success: ActionTypes.REQUEST_PUBLIC_USER_SUCCESS,
@@ -150,7 +161,7 @@ export function requestMetadata() {
             failure: ActionTypes.REQUEST_METADATA_ERROR
         });
     }
-    if (!ProfileStore.getCategories()) {
+    if (!ProfileStore.getCategories() && !ProfileStore.isLoadingCategories()) {
         dispatchAsync(UserAPI.getCategories(), {
             request: ActionTypes.REQUEST_CATEGORIES,
             success: ActionTypes.REQUEST_CATEGORIES_SUCCESS,
@@ -160,7 +171,7 @@ export function requestMetadata() {
 }
 
 export function requestStats(userId) {
-    dispatchAsync(UserAPI.getStats(), {
+    return dispatchAsync(UserAPI.getStats(), {
         request: ActionTypes.REQUEST_STATS,
         success: ActionTypes.REQUEST_STATS_SUCCESS,
         failure: ActionTypes.REQUEST_STATS_ERROR
@@ -254,7 +265,7 @@ export function likeContent(from, to, originContext, originName) {
         failure: ActionTypes.LIKE_CONTENT_ERROR
     }, {from, to});
     InterestsActionCreators.resetInterests(from);
-    InterestsActionCreators.requestOwnInterests(from);
+    // InterestsActionCreators.requestOwnInterests(from);
 }
 
 export function dislikeContent(from, to, originContext, originName) {
@@ -264,7 +275,7 @@ export function dislikeContent(from, to, originContext, originName) {
         failure: ActionTypes.DISLIKE_CONTENT_ERROR
     }, {from, to});
     InterestsActionCreators.resetInterests(from);
-    InterestsActionCreators.requestOwnInterests(from);
+    // InterestsActionCreators.requestOwnInterests(from);
 }
 
 export function ignoreContent(from, to, originContext, originName) {
@@ -282,7 +293,7 @@ export function deleteRateContent(from, to) {
         failure: ActionTypes.UNRATE_CONTENT_ERROR
     }, {from, to});
     InterestsActionCreators.resetInterests(from);
-    InterestsActionCreators.requestOwnInterests(from);
+    // InterestsActionCreators.requestOwnInterests(from);
 }
 
 export function reportContent(data) {

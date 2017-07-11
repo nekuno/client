@@ -9,12 +9,27 @@ export default class TextRadios extends Component {
 		value	      : PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 		onClickHandler: PropTypes.func.isRequired,
 		forceTwoLines : PropTypes.bool,
-		className	  : PropTypes.string
-	};
+        className     : PropTypes.string,
+        disabled      : PropTypes.bool,
+    };
 
 	constructor(props) {
 		super(props);
 	}
+
+	getRadiosClassname(props) {
+        const {className, disabled} = props;
+
+        let finalClassName = 'text-radios';
+        if (className) {
+            finalClassName += ' ' + className;
+        }
+        if (disabled) {
+            finalClassName += ' text-radios-disabled';
+        }
+
+        return finalClassName
+    }
 
 	render() {
 		const {title, labels, value, forceTwoLines, className} = this.props;
@@ -22,6 +37,7 @@ export default class TextRadios extends Component {
 		let labelsTextLength = 0;
 		labels.forEach(label => labelsTextLength += label.text.length);
 		let showCheckboxesList = !forceTwoLines && (labelsLength > 3 || labelsTextLength > 35);
+		const radiosClassName = this.getRadiosClassname(this.props);
 		return (
 			showCheckboxesList ?
 				<div className={className ? "list-block " + className : "list-block"}>
@@ -35,7 +51,7 @@ export default class TextRadios extends Component {
 					</ul>
 				</div>
 				:
-				<div id="joyride-3-answer-importance" className={className ? "text-radios " + className : "text-radios"}>
+				<div id="joyride-3-answer-importance" className={radiosClassName}>
 					<div className="text-radios-title">{title}</div>
 					<div className={labelsLength ? 'text-radios-container' : ' unique-chip text-radios-container'}>
 						{labels.map(label =>
@@ -51,6 +67,14 @@ export default class TextRadios extends Component {
 	}
 
 	onClickHandler(key) {
+	    if (this.props.disabled){
+	        return;
+        }
+
 		this.props.onClickHandler(key);
 	}
 }
+
+TextRadios.defaultProps = {
+    disabled: false,
+};

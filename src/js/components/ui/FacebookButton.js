@@ -16,12 +16,13 @@ export default class FacebookButton extends Component {
 
     render() {
         const {text, disabled} = this.props;
+        const textField = disabled ? <span className="icon-spinner rotation-animation"/> : <span>{text}</span>;
 
         return (
             <div id="facebook-register-button">
                 <FullWidthButton onClick={this.handleClick.bind(this)} disabled={disabled}>
                     <span className={'icon-facebook'}></span>
-                    <span>{text}</span>
+                    {textField}
                 </FullWidthButton>
             </div>
         );

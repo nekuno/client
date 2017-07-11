@@ -8,6 +8,7 @@ class FilterStore extends BaseStore {
     setInitial() {
         this._error = null;
         this._filters = null;
+        this._isLoading = false;
     }
 
     _registerToActions(action) {
@@ -18,18 +19,21 @@ class FilterStore extends BaseStore {
             case ActionTypes.REQUEST_FILTERS:
                 this._error = null;
                 this._filters = null;
+                this._isLoading = true;
                 this.emitChange();
                 break;
 
             case ActionTypes.REQUEST_FILTERS_SUCCESS:
                 this._error = null;
                 this._filters = action.response;
+                this._isLoading = false;
                 this.emitChange();
                 break;
 
             case ActionTypes.REQUEST_FILTERS_ERROR:
                 this._error = action.error;
                 this._filters = null;
+                this._isLoading = false;
                 this.emitChange();
                 break;
 
@@ -44,6 +48,10 @@ class FilterStore extends BaseStore {
 
     get filters() {
         return this._filters;
+    }
+
+    isLoading() {
+        return this._isLoading;
     }
     
     getFilterLabel(filter, data) {

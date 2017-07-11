@@ -1,10 +1,10 @@
 import { fetchAnswers, fetchQuestion, fetchComparedAnswers, postAnswer, postSkipQuestion } from '../utils/APIUtils';
 
-export function getAnswers(url = `answers`){
+export function getAnswers(url){
     return fetchAnswers(url);
 }
 
-export function getComparedAnswers(otherUserId, filters, url = `answers/compare/${otherUserId}?locale=es${filters.map(filter => '&'+filter+'=1')}`){
+export function getComparedAnswers(url){
     return fetchComparedAnswers(url);
 }
 

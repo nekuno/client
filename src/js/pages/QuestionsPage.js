@@ -1,5 +1,4 @@
 import React, { PropTypes, Component } from 'react';
-import { ScrollContainer } from 'react-router-scroll';
 import TopNavBar from '../components/ui/TopNavBar';
 import ToolBar from '../components/ui/ToolBar';
 import QuestionList from '../components/questions/QuestionList';
@@ -10,9 +9,17 @@ import connectToStores from '../utils/connectToStores';
 import * as QuestionActionCreators from '../actions/QuestionActionCreators';
 import UserStore from '../stores/UserStore';
 import QuestionStore from '../stores/QuestionStore';
+import StatsStore from '../stores/StatsStore';
 
 function parseId(user) {
     return user.id;
+}
+
+function parsePicture(user) {
+    return user && user.photo ? user.photo.thumbnail.small : 'img/no-img/small.jpg';
+}
+
+function requestData(props) {
 }
 
 /**
@@ -20,19 +27,21 @@ function parseId(user) {
  */
 function getState(props) {
     const currentUserId = parseId(props.user);
-    const pagination = QuestionStore.getPagination(currentUserId) || {};
+    const questionsTotal = QuestionStore.ownAnswersLength(currentUserId);
     const questions = QuestionStore.get(currentUserId) || {};
+    const requestQuestionsUrl = QuestionStore.getRequestQuestionsUrl(currentUserId);
     const isLoadingOwnQuestions = QuestionStore.isLoadingOwnQuestions();
     return {
-        pagination,
+        questionsTotal,
         questions,
+        requestQuestionsUrl,
         isLoadingOwnQuestions
     };
 }
 
 @AuthenticatedComponent
 @translate('QuestionsPage')
-@connectToStores([UserStore, QuestionStore], getState)
+@connectToStores([UserStore, QuestionStore, StatsStore], getState)
 export default class QuestionsPage extends Component {
 
     static propTypes = {
@@ -41,52 +50,32 @@ export default class QuestionsPage extends Component {
         // Injected by @translate:
         strings              : PropTypes.object,
         // Injected by @connectToStores:
-        pagination           : PropTypes.object.isRequired,
+        questionsTotal       : PropTypes.number.isRequired,
         questions            : PropTypes.object.isRequired,
+        requestQuestionsUrl  : PropTypes.string.isRequired,
         isLoadingOwnQuestions: PropTypes.bool.isRequired,
     };
 
-    constructor(props) {
-
-        super(props);
-
-        this.handleScroll = this.handleScroll.bind(this);
-    }
-
-    componentWillUnmount() {
-        document.getElementsByClassName('view')[0].removeEventListener('scroll', this.handleScroll);
+    componentWillMount() {
+        requestData(this.props);
     }
 
     onTimerEnd(questionId) {
         QuestionActionCreators.setQuestionEditable(questionId);
     }
 
-    handleScroll() {
-        // let pagination = this.props.pagination;
-        // let nextLink = pagination && pagination.hasOwnProperty('nextLink') ? pagination.nextLink : null;
-        // let offsetTop = parseInt(document.getElementsByClassName('view')[0].scrollTop + document.getElementsByClassName('view')[0].offsetHeight - 49);
-        // let offsetTopMax = parseInt(document.getElementById('page-content').offsetHeight);
-        //
-        // if (nextLink && offsetTop >= offsetTopMax) {
-        //     document.getElementsByClassName('view')[0].removeEventListener('scroll', this.handleScroll);
-        //     QuestionActionCreators.requestNextQuestions(parseId(this.props.user), nextLink);
-        // }
-    }
-
     onBottomScroll() {
-        const pagination = this.props.pagination;
-        const nextLink = pagination && pagination.hasOwnProperty('nextLink') ? pagination.nextLink : null;
-        if (nextLink) {
-            const userId = parseId(this.props.user);
-            return QuestionActionCreators.requestNextQuestions(userId, nextLink);
+        const {user, requestQuestionsUrl, isLoadingOwnQuestions} = this.props;
+        if (isLoadingOwnQuestions || !requestQuestionsUrl) {
+            return Promise.resolve();
         }
-
-        return Promise.resolve();
+        const userId = parseId(user);
+        return QuestionActionCreators.requestQuestions(userId, requestQuestionsUrl);
     }
 
     getBanner() {
-        const {user, pagination, questions} = this.props;
-        return <QuestionsBanner user={user} questionsTotal={pagination.total || Object.keys(questions).length || 0}/>
+        const {user, questionsTotal} = this.props;
+        return <QuestionsBanner user={user} questionsTotal={questionsTotal}/>
     }
 
     getFirstItems() {
@@ -97,7 +86,7 @@ export default class QuestionsPage extends Component {
 
     render() {
         const {user, questions, strings, isLoadingOwnQuestions} = this.props;
-        const ownPicture = user && user.photo ? user.photo.thumbnail.small : 'img/no-img/small.jpg';
+        const ownPicture = parsePicture(user);
         const defaultPicture = 'img/no-img/small.jpg';
         return (
             <div className="views">
@@ -111,17 +100,8 @@ export default class QuestionsPage extends Component {
                 <div className="view view-main" id="questions-view-main">
                     <div className="page questions-page">
                         <div id="page-content" className="questions-content">
-                            {/*<br />*/}
-                            {/*<br />*/}
-                            {/*<br />*/}
-                            {/*<br />*/}
-                            {/*<br />*/}
-                            {/*<br />*/}
                             <QuestionList firstItems={this.getFirstItems.bind(this)()} questions={questions} userSlug={user.slug || ''} ownPicture={ownPicture}
                                           defaultPicture={defaultPicture} onTimerEnd={this.onTimerEnd} onBottomScroll={this.onBottomScroll.bind(this)} isLoadingOwnQuestions={isLoadingOwnQuestions}/>
-                            {/*<br />*/}
-                            {/*<br />*/}
-                            {/*<br />*/}
                         </div>
                     </div>
                 </div>

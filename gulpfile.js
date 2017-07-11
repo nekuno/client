@@ -7,6 +7,7 @@ var concat = require('gulp-concat');
 var connect = require('gulp-connect');
 var rename = require('gulp-rename');
 var uglify = require('gulp-uglify');
+var envify = require('envify');
 var minifyCss = require('gulp-minify-css');
 var gulpHtmlVersion = require('gulp-html-version');
 
@@ -71,6 +72,7 @@ gulp.task('build-hello-js', function() {
 gulp.task('build-js', function() {
     return browserify('./src/js/index.js')
         .transform(babelify)
+        .transform(envify)
         .bundle()
         .pipe(source('bundle.js'))
         .pipe(gulp.dest('./www'))

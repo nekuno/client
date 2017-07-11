@@ -16,6 +16,7 @@ class ProfileStore extends BaseStore {
         this._profiles = {};
         this._metadata = null;
         this._categories = null;
+        this._isLoadingCategories = false;
         this._initialRequiredProfileQuestionsCount = 0;
         this._errors = null;
     }
@@ -36,6 +37,13 @@ class ProfileStore extends BaseStore {
                 this._setInitialRequiredProfileQuestionsCount(action.userId);
                 this.emitChange();
                 break;
+            case ActionTypes.REQUEST_LOGIN_USER_SUCCESS:
+            case ActionTypes.REQUEST_AUTOLOGIN_SUCCESS:
+                this._profiles[LoginStore.user.id] = this._profiles[LoginStore.user.id] || {};
+                mergeIntoBag(this._profiles[LoginStore.user.id], action.response.profile);
+                this._setInitialRequiredProfileQuestionsCount(LoginStore.user.id);
+                this.emitChange();
+                break;
             case ActionTypes.REQUEST_PROFILE_SUCCESS:
                 this._profiles[action.userId] = this._profiles[action.userId] || {};
                 mergeIntoBag(this._profiles[action.userId], action.response);
@@ -45,7 +53,12 @@ class ProfileStore extends BaseStore {
                 this._metadata = action.response;
                 this.emitChange();
                 break;
+            case ActionTypes.REQUEST_CATEGORIES:
+                this._isLoadingCategories = true;
+                this.emitChange();
+                break;
             case ActionTypes.REQUEST_CATEGORIES_SUCCESS:
+                this._isLoadingCategories = false;
                 this._categories = action.response.profile;
                 this.emitChange();
                 break;
@@ -101,6 +114,10 @@ class ProfileStore extends BaseStore {
 
     getCategories(){
         return this._categories;
+    }
+
+    isLoadingCategories(){
+        return this._isLoadingCategories;
     }
 
     getWithMetadata(userId) {

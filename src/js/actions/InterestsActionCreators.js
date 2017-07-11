@@ -2,9 +2,15 @@ import { dispatchAsync, dispatch } from '../dispatcher/Dispatcher';
 import ActionTypes from '../constants/ActionTypes';
 import * as InterestsAPI from '../api/InterestsAPI';
 import InterestStore from '../stores/InterestStore';
+import LoginStore from '../stores/LoginStore';
 
-export function requestOwnInterests(userId, type, link) {
-    return dispatchAsync(InterestsAPI.getOwnInterests(type, link), {
+export function requestOwnInterests(userId, link) {
+    const isLoading = InterestStore.isLoadingOwnInterests();
+    if (isLoading) {
+        return Promise.resolve();
+    }
+
+    return dispatchAsync(InterestsAPI.getOwnInterests(link), {
         request: ActionTypes.REQUEST_OWN_INTERESTS,
         success: ActionTypes.REQUEST_OWN_INTERESTS_SUCCESS,
         failure: ActionTypes.REQUEST_OWN_INTERESTS_ERROR
@@ -33,8 +39,23 @@ export function resetInterests(userId) {
     dispatch(ActionTypes.RESET_INTERESTS, {userId});
 }
 
-export function requestComparedInterests(userId, otherUserId, type, showOnlyCommon, link) {
-    return dispatchAsync(InterestsAPI.getComparedInterests(otherUserId, type, showOnlyCommon, link), {
+export function setType(contentType, userId = null) {
+    userId = userId ? userId : LoginStore.user.id;
+
+    dispatch(ActionTypes.SET_CONTENTS_TYPE, {userId, contentType});
+}
+
+export function setShowOnlyCommon(showOnlyCommon, userId) {
+    dispatch(ActionTypes.SET_CONTENTS_SHOWONLYCOMMON, {userId, showOnlyCommon})
+}
+
+export function requestComparedInterests(userId, otherUserId, link) {
+    const isLoading = InterestStore.isLoadingComparedInterests();
+    if (isLoading) {
+        return Promise.resolve();
+    }
+
+    return dispatchAsync(InterestsAPI.getComparedInterests(link), {
         request: ActionTypes.REQUEST_COMPARED_INTERESTS,
         success: ActionTypes.REQUEST_COMPARED_INTERESTS_SUCCESS,
         failure: ActionTypes.REQUEST_COMPARED_INTERESTS_ERROR
@@ -50,30 +71,4 @@ export function requestComparedInterests(userId, otherUserId, type, showOnlyComm
         .catch((error) => {
             return error;
         });
-}
-
-export function requestNextOwnInterests(userId, link) {
-    const isLoading = InterestStore.isLoadingOwnInterests();
-    if (isLoading){
-        return Promise.resolve();
-    }
-    if (link) {
-        dispatch(ActionTypes.REQUEST_NEXT_OWN_INTERESTS, {userId});
-        return requestOwnInterests(userId, null, link);
-    }
-
-    return Promise.resolve();
-}
-
-export function requestNextComparedInterests(userId, otherUserId, link) {
-    const isLoading = InterestStore.isLoadingComparedInterests();
-    if (isLoading){
-        return Promise.resolve();
-    }
-    if (link) {
-        dispatch(ActionTypes.REQUEST_NEXT_COMPARED_INTERESTS, {userId, otherUserId});
-        return requestComparedInterests(userId, otherUserId, null, null, link);
-    }
-
-    return Promise.resolve();
 }

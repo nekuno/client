@@ -1,11 +1,11 @@
-import { dispatchAsync, dispatch } from '../dispatcher/Dispatcher';
+import { dispatchAsync, dispatch, waitFor } from '../dispatcher/Dispatcher';
 import ActionTypes from '../constants/ActionTypes';
 import * as QuestionAPI from '../api/QuestionAPI';
 import QuestionStore from '../stores/QuestionStore';
 
 export function requestQuestions(userId, link) {
     const isLoading = QuestionStore.isLoadingOwnQuestions();
-    if (isLoading){
+    if (isLoading || !link){
         return Promise.resolve();
     }
 
@@ -16,30 +16,12 @@ export function requestQuestions(userId, link) {
     }, {userId});
 }
 
-export function requestComparedQuestions(userId, otherUserId, filters = [], link) {
-    return dispatchAsync(QuestionAPI.getComparedAnswers(otherUserId, filters, link), {
+export function requestComparedQuestions(userId, otherUserId, link) {
+    return dispatchAsync(QuestionAPI.getComparedAnswers(link), {
         request: ActionTypes.REQUEST_COMPARED_QUESTIONS,
         success: ActionTypes.REQUEST_COMPARED_QUESTIONS_SUCCESS,
         failure: ActionTypes.REQUEST_COMPARED_QUESTIONS_ERROR
     }, {userId, otherUserId});
-}
-
-export function requestNextQuestions(userId, link) {
-    dispatch(ActionTypes.QUESTIONS_NEXT, {userId});
-    if (link) {
-        return requestQuestions(userId, link);
-    }
-
-    return Promise.resolve();
-}
-
-export function requestNextComparedQuestions(userId, otherUserId, link) {
-    dispatch(ActionTypes.QUESTIONS_NEXT, {userId, otherUserId});
-    if (link) {
-        return requestComparedQuestions(userId, otherUserId, [], link);
-    }
-
-    return Promise.resolve();
 }
 
 export function requestQuestion(userId, questionId) {

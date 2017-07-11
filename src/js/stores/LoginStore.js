@@ -64,6 +64,12 @@ class LoginStore extends BaseStore {
                 this.emitChange();
                 break;
 
+            case ActionTypes.REQUEST_AUTOLOGIN_SUCCESS:
+                this._user = action.response.user;
+                this._setInitialRequiredUserQuestionsCount();
+                this.emitChange();
+                break;
+
             case ActionTypes.LOGOUT_USER:
                 this.setInitial();
                 this._justLoggedout = true;

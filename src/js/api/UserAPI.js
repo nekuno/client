@@ -24,6 +24,10 @@ export function getUser(userSlug, url = `users/${userSlug}`) {
     return fetchUser(url);
 }
 
+export function getAutologinData(url = `autologin`) {
+    return getData(url);
+}
+
 export function getPublicUser(slug, url = `public/users/${slug}`) {
     return fetchUser(url);
 }
@@ -84,7 +88,7 @@ export function removeThread(threadId, url= `threads/${threadId}`) {
     return deleteData(url);
 }
 
-export function getRecommendation(threadId, url = `threads/${threadId}/recommendation`) {
+export function getRecommendations(url) {
     return getData(url);
 }
 

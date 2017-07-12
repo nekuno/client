@@ -126,9 +126,11 @@ gulp.task('serve', function() {
 });
 
 gulp.task('build', ['copy', 'fonts', 'assets', 'images', 'sass', 'build-js', 'build-service-worker', 'build-vendor-js', 'build-hello-js']);
+gulp.task('minify', ['minify-js', 'minify-css']);
 gulp.task('release', ['env-prod'], function() {
-    runSequence('minify-js', 'minify-css');
+    runSequence('minify');
 });
+gulp.task('build-dev', ['build', 'serve', 'watch']);
 gulp.task('dev', ['env-dev'], function() {
-    runSequence('build', 'serve', 'watch');
+    runSequence('build-dev');
 });

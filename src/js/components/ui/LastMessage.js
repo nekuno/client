@@ -3,7 +3,9 @@ import { Link } from 'react-router';
 import moment from 'moment';
 import ChatUserStatusStore from '../../stores/ChatUserStatusStore';
 import connectToStores from '../../utils/connectToStores';
-import ReactEmoji from 'react-emoji';
+import Emojify from 'react-emojione';
+import Image from './Image';
+import ChatActionCreators from '../../actions/ChatActionCreators';
 
 function getState(props) {
 
@@ -24,21 +26,25 @@ export default class LastMessage extends Component {
         online : PropTypes.bool.isRequired
     };
 
+    requestMessages(userId) {
+        ChatActionCreators.getMessages(userId, 0);
+    }
+
     render() {
         const {message, user, online} = this.props;
-        let text = ReactEmoji.emojify(message.text);
-        let readed = message.readed;
-        let createdAt = message.createdAt;
-        let imageSrc = message.user.id === message.user_from.id ? message.user_to.photo.thumbnail.medium : message.user_from.photo.thumbnail.medium;
-        let mine = message.user.id === message.user_from.id;
-        let slug = mine ? message.user_to.slug : message.user_from.slug;
-        let style = readed || mine ? {} : {fontWeight: 'bold', color: '#000'};
+        const readed = message.readed;
+        const createdAt = message.createdAt;
+        const imageSrc = message.user.id === message.user_from.id ? message.user_to.photo.thumbnail.medium : message.user_from.photo.thumbnail.medium;
+        const mine = message.user.id === message.user_from.id;
+        const userId = mine ? message.user_to.id : message.user_from.id;
+        const slug = mine ? message.user_to.slug : message.user_from.slug;
+        const style = readed || mine ? {} : {fontWeight: 'bold', color: '#000'};
 
         return (
             <div className="notification">
                 <Link to={`/conversations/${slug}`}>
                     <div className="notification-picture">
-                        <img src={imageSrc}/>
+                        <Image src={imageSrc} onError={this.requestMessages.bind(this, userId)}/>
                         {online ? <div className="status-online">Online</div> : ''}
                     </div>
                     <div className="notification-text">
@@ -46,7 +52,7 @@ export default class LastMessage extends Component {
                             <span className="notification-title-text">{user.username}</span>
                         </div>
                         <div className="notification-excerpt truncate" style={style}>
-                            {text}
+                            <Emojify>{message.text}</Emojify>
                         </div>
                         <div className="notification-time" title={createdAt.toLocaleString()}>
                             <span className="icon-clock"></span>&nbsp;

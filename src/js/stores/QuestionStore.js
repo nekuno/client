@@ -1,6 +1,7 @@
 import { waitFor } from '../dispatcher/Dispatcher';
 import { mergeIntoBag } from '../utils/StoreUtils';
 import ActionTypes from '../constants/ActionTypes';
+import { API_URLS } from '../constants/Constants';
 import selectn from 'selectn';
 import UserStore from './UserStore';
 import LoginStore from './LoginStore';
@@ -9,10 +10,13 @@ import BaseStore from './BaseStore';
 
 class QuestionStore extends BaseStore {
     setInitial() {
+        super.setInitial();
         this._registerQuestionsLength = 4;
         this._questions = {};
-        this._pagination = {};
+        this._initialPaginationUrl = API_URLS.ANSWERS;
+        this._initialComparedPaginationUrl = API_URLS.COMPARED_ANSWERS;
         this._answerQuestion = {};
+        this._answersLength = [];
         this._errors = '';
         this._noMoreQuestions = false;
         this._goToQuestionStats = false;
@@ -23,7 +27,7 @@ class QuestionStore extends BaseStore {
     }
 
     _registerToActions(action) {
-        waitFor([UserStore.dispatchToken]);
+        waitFor([UserStore.dispatchToken, LoginStore.dispatchToken]);
         super._registerToActions(action);
         let newItems = {};
         switch (action.type) {
@@ -44,8 +48,6 @@ class QuestionStore extends BaseStore {
                 this._answerQuestion[action.questionId] = this._questions[action.userId][action.questionId].question;
                 this.emitChange();
                 break;
-            case ActionTypes.QUESTIONS_NEXT:
-                break;
             case ActionTypes.REMOVE_PREVIOUS_QUESTION:
                 this._answerQuestion = {};
                 this.emitChange();
@@ -65,7 +67,6 @@ class QuestionStore extends BaseStore {
             case ActionTypes.REQUEST_QUESTIONS_SUCCESS:
                 newItems[action.userId] = action.response.entities.items;
                 this._pagination[action.userId] = action.response.result.pagination;
-                this._loadingComparedQuestions = false;
                 this._loadingOwnQuestions = false;
                 mergeIntoBag(this._questions, newItems);
                 this.emitChange();
@@ -86,6 +87,11 @@ class QuestionStore extends BaseStore {
                 mergeIntoBag(this._questions, newItems);
                 this.emitChange();
                 break;
+            case ActionTypes.REQUEST_LOGIN_USER_SUCCESS:
+            case ActionTypes.REQUEST_AUTOLOGIN_SUCCESS:
+                this._answersLength = parseInt(action.response.questionsTotal);
+                this.emitChange();
+                break;
             case ActionTypes.REQUEST_QUESTION_SUCCESS:
                 this._answerQuestion = action.response.entities.question;
                 this.emitChange();
@@ -98,7 +104,8 @@ class QuestionStore extends BaseStore {
                 this._goToQuestionStats = true;
                 this._pagination[action.userId] = this._pagination[action.userId] || {};
                 this._pagination[action.userId].total++;
-                this._isJustCompleted = this.answersLength(action.userId) == this._registerQuestionsLength;
+                this._answersLength++;
+                this._isJustCompleted = this.ownAnswersLength(action.userId) === this._registerQuestionsLength;
                 this.emitChange();
                 break;
             case ActionTypes.SKIP_QUESTION_SUCCESS:
@@ -112,6 +119,7 @@ class QuestionStore extends BaseStore {
                 break;
             case ActionTypes.REQUEST_QUESTIONS_ERROR:
                 this._loadingOwnQuestions = false;
+                this.emitChange();
                 break;
             case ActionTypes.REQUEST_COMPARED_QUESTIONS_ERROR:
                 break;
@@ -125,6 +133,9 @@ class QuestionStore extends BaseStore {
                 break;
             case ActionTypes.SKIP_QUESTION_ERROR:
                 break;
+            case ActionTypes.REQUEST_STATS_SUCCESS:
+                this._answersLength = action.response.numberOfQuestionsAnswered;
+                this.emitChange();
         }
     }
 
@@ -137,8 +148,7 @@ class QuestionStore extends BaseStore {
         return this._questions[userId];
     }
 
-    getCompared(otherUserId)
-    {
+    getCompared(otherUserId) {
         const questions = this._questions[otherUserId] ? Object.assign({}, this._questions[otherUserId]) : {};
 
         let orderedQuestions = {};
@@ -163,7 +173,20 @@ class QuestionStore extends BaseStore {
     }
 
     getPagination(userId) {
-        return this._pagination[userId];
+        return this._pagination[userId] || {};
+    }
+
+    getRequestQuestionsUrl(userId) {
+        return this.getPaginationUrl(userId, this._initialPaginationUrl);
+    }
+
+    getRequestComparedQuestionsUrl(userId, filters) {
+        let url = this.getPaginationUrl(userId, this._initialComparedPaginationUrl);
+        if (url === this._initialComparedPaginationUrl){
+            url = url.replace('{otherUserId}', userId);
+            url = url + filters.map(filter => '&'+filter+'=1');
+        }
+        return url;
     }
 
     getQuestion() {
@@ -193,15 +216,20 @@ class QuestionStore extends BaseStore {
     }
 
     isJustRegistered(userId) {
-        return this.answersLength(userId) < this._registerQuestionsLength;
+        return this.ownAnswersLength(userId) < this._registerQuestionsLength;
     }
 
     isJustCompleted() {
         return this._isJustCompleted;
     }
 
-    answersLength(userId) {
-        return this._questions[userId] && Object.keys(this._questions[userId]).length || 0;
+    ownAnswersLength(userId) {
+        return this._answersLength  > 0 ? this._answersLength : this.otherAnswersLength(userId);
+    }
+
+    otherAnswersLength(userId) {
+        return this.getPagination(userId).hasOwnProperty('total') ? this.getPagination(userId).total :
+            Array.isArray(this._questions[userId]) ? Object.keys(this._questions[userId]).length : 0;
     }
 
     registerQuestionsLength() {

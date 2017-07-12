@@ -89,7 +89,7 @@ export default class CreateThreadPage extends Component {
     onCreate(data) {
         ThreadActionCreators.createThread(this.props.user.id, data)
             .then((createdThread) => {
-                ThreadActionCreators.requestRecommendation(createdThread.id);
+                ThreadActionCreators.requestRecommendations(createdThread.id);
                 this.setState({creating: false});
                 this.context.router.push(`threads`);
             }, () => {

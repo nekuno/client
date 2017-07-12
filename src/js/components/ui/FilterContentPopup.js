@@ -51,6 +51,7 @@ export default class FilterContentPopup extends Component {
         this.filterContent(this.props, 'Creator');
     }
 
+    //TODO: Change this to dispatch change in type
     filterContent = function(props, type) {
         InterestsActionCreators.resetInterests(props.userId);
         if (props.ownContent) {

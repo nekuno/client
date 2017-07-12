@@ -20,17 +20,8 @@ function parseId(user) {
 /**
  * Requests data from server for current props.
  */
-function requestData(props) {
-    const {user} = props;
-    const userId = parseId(user);
-
-    setTimeout(() => {
-        UserActionCreators.requestOwnUser();
-        UserActionCreators.requestOwnProfile(userId);
-        UserActionCreators.requestMetadata();
-        UserActionCreators.requestStats(userId);
-        ThreadActionCreators.requestFilters();
-    }, 0);
+function requestData() {
+    ThreadActionCreators.requestFilters();
 }
 
 /**
@@ -68,7 +59,8 @@ export default class UserPage extends Component {
         stats              : PropTypes.object,
         profile            : PropTypes.object,
         errors             : PropTypes.string,
-        profileWithMetadata: PropTypes.array
+        profileWithMetadata: PropTypes.array,
+        metadata           : PropTypes.object,
 
     };
 

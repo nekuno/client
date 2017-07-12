@@ -10,27 +10,32 @@ export default class CardContentList extends Component {
         otherUserId   : PropTypes.number,
         onReport      : PropTypes.func,
         onBottomScroll: PropTypes.func,
-        isLoading     : PropTypes.bool
+        isLoading     : PropTypes.bool,
+        loadingFirst  : PropTypes.bool,
     };
 
     constructor(props) {
         super(props);
 
+        this.onReport = this.onReport.bind(this);
         this.getCardContents = this.getCardContents.bind(this);
     }
 
+    onReport(contentId, reason) {
+        this.props.onReport(contentId, reason);
+    }
 
-    buildCardUser(content, index) {
-        const {userId, otherUserId, onReport} = this.props;
+    buildCardContent(content, index) {
+        const {userId, otherUserId} = this.props;
 
         return <CardContent key={index} hideLikeButton={false} {...content} loggedUserId={userId} otherUserId={otherUserId}
                             embed_id={content.embed ? content.embed.id : null} embed_type={content.embed ? content.embed.type : null}
-                            fixedHeight={true} onReport={onReport}/>
+                            fixedHeight={true} onReport={this.onReport}/>
     }
 
     getCardContents() {
         return this.props.contents.map((content, index) => {
-            return this.buildCardUser(content, index);
+            return this.buildCardContent(content, index);
         });
     }
 
@@ -38,13 +43,14 @@ export default class CardContentList extends Component {
         return (
             <div className="content-list">
                 <InfiniteScroll
-                    items={this.getCardContents()}
+                    items = {this.getCardContents()}
                     firstItems={this.props.firstItems}
-                    columns={2}
+                    columns = {2}
                     // preloadAdditionalHeight={window.innerHeight*2}
                     // useWindowAsScrollContainer
                     onInfiniteLoad={this.props.onBottomScroll}
                     containerId="interests-view-main"
+                    loading = {this.props.isLoading}
                 />
             </div>
         );
@@ -57,5 +63,6 @@ CardContentList.defaultProps = {
     },
     'onReport'      : () => {
     },
-    'isLoading'     : false
+    'isLoading'     : false,
+    'loadingFirst' : false,
 };

@@ -12,6 +12,8 @@ class ThreadStore extends BaseStore {
         this._categories = null;
         this._disabled = [];
         this._errors = '';
+        this._editThreadUrl = 'edit-thread/{threadId}';
+        this._isRequesting = false;
     }
 
     _registerToActions(action) {
@@ -28,12 +30,21 @@ class ThreadStore extends BaseStore {
                 this.disable(response.id);
                 this.emitChange();
                 break;
+            case ActionTypes.REQUEST_THREADS:
+                this._isRequesting = true;
+                this.emitChange();
+                break;
             case ActionTypes.REQUEST_THREADS_SUCCESS:
                 const threads = response.items;
                 if (threads) {
                     this._threads = threads;
                     this.sort();
                 }
+                this._isRequesting = false;
+                this.emitChange();
+                break;
+            case ActionTypes.REQUEST_THREADS_ERROR:
+                this._isRequesting = false;
                 this.emitChange();
                 break;
             case ActionTypes.CREATE_THREAD_ERROR:
@@ -45,7 +56,7 @@ class ThreadStore extends BaseStore {
                 break;
             case ActionTypes.UPDATE_THREAD_SUCCESS:
                 this._threads.forEach((thread, index) => {
-                    if (thread.id == action.threadId) {
+                    if (thread.id === action.threadId) {
                         this._threads[index] = response;
                     }
                 });
@@ -103,6 +114,14 @@ class ThreadStore extends BaseStore {
             }) || this._threads.find((thread) => {
                 return thread.category === 'ThreadUsers' && thread.groupId === null;
             }) || {};
+    }
+
+    getEditThreadUrl(threadId) {
+        return this._editThreadUrl.replace('{threadId}', threadId);
+    }
+
+    isRequesting() {
+        return this._isRequesting;
     }
 
     noThreads() {

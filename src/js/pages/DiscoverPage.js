@@ -11,9 +11,7 @@ import SocialNetworksBanner from '../components/socialNetworks/SocialNetworksBan
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
-import * as UserActionCreators from '../actions/UserActionCreators';
 import * as ThreadActionCreators from '../actions/ThreadActionCreators';
-import * as QuestionActionCreators from '../actions/QuestionActionCreators';
 import ThreadStore from '../stores/ThreadStore';
 import FilterStore from '../stores/FilterStore';
 import QuestionStore from '../stores/QuestionStore';
@@ -26,7 +24,7 @@ function parseId(user) {
 }
 
 function parseThreadId(thread) {
-    return thread.id;
+    return thread && thread.hasOwnProperty('id') ? thread.id : null;
 }
 
 function getDisplayedThread(props) {
@@ -42,14 +40,11 @@ function getDisplayedThread(props) {
  * Requests data from server for current props.
  */
 function requestData(props) {
-    const userId = parseId(props.user);
-    const groupId = props.params.groupId || null;
-    ThreadActionCreators.requestThreadPage(userId, parseInt(groupId));
-    ThreadActionCreators.requestFilters();
-    if (!groupId) {
-        QuestionActionCreators.requestQuestions(userId);
+    if (Object.keys(props.thread).length === 0) {
+        const userId = parseId(props.user);
+        ThreadActionCreators.requestThreads(userId);
     }
-    UserActionCreators.requestMetadata();
+    ThreadActionCreators.requestFilters();
 }
 
 /**
@@ -59,41 +54,50 @@ function getState(props) {
 
     let userId = parseId(props.user);
     const profile = ProfileStore.get(userId);
-    let pagination = QuestionStore.getPagination(userId) || {};
+    const questionsTotal = QuestionStore.ownAnswersLength(userId);
     let isSomethingWorking = WorkersStore.isSomethingWorking();
     let filters = {};
     let recommendations = [];
     let thread = getDisplayedThread(props);
-    let isLoadingRecommendations = true;
-    if (parseThreadId(thread)) {
+    const threadId = parseThreadId(thread);
+    const isLoadingThread = ThreadStore.isRequesting();
+    let isLoadingRecommendations = false;
+    if (threadId) {
         if (Object.keys(thread).length !== 0) {
-            thread.isEmpty = RecommendationStore.isEmpty(parseThreadId(thread));
-            isLoadingRecommendations = !RecommendationStore.get(parseThreadId(thread)) || RecommendationStore.isLoadingRecommendations(parseThreadId(thread));
+            thread.isEmpty = RecommendationStore.isEmpty(threadId);
+            isLoadingRecommendations = RecommendationStore.isLoadingRecommendations(threadId);
         }
         filters = FilterStore.filters;
-        recommendations = RecommendationStore.get(parseThreadId(thread)) ? RecommendationStore.get(parseThreadId(thread)) : [];
+        recommendations = RecommendationStore.get(threadId) ? RecommendationStore.get(threadId) : [];
     }
     const networks = WorkersStore.getAll();
     const similarityOrder = thread && thread.filters && thread.filters.userFilters && thread.filters.userFilters.order === 'similarity' || false;
-    const isThreadGroup = thread.groupId != null;
+    const isThreadGroup = thread.groupId !== null;
+    const recommendationUrl = RecommendationStore.getRecommendationUrl(threadId);
+    const isInitialRequest = RecommendationStore.isInitialRequestUrl(recommendationUrl, threadId);
+    const editThreadUrl = ThreadStore.getEditThreadUrl(threadId);
 
     return {
         profile,
-        pagination,
+        questionsTotal,
         isSomethingWorking,
         filters,
         recommendations,
         thread,
         isLoadingRecommendations,
+        isLoadingThread,
         networks,
         similarityOrder,
-        isThreadGroup
+        isThreadGroup,
+        recommendationUrl,
+        isInitialRequest,
+        editThreadUrl,
     };
 }
 
 @AuthenticatedComponent
 @translate('DiscoverPage')
-@connectToStores([ThreadStore, RecommendationStore, FilterStore, WorkersStore, ProfileStore], getState)
+@connectToStores([ThreadStore, RecommendationStore, FilterStore, WorkersStore, ProfileStore, QuestionStore], getState)
 export default class DiscoverPage extends Component {
 
     static propTypes = {
@@ -103,15 +107,19 @@ export default class DiscoverPage extends Component {
         strings                 : PropTypes.object,
         // Injected by @connectToStores:
         profile                 : PropTypes.object,
-        pagination              : PropTypes.object,
+        questionsTotal          : PropTypes.number,
         isSomethingWorking      : PropTypes.bool,
         filters                 : PropTypes.object,
         recommendations         : PropTypes.array,
         thread                  : PropTypes.object,
         isLoadingRecommendations: PropTypes.bool,
+        isLoadingThread         : PropTypes.bool,
         networks                : PropTypes.array.isRequired,
         similarityOrder         : PropTypes.bool.isRequired,
-        isThreadGroup           : PropTypes.bool
+        isThreadGroup           : PropTypes.bool,
+        recommendationUrl       : PropTypes.string,
+        isInitialRequest        : PropTypes.bool,
+        editThreadUrl           : PropTypes.string,
     };
 
     static contextTypes = {
@@ -123,7 +131,6 @@ export default class DiscoverPage extends Component {
 
         this.editThread = this.editThread.bind(this);
         this.leftClickHandler = this.leftClickHandler.bind(this);
-        this.handleScroll = this.handleScroll.bind(this);
         this.onBottomScroll = this.onBottomScroll.bind(this);
         this.goToProfile = this.goToProfile.bind(this);
         this.selectProfile = this.selectProfile.bind(this);
@@ -137,33 +144,32 @@ export default class DiscoverPage extends Component {
         requestData(this.props);
     }
 
-    componentWillUnmount() {
-        // document.getElementsByClassName('view')[0].removeEventListener('scroll', this.handleScroll);
+    componentDidUpdate(prevProps) {
+        const {thread, recommendationUrl, isLoadingRecommendations, recommendations} = this.props;
+        const threadId = parseId(thread);
+        const receivedThread = parseId(prevProps.thread) !== threadId;
+        const canRequestFirstInterests = recommendationUrl && recommendations.length === 0;
+        if ((receivedThread || canRequestFirstInterests) && !isLoadingRecommendations && threadId) {
+            ThreadActionCreators.requestRecommendations(threadId, recommendationUrl);
+        }
     }
 
     editThread() {
-        this.context.router.push(`edit-thread/${parseThreadId(this.props.thread)}`);
+        this.context.router.push(this.props.editThreadUrl);
     }
 
     leftClickHandler() {
-        if (this.props.thread && this.props.thread.groupId != null) {
+        if (this.props.thread && this.props.thread.groupId !== null) {
             this.context.router.push(`badges`);
         }
     }
 
-    handleScroll() {
-        // let offsetTop = parseInt(document.getElementsByClassName('view')[0].scrollTop + document.getElementsByClassName('view')[0].offsetHeight - 58);
-        // let offsetTopMax = parseInt(document.getElementById('page-content').offsetHeight);
-        //
-        // if (offsetTop >= offsetTopMax) {
-        //     document.getElementsByClassName('view')[0].removeEventListener('scroll', this.handleScroll);
-        //     ThreadActionCreators.recommendationsNext(parseThreadId(this.props.thread));
-        // }
-    }
-
     onBottomScroll() {
-        const threadId = parseThreadId(this.props.thread);
-        return ThreadActionCreators.recommendationsNext(threadId);
+        const {thread, recommendationUrl, isLoadingRecommendations, isLoadingThread, isInitialRequest} = this.props;
+        const threadId = parseThreadId(thread);
+        if (threadId && recommendationUrl && !isInitialRequest && !isLoadingRecommendations && !isLoadingThread) {
+            ThreadActionCreators.requestRecommendations(threadId, recommendationUrl);
+        }
     }
 
     goToProfile() {
@@ -209,30 +215,50 @@ export default class DiscoverPage extends Component {
     }
 
     getBanner() {
-        const {user, pagination, networks, thread, profile, filters} = this.props;
+        const {user, questionsTotal, networks} = this.props;
         const connectedNetworks = networks.filter(network => network.fetching || network.fetched || network.processing || network.processed);
-        const mustShowQuestionsBanner = profile && filters && thread && pagination.total <= 100;
-        const mustShowSocialNetworksBanner = profile && filters && thread && connectedNetworks.length < 3;
-
+        const mustShowQuestionsBanner = user && questionsTotal <= 100;
+        const mustShowSocialNetworksBanner = user && networks && connectedNetworks.length < 3;
         const banner =
-            mustShowQuestionsBanner ? <QuestionsBanner user={user} questionsTotal={pagination.total || 0}/>
+            mustShowQuestionsBanner ? <QuestionsBanner user={user} questionsTotal={questionsTotal || 0}/>
                 : mustShowSocialNetworksBanner ? <SocialNetworksBanner networks={networks} user={user}/>
                 : '';
         return banner;
     }
+
     getFirstItems() {
-        return [
+        let firstItems = [
             this.renderChipList.bind(this)(),
             this.getEditButton.bind(this)(),
             this.getBanner.bind(this)(),
             this.getProcessesProgress.bind(this)()
         ];
+
+        const noRecommendations = this.props.recommendations.length === 0;
+        const isSomethingLoading = Object.keys(this.props.thread).length === 0 || this.props.isLoadingRecommendations;
+        const noUserInfo = Object.keys(this.props.profile).length === 0;
+
+        if ((isSomethingLoading && noRecommendations ) || noUserInfo) {
+            firstItems.push(this.getEmptyMessage(this.props, !this.props.isLoadingRecommendations));
+        }
+
+        return firstItems;
+    }
+
+    getEmptyMessage(props, loadingGif) {
+        const text = this.getEmptyMessageText(props);
+
+        return <EmptyMessage text={text} loadingGif={loadingGif}/>;
+    }
+
+    getEmptyMessageText(props) {
+        const {thread, isLoadingRecommendations, strings} = props;
+        return !parseThreadId(thread) || isLoadingRecommendations ? strings.loadingMessage : strings.noRecommendations;
     }
 
     render() {
         const {user, profile, strings, recommendations, thread, isLoadingRecommendations, similarityOrder, isThreadGroup} = this.props;
         const title = isThreadGroup ? thread.name : strings.discover;
-        const emptyMessageText = isLoadingRecommendations ? strings.loadingMessage : strings.noRecommendations;
 
         return (
             <div id="discover-views" className="views">
@@ -243,10 +269,11 @@ export default class DiscoverPage extends Component {
                     <div className="page discover-page">
                         <div id="page-content">
                             {profile ?
-                                <CardUserList firstItems ={this.getFirstItems.bind(this)()} recommendations={recommendations} user={user} profile={profile}
-                                              handleSelectProfile={this.selectProfile} similarityOrder={similarityOrder} onBottomScroll={this.onBottomScroll}/>
+                                <CardUserList firstItems={this.getFirstItems.bind(this)()} recommendations={recommendations} user={user} profile={profile}
+                                              handleSelectProfile={this.selectProfile} similarityOrder={similarityOrder} onBottomScroll={this.onBottomScroll} isLoading={isLoadingRecommendations}/>
                                 :
-                                <EmptyMessage text={emptyMessageText} loadingGif={true}/>}
+                                this.getEmptyMessage(this.props, true)
+                            }
                             <br />
                         </div>
                     </div>

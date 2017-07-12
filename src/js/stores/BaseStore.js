@@ -21,8 +21,15 @@ export default class BaseStore extends EventEmitter {
     }
 
     setInitial() {
-
+        this._pagination = {};
     };
+
+    getPaginationUrl(userId, initialUrl) {
+        const hasReceivedPagination = this._pagination.hasOwnProperty(userId);
+
+        return !hasReceivedPagination ? initialUrl :
+            this._pagination[userId].nextLink ? this._pagination[userId].nextLink : '';
+    }
 
     _registerToActions(action) {
         switch (action.type) {
@@ -36,7 +43,7 @@ export default class BaseStore extends EventEmitter {
     }
 
     emitChange() {
-        this.emit(CHANGE_EVENT);
+        setTimeout(() => {this.emit(CHANGE_EVENT)}, 0);
     }
 
     addChangeListener(cb) {

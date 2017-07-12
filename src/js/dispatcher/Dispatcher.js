@@ -10,6 +10,10 @@ export function waitFor(ids) {
     return flux.waitFor(ids);
 }
 
+export function isDispatching() {
+    return flux.isDispatching();
+}
+
 // Some Flux examples have methods like `handleViewAction`
 // or `handleServerAction` here. They are only useful if you
 // want to have extra pre-processing or logging for such actions,

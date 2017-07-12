@@ -1,4 +1,4 @@
-import { THREAD_TYPES } from '../constants/Constants';
+import { THREAD_TYPES, API_URLS } from '../constants/Constants';
 import { waitFor } from '../dispatcher/Dispatcher';
 import selectn from 'selectn';
 import ActionTypes from '../constants/ActionTypes';
@@ -8,6 +8,7 @@ import ThreadStore from '../stores/ThreadStore';
 class RecommendationStore extends BaseStore {
 
     setInitial() {
+        super.setInitial();
         this._recommendations = [];
         this._nextUrl = [];
         this._replaced = [];
@@ -15,6 +16,7 @@ class RecommendationStore extends BaseStore {
         this._prevNextUrl = [];
         this._savedIndex = [];
         this._loadingRecommendations = [];
+        this._initialPaginationUrl = API_URLS.RECOMMENDATIONS;
     }
 
     _registerToActions(action) {
@@ -88,28 +90,29 @@ class RecommendationStore extends BaseStore {
             case ActionTypes.UPDATE_THREAD_SUCCESS:
                 const {threadId} = action;
                 delete this._recommendations[threadId];
+                this._pagination = {};
                 this.emitChange();
                 break;
             case ActionTypes.REQUEST_THREADS_SUCCESS:
-                /*const responseThreads = selectn('response.entities.thread', action);
-                 let recommendation = null;
-                 Object.keys(responseThreads).forEach((key) => {
-                 const thread = responseThreads[key];
-                 let recommendations = [];
-                 let cached = null;
-                 Object.keys(thread.cached).forEach((key) => {
-                 cached = thread.cached[key];
-                 const elementId = this.getRecommendationId(cached, thread.category);
-                 recommendations[elementId] = cached;
-                 });
-                 const _recommendations = thread.category == 'ThreadContent' ? _contentRecommendations : _userRecommendations;
-                 if (this.recommendationsMustBeReplaced(_recommendations, thread.category)) {
-                 replaceRecommendations(recommendations, _recommendations);
-                 } else {
-                 mergeAndGetRecommendations(recommendations, _recommendations);
-                 }
-                 });
-                 this.emitChange();*/
+                const responseThreads = action.response.items;
+                Object.keys(responseThreads).forEach((key) => {
+                    const thread = responseThreads[key];
+                    // let recommendations = [];
+                    // let cached = null;
+                    // Object.keys(thread.cached).forEach((key) => {
+                    //     cached = thread.cached[key];
+                    //     const elementId = this.getRecommendationId(cached, thread.category);
+                    //     recommendations[elementId] = cached;
+                    // });
+                    // const _recommendations = thread.category == 'ThreadContent' ? _contentRecommendations : _userRecommendations;
+                    // if (this.recommendationsMustBeReplaced(_recommendations, thread.category)) {
+                    //     replaceRecommendations(recommendations, _recommendations);
+                    // } else {
+                    //     mergeAndGetRecommendations(recommendations, _recommendations);
+                    // }
+                    this._recommendations[thread.id] = [];
+                });
+                this.emitChange();
                 break;
             case ActionTypes.LOGOUT_USER:
                 this._recommendations = [];
@@ -129,6 +132,7 @@ class RecommendationStore extends BaseStore {
             case ActionTypes.REQUEST_NEXT_RECOMMENDATIONS_SUCCESS:
                 this._recommendations[action.threadId] = this.mergeRecommendations(recommendations, this._recommendations[action.threadId]);
                 this._nextUrl[action.threadId] = action.response.pagination.nextLink;
+                this._pagination[action.threadId] = action.response.pagination;
                 this._loadingRecommendations[action.threadId] = false;
                 this.emitChange();
                 break;
@@ -143,17 +147,18 @@ class RecommendationStore extends BaseStore {
             case ActionTypes.REQUEST_RECOMMENDATIONS_SUCCESS:
                 this._recommendations[action.threadId] = this._recommendations[action.threadId] || [];
                 this._loadingRecommendations[action.threadId] = false;
-                if (this.areBetter(action.threadId, recommendations)) {
-                    if (this._recommendations[action.threadId].length > 0) {
-                        this._prevRecommendations[action.threadId] = [];
-                        this._prevRecommendations[action.threadId] = this.mergeRecommendations(this._recommendations[action.threadId], this._prevRecommendations[action.threadId]);
-                        this._recommendations[action.threadId] = [];
-                        this._replaced[action.threadId] = true;
-                        this._prevNextUrl[action.threadId] = this._nextUrl[action.threadId];
-                    }
-                    this._recommendations[action.threadId] = this.mergeRecommendations(recommendations, this._recommendations[action.threadId]);
-                    this._nextUrl[action.threadId] = action.response.pagination.nextLink;
-                }
+                // if (this.areBetter(action.threadId, recommendations)) {
+                //     if (this._recommendations[action.threadId].length > 0) {
+                //         this._prevRecommendations[action.threadId] = [];
+                //         this._prevRecommendations[action.threadId] = this.mergeRecommendations(this._recommendations[action.threadId], this._prevRecommendations[action.threadId]);
+                //         this._recommendations[action.threadId] = [];
+                //         this._replaced[action.threadId] = true;
+                //         this._prevNextUrl[action.threadId] = this._nextUrl[action.threadId];
+                //     }
+                this._recommendations[action.threadId] = this.mergeRecommendations(recommendations, this._recommendations[action.threadId]);
+                this._nextUrl[action.threadId] = action.response.pagination.nextLink;
+                this._pagination[action.threadId] = action.response.pagination;
+                // }
                 this.emitChange();
                 break;
             case ActionTypes.SAVE_RECOMMENDATIONS_INDEX:
@@ -193,6 +198,21 @@ class RecommendationStore extends BaseStore {
             return THREAD_TYPES.THREAD_CONTENTS;
         }
         return THREAD_TYPES.THREAD_USERS
+    }
+
+    getRecommendationUrl(threadId) {
+        let url = this.getPaginationUrl(threadId, this._initialPaginationUrl);
+        url = this._formatUrl(url, threadId);
+        return url;
+    }
+
+    isInitialRequestUrl(requestUrl, threadId) {
+        const initialRequest = this._formatUrl(this._initialPaginationUrl, threadId);
+        return initialRequest === requestUrl;
+    }
+
+    _formatUrl(url, threadId) {
+        return url.replace('{threadId}', threadId);
     }
 
     getId(recommendation) {
@@ -269,7 +289,7 @@ class RecommendationStore extends BaseStore {
     }
 
     isLoadingRecommendations(threadId) {
-        return this._loadingRecommendations[threadId];
+        return this._loadingRecommendations[threadId] ? this._loadingRecommendations[threadId] : false;
     }
 
     mergeRecommendations(recommendations, _recommendations) {

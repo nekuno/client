@@ -3,7 +3,7 @@
 	height: 58px;
 	margin: 8px;
 	.rotation-animation {
-		animation: div-rotate 1s infinite steps(8);
+		animation: div-rotate 1s infinite linear;
 		font-size: 4.3em;
 	}
 }
@@ -14,7 +14,7 @@
 }
 
 .rotation-animation {
-	animation: div-rotate 0.7s infinite steps(8);
+	animation: div-rotate 0.7s infinite linear;
 	transform: translateZ(0);
 	-webkit-transform: translateZ(0);
 }

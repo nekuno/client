@@ -47,6 +47,7 @@ export default class SharedUserPage extends Component {
         super(props);
 
         this.loginByResourceOwner = this.loginByResourceOwner.bind(this);
+        this.setLoginUserState = this.setLoginUserState.bind(this);
 
         this.state = {
             registeringUser: null,
@@ -70,13 +71,17 @@ export default class SharedUserPage extends Component {
         }
     }
 
+    setLoginUserState(bool) {
+        this.setState({
+            loginUser: bool,
+        })
+    }
+
     loginByResourceOwner(resource, scope) {
         const {interfaceLanguage, sharedUser} = this.props;
+        this.setLoginUserState(true);
         SocialNetworkService.login(resource, scope).then(
             () => {
-                this.setState({
-                    loginUser: true
-                });
                 const oauthData = SocialNetworkService.buildOauthData(resource);
                 LoginActionCreators.loginUserByResourceOwner(
                     resource,
@@ -93,22 +98,12 @@ export default class SharedUserPage extends Component {
                         profile.interfaceLanguage = interfaceLanguage;
                         profile.orientationRequired = false;
                         let token = 'shared_user-' + sharedUser.id;
-                        LoginActionCreators.register(user, profile, token, oauthData)
-                            .catch(() => {
-                                this.setState({
-                                    registeringUser: false
-                                });
-                        });
-
-                        this.setState({
-                            registeringUser: true
-                        });
+                        LoginActionCreators.preRegister(user, profile, token, oauthData);
+                        setTimeout(() => this.context.router.push('answer-username'), 0);
                     });
             },
             (status) => {
-                this.setState({
-                    loginUser: false
-                });
+                this.setLoginUserState(false);
                 nekunoApp.alert(resource + ' login failed: ' + status.error.message)
             });
     }

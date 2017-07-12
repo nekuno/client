@@ -7,8 +7,18 @@ var concat = require('gulp-concat');
 var connect = require('gulp-connect');
 var rename = require('gulp-rename');
 var uglify = require('gulp-uglify');
+var envify = require('envify');
 var minifyCss = require('gulp-minify-css');
 var gulpHtmlVersion = require('gulp-html-version');
+var runSequence = require('run-sequence');
+
+gulp.task('env-dev', function() {
+    process.env.NODE_ENV = 'development';
+});
+
+gulp.task('env-prod', function() {
+    process.env.NODE_ENV = 'production';
+});
 
 gulp.task('copy', function() {
     return gulp.src('src/*.html')
@@ -71,6 +81,7 @@ gulp.task('build-hello-js', function() {
 gulp.task('build-js', function() {
     return browserify('./src/js/index.js')
         .transform(babelify)
+        .transform(envify)
         .bundle()
         .pipe(source('bundle.js'))
         .pipe(gulp.dest('./www'))
@@ -115,5 +126,11 @@ gulp.task('serve', function() {
 });
 
 gulp.task('build', ['copy', 'fonts', 'assets', 'images', 'sass', 'build-js', 'build-service-worker', 'build-vendor-js', 'build-hello-js']);
-gulp.task('release', ['minify-js', 'minify-css']);
-gulp.task('dev', ['build', 'serve', 'watch']);
+gulp.task('minify', ['minify-js', 'minify-css']);
+gulp.task('release', ['env-prod'], function() {
+    runSequence('minify');
+});
+gulp.task('build-dev', ['build', 'serve', 'watch']);
+gulp.task('dev', ['env-dev'], function() {
+    runSequence('build-dev');
+});

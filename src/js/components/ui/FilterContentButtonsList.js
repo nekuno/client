@@ -3,15 +3,6 @@ import * as InterestsActionCreators from '../../actions/InterestsActionCreators'
 import translate from '../../i18n/Translate';
 import FilterContentButton from "./FilterContentButton";
 
-
-function requestData(props, type) {
-    if (props.ownContent) {
-        return InterestsActionCreators.requestOwnInterests(props.userId, type);
-    } else {
-        return InterestsActionCreators.requestComparedInterests(props.ownUserId, props.userId, type, props.commonContent);
-    }
-}
-
 @translate('FilterContentButtonsList')
 export default class FilterContentButtonsList extends Component {
 
@@ -42,9 +33,6 @@ export default class FilterContentButtonsList extends Component {
     }
 
     filterContent = function(props, type) {
-        InterestsActionCreators.resetInterests(props.userId);
-        requestData(props, type);
-
         if (typeof this.props.onClickHandler === 'function') {
             this.props.onClickHandler(type);
         }

@@ -19,47 +19,62 @@ export default class OtherQuestionList extends Component {
         strings                   : PropTypes.object
     };
 
+    constructor(props) {
+        super(props);
+
+        this.getOtherQuestions = this.getOtherQuestions.bind(this);
+    }
+
     getOtherQuestions() {
         const {questions, otherQuestions, otherUserSlug, ownPicture, otherPicture, onTimerEnd, isLoadingComparedQuestions, strings} = this.props;
 
         const questionComponents = Object.keys(otherQuestions).map((position, index) => {
+            // const question = Object.keys(otherQuestions).find((index) => {
+            //     const otherQuestion = otherQuestions[index];
+            //     return otherQuestion.question.questionId === questionId;
+            // });
             const question = otherQuestions[position];
             const questionId = question.question.questionId;
 
-                return <div className="question-list">
-                    <OtherQuestion otherUserSlug={otherUserSlug}
-                                   userAnswer={selectn('userAnswer', questions[questionId])}
-                                   ownPicture={ownPicture}
-                                   otherPicture={otherPicture}
-                                   key={index}
-                                   accessibleKey={index}
-                                   question={question}
-                                   onTimerEnd={onTimerEnd}
-                    />
-                </div>
+            return <div className="question-list">
+                <OtherQuestion otherUserSlug={otherUserSlug}
+                               userAnswer={selectn('userAnswer', questions[questionId])}
+                               ownPicture={ownPicture}
+                               otherPicture={otherPicture}
+                               key={index}
+                               accessibleKey={index}
+                               question={question}
+                               onTimerEnd={onTimerEnd}
+                />
+            </div>
         });
 
         return !isLoadingComparedQuestions || Object.keys(otherQuestions).length !== 0 ?
-                questionComponents
-            : [<EmptyMessage text={strings.loading} loadingGif={true} shortMarginTop={true}/>]
+            questionComponents
+            : [<EmptyMessage text={strings.loading} loadingGif={false} shortMarginTop={true}/>]
     }
 
     render() {
         return (
             <InfiniteScroll
-                items = {this.getOtherQuestions.bind(this)()}
+                items = {this.getOtherQuestions()}
                 firstItems={this.props.firstItems}
                 // preloadAdditionalHeight={window.innerHeight*2}
                 // useWindowAsScrollContainer
                 onInfiniteLoad={this.props.onBottomScroll}
                 containerId="questions-view-main"
+                loading={this.props.isLoadingComparedQuestions}
             />
         );
     }
 }
 
 OtherQuestionList.defaultProps = {
-    strings: {
+    strings                   : {
         loading: 'Loading questions'
-    }
+    },
+    isLoadingComparedQuestions: false,
+    onTimerEnd                : () => {
+    },
+    ownPicture                : '',
 };

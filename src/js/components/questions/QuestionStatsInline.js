@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import { QUESTION_STATS_COLORS } from '../../constants/Constants';
 import QuestionStatsGraphs from './QuestionStatsGraphs';
 import translate from '../../i18n/Translate';

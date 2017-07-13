@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import UserPage from './UserPage';
 import OtherUserPage from './OtherUserPage';
 import SharedUserPage from './SharedUserPage';
@@ -50,4 +51,4 @@ export default class ProfilePage extends Component {
                 <SharedUserPage {...this.props}/>
         );
     }
-};
+}

@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import shouldPureComponentUpdate from 'react-pure-render/function';
 import translate from '../../i18n/Translate';
 import FullWidthButton from '../ui/FullWidthButton';

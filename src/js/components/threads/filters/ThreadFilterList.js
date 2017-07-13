@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import InputCheckbox from '../../ui/InputCheckbox';
 
 export default class ThreadFilterList extends Component {

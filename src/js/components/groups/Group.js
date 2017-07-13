@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import { INVITATIONS_URL } from '../../constants/Constants';
 import Button from '../ui/Button';
 import Image from '../ui/Image';

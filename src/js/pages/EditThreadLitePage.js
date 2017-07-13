@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import * as ThreadActionCreators from '../actions/ThreadActionCreators';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
@@ -107,6 +108,8 @@ export default class EditThreadLitePage extends Component {
             .then(() => {
                 this.setState({updating: false});
                 this.goToDiscover();
+            }, () => {
+                this.setState({updating: false});
             });
         this.setState({updating: true});
     }
@@ -146,7 +149,7 @@ export default class EditThreadLitePage extends Component {
             </div>
         );
     }
-};
+}
 
 EditThreadLitePage.defaultProps = {
     strings: {

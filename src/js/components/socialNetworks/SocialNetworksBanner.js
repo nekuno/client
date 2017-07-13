@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import LoadingSpinnerCSS from '../ui/LoadingSpinnerCSS';
 import translate from '../../i18n/Translate';
 import SocialBox from '../ui/SocialBox';

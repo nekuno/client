@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import User from '../components/User';
 import ProfileDataList from '../components/profile/ProfileDataList'
 import ShareProfileBanner from '../components/user/ShareProfileBanner';
@@ -114,7 +115,7 @@ export default class UserPage extends Component {
             </div>
         );
     }
-};
+}
 
 UserPage.defaultProps = {
     strings: {

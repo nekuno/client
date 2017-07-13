@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import { FACEBOOK_PHOTOS_SCOPE, GOOGLE_PHOTOS_SCOPE } from '../../constants/Constants';
 import translate from '../../i18n/Translate';
 

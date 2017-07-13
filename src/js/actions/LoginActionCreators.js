@@ -98,7 +98,7 @@ export default new class LoginActionCreators {
             () => {
                 UserActionCreators.setOwnEnabled(true).then(() => {
                     location.reload();
-                });
+                }, (error) => { console.log(error) });
             },
             () => {
                 return this.logoutUser();

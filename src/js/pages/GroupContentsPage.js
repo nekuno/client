@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import { API_URLS, INVITATIONS_URL } from '../constants/Constants';
 import TopNavBar from '../components/ui/TopNavBar';
 import FullWidthButton from '../components/ui/FullWidthButton';
@@ -97,7 +98,7 @@ export default class GroupContentsPage extends Component {
             </div>
         );
     }
-};
+}
 
 GroupContentsPage.defaultProps = {
     strings: {

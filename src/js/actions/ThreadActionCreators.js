@@ -87,14 +87,14 @@ export function requestRecommendationPage(userId, threadId) {
         resolve(true);
     });
     if (!ThreadStore.contains(threadId)) {
-        promise = promise.then(() =>
-            this.requestThreads(userId)
-        );
+        promise = promise.then(() => {
+            this.requestThreads(userId);
+        }, (error) => { console.log(error) });
     }
 
-    promise.then(function() {
+    promise.then(() => {
         requestRecommendations(threadId)
-    });
+    }, (error) => { console.log(error) });
 
 }
 

@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import { ORIGIN_CONTEXT } from '../../constants/Constants';
 import ProgressBar from './ProgressBar';
 import CardIcons from './CardIcons';

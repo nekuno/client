@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import * as ThreadActionCreators from '../actions/ThreadActionCreators';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
@@ -133,7 +134,7 @@ export default class CreateThreadPage extends Component {
             </div>
         );
     }
-};
+}
 
 CreateThreadPage.defaultProps = {
     strings: {

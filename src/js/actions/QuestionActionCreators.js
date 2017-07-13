@@ -73,9 +73,9 @@ export function skipQuestion(userId, questionId) {
         success: ActionTypes.SKIP_QUESTION_SUCCESS,
         failure: ActionTypes.SKIP_QUESTION_ERROR
     }, {userId, questionId});
-    promise.then(function() {
+    promise.then(() => {
         requestNextQuestion(userId);
-    });
+    }, (error) => { console.log(error) });
 
     return promise;
 }

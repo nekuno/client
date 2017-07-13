@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import FacebookButton from '../components/ui/FacebookButton';
 import EmptyMessage from '../components/ui/EmptyMessage';
 import Image from '../components/ui/Image';

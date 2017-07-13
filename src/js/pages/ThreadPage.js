@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import ThreadList from '../components/threads/ThreadList';
 import TopNavBar from '../components/ui/TopNavBar';
 import QuestionsBanner from '../components/questions/QuestionsBanner';
@@ -130,7 +131,7 @@ export default class ThreadPage extends Component {
             </div>
         );
     }
-};
+}
 
 ThreadPage.defaultProps = {
     strings: {

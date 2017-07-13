@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import TopNavBar from '../components/ui/TopNavBar';
 import SocialWheels from '../components/ui/SocialWheels';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
@@ -60,7 +61,7 @@ export default class ConnectSocialNetworksPage extends Component {
             </div>
         );
     }
-};
+}
 
 ConnectSocialNetworksPage.defaultProps = {
     strings: {

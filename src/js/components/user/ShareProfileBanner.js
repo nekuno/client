@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import { SHARED_USER_URL } from '../../constants/Constants';
 import Button from '../ui/Button';
 import ShareService from '../../services/ShareService';

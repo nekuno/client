@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import { ORIGIN_CONTEXT, SHARED_USER_URL } from '../constants/Constants';
 import OtherProfileData from '../components/profile/OtherProfileData';
 import OtherProfileDataList from '../components/profile/OtherProfileDataList'
@@ -460,7 +461,7 @@ export default class OtherUserPage extends Component {
             </div>
         );
     }
-};
+}
 
 OtherUserPage.defaultProps = {
     strings: {

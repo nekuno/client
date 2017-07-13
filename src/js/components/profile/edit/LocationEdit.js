@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import SelectedEdit from './SelectedEdit';
 import LocationInput from '../../ui/LocationInput';
 import translate from '../../../i18n/Translate';

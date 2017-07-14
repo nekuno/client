@@ -80,15 +80,17 @@ export default class SocialWheels extends Component {
         );
     };
 
-    renderSmallIcon = function(resource, radius, degrees, posX, posY, connected, fetched, processing, processed, key) {
-        if (connected) {
+    renderSmallIcon = function(resource, radius, degrees, posX, posY, fetching, fetched, processing, processed, connected, key) {
+        if (fetching) {
             return this.renderFetchingIcon(resource, radius, posX, posY, key);
         } else if (fetched && !processing && !processed) {
             return this.renderFetchedIcon(resource, radius, posX, posY, key);
-        } else if (!fetched && !processing && !processed) {
+        } else if (!fetched && !processing && !processed && !connected) {
             return this.renderTransparentIcon(resource, radius, posX, posY, key);
-        } else {
+        } else if (processed || processing) {
             return this.renderProcessingIcon(resource, radius, degrees, posX, posY, key);
+        } else {
+            return this.renderFetchingIcon(resource, radius, posX, posY, key);
         }
     };
 
@@ -135,7 +137,7 @@ export default class SocialWheels extends Component {
     };
 
     getProcessing(network) {
-        return network.processed || (network.connected && !network.fetched) ? 359 : network.process * 3.6;
+        return network.processed ? 359 : network.process * 3.6;
     }
 
     render() {
@@ -196,7 +198,7 @@ export default class SocialWheels extends Component {
                                         style={{progress: spring(progress)}}
                                     >
                                         {val =>
-                                            this.renderSmallIcon(message.resource, radius, val.progress, this.posX, this.posY, message.connected, message.fetched, message.processing, message.processed, index)
+                                            this.renderSmallIcon(message.resource, radius, val.progress, this.posX, this.posY, message.fetching, message.fetched, message.processing, message.processed, message.connected, index)
                                         }
                                     </Motion>
                                 )

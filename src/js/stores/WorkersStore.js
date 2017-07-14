@@ -216,7 +216,7 @@ class WorkersStore extends BaseStore {
     }
 
     _add(status) {
-        status.connected = status.connected ? status.connected : true;
+        status.connected = status.hasOwnProperty('connected') ? status.connected : true;
 
         let index = this._networks.findIndex((network) => {
             return network.resource === status.resource;
@@ -255,7 +255,7 @@ class WorkersStore extends BaseStore {
     }
     
     isConnected(resource) {
-        let network = this._networks.find(network => network.resource == resource);
+        let network = this._networks.find(network => network.resource === resource);
         return network.fetching || network.fetched || network.processing || network.processed;
     }
 

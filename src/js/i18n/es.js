@@ -679,6 +679,9 @@ export default {
         interestsCount       : '%count% Intereses',
         similarInterestsCount: '%count% Intereses similares',
     },
+    SocialWheel : {
+        isLoading : 'Pidiendo información...',
+    },
     ////////////////
     // Framework7 //
     ////////////////

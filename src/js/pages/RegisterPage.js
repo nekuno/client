@@ -130,7 +130,7 @@ export default class RegisterPage extends Component {
 
                         {this.state.registeringUser ?
                             <EmptyMessage text={strings.registeringMessage} loadingGif={true}/>
-                            : initialToken && !token ? <EmptyMessage text={strings.loadingMessage} loadingGif={true}/>
+                            : initialToken && !token && !error ? <EmptyMessage text={strings.loadingMessage} loadingGif={true}/>
                                 :
                                 <div id="page-content" className="register-content">
                                     <div className="register-title bold">

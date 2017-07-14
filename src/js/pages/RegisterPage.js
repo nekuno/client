@@ -125,7 +125,7 @@ export default class RegisterPage extends Component {
             <div className="views">
                 <TopNavBar leftText={strings.cancel} centerText={strings.register}/>
                 <div className="view view-main">
-                    <div className="page" style={invitation && invitation.image_url ? {background: 'url("' + invitation.image_url + '") no-repeat center top', minHeight: '100%'} : null}>
+                    <div className="page" style={invitation && invitation.image_url && (!initialToken || token || error) ? {background: 'url("' + invitation.image_url + '") no-repeat center top', minHeight: '100%'} : null}>
                         {invitation && invitation.image_url ? <div className="gradient-transparency"></div> : null}
 
                         {this.state.registeringUser ?

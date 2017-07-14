@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import TopNavBar from '../components/ui/TopNavBar';
 import Input from '../components/ui/Input';
 import SocialBox from '../components/ui/SocialBox';
@@ -12,7 +13,6 @@ import LoginActionCreators from '../actions/LoginActionCreators';
 import InvitationStore from '../stores/InvitationStore';
 import LocaleStore from '../stores/LocaleStore';
 import SocialNetworkService from '../services/SocialNetworkService';
-import GeocoderService from '../services/GeocoderService';
 
 function getState(props) {
 
@@ -41,6 +41,10 @@ export default class RegisterPage extends Component {
         token            : PropTypes.string,
         invitation       : PropTypes.object,
         interfaceLanguage: PropTypes.string
+    };
+
+    static contextTypes = {
+        router: PropTypes.object.isRequired
     };
 
     constructor(props) {
@@ -97,32 +101,7 @@ export default class RegisterPage extends Component {
                     let profile = SocialNetworkService.getProfile(resource);
                     profile.interfaceLanguage = interfaceLanguage;
                     profile.orientationRequired = false;
-                    if (!profile.location && navigator.geolocation) {
-                        var options = {
-                            enableHighAccuracy: true,
-                            timeout           : 5000, // 5s
-                            maximumAge        : 14400000 // 4h
-                        };
-                        navigator.geolocation.getCurrentPosition((position) => {
-                            if (position.coords.accuracy < 2000) { // filter by accuracy
-                                GeocoderService.getLocationFromCoords(position.coords.latitude, position.coords.longitude).then(
-                                    (location) => {
-                                        profile.location = location;
-                                        this._registerUser(user, profile, token, oauthData);
-                                    },
-                                    () => { // Register user without location
-                                        this._registerUser(user, profile, token, oauthData);
-                                    }
-                                )
-                            } else {
-                                this._registerUser(user, profile, token, oauthData);
-                            }
-                        }, () => {
-                            this._registerUser(user, profile, token, oauthData)
-                        }, options);
-                    } else {
-                        this._registerUser(user, profile, token, oauthData);
-                    }
+                    this._registerUser(user, profile, token, oauthData);
                 });
         }, (status) => {
             nekunoApp.alert(resource + ' login failed: ' + status.error.message)
@@ -130,7 +109,8 @@ export default class RegisterPage extends Component {
     }
 
     _registerUser(user, profile, token, oauthData) {
-        LoginActionCreators.register(user, profile, token, oauthData);
+        LoginActionCreators.preRegister(user, profile, token, oauthData);
+        setTimeout(() => this.context.router.push('answer-username'), 0);
 
         this.setState({
             registeringUser: true
@@ -138,10 +118,8 @@ export default class RegisterPage extends Component {
     }
 
     render() {
-
         const {error, token, invitation, strings} = this.props;
-
-        let initialToken = this.state.initialToken;
+        const {initialToken} = this.state;
 
         return (
             <div className="views">
@@ -151,41 +129,42 @@ export default class RegisterPage extends Component {
                         {invitation && invitation.image_url ? <div className="gradient-transparency"></div> : null}
 
                         {this.state.registeringUser ?
-                            <EmptyMessage text={strings.loadingMessage} loadingGif={true}/>
-                            :
-                            <div id="page-content" className="register-content">
-                                <div className="register-title bold">
-                                    <div className="title">{token ? (invitation.slogan ? invitation.slogan : strings.titleCorrect) : strings.title}</div>
-                                </div>
-                                <div className="register-sub-title">{ token ? (invitation.htmlText ? invitation.htmlText : strings.correct) : strings.subtitle}</div>
-                                { token ? <div className="register-sub-title"><strong>{strings.publishMessage}</strong></div> : null}
-                                <br />
-                                { token ? '' :
-                                    <div className="list-block">
-                                        <ul>
-                                            <Input ref="token" defaultValue={initialToken} onChange={this.handleOnChange} placeholder={strings.paste}/>
-                                        </ul>
+                            <EmptyMessage text={strings.registeringMessage} loadingGif={true}/>
+                            : initialToken && !token && !error ? <EmptyMessage text={strings.loadingMessage} loadingGif={true}/>
+                                :
+                                <div id="page-content" className="register-content">
+                                    <div className="register-title bold">
+                                        <div className="title">{token ? (invitation.slogan ? invitation.slogan : strings.titleCorrect) : strings.title}</div>
                                     </div>
-                                }
-                                <div style={{color: '#FFF'}}>
-                                    <p>{ error ? error.error : ''}</p>
-                                </div>
-
-                                { token ?
-                                    <div>
-                                        {/* Uncomment to enable all social networks */}
-                                        {/* <SocialBox onClickHandler={this.handleSocialNetwork}/> */}
-                                        <FacebookButton onClickHandler={this.handleSocialNetwork} text={strings.signUp}/>
-                                        <br />
-                                        <div className="register-sub-title privacy-terms-text">
-                                            <p dangerouslySetInnerHTML={{__html: strings.privacy}}/>
+                                    <div className="register-sub-title">{ token ? (invitation.htmlText ? invitation.htmlText : strings.correct) : strings.subtitle}</div>
+                                    { token ? <div className="register-sub-title"><strong>{strings.publishMessage}</strong></div> : null}
+                                    <br />
+                                    { token ? '' :
+                                        <div className="list-block">
+                                            <ul>
+                                                <Input ref="token" defaultValue={initialToken} onChange={this.handleOnChange} placeholder={strings.paste}/>
+                                            </ul>
                                         </div>
-                                        <br />
-                                        <br />
+                                    }
+                                    <div style={{color: '#FFF'}}>
+                                        <p>{ error ? error.error : ''}</p>
                                     </div>
-                                    : ''
-                                }
-                            </div>
+
+                                    { token ?
+                                        <div>
+                                            {/* Uncomment to enable all social networks */}
+                                            {/* <SocialBox onClickHandler={this.handleSocialNetwork}/> */}
+                                            <FacebookButton onClickHandler={this.handleSocialNetwork} text={initialToken ? strings.compatibility : strings.signUp}/>
+                                            <br />
+                                            <div className="register-sub-title privacy-terms-text">
+                                                <p dangerouslySetInnerHTML={{__html: strings.privacy}}/>
+                                            </div>
+                                            <br />
+                                            <br />
+                                        </div>
+                                        : ''
+                                    }
+                                </div>
                         }
                     </div>
                 </div>
@@ -196,16 +175,18 @@ export default class RegisterPage extends Component {
 
 RegisterPage.defaultProps = {
     strings: {
-        register      : 'Create account',
-        cancel        : 'Cancel',
-        title         : 'Nekuno only allows registration by invitation.',
-        titleCorrect  : 'Awesome! You got an invitation!',
-        subtitle      : 'Please copy the URL that you\'ve received your invitation and paste it into the field below to create your account at Nekuno.',
-        paste         : 'Paste the invitation url here',
-        correct       : 'Just one last step! Connect Facebook:',
-        loadingMessage: 'Registering user',
-        publishMessage: 'We\'ll never publish anything on your wall',
-        privacy       : 'By registering, you agree to the <a href="https://nekuno.com/terms-and-conditions" target="_blank">Legal Conditions</a> and the Nekuno <a href="https://nekuno.com/privacy-policy" target="_blank">Privacy Policy</a>.',
-        signUp        : 'Sign up with Facebook'
+        register          : 'Create account',
+        cancel            : 'Cancel',
+        title             : 'Nekuno only allows registration by invitation.',
+        titleCorrect      : 'Awesome! You got an invitation!',
+        subtitle          : 'Please copy the URL that you\'ve received your invitation and paste it into the field below to create your account at Nekuno.',
+        paste             : 'Paste the invitation url here',
+        correct           : 'Just one last step! Connect Facebook:',
+        loadingMessage    : 'Loading',
+        registeringMessage: 'Registering user',
+        publishMessage    : 'We\'ll never publish anything on your wall',
+        privacy           : 'By registering, you agree to the <a href="https://nekuno.com/terms-and-conditions" target="_blank">Legal Conditions</a> and the Nekuno <a href="https://nekuno.com/privacy-policy" target="_blank">Privacy Policy</a>.',
+        signUp            : 'Sign up with Facebook',
+        compatibility     : 'Analize compatibility'
     }
 };

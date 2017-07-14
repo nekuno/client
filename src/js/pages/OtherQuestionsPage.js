@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import TopNavBar from '../components/ui/TopNavBar';
 import ToolBar from '../components/ui/ToolBar';
 import LoadingSpinnerCSS from '../components/ui/LoadingSpinnerCSS'
@@ -182,7 +183,7 @@ export default class OtherQuestionsPage extends Component {
         );
     }
 
-};
+}
 
 OtherQuestionsPage.defaultProps = {
     strings: {

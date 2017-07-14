@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import * as UserActionCreators from '../../actions/UserActionCreators';
 import TextRadios from './TextRadios';
 import FullWidthButton from './FullWidthButton';

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { default as React } from 'react';
 import connectToStores from '../../utils/connectToStores';
 import * as UserActionCreators from '../../actions/UserActionCreators';
@@ -65,11 +66,11 @@ export default function tutorial() {
         class TutorialComponent extends React.Component {
 
             static propTypes = {
-                steps         : React.PropTypes.array,
-                startTutorial : React.PropTypes.bool,
-                tutorialLocale: React.PropTypes.object,
-                strings       : React.PropTypes.object,
-                user          : React.PropTypes.object
+                steps         : PropTypes.array,
+                startTutorial : PropTypes.bool,
+                tutorialLocale: PropTypes.object,
+                strings       : PropTypes.object,
+                user          : PropTypes.object
             };
 
             constructor(props) {
@@ -133,13 +134,13 @@ export default function tutorial() {
         }
 
         TutorialComponent.contextTypes = {
-            steps             : React.PropTypes.array,
-            startTutorial     : React.PropTypes.func,
-            resetTutorial     : React.PropTypes.func,
-            endTutorialHandler: React.PropTypes.func,
-            tutorialLocale    : React.PropTypes.object,
+            steps             : PropTypes.array,
+            startTutorial     : PropTypes.func,
+            resetTutorial     : PropTypes.func,
+            endTutorialHandler: PropTypes.func,
+            tutorialLocale    : PropTypes.object,
         };
 
         return TutorialComponent;
     };
-};
+}

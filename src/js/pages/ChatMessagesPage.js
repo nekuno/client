@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import TopNavBar from '../components/ui/TopNavBar';
 import DailyMessages from '../components/ui/DailyMessages';
 import MessagesToolBar from '../components/ui/MessagesToolBar';
@@ -238,7 +239,7 @@ export default class ChatMessagesPage extends Component {
             </div>
         );
     }
-};
+}
 
 ChatMessagesPage.defaultProps = {
     strings: {

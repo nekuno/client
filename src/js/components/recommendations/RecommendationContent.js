@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import CardContent from './../ui/CardContent';
 
 export default class RecommendationContent extends Component {

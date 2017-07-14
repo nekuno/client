@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import TopNavBar from '../components/ui/TopNavBar';
 import ToolBar from '../components/ui/ToolBar';
 import CardContentList from '../components/interests/CardContentList';
@@ -328,7 +329,7 @@ export default class OtherInterestsPage extends Component {
             </div>
         );
     }
-};
+}
 
 OtherInterestsPage.defaultProps = {
     strings: {

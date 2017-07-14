@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import RecommendationContent from './RecommendationContent';
 import RecommendationUser from './RecommendationUser';
 import ChipList from './../ui/ChipList';

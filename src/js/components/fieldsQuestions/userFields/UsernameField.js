@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import Input from '../../ui/Input';
 import FullWidthButton from '../../ui/FullWidthButton';
 import translate from '../../../i18n/Translate';

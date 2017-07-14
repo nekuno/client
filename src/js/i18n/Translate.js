@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { default as React } from 'react';
 import TranslationService from '../services/TranslationService';
 
@@ -28,7 +29,7 @@ export default function translate(key) {
         }
 
         TranslationComponent.contextTypes = {
-            locale: React.PropTypes.string
+            locale: PropTypes.string
         };
 
         return TranslationComponent;

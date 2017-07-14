@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import { isDispatching } from '../../dispatcher/Dispatcher';
 import InfiniteAnyHeight from './InfiniteAnyHeight.jsx';
 import Infinite from 'react-infinite';

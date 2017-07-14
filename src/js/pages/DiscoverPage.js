@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import TopNavBar from '../components/ui/TopNavBar';
 import CardUserList from '../components/user/CardUserList';
 import EmptyMessage from '../components/ui/EmptyMessage';
@@ -283,7 +284,6 @@ export default class DiscoverPage extends Component {
         );
     }
 }
-;
 
 DiscoverPage.defaultProps = {
     strings: {

@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import TopNavBar from '../components/ui/TopNavBar';
 import SocialWheels from '../components/ui/SocialWheels';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
@@ -10,10 +11,12 @@ function getState(props) {
 
     const networks = WorkersStore.getAll();
     const error = WorkersStore.getConnectError();
+    const isLoading = WorkersStore.isLoading();
 
     return {
         networks,
-        error
+        error,
+        isLoading,
     };
 }
 
@@ -28,12 +31,13 @@ export default class ConnectSocialNetworksOnSignUpPage extends Component {
 
     static propTypes = {
         // Injected by @AuthenticatedComponent
-        user    : PropTypes.object.isRequired,
+        user     : PropTypes.object.isRequired,
         // Injected by @translate:
-        strings : PropTypes.object,
+        strings  : PropTypes.object,
         // Injected by @connectToStores:
-        networks: PropTypes.array.isRequired,
-        error   : PropTypes.bool,
+        networks : PropTypes.array.isRequired,
+        error    : PropTypes.bool,
+        isLoading: PropTypes.bool,
     };
 
     constructor(props) {
@@ -47,7 +51,7 @@ export default class ConnectSocialNetworksOnSignUpPage extends Component {
 
     render() {
 
-        const {networks, error, user, strings} = this.props;
+        const {networks, error, user, strings, isLoading} = this.props;
         const username = user.username;
         const picture = user && user.photo ? user.photo.thumbnail.medium : 'img/no-img/medium.jpg';
 
@@ -60,7 +64,7 @@ export default class ConnectSocialNetworksOnSignUpPage extends Component {
                             <div className="title">{strings.welcome} <br />{username}</div>
                             <div className="excerpt">{strings.excerpt}</div>
                             <br />
-                            <SocialWheels networks={networks} picture={picture} error={error ? strings.error : null}/>
+                            <SocialWheels networks={networks} picture={picture} error={error ? strings.error : null} isLoading={isLoading}/>
                             <div className="excerpt">{strings.footer}</div>
                         </div>
                         <br />
@@ -70,14 +74,15 @@ export default class ConnectSocialNetworksOnSignUpPage extends Component {
             </div>
         );
     }
-};
+}
 
 ConnectSocialNetworksOnSignUpPage.defaultProps = {
-    strings: {
+    strings  : {
         next   : 'Continue',
         welcome: 'Welcome to Nekuno',
         excerpt: 'At last your data will work for you! The more interest you contribute, the better recommendations you’ll get!',
         footer : 'Nekuno primarily works with the social networks you have synced. We don’t post anything. You can control the information you give and block information if you so desire.',
         error  : 'Error connecting network. You may have connected it with other user.',
-    }
+    },
+    isLoading: false,
 };

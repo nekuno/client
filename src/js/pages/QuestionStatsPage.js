@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import TopNavBar from '../components/ui/TopNavBar';
 import ButtonFloating from '../components/ui/ButtonFloating';
 import QuestionStats from '../components/questions/QuestionStats';
@@ -82,7 +83,7 @@ export default class QuestionStatsPage extends Component {
             </div>
         );
     }
-};
+}
 
 QuestionStatsPage.defaultProps = {
     strings: {

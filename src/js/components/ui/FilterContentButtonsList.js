@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import * as InterestsActionCreators from '../../actions/InterestsActionCreators';
 import translate from '../../i18n/Translate';
 import FilterContentButton from "./FilterContentButton";

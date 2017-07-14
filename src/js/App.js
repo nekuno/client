@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import LeftPanel from './components/LeftPanel';
 import HomePage from './pages/HomePage';
 import TranslationProvider from './i18n/TranslationProvider';

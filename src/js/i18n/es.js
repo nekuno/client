@@ -194,17 +194,19 @@ export default {
         next      : 'Continuar'
     },
     RegisterPage                     : {
-        register      : 'Crear cuenta',
-        cancel        : 'Cancelar',
-        title         : 'Nekuno solo permite el registro mediante invitación',
-        titleCorrect  : '¡Increíble! ¡Has conseguido una invitación!',
-        subtitle      : 'Por favor, copia la URL que has recibido en tu invitación y pégala en el siguiente campo para poder crear tu cuenta en Nekuno',
-        paste         : 'Pega aquí la URL de la invitación',
-        correct       : '¡Solo queda un último paso! Conecta Facebook:',
-        loadingMessage: 'Registrando usuario',
-        publishMessage: 'Nunca publicaremos nada en tu muro',
-        privacy       : 'Al registrarte, estás aceptando las <a href="https://nekuno.com/terms-and-conditions" target="_blank">Condiciones Legales</a> y la <a href="https://nekuno.com/privacy-policy" target="_blank">Política de Privacidad</a> de Nekuno',
-        signUp        : 'Regístrate con Facebook'
+        register          : 'Crear cuenta',
+        cancel            : 'Cancelar',
+        title             : 'Nekuno solo permite el registro mediante invitación',
+        titleCorrect      : '¡Increíble! ¡Has conseguido una invitación!',
+        subtitle          : 'Por favor, copia la URL que has recibido en tu invitación y pégala en el siguiente campo para poder crear tu cuenta en Nekuno',
+        paste             : 'Pega aquí la URL de la invitación',
+        correct           : '¡Solo queda un último paso! Conecta Facebook:',
+        registeringMessage: 'Registrando usuario',
+        loadingMessage    : 'Cargando',
+        publishMessage    : 'Nunca publicaremos nada en tu muro',
+        privacy           : 'Al registrarte, estás aceptando las <a href="https://nekuno.com/terms-and-conditions" target="_blank">Condiciones Legales</a> y la <a href="https://nekuno.com/privacy-policy" target="_blank">Política de Privacidad</a> de Nekuno',
+        signUp            : 'Regístrate con Facebook',
+        compatibility     : 'Analizar compatibilidad'
     },
     RegisterQuestionLandingPage      : {
         title  : 'Queremos conocerte un poco mejor',

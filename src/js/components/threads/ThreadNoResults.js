@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import translate from '../../i18n/Translate';
 import Button from '../ui/Button';
 import * as ThreadActionCreators from '../../actions/ThreadActionCreators';

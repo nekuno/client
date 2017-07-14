@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import connectToStores from '../../utils/connectToStores';
 import LoginStore from '../../stores/LoginStore';
 import translate from '../../i18n/Translate';

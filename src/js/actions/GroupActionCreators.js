@@ -19,7 +19,7 @@ export function joinGroup(groupId) {
     }, {groupId}).then((data) => {
         ThreadActionCreators.requestThreads();
         return data;
-    });
+    }, (error) => { console.log(error) });
 }
 
 export function createGroup(data) {
@@ -30,7 +30,7 @@ export function createGroup(data) {
     }).then((data) => {
         ThreadActionCreators.requestThreads();
         return data;
-    });
+    }, (error) => { console.log(error) });
 }
 
 export function leaveGroup(groupId) {
@@ -41,7 +41,7 @@ export function leaveGroup(groupId) {
     }).then((data) => {
         ThreadActionCreators.requestThreads();
         return data;
-    });
+    }, (error) => { console.log(error) });
 }
 
 export function requestGroupMembers(groupId, url = null) {

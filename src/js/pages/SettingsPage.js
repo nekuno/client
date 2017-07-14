@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import TopNavBar from '../components/ui/TopNavBar';
 import { VERSION } from '../constants/Constants';
 import * as UserActionCreators from '../actions/UserActionCreators';
@@ -62,7 +63,7 @@ export default class SettingsPage extends Component {
             </div>
         );
     }
-};
+}
 
 SettingsPage.defaultProps = {
     strings: {

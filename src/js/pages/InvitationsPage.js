@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import { Link } from 'react-router';
 import { INVITATIONS_URL } from '../constants/Constants';
 import TopNavBar from '../components/ui/TopNavBar';

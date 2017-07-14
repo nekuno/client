@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 var Line = require('rc-progress').Line;
 import AuthenticatedComponent from '../../components/AuthenticatedComponent';
 import translate from '../../i18n/Translate';

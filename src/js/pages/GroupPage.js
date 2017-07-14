@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import { API_URLS } from '../constants/Constants';
 import TopNavBar from '../components/ui/TopNavBar';
 import Button from '../components/ui/Button';
@@ -192,7 +193,7 @@ export default class GroupPage extends Component {
             </div>
         );
     }
-};
+}
 
 GroupPage.defaultProps = {
     strings: {

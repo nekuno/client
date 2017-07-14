@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import moment from 'moment';
 import Emojify from 'react-emojione';
 import Image from './Image';

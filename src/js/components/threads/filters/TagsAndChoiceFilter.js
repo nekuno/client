@@ -1,5 +1,6 @@
 /** TODO : Not used yet but useful for editing profile **/
-import React, { PropTypes, Component } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import ThreadSelectedFilter from './ThreadSelectedFilter';
 import ThreadUnselectedFilter from './ThreadUnselectedFilter';
 import TagInput from '../../ui/TagInput';

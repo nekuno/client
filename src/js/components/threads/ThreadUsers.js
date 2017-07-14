@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import selectn from 'selectn'
 import ChipList from './../ui/ChipList';
 import Image from './../ui/Image';

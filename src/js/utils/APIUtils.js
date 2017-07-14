@@ -57,7 +57,7 @@ export function fetchAndNormalize(url, schema) {
         return {
             ...normalize(json, schema)
         };
-    });
+    }, () => {});
 }
 
 export function doRequest(method, url, data = null) {
@@ -148,7 +148,7 @@ export function fetchAnswers(url) {
 export function fetchComparedAnswers(url) {
     return getData(url).then(function(json) {
         return json;
-    });
+    }, () => {});
 }
 
 export function postAnswer(url, questionId, answerId, acceptedAnswers, rating) {
@@ -173,7 +173,7 @@ export function fetchQuestion(url) {
 export function fetchUserDataStatus(url) {
     return getData(url).then(function(json) {
         return json;
-    });
+    }, () => {});
 }
 
 export function postBlockUser(url) {

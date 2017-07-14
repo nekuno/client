@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import TopNavBar from '../components/ui/TopNavBar';
 import EmptyMessage from '../components/ui/EmptyMessage';
 import BirthdayField from '../components/fieldsQuestions/profileFields/BirthdayField';

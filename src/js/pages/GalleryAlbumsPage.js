@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import TopNavBar from '../components/ui/TopNavBar';
 import Image from '../components/ui/Image';
 import EmptyMessage from '../components/ui/EmptyMessage';
@@ -114,7 +115,7 @@ export default class GalleryAlbumsPage extends Component {
             </div>
         );
     }
-};
+}
 
 GalleryAlbumsPage.defaultProps = {
     strings: {

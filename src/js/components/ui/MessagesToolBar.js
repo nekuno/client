@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import { MAX_MESSAGES_LENGTH } from '../../constants/Constants';
 import translate from '../../i18n/Translate';
 

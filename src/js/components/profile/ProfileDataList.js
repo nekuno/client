@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import ProfileData from './ProfileData';
 import * as UserActionCreators from '../../actions/UserActionCreators';
 import translate from '../../i18n/Translate';

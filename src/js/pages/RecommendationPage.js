@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import { ORIGIN_CONTEXT } from '../constants/Constants';
 import RecommendationList from '../components/recommendations/RecommendationList';
 import TopNavBar from '../components/ui/TopNavBar';
@@ -242,9 +243,9 @@ export default class RecommendationPage extends Component {
             const threadId = this.props.thread.id;
             const router = this.context.router;
             ThreadActionCreators.deleteThread(threadId)
-                .then(function() {
+                .then(() => {
                     router.push('/discover');
-                });
+                }, (error) => { console.log(error) });
         });
     }
 
@@ -397,7 +398,7 @@ export default class RecommendationPage extends Component {
             </div>
         );
     }
-};
+}
 
 RecommendationPage.defaultProps = {
     strings: {

@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import { Link } from 'react-router';
 import moment from 'moment';
 import ChatUserStatusStore from '../../stores/ChatUserStatusStore';

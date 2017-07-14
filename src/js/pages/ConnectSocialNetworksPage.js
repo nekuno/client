@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import TopNavBar from '../components/ui/TopNavBar';
 import SocialWheels from '../components/ui/SocialWheels';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
@@ -10,10 +11,12 @@ function getState(props) {
 
     const networks = WorkersStore.getAll();
     const error = WorkersStore.getConnectError();
+    const isLoading = WorkersStore.isLoading();
 
     return {
         networks,
-        error
+        error,
+        isLoading,
     };
 }
 
@@ -28,17 +31,18 @@ export default class ConnectSocialNetworksPage extends Component {
 
     static propTypes = {
         // Injected by @AuthenticatedComponent
-        user    : PropTypes.object.isRequired,
+        user     : PropTypes.object.isRequired,
         // Injected by @translate:
-        strings : PropTypes.object,
+        strings  : PropTypes.object,
         // Injected by @connectToStores:
-        networks: PropTypes.array.isRequired,
-        error   : PropTypes.bool,
+        networks : PropTypes.array.isRequired,
+        error    : PropTypes.bool,
+        isLoading: PropTypes.bool,
     };
 
     render() {
 
-        const {networks, error, user, strings} = this.props;
+        const {networks, error, user, strings, isLoading} = this.props;
         const picture = user && user.photo ? user.photo.thumbnail.medium : 'img/no-img/medium.jpg';
 
         return (
@@ -50,7 +54,7 @@ export default class ConnectSocialNetworksPage extends Component {
                             <div className="title">{strings.title}</div>
                             <div className="excerpt">{strings.excerpt}</div>
                             <br />
-                            <SocialWheels networks={networks} picture={picture} error={error ? strings.error : null}/>
+                            <SocialWheels networks={networks} picture={picture} error={error ? strings.error : null} isLoading={isLoading}/>
                             <div className="excerpt">{strings.footer}</div>
                         </div>
                         <br />
@@ -60,14 +64,15 @@ export default class ConnectSocialNetworksPage extends Component {
             </div>
         );
     }
-};
+}
 
 ConnectSocialNetworksPage.defaultProps = {
-    strings: {
+    strings  : {
         top    : 'Social Networks',
         title  : 'Connect to your world',
         excerpt: 'At last your data will work for you! The more interest you contribute, the better recommendations you’ll get!',
         footer : 'Remember, you’re in control at all times, we will not publish anything on your social networks',
         error  : 'Error connecting network. You may have connected it with other user.',
-    }
+    },
+    isLoading: false,
 };

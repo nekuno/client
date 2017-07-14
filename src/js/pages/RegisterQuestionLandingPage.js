@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import FullWidthButton from '../components/ui/FullWidthButton';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
@@ -90,7 +91,7 @@ export default class RegisterQuestionLandingPage extends Component {
         );
     }
 
-};
+}
 
 RegisterQuestionLandingPage.defaultProps = {
     strings: {

@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import TopNavBar from '../components/ui/TopNavBar';
 import LastMessage from '../components/ui/LastMessage';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
@@ -70,7 +71,7 @@ export default class ChatThreadsPage extends Component {
             </div>
         );
     }
-};
+}
 
 ChatThreadsPage.defaultProps = {
     strings: {

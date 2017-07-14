@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import ThreadSelectedFilter from './ThreadSelectedFilter';
 import ThreadUnselectedFilter from './ThreadUnselectedFilter';
 import TextCheckboxes from '../../ui/TextCheckboxes';

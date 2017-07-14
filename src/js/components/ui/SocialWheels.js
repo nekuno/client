@@ -10,7 +10,8 @@ export default class SocialWheels extends Component {
     static propTypes = {
         picture : PropTypes.string.isRequired,
         networks: PropTypes.array.isRequired,
-        error   : PropTypes.string
+        error   : PropTypes.string,
+        isLoading : PropTypes.bool,
     };
 
     constructor(props) {
@@ -79,8 +80,8 @@ export default class SocialWheels extends Component {
         );
     };
 
-    renderSmallIcon = function(resource, radius, degrees, posX, posY, fetching, fetched, processing, processed, key) {
-        if (fetching) {
+    renderSmallIcon = function(resource, radius, degrees, posX, posY, connected, fetched, processing, processed, key) {
+        if (connected) {
             return this.renderFetchingIcon(resource, radius, posX, posY, key);
         } else if (fetched && !processing && !processed) {
             return this.renderFetchedIcon(resource, radius, posX, posY, key);
@@ -133,14 +134,18 @@ export default class SocialWheels extends Component {
         });
     };
 
+    getProcessing(network) {
+        return network.processed || (network.connected && !network.fetched) ? 359 : network.process * 3.6;
+    }
+
     render() {
         const {prevNetworks} = this.state;
-        const {networks, picture} = this.props;
-        const connectedNetworks = networks.filter(network => network.fetching || network.fetched || network.processing || network.processed);
+        const {networks, picture, isLoading} = this.props;
+        const connectedNetworks = networks.filter(network => network.connected);
         
         return (
             <div className="social-wheels">
-                <SocialBox onClickHandler={this.connect} excludedResources={connectedNetworks.map(network => network.resource)} />
+                <SocialBox onClickHandler={this.connect} excludedResources={connectedNetworks.map(network => network.resource)} disabled={isLoading} />
                 {connectedNetworks.length > 0 ?
                     <svg width="310" height="310">
                         <g>
@@ -165,15 +170,16 @@ export default class SocialWheels extends Component {
                             {/* Social networks wheels */}
                             {networks.map((message, index) => {
                                 let radius = this.initialRadius + index * this.separation * 2;
-                                let progress = message.processed ? 359 : message.process * 3.6;
+                                let progress = this.getProcessing(message);
+                                let prevProgress = prevNetworks[index] ? this.getProcessing(prevNetworks[index]) : progress;
                                 return (
                                     <Motion
                                         key={index}
-                                        defaultStyle={{progress: prevNetworks[index] ? prevNetworks[index].processed ? 359 : prevNetworks[index].process * 3.6 : progress}}
+                                        defaultStyle={{progress: prevProgress}}
                                         style={{progress: spring(progress)}}
                                     >
                                         {val =>
-                                            <path key={'wheel' + index} d={this.describeArc(this.posX, this.posY, radius, 0, val.progress)} className={"wheel-" + message.resource}/>
+                                            <path key={'wheel' + index} d={this.describeArc(this.posX, this.posY, radius, 0, progress)} className={"wheel-" + message.resource}/>
                                         }
                                     </Motion>
                                 );
@@ -190,7 +196,7 @@ export default class SocialWheels extends Component {
                                         style={{progress: spring(progress)}}
                                     >
                                         {val =>
-                                            this.renderSmallIcon(message.resource, radius, val.progress, this.posX, this.posY, message.fetching, message.fetched, message.processing, message.processed, index)
+                                            this.renderSmallIcon(message.resource, radius, val.progress, this.posX, this.posY, message.connected, message.fetched, message.processing, message.processed, index)
                                         }
                                     </Motion>
                                 )
@@ -203,3 +209,7 @@ export default class SocialWheels extends Component {
         );
     }
 }
+
+SocialWheels.defaultProps = {
+    isLoading : false,
+};

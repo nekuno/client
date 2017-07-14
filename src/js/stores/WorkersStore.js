@@ -22,6 +22,7 @@ class WorkersStore extends BaseStore {
         this._affinityPercentage = null;
         this._isJustRegistered = null;
         this._registerWorkersFinish = null;
+        this._isLoading = true;
     }
     
     _registerToActions(action) {
@@ -48,7 +49,8 @@ class WorkersStore extends BaseStore {
                     fetched   : false,
                     processing: false,
                     process   : 0,
-                    processed : false
+                    processed : false,
+                    connected : false,
                 });
                 this.setConnectError();
                 this.emitChange();
@@ -178,6 +180,10 @@ class WorkersStore extends BaseStore {
                 this.emitChange();
                 break;
 
+            case ActionTypes.REQUEST_USER_DATA_STATUS:
+                this._isLoading = true;
+                this.emitChange();
+                break;
             case ActionTypes.REQUEST_USER_DATA_STATUS_SUCCESS:
                 Object.keys(action.response).forEach(resource => {
                     const data = action.response[resource];
@@ -191,6 +197,7 @@ class WorkersStore extends BaseStore {
                     });
                 });
                 this._setLinksPercentage();
+                this._isLoading = false;
                 this.emitChange();
                 break;
 
@@ -209,6 +216,8 @@ class WorkersStore extends BaseStore {
     }
 
     _add(status) {
+        status.connected = status.connected ? status.connected : true;
+
         let index = this._networks.findIndex((network) => {
             return network.resource === status.resource;
         });
@@ -278,6 +287,10 @@ class WorkersStore extends BaseStore {
             }
         });
         return count;
+    }
+
+    isLoading() {
+        return this._isLoading;
     }
 
     isSomethingWorking() {

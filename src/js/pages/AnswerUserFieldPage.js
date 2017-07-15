@@ -7,6 +7,7 @@ import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
 import * as UserActionCreators from '../actions/UserActionCreators';
+import RouterActionCreators from '../actions/RouterActionCreators';
 import RegisterStore from '../stores/RegisterStore';
 import ProfileStore from '../stores/ProfileStore';
 import QuestionStore from '../stores/QuestionStore';
@@ -98,7 +99,7 @@ export default class AnswerUserFieldPage extends Component {
             if (!nextProps.profileQuestionsComplete) {
                 path = 'answer-profile-fields';
             }
-            window.setTimeout(() =>  { this.context.router.push(path) }, 0);
+            window.setTimeout(() =>  { RouterActionCreators.replaceRoute(path); }, 0);
         }
     }
 

@@ -9,6 +9,7 @@ import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
 import ConnectActionCreators from '../actions/ConnectActionCreators';
 import * as GroupActionCreators from '../actions/GroupActionCreators';
+import RouterActionCreators from '../actions/RouterActionCreators';
 import LoginActionCreators from '../actions/LoginActionCreators';
 import InvitationStore from '../stores/InvitationStore';
 import LocaleStore from '../stores/LocaleStore';
@@ -115,7 +116,7 @@ export default class RegisterPage extends Component {
 
     _registerUser(user, profile, token, oauthData) {
         LoginActionCreators.preRegister(user, profile, token, oauthData);
-        setTimeout(() => this.context.router.push('answer-username'), 0);
+        setTimeout(() => RouterActionCreators.replaceRoute('answer-username'), 0);
 
         this.setState({
             registeringUser: true

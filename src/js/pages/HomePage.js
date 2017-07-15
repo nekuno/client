@@ -7,6 +7,7 @@ import EmptyMessage from '../components/ui/EmptyMessage';
 import connectToStores from '../utils/connectToStores';
 import translate from '../i18n/Translate';
 import LoginActionCreators from '../actions/LoginActionCreators';
+import RouterActionCreators from '../actions/RouterActionCreators';
 import SocialNetworkService from '../services/SocialNetworkService';
 import LocaleStore from '../stores/LocaleStore';
 
@@ -132,7 +133,7 @@ export default class HomePage extends Component {
                             profile.orientationRequired = false;
                             let token = 'join';
                             LoginActionCreators.preRegister(user, profile, token, oauthData);
-                            setTimeout(() => this.context.router.push('answer-username'), 0);
+                            setTimeout(() => RouterActionCreators.replaceRoute('answer-username'), 0);
                         }
                     });
             },

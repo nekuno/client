@@ -9,6 +9,7 @@ import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
 import * as UserActionCreators from '../actions/UserActionCreators';
+import RouterActionCreators from '../actions/RouterActionCreators';
 import RegisterStore from '../stores/RegisterStore';
 import ProfileStore from '../stores/ProfileStore';
 import QuestionStore from '../stores/QuestionStore';
@@ -105,7 +106,7 @@ export default class AnswerProfileFieldPage extends Component {
             nekunoApp.alert(nextProps.errors);
         }
         if (nextProps.profileQuestionsComplete) {
-            window.setTimeout(() =>  { this.context.router.push('answer-question/next') }, 0);
+            window.setTimeout(() =>  { RouterActionCreators.replaceRoute('answer-question/next') }, 0);
         }
     }
 

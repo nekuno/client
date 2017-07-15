@@ -71,7 +71,8 @@ export default {
         registeringUser: 'Registering user',
         wantGuest      : 'Do you want to try it?',
         asGuest        : 'Enter as guest',
-        legalTerms     : 'We will never post anything on your networks.</br>By registering, you agree to the <a href="https://nekuno.com/terms-and-conditions" target="_blank">End-user license agreement</a>.'
+        legalTerms     : 'We will never post anything on your networks.</br>By registering, you agree to the <a href="https://nekuno.com/terms-and-conditions" target="_blank">End-user license agreement</a>.',
+        blockingError  : 'Your browser has blocked a Facebook request and we are not able to register you. Please, disable the blocking configuration or use an other browser.'
     },
     InterestsPage                    : {
         cancel   : 'Cancel',
@@ -206,7 +207,9 @@ export default {
         publishMessage    : 'We\'ll never publish anything on your wall',
         privacy           : 'By registering, you agree to the <a href="https://nekuno.com/terms-and-conditions" target="_blank">Legal Conditions</a> and the Nekuno <a href="https://nekuno.com/privacy-policy" target="_blank">Privacy Policy</a>.',
         signUp            : 'Sign up with Facebook',
-        compatibility     : 'Analize compatibility'
+        compatibility     : 'Analize compatibility',
+        blockingError     : 'Your browser has blocked a Facebook request and we are not able to register you. Please, disable the blocking configuration or use an other browser.'
+
     },
     RegisterQuestionLandingPage      : {
         title  : 'We want to know you a little better',
@@ -290,7 +293,8 @@ export default {
         registeringUser: 'Registering user',
         loadingProfile : 'Loading profile',
         invalidUrl     : 'Invalid URL',
-        legalTerms     : 'We will never post anything on your networks.</br>By registering, you agree to the <a href="https://nekuno.com/terms-and-conditions" target="_blank">End-user license agreement</a>.'
+        legalTerms     : 'We will never post anything on your networks.</br>By registering, you agree to the <a href="https://nekuno.com/terms-and-conditions" target="_blank">End-user license agreement</a>.',
+        blockingError  : 'Your browser has blocked a Facebook request and we are not able to register you. Please, disable the blocking configuration or use an other browser.'
     },
     CreateThreadPage                 : {
         create  : 'Create yarn',

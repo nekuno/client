@@ -80,7 +80,7 @@ export default class RegisterPage extends Component {
     }
 
     handleSocialNetwork(resource, scope) {
-        const {token, invitation, interfaceLanguage} = this.props;
+        const {token, invitation, interfaceLanguage, strings} = this.props;
         SocialNetworkService.login(resource, scope, true).then(() => {
             const oauthData = SocialNetworkService.buildOauthData(resource);
             LoginActionCreators.loginUserByResourceOwner(
@@ -99,9 +99,14 @@ export default class RegisterPage extends Component {
                 () => {
                     let user = SocialNetworkService.getUser(resource);
                     let profile = SocialNetworkService.getProfile(resource);
-                    profile.interfaceLanguage = interfaceLanguage;
-                    profile.orientationRequired = false;
-                    this._registerUser(user, profile, token, oauthData);
+                    if (!user || !profile) {
+                        nekunoApp.alert(strings.blockingError);
+                        this.setState({registeringUser: false});
+                    } else {
+                        profile.interfaceLanguage = interfaceLanguage;
+                        profile.orientationRequired = false;
+                        this._registerUser(user, profile, token, oauthData);
+                    }
                 });
         }, (status) => {
             nekunoApp.alert(resource + ' login failed: ' + status.error.message)
@@ -187,6 +192,8 @@ RegisterPage.defaultProps = {
         publishMessage    : 'We\'ll never publish anything on your wall',
         privacy           : 'By registering, you agree to the <a href="https://nekuno.com/terms-and-conditions" target="_blank">Legal Conditions</a> and the Nekuno <a href="https://nekuno.com/privacy-policy" target="_blank">Privacy Policy</a>.',
         signUp            : 'Sign up with Facebook',
-        compatibility     : 'Analize compatibility'
+        compatibility     : 'Analize compatibility',
+        blockingError     : 'Your browser has blocked a Facebook request and we are not able to register you. Please, disable the blocking configuration or use an other browser.'
+
     }
 };

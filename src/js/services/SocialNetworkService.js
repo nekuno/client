@@ -205,7 +205,7 @@ class SocialNetworkService {
                     (location) => { this._setUserAndProfile(resource, status, location) },
                     (error) => { this._setUserAndProfile(resource, status, null) }
                 );
-            }, (error) => { console.log(error) }
+            }, (error) => Promise.reject(error)
         );
     }
 

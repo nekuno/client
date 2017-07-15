@@ -71,7 +71,9 @@ export default {
         registeringUser: 'Registrando usuario',
         wantGuest      : '¿Quieres probarlo?',
         asGuest        : 'Entra como invitado',
-        legalTerms     : 'Nunca publicaremos nada en tus redes.</br>Al registrarte, estás aceptando los <a href="https://nekuno.com/terms-and-conditions" target="_blank">Términos Legales</a>.'
+        legalTerms     : 'Nunca publicaremos nada en tus redes.</br>Al registrarte, estás aceptando los <a href="https://nekuno.com/terms-and-conditions" target="_blank">Términos Legales</a>.',
+        blockingError  : 'Tu navegador está bloqueando una petición a Facebook y no podemos registrar tu usuario. Por favor, deshabilita el bloqueo en la configuración o utiliza otro navegador.'
+
     },
     InterestsPage                    : {
         cancel   : 'Cancelar',
@@ -206,7 +208,9 @@ export default {
         publishMessage    : 'Nunca publicaremos nada en tu muro',
         privacy           : 'Al registrarte, estás aceptando las <a href="https://nekuno.com/terms-and-conditions" target="_blank">Condiciones Legales</a> y la <a href="https://nekuno.com/privacy-policy" target="_blank">Política de Privacidad</a> de Nekuno',
         signUp            : 'Regístrate con Facebook',
-        compatibility     : 'Analizar compatibilidad'
+        compatibility     : 'Analizar compatibilidad',
+        blockingError     : 'Tu navegador está bloqueando una petición a Facebook y no podemos registrar tu usuario. Por favor, deshabilita el bloqueo en la configuración o utiliza otro navegador.'
+
     },
     RegisterQuestionLandingPage      : {
         title  : 'Queremos conocerte un poco mejor',
@@ -290,7 +294,8 @@ export default {
         registeringUser: 'Registrando usuario',
         loadingProfile : 'Cargando perfil',
         invalidUrl     : 'URL Inválida',
-        legalTerms     : 'Nunca publicaremos nada en tus redes.</br>Al registrarte, estás aceptando los <a href="https://nekuno.com/terms-and-conditions" target="_blank">Términos Legales</a>.'
+        legalTerms     : 'Nunca publicaremos nada en tus redes.</br>Al registrarte, estás aceptando los <a href="https://nekuno.com/terms-and-conditions" target="_blank">Términos Legales</a>.',
+        blockingError  : 'Tu navegador está bloqueando una petición a Facebook y no podemos registrar tu usuario. Por favor, deshabilita el bloqueo en la configuración o utiliza otro navegador.'
     },
     CreateThreadPage                 : {
         create  : 'Crear ovillos',

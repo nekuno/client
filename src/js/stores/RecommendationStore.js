@@ -10,7 +10,7 @@ class RecommendationStore extends BaseStore {
     setInitial() {
         super.setInitial();
         this._recommendations = [];
-        this._nextUrl = [];
+        this._nextUrl = {};
         this._replaced = [];
         this._prevRecommendations = [];
         this._prevNextUrl = [];
@@ -111,6 +111,8 @@ class RecommendationStore extends BaseStore {
                     //     mergeAndGetRecommendations(recommendations, _recommendations);
                     // }
                     this._recommendations[thread.id] = [];
+                    delete this._nextUrl[thread.id];
+                    delete this._pagination[thread.id];
                 });
                 this.emitChange();
                 break;

@@ -1,6 +1,7 @@
 import ActionTypes from '../constants/ActionTypes';
 import BaseStore from './BaseStore';
 import RouterContainer from '../services/RouterContainer';
+import {DO_NOT_BACK_ROUTES} from '../constants/Constants';
 
 class RouterStore extends BaseStore {
 
@@ -34,6 +35,8 @@ class RouterStore extends BaseStore {
                 if (this._routes.length > 0) {
                     const lastRoute = this._routes[this._routes.length - 1];
                     if (action.route === lastRoute) {
+                        setTimeout(router.replace('discover'), 0);
+                    } else if (DO_NOT_BACK_ROUTES.some(route => route === lastRoute)) {
                         setTimeout(router.replace('discover'), 0);
                     } else {
                         router.goBack();

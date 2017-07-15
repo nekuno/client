@@ -104,7 +104,7 @@ export default class SharedUserPage extends Component {
                             profile.orientationRequired = false;
                             let token = 'shared_user-' + sharedUser.id;
                             LoginActionCreators.preRegister(user, profile, token, oauthData);
-                            setTimeout(() => this.context.router.push('answer-username'), 0);
+                            setTimeout(() => RouterActionCreators.replaceRoute('answer-username'), 0);
                         }
                     });
             },

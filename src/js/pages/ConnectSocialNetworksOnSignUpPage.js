@@ -6,6 +6,7 @@ import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
 import WorkersStore from '../stores/WorkersStore';
+import RouterActionCreators from '../actions/RouterActionCreators';
 
 function getState(props) {
 
@@ -46,7 +47,7 @@ export default class ConnectSocialNetworksOnSignUpPage extends Component {
     }
 
     goToRegisterLandingPage() {
-        this.context.router.push('register-questions-landing');
+        RouterActionCreators.replaceRoute('register-questions-landing');
     }
 
     render() {

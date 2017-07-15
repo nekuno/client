@@ -4,6 +4,7 @@ import FullWidthButton from '../components/ui/FullWidthButton';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
 import * as QuestionActionCreators from '../actions/QuestionActionCreators';
+import RouterActionCreators from '../actions/RouterActionCreators';
 import LoginStore from '../stores/LoginStore';
 import ProfileStore from '../stores/ProfileStore';
 
@@ -55,8 +56,8 @@ export default class RegisterQuestionLandingPage extends Component {
         if (!LoginStore.isComplete() || !ProfileStore.isComplete(parseUserId(this.props.user))) {
             path = '/answer-user-fields';
         }
-        
-        this.context.router.push(path);
+
+        RouterActionCreators.replaceRoute(path);
     }
 
     render() {

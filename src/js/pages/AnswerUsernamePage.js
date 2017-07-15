@@ -7,6 +7,7 @@ import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
 import LoginActionCreators from '../actions/LoginActionCreators';
+import RouterActionCreators from '../actions/RouterActionCreators';
 import RegisterStore from '../stores/RegisterStore';
 
 /**
@@ -68,7 +69,7 @@ export default class AnswerUsernamePage extends Component {
         user.username = username;
         this.setState({registering: true});
         LoginActionCreators.register(user, profile, token, oauth).then(() => {
-            setTimeout(() =>  { this.context.router.push('social-networks-on-sign-up') }, 0);
+            setTimeout(() =>  { RouterActionCreators.replaceRoute('social-networks-on-sign-up') }, 0);
         }).catch(error => {
             console.log(error);
             this.setState({registering: false});

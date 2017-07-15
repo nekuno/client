@@ -79,7 +79,7 @@ export default class SharedUserPage extends Component {
     }
 
     loginByResourceOwner(resource, scope) {
-        const {interfaceLanguage, sharedUser} = this.props;
+        const {interfaceLanguage, sharedUser, strings} = this.props;
         this.setLoginUserState(true);
         SocialNetworkService.login(resource, scope).then(
             () => {
@@ -96,11 +96,16 @@ export default class SharedUserPage extends Component {
                         // User not present. Register user.
                         let user = SocialNetworkService.getUser(resource);
                         let profile = SocialNetworkService.getProfile(resource);
-                        profile.interfaceLanguage = interfaceLanguage;
-                        profile.orientationRequired = false;
-                        let token = 'shared_user-' + sharedUser.id;
-                        LoginActionCreators.preRegister(user, profile, token, oauthData);
-                        setTimeout(() => this.context.router.push('answer-username'), 0);
+                        if (!user || !profile) {
+                            nekunoApp.alert(strings.blockingError);
+                            this.setState({registeringUser: false});
+                        } else {
+                            profile.interfaceLanguage = interfaceLanguage;
+                            profile.orientationRequired = false;
+                            let token = 'shared_user-' + sharedUser.id;
+                            LoginActionCreators.preRegister(user, profile, token, oauthData);
+                            setTimeout(() => this.context.router.push('answer-username'), 0);
+                        }
                     });
             },
             (status) => {
@@ -146,6 +151,7 @@ SharedUserPage.defaultProps = {
         registeringUser: 'Registering user',
         loadingProfile : 'Loading profile',
         invalidUrl     : 'Invalid URL',
-        legalTerms     : 'We will never post anything on your networks.</br>By registering, you agree to the <a href="https://nekuno.com/terms-and-conditions" target="_blank">End-user license agreement</a>.'
+        legalTerms     : 'We will never post anything on your networks.</br>By registering, you agree to the <a href="https://nekuno.com/terms-and-conditions" target="_blank">End-user license agreement</a>.',
+        blockingError  : 'Your browser has blocked a Facebook request and we are not able to register you. Please, disable the blocking configuration or use an other browser.'
     }
 };

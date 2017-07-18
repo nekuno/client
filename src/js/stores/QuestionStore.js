@@ -93,7 +93,9 @@ class QuestionStore extends BaseStore {
                 this.emitChange();
                 break;
             case ActionTypes.REQUEST_QUESTION_SUCCESS:
-                this._answerQuestion = action.response.entities.question;
+                if (action.response && action.response.hasOwnProperty('entities')) {
+                    this._answerQuestion = action.response.entities.question;
+                }
                 this.emitChange();
                 break;
             case ActionTypes.ANSWER_QUESTION_SUCCESS:

@@ -40,6 +40,7 @@ function getState(props) {
     const userAnswer = questionId ? QuestionStore.getUserAnswer(currentUserId, questionId) : {};
     const errors = QuestionStore.getErrors();
     const noMoreQuestions = QuestionStore.noMoreQuestions();
+    const isLoadingOwnQuestions = QuestionStore.isLoadingOwnQuestions();
     const goToQuestionStats = QuestionStore.mustGoToQuestionStats();
 
     return {
@@ -50,6 +51,7 @@ function getState(props) {
         user,
         errors,
         noMoreQuestions,
+        isLoadingOwnQuestions,
         goToQuestionStats
     };
 }
@@ -80,6 +82,8 @@ export default class AnswerQuestionPage extends Component {
         question               : PropTypes.object,
         userAnswer             : PropTypes.object,
         errors                 : PropTypes.string,
+        isLoadingOwnQuestions  : PropTypes.bool,
+        noMoreQuestions        : PropTypes.bool,
         goToQuestionStats      : PropTypes.bool
     };
 
@@ -128,7 +132,7 @@ export default class AnswerQuestionPage extends Component {
     }
 
     render() {
-        const {user, strings, errors, noMoreQuestions, userAnswer, question, steps, tutorialLocale, endTutorialHandler} = this.props;
+        const {user, strings, errors, noMoreQuestions, isLoadingOwnQuestions, userAnswer, question, steps, tutorialLocale, endTutorialHandler} = this.props;
         const userId = parseId(user);
         const ownPicture = user.photo ? user.photo.thumbnail.small : 'img/no-img/small.jpg';
         const isRegisterQuestion = selectn('isRegisterQuestion', question);
@@ -140,7 +144,7 @@ export default class AnswerQuestionPage extends Component {
                     <Joyride ref="joyrideAnswerQuestion" steps={steps} locale={tutorialLocale} callback={endTutorialHandler} type="continuous"/>
                     <div className="page answer-question-page">
                         <div id="page-content" className="answer-question-content">
-                            <AnswerQuestion question={question} userAnswer={userAnswer} userId={userId} errors={errors} noMoreQuestions={noMoreQuestions} ownPicture={ownPicture} startTutorial={this.forceStartTutorial}/>
+                            <AnswerQuestion question={question} userAnswer={userAnswer} userId={userId} errors={errors} noMoreQuestions={noMoreQuestions} ownPicture={ownPicture} startTutorial={this.forceStartTutorial} isLoadingOwnQuestions={isLoadingOwnQuestions}/>
                         </div>
                     </div>
                 </div>

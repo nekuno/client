@@ -419,10 +419,13 @@ export default {
         loading        : 'Loading question'
     },
     AnswerQuestionForm               : {
-        you       : 'You',
-        them      : 'Them',
-        alertFirst: 'Mark your answer in the first column',
-        saving    : 'Saving'
+        you        : 'You',
+        them       : 'Them',
+        alertFirst : 'Mark your answer in the first column',
+        saving     : 'Saving',
+        yourAnswer : 'Your answer',
+        theirAnswer: 'Answers which you accept from others',
+        importance : 'Do you mind the user response?'
     },
     QuestionList                     : {
         loading: 'Loading questions'

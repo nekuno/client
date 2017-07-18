@@ -120,13 +120,14 @@ export default class AnswerQuestionForm extends Component {
         if (!answers) {
             return null;
         }
+        const acceptedAnswersClassName = this.state.answerId ? "list-block accepted-answers" : "list-block accepted-answers disabled";
 
         return (
             this.state.rated ? <EmptyMessage text={strings.saving} loadingGif={true}/> :
             <div className="answer-question-form">
                 <form>
                     <div className="answers-block">
-                        <div className="list-block accepted-answers">
+                        <div className={acceptedAnswersClassName}>
                             <div id="joyride-2-others-answers" className="answers-tutorial-block"></div>
                             <div className="answer-question-who-text">{strings.them}</div>
                             <div className="answer-question-picture">
@@ -172,6 +173,12 @@ export default class AnswerQuestionForm extends Component {
                                 })}
                             </ul>
                         </div>
+                        <div className="answer-step-text">
+                            {!this.state.answerId ? strings.yourAnswer
+                                : this.state.acceptedAnswers.length == 0 ? strings.theirAnswer
+                                    : strings.importance
+                            }
+                        </div>
                         <AcceptedAnswersImportance irrelevant={this.state.acceptedAnswers.length === answers.length} answeredAndAccepted={this.state.answerId != null && this.state.acceptedAnswers.length > 0} onClickHandler={this.handleOnClickImportance}/>
                     </div>
                 </form>
@@ -186,6 +193,9 @@ AnswerQuestionForm.defaultProps = {
         you        : 'You',
         them       : 'Them',
         alertFirst : 'Mark your answer in the first column',
-        saving     : 'Saving'
+        saving     : 'Saving',
+        yourAnswer : 'Your answer',
+        theirAnswer: 'Answers which you accept from others',
+        importance : 'Do you mind the user response?'
     }
 };

@@ -42,15 +42,16 @@ export default class AcceptedAnswersImportance extends Component {
     };
 
     render() {
-        const {strings} = this.props;
+        const {answeredAndAccepted, strings} = this.props;
+        const className = answeredAndAccepted ? 'accepted-answers-importance' : 'accepted-answers-importance disabled';
         return (
-            <div className="accepted-answers-importance">
+            <div className={className}>
                 {this.props.irrelevant ?
-                    <TextRadios title={strings.title} labels={[
+                    <TextRadios labels={[
 						{key: 'irrelevant', text: strings.irrelevant}
 						]} onClickHandler={this.handleOnImportanceClick} value={this.state.importance}/>
                     :
-                    <TextRadios title={strings.title} labels={[
+                    <TextRadios labels={[
 						{key: 'few', text: strings.few},
 						{key: 'normal', text: strings.normal},
 						{key: 'aLot', text: strings.aLot}

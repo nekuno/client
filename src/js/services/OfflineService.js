@@ -46,7 +46,10 @@ class OfflineService {
     alertOffline() {
         if (!this._alertPresent) {
             const title = TranslationService.getTranslatedString('Framework7', 'modalTitle');
-            nekunoApp.alert(TranslationService.getTranslatedString('OfflineService', 'isOffline'), title ,() => { this._alertPresent = false });
+            nekunoApp.alert(TranslationService.getTranslatedString('OfflineService', 'isOffline'), title ,() => {
+                this._alertPresent = false;
+                location.reload();
+            });
             this._alertPresent = true;
         }
     }

@@ -712,7 +712,7 @@ export default {
     // Services //
     //////////////
     OfflineService                   : {
-        isOffline: 'The application will not work as expected because you are not connected to Internet.'
+        isOffline: 'The application will not work as expected because you are not connected to Internet. Press "OK" to reload'
     },
     /////////////////////////
     // LoginActionCreators //

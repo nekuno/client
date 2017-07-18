@@ -710,7 +710,7 @@ export default {
         seeMore: '<a href="https://nekuno.com" target="_blank">Ver más sobre Nekuno</a>'
     },
     OfflineService                   : {
-        isOffline: 'La aplicación no funcionará correctamente porque no tienes conexión a Internet'
+        isOffline: 'La aplicación no funcionará correctamente porque no tienes conexión a Internet. Pulsa "Aceptar" para recargar'
     },
     /////////////////////////
     // LoginActionCreators //

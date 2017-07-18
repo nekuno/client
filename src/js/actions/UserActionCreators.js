@@ -2,7 +2,7 @@ import { dispatchAsync, dispatch } from '../dispatcher/Dispatcher';
 import ActionTypes from '../constants/ActionTypes';
 import * as UserAPI from '../api/UserAPI';
 import * as InterestsActionCreators from './InterestsActionCreators';
-import RouterContainer from '../services/RouterContainer';
+import RouterActionCreators from "./RouterActionCreators";
 import UserStore from '../stores/UserStore';
 import ProfileStore from '../stores/ProfileStore';
 import LocaleStore from '../stores/LocaleStore';
@@ -49,7 +49,7 @@ export function requestUser(userSlug, fields) {
                 nekunoApp.alert(status.error, () => {
                     const path = '/discover';
                     console.log('Redirecting to path', path);
-                    RouterContainer.replaceRoute(path);
+                    RouterActionCreators.replaceRoute(path);
                 });
             }
             throw status;

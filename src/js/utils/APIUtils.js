@@ -57,7 +57,7 @@ export function fetchAndNormalize(url, schema) {
         return {
             ...normalize(json, schema)
         };
-    }, () => {});
+    }, (error) => { return Promise.reject(error)});
 }
 
 export function doRequest(method, url, data = null) {

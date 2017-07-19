@@ -93,9 +93,7 @@ class QuestionStore extends BaseStore {
                 this.emitChange();
                 break;
             case ActionTypes.REQUEST_QUESTION_SUCCESS:
-                if (action.response && action.response.hasOwnProperty('entities')) {
-                    this._answerQuestion = action.response.entities.question;
-                }
+                this._answerQuestion = action.response.entities.question;
                 this.emitChange();
                 break;
             case ActionTypes.ANSWER_QUESTION_SUCCESS:
@@ -184,9 +182,9 @@ class QuestionStore extends BaseStore {
 
     getRequestComparedQuestionsUrl(userId, filters) {
         let url = this.getPaginationUrl(userId, this._initialComparedPaginationUrl);
-        if (url === this._initialComparedPaginationUrl){
+        if (url === this._initialComparedPaginationUrl) {
             url = url.replace('{otherUserId}', userId);
-            url = url + filters.map(filter => '&'+filter+'=1');
+            url = url + filters.map(filter => '&' + filter + '=1');
         }
         return url;
     }
@@ -226,7 +224,7 @@ class QuestionStore extends BaseStore {
     }
 
     ownAnswersLength(userId) {
-        return this._answersLength  > 0 ? this._answersLength : this.otherAnswersLength(userId);
+        return this._answersLength > 0 ? this._answersLength : this.otherAnswersLength(userId);
     }
 
     otherAnswersLength(userId) {

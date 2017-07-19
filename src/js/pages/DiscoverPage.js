@@ -169,7 +169,9 @@ export default class DiscoverPage extends Component {
         const {thread, recommendationUrl, isLoadingRecommendations, isLoadingThread, isInitialRequest} = this.props;
         const threadId = parseThreadId(thread);
         if (threadId && recommendationUrl && !isInitialRequest && !isLoadingRecommendations && !isLoadingThread) {
-            ThreadActionCreators.requestRecommendations(threadId, recommendationUrl);
+            return ThreadActionCreators.requestRecommendations(threadId, recommendationUrl);
+        } else {
+            return Promise.resolve();
         }
     }
 

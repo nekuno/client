@@ -404,7 +404,7 @@ export default {
     },
     LocationField                    : {
         location: 'Ubicación',
-        title   : '¿Dónde vives?',
+        title   : '¿En qué población vives?',
         save    : 'Guardar'
     },
     AcceptedAnswersImportance        : {

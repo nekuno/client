@@ -27,7 +27,7 @@ function requestData(props) {
         UserActionCreators.requestOwnProfile(parseId(props.user));
     }
     if (!ProfileStore.getMetadata()) {
-        UserActionCreators.requestMetadata();
+        setTimeout(() => { UserActionCreators.requestMetadata() }, 0);
     }
 }
 

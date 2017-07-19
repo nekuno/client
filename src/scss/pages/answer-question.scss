@@ -17,6 +17,9 @@ body #root .App .view .page {
       }
       .answer-question-form {
         form {
+          .disabled {
+            opacity: 0.3;
+          }
           .list-block.answers, .list-block.accepted-answers {
             margin: auto;
             float: left;
@@ -140,6 +143,16 @@ body #root .App .view .page {
                 }
               }
             }
+          }
+
+          .answer-step-text {
+            color: $light-green;
+            display: block;
+            font-weight: bold;
+            clear: both;
+            text-align: center;
+            margin-bottom: -10px;
+            padding-top: 10px;
           }
 
           .answers-tutorial-block {

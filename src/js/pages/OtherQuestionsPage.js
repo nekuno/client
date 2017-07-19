@@ -94,17 +94,16 @@ export default class OtherQuestionsPage extends Component {
         const otherUserId = parseId(otherUser);
         const userId = parseId(user);
 
-        //Change to one action to multiple api calls (a queue) instead of timeout. Maybe merging with requestUser on requestData. See https://github.com/facebook/flux/issues/47#issuecomment-54716863
-        setTimeout(() => {
-            if (!prevProps.requestComparedQuestionsUrl && this.props.requestComparedQuestionsUrl) {
-                QuestionActionCreators.requestComparedQuestions(userId, otherUserId, requestComparedQuestionsUrl);
-            }
+        const requestUrlReceived = !prevProps.requestComparedQuestionsUrl && this.props.requestComparedQuestionsUrl;
+        if (requestUrlReceived) {
+            QuestionActionCreators.requestComparedQuestions(userId, otherUserId, requestComparedQuestionsUrl);
+        }
 
-            if (!prevProps.otherUser && this.props.otherUser) {
-                QuestionActionCreators.requestNextOtherQuestion(userId, otherUserId);
-                UserActionCreators.requestComparedStats(userId, otherUserId);
-            }
-        }, 0);
+        const otherUserReceived = !prevProps.otherUser && this.props.otherUser;
+        if (otherUserReceived) {
+            QuestionActionCreators.requestNextOtherQuestion(userId, otherUserId);
+            UserActionCreators.requestComparedStats(userId, otherUserId);
+        }
     }
 
     onTimerEnd(questionId) {
@@ -171,9 +170,9 @@ export default class OtherQuestionsPage extends Component {
                             <div id="page-content" className="other-questions-content">
                                 <OtherQuestionList firstItems={this.getFirstItems.bind(this)()} otherQuestions={otherQuestions} questions={questions} otherUserSlug={otherUser.slug || ''} ownPicture={ownPicture} otherPicture={otherPicture}
                                                    onTimerEnd={this.onTimerEnd} isLoadingComparedQuestions={isLoadingComparedQuestions} onBottomScroll={this.onBottomScroll.bind(this)}/>
-                                <br />
-                                <br />
-                                <br />
+                                <br/>
+                                <br/>
+                                <br/>
                             </div>
                             : ''
                         }

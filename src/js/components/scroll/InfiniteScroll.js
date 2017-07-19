@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { isDispatching } from '../../dispatcher/Dispatcher';
+import * as Dispatcher from '../../dispatcher/Dispatcher';
 import InfiniteAnyHeight from './InfiniteAnyHeight.jsx';
 import Infinite from 'react-infinite';
 import { ScrollContainer } from 'react-router-scroll';
@@ -24,8 +24,9 @@ export default class InfiniteScroll extends Component {
         super(props);
 
         this.state = {
-            'mustRender': false,
-            'firstOnInfiniteLoadTried': false,
+            'mustRender'                  : false,
+            'firstOnInfiniteLoadCompleted': false,
+            'isOnInfiniteLoading'         : false
         };
 
         this.checkMustRender = this.checkMustRender.bind(this);
@@ -39,6 +40,10 @@ export default class InfiniteScroll extends Component {
     componentWillMount() {
         this.updateStateHeight();
     }
+
+    // componentWillReceiveProps(props) {
+    //     this._setFirstOnInfiniteLoadCompleted(props.items.length > 0);
+    // }
 
     componentDidMount() {
         this.checkMustRender();
@@ -62,21 +67,49 @@ export default class InfiniteScroll extends Component {
 
     _setMustRender(bool) {
         this.setState({
-            'mustRender': bool
+            mustRender: bool
+        })
+    }
+
+    _setIsOnInfiniteLoading(bool) {
+        this.setState({
+            isOnInfiniteLoading: bool
+        })
+    }
+
+    _setFirstOnInfiniteLoadCompleted(bool) {
+        this.setState({
+            firstOnInfiniteLoadCompleted: bool
         })
     }
 
     onInfiniteLoad() {
-        if (this.state.firstOnInfiniteLoadTried){
-            if (!isDispatching()) {
-                return this.props.onInfiniteLoad();
-            }
-        } else {
-            this.setState({
-                firstOnInfiniteLoadTried: true,
-            })
+        const hasCompletedOnceOnMount = this.props.items.length > 0;
+        const isAtTop = this.getScrollTop() === 0;
+        const isExtraLoadingOnMount = hasCompletedOnceOnMount && isAtTop;
+        const isAlreadyLoading = this.props.loading;
+
+        if (Dispatcher.isDispatching() || isAlreadyLoading || isExtraLoadingOnMount) {
+            return Promise.resolve();
         }
 
+        // console.log('-----');
+        // console.log(hasCompletedOnceOnMount);
+        // console.log(isAtTop);
+        // console.log(isExtraLoadingOnMount);
+        // console.log(isAlreadyLoading);
+        // console.log('-----');
+
+        // this._setIsOnInfiniteLoading(true);
+        return this.props.onInfiniteLoad()
+            .then(() => {
+                // this._setIsOnInfiniteLoading(false);
+                // this._setFirstOnInfiniteLoadCompleted(true);
+            })
+            .catch((error) => {
+                // this._setIsOnInfiniteLoading(false);
+                return Promise.reject(error);
+            });
     }
 
     getLoadingGif() {
@@ -218,10 +251,10 @@ export default class InfiniteScroll extends Component {
 
     render() {
         return <div id="infinite-scroll">
-            { this.state.mustRender ?
+            {this.state.mustRender ?
                 this.renderScroll.bind(this)()
                 :
-                '' }
+                ''}
         </div>
             ;
     }

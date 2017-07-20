@@ -86,6 +86,7 @@ function getState(props) {
     const {user} = props;
     const profile = otherUserId ? ProfileStore.get(otherUserId) : null;
     const profileWithMetadata = otherUserId ? ProfileStore.getWithMetadata(otherUserId) : [];
+    const metadata = ProfileStore.getMetadata();
     const matching = otherUserId ? MatchingStore.get(otherUserId, parseId(user)) : null;
     const similarity = otherUserId ? SimilarityStore.get(otherUserId, parseId(user)) : null;
     const blocked = otherUserId ? BlockStore.get(parseId(user), otherUserId) : null;
@@ -100,6 +101,7 @@ function getState(props) {
         otherUser,
         profile,
         profileWithMetadata,
+        metadata,
         matching,
         similarity,
         blocked,
@@ -131,6 +133,7 @@ export default class OtherUserPage extends Component {
         otherUser          : PropTypes.object,
         profile            : PropTypes.object,
         profileWithMetadata: PropTypes.array,
+        metadata           : PropTypes.object,
         matching           : PropTypes.number,
         similarity         : PropTypes.number,
         //block              : PropTypes.bool,
@@ -364,7 +367,7 @@ export default class OtherUserPage extends Component {
     }
 
     render() {
-        const {user, otherUser, profile, ownProfile, profileWithMetadata, matching, similarity, blocked, like, comparedStats, photos, noPhotos, online, params, strings} = this.props;
+        const {user, otherUser, profile, ownProfile, profileWithMetadata, metadata, matching, similarity, blocked, like, comparedStats, photos, noPhotos, online, params, strings} = this.props;
         const otherPictureSmall = selectn('photo.thumbnail.small', otherUser);
         const otherPictureBig = selectn('photo.thumbnail.big', otherUser);
         const ownPicture = selectn('photo.thumbnail.small', user);
@@ -409,7 +412,7 @@ export default class OtherUserPage extends Component {
                                                             <div className="swiper-slide" key={index + 1} onClick={this.handlePhotoClick.bind(this, photo)}>
                                                                 <Image src={photo.thumbnail.big} defaultSrc={defaultImgBig}/>
                                                             </div>
-                                                        )}
+                                                    )}
                                                 </div>
                                             </div>
                                         </div>
@@ -445,13 +448,13 @@ export default class OtherUserPage extends Component {
                                         />
                                     </div>
                                 </div>
-                                <OtherProfileDataList profileWithMetadata={profileWithMetadata}/>
-                                <br />
-                                <br />
-                                <br />
-                                <br />
-                                <br />
-                                <br />
+                                <OtherProfileDataList profileWithMetadata={profileWithMetadata} metadata={metadata}/>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <br/>
                             </div>
                             : <EmptyMessage text={strings.loading} loadingGif={true}/>}
                     </div>

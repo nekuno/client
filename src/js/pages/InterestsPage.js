@@ -27,6 +27,7 @@ function getState(props) {
     const type = InterestStore.getType(userId);
     const requestInterestsUrl = InterestStore.getRequestInterestsUrl(userId);
     const networks = WorkersStore.getAll();
+    const isWorkersLoading = WorkersStore.isLoading();
 
     return {
         pagination,
@@ -36,7 +37,8 @@ function getState(props) {
         isLoadingOwnInterests,
         networks,
         type,
-        requestInterestsUrl
+        requestInterestsUrl,
+        isWorkersLoading,
     };
 }
 
@@ -59,6 +61,7 @@ export default class InterestsPage extends Component {
         networks             : PropTypes.array.isRequired,
         type                 : PropTypes.string.isRequired,
         requestInterestsUrl  : PropTypes.string.isRequired,
+        isWorkersLoading     : PropTypes.bool
     };
 
     constructor(props) {
@@ -74,13 +77,15 @@ export default class InterestsPage extends Component {
 
         if (requestInterestsUrl) {
             return InterestsActionCreators.requestOwnInterests(userId, requestInterestsUrl);
+        } else {
+            return Promise.resolve();
         }
     }
 
-    getBanner() {
-        const {networks, user} = this.props;
-        const connectedNetworks = networks.filter(network => network.fetching || network.fetched || network.processing || network.processed);
-        return connectedNetworks.length < 4 ? <SocialNetworksBanner networks={networks} user={user}/> : ''
+    getBanner(props) {
+        const {networks, user, isWorkersLoading} = props;
+        const connectedNetworks = networks.filter(network => network.connected);
+        return connectedNetworks.length < 4 ? <SocialNetworksBanner key='socialNetworksBanner' networks={networks} user={user} isLoading={isWorkersLoading}/> : ''
     }
 
     getFilterButtons() {
@@ -105,7 +110,7 @@ export default class InterestsPage extends Component {
     getFirstItems() {
         const {isLoadingOwnInterests, noInterests, strings, type} = this.props;
 
-        const banner = this.getBanner.bind(this)();
+        const banner = this.getBanner(this.props);
         let firstItems = [banner];
 
         if (noInterests && !isLoadingOwnInterests && type === '') {
@@ -128,6 +133,7 @@ export default class InterestsPage extends Component {
     render() {
         const {interests, user, strings, isLoadingOwnInterests} = this.props;
         const loadingFirst = isLoadingOwnInterests && interests.length === 0;
+        console.log('interest page rerendering');
         return (
             <div className="views">
                 <TopNavBar leftMenuIcon={true} centerText={strings.myProfile}/>
@@ -141,7 +147,7 @@ export default class InterestsPage extends Component {
                     <div className="page interests-page">
                         <div id="page-content" className="interests-content">
                             <CardContentList firstItems={this.getFirstItems.bind(this)()} contents={interests} userId={parseId(user)} onBottomScroll={this.onBottomScroll.bind(this)} loadingFirst={loadingFirst} isLoading={isLoadingOwnInterests}/>
-                            <br />
+                            <br/>
                         </div>
                         <br/>
                         <br/>
@@ -155,7 +161,7 @@ export default class InterestsPage extends Component {
 }
 
 InterestsPage.defaultProps = {
-    strings: {
+    strings         : {
         cancel   : 'Cancel',
         myProfile: 'My profile',
         about    : 'About me',
@@ -164,5 +170,6 @@ InterestsPage.defaultProps = {
         interests: 'Interests',
         loading  : 'Loading interests',
         empty    : 'You have no interests yet. Please, connect more social media or explore your yarns and let us know what are you interested in.'
-    }
+    },
+    isWorkersLoading: false,
 };

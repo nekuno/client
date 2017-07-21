@@ -23,6 +23,7 @@ class QuestionStore extends BaseStore {
         this._isJustCompleted = false;
         this._loadingComparedQuestions = false;
         this._loadingOwnQuestions = false;
+        this._isRequestedQuestion = {};
         this._comparedOrder = {};
     }
 
@@ -42,6 +43,7 @@ class QuestionStore extends BaseStore {
                 this.emitChange();
                 break;
             case ActionTypes.REQUEST_QUESTION:
+                this._isRequestedQuestion[action.otherUserId ? action.otherUserId : action.userId] = true;
                 break;
             case ActionTypes.REQUEST_EXISTING_QUESTION:
                 this._answerQuestion = {};
@@ -250,6 +252,10 @@ class QuestionStore extends BaseStore {
 
     isLoadingOwnQuestions() {
         return this._loadingOwnQuestions;
+    }
+
+    isRequestedQuestion(userId) {
+        return this._isRequestedQuestion[userId] || false;
     }
 
     _setQuestionsOrder(userId, questions) {

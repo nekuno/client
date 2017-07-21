@@ -45,6 +45,7 @@ function getState(props) {
     const questions = QuestionStore.get(currentUserId) || {};
     const otherQuestions = otherUser ? QuestionStore.getCompared(otherUserId) || {} : {};
     const comparedStats = otherUserId ? ComparedStatsStore.get(currentUserId, otherUserId) : null;
+    const isRequestedQuestion = otherUserId ? QuestionStore.isRequestedQuestion(otherUserId) : true;
     const isLoadingComparedStats = ComparedStatsStore.isLoadingComparedStats();
     const isLoadingComparedQuestions = otherUserId ? QuestionStore.isLoadingComparedQuestions() : true;
     const hasNextComparedQuestion = QuestionStore.hasQuestion();
@@ -56,6 +57,7 @@ function getState(props) {
         otherQuestions,
         otherUser,
         comparedStats,
+        isRequestedQuestion,
         isLoadingComparedStats,
         isLoadingComparedQuestions,
         hasNextComparedQuestion,
@@ -82,6 +84,7 @@ export default class OtherQuestionsPage extends Component {
         otherQuestions             : PropTypes.object.isRequired,
         otherUser                  : PropTypes.object,
         comparedStats              : PropTypes.object,
+        isRequestedQuestion        : PropTypes.bool,
         isLoadingComparedQuestions : PropTypes.bool,
         isLoadingComparedStats     : PropTypes.bool,
         hasNextComparedQuestion    : PropTypes.bool,
@@ -93,14 +96,18 @@ export default class OtherQuestionsPage extends Component {
     }
 
     componentDidUpdate() {
-        const {user, otherUser, comparedStats, isLoadingComparedStats} = this.props;
+        const {user, otherUser, comparedStats, isLoadingComparedStats, isRequestedQuestion} = this.props;
         const otherUserId = parseId(otherUser);
         const userId = parseId(user);
 
         const haveBothIds = userId && otherUserId;
-        if (haveBothIds && !comparedStats && !isLoadingComparedStats) {
-            UserActionCreators.requestComparedStats(userId, otherUserId);
-            QuestionActionCreators.requestNextOtherQuestion(userId, otherUserId);
+        if (haveBothIds) {
+            if (!comparedStats && !isLoadingComparedStats) {
+                UserActionCreators.requestComparedStats(userId, otherUserId);
+            }
+            if (!isRequestedQuestion) {
+                QuestionActionCreators.requestNextOtherQuestion(userId, otherUserId);
+            }
         }
     }
 

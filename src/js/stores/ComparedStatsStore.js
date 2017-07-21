@@ -8,6 +8,7 @@ class ComparedStatsStore extends BaseStore {
 
     setInitial() {
         this._comparedStats = {};
+        this._isLoadingComparedStats = false;
     }
 
     _registerToActions(action) {
@@ -17,9 +18,15 @@ class ComparedStatsStore extends BaseStore {
         switch (action.type) {
 
             case ActionTypes.REQUEST_COMPARED_STATS:
+                this._isLoadingComparedStats = true;
+                this.emitChange();
+                break;
             case ActionTypes.REQUEST_COMPARED_STATS_ERROR:
+                this._isLoadingComparedStats = false;
+                this.emitChange();
                 break;
             case ActionTypes.REQUEST_COMPARED_STATS_SUCCESS:
+                this._isLoadingComparedStats = false;
                 const responseComparedStats = action.response;
                 const {userId1, userId2} = action;
                 this.merge(userId1, userId2, responseComparedStats);
@@ -44,6 +51,10 @@ class ComparedStatsStore extends BaseStore {
         } else {
             return null;
         }
+    }
+
+    isLoadingComparedStats() {
+        return this._isLoadingComparedStats;
     }
 
     merge(userId1, userId2, value){

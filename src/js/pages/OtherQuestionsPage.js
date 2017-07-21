@@ -45,6 +45,7 @@ function getState(props) {
     const questions = QuestionStore.get(currentUserId) || {};
     const otherQuestions = otherUser ? QuestionStore.getCompared(otherUserId) || {} : {};
     const comparedStats = otherUserId ? ComparedStatsStore.get(currentUserId, otherUserId) : null;
+    const isLoadingComparedStats = ComparedStatsStore.isLoadingComparedStats();
     const isLoadingComparedQuestions = otherUserId ? QuestionStore.isLoadingComparedQuestions() : true;
     const hasNextComparedQuestion = QuestionStore.hasQuestion();
     const requestComparedQuestionsUrl = otherUserId ? QuestionStore.getRequestComparedQuestionsUrl(otherUserId, []) : null;
@@ -55,9 +56,10 @@ function getState(props) {
         otherQuestions,
         otherUser,
         comparedStats,
+        isLoadingComparedStats,
         isLoadingComparedQuestions,
         hasNextComparedQuestion,
-        requestComparedQuestionsUrl
+        requestComparedQuestionsUrl,
     };
 }
 
@@ -81,6 +83,7 @@ export default class OtherQuestionsPage extends Component {
         otherUser                  : PropTypes.object,
         comparedStats              : PropTypes.object,
         isLoadingComparedQuestions : PropTypes.bool,
+        isLoadingComparedStats     : PropTypes.bool,
         hasNextComparedQuestion    : PropTypes.bool,
         requestComparedQuestionsUrl: PropTypes.string,
     };
@@ -89,20 +92,15 @@ export default class OtherQuestionsPage extends Component {
         requestData(this.props);
     }
 
-    componentDidUpdate(prevProps) {
-        const {requestComparedQuestionsUrl, user, otherUser} = this.props;
+    componentDidUpdate() {
+        const {user, otherUser, comparedStats, isLoadingComparedStats} = this.props;
         const otherUserId = parseId(otherUser);
         const userId = parseId(user);
 
-        const requestUrlReceived = !prevProps.requestComparedQuestionsUrl && this.props.requestComparedQuestionsUrl;
-        if (requestUrlReceived) {
-            QuestionActionCreators.requestComparedQuestions(userId, otherUserId, requestComparedQuestionsUrl);
-        }
-
-        const otherUserReceived = !prevProps.otherUser && this.props.otherUser;
-        if (otherUserReceived) {
-            QuestionActionCreators.requestNextOtherQuestion(userId, otherUserId);
+        const haveBothIds = userId && otherUserId;
+        if (haveBothIds && !comparedStats && !isLoadingComparedStats) {
             UserActionCreators.requestComparedStats(userId, otherUserId);
+            QuestionActionCreators.requestNextOtherQuestion(userId, otherUserId);
         }
     }
 

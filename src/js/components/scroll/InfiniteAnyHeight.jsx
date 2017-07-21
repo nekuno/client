@@ -16,6 +16,9 @@ class GetHeightWrapper extends React.Component {
 
   setHeight() {
     var height = this.node.getBoundingClientRect().height
+    if (height > 190) {
+        height = 190;
+    }
     this.props.addHeight(height)
     this.setState({height})
   }

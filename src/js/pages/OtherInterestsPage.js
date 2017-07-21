@@ -112,17 +112,15 @@ export default class OtherInterestsPage extends Component {
     componentDidUpdate(prevProps) {
         const {user, otherUser, showOnlyCommon, type} = this.props;
         //Change to one action to multiple api calls (a queue) instead of timeout. Maybe merging with requestUser on requestData. See https://github.com/facebook/flux/issues/47#issuecomment-54716863
-        // setTimeout(() => {
-            const showOnlyCommonChanged = prevProps.showOnlyCommon !== showOnlyCommon;
-            const otherUserChanged = parseId(prevProps.otherUser) !== parseId(otherUser);
-            const typeChanged = prevProps.type !== type;
-            if (showOnlyCommonChanged || otherUserChanged || typeChanged) {
-                const otherUserId = parseId(otherUser);
-                const userId = parseId(user);
+        const showOnlyCommonChanged = prevProps.showOnlyCommon !== showOnlyCommon;
+        const otherUserChanged = parseId(prevProps.otherUser) !== parseId(otherUser);
+        const typeChanged = prevProps.type !== type;
+        if (showOnlyCommonChanged || otherUserChanged || typeChanged) {
+            const otherUserId = parseId(otherUser);
+            const userId = parseId(user);
 
-                InterestsActionCreators.requestComparedInterests(userId, otherUserId, this.props.requestComparedInterestsUrl);
-            }
-        // }, 0);
+            InterestsActionCreators.requestComparedInterests(userId, otherUserId, this.props.requestComparedInterestsUrl);
+        }
 
         if (!this.state.carousel || this.props.interests.length === 0) {
             return;
@@ -198,7 +196,7 @@ export default class OtherInterestsPage extends Component {
     onFilterCommonClick(key) {
         InterestsActionCreators.setShowOnlyCommon(key, parseId(this.props.otherUser));
         this.setState({
-            carousel     : false
+            carousel: false
         });
     }
 
@@ -318,7 +316,7 @@ export default class OtherInterestsPage extends Component {
                             <CardContentList firstItems={this.getFirstItems.bind(this)()} contents={interests} userId={ownUserId} otherUserId={otherUserId}
                                              onBottomScroll={this.onBottomScroll.bind(this)} onReport={this.onReport.bind(this)} firstLoading={firstLoading} isLoading={isLoadingComparedInterests}/>
 
-                            <br />
+                            <br/>
                         </div>
                         <br/>
                         <br/>

@@ -5,11 +5,12 @@ import ProfileData from './ProfileData'
 export default class OtherProfileDataList extends Component {
 
     static propTypes = {
-        profileWithMetadata: PropTypes.array.isRequired
+        profileWithMetadata: PropTypes.array.isRequired,
+        metadata           : PropTypes.object.isRequired,
     };
 
     render() {
-        const {profileWithMetadata} = this.props;
+        const {profileWithMetadata, metadata} = this.props;
         let lines = [];
         profileWithMetadata.forEach(
             category => {
@@ -19,7 +20,7 @@ export default class OtherProfileDataList extends Component {
                 lines.push(<div key={category.label} className="profile-category"><h3>{category.label}</h3></div>);
                 Object.keys(category.fields).forEach(
                     profileDataKey => {
-                        if (category.fields[profileDataKey].value) {
+                        if (category.fields[profileDataKey].value && metadata[profileDataKey].visible !== false) {
                             lines.push(<ProfileData key={profileDataKey} name={category.fields[profileDataKey].text} value={category.fields[profileDataKey].value} forceLong={category.fields[profileDataKey].type === 'textarea'}/>);
                         }
                     });

@@ -404,7 +404,7 @@ export default {
     },
     LocationField                    : {
         location: 'Ubicación',
-        title   : '¿Dónde vives?',
+        title   : '¿En qué población vives?',
         save    : 'Guardar'
     },
     AcceptedAnswersImportance        : {
@@ -420,10 +420,13 @@ export default {
         loading        : 'Cargando pregunta'
     },
     AnswerQuestionForm               : {
-        you       : 'Tú',
-        them      : 'Ellos',
-        alertFirst: 'Marca tu respuesta en la primera columna',
-        saving    : 'Guardando'
+        you        : 'Tú',
+        them       : 'Ellos',
+        alertFirst : 'Marca tu respuesta en la primera columna',
+        saving     : 'Guardando',
+        yourAnswer : 'Tu respuesta',
+        theirAnswer: 'Respuestas que aceptas de otros',
+        importance : '¿Qué importancia tiene esta pregunta para ti?'
     },
     QuestionList                     : {
         loading: 'Cargando preguntas'
@@ -707,7 +710,7 @@ export default {
         seeMore: '<a href="https://nekuno.com" target="_blank">Ver más sobre Nekuno</a>'
     },
     OfflineService                   : {
-        isOffline: 'La aplicación no funcionará correctamente porque no tienes conexión a Internet'
+        isOffline: 'La aplicación no funcionará correctamente porque no tienes conexión a Internet. Pulsa "Aceptar" para recargar'
     },
     /////////////////////////
     // LoginActionCreators //

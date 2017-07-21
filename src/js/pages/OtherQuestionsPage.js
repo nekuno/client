@@ -45,6 +45,8 @@ function getState(props) {
     const questions = QuestionStore.get(currentUserId) || {};
     const otherQuestions = otherUser ? QuestionStore.getCompared(otherUserId) || {} : {};
     const comparedStats = otherUserId ? ComparedStatsStore.get(currentUserId, otherUserId) : null;
+    const isRequestedQuestion = otherUserId ? QuestionStore.isRequestedQuestion(otherUserId) : true;
+    const isLoadingComparedStats = ComparedStatsStore.isLoadingComparedStats();
     const isLoadingComparedQuestions = otherUserId ? QuestionStore.isLoadingComparedQuestions() : true;
     const hasNextComparedQuestion = QuestionStore.hasQuestion();
     const requestComparedQuestionsUrl = otherUserId ? QuestionStore.getRequestComparedQuestionsUrl(otherUserId, []) : null;
@@ -55,9 +57,11 @@ function getState(props) {
         otherQuestions,
         otherUser,
         comparedStats,
+        isRequestedQuestion,
+        isLoadingComparedStats,
         isLoadingComparedQuestions,
         hasNextComparedQuestion,
-        requestComparedQuestionsUrl
+        requestComparedQuestionsUrl,
     };
 }
 
@@ -80,7 +84,9 @@ export default class OtherQuestionsPage extends Component {
         otherQuestions             : PropTypes.object.isRequired,
         otherUser                  : PropTypes.object,
         comparedStats              : PropTypes.object,
+        isRequestedQuestion        : PropTypes.bool,
         isLoadingComparedQuestions : PropTypes.bool,
+        isLoadingComparedStats     : PropTypes.bool,
         hasNextComparedQuestion    : PropTypes.bool,
         requestComparedQuestionsUrl: PropTypes.string,
     };
@@ -89,22 +95,20 @@ export default class OtherQuestionsPage extends Component {
         requestData(this.props);
     }
 
-    componentDidUpdate(prevProps) {
-        const {requestComparedQuestionsUrl, user, otherUser} = this.props;
+    componentDidUpdate() {
+        const {user, otherUser, comparedStats, isLoadingComparedStats, isRequestedQuestion} = this.props;
         const otherUserId = parseId(otherUser);
         const userId = parseId(user);
 
-        //Change to one action to multiple api calls (a queue) instead of timeout. Maybe merging with requestUser on requestData. See https://github.com/facebook/flux/issues/47#issuecomment-54716863
-        setTimeout(() => {
-            if (!prevProps.requestComparedQuestionsUrl && this.props.requestComparedQuestionsUrl) {
-                QuestionActionCreators.requestComparedQuestions(userId, otherUserId, requestComparedQuestionsUrl);
-            }
-
-            if (!prevProps.otherUser && this.props.otherUser) {
-                QuestionActionCreators.requestNextOtherQuestion(userId, otherUserId);
+        const haveBothIds = userId && otherUserId;
+        if (haveBothIds) {
+            if (!comparedStats && !isLoadingComparedStats) {
                 UserActionCreators.requestComparedStats(userId, otherUserId);
             }
-        }, 0);
+            if (!isRequestedQuestion) {
+                QuestionActionCreators.requestNextOtherQuestion(userId, otherUserId);
+            }
+        }
     }
 
     onTimerEnd(questionId) {
@@ -171,9 +175,9 @@ export default class OtherQuestionsPage extends Component {
                             <div id="page-content" className="other-questions-content">
                                 <OtherQuestionList firstItems={this.getFirstItems.bind(this)()} otherQuestions={otherQuestions} questions={questions} otherUserSlug={otherUser.slug || ''} ownPicture={ownPicture} otherPicture={otherPicture}
                                                    onTimerEnd={this.onTimerEnd} isLoadingComparedQuestions={isLoadingComparedQuestions} onBottomScroll={this.onBottomScroll.bind(this)}/>
-                                <br />
-                                <br />
-                                <br />
+                                <br/>
+                                <br/>
+                                <br/>
                             </div>
                             : ''
                         }

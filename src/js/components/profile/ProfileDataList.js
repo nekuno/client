@@ -252,11 +252,11 @@ export default class ProfileDataList extends Component {
                 {profileWithMetadata.map(
                     category => {
                         return (
-                            <div key={category.label} ref={this.state.selectedCategory == category.label ? "selectedCategoryEdit" : null}>
-                                <div className="profile-category" ref={category.label == this.state.selectedCategory ? 'selectedCategory' : null}>
-                                    <h3>{category.label} <span className="icon-wrapper" onClick={this.onCategoryToggle.bind(this, category.label)}><span className={category.label == this.state.selectedCategory ? 'icon-checkmark' : 'icon-edit'}/></span></h3>
+                            <div key={category.label} ref={this.state.selectedCategory === category.label ? "selectedCategoryEdit" : null}>
+                                <div className="profile-category" ref={category.label === this.state.selectedCategory ? 'selectedCategory' : null}>
+                                    <h3>{category.label} <span className="icon-wrapper" onClick={this.onCategoryToggle.bind(this, category.label)}><span className={category.label === this.state.selectedCategory ? 'icon-checkmark' : 'icon-edit'}/></span></h3>
                                 </div>
-                                {this.state.selectedCategory == category.label ?
+                                {this.state.selectedCategory === category.label ?
                                     Object.keys(category.fields).map(field =>
                                         <div key={'parent-' + field} className="profile-category-edition">
                                             <hr/>
@@ -267,7 +267,7 @@ export default class ProfileDataList extends Component {
                                     :
                                     Object.keys(category.fields).map(
                                         profileDataKey =>
-                                            category.fields[profileDataKey].value ?
+                                            category.fields[profileDataKey].value && metadata[profileDataKey].visible !== false?
                                                 <ProfileData key={profileDataKey} name={category.fields[profileDataKey].text} value={category.fields[profileDataKey].value} forceLong={category.fields[profileDataKey].type === 'textarea'}/>
                                                 : null
                                     )

@@ -23,6 +23,7 @@ class QuestionStore extends BaseStore {
         this._isJustCompleted = false;
         this._loadingComparedQuestions = false;
         this._loadingOwnQuestions = false;
+        this._isRequestedQuestion = {};
         this._comparedOrder = {};
     }
 
@@ -42,6 +43,7 @@ class QuestionStore extends BaseStore {
                 this.emitChange();
                 break;
             case ActionTypes.REQUEST_QUESTION:
+                this._isRequestedQuestion[action.otherUserId ? action.otherUserId : action.userId] = true;
                 break;
             case ActionTypes.REQUEST_EXISTING_QUESTION:
                 this._answerQuestion = {};
@@ -182,9 +184,9 @@ class QuestionStore extends BaseStore {
 
     getRequestComparedQuestionsUrl(userId, filters) {
         let url = this.getPaginationUrl(userId, this._initialComparedPaginationUrl);
-        if (url === this._initialComparedPaginationUrl){
+        if (url === this._initialComparedPaginationUrl) {
             url = url.replace('{otherUserId}', userId);
-            url = url + filters.map(filter => '&'+filter+'=1');
+            url = url + filters.map(filter => '&' + filter + '=1');
         }
         return url;
     }
@@ -224,7 +226,7 @@ class QuestionStore extends BaseStore {
     }
 
     ownAnswersLength(userId) {
-        return this._answersLength  > 0 ? this._answersLength : this.otherAnswersLength(userId);
+        return this._answersLength > 0 ? this._answersLength : this.otherAnswersLength(userId);
     }
 
     otherAnswersLength(userId) {
@@ -250,6 +252,10 @@ class QuestionStore extends BaseStore {
 
     isLoadingOwnQuestions() {
         return this._loadingOwnQuestions;
+    }
+
+    isRequestedQuestion(userId) {
+        return this._isRequestedQuestion[userId] || false;
     }
 
     _setQuestionsOrder(userId, questions) {

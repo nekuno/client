@@ -403,7 +403,7 @@ export default {
     },
     LocationField                    : {
         location: 'Location',
-        title   : 'Where do you live?',
+        title   : 'In what population do you live?',
         save    : 'Save'
     },
     AcceptedAnswersImportance        : {
@@ -419,10 +419,13 @@ export default {
         loading        : 'Loading question'
     },
     AnswerQuestionForm               : {
-        you       : 'You',
-        them      : 'Them',
-        alertFirst: 'Mark your answer in the first column',
-        saving    : 'Saving'
+        you        : 'You',
+        them       : 'Them',
+        alertFirst : 'Mark your answer in the first column',
+        saving     : 'Saving',
+        yourAnswer : 'Your answer',
+        theirAnswer: 'Answers which you accept from others',
+        importance : 'Do you mind the user response?'
     },
     QuestionList                     : {
         loading: 'Loading questions'
@@ -709,7 +712,7 @@ export default {
     // Services //
     //////////////
     OfflineService                   : {
-        isOffline: 'The application will not work as expected because you are not connected to Internet.'
+        isOffline: 'The application will not work as expected because you are not connected to Internet. Press "OK" to reload'
     },
     /////////////////////////
     // LoginActionCreators //

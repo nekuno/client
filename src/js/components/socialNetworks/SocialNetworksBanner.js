@@ -16,6 +16,7 @@ export default class SocialNetworksBanner extends Component {
     static propTypes = {
         user: PropTypes.object.isRequired,
         networks: PropTypes.array.isRequired,
+        isLoading: PropTypes.bool,
         // Injected by @translate:
         strings: PropTypes.object
     };
@@ -42,7 +43,7 @@ export default class SocialNetworksBanner extends Component {
 
         const {strings, networks, user} = this.props;
         const ownPicture = user && user.photo ? user.photo.thumbnail.medium : 'img/no-img/medium.jpg';
-        const connectedNetworks = networks.filter(network => network.fetching || network.fetched || network.processing || network.processed);
+        const connectedNetworks = networks.filter(network => network.connected);
 
         return (
             <div className="social-networks-link-container">
@@ -68,5 +69,6 @@ SocialNetworksBanner.defaultProps = {
         title         : 'Do you want us to walk a fine line?',
         text          : 'Let`s discover your interests automatically',
         publishMessage: 'We won`t publish anything'
-    }
+    },
+    isLoading: false,
 };

@@ -82,6 +82,7 @@ export default class CardUserList extends Component {
                     onInfiniteLoad={this.props.onBottomScroll}
                     containerId="discover-view-main"
                     loading={this.props.isLoading}
+                    infiniteLoadBeginEdgeOffset={1000}
                 />
             </div>
         );

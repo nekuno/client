@@ -35,6 +35,7 @@ export default class InfiniteScroll extends Component {
         this.getScrollContainer = this.getScrollContainer.bind(this);
         this.updateStateHeight = this.updateStateHeight.bind(this);
         this.getLoadingGif = this.getLoadingGif.bind(this);
+        this.applyScroll = this.applyScroll.bind(this);
     }
 
     componentWillMount() {
@@ -48,6 +49,8 @@ export default class InfiniteScroll extends Component {
     componentDidMount() {
         this.checkMustRender();
         window.addEventListener('resize', this.updateStateHeight);
+
+        this.applyScroll();
     }
 
     componentWillUnmount() {
@@ -55,6 +58,10 @@ export default class InfiniteScroll extends Component {
     }
 
     componentDidUpdate() {
+        this.applyScroll();
+    }
+
+    applyScroll() {
         const scrollBehavior = this.context.scrollBehavior.scrollBehavior;
         scrollBehavior.updateScroll(this.context, this.context);
     }

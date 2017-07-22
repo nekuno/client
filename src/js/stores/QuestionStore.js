@@ -108,6 +108,7 @@ class QuestionStore extends BaseStore {
                 this._pagination[action.userId].total++;
                 this._answersLength++;
                 this._isJustCompleted = this.ownAnswersLength(action.userId) === this._registerQuestionsLength;
+                this._isRequestedQuestion = {};
                 this.emitChange();
                 break;
             case ActionTypes.SKIP_QUESTION_SUCCESS:

@@ -109,10 +109,8 @@ export default class AnswerNextOtherQuestionPage extends Component {
         const {goToQuestionStats, noMoreQuestions, question, user, otherUser, params, strings} = this.props;
         if (goToQuestionStats) {
             setTimeout(() => {
-                QuestionActionCreators.requestComparedQuestions(parseId(user), parseId(otherUser), ['showOnlyCommon']).then(() =>
-                    UserActionCreators.requestComparedStats(parseId(user), parseId(otherUser))).then(() => {
-                        RouterActionCreators.replaceRoute(`/question-other-stats/${params.slug}`);
-                    }).catch((error) => console.log(error));
+                UserActionCreators.requestComparedStats(parseId(user), parseId(otherUser));
+                RouterActionCreators.replaceRoute(`/question-other-stats/${params.slug}`);
             }, 0);
         }
         if (noMoreQuestions) {

@@ -63,7 +63,7 @@ export default class InfiniteScroll extends Component {
 
     applyScroll() {
         const scrollBehavior = this.context.scrollBehavior.scrollBehavior;
-        scrollBehavior.updateScroll(this.context, this.context);
+        setTimeout(() => scrollBehavior.updateScroll(this.context, this.context), 0);
     }
 
     checkMustRender() {

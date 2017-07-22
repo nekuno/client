@@ -133,7 +133,6 @@ export default class InterestsPage extends Component {
     render() {
         const {interests, user, strings, isLoadingOwnInterests} = this.props;
         const loadingFirst = isLoadingOwnInterests && interests.length === 0;
-        console.log('interest page rerendering');
         return (
             <div className="views">
                 <TopNavBar leftMenuIcon={true} centerText={strings.myProfile}/>

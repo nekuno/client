@@ -15,32 +15,44 @@ export default class UsernameField extends Component {
         strings        : PropTypes.object
     };
 
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            registering      : false,
+            validationPromise: Promise.resolve(true)
+        };
+    }
+
     onUsernameChange() {
-        if (typeof this.usernameTimeout !== 'undefined') {
-            clearTimeout(this.usernameTimeout);
+        const {validationPromise} = this.state;
+        if (typeof validationPromise.cancel !== 'undefined') {
+            validationPromise.cancel();
         }
-        this.usernameTimeout = setTimeout(() => {
-            let username = this.refs.username.getValue();
-            UserActionCreators.validateUsername(username).then(() => {
+        let username = this.refs.username.getValue();
+        let newPromise = UserActionCreators.validateUsername(username).then(() => {
                 // Username valid
             }).catch(() => {
                 nekunoApp.alert(this.props.strings.invalidUsername);
             });
-        }, 500);
+        this.setState({validationPromise: newPromise});
     }
     
     handleClickSave() {
         const {strings} = this.props;
+        this.setState({registering: true});
         let username = this.refs.username.getValue();
         UserActionCreators.validateUsername(username).then(() => {
             this.props.onSaveHandler(username);
         }).catch(() => {
+            this.setState({registering: false});
             nekunoApp.alert(strings.invalidUsername);
         });
     }
 
     render() {
         const {username, isUsernameValid, strings} = this.props;
+        const {registering} = this.state;
         return (
             <div>
                 <div className="answer-question">
@@ -55,7 +67,7 @@ export default class UsernameField extends Component {
                 </div>
                 <br />
                 <br />
-                {isUsernameValid ? <FullWidthButton type="submit" onClick={this.handleClickSave.bind(this)}>{strings.save}</FullWidthButton> : null}
+                {!registering && isUsernameValid ? <FullWidthButton type="submit" onClick={this.handleClickSave.bind(this)}>{strings.save}</FullWidthButton> : null}
             </div>
         );
     }

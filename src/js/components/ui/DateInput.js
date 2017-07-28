@@ -6,6 +6,7 @@ import {
     INFINITE_CALENDAR_LOCALE_EN,
     INFINITE_CALENDAR_THEME,
 } from '../../constants/InfiniteCalendarConstants';
+import { format } from 'date-fns';
 import LocaleStore from '../../stores/LocaleStore';
 import connectToStores from '../../utils/connectToStores';
 import Chip from './Chip';
@@ -50,7 +51,7 @@ export default class DateInput extends Component {
 
     onChange(value) {
         const {selectingYear} = this.state;
-        const formattedValue = value.format('YYYY-MM-DD');
+        const formattedValue = format(value, 'YYYY-MM-DD');
         if (!selectingYear) {
             this.props.onChange(formattedValue);
             this.setState({
@@ -85,8 +86,7 @@ export default class DateInput extends Component {
             !selected ?
                 <div className="text-checkboxes">
                     <div className="text-checkboxes-title">{label}</div>
-                    <Chip key={label.key}
-                          chipClass={'chip-1'}
+                    <Chip chipClass={'chip-1'}
                           label={value ? label + ': ' + value : placeholder}
                           onClickHandler={this.toggleSelection}
                     />
@@ -96,18 +96,20 @@ export default class DateInput extends Component {
                     width={"100%"}
                     height={250}
                     className={"date-input"}
-                    selectedDate={value || today}
+                    selected={value ? value : maxDate}
                     min={minDate}
                     max={maxDate}
                     minDate={minDate}
                     maxDate={maxDate}
                     keyboardSupport={true}
                     locale={localeObject}
-                    afterSelect={this.onChange}
+                    onSelect={this.onChange}
                     display={selectingYear ? "years" : "days"}
                     theme={INFINITE_CALENDAR_THEME}
-                    showTodayHelper={false}
-                    overscanMonthCount={1}
+                    displayOptions={{
+                        showTodayHelper: false,
+                        overscanMonthCount: 1
+                    }}
                 />
         );
     }

@@ -1,27 +1,25 @@
 export const INFINITE_CALENDAR_LOCALE_EN = {
     name: 'en',
+    locale: require('date-fns/locale/en'),
+    headerFormat: 'ddd, MMM Do',
+    weekdays: ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],
+    blank: 'Select a date...',
     todayLabel: {
         long: 'Today'
     },
-    blank: 'Select a date...',
-    headerFormat: 'ddd, MMM Do',
-    week: {
-        dow: 0,
-        doy: 4
-    }
+    weekStartsOn: 0
 };
 
 export const INFINITE_CALENDAR_LOCALE_ES = {
     name: 'es',
+    locale: require('date-fns/locale/es'),
+    headerFormat: 'ddd, D MMM',
+    weekdays: ["Dom","Lun","Mar","Mié","Jue","Vie","Sab"],
+    blank: 'Selecciona una fecha...',
     todayLabel: {
         long: 'Hoy'
     },
-    blank: 'Selecciona una fecha...',
-    headerFormat: 'ddd, D MMM',
-    week: {
-        dow: 1,
-        doy: 5
-    }
+    weekStartsOn: 1
 };
 
 export const INFINITE_CALENDAR_THEME = {

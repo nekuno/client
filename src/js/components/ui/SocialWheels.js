@@ -181,7 +181,7 @@ export default class SocialWheels extends Component {
                                         style={{progress: spring(progress)}}
                                     >
                                         {val =>
-                                            <path key={'wheel' + index} d={this.describeArc(this.posX, this.posY, radius, 0, progress)} className={"wheel-" + message.resource}/>
+                                            <path key={'wheel' + index} d={this.describeArc(this.posX, this.posY, radius, 0, val.progress)} className={"wheel-" + message.resource}/>
                                         }
                                     </Motion>
                                 );

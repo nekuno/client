@@ -30,7 +30,7 @@ export default class BirthdayField extends Component {
                     <div className="title answer-question-title">
                         {strings.title}
                     </div>
-                    <DateInput defaultValue={birthday} placeholder={strings.birthdayPlaceholder} onChange={this.onChange} autoFocus={true}/>
+                    <DateInput defaultValue={birthday} placeholder={strings.birthdayPlaceholder} label={strings.birthdayPlaceholder} onChange={this.onChange} autoFocus={true}/>
                 </div>
                 <br />
                 <br />

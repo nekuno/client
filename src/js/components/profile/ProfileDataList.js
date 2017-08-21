@@ -222,7 +222,7 @@ export default class ProfileDataList extends Component {
                 break;
             case 'double_choice':
                 props.data = data ? data : {};
-                props.handleChangeEdit = this.handleChangeEdit;
+                props.handleChangeEdit = this.handleChangeEditAndSave;
                 props.handleChangeEditDetail = this.handleChangeEditAndSave;
                 filter = <DoubleChoiceEdit {...props} />;
                 break;

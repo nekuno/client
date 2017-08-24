@@ -271,7 +271,7 @@ export default class ProfileDataList extends Component {
                                     :
                                     Object.keys(category.fields).map(
                                         profileDataKey =>
-                                            category.fields[profileDataKey].value && metadata[profileDataKey].visible !== false?
+                                            category.fields[profileDataKey].value && metadata[profileDataKey].hidden !== true?
                                                 <ProfileData key={profileDataKey} name={category.fields[profileDataKey].text} value={category.fields[profileDataKey].value} forceLong={category.fields[profileDataKey].type === 'textarea'}/>
                                                 : null
                                     )

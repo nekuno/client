@@ -27,7 +27,6 @@ export default new class LoginActionCreators {
         if (LoginStore.isLoggedIn()) {
             UserActionCreators.requestAutologinData().then(() => {
                 if (!RouterStore.hasNextTransitionPath() && (document.location.hash === '' || document.location.hash === '#/' || document.location.hash.indexOf('#/?') === 0)) {
-                    console.log('storing');
                     RouterActionCreators.storeRouterTransitionPath('/discover');
                 }
                 this.redirect();

@@ -222,7 +222,7 @@ export default class ProfileDataList extends Component {
                 break;
             case 'double_choice':
                 props.data = data ? data : {};
-                props.handleChangeEdit = this.handleChangeEdit;
+                props.handleChangeEdit = this.handleChangeEditAndSave;
                 props.handleChangeEditDetail = this.handleChangeEditAndSave;
                 filter = <DoubleChoiceEdit {...props} />;
                 break;
@@ -271,7 +271,7 @@ export default class ProfileDataList extends Component {
                                     :
                                     Object.keys(category.fields).map(
                                         profileDataKey =>
-                                            category.fields[profileDataKey].value && metadata[profileDataKey].visible !== false?
+                                            category.fields[profileDataKey].value && metadata[profileDataKey].hidden !== true?
                                                 <ProfileData key={profileDataKey} name={category.fields[profileDataKey].text} value={category.fields[profileDataKey].value} forceLong={category.fields[profileDataKey].type === 'textarea'}/>
                                                 : null
                                     )

@@ -173,8 +173,9 @@ export default class OtherUserPage extends Component {
         this.requestOtherUserPhoto = this.requestOtherUserPhoto.bind(this);
 
         this.state = {
-            orientationRequired: null,
-            photosLoaded       : null
+            orientationRequired      : null,
+            orientationPopUpDisplayed: false,
+            photosLoaded             : null
         };
     }
 
@@ -189,9 +190,9 @@ export default class OtherUserPage extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (this.state.orientationRequired && !this.props.ownProfile.orientation) {
+        if (this.state.orientationRequired && !this.state.orientationPopUpDisplayed && !this.props.ownProfile.orientation) {
             nekunoApp.popup('.popup-orientation-required');
-            this.props.showPopup();
+            this.setState({orientationPopUpDisplayed: true});
         } else if (this.state.orientationRequired === null && this.props.ownProfile && this.props.ownProfile.orientationRequired) {
             this.setOrientationRequired(true);
         }
@@ -458,8 +459,8 @@ export default class OtherUserPage extends Component {
                             </div>
                             : <EmptyMessage text={strings.loading} loadingGif={true}/>}
                     </div>
-                    {ownProfile ? <OrientationRequiredPopup profile={ownProfile} onCancel={this.goToDiscover} onClick={this.setOrientationRequired.bind(this, false)}/> : null}
                 </div>
+                {ownProfile ? <OrientationRequiredPopup profile={ownProfile} onCancel={this.goToDiscover} onClick={this.setOrientationRequired.bind(this, false)}/> : null}
                 <ReportContentPopup onClick={this.onReportReasonOther} contentRef={this.props.popupContentRef}/>
             </div>
         );

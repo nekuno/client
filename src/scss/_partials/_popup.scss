@@ -20,9 +20,14 @@
 				width: 100px;
 			}
 		}
-		.popup-filter-contents-title, .popup-orientation-required-title, .popup-register-finished-title {
+		.popup-filter-contents-title, .popup-register-finished-title {
 			margin-top: 50px;
 			margin-bottom: 40px;
+		}
+		.popup-orientation-required-title {
+			color: #fff;
+			font-size: 1.785714286em;
+			text-align: center;
 		}
 		.popup-register-finished-text {
 			margin-bottom: 40px;
@@ -69,6 +74,13 @@
 					margin-top: 5px;
 				}
 			}
+		}
+	}
+
+	&.popup-orientation-required {
+		z-index: 11111;
+		.text-radios-title {
+			color: #fff;
 		}
 	}
 

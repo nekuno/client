@@ -109,14 +109,7 @@ class ProfileStore extends BaseStore {
     }
 
     getMetadata(){
-        if (!this._metadata){
-            return this._metadata;
-        }
-        let metadata = Object.assign({}, this._metadata);
-        if (metadata.hasOwnProperty('gender')){
-            metadata['gender']['visible'] = false;
-        }
-        return metadata;
+        return this._metadata;
     }
 
     getCategories(){

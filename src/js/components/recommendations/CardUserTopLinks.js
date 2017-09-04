@@ -12,7 +12,7 @@ export default class CardUserTopLinks extends Component {
         const {topLinks, sharedLinks} = this.props;
         return (
             <div>
-                {sharedLinks ?
+                {topLinks.length > 0 ?
                     <div className="card-user-top-links">
                         {typeof topLinks[0] !== 'undefined' ?
                             <div className="top-link-wrapper">

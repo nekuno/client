@@ -102,6 +102,7 @@
 				width: 100%;
 			}
 			.image img {
+				border-radius: 2px 2px 0 0;
 				width: 100%;
 				vertical-align: middle;
 			}
@@ -136,6 +137,8 @@
 		cursor: pointer;
 
 		.card-header {
+			padding: 0;
+			z-index: 1;
 			.online-status {
 				font-size: 0.8em;
 				color: $light-green;
@@ -162,11 +165,15 @@
 					}
 				}
 			}
+			.card-title {
+				font-weight: bold;
+				padding: 10px;
+			}
 			.matching-value {
 				color: $regular-gray;
 				display: inline-flex;
 				font-weight: bold;
-				margin: auto;
+				margin: 5px auto;
 				width: 100%;
 
 				.matching-string {
@@ -181,6 +188,24 @@
 					margin: auto;
 					width: 31px;
 				}
+			}
+
+			.matching-progress {
+				.progress-bar [class^="progress-bar-"], .progress-bar [class*=" progress-bar-"] {
+					background-color: $flesh-colored;
+				}
+			}
+
+			.progress-bar {
+				height: 20px;
+				margin-top: -25px;
+				margin-left: -15px;
+				opacity: 0.6;
+				position: absolute;
+			}
+			.progress-bar [class^="progress-bar-"], .progress-bar [class*=" progress-bar-"] {
+				color: #bbb;
+				height: 20px;
 			}
 
 			&.liked {

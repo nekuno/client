@@ -1,0 +1,53 @@
+.card-user-top-links {
+  margin-top: -20px;
+  margin-bottom: -25px;
+  .top-link-wrapper {
+    background-color: #fff;
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    display: inline-block;
+    height: 41px;
+    position: relative;
+    text-align: center;
+    width: 41px;
+    z-index: 11;
+    .top-link-centered-wrapper {
+      border-radius: 50%;
+      -moz-border-radius: 50%;
+      -webkit-border-radius: 50%;
+      margin: 3px;
+      position: relative;
+      height: 35px;
+      overflow: hidden;
+      .top-link {
+        margin-left: -32px;
+        position: absolute;
+        width: 100px;
+        height: 35px;
+        .opacity-wrapper {
+          opacity: 0.6;
+        }
+        img {
+          min-height: 56px;
+          margin: -10px auto;
+          width: 52%;
+        }
+      }
+      .shared-links {
+        margin-top: -35px;
+        font-size: 1.2em;
+        color: $regular-gray;
+        font-weight: bold;
+        position: relative;
+      }
+    }
+  }
+
+  @media only screen and (min-width: 319px) {
+    .top-link-wrapper {
+      margin-right: 5px;
+      margin-left: 5px;
+    }
+  }
+}

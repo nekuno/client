@@ -83,6 +83,10 @@ export default class CardUser extends Component {
                 <div className="card-header">
                     <div className="card-content">
                         <div className="card-content-inner">
+                            {like ?
+                                <div className="like-icon-container"><span className="icon-star"></span></div>
+                                : null
+                            }
                             <div className="image fixed-max-height-image">
                                 <Image src={imgSrc} defaultSrc={defaultSrc}/>
                             </div>
@@ -100,28 +104,24 @@ export default class CardUser extends Component {
                     {messageButton}
                     </div>
                 </div>*/}
-                <div className={like ? "card-footer liked" : "card-footer"}>
-                    {like ?
-                        <div className="like-icon-container"><span className="icon-star"></span></div>
-                        :
-                        <div>
-                            <div className="card-title">
-                                {username}
-                            </div>
-                            <div className="matching-value">
-                                <div className="matching-string">{similarityOrder ? strings.similarity : strings.matching}</div><div className="matching-percentage">{similarityOrder ? similarity ? similarity + '%' : '0%' : matching ? matching + '%' : '0%'}</div>
-                            </div>
-                            <div className={similarityOrder ? "similarity-progress" : "matching-progress"}>
-                                <ProgressBar percentage={similarityOrder ? similarity : matching}/>
-                            </div>
-                            <div className="matching-value">
-                                <div className="matching-string">{similarityOrder ? strings.matching : strings.similarity}</div><div className="matching-percentage">{similarityOrder ? matching ? matching + '%' : '0%' : similarity ? similarity + '%' : '0%'}</div>
-                            </div>
-                            <div className={similarityOrder ? "matching-progress" : "similarity-progress"}>
-                                <ProgressBar percentage={similarityOrder ? matching : similarity}/>
-                            </div>
+                <div className={"card-footer"}>
+                    <div>
+                        <div className="card-title">
+                            {username}
                         </div>
-                    }
+                        <div className="matching-value">
+                            <div className="matching-string">{similarityOrder ? strings.similarity : strings.matching}</div><div className="matching-percentage">{similarityOrder ? similarity ? similarity + '%' : '0%' : matching ? matching + '%' : '0%'}</div>
+                        </div>
+                        <div className={similarityOrder ? "similarity-progress" : "matching-progress"}>
+                            <ProgressBar percentage={similarityOrder ? similarity : matching}/>
+                        </div>
+                        <div className="matching-value">
+                            <div className="matching-string">{similarityOrder ? strings.matching : strings.similarity}</div><div className="matching-percentage">{similarityOrder ? matching ? matching + '%' : '0%' : similarity ? similarity + '%' : '0%'}</div>
+                        </div>
+                        <div className={similarityOrder ? "matching-progress" : "similarity-progress"}>
+                            <ProgressBar percentage={similarityOrder ? matching : similarity}/>
+                        </div>
+                    </div>
                 </div>
             </div>
         );

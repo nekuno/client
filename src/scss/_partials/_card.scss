@@ -147,27 +147,32 @@
 		}
 		.card-content {
 			.card-content-inner {
+				.like-icon-container {
+					color: $material-orange-light;
+					margin: auto;
+					position: absolute;
+					right: 15px;
+					top: 10px;
+
+					.icon-star {
+						&:before {
+							font-size: 1.3em;
+						}
+					}
+				}
 				.matching {
 					margin-top: -7px;
 				}
 			}
 		}
 		.card-footer {
-			.like-icon-container {
-				color: #fff;
-				margin: auto;
-
-				.icon-star {
-					vertical-align: middle;
-
-					&:before {
-						font-size: 1.3em;
-					}
-				}
-			}
 			.card-title {
 				font-weight: bold;
 				padding: 10px;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				width: 90%;
+				white-space: nowrap;
 			}
 			.matching-value {
 				color: $regular-gray;
@@ -206,10 +211,6 @@
 			.progress-bar [class^="progress-bar-"], .progress-bar [class*=" progress-bar-"] {
 				color: #bbb;
 				height: 20px;
-			}
-
-			&.liked {
-				background: $material-orange-light;
 			}
 
 			&::before {

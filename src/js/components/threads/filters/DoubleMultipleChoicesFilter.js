@@ -9,7 +9,7 @@ export default class DoubleMultipleChoicesFilter extends Component {
         filterKey: PropTypes.string.isRequired,
         selected: PropTypes.bool.isRequired,
         filter: PropTypes.object.isRequired,
-        data: PropTypes.array,
+        data: PropTypes.object,
         handleClickRemoveFilter: PropTypes.func.isRequired,
         handleChangeFilter: PropTypes.func.isRequired,
         handleClickFilter: PropTypes.func.isRequired
@@ -22,26 +22,26 @@ export default class DoubleMultipleChoicesFilter extends Component {
         this.handleClickDoubleMultipleChoiceDetail = this.handleClickDoubleMultipleChoiceDetail.bind(this);
         
         this.state = {
-            selectedChoice: ''
+            selectedChoice: props.data && props.data.choices && props.data.choices.length > 0
         };
     }
 
     handleClickDoubleMultipleChoiceChoice(choice) {
         let {filterKey, data} = this.props;
-        data = data || [];
-        let choiceValues = data.filter(value => value.choice === choice);
-        let otherValues = data.filter(value => value.choice !== choice);
-        if (choiceValues.length === 0) {
-            const newIndex = data.length;
-            data[newIndex] = {choice: choice};
-            this.setState({
-                selectedChoice: choice
-            });
+        data = data || {};
+        data.choices = data.choices || [];
+
+        const choiceIndex = data.choices.findIndex(value => value === choice);
+        if (choiceIndex !== -1) {
+            data.choices.splice(choiceIndex, 1);
         } else {
-            data = otherValues;
-            this.setState({
-                selectedChoice: ''
-            });
+            data.choices.push(choice);
+        }
+        if (data.choices.length > 0) {
+            this.setState({selectedChoice: true})
+        } else {
+            data.details = [];
+            this.setState({selectedChoice: false})
         }
 
         this.props.handleChangeFilter(filterKey, data);
@@ -49,34 +49,34 @@ export default class DoubleMultipleChoicesFilter extends Component {
 
     handleClickDoubleMultipleChoiceDetail(detail) {
         let {filterKey, data} = this.props;
-        let {selectedChoice} = this.state;
-        let choiceWithNoDetailIndex = data.findIndex(value => value.choice === selectedChoice && !value.detail);
-        let detailIndex = data.findIndex(value => value.choice === selectedChoice && value.detail === detail);
-        if (detailIndex > -1) {
-            data[detailIndex].detail = null;
+        data = data || {};
+        data.details = data.details || [];
+
+        const detailIndex = data.details.findIndex(value => value === detail);
+        if (detailIndex !== -1) {
+            data.details.splice(detailIndex, 1);
         } else {
-            const index = choiceWithNoDetailIndex > -1 ? choiceWithNoDetailIndex : data.length;
-            data[index] = data[index] || {choice: selectedChoice};
-            data[index].detail = detail;
+            data.details.push(detail);
         }
+
         this.props.handleChangeFilter(filterKey, data);
     }
 
     render() {
         let {filterKey, selected, filter, data, handleClickRemoveFilter, handleClickFilter} = this.props;
         const {selectedChoice} = this.state;
-        data = data || [];
+        data = data || {};
         return(
             selected ?
                 <ThreadSelectedFilter key={'selected-filter'} type={'radio'} active={data.length > 0} handleClickRemoveFilter={handleClickRemoveFilter}>
                     <div className="double-choice-filter">
                         <TextCheckboxes labels={Object.keys(filter.choices).map(key => { return({key: key, text: filter.choices[key]}) })}
-                                        onClickHandler={this.handleClickDoubleMultipleChoiceChoice} values={data.map(value => value.choice)} className={'double-multiple-choice-choice'}
+                                        onClickHandler={this.handleClickDoubleMultipleChoiceChoice} values={data.choices || []} className={'double-multiple-choice-choice'}
                                         title={filter.label} />
                         <div className="table-row"></div>
                         {selectedChoice ?
-                            <TextCheckboxes labels={Object.keys(filter.doubleChoices[selectedChoice]).map(doubleChoice => { return({key: doubleChoice, text: filter.doubleChoices[selectedChoice][doubleChoice]}); }) }
-                                        onClickHandler={this.handleClickDoubleMultipleChoiceDetail} values={data.filter(value => value.choice === selectedChoice).map(value => value.detail)} className={'double-multiple-choice-detail'}/>
+                            <TextCheckboxes labels={Object.keys(filter.doubleChoices[data.choices[0]]).map(doubleChoice => { return({key: doubleChoice, text: filter.doubleChoices[data.choices[0]][doubleChoice]}); }) }
+                                        onClickHandler={this.handleClickDoubleMultipleChoiceDetail} values={data.details || []} className={'double-multiple-choice-detail'}/>
                             : ''}
                     </div>
                 </ThreadSelectedFilter>

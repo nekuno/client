@@ -15,7 +15,7 @@ export default class CardUserTopLinks extends Component {
                 {typeof topLinks[0] === 'undefined' && sharedLinks > 0 ?
                     <div className="top-link-wrapper">
                         <div className="top-link">
-                            <Image src={'img/default-content-image.jpg'}/>
+                            <Image src={'img/default-content-image-squared-small.jpg'}/>
                         </div>
                         {sharedLinks > 1 ?
                             <div className="shared-link-wrapper">

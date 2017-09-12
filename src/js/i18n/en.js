@@ -558,11 +558,8 @@ export default {
         channels: 'Channels'
     },
     OrientationRequiredPopup         : {
-        title              : 'Select your sexual orientation sexual to see this profile',
+        title              : 'Select your sexual orientation to see this profile',
         orientationRequired: 'Orientation Required',
-        heterosexual       : 'Heterosexual',
-        bisexual           : 'Bisexual',
-        homosexual         : 'Homosexual',
         cancel             : 'Cancel'
     },
     RegisterQuestionsFinishedPopup   : {

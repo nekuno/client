@@ -561,9 +561,6 @@ export default {
     OrientationRequiredPopup         : {
         title              : 'Indícanos tu orientación sexual para ver este perfil',
         orientationRequired: 'Orientación sexual requerida',
-        heterosexual       : 'Heterosexual',
-        bisexual           : 'Bisexual',
-        homosexual         : 'Homosexual',
         cancel             : 'Cancelar'
     },
     RegisterQuestionsFinishedPopup   : {

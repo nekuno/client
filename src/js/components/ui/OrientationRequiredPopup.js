@@ -3,15 +3,31 @@ import React, { Component } from 'react';
 import * as UserActionCreators from '../../actions/UserActionCreators';
 import TextRadios from './TextRadios';
 import FullWidthButton from './FullWidthButton';
+import EmptyMessage from './EmptyMessage';
 import translate from '../../i18n/Translate';
+import connectToStores from '../../utils/connectToStores';
+import ProfileStore from '../../stores/ProfileStore';
+
+/**
+ * Retrieves state from stores for current props.
+ */
+function getState(props) {
+    const metadata = ProfileStore.getMetadata();
+
+    return {
+        metadata,
+    };
+}
 
 @translate('OrientationRequiredPopup')
+@connectToStores([ProfileStore], getState)
 export default class OrientationRequiredPopup extends Component {
     static propTypes = {
         profile   : PropTypes.object,
         onContinue: PropTypes.func,
         onClick   : PropTypes.func,
         onCancel  : PropTypes.func,
+        metadata  : PropTypes.object,
         // Injected by @translate:
         strings   : PropTypes.object
     };
@@ -26,7 +42,7 @@ export default class OrientationRequiredPopup extends Component {
     onSelect(key) {
         this.props.onClick();
         nekunoApp.closeModal('.popup-orientation-required');
-        let profile = {orientation: key};
+        let profile = {orientation: [key]};
         for (key in this.props.profile) {
             if (this.props.profile.hasOwnProperty(key)) {
                 profile[key] = this.props.profile[key];
@@ -45,8 +61,22 @@ export default class OrientationRequiredPopup extends Component {
         this.props.onCancel();
     }
 
+    getLabels(metadata) {
+        let labels = [];
+        if (metadata && metadata.orientation) {
+            Object.keys(metadata.orientation.choices).forEach((index) => {
+                labels.push({
+                    key: index,
+                    text: metadata.orientation.choices[index]
+                });
+            });
+        }
+
+        return labels;
+    }
+
     render() {
-        const {strings} = this.props;
+        const {metadata, strings} = this.props;
         const popupClass = 'popup popup-orientation-required tablet-fullscreen';
 
         return (
@@ -55,12 +85,15 @@ export default class OrientationRequiredPopup extends Component {
                 <div className="content-block">
                     <div className="popup-orientation-required-title title">{strings.orientationRequired}</div>
 
-                    <TextRadios title={strings.title} labels={[
-                        {key: 'heterosexual', text: strings.heterosexual},
-                        {key: 'bisexual', text: strings.bisexual},
-                        {key: 'homosexual', text: strings.homosexual}
-                    ]} onClickHandler={this.onSelect}/>
-                    <FullWidthButton onClick={this.onCancel}> {strings.cancel} </FullWidthButton>
+                    {metadata ?
+                        <div>
+                            <TextRadios title={strings.title} labels={this.getLabels(metadata)} onClickHandler={this.onSelect} forceTwoLines={true}/>
+                            <FullWidthButton onClick={this.onCancel}> {strings.cancel} </FullWidthButton>
+                        </div>
+                        :
+                        <EmptyMessage text={''} loadingGif={true}/>
+                    }
+
                 </div>
             </div>
         );
@@ -70,10 +103,7 @@ export default class OrientationRequiredPopup extends Component {
 OrientationRequiredPopup.defaultProps = {
     strings   : {
         title              : 'Select your sexual orientation sexual to see this yarn',
-        orientationRequired: 'Orientación Requerida',
-        heterosexual       : 'Heterosexual',
-        bisexual           : 'Bisexual',
-        homosexual         : 'Homosexual',
+        orientationRequired: 'Orientation required',
         cancel             : 'Cancel'
     },
     onClick   : () => {

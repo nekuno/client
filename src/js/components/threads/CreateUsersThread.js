@@ -9,6 +9,7 @@ import IntegerRangeFilter from './filters/IntegerRangeFilter';
 import IntegerFilter from './filters/IntegerFilter';
 import MultipleChoicesFilter from './filters/MultipleChoicesFilter';
 import DoubleMultipleChoicesFilter from './filters/DoubleMultipleChoicesFilter';
+import ChoiceAndMultipleChoicesFilter from './filters/ChoiceAndMultipleChoicesFilter';
 import TagFilter from './filters/TagFilter';
 import TagsAndMultipleChoicesFilter from './filters/TagsAndMultipleChoicesFilter';
 import * as TagSuggestionsActionCreators from '../../actions/TagSuggestionsActionCreators';
@@ -50,6 +51,7 @@ export default class CreateUsersThread extends Component {
         this.renderLocationFilter = this.renderLocationFilter.bind(this);
         this.renderMultipleChoicesFilter = this.renderMultipleChoicesFilter.bind(this);
         this.renderDoubleMultipleChoicesFilter = this.renderDoubleMultipleChoicesFilter.bind(this);
+        this.renderChoiceAndMultipleChoicesFilter = this.renderChoiceAndMultipleChoicesFilter.bind(this);
         this.renderIntegerRangeFilter = this.renderIntegerRangeFilter.bind(this);
         this.renderIntegerFilter = this.renderIntegerFilter.bind(this);
         this.renderTagFilter = this.renderTagFilter.bind(this);
@@ -142,6 +144,9 @@ export default class CreateUsersThread extends Component {
                     case 'double_multiple_choices':
                         filter = this.renderDoubleMultipleChoicesFilter(defaultFilters[key], key, filters[key], selected);
                         break;
+                    case 'choice_and_multiple_choices':
+                        filter = this.renderChoiceAndMultipleChoicesFilter(defaultFilters[key], key, filters[key], selected);
+                        break;
                     case 'tags_and_multiple_choices':
                         filter = this.renderTagsAndMultipleChoicesFilter(defaultFilters[key], key, filters[key], selected, tags);
                         break;
@@ -232,6 +237,19 @@ export default class CreateUsersThread extends Component {
                                          handleClickRemoveFilter={this.handleClickRemoveFilter}
                                          handleChangeFilter={this.handleChangeFilter}
                                          handleClickFilter={this.handleClickFilter}
+            />
+        );
+    }
+
+    renderChoiceAndMultipleChoicesFilter(filter, key, data, selected) {
+        return (
+            <ChoiceAndMultipleChoicesFilter filterKey={key}
+                                            filter={filter}
+                                            data={data}
+                                            selected={selected}
+                                            handleClickRemoveFilter={this.handleClickRemoveFilter}
+                                            handleChangeFilter={this.handleChangeFilter}
+                                            handleClickFilter={this.handleClickFilter}
             />
         );
     }

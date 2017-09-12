@@ -10,7 +10,7 @@ www/**.*
 !www/.gitkeep
 
 # npm
-node_modules/
+node_modules
 
 # config
 src/js/config/config.js

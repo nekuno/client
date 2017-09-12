@@ -61,6 +61,8 @@ export default class CardUserList extends Component {
             online={onlineUserIds.some(id => id === recommendation.id)}
             similarityOrder={similarityOrder}
             slug={recommendation.slug}
+            topLinks={recommendation.topLinks}
+            sharedLinks={recommendation.sharedLinks}
         />
     }
 

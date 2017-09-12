@@ -93,7 +93,17 @@ class FilterStore extends BaseStore {
                 return textArray.length > 0 ? filter.label + ' - ' + textArray.join(', ') : filter.label;
             case 'double_multiple_choices':
                 data = data || [];
-                textArray = data.map(value => value.detail && filter.doubleChoices[value.choice][value.detail] ? filter.choices[value.choice] + ' ' + filter.doubleChoices[value.choice][value.detail] : filter.choices[value.choice]);
+                textArray = data.choices ? data.choices.map(choice => filter.choices[choice]) : [];
+                if (data.choices && data.details) {
+                    data.details.forEach(detail => textArray.push(filter.doubleChoices[data.choices[0]][detail]));
+                }
+                return textArray.length > 0 ? filter.label + ' - ' + textArray.join(', ') : filter.label;
+            case 'choice_and_multiple_choices':
+                data = data || [];
+                textArray = data.choice ? [filter.choices[data.choice]] : [];
+                if (data.choice && data.details) {
+                    data.details.forEach(detail => textArray.push(filter.doubleChoices[data.choice][detail]));
+                }
                 return textArray.length > 0 ? filter.label + ' - ' + textArray.join(', ') : filter.label;
             case 'tags':
                 return data && data.length > 0 ? filter.label + ' - ' + data.join(', ') : filter.label;
@@ -126,7 +136,9 @@ class FilterStore extends BaseStore {
             case 'multiple_choices':
                 return data && data.length > 0;
             case 'double_multiple_choices':
-                return data && data.length > 0;
+                return data && data.choices && data.choices.length > 0;
+            case 'choice_and_multiple_choices':
+                return data && data.choice;
             case 'tags':
                 return data && data.length > 0;
             case 'tags_and_choice':

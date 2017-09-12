@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import ProgressBar from './ProgressBar';
 import Button from './Button';
 import Image from './Image';
+import CardUserTopLinks from '../recommendations/CardUserTopLinks';
 import * as UserActionCreators from '../../actions/UserActionCreators'
 import translate from '../../i18n/Translate';
 
@@ -30,6 +31,8 @@ export default class CardUser extends Component {
         handleSelectProfile: PropTypes.func,
         online             : PropTypes.bool,
         similarityOrder    : PropTypes.bool,
+        topLinks           : PropTypes.array,
+        sharedLinks        : PropTypes.number,
 
         // Injected by @translate:
         strings       : PropTypes.object
@@ -67,7 +70,7 @@ export default class CardUser extends Component {
     }
 
     render() {
-        const {location, canSendMessage, like, hideLikeButton, photo, userId, username, matching, similarity, age, online, similarityOrder, strings} = this.props;
+        const {location, canSendMessage, like, hideLikeButton, photo, userId, username, matching, similarity, age, online, similarityOrder, topLinks, sharedLinks, strings} = this.props;
         const subTitle = <div><span className="icon-marker"></span>{location.substr(0, 15)}{location.length > 15 ? '...' : ''} - {strings.age}: {age}</div>;
         const messageButton = canSendMessage ? <span className="icon-message" onClick={this.handleMessage}></span> : '';
         const likeButtonText = like === null ? strings.saving : like ? strings.unlike : strings.like;
@@ -78,35 +81,47 @@ export default class CardUser extends Component {
         return (
             <div className="card person-card" onClick={this.handleGoToProfile}>
                 <div className="card-header">
-                    <div className="card-title">
-                        {username}
+                    <div className="card-content">
+                        <div className="card-content-inner">
+                            {like ?
+                                <div className="like-icon-container"><span className="icon-star"></span></div>
+                                : null
+                            }
+                            <div className="image fixed-max-height-image">
+                                <Image src={imgSrc} defaultSrc={defaultSrc}/>
+                            </div>
+                        </div>
                     </div>
+                </div>
+                <CardUserTopLinks topLinks={topLinks} sharedLinks={sharedLinks} onClick={this.handleGoToProfile}/>
+                {/*<div className="card-header">
+
                     <div className="card-sub-title">
                         {subTitle}
                     </div>
                     {online ? <div className="online-status">Online</div> : null}
-                    {/*<div className="send-message-button icon-wrapper">*/}
-                    {/*{messageButton}*/}
-                    {/*</div>*/}
-                </div>
-                <div className="card-content">
-                    <div className="card-content-inner">
-                        <div className="image fixed-max-height-image">
-                            <Image src={imgSrc} defaultSrc={defaultSrc}/>
-                        </div>
-                        <div className="matching">
-                            <ProgressBar percentage={similarityOrder ? similarity : matching}/>
-                        </div>
+                    <div className="send-message-button icon-wrapper">
+                    {messageButton}
                     </div>
-                </div>
-                <div className={like ? "card-footer liked" : "card-footer"}>
-                    {like ?
-                        <div className="like-icon-container"><span className="icon-star"></span></div>
-                        :
+                </div>*/}
+                <div className={"card-footer"}>
+                    <div>
+                        <div className="card-title">
+                            {username}
+                        </div>
                         <div className="matching-value">
                             <div className="matching-string">{similarityOrder ? strings.similarity : strings.matching}</div><div className="matching-percentage">{similarityOrder ? similarity ? similarity + '%' : '0%' : matching ? matching + '%' : '0%'}</div>
                         </div>
-                    }
+                        <div className={similarityOrder ? "similarity-progress" : "matching-progress"}>
+                            <ProgressBar percentage={similarityOrder ? similarity : matching}/>
+                        </div>
+                        <div className="matching-value">
+                            <div className="matching-string">{similarityOrder ? strings.matching : strings.similarity}</div><div className="matching-percentage">{similarityOrder ? matching ? matching + '%' : '0%' : similarity ? similarity + '%' : '0%'}</div>
+                        </div>
+                        <div className={similarityOrder ? "matching-progress" : "similarity-progress"}>
+                            <ProgressBar percentage={similarityOrder ? matching : similarity}/>
+                        </div>
+                    </div>
                 </div>
             </div>
         );

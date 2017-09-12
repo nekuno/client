@@ -355,7 +355,7 @@ export default {
         coincidences       : 'Coincidencias',
         similarInterests   : 'Intereses similares',
         compatibility      : 'Compatibilidad',
-        similarity         : 'Similitud',
+        similarity         : 'Similaridad',
         calculatingMatching: 'Calculando compatibilidad...'
     },
     ProfileData                      : {
@@ -480,12 +480,12 @@ export default {
         title                   : 'Estamos reprocesando tus datos',
         registrationTitle       : 'Estamos analizando tus datos',
         linksTitle              : 'Procesando enlaces',
-        similarityTitle         : 'Calculando similitud',
+        similarityTitle         : 'Calculando similaridad',
         matchingTitle           : 'Calculando compatibilidad',
         affinityTitle           : 'Calculando afinidad',
         threadsTitle            : 'Creando más ovillos',
         linksPreparingTitle     : 'Preparando para procesar enlaces',
-        similarityPreparingTitle: 'Preparando para calcular similitud',
+        similarityPreparingTitle: 'Preparando para calcular similaridad',
         matchingPreparingTitle  : 'Preparando para calcular compatibilidad',
         affinityPreparingTitle  : 'Preparando para calcular afinidad',
         registerWorkersFinish   : '¡Felicidades! Los procesos de registro han finalizado'

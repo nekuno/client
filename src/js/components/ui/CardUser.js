@@ -110,16 +110,16 @@ export default class CardUser extends Component {
                             {username}
                         </div>
                         <div className="matching-value">
-                            <div className="matching-string">{similarityOrder ? strings.similarity : strings.matching}</div><div className="matching-percentage">{similarityOrder ? similarity ? similarity + '%' : '0%' : matching ? matching + '%' : '0%'}</div>
+                            <div className="matching-string">{strings.matching}</div><div className="matching-percentage">{matching ? matching + '%' : '0%'}</div>
                         </div>
-                        <div className={similarityOrder ? "similarity-progress" : "matching-progress"}>
-                            <ProgressBar percentage={similarityOrder ? similarity : matching}/>
+                        <div className="matching-progress">
+                            <ProgressBar percentage={matching}/>
                         </div>
                         <div className="matching-value">
-                            <div className="matching-string">{similarityOrder ? strings.matching : strings.similarity}</div><div className="matching-percentage">{similarityOrder ? matching ? matching + '%' : '0%' : similarity ? similarity + '%' : '0%'}</div>
+                            <div className="matching-string">{strings.similarity}</div><div className="matching-percentage">{similarity ? similarity + '%' : '0%'}</div>
                         </div>
-                        <div className={similarityOrder ? "matching-progress" : "similarity-progress"}>
-                            <ProgressBar percentage={similarityOrder ? matching : similarity}/>
+                        <div className="similarity-progress">
+                            <ProgressBar percentage={similarity}/>
                         </div>
                     </div>
                 </div>

@@ -30,7 +30,6 @@ export default class CardUser extends Component {
         profile            : PropTypes.object.isRequired,
         handleSelectProfile: PropTypes.func,
         online             : PropTypes.bool,
-        similarityOrder    : PropTypes.bool,
         topLinks           : PropTypes.array,
         sharedLinks        : PropTypes.number,
 
@@ -70,7 +69,7 @@ export default class CardUser extends Component {
     }
 
     render() {
-        const {location, canSendMessage, like, hideLikeButton, photo, userId, username, matching, similarity, age, online, similarityOrder, topLinks, sharedLinks, strings} = this.props;
+        const {location, canSendMessage, like, hideLikeButton, photo, userId, username, matching, similarity, age, online, topLinks, sharedLinks, strings} = this.props;
         const subTitle = <div><span className="icon-marker"></span>{location.substr(0, 15)}{location.length > 15 ? '...' : ''} - {strings.age}: {age}</div>;
         const messageButton = canSendMessage ? <span className="icon-message" onClick={this.handleMessage}></span> : '';
         const likeButtonText = like === null ? strings.saving : like ? strings.unlike : strings.like;

@@ -72,7 +72,6 @@ function getState(props) {
         recommendations = RecommendationStore.get(threadId) ? RecommendationStore.get(threadId) : [];
     }
     const networks = WorkersStore.getAll();
-    const similarityOrder = thread && thread.filters && thread.filters.userFilters && thread.filters.userFilters.order === 'similarity' || false;
     const isThreadGroup = thread.groupId !== null;
     const recommendationUrl = RecommendationStore.getRecommendationUrl(threadId);
     const isInitialRequest = RecommendationStore.isInitialRequestUrl(recommendationUrl, threadId);
@@ -88,7 +87,6 @@ function getState(props) {
         isLoadingRecommendations,
         isLoadingThread,
         networks,
-        similarityOrder,
         isThreadGroup,
         recommendationUrl,
         isInitialRequest,
@@ -116,7 +114,6 @@ export default class DiscoverPage extends Component {
         isLoadingRecommendations: PropTypes.bool,
         isLoadingThread         : PropTypes.bool,
         networks                : PropTypes.array.isRequired,
-        similarityOrder         : PropTypes.bool.isRequired,
         isThreadGroup           : PropTypes.bool,
         recommendationUrl       : PropTypes.string,
         isInitialRequest        : PropTypes.bool,
@@ -260,7 +257,7 @@ export default class DiscoverPage extends Component {
     }
 
     render() {
-        const {user, profile, strings, recommendations, thread, isLoadingRecommendations, similarityOrder, isThreadGroup} = this.props;
+        const {user, profile, strings, recommendations, thread, isLoadingRecommendations, isThreadGroup} = this.props;
         const title = isThreadGroup ? thread.name : strings.discover;
 
         return (
@@ -273,7 +270,7 @@ export default class DiscoverPage extends Component {
                         <div id="page-content">
                             {profile ?
                                 <CardUserList firstItems={this.getFirstItems.bind(this)()} recommendations={recommendations} user={user} profile={profile}
-                                              handleSelectProfile={this.selectProfile} similarityOrder={similarityOrder} onBottomScroll={this.onBottomScroll} isLoading={isLoadingRecommendations}/>
+                                              handleSelectProfile={this.selectProfile} onBottomScroll={this.onBottomScroll} isLoading={isLoadingRecommendations}/>
                                 :
                                 this.getEmptyMessage(this.props, true)
                             }

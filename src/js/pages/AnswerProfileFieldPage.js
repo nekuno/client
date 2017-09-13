@@ -5,6 +5,7 @@ import EmptyMessage from '../components/ui/EmptyMessage';
 import BirthdayField from '../components/fieldsQuestions/profileFields/BirthdayField';
 import LocationField from '../components/fieldsQuestions/profileFields/LocationField';
 import GenderField from '../components/fieldsQuestions/profileFields/GenderField';
+import ObjectivesField from '../components/fieldsQuestions/profileFields/ObjectivesField';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
@@ -106,7 +107,15 @@ export default class AnswerProfileFieldPage extends Component {
             nekunoApp.alert(nextProps.errors);
         }
         if (nextProps.profileQuestionsComplete) {
-            window.setTimeout(() =>  { RouterActionCreators.replaceRoute('answer-question/next') }, 0);
+            if (nextProps.questionNumber >= nextProps.totalQuestions) {
+                window.setTimeout(() => {
+                    this.context.router.push('discover');
+                }, 0);
+            } else {
+                window.setTimeout(() => {
+                    RouterActionCreators.replaceRoute('answer-question/next')
+                }, 0);
+            }
         }
     }
 
@@ -130,7 +139,7 @@ export default class AnswerProfileFieldPage extends Component {
     render() {
 
         const {profile, metadata, strings, nextProfileField, totalQuestions, questionNumber} = this.props;
-        const navBarTitle = typeof profile != 'undefined' ?
+        const navBarTitle = typeof profile != 'undefined' && totalQuestions > questionNumber ?
             strings.question + ' ' + questionNumber + '/' + totalQuestions
             : '';
         let fieldToRender = null;
@@ -139,15 +148,17 @@ export default class AnswerProfileFieldPage extends Component {
             case 'birthday':
                 fieldToRender = <BirthdayField birthday={profile && profile.birthday ? profile.birthday : ''} onSaveHandler={this.handleClickSave} />;
                 break;
-
             case 'location':
                 fieldToRender = <LocationField location={profile && profile.location ? profile.location : ''} onSaveHandler={this.handleClickSave} />;
                 break;
-
             case 'gender':
                 fieldToRender = <GenderField gender={profile && profile.gender ? profile.gender : null} metadata={metadata} onSaveHandler={this.handleClickGenderSave} />;
                 break;
-            
+            case 'objective':
+                fieldToRender = <ObjectivesField objectives={profile && profile.objective ? profile.objective : []} metadata={metadata} onSaveHandler={this.handleClickSave}
+                    isJustRegistered={totalQuestions > questionNumber}
+                />;
+                break;
             default:
         }
 

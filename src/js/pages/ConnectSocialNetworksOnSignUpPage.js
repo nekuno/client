@@ -47,7 +47,7 @@ export default class ConnectSocialNetworksOnSignUpPage extends Component {
     }
 
     goToRegisterLandingPage() {
-        RouterActionCreators.replaceRoute('register-questions-landing');
+        RouterActionCreators.replaceRoute('/register-questions-landing');
     }
 
     render() {

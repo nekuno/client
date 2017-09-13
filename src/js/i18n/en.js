@@ -406,6 +406,13 @@ export default {
         title   : 'In what population do you live?',
         save    : 'Save'
     },
+    ObjectivesField                  : {
+        title            : 'What are you objectives at Nekuno?',
+        existingUserTitle: 'We are improving your recommendations. Please select your objectives at Nekuno',
+        minObjectives    : 'The minimum number of options permitted is 1, check any option and save',
+        objectives       : 'Select your objectives',
+        save             : 'Save'
+    },
     AcceptedAnswersImportance        : {
         title     : 'This answer matters to me:',
         irrelevant: 'Irrelevant',

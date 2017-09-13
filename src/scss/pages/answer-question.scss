@@ -15,6 +15,9 @@ body #root .App .view .page {
           font-size: 1.2em;
         }
       }
+      .objectives-field .text-checkboxes .chip {
+        margin: 5px;
+      }
       .answer-question-form {
         form {
           .disabled {

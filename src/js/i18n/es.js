@@ -407,6 +407,13 @@ export default {
         title   : '¿En qué población vives?',
         save    : 'Guardar'
     },
+    ObjectivesField                  : {
+        title            : '¿Cuáles son tus objetivos en Nekuno?',
+        existingUserTitle: 'Estamos mejorando tus recomendaciones. Por favor, selecciona tus objetivos en Nekuno',
+        minObjectives    : 'El número mínimo de opciones es 1, selecciona alguna opción y guarda',
+        objectives       : 'Selecciona tus objetivos',
+        save             : 'Guardar'
+    },
     AcceptedAnswersImportance        : {
         title     : '¿Qué importancia tiene esta pregunta para ti?',
         irrelevant: 'Irrelevante',

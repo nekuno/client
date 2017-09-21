@@ -25,24 +25,26 @@ export default class ObjectivesField extends Component {
     }
     
     handleClickSave() {
-        const {strings} = this.props;
+        const {metadata, strings} = this.props;
         const {objectives} = this.state;
-        if (objectives.length < 1) {
-            nekunoApp.alert(strings.minObjectives);
+        const objectiveMetadata = metadata.objective;
+        if (objectiveMetadata && objectiveMetadata.min_choices && objectives.length < objectiveMetadata.min_choices) {
+            nekunoApp.alert(strings.minObjectives.replace('%min%', objectiveMetadata.min_choices));
             return;
         }
         this.props.onSaveHandler('objective', objectives);
     }
 
     onClickObjective(objective) {
-        const {strings} = this.props;
+        const {metadata, strings} = this.props;
         const {objectives} = this.state;
+        const objectiveMetadata = metadata.objective;
         let objectivesClone = objectives.slice(0);
         const objectiveIndex = objectivesClone.findIndex(obj => obj === objective);
 
         if (objectiveIndex !== -1) {
-            if (objectivesClone.length <= 1) {
-                nekunoApp.alert(strings.minObjectives);
+            if (objectiveMetadata && objectiveMetadata.min_choices && objectivesClone.length <= objectiveMetadata.min_choices) {
+                nekunoApp.alert(strings.minObjectives.replace('%min%', objectiveMetadata.min_choices));
                 return;
             }
             objectivesClone.splice(objectiveIndex, 1);
@@ -97,7 +99,7 @@ ObjectivesField.defaultProps = {
     strings: {
         title            : 'What are you objectives at Nekuno?',
         existingUserTitle: 'We are improving your recommendations. Please select your objectives at Nekuno',
-        minObjectives    : 'The minimum number of options permitted is 1, check any option and save',
+        minObjectives    : 'The minimum number of options permitted is %min%, check any option and save',
         objectives       : 'Select your objectives',
         save             : 'Save'
     }

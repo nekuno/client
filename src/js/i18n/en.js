@@ -409,7 +409,7 @@ export default {
     ObjectivesField                  : {
         title            : 'What are you objectives at Nekuno?',
         existingUserTitle: 'We are improving your recommendations. Please select your objectives at Nekuno',
-        minObjectives    : 'The minimum number of options permitted is 1, check any option and save',
+        minObjectives    : 'The minimum number of options permitted is %min%, check any option and save',
         objectives       : 'Select your objectives',
         save             : 'Save'
     },
@@ -617,6 +617,10 @@ export default {
         maxValue   : 'The maximum value is ',
         value      : 'This value must be an integer',
         placeholder: 'Type a number'
+    },
+    MultipleChoicesEdit              : {
+        minChoices: 'Select at least %min% items',
+        maxChoices: 'Select up to %max% items'
     },
     TagEdit                          : {
         placeholder: 'Type a keyword',

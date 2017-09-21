@@ -410,7 +410,7 @@ export default {
     ObjectivesField                  : {
         title            : '¿Cuáles son tus objetivos en Nekuno?',
         existingUserTitle: 'Estamos mejorando tus recomendaciones. Por favor, selecciona tus objetivos en Nekuno',
-        minObjectives    : 'El número mínimo de opciones es 1, selecciona alguna opción y guarda',
+        minObjectives    : 'El número mínimo de opciones es %min%, selecciona alguna opción y guarda',
         objectives       : 'Selecciona tus objetivos',
         save             : 'Guardar'
     },
@@ -618,6 +618,10 @@ export default {
         maxValue   : 'El valor máximo es ',
         value      : 'Este valor debe ser un número entero',
         placeholder: 'Escribe un número'
+    },
+    MultipleChoicesEdit              : {
+        minChoices: 'Selecciona al menos %min% opciones',
+        maxChoices: 'Selecciona %max% opciones como máximo'
     },
     TagEdit                          : {
         placeholder: 'Escribe una palabra',

@@ -81,6 +81,7 @@ export default class DateInput extends Component {
         const today = new Date();
         const maxDate = new Date(Number(today) - (24*60*60*1000) * 365 * 18);
         const minDate = new Date(Number(today) - (24*60*60*1000) * 365 * 110);
+        const defaultDate = maxDate - (24*60*60*1000) * 365 * 5;
 
         return (
             !selected ?
@@ -96,7 +97,7 @@ export default class DateInput extends Component {
                     width={"100%"}
                     height={250}
                     className={"date-input"}
-                    selected={value ? value : maxDate}
+                    selected={value || defaultDate}
                     min={minDate}
                     max={maxDate}
                     minDate={minDate}

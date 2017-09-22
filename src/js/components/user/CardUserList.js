@@ -28,7 +28,6 @@ export default class CardUserList extends Component {
         profile            : PropTypes.object.isRequired,
         handleSelectProfile: PropTypes.func.isRequired,
         onBottomScroll     : PropTypes.func,
-        similarityOrder    : PropTypes.bool,
         isLoading          : PropTypes.bool,
         //Injected by connectToStores
         onlineUserIds      : PropTypes.array,
@@ -41,7 +40,7 @@ export default class CardUserList extends Component {
     }
 
     buildCardUser(recommendation, index) {
-        const {user, profile, onlineUserIds, similarityOrder, handleSelectProfile} = this.props;
+        const {user, profile, onlineUserIds, handleSelectProfile} = this.props;
 
         return <CardUser
             key={index}
@@ -59,7 +58,6 @@ export default class CardUserList extends Component {
             profile={profile}
             handleSelectProfile={handleSelectProfile}
             online={onlineUserIds.some(id => id === recommendation.id)}
-            similarityOrder={similarityOrder}
             slug={recommendation.slug}
             topLinks={recommendation.topLinks}
             sharedLinks={recommendation.sharedLinks}

@@ -201,7 +201,7 @@ export default class ChatMessagesPage extends Component {
                 list.removeEventListener('scroll', this.handleScroll, false);
                 this.setState({noMoreMessages: true});
             } else {
-                list.scrollTop = 150;
+                list.scrollTop = 1;
                 ChatActionCreators.getMessages(otherUserId, messages.length);
             }
         }

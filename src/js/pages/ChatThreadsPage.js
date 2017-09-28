@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import TopNavBar from '../components/ui/TopNavBar';
 import LastMessage from '../components/ui/LastMessage';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
-import InfiniteAnyHeight from '../components/scroll/InfiniteAnyHeight.jsx';
 import ChatThreadStore from '../stores/ChatThreadStore';
 import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';

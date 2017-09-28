@@ -1,8 +1,11 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import Question from './Question';
-import InfiniteScroll from "../scroll/InfiniteScroll";
+import EmptyMessage from '../ui/EmptyMessage';
+import Scroll from "../scroll/Scroll";
+import translate from '../../i18n/Translate';
 
+@translate('QuestionList')
 export default class QuestionList extends Component {
     static propTypes = {
         questions            : PropTypes.object.isRequired,
@@ -31,10 +34,10 @@ export default class QuestionList extends Component {
     }
 
     getQuestions() {
-        const {questions, userSlug, ownPicture, defaultPicture, onTimerEnd} = this.props;
+        const {questions, userSlug, ownPicture, defaultPicture, onTimerEnd, isLoadingOwnQuestions, strings} = this.props;
 
         const questionComponents = Object.keys(questions).map((questionId, index) =>
-            <div className="question-list">
+            <div key={index} className="question-list">
                 <Question userSlug={userSlug}
                           userAnswer={questions[questionId].userAnswer}
                           ownPicture={ownPicture}
@@ -49,20 +52,27 @@ export default class QuestionList extends Component {
                 />
             </div>);
 
-        return questionComponents;
+        return isLoadingOwnQuestions && questionComponents.length === 0 ?
+            [<div key="empty-message"><EmptyMessage text={strings.loading} loadingGif={true}/></div>]
+            : questionComponents;
     }
 
     render() {
         return (
-            <InfiniteScroll
+            <Scroll
                 items={this.getQuestions()}
                 firstItems={this.props.firstItems}
-                // preloadAdditionalHeight={window.innerHeight*2}
-                // useWindowAsScrollContainer
-                onInfiniteLoad={this.props.onBottomScroll}
+                onLoad={this.props.onBottomScroll}
                 containerId="questions-view-main"
                 loading={this.props.isLoadingOwnQuestions}
+                columns={1}
             />
         );
     }
 }
+
+QuestionList.defaultProps = {
+    strings : {
+        loading: 'Loading questions'
+    }
+};

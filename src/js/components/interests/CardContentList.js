@@ -1,8 +1,11 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import CardContent from '../ui/CardContent';
-import InfiniteScroll from '../scroll/InfiniteScroll';
+import EmptyMessage from '../ui/EmptyMessage';
+import Scroll from '../scroll/Scroll';
+import translate from '../../i18n/Translate';
 
+@translate('CardContentList')
 export default class CardContentList extends Component {
     static propTypes = {
         firstItems    : PropTypes.array,
@@ -30,12 +33,20 @@ export default class CardContentList extends Component {
         const {userId, otherUserId} = this.props;
 
         return <CardContent key={index} hideLikeButton={false} {...content} loggedUserId={userId} otherUserId={otherUserId}
-                            embed_id={content.embed ? content.embed.id : null} embed_type={content.embed ? content.embed.type : null}
-                            fixedHeight={true} onReport={this.onReport}/>
+                         embed_id={content.embed ? content.embed.id : null} embed_type={content.embed ? content.embed.type : null}
+                         fixedHeight={true} onReport={this.onReport}/>
+        ;
     }
 
     getCardContents() {
-        return this.props.contents.map((content, index) => {
+        const {contents, isLoading, strings} = this.props;
+
+        if (contents.length == 0) {
+            return isLoading ?
+                [<div key="empty-message"><EmptyMessage text={strings.loading} loadingGif={true}/></div>]
+                : [<div key="empty-message"><EmptyMessage text={strings.empty} loadingGif={false}/></div>];
+        }
+        return contents.map((content, index) => {
             return this.buildCardContent(content, index);
         });
     }
@@ -43,13 +54,11 @@ export default class CardContentList extends Component {
     render() {
         return (
             <div className="content-list">
-                <InfiniteScroll
+                <Scroll
                     items = {this.getCardContents()}
                     firstItems={this.props.firstItems}
                     columns = {2}
-                    // preloadAdditionalHeight={window.innerHeight*2}
-                    // useWindowAsScrollContainer
-                    onInfiniteLoad={this.props.onBottomScroll}
+                    onLoad={this.props.onBottomScroll}
                     containerId="interests-view-main"
                     loading = {this.props.isLoading}
                 />
@@ -59,6 +68,10 @@ export default class CardContentList extends Component {
 }
 
 CardContentList.defaultProps = {
+    strings         : {
+        loading: 'Loading interests',
+        empty  : 'No interests'
+    },
     'firstItems'    : [],
     'onBottomScroll': () => {
     },

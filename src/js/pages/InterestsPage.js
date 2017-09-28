@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import TopNavBar from '../components/ui/TopNavBar';
 import ToolBar from '../components/ui/ToolBar';
-import EmptyMessage from '../components/ui/EmptyMessage';
 import CardContentList from '../components/interests/CardContentList';
 import FilterContentButtonsList from '../components/ui/FilterContentButtonsList';
 import SocialNetworksBanner from '../components/socialNetworks/SocialNetworksBanner';
@@ -71,14 +70,20 @@ export default class InterestsPage extends Component {
         this.onFilterTypeClick = this.onFilterTypeClick.bind(this);
     }
 
+    componentDidUpdate(prevProps) {
+        const {user, requestInterestsUrl, type} = this.props;
+
+        if (type !== prevProps.type) {
+            InterestsActionCreators.requestOwnInterests(parseId(user), requestInterestsUrl);
+        }
+    }
+
     onBottomScroll() {
         const {requestInterestsUrl, user} = this.props;
         const userId = parseId(user);
 
         if (requestInterestsUrl) {
-            return InterestsActionCreators.requestOwnInterests(userId, requestInterestsUrl);
-        } else {
-            return Promise.resolve();
+            InterestsActionCreators.requestOwnInterests(userId, requestInterestsUrl);
         }
     }
 
@@ -98,36 +103,30 @@ export default class InterestsPage extends Component {
                                          imagesCount={totals.Image}
                                          channelsCount={totals.Creator}
                                          loading={isLoadingOwnInterests}
-                                         onFilter={this.onFilter}
                                          type={type}
         />
     }
 
-    onFilterTypeClick(type) {
-        InterestsActionCreators.setType(type);
+    onFilterTypeClick(pressedType) {
+        const {type} = this.props;
+
+        if (type !== pressedType) {
+            InterestsActionCreators.setType(pressedType);
+        }
     }
 
     getFirstItems() {
-        const {isLoadingOwnInterests, noInterests, strings, type} = this.props;
+        const {isLoadingOwnInterests, noInterests, type} = this.props;
 
-        const banner = this.getBanner(this.props);
+        const banner = <div key="banner">{this.getBanner(this.props)}</div>;
         let firstItems = [banner];
 
-        if (noInterests && !isLoadingOwnInterests && type === '') {
-            firstItems.push(this.getEmptyMessage(strings.empty));
-        } else {
-            const filterButtons = this.getFilterButtons.bind(this)();
+        if (!noInterests || isLoadingOwnInterests || type !== '') {
+            const filterButtons = <div key="filter-buttons">{this.getFilterButtons.bind(this)()}</div>;
             firstItems.push(filterButtons);
-            if (noInterests && !isLoadingOwnInterests) {
-                //     firstItems.push(this.getEmptyMessage(strings.empty));
-            }
         }
 
         return firstItems;
-    }
-
-    getEmptyMessage(text) {
-        return <EmptyMessage text={text}/>;
     }
 
     render() {

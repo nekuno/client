@@ -78,7 +78,7 @@ class QuestionStore extends BaseStore {
                 const otherUserId = action.otherUserId;
                 Object.keys(items).forEach(index => {
                     const userId = items[index].userId;
-                    const questions = items[index].questions || [];
+                    const questions = items[index].questions || {};
                     this._setQuestionsOrder(otherUserId, questions);
 
                     newItems[userId] = questions;

@@ -228,10 +228,10 @@ export default class DiscoverPage extends Component {
 
     getFirstItems() {
         let firstItems = [
-            this.renderChipList.bind(this)(),
-            this.getEditButton.bind(this)(),
-            this.getBanner.bind(this)(),
-            this.getProcessesProgress.bind(this)()
+            <div key="chip-list">{this.renderChipList.bind(this)()}</div>,
+            <div key="edit-button">{this.getEditButton.bind(this)()}</div>,
+            <div key="banner">{this.getBanner.bind(this)()}</div>,
+            <div key="processes-progress">{this.getProcessesProgress.bind(this)()}</div>
         ];
 
         const noRecommendations = this.props.recommendations.length === 0;
@@ -248,7 +248,7 @@ export default class DiscoverPage extends Component {
     getEmptyMessage(props, loadingGif) {
         const text = this.getEmptyMessageText(props);
 
-        return <EmptyMessage text={text} loadingGif={loadingGif}/>;
+        return <div key="empty-message"><EmptyMessage text={text} loadingGif={loadingGif}/></div>;
     }
 
     getEmptyMessageText(props) {

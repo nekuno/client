@@ -432,7 +432,8 @@ export default {
         loading: 'Cargando preguntas'
     },
     OtherQuestionList                : {
-        loading: 'Cargando preguntas'
+        loading: 'Cargando preguntas',
+        empty  : 'No hay preguntas'
     },
     OtherQuestion                    : {
         didntAnswered: 'No has contestado a esta pregunta'
@@ -504,6 +505,10 @@ export default {
     },
     MessagesToolBarDisabled          : {
         forbidden: 'Este usuario no acepta mensajes'
+    },
+    CardContentList                  : {
+        loading: 'Cargando intereses',
+        empty  : 'No hay intereses'
     },
     CardContent                      : {
         like             : 'Me interesa',

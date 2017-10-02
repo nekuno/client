@@ -1,16 +1,18 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { ScrollContainer } from 'react-router-scroll';
+import LoadingSpinnerCSS from '../ui/LoadingSpinnerCSS';
 
 export default class Scroll extends Component {
 
     static propTypes = {
-        containerId   : PropTypes.string.isRequired,
-        firstItems    : PropTypes.array,
-        items         : PropTypes.array,
-        columns       : PropTypes.number,
-        onLoad        : PropTypes.func,
-        loading       : PropTypes.bool,
+        containerId: PropTypes.string.isRequired,
+        firstItems : PropTypes.array,
+        items      : PropTypes.array,
+        columns    : PropTypes.number,
+        onLoad     : PropTypes.func,
+        loading    : PropTypes.bool,
+        useSpinner : PropTypes.bool,
     };
 
     static contextTypes = {
@@ -72,7 +74,8 @@ export default class Scroll extends Component {
     }
 
     getLoadingGif() {
-        return this.props.loading ? <div className="loading-gif"></div> : '';
+        const {loading, useSpinner} = this.props;
+        return loading ? useSpinner ? <LoadingSpinnerCSS/> : <div className="loading-gif"></div> : '';
     }
 
     handleScroll() {
@@ -183,10 +186,11 @@ export default class Scroll extends Component {
 }
 
 Scroll.defaultProps = {
-    onLoad: () => {},
-    firstItems    : [],
-    items         : [],
-    itemHeight    : 360,
-    columns       : 1,
-    loading       : false,
+    onLoad    : () => {
+    },
+    firstItems: [],
+    items     : [],
+    itemHeight: 360,
+    columns   : 1,
+    loading   : false,
 };

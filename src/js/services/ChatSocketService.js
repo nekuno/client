@@ -15,6 +15,10 @@ class ChatSocketService extends SocketService {
         });
     }
 
+    getThreadsMessages(offset, limit) {
+        this._socket.emit('getThreadsMessages', offset, limit);
+    }
+
     getMessages(userId, offset) {
         this._socket.emit('getMessages', userId, offset, () => {
             ChatActionsCreators.noMoreMessages(userId);
@@ -40,8 +44,12 @@ class ChatSocketService extends SocketService {
         socket.on('userStatus', function(user, status) {
             ChatActionsCreators.userStatus(user, status);
         });
+
+        socket.on('connect', function() {
+            ChatActionsCreators.getThreadsMessages(0, 10);
+        });
     }
 
 }
 
-export default new ChatSocketService();
+export default new ChatSocketService;

@@ -438,7 +438,8 @@ export default {
         loading: 'Loading questions'
     },
     OtherQuestionList                : {
-        loading: 'Loading questions'
+        loading: 'Loading questions',
+        empty  : 'No questions'
     },
     OtherQuestion                    : {
         didntAnswered: 'You have not answered this question'
@@ -510,6 +511,10 @@ export default {
     },
     MessagesToolBarDisabled          : {
         forbidden: 'This user does not accept messages right now'
+    },
+    CardContentList                  : {
+        loading: 'Loading interests',
+        empty  : 'No interests'
     },
     CardContent                      : {
         like             : 'Like',

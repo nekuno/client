@@ -7,6 +7,10 @@ class ChatThreadStore extends BaseStore {
 
     setInitial() {
         this._threads = [];
+        this._offset = 0;
+        this._limit = 10;
+        this._loading = true;
+        this._noMoreMessages = false;
     }
 
     _registerToActions(action) {
@@ -19,10 +23,20 @@ class ChatThreadStore extends BaseStore {
             case ActionTypes.CHAT_MARK_AS_READED:
             case ActionTypes.CHAT_MESSAGES:
                 this._addThreads(ChatMessageStore.getAll());
+                this._loading = false;
+                this.emitChange();
+                break;
+
+            case ActionTypes.CHAT_GET_THREADS_MESSAGES:
+                this._offset = action.offset;
+                this._limit = action.limit;
+                this._loading = true;
                 this.emitChange();
                 break;
 
             case ActionTypes.CHAT_NO_MESSAGES:
+                this._loading = false;
+                this._noMoreMessages = true;
                 this.emitChange();
                 break;
 
@@ -61,10 +75,27 @@ class ChatThreadStore extends BaseStore {
             return 0;
         });
 
+        this._offset = this._threads.length;
     }
 
     getThreads() {
         return this._threads;
+    }
+
+    getOffset() {
+        return this._offset;
+    }
+
+    getLimit() {
+        return this._limit;
+    }
+
+    getLoading() {
+        return this._loading;
+    }
+
+    getNoMoreMessages() {
+        return this._noMoreMessages;
     }
 
     hasUnread() {

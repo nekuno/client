@@ -7,7 +7,6 @@ import FilterContentButtonsList from '../components/ui/FilterContentButtonsList'
 import TextRadios from '../components/ui/TextRadios';
 import ProfilesAvatarConnection from '../components/ui/ProfilesAvatarConnection';
 import ReportContentPopup from '../components/interests/ReportContentPopup';
-import EmptyMessage from '../components/ui/EmptyMessage';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
 import popup from '../components/Popup';
@@ -111,7 +110,6 @@ export default class OtherInterestsPage extends Component {
 
     componentDidUpdate(prevProps) {
         const {user, otherUser, showOnlyCommon, type} = this.props;
-        //Change to one action to multiple api calls (a queue) instead of timeout. Maybe merging with requestUser on requestData. See https://github.com/facebook/flux/issues/47#issuecomment-54716863
         const showOnlyCommonChanged = prevProps.showOnlyCommon !== showOnlyCommon;
         const otherUserChanged = parseId(prevProps.otherUser) !== parseId(otherUser);
         const typeChanged = prevProps.type !== type;
@@ -158,10 +156,8 @@ export default class OtherInterestsPage extends Component {
         const userId = user ? parseId(user) : null;
         const otherUserId = otherUser ? parseId(otherUser) : null;
         if (userId && otherUserId && requestComparedInterestsUrl) {
-            return InterestsActionCreators.requestComparedInterests(userId, otherUserId, requestComparedInterestsUrl);
+            InterestsActionCreators.requestComparedInterests(userId, otherUserId, requestComparedInterestsUrl);
         }
-
-        return Promise.resolve();
     }
 
     onNavBarLeftLinkClick() {
@@ -194,15 +190,24 @@ export default class OtherInterestsPage extends Component {
     }
 
     onFilterCommonClick(key) {
-        InterestsActionCreators.setShowOnlyCommon(key, parseId(this.props.otherUser));
-        this.setState({
-            carousel: false
-        });
+        const {showOnlyCommon, otherUser} = this.props;
+        const otherUserId = parseId(otherUser);
+
+        if (key !== showOnlyCommon) {
+            InterestsActionCreators.setShowOnlyCommon(key, otherUserId);
+            this.setState({
+                carousel: false
+            });
+        }
     }
 
-    onFilterTypeClick(type) {
-        const otherUserId = parseId(this.props.otherUser);
-        InterestsActionCreators.setType(type, otherUserId);
+    onFilterTypeClick(pressedType) {
+        const {type, otherUser} = this.props;
+        const otherUserId = parseId(otherUser);
+
+        if (type !== pressedType) {
+            InterestsActionCreators.setType(pressedType, otherUserId);
+        }
     }
 
     onReport(contentId, reason) {
@@ -255,7 +260,7 @@ export default class OtherInterestsPage extends Component {
                                                      imagesCount={totals.Image}
                                                      channelsCount={totals.Creator}
                                                      type={type}
-        /> : '';
+        /> : null;
     }
 
     getCommonContentSwitch() {
@@ -266,10 +271,10 @@ export default class OtherInterestsPage extends Component {
     }
 
     getFirstItems() {
-        const profileAvatarsConnection = this.getProfileAvatarsConnection.bind(this)();
-        const title = this.getTitle.bind(this)();
-        const filterButtons = this.getFilterContentButtonsList.bind(this)();
-        const commonContentSwitch = this.getCommonContentSwitch.bind(this)();
+        const profileAvatarsConnection = <div key="avatars-connection">{this.getProfileAvatarsConnection.bind(this)()}</div>;
+        const title = <div key="title">{this.getTitle.bind(this)()}</div>;
+        const filterButtons = <div key="filter-buttons">{this.getFilterContentButtonsList.bind(this)()}</div>;
+        const commonContentSwitch = <div key="common-content-button">{this.getCommonContentSwitch.bind(this)()}</div>;
 
         return [
             profileAvatarsConnection,

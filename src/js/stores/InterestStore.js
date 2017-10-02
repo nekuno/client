@@ -31,13 +31,13 @@ class InterestStore extends BaseStore {
                 this.emitChange();
                 break;
             case ActionTypes.SET_CONTENTS_TYPE:
-                this.setType(action.userId, action.contentType);
                 this._resetInterests(action.userId);
+                this.setType(action.userId, action.contentType);
                 this.emitChange();
                 break;
             case ActionTypes.SET_CONTENTS_SHOWONLYCOMMON:
-                this.setShowOnlyCommon(action.userId, action.showOnlyCommon);
                 this._resetInterests(action.userId);
+                this.setShowOnlyCommon(action.userId, action.showOnlyCommon);
                 this.emitChange();
                 break;
             case ActionTypes.LIKE_CONTENT:

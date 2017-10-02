@@ -81,7 +81,7 @@ export default class QuestionsPage extends Component {
 
     getFirstItems() {
         return [
-            this.getBanner.bind(this)()
+            <div key="banner">{this.getBanner.bind(this)()}</div>
         ]
     }
 

@@ -87,7 +87,7 @@ export default class ChatThreadsPage extends Component {
                                     containerId="chat-threads-view-main"
                                     onLoad={this.onBottomScroll}
                                     loading={loading}
-                                    doNotShowGif={true}
+                                    useSpinner={true}
                                 />
                                 : null}
                         </div>

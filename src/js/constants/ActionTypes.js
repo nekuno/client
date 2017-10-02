@@ -246,13 +246,14 @@ export default keyMirror({
 
     ROUTER_NEXT_TRANSITION_PATH: null,
 
-    CHAT_MESSAGES        : null,
-    CHAT_NO_MESSAGES     : null,
-    CHAT_USER_STATUS     : null,
-    CHAT_SENDING_MESSAGE : null,
-    CHAT_GET_MESSAGES    : null,
-    CHAT_NO_MORE_MESSAGES: null,
-    CHAT_MARK_AS_READED  : null,
+    CHAT_MESSAGES            : null,
+    CHAT_GET_THREADS_MESSAGES: null,
+    CHAT_NO_MESSAGES         : null,
+    CHAT_USER_STATUS         : null,
+    CHAT_SENDING_MESSAGE     : null,
+    CHAT_GET_MESSAGES        : null,
+    CHAT_NO_MORE_MESSAGES    : null,
+    CHAT_MARK_AS_READED      : null,
 
     WORKERS_FETCH_START      : null,
     WORKERS_FETCH_FINISH     : null,

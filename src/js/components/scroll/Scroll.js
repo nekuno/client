@@ -11,6 +11,7 @@ export default class Scroll extends Component {
         columns       : PropTypes.number,
         onLoad        : PropTypes.func,
         loading       : PropTypes.bool,
+        doNotShowGif  : PropTypes.bool,
     };
 
     static contextTypes = {
@@ -72,7 +73,8 @@ export default class Scroll extends Component {
     }
 
     getLoadingGif() {
-        return this.props.loading ? <div className="loading-gif"></div> : '';
+        const {loading, doNotShowGif} = this.props;
+        return loading ? <div className="loading-gif" style={{opacity: doNotShowGif ? 0 : 1}}></div> : '';
     }
 
     handleScroll() {

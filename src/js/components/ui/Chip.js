@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 export default class Chip extends Component {
 
     static propTypes = {
-        label         : PropTypes.string.isRequired,
+        label         : PropTypes.string,
         disabled      : PropTypes.bool,
         value         : PropTypes.string,
         onClickHandler: PropTypes.func,

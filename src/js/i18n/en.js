@@ -407,11 +407,11 @@ export default {
         save    : 'Save'
     },
     ObjectivesField                  : {
-        title            : 'I want to meet compatible people for ...',
-        existingUserTitle: 'I want to meet compatible people for ...',
+        title            : 'I want to meet compatible people for...',
+        existingUserTitle: 'I want to meet compatible people for...',
         minObjectives    : 'The minimum number of options permitted is %min%, check any option and save',
         objectives       : 'Select your objectives',
-        save             : 'Save'
+        save             : 'Continue'
     },
     AcceptedAnswersImportance        : {
         title     : 'This answer matters to me:',

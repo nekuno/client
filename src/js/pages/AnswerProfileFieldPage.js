@@ -166,7 +166,7 @@ export default class AnswerProfileFieldPage extends Component {
 
         return (
             <div className="views">
-                <TopNavBar centerText={navBarTitle}/>
+                {nextProfileFiledName === 'objective' ? null : <TopNavBar centerText={navBarTitle}/>}
                 <div className="view view-main">
                     <div className={pageClass}>
                         <div id="page-content" className="answer-question-content">

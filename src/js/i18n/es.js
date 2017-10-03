@@ -408,11 +408,11 @@ export default {
         save    : 'Guardar'
     },
     ObjectivesField                  : {
-        title            : 'Quiero conocer gente compatible para ...',
-        existingUserTitle: 'Quiero conocer gente compatible para ...',
+        title            : 'Quiero conocer gente compatible para...',
+        existingUserTitle: 'Quiero conocer gente compatible para...',
         minObjectives    : 'El número mínimo de opciones es %min%, selecciona alguna opción y guarda',
         objectives       : 'Selecciona tus objetivos',
-        save             : 'Guardar'
+        save             : 'Continuar'
     },
     AcceptedAnswersImportance        : {
         title     : '¿Qué importancia tiene esta pregunta para ti?',

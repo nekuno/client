@@ -36,17 +36,11 @@ export default class ObjectivesField extends Component {
     }
 
     onClickObjective(objective) {
-        const {metadata, strings} = this.props;
         const {objectives} = this.state;
-        const objectiveMetadata = metadata.objective;
         let objectivesClone = objectives.slice(0);
         const objectiveIndex = objectivesClone.findIndex(obj => obj === objective);
 
         if (objectiveIndex !== -1) {
-            if (objectiveMetadata && objectiveMetadata.min_choices && objectivesClone.length <= objectiveMetadata.min_choices) {
-                nekunoApp.alert(strings.minObjectives.replace('%min%', objectiveMetadata.min_choices));
-                return;
-            }
             objectivesClone.splice(objectiveIndex, 1);
         } else {
             objectivesClone.push(objective);
@@ -54,32 +48,6 @@ export default class ObjectivesField extends Component {
         this.setState({
             objectives: objectivesClone
         });
-    }
-
-    getLabels(metadata) {
-        let labels = [];
-        if (metadata && metadata.objective) {
-            Object.keys(metadata.objective.choices).forEach((index) => {
-                labels.push({
-                    key: index,
-                    text: metadata.objective.choices[index]
-                });
-            });
-        }
-
-        return labels;
-    }
-
-    getTextFromObjective(objective, metadata) {
-        if (metadata && metadata.objective) {
-            Object.keys(metadata.objective.choices).forEach((index) => {
-                if (index === objective) {
-                    return metadata.objective.choices[index];
-                }
-            });
-        }
-
-        return "";
     }
 
     getIconClass(objective) {
@@ -111,7 +79,7 @@ export default class ObjectivesField extends Component {
                         {isJustRegistered ? strings.title : strings.existingUserTitle}
                     </div>
                     <div className="objectives-field">
-                        {metadata.objective ?
+                        {metadata && metadata.objective ?
                             <div className="text-checkboxes">
                                 {Object.keys(metadata.objective.choices).map((index) =>
                                     <Chip key={index} onClickHandler={this.onClickObjective.bind(this, index)} disabled={!objectives.some(value => value == index)}>
@@ -138,10 +106,10 @@ export default class ObjectivesField extends Component {
 
 ObjectivesField.defaultProps = {
     strings: {
-        title            : 'I want to meet compatible people for ...',
-        existingUserTitle: 'I want to meet compatible people for ...',
+        title            : 'I want to meet compatible people for...',
+        existingUserTitle: 'I want to meet compatible people for...',
         minObjectives    : 'The minimum number of options permitted is %min%, check any option and save',
         objectives       : 'Select your objectives',
-        save             : 'Save'
+        save             : 'Continue'
     }
 };

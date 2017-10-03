@@ -7,22 +7,24 @@ body #root .App .view .page {
   &.answer-question-page.objectives-page {
     width: 100%;
     #page-content.answer-question-content {
-      margin: auto;
+      margin: -40px auto;
       width: 100%;
 
       .answer-question-title {
+        font-size: 1.4em;
         margin: auto;
         width: 85%;
       }
       .objectives-field {
         .text-checkboxes {
+          padding: 25px 0;
           .chip {
             border-radius: 0;
             -moz-border-radius: 0;
             -webkit-border-radius: 0;
             margin: 0;
             width: 50%;
-            height: 100px;
+            height: 90px;
             padding: 20px 0;
 
             &.disabled-chip {
@@ -43,6 +45,23 @@ body #root .App .view .page {
         display: block;
       }
     }
+
+    @media only screen and (min-width: 350px) {
+      #page-content.answer-question-content {
+        .answer-question-title {
+          font-size: 1.7em;
+        }
+        .objectives-field {
+          .text-checkboxes {
+            padding: 35px 0;
+            .chip {
+              height: 100px;
+            }
+          }
+        }
+      }
+    }
+
   }
   #page-content {
     .answer-question {

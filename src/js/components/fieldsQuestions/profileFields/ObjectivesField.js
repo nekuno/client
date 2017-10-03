@@ -73,13 +73,13 @@ export default class ObjectivesField extends Component {
         const {metadata, isJustRegistered, strings} = this.props;
         const {objectives} = this.state;
         return (
-            <div>
-                <div className="answer-question">
-                    <div className="title answer-question-title">
-                        {isJustRegistered ? strings.title : strings.existingUserTitle}
-                    </div>
-                    <div className="objectives-field">
-                        {metadata && metadata.objective ?
+            metadata && metadata.objective ?
+                <div>
+                    <div className="answer-question">
+                        <div className="title answer-question-title">
+                            {isJustRegistered ? strings.title : strings.existingUserTitle}
+                        </div>
+                        <div className="objectives-field">
                             <div className="text-checkboxes">
                                 {Object.keys(metadata.objective.choices).map((index) =>
                                     <Chip key={index} onClickHandler={this.onClickObjective.bind(this, index)} disabled={!objectives.some(value => value == index)}>
@@ -87,19 +87,17 @@ export default class ObjectivesField extends Component {
                                         <div className="">{metadata.objective.choices[index]}</div>
                                     </Chip>
                                     )}
-                            </div> : null
-                        }
-
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <br />
-                <br />
-                <FullWidthButton type="submit" onClick={this.handleClickSave}>{strings.save}</FullWidthButton>
-                <br />
-                <br />
-                <br />
-                <br />
-            </div>
+                    <br />
+                    <br />
+                    <FullWidthButton type="submit" onClick={this.handleClickSave}>{strings.save}</FullWidthButton>
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                </div> : null
         );
     }
 }

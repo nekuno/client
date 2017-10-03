@@ -407,8 +407,8 @@ export default {
         save    : 'Save'
     },
     ObjectivesField                  : {
-        title            : 'What are you objectives at Nekuno?',
-        existingUserTitle: 'We are improving your recommendations. Please select your objectives at Nekuno',
+        title            : 'I want to meet compatible people for ...',
+        existingUserTitle: 'I want to meet compatible people for ...',
         minObjectives    : 'The minimum number of options permitted is %min%, check any option and save',
         objectives       : 'Select your objectives',
         save             : 'Save'

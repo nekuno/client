@@ -4,6 +4,46 @@ body #root .App .view .page {
   &.answer-question-page {
     height: 100%;
   }
+  &.answer-question-page.objectives-page {
+    width: 100%;
+    #page-content.answer-question-content {
+      margin: auto;
+      width: 100%;
+
+      .answer-question-title {
+        margin: auto;
+        width: 85%;
+      }
+      .objectives-field {
+        .text-checkboxes {
+          .chip {
+            border-radius: 0;
+            -moz-border-radius: 0;
+            -webkit-border-radius: 0;
+            margin: 0;
+            width: 50%;
+            height: 100px;
+            padding: 20px 0;
+
+            &.disabled-chip {
+              background: none;
+            }
+            .chip-label {
+              .icon {
+                font-size: 2em;
+              }
+            }
+          }
+        }
+      }
+
+      .button {
+        width: 85%;
+        margin: auto;
+        display: block;
+      }
+    }
+  }
   #page-content {
     .answer-question {
       margin-top: 70px;

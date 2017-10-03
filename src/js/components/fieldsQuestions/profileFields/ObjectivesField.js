@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import TextCheckboxes from '../../ui/TextCheckboxes';
+import Chip from '../../ui/Chip';
 import FullWidthButton from '../../ui/FullWidthButton';
 import translate from '../../../i18n/Translate';
 
@@ -69,6 +69,37 @@ export default class ObjectivesField extends Component {
 
         return labels;
     }
+
+    getTextFromObjective(objective, metadata) {
+        if (metadata && metadata.objective) {
+            Object.keys(metadata.objective.choices).forEach((index) => {
+                if (index === objective) {
+                    return metadata.objective.choices[index];
+                }
+            });
+        }
+
+        return "";
+    }
+
+    getIconClass(objective) {
+        switch (objective) {
+            case 'human-contact':
+                return "icon icon-heart";
+            case 'talk':
+                return "icon icon-comments";
+            case 'work':
+                return "icon icon-lightbulb";
+            case 'explore':
+                return "icon icon-compass";
+            case 'share-space':
+                return "icon icon-cubes";
+            case 'hobbies':
+                return "icon icon-gamepad";
+            default:
+                return "";
+        }
+    }
     
     render() {
         const {metadata, isJustRegistered, strings} = this.props;
@@ -80,7 +111,17 @@ export default class ObjectivesField extends Component {
                         {isJustRegistered ? strings.title : strings.existingUserTitle}
                     </div>
                     <div className="objectives-field">
-                        <TextCheckboxes title={strings.objectives} labels={this.getLabels(metadata)} onClickHandler={this.onClickObjective} values={objectives}/>
+                        {metadata.objective ?
+                            <div className="text-checkboxes">
+                                {Object.keys(metadata.objective.choices).map((index) =>
+                                    <Chip key={index} onClickHandler={this.onClickObjective.bind(this, index)} disabled={!objectives.some(value => value == index)}>
+                                        <div className={this.getIconClass(index)}></div>
+                                        <div className="">{metadata.objective.choices[index]}</div>
+                                    </Chip>
+                                    )}
+                            </div> : null
+                        }
+
                     </div>
                 </div>
                 <br />
@@ -97,8 +138,8 @@ export default class ObjectivesField extends Component {
 
 ObjectivesField.defaultProps = {
     strings: {
-        title            : 'What are you objectives at Nekuno?',
-        existingUserTitle: 'We are improving your recommendations. Please select your objectives at Nekuno',
+        title            : 'I want to meet compatible people for ...',
+        existingUserTitle: 'I want to meet compatible people for ...',
         minObjectives    : 'The minimum number of options permitted is %min%, check any option and save',
         objectives       : 'Select your objectives',
         save             : 'Save'

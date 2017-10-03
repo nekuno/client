@@ -162,11 +162,13 @@ export default class AnswerProfileFieldPage extends Component {
             default:
         }
 
+        const pageClass = nextProfileFiledName === 'objective' ? "page answer-question-page " + "objectives-page" : "page answer-question-page";
+
         return (
             <div className="views">
                 <TopNavBar centerText={navBarTitle}/>
                 <div className="view view-main">
-                    <div className="page answer-question-page">
+                    <div className={pageClass}>
                         <div id="page-content" className="answer-question-content">
                             {typeof profile != 'undefined' ? fieldToRender : <EmptyMessage text={strings.loadingMessage} loadingGif={true} />}
                         </div>

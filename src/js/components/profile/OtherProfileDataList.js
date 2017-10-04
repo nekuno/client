@@ -20,7 +20,7 @@ export default class OtherProfileDataList extends Component {
                 lines.push(<div key={category.label} className="profile-category"><h3>{category.label}</h3></div>);
                 Object.keys(category.fields).forEach(
                     profileDataKey => {
-                        if (category.fields[profileDataKey].value && metadata[profileDataKey].visible !== false) {
+                        if (category.fields[profileDataKey].value && metadata[profileDataKey].hidden !== true) {
                             lines.push(<ProfileData key={profileDataKey} name={category.fields[profileDataKey].text} value={category.fields[profileDataKey].value} forceLong={category.fields[profileDataKey].type === 'textarea'}/>);
                         }
                     });

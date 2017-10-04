@@ -4,6 +4,7 @@ import TopNavBar from '../components/ui/TopNavBar';
 import LastMessage from '../components/ui/LastMessage';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import ChatThreadStore from '../stores/ChatThreadStore';
+import ChatUserStatusStore from '../stores/ChatUserStatusStore';
 import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
 import Scroll from "../components/scroll/Scroll";
@@ -20,19 +21,21 @@ function getState() {
     const limit = ChatThreadStore.getLimit();
     const loading = ChatThreadStore.getLoading();
     const noMoreMessages = ChatThreadStore.getNoMoreMessages();
+    const onlineUserIds = ChatUserStatusStore.getOnlineUserIds() || [];
 
     return {
         threads,
         offset,
         limit,
         loading,
-        noMoreMessages
+        noMoreMessages,
+        onlineUserIds
     };
 }
 
 @AuthenticatedComponent
 @translate('ChatThreadsPage')
-@connectToStores([ChatThreadStore], getState)
+@connectToStores([ChatThreadStore, ChatUserStatusStore], getState)
 export default class ChatThreadsPage extends Component {
 
     constructor(props) {
@@ -52,14 +55,16 @@ export default class ChatThreadsPage extends Component {
         offset        : PropTypes.number.isRequired,
         loading       : PropTypes.bool.isRequired,
         limit         : PropTypes.number.isRequired,
-        noMoreMessages: PropTypes.bool.isRequired
+        noMoreMessages: PropTypes.bool.isRequired,
+        onlineUserIds : PropTypes.array.isRequired,
     };
 
     renderMessages() {
-        return this.props.threads.map((thread, key) => {
+        const {threads, onlineUserIds} = this.props;
+        return threads.map((thread, key) => {
             return (
                 <div key={key}>
-                    <LastMessage user={thread.user} message={thread.message}/>
+                    <LastMessage user={thread.user} message={thread.message} online={onlineUserIds.some(id => id === thread.user.id)}/>
                     <hr />
                 </div>
             )

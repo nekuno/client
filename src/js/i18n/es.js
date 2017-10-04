@@ -407,6 +407,13 @@ export default {
         title   : '¿En qué población vives?',
         save    : 'Guardar'
     },
+    ObjectivesField                  : {
+        title            : 'Quiero conocer gente compatible para...',
+        existingUserTitle: 'Quiero conocer gente compatible para...',
+        minObjectives    : 'El número mínimo de opciones es %min%, selecciona alguna opción y guarda',
+        objectives       : 'Selecciona tus objetivos',
+        save             : 'Continuar'
+    },
     AcceptedAnswersImportance        : {
         title     : '¿Qué importancia tiene esta pregunta para ti?',
         irrelevant: 'Irrelevante',
@@ -616,6 +623,10 @@ export default {
         maxValue   : 'El valor máximo es ',
         value      : 'Este valor debe ser un número entero',
         placeholder: 'Escribe un número'
+    },
+    MultipleChoicesEdit              : {
+        minChoices: 'Selecciona al menos %min% opciones',
+        maxChoices: 'Selecciona %max% opciones como máximo'
     },
     TagEdit                          : {
         placeholder: 'Escribe una palabra',

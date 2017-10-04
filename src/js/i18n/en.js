@@ -406,6 +406,13 @@ export default {
         title   : 'In what population do you live?',
         save    : 'Save'
     },
+    ObjectivesField                  : {
+        title            : 'I want to meet compatible people for...',
+        existingUserTitle: 'I want to meet compatible people for...',
+        minObjectives    : 'The minimum number of options permitted is %min%, check any option and save',
+        objectives       : 'Select your objectives',
+        save             : 'Continue'
+    },
     AcceptedAnswersImportance        : {
         title     : 'This answer matters to me:',
         irrelevant: 'Irrelevant',
@@ -615,6 +622,10 @@ export default {
         maxValue   : 'The maximum value is ',
         value      : 'This value must be an integer',
         placeholder: 'Type a number'
+    },
+    MultipleChoicesEdit              : {
+        minChoices: 'Select at least %min% items',
+        maxChoices: 'Select up to %max% items'
     },
     TagEdit                          : {
         placeholder: 'Type a keyword',

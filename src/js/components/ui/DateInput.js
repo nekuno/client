@@ -53,12 +53,12 @@ export default class DateInput extends Component {
         const {selectingYear} = this.state;
         const formattedValue = format(value, 'YYYY-MM-DD');
         if (!selectingYear) {
-            this.props.onChange(formattedValue);
             this.setState({
                 selected: null,
                 selectingYear: true,
                 value: formattedValue
             });
+            setTimeout(() => { this.props.onChange(formattedValue) }, 0);
         } else {
             this.setState({
                 selectingYear: false,

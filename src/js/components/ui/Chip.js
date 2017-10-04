@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 export default class Chip extends Component {
 
     static propTypes = {
-        label         : PropTypes.string.isRequired,
+        label         : PropTypes.string,
         disabled      : PropTypes.bool,
         value         : PropTypes.string,
         onClickHandler: PropTypes.func,
@@ -29,7 +29,7 @@ export default class Chip extends Component {
         return (
             <div className={disabled ? chipClass + " disabled-chip" : chipClass} onClick={this.handleClick}>
                 <div className="chip-label">
-                    {label}
+                    {label ? label : this.props.children}
                 </div>
             </div>
         );

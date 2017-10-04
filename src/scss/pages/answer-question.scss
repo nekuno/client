@@ -265,6 +265,15 @@ body #root .App .view .page {
           }
         }
       }
+
+      &.username-question {
+        .list-block {
+          font-size: 2em;
+          input {
+            text-align: center;
+          }
+        }
+      }
     }
   }
 }

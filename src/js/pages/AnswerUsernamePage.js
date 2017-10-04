@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import TopNavBar from '../components/ui/TopNavBar';
 import EmptyMessage from '../components/ui/EmptyMessage';
 import UsernameField from '../components/fieldsQuestions/userFields/UsernameField';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
@@ -82,7 +81,6 @@ export default class AnswerUsernamePage extends Component {
         const {registering} = this.state;
         return (
             <div className="views">
-                <TopNavBar centerText={strings.username}/>
                 <div className="view view-main">
                     <div className="page answer-question-page">
                         <div id="page-content" className="answer-question-content">

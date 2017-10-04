@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import TopNavBar from '../components/ui/TopNavBar';
+import ButtonFloating from '../components/ui/ButtonFloating';
 import SocialWheels from '../components/ui/SocialWheels';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
@@ -58,20 +58,20 @@ export default class ConnectSocialNetworksOnSignUpPage extends Component {
 
         return (
             <div className="views">
-                <TopNavBar centerText={''} rightText={strings.next} onRightLinkClickHandler={this.goToRegisterLandingPage}/>
                 <div className="view view-main">
-                    <div data-page="index" className="page connect-social-networks-page">
+                    <div data-page="index" className="page connect-social-networks-page connect-social-networks-on-sign-up-page">
                         <div id="page-content" className="connect-social-networks-content">
-                            <div className="title">{strings.welcome} <br />{username}</div>
-                            <div className="excerpt">{strings.excerpt}</div>
+                            <div className="title">{strings.welcome} {username}</div>
+                            <div className="excerpt">{strings.excerpt1}</div>
+                            <div className="excerpt">{strings.excerpt2}</div>
                             <br />
                             <SocialWheels networks={networks} picture={picture} error={error ? strings.error : null} isLoading={isLoading}/>
-                            <div className="excerpt">{strings.footer}</div>
                         </div>
                         <br />
                         <br />
                     </div>
                 </div>
+                <ButtonFloating onClickHandler={this.goToRegisterLandingPage} icon="arrow-right"/>
             </div>
         );
     }
@@ -79,11 +79,11 @@ export default class ConnectSocialNetworksOnSignUpPage extends Component {
 
 ConnectSocialNetworksOnSignUpPage.defaultProps = {
     strings  : {
-        next   : 'Continue',
-        welcome: 'Welcome to Nekuno',
-        excerpt: 'At last your data will work for you! The more interest you contribute, the better recommendations you’ll get!',
-        footer : 'Nekuno primarily works with the social networks you have synced. We don’t post anything. You can control the information you give and block information if you so desire.',
-        error  : 'Error connecting network. You may have connected it with other user.',
+        next    : 'Continue',
+        welcome : 'Welcome',
+        excerpt1: 'Make your data work for you!',
+        excerpt2: 'Feed Nekuno with your networks for better recommendations!',
+        error   : 'Error connecting network. You may have connected it with other user.',
     },
     isLoading: false,
 };

@@ -3,17 +3,19 @@
   text-align: center;
 
   div {
-    width: 50px;
-    height: 50px;
+    width: 60px;
+    height: 60px;
     font-size: 40px;
     text-align: center;
     display: inline-block;
+    margin: 0 5px;
 
     span {
       border-radius: 50%;
       -moz-border-radius: 50%;
       -webkit-border-radius: 50%;
       color: white;
+      font-size: 1.5em;
     }
 
     .icon-facebook {

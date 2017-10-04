@@ -38,17 +38,16 @@ export default {
         title: 'Messages'
     },
     ConnectSocialNetworksOnSignUpPage: {
-        next   : 'Continue',
-        welcome: 'Welcome to Nekuno',
-        excerpt: 'Make your data work for you! The more interest you contribute, the better recommendations you’ll get!',
-        footer : 'Nekuno primarily works with the social networks you have synced. We don’t post anything. You can control the information you give and block information if you so desire.',
-        error  : 'Error connecting network. You may have connected it with other user.'
+        next    : 'Continue',
+        welcome : 'Welcome',
+        excerpt1: 'Make your data work for you!',
+        excerpt2: 'Feed Nekuno with your networks for better recommendations!',
+        error   : 'Error connecting network. You may have connected it with other user.'
     },
     ConnectSocialNetworksPage        : {
         top    : 'Social Networks',
         title  : 'Improve recommendations',
         excerpt: 'Make your data work for you! The more interest you contribute, the better recommendations you’ll get!',
-        footer : 'Remember, you’re in control at all times, we will not publish anything on your social networks',
         error  : 'Error connecting network. You may have connected it with other user.'
     },
     EditProfilePage                  : {
@@ -377,7 +376,7 @@ export default {
     UsernameField                    : {
         username       : 'username',
         title          : 'Choose your username',
-        save           : 'Save',
+        save           : 'Continue',
         invalidUsername: 'Username is invalid or already in use. Valid characters are letters, numbers and _.'
     },
     EmailField                       : {
@@ -482,6 +481,9 @@ export default {
         compatibilityCheckWith: 'Discover your compatibility with %username%',
         copiedToClipboard     : 'Copied to clipboard',
         shareError            : 'An error occurred sending the link.'
+    },
+    SocialWheels                     : {
+        excerpt: 'Nekuno will never publish anything on your networks'
     },
     ProcessesProgress                : {
         title                   : 'We are reprocessing your data',

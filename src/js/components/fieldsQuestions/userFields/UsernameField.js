@@ -55,7 +55,7 @@ export default class UsernameField extends Component {
         const {registering} = this.state;
         return (
             <div>
-                <div className="answer-question">
+                <div className="answer-question username-question">
                     <div className="title answer-question-title">
                         {strings.title}
                     </div>
@@ -77,7 +77,7 @@ UsernameField.defaultProps = {
     strings: {
         username       : 'username',
         title          : 'Choose your username',
-        save           : 'Save',
+        save           : 'Continue',
         invalidUsername: 'Username is invalid or already in use. Valid characters are letters, numbers and _.'
     }
 };

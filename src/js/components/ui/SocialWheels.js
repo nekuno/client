@@ -4,7 +4,9 @@ import SocialBox from './SocialBox';
 import ConnectActionCreators from '../../actions/ConnectActionCreators';
 import SocialNetworkService from '../../services/SocialNetworkService';
 import {Motion, spring} from 'react-motion';
+import translate from '../../i18n/Translate';
 
+@translate('SocialWheels')
 export default class SocialWheels extends Component {
 
     static propTypes = {
@@ -12,6 +14,8 @@ export default class SocialWheels extends Component {
         networks: PropTypes.array.isRequired,
         error   : PropTypes.string,
         isLoading : PropTypes.bool,
+        // Injected by @translate:
+        strings  : PropTypes.object
     };
 
     constructor(props) {
@@ -142,12 +146,14 @@ export default class SocialWheels extends Component {
 
     render() {
         const {prevNetworks} = this.state;
-        const {networks, picture, isLoading} = this.props;
+        const {networks, picture, isLoading, strings} = this.props;
         const connectedNetworks = networks.filter(network => network.connected);
         
         return (
             <div className="social-wheels">
                 <SocialBox onClickHandler={this.connect} excludedResources={connectedNetworks.map(network => network.resource)} disabled={isLoading} />
+                <br/>
+                <div className="excerpt">{strings.excerpt}</div>
                 {connectedNetworks.length > 0 ?
                     <svg width="310" height="310">
                         <g>
@@ -213,5 +219,8 @@ export default class SocialWheels extends Component {
 }
 
 SocialWheels.defaultProps = {
+    strings  : {
+        excerpt: 'Nekuno will never publish anything on your networks'
+    },
     isLoading : false,
 };

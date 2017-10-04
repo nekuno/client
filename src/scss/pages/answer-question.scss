@@ -11,20 +11,20 @@ body #root .App .view .page {
       width: 100%;
 
       .answer-question-title {
-        font-size: 1.4em;
+        font-size: 1.3em;
         margin: auto;
         width: 85%;
       }
       .objectives-field {
         .text-checkboxes {
-          padding: 25px 0;
+          padding: 20px 0;
           .chip {
             border-radius: 0;
             -moz-border-radius: 0;
             -webkit-border-radius: 0;
             margin: 0;
             width: 50%;
-            height: 90px;
+            height: 80px;
             padding: 20px 0;
 
             &.disabled-chip {

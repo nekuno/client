@@ -95,9 +95,9 @@ export default class AnswerUserFieldPage extends Component {
             nekunoApp.alert(nextProps.errors);
         }
         else if (nextProps.userQuestionsComplete) {
-            let path = 'answer-question/next';
+            let path = '/answer-question/next';
             if (!nextProps.profileQuestionsComplete) {
-                path = 'answer-profile-fields';
+                path = '/answer-profile-fields';
             }
             window.setTimeout(() =>  { RouterActionCreators.replaceRoute(path); }, 0);
         }

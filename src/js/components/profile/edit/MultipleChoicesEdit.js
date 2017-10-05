@@ -2,7 +2,9 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import SelectedEdit from './SelectedEdit';
 import TextCheckboxes from '../../ui/TextCheckboxes';
+import translate from '../../../i18n/Translate';
 
+@translate('MultipleChoicesEdit')
 export default class MultipleChoicesEdit extends Component {
     static propTypes = {
         editKey: PropTypes.string.isRequired,
@@ -21,12 +23,20 @@ export default class MultipleChoicesEdit extends Component {
     }
     
     handleClickMultipleChoice(choice) {
-        let {editKey, data} = this.props;
+        let {editKey, metadata, data, strings} = this.props;
         data = data || [];
         const valueIndex = data.findIndex(value => value == choice);
         if (valueIndex > -1) {
+            if (metadata.min_choices && data.length <= metadata.min_choices) {
+                nekunoApp.alert(strings.minChoices.replace('%min%', metadata.min_choices));
+                return;
+            }
             data.splice(valueIndex, 1);
         } else {
+            if (metadata.max_choices && data.length >= metadata.max_choices) {
+                nekunoApp.alert(strings.maxChoices.replace('%max%', metadata.max_choices));
+                return;
+            }
             data.push(choice);
         }
         this.props.handleChangeEdit(editKey, data);
@@ -48,3 +58,10 @@ export default class MultipleChoicesEdit extends Component {
         );
     }
 }
+
+MultipleChoicesEdit.defaultProps = {
+    strings: {
+        minChoices: 'Select at least %min% items',
+        maxChoices: 'Select up to %max% items'
+    }
+};

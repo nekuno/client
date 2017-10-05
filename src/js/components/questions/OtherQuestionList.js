@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import selectn from 'selectn';
 import EmptyMessage from '../ui/EmptyMessage';
 import OtherQuestion from './OtherQuestion';
-import InfiniteScroll from "../scroll/InfiniteScroll";
+import Scroll from "../scroll/Scroll";
 import translate from '../../i18n/Translate';
 
 @translate('OtherQuestionList')
@@ -37,12 +37,11 @@ export default class OtherQuestionList extends Component {
             const question = otherQuestions[position];
             const questionId = question.question.questionId;
 
-            return <div className="question-list">
+            return <div key={index} className="question-list">
                 <OtherQuestion otherUserSlug={otherUserSlug}
                                userAnswer={selectn('userAnswer', questions[questionId])}
                                ownPicture={ownPicture}
                                otherPicture={otherPicture}
-                               key={index}
                                accessibleKey={index}
                                question={question}
                                onTimerEnd={onTimerEnd}
@@ -50,21 +49,21 @@ export default class OtherQuestionList extends Component {
             </div>
         });
 
-        return !isLoadingComparedQuestions || Object.keys(otherQuestions).length !== 0 ?
+        return Object.keys(otherQuestions).length > 0 ?
             questionComponents
-            : [<EmptyMessage text={strings.loading} loadingGif={false} shortMarginTop={true}/>]
+            : isLoadingComparedQuestions ? [<div key={'empty-message'}><EmptyMessage text={strings.loading} loadingGif={true}/></div>]
+                : [<div key={'empty-message'}><EmptyMessage text={strings.empty} loadingGif={false}/></div>]
     }
 
     render() {
         return (
-            <InfiniteScroll
-                items = {this.getOtherQuestions()}
+            <Scroll
+                items={this.getOtherQuestions()}
                 firstItems={this.props.firstItems}
-                // preloadAdditionalHeight={window.innerHeight*2}
-                // useWindowAsScrollContainer
-                onInfiniteLoad={this.props.onBottomScroll}
+                onLoad={this.props.onBottomScroll}
                 containerId="questions-view-main"
                 loading={this.props.isLoadingComparedQuestions}
+                columns={1}
             />
         );
     }
@@ -72,7 +71,8 @@ export default class OtherQuestionList extends Component {
 
 OtherQuestionList.defaultProps = {
     strings                   : {
-        loading: 'Loading questions'
+        loading: 'Loading questions',
+        empty  : 'No questions',
     },
     isLoadingComparedQuestions: false,
     onTimerEnd                : () => {

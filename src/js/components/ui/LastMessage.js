@@ -2,28 +2,15 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 import moment from 'moment';
-import ChatUserStatusStore from '../../stores/ChatUserStatusStore';
-import connectToStores from '../../utils/connectToStores';
 import Emojify from 'react-emojione';
 import Image from './Image';
 import ChatActionCreators from '../../actions/ChatActionCreators';
 
-function getState(props) {
-
-    const online = ChatUserStatusStore.isOnline(props.user.id) || false;
-
-    return {
-        online
-    };
-}
-
-@connectToStores([ChatUserStatusStore], getState)
 export default class LastMessage extends Component {
 
     static propTypes = {
         user   : PropTypes.object.isRequired,
         message: PropTypes.object.isRequired,
-        // Injected by @connectToStores:
         online : PropTypes.bool.isRequired
     };
 

@@ -8,6 +8,11 @@ export default {
         dispatch(ActionTypes.CHAT_MESSAGES, {messages, fresh});
     },
 
+    getThreadsMessages: (offset, limit) => {
+        dispatch(ActionTypes.CHAT_GET_THREADS_MESSAGES, {offset, limit});
+        ChatSocketService.getThreadsMessages(offset, limit);
+    },
+
     noMessages: () => {
         dispatch(ActionTypes.CHAT_NO_MESSAGES, {noMessages: true});
     },

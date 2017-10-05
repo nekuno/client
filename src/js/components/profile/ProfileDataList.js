@@ -130,11 +130,7 @@ export default class ProfileDataList extends Component {
 
     handleChangeEditAndSave(key, data) {
         let {profile} = this.state;
-        if (Array.isArray(data) && data.length === 0){
-            profile[key] = null;
-        } else {
-            profile[key] = data;
-        }
+        profile[key] = data;
         this.setState({
             profile     : profile,
             selectedEdit: null

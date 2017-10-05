@@ -8,6 +8,15 @@ body #root .App .views .view .page.connect-social-networks-page  {
       width: 85%;
     }
   }
+  &.connect-social-networks-on-sign-up-page {
+    #page-content {
+      margin: 30px auto 0 auto;
+
+      .title {
+        margin-bottom: 20px;
+      }
+    }
+  }
 }
 
 @media only screen and (max-width: 300px) {

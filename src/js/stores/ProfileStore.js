@@ -78,7 +78,7 @@ class ProfileStore extends BaseStore {
                         ThreadActionCreators.requestFilters();
                     }, 0);
                 }
-                this._profiles[LoginStore.user.id] = action.data;
+                this._profiles[LoginStore.user.id] = action.response;
                 this.emitChange();
                 break;
             case ActionTypes.EDIT_PROFILE_ERROR:

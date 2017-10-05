@@ -38,17 +38,16 @@ export default {
         title: 'Mensajes'
     },
     ConnectSocialNetworksOnSignUpPage: {
-        next   : 'Continuar',
-        welcome: 'Bienvenido a Nekuno',
-        excerpt: '¡Por fin tus datos trabajarán para ti! ¡Cuantos más intereses incluyas, mejores recomendaciones obtendrás!',
-        footer : 'Nekuno funciona principalmente sincronizando tus redes sociales; puedes estar tranquilo, no publicaremos nada sin tu permiso. Podrás elegir qué información suministras y qué redes sincronizas en todo momento.',
-        error  : 'Error conectando red. Quizás ya la has conectado con otro usuario.'
+        next    : 'Continuar',
+        welcome : 'Bienvenido',
+        excerpt1: '¡Por fin tus datos trabajarán para ti!',
+        excerpt2: '¡Alimenta a Nekuno con tus redes para obtener mejores recomendaciones!',
+        error   : 'Error conectando red. Quizás ya la has conectado con otro usuario.'
     },
     ConnectSocialNetworksPage        : {
         top    : 'Redes Sociales',
         title  : 'Mejora las recomendaciones',
         excerpt: '¡Por fin tus datos trabajarán para ti! ¡Cuantos más intereses aportes, mejores recomendaciones obtendrás!',
-        footer : 'Recuerda: tú tienes el control en todo momento, no publicaremos nada en tus redes sociales',
         error  : 'Error conectando red. Quizás ya la has conectado con otro usuario.'
     },
     EditProfilePage                  : {
@@ -378,7 +377,7 @@ export default {
     UsernameField                    : {
         username       : 'Nombre de usuario',
         title          : 'Elige tu nombre de usuario',
-        save           : 'Guardar',
+        save           : 'Continuar',
         invalidUsername: 'El nombre de usuario no es válido o ya está en uso. Los caracteres válidos son letras, números y _'
     },
     EmailField                       : {
@@ -407,6 +406,13 @@ export default {
         title   : '¿En qué población vives?',
         save    : 'Guardar'
     },
+    ObjectivesField                  : {
+        title            : 'Quiero conocer gente compatible para...',
+        existingUserTitle: 'Quiero conocer gente compatible para...',
+        minObjectives    : 'El número mínimo de opciones es %min%, selecciona alguna opción y guarda',
+        objectives       : 'Selecciona tus objetivos',
+        save             : 'Continuar'
+    },
     AcceptedAnswersImportance        : {
         title     : '¿Qué importancia tiene esta pregunta para ti?',
         irrelevant: 'Irrelevante',
@@ -432,7 +438,8 @@ export default {
         loading: 'Cargando preguntas'
     },
     OtherQuestionList                : {
-        loading: 'Cargando preguntas'
+        loading: 'Cargando preguntas',
+        empty  : 'No hay preguntas'
     },
     OtherQuestion                    : {
         didntAnswered: 'No has contestado a esta pregunta'
@@ -476,6 +483,9 @@ export default {
         copiedToClipboard     : 'Copiado al portapapeles',
         shareError            : 'Ha ocurrido un error compartiendo el enlace.'
     },
+    SocialWheels                     : {
+        excerpt: 'Nekuno nunca publicará nada en tus redes'
+    },
     ProcessesProgress                : {
         title                   : 'Estamos reprocesando tus datos',
         registrationTitle       : 'Estamos analizando tus datos',
@@ -504,6 +514,10 @@ export default {
     },
     MessagesToolBarDisabled          : {
         forbidden: 'Este usuario no acepta mensajes'
+    },
+    CardContentList                  : {
+        loading: 'Cargando intereses',
+        empty  : 'No hay intereses'
     },
     CardContent                      : {
         like             : 'Me interesa',
@@ -611,6 +625,10 @@ export default {
         maxValue   : 'El valor máximo es ',
         value      : 'Este valor debe ser un número entero',
         placeholder: 'Escribe un número'
+    },
+    MultipleChoicesEdit              : {
+        minChoices: 'Selecciona al menos %min% opciones',
+        maxChoices: 'Selecciona %max% opciones como máximo'
     },
     TagEdit                          : {
         placeholder: 'Escribe una palabra',

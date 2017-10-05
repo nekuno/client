@@ -18,5 +18,12 @@ body #root .App .views .view .page.notifications-page  {
     hr {
       opacity: 0.2;
     }
+
+    .spinner-wrapper {
+      margin: 8px auto;
+      .icon-spinner {
+        color: $dark-gray;
+      }
+    }
   }
 }

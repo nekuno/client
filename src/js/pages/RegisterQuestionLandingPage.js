@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import FullWidthButton from '../components/ui/FullWidthButton';
+import ButtonFloating from '../components/ui/ButtonFloating';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
 import * as QuestionActionCreators from '../actions/QuestionActionCreators';
@@ -79,15 +79,13 @@ export default class RegisterQuestionLandingPage extends Component {
                                     <img src={imgSrc}/>
                                 </div>
                             </div>
-                            <div className="register-question-landing-button">
-                                <FullWidthButton onClick={this.handleClickAnswerQuestions}>{strings.next}</FullWidthButton>
-                            </div>
                         </div>
                         <br/>
                         <br/>
                         <br/>
                     </div>
                 </div>
+                <ButtonFloating onClickHandler={this.handleClickAnswerQuestions} icon="arrow-right"/>
             </div>
         );
     }

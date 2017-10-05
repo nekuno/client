@@ -135,6 +135,10 @@ export const REQUIRED_REGISTER_PROFILE_FIELDS = [
     {
         name: 'location',
         type: 'location'
+    },
+    {
+        name: 'objective',
+        type: 'multiple_choices'
     }
 ];
 

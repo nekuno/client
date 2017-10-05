@@ -137,7 +137,11 @@ export default new class LoginActionCreators {
         if (QuestionStore.ownAnswersLength(userId) === 0) {
             path = '/social-networks-on-sign-up';
         } else if (!LoginStore.isComplete() || !ProfileStore.isComplete(userId) || QuestionStore.isJustRegistered(userId)) {
-            path = '/register-questions-landing';
+            if (QuestionStore.isJustRegistered(userId)) {
+                path = '/register-questions-landing';
+            } else {
+                path = '/answer-user-fields';
+            }
         } else {
             path = RouterStore.nextTransitionPath;
             if (path) {

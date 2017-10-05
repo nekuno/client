@@ -28,7 +28,6 @@ export default class CardUserList extends Component {
         profile            : PropTypes.object.isRequired,
         handleSelectProfile: PropTypes.func.isRequired,
         onBottomScroll     : PropTypes.func,
-        similarityOrder    : PropTypes.bool,
         isLoading          : PropTypes.bool,
         //Injected by connectToStores
         onlineUserIds      : PropTypes.array,
@@ -38,10 +37,15 @@ export default class CardUserList extends Component {
         super(props);
 
         this.getCardUsers = this.getCardUsers.bind(this);
+        this.onResize = this.onResize.bind(this);
+
+        this.state = {
+            itemHeight: this.getItemHeight()
+        }
     }
 
     buildCardUser(recommendation, index) {
-        const {user, profile, onlineUserIds, similarityOrder, handleSelectProfile} = this.props;
+        const {user, profile, onlineUserIds, handleSelectProfile} = this.props;
 
         return <CardUser
             key={index}
@@ -59,7 +63,6 @@ export default class CardUserList extends Component {
             profile={profile}
             handleSelectProfile={handleSelectProfile}
             online={onlineUserIds.some(id => id === recommendation.id)}
-            similarityOrder={similarityOrder}
             slug={recommendation.slug}
             topLinks={recommendation.topLinks}
             sharedLinks={recommendation.sharedLinks}
@@ -72,19 +75,30 @@ export default class CardUserList extends Component {
         })
     }
 
+    getItemHeight() {
+        const iW = window.innerWidth;
+        const photoHeight = iW >= 480 ? 230.39 : iW/2 - 4*iW/100;
+        const bottomHeight = 137;
+
+        return photoHeight + bottomHeight
+    }
+
+    onResize() {
+        this.setState({itemHeight: this.getItemHeight()});
+    }
+
     render() {
         return (
             <div className="user-list" id="user-list">
                 <InfiniteScroll
-                    items = {this.getCardUsers()}
+                    items={this.getCardUsers()}
+                    itemHeight={this.getItemHeight()}
+                    onResize={this.onResize}
                     firstItems={this.props.firstItems}
-                    columns = {2}
-                    // preloadAdditionalHeight={window.innerHeight*2}
-                    // useWindowAsScrollContainer
+                    columns={2}
                     onInfiniteLoad={this.props.onBottomScroll}
                     containerId="discover-view-main"
                     loading={this.props.isLoading}
-                    infiniteLoadBeginEdgeOffset={1000}
                 />
             </div>
         );

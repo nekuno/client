@@ -1,5 +1,5 @@
-import { THREAD_TYPES, API_URLS } from '../constants/Constants';
-import { waitFor } from '../dispatcher/Dispatcher';
+import {THREAD_TYPES, API_URLS} from '../constants/Constants';
+import {waitFor} from '../dispatcher/Dispatcher';
 import selectn from 'selectn';
 import ActionTypes from '../constants/ActionTypes';
 import BaseStore from './BaseStore';
@@ -17,6 +17,7 @@ class RecommendationStore extends BaseStore {
         this._savedIndex = [];
         this._loadingRecommendations = [];
         this._initialPaginationUrl = API_URLS.RECOMMENDATIONS;
+        this._prevObjectives = [];
     }
 
     _registerToActions(action) {
@@ -166,6 +167,27 @@ class RecommendationStore extends BaseStore {
             case ActionTypes.SAVE_RECOMMENDATIONS_INDEX:
                 this._savedIndex = action.index;
                 this.emitChange();
+                break;
+            case ActionTypes.REQUEST_AUTOLOGIN_SUCCESS:
+                this._prevObjectives = action.response.profile.objective ? action.response.profile.objective.slice(0) : [];
+                this.emitChange();
+                break;
+            case ActionTypes.REQUEST_OWN_PROFILE_SUCCESS:
+                this._prevObjectives = action.response.objective ? action.response.objective.slice(0) : [];
+                this.emitChange();
+                break;
+            case ActionTypes.EDIT_PROFILE_SUCCESS:
+                const objectives = action.response.objective || [];
+                if (this._prevObjectives.length > 0 && objectives.length > 0 && this._prevObjectives.length !== objectives.length) {
+                    this._recommendations = [];
+                    this._nextUrl = {};
+                    this._pagination = {};
+                }
+
+                this._prevObjectives = objectives.slice(0);
+                this.emitChange();
+                break;
+
         }
     }
 

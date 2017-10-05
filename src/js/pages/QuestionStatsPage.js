@@ -23,11 +23,13 @@ function getState(props) {
     const question = QuestionStore.getQuestion();
     const userAnswer = question ? QuestionStore.getUserAnswer(currentUserId, question.questionId) : null;
     const isJustRegistered = QuestionStore.isJustRegistered(currentUserId);
+    const isJustCompleted = QuestionStore.isJustCompleted();
 
     return {
         question,
         userAnswer,
-        isJustRegistered
+        isJustRegistered,
+        isJustCompleted
     };
 }
 
@@ -42,7 +44,8 @@ export default class QuestionStatsPage extends Component {
         // Injected by @connectToStores:
         question        : PropTypes.object,
         userAnswer      : PropTypes.object,
-        isJustRegistered: PropTypes.bool
+        isJustRegistered: PropTypes.bool,
+        isJustCompleted : PropTypes.bool,
     };
 
     constructor(props) {
@@ -58,10 +61,10 @@ export default class QuestionStatsPage extends Component {
     }
 
     render() {
-        const {user, question, userAnswer, isJustRegistered, strings} = this.props;
+        const {user, question, userAnswer, isJustRegistered, isJustCompleted, strings} = this.props;
         return (
             <div className="views">
-                {isJustRegistered ?
+                {isJustRegistered || isJustCompleted ?
                     <TopNavBar centerText={strings.statistics} rightText={strings.next} onRightLinkClickHandler={this.handleContinueClick}/>
                     :
                     <TopNavBar leftIcon={'left-arrow'} centerText={strings.statistics} rightText={strings.next} onRightLinkClickHandler={this.handleContinueClick}/>

@@ -16,6 +16,10 @@
       -webkit-border-radius: 50%;
       color: white;
       font-size: 1.5em;
+      box-shadow: 0 3px 6px 4px rgba(0, 0, 0, 0.6);
+      -moz-box-shadow: 0 3px 6px 4px rgba(0,0,0,0.6);
+      -webkit-box-shadow: 0 3px 6px 4px rgba(0,0,0,0.6);
+      -o-box-shadow: 0 3px 6px 4px rgba(0,0,0,0.6);
     }
 
     .icon-facebook {

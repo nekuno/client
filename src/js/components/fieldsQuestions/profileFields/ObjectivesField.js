@@ -89,10 +89,10 @@ export default class ObjectivesField extends Component {
                                     )}
                             </div>
                         </div>
+                        <div className="button-wrapper">
+                            <FullWidthButton type="submit" onClick={this.handleClickSave}>{strings.save}</FullWidthButton>
+                        </div>
                     </div>
-                    <br />
-                    <br />
-                    <FullWidthButton type="submit" onClick={this.handleClickSave}>{strings.save}</FullWidthButton>
                 </div> : null
         );
     }

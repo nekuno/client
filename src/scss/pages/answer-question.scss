@@ -5,63 +5,76 @@ body #root .App .view .page {
     height: 100%;
   }
   &.answer-question-page.objectives-page {
+    height: 100%;
     width: 100%;
+    overflow: hidden;
     #page-content.answer-question-content {
       margin: -40px auto;
       width: 100%;
 
-      .answer-question-title {
-        font-size: 1.3em;
-        margin: auto;
-        width: 85%;
-      }
-      .objectives-field {
-        .text-checkboxes {
-          padding: 20px 0;
-          .chip {
-            border-radius: 0;
-            -moz-border-radius: 0;
-            -webkit-border-radius: 0;
-            margin: 0;
-            width: 50%;
-            height: 80px;
-            padding: 20px 0;
+      .answer-question {
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        .answer-question-title {
+          font-size: 1.3em;
+          height: 15%;
+          margin: auto;
+          width: 85%;
+        }
+        .objectives-field {
+          height: 60%;
+          .text-checkboxes {
+            height: 100%;
+            padding: 0;
+            .chip {
+              border-radius: 0;
+              -moz-border-radius: 0;
+              -webkit-border-radius: 0;
+              margin: 0;
+              width: 50%;
+              height: 28%;
+              padding-bottom: 5%;
+              .chip-label {
+                top: 30%;
+              }
 
-            &.disabled-chip {
-              background: none;
+              &.disabled-chip {
+                background: none;
+              }
+              .chip-label {
+                .icon {
+                  font-size: 2em;
+                }
+              }
             }
-            .chip-label {
-              .icon {
-                font-size: 2em;
+          }
+        }
+
+        .button-wrapper {
+          height: 10%;
+          width: 85%;
+          margin: auto;
+          display: block;
+        }
+      }
+
+      @media only screen and (min-width: 350px) {
+        #page-content.answer-question-content {
+          .answer-question-title {
+            font-size: 1.7em;
+          }
+          .objectives-field {
+            .text-checkboxes {
+              padding: 35px 0;
+              .chip {
+                height: 100px;
               }
             }
           }
         }
       }
-
-      .button {
-        width: 85%;
-        margin: -30px auto 0;
-        display: block;
-      }
     }
-
-    @media only screen and (min-width: 350px) {
-      #page-content.answer-question-content {
-        .answer-question-title {
-          font-size: 1.7em;
-        }
-        .objectives-field {
-          .text-checkboxes {
-            padding: 35px 0;
-            .chip {
-              height: 100px;
-            }
-          }
-        }
-      }
-    }
-
   }
   #page-content {
     .answer-question {

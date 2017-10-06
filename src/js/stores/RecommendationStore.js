@@ -178,7 +178,8 @@ class RecommendationStore extends BaseStore {
                 break;
             case ActionTypes.EDIT_PROFILE_SUCCESS:
                 const objectives = action.response.objective || [];
-                if (this._prevObjectives.length > 0 && objectives.length > 0 && this._prevObjectives.length !== objectives.length) {
+                if (this._prevObjectives.length > 0 && objectives.length > 0 &&
+                    (this._prevObjectives.length !== objectives.length || !this._prevObjectives.every((val, i) => val === objectives[i]))) {
                     this._recommendations = [];
                     this._nextUrl = {};
                     this._pagination = {};

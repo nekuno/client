@@ -15,23 +15,24 @@ export default class CardUser extends Component {
     };
 
     static propTypes = {
-        userId             : PropTypes.number.isRequired,
-        username           : PropTypes.string.isRequired,
-        slug               : PropTypes.string.isRequired,
-        location           : PropTypes.string,
-        canSendMessage     : PropTypes.bool.isRequired,
-        photo              : PropTypes.object,
-        matching           : PropTypes.number.isRequired,
-        similarity         : PropTypes.number,
-        age                : PropTypes.number,
-        like               : PropTypes.number,
-        hideLikeButton     : PropTypes.bool.isRequired,
-        loggedUserId       : PropTypes.number.isRequired,
-        profile            : PropTypes.object.isRequired,
-        handleSelectProfile: PropTypes.func,
-        online             : PropTypes.bool,
-        topLinks           : PropTypes.array,
-        sharedLinks        : PropTypes.number,
+        userId                : PropTypes.number.isRequired,
+        username              : PropTypes.string.isRequired,
+        slug                  : PropTypes.string.isRequired,
+        location              : PropTypes.string,
+        canSendMessage        : PropTypes.bool.isRequired,
+        photo                 : PropTypes.object,
+        matching              : PropTypes.number.isRequired,
+        similarity            : PropTypes.number,
+        age                   : PropTypes.number,
+        like                  : PropTypes.number,
+        hideLikeButton        : PropTypes.bool.isRequired,
+        loggedUserId          : PropTypes.number.isRequired,
+        profile               : PropTypes.object.isRequired,
+        handleSelectProfile   : PropTypes.func,
+        online                : PropTypes.bool,
+        topLinks              : PropTypes.array,
+        sharedLinks           : PropTypes.number,
+        orientationMustBeAsked: PropTypes.bool,
 
         // Injected by @translate:
         strings       : PropTypes.object
@@ -59,8 +60,8 @@ export default class CardUser extends Component {
     }
 
     handleGoToProfile() {
-        const {profile, slug} = this.props;
-        if (!profile.orientation && profile.orientationRequired) {
+        const {profile, orientationMustBeAsked, slug} = this.props;
+        if (orientationMustBeAsked) {
             nekunoApp.popup('.popup-orientation-required');
             this.props.handleSelectProfile(slug);
         } else {

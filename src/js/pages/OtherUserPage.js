@@ -96,6 +96,7 @@ function getState(props) {
     const noPhotos = otherUserId ? GalleryPhotoStore.noPhotos(otherUserId) : null;
     const ownProfile = ProfileStore.get(parseId(user));
     const online = otherUserId ? ChatUserStatusStore.isOnline(otherUserId) || false : null;
+    const orientationMustBeAsked = ProfileStore.orientationMustBeAsked();
 
     return {
         otherUser,
@@ -111,7 +112,8 @@ function getState(props) {
         photos,
         noPhotos,
         ownProfile,
-        online
+        online,
+        orientationMustBeAsked
     };
 }
 
@@ -122,31 +124,32 @@ function getState(props) {
 export default class OtherUserPage extends Component {
     static propTypes = {
         // Injected by React Router:
-        params             : PropTypes.shape({
+        params                : PropTypes.shape({
             slug: PropTypes.string.isRequired
         }).isRequired,
         // Injected by @AuthenticatedComponent
-        user               : PropTypes.object,
+        user                  : PropTypes.object,
         // Injected by @translate:
-        strings            : PropTypes.object,
+        strings               : PropTypes.object,
         // Injected by @connectToStores:
-        otherUser          : PropTypes.object,
-        profile            : PropTypes.object,
-        profileWithMetadata: PropTypes.array,
-        metadata           : PropTypes.object,
-        matching           : PropTypes.number,
-        similarity         : PropTypes.number,
-        //block              : PropTypes.bool,
-        like               : PropTypes.number,
-        comparedStats      : PropTypes.object,
-        photos             : PropTypes.array,
-        noPhotos           : PropTypes.bool,
-        ownProfile         : PropTypes.object,
-        online             : PropTypes.bool,
+        otherUser             : PropTypes.object,
+        profile               : PropTypes.object,
+        profileWithMetadata   : PropTypes.array,
+        metadata              : PropTypes.object,
+        matching              : PropTypes.number,
+        similarity            : PropTypes.number,
+        //block               : PropTypes.bool,
+        like                  : PropTypes.number,
+        comparedStats         : PropTypes.object,
+        photos                : PropTypes.array,
+        noPhotos              : PropTypes.bool,
+        ownProfile            : PropTypes.object,
+        online                : PropTypes.bool,
+        orientationMustBeAsked: PropTypes.bool,
         // Injected by @popup:
-        showPopup          : PropTypes.func,
-        closePopup         : PropTypes.func,
-        popupContentRef    : PropTypes.func,
+        showPopup             : PropTypes.func,
+        closePopup            : PropTypes.func,
+        popupContentRef       : PropTypes.func,
     };
     static contextTypes = {
         router: PropTypes.object.isRequired
@@ -190,10 +193,10 @@ export default class OtherUserPage extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (this.state.orientationRequired && !this.state.orientationPopUpDisplayed && !this.props.ownProfile.orientation) {
+        if (this.state.orientationRequired && !this.state.orientationPopUpDisplayed && this.props.orientationMustBeAsked) {
             nekunoApp.popup('.popup-orientation-required');
             this.setState({orientationPopUpDisplayed: true});
-        } else if (this.state.orientationRequired === null && this.props.ownProfile && this.props.ownProfile.orientationRequired) {
+        } else if (this.state.orientationRequired === null && this.props.orientationMustBeAsked) {
             this.setOrientationRequired(true);
         }
         if (this.props.photos.length > 0 && !this.state.photosLoaded) {
@@ -368,7 +371,7 @@ export default class OtherUserPage extends Component {
     }
 
     render() {
-        const {user, otherUser, profile, ownProfile, profileWithMetadata, metadata, matching, similarity, blocked, like, comparedStats, photos, noPhotos, online, params, strings} = this.props;
+        const {user, otherUser, profile, ownProfile, profileWithMetadata, metadata, matching, similarity, blocked, like, comparedStats, photos, noPhotos, online, orientationMustBeAsked, params, strings} = this.props;
         const otherPictureSmall = selectn('photo.thumbnail.small', otherUser);
         const otherPictureBig = selectn('photo.thumbnail.big', otherUser);
         const ownPicture = selectn('photo.thumbnail.small', user);
@@ -378,7 +381,6 @@ export default class OtherUserPage extends Component {
         const age = selectn('fields.birthday.value', birthdayDataSet);
         const gender = selectn('fields.gender.value', genderDataSet);
         const location = selectn('location.locality', profile) || selectn('location.country', profile);
-        const canLookOtherProfiles = !(ownProfile && ownProfile.orientationRequired && !ownProfile.orientation);
         const enoughData = otherUser && profile && profileWithMetadata && ownProfile;
         const profilePhoto = photos.find((photo) => photo.isProfilePhoto === true);
 
@@ -393,7 +395,7 @@ export default class OtherUserPage extends Component {
                     : null}
                 <div className="view view-main">
                     <div className="page other-user-page">
-                        {enoughData && canLookOtherProfiles ?
+                        {enoughData && !orientationMustBeAsked ?
                             <div id="page-content">
                                 <div className="user-images">
                                     <div className="swiper-pagination"></div>

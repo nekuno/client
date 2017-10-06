@@ -23,14 +23,15 @@ function getState(props) {
 export default class CardUserList extends Component {
 
     static propTypes = {
-        recommendations    : PropTypes.array.isRequired,
-        user               : PropTypes.object.isRequired,
-        profile            : PropTypes.object.isRequired,
-        handleSelectProfile: PropTypes.func.isRequired,
-        onBottomScroll     : PropTypes.func,
-        isLoading          : PropTypes.bool,
+        recommendations       : PropTypes.array.isRequired,
+        user                  : PropTypes.object.isRequired,
+        profile               : PropTypes.object.isRequired,
+        handleSelectProfile   : PropTypes.func.isRequired,
+        onBottomScroll        : PropTypes.func,
+        isLoading             : PropTypes.bool,
+        orientationMustBeAsked: PropTypes.bool,
         //Injected by connectToStores
-        onlineUserIds      : PropTypes.array,
+        onlineUserIds         : PropTypes.array,
     };
 
     constructor(props) {
@@ -45,7 +46,7 @@ export default class CardUserList extends Component {
     }
 
     buildCardUser(recommendation, index) {
-        const {user, profile, onlineUserIds, handleSelectProfile} = this.props;
+        const {user, profile, onlineUserIds, handleSelectProfile, orientationMustBeAsked} = this.props;
 
         return <CardUser
             key={index}
@@ -66,6 +67,7 @@ export default class CardUserList extends Component {
             slug={recommendation.slug}
             topLinks={recommendation.topLinks}
             sharedLinks={recommendation.sharedLinks}
+            orientationMustBeAsked={orientationMustBeAsked}
         />
     }
 

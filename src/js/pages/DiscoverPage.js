@@ -55,6 +55,7 @@ function getState(props) {
 
     let userId = parseId(props.user);
     const profile = ProfileStore.get(userId);
+    const orientationMustBeAsked = ProfileStore.orientationMustBeAsked();
     const questionsTotal = QuestionStore.ownAnswersLength(userId);
     let isSomethingWorking = WorkersStore.isSomethingWorking();
     let filters = {};
@@ -79,6 +80,7 @@ function getState(props) {
 
     return {
         profile,
+        orientationMustBeAsked,
         questionsTotal,
         isSomethingWorking,
         filters,
@@ -106,6 +108,7 @@ export default class DiscoverPage extends Component {
         strings                 : PropTypes.object,
         // Injected by @connectToStores:
         profile                 : PropTypes.object,
+        orientationMustBeAsked  : PropTypes.bool,
         questionsTotal          : PropTypes.number,
         isSomethingWorking      : PropTypes.bool,
         filters                 : PropTypes.object,
@@ -257,7 +260,7 @@ export default class DiscoverPage extends Component {
     }
 
     render() {
-        const {user, profile, strings, recommendations, thread, isLoadingRecommendations, isThreadGroup} = this.props;
+        const {user, profile, orientationMustBeAsked, strings, recommendations, thread, isLoadingRecommendations, isThreadGroup} = this.props;
         const title = isThreadGroup ? thread.name : strings.discover;
 
         return (
@@ -270,7 +273,8 @@ export default class DiscoverPage extends Component {
                         <div id="page-content">
                             {profile ?
                                 <CardUserList firstItems={this.getFirstItems.bind(this)()} recommendations={recommendations} user={user} profile={profile}
-                                              handleSelectProfile={this.selectProfile} onBottomScroll={this.onBottomScroll} isLoading={isLoadingRecommendations}/>
+                                              handleSelectProfile={this.selectProfile} onBottomScroll={this.onBottomScroll} isLoading={isLoadingRecommendations}
+                                              orientationMustBeAsked={orientationMustBeAsked}/>
                                 :
                                 this.getEmptyMessage(this.props, true)
                             }

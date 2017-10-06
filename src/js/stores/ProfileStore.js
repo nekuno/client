@@ -318,6 +318,12 @@ class ProfileStore extends BaseStore {
         }
     }
 
+    orientationMustBeAsked() {
+        const profile = this._profiles[LoginStore.user.id];
+
+        return profile && profile.orientationRequired && !profile.orientation && profile.objective && profile.objective.some(obj => obj === 'human-contact')
+    }
+
     locationToString(location) {
 
         const locality = selectn('locality', location);

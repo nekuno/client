@@ -43,6 +43,7 @@ class QuestionStore extends BaseStore {
                 this.emitChange();
                 break;
             case ActionTypes.REQUEST_QUESTION:
+                this._loadingOwnQuestions = true;
                 this._isRequestedQuestion[action.otherUserId ? action.otherUserId : action.userId] = true;
                 break;
             case ActionTypes.REQUEST_EXISTING_QUESTION:
@@ -96,6 +97,7 @@ class QuestionStore extends BaseStore {
                 break;
             case ActionTypes.REQUEST_QUESTION_SUCCESS:
                 this._answerQuestion = action.response.entities.question;
+                this._loadingOwnQuestions = false;
                 this.emitChange();
                 break;
             case ActionTypes.ANSWER_QUESTION_SUCCESS:
@@ -127,6 +129,7 @@ class QuestionStore extends BaseStore {
             case ActionTypes.REQUEST_COMPARED_QUESTIONS_ERROR:
                 break;
             case ActionTypes.REQUEST_QUESTION_ERROR:
+                this._loadingOwnQuestions = false;
                 this._noMoreQuestions = true;
                 this.emitChange();
                 break;

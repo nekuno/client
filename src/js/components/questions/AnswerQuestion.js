@@ -25,20 +25,22 @@ export default class AnswerQuestion extends Component {
         let questionId = selectn('questionId', question);
         let answers = selectn('answers', question) || [];
         const questionTitleClass = questionId && question.text.length > 60 ? "title answer-question-title answer-question-title-long" : "title answer-question-title";
-
         return (
             <div>
-                {questionId && !isLoadingOwnQuestions ?
-                    <div className="answer-question">
-                        <div className={questionTitleClass}>
-                            {question.text}
-                        </div>
-                        <AnswerQuestionForm answers={answers} {...this.props} />
-                    </div>
-                    :
-                    noMoreQuestions ? <EmptyMessage text={strings.noMoreQuestions}/>
-                        :
+                {
+                    isLoadingOwnQuestions ?
                         <EmptyMessage text={strings.loading} loadingGif={true}/>
+                        :
+                        noMoreQuestions ? <EmptyMessage text={strings.noMoreQuestions}/>
+                            :
+                            questionId ?
+                                <div className="answer-question">
+                                    <div className={questionTitleClass}>
+                                        {question.text}
+                                    </div>
+                                    <AnswerQuestionForm answers={answers} {...this.props} />
+                                </div>
+                                : ''
                 }
             </div>
         );

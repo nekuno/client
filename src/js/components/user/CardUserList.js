@@ -2,10 +2,11 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import connectToStores from '../../utils/connectToStores';
 import AuthenticatedComponent from '../AuthenticatedComponent';
-import CardUser from '../ui/CardUser';
+import CardUser from '../cardUsers/CardUser';
 import selectn from 'selectn';
 import ChatUserStatusStore from '../../stores/ChatUserStatusStore';
 import InfiniteScroll from "../scroll/InfiniteScroll";
+import CardUserPlaceholder from "../cardUsers/CardUserPlaceholder";
 
 /**
  * Retrieves state from stores for current props.
@@ -72,14 +73,28 @@ export default class CardUserList extends Component {
     }
 
     getCardUsers() {
+        const isFirstLoading = this.props.isLoading && this.props.recommendations.length === 0;
+        if (isFirstLoading) {
+            return this.getPlaceholders();
+        }
         return this.props.recommendations.map((recommendation, index) => {
             return this.buildCardUser(recommendation, index);
         })
     }
 
+    getPlaceholders() {
+        const placeholdersAmount = 10;
+        let placeholders = [];
+        for (let i = 0; i < placeholdersAmount; i++) {
+            let key = 'placeholder' + i;
+            placeholders.push(<CardUserPlaceholder key={key}/>);
+        }
+        return placeholders
+    }
+
     getItemHeight() {
         const iW = window.innerWidth;
-        const photoHeight = iW >= 480 ? 230.39 : iW/2 - 4*iW/100;
+        const photoHeight = iW >= 480 ? 230.39 : iW / 2 - 4 * iW / 100;
         const bottomHeight = 137;
 
         return photoHeight + bottomHeight

@@ -1,11 +1,12 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import ProgressBar from './ProgressBar';
-import Button from './Button';
-import Image from './Image';
+import ProgressBar from '../ui/ProgressBar';
+import Button from '../ui/Button';
+import Image from '../ui/Image';
 import CardUserTopLinks from '../recommendations/CardUserTopLinks';
 import * as UserActionCreators from '../../actions/UserActionCreators'
 import translate from '../../i18n/Translate';
+import PercentageValue from "./PercentageValue";
 
 @translate('CardUser')
 export default class CardUser extends Component {
@@ -109,15 +110,13 @@ export default class CardUser extends Component {
                         <div className="card-title">
                             {username}
                         </div>
-                        <div className="matching-value">
-                            <div className="matching-string">{strings.matching}</div><div className="matching-percentage">{matching ? matching + '%' : '0%'}</div>
-                        </div>
+
+                        <PercentageValue percentage={matching ? matching : 0} text={strings.matching}/>
                         <div className="matching-progress">
                             <ProgressBar percentage={matching}/>
                         </div>
-                        <div className="matching-value">
-                            <div className="matching-string">{strings.similarity}</div><div className="matching-percentage">{similarity ? similarity + '%' : '0%'}</div>
-                        </div>
+
+                        <PercentageValue percentage={similarity ? similarity : 0} text={strings.similarity}/>
                         <div className="similarity-progress">
                             <ProgressBar percentage={similarity}/>
                         </div>

@@ -543,6 +543,11 @@ export default {
         saving    : 'Guardando...',
         age       : 'Edad',
     },
+    CardUserPlaceholder              : {
+        matching  : 'Compatibilidad',
+        similarity: 'Similaridad',
+        loading   : 'Cargando...',
+    },
     ImportAlbumPopup                 : {
         close           : 'Cerrar',
         importAlbum     : 'Importar un álbum',

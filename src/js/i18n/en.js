@@ -542,6 +542,11 @@ export default {
         saving    : 'Saving...',
         age       : 'Age',
     },
+    CardUserPlaceholder              : {
+        matching  : 'Matching',
+        similarity: 'Similarity',
+        loading   : 'Loading...',
+    },
     ImportAlbumPopup                 : {
         close           : 'Close',
         importAlbum     : 'Import an album',
@@ -701,8 +706,8 @@ export default {
         interestsCount       : '%count% Interests',
         similarInterestsCount: '%count% Similar interests',
     },
-    SocialWheel : {
-        isLoading : 'Getting information...',
+    SocialWheel                      : {
+        isLoading: 'Getting information...',
     },
     ////////////////
     // Framework7 //

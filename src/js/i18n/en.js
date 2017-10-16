@@ -354,7 +354,8 @@ export default {
         similarInterests   : 'Similar interests',
         compatibility      : 'compatibility',
         similarity         : 'similarity',
-        calculatingMatching: 'Calculating matching...'
+        calculatingMatching: 'Calculating matching...',
+        commonGroups       : 'Common badges'
     },
     ProfileData                      : {
         seeLess: 'See less',

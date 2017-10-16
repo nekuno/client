@@ -3,10 +3,13 @@ import React, { Component } from 'react';
 import { Link } from 'react-router';
 import ProgressBar from '../ui/ProgressBar';
 import ProfilesAvatarConnection from '../ui/ProfilesAvatarConnection';
+import Image from '../ui/Image';
+import {} from '../../constants/Constants';
 import translate from '../../i18n/Translate';
 import connectToStores from '../../utils/connectToStores';
 import * as UserActionCreators from '../../actions/UserActionCreators';
 import WorkersStore from '../../stores/WorkersStore';
+import GroupStore from '../../stores/GroupStore';
 
 function requestData(props) {
     const {userId, otherUserId} = props;
@@ -17,14 +20,16 @@ function requestData(props) {
 
 function getState(props) {
     const isSomethingWorking = WorkersStore.isSomethingWorking();
+    const groups = GroupStore.groups;
 
     return {
-        isSomethingWorking
+        isSomethingWorking,
+        groups
     };
 }
 
 @translate('OtherProfileData')
-@connectToStores([WorkersStore], getState)
+@connectToStores([WorkersStore, GroupStore], getState)
 export default class OtherProfileData extends Component {
     static propTypes = {
         matching          : PropTypes.number,
@@ -35,12 +40,16 @@ export default class OtherProfileData extends Component {
         interestsUrl      : PropTypes.string.isRequired,
         questionsUrl      : PropTypes.string.isRequired,
         isSomethingWorking: PropTypes.bool.isRequired,
+        groups            : PropTypes.object,
         userId            : PropTypes.number.isRequired,
         otherUserId       : PropTypes.number.isRequired,
         // Injected by @translate:
         strings           : PropTypes.object
     };
 
+    static contextTypes = {
+        router: PropTypes.object.isRequired
+    };
 
     componentDidUpdate(prevProps) {
         if (prevProps.isSomethingWorking && !this.props.isSomethingWorking) {
@@ -48,8 +57,12 @@ export default class OtherProfileData extends Component {
         }
     }
 
+    goToGroupPage(id) {
+        this.context.router.push(`/badges/${id}/discover`);
+    }
+
     render() {
-        const {matching, similarity, stats, ownImage, currentImage, interestsUrl, questionsUrl, isSomethingWorking, strings} = this.props;
+        const {matching, similarity, stats, groups, ownImage, currentImage, interestsUrl, questionsUrl, isSomethingWorking, strings} = this.props;
         const commonAnswers = stats ? stats.commonAnswers : <span className="icon-spinner rotation-animation"></span>;
         const commonContent = stats ? stats.commonContent : <span className="icon-spinner rotation-animation"></span>;
 
@@ -81,6 +94,21 @@ export default class OtherProfileData extends Component {
                         <ProgressBar percentage={similarity ? Math.round(100*similarity) : 0}/>
                     </div>
                 }
+                {stats && stats.groupsBelonged && stats.groupsBelonged.length > 0 ?
+                    <div className="common-groups">
+                        <div className="common-groups-title">{strings.commonGroups}</div>
+                        {stats.groupsBelonged.map((groupBelonged, index) => {
+                            const groupIndex = groups ? Object.keys(groups).find(id => id == groupBelonged.id) : null;
+
+                            return groupIndex && groups[groupIndex] && groups[groupIndex].invitation ?
+                                <div className="small-icon-wrapper" key={index} onClick={this.goToGroupPage.bind(this, groupBelonged.id)}>
+                                    <Image src={groups[groupIndex].invitation.invitation_image_url} defaultSrc={'img/default-content-image-squared-small.jpg'} width="28" height="28"/>
+                                </div>
+                                : null;
+                        })}
+                    </div>
+                    : null
+                }
             </div>
         );
     }
@@ -92,6 +120,7 @@ OtherProfileData.defaultProps = {
         similarInterests   : 'Similar interests',
         compatibility      : 'compatibility',
         similarity         : 'similarity',
-        calculatingMatching: 'Calculating matching...'
+        calculatingMatching: 'Calculating matching...',
+        commonGroups       : 'Common badges'
     }
 };

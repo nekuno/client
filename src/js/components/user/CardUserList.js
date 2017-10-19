@@ -30,6 +30,7 @@ export default class CardUserList extends Component {
         handleSelectProfile   : PropTypes.func.isRequired,
         onBottomScroll        : PropTypes.func,
         isLoading             : PropTypes.bool,
+        isFirstLoading        : PropTypes.bool,
         orientationMustBeAsked: PropTypes.bool,
         //Injected by connectToStores
         onlineUserIds         : PropTypes.array,
@@ -73,8 +74,7 @@ export default class CardUserList extends Component {
     }
 
     getCardUsers() {
-        const isFirstLoading = this.props.isLoading && this.props.recommendations.length === 0;
-        if (isFirstLoading) {
+        if (this.props.isFirstLoading) {
             return this.getPlaceholders();
         }
         return this.props.recommendations.map((recommendation, index) => {

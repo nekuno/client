@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import ProgressBar from '../ui/ProgressBar';
+import Image from '../ui/Image';
 import translate from '../../i18n/Translate';
 import PercentageValue from "./PercentageValue";
 
@@ -21,8 +22,8 @@ export default class CardUserPlaceholder extends Component {
                 <div className="card-header">
                     <div className="card-content">
                         <div className="card-content-inner">
-                            <div className="image fixed-height-image">
-                                <div className="loading-gif"></div>
+                            <div className="image fixed-max-height-image">
+                                <Image src='img/loading.gif'/>
                             </div>
                         </div>
                     </div>

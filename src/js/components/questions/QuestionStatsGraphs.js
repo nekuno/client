@@ -79,7 +79,6 @@ export default class QuestionStatsGraph extends Component {
         }
     }
 
-
     isGenderDiffGreater = function(question) {
         let genderDiff = 0;
         let ageDiff = 0;
@@ -104,9 +103,11 @@ export default class QuestionStatsGraph extends Component {
         const secondGraphClass = isGenderDiffGreater ? "male-answer-chart-" + userAnswer.answerId : "old-answer-chart-" + userAnswer.answerId
         const firstText = isGenderDiffGreater ? strings.females : strings.young;
         const secondText = isGenderDiffGreater ? strings.males : strings.old;
+        const statsType = isGenderDiffGreater ? strings.typeGender : strings.typeAge;
 
         return (
             <div className="community-question-stats">
+                <div className="question-stats-type">{statsType}</div>
                 <div className="first-answer-chart-container">
                     <canvas id={firstGraphClass}></canvas>
                     <div className={firstIcon}></div>
@@ -124,9 +125,11 @@ export default class QuestionStatsGraph extends Component {
 
 QuestionStatsGraph.defaultProps = {
     strings: {
-        females: 'Girls',
-        males  : 'Boys',
-        young  : '- than 30',
-        old    : '+ than 30',
+        females   : 'Girls',
+        males     : 'Boys',
+        young     : '- than 30',
+        old       : '+ than 30',
+        typeGender: 'Distribution by gender',
+        typeAge   : 'Distribution by age',
     }
 };

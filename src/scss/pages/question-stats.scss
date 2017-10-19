@@ -21,9 +21,14 @@ body #root .App .views .view .page.question-stats-page {
       .question-stats-graph-title {
         color: $pink;
         font-weight: bold;
-        margin-bottom: 30px;
+        margin-bottom: 10px;
       }
       .community-question-stats {
+        .question-stats-type {
+          color: $pink;
+          font-weight: bold;
+          margin-bottom: 40px;
+        }
         .first-answer-chart-container, .second-answer-chart-container {
           display: inline-block;
           height: 150px;

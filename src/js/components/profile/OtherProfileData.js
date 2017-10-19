@@ -4,7 +4,6 @@ import { Link } from 'react-router';
 import ProgressBar from '../ui/ProgressBar';
 import ProfilesAvatarConnection from '../ui/ProfilesAvatarConnection';
 import Image from '../ui/Image';
-import {} from '../../constants/Constants';
 import translate from '../../i18n/Translate';
 import connectToStores from '../../utils/connectToStores';
 import * as UserActionCreators from '../../actions/UserActionCreators';

@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import ProgressBar from '../ui/ProgressBar';
 import Image from '../ui/Image';
+import CardUserTopLinks from '../recommendations/CardUserTopLinks';
 import translate from '../../i18n/Translate';
 import PercentageValue from "./PercentageValue";
 
@@ -28,6 +29,7 @@ export default class CardUserPlaceholder extends Component {
                         </div>
                     </div>
                 </div>
+                <CardUserTopLinks topLinks={[]} sharedLinks={0}/>
                 <div className={"card-footer"}>
                     <div>
                         <div className="card-title">

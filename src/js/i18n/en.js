@@ -455,7 +455,9 @@ export default {
         females: 'Girls',
         males  : 'Boys',
         young  : '- than 30',
-        old    : '+ than 30'
+        old    : '+ than 30',
+        typeAge: 'Distribution by age',
+        typeGender: 'Distribution by gender'
     },
     QuestionStatsInline              : {
         statistics: 'Community answer statistics'

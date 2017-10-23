@@ -456,7 +456,9 @@ export default {
         females: 'Mujeres',
         males  : 'Hombres',
         young  : '- de 30',
-        old    : '+ de 30'
+        old    : '+ de 30',
+        typeAge: 'Distribución por edad',
+        typeGender: 'Distribución por género'
     },
     QuestionStatsInline              : {
         statistics: 'Estadísticas de la comunidad Nekuno'

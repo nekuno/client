@@ -7,7 +7,8 @@ import Image from './Image';
 import UserStore from '../../stores/UserStore';
 import * as UserActionCreators from '../../actions/UserActionCreators'
 import translate from '../../i18n/Translate';
-import Shareservice from '../../services/ShareService';
+import ShareService from '../../services/ShareService';
+import LinkImageService from '../../services/LinkImageService';
 
 @translate('CardContent')
 export default class CardContent extends Component {
@@ -112,7 +113,7 @@ export default class CardContent extends Component {
 
     onShare() {
         const {title, url, strings} = this.props;
-        Shareservice.share(title, url, this.onShareSuccess, this.onShareError, strings.copiedToClipboard);
+        ShareService.share(title, url, this.onShareSuccess, this.onShareError, strings.copiedToClipboard);
     }
     
     onShareSuccess() {
@@ -219,6 +220,7 @@ export default class CardContent extends Component {
         } else if (isImage) {
             imgSrc = url;
         }
+        imgSrc = LinkImageService.getThumbnail(imgSrc, 'medium');
 
         // TODO: Facebook type may be returned from brain
         let realTypes = types.slice(0);

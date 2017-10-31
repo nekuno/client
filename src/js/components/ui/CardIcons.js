@@ -12,99 +12,110 @@ export default class CardIcons extends Component {
     render() {
         return (
             <div>
-                {this.props.types.map((value, index, array) => {
-                    switch (value) {
-                        case 'Link':
-                            if (array.length > 1) {
-                                break;
-                            }
-                            return this.renderLinkIcons(index);
-                        case 'Image':
-                            return this.renderImageIcons(index);
-                        case 'Video':
-                            return this.renderVideoIcons(index);
-                        case 'Audio':
-                            return this.renderAudioIcons(index);
-                        case 'Creator':
-                            return this.renderCreatorIcons(index);
-                        case 'FacebookLink':
-                            return this.renderFacebookLinkIcons(index);
-                        case 'FacebookVideo':
-                            return this.renderFacebookVideoIcons(index);
-                        case 'FacebookCreator':
-                            return this.renderFacebookCreatorIcons(index);
-                    }
-                })}
+                {this.renderIcons(this.props.types)}
             </div>
         );
     }
 
-    renderLinkIcons = function(index) {
+    renderIcons = function(types) {
+        if (types.some((type) => type === 'CreatorFacebook')) {
+            return this.renderFacebookCreatorIcons();
+        } else if (types.some((type) => type === 'CreatorTwitter')) {
+            return this.renderTwitterCreatorIcons();
+        } else if (types.some((type) => type === 'CreatorInstagram')) {
+            return this.renderInstagramCreatorIcons();
+        } else if (types.some((type) => type === 'CreatorTwitter')) {
+            return this.renderTwitterCreatorIcons();
+        } else if (types.some((type) => type === 'FacebookVideo')) {
+            return this.renderFacebookVideoIcons();
+        } else if (types.some((type) => type === 'FacebookLink')) {
+            return this.renderFacebookLinkIcons();
+        } else if (types.some((type) => type === 'Audio')) {
+            return this.renderAudioIcons();
+        } else if (types.some((type) => type === 'Video')) {
+            return this.renderVideoIcons();
+        } else if (types.some((type) => type === 'Image')) {
+            return this.renderImageIcons();
+        } else {
+            return this.renderLinkIcons();
+        }
+    };
+
+    renderLinkIcons = function() {
         return (
-            <div className="absolute-wrapper" key={index + 1}>
+            <div className="absolute-wrapper">
                 <div className="icon-wrapper link-icon-wrapper"><span className="icon-web-site"></span></div>
             </div>
         );
     };
 
-    renderImageIcons = function(index) {
+    renderImageIcons = function() {
         return (
-            <div className="absolute-wrapper" key={index + 1}>
+            <div className="absolute-wrapper">
                 <div className="icon-wrapper image-icon-wrapper"><span className="icon-photo"></span></div>
             </div>
         );
     };
 
-    renderVideoIcons = function(index) {
+    renderVideoIcons = function() {
         return (
-            <div className="absolute-wrapper" key={index + 1}>
+            <div className="absolute-wrapper">
                 <div className="icon-wrapper"><span className="icon-video"></span></div>
                 <div className="icon-wrapper youtube-icon-wrapper"><span className="icon-youtube"></span></div>
             </div>
         );
     };
 
-    renderAudioIcons = function(index) {
+    renderAudioIcons = function() {
         return (
-            <div className="absolute-wrapper" key={index + 1}>
+            <div className="absolute-wrapper">
                 <div className="icon-wrapper"><span className="icon-audio"></span></div>
                 <div className="icon-wrapper spotify-icon-wrapper"><span className="icon-spotify"></span></div>
             </div>
         );
     };
 
-    renderCreatorIcons = function(index) {
+    renderTwitterCreatorIcons = function() {
         return (
-            <div className="absolute-wrapper" key={index + 1}>
+            <div className="absolute-wrapper">
                 <div className="icon-wrapper"><span className="icon-channels"></span></div>
                 <div className="icon-wrapper twitter-icon-wrapper"><span className="icon-twitter"></span></div>
             </div>
         );
     };
 
-    renderFacebookLinkIcons = function(index) {
+    renderFacebookLinkIcons = function() {
         return (
-            <div className="absolute-wrapper" key={index + 1}>
+            <div className="absolute-wrapper">
                 <div className="icon-wrapper link-icon-wrapper"><span className="icon-web-site"></span></div>
                 <div className="icon-wrapper facebook-icon-wrapper"><span className="icon-facebook"></span></div>
             </div>
         );
     };
 
-    renderFacebookVideoIcons = function(index) {
+    renderFacebookVideoIcons = function() {
         return (
-            <div className="absolute-wrapper" key={index + 1}>
+            <div className="absolute-wrapper">
                 <div className="icon-wrapper"><span className="icon-video"></span></div>
                 <div className="icon-wrapper facebook-icon-wrapper"><span className="icon-facebook"></span></div>
             </div>
         );
     };
 
-    renderFacebookCreatorIcons = function(index) {
+    renderFacebookCreatorIcons = function() {
         return (
-            <div className="absolute-wrapper" key={index + 1}>
+            <div className="absolute-wrapper">
                 <div className="icon-wrapper"><span className="icon-channels"></span></div>
                 <div className="icon-wrapper facebook-icon-wrapper"><span className="icon-facebook"></span></div>
+            </div>
+        );
+    };
+
+    renderInstagramCreatorIcons = function() {
+        return (
+            <div className="absolute-wrapper">
+                <div className="icon-wrapper"><span className="icon-channels"></span></div>
+                <div className="icon-wrapper instagram-icon-wrapper"><span className="icon-instagram"></span></div>
             </div>
         );
     };

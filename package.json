@@ -1,6 +1,6 @@
 {
     "name": "client",
-    "version": "0.44.1",
+    "version": "0.45.0",
     "description": "Nekuno Hybrid Mobile Client",
     "main": "index.js",
     "scripts": {
@@ -28,6 +28,7 @@
         "create-react-class": "^15.5.0",
         "de.appplant.cordova.plugin.local-notification": "^0.8.5",
         "envify": "^4.0.0",
+        "crypto": "^1.0.1",
         "es6-promise-plugin": "^4.1.0",
         "flux": "2.1.1",
         "framework7": "1.5.2",

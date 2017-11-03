@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import Image from '../ui/Image';
+import LinkImageService from '../../services/LinkImageService';
 
 export default class CardUserTopLinks extends Component {
     static propTypes = {
@@ -32,7 +33,7 @@ export default class CardUserTopLinks extends Component {
                 {typeof topLinks[0] !== 'undefined' ?
                     <div className="top-link-wrapper">
                         <div className="top-link">
-                            <Image src={topLinks[0]}/>
+                            <Image src={LinkImageService.getThumbnail(topLinks[0], 'small')}/>
                         </div>
                         {typeof topLinks[1] === 'undefined' && sharedLinks > 1 ?
                             <div className="shared-link-wrapper">
@@ -50,7 +51,7 @@ export default class CardUserTopLinks extends Component {
                 {typeof topLinks[1] !== 'undefined' ?
                     <div className="top-link-wrapper">
                         <div className="top-link">
-                            <Image src={topLinks[1]}/>
+                            <Image src={LinkImageService.getThumbnail(topLinks[1], 'small')}/>
                         </div>
                         {typeof topLinks[2] === 'undefined' && sharedLinks > 2 ?
                             <div className="shared-link-wrapper">
@@ -68,7 +69,7 @@ export default class CardUserTopLinks extends Component {
                 {typeof topLinks[2] !== 'undefined' ?
                     <div className="top-link-wrapper">
                         <div className="top-link">
-                            <Image src={topLinks[2]}/>
+                            <Image src={LinkImageService.getThumbnail(topLinks[2], 'small')}/>
                         </div>
                         {sharedLinks > 3 ?
                             <div className="shared-link-wrapper">

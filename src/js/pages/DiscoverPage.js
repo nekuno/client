@@ -238,10 +238,10 @@ export default class DiscoverPage extends Component {
         ];
 
         const noRecommendations = this.props.recommendations.length === 0;
-        const isSomethingLoading = Object.keys(this.props.thread).length === 0 || this.props.isLoadingRecommendations;
+        const isThreadLoading = Object.keys(this.props.thread).length === 0;
         const noUserInfo = Object.keys(this.props.profile).length === 0;
 
-        if ((isSomethingLoading && noRecommendations ) || noUserInfo) {
+        if ((isThreadLoading && noRecommendations ) || noUserInfo) {
             firstItems.push(this.getEmptyMessage(this.props, !this.props.isLoadingRecommendations));
         }
 
@@ -262,6 +262,7 @@ export default class DiscoverPage extends Component {
     render() {
         const {user, profile, orientationMustBeAsked, strings, recommendations, thread, isLoadingRecommendations, isThreadGroup} = this.props;
         const title = isThreadGroup ? thread.name : strings.discover;
+        const isFirstLoading = isLoadingRecommendations && recommendations.length === 0;
 
         return (
             <div id="discover-views" className="views">
@@ -274,7 +275,7 @@ export default class DiscoverPage extends Component {
                             {profile ?
                                 <CardUserList firstItems={this.getFirstItems.bind(this)()} recommendations={recommendations} user={user} profile={profile}
                                               handleSelectProfile={this.selectProfile} onBottomScroll={this.onBottomScroll} isLoading={isLoadingRecommendations}
-                                              orientationMustBeAsked={orientationMustBeAsked}/>
+                                              isFirstLoading={isFirstLoading} orientationMustBeAsked={orientationMustBeAsked}/>
                                 :
                                 this.getEmptyMessage(this.props, true)
                             }

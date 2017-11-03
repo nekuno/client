@@ -354,7 +354,8 @@ export default {
         similarInterests   : 'Similar interests',
         compatibility      : 'compatibility',
         similarity         : 'similarity',
-        calculatingMatching: 'Calculating matching...'
+        calculatingMatching: 'Calculating matching...',
+        commonGroups       : 'Common badges'
     },
     ProfileData                      : {
         seeLess: 'See less',
@@ -454,7 +455,9 @@ export default {
         females: 'Girls',
         males  : 'Boys',
         young  : '- than 30',
-        old    : '+ than 30'
+        old    : '+ than 30',
+        typeAge: 'Distribution by age',
+        typeGender: 'Distribution by gender'
     },
     QuestionStatsInline              : {
         statistics: 'Community answer statistics'
@@ -542,6 +545,11 @@ export default {
         saving    : 'Saving...',
         age       : 'Age',
     },
+    CardUserPlaceholder              : {
+        matching  : 'Matching',
+        similarity: 'Similarity',
+        loading   : 'Loading...',
+    },
     ImportAlbumPopup                 : {
         close           : 'Close',
         importAlbum     : 'Import an album',
@@ -574,6 +582,7 @@ export default {
     OrientationRequiredPopup         : {
         title              : 'Select your sexual orientation to see this profile',
         orientationRequired: 'Orientation Required',
+        moreOptions        : 'There are more options available at your profile edition',
         cancel             : 'Cancel'
     },
     RegisterQuestionsFinishedPopup   : {
@@ -701,8 +710,8 @@ export default {
         interestsCount       : '%count% Interests',
         similarInterestsCount: '%count% Similar interests',
     },
-    SocialWheel : {
-        isLoading : 'Getting information...',
+    SocialWheel                      : {
+        isLoading: 'Getting information...',
     },
     ////////////////
     // Framework7 //

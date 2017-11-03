@@ -355,7 +355,8 @@ export default {
         similarInterests   : 'Intereses similares',
         compatibility      : 'Compatibilidad',
         similarity         : 'Similaridad',
-        calculatingMatching: 'Calculando compatibilidad...'
+        calculatingMatching: 'Calculando compatibilidad...',
+        commonGroups       : 'Insignias en común'
     },
     ProfileData                      : {
         seeLess: 'Ver menos',
@@ -455,7 +456,9 @@ export default {
         females: 'Mujeres',
         males  : 'Hombres',
         young  : '- de 30',
-        old    : '+ de 30'
+        old    : '+ de 30',
+        typeAge: 'Distribución por edad',
+        typeGender: 'Distribución por género'
     },
     QuestionStatsInline              : {
         statistics: 'Estadísticas de la comunidad Nekuno'
@@ -543,6 +546,11 @@ export default {
         saving    : 'Guardando...',
         age       : 'Edad',
     },
+    CardUserPlaceholder              : {
+        matching  : 'Compatibilidad',
+        similarity: 'Similaridad',
+        loading   : 'Cargando...',
+    },
     ImportAlbumPopup                 : {
         close           : 'Cerrar',
         importAlbum     : 'Importar un álbum',
@@ -575,6 +583,7 @@ export default {
     OrientationRequiredPopup         : {
         title              : 'Indícanos tu orientación sexual para ver este perfil',
         orientationRequired: 'Orientación sexual requerida',
+        moreOptions        : 'Hay más opciones disponibles en edición de tu perfil',
         cancel             : 'Cancelar'
     },
     RegisterQuestionsFinishedPopup   : {

@@ -63,12 +63,15 @@ export default class OrientationRequiredPopup extends Component {
 
     getLabels(metadata) {
         let labels = [];
+        const amountShown = 4;
         if (metadata && metadata.orientation) {
             Object.keys(metadata.orientation.choices).forEach((index) => {
-                labels.push({
-                    key: index,
-                    text: metadata.orientation.choices[index]
-                });
+                if (labels.length < amountShown) {
+                    labels.push({
+                        key : index,
+                        text: metadata.orientation.choices[index]
+                    });
+                }
             });
         }
 
@@ -88,6 +91,7 @@ export default class OrientationRequiredPopup extends Component {
                     {metadata ?
                         <div>
                             <TextRadios title={strings.title} labels={this.getLabels(metadata)} onClickHandler={this.onSelect} forceTwoLines={true}/>
+                            <div className="popup-orientation-required-clarification">{strings.moreOptions}</div>
                             <FullWidthButton onClick={this.onCancel}> {strings.cancel} </FullWidthButton>
                         </div>
                         :
@@ -104,6 +108,7 @@ OrientationRequiredPopup.defaultProps = {
     strings   : {
         title              : 'Select your sexual orientation sexual to see this yarn',
         orientationRequired: 'Orientation required',
+        moreOptions        : 'There are more options available at your profile edition',
         cancel             : 'Cancel'
     },
     onClick   : () => {

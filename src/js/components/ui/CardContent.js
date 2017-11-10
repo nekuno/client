@@ -199,10 +199,6 @@ export default class CardContent extends Component {
         });
     };
 
-    isFacebookLink = function (url) {
-        return url.match(/^https?:\/\/(www\.)?facebook\.com(\/.*)?$/i);
-    };
-
     preventDefault(e) {
         e.preventDefault();
     }
@@ -221,22 +217,6 @@ export default class CardContent extends Component {
             imgSrc = url;
         }
         imgSrc = LinkImageService.getThumbnail(imgSrc, 'medium');
-
-        // TODO: Facebook type may be returned from brain
-        let realTypes = types.slice(0);
-        if (this.isFacebookLink(url)) {
-            if (realTypes.some(type => type === 'Video')) {
-                realTypes.push('FacebookVideo');
-                const index = realTypes.findIndex(type => type === 'Video');
-                realTypes.splice(index, 1);
-            } else if (realTypes.some(type => type === 'Creator')) {
-                realTypes.push('FacebookCreator');
-                const index = realTypes.findIndex(type => type === 'Creator');
-                realTypes.splice(index, 1);
-            } else {
-                realTypes.push('FacebookLink');
-            }
-        }
 
         return (
             <div className="card content-card">
@@ -260,7 +240,7 @@ export default class CardContent extends Component {
                     </div>
                 }
                 <div className="card-icons" onClick={this.handleClick}>
-                    <CardIcons types={realTypes}/>
+                    <CardIcons types={types}/>
                 </div>
                 <div className="card-content" onClick={this.handleClick}>
                     <div className="card-content-inner">

@@ -1,4 +1,4 @@
-import { FACEBOOK_ID, TWITTER_ID, GOOGLE_ID, SPOTIFY_ID, INSTANT_HOST } from '../constants/Constants';
+import { FACEBOOK_ID, TWITTER_ID, GOOGLE_ID, SPOTIFY_ID, INSTAGRAM_ID, INSTANT_HOST } from '../constants/Constants';
 import selectn from 'selectn';
 import moment from 'moment';
 import LocaleStore from '../stores/LocaleStore';
@@ -65,6 +65,20 @@ hello.init(
         },
         oauth_proxy : INSTANT_HOST + 'oauthproxy',
         response_type: 'code'
+    }
+);
+
+hello.init(
+    {
+        instagram: INSTAGRAM_ID
+    },
+    {
+        redirect_uri: helloOAuthCallback,
+        popup       : {
+            location: 'no'
+        },
+        oauth_proxy : INSTANT_HOST + 'oauthproxy',
+        response_type: 'token'
     }
 );
 

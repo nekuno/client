@@ -68,10 +68,11 @@ export const QUESTION_STATS_COLORS = [
 ];
 
 export const SOCIAL_NETWORKS_NAMES = {
-    FACEBOOK: 'facebook',
-    TWITTER : 'twitter',
-    GOOGLE  : 'google',
-    SPOTIFY : 'spotify'
+    FACEBOOK : 'facebook',
+    TWITTER  : 'twitter',
+    GOOGLE   : 'google',
+    SPOTIFY  : 'spotify',
+    INSTAGRAM: 'instagram'
 };
 
 export const SOCIAL_NETWORKS = [
@@ -110,6 +111,9 @@ export const GOOGLE_PHOTOS_SCOPE = config.GOOGLE_PHOTOS_SCOPE;
 
 export const SPOTIFY_ID = config.SPOTIFY_ID;
 export const SPOTIFY_SCOPE = config.SPOTIFY_SCOPE;
+
+export const INSTAGRAM_ID = config.INSTAGRAM_ID;
+export const INSTAGRAM_SCOPE = config.INSTAGRAM_SCOPE;
 
 export const TRACKER_ID_WEB = config.TRACKER_ID_WEB;
 export const TRACKER_ID_APP = config.TRACKER_ID_APP;

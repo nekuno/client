@@ -190,6 +190,9 @@ export default class CardContent extends Component {
             case 'facebook':
                 html = <div className="fb-video" data-href={url} data-show-text="false" data-autoplay="true"></div>;
                 break;
+            case 'tumblr':
+                html = <div dangerouslySetInnerHTML={{__html: embed_id.replace('<video', '<video controls style="width: 100%"')}}></div>;
+                break;
             default:
                 break;
         }

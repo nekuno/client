@@ -1,4 +1,4 @@
-import { FACEBOOK_ID, TWITTER_ID, GOOGLE_ID, SPOTIFY_ID, INSTAGRAM_ID, INSTANT_HOST } from '../constants/Constants';
+import { FACEBOOK_ID, TWITTER_ID, GOOGLE_ID, SPOTIFY_ID, INSTAGRAM_ID, TUMBLR_ID, INSTANT_HOST } from '../constants/Constants';
 import selectn from 'selectn';
 import moment from 'moment';
 import LocaleStore from '../stores/LocaleStore';
@@ -56,7 +56,7 @@ hello.init(
         google  : GOOGLE_ID,
         spotify : SPOTIFY_ID,
         facebook: FACEBOOK_ID,
-        twitter : TWITTER_ID
+        twitter : TWITTER_ID,
     },
     {
         redirect_uri: helloOAuthCallback,
@@ -70,7 +70,8 @@ hello.init(
 
 hello.init(
     {
-        instagram: INSTAGRAM_ID
+        instagram: INSTAGRAM_ID,
+        tumblr: TUMBLR_ID,
     },
     {
         redirect_uri: helloOAuthCallback,

@@ -1,13 +1,12 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { SOCIAL_NETWORKS, SOCIAL_NETWORKS_NAMES } from '../constants/Constants';
-import selectn from 'selectn';
 import FacebookButton from '../components/ui/FacebookButton';
-import EmptyMessage from '../components/ui/EmptyMessage';
 import connectToStores from '../utils/connectToStores';
 import translate from '../i18n/Translate';
 import LoginActionCreators from '../actions/LoginActionCreators';
 import RouterActionCreators from '../actions/RouterActionCreators';
+import LocalStorageService from '../services/LocalStorageService';
 import SocialNetworkService from '../services/SocialNetworkService';
 import LocaleStore from '../stores/LocaleStore';
 
@@ -56,12 +55,13 @@ export default class HomePage extends Component {
         super(props);
 
         this.loginByResourceOwner = this.loginByResourceOwner.bind(this);
+        this.login = this.login.bind(this);
         this.setLoginUserState = this.setLoginUserState.bind(this);
         this.split = this.split.bind(this);
 
         this.promise = null;
         this.state = {
-            loginUser      : selectn('location.query.autoLogin', props),
+            loginUser      : false,
             registeringUser: null,
             details        : {
                 title1: 0,
@@ -74,11 +74,20 @@ export default class HomePage extends Component {
 
     componentDidMount() {
         initSwiper();
-        if (this.state.loginUser) {
-            const facebookNetwork = SOCIAL_NETWORKS.find(socialNetwork => socialNetwork.resourceOwner == SOCIAL_NETWORKS_NAMES.FACEBOOK);
-            const resource = facebookNetwork.resourceOwner;
-            const scope = facebookNetwork.scope;
-            this.loginByResourceOwner(resource, scope);
+        const facebookNetwork = SOCIAL_NETWORKS.find(socialNetwork => socialNetwork.resourceOwner == SOCIAL_NETWORKS_NAMES.FACEBOOK);
+        const resource = facebookNetwork.resourceOwner;
+        if (!LocalStorageService.get('jwt') && hello.getAuthResponse(resource)) {
+            console.log('Attempting oauth login...');
+            this.setLoginUserState(true);
+            SocialNetworkService._setResourceData(resource, {authResponse: hello.getAuthResponse(resource)}).then(
+                () => {
+                    this.login(resource);
+                },
+                (status) => {
+                    this.setLoginUserState(false);
+                    nekunoApp.alert(resource + ' login failed: ' + status.error.message)
+                }
+            );
         }
         this.interval = setInterval(() => {
             const {strings} = this.props;
@@ -108,38 +117,44 @@ export default class HomePage extends Component {
     };
 
     loginByResourceOwner(resource, scope) {
-        const {interfaceLanguage, strings} = this.props;
+
         this.setLoginUserState(true);
         SocialNetworkService.login(resource, scope).then(
             () => {
-                const oauthData = SocialNetworkService.buildOauthData(resource);
-                LoginActionCreators.loginUserByResourceOwner(
-                    resource,
-                    SocialNetworkService.getAccessToken(resource),
-                    SocialNetworkService.getRefreshToken(resource)
-                ).then(
-                    () => {
-                        return null; // User is logged in
-                    },
-                    (error) => {
-                        // User not present. Register user.
-                        let user = SocialNetworkService.getUser(resource);
-                        let profile = SocialNetworkService.getProfile(resource);
-                        if (!user || !profile) {
-                            nekunoApp.alert(strings.blockingError);
-                            this.setState({loginUser: false});
-                        } else {
-                            profile.interfaceLanguage = interfaceLanguage;
-                            profile.orientationRequired = false;
-                            let token = 'join';
-                            LoginActionCreators.preRegister(user, profile, token, oauthData);
-                            setTimeout(() => RouterActionCreators.replaceRoute('answer-username'), 0);
-                        }
-                    });
+                this.login(resource);
             },
             (status) => {
                 this.setLoginUserState(false);
                 nekunoApp.alert(resource + ' login failed: ' + status.error.message)
+            });
+    }
+
+    login(resource) {
+
+        const {interfaceLanguage, strings} = this.props;
+        const oauthData = SocialNetworkService.buildOauthData(resource);
+        LoginActionCreators.loginUserByResourceOwner(
+            resource,
+            SocialNetworkService.getAccessToken(resource),
+            SocialNetworkService.getRefreshToken(resource)
+        ).then(
+            () => {
+                return null; // User is logged in
+            },
+            (error) => {
+                // User not present. Register user.
+                let user = SocialNetworkService.getUser(resource);
+                let profile = SocialNetworkService.getProfile(resource);
+                if (!user || !profile) {
+                    nekunoApp.alert(strings.blockingError);
+                    this.setState({loginUser: false});
+                } else {
+                    profile.interfaceLanguage = interfaceLanguage;
+                    profile.orientationRequired = false;
+                    let token = 'join';
+                    LoginActionCreators.preRegister(user, profile, token, oauthData);
+                    setTimeout(() => RouterActionCreators.replaceRoute('answer-username'), 0);
+                }
             });
     }
 

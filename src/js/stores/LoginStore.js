@@ -74,6 +74,7 @@ class LoginStore extends BaseStore {
                 this.setInitial();
                 this._justLoggedout = true;
                 LocalStorageService.remove('jwt');
+                LocalStorageService.remove('hello');
 
                 const path = action.path;
                 let router = RouterContainer.get();

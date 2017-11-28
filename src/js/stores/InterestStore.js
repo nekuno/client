@@ -35,6 +35,11 @@ class InterestStore extends BaseStore {
                 this.setType(action.userId, action.contentType);
                 this.emitChange();
                 break;
+            case ActionTypes.REMOVE_CONTENTS_TYPE:
+                this._resetInterests(action.userId);
+                this.removeType(action.userId);
+                this.emitChange();
+                break;
             case ActionTypes.SET_CONTENTS_SHOWONLYCOMMON:
                 this._resetInterests(action.userId);
                 this.setShowOnlyCommon(action.userId, action.showOnlyCommon);
@@ -173,6 +178,10 @@ class InterestStore extends BaseStore {
 
     setType(userId, type) {
         this._type[userId] = type;
+    }
+
+    removeType(userId) {
+        delete this._type[userId];
     }
 
     getShowOnlyCommon(userId) {

@@ -48,7 +48,7 @@ export default class FilterContentButtonsList extends Component {
                         <FilterContentButton text={strings.videos} count={videosCount || 0} onClickHandler={this.onFilterClick.bind(this, 'Video')} active={type === 'Video'} icon="video" loading={loading}/>
                         <FilterContentButton text={strings.audios} count={audiosCount || 0} onClickHandler={this.onFilterClick.bind(this, 'Audio')} active={type === 'Audio'} icon="audio" loading={loading}/>
                         <FilterContentButton text={strings.photos} count={imagesCount || 0} onClickHandler={this.onFilterClick.bind(this, 'Image')} active={type === 'Image'} icon="photo" loading={loading}/>
-                        <FilterContentButton text={strings.websites} count={linksCount || 0} onClickHandler={this.onFilterClick.bind(this, '')} active={type === ''} icon="web-site" loading={loading}/>
+                        <FilterContentButton text={strings.websites} count={linksCount || 0} onClickHandler={this.onFilterClick.bind(this, 'Web')} active={type === 'Web'} icon="web-site" loading={loading}/>
                         <FilterContentButton text={strings.channels} count={channelsCount || 0} onClickHandler={this.onFilterClick.bind(this, 'Creator')} active={type === 'Creator'} icon="channels" loading={loading}/>
                     </div>
                 </div>
@@ -62,7 +62,7 @@ FilterContentButtonsList.defaultProps = {
         videos  : 'Videos',
         audios  : 'Audios',
         photos  : 'Photos',
-        websites: 'All',
+        websites: 'Links',
         people  : 'People',
         channels: 'Channels'
     },

@@ -207,6 +207,8 @@ export default class OtherInterestsPage extends Component {
 
         if (type !== pressedType) {
             InterestsActionCreators.setType(pressedType, otherUserId);
+        } else {
+            InterestsActionCreators.removeType(otherUserId);
         }
     }
 
@@ -254,7 +256,7 @@ export default class OtherInterestsPage extends Component {
 
         return otherUser ? <FilterContentButtonsList userId={otherUserId} contentsCount={pagination.total || 0} ownContent={false} ownUserId={ownUserId} onClickHandler={this.onFilterTypeClick} commonContent={showOnlyCommon}
                                                      loading={isLoadingComparedInterests}
-                                                     linksCount={totals.Link}
+                                                     linksCount={totals.Web}
                                                      audiosCount={totals.Audio}
                                                      videosCount={totals.Video}
                                                      imagesCount={totals.Image}

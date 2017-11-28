@@ -1,11 +1,11 @@
 import 'babel-polyfill';
+import './hellojs/init';
 import React from 'react';
 import { render } from 'react-dom';
 import { hashHistory } from 'react-router';
 import Root from './Root';
 import RouterContainer from './services/RouterContainer';
 import LoginActionsCreator from './actions/LoginActionCreators';
-import './vendor/init';
 import AnalyticsService from './services/AnalyticsService';
 import GeocoderService from './services/GeocoderService';
 import SocialNetworkService from './services/SocialNetworkService';

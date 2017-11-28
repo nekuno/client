@@ -63,10 +63,7 @@ gulp.task('build-vendor-js', function() {
     var paths = [
         './node_modules/framework7/dist/js/framework7.min.js',
         './node_modules/Framework7-3D-Panels/dist/framework7.3dpanels.min.js',
-        './src/js/vendor/hello.js',
-        './src/js/vendor/tumblr.js',
-        './src/js/vendor/socket.io.min.js',
-        './src/js/vendor/manup.min.js'
+        './src/js/polyfill/manup.min.js',
     ];
     return gulp.src(paths)
         .pipe(concat('vendor.js'))
@@ -75,7 +72,7 @@ gulp.task('build-vendor-js', function() {
 });
 
 gulp.task('build-hello-js', function() {
-    return gulp.src('./src/js/vendor/hello.js')
+    return gulp.src('./node_modules/hellojs/dist/hello.js')
         .pipe(gulp.dest('www/'));
 });
 

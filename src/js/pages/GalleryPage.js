@@ -16,6 +16,7 @@ import GalleryAlbumActionCreators from '../actions/GalleryAlbumActionCreators';
 import GalleryPhotoActionCreators from '../actions/GalleryPhotoActionCreators';
 import ConnectActionCreators from '../actions/ConnectActionCreators';
 import SocialNetworkService from '../services/SocialNetworkService';
+import Framework7Service from '../services/Framework7Service';
 
 function parseId(user) {
     return user.id;
@@ -86,7 +87,7 @@ export default class GalleryPage extends Component {
     
     componentWillReceiveProps(nextProps) {
         if (nextProps.errors) {
-            nekunoApp.alert(nextProps.errors);
+            Framework7Service.nekunoApp().alert(nextProps.errors);
         }
     }
     
@@ -144,7 +145,7 @@ export default class GalleryPage extends Component {
         }
         if (typeof files[0] !== 'undefined') {
             if (!this.isValidMimetype(files[0].type)) {
-                nekunoApp.alert(strings.invalidMimeType);
+                Framework7Service.nekunoApp().alert(strings.invalidMimeType);
                 return;
             }
             const userId = parseId(this.props.user);

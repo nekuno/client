@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import translate from '../../i18n/Translate';
 import Input from '../ui/Input';
 import FullWidthButton from '../ui/FullWidthButton';
+import Framework7Service from '../../services/Framework7Service';
 
 @translate('UnlockGroupPopup')
 export default class UnlockGroupPopup extends Component {
@@ -25,10 +26,10 @@ export default class UnlockGroupPopup extends Component {
     }
 
     componentDidMount() {
-        $$('.popup-unlock-group').on('popup:opened', () => {
+        Framework7Service.$$()('.popup-unlock-group').on('popup:opened', () => {
             this.setState({opened: true});
         });
-        $$('.popup-unlock-group').on('popup:closed', () => {
+        Framework7Service.$$()('.popup-unlock-group').on('popup:closed', () => {
             this.setState({opened: false});
         });
     }

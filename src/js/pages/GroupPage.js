@@ -15,6 +15,7 @@ import * as UserActionCreators from '../actions/UserActionCreators';
 import * as GroupActionCreators from '../actions/GroupActionCreators';
 import * as ThreadActionCreators from '../actions/ThreadActionCreators';
 import GroupStore from '../stores/GroupStore';
+import Framework7Service from '../services/Framework7Service';
 
 function parseId(user) {
     return user.id;
@@ -85,7 +86,7 @@ export default class GroupPage extends Component {
     }
 
     create() {
-        nekunoApp.prompt(this.props.strings.enterName, (value) => {
+        Framework7Service.nekunoApp().prompt(this.props.strings.enterName, (value) => {
             const data = {'name': value};
             this.setState({creating: true});
             GroupActionCreators.createGroup(data).then((group) => {
@@ -94,7 +95,7 @@ export default class GroupPage extends Component {
             }, (error) => {
                 this.setState({creating: false});
                 console.log(error);
-                nekunoApp.alert('Sorry! We couldn´t create this group');
+                Framework7Service.nekunoApp().alert('Sorry! We couldn´t create this group');
             });
         });
         setTimeout(() => {
@@ -152,13 +153,13 @@ export default class GroupPage extends Component {
         const {strings} = this.props;
         console.log(error);
         this.openJoinPopup();
-        nekunoApp.alert(strings.joiningError);
+        Framework7Service.nekunoApp().alert(strings.joiningError);
     }
 
     manageNotInvitationGroup() {
         const {strings} = this.props;
         this.openJoinPopup();
-        nekunoApp.alert(strings.noGroupToken);
+        Framework7Service.nekunoApp().alert(strings.noGroupToken);
     }
 
     render() {

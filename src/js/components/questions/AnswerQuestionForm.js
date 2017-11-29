@@ -7,6 +7,7 @@ import AcceptedAnswerCheckbox from './AcceptedAnswerCheckbox';
 import AcceptedAnswersImportance from './AcceptedAnswersImportance';
 import EmptyMessage from '../ui/EmptyMessage';
 import translate from '../../i18n/Translate';
+import Framework7Service from '../../services/Framework7Service';
 
 @translate('AnswerQuestionForm')
 export default class AnswerQuestionForm extends Component {
@@ -62,7 +63,7 @@ export default class AnswerQuestionForm extends Component {
 
     handleOnClickAcceptedAnswer(checked, value) {
         if (!this.state.answerId) {
-            nekunoApp.alert(this.props.strings.alertFirst);
+            Framework7Service.nekunoApp().alert(this.props.strings.alertFirst);
         }
 
         let acceptedAnswers = this.state.acceptedAnswers;

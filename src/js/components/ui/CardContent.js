@@ -9,6 +9,7 @@ import * as UserActionCreators from '../../actions/UserActionCreators'
 import translate from '../../i18n/Translate';
 import ShareService from '../../services/ShareService';
 import LinkImageService from '../../services/LinkImageService';
+import Framework7Service from '../../services/Framework7Service';
 
 @translate('CardContent')
 export default class CardContent extends Component {
@@ -97,7 +98,7 @@ export default class CardContent extends Component {
             }
         );
 
-        nekunoApp.actions(buttons);
+        Framework7Service.nekunoApp().actions(buttons);
     }
 
     onRate() {
@@ -126,7 +127,7 @@ export default class CardContent extends Component {
     }
 
     onShareError() {
-        nekunoApp.alert(this.props.strings.shareError)
+        Framework7Service.nekunoApp().alert(this.props.strings.shareError)
     }
 
     onReport() {
@@ -157,7 +158,7 @@ export default class CardContent extends Component {
                 text: strings.cancel
             }
         ];
-        nekunoApp.actions(buttons);
+        Framework7Service.nekunoApp().actions(buttons);
     }
 
     onReportReason(reason) {

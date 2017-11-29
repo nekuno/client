@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import translate from '../../i18n/Translate';
+import Framework7Service from '../../services/Framework7Service';
 
 @translate('MessagesToolBarDisabled')
 export default class MessagesToolBarDisabled extends Component {
@@ -18,7 +19,7 @@ export default class MessagesToolBarDisabled extends Component {
     }
 
     alertDisabled() {
-        nekunoApp.alert(this.props.strings.forbidden);
+        Framework7Service.nekunoApp().alert(this.props.strings.forbidden);
     }
 
     render() {

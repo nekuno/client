@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import Framework7Service from '../services/Framework7Service';
 
 export default function popup(popupClass) {
 
@@ -29,20 +30,20 @@ export default function popup(popupClass) {
             }
             
             show() {
-                nekunoApp.popup('.' + popupClass);
-                $$('.' + popupClass).once('popup:closed', () => {
+                Framework7Service.nekunoApp().popup('.' + popupClass);
+                Framework7Service.$$()('.' + popupClass).once('popup:closed', () => {
                     if (this.context.router.location.hash === '#popup') {
                         this.context.router.goBack();
                     }
                 });
-                $$('.' + popupClass).once('popup:opened', () => {
+                Framework7Service.$$()('.' + popupClass).once('popup:opened', () => {
                     window.nekunoContainer.addEventListener('click', this.handleClickOutside)
                 });
                 this.context.router.push(this.context.router.location.pathname + '#popup');
             }
 
             close() {
-                nekunoApp.closeModal('.' + popupClass);
+                Framework7Service.nekunoApp().closeModal('.' + popupClass);
             }
 
             handleClickOutside(e) {
@@ -53,7 +54,7 @@ export default function popup(popupClass) {
             }
 
             _isOpened() {
-                return $$('.' + popupClass).hasClass('modal-in');
+                return Framework7Service.$$()('.' + popupClass).hasClass('modal-in');
             }
 
             render() {

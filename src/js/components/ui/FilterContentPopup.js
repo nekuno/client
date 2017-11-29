@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import * as InterestsActionCreators from '../../actions/InterestsActionCreators';
 import translate from '../../i18n/Translate';
+import Framework7Service from '../../services/Framework7Service';
 
 @translate('FilterContentPopup')
 export default class FilterContentPopup extends Component {
@@ -57,10 +58,10 @@ export default class FilterContentPopup extends Component {
         InterestsActionCreators.resetInterests(props.userId);
         if (props.ownContent) {
             InterestsActionCreators.requestOwnInterests(props.userId, type);
-            nekunoApp.closeModal('.popup-filter-contents');
+            Framework7Service.nekunoApp().closeModal('.popup-filter-contents');
         } else {
             InterestsActionCreators.requestComparedInterests(props.ownUserId, props.userId, type, props.commonContent);
-            nekunoApp.closeModal('.popup-filter-other-contents');
+            Framework7Service.nekunoApp().closeModal('.popup-filter-other-contents');
         }
         if (typeof this.props.onClickHandler == 'function') {
             this.props.onClickHandler(type);

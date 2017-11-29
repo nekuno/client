@@ -4,6 +4,7 @@ import AuthService from '../services/AuthService';
 import ChatSocketService from '../services/ChatSocketService';
 import WorkersSocketService from '../services/WorkersSocketService';
 import PushNotificationsService from '../services/PushNotificationsService';
+import Framework7Service from '../services/Framework7Service';
 import LoginStore from '../stores/LoginStore';
 import ProfileStore from '../stores/ProfileStore';
 import QuestionStore from '../stores/QuestionStore';
@@ -93,7 +94,7 @@ export default new class LoginActionCreators {
     confirmReenable() {
         const question = TranslationService.getTranslatedString('LoginActionCreators', 'enableQuestion');
         const title = TranslationService.getTranslatedString('LoginActionCreators', 'inactiveAccount');
-        nekunoApp.confirm(question, title,
+        Framework7Service.nekunoApp().confirm(question, title,
             () => {
                 UserActionCreators.setOwnEnabled(true).then(() => {
                     location.reload();
@@ -169,7 +170,7 @@ export default new class LoginActionCreators {
                 return this.loginUserByResourceOwner(oauth.resourceOwner, oauth.oauthToken, oauth.refreshToken);
             }, (error) => {
                 console.error(error);
-                nekunoApp.alert('Error registering. Please contact enredos@nekuno.com');
+                Framework7Service.nekunoApp().alert('Error registering. Please contact enredos@nekuno.com');
                 throw error;
             });
     }

@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import SocialBox from './SocialBox';
 import ConnectActionCreators from '../../actions/ConnectActionCreators';
 import SocialNetworkService from '../../services/SocialNetworkService';
+import Framework7Service from '../../services/Framework7Service';
 import {Motion, spring} from 'react-motion';
 import translate from '../../i18n/Translate';
 
@@ -38,7 +39,7 @@ export default class SocialWheels extends Component {
         });
 
         if (error) {
-            nekunoApp.alert(error);
+            Framework7Service.nekunoApp().alert(error);
             setTimeout(ConnectActionCreators.removeError, 0);
         }
     }
@@ -136,7 +137,7 @@ export default class SocialWheels extends Component {
         SocialNetworkService.login(resource, scope, true).then(() => {
             ConnectActionCreators.connect(resource, SocialNetworkService.getAccessToken(resource), SocialNetworkService.getResourceId(resource), SocialNetworkService.getExpireTime(resource), SocialNetworkService.getRefreshToken(resource));
         }, (status) => {
-            nekunoApp.alert(resource + ' login failed: ' + status.error.message);
+            Framework7Service.nekunoApp().alert(resource + ' login failed: ' + status.error.message);
         });
     };
 

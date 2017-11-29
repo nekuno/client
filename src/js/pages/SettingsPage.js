@@ -4,6 +4,7 @@ import TopNavBar from '../components/ui/TopNavBar';
 import { VERSION } from '../constants/Constants';
 import * as UserActionCreators from '../actions/UserActionCreators';
 import LoginActionCreators from '../actions/LoginActionCreators';
+import Framework7Service from '../services/Framework7Service';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
 
@@ -25,7 +26,7 @@ export default class SettingsPage extends Component {
     }
 
     disableAccount() {
-        nekunoApp.confirm(this.props.strings.disableConfirm, this.props.strings.disableTitle,
+        Framework7Service.nekunoApp().confirm(this.props.strings.disableConfirm, this.props.strings.disableTitle,
             () => {
                 UserActionCreators.setOwnEnabled(false).then(
                     () => {
@@ -33,7 +34,7 @@ export default class SettingsPage extends Component {
                     }
                 ).catch(
                     (error) => {
-                        nekunoApp.alert(this.props.strings.disableError);
+                        Framework7Service.nekunoApp().alert(this.props.strings.disableError);
                         console.log(error);
                     }
                 );

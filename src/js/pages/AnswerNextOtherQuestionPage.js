@@ -12,6 +12,7 @@ import RouterActionCreators from '../actions/RouterActionCreators';
 import UserStore from '../stores/UserStore';
 import QuestionStore from '../stores/QuestionStore';
 import Joyride from 'react-joyride';
+import Framework7Service from '../services/Framework7Service';
 
 function parseId(user) {
     return user.id;
@@ -114,7 +115,7 @@ export default class AnswerNextOtherQuestionPage extends Component {
             }, 0);
         }
         if (noMoreQuestions) {
-            nekunoApp.alert(strings.noMoreQuestions);
+            Framework7Service.nekunoApp().alert(strings.noMoreQuestions);
             RouterActionCreators.replaceRoute(`/users/${params.slug}/other-questions`);
         }
     }

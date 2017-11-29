@@ -6,6 +6,7 @@ import translate from '../i18n/Translate';
 import LoginActionCreators from '../actions/LoginActionCreators';
 import LoginStore from '../stores/LoginStore';
 import SocialNetworkService from '../services/SocialNetworkService';
+import Framework7Service from '../services/Framework7Service';
 
 @translate('LoginPage')
 export default class LoginPage extends Component {
@@ -40,11 +41,11 @@ export default class LoginPage extends Component {
                         return null; // User is logged in
                     },
                     (error) => {
-                        nekunoApp.alert(error.error);
+                        Framework7Service.nekunoApp().alert(error.error);
                     });
             },
             (status) => {
-                nekunoApp.alert(resource + ' login failed: ' + status.error.message)
+                Framework7Service.nekunoApp().alert(resource + ' login failed: ' + status.error.message)
             });
     }
 

@@ -9,6 +9,7 @@ import LoginActionCreators from '../actions/LoginActionCreators';
 import RouterActionCreators from '../actions/RouterActionCreators';
 import * as UserActionCreators from '../actions/UserActionCreators';
 import SocialNetworkService from '../services/SocialNetworkService';
+import Framework7Service from '../services/Framework7Service';
 import LocaleStore from '../stores/LocaleStore';
 import UserStore from '../stores/UserStore';
 
@@ -63,7 +64,7 @@ export default class SharedUserPage extends Component {
 
     componentDidUpdate() {
         if (this.props.error){
-            nekunoApp.alert(this.props.error, () => {
+            Framework7Service.nekunoApp().alert(this.props.error, () => {
                 const path = '/discover';
                 console.log('Redirecting to path', path);
                 RouterActionCreators.replaceRoute(path);
@@ -97,7 +98,7 @@ export default class SharedUserPage extends Component {
                         let user = SocialNetworkService.getUser(resource);
                         let profile = SocialNetworkService.getProfile(resource);
                         if (!user || !profile) {
-                            nekunoApp.alert(strings.blockingError);
+                            Framework7Service.nekunoApp().alert(strings.blockingError);
                             this.setState({registeringUser: false});
                         } else {
                             profile.interfaceLanguage = interfaceLanguage;
@@ -110,7 +111,7 @@ export default class SharedUserPage extends Component {
             },
             (status) => {
                 this.setLoginUserState(false);
-                nekunoApp.alert(resource + ' login failed: ' + status.error.message)
+                Framework7Service.nekunoApp().alert(resource + ' login failed: ' + status.error.message)
             });
     }
 

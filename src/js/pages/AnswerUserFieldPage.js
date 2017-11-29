@@ -12,6 +12,7 @@ import RegisterStore from '../stores/RegisterStore';
 import ProfileStore from '../stores/ProfileStore';
 import QuestionStore from '../stores/QuestionStore';
 import LoginStore from '../stores/LoginStore';
+import Framework7Service from '../services/Framework7Service';
 
 function parseId(user) {
     return user.id;
@@ -92,7 +93,7 @@ export default class AnswerUserFieldPage extends Component {
     
     componentWillUpdate(nextProps) {
         if (nextProps.errors) {
-            nekunoApp.alert(nextProps.errors);
+            Framework7Service.nekunoApp().alert(nextProps.errors);
         }
         else if (nextProps.userQuestionsComplete) {
             let path = '/answer-question/next';

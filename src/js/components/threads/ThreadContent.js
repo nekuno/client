@@ -7,6 +7,7 @@ import LoadingSpinnerCSS from './../ui/LoadingSpinnerCSS';
 import ThreadNoResults from './ThreadNoResults';
 import translate from '../../i18n/Translate';
 import selectn from 'selectn';
+import Framework7Service from '../../services/Framework7Service';
 
 @translate('ThreadContent')
 export default class ThreadContent extends Component {
@@ -76,7 +77,7 @@ export default class ThreadContent extends Component {
         const totalResults = thread.totalResults;
         const mustBeDisabled = thread.disabled || totalResults == 0 && isSomethingWorking;
         if (mustBeDisabled) {
-            nekunoApp.alert(strings.disabled)
+            Framework7Service.nekunoApp().alert(strings.disabled)
         } else if (totalResults == 0) {
             this.context.router.push(`edit-thread/${thread.id}`)
         } else {

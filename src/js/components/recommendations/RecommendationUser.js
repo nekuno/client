@@ -9,6 +9,7 @@ import GalleryPhotoStore from '../../stores/GalleryPhotoStore';
 import OtherProfileData from '../profile/OtherProfileData';
 import RecommendationUserDetails from '../recommendations/RecommendationUserDetails';
 import selectn from 'selectn';
+import Framework7Service from '../../services/Framework7Service';
 
 function getState(props) {
     const userId = parseInt(props.userId);
@@ -26,7 +27,7 @@ function getState(props) {
 
 function initPhotosSwiper(id) {
     // Init slider
-    return nekunoApp.swiper('#photos-swiper-container-' + id, {
+    return Framework7Service.nekunoApp().swiper('#photos-swiper-container-' + id, {
         effect          : 'coverflow',
         slidesPerView   : 'auto',
         coverflow       : {

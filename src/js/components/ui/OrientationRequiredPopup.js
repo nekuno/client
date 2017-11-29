@@ -7,6 +7,7 @@ import EmptyMessage from './EmptyMessage';
 import translate from '../../i18n/Translate';
 import connectToStores from '../../utils/connectToStores';
 import ProfileStore from '../../stores/ProfileStore';
+import Framework7Service from '../../services/Framework7Service';
 
 /**
  * Retrieves state from stores for current props.
@@ -41,7 +42,7 @@ export default class OrientationRequiredPopup extends Component {
 
     onSelect(key) {
         this.props.onClick();
-        nekunoApp.closeModal('.popup-orientation-required');
+        Framework7Service.nekunoApp().closeModal('.popup-orientation-required');
         let profile = {orientation: [key]};
         for (key in this.props.profile) {
             if (this.props.profile.hasOwnProperty(key)) {
@@ -57,7 +58,7 @@ export default class OrientationRequiredPopup extends Component {
     }
 
     onCancel() {
-        nekunoApp.closeModal('.popup-orientation-required');
+        Framework7Service.nekunoApp().closeModal('.popup-orientation-required');
         this.props.onCancel();
     }
 

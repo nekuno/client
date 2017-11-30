@@ -12,100 +12,80 @@ export default class CardIcons extends Component {
     render() {
         return (
             <div>
-                {this.props.types.map((value, index, array) => {
-                    switch (value) {
-                        case 'Link':
-                            if (array.length > 1) {
-                                break;
-                            }
-                            return this.renderLinkIcons(index);
-                        case 'Image':
-                            return this.renderImageIcons(index);
-                        case 'Video':
-                            return this.renderVideoIcons(index);
-                        case 'Audio':
-                            return this.renderAudioIcons(index);
-                        case 'Creator':
-                            return this.renderCreatorIcons(index);
-                        case 'FacebookLink':
-                            return this.renderFacebookLinkIcons(index);
-                        case 'FacebookVideo':
-                            return this.renderFacebookVideoIcons(index);
-                        case 'FacebookCreator':
-                            return this.renderFacebookCreatorIcons(index);
-                    }
-                })}
+                {this.renderIcons(this.props.types)}
             </div>
         );
     }
 
-    renderLinkIcons = function(index) {
-        return (
-            <div className="absolute-wrapper" key={index + 1}>
-                <div className="icon-wrapper link-icon-wrapper"><span className="icon-web-site"></span></div>
-            </div>
-        );
+    renderIcons = function(types) {
+        let network = null;
+        const networkIndex = types.findIndex(type => type.length > 4 && type.substr(0, 4) === 'Link');
+        if (networkIndex !== -1) {
+            network = types[networkIndex].substr(4).toLowerCase();
+        }
+
+        if (types.some((type) => type === 'Audio')) {
+            return this.renderAudioIcons(network);
+        } else if (types.some((type) => type === 'Video')) {
+            return this.renderVideoIcons(network);
+        } else if (types.some((type) => type === 'Image')) {
+            return this.renderImageIcons(network);
+        } else if (types.some((type) => type === 'Creator')) {
+            return this.renderCreatorIcons(network);
+        } else {
+            return this.renderWebIcons(network);
+        }
     };
 
-    renderImageIcons = function(index) {
+    renderAudioIcons = function(network) {
         return (
-            <div className="absolute-wrapper" key={index + 1}>
-                <div className="icon-wrapper image-icon-wrapper"><span className="icon-photo"></span></div>
-            </div>
-        );
-    };
-
-    renderVideoIcons = function(index) {
-        return (
-            <div className="absolute-wrapper" key={index + 1}>
-                <div className="icon-wrapper"><span className="icon-video"></span></div>
-                <div className="icon-wrapper youtube-icon-wrapper"><span className="icon-youtube"></span></div>
-            </div>
-        );
-    };
-
-    renderAudioIcons = function(index) {
-        return (
-            <div className="absolute-wrapper" key={index + 1}>
+            <div className="absolute-wrapper">
                 <div className="icon-wrapper"><span className="icon-audio"></span></div>
-                <div className="icon-wrapper spotify-icon-wrapper"><span className="icon-spotify"></span></div>
+                {this.renderNetworkIcon(network)}
             </div>
         );
     };
 
-    renderCreatorIcons = function(index) {
+    renderVideoIcons = function(network) {
         return (
-            <div className="absolute-wrapper" key={index + 1}>
-                <div className="icon-wrapper"><span className="icon-channels"></span></div>
-                <div className="icon-wrapper twitter-icon-wrapper"><span className="icon-twitter"></span></div>
-            </div>
-        );
-    };
-
-    renderFacebookLinkIcons = function(index) {
-        return (
-            <div className="absolute-wrapper" key={index + 1}>
-                <div className="icon-wrapper link-icon-wrapper"><span className="icon-web-site"></span></div>
-                <div className="icon-wrapper facebook-icon-wrapper"><span className="icon-facebook"></span></div>
-            </div>
-        );
-    };
-
-    renderFacebookVideoIcons = function(index) {
-        return (
-            <div className="absolute-wrapper" key={index + 1}>
+            <div className="absolute-wrapper">
                 <div className="icon-wrapper"><span className="icon-video"></span></div>
-                <div className="icon-wrapper facebook-icon-wrapper"><span className="icon-facebook"></span></div>
+                {this.renderNetworkIcon(network)}
             </div>
         );
     };
 
-    renderFacebookCreatorIcons = function(index) {
+    renderImageIcons = function(network) {
         return (
-            <div className="absolute-wrapper" key={index + 1}>
-                <div className="icon-wrapper"><span className="icon-channels"></span></div>
-                <div className="icon-wrapper facebook-icon-wrapper"><span className="icon-facebook"></span></div>
+            <div className="absolute-wrapper">
+                <div className="icon-wrapper image-icon-wrapper"><span className="icon-photo"></span></div>
+                {this.renderNetworkIcon(network)}
             </div>
         );
+    };
+
+    renderCreatorIcons = function(network) {
+        return (
+            <div className="absolute-wrapper">
+                <div className="icon-wrapper"><span className="icon-channels"></span></div>
+                {this.renderNetworkIcon(network)}
+            </div>
+        );
+    };
+
+    renderWebIcons = function(network) {
+        return (
+            <div className="absolute-wrapper">
+                <div className="icon-wrapper link-icon-wrapper"><span className="icon-web-site"></span></div>
+                {this.renderNetworkIcon(network)}
+            </div>
+        );
+    };
+
+    renderNetworkIcon = function(network) {
+        const wrapperClass = network ? `icon-wrapper ${network}-icon-wrapper` : null;
+        const iconClass = network ? `icon-${network}` : null;
+
+        return network ? <div className={wrapperClass}><span className={iconClass}></span></div> : null
     };
 }

@@ -14,6 +14,8 @@ export default {
     GOOGLE_PHOTOS_SCOPE   : 'email,profile,openid,https://www.googleapis.com/auth/youtube.readonly,offline_access,photos',
     SPOTIFY_ID            : 'e8c3557e29ad4974a1f41e93aeaf6e79',
     SPOTIFY_SCOPE         : 'user-read-private user-read-email playlist-read-private user-read-birthdate',
+    TUMBLR_ID             : 'boLPNHs4oCPLtisiAWFUijDIq6nJz0sl8DH0I6Scx7lxuofWxU',
+    TUMBLR_SCOPE          : 'read',
     INSTAGRAM_ID          : '7d6f40c53c9b49ef8838710fa775eda8',
     INSTAGRAM_SCOPE       : 'basic',
     TRACKER_ID_WEB        : 'UA-55709950-6',

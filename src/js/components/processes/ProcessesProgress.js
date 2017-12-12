@@ -6,6 +6,7 @@ import translate from '../../i18n/Translate';
 import connectToStores from '../../utils/connectToStores';
 import WorkersStore from '../../stores/WorkersStore';
 import ThreadStore from '../../stores/ThreadStore';
+import Framework7Service from '../../services/Framework7Service';
 
 function getState() {
     const linksPercentage = WorkersStore.getLinksPercentage();
@@ -63,7 +64,7 @@ export default class ProcessesProgress extends Component {
     componentDidUpdate() {
         const {registerWorkersFinish, strings} = this.props;
         if (registerWorkersFinish) {
-            nekunoApp.alert(strings.registerWorkersFinish);
+            Framework7Service.nekunoApp().alert(strings.registerWorkersFinish);
         }
     }
 

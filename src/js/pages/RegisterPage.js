@@ -14,6 +14,7 @@ import LoginActionCreators from '../actions/LoginActionCreators';
 import InvitationStore from '../stores/InvitationStore';
 import LocaleStore from '../stores/LocaleStore';
 import SocialNetworkService from '../services/SocialNetworkService';
+import Framework7Service from '../services/Framework7Service';
 
 function getState(props) {
 
@@ -101,7 +102,7 @@ export default class RegisterPage extends Component {
                     let user = SocialNetworkService.getUser(resource);
                     let profile = SocialNetworkService.getProfile(resource);
                     if (!user || !profile) {
-                        nekunoApp.alert(strings.blockingError);
+                        Framework7Service.nekunoApp().alert(strings.blockingError);
                         this.setState({registeringUser: false});
                     } else {
                         profile.interfaceLanguage = interfaceLanguage;
@@ -110,7 +111,7 @@ export default class RegisterPage extends Component {
                     }
                 });
         }, (status) => {
-            nekunoApp.alert(resource + ' login failed: ' + status.error.message)
+            Framework7Service.nekunoApp().alert(resource + ' login failed: ' + status.error.message)
         });
     }
 

@@ -10,6 +10,7 @@ import EmptyMessage from '../components/ui/EmptyMessage';
 import OrientationRequiredPopup from '../components/ui/OrientationRequiredPopup';
 import ReportContentPopup from '../components/interests/ReportContentPopup';
 import ShareService from '../services/ShareService';
+import Framework7Service from '../services/Framework7Service';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
 import popup from '../components/Popup';
@@ -67,7 +68,7 @@ function initPhotosSwiper() {
     if (!document.getElementById('photos-swiper-container')) {
         return null;
     }
-    return nekunoApp.swiper('#photos-swiper-container', {
+    return Framework7Service.nekunoApp().swiper('#photos-swiper-container', {
         slidesPerView      : 'auto',
         centeredSlides     : true,
         paginationHide     : false,
@@ -194,7 +195,7 @@ export default class OtherUserPage extends Component {
 
     componentDidUpdate(prevProps) {
         if (this.state.orientationRequired && !this.state.orientationPopUpDisplayed && this.props.orientationMustBeAsked) {
-            nekunoApp.popup('.popup-orientation-required');
+            Framework7Service.nekunoApp().popup('.popup-orientation-required');
             this.setState({orientationPopUpDisplayed: true});
         } else if (this.state.orientationRequired === null && this.props.orientationMustBeAsked) {
             this.setOrientationRequired(true);
@@ -226,7 +227,7 @@ export default class OtherUserPage extends Component {
             this.cancelButton(strings.cancel)
         ];
 
-        nekunoApp.actions(reportButtons);
+        Framework7Service.nekunoApp().actions(reportButtons);
     }
 
     shareUser() {
@@ -245,7 +246,7 @@ export default class OtherUserPage extends Component {
     }
 
     onShareError() {
-        nekunoApp.alert(this.props.strings.shareError)
+        Framework7Service.nekunoApp().alert(this.props.strings.shareError)
     }
 
     showUnlockActions() {
@@ -256,7 +257,7 @@ export default class OtherUserPage extends Component {
             this.cancelButton(strings.cancel)
         ];
 
-        nekunoApp.actions(buttons);
+        Framework7Service.nekunoApp().actions(buttons);
     }
 
     optionTitle(title) {
@@ -285,7 +286,7 @@ export default class OtherUserPage extends Component {
             this.reportReasonButton(strings.otherReasons, 'other', this.showOtherReasonPopup),
             this.cancelButton(strings.cancel)
         ];
-        nekunoApp.actions(reportButtons);
+        Framework7Service.nekunoApp().actions(reportButtons);
     }
 
     reportReasonButton(text, reason, callback = null) {

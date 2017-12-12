@@ -6,6 +6,7 @@ import RouterActionCreators from "./RouterActionCreators";
 import UserStore from '../stores/UserStore';
 import ProfileStore from '../stores/ProfileStore';
 import LocaleStore from '../stores/LocaleStore';
+import Framework7Service from '../services/Framework7Service';
 
 export function validateUsername(username) {
     return dispatchAsync(UserAPI.validateUsername(username), {
@@ -46,7 +47,7 @@ export function requestUser(userSlug, fields) {
     }, {userSlug})
         .catch((status) => {
             if (status.error) {
-                nekunoApp.alert(status.error, () => {
+                Framework7Service.nekunoApp().alert(status.error, () => {
                     const path = '/discover';
                     console.log('Redirecting to path', path);
                     RouterActionCreators.replaceRoute(path);

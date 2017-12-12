@@ -97,7 +97,7 @@ export default class InterestsPage extends Component {
         const {pagination, totals, user, isLoadingOwnInterests, type} = this.props;
         const userId = parseId(user);
         return <FilterContentButtonsList userId={userId} contentsCount={pagination.total || 0} ownContent={true} onClickHandler={this.onFilterTypeClick}
-                                         linksCount={totals.Link}
+                                         linksCount={totals.Web}
                                          audiosCount={totals.Audio}
                                          videosCount={totals.Video}
                                          imagesCount={totals.Image}
@@ -112,6 +112,8 @@ export default class InterestsPage extends Component {
 
         if (type !== pressedType) {
             InterestsActionCreators.setType(pressedType);
+        } else {
+            InterestsActionCreators.removeType();
         }
     }
 

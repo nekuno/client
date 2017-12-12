@@ -45,6 +45,13 @@ export function setType(contentType, userId = null) {
     dispatch(ActionTypes.SET_CONTENTS_TYPE, {userId, contentType});
 }
 
+export function removeType(userId = null) {
+    userId = userId ? userId : LoginStore.user.id;
+
+    dispatch(ActionTypes.REMOVE_CONTENTS_TYPE, {userId});
+}
+
+
 export function setShowOnlyCommon(showOnlyCommon, userId) {
     dispatch(ActionTypes.SET_CONTENTS_SHOWONLYCOMMON, {userId, showOnlyCommon})
 }

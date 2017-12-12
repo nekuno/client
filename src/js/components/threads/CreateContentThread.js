@@ -9,6 +9,7 @@ import selectn from 'selectn';
 import translate from '../../i18n/Translate';
 import popup from '../Popup';
 import FilterStore from '../../stores/FilterStore';
+import Framework7Service from '../../services/Framework7Service';
 
 @translate('CreateContentThread')
 @popup('popup-set-thread-title')
@@ -203,7 +204,7 @@ export default class CreateContentThread extends Component {
                 }, 200);
             }, 0);
         } else {
-            nekunoApp.alert(this.props.strings.addFilters);
+            Framework7Service.nekunoApp().alert(this.props.strings.addFilters);
         }
     }
 

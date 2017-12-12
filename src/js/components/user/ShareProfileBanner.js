@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { SHARED_USER_URL } from '../../constants/Constants';
 import Button from '../ui/Button';
 import ShareService from '../../services/ShareService';
+import Framework7Service from '../../services/Framework7Service';
 import translate from '../../i18n/Translate';
 
 @translate('ShareProfileBanner')
@@ -29,7 +30,7 @@ export default class ShareProfileBanner extends Component {
     onShareSuccess() {}
 
     onShareError() {
-        nekunoApp.alert(this.props.strings.shareError)
+        Framework7Service.nekunoApp().alert(this.props.strings.shareError)
     }
 
     render() {

@@ -4,6 +4,7 @@ import { INVITATIONS_URL } from '../../constants/Constants';
 import Button from '../ui/Button';
 import Image from '../ui/Image';
 import ShareService from '../../services/ShareService';
+import Framework7Service from '../../services/Framework7Service';
 import translate from '../../i18n/Translate';
 
 @translate('Group')
@@ -27,7 +28,7 @@ export default class Group extends Component {
     }
 
     goToChat() {
-        nekunoApp.alert('Go to group chat page with id ' + this.props.group.id);
+        Framework7Service.nekunoApp().alert('Go to group chat page with id ' + this.props.group.id);
     }
 
     goToDiscover() {
@@ -50,7 +51,7 @@ export default class Group extends Component {
     onShareSuccess() {}
 
     onShareError() {
-        nekunoApp.alert(this.props.strings.shareError)
+        Framework7Service.nekunoApp().alert(this.props.strings.shareError)
     }
 
 

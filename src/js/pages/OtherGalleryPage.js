@@ -10,6 +10,7 @@ import * as UserActionCreators from '../actions/UserActionCreators';
 import GalleryPhotoActionCreators from '../actions/GalleryPhotoActionCreators';
 import GalleryPhotoStore from '../stores/GalleryPhotoStore';
 import UserStore from '../stores/UserStore';
+import Framework7Service from '../services/Framework7Service';
 
 function requestData(props) {
     const {params} = props;
@@ -43,7 +44,7 @@ function getState(props) {
 
 function initPhotosSwiper(photoIndex) {
     // Init slider
-    return nekunoApp.swiper('#gallery-swiper-container', {
+    return Framework7Service.nekunoApp().swiper('#gallery-swiper-container', {
         initialSlide: photoIndex,
         slidesPerView: 'auto',
         centeredSlides: true,

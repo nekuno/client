@@ -72,7 +72,8 @@ export const SOCIAL_NETWORKS_NAMES = {
     TWITTER  : 'twitter',
     GOOGLE   : 'google',
     SPOTIFY  : 'spotify',
-    INSTAGRAM: 'instagram'
+    INSTAGRAM: 'instagram',
+    TUMBLR   : 'tumblr',
 };
 
 export const SOCIAL_NETWORKS = [
@@ -95,6 +96,11 @@ export const SOCIAL_NETWORKS = [
         resourceOwner: SOCIAL_NETWORKS_NAMES.SPOTIFY,
         id           : config.SPOTIFY_ID,
         scope        : config.SPOTIFY_SCOPE
+    },
+    {
+        resourceOwner: SOCIAL_NETWORKS_NAMES.TUMBLR,
+        id           : config.TUMBLR_ID,
+        scope        : config.TUMBLR_SCOPE
     }
 ];
 
@@ -111,6 +117,9 @@ export const GOOGLE_PHOTOS_SCOPE = config.GOOGLE_PHOTOS_SCOPE;
 
 export const SPOTIFY_ID = config.SPOTIFY_ID;
 export const SPOTIFY_SCOPE = config.SPOTIFY_SCOPE;
+
+export const TUMBLR_ID = config.TUMBLR_ID;
+export const TUMBLR_SCOPE = config.TUMBLR_SCOPE;
 
 export const INSTAGRAM_ID = config.INSTAGRAM_ID;
 export const INSTAGRAM_SCOPE = config.INSTAGRAM_SCOPE;

@@ -13,6 +13,7 @@ import CreateContentThread from '../components/threads/CreateContentThread';
 import CreateUsersThread from '../components/threads/CreateUsersThread';
 import TopNavBar from '../components/ui/TopNavBar';
 import EmptyMessage from '../components/ui/EmptyMessage';
+import Framework7Service from '../services/Framework7Service';
 
 function parseThreadId(params) {
     return params.threadId;
@@ -95,7 +96,7 @@ export default class EditThreadPage extends Component {
             });
         }
         if (nextProps.errors) {
-            nekunoApp.alert(nextProps.errors);
+            Framework7Service.nekunoApp().alert(nextProps.errors);
         }
     }
 

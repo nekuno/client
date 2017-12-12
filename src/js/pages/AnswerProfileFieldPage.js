@@ -15,6 +15,7 @@ import RegisterStore from '../stores/RegisterStore';
 import ProfileStore from '../stores/ProfileStore';
 import QuestionStore from '../stores/QuestionStore';
 import LoginStore from '../stores/LoginStore';
+import Framework7Service from '../services/Framework7Service';
 
 function parseId(user) {
     return user.id;
@@ -104,7 +105,7 @@ export default class AnswerProfileFieldPage extends Component {
 
     componentWillUpdate(nextProps) {
         if (nextProps.errors) {
-            nekunoApp.alert(nextProps.errors);
+            Framework7Service.nekunoApp().alert(nextProps.errors);
         }
         if (nextProps.profileQuestionsComplete) {
             if (nextProps.questionNumber >= nextProps.totalQuestions) {
@@ -127,7 +128,7 @@ export default class AnswerProfileFieldPage extends Component {
 
     handleClickGenderSave(gender, descriptiveGender) {
         if (!gender) {
-            nekunoApp.alert(this.props.strings.genderEmpty);
+            Framework7Service.nekunoApp().alert(this.props.strings.genderEmpty);
             return null;
         }
         let profile = Object.assign({}, ProfileStore.get(parseId(this.props.user)));

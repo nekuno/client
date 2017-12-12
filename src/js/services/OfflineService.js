@@ -1,5 +1,6 @@
 import { API_URLS } from '../constants/Constants';
 import TranslationService from './TranslationService';
+import Framework7Service from './Framework7Service';
 import Url from 'url';
 import request from 'request';
 import Bluebird from 'bluebird';
@@ -23,7 +24,7 @@ class OfflineService {
                     json    : true
                 },
                 (err, response, body) => {
-                    nekunoApp.hideProgressbar();
+                    Framework7Service.nekunoApp().hideProgressbar();
                     if (err) {
                         this.alertOffline();
                         return reject(err);
@@ -46,7 +47,7 @@ class OfflineService {
     alertOffline() {
         if (!this._alertPresent) {
             const title = TranslationService.getTranslatedString('Framework7', 'modalTitle');
-            nekunoApp.alert(TranslationService.getTranslatedString('OfflineService', 'isOffline'), title ,() => {
+            Framework7Service.nekunoApp().alert(TranslationService.getTranslatedString('OfflineService', 'isOffline'), title ,() => {
                 this._alertPresent = false;
                 location.reload();
             });

@@ -7,6 +7,7 @@ import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
 import StatsStore from '../stores/StatsStore';
 import LoginActionCreators from '../actions/LoginActionCreators';
+import Framework7Service from '../services/Framework7Service';
 import ChatThreadStore from '../stores/ChatThreadStore';
 import UserStore from '../stores/UserStore';
 import ProfileStore from '../stores/ProfileStore';
@@ -66,7 +67,7 @@ export default class LeftPanel extends Component {
     }
 
     componentDidMount() {
-        $$('.panel-left').on('closed', () => {
+        Framework7Service.$$()('.panel-left').on('closed', () => {
             this.setState({
                 moreActive: false
             });
@@ -74,36 +75,36 @@ export default class LeftPanel extends Component {
     }
 
     handleGoClickThreads() {
-        nekunoApp.closePanel();
-        $$('.panel-left').once('closed', () => {
+        Framework7Service.nekunoApp().closePanel();
+        Framework7Service.$$()('.panel-left').once('closed', () => {
             this.pushRoute('/discover');
         });
     }
 
     handleGoClickProfile() {
-        nekunoApp.closePanel();
-        $$('.panel-left').once('closed', () => {
+        Framework7Service.nekunoApp().closePanel();
+        Framework7Service.$$()('.panel-left').once('closed', () => {
             this.pushRoute(`/p/${this.props.user.slug}`);
         });
     }
 
     handleGoClickConversations() {
-        nekunoApp.closePanel();
-        $$('.panel-left').once('closed', () => {
+        Framework7Service.nekunoApp().closePanel();
+        Framework7Service.$$()('.panel-left').once('closed', () => {
             this.pushRoute('/conversations');
         });
     }
 
     handleGoClickSocialNetworks() {
-        nekunoApp.closePanel();
-        $$('.panel-left').once('closed', () => {
+        Framework7Service.nekunoApp().closePanel();
+        Framework7Service.$$()('.panel-left').once('closed', () => {
             this.pushRoute('/social-networks');
         });
     }
 
     handleGoClickInterests() {
-        nekunoApp.closePanel();
-        $$('.panel-left').once('closed', () => {
+        Framework7Service.nekunoApp().closePanel();
+        Framework7Service.$$()('.panel-left').once('closed', () => {
             this.pushRoute('/interests');
         });
     }
@@ -115,22 +116,22 @@ export default class LeftPanel extends Component {
     }
 
     handleClickSettings() {
-        nekunoApp.closePanel();
-        $$('.panel-left').once('closed', () => {
+        Framework7Service.nekunoApp().closePanel();
+        Framework7Service.$$()('.panel-left').once('closed', () => {
             this.pushRoute('/settings');
         });
     }
 
     handleGoClickInvitations() {
-        nekunoApp.closePanel();
-        $$('.panel-left').once('closed', () => {
+        Framework7Service.nekunoApp().closePanel();
+        Framework7Service.$$()('.panel-left').once('closed', () => {
             this.pushRoute('/invitations');
         });
     }
 
     handleGoClickGroups() {
-        nekunoApp.closePanel();
-        $$('.panel-left').once('closed', () => {
+        Framework7Service.nekunoApp().closePanel();
+        Framework7Service.$$()('.panel-left').once('closed', () => {
             this.pushRoute('/badges');
         });
     }
@@ -140,8 +141,8 @@ export default class LeftPanel extends Component {
     }
 
     logout() {
-        nekunoApp.closePanel();
-        $$('.panel-left').once('closed', () => {
+        Framework7Service.nekunoApp().closePanel();
+        Framework7Service.$$()('.panel-left').once('closed', () => {
             setTimeout(() => LoginActionCreators.logoutUser(), 0);
         });
     }

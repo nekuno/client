@@ -1,16 +1,19 @@
 import 'babel-polyfill';
+import './polyfill/manup';
+import './hellojs/init';
 import React from 'react';
 import { render } from 'react-dom';
 import { hashHistory } from 'react-router';
 import Root from './Root';
 import RouterContainer from './services/RouterContainer';
 import LoginActionsCreator from './actions/LoginActionCreators';
-import './vendor/init';
+import Framework7Service from './services/Framework7Service';
 import AnalyticsService from './services/AnalyticsService';
 import GeocoderService from './services/GeocoderService';
 import SocialNetworkService from './services/SocialNetworkService';
 import OfflineService from './services/OfflineService';
 
+Framework7Service.init();
 OfflineService.check().then(() => {
     AnalyticsService.init();
     GeocoderService.init();

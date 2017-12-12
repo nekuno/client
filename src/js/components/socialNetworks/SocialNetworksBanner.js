@@ -5,6 +5,7 @@ import translate from '../../i18n/Translate';
 import SocialBox from '../ui/SocialBox';
 import ConnectActionCreators from '../../actions/ConnectActionCreators';
 import SocialNetworkService from '../../services/SocialNetworkService';
+import Framework7Service from '../../services/Framework7Service';
 
 @translate('SocialNetworksBanner')
 export default class SocialNetworksBanner extends Component {
@@ -31,7 +32,7 @@ export default class SocialNetworksBanner extends Component {
         SocialNetworkService.login(resource, scope, true).then(() => {
             ConnectActionCreators.connect(resource, SocialNetworkService.getAccessToken(resource), SocialNetworkService.getResourceId(resource), SocialNetworkService.getExpireTime(resource), SocialNetworkService.getRefreshToken(resource));
         }, (status) => {
-            nekunoApp.alert(resource + ' login failed: ' + status.error.message);
+            Framework7Service.nekunoApp().alert(resource + ' login failed: ' + status.error.message);
         });
     };
 

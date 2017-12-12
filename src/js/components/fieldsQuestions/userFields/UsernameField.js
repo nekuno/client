@@ -4,6 +4,7 @@ import Input from '../../ui/Input';
 import FullWidthButton from '../../ui/FullWidthButton';
 import translate from '../../../i18n/Translate';
 import  * as UserActionCreators from '../../../actions/UserActionCreators';
+import Framework7Service from '../../../services/Framework7Service';
 
 @translate('UsernameField')
 export default class UsernameField extends Component {
@@ -33,7 +34,7 @@ export default class UsernameField extends Component {
         let newPromise = UserActionCreators.validateUsername(username).then(() => {
                 // Username valid
             }).catch(() => {
-                nekunoApp.alert(this.props.strings.invalidUsername);
+                Framework7Service.nekunoApp().alert(this.props.strings.invalidUsername);
             });
         this.setState({validationPromise: newPromise});
     }
@@ -46,7 +47,7 @@ export default class UsernameField extends Component {
             this.props.onSaveHandler(username);
         }).catch(() => {
             this.setState({registering: false});
-            nekunoApp.alert(strings.invalidUsername);
+            Framework7Service.nekunoApp().alert(strings.invalidUsername);
         });
     }
 

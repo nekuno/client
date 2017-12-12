@@ -17,6 +17,7 @@ import selectn from 'selectn';
 import translate from '../../i18n/Translate';
 import popup from '../Popup';
 import FilterStore from '../../stores/FilterStore';
+import Framework7Service from '../../services/Framework7Service';
 
 @translate('CreateUsersThread')
 @popup('popup-set-thread-title')
@@ -284,7 +285,7 @@ export default class CreateUsersThread extends Component {
 
     handleErrorFilter(key, error) {
         let {filters} = this.state;
-        nekunoApp.alert(error);
+        Framework7Service.nekunoApp().alert(error);
         filters[key] = {};
         this.setState({
             selectedFilter: key
@@ -363,7 +364,7 @@ export default class CreateUsersThread extends Component {
                 }, 200);
             }, 0);
         } else {
-            nekunoApp.alert(this.props.strings.addFilters);
+            Framework7Service.nekunoApp().alert(this.props.strings.addFilters);
         }
     }
 

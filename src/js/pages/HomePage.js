@@ -8,6 +8,7 @@ import LoginActionCreators from '../actions/LoginActionCreators';
 import RouterActionCreators from '../actions/RouterActionCreators';
 import LocalStorageService from '../services/LocalStorageService';
 import SocialNetworkService from '../services/SocialNetworkService';
+import Framework7Service from '../services/Framework7Service';
 import LocaleStore from '../stores/LocaleStore';
 
 let nekunoSwiper;
@@ -15,7 +16,7 @@ let delay = 2000;
 
 function initSwiper() {
     // Init slider and store its instance in nekunoSwiper variable
-    nekunoSwiper = nekunoApp.swiper('.swiper-container', {
+    nekunoSwiper = Framework7Service.nekunoApp().swiper('.swiper-container', {
         pagination: '.swiper-pagination',
         autoplay  : 3000
     });
@@ -85,7 +86,7 @@ export default class HomePage extends Component {
                 },
                 (status) => {
                     this.setLoginUserState(false);
-                    nekunoApp.alert(resource + ' login failed: ' + status.error.message)
+                    Framework7Service.nekunoApp().alert(resource + ' login failed: ' + status.error.message)
                 }
             );
         }
@@ -125,7 +126,7 @@ export default class HomePage extends Component {
             },
             (status) => {
                 this.setLoginUserState(false);
-                nekunoApp.alert(resource + ' login failed: ' + status.error.message)
+                Framework7Service.nekunoApp().alert(resource + ' login failed: ' + status.error.message)
             });
     }
 
@@ -146,7 +147,7 @@ export default class HomePage extends Component {
                 let user = SocialNetworkService.getUser(resource);
                 let profile = SocialNetworkService.getProfile(resource);
                 if (!user || !profile) {
-                    nekunoApp.alert(strings.blockingError);
+                    Framework7Service.nekunoApp().alert(strings.blockingError);
                     this.setState({loginUser: false});
                 } else {
                     profile.interfaceLanguage = interfaceLanguage;

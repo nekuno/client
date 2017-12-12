@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import Chip from '../../ui/Chip';
 import FullWidthButton from '../../ui/FullWidthButton';
 import translate from '../../../i18n/Translate';
+import Framework7Service from '../../../services/Framework7Service';
 
 @translate('ObjectivesField')
 export default class ObjectivesField extends Component {
@@ -29,7 +30,7 @@ export default class ObjectivesField extends Component {
         const {objectives} = this.state;
         const objectiveMetadata = metadata.objective;
         if (objectiveMetadata && objectiveMetadata.min_choices && objectives.length < objectiveMetadata.min_choices) {
-            nekunoApp.alert(strings.minObjectives.replace('%min%', objectiveMetadata.min_choices));
+            Framework7Service.nekunoApp().alert(strings.minObjectives.replace('%min%', objectiveMetadata.min_choices));
             return;
         }
         this.props.onSaveHandler('objective', objectives);

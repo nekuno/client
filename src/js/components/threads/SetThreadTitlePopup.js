@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import translate from '../../i18n/Translate';
 import Input from '../ui/Input';
 import FullWidthButton from '../ui/FullWidthButton';
+import Framework7Service from '../../services/Framework7Service';
 
 @translate('SetThreadTitlePopup')
 export default class SetThreadTitlePopup extends Component {
@@ -43,7 +44,7 @@ export default class SetThreadTitlePopup extends Component {
     }
 
     onFinish() {
-        nekunoApp.closeModal('.popup-set-thread-title');
+        Framework7Service.nekunoApp().closeModal('.popup-set-thread-title');
         this.props.onClick(this.state.threadName);
     }
 

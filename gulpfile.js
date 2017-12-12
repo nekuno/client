@@ -59,22 +59,8 @@ gulp.task('sass', function() {
         .pipe(connect.reload());
 });
 
-gulp.task('build-vendor-js', function() {
-    var paths = [
-        './node_modules/framework7/dist/js/framework7.min.js',
-        './node_modules/Framework7-3D-Panels/dist/framework7.3dpanels.min.js',
-        './src/js/vendor/hello.js',
-        './src/js/vendor/socket.io.min.js',
-        './src/js/vendor/manup.min.js'
-    ];
-    return gulp.src(paths)
-        .pipe(concat('vendor.js'))
-        .pipe(gulp.dest('./www'))
-        .pipe(connect.reload());
-});
-
 gulp.task('build-hello-js', function() {
-    return gulp.src('./src/js/vendor/hello.js')
+    return gulp.src('./node_modules/hellojs/dist/hello.js')
         .pipe(gulp.dest('www/'));
 });
 
@@ -125,7 +111,7 @@ gulp.task('serve', function() {
     });
 });
 
-gulp.task('build', ['copy', 'fonts', 'assets', 'images', 'sass', 'build-js', 'build-service-worker', 'build-vendor-js', 'build-hello-js']);
+gulp.task('build', ['copy', 'fonts', 'assets', 'images', 'sass', 'build-js', 'build-service-worker', 'build-hello-js']);
 gulp.task('minify', ['minify-js', 'minify-css']);
 gulp.task('release', ['env-prod'], function() {
     runSequence('minify');

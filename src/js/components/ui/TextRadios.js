@@ -37,33 +37,43 @@ export default class TextRadios extends Component {
 		let labelsLength = labels.length;
 		let labelsTextLength = 0;
 		labels.forEach(label => labelsTextLength += label.text.length);
-		let showCheckboxesList = !forceTwoLines && (labelsLength > 3 || labelsTextLength > 35);
+		const showSelect = labelsLength > 40;
+		let showCheckboxesList = !showSelect && !forceTwoLines && (labelsLength > 3 || labelsTextLength > 35);
 		const radiosClassName = this.getRadiosClassname(this.props);
 		return (
-			showCheckboxesList ?
-				<div className={className ? "list-block " + className : "list-block"}>
+            showSelect ?
+				<div className={className ? "list-block text-radios " + className : "list-block text-radios"}>
 					<div className="checkbox-title">{title}</div>
-					<ul className="checkbox-list">
-						{labels.map(label =>
-							<li key={label.key}>
-								<InputRadio value={label.key} text={label.text} checked={value === label.key} onClickHandler={this.onClickHandler.bind(this, label.key)} reverse={true}/>
-							</li>
-						)}
-					</ul>
+					<select value={value} onChange={this.onClickOptionHandler.bind(this)}>
+						{!labels.some(label => label.key === value) ? <option key={'none'} value={value}>{}</option> : null}
+						{labels.map(label => <option key={label.key} value={label.key}>{label.text}</option>)}
+					</select>
 				</div>
 				:
-				<div id="joyride-3-answer-importance" className={radiosClassName}>
-					<div className="text-radios-title">{title}</div>
-					<div className={labelsLength ? 'text-radios-container' : ' unique-chip text-radios-container'}>
-						{labels.map(label =>
-							<Chip key={label.key}
-								  chipClass={forceTwoLines ? 'chip-two-lines ' + 'chip-' + labelsLength : 'chip-' + labelsLength}
-								  label={label.text}
-								  onClickHandler={this.onClickHandler.bind(this, label.key)}
-								  disabled={value !== label.key}/>
-						)}
+				showCheckboxesList ?
+					<div className={className ? "list-block " + className : "list-block"}>
+						<div className="checkbox-title">{title}</div>
+						<ul className="checkbox-list">
+							{labels.map(label =>
+								<li key={label.key}>
+									<InputRadio value={label.key} text={label.text} checked={value === label.key} onClickHandler={this.onClickHandler.bind(this, label.key)} reverse={true}/>
+								</li>
+							)}
+						</ul>
 					</div>
-				</div>
+					:
+					<div id="joyride-3-answer-importance" className={radiosClassName}>
+						<div className="text-radios-title">{title}</div>
+						<div className={labelsLength ? 'text-radios-container' : ' unique-chip text-radios-container'}>
+							{labels.map(label =>
+								<Chip key={label.key}
+									  chipClass={forceTwoLines ? 'chip-two-lines ' + 'chip-' + labelsLength : 'chip-' + labelsLength}
+									  label={label.text}
+									  onClickHandler={this.onClickHandler.bind(this, label.key)}
+									  disabled={value !== label.key}/>
+							)}
+						</div>
+					</div>
 		);
 	}
 
@@ -74,6 +84,15 @@ export default class TextRadios extends Component {
 
 		this.props.onClickHandler(key);
 	}
+
+
+    onClickOptionHandler(event) {
+        if (this.props.disabled){
+            return;
+        }
+
+        this.props.onClickHandler(event.target.value);
+    }
 }
 
 TextRadios.defaultProps = {

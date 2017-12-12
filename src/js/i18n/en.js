@@ -486,7 +486,8 @@ export default {
         shareError            : 'An error occurred sending the link.'
     },
     SocialWheels                     : {
-        excerpt: 'Nekuno will never publish anything on your networks'
+        excerpt      : 'Nekuno will never publish anything on your networks',
+        otherNetworks: 'Other connected networks'
     },
     ProcessesProgress                : {
         title                   : 'We are reprocessing your data',
@@ -636,6 +637,9 @@ export default {
     },
     MultipleChoicesEdit              : {
         minChoices: 'Select at least %min% items',
+        maxChoices: 'Select up to %max% items'
+    },
+    MultipleChoicesFilter              : {
         maxChoices: 'Select up to %max% items'
     },
     TagEdit                          : {

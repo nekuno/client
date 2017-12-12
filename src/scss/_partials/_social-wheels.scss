@@ -104,6 +104,13 @@ body #root .App .view {
     .text-tumblr {
       background-color: $tumblr-blue;
     }
+    .wheel-linkedin {
+      stroke: $linkedin-blue;
+    }
+    .text-linkedin {
+      background-color: $linkedin-blue;
+    }
+
 
 
     .big-icon-wrapper.icon-wrapper {
@@ -114,6 +121,12 @@ body #root .App .view {
 
     .empty-message {
       margin-top: 30px;
+    }
+
+    #other-social-networks {
+      .social-box {
+        margin-top: 15px;
+      }
     }
   }
 }

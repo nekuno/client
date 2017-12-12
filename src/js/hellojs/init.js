@@ -1,4 +1,4 @@
-import { FACEBOOK_ID, TWITTER_ID, GOOGLE_ID, SPOTIFY_ID, INSTAGRAM_ID, TUMBLR_ID, INSTANT_HOST } from '../constants/Constants';
+import { FACEBOOK_ID, TWITTER_ID, GOOGLE_ID, SPOTIFY_ID, INSTAGRAM_ID, TUMBLR_ID, LINKEDIN_ID, INSTANT_HOST } from '../constants/Constants';
 import moment from 'moment';
 import LocaleStore from '../stores/LocaleStore';
 import 'moment/locale/es';
@@ -26,6 +26,7 @@ hello.init(
         spotify : SPOTIFY_ID,
         facebook: FACEBOOK_ID,
         twitter : TWITTER_ID,
+        linkedin: LINKEDIN_ID,
     },
     {
         redirect_uri: helloOAuthCallback,

@@ -74,6 +74,7 @@ export const SOCIAL_NETWORKS_NAMES = {
     SPOTIFY  : 'spotify',
     INSTAGRAM: 'instagram',
     TUMBLR   : 'tumblr',
+    LINKEDIN : 'linkedin',
 };
 
 export const SOCIAL_NETWORKS = [
@@ -101,6 +102,11 @@ export const SOCIAL_NETWORKS = [
         resourceOwner: SOCIAL_NETWORKS_NAMES.TUMBLR,
         id           : config.TUMBLR_ID,
         scope        : config.TUMBLR_SCOPE
+    },
+    {
+        resourceOwner: SOCIAL_NETWORKS_NAMES.LINKEDIN,
+        id           : config.LINKEDIN_ID,
+        scope        : config.LINKEDIN_SCOPE
     }
 ];
 
@@ -123,6 +129,9 @@ export const TUMBLR_SCOPE = config.TUMBLR_SCOPE;
 
 export const INSTAGRAM_ID = config.INSTAGRAM_ID;
 export const INSTAGRAM_SCOPE = config.INSTAGRAM_SCOPE;
+
+export const LINKEDIN_ID = config.LINKEDIN_ID;
+export const LINKEDIN_SCOPE = config.LINKEDIN_SCOPE;
 
 export const TRACKER_ID_WEB = config.TRACKER_ID_WEB;
 export const TRACKER_ID_APP = config.TRACKER_ID_APP;

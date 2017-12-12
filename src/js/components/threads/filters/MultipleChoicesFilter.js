@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import ThreadSelectedFilter from './ThreadSelectedFilter';
 import ThreadUnselectedFilter from './ThreadUnselectedFilter';
 import TextCheckboxes from '../../ui/TextCheckboxes';
+import Framework7Service from '../../../services/Framework7Service';
 
 export default class MultipleChoicesFilter extends Component {
     static propTypes = {
@@ -23,12 +24,16 @@ export default class MultipleChoicesFilter extends Component {
     }
     
     handleClickMultipleChoice(choice) {
-        let {filterKey, data} = this.props;
+        let {filterKey, data, filter, strings} = this.props;
         data = data || [];
         const valueIndex = data.findIndex(value => value == choice);
         if (valueIndex > -1) {
             data.splice(valueIndex, 1);
         } else {
+            if (filter.max_choices && data.length >= filter.max_choices) {
+                Framework7Service.nekunoApp().alert(strings.maxChoices.replace('%max%', filter.max_choices));
+                return;
+            }
             data.push(choice);
         }
         this.props.handleChangeFilter(filterKey, data);
@@ -48,3 +53,9 @@ export default class MultipleChoicesFilter extends Component {
         );
     }
 }
+
+MultipleChoicesFilter.defaultProps = {
+    strings: {
+        maxChoices: 'Select up to %max% items'
+    }
+};

@@ -149,10 +149,10 @@ export default class SocialWheels extends Component {
     render() {
         const {prevNetworks} = this.state;
         const {networks, picture, isLoading, strings} = this.props;
-        const connectedNetworks = networks.filter(network => network.connected).sort((networkA, networkB) => parseInt(networkA.processed) - parseInt(networkB.processed));
+        const connectedNetworks = networks.filter(network => network.connected);
         const notConnectedNetworks = networks.filter(network => !network.connected);
-        const wheelNetworks = connectedNetworks.length > 5 ? connectedNetworks.slice(0, 5) : connectedNetworks.concat(notConnectedNetworks.slice(0, 5 - connectedNetworks.length));
-        const belowWheelNetworks = connectedNetworks.length > 5 ? connectedNetworks.slice(5) : [];
+        const wheelNetworks = connectedNetworks.length > 4 ? connectedNetworks.slice(0, 4) : connectedNetworks.concat(notConnectedNetworks.slice(0, 4 - connectedNetworks.length));
+        const belowWheelNetworks = connectedNetworks.length > 4 ? connectedNetworks.slice(4) : [];
 
         return (
             <div className="social-wheels">
@@ -163,14 +163,9 @@ export default class SocialWheels extends Component {
                     <svg width="310" height="310">
                         <g>
                             {/* Wheel separators */}
-                            {wheelNetworks.map((network, index) => {
+                            {[0,1,2,3,4,5,6].map((network, index) => {
                                 let value = this.initialRadius + index * this.separation;
                                 return (<path key={'wheel-separator-' + index} d={this.describeArc(this.posX, this.posY, value, 0, 359.9)} className="wheel-separator"/>);
-                            })}
-                            {wheelNetworks.map((network, index) => {
-                                let realIndex = index + networks.length - 1;
-                                let value = this.initialRadius + realIndex * this.separation;
-                                return (<path key={'wheel-separator-' + index * 2} d={this.describeArc(this.posX, this.posY, value, 0, 359.9)} className="wheel-separator"/>);
                             })}
                             
                             {/* User picture */}

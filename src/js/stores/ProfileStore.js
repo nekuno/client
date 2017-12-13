@@ -1,4 +1,4 @@
-import { REQUIRED_REGISTER_PROFILE_FIELDS } from '../constants/Constants';
+import { REQUIRED_REGISTER_PROFILE_FIELDS, SOCIAL_NETWORKS_NAMES } from '../constants/Constants';
 import { waitFor } from '../dispatcher/Dispatcher';
 import { isInBag, mergeIntoBag } from '../utils/StoreUtils';
 import BaseStore from './BaseStore';
@@ -36,6 +36,12 @@ class ProfileStore extends BaseStore {
                 mergeIntoBag(this._profiles, newProfiles);
                 this._setInitialRequiredProfileQuestionsCount(action.userId);
                 this.emitChange();
+                break;
+            case ActionTypes.CONNECT_ACCOUNT_SUCCESS:
+                if (action.resource === SOCIAL_NETWORKS_NAMES.LINKEDIN) {
+                    this._profiles[LoginStore.user.id] = null;
+                    this.emitChange();
+                }
                 break;
             case ActionTypes.REQUEST_LOGIN_USER_SUCCESS:
             case ActionTypes.REQUEST_AUTOLOGIN_SUCCESS:
@@ -354,7 +360,7 @@ class ProfileStore extends BaseStore {
     }
 
     getNextRequiredProfileField(userId) {
-        return typeof this._profiles[userId] !== 'undefined' ? REQUIRED_REGISTER_PROFILE_FIELDS.find(field =>
+        return typeof this._profiles[userId] !== 'undefined' && this._profiles[userId] ? REQUIRED_REGISTER_PROFILE_FIELDS.find(field =>
                 !(typeof this._profiles[userId][field.name] !== 'undefined' && this._profiles[userId][field.name])
             ) || null : null;
     }

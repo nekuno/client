@@ -11,6 +11,7 @@ export default class SocialBox extends Component {
         excludedResources: PropTypes.array,
         onClickHandler   : PropTypes.func,
         disabled         : PropTypes.bool,
+        disabledButtons  : PropTypes.bool,
     };
 
     constructor() {
@@ -26,14 +27,14 @@ export default class SocialBox extends Component {
     }
 
     render() {
-        const {excludedResources, disabled} = this.props;
+        const {excludedResources, disabled, disabledButtons} = this.props;
         const className = disabled ? "social-box social-box-disabled" : "social-box";
         return (
             <div>
                 <div className={className}>
                     {SOCIAL_NETWORKS.map((socialNetwork, index) =>
                         !excludedResources || !excludedResources.some(resource => resource === socialNetwork.resourceOwner) ?
-                            <div key={index}>
+                            <div key={index} className={disabledButtons ? 'disabled' : ''}>
                                 <a onClick={this.handleClickResourceOwner.bind(this, socialNetwork.resourceOwner, socialNetwork.scope)}>
                                     <span className={socialNetwork.resourceOwner === 'google' ? 'icon-youtube' : 'icon-' + socialNetwork.resourceOwner}></span>
                                 </a>
@@ -42,13 +43,6 @@ export default class SocialBox extends Component {
                     )}
 
                 </div>
-                {disabled ?
-                    <div>
-                        <EmptyMessage text="Getting information" loadingGif={true}/>
-                        <br/>
-                        <br/>
-                    </div>
-                    : ''}
             </div>
 
         );

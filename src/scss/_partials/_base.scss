@@ -8,7 +8,7 @@
     font-size: 40px;
     text-align: center;
     display: inline-block;
-    margin: 0 5px;
+    margin: 5px 5px;
 
     span {
       border-radius: 50%;
@@ -48,6 +48,10 @@
 
     .icon-tumblr {
       background-color: $tumblr-blue;
+    }
+
+    .icon-linkedin {
+      background-color: $linkedin-blue;
     }
   }
 }

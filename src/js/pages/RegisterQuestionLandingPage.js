@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import ButtonFloating from '../components/ui/ButtonFloating';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
+import * as UserActionCreators from '../actions/UserActionCreators';
 import * as QuestionActionCreators from '../actions/QuestionActionCreators';
 import RouterActionCreators from '../actions/RouterActionCreators';
 import LoginStore from '../stores/LoginStore';
@@ -19,7 +20,11 @@ function requestData(props) {
     const {user, params} = props;
     const questionId = params.hasOwnProperty('questionId') ? parseInt(params.questionId) : null;
     const currentUserId = parseUserId(user);
+    const profile = ProfileStore.get(currentUserId);
     QuestionActionCreators.requestQuestion(currentUserId, questionId);
+    if (!profile) {
+        UserActionCreators.requestOwnProfile(currentUserId);
+    }
 }
 
 @AuthenticatedComponent

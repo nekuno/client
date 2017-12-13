@@ -251,7 +251,15 @@ class WorkersStore extends BaseStore {
     }
 
     getAll() {
-        return this._networks;
+        return this._networks.sort((networkA, networkB) => {
+            if (networkA.processed && networkB.processed) {
+                return 0;
+            } else if (networkA.processed && !networkB.processed) {
+                return 1;
+            }
+
+            return -1;
+        });
     }
     
     isConnected(resource) {

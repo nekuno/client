@@ -12,6 +12,7 @@ import SocialNetworksBanner from '../components/socialNetworks/SocialNetworksBan
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
+import * as UserActionCreators from '../actions/UserActionCreators';
 import * as ThreadActionCreators from '../actions/ThreadActionCreators';
 import ThreadStore from '../stores/ThreadStore';
 import FilterStore from '../stores/FilterStore';
@@ -41,6 +42,9 @@ function getDisplayedThread(props) {
  * Requests data from server for current props.
  */
 function requestData(props) {
+    if (!props.profile) {
+        UserActionCreators.requestOwnProfile(parseId(props.user));
+    }
     if (Object.keys(props.thread).length === 0) {
         const userId = parseId(props.user);
         ThreadActionCreators.requestThreads(userId);

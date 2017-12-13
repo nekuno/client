@@ -22,8 +22,11 @@ function parseId(user) {
 /**
  * Requests data from server for current props.
  */
-function requestData() {
+function requestData(props) {
     ThreadActionCreators.requestFilters();
+    if (!props.profile) {
+        UserActionCreators.requestOwnProfile(parseId(props.user));
+    }
 }
 
 /**

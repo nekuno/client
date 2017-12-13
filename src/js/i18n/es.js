@@ -487,7 +487,8 @@ export default {
         shareError            : 'Ha ocurrido un error compartiendo el enlace.'
     },
     SocialWheels                     : {
-        excerpt: 'Nekuno nunca publicará nada en tus redes'
+        excerpt      : 'Nekuno nunca publicará nada en tus redes',
+        otherNetworks: 'Otras redes conectadas'
     },
     ProcessesProgress                : {
         title                   : 'Estamos reprocesando tus datos',
@@ -637,6 +638,9 @@ export default {
     },
     MultipleChoicesEdit              : {
         minChoices: 'Selecciona al menos %min% opciones',
+        maxChoices: 'Selecciona %max% opciones como máximo'
+    },
+    MultipleChoicesFilter              : {
         maxChoices: 'Selecciona %max% opciones como máximo'
     },
     TagEdit                          : {

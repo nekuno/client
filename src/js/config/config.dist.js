@@ -16,6 +16,8 @@ export default {
     SPOTIFY_SCOPE         : 'user-read-private user-read-email playlist-read-private user-read-birthdate',
     TUMBLR_ID             : 'boLPNHs4oCPLtisiAWFUijDIq6nJz0sl8DH0I6Scx7lxuofWxU',
     TUMBLR_SCOPE          : 'read',
+    LINKEDIN_ID           : '86rb2cf9thkvry',
+    LINKEDIN_SCOPE        : 'r_basicprofile',
     INSTAGRAM_ID          : '7d6f40c53c9b49ef8838710fa775eda8',
     INSTAGRAM_SCOPE       : 'basic',
     TRACKER_ID_WEB        : 'UA-55709950-6',

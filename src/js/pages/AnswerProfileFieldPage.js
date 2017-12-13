@@ -26,7 +26,7 @@ function parseId(user) {
  */
 function requestData(props) {
     if (!ProfileStore.get(parseId(props.user))) {
-        UserActionCreators.requestOwnProfile(parseId(props.user));
+        setTimeout(() => { UserActionCreators.requestOwnProfile(parseId(props.user)) }, 0);
     }
     if (!ProfileStore.getMetadata()) {
         setTimeout(() => { UserActionCreators.requestMetadata() }, 0);

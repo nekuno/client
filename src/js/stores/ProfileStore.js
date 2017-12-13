@@ -360,7 +360,7 @@ class ProfileStore extends BaseStore {
     }
 
     getNextRequiredProfileField(userId) {
-        return typeof this._profiles[userId] !== 'undefined' ? REQUIRED_REGISTER_PROFILE_FIELDS.find(field =>
+        return typeof this._profiles[userId] !== 'undefined' && this._profiles[userId] ? REQUIRED_REGISTER_PROFILE_FIELDS.find(field =>
                 !(typeof this._profiles[userId][field.name] !== 'undefined' && this._profiles[userId][field.name])
             ) || null : null;
     }

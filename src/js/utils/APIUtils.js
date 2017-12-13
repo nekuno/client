@@ -1,6 +1,7 @@
 import { Schema, arrayOf, normalize } from 'normalizr';
 import selectn from 'selectn';
 import OfflineService from '../services/OfflineService';
+import Framework7Service from '../services/Framework7Service';
 import Url from 'url';
 import request from 'request';
 import Bluebird from 'bluebird';
@@ -70,16 +71,16 @@ export function doRequest(method, url, data = null) {
     var headers = jwt ? {'Authorization': 'Bearer ' + jwt} : {};
     var locale = LocaleStore.locale;
 
-    nekunoApp.showProgressbar();
+    Framework7Service.nekunoApp().showProgressbar();
 
     return new Bluebird((resolve, reject, onCancel) => {
 
         OfflineService.check().then(() => {
             if (LoginStore.isGuest() && ['PUT', 'POST', 'DELETE'].indexOf(method) > -1) {
-                nekunoApp.hideProgressbar();
+                Framework7Service.nekunoApp().hideProgressbar();
                 let message = locale == 'en' ? 'This feature is available only to registered users. Improve your experience now!'
                     : 'Esta función sólo está disponible para usuarios registrados. Mejora tu experiencia ahora!';
-                nekunoApp.confirm(message, () => {
+                Framework7Service.nekunoApp().confirm(message, () => {
                     LoginActionCreators.logoutUser('/register');
                 });
                 return reject(message);
@@ -97,7 +98,7 @@ export function doRequest(method, url, data = null) {
                 },
                 (err, response, body) => {
 
-                    nekunoApp.hideProgressbar();
+                    Framework7Service.nekunoApp().hideProgressbar();
 
                     if (err) {
                         return reject(err);

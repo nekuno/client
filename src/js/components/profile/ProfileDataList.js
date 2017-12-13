@@ -16,6 +16,7 @@ import DoubleChoiceEdit from '../../components/profile/edit/DoubleChoiceEdit';
 import TagEdit from '../../components/profile/edit/TagEdit';
 import BirthdayEdit from '../../components/profile/edit/BirthdayEdit';
 import TextAreaEdit from '../../components/profile/edit/TextAreaEdit';
+import Framework7Service from '../../services/Framework7Service';
 
 /**
  * Retrieves state from stores for current props.
@@ -141,7 +142,7 @@ export default class ProfileDataList extends Component {
     handleClickRemoveEdit(editKey) {
         let {profile} = this.state;
         if (this.props.metadata[editKey] && this.props.metadata[editKey].required === true) {
-            nekunoApp.alert(this.props.strings.cannotRemove);
+            Framework7Service.nekunoApp().alert(this.props.strings.cannotRemove);
             return;
         }
         profile[editKey] = null;

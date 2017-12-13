@@ -18,15 +18,40 @@ export default class TextCheckboxes extends Component {
 	}
 
 	render() {
+		const {values, labels, title} = this.props;
+        const showSelect = labels.length > 40;
 		return (
-			<div className="text-checkboxes">
-				{this.props.title ? <div className="text-checkboxes-title">{this.props.title}</div> : null}
-				{this.props.labels.map(label => <Chip key={label.key} label={label.text} onClickHandler={this.onClickHandler.bind(this, label.key)} disabled={!this.props.values.some(value => value == label.key)} />)}
-			</div>
+            showSelect ?
+				<div className="list-block text-checkboxes">
+					<div className="checkbox-title">{title}</div>
+					<select onChange={this.onClickOptionHandler.bind(this)}>
+                        <option key={'none'} value={''}>{}</option>
+                        {labels.map(label => !values.some(value => value == label.key) ?
+							<option key={label.key} value={label.key}>{label.text}</option> : null
+						)}
+					</select>
+                    {labels.map(label => values.some(value => value == label.key) ?
+						<Chip key={label.key} label={label.text} onClickHandler={this.onClickHandler.bind(this, label.key)}/> : null
+                    )}
+				</div>
+                :
+				<div className="text-checkboxes">
+					{this.props.title ? <div className="text-checkboxes-title">{this.props.title}</div> : null}
+					{this.props.labels.map(label => <Chip key={label.key} label={label.text} onClickHandler={this.onClickHandler.bind(this, label.key)} disabled={!this.props.values.some(value => value == label.key)} />)}
+				</div>
 		);
 	}
 
 	onClickHandler(key) {
 		this.props.onClickHandler(key);
+	}
+
+    onClickOptionHandler(event) {
+		const {labels} = this.props;
+		const value = event.target.value;
+
+		if (labels.some(label => value == label.key)) {
+            this.props.onClickHandler(event.target.value);
+		}
 	}
 }

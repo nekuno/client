@@ -1,5 +1,6 @@
 import LoginStore from '../stores/LoginStore';
 import { INSTANT_HOST } from '../constants/Constants';
+import io from 'socket.io-client';
 
 class SocketService {
 

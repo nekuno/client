@@ -150,6 +150,7 @@ export default keyMirror({
 
     RESET_INTERESTS            : null,
     SET_CONTENTS_TYPE          : null,
+    REMOVE_CONTENTS_TYPE       : null,
     SET_CONTENTS_SHOWONLYCOMMON: null,
 
     REQUEST_COMPARED_INTERESTS        : null,

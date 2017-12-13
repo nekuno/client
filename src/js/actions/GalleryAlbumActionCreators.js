@@ -1,6 +1,7 @@
 import { dispatch } from '../dispatcher/Dispatcher';
 import ActionTypes from '../constants/ActionTypes';
 import SocialNetworkService from '../services/SocialNetworkService';
+import Framework7Service from '../services/Framework7Service';
 
 export default {
 
@@ -14,7 +15,7 @@ export default {
                     }
                 });
         }, (status) => {
-            nekunoApp.alert(status.error.code);
+            Framework7Service.nekunoApp().alert(status.error.code);
             dispatch(ActionTypes.REQUEST_ALBUMS_ERROR, {
                 response : {
                     resource: resource
@@ -35,7 +36,7 @@ export default {
                 }
             });
         }, (status) => {
-            nekunoApp.alert(status.error.code);
+            Framework7Service.nekunoApp().alert(status.error.code);
             dispatch(ActionTypes.REQUEST_ALBUM_ERROR, {
                 response : {
                     resource: resource

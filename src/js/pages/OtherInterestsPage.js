@@ -15,6 +15,7 @@ import * as UserActionCreators from '../actions/UserActionCreators';
 import * as InterestsActionCreators from '../actions/InterestsActionCreators';
 import UserStore from '../stores/UserStore';
 import InterestStore from '../stores/InterestStore';
+import Framework7Service from '../services/Framework7Service';
 
 function parseId(user) {
     return user ? user.id : null;
@@ -168,7 +169,7 @@ export default class OtherInterestsPage extends Component {
 
     initSwiper() {
         var _self = this;
-        return nekunoApp.swiper('.swiper-container', {
+        return Framework7Service.nekunoApp().swiper('.swiper-container', {
             onReachEnd    : onReachEnd,
             effect        : 'coverflow',
             slidesPerView : 'auto',
@@ -207,6 +208,8 @@ export default class OtherInterestsPage extends Component {
 
         if (type !== pressedType) {
             InterestsActionCreators.setType(pressedType, otherUserId);
+        } else {
+            InterestsActionCreators.removeType(otherUserId);
         }
     }
 
@@ -228,7 +231,7 @@ export default class OtherInterestsPage extends Component {
         };
         this.props.closePopup();
         UserActionCreators.reportContent(data).then(
-            () => nekunoApp.alert(strings.reported),
+            () => Framework7Service.nekunoApp().alert(strings.reported),
             (error) => console.log(error),
         );
     }
@@ -254,7 +257,7 @@ export default class OtherInterestsPage extends Component {
 
         return otherUser ? <FilterContentButtonsList userId={otherUserId} contentsCount={pagination.total || 0} ownContent={false} ownUserId={ownUserId} onClickHandler={this.onFilterTypeClick} commonContent={showOnlyCommon}
                                                      loading={isLoadingComparedInterests}
-                                                     linksCount={totals.Link}
+                                                     linksCount={totals.Web}
                                                      audiosCount={totals.Audio}
                                                      videosCount={totals.Video}
                                                      imagesCount={totals.Image}

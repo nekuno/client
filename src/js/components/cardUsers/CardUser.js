@@ -7,6 +7,7 @@ import CardUserTopLinks from '../recommendations/CardUserTopLinks';
 import * as UserActionCreators from '../../actions/UserActionCreators'
 import translate from '../../i18n/Translate';
 import PercentageValue from "./PercentageValue";
+import Framework7Service from "../../services/Framework7Service";
 
 @translate('CardUser')
 export default class CardUser extends Component {
@@ -63,7 +64,7 @@ export default class CardUser extends Component {
     handleGoToProfile() {
         const {profile, orientationMustBeAsked, slug} = this.props;
         if (orientationMustBeAsked) {
-            nekunoApp.popup('.popup-orientation-required');
+            Framework7Service.nekunoApp().popup('.popup-orientation-required');
             this.props.handleSelectProfile(slug);
         } else {
             this.context.router.push(`/p/${slug}`);

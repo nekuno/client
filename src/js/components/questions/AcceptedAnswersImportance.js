@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import TextRadios from './../ui/TextRadios';
 import translate from '../../i18n/Translate';
+import Framework7Service from '../../services/Framework7Service';
 
 @translate('AcceptedAnswersImportance')
 export default class AcceptedAnswersImportance extends Component {
@@ -38,7 +39,7 @@ export default class AcceptedAnswersImportance extends Component {
 
     showNotCompleteModal() {
         const {strings} = this.props;
-        nekunoApp.alert(strings.alert);
+        Framework7Service.nekunoApp().alert(strings.alert);
     };
 
     render() {

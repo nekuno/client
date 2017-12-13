@@ -1,8 +1,10 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import {SOCIAL_NETWORKS, OTHER_SOCIAL_NETWORKS} from '../../constants/Constants';
 import SocialBox from './SocialBox';
 import ConnectActionCreators from '../../actions/ConnectActionCreators';
 import SocialNetworkService from '../../services/SocialNetworkService';
+import Framework7Service from '../../services/Framework7Service';
 import {Motion, spring} from 'react-motion';
 import translate from '../../i18n/Translate';
 
@@ -38,7 +40,7 @@ export default class SocialWheels extends Component {
         });
 
         if (error) {
-            nekunoApp.alert(error);
+            Framework7Service.nekunoApp().alert(error);
             setTimeout(ConnectActionCreators.removeError, 0);
         }
     }
@@ -136,7 +138,7 @@ export default class SocialWheels extends Component {
         SocialNetworkService.login(resource, scope, true).then(() => {
             ConnectActionCreators.connect(resource, SocialNetworkService.getAccessToken(resource), SocialNetworkService.getResourceId(resource), SocialNetworkService.getExpireTime(resource), SocialNetworkService.getRefreshToken(resource));
         }, (status) => {
-            nekunoApp.alert(resource + ' login failed: ' + status.error.message);
+            Framework7Service.nekunoApp().alert(resource + ' login failed: ' + status.error.message);
         });
     };
 
@@ -148,24 +150,22 @@ export default class SocialWheels extends Component {
         const {prevNetworks} = this.state;
         const {networks, picture, isLoading, strings} = this.props;
         const connectedNetworks = networks.filter(network => network.connected);
-        
+        const notConnectedNetworks = networks.filter(network => !network.connected);
+        const wheelNetworks = connectedNetworks.length > 4 ? connectedNetworks.slice(0, 4) : connectedNetworks.concat(notConnectedNetworks.slice(0, 4 - connectedNetworks.length));
+        const belowWheelNetworks = connectedNetworks.length > 4 ? connectedNetworks.slice(4) : [];
+
         return (
             <div className="social-wheels">
                 <SocialBox onClickHandler={this.connect} excludedResources={connectedNetworks.map(network => network.resource)} disabled={isLoading} />
                 <br/>
                 <div className="excerpt">{strings.excerpt}</div>
-                {connectedNetworks.length > 0 ?
+                {wheelNetworks.length > 0 ?
                     <svg width="310" height="310">
                         <g>
                             {/* Wheel separators */}
-                            {networks.map((network, index) => {
+                            {[0,1,2,3,4,5,6].map((network, index) => {
                                 let value = this.initialRadius + index * this.separation;
                                 return (<path key={'wheel-separator-' + index} d={this.describeArc(this.posX, this.posY, value, 0, 359.9)} className="wheel-separator"/>);
-                            })}
-                            {networks.map((network, index) => {
-                                let realIndex = index + networks.length - 1;
-                                let value = this.initialRadius + realIndex * this.separation;
-                                return (<path key={'wheel-separator-' + index * 2} d={this.describeArc(this.posX, this.posY, value, 0, 359.9)} className="wheel-separator"/>);
                             })}
                             
                             {/* User picture */}
@@ -176,7 +176,7 @@ export default class SocialWheels extends Component {
                             <path d={this.describeArc(this.posX, this.posY, 25, 0, 359.9)} className="wheel-picture"/>
     
                             {/* Social networks wheels */}
-                            {networks.map((message, index) => {
+                            {wheelNetworks.map((message, index) => {
                                 let radius = this.initialRadius + index * this.separation * 2;
                                 let progress = this.getProcessing(message);
                                 let prevProgress = prevNetworks[index] ? this.getProcessing(prevNetworks[index]) : progress;
@@ -194,7 +194,7 @@ export default class SocialWheels extends Component {
                             })}
                             
                             {/* Small icons */}
-                            {networks.map((message, index) => {
+                            {wheelNetworks.map((message, index) => {
                                 let radius = this.initialRadius + index * this.separation * 2;
                                 let progress = message.processed ? 359 : message.process * 3.6;
                                 return (
@@ -213,6 +213,13 @@ export default class SocialWheels extends Component {
                     </svg>
                         :
                     null}
+                {belowWheelNetworks.length > 0 ?
+                    <div id="other-social-networks">
+                        <div className="title">{strings.otherNetworks}</div>
+                        <SocialBox onClickHandler={this.connect} excludedResources={SOCIAL_NETWORKS.filter(network => !belowWheelNetworks.some(belowWheelNetwork => belowWheelNetwork.resource === network.resourceOwner)).map(network => network.resourceOwner)} disabled={isLoading} disabledButtons={true} />
+                    </div>
+                    : null
+                }
             </div>
         );
     }
@@ -220,7 +227,8 @@ export default class SocialWheels extends Component {
 
 SocialWheels.defaultProps = {
     strings  : {
-        excerpt: 'Nekuno will never publish anything on your networks'
+        excerpt      : 'Nekuno will never publish anything on your networks',
+        otherNetworks: 'Other connected networks'
     },
     isLoading : false,
 };

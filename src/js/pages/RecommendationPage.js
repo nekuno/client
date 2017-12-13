@@ -24,6 +24,7 @@ import GalleryPhotoStore from '../stores/GalleryPhotoStore';
 import QuestionStore from '../stores/QuestionStore';
 import InterestStore from '../stores/InterestStore';
 import ShareService from '../services/ShareService';
+import Framework7Service from '../services/Framework7Service';
 
 function parseThreadId(params) {
     return params.threadId;
@@ -64,7 +65,7 @@ function requestRecommendationData(props, activeIndex) {
 
 function initSwiper(props, index = 0) {
     // Init slider
-    let recommendationsSwiper = nekunoApp.swiper('#recommendations-swiper-container', {
+    let recommendationsSwiper = Framework7Service.nekunoApp().swiper('#recommendations-swiper-container', {
         initialSlide    : index,
         onSlideNextStart: onSlideNextStart,
         onSlidePrevStart: onSlidePrevStart,
@@ -200,7 +201,7 @@ export default class RecommendationPage extends Component {
             requestData(nextProps);
         }
         if (RecommendationStore.replaced(parseThreadId(nextProps.params))) {
-            nekunoApp.confirm(nextProps.strings.confirmReplace, () => {
+            Framework7Service.nekunoApp().confirm(nextProps.strings.confirmReplace, () => {
                 // No action needed
             }, () => {
                 window.setTimeout(() => ThreadActionCreators.addPrevRecommendation(parseThreadId(nextProps.params)), 0);
@@ -210,7 +211,7 @@ export default class RecommendationPage extends Component {
 
     componentDidMount() {
         if (this.props.isJustRegistered) {
-            nekunoApp.alert(this.props.strings.processingThread);
+            Framework7Service.nekunoApp().alert(this.props.strings.processingThread);
         }
         if (this.props.thread && this.props.recommendations.length > 0 && !this.state.swiper) {
             const index = RecommendationStore.getSavedIndex();
@@ -239,7 +240,7 @@ export default class RecommendationPage extends Component {
     }
 
     deleteThread() {
-        nekunoApp.confirm(this.props.strings.confirmDelete, () => {
+        Framework7Service.nekunoApp().confirm(this.props.strings.confirmDelete, () => {
             const threadId = this.props.thread.id;
             const router = this.context.router;
             ThreadActionCreators.deleteThread(threadId)
@@ -333,7 +334,7 @@ export default class RecommendationPage extends Component {
     }
 
     onShareError() {
-        nekunoApp.alert(this.props.strings.shareError)
+        Framework7Service.nekunoApp().alert(this.props.strings.shareError)
     }
 
     handleScroll() {

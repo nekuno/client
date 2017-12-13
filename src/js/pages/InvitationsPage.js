@@ -10,6 +10,7 @@ import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
 import * as InvitationActionCreator from '../actions/InvitationActionCreator';
 import InvitationStore from '../stores/InvitationStore';
+import Framework7Service from '../services/Framework7Service';
 import ShareService from '../services/ShareService';
 import moment from 'moment';
 
@@ -78,7 +79,7 @@ export default class InvitationsPage extends Component {
     onShareSuccess() {}
 
     onShareError() {
-        nekunoApp.alert(this.props.strings.shareError)
+        Framework7Service.nekunoApp().alert(this.props.strings.shareError)
     }
 
     render() {

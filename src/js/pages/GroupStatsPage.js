@@ -10,6 +10,7 @@ import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
 import * as GroupActionCreators from '../actions/GroupActionCreators';
 import ShareService from '../services/ShareService';
+import Framework7Service from '../services/Framework7Service';
 import GroupStore from '../stores/GroupStore';
 
 /**
@@ -76,7 +77,7 @@ export default class GroupStatsPage extends Component {
     }
 
     leave() {
-        nekunoApp.confirm(this.props.strings.confirm_leave, () => {
+        Framework7Service.nekunoApp().confirm(this.props.strings.confirm_leave, () => {
             this.setState({leaving: true});
             GroupActionCreators.leaveGroup(this.props.group.id).then(() => {
                 this.setState({leaving: false});
@@ -84,7 +85,7 @@ export default class GroupStatsPage extends Component {
             }, (error) => {
                 console.log(error);
                 this.setState({leaving: false});
-                nekunoApp.alert(this.props.strings.leave_error);
+                Framework7Service.nekunoApp().alert(this.props.strings.leave_error);
             });
         });
     }
@@ -105,7 +106,7 @@ export default class GroupStatsPage extends Component {
     }
 
     onShareError() {
-        nekunoApp.alert(this.props.strings.shareError)
+        Framework7Service.nekunoApp().alert(this.props.strings.shareError)
     }
 
     render() {

@@ -7,6 +7,7 @@ import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
 import GalleryPhotoStore from '../stores/GalleryPhotoStore';
 import GalleryPhotoActionCreators from '../actions/GalleryPhotoActionCreators';
+import Framework7Service from '../services/Framework7Service';
 
 function parseId(user) {
     return user.id;
@@ -29,7 +30,7 @@ function getState(props) {
 
 function initPhotosSwiper(photos, photoIndex) {
     // Init slider
-    let gallerySwiper = nekunoApp.swiper('#gallery-swiper-container', {
+    let gallerySwiper = Framework7Service.nekunoApp().swiper('#gallery-swiper-container', {
         initialSlide: photoIndex,
         onSlideChangeEnd: onSlideChangeEnd,
         slidesPerView: 'auto',
@@ -108,7 +109,7 @@ export default class GalleryPhotoPage extends Component {
 
     deletePhoto() {
         const userId = parseId(this.props.user);
-        nekunoApp.confirm(this.props.strings.confirmDelete, () => {
+        Framework7Service.nekunoApp().confirm(this.props.strings.confirmDelete, () => {
             const photoId = this.props.photo.id;
             GalleryPhotoActionCreators.deletePhoto(userId, photoId);
             this.context.router.push('gallery');

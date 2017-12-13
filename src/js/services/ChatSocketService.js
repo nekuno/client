@@ -1,4 +1,5 @@
 import SocketService from './SocketService';
+import Framework7Service from './Framework7Service';
 import ChatActionsCreators from '../actions/ChatActionCreators';
 
 class ChatSocketService extends SocketService {
@@ -11,7 +12,7 @@ class ChatSocketService extends SocketService {
     sendMessage(userTo, messageText) {
         this._socket.emit('sendMessage', userTo, messageText, (error) => {
             console.log('Error from sockets', error);
-            nekunoApp.alert('Error: ' + error);
+            Framework7Service.nekunoApp().alert('Error: ' + error);
         });
     }
 

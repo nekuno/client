@@ -5,6 +5,7 @@ import InputCheckbox from '../../ui/InputCheckbox';
 import FullWidthButton from '../../ui/FullWidthButton';
 import translate from '../../../i18n/Translate';
 import selectn from 'selectn';
+import Framework7Service from '../../../services/Framework7Service';
 
 @translate('GenderField')
 export default class GenderField extends Component {
@@ -42,7 +43,7 @@ export default class GenderField extends Component {
 
         let descriptiveGender = this.state.descriptiveGender;
         if (descriptiveGender.length === 5 && checked && descriptiveGender.indexOf(value) === -1) {
-            nekunoApp.alert(this.props.strings.maxDescriptiveGender);
+            Framework7Service.nekunoApp().alert(this.props.strings.maxDescriptiveGender);
         } else {
             if (checked) {
                 descriptiveGender.push(value);

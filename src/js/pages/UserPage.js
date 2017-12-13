@@ -13,6 +13,7 @@ import * as ThreadActionCreators from '../actions/ThreadActionCreators';
 import UserStore from '../stores/UserStore';
 import ProfileStore from '../stores/ProfileStore';
 import StatsStore from '../stores/StatsStore';
+import Framework7Service from '../services/Framework7Service';
 
 function parseId(user) {
     return user.id;
@@ -21,8 +22,11 @@ function parseId(user) {
 /**
  * Requests data from server for current props.
  */
-function requestData() {
+function requestData(props) {
     ThreadActionCreators.requestFilters();
+    if (!props.profile) {
+        UserActionCreators.requestOwnProfile(parseId(props.user));
+    }
 }
 
 /**
@@ -75,7 +79,7 @@ export default class UserPage extends Component {
 
     componentDidUpdate() {
         if (this.props.errors) {
-            nekunoApp.alert(this.props.errors);
+            Framework7Service.nekunoApp().alert(this.props.errors);
         }
     }
 

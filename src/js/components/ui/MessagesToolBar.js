@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { MAX_MESSAGES_LENGTH } from '../../constants/Constants';
 import translate from '../../i18n/Translate';
+import Framework7Service from '../../services/Framework7Service';
 
 @translate('MessagesToolBar')
 export default class MessagesToolBar extends Component {
@@ -29,7 +30,7 @@ export default class MessagesToolBar extends Component {
     }
 
     componentDidMount() {
-        this.myMessagebar = nekunoApp.messagebar('.messagebar', {
+        this.myMessagebar = Framework7Service.nekunoApp().messagebar('.messagebar', {
             maxHeight: 100
         });
     }
@@ -42,7 +43,7 @@ export default class MessagesToolBar extends Component {
         const {strings} = this.props;
         let text = this.refs.textarea.value.trim();
         if (text.length > MAX_MESSAGES_LENGTH) {
-            nekunoApp.alert(strings.maxLengthIs + MAX_MESSAGES_LENGTH);
+            Framework7Service.nekunoApp().alert(strings.maxLengthIs + MAX_MESSAGES_LENGTH);
             this.setState({disable: true});
             return;
         }
@@ -69,7 +70,7 @@ export default class MessagesToolBar extends Component {
         const {strings} = this.props;
         let text = this.refs.textarea.value.trim();
         if (text.length > MAX_MESSAGES_LENGTH && disable === false) {
-            nekunoApp.alert(strings.maxLengthIs + MAX_MESSAGES_LENGTH);
+            Framework7Service.nekunoApp().alert(strings.maxLengthIs + MAX_MESSAGES_LENGTH);
             this.setState({disable: true});
         } else if (text.length <= MAX_MESSAGES_LENGTH && disable === true) {
             this.setState({disable: false});

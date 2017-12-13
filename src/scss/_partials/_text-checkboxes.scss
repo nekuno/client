@@ -22,4 +22,15 @@
   .chip.disabled-chip {
     background-color: $deep-purple-translucent;
   }
+
+  select {
+    background: $dark-purple;
+    border: 1px solid #fff;
+    border-radius: 16px;
+    -moz-border-radius: 16px;
+    -webkit-border-radius: 16px;
+    color: #fff;
+    cursor: pointer;
+    text-align-last: center;
+  }
 }

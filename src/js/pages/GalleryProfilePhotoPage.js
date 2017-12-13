@@ -8,6 +8,7 @@ import ReactCrop from 'react-image-crop';
 import GalleryPhotoStore from '../stores/GalleryPhotoStore';
 import * as UserActionCreators from '../actions/UserActionCreators';
 import GalleryPhotoActionCreators from '../actions/GalleryPhotoActionCreators';
+import Framework7Service from '../services/Framework7Service';
 
 function parseId(user) {
     return user.id;
@@ -59,7 +60,7 @@ export default class GalleryProfilePhotoPage extends Component {
     cropAndSaveAsProfilePhoto() {
         const {photo, user, strings} = this.props;
         const {crop} = this.state;
-        nekunoApp.confirm(strings.confirmSetAsProfilePhoto, () => {
+        Framework7Service.nekunoApp().confirm(strings.confirmSetAsProfilePhoto, () => {
             const photoId = photo.id;
             GalleryPhotoActionCreators.setAsProfilePhoto(photoId, crop).then(() => {
                 UserActionCreators.requestOwnUser();

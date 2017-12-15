@@ -73,6 +73,9 @@
 				.icon-tumblr {
 					font-size: 2.5em !important;
 				}
+				.icon-steam {
+					font-size: 2.5em !important;
+				}
 			}
 
 			.link-icon-wrapper {
@@ -101,6 +104,10 @@
 
 			.tumblr-icon-wrapper {
 				background-color: $tumblr-blue !important;
+			}
+
+			.steam-icon-wrapper {
+				background-color: $steam-black !important;
 			}
 		}
 	}

@@ -75,6 +75,7 @@ export const SOCIAL_NETWORKS_NAMES = {
     INSTAGRAM: 'instagram',
     TUMBLR   : 'tumblr',
     LINKEDIN : 'linkedin',
+    STEAM    : 'steam'
 };
 
 export const SOCIAL_NETWORKS = [
@@ -107,6 +108,9 @@ export const SOCIAL_NETWORKS = [
         resourceOwner: SOCIAL_NETWORKS_NAMES.LINKEDIN,
         id           : config.LINKEDIN_ID,
         scope        : config.LINKEDIN_SCOPE
+    },
+    {
+        resourceOwner: SOCIAL_NETWORKS_NAMES.STEAM,
     }
 ];
 

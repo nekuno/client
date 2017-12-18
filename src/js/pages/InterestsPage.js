@@ -102,6 +102,7 @@ export default class InterestsPage extends Component {
                                          videosCount={totals.Video}
                                          imagesCount={totals.Image}
                                          channelsCount={totals.Creator}
+                                         gamesCount={totals.Game}
                                          loading={isLoadingOwnInterests}
                                          type={type}
         />

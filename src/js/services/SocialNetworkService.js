@@ -1,5 +1,5 @@
 import GeocoderService from './GeocoderService';
-import { SOCIAL_NETWORKS_NAMES, FACEBOOK_ID } from '../constants/Constants';
+import { SOCIAL_NETWORKS_NAMES, FACEBOOK_ID, INSTANT_HOST } from '../constants/Constants';
 import moment from 'moment';
 import selectn from 'selectn';
 
@@ -46,7 +46,12 @@ class SocialNetworkService {
             return new Promise(function (resolve) {return resolve(true)});
         }
         this._scopes[resource] = scope;
-        if (this._mustUseFacebookPlugin(resource)) {
+        if(resource === SOCIAL_NETWORKS_NAMES.STEAM) {
+            return this._loginUsingOpenId().then((openid => {
+                this._resourceIds[resource] = openid;
+                return new Promise(function (resolve) {return resolve(true)});
+            }));
+        } else if (this._mustUseFacebookPlugin(resource)) {
             let promise = this._loginUsingFacebookPlugin(scope);
             return promise.then(
                 (response) => { this._setFacebookDataFromPlugin(response) },
@@ -74,6 +79,24 @@ class SocialNetworkService {
                 return Promise.reject(error);
             }
         );
+    }
+
+    _loginUsingOpenId() {
+        const width = 600;
+        const height = 650;
+        const left = (screen.width/2)-(width/2);
+        const top = (screen.height/2)-(height/2);
+        window.open(INSTANT_HOST + 'openid/authenticate', 'steam', 'height=' + height + ',width=' + width + ',left=' + left + ',top=' + top);
+
+        return new Promise((resolve, reject) => {
+            window.callbackFunc = function(openid) {
+                if (openid) {
+                    resolve(openid);
+                } else {
+                    reject('Error getting openid');
+                }
+            };
+        });
     }
 
     isLoggedIn(resource, scope) {

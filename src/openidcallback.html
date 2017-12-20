@@ -1,0 +1,10 @@
+<html>
+<body>
+<head>
+    <script>
+        window.opener.callbackFunc(window.location.search.substring(1).replace('openid=', ''));
+        window.close();
+    </script>
+</head>
+</body>
+</html>

@@ -19,6 +19,7 @@ export default class FilterContentButtonsList extends Component {
         videosCount   : PropTypes.number,
         imagesCount   : PropTypes.number,
         channelsCount : PropTypes.number,
+        gamesCount    : PropTypes.number,
         loading       : PropTypes.bool,
         type          : PropTypes.string,
         // Injected by @translate:
@@ -40,7 +41,7 @@ export default class FilterContentButtonsList extends Component {
     };
 
     render() {
-        const {linksCount, audiosCount, videosCount, imagesCount, channelsCount, strings, loading, type} = this.props;
+        const {linksCount, audiosCount, videosCount, imagesCount, channelsCount, gamesCount, strings, loading, type} = this.props;
         return (
             <div className="filter-content-buttons">
                 <div className="content-block">
@@ -50,6 +51,7 @@ export default class FilterContentButtonsList extends Component {
                         <FilterContentButton text={strings.photos} count={imagesCount || 0} onClickHandler={this.onFilterClick.bind(this, 'Image')} active={type === 'Image'} icon="photo" loading={loading}/>
                         <FilterContentButton text={strings.websites} count={linksCount || 0} onClickHandler={this.onFilterClick.bind(this, 'Web')} active={type === 'Web'} icon="web-site" loading={loading}/>
                         <FilterContentButton text={strings.channels} count={channelsCount || 0} onClickHandler={this.onFilterClick.bind(this, 'Creator')} active={type === 'Creator'} icon="channels" loading={loading}/>
+                        <FilterContentButton text={strings.games} count={gamesCount || 0} onClickHandler={this.onFilterClick.bind(this, 'Game')} active={type === 'Game'} icon="gamepad" loading={loading}/>
                     </div>
                 </div>
             </div>
@@ -64,7 +66,8 @@ FilterContentButtonsList.defaultProps = {
         photos  : 'Photos',
         websites: 'Links',
         people  : 'People',
-        channels: 'Channels'
+        channels: 'Channels',
+        games   : 'Games'
     },
     loading: false,
     type   : ''

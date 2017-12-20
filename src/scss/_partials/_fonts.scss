@@ -40,11 +40,11 @@ $nekuno-logo-font: 'klinic_slabmedium';
 
 @font-face {
 	font-family: 'Nekuno Icons';
-	src:  url('fonts/icomoon.eot?r024dh');
-	src:  url('fonts/icomoon.eot?r024dh#iefix') format('embedded-opentype'),
-	url('fonts/icomoon.ttf?r024dh') format('truetype'),
-	url('fonts/icomoon.woff?r024dh') format('woff'),
-	url('fonts/icomoon.svg?r024dh#icomoon') format('svg');
+	src:  url('fonts/icomoon.eot?u1x8pu');
+	src:  url('fonts/icomoon.eot?u1x8pu#iefix') format('embedded-opentype'),
+	url('fonts/icomoon.ttf?u1x8pu') format('truetype'),
+	url('fonts/icomoon.woff?u1x8pu') format('woff'),
+	url('fonts/icomoon.svg?u1x8pu#icomoon') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }
@@ -68,6 +68,9 @@ $nekuno-logo-font: 'klinic_slabmedium';
 	opacity: 0.5;
 }
 
+.icon-steam:before {
+	content: "\f1b6";
+}
 .icon-tumblr:before {
 	content: "\eab9";
 }

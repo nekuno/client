@@ -32,6 +32,8 @@ export default class CardIcons extends Component {
             return this.renderImageIcons(network);
         } else if (types.some((type) => type === 'Creator')) {
             return this.renderCreatorIcons(network);
+        } else if (types.some((type) => type === 'Game')) {
+            return this.renderGameIcons(network);
         } else {
             return this.renderWebIcons(network);
         }
@@ -68,6 +70,15 @@ export default class CardIcons extends Component {
         return (
             <div className="absolute-wrapper">
                 <div className="icon-wrapper"><span className="icon-channels"></span></div>
+                {this.renderNetworkIcon(network)}
+            </div>
+        );
+    };
+
+    renderGameIcons = function(network) {
+        return (
+            <div className="absolute-wrapper">
+                <div className="icon-wrapper"><span className="icon-gamepad"></span></div>
                 {this.renderNetworkIcon(network)}
             </div>
         );

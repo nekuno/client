@@ -58,6 +58,9 @@
 				.icon-audio {
 					font-size: 1.3em !important;
 				}
+				.icon-gamepad {
+					font-size: 1.5em !important;
+				}
 				.icon-twitter {
 					font-size: 2.2em !important;
 				}
@@ -71,6 +74,9 @@
 					font-size: 2.5em !important;
 				}
 				.icon-tumblr {
+					font-size: 2.5em !important;
+				}
+				.icon-steam {
 					font-size: 2.5em !important;
 				}
 			}
@@ -101,6 +107,10 @@
 
 			.tumblr-icon-wrapper {
 				background-color: $tumblr-blue !important;
+			}
+
+			.steam-icon-wrapper {
+				background-color: $steam-black !important;
 			}
 		}
 	}

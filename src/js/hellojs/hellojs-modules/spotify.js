@@ -25,7 +25,7 @@
 
             wrap: {
                 me: function(o) {
-                    o.picture = typeof o.images[0].url !== 'undefined' ? o.images[0].url : null;
+                    o.picture = o.images.length ? o.images[0].url : null;
                     o.username = typeof o.id !== 'undefined' ? o.id : null;
                     o.birthday = typeof o.birthdate !== 'undefined' ? o.birthdate : null;
                     return o;

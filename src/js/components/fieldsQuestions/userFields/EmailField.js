@@ -26,7 +26,7 @@ export default class EmailField extends Component {
                         {strings.title}
                     </div>
                     <div className="list-block">
-                        <ul>
+                        <ul className="email-field">
                             <Input defaultValue={email} placeholder={strings.email} ref="email" type="email" />
                         </ul>
                     </div>

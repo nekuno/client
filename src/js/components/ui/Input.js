@@ -48,7 +48,9 @@ export default class Input extends Component {
                                    onKeyDown={onKeyDown}
                                    onChange={onChange}
                                    onFocus={this.onFocusHandler}
-                                   maxLength={maxLength}/>
+                                   maxLength={maxLength}
+                                   required
+                            />
                         </div>
                     </div>
                 </div>

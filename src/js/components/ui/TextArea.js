@@ -57,7 +57,9 @@ export default class TextArea extends Component {
                           style={style}
                           onChange={this.onChange}
                           onFocus={this.onFocusHandler}
-                          defaultValue={defaultValue}/>
+                          defaultValue={defaultValue}
+                          required
+                />
             </li>
         );
     }

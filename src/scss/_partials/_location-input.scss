@@ -12,14 +12,6 @@
 		display: inline-block;
 		width: 100%;
 
-		&::after {
-			content: '';
-			height: 1px;
-			width: 100%;
-			background-color: #888888;
-			display: block;
-			z-index: 15;
-		}
 		.geosuggest__input-wrapper {
 			font-weight: 400;
 			background: transparent;

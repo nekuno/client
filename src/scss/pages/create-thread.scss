@@ -95,6 +95,7 @@ body #root .App .views .view .page.create-thread-page  {
     .users-filters-wrapper, .content-filters-wrapper {
       .thread-filter {
         height: 70px;
+        width: 100%;
       }
       .radio-filter {
         height: 90px;
@@ -149,7 +150,7 @@ body #root .App .views .view .page.create-thread-page  {
     }
 
     .thread-filter {
-      display: table-row;
+      display: table;
 
       .thread-filter-background {
         background: $deep-purple-translucent;
@@ -237,7 +238,7 @@ body #root .App .views .view .page.create-thread-page  {
     }
 
     .radio-filter, .tags-and-choice-filter {
-      display: table-row;
+      display: table;
       width: 100%;
 
       .tags-and-choice-wrapper {
@@ -300,6 +301,7 @@ body #root .App .views .view .page.create-thread-page  {
       .location-filter-wrapper {
         display: inline-block;
         vertical-align: middle;
+        width: 90%;
 
         .list-block {
           display: inline-block;

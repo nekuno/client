@@ -91,8 +91,9 @@ body #root .App .views .view .page.user-page  {
     }
 
     .profile-field {
-      display: table-row;
+      display: table;
       height: 70px;
+      width: 100%;
 
       .profile-field-remove {
         cursor: pointer;
@@ -201,8 +202,9 @@ body #root .App .views .view .page.user-page  {
 
         .list-block {
           display: inline-block;
-          margin: 0 0 0 15px;
+          margin: 0;
           vertical-align: middle;
+          width: 100%;
 
           .location-title {
             font-size: 0.8em;

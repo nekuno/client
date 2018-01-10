@@ -272,9 +272,11 @@ body #root .App .view .page {
             background-color: transparent;
           }
         }
-        .date-content {
+        .geosuggest, .email-field {
           input {
+            background-size: 100%;
             text-align: center;
+            background-position: 0;
           }
         }
       }
@@ -283,6 +285,7 @@ body #root .App .view .page {
         .list-block {
           font-size: 2em;
           input {
+            background-size: 100%;
             text-align: center;
           }
         }

@@ -50,7 +50,7 @@ export default class TagInput extends Component {
             <div className="tag-input-wrapper">
                 <div className="tag-input-title">{title ? title : ''}</div>
                 <div className="tag-input">
-                    <input placeholder={placeholder} ref="tagInput" type={type || "text"} defaultValue={value} onKeyUp={this.onKeyUpHandler} onFocus={this.onFocusHandler}/>
+                    <input placeholder={placeholder} ref="tagInput" type={type || "text"} defaultValue={value} onKeyUp={this.onKeyUpHandler} onFocus={this.onFocusHandler} required/>
                 </div>
                 <div className="tag-suggestions">
                     <ul>

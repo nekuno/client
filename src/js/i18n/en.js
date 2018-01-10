@@ -578,7 +578,8 @@ export default {
         photos  : 'Photos',
         websites: 'Links',
         people  : 'People',
-        channels: 'Channels'
+        channels: 'Channels',
+        games   : 'Games'
     },
     OrientationRequiredPopup         : {
         title              : 'Select your sexual orientation to see this profile',

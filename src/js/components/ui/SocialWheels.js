@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import {SOCIAL_NETWORKS, OTHER_SOCIAL_NETWORKS} from '../../constants/Constants';
+import {SOCIAL_NETWORKS} from '../../constants/Constants';
 import SocialBox from './SocialBox';
 import ConnectActionCreators from '../../actions/ConnectActionCreators';
 import SocialNetworkService from '../../services/SocialNetworkService';

@@ -1,16 +1,6 @@
 .tag-input-wrapper {
   display: inline-block;
   width: 85%;
-
-  &::after {
-    content: '';
-    height: 1px;
-    width: 100%;
-    background-color: #888888;
-    display: block;
-    z-index: 15;
-
-  }
   
   .tag-input-title {
     font-weight: bold;
@@ -31,6 +21,27 @@
       border: none;
       color: #fff;
       width: 100%;
+      font-size: 1em;
+      margin-bottom: 10px;
+      margin-top: 15px;
+      display: block;
+      padding: 10px 0;
+      transition: all 0.3s cubic-bezier(.64, .09, .08, 1);
+      background: linear-gradient(to bottom, rgba(255,255,255,0) 96%, $deep-purple 4%);
+      background-position: -500px 0;
+      background-size: 100%;
+      background-repeat: no-repeat;
+      &:focus, &:valid {
+        box-shadow: none;
+        outline: none;
+        background-position: 0 0;
+        &::-webkit-input-placeholder {
+          font-size: 0.8em;
+          transform: translateY(-20px);
+          -webkit-transform: translateY(-20px);
+          visibility: visible !important;
+        }
+      }
     }
   }
 

@@ -9,6 +9,7 @@ export default class Input extends Component {
         defaultValue: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
         style       : PropTypes.object,
         doNotFocus  : PropTypes.bool,
+        doNotScroll : PropTypes.bool,
         onChange    : PropTypes.func,
         onKeyDown   : PropTypes.func,
         maxLength   : PropTypes.string
@@ -59,8 +60,9 @@ export default class Input extends Component {
     }
 
     onFocusHandler() {
+        const {doNotScroll} = this.props;
         let inputElem = this.refs.input;
-        if (inputElem) {
+        if (inputElem && !doNotScroll) {
             window.setTimeout(function () {
                 inputElem.scrollIntoView();
                 document.getElementsByClassName('view')[0].scrollTop -= 100;

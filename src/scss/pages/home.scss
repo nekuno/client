@@ -1,76 +1,54 @@
 @import '../_partials/colors';
 
 body #root .App .views .view.home-view {
-  max-height: 800px;
+  max-height: 900px;
+  min-height: 420px;
 
   .bottom-layer {
-    bottom: 0;
+    bottom: 200px;
+    height: 70%;
     position: absolute;
     width: 100%;
     z-index: 111;
 
     .swiper-pagination-and-button {
+      bottom: 0;
       text-align: center;
-      bottom: 45px;
+      margin: auto;
+      position: absolute;
       width: 100%;
       z-index: 100;
 
-      .swiper-pagination {
-        margin: auto;
-        position: relative;
-      }
-      .swiper-pagination.color-nekuno .swiper-pagination-bullet-active, .swiper-pagination .swiper-pagination-bullet-active {
-        background-color: white;
-        border-radius: 5px;
-        -webkit-border-radius: 5px;
-        -moz-border-radius: 5px;
-        width: 30px;
+      .title {
+        font-size: 1.8em;
+        font-weight: bold;
+        margin: 0 auto 20px;
       }
 
-      .swiper-pagination-bullet {
-        background-color: white;
-        height: 6px;
-        margin: 0 5px;
-        opacity: 1;
-        width: 6px;
-      }
+      .slider-buttons {
+        font-size: 3em;
+        text-align: center;
+        .slider-button {
+          color: #fff;
+          cursor: pointer;
+          display: inline-block;
+          margin: 10px 0;
+          width: 30%;
+          .slider-button-text {
+            opacity: 0;
+            font-size: 0.5em;
+            font-weight: bold;
 
+            &.active {
+              opacity: 1;
+            }
+          }
+        }
+      }
       .button.button-big.button-round {
         margin: 5% auto 10px;
         position: relative;
         width: 80%;
-      }
-
-      .register-text-block {
-        height: 50px;
-        text-align: center;
-        .register-text {
-          cursor: pointer;
-          display: inline-block;
-          margin: 0 5px 10px;
-          vertical-align: middle;
-          //width: 35%; Uncomment to enable login as guest link styles
-
-          a {
-            font-weight: bold;
-          }
-        }
-      }
-    }
-
-    .bottom-text {
-      background: rgba(0, 0, 0, 0.5);
-      .register-sub-title {
-        height: 100%;
-        text-align: center;
-        width: 80%;
-        font-size: 0.9em;
-        padding: 1px 10%;
-
-        a {
-          color: $material-grey;
-          text-decoration: underline;
-        }
       }
     }
   }
@@ -78,7 +56,14 @@ body #root .App .views .view.home-view {
 
   .swiper-container {
     height: 100%;
-    overflow-y: visible;
+
+    .slick-list {
+      height: 100%;
+
+      .slick-track {
+        height: 100%;
+      }
+    }
 
     .swiper-slide {
       height: 100%;
@@ -86,29 +71,179 @@ body #root .App .views .view.home-view {
 
       .page#login-1-image, .page#login-2-image, .page#login-3-image {
         background-size: 100% auto;
-        background-position: center;
+        background-position: top;
         height: 100%;
         width: 100%;
 
-        .linear-gradient-rectangle {
-          background-image: linear-gradient(180deg, black 0%, rgba(0, 0, 0, 0.76) 24%, transparent 100%);
-          height: 338px;
-          opacity: 0.8;
+        .bottom-background-rectangle {
+          height: 100%;
           position: absolute;
-          top: 0;
+          top: 466px;
           width: 100%;
         }
 
         .title {
-          color: white;
-          font-size: 27px;
-          line-height: 40px;
+          color: $light-green;
+          font-weight: bold;
+          font-size: 25px;
+          line-height: 30px;
           margin: auto;
-          padding: 0 10%;
           position: absolute;
           text-align: center;
-          bottom: 175px;
-          width: 80%;
+          bottom: 125px;
+          width: 100%;
+        }
+
+        .register-fields {
+          .register-field {
+            position: absolute;
+            bottom: 20px;
+            font-size: 2.5em;
+            text-align: center;
+            margin: auto;
+            width: 100%;
+
+            .register-field-icons {
+
+              .register-field-icon {
+                color: $light-gray;
+                cursor: pointer;
+                display: inline-block;
+                margin: 0 4%;
+                width: 20%;
+
+                &.active {
+                  color: #fff;
+                }
+
+                .register-filed-icon-text {
+                  font-size: 0.5em;
+                  font-weight: bold;
+                  line-height: 1.1;
+                }
+              }
+            }
+
+            .register-fields-continue {
+              position: absolute;
+              top: -100px;
+              width: 100%;
+              .title {
+                bottom: 75px;
+              }
+              button {
+                height: 57px;
+                line-height: 57px;
+                font-size: 0.5em;
+              }
+            }
+
+            &.hide {
+              right:100%;
+              animation: hideToLeft 1s;
+              -moz-animation: hideToLeft 1s; /* Firefox */
+              -webkit-animation: hideToLeft 1s; /* Safari and Chrome */
+
+              @keyframes hideToLeft
+              {
+                from {right: 0;}
+                to {right:100%;}
+              }
+              @-moz-keyframes hideToLeft
+              {
+                from {right: 0;}
+                to{right:100%;}
+              }
+              @-webkit-keyframes hideToLeft
+              {
+                from {right: 0;}
+                to{right:100%;}
+              }
+            }
+            &.show {
+              right:0;
+              animation: showToRight 1s;
+              -moz-animation: showToRight 1s; /* Firefox */
+              -webkit-animation: showToRight 1s; /* Safari and Chrome */
+
+              @keyframes showToRight
+              {
+                from {right: 100%;}
+                to {right:0;}
+              }
+              @-moz-keyframes showToRight
+              {
+                from {right: 100%;}
+                to {right:0;}
+              }
+              @-webkit-keyframes showToRight
+              {
+                from {right: 100%;}
+                to {right:0;}
+              }
+            }
+
+            .list-block {
+              ul {
+                li {
+                  .item-content {
+                    width: 60%;
+                    margin: auto;
+                    .item-inner {
+                      input {
+                        background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 96%, $light-green 4%) -500px 0 no-repeat;
+                        background-size: 100%;
+                        text-align: center;
+                        &:focus {
+                          background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 96%, $light-green 4%);
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+          .register-field-detail {
+            position: absolute;
+            top: 30%;
+            z-index: 1111;
+            animation: showFromRight 1s;
+            -moz-animation: showFromRight 1s; /* Firefox */
+            -webkit-animation: showFromRight 1s; /* Safari and Chrome */
+
+            @keyframes showFromRight
+            {
+              from {left: 100%;}
+              to {left:0;}
+            }
+            @-moz-keyframes showFromRight
+            {
+              from {left: 100%;}
+              to{left:0;}
+            }
+            @-webkit-keyframes showFromRight
+            {
+              from {left: 100%;}
+              to{left:0;}
+            }
+          }
+        }
+      }
+
+      .page#login-1-image {
+        .bottom-background-rectangle {
+          background: #010204;
+        }
+      }
+      .page#login-2-image {
+        .bottom-background-rectangle {
+          background: #060b11;
+        }
+      }
+      .page#login-3-image {
+        .bottom-background-rectangle {
+          background: #140e12;
         }
       }
     }
@@ -134,6 +269,59 @@ body #root .App .views .view.home-view {
       position: relative;
     }
   }
+
+  .login-button {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    width: 115px;
+    z-index: 111;
+    #facebook-register-button {
+      button {
+        height: 35px;
+        line-height: 35px;
+        font-size: 0.8em;
+        .icon-facebook {
+          font-size: 30px;
+          padding-left: 5px;
+          padding-right: 0;
+        }
+        .icon-spinner {
+          font-size: 25px;
+          margin-top: 3px;
+          margin-left: -10px;
+        }
+      }
+    }
+  }
+
+  .hidden-content {
+    right: 100%;
+    animation: hideToLeft 1s;
+    -moz-animation: hideToLeft 1s; /* Firefox */
+    -webkit-animation: hideToLeft 1s; /* Safari and Chrome */
+
+    @keyframes hideToLeft
+    {
+      from {right: 0;}
+      to {right:100%;}
+    }
+    @-moz-keyframes hideToLeft
+    {
+      from {right: 0;}
+      to{right:100%;}
+    }
+    @-webkit-keyframes hideToLeft
+    {
+      from {right: 0;}
+      to{right:100%;}
+    }
+  }
+
+  .vertical-hidden-content {
+    bottom: 200% !important;
+    transition: all 1s;
+  }
 }
 
 // Default pixel ratio (1)
@@ -142,12 +330,25 @@ body #root .App .views .view.home-view {
     background: url('img/logo-160x84.png') no-repeat;
     width: 160px;
   }
-  body #root .App .view .swiper-container .swiper-slide {
+  body #root .App .views .view.home-view .swiper-container .swiper-slide {
     .page#login-1-image, .page#login-2-image, .page#login-3-image {
       .title {
-        bottom: 220px !important;
-        font-size: 22px !important;
+        bottom: 130px !important;
+        font-size: 1.1em !important;
         line-height: 25px !important;
+      }
+
+      .register-fields {
+        .register-field {
+          bottom: 10px;
+          .register-field-icons {
+            .register-field-icon {
+              .register-filed-icon-text {
+                font-size: 0.32em;
+              }
+            }
+          }
+        }
       }
     }
   }
@@ -166,33 +367,7 @@ body #root .App .views .view.home-view {
   }
 }
 
-@media only screen and (max-width: 350px) {
-  body #root .App .views .view.home-view .bottom-layer .bottom-text .register-sub-title {
-    font-size: 0.8em;
-  }
-}
-@media only screen and (max-height: 450px) {
-  body #root .App .views .view.home-view .swiper-container .swiper-slide {
-    .page#login-1-image, .page#login-2-image, .page#login-3-image {
-      .title {
-        bottom: 195px !important;
-        font-size: 19px !important;
-        line-height: 25px !important;
-      }
-    }
-  }
-}
-@media only screen and (max-height: 405px) {
-  body #root .App .views .view.home-view .swiper-container .swiper-slide {
-    .page#login-1-image, .page#login-2-image, .page#login-3-image {
-      .title {
-        font-size: 15px !important;
-        line-height: 20px !important;
-      }
-    }
-  }
-}
-@media only screen and (max-height: 375px) {
+@media only screen and (max-height: 500px) {
   body #root .App .views .view.home-view .swiper-container .swiper-slide {
     .page#login-1-image, .page#login-2-image, .page#login-3-image {
       .title {
@@ -200,21 +375,54 @@ body #root .App .views .view.home-view {
       }
     }
   }
+  body #root .App .views .view.home-view .bottom-layer .swiper-pagination-and-button {
+    bottom: -90px;
+  }
 }
+@media only screen and (min-height: 750px) {
+  body #root .App .views .view.home-view .bottom-layer .swiper-pagination-and-button {
+    bottom: 80px;
+  }
+}
+
 @media only screen and (min-width: 321px) and (max-width: 480px) {
   .nekuno-logo {
     background: url('img/logo-160x84.png') no-repeat;
     width: 160px;
   }
-  body #root .App .view.home-view {
-    max-height: 854px;
+  body #root .App .views .view.home-view {
+    max-height: 1000px;
     .swiper-container .swiper-slide {
       .page#login-1-image, .page#login-2-image, .page#login-3-image {
         .title {
-          bottom: 220px;
-          font-size: 25px;
+          bottom: 110px;
+          font-size: 1.6em;
           line-height: 30px;
         }
+        .bottom-background-rectangle {
+          top: 700px !important;
+        }
+        .register-fields {
+          .register-field {
+            bottom: 10px;
+            .register-field-icons {
+              .register-field-icon {
+                .register-filed-icon-text {
+                  font-size: 0.4em;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .bottom-layer .swiper-pagination-and-button {
+      .title {
+        font-size: 2em;
+      }
+      .slider-buttons {
+        font-size: 3.1em;
       }
     }
   }
@@ -233,14 +441,26 @@ body #root .App .views .view.home-view {
   }
 }
 @media only screen and (min-width: 481px) {
-  body #root .App .view.home-view {
-    max-height: 850px;
+  body #root .App .views .view.home-view {
+    max-height: 1100px;
 
     .swiper-container .swiper-slide {
       .page#login-1-image, .page#login-2-image, .page#login-3-image {
         .title {
-          bottom: 250px;
+          bottom: 140px;
         }
+        .bottom-background-rectangle {
+          top: 700px !important;
+        }
+      }
+    }
+
+    .bottom-layer .swiper-pagination-and-button {
+      .title {
+        font-size: 2.3em;
+      }
+      .slider-buttons {
+        font-size: 3.2em;
       }
     }
   }

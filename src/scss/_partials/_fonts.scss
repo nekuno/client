@@ -40,11 +40,11 @@ $nekuno-logo-font: 'klinic_slabmedium';
 
 @font-face {
 	font-family: 'Nekuno Icons';
-	src:  url('fonts/icomoon.eot?u1x8pu');
-	src:  url('fonts/icomoon.eot?u1x8pu#iefix') format('embedded-opentype'),
-	url('fonts/icomoon.ttf?u1x8pu') format('truetype'),
-	url('fonts/icomoon.woff?u1x8pu') format('woff'),
-	url('fonts/icomoon.svg?u1x8pu#icomoon') format('svg');
+	src:  url('fonts/icomoon.eot?78ya5l');
+	src:  url('fonts/icomoon.eot?78ya5l#iefix') format('embedded-opentype'),
+	url('fonts/icomoon.ttf?78ya5l') format('truetype'),
+	url('fonts/icomoon.woff?78ya5l') format('woff'),
+	url('fonts/icomoon.svg?78ya5l#icomoon') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }
@@ -68,6 +68,24 @@ $nekuno-logo-font: 'klinic_slabmedium';
 	opacity: 0.5;
 }
 
+.icon-calendar-check:before {
+	content: "\f274";
+}
+.icon-compass2:before {
+	content: "\f14e";
+}
+.icon-heart2:before {
+	content: "\f006";
+}
+.icon-calendar-check2:before {
+	content: "\f275";
+}
+.icon-compass3:before {
+	content: "\f14f";
+}
+.icon-heart3:before {
+	content: "\f007";
+}
 .icon-steam:before {
 	content: "\f1b6";
 }

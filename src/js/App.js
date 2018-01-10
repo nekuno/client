@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import LeftPanel from './components/LeftPanel';
-import HomePage from './pages/HomePage';
+import HomePage from './pages/NewHomePage';
 import TranslationProvider from './i18n/TranslationProvider';
 import GuestBanner from './components/GuestBanner';
 import connectToStores from './utils/connectToStores';

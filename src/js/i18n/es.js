@@ -82,7 +82,8 @@ export default {
         questions: 'Respuestas',
         interests: 'Intereses',
         loading  : 'Cargando intereses',
-        empty    : 'No tienes ningún interés todavía. Por favor, conecta tus redes sociales o explora tus ovillos y cuéntanos lo que te interesa.'
+        empty    : 'No tienes ningún interés todavía. Por favor, conecta tus redes sociales o explora tus ovillos y cuéntanos lo que te interesa.',
+        reported : 'El contenido ha sido reportado. Lo revisaremos en las próximas 24 horas'
     },
     GalleryPage                      : {
         importAlbum    : 'Importar fotos',

@@ -5,12 +5,16 @@ import ToolBar from '../components/ui/ToolBar';
 import CardContentList from '../components/interests/CardContentList';
 import FilterContentButtonsList from '../components/ui/FilterContentButtonsList';
 import SocialNetworksBanner from '../components/socialNetworks/SocialNetworksBanner';
+import ReportContentPopup from '../components/interests/ReportContentPopup';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
+import popup from '../components/Popup';
 import connectToStores from '../utils/connectToStores';
+import * as UserActionCreators from '../actions/UserActionCreators';
 import * as InterestsActionCreators from '../actions/InterestsActionCreators';
 import InterestStore from '../stores/InterestStore';
 import WorkersStore from '../stores/WorkersStore';
+import Framework7Service from '../services/Framework7Service';
 
 function parseId(user) {
     return user.id;
@@ -42,6 +46,7 @@ function getState(props) {
 }
 
 @AuthenticatedComponent
+@popup('popup-report-content')
 @translate('InterestsPage')
 @connectToStores([InterestStore, WorkersStore], getState)
 export default class InterestsPage extends Component {
@@ -60,7 +65,11 @@ export default class InterestsPage extends Component {
         networks             : PropTypes.array.isRequired,
         type                 : PropTypes.string.isRequired,
         requestInterestsUrl  : PropTypes.string.isRequired,
-        isWorkersLoading     : PropTypes.bool
+        isWorkersLoading     : PropTypes.bool,
+        // Injected by @popup:
+        showPopup                  : PropTypes.func,
+        closePopup                 : PropTypes.func,
+        popupContentRef            : PropTypes.func,
     };
 
     constructor(props) {
@@ -68,6 +77,9 @@ export default class InterestsPage extends Component {
         super(props);
 
         this.onFilterTypeClick = this.onFilterTypeClick.bind(this);
+        this.onBottomScroll = this.onBottomScroll.bind(this);
+        this.onReport = this.onReport.bind(this);
+        this.onReportReasonText = this.onReportReasonText.bind(this);
     }
 
     componentDidUpdate(prevProps) {
@@ -118,6 +130,35 @@ export default class InterestsPage extends Component {
         }
     }
 
+    onReport(contentId, reason) {
+        const {requestInterestsUrl, user} = this.props;
+        const userId = parseId(user);
+        this.setState({
+            reportContentId: contentId,
+            reportReason   : reason
+        });
+        setTimeout(() => {
+            this.props.showPopup();
+            setTimeout(() => InterestsActionCreators.requestOwnInterests(userId, requestInterestsUrl), 0);
+        }, 0);
+    }
+
+    onReportReasonText(reasonText) {
+        const {reportContentId, reportReason} = this.state;
+        const {strings} = this.props;
+        const data = {
+            contentId : reportContentId,
+            reason    : reportReason,
+            reasonText: reasonText
+        };
+        this.props.closePopup();
+        UserActionCreators.reportContent(data).then(
+            () => {
+                Framework7Service.nekunoApp().alert(strings.reported);
+            }, (error) => console.log(error)
+        );
+    }
+
     getFirstItems() {
         const {isLoadingOwnInterests, noInterests, type} = this.props;
 
@@ -147,7 +188,7 @@ export default class InterestsPage extends Component {
                 <div className="view view-main" id="interests-view-main">
                     <div className="page interests-page">
                         <div id="page-content" className="interests-content">
-                            <CardContentList firstItems={this.getFirstItems.bind(this)()} contents={interests} userId={parseId(user)} onBottomScroll={this.onBottomScroll.bind(this)} loadingFirst={loadingFirst} isLoading={isLoadingOwnInterests}/>
+                            <CardContentList firstItems={this.getFirstItems.bind(this)()} contents={interests} userId={parseId(user)} onBottomScroll={this.onBottomScroll} loadingFirst={loadingFirst} isLoading={isLoadingOwnInterests} onReport={this.onReport}/>
                             <br/>
                         </div>
                         <br/>
@@ -155,6 +196,7 @@ export default class InterestsPage extends Component {
                         <br/>
                     </div>
                 </div>
+                <ReportContentPopup onClick={this.onReportReasonText} contentRef={this.props.popupContentRef}/>
             </div>
         );
     }
@@ -170,7 +212,8 @@ InterestsPage.defaultProps = {
         questions: 'Answers',
         interests: 'Interests',
         loading  : 'Loading interests',
-        empty    : 'You have no interests yet. Please, connect more social media or explore your yarns and let us know what are you interested in.'
+        empty    : 'You have no interests yet. Please, connect more social media or explore your yarns and let us know what are you interested in.',
+        reported : 'The content has been reported. We will review it within next 24 hours'
     },
     isWorkersLoading: false,
 };

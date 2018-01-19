@@ -81,7 +81,8 @@ export default {
         questions: 'Answers',
         interests: 'Interests',
         loading  : 'Loading interests',
-        empty    : 'You have no interests yet. Please, connect more social media or explore your yarns and let us know what are you interested in.'
+        empty    : 'You have no interests yet. Please, connect more social media or explore your yarns and let us know what are you interested in.',
+        reported : 'The content has been reported. We will review it within next 24 hours'
     },
     GalleryPage                      : {
         importAlbum    : 'Import photos',

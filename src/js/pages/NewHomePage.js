@@ -143,7 +143,7 @@ export default class HomePage extends Component {
     }
 
     goToRegisterPage() {
-        this.context.router.push('/register');
+        setTimeout(() => this.context.router.push('/register'), 0);
     }
 
     openOrientationPopup() {
@@ -227,7 +227,7 @@ export default class HomePage extends Component {
 
         switch (index) {
             case 1:
-                return <GroupField onValidInvitation={this.hideContent} activeSlide={currentSlide === 0}/>;
+                return <GroupField onValidInvitation={this.goToRegisterPage} activeSlide={currentSlide === 0}/>;
                 //return <GroupField onValidInvitation={this.hideContent} activeSlide={currentSlide === 0} onChangeField={() => this.slider.slickPause()}/>;
             case 2:
                 return <ObjectivesField onClickField={this.hideContent} onSaveHandler={this.goToRegisterPage}/>;

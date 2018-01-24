@@ -22,12 +22,14 @@ class RegisterStore extends BaseStore {
         switch (action.type) {
             case ActionTypes.PRE_REGISTER_PROFILE:
                 this._profile = action.profile;
+                this._token = 'join';
                 this._error = null;
                 this.emitChange();
                 break;
 
             case ActionTypes.PRE_REGISTER_USER:
-                const {user, profile, token, oauth} = action;
+                const {user, token, oauth} = action;
+                const profile = action.profile || {};
                 this._user = user;
                 mergeIntoBag(this._profile, profile);
                 this._token = token;
@@ -84,6 +86,10 @@ class RegisterStore extends BaseStore {
             token: this._token,
             oauth: this._oauth
         }
+    }
+
+    get profile() {
+        return this._profile;
     }
 
     get error() {

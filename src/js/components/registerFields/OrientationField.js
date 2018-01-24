@@ -27,7 +27,10 @@ export default class OrientationField extends Component {
         if (value === 'other') {
             this.props.onOtherClickHandler();
         } else if (value !== 'none') {
-            const profile = {'orientation': value};
+            const profile = {
+                orientation: value,
+                mode: 'contact'
+            };
             LoginActionCreators.preRegisterProfile(profile);
             this.props.onSaveHandler();
         }

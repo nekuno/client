@@ -76,6 +76,12 @@ body #root .App .views .view {
 
       button {
         width: 75%;
+
+        .icon-spinner {
+          font-size: 40px;
+          margin-top: 9px;
+          margin-left: -42px;
+        }
       }
     }
     .privacy-terms-text {

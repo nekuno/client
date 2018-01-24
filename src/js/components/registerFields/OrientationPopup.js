@@ -42,7 +42,10 @@ export default class OrientationPopup extends Component {
     onSelect(key) {
         this.props.onClick();
         Framework7Service.nekunoApp().closeModal('.popup-orientation');
-        let profile = {orientation: [key]};
+        let profile = {
+            orientation: [key],
+            mode: 'contact'
+        };
 
         LoginActionCreators.preRegisterProfile(profile);
         this.props.onContinue();

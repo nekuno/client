@@ -1,10 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import TopNavBar from '../components/ui/TopNavBar';
-import Input from '../components/ui/Input';
-import SocialBox from '../components/ui/SocialBox';
 import FacebookButton from '../components/ui/FacebookButton';
-import EmptyMessage from '../components/ui/EmptyMessage';
 import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
 import ConnectActionCreators from '../actions/ConnectActionCreators';
@@ -12,6 +8,7 @@ import * as GroupActionCreators from '../actions/GroupActionCreators';
 import RouterActionCreators from '../actions/RouterActionCreators';
 import LoginActionCreators from '../actions/LoginActionCreators';
 import InvitationStore from '../stores/InvitationStore';
+import RegisterStore from '../stores/RegisterStore';
 import LocaleStore from '../stores/LocaleStore';
 import SocialNetworkService from '../services/SocialNetworkService';
 import Framework7Service from '../services/Framework7Service';
@@ -19,13 +16,15 @@ import Framework7Service from '../services/Framework7Service';
 function getState(props) {
 
     const error = InvitationStore.error;
-    const token = InvitationStore.token || 'join';
+    const token = InvitationStore.token;
+    const profile = RegisterStore.profile;
     const invitation = InvitationStore.invitation;
     const interfaceLanguage = LocaleStore.locale;
 
     return {
         error,
         token,
+        profile,
         invitation,
         interfaceLanguage
     };
@@ -41,6 +40,7 @@ export default class RegisterPage extends Component {
         // Injected by @connectToStores:
         error            : PropTypes.object,
         token            : PropTypes.string,
+        profile          : PropTypes.object,
         invitation       : PropTypes.object,
         interfaceLanguage: PropTypes.string
     };
@@ -51,38 +51,31 @@ export default class RegisterPage extends Component {
 
     constructor(props) {
         super(props);
-        this.handleOnChange = this.handleOnChange.bind(this);
         this.handleSocialNetwork = this.handleSocialNetwork.bind(this);
         this._registerUser = this._registerUser.bind(this);
 
         this.state = {
-            registeringUser: false
+            loginUser: false,
+            registeringUser: false,
+            initialToken: null
         }
     }
 
-    componentWillMount() {
-        let {location} = this.props;
+    componentDidMount() {
+        const {location, token, profile} = this.props;
         let initialToken = location.query && location.query.token ? location.query.token : null;
-        this.setState({initialToken});
-        if (initialToken) {
-            ConnectActionCreators.validateInvitation(initialToken);
-        }
-    }
 
-    handleOnChange() {
-        clearTimeout(this.tokenTimeout);
-        var token = this.refs.token.getValue();
-        this.tokenTimeout = setTimeout(() => {
-            token = token.replace(/(http[s]?:\/\/)?(m\.)?(client\.)?(pre\.)?(local\.)?nekuno.com\/#\/register\/\?token=/ig, '');
-            token = token.replace(/(http[s]?:\/\/)?(www\.)?(pre\.)?(local\.)?(nekuno.com\/)?(invitation\/)?(inv)?/ig, '');
-            if (token) {
-                ConnectActionCreators.validateInvitation(token);
-            }
-        }, 500);
+        if (initialToken) {
+            this.setState({initialToken});
+            ConnectActionCreators.validateInvitation(initialToken);
+        } else if (!token && !profile) {
+            this.context.router.push('/');
+        }
     }
 
     handleSocialNetwork(resource, scope) {
         const {token, invitation, interfaceLanguage, strings} = this.props;
+        this.setState({loginUser: true});
         SocialNetworkService.login(resource, scope, true).then(() => {
             const oauthData = SocialNetworkService.buildOauthData(resource);
             LoginActionCreators.loginUserByResourceOwner(
@@ -126,7 +119,7 @@ export default class RegisterPage extends Component {
 
     render() {
         const {error, token, invitation, strings} = this.props;
-        const {initialToken} = this.state;
+        const {initialToken, registeringUser, loginUser} = this.state;
 
         return (
             <div className="views">
@@ -138,32 +131,24 @@ export default class RegisterPage extends Component {
                         <div className="register-nekuno-logo-wrapper">
                             <div className="register-nekuno-logo"></div>
                         </div>
-                        {this.state.registeringUser ?
-                            <EmptyMessage text={strings.registeringMessage} loadingGif={true}/>
-                            : initialToken && !token && !error ? <EmptyMessage text={strings.loadingMessage} loadingGif={true}/>
-                                :
-                                <div id="page-content" className="register-content">
-                                    <div className="register-title bold">
-                                        <div className="title">{token && invitation ? (invitation.slogan ? invitation.slogan : strings.titleCorrect) : strings.title}</div>
-                                    </div>
-                                    <div className="register-sub-title bold">
-                                        {strings.openSource}
-                                    </div>
-                                </div>
-                        }
-
-                        { token ?
-                            <div>
-                                <FacebookButton onClickHandler={this.handleSocialNetwork} text={initialToken ? strings.compatibility : strings.signUp}/>
-                                <br />
-                                <div className="privacy-terms-text">
-                                    <p dangerouslySetInnerHTML={{__html: strings.legalTerms}}/>
-                                </div>
-                                <br />
-                                <br />
+                        <div id="page-content" className="register-content">
+                            <div className="register-title bold">
+                                <div className="title">{token && invitation ? (invitation.slogan ? invitation.slogan : strings.titleCorrect) : strings.title}</div>
                             </div>
-                            : ''
-                        }
+                            <div className="register-sub-title bold">
+                                {strings.openSource}
+                            </div>
+                        </div>
+                        <div>
+                            <FacebookButton onClickHandler={this.handleSocialNetwork} text={initialToken ? strings.compatibility : strings.signUp} disabled={registeringUser || loginUser}/>
+                            <br />
+                            <div className="privacy-terms-text">
+                                <p dangerouslySetInnerHTML={{__html: strings.legalTerms}}/>
+                            </div>
+                            <br />
+                            <br />
+                        </div>
+
                     </div>
                 </div>
             </div>

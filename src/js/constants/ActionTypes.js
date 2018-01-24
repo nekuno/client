@@ -10,6 +10,7 @@ export default keyMirror({
     REQUEST_AUTOLOGIN_SUCCESS               : null,
     REQUEST_AUTOLOGIN_ERROR                 : null,
     PRE_REGISTER_USER                       : null,
+    PRE_REGISTER_PROFILE                    : null,
     REQUEST_VALIDATE_INVITATION_USER        : null,
     REQUEST_VALIDATE_INVITATION_USER_SUCCESS: null,
     REQUEST_VALIDATE_INVITATION_USER_ERROR  : null,

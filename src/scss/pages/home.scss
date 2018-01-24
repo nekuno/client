@@ -90,8 +90,39 @@ body #root .App .views .view.home-view {
           margin: auto;
           position: absolute;
           text-align: center;
-          bottom: 125px;
+          bottom: 150px;
           width: 100%;
+        }
+
+        .access-buttons {
+          position: absolute;
+          bottom: 20px;
+          font-size: 2.5em;
+          text-align: center;
+          margin: auto;
+          width: 100%;
+
+          .register-access-button, .login-access-button {
+            button {
+              height: 50px;
+              font-size: 0.6em;
+              text-transform: none;
+            }
+          }
+          .register-access-button {
+            button {
+              background: transparent;
+              border: 2px solid $light-green;
+              color: $light-green;
+              width: 65%;
+            }
+          }
+          .login-access-button {
+            button {
+              background: transparent;
+              width: 100%;
+            }
+          }
         }
 
         .register-fields {
@@ -203,6 +234,26 @@ body #root .App .views .view.home-view {
                 }
               }
             }
+
+            &.orientation-field {
+              .orientation-text {
+                font-size: 0.7em;
+                font-weight: bold;
+              }
+              select {
+                height: 50px;
+                width: 130px;
+                background: #fff;
+                font-size: 0.5em;
+                padding-left: 5px;
+                border-radius: 5px;
+                -moz-border-radius: 5px;
+                -webkit-border-radius: 5px;
+              }
+            }
+            &.orientation-field {
+              bottom: 50px;
+            }
           }
           .register-field-detail {
             position: absolute;
@@ -270,31 +321,6 @@ body #root .App .views .view.home-view {
     }
   }
 
-  .login-button {
-    position: absolute;
-    right: 10px;
-    top: 10px;
-    width: 115px;
-    z-index: 111;
-    #facebook-register-button {
-      button {
-        height: 35px;
-        line-height: 35px;
-        font-size: 0.8em;
-        .icon-facebook {
-          font-size: 30px;
-          padding-left: 5px;
-          padding-right: 0;
-        }
-        .icon-spinner {
-          font-size: 25px;
-          margin-top: 3px;
-          margin-left: -10px;
-        }
-      }
-    }
-  }
-
   .hidden-content {
     right: 100%;
     animation: hideToLeft 1s;
@@ -323,6 +349,14 @@ body #root .App .views .view.home-view {
     transition: all 1s;
   }
 }
+.views .popup-orientation {
+  margin-top: 0;
+  overflow-y: visible;
+
+  .content-block {
+    margin: 0;
+  }
+}
 
 // Default pixel ratio (1)
 @media only screen and (max-width: 320px) {
@@ -333,7 +367,6 @@ body #root .App .views .view.home-view {
   body #root .App .views .view.home-view .swiper-container .swiper-slide {
     .page#login-1-image, .page#login-2-image, .page#login-3-image {
       .title {
-        bottom: 130px !important;
         font-size: 1.1em !important;
         line-height: 25px !important;
       }
@@ -380,6 +413,13 @@ body #root .App .views .view.home-view {
   }
 }
 @media only screen and (min-height: 750px) {
+  body #root .App .views .view.home-view .swiper-container .swiper-slide {
+    .page#login-1-image, .page#login-2-image, .page#login-3-image {
+      .title {
+        bottom: 200px;
+      }
+    }
+  }
   body #root .App .views .view.home-view .bottom-layer .swiper-pagination-and-button {
     bottom: 80px;
   }
@@ -395,7 +435,6 @@ body #root .App .views .view.home-view {
     .swiper-container .swiper-slide {
       .page#login-1-image, .page#login-2-image, .page#login-3-image {
         .title {
-          bottom: 110px;
           font-size: 1.6em;
           line-height: 30px;
         }
@@ -446,9 +485,6 @@ body #root .App .views .view.home-view {
 
     .swiper-container .swiper-slide {
       .page#login-1-image, .page#login-2-image, .page#login-3-image {
-        .title {
-          bottom: 140px;
-        }
         .bottom-background-rectangle {
           top: 700px !important;
         }

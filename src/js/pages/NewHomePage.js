@@ -1,11 +1,14 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { SOCIAL_NETWORKS, SOCIAL_NETWORKS_NAMES } from '../constants/Constants';
-import FacebookButton from '../components/ui/FacebookButton';
 import ObjectivesField from '../components/registerFields/ObjectivesField';
 import GroupField from '../components/registerFields/GroupField';
+import OrientationField from '../components/registerFields/OrientationField';
+import OrientationPopup from '../components/registerFields/OrientationPopup';
+import AccessButtons from '../components/registerFields/AccessButtons';
 import connectToStores from '../utils/connectToStores';
 import translate from '../i18n/Translate';
+import popup from '../components/Popup';
 import LoginActionCreators from '../actions/LoginActionCreators';
 import RouterActionCreators from '../actions/RouterActionCreators';
 import LocalStorageService from '../services/LocalStorageService';
@@ -24,6 +27,7 @@ function getState(props) {
 }
 
 @translate('HomePage')
+@popup('popup-orientation')
 @connectToStores([LocaleStore], getState)
 export default class HomePage extends Component {
 
@@ -117,7 +121,7 @@ export default class HomePage extends Component {
             },
             (error) => {
                 // User not present. Register user.
-                /*let user = SocialNetworkService.getUser(resource);
+                let user = SocialNetworkService.getUser(resource);
                 let profile = SocialNetworkService.getProfile(resource);
                 if (!user || !profile) {
                     Framework7Service.nekunoApp().alert(strings.blockingError);
@@ -127,9 +131,8 @@ export default class HomePage extends Component {
                     profile.orientationRequired = false;
                     let token = 'join';
                     LoginActionCreators.preRegister(user, profile, token, oauthData);
-                    setTimeout(() => RouterActionCreators.replaceRoute('answer-username'), 0);
-                }*/
-                Framework7Service.nekunoApp().alert(strings.cannotLogin)
+                    this.setState({'registeringUser': true});
+                }
             });
     }
 
@@ -141,6 +144,10 @@ export default class HomePage extends Component {
 
     goToRegisterPage() {
         this.context.router.push('/register');
+    }
+
+    openOrientationPopup() {
+        Framework7Service.nekunoApp().popup('.popup-orientation');
     }
 
     split(text) {
@@ -212,7 +219,11 @@ export default class HomePage extends Component {
     };
 
     renderField(index) {
-        const {currentSlide} = this.state;
+        const {currentSlide, registeringUser} = this.state;
+
+        if (!registeringUser) {
+            return <AccessButtons onLoginClick={this.loginByResourceOwner} onRegisterClick={() => this.setState({'registeringUser': true})}/>;
+        }
 
         switch (index) {
             case 1:
@@ -220,8 +231,8 @@ export default class HomePage extends Component {
                 //return <GroupField onValidInvitation={this.hideContent} activeSlide={currentSlide === 0} onChangeField={() => this.slider.slickPause()}/>;
             case 2:
                 return <ObjectivesField onClickField={this.hideContent} onSaveHandler={this.goToRegisterPage}/>;
-         /*   case 3:
-                return <OrientationInput/>;*/
+            case 3:
+                return <OrientationField onOtherClickHandler={this.openOrientationPopup} onSaveHandler={this.goToRegisterPage}/>;
             default:
         }
     };
@@ -238,7 +249,7 @@ export default class HomePage extends Component {
             <div className="views">
                 <div className="view view-main home-view">
                     <div className="swiper-container">
-                            {this.renderSlides()}
+                        {this.renderSlides()}
                     </div>
                     <div className="nekuno-logo-wrapper">
                         <div className="nekuno-logo"></div>
@@ -265,10 +276,8 @@ export default class HomePage extends Component {
                             </div>
                         </div>
                     </div>
-                    <div className="login-button">
-                        <FacebookButton onClickHandler={this.loginByResourceOwner} text={strings.login} disabled={loginUser}/>
-                    </div>
                 </div>
+                <OrientationPopup profile={{}} onContinue={this.goToRegisterPage}/>
             </div>
         );
     }

@@ -2,6 +2,7 @@
 
 import ActionTypes from '../constants/ActionTypes';
 import BaseStore from './BaseStore';
+import { mergeIntoBag } from '../utils/StoreUtils';
 import { getValidationErrors } from '../utils/StoreUtils';
 
 class RegisterStore extends BaseStore {
@@ -19,11 +20,16 @@ class RegisterStore extends BaseStore {
         super._registerToActions(action);
 
         switch (action.type) {
+            case ActionTypes.PRE_REGISTER_PROFILE:
+                this._profile = action.profile;
+                this._error = null;
+                this.emitChange();
+                break;
 
             case ActionTypes.PRE_REGISTER_USER:
                 const {user, profile, token, oauth} = action;
                 this._user = user;
-                this._profile = profile;
+                mergeIntoBag(this._profile, profile);
                 this._token = token;
                 this._oauth = oauth;
                 this._error = null;

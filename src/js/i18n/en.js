@@ -197,7 +197,8 @@ export default {
     RegisterPage                     : {
         register          : 'Create account',
         cancel            : 'Cancel',
-        title             : 'Nekuno only allows registration by invitation.',
+        title             : 'Nekuno analyzes your interests to offer you recommendations',
+        openSource        : 'Open & free software',
         titleCorrect      : 'Awesome! You got an invitation!',
         subtitle          : 'Please copy the URL that you\'ve received your invitation and paste it into the field below to create your account at Nekuno.',
         paste             : 'Paste the invitation url here',
@@ -206,7 +207,7 @@ export default {
         loadingMessage    : 'Loading',
         publishMessage    : 'We\'ll never publish anything on your wall',
         privacy           : 'By registering, you agree to the <a href="https://nekuno.com/terms-and-conditions" target="_blank">Legal Conditions</a> and the Nekuno <a href="https://nekuno.com/privacy-policy" target="_blank">Privacy Policy</a>.',
-        signUp            : 'Sign up with Facebook',
+        signUp            : 'Analize',
         compatibility     : 'Analize compatibility',
         blockingError     : 'Your browser has blocked a Facebook request and we are not able to register you. Please, disable the blocking configuration or use an other browser.'
 
@@ -346,6 +347,22 @@ export default {
         settings      : 'Settings',
         invitations   : 'Invitations',
         logout        : 'Logout'
+    },
+    GroupField                       : {
+        placeholder: 'Badge code',
+        save       : 'Continue',
+        selectOther: 'Select other objectives if you want'
+    },
+    OrientationField                 : {
+        iAm         : 'I am',
+        heterosexual: 'Straight',
+        homosexual  : 'Gay',
+        bisexual    : 'Bisexual',
+        other       : 'Other',
+    },
+    AccessButtons                    : {
+        registerText: 'Sign up now',
+        loginText   : 'I\'m already registered',
     },
     ProfileDataList                  : {
         cannotRemove: 'This field cannot be deleted',
@@ -551,6 +568,10 @@ export default {
         matching  : 'Matching',
         similarity: 'Similarity',
         loading   : 'Loading...',
+    },
+    OrientationPopup                 : {
+        orientation: 'Sexual orientation',
+        cancel     : 'Cancel'
     },
     ImportAlbumPopup                 : {
         close           : 'Close',

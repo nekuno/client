@@ -1,42 +1,178 @@
 @import '../_partials/colors';
 
-body #root .App .views .view .page {
-  .gradient-transparency {
-    background-image: linear-gradient(180deg, black 0%, rgba(0, 0, 0, 0.7) 50%, rgba(0, 0, 0, 0.5) 100%);
+body #root .App .views .view {
+  &.register-view {
+    background: transparent;
+  }
+  .page.register-page {
     height: 100%;
-    opacity: 0.9;
-    position: absolute;
-    top: 0;
-    width: 100%;
-    z-index: -1;
-  }
-  #page-content.register-content {
-    margin: 100px auto 0 auto;
-  }
+    max-height: 1779px;
+    min-height: 300px;
+    .register-image {
+      background-size: 200% 200%;
+      height: 100%;
+      background: url("img/register/480x711.jpg") no-repeat center bottom;
+      margin: 0 0 0 -50%;
+      position: absolute;
+      top: 0;
+      width: 200%;
+      .gradient-transparency {
+        background-image: linear-gradient(180deg, black 0%, transparent 35%, transparent 100%);
+        height: 100%;
+        opacity: 0.9;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        z-index: 0;
+      }
+    }
+    .register-nekuno-logo-wrapper {
+      height: 120px;
+      margin: auto;
+      position: relative;
+      top: 50px;
+      width: 175px;
+      z-index: 100;
 
-  .register-title {
-    text-align: center;
-
-    a {
-      color: $deep-purple;
+      .register-nekuno-logo {
+        background: url('img/logo-250x132.png') no-repeat;
+        background-size: 100% auto;
+        height: 100%;
+        margin: auto;
+        position: relative;
+      }
     }
 
-  }
-  
-  .register-sub-title {
-    margin-top: 10px;
-    text-align: center;
+    #page-content.register-content {
+      margin: auto;
+      position: absolute;
+      top: 35%;
+      width: 100%;
+    }
 
-    a {
-      color: $material-grey;
-      text-decoration: underline;
+    .register-title {
+      font-size: 0.7em;
+      margin: 0 10%;
+      text-align: center;
+
+      a {
+        color: $deep-purple;
+      }
+
+    }
+
+    .register-sub-title {
+      font-size: 1.9em;
+      margin: 35px 15%;
+      text-align: center;
+    }
+
+    #facebook-register-button {
+      margin: auto;
+      position: absolute;
+      bottom: 75px;
+      text-align: center;
+      width: 100%;
+
+      button {
+        width: 75%;
+      }
+    }
+    .privacy-terms-text {
+      background: rgba(0, 0, 0, 0.5);
+      bottom: 0;
+      font-size: 0.8em;
+      position: absolute;
+      margin: 0;
+      padding: 0 5%;
+      text-align: center;
+      width: 90%;
+
+      a {
+        color: $material-grey;
+        text-decoration: underline;
+      }
     }
   }
 }
 
-@media only screen and (max-width: 300px) {
-  body #root .App .view .page #page-content.register-content {
-    margin-left: 20px;
-    width: 75%;
+
+@media only screen and (min-width: 320px) {
+  body #root .App .views .view .page.register-page {
+    .register-title {
+      font-size: 0.8em;
+    }
+    .register-sub-title {
+      font-size: 2em;
+      margin: 35px 15%;
+    }
+  }
+}
+
+@media only screen and (min-width: 379px) {
+  body #root .App .views .view .page.register-page {
+    .register-title {
+      font-size: 0.9em;
+    }
+    .register-sub-title {
+      font-size: 2.1em;
+      margin: 35px 20%;
+    }
+    .privacy-terms-text {
+      font-size: 0.9em;
+    }
+  }
+}
+
+@media only screen and (min-width: 465px) {
+  body #root .App .views .view .page.register-page {
+    .register-title {
+      font-size: 1em;
+    }
+    .register-sub-title {
+      margin: 35px 25%;
+      font-size: 2.3em;
+    }
+  }
+}
+
+@media only screen and (min-width: 480px) {
+  body #root .App .views .view .page.register-page {
+    .privacy-terms-text {
+      font-size: 1em;
+    }
+  }
+}
+
+@media only screen and (max-height: 400px) {
+  body #root .App .views .view .page.register-page {
+    .register-title {
+      display: none;
+    }
+  }
+}
+@media only screen and (max-height: 500px) {
+  body #root .App .views .view .page.register-page {
+    .register-sub-title {
+      display: none;
+    }
+  }
+}
+
+@media only screen and (min-height: 712px) {
+  body #root .App .views .view .page.register-page .register-image {
+    background: url("img/register/750x1112.jpg") no-repeat center center;
+    margin: 0 0 0 -150%;
+    width: 400%;
+  }
+}
+@media only screen and (min-height: 1113px) {
+  body #root .App .views .view .page.register-page .register-image {
+    background: url("img/register/1200x1779.jpg") no-repeat center center;
+  }
+}
+@media only screen and (min-height: 1800px) {
+  body #root .App .views .view .page.register-page .register-image {
+    background: url("img/register/1200x1779.jpg") no-repeat center center;
   }
 }

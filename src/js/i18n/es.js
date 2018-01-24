@@ -198,7 +198,8 @@ export default {
     RegisterPage                     : {
         register          : 'Crear cuenta',
         cancel            : 'Cancelar',
-        title             : 'Nekuno solo permite el registro mediante invitación',
+        title             : 'Nekuno analiza tus intereses para ofrecerte recomendaciones',
+        openSource        : 'Código abierto y gratuito',
         titleCorrect      : '¡Increíble! ¡Has conseguido una invitación!',
         subtitle          : 'Por favor, copia la URL que has recibido en tu invitación y pégala en el siguiente campo para poder crear tu cuenta en Nekuno',
         paste             : 'Pega aquí la URL de la invitación',
@@ -207,7 +208,7 @@ export default {
         loadingMessage    : 'Cargando',
         publishMessage    : 'Nunca publicaremos nada en tu muro',
         privacy           : 'Al registrarte, estás aceptando las <a href="https://nekuno.com/terms-and-conditions" target="_blank">Condiciones Legales</a> y la <a href="https://nekuno.com/privacy-policy" target="_blank">Política de Privacidad</a> de Nekuno',
-        signUp            : 'Regístrate con Facebook',
+        signUp            : 'Analizar',
         compatibility     : 'Analizar compatibilidad',
         blockingError     : 'Tu navegador está bloqueando una petición a Facebook y no podemos registrar tu usuario. Por favor, deshabilita el bloqueo en la configuración o utiliza otro navegador.'
 
@@ -347,6 +348,22 @@ export default {
         settings      : 'Ajustes',
         invitations   : 'Invitaciones',
         logout        : 'Salir'
+    },
+    GroupField                       : {
+        placeholder: 'Código de insignia',
+        save       : 'Continuar',
+        selectOther: 'Selecciona otros objetivos si quieres'
+    },
+    OrientationField                 : {
+        iAm         : 'Soy',
+        heterosexual: 'Hetero',
+        homosexual  : 'Homo',
+        bisexual    : 'Bisexual',
+        other       : 'Otro',
+    },
+    AccessButtons                    : {
+        registerText: 'Regístrate ahora',
+        loginText   : 'Ya estoy registrado',
     },
     ProfileDataList                  : {
         cannotRemove: 'Este campo no se puede eliminar',
@@ -552,6 +569,10 @@ export default {
         matching  : 'Compatibilidad',
         similarity: 'Similaridad',
         loading   : 'Cargando...',
+    },
+    OrientationPopup                 : {
+       orientation: 'Orientación sexual',
+       cancel     : 'Cancelar'
     },
     ImportAlbumPopup                 : {
         close           : 'Cerrar',

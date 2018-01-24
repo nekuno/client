@@ -19,7 +19,7 @@ import Framework7Service from '../services/Framework7Service';
 function getState(props) {
 
     const error = InvitationStore.error;
-    const token = InvitationStore.token;
+    const token = InvitationStore.token || 'join';
     const invitation = InvitationStore.invitation;
     const interfaceLanguage = LocaleStore.locale;
 
@@ -130,48 +130,39 @@ export default class RegisterPage extends Component {
 
         return (
             <div className="views">
-                <TopNavBar leftText={strings.cancel} centerText={strings.register}/>
-                <div className="view view-main">
-                    <div className="page" style={invitation && invitation.image_url && (!initialToken || token || error) ? {background: 'url("' + invitation.image_url + '") no-repeat center top', minHeight: '100%'} : null}>
-                        {invitation && invitation.image_url ? <div className="gradient-transparency"></div> : null}
-
+                <div className="view view-main register-view">
+                    <div className="page register-page">
+                        <div className="register-image" style={invitation && invitation.image_url && (!initialToken || token || error) ? {background: 'url("' + invitation.image_url + '") no-repeat center top', minHeight: '100%'} : null}>
+                            <div className="gradient-transparency"></div>
+                        </div>
+                        <div className="register-nekuno-logo-wrapper">
+                            <div className="register-nekuno-logo"></div>
+                        </div>
                         {this.state.registeringUser ?
                             <EmptyMessage text={strings.registeringMessage} loadingGif={true}/>
                             : initialToken && !token && !error ? <EmptyMessage text={strings.loadingMessage} loadingGif={true}/>
                                 :
                                 <div id="page-content" className="register-content">
                                     <div className="register-title bold">
-                                        <div className="title">{token ? (invitation.slogan ? invitation.slogan : strings.titleCorrect) : strings.title}</div>
+                                        <div className="title">{token && invitation ? (invitation.slogan ? invitation.slogan : strings.titleCorrect) : strings.title}</div>
                                     </div>
-                                    <div className="register-sub-title">{ token ? (invitation.htmlText ? invitation.htmlText : strings.correct) : strings.subtitle}</div>
-                                    { token ? <div className="register-sub-title"><strong>{strings.publishMessage}</strong></div> : null}
-                                    <br />
-                                    { token ? '' :
-                                        <div className="list-block">
-                                            <ul>
-                                                <Input ref="token" defaultValue={initialToken} onChange={this.handleOnChange} placeholder={strings.paste}/>
-                                            </ul>
-                                        </div>
-                                    }
-                                    <div style={{color: '#FFF'}}>
-                                        <p>{ error ? error.error : ''}</p>
+                                    <div className="register-sub-title bold">
+                                        {strings.openSource}
                                     </div>
-
-                                    { token ?
-                                        <div>
-                                            {/* Uncomment to enable all social networks */}
-                                            {/* <SocialBox onClickHandler={this.handleSocialNetwork}/> */}
-                                            <FacebookButton onClickHandler={this.handleSocialNetwork} text={initialToken ? strings.compatibility : strings.signUp}/>
-                                            <br />
-                                            <div className="register-sub-title privacy-terms-text">
-                                                <p dangerouslySetInnerHTML={{__html: strings.privacy}}/>
-                                            </div>
-                                            <br />
-                                            <br />
-                                        </div>
-                                        : ''
-                                    }
                                 </div>
+                        }
+
+                        { token ?
+                            <div>
+                                <FacebookButton onClickHandler={this.handleSocialNetwork} text={initialToken ? strings.compatibility : strings.signUp}/>
+                                <br />
+                                <div className="privacy-terms-text">
+                                    <p dangerouslySetInnerHTML={{__html: strings.legalTerms}}/>
+                                </div>
+                                <br />
+                                <br />
+                            </div>
+                            : ''
                         }
                     </div>
                 </div>
@@ -184,7 +175,8 @@ RegisterPage.defaultProps = {
     strings: {
         register          : 'Create account',
         cancel            : 'Cancel',
-        title             : 'Nekuno only allows registration by invitation.',
+        title             : 'Nekuno analyzes your interests to offer you recommendations',
+        openSource        : 'Open & free software',
         titleCorrect      : 'Awesome! You got an invitation!',
         subtitle          : 'Please copy the URL that you\'ve received your invitation and paste it into the field below to create your account at Nekuno.',
         paste             : 'Paste the invitation url here',
@@ -192,8 +184,8 @@ RegisterPage.defaultProps = {
         loadingMessage    : 'Loading',
         registeringMessage: 'Registering user',
         publishMessage    : 'We\'ll never publish anything on your wall',
-        privacy           : 'By registering, you agree to the <a href="https://nekuno.com/terms-and-conditions" target="_blank">Legal Conditions</a> and the Nekuno <a href="https://nekuno.com/privacy-policy" target="_blank">Privacy Policy</a>.',
-        signUp            : 'Sign up with Facebook',
+        legalTerms        : 'We will never post anything on your networks.</br>By registering, you agree to the <a href="https://nekuno.com/terms-and-conditions" target="_blank">End-user license agreement</a>.',
+        signUp            : 'Analyze',
         compatibility     : 'Analize compatibility',
         blockingError     : 'Your browser has blocked a Facebook request and we are not able to register you. Please, disable the blocking configuration or use an other browser.'
 

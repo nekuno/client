@@ -153,6 +153,10 @@ export default new class LoginActionCreators {
         return path;
     }
 
+    preRegisterProfile(profile) {
+        dispatch(ActionTypes.PRE_REGISTER_PROFILE, {profile});
+    }
+
     preRegister(user, profile, token, oauth) {
         dispatch(ActionTypes.PRE_REGISTER_USER, {user, profile, token, oauth});
     }

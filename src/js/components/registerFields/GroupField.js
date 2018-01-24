@@ -129,12 +129,7 @@ export default class GroupField extends Component {
 GroupField.defaultProps = {
     strings: {
         placeholder: 'Badge code',
-        work2   : '& ideas',
-        hobbies1: 'Hobbies',
-        hobbies2: '& games',
-        explore1: 'Adventures',
-        explore2: '& activity',
-        save   : 'Continue',
+        save       : 'Continue',
         selectOther: 'Select other objectives if you want'
     }
 };

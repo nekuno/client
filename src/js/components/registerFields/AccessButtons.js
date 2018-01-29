@@ -2,7 +2,9 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { SOCIAL_NETWORKS_NAMES, FACEBOOK_SCOPE } from '../../constants/Constants';
 import Button from '../ui/Button';
+import translate from '../../i18n/Translate';
 
+@translate('AccessButtons')
 export default class AccessButtons extends Component {
 
     static propTypes = {

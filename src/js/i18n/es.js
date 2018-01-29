@@ -64,14 +64,6 @@ export default {
         events         : 'Eventos',
         explore        : 'Explorar',
         contact        : 'Contacto',
-        login          : 'Entrar',
-        hasInvitation  : '¿Tienes una invitación?',
-        register       : 'Regístrate',
-        loginUser      : 'Intentando iniciar sesión',
-        registeringUser: 'Registrando usuario',
-        wantGuest      : '¿Quieres probarlo?',
-        asGuest        : 'Entra como invitado',
-        legalTerms     : 'Nunca publicaremos nada en tus redes.</br>Al registrarte, estás aceptando los <a href="https://nekuno.com/terms-and-conditions" target="_blank">Términos Legales</a>.',
         blockingError  : 'Tu navegador está bloqueando una petición a Facebook y no podemos registrar tu usuario. Por favor, deshabilita el bloqueo en la configuración o utiliza otro navegador.'
 
     },
@@ -571,8 +563,11 @@ export default {
         loading   : 'Cargando...',
     },
     OrientationPopup                 : {
-       orientation: 'Orientación sexual',
-       cancel     : 'Cancelar'
+        title : 'Orientación sexual',
+        cancel: 'Cancelar'
+    },
+    DetailPopup                 : {
+        continue: 'Continuar',
     },
     ImportAlbumPopup                 : {
         close           : 'Cerrar',

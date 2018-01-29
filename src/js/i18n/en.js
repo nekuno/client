@@ -64,14 +64,6 @@ export default {
         events         : 'Events',
         explore        : 'Explore',
         contact        : 'Contact',
-        login          : 'Login with Facebook',
-        hasInvitation  : 'Do you have an invitation?',
-        register       : 'Register',
-        loginUser      : 'Trying to login user',
-        registeringUser: 'Registering user',
-        wantGuest      : 'Do you want to try it?',
-        asGuest        : 'Enter as guest',
-        legalTerms     : 'We will never post anything on your networks.</br>By registering, you agree to the <a href="https://nekuno.com/terms-and-conditions" target="_blank">End-user license agreement</a>.',
         blockingError  : 'Your browser has blocked a Facebook request and we are not able to register you. Please, disable the blocking configuration or use an other browser.'
     },
     InterestsPage                    : {
@@ -570,8 +562,11 @@ export default {
         loading   : 'Loading...',
     },
     OrientationPopup                 : {
-        orientation: 'Sexual orientation',
-        cancel     : 'Cancel'
+        title : 'Sexual orientation',
+        cancel: 'Cancel'
+    },
+    DetailPopup                 : {
+        continue: 'Continue',
     },
     ImportAlbumPopup                 : {
         close           : 'Close',

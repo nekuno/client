@@ -19,9 +19,12 @@ class RegisterStore extends BaseStore {
     _registerToActions(action) {
         super._registerToActions(action);
 
+        let profile;
         switch (action.type) {
             case ActionTypes.PRE_REGISTER_PROFILE:
-                this._profile = action.profile;
+                profile = action.profile || {};
+                this._profile = this._profile || {};
+                mergeIntoBag(this._profile, profile);
                 this._token = 'join';
                 this._error = null;
                 this.emitChange();
@@ -29,9 +32,10 @@ class RegisterStore extends BaseStore {
 
             case ActionTypes.PRE_REGISTER_USER:
                 const {user, token, oauth} = action;
-                const profile = action.profile || {};
-                this._user = user;
+                profile = action.profile || {};
+                this._profile = this._profile || {};
                 mergeIntoBag(this._profile, profile);
+                this._user = user;
                 this._token = token;
                 this._oauth = oauth;
                 this._error = null;

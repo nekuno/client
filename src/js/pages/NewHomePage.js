@@ -5,6 +5,7 @@ import ObjectivesField from '../components/registerFields/ObjectivesField';
 import GroupField from '../components/registerFields/GroupField';
 import OrientationField from '../components/registerFields/OrientationField';
 import OrientationPopup from '../components/registerFields/OrientationPopup';
+import DetailPopup from '../components/registerFields/DetailPopup';
 import AccessButtons from '../components/registerFields/AccessButtons';
 import connectToStores from '../utils/connectToStores';
 import translate from '../i18n/Translate';
@@ -15,27 +16,32 @@ import LocalStorageService from '../services/LocalStorageService';
 import SocialNetworkService from '../services/SocialNetworkService';
 import Framework7Service from '../services/Framework7Service';
 import LocaleStore from '../stores/LocaleStore';
+import RegisterStore from '../stores/RegisterStore';
 import Slider from 'react-slick';
 
 function getState(props) {
 
     const interfaceLanguage = LocaleStore.locale;
+    const profile = RegisterStore.profile || {};
 
     return {
-        interfaceLanguage
+        interfaceLanguage,
+        profile
     };
 }
 
 @translate('HomePage')
 @popup('popup-orientation')
-@connectToStores([LocaleStore], getState)
+@popup('popup-detail')
+@connectToStores([LocaleStore, RegisterStore], getState)
 export default class HomePage extends Component {
 
     static propTypes = {
         // Injected by @translate:
         strings          : PropTypes.object,
         // Injected by @connectToStores:
-        interfaceLanguage: PropTypes.string
+        interfaceLanguage: PropTypes.string,
+        profile          : PropTypes.object
     };
 
     static contextTypes = {
@@ -45,6 +51,7 @@ export default class HomePage extends Component {
     constructor(props) {
         super(props);
 
+        this.onRegisterClick = this.onRegisterClick.bind(this);
         this.loginByResourceOwner = this.loginByResourceOwner.bind(this);
         this.login = this.login.bind(this);
         this.setLoginUserState = this.setLoginUserState.bind(this);
@@ -52,6 +59,8 @@ export default class HomePage extends Component {
         this.beforeChangeSlide = this.beforeChangeSlide.bind(this);
         this.afterChangeSlide = this.afterChangeSlide.bind(this);
         this.hideContent = this.hideContent.bind(this);
+        this.showContent = this.showContent.bind(this);
+        this.setDetail = this.setDetail.bind(this);
         this.goToRegisterPage = this.goToRegisterPage.bind(this);
         this.renderField = this.renderField.bind(this);
 
@@ -62,7 +71,8 @@ export default class HomePage extends Component {
             currentSlide: 1,
             hideContent: null,
             token: null,
-            slideFixed: null
+            slideFixed: null,
+            detail: null
         };
     }
 
@@ -84,10 +94,21 @@ export default class HomePage extends Component {
         }
     }
 
+    componentDidUpdate(prevProps, prevState) {
+        const {detail} = this.state;
+        if (detail !== prevState.detail) {
+            Framework7Service.nekunoApp().popup('.popup-' + name);
+        }
+    }
+
     componentWillUnmount() {
         if (this.promise) {
             this.promise.cancel();
         }
+    }
+
+    onRegisterClick() {
+        this.setState({'registeringUser': true});
     }
 
     loginAsGuest = function() {
@@ -219,10 +240,11 @@ export default class HomePage extends Component {
     };
 
     renderField(index) {
+        const {profile} = this.props;
         const {currentSlide, registeringUser} = this.state;
 
         if (!registeringUser) {
-            return <AccessButtons onLoginClick={this.loginByResourceOwner} onRegisterClick={() => this.setState({'registeringUser': true})}/>;
+            return <AccessButtons onLoginClick={this.loginByResourceOwner} onRegisterClick={this.onRegisterClick}/>;
         }
 
         switch (index) {
@@ -230,7 +252,7 @@ export default class HomePage extends Component {
                 return <GroupField onValidInvitation={this.goToRegisterPage} activeSlide={currentSlide === 0}/>;
                 //return <GroupField onValidInvitation={this.hideContent} activeSlide={currentSlide === 0} onChangeField={() => this.slider.slickPause()}/>;
             case 2:
-                return <ObjectivesField onClickField={this.hideContent} onSaveHandler={this.goToRegisterPage}/>;
+                return <ObjectivesField profile={profile} onClickField={this.hideContent} onSaveHandler={this.goToRegisterPage} onBackHandler={this.showContent} onDetailSelection={this.setDetail}/>;
             case 3:
                 return <OrientationField onOtherClickHandler={this.openOrientationPopup} onSaveHandler={this.goToRegisterPage}/>;
             default:
@@ -241,9 +263,17 @@ export default class HomePage extends Component {
         this.setState({hideContent: true});
     }
 
+    showContent() {
+        this.setState({hideContent: false});
+    }
+
+    setDetail(name) {
+        this.setState({'detail': name});
+    }
+
     render() {
-        const {strings} = this.props;
-        const {loginUser, currentSlide, hideContent} = this.state;
+        const {profile, strings} = this.props;
+        const {loginUser, currentSlide, hideContent, detail} = this.state;
 
         return (
             <div className="views">
@@ -277,7 +307,8 @@ export default class HomePage extends Component {
                         </div>
                     </div>
                 </div>
-                <OrientationPopup profile={{}} onContinue={this.goToRegisterPage}/>
+                <OrientationPopup profile={profile} onContinue={this.goToRegisterPage}/>
+                {detail ? <DetailPopup profile={profile} detail={detail} onCancel={this.setDetail.bind(this, null)}/> : null}
             </div>
         );
     }
@@ -293,13 +324,6 @@ HomePage.defaultProps = {
         events         : 'Events',
         explore        : 'Explore',
         contact        : 'Contact',
-        login          : 'Login',
-        hasInvitation  : 'Do you have an invitation?',
-        register       : 'Register',
-        loginUser      : 'Trying to login user',
-        registeringUser: 'Registering user',
-        wantGuest      : 'Do you want to try it?',
-        asGuest        : 'Enter as guest',
         blockingError  : 'Your browser has blocked a Facebook request and we are not able to register you. Please, disable the blocking configuration or use an other browser.',
         cannotLogin    : 'No user registered with this Facebook account'
     }

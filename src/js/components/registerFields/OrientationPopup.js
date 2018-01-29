@@ -95,8 +95,8 @@ export default class OrientationPopup extends Component {
 
 OrientationPopup.defaultProps = {
     strings   : {
-        orientation: 'Sexual orientation',
-        cancel     : 'Cancel'
+        title : 'Sexual orientation',
+        cancel: 'Cancel'
     },
     onClick   : () => {
     },

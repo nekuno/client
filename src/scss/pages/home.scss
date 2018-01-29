@@ -126,10 +126,81 @@ body #root .App .views .view.home-view {
         }
 
         .register-fields {
+          
+          .back-button-icon {
+            cursor: pointer;
+            left: 10%;
+            position: absolute;
+            top: 45%;
+            border: 2px solid #fff;
+            border-radius: 50%;
+            -moz-border-radius: 50%;
+            -webkit-border-radius: 50%;
+            font-size: 1.5em;
+            width: 50px;
+            height: 50px;
+            animation: showToLeftBackButton 1s;
+            -moz-animation: showToLeftBackButton 1s; /* Firefox */
+            -webkit-animation: showToLeftBackButton 1s; /* Safari and Chrome */
+
+            @keyframes showToLeftBackButton
+            {
+              from {left: 100%;}
+              to {left: 10%;}
+            }
+            @-moz-keyframes showToLeftBackButton
+            {
+              from {left: 100%;}
+              to {left: 10%;}
+            }
+            @-webkit-keyframes showToLeftBackButton
+            {
+              from {left: 100%;}
+              to {left: 10%;}
+            }
+
+
+            .icon-left-arrow {
+              line-height: 50px;
+              margin-left: -3px;
+            }
+          }
+          .main-icon {
+            font-size: 3.2em;
+            left: 40%;
+            margin: auto;
+            position: absolute;
+            text-align: center;
+            top: 35%;
+            animation: showToLeftMainIcon 1s;
+            -moz-animation: showToLeftMainIcon 1s; /* Firefox */
+            -webkit-animation: showToLeftMainIcon 1s; /* Safari and Chrome */
+
+            @keyframes showToLeftMainIcon
+            {
+              from {left: 100%;}
+              to {left: 40%;}
+            }
+            @-moz-keyframes showToLeftMainIcon
+            {
+              from {left: 100%;}
+              to {left: 40%;}
+            }
+            @-webkit-keyframes showToLeftMainIcon
+            {
+              from {left: 100%;}
+              to {left: 40%;}
+            }
+
+            .main-icon-text {
+              font-size: 0.6em;
+              font-weight: bold;
+            }
+          }
           .register-field {
             position: absolute;
             bottom: 20px;
-            font-size: 2.5em;
+            font-size: 3em;
             text-align: center;
             margin: auto;
             width: 100%;
@@ -137,18 +208,25 @@ body #root .App .views .view.home-view {
             .register-field-icons {
 
               .register-field-icon {
+                border: 3px solid #888888;
+                border-radius: 20px;
+                -moz-border-radius: 20px;
+                -webkit-border-radius: 20px;
                 color: $light-gray;
                 cursor: pointer;
                 display: inline-block;
-                margin: 0 4%;
-                width: 20%;
+                margin: 0 2%;
+                padding: 8px 0;
+                width: 24%;
 
                 &.active {
-                  color: #fff;
+                  background: #888888;
+                  border-color: #888888;
+                  color: #000;
                 }
 
                 .register-filed-icon-text {
-                  font-size: 0.5em;
+                  font-size: 0.4em;
                   font-weight: bold;
                   line-height: 1.1;
                 }
@@ -157,15 +235,21 @@ body #root .App .views .view.home-view {
 
             .register-fields-continue {
               position: absolute;
-              top: -100px;
+              bottom: -100px;
               width: 100%;
               .title {
-                bottom: 75px;
+                bottom: 65px;
+                font-size: 0.4em !important;
               }
               button {
+                background: transparent;
+                border: 2px solid #fff;
+                color: #fff;
+                font-size: 0.6em;
                 height: 57px;
                 line-height: 57px;
-                font-size: 0.5em;
+                min-width: 50%;
+                text-transform: none;
               }
             }
 
@@ -192,6 +276,7 @@ body #root .App .views .view.home-view {
               }
             }
             &.show {
+              bottom: 125px;
               right:0;
               animation: showToRight 1s;
               -moz-animation: showToRight 1s; /* Firefox */
@@ -257,8 +342,10 @@ body #root .App .views .view.home-view {
           }
           .register-field-detail {
             position: absolute;
-            top: 30%;
+            top: 60%;
+            padding: 0 5%;
             z-index: 1111;
+            width: 90%;
             animation: showFromRight 1s;
             -moz-animation: showFromRight 1s; /* Firefox */
             -webkit-animation: showFromRight 1s; /* Safari and Chrome */
@@ -277,6 +364,30 @@ body #root .App .views .view.home-view {
             {
               from {left: 100%;}
               to{left:0;}
+            }
+          }
+          .register-field-detail-title {
+            font-size: 2em;
+          }
+          .button-wrapper {
+            display: inline-block;
+            width: 40%;
+            margin: 10px 4%;
+            button {
+              background: transparent;
+              border: 2px solid $light-green;
+              color: $light-green;
+              height: 50px;
+              font-size: 1.1em;
+              text-transform: none;
+              width: 100%;
+            }
+
+            &.active {
+              button {
+                background: $light-green;
+                color: #fff;
+              }
             }
           }
         }
@@ -447,7 +558,7 @@ body #root .App .views .view.home-view {
             .register-field-icons {
               .register-field-icon {
                 .register-filed-icon-text {
-                  font-size: 0.4em;
+                  font-size: 0.35em;
                 }
               }
             }

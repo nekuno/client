@@ -345,6 +345,27 @@ export default {
         save       : 'Continue',
         selectOther: 'Select other objectives if you want'
     },
+    ExploreField                 : {
+        explore    : 'Explore',
+        work1      : 'Work',
+        work2      : '& ideas',
+        hobbies1   : 'Hobbies',
+        hobbies2   : '& games',
+        leisure1   : 'Adventures',
+        leisure2   : '& leisure',
+        industry   : 'Industry',
+        skills     : 'Skills',
+        proposals  : 'Proposals',
+        sports     : 'Sports',
+        games      : 'Games',
+        creative   : 'Creative',
+        activities : 'Activities',
+        travels    : 'Travels',
+        tickets    : 'Tickets',
+        save       : 'Continue',
+        finish     : 'Finish',
+        selectOther: 'You can select more than one'
+    },
     OrientationField                 : {
         iAm         : 'I am',
         heterosexual: 'Straight',

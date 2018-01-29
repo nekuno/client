@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { SOCIAL_NETWORKS, SOCIAL_NETWORKS_NAMES } from '../constants/Constants';
-import ObjectivesField from '../components/registerFields/ObjectivesField';
+import ExploreField from '../components/registerFields/ExploreField';
 import GroupField from '../components/registerFields/GroupField';
 import OrientationField from '../components/registerFields/OrientationField';
 import OrientationPopup from '../components/registerFields/OrientationPopup';
@@ -252,7 +252,7 @@ export default class HomePage extends Component {
                 return <GroupField onValidInvitation={this.goToRegisterPage} activeSlide={currentSlide === 0}/>;
                 //return <GroupField onValidInvitation={this.hideContent} activeSlide={currentSlide === 0} onChangeField={() => this.slider.slickPause()}/>;
             case 2:
-                return <ObjectivesField profile={profile} onClickField={this.hideContent} onSaveHandler={this.goToRegisterPage} onBackHandler={this.showContent} onDetailSelection={this.setDetail}/>;
+                return <ExploreField profile={profile} onClickField={this.hideContent} onSaveHandler={this.goToRegisterPage} onBackHandler={this.showContent} onDetailSelection={this.setDetail}/>;
             case 3:
                 return <OrientationField onOtherClickHandler={this.openOrientationPopup} onSaveHandler={this.goToRegisterPage}/>;
             default:

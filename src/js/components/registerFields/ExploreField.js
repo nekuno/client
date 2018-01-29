@@ -5,8 +5,8 @@ import Button from '../ui/Button';
 import translate from '../../i18n/Translate';
 import Framework7Service from '../../services/Framework7Service';
 
-@translate('ObjectivesField')
-export default class ObjectivesField extends Component {
+@translate('ExploreField')
+export default class ExploreField extends Component {
     static propTypes = {
         profile          : PropTypes.object.isRequired,
         onSaveHandler    : PropTypes.func.isRequired,
@@ -197,7 +197,7 @@ export default class ObjectivesField extends Component {
     }
 }
 
-ObjectivesField.defaultProps = {
+ExploreField.defaultProps = {
     strings: {
         explore    : 'Explore',
         work1      : 'Work',

@@ -460,12 +460,16 @@ body #root .App .views .view.home-view {
     transition: all 1s;
   }
 }
-.views .popup-orientation {
+.views .popup {
   margin-top: 0;
   overflow-y: visible;
 
   .content-block {
     margin: 0;
+
+    .profile-field .chip {
+      margin: 5px;
+    }
   }
 }
 

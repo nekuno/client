@@ -124,7 +124,7 @@ export default class DetailPopup extends Component {
 
     render() {
         const {metadata, profile, detail, strings} = this.props;
-        const popupClass = 'popup popup-' + name + ' tablet-fullscreen';
+        const popupClass = 'popup popup-' + detail + ' tablet-fullscreen';
 
         return (
 

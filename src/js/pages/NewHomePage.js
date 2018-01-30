@@ -97,7 +97,7 @@ export default class HomePage extends Component {
     componentDidUpdate(prevProps, prevState) {
         const {detail} = this.state;
         if (detail !== prevState.detail) {
-            Framework7Service.nekunoApp().popup('.popup-' + name);
+            Framework7Service.nekunoApp().popup('.popup-' + detail);
         }
     }
 

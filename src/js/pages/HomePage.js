@@ -1,51 +1,43 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { SOCIAL_NETWORKS, SOCIAL_NETWORKS_NAMES } from '../constants/Constants';
-import FacebookButton from '../components/ui/FacebookButton';
+import ExploreField from '../components/registerFields/ExploreField';
+import GroupField from '../components/registerFields/GroupField';
+import OrientationField from '../components/registerFields/OrientationField';
+import OrientationPopup from '../components/registerFields/OrientationPopup';
+import DetailPopup from '../components/registerFields/DetailPopup';
+import AccessButtons from '../components/registerFields/AccessButtons';
 import connectToStores from '../utils/connectToStores';
 import translate from '../i18n/Translate';
 import LoginActionCreators from '../actions/LoginActionCreators';
-import RouterActionCreators from '../actions/RouterActionCreators';
 import LocalStorageService from '../services/LocalStorageService';
 import SocialNetworkService from '../services/SocialNetworkService';
 import Framework7Service from '../services/Framework7Service';
 import LocaleStore from '../stores/LocaleStore';
-
-let nekunoSwiper;
-let delay = 2000;
-
-function initSwiper() {
-    // Init slider and store its instance in nekunoSwiper variable
-    nekunoSwiper = Framework7Service.nekunoApp().swiper('.swiper-container', {
-        pagination: '.swiper-pagination',
-        autoplay  : 3000
-    });
-}
-
-function destroySwiper() {
-    if (typeof nekunoSwiper.destroy !== 'undefined') {
-        nekunoSwiper.destroy(true);
-    }
-}
+import RegisterStore from '../stores/RegisterStore';
+import Slider from 'react-slick';
 
 function getState(props) {
 
     const interfaceLanguage = LocaleStore.locale;
+    const profile = RegisterStore.profile || {};
 
     return {
-        interfaceLanguage
+        interfaceLanguage,
+        profile
     };
 }
 
 @translate('HomePage')
-@connectToStores([LocaleStore], getState)
+@connectToStores([LocaleStore, RegisterStore], getState)
 export default class HomePage extends Component {
 
     static propTypes = {
         // Injected by @translate:
         strings          : PropTypes.object,
         // Injected by @connectToStores:
-        interfaceLanguage: PropTypes.string
+        interfaceLanguage: PropTypes.string,
+        profile          : PropTypes.object
     };
 
     static contextTypes = {
@@ -55,26 +47,32 @@ export default class HomePage extends Component {
     constructor(props) {
         super(props);
 
+        this.onRegisterClick = this.onRegisterClick.bind(this);
         this.loginByResourceOwner = this.loginByResourceOwner.bind(this);
         this.login = this.login.bind(this);
         this.setLoginUserState = this.setLoginUserState.bind(this);
         this.split = this.split.bind(this);
+        this.beforeChangeSlide = this.beforeChangeSlide.bind(this);
+        this.afterChangeSlide = this.afterChangeSlide.bind(this);
+        this.hideContent = this.hideContent.bind(this);
+        this.showContent = this.showContent.bind(this);
+        this.setDetail = this.setDetail.bind(this);
+        this.goToRegisterPage = this.goToRegisterPage.bind(this);
+        this.renderField = this.renderField.bind(this);
 
         this.promise = null;
         this.state = {
             loginUser      : false,
             registeringUser: null,
-            details        : {
-                title1: 0,
-                title2: 0,
-                title3: 0
-            }
+            currentSlide: 1,
+            hideContent: null,
+            token: null,
+            slideFixed: null,
+            detail: null
         };
-        this.interval = null;
     }
 
     componentDidMount() {
-        initSwiper();
         const facebookNetwork = SOCIAL_NETWORKS.find(socialNetwork => socialNetwork.resourceOwner == SOCIAL_NETWORKS_NAMES.FACEBOOK);
         const resource = facebookNetwork.resourceOwner;
         if (!LocalStorageService.get('jwt') && hello.getAuthResponse(resource)) {
@@ -90,27 +88,23 @@ export default class HomePage extends Component {
                 }
             );
         }
-        this.interval = setInterval(() => {
-            const {strings} = this.props;
-            const details = this.state.details;
-            [1, 2, 3].map(i => {
-                if (strings['title' + i + 'Details'].length > 0 && details['title' + i] + 1 === strings['title' + i + 'Details'].length) {
-                    details['title' + i] = 0;
-                } else {
-                    details['title' + i]++;
-                }
-            });
-            this.setState({details: details});
+    }
 
-        }, delay);
+    componentDidUpdate(prevProps, prevState) {
+        const {detail} = this.state;
+        if (detail !== prevState.detail) {
+            Framework7Service.nekunoApp().popup('.popup-detail');
+        }
     }
 
     componentWillUnmount() {
-        destroySwiper();
         if (this.promise) {
             this.promise.cancel();
         }
-        clearInterval(this.interval);
+    }
+
+    onRegisterClick() {
+        this.setState({'registeringUser': true});
     }
 
     loginAsGuest = function() {
@@ -154,7 +148,7 @@ export default class HomePage extends Component {
                     profile.orientationRequired = false;
                     let token = 'join';
                     LoginActionCreators.preRegister(user, profile, token, oauthData);
-                    setTimeout(() => RouterActionCreators.replaceRoute('answer-username'), 0);
+                    this.setState({'registeringUser': true});
                 }
             });
     }
@@ -165,6 +159,14 @@ export default class HomePage extends Component {
         })
     }
 
+    goToRegisterPage() {
+        setTimeout(() => this.context.router.push('/register'), 0);
+    }
+
+    openOrientationPopup() {
+        Framework7Service.nekunoApp().popup('.popup-orientation');
+    }
+
     split(text) {
         return text.split("\n").map(function(item, key) {
             return (
@@ -173,38 +175,107 @@ export default class HomePage extends Component {
         });
     }
 
+    beforeChangeSlide(oldSlide, newSlide) {
+        this.setState(({
+            currentSlide: newSlide
+        }));
+    }
+
+    afterChangeSlide(newSlide) {
+        setTimeout(() => {
+            const {hideContent, slideFixed} = this.state;
+            if (hideContent && !slideFixed) {
+                this.slider.slickPrev();
+                this.setState({slideFixed: true});
+            }
+        }, 1000);
+    }
+
+    slickGoTo(slide) {
+        this.slider.slickGoTo(slide)
+    }
+
     renderSlides = function() {
         const {strings} = this.props;
-        const {details} = this.state;
+        const {hideContent} = this.state;
+        const settings = {
+            accessibility: !hideContent,
+            draggable: !hideContent,
+            swipe: !hideContent,
+            autoplaySpeed: 5000,
+            className: 'swiper-wrapper',
+            dots: false,
+            infinite: true,
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            arrows: false,
+            autoplay: false,
+            //autoplay: !hideContent,
+            initialSlide: 1,
+            beforeChange: this.beforeChangeSlide,
+            afterChange: this.afterChangeSlide
+        };
         return (
-            [1, 2, 3].map(i => {
-                    const detail = strings['title' + i + 'Details'][details['title' + i]];
-                    return (
-                        <div key={i} className="swiper-slide">
-                            <div id={'login-' + i + '-image'} className="page">
-                                <div className="linear-gradient-rectangle"></div>
-                                <div className="title">
-                                    {this.split(strings['title' + i].replace('%detail%', detail))}
+            <Slider {...settings} ref={c => this.slider = c }>
+                {[1, 2, 3].map(i => {
+                        return (
+                            <div key={i} className="swiper-slide">
+                                <div id={'login-' + i + '-image'} className="page">
+                                    <div className="bottom-background-rectangle"></div>
+                                    <div className={hideContent ? "vertical-hidden-content title" : "title"}>
+                                        {this.split(strings['title' + i])}
+                                    </div>
+                                    {this.renderField(i)}
                                 </div>
                             </div>
-                        </div>
-                    )
-                }
-            )
+                        )
+                    }
+                )}
+            </Slider>
         );
     };
 
+    renderField(index) {
+        const {profile} = this.props;
+        const {currentSlide, registeringUser} = this.state;
+
+        if (!registeringUser) {
+            return <AccessButtons onLoginClick={this.loginByResourceOwner} onRegisterClick={this.onRegisterClick}/>;
+        }
+
+        switch (index) {
+            case 1:
+                return <GroupField onValidInvitation={this.goToRegisterPage} activeSlide={currentSlide === 0}/>;
+                //return <GroupField onValidInvitation={this.hideContent} activeSlide={currentSlide === 0} onChangeField={() => this.slider.slickPause()}/>;
+            case 2:
+                return <ExploreField profile={profile} onClickField={this.hideContent} onSaveHandler={this.goToRegisterPage} onBackHandler={this.showContent} onDetailSelection={this.setDetail}/>;
+            case 3:
+                return <OrientationField onOtherClickHandler={this.openOrientationPopup} onSaveHandler={this.goToRegisterPage}/>;
+            default:
+        }
+    };
+
+    hideContent() {
+        this.setState({hideContent: true});
+    }
+
+    showContent() {
+        this.setState({hideContent: false});
+    }
+
+    setDetail(name) {
+        this.setState({'detail': name});
+    }
+
     render() {
-        const {strings} = this.props;
-        const {loginUser} = this.state;
+        const {profile, strings} = this.props;
+        const {loginUser, currentSlide, hideContent, detail} = this.state;
 
         return (
             <div className="views">
                 <div className="view view-main home-view">
-                    <div className="swiper-container swiper-init" data-speed="400" data-space-between="40" data-pagination=".swiper-pagination">
-                        <div className="swiper-wrapper">
-                            {this.renderSlides()}
-                        </div>
+                    <div className="swiper-container">
+                        {this.renderSlides()}
                     </div>
                     <div className="nekuno-logo-wrapper">
                         <div className="nekuno-logo"></div>
@@ -212,29 +283,28 @@ export default class HomePage extends Component {
                     <div id="page-content" className="home-content">
 
                     </div>
-                    <div className="bottom-layer">
+                    <div className={hideContent ? "vertical-hidden-content bottom-layer" : "bottom-layer"}>
                         <div className="swiper-pagination-and-button">
-                            <div className="swiper-pagination"></div>
-                            <div>
-                                <FacebookButton onClickHandler={this.loginByResourceOwner} text={strings.login} disabled={loginUser}/>
-                                {/*<div className="register-text-block">*/}
-                                {/*<div onClick={this.goToRegisterPage} className="register-text">*/}
-                                {/*<span>{strings.hasInvitation}</span> <a href="javascript:void(0)">{strings.register}</a>*/}
-                                {/*</div>*/}
-                                {/*/!*Uncomment to enable login as guest*/}
-                                {/*<div onClick={this.loginAsGuest} className="register-text">*/}
-                                {/*<span>{strings.wantGuest}</span> <a href="javascript:void(0)">{strings.asGuest}</a>*/}
-                                {/*</div>*!/*/}
-                                {/*</div>*/}
-                            </div>
-                        </div>
-                        <div className="bottom-text">
-                            <div className="register-sub-title privacy-terms-text">
-                                <p dangerouslySetInnerHTML={{__html: strings.legalTerms}}/>
+                            <div className="title">{strings.choosePath}</div>
+                            <div className="slider-buttons">
+                                <div className="slider-button" onClick={this.slickGoTo.bind(this, 0)}>
+                                    <span className={currentSlide === 0 ? "icon-calendar-check" : "icon-calendar-check2"}/>
+                                    <div className={currentSlide === 0 ? "slider-button-text active" : "slider-button-text"}>{strings.events}</div>
+                                </div>
+                                <div className="slider-button" onClick={this.slickGoTo.bind(this, 1)}>
+                                    <span className={currentSlide === 1 ? "icon-compass2" : "icon-compass3"}/>
+                                    <div className={currentSlide === 1 ? "slider-button-text active" : "slider-button-text"}>{strings.explore}</div>
+                                </div>
+                                <div className="slider-button" onClick={this.slickGoTo.bind(this, 2)}>
+                                    <span className={currentSlide === 2 ? "icon-heart2" : "icon-heart3"}/>
+                                    <div className={currentSlide === 2 ? "slider-button-text active" : "slider-button-text"}>{strings.contact}</div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <OrientationPopup profile={profile} onContinue={this.goToRegisterPage}/>
+                {detail ? <DetailPopup profile={profile} detail={detail} onCancel={this.setDetail.bind(this, null)}/> : null}
             </div>
         );
     }
@@ -243,20 +313,13 @@ export default class HomePage extends Component {
 
 HomePage.defaultProps = {
     strings: {
-        title1         : 'Add your networks and discover your %detail% partners',
-        title1Details  : ['life', 'project', 'adventure'],
-        title2         : 'Unlock badges to rediscover your %detail%',
-        title2Details  : ['group', 'organization', 'ngo', 'school', 'institute', 'work', 'university', 'event', 'tribe', 'forum', 'channel'],
-        title3         : '100% Free' + "\n" + '100% Open source',
-        title3Details  : [],
-        login          : 'Login with Facebook',
-        hasInvitation  : 'Do you have an invitation?',
-        register       : 'Register',
-        loginUser      : 'Trying to login user',
-        registeringUser: 'Registering user',
-        wantGuest      : 'Do you want to try it?',
-        asGuest        : 'Enter as guest',
-        legalTerms     : 'We will never post anything on your networks.</br>By registering, you agree to the <a href="https://nekuno.com/terms-and-conditions" target="_blank">End-user license agreement</a>.',
+        choosePath     : 'Choose your path',
+        title1         : 'Rediscover my tribe' + "\n" + 'unlocking badges',
+        title2         : 'Share what I love' + "\n" + 'joining and creating proposals',
+        title3         : 'All previous + discover' + "\n" + 'my life mates',
+        events         : 'Events',
+        explore        : 'Explore',
+        contact        : 'Contact',
         blockingError  : 'Your browser has blocked a Facebook request and we are not able to register you. Please, disable the blocking configuration or use an other browser.'
     }
 };

@@ -65,7 +65,6 @@ export default {
         explore        : 'Explorar',
         contact        : 'Contacto',
         blockingError  : 'Tu navegador está bloqueando una petición a Facebook y no podemos registrar tu usuario. Por favor, deshabilita el bloqueo en la configuración o utiliza otro navegador.'
-
     },
     InterestsPage                    : {
         cancel   : 'Cancelar',

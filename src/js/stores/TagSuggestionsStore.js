@@ -21,7 +21,7 @@ class TagSuggestionsStore extends BaseStore {
 
                 const items = responseItems.map(responseItem => {
                     const name = responseItem.result.name;
-                    const googleGraphId = responseItem.result.id;
+                    const googleGraphId = responseItem.result['@id'];
 
                     return {name, googleGraphId}
                 });

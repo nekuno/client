@@ -143,7 +143,7 @@ export default class TagEdit extends Component {
                 {data.length > 0 ?
                     <div className="tags-and-choice-unselected-filters">
                         <div className="table-row"></div>
-                        {data.filter(value => selectedTag === null || value.name !== selectedTag.name).map((value, index) =>
+                        {data.filter(value => selectedTag === null || value !== selectedTag.name).map((value, index) =>
                             <div className="tags-and-choice-unselected-filter" key={index}>
                                 <TextCheckboxes labels={[{key: value.name, text: value.name}]} values={[value.name]}
                                                 onClickHandler={this.handleClickTag} className={'tags-and-choice-filter'}/>

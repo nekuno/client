@@ -166,7 +166,9 @@ class ProfileStore extends BaseStore {
                             value = firstChoices[firstChoice] + ' ' + doubleChoiceValue;
                             break;
                         case 'tags':
-                            value = basicProfile[field];
+                            value = basicProfile[field].map(function(tag){
+                                return tag['name'];
+                            });
                             break;
                         case 'multiple_choices':
                             let multiple_choices = thisMetadata['choices'];

@@ -196,13 +196,6 @@ export default class HomePage extends Component {
     }
 
     afterChangeSlide(newSlide) {
-        setTimeout(() => {
-            const {hideContent, slideFixed} = this.state;
-            if (hideContent && !slideFixed) {
-                this.slider.slickPrev();
-                this.setState({slideFixed: true});
-            }
-        }, 1000);
     }
 
     slickGoTo(slide) {
@@ -220,7 +213,7 @@ export default class HomePage extends Component {
 
     renderSlides = function() {
         const {strings} = this.props;
-        const {hideContent} = this.state;
+        const {hideContent, registeringUser} = this.state;
         const settings = {
             accessibility: !hideContent,
             draggable: !hideContent,
@@ -232,8 +225,8 @@ export default class HomePage extends Component {
             slidesToShow: 1,
             slidesToScroll: 1,
             arrows: false,
-            autoplay: false,
-            //autoplay: !hideContent,
+            //autoplay: false,
+            autoplay: !registeringUser,
             initialSlide: 1,
             beforeChange: this.beforeChangeSlide,
             afterChange: this.afterChangeSlide

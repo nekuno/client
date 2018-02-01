@@ -39,7 +39,8 @@ export default class GroupField extends Component {
         const {activeSlide} = this.props;
 
         if (activeSlide) {
-            this.focus();
+            // Uncomment to auto-focus
+            //this.focus();
         }
     }
 
@@ -47,7 +48,8 @@ export default class GroupField extends Component {
         const {activeSlide, invitation} = this.props;
 
         if (activeSlide) {
-            this.focus();
+            // Uncomment to auto-focus
+            //this.focus();
         }
         if (invitation) {
             const profile = {mode: 'events'};

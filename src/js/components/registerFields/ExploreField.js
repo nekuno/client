@@ -27,7 +27,6 @@ export default class ExploreField extends Component {
         this.backToHome = this.backToHome.bind(this);
 
         this.state = {
-            objectives       : [],
             objectiveSelected: null,
             savedDetails     : null,
         }
@@ -38,25 +37,11 @@ export default class ExploreField extends Component {
     }
 
     onClickObjective(objective) {
-        const {objectives} = this.state;
-        let objectivesClone = objectives.slice(0);
-        const objectiveIndex = objectivesClone.findIndex(obj => obj === objective);
+        this.setState({
+            selectedObjective: objective
+        });
 
-        if (objectiveIndex !== -1) {
-            objectivesClone.splice(objectiveIndex, 1);
-            this.setState({
-                objectives       : objectivesClone,
-                selectedObjective: null
-            });
-        } else {
-            objectivesClone.push(objective);
-            this.setState({
-                objectives       : objectivesClone,
-                selectedObjective: objective
-            });
-
-            this.props.onClickField();
-        }
+        this.props.onClickField();
     }
 
     backToHome() {
@@ -92,7 +77,7 @@ export default class ExploreField extends Component {
             <div className={this.profileHasField(profile, 'skills') ? "button-wrapper active" : "button-wrapper"}>
                 <Button type="submit" onClick={() => this.props.onDetailSelection('industry')}>{strings.skills}</Button>
             </div>
-            <div className={this.profileHasField('profile, profile, proposals') ? "button-wrapper active" : "button-wrapper"}>
+            <div className={this.profileHasField(profile, 'proposals') ? "button-wrapper active" : "button-wrapper"}>
                 <Button type="submit" onClick={() => this.props.onDetailSelection('industry')}>{strings.proposals}</Button>
             </div>
             <div className="button-wrapper active">
@@ -146,14 +131,14 @@ export default class ExploreField extends Component {
     };
 
     render() {
-        const {strings} = this.props;
-        const {objectives, selectedObjective, savedDetails} = this.state;
+        const {profile, strings} = this.props;
+        const {selectedObjective, savedDetails} = this.state;
         const objectivesClass = "register-field objectives-field";
 
         return (
             <div className="register-fields">
                 {selectedObjective || savedDetails ?
-                    <div className="back-button-icon" onClick={this.backToHome}>
+                    <div className="back-button-icon" onClick={selectedObjective ? this.handleClickSave : this.backToHome}>
                         <span className="icon-left-arrow"/>
                     </div>
                     : null
@@ -167,17 +152,17 @@ export default class ExploreField extends Component {
                 }
                 <div className={selectedObjective ? "hide " + objectivesClass : savedDetails ? "show " + objectivesClass : objectivesClass}>
                     <div className="register-field-icons">
-                        <div className={objectives.some(objective => objective === 'work') ? "register-field-icon active" : "register-field-icon"} onClick={this.onClickObjective.bind(this, 'work')}>
+                        <div className={profile.objectives && profile.objectives.some(objective => objective === 'work') ? "register-field-icon active" : "register-field-icon"} onClick={this.onClickObjective.bind(this, 'work')}>
                             <span className="icon-lightbulb"/>
                             <div className="register-filed-icon-text">{strings.work1}</div>
                             <div className="register-filed-icon-text">{strings.work2}</div>
                         </div>
-                        <div className={objectives.some(objective => objective === 'hobbies') ? "register-field-icon active" : "register-field-icon"} onClick={this.onClickObjective.bind(this, 'hobbies')}>
+                        <div className={profile.objectives && profile.objectives.some(objective => objective === 'hobbies') ? "register-field-icon active" : "register-field-icon"} onClick={this.onClickObjective.bind(this, 'hobbies')}>
                             <span className="icon-gamepad"/>
                             <div className="register-filed-icon-text">{strings.hobbies1}</div>
                             <div className="register-filed-icon-text">{strings.hobbies2}</div>
                         </div>
-                        <div className={objectives.some(objective => objective === 'explore') ? "register-field-icon active" : "register-field-icon"} onClick={this.onClickObjective.bind(this, 'explore')}>
+                        <div className={profile.objectives && profile.objectives.some(objective => objective === 'explore') ? "register-field-icon active" : "register-field-icon"} onClick={this.onClickObjective.bind(this, 'explore')}>
                             <span className="icon-compass"/>
                             <div className="register-filed-icon-text">{strings.leisure1}</div>
                             <div className="register-filed-icon-text">{strings.leisure2}</div>

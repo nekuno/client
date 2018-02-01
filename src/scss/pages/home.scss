@@ -6,7 +6,7 @@ body #root .App .views .view.home-view {
 
   .bottom-layer {
     bottom: 200px;
-    height: 70%;
+    margin-top: 70%;
     position: absolute;
     width: 100%;
     z-index: 111;
@@ -34,6 +34,31 @@ body #root .App .views .view.home-view {
           display: inline-block;
           margin: 10px 0;
           width: 30%;
+          .icon {
+
+            &.active {
+              opacity: 1;
+              animation: showIcon 1s;
+              -moz-animation: showIcon 1s; /* Firefox */
+              -webkit-animation: showIcon 1s; /* Safari and Chrome */
+
+              @keyframes showIcon
+              {
+                from {opacity: 0.2;}
+                to {opacity: 1;}
+              }
+              @-moz-keyframes showIcon
+              {
+                from {opacity: 0.2;}
+                to {opacity: 1;}
+              }
+              @-webkit-keyframes showIcon
+              {
+                from {opacity: 0.2;}
+                to {opacity: 1;}
+              }
+            }
+          }
           .slider-button-text {
             opacity: 0;
             font-size: 0.5em;
@@ -41,6 +66,25 @@ body #root .App .views .view.home-view {
 
             &.active {
               opacity: 1;
+              animation: showIconText 1s;
+              -moz-animation: showIconText 1s; /* Firefox */
+              -webkit-animation: showIconText 1s; /* Safari and Chrome */
+
+              @keyframes showIconText
+              {
+                from {opacity: 0;}
+                to {opacity: 1;}
+              }
+              @-moz-keyframes showIconText
+              {
+                from {opacity: 0;}
+                to {opacity: 1;}
+              }
+              @-webkit-keyframes showIconText
+              {
+                from {opacity: 0;}
+                to {opacity: 1;}
+              }
             }
           }
         }
@@ -71,7 +115,7 @@ body #root .App .views .view.home-view {
 
       .page#login-1-image, .page#login-2-image, .page#login-3-image {
         background-size: 100% auto;
-        background-position: top;
+        background-position: center 50%;
         height: 100%;
         width: 100%;
 
@@ -92,37 +136,6 @@ body #root .App .views .view.home-view {
           text-align: center;
           bottom: 150px;
           width: 100%;
-        }
-
-        .access-buttons {
-          position: absolute;
-          bottom: 20px;
-          font-size: 2.5em;
-          text-align: center;
-          margin: auto;
-          width: 100%;
-
-          .register-access-button, .login-access-button {
-            button {
-              height: 50px;
-              font-size: 0.6em;
-              text-transform: none;
-            }
-          }
-          .register-access-button {
-            button {
-              background: transparent;
-              border: 2px solid $light-green;
-              color: $light-green;
-              width: 65%;
-            }
-          }
-          .login-access-button {
-            button {
-              background: transparent;
-              width: 100%;
-            }
-          }
         }
 
         .register-fields {
@@ -208,11 +221,11 @@ body #root .App .views .view.home-view {
             .register-field-icons {
 
               .register-field-icon {
-                border: 3px solid #888888;
+                border: 3px solid #fff;
                 border-radius: 20px;
                 -moz-border-radius: 20px;
                 -webkit-border-radius: 20px;
-                color: $light-gray;
+                color: #fff;
                 cursor: pointer;
                 display: inline-block;
                 margin: 0 2%;
@@ -220,8 +233,8 @@ body #root .App .views .view.home-view {
                 width: 24%;
 
                 &.active {
-                  background: #888888;
-                  border-color: #888888;
+                  background: #fff;
+                  border-color: #fff;
                   color: #000;
                 }
 
@@ -411,6 +424,38 @@ body #root .App .views .view.home-view {
     }
   }
 
+  .access-buttons {
+    position: absolute;
+    bottom: 20px;
+    font-size: 2.5em;
+    text-align: center;
+    margin: auto;
+    width: 100%;
+    z-index: 11;
+
+    .register-access-button, .login-access-button {
+      button {
+        height: 50px;
+        font-size: 0.6em;
+        text-transform: none;
+      }
+    }
+    .register-access-button {
+      button {
+        background: transparent;
+        border: 2px solid $light-green;
+        color: $light-green;
+        width: 65%;
+      }
+    }
+    .login-access-button {
+      button {
+        background: transparent;
+        width: 100%;
+      }
+    }
+  }
+
   .icon-spinner {
     font-size: 40px;
     margin-top: 9px;
@@ -481,6 +526,7 @@ body #root .App .views .view.home-view {
   }
   body #root .App .views .view.home-view .swiper-container .swiper-slide {
     .page#login-1-image, .page#login-2-image, .page#login-3-image {
+      background-position: top;
       .title {
         font-size: 1.1em !important;
         line-height: 25px !important;
@@ -527,16 +573,73 @@ body #root .App .views .view.home-view {
     bottom: -90px;
   }
 }
+@media only screen and (min-height: 600px) {
+  body #root .App .views .view.home-view {
+    .access-buttons {
+      bottom: 40px;
+    }
+    .swiper-container .swiper-slide {
+      .page#login-1-image, .page#login-2-image, .page#login-3-image {
+        .title {
+          bottom: 180px;
+        }
+        .register-fields .register-field {
+          bottom: 30px;
+
+          &.show {
+            bottom: 150px;
+            .register-fields-continue {
+              bottom: -120px;
+
+              .title {
+                bottom: 65px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  body #root .App .views .view.home-view .bottom-layer .swiper-pagination-and-button {
+    bottom: 50px;
+  }
+}
 @media only screen and (min-height: 750px) {
   body #root .App .views .view.home-view .swiper-container .swiper-slide {
     .page#login-1-image, .page#login-2-image, .page#login-3-image {
+      background-position: top;
       .title {
         bottom: 200px;
+      }
+      .register-fields .register-field {
+        &.show {
+          bottom: 200px;
+          .register-fields-continue {
+            bottom: -140px;
+
+            .title {
+              bottom: 85px;
+            }
+          }
+        }
       }
     }
   }
   body #root .App .views .view.home-view .bottom-layer .swiper-pagination-and-button {
     bottom: 80px;
+  }
+}
+@media only screen and (min-height: 800px) {
+  body #root .App .views .view.home-view .swiper-container .swiper-slide {
+    .page#login-1-image, .page#login-2-image, .page#login-3-image {
+      background-position: top;
+      .title {
+        bottom: 230px;
+      }
+    }
+  }
+  body #root .App .views .view.home-view .bottom-layer .swiper-pagination-and-button {
+    bottom: 130px;
   }
 }
 
@@ -558,7 +661,6 @@ body #root .App .views .view.home-view {
         }
         .register-fields {
           .register-field {
-            bottom: 10px;
             .register-field-icons {
               .register-field-icon {
                 .register-filed-icon-text {

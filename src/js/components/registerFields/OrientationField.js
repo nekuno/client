@@ -49,7 +49,7 @@ export default class OrientationField extends Component {
             <div className="register-fields">
                 <div className="register-field orientation-field">
                     <span className="orientation-text">{strings.iAm}&nbsp;</span>
-                    <select onChange={this.onClickOptionHandler.bind(this)}>
+                    <select onChange={this.onClickOptionHandler.bind(this)} value="none">
                         <option key={'none'} value={'none'}>{'--'}</option>
                         {Object.keys(options).map(index => <option key={index} value={index}>{options[index]}</option>)}
                     </select>

@@ -15,7 +15,6 @@ import TextAreaEdit from '../../components/profile/edit/TextAreaEdit';
 import translate from '../../i18n/Translate';
 import connectToStores from '../../utils/connectToStores';
 import ProfileStore from '../../stores/ProfileStore';
-import Framework7Service from '../../services/Framework7Service';
 
 /**
  * Retrieves state from stores for current props.
@@ -38,6 +37,7 @@ export default class DetailPopup extends Component {
         onClick   : PropTypes.func,
         onCancel  : PropTypes.func,
         metadata  : PropTypes.object,
+        contentRef: PropTypes.func,
         // Injected by @translate:
         strings   : PropTypes.object
     };
@@ -51,21 +51,36 @@ export default class DetailPopup extends Component {
 
     onCancel() {
         this.props.onCancel();
-        Framework7Service.nekunoApp().closeModal();
     }
 
     handleChange(key, data) {
         let {profile} = this.props;
         profile[key] = data;
+        profile['objectives'] = [];
+
+        if (this.profileHasAnyField(profile, ['industry', 'skills', 'proposals'])) {
+            profile['objectives'].push('work');
+        }
+        if (this.profileHasAnyField(profile, ['sports', 'games', 'creative'])) {
+            profile['objectives'].push('hobbies');
+        }
+        if (this.profileHasAnyField(profile, ['tickets', 'activities', 'travels'])) {
+            profile['objectives'].push('explore');
+        }
+
         LoginActionCreators.preRegisterProfile(profile);
     }
+
+    profileHasAnyField = function(profile, fields) {
+        return fields.some(field => profile && profile[field] && profile[field].length !== 0);
+    };
 
     renderField(dataArray, metadata, dataName) {
         let data = dataArray.hasOwnProperty(dataName) ? dataArray[dataName] : null;
         let props = {
-            editKey              : dataName,
-            metadata             : metadata[dataName],
-            selected             : true,
+            editKey : dataName,
+            metadata: metadata[dataName],
+            selected: true,
         };
         let filter = null;
         switch (metadata[dataName]['type']) {
@@ -121,16 +136,15 @@ export default class DetailPopup extends Component {
         return <div key={dataName} ref={'selectedEdit'}>{filter}</div>;
     }
 
-
     render() {
-        const {metadata, profile, detail, strings} = this.props;
+        const {metadata, profile, detail, contentRef, strings} = this.props;
         const popupClass = 'popup popup-detail tablet-fullscreen';
 
         return (
 
             <div className={popupClass}>
-                <div className="content-block">
-                    {metadata ?
+                <div ref={contentRef} className="content-block">
+                    {metadata && detail ?
                         <div>
                             {this.renderField(profile.hasOwnProperty(detail) ? profile : {}, metadata, detail)}
                             <FullWidthButton onClick={this.onCancel}>{strings.continue}</FullWidthButton>

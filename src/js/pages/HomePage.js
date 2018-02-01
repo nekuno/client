@@ -9,6 +9,7 @@ import DetailPopup from '../components/registerFields/DetailPopup';
 import AccessButtons from '../components/registerFields/AccessButtons';
 import connectToStores from '../utils/connectToStores';
 import translate from '../i18n/Translate';
+import popup from '../components/Popup';
 import LoginActionCreators from '../actions/LoginActionCreators';
 import LocalStorageService from '../services/LocalStorageService';
 import SocialNetworkService from '../services/SocialNetworkService';
@@ -29,6 +30,7 @@ function getState(props) {
 }
 
 @translate('HomePage')
+@popup(['popup-orientation', 'popup-detail'])
 @connectToStores([LocaleStore, RegisterStore], getState)
 export default class HomePage extends Component {
 
@@ -37,7 +39,12 @@ export default class HomePage extends Component {
         strings          : PropTypes.object,
         // Injected by @connectToStores:
         interfaceLanguage: PropTypes.string,
-        profile          : PropTypes.object
+        profile          : PropTypes.object,
+        // Injected by @popup:
+        showPopup        : PropTypes.func,
+        closePopup       : PropTypes.func,
+        popupContentRef  : PropTypes.func,
+        opened           : PropTypes.bool,
     };
 
     static contextTypes = {
@@ -58,6 +65,9 @@ export default class HomePage extends Component {
         this.showContent = this.showContent.bind(this);
         this.setDetail = this.setDetail.bind(this);
         this.goToRegisterPage = this.goToRegisterPage.bind(this);
+        this.openOrientationPopup = this.openOrientationPopup.bind(this);
+        this.onCancelDetailPopup = this.onCancelDetailPopup.bind(this);
+        this.onCancelOrientationPopup = this.onCancelOrientationPopup.bind(this);
         this.renderField = this.renderField.bind(this);
 
         this.promise = null;
@@ -92,8 +102,12 @@ export default class HomePage extends Component {
 
     componentDidUpdate(prevProps, prevState) {
         const {detail} = this.state;
-        if (detail !== prevState.detail) {
-            Framework7Service.nekunoApp().popup('.popup-detail');
+        const {opened} = this.props;
+
+        if (detail && !opened && prevProps.opened) {
+            this.setDetail(null);
+        } else if (detail && detail !== prevState.detail) {
+            this.props.showPopup('popup-detail');
         }
     }
 
@@ -164,7 +178,7 @@ export default class HomePage extends Component {
     }
 
     openOrientationPopup() {
-        Framework7Service.nekunoApp().popup('.popup-orientation');
+        this.props.showPopup('popup-orientation');
     }
 
     split(text) {
@@ -193,6 +207,15 @@ export default class HomePage extends Component {
 
     slickGoTo(slide) {
         this.slider.slickGoTo(slide)
+    }
+
+    onCancelDetailPopup() {
+        this.props.closePopup('popup-detail');
+        this.setDetail(null);
+    }
+
+    onCancelOrientationPopup() {
+        this.props.closePopup('popup-orientation');
     }
 
     renderSlides = function() {
@@ -240,7 +263,7 @@ export default class HomePage extends Component {
         const {currentSlide, registeringUser} = this.state;
 
         if (!registeringUser) {
-            return <AccessButtons onLoginClick={this.loginByResourceOwner} onRegisterClick={this.onRegisterClick}/>;
+            return;
         }
 
         switch (index) {
@@ -269,7 +292,7 @@ export default class HomePage extends Component {
 
     render() {
         const {profile, strings} = this.props;
-        const {loginUser, currentSlide, hideContent, detail} = this.state;
+        const {loginUser, registeringUser, currentSlide, hideContent, detail} = this.state;
 
         return (
             <div className="views">
@@ -277,6 +300,7 @@ export default class HomePage extends Component {
                     <div className="swiper-container">
                         {this.renderSlides()}
                     </div>
+                    {!registeringUser ? <AccessButtons onLoginClick={this.loginByResourceOwner} onRegisterClick={this.onRegisterClick}/> : null}
                     <div className="nekuno-logo-wrapper">
                         <div className="nekuno-logo"></div>
                     </div>
@@ -288,23 +312,24 @@ export default class HomePage extends Component {
                             <div className="title">{strings.choosePath}</div>
                             <div className="slider-buttons">
                                 <div className="slider-button" onClick={this.slickGoTo.bind(this, 0)}>
-                                    <span className={currentSlide === 0 ? "icon-calendar-check" : "icon-calendar-check2"}/>
+                                    <span className={currentSlide === 0 ? "icon icon-calendar-check active" : "icon-calendar-check2"}/>
                                     <div className={currentSlide === 0 ? "slider-button-text active" : "slider-button-text"}>{strings.events}</div>
                                 </div>
                                 <div className="slider-button" onClick={this.slickGoTo.bind(this, 1)}>
-                                    <span className={currentSlide === 1 ? "icon-compass2" : "icon-compass3"}/>
+                                    <span className={currentSlide === 1 ? "icon icon-compass2 active" : "icon-compass3"}/>
                                     <div className={currentSlide === 1 ? "slider-button-text active" : "slider-button-text"}>{strings.explore}</div>
                                 </div>
                                 <div className="slider-button" onClick={this.slickGoTo.bind(this, 2)}>
-                                    <span className={currentSlide === 2 ? "icon-heart2" : "icon-heart3"}/>
+                                    <span className={currentSlide === 2 ? "icon icon-heart2 active" : "icon-heart3"}/>
                                     <div className={currentSlide === 2 ? "slider-button-text active" : "slider-button-text"}>{strings.contact}</div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <OrientationPopup profile={profile} onContinue={this.goToRegisterPage}/>
-                {detail ? <DetailPopup profile={profile} detail={detail} onCancel={this.setDetail.bind(this, null)}/> : null}
+
+                <DetailPopup profile={profile} detail={detail} onCancel={this.onCancelDetailPopup} contentRef={detail ? this.props.popupContentRef : null}/>
+                <OrientationPopup profile={profile} onContinue={this.goToRegisterPage} onCancel={this.onCancelOrientationPopup} contentRef={!detail ? this.props.popupContentRef : null}/>
             </div>
         );
     }

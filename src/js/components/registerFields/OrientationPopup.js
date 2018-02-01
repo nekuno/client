@@ -7,7 +7,6 @@ import EmptyMessage from '../ui/EmptyMessage';
 import translate from '../../i18n/Translate';
 import connectToStores from '../../utils/connectToStores';
 import ProfileStore from '../../stores/ProfileStore';
-import Framework7Service from '../../services/Framework7Service';
 
 /**
  * Retrieves state from stores for current props.
@@ -25,9 +24,9 @@ function getState(props) {
 export default class OrientationPopup extends Component {
     static propTypes = {
         onContinue: PropTypes.func,
-        onClick   : PropTypes.func,
         onCancel  : PropTypes.func,
         metadata  : PropTypes.object,
+        contentRef: PropTypes.func,
         // Injected by @translate:
         strings   : PropTypes.object
     };
@@ -40,8 +39,7 @@ export default class OrientationPopup extends Component {
     }
 
     onSelect(key) {
-        this.props.onClick();
-        Framework7Service.nekunoApp().closeModal('.popup-orientation');
+        this.props.onCancel();
         let profile = {
             orientation: [key],
             mode: 'contact'
@@ -52,7 +50,6 @@ export default class OrientationPopup extends Component {
     }
 
     onCancel() {
-        Framework7Service.nekunoApp().closeModal('.popup-orientation');
         this.props.onCancel();
     }
 
@@ -71,13 +68,13 @@ export default class OrientationPopup extends Component {
     }
 
     render() {
-        const {metadata, strings} = this.props;
+        const {metadata, contentRef, strings} = this.props;
         const popupClass = 'popup popup-orientation tablet-fullscreen';
 
         return (
 
             <div className={popupClass}>
-                <div className="content-block">
+                <div ref={contentRef} className="content-block">
                     {metadata ?
                         <div>
                             <TextRadios title={strings.title} labels={this.getLabels(metadata)} onClickHandler={this.onSelect} forceTwoLines={true}/>
@@ -98,10 +95,8 @@ OrientationPopup.defaultProps = {
         title : 'Sexual orientation',
         cancel: 'Cancel'
     },
-    onClick   : () => {
+    onCancel   : () => {
     },
     onContinue: () => {
-    },
-    onCancel  : () => {
     }
 };

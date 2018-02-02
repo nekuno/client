@@ -36,7 +36,7 @@ class RegisterStore extends BaseStore {
                 this._profile = this._profile || {};
                 mergeIntoBag(this._profile, profile);
                 this._user = user;
-                this._token = token;
+                this._token = token || this._token;
                 this._oauth = oauth;
                 this._error = null;
                 this.emitChange();

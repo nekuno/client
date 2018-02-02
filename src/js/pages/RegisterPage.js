@@ -1,3 +1,4 @@
+import { SOCIAL_NETWORKS_NAMES, FACEBOOK_SCOPE } from '../constants/Constants';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import FacebookButton from '../components/ui/FacebookButton';
@@ -18,6 +19,7 @@ function getState(props) {
     const error = InvitationStore.error;
     const token = InvitationStore.token;
     const profile = RegisterStore.profile;
+    const registerData = RegisterStore.getData();
     const invitation = InvitationStore.invitation;
     const interfaceLanguage = LocaleStore.locale;
 
@@ -25,6 +27,7 @@ function getState(props) {
         error,
         token,
         profile,
+        registerData,
         invitation,
         interfaceLanguage
     };
@@ -41,6 +44,7 @@ export default class RegisterPage extends Component {
         error            : PropTypes.object,
         token            : PropTypes.string,
         profile          : PropTypes.object,
+        registerData     : PropTypes.object,
         invitation       : PropTypes.object,
         interfaceLanguage: PropTypes.string
     };
@@ -62,10 +66,12 @@ export default class RegisterPage extends Component {
     }
 
     componentDidMount() {
-        const {location, token, profile} = this.props;
+        const {location, token, profile, registerData} = this.props;
         let initialToken = location.query && location.query.token ? location.query.token : null;
 
-        if (initialToken) {
+        if (registerData && registerData.oauth) {
+            this.handleSocialNetwork(SOCIAL_NETWORKS_NAMES.FACEBOOK, FACEBOOK_SCOPE);
+        } else if (initialToken) {
             this.setState({initialToken});
             ConnectActionCreators.validateInvitation(initialToken);
         } else if (!token && !profile) {
@@ -85,7 +91,7 @@ export default class RegisterPage extends Component {
             ).then(
                 () => {
                     console.log('User already logged in. Using invitation', invitation);
-                    if (invitation.hasOwnProperty('group')) {
+                    if (invitation && invitation.hasOwnProperty('group')) {
                         console.log('Joining group', invitation.group);
                         return GroupActionCreators.joinGroup(invitation.group.id);
                     }

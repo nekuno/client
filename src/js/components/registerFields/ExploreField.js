@@ -1,9 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import FullWidthButton from '../ui/FullWidthButton';
 import Button from '../ui/Button';
 import translate from '../../i18n/Translate';
-import Framework7Service from '../../services/Framework7Service';
 
 @translate('ExploreField')
 export default class ExploreField extends Component {
@@ -80,9 +78,12 @@ export default class ExploreField extends Component {
             <div className={this.profileHasField(profile, 'proposals') ? "button-wrapper active" : "button-wrapper"}>
                 <Button type="submit" onClick={() => this.props.onDetailSelection('industry')}>{strings.proposals}</Button>
             </div>
-            <div className="button-wrapper active">
-                <Button type="submit" onClick={this.handleClickSave}>{strings.save}</Button>
-            </div>
+            {profile.objective && profile.objective.some(objective => objective === 'work') ?
+                <div className="button-wrapper active">
+                    <Button type="submit" onClick={this.handleClickSave}>{strings.save}</Button>
+                </div>
+                : null
+            }
         </div>
     };
 
@@ -100,9 +101,12 @@ export default class ExploreField extends Component {
             <div className={this.profileHasField(profile, 'creative') ? "button-wrapper active" : "button-wrapper"}>
                 <Button type="submit" onClick={() => this.props.onDetailSelection('industry')}>{strings.creative}</Button>
             </div>
-            <div className="button-wrapper active">
-                <Button type="submit" onClick={this.handleClickSave}>{strings.save}</Button>
-            </div>
+            {profile.objective && profile.objective.some(objective => objective === 'hobbies') ?
+                <div className="button-wrapper active">
+                    <Button type="submit" onClick={this.handleClickSave}>{strings.save}</Button>
+                </div>
+                : null
+            }
         </div>
     };
 
@@ -120,9 +124,12 @@ export default class ExploreField extends Component {
             <div className={this.profileHasField(profile, 'travels') ? "button-wrapper active" : "button-wrapper"}>
                 <Button type="submit" onClick={() => this.props.onDetailSelection('industry')}>{strings.travels}</Button>
             </div>
-            <div className="button-wrapper active">
-                <Button type="submit" onClick={this.handleClickSave}>{strings.save}</Button>
-            </div>
+            {profile.objective && profile.objective.some(objective => objective === 'explore') ?
+                <div className="button-wrapper active">
+                    <Button type="submit" onClick={this.handleClickSave}>{strings.save}</Button>
+                </div>
+                : null
+            }
         </div>
     };
 
@@ -152,17 +159,17 @@ export default class ExploreField extends Component {
                 }
                 <div className={selectedObjective ? "hide " + objectivesClass : savedDetails ? "show " + objectivesClass : objectivesClass}>
                     <div className="register-field-icons">
-                        <div className={profile.objectives && profile.objectives.some(objective => objective === 'work') ? "register-field-icon active" : "register-field-icon"} onClick={this.onClickObjective.bind(this, 'work')}>
+                        <div className={profile.objective && profile.objective.some(objective => objective === 'work') ? "register-field-icon active" : "register-field-icon"} onClick={this.onClickObjective.bind(this, 'work')}>
                             <span className="icon-lightbulb"/>
                             <div className="register-filed-icon-text">{strings.work1}</div>
                             <div className="register-filed-icon-text">{strings.work2}</div>
                         </div>
-                        <div className={profile.objectives && profile.objectives.some(objective => objective === 'hobbies') ? "register-field-icon active" : "register-field-icon"} onClick={this.onClickObjective.bind(this, 'hobbies')}>
+                        <div className={profile.objective && profile.objective.some(objective => objective === 'hobbies') ? "register-field-icon active" : "register-field-icon"} onClick={this.onClickObjective.bind(this, 'hobbies')}>
                             <span className="icon-gamepad"/>
                             <div className="register-filed-icon-text">{strings.hobbies1}</div>
                             <div className="register-filed-icon-text">{strings.hobbies2}</div>
                         </div>
-                        <div className={profile.objectives && profile.objectives.some(objective => objective === 'explore') ? "register-field-icon active" : "register-field-icon"} onClick={this.onClickObjective.bind(this, 'explore')}>
+                        <div className={profile.objective && profile.objective.some(objective => objective === 'explore') ? "register-field-icon active" : "register-field-icon"} onClick={this.onClickObjective.bind(this, 'explore')}>
                             <span className="icon-compass"/>
                             <div className="register-filed-icon-text">{strings.leisure1}</div>
                             <div className="register-filed-icon-text">{strings.leisure2}</div>

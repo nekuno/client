@@ -56,17 +56,18 @@ export default class DetailPopup extends Component {
     handleChange(key, data) {
         let {profile} = this.props;
         profile[key] = data;
-        profile['objectives'] = [];
+        profile['objective'] = [];
 
         if (this.profileHasAnyField(profile, ['industry', 'skills', 'proposals'])) {
-            profile['objectives'].push('work');
+            profile['objective'].push('work');
         }
         if (this.profileHasAnyField(profile, ['sports', 'games', 'creative'])) {
-            profile['objectives'].push('hobbies');
+            profile['objective'].push('hobbies');
         }
         if (this.profileHasAnyField(profile, ['tickets', 'activities', 'travels'])) {
-            profile['objectives'].push('explore');
+            profile['objective'].push('explore');
         }
+        profile['mode'] = 'explore';
 
         LoginActionCreators.preRegisterProfile(profile);
     }

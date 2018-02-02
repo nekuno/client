@@ -42,7 +42,8 @@ export default class OrientationPopup extends Component {
         this.props.onCancel();
         let profile = {
             orientation: [key],
-            mode: 'contact'
+            mode: 'contact',
+            objective: ['contact']
         };
 
         LoginActionCreators.preRegisterProfile(profile);

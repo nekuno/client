@@ -104,6 +104,7 @@ export default class DetailPopup extends Component {
                 props.data = data ? data : [];
                 props.handleChangeEdit = this.handleChange;
                 props.tags = this.props.tags;
+                props.googleSuggestions = true;
                 filter = <TagsAndChoiceEdit {...props}/>;
                 break;
             case 'multiple_choices':
@@ -121,6 +122,7 @@ export default class DetailPopup extends Component {
                 props.data = data ? data : [];
                 props.handleChangeEdit = this.handleChange;
                 props.tags = this.props.tags;
+                props.googleSuggestions = true;
                 filter = <TagEdit {...props} />;
                 break;
             case 'birthday':

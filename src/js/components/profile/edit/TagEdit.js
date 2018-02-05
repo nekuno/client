@@ -23,6 +23,7 @@ export default class TagEdit extends Component {
         handleChangeEdit     : PropTypes.func.isRequired,
         tags                 : PropTypes.array.isRequired,
         profile              : PropTypes.object.isRequired,
+        googleSuggestions    : PropTypes.bool,
         // Injected by @translate:
         strings              : PropTypes.object
     };

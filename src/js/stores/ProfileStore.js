@@ -189,7 +189,7 @@ class ProfileStore extends BaseStore {
                             let values = [];
                             for (let index in objects) {
                                 let object = objects[index];
-                                let newTag = object['tag'];
+                                let newTag = object['tag']['name'];
                                 if (object['choice']) {
                                     newTag += ': ' + level + ' ' + tagChoices[object['choice']];
                                 }

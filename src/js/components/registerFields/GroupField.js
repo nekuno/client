@@ -52,7 +52,7 @@ export default class GroupField extends Component {
             //this.focus();
         }
         if (invitation) {
-            const profile = {mode: 'events'};
+            const profile = {mode: 'assist'};
             LoginActionCreators.preRegisterProfile(profile);
             this.props.onValidInvitation();
         }

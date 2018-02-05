@@ -23,6 +23,7 @@ function getState(props) {
 @connectToStores([ProfileStore], getState)
 export default class OrientationPopup extends Component {
     static propTypes = {
+        profile   : PropTypes.object,
         onContinue: PropTypes.func,
         onCancel  : PropTypes.func,
         metadata  : PropTypes.object,
@@ -39,14 +40,18 @@ export default class OrientationPopup extends Component {
     }
 
     onSelect(key) {
-        this.props.onCancel();
-        let profile = {
-            orientation: [key],
-            mode: 'contact',
-            objective: ['contact']
-        };
+        const {profile} = this.props;
+        let newProfile = Object.assign({}, profile);
+        newProfile.orientation = [key];
+        newProfile.mode = 'contact';
+        if (newProfile.objective && Array.isArray(newProfile.objective)) {
+            newProfile.objective.push('human-contact');
+        } else {
+            newProfile.objective = ['human-contact'];
+        }
 
-        LoginActionCreators.preRegisterProfile(profile);
+        LoginActionCreators.preRegisterProfile(newProfile);
+        this.props.onCancel();
         this.props.onContinue();
     }
 
@@ -79,7 +84,7 @@ export default class OrientationPopup extends Component {
                     {metadata ?
                         <div>
                             <TextRadios title={strings.title} labels={this.getLabels(metadata)} onClickHandler={this.onSelect} forceTwoLines={true}/>
-                            <FullWidthButton onClick={this.onCancel}> {strings.cancel} </FullWidthButton>
+                            <FullWidthButton onClick={this.onCancel}>{strings.cancel}</FullWidthButton>
                         </div>
                         :
                         <EmptyMessage text={''} loadingGif={true}/>

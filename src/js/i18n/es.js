@@ -38,11 +38,12 @@ export default {
         title: 'Mensajes'
     },
     ConnectSocialNetworksOnSignUpPage: {
-        next    : 'Continuar',
-        welcome : 'Bienvenido',
-        excerpt1: '¡Por fin tus datos trabajarán para ti!',
-        excerpt2: '¡Alimenta a Nekuno con tus redes para obtener mejores recomendaciones!',
-        error   : 'Error conectando red. Quizás ya la has conectado con otro usuario.'
+        next         : 'Continuar',
+        welcome      : 'Bienvenido',
+        excerpt1     : '¡Por fin tus datos trabajarán para ti!',
+        excerpt2     : '¡Alimenta a Nekuno con tus redes para obtener mejores recomendaciones!',
+        error        : 'Error conectando red. Quizás ya la has conectado con otro usuario.',
+        answerExplore: 'Quieres contestar los objetivos de explorar?'
     },
     ConnectSocialNetworksPage        : {
         top    : 'Redes Sociales',
@@ -65,6 +66,10 @@ export default {
         explore        : 'Explorar',
         contact        : 'Contacto',
         blockingError  : 'Tu navegador está bloqueando una petición a Facebook y no podemos registrar tu usuario. Por favor, deshabilita el bloqueo en la configuración o utiliza otro navegador.'
+    },
+    ExplorePage                         : {
+        title  : 'Compartir lo que te encanta' + "\n" + 'uniéndote y creando propuestas',
+        explore: 'Explorar',
     },
     InterestsPage                    : {
         cancel   : 'Cancelar',

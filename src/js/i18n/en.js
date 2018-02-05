@@ -45,10 +45,11 @@ export default {
         error   : 'Error connecting network. You may have connected it with other user.'
     },
     ConnectSocialNetworksPage        : {
-        top    : 'Social Networks',
-        title  : 'Improve recommendations',
-        excerpt: 'Make your data work for you! The more interest you contribute, the better recommendations you’ll get!',
-        error  : 'Error connecting network. You may have connected it with other user.'
+        top          : 'Social Networks',
+        title        : 'Improve recommendations',
+        excerpt      : 'Make your data work for you! The more interest you contribute, the better recommendations you’ll get!',
+        error        : 'Error connecting network. You may have connected it with other user.',
+        answerExplore: 'Do you want to answer explore objectives?'
     },
     EditProfilePage                  : {
         title       : 'Edit profile',
@@ -65,6 +66,10 @@ export default {
         explore        : 'Explore',
         contact        : 'Contact',
         blockingError  : 'Your browser has blocked a Facebook request and we are not able to register you. Please, disable the blocking configuration or use an other browser.'
+    },
+    ExplorePage                      : {
+        title  : 'Share what I love' + "\n" + 'joining and creating proposals',
+        explore: 'Explore',
     },
     InterestsPage                    : {
         cancel   : 'Cancel',

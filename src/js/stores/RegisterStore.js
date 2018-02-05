@@ -24,7 +24,9 @@ class RegisterStore extends BaseStore {
             case ActionTypes.PRE_REGISTER_PROFILE:
                 profile = action.profile || {};
                 this._profile = this._profile || {};
-                mergeIntoBag(this._profile, profile);
+                Object.keys(profile).forEach(field => {
+                    this._profile[field] = profile[field];
+                });
                 this._token = 'join';
                 this._error = null;
                 this.emitChange();
@@ -34,7 +36,9 @@ class RegisterStore extends BaseStore {
                 const {user, token, oauth} = action;
                 profile = action.profile || {};
                 this._profile = this._profile || {};
-                mergeIntoBag(this._profile, profile);
+                Object.keys(profile).forEach(field => {
+                    this._profile[field] = profile[field];
+                });
                 this._user = user;
                 this._token = token || this._token;
                 this._oauth = oauth;

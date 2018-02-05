@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import LoginActionCreators from '../../actions/LoginActionCreators';
 import FullWidthButton from '../ui/FullWidthButton';
 import EmptyMessage from '../ui/EmptyMessage';
 import ChoiceEdit from '../../components/profile/edit/ChoiceEdit';
@@ -33,8 +32,7 @@ export default class DetailPopup extends Component {
     static propTypes = {
         detail    : PropTypes.string,
         profile   : PropTypes.object,
-        onContinue: PropTypes.func,
-        onClick   : PropTypes.func,
+        onSave    : PropTypes.func,
         onCancel  : PropTypes.func,
         metadata  : PropTypes.object,
         contentRef: PropTypes.func,
@@ -54,22 +52,27 @@ export default class DetailPopup extends Component {
     }
 
     handleChange(key, data) {
-        let {profile} = this.props;
-        profile[key] = data;
-        profile['objective'] = [];
+        const {profile} = this.props;
+        let newProfile = Object.assign({}, profile);
+        newProfile[key] = data;
+        newProfile.mode = 'explore';
+        if (newProfile.objective && newProfile.objective.some(obj => obj === "human-contact")) {
+            newProfile.objective = ['human-contact'];
+        } else {
+            newProfile.objective = [];
+        }
 
-        if (this.profileHasAnyField(profile, ['industry', 'skills', 'proposals'])) {
-            profile['objective'].push('work');
+        if (this.profileHasAnyField(newProfile, ['industry', 'skills', 'proposals'])) {
+            newProfile['objective'].push('work');
         }
-        if (this.profileHasAnyField(profile, ['sports', 'games', 'creative'])) {
-            profile['objective'].push('hobbies');
+        if (this.profileHasAnyField(newProfile, ['sports', 'games', 'creative'])) {
+            newProfile['objective'].push('hobbies');
         }
-        if (this.profileHasAnyField(profile, ['tickets', 'activities', 'travels'])) {
-            profile['objective'].push('explore');
+        if (this.profileHasAnyField(newProfile, ['tickets', 'activities', 'travels'])) {
+            newProfile['objective'].push('explore');
         }
-        profile['mode'] = 'explore';
 
-        LoginActionCreators.preRegisterProfile(profile);
+        this.props.onSave(newProfile);
     }
 
     profileHasAnyField = function(profile, fields) {
@@ -161,13 +164,11 @@ export default class DetailPopup extends Component {
 }
 
 DetailPopup.defaultProps = {
-    strings   : {
+    strings : {
         continue: 'Continue',
     },
-    onClick   : () => {
+    onSave  : () => {
     },
-    onContinue: () => {
-    },
-    onCancel  : () => {
+    onCancel: () => {
     }
 };

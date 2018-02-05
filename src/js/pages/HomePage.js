@@ -11,6 +11,7 @@ import connectToStores from '../utils/connectToStores';
 import translate from '../i18n/Translate';
 import popup from '../components/Popup';
 import LoginActionCreators from '../actions/LoginActionCreators';
+import RouterActionCreators from '../actions/RouterActionCreators';
 import LocalStorageService from '../services/LocalStorageService';
 import SocialNetworkService from '../services/SocialNetworkService';
 import Framework7Service from '../services/Framework7Service';
@@ -57,6 +58,7 @@ export default class HomePage extends Component {
         this.onRegisterClick = this.onRegisterClick.bind(this);
         this.loginByResourceOwner = this.loginByResourceOwner.bind(this);
         this.login = this.login.bind(this);
+        this.preRegisterProfile = this.preRegisterProfile.bind(this);
         this.setLoginUserState = this.setLoginUserState.bind(this);
         this.split = this.split.bind(this);
         this.beforeChangeSlide = this.beforeChangeSlide.bind(this);
@@ -167,6 +169,10 @@ export default class HomePage extends Component {
             });
     }
 
+    preRegisterProfile(profile) {
+        LoginActionCreators.preRegisterProfile(profile);
+    }
+
     setLoginUserState(bool) {
         this.setState({
             loginUser: bool,
@@ -174,7 +180,7 @@ export default class HomePage extends Component {
     }
 
     goToRegisterPage() {
-        setTimeout(() => this.context.router.push('/register'), 0);
+        setTimeout(() => RouterActionCreators.replaceRoute('/register'), 0);
     }
 
     openOrientationPopup() {
@@ -266,7 +272,7 @@ export default class HomePage extends Component {
             case 2:
                 return <ExploreField profile={profile} onClickField={this.hideContent} onSaveHandler={this.goToRegisterPage} onBackHandler={this.showContent} onDetailSelection={this.setDetail}/>;
             case 3:
-                return <OrientationField onOtherClickHandler={this.openOrientationPopup} onSaveHandler={this.goToRegisterPage}/>;
+                return <OrientationField profile={profile} onOtherClickHandler={this.openOrientationPopup} onSaveHandler={this.goToRegisterPage}/>;
             default:
         }
     };
@@ -321,7 +327,7 @@ export default class HomePage extends Component {
                     </div>
                 </div>
 
-                <DetailPopup profile={profile} detail={detail} onCancel={this.onCancelDetailPopup} contentRef={detail ? this.props.popupContentRef : null}/>
+                <DetailPopup profile={profile} detail={detail} onCancel={this.onCancelDetailPopup} contentRef={detail ? this.props.popupContentRef : null} onSave={this.preRegisterProfile}/>
                 <OrientationPopup profile={profile} onContinue={this.goToRegisterPage} onCancel={this.onCancelOrientationPopup} contentRef={!detail ? this.props.popupContentRef : null}/>
             </div>
         );

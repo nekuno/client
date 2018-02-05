@@ -7,6 +7,7 @@ import * as UserActionCreators from '../../actions/UserActionCreators';
 @translate('OrientationField')
 export default class OrientationField extends Component {
     static propTypes = {
+        profile            : PropTypes.object,
         onSaveHandler      : PropTypes.func,
         onOtherClickHandler: PropTypes.func,
         // Injected by @translate:
@@ -23,15 +24,21 @@ export default class OrientationField extends Component {
     }
 
     onClickOptionHandler(event) {
+        const {profile} = this.props;
         const value = event.target.value;
         if (value === 'other') {
             this.props.onOtherClickHandler();
         } else if (value !== 'none') {
-            const profile = {
-                orientation: value,
-                mode: 'contact'
-            };
-            LoginActionCreators.preRegisterProfile(profile);
+            let newProfile = Object.assign({}, profile);
+            newProfile.orientation = [value];
+            newProfile.mode = 'contact';
+            if (newProfile.objective && Array.isArray(newProfile.objective)) {
+                newProfile.objective.push('human-contact');
+            } else {
+                newProfile.objective = ['human-contact'];
+            }
+
+            LoginActionCreators.preRegisterProfile(newProfile);
             this.props.onSaveHandler();
         }
     }

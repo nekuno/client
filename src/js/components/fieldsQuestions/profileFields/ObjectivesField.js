@@ -29,8 +29,8 @@ export default class ObjectivesField extends Component {
         const {metadata, strings} = this.props;
         const {objectives} = this.state;
         const objectiveMetadata = metadata.objective;
-        if (objectiveMetadata && objectiveMetadata.min_choices && objectives.length < objectiveMetadata.min_choices) {
-            Framework7Service.nekunoApp().alert(strings.minObjectives.replace('%min%', objectiveMetadata.min_choices));
+        if (objectiveMetadata && objectiveMetadata.min && objectives.length < objectiveMetadata.min) {
+            Framework7Service.nekunoApp().alert(strings.minObjectives.replace('%min%', objectiveMetadata.min));
             return;
         }
         this.props.onSaveHandler('objective', objectives);

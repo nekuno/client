@@ -103,13 +103,19 @@ export default class HomePage extends Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        const {detail} = this.state;
+        const {detail, registeringUser} = this.state;
         const {opened} = this.props;
 
         if (detail && !opened && prevProps.opened) {
             this.setDetail(null);
         } else if (detail && detail !== prevState.detail) {
             this.props.showPopup('popup-detail');
+        } else if (registeringUser && !this.context.router.location.hash) {
+            this.setState({
+                registeringUser: false,
+                hideContent: null,
+                detail: null,
+            });
         }
     }
 
@@ -121,6 +127,7 @@ export default class HomePage extends Component {
 
     onRegisterClick() {
         this.setState({'registeringUser': true});
+        this.context.router.push(this.context.router.location.pathname + '#signup');
     }
 
     loginAsGuest = function() {

@@ -60,21 +60,40 @@ export default class GroupField extends Component {
     }
 
     handleOnChange() {
-        clearTimeout(this.tokenTimeout);
-        let token = this.refs.input.getValue();
-        if (token.length >= 4) {
-            this.tokenTimeout = setTimeout(() => {
-                token = token.replace(/(http[s]?:\/\/)?(m\.)?(client\.)?(pre\.)?(local\.)?nekuno.com\/register\/\?token=/ig, '');
-                token = token.replace(/(http[s]?:\/\/)?(www\.)?(pre\.)?(local\.)?(nekuno.com\/)?(invitation\/)?(inv)?/ig, '');
-                if (token) {
-                    ConnectActionCreators.validateInvitation(token);
-                }
-            }, 500);
+        let token = this.refs.input.getValue() || '';
+        token = this.parseToken(token);
+        if(!token || token.length < 4) {
+            return;
         }
+
+        if (!this.tokenTimeout) {
+            this.tokenTimeout = setTimeout(() => {
+                ConnectActionCreators.validateInvitation(token);
+            }, 0);
+
+            if (this.props.onChangeField) {
+                this.props.onChangeField();
+            }
+
+            return;
+        }
+
+        clearTimeout(this.tokenTimeout);
+
+        this.tokenTimeout = setTimeout(() => {
+            ConnectActionCreators.validateInvitation(token);
+        }, 2000);
+
         if (this.props.onChangeField) {
             this.props.onChangeField();
         }
     }
+
+    parseToken = function(token) {
+        token = token.replace(/(http[s]?:\/\/)?(m\.)?(client\.)?(pre\.)?(local\.)?nekuno.com\/register\/\?token=/ig, '');
+
+        return token.replace(/(http[s]?:\/\/)?(www\.)?(pre\.)?(local\.)?(nekuno.com\/)?(invitation\/)?(inv)?/ig, '');
+    };
 
     focus() {
         setTimeout(() => {

@@ -30,8 +30,8 @@ export default class MultipleChoicesFilter extends Component {
         if (valueIndex > -1) {
             data.splice(valueIndex, 1);
         } else {
-            if (filter.max_choices && data.length >= filter.max_choices) {
-                Framework7Service.nekunoApp().alert(strings.maxChoices.replace('%max%', filter.max_choices));
+            if (filter.max && data.length >= filter.max) {
+                Framework7Service.nekunoApp().alert(strings.maxChoices.replace('%max%', filter.max));
                 return;
             }
             data.push(choice);

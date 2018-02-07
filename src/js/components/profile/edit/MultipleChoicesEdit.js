@@ -28,14 +28,14 @@ export default class MultipleChoicesEdit extends Component {
         data = data || [];
         const valueIndex = data.findIndex(value => value == choice);
         if (valueIndex > -1) {
-            if (metadata.min_choices && data.length <= metadata.min_choices) {
-                Framework7Service.nekunoApp().alert(strings.minChoices.replace('%min%', metadata.min_choices));
+            if (metadata.min && data.length <= metadata.min) {
+                Framework7Service.nekunoApp().alert(strings.minChoices.replace('%min%', metadata.min));
                 return;
             }
             data.splice(valueIndex, 1);
         } else {
-            if (metadata.max_choices && data.length >= metadata.max_choices) {
-                Framework7Service.nekunoApp().alert(strings.maxChoices.replace('%max%', metadata.max_choices));
+            if (metadata.max && data.length >= metadata.max) {
+                Framework7Service.nekunoApp().alert(strings.maxChoices.replace('%max%', metadata.max));
                 return;
             }
             data.push(choice);

@@ -1,5 +1,13 @@
 @import '../_partials/colors';
 
+//recaptcha styles
+@media only screen and (min-width: 465px) {
+  body > div > div > iframe[title~="recaptcha"] {
+    position: fixed;
+    left: 1%;
+  }
+}
+
 body #root .App .views .view.home-view {
   max-height: 900px;
   min-height: 420px;

@@ -1,5 +1,7 @@
+import {GOOGLE_RECAPTCHA_API_KEY} from '../../constants/Constants';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import Recaptcha from 'react-recaptcha';
 import Input from '../ui/Input';
 import connectToStores from '../../utils/connectToStores';
 import translate from '../../i18n/Translate';
@@ -33,6 +35,12 @@ export default class GroupField extends Component {
     constructor(props) {
         super(props);
         this.handleOnChange = this.handleOnChange.bind(this);
+        this.onVerifyCallback = this.onVerifyCallback.bind(this);
+
+        this.state = {
+            attempts: 0,
+            mustVerify: null
+        }
     }
 
     componentDidMount() {
@@ -46,6 +54,7 @@ export default class GroupField extends Component {
 
     componentDidUpdate() {
         const {activeSlide, invitation} = this.props;
+        const {attempts} = this.state;
 
         if (activeSlide) {
             // Uncomment to auto-focus
@@ -55,16 +64,21 @@ export default class GroupField extends Component {
             const profile = {mode: 'assist'};
             LoginActionCreators.preRegisterProfile(profile);
             this.props.onValidInvitation();
+        } else if(attempts >= 10) {
+            this.setState({mustVerify: true, attempts: 0});
         }
 
     }
 
     handleOnChange() {
+        const {attempts} = this.state;
         let token = this.refs.input.getValue() || '';
         token = this.parseToken(token);
         if(!token || token.length < 4) {
             return;
         }
+
+        this.setState({attempts: attempts + 1});
 
         if (!this.tokenTimeout) {
             this.tokenTimeout = setTimeout(() => {
@@ -103,18 +117,35 @@ export default class GroupField extends Component {
             }
         }, 0);
     }
-    
+
+    onLoadCallback() {
+    }
+
+    onVerifyCallback() {
+        this.setState({mustVerify: false});
+    }
+
     render() {
         const {strings} = this.props;
+        const {mustVerify} = this.state;
 
         return (
             <div className="register-fields">
                 <div className="register-field group-field">
-                    <div className="list-block">
-                        <ul>
-                            <Input ref={'input'} onChange={this.handleOnChange} placeholder={strings.placeholder} doNotFocus={true} doNotScroll={true}/>
-                        </ul>
-                    </div>
+                    {!mustVerify ?
+                        <div className="list-block">
+                            <ul>
+                                <Input ref={'input'} onChange={this.handleOnChange} placeholder={strings.placeholder} doNotFocus={true} doNotScroll={true}/>
+                            </ul>
+                        </div>
+                        :
+                        <Recaptcha
+                            sitekey={GOOGLE_RECAPTCHA_API_KEY}
+                            verifyCallback={this.onVerifyCallback}
+                            onloadCallback={this.onLoadCallback}
+                        />
+
+                    }
                 </div>
             </div>
         );

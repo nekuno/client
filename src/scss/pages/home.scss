@@ -210,6 +210,7 @@ body #root .App .views .view.home-view {
               font-weight: bold;
             }
           }
+
           .register-field {
             position: absolute;
             bottom: 20px;
@@ -217,6 +218,10 @@ body #root .App .views .view.home-view {
             text-align: center;
             margin: auto;
             width: 100%;
+
+            #g-recaptcha > div {
+              width: auto !important;
+            }
 
             .register-field-icons {
 

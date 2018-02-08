@@ -699,6 +699,10 @@ export default {
         location   : 'Location',
         placeholder: 'Type a location'
     },
+    MultipleLocationsEdit                     : {
+        placeholder: 'Type a location',
+        maxChoices : 'Select up to %max% items'
+    },
     IntegerFilter                    : {
         minValue   : 'The minimum value is ',
         maxValue   : 'The maximum value is ',

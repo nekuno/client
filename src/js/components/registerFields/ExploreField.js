@@ -113,7 +113,7 @@ export default class ExploreField extends Component {
     renderLeisureDetail() {
         const {profile, strings} = this.props;
         return <div>
-            <div className="register-field-detail-title">{strings.hobbies1 + ' ' + strings.hobbies2}</div>
+            <div className="register-field-detail-title">{strings.leisure1 + ' ' + strings.leisure2}</div>
 
             <div className={this.profileHasField(profile, 'tickets') ? "button-wrapper active" : "button-wrapper"}>
                 <Button type="submit" onClick={() => this.props.onDetailSelection('industry')}>{strings.tickets}</Button>
@@ -121,8 +121,8 @@ export default class ExploreField extends Component {
             <div className={this.profileHasField(profile, 'activities') ? "button-wrapper active" : "button-wrapper"}>
                 <Button type="submit" onClick={() => this.props.onDetailSelection('industry')}>{strings.activities}</Button>
             </div>
-            <div className={this.profileHasField(profile, 'travels') ? "button-wrapper active" : "button-wrapper"}>
-                <Button type="submit" onClick={() => this.props.onDetailSelection('industry')}>{strings.travels}</Button>
+            <div className={this.profileHasField(profile, 'travelling') ? "button-wrapper active" : "button-wrapper"}>
+                <Button type="submit" onClick={() => this.props.onDetailSelection('travelling')}>{strings.travels}</Button>
             </div>
             {profile.objective && profile.objective.some(objective => objective === 'explore') ?
                 <div className="button-wrapper active">

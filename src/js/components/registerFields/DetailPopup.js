@@ -11,6 +11,7 @@ import DoubleChoiceEdit from '../../components/profile/edit/DoubleChoiceEdit';
 import TagEdit from '../../components/profile/edit/TagEdit';
 import BirthdayEdit from '../../components/profile/edit/BirthdayEdit';
 import TextAreaEdit from '../../components/profile/edit/TextAreaEdit';
+import MultipleLocationsEdit from '../../components/profile/edit/MultipleLocationsEdit';
 import translate from '../../i18n/Translate';
 import connectToStores from '../../utils/connectToStores';
 import ProfileStore from '../../stores/ProfileStore';
@@ -68,7 +69,7 @@ export default class DetailPopup extends Component {
         if (this.profileHasAnyField(newProfile, ['sports', 'games', 'creative'])) {
             newProfile['objective'].push('hobbies');
         }
-        if (this.profileHasAnyField(newProfile, ['tickets', 'activities', 'travels'])) {
+        if (this.profileHasAnyField(newProfile, ['travelling', 'activities', 'travels'])) {
             newProfile['objective'].push('explore');
         }
 
@@ -102,6 +103,11 @@ export default class DetailPopup extends Component {
                 props.data = data ? data : {};
                 props.handleChangeEdit = this.handleChange;
                 filter = <LocationEdit {...props}/>;
+                break;
+            case 'multiple_locations':
+                props.data = data ? data : [];
+                props.handleChangeEdit = this.handleChange;
+                filter = <MultipleLocationsEdit {...props}/>;
                 break;
             case 'tags_and_choice':
                 props.data = data ? data : [];

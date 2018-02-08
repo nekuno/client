@@ -63,7 +63,6 @@ export default class TagsAndChoiceEdit extends Component {
 
     handleClickTagAndChoiceTagSuggestion(tagString) {
         let {editKey, data} = this.props;
-        console.log(data);
         this.refs['tagInput' + editKey].setValue(tagString);
         data = data || [];
         let selectedTagAndChoice = this.state.selectedTagAndChoice;

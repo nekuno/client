@@ -72,7 +72,11 @@ export default class TagEdit extends Component {
         this.refs['tagInput' + editKey].clearValue();
         this.refs['tagInput' + editKey].focus();
 
-        const tag = this.props.tags.find(propTag => propTag.name === tagString);
+        let tag = this.props.tags.find(propTag => propTag.name === tagString);
+        if (tag === undefined){
+            tag = {name: tagString};
+        }
+
         const exists = data.some(value => value.name === tagString);
         if (!exists) {
             data.push(tag);
@@ -98,7 +102,7 @@ export default class TagEdit extends Component {
         let {editKey, data} = this.props;
         this.refs['tagInput' + editKey].clearValue();
         this.refs['tagInput' + editKey].focus();
-        const index = data.indexOf(this.state.selectedTag);
+        const index = data.findIndex(value => value.name === this.state.selectedTag);
         data.splice(index, 1);
         this.setState({
             selectedTag: null

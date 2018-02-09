@@ -62,10 +62,10 @@ export default class OrientationPopup extends Component {
     getLabels(metadata) {
         let labels = [];
         if (metadata && metadata.orientation) {
-            Object.keys(metadata.orientation.choices).forEach((index) => {
+            metadata.orientation.choices.forEach(choice => {
                 labels.push({
-                    key : index,
-                    text: metadata.orientation.choices[index]
+                    key : choice.id,
+                    text: choice.text
                 });
             });
         }

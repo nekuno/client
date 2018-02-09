@@ -66,11 +66,11 @@ export default class OrientationRequiredPopup extends Component {
         let labels = [];
         const amountShown = 4;
         if (metadata && metadata.orientation) {
-            Object.keys(metadata.orientation.choices).forEach((index) => {
+            metadata.orientation.choices.forEach(choice => {
                 if (labels.length < amountShown) {
                     labels.push({
-                        key : index,
-                        text: metadata.orientation.choices[index]
+                        key : choice.id,
+                        text: choice.text
                     });
                 }
             });

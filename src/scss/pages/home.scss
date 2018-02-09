@@ -529,6 +529,18 @@ body #root .App .views .view.home-view {
       margin: 5px;
     }
   }
+
+  &.popup-detail {
+    padding-top: 100px;
+
+    .rc-slider {
+      width: 75%;
+      margin: auto;
+    }
+    .button-big {
+      margin-top: 100px;
+    }
+  }
 }
 
 // Default pixel ratio (1)

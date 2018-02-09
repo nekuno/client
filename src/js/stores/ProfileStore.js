@@ -156,14 +156,14 @@ class ProfileStore extends BaseStore {
                     switch (type) {
                         case 'choice':
                             let choices = thisMetadata.choices;
-                            value = choices[basicProfile[field]];
+                            value = choices.find(choice => choice.id === basicProfile[field]).text;
                             break;
                         case 'double_choice':
                             let firstChoices = thisMetadata.choices;
                             const doubleChoices = thisMetadata.doubleChoices;
                             let firstChoice = basicProfile[field]['choice'];
                             let doubleChoiceValue = basicProfile[field]['detail'] ? doubleChoices[firstChoice][basicProfile[field]['detail']] : '';
-                            value = firstChoices[firstChoice] + ' ' + doubleChoiceValue;
+                            value = firstChoices.find(choice => choice.id === firstChoice).text + ' ' + doubleChoiceValue;
                             break;
                         case 'tags':
                             value = basicProfile[field].map(function(tag){
@@ -174,10 +174,10 @@ class ProfileStore extends BaseStore {
                             let multiple_choices = thisMetadata['choices'];
                             let mchoices = [];
                             if (typeof basicProfile[field] === 'string') {
-                                mchoices.push(multiple_choices[basicProfile[field]]);
+                                mchoices.push(multiple_choices.find(choice => choice.id === basicProfile[field]).text);
                             } else {
                                 for (let mchoice_label in basicProfile[field]) {
-                                    mchoices.push(multiple_choices[basicProfile[field][mchoice_label]]);
+                                    mchoices.push(multiple_choices.find(choice => choice.id === basicProfile[field][mchoice_label]).text);
                                 }
                             }
                             value = mchoices.join(', ');

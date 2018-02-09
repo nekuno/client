@@ -118,8 +118,8 @@ export default class ExploreField extends Component {
             <div className={this.profileHasField(profile, 'tickets') ? "button-wrapper active" : "button-wrapper"}>
                 <Button type="submit" onClick={() => this.props.onDetailSelection('industry')}>{strings.tickets}</Button>
             </div>
-            <div className={this.profileHasField(profile, 'activities') ? "button-wrapper active" : "button-wrapper"}>
-                <Button type="submit" onClick={() => this.props.onDetailSelection('industry')}>{strings.activities}</Button>
+            <div className={this.profileHasField(profile, 'leisureTime') ? "button-wrapper active" : "button-wrapper"}>
+                <Button type="submit" onClick={() => this.props.onDetailSelection('leisureTime')}>{strings.leisureTime}</Button>
             </div>
             <div className={this.profileHasField(profile, 'travelling') ? "button-wrapper active" : "button-wrapper"}>
                 <Button type="submit" onClick={() => this.props.onDetailSelection('travelling')}>{strings.travels}</Button>
@@ -204,7 +204,7 @@ ExploreField.defaultProps = {
         sports     : 'Sports',
         games      : 'Games',
         creative   : 'Creative',
-        activities : 'Activities',
+        leisureTime: 'Leisure time',
         travels    : 'Travels',
         tickets    : 'Tickets',
         save       : 'Continue',

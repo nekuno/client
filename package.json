@@ -43,6 +43,7 @@
     "phonegap-plugin-push": "^1.10.5",
     "prop-types": "^15.5.10",
     "rc-progress": "2.0.3",
+    "rc-slider": "8.6.0",
     "react": "^15.5.4",
     "react-addons-css-transition-group": "^15.6.0",
     "react-dom": "^15.5.4",

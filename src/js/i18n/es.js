@@ -364,7 +364,7 @@ export default {
         sports     : 'Deportes',
         games      : 'Juegos',
         creative   : 'Creativo',
-        activities : 'Actividades',
+        leisureTime: 'Tiempo de ocio',
         travels    : 'Viajes',
         tickets    : 'Entradas',
         save       : 'Continuar',

@@ -47,9 +47,9 @@ export default class DoubleChoiceEdit extends Component {
     render() {
         const {editKey, selected, metadata, data} = this.props;
         return(
-            <SelectedEdit key={selected ? 'selected-filter' : editKey} type={'radio'} active={data.choice ? true : false} handleClickRemoveEdit={this.props.handleClickRemoveEdit ? this.handleClickRemoveEdit : null}>
+            <SelectedEdit key={selected ? 'selected-filter' : editKey} type={'radio'} active={!!data.choice} handleClickRemoveEdit={this.props.handleClickRemoveEdit ? this.handleClickRemoveEdit : null}>
                 <div className="double-choice-filter">
-                    <TextRadios labels={Object.keys(metadata.choices).map(choice => { return({key: choice, text: metadata.choices[choice]}); }) }
+                    <TextRadios labels={metadata.choices.map(choice => { return({key: choice.id, text: choice.text}); }) }
                                 onClickHandler={this.handleClickDoubleChoiceChoice} value={data.choice} className={'double-choice-choice'}
                                 title={metadata.labelEdit} />
                     {data.choice ? <div className="table-row"></div> : ''}

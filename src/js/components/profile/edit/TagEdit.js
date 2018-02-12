@@ -18,7 +18,7 @@ export default class TagEdit extends Component {
         selected             : PropTypes.bool.isRequired,
         metadata             : PropTypes.object.isRequired,
         data                 : PropTypes.array,
-        handleClickInput     : PropTypes.func.isRequired,
+        handleClickInput     : PropTypes.func,
         handleClickRemoveEdit: PropTypes.func,
         handleChangeEdit     : PropTypes.func.isRequired,
         tags                 : PropTypes.array.isRequired,
@@ -45,7 +45,7 @@ export default class TagEdit extends Component {
     }
 
     componentWillMount() {
-        if (this.props.selected) {
+        if (this.props.selected && this.props.handleClickInput) {
             this.props.handleClickInput();
         }
     }
@@ -53,7 +53,9 @@ export default class TagEdit extends Component {
     handleClickInput() {
         const {editKey} = this.props;
         resetTagSuggestions();
-        this.props.handleClickInput(editKey);
+        if (this.props.handleClickInput) {
+            this.props.handleClickInput(editKey);
+        }
     }
 
     handleKeyUpTag(tag) {

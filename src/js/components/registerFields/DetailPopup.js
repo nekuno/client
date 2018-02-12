@@ -15,20 +15,23 @@ import MultipleLocationsEdit from '../../components/profile/edit/MultipleLocatio
 import translate from '../../i18n/Translate';
 import connectToStores from '../../utils/connectToStores';
 import ProfileStore from '../../stores/ProfileStore';
+import TagSuggestionsStore from '../../stores/TagSuggestionsStore';
 
 /**
  * Retrieves state from stores for current props.
  */
 function getState(props) {
     const metadata = ProfileStore.getMetadata();
+    const tags = TagSuggestionsStore.tags;
 
     return {
         metadata,
+        tags
     };
 }
 
 @translate('DetailPopup')
-@connectToStores([ProfileStore], getState)
+@connectToStores([ProfileStore, TagSuggestionsStore], getState)
 export default class DetailPopup extends Component {
     static propTypes = {
         detail    : PropTypes.string,
@@ -36,6 +39,7 @@ export default class DetailPopup extends Component {
         onSave    : PropTypes.func,
         onCancel  : PropTypes.func,
         metadata  : PropTypes.object,
+        tags      : PropTypes.array,
         contentRef: PropTypes.func,
         // Injected by @translate:
         strings   : PropTypes.object
@@ -46,6 +50,7 @@ export default class DetailPopup extends Component {
 
         this.onCancel = this.onCancel.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.renderField = this.renderField.bind(this);
     }
 
     onCancel() {
@@ -129,6 +134,7 @@ export default class DetailPopup extends Component {
                 break;
             case 'tags':
                 props.data = data ? data : [];
+                props.profile = this.props.profile;
                 props.handleChangeEdit = this.handleChange;
                 props.tags = this.props.tags;
                 props.googleSuggestions = true;

@@ -72,8 +72,8 @@ export default class ExploreField extends Component {
             <div className={this.profileHasField(profile, 'industry') ? "button-wrapper active" : "button-wrapper"}>
                 <Button type="submit" onClick={() => this.props.onDetailSelection('industry')}>{strings.industry}</Button>
             </div>
-            <div className={this.profileHasField(profile, 'skills') ? "button-wrapper active" : "button-wrapper"}>
-                <Button type="submit" onClick={() => this.props.onDetailSelection('industry')}>{strings.skills}</Button>
+            <div className={this.profileHasField(profile, 'profession') ? "button-wrapper active" : "button-wrapper"}>
+                <Button type="submit" onClick={() => this.props.onDetailSelection('profession')}>{strings.skills}</Button>
             </div>
             <div className={this.profileHasField(profile, 'proposals') ? "button-wrapper active" : "button-wrapper"}>
                 <Button type="submit" onClick={() => this.props.onDetailSelection('industry')}>{strings.proposals}</Button>
@@ -93,13 +93,13 @@ export default class ExploreField extends Component {
             <div className="register-field-detail-title">{strings.hobbies1 + ' ' + strings.hobbies2}</div>
 
             <div className={this.profileHasField(profile, 'sports') ? "button-wrapper active" : "button-wrapper"}>
-                <Button type="submit" onClick={() => this.props.onDetailSelection('industry')}>{strings.sports}</Button>
+                <Button type="submit" onClick={() => this.props.onDetailSelection('sports')}>{strings.sports}</Button>
             </div>
             <div className={this.profileHasField(profile, 'games') ? "button-wrapper active" : "button-wrapper"}>
-                <Button type="submit" onClick={() => this.props.onDetailSelection('industry')}>{strings.games}</Button>
+                <Button type="submit" onClick={() => this.props.onDetailSelection('games')}>{strings.games}</Button>
             </div>
             <div className={this.profileHasField(profile, 'creative') ? "button-wrapper active" : "button-wrapper"}>
-                <Button type="submit" onClick={() => this.props.onDetailSelection('industry')}>{strings.creative}</Button>
+                <Button type="submit" onClick={() => this.props.onDetailSelection('creative')}>{strings.creative}</Button>
             </div>
             {profile.objective && profile.objective.some(objective => objective === 'hobbies') ?
                 <div className="button-wrapper active">
@@ -115,8 +115,8 @@ export default class ExploreField extends Component {
         return <div>
             <div className="register-field-detail-title">{strings.leisure1 + ' ' + strings.leisure2}</div>
 
-            <div className={this.profileHasField(profile, 'tickets') ? "button-wrapper active" : "button-wrapper"}>
-                <Button type="submit" onClick={() => this.props.onDetailSelection('industry')}>{strings.tickets}</Button>
+            <div className={this.profileHasField(profile, 'leisureMoney') ? "button-wrapper active" : "button-wrapper"}>
+                <Button type="submit" onClick={() => this.props.onDetailSelection('leisureMoney')}>{strings.leisureMoney}</Button>
             </div>
             <div className={this.profileHasField(profile, 'leisureTime') ? "button-wrapper active" : "button-wrapper"}>
                 <Button type="submit" onClick={() => this.props.onDetailSelection('leisureTime')}>{strings.leisureTime}</Button>
@@ -204,7 +204,8 @@ ExploreField.defaultProps = {
         sports     : 'Sports',
         games      : 'Games',
         creative   : 'Creative',
-        leisureTime: 'Leisure time',
+        leisureTime: 'Time',
+        leisureMoney: 'Money',
         travels    : 'Travels',
         tickets    : 'Tickets',
         save       : 'Continue',

@@ -5,7 +5,7 @@ import { GOOGLE_KNOWLEDGE_GRAPH_URL } from '../constants/Constants';
 
 class TagSuggestionService {
 
-    requestGoogleTag(query, languages, types, limit = 3) {
+    requestGoogleTag(query, languages, types, limit = 10) {
         return new Bluebird((resolve, reject) => {
             const url = this.buildUrl(query, languages, types, limit);
 
@@ -33,6 +33,8 @@ class TagSuggestionService {
             languages = languages.join();
             url += '&languages=' + languages;
         }
+
+        url += '&prefix=true';
 
         // if (types.length > 0){
         //     types = types.join();

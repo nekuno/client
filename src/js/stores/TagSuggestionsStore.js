@@ -19,12 +19,23 @@ class TagSuggestionsStore extends BaseStore {
                 const response = JSON.parse(action.response);
                 const responseItems = response['itemListElement'];
 
-                const items = responseItems.map(responseItem => {
+                let items = responseItems.map(responseItem => {
                     const name = responseItem.result.name;
                     const googleGraphId = responseItem.result['@id'];
 
                     return {name, googleGraphId}
                 });
+
+                items = items.filter(function(item, index, array) {
+                    const hasName = item.name !== undefined;
+
+                    const earlierItems = array.slice(0, index);
+                    const isDuplicated = earlierItems.some(value => {return value.name === item.name});
+
+                    return hasName && !isDuplicated;
+                });
+
+                items = items.slice(0, 3);
 
                 this._tags = items;
                 this.emitChange();

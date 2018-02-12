@@ -531,14 +531,10 @@ body #root .App .views .view.home-view {
   }
 
   &.popup-detail {
-    padding-top: 100px;
+    padding-top: 50px;
 
     .rc-slider {
-      width: 75%;
-      margin: auto;
-    }
-    .button-big {
-      margin-top: 100px;
+      margin-bottom: 50px;
     }
   }
 }

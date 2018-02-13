@@ -81,26 +81,26 @@ class FilterStore extends BaseStore {
             case 'choice':
                 //choice = filter.choices.find(choice => choice.value === data);
                 //choiceLabel = choice ? choice.label : '';
-                choiceLabel = filter.choices[data];
+                choiceLabel = filter.choices.find(choice => choice.id === data).text;
                 return choiceLabel ? filter.label + ' - ' + choiceLabel : filter.label;
             case 'double_choice':
-                choice = filter.choices[Object.keys(filter.choices).find(key => key === data.choice)];
+                choice = filter.choices.find(choice => choice === data.choice).text;
                 detail = data.detail ? filter.doubleChoices[data.choice][Object.keys(filter.doubleChoices[data.choice]).find(key => key === data.detail)] : '';
                 return choice ? filter.label + ' - ' + choice + ' ' + detail : filter.label;
             case 'multiple_choices':
                 data = data || [];
-                textArray = data.map(value => filter.choices[value]);
+                textArray = data.map(value => filter.choices.find(choice => choice.id === value).text);
                 return textArray.length > 0 ? filter.label + ' - ' + textArray.join(', ') : filter.label;
             case 'double_multiple_choices':
                 data = data || [];
-                textArray = data.choices ? data.choices.map(choice => filter.choices[choice]) : [];
+                textArray = data.choices ? data.choices.map(dataChoice => filter.choices.find(choice => choice.id === dataChoice).text) : [];
                 if (data.choices && data.details) {
                     data.details.forEach(detail => textArray.push(filter.doubleChoices[data.choices[0]][detail]));
                 }
                 return textArray.length > 0 ? filter.label + ' - ' + textArray.join(', ') : filter.label;
             case 'choice_and_multiple_choices':
                 data = data || [];
-                textArray = data.choice ? [filter.choices[data.choice]] : [];
+                textArray = data.choice ? [filter.choices.find(choice => choice.id === data.choice).text] : [];
                 if (data.choice && data.details) {
                     data.details.forEach(detail => textArray.push(filter.doubleChoices[data.choice][detail]));
                 }

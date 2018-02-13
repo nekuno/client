@@ -60,7 +60,7 @@ export default class ChoiceAndMultipleChoicesFilter extends Component {
             selected ?
                 <ThreadSelectedFilter key={'selected-filter'} type={'radio'} active={data.length > 0} handleClickRemoveFilter={handleClickRemoveFilter}>
                     <div className="double-choice-filter">
-                        <TextRadios labels={Object.keys(filter.choices).map(key => { return({key: key, text: filter.choices[key]}) })}
+                        <TextRadios labels={filter.choices.map(choice => { return({key: choice.id, text: choice.text}) })}
                                         onClickHandler={this.handleClickChoice} value={data.choice || null} className={'double-multiple-choice-choice'}
                                         title={filter.label} />
                         <div className="table-row"></div>

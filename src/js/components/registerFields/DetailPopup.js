@@ -68,7 +68,7 @@ export default class DetailPopup extends Component {
             newProfile.objective = [];
         }
 
-        if (this.profileHasAnyField(newProfile, ['industry', 'skills', 'proposals'])) {
+        if (this.profileHasAnyField(newProfile, ['industry', 'profession', 'proposals'])) {
             newProfile['objective'].push('work');
         }
         if (this.profileHasAnyField(newProfile, ['sports', 'games', 'creative'])) {

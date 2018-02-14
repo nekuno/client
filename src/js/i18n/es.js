@@ -58,16 +58,16 @@ export default {
         cannotRemove: 'Este campo no se puede eliminar'
     },
     HomePage                         : {
-        choosePath     : 'Elige tu camino',
-        title1         : 'Redescubrir mi tribu' + "\n" + 'desbloqueando insignias',
-        title2         : 'Compartir lo que te encanta' + "\n" + 'uniéndote y creando propuestas',
-        title3         : 'Todo lo anterior + descubrir a' + "\n" + 'mis compañeros de vida',
-        events         : 'Eventos',
-        explore        : 'Explorar',
-        contact        : 'Contacto',
-        blockingError  : 'Tu navegador está bloqueando una petición a Facebook y no podemos registrar tu usuario. Por favor, deshabilita el bloqueo en la configuración o utiliza otro navegador.'
+        choosePath   : 'Elige tu camino',
+        title1       : 'Redescubrir mi tribu' + "\n" + 'desbloqueando insignias',
+        title2       : 'Compartir lo que te encanta' + "\n" + 'uniéndote y creando propuestas',
+        title3       : 'Todo lo anterior + descubrir a' + "\n" + 'mis compañeros de vida',
+        events       : 'Eventos',
+        explore      : 'Explorar',
+        contact      : 'Contacto',
+        blockingError: 'Tu navegador está bloqueando una petición a Facebook y no podemos registrar tu usuario. Por favor, deshabilita el bloqueo en la configuración o utiliza otro navegador.'
     },
-    ExplorePage                         : {
+    ExplorePage                      : {
         title  : 'Compartir lo que te encanta' + "\n" + 'uniéndote y creando propuestas',
         explore: 'Explorar',
     },
@@ -350,26 +350,27 @@ export default {
         save       : 'Continuar',
         selectOther: 'Selecciona otros objetivos si quieres'
     },
-    ExploreField                 : {
-        explore    : 'Explorar',
-        work1      : 'Trabajo',
-        work2      : '& ideas',
-        hobbies1   : 'Hobbies',
-        hobbies2   : '& juegos',
-        leisure1   : 'Aventuras',
-        leisure2   : '& ocio',
-        industry   : 'Sector',
-        skills     : 'Habilidades',
-        proposals  : 'Propuestas',
-        sports     : 'Deportes',
-        games      : 'Juegos',
-        creative   : 'Creativo',
-        leisureTime: 'Tiempo de ocio',
-        travels    : 'Viajes',
-        tickets    : 'Entradas',
-        save       : 'Continuar',
-        finish     : 'Terminar',
-        selectOther: 'Puedes seleccionar más de uno'
+    ExploreField                     : {
+        explore     : 'Explorar',
+        work1       : 'Trabajo',
+        work2       : '& ideas',
+        hobbies1    : 'Hobbies',
+        hobbies2    : '& juegos',
+        leisure1    : 'Aventuras',
+        leisure2    : '& ocio',
+        industry    : 'Sector',
+        skills      : 'Habilidades',
+        proposals   : 'Propuestas',
+        sports      : 'Deportes',
+        games       : 'Juegos',
+        creative    : 'Creativo',
+        leisureTime : 'Tiempo',
+        leisureMoney: 'Dinero',
+        travels     : 'Viajes',
+        tickets     : 'Entradas',
+        save        : 'Continuar',
+        finish      : 'Terminar',
+        selectOther : 'Puedes seleccionar más de uno'
     },
     OrientationField                 : {
         iAm         : 'Soy',
@@ -488,11 +489,11 @@ export default {
         statistics: 'Estadísticas de la comunidad Nekuno'
     },
     QuestionStatsGraph               : {
-        females: 'Mujeres',
-        males  : 'Hombres',
-        young  : '- de 30',
-        old    : '+ de 30',
-        typeAge: 'Distribución por edad',
+        females   : 'Mujeres',
+        males     : 'Hombres',
+        young     : '- de 30',
+        old       : '+ de 30',
+        typeAge   : 'Distribución por edad',
         typeGender: 'Distribución por género'
     },
     QuestionStatsInline              : {
@@ -591,7 +592,7 @@ export default {
         title : 'Orientación sexual',
         cancel: 'Cancelar'
     },
-    DetailPopup                 : {
+    DetailPopup                      : {
         continue: 'Continuar',
     },
     ImportAlbumPopup                 : {
@@ -683,7 +684,7 @@ export default {
         minChoices: 'Selecciona al menos %min% opciones',
         maxChoices: 'Selecciona %max% opciones como máximo'
     },
-    MultipleChoicesFilter              : {
+    MultipleChoicesFilter            : {
         maxChoices: 'Selecciona %max% opciones como máximo'
     },
     TagEdit                          : {
@@ -699,9 +700,14 @@ export default {
         location   : 'Ubicación',
         placeholder: 'Escribe una ubicación'
     },
-    MultipleLocationsEdit                     : {
+    MultipleLocationsEdit            : {
         placeholder: 'Escribe una ubicación',
         maxChoices : 'Selecciona %max% opciones como máximo'
+    },
+    MultipleFieldsEdit               : {
+        minChoices: 'Selecciona al menos %min% opciones',
+        maxChoices: 'Selecciona %max% opciones como máximo',
+        add       : 'Añadir propuesta'
     },
     IntegerFilter                    : {
         minValue   : 'El valor mínimo es ',
@@ -762,8 +768,8 @@ export default {
         interestsCount       : '%count% Intereses',
         similarInterestsCount: '%count% Intereses similares',
     },
-    SocialWheel : {
-        isLoading : 'Pidiendo información...',
+    SocialWheel                      : {
+        isLoading: 'Pidiendo información...',
     },
     ////////////////
     // Framework7 //

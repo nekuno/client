@@ -182,6 +182,19 @@ class ProfileStore extends BaseStore {
                             }
                             value = mchoices.join(', ');
                             break;
+                        case 'multiple_locations':
+                            values = [];
+                            basicProfile[field].forEach(location => values.push(this.locationToString(location)));
+                            value = values.join(', ');
+                            break;
+                        case 'multiple_fields':
+                            // TODO: Add text value depending on types
+                            values = [];
+                            basicProfile[field].forEach((value, key) => {
+                                console.log(value);
+                            });
+                            value = values.join(', ');
+                            break;
                         case 'tags_and_choice':
                             let tagChoices = thisMetadata['choices'];
                             let level = thisMetadata['choiceLabel']['es'];
@@ -279,6 +292,10 @@ class ProfileStore extends BaseStore {
                 data = data || [];
                 textArray = data.map(value => filter.choices[value]);
                 return textArray.length > 0 ? filter.label + ' - ' + textArray.join(', ') : filter.label;
+            case 'multiple_locations':
+                data = data || [];
+                textArray = data.map(value => value && value.address ? value.address : value && value.location ? value.location : '');
+                return textArray.length > 0 ? filter.label + ' - ' + textArray.join(', ') : filter.label;
             case 'double_multiple_choices':
                 data = data || [];
                 textArray = data.map(value => value.detail && filter.doubleChoices[value.choice][value.detail] ? filter.choices[value.choice] + ' ' + filter.doubleChoices[value.choice][value.detail] : filter.choices[value.choice]);
@@ -289,7 +306,11 @@ class ProfileStore extends BaseStore {
                 return data && data.length > 0 ? filter.label + ' - ' + data.map(value => value.choice ? value.tag + ' ' + filter.choices[value.choice] : value.tag).join(', ') : filter.label;
             case 'tags_and_multiple_choices':
                 return data && data.length > 0 ? filter.label + ' - ' + data.map(value => value.choices ? value.tag + ' ' + value.choices.map(choice => filter.choices[choice]['es']).join(', ') : value.tag).join(', ') : filter.label;
-
+            case 'multiple_fields':
+                // TODO: Add textArray value depending on types
+                data = data || [];
+                textArray = data.map((value, key) => filter[key].choices[value]);
+                return textArray.length > 0 ? filter.label + ' - ' + textArray.join(', ') : filter.label;
         }
 
         return '';
@@ -313,6 +334,8 @@ class ProfileStore extends BaseStore {
                 return !!data.choice;
             case 'multiple_choices':
                 return data && data.length > 0;
+            case 'multiple_locations':
+                return data && data.length > 0;
             case 'double_multiple_choices':
                 return data && data.length > 0;
             case 'tags':
@@ -320,6 +343,8 @@ class ProfileStore extends BaseStore {
             case 'tags_and_choice':
                 return data && data.length > 0;
             case 'tags_and_multiple_choices':
+                return data && data.length > 0;
+            case 'multiple_fields':
                 return data && data.length > 0;
             default:
                 return false;

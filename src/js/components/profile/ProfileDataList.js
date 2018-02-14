@@ -12,6 +12,8 @@ import LocationEdit from '../../components/profile/edit/LocationEdit';
 import IntegerEdit from '../../components/profile/edit/IntegerEdit';
 import TagsAndChoiceEdit from '../../components/profile/edit/TagsAndChoiceEdit';
 import MultipleChoicesEdit from '../../components/profile/edit/MultipleChoicesEdit';
+import MultipleFieldsEdit from '../../components/profile/edit/MultipleFieldsEdit';
+import MultipleLocationsEdit from '../../components/profile/edit/MultipleLocationsEdit';
 import DoubleChoiceEdit from '../../components/profile/edit/DoubleChoiceEdit';
 import TagEdit from '../../components/profile/edit/TagEdit';
 import BirthdayEdit from '../../components/profile/edit/BirthdayEdit';
@@ -218,6 +220,19 @@ export default class ProfileDataList extends Component {
                 props.data = data ? data : [];
                 props.handleChangeEdit = this.handleChangeEditAndSave;
                 filter = <MultipleChoicesEdit {...props} />;
+                break;
+            case 'multiple_fields':
+                props.data = data ? data : {};
+                props.fullMetadata = metadata;
+                props.tags = this.props.tags;
+                props.profile = this.props.profile;
+                props.handleChangeEdit = this.handleChangeEditAndSave;
+                filter = <MultipleFieldsEdit {...props} />;
+                break;
+            case 'multiple_locations':
+                props.data = data ? data : [];
+                props.handleChangeEdit = this.handleChangeEditAndSave;
+                filter = <MultipleLocationsEdit {...props} />;
                 break;
             case 'double_choice':
                 props.data = data ? data : {};

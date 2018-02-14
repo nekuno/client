@@ -52,7 +52,7 @@ export default class TextAreaEdit extends Component {
     render() {
         const {editKey, selected, metadata} = this.props;
         return (
-            <SelectedEdit key={selected ? 'selected-filter' : editKey} type={'textarea'} plusIcon={true} handleClickRemoveEdit={this.handleClickRemoveEdit}>
+            <SelectedEdit key={selected ? 'selected-filter' : editKey} type={'textarea'} plusIcon={true} handleClickRemoveEdit={this.props.handleClickRemoveEdit ? this.handleClickRemoveEdit : null}>
                 <div className="textarea-filter-wrapper">
                     <div className="list-block">
                         <ul>

@@ -57,7 +57,7 @@ export default class MultipleLocationsEdit extends Component {
         const {editKey, selected, metadata, data, strings} = this.props;
 
         return (
-            <SelectedEdit key={selected ? 'selected-filter' : editKey} type={'checkbox'} active={data && data.length > 0} handleClickRemoveEdit={this.props.handleClickRemoveEdit ? this.handleClickRemoveEdit : null}>
+            <SelectedEdit key={selected ? 'selected-filter' : editKey} type={'location-tag'} active={data && data.length > 0} handleClickRemoveEdit={this.props.handleClickRemoveEdit ? this.handleClickRemoveEdit : null}>
                 <div className="location-filter-wrapper">
                     <div className="list-block">
                         <div className="location-title">{metadata.labelEdit}</div>

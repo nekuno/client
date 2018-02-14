@@ -7,6 +7,7 @@ import LocationEdit from '../../components/profile/edit/LocationEdit';
 import IntegerEdit from '../../components/profile/edit/IntegerEdit';
 import TagsAndChoiceEdit from '../../components/profile/edit/TagsAndChoiceEdit';
 import MultipleChoicesEdit from '../../components/profile/edit/MultipleChoicesEdit';
+import MultipleFieldsEdit from '../../components/profile/edit/MultipleFieldsEdit';
 import DoubleChoiceEdit from '../../components/profile/edit/DoubleChoiceEdit';
 import TagEdit from '../../components/profile/edit/TagEdit';
 import BirthdayEdit from '../../components/profile/edit/BirthdayEdit';
@@ -68,7 +69,7 @@ export default class DetailPopup extends Component {
             newProfile.objective = [];
         }
 
-        if (this.profileHasAnyField(newProfile, ['industry', 'profession', 'proposals'])) {
+        if (this.profileHasAnyField(newProfile, ['industry', 'profession', 'proposal'])) {
             newProfile['objective'].push('work');
         }
         if (this.profileHasAnyField(newProfile, ['sports', 'games', 'creative'])) {
@@ -113,6 +114,14 @@ export default class DetailPopup extends Component {
                 props.data = data ? data : [];
                 props.handleChangeEdit = this.handleChange;
                 filter = <MultipleLocationsEdit {...props}/>;
+                break;
+            case 'multiple_fields':
+                props.data = data ? data : {};
+                props.fullMetadata = metadata;
+                props.profile = this.props.profile;
+                props.tags = this.props.tags;
+                props.handleChangeEdit = this.handleChange;
+                filter = <MultipleFieldsEdit {...props} />;
                 break;
             case 'tags_and_choice':
                 props.data = data ? data : [];

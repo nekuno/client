@@ -58,14 +58,14 @@ export default {
         cannotRemove: 'This field cannot be deleted'
     },
     HomePage                         : {
-        choosePath     : 'Choose your path',
-        title1         : 'Rediscover my tribe' + "\n" + 'unlocking badges',
-        title2         : 'Share what I love' + "\n" + 'joining and creating proposals',
-        title3         : 'All previous + discover' + "\n" + 'my life mates',
-        events         : 'Events',
-        explore        : 'Explore',
-        contact        : 'Contact',
-        blockingError  : 'Your browser has blocked a Facebook request and we are not able to register you. Please, disable the blocking configuration or use an other browser.'
+        choosePath   : 'Choose your path',
+        title1       : 'Rediscover my tribe' + "\n" + 'unlocking badges',
+        title2       : 'Share what I love' + "\n" + 'joining and creating proposals',
+        title3       : 'All previous + discover' + "\n" + 'my life mates',
+        events       : 'Events',
+        explore      : 'Explore',
+        contact      : 'Contact',
+        blockingError: 'Your browser has blocked a Facebook request and we are not able to register you. Please, disable the blocking configuration or use an other browser.'
     },
     ExplorePage                      : {
         title  : 'Share what I love' + "\n" + 'joining and creating proposals',
@@ -350,26 +350,27 @@ export default {
         save       : 'Continue',
         selectOther: 'Select other objectives if you want'
     },
-    ExploreField                 : {
-        explore    : 'Explore',
-        work1      : 'Work',
-        work2      : '& ideas',
-        hobbies1   : 'Hobbies',
-        hobbies2   : '& games',
-        leisure1   : 'Adventures',
-        leisure2   : '& leisure',
-        industry   : 'Industry',
-        skills     : 'Skills',
-        proposals  : 'Proposals',
-        sports     : 'Sports',
-        games      : 'Games',
-        creative   : 'Creative',
-        leisureTime: 'Leisure time',
-        travels    : 'Travels',
-        tickets    : 'Tickets',
-        save       : 'Continue',
-        finish     : 'Finish',
-        selectOther: 'You can select more than one'
+    ExploreField                     : {
+        explore     : 'Explore',
+        work1       : 'Work',
+        work2       : '& ideas',
+        hobbies1    : 'Hobbies',
+        hobbies2    : '& games',
+        leisure1    : 'Adventures',
+        leisure2    : '& leisure',
+        industry    : 'Industry',
+        skills      : 'Skills',
+        proposals   : 'Proposals',
+        sports      : 'Sports',
+        games       : 'Games',
+        creative    : 'Creative',
+        leisureTime : 'Leisure time',
+        leisureMoney: 'Money',
+        travels     : 'Travels',
+        tickets     : 'Tickets',
+        save        : 'Continue',
+        finish      : 'Finish',
+        selectOther : 'You can select more than one'
     },
     OrientationField                 : {
         iAm         : 'I am',
@@ -488,11 +489,11 @@ export default {
         statistics: 'Community answer statistics'
     },
     QuestionStatsGraph               : {
-        females: 'Girls',
-        males  : 'Boys',
-        young  : '- than 30',
-        old    : '+ than 30',
-        typeAge: 'Distribution by age',
+        females   : 'Girls',
+        males     : 'Boys',
+        young     : '- than 30',
+        old       : '+ than 30',
+        typeAge   : 'Distribution by age',
         typeGender: 'Distribution by gender'
     },
     QuestionStatsInline              : {
@@ -591,7 +592,7 @@ export default {
         title : 'Sexual orientation',
         cancel: 'Cancel'
     },
-    DetailPopup                 : {
+    DetailPopup                      : {
         continue: 'Continue',
     },
     ImportAlbumPopup                 : {
@@ -683,7 +684,7 @@ export default {
         minChoices: 'Select at least %min% items',
         maxChoices: 'Select up to %max% items'
     },
-    MultipleChoicesFilter              : {
+    MultipleChoicesFilter            : {
         maxChoices: 'Select up to %max% items'
     },
     TagEdit                          : {
@@ -699,9 +700,14 @@ export default {
         location   : 'Location',
         placeholder: 'Type a location'
     },
-    MultipleLocationsEdit                     : {
+    MultipleLocationsEdit            : {
         placeholder: 'Type a location',
         maxChoices : 'Select up to %max% items'
+    },
+    MultipleFieldsEdit               : {
+        minChoices: 'Select at least %min% items',
+        maxChoices: 'Select up to %max% items',
+        add       : 'Add proposal'
     },
     IntegerFilter                    : {
         minValue   : 'The minimum value is ',

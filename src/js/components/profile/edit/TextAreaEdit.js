@@ -19,6 +19,8 @@ export default class TextAreaEdit extends Component {
 
         this.onChangeValue = this.onChangeValue.bind(this);
         this.handleClickRemoveEdit = this.handleClickRemoveEdit.bind(this);
+        this.clearValue = this.clearValue.bind(this);
+        this.setValue = this.setValue.bind(this);
 
         this.state = {
             value: props.data
@@ -42,11 +44,22 @@ export default class TextAreaEdit extends Component {
     handleClickRemoveEdit() {
         if (this.props.handleClickRemoveEdit) {
             const {editKey} = this.props;
-            this.props.handleClickRemoveEdit(editKey);
+            this.clearValue();
             this.setState({
                 value: ''
             });
+            this.props.handleClickRemoveEdit(editKey);
         }
+    }
+
+    clearValue() {
+        const {editKey} = this.props;
+        this.refs[editKey].clearValue();
+    }
+
+    setValue(value) {
+        const {editKey} = this.props;
+        this.refs[editKey].setValue(value);
     }
 
     render() {

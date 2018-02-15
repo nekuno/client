@@ -29,6 +29,14 @@ export default class TextArea extends Component {
         return this.refs.textarea.value;
     }
 
+    clearValue() {
+        this.refs.textarea.value = '';
+    }
+
+    setValue(value) {
+        this.refs.textarea.value = value;
+    }
+
     focus() {
         this.refs.textarea.focus();
     }

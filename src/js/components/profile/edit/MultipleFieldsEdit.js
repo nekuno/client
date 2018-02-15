@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import SelectedEdit from './SelectedEdit';
+import TextCheckboxes from '../../ui/TextCheckboxes';
 import ChoiceEdit from '../edit/ChoiceEdit';
 import IntegerEdit from '../edit/IntegerEdit';
 import LocationEdit from '../edit/LocationEdit';
@@ -33,6 +34,7 @@ export default class MultipleFieldsEdit extends Component {
         this.handleChangeEditAndSave = this.handleChangeEditAndSave.bind(this);
         this.onFilterSelect = this.onFilterSelect.bind(this);
         this.handleClickAdd = this.handleClickAdd.bind(this);
+        this.handleClickField = this.handleClickField.bind(this);
         this.handleClickRemoveEdit = this.handleClickRemoveEdit.bind(this);
 
         this.state = {
@@ -88,12 +90,32 @@ export default class MultipleFieldsEdit extends Component {
 
     handleClickAdd() {
         const {editKey} = this.props;
+        let {profile, selectedIndex} = this.state;
+        if (null === selectedIndex || Object.keys(profile[editKey][selectedIndex]).length > 0) {
+            profile[editKey].push({});
+            Object.keys(profile[editKey][0]).forEach(field => {
+                if (this.refs[field] && typeof this.refs[field].clearValue !== 'undefined') {
+                    this.refs[field].clearValue();
+                }
+            });
+            this.setState({
+                profile      : profile,
+                selectedIndex: profile[editKey].length - 1,
+            });
+        }
+    }
+
+    handleClickField(key) {
+        const {editKey} = this.props;
         let {profile} = this.state;
-        profile.push({});
-        this.setState({
-            profile: profile,
-            selectedIndex: profile[editKey].length - 1,
+
+        Object.keys(profile[editKey][key]).forEach(field => {
+            if (this.refs[field] && typeof this.refs[field].setValue !== 'undefined') {
+                this.refs[field].setValue(profile[editKey][key][field]);
+            }
         });
+
+        this.setState({selectedIndex: key});
     }
 
     renderField(dataArray, metadata, dataName) {
@@ -167,8 +189,8 @@ export default class MultipleFieldsEdit extends Component {
                 filter = <BirthdayEdit {...props} />;
                 break;
             case 'textarea':
-                //props.data = data ? data : null;
-                props.data = null;
+                props.data = data ? data : null;
+                props.ref = dataName;
                 props.handleChangeEdit = this.handleChangeEditAndSave;
                 filter = <TextAreaEdit {...props} />;
                 break;
@@ -176,10 +198,24 @@ export default class MultipleFieldsEdit extends Component {
         return <div key={dataName} ref={selected ? 'selectedEdit' : ''}>{filter}</div>;
     }
 
+    renderNotSelectedText(data = []) {
+        let text = '';
+        for (let value in data) {
+            if (typeof data[value] === 'string') {
+                text += data[value];
+                break;
+            }
+        }
+
+        return text.length > 20 ? text + '...' : text;
+
+    }
+
     render() {
         const {editKey, selected, metadata, data, profile, strings} = this.props;
         const {selectedIndex} = this.state;
         const selectedData = null !== selectedIndex && data[selectedIndex] ? data[selectedIndex] : {};
+        const notSelectedData = data.length > 0 ? data.filter((value, index) => index !== selectedIndex) : [];
 
         return(
             <SelectedEdit key={selected ? 'selected-filter' : editKey} type={'checkbox'} active={data && data.length > 0} handleClickRemoveEdit={this.props.handleClickRemoveEdit ? this.handleClickRemoveEdit : null}>
@@ -189,7 +225,14 @@ export default class MultipleFieldsEdit extends Component {
                 <div className="multiple-fields">
                     {Object.keys(metadata.metadata).map(key => this.renderField(selectedData, metadata.metadata, key))}
                 </div>
-                {profile[editKey] ? <div className="add-tags-and-choice" onClick={this.handleClickAdd}>{strings.add} <span className="icon-plus"></span></div> : ''}
+                {notSelectedData.map((value, index) =>
+                    <div className="tags-and-choice-unselected-filter" key={index}>
+                        <TextCheckboxes labels={[{key: index, text: this.renderNotSelectedText(value)}]} values={[index]}
+                                        onClickHandler={this.handleClickField} className={'tags-and-choice-filter'}/>
+                    </div>
+                )}
+
+                {profile[editKey] && profile[editKey].length > 0 ? <div className="add-tags-and-choice" onClick={this.handleClickAdd}>{strings.add} <span className="icon-plus"></span></div> : ''}
             </SelectedEdit>
         );
     }

@@ -25,7 +25,7 @@ export default class MultipleFieldsEdit extends Component {
         tags: PropTypes.array,
         data: PropTypes.object,
         handleChangeEdit: PropTypes.func.isRequired,
-        handleClickRemoveEdit: PropTypes.func.isRequired,
+        handleClickRemoveEdit: PropTypes.func,
     };
 
     constructor(props) {
@@ -165,7 +165,9 @@ export default class MultipleFieldsEdit extends Component {
                 <div className="list-block text-checkboxes">
                     <div className="checkbox-title">{metadata.labelEdit}</div>
                 </div>
-                {Object.keys(metadata.metadata).map(key => this.renderField(data, metadata.metadata, key))}
+                <div className="multiple-fields">
+                    {Object.keys(metadata.metadata).map(key => this.renderField(data, metadata.metadata, key))}
+                </div>
                 {profile[editKey] ? <div className="add-tags-and-choice" onClick={this.handleClickAdd}>{strings.add} <span className="icon-plus"></span></div> : ''}
             </SelectedEdit>
         );

@@ -525,8 +525,33 @@ body #root .App .views .view.home-view {
   .content-block {
     margin: 0;
 
-    .profile-field .chip {
-      margin: 5px;
+    .profile-field {
+      color: #fff;
+      display: table;
+      height: 70px;
+      width: 100%;
+
+      .list-block {
+        margin: 0;
+
+        textarea {
+          height: 55px;
+        }
+      }
+      .table-row {
+        display: block;
+        height: 30px;
+        width: 100%;
+      }
+      .chip {
+        margin: 5px;
+      }
+      .textarea-title {
+        font-size: 0.8em;
+        font-weight: bold;
+        margin-bottom: 20px;
+        max-width: 90%;
+      }
     }
   }
 

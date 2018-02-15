@@ -116,8 +116,7 @@ export default class DetailPopup extends Component {
                 filter = <MultipleLocationsEdit {...props}/>;
                 break;
             case 'multiple_fields':
-                props.data = data ? data : {};
-                props.fullMetadata = metadata;
+                props.data = data ? data : [];
                 props.profile = this.props.profile;
                 props.tags = this.props.tags;
                 props.handleChangeEdit = this.handleChange;

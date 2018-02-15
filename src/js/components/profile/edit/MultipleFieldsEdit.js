@@ -21,9 +21,8 @@ export default class MultipleFieldsEdit extends Component {
         selected: PropTypes.bool.isRequired,
         metadata: PropTypes.object.isRequired,
         profile: PropTypes.object,
-        fullMetadata: PropTypes.object.isRequired,
         tags: PropTypes.array,
-        data: PropTypes.object,
+        data: PropTypes.array,
         handleChangeEdit: PropTypes.func.isRequired,
         handleClickRemoveEdit: PropTypes.func,
     };
@@ -33,11 +32,13 @@ export default class MultipleFieldsEdit extends Component {
 
         this.handleChangeEditAndSave = this.handleChangeEditAndSave.bind(this);
         this.onFilterSelect = this.onFilterSelect.bind(this);
+        this.handleClickAdd = this.handleClickAdd.bind(this);
         this.handleClickRemoveEdit = this.handleClickRemoveEdit.bind(this);
 
         this.state = {
             profile: props.profile,
-            selectedEdit: null
+            selectedEdit: null,
+            selectedIndex: null,
         }
     }
 
@@ -51,13 +52,25 @@ export default class MultipleFieldsEdit extends Component {
 
     handleChangeEditAndSave(key, data) {
         const {editKey} = this.props;
-        let {profile} = this.state;
-        profile[editKey] = profile[editKey] || {};
-        profile[editKey][key] = data;
-        this.setState({
-            profile     : profile,
-            selectedEdit: null
-        });
+        let {profile, selectedIndex} = this.state;
+
+        profile[editKey] = profile[editKey] || [];
+
+        if (null === selectedIndex) {
+            profile[editKey].push({[key]: data});
+            this.setState({
+                selectedIndex: profile[editKey].length - 1,
+                profile     : profile,
+                selectedEdit: null,
+            });
+        } else {
+            profile[editKey][selectedIndex][key] = data;
+            this.setState({
+                profile     : profile,
+                selectedEdit: null,
+            });
+        }
+
         this.props.handleChangeEdit(editKey, profile[editKey]);
     }
 
@@ -74,7 +87,13 @@ export default class MultipleFieldsEdit extends Component {
     }
 
     handleClickAdd() {
-
+        const {editKey} = this.props;
+        let {profile} = this.state;
+        profile.push({});
+        this.setState({
+            profile: profile,
+            selectedIndex: profile[editKey].length - 1,
+        });
     }
 
     renderField(dataArray, metadata, dataName) {
@@ -158,7 +177,9 @@ export default class MultipleFieldsEdit extends Component {
     }
 
     render() {
-        const {editKey, selected, metadata, fullMetadata, profile, data, strings} = this.props;
+        const {editKey, selected, metadata, data, profile, strings} = this.props;
+        const {selectedIndex} = this.state;
+        const selectedData = null !== selectedIndex && data[selectedIndex] ? data[selectedIndex] : {};
 
         return(
             <SelectedEdit key={selected ? 'selected-filter' : editKey} type={'checkbox'} active={data && data.length > 0} handleClickRemoveEdit={this.props.handleClickRemoveEdit ? this.handleClickRemoveEdit : null}>
@@ -166,7 +187,7 @@ export default class MultipleFieldsEdit extends Component {
                     <div className="checkbox-title">{metadata.labelEdit}</div>
                 </div>
                 <div className="multiple-fields">
-                    {Object.keys(metadata.metadata).map(key => this.renderField(data, metadata.metadata, key))}
+                    {Object.keys(metadata.metadata).map(key => this.renderField(selectedData, metadata.metadata, key))}
                 </div>
                 {profile[editKey] ? <div className="add-tags-and-choice" onClick={this.handleClickAdd}>{strings.add} <span className="icon-plus"></span></div> : ''}
             </SelectedEdit>

@@ -222,8 +222,7 @@ export default class ProfileDataList extends Component {
                 filter = <MultipleChoicesEdit {...props} />;
                 break;
             case 'multiple_fields':
-                props.data = data ? data : {};
-                props.fullMetadata = metadata;
+                props.data = data ? data : [];
                 props.tags = this.props.tags;
                 props.profile = this.props.profile;
                 props.handleChangeEdit = this.handleChangeEditAndSave;

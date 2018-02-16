@@ -115,14 +115,23 @@ export default class ExploreField extends Component {
         return <div>
             <div className="register-field-detail-title">{strings.leisure1 + ' ' + strings.leisure2}</div>
 
-            <div className={this.profileHasField(profile, 'leisureMoney') ? "button-wrapper active" : "button-wrapper"}>
+            <div className={this.profileHasField(profile, 'leisureMoney') ? "button-wrapper small-width active" : "small-width button-wrapper"}>
                 <Button type="submit" onClick={() => this.props.onDetailSelection('leisureMoney')}>{strings.leisureMoney}</Button>
             </div>
-            <div className={this.profileHasField(profile, 'leisureTime') ? "button-wrapper active" : "button-wrapper"}>
+            <div className={this.profileHasField(profile, 'leisureTime') ? "button-wrapper small-width active" : "small-width button-wrapper"}>
                 <Button type="submit" onClick={() => this.props.onDetailSelection('leisureTime')}>{strings.leisureTime}</Button>
             </div>
-            <div className={this.profileHasField(profile, 'travelling') ? "button-wrapper active" : "button-wrapper"}>
+            <div className={this.profileHasField(profile, 'travelling') ? "button-wrapper small-width active" : "small-width button-wrapper"}>
                 <Button type="submit" onClick={() => this.props.onDetailSelection('travelling')}>{strings.travels}</Button>
+            </div>
+            <div className={this.profileHasField(profile, 'activity') ? "button-wrapper small-width active" : "small-width button-wrapper"}>
+                <Button type="submit" onClick={() => this.props.onDetailSelection('activity')}>{strings.activities}</Button>
+            </div>
+            <div className={this.profileHasField(profile, 'tickets') ? "button-wrapper small-width active" : "small-width button-wrapper"}>
+                <Button type="submit" onClick={() => this.props.onDetailSelection('tickets')}>{strings.tickets}</Button>
+            </div>
+            <div className={this.profileHasField(profile, 'leisurePlan') ? "button-wrapper small-width active" : "small-width button-wrapper"}>
+                <Button type="submit" onClick={() => this.props.onDetailSelection('leisurePlan')}>{strings.leisurePlans}</Button>
             </div>
             {profile.objective && profile.objective.some(objective => objective === 'explore') ?
                 <div className="button-wrapper active">
@@ -208,6 +217,8 @@ ExploreField.defaultProps = {
         leisureMoney: 'Money',
         travels     : 'Travels',
         tickets     : 'Tickets',
+        activities  : 'Activities',
+        leisurePlans: 'Plans',
         save        : 'Continue',
         finish      : 'Finish',
         selectOther : 'You can select more than one'

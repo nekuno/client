@@ -275,6 +275,6 @@ MultipleFieldsEdit.defaultProps = {
         minChoices: 'Select at least %min% items',
         maxChoices: 'Select up to %max% items',
         isRequired: 'is required',
-        add       : 'Add proposal'
+        add       : 'Add'
     }
 };

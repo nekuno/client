@@ -75,7 +75,7 @@ export default class DetailPopup extends Component {
         if (this.profileHasAnyField(newProfile, ['sports', 'games', 'creative'])) {
             newProfile['objective'].push('hobbies');
         }
-        if (this.profileHasAnyField(newProfile, ['travelling', 'activities', 'leisureTime', 'leisureMoney'])) {
+        if (this.profileHasAnyField(newProfile, ['travelling', 'activity', 'tickets', 'leisureTime', 'leisureMoney', 'leisurePlan'])) {
             newProfile['objective'].push('explore');
         }
 

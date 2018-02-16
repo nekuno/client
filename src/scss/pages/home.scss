@@ -415,6 +415,10 @@ body #root .App .views .view.home-view {
                 color: #fff;
               }
             }
+            &.small-width {
+              width: 30%;
+              margin: 3px;
+            }
           }
         }
       }

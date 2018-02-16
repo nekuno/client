@@ -368,6 +368,8 @@ export default {
         leisureMoney: 'Money',
         travels     : 'Travels',
         tickets     : 'Tickets',
+        activities  : 'Activities',
+        leisurePlans: 'Plans',
         save        : 'Continue',
         finish      : 'Finish',
         selectOther : 'You can select more than one'
@@ -708,7 +710,7 @@ export default {
         minChoices: 'Select at least %min% items',
         maxChoices: 'Select up to %max% items',
         isRequired: 'is required',
-        add       : 'Add proposal'
+        add       : 'Add'
     },
     IntegerFilter                    : {
         minValue   : 'The minimum value is ',

@@ -564,9 +564,14 @@ body #root .App .views .view.home-view {
     .text-checkboxes {
       padding: 0;
     }
+    .text-multiple-fields {
+      padding-bottom: 15px;
+      font-size: 1.5em;
+    }
 
     .button-big {
       margin-top: 20px;
+      margin-bottom: 50px;
     }
   }
 }

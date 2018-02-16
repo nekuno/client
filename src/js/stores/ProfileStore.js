@@ -188,11 +188,19 @@ class ProfileStore extends BaseStore {
                             value = values.join(', ');
                             break;
                         case 'multiple_fields':
-                            // TODO: Add text value depending on types
                             values = [];
-                            basicProfile[field].forEach((value, key) => {
-                                console.log(value);
-                            });
+                            if (basicProfile[field].length > 0) {
+                                basicProfile[field].forEach((item) => {
+                                    for (let singleValue in item) {
+                                        if (item.hasOwnProperty(singleValue) && typeof item[singleValue] === 'string') {
+                                            let fieldSingleValue = item[singleValue];
+                                            fieldSingleValue = fieldSingleValue.length > 40 ? fieldSingleValue.substr(0, 37) + '...' : fieldSingleValue;
+                                            values.push(fieldSingleValue);
+                                        }
+                                    }
+                                });
+                            }
+
                             value = values.join(', ');
                             break;
                         case 'tags_and_choice':
@@ -307,10 +315,16 @@ class ProfileStore extends BaseStore {
             case 'tags_and_multiple_choices':
                 return data && data.length > 0 ? filter.label + ' - ' + data.map(value => value.choices ? value.tag + ' ' + value.choices.map(choice => filter.choices[choice]['es']).join(', ') : value.tag).join(', ') : filter.label;
             case 'multiple_fields':
-                // TODO: Add textArray value depending on types
                 data = data || [];
-                textArray = data.map((value, key) => filter[key].choices[value]);
-                return textArray.length > 0 ? filter.label + ' - ' + textArray.join(', ') : filter.label;
+                text = '';
+                for (let value in data) {
+                    if (data.hasOwnProperty(value) && typeof data[value] === 'string') {
+                        text += data[value];
+                        break;
+                    }
+                }
+
+                return text.length > 0 ? text.length > 40 ? text.substr(0, 37) + '...' : text : filter.label;
         }
 
         return '';

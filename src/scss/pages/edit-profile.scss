@@ -120,6 +120,16 @@ body #root .App .views .view .page.user-page  {
           margin: 5px;
         }
       }
+      .text-multiple-fields {
+        display: inline-block;
+        max-width: 100%;
+        font-size: 1.5em;
+        margin-top: 0;
+        margin-bottom: 15px;
+        text-align: left;
+        vertical-align: middle;
+        z-index: 111;
+      }
     }
 
     .profile-field-opposite-background {

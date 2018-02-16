@@ -213,7 +213,6 @@ export default class ProfileDataList extends Component {
                 props.handleClickInput = this.onFilterSelect;
                 props.tags = this.props.tags;
                 props.profile = this.props.profile;
-                props.googleSuggestions = true;
                 filter = <TagsAndChoiceEdit {...props}/>;
                 break;
             case 'multiple_choices':
@@ -245,7 +244,6 @@ export default class ProfileDataList extends Component {
                 props.handleChangeEdit = this.handleChangeEditAndSave;
                 props.tags = this.props.tags;
                 props.profile = this.props.profile;
-                props.googleSuggestions = true;
                 filter = <TagEdit {...props} />;
                 break;
             case 'birthday':

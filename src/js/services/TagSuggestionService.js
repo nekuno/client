@@ -36,10 +36,11 @@ class TagSuggestionService {
 
         url += '&prefix=true';
 
-        // if (types.length > 0){
-        //     types = types.join();
-        //     url += '&types=' + types;
-        // }
+        if (types.length > 0){
+            types = types.join();
+            // url += '&types=' + types;
+            url += '&types=Language';
+        }
 
         return url;
     }

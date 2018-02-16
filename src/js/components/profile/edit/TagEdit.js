@@ -23,7 +23,6 @@ export default class TagEdit extends Component {
         handleChangeEdit     : PropTypes.func.isRequired,
         tags                 : PropTypes.array.isRequired,
         profile              : PropTypes.object.isRequired,
-        googleSuggestions    : PropTypes.bool,
         // Injected by @translate:
         strings              : PropTypes.object
     };
@@ -119,8 +118,9 @@ export default class TagEdit extends Component {
     }
 
     requestTagSuggestions(search, type = null) {
-        if (this.props.googleSuggestions) {
+        if (this.props.metadata.schema) {
             const language = this.props.profile.interfaceLanguage;
+            type = this.props.metadata.schema;
             TagSuggestionsActionCreators.requestGoogleTagSuggestions(search, type, language);
         } else if (type === null) {
             TagSuggestionsActionCreators.requestContentTagSuggestions(search);
@@ -168,6 +168,5 @@ TagEdit.defaultProps = {
     strings: {
         placeholder: 'Type a tag',
         remove     : 'Remove'
-    },
-    googleSuggestions: false,
+    }
 };

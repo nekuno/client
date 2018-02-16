@@ -7,14 +7,6 @@ import TextCheckboxes from '../../ui/TextCheckboxes';
 import * as TagSuggestionsActionCreators from '../../../actions/TagSuggestionsActionCreators';
 import translate from '../../../i18n/Translate';
 
-function requestTagSuggestions(search, type = null) {
-    if (type === null) {
-        TagSuggestionsActionCreators.requestContentTagSuggestions(search);
-    } else {
-        TagSuggestionsActionCreators.requestProfileTagSuggestions(search, type);
-    }
-}
-
 function resetTagSuggestions() {
     TagSuggestionsActionCreators.resetTagSuggestions();
 }
@@ -32,7 +24,6 @@ export default class TagsAndChoiceEdit extends Component {
         handleChangeEdit     : PropTypes.func.isRequired,
         tags                 : PropTypes.array,
         profile              : PropTypes.object,
-        googleSuggestions    : PropTypes.bool,
         // Injected by @translate:
         strings              : PropTypes.object
     };
@@ -151,8 +142,9 @@ export default class TagsAndChoiceEdit extends Component {
     }
 
     requestTagSuggestions(search, type = null) {
-        if (this.props.googleSuggestions) {
+        if (this.props.metadata.schema) {
             const language = this.props.profile.interfaceLanguage;
+            type = this.props.metadata.schema;
             TagSuggestionsActionCreators.requestGoogleTagSuggestions(search, type, language);
         } else if (type === null) {
             TagSuggestionsActionCreators.requestContentTagSuggestions(search);
@@ -205,6 +197,5 @@ TagsAndChoiceEdit.defaultProps = {
         placeholder: 'Type a tag',
         remove     : 'Remove',
         add        : 'Add'
-    },
-    googleSuggestions: false,
+    }
 };

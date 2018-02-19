@@ -39,7 +39,8 @@ export default class TagEdit extends Component {
         this.requestTagSuggestions = this.requestTagSuggestions.bind(this);
 
         this.state = {
-            selectedTag: null
+            selectedTag: null,
+            firstSearch: true
         };
     }
 
@@ -118,16 +119,26 @@ export default class TagEdit extends Component {
     }
 
     requestTagSuggestions(search, type = null) {
-        if (this.props.metadata.schema) {
-            const language = this.props.profile.interfaceLanguage;
-            type = this.props.metadata.schema;
-            TagSuggestionsActionCreators.requestGoogleTagSuggestions(search, type, language);
-        } else if (type === null) {
-            TagSuggestionsActionCreators.requestContentTagSuggestions(search);
-        } else {
-            TagSuggestionsActionCreators.requestProfileTagSuggestions(search, type);
-        }
+        const {firstSearch} = this.state;
+        const tagsTimeoutSec = firstSearch ? 0 : 1500;
 
+        if (typeof this.tagsTimeout !== 'undefined') {
+            clearTimeout(this.tagsTimeout);
+        }
+        this.tagsTimeout = setTimeout(() => {
+            if (this.props.metadata.schema) {
+                const language = this.props.profile.interfaceLanguage;
+                type = this.props.metadata.schema;
+                TagSuggestionsActionCreators.requestGoogleTagSuggestions(search, type, language);
+            } else if (type === null) {
+                TagSuggestionsActionCreators.requestContentTagSuggestions(search);
+            } else {
+                TagSuggestionsActionCreators.requestProfileTagSuggestions(search, type);
+            }
+            this.setState({
+                firstSearch: false
+            });
+        }, tagsTimeoutSec);
     }
 
     render() {

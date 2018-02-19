@@ -38,8 +38,7 @@ class TagSuggestionService {
 
         if (types.length > 0){
             types = types.join();
-            // url += '&types=' + types;
-            url += '&types=Language';
+            url += '&types=' + types;
         }
 
         return url;

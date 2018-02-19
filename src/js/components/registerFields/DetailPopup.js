@@ -59,7 +59,7 @@ export default class DetailPopup extends Component {
     }
 
     handleChange(key, data) {
-        const {profile} = this.props;
+        const {profile, metadata} = this.props;
         let newProfile = Object.assign({}, profile);
         newProfile[key] = data;
         newProfile.mode = 'explore';
@@ -78,6 +78,16 @@ export default class DetailPopup extends Component {
         if (this.profileHasAnyField(newProfile, ['travelling', 'activity', 'tickets', 'leisureTime', 'leisureMoney', 'leisurePlan'])) {
             newProfile['objective'].push('explore');
         }
+
+        Object.keys(newProfile).forEach(newProfileKey => {
+            if(metadata[newProfileKey] && metadata[newProfileKey].type === 'multiple_fields') {
+                newProfile[newProfileKey].forEach(field => {
+                    if (!field || !Object.keys(field).length || Object.keys(field).some(singleKey => !field[singleKey] && metadata[newProfileKey].metadata[singleKey].required)) {
+                        newProfile[newProfileKey] = null;
+                    }
+                });
+            }
+        });
 
         this.props.onSave(newProfile);
     }

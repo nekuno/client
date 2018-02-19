@@ -120,6 +120,10 @@ body #root .App .views .view .page.user-page  {
           margin: 5px;
         }
       }
+      .remove-multiple-field , .add-multiple-field {
+        cursor: pointer;
+        margin: 20px auto;
+      }
       .text-multiple-fields {
         display: inline-block;
         max-width: 100%;

@@ -710,7 +710,8 @@ export default {
         minChoices: 'Select at least %min% items',
         maxChoices: 'Select up to %max% items',
         isRequired: 'is required',
-        add       : 'Add'
+        add       : 'Add',
+        remove    : 'Remove'
     },
     IntegerFilter                    : {
         minValue   : 'The minimum value is ',

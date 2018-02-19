@@ -34,6 +34,7 @@ export default class MultipleFieldsEdit extends Component {
         this.handleChangeEditAndSave = this.handleChangeEditAndSave.bind(this);
         this.onFilterSelect = this.onFilterSelect.bind(this);
         this.handleClickAdd = this.handleClickAdd.bind(this);
+        this.handleClickRemove = this.handleClickRemove.bind(this);
         this.handleClickField = this.handleClickField.bind(this);
         this.handleClickRemoveEdit = this.handleClickRemoveEdit.bind(this);
 
@@ -113,6 +114,27 @@ export default class MultipleFieldsEdit extends Component {
             this.setState({
                 profile      : profile,
                 selectedIndex: profile[editKey].length - 1,
+            });
+        }
+    }
+
+    handleClickRemove() {
+        const {editKey, metadata} = this.props;
+        let {profile, selectedIndex} = this.state;
+
+        if (null !== selectedIndex && Object.keys(profile[editKey][selectedIndex]).length > 0) {
+            profile[editKey].splice(selectedIndex, 1);
+            profile[editKey] = this.clearVoidItems(profile[editKey], metadata);
+            if (profile[editKey][0]) {
+                Object.keys(profile[editKey][0]).forEach(field => {
+                    if (this.refs[field] && typeof this.refs[field].clearValue !== 'undefined') {
+                        this.refs[field].clearValue();
+                    }
+                });
+            }
+            this.setState({
+                profile      : profile,
+                selectedIndex: null,
             });
         }
     }
@@ -256,7 +278,8 @@ export default class MultipleFieldsEdit extends Component {
                 <div className="multiple-fields">
                     {Object.keys(metadata.metadata).map(key => this.renderField(selectedData, metadata.metadata, key))}
                 </div>
-                {profile[editKey] && profile[editKey].length > 0 ? <div className="add-tags-and-choice" onClick={this.handleClickAdd}>{strings.add} <span className="icon-plus"></span></div> : ''}
+                {null !== selectedIndex ? <div className="remove-multiple-field" onClick={this.handleClickRemove}>{strings.remove} <span className="icon-delete"></span></div> : ''}
+                {profile[editKey] && profile[editKey].length > 0 ? <div className="add-multiple-field" onClick={this.handleClickAdd}>{strings.add} <span className="icon-plus"></span></div> : ''}
                 {profile[editKey] && profile[editKey].length > 0 > 0 ? profile[editKey].map((value, index) =>
                     index !== selectedIndex ?
                         <div className="tags-and-choice-unselected-filter" key={index}>
@@ -275,6 +298,7 @@ MultipleFieldsEdit.defaultProps = {
         minChoices: 'Select at least %min% items',
         maxChoices: 'Select up to %max% items',
         isRequired: 'is required',
-        add       : 'Add'
+        add       : 'Add',
+        remove    : 'Remove'
     }
 };

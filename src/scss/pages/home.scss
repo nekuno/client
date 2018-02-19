@@ -572,6 +572,10 @@ body #root .App .views .view.home-view {
       padding-bottom: 15px;
       font-size: 1.5em;
     }
+    .remove-multiple-field , .add-multiple-field {
+      cursor: pointer;
+      margin: 20px auto;
+    }
 
     .button-big {
       margin-top: 20px;

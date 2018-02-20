@@ -28,7 +28,7 @@ export default class MultipleLocationsEdit extends Component {
     handleClickLocation(location) {
         let {editKey, metadata, data, strings} = this.props;
         data = data || [];
-        const valueIndex = data.findIndex(value => value == location);
+        const valueIndex = data.findIndex(value => value.latitude == location.latitude && value.longitude == location.longitude);
         if (valueIndex <= -1) {
             if (metadata.max && data.length >= metadata.max) {
                 Framework7Service.nekunoApp().alert(strings.maxChoices.replace('%max%', metadata.max));

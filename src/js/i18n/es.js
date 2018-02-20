@@ -694,7 +694,7 @@ export default {
         remove     : 'Eliminar'
     },
     TagsAndChoiceEdit                : {
-        placeholder: 'Escribe una palabra en inglés',
+        placeholder: 'Escribe una palabra',
         remove     : 'Eliminar',
         add        : 'Añadir'
     },
@@ -733,7 +733,7 @@ export default {
         add        : 'Añadir'
     },
     TagsAndMultipleChoicesFilter     : {
-        placeholder: 'Escribe una palabra en inglés',
+        placeholder: 'Escribe una palabra',
         remove     : 'Eliminar',
         add        : 'Añadir'
     },

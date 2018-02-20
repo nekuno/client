@@ -31,6 +31,10 @@ export default class Input extends Component {
         return this.refs.input.value;
     }
 
+    clearValue() {
+        this.refs.input.value = '';
+    }
+
     focus() {
         this.refs.input.focus();
     }

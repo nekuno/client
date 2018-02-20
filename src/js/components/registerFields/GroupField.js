@@ -46,6 +46,8 @@ export default class GroupField extends Component {
     componentDidMount() {
         const {activeSlide} = this.props;
 
+        InvitationStore.setInitial();
+        this.refs.input.clearValue();
         if (activeSlide) {
             // Uncomment to auto-focus
             //this.focus();

@@ -59,7 +59,7 @@ export default class ConnectSocialNetworksOnSignUpPage extends Component {
 
     componentDidMount() {
         const {profile, strings} = this.props;
-        if (profile && profile.mode && profile.mode === 'contact' && !this.profileHasAnyField(profile, ['industry', 'skills', 'proposals', 'sports', 'games', 'creative', 'tickets', 'activities', 'travels'])) {
+        if (profile && profile.mode && profile.mode === 'contact' && !this.profileHasAnyField(profile, ['industry', 'profession', 'proposal', 'sports', 'games', 'creative', 'travelling', 'activity', 'tickets', 'leisureTime', 'leisureMoney', 'leisurePlan'])) {
             Framework7Service.nekunoApp().confirm(strings.answerExplore, () => {
                 RouterActionCreators.replaceRoute('/explore');
             });

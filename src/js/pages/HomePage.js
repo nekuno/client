@@ -100,6 +100,10 @@ export default class HomePage extends Component {
                 }
             );
         }
+
+        if (this.context.router.location.hash && this.context.router.location.hash === '#signup') {
+            this.setState({registeringUser: true});
+        }
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -187,7 +191,7 @@ export default class HomePage extends Component {
     }
 
     goToRegisterPage() {
-        setTimeout(() => RouterActionCreators.replaceRoute('/register'), 0);
+        setTimeout(() => this.context.router.push('/register'), 0);
     }
 
     openOrientationPopup() {

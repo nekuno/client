@@ -383,7 +383,7 @@ export default {
     },
     AccessButtons                    : {
         registerText: 'Regístrate ahora',
-        loginText   : 'Ya estoy registrado',
+        loginText   : 'Ya estoy registrade',
     },
     ProfileDataList                  : {
         cannotRemove: 'Este campo no se puede eliminar',

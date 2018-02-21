@@ -333,11 +333,18 @@ body #root .App .views .view.home-view {
                     margin: auto;
                     .item-inner {
                       input {
-                        background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 96%, $light-green 4%) -500px 0 no-repeat;
+                        background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 96%, $light-green 4%);
                         background-size: 100%;
                         text-align: center;
-                        &:focus {
-                          background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 96%, $light-green 4%);
+                        box-shadow: none;
+                        outline: none;
+                        &::-webkit-input-placeholder {
+                          color: $material-grey;
+                          font-size: 0.8em;
+                          transform: translateY(-20px);
+                          -webkit-transform: translateY(-20px);
+                          visibility: visible !important;
+                          z-index: 1111;
                         }
                       }
                     }
@@ -363,7 +370,10 @@ body #root .App .views .view.home-view {
               }
             }
             &.orientation-field {
-              bottom: 50px;
+              bottom: 75px;
+            }
+            &.group-field {
+              bottom: 35px;
             }
           }
           .register-field-detail {

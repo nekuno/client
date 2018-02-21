@@ -105,6 +105,10 @@ class RegisterStore extends BaseStore {
         this._error = null;
         return error;
     }
+
+    hasToken() {
+        return !!this._token;
+    }
 }
 
 export default new RegisterStore();

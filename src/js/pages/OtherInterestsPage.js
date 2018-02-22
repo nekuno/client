@@ -262,6 +262,7 @@ export default class OtherInterestsPage extends Component {
                                                      videosCount={totals.Video}
                                                      imagesCount={totals.Image}
                                                      channelsCount={totals.Creator}
+                                                     gamesCount={totals.Game}
                                                      type={type}
         /> : null;
     }

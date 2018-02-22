@@ -11,6 +11,7 @@ export default class AccessButtons extends Component {
         onLoginClick   : PropTypes.func,
         onRegisterClick: PropTypes.func,
         disabled       : PropTypes.bool,
+        hasNetworkInfo : PropTypes.bool,
     };
 
 
@@ -23,9 +24,10 @@ export default class AccessButtons extends Component {
     }
 
     render() {
-        const {disabled, strings} = this.props;
+        const {disabled, strings, hasNetworkInfo} = this.props;
         const registerText = disabled ? <span className="icon-spinner rotation-animation"/> : <span>{strings.registerText}</span>;
-        const loginText = disabled ? <span className="icon-spinner rotation-animation"/> : <span>{strings.loginText}</span>;
+        const loginText = disabled ? <span className="icon-spinner rotation-animation"/> :
+            hasNetworkInfo? strings.registerNow : <span>{strings.loginText}</span>;
 
         return (
             <div className="access-buttons">
@@ -35,7 +37,7 @@ export default class AccessButtons extends Component {
                     </Button>
                 </div>
                 <div className="login-access-button">
-                    <Button onClick={this.handleLoginClick.bind(this)} disabled={disabled}>
+                    <Button onClick={this.handleLoginClick.bind(this)} disabled={disabled || hasNetworkInfo}>
                         {loginText}
                     </Button>
                 </div>
@@ -51,5 +53,6 @@ AccessButtons.defaultProps = {
     strings: {
         registerText: "Sign up now",
         loginText   : "I'm already registered",
+        registerNow : "You can sign up now",
     }
 };

@@ -11,7 +11,6 @@ import connectToStores from '../utils/connectToStores';
 import translate from '../i18n/Translate';
 import popup from '../components/Popup';
 import LoginActionCreators from '../actions/LoginActionCreators';
-import RouterActionCreators from '../actions/RouterActionCreators';
 import LocalStorageService from '../services/LocalStorageService';
 import SocialNetworkService from '../services/SocialNetworkService';
 import Framework7Service from '../services/Framework7Service';
@@ -23,10 +22,12 @@ function getState(props) {
 
     const interfaceLanguage = LocaleStore.locale;
     const profile = RegisterStore.profile || {};
+    const hasToken = RegisterStore.hasToken();
 
     return {
         interfaceLanguage,
-        profile
+        profile,
+        hasToken
     };
 }
 
@@ -41,6 +42,7 @@ export default class HomePage extends Component {
         // Injected by @connectToStores:
         interfaceLanguage: PropTypes.string,
         profile          : PropTypes.object,
+        hasToken         : PropTypes.bool,
         // Injected by @popup:
         showPopup        : PropTypes.func,
         closePopup       : PropTypes.func,
@@ -301,7 +303,7 @@ export default class HomePage extends Component {
     }
 
     render() {
-        const {profile, strings} = this.props;
+        const {profile, strings, hasToken} = this.props;
         const {loginUser, registeringUser, currentSlide, hideContent, detail} = this.state;
 
         return (
@@ -310,7 +312,7 @@ export default class HomePage extends Component {
                     <div className="swiper-container">
                         {this.renderSlides()}
                     </div>
-                    {!registeringUser ? <AccessButtons onLoginClick={this.loginByResourceOwner} onRegisterClick={this.onRegisterClick}/> : null}
+                    {!registeringUser ? <AccessButtons hasNetworkInfo={hasToken} onLoginClick={this.loginByResourceOwner} onRegisterClick={this.onRegisterClick}/> : null}
                     <div className="nekuno-logo-wrapper">
                         <div className="nekuno-logo"></div>
                     </div>

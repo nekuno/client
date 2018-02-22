@@ -385,6 +385,7 @@ export default {
     AccessButtons                    : {
         registerText: 'Sign up now',
         loginText   : 'I\'m already registered',
+        registerNow : "You can sign up now",
     },
     ProfileDataList                  : {
         cannotRemove: 'This field cannot be deleted',

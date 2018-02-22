@@ -7,6 +7,7 @@ import translate from '../../i18n/Translate';
 export default class ExploreField extends Component {
     static propTypes = {
         profile          : PropTypes.object.isRequired,
+        showContinue     : PropTypes.bool,
         onSaveHandler    : PropTypes.func.isRequired,
         onClickField     : PropTypes.func.isRequired,
         onBackHandler    : PropTypes.func.isRequired,
@@ -23,6 +24,7 @@ export default class ExploreField extends Component {
         this.renderHobbiesDetail = this.renderHobbiesDetail.bind(this);
         this.renderLeisureDetail = this.renderLeisureDetail.bind(this);
         this.backToHome = this.backToHome.bind(this);
+        this.getButtonText = this.getButtonText.bind(this);
 
         this.state = {
             objectiveSelected: null,
@@ -142,31 +144,46 @@ export default class ExploreField extends Component {
         </div>
     };
 
+    getButtonText() {
+        const {profile, showContinue, strings} = this.props;
+        if(!showContinue || this.profileHasAnyField(profile, ['industry', 'profession', 'proposal', 'sports', 'games', 'creative', 'travelling', 'activity', 'tickets', 'leisureTime', 'leisureMoney', 'leisurePlan'])) {
+            return strings.finish;
+        } else if (showContinue) {
+            return strings.skip;
+        }
+
+        return strings.save;
+    }
+
+    profileHasAnyField = function(profile, fields) {
+        return fields.some(field => profile && profile[field] && profile[field].length !== 0);
+    };
+
     profileHasField = function(profile, field) {
         return profile && profile[field] && profile[field].length !== 0;
     };
 
     render() {
-        const {profile, strings} = this.props;
+        const {profile, showContinue, strings} = this.props;
         const {selectedObjective, savedDetails} = this.state;
         const objectivesClass = "register-field objectives-field";
 
         return (
             <div className="register-fields">
-                {selectedObjective || savedDetails ?
+                {selectedObjective || savedDetails && !showContinue ?
                     <div className="back-button-icon" onClick={selectedObjective ? this.handleClickSave : this.backToHome}>
                         <span className="icon-left-arrow"/>
                     </div>
                     : null
                 }
-                {selectedObjective || savedDetails ?
+                {(selectedObjective || savedDetails) && !showContinue ?
                     <div className="main-icon">
                         <span className="icon-compass2"/>
                         <div className="main-icon-text">{strings.explore}</div>
                     </div>
                     : null
                 }
-                <div className={selectedObjective ? "hide " + objectivesClass : savedDetails ? "show " + objectivesClass : objectivesClass}>
+                <div className={selectedObjective ? "hide " + objectivesClass : savedDetails || showContinue ? "show " + objectivesClass : objectivesClass}>
                     <div className="register-field-icons">
                         <div className={profile.objective && profile.objective.some(objective => objective === 'work') ? "register-field-icon active" : "register-field-icon"} onClick={this.onClickObjective.bind(this, 'work')}>
                             <span className="icon-lightbulb"/>
@@ -184,9 +201,9 @@ export default class ExploreField extends Component {
                             <div className="register-filed-icon-text">{strings.leisure2}</div>
                         </div>
                     </div>
-                    {savedDetails ?
+                    {savedDetails || showContinue ?
                         <div className="register-fields-continue">
-                            <Button onClick={this.props.onSaveHandler}>{strings.finish}</Button>
+                            <Button onClick={this.props.onSaveHandler}>{this.getButtonText()}</Button>
                             <div className="title">{strings.selectOther}</div>
                         </div>
                         : null
@@ -221,6 +238,7 @@ ExploreField.defaultProps = {
         leisurePlans: 'Plans',
         save        : 'Continue',
         finish      : 'Finish',
+        skip        : 'Skip',
         selectOther : 'You can select more than one'
     }
 };

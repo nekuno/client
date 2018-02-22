@@ -121,7 +121,7 @@ body #root .App .views .view.home-view {
       height: 100%;
       text-align: center;
 
-      .page#login-1-image, .page#login-2-image, .page#login-3-image {
+      .page#login-1-image, .page#login-2-image, .page#login-3-image, .page#login-no-image {
         background-size: 100% auto;
         background-position: center 50%;
         height: 100%;
@@ -601,7 +601,7 @@ body #root .App .views .view.home-view {
     width: 160px;
   }
   body #root .App .views .view.home-view .swiper-container .swiper-slide {
-    .page#login-1-image, .page#login-2-image, .page#login-3-image {
+    .page#login-1-image, .page#login-2-image, .page#login-3-image, .page#login-no-image {
       background-position: top;
       .title {
         font-size: 1.1em !important;
@@ -639,7 +639,7 @@ body #root .App .views .view.home-view {
 
 @media only screen and (max-height: 500px) {
   body #root .App .views .view.home-view .swiper-container .swiper-slide {
-    .page#login-1-image, .page#login-2-image, .page#login-3-image {
+    .page#login-1-image, .page#login-2-image, .page#login-3-image, .page#login-no-image {
       .title {
         display: none;
       }
@@ -655,7 +655,7 @@ body #root .App .views .view.home-view {
       bottom: 40px;
     }
     .swiper-container .swiper-slide {
-      .page#login-1-image, .page#login-2-image, .page#login-3-image {
+      .page#login-1-image, .page#login-2-image, .page#login-3-image, .page#login-no-image {
         .title {
           bottom: 180px;
         }

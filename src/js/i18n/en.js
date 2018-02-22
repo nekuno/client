@@ -372,6 +372,7 @@ export default {
         leisurePlans: 'Plans',
         save        : 'Continue',
         finish      : 'Finish',
+        skip        : 'Skip',
         selectOther : 'You can select more than one'
     },
     OrientationField                 : {

@@ -58,17 +58,11 @@ export default class ConnectSocialNetworksOnSignUpPage extends Component {
     }
 
     componentDidMount() {
-        const {profile, strings} = this.props;
-        if (profile && profile.mode && profile.mode === 'contact' && !this.profileHasAnyField(profile, ['industry', 'profession', 'proposal', 'sports', 'games', 'creative', 'travelling', 'activity', 'tickets', 'leisureTime', 'leisureMoney', 'leisurePlan'])) {
-            Framework7Service.nekunoApp().confirm(strings.answerExplore, () => {
-                RouterActionCreators.replaceRoute('/explore');
-            });
+        const {profile} = this.props;
+        if (profile && profile.mode && profile.mode === 'contact' && (!this.context.router.location.hash || this.context.router.location.hash !== '#explored')) {
+            setTimeout(() => RouterActionCreators.replaceRoute('/explore'), 0);
         }
     }
-
-    profileHasAnyField = function(profile, fields) {
-        return fields.some(field => profile && profile[field] && profile[field].length !== 0);
-    };
 
     goToRegisterLandingPage() {
         RouterActionCreators.replaceRoute('/register-questions-landing');

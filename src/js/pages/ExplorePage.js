@@ -106,7 +106,7 @@ export default class ExplorePage extends Component {
     }
 
     goToConnectSocialNetworks() {
-        setTimeout(() => RouterActionCreators.replaceRoute('/social-networks-on-sign-up'), 0);
+        setTimeout(() => RouterActionCreators.replaceRoute('/social-networks-on-sign-up#explored'), 0);
     }
 
     split(text) {
@@ -131,7 +131,7 @@ export default class ExplorePage extends Component {
     }
 
     setDetail(name) {
-        this.setState({'detail': name});
+        this.setState({detail: name});
     }
 
     render() {
@@ -140,16 +140,16 @@ export default class ExplorePage extends Component {
 
         return (
             <div className="views">
-                <div className="view view-main home-view">
+                <div className="view view-main home-view explore-view">
                     <div className="swiper-container">
                         <div className="swiper-slide">
-                            <div id="login-2-image" className="page">
+                            <div id="login-no-image" className="page">
                                 <div className="bottom-background-rectangle"></div>
                                 <div className={hideContent ? "vertical-hidden-content title" : "title"}>
                                     {this.split(strings.title)}
                                 </div>
                                 {profile ?
-                                    <ExploreField profile={profile} onClickField={this.hideContent} onSaveHandler={this.goToConnectSocialNetworks} onBackHandler={this.showContent} onDetailSelection={this.setDetail}/>
+                                    <ExploreField showContinue={true} profile={profile} onClickField={this.hideContent} onSaveHandler={this.goToConnectSocialNetworks} onBackHandler={this.showContent} onDetailSelection={this.setDetail}/>
                                     : null
                                 }
                             </div>

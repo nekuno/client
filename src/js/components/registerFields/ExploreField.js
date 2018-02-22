@@ -146,7 +146,7 @@ export default class ExploreField extends Component {
 
     getButtonText() {
         const {profile, showContinue, strings} = this.props;
-        if(!showContinue || this.profileHasAnyField(profile, ['industry', 'profession', 'proposal', 'sports', 'games', 'creative', 'travelling', 'activity', 'tickets', 'leisureTime', 'leisureMoney', 'leisurePlan'])) {
+        if(!showContinue && this.profileHasAnyField(profile, ['industry', 'profession', 'proposal', 'sports', 'games', 'creative', 'travelling', 'activity', 'tickets', 'leisureTime', 'leisureMoney', 'leisurePlan'])) {
             return strings.finish;
         } else if (showContinue) {
             return strings.skip;

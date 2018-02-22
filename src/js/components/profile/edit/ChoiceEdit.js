@@ -37,7 +37,7 @@ export default class ChoiceEdit extends Component {
         const {editKey, selected, metadata, data} = this.props;
         return(
             <SelectedEdit key={selected ? 'selected-filter' : editKey} type={'radio'} active={data ? true : false} handleClickRemoveEdit={this.props.handleClickRemoveEdit ? this.handleClickRemoveEdit : null}>
-                <TextRadios labels={Object.keys(metadata.choices).map(key => { return({key: editKey + key, text: metadata.choices[key]}); }) }
+                <TextRadios labels={metadata.choices.map(choice => { return({key: editKey + choice.id, text: choice.text}); }) }
                             onClickHandler={this.handleClickChoice} value={editKey + data} className={'choice-filter'}
                             title={metadata.labelEdit} />
             </SelectedEdit>

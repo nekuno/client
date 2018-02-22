@@ -6,18 +6,28 @@ import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
 import WorkersStore from '../stores/WorkersStore';
+import ProfileStore from '../stores/ProfileStore';
 import RouterActionCreators from '../actions/RouterActionCreators';
+import Framework7Service from '../services/Framework7Service';
+
+function parseId(user) {
+    return user.id;
+}
 
 function getState(props) {
 
     const networks = WorkersStore.getAll();
     const error = WorkersStore.getConnectError();
     const isLoading = WorkersStore.isLoading();
+    const {user} = props;
+    const userId = parseId(user);
+    const profile = ProfileStore.get(userId);
 
     return {
         networks,
         error,
         isLoading,
+        profile,
     };
 }
 
@@ -39,11 +49,19 @@ export default class ConnectSocialNetworksOnSignUpPage extends Component {
         networks : PropTypes.array.isRequired,
         error    : PropTypes.bool,
         isLoading: PropTypes.bool,
+        profile  : PropTypes.object,
     };
 
     constructor(props) {
         super(props);
         this.goToRegisterLandingPage = this.goToRegisterLandingPage.bind(this);
+    }
+
+    componentDidMount() {
+        const {profile} = this.props;
+        if (profile && profile.mode && profile.mode === 'contact' && (!this.context.router.location.hash || this.context.router.location.hash !== '#explored')) {
+            setTimeout(() => RouterActionCreators.replaceRoute('/explore'), 0);
+        }
     }
 
     goToRegisterLandingPage() {
@@ -79,11 +97,12 @@ export default class ConnectSocialNetworksOnSignUpPage extends Component {
 
 ConnectSocialNetworksOnSignUpPage.defaultProps = {
     strings  : {
-        next    : 'Continue',
-        welcome : 'Welcome',
-        excerpt1: 'Make your data work for you!',
-        excerpt2: 'Feed Nekuno with your networks for better recommendations!',
-        error   : 'Error connecting network. You may have connected it with other user.',
+        next         : 'Continue',
+        welcome      : 'Welcome',
+        excerpt1     : 'Make your data work for you!',
+        excerpt2     : 'Feed Nekuno with your networks for better recommendations!',
+        error        : 'Error connecting network. You may have connected it with other user.',
+        answerExplore: 'Do you want to answer explore objectives?'
     },
     isLoading: false,
 };

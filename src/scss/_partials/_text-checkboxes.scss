@@ -34,3 +34,25 @@
     text-align-last: center;
   }
 }
+.range-filter {
+  margin: auto;
+  width: 80%;
+  .checkbox-title {
+    font-weight: bold;
+    margin-left: -11%;
+  }
+  .rc-slider {
+    margin-bottom: 15px;
+    margin-top: 35px;
+
+    .rc-slider-track {
+      background-color: $deep-purple;
+    }
+    .rc-slider-handle {
+      border-color: $deep-purple;
+    }
+    .rc-slider-dot-active {
+      border-color: $deep-purple;
+    }
+  }
+}

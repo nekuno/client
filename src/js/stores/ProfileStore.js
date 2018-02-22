@@ -156,29 +156,52 @@ class ProfileStore extends BaseStore {
                     switch (type) {
                         case 'choice':
                             let choices = thisMetadata.choices;
-                            value = choices[basicProfile[field]];
+                            value = choices.find(choice => choice.id === basicProfile[field]).text;
                             break;
                         case 'double_choice':
                             let firstChoices = thisMetadata.choices;
                             const doubleChoices = thisMetadata.doubleChoices;
                             let firstChoice = basicProfile[field]['choice'];
                             let doubleChoiceValue = basicProfile[field]['detail'] ? doubleChoices[firstChoice][basicProfile[field]['detail']] : '';
-                            value = firstChoices[firstChoice] + ' ' + doubleChoiceValue;
+                            value = firstChoices.find(choice => choice.id === firstChoice).text + ' ' + doubleChoiceValue;
                             break;
                         case 'tags':
-                            value = basicProfile[field];
+                            value = basicProfile[field].map(function(tag){
+                                return tag['name'];
+                            });
                             break;
                         case 'multiple_choices':
                             let multiple_choices = thisMetadata['choices'];
                             let mchoices = [];
                             if (typeof basicProfile[field] === 'string') {
-                                mchoices.push(multiple_choices[basicProfile[field]]);
+                                mchoices.push(multiple_choices.find(choice => choice.id === basicProfile[field]).text);
                             } else {
                                 for (let mchoice_label in basicProfile[field]) {
-                                    mchoices.push(multiple_choices[basicProfile[field][mchoice_label]]);
+                                    mchoices.push(multiple_choices.find(choice => choice.id === basicProfile[field][mchoice_label]).text);
                                 }
                             }
                             value = mchoices.join(', ');
+                            break;
+                        case 'multiple_locations':
+                            values = [];
+                            basicProfile[field].forEach(location => values.push(this.locationToString(location)));
+                            value = values.join(', ');
+                            break;
+                        case 'multiple_fields':
+                            values = [];
+                            if (basicProfile[field].length > 0) {
+                                basicProfile[field].forEach((item) => {
+                                    for (let singleValue in item) {
+                                        if (item.hasOwnProperty(singleValue) && typeof item[singleValue] === 'string') {
+                                            let fieldSingleValue = item[singleValue];
+                                            fieldSingleValue = fieldSingleValue.length > 40 ? fieldSingleValue.substr(0, 37) + '...' : fieldSingleValue;
+                                            values.push(fieldSingleValue);
+                                        }
+                                    }
+                                });
+                            }
+
+                            value = values.join(', ');
                             break;
                         case 'tags_and_choice':
                             let tagChoices = thisMetadata['choices'];
@@ -187,7 +210,7 @@ class ProfileStore extends BaseStore {
                             let values = [];
                             for (let index in objects) {
                                 let object = objects[index];
-                                let newTag = object['tag'];
+                                let newTag = object['tag']['name'];
                                 if (object['choice']) {
                                     newTag += ': ' + level + ' ' + tagChoices[object['choice']];
                                 }
@@ -277,6 +300,10 @@ class ProfileStore extends BaseStore {
                 data = data || [];
                 textArray = data.map(value => filter.choices[value]);
                 return textArray.length > 0 ? filter.label + ' - ' + textArray.join(', ') : filter.label;
+            case 'multiple_locations':
+                data = data || [];
+                textArray = data.map(value => value && value.address ? value.address : value && value.location ? value.location : '');
+                return textArray.length > 0 ? filter.label + ' - ' + textArray.join(', ') : filter.label;
             case 'double_multiple_choices':
                 data = data || [];
                 textArray = data.map(value => value.detail && filter.doubleChoices[value.choice][value.detail] ? filter.choices[value.choice] + ' ' + filter.doubleChoices[value.choice][value.detail] : filter.choices[value.choice]);
@@ -287,7 +314,17 @@ class ProfileStore extends BaseStore {
                 return data && data.length > 0 ? filter.label + ' - ' + data.map(value => value.choice ? value.tag + ' ' + filter.choices[value.choice] : value.tag).join(', ') : filter.label;
             case 'tags_and_multiple_choices':
                 return data && data.length > 0 ? filter.label + ' - ' + data.map(value => value.choices ? value.tag + ' ' + value.choices.map(choice => filter.choices[choice]['es']).join(', ') : value.tag).join(', ') : filter.label;
+            case 'multiple_fields':
+                data = data || [];
+                text = '';
+                for (let value in data) {
+                    if (data.hasOwnProperty(value) && typeof data[value] === 'string') {
+                        text += data[value];
+                        break;
+                    }
+                }
 
+                return text.length > 0 ? text.length > 40 ? text.substr(0, 37) + '...' : text : filter.label;
         }
 
         return '';
@@ -311,6 +348,8 @@ class ProfileStore extends BaseStore {
                 return !!data.choice;
             case 'multiple_choices':
                 return data && data.length > 0;
+            case 'multiple_locations':
+                return data && data.length > 0;
             case 'double_multiple_choices':
                 return data && data.length > 0;
             case 'tags':
@@ -318,6 +357,8 @@ class ProfileStore extends BaseStore {
             case 'tags_and_choice':
                 return data && data.length > 0;
             case 'tags_and_multiple_choices':
+                return data && data.length > 0;
+            case 'multiple_fields':
                 return data && data.length > 0;
             default:
                 return false;

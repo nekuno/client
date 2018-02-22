@@ -142,7 +142,10 @@ export const TRACKER_ID_APP = config.TRACKER_ID_APP;
 export const INSTANT_HOST = config.INSTANT_HOST;
 
 export const GOOGLE_MAPS_API_KEY = config.GOOGLE_MAPS_API_KEY;
+export const GOOGLE_RECAPTCHA_API_KEY = config.GOOGLE_RECAPTCHA_API_KEY;
 export const GOOGLE_MAPS_URL = 'https://maps.googleapis.com/maps/api/js?libraries=places&key=%API_KEY%&callback=onMapsApiLoaded'.replace('%API_KEY%', GOOGLE_MAPS_API_KEY);
+export const GOOGLE_KNOWLEDGE_GRAPH_URL = 'https://kgsearch.googleapis.com/v1/entities:search?key=%API_KEY%'.replace('%API_KEY%', GOOGLE_MAPS_API_KEY);
+export const GOOGLE_RECAPTCHA_URL = 'https://www.google.com/recaptcha/api.js';
 
 export const REQUIRED_REGISTER_USER_FIELDS = [
     {

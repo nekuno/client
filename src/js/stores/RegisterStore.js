@@ -2,6 +2,7 @@
 
 import ActionTypes from '../constants/ActionTypes';
 import BaseStore from './BaseStore';
+import { mergeIntoBag } from '../utils/StoreUtils';
 import { getValidationErrors } from '../utils/StoreUtils';
 
 class RegisterStore extends BaseStore {
@@ -18,13 +19,28 @@ class RegisterStore extends BaseStore {
     _registerToActions(action) {
         super._registerToActions(action);
 
+        let profile;
         switch (action.type) {
+            case ActionTypes.PRE_REGISTER_PROFILE:
+                profile = action.profile || {};
+                this._profile = this._profile || {};
+                Object.keys(profile).forEach(field => {
+                    this._profile[field] = profile[field];
+                });
+                this._token = 'join';
+                this._error = null;
+                this.emitChange();
+                break;
 
             case ActionTypes.PRE_REGISTER_USER:
-                const {user, profile, token, oauth} = action;
+                const {user, token, oauth} = action;
+                profile = action.profile || {};
+                this._profile = this._profile || {};
+                Object.keys(profile).forEach(field => {
+                    this._profile[field] = profile[field];
+                });
                 this._user = user;
-                this._profile = profile;
-                this._token = token;
+                this._token = token || this._token;
                 this._oauth = oauth;
                 this._error = null;
                 this.emitChange();
@@ -80,10 +96,18 @@ class RegisterStore extends BaseStore {
         }
     }
 
+    get profile() {
+        return this._profile;
+    }
+
     get error() {
         let error = this._error;
         this._error = null;
         return error;
+    }
+
+    hasToken() {
+        return !!this._token;
     }
 }
 

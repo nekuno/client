@@ -30,8 +30,8 @@ export default class MultipleChoicesFilter extends Component {
         if (valueIndex > -1) {
             data.splice(valueIndex, 1);
         } else {
-            if (filter.max_choices && data.length >= filter.max_choices) {
-                Framework7Service.nekunoApp().alert(strings.maxChoices.replace('%max%', filter.max_choices));
+            if (filter.max && data.length >= filter.max) {
+                Framework7Service.nekunoApp().alert(strings.maxChoices.replace('%max%', filter.max));
                 return;
             }
             data.push(choice);
@@ -44,7 +44,7 @@ export default class MultipleChoicesFilter extends Component {
         return(
             selected ?
                 <ThreadSelectedFilter key={'selected-filter'} type={'checkbox'} active={data && data.length > 0} handleClickRemoveFilter={handleClickRemoveFilter} cantRemove={cantRemove}>
-                    <TextCheckboxes labels={Object.keys(filter.choices).map(key => { return({key: key, text: filter.choices[key]}) })}
+                    <TextCheckboxes labels={filter.choices.map(choice => { return({key: choice.id, text: choice.text}) })}
                                     onClickHandler={this.handleClickMultipleChoice} values={data || []} className={'multiple-choice-filter'}
                                     title={filter.label} />
                 </ThreadSelectedFilter>

@@ -95,6 +95,9 @@ export default class CreateUsersThread extends Component {
             return;
         }
         let filters = this.state.filters;
+        if (filters.length === 0) {
+            filters = {};
+        }
         let filterData = Object.keys(filters).find(key => key === value) || null;
 
         if (checked) {

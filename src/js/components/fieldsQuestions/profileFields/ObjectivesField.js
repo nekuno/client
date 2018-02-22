@@ -29,8 +29,8 @@ export default class ObjectivesField extends Component {
         const {metadata, strings} = this.props;
         const {objectives} = this.state;
         const objectiveMetadata = metadata.objective;
-        if (objectiveMetadata && objectiveMetadata.min_choices && objectives.length < objectiveMetadata.min_choices) {
-            Framework7Service.nekunoApp().alert(strings.minObjectives.replace('%min%', objectiveMetadata.min_choices));
+        if (objectiveMetadata && objectiveMetadata.min && objectives.length < objectiveMetadata.min) {
+            Framework7Service.nekunoApp().alert(strings.minObjectives.replace('%min%', objectiveMetadata.min));
             return;
         }
         this.props.onSaveHandler('objective', objectives);
@@ -82,10 +82,10 @@ export default class ObjectivesField extends Component {
                         </div>
                         <div className="objectives-field">
                             <div className="text-checkboxes">
-                                {Object.keys(metadata.objective.choices).map((index) =>
-                                    <Chip key={index} onClickHandler={this.onClickObjective.bind(this, index)} disabled={!objectives.some(value => value == index)}>
-                                        <div className={this.getIconClass(index)}></div>
-                                        <div className="">{metadata.objective.choices[index]}</div>
+                                {metadata.objective.choices.map(choice =>
+                                    <Chip key={choice.id} onClickHandler={this.onClickObjective.bind(this, choice.id)} disabled={!objectives.some(value => value == choice.id)}>
+                                        <div className={this.getIconClass(choice.id)}></div>
+                                        <div className="">{choice.text}</div>
                                     </Chip>
                                     )}
                             </div>

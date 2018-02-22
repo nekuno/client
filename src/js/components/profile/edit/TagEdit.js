@@ -6,14 +6,6 @@ import TextCheckboxes from '../../ui/TextCheckboxes';
 import * as TagSuggestionsActionCreators from '../../../actions/TagSuggestionsActionCreators';
 import translate from '../../../i18n/Translate';
 
-function requestTagSuggestions(search, type = null) {
-    if (type === null) {
-        TagSuggestionsActionCreators.requestContentTagSuggestions(search);
-    } else {
-        TagSuggestionsActionCreators.requestProfileTagSuggestions(search, type);
-    }
-}
-
 function resetTagSuggestions() {
     TagSuggestionsActionCreators.resetTagSuggestions();
 }
@@ -26,10 +18,11 @@ export default class TagEdit extends Component {
         selected             : PropTypes.bool.isRequired,
         metadata             : PropTypes.object.isRequired,
         data                 : PropTypes.array,
-        handleClickInput     : PropTypes.func.isRequired,
+        handleClickInput     : PropTypes.func,
         handleClickRemoveEdit: PropTypes.func,
         handleChangeEdit     : PropTypes.func.isRequired,
         tags                 : PropTypes.array.isRequired,
+        profile              : PropTypes.object.isRequired,
         // Injected by @translate:
         strings              : PropTypes.object
     };
@@ -43,14 +36,16 @@ export default class TagEdit extends Component {
         this.handleClickTag = this.handleClickTag.bind(this);
         this.handleClickRemoveTag = this.handleClickRemoveTag.bind(this);
         this.handleClickRemoveEdit = this.handleClickRemoveEdit.bind(this);
+        this.requestTagSuggestions = this.requestTagSuggestions.bind(this);
 
         this.state = {
-            selectedTag: null
+            selectedTag: null,
+            firstSearch: true
         };
     }
 
     componentWillMount() {
-        if (this.props.selected) {
+        if (this.props.selected && this.props.handleClickInput) {
             this.props.handleClickInput();
         }
     }
@@ -58,14 +53,16 @@ export default class TagEdit extends Component {
     handleClickInput() {
         const {editKey} = this.props;
         resetTagSuggestions();
-        this.props.handleClickInput(editKey);
+        if (this.props.handleClickInput) {
+            this.props.handleClickInput(editKey);
+        }
     }
 
     handleKeyUpTag(tag) {
         let {editKey} = this.props;
         editKey = editKey === 'tags' ? null : editKey;
         if (tag.length > 2) {
-            requestTagSuggestions(tag, editKey);
+            this.requestTagSuggestions(tag, editKey);
         } else {
             resetTagSuggestions();
         }
@@ -76,9 +73,15 @@ export default class TagEdit extends Component {
         data = data || [];
         this.refs['tagInput' + editKey].clearValue();
         this.refs['tagInput' + editKey].focus();
-        const exists = data.some(value => value === tagString);
+
+        let tag = this.props.tags.find(propTag => propTag.name === tagString);
+        if (tag === undefined){
+            tag = {name: tagString};
+        }
+
+        const exists = data.some(value => value.name === tagString);
         if (!exists) {
-            data.push(tagString);
+            data.push(tag);
         }
         this.props.handleChangeEdit(editKey, data);
         this.setState({
@@ -101,7 +104,7 @@ export default class TagEdit extends Component {
         let {editKey, data} = this.props;
         this.refs['tagInput' + editKey].clearValue();
         this.refs['tagInput' + editKey].focus();
-        const index = data.indexOf(this.state.selectedTag);
+        const index = data.findIndex(value => value.name === this.state.selectedTag);
         data.splice(index, 1);
         this.setState({
             selectedTag: null
@@ -113,6 +116,29 @@ export default class TagEdit extends Component {
     handleClickRemoveEdit() {
         const {editKey} = this.props;
         this.props.handleClickRemoveEdit(editKey);
+    }
+
+    requestTagSuggestions(search, type = null) {
+        const {firstSearch} = this.state;
+        const tagsTimeoutSec = firstSearch ? 0 : 1500;
+
+        if (typeof this.tagsTimeout !== 'undefined') {
+            clearTimeout(this.tagsTimeout);
+        }
+        this.tagsTimeout = setTimeout(() => {
+            if (this.props.metadata.schema) {
+                const language = this.props.profile.interfaceLanguage;
+                type = this.props.metadata.schema;
+                TagSuggestionsActionCreators.requestGoogleTagSuggestions(search, type, language);
+            } else if (type === null) {
+                TagSuggestionsActionCreators.requestContentTagSuggestions(search);
+            } else {
+                TagSuggestionsActionCreators.requestProfileTagSuggestions(search, type);
+            }
+            this.setState({
+                firstSearch: false
+            });
+        }, tagsTimeoutSec);
     }
 
     render() {
@@ -135,9 +161,9 @@ export default class TagEdit extends Component {
                 {data.length > 0 ?
                     <div className="tags-and-choice-unselected-filters">
                         <div className="table-row"></div>
-                        {data.filter(value => value !== selectedTag).map((value, index) =>
+                        {data.filter(value => selectedTag === null || value !== selectedTag.name).map((value, index) =>
                             <div className="tags-and-choice-unselected-filter" key={index}>
-                                <TextCheckboxes labels={[{key: value, text: value}]} values={[value]}
+                                <TextCheckboxes labels={[{key: value.name, text: value.name}]} values={[value.name]}
                                                 onClickHandler={this.handleClickTag} className={'tags-and-choice-filter'}/>
                             </div>
                         )}

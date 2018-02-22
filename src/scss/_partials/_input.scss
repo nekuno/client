@@ -2,6 +2,9 @@
 	ul li::after {
 		content: none;
 	}
+	.item-inner:after {
+		width: 0;
+	}
 	input[type=time], input[type=number], input[type=search], input[type=text], input[type=password], input[type=email], input[type=tel], input[type=url], input[type=date], input[type=datetime-local], select {
 		color: #fff;
 		font-size: 1em;
@@ -24,8 +27,15 @@
 				transform: translateY(-20px);
 				-webkit-transform: translateY(-20px);
 				visibility: visible !important;
+				z-index: 1111;
 			}
 		}
+	}
+
+	input[type=time], input[type=number], input[type=search], input[type=text], input[type=password], input[type=email], input[type=tel], input[type=url], input[type=date], input[type=datetime-local] {
+		padding: 0;
+		margin: 0;
+		height: 58px;
 	}
 
 	textarea {
@@ -43,6 +53,7 @@
 				transform: translateY(-10px);
 				-webkit-transform: translateY(-10px);
 				visibility: visible !important;
+				z-index: 1111;
 			}
 		}
 	}

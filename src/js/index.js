@@ -10,12 +10,14 @@ import LoginActionsCreator from './actions/LoginActionCreators';
 import Framework7Service from './services/Framework7Service';
 import AnalyticsService from './services/AnalyticsService';
 import GeocoderService from './services/GeocoderService';
+import RecaptchaService from './services/RecaptchaService';
 import SocialNetworkService from './services/SocialNetworkService';
 import OfflineService from './services/OfflineService';
 
 Framework7Service.init();
 OfflineService.check().then(() => {
     AnalyticsService.init();
+    RecaptchaService.init();
     GeocoderService.init();
     SocialNetworkService.initFacebookSDK();
     RouterContainer.set(hashHistory);

@@ -45,10 +45,11 @@ export default {
         error   : 'Error connecting network. You may have connected it with other user.'
     },
     ConnectSocialNetworksPage        : {
-        top    : 'Social Networks',
-        title  : 'Improve recommendations',
-        excerpt: 'Make your data work for you! The more interest you contribute, the better recommendations you’ll get!',
-        error  : 'Error connecting network. You may have connected it with other user.'
+        top          : 'Social Networks',
+        title        : 'Improve recommendations',
+        excerpt      : 'Make your data work for you! The more interest you contribute, the better recommendations you’ll get!',
+        error        : 'Error connecting network. You may have connected it with other user.',
+        answerExplore: 'Do you want to answer explore objectives?'
     },
     EditProfilePage                  : {
         title       : 'Edit profile',
@@ -57,21 +58,18 @@ export default {
         cannotRemove: 'This field cannot be deleted'
     },
     HomePage                         : {
-        title1         : 'Add your networks and discover your %detail% partners',
-        title1Details  : ['life', 'project', 'adventure'],
-        title2         : 'Unlock badges to rediscover your %detail%',
-        title2Details  : ['tribe', 'classmates', 'followers', 'co-workers', 'attendees', 'neighbors'],
-        title3         : '100% Free' + "\n" + '100% Open source',
-        title3Details  : [],
-        login          : 'Login with Facebook',
-        hasInvitation  : 'Do you have an invitation?',
-        register       : 'Register',
-        loginUser      : 'Trying to login user',
-        registeringUser: 'Registering user',
-        wantGuest      : 'Do you want to try it?',
-        asGuest        : 'Enter as guest',
-        legalTerms     : 'We will never post anything on your networks.</br>By registering, you agree to the <a href="https://nekuno.com/terms-and-conditions" target="_blank">End-user license agreement</a>.',
-        blockingError  : 'Your browser has blocked a Facebook request and we are not able to register you. Please, disable the blocking configuration or use an other browser.'
+        choosePath   : 'Choose your path',
+        title1       : 'Rediscover my tribe' + "\n" + 'unlocking badges',
+        title2       : 'Share what I love' + "\n" + 'joining and creating proposals',
+        title3       : 'All previous + discover' + "\n" + 'my life mates',
+        events       : 'Events',
+        explore      : 'Explore',
+        contact      : 'Contact',
+        blockingError: 'Your browser has blocked a Facebook request and we are not able to register you. Please, disable the blocking configuration or use an other browser.'
+    },
+    ExplorePage                      : {
+        title  : 'Share what I love' + "\n" + 'joining and creating proposals',
+        explore: 'Explore',
     },
     InterestsPage                    : {
         cancel   : 'Cancel',
@@ -197,7 +195,8 @@ export default {
     RegisterPage                     : {
         register          : 'Create account',
         cancel            : 'Cancel',
-        title             : 'Nekuno only allows registration by invitation.',
+        title             : 'Nekuno analyzes your interests to offer you recommendations',
+        openSource        : 'Open & free software',
         titleCorrect      : 'Awesome! You got an invitation!',
         subtitle          : 'Please copy the URL that you\'ve received your invitation and paste it into the field below to create your account at Nekuno.',
         paste             : 'Paste the invitation url here',
@@ -206,7 +205,7 @@ export default {
         loadingMessage    : 'Loading',
         publishMessage    : 'We\'ll never publish anything on your wall',
         privacy           : 'By registering, you agree to the <a href="https://nekuno.com/terms-and-conditions" target="_blank">Legal Conditions</a> and the Nekuno <a href="https://nekuno.com/privacy-policy" target="_blank">Privacy Policy</a>.',
-        signUp            : 'Sign up with Facebook',
+        signUp            : 'Analize',
         compatibility     : 'Analize compatibility',
         blockingError     : 'Your browser has blocked a Facebook request and we are not able to register you. Please, disable the blocking configuration or use an other browser.'
 
@@ -347,6 +346,48 @@ export default {
         invitations   : 'Invitations',
         logout        : 'Logout'
     },
+    GroupField                       : {
+        placeholder: 'Badge code',
+        save       : 'Continue',
+        selectOther: 'Select other objectives if you want'
+    },
+    ExploreField                     : {
+        explore     : 'Explore',
+        work1       : 'Work',
+        work2       : '& ideas',
+        hobbies1    : 'Hobbies',
+        hobbies2    : '& games',
+        leisure1    : 'Adventures',
+        leisure2    : '& leisure',
+        industry    : 'Industry',
+        skills      : 'Skills',
+        proposals   : 'Proposals',
+        sports      : 'Sports',
+        games       : 'Games',
+        creative    : 'Creative',
+        leisureTime : 'Leisure time',
+        leisureMoney: 'Money',
+        travels     : 'Travels',
+        tickets     : 'Tickets',
+        activities  : 'Activities',
+        leisurePlans: 'Plans',
+        save        : 'Continue',
+        finish      : 'Finish',
+        skip        : 'Skip',
+        selectOther : 'You can select more than one'
+    },
+    OrientationField                 : {
+        iAm         : 'I am',
+        heterosexual: 'Straight',
+        homosexual  : 'Gay',
+        bisexual    : 'Bisexual',
+        other       : 'Other',
+    },
+    AccessButtons                    : {
+        registerText: 'Sign up now',
+        loginText   : 'I\'m already registered',
+        registerNow : "You can sign up now",
+    },
     ProfileDataList                  : {
         cannotRemove: 'This field cannot be deleted',
     },
@@ -453,11 +494,11 @@ export default {
         statistics: 'Community answer statistics'
     },
     QuestionStatsGraph               : {
-        females: 'Girls',
-        males  : 'Boys',
-        young  : '- than 30',
-        old    : '+ than 30',
-        typeAge: 'Distribution by age',
+        females   : 'Girls',
+        males     : 'Boys',
+        young     : '- than 30',
+        old       : '+ than 30',
+        typeAge   : 'Distribution by age',
         typeGender: 'Distribution by gender'
     },
     QuestionStatsInline              : {
@@ -552,6 +593,13 @@ export default {
         similarity: 'Similarity',
         loading   : 'Loading...',
     },
+    OrientationPopup                 : {
+        title : 'Sexual orientation',
+        cancel: 'Cancel'
+    },
+    DetailPopup                      : {
+        continue: 'Continue',
+    },
     ImportAlbumPopup                 : {
         close           : 'Close',
         importAlbum     : 'Import an album',
@@ -641,7 +689,7 @@ export default {
         minChoices: 'Select at least %min% items',
         maxChoices: 'Select up to %max% items'
     },
-    MultipleChoicesFilter              : {
+    MultipleChoicesFilter            : {
         maxChoices: 'Select up to %max% items'
     },
     TagEdit                          : {
@@ -656,6 +704,17 @@ export default {
     LocationEdit                     : {
         location   : 'Location',
         placeholder: 'Type a location'
+    },
+    MultipleLocationsEdit            : {
+        placeholder: 'Type a location',
+        maxChoices : 'Select up to %max% items'
+    },
+    MultipleFieldsEdit               : {
+        minChoices: 'Select at least %min% items',
+        maxChoices: 'Select up to %max% items',
+        isRequired: 'is required',
+        add       : 'Add',
+        remove    : 'Remove'
     },
     IntegerFilter                    : {
         minValue   : 'The minimum value is ',

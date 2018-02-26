@@ -510,7 +510,7 @@ export default {
         completed: 'completed questions'
     },
     OtherQuestionsBanner             : {
-        title    : 'Do you want to answer the questions of this user?',
+        title    : 'Answer %username%`s questions for improving compatibility calculation',
         text     : '',
         completed: 'Completed questions'
     },

@@ -44,6 +44,7 @@ class QuestionStore extends BaseStore {
                 break;
             case ActionTypes.REQUEST_QUESTION:
                 this._loadingOwnQuestions = true;
+                this._noMoreQuestions = false;
                 this._isRequestedQuestion[action.otherUserId ? action.otherUserId : action.userId] = true;
                 break;
             case ActionTypes.REQUEST_EXISTING_QUESTION:

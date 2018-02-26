@@ -76,7 +76,7 @@ export default class MultipleFieldsEdit extends Component {
         }
         let emptyKey;
         if (emptyKey = Object.keys(metadata.metadata).find(fieldKey => metadata.metadata[fieldKey].required && profile[editKey].some(profileField => !profileField[fieldKey]))) {
-            Framework7Service.nekunoApp().alert(emptyKey + ' ' + strings.isRequired);
+            Framework7Service.nekunoApp().alert(metadata.metadata[emptyKey].labelEdit + ' ' + strings.isRequired);
             return;
         }
 
@@ -280,7 +280,7 @@ export default class MultipleFieldsEdit extends Component {
                 </div>
                 {null !== selectedIndex ? <div className="remove-multiple-field" onClick={this.handleClickRemove}>{strings.remove} <span className="icon-delete"></span></div> : ''}
                 {profile[editKey] && profile[editKey].length > 0 ? <div className="add-multiple-field" onClick={this.handleClickAdd}>{strings.add} <span className="icon-plus"></span></div> : ''}
-                {profile[editKey] && profile[editKey].length > 0 > 0 ? profile[editKey].map((value, index) =>
+                {profile[editKey] && profile[editKey].length > 0 ? profile[editKey].map((value, index) =>
                     index !== selectedIndex ?
                         <div className="tags-and-choice-unselected-filter" key={index}>
                             <TextCheckboxes labels={[{key: index, text: this.renderNotSelectedText(value)}]} values={[index]}

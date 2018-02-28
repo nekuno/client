@@ -48,6 +48,7 @@ class QuestionStore extends BaseStore {
                 this._isRequestedQuestion[action.otherUserId ? action.otherUserId : action.userId] = true;
                 break;
             case ActionTypes.REQUEST_EXISTING_QUESTION:
+                this._noMoreQuestions = false;
                 this._answerQuestion = {};
                 this._answerQuestion[action.questionId] = this._questions[action.userId][action.questionId].question;
                 this.emitChange();

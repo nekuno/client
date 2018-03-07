@@ -204,7 +204,7 @@ export default {
         registeringMessage: 'Registrando usuario',
         loadingMessage    : 'Cargando',
         publishMessage    : 'Nunca publicaremos nada en tu muro',
-        privacy           : 'Al registrarte, estás aceptando las <a href="https://nekuno.com/terms-and-conditions" target="_blank">Condiciones Legales</a> y la <a href="https://nekuno.com/privacy-policy" target="_blank">Política de Privacidad</a> de Nekuno',
+        legalTerms        : 'Nunca publicaremos nada en tus redes.</br>Registrándote aceptas las <a href="https://nekuno.com/terms-and-conditions" target="_blank">Condiciones Legales</a>.',
         signUp            : 'Analizar',
         compatibility     : 'Analizar compatibilidad',
         blockingError     : 'Tu navegador está bloqueando una petición a Facebook y no podemos registrar tu usuario. Por favor, deshabilita el bloqueo en la configuración o utiliza otro navegador.'

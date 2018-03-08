@@ -10,18 +10,13 @@ import ProfileStore from '../stores/ProfileStore';
 import RouterActionCreators from '../actions/RouterActionCreators';
 import Framework7Service from '../services/Framework7Service';
 
-function parseId(user) {
-    return user.id;
-}
-
 function getState(props) {
 
     const networks = WorkersStore.getAll();
     const error = WorkersStore.getConnectError();
     const isLoading = WorkersStore.isLoading();
     const {user} = props;
-    const userId = parseId(user);
-    const profile = ProfileStore.get(userId);
+    const profile = ProfileStore.get(user.slug);
 
     return {
         networks,

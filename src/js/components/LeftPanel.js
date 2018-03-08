@@ -17,7 +17,7 @@ function getState(props) {
     const stats = StatsStore.stats;
     const interests = selectn('numberOfContentLikes', stats) || 0;
     const unreadCount = ChatThreadStore.getUnreadCount() || 0;
-    const profile = ProfileStore.get(props.user.id);
+    const profile = ProfileStore.get(props.user.slug);
 
     return {
         interests,

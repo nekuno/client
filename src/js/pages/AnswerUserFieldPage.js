@@ -22,8 +22,8 @@ function parseId(user) {
  * Requests data from server (or store) for current props.
  */
 function requestData(props) {
-    if (!ProfileStore.get(parseId(props.user))) {
-        UserActionCreators.requestOwnProfile(parseId(props.user));
+    if (!ProfileStore.get(props.user.slug)) {
+        UserActionCreators.requestOwnProfile(props.user.slug);
     }
 }
 
@@ -32,7 +32,7 @@ function requestData(props) {
  */
 function getState(props) {
     const userId = parseId(props.user);
-    const profile = ProfileStore.get(userId);
+    const profile = ProfileStore.get(props.user.slug);
     const errors = LoginStore.error;
     const registerQuestionsLength = QuestionStore.registerQuestionsLength();
     const answersLength = QuestionStore.ownAnswersLength(userId);
@@ -41,8 +41,8 @@ function getState(props) {
     const userQuestionsComplete = LoginStore.isComplete();
     const nextUserField = LoginStore.getNextRequiredUserField();
     const initialProfileQuestionsCount = ProfileStore.getInitialRequiredProfileQuestionsCount();
-    const profileQuestionsLeftCount = ProfileStore.getRequiredProfileQuestionsLeftCount(userId);
-    const profileQuestionsComplete = ProfileStore.isComplete(userId);
+    const profileQuestionsLeftCount = ProfileStore.getRequiredProfileQuestionsLeftCount(props.user.slug);
+    const profileQuestionsComplete = ProfileStore.isComplete(props.user.slug);
     const profileQuestionsCount = initialProfileQuestionsCount - profileQuestionsLeftCount;
     const totalQuestions = initialUserQuestionsCount + initialProfileQuestionsCount + registerQuestionsLength;
     const questionNumber = userQuestionsCount + profileQuestionsCount + answersLength + 1;

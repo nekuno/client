@@ -39,20 +39,20 @@ function requestData(props) {
     const {params, user} = props;
     const otherUserSlug = params.slug;
     setTimeout(() => {
+        UserActionCreators.requestMetadata();
+        if (!ProfileStore.contains(user.slug)) {
+            UserActionCreators.requestOwnProfile(user.slug);
+        }
+        UserActionCreators.requestProfile(otherUserSlug);
+        UserActionCreators.requestLikeUser(user.slug, otherUserSlug);
+        UserActionCreators.requestBlockUser(user.slug, otherUserSlug);
         UserActionCreators.requestUser(otherUserSlug, ['username', 'photo', 'status']).then(
             () => {
                 const otherUser = UserStore.getBySlug(params.slug);
-                UserActionCreators.requestMetadata();
-                if (!ProfileStore.contains(parseId(user))) {
-                    UserActionCreators.requestOwnProfile(parseId(user));
-                }
                 const otherUserId = parseId(otherUser);
                 UserActionCreators.requestMatching(parseId(user), otherUserId);
                 UserActionCreators.requestSimilarity(parseId(user), otherUserId);
-                UserActionCreators.requestLikeUser(parseId(user), otherUserId);
-                UserActionCreators.requestBlockUser(parseId(user), otherUserId);
                 UserActionCreators.requestComparedStats(parseId(user), otherUserId);
-                UserActionCreators.requestProfile(otherUserId);
                 UserActionCreators.requestStats(otherUserId);
                 GalleryPhotoActionCreators.getOtherPhotos(otherUserId);
             },
@@ -85,17 +85,17 @@ function getState(props) {
     const otherUser = UserStore.getBySlug(otherUserSlug);
     const otherUserId = otherUser ? parseId(otherUser) : null;
     const {user} = props;
-    const profile = otherUserId ? ProfileStore.get(otherUserId) : null;
-    const profileWithMetadata = otherUserId ? ProfileStore.getWithMetadata(otherUserId) : [];
+    const profile = ProfileStore.get(otherUserSlug);
+    const profileWithMetadata = ProfileStore.getWithMetadata(otherUserSlug);
     const metadata = ProfileStore.getMetadata();
     const matching = otherUserId ? MatchingStore.get(otherUserId, parseId(user)) : null;
     const similarity = otherUserId ? SimilarityStore.get(otherUserId, parseId(user)) : null;
-    const blocked = otherUserId ? BlockStore.get(parseId(user), otherUserId) : null;
-    const like = otherUserId ? LikeStore.get(parseId(user), otherUserId) : null;
+    const blocked = BlockStore.get(user.slug, otherUserSlug);
+    const like = LikeStore.get(user.slug, otherUserSlug);
     const comparedStats = otherUserId ? ComparedStatsStore.get(parseId(user), otherUserId) : null;
     const photos = otherUserId ? GalleryPhotoStore.get(otherUserId) : [];
     const noPhotos = otherUserId ? GalleryPhotoStore.noPhotos(otherUserId) : null;
-    const ownProfile = ProfileStore.get(parseId(user));
+    const ownProfile = ProfileStore.get(user.slug);
     const online = otherUserId ? ChatUserStatusStore.isOnline(otherUserId) || false : null;
     const orientationMustBeAsked = ProfileStore.orientationMustBeAsked();
 
@@ -317,17 +317,17 @@ export default class OtherUserPage extends Component {
             reason    : reason,
             reasonText: reasonText
         };
-        UserActionCreators.reportUser(parseId(user), parseId(otherUser), data);
+        UserActionCreators.reportUser(user.slug, otherUser.slug, data);
     }
 
     blockUser(props) {
         const {user, otherUser} = props;
-        UserActionCreators.blockUser(parseId(user), parseId(otherUser));
+        UserActionCreators.blockUser(user.slug, otherUser.slug);
     }
 
     unsetBlockUser(props) {
         const {user, otherUser} = props;
-        UserActionCreators.deleteBlockUser(parseId(user), parseId(otherUser));
+        UserActionCreators.deleteBlockUser(user.slug, otherUser.slug);
     }
 
     /** Like-related **/
@@ -342,12 +342,12 @@ export default class OtherUserPage extends Component {
 
     setLikeUser(props) {
         const {user, otherUser} = props;
-        UserActionCreators.likeUser(parseId(user), parseId(otherUser), ORIGIN_CONTEXT.OTHER_USER_PAGE, otherUser.username);
+        UserActionCreators.likeUser(user.slug, otherUser.slug, ORIGIN_CONTEXT.OTHER_USER_PAGE, otherUser.username);
     }
 
     unsetLikeUser(props) {
         const {user, otherUser} = props;
-        UserActionCreators.deleteLikeUser(parseId(user), parseId(otherUser));
+        UserActionCreators.deleteLikeUser(user.slug, otherUser.slug);
     }
 
     handleClickMessageLink() {

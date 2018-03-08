@@ -47,21 +47,17 @@ class LikeStore extends BaseStore {
         }
     }
 
-    contains(userId1, userId2) {
-        return this._likes.some(like => like.from == userId1 && like.to == userId2);
-    }
-
-    get(userId1, userId2) {
-        const like = this._likes.find(like => like.to == userId2 && like.from == userId1) || {value: 0};
+    get(userSlug1, userSlug2) {
+        const like = this._likes.find(like => like.from == userSlug1 && like.to == userSlug2) || {value: 0};
         return like.value;
     }
 
-    merge(userId1, userId2, value) {
-        const index = this._likes.findIndex(like => like.to == userId2 && like.from == userId1);
+    merge(userSlug1, userSlug2, value) {
+        const index = this._likes.findIndex(like => like.to == userSlug2 && like.from == userSlug1);
         if (index !== -1) {
-            this._likes[index] = {from: userId1, to: userId2, value: value};
+            this._likes[index] = {from: userSlug1, to: userSlug2, value: value};
         } else {
-            this._likes.push({from: userId1, to: userId2, value: value});
+            this._likes.push({from: userSlug1, to: userSlug2, value: value});
         }
     }
 }

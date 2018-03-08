@@ -25,8 +25,8 @@ function parseId(user) {
  * Requests data from server (or store) for current props.
  */
 function requestData(props) {
-    if (!ProfileStore.get(parseId(props.user))) {
-        setTimeout(() => { UserActionCreators.requestOwnProfile(parseId(props.user)) }, 0);
+    if (!ProfileStore.get(props.user.slug)) {
+        setTimeout(() => { UserActionCreators.requestOwnProfile(props.user.slug) }, 0);
     }
     if (!ProfileStore.getMetadata()) {
         setTimeout(() => { UserActionCreators.requestMetadata() }, 0);
@@ -38,17 +38,17 @@ function requestData(props) {
  */
 function getState(props) {
     const userId = parseId(props.user);
-    const profile = ProfileStore.get(userId);
+    const profile = ProfileStore.get(props.user.slug);
     const metadata = ProfileStore.getMetadata();
     const errors = ProfileStore.getErrors();
     const registerQuestionsLength = QuestionStore.registerQuestionsLength();
     const answersLength = QuestionStore.ownAnswersLength(userId);
     const initialUserQuestionsCount = LoginStore.getInitialRequiredUserQuestionsCount();
     const userQuestionsCount = LoginStore.getRequiredUserQuestionsCount();
-    const nextProfileField = ProfileStore.getNextRequiredProfileField(userId);
+    const nextProfileField = ProfileStore.getNextRequiredProfileField(props.user.slug);
     const initialProfileQuestionsCount = ProfileStore.getInitialRequiredProfileQuestionsCount();
-    const profileQuestionsLeftCount = ProfileStore.getRequiredProfileQuestionsLeftCount(userId);
-    const profileQuestionsComplete = ProfileStore.isComplete(userId);
+    const profileQuestionsLeftCount = ProfileStore.getRequiredProfileQuestionsLeftCount(props.user.slug);
+    const profileQuestionsComplete = ProfileStore.isComplete(props.user.slug);
     const profileQuestionsCount = initialProfileQuestionsCount - profileQuestionsLeftCount;
     const totalQuestions = initialUserQuestionsCount + initialProfileQuestionsCount + registerQuestionsLength;
     const questionNumber = userQuestionsCount + profileQuestionsCount + answersLength + 1;
@@ -121,7 +121,7 @@ export default class AnswerProfileFieldPage extends Component {
     }
 
     handleClickSave(fieldName, data) {
-        let profile = Object.assign({}, ProfileStore.get(parseId(this.props.user)));
+        let profile = Object.assign({}, ProfileStore.get(this.props.user.slug));
         profile[fieldName] = data;
         UserActionCreators.editProfile(profile);
     }
@@ -131,7 +131,7 @@ export default class AnswerProfileFieldPage extends Component {
             Framework7Service.nekunoApp().alert(this.props.strings.genderEmpty);
             return null;
         }
-        let profile = Object.assign({}, ProfileStore.get(parseId(this.props.user)));
+        let profile = Object.assign({}, ProfileStore.get(this.props.user.slug));
         profile['gender'] = gender;
         profile['descriptiveGender'] = descriptiveGender;
         UserActionCreators.editProfile(profile);

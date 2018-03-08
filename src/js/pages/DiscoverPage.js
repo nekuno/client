@@ -43,7 +43,7 @@ function getDisplayedThread(props) {
  */
 function requestData(props) {
     if (!props.profile) {
-        UserActionCreators.requestOwnProfile(parseId(props.user));
+        UserActionCreators.requestOwnProfile(props.user.slug);
     }
     if (Object.keys(props.thread).length === 0) {
         const userId = parseId(props.user);
@@ -58,7 +58,7 @@ function requestData(props) {
 function getState(props) {
 
     let userId = parseId(props.user);
-    const profile = ProfileStore.get(userId);
+    const profile = ProfileStore.get(props.user.slug);
     const orientationMustBeAsked = ProfileStore.orientationMustBeAsked();
     const questionsTotal = QuestionStore.ownAnswersLength(userId);
     let isSomethingWorking = WorkersStore.isSomethingWorking();

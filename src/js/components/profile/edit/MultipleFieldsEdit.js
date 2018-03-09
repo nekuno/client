@@ -136,6 +136,8 @@ export default class MultipleFieldsEdit extends Component {
                 profile      : profile,
                 selectedIndex: null,
             });
+
+            this.props.handleChangeEdit(editKey, profile[editKey]);
         }
     }
 

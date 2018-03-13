@@ -28,7 +28,7 @@ export default class CardUser extends Component {
         age                   : PropTypes.number,
         like                  : PropTypes.number,
         hideLikeButton        : PropTypes.bool.isRequired,
-        loggedUserId          : PropTypes.number.isRequired,
+        loggedUserSlug        : PropTypes.string.isRequired,
         profile               : PropTypes.object.isRequired,
         handleSelectProfile   : PropTypes.func,
         online                : PropTypes.bool,
@@ -49,11 +49,11 @@ export default class CardUser extends Component {
     }
 
     onLikeOrDislike() {
-        const {like, loggedUserId, userId} = this.props;
+        const {like, loggedUserSlug, slug} = this.props;
         if (!like || like === -1) {
-            UserActionCreators.likeUser(loggedUserId, userId);
+            UserActionCreators.likeUser(loggedUserSlug, slug);
         } else {
-            UserActionCreators.deleteLikeUser(loggedUserId, userId);
+            UserActionCreators.deleteLikeUser(loggedUserSlug, slug);
         }
     }
 
@@ -62,7 +62,7 @@ export default class CardUser extends Component {
     }
 
     handleGoToProfile() {
-        const {profile, orientationMustBeAsked, slug} = this.props;
+        const {orientationMustBeAsked, slug} = this.props;
         if (orientationMustBeAsked) {
             Framework7Service.nekunoApp().popup('.popup-orientation-required');
             this.props.handleSelectProfile(slug);

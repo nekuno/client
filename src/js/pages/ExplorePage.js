@@ -11,21 +11,16 @@ import RouterActionCreators from '../actions/RouterActionCreators';
 import LocaleStore from '../stores/LocaleStore';
 import ProfileStore from '../stores/ProfileStore';
 
-function parseId(user) {
-    return user.id;
-}
-
 function requestData(props) {
     if (!props.profile) {
-        UserActionCreators.requestOwnProfile(parseId(props.user));
+        UserActionCreators.requestOwnProfile(props.user.slug);
     }
 }
 function getState(props) {
 
     const interfaceLanguage = LocaleStore.locale;
     const {user} = props;
-    const userId = parseId(user);
-    const profile = ProfileStore.get(userId);
+    const profile = ProfileStore.get(user.slug);
 
     return {
         interfaceLanguage,

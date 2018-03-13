@@ -31,28 +31,28 @@ class ProfileStore extends BaseStore {
             case ActionTypes.REQUEST_PROFILE_ERROR:
                 break;
             case ActionTypes.REQUEST_OWN_PROFILE_SUCCESS:
-                this._profiles[action.userId] = this._profiles[action.userId] || {};
-                const newProfiles = {[action.userId]: action.response};
+                this._profiles[action.slug] = this._profiles[action.slug] || {};
+                const newProfiles = {[action.slug]: action.response};
                 mergeIntoBag(this._profiles, newProfiles);
-                this._setInitialRequiredProfileQuestionsCount(action.userId);
+                this._setInitialRequiredProfileQuestionsCount(action.slug);
                 this.emitChange();
                 break;
             case ActionTypes.CONNECT_ACCOUNT_SUCCESS:
                 if (action.resource === SOCIAL_NETWORKS_NAMES.LINKEDIN) {
-                    this._profiles[LoginStore.user.id] = null;
+                    this._profiles[LoginStore.user.slug] = null;
                     this.emitChange();
                 }
                 break;
             case ActionTypes.REQUEST_LOGIN_USER_SUCCESS:
             case ActionTypes.REQUEST_AUTOLOGIN_SUCCESS:
-                this._profiles[LoginStore.user.id] = this._profiles[LoginStore.user.id] || {};
-                mergeIntoBag(this._profiles[LoginStore.user.id], action.response.profile);
-                this._setInitialRequiredProfileQuestionsCount(LoginStore.user.id);
+                this._profiles[LoginStore.user.slug] = this._profiles[LoginStore.user.slug] || {};
+                mergeIntoBag(this._profiles[LoginStore.user.slug], action.response.profile);
+                this._setInitialRequiredProfileQuestionsCount(LoginStore.user.slug);
                 this.emitChange();
                 break;
             case ActionTypes.REQUEST_PROFILE_SUCCESS:
-                this._profiles[action.userId] = this._profiles[action.userId] || {};
-                mergeIntoBag(this._profiles[action.userId], action.response);
+                this._profiles[action.slug] = this._profiles[action.slug] || {};
+                mergeIntoBag(this._profiles[action.slug], action.response);
                 this.emitChange();
                 break;
             case ActionTypes.REQUEST_METADATA_SUCCESS:
@@ -77,14 +77,14 @@ class ProfileStore extends BaseStore {
                 this.emitChange();
                 break;
             case ActionTypes.EDIT_PROFILE_SUCCESS:
-                const currentProfile = this._profiles[LoginStore.user.id];
+                const currentProfile = this._profiles[LoginStore.user.slug];
                 if (currentProfile.interfaceLanguage !== action.data.interfaceLanguage) {
                     window.setTimeout(() => {
                         UserActionCreators.requestMetadata();
                         ThreadActionCreators.requestFilters();
                     }, 0);
                 }
-                this._profiles[LoginStore.user.id] = action.response;
+                this._profiles[LoginStore.user.slug] = action.response;
                 this.emitChange();
                 break;
             case ActionTypes.EDIT_PROFILE_ERROR:
@@ -92,7 +92,7 @@ class ProfileStore extends BaseStore {
                 this.emitChange();
                 break;
             case ActionTypes.REQUEST_RECOMMENDATIONS_SUCCESS:
-                action.response.items.forEach(item => this._profiles[item.id] = item.profile ? item.profile : null);
+                action.response.items.forEach(item => this._profiles[item.slug] = item.profile ? item.profile : null);
                 this.emitChange();
                 break;
             default:
@@ -100,12 +100,12 @@ class ProfileStore extends BaseStore {
         }
     }
 
-    contains(userId, fields) {
-        return isInBag(this._profiles, userId, fields);
+    contains(slug, fields) {
+        return isInBag(this._profiles, slug, fields);
     }
 
-    get(userId) {
-        return this._profiles[userId];
+    get(slug) {
+        return this._profiles[slug];
     }
 
     getErrors() {
@@ -114,20 +114,20 @@ class ProfileStore extends BaseStore {
         return errors;
     }
 
-    getMetadata(){
+    getMetadata() {
         return this._metadata;
     }
 
-    getCategories(){
+    getCategories() {
         return this._categories;
     }
 
-    isLoadingCategories(){
+    isLoadingCategories() {
         return this._isLoadingCategories;
     }
 
-    getWithMetadata(userId) {
-        const basicProfile = this.get(userId);
+    getWithMetadata(slug) {
+        const basicProfile = this.get(slug);
         const metadata = this.getMetadata();
         const categories = this.getCategories();
 
@@ -291,7 +291,7 @@ class ProfileStore extends BaseStore {
     }
 
     orientationMustBeAsked() {
-        const profile = this._profiles[LoginStore.user.id];
+        const profile = this._profiles[LoginStore.user.slug];
 
         return profile && profile.orientationRequired && !profile.orientation && profile.objective && profile.objective.some(obj => obj === 'human-contact')
     }
@@ -306,18 +306,18 @@ class ProfileStore extends BaseStore {
             selectn('address', location);
     }
 
-    isComplete(userId) {
-        return this.getRequiredProfileQuestionsLeftCount(userId) === 0;
+    isComplete(slug) {
+        return this.getRequiredProfileQuestionsLeftCount(slug) === 0;
     }
 
     getInitialRequiredProfileQuestionsCount() {
         return this._initialRequiredProfileQuestionsCount;
     }
 
-    getRequiredProfileQuestionsLeftCount(userId) {
+    getRequiredProfileQuestionsLeftCount(slug) {
         let count = 0;
         REQUIRED_REGISTER_PROFILE_FIELDS.forEach(field => {
-            if (!this._profiles[userId] || !this._profiles[userId][field.name] || !this.isProfileSet(field, this._profiles[userId][field.name])) {
+            if (!this._profiles[slug] || !this._profiles[slug][field.name] || !this.isProfileSet(field, this._profiles[slug][field.name])) {
                 count++;
             }
         });
@@ -325,16 +325,16 @@ class ProfileStore extends BaseStore {
         return count;
     }
 
-    getNextRequiredProfileField(userId) {
-        return typeof this._profiles[userId] !== 'undefined' && this._profiles[userId] ? REQUIRED_REGISTER_PROFILE_FIELDS.find(field =>
-                !(typeof this._profiles[userId][field.name] !== 'undefined' && this._profiles[userId][field.name])
+    getNextRequiredProfileField(slug) {
+        return typeof this._profiles[slug] !== 'undefined' && this._profiles[slug] ? REQUIRED_REGISTER_PROFILE_FIELDS.find(field =>
+                !(typeof this._profiles[slug][field.name] !== 'undefined' && this._profiles[slug][field.name])
             ) || null : null;
     }
 
-    _setInitialRequiredProfileQuestionsCount(userId) {
+    _setInitialRequiredProfileQuestionsCount(slug) {
         let count = 0;
         REQUIRED_REGISTER_PROFILE_FIELDS.forEach(field => {
-            if (!this._profiles[userId] || !this.isProfileSet(field, this._profiles[userId][field.name])) {
+            if (!this._profiles[slug] || !this.isProfileSet(field, this._profiles[slug][field.name])) {
                 count++;
             }
         });
@@ -342,17 +342,17 @@ class ProfileStore extends BaseStore {
         this._initialRequiredProfileQuestionsCount = count;
     }
 
-    setLikedUser(userId, profiles) {
-        if (profiles.hasOwnProperty(userId)) {
-            profiles[userId]['like'] = 1;
+    setLikedUser(slug, profiles) {
+        if (profiles.hasOwnProperty(slug)) {
+            profiles[slug]['like'] = 1;
         }
 
         return profiles;
     }
 
-    setUnlikedUser(userId, profiles) {
-        if (profiles.hasOwnProperty(userId)) {
-            profiles[userId]['like'] = 0;
+    setUnlikedUser(slug, profiles) {
+        if (profiles.hasOwnProperty(slug)) {
+            profiles[slug]['like'] = 0;
         }
         return profiles;
     }

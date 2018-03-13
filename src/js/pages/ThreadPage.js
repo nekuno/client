@@ -27,7 +27,7 @@ function requestData(props) {
     const userId = props.user.id;
     if (ThreadStore.noThreads() || ThreadStore.isAnyPopular()) {
         ThreadActionCreators.requestThreadPage(userId);
-        UserActionCreators.requestOwnProfile(userId);
+        UserActionCreators.requestOwnProfile(props.user.slug);
         ThreadActionCreators.requestFilters();
         QuestionActionCreators.requestQuestions(userId);
     }
@@ -44,7 +44,7 @@ function getState(props) {
         thread.cached =  RecommendationStore.getFirst(thread.id, 5);
     });
 
-    const profile = ProfileStore.get(props.user.id) || {};
+    const profile = ProfileStore.get(props.user.slug) || {};
     const filters = FilterStore.filters;
     const pagination = QuestionStore.getPagination(props.user.id) || {};
     const isSomethingWorking = WorkersStore.isSomethingWorking();

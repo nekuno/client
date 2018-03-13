@@ -44,7 +44,7 @@ export function getOwnProfile(url = `profile`) {
     return getData(url);
 }
 
-export function getProfile(userId, url = `profile/${userId}`) {
+export function getProfile(slug, url = `profile/${slug}`) {
     return getData(url);
 }
 

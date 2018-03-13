@@ -73,14 +73,14 @@ export function editUser(data) {
     });
 }
 
-export function requestOwnProfile(userId) {
+export function requestOwnProfile(slug) {
     return dispatchAsync(UserAPI.getOwnProfile(), {
         request: ActionTypes.REQUEST_OWN_PROFILE,
         success: ActionTypes.REQUEST_OWN_PROFILE_SUCCESS,
         failure: ActionTypes.REQUEST_OWN_PROFILE_ERROR
-    }, {userId})
+    }, {slug})
         .then(() => {
-            let profile = ProfileStore.get(userId);
+            let profile = ProfileStore.get(slug);
             checkLocale(profile.interfaceLanguage);
             return null;
         }, () => {
@@ -88,17 +88,17 @@ export function requestOwnProfile(userId) {
         });
 }
 
-export function requestProfile(userId, fields) {
+export function requestProfile(slug, fields) {
     // Exit early if we know enough about this user
-    if (ProfileStore.contains(userId, fields)) {
+    if (ProfileStore.contains(slug, fields)) {
         return;
     }
 
-    dispatchAsync(UserAPI.getProfile(userId), {
+    dispatchAsync(UserAPI.getProfile(slug), {
         request: ActionTypes.REQUEST_PROFILE,
         success: ActionTypes.REQUEST_PROFILE_SUCCESS,
         failure: ActionTypes.REQUEST_PROFILE_ERROR
-    }, {userId});
+    }, {slug});
 }
 
 export function requestSharedUser(slug) {

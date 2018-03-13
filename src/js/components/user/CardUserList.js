@@ -62,7 +62,7 @@ export default class CardUserList extends Component {
             age={recommendation.age}
             like={recommendation.like}
             hideLikeButton={false}
-            loggedUserId={user.id}
+            loggedUserSlug={user.slug}
             profile={profile}
             handleSelectProfile={handleSelectProfile}
             online={onlineUserIds.some(id => id === recommendation.id)}

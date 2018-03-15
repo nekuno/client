@@ -99,7 +99,7 @@ export default function tutorial() {
             addSteps(props) {
                 let steps = props.steps;
                 if (!steps.length) {
-                    return false;
+                    return [];
                 }
                 steps = setStepsStyles(steps);
 

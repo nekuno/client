@@ -47,7 +47,7 @@ gulp.task('sass', function() {
         './node_modules/Framework7-3D-Panels/dist/framework7.3dpanels.css',
         './node_modules/slick-carousel/slick/slick.css',
         './node_modules/react-image-crop/dist/ReactCrop.css',
-        './node_modules/react-joyride/lib/styles/react-joyride-compiled.css',
+        './node_modules/react-joyride/lib/react-joyride-compiled.css',
         './node_modules/react-infinite-calendar/styles.css',
         './node_modules/rc-slider/assets/index.css',
         './src/scss/pages/*.scss',

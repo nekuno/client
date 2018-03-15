@@ -75,9 +75,9 @@ export default class AnswerQuestionPage extends Component {
         // Injected by @tutorial:
         steps                  : PropTypes.array,
         startTutorial          : PropTypes.func,
-        resetTutorial          : PropTypes.func,
         endTutorialHandler     : PropTypes.func,
         tutorialLocale         : PropTypes.object,
+        joyrideRunning         : PropTypes.bool,
         // Injected by @connectToStores:
         question               : PropTypes.object,
         userAnswer             : PropTypes.object,
@@ -111,7 +111,7 @@ export default class AnswerQuestionPage extends Component {
     }
 
     componentWillUnmount() {
-        this.props.resetTutorial(this.refs.joyrideAnswerQuestion);
+        this.joyride.reset();
     }
 
     skipQuestionHandler() {
@@ -127,12 +127,11 @@ export default class AnswerQuestionPage extends Component {
     }
 
     forceStartTutorial() {
-        this.props.resetTutorial(this.refs.joyrideAnswerQuestion);
-        this.props.startTutorial(this.refs.joyrideAnswerQuestion, true);
+        this.joyride.reset(true);
     }
 
     render() {
-        const {user, strings, errors, noMoreQuestions, isLoadingOwnQuestions, userAnswer, question, steps, tutorialLocale, endTutorialHandler} = this.props;
+        const {user, strings, errors, noMoreQuestions, isLoadingOwnQuestions, userAnswer, question, steps, tutorialLocale, endTutorialHandler, joyrideRunning} = this.props;
         const userId = parseId(user);
         const ownPicture = user.photo ? user.photo.thumbnail.small : 'img/no-img/small.jpg';
         const isRegisterQuestion = selectn('isRegisterQuestion', question);
@@ -141,7 +140,7 @@ export default class AnswerQuestionPage extends Component {
             <div className="views">
                 <TopNavBar leftIcon={'left-arrow'} centerText={strings.question} rightIcon={isRegisterQuestion ? '' : 'delete'} onRightLinkClickHandler={isRegisterQuestion ? null : this.skipQuestionHandler}/>
                 <div className="view view-main">
-                    <Joyride ref="joyrideAnswerQuestion" steps={steps} locale={tutorialLocale} callback={endTutorialHandler} type="continuous"/>
+                    <Joyride ref={c => this.joyride = c} steps={steps} locale={tutorialLocale} callback={endTutorialHandler} type="continuous" run={joyrideRunning} autoStart={true}/>
                     <div className="page answer-question-page">
                         <div id="page-content" className="answer-question-content">
                             <AnswerQuestion question={question} userAnswer={userAnswer} userId={userId} errors={errors} noMoreQuestions={noMoreQuestions} ownPicture={ownPicture} startTutorial={this.forceStartTutorial} isLoadingOwnQuestions={isLoadingOwnQuestions}/>

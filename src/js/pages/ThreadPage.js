@@ -72,9 +72,9 @@ export default class ThreadPage extends Component {
         // Injected by @tutorial:
         steps             : PropTypes.array,
         startTutorial     : PropTypes.func,
-        resetTutorial     : PropTypes.func,
         endTutorialHandler: PropTypes.func,
         tutorialLocale    : PropTypes.object,
+        joyrideRunning    : PropTypes.bool,
         // Injected by @connectToStores:
         threads           : PropTypes.array,
         profile           : PropTypes.object,
@@ -97,12 +97,12 @@ export default class ThreadPage extends Component {
 
     componentDidUpdate() {
         if (Object.keys(this.props.threads).length > 0) {
-            window.setTimeout(() => this.props.startTutorial(this.refs.joyrideThreads), 1000);
+            window.setTimeout(() => this.props.startTutorial(), 1000);
         }
     }
 
     componentWillUnmount() {
-        this.props.resetTutorial(this.refs.joyrideThreads);
+        this.joyride.reset();
     }
 
     onAddThreadClickHandler() {
@@ -110,12 +110,12 @@ export default class ThreadPage extends Component {
     }
 
     render() {
-        const {threads, filters, profile, strings, user, isSomethingWorking, steps, tutorialLocale, endTutorialHandler} = this.props;
+        const {threads, filters, profile, strings, user, isSomethingWorking, steps, tutorialLocale, endTutorialHandler, joyrideRunning} = this.props;
         return (
             <div className="views">
                 <TopNavBar leftMenuIcon={true} centerText={strings.threads} centerTextSize={'large'} rightText={strings.create} rightIcon={'plus'} onRightLinkClickHandler={this.onAddThreadClickHandler}/>
                 <div className="view view-main">
-                    <Joyride ref="joyrideThreads" steps={steps} locale={tutorialLocale} callback={endTutorialHandler} type="continuous"/>
+                    <Joyride ref={c => this.joyride = c} steps={steps} locale={tutorialLocale} callback={endTutorialHandler} type="continuous" run={joyrideRunning} autoStart={true}/>
                     <div className="page threads-page">
                         <div id="page-content">
                             <ProcessesProgress />

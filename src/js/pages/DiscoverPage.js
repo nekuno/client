@@ -42,7 +42,7 @@ function getDisplayedThread(props) {
  * Requests data from server for current props.
  */
 function requestData(props) {
-    if (!props.profile) {
+    if (!props.profile && props.user.slug) {
         UserActionCreators.requestOwnProfile(props.user.slug);
     }
     if (Object.keys(props.thread).length === 0) {

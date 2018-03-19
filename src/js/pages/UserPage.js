@@ -24,7 +24,7 @@ function parseId(user) {
  */
 function requestData(props) {
     ThreadActionCreators.requestFilters();
-    if (!props.profile) {
+    if (!props.profile && props.user.slug) {
         UserActionCreators.requestOwnProfile(props.user.slug);
     }
 }

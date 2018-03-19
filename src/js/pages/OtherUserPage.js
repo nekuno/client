@@ -40,7 +40,7 @@ function requestData(props) {
     const otherUserSlug = params.slug;
     setTimeout(() => {
         UserActionCreators.requestMetadata();
-        if (!ProfileStore.contains(user.slug)) {
+        if (user.slug && !ProfileStore.contains(user.slug)) {
             UserActionCreators.requestOwnProfile(user.slug);
         }
         UserActionCreators.requestProfile(otherUserSlug);

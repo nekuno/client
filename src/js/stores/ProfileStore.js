@@ -211,7 +211,6 @@ class ProfileStore extends BaseStore {
                 if (basicProfile[field].length > 0) {
                     basicProfile[field].forEach((item) => {
                         Object.keys(item).forEach(multipleField => {
-                            const multipleFieldData = item[multipleField];
                             const fieldMetadata = thisMetadata.metadata[multipleField] || null;
                             if (fieldMetadata && fieldMetadata.type) {
                                 let value = this.getFieldText(fieldMetadata.type, fieldMetadata, item, multipleField);

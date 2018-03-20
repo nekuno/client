@@ -106,6 +106,10 @@ export default class HomePage extends Component {
         if (this.context.router.location.hash && this.context.router.location.hash === '#signup') {
             this.setState({registeringUser: true});
         }
+
+        this.sliderInterval = setInterval(() => {
+            this.slider.slickNext();
+        }, 5000);
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -129,10 +133,12 @@ export default class HomePage extends Component {
         if (this.promise) {
             this.promise.cancel();
         }
+        clearInterval(this.sliderInterval);
     }
 
     onRegisterClick() {
         this.setState({'registeringUser': true});
+        clearInterval(this.sliderInterval);
         this.context.router.push(this.context.router.location.pathname + '#signup');
     }
 
@@ -232,12 +238,11 @@ export default class HomePage extends Component {
 
     renderSlides = function() {
         const {strings} = this.props;
-        const {hideContent, registeringUser} = this.state;
+        const {hideContent} = this.state;
         const settings = {
             accessibility: !hideContent,
             draggable: !hideContent,
             swipe: !hideContent,
-            //autoplaySpeed: 5000,
             className: 'swiper-wrapper',
             dots: false,
             infinite: true,
@@ -245,7 +250,6 @@ export default class HomePage extends Component {
             slidesToScroll: 1,
             arrows: false,
             autoplay: false,
-            //autoplay: !registeringUser,
             initialSlide: 1,
             beforeChange: this.beforeChangeSlide,
             afterChange: this.afterChangeSlide

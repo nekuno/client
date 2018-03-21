@@ -8,7 +8,7 @@ var connect = require('gulp-connect');
 var rename = require('gulp-rename');
 var uglify = require('gulp-uglify');
 var envify = require('envify');
-var minifyCss = require('gulp-minify-css');
+var cleanCss = require('gulp-clean-css');
 var gulpHtmlVersion = require('gulp-html-version');
 var runSequence = require('run-sequence');
 
@@ -93,7 +93,7 @@ gulp.task('minify-js', ['build'], function() {
 
 gulp.task('minify-css', ['sass'], function() {
     return gulp.src('www/bundle.css')
-        .pipe(minifyCss())
+        .pipe(cleanCss())
         .pipe(gulp.dest('./www'));
 });
 

@@ -146,7 +146,13 @@ export default class DiscoverPage extends Component {
     }
 
     componentDidMount() {
+        const {thread, recommendationUrl, isLoadingRecommendations, recommendations} = this.props;
         requestData(this.props);
+        const threadId = parseId(thread);
+        const canRequestFirstInterests = recommendationUrl && recommendations.length === 0;
+        if (canRequestFirstInterests && !isLoadingRecommendations && threadId) {
+            ThreadActionCreators.requestRecommendations(threadId, recommendationUrl);
+        }
     }
 
     componentDidUpdate(prevProps) {

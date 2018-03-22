@@ -263,6 +263,13 @@ export default class OtherInterestsPage extends Component {
                                                      imagesCount={totals.Image}
                                                      channelsCount={totals.Creator}
                                                      gamesCount={totals.Game}
+                                                     facebookCount={totals.LinkFacebook}
+                                                     twitterCount={totals.LinkTwitter}
+                                                     youtubeCount={totals.LinkYoutube}
+                                                     spotifyCount={totals.LinkSpotify}
+                                                     tumblrCount={totals.LinkTumblr}
+                                                     steamCount={totals.LinkSteam}
+                                                     instagramCount={totals.LinkInstagram}
                                                      type={type}
         /> : null;
     }

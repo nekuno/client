@@ -18,15 +18,40 @@
 				cursor: pointer;
 				display: inline-block;
 				height: 40px;
-				margin: 0 2% 0 2%;
+				margin: 5px 2%;
 				text-align: center;
 				width: 40px;
 
+				&.facebook-button-wrapper {
+					background: $facebook-blue;
+				}
+				&.twitter-button-wrapper {
+					background: $twitter-blue;
+				}
+				&.youtube-button-wrapper {
+					background: $youtube-red;
+				}
+				&.spotify-button-wrapper {
+					background: $spotify-green;
+				}
+				&.tumblr-button-wrapper {
+					background: $tumblr-blue;
+				}
+				&.steam-button-wrapper {
+					background: $steam-black;
+				}
+				&.instagram-button-wrapper {
+					background: $instagram-blue;
+				}
 				.icon {
 					font-size: 1.9em;
 					padding-top: 5.5px;
 					&::before {
 						font-size: 0.9em;
+					}
+					&.icon-facebook, &.icon-twitter, &.icon-youtube, &.icon-spotify, &.icon-tumblr, &.icon-steam, &.icon-instagram {
+						font-size: 3em;
+						line-height: 26px;
 					}
 				}
 

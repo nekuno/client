@@ -254,9 +254,10 @@ export default class HomePage extends Component {
             beforeChange: this.beforeChangeSlide,
             afterChange: this.afterChangeSlide
         };
+        // TODO: Replace [1, 2] with [1, 2, 3]
         return (
             <Slider {...settings} ref={c => this.slider = c }>
-                {[1, 2, 3].map(i => {
+                {[1, 2].map(i => {
                         return (
                             <div key={i} className="swiper-slide">
                                 <div id={'login-' + i + '-image'} className="page">
@@ -285,10 +286,11 @@ export default class HomePage extends Component {
         switch (index) {
             case 1:
                 return <GroupField onValidInvitation={this.goToRegisterPage} activeSlide={currentSlide === 0}/>;
-                //return <GroupField onValidInvitation={this.hideContent} activeSlide={currentSlide === 0} onChangeField={() => this.slider.slickPause()}/>;
-            case 2:
+            // TODO: Uncomment and replace case 2 with case 3 bellow
+            /*case 2:
                 return <ExploreField profile={profile} onClickField={this.hideContent} onSaveHandler={this.goToRegisterPage} onBackHandler={this.showContent} onDetailSelection={this.setDetail}/>;
-            case 3:
+            */
+            case 2:
                 return <OrientationField profile={profile} onOtherClickHandler={this.openOrientationPopup} onSaveHandler={this.goToRegisterPage}/>;
             default:
         }
@@ -331,13 +333,14 @@ export default class HomePage extends Component {
                                     <span className={currentSlide === 0 ? "icon icon-calendar-check active" : "icon-calendar-check2"}/>
                                     <div className={currentSlide === 0 ? "slider-button-text active" : "slider-button-text"}>{strings.events}</div>
                                 </div>
-                                <div className="slider-button" onClick={this.slickGoTo.bind(this, 1)}>
+                                {/*<div className="slider-button" onClick={this.slickGoTo.bind(this, 1)}>
                                     <span className={currentSlide === 1 ? "icon icon-compass2 active" : "icon-compass3"}/>
                                     <div className={currentSlide === 1 ? "slider-button-text active" : "slider-button-text"}>{strings.explore}</div>
-                                </div>
-                                <div className="slider-button" onClick={this.slickGoTo.bind(this, 2)}>
-                                    <span className={currentSlide === 2 ? "icon icon-heart2 active" : "icon-heart3"}/>
-                                    <div className={currentSlide === 2 ? "slider-button-text active" : "slider-button-text"}>{strings.contact}</div>
+                                </div>*/}
+                                {/*TODO: Uncomment previous lines and change currentSlide === 1 and this.slickGoTo.bind(this, 1) with currentSlide === 2 this.slickGoTo.bind(this, 2) bellow */}
+                                <div className="slider-button" onClick={this.slickGoTo.bind(this, 1)}>
+                                    <span className={currentSlide === 1 ? "icon icon-heart2 active" : "icon-heart3"}/>
+                                    <div className={currentSlide === 1 ? "slider-button-text active" : "slider-button-text"}>{strings.contact}</div>
                                 </div>
                             </div>
                         </div>

@@ -54,9 +54,10 @@ export default class ConnectSocialNetworksOnSignUpPage extends Component {
 
     componentDidMount() {
         const {profile} = this.props;
-        if (profile && profile.mode && profile.mode === 'contact' && (!this.context.router.location.hash || this.context.router.location.hash !== '#explored')) {
+        // TODO: Uncomment to redirect to explore when user has contact mode
+        /*if (profile && profile.mode && profile.mode === 'contact' && (!this.context.router.location.hash || this.context.router.location.hash !== '#explored')) {
             setTimeout(() => RouterActionCreators.replaceRoute('/explore'), 0);
-        }
+        }*/
     }
 
     goToRegisterLandingPage() {

@@ -17,6 +17,7 @@ export function joinGroup(groupId) {
         success: ActionTypes.JOIN_GROUP_SUCCESS,
         failure: ActionTypes.JOIN_GROUP_ERROR
     }, {groupId}).then((data) => {
+        ThreadActionCreators.requestFilters(true);
         ThreadActionCreators.requestThreads();
         return data;
     }, (error) => { console.log(error) });

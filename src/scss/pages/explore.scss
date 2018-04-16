@@ -1,0 +1,42 @@
+body #root .App .views .view.home-view.explore-view {
+  .swiper-container {
+    .swiper-slide {
+      .page#login-no-image {
+        .title {
+          bottom: 0;
+          top: 280px;
+        }
+        .register-fields {
+          .back-button-icon {
+            position: absolute;
+            top: 170px;
+            z-index: 11111;
+          }
+          .register-field {
+            bottom: 0 !important;
+            top: 65%;
+
+            .register-fields-continue {
+              bottom: 0;
+              top: 60%;
+            }
+          }
+        }
+      }
+    }
+  }
+  .bottom-layer {
+    margin-top: 0;
+    top: 50px;
+    .swiper-pagination-and-button {
+      top: 110px;
+      .slider-buttons {
+        width: 100px;
+        margin: auto;
+        .slider-button {
+          width: auto;
+        }
+      }
+    }
+  }
+}

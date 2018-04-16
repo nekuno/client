@@ -30,13 +30,19 @@ export default class UsernameField extends Component {
         if (typeof validationPromise.cancel !== 'undefined') {
             validationPromise.cancel();
         }
-        let username = this.refs.username.getValue();
-        let newPromise = UserActionCreators.validateUsername(username).then(() => {
+
+        if (typeof this.usernameTimeout !== 'undefined') {
+            clearTimeout(this.usernameTimeout);
+        }
+        this.usernameTimeout = setTimeout(() => {
+            let username = this.refs.username.getValue();
+            let newPromise = UserActionCreators.validateUsername(username).then(() => {
                 // Username valid
             }).catch(() => {
                 Framework7Service.nekunoApp().alert(this.props.strings.invalidUsername);
             });
-        this.setState({validationPromise: newPromise});
+            this.setState({validationPromise: newPromise});
+        }, 1000);
     }
     
     handleClickSave() {

@@ -35,7 +35,7 @@ export default class OtherQuestionsBanner extends Component {
         return (
             <div className="answer-questions-link-container">
                 <a href="javascript:void(0)" onClick={this.onClick}>
-                    <div className="title answer-questions-link-title">{strings.title}</div>
+                    <div className="title answer-questions-link-title">{strings.title.replace('%username%', user.username)}</div>
                     <div className="answer-questions-link-text">{strings.text}&nbsp;</div>
                     <div className="answer-questions-link-stats">
                         <p>{questionsTotal}</p>
@@ -52,7 +52,7 @@ export default class OtherQuestionsBanner extends Component {
 
 OtherQuestionsBanner.defaultProps = {
     strings: {
-        title    : 'Do you want to answer the questions which this user has answered?',
+        title    : 'Answer %username%`s questions for improving compatibility calculation',
         text     : '',
         completed: 'Completed questions'
     }

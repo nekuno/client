@@ -4,7 +4,7 @@ import TopNavBar from '../components/ui/TopNavBar';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
-import ReactCrop from 'react-image-crop';
+import ReactCrop, { makeAspectCrop } from 'react-image-crop';
 import GalleryPhotoStore from '../stores/GalleryPhotoStore';
 import * as UserActionCreators from '../actions/UserActionCreators';
 import GalleryPhotoActionCreators from '../actions/GalleryPhotoActionCreators';
@@ -44,6 +44,7 @@ export default class GalleryProfilePhotoPage extends Component {
         super(props);
 
         this.cropAndSaveAsProfilePhoto = this.cropAndSaveAsProfilePhoto.bind(this);
+        this.onImageLoaded = this.onImageLoaded.bind(this);
         this.onChange = this.onChange.bind(this);
 
         this.state = {
@@ -75,16 +76,23 @@ export default class GalleryProfilePhotoPage extends Component {
             crop: crop
         })
     }
+
+    onImageLoaded = (image) => {
+        this.setState({
+            crop: makeAspectCrop({
+                keepSelection: true,
+                aspect: 1,
+                x: 5,
+                y: 5,
+                width: 90,
+            }, image.width / image.height),
+        });
+    };
     
     render() {
         const {photo, strings} = this.props;
-        let crop = { 
-            keepSelection: true,
-            aspect: 1,
-            x: 5,
-            y: 5,
-            width: 90
-        };
+        const {crop} = this.state;
+
         return (
             <div className="views">
                 <TopNavBar leftText={strings.cancel} centerText={strings.photos} rightIcon={'checkmark'} onRightLinkClickHandler={photo ? this.cropAndSaveAsProfilePhoto : null}/>
@@ -93,7 +101,7 @@ export default class GalleryProfilePhotoPage extends Component {
                         <div id="page-content" className="gallery-photo-content">
                             {photo ?
                                 <div className="photo-wrapper">
-                                    <ReactCrop src={photo.thumbnail.medium} crop={crop} minWidth={30} keepSelection={true} onChange={this.onChange} onImageLoaded={this.onChange}/>
+                                    <ReactCrop src={photo.thumbnail.medium} crop={crop} minWidth={30} keepSelection={true} onChange={this.onChange} onImageLoaded={this.onImageLoaded}/>
                                 </div>
                                     :
                                 ''}

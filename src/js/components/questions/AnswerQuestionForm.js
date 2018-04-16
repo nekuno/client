@@ -32,16 +32,9 @@ export default class AnswerQuestionForm extends Component {
         this.handleOnClickImportance = this.handleOnClickImportance.bind(this);
 
         this.state = {
-            answerId       : null,
-            acceptedAnswers: [],
+            answerId       : selectn('userAnswer.answerId', props),
+            acceptedAnswers: selectn('userAnswer.acceptedAnswers', props) ? props.userAnswer.acceptedAnswers : [],
             rated          : false
-        };
-    }
-
-    componentWillMount() {
-        this.state = {
-            answerId       : selectn('userAnswer.answerId', this.props),
-            acceptedAnswers: selectn('userAnswer.acceptedAnswers', this.props) ? this.props.userAnswer.acceptedAnswers : []
         };
     }
 

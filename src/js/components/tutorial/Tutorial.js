@@ -28,8 +28,14 @@ function setStepsStrings(props, steps) {
     const strings =  TranslationService.getCategoryStrings(props.locale, 'TutorialComponent');
     const customStrings = props.strings;
     steps.forEach(step => {
-        step.title = customStrings[step.titleRef];
-        step.text = customStrings[step.textRef];
+        if (step.titleRef) {
+            step.title = customStrings[step.titleRef];
+            delete step.titleRef;
+        }
+        if (step.textRef) {
+            step.text = customStrings[step.textRef];
+            delete step.textRef;
+        }
         // TODO: Uncomment to show "see more" link
         //step.text += ' ' + strings.seeMore;
     });
@@ -77,40 +83,39 @@ export default function tutorial() {
                 super(props);
 
                 this.state = {
-                    displayed: false
+                    steps: props.steps,
+                    running: false
                 };
 
+                this.parseSteps = this.parseSteps.bind(this);
                 this.start = this.start.bind(this);
-                this.reset = this.reset.bind(this);
                 this.onCallback = this.onCallback.bind(this);
             }
 
-            addSteps(props, joyride) {
+            componentWillMount() {
+                this.parseSteps();
+            }
+
+            addSteps(props) {
                 let steps = props.steps;
                 if (!steps.length) {
-                    return false;
+                    return [];
                 }
-
                 steps = setStepsStyles(steps);
-                steps = setStepsStrings(props, steps);
-                joyride.parseSteps(steps);
+
+                return setStepsStrings(props, steps);
             }
 
-            start(joyride, force = false) {
+            parseSteps() {
+                const steps = this.addSteps(this.props);
+                this.setState({steps: steps});
+            }
+
+            start(force = false) {
                 const {route, user} = this.props;
-                if ((force || !user.tutorials || !user.tutorials.some(tutorial => tutorial === route.name)) && !this.state.displayed) {
-                    this.addSteps(this.props, joyride);
-                    window.setTimeout(() => {
-                        joyride.start(true);
-                    }, 0);
-                    this.setState({displayed: true});
+                if ((force || !user.tutorials || !user.tutorials.some(tutorial => tutorial === route.name)) && !this.state.running) {
+                    this.setState({running: true});
                 }
-            }
-
-            reset(joyride) {
-                joyride.stop();
-                joyride.reset();
-                this.setState({displayed: false});
             }
 
             onCallback(tour) {
@@ -122,13 +127,14 @@ export default function tutorial() {
                         userData.tutorials.push(route.name);
                     }
                     UserActionCreators.editUser(userData);
-                    this.setState({displayed: false});
+                    this.setState({running: false});
                 }
             }
 
             render() {
+                const {steps, running} = this.state;
                 return (
-                    <Component {...this.props} startTutorial={this.start} resetTutorial={this.reset} tutorialLocale={getLocale(this.props)} endTutorialHandler={this.onCallback}/>
+                    <Component {...this.props} steps={steps} parseSteps={this.parseSteps} startTutorial={this.start} tutorialLocale={getLocale(this.props)} endTutorialHandler={this.onCallback} joyrideRunning={running}/>
                 );
             }
         }
@@ -136,9 +142,9 @@ export default function tutorial() {
         TutorialComponent.contextTypes = {
             steps             : PropTypes.array,
             startTutorial     : PropTypes.func,
-            resetTutorial     : PropTypes.func,
             endTutorialHandler: PropTypes.func,
             tutorialLocale    : PropTypes.object,
+            joyrideRunning    : PropTypes.bool,
         };
 
         return TutorialComponent;

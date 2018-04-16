@@ -256,11 +256,11 @@ export default class RecommendationPage extends Component {
 
     ignore() {
         const activeIndex = this.state.swiper.activeIndex;
-        const {userId, recommendations, thread} = this.props;
+        const {user, userId, recommendations, thread} = this.props;
         const recommendation = recommendations[activeIndex];
 
         if (thread.category === 'ThreadUsers') {
-            UserActionCreators.ignoreUser(userId, recommendation.id, ORIGIN_CONTEXT.RECOMMENDATIONS_PAGE, thread.name);
+            UserActionCreators.ignoreUser(user.slug, recommendation.slug, ORIGIN_CONTEXT.RECOMMENDATIONS_PAGE, thread.name);
         } else if (thread.category === 'ThreadContent') {
             UserActionCreators.ignoreContent(userId, recommendation.content.id, ORIGIN_CONTEXT.RECOMMENDATIONS_PAGE, thread.name);
         }
@@ -272,14 +272,14 @@ export default class RecommendationPage extends Component {
 
     dislike() {
         const activeIndex = this.state.swiper.activeIndex;
-        const {userId, recommendations, thread} = this.props;
+        const {user, userId, recommendations, thread} = this.props;
         const recommendation = recommendations[activeIndex];
 
         if (thread.category === 'ThreadUsers') {
             if (recommendation.like === -1) {
-                UserActionCreators.deleteLikeUser(userId, recommendation.id);
+                UserActionCreators.deleteLikeUser(user.slug, recommendation.slug);
             } else {
-                UserActionCreators.dislikeUser(userId, recommendation.id, ORIGIN_CONTEXT.RECOMMENDATIONS_PAGE, thread.name);
+                UserActionCreators.dislikeUser(user.slug, recommendation.slug, ORIGIN_CONTEXT.RECOMMENDATIONS_PAGE, thread.name);
             }
         } else if (thread.category === 'ThreadContent') {
             if (recommendation.rate === -1) {
@@ -292,14 +292,14 @@ export default class RecommendationPage extends Component {
 
     like() {
         const activeIndex = this.state.swiper.activeIndex;
-        const {userId, recommendations, thread} = this.props;
+        const {user, userId, recommendations, thread} = this.props;
         const recommendation = recommendations[activeIndex];
 
         if (thread.category === 'ThreadUsers') {
             if (recommendation.like && recommendation.like !== -1) {
-                UserActionCreators.deleteLikeUser(userId, recommendation.id);
+                UserActionCreators.deleteLikeUser(user.slug, recommendation.slug);
             } else {
-                UserActionCreators.likeUser(userId, recommendation.id, ORIGIN_CONTEXT.RECOMMENDATIONS_PAGE, thread.name);
+                UserActionCreators.likeUser(user.slug, recommendation.slug, ORIGIN_CONTEXT.RECOMMENDATIONS_PAGE, thread.name);
             }
         } else if (thread.category === 'ThreadContent') {
             if (recommendation.rate && recommendation.rate !== -1) {

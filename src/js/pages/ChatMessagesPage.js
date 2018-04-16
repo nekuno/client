@@ -146,7 +146,7 @@ export default class ChatMessagesPage extends Component {
     componentWillUpdate(nextProps) {
         if (nextProps.otherUser && !this.props.otherUser) {
             window.setTimeout(() => {
-                UserActionCreators.requestBlockUser(LoginStore.user.id, parseUserId(nextProps.otherUser))
+                UserActionCreators.requestBlockUser(LoginStore.user.slug, nextProps.otherUser.slug)
             }, 0);
         }
     }

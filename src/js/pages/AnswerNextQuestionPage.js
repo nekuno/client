@@ -85,9 +85,9 @@ export default class AnswerNextQuestionPage extends Component {
         // Injected by @tutorial:
         steps                : PropTypes.array,
         startTutorial        : PropTypes.func,
-        resetTutorial        : PropTypes.func,
         endTutorialHandler   : PropTypes.func,
         tutorialLocale       : PropTypes.object,
+        joyrideRunning       : PropTypes.bool,
         // Injected by @connectToStores:
         question             : PropTypes.object,
         userAnswer           : PropTypes.object,
@@ -136,12 +136,12 @@ export default class AnswerNextQuestionPage extends Component {
             }, 0);
         } else if (question && question.questionId) {
             // TODO: Uncomment to start the tutorial the first time
-            //window.setTimeout(() => this.props.startTutorial(this.refs.joyrideAnswerQuestion), 2000);
+            //window.setTimeout(() => this.props.startTutorial(), 2000);
         }
     }
 
     componentWillUnmount() {
-        this.props.resetTutorial(this.refs.joyrideAnswerQuestion);
+        this.joyride.reset();
     }
 
     skipQuestionHandler() {
@@ -164,12 +164,11 @@ export default class AnswerNextQuestionPage extends Component {
     }
 
     forceStartTutorial() {
-        this.props.resetTutorial(this.refs.joyrideAnswerQuestion);
-        this.props.startTutorial(this.refs.joyrideAnswerQuestion, true);
+        this.joyride.reset(true);
     }
 
     render() {
-        const {user, strings, errors, noMoreQuestions, isLoadingOwnQuestions, userAnswer, question, isJustRegistered, isJustCompleted, totalQuestions, questionNumber, steps, tutorialLocale, endTutorialHandler} = this.props;
+        const {user, strings, errors, noMoreQuestions, isLoadingOwnQuestions, userAnswer, question, isJustRegistered, isJustCompleted, totalQuestions, questionNumber, steps, tutorialLocale, endTutorialHandler, joyrideRunning} = this.props;
         const userId = parseId(user);
         const navBarTitle = question && question.questionId && (isJustRegistered || isJustCompleted) ? strings.question + ' ' + questionNumber + '/' + totalQuestions : strings.question;
         const ownPicture = user.photo ? user.photo.thumbnail.small : 'img/no-img/small.jpg';
@@ -183,7 +182,7 @@ export default class AnswerNextQuestionPage extends Component {
                     <TopNavBar leftIcon={'left-arrow'} centerText={navBarTitle} rightText={isRegisterQuestion ? '' : strings.skip} onRightLinkClickHandler={isRegisterQuestion ? null : this.skipQuestionHandler}/>
                 }
                 <div className="view view-main">
-                    <Joyride ref="joyrideAnswerQuestion" steps={steps} locale={tutorialLocale} callback={endTutorialHandler} type="continuous"/>
+                    <Joyride ref={c => this.joyride = c} steps={steps} locale={tutorialLocale} callback={endTutorialHandler} type="continuous" run={joyrideRunning} autoStart={true}/>
                     <div className="page answer-question-page">
                         <div id="page-content" className="answer-question-content">
                             <AnswerQuestion question={question} userAnswer={userAnswer} userId={userId} errors={errors} noMoreQuestions={noMoreQuestions} ownPicture={ownPicture} startTutorial={this.forceStartTutorial} isLoadingOwnQuestions={isLoadingOwnQuestions}/>

@@ -64,8 +64,8 @@ export default class GenderField extends Component {
     
     render() {
         const {metadata, strings} = this.props;
-        const descriptiveGenderChoices = selectn('descriptiveGender.choices', metadata) || {};
-        const descriptiveGenderChoicesLength = Object.keys(descriptiveGenderChoices).length || 0;
+        const descriptiveGenderChoices = selectn('descriptiveGender.choices', metadata) || [];
+        const descriptiveGenderChoicesLength = descriptiveGenderChoices.length || 0;
         let descriptiveGenderFirstColumnCounter = 0;
         let descriptiveGenderSecondColumnCounter = 0;
         return (
@@ -84,30 +84,28 @@ export default class GenderField extends Component {
                     {this.state.showDescriptiveGender && descriptiveGenderChoices ?
                         <div className="list-block">
                             <ul className="checkbox-genders-list">
-                                {Object.keys(descriptiveGenderChoices).map((id) => {
+                                {descriptiveGenderChoices.map(choice => {
                                     descriptiveGenderFirstColumnCounter++;
                                     if (descriptiveGenderFirstColumnCounter > descriptiveGenderChoicesLength / 2) {
                                         return '';
                                     }
-                                    let text = metadata.descriptiveGender.choices[id];
-                                    let checked = this.state.descriptiveGender.indexOf(id) !== -1;
+                                    let checked = this.state.descriptiveGender.indexOf(choice.id) !== -1;
                                     return (
-                                        <li key={id}>
-                                            <InputCheckbox value={id} text={text} checked={checked} onClickHandler={this.onClickDescriptiveGender} reverse={true}/>
+                                        <li key={choice.id}>
+                                            <InputCheckbox value={choice.id} text={choice.text} checked={checked} onClickHandler={this.onClickDescriptiveGender} reverse={true}/>
                                         </li>
                                     )
                                 })}
                             </ul>
                             <ul className="checkbox-genders-list">
-                                {Object.keys(descriptiveGenderChoices).map((id) => {
+                                {descriptiveGenderChoices.map(choice => {
                                     descriptiveGenderSecondColumnCounter++;
                                     if (descriptiveGenderSecondColumnCounter <= descriptiveGenderChoicesLength / 2) {
                                         return '';
                                     }
-                                    let text = metadata.descriptiveGender.choices[id];
-                                    let checked = this.state.descriptiveGender.indexOf(id) !== -1;
-                                    return (<li key={id}>
-                                        <InputCheckbox value={id} text={text} checked={checked} onClickHandler={this.onClickDescriptiveGender} reverse={true}/>
+                                    let checked = this.state.descriptiveGender.indexOf(choice.id) !== -1;
+                                    return (<li key={choice.id}>
+                                        <InputCheckbox value={choice.id} text={choice.text} checked={checked} onClickHandler={this.onClickDescriptiveGender} reverse={true}/>
                                     </li>)
                                 })}
                             </ul>

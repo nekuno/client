@@ -38,11 +38,12 @@ export default {
         title: 'Mensajes'
     },
     ConnectSocialNetworksOnSignUpPage: {
-        next    : 'Continuar',
-        welcome : 'Bienvenido',
-        excerpt1: '¡Por fin tus datos trabajarán para ti!',
-        excerpt2: '¡Alimenta a Nekuno con tus redes para obtener mejores recomendaciones!',
-        error   : 'Error conectando red. Quizás ya la has conectado con otro usuario.'
+        next         : 'Continuar',
+        welcome      : 'Bienvenido',
+        excerpt1     : '¡Por fin tus datos trabajarán para ti!',
+        excerpt2     : '¡Alimenta a Nekuno con tus redes para obtener mejores recomendaciones!',
+        error        : 'Error conectando red. Quizás ya la has conectado con otro usuario.',
+        answerExplore: 'Quieres contestar los objetivos de explorar?'
     },
     ConnectSocialNetworksPage        : {
         top    : 'Redes Sociales',
@@ -57,22 +58,18 @@ export default {
         cannotRemove: 'Este campo no se puede eliminar'
     },
     HomePage                         : {
-        title1         : 'Agrega tus redes y descubre a tus compañeros de %detail%',
-        title1Details  : ['vida', 'proyectos', 'aventuras'],
-        title2         : 'Desbloquea insignias para redescubrir %detail%',
-        title2Details  : ['tu tribu', 'tu centro', 'a tus seguidores', 'a tus vecinos', 'tu festival', ' a tus co-workers'],
-        title3         : '100% Gratuito' + "\n" + '100% Software libre',
-        title3Details  : [],
-        login          : 'Entrar con Facebook',
-        hasInvitation  : '¿Tienes una invitación?',
-        register       : 'Regístrate',
-        loginUser      : 'Intentando iniciar sesión',
-        registeringUser: 'Registrando usuario',
-        wantGuest      : '¿Quieres probarlo?',
-        asGuest        : 'Entra como invitado',
-        legalTerms     : 'Nunca publicaremos nada en tus redes.</br>Al registrarte, estás aceptando los <a href="https://nekuno.com/terms-and-conditions" target="_blank">Términos Legales</a>.',
-        blockingError  : 'Tu navegador está bloqueando una petición a Facebook y no podemos registrar tu usuario. Por favor, deshabilita el bloqueo en la configuración o utiliza otro navegador.'
-
+        choosePath   : 'Elige tu camino',
+        title1       : 'Redescubrir mi tribu' + "\n" + 'desbloqueando insignias',
+        title2       : 'Compartir lo que te encanta' + "\n" + 'uniéndote y creando propuestas',
+        title3       : 'Todo lo anterior + descubrir a' + "\n" + 'mis compañeros de vida',
+        events       : 'Eventos',
+        explore      : 'Explorar',
+        contact      : 'Contacto',
+        blockingError: 'Tu navegador está bloqueando una petición a Facebook y no podemos registrar tu usuario. Por favor, deshabilita el bloqueo en la configuración o utiliza otro navegador.'
+    },
+    ExplorePage                      : {
+        title  : 'Compartir lo que te encanta' + "\n" + 'uniéndote y creando propuestas',
+        explore: 'Explorar',
     },
     InterestsPage                    : {
         cancel   : 'Cancelar',
@@ -198,7 +195,8 @@ export default {
     RegisterPage                     : {
         register          : 'Crear cuenta',
         cancel            : 'Cancelar',
-        title             : 'Nekuno solo permite el registro mediante invitación',
+        title             : 'Nekuno analiza tus intereses para ofrecerte recomendaciones',
+        openSource        : 'Código abierto y gratuito',
         titleCorrect      : '¡Increíble! ¡Has conseguido una invitación!',
         subtitle          : 'Por favor, copia la URL que has recibido en tu invitación y pégala en el siguiente campo para poder crear tu cuenta en Nekuno',
         paste             : 'Pega aquí la URL de la invitación',
@@ -206,8 +204,8 @@ export default {
         registeringMessage: 'Registrando usuario',
         loadingMessage    : 'Cargando',
         publishMessage    : 'Nunca publicaremos nada en tu muro',
-        privacy           : 'Al registrarte, estás aceptando las <a href="https://nekuno.com/terms-and-conditions" target="_blank">Condiciones Legales</a> y la <a href="https://nekuno.com/privacy-policy" target="_blank">Política de Privacidad</a> de Nekuno',
-        signUp            : 'Regístrate con Facebook',
+        legalTerms        : 'Nunca publicaremos nada en tus redes.</br>Registrándote aceptas las <a href="https://nekuno.com/terms-and-conditions" target="_blank">Condiciones Legales</a>.',
+        signUp            : 'Analizar',
         compatibility     : 'Analizar compatibilidad',
         blockingError     : 'Tu navegador está bloqueando una petición a Facebook y no podemos registrar tu usuario. Por favor, deshabilita el bloqueo en la configuración o utiliza otro navegador.'
 
@@ -348,6 +346,48 @@ export default {
         invitations   : 'Invitaciones',
         logout        : 'Salir'
     },
+    GroupField                       : {
+        placeholder: 'Código de insignia',
+        save       : 'Continuar',
+        selectOther: 'Selecciona otros objetivos si quieres'
+    },
+    ExploreField                     : {
+        explore     : 'Explorar',
+        work1       : 'Trabajo',
+        work2       : '& ideas',
+        hobbies1    : 'Hobbies',
+        hobbies2    : '& juegos',
+        leisure1    : 'Aventuras',
+        leisure2    : '& ocio',
+        industry    : 'Sector',
+        skills      : 'Habilidades',
+        proposals   : 'Propuestas',
+        sports      : 'Deportes',
+        games       : 'Juegos',
+        creative    : 'Creativo',
+        leisureTime : 'Tiempo',
+        leisureMoney: 'Dinero',
+        travels     : 'Viajes',
+        tickets     : 'Entradas',
+        activities  : 'Actividades',
+        leisurePlans: 'Planes',
+        save        : 'Continuar',
+        finish      : 'Terminar',
+        skip        : 'Pasar',
+        selectOther : 'Puedes seleccionar más de uno'
+    },
+    OrientationField                 : {
+        iAm         : 'Soy',
+        heterosexual: 'Hetero',
+        homosexual  : 'Homo',
+        bisexual    : 'Bisexual',
+        other       : 'Otro',
+    },
+    AccessButtons                    : {
+        registerText: 'Regístrate ahora',
+        loginText   : 'Ya estoy registrade',
+        registerNow : 'Puedes registrarte ahora',
+    },
     ProfileDataList                  : {
         cannotRemove: 'Este campo no se puede eliminar',
     },
@@ -454,11 +494,11 @@ export default {
         statistics: 'Estadísticas de la comunidad Nekuno'
     },
     QuestionStatsGraph               : {
-        females: 'Mujeres',
-        males  : 'Hombres',
-        young  : '- de 30',
-        old    : '+ de 30',
-        typeAge: 'Distribución por edad',
+        females   : 'Mujeres',
+        males     : 'Hombres',
+        young     : '- de 30',
+        old       : '+ de 30',
+        typeAge   : 'Distribución por edad',
         typeGender: 'Distribución por género'
     },
     QuestionStatsInline              : {
@@ -470,7 +510,7 @@ export default {
         completed: 'Preguntas completadas'
     },
     OtherQuestionsBanner             : {
-        title    : '¿Quieres responder las preguntas de este usuario?',
+        title    : 'Responde las preguntas de %username% para mejorar el cálculo de compatibilidad',
         text     : '',
         completed: 'Preguntas completadas'
     },
@@ -552,6 +592,13 @@ export default {
         matching  : 'Compatibilidad',
         similarity: 'Similaridad',
         loading   : 'Cargando...',
+    },
+    OrientationPopup                 : {
+        title : 'Orientación sexual',
+        cancel: 'Cancelar'
+    },
+    DetailPopup                      : {
+        continue: 'Continuar',
     },
     ImportAlbumPopup                 : {
         close           : 'Cerrar',
@@ -642,7 +689,7 @@ export default {
         minChoices: 'Selecciona al menos %min% opciones',
         maxChoices: 'Selecciona %max% opciones como máximo'
     },
-    MultipleChoicesFilter              : {
+    MultipleChoicesFilter            : {
         maxChoices: 'Selecciona %max% opciones como máximo'
     },
     TagEdit                          : {
@@ -650,13 +697,24 @@ export default {
         remove     : 'Eliminar'
     },
     TagsAndChoiceEdit                : {
-        placeholder: 'Escribe una palabra en inglés',
+        placeholder: 'Escribe una palabra',
         remove     : 'Eliminar',
         add        : 'Añadir'
     },
     LocationEdit                     : {
         location   : 'Ubicación',
         placeholder: 'Escribe una ubicación'
+    },
+    MultipleLocationsEdit            : {
+        placeholder: 'Escribe una ubicación',
+        maxChoices : 'Selecciona %max% opciones como máximo'
+    },
+    MultipleFieldsEdit               : {
+        minChoices: 'Selecciona al menos %min% opciones',
+        maxChoices: 'Selecciona %max% opciones como máximo',
+        isRequired: 'es obligatorio',
+        add       : 'Añadir',
+        remove    : 'Eliminar'
     },
     IntegerFilter                    : {
         minValue   : 'El valor mínimo es ',
@@ -678,7 +736,7 @@ export default {
         add        : 'Añadir'
     },
     TagsAndMultipleChoicesFilter     : {
-        placeholder: 'Escribe una palabra en inglés',
+        placeholder: 'Escribe una palabra',
         remove     : 'Eliminar',
         add        : 'Añadir'
     },
@@ -717,8 +775,8 @@ export default {
         interestsCount       : '%count% Intereses',
         similarInterestsCount: '%count% Intereses similares',
     },
-    SocialWheel : {
-        isLoading : 'Pidiendo información...',
+    SocialWheel                      : {
+        isLoading: 'Pidiendo información...',
     },
     ////////////////
     // Framework7 //

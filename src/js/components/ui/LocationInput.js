@@ -7,7 +7,8 @@ export default class LocationInput extends Component {
     static propTypes = {
         placeholder    : PropTypes.string.isRequired,
         onSuggestSelect: PropTypes.func.isRequired,
-        autoFocus      : PropTypes.bool
+        autoFocus      : PropTypes.bool,
+        clearOnSelect  : PropTypes.bool
     };
 
     static defaultProps = {
@@ -47,6 +48,10 @@ export default class LocationInput extends Component {
             locality : locality,
             country  : country
         };
+
+        if (this.props.clearOnSelect) {
+            this.refs['geosuggest'].clear();
+        }
 
         return this.props.onSuggestSelect(location);
     }

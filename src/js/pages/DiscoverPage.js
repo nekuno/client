@@ -42,8 +42,8 @@ function getDisplayedThread(props) {
  * Requests data from server for current props.
  */
 function requestData(props) {
-    if (!props.profile) {
-        UserActionCreators.requestOwnProfile(parseId(props.user));
+    if (!props.profile && props.user.slug) {
+        UserActionCreators.requestOwnProfile(props.user.slug);
     }
     if (Object.keys(props.thread).length === 0) {
         const userId = parseId(props.user);
@@ -58,7 +58,7 @@ function requestData(props) {
 function getState(props) {
 
     let userId = parseId(props.user);
-    const profile = ProfileStore.get(userId);
+    const profile = ProfileStore.get(props.user.slug);
     const orientationMustBeAsked = ProfileStore.orientationMustBeAsked();
     const questionsTotal = QuestionStore.ownAnswersLength(userId);
     let isSomethingWorking = WorkersStore.isSomethingWorking();
@@ -146,7 +146,13 @@ export default class DiscoverPage extends Component {
     }
 
     componentDidMount() {
+        const {thread, recommendationUrl, isLoadingRecommendations, recommendations} = this.props;
         requestData(this.props);
+        const threadId = parseId(thread);
+        const canRequestFirstInterests = recommendationUrl && recommendations.length === 0;
+        if (canRequestFirstInterests && !isLoadingRecommendations && threadId) {
+            ThreadActionCreators.requestRecommendations(threadId, recommendationUrl);
+        }
     }
 
     componentDidUpdate(prevProps) {

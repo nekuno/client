@@ -8,7 +8,7 @@ var connect = require('gulp-connect');
 var rename = require('gulp-rename');
 var uglify = require('gulp-uglify');
 var envify = require('envify');
-var minifyCss = require('gulp-minify-css');
+var cleanCss = require('gulp-clean-css');
 var gulpHtmlVersion = require('gulp-html-version');
 var runSequence = require('run-sequence');
 
@@ -45,9 +45,11 @@ gulp.task('sass', function() {
     var paths = [
         './node_modules/framework7/dist/css/framework7.ios.css',
         './node_modules/Framework7-3D-Panels/dist/framework7.3dpanels.css',
+        './node_modules/slick-carousel/slick/slick.css',
         './node_modules/react-image-crop/dist/ReactCrop.css',
-        './node_modules/react-joyride/lib/styles/react-joyride-compiled.css',
+        './node_modules/react-joyride/lib/react-joyride-compiled.css',
         './node_modules/react-infinite-calendar/styles.css',
+        './node_modules/rc-slider/assets/index.css',
         './src/scss/pages/*.scss',
         './src/scss/*.scss'
     ];
@@ -91,7 +93,7 @@ gulp.task('minify-js', ['build'], function() {
 
 gulp.task('minify-css', ['sass'], function() {
     return gulp.src('www/bundle.css')
-        .pipe(minifyCss())
+        .pipe(cleanCss())
         .pipe(gulp.dest('./www'));
 });
 

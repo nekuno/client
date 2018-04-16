@@ -240,20 +240,6 @@ class RecommendationStore extends BaseStore {
         return url.replace('{threadId}', threadId);
     }
 
-    getId(recommendation) {
-        let id = null;
-        switch (this.getType(recommendation)) {
-            case THREAD_TYPES.THREAD_CONTENTS:
-                id = recommendation.content.id;
-                break;
-            case THREAD_TYPES.THREAD_USERS:
-                id = recommendation.id;
-                break;
-        }
-
-        return id;
-    }
-
     getValue(recommendation) {
         let value = null;
         switch (this.getType(recommendation)) {
@@ -322,30 +308,30 @@ class RecommendationStore extends BaseStore {
         return _recommendations;
     }
 
-    setSavingUserLike(userId, _recommendations) {
-        this.setUserLike(null, userId, _recommendations);
+    setSavingUserLike(slug, _recommendations) {
+        this.setUserLike(null, slug, _recommendations);
         return _recommendations;
     }
 
-    setLikedUser(userId, _recommendations) {
-        this.setUserLike(1, userId, _recommendations);
+    setLikedUser(slug, _recommendations) {
+        this.setUserLike(1, slug, _recommendations);
         return _recommendations;
     }
 
-    setDislikedUser(userId, _recommendations) {
-        this.setUserLike(-1, userId, _recommendations);
+    setDislikedUser(slug, _recommendations) {
+        this.setUserLike(-1, slug, _recommendations);
         return _recommendations;
     }
 
-    deleteRatedUser(userId, _recommendations) {
-        this.setUserLike(0, userId, _recommendations);
+    deleteRatedUser(slug, _recommendations) {
+        this.setUserLike(0, slug, _recommendations);
         return _recommendations;
     }
 
-    setUserLike(like, userId, _recommendations) {
+    setUserLike(like, slug, _recommendations) {
         _recommendations.forEach((recommendationsByThread, threadId) =>
             recommendationsByThread.forEach((recommendation, index) => {
-                if (recommendation.id == userId) {
+                if (recommendation.slug == slug) {
                     _recommendations[threadId][index]['like'] = like;
                 }
             })

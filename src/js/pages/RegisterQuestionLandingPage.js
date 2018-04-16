@@ -20,10 +20,10 @@ function requestData(props) {
     const {user, params} = props;
     const questionId = params.hasOwnProperty('questionId') ? parseInt(params.questionId) : null;
     const currentUserId = parseUserId(user);
-    const profile = ProfileStore.get(currentUserId);
+    const profile = ProfileStore.get(user.slug);
     QuestionActionCreators.requestQuestion(currentUserId, questionId);
     if (!profile) {
-        UserActionCreators.requestOwnProfile(currentUserId);
+        UserActionCreators.requestOwnProfile(user.slug);
     }
 }
 
@@ -58,7 +58,7 @@ export default class RegisterQuestionLandingPage extends Component {
     
     handleClickAnswerQuestions() {
         let path = '/answer-question/next';
-        if (!LoginStore.isComplete() || !ProfileStore.isComplete(parseUserId(this.props.user))) {
+        if (!LoginStore.isComplete() || !ProfileStore.isComplete(this.props.user.slug)) {
             path = '/answer-user-fields';
         }
 

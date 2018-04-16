@@ -5,6 +5,7 @@ import { useScroll } from 'react-router-scroll';
 
 import App from './App';
 import HomePage from './pages/HomePage';
+import ExplorePage from './pages/ExplorePage';
 import ChatThreadsPage from './pages/ChatThreadsPage';
 import ChatMessagesPage from './pages/ChatMessagesPage';
 import InterestsPage from './pages/InterestsPage';
@@ -78,6 +79,7 @@ export default class Root extends Component {
                     <Route name="answer-username" path="/answer-username" component={AnswerUsernamePage}/>
 
                     <Route onEnter={requireAuth}>
+                        <Route name="explore" path="/explore" component={ExplorePage}/>
                         <Route name="register-questions-landing" path="/register-questions-landing" component={RegisterQuestionsLandingPage}/>
                         <Route name="answer-user-fields" path="/answer-user-fields" component={AnswerUserFieldPage}/>
                         <Route name="answer-profile-fields" path="/answer-profile-fields" component={AnswerProfileFieldPage}/>

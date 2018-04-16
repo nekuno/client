@@ -31,28 +31,28 @@ class ProfileStore extends BaseStore {
             case ActionTypes.REQUEST_PROFILE_ERROR:
                 break;
             case ActionTypes.REQUEST_OWN_PROFILE_SUCCESS:
-                this._profiles[action.userId] = this._profiles[action.userId] || {};
-                const newProfiles = {[action.userId]: action.response};
+                this._profiles[action.slug] = this._profiles[action.slug] || {};
+                const newProfiles = {[action.slug]: action.response};
                 mergeIntoBag(this._profiles, newProfiles);
-                this._setInitialRequiredProfileQuestionsCount(action.userId);
+                this._setInitialRequiredProfileQuestionsCount(action.slug);
                 this.emitChange();
                 break;
             case ActionTypes.CONNECT_ACCOUNT_SUCCESS:
                 if (action.resource === SOCIAL_NETWORKS_NAMES.LINKEDIN) {
-                    this._profiles[LoginStore.user.id] = null;
+                    this._profiles[LoginStore.user.slug] = null;
                     this.emitChange();
                 }
                 break;
             case ActionTypes.REQUEST_LOGIN_USER_SUCCESS:
             case ActionTypes.REQUEST_AUTOLOGIN_SUCCESS:
-                this._profiles[LoginStore.user.id] = this._profiles[LoginStore.user.id] || {};
-                mergeIntoBag(this._profiles[LoginStore.user.id], action.response.profile);
-                this._setInitialRequiredProfileQuestionsCount(LoginStore.user.id);
+                this._profiles[LoginStore.user.slug] = this._profiles[LoginStore.user.slug] || {};
+                mergeIntoBag(this._profiles[LoginStore.user.slug], action.response.profile);
+                this._setInitialRequiredProfileQuestionsCount(LoginStore.user.slug);
                 this.emitChange();
                 break;
             case ActionTypes.REQUEST_PROFILE_SUCCESS:
-                this._profiles[action.userId] = this._profiles[action.userId] || {};
-                mergeIntoBag(this._profiles[action.userId], action.response);
+                this._profiles[action.slug] = this._profiles[action.slug] || {};
+                mergeIntoBag(this._profiles[action.slug], action.response);
                 this.emitChange();
                 break;
             case ActionTypes.REQUEST_METADATA_SUCCESS:
@@ -77,14 +77,14 @@ class ProfileStore extends BaseStore {
                 this.emitChange();
                 break;
             case ActionTypes.EDIT_PROFILE_SUCCESS:
-                const currentProfile = this._profiles[LoginStore.user.id];
+                const currentProfile = this._profiles[LoginStore.user.slug];
                 if (currentProfile.interfaceLanguage !== action.data.interfaceLanguage) {
                     window.setTimeout(() => {
                         UserActionCreators.requestMetadata();
                         ThreadActionCreators.requestFilters();
                     }, 0);
                 }
-                this._profiles[LoginStore.user.id] = action.response;
+                this._profiles[LoginStore.user.slug] = action.response;
                 this.emitChange();
                 break;
             case ActionTypes.EDIT_PROFILE_ERROR:
@@ -92,7 +92,7 @@ class ProfileStore extends BaseStore {
                 this.emitChange();
                 break;
             case ActionTypes.REQUEST_RECOMMENDATIONS_SUCCESS:
-                action.response.items.forEach(item => this._profiles[item.id] = item.profile ? item.profile : null);
+                action.response.items.forEach(item => this._profiles[item.slug] = item.profile ? item.profile : null);
                 this.emitChange();
                 break;
             default:
@@ -100,12 +100,12 @@ class ProfileStore extends BaseStore {
         }
     }
 
-    contains(userId, fields) {
-        return isInBag(this._profiles, userId, fields);
+    contains(slug, fields) {
+        return isInBag(this._profiles, slug, fields);
     }
 
-    get(userId) {
-        return this._profiles[userId];
+    get(slug) {
+        return this._profiles[slug];
     }
 
     getErrors() {
@@ -114,20 +114,20 @@ class ProfileStore extends BaseStore {
         return errors;
     }
 
-    getMetadata(){
+    getMetadata() {
         return this._metadata;
     }
 
-    getCategories(){
+    getCategories() {
         return this._categories;
     }
 
-    isLoadingCategories(){
+    isLoadingCategories() {
         return this._isLoadingCategories;
     }
 
-    getWithMetadata(userId) {
-        const basicProfile = this.get(userId);
+    getWithMetadata(slug) {
+        const basicProfile = this.get(slug);
         const metadata = this.getMetadata();
         const categories = this.getCategories();
 
@@ -152,71 +152,9 @@ class ProfileStore extends BaseStore {
                     const thisMetadata = metadata[field];
                     type = thisMetadata.type;
                     name = thisMetadata.label;
-                    value = '';
-                    switch (type) {
-                        case 'choice':
-                            let choices = thisMetadata.choices;
-                            value = choices[basicProfile[field]];
-                            break;
-                        case 'double_choice':
-                            let firstChoices = thisMetadata.choices;
-                            const doubleChoices = thisMetadata.doubleChoices;
-                            let firstChoice = basicProfile[field]['choice'];
-                            let doubleChoiceValue = basicProfile[field]['detail'] ? doubleChoices[firstChoice][basicProfile[field]['detail']] : '';
-                            value = firstChoices[firstChoice] + ' ' + doubleChoiceValue;
-                            break;
-                        case 'tags':
-                            value = basicProfile[field];
-                            break;
-                        case 'multiple_choices':
-                            let multiple_choices = thisMetadata['choices'];
-                            let mchoices = [];
-                            if (typeof basicProfile[field] === 'string') {
-                                mchoices.push(multiple_choices[basicProfile[field]]);
-                            } else {
-                                for (let mchoice_label in basicProfile[field]) {
-                                    mchoices.push(multiple_choices[basicProfile[field][mchoice_label]]);
-                                }
-                            }
-                            value = mchoices.join(', ');
-                            break;
-                        case 'tags_and_choice':
-                            let tagChoices = thisMetadata['choices'];
-                            let level = thisMetadata['choiceLabel']['es'];
-                            let objects = basicProfile[field];
-                            let values = [];
-                            for (let index in objects) {
-                                let object = objects[index];
-                                let newTag = object['tag'];
-                                if (object['choice']) {
-                                    newTag += ': ' + level + ' ' + tagChoices[object['choice']];
-                                }
-                                values.push(newTag);
-                            }
-                            value = values.join(', ');
-                            break;
-                        case 'integer':
-                            value = basicProfile[field];
-                            break;
-                        case 'birthday':
-                            name = thisMetadata.label == 'Birthday' ? 'Age' : 'Edad';
-                            const thatDate = new Date(basicProfile[field]);
-                            const ageDifMs = Date.now() - thatDate.getTime();
-                            const ageDate = new Date(ageDifMs); // miliseconds from epoch
-                            value = Math.abs(ageDate.getUTCFullYear() - 1970);
-                            break;
-                        case 'location':
-                            value = this.locationToString(basicProfile[field]);
-                            break;
-                        case 'textarea':
-                            value = basicProfile[field];
-                            break;
-                        default:
-                            break;
-                    }
-                    if (value === '') {
-                        return;
-                    } else if (value == false) {
+                    value = this.getFieldText(type, thisMetadata, basicProfile, field)
+
+                    if (value === '' || value == false) {
                         return;
                     }
                 }
@@ -238,59 +176,82 @@ class ProfileStore extends BaseStore {
         return profile;
     }
 
-    getMetadataLabel(filter, data) {
-        let text, address, choice, choiceLabel, detail, textArray, tags;
-        switch (filter.type) {
-            case 'location':
-                address = data && data && data.address ? data.address : data && data.location ? data.location : '';
-                return address ? filter.label + ' - ' + address : filter.label;
-            case 'integer_range':
-                text = filter.label;
-                text += data && data.min ? ' - Min: ' + data.min : '';
-                text += data && data.max ? ' - Max: ' + data.max : '';
-                return text;
-            case 'birthday_range':
-                text = filter.label;
-                text += data && data.min ? ' - Min: ' + data.min : '';
-                text += data && data.max ? ' - Max: ' + data.max : '';
-                return text;
-            case 'birthday':
-                text = filter.label;
-                text += data ? ' -  ' + data : '';
-                return text;
-            case 'textarea':
-                text = filter.label;
-                text += data ? ' -  ' + data : '';
-                return text;
-            case 'integer':
-                text = filter.label;
-                text += data ? ' - ' + data : '';
-                return text;
+    getFieldText(type, thisMetadata, basicProfile, field) {
+        switch (type) {
             case 'choice':
-                choiceLabel = filter.choices[data];
-                return choiceLabel ? filter.label + ' - ' + choiceLabel : filter.label;
+                let choices = thisMetadata.choices;
+                return choices.find(choice => choice.id === basicProfile[field]).text;
             case 'double_choice':
-                choice = filter.choices[Object.keys(filter.choices).find(key => key === data.choice)];
-                detail = data.detail ? filter.doubleChoices[data.choice][Object.keys(filter.doubleChoices[data.choice]).find(key => key === data.detail)] : '';
-                return choice ? filter.label + ' - ' + choice + ' ' + detail : filter.label;
-            case 'multiple_choices':
-                data = data || [];
-                textArray = data.map(value => filter.choices[value]);
-                return textArray.length > 0 ? filter.label + ' - ' + textArray.join(', ') : filter.label;
-            case 'double_multiple_choices':
-                data = data || [];
-                textArray = data.map(value => value.detail && filter.doubleChoices[value.choice][value.detail] ? filter.choices[value.choice] + ' ' + filter.doubleChoices[value.choice][value.detail] : filter.choices[value.choice]);
-                return textArray.length > 0 ? filter.label + ' - ' + textArray.join(', ') : filter.label;
+                let firstChoices = thisMetadata.choices;
+                const doubleChoices = thisMetadata.doubleChoices;
+                let firstChoice = basicProfile[field]['choice'];
+                let doubleChoiceValue = basicProfile[field]['detail'] ? doubleChoices[firstChoice][basicProfile[field]['detail']] : '';
+                return firstChoices.find(choice => choice.id === firstChoice).text + ' ' + doubleChoiceValue;
             case 'tags':
-                return data && data.length > 0 ? filter.label + ' - ' + data.join(', ') : filter.label;
+                return basicProfile[field].map(function(tag){
+                    return tag['name'];
+                });
+            case 'multiple_choices':
+                let multiple_choices = thisMetadata['choices'];
+                let mchoices = [];
+                if (typeof basicProfile[field] === 'string') {
+                    mchoices.push(multiple_choices.find(choice => choice.id === basicProfile[field]).text);
+                } else {
+                    for (let mchoice_label in basicProfile[field]) {
+                        mchoices.push(multiple_choices.find(choice => choice.id === basicProfile[field][mchoice_label]).text);
+                    }
+                }
+                return mchoices.join(', ');
+            case 'multiple_locations':
+                values = [];
+                basicProfile[field].forEach(location => values.push(this.locationToString(location)));
+                return values.join(', ');
+            case 'multiple_fields':
+                values = [];
+                if (basicProfile[field].length > 0) {
+                    basicProfile[field].forEach((item) => {
+                        Object.keys(item).forEach(multipleField => {
+                            const fieldMetadata = thisMetadata.metadata[multipleField] || null;
+                            if (fieldMetadata && fieldMetadata.type) {
+                                let value = this.getFieldText(fieldMetadata.type, fieldMetadata, item, multipleField);
+                                value = value.length > 100 ? value.substr(0, 97) + '...' : value;
+                                values.push(value + '\n');
+                            }
+                        });
+                        values.push('\n');
+                    });
+                }
+
+                return values.join('');
             case 'tags_and_choice':
-                return data && data.length > 0 ? filter.label + ' - ' + data.map(value => value.choice ? value.tag + ' ' + filter.choices[value.choice] : value.tag).join(', ') : filter.label;
-            case 'tags_and_multiple_choices':
-                return data && data.length > 0 ? filter.label + ' - ' + data.map(value => value.choices ? value.tag + ' ' + value.choices.map(choice => filter.choices[choice]['es']).join(', ') : value.tag).join(', ') : filter.label;
-
+                let tagChoices = thisMetadata['choices'];
+                let level = thisMetadata['choiceLabel']['es'];
+                let objects = basicProfile[field];
+                let values = [];
+                for (let index in objects) {
+                    let object = objects[index];
+                    let newTag = object['tag']['name'];
+                    if (object['choice']) {
+                        newTag += ': ' + level + ' ' + tagChoices[object['choice']];
+                    }
+                    values.push(newTag);
+                }
+                return values.join(', ');
+            case 'integer':
+                return basicProfile[field];
+            case 'birthday':
+                const name = thisMetadata.label == 'Birthday' ? 'Age' : 'Edad';
+                const thatDate = new Date(basicProfile[field]);
+                const ageDifMs = Date.now() - thatDate.getTime();
+                const ageDate = new Date(ageDifMs); // miliseconds from epoch
+                return Math.abs(ageDate.getUTCFullYear() - 1970);
+            case 'location':
+                return this.locationToString(basicProfile[field]);
+            case 'textarea':
+                return basicProfile[field];
+            default:
+                return null;
         }
-
-        return '';
     }
 
     isProfileSet(field, data) {
@@ -311,6 +272,8 @@ class ProfileStore extends BaseStore {
                 return !!data.choice;
             case 'multiple_choices':
                 return data && data.length > 0;
+            case 'multiple_locations':
+                return data && data.length > 0;
             case 'double_multiple_choices':
                 return data && data.length > 0;
             case 'tags':
@@ -319,13 +282,15 @@ class ProfileStore extends BaseStore {
                 return data && data.length > 0;
             case 'tags_and_multiple_choices':
                 return data && data.length > 0;
+            case 'multiple_fields':
+                return data && data.length > 0;
             default:
                 return false;
         }
     }
 
     orientationMustBeAsked() {
-        const profile = this._profiles[LoginStore.user.id];
+        const profile = this._profiles[LoginStore.user.slug];
 
         return profile && profile.orientationRequired && !profile.orientation && profile.objective && profile.objective.some(obj => obj === 'human-contact')
     }
@@ -340,18 +305,18 @@ class ProfileStore extends BaseStore {
             selectn('address', location);
     }
 
-    isComplete(userId) {
-        return this.getRequiredProfileQuestionsLeftCount(userId) === 0;
+    isComplete(slug) {
+        return this.getRequiredProfileQuestionsLeftCount(slug) === 0;
     }
 
     getInitialRequiredProfileQuestionsCount() {
         return this._initialRequiredProfileQuestionsCount;
     }
 
-    getRequiredProfileQuestionsLeftCount(userId) {
+    getRequiredProfileQuestionsLeftCount(slug) {
         let count = 0;
         REQUIRED_REGISTER_PROFILE_FIELDS.forEach(field => {
-            if (!this._profiles[userId] || !this._profiles[userId][field.name] || !this.isProfileSet(field, this._profiles[userId][field.name])) {
+            if (!this._profiles[slug] || !this._profiles[slug][field.name] || !this.isProfileSet(field, this._profiles[slug][field.name])) {
                 count++;
             }
         });
@@ -359,16 +324,16 @@ class ProfileStore extends BaseStore {
         return count;
     }
 
-    getNextRequiredProfileField(userId) {
-        return typeof this._profiles[userId] !== 'undefined' && this._profiles[userId] ? REQUIRED_REGISTER_PROFILE_FIELDS.find(field =>
-                !(typeof this._profiles[userId][field.name] !== 'undefined' && this._profiles[userId][field.name])
+    getNextRequiredProfileField(slug) {
+        return typeof this._profiles[slug] !== 'undefined' && this._profiles[slug] ? REQUIRED_REGISTER_PROFILE_FIELDS.find(field =>
+                !(typeof this._profiles[slug][field.name] !== 'undefined' && this._profiles[slug][field.name])
             ) || null : null;
     }
 
-    _setInitialRequiredProfileQuestionsCount(userId) {
+    _setInitialRequiredProfileQuestionsCount(slug) {
         let count = 0;
         REQUIRED_REGISTER_PROFILE_FIELDS.forEach(field => {
-            if (!this._profiles[userId] || !this.isProfileSet(field, this._profiles[userId][field.name])) {
+            if (!this._profiles[slug] || !this.isProfileSet(field, this._profiles[slug][field.name])) {
                 count++;
             }
         });
@@ -376,17 +341,17 @@ class ProfileStore extends BaseStore {
         this._initialRequiredProfileQuestionsCount = count;
     }
 
-    setLikedUser(userId, profiles) {
-        if (profiles.hasOwnProperty(userId)) {
-            profiles[userId]['like'] = 1;
+    setLikedUser(slug, profiles) {
+        if (profiles.hasOwnProperty(slug)) {
+            profiles[slug]['like'] = 1;
         }
 
         return profiles;
     }
 
-    setUnlikedUser(userId, profiles) {
-        if (profiles.hasOwnProperty(userId)) {
-            profiles[userId]['like'] = 0;
+    setUnlikedUser(slug, profiles) {
+        if (profiles.hasOwnProperty(slug)) {
+            profiles[slug]['like'] = 0;
         }
         return profiles;
     }

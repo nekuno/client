@@ -24,8 +24,8 @@ function parseId(user) {
  */
 function requestData(props) {
     ThreadActionCreators.requestFilters();
-    if (!props.profile) {
-        UserActionCreators.requestOwnProfile(parseId(props.user));
+    if (!props.profile && props.user.slug) {
+        UserActionCreators.requestOwnProfile(props.user.slug);
     }
 }
 
@@ -35,9 +35,9 @@ function requestData(props) {
 function getState(props) {
     const {user} = props;
     const userId = parseId(user);
-    const profile = ProfileStore.get(userId);
+    const profile = ProfileStore.get(user.slug);
     const errors = ProfileStore.getErrors(userId);
-    const profileWithMetadata = ProfileStore.getWithMetadata(userId);
+    const profileWithMetadata = ProfileStore.getWithMetadata(user.slug);
     const metadata = ProfileStore.getMetadata();
     const stats = StatsStore.stats;
 

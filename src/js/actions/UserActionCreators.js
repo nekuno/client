@@ -6,6 +6,7 @@ import RouterActionCreators from "./RouterActionCreators";
 import UserStore from '../stores/UserStore';
 import ProfileStore from '../stores/ProfileStore';
 import LocaleStore from '../stores/LocaleStore';
+import InterestStore from '../stores/InterestStore';
 import Framework7Service from '../services/Framework7Service';
 
 export function validateUsername(username) {
@@ -296,7 +297,8 @@ export function deleteRateContent(from, to) {
         failure: ActionTypes.UNRATE_CONTENT_ERROR
     }, {from, to});
     InterestsActionCreators.resetInterests(from);
-    // InterestsActionCreators.requestOwnInterests(from);
+    const interestUrl = InterestStore.getRequestInterestsUrl(from);
+    InterestsActionCreators.requestOwnInterests(from, interestUrl);
 }
 
 export function reportContent(data) {

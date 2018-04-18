@@ -314,6 +314,7 @@ export default class HomePage extends Component {
 
         return (
             <div className="views">
+                <style dangerouslySetInnerHTML={{__html: `body {max-width: 100%}`}} />
                 <div className="view view-main home-view">
                     <div className="swiper-container">
                         {this.renderSlides()}

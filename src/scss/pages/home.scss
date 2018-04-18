@@ -473,6 +473,7 @@ body #root .App .views .view.home-view {
         background: transparent;
         border: 2px solid $light-green;
         color: $light-green;
+        max-width: 400px;
         width: 65%;
       }
     }

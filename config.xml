@@ -48,6 +48,8 @@
         <icon height="58" src="src/scss/img/icons/ios/icon-small@2x.png" width="58" />
         <icon height="50" src="src/scss/img/icons/ios/icon-50.png" width="50" />
         <icon height="100" src="src/scss/img/icons/ios/icon-50@2x.png" width="100" />
+		<icon height="512" src="src/scss/img/icons/ios/iTunesArtwork.png" width="512" />
+		<icon height="1024" src="src/scss/img/icons/ios/iTunesArtwork@2x.png" width="1024" />
         <splash height="480" src="src/scss/img/splash/Default~iphone.png" width="320" />
         <splash height="960" src="src/scss/img/splash/Default@2x~iphone.png" width="640" />
         <splash height="1136" src="src/scss/img/splash/Default-568h@2x~iphone.png" width="640" />

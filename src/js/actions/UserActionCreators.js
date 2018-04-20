@@ -113,12 +113,12 @@ export function requestSharedUser(slug) {
     }, {slug});
 }
 
-export function editProfile(data) {
+export function editProfile(data, oldProfile) {
     return dispatchAsync(UserAPI.editProfile(data), {
         request: ActionTypes.EDIT_PROFILE,
         success: ActionTypes.EDIT_PROFILE_SUCCESS,
         failure: ActionTypes.EDIT_PROFILE_ERROR
-    }, {data})
+    }, {data, oldProfile})
         .then(function(response) {
             checkLocale(response.interfaceLanguage);
             return null;

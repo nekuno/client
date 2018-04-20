@@ -62,7 +62,6 @@ export default class ProfileDataList extends Component {
         };
 
         this.onFilterSelect = this.onFilterSelect.bind(this);
-        this.onSuggestSelect = this.onSuggestSelect.bind(this);
         this.handleClickEdit = this.handleClickEdit.bind(this);
         this.handleChangeEdit = this.handleChangeEdit.bind(this);
         this.handleChangeEditAndSave = this.handleChangeEditAndSave.bind(this);
@@ -100,16 +99,8 @@ export default class ProfileDataList extends Component {
         });
     }
 
-    onSuggestSelect(location) {
-        let {profile} = this.state;
-        profile.location = location;
-        this.setState({
-            profile: profile
-        });
-    }
-
-    saveProfile() {
-        UserActionCreators.editProfile(this.state.profile);
+    saveProfile(oldProfile) {
+        UserActionCreators.editProfile(this.props.profile, oldProfile);
     }
 
     handleClickEdit(key) {
@@ -133,12 +124,13 @@ export default class ProfileDataList extends Component {
 
     handleChangeEditAndSave(key, data) {
         let {profile} = this.state;
+        let oldProfile = Object.assign({}, profile);
         profile[key] = data;
         this.setState({
             profile     : profile,
             selectedEdit: null
         });
-        this.saveProfile();
+        this.saveProfile(oldProfile);
     }
 
     handleClickRemoveEdit(editKey) {

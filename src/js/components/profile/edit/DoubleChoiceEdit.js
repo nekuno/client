@@ -24,6 +24,7 @@ export default class DoubleChoiceEdit extends Component {
 
     handleClickDoubleChoiceChoice(choice) {
         let {editKey, data} = this.props;
+        data = Object.assign({}, data);
         if (choice !== data.choice) {
             data.choice = choice;
             data.detail = null;
@@ -33,6 +34,7 @@ export default class DoubleChoiceEdit extends Component {
 
     handleClickDoubleChoiceDetail(detail) {
         let {editKey, data} = this.props;
+        data = Object.assign({}, data);
         if (detail !== data.detail) {
             data.detail = detail;
         }

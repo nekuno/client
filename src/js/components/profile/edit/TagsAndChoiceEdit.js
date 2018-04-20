@@ -54,6 +54,7 @@ export default class TagsAndChoiceEdit extends Component {
 
     handleClickTagAndChoiceTagSuggestion(tagString) {
         let {editKey, data} = this.props;
+        data = data.slice(0);
         this.refs['tagInput' + editKey].setValue(tagString);
         data = data || [];
         let selectedTagAndChoice = this.state.selectedTagAndChoice;
@@ -83,6 +84,7 @@ export default class TagsAndChoiceEdit extends Component {
 
     handleClickTagAndChoiceChoice(choice) {
         let {editKey, data} = this.props;
+        data = data.slice(0);
         this.refs['tagInput' + editKey].clearValue();
         this.refs['tagInput' + editKey].focus();
         let selectedTagAndChoice = this.state.selectedTagAndChoice;
@@ -99,6 +101,7 @@ export default class TagsAndChoiceEdit extends Component {
 
     handleClickRemoveTagsAndChoice() {
         let {editKey, data} = this.props;
+        data = data.slice(0);
         this.refs['tagInput' + editKey].clearValue();
         this.refs['tagInput' + editKey].focus();
         const index = this.state.selectedTagAndChoice.index;

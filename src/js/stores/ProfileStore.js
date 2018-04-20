@@ -76,19 +76,14 @@ class ProfileStore extends BaseStore {
                 this._profiles = this.setUnlikedUser(action.to, this._profiles);
                 this.emitChange();
                 break;
-            case ActionTypes.EDIT_PROFILE_SUCCESS:
-                const currentProfile = this._profiles[LoginStore.user.slug];
-                if (currentProfile.interfaceLanguage !== action.data.interfaceLanguage) {
-                    window.setTimeout(() => {
-                        UserActionCreators.requestMetadata();
-                        ThreadActionCreators.requestFilters();
-                    }, 0);
-                }
-                this._profiles[LoginStore.user.slug] = action.response;
+            case ActionTypes.EDIT_PROFILE:
+                this._checkInterfaceLanguage(action.data.interfaceLanguage);
+                this._profiles[LoginStore.user.slug] = action.data;
                 this.emitChange();
                 break;
             case ActionTypes.EDIT_PROFILE_ERROR:
                 this._errors = getValidationErrors(action.error);
+                this._profiles[LoginStore.user.slug] = action.oldProfile;
                 this.emitChange();
                 break;
             case ActionTypes.REQUEST_RECOMMENDATIONS_SUCCESS:
@@ -339,6 +334,16 @@ class ProfileStore extends BaseStore {
         });
 
         this._initialRequiredProfileQuestionsCount = count;
+    }
+
+    _checkInterfaceLanguage(newLanguage) {
+        const currentProfile = this._profiles[LoginStore.user.slug];
+        if (currentProfile.interfaceLanguage !== newLanguage) {
+            window.setTimeout(() => {
+                UserActionCreators.requestMetadata();
+                ThreadActionCreators.requestFilters();
+            }, 0);
+        }
     }
 
     setLikedUser(slug, profiles) {

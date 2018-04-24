@@ -5,8 +5,6 @@ import BaseStore from './BaseStore';
 import UserStore from '../stores/UserStore';
 import LoginStore from '../stores/LoginStore';
 import ActionTypes from '../constants/ActionTypes';
-import * as UserActionCreators from '../actions/UserActionCreators';
-import * as ThreadActionCreators from '../actions/ThreadActionCreators';
 import selectn from 'selectn';
 import { getValidationErrors } from '../utils/StoreUtils';
 
@@ -77,7 +75,6 @@ class ProfileStore extends BaseStore {
                 this.emitChange();
                 break;
             case ActionTypes.EDIT_PROFILE:
-                this._checkInterfaceLanguage(action.data.interfaceLanguage);
                 this._profiles[LoginStore.user.slug] = action.data;
                 this.emitChange();
                 break;
@@ -334,16 +331,6 @@ class ProfileStore extends BaseStore {
         });
 
         this._initialRequiredProfileQuestionsCount = count;
-    }
-
-    _checkInterfaceLanguage(newLanguage) {
-        const currentProfile = this._profiles[LoginStore.user.slug];
-        if (currentProfile.interfaceLanguage !== newLanguage) {
-            window.setTimeout(() => {
-                UserActionCreators.requestMetadata();
-                ThreadActionCreators.requestFilters();
-            }, 0);
-        }
     }
 
     setLikedUser(slug, profiles) {

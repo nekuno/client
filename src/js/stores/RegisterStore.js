@@ -2,7 +2,6 @@
 
 import ActionTypes from '../constants/ActionTypes';
 import BaseStore from './BaseStore';
-import { mergeIntoBag } from '../utils/StoreUtils';
 import { getValidationErrors } from '../utils/StoreUtils';
 
 class RegisterStore extends BaseStore {

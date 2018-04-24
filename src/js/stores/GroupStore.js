@@ -1,6 +1,5 @@
 import ActionTypes from '../constants/ActionTypes';
 import BaseStore from './BaseStore';
-import selectn from 'selectn';
 
 class GroupStore extends BaseStore {
 

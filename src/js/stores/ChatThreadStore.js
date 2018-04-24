@@ -49,7 +49,7 @@ class ChatThreadStore extends BaseStore {
 
         let threads = {};
 
-        for (let messageId in messages) {
+        Object.keys(messages).forEach(messageId => {
             let message = messages[messageId];
             let user = message.user.id === message.user_from.id ? message.user_to : message.user_from;
             if (!threads[user.id]) {
@@ -59,12 +59,12 @@ class ChatThreadStore extends BaseStore {
                     threads[user.id] = {message, user};
                 }
             }
-        }
+        });
 
         this._threads = [];
-        for (var id in threads) {
+        Object.keys(threads).forEach(id => {
             this._threads.push(threads[id]);
-        }
+        });
 
         this._threads.sort((a, b) => {
             if (a.message.createdAt < b.message.createdAt) {
@@ -103,7 +103,7 @@ class ChatThreadStore extends BaseStore {
     }
 
     getUnreadCount() {
-        var unReadMessages = this._threads.filter(thread => thread.message && thread.message.user.id === thread.message.user_to.id && thread.message.readed != true);
+        const unReadMessages = this._threads.filter(thread => thread.message && thread.message.user.id === thread.message.user_to.id && thread.message.readed != true);
         return unReadMessages.length;
     }
 

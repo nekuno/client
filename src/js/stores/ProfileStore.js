@@ -223,14 +223,14 @@ class ProfileStore extends BaseStore {
                 let level = thisMetadata['choiceLabel']['es'];
                 let objects = basicProfile[field];
                 let values = [];
-                for (let index in objects) {
+                Object.keys(objects).forEach(index => {
                     let object = objects[index];
                     let newTag = object['tag']['name'];
                     if (object['choice']) {
                         newTag += ': ' + level + ' ' + tagChoices[object['choice']];
                     }
                     values.push(newTag);
-                }
+                });
                 return values.join(', ');
             case 'integer':
                 return basicProfile[field];

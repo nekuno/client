@@ -1,7 +1,6 @@
 import { waitFor } from '../dispatcher/Dispatcher';
 import UserStore from '../stores/UserStore';
 import ActionTypes from '../constants/ActionTypes';
-import selectn from 'selectn';
 import BaseStore from './BaseStore';
 
 class LikeStore extends BaseStore {

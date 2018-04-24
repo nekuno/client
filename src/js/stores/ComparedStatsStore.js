@@ -2,7 +2,6 @@ import ActionTypes from '../constants/ActionTypes';
 import { waitFor } from '../dispatcher/Dispatcher';
 import BaseStore from './BaseStore';
 import UserStore from '../stores/UserStore';
-import selectn from 'selectn';
 
 class ComparedStatsStore extends BaseStore {
 

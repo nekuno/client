@@ -56,7 +56,7 @@ export default class TagsAndMultipleChoicesFilter extends Component {
             selectedTagAndChoice = data[valueIndex];
             selectedTagAndChoice.index = valueIndex;
         } else {
-            selectedTagAndChoice = {tag: tagString, index: data.length};
+            selectedTagAndChoice = {tag: {name: tagString}, index: data.length};
             data.push(selectedTagAndChoice);
         }
         resetTagSuggestions();
@@ -112,6 +112,8 @@ export default class TagsAndMultipleChoicesFilter extends Component {
         if (index > -1) {
             let selectedTagAndChoice = data[index];
             selectedTagAndChoice.index = index;
+            console.log('clickTagAndChoiceTag');
+            console.log(selectedTagAndChoice);
             this.setState({
                 selectedTagAndChoice: selectedTagAndChoice
             });
@@ -133,9 +135,9 @@ export default class TagsAndMultipleChoicesFilter extends Component {
         data = data || [];
         return (
             selected ?
-                <ThreadSelectedFilter key={'selected-filter'} type={'tags-and-choice'} active={data && data.some(value => value.tag !== '')} handleClickRemoveFilter={handleClickRemoveFilter}>
+                <ThreadSelectedFilter key={'selected-filter'} type={'tags-and-choice'} active={data && data.some(value => value.tag.name !== '')} handleClickRemoveFilter={handleClickRemoveFilter}>
                     <div className="tags-and-choice-wrapper">
-                        <TagInput ref={'tagInput'} placeholder={strings.placeholder} tags={tags.map(tag => tag.name)} value={selectedTagAndChoice.tag}
+                        <TagInput ref={'tagInput'} placeholder={strings.placeholder} tags={tags.map(tag => tag.name)} value={selectedTagAndChoice.tag ? selectedTagAndChoice.tag.name :''}
                                   onKeyUpHandler={this.handleKeyUpTagAndChoiceTag} onClickTagHandler={this.handleClickTagSuggestion}
                                   title={filter.label}/>
                         {selectedTagAndChoice.tag ?
@@ -151,7 +153,7 @@ export default class TagsAndMultipleChoicesFilter extends Component {
                             <div className="tags-and-choice-unselected-filters">
                                 {data.filter(value => value.tag !== selectedTagAndChoice.tag).map((value, index) =>
                                     <div className="tags-and-choice-unselected-filter" key={index}>
-                                        <TextCheckboxes labels={[{key: value.tag, text: value.choices && value.choices.length > 0 ? value.tag + ' ' + value.choices.map(choice => filter.choices[choice]['es']).join(', ') : value.tag}]}
+                                        <TextCheckboxes labels={[{key: value.tag.name, text: value.choices && value.choices.length > 0 ? value.tag.name + ' ' + value.choices.map(choice => filter.choices[choice]['es']).join(', ') : value.tag.name}]}
                                                         values={[value.tag]}
                                                         onClickHandler={this.handleClickTagAndChoiceTag} className={'tags-and-choice-filter'}/>
                                     </div>

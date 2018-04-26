@@ -108,9 +108,9 @@ class FilterStore extends BaseStore {
             case 'tags':
                 return data && data.length > 0 ? filter.label + ' - ' + data.join(', ') : filter.label;
             case 'tags_and_choice':
-                return data && data.length > 0 ? filter.label + ' - ' + data.map(value => value.choice ? value.tag + ' ' + filter.choices[value.choice] : value.tag).join(', ') : filter.label;
+                return data && data.length > 0 ? filter.label + ' - ' + data.map(value => value.choice ? value.tag.name + ' ' + filter.choices[value.choice] : value.tag.name).join(', ') : filter.label;
             case 'tags_and_multiple_choices':
-                return data && data.length > 0 ? filter.label + ' - ' + data.map(value => value.choices ? value.tag + ' ' + value.choices.map(choice => filter.choices[choice]['es']).join(', ') : value.tag).join(', ') : filter.label;
+                return data && data.length > 0 ? filter.label + ' - ' + data.map(value => value.choices ? value.tag.name + ' ' + value.choices.map(choice => filter.choices[choice]['es']).join(', ') : value.tag.name).join(', ') : filter.label;
 
         }
         

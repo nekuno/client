@@ -15,6 +15,7 @@ export default function connectToStores(stores, getState) {
             DecoratedComponent.displayName ||
             DecoratedComponent.name ||
             'Component';
+        let mounted = false;
 
         return class StoreConnector extends Component {
             static displayName = `connectToStores(${displayName})`;
@@ -30,6 +31,7 @@ export default function connectToStores(stores, getState) {
                 stores.forEach(store =>
                     store.addChangeListener(this.handleStoresChanged)
                 );
+                mounted = true;
             }
 
             componentWillReceiveProps(nextProps) {
@@ -42,10 +44,13 @@ export default function connectToStores(stores, getState) {
                 stores.forEach(store =>
                     store.removeChangeListener(this.handleStoresChanged)
                 );
+                mounted = false;
             }
 
             handleStoresChanged() {
-                this.setState(getState(this.props));
+                if(mounted) {
+                    this.setState(getState(this.props));
+                }
             }
 
             render() {

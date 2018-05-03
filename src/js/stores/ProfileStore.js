@@ -5,8 +5,6 @@ import BaseStore from './BaseStore';
 import UserStore from '../stores/UserStore';
 import LoginStore from '../stores/LoginStore';
 import ActionTypes from '../constants/ActionTypes';
-import * as UserActionCreators from '../actions/UserActionCreators';
-import * as ThreadActionCreators from '../actions/ThreadActionCreators';
 import selectn from 'selectn';
 import { getValidationErrors } from '../utils/StoreUtils';
 
@@ -76,19 +74,13 @@ class ProfileStore extends BaseStore {
                 this._profiles = this.setUnlikedUser(action.to, this._profiles);
                 this.emitChange();
                 break;
-            case ActionTypes.EDIT_PROFILE_SUCCESS:
-                const currentProfile = this._profiles[LoginStore.user.slug];
-                if (currentProfile.interfaceLanguage !== action.data.interfaceLanguage) {
-                    window.setTimeout(() => {
-                        UserActionCreators.requestMetadata();
-                        ThreadActionCreators.requestFilters();
-                    }, 0);
-                }
-                this._profiles[LoginStore.user.slug] = action.response;
+            case ActionTypes.EDIT_PROFILE:
+                this._profiles[LoginStore.user.slug] = action.data;
                 this.emitChange();
                 break;
             case ActionTypes.EDIT_PROFILE_ERROR:
                 this._errors = getValidationErrors(action.error);
+                this._profiles[LoginStore.user.slug] = action.oldProfile;
                 this.emitChange();
                 break;
             case ActionTypes.REQUEST_RECOMMENDATIONS_SUCCESS:
@@ -228,14 +220,14 @@ class ProfileStore extends BaseStore {
                 let level = thisMetadata['choiceLabel']['es'];
                 let objects = basicProfile[field];
                 let values = [];
-                for (let index in objects) {
+                Object.keys(objects).forEach(index => {
                     let object = objects[index];
                     let newTag = object['tag']['name'];
                     if (object['choice']) {
                         newTag += ': ' + level + ' ' + tagChoices[object['choice']];
                     }
                     values.push(newTag);
-                }
+                });
                 return values.join(', ');
             case 'integer':
                 return basicProfile[field];

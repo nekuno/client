@@ -28,6 +28,7 @@ export default class MultipleChoicesEdit extends Component {
     handleClickMultipleChoice(choice) {
         let {editKey, metadata, data, strings} = this.props;
         data = data || [];
+        data = data.slice(0);
         const valueIndex = data.findIndex(value => value == choice);
         if (valueIndex > -1) {
             if (metadata.min && data.length <= metadata.min) {

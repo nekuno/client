@@ -100,7 +100,7 @@ export default class ProfileDataList extends Component {
     }
 
     saveProfile(oldProfile) {
-        UserActionCreators.editProfile(this.props.profile, oldProfile);
+        UserActionCreators.editProfile(this.state.profile, oldProfile);
     }
 
     handleClickEdit(key) {

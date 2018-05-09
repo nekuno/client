@@ -31,12 +31,12 @@ class ChatMessageStore extends BaseStore {
                 break;
 
             case ActionTypes.CHAT_MARK_AS_READED:
-                for (var messageId in this._messages) {
+                Object.keys(this._messages).forEach(messageId => {
                     let message = this._messages[messageId];
                     if (message.user_from.id === action.userId) {
                         message.readed = true;
                     }
-                }
+                });
                 this.emitChange();
                 break;
 

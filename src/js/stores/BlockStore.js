@@ -39,7 +39,7 @@ class BlockStore extends BaseStore {
     }
 
     contains(userId1, userId2) {
-        return this._isUserBblockedByUserA(userId1, userId2) || this._isUserBblockedByUserA(userId2, userId1);
+        return this._isUserBlockedByUserA(userId1, userId2) || this._isUserBlockedByUserA(userId2, userId1);
     }
 
     getBidirectional(userId1, userId2) {
@@ -47,7 +47,7 @@ class BlockStore extends BaseStore {
     }
 
     get(userId1, userId2) {
-        return this._isUserBblockedByUserA(userId1, userId2) ? this._get(userId1, userId2) : false;
+        return this._isUserBlockedByUserA(userId1, userId2) ? this._get(userId1, userId2) : false;
     }
 
     _get(userId1, userId2) {
@@ -59,7 +59,7 @@ class BlockStore extends BaseStore {
         this._block[userId1][userId2] = value;
     }
 
-    _isUserBblockedByUserA(userA, userB) {
+    _isUserBlockedByUserA(userA, userB) {
         return userA in this._block && (userB in this._block[userA]);
     }
 }

@@ -1,6 +1,5 @@
 import ActionTypes from '../constants/ActionTypes';
 import BaseStore from './BaseStore';
-import selectn from 'selectn';
 
 //Store which filters can the logged user apply
 class FilterStore extends BaseStore {

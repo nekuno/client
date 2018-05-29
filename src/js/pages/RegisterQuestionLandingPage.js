@@ -20,10 +20,12 @@ function requestData(props) {
     const {user, params} = props;
     const questionId = params.hasOwnProperty('questionId') ? parseInt(params.questionId) : null;
     const currentUserId = parseUserId(user);
-    const profile = ProfileStore.get(user.slug);
     QuestionActionCreators.requestQuestion(currentUserId, questionId);
-    if (!profile) {
-        UserActionCreators.requestOwnProfile(user.slug);
+    if (user.slug) {
+        const profile = ProfileStore.get(user.slug);
+        if (!profile) {
+            UserActionCreators.requestOwnProfile(user.slug);
+        }
     }
 }
 
@@ -52,7 +54,7 @@ export default class RegisterQuestionLandingPage extends Component {
         this.handleClickAnswerQuestions = this.handleClickAnswerQuestions.bind(this);
     }
 
-    componentWillMount() {
+    componentDidMount() {
         requestData(this.props);
     }
     

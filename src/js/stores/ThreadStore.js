@@ -110,9 +110,9 @@ class ThreadStore extends BaseStore {
     getMainDiscoverThread() {
         return this._threads.find((thread) => {
                 let items = RecommendationStore.get(thread.id) || [];
-                return items.length > 0 && thread.category === 'ThreadUsers' && thread.groupId === null;
+                return items.length > 0 && thread.category === 'ThreadUsers' && !thread.groupId;
             }) || this._threads.find((thread) => {
-                return thread.category === 'ThreadUsers' && thread.groupId === null;
+                return thread.category === 'ThreadUsers' && !thread.groupId;
             }) || {};
     }
 

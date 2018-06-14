@@ -131,7 +131,7 @@ export function putData(url, data) {
     return doRequest('PUT', url, data);
 }
 
-export function deleteData(url, data) {
+export function deleteData(url, data = {}) {
     return doRequest('DELETE', url, data);
 }
 

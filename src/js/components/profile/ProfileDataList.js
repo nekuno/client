@@ -135,6 +135,7 @@ export default class ProfileDataList extends Component {
 
     handleClickRemoveEdit(editKey) {
         let {profile} = this.state;
+        let oldProfile = Object.assign({}, profile);
         if (this.props.metadata[editKey] && this.props.metadata[editKey].required === true) {
             Framework7Service.nekunoApp().alert(this.props.strings.cannotRemove);
             return;
@@ -144,7 +145,7 @@ export default class ProfileDataList extends Component {
             profile     : profile,
             selectedEdit: null
         });
-        this.saveProfile();
+        this.saveProfile(oldProfile);
     }
 
     handleClickOutside(e) {

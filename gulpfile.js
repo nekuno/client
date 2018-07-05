@@ -5,19 +5,19 @@ var babelify = require('babelify');
 var sass = require('gulp-sass');
 var concat = require('gulp-concat');
 var connect = require('gulp-connect');
-var rename = require('gulp-rename');
 var uglify = require('gulp-uglify');
 var envify = require('envify');
 var cleanCss = require('gulp-clean-css');
 var gulpHtmlVersion = require('gulp-html-version');
-var runSequence = require('run-sequence');
 
-gulp.task('env-dev', function() {
+gulp.task('env-dev', function(done) {
     process.env.NODE_ENV = 'development';
+    done();
 });
 
-gulp.task('env-prod', function() {
+gulp.task('env-prod', function(done) {
     process.env.NODE_ENV = 'production';
+    done();
 });
 
 gulp.task('copy', function() {
@@ -85,40 +85,50 @@ gulp.task('build-service-worker', function() {
         .pipe(connect.reload());
 });
 
-gulp.task('minify-js', ['build'], function() {
-    return gulp.src('www/bundle.js')
-        .pipe(uglify())
-        .pipe(gulp.dest('./www'));
-});
-
-gulp.task('minify-css', ['sass'], function() {
-    return gulp.src('www/bundle.css')
-        .pipe(cleanCss())
-        .pipe(gulp.dest('./www'));
-});
-
-// Rerun tasks whenever a file changes.
-gulp.task('watch', ['build'], function() {
-    gulp.watch('./src/scss/**/*', ['sass']);
-    gulp.watch('./src/js/**/*', ['build-js']);
-});
-
 // Development
 gulp.task('serve', function() {
     connect.server({
         root      : 'www',
         host      : '*',
-        port      : 80,
+        port      : 8000,
         livereload: true
     });
 });
 
-gulp.task('build', ['copy', 'fonts', 'assets', 'images', 'sass', 'build-js', 'build-service-worker', 'build-hello-js']);
-gulp.task('minify', ['minify-js', 'minify-css']);
-gulp.task('release', ['env-prod'], function() {
-    runSequence('minify');
-});
-gulp.task('build-dev', ['build', 'serve', 'watch']);
-gulp.task('dev', ['env-dev'], function() {
-    runSequence('build-dev');
-});
+gulp.task('build', gulp.parallel('copy', 'fonts', 'assets', 'images', 'sass', 'build-js', 'build-service-worker', 'build-hello-js'));
+
+// Rerun tasks whenever a file changes.
+gulp.task('watch', gulp.series('build', function(done) {
+    done();
+    gulp.watch('./src/scss/**/*', ['sass']);
+    gulp.watch('./src/js/**/*', ['build-js']);
+}));
+
+gulp.task('minify-js', gulp.series('build', function(done) {
+    done();
+    return gulp.src('www/bundle.js')
+        .pipe(uglify())
+        .pipe(gulp.dest('./www'));
+}));
+
+gulp.task('minify-css', gulp.series('sass', function(done) {
+    done();
+    return gulp.src('www/bundle.css')
+        .pipe(cleanCss())
+        .pipe(gulp.dest('./www'));
+}));
+
+
+gulp.task('minify', gulp.parallel('minify-js', 'minify-css', function(done) {
+    done();
+}));
+gulp.task('release', gulp.series('env-prod', 'minify', function(done) {
+    done();
+}));
+gulp.task('build-dev', gulp.series('build', 'serve', 'watch', function(done) {
+    done();
+}));
+gulp.task('dev', gulp.series('env-dev', 'build-dev', function(done) {
+    done();
+}));
+

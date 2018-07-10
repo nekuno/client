@@ -200,11 +200,14 @@ export default class DiscoverPage extends Component {
             let threadFilters = thread.category === 'ThreadUsers' ? thread.filters.userFilters : thread.filters.contentFilters;
             let chips = [];
             let currentFilters = thread.category === 'ThreadUsers' ? filters.userFilters : filters.contentFilters;
-            Object.keys(threadFilters).filter(key => typeof currentFilters[key] !== 'undefined').forEach(key => {
-                if (key !== 'order') {
-                    chips.push({label: FilterStore.getFilterLabel(currentFilters[key], threadFilters[key])})
-                }
-            });
+            if (threadFilters) {
+                Object.keys(threadFilters).filter(key => typeof currentFilters[key] !== 'undefined').forEach(key => {
+                    if (key !== 'order') {
+                        chips.push({label: FilterStore.getFilterLabel(currentFilters[key], threadFilters[key])})
+                    }
+                });
+            }
+
             return (
                 <ChipList chips={chips} small={true} onClick={this.editThread}/>
             );

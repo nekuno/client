@@ -52,7 +52,7 @@ class LoginStore extends BaseStore {
             case ActionTypes.REQUEST_LOGIN_USER_SUCCESS:
                 this._error = null;
                 this.jwt = action.response.jwt;
-                this._user = jwt_decode(this._jwt).user;
+                this._user = JSON.parse(jwt_decode(this._jwt).user);
                 this._tryingToLogin = false;
                 this._setInitialRequiredUserQuestionsCount();
                 this.emitChange();

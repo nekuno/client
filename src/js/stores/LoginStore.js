@@ -33,7 +33,7 @@ class LoginStore extends BaseStore {
                         LocalStorageService.remove('jwt');
                     } else {
                         this._jwt = jwt;
-                        this._user = {id: jwt_decode(this._jwt).user.id};
+                        this._user = {id: JSON.parse(jwt_decode(this._jwt).user).id};
                         this._tryingToLogin = false;
                         console.log('Autologin success!');
                     }

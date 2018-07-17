@@ -62,6 +62,20 @@ class QuestionStore extends BaseStore {
             case ActionTypes.ANSWER_QUESTION:
                 break;
             case ActionTypes.SKIP_QUESTION:
+                Object.keys(this._otherNotAnsweredQuestions).forEach(otherUserId => {
+                    otherUserId = parseInt(otherUserId);
+                    this._otherNotAnsweredQuestions[otherUserId] = {};
+                });
+
+                otherUserIds = Object.keys(this._pagination).filter(key => parseInt(key) !== parseInt(userId));
+                otherUserIds.forEach(otherUserId => {
+                    delete this._pagination[otherUserId];
+                });
+                otherUserIds = Object.keys(this._questions).filter(key => parseInt(key) !== parseInt(userId));
+                otherUserIds.forEach(otherUserId => {
+                    delete this._questions[otherUserId];
+                });
+                this.emitChange();
                 break;
             case ActionTypes.SET_QUESTION_EDITABLE:
                 this.setEditable(action.questionId);
@@ -125,16 +139,12 @@ class QuestionStore extends BaseStore {
                 this._answersLength++;
                 this._isJustCompleted = this.ownAnswersLength(userId) === this._registerQuestionsLength;
                 this._isRequestedQuestion = {};
-                // Remove from not answered questions
                 Object.keys(this._otherNotAnsweredQuestions).forEach(otherUserId => {
                     otherUserId = parseInt(otherUserId);
-                    const userNotAnsweredQuestions = this._otherNotAnsweredQuestions[otherUserId];
-                    const index = Object.keys(userNotAnsweredQuestions).find(questionId => parseInt(questionId) === action.response.question.questionId);
-                    if (index !== -1) {
-                        delete this._otherNotAnsweredQuestions[otherUserId][index];
-                    }
+                    this._otherNotAnsweredQuestions[otherUserId] = {};
                 });
-                let otherUserIds = Object.keys(this._pagination).filter(key => key !== userId);
+
+                let otherUserIds = Object.keys(this._pagination).filter(key => parseInt(key) !== parseInt(userId));
                 otherUserIds.forEach(otherUserId => {
                     delete this._pagination[otherUserId];
                 });
@@ -142,6 +152,7 @@ class QuestionStore extends BaseStore {
                 otherUserIds.forEach(otherUserId => {
                     delete this._questions[otherUserId];
                 });
+
                 this.emitChange();
                 break;
             case ActionTypes.SKIP_QUESTION_SUCCESS:
@@ -228,6 +239,10 @@ class QuestionStore extends BaseStore {
             url = url + filters.map(filter => '&' + filter + '=1');
         }
         return url;
+    }
+
+    getInitialRequestComparedQuestionsUrl(userId, filters = []) {
+        return this._initialComparedPaginationUrl.replace('{otherUserId}', userId) + filters.map(filter => '&' + filter + '=1');
     }
 
     getQuestion() {

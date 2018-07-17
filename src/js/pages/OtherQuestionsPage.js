@@ -27,7 +27,7 @@ function parsePicture(user) {
  * Requests data from server for current props.
  */
 function requestData(props) {
-    const {params, user, otherUser, isLoadingComparedStats, isLoadingComparedQuestions, requestComparedQuestionsUrl} = props;
+    const {params, user, otherUser, isLoadingComparedStats, isLoadingComparedQuestions, initialRequestComparedQuestionsUrl} = props;
     const otherUserSlug = params.slug;
 
     UserActionCreators.requestUser(otherUserSlug, ['username', 'photo']);
@@ -38,7 +38,7 @@ function requestData(props) {
         UserActionCreators.requestComparedStats(userId, otherUserId);
     }
     if (userId && otherUserId && !isLoadingComparedQuestions) {
-        QuestionActionCreators.requestComparedQuestions(otherUserId, requestComparedQuestionsUrl);
+        QuestionActionCreators.requestComparedQuestions(otherUserId, initialRequestComparedQuestionsUrl);
     }
 }
 
@@ -60,6 +60,7 @@ function getState(props) {
     const isLoadingComparedQuestions = otherUserId ? QuestionStore.isLoadingComparedQuestions() : true;
     const hasNextComparedQuestion = QuestionStore.hasQuestion();
     const requestComparedQuestionsUrl = otherUserId ? QuestionStore.getRequestComparedQuestionsUrl(otherUserId, []) : null;
+    const initialRequestComparedQuestionsUrl = otherUserId ? QuestionStore.getInitialRequestComparedQuestionsUrl(otherUserId, []) : null;
 
     return {
         otherQuestionsTotal,
@@ -72,7 +73,8 @@ function getState(props) {
         isLoadingComparedQuestions,
         hasNextComparedQuestion,
         requestComparedQuestionsUrl,
-        otherNotAnsweredQuestions
+        otherNotAnsweredQuestions,
+        initialRequestComparedQuestionsUrl
     };
 }
 
@@ -82,25 +84,26 @@ function getState(props) {
 export default class OtherQuestionsPage extends Component {
     static propTypes = {
         // Injected by React Router:
-        params                     : PropTypes.shape({
+        params                            : PropTypes.shape({
             slug: PropTypes.string.isRequired
         }),
         // Injected by @AuthenticatedComponent
-        user                       : PropTypes.object.isRequired,
+        user                              : PropTypes.object.isRequired,
         // Injected by @translate:
-        strings                    : PropTypes.object,
+        strings                           : PropTypes.object,
         // Injected by @connectToStores:
-        otherQuestionsTotal        : PropTypes.number.isRequired,
-        questions                  : PropTypes.object,
-        otherQuestions             : PropTypes.object.isRequired,
-        otherNotAnsweredQuestions  : PropTypes.object.isRequired,
-        otherUser                  : PropTypes.object,
-        comparedStats              : PropTypes.object,
-        isRequestedQuestion        : PropTypes.bool,
-        isLoadingComparedQuestions : PropTypes.bool,
-        isLoadingComparedStats     : PropTypes.bool,
-        hasNextComparedQuestion    : PropTypes.bool,
-        requestComparedQuestionsUrl: PropTypes.string,
+        otherQuestionsTotal               : PropTypes.number.isRequired,
+        questions                         : PropTypes.object,
+        otherQuestions                    : PropTypes.object.isRequired,
+        otherNotAnsweredQuestions         : PropTypes.object.isRequired,
+        otherUser                         : PropTypes.object,
+        comparedStats                     : PropTypes.object,
+        isRequestedQuestion               : PropTypes.bool,
+        isLoadingComparedQuestions        : PropTypes.bool,
+        isLoadingComparedStats            : PropTypes.bool,
+        hasNextComparedQuestion           : PropTypes.bool,
+        requestComparedQuestionsUrl       : PropTypes.string,
+        initialRequestComparedQuestionsUrl: PropTypes.string
     };
 
     componentDidMount() {

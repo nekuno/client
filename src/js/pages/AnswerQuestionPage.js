@@ -94,7 +94,7 @@ export default class AnswerQuestionPage extends Component {
         this.forceStartTutorial = this.forceStartTutorial.bind(this);
     }
 
-    componentWillMount() {
+    componentDidMount() {
         const questionId = this.props.params.questionId;
         if(!this.props.question || this.props.question.questionId !== questionId) {
             window.setTimeout(() => requestData(this.props), 0);
@@ -120,9 +120,9 @@ export default class AnswerQuestionPage extends Component {
         let questionId = question.questionId;
         QuestionActionCreators.skipQuestion(userId, questionId);
         if (user.slug === params.from) {
-            RouterActionCreators.replaceRoute(`/questions`);
+            window.setTimeout(RouterActionCreators.replaceRoute(`/questions`), 0);
         } else {
-            RouterActionCreators.replaceRoute(`/users/${params.from}/other-questions`);
+            window.setTimeout(RouterActionCreators.replaceRoute(`/users/${params.from}/other-questions`), 0);
         }
     }
 

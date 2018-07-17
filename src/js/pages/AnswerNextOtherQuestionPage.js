@@ -102,7 +102,7 @@ export default class AnswerNextOtherQuestionPage extends Component {
         this.forceStartTutorial = this.forceStartTutorial.bind(this);
     }
 
-    componentWillMount() {
+    componentDidMount() {
         window.setTimeout(() => requestData(this.props), 0);
     }
 

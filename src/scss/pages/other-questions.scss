@@ -89,6 +89,20 @@ body #root .App .view .page.other-questions-page  {
           margin-top: 15px;
         }
       }
+      &.not-answered-questions-title {
+        font-size: 1.6em;
+
+        .description {
+          font-size: 0.7em;
+        }
+      }
+      &.not-answered {
+
+      }
+      .chip {
+        cursor: pointer;
+        margin: 20px 0;
+      }
     }
   }
 }

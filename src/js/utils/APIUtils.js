@@ -123,11 +123,11 @@ export function getData(url) {
     return doRequest('GET', url);
 }
 
-export function postData(url, data) {
+export function postData(url, data = {}) {
     return doRequest('POST', url, data);
 }
 
-export function putData(url, data) {
+export function putData(url, data = {}) {
     return doRequest('PUT', url, data);
 }
 
@@ -178,11 +178,11 @@ export function fetchUserDataStatus(url) {
 }
 
 export function postBlockUser(url) {
-    return postData(url, null, blockedUserSchema);
+    return postData(url, {}, blockedUserSchema);
 }
 
 export function deleteBlockUser(url) {
-    return deleteData(url, null, blockedUserSchema);
+    return deleteData(url, {}, blockedUserSchema);
 }
 
 export function postLikeContent(url, to, originContext, originName) {

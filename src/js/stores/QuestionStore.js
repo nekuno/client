@@ -13,6 +13,7 @@ class QuestionStore extends BaseStore {
         super.setInitial();
         this._registerQuestionsLength = 4;
         this._questions = {};
+        this._otherNotAnsweredQuestions = {};
         this._initialPaginationUrl = API_URLS.ANSWERS;
         this._initialComparedPaginationUrl = API_URLS.COMPARED_ANSWERS;
         this._answerQuestion = {};
@@ -31,6 +32,7 @@ class QuestionStore extends BaseStore {
         waitFor([UserStore.dispatchToken, LoginStore.dispatchToken]);
         super._registerToActions(action);
         let newItems = {};
+        const userId = LoginStore.user ? LoginStore.user.id : null;
         switch (action.type) {
             case ActionTypes.REQUEST_QUESTIONS:
                 this._noMoreQuestions = false;
@@ -45,12 +47,12 @@ class QuestionStore extends BaseStore {
             case ActionTypes.REQUEST_QUESTION:
                 this._loadingOwnQuestions = true;
                 this._noMoreQuestions = false;
-                this._isRequestedQuestion[action.otherUserId ? action.otherUserId : action.userId] = true;
+                this._isRequestedQuestion[action.otherUserId ? action.otherUserId : userId] = true;
                 break;
             case ActionTypes.REQUEST_EXISTING_QUESTION:
                 this._noMoreQuestions = false;
                 this._answerQuestion = {};
-                this._answerQuestion[action.questionId] = this._questions[action.userId][action.questionId].question;
+                this._answerQuestion[action.questionId] = this._questions[userId][action.questionId].question;
                 this.emitChange();
                 break;
             case ActionTypes.REMOVE_PREVIOUS_QUESTION:
@@ -60,6 +62,20 @@ class QuestionStore extends BaseStore {
             case ActionTypes.ANSWER_QUESTION:
                 break;
             case ActionTypes.SKIP_QUESTION:
+                Object.keys(this._otherNotAnsweredQuestions).forEach(otherUserId => {
+                    otherUserId = parseInt(otherUserId);
+                    this._otherNotAnsweredQuestions[otherUserId] = {};
+                });
+
+                otherUserIds = Object.keys(this._pagination).filter(key => parseInt(key) !== parseInt(userId));
+                otherUserIds.forEach(otherUserId => {
+                    delete this._pagination[otherUserId];
+                });
+                otherUserIds = Object.keys(this._questions).filter(key => parseInt(key) !== parseInt(userId));
+                otherUserIds.forEach(otherUserId => {
+                    delete this._questions[otherUserId];
+                });
+                this.emitChange();
                 break;
             case ActionTypes.SET_QUESTION_EDITABLE:
                 this.setEditable(action.questionId);
@@ -70,8 +86,8 @@ class QuestionStore extends BaseStore {
                 this.emitChange();
                 break;
             case ActionTypes.REQUEST_QUESTIONS_SUCCESS:
-                newItems[action.userId] = action.response.entities.items;
-                this._pagination[action.userId] = action.response.result.pagination;
+                newItems[userId] = action.response.entities.items;
+                this._pagination[userId] = action.response.result.pagination;
                 this._loadingOwnQuestions = false;
                 mergeIntoBag(this._questions, newItems);
                 this.emitChange();
@@ -79,13 +95,23 @@ class QuestionStore extends BaseStore {
             case ActionTypes.REQUEST_COMPARED_QUESTIONS_SUCCESS:
                 let items = action.response.items;
                 const otherUserId = action.otherUserId;
-                Object.keys(items).forEach(index => {
-                    const userId = items[index].userId;
-                    const questions = items[index].questions || {};
-                    this._setQuestionsOrder(otherUserId, questions);
+                const otherQuestions = items.otherQuestions.questions ? items.otherQuestions.questions : {};
+                if (Object.keys(otherQuestions).length > 0) {
+                    this._setQuestionsOrder(otherUserId, otherQuestions);
+                    newItems[otherUserId] = otherQuestions;
+                }
+                const ownQuestions = items.ownQuestions.questions ? items.ownQuestions.questions : {};
+                if (Object.keys(ownQuestions).length > 0) {
+                    this._setQuestionsOrder(userId, ownQuestions);
+                    newItems[userId] = ownQuestions;
+                }
+                const otherNotAnsweredQuestions = items.otherNotAnsweredQuestions.questions ? items.otherNotAnsweredQuestions.questions : {};
+                if (Object.keys(otherNotAnsweredQuestions).length > 0) {
+                    let newOtherNotAnsweredQuestions = {};
+                    newOtherNotAnsweredQuestions[otherUserId] = otherNotAnsweredQuestions;
+                    mergeIntoBag(this._otherNotAnsweredQuestions, newOtherNotAnsweredQuestions);
+                }
 
-                    newItems[userId] = questions;
-                });
                 this._pagination[otherUserId] = action.response.pagination;
                 this._loadingComparedQuestions = false;
 
@@ -105,14 +131,28 @@ class QuestionStore extends BaseStore {
             case ActionTypes.ANSWER_QUESTION_SUCCESS:
                 const userAnswer = action.response.userAnswer;
                 const userAnswerQuestion = action.response.question;
-                this._questions[action.userId] = this._questions[action.userId] || {};
-                this._questions[action.userId][userAnswer.questionId] = {question: userAnswerQuestion, userAnswer: userAnswer};
+                this._questions[userId] = this._questions[userId] || {};
+                this._questions[userId][userAnswer.questionId] = {question: userAnswerQuestion, userAnswer: userAnswer};
                 this._goToQuestionStats = true;
-                this._pagination[action.userId] = this._pagination[action.userId] || {};
-                this._pagination[action.userId].total++;
+                this._pagination[userId] = this._pagination[userId] || {};
+                this._pagination[userId].total++;
                 this._answersLength++;
-                this._isJustCompleted = this.ownAnswersLength(action.userId) === this._registerQuestionsLength;
+                this._isJustCompleted = this.ownAnswersLength(userId) === this._registerQuestionsLength;
                 this._isRequestedQuestion = {};
+                Object.keys(this._otherNotAnsweredQuestions).forEach(otherUserId => {
+                    otherUserId = parseInt(otherUserId);
+                    this._otherNotAnsweredQuestions[otherUserId] = {};
+                });
+
+                let otherUserIds = Object.keys(this._pagination).filter(key => parseInt(key) !== parseInt(userId));
+                otherUserIds.forEach(otherUserId => {
+                    delete this._pagination[otherUserId];
+                });
+                otherUserIds = Object.keys(this._questions).filter(key => parseInt(key) !== parseInt(userId));
+                otherUserIds.forEach(otherUserId => {
+                    delete this._questions[otherUserId];
+                });
+
                 this.emitChange();
                 break;
             case ActionTypes.SKIP_QUESTION_SUCCESS:
@@ -168,8 +208,12 @@ class QuestionStore extends BaseStore {
         return orderedQuestions;
     }
 
+    getOtherNotAnsweredQuestions(otherUserId) {
+        return this._otherNotAnsweredQuestions[otherUserId] ? this._otherNotAnsweredQuestions[otherUserId] : {};
+    }
+
     setEditable(questionId) {
-        let userId = LoginStore.user.id;
+        const userId = LoginStore.user.id;
         if (this._questions[userId][questionId]) {
             this._questions[userId][questionId].userAnswer.isEditable = true;
         }
@@ -195,6 +239,10 @@ class QuestionStore extends BaseStore {
             url = url + filters.map(filter => '&' + filter + '=1');
         }
         return url;
+    }
+
+    getInitialRequestComparedQuestionsUrl(userId, filters = []) {
+        return this._initialComparedPaginationUrl.replace('{otherUserId}', userId) + filters.map(filter => '&' + filter + '=1');
     }
 
     getQuestion() {

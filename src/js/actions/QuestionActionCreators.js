@@ -16,12 +16,12 @@ export function requestQuestions(userId, link) {
     }, {userId});
 }
 
-export function requestComparedQuestions(userId, otherUserId, link) {
+export function requestComparedQuestions(otherUserId, link) {
     return dispatchAsync(QuestionAPI.getComparedAnswers(link), {
         request: ActionTypes.REQUEST_COMPARED_QUESTIONS,
         success: ActionTypes.REQUEST_COMPARED_QUESTIONS_SUCCESS,
         failure: ActionTypes.REQUEST_COMPARED_QUESTIONS_ERROR
-    }, {userId, otherUserId});
+    }, {otherUserId});
 }
 
 export function requestQuestion(userId, questionId) {

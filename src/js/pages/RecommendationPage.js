@@ -57,7 +57,7 @@ function requestRecommendationData(props, activeIndex) {
             const otherUserId = parseInt(otherUserRecommendation.id);
             UserActionCreators.requestComparedStats(userId, otherUserId);
             GalleryPhotoActionCreators.getOtherPhotos(otherUserId);
-            QuestionActionCreators.requestComparedQuestions(userId, otherUserId, ['showOnlyCommon']);
+            QuestionActionCreators.requestComparedQuestions(otherUserId, ['showOnlyCommon']);
             InterestsActionCreators.requestComparedInterests(userId, otherUserId, 'Link', 1);
         }
     }
@@ -358,7 +358,7 @@ export default class RecommendationPage extends Component {
         if (pagination && nextLink && offsetTop >= offsetTopMax) {
             document.getElementsByClassName('view')[0].removeEventListener('scroll', this.handleScroll);
             if (currentTab == 'questions' && !isLoadingComparedQuestions) {
-                QuestionActionCreators.requestComparedQuestions(userId, recommendation.id, []);
+                QuestionActionCreators.requestComparedQuestions(recommendation.id, []);
             } else if (currentTab == 'interests' && !isLoadingComparedInterests) {
                 InterestsActionCreators.requestComparedInterests(userId, recommendation.id, 'Link', 1, nextLink);
             }

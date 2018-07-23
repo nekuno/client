@@ -20,6 +20,8 @@ import QuestionStore from '../stores/QuestionStore';
 import RecommendationStore from '../stores/RecommendationStore';
 import WorkersStore from '../stores/WorkersStore';
 import ProfileStore from '../stores/ProfileStore';
+import Banner from '../components/ui/Banner/Banner.js';
+import '../../scss/pages/discover.scss';
 
 function parseId(user) {
     return user.id;
@@ -239,7 +241,8 @@ export default class DiscoverPage extends Component {
             mustShowQuestionsBanner ? <QuestionsBanner user={user} questionsTotal={questionsTotal || 0}/>
                 : mustShowSocialNetworksBanner ? <SocialNetworksBanner networks={networks} user={user}/>
                 : '';
-        return banner;
+        //return banner;
+        return <Banner onClickHandler={() => { alert('click') }} onSkipHandler={() => { alert('skip') }} title="Title" description="Description" buttonText="Answer questions"/>
     }
 
     getFirstItems() {

@@ -1,6 +1,8 @@
 .chip {
   background: #FFF;
-  font-weight: 400;
+  color: #6C6F82;
+  cursor: pointer;
+  font-weight: bold;
   display: inline-block;
   height: 32px;
   line-height: 32px;
@@ -20,18 +22,26 @@
   align-items: center;
   margin: 2px 0;
   max-width: 400px;
-  font-size: 12px;
+  font-size: 13px;
 
   &.selected {
-    background: #DDDDDD;
+    background: #E2E3E7;
   }
   .cancel-icon {
     color: #999999;
-    cursor: pointer;
     font-size: 20px;
+    animation: icon-rotate-back 0.1s linear;
+    transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+  }
+  .add-icon {
+    color: #999999;
+    font-size: 20px;
+    animation: icon-rotate 0.1s linear;
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
   }
   .text {
-    cursor: pointer;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -42,5 +52,38 @@
     flex-shrink: 1;
     min-width: 0;
     margin-left: 6px;
+  }
+}
+
+@keyframes icon-rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(45deg);
+  }
+}
+@-webkit-keyframes icon-rotate {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(45deg);
+  }
+}
+@keyframes icon-rotate-back {
+  0% {
+    transform: rotate(45deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+@-webkit-keyframes icon-rotate-back {
+  0% {
+    -webkit-transform: rotate(45deg);
+  }
+  100% {
+    -webkit-transform: rotate(0deg);
   }
 }

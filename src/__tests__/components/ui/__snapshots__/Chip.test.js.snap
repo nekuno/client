@@ -5,7 +5,6 @@ ShallowWrapper {
   "length": 1,
   Symbol(enzyme.__root__): [Circular],
   Symbol(enzyme.__unrendered__): <Chip
-    onCancelHandler={[MockFunction]}
     onClickHandler={[MockFunction]}
     selected={false}
     text="Lorem ipsum dolor sit amet"
@@ -24,17 +23,16 @@ ShallowWrapper {
     "props": Object {
       "children": Array [
         <span
-          className="cancelIcon icon icon-cancel-circle"
-          onClick={[Function]}
+          className="addIcon icon icon-cancel-circle"
         />,
         <div
           className="text"
-          onClick={[Function]}
         >
           Lorem ipsum dolor sit amet
         </div>,
       ],
       "className": "chip",
+      "onClick": [Function],
     },
     "ref": null,
     "rendered": Array [
@@ -43,8 +41,7 @@ ShallowWrapper {
         "key": undefined,
         "nodeType": "host",
         "props": Object {
-          "className": "cancelIcon icon icon-cancel-circle",
-          "onClick": [Function],
+          "className": "addIcon icon icon-cancel-circle",
         },
         "ref": null,
         "rendered": null,
@@ -57,7 +54,6 @@ ShallowWrapper {
         "props": Object {
           "children": "Lorem ipsum dolor sit amet",
           "className": "text",
-          "onClick": [Function],
         },
         "ref": null,
         "rendered": "Lorem ipsum dolor sit amet",
@@ -74,17 +70,16 @@ ShallowWrapper {
       "props": Object {
         "children": Array [
           <span
-            className="cancelIcon icon icon-cancel-circle"
-            onClick={[Function]}
+            className="addIcon icon icon-cancel-circle"
           />,
           <div
             className="text"
-            onClick={[Function]}
           >
             Lorem ipsum dolor sit amet
           </div>,
         ],
         "className": "chip",
+        "onClick": [Function],
       },
       "ref": null,
       "rendered": Array [
@@ -93,8 +88,7 @@ ShallowWrapper {
           "key": undefined,
           "nodeType": "host",
           "props": Object {
-            "className": "cancelIcon icon icon-cancel-circle",
-            "onClick": [Function],
+            "className": "addIcon icon icon-cancel-circle",
           },
           "ref": null,
           "rendered": null,
@@ -107,7 +101,6 @@ ShallowWrapper {
           "props": Object {
             "children": "Lorem ipsum dolor sit amet",
             "className": "text",
-            "onClick": [Function],
           },
           "ref": null,
           "rendered": "Lorem ipsum dolor sit amet",
@@ -132,7 +125,6 @@ ShallowWrapper {
   "length": 1,
   Symbol(enzyme.__root__): [Circular],
   Symbol(enzyme.__unrendered__): <Chip
-    onCancelHandler={[MockFunction]}
     onClickHandler={[MockFunction]}
     selected={true}
     text="Lorem ipsum dolor sit amet"
@@ -152,16 +144,15 @@ ShallowWrapper {
       "children": Array [
         <span
           className="cancelIcon icon icon-cancel-circle"
-          onClick={[Function]}
         />,
         <div
           className="text"
-          onClick={[Function]}
         >
           Lorem ipsum dolor sit amet
         </div>,
       ],
       "className": "selected chip",
+      "onClick": [Function],
     },
     "ref": null,
     "rendered": Array [
@@ -171,7 +162,6 @@ ShallowWrapper {
         "nodeType": "host",
         "props": Object {
           "className": "cancelIcon icon icon-cancel-circle",
-          "onClick": [Function],
         },
         "ref": null,
         "rendered": null,
@@ -184,7 +174,6 @@ ShallowWrapper {
         "props": Object {
           "children": "Lorem ipsum dolor sit amet",
           "className": "text",
-          "onClick": [Function],
         },
         "ref": null,
         "rendered": "Lorem ipsum dolor sit amet",
@@ -202,16 +191,15 @@ ShallowWrapper {
         "children": Array [
           <span
             className="cancelIcon icon icon-cancel-circle"
-            onClick={[Function]}
           />,
           <div
             className="text"
-            onClick={[Function]}
           >
             Lorem ipsum dolor sit amet
           </div>,
         ],
         "className": "selected chip",
+        "onClick": [Function],
       },
       "ref": null,
       "rendered": Array [
@@ -221,7 +209,6 @@ ShallowWrapper {
           "nodeType": "host",
           "props": Object {
             "className": "cancelIcon icon icon-cancel-circle",
-            "onClick": [Function],
           },
           "ref": null,
           "rendered": null,
@@ -234,7 +221,6 @@ ShallowWrapper {
           "props": Object {
             "children": "Lorem ipsum dolor sit amet",
             "className": "text",
-            "onClick": [Function],
           },
           "ref": null,
           "rendered": "Lorem ipsum dolor sit amet",

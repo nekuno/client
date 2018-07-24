@@ -1,44 +1,41 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { action } from '@storybook/addon-actions';
+import { linkTo } from '@storybook/addon-links'
 import Chip from '../components/ui/Chip/Chip.js';
 
 storiesOf('Chip', module)
-    .add('with cancel handler and unselected', () => (
-        <Chip onClickHandler={action('clicked')}
-              onCancelHandler={action('cancelled')}
-              text="Lorem ipsum dolor sit amet"
+    .add('unselected', () => (
+        <Chip onClickHandler={linkTo('Chip', 'selected')}
+              text="Lorem"
               selected={false}
         />
     ))
-    .add('with cancel handler and selected', () => (
+    .add('selected', () => (
         <Chip
-            onClickHandler={action('clicked')}
-            onCancelHandler={action('cancelled')}
-            text="Lorem ipsum dolor sit amet"
+            onClickHandler={linkTo('Chip', 'unselected')}
+            text="Lorem"
             selected={true}
         />
     ))
-    .add('with cancel handler and long text', () => (
-        <Chip onClickHandler={action('clicked')}
-              onCancelHandler={action('cancelled')}
-              text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam et elit ante."
-        />
-    ))
-    .add('without cancel handler and unselected', () => (
-        <Chip onClickHandler={action('clicked')}
+    .add('unselected with medium text', () => (
+        <Chip onClickHandler={linkTo('Chip', 'selected with medium text')}
               text="Lorem ipsum dolor sit amet"
-              selected={false}
         />
     ))
-    .add('without cancel handler and selected', () => (
-        <Chip onClickHandler={action('clicked')}
+    .add('selected with medium text', () => (
+        <Chip onClickHandler={linkTo('Chip', 'unselected with medium text')}
               text="Lorem ipsum dolor sit amet"
               selected={true}
         />
     ))
-    .add('without cancel handler and long text', () => (
-        <Chip onClickHandler={action('clicked')}
+    .add('unselected with long text', () => (
+        <Chip onClickHandler={linkTo('Chip', 'selected with long text')}
               text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam et elit ante."
+        />
+    ))
+    .add('selected with long text', () => (
+        <Chip onClickHandler={linkTo('Chip', 'unselected with long text')}
+              text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam et elit ante."
+              selected={true}
         />
     ));

@@ -1,0 +1,46 @@
+.chip {
+  background: #FFF;
+  font-weight: 400;
+  display: inline-block;
+  height: 32px;
+  line-height: 32px;
+  border-radius: 16px;
+  -moz-border-radius: 16px;
+  -webkit-border-radius: 16px;
+  padding: 0 12px 0 7px;
+  box-sizing: border-box;
+  vertical-align: middle;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: -webkit-inline-flex;
+  display: inline-flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+  margin: 2px 0;
+  max-width: 400px;
+  font-size: 12px;
+
+  &.selected {
+    background: #DDDDDD;
+  }
+  .cancel-icon {
+    color: #999999;
+    cursor: pointer;
+    font-size: 20px;
+  }
+  .text {
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    position: relative;
+    -webkit-box-flex: 1;
+    -webkit-flex-shrink: 1;
+    -ms-flex: 0 1 auto;
+    flex-shrink: 1;
+    min-width: 0;
+    margin-left: 6px;
+  }
+}

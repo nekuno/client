@@ -1,0 +1,255 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test Chip component should render correctly 1`] = `
+ShallowWrapper {
+  "length": 1,
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <Chip
+    onCancelHandler={[MockFunction]}
+    onClickHandler={[MockFunction]}
+    selected={false}
+    text="Lorem ipsum dolor sit amet"
+  />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "host",
+    "props": Object {
+      "children": Array [
+        <span
+          className="cancelIcon icon icon-cancel-circle"
+          onClick={[Function]}
+        />,
+        <div
+          className="text"
+          onClick={[Function]}
+        >
+          Lorem ipsum dolor sit amet
+        </div>,
+      ],
+      "className": "chip",
+    },
+    "ref": null,
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "className": "cancelIcon icon icon-cancel-circle",
+          "onClick": [Function],
+        },
+        "ref": null,
+        "rendered": null,
+        "type": "span",
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": "Lorem ipsum dolor sit amet",
+          "className": "text",
+          "onClick": [Function],
+        },
+        "ref": null,
+        "rendered": "Lorem ipsum dolor sit amet",
+        "type": "div",
+      },
+    ],
+    "type": "div",
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": Array [
+          <span
+            className="cancelIcon icon icon-cancel-circle"
+            onClick={[Function]}
+          />,
+          <div
+            className="text"
+            onClick={[Function]}
+          >
+            Lorem ipsum dolor sit amet
+          </div>,
+        ],
+        "className": "chip",
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "className": "cancelIcon icon icon-cancel-circle",
+            "onClick": [Function],
+          },
+          "ref": null,
+          "rendered": null,
+          "type": "span",
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": "Lorem ipsum dolor sit amet",
+            "className": "text",
+            "onClick": [Function],
+          },
+          "ref": null,
+          "rendered": "Lorem ipsum dolor sit amet",
+          "type": "div",
+        },
+      ],
+      "type": "div",
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+      },
+    },
+  },
+}
+`;
+
+exports[`Test Chip component should render correctly 2`] = `
+ShallowWrapper {
+  "length": 1,
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <Chip
+    onCancelHandler={[MockFunction]}
+    onClickHandler={[MockFunction]}
+    selected={true}
+    text="Lorem ipsum dolor sit amet"
+  />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "host",
+    "props": Object {
+      "children": Array [
+        <span
+          className="cancelIcon icon icon-cancel-circle"
+          onClick={[Function]}
+        />,
+        <div
+          className="text"
+          onClick={[Function]}
+        >
+          Lorem ipsum dolor sit amet
+        </div>,
+      ],
+      "className": "selected chip",
+    },
+    "ref": null,
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "className": "cancelIcon icon icon-cancel-circle",
+          "onClick": [Function],
+        },
+        "ref": null,
+        "rendered": null,
+        "type": "span",
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": "Lorem ipsum dolor sit amet",
+          "className": "text",
+          "onClick": [Function],
+        },
+        "ref": null,
+        "rendered": "Lorem ipsum dolor sit amet",
+        "type": "div",
+      },
+    ],
+    "type": "div",
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": Array [
+          <span
+            className="cancelIcon icon icon-cancel-circle"
+            onClick={[Function]}
+          />,
+          <div
+            className="text"
+            onClick={[Function]}
+          >
+            Lorem ipsum dolor sit amet
+          </div>,
+        ],
+        "className": "selected chip",
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "className": "cancelIcon icon icon-cancel-circle",
+            "onClick": [Function],
+          },
+          "ref": null,
+          "rendered": null,
+          "type": "span",
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": "Lorem ipsum dolor sit amet",
+            "className": "text",
+            "onClick": [Function],
+          },
+          "ref": null,
+          "rendered": "Lorem ipsum dolor sit amet",
+          "type": "div",
+        },
+      ],
+      "type": "div",
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+      },
+    },
+  },
+}
+`;

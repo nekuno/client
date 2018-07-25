@@ -27,3 +27,7 @@ For production:
 `npm run storybook`
 
 and go to [localhost:9001]()
+
+## Create components
+
+`npm run create-component`

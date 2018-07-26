@@ -81,10 +81,9 @@ module.exports = {
     "plugins": [
         new CopyWebpackPlugin([
             { from: './*.html', context: './src/' },
-            { from: './*{.ico}|{.png}|{.svg}', context: './src' },
             { from: './img/*', context: './src' },
             { from: './img/*', context: './src/scss' },
-            { from: './*', context: './src/scss/img/**/', to: 'img' },
+            { from: './**/*', context: './src/scss/img', to: 'img' },
             { from: './manifest.json', context: './src' },
             { from: './hello.js', context: './node_modules/hellojs/dist' },
             { from: './google-services.json', context: './src' },

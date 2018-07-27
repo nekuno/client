@@ -5,6 +5,7 @@ function loadStories() {
     require('../src/js/stories/Banner.stories');
     require('../src/js/stories/Chip.stories');
     require('../src/js/stories/Frame.stories');
+    require('../src/js/stories/TopBar.stories');
     require('../src/js/stories/LeftPanel.stories');
 
     // require as many stories as you need.

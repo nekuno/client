@@ -1,0 +1,79 @@
+@import '../../../../scss/_partials/colors';
+
+.left-panel-wrapper {
+  font-size: 15px;
+  height: 100%;
+  overflow: hidden;
+  position: absolute;
+  z-index: 1111;
+
+  .left-panel {
+    background: #fff;
+    display: inline-block;
+    height: 100%;
+    margin-left: -100%;
+    width: 80%;
+
+    &.open {
+      margin-left: 0;
+      animation: open 0.25s linear;
+    }
+
+    .content-wrapper {
+      display: inline-block;
+      height: 100%;
+      width: 275px;
+      overflow: hidden;
+
+      .content {
+        padding: 15px;
+      }
+    }
+  }
+
+  .outside-wrapper {
+    background: $regular-gray;
+    display: inline-block;
+    height: 100%;
+    opacity: 0.5;
+    width: 20%;
+
+    &.open {
+      margin-left: 0;
+      animation: open-outside-wrapper 0.25s linear;
+    }
+  }
+}
+
+@keyframes open {
+  0% {
+    transform: translate(-100%);
+  }
+  100% {
+    transform: translate(0);
+  }
+}
+@-webkit-keyframes open {
+  0% {
+    -webkit-transform: translate(-100%);
+  }
+  100% {
+    -webkit-transform: translate(0);
+  }
+}
+@keyframes open-outside-wrapper {
+  0% {
+    transform: translate(-500%);
+  }
+  100% {
+    transform: translate(0);
+  }
+}
+@-webkit-keyframes open-outside-wrapper {
+  0% {
+    -webkit-transform: translate(-500%);
+  }
+  100% {
+    -webkit-transform: translate(0);
+  }
+}

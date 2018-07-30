@@ -3,44 +3,52 @@
 .left-panel-wrapper {
   font-size: 15px;
   height: 100%;
-  overflow: hidden;
-  position: absolute;
+  position: relative;
+  width: 100%;
   z-index: 1111;
 
-  .left-panel {
-    background: #fff;
-    display: inline-block;
-    height: 100%;
-    margin-left: -100%;
-    width: 80%;
+  .left-panel-absolute-wrapper {
+    display: block;
+    height:100vh;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    overflow: hidden;
 
-    &.open {
-      margin-left: 0;
-      animation: open 0.25s linear;
-    }
-
-    .content-wrapper {
+    .left-panel {
+      background: #fff;
       display: inline-block;
       height: 100%;
-      width: 275px;
-      overflow: hidden;
+      margin-left: -100%;
+      width: 80%;
+      float: left;
+      position: relative;
+
+      &.open {
+        margin-left: 0;
+        animation: open 0.25s linear;
+      }
 
       .content {
-        padding: 15px;
+        display: block;
+        height: 100%;
+        position: relative;
       }
     }
-  }
 
-  .outside-wrapper {
-    background: $regular-gray;
-    display: inline-block;
-    height: 100%;
-    opacity: 0.5;
-    width: 20%;
+    .outside-wrapper {
+      background: $regular-gray;
+      display: inline-block;
+      height: 100%;
+      margin-left: -100%;
+      opacity: 0.5;
+      position: relative;
+      width: 20%;
 
-    &.open {
-      margin-left: 0;
-      animation: open-outside-wrapper 0.25s linear;
+      &.open {
+        margin-left: 0;
+        animation: open-outside-wrapper 0.25s linear;
+      }
     }
   }
 }

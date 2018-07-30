@@ -18,14 +18,14 @@ export default class LeftPanel extends Component {
 
         return (
             <div className={styles.leftPanelWrapper}>
-                <div className={isOpen ? styles.open + ' ' + styles.leftPanel : styles.leftPanel}>
-                    <div className={styles.contentWrapper}>
+                <div className={styles.leftPanelAbsoluteWrapper}>
+                    <div className={isOpen ? styles.open + ' ' + styles.leftPanel : styles.leftPanel}>
                         <div className={styles.content}>
                             {children}
                         </div>
                     </div>
+                    <div className={isOpen ? styles.open + ' ' + styles.outsideWrapper : styles.outsideWrapper} onClick={this.handleClickClose.bind(this)}></div>
                 </div>
-                <div className={isOpen ? styles.open + ' ' + styles.outsideWrapper : styles.outsideWrapper} onClick={this.handleClickClose.bind(this)}></div>
             </div>
         );
     }

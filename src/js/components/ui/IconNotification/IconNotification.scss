@@ -1,0 +1,42 @@
+@import '../../../../scss/_partials/colors';
+
+.icon-notification {
+  cursor: pointer;
+  position: relative;
+  height: 50px;
+  width: 60px;
+
+  .icon {
+    color: #6C6F82;
+    line-height: 40px;
+    margin-left: 5px;
+    padding: 5px;
+    height: 40px;
+    width: 40px;
+
+    &::before {
+      font-size: 30px;
+      font-weight: bold;
+    }
+  }
+  .notifications-wrapper {
+    background: $deep-purple;
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    position: absolute;
+    text-align: center;
+    line-height: 25px;
+    top: 0;
+    right: 0;
+    height: 25px;
+    width: 25px;
+
+    .notifications {
+      color: #fff;
+      line-height: 25px;
+      font-size: 14px;
+      font-weight: bold;
+    }
+  }
+}

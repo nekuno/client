@@ -7,6 +7,7 @@ function loadStories() {
     require('../src/js/stories/Frame.stories');
     require('../src/js/stories/TopBar.stories');
     require('../src/js/stories/LeftPanel.stories');
+    require('../src/js/stories/IconNotification.stories');
 
     // require as many stories as you need.
 }

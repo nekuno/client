@@ -6,6 +6,7 @@ function loadStories() {
     require('../src/js/stories/Chip.stories');
     require('../src/js/stories/Frame.stories');
     require('../src/js/stories/TopBar.stories');
+    require('../src/js/stories/BottomBar.stories');
     require('../src/js/stories/LeftPanel.stories');
     require('../src/js/stories/IconNotification.stories');
 

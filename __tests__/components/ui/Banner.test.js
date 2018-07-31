@@ -1,6 +1,6 @@
 import React from 'react';
-import Banner from '../../../js/components/ui/Banner/Banner.js';
-import styles from '../../../js/components/ui/Banner/Banner.scss';
+import Banner from '../../../src/js/components/ui/Banner/Banner.js';
+import styles from '../../../src/js/components/ui/Banner/Banner.scss';
 import { shallow, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 

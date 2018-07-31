@@ -1,6 +1,6 @@
 import React from 'react';
-import IconNotification from '../../../js/components/ui/IconNotification/IconNotification.js';
-import styles from '../../../js/components/ui/IconNotification/IconNotification.scss';
+import IconNotification from '../../../src/js/components/ui/IconNotification/IconNotification.js';
+import styles from '../../../src/js/components/ui/IconNotification/IconNotification.scss';
 import { shallow, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 

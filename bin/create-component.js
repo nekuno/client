@@ -39,11 +39,11 @@ fs.readFile(__dirname + '/ComponentModel/ComponentModel.js', 'utf8', function (e
                 createComponentFile(data, componentName, dir, '.scss');
 
                 fs.readFile(__dirname + '/ComponentModel/ComponentModel.test.js', 'utf8', function (err, data) {
-                    console.log('\x1b[36m%s\x1b[0m', 'Testing directory without name (' + __dirname + '/../src/__tests__/components/ui/):');
+                    console.log('\x1b[36m%s\x1b[0m', 'Testing directory without name (' + __dirname + '/../__tests__/components/ui/):');
                     process.stdin.once('data', function (testingDir) {
                         testingDir = testingDir.trim();
                         if (!testingDir) {
-                            testingDir = __dirname + '/../src/__tests__/components/ui/';
+                            testingDir = __dirname + '/../__tests__/components/ui/';
                         }
 
                         createComponentFile(data, componentName, testingDir, '.test.js');

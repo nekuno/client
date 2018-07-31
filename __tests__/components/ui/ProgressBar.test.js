@@ -1,6 +1,6 @@
 import React from 'react';
-import ProgressBar from '../../../js/components/ui/ProgressBar/ProgressBar.js';
-import styles from '../../../js/components/ui/ProgressBar/ProgressBar.scss';
+import ProgressBar from '../../../src/js/components/ui/ProgressBar/ProgressBar.js';
+import styles from '../../../src/js/components/ui/ProgressBar/ProgressBar.scss';
 import { shallow, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 

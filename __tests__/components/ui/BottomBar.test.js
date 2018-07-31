@@ -1,6 +1,6 @@
 import React from 'react';
-import BottomBar from '../../../js/components/ui/BottomBar/BottomBar.js';
-import styles from '../../../js/components/ui/BottomBar/BottomBar.scss';
+import BottomBar from '../../../src/js/components/ui/BottomBar/BottomBar.js';
+import styles from '../../../src/js/components/ui/BottomBar/BottomBar.scss';
 import { shallow, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 

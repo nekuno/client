@@ -1,6 +1,6 @@
 import React from 'react';
-import RoundedImage from '../../../js/components/ui/RoundedImage/RoundedImage.js';
-import styles from '../../../js/components/ui/RoundedImage/RoundedImage.scss';
+import RoundedImage from '../../../src/js/components/ui/RoundedImage/RoundedImage.js';
+import styles from '../../../src/js/components/ui/RoundedImage/RoundedImage.scss';
 import { shallow, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 

@@ -1,6 +1,6 @@
 import React from 'react';
-import ComponentModel from '../../../js/components/ui/ComponentModel/ComponentModel.js';
-import styles from '../../../js/components/ui/ComponentModel/ComponentModel.scss';
+import ComponentModel from '../../../src/js/components/ui/ComponentModel/ComponentModel.js';
+import styles from '../../../src/js/components/ui/ComponentModel/ComponentModel.scss';
 import { shallow, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 

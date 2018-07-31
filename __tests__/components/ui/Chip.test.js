@@ -1,6 +1,6 @@
 import React from 'react';
-import Chip from '../../../js/components/ui/Chip/Chip.js';
-import styles from '../../../js/components/ui/Chip/Chip.scss';
+import Chip from '../../../src/js/components/ui/Chip/Chip.js';
+import styles from '../../../src/js/components/ui/Chip/Chip.scss';
 import { shallow, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 

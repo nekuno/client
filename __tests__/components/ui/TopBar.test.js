@@ -1,5 +1,5 @@
 import React from 'react';
-import TopBar from '../../../js/components/ui/TopBar/TopBar.js';
+import TopBar from '../../../src/js/components/ui/TopBar/TopBar.js';
 import { shallow, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 

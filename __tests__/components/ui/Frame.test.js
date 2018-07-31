@@ -1,6 +1,6 @@
 import React from 'react';
-import Frame from '../../../js/components/ui/Frame/Frame.js';
-import styles from '../../../js/components/ui/Frame/Frame.scss';
+import Frame from '../../../src/js/components/ui/Frame/Frame.js';
+import styles from '../../../src/js/components/ui/Frame/Frame.scss';
 import { shallow, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 

@@ -1,6 +1,6 @@
 import React from 'react';
-import LeftPanel from '../../../js/components/ui/LeftPanel/LeftPanel.js';
-import styles from '../../../js/components/ui/LeftPanel/LeftPanel.scss';
+import LeftPanel from '../../../src/js/components/ui/LeftPanel/LeftPanel.js';
+import styles from '../../../src/js/components/ui/LeftPanel/LeftPanel.scss';
 import { shallow, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 

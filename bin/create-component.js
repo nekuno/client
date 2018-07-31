@@ -49,11 +49,11 @@ fs.readFile(__dirname + '/ComponentModel/ComponentModel.js', 'utf8', function (e
                         createComponentFile(data, componentName, testingDir, '.test.js');
 
                         fs.readFile(__dirname + '/ComponentModel/ComponentModel.stories.js', 'utf8', function (err, data) {
-                            console.log('\x1b[36m%s\x1b[0m', 'Stories directory without name (' + __dirname + '/../src/js/stories/):');
+                            console.log('\x1b[36m%s\x1b[0m', 'Stories directory without name (' + __dirname + '/../stories/):');
                             process.stdin.once('data', function (storiesDir) {
                                 storiesDir = storiesDir.trim();
                                 if (!storiesDir) {
-                                    storiesDir = __dirname + '/../src/js/stories/';
+                                    storiesDir = __dirname + '/../stories/';
                                 }
 
                                 createComponentFile(data, componentName, storiesDir, '.stories.js', addStoryToConfig);
@@ -95,7 +95,7 @@ function done() {
 
 function addStoryToConfig(componentName) {
 
-    console.log('\x1b[33m%s\x1b[0m', "Add this line to  .storybook/config.js | loadStories: " + "require('../src/js/stories/" + componentName + ".stories');");
+    console.log('\x1b[33m%s\x1b[0m', "Add this line to  .storybook/config.js | loadStories: " + "require('../stories/" + componentName + ".stories');");
     console.log('\x1b[33m%s\x1b[0m', "Press Enter when done");
 
     process.stdin.once('data', function () {

@@ -10,12 +10,21 @@ storiesOf('RoundedImage', module)
     .add('with large image', () => (
         <RoundedImage url="http://via.placeholder.com/250x250" size="large" onClickHandler={action('clicked')}/>
     ))
-    .add('with regular image', () => (
-        <RoundedImage url="http://via.placeholder.com/150x150" size="regular" onClickHandler={action('clicked')}/>
+    .add('with medium image', () => (
+        <RoundedImage url="http://via.placeholder.com/150x150" size="medium" onClickHandler={action('clicked')}/>
     ))
     .add('with small image', () => (
         <RoundedImage url="http://via.placeholder.com/50x50" size="small" onClickHandler={action('clicked')}/>
     ))
     .add('with x-small image', () => (
         <RoundedImage url="http://via.placeholder.com/25x25" size="x-small" onClickHandler={action('clicked')}/>
+    ))
+    .add('set of images', () => (
+        <div>
+            <RoundedImage url="http://via.placeholder.com/25x25" size="x-small" onClickHandler={action('clicked')}/>
+            <RoundedImage url="http://via.placeholder.com/50x50" size="small" onClickHandler={action('clicked')}/>
+            <RoundedImage url="http://via.placeholder.com/150x150" size="medium" onClickHandler={action('clicked')}/>
+            <RoundedImage url="http://via.placeholder.com/250x250" size="large" onClickHandler={action('clicked')}/>
+            <RoundedImage url="http://via.placeholder.com/350x350" size="x-large" onClickHandler={action('clicked')}/>
+        </div>
     ));

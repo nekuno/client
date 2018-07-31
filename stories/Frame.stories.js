@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import Frame from '../components/ui/Frame/Frame.js';
+import Frame from '../src/js/components/ui/Frame/Frame.js';
 
 storiesOf('Frame', module)
     .add('with text', () => (

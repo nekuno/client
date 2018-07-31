@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { linkTo } from '@storybook/addon-links'
-import Chip from '../components/ui/Chip/Chip.js';
+import Chip from '../src/js/components/ui/Chip/Chip.js';
 
 storiesOf('Chip', module)
     .add('unselected', () => (

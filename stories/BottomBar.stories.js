@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import BottomBar from '../components/ui/BottomBar/BottomBar.js';
+import BottomBar from '../src/js/components/ui/BottomBar/BottomBar.js';
 
 storiesOf('BottomBar', module)
     .add('with text', () => (

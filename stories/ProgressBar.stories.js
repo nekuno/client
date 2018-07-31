@@ -2,7 +2,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { linkTo } from '@storybook/addon-links'
-import ProgressBar from '../components/ui/ProgressBar/ProgressBar.js';
+import ProgressBar from '../src/js/components/ui/ProgressBar/ProgressBar.js';
 
 storiesOf('ProgressBar', module)
     .add('progression 0%', () => (

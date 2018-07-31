@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import IconNotification from '../components/ui/IconNotification/IconNotification.js';
+import IconNotification from '../src/js/components/ui/IconNotification/IconNotification.js';
 
 storiesOf('IconNotification', module)
     .add('message icon, 5 messages', () => (

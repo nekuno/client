@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import RoundedImage from '../components/ui/RoundedImage/RoundedImage.js';
+import RoundedImage from '../src/js/components/ui/RoundedImage/RoundedImage.js';
 
 storiesOf('RoundedImage', module)
     .add('with x-large image', () => (

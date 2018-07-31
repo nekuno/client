@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import Banner from '../components/ui/Banner/Banner.js';
+import Banner from '../src/js/components/ui/Banner/Banner.js';
 
 storiesOf('Banner', module)
     .add('with text', () => (

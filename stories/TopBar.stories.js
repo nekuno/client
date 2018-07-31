@@ -1,6 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import TopBar from '../components/ui/TopBar/TopBar.js';
+import TopBar from '../src/js/components/ui/TopBar/TopBar.js';
 
 storiesOf('TopBar', module)
     .add('with text', () => (

@@ -1,0 +1,27 @@
+.progress-bar-wrapper {
+  background: #fff;
+  color: #6C6F82;
+  font-size: 15px;
+  font-weight: bold;
+  padding: 10px;
+
+  .title {
+    font-size: 13px;
+    margin-bottom: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .progress-bar {
+
+    .line {
+      display: inline-block;
+      margin-right: 2%;
+      width: 88%;
+    }
+    .percentage {
+      display: inline-block;
+      width: 10%;
+    }
+  }
+}

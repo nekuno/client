@@ -21,12 +21,33 @@ ShallowWrapper {
     "key": undefined,
     "nodeType": "host",
     "props": Object {
-      "children": "Lorem ipsum",
+      "children": Array [
+        null,
+        <div
+          className="content"
+        >
+          Lorem ipsum
+        </div>,
+      ],
       "className": "frame",
       "onClick": [Function],
     },
     "ref": null,
-    "rendered": "Lorem ipsum",
+    "rendered": Array [
+      null,
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": "Lorem ipsum",
+          "className": "content",
+        },
+        "ref": null,
+        "rendered": "Lorem ipsum",
+        "type": "div",
+      },
+    ],
     "type": "div",
   },
   Symbol(enzyme.__nodes__): Array [
@@ -35,12 +56,160 @@ ShallowWrapper {
       "key": undefined,
       "nodeType": "host",
       "props": Object {
-        "children": "Lorem ipsum",
+        "children": Array [
+          null,
+          <div
+            className="content"
+          >
+            Lorem ipsum
+          </div>,
+        ],
         "className": "frame",
         "onClick": [Function],
       },
       "ref": null,
-      "rendered": "Lorem ipsum",
+      "rendered": Array [
+        null,
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": "Lorem ipsum",
+            "className": "content",
+          },
+          "ref": null,
+          "rendered": "Lorem ipsum",
+          "type": "div",
+        },
+      ],
+      "type": "div",
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+      },
+    },
+  },
+}
+`;
+
+exports[`Test Frame component should render correctly 2`] = `
+ShallowWrapper {
+  "length": 1,
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <Frame
+    onClickHandler={[MockFunction]}
+    title="Lorem ipsum"
+  >
+    Lorem ipsum
+  </Frame>,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "host",
+    "props": Object {
+      "children": Array [
+        <div
+          className="title"
+        >
+          Lorem ipsum
+        </div>,
+        <div
+          className="content"
+        >
+          Lorem ipsum
+        </div>,
+      ],
+      "className": "frame",
+      "onClick": [Function],
+    },
+    "ref": null,
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": "Lorem ipsum",
+          "className": "title",
+        },
+        "ref": null,
+        "rendered": "Lorem ipsum",
+        "type": "div",
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": "Lorem ipsum",
+          "className": "content",
+        },
+        "ref": null,
+        "rendered": "Lorem ipsum",
+        "type": "div",
+      },
+    ],
+    "type": "div",
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": Array [
+          <div
+            className="title"
+          >
+            Lorem ipsum
+          </div>,
+          <div
+            className="content"
+          >
+            Lorem ipsum
+          </div>,
+        ],
+        "className": "frame",
+        "onClick": [Function],
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": "Lorem ipsum",
+            "className": "title",
+          },
+          "ref": null,
+          "rendered": "Lorem ipsum",
+          "type": "div",
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": "Lorem ipsum",
+            "className": "content",
+          },
+          "ref": null,
+          "rendered": "Lorem ipsum",
+          "type": "div",
+        },
+      ],
       "type": "div",
     },
   ],

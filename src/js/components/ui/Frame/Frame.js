@@ -5,7 +5,8 @@ import styles from './Frame.scss';
 export default class Frame extends Component {
 
     static propTypes = {
-        onClickHandler : PropTypes.func
+        title         : PropTypes.string,
+        onClickHandler: PropTypes.func
     };
 
     handleClick() {
@@ -15,11 +16,17 @@ export default class Frame extends Component {
     }
 
     render() {
-        const {children} = this.props;
+        const {title, children} = this.props;
 
         return (
             <div className={styles.frame} onClick={this.handleClick.bind(this)}>
-                {children}
+                {title ?
+                    <div className={styles.title}>{title}</div>
+                    : null
+                }
+                <div className={styles.content}>
+                    {children}
+                </div>
             </div>
         );
     }

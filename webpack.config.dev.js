@@ -73,7 +73,7 @@ module.exports = {
                 ],
             },
             {
-                "test": /src\/js\/components\/ui\/.+\.s?css$/,
+                "test": /src\/js\/components\/.+\.s?css$/,
                 "use": [
                     devMode ? 'style-loader' : MiniCssExtractPlugin.loader,
                     "css-loader?modules&camelCase",

@@ -24,4 +24,22 @@
       width: 10%;
     }
   }
+
+  &.small {
+    font-size: 13px;
+    padding: 5px 0;
+
+    .title {
+      margin-bottom: 0;
+    }
+    .progress-bar {
+
+      .line {
+        margin-right: 10%;
+        width: 75%;
+      }
+      .percentage {
+      }
+    }
+  }
 }

@@ -7,6 +7,7 @@ ShallowWrapper {
   Symbol(enzyme.__unrendered__): <ProgressBar
     onClickHandler={[MockFunction]}
     percentage={15}
+    size="large"
     title="Lorem ipsum"
   />,
   Symbol(enzyme.__renderer__): Object {
@@ -61,7 +62,7 @@ ShallowWrapper {
           </div>
         </div>,
       ],
-      "className": "progressBarWrapper",
+      "className": "progressBarWrapper large",
       "onClick": [Function],
     },
     "ref": null,
@@ -239,7 +240,7 @@ ShallowWrapper {
             </div>
           </div>,
         ],
-        "className": "progressBarWrapper",
+        "className": "progressBarWrapper large",
         "onClick": [Function],
       },
       "ref": null,

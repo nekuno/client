@@ -21,7 +21,8 @@ module.exports = {
                             ["env", {"modules": false} ],
                             "react",
                             "stage-0"
-                        ]
+                        ],
+                        "plugins": ["transform-decorators-legacy"]
                     }
                 }
             },
@@ -35,7 +36,7 @@ module.exports = {
                 ],
             },
             {
-                "test": /src\/js\/components\/ui\/.+\.s?css$/,
+                "test": /src\/js\/components\/.+\.s?css$/,
                 "loader": "style-loader!css-loader?modules&camelCase&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!sass-loader"
             },
             {

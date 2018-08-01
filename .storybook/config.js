@@ -4,6 +4,7 @@ import '../src/scss/layout.scss';
 function loadStories() {
     require('../stories/Banner.stories');
     require('../stories/BottomBar.stories');
+    require('../stories/CardUser.stories');
     require('../stories/Chip.stories');
     require('../stories/Frame.stories');
     require('../stories/IconNotification.stories');

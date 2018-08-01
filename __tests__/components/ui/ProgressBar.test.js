@@ -8,7 +8,7 @@ configure({ adapter: new Adapter() });
 
 describe('Test ProgressBar component', () => {
     const mockFn = jest.fn();
-    const progressBar = shallow(<ProgressBar title="Lorem ipsum" percentage={15} onClickHandler={mockFn}/>);
+    const progressBar = shallow(<ProgressBar title="Lorem ipsum" percentage={15} onClickHandler={mockFn} size={'large'}/>);
 
     it('should be defined', () => {
         expect(ProgressBar).toBeDefined();

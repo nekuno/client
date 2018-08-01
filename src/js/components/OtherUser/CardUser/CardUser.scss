@@ -1,0 +1,36 @@
+.card-user {
+  display: inline-block;
+  font-weight: bold;
+  margin: 1%;
+  width: 48%;
+
+  .user-image {
+    text-align: center;
+  }
+  .nickname {
+    font-size: 20px;
+    text-align: center;
+  }
+  .age-city {
+    font-size: 14px;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .gender {
+    font-size: 14px;
+    margin: 15px 0;
+  }
+  .coincidences {
+    margin: 10px 0;
+    font-size: 14px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .networks {
+    height: 38px;
+    overflow: hidden;
+  }
+}

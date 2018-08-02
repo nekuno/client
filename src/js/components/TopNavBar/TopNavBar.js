@@ -6,6 +6,7 @@ import IconNotification from '../ui/IconNotification/IconNotification.js';
 import RoundedIcon from '../ui/RoundedIcon/RoundedIcon.js';
 import RoundedImage from '../ui/RoundedImage/RoundedImage.js';
 import LeftPanelActionCreators from '../../actions/LeftPanelActionCreators';
+import RouterActionCreators from '../../actions/RouterActionCreators';
 
 export default class TopNavBar extends Component {
 
@@ -30,13 +31,23 @@ export default class TopNavBar extends Component {
         onSecondRightLinkClickHandler: PropTypes.func,
     };
 
+    static contextTypes = {
+        router: PropTypes.object.isRequired
+    };
+
     handleLeftClick() {
         const {menuIconLeft} = this.props;
         if (menuIconLeft) {
             LeftPanelActionCreators.open();
         } else if (this.props.onLeftLinkClickHandler) {
             this.props.onLeftLinkClickHandler();
+        } else {
+            this.goBack.bind(this);
         }
+    }
+
+    goBack() {
+        RouterActionCreators.previousRoute(this.context.router.getCurrentLocation().pathname || '');
     }
 
     goToProposals() {

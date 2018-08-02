@@ -9,13 +9,14 @@ configure({ adapter: new Adapter() });
 describe('Test TopNavBar component', () => {
     const leftClickMockFn = jest.fn();
     const rightClickMockFn = jest.fn();
+    const context = { router: { getCurrentLocation: () => ({pathname: 'foo'}) } };
     const topNavBar = shallow(
         <TopNavBar leftIcon={'left-arrow'}
                    onLeftLinkClickHandler={leftClickMockFn}
                    textCenter={'Foo'}
                    firstIconRight={'delete'}
                    onRightLinkClickHandler={rightClickMockFn}
-        />
+        />, {context}
     );
 
     it('should be defined', () => {
@@ -27,7 +28,7 @@ describe('Test TopNavBar component', () => {
     it('TopNavBar left click event', () => {
         topNavBar.find(`.${styles.left}`).simulate('click');
         expect(leftClickMockFn).toHaveBeenCalledTimes(1);
-    })
+    });
     it('TopNavBar right click event', () => {
         topNavBar.find(`.${styles.right}` + ' ' + `.${styles.icon}`).simulate('click');
         expect(rightClickMockFn).toHaveBeenCalledTimes(1);

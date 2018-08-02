@@ -250,6 +250,11 @@ ShallowWrapper {
         "enableComponentDidUpdateOnSetState": true,
       },
     },
+    "context": Object {
+      "router": Object {
+        "getCurrentLocation": [Function],
+      },
+    },
   },
 }
 `;

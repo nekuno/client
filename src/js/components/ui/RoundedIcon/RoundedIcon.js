@@ -9,6 +9,7 @@ export default class RoundedIcon extends Component {
         size           : PropTypes.oneOf(['small', 'medium', 'large']).isRequired,
         disabled       : PropTypes.bool,
         background     : PropTypes.string,
+        fontSize       : PropTypes.string,
         onClickHandler : PropTypes.func
     };
 
@@ -19,13 +20,13 @@ export default class RoundedIcon extends Component {
     }
 
     render() {
-        const {icon, size, disabled, background} = this.props;
+        const {icon, size, disabled, background, fontSize} = this.props;
         let className = styles.roundedIcon + ' ' + styles[size];
         className = disabled ? styles.disabled + ' ' + className : className;
 
         return (
             <div className={className} style={{background: background}} onClick={this.handleClick.bind(this)}>
-                <div className={styles.icon + ' icon icon-' + icon}/>
+                <div className={styles.icon + ' icon icon-' + icon} style={{fontSize: fontSize}}/>
             </div>
         );
     }

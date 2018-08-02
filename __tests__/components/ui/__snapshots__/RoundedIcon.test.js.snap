@@ -23,6 +23,11 @@ ShallowWrapper {
     "props": Object {
       "children": <div
         className="icon icon icon-facebook"
+        style={
+          Object {
+            "fontSize": undefined,
+          }
+        }
       />,
       "className": "roundedIcon medium",
       "onClick": [Function],
@@ -37,6 +42,9 @@ ShallowWrapper {
       "nodeType": "host",
       "props": Object {
         "className": "icon icon icon-facebook",
+        "style": Object {
+          "fontSize": undefined,
+        },
       },
       "ref": null,
       "rendered": null,
@@ -52,6 +60,11 @@ ShallowWrapper {
       "props": Object {
         "children": <div
           className="icon icon icon-facebook"
+          style={
+            Object {
+              "fontSize": undefined,
+            }
+          }
         />,
         "className": "roundedIcon medium",
         "onClick": [Function],
@@ -66,6 +79,9 @@ ShallowWrapper {
         "nodeType": "host",
         "props": Object {
           "className": "icon icon icon-facebook",
+          "style": Object {
+            "fontSize": undefined,
+          },
         },
         "ref": null,
         "rendered": null,
@@ -108,6 +124,11 @@ ShallowWrapper {
     "props": Object {
       "children": <div
         className="icon icon icon-facebook"
+        style={
+          Object {
+            "fontSize": undefined,
+          }
+        }
       />,
       "className": "disabled roundedIcon medium",
       "onClick": [Function],
@@ -122,6 +143,9 @@ ShallowWrapper {
       "nodeType": "host",
       "props": Object {
         "className": "icon icon icon-facebook",
+        "style": Object {
+          "fontSize": undefined,
+        },
       },
       "ref": null,
       "rendered": null,
@@ -137,6 +161,11 @@ ShallowWrapper {
       "props": Object {
         "children": <div
           className="icon icon icon-facebook"
+          style={
+            Object {
+              "fontSize": undefined,
+            }
+          }
         />,
         "className": "disabled roundedIcon medium",
         "onClick": [Function],
@@ -151,6 +180,9 @@ ShallowWrapper {
         "nodeType": "host",
         "props": Object {
           "className": "icon icon icon-facebook",
+          "style": Object {
+            "fontSize": undefined,
+          },
         },
         "ref": null,
         "rendered": null,

@@ -74,7 +74,7 @@ storiesOf('Tabs', module)
                 <Banner onClickHandler={action('click')} onSkipHandler={action('skip')} title="Banner title" description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut" buttonText="Action" skipText="Skip" icon="comments"/>
             </TabPanel>
             <TabPanel>
-                <ProgressBar percentage={50} title="Progress bar" onClickHandler={action('click')}/>
+                <ProgressBar size={'large'} percentage={50} title="Progress bar" onClickHandler={action('click')}/>
             </TabPanel>
         </Tabs>
     ));

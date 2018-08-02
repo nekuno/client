@@ -1,0 +1,54 @@
+.left {
+  cursor: pointer;
+  display: inline-block;
+  height: 100%;
+  padding: 0 2%;
+  text-align: left;
+  vertical-align: top;
+  width: 21%;
+
+  .icon {
+    display: inline-block;
+    margin-top: 15px;
+  }
+  .rounded-icon {
+    display: inline-block;
+  }
+}
+.center {
+  display: inline-block;
+  height: 100%;
+  text-align: center;
+  vertical-align: top;
+  width: 50%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.right {
+  display: inline-block;
+  height: 100%;
+  padding: 0 2%;
+  text-align: right;
+  vertical-align: top;
+  width: 21%;
+
+  .icon {
+    cursor: pointer;
+    display: inline-block;
+    margin-top: 15px;
+
+    &.second {
+      margin-left: 20px;
+    }
+  }
+  .rounded-icon {
+    display: inline-block;
+    height: 35px;
+    padding: 7.5px 0;
+
+    &.second {
+      margin-left: 20px;
+    }
+  }
+}

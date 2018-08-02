@@ -4,8 +4,9 @@
   cursor: pointer;
   padding: 5px 0 0 0;
   position: relative;
-  height: 45px;
-  width: 50px;
+  height: 40px;
+  float: right;
+  width: 45px;
 
   .icon {
     color: #6C6F82;
@@ -15,8 +16,7 @@
     width: 40px;
 
     &::before {
-      font-size: 30px;
-      font-weight: bold;
+      font-size: 25px;
     }
   }
   .notifications-wrapper {
@@ -26,16 +26,16 @@
     -webkit-border-radius: 50%;
     position: absolute;
     text-align: center;
-    line-height: 25px;
-    top: 5px;
+    line-height: 20px;
+    top: 10px;
     right: 0;
-    height: 25px;
-    width: 25px;
+    height: 20px;
+    width: 20px;
 
     .notifications {
       color: #fff;
-      line-height: 25px;
-      font-size: 14px;
+      line-height: 20px;
+      font-size: 10px;
       font-weight: bold;
     }
   }

@@ -14,6 +14,7 @@ function loadStories() {
     require('../stories/RoundedImage.stories');
     require('../stories/Tabs.stories');
     require('../stories/TopBar.stories');
+    require('../stories/TopNavBar.stories');
 
     // require as many stories as you need.
 }

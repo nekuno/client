@@ -9,16 +9,16 @@
   overflow: hidden;
 
   &.x-large {
-    height: 350px;
-    width: 350px;
-  }
-  &.large {
     height: 250px;
     width: 250px;
   }
-  &.medium {
+  &.large {
     height: 150px;
     width: 150px;
+  }
+  &.medium {
+    height: 100px;
+    width: 100px;
   }
   &.small {
     height: 50px;

@@ -5,13 +5,13 @@ import RoundedImage from '../src/js/components/ui/RoundedImage/RoundedImage.js';
 
 storiesOf('RoundedImage', module)
     .add('with x-large image', () => (
-        <RoundedImage url="http://via.placeholder.com/350x350" size="x-large" onClickHandler={action('clicked')}/>
+        <RoundedImage url="http://via.placeholder.com/250x250" size="x-large" onClickHandler={action('clicked')}/>
     ))
     .add('with large image', () => (
-        <RoundedImage url="http://via.placeholder.com/250x250" size="large" onClickHandler={action('clicked')}/>
+        <RoundedImage url="http://via.placeholder.com/150x150" size="large" onClickHandler={action('clicked')}/>
     ))
     .add('with medium image', () => (
-        <RoundedImage url="http://via.placeholder.com/150x150" size="medium" onClickHandler={action('clicked')}/>
+        <RoundedImage url="http://via.placeholder.com/75x75" size="medium" onClickHandler={action('clicked')}/>
     ))
     .add('with small image', () => (
         <RoundedImage url="http://via.placeholder.com/50x50" size="small" onClickHandler={action('clicked')}/>
@@ -23,8 +23,8 @@ storiesOf('RoundedImage', module)
         <div>
             <RoundedImage url="http://via.placeholder.com/25x25" size="x-small" onClickHandler={action('clicked')}/>
             <RoundedImage url="http://via.placeholder.com/50x50" size="small" onClickHandler={action('clicked')}/>
-            <RoundedImage url="http://via.placeholder.com/150x150" size="medium" onClickHandler={action('clicked')}/>
-            <RoundedImage url="http://via.placeholder.com/250x250" size="large" onClickHandler={action('clicked')}/>
-            <RoundedImage url="http://via.placeholder.com/350x350" size="x-large" onClickHandler={action('clicked')}/>
+            <RoundedImage url="http://via.placeholder.com/75x75" size="medium" onClickHandler={action('clicked')}/>
+            <RoundedImage url="http://via.placeholder.com/150x150" size="large" onClickHandler={action('clicked')}/>
+            <RoundedImage url="http://via.placeholder.com/250x250" size="x-large" onClickHandler={action('clicked')}/>
         </div>
     ));

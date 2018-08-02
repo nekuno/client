@@ -7,20 +7,24 @@
   .user-image {
     text-align: center;
   }
-  .nickname {
-    font-size: 20px;
+  .top-data {
+    display: inline-block;
     text-align: center;
-  }
-  .age-city {
-    font-size: 14px;
-    text-align: center;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-  .gender {
-    font-size: 14px;
-    margin: 15px 0;
+    width: 100%;
+    .nickname {
+      font-size: 20px;
+    }
+    .age-city {
+      font-size: 14px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .gender {
+      font-size: 14px;
+      margin: 15px 0;
+      text-align: left;
+    }
   }
   .coincidences {
     margin: 10px 0;
@@ -32,5 +36,46 @@
   .networks {
     height: 38px;
     overflow: hidden;
+  }
+  .resume {
+    display: none;
+    font-size: 13px;
+    font-weight: normal;
+    margin: 10px 0;
+  }
+
+  &.medium {
+    width: 75%;
+
+    .user-image {
+      display: inline-block;
+      text-align: left;
+    }
+    .top-data {
+      display: inline-block;
+      margin: 20px 10px;
+      text-align: left;
+      vertical-align: top;
+      width: 30%;
+
+      .nickname {
+      }
+      .age-city {
+        margin: 5px 0;
+      }
+      .gender {
+        margin: 5px 0;
+      }
+    }
+    .coincidences {
+      display: inline-block;
+      margin-top: 15px;
+    }
+    .networks {
+      display: inline-block;
+    }
+    .resume {
+      display: block;
+    }
   }
 }

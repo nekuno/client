@@ -18,6 +18,8 @@ describe('Test CardUser component', () => {
                   similarity={85}
                   coincidences={24}
                   networks={['facebook', 'twitter', 'steam']}
+                  size="small"
+                  resume="foo"
         />
     );
     const cardUser2 = shallow(
@@ -31,6 +33,8 @@ describe('Test CardUser component', () => {
                   similarity={34}
                   coincidences={101}
                   networks={['tumblr', 'spotify', 'instagram', 'facebook', 'twitter', 'steam']}
+                  size="medium"
+                  resume="bar"
         />
     );
 

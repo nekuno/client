@@ -9,7 +9,7 @@ export default class ProgressBar extends Component {
     static propTypes = {
         title          : PropTypes.string,
         percentage     : PropTypes.number,
-        size           : PropTypes.oneOf(['small', 'large']).isRequired,
+        size           : PropTypes.oneOf(['small', 'medium', 'large']).isRequired,
         onClickHandler : PropTypes.func
     };
 
@@ -38,6 +38,7 @@ export default class ProgressBar extends Component {
     render() {
         const {title, size} = this.props;
         const {prevPercentage, percentage} = this.state;
+        const lineWidth = size === "small" ? "4" : size === "medium" ? "3" : "2";
 
         return (
             <div className={styles.progressBarWrapper + ' ' + styles[size]} onClick={this.handleClick.bind(this)}>
@@ -48,7 +49,7 @@ export default class ProgressBar extends Component {
                             defaultStyle={{progress: prevPercentage}}
                             style={{progress: spring(percentage)}}
                         >
-                            {val => <Line percent={val.progress} strokeWidth={size === 'small' ? "4" : "2"} trailWidth={size === 'small' ? "4" : "2"} strokeColor="#555"/>}
+                            {val => <Line percent={val.progress} strokeWidth={lineWidth} trailWidth={lineWidth} strokeColor="#555"/>}
                         </Motion>
                     </div>
                     <div className={styles.percentage}>

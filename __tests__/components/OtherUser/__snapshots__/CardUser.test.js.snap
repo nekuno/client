@@ -20,7 +20,9 @@ ShallowWrapper {
     nickname="JohnDoe"
     onClickHandler={[MockFunction]}
     photo="http://via.placeholder.com/100x100"
+    resume="foo"
     similarity={85}
+    size="small"
     strings={
       Object {
         "coincidences": "Coincidences",
@@ -55,7 +57,9 @@ ShallowWrapper {
       "nickname": "JohnDoe",
       "onClickHandler": [MockFunction],
       "photo": "http://via.placeholder.com/100x100",
+      "resume": "foo",
       "similarity": 85,
+      "size": "small",
       "strings": Object {
         "coincidences": "Coincidences",
         "matching": "Matching",
@@ -86,7 +90,9 @@ ShallowWrapper {
         "nickname": "JohnDoe",
         "onClickHandler": [MockFunction],
         "photo": "http://via.placeholder.com/100x100",
+        "resume": "foo",
         "similarity": 85,
+        "size": "small",
         "strings": Object {
           "coincidences": "Coincidences",
           "matching": "Matching",
@@ -131,7 +137,9 @@ ShallowWrapper {
     nickname="JaneDoe"
     onClickHandler={[MockFunction]}
     photo="http://via.placeholder.com/100x100"
+    resume="bar"
     similarity={34}
+    size="medium"
     strings={
       Object {
         "coincidences": "Coincidences",
@@ -169,7 +177,9 @@ ShallowWrapper {
       "nickname": "JaneDoe",
       "onClickHandler": [MockFunction],
       "photo": "http://via.placeholder.com/100x100",
+      "resume": "bar",
       "similarity": 34,
+      "size": "medium",
       "strings": Object {
         "coincidences": "Coincidences",
         "matching": "Matching",
@@ -203,7 +213,9 @@ ShallowWrapper {
         "nickname": "JaneDoe",
         "onClickHandler": [MockFunction],
         "photo": "http://via.placeholder.com/100x100",
+        "resume": "bar",
         "similarity": 34,
+        "size": "medium",
         "strings": Object {
           "coincidences": "Coincidences",
           "matching": "Matching",

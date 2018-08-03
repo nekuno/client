@@ -32,10 +32,17 @@ class LoginStore extends BaseStore {
                         this.setInitial();
                         LocalStorageService.remove('jwt');
                     } else {
-                        this._jwt = jwt;
-                        this._user = {id: JSON.parse(jwt_decode(this._jwt).user).id};
-                        this._tryingToLogin = false;
-                        console.log('Autologin success!');
+                        try {
+                            this._user = {id: JSON.parse(jwt_decode(jwt).user).id};
+                            this._tryingToLogin = false;
+                            this._jwt = jwt;
+                            console.log('Autologin success!');
+                        } catch (error) {
+                            console.log('Invalid jwt');
+                            this._tryingToLogin = false;
+                            this.setInitial();
+                            LocalStorageService.remove('jwt');
+                        }
                     }
                 } else {
                     this._tryingToLogin = false;
@@ -183,7 +190,12 @@ class LoginStore extends BaseStore {
             return true;
         }
 
-        const jwtDecoded = jwt_decode(jwt);
+        let jwtDecoded = {};
+        try {
+            jwtDecoded = jwt_decode(jwt);
+        } catch (error) {
+            return false;
+        }
 
         if (!jwtDecoded.hasOwnProperty('exp')){
             return true;

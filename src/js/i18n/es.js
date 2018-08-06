@@ -480,8 +480,13 @@ export default {
         loading: 'Cargando preguntas'
     },
     OtherQuestionList                : {
-        loading: 'Cargando preguntas',
-        empty  : 'No hay preguntas'
+        loading    : 'Cargando preguntas',
+        empty      : 'No hay preguntas',
+        notAnswered: 'Otras preguntas a las que respondió',
+        answer     : '¡Responde y descubre si coincidís!'
+    },
+    OtherNotAnsweredQuestion         : {
+        answer: 'Responder pregunta'
     },
     OtherQuestion                    : {
         didntAnswered: 'No has contestado a esta pregunta'

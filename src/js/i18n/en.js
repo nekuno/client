@@ -480,8 +480,13 @@ export default {
         loading: 'Loading questions'
     },
     OtherQuestionList                : {
-        loading: 'Loading questions',
-        empty  : 'No questions'
+        loading    : 'Loading questions',
+        empty      : 'No questions',
+        notAnswered: 'Other questions that user answered',
+        answer     : 'Answer and find out if you both agree!'
+    },
+    OtherNotAnsweredQuestion         : {
+        answer: 'Answer question'
     },
     OtherQuestion                    : {
         didntAnswered: 'You have not answered this question'

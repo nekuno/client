@@ -15,11 +15,8 @@ export default class QuestionStats extends Component {
     };
 
     render() {
-
-        let question = this.props.question;
-        let userAnswer = this.props.userAnswer;
+        const {question, userAnswer} = this.props;
         let answers = question.answers;
-        let userId = this.props.userId;
 
         if (!question || !answers) {
             return null;

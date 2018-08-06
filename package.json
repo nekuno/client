@@ -42,7 +42,7 @@
         "jwt-decode": "1.4.0",
         "keymirror": "0.1.1",
         "moment": "^2.22.2",
-        "normalizr": "1.4.0",
+        "normalizr": "3.2.0",
         "phonegap-plugin-push": "^1.10.5",
         "prop-types": "15.6.1",
         "rc-progress": "2.2.5",

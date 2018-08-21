@@ -15,9 +15,9 @@ body {
 		-webkit-text-size-adjust: none; /* prevent webkit from resizing text to fit */
 		-webkit-user-select: none; /* prevent copy paste, to allow, change 'none' to 'text' */
 
-		background: #fff;
+		background: $white-background;
+		color: $gray-main-text;
 		font-family: $nekuno-font;
-		font-size: 10px;
 		margin: 0 auto;
 		max-width: 480px;
 		min-width: 261px;
@@ -128,7 +128,7 @@ body {
 				}
 
 				.view {
-					background: $dark-purple;
+					background: $white-background;
 					color: #fff;
 					overflow-y: scroll;
 					-webkit-overflow-scrolling: touch;

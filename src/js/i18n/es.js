@@ -58,13 +58,13 @@ export default {
         cannotRemove: 'Este campo no se puede eliminar'
     },
     HomePage                         : {
-        choosePath   : 'Elige tu camino',
-        title1       : 'Redescubrir mi tribu' + "\n" + 'desbloqueando insignias',
-        title2       : 'Compartir lo que te encanta' + "\n" + 'uniéndote y creando propuestas',
-        title3       : 'Todo lo anterior + descubrir a' + "\n" + 'mis compañeros de vida',
-        events       : 'Eventos',
-        explore      : 'Explorar',
-        contact      : 'Contacto',
+        title1       : 'Conoce personas afines a ti',
+        title2       : 'Comparte tus ideas y planes',
+        title3       : 'Participa en proyectos y planes',
+        resume1      : 'Nekuno te pone fácil conocer a personas compatibles contigo por tu personalidad, profesión y hobbies que practicas',
+        resume2      : 'Conoce a personas compatibles contigo para realizar ese proyecto o plan que tienes en mente',
+        resume3      : 'Descubre proyectos y planes ajustados a tu perfil de personas compatibles contigo',
+        skip         : 'Omitir',
         blockingError: 'Tu navegador está bloqueando una petición a Facebook y no podemos registrar tu usuario. Por favor, deshabilita el bloqueo en la configuración o utiliza otro navegador.'
     },
     ExplorePage                      : {

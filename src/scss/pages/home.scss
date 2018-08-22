@@ -3,12 +3,6 @@
 body #root .App .views .view.home-view {
   background: $purple-main;
   overflow: hidden;
-  .overlay {
-    background: linear-gradient(to bottom, $overlay-top 0%, $overlay-bottom 100%);
-    position: absolute;
-    height: 100%;
-    width: 100%;
-  }
 
   .home-wrapper {
     height: 100%;

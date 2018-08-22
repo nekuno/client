@@ -9,6 +9,7 @@ import SocialNetworkService from '../services/SocialNetworkService';
 import Framework7Service from '../services/Framework7Service';
 import LocaleStore from '../stores/LocaleStore';
 import Slider from 'react-slick';
+import Overlay from '../components/ui/Overlay/Overlay.js';
 import '../../scss/pages/home.scss';
 
 function getState(props) {
@@ -180,7 +181,7 @@ export default class HomePage extends Component {
         return (
             <div className="views">
                 <div className="view view-main home-view">
-                    <div className="overlay"/>
+                    <Overlay/>
                     <div className="home-wrapper">
                         <div className="nekuno-logo-wrapper">
                             <div className="nekuno-logo"/>

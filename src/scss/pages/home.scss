@@ -6,7 +6,6 @@ body #root .App .views .view.home-view {
 
   .home-wrapper {
     height: 100%;
-
     padding: 16px;
 
     .nekuno-logo-wrapper {
@@ -24,6 +23,7 @@ body #root .App .views .view.home-view {
     }
 
     .swiper-container {
+      cursor: pointer;
       padding: 24px 24px 0 24px;
 
       .swiper-slide {
@@ -31,7 +31,6 @@ body #root .App .views .view.home-view {
         text-align: center;
 
         .login-image {
-
           img {
             width: 100%;
           }
@@ -46,30 +45,33 @@ body #root .App .views .view.home-view {
 
         li {
           display: inline-block;
-          margin: 5px;
+          margin: 0;
+
           .dot {
             background-color: #fff;
-            border: 10px solid rgba(255, 255, 255, 0);
+            border: 8px solid rgba(255, 255, 255, 0);
             background-clip: padding-box;
             border-radius: 50%;
             display: inline-block;
-            height: 5px;
-            width: 5px;
+            height: 4px;
+            width: 4px;
           }
           &.slick-active {
             .dot {
-              border: 10px solid rgba(255, 255, 255, 0.2);
+              border: 8px solid rgba(255, 255, 255, 0.2);
             }
           }
         }
       }
     }
     .skip-wrapper {
+      cursor: pointer;
       font-weight: bold;
       text-align: right;
       z-index: 111;
       position: absolute;
       width: 100%;
+      bottom: 24px;
       right: 24px;
     }
   }

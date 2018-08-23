@@ -52,6 +52,12 @@ body {
 		font-size: $nekuno-small-size;
 		line-height: $nekuno-small-line-height;
 	}
+	@media only screen and (max-width: 320px) {
+		h1 {
+			font-size: $nekuno-heading2-size;
+			line-height: $nekuno-heading2-line-height;
+		}
+	}
 }
 
 /* Nekuno font (not used)

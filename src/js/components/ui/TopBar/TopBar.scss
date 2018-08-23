@@ -2,11 +2,18 @@
 
 .top-bar {
   background: #fff;
-  color: $regular-gray;
-  font-size: 20px;
+  color: $gray-main-text;
   font-weight: bold;
   height: 50px;
   line-height: 50px;
+  margin: auto;
   position: relative;
   text-align: center;
+  vertical-align: bottom;
+  width: 100%;
+  z-index: 111;
+
+  &.left {
+    text-align: left;
+  }
 }

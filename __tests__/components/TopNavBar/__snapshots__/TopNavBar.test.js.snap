@@ -23,6 +23,7 @@ ShallowWrapper {
     "key": undefined,
     "nodeType": "class",
     "props": Object {
+      "background": undefined,
       "children": Array [
         <div
           className="left"
@@ -46,6 +47,8 @@ ShallowWrapper {
           />
         </div>,
       ],
+      "position": undefined,
+      "textAlign": undefined,
     },
     "ref": null,
     "rendered": Array [
@@ -136,6 +139,7 @@ ShallowWrapper {
       "key": undefined,
       "nodeType": "class",
       "props": Object {
+        "background": undefined,
         "children": Array [
           <div
             className="left"
@@ -159,6 +163,8 @@ ShallowWrapper {
             />
           </div>,
         ],
+        "position": undefined,
+        "textAlign": undefined,
       },
       "ref": null,
       "rendered": Array [

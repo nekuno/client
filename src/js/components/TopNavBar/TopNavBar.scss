@@ -14,16 +14,31 @@
   .rounded-icon {
     display: inline-block;
   }
+
+  &.small {
+    vertical-align: text-bottom;
+
+    .icon {
+      margin-top: 24px;
+    }
+  }
+
 }
 .center {
   display: inline-block;
   height: 100%;
-  text-align: center;
-  vertical-align: top;
   width: 50%;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  vertical-align: top;
+
+  &.small {
+    font-size: 13px;
+    line-height: 16px;
+    height: 50%;
+    vertical-align: sub;
+  }
 }
 .right {
   display: inline-block;
@@ -49,6 +64,14 @@
 
     &.second {
       margin-left: 20px;
+    }
+  }
+
+  &.small {
+    vertical-align: text-bottom;
+
+    .icon {
+      margin-top: 24px;
     }
   }
 }

@@ -5,13 +5,15 @@ import TopBar from '../ui/TopBar/TopBar.js';
 import IconNotification from '../ui/IconNotification/IconNotification.js';
 import RoundedIcon from '../ui/RoundedIcon/RoundedIcon.js';
 import RoundedImage from '../ui/RoundedImage/RoundedImage.js';
-import LeftPanelActionCreators from '../../actions/LeftPanelActionCreators';
 import RouterActionCreators from '../../actions/RouterActionCreators';
 
 export default class TopNavBar extends Component {
 
     static propTypes = {
-        menuIconLeft                 : PropTypes.bool,
+        position                     : PropTypes.oneOf(['relative', 'absolute']),
+        background                   : PropTypes.string,
+        textAlign                    : PropTypes.oneOf(['center', 'left']),
+        textSize                     : PropTypes.oneOf(['regular', 'small']),
         iconLeft                     : PropTypes.string,
         textLeft                     : PropTypes.string,
         textLeftColored              : PropTypes.bool,
@@ -36,10 +38,7 @@ export default class TopNavBar extends Component {
     };
 
     handleLeftClick() {
-        const {menuIconLeft} = this.props;
-        if (menuIconLeft) {
-            LeftPanelActionCreators.open();
-        } else if (this.props.onLeftLinkClickHandler) {
+        if (this.props.onLeftLinkClickHandler) {
             this.props.onLeftLinkClickHandler();
         } else {
             this.goBack.bind(this);
@@ -60,7 +59,10 @@ export default class TopNavBar extends Component {
 
     render() {
         const {
-            menuIconLeft,
+            position,
+            background,
+            textAlign,
+            textSize,
             iconLeft,
             textLeft,
             textLeftColored,
@@ -76,25 +78,27 @@ export default class TopNavBar extends Component {
             textRight,
             textRightColored
         } = this.props;
+        const leftClassName = textSize === 'small' ? styles.left + ' ' + styles.small : styles.left;
+        const centerClassName = textSize === 'small' ? styles.center + ' ' + styles.small : styles.center;
+        const rightClassName = textSize === 'small' ? styles.right + ' ' + styles.small : styles.right;
         const textLeftClassName = textLeftColored ? styles.linkColored + ' ' + styles.link : styles.link;
         const textRightClassName = textRightColored ? styles.linkColored + ' ' + styles.link : styles.link;
-        const iconLeftModified = menuIconLeft ? 'menu' : iconLeft;
 
         return (
-            <TopBar>
-                <div className={styles.left} onClick={this.handleLeftClick.bind(this)}>
-                    {iconLeftModified ?
-                        <div className={styles.icon + ' icon icon-' + iconLeftModified}/>
+            <TopBar position={position} background={background} textAlign={textAlign}>
+                <div className={leftClassName} onClick={this.handleLeftClick.bind(this)}>
+                    {iconLeft ?
+                        <div className={styles.icon + ' icon icon-' + iconLeft}/>
                         :
                         <div className={textLeftClassName}>{textLeft}</div>
                     }
                 </div>
 
-                <div className={styles.center}>
+                <div className={centerClassName}>
                     {textCenter || ' '}
                 </div>
 
-                <div className={styles.right}>
+                <div className={rightClassName}>
                     {firstIconRight ?
                         iconsRightBackground ?
                             <div className={styles.roundedIcon}>

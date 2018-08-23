@@ -21,6 +21,10 @@ ShallowWrapper {
     "props": Object {
       "children": "Lorem ipsum",
       "className": "topBar",
+      "style": Object {
+        "background": "#FBFCFD",
+        "position": "relative",
+      },
     },
     "ref": null,
     "rendered": "Lorem ipsum",
@@ -34,6 +38,10 @@ ShallowWrapper {
       "props": Object {
         "children": "Lorem ipsum",
         "className": "topBar",
+        "style": Object {
+          "background": "#FBFCFD",
+          "position": "relative",
+        },
       },
       "ref": null,
       "rendered": "Lorem ipsum",

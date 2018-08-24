@@ -12,6 +12,7 @@ export default class TopNavBar extends Component {
     static propTypes = {
         position                     : PropTypes.oneOf(['relative', 'absolute']),
         background                   : PropTypes.string,
+        color                        : PropTypes.string,
         textAlign                    : PropTypes.oneOf(['center', 'left']),
         textSize                     : PropTypes.oneOf(['regular', 'small']),
         iconLeft                     : PropTypes.string,
@@ -41,7 +42,7 @@ export default class TopNavBar extends Component {
         if (this.props.onLeftLinkClickHandler) {
             this.props.onLeftLinkClickHandler();
         } else {
-            this.goBack.bind(this);
+            this.goBack.bind(this)();
         }
     }
 
@@ -61,6 +62,7 @@ export default class TopNavBar extends Component {
         const {
             position,
             background,
+            color,
             textAlign,
             textSize,
             iconLeft,
@@ -85,7 +87,7 @@ export default class TopNavBar extends Component {
         const textRightClassName = textRightColored ? styles.linkColored + ' ' + styles.link : styles.link;
 
         return (
-            <TopBar position={position} background={background} textAlign={textAlign}>
+            <TopBar position={position} background={background} textAlign={textAlign} color={color}>
                 <div className={leftClassName} onClick={this.handleLeftClick.bind(this)}>
                     {iconLeft ?
                         <div className={styles.icon + ' icon icon-' + iconLeft}/>

@@ -182,7 +182,6 @@ export const ORIGIN_CONTEXT = {
 export const MAX_MESSAGES_LENGTH = 3000;
 
 export const DO_NOT_BACK_ROUTES = [
-    '/',
     'social-networks-on-sign-up',
     '/social-networks-on-sign-up',
     'register-questions-landing',

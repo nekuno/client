@@ -105,7 +105,7 @@ export default class HomePage extends Component {
     }
 
     goToRegisterPage() {
-        this.context.router.push('/register');
+        this.context.router.push('/answer-username');
     }
 
     beforeChangeSlide(oldSlide, newSlide) {

@@ -47,6 +47,7 @@ ShallowWrapper {
           />
         </div>,
       ],
+      "color": undefined,
       "position": undefined,
       "textAlign": undefined,
     },
@@ -163,6 +164,7 @@ ShallowWrapper {
             />
           </div>,
         ],
+        "color": undefined,
         "position": undefined,
         "textAlign": undefined,
       },

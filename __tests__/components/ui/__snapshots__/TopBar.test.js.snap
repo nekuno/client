@@ -23,6 +23,7 @@ ShallowWrapper {
       "className": "topBar",
       "style": Object {
         "background": "#FBFCFD",
+        "color": "#2B3857",
         "position": "relative",
       },
     },
@@ -40,6 +41,7 @@ ShallowWrapper {
         "className": "topBar",
         "style": Object {
           "background": "#FBFCFD",
+          "color": "#2B3857",
           "position": "relative",
         },
       },

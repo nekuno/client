@@ -17,25 +17,55 @@ storiesOf('Chip', module)
             selected={true}
         />
     ))
-    .add('unselected with medium text', () => (
-        <Chip onClickHandler={linkTo('Chip', 'selected with medium text')}
+    .add('unselected with medium text (blue)', () => (
+        <Chip onClickHandler={linkTo('Chip', 'selected with medium text (blue)')}
               text="Lorem ipsum dolor sit amet"
+              color="blue"
         />
     ))
-    .add('selected with medium text', () => (
-        <Chip onClickHandler={linkTo('Chip', 'unselected with medium text')}
+    .add('selected with medium text (blue)', () => (
+        <Chip onClickHandler={linkTo('Chip', 'unselected with medium text (blue)')}
               text="Lorem ipsum dolor sit amet"
+              color="blue"
               selected={true}
         />
     ))
-    .add('unselected with long text', () => (
-        <Chip onClickHandler={linkTo('Chip', 'selected with long text')}
+    .add('unselected with long text (pink)', () => (
+        <Chip onClickHandler={linkTo('Chip', 'selected with long text (pink)')}
               text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam et elit ante."
+              color="pink"
         />
     ))
-    .add('selected with long text', () => (
-        <Chip onClickHandler={linkTo('Chip', 'unselected with long text')}
+    .add('selected with long text (pink)', () => (
+        <Chip onClickHandler={linkTo('Chip', 'unselected with long text (pink)')}
               text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam et elit ante."
+              color="pink"
+              selected={true}
+        />
+    ))
+    .add('unselected with long text (green)', () => (
+        <Chip onClickHandler={linkTo('Chip', 'selected with long text (green)')}
+              text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam et elit ante."
+              color="green"
+        />
+    ))
+    .add('selected with long text (green)', () => (
+        <Chip onClickHandler={linkTo('Chip', 'unselected with long text (green)')}
+              text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam et elit ante."
+              color="green"
+              selected={true}
+        />
+    ))
+    .add('unselected with long text (purple)', () => (
+        <Chip onClickHandler={linkTo('Chip', 'selected with long text (purple)')}
+              text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam et elit ante."
+              color="purple"
+        />
+    ))
+    .add('selected with long text (purple)', () => (
+        <Chip onClickHandler={linkTo('Chip', 'unselected with long text (purple)')}
+              text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam et elit ante."
+              color="purple"
               selected={true}
         />
     ));

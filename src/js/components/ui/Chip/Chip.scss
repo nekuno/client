@@ -1,16 +1,17 @@
+@import '../../../../scss/_partials/colors';
+
 .chip {
-  background: #FFF;
-  color: #6C6F82;
+  background: $white-background;
+  color: $gray-secondary-text;
   cursor: pointer;
-  font-weight: bold;
   display: inline-block;
-  height: 32px;
-  line-height: 32px;
-  border: 2px solid #6C6F82;
-  border-radius: 16px;
-  -moz-border-radius: 16px;
-  -webkit-border-radius: 16px;
-  padding: 0 12px 0 7px;
+  height: 40px;
+  line-height: 40px;
+  border: 1px solid $gray-border;
+  border-radius: 40px;
+  -moz-border-radius: 40px;
+  -webkit-border-radius: 40px;
+  padding: 0 10px;
   box-sizing: border-box;
   vertical-align: middle;
   display: -webkit-inline-box;
@@ -23,22 +24,39 @@
   align-items: center;
   margin: 5px;
   max-width: 400px;
-  font-size: 13px;
 
   &.selected {
-    background: #E2E3E7;
+    background: $purple-main;
+    border-color: $purple-main;
+    color: $white-background;
+
+    &.purple {
+      background: $purple-main;
+      border-color: $purple-main;
+    }
+    &.blue {
+      background: $blue-projects;
+      border-color: $blue-projects;
+    }
+    &.pink {
+      background: $pink-hobbies;
+      border-color: $pink-hobbies;
+    }
+    &.green {
+      background: $green-experiences;
+      border-color: $green-experiences;
+    }
   }
+
   .cancel-icon {
-    color: #999999;
-    font-size: 20px;
-    animation: icon-rotate-back 0.1s linear;
-    transform: rotate(0deg);
-    -webkit-transform: rotate(0deg);
+    color: $white-background;
+    font-weight: bold;
+    margin-right: 4px;
   }
   .add-icon {
-    color: #999999;
-    font-size: 20px;
-    animation: icon-rotate 0.1s linear;
+    color: $gray-secondary-text;
+    font-weight: bold;
+    margin-left: 2px;
     transform: rotate(45deg);
     -webkit-transform: rotate(45deg);
   }
@@ -46,45 +64,12 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    padding: 0 8px;
     position: relative;
     -webkit-box-flex: 1;
     -webkit-flex-shrink: 1;
     -ms-flex: 0 1 auto;
     flex-shrink: 1;
     min-width: 0;
-    margin-left: 6px;
-  }
-}
-
-@keyframes icon-rotate {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(45deg);
-  }
-}
-@-webkit-keyframes icon-rotate {
-  0% {
-    -webkit-transform: rotate(0deg);
-  }
-  100% {
-    -webkit-transform: rotate(45deg);
-  }
-}
-@keyframes icon-rotate-back {
-  0% {
-    transform: rotate(45deg);
-  }
-  100% {
-    transform: rotate(0deg);
-  }
-}
-@-webkit-keyframes icon-rotate-back {
-  0% {
-    -webkit-transform: rotate(45deg);
-  }
-  100% {
-    -webkit-transform: rotate(0deg);
   }
 }

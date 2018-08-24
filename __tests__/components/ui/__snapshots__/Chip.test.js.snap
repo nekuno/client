@@ -23,15 +23,16 @@ ShallowWrapper {
     "props": Object {
       "children": Array [
         <span
-          className="addIcon icon icon-cancel-circle"
+          className="addIcon icon icon-x"
         />,
         <div
           className="text"
         >
           Lorem ipsum dolor sit amet
         </div>,
+        null,
       ],
-      "className": "chip",
+      "className": "chip undefined",
       "onClick": [Function],
     },
     "ref": null,
@@ -41,7 +42,7 @@ ShallowWrapper {
         "key": undefined,
         "nodeType": "host",
         "props": Object {
-          "className": "addIcon icon icon-cancel-circle",
+          "className": "addIcon icon icon-x",
         },
         "ref": null,
         "rendered": null,
@@ -59,6 +60,7 @@ ShallowWrapper {
         "rendered": "Lorem ipsum dolor sit amet",
         "type": "div",
       },
+      null,
     ],
     "type": "div",
   },
@@ -70,15 +72,16 @@ ShallowWrapper {
       "props": Object {
         "children": Array [
           <span
-            className="addIcon icon icon-cancel-circle"
+            className="addIcon icon icon-x"
           />,
           <div
             className="text"
           >
             Lorem ipsum dolor sit amet
           </div>,
+          null,
         ],
-        "className": "chip",
+        "className": "chip undefined",
         "onClick": [Function],
       },
       "ref": null,
@@ -88,7 +91,7 @@ ShallowWrapper {
           "key": undefined,
           "nodeType": "host",
           "props": Object {
-            "className": "addIcon icon icon-cancel-circle",
+            "className": "addIcon icon icon-x",
           },
           "ref": null,
           "rendered": null,
@@ -106,6 +109,7 @@ ShallowWrapper {
           "rendered": "Lorem ipsum dolor sit amet",
           "type": "div",
         },
+        null,
       ],
       "type": "div",
     },
@@ -142,31 +146,22 @@ ShallowWrapper {
     "nodeType": "host",
     "props": Object {
       "children": Array [
-        <span
-          className="cancelIcon icon icon-cancel-circle"
-        />,
+        null,
         <div
           className="text"
         >
           Lorem ipsum dolor sit amet
         </div>,
+        <span
+          className="cancelIcon icon icon-x"
+        />,
       ],
-      "className": "selected chip",
+      "className": "selected chip undefined",
       "onClick": [Function],
     },
     "ref": null,
     "rendered": Array [
-      Object {
-        "instance": null,
-        "key": undefined,
-        "nodeType": "host",
-        "props": Object {
-          "className": "cancelIcon icon icon-cancel-circle",
-        },
-        "ref": null,
-        "rendered": null,
-        "type": "span",
-      },
+      null,
       Object {
         "instance": null,
         "key": undefined,
@@ -179,6 +174,17 @@ ShallowWrapper {
         "rendered": "Lorem ipsum dolor sit amet",
         "type": "div",
       },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "className": "cancelIcon icon icon-x",
+        },
+        "ref": null,
+        "rendered": null,
+        "type": "span",
+      },
     ],
     "type": "div",
   },
@@ -189,31 +195,22 @@ ShallowWrapper {
       "nodeType": "host",
       "props": Object {
         "children": Array [
-          <span
-            className="cancelIcon icon icon-cancel-circle"
-          />,
+          null,
           <div
             className="text"
           >
             Lorem ipsum dolor sit amet
           </div>,
+          <span
+            className="cancelIcon icon icon-x"
+          />,
         ],
-        "className": "selected chip",
+        "className": "selected chip undefined",
         "onClick": [Function],
       },
       "ref": null,
       "rendered": Array [
-        Object {
-          "instance": null,
-          "key": undefined,
-          "nodeType": "host",
-          "props": Object {
-            "className": "cancelIcon icon icon-cancel-circle",
-          },
-          "ref": null,
-          "rendered": null,
-          "type": "span",
-        },
+        null,
         Object {
           "instance": null,
           "key": undefined,
@@ -225,6 +222,17 @@ ShallowWrapper {
           "ref": null,
           "rendered": "Lorem ipsum dolor sit amet",
           "type": "div",
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "className": "cancelIcon icon icon-x",
+          },
+          "ref": null,
+          "rendered": null,
+          "type": "span",
         },
       ],
       "type": "div",

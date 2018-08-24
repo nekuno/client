@@ -89,7 +89,7 @@ export default class Input extends Component {
                         <span className={'icon icon-x'} onClick={this.clearValue}/>
                         : null
                     }
-                    {checked ?
+                    {!empty && checked ?
                         <span className={'icon icon-check-circle ' + styles.iconCheck}/>
                         : null
                     }

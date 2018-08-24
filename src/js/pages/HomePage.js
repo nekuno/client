@@ -163,10 +163,8 @@ export default class HomePage extends Component {
                                 <div className="login-image">
                                     <img src={images[i - 1]} />
                                 </div>
-                                <h1>
-                                    {strings['title' + i]}
-                                </h1>
-                                <p className="small">{strings['resume' + i]}</p>
+                                <h1>{strings['title' + i]}</h1>
+                                <h3>{strings['resume' + i]}</h3>
                             </div>
                         )
                     }
@@ -206,9 +204,9 @@ HomePage.defaultProps = {
         title1         : 'Meet people related to you',
         title2         : 'Share your ideas and plans',
         title3         : 'Take part in projects and plans',
-        resume1        : 'Nekuno makes it easy to find people compatible with you by your personality, profession and hobbies you practice',
-        resume2        : 'Meet people compatible with you for carrying out that project or plan which you have in mind',
-        resume3        : 'Discover projects and plans that matches your profile from people compatible with you',
+        resume1        : 'Nekuno makes it easy to find people compatible with you',
+        resume2        : 'Meet people compatible with you for carrying out projects and plans',
+        resume3        : 'Discover projects and plans that matches your profile',
         skip           : 'Skip',
         blockingError  : 'Your browser has blocked a Facebook request and we are not able to register you. Please, disable the blocking configuration or use an other browser.'
     }

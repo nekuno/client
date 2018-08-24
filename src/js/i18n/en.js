@@ -61,9 +61,9 @@ export default {
         title1       : 'Meet people related to you',
         title2       : 'Share your ideas and plans',
         title3       : 'Take part in projects and plans',
-        resume1      : 'Nekuno makes it easy to find people compatible with you by your personality, profession and hobbies you practice',
-        resume2      : 'Meet people compatible with you for carrying out that project or plan which you have in mind',
-        resume3      : 'Discover projects and plans that matches your profile from people compatible with you',
+        resume1      : 'Nekuno makes it easy to find people compatible with you',
+        resume2      : 'Meet people compatible with you for carrying out projects and plans',
+        resume3      : 'Discover projects and plans that matches your profile',
         skip         : 'Skip',
         blockingError: 'Your browser has blocked a Facebook request and we are not able to register you. Please, disable the blocking configuration or use an other browser.'
     },
@@ -404,8 +404,14 @@ export default {
         seeMore: 'See more'
     },
     AnswerUsernamePage               : {
-        username      : 'Username',
-        loadingMessage: 'Registering user'
+        yourAccount      : 'Your account at Nekuno',
+        heading          : "Let's start!",
+        heading2         : "What would you like to be your name?",
+        placeholder      : 'Write your name here',
+        alreadyRegistered: 'Already registered?',
+        login            : 'Log in in here',
+        continue         : 'Continue',
+        invalidUsername  : 'Invalid username'
     },
     AnswerUserFieldPage              : {
         question      : 'Question',

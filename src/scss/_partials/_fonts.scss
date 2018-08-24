@@ -5,10 +5,12 @@ $nekuno-heading1-size: 27px;
 $nekuno-heading1-line-height: 32px;
 $nekuno-heading2-size: 21px;
 $nekuno-heading2-line-height: 26px;
+$nekuno-heading3-size: 19px;
+$nekuno-heading3-line-height: 24px;
 $nekuno-regular-size: 16px;
-$nekuno-regular-line-height: 24px;
-$nekuno-small-size: 13px;
-$nekuno-small-line-height: 16px;
+$nekuno-regular-line-height: 21px;
+$nekuno-small-size: 14px;
+$nekuno-small-line-height: 19px;
 
 
 @font-face {
@@ -47,6 +49,10 @@ body {
 	h2 {
 		font-size: $nekuno-heading2-size;
 		line-height: $nekuno-heading2-line-height;
+	}
+	h3 {
+		font-size: $nekuno-heading3-size;
+		line-height: $nekuno-heading3-line-height;
 	}
 	.small {
 		font-size: $nekuno-small-size;
@@ -938,20 +944,4 @@ $nekuno-logo-font: 'klinic_slabmedium';
 .icon-instagram:before {
 	margin-left: 1px;
 	margin-right: -1px;
-}
-
-
-::-webkit-input-placeholder {
-	font-family: $nekuno-font;
-}
-:-moz-placeholder { /* Firefox 18- */
-	font-family: $nekuno-font;
-}
-
-::-moz-placeholder {  /* Firefox 19+ */
-	font-family: $nekuno-font;
-}
-
-:-ms-input-placeholder {
-	font-family: $nekuno-font;
 }

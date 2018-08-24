@@ -1,0 +1,31 @@
+@import '../../../../scss/_partials/colors';
+
+.input-wrapper {
+  padding: 16px;
+
+  .input {
+    background: $white-background;
+    border-radius: 32px;
+    color: $gray-main-text;
+    height: 60px;
+    line-height: 60px;
+    margin: 16px;
+    text-align: center;
+
+    input {
+      border: none;
+      font-size: 19px;
+      width: 85%;
+      margin: 0 5px;
+      text-align: center;
+
+      &:focus{
+        outline: none;
+      }
+    }
+
+    .icon-check {
+      color: $green-experiences
+    }
+  }
+}

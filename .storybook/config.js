@@ -8,6 +8,7 @@ function loadStories() {
     require('../stories/Chip.stories');
     require('../stories/Frame.stories');
     require('../stories/IconNotification.stories');
+    require('../stories/Input.stories');
     require('../stories/LeftPanel.stories');
     require('../stories/Overlay.stories');
     require('../stories/ProgressBar.stories');

@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { SOCIAL_NETWORKS, SOCIAL_NETWORKS_NAMES, FACEBOOK_SCOPE } from '../constants/Constants';
 import Input from '../components/ui/Input/Input.js';
+import ErrorMessage from '../components/ui/ErrorMessage/ErrorMessage.js';
 import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
 import LoginActionCreators from '../actions/LoginActionCreators';
@@ -62,14 +63,8 @@ export default class AnswerUsernamePage extends Component {
             clearTimeout(this.usernameTimeout);
         }
         this.usernameTimeout = setTimeout(() => {
-            let newPromise = UserActionCreators.validateUsername(username).then(() => {
-                // Username valid
-                // this.setState({username: username});
-            }).catch(() => {
-                //TODO: Fix it
-                alert(this.props.strings.invalidUsername);
-            });
-            this.setState({validationPromise: newPromise});
+            let newPromise = UserActionCreators.validateUsername(username);
+            this.setState({validationPromise: newPromise, username: username});
         }, 1000);
     }
 
@@ -147,7 +142,9 @@ export default class AnswerUsernamePage extends Component {
                             <span className="continue-text">{strings.continue}&nbsp;</span>
                             <span className="icon-arrow-right" />
                         </div>
-                        : null
+                        : this.state.username ?
+                            <ErrorMessage text={strings.invalidUsername}/>
+                            : null
                     }
                 </div>
             </div>
@@ -164,6 +161,6 @@ AnswerUsernamePage.defaultProps = {
         alreadyRegistered: 'Already registered?',
         login            : 'Log in in here',
         continue         : 'Continue',
-        invalidUsername  : 'Invalid username',
+        invalidUsername  : 'Oh no! This username is not available :(',
     }
 };

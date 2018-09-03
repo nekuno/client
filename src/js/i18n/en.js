@@ -411,7 +411,7 @@ export default {
         alreadyRegistered: 'Already registered?',
         login            : 'Log in in here',
         continue         : 'Continue',
-        invalidUsername  : 'Invalid username'
+        invalidUsername  : 'Oh no! This username is not available :('
     },
     AnswerUserFieldPage              : {
         question      : 'Question',

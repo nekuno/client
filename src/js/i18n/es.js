@@ -411,7 +411,7 @@ export default {
         alreadyRegistered: 'Ya tienes cuenta en Nekuno?',
         login            : 'Inicia sesión aquí',
         continue         : 'Continuar',
-        invalidUsername  : 'Nombre de usuario inválido',
+        invalidUsername  : '¡Oh no! Este nombre no está disponible :(',
     },
     AnswerUserFieldPage              : {
         question      : 'Pregunta',

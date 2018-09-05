@@ -51,7 +51,7 @@ export default class StepsBar extends Component {
                         this.renderDots(totalSteps, currentStep)
                         : null
                     }
-                    <div className={textClass}>
+                    <div className={textClass + ' small'}>
                         {canContinue ? continueText + ' ' : cantContinueText}
                         {totalSteps > 0 && canContinue ? <span className="icon icon-arrow-right" /> : null}
                     </div>

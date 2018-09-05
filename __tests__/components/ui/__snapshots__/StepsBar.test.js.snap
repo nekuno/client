@@ -54,7 +54,7 @@ ShallowWrapper {
           </li>
         </ul>
         <div
-          className="continue"
+          className="continue small"
         >
           Continue 
           <span
@@ -97,7 +97,7 @@ ShallowWrapper {
             </li>
           </ul>,
           <div
-            className="continue"
+            className="continue small"
           >
             Continue 
             <span
@@ -228,7 +228,7 @@ ShallowWrapper {
                 className="icon icon-arrow-right"
               />,
             ],
-            "className": "continue",
+            "className": "continue small",
           },
           "ref": null,
           "rendered": Array [
@@ -288,7 +288,7 @@ ShallowWrapper {
             </li>
           </ul>
           <div
-            className="continue"
+            className="continue small"
           >
             Continue 
             <span
@@ -331,7 +331,7 @@ ShallowWrapper {
               </li>
             </ul>,
             <div
-              className="continue"
+              className="continue small"
             >
               Continue 
               <span
@@ -462,7 +462,7 @@ ShallowWrapper {
                   className="icon icon-arrow-right"
                 />,
               ],
-              "className": "continue",
+              "className": "continue small",
             },
             "ref": null,
             "rendered": Array [

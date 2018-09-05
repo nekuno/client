@@ -22,6 +22,10 @@ For production:
 
 `npm run test`
 
+For updating snapshots:
+
+`npm run test -- -u`
+
 ## Stories (ui development)
 
 `npm run storybook`

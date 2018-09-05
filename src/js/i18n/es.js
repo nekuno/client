@@ -177,6 +177,13 @@ export default {
         questions   : 'Respuestas',
         interests   : 'Intereses'
     },
+    ProfessionalProfilePage          : {
+        yourAccount: 'Tu cuenta en Nekuno',
+        title      : 'Completa tu perfil profesional',
+        resume     : 'Necesitamos saber tus sectores y hablilidades profesionales para recomendarte personas y proyectos',
+        fillProfile: 'Completar perfil',
+        skip       : 'En otro momento'
+    },
     QuestionsPage                    : {
         myProfile: 'Mi Perfil',
         about    : 'Sobre mi',

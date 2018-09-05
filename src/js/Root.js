@@ -5,6 +5,8 @@ import { useScroll } from 'react-router-scroll';
 
 import App from './App';
 import HomePage from './pages/HomePage';
+import AnswerUsernamePage from './pages/AnswerUsernamePage';
+import ProfessionalProfilePage from './pages/ProfessionalProfilePage';
 import ExplorePage from './pages/ExplorePage';
 import ChatThreadsPage from './pages/ChatThreadsPage';
 import ChatMessagesPage from './pages/ChatMessagesPage';
@@ -28,7 +30,6 @@ import QuestionOtherStatsPage from './pages/QuestionOtherStatsPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import RegisterQuestionsLandingPage from './pages/RegisterQuestionLandingPage';
-import AnswerUsernamePage from './pages/AnswerUsernamePage';
 import AnswerUserFieldPage from './pages/AnswerUserFieldPage';
 import AnswerProfileFieldPage from './pages/AnswerProfileFieldPage';
 import UserPage from './pages/UserPage';
@@ -73,10 +74,11 @@ export default class Root extends Component {
                 <Route name="home" path="/" component={App}>
 
                     <Route name="splash" path="/splash" component={HomePage}/>
+                    <Route name="answer-username" path="/answer-username" component={AnswerUsernamePage}/>
+                    <Route name="professional-profile" path="/professional-profile" component={ProfessionalProfilePage}/>
                     <Route name="login" path="/login" component={LoginPage}/>
                     <Route name="register" path="/register" component={RegisterPage}/>
                     <Route name="shared-user" path="/p/:slug" component={ProfilePage}/>
-                    <Route name="answer-username" path="/answer-username" component={AnswerUsernamePage}/>
 
                     <Route onEnter={requireAuth}>
                         <Route name="explore" path="/explore" component={ExplorePage}/>

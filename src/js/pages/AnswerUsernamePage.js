@@ -46,6 +46,7 @@ export default class AnswerUsernamePage extends Component {
         this.onUsernameChange = this.onUsernameChange.bind(this);
         this.handleClickSave = this.handleClickSave.bind(this);
         this.login = this.login.bind(this);
+        this.goToProfessionalProfile = this.goToProfessionalProfile.bind(this);
 
         this.state = {
             username: '',
@@ -80,8 +81,7 @@ export default class AnswerUsernamePage extends Component {
     }
 
     goToProfessionalProfile() {
-        // TODO: Enable when ready
-        //RouterActionCreators.nextRoute('/professional-profile');
+        this.context.router.push('/professional-profile');
     }
 
     login() {
@@ -138,7 +138,7 @@ export default class AnswerUsernamePage extends Component {
                         {/*</div>*/}
                     </div>
                     {isUsernameValid ?
-                        <div className="continue-wrapper small" onClick={this.goToRegisterPage}>
+                        <div className="continue-wrapper small" onClick={this.goToProfessionalProfile}>
                             <span className="continue-text">{strings.continue}&nbsp;</span>
                             <span className="icon-arrow-right" />
                         </div>

@@ -1,0 +1,154 @@
+@import '../../../../scss/_partials/colors';
+
+.steps-bar-wrapper {
+
+  .steps-bar {
+    background: $purple-main;
+    box-sizing: border-box;
+    color: $white-background;
+    cursor: pointer;
+    height: 48px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+
+
+    .dots {
+      display: inline-block;
+      list-style: none;
+      margin: 0;
+      height: 48px;
+      padding-left: 5%;
+      text-align: left;
+      vertical-align: bottom;
+      width: 45%;
+
+      li {
+        display: inline-block;
+        height: 48px;
+        line-height: 48px;
+        margin: 0;
+
+        .dot {
+          background-color: #fff;
+          border: 8px solid rgba(255, 255, 255, 0);
+          background-clip: padding-box;
+          border-radius: 50%;
+          display: inline-block;
+          height: 4px;
+          width: 4px;
+        }
+        &.active {
+          .dot {
+            border: 8px solid rgba(255, 255, 255, 0.2);
+          }
+        }
+      }
+    }
+
+    .continue, .cant-continue {
+      display: inline-block;
+      line-height: 48px;
+      width: 40%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      padding: 0 5%;
+      position: relative;
+      -webkit-box-flex: 1;
+      -webkit-flex-shrink: 1;
+      -ms-flex: 0 1 auto;
+      flex-shrink: 1;
+      min-width: 0;
+    }
+    .continue {
+      text-align: right;
+    }
+    .cant-continue {
+      text-align: center;
+    }
+
+    .no-steps {
+      text-align: center;
+      width: 90%;
+    }
+
+    &.blue {
+      background: $blue-projects;
+
+      &.cant-continue {
+        .dots {
+          li {
+            .dot {
+              background-color: $blue-projects;
+              border: 8px solid rgba(255, 255, 255, 0);
+            }
+            &.active {
+              .dot {
+                border: 8px solid $blue-projects-translucent;
+              }
+            }
+          }
+        }
+      }
+    }
+    &.pink {
+      background: $pink-hobbies;
+
+      &.cant-continue {
+        .dots {
+          li {
+            .dot {
+              background-color: $pink-hobbies;
+              border: 8px solid rgba(255, 255, 255, 0);
+            }
+            &.active {
+              .dot {
+                border: 8px solid $pink-hobbies-translucent;
+              }
+            }
+          }
+        }
+      }
+    }
+    &.green {
+      background: $green-experiences;
+
+      &.cant-continue {
+        .dots {
+          li {
+            .dot {
+              background-color: $green-experiences;
+              border: 8px solid rgba(255, 255, 255, 0);
+            }
+            &.active {
+              .dot {
+                border: 8px solid $green-experiences-translucent;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    &.cant-continue {
+      background: $white-background;
+      color: $gray-secondary-text;
+      cursor: default;
+
+      .dots {
+        li {
+          .dot {
+            background-color: $purple-main;
+            border: 8px solid rgba(255, 255, 255, 0);
+          }
+          &.active {
+            .dot {
+              border: 8px solid $purple-main-translucent;
+            }
+          }
+        }
+      }
+    }
+  }
+}

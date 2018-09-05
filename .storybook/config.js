@@ -16,6 +16,7 @@ function loadStories() {
     require('../stories/ProgressBar.stories');
     require('../stories/RoundedIcon.stories');
     require('../stories/RoundedImage.stories');
+    require('../stories/StepsBar.stories');
     require('../stories/Tabs.stories');
     require('../stories/TopBar.stories');
     require('../stories/TopNavBar.stories');

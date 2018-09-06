@@ -137,7 +137,7 @@ export default class AnswerUsernamePage extends Component {
                             {/*</div>*/}
                         {/*</div>*/}
                     </div>
-                    {isUsernameValid ?
+                    {isUsernameValid && this.state.username ?
                         <div className="continue-wrapper small" onClick={this.goToProfessionalProfile}>
                             <span className="continue-text">{strings.continue}&nbsp;</span>
                             <span className="icon-arrow-right" />

@@ -7,7 +7,7 @@ import { getValidationErrors } from '../utils/StoreUtils';
 class RegisterStore extends BaseStore {
 
     setInitial() {
-        this._validUsername = false;
+        this._validUsername = true;
         this._error = null;
         this._user = null;
         this._profile = null;

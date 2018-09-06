@@ -147,6 +147,13 @@ export default {
         close         : 'Cerrar',
         ok            : 'Desbloquear'
     },
+    LeisureProfilePage               : {
+        yourAccount: 'Tu cuenta en Nekuno',
+        title      : 'Completa tu perfil de ocio',
+        resume     : 'Necesitamos saber tus deportes, juegos y hobbies preferidos para recomendarte personas y actividades',
+        fillProfile: 'Completar perfil',
+        skip       : 'En otro momento'
+    },
     LoginPage                        : {
         login        : 'Iniciar sesión',
         cancel       : 'Cancelar',

@@ -147,6 +147,13 @@ export default {
         close         : 'Close',
         ok            : 'Unlock'
     },
+    LeisureProfilePage               : {
+        yourAccount: 'Your account at Nekuno',
+        title      : 'Fill your leisure profile',
+        resume     : 'We need to know your sports, games and favorite hobbies to recommend you people and plans',
+        fillProfile: 'Fill profile',
+        skip       : 'Not now'
+    },
     LoginPage                        : {
         login        : 'Login',
         cancel       : 'Cancel',

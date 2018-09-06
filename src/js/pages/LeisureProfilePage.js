@@ -6,7 +6,7 @@ import LocaleStore from '../stores/LocaleStore';
 import Button from '../components/ui/Button/Button.js';
 import Overlay from '../components/ui/Overlay/Overlay.js';
 import TopNavBar from '../components/TopNavBar/TopNavBar.js';
-import '../../scss/pages/professional-profile.scss';
+import '../../scss/pages/leisure-profile.scss';
 
 function getState() {
     const interfaceLanguage = LocaleStore.locale;
@@ -16,9 +16,9 @@ function getState() {
     };
 }
 
-@translate('ProfessionalProfilePage')
+@translate('LeisureProfilePage')
 @connectToStores([LocaleStore], getState)
-export default class ProfessionalProfilePage extends Component {
+export default class LeisureProfilePage extends Component {
 
     static propTypes = {
         // Injected by @translate:
@@ -34,14 +34,15 @@ export default class ProfessionalProfilePage extends Component {
     constructor(props) {
         super(props);
 
-        this.goToLeisureProfilePage = this.goToLeisureProfilePage.bind(this);
+        this.goToExplorerProfilePage = this.goToExplorerProfilePage.bind(this);
     }
 
-    goToLeisureProfilePage() {
-        this.context.router.push('/leisure-profile');
+    goToExplorerProfilePage() {
+        // TODO: Enable when page is ready
+        //this.context.router.push('/answer-username');
     }
 
-    goToProfessionalProfileIndustryPage() {
+    goToLeisureProfileSportsPage() {
         // TODO: Enable when page is ready
         //this.context.router.push('/answer-username');
     }
@@ -51,16 +52,16 @@ export default class ProfessionalProfilePage extends Component {
 
         return (
             <div className="views">
-                <div className="view view-main professional-profile-view">
+                <div className="view view-main leisure-profile-view">
                     <TopNavBar background={'transparent'} color={'white'} iconLeft={'arrow-left'} textCenter={strings.yourAccount} position={'absolute'} textSize={'small'}/>
-                    <div className="professional-profile-wrapper">
+                    <div className="leisure-profile-wrapper">
                         <Overlay/>
                         <div className="image-wrapper">
-                            <img src="/img/proposals/Trabajo.png"/>
+                            <img src="/img/proposals/ConocerGente.png"/>
                         </div>
                         <h1>{strings.title}</h1>
                         <div className="resume">{strings.resume}</div>
-                        <Button onClickHandler={this.goToProfessionalProfileIndustryPage}>{strings.fillProfile}</Button>
+                        <Button onClickHandler={this.goToLeisureProfileSportsPage}>{strings.fillProfile}</Button>
                         <div className="skip-wrapper small" onClick={this.goToLeisureProfilePage}>
                             <span className="skip-text">{strings.skip}&nbsp;</span>
                             <span className="icon-arrow-right" />
@@ -73,11 +74,11 @@ export default class ProfessionalProfilePage extends Component {
 
 }
 
-ProfessionalProfilePage.defaultProps = {
+LeisureProfilePage.defaultProps = {
     strings: {
         yourAccount: 'Your account at Nekuno',
-        title      : 'Fill your professional profile',
-        resume     : 'We need to know your industry and professional skills to recommend you people and projects',
+        title      : 'Fill your leisure profile',
+        resume     : 'We need to know your sports, games and favorite hobbies to recommend you people and plans',
         fillProfile: 'Fill profile',
         skip       : 'Not now'
     }

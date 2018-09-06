@@ -6,7 +6,7 @@ import LocaleStore from '../stores/LocaleStore';
 import Button from '../components/ui/Button/Button.js';
 import Overlay from '../components/ui/Overlay/Overlay.js';
 import TopNavBar from '../components/TopNavBar/TopNavBar.js';
-import '../../scss/pages/explorer-profile.scss';
+import '../../scss/pages/availability.scss';
 
 function getState() {
     const interfaceLanguage = LocaleStore.locale;
@@ -16,9 +16,9 @@ function getState() {
     };
 }
 
-@translate('ExplorerProfilePage')
+@translate('AvailabilityPage')
 @connectToStores([LocaleStore], getState)
-export default class ExplorerProfilePage extends Component {
+export default class AvailabilityPage extends Component {
 
     static propTypes = {
         // Injected by @translate:
@@ -34,14 +34,15 @@ export default class ExplorerProfilePage extends Component {
     constructor(props) {
         super(props);
 
-        this.goToAvailabilityPage = this.goToAvailabilityPage.bind(this);
+        this.goToFacebookConnectPage = this.goToFacebookConnectPage.bind(this);
     }
 
-    goToAvailabilityPage() {
-        this.context.router.push('/availability');
+    goToFacebookConnectPage() {
+        // TODO: Enable when page is ready
+        //this.context.router.push('/answer-username');
     }
 
-    goToExplorerProfileCostPage() {
+    goToAvailabilityEditPage() {
         // TODO: Enable when page is ready
         //this.context.router.push('/answer-username');
     }
@@ -51,17 +52,17 @@ export default class ExplorerProfilePage extends Component {
 
         return (
             <div className="views">
-                <div className="view view-main explorer-profile-view">
+                <div className="view view-main availability-view">
                     <TopNavBar background={'transparent'} color={'white'} iconLeft={'arrow-left'} textCenter={strings.yourAccount} position={'absolute'} textSize={'small'}/>
-                    <div className="explorer-profile-wrapper">
+                    <div className="availability-wrapper">
                         <Overlay/>
                         <div className="image-wrapper">
-                            <img src="/img/proposals/Experiencias-sobreblanco.png"/>
+                            <img src="/img/proposals/Disponibilidad.png"/>
                         </div>
                         <h1>{strings.title}</h1>
                         <div className="resume">{strings.resume}</div>
-                        <Button onClickHandler={this.goToExplorerProfileCostPage}>{strings.fillProfile}</Button>
-                        <div className="skip-wrapper small" onClick={this.goToAvailabilityPage}>
+                        <Button onClickHandler={this.goToAvailabilityEditPage}>{strings.fillProfile}</Button>
+                        <div className="skip-wrapper small" onClick={this.goToFacebookConnectPage}>
                             <span className="skip-text">{strings.skip}&nbsp;</span>
                             <span className="icon-arrow-right" />
                         </div>
@@ -73,11 +74,11 @@ export default class ExplorerProfilePage extends Component {
 
 }
 
-ExplorerProfilePage.defaultProps = {
+AvailabilityPage.defaultProps = {
     strings: {
         yourAccount: 'Your account at Nekuno',
-        title      : 'Fill your explorer profile',
-        resume     : 'We need to know what kind of activities and experiences you like to recommend you people and plans',
+        title      : 'Tell us what your availability is',
+        resume     : 'We need to know how much free time you have to recommend you plans whose match your availability',
         fillProfile: 'Fill profile',
         skip       : 'Not now'
     }

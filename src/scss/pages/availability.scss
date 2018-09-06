@@ -1,0 +1,40 @@
+@import '../_partials/colors';
+
+body #root .App .views .view.availability-view {
+  background: $purple-main;
+  text-align: center;
+  overflow: hidden;
+
+  .availability-wrapper {
+    height: 100%;
+    margin-top: 50px;
+
+    .image-wrapper {
+      padding: 0 24px;
+      text-align: center;
+
+      img {
+        width: 75%;
+      }
+    }
+
+    h1, .resume {
+      padding: 0 24px;
+    }
+
+    .resume {
+      margin-bottom: 32px;
+    }
+
+    .skip-wrapper {
+      cursor: pointer;
+      font-weight: bold;
+      text-align: right;
+      z-index: 111;
+      position: absolute;
+      width: 100%;
+      bottom: 24px;
+      right: 24px;
+    }
+  }
+}

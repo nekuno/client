@@ -29,6 +29,13 @@ export default {
         tutorialThirdStepTitle : 'Importancia',
         tutorialThirdStep      : 'Esta será la importancia que tendrá la pregunta a la hora de hacer los cálculos de compatibilidad.'
     },
+    AvailabilityPage                 : {
+        yourAccount: 'Tu cuenta en Nekuno',
+        title      : 'Dinos cuál es tu disponibilidad',
+        resume     : 'Necesitamos saber cuánto tiempo libre tienes para recomendarte planes que encajen con tu disponibilidad',
+        fillProfile: 'Añadir disponibilidad',
+        skip       : 'En otro momento'
+    },
     ChatMessagesPage                 : {
         noMoreMessages: 'No tienes más mensajes',
         placeholder   : 'Escribe un mensaje...',

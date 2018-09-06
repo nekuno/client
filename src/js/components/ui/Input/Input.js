@@ -11,7 +11,9 @@ export default class Input extends Component {
         doNotFocus  : PropTypes.bool,
         doNotScroll : PropTypes.bool,
         onChange    : PropTypes.func,
-        maxLength   : PropTypes.string
+        maxLength   : PropTypes.string,
+        searchIcon  : PropTypes.bool,
+        size        : PropTypes.oneOf(['regular', 'small'])
     };
 
     constructor(props) {
@@ -71,11 +73,16 @@ export default class Input extends Component {
     }
 
     render() {
-        const {placeholder, type, defaultValue, checked, maxLength} = this.props;
+        const {placeholder, type, defaultValue, checked, maxLength, searchIcon, size} = this.props;
         const {empty} = this.state;
+        const sizeClass = size === 'small' ? styles.small : null;
         return (
-            <div className={styles.inputWrapper}>
+            <div className={styles.inputWrapper + ' ' + sizeClass}>
                 <div className={styles.input}>
+                    {searchIcon && empty ?
+                        <span className={styles.searchIcon + ' icon icon-search'}/>
+                        : null
+                    }
                     <input ref="input"
                            type={type || "text"}
                            placeholder={placeholder}

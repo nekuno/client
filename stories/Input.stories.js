@@ -19,6 +19,16 @@ storiesOf('Input', module)
             <Input placeholder={'Write anything'} defaultValue={'Lorem ipsum'} checked={true} onChange={action('changed')}/>
         </div>
     ))
+    .add('small search input with default value', () => (
+        <div style={{background: '#756EE5'}}>
+            <Input placeholder={'Write anything'} defaultValue={'Lorem ipsum'} searchIcon={true} onChange={action('changed')} size={'small'}/>
+        </div>
+    ))
+    .add('search input with default value', () => (
+        <div style={{background: '#756EE5'}}>
+            <Input placeholder={'Write anything'} defaultValue={'Lorem ipsum'} searchIcon={true} onChange={action('changed')}/>
+        </div>
+    ))
     .add('number input', () => (
         <div style={{background: '#756EE5'}}>
             <Input type={'number'} placeholder={'Write anything'} onChange={action('changed')}/>

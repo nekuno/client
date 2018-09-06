@@ -12,12 +12,20 @@
     margin: 16px;
     text-align: center;
 
+    .search-icon {
+      color: $gray-secondary-text;
+      font-size: 26px;
+      line-height: 60px;
+    }
+
     input {
       border: none;
       font-size: 19px;
+      height: 58px;
       width: 70%;
       margin: 0 5px;
       text-align: center;
+      vertical-align: top;
 
       &:focus{
         outline: none;
@@ -26,6 +34,28 @@
 
     .icon-check {
       color: $green-experiences
+    }
+  }
+
+  &.small {
+    padding: 8px;
+
+    .input {
+      border: 1px solid $gray-secondary-text;
+      height: 40px;
+      line-height: 40px;
+
+      .search-icon {
+        line-height: 40px;
+      }
+
+      input {
+        font-size: 16px;
+        height: 38px;
+        text-align: left;
+        line-height: 38px;
+        width: 85%;
+      }
     }
   }
 }

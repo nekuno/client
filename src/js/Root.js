@@ -8,6 +8,7 @@ import HomePage from './pages/HomePage';
 import AnswerUsernamePage from './pages/AnswerUsernamePage';
 import ProfessionalProfilePage from './pages/ProfessionalProfilePage';
 import LeisureProfilePage from './pages/LeisureProfilePage';
+import ExplorerProfilePage from './pages/ExplorerProfilePage';
 import ExplorePage from './pages/ExplorePage';
 import ChatThreadsPage from './pages/ChatThreadsPage';
 import ChatMessagesPage from './pages/ChatMessagesPage';
@@ -78,6 +79,7 @@ export default class Root extends Component {
                     <Route name="answer-username" path="/answer-username" component={AnswerUsernamePage}/>
                     <Route name="professional-profile" path="/professional-profile" component={ProfessionalProfilePage}/>
                     <Route name="leisure-profile" path="/leisure-profile" component={LeisureProfilePage}/>
+                    <Route name="explorer-profile" path="/explorer-profile" component={ExplorerProfilePage}/>
                     <Route name="login" path="/login" component={LoginPage}/>
                     <Route name="register" path="/register" component={RegisterPage}/>
                     <Route name="shared-user" path="/p/:slug" component={ProfilePage}/>

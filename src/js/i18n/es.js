@@ -57,6 +57,13 @@ export default {
         saveChanges : 'Guardar cambios',
         cannotRemove: 'Este campo no se puede eliminar'
     },
+    ExplorerProfilePage              : {
+        yourAccount: 'Tu cuenta en Nekuno',
+        title      : 'Completa tu perfil de explorador',
+        resume     : 'Necesitamos saber qué tipo de actividades y experiencias te gustan para recomendarte personas y planes',
+        fillProfile: 'Completar perfil',
+        skip       : 'En otro momento'
+    },
     HomePage                         : {
         title1       : 'Conoce personas afines a ti',
         title2       : 'Comparte tus ideas y planes',

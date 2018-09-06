@@ -57,6 +57,13 @@ export default {
         saveChanges : 'Save changes',
         cannotRemove: 'This field cannot be deleted'
     },
+    ExplorerProfilePage              : {
+        yourAccount: 'Your account at Nekuno',
+        title      : 'Fill your explorer profile',
+        resume     : 'We need to know what kind of activities and experiences you like to recommend you people and plans',
+        fillProfile: 'Fill profile',
+        skip       : 'Not now'
+    },
     HomePage                         : {
         title1       : 'Meet people related to you',
         title2       : 'Share your ideas and plans',

@@ -53,7 +53,7 @@ export default class InputSelectText extends Component {
         this.refs["input"].clearValue();
 
         if (this.props.onClickHandler) {
-            this.props.onClickHandler(newSelected);
+            this.props.onClickHandler(newSelected.map(option => option.id));
         }
     }
 

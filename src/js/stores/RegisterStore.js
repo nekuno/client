@@ -93,6 +93,10 @@ class RegisterStore extends BaseStore {
         }
     }
 
+    get user() {
+        return this._user;
+    }
+
     get profile() {
         return this._profile;
     }

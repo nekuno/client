@@ -2,8 +2,10 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import connectToStores from '../utils/connectToStores';
 import translate from '../i18n/Translate';
+import LoginActionCreators from '../actions/LoginActionCreators';
 import LocaleStore from '../stores/LocaleStore';
 import ProfileStore from '../stores/ProfileStore';
+import RegisterStore from '../stores/RegisterStore';
 import InputSelectText from '../components/RegisterFields/InputSelectText/InputSelectText.js';
 import StepsBar from '../components/ui/StepsBar/StepsBar.js';
 import TopNavBar from '../components/TopNavBar/TopNavBar.js';
@@ -20,15 +22,20 @@ function getState() {
     const interfaceLanguage = LocaleStore.locale;
     const metadata = ProfileStore.getMetadata();
     const choices = metadata && metadata.industry ? metadata.industry.choices : [];
+    const user = RegisterStore.user;
+    const username = user && user.username ? user.username : null;
+    const profile = RegisterStore.profile;
 
     return {
         interfaceLanguage,
-        choices
+        choices,
+        profile,
+        username
     };
 }
 
 @translate('ProfessionalProfileIndustryPage')
-@connectToStores([LocaleStore, ProfileStore], getState)
+@connectToStores([LocaleStore, ProfileStore, RegisterStore], getState)
 export default class ProfessionalProfileIndustryPage extends Component {
 
     static propTypes = {
@@ -36,6 +43,8 @@ export default class ProfessionalProfileIndustryPage extends Component {
         strings          : PropTypes.object,
         // Injected by @connectToStores:
         choices          : PropTypes.array,
+        profile          : PropTypes.object,
+        username         : PropTypes.string,
         interfaceLanguage: PropTypes.string
     };
 
@@ -47,9 +56,13 @@ export default class ProfessionalProfileIndustryPage extends Component {
         super(props);
 
         this.goToLeisureProfilePage = this.goToLeisureProfilePage.bind(this);
+        this.onChange = this.onChange.bind(this);
     }
 
     componentDidMount() {
+        if (!this.props.username) {
+            this.context.router.push('/answer-username');
+        }
         requestData(this.props);
     }
 
@@ -63,8 +76,9 @@ export default class ProfessionalProfileIndustryPage extends Component {
     }
 
     onChange(choices) {
-        // TODO: Save choices
-        console.log(choices);
+        const {profile} = this.props;
+
+        LoginActionCreators.preRegisterProfile({...profile, ...{industry: choices}});
     }
 
     render() {
@@ -81,7 +95,7 @@ export default class ProfessionalProfileIndustryPage extends Component {
                                          searchIcon={true}
                                          size={'small'}
                                          chipsColor={'blue'}
-                                         onChange={this.onChange}
+                                         onClickHandler={this.onChange}
                                          selectedLabel={strings.selected}/>
                     </div>
                 </div>

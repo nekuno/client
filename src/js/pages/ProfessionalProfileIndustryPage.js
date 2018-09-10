@@ -82,7 +82,8 @@ export default class ProfessionalProfileIndustryPage extends Component {
     }
 
     render() {
-        const {choices, strings} = this.props;
+        const {choices, profile, strings} = this.props;
+        const canContinue = profile && profile.industry && profile.industry.length > 0;
 
         return (
             <div className="views">
@@ -99,7 +100,7 @@ export default class ProfessionalProfileIndustryPage extends Component {
                                          selectedLabel={strings.selected}/>
                     </div>
                 </div>
-                <StepsBar color={'blue'} canContinue={true} cantContinueText={strings.addIndustry} continueText={strings.continue} currentStep={0} totalSteps={2} onClickHandler={this.goToLeisureProfilePage}/>
+                <StepsBar color={'blue'} canContinue={canContinue} cantContinueText={strings.addIndustry} continueText={strings.continue} currentStep={0} totalSteps={2} onClickHandler={this.goToLeisureProfilePage}/>
             </div>
         );
     }

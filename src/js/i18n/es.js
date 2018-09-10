@@ -205,6 +205,14 @@ export default {
         fillProfile: 'Completar perfil',
         skip       : 'En otro momento'
     },
+    ProfessionalProfileIndustryPage  : {
+        workAndIdeas  : 'Trabajo, Ideas y Proyectos',
+        title         : '¿Cuáles son tus sectores professionales?',
+        selected      : 'Tus sectores profesionales',
+        searchIndustry: 'Buscar sector (por ej. Internet)',
+        addIndustry   : 'Añade un sector para continuar',
+        continue      : 'Continuar'
+    },
     QuestionsPage                    : {
         myProfile: 'Mi Perfil',
         about    : 'Sobre mi',

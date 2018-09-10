@@ -205,6 +205,14 @@ export default {
         fillProfile: 'Fill profile',
         skip       : 'Not now'
     },
+    ProfessionalProfileIndustryPage  : {
+        workAndIdeas  : 'Work, Ideas & Projects',
+        title         : 'What are your professional industry?',
+        selected      : 'Your professional industries',
+        searchIndustry: 'Search industry (e.g. Internet)',
+        addIndustry   : 'Add an industry to continue',
+        continue      : 'Continue'
+    },
     QuestionsPage                    : {
         myProfile: 'My profile',
         about    : 'About me',

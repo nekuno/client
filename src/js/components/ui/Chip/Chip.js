@@ -7,12 +7,15 @@ export default class Chip extends Component {
     static propTypes = {
         onClickHandler : PropTypes.func.isRequired,
         text           : PropTypes.string.isRequired,
+        value          : PropTypes.string,
         selected       : PropTypes.bool,
         color          : PropTypes.oneOf(['purple', 'blue', 'pink', 'green'])
     };
 
     handleClick() {
-        this.props.onClickHandler();
+        const {value, text} = this.props;
+
+        this.props.onClickHandler(value || text);
     }
 
     render() {

@@ -7,6 +7,7 @@ import App from './App';
 import HomePage from './pages/HomePage';
 import AnswerUsernamePage from './pages/AnswerUsernamePage';
 import ProfessionalProfilePage from './pages/ProfessionalProfilePage';
+import ProfessionalProfileIndustryPage from './pages/ProfessionalProfileIndustryPage';
 import LeisureProfilePage from './pages/LeisureProfilePage';
 import ExplorerProfilePage from './pages/ExplorerProfilePage';
 import AvailabilityPage from './pages/AvailabilityPage';
@@ -79,6 +80,7 @@ export default class Root extends Component {
                     <Route name="splash" path="/splash" component={HomePage}/>
                     <Route name="answer-username" path="/answer-username" component={AnswerUsernamePage}/>
                     <Route name="professional-profile" path="/professional-profile" component={ProfessionalProfilePage}/>
+                    <Route name="professional-profile-industry" path="/professional-profile-industry" component={ProfessionalProfileIndustryPage}/>
                     <Route name="leisure-profile" path="/leisure-profile" component={LeisureProfilePage}/>
                     <Route name="explorer-profile" path="/explorer-profile" component={ExplorerProfilePage}/>
                     <Route name="availability" path="/availability" component={AvailabilityPage}/>

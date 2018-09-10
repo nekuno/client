@@ -34,6 +34,7 @@ export default class ProfessionalProfilePage extends Component {
     constructor(props) {
         super(props);
 
+        this.goToProfessionalProfileIndustryPage = this.goToProfessionalProfileIndustryPage.bind(this);
         this.goToLeisureProfilePage = this.goToLeisureProfilePage.bind(this);
     }
 
@@ -42,8 +43,7 @@ export default class ProfessionalProfilePage extends Component {
     }
 
     goToProfessionalProfileIndustryPage() {
-        // TODO: Enable when page is ready
-        //this.context.router.push('/answer-username');
+        this.context.router.push('/professional-profile-industry');
     }
 
     render() {

@@ -24,10 +24,12 @@
       height: 58px;
       width: 70%;
       margin: 0 5px;
+      max-width: 80%;
       text-align: center;
+      text-overflow: ellipsis;
       vertical-align: top;
 
-      &:focus{
+      &:focus {
         outline: none;
       }
     }

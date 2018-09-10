@@ -7,7 +7,6 @@ import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
 import LoginActionCreators from '../actions/LoginActionCreators';
 import  * as UserActionCreators from '../actions/UserActionCreators';
-import RouterActionCreators from '../actions/RouterActionCreators';
 import SocialNetworkService from '../services/SocialNetworkService';
 import RegisterStore from '../stores/RegisterStore';
 import TopNavBar from '../components/TopNavBar/TopNavBar.js';
@@ -69,15 +68,19 @@ export default class AnswerUsernamePage extends Component {
         }, 1000);
     }
 
-    handleClickSave(username) {
-        let user = {username: username};
-        LoginActionCreators.preRegister(user).then(() => {
-            // TODO: Set next route
-            setTimeout(() =>  { RouterActionCreators.replaceRoute('/') }, 0);
-        }).catch(error => {
-            //TODO: Fix it
-            alert(this.props.strings.invalidUsername);
-        });
+    handleClickSave() {
+        const {validationPromise, username} = this.state;
+        if (typeof validationPromise.cancel !== 'undefined') {
+            validationPromise.cancel();
+        }
+        if (typeof this.usernameTimeout !== 'undefined') {
+            clearTimeout(this.usernameTimeout);
+        }
+        let newPromise = UserActionCreators.validateUsername(username);
+        const user = {username: username};
+        LoginActionCreators.preRegister(user);
+
+        newPromise.then(() => setTimeout(this.goToProfessionalProfile, 0));
     }
 
     goToProfessionalProfile() {
@@ -138,7 +141,7 @@ export default class AnswerUsernamePage extends Component {
                         {/*</div>*/}
                     </div>
                     {isUsernameValid && this.state.username ?
-                        <div className="continue-wrapper small" onClick={this.goToProfessionalProfile}>
+                        <div className="continue-wrapper small" onClick={this.handleClickSave}>
                             <span className="continue-text">{strings.continue}&nbsp;</span>
                             <span className="icon-arrow-right" />
                         </div>

@@ -10,6 +10,7 @@ import ProfessionalProfilePage from './pages/ProfessionalProfilePage';
 import ProfessionalProfileIndustryPage from './pages/ProfessionalProfileIndustryPage';
 import ProfessionalProfileSkillsPage from './pages/ProfessionalProfileSkillsPage';
 import LeisureProfilePage from './pages/LeisureProfilePage';
+import LeisureProfileSportsPage from './pages/LeisureProfileSportsPage';
 import ExplorerProfilePage from './pages/ExplorerProfilePage';
 import AvailabilityPage from './pages/AvailabilityPage';
 import ExplorePage from './pages/ExplorePage';
@@ -84,6 +85,7 @@ export default class Root extends Component {
                     <Route name="professional-profile-industry" path="/professional-profile-industry" component={ProfessionalProfileIndustryPage}/>
                     <Route name="professional-profile-skills" path="/professional-profile-skills" component={ProfessionalProfileSkillsPage}/>
                     <Route name="leisure-profile" path="/leisure-profile" component={LeisureProfilePage}/>
+                    <Route name="leisure-profile-sports" path="/leisure-profile-sports" component={LeisureProfileSportsPage}/>
                     <Route name="explorer-profile" path="/explorer-profile" component={ExplorerProfilePage}/>
                     <Route name="availability" path="/availability" component={AvailabilityPage}/>
                     <Route name="login" path="/login" component={LoginPage}/>

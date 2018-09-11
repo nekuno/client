@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import connectToStores from '../utils/connectToStores';
 import translate from '../i18n/Translate';
 import LocaleStore from '../stores/LocaleStore';
+import RegisterStore from '../stores/RegisterStore';
 import Button from '../components/ui/Button/Button.js';
 import Overlay from '../components/ui/Overlay/Overlay.js';
 import TopNavBar from '../components/TopNavBar/TopNavBar.js';
@@ -10,21 +11,25 @@ import '../../scss/pages/explorer-profile.scss';
 
 function getState() {
     const interfaceLanguage = LocaleStore.locale;
+    const user = RegisterStore.user;
+    const username = user && user.username ? user.username : null;
 
     return {
         interfaceLanguage,
+        username
     };
 }
 
 @translate('ExplorerProfilePage')
-@connectToStores([LocaleStore], getState)
+@connectToStores([LocaleStore, RegisterStore], getState)
 export default class ExplorerProfilePage extends Component {
 
     static propTypes = {
         // Injected by @translate:
         strings          : PropTypes.object,
         // Injected by @connectToStores:
-        interfaceLanguage: PropTypes.string
+        interfaceLanguage: PropTypes.string,
+        username         : PropTypes.string
     };
 
     static contextTypes = {
@@ -35,6 +40,12 @@ export default class ExplorerProfilePage extends Component {
         super(props);
 
         this.goToAvailabilityPage = this.goToAvailabilityPage.bind(this);
+    }
+
+    componentDidMount() {
+        if (!this.props.username) {
+            this.context.router.push('/answer-username');
+        }
     }
 
     goToAvailabilityPage() {

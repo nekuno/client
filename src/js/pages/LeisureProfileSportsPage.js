@@ -12,7 +12,7 @@ import InputTag from '../components/RegisterFields/InputTag/InputTag.js';
 import StepsBar from '../components/ui/StepsBar/StepsBar.js';
 import TopNavBar from '../components/TopNavBar/TopNavBar.js';
 import * as UserActionCreators from '../actions/UserActionCreators';
-import '../../scss/pages/professional-profile-skills.scss';
+import '../../scss/pages/leisure-profile-sports.scss';
 
 function requestData(props) {
     if (!props.metadata) {
@@ -40,9 +40,9 @@ function getState() {
     };
 }
 
-@translate('ProfessionalProfileSkillsPage')
+@translate('LeisureProfileSportsPage')
 @connectToStores([LocaleStore, ProfileStore, RegisterStore, TagSuggestionsStore], getState)
-export default class ProfessionalProfileSkillsPage extends Component {
+export default class LeisureProfileSportsPage extends Component {
 
     static propTypes = {
         // Injected by @translate:
@@ -61,7 +61,7 @@ export default class ProfessionalProfileSkillsPage extends Component {
     constructor(props) {
         super(props);
 
-        this.goToLeisureProfilePage = this.goToLeisureProfilePage.bind(this);
+        this.goToLeisureProfileHobbiesPage = this.goToLeisureProfileHobbiesPage.bind(this);
         this.onChange = this.onChange.bind(this);
     }
 
@@ -73,20 +73,20 @@ export default class ProfessionalProfileSkillsPage extends Component {
         requestData(this.props);
     }
 
-    goToLeisureProfilePage() {
-        this.context.router.push('/leisure-profile');
+    goToLeisureProfileHobbiesPage() {
+        this.context.router.push('/leisure-profile-hobbies');
     }
 
     onChange(tags) {
         const {profile} = this.props;
 
         resetTagSuggestions();
-        LoginActionCreators.preRegisterProfile({...profile, ...{profession: tags}});
+        LoginActionCreators.preRegisterProfile({...profile, ...{sports: tags}});
     }
 
     onChangeText(text) {
         if (text) {
-            TagSuggestionsActionCreators.requestProfileTagSuggestions(text, 'profession');
+            TagSuggestionsActionCreators.requestProfileTagSuggestions(text, 'sports');
         } else {
             resetTagSuggestions();
         }
@@ -94,38 +94,38 @@ export default class ProfessionalProfileSkillsPage extends Component {
 
     render() {
         const {tagValues, profile, strings} = this.props;
-        const canContinue = profile && profile.profession && profile.profession.length > 0;
+        const canContinue = profile && profile.sports && profile.sports.length > 0;
 
         return (
             <div className="views">
-                <div className="view view-main professional-profile-skills-view">
-                    <TopNavBar iconLeft={'arrow-left'} textCenter={strings.workAndIdeas} textSize={'small'}/>
-                    <div className="professional-profile-skills-wrapper">
+                <div className="view view-main leisure-profile-sports-view">
+                    <TopNavBar iconLeft={'arrow-left'} textCenter={strings.sportsAndGames} textSize={'small'}/>
+                    <div className="leisure-profile-sports-wrapper">
                         <h2>{strings.title}</h2>
                         <InputTag tags={tagValues}
-                                  placeholder={strings.searchIndustry}
+                                  placeholder={strings.searchSport}
                                   searchIcon={true}
                                   size={'small'}
-                                  chipsColor={'blue'}
+                                  chipsColor={'pink'}
                                   onChangeHandler={this.onChangeText}
                                   onClickHandler={this.onChange}
                                   selectedLabel={strings.selected}/>
                     </div>
                 </div>
-                <StepsBar color={'blue'} canContinue={canContinue} cantContinueText={strings.addIndustry} continueText={strings.continue} currentStep={1} totalSteps={2} onClickHandler={this.goToLeisureProfilePage}/>
+                <StepsBar color={'pink'} canContinue={canContinue} cantContinueText={strings.addSport} continueText={strings.continue} currentStep={0} totalSteps={2} onClickHandler={this.goToLeisureProfileHobbiesPage}/>
             </div>
         );
     }
 
 }
 
-ProfessionalProfileSkillsPage.defaultProps = {
+LeisureProfileSportsPage.defaultProps = {
     strings: {
-        workAndIdeas  : 'Work, Ideas & Projects',
-        title         : 'What are your professional skills?',
-        selected      : 'Your professional skills',
-        searchIndustry: 'Search skill',
-        addIndustry   : 'Add a skill to continue',
+        sportsAndGames: 'Sports, Games & Hobbies',
+        title         : 'What sports do you like to play in your free time?',
+        selected      : 'Your selected sports',
+        searchSport   : 'Search sport (e.g. Skateboarding)',
+        addSport      : 'Add an sport to continue',
         continue      : 'Continue'
     }
 };

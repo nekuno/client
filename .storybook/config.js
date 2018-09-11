@@ -11,6 +11,7 @@ function loadStories() {
     require('../stories/Frame.stories');
     require('../stories/IconNotification.stories');
     require('../stories/Input.stories');
+    require('../stories/InputSelectImage.stories');
     require('../stories/InputSelectText.stories');
     require('../stories/InputTag.stories');
     require('../stories/LeftPanel.stories');

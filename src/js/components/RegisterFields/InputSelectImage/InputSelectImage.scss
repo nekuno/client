@@ -8,7 +8,7 @@
     cursor: pointer;
     display: inline-block;
     height: 128px;
-    margin: 8px 24px;
+    margin: 16px 24px;
     vertical-align: top;
     width: 100px;
 
@@ -64,9 +64,11 @@
 
     .text {
       color: $gray-secondary-text;
+      margin-left: -12px;
       max-height: 40px;
       overflow: hidden;
       text-align: center;
+      width: 124px;
 
       &.selected {
         color: $gray-main-text;

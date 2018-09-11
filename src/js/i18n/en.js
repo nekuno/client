@@ -168,6 +168,13 @@ export default {
         fillProfile: 'Fill profile',
         skip       : 'Not now'
     },
+    LeisureProfileHobbies            : {
+        sportsAndGames: 'Sports, Games & Hobbies',
+        title         : 'What hobbies do you like to practice in your free time?',
+        searchHobby   : 'Search hobby',
+        addHobby      : 'Add a hobby to continue',
+        continue      : 'Continue'
+    },
     LeisureProfileSports             : {
         sportsAndGames: 'Sports, Games & Hobbies',
         title         : 'What sports do you like to play in your free time?',

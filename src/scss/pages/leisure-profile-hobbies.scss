@@ -1,0 +1,15 @@
+@import '../_partials/colors';
+
+body #root .App .views .view.leisure-profile-hobbies-view {
+  color: $gray-main-text;
+  text-align: center;
+  z-index: 0;
+
+  .leisure-profile-hobbies-wrapper {
+    margin-bottom: 60px;
+
+    h2 {
+      padding: 0 24px
+    }
+  }
+}

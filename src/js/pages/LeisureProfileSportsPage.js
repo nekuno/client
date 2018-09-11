@@ -112,7 +112,7 @@ export default class LeisureProfileSportsPage extends Component {
                                   selectedLabel={strings.selected}/>
                     </div>
                 </div>
-                <StepsBar color={'pink'} canContinue={canContinue} cantContinueText={strings.addSport} continueText={strings.continue} currentStep={0} totalSteps={2} onClickHandler={this.goToLeisureProfileHobbiesPage}/>
+                <StepsBar color={'pink'} canContinue={canContinue} cantContinueText={strings.addSport} continueText={strings.continue} currentStep={0} totalSteps={3} onClickHandler={this.goToLeisureProfileHobbiesPage}/>
             </div>
         );
     }

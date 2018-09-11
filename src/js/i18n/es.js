@@ -168,9 +168,16 @@ export default {
         fillProfile: 'Completar perfil',
         skip       : 'En otro momento'
     },
+    LeisureProfileHobbies            : {
+        sportsAndGames: 'Deportes, Juegos y Hobbies',
+        title         : '¿Qué hobbies te gusta practicar en tu tiempo libre?',
+        searchHobby   : 'Buscar hobby',
+        addHobby      : 'Añade un hobby para continuar',
+        continue      : 'Continuar'
+    },
     LeisureProfileSports             : {
         sportsAndGames: 'Deportes, Juegos y Hobbies',
-        title         : 'Qué deportes te gusta practicar en tu tiempo libre?',
+        title         : '¿Qué deportes te gusta practicar en tu tiempo libre?',
         selected      : 'Tus deportes seleccionados',
         searchSport   : 'Buscar deporte (por ej. Skateboarding)',
         addSport      : 'Añade un deporte para continuar',

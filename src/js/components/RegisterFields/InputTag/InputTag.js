@@ -2,13 +2,13 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import Input from '../../ui/Input/Input.js';
 import Chip from '../../ui/Chip/Chip.js';
-import styles from './InputSelectText.scss';
+import styles from './InputTag.scss';
 
-export default class InputSelectText extends Component {
+export default class InputTag extends Component {
 
     static propTypes = {
         placeholder    : PropTypes.string,
-        options        : PropTypes.array,
+        tags           : PropTypes.array,
         selectedLabel  : PropTypes.string,
         chipsColor     : PropTypes.oneOf(['purple', 'blue', 'pink', 'green']),
         onChangeHandler: PropTypes.func,
@@ -23,58 +23,47 @@ export default class InputSelectText extends Component {
 
         this.state = {
             selected: [],
-            suggested: []
         }
     }
 
     handleChange(text) {
-        const {options} = this.props;
-        const {selected} = this.state;
-
-        this.setState({suggested: options.filter(
-            option => text
-                && option.text.toLowerCase().indexOf(text.toLowerCase()) !== -1
-                && !selected.some(item => item.id === option.id)
-        )});
-
         if (this.props.onChangeHandler) {
             this.props.onChangeHandler(text);
         }
     }
 
-    handleClick(id) {
-        const {options} = this.props;
+    handleClick(text) {
+        const {tags} = this.props;
         const {selected} = this.state;
         let newSelected = selected.slice(0);
-        const index = selected.findIndex(option => option.id === id);
+        const index = selected.findIndex(tag => tag === text);
 
         if (index !== -1) {
             newSelected.splice(index, 1);
         } else {
-            newSelected.push(options.find(option => option.id === id));
+            newSelected.push(tags.find(tag => tag === text));
         }
-        this.setState({selected: newSelected, suggested: []});
+        this.setState({selected: newSelected});
 
         this.refs["input"].clearValue();
 
         if (this.props.onClickHandler) {
-            this.props.onClickHandler(newSelected.map(option => option.id));
+            this.props.onClickHandler(newSelected);
         }
     }
 
     render() {
-        const {placeholder, selectedLabel, chipsColor} = this.props;
-        const {selected, suggested} = this.state;
+        const {tags, placeholder, selectedLabel, chipsColor} = this.props;
+        const {selected} = this.state;
 
         return (
-            <div className={styles.inputSelectText}>
+            <div className={styles.inputTag}>
                 <Input ref="input" placeholder={placeholder} searchIcon={true} size={'small'} onChange={this.handleChange} doNotScroll={true}/>
 
-                {suggested.map((item, index) =>
+                {tags.filter(tag => !selected.some(selectedTag => selectedTag === tag)).map((tag, index) =>
                     <div key={index} className={styles.suggestedChip}>
                         <Chip onClickHandler={this.handleClick}
-                              text={item.text}
-                              value={item.id}
+                              text={tag}
                               color={chipsColor}
                         />
                     </div>
@@ -82,11 +71,10 @@ export default class InputSelectText extends Component {
                 {selected.length > 0 ?
                     <div className={styles.selectedLabel + " small"}>{selectedLabel}</div> : null
                 }
-                {selected.map((item, index) =>
+                {selected.map((tag, index) =>
                     <div key={index} className={styles.selectedChip}>
                         <Chip onClickHandler={this.handleClick}
-                              text={item.text}
-                              value={item.id}
+                              text={tag}
                               color={chipsColor}
                               selected={true}
                         />

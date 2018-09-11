@@ -213,6 +213,14 @@ export default {
         addIndustry   : 'Add an industry to continue',
         continue      : 'Continue'
     },
+    ProfessionalProfileSkillsPage    : {
+        workAndIdeas  : 'Work, Ideas & Projects',
+        title         : 'What are your professional skills?',
+        selected      : 'Your professional skills',
+        searchIndustry: 'Search skill',
+        addIndustry   : 'Add a skill to continue',
+        continue      : 'Continue'
+    },
     QuestionsPage                    : {
         myProfile: 'My profile',
         about    : 'About me',

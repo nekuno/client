@@ -55,8 +55,8 @@ export default class ProfessionalProfileIndustryPage extends Component {
     constructor(props) {
         super(props);
 
-        this.goToLeisureProfilePage = this.goToLeisureProfilePage.bind(this);
         this.onChange = this.onChange.bind(this);
+        this.goToProfessionalProfileSkillsPage = this.goToProfessionalProfileSkillsPage.bind(this);
     }
 
     componentDidMount() {
@@ -66,13 +66,8 @@ export default class ProfessionalProfileIndustryPage extends Component {
         requestData(this.props);
     }
 
-    goToLeisureProfilePage() {
-        this.context.router.push('/leisure-profile');
-    }
-
     goToProfessionalProfileSkillsPage() {
-        // TODO: Enable when page is ready
-        //this.context.router.push('/answer-username');
+        this.context.router.push('/professional-profile-skills');
     }
 
     onChange(choices) {
@@ -100,7 +95,7 @@ export default class ProfessionalProfileIndustryPage extends Component {
                                          selectedLabel={strings.selected}/>
                     </div>
                 </div>
-                <StepsBar color={'blue'} canContinue={canContinue} cantContinueText={strings.addIndustry} continueText={strings.continue} currentStep={0} totalSteps={2} onClickHandler={this.goToLeisureProfilePage}/>
+                <StepsBar color={'blue'} canContinue={canContinue} cantContinueText={strings.addIndustry} continueText={strings.continue} currentStep={0} totalSteps={2} onClickHandler={this.goToProfessionalProfileSkillsPage}/>
             </div>
         );
     }

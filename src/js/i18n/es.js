@@ -213,6 +213,14 @@ export default {
         addIndustry   : 'Añade un sector para continuar',
         continue      : 'Continuar'
     },
+    ProfessionalProfileSkillsPage    : {
+        workAndIdeas  : 'Trabajo, Ideas y Proyectos',
+        title         : '¿Cuáles son tus habilidades professionales?',
+        selected      : 'Tus habilidades profesionales',
+        searchIndustry: 'Buscar habilidad',
+        addIndustry   : 'Añade una habilidad para continuar',
+        continue      : 'Continuar'
+    },
     QuestionsPage                    : {
         myProfile: 'Mi Perfil',
         about    : 'Sobre mi',

@@ -23,6 +23,7 @@ export default class InputTag extends Component {
 
         this.state = {
             selected: [],
+            text: ''
         }
     }
 
@@ -30,10 +31,10 @@ export default class InputTag extends Component {
         if (this.props.onChangeHandler) {
             this.props.onChangeHandler(text);
         }
+        this.setState({text: text});
     }
 
     handleClick(text) {
-        const {tags} = this.props;
         const {selected} = this.state;
         let newSelected = selected.slice(0);
         const index = selected.findIndex(tag => tag === text);
@@ -41,7 +42,7 @@ export default class InputTag extends Component {
         if (index !== -1) {
             newSelected.splice(index, 1);
         } else {
-            newSelected.push(tags.find(tag => tag === text));
+            newSelected.push(text);
         }
         this.setState({selected: newSelected});
 
@@ -54,12 +55,20 @@ export default class InputTag extends Component {
 
     render() {
         const {tags, placeholder, selectedLabel, chipsColor} = this.props;
-        const {selected} = this.state;
+        const {selected, text} = this.state;
 
         return (
             <div className={styles.inputTag}>
                 <Input ref="input" placeholder={placeholder} searchIcon={true} size={'small'} onChange={this.handleChange} doNotScroll={true}/>
 
+                {text && text.length > 1 && !selected.some(selectedTag => selectedTag === text) ?
+                    <div className={styles.suggestedChip}>
+                        <Chip onClickHandler={this.handleClick}
+                              text={text}
+                              color={chipsColor}
+                        />
+                    </div> : null
+                }
                 {tags.filter(tag => !selected.some(selectedTag => selectedTag === tag)).map((tag, index) =>
                     <div key={index} className={styles.suggestedChip}>
                         <Chip onClickHandler={this.handleClick}

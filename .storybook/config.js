@@ -12,6 +12,7 @@ function loadStories() {
     require('../stories/IconNotification.stories');
     require('../stories/Input.stories');
     require('../stories/InputSelectText.stories');
+    require('../stories/InputTag.stories');
     require('../stories/LeftPanel.stories');
     require('../stories/Overlay.stories');
     require('../stories/ProgressBar.stories');

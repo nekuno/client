@@ -58,6 +58,11 @@ export default {
         error        : 'Error connecting network. You may have connected it with other user.',
         answerExplore: 'Do you want to answer explore objectives?'
     },
+    ConnectSteamAnonymous            : {
+        connect       : 'Connect Steam',
+        resume        : 'Load your favorite games automatically',
+        cannotGetGames: 'You may have privacy settings to private. Try to set to public if you want to see your games.'
+    },
     EditProfilePage                  : {
         title       : 'Edit profile',
         cancel      : 'Cancel',
@@ -167,6 +172,14 @@ export default {
         resume     : 'We need to know your sports, games and favorite hobbies to recommend you people and plans',
         fillProfile: 'Fill profile',
         skip       : 'Not now'
+    },
+    LeisureProfileGamesPage          : {
+        sportsAndGames: 'Sports, Games & Hobbies',
+        title         : 'What games do you like to play in your free time?',
+        selected      : 'Games that you like',
+        searchGame    : 'Search game',
+        addGame       : 'Add a game to continue',
+        continue      : 'Continue'
     },
     LeisureProfileHobbiesPage        : {
         sportsAndGames: 'Sports, Games & Hobbies',

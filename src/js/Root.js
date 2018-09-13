@@ -12,6 +12,7 @@ import ProfessionalProfileSkillsPage from './pages/ProfessionalProfileSkillsPage
 import LeisureProfilePage from './pages/LeisureProfilePage';
 import LeisureProfileSportsPage from './pages/LeisureProfileSportsPage';
 import LeisureProfileHobbiesPage from './pages/LeisureProfileHobbiesPage';
+import LeisureProfileGamesPage from './pages/LeisureProfileGamesPage';
 import ExplorerProfilePage from './pages/ExplorerProfilePage';
 import AvailabilityPage from './pages/AvailabilityPage';
 import ExplorePage from './pages/ExplorePage';
@@ -88,6 +89,7 @@ export default class Root extends Component {
                     <Route name="leisure-profile" path="/leisure-profile" component={LeisureProfilePage}/>
                     <Route name="leisure-profile-sports" path="/leisure-profile-sports" component={LeisureProfileSportsPage}/>
                     <Route name="leisure-profile-hobbies" path="/leisure-profile-hobbies" component={LeisureProfileHobbiesPage}/>
+                    <Route name="leisure-profile-games" path="/leisure-profile-games" component={LeisureProfileGamesPage}/>
                     <Route name="explorer-profile" path="/explorer-profile" component={ExplorerProfilePage}/>
                     <Route name="availability" path="/availability" component={AvailabilityPage}/>
                     <Route name="login" path="/login" component={LoginPage}/>

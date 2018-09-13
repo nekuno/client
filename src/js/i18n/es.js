@@ -58,6 +58,11 @@ export default {
         excerpt: '¡Por fin tus datos trabajarán para ti! ¡Cuantos más intereses aportes, mejores recomendaciones obtendrás!',
         error  : 'Error conectando red. Quizás ya la has conectado con otro usuario.'
     },
+    ConnectSteamAnonymous            : {
+        connect       : 'Conecta Steam',
+        resume        : 'Carga automáticamente tus juegos favoritos',
+        cannotGetGames: 'Quizás tengas la configuración de privacidad como privada. Cámbiala a pública para ver tus juegos.'
+    },
     EditProfilePage                  : {
         title       : 'Editar perfil',
         cancel      : 'Cancelar',
@@ -167,6 +172,14 @@ export default {
         resume     : 'Necesitamos saber tus deportes, juegos y hobbies preferidos para recomendarte personas y actividades',
         fillProfile: 'Completar perfil',
         skip       : 'En otro momento'
+    },
+    LeisureProfileGamesPage          : {
+        sportsAndGames: 'Deportes, Juegos y Hobbies',
+        title         : '¿A qué juegos te gusta jugar en tu tiempo libre?',
+        selected      : 'Juegos que te gustan',
+        searchGame    : 'Buscar juego',
+        addGame       : 'Añade un juego para continuar',
+        continue      : 'Continuar'
     },
     LeisureProfileHobbiesPage        : {
         sportsAndGames: 'Deportes, Juegos y Hobbies',

@@ -64,6 +64,7 @@ export default class LeisureProfileGamesPage extends Component {
 
         this.goToExplorerProfilePage = this.goToExplorerProfilePage.bind(this);
         this.onChange = this.onChange.bind(this);
+        this.addGame = this.addGame.bind(this);
 
         this.state = {
             steamGames: []

@@ -72,11 +72,11 @@ export default class InputSelectImage extends Component {
                 {suggested.map((item, index) =>
                     <div key={index} className={styles.suggestedItem}>
                         <div className={styles.suggestedImageWrapper} onClick={this.handleClick.bind(this, item.id)}>
-                            <div key={index} className={styles.suggestedImage}>
+                            <div className={styles.suggestedImage}>
                                 <img className={styles.image} src={item.image} />
                             </div>
                             {selected.some(selectedItem => selectedItem.id === item.id) ?
-                                <div key={index} className={styles.selectedItem}>
+                                <div className={styles.selectedItem}>
                                     <span className={styles.iconCheck + ' icon icon-check'}/>
                                 </div>
                                 : null

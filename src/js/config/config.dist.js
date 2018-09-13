@@ -20,6 +20,7 @@ export default {
     LINKEDIN_SCOPE          : 'r_basicprofile',
     INSTAGRAM_ID            : '7d6f40c53c9b49ef8838710fa775eda8',
     INSTAGRAM_SCOPE         : 'basic',
+    STEAM_API_KEY           : '',
     TRACKER_ID_WEB          : 'UA-55709950-6',
     TRACKER_ID_APP          : 'UA-55709950-7',
     GOOGLE_MAPS_API_KEY     : 'AIzaSyDPRiBUXY4zmP1dUd45lJb9se8n7IGMQBg',

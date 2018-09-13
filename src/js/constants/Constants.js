@@ -137,6 +137,8 @@ export const INSTAGRAM_SCOPE = config.INSTAGRAM_SCOPE;
 export const LINKEDIN_ID = config.LINKEDIN_ID;
 export const LINKEDIN_SCOPE = config.LINKEDIN_SCOPE;
 
+export const STEAM_API_KEY = config.STEAM_API_KEY;
+
 export const TRACKER_ID_WEB = config.TRACKER_ID_WEB;
 export const TRACKER_ID_APP = config.TRACKER_ID_APP;
 export const INSTANT_HOST = config.INSTANT_HOST;

@@ -1,0 +1,67 @@
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import styles from './SelectInline.scss';
+
+export default class SelectInline extends Component {
+
+    static propTypes = {
+        options        : PropTypes.array.isRequired,
+        multiple       : PropTypes.bool,
+        color          : PropTypes.oneOf(['purple', 'blue', 'pink', 'green']),
+        onClickHandler : PropTypes.func
+    };
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            selected: []
+        };
+    }
+
+    handleClick(value) {
+        const {selected} = this.state;
+        const {multiple} = this.props;
+        const index = selected.indexOf(value);
+        let newSelected = [];
+
+        if (index !== -1) {
+            newSelected = selected.filter(option => option !== value);
+        } else if (multiple) {
+            newSelected = [...this.state.selected, value];
+        } else {
+            newSelected = [value];
+        }
+        this.setState({selected: newSelected});
+
+        if (this.props.onClickHandler) {
+            this.props.onClickHandler(newSelected);
+        }
+    }
+
+    render() {
+        const {options, color} = this.props;
+        const {selected} = this.state;
+        const optionWidthPercent = 100 / options.length;
+
+        return (
+            <div className={styles.selectInlineWrapper}>
+                <div className={styles.selectInline}>
+                    {options.map(option => {
+                        let optionClass = selected.some(selectedOption => selectedOption === option.id) ? styles.optionWrapper + ' ' + styles.selected : styles.optionWrapper;
+                        optionClass = optionClass + ' ' + styles[color];
+                        return (
+                            <div key={option.id} className={optionClass} onClick={this.handleClick.bind(this, option.id)} style={{width: optionWidthPercent + '%'}}>
+                                <div className={styles.option}>
+                                    <div className={styles.optionText}>
+                                        {option.text}
+                                    </div>
+                                </div>
+                            </div>
+                        )
+                    })}
+                </div>
+            </div>
+        );
+    }
+}

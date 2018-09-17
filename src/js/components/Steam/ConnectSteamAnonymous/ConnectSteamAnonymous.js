@@ -25,7 +25,7 @@ export default class ConnectSteamAnonymous extends Component {
         this.state = {
             isLoading: false,
             isLoaded: false
-        }
+        };
     }
 
     onClick() {
@@ -46,7 +46,7 @@ export default class ConnectSteamAnonymous extends Component {
                 }
 
                 const data = JSON.parse(body);
-                console.log(data)
+
                 if (data.response && data.response.games && data.response.game_count > 0) {
                     this.setState({isLoaded: true});
                     data.response.games.forEach(game => {

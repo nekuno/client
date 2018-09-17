@@ -40,6 +40,7 @@ export default class ExplorerProfilePage extends Component {
         super(props);
 
         this.goToAvailabilityPage = this.goToAvailabilityPage.bind(this);
+        this.goToExplorerProfileCostPage = this.goToExplorerProfileCostPage.bind(this);
     }
 
     componentDidMount() {
@@ -53,8 +54,7 @@ export default class ExplorerProfilePage extends Component {
     }
 
     goToExplorerProfileCostPage() {
-        // TODO: Enable when page is ready
-        //this.context.router.push('/answer-username');
+        this.context.router.push('/explorer-profile-cost');
     }
 
     render() {

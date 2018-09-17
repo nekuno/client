@@ -241,7 +241,7 @@ ShallowWrapper {
             "rendered": Array [
               Object {
                 "instance": null,
-                "key": "0",
+                "key": undefined,
                 "nodeType": "host",
                 "props": Object {
                   "children": <img
@@ -336,7 +336,7 @@ ShallowWrapper {
             "rendered": Array [
               Object {
                 "instance": null,
-                "key": "1",
+                "key": undefined,
                 "nodeType": "host",
                 "props": Object {
                   "children": <img
@@ -431,7 +431,7 @@ ShallowWrapper {
             "rendered": Array [
               Object {
                 "instance": null,
-                "key": "2",
+                "key": undefined,
                 "nodeType": "host",
                 "props": Object {
                   "children": <img
@@ -526,7 +526,7 @@ ShallowWrapper {
             "rendered": Array [
               Object {
                 "instance": null,
-                "key": "3",
+                "key": undefined,
                 "nodeType": "host",
                 "props": Object {
                   "children": <img
@@ -621,7 +621,7 @@ ShallowWrapper {
             "rendered": Array [
               Object {
                 "instance": null,
-                "key": "4",
+                "key": undefined,
                 "nodeType": "host",
                 "props": Object {
                   "children": <img
@@ -865,7 +865,7 @@ ShallowWrapper {
               "rendered": Array [
                 Object {
                   "instance": null,
-                  "key": "0",
+                  "key": undefined,
                   "nodeType": "host",
                   "props": Object {
                     "children": <img
@@ -960,7 +960,7 @@ ShallowWrapper {
               "rendered": Array [
                 Object {
                   "instance": null,
-                  "key": "1",
+                  "key": undefined,
                   "nodeType": "host",
                   "props": Object {
                     "children": <img
@@ -1055,7 +1055,7 @@ ShallowWrapper {
               "rendered": Array [
                 Object {
                   "instance": null,
-                  "key": "2",
+                  "key": undefined,
                   "nodeType": "host",
                   "props": Object {
                     "children": <img
@@ -1150,7 +1150,7 @@ ShallowWrapper {
               "rendered": Array [
                 Object {
                   "instance": null,
-                  "key": "3",
+                  "key": undefined,
                   "nodeType": "host",
                   "props": Object {
                     "children": <img
@@ -1245,7 +1245,7 @@ ShallowWrapper {
               "rendered": Array [
                 Object {
                   "instance": null,
-                  "key": "4",
+                  "key": undefined,
                   "nodeType": "host",
                   "props": Object {
                     "children": <img

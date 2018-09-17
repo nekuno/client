@@ -14,6 +14,7 @@ import LeisureProfileSportsPage from './pages/LeisureProfileSportsPage';
 import LeisureProfileHobbiesPage from './pages/LeisureProfileHobbiesPage';
 import LeisureProfileGamesPage from './pages/LeisureProfileGamesPage';
 import ExplorerProfilePage from './pages/ExplorerProfilePage';
+import ExplorerProfileCostPage from './pages/ExplorerProfileCostPage';
 import AvailabilityPage from './pages/AvailabilityPage';
 import ExplorePage from './pages/ExplorePage';
 import ChatThreadsPage from './pages/ChatThreadsPage';
@@ -91,6 +92,7 @@ export default class Root extends Component {
                     <Route name="leisure-profile-hobbies" path="/leisure-profile-hobbies" component={LeisureProfileHobbiesPage}/>
                     <Route name="leisure-profile-games" path="/leisure-profile-games" component={LeisureProfileGamesPage}/>
                     <Route name="explorer-profile" path="/explorer-profile" component={ExplorerProfilePage}/>
+                    <Route name="explorer-profile-cost" path="/explorer-profile-cost" component={ExplorerProfileCostPage}/>
                     <Route name="availability" path="/availability" component={AvailabilityPage}/>
                     <Route name="login" path="/login" component={LoginPage}/>
                     <Route name="register" path="/register" component={RegisterPage}/>

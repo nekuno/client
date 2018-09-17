@@ -89,6 +89,13 @@ export default {
         addEvent                : 'Select to continue',
         continue                : 'Continue'
     },
+    ExplorerProfilePlansPage         : {
+        activitiesAndExperiences: 'Activities & Experiences',
+        title                   : 'What kind of plans do you like to do in your free time?',
+        searchPlan              : 'Search kind of plan',
+        addPlan                 : 'Select to continue',
+        continue                : 'Continue'
+    },
     ExplorerProfileRestaurantsPage   : {
         activitiesAndExperiences: 'Activities & Experiences',
         title                   : 'What kind of restaurants do you like to go for lunch or dinner?',

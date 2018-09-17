@@ -89,6 +89,13 @@ export default {
         addEvent                : 'Selecciona para continuar',
         continue                : 'Continuar'
     },
+    ExplorerProfilePlansPage         : {
+        activitiesAndExperiences: 'Actividades y Experiencias',
+        title                   : '¿Qué tipo de planes te gusta hacer en tu tiempo libre?',
+        searchPlan              : 'Buscar tipo de plan',
+        addPlan                 : 'Selecciona para continuar',
+        continue                : 'Continuar'
+    },
     ExplorerProfileRestaurantsPage   : {
         activitiesAndExperiences: 'Actividades y Experiencias',
         title                   : '¿A qué tipo de restaurantes te gusta ir a comer o cenar?',

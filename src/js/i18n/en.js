@@ -76,6 +76,12 @@ export default {
         fillProfile: 'Fill profile',
         skip       : 'Not now'
     },
+    ExplorerProfileCostPage          : {
+        activitiesAndExperiences: 'Activities & Experiences',
+        title                   : 'What is your ideal cost for an entrance?',
+        addCost                 : 'Select to continue',
+        continue                : 'Continue'
+    },
     HomePage                         : {
         title1       : 'Meet people related to you',
         title2       : 'Share your ideas and plans',

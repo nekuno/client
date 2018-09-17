@@ -82,6 +82,13 @@ export default {
         addCost                 : 'Selecciona para continuar',
         continue                : 'Continuar'
     },
+    ExplorerProfileEventsPage        : {
+        activitiesAndExperiences: 'Actividades y Experiencias',
+        title                   : '¿A qué tipo de eventos te gusta asistir?',
+        searchEvent             : 'Buscar tipo de evento',
+        addEvent                : 'Selecciona para continuar',
+        continue                : 'Continuar'
+    },
     HomePage                         : {
         title1       : 'Conoce personas afines a ti',
         title2       : 'Comparte tus ideas y planes',

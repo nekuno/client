@@ -82,6 +82,13 @@ export default {
         addCost                 : 'Select to continue',
         continue                : 'Continue'
     },
+    ExplorerProfileEventsPage        : {
+        activitiesAndExperiences: 'Activities & Experiences',
+        title                   : 'What kind of events do you like to attend to?',
+        searchEvent             : 'Search kind of event',
+        addEvent                : 'Select to continue',
+        continue                : 'Continue'
+    },
     HomePage                         : {
         title1       : 'Meet people related to you',
         title2       : 'Share your ideas and plans',

@@ -89,6 +89,13 @@ export default {
         addEvent                : 'Selecciona para continuar',
         continue                : 'Continuar'
     },
+    ExplorerProfileRestaurantsPage   : {
+        activitiesAndExperiences: 'Actividades y Experiencias',
+        title                   : '¿A qué tipo de restaurantes te gusta ir a comer o cenar?',
+        searchRestaurant        : 'Buscar tipo de restaurante',
+        addRestaurant           : 'Selecciona para continuar',
+        continue                : 'Continuar'
+    },
     HomePage                         : {
         title1       : 'Conoce personas afines a ti',
         title2       : 'Comparte tus ideas y planes',

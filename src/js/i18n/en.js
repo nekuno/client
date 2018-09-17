@@ -89,6 +89,13 @@ export default {
         addEvent                : 'Select to continue',
         continue                : 'Continue'
     },
+    ExplorerProfileRestaurantsPage   : {
+        activitiesAndExperiences: 'Activities & Experiences',
+        title                   : 'What kind of restaurants do you like to go for lunch or dinner?',
+        searchRestaurant        : 'Search kind of restaurant',
+        addRestaurant           : 'Select to continue',
+        continue                : 'Continue'
+    },
     HomePage                         : {
         title1       : 'Meet people related to you',
         title2       : 'Share your ideas and plans',

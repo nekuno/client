@@ -8,6 +8,7 @@ export default class SelectInline extends Component {
         options        : PropTypes.array.isRequired,
         multiple       : PropTypes.bool,
         color          : PropTypes.oneOf(['purple', 'blue', 'pink', 'green']),
+        nullable       : PropTypes.bool,
         onClickHandler : PropTypes.func
     };
 
@@ -21,12 +22,14 @@ export default class SelectInline extends Component {
 
     handleClick(value) {
         const {selected} = this.state;
-        const {multiple} = this.props;
+        const {multiple, nullable} = this.props;
         const index = selected.indexOf(value);
         let newSelected = [];
 
-        if (index !== -1) {
+        if (index !== -1 && (nullable || selected.length > 1)) {
             newSelected = selected.filter(option => option !== value);
+        } else if (index !== -1 && !nullable && selected.length === 1) {
+            newSelected = selected;
         } else if (multiple) {
             newSelected = [...this.state.selected, value];
         } else {

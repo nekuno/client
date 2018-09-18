@@ -36,6 +36,14 @@ export default {
         fillProfile: 'Añadir disponibilidad',
         skip       : 'En otro momento'
     },
+    AvailabilityEditPage             : {
+        yourAvailability: 'Tu Disponibilidad',
+        title           : '¿Cuál es tu disponibilidad?',
+        daily           : 'A diario',
+        dates           : 'Fechas',
+        addRange        : 'Añadir rango de días',
+        continue        : 'Guardar y continuar'
+    },
     ChatMessagesPage                 : {
         noMoreMessages: 'No tienes más mensajes',
         placeholder   : 'Escribe un mensaje...',

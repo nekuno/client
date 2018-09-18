@@ -19,6 +19,7 @@ import ExplorerProfileEventsPage from './pages/ExplorerProfileEventsPage';
 import ExplorerProfileRestaurantsPage from './pages/ExplorerProfileRestaurantsPage';
 import ExplorerProfilePlansPage from './pages/ExplorerProfilePlansPage';
 import AvailabilityPage from './pages/AvailabilityPage';
+import AvailabilityEditPage from './pages/AvailabilityEditPage';
 import ExplorePage from './pages/ExplorePage';
 import ChatThreadsPage from './pages/ChatThreadsPage';
 import ChatMessagesPage from './pages/ChatMessagesPage';
@@ -100,6 +101,7 @@ export default class Root extends Component {
                     <Route name="explorer-profile-restaurants" path="/explorer-profile-restaurants" component={ExplorerProfileRestaurantsPage}/>
                     <Route name="explorer-profile-plans" path="/explorer-profile-plans" component={ExplorerProfilePlansPage}/>
                     <Route name="availability" path="/availability" component={AvailabilityPage}/>
+                    <Route name="availability-edit" path="/availability-edit" component={AvailabilityEditPage}/>
                     <Route name="login" path="/login" component={LoginPage}/>
                     <Route name="register" path="/register" component={RegisterPage}/>
                     <Route name="shared-user" path="/p/:slug" component={ProfilePage}/>

@@ -36,6 +36,14 @@ export default {
         fillProfile: 'Add availability',
         skip       : 'Not now'
     },
+    AvailabilityEditPage             : {
+        yourAvailability: 'Your Availability',
+        title           : 'What is your availability?',
+        daily           : 'Daily',
+        dates           : 'Dates',
+        addRange        : 'Add days range',
+        continue        : 'Save & continue'
+    },
     ChatMessagesPage                 : {
         noMoreMessages: 'You have no messages',
         placeholder   : 'Type a message...',

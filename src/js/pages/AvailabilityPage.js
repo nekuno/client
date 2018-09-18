@@ -43,8 +43,7 @@ export default class AvailabilityPage extends Component {
     }
 
     goToAvailabilityEditPage() {
-        // TODO: Enable when page is ready
-        //this.context.router.push('/answer-username');
+        this.context.router.push('/availability-edit');
     }
 
     render() {
@@ -61,7 +60,7 @@ export default class AvailabilityPage extends Component {
                         </div>
                         <h1>{strings.title}</h1>
                         <div className="resume">{strings.resume}</div>
-                        <Button onClickHandler={this.goToAvailabilityEditPage}>{strings.fillProfile}</Button>
+                        <Button onClickHandler={this.goToAvailabilityEditPage.bind(this)}>{strings.fillProfile}</Button>
                         <div className="skip-wrapper small" onClick={this.goToFacebookConnectPage}>
                             <span className="skip-text">{strings.skip}&nbsp;</span>
                             <span className="icon-arrow-right" />

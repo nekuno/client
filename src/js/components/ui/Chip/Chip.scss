@@ -48,6 +48,15 @@
     }
   }
 
+  &.full-width {
+    text-align: left;
+    width: 90%;
+
+    .text {
+      width: 100%;
+    }
+  }
+
   .cancel-icon {
     color: $white-background;
     font-weight: bold;

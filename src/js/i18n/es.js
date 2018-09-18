@@ -42,6 +42,16 @@ export default {
         daily           : 'A diario',
         dates           : 'Fechas',
         addRange        : 'Añadir rango de días',
+        monday          : 'Lunes',
+        tuesday         : 'Martes',
+        wednesday       : 'Miércoles',
+        thursday        : 'Jueves',
+        friday          : 'Viernes',
+        saturday        : 'Sábado',
+        sunday          : 'Domingo',
+        morning         : 'Mañana',
+        afternoon       : 'Tarde',
+        night           : 'Noche',
         continue        : 'Guardar y continuar'
     },
     ChatMessagesPage                 : {

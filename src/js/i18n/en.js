@@ -42,6 +42,16 @@ export default {
         daily           : 'Daily',
         dates           : 'Dates',
         addRange        : 'Add days range',
+        monday          : 'Monday',
+        tuesday         : 'Tuesday',
+        wednesday       : 'Wednesday',
+        thursday        : 'Thursday',
+        friday          : 'Friday',
+        saturday        : 'Saturday',
+        sunday          : 'Sunday',
+        morning         : 'Morning',
+        afternoon       : 'Afternoon',
+        night           : 'Night',
         continue        : 'Save & continue'
     },
     ChatMessagesPage                 : {

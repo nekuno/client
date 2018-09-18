@@ -6,6 +6,7 @@ export default class SelectInline extends Component {
 
     static propTypes = {
         options        : PropTypes.array.isRequired,
+        defaultOption  : PropTypes.string,
         multiple       : PropTypes.bool,
         color          : PropTypes.oneOf(['purple', 'blue', 'pink', 'green']),
         nullable       : PropTypes.bool,
@@ -16,7 +17,7 @@ export default class SelectInline extends Component {
         super(props);
 
         this.state = {
-            selected: []
+            selected: props.defaultOption ? [props.defaultOption] : []
         };
     }
 

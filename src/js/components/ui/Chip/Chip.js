@@ -9,7 +9,8 @@ export default class Chip extends Component {
         text           : PropTypes.string.isRequired,
         value          : PropTypes.string,
         selected       : PropTypes.bool,
-        color          : PropTypes.oneOf(['purple', 'blue', 'pink', 'green'])
+        color          : PropTypes.oneOf(['purple', 'blue', 'pink', 'green']),
+        fullWidth      : PropTypes.bool
     };
 
     handleClick() {
@@ -19,8 +20,9 @@ export default class Chip extends Component {
     }
 
     render() {
-        const {text, selected, color} = this.props;
-        const chipClass = selected ? styles.selected + ' ' + styles.chip : styles.chip;
+        const {text, selected, color, fullWidth} = this.props;
+        let chipClass = selected ? styles.selected + ' ' + styles.chip : styles.chip;
+        chipClass = fullWidth ? chipClass + ' ' + styles.fullWidth : chipClass;
 
         return (
             <div className={chipClass + ' ' + styles[color]} onClick={this.handleClick.bind(this)}>

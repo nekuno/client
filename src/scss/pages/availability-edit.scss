@@ -12,5 +12,22 @@ body #root .App .views .view.availability-edit-view {
       margin-bottom: 36px;
       padding: 0 24px
     }
+
+    .daily-options {
+
+      .weekday {
+        margin: 8px 0;
+        width: 100%;
+
+        .range {
+          padding: 0 12px;
+
+          .range-option {
+            display: inline-block;
+            width: 33%;
+          }
+        }
+      }
+    }
   }
 }

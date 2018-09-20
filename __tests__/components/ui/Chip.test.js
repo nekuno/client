@@ -19,11 +19,11 @@ describe('Test Chip component', () => {
         expect(chipSelected).toMatchSnapshot();
     });
     it('Chip unselected click event', () => {
-        chipUnselected.find(`.${styles.chip}`).simulate('click');
+        chipUnselected.find(`.${styles.text}`).simulate('click');
         expect(mockFn).toHaveBeenCalledTimes(1);
     });
     it('Chip selected click event', () => {
-        chipSelected.find(`.${styles.chip}`).simulate('click');
+        chipSelected.find(`.${styles.text}`).simulate('click');
         expect(mockFn).toHaveBeenCalledTimes(1);
     });
 });

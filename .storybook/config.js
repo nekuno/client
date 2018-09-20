@@ -7,6 +7,7 @@ function loadStories() {
     require('../stories/Button.stories');
     require('../stories/CardUser.stories');
     require('../stories/Chip.stories');
+    require('../stories/DateInputRange.stories');
     require('../stories/ErrorMessage.stories');
     require('../stories/Frame.stories');
     require('../stories/IconNotification.stories');

@@ -6,6 +6,7 @@ export default class Chip extends Component {
 
     static propTypes = {
         onClickHandler : PropTypes.func.isRequired,
+        onCancelHandler: PropTypes.func,
         text           : PropTypes.string.isRequired,
         value          : PropTypes.string,
         selected       : PropTypes.bool,
@@ -19,20 +20,26 @@ export default class Chip extends Component {
         this.props.onClickHandler(value || text);
     }
 
+    handleCancel() {
+        if (this.props.onCancelHandler) {
+            this.props.onCancelHandler();
+        }
+    }
+
     render() {
         const {text, selected, color, fullWidth} = this.props;
         let chipClass = selected ? styles.selected + ' ' + styles.chip : styles.chip;
         chipClass = fullWidth ? chipClass + ' ' + styles.fullWidth : chipClass;
 
         return (
-            <div className={chipClass + ' ' + styles[color]} onClick={this.handleClick.bind(this)}>
+            <div className={chipClass + ' ' + styles[color]}>
                 {selected ?
                     null :
-                    <span className={styles.addIcon + ' icon icon-x'}/>
+                    <span className={styles.addIcon + ' icon icon-x'} onClick={this.handleClick.bind(this)}/>
                 }
-                <div className={styles.text}>{text}</div>
+                <div className={styles.text} onClick={this.handleClick.bind(this)}>{text}</div>
                 {selected ?
-                    <span className={styles.cancelIcon + ' icon icon-x'}/>
+                    <span className={styles.cancelIcon + ' icon icon-x'} onClick={this.handleCancel.bind(this)}/>
                     : null
                 }
             </div>

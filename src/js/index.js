@@ -18,7 +18,6 @@ import '../../node_modules/Framework7-3D-Panels/dist/framework7.3dpanels.css';
 import '../../node_modules/slick-carousel/slick/slick.css';
 import '../../node_modules/react-image-crop/dist/ReactCrop.css';
 import '../../node_modules/react-joyride/lib/react-joyride-compiled.css';
-import '../../node_modules/react-infinite-calendar/styles.css';
 import '../../node_modules/rc-slider/assets/index.css';
 import '../scss/layout.scss';
 

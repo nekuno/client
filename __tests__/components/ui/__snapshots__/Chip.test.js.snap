@@ -24,16 +24,17 @@ ShallowWrapper {
       "children": Array [
         <span
           className="addIcon icon icon-x"
+          onClick={[Function]}
         />,
         <div
           className="text"
+          onClick={[Function]}
         >
           Lorem ipsum dolor sit amet
         </div>,
         null,
       ],
       "className": "chip undefined",
-      "onClick": [Function],
     },
     "ref": null,
     "rendered": Array [
@@ -43,6 +44,7 @@ ShallowWrapper {
         "nodeType": "host",
         "props": Object {
           "className": "addIcon icon icon-x",
+          "onClick": [Function],
         },
         "ref": null,
         "rendered": null,
@@ -55,6 +57,7 @@ ShallowWrapper {
         "props": Object {
           "children": "Lorem ipsum dolor sit amet",
           "className": "text",
+          "onClick": [Function],
         },
         "ref": null,
         "rendered": "Lorem ipsum dolor sit amet",
@@ -73,16 +76,17 @@ ShallowWrapper {
         "children": Array [
           <span
             className="addIcon icon icon-x"
+            onClick={[Function]}
           />,
           <div
             className="text"
+            onClick={[Function]}
           >
             Lorem ipsum dolor sit amet
           </div>,
           null,
         ],
         "className": "chip undefined",
-        "onClick": [Function],
       },
       "ref": null,
       "rendered": Array [
@@ -92,6 +96,7 @@ ShallowWrapper {
           "nodeType": "host",
           "props": Object {
             "className": "addIcon icon icon-x",
+            "onClick": [Function],
           },
           "ref": null,
           "rendered": null,
@@ -104,6 +109,7 @@ ShallowWrapper {
           "props": Object {
             "children": "Lorem ipsum dolor sit amet",
             "className": "text",
+            "onClick": [Function],
           },
           "ref": null,
           "rendered": "Lorem ipsum dolor sit amet",
@@ -149,15 +155,16 @@ ShallowWrapper {
         null,
         <div
           className="text"
+          onClick={[Function]}
         >
           Lorem ipsum dolor sit amet
         </div>,
         <span
           className="cancelIcon icon icon-x"
+          onClick={[Function]}
         />,
       ],
       "className": "selected chip undefined",
-      "onClick": [Function],
     },
     "ref": null,
     "rendered": Array [
@@ -169,6 +176,7 @@ ShallowWrapper {
         "props": Object {
           "children": "Lorem ipsum dolor sit amet",
           "className": "text",
+          "onClick": [Function],
         },
         "ref": null,
         "rendered": "Lorem ipsum dolor sit amet",
@@ -180,6 +188,7 @@ ShallowWrapper {
         "nodeType": "host",
         "props": Object {
           "className": "cancelIcon icon icon-x",
+          "onClick": [Function],
         },
         "ref": null,
         "rendered": null,
@@ -198,15 +207,16 @@ ShallowWrapper {
           null,
           <div
             className="text"
+            onClick={[Function]}
           >
             Lorem ipsum dolor sit amet
           </div>,
           <span
             className="cancelIcon icon icon-x"
+            onClick={[Function]}
           />,
         ],
         "className": "selected chip undefined",
-        "onClick": [Function],
       },
       "ref": null,
       "rendered": Array [
@@ -218,6 +228,7 @@ ShallowWrapper {
           "props": Object {
             "children": "Lorem ipsum dolor sit amet",
             "className": "text",
+            "onClick": [Function],
           },
           "ref": null,
           "rendered": "Lorem ipsum dolor sit amet",
@@ -229,6 +240,7 @@ ShallowWrapper {
           "nodeType": "host",
           "props": Object {
             "className": "cancelIcon icon icon-x",
+            "onClick": [Function],
           },
           "ref": null,
           "rendered": null,

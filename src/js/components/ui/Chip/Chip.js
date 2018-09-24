@@ -23,6 +23,8 @@ export default class Chip extends Component {
     handleCancel() {
         if (this.props.onCancelHandler) {
             this.props.onCancelHandler();
+        } else {
+            this.handleClick();
         }
     }
 

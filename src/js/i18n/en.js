@@ -81,6 +81,15 @@ export default {
         resume        : 'Load your favorite games automatically',
         cannotGetGames: 'You may have privacy settings to private. Try to set to public if you want to see your games.'
     },
+    DailyInputRange                   : {
+        morning         : 'Morning',
+        afternoon       : 'Afternoon',
+        night           : 'Night',
+        continue        : 'Save & continue'
+    },
+    DateInputRange                   : {
+        topText: 'Select a date range'
+    },
     EditProfilePage                  : {
         title       : 'Edit profile',
         cancel      : 'Cancel',

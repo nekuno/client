@@ -8,6 +8,7 @@ import styles from './DailyInputRange.scss';
 export default class DailyInputRange extends Component {
 
     static propTypes = {
+        id            : PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
         data          : PropTypes.array,
         onClickHandler: PropTypes.func.isRequired
     };
@@ -18,20 +19,20 @@ export default class DailyInputRange extends Component {
         this.handleClick = this.handleClick.bind(this);
     }
 
-    handleClick(id) {
-        const {data} = this.props;
-        const index = data.indexOf(id);
+    handleClick(option) {
+        const {id, data} = this.props;
+        const index = data.indexOf(option);
         let newData;
 
         if (index !== -1 && data.length > 1) {
-            newData = data.filter(singleData => singleData !== id);
+            newData = data.filter(singleData => singleData !== option);
         } else if (index !== -1) {
             newData = data;
         } else {
-            newData = [...data, id];
+            newData = [...data, option];
         }
 
-        this.props.onClickHandler(newData);
+        this.props.onClickHandler(id, newData);
     }
 
     render() {

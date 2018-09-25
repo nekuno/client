@@ -7,12 +7,12 @@ configure({ adapter: new Adapter() });
 
 describe('Test DateInputRange component', () => {
     const mockFn = jest.fn();
-    const dateinputrange = shallow(<DateInputRange placeholder={'placeholder'} onChange={mockFn} locale={'en'}/>);
+    const dateInputRange = shallow(<DateInputRange placeholder={'placeholder'} onChange={mockFn} locale={'en'}/>);
 
     it('should be defined', () => {
         expect(DateInputRange).toBeDefined();
     });
     it('should render correctly', () => {
-        expect(dateinputrange).toMatchSnapshot();
+        expect(dateInputRange).toMatchSnapshot();
     });
 });

@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import connectToStores from '../utils/connectToStores';
+import { format } from 'date-fns';
 import translate from '../i18n/Translate';
 import LoginActionCreators from '../actions/LoginActionCreators';
 import LocaleStore from '../stores/LocaleStore';
@@ -8,6 +9,8 @@ import ProfileStore from '../stores/ProfileStore';
 import RegisterStore from '../stores/RegisterStore';
 import SelectInline from '../components/ui/SelectInline/SelectInline.js';
 import Chip from '../components/ui/Chip/Chip.js';
+import DateInputRange from '../components/ui/DateInputRange/DateInputRange.js';
+import DailyInputRange from '../components/ui/DailyInputRange/DailyInputRange.js';
 import StepsBar from '../components/ui/StepsBar/StepsBar.js';
 import TopNavBar from '../components/TopNavBar/TopNavBar.js';
 import * as UserActionCreators from '../actions/UserActionCreators';
@@ -27,11 +30,16 @@ function getState() {
     const user = RegisterStore.user;
     const username = user && user.username ? user.username : null;
     const profile = RegisterStore.profile;
+    const today = new Date();
+    let tomorrow = new Date();
+    tomorrow.setDate(today.getDate() + 1);
+    const availability = profile && profile.availability ? profile.availability : {dynamic: [], static: []};
 
     return {
         interfaceLanguage,
         choices,
         profile,
+        availability,
         username
     };
 }
@@ -46,6 +54,7 @@ export default class AvailabilityEditPage extends Component {
         // Injected by @connectToStores:
         choices          : PropTypes.array,
         profile          : PropTypes.object,
+        availability     : PropTypes.object,
         username         : PropTypes.string,
         interfaceLanguage: PropTypes.string
     };
@@ -59,11 +68,14 @@ export default class AvailabilityEditPage extends Component {
 
         this.onChangeMain = this.onChangeMain.bind(this);
         this.onChangeDailyWeekday = this.onChangeDailyWeekday.bind(this);
+        this.onChangeDynamicDailyRange = this.onChangeDynamicDailyRange.bind(this);
+        this.onChangeStaticDailyRange = this.onChangeStaticDailyRange.bind(this);
+        this.onChangeRange = this.onChangeRange.bind(this);
         this.saveAndContinue = this.saveAndContinue.bind(this);
 
         this.state = {
             view: 'daily',
-            dynamic: []
+            calendarView: false
         };
     }
 
@@ -75,16 +87,7 @@ export default class AvailabilityEditPage extends Component {
     }
 
     saveAndContinue() {
-        const {profile} = this.props;
-        const {dynamic} = this.state;
-
-        LoginActionCreators.preRegisterProfile({...profile, ...{availability:
-            {
-                dynamic: dynamic.filter(option => option.range && option.range.length > 0),
-                static: []
-            }
-        }});
-        setTimeout(this.context.router.push('/availability'), 0);
+        this.context.router.push('/availability');
     }
 
     onChangeMain(mainOptions) {
@@ -92,35 +95,82 @@ export default class AvailabilityEditPage extends Component {
     }
 
     onChangeDailyWeekday(option) {
-        const {dynamic} = this.state;
-        const index = dynamic.findIndex(dynamicOption => dynamicOption.weekday === option);
+        const {profile, availability} = this.props;
+
+        if (!availability.dynamic) {
+            availability.dynamic = [];
+        }
+        const index = availability.dynamic.findIndex(dynamicOption => dynamicOption.weekday === option);
+        let newSelection = null;
 
         if (index !== -1) {
-            this.setState({dynamic: dynamic.filter(dynamicOption => dynamicOption.weekday !== option)});
+            newSelection = availability.dynamic.filter(dynamicOption => dynamicOption.weekday !== option);
         } else {
-            this.setState({dynamic: [...dynamic, {weekday: option, range: []}]});
+            newSelection = [...availability.dynamic, {weekday: option, range: ["morning", "afternoon", "night"]}];
         }
+
+        LoginActionCreators.preRegisterProfile({...profile, ...{availability:
+            {
+                dynamic: newSelection,
+                static: availability.static
+            }
+        }});
     }
 
-    onChangeDailyRange(weekday, option) {
-        const {dynamic} = this.state;
-        const weekdayIndex = dynamic.findIndex(dynamicOption => dynamicOption.weekday === weekday);
-        const rangeIndex = dynamic[weekdayIndex].range.findIndex(rangeOption => rangeOption === option);
-        let newSelectedRange = [];
+    onChangeDynamicDailyRange(weekday, options) {
+        const {profile, availability} = this.props;
 
-        if (rangeIndex !== -1) {
-            newSelectedRange = dynamic[weekdayIndex].range.filter(rangeOption => rangeOption !== option);
+        const weekdayIndex = availability.dynamic.findIndex(dynamicOption => dynamicOption.weekday === weekday);
+        let newSelection = availability.dynamic.slice(0);
+        newSelection[weekdayIndex].range = options;
+
+        LoginActionCreators.preRegisterProfile({...profile, ...{availability:
+            {
+                dynamic: newSelection,
+                static: availability.static
+            }
+        }});
+    }
+
+    onChangeStaticDailyRange(index, options) {
+        const {profile, availability} = this.props;
+
+        let newSelection = availability.static.slice(0);
+        newSelection[index].range = options;
+
+        LoginActionCreators.preRegisterProfile({...profile, ...{availability:
+            {
+                dynamic: availability.dynamic,
+                static: newSelection
+            }
+        }});
+    }
+
+    onChangeRange(index, values) {
+        const {profile, availability} = this.props;
+
+        let newSelection = availability.static.slice(0);
+        if (!newSelection[index]) {
+            newSelection[index] = {days: {}, range: ["morning", "afternoon", "night"]};
+        }
+        if (values) {
+            newSelection[index].days = values;
         } else {
-            newSelectedRange = [...dynamic[weekdayIndex].range, option];
+            newSelection.splice(index, 1);
         }
 
-        this.setState({dynamic: [...dynamic.filter(dynamicOption => dynamicOption.weekday !== weekday), {weekday: weekday, range: newSelectedRange}]});
+        LoginActionCreators.preRegisterProfile({...profile, ...{availability:
+            {
+                dynamic: availability.dynamic,
+                static: newSelection
+            }
+        }});
     }
 
     render() {
-        const {profile, strings} = this.props;
-        const {view, dynamic} = this.state;
-        const canContinue = dynamic && dynamic.length > 0 && dynamic.some(option => option.range.length > 0);
+        const {availability, interfaceLanguage, strings} = this.props;
+        const {view} = this.state;
+        const canContinue = availability.dynamic && availability.dynamic.length > 0 || availability.static && availability.static.length > 0;
         const mainOptions = [{id: 'daily', text: strings.daily}, {id: 'dates', text: strings.dates}];
         const dailyWeekdayOptions = [
             {
@@ -152,20 +202,6 @@ export default class AvailabilityEditPage extends Component {
                 text: strings.sunday
             }
         ];
-        const dailyRangeOptions = [
-            {
-                id: 'morning',
-                text: strings.morning
-            },
-            {
-                id: 'afternoon',
-                text: strings.afternoon
-            },
-            {
-                id: 'night',
-                text: strings.night
-            }
-        ];
 
         return (
             <div className="views">
@@ -179,15 +215,9 @@ export default class AvailabilityEditPage extends Component {
                             <div className="daily-options">
                                 {dailyWeekdayOptions.map(option =>
                                     <div className="weekday" key={option.id}>
-                                        <Chip text={option.text} value={option.id} selected={dynamic.some(dynamicOption => dynamicOption.weekday === option.id)} fullWidth={true} onClickHandler={this.onChangeDailyWeekday}/>
-                                        {dynamic.some(dynamicOption => dynamicOption.weekday === option.id) ?
-                                            <div className="range">
-                                                {dailyRangeOptions.map(rangeOption =>
-                                                    <div className="range-option" key={rangeOption.id}>
-                                                        <Chip text={rangeOption.text} value={rangeOption.id} selected={dynamic.find(dynamicOption => dynamicOption.weekday === option.id).range.some(range => range === rangeOption.id)} fullWidth={true} onClickHandler={this.onChangeDailyRange.bind(this, option.id, rangeOption.id)}/>
-                                                    </div>
-                                                )}
-                                            </div>
+                                        <Chip text={option.text} value={option.id} selected={availability.dynamic.some(dynamicOption => dynamicOption.weekday === option.id)} fullWidth={true} onClickHandler={this.onChangeDailyWeekday}/>
+                                        {availability.dynamic.some(dynamicOption => dynamicOption.weekday === option.id) ?
+                                            <DailyInputRange id={option.id} data={availability.dynamic.find(dynamicOption => dynamicOption.weekday === option.id && dynamicOption.range.length > 0).range} onClickHandler={this.onChangeDynamicDailyRange}/>
                                             : null
                                         }
                                     </div>
@@ -195,7 +225,15 @@ export default class AvailabilityEditPage extends Component {
                             </div>
                             :
                             <div className="dates-options">
-                                Dates
+                                {availability.static.map((staticOption, index) =>
+                                    <div className="dates-option" key={index}>
+                                        <DateInputRange index={index} placeholder={strings.addRange} defaultValue={staticOption.days} locale={interfaceLanguage} onChange={this.onChangeRange}/>
+                                        <DailyInputRange id={index} data={staticOption.range} onClickHandler={this.onChangeStaticDailyRange}/>
+                                    </div>
+                                )}
+                                <div className="dates-option" key={availability.static.length}>
+                                    <DateInputRange index={availability.static.length} placeholder={strings.addRange} locale={interfaceLanguage} onChange={this.onChangeRange}/>
+                                </div>
                             </div>
                         }
                     </div>
@@ -223,9 +261,6 @@ AvailabilityEditPage.defaultProps = {
         friday          : 'Friday',
         saturday        : 'Saturday',
         sunday          : 'Sunday',
-        morning         : 'Morning',
-        afternoon       : 'Afternoon',
-        night           : 'Night',
         continue        : 'Save & continue'
     }
 };

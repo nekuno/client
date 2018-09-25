@@ -49,9 +49,6 @@ export default {
         friday          : 'Viernes',
         saturday        : 'Sábado',
         sunday          : 'Domingo',
-        morning         : 'Mañana',
-        afternoon       : 'Tarde',
-        night           : 'Noche',
         continue        : 'Guardar y continuar'
     },
     ChatMessagesPage                 : {
@@ -80,6 +77,15 @@ export default {
         connect       : 'Conecta Steam',
         resume        : 'Carga automáticamente tus juegos favoritos',
         cannotGetGames: 'Quizás tengas la configuración de privacidad como privada. Cámbiala a pública para ver tus juegos.'
+    },
+    DailyInputRange                   : {
+        morning         : 'Mañana',
+        afternoon       : 'Tarde',
+        night           : 'Noche',
+        continue        : 'Guardar y continuar'
+    },
+    DateInputRange                   : {
+        topText: 'Selecciona un rango de fechas'
     },
     EditProfilePage                  : {
         title       : 'Editar perfil',

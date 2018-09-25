@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import connectToStores from '../utils/connectToStores';
 import translate from '../i18n/Translate';
 import LocaleStore from '../stores/LocaleStore';
+import RegisterStore from '../stores/RegisterStore';
 import Button from '../components/ui/Button/Button.js';
 import Overlay from '../components/ui/Overlay/Overlay.js';
 import TopNavBar from '../components/TopNavBar/TopNavBar.js';
@@ -10,21 +11,30 @@ import '../../scss/pages/availability.scss';
 
 function getState() {
     const interfaceLanguage = LocaleStore.locale;
+    const user = RegisterStore.user;
+    const username = user && user.username ? user.username : null;
+    const profile = RegisterStore.profile;
+    const availability = profile && profile.availability ? profile.availability : null;
+    const isComplete = availability && (availability.dynamic && availability.dynamic.length > 0 || availability.static && availability.static.length);
 
     return {
         interfaceLanguage,
+        username,
+        isComplete
     };
 }
 
 @translate('AvailabilityPage')
-@connectToStores([LocaleStore], getState)
+@connectToStores([LocaleStore, RegisterStore], getState)
 export default class AvailabilityPage extends Component {
 
     static propTypes = {
         // Injected by @translate:
         strings          : PropTypes.object,
         // Injected by @connectToStores:
-        interfaceLanguage: PropTypes.string
+        interfaceLanguage: PropTypes.string,
+        username         : PropTypes.string,
+        isComplete       : PropTypes.bool
     };
 
     static contextTypes = {
@@ -37,6 +47,12 @@ export default class AvailabilityPage extends Component {
         this.goToFacebookConnectPage = this.goToFacebookConnectPage.bind(this);
     }
 
+    componentDidMount() {
+        if (!this.props.username) {
+            this.context.router.push('/answer-username');
+        }
+    }
+
     goToFacebookConnectPage() {
         // TODO: Enable when page is ready
         //this.context.router.push('/answer-username');
@@ -47,7 +63,11 @@ export default class AvailabilityPage extends Component {
     }
 
     render() {
-        const {strings} = this.props;
+        const {isComplete, strings} = this.props;
+        const titleText = isComplete ? strings.finishTitle : strings.title;
+        const resumeText = isComplete ? strings.finishResume : strings.resume;
+        const buttonText = isComplete ? strings.edit : strings.add;
+        const skipText = isComplete ? strings.signUp : strings.skip;
 
         return (
             <div className="views">
@@ -58,11 +78,11 @@ export default class AvailabilityPage extends Component {
                         <div className="image-wrapper">
                             <img src="/img/proposals/Disponibilidad.png"/>
                         </div>
-                        <h1>{strings.title}</h1>
-                        <div className="resume">{strings.resume}</div>
-                        <Button onClickHandler={this.goToAvailabilityEditPage.bind(this)}>{strings.fillProfile}</Button>
+                        <h1>{titleText}</h1>
+                        <div className="resume">{resumeText}</div>
+                        <Button onClickHandler={this.goToAvailabilityEditPage.bind(this)}>{buttonText}</Button>
                         <div className="skip-wrapper small" onClick={this.goToFacebookConnectPage}>
-                            <span className="skip-text">{strings.skip}&nbsp;</span>
+                            <span className="skip-text">{skipText}&nbsp;</span>
                             <span className="icon-arrow-right" />
                         </div>
                     </div>
@@ -75,10 +95,14 @@ export default class AvailabilityPage extends Component {
 
 AvailabilityPage.defaultProps = {
     strings: {
-        yourAccount: 'Your account at Nekuno',
-        title      : 'Tell us what your availability is',
-        resume     : 'We need to know how much free time you have to recommend you plans whose match your availability',
-        fillProfile: 'Fill profile',
-        skip       : 'Not now'
+        yourAccount : 'Your account at Nekuno',
+        title       : 'Tell us what your availability is',
+        finishTitle : 'Availability added!',
+        resume      : 'We need to know how much free time you have to recommend you plans whose match your availability',
+        finishResume: 'Now we can recommend you plans and projects which suit your availability',
+        add         : 'Add availability',
+        edit        : 'Edit availability',
+        skip        : 'Not now',
+        signUp      : 'Finish sign up',
     }
 };

@@ -30,11 +30,15 @@ export default {
         tutorialThirdStep      : 'This will be the question`s importance when making compatibility calculations.'
     },
     AvailabilityPage                 : {
-        yourAccount: 'Your account at Nekuno',
-        title      : 'Tell us what your availability is',
-        resume     : 'We need to know how much free time you have to recommend you plans whose match your availability',
-        fillProfile: 'Add availability',
-        skip       : 'Not now'
+        yourAccount : 'Your account at Nekuno',
+        title       : 'Tell us what your availability is',
+        finishTitle : 'Availability added!',
+        resume      : 'We need to know how much free time you have to recommend you plans whose match your availability',
+        finishResume: 'Now we can recommend you plans and projects which suit your availability',
+        add         : 'Add availability',
+        edit        : 'Edit availability',
+        skip        : 'Not now',
+        signUp      : 'Finish sign up'
     },
     AvailabilityEditPage             : {
         yourAvailability: 'Your Availability',

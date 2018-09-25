@@ -30,11 +30,15 @@ export default {
         tutorialThirdStep      : 'Esta será la importancia que tendrá la pregunta a la hora de hacer los cálculos de compatibilidad.'
     },
     AvailabilityPage                 : {
-        yourAccount: 'Tu cuenta en Nekuno',
-        title      : 'Dinos cuál es tu disponibilidad',
-        resume     : 'Necesitamos saber cuánto tiempo libre tienes para recomendarte planes que encajen con tu disponibilidad',
-        fillProfile: 'Añadir disponibilidad',
-        skip       : 'En otro momento'
+        yourAccount : 'Tu cuenta en Nekuno',
+        title       : 'Dinos cuál es tu disponibilidad',
+        finishTitle : '¡Disponibilidad añadida!',
+        resume      : 'Necesitamos saber cuánto tiempo libre tienes para recomendarte planes que encajen con tu disponibilidad',
+        finishResume: 'Ahora ya podemos recomendarte planes y proyectos que encajen con tu disponibilidad',
+        add         : 'Añadir disponibilidad',
+        edit        : 'Editar disponibilidad',
+        skip        : 'En otro momento',
+        signUp      : 'Finalizar registro',
     },
     AvailabilityEditPage             : {
         yourAvailability: 'Tu Disponibilidad',

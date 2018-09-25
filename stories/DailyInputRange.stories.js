@@ -6,7 +6,7 @@ import DailyInputRange from '../src/js/components/ui/DailyInputRange/DailyInputR
 
 let data = ['morning', 'afternoon', 'night'];
 
-function handleClick(newData) {
+function handleClick(id, newData) {
     data = newData;
     forceReRender();
 }

@@ -64,6 +64,7 @@ ShallowWrapper {
       ],
       "className": "progressBarWrapper large",
       "onClick": [Function],
+      "style": Object {},
     },
     "ref": null,
     "rendered": Array [
@@ -242,6 +243,7 @@ ShallowWrapper {
         ],
         "className": "progressBarWrapper large",
         "onClick": [Function],
+        "style": Object {},
       },
       "ref": null,
       "rendered": Array [

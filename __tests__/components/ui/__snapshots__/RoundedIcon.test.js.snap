@@ -33,6 +33,7 @@ ShallowWrapper {
       "onClick": [Function],
       "style": Object {
         "background": undefined,
+        "color": undefined,
       },
     },
     "ref": null,
@@ -70,6 +71,7 @@ ShallowWrapper {
         "onClick": [Function],
         "style": Object {
           "background": undefined,
+          "color": undefined,
         },
       },
       "ref": null,
@@ -134,6 +136,7 @@ ShallowWrapper {
       "onClick": [Function],
       "style": Object {
         "background": undefined,
+        "color": undefined,
       },
     },
     "ref": null,
@@ -171,6 +174,7 @@ ShallowWrapper {
         "onClick": [Function],
         "style": Object {
           "background": undefined,
+          "color": undefined,
         },
       },
       "ref": null,

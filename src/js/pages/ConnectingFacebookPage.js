@@ -95,7 +95,7 @@ export default class ConnectingFacebookPage extends Component {
                                 withoutNumber={true}
                                 background={"transparent"}
                                 strokeColor={"white"}
-                                trailColor={"rgba(255, 255, 255, 0.2)"}
+                                trailColor={"rgba(255, 255, 255, 0.1)"}
                             />
                         </div>
                     </div>

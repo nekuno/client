@@ -38,6 +38,15 @@ storiesOf('RoundedIcon', module)
             <RoundedIcon icon='tumblr' size='large' background="#35465c" onClickHandler={action('click on Tumblr')}/>
         </div>
     ))
+    .add('set of small icons with white background and purple color', () => (
+        <div style={{background: "#756EE5"}}>
+            <RoundedIcon icon='facebook' size='small' background="white" color="#756EE5" onClickHandler={action('click on Facebook')}/>
+            <RoundedIcon icon='twitter' size='small' background="white" color="#756EE5" onClickHandler={action('click on Twitter')}/>
+            <RoundedIcon icon='youtube' size='small' background="white" color="#756EE5" onClickHandler={action('click on Youtube')}/>
+            <RoundedIcon icon='spotify' size='small' background="white" color="#756EE5" onClickHandler={action('click on Spotify')}/>
+            <RoundedIcon icon='tumblr' size='small' background="white" color="#756EE5" onClickHandler={action('click on Tumblr')}/>
+        </div>
+    ))
     .add('set of icons without background', () => (
         <div>
             <RoundedIcon icon='facebook' size='small' onClickHandler={action('click on Facebook')}/>

@@ -1,11 +1,12 @@
 .rounded-icon {
   background: #6C6F82;
-  border: 5px solid #FFF;
+  border: none;
   border-radius: 50%;
   -moz-border-radius: 50%;
   -webkit-border-radius: 50%;
   color: #fff;
   display: inline-block;
+  margin: 5px;
   position: relative;
   overflow: hidden;
   cursor: pointer;

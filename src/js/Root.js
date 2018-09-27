@@ -20,6 +20,8 @@ import ExplorerProfileRestaurantsPage from './pages/ExplorerProfileRestaurantsPa
 import ExplorerProfilePlansPage from './pages/ExplorerProfilePlansPage';
 import AvailabilityPage from './pages/AvailabilityPage';
 import AvailabilityEditPage from './pages/AvailabilityEditPage';
+import ConnectFacebookPage from './pages/ConnectFacebookPage';
+import ConnectingFacebookPage from './pages/ConnectingFacebookPage';
 import ExplorePage from './pages/ExplorePage';
 import ChatThreadsPage from './pages/ChatThreadsPage';
 import ChatMessagesPage from './pages/ChatMessagesPage';
@@ -102,6 +104,8 @@ export default class Root extends Component {
                     <Route name="explorer-profile-plans" path="/explorer-profile-plans" component={ExplorerProfilePlansPage}/>
                     <Route name="availability" path="/availability" component={AvailabilityPage}/>
                     <Route name="availability-edit" path="/availability-edit" component={AvailabilityEditPage}/>
+                    <Route name="connect-facebook" path="/connect-facebook" component={ConnectFacebookPage}/>
+                    <Route name="connecting-facebook" path="/connecting-facebook" component={ConnectingFacebookPage}/>
                     <Route name="login" path="/login" component={LoginPage}/>
                     <Route name="register" path="/register" component={RegisterPage}/>
                     <Route name="shared-user" path="/p/:slug" component={ProfilePage}/>

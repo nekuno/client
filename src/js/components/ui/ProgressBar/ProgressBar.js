@@ -10,6 +10,10 @@ export default class ProgressBar extends Component {
         title          : PropTypes.string,
         percentage     : PropTypes.number,
         size           : PropTypes.oneOf(['small', 'medium', 'large']).isRequired,
+        strokeColor    : PropTypes.string,
+        trailColor     : PropTypes.string,
+        background     : PropTypes.string,
+        withoutNumber  : PropTypes.bool,
         onClickHandler : PropTypes.func
     };
 
@@ -20,6 +24,10 @@ export default class ProgressBar extends Component {
             prevPercentage: 0,
             percentage    : props.percentage
         }
+    }
+
+    shouldComponentUpdate(nextProps) {
+        return this.props.percentage !== nextProps.percentage;
     }
 
     componentDidUpdate(prevProps) {
@@ -36,25 +44,27 @@ export default class ProgressBar extends Component {
     }
 
     render() {
-        const {title, size} = this.props;
+        const {title, size, withoutNumber, strokeColor, trailColor, background} = this.props;
         const {prevPercentage, percentage} = this.state;
         const lineWidth = size === "small" ? "4" : size === "medium" ? "3" : "2";
 
         return (
-            <div className={styles.progressBarWrapper + ' ' + styles[size]} onClick={this.handleClick.bind(this)}>
+            <div className={styles.progressBarWrapper + ' ' + styles[size]} style={background ? {background: background} : {}} onClick={this.handleClick.bind(this)}>
                 <div className={styles.title}>{title}</div>
                 <div className={styles.progressBar}>
-                    <div className={styles.line}>
+                    <div className={withoutNumber ? styles.line + ' ' + styles.withoutNumber : styles.line}>
                         <Motion
                             defaultStyle={{progress: prevPercentage}}
                             style={{progress: spring(percentage)}}
                         >
-                            {val => <Line percent={val.progress} strokeWidth={lineWidth} trailWidth={lineWidth} strokeColor="#555"/>}
+                            {val => <Line percent={val.progress} strokeWidth={lineWidth} trailWidth={lineWidth} strokeColor={strokeColor || "#555"} trailColor={trailColor || "#D9D9D9"}/>}
                         </Motion>
                     </div>
-                    <div className={styles.percentage}>
-                        {percentage || 0}%
-                    </div>
+                    {!withoutNumber ?
+                        <div className={styles.percentage}>
+                            {percentage || 0}%
+                        </div>
+                        : null}
                 </div>
             </div>
         );

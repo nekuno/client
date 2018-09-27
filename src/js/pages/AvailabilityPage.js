@@ -44,7 +44,8 @@ export default class AvailabilityPage extends Component {
     constructor(props) {
         super(props);
 
-        this.goToFacebookConnectPage = this.goToFacebookConnectPage.bind(this);
+        this.goToConnectFacebookPage = this.goToConnectFacebookPage.bind(this);
+        this.goToAvailabilityEditPage = this.goToAvailabilityEditPage.bind(this);
     }
 
     componentDidMount() {
@@ -53,9 +54,8 @@ export default class AvailabilityPage extends Component {
         }
     }
 
-    goToFacebookConnectPage() {
-        // TODO: Enable when page is ready
-        //this.context.router.push('/answer-username');
+    goToConnectFacebookPage() {
+        this.context.router.push('/connect-facebook');
     }
 
     goToAvailabilityEditPage() {
@@ -80,8 +80,8 @@ export default class AvailabilityPage extends Component {
                         </div>
                         <h1>{titleText}</h1>
                         <div className="resume">{resumeText}</div>
-                        <Button onClickHandler={this.goToAvailabilityEditPage.bind(this)}>{buttonText}</Button>
-                        <div className="skip-wrapper small" onClick={this.goToFacebookConnectPage}>
+                        <Button onClickHandler={this.goToAvailabilityEditPage}>{buttonText}</Button>
+                        <div className="skip-wrapper small" onClick={this.goToConnectFacebookPage}>
                             <span className="skip-text">{skipText}&nbsp;</span>
                             <span className="icon-arrow-right" />
                         </div>

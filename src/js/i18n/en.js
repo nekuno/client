@@ -53,9 +53,6 @@ export default {
         friday          : 'Friday',
         saturday        : 'Saturday',
         sunday          : 'Sunday',
-        morning         : 'Morning',
-        afternoon       : 'Afternoon',
-        night           : 'Night',
         continue        : 'Save & continue'
     },
     ChatMessagesPage                 : {
@@ -66,6 +63,17 @@ export default {
     ChatThreadsPage                  : {
         title: 'Messages'
     },
+    ConnectFacebookPage              : {
+        yourAccount: 'Your account at Nekuno',
+        title      : 'We are almost done! Connect Facebook',
+        resume     : 'We need to obtain information about the kind of contents you like for recommending you compatible people',
+        connect    : 'Connect with Facebook'
+    },
+    ConnectingFacebookPage           : {
+        analyzing: 'Analyzing data',
+        title    : 'Hello %username%!',
+        resume   : 'You are already part of Nekuno',
+     },
     ConnectSocialNetworksOnSignUpPage: {
         next    : 'Continue',
         welcome : 'Welcome',

@@ -1,8 +1,11 @@
+@import '../../../../scss/_partials/colors';
+
 .progress-bar-wrapper {
-  background: #fff;
+  background: $white-background;
   color: #6C6F82;
   font-size: 15px;
   font-weight: bold;
+  opacity: 0.5;
   padding: 10px;
 
   .title {
@@ -18,6 +21,10 @@
       display: inline-block;
       margin-right: 2%;
       width: 88%;
+
+      &.without-number {
+        width: 98%;
+      }
     }
     .percentage {
       display: inline-block;

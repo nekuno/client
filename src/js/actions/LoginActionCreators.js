@@ -136,20 +136,31 @@ export default new class LoginActionCreators {
     choosePath(userId) {
         let path = null;
         const user = LoginStore.user;
-        if (QuestionStore.ownAnswersLength(userId) === 0) {
-            path = '/social-networks-on-sign-up';
-        } else if (!LoginStore.isComplete() || !ProfileStore.isComplete(user.slug) || QuestionStore.isJustRegistered(userId)) {
-            if (QuestionStore.isJustRegistered(userId)) {
-                path = '/register-questions-landing';
-            } else {
-                path = '/answer-user-fields';
-            }
+
+        if (!user || !user.username) {
+            path = '/answer-username';
         } else {
             path = RouterStore.nextTransitionPath;
             if (path) {
                 console.log('RouterStore.nextTransitionPath found', path);
             }
         }
+
+        // TODO: Review for needed conditions
+        // if (QuestionStore.ownAnswersLength(userId) === 0) {
+        //     path = '/social-networks-on-sign-up';
+        // } else if (!LoginStore.isComplete() || !ProfileStore.isComplete(user.slug) || QuestionStore.isJustRegistered(userId)) {
+        //     if (QuestionStore.isJustRegistered(userId)) {
+        //         path = '/register-questions-landing';
+        //     } else {
+        //         path = '/answer-user-fields';
+        //     }
+        // } else {
+        //     path = RouterStore.nextTransitionPath;
+        //     if (path) {
+        //         console.log('RouterStore.nextTransitionPath found', path);
+        //     }
+        // }
 
         return path;
     }

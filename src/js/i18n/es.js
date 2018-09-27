@@ -63,6 +63,17 @@ export default {
     ChatThreadsPage                  : {
         title: 'Mensajes'
     },
+    ConnectFacebookPage              : {
+        yourAccount: 'Tu cuenta en Nekuno',
+        title      : '¡Ya casi estamos! Conecta con Facebook',
+        resume     : 'Necesitamos recopilar información sobre el tipo de contenidos que te gustan para recomendarte personas compatibles',
+        connect    : 'Conectar con Facebook'
+    },
+    ConnectingFacebookPage           : {
+        analyzing: 'Analizando datos',
+        title    : '¡Hola %username%!',
+        resume   : 'Ya formas parte de Nekuno',
+    },
     ConnectSocialNetworksOnSignUpPage: {
         next         : 'Continuar',
         welcome      : 'Bienvenido',

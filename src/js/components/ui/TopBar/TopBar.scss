@@ -7,11 +7,12 @@
   height: 50px;
   line-height: 50px;
   margin: auto;
-  position: relative;
+  position: sticky;
   text-align: center;
+  top: 0;
   vertical-align: bottom;
   width: 100%;
-  z-index: 111;
+  z-index: 0;
 
   &.left {
     text-align: left;

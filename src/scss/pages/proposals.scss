@@ -1,0 +1,12 @@
+@import '../_partials/colors';
+
+body #root .App .views .view.proposals-view {
+  background: $white-background;
+  color: $gray-main-text;
+  text-align: center;
+
+  .proposals-wrapper {
+    margin-top: 24px;
+
+  }
+}

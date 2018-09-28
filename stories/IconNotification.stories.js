@@ -5,11 +5,17 @@ import IconNotification from '../src/js/components/ui/IconNotification/IconNotif
 
 storiesOf('IconNotification', module)
     .add('message icon, 5 messages', () => (
-        <IconNotification icon={'message'} notifications={5} onClickHandler={action('clicked')}/>
+            <div style={{height: '100vh'}}>
+                <IconNotification icon={'mail'} notifications={5} onClickHandler={action('clicked')}/>
+            </div>
     ))
     .add('message icon, 55 message', () => (
-        <IconNotification icon={'message'} notifications={55} onClickHandler={action('clicked')}/>
+            <div style={{height: '100vh'}}>
+                <IconNotification icon={'mail'} notifications={55} onClickHandler={action('clicked')}/>
+            </div>
     ))
     .add('messages icon, 100 messages', () => (
-        <IconNotification icon={'message'} notifications={100} onClickHandler={action('clicked')}/>
+        <div style={{height: '100vh'}}>
+            <IconNotification icon={'mail'} notifications={100} onClickHandler={action('clicked')}/>
+        </div>
     ));

@@ -28,7 +28,7 @@ export default new class LoginActionCreators {
         if (LoginStore.isLoggedIn()) {
             UserActionCreators.requestAutologinData().then(() => {
                 if (!RouterStore.hasNextTransitionPath() && (document.location.hash === '' || document.location.hash === '#/' || document.location.hash.indexOf('#/?') === 0)) {
-                    RouterActionCreators.storeRouterTransitionPath('/discover');
+                    RouterActionCreators.storeRouterTransitionPath('/proposals');
                 }
                 this.redirect();
             }, (error) => {
@@ -46,7 +46,7 @@ export default new class LoginActionCreators {
         }, {username, password})
             .then(() => {
                 if (!RouterStore.hasNextTransitionPath()) {
-                    RouterActionCreators.storeRouterTransitionPath('/discover');
+                    RouterActionCreators.storeRouterTransitionPath('/proposals');
                 }
                 this.redirect();
                 return null;
@@ -68,7 +68,7 @@ export default new class LoginActionCreators {
                 AnalyticsService.setUserId(userId);
                 AnalyticsService.trackEvent('Login', resourceOwner + ' login', document.referrer);
                 if (!RouterStore.hasNextTransitionPath()) {
-                    RouterActionCreators.storeRouterTransitionPath('/discover');
+                    RouterActionCreators.storeRouterTransitionPath('/proposals');
                 }
                 this.redirect();
                 return new Promise(function(resolve) {

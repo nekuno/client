@@ -15,7 +15,7 @@ export default class TopBar extends Component {
         const {textAlign, children} = this.props;
         let {position, background, color} = this.props;
         const className = textAlign === 'left' ? styles.topBar + ' ' + styles.left : styles.topBar;
-        position = position ? position : 'relative';
+        position = position ? position : 'sticky';
         background = background ? background : '#FBFCFD';
         color = color ? color : '#2B3857';
 

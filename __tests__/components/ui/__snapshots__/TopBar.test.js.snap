@@ -24,7 +24,7 @@ ShallowWrapper {
       "style": Object {
         "background": "#FBFCFD",
         "color": "#2B3857",
-        "position": "relative",
+        "position": "sticky",
       },
     },
     "ref": null,
@@ -42,7 +42,7 @@ ShallowWrapper {
         "style": Object {
           "background": "#FBFCFD",
           "color": "#2B3857",
-          "position": "relative",
+          "position": "sticky",
         },
       },
       "ref": null,

@@ -17,6 +17,7 @@ export default class TopNavBar extends Component {
         textSize                     : PropTypes.oneOf(['regular', 'small']),
         iconLeft                     : PropTypes.string,
         textLeft                     : PropTypes.string,
+        imageLeft                    : PropTypes.string,
         textLeftColored              : PropTypes.bool,
         textCenter                   : PropTypes.string,
         firstIconRight               : PropTypes.string,
@@ -67,6 +68,7 @@ export default class TopNavBar extends Component {
             textSize,
             iconLeft,
             textLeft,
+            imageLeft,
             textLeftColored,
             textCenter,
             firstIconRight,
@@ -91,8 +93,11 @@ export default class TopNavBar extends Component {
                 <div className={leftClassName} onClick={this.handleLeftClick.bind(this)}>
                     {iconLeft ?
                         <div className={styles.icon + ' icon icon-' + iconLeft}/>
-                        :
-                        <div className={textLeftClassName}>{textLeft}</div>
+                        : imageLeft ?
+                            <RoundedImage url={imageLeft}
+                                          size="x-small"
+                            />
+                            : <div className={textLeftClassName}>{textLeft}</div>
                     }
                 </div>
 

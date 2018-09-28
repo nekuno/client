@@ -50,15 +50,15 @@ export default class ConnectingFacebookPage extends Component {
     constructor(props) {
         super(props);
 
-        this.goToDiscover = this.goToDiscover.bind(this);
+        this.goToProposals = this.goToProposals.bind(this);
     }
 
     componentDidMount() {
-        setTimeout(this.goToDiscover, 5000);
+        setTimeout(this.goToProposals, 5000);
     }
 
-    goToDiscover() {
-        this.context.router.push('/discover');
+    goToProposals() {
+        this.context.router.push('/proposals');
     }
 
     render() {

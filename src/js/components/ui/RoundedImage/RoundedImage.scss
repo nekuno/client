@@ -1,10 +1,11 @@
 .rounded-image {
   background: #fff;
-  border: 5px solid #FFF;
+  border: none;
   border-radius: 50%;
   -moz-border-radius: 50%;
   -webkit-border-radius: 50%;
   display: inline-block;
+  margin: 5px;
   position: relative;
   overflow: hidden;
 
@@ -27,6 +28,10 @@
   &.x-small {
     height: 40px;
     width: 40px;
+  }
+  &.xx-small {
+    height: 25px;
+    width: 25px;
   }
 
   .image {

@@ -18,6 +18,7 @@ export default class CardUser extends Component {
         matching      : PropTypes.number.isRequired,
         similarity    : PropTypes.number.isRequired,
         coincidences  : PropTypes.number.isRequired,
+        group         : PropTypes.object,
         size          : PropTypes.oneOf(['small', 'medium']).isRequired,
         onClickHandler: PropTypes.func
     };
@@ -29,11 +30,18 @@ export default class CardUser extends Component {
     }
 
     render() {
-        const {photo, nickname, age, city, matching, similarity, coincidences, size, strings} = this.props;
+        const {photo, nickname, age, city, matching, similarity, coincidences, group, size, strings} = this.props;
 
         return (
             <div className={styles.cardUser + ' ' + styles[size]} onClick={this.handleClick.bind(this)}>
                 <div className={styles.frame}>
+                    {group && group.name ?
+                        <div className={styles.group}>
+                            <RoundedImage url={group.photo} size="xx-small"/>
+                            <div className={styles.groupName}>{group.name}</div>
+                        </div>
+                        : null
+                    }
                     <div className={styles.userImage}>
                         <img src={photo}/>
                     </div>

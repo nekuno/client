@@ -6,7 +6,7 @@ export default class RoundedImage extends Component {
 
     static propTypes = {
         url            : PropTypes.string.isRequired,
-        size           : PropTypes.oneOf(['x-small', 'small', 'medium', 'large', 'x-large']).isRequired,
+        size           : PropTypes.oneOf(['xx-small, x-small', 'small', 'medium', 'large', 'x-large']).isRequired,
         onClickHandler : PropTypes.func
     };
 

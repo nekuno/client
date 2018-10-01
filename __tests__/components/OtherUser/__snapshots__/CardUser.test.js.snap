@@ -26,8 +26,8 @@ ShallowWrapper {
     strings={
       Object {
         "coincidences": "Coincidences",
-        "matching": "Matching",
-        "similarity": "Similarity",
+        "compatible": "Compatible",
+        "similar": "Similar",
       }
     }
   />,
@@ -62,8 +62,8 @@ ShallowWrapper {
       "size": "small",
       "strings": Object {
         "coincidences": "Coincidences",
-        "matching": "Matching",
-        "similarity": "Similarity",
+        "compatible": "Compatible",
+        "similar": "Similar",
       },
     },
     "ref": null,
@@ -95,8 +95,8 @@ ShallowWrapper {
         "size": "small",
         "strings": Object {
           "coincidences": "Coincidences",
-          "matching": "Matching",
-          "similarity": "Similarity",
+          "compatible": "Compatible",
+          "similar": "Similar",
         },
       },
       "ref": null,
@@ -143,8 +143,8 @@ ShallowWrapper {
     strings={
       Object {
         "coincidences": "Coincidences",
-        "matching": "Matching",
-        "similarity": "Similarity",
+        "compatible": "Compatible",
+        "similar": "Similar",
       }
     }
   />,
@@ -182,8 +182,8 @@ ShallowWrapper {
       "size": "medium",
       "strings": Object {
         "coincidences": "Coincidences",
-        "matching": "Matching",
-        "similarity": "Similarity",
+        "compatible": "Compatible",
+        "similar": "Similar",
       },
     },
     "ref": null,
@@ -218,8 +218,8 @@ ShallowWrapper {
         "size": "medium",
         "strings": Object {
           "coincidences": "Coincidences",
-          "matching": "Matching",
-          "similarity": "Similarity",
+          "compatible": "Compatible",
+          "similar": "Similar",
         },
       },
       "ref": null,

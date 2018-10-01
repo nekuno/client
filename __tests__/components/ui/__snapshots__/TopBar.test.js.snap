@@ -22,7 +22,7 @@ ShallowWrapper {
       "children": "Lorem ipsum",
       "className": "topBar",
       "style": Object {
-        "background": "#FBFCFD",
+        "background": "white",
         "color": "#2B3857",
         "position": "sticky",
       },
@@ -40,7 +40,7 @@ ShallowWrapper {
         "children": "Lorem ipsum",
         "className": "topBar",
         "style": Object {
-          "background": "#FBFCFD",
+          "background": "white",
           "color": "#2B3857",
           "position": "sticky",
         },

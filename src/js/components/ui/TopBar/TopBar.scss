@@ -17,4 +17,7 @@
   &.left {
     text-align: left;
   }
+  &.box-shadow {
+    box-shadow: 0 2px 5px $gray-border;
+  }
 }

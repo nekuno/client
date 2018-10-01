@@ -24,6 +24,7 @@ ShallowWrapper {
     "nodeType": "class",
     "props": Object {
       "background": undefined,
+      "boxShadow": undefined,
       "children": Array [
         <div
           className="left"
@@ -141,6 +142,7 @@ ShallowWrapper {
       "nodeType": "class",
       "props": Object {
         "background": undefined,
+        "boxShadow": undefined,
         "children": Array [
           <div
             className="left"

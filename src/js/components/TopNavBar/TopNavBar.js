@@ -13,6 +13,7 @@ export default class TopNavBar extends Component {
         position                     : PropTypes.oneOf(['relative', 'absolute']),
         background                   : PropTypes.string,
         color                        : PropTypes.string,
+        boxShadow                    : PropTypes.string,
         textAlign                    : PropTypes.oneOf(['center', 'left']),
         textSize                     : PropTypes.oneOf(['regular', 'small']),
         iconLeft                     : PropTypes.string,
@@ -64,6 +65,7 @@ export default class TopNavBar extends Component {
             position,
             background,
             color,
+            boxShadow,
             textAlign,
             textSize,
             iconLeft,
@@ -89,7 +91,7 @@ export default class TopNavBar extends Component {
         const textRightClassName = textRightColored ? styles.linkColored + ' ' + styles.link : styles.link;
 
         return (
-            <TopBar position={position} background={background} textAlign={textAlign} color={color}>
+            <TopBar position={position} background={background} textAlign={textAlign} color={color} boxShadow={boxShadow}>
                 <div className={leftClassName} onClick={this.handleLeftClick.bind(this)}>
                     {iconLeft ?
                         <div className={styles.icon + ' icon icon-' + iconLeft}/>

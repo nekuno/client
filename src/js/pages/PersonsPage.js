@@ -149,7 +149,7 @@ export default class PersonsPage extends Component {
         return (
             <div className="views">
                 <div className="view view-main persons-view">
-                    <TopNavBar textCenter={strings.relatedPeople} imageLeft={imgSrc} />
+                    <TopNavBar textCenter={strings.relatedPeople} imageLeft={imgSrc} boxShadow={true}/>
                     <div className="persons-wrapper">
                         <h1>{strings.closestPeople}</h1>
                         <div className="view-all">{strings.viewAll}</div>

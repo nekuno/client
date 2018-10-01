@@ -5,18 +5,20 @@ import styles from './TopBar.scss';
 export default class TopBar extends Component {
 
     static propTypes = {
-        position  : PropTypes.oneOf(['relative', 'absolute']),
+        position  : PropTypes.oneOf(['sticky', 'absolute']),
         background: PropTypes.string,
         color     : PropTypes.string,
         textAlign : PropTypes.oneOf(['center', 'left']),
+        boxShadow : PropTypes.bool
     };
 
     render() {
         const {textAlign, children} = this.props;
-        let {position, background, color} = this.props;
-        const className = textAlign === 'left' ? styles.topBar + ' ' + styles.left : styles.topBar;
+        let {position, background, color, boxShadow} = this.props;
+        let className = textAlign === 'left' ? styles.topBar + ' ' + styles.left : styles.topBar;
+        className = boxShadow ? className + ' ' + styles.boxShadow : className;
         position = position ? position : 'sticky';
-        background = background ? background : '#FBFCFD';
+        background = background ? background : 'white';
         color = color ? color : '#2B3857';
 
         return (

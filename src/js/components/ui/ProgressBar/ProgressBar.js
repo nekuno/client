@@ -46,7 +46,7 @@ export default class ProgressBar extends Component {
     render() {
         const {title, size, withoutNumber, strokeColor, trailColor, background} = this.props;
         const {prevPercentage, percentage} = this.state;
-        const lineWidth = size === "small" ? "4" : size === "medium" ? "3" : "2";
+        const lineWidth = size === "small" ? "5" : size === "medium" ? "3" : "2";
 
         return (
             <div className={styles.progressBarWrapper + ' ' + styles[size]} style={background ? {background: background} : {}} onClick={this.handleClick.bind(this)}>

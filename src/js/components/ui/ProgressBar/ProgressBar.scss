@@ -3,9 +3,10 @@
 .progress-bar-wrapper {
   background: $white-background;
   color: #6C6F82;
+  display: inline-block;
   font-size: 15px;
-  font-weight: bold;
   padding: 10px;
+  width: 100%;
 
   .title {
     font-size: 13px;
@@ -39,9 +40,9 @@
       margin-bottom: 0;
     }
     .progress-bar {
-
       .line {
         margin-right: 10%;
+        vertical-align: text-bottom;
         width: 75%;
       }
       .percentage {

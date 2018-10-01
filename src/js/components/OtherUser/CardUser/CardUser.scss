@@ -1,81 +1,88 @@
 .card-user {
   display: inline-block;
-  font-weight: bold;
+  font-weight: 600;
   margin: 0;
   width: 50%;
 
-  .user-image {
-    text-align: center;
-  }
-  .top-data {
+  .frame {
+    background: #FFF;
+    border: 1px solid #E2E3E7;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    color: #6C6F82;
     display: inline-block;
-    text-align: center;
-    width: 100%;
-    .nickname {
-      font-size: 20px;
+    font-size: 14px;
+    margin: 2.5%;
+    padding: 0;
+    width: 95%;
+
+    .user-image {
+      text-align: center;
+      width: 100%;
+
+      img {
+        width: 100%;
+      }
     }
-    .age-city {
+    .top-data {
+      color: white;
+      padding: 0 5%;
+      margin-top: -55px;
+      .nickname {
+        font-size: 20px;
+      }
+      .age-city {
+        font-size: 14px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+    .progress-bars {
+      margin-top: 16px;
+      padding: 0 5%;
+
+      .progress-bar-title {
+        display: inline-block;
+        height: 33px;
+        line-height: 33px;
+        width: 50%;
+      }
+      .progress-bar {
+        display: inline-block;
+        width: 40%;
+      }
+    }
+    .coincidences {
+      margin: 10px 0;
       font-size: 14px;
       white-space: nowrap;
       overflow: hidden;
+      padding: 0 5%;
       text-overflow: ellipsis;
     }
-    .gender {
-      font-size: 14px;
-      margin: 15px 0;
-      text-align: left;
-    }
-  }
-  .coincidences {
-    margin: 10px 0;
-    font-size: 14px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-  .networks {
-    height: 38px;
-    overflow: hidden;
-  }
-  .resume {
-    display: none;
-    font-size: 13px;
-    font-weight: normal;
-    margin: 10px 0;
   }
 
   &.medium {
-    width: 75%;
+    width: 60%;
 
     .user-image {
       display: inline-block;
       text-align: left;
     }
     .top-data {
-      display: inline-block;
-      margin: 20px 10px;
-      text-align: left;
-      vertical-align: top;
-      width: 30%;
+      margin-top: -60px;
 
       .nickname {
       }
       .age-city {
         margin: 5px 0;
       }
-      .gender {
-        margin: 5px 0;
-      }
     }
     .coincidences {
       display: inline-block;
       margin-top: 15px;
-    }
-    .networks {
-      display: inline-block;
-    }
-    .resume {
-      display: block;
     }
   }
 }

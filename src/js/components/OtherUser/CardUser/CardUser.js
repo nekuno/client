@@ -15,12 +15,9 @@ export default class CardUser extends Component {
         nickname      : PropTypes.string.isRequired,
         age           : PropTypes.number.isRequired,
         city          : PropTypes.string.isRequired,
-        gender        : PropTypes.string.isRequired,
         matching      : PropTypes.number.isRequired,
         similarity    : PropTypes.number.isRequired,
         coincidences  : PropTypes.number.isRequired,
-        networks      : PropTypes.array.isRequired,
-        resume        : PropTypes.string,
         size          : PropTypes.oneOf(['small', 'medium']).isRequired,
         onClickHandler: PropTypes.func
     };
@@ -32,27 +29,30 @@ export default class CardUser extends Component {
     }
 
     render() {
-        const {photo, nickname, age, city, gender, matching, similarity, coincidences, networks, resume, size, strings} = this.props;
+        const {photo, nickname, age, city, matching, similarity, coincidences, size, strings} = this.props;
 
         return (
             <div className={styles.cardUser + ' ' + styles[size]} onClick={this.handleClick.bind(this)}>
-                <Frame>
+                <div className={styles.frame}>
                     <div className={styles.userImage}>
-                        <RoundedImage size={size} url={photo}/>
+                        <img src={photo}/>
                     </div>
                     <div className={styles.topData}>
                         <div className={styles.nickname}>{nickname}</div>
-                        <div className={styles.ageCity}>{age} / {city}</div>
-                        <div className={styles.gender}>{gender}</div>
+                        <div className={styles.ageCity}>{city} &bull; {age}</div>
                     </div>
-                    <ProgressBar percentage={matching} title={strings.matching} size={size}/>
-                    <ProgressBar percentage={similarity} title={strings.similarity} size={size}/>
+                    <div className={styles.progressBars}>
+                        <div className={styles.progressBarTitle}>{strings.matching}&nbsp;</div>
+                        <div className={styles.progressBar}>
+                            <ProgressBar percentage={matching} size={'small'} strokeColor={'#756EE5'}/>
+                        </div>
+                        <div className={styles.progressBarTitle}>{strings.similarity}&nbsp;</div>
+                        <div className={styles.progressBar}>
+                            <ProgressBar percentage={similarity} size={'small'} strokeColor={'#756EE5'}/>
+                        </div>
+                    </div>
                     <div className={styles.coincidences}>{coincidences} {strings.coincidences}</div>
-                    <div className={styles.networks}>
-                        {networks.map((network, index) => <RoundedIcon key={index} icon={network} size={'small'}/>)}
-                    </div>
-                    <div className={styles.resume}>{resume}</div>
-                </Frame>
+                </div>
             </div>
         );
     }

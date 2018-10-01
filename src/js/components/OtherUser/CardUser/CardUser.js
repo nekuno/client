@@ -50,11 +50,11 @@ export default class CardUser extends Component {
                         <div className={styles.ageCity}>{city} &bull; {age}</div>
                     </div>
                     <div className={styles.progressBars}>
-                        <div className={styles.progressBarTitle}>{strings.matching}&nbsp;</div>
+                        <div className={styles.progressBarTitle}>{strings.compatible}&nbsp;</div>
                         <div className={styles.progressBar}>
                             <ProgressBar percentage={matching} size={'small'} strokeColor={'#756EE5'}/>
                         </div>
-                        <div className={styles.progressBarTitle}>{strings.similarity}&nbsp;</div>
+                        <div className={styles.progressBarTitle}>{strings.similar}&nbsp;</div>
                         <div className={styles.progressBar}>
                             <ProgressBar percentage={similarity} size={'small'} strokeColor={'#756EE5'}/>
                         </div>
@@ -68,8 +68,8 @@ export default class CardUser extends Component {
 
 CardUser.defaultProps = {
     strings: {
-        matching  : 'Matching',
-        similarity: 'Similarity',
+        compatible  : 'Compatible',
+        similar     : 'Similar',
         coincidences: 'Coincidences',
     }
 };

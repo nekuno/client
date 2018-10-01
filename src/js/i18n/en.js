@@ -732,8 +732,8 @@ export default {
     CardUser                         : {
         like      : 'Like',
         unlike    : 'Remove',
-        matching  : 'Matching',
-        similarity: 'Similarity',
+        compatible: 'Compatible',
+        similar   : 'Similar',
         saving    : 'Saving...',
         age       : 'Age',
     },

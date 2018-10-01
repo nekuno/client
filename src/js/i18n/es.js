@@ -732,8 +732,8 @@ export default {
     CardUser                         : {
         like      : 'Me gusta',
         unlike    : 'Ya no me gusta',
-        matching  : 'Compatibilidad',
-        similarity: 'Similaridad',
+        compatible: 'Compatible',
+        similar   : 'Similar',
         saving    : 'Guardando...',
         age       : 'Edad',
     },

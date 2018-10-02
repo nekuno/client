@@ -6,7 +6,10 @@ body #root .App .views .view.proposals-view {
   text-align: center;
 
   .proposals-wrapper {
-    margin-top: 24px;
+    height: 81%;
+    margin: 24px auto;
 
+    .proposal {
+    }
   }
 }

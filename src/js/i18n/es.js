@@ -764,6 +764,11 @@ export default {
         people   : 'Personas',
         channels : 'Canales'
     },
+    ProposalCard                     : {
+        compatible: 'Compatible',
+        similar   : 'Similar',
+        project   : 'Proyecto'
+    },
     ReportContentPopup               : {
         title      : 'Escribe brevemente el motivo del reporte',
         placeholder: 'Texto...',

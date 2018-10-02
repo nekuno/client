@@ -1,8 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import styles from './CardUser.scss';
-import Frame from '../../ui/Frame/Frame.js';
-import RoundedIcon from '../../ui/RoundedIcon/RoundedIcon.js';
 import RoundedImage from '../../ui/RoundedImage/RoundedImage.js';
 import ProgressBar from '../../ui/ProgressBar/ProgressBar.js';
 import translate from '../../../i18n/Translate';

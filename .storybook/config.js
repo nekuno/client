@@ -19,6 +19,7 @@ function loadStories() {
     require('../stories/LeftPanel.stories');
     require('../stories/Overlay.stories');
     require('../stories/ProgressBar.stories');
+    require('../stories/ProposalCard.stories');
     require('../stories/RoundedIcon.stories');
     require('../stories/RoundedImage.stories');
     require('../stories/SelectInline.stories');

@@ -1,0 +1,11 @@
+@import '../_partials/colors';
+
+body #root .App .views .view.chat-threads-view {
+  background: $white-background;
+  color: $gray-main-text;
+  text-align: left;
+
+  .chat-threads-wrapper {
+    min-height: 100vh;
+  }
+}

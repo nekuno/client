@@ -35,27 +35,31 @@ export default class LastMessage extends Component {
         const {username, photo, online, message, proposalType} = this.props;
         const createdAt = message.createdAt;
         let icon = null,
-            background = null;
+            background = null,
+            mainBackground = null;
         
         if (proposalType) {
             switch (proposalType) {
                 case 'professional-project':
                     icon = 'paperclip';
                     background = '#63CAFF';
+                    mainBackground = 'rgba(99, 202, 255, 0.1)';
                     break;
                 case 'leisure-plan':
                     icon = 'send';
                     background = '#D380D3';
+                    mainBackground = 'rgba(211, 128, 211, 0.1)';
                     break;
                 case 'experience-plan':
                     icon = 'compass';
                     background = '#7BD47E';
+                    mainBackground = 'rgba(123, 212, 126, 0.1)';
                     break;
             }
         }
 
         return (
-            <div className={styles.lastMessage}>
+            <div className={styles.lastMessage} style={{background: mainBackground}}>
                 <div className={styles.photo} onClick={this.handleClickUser.bind(this)}>
                     <RoundedImage size={'small'} url={photo}/>
                     {online ? <div className={styles.statusOnline + ' small'}>Online</div> : ''}

@@ -63,7 +63,7 @@ export default class BottomNavBar extends Component {
         const {current} = this.props;
 
         if (current !== 'messages') {
-            this.context.router.push('/messages');
+            this.context.router.push('/conversations');
         }
     }
 

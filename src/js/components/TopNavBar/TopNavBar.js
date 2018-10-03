@@ -13,7 +13,7 @@ export default class TopNavBar extends Component {
         position                     : PropTypes.oneOf(['relative', 'absolute']),
         background                   : PropTypes.string,
         color                        : PropTypes.string,
-        boxShadow                    : PropTypes.string,
+        boxShadow                    : PropTypes.bool,
         textAlign                    : PropTypes.oneOf(['center', 'left']),
         textSize                     : PropTypes.oneOf(['regular', 'small']),
         iconLeft                     : PropTypes.string,

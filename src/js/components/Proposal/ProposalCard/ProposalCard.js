@@ -51,9 +51,6 @@ export default class ProposalCard extends Component {
         return (
             <div className={styles.proposalCard} onClick={this.handleClick.bind(this)}>
                 <div className={styles.frame}>
-                    <div className={styles.topData}>
-                        <h2>{title}</h2>
-                    </div>
                     {icon ?
                         <div className={styles.type}>
                             <RoundedIcon icon={icon} size={'medium'} background={background} fontSize={'24px'}/>
@@ -62,6 +59,9 @@ export default class ProposalCard extends Component {
                     }
                     <div className={styles.proposalImage}>
                         <img src={image}/>
+                        <div className={styles.topData}>
+                            <h2>{title}</h2>
+                        </div>
                     </div>
                     <div className={styles.userData}>
                         <RoundedImage size={'small'} url={photo}/>

@@ -34,7 +34,6 @@
         border-radius: 10px 10px 0 0;
         -moz-border-radius: 10px 10px 0 0;
         -webkit-border-radius: 10px 10px 0 0;
-        margin-top: -40px;
         width: 100%;
       }
 
@@ -72,6 +71,7 @@
     .user-data {
       height: 60px;
       margin-top: 16px;
+      overflow: hidden;
       padding: 0 5%;
 
       .photos {
@@ -85,10 +85,11 @@
         }
       }
       .matches {
+        color: $gray-main-text;
         display: inline-block;
         line-height: 50px;
         height: 50px;
-        margin-left: 40px;
+        margin-left: 35px;
         vertical-align: top;
       }
     }

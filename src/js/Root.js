@@ -24,6 +24,7 @@ import ConnectFacebookPage from './pages/ConnectFacebookPage';
 import ConnectingFacebookPage from './pages/ConnectingFacebookPage';
 import ProposalsPage from './pages/ProposalsPage';
 import PersonsPage from './pages/PersonsPage';
+import OwnProposalsPage from './pages/OwnProposalsPage';
 import ExplorePage from './pages/ExplorePage';
 import ChatThreadsPage from './pages/ChatThreadsPage';
 import ChatMessagesPage from './pages/ChatMessagesPage';
@@ -115,6 +116,7 @@ export default class Root extends Component {
                         <Route name="connecting-facebook" path="/connecting-facebook" component={ConnectingFacebookPage}/>
                         <Route name="proposals" path="/proposals" component={ProposalsPage}/>
                         <Route name="persons" path="/persons" component={PersonsPage}/>
+                        <Route name="plans" path="/plans" component={OwnProposalsPage}/>
                         <Route name="explore" path="/explore" component={ExplorePage}/>
                         <Route name="register-questions-landing" path="/register-questions-landing" component={RegisterQuestionsLandingPage}/>
                         <Route name="answer-user-fields" path="/answer-user-fields" component={AnswerUserFieldPage}/>

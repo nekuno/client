@@ -22,9 +22,9 @@
     width: 95%;
 
     .proposal-image {
-      height: 180px;
+      height: 100%;
       overflow: hidden;
-      text-align: center;
+      position: relative;
       width: 100%;
 
       img {
@@ -33,22 +33,23 @@
         -webkit-border-radius: 10px 10px 0 0;
         width: 100%;
       }
-
-    }
-    .top-data {
-      color: white;
-      height: 180px;
-      padding: 0 5%;
-      position: absolute;
-      width: 80%;
-
-      h2 {
+      .top-data {
         bottom: 0;
-        font-weight: 600;
-        max-height: 125px;
-        overflow: hidden;
+        color: white;
+        height: 100%;
+        padding: 0 5%;
         position: absolute;
+        width: 80%;
+
+        h2 {
+          bottom: 0;
+          font-weight: 600;
+          max-height: 80px;
+          overflow: hidden;
+          position: absolute;
+        }
       }
+
     }
     .type {
       position: absolute;

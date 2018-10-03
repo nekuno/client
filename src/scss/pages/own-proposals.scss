@@ -1,0 +1,50 @@
+@import '../_partials/colors';
+
+body #root .App .views .view.own-proposals-view {
+  background: $white-background;
+  color: $gray-main-text;
+  text-align: left;
+
+  .own-proposals-wrapper {
+    margin-top: 16px;
+    min-height: 100vh;
+    padding: 0 16px;
+
+    .popular-title {
+      display: inline-block;
+      padding: 5px 8px;
+      font-weight: 600;
+      width: 75%;
+    }
+    //.view-all {
+    //  display: inline-block;
+    //  color: $purple-main;
+    //  cursor: pointer;
+    //  font-weight: bold;
+    //  text-align: right;
+    //  width: 25%;
+    //}
+
+    .proposals {
+      position: relative;
+      width: 100%;
+
+      .proposal {
+
+        &.proposal-1 {
+        }
+        &.proposal-2 {
+          position: absolute;
+          width: 100%;
+          top: 0;
+          left: 78%;
+        }
+      }
+    }
+    .other-published-title {
+      margin-top: 16px;
+      padding: 5px 8px;
+      font-weight: 600;
+    }
+  }
+}

@@ -292,6 +292,12 @@ export default {
         questions   : 'Respuestas',
         interests   : 'Intereses'
     },
+    OwnProposalsPage                 : {
+        myPlans         : 'Mis planes',
+        popularProposals: 'Propuestas más populares',
+        otherPublished  : 'Otras propuestas publicadas',
+        matches         : 'Matches',
+    },
     ProfessionalProfilePage          : {
         yourAccount: 'Tu cuenta en Nekuno',
         title      : 'Completa tu perfil profesional',

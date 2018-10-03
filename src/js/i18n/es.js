@@ -298,6 +298,12 @@ export default {
         otherPublished  : 'Otras propuestas publicadas',
         matches         : 'Matches',
     },
+    PersonsPage                      : {
+        relatedPeople: 'Personas afines a ti',
+        closestPeople: 'Las personas más afines',
+        viewAll      : 'Ver todos',
+        groupsPersons: 'Personas de tus insignias'
+    },
     ProfessionalProfilePage          : {
         yourAccount: 'Tu cuenta en Nekuno',
         title      : 'Completa tu perfil profesional',
@@ -320,6 +326,9 @@ export default {
         searchIndustry: 'Buscar habilidad',
         addIndustry   : 'Añade una habilidad para continuar',
         continue      : 'Continuar'
+    },
+    ProposalsPage                    : {
+        discover: 'Descubre propuestas'
     },
     QuestionsPage                    : {
         myProfile: 'Mi Perfil',
@@ -477,6 +486,15 @@ export default {
     ////////////////
     // Components //
     ////////////////
+    BottomNavBar                     : {
+        proposals : 'Propuestas',
+        persons   : 'Personas',
+        plans     : 'Planes',
+        messages  : 'Mensajes',
+        proposal  : 'Propuesta',
+        leisure   : 'Plan de ocio',
+        experience: 'Experiencia'
+    },
     LeftPanel                        : {
         interests     : 'Intereses',
         threads       : 'Descubrir',
@@ -736,12 +754,9 @@ export default {
         otherReasons     : 'Otros motivos'
     },
     CardUser                         : {
-        like      : 'Me gusta',
-        unlike    : 'Ya no me gusta',
-        compatible: 'Compatible',
-        similar   : 'Similar',
-        saving    : 'Guardando...',
-        age       : 'Edad',
+        compatible  : 'Compatible',
+        similar     : 'Similar',
+        coincidences: 'Coincidencias'
     },
     CardUserPlaceholder              : {
         matching  : 'Compatibilidad',

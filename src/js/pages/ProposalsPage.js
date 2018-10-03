@@ -126,6 +126,6 @@ export default class ProposalsPage extends Component {
 
 ProposalsPage.defaultProps = {
     strings: {
-        discover : 'Discover proposals',
+        discover: 'Discover proposals',
     }
 };

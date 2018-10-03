@@ -298,6 +298,12 @@ export default {
         otherPublished  : 'Other published proposals',
         matches         : 'Matches',
     },
+    PersonsPage                      : {
+        relatedPeople: 'People related to you',
+        closestPeople: 'The closest people',
+        viewAll      : 'View all',
+        groupsPersons: 'People from your badges'
+    },
     ProfessionalProfilePage          : {
         yourAccount: 'Your account at Nekuno',
         title      : 'Fill your professional profile',
@@ -320,6 +326,9 @@ export default {
         searchIndustry: 'Search skill',
         addIndustry   : 'Add a skill to continue',
         continue      : 'Continue'
+    },
+    ProposalsPage                    : {
+        discover: 'Discover proposals'
     },
     QuestionsPage                    : {
         myProfile: 'My profile',
@@ -477,6 +486,15 @@ export default {
     ////////////////
     // Components //
     ////////////////
+    BottomNavBar                     : {
+        proposals : 'Proposals',
+        persons   : 'Persons',
+        plans     : 'Plans',
+        messages  : 'Messages',
+        proposal  : 'Proposal',
+        leisure   : 'Leisure plan',
+        experience: 'Experience'
+    },
     LeftPanel                        : {
         interests     : 'Interests',
         threads       : 'Discover',
@@ -736,12 +754,9 @@ export default {
         otherReasons     : 'Other reasons'
     },
     CardUser                         : {
-        like      : 'Like',
-        unlike    : 'Remove',
-        compatible: 'Compatible',
-        similar   : 'Similar',
-        saving    : 'Saving...',
-        age       : 'Age',
+        compatible  : 'Compatible',
+        similar     : 'Similar',
+        coincidences: 'Coincidences'
     },
     CardUserPlaceholder              : {
         matching  : 'Matching',

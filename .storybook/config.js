@@ -16,6 +16,7 @@ function loadStories() {
     require('../stories/InputSelectImage.stories');
     require('../stories/InputSelectText.stories');
     require('../stories/InputTag.stories');
+    require('../stories/LastMessage.stories');
     require('../stories/LeftPanel.stories');
     require('../stories/OwnProposalCard.stories');
     require('../stories/Overlay.stories');

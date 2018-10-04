@@ -140,6 +140,11 @@ export default class PersonsPage extends Component {
     constructor(props) {
         super(props);
 
+        this.viewAll = this.viewAll.bind(this);
+    }
+
+    viewAll() {
+        this.context.router.push('/persons-all');
     }
 
     render() {
@@ -152,7 +157,7 @@ export default class PersonsPage extends Component {
                     <TopNavBar textCenter={strings.relatedPeople} imageLeft={imgSrc} boxShadow={true}/>
                     <div className="persons-wrapper">
                         <h1>{strings.closestPeople}</h1>
-                        <div className="view-all">{strings.viewAll}</div>
+                        <div className="view-all" onClick={this.viewAll}>{strings.viewAll}</div>
                         <div className="persons">
                             {users.filter((singleUser, index) => index < 2).map((singleUser, index) => {
                                 return index === 0 ?

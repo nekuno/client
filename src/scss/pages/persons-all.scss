@@ -1,0 +1,21 @@
+@import '../_partials/colors';
+
+body #root .App .views .view.persons-all-view {
+  background: $white-background;
+  color: $gray-main-text;
+  text-align: left;
+
+  .persons-all-wrapper {
+    margin-top: 24px;
+    padding: 0 8px;
+
+    .persons {
+      position: relative;
+      width: 100%;
+
+      .person {
+        display: inline;
+      }
+    }
+  }
+}

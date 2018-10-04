@@ -7,11 +7,12 @@ body #root .App .views .view.persons-view {
 
   .persons-wrapper {
     margin-top: 24px;
-    padding: 0 16px;
+    padding: 0 8px;
 
     h1 {
       display: inline-block;
-      width: 75%;
+      padding: 0 8px;
+      width: 70%;
     }
     .view-all {
       display: inline-block;
@@ -19,7 +20,7 @@ body #root .App .views .view.persons-view {
       cursor: pointer;
       font-weight: bold;
       text-align: right;
-      width: 25%;
+      width: 23%;
     }
 
     .persons {

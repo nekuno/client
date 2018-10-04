@@ -59,7 +59,7 @@ export default class AvailabilityPage extends Component {
     }
 
     goToAvailabilityEditPage() {
-        this.context.router.push('/availability-edit');
+        this.context.router.push('/availability-edit-on-sign-up');
     }
 
     render() {

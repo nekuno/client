@@ -19,6 +19,7 @@ import ExplorerProfileEventsPage from './pages/ExplorerProfileEventsPage';
 import ExplorerProfileRestaurantsPage from './pages/ExplorerProfileRestaurantsPage';
 import ExplorerProfilePlansPage from './pages/ExplorerProfilePlansPage';
 import AvailabilityPage from './pages/AvailabilityPage';
+import AvailabilityEditOnSignUpPage from './pages/AvailabilityEditOnSignUpPage';
 import AvailabilityEditPage from './pages/AvailabilityEditPage';
 import ConnectFacebookPage from './pages/ConnectFacebookPage';
 import ConnectingFacebookPage from './pages/ConnectingFacebookPage';
@@ -106,7 +107,7 @@ export default class Root extends Component {
                     <Route name="explorer-profile-restaurants" path="/explorer-profile-restaurants" component={ExplorerProfileRestaurantsPage}/>
                     <Route name="explorer-profile-plans" path="/explorer-profile-plans" component={ExplorerProfilePlansPage}/>
                     <Route name="availability" path="/availability" component={AvailabilityPage}/>
-                    <Route name="availability-edit" path="/availability-edit" component={AvailabilityEditPage}/>
+                    <Route name="availability-edit-on-sign-up" path="/availability-edit-on-sign-up" component={AvailabilityEditOnSignUpPage}/>
                     <Route name="connect-facebook" path="/connect-facebook" component={ConnectFacebookPage}/>
                     <Route name="login" path="/login" component={LoginPage}/>
                     <Route name="register" path="/register" component={RegisterPage}/>
@@ -117,6 +118,7 @@ export default class Root extends Component {
                         <Route name="proposals" path="/proposals" component={ProposalsPage}/>
                         <Route name="persons" path="/persons" component={PersonsPage}/>
                         <Route name="plans" path="/plans" component={OwnProposalsPage}/>
+                        <Route name="availability-edit" path="/availability-edit" component={AvailabilityEditPage}/>
                         <Route name="explore" path="/explore" component={ExplorePage}/>
                         <Route name="register-questions-landing" path="/register-questions-landing" component={RegisterQuestionsLandingPage}/>
                         <Route name="answer-user-fields" path="/answer-user-fields" component={AnswerUserFieldPage}/>

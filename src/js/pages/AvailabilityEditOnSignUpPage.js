@@ -1,39 +1,35 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { format } from 'date-fns';
 import connectToStores from '../utils/connectToStores';
-import AuthenticatedComponent from '../components/AuthenticatedComponent';
+import { format } from 'date-fns';
 import translate from '../i18n/Translate';
+import LoginActionCreators from '../actions/LoginActionCreators';
+import LocaleStore from '../stores/LocaleStore';
 import ProfileStore from '../stores/ProfileStore';
+import RegisterStore from '../stores/RegisterStore';
 import StepsBar from '../components/ui/StepsBar/StepsBar.js';
 import TopNavBar from '../components/TopNavBar/TopNavBar.js';
 import AvailabilityEdit from '../components/Availability/AvailabilityEdit/AvailabilityEdit.js';
-import * as UserActionCreators from '../actions/UserActionCreators';
 import '../../scss/pages/availability-edit.scss';
 
-function requestData(props) {
-    if (!props.profile && props.user.slug) {
-        UserActionCreators.requestOwnProfile(props.user.slug);
-    }
-}
-
-function getState(props) {
-    const {user} = props;
-    const profile = ProfileStore.get(user.slug);
-    const interfaceLanguage = profile ? profile.interfaceLanguage : null;
+function getState() {
+    const interfaceLanguage = LocaleStore.locale;
+    const user = RegisterStore.user;
+    const username = user && user.username ? user.username : null;
+    const profile = RegisterStore.profile;
     const availability = profile && profile.availability ? profile.availability : null;
 
     return {
         interfaceLanguage,
         profile,
-        availability
+        availability,
+        username
     };
 }
 
-@AuthenticatedComponent
-@translate('AvailabilityEditPage')
-@connectToStores([ProfileStore], getState)
-export default class AvailabilityEditPage extends Component {
+@translate('AvailabilityEditOnSignUpPage')
+@connectToStores([LocaleStore, ProfileStore, RegisterStore], getState)
+export default class AvailabilityEditOnSignUpPage extends Component {
 
     static propTypes = {
         // Injected by @translate:
@@ -57,17 +53,19 @@ export default class AvailabilityEditPage extends Component {
     }
 
     componentDidMount() {
-        requestData(this.props);
+        if (!this.props.username) {
+            this.context.router.push('/answer-username');
+        }
     }
 
     saveAndContinue() {
-        this.context.router.push('/proposals');
+        this.context.router.push('/availability');
     }
 
     onSave(availability) {
         const {profile} = this.props;
 
-        UserActionCreators.editProfile({...profile, ...{availability: availability}});
+        LoginActionCreators.preRegisterProfile({...profile, ...{availability: availability}});
     }
 
     render() {
@@ -89,9 +87,9 @@ export default class AvailabilityEditPage extends Component {
     }
 }
 
-AvailabilityEditPage.defaultProps = {
+AvailabilityEditOnSignUpPage.defaultProps = {
     strings: {
-        yourAvailability: 'My Availability',
-        continue        : 'Save changes'
+        yourAvailability: 'Your Availability',
+        continue        : 'Save & continue'
     }
 };

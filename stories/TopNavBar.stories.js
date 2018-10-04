@@ -67,11 +67,12 @@ storiesOf('TopNavBar', module)
             onRightLinkClickHandler={action('clicked')}
         />
     ))
-    .add('with back icon and share icon without background', () => (
+    .add('with back icon and share icon without background and colored to purple', () => (
         <TopNavBar
             iconLeft={'left-arrow'}
             textCenter={'Lorem ipsum'}
             firstIconRight={'share'}
+            iconsRightColor={'#756EE5'}
             onRightLinkClickHandler={action('clicked')}
         />
     ))

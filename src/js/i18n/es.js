@@ -41,8 +41,12 @@ export default {
         signUp      : 'Finalizar registro',
     },
     AvailabilityEditPage             : {
-        yourAvailability: 'Tu Disponibilidad',
-        continue        : 'Guardar y continuar'
+        yourAvailability: 'Mi Disponibilidad',
+        continue        : 'Guardar cambios'
+    },
+    AvailabilityEditOnSignUpPage     : {
+        yourAvailability: 'Your Availability',
+        continue        : 'Save & continue'
     },
     ChatMessagesPage                 : {
         noMoreMessages: 'No tienes más mensajes',

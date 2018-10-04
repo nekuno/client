@@ -24,6 +24,7 @@ export default class TopNavBar extends Component {
         firstIconRight               : PropTypes.string,
         secondIconRight              : PropTypes.string,
         iconsRightBackground         : PropTypes.string,
+        iconsRightColor              : PropTypes.string,
         imageRight                   : PropTypes.string,
         proposalsIcon                : PropTypes.bool,
         proposalsCount               : PropTypes.number,
@@ -76,6 +77,7 @@ export default class TopNavBar extends Component {
             firstIconRight,
             secondIconRight,
             iconsRightBackground,
+            iconsRightColor,
             imageRight,
             proposalsIcon,
             proposalsCount,
@@ -114,12 +116,13 @@ export default class TopNavBar extends Component {
                                 <RoundedIcon icon={firstIconRight}
                                              size="small"
                                              background={iconsRightBackground}
+                                             color={iconsRightColor}
                                              fontSize={'15px'}
                                              onClickHandler={this.props.onRightLinkClickHandler}
                                 />
                             </div>
                             :
-                            <div className={styles.icon + ' icon icon-' + firstIconRight} onClick={this.props.onRightLinkClickHandler}/>
+                            <div className={styles.icon + ' icon icon-' + firstIconRight} style={{color: iconsRightColor}} onClick={this.props.onRightLinkClickHandler}/>
                         : null
                     }
                     {secondIconRight ?
@@ -128,12 +131,13 @@ export default class TopNavBar extends Component {
                                 <RoundedIcon icon={secondIconRight}
                                              size="small"
                                              background={iconsRightBackground}
+                                             color={iconsRightColor}
                                              fontSize={'15px'}
                                              onClickHandler={this.props.onSecondRightLinkClickHandler}
                                 />
                             </div>
                             :
-                            <div className={styles.icon + ' icon icon-' + secondIconRight + ' ' + styles.second} onClick={this.props.onSecondRightLinkClickHandler}/>
+                            <div className={styles.icon + ' icon icon-' + secondIconRight + ' ' + styles.second} style={{color: iconsRightColor}} onClick={this.props.onSecondRightLinkClickHandler}/>
                         : null
                     }
                     {imageRight ?

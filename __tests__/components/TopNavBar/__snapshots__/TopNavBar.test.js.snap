@@ -45,6 +45,11 @@ ShallowWrapper {
           <div
             className="icon icon icon-delete"
             onClick={[MockFunction]}
+            style={
+              Object {
+                "color": undefined,
+              }
+            }
           />
         </div>,
       ],
@@ -101,6 +106,11 @@ ShallowWrapper {
             <div
               className="icon icon icon-delete"
               onClick={[MockFunction]}
+              style={
+                Object {
+                  "color": undefined,
+                }
+              }
             />,
             null,
             null,
@@ -119,6 +129,9 @@ ShallowWrapper {
             "props": Object {
               "className": "icon icon icon-delete",
               "onClick": [MockFunction],
+              "style": Object {
+                "color": undefined,
+              },
             },
             "ref": null,
             "rendered": null,
@@ -163,6 +176,11 @@ ShallowWrapper {
             <div
               className="icon icon icon-delete"
               onClick={[MockFunction]}
+              style={
+                Object {
+                  "color": undefined,
+                }
+              }
             />
           </div>,
         ],
@@ -219,6 +237,11 @@ ShallowWrapper {
               <div
                 className="icon icon icon-delete"
                 onClick={[MockFunction]}
+                style={
+                  Object {
+                    "color": undefined,
+                  }
+                }
               />,
               null,
               null,
@@ -237,6 +260,9 @@ ShallowWrapper {
               "props": Object {
                 "className": "icon icon icon-delete",
                 "onClick": [MockFunction],
+                "style": Object {
+                  "color": undefined,
+                },
               },
               "ref": null,
               "rendered": null,

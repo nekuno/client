@@ -41,6 +41,10 @@ export default {
         signUp      : 'Finish sign up'
     },
     AvailabilityEditPage             : {
+        yourAvailability: 'My Availability',
+        continue        : 'Save changes'
+    },
+    AvailabilityEditOnSignUpPage     : {
         yourAvailability: 'Your Availability',
         continue        : 'Save & continue'
     },

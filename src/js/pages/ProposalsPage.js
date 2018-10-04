@@ -62,7 +62,8 @@ function getState(props) {
             city: 'Sevilla',
             matching: 12,
             similarity: 5,
-            coincidences: 2
+            coincidences: 2,
+            resume: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
         },
     ];
 
@@ -97,9 +98,15 @@ export default class ProposalsPage extends Component {
     constructor(props) {
         super(props);
 
+        this.goToEditAvailability = this.goToEditAvailability.bind(this);
+
         this.state = {
             current: 0
         };
+    }
+
+    goToEditAvailability() {
+        this.context.router.push('/availability-edit');
     }
 
     render() {
@@ -110,9 +117,9 @@ export default class ProposalsPage extends Component {
         return (
             <div className="views">
                 <div className="view view-main proposals-view">
-                    <TopNavBar textCenter={strings.discover} imageLeft={imgSrc} boxShadow={true}/>
+                    <TopNavBar textCenter={strings.discover} imageLeft={imgSrc} firstIconRight={'clock'} onRightLinkClickHandler={this.goToEditAvailability} boxShadow={true} iconsRightColor={'#756EE5'}/>
                     <div className="proposals-wrapper">
-                        {proposals.map((proposal, index) => <div className="proposal" style={current !== index ? {display: 'none'} : {}}>
+                        {proposals.map((proposal, index) => <div className="proposal" key={index} style={current !== index ? {display: 'none'} : {}}>
                             <ProposalCard {...proposal}/>
                         </div>)}
                     </div>

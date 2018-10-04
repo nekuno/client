@@ -42,17 +42,6 @@ export default {
     },
     AvailabilityEditPage             : {
         yourAvailability: 'Tu Disponibilidad',
-        title           : '¿Cuál es tu disponibilidad?',
-        daily           : 'A diario',
-        dates           : 'Fechas',
-        addRange        : 'Añadir rango de días',
-        monday          : 'Lunes',
-        tuesday         : 'Martes',
-        wednesday       : 'Miércoles',
-        thursday        : 'Jueves',
-        friday          : 'Viernes',
-        saturday        : 'Sábado',
-        sunday          : 'Domingo',
         continue        : 'Guardar y continuar'
     },
     ChatMessagesPage                 : {
@@ -93,11 +82,11 @@ export default {
         resume        : 'Carga automáticamente tus juegos favoritos',
         cannotGetGames: 'Quizás tengas la configuración de privacidad como privada. Cámbiala a pública para ver tus juegos.'
     },
-    DailyInputRange                   : {
-        morning         : 'Mañana',
-        afternoon       : 'Tarde',
-        night           : 'Noche',
-        continue        : 'Guardar y continuar'
+    DailyInputRange                  : {
+        morning  : 'Mañana',
+        afternoon: 'Tarde',
+        night    : 'Noche',
+        continue : 'Guardar y continuar'
     },
     DateInputRange                   : {
         topText: 'Selecciona un rango de fechas'
@@ -486,6 +475,19 @@ export default {
     ////////////////
     // Components //
     ////////////////
+    AvailabilityEdit                 : {
+        title    : '¿Cuál es tu disponibilidad?',
+        daily    : 'A diario',
+        dates    : 'Fechas',
+        addRange : 'Añadir rango de días',
+        monday   : 'Lunes',
+        tuesday  : 'Martes',
+        wednesday: 'Miércoles',
+        thursday : 'Jueves',
+        friday   : 'Viernes',
+        saturday : 'Sábado',
+        sunday   : 'Domingo',
+    },
     BottomNavBar                     : {
         proposals : 'Propuestas',
         persons   : 'Personas',

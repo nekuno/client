@@ -4,36 +4,4 @@ body #root .App .views .view.availability-edit-view {
   color: $gray-main-text;
   text-align: center;
   z-index: 0;
-
-  .availability-edit-wrapper {
-    margin-bottom: 60px;
-
-    h2 {
-      margin-bottom: 36px;
-      padding: 0 24px
-    }
-
-    .daily-options {
-
-      .weekday {
-        margin: 8px 0;
-        width: 100%;
-
-        .range {
-          padding: 0 12px;
-
-          .range-option {
-            display: inline-block;
-            width: 33%;
-          }
-        }
-      }
-    }
-
-    .dates-options {
-      .dates-option {
-        margin-bottom: 24px;
-      }
-    }
-  }
 }

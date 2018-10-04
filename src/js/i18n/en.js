@@ -42,17 +42,6 @@ export default {
     },
     AvailabilityEditPage             : {
         yourAvailability: 'Your Availability',
-        title           : 'What is your availability?',
-        daily           : 'Daily',
-        dates           : 'Dates',
-        addRange        : 'Add days range',
-        monday          : 'Monday',
-        tuesday         : 'Tuesday',
-        wednesday       : 'Wednesday',
-        thursday        : 'Thursday',
-        friday          : 'Friday',
-        saturday        : 'Saturday',
-        sunday          : 'Sunday',
         continue        : 'Save & continue'
     },
     ChatMessagesPage                 : {
@@ -486,6 +475,19 @@ export default {
     ////////////////
     // Components //
     ////////////////
+    AvailabilityEdit                 : {
+        title    : 'What is your availability?',
+        daily    : 'Daily',
+        dates    : 'Dates',
+        addRange : 'Add days range',
+        monday   : 'Monday',
+        tuesday  : 'Tuesday',
+        wednesday: 'Wednesday',
+        thursday : 'Thursday',
+        friday   : 'Friday',
+        saturday : 'Saturday',
+        sunday   : 'Sunday'
+    },
     BottomNavBar                     : {
         proposals : 'Proposals',
         persons   : 'Persons',

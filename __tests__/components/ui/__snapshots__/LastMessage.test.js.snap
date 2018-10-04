@@ -76,6 +76,9 @@ ShallowWrapper {
         </div>,
       ],
       "className": "lastMessage",
+      "style": Object {
+        "background": null,
+      },
     },
     "ref": null,
     "rendered": Array [
@@ -278,6 +281,9 @@ ShallowWrapper {
           </div>,
         ],
         "className": "lastMessage",
+        "style": Object {
+          "background": null,
+        },
       },
       "ref": null,
       "rendered": Array [

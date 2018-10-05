@@ -3,6 +3,7 @@
 body #root .App .views .view.persons-all-view {
   background: $white-background;
   color: $gray-main-text;
+  position: relative;
   text-align: left;
 
   .persons-all-wrapper {
@@ -16,6 +17,16 @@ body #root .App .views .view.persons-all-view {
       .person {
         display: inline;
       }
+    }
+  }
+  .filters-button {
+    position: absolute;
+    right: 100px;
+
+
+    .filters-button-fixed {
+      bottom: 8px;
+      position: fixed;
     }
   }
 }

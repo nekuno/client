@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
+import RoundedIcon from '../components/ui/RoundedIcon/RoundedIcon.js';
 import SelectCollapsible from '../components/ui/SelectCollapsible/SelectCollapsible.js';
 import TopNavBar from '../components/TopNavBar/TopNavBar.js';
 import CardUser from '../components/OtherUser/CardUser/CardUser.js';
@@ -95,6 +96,7 @@ export default class PersonsAllPage extends Component {
         super(props);
 
         this.handleSearch = this.handleSearch.bind(this);
+        this.goToPersonsFilters = this.goToPersonsFilters.bind(this);
     }
 
     handleSearch(value) {
@@ -103,6 +105,10 @@ export default class PersonsAllPage extends Component {
 
     handleChangeOrder(order) {
         // TODO: Call endpoint for new order
+    }
+
+    goToPersonsFilters() {
+
     }
 
     render() {
@@ -137,6 +143,11 @@ export default class PersonsAllPage extends Component {
                                     <CardUser {...singleUser} size="small"/>
                                 </div>
                             )}
+                        </div>
+                    </div>
+                    <div className="filters-button">
+                        <div className="filters-button-fixed">
+                            <RoundedIcon icon={'filter'} size={'large'} background={'#928BFF'} fontSize={'35px'} onClickHandler={this.goToPersonsFilters}/>
                         </div>
                     </div>
                 </div>

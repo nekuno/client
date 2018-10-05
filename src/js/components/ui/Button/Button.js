@@ -5,6 +5,8 @@ import styles from './Button.scss';
 export default class Button extends Component {
 
     static propTypes = {
+        color         : PropTypes.string,
+        borderColor   : PropTypes.string,
         disabled      : PropTypes.bool,
         onClickHandler: PropTypes.func
     };
@@ -18,11 +20,11 @@ export default class Button extends Component {
     }
 
     render() {
-        const {disabled, children} = this.props;
+        const {disabled, color, borderColor, children} = this.props;
 
         return (
             <div className={styles.buttonWrapper}>
-                <button className={styles.button} disabled={disabled} onClick={this.handleClick.bind(this)}>
+                <button className={styles.button} disabled={disabled} style={{color: color, borderColor: borderColor}} onClick={this.handleClick.bind(this)}>
                     {children}
                 </button>
             </div>

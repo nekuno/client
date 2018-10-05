@@ -24,6 +24,12 @@ ShallowWrapper {
       "children": <button
         className="button"
         onClick={[Function]}
+        style={
+          Object {
+            "borderColor": undefined,
+            "color": undefined,
+          }
+        }
       >
         Lorem ipsum
       </button>,
@@ -39,6 +45,10 @@ ShallowWrapper {
         "className": "button",
         "disabled": undefined,
         "onClick": [Function],
+        "style": Object {
+          "borderColor": undefined,
+          "color": undefined,
+        },
       },
       "ref": null,
       "rendered": "Lorem ipsum",
@@ -55,6 +65,12 @@ ShallowWrapper {
         "children": <button
           className="button"
           onClick={[Function]}
+          style={
+            Object {
+              "borderColor": undefined,
+              "color": undefined,
+            }
+          }
         >
           Lorem ipsum
         </button>,
@@ -70,6 +86,10 @@ ShallowWrapper {
           "className": "button",
           "disabled": undefined,
           "onClick": [Function],
+          "style": Object {
+            "borderColor": undefined,
+            "color": undefined,
+          },
         },
         "ref": null,
         "rendered": "Lorem ipsum",

@@ -12,6 +12,7 @@ function loadStories() {
     require('../stories/DailyInputRange.stories');
     require('../stories/ErrorMessage.stories');
     require('../stories/Frame.stories');
+    require('../stories/FrameCollapsible.stories');
     require('../stories/IconNotification.stories');
     require('../stories/Input.stories');
     require('../stories/InputSelectImage.stories');

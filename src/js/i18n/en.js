@@ -300,9 +300,9 @@ export default {
     PersonsAllPage                   : {
         title        : 'Nekuno People',
         orderedBy    : 'Ordered by',
-        compatibility: 'compatibility',
-        similarity   : 'similarity',
-        coincidences : 'coincidences'
+        compatibility: 'Compatibility',
+        similarity   : 'Similarity',
+        coincidences : 'Coincidences'
     },
     ProfessionalProfilePage          : {
         yourAccount: 'Your account at Nekuno',

@@ -126,7 +126,7 @@ export default class PersonsAllPage extends Component {
             <div className="views">
                 <div className="view view-main persons-all-view">
                     <TopNavBar textCenter={strings.title} textSize={'small'} iconLeft={'arrow-left'} boxShadow={true} searchInput={true} onSearchChange={this.handleSearch}>
-                        <SelectCollapsible options={orderOptions} selected={order} title={strings.orderedBy + ' ' + strings[order]} onClickHandler={this.handleChangeOrder}/>
+                        <SelectCollapsible options={orderOptions} selected={order} title={strings.orderedBy + ' ' + strings[order].toLowerCase()} onClickHandler={this.handleChangeOrder}/>
                     </TopNavBar>
                     <div className="persons-all-wrapper">
                         <h1>{strings.closestPeople}</h1>

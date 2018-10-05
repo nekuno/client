@@ -25,6 +25,7 @@ function loadStories() {
     require('../stories/ProposalCard.stories');
     require('../stories/RoundedIcon.stories');
     require('../stories/RoundedImage.stories');
+    require('../stories/SelectCollapsible.stories');
     require('../stories/SelectInline.stories');
     require('../stories/StepsBar.stories');
     require('../stories/Tabs.stories');

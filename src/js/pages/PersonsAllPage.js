@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
+import SelectCollapsible from '../components/ui/SelectCollapsible/SelectCollapsible.js';
 import TopNavBar from '../components/TopNavBar/TopNavBar.js';
 import CardUser from '../components/OtherUser/CardUser/CardUser.js';
 import WorkersStore from '../stores/WorkersStore';
@@ -14,6 +15,7 @@ function getState(props) {
     const networks = WorkersStore.getAll();
     const error = WorkersStore.getConnectError();
     const isLoading = WorkersStore.isLoading();
+    const order = 'compatibility';
     const users = [
         {
             photo: 'http://via.placeholder.com/250x250',
@@ -64,7 +66,8 @@ function getState(props) {
         networks,
         error,
         isLoading,
-        users
+        users,
+        order
     };
 }
 
@@ -98,13 +101,33 @@ export default class PersonsAllPage extends Component {
         // TODO: Call endpoint for filtering users by name
     }
 
+    handleChangeOrder(order) {
+        // TODO: Call endpoint for new order
+    }
+
     render() {
-        const {users, networks, strings} = this.props;
+        const {users, order, networks, strings} = this.props;
+        const orderOptions = [
+            {
+                id: 'compatibility',
+                text: strings.compatibility
+            },
+            {
+                id: 'similarity',
+                text: strings.similarity
+            },
+            {
+                id: 'coincidences',
+                text: strings.coincidences
+            }
+        ];
 
         return (
             <div className="views">
                 <div className="view view-main persons-all-view">
-                    <TopNavBar textCenter={strings.title} iconLeft={'arrow-left'} boxShadow={true} searchInput={true} onSearchChange={this.handleSearch}/>
+                    <TopNavBar textCenter={strings.title} textSize={'small'} iconLeft={'arrow-left'} boxShadow={true} searchInput={true} onSearchChange={this.handleSearch}>
+                        <SelectCollapsible options={orderOptions} selected={order} title={strings.orderedBy + ' ' + strings[order]} onClickHandler={this.handleChangeOrder}/>
+                    </TopNavBar>
                     <div className="persons-all-wrapper">
                         <h1>{strings.closestPeople}</h1>
                         <div className="view-all">{strings.viewAll}</div>
@@ -125,6 +148,10 @@ export default class PersonsAllPage extends Component {
 
 PersonsAllPage.defaultProps = {
     strings: {
-        title: 'Nekuno People',
+        title        : 'Nekuno People',
+        orderedBy    : 'Ordered by',
+        compatibility: 'compatibility',
+        similarity   : 'similarity',
+        coincidences : 'coincidences'
     }
 };

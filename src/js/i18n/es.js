@@ -45,8 +45,8 @@ export default {
         continue        : 'Guardar cambios'
     },
     AvailabilityEditOnSignUpPage     : {
-        yourAvailability: 'Your Availability',
-        continue        : 'Save & continue'
+        yourAvailability: 'Tu disponibilidad',
+        continue        : 'Guardar y continuar'
     },
     ChatMessagesPage                 : {
         noMoreMessages: 'No tienes más mensajes',
@@ -296,6 +296,13 @@ export default {
         closestPeople: 'Las personas más afines',
         viewAll      : 'Ver todos',
         groupsPersons: 'Personas de tus insignias'
+    },
+    PersonsAllPage                   : {
+        title        : 'Personas Nekuno',
+        orderedBy    : 'Ordenadas por',
+        compatibility: 'compatibilidad',
+        similarity   : 'similaridad',
+        coincidences : 'coincidencias'
     },
     ProfessionalProfilePage          : {
         yourAccount: 'Tu cuenta en Nekuno',

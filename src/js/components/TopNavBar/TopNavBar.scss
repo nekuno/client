@@ -9,7 +9,7 @@
 .left {
   cursor: pointer;
   display: inline-block;
-  height: 100%;
+  height: 50px;
   padding: 0 2%;
   text-align: left;
   vertical-align: top;
@@ -29,8 +29,6 @@
   }
 
   &.small {
-    vertical-align: text-bottom;
-
     .icon {
       margin-top: 8px;
     }
@@ -48,14 +46,13 @@
 
   &.small {
     font-size: 13px;
-    line-height: 50px;
-    height: 50%;
-    vertical-align: sub;
+    line-height: 40px;
+    vertical-align: text-top;
   }
 }
 .right {
   display: inline-block;
-  height: 100%;
+  height: 50px;
   padding: 0 2%;
   text-align: right;
   vertical-align: top;
@@ -89,7 +86,6 @@
   }
 
   &.small {
-    vertical-align: text-bottom;
 
     .icon {
       margin-top: 8px;

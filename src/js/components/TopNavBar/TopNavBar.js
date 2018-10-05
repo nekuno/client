@@ -38,6 +38,7 @@ export default class TopNavBar extends Component {
         onSearchChange               : PropTypes.func,
         onRightLinkClickHandler      : PropTypes.func,
         onSecondRightLinkClickHandler: PropTypes.func,
+        children                     : PropTypes.object,
     };
 
     static contextTypes = {
@@ -111,7 +112,8 @@ export default class TopNavBar extends Component {
             messagesCount,
             textRight,
             textRightColored,
-            searchInput
+            searchInput,
+            children
         } = this.props;
         const {searching} = this.state;
         const leftClassName = textSize === 'small' ? styles.left + ' ' + styles.small : styles.left;
@@ -206,6 +208,7 @@ export default class TopNavBar extends Component {
                                 : null
                             }
                         </div>
+                        {children}
                     </div>
                 }
             </TopBar>

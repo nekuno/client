@@ -297,6 +297,13 @@ export default {
         viewAll      : 'View all',
         groupsPersons: 'People from your badges'
     },
+    PersonsAllPage                   : {
+        title        : 'Nekuno People',
+        orderedBy    : 'Ordered by',
+        compatibility: 'compatibility',
+        similarity   : 'similarity',
+        coincidences : 'coincidences'
+    },
     ProfessionalProfilePage          : {
         yourAccount: 'Your account at Nekuno',
         title      : 'Fill your professional profile',

@@ -87,11 +87,11 @@ export default class OwnProposalsPage extends Component {
                         <div className="proposals">
                             {ownProposals.filter((proposal, index) => index < 2).map((proposal, index) => {
                                 return index === 0 ?
-                                    <div className="proposal proposal-1">
+                                    <div key={index} className="proposal proposal-1">
                                         <OwnProposalCard {...proposal}/>
                                     </div>
                                     :
-                                    <div className="proposal proposal-2">
+                                    <div key={index} className="proposal proposal-2">
                                         <OwnProposalCard {...proposal} size="medium"/>
                                     </div>
                                 }

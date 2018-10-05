@@ -161,11 +161,11 @@ export default class PersonsPage extends Component {
                         <div className="persons">
                             {users.filter((singleUser, index) => index < 2).map((singleUser, index) => {
                                 return index === 0 ?
-                                    <div className="person person-1">
+                                    <div key={index} className="person person-1">
                                         <CardUser {...singleUser} size="medium"/>
                                     </div>
                                     :
-                                    <div className="person person-2">
+                                    <div key={index} className="person person-2">
                                         <CardUser {...singleUser} size="medium"/>
                                     </div>
                                 }
@@ -175,11 +175,11 @@ export default class PersonsPage extends Component {
                         <div className="persons">
                             {groupUsers.filter((singleUser, index) => index < 2).map((singleUser, index) => {
                                     return index === 0 ?
-                                        <div className="person person-1">
+                                        <div key={index} className="person person-1">
                                             <CardUser {...singleUser} size="medium"/>
                                         </div>
                                         :
-                                        <div className="person person-2">
+                                        <div key={index} className="person person-2">
                                             <CardUser {...singleUser} size="medium"/>
                                         </div>
                                 }

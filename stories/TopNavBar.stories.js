@@ -2,7 +2,23 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import TopNavBar from '../src/js/components/TopNavBar/TopNavBar.js';
+import SelectCollapsible from '../src/js/components/ui/SelectCollapsible/SelectCollapsible.js';
 import Overlay from '../src/js/components/ui/Overlay/Overlay.js';
+
+const orderOptions = [
+    {
+        id: 'compatibility',
+        text: 'Compatibility'
+    },
+    {
+        id: 'similarity',
+        text: 'Similarity'
+    },
+    {
+        id: 'coincidences',
+        text: 'Coincidences'
+    }
+];
 
 storiesOf('TopNavBar', module)
     .add('with left arrow icon and positioned absolute', () => (
@@ -69,7 +85,7 @@ storiesOf('TopNavBar', module)
     ))
     .add('with back icon and share icon without background and colored to purple', () => (
         <TopNavBar
-            iconLeft={'left-arrow'}
+            iconLeft={'arrow-left'}
             textCenter={'Lorem ipsum'}
             firstIconRight={'share'}
             iconsRightColor={'#756EE5'}
@@ -78,7 +94,7 @@ storiesOf('TopNavBar', module)
     ))
     .add('with back icon and two icons without background', () => (
         <TopNavBar
-            iconLeft={'left-arrow'}
+            iconLeft={'arrow-left'}
             textCenter={'Lorem ipsum'}
             firstIconRight={'edit'}
             secondIconRight={'delete'}
@@ -88,10 +104,22 @@ storiesOf('TopNavBar', module)
     ))
     .add('with back icon and search input', () => (
         <TopNavBar
-            iconLeft={'left-arrow'}
+            iconLeft={'arrow-left'}
             textCenter={'Lorem ipsum'}
             searchInput={true}
             onRightLinkClickHandler={action('clicked first')}
             onSearchChange={action('input changed')}
         />
+    ))
+    .add('with select collapsible component', () => (
+        <TopNavBar
+            iconLeft={'arrow-left'}
+            textSize={'small'}
+            textCenter={'Lorem ipsum'}
+            boxShadow={true}
+            searchInput={true}
+            onSearchChange={action('input changed')}
+        >
+            <SelectCollapsible options={orderOptions} selected={'compatibility'} title={'Order by'} onClickHandler={action('new order selected')}/>
+        </TopNavBar>
     ));

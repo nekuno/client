@@ -85,4 +85,13 @@ storiesOf('TopNavBar', module)
             onRightLinkClickHandler={action('clicked first')}
             onSecondRightLinkClickHandler={action('clicked second')}
         />
+    ))
+    .add('with back icon and search input', () => (
+        <TopNavBar
+            iconLeft={'left-arrow'}
+            textCenter={'Lorem ipsum'}
+            searchInput={true}
+            onRightLinkClickHandler={action('clicked first')}
+            onSearchChange={action('input changed')}
+        />
     ));

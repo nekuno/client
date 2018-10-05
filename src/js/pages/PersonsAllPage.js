@@ -91,6 +91,11 @@ export default class PersonsAllPage extends Component {
     constructor(props) {
         super(props);
 
+        this.handleSearch = this.handleSearch.bind(this);
+    }
+
+    handleSearch(value) {
+        // TODO: Call endpoint for filtering users by name
     }
 
     render() {
@@ -99,13 +104,13 @@ export default class PersonsAllPage extends Component {
         return (
             <div className="views">
                 <div className="view view-main persons-all-view">
-                    <TopNavBar textCenter={strings.title} iconLeft={'arrow-left'} boxShadow={true}/>
+                    <TopNavBar textCenter={strings.title} iconLeft={'arrow-left'} boxShadow={true} searchInput={true} onSearchChange={this.handleSearch}/>
                     <div className="persons-all-wrapper">
                         <h1>{strings.closestPeople}</h1>
                         <div className="view-all">{strings.viewAll}</div>
                         <div className="persons">
                             {users.map((singleUser, index) =>
-                                <div className="person">
+                                <div key={index} className="person">
                                     <CardUser {...singleUser} size="small"/>
                                 </div>
                             )}

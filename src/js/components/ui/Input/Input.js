@@ -93,7 +93,7 @@ export default class Input extends Component {
                            required
                     />
                     {!empty && !checked ?
-                        <span className={'icon icon-x'} onClick={this.clearValue}/>
+                        <span className={styles.iconCancel + ' ' + 'icon icon-x'} onClick={this.clearValue}/>
                         : null
                     }
                     {!empty && checked ?

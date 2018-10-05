@@ -1,3 +1,11 @@
+@import '../../../scss/_partials/colors';
+
+.search-input {
+  margin-top: -20px;
+  position: absolute;
+  width: 100%;
+}
+
 .left {
   cursor: pointer;
   display: inline-block;
@@ -40,7 +48,7 @@
 
   &.small {
     font-size: 13px;
-    line-height: 16px;
+    line-height: 50px;
     height: 50%;
     vertical-align: sub;
   }
@@ -65,6 +73,9 @@
 
     &.second {
       margin-left: 20px;
+    }
+    &.icon-search {
+      color: $purple-main;
     }
   }
   .rounded-icon {

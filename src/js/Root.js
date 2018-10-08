@@ -26,6 +26,7 @@ import ConnectingFacebookPage from './pages/ConnectingFacebookPage';
 import ProposalsPage from './pages/ProposalsPage';
 import PersonsPage from './pages/PersonsPage';
 import PersonsAllPage from './pages/PersonsAllPage';
+import PersonsFilterPage from './pages/PersonsFilterPage';
 import OwnProposalsPage from './pages/OwnProposalsPage';
 import ExplorePage from './pages/ExplorePage';
 import ChatThreadsPage from './pages/ChatThreadsPage';
@@ -119,6 +120,7 @@ export default class Root extends Component {
                         <Route name="proposals" path="/proposals" component={ProposalsPage}/>
                         <Route name="persons" path="/persons" component={PersonsPage}/>
                         <Route name="persons-all" path="/persons-all" component={PersonsAllPage}/>
+                        <Route name="persons-filter" path="/persons-filter/:threadId" component={PersonsFilterPage}/>
                         <Route name="plans" path="/plans" component={OwnProposalsPage}/>
                         <Route name="availability-edit" path="/availability-edit" component={AvailabilityEditPage}/>
                         <Route name="explore" path="/explore" component={ExplorePage}/>

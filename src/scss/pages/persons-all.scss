@@ -3,14 +3,20 @@
 body #root .App .views .view.persons-all-view {
   background: $white-background;
   color: $gray-main-text;
+  height: 100%;
+  overflow: hidden;
   position: relative;
   text-align: left;
 
   .persons-all-wrapper {
-    margin-top: 24px;
-    padding: 0 8px;
+    height: 100%;
+    top: 0;
+    position: absolute;
+    margin-top: 105px;
+    width: 100%;
 
     .persons {
+      height: 100%;
       position: relative;
       width: 100%;
 

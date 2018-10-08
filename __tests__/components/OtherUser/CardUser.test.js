@@ -9,30 +9,28 @@ describe('Test CardUser component', () => {
     const mockFn = jest.fn();
     const cardUser1 = shallow(
         <CardUser onClickHandler={mockFn}
-                  photo={'http://via.placeholder.com/100x100'}
-                  nickname={'JohnDoe'}
+                  photo={{ thumbnail: { medium: 'http://via.placeholder.com/250x250' } }}
+                  username={'JohnDoe'}
                   age={36}
                   city={'New York'}
                   gender={'Male'}
                   matching={76}
                   similarity={85}
-                  coincidences={24}
-                  networks={['facebook', 'twitter', 'steam']}
+                  sharedLinks={24}
                   size="small"
                   resume="foo"
         />
     );
     const cardUser2 = shallow(
         <CardUser onClickHandler={mockFn}
-                  photo={'http://via.placeholder.com/100x100'}
-                  nickname={'JaneDoe'}
+                  photo={{ thumbnail: { medium: 'http://via.placeholder.com/250x250' } }}
+                  username={'JaneDoe'}
                   age={30}
                   city={'New Jersey'}
                   gender={'Female'}
                   matching={89}
                   similarity={34}
-                  coincidences={101}
-                  networks={['tumblr', 'spotify', 'instagram', 'facebook', 'twitter', 'steam']}
+                  sharedLinks={101}
                   size="medium"
                   resume="bar"
         />

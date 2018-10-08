@@ -1,6 +1,7 @@
 @import '../../../../scss/_partials/colors';
 
 .card-user {
+  cursor: pointer;
   display: inline-block;
   font-weight: 600;
   margin: 0;
@@ -89,6 +90,11 @@
       overflow: hidden;
       padding: 0 5%;
       text-overflow: ellipsis;
+    }
+    &:hover {
+      .top-data {
+        color: $gray-main-text;
+      }
     }
   }
 

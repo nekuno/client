@@ -17,63 +17,50 @@ function getState(props) {
     const isLoading = WorkersStore.isLoading();
     const users = [
         {
-            photo: 'http://via.placeholder.com/250x250',
-            nickname: 'JohnDoe',
+            photo: { thumbnail: { medium: 'http://via.placeholder.com/250x250' } },
+            username: 'JohnDoe',
             age: 36,
-            city: 'Madrid',
-            matching: 76,
-            similarity: 51,
+            location: { locality: 'Madrid' },
+            matching: 0.76,
+            similarity: 0.51,
             coincidences: 24
         },
         {
-            photo: 'http://via.placeholder.com/250x250',
-            nickname: 'JaneDoe',
+            photo: { thumbnail: { medium: 'http://via.placeholder.com/250x250' } },
+            username: 'JaneDoe',
             age: 37,
-            city: 'Barcelona',
-            matching: 56,
-            similarity: 21,
+            location: { locality: 'Barcelona' },
+            matching: 0.56,
+            similarity: 0.21,
             coincidences: 12
         },
         {
-            photo: 'http://via.placeholder.com/250x250',
-            nickname: 'TomDoe',
+            photo: { thumbnail: { medium: 'http://via.placeholder.com/250x250' } },
+            username: 'TomDoe',
             age: 25,
-            city: 'Bilbao',
-            matching: 23,
-            similarity: 34,
+            location: { locality: 'Bilbao' },
+            matching: 0.23,
+            similarity: 0.34,
             coincidences: 8
         },
         {
-            photo: 'http://via.placeholder.com/250x250',
-            nickname: 'AliceDoe',
+            photo: { thumbnail: { medium: 'http://via.placeholder.com/250x250' } },
+            username: 'AliceDoe',
             age: 18,
-            city: 'Sevilla',
-            matching: 12,
-            similarity: 5,
+            location: { locality: 'Sevilla' },
+            matching: 0.12,
+            similarity: 0.5,
             coincidences: 2
-        },
+        }
     ];
     const groupUsers = [
         {
-            photo: 'http://via.placeholder.com/250x250',
-            nickname: 'TomDoe',
-            age: 36,
-            city: 'Madrid',
-            matching: 76,
-            similarity: 51,
-            coincidences: 24,
-            group: {
-                name: 'Nekuno',
-                photo: 'http://via.placeholder.com/25x25'
-            }
-        },
-        {
-            photo: 'http://via.placeholder.com/250x250',
-            nickname: 'AliceDoe',
+            photo: { thumbnail: { medium: 'http://via.placeholder.com/250x250' } },
+            username: 'JaneDoe',
             age: 37,
-            city: 'Barcelona',
-            matching: 56,
-            similarity: 21,
+            location: { locality: 'Barcelona' },
+            matching: 0.56,
+            similarity: 0.21,
             coincidences: 12,
             group: {
                 name: 'Nekuno',
@@ -81,12 +68,12 @@ function getState(props) {
             }
         },
         {
-            photo: 'http://via.placeholder.com/250x250',
-            nickname: 'JohnDoe',
+            photo: { thumbnail: { medium: 'http://via.placeholder.com/250x250' } },
+            username: 'TomDoe',
             age: 25,
-            city: 'Bilbao',
-            matching: 23,
-            similarity: 34,
+            location: { locality: 'Bilbao' },
+            matching: 0.23,
+            similarity: 0.34,
             coincidences: 8,
             group: {
                 name: 'Nekuno',
@@ -94,18 +81,18 @@ function getState(props) {
             }
         },
         {
-            photo: 'http://via.placeholder.com/250x250',
-            nickname: 'JaneDoe',
+            photo: { thumbnail: { medium: 'http://via.placeholder.com/250x250' } },
+            username: 'AliceDoe',
             age: 18,
-            city: 'Sevilla',
-            matching: 12,
-            similarity: 5,
+            location: { locality: 'Sevilla' },
+            matching: 0.12,
+            similarity: 0.05,
             coincidences: 2,
             group: {
                 name: 'Nekuno',
                 photo: 'http://via.placeholder.com/25x25'
             }
-        },
+        }
     ];
 
     return {

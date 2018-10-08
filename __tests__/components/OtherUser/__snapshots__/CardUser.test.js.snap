@@ -7,20 +7,18 @@ ShallowWrapper {
   Symbol(enzyme.__unrendered__): <TranslationComponent
     age={36}
     city="New York"
-    coincidences={24}
     gender="Male"
     matching={76}
-    networks={
-      Array [
-        "facebook",
-        "twitter",
-        "steam",
-      ]
-    }
-    nickname="JohnDoe"
     onClickHandler={[MockFunction]}
-    photo="http://via.placeholder.com/100x100"
+    photo={
+      Object {
+        "thumbnail": Object {
+          "medium": "http://via.placeholder.com/250x250",
+        },
+      }
+    }
     resume="foo"
+    sharedLinks={24}
     similarity={85}
     size="small"
     strings={
@@ -30,6 +28,7 @@ ShallowWrapper {
         "similar": "Similar",
       }
     }
+    username="JohnDoe"
   />,
   Symbol(enzyme.__renderer__): Object {
     "batchedUpdates": [Function],
@@ -45,19 +44,17 @@ ShallowWrapper {
     "props": Object {
       "age": 36,
       "city": "New York",
-      "coincidences": 24,
       "gender": "Male",
       "locale": undefined,
       "matching": 76,
-      "networks": Array [
-        "facebook",
-        "twitter",
-        "steam",
-      ],
-      "nickname": "JohnDoe",
       "onClickHandler": [MockFunction],
-      "photo": "http://via.placeholder.com/100x100",
+      "photo": Object {
+        "thumbnail": Object {
+          "medium": "http://via.placeholder.com/250x250",
+        },
+      },
       "resume": "foo",
+      "sharedLinks": 24,
       "similarity": 85,
       "size": "small",
       "strings": Object {
@@ -65,6 +62,7 @@ ShallowWrapper {
         "compatible": "Compatible",
         "similar": "Similar",
       },
+      "username": "JohnDoe",
     },
     "ref": null,
     "rendered": null,
@@ -78,19 +76,17 @@ ShallowWrapper {
       "props": Object {
         "age": 36,
         "city": "New York",
-        "coincidences": 24,
         "gender": "Male",
         "locale": undefined,
         "matching": 76,
-        "networks": Array [
-          "facebook",
-          "twitter",
-          "steam",
-        ],
-        "nickname": "JohnDoe",
         "onClickHandler": [MockFunction],
-        "photo": "http://via.placeholder.com/100x100",
+        "photo": Object {
+          "thumbnail": Object {
+            "medium": "http://via.placeholder.com/250x250",
+          },
+        },
         "resume": "foo",
+        "sharedLinks": 24,
         "similarity": 85,
         "size": "small",
         "strings": Object {
@@ -98,6 +94,7 @@ ShallowWrapper {
           "compatible": "Compatible",
           "similar": "Similar",
         },
+        "username": "JohnDoe",
       },
       "ref": null,
       "rendered": null,
@@ -121,23 +118,18 @@ ShallowWrapper {
   Symbol(enzyme.__unrendered__): <TranslationComponent
     age={30}
     city="New Jersey"
-    coincidences={101}
     gender="Female"
     matching={89}
-    networks={
-      Array [
-        "tumblr",
-        "spotify",
-        "instagram",
-        "facebook",
-        "twitter",
-        "steam",
-      ]
-    }
-    nickname="JaneDoe"
     onClickHandler={[MockFunction]}
-    photo="http://via.placeholder.com/100x100"
+    photo={
+      Object {
+        "thumbnail": Object {
+          "medium": "http://via.placeholder.com/250x250",
+        },
+      }
+    }
     resume="bar"
+    sharedLinks={101}
     similarity={34}
     size="medium"
     strings={
@@ -147,6 +139,7 @@ ShallowWrapper {
         "similar": "Similar",
       }
     }
+    username="JaneDoe"
   />,
   Symbol(enzyme.__renderer__): Object {
     "batchedUpdates": [Function],
@@ -162,22 +155,17 @@ ShallowWrapper {
     "props": Object {
       "age": 30,
       "city": "New Jersey",
-      "coincidences": 101,
       "gender": "Female",
       "locale": undefined,
       "matching": 89,
-      "networks": Array [
-        "tumblr",
-        "spotify",
-        "instagram",
-        "facebook",
-        "twitter",
-        "steam",
-      ],
-      "nickname": "JaneDoe",
       "onClickHandler": [MockFunction],
-      "photo": "http://via.placeholder.com/100x100",
+      "photo": Object {
+        "thumbnail": Object {
+          "medium": "http://via.placeholder.com/250x250",
+        },
+      },
       "resume": "bar",
+      "sharedLinks": 101,
       "similarity": 34,
       "size": "medium",
       "strings": Object {
@@ -185,6 +173,7 @@ ShallowWrapper {
         "compatible": "Compatible",
         "similar": "Similar",
       },
+      "username": "JaneDoe",
     },
     "ref": null,
     "rendered": null,
@@ -198,22 +187,17 @@ ShallowWrapper {
       "props": Object {
         "age": 30,
         "city": "New Jersey",
-        "coincidences": 101,
         "gender": "Female",
         "locale": undefined,
         "matching": 89,
-        "networks": Array [
-          "tumblr",
-          "spotify",
-          "instagram",
-          "facebook",
-          "twitter",
-          "steam",
-        ],
-        "nickname": "JaneDoe",
         "onClickHandler": [MockFunction],
-        "photo": "http://via.placeholder.com/100x100",
+        "photo": Object {
+          "thumbnail": Object {
+            "medium": "http://via.placeholder.com/250x250",
+          },
+        },
         "resume": "bar",
+        "sharedLinks": 101,
         "similarity": 34,
         "size": "medium",
         "strings": Object {
@@ -221,6 +205,7 @@ ShallowWrapper {
           "compatible": "Compatible",
           "similar": "Similar",
         },
+        "username": "JaneDoe",
       },
       "ref": null,
       "rendered": null,

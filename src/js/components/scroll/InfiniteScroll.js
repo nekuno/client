@@ -107,7 +107,7 @@ export default class InfiniteScroll extends Component {
     }
 
     getTopMargin() {
-        const pageContent = document.getElementById('page-content');
+        const pageContent = document.getElementById('scroll-wrapper');
 
         if (!pageContent) {
             return 0;

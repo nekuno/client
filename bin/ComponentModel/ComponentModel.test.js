@@ -11,7 +11,7 @@ describe('Test ComponentModel component', () => {
     const componentModel = shallow(<ComponentModel onClickHandler={mockFn}>Lorem ipsum</ComponentModel>);
 
     it('should be defined', () => {
-        expect(ComponentModel).toBeDefined();
+        expect(componentModel).toBeDefined();
     });
     it('should render correctly', () => {
         expect(componentModel).toMatchSnapshot();

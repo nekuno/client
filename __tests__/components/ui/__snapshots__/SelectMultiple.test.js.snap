@@ -1,10 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Test Select component should render correctly 1`] = `
+exports[`Test SelectMultiple component should render correctly 1`] = `
 ShallowWrapper {
   "length": 1,
   Symbol(enzyme.__root__): [Circular],
-  Symbol(enzyme.__unrendered__): <Select
+  Symbol(enzyme.__unrendered__): <SelectMultiple
     labels={
       Array [
         Object {
@@ -75,7 +75,7 @@ ShallowWrapper {
           text="Sed ut perspiciatis"
         />
       </div>,
-      "className": "select",
+      "className": "selectMultiple",
     },
     "ref": null,
     "rendered": Object {
@@ -220,7 +220,7 @@ ShallowWrapper {
             text="Sed ut perspiciatis"
           />
         </div>,
-        "className": "select",
+        "className": "selectMultiple",
       },
       "ref": null,
       "rendered": Object {

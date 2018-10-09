@@ -1,6 +1,6 @@
 import React from 'react';
-import Select from '../../../src/js/components/ui/Select/Select.js';
-import styles from '../../../src/js/components/ui/Select/Select.scss';
+import SelectMultiple from '../../../src/js/components/ui/SelectMultiple/SelectMultiple.js';
+import styles from '../../../src/js/components/ui/SelectMultiple/SelectMultiple.scss';
 import { shallow, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
@@ -25,9 +25,9 @@ const labels = [
     }
 ];
 
-describe('Test Select component', () => {
+describe('Test SelectMultiple component', () => {
     const mockFn = jest.fn();
-    const select = shallow(<Select values={['lorem', 'lorem-ipsum']} labels={labels} title={'Foo'} onClickHandler={mockFn}/>);
+    const select = shallow(<SelectMultiple values={['lorem', 'lorem-ipsum']} labels={labels} title={'Foo'} onClickHandler={mockFn}/>);
 
     it('should be defined', () => {
         expect(select).toBeDefined();

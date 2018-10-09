@@ -1,6 +1,6 @@
 import React from 'react';
 import { storiesOf, forceReRender } from '@storybook/react';
-import Select from '../src/js/components/ui/Select/Select.js';
+import SelectMultiple from '../src/js/components/ui/SelectMultiple/SelectMultiple.js';
 
 let labels = [
     {
@@ -213,13 +213,13 @@ function handleClick(id) {
     forceReRender();
 }
 
-storiesOf('Select', module)
+storiesOf('SelectMultiple', module)
     .add('with short title', () => (
-        <Select values={values} labels={labels} title={'Foo'} onClickHandler={handleClick}/>
+        <SelectMultiple values={values} labels={labels} title={'Foo'} onClickHandler={handleClick}/>
     ))
     .add('with long title', () => (
-        <Select values={values} labels={labels} title={'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam et elit ante'} onClickHandler={handleClick}/>
+        <SelectMultiple values={values} labels={labels} title={'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam et elit ante'} onClickHandler={handleClick}/>
     ))
     .add('with long title and more than 40 options', () => (
-        <Select values={values} labels={moreThan40Labels} title={'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam et elit ante'} onClickHandler={handleClick}/>
+        <SelectMultiple values={values} labels={moreThan40Labels} title={'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam et elit ante'} onClickHandler={handleClick}/>
     ));

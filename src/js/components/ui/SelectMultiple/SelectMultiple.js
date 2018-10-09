@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import Chip from '../Chip/Chip.js';
-import styles from './Select.scss';
+import styles from './SelectMultiple.scss';
 
-export default class Select extends Component {
+export default class SelectMultiple extends Component {
 
     static propTypes = {
         title: PropTypes.string,
@@ -30,7 +30,7 @@ export default class Select extends Component {
         const {title, labels, values} = this.props;
         const showSelect = labels.length > 40;
         return (
-            <div className={styles.select}>
+            <div className={styles.selectMultiple}>
                 {showSelect ?
                     <div className={styles.selectTag}>
                         <div className={styles.title + ' small'}>{title}</div>
@@ -41,7 +41,7 @@ export default class Select extends Component {
                             )}
                         </select>
                         {labels.map(label => values.some(value => value == label.id) ?
-                            <Chip key={label.id} text={label.text} onClickHandler={this.handleClick.bind(this, label.id)}/> : null
+                            <Chip key={label.id} text={label.text} selected={true} onClickHandler={this.handleClick.bind(this, label.id)}/> : null
                         )}
                     </div>
                     :

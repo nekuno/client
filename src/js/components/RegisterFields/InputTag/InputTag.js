@@ -7,8 +7,10 @@ import styles from './InputTag.scss';
 export default class InputTag extends Component {
 
     static propTypes = {
+        title          : PropTypes.string,
         placeholder    : PropTypes.string,
         tags           : PropTypes.array,
+        selected       : PropTypes.array,
         selectedLabel  : PropTypes.string,
         chipsColor     : PropTypes.oneOf(['purple', 'blue', 'pink', 'green']),
         onChangeHandler: PropTypes.func,
@@ -22,8 +24,17 @@ export default class InputTag extends Component {
         this.handleClick = this.handleClick.bind(this);
 
         this.state = {
-            selected: [],
+            selected: props.selected || [],
             text: ''
+        }
+    }
+
+    componentDidUpdate(prevProps) {
+        if (!this.state.selected && this.props.selected) {
+            this.setState({selected: this.props.selected});
+        }
+        if (this.state.selected && prevProps.selected && !this.props.selected) {
+            this.setState({selected: []});
         }
     }
 
@@ -54,12 +65,13 @@ export default class InputTag extends Component {
     }
 
     render() {
-        const {tags, placeholder, selectedLabel, chipsColor} = this.props;
+        const {tags, placeholder, selectedLabel, title, chipsColor} = this.props;
         const {selected, text} = this.state;
 
         return (
             <div className={styles.inputTag}>
-                <Input ref="input" placeholder={placeholder} searchIcon={true} size={'small'} onChange={this.handleChange} doNotScroll={true}/>
+                {title ? <div className={styles.title + ' small'}>{title}</div> : null}
+                <Input ref="input" placeholder={placeholder} searchIcon={true} size={'small'} onChange={this.handleChange} doNotScroll={true} doNotFocus={true}/>
 
                 {text && text.length > 1 && !selected.some(selectedTag => selectedTag === text) ?
                     <div className={styles.suggestedChip}>
@@ -69,14 +81,14 @@ export default class InputTag extends Component {
                         />
                     </div> : null
                 }
-                {tags.filter(tag => !selected.some(selectedTag => selectedTag === tag)).map((tag, index) =>
+                {this.refs.input && this.refs.input.isFocused() ? tags.filter(tag => !selected.some(selectedTag => selectedTag === tag)).map((tag, index) =>
                     <div key={index} className={styles.suggestedChip}>
                         <Chip onClickHandler={this.handleClick}
                               text={tag}
                               color={chipsColor}
                         />
                     </div>
-                )}
+                ) : null}
                 {selected.length > 0 ?
                     <div className={styles.selectedLabel + " small"}>{selectedLabel}</div> : null
                 }

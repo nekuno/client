@@ -31,7 +31,9 @@ ShallowWrapper {
     "nodeType": "host",
     "props": Object {
       "children": Array [
+        null,
         <Input
+          doNotFocus={true}
           doNotScroll={true}
           onChange={[Function]}
           placeholder="Foo"
@@ -39,48 +41,7 @@ ShallowWrapper {
           size="small"
         />,
         null,
-        Array [
-          <div
-            className="suggestedChip"
-          >
-            <Chip
-              onClickHandler={[Function]}
-              text="Lorem"
-            />
-          </div>,
-          <div
-            className="suggestedChip"
-          >
-            <Chip
-              onClickHandler={[Function]}
-              text="Ipsum"
-            />
-          </div>,
-          <div
-            className="suggestedChip"
-          >
-            <Chip
-              onClickHandler={[Function]}
-              text="Lorem ipsum"
-            />
-          </div>,
-          <div
-            className="suggestedChip"
-          >
-            <Chip
-              onClickHandler={[Function]}
-              text="Sed ut perspiciatis"
-            />
-          </div>,
-          <div
-            className="suggestedChip"
-          >
-            <Chip
-              onClickHandler={[Function]}
-              text="perspiciatis"
-            />
-          </div>,
-        ],
+        null,
         null,
         Array [],
       ],
@@ -88,11 +49,13 @@ ShallowWrapper {
     },
     "ref": null,
     "rendered": Array [
+      null,
       Object {
         "instance": null,
         "key": undefined,
         "nodeType": "class",
         "props": Object {
+          "doNotFocus": true,
           "doNotScroll": true,
           "onChange": [Function],
           "placeholder": "Foo",
@@ -104,141 +67,7 @@ ShallowWrapper {
         "type": [Function],
       },
       null,
-      Object {
-        "instance": null,
-        "key": "0",
-        "nodeType": "host",
-        "props": Object {
-          "children": <Chip
-            onClickHandler={[Function]}
-            text="Lorem"
-          />,
-          "className": "suggestedChip",
-        },
-        "ref": null,
-        "rendered": Object {
-          "instance": null,
-          "key": undefined,
-          "nodeType": "class",
-          "props": Object {
-            "color": undefined,
-            "onClickHandler": [Function],
-            "text": "Lorem",
-          },
-          "ref": null,
-          "rendered": null,
-          "type": [Function],
-        },
-        "type": "div",
-      },
-      Object {
-        "instance": null,
-        "key": "1",
-        "nodeType": "host",
-        "props": Object {
-          "children": <Chip
-            onClickHandler={[Function]}
-            text="Ipsum"
-          />,
-          "className": "suggestedChip",
-        },
-        "ref": null,
-        "rendered": Object {
-          "instance": null,
-          "key": undefined,
-          "nodeType": "class",
-          "props": Object {
-            "color": undefined,
-            "onClickHandler": [Function],
-            "text": "Ipsum",
-          },
-          "ref": null,
-          "rendered": null,
-          "type": [Function],
-        },
-        "type": "div",
-      },
-      Object {
-        "instance": null,
-        "key": "2",
-        "nodeType": "host",
-        "props": Object {
-          "children": <Chip
-            onClickHandler={[Function]}
-            text="Lorem ipsum"
-          />,
-          "className": "suggestedChip",
-        },
-        "ref": null,
-        "rendered": Object {
-          "instance": null,
-          "key": undefined,
-          "nodeType": "class",
-          "props": Object {
-            "color": undefined,
-            "onClickHandler": [Function],
-            "text": "Lorem ipsum",
-          },
-          "ref": null,
-          "rendered": null,
-          "type": [Function],
-        },
-        "type": "div",
-      },
-      Object {
-        "instance": null,
-        "key": "3",
-        "nodeType": "host",
-        "props": Object {
-          "children": <Chip
-            onClickHandler={[Function]}
-            text="Sed ut perspiciatis"
-          />,
-          "className": "suggestedChip",
-        },
-        "ref": null,
-        "rendered": Object {
-          "instance": null,
-          "key": undefined,
-          "nodeType": "class",
-          "props": Object {
-            "color": undefined,
-            "onClickHandler": [Function],
-            "text": "Sed ut perspiciatis",
-          },
-          "ref": null,
-          "rendered": null,
-          "type": [Function],
-        },
-        "type": "div",
-      },
-      Object {
-        "instance": null,
-        "key": "4",
-        "nodeType": "host",
-        "props": Object {
-          "children": <Chip
-            onClickHandler={[Function]}
-            text="perspiciatis"
-          />,
-          "className": "suggestedChip",
-        },
-        "ref": null,
-        "rendered": Object {
-          "instance": null,
-          "key": undefined,
-          "nodeType": "class",
-          "props": Object {
-            "color": undefined,
-            "onClickHandler": [Function],
-            "text": "perspiciatis",
-          },
-          "ref": null,
-          "rendered": null,
-          "type": [Function],
-        },
-        "type": "div",
-      },
+      null,
       null,
     ],
     "type": "div",
@@ -250,7 +79,9 @@ ShallowWrapper {
       "nodeType": "host",
       "props": Object {
         "children": Array [
+          null,
           <Input
+            doNotFocus={true}
             doNotScroll={true}
             onChange={[Function]}
             placeholder="Foo"
@@ -258,48 +89,7 @@ ShallowWrapper {
             size="small"
           />,
           null,
-          Array [
-            <div
-              className="suggestedChip"
-            >
-              <Chip
-                onClickHandler={[Function]}
-                text="Lorem"
-              />
-            </div>,
-            <div
-              className="suggestedChip"
-            >
-              <Chip
-                onClickHandler={[Function]}
-                text="Ipsum"
-              />
-            </div>,
-            <div
-              className="suggestedChip"
-            >
-              <Chip
-                onClickHandler={[Function]}
-                text="Lorem ipsum"
-              />
-            </div>,
-            <div
-              className="suggestedChip"
-            >
-              <Chip
-                onClickHandler={[Function]}
-                text="Sed ut perspiciatis"
-              />
-            </div>,
-            <div
-              className="suggestedChip"
-            >
-              <Chip
-                onClickHandler={[Function]}
-                text="perspiciatis"
-              />
-            </div>,
-          ],
+          null,
           null,
           Array [],
         ],
@@ -307,11 +97,13 @@ ShallowWrapper {
       },
       "ref": null,
       "rendered": Array [
+        null,
         Object {
           "instance": null,
           "key": undefined,
           "nodeType": "class",
           "props": Object {
+            "doNotFocus": true,
             "doNotScroll": true,
             "onChange": [Function],
             "placeholder": "Foo",
@@ -323,141 +115,7 @@ ShallowWrapper {
           "type": [Function],
         },
         null,
-        Object {
-          "instance": null,
-          "key": "0",
-          "nodeType": "host",
-          "props": Object {
-            "children": <Chip
-              onClickHandler={[Function]}
-              text="Lorem"
-            />,
-            "className": "suggestedChip",
-          },
-          "ref": null,
-          "rendered": Object {
-            "instance": null,
-            "key": undefined,
-            "nodeType": "class",
-            "props": Object {
-              "color": undefined,
-              "onClickHandler": [Function],
-              "text": "Lorem",
-            },
-            "ref": null,
-            "rendered": null,
-            "type": [Function],
-          },
-          "type": "div",
-        },
-        Object {
-          "instance": null,
-          "key": "1",
-          "nodeType": "host",
-          "props": Object {
-            "children": <Chip
-              onClickHandler={[Function]}
-              text="Ipsum"
-            />,
-            "className": "suggestedChip",
-          },
-          "ref": null,
-          "rendered": Object {
-            "instance": null,
-            "key": undefined,
-            "nodeType": "class",
-            "props": Object {
-              "color": undefined,
-              "onClickHandler": [Function],
-              "text": "Ipsum",
-            },
-            "ref": null,
-            "rendered": null,
-            "type": [Function],
-          },
-          "type": "div",
-        },
-        Object {
-          "instance": null,
-          "key": "2",
-          "nodeType": "host",
-          "props": Object {
-            "children": <Chip
-              onClickHandler={[Function]}
-              text="Lorem ipsum"
-            />,
-            "className": "suggestedChip",
-          },
-          "ref": null,
-          "rendered": Object {
-            "instance": null,
-            "key": undefined,
-            "nodeType": "class",
-            "props": Object {
-              "color": undefined,
-              "onClickHandler": [Function],
-              "text": "Lorem ipsum",
-            },
-            "ref": null,
-            "rendered": null,
-            "type": [Function],
-          },
-          "type": "div",
-        },
-        Object {
-          "instance": null,
-          "key": "3",
-          "nodeType": "host",
-          "props": Object {
-            "children": <Chip
-              onClickHandler={[Function]}
-              text="Sed ut perspiciatis"
-            />,
-            "className": "suggestedChip",
-          },
-          "ref": null,
-          "rendered": Object {
-            "instance": null,
-            "key": undefined,
-            "nodeType": "class",
-            "props": Object {
-              "color": undefined,
-              "onClickHandler": [Function],
-              "text": "Sed ut perspiciatis",
-            },
-            "ref": null,
-            "rendered": null,
-            "type": [Function],
-          },
-          "type": "div",
-        },
-        Object {
-          "instance": null,
-          "key": "4",
-          "nodeType": "host",
-          "props": Object {
-            "children": <Chip
-              onClickHandler={[Function]}
-              text="perspiciatis"
-            />,
-            "className": "suggestedChip",
-          },
-          "ref": null,
-          "rendered": Object {
-            "instance": null,
-            "key": undefined,
-            "nodeType": "class",
-            "props": Object {
-              "color": undefined,
-              "onClickHandler": [Function],
-              "text": "perspiciatis",
-            },
-            "ref": null,
-            "rendered": null,
-            "type": [Function],
-          },
-          "type": "div",
-        },
+        null,
         null,
       ],
       "type": "div",

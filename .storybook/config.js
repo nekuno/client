@@ -15,6 +15,8 @@ function loadStories() {
     require('../stories/FrameCollapsible.stories');
     require('../stories/IconNotification.stories');
     require('../stories/Input.stories');
+    require('../stories/InputNumber.stories');
+    require('../stories/InputNumberRange.stories');
     require('../stories/InputSelectImage.stories');
     require('../stories/InputSelectText.stories');
     require('../stories/InputTag.stories');

@@ -7,7 +7,7 @@ import connectToStores from '../utils/connectToStores';
 import FilterStore from '../stores/FilterStore';
 import TagSuggestionsStore from '../stores/TagSuggestionsStore';
 import ThreadStore from '../stores/ThreadStore';
-import CreateUsersThread from '../components/threads/CreateUsersThread';
+// import CreateUsersThread from '../components/threads/CreateUsersThread';
 import TopNavBar from '../components/ui/TopNavBar';
 import EmptyMessage from '../components/ui/EmptyMessage';
 import Framework7Service from '../services/Framework7Service';
@@ -141,7 +141,7 @@ export default class EditThreadLitePage extends Component {
                                         </div>
                                         <div key={1} className={category + '-first-vertical-line'}></div>
                                         <div key={2} className={category + '-last-vertical-line'}></div>
-                                        <CreateUsersThread userId={user.id} defaultFilters={filters['userFilters']} threadName={threadName} tags={tags} thread={thread} categories={categories} onSave={this.onEdit}/>
+                                        {/*<CreateUsersThread userId={user.id} defaultFilters={filters['userFilters']} threadName={threadName} tags={tags} thread={thread} categories={categories} onSave={this.onEdit}/>*/}
                                     </div>
                                     : ''}
                         </div>

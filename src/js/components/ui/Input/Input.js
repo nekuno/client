@@ -12,8 +12,11 @@ export default class Input extends Component {
         doNotScroll : PropTypes.bool,
         onChange    : PropTypes.func,
         maxLength   : PropTypes.string,
+        maxNum      : PropTypes.number,
+        minNum      : PropTypes.number,
         searchIcon  : PropTypes.bool,
-        size        : PropTypes.oneOf(['regular', 'small'])
+        textColor   : PropTypes.string,
+        size        : PropTypes.oneOf(['regular', 'small']),
     };
 
     constructor(props) {
@@ -21,11 +24,14 @@ export default class Input extends Component {
 
         this.onChange = this.onChange.bind(this);
         this.onFocusHandler = this.onFocusHandler.bind(this);
+        this.onBlurHandler = this.onBlurHandler.bind(this);
         this.getValue = this.getValue.bind(this);
         this.clearValue = this.clearValue.bind(this);
+        this.isFocused = this.isFocused.bind(this);
 
         this.state = {
-            empty: !props.defaultValue
+            empty: !props.defaultValue,
+            focused: false
         };
     }
 
@@ -40,7 +46,9 @@ export default class Input extends Component {
     }
 
     clearValue() {
-        this.refs.input.value = '';
+        if (this.refs.input) {
+            this.refs.input.value = '';
+        }
         this.onChange();
     }
 
@@ -48,6 +56,10 @@ export default class Input extends Component {
         if (this.refs.input) {
             this.refs.input.focus();
         }
+    }
+
+    isFocused() {
+        return this.state.focused;
     }
 
     onFocusHandler() {
@@ -62,6 +74,12 @@ export default class Input extends Component {
                 }
             }, 500);
         }
+
+        this.setState({focused: true});
+    }
+
+    onBlurHandler() {
+        this.setState({focused: false});
     }
 
     onChange() {
@@ -73,7 +91,7 @@ export default class Input extends Component {
     }
 
     render() {
-        const {placeholder, type, defaultValue, checked, maxLength, searchIcon, size} = this.props;
+        const {placeholder, type, defaultValue, checked, maxLength, minNum, maxNum, searchIcon, textColor, size} = this.props;
         const {empty} = this.state;
         const sizeClass = size === 'small' ? styles.small : null;
         return (
@@ -89,8 +107,12 @@ export default class Input extends Component {
                            defaultValue={defaultValue}
                            onChange={this.onChange}
                            onFocus={this.onFocusHandler}
+                           onBlur={this.onBlurHandler}
                            maxLength={maxLength}
+                           min={minNum}
+                           max={maxNum}
                            required
+                           style={{color: textColor}}
                     />
                     {!empty && !checked ?
                         <span className={styles.iconCancel + ' ' + 'icon icon-x'} onClick={this.clearValue}/>

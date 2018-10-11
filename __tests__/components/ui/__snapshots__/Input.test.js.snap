@@ -26,10 +26,16 @@ ShallowWrapper {
       >
         <input
           defaultValue="Default value"
+          onBlur={[Function]}
           onChange={[Function]}
           onFocus={[Function]}
           placeholder="Placeholder"
           required={true}
+          style={
+            Object {
+              "color": undefined,
+            }
+          }
           type="text"
         />
         <span
@@ -49,10 +55,16 @@ ShallowWrapper {
           null,
           <input
             defaultValue="Default value"
+            onBlur={[Function]}
             onChange={[Function]}
             onFocus={[Function]}
             placeholder="Placeholder"
             required={true}
+            style={
+              Object {
+                "color": undefined,
+              }
+            }
             type="text"
           />,
           <span
@@ -72,11 +84,17 @@ ShallowWrapper {
           "nodeType": "host",
           "props": Object {
             "defaultValue": "Default value",
+            "max": undefined,
             "maxLength": undefined,
+            "min": undefined,
+            "onBlur": [Function],
             "onChange": [Function],
             "onFocus": [Function],
             "placeholder": "Placeholder",
             "required": true,
+            "style": Object {
+              "color": undefined,
+            },
             "type": "text",
           },
           "ref": "input",
@@ -112,10 +130,16 @@ ShallowWrapper {
         >
           <input
             defaultValue="Default value"
+            onBlur={[Function]}
             onChange={[Function]}
             onFocus={[Function]}
             placeholder="Placeholder"
             required={true}
+            style={
+              Object {
+                "color": undefined,
+              }
+            }
             type="text"
           />
           <span
@@ -135,10 +159,16 @@ ShallowWrapper {
             null,
             <input
               defaultValue="Default value"
+              onBlur={[Function]}
               onChange={[Function]}
               onFocus={[Function]}
               placeholder="Placeholder"
               required={true}
+              style={
+                Object {
+                  "color": undefined,
+                }
+              }
               type="text"
             />,
             <span
@@ -158,11 +188,17 @@ ShallowWrapper {
             "nodeType": "host",
             "props": Object {
               "defaultValue": "Default value",
+              "max": undefined,
               "maxLength": undefined,
+              "min": undefined,
+              "onBlur": [Function],
               "onChange": [Function],
               "onFocus": [Function],
               "placeholder": "Placeholder",
               "required": true,
+              "style": Object {
+                "color": undefined,
+              },
               "type": "text",
             },
             "ref": "input",

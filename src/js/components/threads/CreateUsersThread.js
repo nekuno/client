@@ -10,7 +10,7 @@ import IntegerFilter from './filters/IntegerFilter';
 import MultipleChoicesFilter from './filters/MultipleChoicesFilter';
 import DoubleMultipleChoicesFilter from './filters/DoubleMultipleChoicesFilter';
 import ChoiceAndMultipleChoicesFilter from './filters/ChoiceAndMultipleChoicesFilter';
-import TagFilter from './filters/TagFilter';
+import TagFilter from '../Threads/Filters/TagFilter';
 import TagsAndMultipleChoicesFilter from './filters/TagsAndMultipleChoicesFilter';
 import * as TagSuggestionsActionCreators from '../../actions/TagSuggestionsActionCreators';
 import selectn from 'selectn';

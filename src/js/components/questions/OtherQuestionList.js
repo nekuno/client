@@ -4,7 +4,7 @@ import selectn from 'selectn';
 import EmptyMessage from '../ui/EmptyMessage';
 import OtherQuestion from './OtherQuestion';
 import OtherNotAnsweredQuestion from './OtherNotAnsweredQuestion';
-import Scroll from "../scroll/Scroll";
+import Scroll from "../Scroll/Scroll";
 import translate from '../../i18n/Translate';
 
 @translate('OtherQuestionList')

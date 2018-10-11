@@ -13,7 +13,7 @@ import WorkersStore from '../stores/WorkersStore';
 import ProfileStore from '../stores/ProfileStore';
 import RoundedIcon from '../components/ui/RoundedIcon/RoundedIcon.js';
 import SelectCollapsible from '../components/ui/SelectCollapsible/SelectCollapsible.js';
-import InfiniteScroll from "../components/scroll/InfiniteScroll";
+import InfiniteScroll from "../components/Scroll/InfiniteScroll";
 import TopNavBar from '../components/TopNavBar/TopNavBar.js';
 import CardUser from '../components/OtherUser/CardUser/CardUser.js';
 import '../../scss/pages/persons-all.scss';

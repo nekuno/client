@@ -41,6 +41,12 @@ export default class Input extends Component {
         }
     }
 
+    setValue(value) {
+        if (this.refs.input) {
+            this.refs.input.value = value;
+        }
+    }
+
     getValue() {
         return this.refs.input ? this.refs.input.value : null;
     }

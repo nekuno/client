@@ -8,7 +8,7 @@ import ChatThreadStore from '../stores/ChatThreadStore';
 import ChatUserStatusStore from '../stores/ChatUserStatusStore';
 import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
-import Scroll from "../components/scroll/Scroll";
+import Scroll from "../components/Scroll/Scroll";
 import ChatActionCreators from '../actions/ChatActionCreators';
 import '../../scss/pages/chat-threads.scss';
 

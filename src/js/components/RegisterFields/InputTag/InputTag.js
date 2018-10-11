@@ -57,10 +57,28 @@ export default class InputTag extends Component {
         }
         this.setState({selected: newSelected});
 
-        this.refs["input"].clearValue();
+        this.refs["inputTag"].clearValue();
 
         if (this.props.onClickHandler) {
             this.props.onClickHandler(newSelected);
+        }
+    }
+
+    setValue(value) {
+        return this.refs.inputTag.setValue(value);
+    }
+
+    getValue() {
+        return this.refs.inputTag.getValue();
+    }
+
+    focus() {
+        this.refs.inputTag.focus();
+    }
+
+    clearValue() {
+        if (this.refs.inputTag) {
+            this.refs.inputTag.value = '';
         }
     }
 
@@ -71,7 +89,7 @@ export default class InputTag extends Component {
         return (
             <div className={styles.inputTag}>
                 {title ? <div className={styles.title + ' small'}>{title}</div> : null}
-                <Input ref="input" placeholder={placeholder} searchIcon={true} size={'small'} onChange={this.handleChange} doNotScroll={true} doNotFocus={true}/>
+                <Input ref="inputTag" placeholder={placeholder} searchIcon={true} size={'small'} onChange={this.handleChange} doNotScroll={true} doNotFocus={true}/>
 
                 {text && text.length > 1 && !selected.some(selectedTag => selectedTag === text) ?
                     <div className={styles.suggestedChip}>
@@ -81,7 +99,7 @@ export default class InputTag extends Component {
                         />
                     </div> : null
                 }
-                {this.refs.input && this.refs.input.isFocused() ? tags.filter(tag => !selected.some(selectedTag => selectedTag === tag)).map((tag, index) =>
+                {this.refs.inputTag && this.refs.inputTag.isFocused() ? tags.filter(tag => !selected.some(selectedTag => selectedTag === tag)).map((tag, index) =>
                     <div key={index} className={styles.suggestedChip}>
                         <Chip onClickHandler={this.handleClick}
                               text={tag}

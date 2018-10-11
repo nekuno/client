@@ -11,7 +11,7 @@ describe('Test Button component', () => {
     const button = shallow(<Button onClickHandler={mockFn}>Lorem ipsum</Button>);
 
     it('should be defined', () => {
-        expect(Button).toBeDefined();
+        expect(button).toBeDefined();
     });
     it('should render correctly', () => {
         expect(button).toMatchSnapshot();

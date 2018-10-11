@@ -4,7 +4,7 @@ exports[`Test InputRange component should render correctly 1`] = `
 ShallowWrapper {
   "length": 1,
   Symbol(enzyme.__root__): [Circular],
-  Symbol(enzyme.__unrendered__): <InputRange
+  Symbol(enzyme.__unrendered__): <InputNumberRange
     maxNum={80}
     minNum={8}
     onChangeHandler={[MockFunction]}

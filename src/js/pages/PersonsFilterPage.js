@@ -13,7 +13,7 @@ import IntegerRangeFilter from '../components/Threads/Filters/IntegerRangeFilter
 import IntegerFilter from '../components/Threads/Filters/IntegerFilter';
 import MultipleChoicesFilter from '../components/Threads/Filters/MultipleChoicesFilter';
 import DoubleMultipleChoicesFilter from '../components/_threads/filters/DoubleMultipleChoicesFilter';
-import ChoiceAndMultipleChoicesFilter from '../components/_threads/filters/ChoiceAndMultipleChoicesFilter';
+import ChoiceAndMultipleChoicesFilter from '../components/Threads/Filters/ChoiceAndMultipleChoicesFilter';
 import StepsBar from '../components/ui/StepsBar/StepsBar.js';
 import TagFilter from '../components/Threads/Filters/TagFilter';
 import TagsAndMultipleChoicesFilter from '../components/Threads/Filters/TagsAndMultipleChoicesFilter';
@@ -280,10 +280,7 @@ export default class PersonsFilterPage extends Component {
             <ChoiceAndMultipleChoicesFilter filterKey={field}
                                             filter={filter}
                                             data={data}
-                                            selected={true}
-                                            handleClickRemoveFilter={this.handleClickRemoveFilter}
                                             handleChangeFilter={this.handleChangeFilter}
-                                            handleClickFilter={this.handleClickFilter}
             />
         );
     }

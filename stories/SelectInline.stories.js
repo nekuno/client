@@ -49,7 +49,7 @@ const optionsTwo = [
 storiesOf('SelectInline', module)
     .add('with 4 options and default color', () => (
         <div style={{height: '500px', padding: '20px 0'}}>
-            <SelectInline options={optionsFour} onClickHandler={action('clicked')}/>
+            <SelectInline title={'Lorem ipsum'} options={optionsFour} onClickHandler={action('clicked')}/>
         </div>
     ))
     .add('with three options, multiple and blue color', () => (

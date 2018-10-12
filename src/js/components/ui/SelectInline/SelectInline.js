@@ -5,6 +5,7 @@ import styles from './SelectInline.scss';
 export default class SelectInline extends Component {
 
     static propTypes = {
+        title          : PropTypes.string,
         options        : PropTypes.array.isRequired,
         defaultOption  : PropTypes.string,
         multiple       : PropTypes.bool,
@@ -44,26 +45,29 @@ export default class SelectInline extends Component {
     }
 
     render() {
-        const {options, color} = this.props;
+        const {title, options, color} = this.props;
         const {selected} = this.state;
         const optionWidthPercent = 100 / options.length;
 
         return (
-            <div className={styles.selectInlineWrapper}>
-                <div className={styles.selectInline}>
-                    {options.map(option => {
-                        let optionClass = selected.some(selectedOption => selectedOption === option.id) ? styles.optionWrapper + ' ' + styles.selected : styles.optionWrapper;
-                        optionClass = optionClass + ' ' + styles[color];
-                        return (
-                            <div key={option.id} className={optionClass} onClick={this.handleClick.bind(this, option.id)} style={{width: optionWidthPercent + '%'}}>
-                                <div className={styles.option}>
-                                    <div className={styles.optionText}>
-                                        {option.text}
+            <div>
+                {title ? <div className={styles.title + ' small'}>{title}</div> : null}
+                <div className={styles.selectInlineWrapper}>
+                    <div className={styles.selectInline}>
+                        {options.map(option => {
+                            let optionClass = selected.some(selectedOption => selectedOption === option.id) ? styles.optionWrapper + ' ' + styles.selected : styles.optionWrapper;
+                            optionClass = optionClass + ' ' + styles[color];
+                            return (
+                                <div key={option.id} className={optionClass} onClick={this.handleClick.bind(this, option.id)} style={{width: optionWidthPercent + '%'}}>
+                                    <div className={styles.option}>
+                                        <div className={styles.optionText}>
+                                            {option.text}
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        )
-                    })}
+                            )
+                        })}
+                    </div>
                 </div>
             </div>
         );

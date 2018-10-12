@@ -1,5 +1,9 @@
 @import '../../../../scss/_partials/colors';
 
+.title {
+  font-weight: 600;
+  margin-bottom: 16px;
+}
 .select-inline-wrapper {
   border: 1px solid $gray-border;
   border-radius: 18px;

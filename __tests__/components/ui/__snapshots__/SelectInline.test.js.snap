@@ -39,379 +39,478 @@ ShallowWrapper {
     "key": undefined,
     "nodeType": "host",
     "props": Object {
-      "children": <div
-        className="selectInline"
-      >
+      "children": Array [
+        null,
         <div
-          className="optionWrapper undefined"
-          onClick={[Function]}
-          style={
-            Object {
-              "width": "25%",
-            }
-          }
+          className="selectInlineWrapper"
         >
           <div
-            className="option"
+            className="selectInline"
           >
             <div
-              className="optionText"
+              className="optionWrapper undefined"
+              onClick={[Function]}
+              style={
+                Object {
+                  "width": "25%",
+                }
+              }
             >
-              Lorem
+              <div
+                className="option"
+              >
+                <div
+                  className="optionText"
+                >
+                  Lorem
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-        <div
-          className="optionWrapper undefined"
-          onClick={[Function]}
-          style={
-            Object {
-              "width": "25%",
-            }
-          }
-        >
-          <div
-            className="option"
-          >
             <div
-              className="optionText"
+              className="optionWrapper undefined"
+              onClick={[Function]}
+              style={
+                Object {
+                  "width": "25%",
+                }
+              }
             >
-              Ipsum
+              <div
+                className="option"
+              >
+                <div
+                  className="optionText"
+                >
+                  Ipsum
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-        <div
-          className="optionWrapper undefined"
-          onClick={[Function]}
-          style={
-            Object {
-              "width": "25%",
-            }
-          }
-        >
-          <div
-            className="option"
-          >
             <div
-              className="optionText"
+              className="optionWrapper undefined"
+              onClick={[Function]}
+              style={
+                Object {
+                  "width": "25%",
+                }
+              }
             >
-              Lorem ipsum
+              <div
+                className="option"
+              >
+                <div
+                  className="optionText"
+                >
+                  Lorem ipsum
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-        <div
-          className="optionWrapper undefined"
-          onClick={[Function]}
-          style={
-            Object {
-              "width": "25%",
-            }
-          }
-        >
-          <div
-            className="option"
-          >
             <div
-              className="optionText"
+              className="optionWrapper undefined"
+              onClick={[Function]}
+              style={
+                Object {
+                  "width": "25%",
+                }
+              }
             >
-              Sed ut perspiciatis
+              <div
+                className="option"
+              >
+                <div
+                  className="optionText"
+                >
+                  Sed ut perspiciatis
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </div>,
-      "className": "selectInlineWrapper",
+        </div>,
+      ],
     },
     "ref": null,
-    "rendered": Object {
-      "instance": null,
-      "key": undefined,
-      "nodeType": "host",
-      "props": Object {
-        "children": Array [
-          <div
-            className="optionWrapper undefined"
-            onClick={[Function]}
-            style={
-              Object {
-                "width": "25%",
-              }
-            }
+    "rendered": Array [
+      null,
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": <div
+            className="selectInline"
           >
             <div
-              className="option"
+              className="optionWrapper undefined"
+              onClick={[Function]}
+              style={
+                Object {
+                  "width": "25%",
+                }
+              }
             >
               <div
-                className="optionText"
+                className="option"
               >
-                Lorem
+                <div
+                  className="optionText"
+                >
+                  Lorem
+                </div>
+              </div>
+            </div>
+            <div
+              className="optionWrapper undefined"
+              onClick={[Function]}
+              style={
+                Object {
+                  "width": "25%",
+                }
+              }
+            >
+              <div
+                className="option"
+              >
+                <div
+                  className="optionText"
+                >
+                  Ipsum
+                </div>
+              </div>
+            </div>
+            <div
+              className="optionWrapper undefined"
+              onClick={[Function]}
+              style={
+                Object {
+                  "width": "25%",
+                }
+              }
+            >
+              <div
+                className="option"
+              >
+                <div
+                  className="optionText"
+                >
+                  Lorem ipsum
+                </div>
+              </div>
+            </div>
+            <div
+              className="optionWrapper undefined"
+              onClick={[Function]}
+              style={
+                Object {
+                  "width": "25%",
+                }
+              }
+            >
+              <div
+                className="option"
+              >
+                <div
+                  className="optionText"
+                >
+                  Sed ut perspiciatis
+                </div>
               </div>
             </div>
           </div>,
-          <div
-            className="optionWrapper undefined"
-            onClick={[Function]}
-            style={
-              Object {
-                "width": "25%",
-              }
-            }
-          >
-            <div
-              className="option"
-            >
+          "className": "selectInlineWrapper",
+        },
+        "ref": null,
+        "rendered": Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": Array [
               <div
-                className="optionText"
+                className="optionWrapper undefined"
+                onClick={[Function]}
+                style={
+                  Object {
+                    "width": "25%",
+                  }
+                }
               >
-                Ipsum
-              </div>
-            </div>
-          </div>,
-          <div
-            className="optionWrapper undefined"
-            onClick={[Function]}
-            style={
-              Object {
-                "width": "25%",
-              }
-            }
-          >
-            <div
-              className="option"
-            >
+                <div
+                  className="option"
+                >
+                  <div
+                    className="optionText"
+                  >
+                    Lorem
+                  </div>
+                </div>
+              </div>,
               <div
-                className="optionText"
+                className="optionWrapper undefined"
+                onClick={[Function]}
+                style={
+                  Object {
+                    "width": "25%",
+                  }
+                }
               >
-                Lorem ipsum
-              </div>
-            </div>
-          </div>,
-          <div
-            className="optionWrapper undefined"
-            onClick={[Function]}
-            style={
-              Object {
-                "width": "25%",
-              }
-            }
-          >
-            <div
-              className="option"
-            >
+                <div
+                  className="option"
+                >
+                  <div
+                    className="optionText"
+                  >
+                    Ipsum
+                  </div>
+                </div>
+              </div>,
               <div
-                className="optionText"
+                className="optionWrapper undefined"
+                onClick={[Function]}
+                style={
+                  Object {
+                    "width": "25%",
+                  }
+                }
               >
-                Sed ut perspiciatis
-              </div>
-            </div>
-          </div>,
-        ],
-        "className": "selectInline",
+                <div
+                  className="option"
+                >
+                  <div
+                    className="optionText"
+                  >
+                    Lorem ipsum
+                  </div>
+                </div>
+              </div>,
+              <div
+                className="optionWrapper undefined"
+                onClick={[Function]}
+                style={
+                  Object {
+                    "width": "25%",
+                  }
+                }
+              >
+                <div
+                  className="option"
+                >
+                  <div
+                    className="optionText"
+                  >
+                    Sed ut perspiciatis
+                  </div>
+                </div>
+              </div>,
+            ],
+            "className": "selectInline",
+          },
+          "ref": null,
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "key": "lorem",
+              "nodeType": "host",
+              "props": Object {
+                "children": <div
+                  className="option"
+                >
+                  <div
+                    className="optionText"
+                  >
+                    Lorem
+                  </div>
+                </div>,
+                "className": "optionWrapper undefined",
+                "onClick": [Function],
+                "style": Object {
+                  "width": "25%",
+                },
+              },
+              "ref": null,
+              "rendered": Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": <div
+                    className="optionText"
+                  >
+                    Lorem
+                  </div>,
+                  "className": "option",
+                },
+                "ref": null,
+                "rendered": Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": "Lorem",
+                    "className": "optionText",
+                  },
+                  "ref": null,
+                  "rendered": "Lorem",
+                  "type": "div",
+                },
+                "type": "div",
+              },
+              "type": "div",
+            },
+            Object {
+              "instance": null,
+              "key": "ipsum",
+              "nodeType": "host",
+              "props": Object {
+                "children": <div
+                  className="option"
+                >
+                  <div
+                    className="optionText"
+                  >
+                    Ipsum
+                  </div>
+                </div>,
+                "className": "optionWrapper undefined",
+                "onClick": [Function],
+                "style": Object {
+                  "width": "25%",
+                },
+              },
+              "ref": null,
+              "rendered": Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": <div
+                    className="optionText"
+                  >
+                    Ipsum
+                  </div>,
+                  "className": "option",
+                },
+                "ref": null,
+                "rendered": Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": "Ipsum",
+                    "className": "optionText",
+                  },
+                  "ref": null,
+                  "rendered": "Ipsum",
+                  "type": "div",
+                },
+                "type": "div",
+              },
+              "type": "div",
+            },
+            Object {
+              "instance": null,
+              "key": "lorem-ipsum",
+              "nodeType": "host",
+              "props": Object {
+                "children": <div
+                  className="option"
+                >
+                  <div
+                    className="optionText"
+                  >
+                    Lorem ipsum
+                  </div>
+                </div>,
+                "className": "optionWrapper undefined",
+                "onClick": [Function],
+                "style": Object {
+                  "width": "25%",
+                },
+              },
+              "ref": null,
+              "rendered": Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": <div
+                    className="optionText"
+                  >
+                    Lorem ipsum
+                  </div>,
+                  "className": "option",
+                },
+                "ref": null,
+                "rendered": Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": "Lorem ipsum",
+                    "className": "optionText",
+                  },
+                  "ref": null,
+                  "rendered": "Lorem ipsum",
+                  "type": "div",
+                },
+                "type": "div",
+              },
+              "type": "div",
+            },
+            Object {
+              "instance": null,
+              "key": "sed-ut-perspiciatis",
+              "nodeType": "host",
+              "props": Object {
+                "children": <div
+                  className="option"
+                >
+                  <div
+                    className="optionText"
+                  >
+                    Sed ut perspiciatis
+                  </div>
+                </div>,
+                "className": "optionWrapper undefined",
+                "onClick": [Function],
+                "style": Object {
+                  "width": "25%",
+                },
+              },
+              "ref": null,
+              "rendered": Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": <div
+                    className="optionText"
+                  >
+                    Sed ut perspiciatis
+                  </div>,
+                  "className": "option",
+                },
+                "ref": null,
+                "rendered": Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": "Sed ut perspiciatis",
+                    "className": "optionText",
+                  },
+                  "ref": null,
+                  "rendered": "Sed ut perspiciatis",
+                  "type": "div",
+                },
+                "type": "div",
+              },
+              "type": "div",
+            },
+          ],
+          "type": "div",
+        },
+        "type": "div",
       },
-      "ref": null,
-      "rendered": Array [
-        Object {
-          "instance": null,
-          "key": "lorem",
-          "nodeType": "host",
-          "props": Object {
-            "children": <div
-              className="option"
-            >
-              <div
-                className="optionText"
-              >
-                Lorem
-              </div>
-            </div>,
-            "className": "optionWrapper undefined",
-            "onClick": [Function],
-            "style": Object {
-              "width": "25%",
-            },
-          },
-          "ref": null,
-          "rendered": Object {
-            "instance": null,
-            "key": undefined,
-            "nodeType": "host",
-            "props": Object {
-              "children": <div
-                className="optionText"
-              >
-                Lorem
-              </div>,
-              "className": "option",
-            },
-            "ref": null,
-            "rendered": Object {
-              "instance": null,
-              "key": undefined,
-              "nodeType": "host",
-              "props": Object {
-                "children": "Lorem",
-                "className": "optionText",
-              },
-              "ref": null,
-              "rendered": "Lorem",
-              "type": "div",
-            },
-            "type": "div",
-          },
-          "type": "div",
-        },
-        Object {
-          "instance": null,
-          "key": "ipsum",
-          "nodeType": "host",
-          "props": Object {
-            "children": <div
-              className="option"
-            >
-              <div
-                className="optionText"
-              >
-                Ipsum
-              </div>
-            </div>,
-            "className": "optionWrapper undefined",
-            "onClick": [Function],
-            "style": Object {
-              "width": "25%",
-            },
-          },
-          "ref": null,
-          "rendered": Object {
-            "instance": null,
-            "key": undefined,
-            "nodeType": "host",
-            "props": Object {
-              "children": <div
-                className="optionText"
-              >
-                Ipsum
-              </div>,
-              "className": "option",
-            },
-            "ref": null,
-            "rendered": Object {
-              "instance": null,
-              "key": undefined,
-              "nodeType": "host",
-              "props": Object {
-                "children": "Ipsum",
-                "className": "optionText",
-              },
-              "ref": null,
-              "rendered": "Ipsum",
-              "type": "div",
-            },
-            "type": "div",
-          },
-          "type": "div",
-        },
-        Object {
-          "instance": null,
-          "key": "lorem-ipsum",
-          "nodeType": "host",
-          "props": Object {
-            "children": <div
-              className="option"
-            >
-              <div
-                className="optionText"
-              >
-                Lorem ipsum
-              </div>
-            </div>,
-            "className": "optionWrapper undefined",
-            "onClick": [Function],
-            "style": Object {
-              "width": "25%",
-            },
-          },
-          "ref": null,
-          "rendered": Object {
-            "instance": null,
-            "key": undefined,
-            "nodeType": "host",
-            "props": Object {
-              "children": <div
-                className="optionText"
-              >
-                Lorem ipsum
-              </div>,
-              "className": "option",
-            },
-            "ref": null,
-            "rendered": Object {
-              "instance": null,
-              "key": undefined,
-              "nodeType": "host",
-              "props": Object {
-                "children": "Lorem ipsum",
-                "className": "optionText",
-              },
-              "ref": null,
-              "rendered": "Lorem ipsum",
-              "type": "div",
-            },
-            "type": "div",
-          },
-          "type": "div",
-        },
-        Object {
-          "instance": null,
-          "key": "sed-ut-perspiciatis",
-          "nodeType": "host",
-          "props": Object {
-            "children": <div
-              className="option"
-            >
-              <div
-                className="optionText"
-              >
-                Sed ut perspiciatis
-              </div>
-            </div>,
-            "className": "optionWrapper undefined",
-            "onClick": [Function],
-            "style": Object {
-              "width": "25%",
-            },
-          },
-          "ref": null,
-          "rendered": Object {
-            "instance": null,
-            "key": undefined,
-            "nodeType": "host",
-            "props": Object {
-              "children": <div
-                className="optionText"
-              >
-                Sed ut perspiciatis
-              </div>,
-              "className": "option",
-            },
-            "ref": null,
-            "rendered": Object {
-              "instance": null,
-              "key": undefined,
-              "nodeType": "host",
-              "props": Object {
-                "children": "Sed ut perspiciatis",
-                "className": "optionText",
-              },
-              "ref": null,
-              "rendered": "Sed ut perspiciatis",
-              "type": "div",
-            },
-            "type": "div",
-          },
-          "type": "div",
-        },
-      ],
-      "type": "div",
-    },
+    ],
     "type": "div",
   },
   Symbol(enzyme.__nodes__): Array [
@@ -420,379 +519,478 @@ ShallowWrapper {
       "key": undefined,
       "nodeType": "host",
       "props": Object {
-        "children": <div
-          className="selectInline"
-        >
+        "children": Array [
+          null,
           <div
-            className="optionWrapper undefined"
-            onClick={[Function]}
-            style={
-              Object {
-                "width": "25%",
-              }
-            }
+            className="selectInlineWrapper"
           >
             <div
-              className="option"
+              className="selectInline"
             >
               <div
-                className="optionText"
+                className="optionWrapper undefined"
+                onClick={[Function]}
+                style={
+                  Object {
+                    "width": "25%",
+                  }
+                }
               >
-                Lorem
+                <div
+                  className="option"
+                >
+                  <div
+                    className="optionText"
+                  >
+                    Lorem
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-          <div
-            className="optionWrapper undefined"
-            onClick={[Function]}
-            style={
-              Object {
-                "width": "25%",
-              }
-            }
-          >
-            <div
-              className="option"
-            >
               <div
-                className="optionText"
+                className="optionWrapper undefined"
+                onClick={[Function]}
+                style={
+                  Object {
+                    "width": "25%",
+                  }
+                }
               >
-                Ipsum
+                <div
+                  className="option"
+                >
+                  <div
+                    className="optionText"
+                  >
+                    Ipsum
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-          <div
-            className="optionWrapper undefined"
-            onClick={[Function]}
-            style={
-              Object {
-                "width": "25%",
-              }
-            }
-          >
-            <div
-              className="option"
-            >
               <div
-                className="optionText"
+                className="optionWrapper undefined"
+                onClick={[Function]}
+                style={
+                  Object {
+                    "width": "25%",
+                  }
+                }
               >
-                Lorem ipsum
+                <div
+                  className="option"
+                >
+                  <div
+                    className="optionText"
+                  >
+                    Lorem ipsum
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-          <div
-            className="optionWrapper undefined"
-            onClick={[Function]}
-            style={
-              Object {
-                "width": "25%",
-              }
-            }
-          >
-            <div
-              className="option"
-            >
               <div
-                className="optionText"
+                className="optionWrapper undefined"
+                onClick={[Function]}
+                style={
+                  Object {
+                    "width": "25%",
+                  }
+                }
               >
-                Sed ut perspiciatis
+                <div
+                  className="option"
+                >
+                  <div
+                    className="optionText"
+                  >
+                    Sed ut perspiciatis
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        </div>,
-        "className": "selectInlineWrapper",
+          </div>,
+        ],
       },
       "ref": null,
-      "rendered": Object {
-        "instance": null,
-        "key": undefined,
-        "nodeType": "host",
-        "props": Object {
-          "children": Array [
-            <div
-              className="optionWrapper undefined"
-              onClick={[Function]}
-              style={
-                Object {
-                  "width": "25%",
-                }
-              }
+      "rendered": Array [
+        null,
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": <div
+              className="selectInline"
             >
               <div
-                className="option"
+                className="optionWrapper undefined"
+                onClick={[Function]}
+                style={
+                  Object {
+                    "width": "25%",
+                  }
+                }
               >
                 <div
-                  className="optionText"
+                  className="option"
                 >
-                  Lorem
+                  <div
+                    className="optionText"
+                  >
+                    Lorem
+                  </div>
+                </div>
+              </div>
+              <div
+                className="optionWrapper undefined"
+                onClick={[Function]}
+                style={
+                  Object {
+                    "width": "25%",
+                  }
+                }
+              >
+                <div
+                  className="option"
+                >
+                  <div
+                    className="optionText"
+                  >
+                    Ipsum
+                  </div>
+                </div>
+              </div>
+              <div
+                className="optionWrapper undefined"
+                onClick={[Function]}
+                style={
+                  Object {
+                    "width": "25%",
+                  }
+                }
+              >
+                <div
+                  className="option"
+                >
+                  <div
+                    className="optionText"
+                  >
+                    Lorem ipsum
+                  </div>
+                </div>
+              </div>
+              <div
+                className="optionWrapper undefined"
+                onClick={[Function]}
+                style={
+                  Object {
+                    "width": "25%",
+                  }
+                }
+              >
+                <div
+                  className="option"
+                >
+                  <div
+                    className="optionText"
+                  >
+                    Sed ut perspiciatis
+                  </div>
                 </div>
               </div>
             </div>,
-            <div
-              className="optionWrapper undefined"
-              onClick={[Function]}
-              style={
-                Object {
-                  "width": "25%",
-                }
-              }
-            >
-              <div
-                className="option"
-              >
+            "className": "selectInlineWrapper",
+          },
+          "ref": null,
+          "rendered": Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": Array [
                 <div
-                  className="optionText"
+                  className="optionWrapper undefined"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "width": "25%",
+                    }
+                  }
                 >
-                  Ipsum
-                </div>
-              </div>
-            </div>,
-            <div
-              className="optionWrapper undefined"
-              onClick={[Function]}
-              style={
-                Object {
-                  "width": "25%",
-                }
-              }
-            >
-              <div
-                className="option"
-              >
+                  <div
+                    className="option"
+                  >
+                    <div
+                      className="optionText"
+                    >
+                      Lorem
+                    </div>
+                  </div>
+                </div>,
                 <div
-                  className="optionText"
+                  className="optionWrapper undefined"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "width": "25%",
+                    }
+                  }
                 >
-                  Lorem ipsum
-                </div>
-              </div>
-            </div>,
-            <div
-              className="optionWrapper undefined"
-              onClick={[Function]}
-              style={
-                Object {
-                  "width": "25%",
-                }
-              }
-            >
-              <div
-                className="option"
-              >
+                  <div
+                    className="option"
+                  >
+                    <div
+                      className="optionText"
+                    >
+                      Ipsum
+                    </div>
+                  </div>
+                </div>,
                 <div
-                  className="optionText"
+                  className="optionWrapper undefined"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "width": "25%",
+                    }
+                  }
                 >
-                  Sed ut perspiciatis
-                </div>
-              </div>
-            </div>,
-          ],
-          "className": "selectInline",
+                  <div
+                    className="option"
+                  >
+                    <div
+                      className="optionText"
+                    >
+                      Lorem ipsum
+                    </div>
+                  </div>
+                </div>,
+                <div
+                  className="optionWrapper undefined"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "width": "25%",
+                    }
+                  }
+                >
+                  <div
+                    className="option"
+                  >
+                    <div
+                      className="optionText"
+                    >
+                      Sed ut perspiciatis
+                    </div>
+                  </div>
+                </div>,
+              ],
+              "className": "selectInline",
+            },
+            "ref": null,
+            "rendered": Array [
+              Object {
+                "instance": null,
+                "key": "lorem",
+                "nodeType": "host",
+                "props": Object {
+                  "children": <div
+                    className="option"
+                  >
+                    <div
+                      className="optionText"
+                    >
+                      Lorem
+                    </div>
+                  </div>,
+                  "className": "optionWrapper undefined",
+                  "onClick": [Function],
+                  "style": Object {
+                    "width": "25%",
+                  },
+                },
+                "ref": null,
+                "rendered": Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": <div
+                      className="optionText"
+                    >
+                      Lorem
+                    </div>,
+                    "className": "option",
+                  },
+                  "ref": null,
+                  "rendered": Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "host",
+                    "props": Object {
+                      "children": "Lorem",
+                      "className": "optionText",
+                    },
+                    "ref": null,
+                    "rendered": "Lorem",
+                    "type": "div",
+                  },
+                  "type": "div",
+                },
+                "type": "div",
+              },
+              Object {
+                "instance": null,
+                "key": "ipsum",
+                "nodeType": "host",
+                "props": Object {
+                  "children": <div
+                    className="option"
+                  >
+                    <div
+                      className="optionText"
+                    >
+                      Ipsum
+                    </div>
+                  </div>,
+                  "className": "optionWrapper undefined",
+                  "onClick": [Function],
+                  "style": Object {
+                    "width": "25%",
+                  },
+                },
+                "ref": null,
+                "rendered": Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": <div
+                      className="optionText"
+                    >
+                      Ipsum
+                    </div>,
+                    "className": "option",
+                  },
+                  "ref": null,
+                  "rendered": Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "host",
+                    "props": Object {
+                      "children": "Ipsum",
+                      "className": "optionText",
+                    },
+                    "ref": null,
+                    "rendered": "Ipsum",
+                    "type": "div",
+                  },
+                  "type": "div",
+                },
+                "type": "div",
+              },
+              Object {
+                "instance": null,
+                "key": "lorem-ipsum",
+                "nodeType": "host",
+                "props": Object {
+                  "children": <div
+                    className="option"
+                  >
+                    <div
+                      className="optionText"
+                    >
+                      Lorem ipsum
+                    </div>
+                  </div>,
+                  "className": "optionWrapper undefined",
+                  "onClick": [Function],
+                  "style": Object {
+                    "width": "25%",
+                  },
+                },
+                "ref": null,
+                "rendered": Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": <div
+                      className="optionText"
+                    >
+                      Lorem ipsum
+                    </div>,
+                    "className": "option",
+                  },
+                  "ref": null,
+                  "rendered": Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "host",
+                    "props": Object {
+                      "children": "Lorem ipsum",
+                      "className": "optionText",
+                    },
+                    "ref": null,
+                    "rendered": "Lorem ipsum",
+                    "type": "div",
+                  },
+                  "type": "div",
+                },
+                "type": "div",
+              },
+              Object {
+                "instance": null,
+                "key": "sed-ut-perspiciatis",
+                "nodeType": "host",
+                "props": Object {
+                  "children": <div
+                    className="option"
+                  >
+                    <div
+                      className="optionText"
+                    >
+                      Sed ut perspiciatis
+                    </div>
+                  </div>,
+                  "className": "optionWrapper undefined",
+                  "onClick": [Function],
+                  "style": Object {
+                    "width": "25%",
+                  },
+                },
+                "ref": null,
+                "rendered": Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": <div
+                      className="optionText"
+                    >
+                      Sed ut perspiciatis
+                    </div>,
+                    "className": "option",
+                  },
+                  "ref": null,
+                  "rendered": Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "host",
+                    "props": Object {
+                      "children": "Sed ut perspiciatis",
+                      "className": "optionText",
+                    },
+                    "ref": null,
+                    "rendered": "Sed ut perspiciatis",
+                    "type": "div",
+                  },
+                  "type": "div",
+                },
+                "type": "div",
+              },
+            ],
+            "type": "div",
+          },
+          "type": "div",
         },
-        "ref": null,
-        "rendered": Array [
-          Object {
-            "instance": null,
-            "key": "lorem",
-            "nodeType": "host",
-            "props": Object {
-              "children": <div
-                className="option"
-              >
-                <div
-                  className="optionText"
-                >
-                  Lorem
-                </div>
-              </div>,
-              "className": "optionWrapper undefined",
-              "onClick": [Function],
-              "style": Object {
-                "width": "25%",
-              },
-            },
-            "ref": null,
-            "rendered": Object {
-              "instance": null,
-              "key": undefined,
-              "nodeType": "host",
-              "props": Object {
-                "children": <div
-                  className="optionText"
-                >
-                  Lorem
-                </div>,
-                "className": "option",
-              },
-              "ref": null,
-              "rendered": Object {
-                "instance": null,
-                "key": undefined,
-                "nodeType": "host",
-                "props": Object {
-                  "children": "Lorem",
-                  "className": "optionText",
-                },
-                "ref": null,
-                "rendered": "Lorem",
-                "type": "div",
-              },
-              "type": "div",
-            },
-            "type": "div",
-          },
-          Object {
-            "instance": null,
-            "key": "ipsum",
-            "nodeType": "host",
-            "props": Object {
-              "children": <div
-                className="option"
-              >
-                <div
-                  className="optionText"
-                >
-                  Ipsum
-                </div>
-              </div>,
-              "className": "optionWrapper undefined",
-              "onClick": [Function],
-              "style": Object {
-                "width": "25%",
-              },
-            },
-            "ref": null,
-            "rendered": Object {
-              "instance": null,
-              "key": undefined,
-              "nodeType": "host",
-              "props": Object {
-                "children": <div
-                  className="optionText"
-                >
-                  Ipsum
-                </div>,
-                "className": "option",
-              },
-              "ref": null,
-              "rendered": Object {
-                "instance": null,
-                "key": undefined,
-                "nodeType": "host",
-                "props": Object {
-                  "children": "Ipsum",
-                  "className": "optionText",
-                },
-                "ref": null,
-                "rendered": "Ipsum",
-                "type": "div",
-              },
-              "type": "div",
-            },
-            "type": "div",
-          },
-          Object {
-            "instance": null,
-            "key": "lorem-ipsum",
-            "nodeType": "host",
-            "props": Object {
-              "children": <div
-                className="option"
-              >
-                <div
-                  className="optionText"
-                >
-                  Lorem ipsum
-                </div>
-              </div>,
-              "className": "optionWrapper undefined",
-              "onClick": [Function],
-              "style": Object {
-                "width": "25%",
-              },
-            },
-            "ref": null,
-            "rendered": Object {
-              "instance": null,
-              "key": undefined,
-              "nodeType": "host",
-              "props": Object {
-                "children": <div
-                  className="optionText"
-                >
-                  Lorem ipsum
-                </div>,
-                "className": "option",
-              },
-              "ref": null,
-              "rendered": Object {
-                "instance": null,
-                "key": undefined,
-                "nodeType": "host",
-                "props": Object {
-                  "children": "Lorem ipsum",
-                  "className": "optionText",
-                },
-                "ref": null,
-                "rendered": "Lorem ipsum",
-                "type": "div",
-              },
-              "type": "div",
-            },
-            "type": "div",
-          },
-          Object {
-            "instance": null,
-            "key": "sed-ut-perspiciatis",
-            "nodeType": "host",
-            "props": Object {
-              "children": <div
-                className="option"
-              >
-                <div
-                  className="optionText"
-                >
-                  Sed ut perspiciatis
-                </div>
-              </div>,
-              "className": "optionWrapper undefined",
-              "onClick": [Function],
-              "style": Object {
-                "width": "25%",
-              },
-            },
-            "ref": null,
-            "rendered": Object {
-              "instance": null,
-              "key": undefined,
-              "nodeType": "host",
-              "props": Object {
-                "children": <div
-                  className="optionText"
-                >
-                  Sed ut perspiciatis
-                </div>,
-                "className": "option",
-              },
-              "ref": null,
-              "rendered": Object {
-                "instance": null,
-                "key": undefined,
-                "nodeType": "host",
-                "props": Object {
-                  "children": "Sed ut perspiciatis",
-                  "className": "optionText",
-                },
-                "ref": null,
-                "rendered": "Sed ut perspiciatis",
-                "type": "div",
-              },
-              "type": "div",
-            },
-            "type": "div",
-          },
-        ],
-        "type": "div",
-      },
+      ],
       "type": "div",
     },
   ],

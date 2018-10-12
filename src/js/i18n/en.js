@@ -304,6 +304,14 @@ export default {
         similarity   : 'Similarity',
         coincidences : 'Coincidences'
     },
+    PersonsFilterPage                : {
+        title        : 'Nekuno People',
+        orderedBy    : 'Ordered by',
+        compatibility: 'compatibility',
+        similarity   : 'similarity',
+        coincidences : 'coincidences',
+        showResults  : 'Show results'
+    },
     ProfessionalProfilePage          : {
         yourAccount: 'Your account at Nekuno',
         title      : 'Fill your professional profile',

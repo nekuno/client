@@ -26,4 +26,7 @@ storiesOf('ProgressBar', module)
         <div style={{width: "75%"}}>
             <ProgressBar percentage={90} onClickHandler={action('clicked')} size={'medium'} title={'Sed ut perspiciatis'}/>
         </div>
+    ))
+    .add('without number, 10%', () => (
+        <ProgressBar percentage={10} onClickHandler={action('clicked')} size={'large'} title={'Lorem ipsum'} withoutNumber={'true'}/>
     ));

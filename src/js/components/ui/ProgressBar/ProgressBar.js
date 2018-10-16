@@ -9,6 +9,7 @@ export default class ProgressBar extends Component {
     static propTypes = {
         title          : PropTypes.string,
         percentage     : PropTypes.number,
+        textColor      : PropTypes.string,
         size           : PropTypes.oneOf(['small', 'medium', 'large']).isRequired,
         strokeColor    : PropTypes.string,
         trailColor     : PropTypes.string,
@@ -44,7 +45,7 @@ export default class ProgressBar extends Component {
     }
 
     render() {
-        const {title, size, withoutNumber, strokeColor, trailColor, background} = this.props;
+        const {title, size, withoutNumber, strokeColor, trailColor, background, textColor} = this.props;
         const {prevPercentage, percentage} = this.state;
         const lineWidth = size === "small" ? "5" : size === "medium" ? "3" : "2";
 
@@ -61,7 +62,7 @@ export default class ProgressBar extends Component {
                         </Motion>
                     </div>
                     {!withoutNumber ?
-                        <div className={styles.percentage}>
+                        <div className={styles.percentage} style={textColor ? {color: textColor} : {}}>
                             {percentage || 0}%
                         </div>
                         : null}

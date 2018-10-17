@@ -974,6 +974,9 @@ export default {
     SocialWheel                      : {
         isLoading: 'Getting information...',
     },
+    BottomNotificationBar            : {
+        analyzingData   : 'Analyzing data...',
+    },
     ////////////////
     // Framework7 //
     ////////////////

@@ -1,0 +1,31 @@
+@import '../../../../scss/_partials/colors';
+
+.bottom-notification-bar {
+  background: $purple-main;
+  bottom: 0;
+  color: $gray-border;
+  font-size: 14px;
+  position: sticky;
+  width: 90%;
+  margin: 0px auto 10px auto;
+  padding: 0 10px;
+
+
+
+  border-radius: 5px 5px 5px 5px;
+  -moz-border-radius: 5px 5px 5px 5px;
+  -webkit-border-radius: 5px 5px 5px 5px;
+  border: 0px solid #000000;
+
+  .bottom-notification-bar-text {
+    display: inline-block;
+    width: 50%;
+    text-align: left;
+  }
+  .bottom-notification-bar-progressbar {
+    display: inline-block;
+    width: 50%;
+    color: $gray-border;
+  }
+
+}

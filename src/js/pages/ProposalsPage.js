@@ -6,6 +6,7 @@ import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import ProposalCard from '../components/Proposal/ProposalCard/ProposalCard.js';
 import BottomNavBar from '../components/BottomNavBar/BottomNavBar.js';
 import TopNavBar from '../components/TopNavBar/TopNavBar.js';
+import BottomNotificationBar from "../components/ui/BottomNotificationBar/BottomNotificationBar";
 import WorkersStore from '../stores/WorkersStore';
 import '../../scss/pages/proposals.scss';
 
@@ -123,6 +124,7 @@ export default class ProposalsPage extends Component {
                             <ProposalCard {...proposal}/>
                         </div>)}
                     </div>
+                    <BottomNotificationBar/>
                     <BottomNavBar current={'proposals'} notifications={notifications}/>
                 </div>
             </div>

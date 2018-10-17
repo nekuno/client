@@ -5,6 +5,7 @@ function loadStories() {
     require('../stories/AvailabilityEdit.stories');
     require('../stories/Banner.stories');
     require('../stories/BottomNavBar.stories');
+    require('../stories/BottomNotificationBar.stories');
     require('../stories/Button.stories');
     require('../stories/CardUser.stories');
     require('../stories/Chip.stories');

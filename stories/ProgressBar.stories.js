@@ -29,4 +29,7 @@ storiesOf('ProgressBar', module)
     ))
     .add('without number, 10%', () => (
         <ProgressBar percentage={10} onClickHandler={action('clicked')} size={'large'} title={'Lorem ipsum'} withoutNumber={'true'}/>
+    ))
+    .add('progression 50% with text color', () => (
+        <ProgressBar percentage={50} textColor={'#cd201f'} onClickHandler={linkTo('ProgressBar', 'progression 0%')} title={'Lorem ipsum'} size={'large'}/>
     ));

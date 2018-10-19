@@ -27,12 +27,25 @@ export default class BottomNotificationBar extends Component {
 
     render() {
         const {children, strings, linksPercentage} = this.props;
-
+        let displayStyle = null;
+        switch (linksPercentage) {
+            case null:
+                displayStyle = styles.hidden;
+                break;
+            case 100:
+                displayStyle = styles.fadeOut;
+                break;
+            default:
+                ((displayStyle !== styles.fadeIn) ? displayStyle = styles.fadeIn : '');
+                break;
+        }
         return (
-            <div className={styles.bottomNotificationBar}>
-                <div className={styles.bottomNotificationBarText}>{strings.analyzingData}</div>
-                <div className={styles.bottomNotificationBarProgressbar}>
-                    <ProgressBar percentage={linksPercentage} textColor={'#F0F1FA'} size={'small'} background={'#756EE5'} strokeColor={'#FFF'}/>
+            <div className={displayStyle}>
+                <div className={styles.bottomNotificationBar}>
+                    <div className={styles.bottomNotificationBarText}>{strings.analyzingData}</div>
+                    <div className={styles.bottomNotificationBarProgressbar}>
+                        <ProgressBar percentage={linksPercentage} textColor={'#F0F1FA'} size={'small'} background={'#756EE5'} strokeColor={'#FFF'}/>
+                    </div>
                 </div>
             </div>
         );

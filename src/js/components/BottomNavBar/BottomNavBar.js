@@ -72,7 +72,7 @@ export default class BottomNavBar extends Component {
     }
 
     addProfessionalProposal() {
-        this.context.router.push('/add-professional-proposal');
+        this.context.router.push('/proposals-project-introduction');
     }
 
     addLeisurePlan() {

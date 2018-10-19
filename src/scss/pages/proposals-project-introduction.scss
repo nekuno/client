@@ -1,0 +1,29 @@
+@import '../_partials/colors';
+
+body #root .App .views .view.proposals-introduction-view {
+  background: $blue-projects;
+  text-align: center;
+  overflow: hidden;
+
+  .proposals-introduction-wrapper {
+    height: 100%;
+    margin-top: 50px;
+
+    .image-wrapper {
+      padding: 0 24px;
+      text-align: center;
+
+      img {
+        width: 75%;
+      }
+    }
+
+    h1, .resume {
+      padding: 0 24px;
+    }
+
+    .resume {
+      margin-bottom: 32px;
+    }
+  }
+}

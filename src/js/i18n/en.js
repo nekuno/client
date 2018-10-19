@@ -338,6 +338,12 @@ export default {
     ProposalsPage                    : {
         discover: 'Discover proposals'
     },
+    ProposalsProjectIntroductionPage        : {
+        publishProposal: 'Publish proposal',
+        title          : 'Do your proposal for a project',
+        resume         : 'Publish that idea or project that you have in mind and we will find related people to carry it out.',
+        doProposal     : 'Create proposal'
+    },
     QuestionsPage                    : {
         myProfile: 'My profile',
         about    : 'About me',

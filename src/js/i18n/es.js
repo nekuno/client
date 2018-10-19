@@ -338,6 +338,12 @@ export default {
     ProposalsPage                    : {
         discover: 'Descubre propuestas'
     },
+    ProposalsProjectIntroductionPage        : {
+        publishProposal: 'Publicar propuesta',
+        title          : 'Haz tu propuesta para un proyecto',
+        resume         : 'Publica esa idea o proyecto que tienes en mente y te encomendaremos personas afines con quien realizarla.',
+        doProposal     : 'Hacer propuesta'
+    },
     QuestionsPage                    : {
         myProfile: 'Mi Perfil',
         about    : 'Sobre mi',

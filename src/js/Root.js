@@ -70,6 +70,7 @@ import GroupContentsPage from './pages/GroupContentsPage';
 import SettingsPage from './pages/SettingsPage';
 import RouterActionCreators from './actions/RouterActionCreators';
 import LoginStore from './stores/LoginStore';
+import ProposalsProjectIntroductionPage from "./pages/ProposalsProjectIntroductionPage";
 
 function requireAuth(nextState, replaceState) {
 
@@ -117,6 +118,7 @@ export default class Root extends Component {
                     <Route onEnter={requireAuth}>
                         <Route name="connecting-facebook" path="/connecting-facebook" component={ConnectingFacebookPage}/>
                         <Route name="proposals" path="/proposals" component={ProposalsPage}/>
+                        <Route name="proposals-project-introduction" path="/proposals-project-introduction" component={ProposalsProjectIntroductionPage}/>
                         <Route name="persons" path="/persons" component={PersonsPage}/>
                         <Route name="persons-all" path="/persons-all" component={PersonsAllPage}/>
                         <Route name="persons-filter" path="/persons-filter/:threadId" component={PersonsFilterPage}/>

@@ -155,3 +155,25 @@ export function getMatching(userId, url = `matching/${userId}`) {
 export function getSimilarity(userId, url = `similarity/${userId}`) {
     return getData(url);
 }
+
+//Proposals
+
+export function createProposal(data, url='threads') {
+    return postData(url, data);
+}
+
+export function updateProposal(threadId, data, url= `threads/${threadId}`) {
+    return putData(url, data);
+}
+
+export function removeProposal(threadId, url= `threads/${threadId}`) {
+    return deleteData(url);
+}
+
+export function getProposalRecommendations(proposalId, other, url='proposals/recommendations') {
+    return getData(url, data);
+}
+
+export function getProposals(url = 'proposals') {
+    return getData(url);
+}

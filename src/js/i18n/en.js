@@ -344,6 +344,14 @@ export default {
         resume         : 'Publish that idea or project that you have in mind and we will find related people to carry it out.',
         doProposal     : 'Create proposal'
     },
+    ProposalsProjectBasicPage        : {
+        publishProposal: 'Publish proposal',
+        title: 'What is your project proposal?',
+        titlePlaceholder: 'Propose title',
+        resumePlaceholder: 'Explain how you want to carry it out...',
+        stepsBarContinueText: 'Continue',
+        stepsBarCantContinueText: 'You cannot continue',
+    },
     QuestionsPage                    : {
         myProfile: 'My profile',
         about    : 'About me',

@@ -25,7 +25,7 @@ export default class ProposalsProjectIntroductionPage extends Component {
     }
 
     topNavBarRightLinkClick() {
-        this.context.router.push('/proposals');
+        this.context.router.push('/proposals-project-basic');
     }
 
     render() {
@@ -42,7 +42,7 @@ export default class ProposalsProjectIntroductionPage extends Component {
                         </div>
                         <h1>{strings.title}</h1>
                         <div className="resume">{strings.resume}</div>
-                        <Button onClickHandler={this.goToProfessionalProfileIndustryPage}>{strings.doProposal}</Button>
+                        <Button onClickHandler={this.topNavBarRightLinkClick}>{strings.doProposal}</Button>
                     </div>
                 </div>
             </div>

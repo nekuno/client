@@ -1,3 +1,5 @@
+import ProposalsProjectBasicPage from "../pages/ProposalsProjectBasicPage";
+
 export default {
     AnswerQuestionPage               : {
         question               : 'Pregunta',
@@ -343,6 +345,14 @@ export default {
         title          : 'Haz tu propuesta para un proyecto',
         resume         : 'Publica esa idea o proyecto que tienes en mente y te encomendaremos personas afines con quien realizarla.',
         doProposal     : 'Hacer propuesta'
+    },
+    ProposalsProjectBasicPage        : {
+        publishProposal: 'Publicar propuesta',
+        title: '¿En qué consiste tu  propuesta de proyecto?',
+        titlePlaceholder: 'Título propuesta',
+        resumePlaceholder: 'Explica cómo quieres llevarla a cabo...',
+        stepsBarContinueText: 'Continuar',
+        stepsBarCantContinueText: 'Rellena para continuar',
     },
     QuestionsPage                    : {
         myProfile: 'Mi Perfil',

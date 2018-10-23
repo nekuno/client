@@ -34,6 +34,7 @@ function loadStories() {
     require('../stories/SelectInline.stories');
     require('../stories/StepsBar.stories');
     require('../stories/Tabs.stories');
+    require('../stories/Textarea.stories');
     require('../stories/TopBar.stories');
     require('../stories/TopNavBar.stories');
 

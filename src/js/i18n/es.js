@@ -1,5 +1,3 @@
-import ProposalsProjectBasicPage from "../pages/ProposalsProjectBasicPage";
-
 export default {
     AnswerQuestionPage               : {
         question               : 'Pregunta',
@@ -353,6 +351,13 @@ export default {
         resumePlaceholder: 'Explica cómo quieres llevarla a cabo...',
         stepsBarContinueText: 'Continuar',
         stepsBarCantContinueText: 'Rellena para continuar',
+    },
+    ProposalsProjectProfessionalPage     : {
+        title: '¿Qué sectores profesionales requieres para el proyecto?',
+        placeholder: 'Buscar sector',
+        selectedLabel: 'Sectores que quieres',
+        stepsBarContinueText: 'Continuar',
+        stepsBarCantContinueText: 'Indica uno para continuar',
     },
     QuestionsPage                    : {
         myProfile: 'Mi Perfil',

@@ -56,9 +56,7 @@ export default class ProposalsProjectBasicPage extends Component {
         };
         mergeCreatingProposal(proposal);
 
-        this.context.router.push('/proposals'); // TODO: Create new page
-
-        console.log("onHandleStepsBar");
+        this.context.router.push('/proposals-project-professional');
     }
 
     topNavBarRightLinkClick() {

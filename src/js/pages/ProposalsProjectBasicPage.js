@@ -11,6 +11,9 @@ import Input from "../components/ui/Input/Input";
 import Textarea from "../components/ui/Textarea/Textarea";
 import {linkTo} from "@storybook/addon-links";
 import {action} from "@storybook/addon-actions";
+import {mergeCreatingProposal} from "../actions/ProposalActionCreators";
+import CreatingProposalStore from '../stores/CreatingProposalStore';
+
 
 @translate('ProposalsProjectBasicPage')
 export default class ProposalsProjectBasicPage extends Component {
@@ -34,6 +37,7 @@ export default class ProposalsProjectBasicPage extends Component {
 
         this.handleTitleChange = this.handleTitleChange.bind(this);
         this.handleResumeChange = this.handleResumeChange.bind(this);
+        this.handleStepsBar = this.handleStepsBar.bind(this);
         this.topNavBarRightLinkClick = this.topNavBarRightLinkClick.bind(this);
     }
 
@@ -43,6 +47,18 @@ export default class ProposalsProjectBasicPage extends Component {
 
     handleResumeChange(event) {
         this.setState({resume: event});
+    }
+
+    handleStepsBar(event) {
+        const proposal = {
+            title: this.state.title,
+            description: this.state.resume,
+        };
+        mergeCreatingProposal(proposal);
+
+        this.context.router.push('/proposals'); // TODO: Create new page
+
+        console.log("onHandleStepsBar");
     }
 
     topNavBarRightLinkClick() {
@@ -66,7 +82,7 @@ export default class ProposalsProjectBasicPage extends Component {
                         <Textarea defaultValue={this.state.resume} onChange={this.handleResumeChange} placeholder={strings.resumePlaceholder}/>
                     </div>
                 </div>
-                <StepsBar color={'blue'} totalSteps={5} currentStep={0} continueText={strings.stepsBarContinueText} cantContinueText={strings.stepsBarCantContinueText} canContinue={canContinue}/>
+                <StepsBar color={'blue'} totalSteps={5} currentStep={0} continueText={strings.stepsBarContinueText} cantContinueText={strings.stepsBarCantContinueText} canContinue={canContinue} onClickHandler={this.handleStepsBar}/>
             </div>
         );
     }

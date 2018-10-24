@@ -90,3 +90,7 @@ export function skipCandidate(candidateId) {
         failure: ActionTypes.SKIP_CANDIDATE_ERROR
     }, {candidateId});
 }
+
+export function mergeCreatingProposal(data) {
+    dispatch(ActionTypes.MERGE_CREATING_PROPOSAL, {data});
+}

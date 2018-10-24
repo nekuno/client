@@ -13,6 +13,7 @@ import {linkTo} from "@storybook/addon-links";
 import {action} from "@storybook/addon-actions";
 import {mergeCreatingProposal} from "../actions/ProposalActionCreators";
 import CreatingProposalStore from '../stores/CreatingProposalStore';
+import * as ProposalActionCreators from "../actions/ProposalActionCreators";
 
 
 @translate('ProposalsProjectBasicPage')
@@ -54,8 +55,7 @@ export default class ProposalsProjectBasicPage extends Component {
             title: this.state.title,
             description: this.state.resume,
         };
-        mergeCreatingProposal(proposal);
-
+        ProposalActionCreators.mergeCreatingProposal(proposal);
         this.context.router.push('/proposals-project-professional');
     }
 

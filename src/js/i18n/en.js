@@ -1,5 +1,3 @@
-import ProposalsProjectProfessionalPage from "../pages/ProposalsProjectProfessionalPage";
-
 export default {
     AnswerQuestionPage               : {
         question               : 'Question',
@@ -355,11 +353,18 @@ export default {
         stepsBarCantContinueText: 'You cannot continue',
     },
     ProposalsProjectProfessionalPage     : {
-        title: '¿Qué sectores profesionales requieres para el proyecto?',
-        placeholder: 'Buscar sector',
-        selectedLabel: 'Sectores que quieres',
-        stepsBarContinueText: 'Continuar',
-        stepsBarCantContinueText: 'Indica uno para continuar',
+        title: 'What professional sectors do you require for the project?',
+        placeholder: 'Search sector',
+        selectedLabel: 'Sectors you want',
+        stepsBarContinueText: 'Continue',
+        stepsBarCantContinueText: 'Indicate one to continue',
+    },
+    ProposalsProjectSkillsPage     : {
+        title: 'What skills would you like for the project?',
+        placeholder: 'Search skill',
+        selectedLabel: 'Skills you want',
+        stepsBarContinueText: 'Continue',
+        stepsBarCantContinueText: 'Indicate one to continue',
     },
     QuestionsPage                    : {
         myProfile: 'My profile',

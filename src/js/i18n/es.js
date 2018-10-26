@@ -359,6 +359,13 @@ export default {
         stepsBarContinueText: 'Continuar',
         stepsBarCantContinueText: 'Indica uno para continuar',
     },
+    ProposalsProjectSkillsPage     : {
+        title: '¿Qué habilidades te gustaría para el proyecto?',
+        placeholder: 'Buscar habilidad',
+        selectedLabel: 'Habilidades que quieres',
+        stepsBarContinueText: 'Continuar',
+        stepsBarCantContinueText: 'Indica una para continuar',
+    },
     QuestionsPage                    : {
         myProfile: 'Mi Perfil',
         about    : 'Sobre mi',

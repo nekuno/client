@@ -2,31 +2,38 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import translate from '../i18n/Translate';
 import TopNavBar from '../components/TopNavBar/TopNavBar.js';
-import '../../scss/pages/proposals-project-professional.scss';
+import '../../scss/pages/proposals-project-skills.scss';
 import InputSelectText from "../components/RegisterFields/InputSelectText/InputSelectText";
 import StepsBar from "../components/ui/StepsBar/StepsBar";
 import ProfileStore from "../stores/ProfileStore";
 import connectToStores from "../utils/connectToStores";
 import * as ProposalActionCreators from "../actions/ProposalActionCreators";
+import InputTag from "../components/RegisterFields/InputTag/InputTag";
+import TagSuggestionsStore from "../stores/TagSuggestionsStore";
+import * as TagSuggestionsActionCreators from "../actions/TagSuggestionsActionCreators";
+
+function resetTagSuggestions() {
+    TagSuggestionsActionCreators.resetTagSuggestions();
+}
 
 function getState() {
-    const metadata = ProfileStore.getMetadata();
-    const choices = metadata && metadata.industry ? metadata.industry.choices : [];
+    const tags = TagSuggestionsStore.tags || [];
+    const choices = tags.map(tag => tag.name);
 
     return {
         choices
     };
 }
 
-@translate('ProposalsProjectProfessionalPage')
-@connectToStores([ProfileStore], getState)
-export default class ProposalsProjectProfessionalPage extends Component {
+@translate('ProposalsProjectSkillsPage')
+@connectToStores([TagSuggestionsStore], getState)
+export default class ProposalsProjectSkillsPage extends Component {
 
     static propTypes = {
         // Injected by @translate:
-        strings  : PropTypes.object,
+        strings     : PropTypes.object,
         // Injected by @connectToStores:
-        choices          : PropTypes.array,
+        choices     : PropTypes.array,
         canContinue : PropTypes.bool,
     };
 
@@ -37,21 +44,22 @@ export default class ProposalsProjectProfessionalPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            professionalSector   : [],
+            skills   : [],
         };
 
         this.handleStepsBar = this.handleStepsBar.bind(this);
         this.topNavBarLeftLinkClick = this.topNavBarLeftLinkClick.bind(this);
         this.topNavBarRightLinkClick = this.topNavBarRightLinkClick.bind(this);
-        this.onClickInputSelectTextHandler = this.onClickInputSelectTextHandler.bind(this);
+        this.onClickInputTagHandler = this.onClickInputTagHandler.bind(this);
+        this.onChangeInputTagHandler = this.onChangeInputTagHandler.bind(this);
     }
 
-    handleStepsBar(event) {
+    handleStepsBar() {
         const proposal = {
-            professionalSector: this.state.professionalSector,
+            skills: this.state.skills,
         };
         ProposalActionCreators.mergeCreatingProposal(proposal);
-        this.context.router.push('/proposals-project-skills');
+        this.context.router.push('/proposals-project-availability');
     }
 
     topNavBarLeftLinkClick() {
@@ -62,19 +70,29 @@ export default class ProposalsProjectProfessionalPage extends Component {
         this.context.router.push('/proposals');
     }
 
-    onClickInputSelectTextHandler(event) {
+    onClickInputTagHandler(event) {
+        resetTagSuggestions();
+
         this.setState({
-            professionalSector: event,
+            skills: event,
         });
+    }
+
+    onChangeInputTagHandler(event) {
+        if (event) {
+            TagSuggestionsActionCreators.requestProfileTagSuggestions(event, 'profession');
+        } else {
+            resetTagSuggestions();
+        }
     }
 
     render() {
         const {strings, choices} = this.props;
-        const canContinue = this.state.professionalSector.length >= 1;
+        const canContinue = this.state.skills.length > 0;
 
         return (
             <div className="views">
-                <div className="view view-main proposals-project-professional-view">
+                <div className="view view-main proposals-project-skills-view">
                     <TopNavBar
                         background={'transparent'}
                         iconLeft={'arrow-left'}
@@ -83,20 +101,22 @@ export default class ProposalsProjectProfessionalPage extends Component {
                         textSize={'small'}
                         onLeftLinkClickHandler={this.topNavBarLeftLinkClick}
                         onRightLinkClickHandler={this.topNavBarRightLinkClick}/>
-                    <div className="proposals-project-professional-wrapper">
+                    <div className="proposals-project-skills-wrapper">
                         <h2>{strings.title}</h2>
-                        <InputSelectText
-                            chipsColor={'blue'}
-                            options={choices}
-                            selectedLabel={strings.selectedLabel}
-                            placeholder={strings.placeholder}
-                            onClickHandler={this.onClickInputSelectTextHandler}/>
+                        <InputTag tags={choices}
+                                  placeholder={strings.placeholder}
+                                  searchIcon={true}
+                                  size={'small'}
+                                  chipsColor={'blue'}
+                                  onChangeHandler={this.onChangeInputTagHandler}
+                                  onClickHandler={this.onClickInputTagHandler}
+                                  selectedLabel={strings.selectedLabel}/>
                     </div>
                 </div>
                 <StepsBar
                     color={'blue'}
                     totalSteps={5}
-                    currentStep={1}
+                    currentStep={2}
                     continueText={strings.stepsBarContinueText}
                     cantContinueText={strings.stepsBarCantContinueText}
                     canContinue={canContinue}
@@ -106,12 +126,12 @@ export default class ProposalsProjectProfessionalPage extends Component {
     }
 }
 
-ProposalsProjectProfessionalPage.defaultProps = {
+ProposalsProjectSkillsPage.defaultProps = {
     strings: {
-        title: 'What sector skills would you want for the project?',
-        placeholder: 'Search professional sector',
-        selectedLabel: 'Sectors you want',
+        title: 'What skills would you like for the project?',
+        placeholder: 'Search hability',
+        selectedLabel: 'Habilities youu want',
         stepsBarContinueText: 'Continue',
-        stepsBarCantContinueText: 'Choose one to continue',
+        stepsBarCantContinueText: 'Indicate one to continue',
     }
 };

@@ -1,34 +1,11 @@
 @import '../_partials/colors';
 
-body #root .App .views .view.proposals-project-availability-view {
+body #root .App .views .view.proposals-project-availability-dates-view {
   color: $gray-main-text;
   text-align: center;
   z-index: 0;
 
-  .proposals-project-availability-wrapper {
-    h2 {
-      padding: 0 24px;
-    }
+  .proposals-project-availability-dates-wrapper {
 
-    .steam-icon {
-      display: inline-block;
-      text-align: left;
-      width: 15%;
-    }
-    .text-wrapper {
-      display: inline-block;
-      text-align: left;
-      vertical-align: top;
-      width: 75%;
-
-      .title {
-        font-weight: bold;
-        margin-bottom: 10px;
-        text-align: left;
-      }
-      .small {
-        font-size: 14px;
-      }
-    }
   }
 }

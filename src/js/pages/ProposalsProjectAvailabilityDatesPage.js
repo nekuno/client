@@ -17,8 +17,8 @@ import Chip from "../components/ui/Chip/Chip";
 import AvailabilityEdit from "../components/Availability/AvailabilityEdit/AvailabilityEdit";
 
 
-@translate('ProposalsProjectAvailabilityPage')
-export default class ProposalsProjectAvailabilityPage extends Component {
+@translate('ProposalsProjectAvailabilityDatesPage')
+export default class ProposalsProjectAvailabilityDatesPage extends Component {
 
     static propTypes = {
         // Injected by @translate:
@@ -41,8 +41,6 @@ export default class ProposalsProjectAvailabilityPage extends Component {
         this.topNavBarLeftLinkClick = this.topNavBarLeftLinkClick.bind(this);
         this.topNavBarRightLinkClick = this.topNavBarRightLinkClick.bind(this);
 
-        this.onClickProjectMembersPlusHandler = this.onClickProjectMembersPlusHandler.bind(this);
-        this.onClickProjectMembersSubstractHandler = this.onClickProjectMembersSubstractHandler.bind(this);
     }
 
     handleStepsBar() {
@@ -61,32 +59,6 @@ export default class ProposalsProjectAvailabilityPage extends Component {
         this.context.router.push('/proposals');
     }
 
-    onClickProjectMembersPlusHandler() {
-        const newProjectMembers = this.state.projectMembers + 1;
-        this.setState({
-            projectMembers: newProjectMembers,
-        });
-
-        if (newProjectMembers > 1) {
-            this.setState({
-                disableSubstract: false,
-            });
-        }
-    }
-
-    onClickProjectMembersSubstractHandler() {
-        const newProjectMembers = this.state.projectMembers - 1;
-        this.setState({
-            projectMembers: newProjectMembers,
-        });
-
-        if (newProjectMembers < 2) {
-            this.setState({
-                disableSubstract: true,
-            });
-        }
-    }
-
     render() {
         const {strings} = this.props;
         const canContinue = true;
@@ -95,7 +67,7 @@ export default class ProposalsProjectAvailabilityPage extends Component {
 
         return (
             <div className="views">
-                <div className="view view-main proposals-project-availability-view">
+                <div className="view view-main proposals-project-availability-dates-view">
                     <TopNavBar
                         background={'transparent'}
                         iconLeft={'arrow-left'}
@@ -104,32 +76,8 @@ export default class ProposalsProjectAvailabilityPage extends Component {
                         textSize={'small'}
                         onLeftLinkClickHandler={this.topNavBarLeftLinkClick}
                         onRightLinkClickHandler={this.topNavBarRightLinkClick}/>
-                    <div className="proposals-project-availability-wrapper">
-                        <h2>{strings.title}</h2>
-                        <Frame>
-                            <div className="steam-icon">
-                                <RoundedIcon icon={'calendar'} size={'small'}/>
-                            </div>
-                            <div className="text-wrapper">
-                                <div className="title small">{strings.availabilityTitle}</div>
-                                <div className="resume small">{strings.availabilityDescription}</div>
-                                <AvailabilityEdit/>
-                            </div>
-                        </Frame>
-
-                        <Frame>
-                            <div className="steam-icon">
-                                <RoundedIcon icon={'people'} size={'small'}/>
-                            </div>
-                            <div className="text-wrapper">
-                                <div className="title small">{strings.participantsTitle}</div>
-                                <RoundedIcon disabled={disableSubstract} background={'#63CAFF'} icon={'minus'} size={'small'} onClickHandler={this.onClickProjectMembersSubstractHandler}/>
-                                <span>{projectMembers}</span>
-                                <RoundedIcon background={'#63CAFF'} icon={'plus'} size={'small'} onClickHandler={this.onClickProjectMembersPlusHandler}/>
-                            </div>
-                        </Frame>
-
-
+                    <div className="proposals-project-availability-dates-wrapper">
+                        <AvailabilityEdit/>
                     </div>
                 </div>
                 <StepsBar
@@ -145,7 +93,7 @@ export default class ProposalsProjectAvailabilityPage extends Component {
     }
 }
 
-ProposalsProjectAvailabilityPage.defaultProps = {
+ProposalsProjectAvailabilityDatesPage.defaultProps = {
     strings: {
         publishProposal         : 'Publish proposal',
         title                   : 'What implication do you need for the project?',

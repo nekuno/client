@@ -353,6 +353,7 @@ export default {
         stepsBarCantContinueText: 'Rellena para continuar',
     },
     ProposalsProjectProfessionalPage     : {
+        publishProposal: 'Publicar propuesta',
         title: '¿Qué sectores profesionales requieres para el proyecto?',
         placeholder: 'Buscar sector',
         selectedLabel: 'Sectores que quieres',
@@ -360,9 +361,19 @@ export default {
         stepsBarCantContinueText: 'Indica uno para continuar',
     },
     ProposalsProjectSkillsPage     : {
+        publishProposal: 'Publicar propuesta',
         title: '¿Qué habilidades te gustaría para el proyecto?',
         placeholder: 'Buscar habilidad',
         selectedLabel: 'Habilidades que quieres',
+        stepsBarContinueText: 'Continuar',
+        stepsBarCantContinueText: 'Indica una para continuar',
+    },
+    ProposalsProjectAvailabilityPage : {
+        publishProposal         : 'Publicar propuesta',
+        title                   : '¿Qué implicación necesitas para el proyecto?',
+        availabilityTitle       : 'Disponibilidad',
+        availabilityDescription : 'Indica en qué horario o rango de días te gustaría desarrollar el proyecto',
+        participantsTitle       : 'Número de participantes',
         stepsBarContinueText: 'Continuar',
         stepsBarCantContinueText: 'Indica una para continuar',
     },

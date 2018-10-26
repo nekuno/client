@@ -366,6 +366,15 @@ export default {
         stepsBarContinueText: 'Continue',
         stepsBarCantContinueText: 'Indicate one to continue',
     },
+    ProposalsProjectAvailabilityPage : {
+        publishProposal         : 'Publish proposal',
+        title                   : 'What implication do you need for the project?',
+        availabilityTitle       : 'Availability',
+        availabilityDescription : 'Indicate in what time or range of days you would like to develop the project',
+        participantsTitle       : 'Number of participants',
+        stepsBarContinueText    : 'Continue',
+        stepsBarCantContinueText: 'Indicate at least one parameter',
+    },
     QuestionsPage                    : {
         myProfile: 'My profile',
         about    : 'About me',

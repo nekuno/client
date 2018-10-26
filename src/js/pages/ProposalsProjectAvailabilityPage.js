@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import translate from '../i18n/Translate';
 import TopNavBar from '../components/TopNavBar/TopNavBar.js';
-import '../../scss/pages/proposals-project-skills.scss';
+import '../../scss/pages/proposals-project-availability.scss';
 import InputSelectText from "../components/RegisterFields/InputSelectText/InputSelectText";
 import StepsBar from "../components/ui/StepsBar/StepsBar";
 import ProfileStore from "../stores/ProfileStore";
@@ -11,29 +11,18 @@ import * as ProposalActionCreators from "../actions/ProposalActionCreators";
 import InputTag from "../components/RegisterFields/InputTag/InputTag";
 import TagSuggestionsStore from "../stores/TagSuggestionsStore";
 import * as TagSuggestionsActionCreators from "../actions/TagSuggestionsActionCreators";
+import Frame from "../components/ui/Frame/Frame";
+import RoundedIcon from "../components/ui/RoundedIcon/RoundedIcon";
+import Chip from "../components/ui/Chip/Chip";
+import AvailabilityEdit from "../components/Availability/AvailabilityEdit/AvailabilityEdit";
 
-function resetTagSuggestions() {
-    TagSuggestionsActionCreators.resetTagSuggestions();
-}
 
-function getState() {
-    const tags = TagSuggestionsStore.tags || [];
-    const choices = tags.map(tag => tag.name);
-
-    return {
-        choices
-    };
-}
-
-@translate('ProposalsProjectSkillsPage')
-@connectToStores([TagSuggestionsStore], getState)
-export default class ProposalsProjectSkillsPage extends Component {
+@translate('ProposalsProjectAvailabilityPage')
+export default class ProposalsProjectAvailabilityPage extends Component {
 
     static propTypes = {
         // Injected by @translate:
         strings     : PropTypes.object,
-        // Injected by @connectToStores:
-        choices     : PropTypes.array,
         canContinue : PropTypes.bool,
     };
 
@@ -44,14 +33,16 @@ export default class ProposalsProjectSkillsPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            skills   : [],
+            projectMembers: 1,
+            disableSubstract: true,
         };
 
         this.handleStepsBar = this.handleStepsBar.bind(this);
         this.topNavBarLeftLinkClick = this.topNavBarLeftLinkClick.bind(this);
         this.topNavBarRightLinkClick = this.topNavBarRightLinkClick.bind(this);
-        this.onClickInputTagHandler = this.onClickInputTagHandler.bind(this);
-        this.onChangeInputTagHandler = this.onChangeInputTagHandler.bind(this);
+
+        this.onClickProjectMembersPlusHandler = this.onClickProjectMembersPlusHandler.bind(this);
+        this.onClickProjectMembersSubstractHandler = this.onClickProjectMembersSubstractHandler.bind(this);
     }
 
     handleStepsBar() {
@@ -70,29 +61,41 @@ export default class ProposalsProjectSkillsPage extends Component {
         this.context.router.push('/proposals');
     }
 
-    onClickInputTagHandler(event) {
-        resetTagSuggestions();
-
+    onClickProjectMembersPlusHandler() {
+        const newProjectMembers = this.state.projectMembers + 1;
         this.setState({
-            skills: event,
+            projectMembers: newProjectMembers,
         });
+
+        if (newProjectMembers > 1) {
+            this.setState({
+                disableSubstract: false,
+            });
+        }
     }
 
-    onChangeInputTagHandler(event) {
-        if (event) {
-            TagSuggestionsActionCreators.requestProfileTagSuggestions(event, 'profession');
-        } else {
-            resetTagSuggestions();
+    onClickProjectMembersSubstractHandler() {
+        const newProjectMembers = this.state.projectMembers - 1;
+        this.setState({
+            projectMembers: newProjectMembers,
+        });
+
+        if (newProjectMembers < 2) {
+            this.setState({
+                disableSubstract: true,
+            });
         }
     }
 
     render() {
-        const {strings, choices} = this.props;
-        const canContinue = this.state.skills.length > 0;
+        const {strings} = this.props;
+        const canContinue = true;
+        const projectMembers = this.state.projectMembers;
+        const disableSubstract = this.state.disableSubstract;
 
         return (
             <div className="views">
-                <div className="view view-main proposals-project-skills-view">
+                <div className="view view-main proposals-project-availability-view">
                     <TopNavBar
                         background={'transparent'}
                         iconLeft={'arrow-left'}
@@ -101,22 +104,37 @@ export default class ProposalsProjectSkillsPage extends Component {
                         textSize={'small'}
                         onLeftLinkClickHandler={this.topNavBarLeftLinkClick}
                         onRightLinkClickHandler={this.topNavBarRightLinkClick}/>
-                    <div className="proposals-project-skills-wrapper">
+                    <div className="proposals-project-availability-wrapper">
                         <h2>{strings.title}</h2>
-                        <InputTag tags={choices}
-                                  placeholder={strings.placeholder}
-                                  searchIcon={true}
-                                  size={'small'}
-                                  chipsColor={'blue'}
-                                  onChangeHandler={this.onChangeInputTagHandler}
-                                  onClickHandler={this.onClickInputTagHandler}
-                                  selectedLabel={strings.selectedLabel}/>
+                        <Frame>
+                            <div className="steam-icon">
+                                <RoundedIcon icon={'calendar'} size={'small'}/>
+                            </div>
+                            <div className="text-wrapper">
+                                <div className="title small">{strings.availabilityTitle}</div>
+                                <div className="resume small">{strings.availabilityDescription}</div>
+                            </div>
+                        </Frame>
+
+                        <Frame>
+                            <div className="steam-icon">
+                                <RoundedIcon icon={'people'} size={'small'}/>
+                            </div>
+                            <div className="text-wrapper">
+                                <div className="title small">{strings.participantsTitle}</div>
+                                <RoundedIcon disabled={disableSubstract} background={'#63CAFF'} icon={'minus'} size={'small'} onClickHandler={this.onClickProjectMembersSubstractHandler}/>
+                                <span>{projectMembers}</span>
+                                <RoundedIcon background={'#63CAFF'} icon={'plus'} size={'small'} onClickHandler={this.onClickProjectMembersPlusHandler}/>
+                            </div>
+                        </Frame>
+
+
                     </div>
                 </div>
                 <StepsBar
                     color={'blue'}
                     totalSteps={5}
-                    currentStep={2}
+                    currentStep={3}
                     continueText={strings.stepsBarContinueText}
                     cantContinueText={strings.stepsBarCantContinueText}
                     canContinue={canContinue}
@@ -126,12 +144,14 @@ export default class ProposalsProjectSkillsPage extends Component {
     }
 }
 
-ProposalsProjectSkillsPage.defaultProps = {
+ProposalsProjectAvailabilityPage.defaultProps = {
     strings: {
-        title: 'What skills would you like for the project?',
-        placeholder: 'Search hability',
-        selectedLabel: 'Habilities youu want',
-        stepsBarContinueText: 'Continue',
-        stepsBarCantContinueText: 'Indicate one to continue',
+        publishProposal         : 'Publish proposal',
+        title                   : 'What implication do you need for the project?',
+        availabilityTitle       : 'Availability',
+        availabilityDescription : 'Indicate in what time or range of days you would like to develop the project',
+        participantsTitle       : 'Number of participants',
+        stepsBarContinueText    : 'Continue',
+        stepsBarCantContinueText: 'Indicate at least one parameter',
     }
 };

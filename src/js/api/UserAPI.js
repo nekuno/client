@@ -158,15 +158,15 @@ export function getSimilarity(userId, url = `similarity/${userId}`) {
 
 //Proposals
 
-export function createProposal(data, url='threads') {
+export function createProposal(data, url='proposals') {
     return postData(url, data);
 }
 
-export function updateProposal(threadId, data, url= `threads/${threadId}`) {
+export function updateProposal(proposalId, data, url= `proposals/${proposalId}`) {
     return putData(url, data);
 }
 
-export function removeProposal(threadId, url= `threads/${threadId}`) {
+export function removeProposal(proposalId, url= `proposals/${proposalId}`) {
     return deleteData(url);
 }
 
@@ -176,4 +176,20 @@ export function getProposalRecommendations(proposalId, other, url='proposals/rec
 
 export function getProposals(url = 'proposals') {
     return getData(url);
+}
+
+export function acceptCandidate(candidateId, data = {accepted: true}, url = 'recommendations/candidates') {
+    return postData(url, data);
+}
+
+export function interestProposal(proposalId, data = {interested: true}, url = 'recommendations/proposals') {
+    return postData(url, data);
+}
+
+export function skipCandidate(candidateId, data, url = 'recommendations/candidates/skip') {
+    return postData(url)
+}
+
+export function skipProposal(proposalId, data, url = 'recommendations/proposals/skip') {
+    return postData(url)
 }

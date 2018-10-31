@@ -1,26 +1,13 @@
 import { dispatchAsync, dispatch } from '../dispatcher/Dispatcher';
 import ActionTypes from '../constants/ActionTypes';
 import * as UserAPI from '../api/UserAPI';
-import LoginStore from '../stores/LoginStore';
 
-export function requestProposals(userId = null, url = null) {
-
-    if (null === userId) {
-        userId = LoginStore.user.id;
-    }
-
-    let proposals = {};
-    if (url) {
-        proposals = UserAPI.getProposals(url);
-    } else {
-        proposals = UserAPI.getProposals();
-    }
-
-    return dispatchAsync(proposals, {
+export function requestOwnProposals() {
+    return dispatchAsync(UserAPI.getOwnProposals(), {
         request: ActionTypes.REQUEST_PROPOSALS,
         success: ActionTypes.REQUEST_PROPOSALS_SUCCESS,
         failure: ActionTypes.REQUEST_PROPOSALS_ERROR
-    }, {userId})
+    })
 }
 
 /**
@@ -65,12 +52,12 @@ export function deleteProposal(proposalId) {
     }, {proposalId})
 }
 
-export function requestRecommendations(proposalId, url) {
+export function requestRecommendations(url) {
     return dispatchAsync((UserAPI.getProposalRecommendations(url)), {
         request: ActionTypes.REQUEST_PROPOSAL_RECOMMENDATIONS,
         success: ActionTypes.REQUEST_PROPOSAL_RECOMMENDATIONS_SUCCESS,
         failure: ActionTypes.REQUEST_PROPOSAL_RECOMMENDATIONS_ERROR
-    }, {threadId: proposalId});
+    });
 }
 
 export function interestProposal(proposalId, interested = true) {

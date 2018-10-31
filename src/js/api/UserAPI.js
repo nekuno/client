@@ -170,11 +170,11 @@ export function removeProposal(proposalId, url= `proposals/${proposalId}`) {
     return deleteData(url);
 }
 
-export function getProposalRecommendations(proposalId, other, url='proposals/recommendations') {
-    return getData(url, data);
+export function getProposalRecommendations(url='proposals/recommendations') {
+    return getData(url);
 }
 
-export function getProposals(url = 'proposals') {
+export function getOwnProposals(url = 'proposals') {
     return getData(url);
 }
 

@@ -78,4 +78,4 @@ class ProposalRecommendationsStore extends BaseStore {
     }
 }
 
-export default new ProposalStore();
+export default new ProposalRecommendationsStore();

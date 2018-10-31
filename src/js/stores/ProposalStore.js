@@ -5,7 +5,7 @@ import { getValidationErrors } from '../utils/StoreUtils';
 class ProposalStore extends BaseStore {
 
     setInitial() {
-        this._recommendations = [];
+        this._otherProposals = [];
         this._ownProposals = [];
         this._errors = '';
         this._isRequesting = false;
@@ -16,21 +16,19 @@ class ProposalStore extends BaseStore {
         let response = action.response;
         let proposals;
         switch (action.type) {
-            case ActionTypes.CREATE_PROPOSAL_SUCCESS:
-                this.addOwnProposal(response);
-                this.sortOwn();
-                this.emitChange();
-                break;
             case ActionTypes.REQUEST_PROPOSALS:
                 this._isRequesting = true;
                 this.emitChange();
                 break;
             case ActionTypes.REQUEST_PROPOSALS_SUCCESS:
                 proposals = response.items;
-                if (proposals) {
-                    this._ownProposals = proposals;
-                    this.sortOwn();
-                }
+                proposals.forEach(proposal => {
+                    this.addOwnProposal(proposal);
+                });
+                this._isRequesting = false;
+                this.emitChange();
+                break;
+            case ActionTypes.REQUEST_PROPOSALS_ERROR:
                 this._isRequesting = false;
                 this.emitChange();
                 break;
@@ -43,36 +41,25 @@ class ProposalStore extends BaseStore {
                 });
                 this.emitChange();
                 break;
-            case ActionTypes.REQUEST_PROPOSALS_ERROR:
-                this._isRequesting = false;
+            case ActionTypes.CREATE_PROPOSAL_SUCCESS:
+                this.addOwnProposal(response);
                 this.emitChange();
                 break;
             case ActionTypes.CREATE_PROPOSAL_ERROR:
             case ActionTypes.UPDATE_PROPOSAL_ERROR:
+            case ActionTypes.DELETE_PROPOSAL_ERROR:
                 if (action.error) {
                     this._errors = getValidationErrors(action.error);
                 }
                 this.emitChange();
                 break;
             case ActionTypes.UPDATE_PROPOSAL_SUCCESS:
-                this._recommendations.forEach((proposal, index) => {
-                    if (proposal.id === action.proposalId) {
-                        this._ownProposals[index] = response;
-                    }
-                });
-                this.emitChange();
-                break;
-            case ActionTypes.DELETE_PROPOSAL:
-                let proposalId = action.proposalId;
-                this.get(proposalId).deleting = true;
+                this._replaceOwnProposal(proposal);
                 this.emitChange();
                 break;
             case ActionTypes.DELETE_PROPOSAL_SUCCESS:
-                this._recommendations.forEach((proposal, index) => {
-                    if (proposal.id == action.proposalId) {
-                        this._recommendations.splice(index, 1);
-                    }
-                });
+                const proposalId = action.proposalId;
+                this._removeOwnProposal(proposalId);
                 this.emitChange();
                 break;
 
@@ -82,18 +69,23 @@ class ProposalStore extends BaseStore {
     }
 
     contains(userSlug, id) {
-        return this._recommendations[userSlug] && this._recommendations[userSlug].some(proposals => proposals && proposals.id == id);
+        return this._otherProposals[userSlug] && this._otherProposals[userSlug].some(proposals => proposals && proposals.id == id);
     }
 
     get(userSlug, id) {
         if (!this.contains(userSlug, id)) {
             return {};
         }
-        return this._recommendations[userSlug].find(proposal => proposal && proposal.id == id);
+        return this._otherProposals[userSlug].find(proposal => proposal && proposal.id == id);
     }
 
     getAll(userSlug) {
-        return this._recommendations[userSlug] ? this._recommendations[userSlug] : [];
+        return this._otherProposals[userSlug] ? this._otherProposals[userSlug] : [];
+    }
+
+    getAllOwn()
+    {
+        return this._ownProposals;
     }
 
     isRequesting() {
@@ -106,31 +98,46 @@ class ProposalStore extends BaseStore {
         return errors;
     }
 
-    enable(threadId) {
-        this._disabled[threadId] = false;
+    addOwnProposal(proposal) {
+        this._ownProposals.push(proposal);
+        this.sortOwn();
     }
 
-    disable(threadId) {
-        this._disabled[threadId] = true;
+    _replaceOwnProposal(newProposal) {
+        proposalId = newProposal.id;
+        this._ownProposals.forEach((proposal, index) => {
+            if (proposal.id === proposalId) {
+                this._ownProposals[index] = newProposal;
+            }
+        });
     }
 
-    addOwnProposal(thread) {
-        this._ownProposals.push(thread);
-        this.sort();
+    _removeOwnProposal(proposalId)
+    {
+        this._otherProposals.forEach((proposal, index) => {
+            if (proposal.id == proposalId) {
+                this._otherProposals.splice(index, 1);
+            }
+        });
     }
 
     addProposal(proposal, userSlug)
     {
-        this._recommendations[userSlug].push(proposal);
+        this._otherProposals[userSlug].push(proposal);
         this.sort(userSlug);
     }
 
     sort(userSlug) {
-        this._recommendations[userSlug] = this._recommendations[userSlug].sort((proposalA, proposalB) => proposalA.updatedAt - proposalB.updatedAt).reverse();
+        this._otherProposals[userSlug] = this._otherProposals[userSlug].sort(this._compareTwoProposals(proposalA, proposalB));
     }
 
     sortOwn() {
-        this._ownProposals = this._ownProposals.sort((proposalA, proposalB) => proposalA.updatedAt - proposalB.updatedAt)
+        this._ownProposals = this._ownProposals.sort(this._compareTwoProposals(proposalA, proposalB))
+    }
+
+    _compareTwoProposals(proposalA, proposalB)
+    {
+        return proposalA.matches - proposalB.matches;
     }
 }
 

@@ -11,6 +11,7 @@ import StepsBar from '../components/ui/StepsBar/StepsBar.js';
 import TopNavBar from '../components/TopNavBar/TopNavBar.js';
 import AvailabilityEdit from '../components/Availability/AvailabilityEdit/AvailabilityEdit.js';
 import '../../scss/pages/availability-edit.scss';
+import {INFINITE_CALENDAR_THEME} from "../constants/InfiniteCalendarConstants";
 
 function getState() {
     const interfaceLanguage = LocaleStore.locale;
@@ -76,7 +77,7 @@ export default class AvailabilityEditOnSignUpPage extends Component {
             <div className="views">
                 <div className="view view-main availability-edit-view">
                     <TopNavBar iconLeft={'arrow-left'} textCenter={strings.yourAvailability} textSize={'small'}/>
-                    <AvailabilityEdit availability={availability} interfaceLanguage={interfaceLanguage} onSave={this.onSave}/>
+                    <AvailabilityEdit theme={INFINITE_CALENDAR_THEME} availability={availability} interfaceLanguage={interfaceLanguage} onSave={this.onSave}/>
                 </div>
                 {canContinue ?
                     <StepsBar canContinue={true} continueText={strings.continue} totalSteps={0} onClickHandler={this.saveAndContinue}/>

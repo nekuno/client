@@ -42,3 +42,20 @@ export const INFINITE_CALENDAR_THEME = {
         chevron: '#FFA726'
     }
 };
+
+export const INFINITE_CALENDAR_BLUE_THEME = {
+    textColor: {
+        default: '#333',
+        active: '#FFF'
+    },
+    selectionColor: '#63CAFF',
+    todayColor: '#63CAFF',
+    weekdayColor: '#8ed9ff',
+    headerColor: '#63CAFF',
+    accentColor: '#63CAFF',
+    floatingNav: {
+        background: 'rgba(99, 66, 177, 0.9)',
+        color: '#FFF',
+        chevron: '#FFA726'
+    }
+};

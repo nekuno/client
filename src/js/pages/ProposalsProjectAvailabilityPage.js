@@ -15,14 +15,29 @@ import Frame from "../components/ui/Frame/Frame";
 import RoundedIcon from "../components/ui/RoundedIcon/RoundedIcon";
 import Chip from "../components/ui/Chip/Chip";
 import AvailabilityEdit from "../components/Availability/AvailabilityEdit/AvailabilityEdit";
+import CreatingProposalStore from "../stores/CreatingProposalStore";
+import LocaleStore from "../stores/LocaleStore";
 
+function getState() {
+    const proposal = CreatingProposalStore.proposal;
+    const availability = proposal.availability ? proposal.availability : null;
+
+    // horario de {proposal.availability.dynamic[key].range[0]}
+
+    return {
+        availability,
+    };
+}
 
 @translate('ProposalsProjectAvailabilityPage')
+@connectToStores([CreatingProposalStore], getState)
 export default class ProposalsProjectAvailabilityPage extends Component {
 
     static propTypes = {
         // Injected by @translate:
         strings     : PropTypes.object,
+        // Injected by @connectToStores:
+        availability: PropTypes.object,
         canContinue : PropTypes.bool,
     };
 
@@ -37,9 +52,12 @@ export default class ProposalsProjectAvailabilityPage extends Component {
             disableSubstract: true,
         };
 
+
         this.handleStepsBar = this.handleStepsBar.bind(this);
         this.topNavBarLeftLinkClick = this.topNavBarLeftLinkClick.bind(this);
         this.topNavBarRightLinkClick = this.topNavBarRightLinkClick.bind(this);
+
+        this.onClickAvailabilityHandler = this.onClickAvailabilityHandler.bind(this);
 
         this.onClickProjectMembersPlusHandler = this.onClickProjectMembersPlusHandler.bind(this);
         this.onClickProjectMembersSubstractHandler = this.onClickProjectMembersSubstractHandler.bind(this);
@@ -47,18 +65,22 @@ export default class ProposalsProjectAvailabilityPage extends Component {
 
     handleStepsBar() {
         const proposal = {
-            skills: this.state.skills,
+            projectMembers: this.state.projectMembers,
         };
         ProposalActionCreators.mergeCreatingProposal(proposal);
         this.context.router.push('/proposals-project-availability');
     }
 
     topNavBarLeftLinkClick() {
-        this.context.router.push('/proposals-project-basic');
+        this.context.router.push('/proposals-project-skills');
     }
 
     topNavBarRightLinkClick() {
         this.context.router.push('/proposals');
+    }
+
+    onClickAvailabilityHandler() {
+        this.context.router.push('/proposals-project-availability-dates');
     }
 
     onClickProjectMembersPlusHandler() {
@@ -88,10 +110,26 @@ export default class ProposalsProjectAvailabilityPage extends Component {
     }
 
     render() {
-        const {strings} = this.props;
-        const canContinue = true;
+        const {strings, availability} = this.props;
+        const canContinue = availability !== null;
         const projectMembers = this.state.projectMembers;
         const disableSubstract = this.state.disableSubstract;
+
+        const dailyWeekdayOptions = {
+            monday   : strings.monday,
+            tuesday  : strings.tuesday,
+            wednesday: strings.wednesday,
+            thursday : strings.thursday,
+            friday   : strings.friday,
+            saturday : strings.saturday,
+            sunday   : strings.sunday
+        };
+
+        const stringRanges = {
+            morning  : strings.morning,
+            afternoon: strings.afternoon,
+            night    : strings.night,
+        };
 
         return (
             <div className="views">
@@ -106,15 +144,44 @@ export default class ProposalsProjectAvailabilityPage extends Component {
                         onRightLinkClickHandler={this.topNavBarRightLinkClick}/>
                     <div className="proposals-project-availability-wrapper">
                         <h2>{strings.title}</h2>
-                        <Frame>
-                            <div className="steam-icon">
-                                <RoundedIcon icon={'calendar'} size={'small'}/>
-                            </div>
-                            <div className="text-wrapper">
-                                <div className="title small">{strings.availabilityTitle}</div>
-                                <div className="resume small">{strings.availabilityDescription}</div>
-                            </div>
-                        </Frame>
+                        <div className="proposals-project-availability-frame-wrapper">
+                            <Frame onClickHandler={this.onClickAvailabilityHandler}>
+                                <div className="steam-icon">
+                                    <RoundedIcon icon={'calendar'} size={'small'}/>
+                                </div>
+                                <div className="text-wrapper">
+
+                                    <div className="title small">{strings.availabilityTitle}</div>
+
+
+                                    {availability ? (
+                                        <div className="resume small">
+                                            {availability.dynamic.map((day, index) =>
+                                                <div key={day.weekday}>
+                                                    {dailyWeekdayOptions[day.weekday]}
+                                                    , {strings.scheduleOf}
+                                                    {day.range.map((range, rangeIndex) =>
+                                                        <span key={rangeIndex}> {day.range.length === rangeIndex + 1 ? strings.and + ' ' + stringRanges[range] : stringRanges[range]}</span>
+                                                    )}
+                                                </div>
+                                            )}
+
+                                            {availability.static.map((day, index) =>
+                                                <div key={index}>
+                                                    {strings.from} {day.days.start} {strings.to} {day.days.end}
+                                                    , {strings.scheduleOf}
+                                                    {day.range.map((range, rangeIndex) =>
+                                                        <span key={rangeIndex}> {day.range.length === rangeIndex + 1 ? strings.and + ' ' + stringRanges[range] : stringRanges[range]}</span>
+                                                    )}
+                                                </div>
+                                            )}
+                                        </div>
+                                    ) : (
+                                        <div className="resume small">{strings.availabilityDescription}</div>
+                                    )}
+                                </div>
+                            </Frame>
+                        </div>
 
                         <Frame>
                             <div className="steam-icon">
@@ -153,5 +220,19 @@ ProposalsProjectAvailabilityPage.defaultProps = {
         participantsTitle       : 'Number of participants',
         stepsBarContinueText    : 'Continue',
         stepsBarCantContinueText: 'Indicate at least one parameter',
+        monday                  : 'Monday',
+        tuesday                 : 'Tuesday',
+        wednesday               : 'Wednesday',
+        thursday                : 'Thursday',
+        friday                  : 'Friday',
+        saturday                : 'Saturday',
+        sunday                  : 'Sunday',
+        and                     : 'and',
+        scheduleOf              : 'schedule of',
+        morning                 : 'morning',
+        afternoon               : 'afternoon',
+        night                   : 'night',
+        from                    : 'From',
+        to                      : 'to',
     }
 };

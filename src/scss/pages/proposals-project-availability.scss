@@ -10,6 +10,10 @@ body #root .App .views .view.proposals-project-availability-view {
       padding: 0 24px;
     }
 
+    .proposals-project-availability-frame-wrapper {
+      cursor: pointer;
+    }
+
     .steam-icon {
       display: inline-block;
       text-align: left;

@@ -6,7 +6,7 @@ import InfiniteCalendar, { Calendar, withRange } from 'react-infinite-calendar';
 import {
     INFINITE_CALENDAR_LOCALE_ES,
     INFINITE_CALENDAR_LOCALE_EN,
-    INFINITE_CALENDAR_THEME,
+    INFINITE_CALENDAR_THEME, INFINITE_CALENDAR_BLUE_THEME,
 } from '../../../constants/InfiniteCalendarConstants';
 import { format } from 'date-fns';
 import Chip from '../Chip/Chip.js';
@@ -25,6 +25,8 @@ export default class DateInputRange extends Component {
         onChange     : PropTypes.func,
         autoFocus    : PropTypes.bool,
         locale       : PropTypes.string,
+        color        : PropTypes.string,
+        theme        : PropTypes.object
     };
 
     constructor(props) {
@@ -108,7 +110,7 @@ export default class DateInputRange extends Component {
     }
 
     render() {
-        const {label, locale, placeholder, strings} = this.props;
+        const {label, locale, placeholder, strings, color, theme} = this.props;
         const {selected, value} = this.state;
         const localeObject = locale === 'es' ? INFINITE_CALENDAR_LOCALE_ES : INFINITE_CALENDAR_LOCALE_EN;
         const chipText = value && value.start && value.end ? localeObject.from + ' ' + value.start +  ' ' + localeObject.to + ' ' + value.end : placeholder;
@@ -119,7 +121,8 @@ export default class DateInputRange extends Component {
                 {!selected ?
                     <div>
                         <div className="">{label}</div>
-                        <Chip text={chipText}
+                        <Chip color={color}
+                              text={chipText}
                               onClickHandler={this.toggleSelection}
                               onCancelHandler={this.onCancel}
                               selected={!!value}
@@ -132,7 +135,7 @@ export default class DateInputRange extends Component {
                                    firstIconRight={'x'}
                                    onLeftLinkClickHandler={() => {this.onSave(); this.toggleSelection()}}
                                    onRightLinkClickHandler={() => {this.onCancel(); this.toggleSelection()}}
-                                   background={INFINITE_CALENDAR_THEME.selectionColor}
+                                   background={theme.selectionColor}
                                    textCenter={strings.topText}
                                    color={'#fff'}
                                    textSize={'small'}
@@ -147,7 +150,7 @@ export default class DateInputRange extends Component {
                             minDate={new Date(Number(today))}
                             keyboardSupport={true}
                             locale={localeObject}
-                            theme={INFINITE_CALENDAR_THEME}
+                            theme={theme}
                             onSelect={this.onChange}
                             displayOptions={{
                                 showTodayHelper   : false,

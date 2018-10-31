@@ -22,10 +22,15 @@ export default class ProposalsProjectIntroductionPage extends Component {
         super(props);
 
         this.topNavBarRightLinkClick = this.topNavBarRightLinkClick.bind(this);
+        this.topNavBarLeftLinkClick = this.topNavBarLeftLinkClick.bind(this);
     }
 
     topNavBarRightLinkClick() {
         this.context.router.push('/proposals-project-basic');
+    }
+
+    topNavBarLeftLinkClick() {
+        this.context.router.push('/proposals');
     }
 
     render() {
@@ -34,7 +39,7 @@ export default class ProposalsProjectIntroductionPage extends Component {
         return (
             <div className="views">
                 <div className="view view-main proposals-introduction-view">
-                    <TopNavBar background={'transparent'} color={'white'} firstIconRight={'x'} textCenter={strings.publishProposal} position={'absolute'} textSize={'small'} onRightLinkClickHandler={this.topNavBarRightLinkClick}/>
+                    <TopNavBar background={'transparent'} color={'white'} firstIconRight={'x'} textCenter={strings.publishProposal} position={'absolute'} textSize={'small'} onLeftLinkClickHandler={this.topNavBarLeftLinkClick} onRightLinkClickHandler={this.topNavBarRightLinkClick}/>
                     <div className="proposals-introduction-wrapper">
                         <Overlay/>
                         <div className="image-wrapper">

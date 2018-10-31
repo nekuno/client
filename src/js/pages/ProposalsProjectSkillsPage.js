@@ -63,7 +63,7 @@ export default class ProposalsProjectSkillsPage extends Component {
     }
 
     topNavBarLeftLinkClick() {
-        this.context.router.push('/proposals-project-basic');
+        this.context.router.push('/proposals-project-professional');
     }
 
     topNavBarRightLinkClick() {

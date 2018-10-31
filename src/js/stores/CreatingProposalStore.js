@@ -19,6 +19,10 @@ class CreatingProposalStore extends BaseStore {
                 break;
         }
     }
+
+    get proposal() {
+        return this._proposal;
+    }
 }
 
 export default new CreatingProposalStore();

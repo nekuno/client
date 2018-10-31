@@ -40,6 +40,7 @@ export default class ProposalsProjectBasicPage extends Component {
         this.handleResumeChange = this.handleResumeChange.bind(this);
         this.handleStepsBar = this.handleStepsBar.bind(this);
         this.topNavBarRightLinkClick = this.topNavBarRightLinkClick.bind(this);
+        this.topNavBarLeftLinkClick = this.topNavBarLeftLinkClick.bind(this);
     }
 
     handleTitleChange(event) {
@@ -63,6 +64,10 @@ export default class ProposalsProjectBasicPage extends Component {
         this.context.router.push('/proposals');
     }
 
+    topNavBarLeftLinkClick() {
+        this.context.router.push('/proposals-project-introduction');
+    }
+
     render() {
         const {strings} = this.props;
         const canContinue = this.state.title !== "" && this.state.resume !== "";
@@ -70,7 +75,7 @@ export default class ProposalsProjectBasicPage extends Component {
         return (
             <div className="views">
                 <div className="view view-main proposals-project-basic-view">
-                    <TopNavBar background={'transparent'} iconLeft={'arrow-left'} firstIconRight={'x'} textCenter={strings.publishProposal} textSize={'small'} onRightLinkClickHandler={this.topNavBarRightLinkClick}/>
+                    <TopNavBar background={'transparent'} iconLeft={'arrow-left'} firstIconRight={'x'} textCenter={strings.publishProposal} textSize={'small'} onLeftLinkClickHandler={this.topNavBarLeftLinkClick} onRightLinkClickHandler={this.topNavBarRightLinkClick}/>
                     <div className="proposals-project-basic-wrapper">
                         <h2>{strings.title}</h2>
                         <div className={'image-wrapper'}>

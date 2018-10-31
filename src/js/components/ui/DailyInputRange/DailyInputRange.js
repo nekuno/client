@@ -10,7 +10,8 @@ export default class DailyInputRange extends Component {
     static propTypes = {
         id            : PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
         data          : PropTypes.array,
-        onClickHandler: PropTypes.func.isRequired
+        onClickHandler: PropTypes.func.isRequired,
+        color         : PropTypes.string
     };
 
     constructor(props) {
@@ -36,7 +37,7 @@ export default class DailyInputRange extends Component {
     }
 
     render() {
-        const {data, strings} = this.props;
+        const {data, strings, color} = this.props;
         const options = [
             {
                 id: 'morning',
@@ -56,7 +57,7 @@ export default class DailyInputRange extends Component {
             <div className={styles.dailyInputRange}>
                 {options.map(rangeOption =>
                     <div className={styles.rangeOption} key={rangeOption.id}>
-                        <Chip text={rangeOption.text} value={rangeOption.id} selected={data.some(singleData => singleData === rangeOption.id)} fullWidth={true} onClickHandler={this.handleClick}/>
+                        <Chip color={color} text={rangeOption.text} value={rangeOption.id} selected={data.some(singleData => singleData === rangeOption.id)} fullWidth={true} onClickHandler={this.handleClick}/>
                     </div>
                 )}
             </div>

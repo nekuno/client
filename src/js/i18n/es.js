@@ -395,6 +395,18 @@ export default {
         publishProposal         : 'Publicar propuesta',
         title                   : '¿Qué disponibilidad necesitas para el proyecto?',
     },
+    ProposalsProjectFeaturesPage : {
+        title               : '¿Buscas personas con características específicas?',
+        filterWarning       : 'Estos filtros sólo serán visibles para ti y nos sirven para filtrar usuarios',
+        featuresBasic       : 'Aspectos básicos',
+        featuresAvailability: 'Disponibilidad',
+        featuresPhysical    : 'Apariencia física',
+        featuresCulture     : 'Cultura e idiomas',
+        featuresDrugs       : 'Drogas y otros vicios',
+        featuresFamiliar    : 'Aspectos familiares',
+        stepsBarContinueText: 'Continuar',
+        stepsBarCantContinueText: 'Indica una para continuar',
+    },
     QuestionsPage                    : {
         myProfile: 'Mi Perfil',
         about    : 'Sobre mi',

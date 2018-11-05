@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import translate from '../i18n/Translate';
 import TopNavBar from '../components/TopNavBar/TopNavBar.js';
-import '../../scss/pages/proposals-project-availability.scss';
+import '../../scss/pages/proposals-project-features.scss';
 import InputSelectText from "../components/RegisterFields/InputSelectText/InputSelectText";
 import StepsBar from "../components/ui/StepsBar/StepsBar";
 import ProfileStore from "../stores/ProfileStore";
@@ -21,8 +21,6 @@ import LocaleStore from "../stores/LocaleStore";
 function getState() {
     const proposal = CreatingProposalStore.proposal;
     const availability = proposal.availability ? proposal.availability : null;
-
-    // horario de {proposal.availability.dynamic[key].range[0]}
 
     return {
         availability,
@@ -68,7 +66,7 @@ export default class ProposalsProjectAvailabilityPage extends Component {
             projectMembers: this.state.projectMembers,
         };
         ProposalActionCreators.mergeCreatingProposal(proposal);
-        this.context.router.push('/proposals-project-availability');
+        this.context.router.push('/proposals-project-features');
     }
 
     topNavBarLeftLinkClick() {

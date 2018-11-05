@@ -130,7 +130,7 @@ ProposalsProjectSkillsPage.defaultProps = {
     strings: {
         title: 'What skills would you like for the project?',
         placeholder: 'Search hability',
-        selectedLabel: 'Habilities youu want',
+        selectedLabel: 'Habilities you want',
         stepsBarContinueText: 'Continue',
         stepsBarCantContinueText: 'Indicate one to continue',
     }

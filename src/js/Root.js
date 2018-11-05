@@ -76,6 +76,8 @@ import ProposalsProjectProfessionalPage from "./pages/ProposalsProjectProfession
 import ProposalsProjectSkillsPage from "./pages/ProposalsProjectSkillsPage";
 import ProposalsProjectAvailabilityPage from "./pages/ProposalsProjectAvailabilityPage";
 import ProposalsProjectAvailabilityDatesPage from "./pages/ProposalsProjectAvailabilityDatesPage";
+import ProposalsProjectFeaturesPage from "./pages/ProposalsProjectFeaturesPage";
+import ProposalsProjectPreviewPage from "./pages/ProposalsProjectPreviewPage";
 
 function requireAuth(nextState, replaceState) {
 
@@ -129,6 +131,8 @@ export default class Root extends Component {
                         <Route name="proposals-project-skills" path="/proposals-project-skills" component={ProposalsProjectSkillsPage}/>
                         <Route name="proposals-project-availability" path="/proposals-project-availability" component={ProposalsProjectAvailabilityPage}/>
                         <Route name="proposals-project-availability-dates" path="/proposals-project-availability-dates" component={ProposalsProjectAvailabilityDatesPage}/>
+                        <Route name="proposals-project-features" path="/proposals-project-features" component={ProposalsProjectFeaturesPage}/>
+                        <Route name="proposals-project-preview" path="/proposals-project-preview" component={ProposalsProjectPreviewPage}/>
                         <Route name="persons" path="/persons" component={PersonsPage}/>
                         <Route name="persons-all" path="/persons-all" component={PersonsAllPage}/>
                         <Route name="persons-filter" path="/persons-filter/:threadId" component={PersonsFilterPage}/>

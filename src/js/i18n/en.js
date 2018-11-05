@@ -393,6 +393,18 @@ export default {
         publishProposal         : 'Publish proposal',
         title                   : 'What availability do you need for the project?',
     },
+    ProposalsProjectFeaturesPage : {
+        title               : 'Are you looking for people with specific features?',
+        filterWarning       : 'Estos filtros sólo serán visibles para ti y nos sirven para filtrar usuarios',
+        featuresBasic       : 'Basic features',
+        featuresAvailability: 'Availability',
+        featuresPhysical    : 'Physical appearance',
+        featuresCulture     : 'Culture and Language',
+        featuresDrugs       : 'Drugs and other vices',
+        featuresFamiliar    : 'Familiar features',
+        stepsBarContinueText: 'Continue',
+        stepsBarCantContinueText: 'Indicate one to continue',
+    },
     QuestionsPage                    : {
         myProfile: 'My profile',
         about    : 'About me',

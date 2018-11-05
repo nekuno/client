@@ -1,0 +1,18 @@
+@import '../_partials/colors';
+
+body #root .App .views .view.proposals-project-preview-view {
+  color: $gray-main-text;
+  // text-align: center;
+  z-index: 0;
+
+  .proposals-project-preview-wrapper {
+    h2, p {
+      padding: 0 24px;
+    }
+    .image-wrapper {
+      img {
+        width: 100%;
+      }
+    }
+  }
+}

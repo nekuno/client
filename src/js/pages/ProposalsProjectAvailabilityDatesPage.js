@@ -14,7 +14,8 @@ import {INFINITE_CALENDAR_BLUE_THEME} from "../constants/InfiniteCalendarConstan
 function getState() {
     const interfaceLanguage = LocaleStore.locale;
     const proposal = CreatingProposalStore.proposal;
-    const availability = proposal.availability ? proposal.availability : null;
+    // const availability = proposal.availability ? proposal.availability : null;
+    const availability = proposal.availability ? proposal.availability : {'dynamic' : [], 'static' : []};
 
     return {
         interfaceLanguage,
@@ -65,13 +66,16 @@ export default class ProposalsProjectAvailabilityDatesPage extends Component {
 
     render() {
         const {availability, interfaceLanguage, strings} = this.props;
+        const canContinue = (availability.dynamic.length === 0 && availability.static.length === 0) ? false : true;
+        console.log(availability);
 
         return (
             <div className="views">
                 <div className="view view-main proposals-project-availability-dates-view">
                     <TopNavBar
-                        background={'transparent'}
-                        iconLeft={'check'}
+                        background={canContinue ? '#63caff' : 'transparent'}
+                        color={canContinue ? '#FFFFFF' : '#000'}
+                        iconLeft={canContinue ? 'check' : ''}
                         firstIconRight={'x'}
                         textCenter={strings.publishProposal}
                         textSize={'small'}

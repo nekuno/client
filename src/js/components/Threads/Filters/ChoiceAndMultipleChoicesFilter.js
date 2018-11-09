@@ -49,9 +49,11 @@ export default class ChoiceAndMultipleChoicesFilter extends Component {
         const {filter, data} = this.props;
         const {selectedChoice} = this.state;
 
+        const dataChoice = data !== null ? data.choice : null;
+
         return(
             <div>
-                <SelectInline title={filter.label} options={filter.choices} defaultOption={data.choice || null} onClickHandler={this.handleClickChoice}/>
+                <SelectInline title={filter.label} options={filter.choices} defaultOption={dataChoice} onClickHandler={this.handleClickChoice}/>
                 <br/>
                 {selectedChoice ?
                     <SelectMultiple labels={data.choice ? Object.keys(filter.doubleChoices[data.choice]).map(doubleChoice => { return({id: doubleChoice, text: filter.doubleChoices[data.choice][doubleChoice]}); }) : []} onClickHandler={this.handleClickDetail} values={data.details || []} />

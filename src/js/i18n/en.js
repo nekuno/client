@@ -348,7 +348,7 @@ export default {
         publishProposal: 'Publish proposal',
         title: 'What is your project proposal?',
         titlePlaceholder: 'Propose title',
-        resumePlaceholder: 'Explain how you want to carry it out...',
+        descriptionPlaceholder: 'Explain how you want to carry it out...',
         stepsBarContinueText: 'Continue',
         stepsBarCantContinueText: 'You cannot continue',
     },
@@ -554,6 +554,8 @@ export default {
         legalTerms    : 'End-user license agreement',
         privacyPolicy : 'Privacy Policy',
         disable       : 'Disable account',
+        logout        : 'Logout',
+        logoutConfirm : 'Are you sure you want logout?',
         disableConfirm: 'Do you want to disable your account? It will be deleted after 3 months if you don`t enable it again.',
         disableTitle  : 'Disable account',
         disableError  : 'We couldn´t disable your account'

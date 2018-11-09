@@ -29,10 +29,9 @@ import TagFilter from "../components/Threads/Filters/TagFilter";
 import TagsAndMultipleChoicesFilter from "../components/Threads/Filters/TagsAndMultipleChoicesFilter";
 import AuthenticatedComponent from "../components/AuthenticatedComponent";
 
-// function parseThreadId(params) {
-//     return params.threadId;
-// }
-
+function parseThreadId(thread) {
+    return thread && thread.hasOwnProperty('id') ? thread.id : null;
+}
 
 /**
  * Requests data from server for current props.
@@ -43,13 +42,26 @@ function requestData(props) {
     ThreadActionCreators.requestThreads(userId);
 }
 
+function getDisplayedThread(props) {
+
+    if (props.params.groupId) {
+        return ThreadStore.getByGroup(props.params.groupId) || {};
+    }
+
+    return ThreadStore.getMainDiscoverThread();
+}
+
 function getState(props) {
+    const mainThread = getDisplayedThread(props);
     const filters = FilterStore.filters;
     const tags = TagSuggestionsStore.tags;
-    const threadId = null;
+    const threadId = parseThreadId(mainThread);
     const thread = ThreadStore.get(threadId);
     const categories = ThreadStore.getCategories();
     const errors = ThreadStore.getErrors();
+
+    console.log('onGetState()');
+    console.log(threadId);
 
     return {
         tags,
@@ -66,6 +78,7 @@ function getState(props) {
 export default class ProposalsProjectFeaturesPage extends Component {
 
     static propTypes = {
+        threadId  : PropTypes.string,
         // Injected by @AuthenticatedComponent
         user      : PropTypes.object.isRequired,
         // Injected by @translate:
@@ -98,6 +111,12 @@ export default class ProposalsProjectFeaturesPage extends Component {
         this.handleErrorFilter = this.handleErrorFilter.bind(this);
 
         const data = props.thread && props.thread.filters && props.thread.filters.userFilters ? props.thread.filters.userFilters : {};
+        // console.log('onProposalsProjectFeaturesPage');
+        // console.log(data);
+        // console.log(props);
+        // console.log(props.thread);
+        // console.log(props.thread.filters);
+
         this.state = {
             data: data,
         }
@@ -130,24 +149,24 @@ export default class ProposalsProjectFeaturesPage extends Component {
     }
 
     handleClickRemoveFilter(field) {
-        const threadId = this.props.thread.id;
+        // const threadId = this.props.thread.id;
         let userFilters = Object.assign({}, this.props.thread.filters.userFilters);
         if (userFilters[field]) {
             userFilters[field] = null;
         }
 
-        let data = {
-            name    : this.props.thread.name,
-            filters : {userFilters: userFilters},
-            category: 'ThreadUsers'
-        };
+        // let data = {
+        //     name    : this.props.thread.name,
+        //     filters : {userFilters: userFilters},
+        //     category: 'ThreadUsers'
+        // };
 
-        ThreadActionCreators.updateThread(threadId, data)
-            .then(() => {
-                this.setState({updated: true});
-            }, () => {
-                // TODO: Handle error
-            });
+        // ThreadActionCreators.updateThread(threadId, data)
+        //     .then(() => {
+        //         this.setState({updated: true});
+        //     }, () => {
+        //         // TODO: Handle error
+        //     });
         this.setState({data: userFilters});
     }
 
@@ -156,20 +175,20 @@ export default class ProposalsProjectFeaturesPage extends Component {
     }
 
     save(field, filter) {
-        const threadId = this.props.thread.id;
+        // const threadId = this.props.thread.id;
         const filters = {userFilters: {...this.props.thread.filters.userFilters, ...{[field]: filter}}};
-        let data = {
-            name    : this.props.thread.name,
-            filters : filters,
-            category: 'ThreadUsers'
-        };
+        // let data = {
+        //     name    : this.props.thread.name,
+        //     filters : filters,
+        //     category: 'ThreadUsers'
+        // };
 
-        ThreadActionCreators.updateThread(threadId, data)
-            .then(() => {
-                this.setState({updated: true});
-            }, () => {
-                // TODO: Handle error
-            });
+        // ThreadActionCreators.updateThread(threadId, data)
+        //     .then(() => {
+        //         this.setState({updated: true});
+        //     }, () => {
+        //         // TODO: Handle error
+        //     });
         this.setState({data: filters.userFilters});
     }
 
@@ -321,10 +340,10 @@ export default class ProposalsProjectFeaturesPage extends Component {
 
     handleStepsBar() {
         const proposal = {
-
+            proposalFilters: this.state.data
         };
         ProposalActionCreators.mergeCreatingProposal(proposal);
-        this.context.router.push('/proposals-project-availability');
+        this.context.router.push('/proposals-project-preview');
     }
 
     topNavBarLeftLinkClick() {
@@ -345,7 +364,7 @@ export default class ProposalsProjectFeaturesPage extends Component {
             <div className="views">
                 <div className="view view-main proposals-project-features-view">
                     <TopNavBar
-                        background={'transparent'}
+                        background={'#FBFCFD'}
                         iconLeft={'arrow-left'}
                         firstIconRight={'x'}
                         textCenter={strings.publishProposal}
@@ -354,40 +373,41 @@ export default class ProposalsProjectFeaturesPage extends Component {
                         onRightLinkClickHandler={this.topNavBarRightLinkClick}/>
                     <div className="proposals-project-features-wrapper">
                         <h2>{strings.title}</h2>
-                        <RoundedIcon color={'#818FA1'} background={'#fff'} icon={'eye'} size={'small'}/>
-                        <span>{strings.filterWarning}</span>
+                        <div className={'warning-container'}>
+                            <div className={'warning-icon-container'}>
+                                <RoundedIcon
+                                    color={'#818FA1'}
+                                    background={'#fff'}
+                                    icon={'eye'}
+                                    size={'small'}/>
+                            </div>
+                            <div>{strings.filterWarning}</div>
+                        </div>
 
                         {categories ?
-                            categories.map((category, index) => <FrameCollapsible key={index} title={category.label}>
-                                {category.fields.map((field, index) =>
-                                    <div key={index} className="filter">
-                                        <div className="remove">
-                                            <RoundedIcon icon={'delete'} size={'small'} fontSize={'16px'} disabled={field === 'group' && thread.groupId != null} onClickHandler={this.handleClickRemoveFilter.bind(this, field)}/>
+                            categories.map((category, index) =>
+                                <FrameCollapsible
+                                    key={index}
+                                    title={category.label}>
+                                    {category.fields.map((field, index) =>
+                                        <div key={index} className="filter">
+                                            <div className="remove">
+                                                <RoundedIcon
+                                                    icon={'delete'}
+                                                    size={'small'}
+                                                    fontSize={'16px'}
+                                                    disabled={field === 'group' && thread.groupId != null}
+                                                    onClickHandler={this.handleClickRemoveFilter.bind(this, field)}/>
+                                            </div>
+                                            {this.renderField(field)}
                                         </div>
-                                        {this.renderField(field)}
-                                    </div>
-                                )}
-                            </FrameCollapsible>)
+                                    )}
+                                </FrameCollapsible>)
                             : null
                         }
-
-
-
-                        {/*<FrameCollapsible  title={strings.featuresBasic}>*/}
-                            {/*<SelectMultiple labels={labels} values={values} onClickHandler={this.onClickFeaturesBasicHandler}/>*/}
-                        {/*</FrameCollapsible>*/}
-                        {/*<FrameCollapsible  title={strings.featuresAvailability}>*/}
-                        {/*</FrameCollapsible>*/}
-                        {/*<FrameCollapsible  title={strings.featuresPhysical}>*/}
-                        {/*</FrameCollapsible>*/}
-                        {/*<FrameCollapsible  title={strings.featuresCulture}>*/}
-                        {/*</FrameCollapsible>*/}
-                        {/*<FrameCollapsible  title={strings.featuresDrugs}>*/}
-                        {/*</FrameCollapsible>*/}
-                        {/*<FrameCollapsible  title={strings.featuresFamiliar}>*/}
-                        {/*</FrameCollapsible>*/}
                     </div>
                 </div>
+
                 <StepsBar
                     color={'blue'}
                     totalSteps={5}
@@ -405,14 +425,6 @@ ProposalsProjectFeaturesPage.defaultProps = {
     strings: {
         title               : 'Are you looking for people with specific features?',
         filterWarning       : 'Estos filtros sólo serán visibles para ti y nos sirven para filtrar usuarios',
-        featuresBasic       : 'Basic features',
-        featuresAvailability: 'Availability',
-        featuresPhysical    : 'Physical appearance',
-        featuresCulture     : 'Culture and Language',
-        featuresDrugs       : 'Drugs and other vices',
-        featuresFamiliar    : 'Familiar features',
-        stepsBarContinueText: 'Continue',
-        stepsBarCantContinueText: 'Indicate one to continue',
 
         orderedBy    : 'Ordered by',
         compatibility: 'compatibility',

@@ -9,9 +9,7 @@ import InputSelectText from "../components/RegisterFields/InputSelectText/InputS
 import StepsBar from "../components/ui/StepsBar/StepsBar";
 import Input from "../components/ui/Input/Input";
 import Textarea from "../components/ui/Textarea/Textarea";
-import {linkTo} from "@storybook/addon-links";
-import {action} from "@storybook/addon-actions";
-import {mergeCreatingProposal} from "../actions/ProposalActionCreators";
+
 import CreatingProposalStore from '../stores/CreatingProposalStore';
 import * as ProposalActionCreators from "../actions/ProposalActionCreators";
 
@@ -21,7 +19,7 @@ export default class ProposalsProjectBasicPage extends Component {
 
     static propTypes = {
         // Injected by @translate:
-        strings  : PropTypes.object,
+        strings     : PropTypes.object,
         canContinue : PropTypes.bool,
     };
 
@@ -32,29 +30,38 @@ export default class ProposalsProjectBasicPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            title   : '',
-            resume  : '',
+            title        : '',
+            description  : '',
         };
 
         this.handleTitleChange = this.handleTitleChange.bind(this);
-        this.handleResumeChange = this.handleResumeChange.bind(this);
+        this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
         this.handleStepsBar = this.handleStepsBar.bind(this);
         this.topNavBarRightLinkClick = this.topNavBarRightLinkClick.bind(this);
         this.topNavBarLeftLinkClick = this.topNavBarLeftLinkClick.bind(this);
+    }
+
+    componentWillMount() {
+        if (CreatingProposalStore.proposal) {
+            this.setState({
+                title : CreatingProposalStore.proposal.title,
+                description: CreatingProposalStore.proposal.description,
+            });
+        }
     }
 
     handleTitleChange(event) {
         this.setState({title: event});
     }
 
-    handleResumeChange(event) {
-        this.setState({resume: event});
+    handleDescriptionChange(event) {
+        this.setState({description: event});
     }
 
     handleStepsBar(event) {
         const proposal = {
-            title: this.state.title,
-            description: this.state.resume,
+            title      : this.state.title,
+            description: this.state.description,
         };
         ProposalActionCreators.mergeCreatingProposal(proposal);
         this.context.router.push('/proposals-project-professional');
@@ -70,7 +77,7 @@ export default class ProposalsProjectBasicPage extends Component {
 
     render() {
         const {strings} = this.props;
-        const canContinue = this.state.title !== "" && this.state.resume !== "";
+        const canContinue = this.state.title !== "" && this.state.description !== "";
 
         return (
             <div className="views">
@@ -82,7 +89,7 @@ export default class ProposalsProjectBasicPage extends Component {
                             <img src={'http://via.placeholder.com/480x240'}/>
                         </div>
                         <Input size={'small'} placeholder={strings.titlePlaceholder} defaultValue={this.state.title} onChange={this.handleTitleChange}/>
-                        <Textarea defaultValue={this.state.resume} onChange={this.handleResumeChange} placeholder={strings.resumePlaceholder}/>
+                        <Textarea defaultValue={this.state.description} onChange={this.handleDescriptionChange} placeholder={strings.descriptionPlaceholder}/>
                     </div>
                 </div>
                 <StepsBar color={'blue'} totalSteps={5} currentStep={0} continueText={strings.stepsBarContinueText} cantContinueText={strings.stepsBarCantContinueText} canContinue={canContinue} onClickHandler={this.handleStepsBar}/>
@@ -97,7 +104,7 @@ ProposalsProjectBasicPage.defaultProps = {
         publishProposal: 'Publish proposal',
         title: 'What is your project proposal?',
         titlePlaceholder: 'Propose title',
-        resumePlaceholder: 'Explain how you want to carry it out...',
+        descriptionPlaceholder: 'Explain how you want to carry it out...',
         stepsBarContinueText: 'Continue',
         stepsBarCantContinueText: 'You cannot continue',
     }

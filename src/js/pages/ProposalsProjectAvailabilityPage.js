@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import translate from '../i18n/Translate';
 import TopNavBar from '../components/TopNavBar/TopNavBar.js';
-import '../../scss/pages/proposals-project-features.scss';
+import '../../scss/pages/proposals-project-availability.scss';
 import InputSelectText from "../components/RegisterFields/InputSelectText/InputSelectText";
 import StepsBar from "../components/ui/StepsBar/StepsBar";
 import ProfileStore from "../stores/ProfileStore";
@@ -17,6 +17,7 @@ import Chip from "../components/ui/Chip/Chip";
 import AvailabilityEdit from "../components/Availability/AvailabilityEdit/AvailabilityEdit";
 import CreatingProposalStore from "../stores/CreatingProposalStore";
 import LocaleStore from "../stores/LocaleStore";
+import styles from "../components/ui/RoundedIcon/RoundedIcon.scss";
 
 function getState() {
     const proposal = CreatingProposalStore.proposal;
@@ -144,9 +145,16 @@ export default class ProposalsProjectAvailabilityPage extends Component {
                         <h2>{strings.title}</h2>
                         <div className="proposals-project-availability-frame-wrapper">
                             <Frame onClickHandler={this.onClickAvailabilityHandler}>
-                                <div className="steam-icon">
-                                    <RoundedIcon icon={'calendar'} size={'small'}/>
+
+                                <div className={'rounded-icon-wrapper'}>
+                                    <RoundedIcon
+                                        icon={'calendar'}
+                                        size={'small'}
+                                        color={'#2B3857'}
+                                        background={'#FBFCFD'}
+                                        border={'1px solid #F0F1FA'}/>
                                 </div>
+
                                 <div className="text-wrapper">
 
                                     <div className="title small">{strings.availabilityTitle}</div>
@@ -182,13 +190,20 @@ export default class ProposalsProjectAvailabilityPage extends Component {
                         </div>
 
                         <Frame>
-                            <div className="steam-icon">
-                                <RoundedIcon icon={'people'} size={'small'}/>
+                            <div className={'rounded-icon-wrapper'}>
+                                <RoundedIcon
+                                    icon={'users'}
+                                    size={'small'}
+                                    color={'#2B3857'}
+                                    background={'#FBFCFD'}
+                                    border={'1px solid #F0F1FA'}/>
                             </div>
-                            <div className="text-wrapper">
+                            <div className="text-participants-wrapper">
                                 <div className="title small">{strings.participantsTitle}</div>
-                                <RoundedIcon disabled={disableSubstract} background={'#63CAFF'} icon={'minus'} size={'small'} onClickHandler={this.onClickProjectMembersSubstractHandler}/>
-                                <span>{projectMembers}</span>
+                            </div>
+                            <div className={'participants-number'}>
+                                <RoundedIcon disabled={disableSubstract} color={disableSubstract?'#818fa1':'#FFFFFF'} background={disableSubstract?'#FFFFFF':'#63CAFF'} icon={'minus'} size={'small'} border={'1px solid #F0F1FA'} onClickHandler={this.onClickProjectMembersSubstractHandler}/>
+                                <div className={'participants-number-text'}>{projectMembers}</div>
                                 <RoundedIcon background={'#63CAFF'} icon={'plus'} size={'small'} onClickHandler={this.onClickProjectMembersPlusHandler}/>
                             </div>
                         </Frame>

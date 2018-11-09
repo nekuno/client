@@ -8,6 +8,7 @@ import StepsBar from "../components/ui/StepsBar/StepsBar";
 import ProfileStore from "../stores/ProfileStore";
 import connectToStores from "../utils/connectToStores";
 import * as ProposalActionCreators from "../actions/ProposalActionCreators";
+import CreatingProposalStore from "../stores/CreatingProposalStore";
 
 function getState() {
     const metadata = ProfileStore.getMetadata();
@@ -24,10 +25,10 @@ export default class ProposalsProjectProfessionalPage extends Component {
 
     static propTypes = {
         // Injected by @translate:
-        strings  : PropTypes.object,
+        strings    : PropTypes.object,
         // Injected by @connectToStores:
-        choices          : PropTypes.array,
-        canContinue : PropTypes.bool,
+        choices    : PropTypes.array,
+        canContinue: PropTypes.bool,
     };
 
     static contextTypes = {
@@ -44,6 +45,16 @@ export default class ProposalsProjectProfessionalPage extends Component {
         this.topNavBarLeftLinkClick = this.topNavBarLeftLinkClick.bind(this);
         this.topNavBarRightLinkClick = this.topNavBarRightLinkClick.bind(this);
         this.onClickInputSelectTextHandler = this.onClickInputSelectTextHandler.bind(this);
+    }
+
+    componentWillMount() {
+        console.log('onComponentWillMount');
+        console.log(CreatingProposalStore.proposal.professionalSector);
+        if (CreatingProposalStore.proposal.professionalSector !== undefined) {
+            this.setState({
+                professionalSector : CreatingProposalStore.proposal.professionalSector,
+            });
+        }
     }
 
     handleStepsBar(event) {

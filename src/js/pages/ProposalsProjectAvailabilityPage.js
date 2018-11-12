@@ -52,6 +52,7 @@ export default class ProposalsProjectAvailabilityPage extends Component {
         };
 
 
+
         this.handleStepsBar = this.handleStepsBar.bind(this);
         this.topNavBarLeftLinkClick = this.topNavBarLeftLinkClick.bind(this);
         this.topNavBarRightLinkClick = this.topNavBarRightLinkClick.bind(this);
@@ -60,6 +61,14 @@ export default class ProposalsProjectAvailabilityPage extends Component {
 
         this.onClickProjectMembersPlusHandler = this.onClickProjectMembersPlusHandler.bind(this);
         this.onClickProjectMembersSubstractHandler = this.onClickProjectMembersSubstractHandler.bind(this);
+    }
+
+    componentWillMount() {
+        if (CreatingProposalStore.proposal.projectMembers) {
+            this.setState({
+                projectMembers: CreatingProposalStore.proposal.projectMembers,
+            });
+        }
     }
 
     handleStepsBar() {
@@ -79,6 +88,10 @@ export default class ProposalsProjectAvailabilityPage extends Component {
     }
 
     onClickAvailabilityHandler() {
+        const proposal = {
+            projectMembers: this.state.projectMembers,
+        };
+        ProposalActionCreators.mergeCreatingProposal(proposal);
         this.context.router.push('/proposals-project-availability-dates');
     }
 

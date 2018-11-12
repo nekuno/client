@@ -77,11 +77,17 @@ export default class ProfessionalProfileSkillsPage extends Component {
         this.context.router.push('/leisure-profile');
     }
 
-    onChange(tags) {
+    onChange(values) {
         const {profile} = this.props;
 
+        const tags = this.buildTags(values);
         resetTagSuggestions();
         LoginActionCreators.preRegisterProfile({...profile, ...{profession: tags}});
+    }
+
+    buildTags(strings)
+    {
+        return strings.map((choice) => {return {name: choice}});
     }
 
     onChangeText(text) {

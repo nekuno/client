@@ -42,9 +42,13 @@ export default class ProposalsProjectBasicPage extends Component {
     }
 
     componentWillMount() {
-        if (CreatingProposalStore.proposal) {
+        if (CreatingProposalStore.proposal.title) {
             this.setState({
                 title : CreatingProposalStore.proposal.title,
+            });
+        }
+        if (CreatingProposalStore.proposal.description) {
+            this.setState({
                 description: CreatingProposalStore.proposal.description,
             });
         }

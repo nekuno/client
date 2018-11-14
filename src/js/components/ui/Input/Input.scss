@@ -1,0 +1,66 @@
+@import '../../../../scss/_partials/colors';
+
+.input-wrapper {
+  padding: 16px;
+
+  .input {
+    background: $white-background;
+    border-radius: 32px;
+    color: $gray-main-text;
+    height: 60px;
+    line-height: 60px;
+    margin: 16px;
+    text-align: center;
+
+    .search-icon {
+      color: $gray-secondary-text;
+      font-size: 26px;
+      line-height: 60px;
+    }
+
+    input {
+      border: none;
+      font-size: 19px;
+      height: 58px;
+      width: 70%;
+      margin: 0 5px;
+      max-width: 80%;
+      text-align: center;
+      text-overflow: ellipsis;
+      vertical-align: top;
+
+      &:focus {
+        outline: none;
+      }
+    }
+
+    .icon-cancel {
+      cursor: pointer;
+    }
+    .icon-check {
+      color: $green-experiences
+    }
+  }
+
+  &.small {
+    padding: 8px;
+
+    .input {
+      border: 1px solid $gray-secondary-text;
+      height: 40px;
+      line-height: 40px;
+
+      .search-icon {
+        line-height: 40px;
+      }
+
+      input {
+        font-size: 16px;
+        height: 38px;
+        text-align: left;
+        line-height: 38px;
+        width: 85%;
+      }
+    }
+  }
+}

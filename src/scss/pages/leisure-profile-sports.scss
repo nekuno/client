@@ -1,0 +1,15 @@
+@import '../_partials/colors';
+
+body #root .App .views .view.leisure-profile-sports-view {
+  color: $gray-main-text;
+  text-align: center;
+  z-index: 0;
+
+  .leisure-profile-sports-wrapper {
+    margin-bottom: 60px;
+
+    h2 {
+      padding: 0 24px
+    }
+  }
+}

@@ -29,6 +29,25 @@ export default {
         tutorialThirdStepTitle : 'Importance',
         tutorialThirdStep      : 'This will be the question`s importance when making compatibility calculations.'
     },
+    AvailabilityPage                 : {
+        yourAccount : 'Your account at Nekuno',
+        title       : 'Tell us what your availability is',
+        finishTitle : 'Availability added!',
+        resume      : 'We need to know how much free time you have to recommend you plans whose match your availability',
+        finishResume: 'Now we can recommend you plans and projects which suit your availability',
+        add         : 'Add availability',
+        edit        : 'Edit availability',
+        skip        : 'Not now',
+        signUp      : 'Finish sign up'
+    },
+    AvailabilityEditPage             : {
+        yourAvailability: 'My Availability',
+        continue        : 'Save changes'
+    },
+    AvailabilityEditOnSignUpPage     : {
+        yourAvailability: 'Your Availability',
+        continue        : 'Save & continue'
+    },
     ChatMessagesPage                 : {
         noMoreMessages: 'You have no messages',
         placeholder   : 'Type a message...',
@@ -37,6 +56,17 @@ export default {
     ChatThreadsPage                  : {
         title: 'Messages'
     },
+    ConnectFacebookPage              : {
+        yourAccount: 'Your account at Nekuno',
+        title      : 'We are almost done! Connect Facebook',
+        resume     : 'We need to obtain information about the kind of contents you like for recommending you compatible people',
+        connect    : 'Connect with Facebook'
+    },
+    ConnectingFacebookPage           : {
+        analyzing: 'Analyzing data',
+        title    : 'Hello %username%!',
+        resume   : 'You are already part of Nekuno',
+     },
     ConnectSocialNetworksOnSignUpPage: {
         next    : 'Continue',
         welcome : 'Welcome',
@@ -51,20 +81,68 @@ export default {
         error        : 'Error connecting network. You may have connected it with other user.',
         answerExplore: 'Do you want to answer explore objectives?'
     },
+    ConnectSteamAnonymous            : {
+        connect       : 'Connect Steam',
+        resume        : 'Load your favorite games automatically',
+        cannotGetGames: 'You may have privacy settings to private. Try to set to public if you want to see your games.'
+    },
+    DailyInputRange                   : {
+        morning         : 'Morning',
+        afternoon       : 'Afternoon',
+        night           : 'Night',
+        continue        : 'Save & continue'
+    },
+    DateInputRange                   : {
+        topText: 'Select a date range'
+    },
     EditProfilePage                  : {
         title       : 'Edit profile',
         cancel      : 'Cancel',
         saveChanges : 'Save changes',
         cannotRemove: 'This field cannot be deleted'
     },
+    ExplorerProfilePage              : {
+        yourAccount: 'Your account at Nekuno',
+        title      : 'Fill your explorer profile',
+        resume     : 'We need to know what kind of activities and experiences you like to recommend you people and plans',
+        fillProfile: 'Fill profile',
+        skip       : 'Not now'
+    },
+    ExplorerProfileCostPage          : {
+        activitiesAndExperiences: 'Activities & Experiences',
+        title                   : 'What is your ideal cost for an entrance?',
+        addCost                 : 'Select to continue',
+        continue                : 'Continue'
+    },
+    ExplorerProfileEventsPage        : {
+        activitiesAndExperiences: 'Activities & Experiences',
+        title                   : 'What kind of events do you like to attend to?',
+        searchEvent             : 'Search kind of event',
+        addEvent                : 'Select to continue',
+        continue                : 'Continue'
+    },
+    ExplorerProfilePlansPage         : {
+        activitiesAndExperiences: 'Activities & Experiences',
+        title                   : 'What kind of plans do you like to do in your free time?',
+        searchPlan              : 'Search kind of plan',
+        addPlan                 : 'Select to continue',
+        continue                : 'Continue'
+    },
+    ExplorerProfileRestaurantsPage   : {
+        activitiesAndExperiences: 'Activities & Experiences',
+        title                   : 'What kind of restaurants do you like to go for lunch or dinner?',
+        searchRestaurant        : 'Search kind of restaurant',
+        addRestaurant           : 'Select to continue',
+        continue                : 'Continue'
+    },
     HomePage                         : {
-        choosePath   : 'Choose your path',
-        title1       : 'Rediscover my tribe' + "\n" + 'unlocking badges',
-        title2       : 'Share what I love' + "\n" + 'joining and creating proposals',
-        title3       : 'All previous + discover' + "\n" + 'my life mates',
-        events       : 'Events',
-        explore      : 'Explore',
-        contact      : 'Contact',
+        title1       : 'Meet people related to you',
+        title2       : 'Share your ideas and plans',
+        title3       : 'Take part in projects and plans',
+        resume1      : 'Nekuno makes it easy to find people compatible with you',
+        resume2      : 'Meet people compatible with you for carrying out projects and plans',
+        resume3      : 'Discover projects and plans that matches your profile',
+        skip         : 'Skip',
         blockingError: 'Your browser has blocked a Facebook request and we are not able to register you. Please, disable the blocking configuration or use an other browser.'
     },
     ExplorePage                      : {
@@ -147,6 +225,36 @@ export default {
         close         : 'Close',
         ok            : 'Unlock'
     },
+    LeisureProfilePage               : {
+        yourAccount: 'Your account at Nekuno',
+        title      : 'Fill your leisure profile',
+        resume     : 'We need to know your sports, games and favorite hobbies to recommend you people and plans',
+        fillProfile: 'Fill profile',
+        skip       : 'Not now'
+    },
+    LeisureProfileGamesPage          : {
+        sportsAndGames: 'Sports, Games & Hobbies',
+        title         : 'What games do you like to play in your free time?',
+        selected      : 'Games that you like',
+        searchGame    : 'Search game',
+        addGame       : 'Add a game to continue',
+        continue      : 'Continue'
+    },
+    LeisureProfileHobbiesPage        : {
+        sportsAndGames: 'Sports, Games & Hobbies',
+        title         : 'What hobbies do you like to practice in your free time?',
+        searchHobby   : 'Search hobby',
+        addHobby      : 'Add a hobby to continue',
+        continue      : 'Continue'
+    },
+    LeisureProfileSportsPage         : {
+        sportsAndGames: 'Sports, Games & Hobbies',
+        title         : 'What sports do you like to play in your free time?',
+        selected      : 'Your selected sports',
+        searchSport   : 'Search sport (e.g. Skateboarding)',
+        addSport      : 'Add a sport to continue',
+        continue      : 'Continue'
+    },
     LoginPage                        : {
         login        : 'Login',
         cancel       : 'Cancel',
@@ -176,6 +284,156 @@ export default {
         photos      : 'Photos',
         questions   : 'Answers',
         interests   : 'Interests'
+    },
+    OwnProposalsPage                 : {
+        myPlans         : 'My Plans',
+        popularProposals: 'Most popular proposals',
+        otherPublished  : 'Other published proposals',
+        matches         : 'Matches',
+    },
+    PersonsPage                      : {
+        relatedPeople: 'People related to you',
+        closestPeople: 'The closest people',
+        viewAll      : 'View all',
+        groupsPersons: 'People from your badges'
+    },
+    PersonsAllPage                   : {
+        title        : 'Nekuno People',
+        orderedBy    : 'Ordered by',
+        compatibility: 'Compatibility',
+        similarity   : 'Similarity',
+        coincidences : 'Coincidences'
+    },
+    PersonsFilterPage                : {
+        title        : 'Nekuno People',
+        orderedBy    : 'Ordered by',
+        compatibility: 'compatibility',
+        similarity   : 'similarity',
+        coincidences : 'coincidences',
+        showResults  : 'Show results'
+    },
+    ProfessionalProfilePage          : {
+        yourAccount: 'Your account at Nekuno',
+        title      : 'Fill your professional profile',
+        resume     : 'We need to know your industry and professional skills to recommend you people and projects',
+        fillProfile: 'Fill profile',
+        skip       : 'Not now'
+    },
+    ProfessionalProfileIndustryPage  : {
+        workAndIdeas  : 'Work, Ideas & Projects',
+        title         : 'What are your professional industry?',
+        selected      : 'Your professional industries',
+        searchIndustry: 'Search industry (e.g. Internet)',
+        addIndustry   : 'Add an industry to continue',
+        continue      : 'Continue'
+    },
+    ProfessionalProfileSkillsPage    : {
+        workAndIdeas  : 'Work, Ideas & Projects',
+        title         : 'What are your professional skills?',
+        selected      : 'Your professional skills',
+        searchIndustry: 'Search skill',
+        addIndustry   : 'Add a skill to continue',
+        continue      : 'Continue'
+    },
+    ProposalsPage                    : {
+        discover: 'Discover proposals'
+    },
+    ProposalsProjectIntroductionPage        : {
+        publishProposal: 'Publish proposal',
+        title          : 'Do your proposal for a project',
+        resume         : 'Publish that idea or project that you have in mind and we will find related people to carry it out.',
+        doProposal     : 'Create proposal'
+    },
+    ProposalsProjectBasicPage        : {
+        publishProposal: 'Publish proposal',
+        title: 'What is your project proposal?',
+        titlePlaceholder: 'Propose title',
+        descriptionPlaceholder: 'Explain how you want to carry it out...',
+        stepsBarContinueText: 'Continue',
+        stepsBarCantContinueText: 'You cannot continue',
+    },
+    ProposalsProjectProfessionalPage     : {
+        title: 'What professional sectors do you require for the project?',
+        placeholder: 'Search sector',
+        selectedLabel: 'Sectors you want',
+        stepsBarContinueText: 'Continue',
+        stepsBarCantContinueText: 'Indicate one to continue',
+    },
+    ProposalsProjectSkillsPage     : {
+        title: 'What skills would you like for the project?',
+        placeholder: 'Search skill',
+        selectedLabel: 'Skills you want',
+        stepsBarContinueText: 'Continue',
+        stepsBarCantContinueText: 'Indicate one to continue',
+    },
+    ProposalsProjectAvailabilityPage : {
+        publishProposal         : 'Publish proposal',
+        title                   : 'What implication do you need for the project?',
+        availabilityTitle       : 'Availability',
+        availabilityDescription : 'Indicate in what time or range of days you would like to develop the project',
+        participantsTitle       : 'Number of participants',
+        stepsBarContinueText    : 'Continue',
+        stepsBarCantContinueText: 'Indicate at least one parameter',
+        monday                  : 'Monday',
+        tuesday                 : 'Tuesday',
+        wednesday               : 'Wednesday',
+        thursday                : 'Thursday',
+        friday                  : 'Friday',
+        saturday                : 'Saturday',
+        sunday                  : 'Sunday',
+        and                     : 'and',
+        scheduleOf              : 'schedule of',
+        morning                 : 'morning',
+        afternoon               : 'afternoon',
+        night                   : 'night',
+        from                    : 'From',
+        to                      : 'to',
+    },
+    ProposalsProjectAvailabilityDatesPage : {
+        publishProposal         : 'Publish proposal',
+        title                   : 'What availability do you need for the project?',
+    },
+    ProposalsProjectFeaturesPage : {
+        title               : 'Are you looking for people with specific features?',
+        filterWarning       : 'Estos filtros sólo serán visibles para ti y nos sirven para filtrar usuarios',
+        featuresBasic       : 'Basic features',
+        featuresAvailability: 'Availability',
+        featuresPhysical    : 'Physical appearance',
+        featuresCulture     : 'Culture and Language',
+        featuresDrugs       : 'Drugs and other vices',
+        featuresFamiliar    : 'Familiar features',
+        stepsBarContinueText: 'Continue',
+        stepsBarCantContinueText: 'Indicate one to continue',
+    },
+    ProposalsProjectPreviewPage : {
+        project        : 'Project',
+        sectors        : 'Sectors',
+        skills         : 'Habilities',
+        availability   : 'Availability',
+        numberOfMembers: 'Number of members',
+        filterText     : 'Filters to your proposal target',
+        basics         : 'Basics',
+        culture        : 'Culture and languages',
+        drugs          : 'Drugs and other services',
+        familiar       : 'Familiar aspects',
+        publishProposal: 'Publish proposal',
+        people         : 'people',
+        monday         : 'Monday',
+        tuesday        : 'Tuesday',
+        wednesday      : 'Wednesday',
+        thursday       : 'Thursday',
+        friday         : 'Friday',
+        saturday       : 'Saturday',
+        sunday         : 'Sunday',
+        and            : 'and',
+        scheduleOf     : 'schedule of',
+        morning        : 'morning',
+        afternoon      : 'afternoon',
+        night          : 'night',
+        from           : 'From',
+        to             : 'to',
+        years          : 'years',
+        withinRadioOf  : 'within radio of'
     },
     QuestionsPage                    : {
         myProfile: 'My profile',
@@ -326,6 +584,8 @@ export default {
         legalTerms    : 'End-user license agreement',
         privacyPolicy : 'Privacy Policy',
         disable       : 'Disable account',
+        logout        : 'Logout',
+        logoutConfirm : 'Are you sure you want logout?',
         disableConfirm: 'Do you want to disable your account? It will be deleted after 3 months if you don`t enable it again.',
         disableTitle  : 'Disable account',
         disableError  : 'We couldn´t disable your account'
@@ -333,6 +593,28 @@ export default {
     ////////////////
     // Components //
     ////////////////
+    AvailabilityEdit                 : {
+        title    : 'What is your availability?',
+        daily    : 'Daily',
+        dates    : 'Dates',
+        addRange : 'Add days range',
+        monday   : 'Monday',
+        tuesday  : 'Tuesday',
+        wednesday: 'Wednesday',
+        thursday : 'Thursday',
+        friday   : 'Friday',
+        saturday : 'Saturday',
+        sunday   : 'Sunday'
+    },
+    BottomNavBar                     : {
+        proposals : 'Proposals',
+        persons   : 'Persons',
+        plans     : 'Plans',
+        messages  : 'Messages',
+        proposal  : 'Proposal',
+        leisure   : 'Leisure plan',
+        experience: 'Experience'
+    },
     LeftPanel                        : {
         interests     : 'Interests',
         threads       : 'Discover',
@@ -404,8 +686,14 @@ export default {
         seeMore: 'See more'
     },
     AnswerUsernamePage               : {
-        username      : 'Username',
-        loadingMessage: 'Registering user'
+        yourAccount      : 'Your account at Nekuno',
+        heading          : "Let's start!",
+        heading2         : "What would you like to be your name?",
+        placeholder      : 'Write your name here',
+        alreadyRegistered: 'Already registered?',
+        login            : 'Log in in here',
+        continue         : 'Continue',
+        invalidUsername  : 'Oh no! This username is not available :('
     },
     AnswerUserFieldPage              : {
         question      : 'Question',
@@ -586,12 +874,9 @@ export default {
         otherReasons     : 'Other reasons'
     },
     CardUser                         : {
-        like      : 'Like',
-        unlike    : 'Remove',
-        matching  : 'Matching',
-        similarity: 'Similarity',
-        saving    : 'Saving...',
-        age       : 'Age',
+        compatible  : 'Compatible',
+        similar     : 'Similar',
+        coincidences: 'Coincidences'
     },
     CardUserPlaceholder              : {
         matching  : 'Matching',
@@ -619,6 +904,11 @@ export default {
         websites : 'All',
         people   : 'People',
         channels : 'Channels'
+    },
+    ProposalCard                     : {
+        compatible: 'Compatible',
+        similar   : 'Similar',
+        project   : 'Project'
     },
     ReportContentPopup               : {
         title      : 'Write a brief explanation of the report',
@@ -782,6 +1072,9 @@ export default {
     },
     SocialWheel                      : {
         isLoading: 'Getting information...',
+    },
+    BottomNotificationBar            : {
+        analyzingData   : 'Analyzing data...',
     },
     ////////////////
     // Framework7 //

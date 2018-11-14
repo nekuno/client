@@ -1,0 +1,92 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test AvailabilityEdit component should render correctly 1`] = `
+ShallowWrapper {
+  "length": 1,
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <TranslationComponent
+    onSave={[MockFunction]}
+    strings={
+      Object {
+        "addRange": "Add days range",
+        "daily": "Daily",
+        "dates": "Dates",
+        "friday": "Friday",
+        "monday": "Monday",
+        "saturday": "Saturday",
+        "sunday": "Sunday",
+        "thursday": "Thursday",
+        "title": "What is your availability?",
+        "tuesday": "Tuesday",
+        "wednesday": "Wednesday",
+      }
+    }
+  />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "class",
+    "props": Object {
+      "locale": undefined,
+      "onSave": [MockFunction],
+      "strings": Object {
+        "addRange": "Add days range",
+        "daily": "Daily",
+        "dates": "Dates",
+        "friday": "Friday",
+        "monday": "Monday",
+        "saturday": "Saturday",
+        "sunday": "Sunday",
+        "thursday": "Thursday",
+        "title": "What is your availability?",
+        "tuesday": "Tuesday",
+        "wednesday": "Wednesday",
+      },
+    },
+    "ref": null,
+    "rendered": null,
+    "type": [Function],
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "class",
+      "props": Object {
+        "locale": undefined,
+        "onSave": [MockFunction],
+        "strings": Object {
+          "addRange": "Add days range",
+          "daily": "Daily",
+          "dates": "Dates",
+          "friday": "Friday",
+          "monday": "Monday",
+          "saturday": "Saturday",
+          "sunday": "Sunday",
+          "thursday": "Thursday",
+          "title": "What is your availability?",
+          "tuesday": "Tuesday",
+          "wednesday": "Wednesday",
+        },
+      },
+      "ref": null,
+      "rendered": null,
+      "type": [Function],
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+      },
+    },
+  },
+}
+`;

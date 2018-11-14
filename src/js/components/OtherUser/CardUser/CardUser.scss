@@ -1,0 +1,135 @@
+@import '../../../../scss/_partials/colors';
+
+.card-user {
+  cursor: pointer;
+  display: inline-block;
+  font-weight: 600;
+  margin: 0;
+  width: 50%;
+
+  .frame {
+    background: #FFF;
+    border: 1px solid #E2E3E7;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    color: #6C6F82;
+    display: inline-block;
+    font-size: 14px;
+    margin: 2.5%;
+    padding: 0;
+    width: 95%;
+
+    .group {
+      margin-left: 8px;
+      top: 16px;
+      position: absolute;
+
+      .group-name {
+        color: $white-background;
+        display: inline-block;
+        font-weight: bold;
+        line-height: 35px;
+        margin-left: 3px;
+        vertical-align: top;
+      }
+    }
+
+    .user-image {
+      text-align: center;
+      width: 100%;
+
+      img {
+        border-radius: 10px 10px 0 0;
+        -moz-border-radius: 10px 10px 0 0;
+        -webkit-border-radius: 10px 10px 0 0;
+        width: 100%;
+      }
+    }
+    .top-data {
+      color: white;
+      padding: 0 5%;
+      margin-top: -55px;
+      .nickname {
+        font-size: 20px;
+      }
+      .age-city {
+        font-size: 14px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+    .progress-bars {
+      margin-top: 16px;
+      padding: 0 5%;
+
+      .progress-bar-title {
+        display: inline-block;
+        font-size: 8px;
+        height: 33px;
+        line-height: 33px;
+        width: 45%;
+
+        @media only screen and (min-width: 320px) {
+          font-size: 10px;
+        }
+        @media only screen and (min-width: 370px) {
+          font-size: 12px;
+        }
+      }
+      .progress-bar {
+        display: inline-block;
+        width: 40%;
+      }
+    }
+    .coincidences {
+      margin: 10px 0;
+      font-size: 14px;
+      white-space: nowrap;
+      overflow: hidden;
+      padding: 0 5%;
+      text-overflow: ellipsis;
+    }
+    &:hover {
+      .top-data {
+        color: $gray-main-text;
+      }
+    }
+  }
+
+  &.medium {
+    width: 60%;
+
+    .user-image {
+      display: inline-block;
+      text-align: left;
+    }
+    .top-data {
+      margin-top: -60px;
+
+      .nickname {
+      }
+      .age-city {
+        margin: 5px 0;
+      }
+    }
+    .progress-bars {
+      .progress-bar-title {
+        font-size: 10px;
+        width: 50%;
+
+        @media only screen and (min-width: 320px) {
+          font-size: 12px;
+        }
+        @media only screen and (min-width: 350px) {
+          font-size: 14px;
+        }
+      }
+    }
+    .coincidences {
+      display: inline-block;
+      margin-top: 15px;
+    }
+  }
+}

@@ -1,0 +1,52 @@
+@import '../../../../scss/_partials/colors';
+
+.progress-bar-wrapper {
+  background: $white-background;
+  color: #6C6F82;
+  display: inline-block;
+  font-size: 15px;
+  padding: 10px;
+  width: 100%;
+
+  .title {
+    font-size: 13px;
+    margin-bottom: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .progress-bar {
+
+    .line {
+      display: inline-block;
+      margin-right: 2%;
+      width: 88%;
+
+      &.without-number {
+        width: 98%;
+      }
+    }
+    .percentage {
+      display: inline-block;
+      width: 10%;
+    }
+  }
+
+  &.small, &.medium {
+    font-size: 13px;
+    padding: 5px 0;
+
+    .title {
+      margin-bottom: 0;
+    }
+    .progress-bar {
+      .line {
+        margin-right: 10%;
+        vertical-align: text-bottom;
+        width: 75%;
+      }
+      .percentage {
+      }
+    }
+  }
+}

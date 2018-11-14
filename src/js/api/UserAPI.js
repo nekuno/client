@@ -155,3 +155,41 @@ export function getMatching(userId, url = `matching/${userId}`) {
 export function getSimilarity(userId, url = `similarity/${userId}`) {
     return getData(url);
 }
+
+//Proposals
+
+export function createProposal(data, url='proposals') {
+    return postData(url, data);
+}
+
+export function updateProposal(proposalId, data, url= `proposals/${proposalId}`) {
+    return putData(url, data);
+}
+
+export function removeProposal(proposalId, url= `proposals/${proposalId}`) {
+    return deleteData(url);
+}
+
+export function getProposalRecommendations(url='proposals/recommendations') {
+    return getData(url);
+}
+
+export function getOwnProposals(url = 'proposals') {
+    return getData(url);
+}
+
+export function acceptCandidate(candidateId, data = {accepted: true}, url = 'recommendations/candidates') {
+    return postData(url, data);
+}
+
+export function interestProposal(proposalId, data = {interested: true}, url = 'recommendations/proposals') {
+    return postData(url, data);
+}
+
+export function skipCandidate(candidateId, data, url = 'recommendations/candidates/skip') {
+    return postData(url)
+}
+
+export function skipProposal(proposalId, data, url = 'recommendations/proposals/skip') {
+    return postData(url)
+}

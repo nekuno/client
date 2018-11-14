@@ -1,4 +1,12 @@
 {
-  "presets": ["env", "react", "stage-0"],
-  "plugins": ["babel-plugin-transform-decorators-legacy"]
+  "env": {
+    "test": {
+      "presets": ["env", "react", "stage-0"],
+      "plugins": ["transform-decorators-legacy"],
+      "only": [
+        "./**/*.js",
+        "node_modules/jest-runtime"
+      ]
+    }
+  }
 }

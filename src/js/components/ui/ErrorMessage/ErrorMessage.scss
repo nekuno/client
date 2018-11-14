@@ -1,0 +1,37 @@
+@import '../../../../scss/_partials/colors';
+
+.error-message-wrapper {
+
+  .error-message {
+    background: $red-error;
+    box-sizing: border-box;
+    color: $white-background;
+    height: 48px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+
+    .message {
+      display: inline-block;
+      line-height: 48px;
+      width: 80%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      padding: 0 5%;
+      position: relative;
+      -webkit-box-flex: 1;
+      -webkit-flex-shrink: 1;
+      -ms-flex: 0 1 auto;
+      flex-shrink: 1;
+      min-width: 0;
+    }
+    .cross-icon {
+      display: inline-block;
+      line-height: 48px;
+      height: 48px;
+      overflow: hidden;
+      width: 10%;
+    }
+  }
+}

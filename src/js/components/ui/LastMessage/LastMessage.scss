@@ -1,0 +1,51 @@
+@import '../../../../scss/_partials/colors';
+
+.last-message {
+  cursor: pointer;
+  min-height: 70px;
+  padding: 10px 16px 5px 16px;
+  position: relative;
+
+  .photo {
+    display: inline-block;
+    margin-right: 5%;
+    vertical-align: top;
+    width: 12%;
+
+    .status-online {
+      color: $green-experiences;
+      font-size: 12px;
+      line-height: 12px;
+      margin-top: -7px;
+      text-align: center;
+      font-weight: 600;
+      width: 60px;
+    }
+  }
+  .text {
+    display: inline-block;
+    vertical-align: top;
+    width: 80%;
+
+    .username {
+      display: inline-block;
+      font-weight: 600;
+      margin: auto;
+      height: 35px;
+      line-height: 35px;
+      vertical-align: top;
+    }
+    .excerpt {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+
+  .time {
+    color: $gray-secondary-text;
+    position: absolute;
+    top: 12px;
+    right: 12px;
+  }
+}

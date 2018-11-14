@@ -5,6 +5,29 @@ import { useScroll } from 'react-router-scroll';
 
 import App from './App';
 import HomePage from './pages/HomePage';
+import AnswerUsernamePage from './pages/AnswerUsernamePage';
+import ProfessionalProfilePage from './pages/ProfessionalProfilePage';
+import ProfessionalProfileIndustryPage from './pages/ProfessionalProfileIndustryPage';
+import ProfessionalProfileSkillsPage from './pages/ProfessionalProfileSkillsPage';
+import LeisureProfilePage from './pages/LeisureProfilePage';
+import LeisureProfileSportsPage from './pages/LeisureProfileSportsPage';
+import LeisureProfileHobbiesPage from './pages/LeisureProfileHobbiesPage';
+import LeisureProfileGamesPage from './pages/LeisureProfileGamesPage';
+import ExplorerProfilePage from './pages/ExplorerProfilePage';
+import ExplorerProfileCostPage from './pages/ExplorerProfileCostPage';
+import ExplorerProfileEventsPage from './pages/ExplorerProfileEventsPage';
+import ExplorerProfileRestaurantsPage from './pages/ExplorerProfileRestaurantsPage';
+import ExplorerProfilePlansPage from './pages/ExplorerProfilePlansPage';
+import AvailabilityPage from './pages/AvailabilityPage';
+import AvailabilityEditOnSignUpPage from './pages/AvailabilityEditOnSignUpPage';
+import AvailabilityEditPage from './pages/AvailabilityEditPage';
+import ConnectFacebookPage from './pages/ConnectFacebookPage';
+import ConnectingFacebookPage from './pages/ConnectingFacebookPage';
+import ProposalsPage from './pages/ProposalsPage';
+import PersonsPage from './pages/PersonsPage';
+import PersonsAllPage from './pages/PersonsAllPage';
+import PersonsFilterPage from './pages/PersonsFilterPage';
+import OwnProposalsPage from './pages/OwnProposalsPage';
 import ExplorePage from './pages/ExplorePage';
 import ChatThreadsPage from './pages/ChatThreadsPage';
 import ChatMessagesPage from './pages/ChatMessagesPage';
@@ -28,7 +51,6 @@ import QuestionOtherStatsPage from './pages/QuestionOtherStatsPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import RegisterQuestionsLandingPage from './pages/RegisterQuestionLandingPage';
-import AnswerUsernamePage from './pages/AnswerUsernamePage';
 import AnswerUserFieldPage from './pages/AnswerUserFieldPage';
 import AnswerProfileFieldPage from './pages/AnswerProfileFieldPage';
 import UserPage from './pages/UserPage';
@@ -40,7 +62,6 @@ import RecommendationPage from './pages/RecommendationPage';
 import InvitationsPage from './pages/InvitationsPage';
 import ConnectSocialNetworksOnSignUpPage from './pages/ConnectSocialNetworksOnSignUpPage';
 import ConnectSocialNetworksPage from './pages/ConnectSocialNetworksPage';
-import CreateThreadPage from './pages/CreateThreadPage';
 import EditThreadLitePage from './pages/EditThreadLitePage';
 import GroupPage from './pages/GroupPage';
 import GroupStatsPage from './pages/GroupStatsPage';
@@ -49,6 +70,14 @@ import GroupContentsPage from './pages/GroupContentsPage';
 import SettingsPage from './pages/SettingsPage';
 import RouterActionCreators from './actions/RouterActionCreators';
 import LoginStore from './stores/LoginStore';
+import ProposalsProjectIntroductionPage from "./pages/ProposalsProjectIntroductionPage";
+import ProposalsProjectBasicPage from "./pages/ProposalsProjectBasicPage";
+import ProposalsProjectProfessionalPage from "./pages/ProposalsProjectProfessionalPage";
+import ProposalsProjectSkillsPage from "./pages/ProposalsProjectSkillsPage";
+import ProposalsProjectAvailabilityPage from "./pages/ProposalsProjectAvailabilityPage";
+import ProposalsProjectAvailabilityDatesPage from "./pages/ProposalsProjectAvailabilityDatesPage";
+import ProposalsProjectFeaturesPage from "./pages/ProposalsProjectFeaturesPage";
+import ProposalsProjectPreviewPage from "./pages/ProposalsProjectPreviewPage";
 
 function requireAuth(nextState, replaceState) {
 
@@ -73,12 +102,42 @@ export default class Root extends Component {
                 <Route name="home" path="/" component={App}>
 
                     <Route name="splash" path="/splash" component={HomePage}/>
+                    <Route name="answer-username" path="/answer-username" component={AnswerUsernamePage}/>
+                    <Route name="professional-profile" path="/professional-profile" component={ProfessionalProfilePage}/>
+                    <Route name="professional-profile-industry" path="/professional-profile-industry" component={ProfessionalProfileIndustryPage}/>
+                    <Route name="professional-profile-skills" path="/professional-profile-skills" component={ProfessionalProfileSkillsPage}/>
+                    <Route name="leisure-profile" path="/leisure-profile" component={LeisureProfilePage}/>
+                    <Route name="leisure-profile-sports" path="/leisure-profile-sports" component={LeisureProfileSportsPage}/>
+                    <Route name="leisure-profile-hobbies" path="/leisure-profile-hobbies" component={LeisureProfileHobbiesPage}/>
+                    <Route name="leisure-profile-games" path="/leisure-profile-games" component={LeisureProfileGamesPage}/>
+                    <Route name="explorer-profile" path="/explorer-profile" component={ExplorerProfilePage}/>
+                    <Route name="explorer-profile-cost" path="/explorer-profile-cost" component={ExplorerProfileCostPage}/>
+                    <Route name="explorer-profile-events" path="/explorer-profile-events" component={ExplorerProfileEventsPage}/>
+                    <Route name="explorer-profile-restaurants" path="/explorer-profile-restaurants" component={ExplorerProfileRestaurantsPage}/>
+                    <Route name="explorer-profile-plans" path="/explorer-profile-plans" component={ExplorerProfilePlansPage}/>
+                    <Route name="availability" path="/availability" component={AvailabilityPage}/>
+                    <Route name="availability-edit-on-sign-up" path="/availability-edit-on-sign-up" component={AvailabilityEditOnSignUpPage}/>
+                    <Route name="connect-facebook" path="/connect-facebook" component={ConnectFacebookPage}/>
                     <Route name="login" path="/login" component={LoginPage}/>
                     <Route name="register" path="/register" component={RegisterPage}/>
                     <Route name="shared-user" path="/p/:slug" component={ProfilePage}/>
-                    <Route name="answer-username" path="/answer-username" component={AnswerUsernamePage}/>
 
                     <Route onEnter={requireAuth}>
+                        <Route name="connecting-facebook" path="/connecting-facebook" component={ConnectingFacebookPage}/>
+                        <Route name="proposals" path="/proposals" component={ProposalsPage}/>
+                        <Route name="proposals-project-introduction" path="/proposals-project-introduction" component={ProposalsProjectIntroductionPage}/>
+                        <Route name="proposals-project-basic" path="/proposals-project-basic" component={ProposalsProjectBasicPage}/>
+                        <Route name="proposals-project-professional" path="/proposals-project-professional" component={ProposalsProjectProfessionalPage}/>
+                        <Route name="proposals-project-skills" path="/proposals-project-skills" component={ProposalsProjectSkillsPage}/>
+                        <Route name="proposals-project-availability" path="/proposals-project-availability" component={ProposalsProjectAvailabilityPage}/>
+                        <Route name="proposals-project-availability-dates" path="/proposals-project-availability-dates" component={ProposalsProjectAvailabilityDatesPage}/>
+                        <Route name="proposals-project-features" path="/proposals-project-features" component={ProposalsProjectFeaturesPage}/>
+                        <Route name="proposals-project-preview" path="/proposals-project-preview" component={ProposalsProjectPreviewPage}/>
+                        <Route name="persons" path="/persons" component={PersonsPage}/>
+                        <Route name="persons-all" path="/persons-all" component={PersonsAllPage}/>
+                        <Route name="persons-filter" path="/persons-filter/:threadId" component={PersonsFilterPage}/>
+                        <Route name="plans" path="/plans" component={OwnProposalsPage}/>
+                        <Route name="availability-edit" path="/availability-edit" component={AvailabilityEditPage}/>
                         <Route name="explore" path="/explore" component={ExplorePage}/>
                         <Route name="register-questions-landing" path="/register-questions-landing" component={RegisterQuestionsLandingPage}/>
                         <Route name="answer-user-fields" path="/answer-user-fields" component={AnswerUserFieldPage}/>
@@ -107,7 +166,6 @@ export default class Root extends Component {
                         <Route name="recommendations" path="/recommendations/:threadId" component={RecommendationPage}/>
                         <Route name="social-networks-on-sign-up" path="/social-networks-on-sign-up" component={ConnectSocialNetworksOnSignUpPage}/>
                         <Route name="social-networks" path="/social-networks" component={ConnectSocialNetworksPage}/>
-                        <Route name="create-thread" path="/create-thread" component={CreateThreadPage}/>
                         <Route name="edit-thread" path="/edit-thread/:threadId" component={EditThreadLitePage}/>
                         <Route name="groups" path="/badges" component={GroupPage}/>
                         <Route name="group-discover" path="/badges/:groupId/discover" component={DiscoverPage}/>

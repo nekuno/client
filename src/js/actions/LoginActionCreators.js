@@ -28,7 +28,7 @@ export default new class LoginActionCreators {
         if (LoginStore.isLoggedIn()) {
             UserActionCreators.requestAutologinData().then(() => {
                 if (!RouterStore.hasNextTransitionPath() && (document.location.hash === '' || document.location.hash === '#/' || document.location.hash.indexOf('#/?') === 0)) {
-                    RouterActionCreators.storeRouterTransitionPath('/discover');
+                    RouterActionCreators.storeRouterTransitionPath('/proposals');
                 }
                 this.redirect();
             }, (error) => {
@@ -46,7 +46,7 @@ export default new class LoginActionCreators {
         }, {username, password})
             .then(() => {
                 if (!RouterStore.hasNextTransitionPath()) {
-                    RouterActionCreators.storeRouterTransitionPath('/discover');
+                    RouterActionCreators.storeRouterTransitionPath('/proposals');
                 }
                 this.redirect();
                 return null;
@@ -68,7 +68,7 @@ export default new class LoginActionCreators {
                 AnalyticsService.setUserId(userId);
                 AnalyticsService.trackEvent('Login', resourceOwner + ' login', document.referrer);
                 if (!RouterStore.hasNextTransitionPath()) {
-                    RouterActionCreators.storeRouterTransitionPath('/discover');
+                    RouterActionCreators.storeRouterTransitionPath('/proposals');
                 }
                 this.redirect();
                 return new Promise(function(resolve) {
@@ -136,20 +136,31 @@ export default new class LoginActionCreators {
     choosePath(userId) {
         let path = null;
         const user = LoginStore.user;
-        if (QuestionStore.ownAnswersLength(userId) === 0) {
-            path = '/social-networks-on-sign-up';
-        } else if (!LoginStore.isComplete() || !ProfileStore.isComplete(user.slug) || QuestionStore.isJustRegistered(userId)) {
-            if (QuestionStore.isJustRegistered(userId)) {
-                path = '/register-questions-landing';
-            } else {
-                path = '/answer-user-fields';
-            }
+
+        if (!user || !user.username) {
+            path = '/answer-username';
         } else {
             path = RouterStore.nextTransitionPath;
             if (path) {
                 console.log('RouterStore.nextTransitionPath found', path);
             }
         }
+
+        // TODO: Review for needed conditions
+        // if (QuestionStore.ownAnswersLength(userId) === 0) {
+        //     path = '/social-networks-on-sign-up';
+        // } else if (!LoginStore.isComplete() || !ProfileStore.isComplete(user.slug) || QuestionStore.isJustRegistered(userId)) {
+        //     if (QuestionStore.isJustRegistered(userId)) {
+        //         path = '/register-questions-landing';
+        //     } else {
+        //         path = '/answer-user-fields';
+        //     }
+        // } else {
+        //     path = RouterStore.nextTransitionPath;
+        //     if (path) {
+        //         console.log('RouterStore.nextTransitionPath found', path);
+        //     }
+        // }
 
         return path;
     }

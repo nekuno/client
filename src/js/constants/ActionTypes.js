@@ -2,6 +2,9 @@ import keyMirror from 'keymirror';
 
 export default keyMirror({
 
+    LEFT_PANEL_OPEN                         : null,
+    LEFT_PANEL_CLOSE                        : null,
+
     AUTO_LOGIN                              : null,
     REQUEST_LOGIN_USER                      : null,
     REQUEST_LOGIN_USER_SUCCESS              : null,
@@ -316,6 +319,44 @@ export default keyMirror({
     REQUEST_TAG_GOOGLE_SUGGESTIONS_SUCCESS: null,
     REQUEST_TAG_GOOGLE_SUGGESTIONS_ERROR  : null,
     RESET_TAG_SUGGESTIONS          : null,
+
+    REQUEST_PROPOSALS        : null,
+    REQUEST_PROPOSALS_SUCCESS: null,
+    REQUEST_PROPOSALS_ERROR  : null,
+
+    CREATE_PROPOSAL        : null,
+    CREATE_PROPOSAL_SUCCESS: null,
+    CREATE_PROPOSAL_ERROR  : null,
+
+    UPDATE_PROPOSAL        : null,
+    UPDATE_PROPOSAL_SUCCESS: null,
+    UPDATE_PROPOSAL_ERROR  : null,
+
+    DELETE_PROPOSAL        : null,
+    DELETE_PROPOSAL_SUCCESS: null,
+    DELETE_PROPOSAL_ERROR  : null,
+
+    INTEREST_PROPOSAL        : null,
+    INTEREST_PROPOSAL_SUCCESS: null,
+    INTEREST_PROPOSAL_ERROR  : null,
+
+    ACCEPT_CANDIDATE        : null,
+    ACCEPT_CANDIDATE_SUCCESS: null,
+    ACCEPT_CANDIDATE_ERROR  : null,
+
+    SKIP_PROPOSAL        : null,
+    SKIP_PROPOSAL_SUCCESS: null,
+    SKIP_PROPOSAL_ERROR  : null,
+
+    SKIP_CANDIDATE        : null,
+    SKIP_CANDIDATE_SUCCESS: null,
+    SKIP_CANDIDATE_ERROR  : null,
+
+    REQUEST_PROPOSAL_RECOMMENDATIONS        : null,
+    REQUEST_PROPOSAL_RECOMMENDATIONS_SUCCESS: null,
+    REQUEST_PROPOSAL_RECOMMENDATIONS_ERROR  : null,
+
+    MERGE_CREATING_PROPOSAL : null,
 
     CHANGE_LOCALE: null
 

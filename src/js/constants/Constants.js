@@ -137,6 +137,8 @@ export const INSTAGRAM_SCOPE = config.INSTAGRAM_SCOPE;
 export const LINKEDIN_ID = config.LINKEDIN_ID;
 export const LINKEDIN_SCOPE = config.LINKEDIN_SCOPE;
 
+export const STEAM_API_KEY = config.STEAM_API_KEY;
+
 export const TRACKER_ID_WEB = config.TRACKER_ID_WEB;
 export const TRACKER_ID_APP = config.TRACKER_ID_APP;
 export const INSTANT_HOST = config.INSTANT_HOST;
@@ -182,11 +184,8 @@ export const ORIGIN_CONTEXT = {
 export const MAX_MESSAGES_LENGTH = 3000;
 
 export const DO_NOT_BACK_ROUTES = [
-    '/',
     'social-networks-on-sign-up',
     '/social-networks-on-sign-up',
     'register-questions-landing',
-    '/register-questions-landing',
-    'answer-username',
-    '/answer-username'
+    '/register-questions-landing'
 ];

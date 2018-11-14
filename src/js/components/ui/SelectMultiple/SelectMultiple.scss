@@ -1,0 +1,33 @@
+@import '../../../../scss/_partials/colors';
+
+.select-multiple {
+  .select-tag {
+    .title {
+      font-weight: 600;
+      margin-bottom: 12px;
+      margin-left: 6px;
+    }
+    select {
+      background: $purple-main-translucent;
+      border-radius: 16px;
+      -moz-border-radius: 16px;
+      -webkit-border-radius: 16px;
+      cursor: pointer;
+      height: 35px;
+      width: 100%;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      -ms-appearance: none;
+      appearance: none;
+      option {
+      }
+    }
+  }
+  .chips {
+    .title {
+      font-weight: 600;
+      margin-bottom: 12px;
+      margin-left: 6px;
+    }
+  }
+}

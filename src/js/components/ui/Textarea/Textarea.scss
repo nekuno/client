@@ -1,0 +1,41 @@
+@import '../../../../scss/_partials/colors';
+
+.input-wrapper {
+  padding: 8px;
+
+  .input {
+    border-radius: 32px;
+    border: 1px solid $gray-secondary-text;
+    color: $gray-main-text;
+    height: 200px;
+    line-height: 60px;
+    margin: 16px;
+    text-align: center;
+
+    textarea {
+      background-color: #ffffff00;
+      border: none;
+      -moz-box-shadow: none;
+      -webkit-box-shadow: none;
+      box-shadow: none;
+      font-family: Arial;
+      font-size: 16px;
+      height: 200px;
+      line-height: 40px;
+      overflow: auto;
+      text-align: left;
+      width: 85%;
+      &:focus {
+        outline: none;
+      }
+
+      .icon-cancel {
+        cursor: pointer;
+      }
+      .icon-check {
+        color: $green-experiences
+      }
+    }
+  }
+}
+

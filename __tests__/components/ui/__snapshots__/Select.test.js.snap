@@ -1,0 +1,355 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test Select component should render correctly 1`] = `
+ShallowWrapper {
+  "length": 1,
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <Select
+    defaultOption="lorem"
+    onClickHandler={[MockFunction]}
+    options={
+      Array [
+        Object {
+          "key": "lorem",
+          "text": "Lorem",
+        },
+        Object {
+          "key": "ipsum",
+          "text": "Ipsum",
+        },
+        Object {
+          "key": "lorem-ipsum",
+          "text": "Lorem ipsum",
+        },
+        Object {
+          "key": "sed-ut-perspiciatis",
+          "text": "Sed ut perspiciatis",
+        },
+      ]
+    }
+    title="Lorem ipsum"
+  />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "host",
+    "props": Object {
+      "children": Array [
+        <div
+          className="title small"
+        >
+          Lorem ipsum
+        </div>,
+        <div
+          className="select"
+        >
+          <InputRadio
+            checked={false}
+            onClickHandler={[Function]}
+            text="Lorem"
+            value="lorem"
+          />
+          <InputRadio
+            checked={true}
+            onClickHandler={[Function]}
+            text="Ipsum"
+            value="ipsum"
+          />
+          <InputRadio
+            checked={true}
+            onClickHandler={[Function]}
+            text="Lorem ipsum"
+            value="lorem-ipsum"
+          />
+          <InputRadio
+            checked={true}
+            onClickHandler={[Function]}
+            text="Sed ut perspiciatis"
+            value="sed-ut-perspiciatis"
+          />
+        </div>,
+      ],
+      "className": "selectWrapper",
+    },
+    "ref": null,
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": "Lorem ipsum",
+          "className": "title small",
+        },
+        "ref": null,
+        "rendered": "Lorem ipsum",
+        "type": "div",
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": Array [
+            <InputRadio
+              checked={false}
+              onClickHandler={[Function]}
+              text="Lorem"
+              value="lorem"
+            />,
+            <InputRadio
+              checked={true}
+              onClickHandler={[Function]}
+              text="Ipsum"
+              value="ipsum"
+            />,
+            <InputRadio
+              checked={true}
+              onClickHandler={[Function]}
+              text="Lorem ipsum"
+              value="lorem-ipsum"
+            />,
+            <InputRadio
+              checked={true}
+              onClickHandler={[Function]}
+              text="Sed ut perspiciatis"
+              value="sed-ut-perspiciatis"
+            />,
+          ],
+          "className": "select",
+        },
+        "ref": null,
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "key": "0",
+            "nodeType": "class",
+            "props": Object {
+              "checked": false,
+              "onClickHandler": [Function],
+              "text": "Lorem",
+              "value": "lorem",
+            },
+            "ref": null,
+            "rendered": null,
+            "type": [Function],
+          },
+          Object {
+            "instance": null,
+            "key": "1",
+            "nodeType": "class",
+            "props": Object {
+              "checked": true,
+              "onClickHandler": [Function],
+              "text": "Ipsum",
+              "value": "ipsum",
+            },
+            "ref": null,
+            "rendered": null,
+            "type": [Function],
+          },
+          Object {
+            "instance": null,
+            "key": "2",
+            "nodeType": "class",
+            "props": Object {
+              "checked": true,
+              "onClickHandler": [Function],
+              "text": "Lorem ipsum",
+              "value": "lorem-ipsum",
+            },
+            "ref": null,
+            "rendered": null,
+            "type": [Function],
+          },
+          Object {
+            "instance": null,
+            "key": "3",
+            "nodeType": "class",
+            "props": Object {
+              "checked": true,
+              "onClickHandler": [Function],
+              "text": "Sed ut perspiciatis",
+              "value": "sed-ut-perspiciatis",
+            },
+            "ref": null,
+            "rendered": null,
+            "type": [Function],
+          },
+        ],
+        "type": "div",
+      },
+    ],
+    "type": "div",
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": Array [
+          <div
+            className="title small"
+          >
+            Lorem ipsum
+          </div>,
+          <div
+            className="select"
+          >
+            <InputRadio
+              checked={false}
+              onClickHandler={[Function]}
+              text="Lorem"
+              value="lorem"
+            />
+            <InputRadio
+              checked={true}
+              onClickHandler={[Function]}
+              text="Ipsum"
+              value="ipsum"
+            />
+            <InputRadio
+              checked={true}
+              onClickHandler={[Function]}
+              text="Lorem ipsum"
+              value="lorem-ipsum"
+            />
+            <InputRadio
+              checked={true}
+              onClickHandler={[Function]}
+              text="Sed ut perspiciatis"
+              value="sed-ut-perspiciatis"
+            />
+          </div>,
+        ],
+        "className": "selectWrapper",
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": "Lorem ipsum",
+            "className": "title small",
+          },
+          "ref": null,
+          "rendered": "Lorem ipsum",
+          "type": "div",
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": Array [
+              <InputRadio
+                checked={false}
+                onClickHandler={[Function]}
+                text="Lorem"
+                value="lorem"
+              />,
+              <InputRadio
+                checked={true}
+                onClickHandler={[Function]}
+                text="Ipsum"
+                value="ipsum"
+              />,
+              <InputRadio
+                checked={true}
+                onClickHandler={[Function]}
+                text="Lorem ipsum"
+                value="lorem-ipsum"
+              />,
+              <InputRadio
+                checked={true}
+                onClickHandler={[Function]}
+                text="Sed ut perspiciatis"
+                value="sed-ut-perspiciatis"
+              />,
+            ],
+            "className": "select",
+          },
+          "ref": null,
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "key": "0",
+              "nodeType": "class",
+              "props": Object {
+                "checked": false,
+                "onClickHandler": [Function],
+                "text": "Lorem",
+                "value": "lorem",
+              },
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": "1",
+              "nodeType": "class",
+              "props": Object {
+                "checked": true,
+                "onClickHandler": [Function],
+                "text": "Ipsum",
+                "value": "ipsum",
+              },
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": "2",
+              "nodeType": "class",
+              "props": Object {
+                "checked": true,
+                "onClickHandler": [Function],
+                "text": "Lorem ipsum",
+                "value": "lorem-ipsum",
+              },
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": "3",
+              "nodeType": "class",
+              "props": Object {
+                "checked": true,
+                "onClickHandler": [Function],
+                "text": "Sed ut perspiciatis",
+                "value": "sed-ut-perspiciatis",
+              },
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
+            },
+          ],
+          "type": "div",
+        },
+      ],
+      "type": "div",
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+      },
+    },
+  },
+}
+`;

@@ -1,0 +1,132 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test InputTag component should render correctly 1`] = `
+ShallowWrapper {
+  "length": 1,
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <InputTag
+    onChangeHandler={[MockFunction]}
+    onClickHandler={[MockFunction]}
+    placeholder="Foo"
+    tags={
+      Array [
+        "Lorem",
+        "Ipsum",
+        "Lorem ipsum",
+        "Sed ut perspiciatis",
+        "perspiciatis",
+      ]
+    }
+  />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "host",
+    "props": Object {
+      "children": Array [
+        null,
+        <Input
+          doNotFocus={true}
+          doNotScroll={true}
+          onChange={[Function]}
+          placeholder="Foo"
+          searchIcon={true}
+          size="small"
+        />,
+        null,
+        null,
+        null,
+        Array [],
+      ],
+      "className": "inputTag",
+    },
+    "ref": null,
+    "rendered": Array [
+      null,
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "doNotFocus": true,
+          "doNotScroll": true,
+          "onChange": [Function],
+          "placeholder": "Foo",
+          "searchIcon": true,
+          "size": "small",
+        },
+        "ref": "inputTag",
+        "rendered": null,
+        "type": [Function],
+      },
+      null,
+      null,
+      null,
+    ],
+    "type": "div",
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": Array [
+          null,
+          <Input
+            doNotFocus={true}
+            doNotScroll={true}
+            onChange={[Function]}
+            placeholder="Foo"
+            searchIcon={true}
+            size="small"
+          />,
+          null,
+          null,
+          null,
+          Array [],
+        ],
+        "className": "inputTag",
+      },
+      "ref": null,
+      "rendered": Array [
+        null,
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "doNotFocus": true,
+            "doNotScroll": true,
+            "onChange": [Function],
+            "placeholder": "Foo",
+            "searchIcon": true,
+            "size": "small",
+          },
+          "ref": "inputTag",
+          "rendered": null,
+          "type": [Function],
+        },
+        null,
+        null,
+        null,
+      ],
+      "type": "div",
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+      },
+    },
+  },
+}
+`;

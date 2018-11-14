@@ -1,0 +1,40 @@
+.rounded-image {
+  background: #fff;
+  border: none;
+  border-radius: 50%;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  display: inline-block;
+  margin: 5px;
+  position: relative;
+  overflow: hidden;
+
+  &.x-large {
+    height: 250px;
+    width: 250px;
+  }
+  &.large {
+    height: 150px;
+    width: 150px;
+  }
+  &.medium {
+    height: 100px;
+    width: 100px;
+  }
+  &.small {
+    height: 50px;
+    width: 50px;
+  }
+  &.x-small {
+    height: 40px;
+    width: 40px;
+  }
+  &.xx-small {
+    height: 25px;
+    width: 25px;
+  }
+
+  .image {
+    width: 100%;
+  }
+}

@@ -1,0 +1,392 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test ProgressBar component should render correctly 1`] = `
+ShallowWrapper {
+  "length": 1,
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <ProgressBar
+    onClickHandler={[MockFunction]}
+    percentage={15}
+    size="large"
+    title="Lorem ipsum"
+  />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "host",
+    "props": Object {
+      "children": Array [
+        <div
+          className="title"
+        >
+          Lorem ipsum
+        </div>,
+        <div
+          className="progressBar"
+        >
+          <div
+            className="line"
+          >
+            <Motion
+              defaultStyle={
+                Object {
+                  "progress": 0,
+                }
+              }
+              style={
+                Object {
+                  "progress": Object {
+                    "damping": 26,
+                    "precision": 0.01,
+                    "stiffness": 170,
+                    "val": 15,
+                  },
+                }
+              }
+            >
+              [Function]
+            </Motion>
+          </div>
+          <div
+            className="percentage"
+            style={Object {}}
+          >
+            15
+            %
+          </div>
+        </div>,
+      ],
+      "className": "progressBarWrapper large",
+      "onClick": [Function],
+      "style": Object {},
+    },
+    "ref": null,
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": "Lorem ipsum",
+          "className": "title",
+        },
+        "ref": null,
+        "rendered": "Lorem ipsum",
+        "type": "div",
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": Array [
+            <div
+              className="line"
+            >
+              <Motion
+                defaultStyle={
+                  Object {
+                    "progress": 0,
+                  }
+                }
+                style={
+                  Object {
+                    "progress": Object {
+                      "damping": 26,
+                      "precision": 0.01,
+                      "stiffness": 170,
+                      "val": 15,
+                    },
+                  }
+                }
+              >
+                [Function]
+              </Motion>
+            </div>,
+            <div
+              className="percentage"
+              style={Object {}}
+            >
+              15
+              %
+            </div>,
+          ],
+          "className": "progressBar",
+        },
+        "ref": null,
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": <Motion
+                defaultStyle={
+                  Object {
+                    "progress": 0,
+                  }
+                }
+                style={
+                  Object {
+                    "progress": Object {
+                      "damping": 26,
+                      "precision": 0.01,
+                      "stiffness": 170,
+                      "val": 15,
+                    },
+                  }
+                }
+              >
+                [Function]
+              </Motion>,
+              "className": "line",
+            },
+            "ref": null,
+            "rendered": Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "children": [Function],
+                "defaultStyle": Object {
+                  "progress": 0,
+                },
+                "style": Object {
+                  "progress": Object {
+                    "damping": 26,
+                    "precision": 0.01,
+                    "stiffness": 170,
+                    "val": 15,
+                  },
+                },
+              },
+              "ref": null,
+              "rendered": [Function],
+              "type": [Function],
+            },
+            "type": "div",
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": Array [
+                15,
+                "%",
+              ],
+              "className": "percentage",
+              "style": Object {},
+            },
+            "ref": null,
+            "rendered": Array [
+              15,
+              "%",
+            ],
+            "type": "div",
+          },
+        ],
+        "type": "div",
+      },
+    ],
+    "type": "div",
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": Array [
+          <div
+            className="title"
+          >
+            Lorem ipsum
+          </div>,
+          <div
+            className="progressBar"
+          >
+            <div
+              className="line"
+            >
+              <Motion
+                defaultStyle={
+                  Object {
+                    "progress": 0,
+                  }
+                }
+                style={
+                  Object {
+                    "progress": Object {
+                      "damping": 26,
+                      "precision": 0.01,
+                      "stiffness": 170,
+                      "val": 15,
+                    },
+                  }
+                }
+              >
+                [Function]
+              </Motion>
+            </div>
+            <div
+              className="percentage"
+              style={Object {}}
+            >
+              15
+              %
+            </div>
+          </div>,
+        ],
+        "className": "progressBarWrapper large",
+        "onClick": [Function],
+        "style": Object {},
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": "Lorem ipsum",
+            "className": "title",
+          },
+          "ref": null,
+          "rendered": "Lorem ipsum",
+          "type": "div",
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": Array [
+              <div
+                className="line"
+              >
+                <Motion
+                  defaultStyle={
+                    Object {
+                      "progress": 0,
+                    }
+                  }
+                  style={
+                    Object {
+                      "progress": Object {
+                        "damping": 26,
+                        "precision": 0.01,
+                        "stiffness": 170,
+                        "val": 15,
+                      },
+                    }
+                  }
+                >
+                  [Function]
+                </Motion>
+              </div>,
+              <div
+                className="percentage"
+                style={Object {}}
+              >
+                15
+                %
+              </div>,
+            ],
+            "className": "progressBar",
+          },
+          "ref": null,
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": <Motion
+                  defaultStyle={
+                    Object {
+                      "progress": 0,
+                    }
+                  }
+                  style={
+                    Object {
+                      "progress": Object {
+                        "damping": 26,
+                        "precision": 0.01,
+                        "stiffness": 170,
+                        "val": 15,
+                      },
+                    }
+                  }
+                >
+                  [Function]
+                </Motion>,
+                "className": "line",
+              },
+              "ref": null,
+              "rendered": Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "class",
+                "props": Object {
+                  "children": [Function],
+                  "defaultStyle": Object {
+                    "progress": 0,
+                  },
+                  "style": Object {
+                    "progress": Object {
+                      "damping": 26,
+                      "precision": 0.01,
+                      "stiffness": 170,
+                      "val": 15,
+                    },
+                  },
+                },
+                "ref": null,
+                "rendered": [Function],
+                "type": [Function],
+              },
+              "type": "div",
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": Array [
+                  15,
+                  "%",
+                ],
+                "className": "percentage",
+                "style": Object {},
+              },
+              "ref": null,
+              "rendered": Array [
+                15,
+                "%",
+              ],
+              "type": "div",
+            },
+          ],
+          "type": "div",
+        },
+      ],
+      "type": "div",
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+      },
+    },
+  },
+}
+`;

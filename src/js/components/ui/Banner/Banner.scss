@@ -1,0 +1,59 @@
+.banner {
+	background-color: #E2E3E7;
+	border-left: 3px solid #6C6F82;
+	border-radius: 0 10px 10px 0;
+	-moz-border-radius: 0 10px 10px 0;
+	-webkit-border-radius: 0 10px 10px 0;
+	color: #6C6F82;
+	display: inline-block;
+	font-size: 16px;
+	margin: 10px;
+	padding: 20px;
+
+	.text-wrapper {
+		cursor: pointer;
+		display: inline-block;
+		width: 75%;
+
+		.title {
+			margin: 0;
+		}
+		.description {
+		}
+	}
+
+	.button-wrapper {
+		display: inline-block;
+		width: 75%;
+
+		.button {
+			border: 1px solid #6C6F82;
+			border-radius: 25px;
+			-moz-border-radius: 25px;
+			-webkit-border-radius: 25px;
+			cursor: pointer;
+			display: inline-block;
+			font-weight: bold;
+			height: 35px;
+			line-height: 35px;
+			padding: 0 20px 0 20px;
+		}
+	}
+
+	.skip-link {
+		cursor: pointer;
+		display: inline-block;
+		font-weight: bold;
+		text-align: right;
+		width: 24%;
+	}
+	.icon {
+		cursor: pointer;
+		display: inline-block;
+		font-size: 50px;
+		font-weight: bold;
+		text-align: right;
+		width: 24%;
+		vertical-align: top;
+	}
+}

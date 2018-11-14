@@ -5,7 +5,7 @@ import AuthenticatedComponent from '../AuthenticatedComponent';
 import CardUser from '../cardUsers/CardUser';
 import selectn from 'selectn';
 import ChatUserStatusStore from '../../stores/ChatUserStatusStore';
-import InfiniteScroll from "../scroll/InfiniteScroll";
+import InfiniteScroll from "../Scroll/InfiniteScroll";
 import CardUserPlaceholder from "../cardUsers/CardUserPlaceholder";
 
 /**

@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import Question from './Question';
 import EmptyMessage from '../ui/EmptyMessage';
-import Scroll from "../scroll/Scroll";
+import Scroll from "../Scroll/Scroll";
 import translate from '../../i18n/Translate';
 
 @translate('QuestionList')

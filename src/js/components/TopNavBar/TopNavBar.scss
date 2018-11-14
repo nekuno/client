@@ -1,0 +1,94 @@
+@import '../../../scss/_partials/colors';
+
+.search-input {
+  margin-top: -20px;
+  position: absolute;
+  width: 100%;
+}
+
+.left {
+  cursor: pointer;
+  display: inline-block;
+  height: 50px;
+  padding: 0 2%;
+  text-align: left;
+  vertical-align: top;
+  width: 21%;
+
+  .icon {
+    display: inline-block;
+    font-size: 25px;
+    line-height: 50px;
+    margin-top: 0;
+    text-align: center;
+    height: 50px;
+    width: 40px;
+  }
+  .rounded-icon {
+    display: inline-block;
+  }
+
+  &.small {
+    .icon {
+      margin-top: 8px;
+    }
+  }
+
+}
+.center {
+  display: inline-block;
+  height: 100%;
+  width: 50%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  vertical-align: top;
+
+  &.small {
+    font-size: 13px;
+    line-height: 40px;
+    vertical-align: text-top;
+  }
+}
+.right {
+  display: inline-block;
+  height: 50px;
+  padding: 0 2%;
+  text-align: right;
+  vertical-align: top;
+  width: 21%;
+
+  .icon {
+    cursor: pointer;
+    display: inline-block;
+    font-size: 25px;
+    line-height: 50px;
+    margin-top: 0;
+    text-align: center;
+    height: 50px;
+    width: 40px;
+
+    &.second {
+      margin-left: 20px;
+    }
+    &.icon-search {
+      color: $purple-main;
+    }
+  }
+  .rounded-icon {
+    display: inline-block;
+    height: 35px;
+    padding: 7.5px 0;
+
+    &.second {
+      margin-left: 20px;
+    }
+  }
+
+  &.small {
+
+    .icon {
+      margin-top: 8px;
+    }
+  }
+}

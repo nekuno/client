@@ -3,13 +3,14 @@ import React, { Component } from 'react';
 import translate from '../i18n/Translate';
 import TopNavBar from '../components/TopNavBar/TopNavBar.js';
 import '../../scss/pages/proposals-project-preview.scss';
-import * as ProposalActionCreators from "../actions/ProposalActionCreators";
 import RoundedIcon from "../components/ui/RoundedIcon/RoundedIcon";
 import CreatingProposalStore from "../stores/CreatingProposalStore";
 import connectToStores from "../utils/connectToStores";
 import ProfileStore from "../stores/ProfileStore";
 import TagSuggestionsStore from "../stores/TagSuggestionsStore";
 import StepsBar from "../components/ui/StepsBar/StepsBar";
+import ThreadStore from "../stores/ThreadStore";
+import FilterStore from "../stores/FilterStore";
 
 
 function getState() {
@@ -21,6 +22,9 @@ function getState() {
     const availability = proposal.availability;
     const projectMembers = proposal.projectMembers;
     const proposalFilters = proposal.proposalFilters;
+
+    const filters = FilterStore.filters;
+
 
     const metadata = ProfileStore.getMetadata();
     const professionalSectorChoices = metadata && metadata.industry ? metadata.industry.choices : [];
@@ -34,26 +38,29 @@ function getState() {
         projectMembers,
         proposalFilters,
         professionalSectorChoices,
+        filters,
     };
 }
 
 @translate('ProposalsProjectPreviewPage')
-@connectToStores([CreatingProposalStore, TagSuggestionsStore], getState)
+@connectToStores([CreatingProposalStore, TagSuggestionsStore, ThreadStore, FilterStore], getState)
 export default class ProposalsProjectPreviewPage extends Component {
 
     static propTypes = {
         // Injected by @translate:
-        strings    : PropTypes.object,
-        canContinue: PropTypes.bool,
+        strings                  : PropTypes.object,
+        canContinue              : PropTypes.bool,
         // Injected by @connectToStores:
-        title      : PropTypes.string,
-        description: PropTypes.string,
-        professionalSector: PropTypes.array,
-        skills: PropTypes.array,
-        availability: PropTypes.object,
-        projectMembers: PropTypes.number,
-        proposalFilters: PropTypes.object,
-        professionalSectorChoices    : PropTypes.array,
+        title                    : PropTypes.string,
+        description              : PropTypes.string,
+        professionalSector       : PropTypes.array,
+        skills                   : PropTypes.array,
+        availability             : PropTypes.object,
+        projectMembers           : PropTypes.number,
+        proposalFilters          : PropTypes.object,
+        professionalSectorChoices: PropTypes.array,
+        filters                  : PropTypes.object,
+
     };
 
     static contextTypes = {
@@ -70,13 +77,7 @@ export default class ProposalsProjectPreviewPage extends Component {
     }
 
     componentWillMount() {
-        // console.log(CreatingProposalStore.proposal);
-        // if (CreatingProposalStore.proposal) {
-        //     this.setState({
-        //         title : CreatingProposalStore.proposal.title,
-        //         description: CreatingProposalStore.proposal.description,
-        //     });
-        // }
+
     }
 
     handleTitleChange(event) {
@@ -106,17 +107,25 @@ export default class ProposalsProjectPreviewPage extends Component {
     }
 
     renderProposalFilterBirthday(filter) {
-        return 'From ' + filter.min + ' to ' + filter.max + ' years';
+        const {strings} = this.props;
+
+        return strings.from + filter.min + strings.to + filter.max + strings.years;
     }
 
     renderProposalFilterLocation(filter) {
-        return filter.location.address + ' within radio of ' + filter.distance + ' km';
+        const {strings} = this.props;
+
+        return filter.location.address + strings.withinRadioOf + filter.distance + ' km';
     }
 
     renderProposalFilter(item, filter) {
+        const {filters} = this.props;
+
         switch (item) {
             case 'alcohol':
-                return this.renderProposalFilterArray(filter);
+                console.log(filters.userFilters[item].choices);
+                console.log(Object.keys(filters.userFilters[item].choices));
+                return this.renderProposalFilterArray(filter, filters.userFilters[item].choices);
                 break;
             case 'birthday':
                 return this.renderProposalFilterBirthday(filter);
@@ -151,25 +160,12 @@ export default class ProposalsProjectPreviewPage extends Component {
             default:
                 break;
         }
-        // let filterItem = '';
-        // Object.keys(item).map(function(element, index) {
-        //     if (!(item instanceof Array)) {
-        //         filterItem += element + ': ';
-        //     }
-        //     filterItem += item[element];
-        //     if (!(item instanceof Array))
-        //         filterItem += ' ';
-        //     if (item.length !== index + 1 && (item instanceof Array))
-        //         filterItem += ', ';
-        // });
-        // return filterItem;
     }
 
     render() {
-        const {strings, title, description, professionalSector, skills, availability, projectMembers, proposalFilters, professionalSectorChoices} = this.props;
+        const {strings, title, description, professionalSector, skills, availability, projectMembers, proposalFilters, professionalSectorChoices, filters} = this.props;
 
-        console.log(skills);
-        console.log(proposalFilters);
+        console.log(filters);
 
         const dailyWeekdayOptions = {
             monday   : strings.monday,
@@ -186,8 +182,6 @@ export default class ProposalsProjectPreviewPage extends Component {
             afternoon: strings.afternoon,
             night    : strings.night,
         };
-
-        console.log(typeof proposalFilters['alcohol']);
 
         return (
             <div className="views">
@@ -308,7 +302,9 @@ export default class ProposalsProjectPreviewPage extends Component {
 
                             {Object.keys(proposalFilters).map((item, index) =>
                                 <div key={index}>
-                                    <div className={'small'}><strong>{item}</strong></div>
+                                    <div className={'small'}>
+                                        <strong>{filters.userFilters[item].label}</strong>
+                                    </div>
                                     <div className={'resume small'}>{this.renderProposalFilter(item, proposalFilters[item])}</div>
                                 </div>
                             )}
@@ -316,9 +312,11 @@ export default class ProposalsProjectPreviewPage extends Component {
                         </div>
                     </div>
                 </div>
-                {/*<StepsBar canContinue={true} continueText={strings.publishProposal} totalSteps={0} onClickHandler={this.saveAndContinue}/>*/}
-
-                <StepsBar color={'blue'} canContinue={true} continueText={strings.publishProposal} totalSteps={0}/>
+                <StepsBar
+                    color={'blue'}
+                    canContinue={true}
+                    continueText={strings.publishProposal}
+                    totalSteps={0}/>
             </div>
         );
     }
@@ -327,36 +325,33 @@ export default class ProposalsProjectPreviewPage extends Component {
 
 ProposalsProjectPreviewPage.defaultProps = {
     strings: {
-        project: 'Project',
-        sectors: 'Sectors',
-        habilities: 'Habilities',
-        availability: 'Availability',
+        project        : 'Project',
+        sectors        : 'Sectors',
+        skills         : 'Skills',
+        availability   : 'Availability',
         numberOfMembers: 'Number of members',
-        filterText: 'Filters to your proposal target',
-        basics: 'Basics',
-        culture: 'Culture and languages',
-        drugs: 'Drugs and other services',
-        familiar: 'Familiar aspects',
+        filterText     : 'Filters to your proposal target',
+        basics         : 'Basics',
+        culture        : 'Culture and languages',
+        drugs          : 'Drugs and other services',
+        familiar       : 'Familiar aspects',
         publishProposal: 'Publish proposal',
-
-        people: 'people',
-
-        monday                  : 'Monday',
-        tuesday                 : 'Tuesday',
-        wednesday               : 'Wednesday',
-        thursday                : 'Thursday',
-        friday                  : 'Friday',
-        saturday                : 'Saturday',
-        sunday                  : 'Sunday',
-        and                     : 'and',
-        scheduleOf              : 'schedule of',
-        morning                 : 'morning',
-        afternoon               : 'afternoon',
-        night                   : 'night',
-        from                    : 'From',
-        to                      : 'to',
-
-        continue: 'Publish proposal'
-
+        people         : 'people',
+        monday         : 'Monday',
+        tuesday        : 'Tuesday',
+        wednesday      : 'Wednesday',
+        thursday       : 'Thursday',
+        friday         : 'Friday',
+        saturday       : 'Saturday',
+        sunday         : 'Sunday',
+        and            : 'and',
+        scheduleOf     : 'schedule of',
+        morning        : 'morning',
+        afternoon      : 'afternoon',
+        night          : 'night',
+        from           : 'From',
+        to             : 'to',
+        years          : 'years',
+        withinRadioOf  : 'within radio of'
     }
 };

@@ -60,9 +60,6 @@ function getState(props) {
     const categories = ThreadStore.getCategories();
     const errors = ThreadStore.getErrors();
 
-    console.log('onGetState()');
-    console.log(threadId);
-
     return {
         tags,
         filters,

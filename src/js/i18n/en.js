@@ -33,7 +33,7 @@ export default {
         yourAccount : 'Your account at Nekuno',
         title       : 'Tell us what your availability is',
         finishTitle : 'Availability added!',
-        resume      : 'We need to know how much free time you have to recommend you plans whose match your availability',
+        description : 'We need to know how much free time you have to recommend you plans whose match your availability',
         finishResume: 'Now we can recommend you plans and projects which suit your availability',
         add         : 'Add availability',
         edit        : 'Edit availability',
@@ -59,13 +59,13 @@ export default {
     ConnectFacebookPage              : {
         yourAccount: 'Your account at Nekuno',
         title      : 'We are almost done! Connect Facebook',
-        resume     : 'We need to obtain information about the kind of contents you like for recommending you compatible people',
+        description: 'We need to obtain information about the kind of contents you like for recommending you compatible people',
         connect    : 'Connect with Facebook'
     },
     ConnectingFacebookPage           : {
-        analyzing: 'Analyzing data',
-        title    : 'Hello %username%!',
-        resume   : 'You are already part of Nekuno',
+        analyzing  : 'Analyzing data',
+        title      : 'Hello %username%!',
+        description: 'You are already part of Nekuno',
      },
     ConnectSocialNetworksOnSignUpPage: {
         next    : 'Continue',
@@ -83,7 +83,7 @@ export default {
     },
     ConnectSteamAnonymous            : {
         connect       : 'Connect Steam',
-        resume        : 'Load your favorite games automatically',
+        description   : 'Load your favorite games automatically',
         cannotGetGames: 'You may have privacy settings to private. Try to set to public if you want to see your games.'
     },
     DailyInputRange                   : {
@@ -104,7 +104,7 @@ export default {
     ExplorerProfilePage              : {
         yourAccount: 'Your account at Nekuno',
         title      : 'Fill your explorer profile',
-        resume     : 'We need to know what kind of activities and experiences you like to recommend you people and plans',
+        description: 'We need to know what kind of activities and experiences you like to recommend you people and plans',
         fillProfile: 'Fill profile',
         skip       : 'Not now'
     },
@@ -228,7 +228,7 @@ export default {
     LeisureProfilePage               : {
         yourAccount: 'Your account at Nekuno',
         title      : 'Fill your leisure profile',
-        resume     : 'We need to know your sports, games and favorite hobbies to recommend you people and plans',
+        description: 'We need to know your sports, games and favorite hobbies to recommend you people and plans',
         fillProfile: 'Fill profile',
         skip       : 'Not now'
     },
@@ -315,7 +315,7 @@ export default {
     ProfessionalProfilePage          : {
         yourAccount: 'Your account at Nekuno',
         title      : 'Fill your professional profile',
-        resume     : 'We need to know your industry and professional skills to recommend you people and projects',
+        description: 'We need to know your industry and professional skills to recommend you people and projects',
         fillProfile: 'Fill profile',
         skip       : 'Not now'
     },
@@ -341,7 +341,7 @@ export default {
     ProposalsProjectIntroductionPage        : {
         publishProposal: 'Publish proposal',
         title          : 'Do your proposal for a project',
-        resume         : 'Publish that idea or project that you have in mind and we will find related people to carry it out.',
+        description    : 'Publish that idea or project that you have in mind and we will find related people to carry it out.',
         doProposal     : 'Create proposal'
     },
     ProposalsProjectBasicPage        : {

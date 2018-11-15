@@ -70,7 +70,7 @@ export default class LeisureProfilePage extends Component {
                             <img src="/img/proposals/ConocerGente.png"/>
                         </div>
                         <h1>{strings.title}</h1>
-                        <div className="resume">{strings.resume}</div>
+                        <div className="resume">{strings.description}</div>
                         <Button onClickHandler={this.goToLeisureProfileSportsPage}>{strings.fillProfile}</Button>
                         <div className="skip-wrapper small" onClick={this.goToExplorerProfilePage}>
                             <span className="skip-text">{strings.skip}&nbsp;</span>
@@ -88,7 +88,7 @@ LeisureProfilePage.defaultProps = {
     strings: {
         yourAccount: 'Your account at Nekuno',
         title      : 'Fill your leisure profile',
-        resume     : 'We need to know your sports, games and favorite hobbies to recommend you people and plans',
+        description: 'We need to know your sports, games and favorite hobbies to recommend you people and plans',
         fillProfile: 'Fill profile',
         skip       : 'Not now'
     }

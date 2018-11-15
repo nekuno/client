@@ -12,7 +12,7 @@ export default class ProposalCard extends Component {
     static propTypes = {
         image         : PropTypes.string.isRequired,
         title         : PropTypes.string.isRequired,
-        resume        : PropTypes.string.isRequired,
+        description   : PropTypes.string.isRequired,
         type          : PropTypes.string.isRequired,
         photo         : PropTypes.string.isRequired,
         nickname      : PropTypes.string.isRequired,
@@ -30,11 +30,11 @@ export default class ProposalCard extends Component {
     }
 
     render() {
-        const {image, title, resume, type, photo, nickname, age, city, matching, similarity, strings} = this.props;
+        const {image, title, description, type, photo, nickname, age, city, matching, similarity, strings} = this.props;
         let icon = null;
         let background = null;
         switch (type) {
-            case 'professional-project':
+            case 'work':
                 icon = 'paperclip';
                 background = '#63CAFF';
                 break;
@@ -80,9 +80,9 @@ export default class ProposalCard extends Component {
                             <ProgressBar percentage={similarity} size={'small'} strokeColor={'#756EE5'}/>
                         </div>
                     </div>
-                    <div className={styles.resume}>
+                    <div className={styles.description}>
                         <div className={styles.resumeTitle}>{strings.project}</div>
-                        <div className={styles.resumeText}>{resume}</div>
+                        <div className={styles.resumeText}>{description}</div>
                     </div>
                 </div>
             </div>

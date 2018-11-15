@@ -116,7 +116,7 @@ export default class ConnectFacebookPage extends Component {
                             <img src="/img/proposals/Facebook.png"/>
                         </div>
                         <h1>{strings.title}</h1>
-                        <div className="resume">{strings.resume}</div>
+                        <div className="resume">{strings.description}</div>
                         <Button onClickHandler={this.connectFacebook} disabled={registering}>{strings.connect}</Button>
                     </div>
                 </div>
@@ -130,7 +130,7 @@ ConnectFacebookPage.defaultProps = {
     strings: {
         yourAccount: 'Your account at Nekuno',
         title      : 'We are almost done! Connect Facebook',
-        resume     : 'We need to obtain information about the kind of contents you like for recommending you compatible people',
+        description: 'We need to obtain information about the kind of contents you like for recommending you compatible people',
         connect    : 'Connect with Facebook',
     }
 };

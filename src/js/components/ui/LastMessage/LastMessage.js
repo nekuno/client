@@ -40,7 +40,7 @@ export default class LastMessage extends Component {
         
         if (proposalType) {
             switch (proposalType) {
-                case 'professional-project':
+                case 'work':
                     icon = 'paperclip';
                     background = '#63CAFF';
                     mainBackground = 'rgba(99, 202, 255, 0.1)';

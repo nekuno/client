@@ -85,7 +85,7 @@ export default class ProposalsProjectPreviewPage extends Component {
     }
 
     handleResumeChange(event) {
-        this.setState({resume: event});
+        this.setState({description: event});
     }
 
     topNavBarRightLinkClick() {

@@ -70,7 +70,7 @@ export default class ProfessionalProfilePage extends Component {
                             <img src="/img/proposals/Trabajo.png"/>
                         </div>
                         <h1>{strings.title}</h1>
-                        <div className="resume">{strings.resume}</div>
+                        <div className="resume">{strings.description}</div>
                         <Button onClickHandler={this.goToProfessionalProfileIndustryPage}>{strings.fillProfile}</Button>
                         <div className="skip-wrapper small" onClick={this.goToLeisureProfilePage}>
                             <span className="skip-text">{strings.skip}&nbsp;</span>
@@ -88,7 +88,7 @@ ProfessionalProfilePage.defaultProps = {
     strings: {
         yourAccount: 'Your account at Nekuno',
         title      : 'Fill your professional profile',
-        resume     : 'We need to know your industry and professional skills to recommend you people and projects',
+        description: 'We need to know your industry and professional skills to recommend you people and projects',
         fillProfile: 'Fill profile',
         skip       : 'Not now'
     }

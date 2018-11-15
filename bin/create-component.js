@@ -9,7 +9,7 @@ fs.readFile(__dirname + '/ComponentModel/ComponentModel.js', 'utf8', function (e
     }
     console.log('\x1b[36m%s\x1b[0m', 'Component class name without extension (ComponentModel):');
 
-    process.stdin.resume();
+    process.stdin.description();
     process.stdin.setEncoding('utf8');
 
     process.stdin.once('data', function (text) {

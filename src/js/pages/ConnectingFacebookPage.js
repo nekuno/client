@@ -73,7 +73,7 @@ export default class ConnectingFacebookPage extends Component {
                     <div className="connecting-facebook-wrapper">
                         <Overlay/>
                         <h1>{strings.title.replace('%username%', username)}</h1>
-                        <h2>{strings.resume}</h2>
+                        <h2>{strings.description}</h2>
                         <div className="first-image-wrapper">
                             <div className="second-image-wrapper">
                                 <div className="third-image-wrapper">
@@ -108,8 +108,8 @@ export default class ConnectingFacebookPage extends Component {
 
 ConnectingFacebookPage.defaultProps = {
     strings: {
-        analyzing: 'Analyzing data',
-        title    : 'Hello %username%!',
-        resume   : 'You are already part of Nekuno',
+        analyzing  : 'Analyzing data',
+        title      : 'Hello %username%!',
+        description: 'You are already part of Nekuno',
     }
 };

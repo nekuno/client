@@ -95,7 +95,7 @@ export default class ConnectSteamAnonymous extends Component {
                         </div>
                         <div className={styles.textWrapper}>
                             <div className={styles.title + ' small'}>{strings.connect}</div>
-                            <div className={styles.resume + ' small'}>{strings.resume}</div>
+                            <div className={styles.description + ' small'}>{strings.description}</div>
                         </div>
                     </Frame>
                 }
@@ -107,7 +107,7 @@ export default class ConnectSteamAnonymous extends Component {
 ConnectSteamAnonymous.defaultProps = {
     strings  : {
         connect       : 'Connect Steam',
-        resume        : 'Load your favorite games automatically',
+        description   : 'Load your favorite games automatically',
         cannotGetGames: 'You may have privacy settings to private. Try to set to public if you want to see your games.'
     },
 };

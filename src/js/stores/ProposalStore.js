@@ -128,11 +128,11 @@ class ProposalStore extends BaseStore {
     }
 
     sort(userSlug) {
-        this._otherProposals[userSlug] = this._otherProposals[userSlug].sort(this._compareTwoProposals(proposalA, proposalB));
+        this._otherProposals[userSlug] = this._otherProposals[userSlug].sort(this._compareTwoProposals);
     }
 
     sortOwn() {
-        this._ownProposals = this._ownProposals.sort(this._compareTwoProposals(proposalA, proposalB))
+        this._ownProposals = this._ownProposals.sort(this._compareTwoProposals);
     }
 
     _compareTwoProposals(proposalA, proposalB)

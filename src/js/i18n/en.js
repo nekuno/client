@@ -352,14 +352,14 @@ export default {
         stepsBarContinueText: 'Continue',
         stepsBarCantContinueText: 'You cannot continue',
     },
-    ProposalsProjectProfessionalPage     : {
+    ProposalsProjectIndustryPage     : {
         title: 'What professional sectors do you require for the project?',
         placeholder: 'Search sector',
         selectedLabel: 'Sectors you want',
         stepsBarContinueText: 'Continue',
         stepsBarCantContinueText: 'Indicate one to continue',
     },
-    ProposalsProjectSkillsPage     : {
+    ProposalsProjectProfessionPage     : {
         title: 'What skills would you like for the project?',
         placeholder: 'Search skill',
         selectedLabel: 'Skills you want',
@@ -394,16 +394,11 @@ export default {
         title                   : 'What availability do you need for the project?',
     },
     ProposalsProjectFeaturesPage : {
-        title               : 'Are you looking for people with specific features?',
-        filterWarning       : 'Estos filtros sólo serán visibles para ti y nos sirven para filtrar usuarios',
-        featuresBasic       : 'Basic features',
-        featuresAvailability: 'Availability',
-        featuresPhysical    : 'Physical appearance',
-        featuresCulture     : 'Culture and Language',
-        featuresDrugs       : 'Drugs and other vices',
-        featuresFamiliar    : 'Familiar features',
-        stepsBarContinueText: 'Continue',
-        stepsBarCantContinueText: 'Indicate one to continue',
+        title                    : 'Are you looking for people with specific features?',
+        filterWarning            : 'This filters only be visible for you and we need to filter users',
+        showResults              : 'Show results',
+        stepsBarContinueText     : 'Continue',
+        stepsBarCantContinueText : 'You cannot continue',
     },
     ProposalsProjectPreviewPage : {
         project        : 'Project',
@@ -684,6 +679,13 @@ export default {
     ProfileData                      : {
         seeLess: 'See less',
         seeMore: 'See more'
+    },
+    ProposalFilterPreview            : {
+        filterText     : 'Filters to your proposal target',
+        from           : 'From',
+        to             : 'to',
+        years          : 'years',
+        withinRadioOf  : 'within radio of'
     },
     AnswerUsernamePage               : {
         yourAccount      : 'Your account at Nekuno',

@@ -1,13 +1,13 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import translate from '../i18n/Translate';
-import TopNavBar from '../components/TopNavBar/TopNavBar.js';
-import '../../scss/pages/proposals-project-introduction.scss';
-import Overlay from "../components/ui/Overlay/Overlay";
-import Button from "../components/ui/Button/Button";
+import translate from '../../../i18n/Translate';
+import TopNavBar from '../../../components/TopNavBar/TopNavBar.js';
+import '../../../../scss/pages/proposals-project-introduction.scss';
+import Overlay from "../../../components/ui/Overlay/Overlay";
+import Button from "../../../components/ui/Button/Button";
 
 @translate('ProposalsProjectIntroductionPage')
-export default class ProposalsProjectIntroductionPage extends Component {
+export default class IntroductionPage extends Component {
 
     static propTypes = {
         // Injected by @translate:
@@ -21,16 +21,16 @@ export default class ProposalsProjectIntroductionPage extends Component {
     constructor(props) {
         super(props);
 
-        this.topNavBarRightLinkClick = this.topNavBarRightLinkClick.bind(this);
         this.topNavBarLeftLinkClick = this.topNavBarLeftLinkClick.bind(this);
-    }
-
-    topNavBarRightLinkClick() {
-        this.context.router.push('/proposals-project-basic');
+        this.topNavBarRightLinkClick = this.topNavBarRightLinkClick.bind(this);
     }
 
     topNavBarLeftLinkClick() {
         this.context.router.push('/proposals');
+    }
+
+    topNavBarRightLinkClick() {
+        this.context.router.push('/proposals-project-basic');
     }
 
     render() {
@@ -39,9 +39,16 @@ export default class ProposalsProjectIntroductionPage extends Component {
         return (
             <div className="views">
                 <div className="view view-main proposals-introduction-view">
-                    <TopNavBar background={'transparent'} color={'white'} firstIconRight={'x'} textCenter={strings.publishProposal} position={'absolute'} textSize={'small'} onLeftLinkClickHandler={this.topNavBarLeftLinkClick} onRightLinkClickHandler={this.topNavBarRightLinkClick}/>
+                    <TopNavBar
+                        background={'transparent'}
+                        color={'white'}
+                        firstIconRight={'x'}
+                        textCenter={strings.publishProposal}
+                        position={'absolute'}
+                        textSize={'small'}
+                        onLeftLinkClickHandler={this.topNavBarLeftLinkClick}
+                        onRightLinkClickHandler={this.topNavBarRightLinkClick}/>
                     <div className="proposals-introduction-wrapper">
-                        <Overlay/>
                         <div className="image-wrapper">
                             <img src="/img/proposals/Trabajo.png"/>
                         </div>
@@ -56,7 +63,7 @@ export default class ProposalsProjectIntroductionPage extends Component {
 
 }
 
-ProposalsProjectIntroductionPage.defaultProps = {
+IntroductionPage.defaultProps = {
     strings: {
         publishProposal: 'Publish proposal',
         title: 'Do your proposal for a project',

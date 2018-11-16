@@ -50,6 +50,11 @@ body #root .App .views .view.proposals-project-preview-view {
         font-size: 14px;
       }
     }
+
+    .filters-wrapper {
+      padding: 16px;
+      background: $background-darken;
+    }
   }
 }
 

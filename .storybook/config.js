@@ -3,6 +3,7 @@ import '../src/scss/layout.scss';
 
 function loadStories() {
     require('../stories/AvailabilityEdit.stories');
+    require('../stories/ProposalFilterPreview');
     require('../stories/Banner.stories');
     require('../stories/BottomNavBar.stories');
     require('../stories/BottomNotificationBar.stories');

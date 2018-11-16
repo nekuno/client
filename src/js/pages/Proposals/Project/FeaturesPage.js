@@ -1,33 +1,27 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import translate from '../i18n/Translate';
-import TopNavBar from '../components/TopNavBar/TopNavBar.js';
-import '../../scss/pages/proposals-project-features.scss';
-import InputSelectText from "../components/RegisterFields/InputSelectText/InputSelectText";
-import StepsBar from "../components/ui/StepsBar/StepsBar";
-import ProfileStore from "../stores/ProfileStore";
-import connectToStores from "../utils/connectToStores";
-import * as ProposalActionCreators from "../actions/ProposalActionCreators";
-import InputTag from "../components/RegisterFields/InputTag/InputTag";
-import TagSuggestionsStore from "../stores/TagSuggestionsStore";
-import * as TagSuggestionsActionCreators from "../actions/TagSuggestionsActionCreators";
-import RoundedIcon from "../components/ui/RoundedIcon/RoundedIcon";
-import FrameCollapsible from "../components/ui/FrameCollapsible/FrameCollapsible";
-import SelectMultiple from "../components/ui/SelectMultiple/SelectMultiple";
-import {forceReRender} from "@storybook/react";
-import ThreadStore from "../stores/ThreadStore";
-import FilterStore from "../stores/FilterStore";
-import * as ThreadActionCreators from "../actions/ThreadActionCreators";
-import ChoiceFilter from "../components/_threads/filters/ChoiceFilter";
-import LocationFilter from "../components/_threads/filters/LocationFilter";
-import IntegerRangeFilter from "../components/Threads/Filters/IntegerRangeFilter";
-import IntegerFilter from "../components/Threads/Filters/IntegerFilter";
-import MultipleChoicesFilter from "../components/Threads/Filters/MultipleChoicesFilter";
-import DoubleMultipleChoicesFilter from "../components/_threads/filters/DoubleMultipleChoicesFilter";
-import ChoiceAndMultipleChoicesFilter from "../components/Threads/Filters/ChoiceAndMultipleChoicesFilter";
-import TagFilter from "../components/Threads/Filters/TagFilter";
-import TagsAndMultipleChoicesFilter from "../components/Threads/Filters/TagsAndMultipleChoicesFilter";
-import AuthenticatedComponent from "../components/AuthenticatedComponent";
+import translate from '../../../i18n/Translate';
+import TopNavBar from '../../../components/TopNavBar/TopNavBar.js';
+import '../../../../scss/pages/proposals-project-features.scss';
+import StepsBar from "../../../components/ui/StepsBar/StepsBar";
+import connectToStores from "../../../utils/connectToStores";
+import * as ProposalActionCreators from "../../../actions/ProposalActionCreators";
+import TagSuggestionsStore from "../../../stores/TagSuggestionsStore";
+import RoundedIcon from "../../../components/ui/RoundedIcon/RoundedIcon";
+import FrameCollapsible from "../../../components/ui/FrameCollapsible/FrameCollapsible";
+import ThreadStore from "../../../stores/ThreadStore";
+import FilterStore from "../../../stores/FilterStore";
+import * as ThreadActionCreators from "../../../actions/ThreadActionCreators";
+import ChoiceFilter from "../../../components/_threads/filters/ChoiceFilter";
+import LocationFilter from "../../../components/_threads/filters/LocationFilter";
+import IntegerRangeFilter from "../../../components/Threads/Filters/IntegerRangeFilter";
+import IntegerFilter from "../../../components/Threads/Filters/IntegerFilter";
+import MultipleChoicesFilter from "../../../components/Threads/Filters/MultipleChoicesFilter";
+import DoubleMultipleChoicesFilter from "../../../components/_threads/filters/DoubleMultipleChoicesFilter";
+import ChoiceAndMultipleChoicesFilter from "../../../components/Threads/Filters/ChoiceAndMultipleChoicesFilter";
+import TagFilter from "../../../components/Threads/Filters/TagFilter";
+import TagsAndMultipleChoicesFilter from "../../../components/Threads/Filters/TagsAndMultipleChoicesFilter";
+import AuthenticatedComponent from "../../../components/AuthenticatedComponent";
 
 function parseThreadId(thread) {
     return thread && thread.hasOwnProperty('id') ? thread.id : null;
@@ -72,20 +66,20 @@ function getState(props) {
 @AuthenticatedComponent
 @translate('ProposalsProjectFeaturesPage')
 @connectToStores([FilterStore, TagSuggestionsStore, ThreadStore], getState)
-export default class ProposalsProjectFeaturesPage extends Component {
+export default class FeaturesPage extends Component {
 
     static propTypes = {
-        threadId  : PropTypes.string,
+        threadId    : PropTypes.string,
         // Injected by @AuthenticatedComponent
-        user      : PropTypes.object.isRequired,
+        user        : PropTypes.object.isRequired,
         // Injected by @translate:
-        strings   : PropTypes.object,
+        strings     : PropTypes.object,
         // Injected by @connectToStores:
-        filters   : PropTypes.object,
-        tags      : PropTypes.array,
-        thread    : PropTypes.object.isRequired,
-        categories: PropTypes.array,
-        errors    : PropTypes.string,
+        filters     : PropTypes.object,
+        tags        : PropTypes.array,
+        thread      : PropTypes.object.isRequired,
+        categories  : PropTypes.array,
+        errors      : PropTypes.string,
         canContinue : PropTypes.bool,
     };
 
@@ -96,29 +90,22 @@ export default class ProposalsProjectFeaturesPage extends Component {
     constructor(props) {
         super(props);
 
-        this.handleStepsBar = this.handleStepsBar.bind(this);
+
         this.topNavBarLeftLinkClick = this.topNavBarLeftLinkClick.bind(this);
         this.topNavBarRightLinkClick = this.topNavBarRightLinkClick.bind(this);
-
-        this.renderField = this.renderField.bind(this);
         this.handleClickFilter = this.handleClickFilter.bind(this);
         this.handleChangeFilter = this.handleChangeFilter.bind(this);
         this.handleChangeFilterAndUnSelect = this.handleChangeFilterAndUnSelect.bind(this);
         this.handleClickRemoveFilter = this.handleClickRemoveFilter.bind(this);
         this.handleErrorFilter = this.handleErrorFilter.bind(this);
+        this.renderField = this.renderField.bind(this);
+        this.handleStepsBar = this.handleStepsBar.bind(this);
 
         const data = props.thread && props.thread.filters && props.thread.filters.userFilters ? props.thread.filters.userFilters : {};
-        // console.log('onProposalsProjectFeaturesPage');
-        // console.log(data);
-        // console.log(props);
-        // console.log(props.thread);
-        // console.log(props.thread.filters);
 
         this.state = {
             data: data,
         }
-
-
     }
 
     componentDidMount() {
@@ -131,6 +118,14 @@ export default class ProposalsProjectFeaturesPage extends Component {
         if (Object.keys(data).length === 0 && thread && thread.filters && thread.filters.userFilters && Object.keys(thread.filters.userFilters).length > 0) {
             this.setState({data: thread.filters.userFilters})
         }
+    }
+
+    topNavBarLeftLinkClick() {
+        this.context.router.push('/proposals-project-availability');
+    }
+
+    topNavBarRightLinkClick() {
+        this.context.router.push('/proposals');
     }
 
     handleClickFilter(field, filter) {
@@ -337,20 +332,13 @@ export default class ProposalsProjectFeaturesPage extends Component {
 
     handleStepsBar() {
         const proposal = {
-            proposalFilters: this.state.data
+            filters: {
+                userFilters: this.state.data
+            }
         };
         ProposalActionCreators.mergeCreatingProposal(proposal);
         this.context.router.push('/proposals-project-preview');
     }
-
-    topNavBarLeftLinkClick() {
-        this.context.router.push('/proposals-project-availability');
-    }
-
-    topNavBarRightLinkClick() {
-        this.context.router.push('/proposals');
-    }
-
 
     render() {
         const {user, tags, thread, categories, strings} = this.props;
@@ -374,7 +362,7 @@ export default class ProposalsProjectFeaturesPage extends Component {
                             <div className={'warning-icon-container'}>
                                 <RoundedIcon
                                     color={'#818FA1'}
-                                    background={'#fff'}
+                                    background={'#FBFCFD'}
                                     icon={'eye'}
                                     size={'small'}/>
                             </div>
@@ -418,15 +406,12 @@ export default class ProposalsProjectFeaturesPage extends Component {
     }
 }
 
-ProposalsProjectFeaturesPage.defaultProps = {
+FeaturesPage.defaultProps = {
     strings: {
-        title               : 'Are you looking for people with specific features?',
-        filterWarning       : 'Estos filtros sólo serán visibles para ti y nos sirven para filtrar usuarios',
-
-        orderedBy    : 'Ordered by',
-        compatibility: 'compatibility',
-        similarity   : 'similarity',
-        coincidences : 'coincidences',
-        showResults  : 'Show results'
+        title                    : 'Are you looking for people with specific features?',
+        filterWarning            : 'This filters only be visible for you and we need to filter users',
+        showResults              : 'Show results',
+        stepsBarContinueText     : 'Continue',
+        stepsBarCantContinueText : 'You cannot continue',
     }
 };

@@ -70,14 +70,14 @@ import GroupContentsPage from './pages/GroupContentsPage';
 import SettingsPage from './pages/SettingsPage';
 import RouterActionCreators from './actions/RouterActionCreators';
 import LoginStore from './stores/LoginStore';
-import ProposalsProjectIntroductionPage from "./pages/ProposalsProjectIntroductionPage";
-import ProposalsProjectBasicPage from "./pages/ProposalsProjectBasicPage";
-import ProposalsProjectProfessionalPage from "./pages/ProposalsProjectProfessionalPage";
-import ProposalsProjectSkillsPage from "./pages/ProposalsProjectSkillsPage";
-import ProposalsProjectAvailabilityPage from "./pages/ProposalsProjectAvailabilityPage";
-import ProposalsProjectAvailabilityDatesPage from "./pages/ProposalsProjectAvailabilityDatesPage";
-import ProposalsProjectFeaturesPage from "./pages/ProposalsProjectFeaturesPage";
-import ProposalsProjectPreviewPage from "./pages/ProposalsProjectPreviewPage";
+import IntroductionPage from "./pages/Proposals/Project/IntroductionPage";
+import BasicPage from "./pages/Proposals/Project/BasicPage";
+import IndustryPage from "./pages/Proposals/Project/IndustryPage";
+import ProfessionPage from "./pages/Proposals/Project/ProfessionPage";
+import ProposalsProjectAvailabilityPage from "./pages/Proposals/Project/AvailabilityPage";
+import AvailabilityDatesPage from "./pages/Proposals/Project/AvailabilityDatesPage";
+import FeaturesPage from "./pages/Proposals/Project/FeaturesPage";
+import PreviewPage from "./pages/Proposals/Project/PreviewPage";
 
 function requireAuth(nextState, replaceState) {
 
@@ -125,14 +125,14 @@ export default class Root extends Component {
                     <Route onEnter={requireAuth}>
                         <Route name="connecting-facebook" path="/connecting-facebook" component={ConnectingFacebookPage}/>
                         <Route name="proposals" path="/proposals" component={ProposalsPage}/>
-                        <Route name="proposals-project-introduction" path="/proposals-project-introduction" component={ProposalsProjectIntroductionPage}/>
-                        <Route name="proposals-project-basic" path="/proposals-project-basic" component={ProposalsProjectBasicPage}/>
-                        <Route name="proposals-project-professional" path="/proposals-project-professional" component={ProposalsProjectProfessionalPage}/>
-                        <Route name="proposals-project-skills" path="/proposals-project-skills" component={ProposalsProjectSkillsPage}/>
+                        <Route name="proposals-project-introduction" path="/proposals-project-introduction" component={IntroductionPage}/>
+                        <Route name="proposals-project-basic" path="/proposals-project-basic" component={BasicPage}/>
+                        <Route name="proposals-project-industry" path="/proposals-project-industry" component={IndustryPage}/>
+                        <Route name="proposals-project-profession" path="/proposals-project-profession" component={ProfessionPage}/>
                         <Route name="proposals-project-availability" path="/proposals-project-availability" component={ProposalsProjectAvailabilityPage}/>
-                        <Route name="proposals-project-availability-dates" path="/proposals-project-availability-dates" component={ProposalsProjectAvailabilityDatesPage}/>
-                        <Route name="proposals-project-features" path="/proposals-project-features" component={ProposalsProjectFeaturesPage}/>
-                        <Route name="proposals-project-preview" path="/proposals-project-preview" component={ProposalsProjectPreviewPage}/>
+                        <Route name="proposals-project-availability-dates" path="/proposals-project-availability-dates" component={AvailabilityDatesPage}/>
+                        <Route name="proposals-project-features" path="/proposals-project-features" component={FeaturesPage}/>
+                        <Route name="proposals-project-preview" path="/proposals-project-preview" component={PreviewPage}/>
                         <Route name="persons" path="/persons" component={PersonsPage}/>
                         <Route name="persons-all" path="/persons-all" component={PersonsAllPage}/>
                         <Route name="persons-filter" path="/persons-filter/:threadId" component={PersonsFilterPage}/>

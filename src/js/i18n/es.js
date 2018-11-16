@@ -352,7 +352,7 @@ export default {
         stepsBarContinueText: 'Continuar',
         stepsBarCantContinueText: 'Rellena para continuar',
     },
-    ProposalsProjectProfessionalPage     : {
+    ProposalsProjectIndustryPage     : {
         publishProposal: 'Publicar propuesta',
         title: '¿Qué sectores profesionales requieres para el proyecto?',
         placeholder: 'Buscar sector',
@@ -360,7 +360,7 @@ export default {
         stepsBarContinueText: 'Continuar',
         stepsBarCantContinueText: 'Indica uno para continuar',
     },
-    ProposalsProjectSkillsPage     : {
+    ProposalsProjectProfessionPage     : {
         publishProposal: 'Publicar propuesta',
         title: '¿Qué habilidades te gustaría para el proyecto?',
         placeholder: 'Buscar habilidad',
@@ -682,6 +682,13 @@ export default {
     ProfileData                      : {
         seeLess: 'Ver menos',
         seeMore: 'Ver más'
+    },
+    ProposalFilterPreview            : {
+        filterText     : 'Filtros para el target de tu propuesta',
+        from           : 'De',
+        to             : 'hasta',
+        years          : 'años',
+        withinRadioOf  : 'en un radio de'
     },
     AnswerUsernamePage               : {
         yourAccount      : 'Tu cuenta en Nekuno',

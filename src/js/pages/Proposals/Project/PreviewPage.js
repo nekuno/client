@@ -1,65 +1,65 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import translate from '../i18n/Translate';
-import TopNavBar from '../components/TopNavBar/TopNavBar.js';
-import '../../scss/pages/proposals-project-preview.scss';
-import RoundedIcon from "../components/ui/RoundedIcon/RoundedIcon";
-import CreatingProposalStore from "../stores/CreatingProposalStore";
-import connectToStores from "../utils/connectToStores";
-import ProfileStore from "../stores/ProfileStore";
-import TagSuggestionsStore from "../stores/TagSuggestionsStore";
-import StepsBar from "../components/ui/StepsBar/StepsBar";
-import ThreadStore from "../stores/ThreadStore";
-import FilterStore from "../stores/FilterStore";
-
+import translate from '../../../i18n/Translate';
+import TopNavBar from '../../../components/TopNavBar/TopNavBar.js';
+import '../../../../scss/pages/proposals-project-preview.scss';
+import RoundedIcon from "../../../components/ui/RoundedIcon/RoundedIcon";
+import CreatingProposalStore from "../../../stores/CreatingProposalStore";
+import connectToStores from "../../../utils/connectToStores";
+import ProfileStore from "../../../stores/ProfileStore";
+import StepsBar from "../../../components/ui/StepsBar/StepsBar";
+import FilterStore from "../../../stores/FilterStore";
+import ProposalFilterPreview from "../../../components/ui/ProposalFilterPreview/ProposalFilterPreview";
+import ProposalStore from "../../../stores/ProposalStore";
+import * as ProposalActionCreators from '../../../actions/ProposalActionCreators';
 
 function getState() {
     const proposal = CreatingProposalStore.proposal;
     const title = proposal.title;
     const description = proposal.description;
-    const professionalSector = proposal.professionalSector;
-    const skills = proposal.skills;
+    const industrySector = proposal.industry;
+    const profession = proposal.profession;
     const availability = proposal.availability;
-    const projectMembers = proposal.projectMembers;
-    const proposalFilters = proposal.proposalFilters;
+    const participantLimit = proposal.participantLimit;
+    const proposalFilters = proposal.filters.userFilters;
 
     const filters = FilterStore.filters;
 
 
     const metadata = ProfileStore.getMetadata();
-    const professionalSectorChoices = metadata && metadata.industry ? metadata.industry.choices : [];
+    const industrySectorChoices = metadata && metadata.industry ? metadata.industry.choices : [];
 
     return {
         title,
         description,
-        professionalSector,
-        skills,
+        industrySector,
+        profession,
         availability,
-        projectMembers,
+        participantLimit,
         proposalFilters,
-        professionalSectorChoices,
+        industrySectorChoices,
         filters,
     };
 }
 
 @translate('ProposalsProjectPreviewPage')
-@connectToStores([CreatingProposalStore, TagSuggestionsStore, ThreadStore, FilterStore], getState)
-export default class ProposalsProjectPreviewPage extends Component {
+@connectToStores([CreatingProposalStore, FilterStore, ProposalStore], getState)
+export default class PreviewPage extends Component {
 
     static propTypes = {
         // Injected by @translate:
-        strings                  : PropTypes.object,
-        canContinue              : PropTypes.bool,
+        strings               : PropTypes.object,
+        canContinue           : PropTypes.bool,
         // Injected by @connectToStores:
-        title                    : PropTypes.string,
-        description              : PropTypes.string,
-        professionalSector       : PropTypes.array,
-        skills                   : PropTypes.array,
-        availability             : PropTypes.object,
-        projectMembers           : PropTypes.number,
-        proposalFilters          : PropTypes.object,
-        professionalSectorChoices: PropTypes.array,
-        filters                  : PropTypes.object,
+        title                 : PropTypes.string,
+        description           : PropTypes.string,
+        industrySector        : PropTypes.array,
+        profession            : PropTypes.array,
+        availability          : PropTypes.object,
+        participantLimit      : PropTypes.number,
+        proposalFilters       : PropTypes.object,
+        industrySectorChoices : PropTypes.array,
+        filters               : PropTypes.object,
 
     };
 
@@ -74,6 +74,7 @@ export default class ProposalsProjectPreviewPage extends Component {
         this.handleResumeChange = this.handleResumeChange.bind(this);
         this.topNavBarRightLinkClick = this.topNavBarRightLinkClick.bind(this);
         this.topNavBarLeftLinkClick = this.topNavBarLeftLinkClick.bind(this);
+        this.handleStepsBarClick = this.handleStepsBarClick.bind(this);
     }
 
     componentWillMount() {
@@ -93,79 +94,22 @@ export default class ProposalsProjectPreviewPage extends Component {
     }
 
     topNavBarLeftLinkClick() {
-        this.context.router.push('/proposals-project-introduction');
+        this.context.router.push('/proposals-project-features');
     }
 
-    renderProposalFilterArray(filter) {
-        let filterItem = '';
-        Object.keys(filter).map(function(element, index) {
-            filterItem += filter[element];
-            if (filter.length !== index + 1 && (filter instanceof Array))
-                filterItem += ', ';
-        });
-        return filterItem;
-    }
-
-    renderProposalFilterBirthday(filter) {
-        const {strings} = this.props;
-
-        return strings.from + filter.min + strings.to + filter.max + strings.years;
-    }
-
-    renderProposalFilterLocation(filter) {
-        const {strings} = this.props;
-
-        return filter.location.address + strings.withinRadioOf + filter.distance + ' km';
-    }
-
-    renderProposalFilter(item, filter) {
-        const {filters} = this.props;
-
-        switch (item) {
-            case 'alcohol':
-                console.log(filters.userFilters[item].choices);
-                console.log(Object.keys(filters.userFilters[item].choices));
-                return this.renderProposalFilterArray(filter, filters.userFilters[item].choices);
-                break;
-            case 'birthday':
-                return this.renderProposalFilterBirthday(filter);
-                break;
-            case 'civilStatus':
-                return this.renderProposalFilterArray(filter);
-                break;
-            case 'complexion':
-                return this.renderProposalFilterArray(filter);
-                break;
-            case 'descriptiveGender':
-                return this.renderProposalFilterArray(filter);
-                break;
-            case 'ethnicGroup':
-                return this.renderProposalFilterArray(filter);
-                break;
-            case 'eyeColor':
-                return this.renderProposalFilterArray(filter);
-                break;
-            case 'hairColor':
-                return this.renderProposalFilterArray(filter);
-                break;
-            case 'interfaceLanguage':
-                return this.renderProposalFilterArray(filter);
-                break;
-            case 'location':
-                return this.renderProposalFilterLocation(filter);
-                break;
-            case 'objective':
-                return this.renderProposalFilterArray(filter);
-                break;
-            default:
-                break;
-        }
+    handleStepsBarClick() {
+        const proposal = CreatingProposalStore.proposal;
+        proposal.type = 'work';
+        ProposalActionCreators.createProposal(proposal)
+            .then(() => {
+                this.context.router.push('/proposals');
+            }, () => {
+                // TODO: Handle error
+            });
     }
 
     render() {
-        const {strings, title, description, professionalSector, skills, availability, projectMembers, proposalFilters, professionalSectorChoices, filters} = this.props;
-
-        console.log(filters);
+        const {strings, title, description, industrySector, profession, availability, participantLimit, proposalFilters, industrySectorChoices, filters} = this.props;
 
         const dailyWeekdayOptions = {
             monday   : strings.monday,
@@ -214,9 +158,9 @@ export default class ProposalsProjectPreviewPage extends Component {
                                 </div>
                                 <div className={'text-wrapper'}>
                                     <div className={'title small'}>{strings.sectors}</div>
-                                    {professionalSector.map((item, index) =>
+                                    {industrySector.map((item, index) =>
                                         <div className={'small'} key={index}>
-                                            {professionalSectorChoices.find(x => x.id === item).text}
+                                            {industrySectorChoices.find(x => x.id === item).text}
                                         </div>
                                     )}
                                 </div>
@@ -232,8 +176,8 @@ export default class ProposalsProjectPreviewPage extends Component {
                                         border={'1px solid #F0F1FA'}/>
                                 </div>
                                 <div className={'text-wrapper'}>
-                                    <div className={'title small'}>{strings.skills}</div>
-                                    {skills.map((item, index) =>
+                                    <div className={'title small'}>{strings.profession}</div>
+                                    {profession.map((item, index) =>
                                         <div className={'small'} key={index}>
                                             {item}
                                         </div>
@@ -246,7 +190,7 @@ export default class ProposalsProjectPreviewPage extends Component {
                             <div className={'information-wrapper'}>
                                 <div className={'rounded-icon-wrapper'}>
                                     <RoundedIcon
-                                        icon={'briefcase'}
+                                        icon={'calendar'}
                                         size={'small'}
                                         color={'#2B3857'}
                                         background={'#FBFCFD'}
@@ -257,7 +201,7 @@ export default class ProposalsProjectPreviewPage extends Component {
                                     {availability ? (
                                         <div className="resume small">
                                             {availability.dynamic.map((day, index) =>
-                                                <div key={day.weekday}>
+                                                <div key={index}>
                                                     {dailyWeekdayOptions[day.weekday]}
                                                     , {strings.scheduleOf}
                                                     {day.range.map((range, rangeIndex) =>
@@ -285,7 +229,7 @@ export default class ProposalsProjectPreviewPage extends Component {
                             <div className={'information-wrapper'}>
                                 <div className={'rounded-icon-wrapper'}>
                                     <RoundedIcon
-                                        icon={'briefcase'}
+                                        icon={'users'}
                                         size={'small'}
                                         color={'#2B3857'}
                                         background={'#FBFCFD'}
@@ -293,22 +237,11 @@ export default class ProposalsProjectPreviewPage extends Component {
                                 </div>
                                 <div className={'text-wrapper'}>
                                     <div className={'title small'}>{strings.numberOfMembers}</div>
-                                    <div className={'resume small'}>{projectMembers} {strings.people}</div>
+                                    <div className={'resume small'}>{participantLimit} {strings.people}</div>
                                 </div>
                             </div>
 
-                            <h3>{strings.filterText}</h3>
-
-
-                            {Object.keys(proposalFilters).map((item, index) =>
-                                <div key={index}>
-                                    <div className={'small'}>
-                                        <strong>{filters.userFilters[item].label}</strong>
-                                    </div>
-                                    <div className={'resume small'}>{this.renderProposalFilter(item, proposalFilters[item])}</div>
-                                </div>
-                            )}
-
+                            <ProposalFilterPreview proposalFilters={proposalFilters}/>
                         </div>
                     </div>
                 </div>
@@ -316,42 +249,36 @@ export default class ProposalsProjectPreviewPage extends Component {
                     color={'blue'}
                     canContinue={true}
                     continueText={strings.publishProposal}
-                    totalSteps={0}/>
+                    totalSteps={0}
+                    onClickHandler={this.handleStepsBarClick}/>
             </div>
         );
     }
 
 }
 
-ProposalsProjectPreviewPage.defaultProps = {
+PreviewPage.defaultProps = {
     strings: {
-        project        : 'Project',
-        sectors        : 'Sectors',
-        skills         : 'Skills',
-        availability   : 'Availability',
-        numberOfMembers: 'Number of members',
-        filterText     : 'Filters to your proposal target',
-        basics         : 'Basics',
-        culture        : 'Culture and languages',
-        drugs          : 'Drugs and other services',
-        familiar       : 'Familiar aspects',
-        publishProposal: 'Publish proposal',
-        people         : 'people',
-        monday         : 'Monday',
-        tuesday        : 'Tuesday',
-        wednesday      : 'Wednesday',
-        thursday       : 'Thursday',
-        friday         : 'Friday',
-        saturday       : 'Saturday',
-        sunday         : 'Sunday',
-        and            : 'and',
-        scheduleOf     : 'schedule of',
-        morning        : 'morning',
-        afternoon      : 'afternoon',
-        night          : 'night',
-        from           : 'From',
-        to             : 'to',
-        years          : 'years',
-        withinRadioOf  : 'within radio of'
+        project         : 'Project',
+        sectors         : 'Sectors',
+        profession      : 'Skills',
+        availability    : 'Availability',
+        numberOfMembers : 'Number of members',
+        publishProposal : 'Publish proposal',
+        people          : 'people',
+        monday          : 'Monday',
+        tuesday         : 'Tuesday',
+        wednesday       : 'Wednesday',
+        thursday        : 'Thursday',
+        friday          : 'Friday',
+        saturday        : 'Saturday',
+        sunday          : 'Sunday',
+        and             : 'and',
+        scheduleOf      : 'schedule of',
+        morning         : 'morning',
+        afternoon       : 'afternoon',
+        night           : 'night',
+        from            : 'From',
+        to              : 'to',
     }
 };

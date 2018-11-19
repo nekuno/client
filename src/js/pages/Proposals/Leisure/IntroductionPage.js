@@ -2,11 +2,11 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import translate from '../../../i18n/Translate';
 import TopNavBar from '../../../components/TopNavBar/TopNavBar.js';
-import '../../../../scss/pages/proposals-project-introduction.scss';
-import Overlay from "../../../components/ui/Overlay/Overlay";
+import '../../../../scss/pages/proposals/leisure/introduction.scss';
 import Button from "../../../components/ui/Button/Button";
+import Overlay from "../../../components/ui/Overlay/Overlay";
 
-@translate('ProposalsProjectIntroductionPage')
+@translate('ProposalsLeisureIntroductionPage')
 export default class IntroductionPage extends Component {
 
     static propTypes = {
@@ -30,7 +30,7 @@ export default class IntroductionPage extends Component {
     }
 
     topNavBarRightLinkClick() {
-        this.context.router.push('/proposals-project-basic');
+        this.context.router.push('/proposals-leisure-basic');
     }
 
     render() {
@@ -67,8 +67,8 @@ export default class IntroductionPage extends Component {
 IntroductionPage.defaultProps = {
     strings: {
         publishProposal: 'Publish proposal',
-        title: 'Do your proposal for a project',
-        resume: 'Publish that idea or project that you have in mind and we will find related people to carry it out.',
+        title: 'Do your leisure proposal',
+        resume: 'Publish that hobbie or activity that you have in mind and we will find related people to carry it out.',
         doProposal: 'Create proposal'
     }
 };

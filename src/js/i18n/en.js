@@ -430,6 +430,12 @@ export default {
         years          : 'years',
         withinRadioOf  : 'within radio of'
     },
+    ProposalsLeisureIntroductionPage        : {
+        publishProposal : 'Publish proposal',
+        title           : 'Do your leisure proposal',
+        resume          : 'Publish that hobbie or activity that you have in mind and we will find related people to carry it out.',
+        doProposal      : 'Create proposal'
+    },
     QuestionsPage                    : {
         myProfile: 'My profile',
         about    : 'About me',

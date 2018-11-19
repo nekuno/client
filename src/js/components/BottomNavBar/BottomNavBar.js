@@ -76,11 +76,11 @@ export default class BottomNavBar extends Component {
     }
 
     addLeisurePlan() {
-        this.context.router.push('/add-leisure-plan');
+        this.context.router.push('/proposals-leisure-introduction');
     }
 
     addExperienceProposal() {
-        this.context.router.push('/add-experience-proposal');
+        this.context.router.push('/proposals-experience-introduction');
     }
 
     closeAddModal() {

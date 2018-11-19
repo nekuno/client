@@ -433,6 +433,12 @@ export default {
         years          : 'años',
         withinRadioOf  : 'en un radio de'
     },
+    ProposalsLeisureIntroductionPage        : {
+        publishProposal : 'Publicar propuesta',
+        title           : 'Haz tu propuesta de entretenimiento',
+        resume          : 'Publica ese hobbie o actividad que tienes en mente y te encomendaremos personas afines con quien realizarla.',
+        doProposal      : 'Hacer propuesta'
+    },
     QuestionsPage                    : {
         myProfile: 'Mi Perfil',
         about    : 'Sobre mi',

@@ -439,6 +439,17 @@ export default {
         resume          : 'Publica ese hobbie o actividad que tienes en mente y te encomendaremos personas afines con quien realizarla.',
         doProposal      : 'Hacer propuesta'
     },
+    ProposalsLeisureBasicPage        : {
+        publishProposal          : 'Publicar propuesta',
+        title                    : '¿En qué consiste tu propuesta?',
+        sport                    : 'Deporte',
+        hobbie                   : 'Hobbie',
+        game                     : 'Juego',
+        titlePlaceholder         : 'Título propuesta',
+        descriptionPlaceholder   : 'Explica cómo quieres llevarla a cabo...',
+        stepsBarContinueText     : 'Continuar',
+        stepsBarCantContinueText : 'Rellena para continuar',
+    },
     QuestionsPage                    : {
         myProfile: 'Mi Perfil',
         about    : 'Sobre mi',

@@ -436,6 +436,17 @@ export default {
         resume          : 'Publish that hobbie or activity that you have in mind and we will find related people to carry it out.',
         doProposal      : 'Create proposal'
     },
+    ProposalsLeisureBasicPage        : {
+        publishProposal          : 'Publish proposal',
+        title                    : 'What is your project proposal?',
+        sport                    : 'Sport',
+        hobbie                   : 'Hobbie',
+        game                     : 'Game',
+        titlePlaceholder         : 'Propose title',
+        descriptionPlaceholder   : 'Explain how you want to carry it out...',
+        stepsBarContinueText     : 'Continue',
+        stepsBarCantContinueText : 'You cannot continue',
+    },
     QuestionsPage                    : {
         myProfile: 'My profile',
         about    : 'About me',

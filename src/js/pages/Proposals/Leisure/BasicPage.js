@@ -43,6 +43,11 @@ export default class BasicPage extends Component {
 
     componentWillMount() {
         if (CreatingProposalStore.proposal.fields) {
+            if (CreatingProposalStore.proposal.fields.leisureType) {
+                this.setState({
+                    leisureType : CreatingProposalStore.proposal.fields.leisureType,
+                });
+            }
             if (CreatingProposalStore.proposal.fields.title) {
                 this.setState({
                     title : CreatingProposalStore.proposal.fields.title,
@@ -86,7 +91,7 @@ export default class BasicPage extends Component {
             }
         };
         ProposalActionCreators.mergeCreatingProposal(proposal);
-        this.context.router.push('/proposals-leisure-industry');
+        this.context.router.push('/proposals-leisure-type');
     }
 
     render() {
@@ -95,15 +100,15 @@ export default class BasicPage extends Component {
 
         const leisureTypeChoices = [
             {
-                id: "sport",
+                id: "sports",
                 text: strings.sport
             },
             {
-                id: "hobbie",
+                id: "hobbies",
                 text: strings.hobbie
             },
             {
-                id: "game",
+                id: "games",
                 text: strings.game
             }
         ];

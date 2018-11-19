@@ -81,6 +81,7 @@ import FeaturesPage from "./pages/Proposals/Project/FeaturesPage";
 import PreviewPage from "./pages/Proposals/Project/PreviewPage";
 import ProposalsLeisureIntroductionPage from "./pages/Proposals/Leisure/IntroductionPage";
 import ProposalsLeisureBasicPage from "./pages/Proposals/Leisure/BasicPage";
+import ProposalsLeisureTypePage from "./pages/Proposals/Leisure/TypePage";
 
 function requireAuth(nextState, replaceState) {
 
@@ -138,6 +139,7 @@ export default class Root extends Component {
                         <Route name="proposals-project-preview" path="/proposals-project-preview" component={PreviewPage}/>
                         <Route name="proposals-leisure-introduction" path="/proposals-leisure-introduction" component={ProposalsLeisureIntroductionPage}/>
                         <Route name="proposals-leisure-basic" path="/proposals-leisure-basic" component={ProposalsLeisureBasicPage}/>
+                        <Route name="proposals-leisure-type" path="/proposals-leisure-type" component={ProposalsLeisureTypePage}/>
                         <Route name="persons" path="/persons" component={PersonsPage}/>
                         <Route name="persons-all" path="/persons-all" component={PersonsAllPage}/>
                         <Route name="persons-filter" path="/persons-filter/:threadId" component={PersonsFilterPage}/>

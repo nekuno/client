@@ -447,6 +447,13 @@ export default {
         stepsBarContinueText     : 'Continue',
         stepsBarCantContinueText : 'You cannot continue',
     },
+    ProposalsLeisureTypePage        : {
+        title                    : 'Select what your proposal is about',
+        placeholder              : 'Search',
+        selectedLabel            : 'Selected values',
+        stepsBarContinueText     : 'Continue',
+        stepsBarCantContinueText : 'Choose one to continue',
+    },
     QuestionsPage                    : {
         myProfile: 'My profile',
         about    : 'About me',

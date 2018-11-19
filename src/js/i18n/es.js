@@ -450,6 +450,13 @@ export default {
         stepsBarContinueText     : 'Continuar',
         stepsBarCantContinueText : 'Rellena para continuar',
     },
+    ProposalsLeisureTypePage        : {
+        title                    : 'Selecciona de qué trata tu propuesta',
+        placeholder              : 'Buscar',
+        selectedLabel            : 'Valores seleccionados',
+        stepsBarContinueText     : 'Continuar',
+        stepsBarCantContinueText : 'Indica uno para continuar',
+    },
     QuestionsPage                    : {
         myProfile: 'Mi Perfil',
         about    : 'Sobre mi',

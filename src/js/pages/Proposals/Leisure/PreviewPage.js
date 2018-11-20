@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import translate from '../../../i18n/Translate';
 import TopNavBar from '../../../components/TopNavBar/TopNavBar.js';
-import '../../../../scss/pages/proposals-project-preview.scss';
+import '../../../../scss/pages/proposals/leisure/preview.scss';
 import RoundedIcon from "../../../components/ui/RoundedIcon/RoundedIcon";
 import CreatingProposalStore from "../../../stores/CreatingProposalStore";
 import connectToStores from "../../../utils/connectToStores";
@@ -42,7 +42,7 @@ function getState() {
     };
 }
 
-@translate('ProposalsProjectPreviewPage')
+@translate('ProposalsLeisurePreviewPage')
 @connectToStores([CreatingProposalStore, FilterStore, ProposalStore], getState)
 export default class PreviewPage extends Component {
 
@@ -94,12 +94,12 @@ export default class PreviewPage extends Component {
     }
 
     topNavBarLeftLinkClick() {
-        this.context.router.push('/proposals-project-features');
+        this.context.router.push('/proposals-leisure-features');
     }
 
     handleStepsBarClick() {
         const proposal = CreatingProposalStore.proposal;
-        proposal.type = 'work';
+        // proposal.type = 'work';
         ProposalActionCreators.createProposal(proposal)
             .then(() => {
                 this.context.router.push('/proposals');
@@ -129,7 +129,7 @@ export default class PreviewPage extends Component {
 
         return (
             <div className="views">
-                <div className="view view-main proposals-project-preview-view">
+                <div className="view view-main proposals-leisure-preview-view">
                     <TopNavBar
                         position={'absolute'}
                         background={'transparent'}
@@ -138,7 +138,7 @@ export default class PreviewPage extends Component {
                         textSize={'small'}
                         onLeftLinkClickHandler={this.topNavBarLeftLinkClick}
                         onRightLinkClickHandler={this.topNavBarRightLinkClick}/>
-                    <div className="proposals-project-preview-wrapper">
+                    <div className="proposals-leisure-preview-wrapper">
                         <div className={'image-wrapper'}>
                             <img src={'https://via.placeholder.com/480x240'}/>
                             <h2 className={'bottom-left'}>{title}</h2>
@@ -246,7 +246,7 @@ export default class PreviewPage extends Component {
                     </div>
                 </div>
                 <StepsBar
-                    color={'blue'}
+                    color={'pink'}
                     canContinue={true}
                     continueText={strings.publishProposal}
                     totalSteps={0}
@@ -259,26 +259,33 @@ export default class PreviewPage extends Component {
 
 PreviewPage.defaultProps = {
     strings: {
-        project         : 'Project',
-        sectors         : 'Sectors',
-        profession      : 'Skills',
-        availability    : 'Availability',
-        numberOfMembers : 'Number of members',
-        publishProposal : 'Publish proposal',
-        people          : 'people',
-        monday          : 'Monday',
-        tuesday         : 'Tuesday',
-        wednesday       : 'Wednesday',
-        thursday        : 'Thursday',
-        friday          : 'Friday',
-        saturday        : 'Saturday',
-        sunday          : 'Sunday',
-        and             : 'and',
-        scheduleOf      : 'schedule of',
-        morning         : 'morning',
-        afternoon       : 'afternoon',
-        night           : 'night',
-        from            : 'From',
-        to              : 'to',
+        project        : 'Project',
+        sectors        : 'Sectors',
+        skills         : 'Habilities',
+        availability   : 'Availability',
+        numberOfMembers: 'Number of members',
+        filterText     : 'Filters to your proposal target',
+        basics         : 'Basics',
+        culture        : 'Culture and languages',
+        drugs          : 'Drugs and other services',
+        familiar       : 'Familiar aspects',
+        publishProposal: 'Publish proposal',
+        people         : 'people',
+        monday         : 'Monday',
+        tuesday        : 'Tuesday',
+        wednesday      : 'Wednesday',
+        thursday       : 'Thursday',
+        friday         : 'Friday',
+        saturday       : 'Saturday',
+        sunday         : 'Sunday',
+        and            : 'and',
+        scheduleOf     : 'schedule of',
+        morning        : 'morning',
+        afternoon      : 'afternoon',
+        night          : 'night',
+        from           : 'From',
+        to             : 'to',
+        years          : 'years',
+        withinRadioOf  : 'within radio of'
     }
 };

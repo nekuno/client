@@ -112,7 +112,7 @@ export default class BasicPage extends Component {
                 text: strings.game
             }
         ];
-
+        // TODO: Set default option
         return (
             <div className="views">
                 <div className="view view-main proposals-leisure-basic-view">

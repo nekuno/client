@@ -44,7 +44,7 @@ export default class TypePage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            leisureType : [],
+            type : [],
         };
 
         this.topNavBarLeftLinkClick = this.topNavBarLeftLinkClick.bind(this);
@@ -69,15 +69,15 @@ export default class TypePage extends Component {
         resetTagSuggestions();
 
         this.setState({
-            leisureType: tags,
+            type: tags,
         });
     }
 
     handleInputTagChange(text) {
-        console.log(CreatingProposalStore.proposal.fields.leisureType);
+        console.log(CreatingProposalStore.proposal.fields.type);
         if (text) {
-            if (CreatingProposalStore.proposal.fields.leisureType) {
-                TagSuggestionsActionCreators.requestProfileTagSuggestions(text, CreatingProposalStore.proposal.fields.leisureType);
+            if (CreatingProposalStore.proposal.fields.type) {
+                TagSuggestionsActionCreators.requestProfileTagSuggestions(text, CreatingProposalStore.proposal.fields.type);
             }
         } else {
             resetTagSuggestions();
@@ -86,7 +86,7 @@ export default class TypePage extends Component {
 
     handleStepsBarClick() {
         const proposal = {
-            leisureType : this.state.leisureType,
+            type : this.state.type,
         };
         ProposalActionCreators.mergeCreatingProposal(proposal);
         this.context.router.push('/proposals-leisure-availability');
@@ -94,7 +94,7 @@ export default class TypePage extends Component {
 
     render() {
         const {strings, typeOptions} = this.props;
-        const canContinue = this.state.leisureType.length >= 1;
+        const canContinue = this.state.type.length >= 1;
 
         return (
             <div className="views">
@@ -114,14 +114,14 @@ export default class TypePage extends Component {
                             placeholder={strings.placeholder}
                             searchIcon={true}
                             size={'small'}
-                            chipsColor={'blue'}
+                            chipsColor={'pink'}
                             onChangeHandler={this.handleInputTagChange}
                             onClickHandler={this.handleInputTagClick}
                             selectedLabel={strings.selectedLabel}/>
                     </div>
                 </div>
                 <StepsBar
-                    color={'blue'}
+                    color={'pink'}
                     totalSteps={5}
                     currentStep={1}
                     continueText={strings.stepsBarContinueText}

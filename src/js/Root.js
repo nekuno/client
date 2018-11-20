@@ -79,9 +79,13 @@ import ProposalsProjectAvailabilityPage from "./pages/Proposals/Project/Availabi
 import AvailabilityDatesPage from "./pages/Proposals/Project/AvailabilityDatesPage";
 import FeaturesPage from "./pages/Proposals/Project/FeaturesPage";
 import PreviewPage from "./pages/Proposals/Project/PreviewPage";
-import ProposalsLeisureIntroductionPage from "./pages/Proposals/Leisure/IntroductionPage";
-import ProposalsLeisureBasicPage from "./pages/Proposals/Leisure/BasicPage";
-import ProposalsLeisureTypePage from "./pages/Proposals/Leisure/TypePage";
+import ProposalsLeisureIntroductionPage      from "./pages/Proposals/Leisure/IntroductionPage";
+import ProposalsLeisureBasicPage             from "./pages/Proposals/Leisure/BasicPage";
+import ProposalsLeisureTypePage              from "./pages/Proposals/Leisure/TypePage";
+import ProposalsLeisureAvailability          from "./pages/Proposals/Leisure/AvailabilityPage";
+import ProposalsLeisureAvailabilityDatesPage from "./pages/Proposals/Leisure/AvailabilityDatesPage";
+import ProposalsLeisureFeaturesPage          from "./pages/Proposals/Leisure/FeaturesPage";
+import ProposalsLeisurePreviewPage           from "./pages/Proposals/Leisure/PreviewPage";
 
 function requireAuth(nextState, replaceState) {
 
@@ -140,6 +144,10 @@ export default class Root extends Component {
                         <Route name="proposals-leisure-introduction" path="/proposals-leisure-introduction" component={ProposalsLeisureIntroductionPage}/>
                         <Route name="proposals-leisure-basic" path="/proposals-leisure-basic" component={ProposalsLeisureBasicPage}/>
                         <Route name="proposals-leisure-type" path="/proposals-leisure-type" component={ProposalsLeisureTypePage}/>
+                        <Route name="proposals-leisure-availability" path="/proposals-leisure-availability" component={ProposalsLeisureAvailability}/>
+                        <Route name="proposals-leisure-availability-dates" path="/proposals-leisure-availability-dates" component={ProposalsLeisureAvailabilityDatesPage}/>
+                        <Route name="proposals-leisure-features" path="/proposals-leisure-features" component={ProposalsLeisureFeaturesPage}/>
+                        <Route name="proposals-leisure-preview" path="/proposals-leisure-preview" component={ProposalsLeisurePreviewPage}/>
                         <Route name="persons" path="/persons" component={PersonsPage}/>
                         <Route name="persons-all" path="/persons-all" component={PersonsAllPage}/>
                         <Route name="persons-filter" path="/persons-filter/:threadId" component={PersonsFilterPage}/>

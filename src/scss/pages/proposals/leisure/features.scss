@@ -1,19 +1,16 @@
-@import '../_partials/colors';
+@import '../../../_partials/colors';
 
-body #root .App .views .view.proposals-project-features-view {
+body #root .App .views .view.proposals-leisure-features-view {
   color: $gray-main-text;
-  // text-align: center;
   z-index: 0;
 
-  .proposals-project-features-wrapper {
+  .proposals-leisure-features-wrapper {
     color: $gray-secondary-text;
 
     h2 {
       padding: 0 24px;
       text-align: center;
     }
-
-
   }
 
   .warning-container {

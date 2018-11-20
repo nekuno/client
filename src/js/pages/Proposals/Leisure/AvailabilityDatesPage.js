@@ -2,13 +2,13 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import translate from '../../../i18n/Translate';
 import TopNavBar from '../../../components/TopNavBar/TopNavBar.js';
-import '../../../../scss/pages/proposals-project-availability-dates.scss';
+import '../../../../scss/pages/proposals/leisure/availability-dates.scss';
 import connectToStores from "../../../utils/connectToStores";
 import * as ProposalActionCreators from "../../../actions/ProposalActionCreators";
 import AvailabilityEdit from "../../../components/Availability/AvailabilityEdit/AvailabilityEdit";
 import LocaleStore from "../../../stores/LocaleStore";
 import CreatingProposalStore from "../../../stores/CreatingProposalStore";
-import {INFINITE_CALENDAR_BLUE_THEME} from "../../../constants/InfiniteCalendarConstants";
+import {INFINITE_CALENDAR_PINK_THEME} from "../../../constants/InfiniteCalendarConstants";
 
 function getState() {
     const interfaceLanguage = LocaleStore.locale;
@@ -21,7 +21,7 @@ function getState() {
     };
 }
 
-@translate('ProposalsProjectAvailabilityDatesPage')
+@translate('ProposalsLeisureAvailabilityDatesPage')
 @connectToStores([LocaleStore, CreatingProposalStore], getState)
 export default class AvailabilityDatesPage extends Component {
 
@@ -47,11 +47,11 @@ export default class AvailabilityDatesPage extends Component {
 
 
     topNavBarLeftLinkClick() {
-        this.context.router.push('/proposals-project-availability');
+        this.context.router.push('/proposals-leisure-availability');
     }
 
     topNavBarRightLinkClick() {
-        this.context.router.push('/proposals-project-availability');
+        this.context.router.push('/proposals-leisure-availability');
     }
 
     onSave(availability) {
@@ -67,9 +67,9 @@ export default class AvailabilityDatesPage extends Component {
 
         return (
             <div className="views">
-                <div className="view view-main proposals-project-availability-dates-view">
+                <div className="view view-main proposals-leisure-availability-dates-view">
                     <TopNavBar
-                        background={canContinue ? '#63caff' : 'transparent'}
+                        background={canContinue ? '#D380D3' : 'transparent'}
                         color={canContinue ? '#FFFFFF' : '#000'}
                         iconLeft={canContinue ? 'check' : ''}
                         firstIconRight={'x'}
@@ -77,10 +77,10 @@ export default class AvailabilityDatesPage extends Component {
                         textSize={'small'}
                         onLeftLinkClickHandler={this.topNavBarLeftLinkClick}
                         onRightLinkClickHandler={this.topNavBarRightLinkClick}/>
-                    <div className="proposals-project-availability-dates-wrapper">
+                    <div className="proposals-leisure-availability-dates-wrapper">
                         <AvailabilityEdit
-                            theme={INFINITE_CALENDAR_BLUE_THEME}
-                            color={'blue'} title={strings.title}
+                            theme={INFINITE_CALENDAR_PINK_THEME}
+                            color={'pink'} title={strings.title}
                             availability={availability}
                             interfaceLanguage={interfaceLanguage}
                             onSave={this.onSave}/>
@@ -93,7 +93,7 @@ export default class AvailabilityDatesPage extends Component {
 
 AvailabilityDatesPage.defaultProps = {
     strings: {
-        publishProposal : 'Publish proposal',
-        title           : 'What availability do you need for the project?'
+        publishProposal         : 'Publish proposal',
+        title                   : 'What availability do you need for the project?',
     }
 };

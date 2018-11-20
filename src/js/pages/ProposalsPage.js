@@ -3,93 +3,52 @@ import React, { Component } from 'react';
 import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
+import ProposalRecommendationList from '../components/ui/ProposalRecommendationList/ProposalRecommendationList';
 import ProposalCard from '../components/Proposal/ProposalCard/ProposalCard.js';
 import BottomNavBar from '../components/BottomNavBar/BottomNavBar.js';
 import TopNavBar from '../components/TopNavBar/TopNavBar.js';
 import BottomNotificationBar from "../components/ui/BottomNotificationBar/BottomNotificationBar";
 import WorkersStore from '../stores/WorkersStore';
+import ProposalStore from '../stores/ProposalStore';
+import ProposalRecommendationsStore from '../stores/ProposalRecommendationsStore';
+import * as ProposalActionCreators from '../actions/ProposalActionCreators';
 import '../../scss/pages/proposals.scss';
 
+function requestData(props) {
+    ProposalActionCreators.requestRecommendations();
+}
 
 function getState(props) {
 
     const networks = WorkersStore.getAll();
     const error = WorkersStore.getConnectError();
     const isLoading = WorkersStore.isLoading();
-    const proposals = [
-        {
-            title      : 'Lorem ipsum',
-            image      : 'http://via.placeholder.com/360x180',
-            type       : 'work',
-            photo      : 'http://via.placeholder.com/250x250',
-            nickname   : 'JohnDoe',
-            age        : 36,
-            city       : 'Madrid',
-            matching   : 76,
-            similarity : 51,
-            description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
-        },
-        {
-            title      : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
-            image      : 'http://via.placeholder.com/360x180',
-            type       : 'leisure-plan',
-            photo      : 'http://via.placeholder.com/250x250',
-            nickname   : 'JaneDoe',
-            age        : 37,
-            city       : 'Barcelona',
-            matching   : 56,
-            similarity : 21,
-            description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
-        },
-        {
-            title      : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua',
-            image      : 'http://via.placeholder.com/360x180',
-            type       : 'experience-plan',
-            photo      : 'http://via.placeholder.com/250x250',
-            nickname   : 'TomDoe',
-            age        : 25,
-            city       : 'Bilbao',
-            matching   : 23,
-            similarity : 34,
-            description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
-        },
-        {
-            title       : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua',
-            image       : 'http://via.placeholder.com/360x180',
-            type        : 'leisure-plan',
-            photo       : 'http://via.placeholder.com/250x250',
-            nickname    : 'AliceDoe',
-            age         : 18,
-            city        : 'Sevilla',
-            matching    : 12,
-            similarity  : 5,
-            coincidences: 2,
-            description : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
-        },
-    ];
+
+    const recommendations = ProposalRecommendationsStore.getAll();
 
     return {
         networks,
         error,
         isLoading,
-        proposals
+        recommendations
     };
 }
 
 @AuthenticatedComponent
 @translate('ProposalsPage')
-@connectToStores([WorkersStore], getState)
+@connectToStores([WorkersStore, ProposalStore, ProposalRecommendationsStore], getState)
 export default class ProposalsPage extends Component {
 
     static propTypes = {
         // Injected by @AuthenticatedComponent
-        user     : PropTypes.object.isRequired,
+        user           : PropTypes.object.isRequired,
         // Injected by @translate:
-        strings  : PropTypes.object,
+        strings        : PropTypes.object,
         // Injected by @connectToStores:
-        networks : PropTypes.array.isRequired,
-        error    : PropTypes.bool,
-        isLoading: PropTypes.bool,
+        networks       : PropTypes.array.isRequired,
+        error          : PropTypes.bool,
+        isLoading      : PropTypes.bool,
+        recommendations: PropTypes.array.isRequired,
     };
 
     static contextTypes = {
@@ -106,26 +65,40 @@ export default class ProposalsPage extends Component {
         };
     }
 
+    componentDidMount() {
+        requestData(this.props);
+    }
+
     goToEditAvailability() {
         this.context.router.push('/availability-edit');
     }
 
+    test() {
+        const data = {
+            type  : 'work',
+            fields: {
+                industry  : ['industry1'],
+                profession: ['profession1']
+            }
+        };
+        ProposalActionCreators.createProposal(data);
+    }
+
     render() {
-        const {user, proposals, networks, notifications, strings} = this.props;
-        const {current} = this.state;
+        const {user, recommendations, networks, notifications, strings} = this.props;
+        //THIS IS JUST FOR TESTING, REMOVE FILTER
+        const proposals = recommendations.filter(recommendation => !recommendation.hasOwnProperty('age'));
+
         let imgSrc = user && user.photo ? user.photo.thumbnail.medium : 'img/no-img/medium.jpg';
 
         return (
             <div className="views">
                 <div className="view view-main proposals-view">
                     <TopNavBar textCenter={strings.discover} imageLeft={imgSrc} firstIconRight={'clock'} onRightLinkClickHandler={this.goToEditAvailability} boxShadow={true} iconsRightColor={'#756EE5'}/>
-                    <div className="proposals-wrapper">
-                        {proposals.map((proposal, index) => <div className="proposal" key={index} style={current !== index ? {display: 'none'} : {}}>
-                            <ProposalCard {...proposal}/>
-                        </div>)}
-                    </div>
+                    <ProposalRecommendationList recommendations={proposals}/>
                     <BottomNotificationBar/>
                     <BottomNavBar current={'proposals'} notifications={notifications}/>
+                    <input type='button' onClick={this.test} value='create'/>
                 </div>
             </div>
         );

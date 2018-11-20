@@ -10,16 +10,8 @@ import translate from '../../../i18n/Translate';
 export default class ProposalCard extends Component {
 
     static propTypes = {
-        image         : PropTypes.string.isRequired,
-        title         : PropTypes.string.isRequired,
-        description   : PropTypes.string.isRequired,
-        type          : PropTypes.string.isRequired,
-        photo         : PropTypes.string.isRequired,
-        nickname      : PropTypes.string.isRequired,
-        age           : PropTypes.number.isRequired,
-        city          : PropTypes.string.isRequired,
-        matching      : PropTypes.number.isRequired,
-        similarity    : PropTypes.number.isRequired,
+        proposal      : PropTypes.object.isRequired,
+        user          : PropTypes.object.isRequired,
         onClickHandler: PropTypes.func
     };
 
@@ -29,8 +21,7 @@ export default class ProposalCard extends Component {
         }
     }
 
-    render() {
-        const {image, title, description, type, photo, nickname, age, city, matching, similarity, strings} = this.props;
+    getVisualByType(type) {
         let icon = null;
         let background = null;
         switch (type) {
@@ -48,6 +39,17 @@ export default class ProposalCard extends Component {
                 break;
         }
 
+        return {icon, background};
+    }
+
+    render() {
+        const {proposal, user, strings} = this.props;
+        const {type, fields} = proposal;
+        const {title, description, image} = fields;
+        const {username, location, age, photo, matching, similarity} = user;
+
+        const {icon, background} = this.getVisualByType(type);
+
         return (
             <div className={styles.proposalCard} onClick={this.handleClick.bind(this)}>
                 <div className={styles.frame}>
@@ -64,10 +66,10 @@ export default class ProposalCard extends Component {
                         </div>
                     </div>
                     <div className={styles.userData}>
-                        <RoundedImage size={'small'} url={photo}/>
+                        <RoundedImage size={'small'} url={photo.url}/>
                         <div className={styles.userText}>
-                            <div className={styles.nickname}>{nickname}</div>
-                            <div className={styles.ageCity}>{city} &bull; {age}</div>
+                            <div className={styles.nickname}>{username}</div>
+                            <div className={styles.ageCity}>{location.locality} &bull; {age}</div>
                         </div>
                     </div>
                     <div className={styles.progressBars}>

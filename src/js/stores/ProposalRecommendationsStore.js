@@ -31,11 +31,13 @@ class ProposalRecommendationsStore extends BaseStore {
                 this.emitChange();
                 break;
             case ActionTypes.INTEREST_PROPOSAL:
+            case ActionTypes.SKIP_PROPOSAL:
                 let recommendationId = action.proposalId;
                 this._remove(recommendationId);
                 this.emitChange();
                 break;
             case ActionTypes.ACCEPT_CANDIDATE:
+            case ActionTypes.SKIP_CANDIDATE:
                 let candidateId = action.candidateId;
                 this._remove(candidateId);
                 this.emitChange();
@@ -63,8 +65,11 @@ class ProposalRecommendationsStore extends BaseStore {
     _remove(id)
     {
         this._recommendations = this._recommendations.filter(function (recommendation) {
-            return recommendation.id !== id;
-        })
+            const isSameProposal = recommendation.proposal ? recommendation.proposal.id === id : false;
+            const isSameUser = recommendation.qnoow_id ? recommendation.qnoow_id === id : false;
+
+            return !isSameProposal && !isSameUser;
+        });
     }
 
     isRequesting() {

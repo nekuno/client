@@ -179,17 +179,21 @@ export function getOwnProposals(url = 'proposals') {
 }
 
 export function acceptCandidate(candidateId, data = {accepted: true}, url = 'recommendations/candidates') {
+    data.candidateId = candidateId;
     return postData(url, data);
 }
 
 export function interestProposal(proposalId, data = {interested: true}, url = 'recommendations/proposals') {
+    data.proposalId = proposalId;
     return postData(url, data);
 }
 
-export function skipCandidate(candidateId, data, url = 'recommendations/candidates/skip') {
-    return postData(url)
+export function skipCandidate(candidateId, data = {skipped: true}, url = 'recommendations/candidates/skip') {
+    data.candidateId = candidateId;
+    return postData(url, data)
 }
 
-export function skipProposal(proposalId, data, url = 'recommendations/proposals/skip') {
-    return postData(url)
+export function skipProposal(proposalId, data = {skipped: true}, url = 'recommendations/proposals/skip') {
+    data.proposalId = proposalId;
+    return postData(url, data)
 }

@@ -910,6 +910,12 @@ export default {
         similar   : 'Similar',
         project   : 'Project'
     },
+    CandidateCard                    : {
+        compatible: 'Compatible',
+        similar   : 'Similar',
+        compatibleWithProposal: 'Compatible with your proposal!',
+        defaultDescription: 'Hi! I am ',
+    },
     ReportContentPopup               : {
         title      : 'Write a brief explanation of the report',
         placeholder: 'Text...',

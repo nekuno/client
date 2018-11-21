@@ -908,6 +908,12 @@ export default {
         similar   : 'Similar',
         project   : 'Proyecto'
     },
+    CandidateCard                    : {
+        compatible: 'Compatible',
+        similar   : 'Similar',
+        compatibleWithProposal: '¡Compatible con tu propuesta!',
+        defaultDescription: '¡Hola! Yo soy ',
+    },
     ReportContentPopup               : {
         title      : 'Escribe brevemente el motivo del reporte',
         placeholder: 'Texto...',

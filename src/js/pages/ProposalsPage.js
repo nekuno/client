@@ -73,21 +73,8 @@ export default class ProposalsPage extends Component {
         this.context.router.push('/availability-edit');
     }
 
-    test() {
-        const data = {
-            type  : 'work',
-            fields: {
-                industry  : ['industry1'],
-                profession: ['profession1']
-            }
-        };
-        ProposalActionCreators.createProposal(data);
-    }
-
     render() {
         const {user, recommendations, networks, notifications, strings} = this.props;
-        //THIS IS JUST FOR TESTING, REMOVE FILTER
-        const proposals = recommendations.filter(recommendation => !recommendation.hasOwnProperty('age'));
 
         let imgSrc = user && user.photo ? user.photo.thumbnail.medium : 'img/no-img/medium.jpg';
 
@@ -95,10 +82,9 @@ export default class ProposalsPage extends Component {
             <div className="views">
                 <div className="view view-main proposals-view">
                     <TopNavBar textCenter={strings.discover} imageLeft={imgSrc} firstIconRight={'clock'} onRightLinkClickHandler={this.goToEditAvailability} boxShadow={true} iconsRightColor={'#756EE5'}/>
-                    <ProposalRecommendationList recommendations={proposals}/>
+                    <ProposalRecommendationList recommendations={recommendations}/>
                     <BottomNotificationBar/>
                     <BottomNavBar current={'proposals'} notifications={notifications}/>
-                    <input type='button' onClick={this.test} value='create'/>
                 </div>
             </div>
         );

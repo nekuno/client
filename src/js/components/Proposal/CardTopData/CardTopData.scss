@@ -1,0 +1,89 @@
+@import '../../../../scss/_partials/colors';
+
+.cardtopdata {
+
+  .background-image {
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+
+    img {
+      border-radius: 10px 10px 0 0;
+      -moz-border-radius: 10px 10px 0 0;
+      -webkit-border-radius: 10px 10px 0 0;
+      width: 100%;
+    }
+    .main-text {
+      bottom: 0;
+      color: white;
+      height: 100%;
+      padding: 0 5%;
+      position: relative;
+      width: 80%;
+
+      h2 {
+        bottom: 0;
+        font-weight: 600;
+        max-height: 80px;
+        overflow: hidden;
+        position: absolute;
+      }
+    }
+    .secondary-text {
+      bottom: 0;
+      color: white;
+      height: 100%;
+      padding: 0 5%;
+      position: relative;
+      width: 80%;
+
+      h4 {
+        bottom: 0;
+        font-weight: 600;
+        max-height: 80px;
+        overflow: hidden;
+        position: absolute;
+      }
+    }
+
+  }
+  .type {
+    position: absolute;
+    right: 16px;
+    top: 16px;
+    z-index: 1;
+  }
+
+
+
+
+
+
+
+
+  .user-data {
+    height: 60px;
+    margin-top: 16px;
+    padding: 0 5%;
+
+    .user-text {
+      display: inline-block;
+      margin-left: 6px;
+      vertical-align: super;
+
+      .username {
+        font-size: 20px;
+      }
+      .age-city {
+        color: $gray-secondary-text;
+        font-size: 14px;
+        font-weight: normal;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+  }
+
+}

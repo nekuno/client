@@ -66,7 +66,7 @@ class ProposalRecommendationsStore extends BaseStore {
     {
         this._recommendations = this._recommendations.filter(function (recommendation) {
             const isSameProposal = recommendation.proposal ? recommendation.proposal.id === id : false;
-            const isSameUser = recommendation.qnoow_id ? recommendation.qnoow_id === id : false;
+            const isSameUser = recommendation.id ? recommendation.id === id : false;
 
             return !isSameProposal && !isSameUser;
         });

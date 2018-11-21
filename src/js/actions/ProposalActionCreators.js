@@ -69,13 +69,13 @@ export function interestProposal(proposalId, interested = true) {
     }, {proposalId});
 }
 
-export function acceptCandidate(candidateId, accepted = true) {
-    const data = {accepted};
-    return dispatchAsync((UserAPI.acceptCandidate(candidateId, data)), {
+export function acceptCandidate(data, accepted = true) {
+    data.accepted = accepted;
+    return dispatchAsync((UserAPI.acceptCandidate(data)), {
         request: ActionTypes.ACCEPT_CANDIDATE,
         success: ActionTypes.ACCEPT_CANDIDATE_SUCCESS,
         failure: ActionTypes.ACCEPT_CANDIDATE_ERROR
-    }, {candidateId});
+    }, data);
 }
 
 export function skipProposal(proposalId, skipped = true) {
@@ -87,13 +87,13 @@ export function skipProposal(proposalId, skipped = true) {
     }, {proposalId});
 }
 
-export function skipCandidate(candidateId) {
-    const data = {skipped};
-    return dispatchAsync((UserAPI.skipCandidate(candidateId, data)), {
+export function skipCandidate(data, skipped = true) {
+    data.skipped = skipped;
+    return dispatchAsync((UserAPI.skipCandidate(data)), {
         request: ActionTypes.SKIP_CANDIDATE,
         success: ActionTypes.SKIP_CANDIDATE_SUCCESS,
         failure: ActionTypes.SKIP_CANDIDATE_ERROR
-    }, {candidateId});
+    }, data);
 }
 
 export function mergeCreatingProposal(data) {

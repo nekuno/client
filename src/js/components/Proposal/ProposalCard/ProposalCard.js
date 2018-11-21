@@ -45,7 +45,8 @@ export default class ProposalCard extends Component {
     render() {
         const {proposal, user, strings} = this.props;
         const {type, fields} = proposal;
-        const {title, description, image} = fields;
+        const {title, description} = fields;
+        const proposalPhoto = fields.photo;
         const {username, location, age, photo, matching, similarity} = user;
 
         const {icon, background} = this.getVisualByType(type);
@@ -60,7 +61,7 @@ export default class ProposalCard extends Component {
                         : null
                     }
                     <div className={styles.proposalImage}>
-                        <img src={image}/>
+                        <img src={proposalPhoto}/>
                         <div className={styles.topData}>
                             <h2>{title}</h2>
                         </div>
@@ -68,18 +69,18 @@ export default class ProposalCard extends Component {
                     <div className={styles.userData}>
                         <RoundedImage size={'small'} url={photo.url}/>
                         <div className={styles.userText}>
-                            <div className={styles.nickname}>{username}</div>
+                            <div className={styles.username}>{username}</div>
                             <div className={styles.ageCity}>{location.locality} &bull; {age}</div>
                         </div>
                     </div>
                     <div className={styles.progressBars}>
                         <div className={styles.progressBarTitle}>{strings.compatible}&nbsp;</div>
                         <div className={styles.progressBar}>
-                            <ProgressBar percentage={matching} size={'small'} strokeColor={'#756EE5'}/>
+                            <ProgressBar percentage={matching} size={'small'} strokeColor={'#756EE5'}  background={'white'}/>
                         </div>
                         <div className={styles.progressBarTitle}>{strings.similar}&nbsp;</div>
                         <div className={styles.progressBar}>
-                            <ProgressBar percentage={similarity} size={'small'} strokeColor={'#756EE5'}/>
+                            <ProgressBar percentage={similarity} size={'small'} strokeColor={'#756EE5'}  background={'white'}/>
                         </div>
                     </div>
                     <div className={styles.description}>

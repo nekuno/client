@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import styles from './ProposalRecommendationList.scss';
 import ProposalCard from "../../Proposal/ProposalCard/ProposalCard";
 import * as ProposalActionCreators from '../../../actions/ProposalActionCreators';
+import CandidateCard from "../../Proposal/CandidateCard/CandidateCard";
 
 export default class ProposalRecommendationList extends Component {
 
@@ -27,8 +28,10 @@ export default class ProposalRecommendationList extends Component {
 
     likeCandidate() {
         const shownRecommendation = this.props.recommendations[0];
-        const candidateId = shownRecommendation.qnoow_id;
-        ProposalActionCreators.acceptCandidate(candidateId);
+        const candidateId = shownRecommendation.id;
+        const proposalId = shownRecommendation.proposal.id;
+        const data = {candidateId, proposalId};
+        ProposalActionCreators.acceptCandidate(data);
     }
 
     skipProposal() {
@@ -39,12 +42,14 @@ export default class ProposalRecommendationList extends Component {
 
     skipCandidate() {
         const shownRecommendation = this.props.recommendations[0];
-        const candidateId = shownRecommendation.qnoow_id;
-        ProposalActionCreators.skipCandidate(candidateId);
+        const candidateId = shownRecommendation.id;
+        const proposalId = shownRecommendation.proposal.id;
+        const data = {candidateId, proposalId};
+        ProposalActionCreators.skipCandidate(data);
     }
 
     renderCard(recommendation) {
-        return recommendation.proposal ?
+        return recommendation.owner ?
             this.renderProposalCard(recommendation)
             :
             this.renderCandidateCard(recommendation)
@@ -60,7 +65,7 @@ export default class ProposalRecommendationList extends Component {
 
     renderCandidateCard(recommendation) {
         return <div>
-            UserCardHere <br/>
+            <CandidateCard proposal={recommendation.proposal} user={recommendation}/> <br/>
             <input type='button' value='skip' onClick={this.skipCandidate}/>
             <input type='button' value='like' onClick={this.likeCandidate}/>
         </div>;
@@ -72,7 +77,7 @@ export default class ProposalRecommendationList extends Component {
         }
 
         return <div className={styles.shownRecommendation} key='shown'>
-            {this.renderCard()}
+            {this.renderCard(recommendation)}
         </div>
     }
 
@@ -82,7 +87,7 @@ export default class ProposalRecommendationList extends Component {
         }
 
         return <div className={styles.nextRecommendation} key='next'>
-            {this.renderCard()}
+            {this.renderCard(recommendation)}
         </div>
     }
 

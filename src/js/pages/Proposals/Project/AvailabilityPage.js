@@ -1,23 +1,14 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import translate from '../i18n/Translate';
-import TopNavBar from '../components/TopNavBar/TopNavBar.js';
-import '../../scss/pages/proposals-project-availability.scss';
-import InputSelectText from "../components/RegisterFields/InputSelectText/InputSelectText";
-import StepsBar from "../components/ui/StepsBar/StepsBar";
-import ProfileStore from "../stores/ProfileStore";
-import connectToStores from "../utils/connectToStores";
-import * as ProposalActionCreators from "../actions/ProposalActionCreators";
-import InputTag from "../components/RegisterFields/InputTag/InputTag";
-import TagSuggestionsStore from "../stores/TagSuggestionsStore";
-import * as TagSuggestionsActionCreators from "../actions/TagSuggestionsActionCreators";
-import Frame from "../components/ui/Frame/Frame";
-import RoundedIcon from "../components/ui/RoundedIcon/RoundedIcon";
-import Chip from "../components/ui/Chip/Chip";
-import AvailabilityEdit from "../components/Availability/AvailabilityEdit/AvailabilityEdit";
-import CreatingProposalStore from "../stores/CreatingProposalStore";
-import LocaleStore from "../stores/LocaleStore";
-import styles from "../components/ui/RoundedIcon/RoundedIcon.scss";
+import translate from '../../../i18n/Translate';
+import TopNavBar from '../../../components/TopNavBar/TopNavBar.js';
+import '../../../../scss/pages/proposals/project/availability.scss';
+import StepsBar from "../../../components/ui/StepsBar/StepsBar";
+import connectToStores from "../../../utils/connectToStores";
+import * as ProposalActionCreators from "../../../actions/ProposalActionCreators";
+import Frame from "../../../components/ui/Frame/Frame";
+import RoundedIcon from "../../../components/ui/RoundedIcon/RoundedIcon";
+import CreatingProposalStore from "../../../stores/CreatingProposalStore";
 
 function getState() {
     const proposal = CreatingProposalStore.proposal;
@@ -30,57 +21,50 @@ function getState() {
 
 @translate('ProposalsProjectAvailabilityPage')
 @connectToStores([CreatingProposalStore], getState)
-export default class ProposalsProjectAvailabilityPage extends Component {
+export default class AvailabilityPage extends Component {
 
     static propTypes = {
         // Injected by @translate:
-        strings     : PropTypes.object,
+        strings      : PropTypes.object,
         // Injected by @connectToStores:
-        availability: PropTypes.object,
-        canContinue : PropTypes.bool,
+        availability : PropTypes.object,
+        canContinue  : PropTypes.bool,
     };
 
     static contextTypes = {
-        router: PropTypes.object.isRequired
+        router : PropTypes.object.isRequired
     };
 
     constructor(props) {
         super(props);
         this.state = {
-            projectMembers: 1,
-            disableSubstract: true,
+            participantLimit : 1,
+            disableSubstract : true,
         };
 
-
-
-        this.handleStepsBar = this.handleStepsBar.bind(this);
         this.topNavBarLeftLinkClick = this.topNavBarLeftLinkClick.bind(this);
         this.topNavBarRightLinkClick = this.topNavBarRightLinkClick.bind(this);
-
         this.onClickAvailabilityHandler = this.onClickAvailabilityHandler.bind(this);
-
-        this.onClickProjectMembersPlusHandler = this.onClickProjectMembersPlusHandler.bind(this);
-        this.onClickProjectMembersSubstractHandler = this.onClickProjectMembersSubstractHandler.bind(this);
+        this.onClickProjectParticipantsSubstractHandler = this.onClickProjectParticipantsSubstractHandler.bind(this);
+        this.onClickProjectParticipantsPlusHandler = this.onClickProjectParticipantsPlusHandler.bind(this);
+        this.handleStepsBarClick = this.handleStepsBarClick.bind(this);
     }
 
     componentWillMount() {
-        if (CreatingProposalStore.proposal.projectMembers) {
+        if (CreatingProposalStore.proposal.participantLimit) {
             this.setState({
-                projectMembers: CreatingProposalStore.proposal.projectMembers,
+                participantLimit : CreatingProposalStore.proposal.participantLimit,
             });
+            if (CreatingProposalStore.proposal.participantLimit > 1) {
+                this.setState({
+                    disableSubstract : false,
+                });
+            }
         }
     }
 
-    handleStepsBar() {
-        const proposal = {
-            projectMembers: this.state.projectMembers,
-        };
-        ProposalActionCreators.mergeCreatingProposal(proposal);
-        this.context.router.push('/proposals-project-features');
-    }
-
     topNavBarLeftLinkClick() {
-        this.context.router.push('/proposals-project-skills');
+        this.context.router.push('/proposals-project-profession');
     }
 
     topNavBarRightLinkClick() {
@@ -89,58 +73,66 @@ export default class ProposalsProjectAvailabilityPage extends Component {
 
     onClickAvailabilityHandler() {
         const proposal = {
-            projectMembers: this.state.projectMembers,
+            participantLimit : this.state.participantLimit,
         };
         ProposalActionCreators.mergeCreatingProposal(proposal);
         this.context.router.push('/proposals-project-availability-dates');
     }
 
-    onClickProjectMembersPlusHandler() {
-        const newProjectMembers = this.state.projectMembers + 1;
+    onClickProjectParticipantsSubstractHandler() {
+        const newParticipantLimit = this.state.participantLimit - 1;
         this.setState({
-            projectMembers: newProjectMembers,
+            participantLimit : newParticipantLimit,
         });
 
-        if (newProjectMembers > 1) {
+        if (newParticipantLimit < 2) {
             this.setState({
-                disableSubstract: false,
+                disableSubstract : true,
             });
         }
     }
 
-    onClickProjectMembersSubstractHandler() {
-        const newProjectMembers = this.state.projectMembers - 1;
+    onClickProjectParticipantsPlusHandler() {
+        const newParticipantLimit = this.state.participantLimit + 1;
         this.setState({
-            projectMembers: newProjectMembers,
+            participantLimit : newParticipantLimit,
         });
 
-        if (newProjectMembers < 2) {
+        if (newParticipantLimit > 1) {
             this.setState({
-                disableSubstract: true,
+                disableSubstract : false,
             });
         }
+    }
+
+    handleStepsBarClick() {
+        const proposal = {
+            participantLimit : this.state.participantLimit,
+        };
+        ProposalActionCreators.mergeCreatingProposal(proposal);
+        this.context.router.push('/proposals-project-features');
     }
 
     render() {
         const {strings, availability} = this.props;
         const canContinue = availability !== null;
-        const projectMembers = this.state.projectMembers;
+        const participantLimit = this.state.participantLimit;
         const disableSubstract = this.state.disableSubstract;
 
         const dailyWeekdayOptions = {
-            monday   : strings.monday,
-            tuesday  : strings.tuesday,
-            wednesday: strings.wednesday,
-            thursday : strings.thursday,
-            friday   : strings.friday,
-            saturday : strings.saturday,
-            sunday   : strings.sunday
+            monday    : strings.monday,
+            tuesday   : strings.tuesday,
+            wednesday : strings.wednesday,
+            thursday  : strings.thursday,
+            friday    : strings.friday,
+            saturday  : strings.saturday,
+            sunday    : strings.sunday
         };
 
         const stringRanges = {
-            morning  : strings.morning,
-            afternoon: strings.afternoon,
-            night    : strings.night,
+            morning   : strings.morning,
+            afternoon : strings.afternoon,
+            night     : strings.night,
         };
 
         return (
@@ -157,26 +149,22 @@ export default class ProposalsProjectAvailabilityPage extends Component {
                     <div className="proposals-project-availability-wrapper">
                         <h2>{strings.title}</h2>
                         <div className="proposals-project-availability-frame-wrapper">
-                            <Frame onClickHandler={this.onClickAvailabilityHandler}>
-
+                            <Frame
+                                onClickHandler={this.onClickAvailabilityHandler}>
                                 <div className={'rounded-icon-wrapper'}>
                                     <RoundedIcon
                                         icon={'calendar'}
                                         size={'small'}
                                         color={'#2B3857'}
-                                        background={'#FBFCFD'}
+                                        background={'#FFFFFF'}
                                         border={'1px solid #F0F1FA'}/>
                                 </div>
-
                                 <div className="text-wrapper">
-
                                     <div className="title small">{strings.availabilityTitle}</div>
-
-
                                     {availability ? (
                                         <div className="resume small">
                                             {availability.dynamic.map((day, index) =>
-                                                <div key={day.weekday}>
+                                                <div key={index}>
                                                     {dailyWeekdayOptions[day.weekday]}
                                                     , {strings.scheduleOf}
                                                     {day.range.map((range, rangeIndex) =>
@@ -201,27 +189,34 @@ export default class ProposalsProjectAvailabilityPage extends Component {
                                 </div>
                             </Frame>
                         </div>
-
                         <Frame>
                             <div className={'rounded-icon-wrapper'}>
                                 <RoundedIcon
                                     icon={'users'}
                                     size={'small'}
                                     color={'#2B3857'}
-                                    background={'#FBFCFD'}
+                                    background={'#FFFFFF'}
                                     border={'1px solid #F0F1FA'}/>
                             </div>
                             <div className="text-participants-wrapper">
                                 <div className="title small">{strings.participantsTitle}</div>
                             </div>
                             <div className={'participants-number'}>
-                                <RoundedIcon disabled={disableSubstract} color={disableSubstract?'#818fa1':'#FFFFFF'} background={disableSubstract?'#FFFFFF':'#63CAFF'} icon={'minus'} size={'small'} border={'1px solid #F0F1FA'} onClickHandler={this.onClickProjectMembersSubstractHandler}/>
-                                <div className={'participants-number-text'}>{projectMembers}</div>
-                                <RoundedIcon background={'#63CAFF'} icon={'plus'} size={'small'} onClickHandler={this.onClickProjectMembersPlusHandler}/>
+                                <RoundedIcon
+                                    disabled={disableSubstract}
+                                    color={disableSubstract?'#818fa1':'#FFFFFF'}
+                                    background={disableSubstract?'#FFFFFF':'#63CAFF'}
+                                    icon={'minus'} size={'small'}
+                                    border={'1px solid #F0F1FA'}
+                                    onClickHandler={this.onClickProjectParticipantsSubstractHandler}/>
+                                <div className={'participants-number-text'}>{participantLimit}</div>
+                                <RoundedIcon
+                                    background={'#63CAFF'}
+                                    icon={'plus'}
+                                    size={'small'}
+                                    onClickHandler={this.onClickProjectParticipantsPlusHandler}/>
                             </div>
                         </Frame>
-
-
                     </div>
                 </div>
                 <StepsBar
@@ -231,34 +226,34 @@ export default class ProposalsProjectAvailabilityPage extends Component {
                     continueText={strings.stepsBarContinueText}
                     cantContinueText={strings.stepsBarCantContinueText}
                     canContinue={canContinue}
-                    onClickHandler={this.handleStepsBar}/>
+                    onClickHandler={this.handleStepsBarClick}/>
             </div>
         );
     }
 }
 
-ProposalsProjectAvailabilityPage.defaultProps = {
+AvailabilityPage.defaultProps = {
     strings: {
-        publishProposal         : 'Publish proposal',
-        title                   : 'What implication do you need for the project?',
-        availabilityTitle       : 'Availability',
-        availabilityDescription : 'Indicate in what time or range of days you would like to develop the project',
-        participantsTitle       : 'Number of participants',
-        stepsBarContinueText    : 'Continue',
-        stepsBarCantContinueText: 'Indicate at least one parameter',
-        monday                  : 'Monday',
-        tuesday                 : 'Tuesday',
-        wednesday               : 'Wednesday',
-        thursday                : 'Thursday',
-        friday                  : 'Friday',
-        saturday                : 'Saturday',
-        sunday                  : 'Sunday',
-        and                     : 'and',
-        scheduleOf              : 'schedule of',
-        morning                 : 'morning',
-        afternoon               : 'afternoon',
-        night                   : 'night',
-        from                    : 'From',
-        to                      : 'to',
+        publishProposal          : 'Publish proposal',
+        title                    : 'What implication do you need for the project?',
+        availabilityTitle        : 'Availability',
+        availabilityDescription  : 'Indicate in what time or range of days you would like to develop the project',
+        participantsTitle        : 'Number of participants',
+        stepsBarContinueText     : 'Continue',
+        stepsBarCantContinueText : 'Indicate at least one parameter',
+        monday                   : 'Monday',
+        tuesday                  : 'Tuesday',
+        wednesday                : 'Wednesday',
+        thursday                 : 'Thursday',
+        friday                   : 'Friday',
+        saturday                 : 'Saturday',
+        sunday                   : 'Sunday',
+        and                      : 'and',
+        scheduleOf               : 'schedule of',
+        morning                  : 'morning',
+        afternoon                : 'afternoon',
+        night                    : 'night',
+        from                     : 'From',
+        to                       : 'to',
     }
 };

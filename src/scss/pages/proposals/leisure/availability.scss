@@ -1,16 +1,16 @@
-@import '../_partials/colors';
+@import '../../../_partials/colors';
 
-body #root .App .views .view.proposals-project-availability-view {
+body #root .App .views .view.proposals-leisure-availability-view {
   color: $gray-main-text;
   text-align: center;
   z-index: 0;
 
-  .proposals-project-availability-wrapper {
+  .proposals-leisure-availability-wrapper {
     h2 {
       padding: 0 24px;
     }
 
-    .proposals-project-availability-frame-wrapper {
+    .proposals-leisure-availability-frame-wrapper {
       cursor: pointer;
     }
 

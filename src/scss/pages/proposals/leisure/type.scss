@@ -1,0 +1,13 @@
+@import '../../../_partials/colors';
+
+body #root .App .views .view.proposals-leisure-type-view {
+  color: $gray-main-text;
+  text-align: center;
+  z-index: 0;
+
+  .proposals-leisure-type-wrapper {
+    h2 {
+      padding: 0 24px;
+    }
+  }
+}

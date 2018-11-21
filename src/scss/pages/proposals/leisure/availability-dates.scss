@@ -1,11 +1,11 @@
-@import '../_partials/colors';
+@import '../../../_partials/colors';
 
-body #root .App .views .view.proposals-project-availability-dates-view {
+body #root .App .views .view.proposals-leisure-availability-dates-view {
   color: $gray-main-text;
   text-align: center;
   z-index: 0;
 
-  .proposals-project-availability-dates-wrapper {
+  .proposals-leisure-availability-dates-wrapper {
     h2 {
       padding: 0 24px;
     }
@@ -14,6 +14,6 @@ body #root .App .views .view.proposals-project-availability-dates-view {
 
 
 .Cal__Day__range.Cal__Day__selected.Cal__Day__end .Cal__Day__selection {
-  background-color: $blue-projects-secondary !important;
+  background-color: $pink-light !important;
   color: $white-background !important;
 }

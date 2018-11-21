@@ -70,14 +70,23 @@ import GroupContentsPage from './pages/GroupContentsPage';
 import SettingsPage from './pages/SettingsPage';
 import RouterActionCreators from './actions/RouterActionCreators';
 import LoginStore from './stores/LoginStore';
-import ProposalsProjectIntroductionPage from "./pages/ProposalsProjectIntroductionPage";
-import ProposalsProjectBasicPage from "./pages/ProposalsProjectBasicPage";
-import ProposalsProjectProfessionalPage from "./pages/ProposalsProjectProfessionalPage";
-import ProposalsProjectSkillsPage from "./pages/ProposalsProjectSkillsPage";
-import ProposalsProjectAvailabilityPage from "./pages/ProposalsProjectAvailabilityPage";
-import ProposalsProjectAvailabilityDatesPage from "./pages/ProposalsProjectAvailabilityDatesPage";
-import ProposalsProjectFeaturesPage from "./pages/ProposalsProjectFeaturesPage";
-import ProposalsProjectPreviewPage from "./pages/ProposalsProjectPreviewPage";
+
+import ProposalsProjectIntroductionPage from "./pages/Proposals/Project/IntroductionPage";
+import ProposalsProjectBasicPage from "./pages/Proposals/Project/BasicPage";
+import ProposalsProjectIndustryPage from "./pages/Proposals/Project/IndustryPage";
+import ProposalsProjectProfessionPage from "./pages/Proposals/Project/ProfessionPage";
+import ProposalsProjectAvailabilityPage from "./pages/Proposals/Project/AvailabilityPage";
+import ProposalsProjectAvailabilityDatesPage from "./pages/Proposals/Project/AvailabilityDatesPage";
+import ProposalsProjectFeaturesPage from "./pages/Proposals/Project/FeaturesPage";
+import ProposalsProjectPreviewPage from "./pages/Proposals/Project/PreviewPage";
+
+import ProposalsLeisureIntroductionPage      from "./pages/Proposals/Leisure/IntroductionPage";
+import ProposalsLeisureBasicPage             from "./pages/Proposals/Leisure/BasicPage";
+import ProposalsLeisureTypePage              from "./pages/Proposals/Leisure/TypePage";
+import ProposalsLeisureAvailability          from "./pages/Proposals/Leisure/AvailabilityPage";
+import ProposalsLeisureAvailabilityDatesPage from "./pages/Proposals/Leisure/AvailabilityDatesPage";
+import ProposalsLeisureFeaturesPage          from "./pages/Proposals/Leisure/FeaturesPage";
+import ProposalsLeisurePreviewPage           from "./pages/Proposals/Leisure/PreviewPage";
 
 function requireAuth(nextState, replaceState) {
 
@@ -127,12 +136,19 @@ export default class Root extends Component {
                         <Route name="proposals" path="/proposals" component={ProposalsPage}/>
                         <Route name="proposals-project-introduction" path="/proposals-project-introduction" component={ProposalsProjectIntroductionPage}/>
                         <Route name="proposals-project-basic" path="/proposals-project-basic" component={ProposalsProjectBasicPage}/>
-                        <Route name="proposals-project-professional" path="/proposals-project-professional" component={ProposalsProjectProfessionalPage}/>
-                        <Route name="proposals-project-skills" path="/proposals-project-skills" component={ProposalsProjectSkillsPage}/>
+                        <Route name="proposals-project-industry" path="/proposals-project-industry" component={ProposalsProjectIndustryPage}/>
+                        <Route name="proposals-project-profession" path="/proposals-project-profession" component={ProposalsProjectProfessionPage}/>
                         <Route name="proposals-project-availability" path="/proposals-project-availability" component={ProposalsProjectAvailabilityPage}/>
                         <Route name="proposals-project-availability-dates" path="/proposals-project-availability-dates" component={ProposalsProjectAvailabilityDatesPage}/>
                         <Route name="proposals-project-features" path="/proposals-project-features" component={ProposalsProjectFeaturesPage}/>
                         <Route name="proposals-project-preview" path="/proposals-project-preview" component={ProposalsProjectPreviewPage}/>
+                        <Route name="proposals-leisure-introduction" path="/proposals-leisure-introduction" component={ProposalsLeisureIntroductionPage}/>
+                        <Route name="proposals-leisure-basic" path="/proposals-leisure-basic" component={ProposalsLeisureBasicPage}/>
+                        <Route name="proposals-leisure-type" path="/proposals-leisure-type" component={ProposalsLeisureTypePage}/>
+                        <Route name="proposals-leisure-availability" path="/proposals-leisure-availability" component={ProposalsLeisureAvailability}/>
+                        <Route name="proposals-leisure-availability-dates" path="/proposals-leisure-availability-dates" component={ProposalsLeisureAvailabilityDatesPage}/>
+                        <Route name="proposals-leisure-features" path="/proposals-leisure-features" component={ProposalsLeisureFeaturesPage}/>
+                        <Route name="proposals-leisure-preview" path="/proposals-leisure-preview" component={ProposalsLeisurePreviewPage}/>
                         <Route name="persons" path="/persons" component={PersonsPage}/>
                         <Route name="persons-all" path="/persons-all" component={PersonsAllPage}/>
                         <Route name="persons-filter" path="/persons-filter/:threadId" component={PersonsFilterPage}/>

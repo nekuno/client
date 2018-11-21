@@ -1,10 +1,10 @@
-@import '../_partials/colors';
+@import '../../../_partials/colors';
 
-body #root .App .views .view.proposals-project-preview-view {
+body #root .App .views .view.proposals-leisure-preview-view {
   color: $text;
   z-index: 0;
 
-  .proposals-project-preview-wrapper {
+  .proposals-leisure-preview-wrapper {
     h2 {
       padding: 0 24px;
     }
@@ -49,6 +49,11 @@ body #root .App .views .view.proposals-project-preview-view {
       .small {
         font-size: 14px;
       }
+    }
+
+    .filters-wrapper {
+      padding: 16px;
+      background: $background-darken;
     }
   }
 }

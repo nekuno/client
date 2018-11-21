@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import translate from '../../../i18n/Translate';
 import TopNavBar from '../../../components/TopNavBar/TopNavBar.js';
-import '../../../../scss/pages/proposals-project-basic.scss';
+import '../../../../scss/pages/proposals/project/basic.scss';
 import StepsBar from "../../../components/ui/StepsBar/StepsBar";
 import Input from "../../../components/ui/Input/Input";
 import Textarea from "../../../components/ui/Textarea/Textarea";

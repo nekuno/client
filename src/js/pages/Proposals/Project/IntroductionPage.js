@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import translate from '../../../i18n/Translate';
 import TopNavBar from '../../../components/TopNavBar/TopNavBar.js';
-import '../../../../scss/pages/proposals-project-introduction.scss';
+import '../../../../scss/pages/proposals/project/introduction.scss';
 import Overlay from "../../../components/ui/Overlay/Overlay";
 import Button from "../../../components/ui/Button/Button";
 

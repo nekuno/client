@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import translate from '../../../i18n/Translate';
 import TopNavBar from '../../../components/TopNavBar/TopNavBar.js';
-import '../../../../scss/pages/proposals-project-preview.scss';
+import '../../../../scss/pages/proposals/project/preview.scss';
 import RoundedIcon from "../../../components/ui/RoundedIcon/RoundedIcon";
 import CreatingProposalStore from "../../../stores/CreatingProposalStore";
 import connectToStores from "../../../utils/connectToStores";
@@ -15,8 +15,8 @@ import * as ProposalActionCreators from '../../../actions/ProposalActionCreators
 
 function getState() {
     const proposal = CreatingProposalStore.proposal;
-    const title = proposal.title;
-    const description = proposal.description;
+    const title = proposal.fields.title;
+    const description = proposal.fields.description;
     const industrySector = proposal.industry;
     const profession = proposal.profession;
     const availability = proposal.availability;

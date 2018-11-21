@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import translate from '../../../i18n/Translate';
 import TopNavBar from '../../../components/TopNavBar/TopNavBar.js';
-import '../../../../scss/pages/proposals-project-availability-dates.scss';
+import '../../../../scss/pages/proposals/project/availability-dates.scss';
 import connectToStores from "../../../utils/connectToStores";
 import * as ProposalActionCreators from "../../../actions/ProposalActionCreators";
 import AvailabilityEdit from "../../../components/Availability/AvailabilityEdit/AvailabilityEdit";

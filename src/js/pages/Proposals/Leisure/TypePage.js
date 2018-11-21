@@ -11,6 +11,7 @@ import TagSuggestionsStore from "../../../stores/TagSuggestionsStore";
 import * as TagSuggestionsActionCreators from "../../../actions/TagSuggestionsActionCreators";
 import InputTag from "../../../components/RegisterFields/InputTag/InputTag";
 import CreatingProposalStore from "../../../stores/CreatingProposalStore";
+import InputSelectImage from "../../../components/RegisterFields/InputSelectImage/InputSelectImage";
 
 function resetTagSuggestions() {
     TagSuggestionsActionCreators.resetTagSuggestions();
@@ -74,10 +75,9 @@ export default class TypePage extends Component {
     }
 
     handleInputTagChange(text) {
-        console.log(CreatingProposalStore.proposal.fields.type);
         if (text) {
-            if (CreatingProposalStore.proposal.fields.type) {
-                TagSuggestionsActionCreators.requestProfileTagSuggestions(text, CreatingProposalStore.proposal.fields.type);
+            if (CreatingProposalStore.proposal.type) {
+                TagSuggestionsActionCreators.requestProfileTagSuggestions(text, CreatingProposalStore.proposal.type);
             }
         } else {
             resetTagSuggestions();
@@ -86,7 +86,7 @@ export default class TypePage extends Component {
 
     handleStepsBarClick() {
         const proposal = {
-            type : this.state.type,
+            typeValues : this.state.type,
         };
         ProposalActionCreators.mergeCreatingProposal(proposal);
         this.context.router.push('/proposals-leisure-availability');
@@ -109,15 +109,20 @@ export default class TypePage extends Component {
                         onRightLinkClickHandler={this.topNavBarRightLinkClick}/>
                     <div className="proposals-leisure-type-wrapper">
                         <h2>{strings.title}</h2>
-                        <InputTag
-                            tags={typeOptions}
-                            placeholder={strings.placeholder}
-                            searchIcon={true}
-                            size={'small'}
-                            chipsColor={'pink'}
-                            onChangeHandler={this.handleInputTagChange}
-                            onClickHandler={this.handleInputTagClick}
-                            selectedLabel={strings.selectedLabel}/>
+                        {CreatingProposalStore.proposal.type[0] === 'games' ?
+                        <InputSelectImage
+                            options={typeOptions}/>
+                            :
+                            <InputTag
+                                tags={typeOptions}
+                                placeholder={strings.placeholder}
+                                searchIcon={true}
+                                size={'small'}
+                                chipsColor={'pink'}
+                                onChangeHandler={this.handleInputTagChange}
+                                onClickHandler={this.handleInputTagClick}
+                                selectedLabel={strings.selectedLabel}/>
+                        }
                     </div>
                 </div>
                 <StepsBar
@@ -135,6 +140,7 @@ export default class TypePage extends Component {
 
 TypePage.defaultProps = {
     strings: {
+        publishProposal          : 'Publish proposal',
         title                    : 'Select what your proposal is about',
         placeholder              : 'Search',
         selectedLabel            : 'Selected values',

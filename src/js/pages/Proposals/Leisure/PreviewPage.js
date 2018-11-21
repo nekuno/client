@@ -15,29 +15,24 @@ import * as ProposalActionCreators from '../../../actions/ProposalActionCreators
 
 function getState() {
     const proposal = CreatingProposalStore.proposal;
-    const title = proposal.title;
-    const description = proposal.description;
-    const industrySector = proposal.industry;
-    const profession = proposal.profession;
+    const title = proposal.fields.title;
+    const description = proposal.fields.description;
+    const type = proposal.type;
+    const typeValues = proposal.typeValues;
     const availability = proposal.availability;
     const participantLimit = proposal.participantLimit;
     const proposalFilters = proposal.filters.userFilters;
 
     const filters = FilterStore.filters;
 
-
-    const metadata = ProfileStore.getMetadata();
-    const industrySectorChoices = metadata && metadata.industry ? metadata.industry.choices : [];
-
     return {
         title,
         description,
-        industrySector,
-        profession,
+        type,
+        typeValues,
         availability,
         participantLimit,
         proposalFilters,
-        industrySectorChoices,
         filters,
     };
 }
@@ -53,14 +48,12 @@ export default class PreviewPage extends Component {
         // Injected by @connectToStores:
         title                 : PropTypes.string,
         description           : PropTypes.string,
-        industrySector        : PropTypes.array,
-        profession            : PropTypes.array,
+        type                  : PropTypes.string,
+        typeValues            : PropTypes.array,
         availability          : PropTypes.object,
         participantLimit      : PropTypes.number,
         proposalFilters       : PropTypes.object,
-        industrySectorChoices : PropTypes.array,
         filters               : PropTypes.object,
-
     };
 
     static contextTypes = {
@@ -99,7 +92,6 @@ export default class PreviewPage extends Component {
 
     handleStepsBarClick() {
         const proposal = CreatingProposalStore.proposal;
-        // proposal.type = 'work';
         ProposalActionCreators.createProposal(proposal)
             .then(() => {
                 this.context.router.push('/proposals');
@@ -109,7 +101,7 @@ export default class PreviewPage extends Component {
     }
 
     render() {
-        const {strings, title, description, industrySector, profession, availability, participantLimit, proposalFilters, industrySectorChoices, filters} = this.props;
+        const {strings, title, description, type, typeValues, availability, participantLimit, proposalFilters, filters} = this.props;
 
         const dailyWeekdayOptions = {
             monday   : strings.monday,
@@ -144,7 +136,7 @@ export default class PreviewPage extends Component {
                             <h2 className={'bottom-left'}>{title}</h2>
                         </div>
                         <div className={'content-wrapper'}>
-                            <p className={'category'}>{strings.project}</p>
+                            <p className={'category'}>{type}</p>
                             <p>{description}</p>
 
                             <div className={'information-wrapper'}>
@@ -157,27 +149,8 @@ export default class PreviewPage extends Component {
                                         border={'1px solid #F0F1FA'}/>
                                 </div>
                                 <div className={'text-wrapper'}>
-                                    <div className={'title small'}>{strings.sectors}</div>
-                                    {industrySector.map((item, index) =>
-                                        <div className={'small'} key={index}>
-                                            {industrySectorChoices.find(x => x.id === item).text}
-                                        </div>
-                                    )}
-                                </div>
-                            </div>
-
-                            <div className={'information-wrapper'}>
-                                <div className={'rounded-icon-wrapper'}>
-                                    <RoundedIcon
-                                        icon={'briefcase'}
-                                        size={'small'}
-                                        color={'#2B3857'}
-                                        background={'#FBFCFD'}
-                                        border={'1px solid #F0F1FA'}/>
-                                </div>
-                                <div className={'text-wrapper'}>
                                     <div className={'title small'}>{strings.profession}</div>
-                                    {profession.map((item, index) =>
+                                    {typeValues.map((item, index) =>
                                         <div className={'small'} key={index}>
                                             {item}
                                         </div>
@@ -259,6 +232,7 @@ export default class PreviewPage extends Component {
 
 PreviewPage.defaultProps = {
     strings: {
+        publishProposal         : 'Publish proposal',
         project        : 'Project',
         sectors        : 'Sectors',
         skills         : 'Habilities',
@@ -269,7 +243,6 @@ PreviewPage.defaultProps = {
         culture        : 'Culture and languages',
         drugs          : 'Drugs and other services',
         familiar       : 'Familiar aspects',
-        publishProposal: 'Publish proposal',
         people         : 'people',
         monday         : 'Monday',
         tuesday        : 'Tuesday',

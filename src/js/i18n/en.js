@@ -353,6 +353,7 @@ export default {
         stepsBarCantContinueText: 'You cannot continue',
     },
     ProposalsProjectIndustryPage     : {
+        publishProposal: 'Publish proposal',
         title: 'What professional sectors do you require for the project?',
         placeholder: 'Search sector',
         selectedLabel: 'Sectors you want',
@@ -360,6 +361,7 @@ export default {
         stepsBarCantContinueText: 'Indicate one to continue',
     },
     ProposalsProjectProfessionPage     : {
+        publishProposal: 'Publish proposal',
         title: 'What skills would you like for the project?',
         placeholder: 'Search skill',
         selectedLabel: 'Skills you want',
@@ -394,6 +396,7 @@ export default {
         title                   : 'What availability do you need for the project?',
     },
     ProposalsProjectFeaturesPage : {
+        publishProposal: 'Publish proposal',
         title                    : 'Are you looking for people with specific features?',
         filterWarning            : 'This filters only be visible for you and we need to filter users',
         showResults              : 'Show results',
@@ -401,6 +404,7 @@ export default {
         stepsBarCantContinueText : 'You cannot continue',
     },
     ProposalsProjectPreviewPage : {
+        publishProposal: 'Publish proposal',
         project        : 'Project',
         sectors        : 'Sectors',
         skills         : 'Habilities',
@@ -411,7 +415,6 @@ export default {
         culture        : 'Culture and languages',
         drugs          : 'Drugs and other services',
         familiar       : 'Familiar aspects',
-        publishProposal: 'Publish proposal',
         people         : 'people',
         monday         : 'Monday',
         tuesday        : 'Tuesday',
@@ -448,6 +451,7 @@ export default {
         stepsBarCantContinueText : 'You cannot continue',
     },
     ProposalsLeisureTypePage        : {
+        publishProposal          : 'Publish proposal',
         title                    : 'Select what your proposal is about',
         placeholder              : 'Search',
         selectedLabel            : 'Selected values',
@@ -482,12 +486,14 @@ export default {
         title                   : 'What availability do you need for the project?',
     },
     ProposalsLeisureFeaturesPage : {
+        publishProposal          : 'Publish proposal',
         title                    : 'Are you looking for people with specific features?',
         filterWarning            : 'This filters only be visible for you and we need to filter users',
         stepsBarContinueText     : 'Continue',
         stepsBarCantContinueText : 'You cannot continue',
     },
     ProposalsLeisurePreviewPage : {
+        publishProposal          : 'Publish proposal',
         project        : 'Project',
         sectors        : 'Sectors',
         skills         : 'Habilities',
@@ -498,7 +504,6 @@ export default {
         culture        : 'Culture and languages',
         drugs          : 'Drugs and other services',
         familiar       : 'Familiar aspects',
-        publishProposal: 'Publish proposal',
         people         : 'people',
         monday         : 'Monday',
         tuesday        : 'Tuesday',

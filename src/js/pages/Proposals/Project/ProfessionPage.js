@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import translate from '../../../i18n/Translate';
 import TopNavBar from '../../../components/TopNavBar/TopNavBar.js';
-import '../../../../scss/pages/proposals-project-profession.scss';
+import '../../../../scss/pages/proposals/project/profession.scss';
 import StepsBar from "../../../components/ui/StepsBar/StepsBar";
 import connectToStores from "../../../utils/connectToStores";
 import * as ProposalActionCreators from "../../../actions/ProposalActionCreators";

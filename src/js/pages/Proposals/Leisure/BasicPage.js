@@ -10,8 +10,6 @@ import CreatingProposalStore from '../../../stores/CreatingProposalStore';
 import * as ProposalActionCreators from "../../../actions/ProposalActionCreators";
 import SelectInline from "../../../components/ui/SelectInline/SelectInline";
 
-
-
 @translate('ProposalsLeisureBasicPage')
 export default class BasicPage extends Component {
 
@@ -28,7 +26,7 @@ export default class BasicPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            leisureType : '',
+            type        : '',
             title       : '',
             description : '',
         };
@@ -43,9 +41,9 @@ export default class BasicPage extends Component {
 
     componentWillMount() {
         if (CreatingProposalStore.proposal.fields) {
-            if (CreatingProposalStore.proposal.fields.leisureType) {
+            if (CreatingProposalStore.proposal.type) {
                 this.setState({
-                    leisureType : CreatingProposalStore.proposal.fields.leisureType,
+                    type : CreatingProposalStore.proposal.type,
                 });
             }
             if (CreatingProposalStore.proposal.fields.title) {
@@ -78,14 +76,13 @@ export default class BasicPage extends Component {
     }
 
     handleSelectInlineClick(event) {
-        this.setState({leisureType : event});
-        console.log(event);
+        this.setState({type : event});
     }
 
     handleStepsBarClick() {
         const proposal = {
+            type : this.state.type,
             fields : {
-                leisureType : this.state.leisureType,
                 title       : this.state.title,
                 description : this.state.description,
             }
@@ -96,9 +93,9 @@ export default class BasicPage extends Component {
 
     render() {
         const {strings} = this.props;
-        const canContinue = this.state.title !== "" && this.state.description !== "" && this.state.leisureType !== "";
+        const canContinue = this.state.title !== "" && this.state.description !== "" && this.state.type !== "";
 
-        const leisureTypeChoices = [
+        const TypeChoices = [
             {
                 id: "sports",
                 text: strings.sport
@@ -112,7 +109,6 @@ export default class BasicPage extends Component {
                 text: strings.game
             }
         ];
-        // TODO: Set default option
         return (
             <div className="views">
                 <div className="view view-main proposals-leisure-basic-view">
@@ -129,7 +125,8 @@ export default class BasicPage extends Component {
                         <SelectInline
                             onClickHandler={this.handleSelectInlineClick}
                             color={'pink'}
-                            options={leisureTypeChoices}/>
+                            options={TypeChoices}
+                            defaultOption={this.state.type[0]}/>
                         <div className={'image-wrapper'}>
                             <img src={'http://via.placeholder.com/480x240'}/>
                         </div>
@@ -155,7 +152,6 @@ export default class BasicPage extends Component {
             </div>
         );
     }
-
 }
 
 BasicPage.defaultProps = {

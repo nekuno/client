@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import translate from '../../../i18n/Translate';
 import TopNavBar from '../../../components/TopNavBar/TopNavBar.js';
-import '../../../../scss/pages/proposals-project-availability.scss';
+import '../../../../scss/pages/proposals/project/availability.scss';
 import StepsBar from "../../../components/ui/StepsBar/StepsBar";
 import connectToStores from "../../../utils/connectToStores";
 import * as ProposalActionCreators from "../../../actions/ProposalActionCreators";
@@ -55,6 +55,11 @@ export default class AvailabilityPage extends Component {
             this.setState({
                 participantLimit : CreatingProposalStore.proposal.participantLimit,
             });
+            if (CreatingProposalStore.proposal.participantLimit > 1) {
+                this.setState({
+                    disableSubstract : false,
+                });
+            }
         }
     }
 

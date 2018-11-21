@@ -55,6 +55,11 @@ export default class AvailabilityPage extends Component {
             this.setState({
                 participantLimit : CreatingProposalStore.proposal.participantLimit,
             });
+            if (CreatingProposalStore.proposal.participantLimit > 1) {
+                this.setState({
+                    disableSubstract : false,
+                });
+            }
         }
     }
 

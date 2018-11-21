@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import translate from '../../../i18n/Translate';
 import TopNavBar from '../../../components/TopNavBar/TopNavBar.js';
-import '../../../../scss/pages/proposals-project-features.scss';
+import '../../../../scss/pages/proposals/project/features.scss';
 import StepsBar from "../../../components/ui/StepsBar/StepsBar";
 import connectToStores from "../../../utils/connectToStores";
 import * as ProposalActionCreators from "../../../actions/ProposalActionCreators";
@@ -99,7 +99,7 @@ export default class FeaturesPage extends Component {
         this.handleClickRemoveFilter = this.handleClickRemoveFilter.bind(this);
         this.handleErrorFilter = this.handleErrorFilter.bind(this);
         this.renderField = this.renderField.bind(this);
-        this.handleStepsBar = this.handleStepsBar.bind(this);
+        this.handleStepsBarClick = this.handleStepsBarClick.bind(this);
 
         const data = props.thread && props.thread.filters && props.thread.filters.userFilters ? props.thread.filters.userFilters : {};
 
@@ -330,7 +330,7 @@ export default class FeaturesPage extends Component {
         );
     }
 
-    handleStepsBar() {
+    handleStepsBarClick() {
         const proposal = {
             filters: {
                 userFilters: this.state.data
@@ -400,7 +400,7 @@ export default class FeaturesPage extends Component {
                     continueText={strings.stepsBarContinueText}
                     cantContinueText={strings.stepsBarCantContinueText}
                     canContinue={canContinue}
-                    onClickHandler={this.handleStepsBar}/>
+                    onClickHandler={this.handleStepsBarClick}/>
             </div>
         );
     }

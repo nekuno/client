@@ -99,7 +99,7 @@ export default class FeaturesPage extends Component {
         this.handleClickRemoveFilter = this.handleClickRemoveFilter.bind(this);
         this.handleErrorFilter = this.handleErrorFilter.bind(this);
         this.renderField = this.renderField.bind(this);
-        this.handleStepsBar = this.handleStepsBar.bind(this);
+        this.handleStepsBarClick = this.handleStepsBarClick.bind(this);
 
         const data = props.thread && props.thread.filters && props.thread.filters.userFilters ? props.thread.filters.userFilters : {};
 
@@ -330,7 +330,7 @@ export default class FeaturesPage extends Component {
         );
     }
 
-    handleStepsBar() {
+    handleStepsBarClick() {
         const proposal = {
             filters: {
                 userFilters: this.state.data
@@ -400,7 +400,7 @@ export default class FeaturesPage extends Component {
                     continueText={strings.stepsBarContinueText}
                     cantContinueText={strings.stepsBarCantContinueText}
                     canContinue={canContinue}
-                    onClickHandler={this.handleStepsBar}/>
+                    onClickHandler={this.handleStepsBarClick}/>
             </div>
         );
     }
@@ -408,6 +408,7 @@ export default class FeaturesPage extends Component {
 
 FeaturesPage.defaultProps = {
     strings: {
+        publishProposal         : 'Publish proposal',
         title                    : 'Are you looking for people with specific features?',
         filterWarning            : 'This filters only be visible for you and we need to filter users',
         stepsBarContinueText     : 'Continue',

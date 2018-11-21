@@ -10,16 +10,8 @@ import translate from '../../../i18n/Translate';
 export default class ProposalCard extends Component {
 
     static propTypes = {
-        image         : PropTypes.string.isRequired,
-        title         : PropTypes.string.isRequired,
-        resume        : PropTypes.string.isRequired,
-        type          : PropTypes.string.isRequired,
-        photo         : PropTypes.string.isRequired,
-        nickname      : PropTypes.string.isRequired,
-        age           : PropTypes.number.isRequired,
-        city          : PropTypes.string.isRequired,
-        matching      : PropTypes.number.isRequired,
-        similarity    : PropTypes.number.isRequired,
+        proposal      : PropTypes.object.isRequired,
+        user          : PropTypes.object.isRequired,
         onClickHandler: PropTypes.func
     };
 
@@ -29,12 +21,11 @@ export default class ProposalCard extends Component {
         }
     }
 
-    render() {
-        const {image, title, resume, type, photo, nickname, age, city, matching, similarity, strings} = this.props;
+    getVisualByType(type) {
         let icon = null;
         let background = null;
         switch (type) {
-            case 'professional-project':
+            case 'work':
                 icon = 'paperclip';
                 background = '#63CAFF';
                 break;
@@ -48,6 +39,18 @@ export default class ProposalCard extends Component {
                 break;
         }
 
+        return {icon, background};
+    }
+
+    render() {
+        const {proposal, user, strings} = this.props;
+        const {type, fields} = proposal;
+        const {title, description} = fields;
+        const proposalPhoto = fields.photo;
+        const {username, location, age, photo, matching, similarity} = user;
+
+        const {icon, background} = this.getVisualByType(type);
+
         return (
             <div className={styles.proposalCard} onClick={this.handleClick.bind(this)}>
                 <div className={styles.frame}>
@@ -58,31 +61,31 @@ export default class ProposalCard extends Component {
                         : null
                     }
                     <div className={styles.proposalImage}>
-                        <img src={image}/>
+                        <img src={proposalPhoto}/>
                         <div className={styles.topData}>
                             <h2>{title}</h2>
                         </div>
                     </div>
                     <div className={styles.userData}>
-                        <RoundedImage size={'small'} url={photo}/>
+                        <RoundedImage size={'small'} url={photo.url}/>
                         <div className={styles.userText}>
-                            <div className={styles.nickname}>{nickname}</div>
-                            <div className={styles.ageCity}>{city} &bull; {age}</div>
+                            <div className={styles.username}>{username}</div>
+                            <div className={styles.ageCity}>{location.locality} &bull; {age}</div>
                         </div>
                     </div>
                     <div className={styles.progressBars}>
                         <div className={styles.progressBarTitle}>{strings.compatible}&nbsp;</div>
                         <div className={styles.progressBar}>
-                            <ProgressBar percentage={matching} size={'small'} strokeColor={'#756EE5'}/>
+                            <ProgressBar percentage={matching} size={'small'} strokeColor={'#756EE5'}  background={'white'}/>
                         </div>
                         <div className={styles.progressBarTitle}>{strings.similar}&nbsp;</div>
                         <div className={styles.progressBar}>
-                            <ProgressBar percentage={similarity} size={'small'} strokeColor={'#756EE5'}/>
+                            <ProgressBar percentage={similarity} size={'small'} strokeColor={'#756EE5'}  background={'white'}/>
                         </div>
                     </div>
-                    <div className={styles.resume}>
+                    <div className={styles.description}>
                         <div className={styles.resumeTitle}>{strings.project}</div>
-                        <div className={styles.resumeText}>{resume}</div>
+                        <div className={styles.resumeText}>{description}</div>
                     </div>
                 </div>
             </div>

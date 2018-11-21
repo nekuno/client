@@ -1,0 +1,19 @@
+@import '../../../../scss/_partials/colors';
+
+.proposalRecommendationList {
+  background: rgba(146, 139, 255, 0.1);
+  font-size: 15px;
+  padding: 25px;
+  overflow-x: hidden;
+}
+
+.shownRecommendation {
+
+}
+
+.nextRecommendation {
+  position: absolute;
+  left: 100%;
+  top: 0;
+  display: none;
+}

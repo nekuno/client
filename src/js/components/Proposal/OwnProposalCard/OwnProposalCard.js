@@ -11,7 +11,7 @@ export default class OwnProposalCard extends Component {
     static propTypes = {
         image         : PropTypes.string.isRequired,
         title         : PropTypes.string.isRequired,
-        resume        : PropTypes.string.isRequired,
+        description   : PropTypes.string.isRequired,
         type          : PropTypes.string.isRequired,
         photos        : PropTypes.array.isRequired,
         onClickHandler: PropTypes.func
@@ -28,7 +28,7 @@ export default class OwnProposalCard extends Component {
         let icon = null;
         let background = null;
         switch (type) {
-            case 'professional-project':
+            case 'work':
                 icon = 'paperclip';
                 background = '#63CAFF';
                 break;
@@ -57,7 +57,7 @@ export default class OwnProposalCard extends Component {
                     <div className={styles.proposalImage}>
                         <img src={image}/>
                     </div>
-                    <div className={styles.resume}>
+                    <div className={styles.description}>
                         <div className={styles.resumeText}>{resume}</div>
                     </div>
                     <div className={styles.userData}>

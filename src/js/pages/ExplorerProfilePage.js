@@ -70,7 +70,7 @@ export default class ExplorerProfilePage extends Component {
                             <img src="/img/proposals/Experiencias-sobreblanco.png"/>
                         </div>
                         <h1>{strings.title}</h1>
-                        <div className="resume">{strings.resume}</div>
+                        <div className="resume">{strings.description}</div>
                         <Button onClickHandler={this.goToExplorerProfileCostPage}>{strings.fillProfile}</Button>
                         <div className="skip-wrapper small" onClick={this.goToAvailabilityPage}>
                             <span className="skip-text">{strings.skip}&nbsp;</span>
@@ -88,7 +88,7 @@ ExplorerProfilePage.defaultProps = {
     strings: {
         yourAccount: 'Your account at Nekuno',
         title      : 'Fill your explorer profile',
-        resume     : 'We need to know what kind of activities and experiences you like to recommend you people and plans',
+        description: 'We need to know what kind of activities and experiences you like to recommend you people and plans',
         fillProfile: 'Fill profile',
         skip       : 'Not now'
     }

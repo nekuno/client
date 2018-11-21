@@ -33,7 +33,7 @@ export default {
         yourAccount : 'Tu cuenta en Nekuno',
         title       : 'Dinos cuál es tu disponibilidad',
         finishTitle : '¡Disponibilidad añadida!',
-        resume      : 'Necesitamos saber cuánto tiempo libre tienes para recomendarte planes que encajen con tu disponibilidad',
+        description : 'Necesitamos saber cuánto tiempo libre tienes para recomendarte planes que encajen con tu disponibilidad',
         finishResume: 'Ahora ya podemos recomendarte planes y proyectos que encajen con tu disponibilidad',
         add         : 'Añadir disponibilidad',
         edit        : 'Editar disponibilidad',
@@ -59,13 +59,13 @@ export default {
     ConnectFacebookPage              : {
         yourAccount: 'Tu cuenta en Nekuno',
         title      : '¡Ya casi estamos! Conecta con Facebook',
-        resume     : 'Necesitamos recopilar información sobre el tipo de contenidos que te gustan para recomendarte personas compatibles',
+        description: 'Necesitamos recopilar información sobre el tipo de contenidos que te gustan para recomendarte personas compatibles',
         connect    : 'Conectar con Facebook'
     },
     ConnectingFacebookPage           : {
-        analyzing: 'Analizando datos',
-        title    : '¡Hola %username%!',
-        resume   : 'Ya formas parte de Nekuno',
+        analyzing  : 'Analizando datos',
+        title      : '¡Hola %username%!',
+        description: 'Ya formas parte de Nekuno',
     },
     ConnectSocialNetworksOnSignUpPage: {
         next         : 'Continuar',
@@ -83,7 +83,7 @@ export default {
     },
     ConnectSteamAnonymous            : {
         connect       : 'Conecta Steam',
-        resume        : 'Carga automáticamente tus juegos favoritos',
+        description   : 'Carga automáticamente tus juegos favoritos',
         cannotGetGames: 'Quizás tengas la configuración de privacidad como privada. Cámbiala a pública para ver tus juegos.'
     },
     DailyInputRange                  : {
@@ -104,7 +104,7 @@ export default {
     ExplorerProfilePage              : {
         yourAccount: 'Tu cuenta en Nekuno',
         title      : 'Completa tu perfil de explorador',
-        resume     : 'Necesitamos saber qué tipo de actividades y experiencias te gustan para recomendarte personas y planes',
+        description: 'Necesitamos saber qué tipo de actividades y experiencias te gustan para recomendarte personas y planes',
         fillProfile: 'Completar perfil',
         skip       : 'En otro momento'
     },
@@ -228,7 +228,7 @@ export default {
     LeisureProfilePage               : {
         yourAccount: 'Tu cuenta en Nekuno',
         title      : 'Completa tu perfil de ocio',
-        resume     : 'Necesitamos saber tus deportes, juegos y hobbies preferidos para recomendarte personas y actividades',
+        description: 'Necesitamos saber tus deportes, juegos y hobbies preferidos para recomendarte personas y actividades',
         fillProfile: 'Completar perfil',
         skip       : 'En otro momento'
     },
@@ -315,7 +315,7 @@ export default {
     ProfessionalProfilePage          : {
         yourAccount: 'Tu cuenta en Nekuno',
         title      : 'Completa tu perfil profesional',
-        resume     : 'Necesitamos saber tus sectores y hablilidades profesionales para recomendarte personas y proyectos',
+        description: 'Necesitamos saber tus sectores y hablilidades profesionales para recomendarte personas y proyectos',
         fillProfile: 'Completar perfil',
         skip       : 'En otro momento'
     },
@@ -341,7 +341,7 @@ export default {
     ProposalsProjectIntroductionPage        : {
         publishProposal: 'Publicar propuesta',
         title          : 'Haz tu propuesta para un proyecto',
-        resume         : 'Publica esa idea o proyecto que tienes en mente y te encomendaremos personas afines con quien realizarla.',
+        description    : 'Publica esa idea o proyecto que tienes en mente y te encomendaremos personas afines con quien realizarla.',
         doProposal     : 'Hacer propuesta'
     },
     ProposalsProjectBasicPage        : {
@@ -1000,6 +1000,12 @@ export default {
         compatible: 'Compatible',
         similar   : 'Similar',
         project   : 'Proyecto'
+    },
+    CandidateCard                    : {
+        compatible: 'Compatible',
+        similar   : 'Similar',
+        compatibleWithProposal: '¡Compatible con tu propuesta!',
+        defaultDescription: '¡Hola! Yo soy ',
     },
     ReportContentPopup               : {
         title      : 'Escribe brevemente el motivo del reporte',

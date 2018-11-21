@@ -9,7 +9,7 @@ describe('Test OwnProposalCard component', () => {
     const mockFn = jest.fn();
     const ownProposalCard = shallow(<OwnProposalCard title={'Lorem ipsum dolor sit amet'}
                                                image={'http://via.placeholder.com/360x180'}
-                                               type={'professional-project'}
+                                               type={'work'}
                                                photos={['http://via.placeholder.com/100x100/ff0000', 'http://via.placeholder.com/100x100/00ff00', 'http://via.placeholder.com/100x100/0000ff', 'http://via.placeholder.com/100x100/ff0000', 'http://via.placeholder.com/100x100/00ff00']}
                                                nickname={'JohnDoe'}
                                                resume={'Lorem ipsum dolor sit amet'}

@@ -54,7 +54,7 @@ export default class IntroductionPage extends Component {
                             <img src="/img/proposals/Trabajo.png"/>
                         </div>
                         <h1>{strings.title}</h1>
-                        <div className="resume">{strings.resume}</div>
+                        <div className="resume">{strings.description}</div>
                         <Button onClickHandler={this.topNavBarRightLinkClick}>{strings.doProposal}</Button>
                     </div>
                 </div>
@@ -67,8 +67,8 @@ export default class IntroductionPage extends Component {
 IntroductionPage.defaultProps = {
     strings: {
         publishProposal: 'Publish proposal',
-        title: 'Do your proposal for a project',
-        resume: 'Publish that idea or project that you have in mind and we will find related people to carry it out.',
-        doProposal: 'Create proposal'
+        title          : 'Do your proposal for a project',
+        description    : 'Publish that idea or project that you have in mind and we will find related people to carry it out.',
+        doProposal     : 'Create proposal'
     }
 };

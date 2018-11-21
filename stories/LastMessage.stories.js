@@ -29,7 +29,7 @@ storiesOf('LastMessage', module)
                      username={'JohnDoe'}
                      photo={'http://via.placeholder.com/100x100'}
                      message={longMessage}
-                     proposalType={"professional-project"}
+                     proposalType={"work"}
                      onUserClickHandler={action('user clicked')}
                      onClickHandler={action('message clicked')}
         />

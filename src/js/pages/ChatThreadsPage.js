@@ -42,7 +42,7 @@ function getState() {
                     }
                 }
             },
-            proposalType: "professional-project"
+            proposalType: "work"
         },
         {
             message: {

@@ -86,7 +86,7 @@ export default class PreviewPage extends Component {
     }
 
     handleResumeChange(event) {
-        this.setState({resume: event});
+        this.setState({description: event});
     }
 
     topNavBarRightLinkClick() {

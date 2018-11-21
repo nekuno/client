@@ -9,14 +9,14 @@ describe('Test ProposalCard component', () => {
     const mockFn = jest.fn();
     const proposalCard = shallow(<ProposalCard title={'Lorem ipsum dolor sit amet'}
                                                image={'http://via.placeholder.com/360x180'}
-                                               type={'professional-project'}
+                                               type={'work'}
                                                photo={'http://via.placeholder.com/100x100'}
                                                nickname={'JohnDoe'}
                                                age={36}
                                                city={'New York'}
                                                matching={12}
                                                similarity={35}
-                                               resume={'Lorem ipsum dolor sit amet'}
+                                               description={'Lorem ipsum dolor sit amet'}
                                                onClickHandler={mockFn}/>
     );
     it('should be defined', () => {

@@ -65,7 +65,7 @@ export default class AvailabilityPage extends Component {
     render() {
         const {isComplete, strings} = this.props;
         const titleText = isComplete ? strings.finishTitle : strings.title;
-        const resumeText = isComplete ? strings.finishResume : strings.resume;
+        const resumeText = isComplete ? strings.finishResume : strings.description;
         const buttonText = isComplete ? strings.edit : strings.add;
         const skipText = isComplete ? strings.signUp : strings.skip;
 
@@ -98,7 +98,7 @@ AvailabilityPage.defaultProps = {
         yourAccount : 'Your account at Nekuno',
         title       : 'Tell us what your availability is',
         finishTitle : 'Availability added!',
-        resume      : 'We need to know how much free time you have to recommend you plans whose match your availability',
+        description : 'We need to know how much free time you have to recommend you plans whose match your availability',
         finishResume: 'Now we can recommend you plans and projects which suit your availability',
         add         : 'Add availability',
         edit        : 'Edit availability',

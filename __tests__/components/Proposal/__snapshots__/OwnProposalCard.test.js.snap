@@ -24,7 +24,7 @@ ShallowWrapper {
       }
     }
     title="Lorem ipsum dolor sit amet"
-    type="professional-project"
+    type="work"
   />,
   Symbol(enzyme.__renderer__): Object {
     "batchedUpdates": [Function],
@@ -54,7 +54,7 @@ ShallowWrapper {
         "matches": "Matches",
       },
       "title": "Lorem ipsum dolor sit amet",
-      "type": "professional-project",
+      "type": "work",
     },
     "ref": null,
     "rendered": null,
@@ -82,7 +82,7 @@ ShallowWrapper {
           "matches": "Matches",
         },
         "title": "Lorem ipsum dolor sit amet",
-        "type": "professional-project",
+        "type": "work",
       },
       "ref": null,
       "rendered": null,

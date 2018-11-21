@@ -178,18 +178,20 @@ export function getOwnProposals(url = 'proposals') {
     return getData(url);
 }
 
-export function acceptCandidate(candidateId, data = {accepted: true}, url = 'recommendations/candidates') {
+export function acceptCandidate(data, url = 'recommendations/candidates') {
     return postData(url, data);
 }
 
 export function interestProposal(proposalId, data = {interested: true}, url = 'recommendations/proposals') {
+    data.proposalId = proposalId;
     return postData(url, data);
 }
 
-export function skipCandidate(candidateId, data, url = 'recommendations/candidates/skip') {
-    return postData(url)
+export function skipCandidate(data, url = 'recommendations/candidates/skip') {
+    return postData(url, data)
 }
 
-export function skipProposal(proposalId, data, url = 'recommendations/proposals/skip') {
-    return postData(url)
+export function skipProposal(proposalId, data = {skipped: true}, url = 'recommendations/proposals/skip') {
+    data.proposalId = proposalId;
+    return postData(url, data)
 }

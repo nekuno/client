@@ -8,6 +8,8 @@ function loadStories() {
     require('../stories/BottomNavBar.stories');
     require('../stories/BottomNotificationBar.stories');
     require('../stories/Button.stories');
+    require('../stories/CandidateCard.stories');
+    require('../stories/CardTopData.stories');
     require('../stories/CardUser.stories');
     require('../stories/Chip.stories');
     require('../stories/DateInputRange.stories');
@@ -30,6 +32,7 @@ function loadStories() {
     require('../stories/Overlay.stories');
     require('../stories/ProgressBar.stories');
     require('../stories/ProposalCard.stories');
+    require('../stories/ProposalRecommendationList.stories');
     require('../stories/RoundedIcon.stories');
     require('../stories/RoundedImage.stories');
     require('../stories/Select.stories');

@@ -214,6 +214,10 @@ class RecommendationStore extends BaseStore {
         return this._recommendations;
     }
 
+    getDefault() {
+
+    }
+
     getNextUrl(threadId) {
         return this._loadingRecommendations[threadId] ? null : this._nextUrl[threadId];
     }

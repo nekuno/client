@@ -50,11 +50,11 @@ export default class CardUser extends Component {
                     <div className={styles.progressBars}>
                         <div className={styles.progressBarTitle}>{strings.compatible}&nbsp;</div>
                         <div className={styles.progressBar}>
-                            <ProgressBar percentage={Math.round(matching*100)} size={'small'} strokeColor={'#756EE5'}/>
+                            <ProgressBar percentage={Math.round(matching*100)} size={'small'} strokeColor={'#756EE5'} background={'white'}/>
                         </div>
                         <div className={styles.progressBarTitle}>{strings.similar}&nbsp;</div>
                         <div className={styles.progressBar}>
-                            <ProgressBar percentage={Math.round(similarity*100)} size={'small'} strokeColor={'#756EE5'}/>
+                            <ProgressBar percentage={Math.round(similarity*100)} size={'small'} strokeColor={'#756EE5'} background={'white'}/>
                         </div>
                     </div>
                     <div className={styles.coincidences}>{sharedLinks} {strings.coincidences}</div>

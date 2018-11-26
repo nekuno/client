@@ -120,10 +120,10 @@ export default class Input extends Component {
                            required
                            style={{color: textColor}}
                     />
-                    {!empty && !checked ?
-                        <span className={styles.iconCancel + ' ' + 'icon icon-x'} onClick={this.clearValue}/>
-                        : null
-                    }
+                    {/*{!empty && !checked ?*/}
+                        {/*<span className={styles.iconCancel + ' ' + 'icon icon-x'} onClick={this.clearValue}/>*/}
+                        {/*: null*/}
+                    {/*}*/}
                     {!empty && checked ?
                         <span className={'icon icon-check-circle ' + styles.iconCheck}/>
                         : null

@@ -157,7 +157,7 @@ export default class TagEdit extends Component {
                 <div className="table-row"></div>
                 {selectedTag ? <div className="table-row"></div> : null}
                 {selectedTag ? <div className="table-row"></div> : null}
-                {selectedTag ? <div className="remove-tags-and-choice" onClick={this.handleClickRemoveTag}>{strings.remove} <span className="icon-delete"></span></div> : ''}
+                {/*{selectedTag ? <div className="remove-tags-and-choice" onClick={this.handleClickRemoveTag}>{strings.remove} <span className="icon-delete"></span></div> : ''}*/}
                 {data.length > 0 ?
                     <div className="tags-and-choice-unselected-filters">
                         <div className="table-row"></div>

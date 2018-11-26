@@ -280,7 +280,7 @@ export default class MultipleFieldsEdit extends Component {
                 <div className="multiple-fields">
                     {Object.keys(metadata.metadata).map(key => this.renderField(selectedData, metadata.metadata, key))}
                 </div>
-                {null !== selectedIndex ? <div className="remove-multiple-field" onClick={this.handleClickRemove}>{strings.remove} <span className="icon-delete"></span></div> : ''}
+                {/*{null !== selectedIndex ? <div className="remove-multiple-field" onClick={this.handleClickRemove}>{strings.remove} <span className="icon-delete"></span></div> : ''}*/}
                 {profile[editKey] && profile[editKey].length > 0 ? <div className="add-multiple-field" onClick={this.handleClickAdd}>{strings.add} <span className="icon-plus"></span></div> : ''}
                 {profile[editKey] && profile[editKey].length > 0 ? profile[editKey].map((value, index) =>
                     index !== selectedIndex ?

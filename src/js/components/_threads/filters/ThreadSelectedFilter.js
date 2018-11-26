@@ -18,9 +18,9 @@ export default class ThreadSelectedFilter extends Component {
         const className = addedClass ? addedClass + ' thread-filter ' + type + '-filter' : 'thread-filter ' + type + '-filter';
         return(
             <div className={className}>
-                <div style={{position: 'absolute', right: '48px', marginTop: '-6px'}}>
-                    <RoundedIcon icon={'delete'} size={'small'} disabled={cantRemove} fontSize={'16px'} onClickHandler={this.handleClickRemoveFilter.bind(this)}/>
-                </div>
+                {/*<div style={{position: 'absolute', right: '48px', marginTop: '-6px'}}>*/}
+                    {/*<RoundedIcon icon={'delete'} size={'small'} disabled={cantRemove} fontSize={'16px'} onClickHandler={this.handleClickRemoveFilter.bind(this)}/>*/}
+                {/*</div>*/}
                 {children}
             </div>
         );

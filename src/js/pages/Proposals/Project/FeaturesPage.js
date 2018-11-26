@@ -377,14 +377,14 @@ export default class FeaturesPage extends Component {
                                     title={category.label}>
                                     {category.fields.map((field, index) =>
                                         <div key={index} className="filter">
-                                            <div className="remove">
-                                                <RoundedIcon
-                                                    icon={'delete'}
-                                                    size={'small'}
-                                                    fontSize={'16px'}
-                                                    disabled={field === 'group' && thread.groupId != null}
-                                                    onClickHandler={this.handleClickRemoveFilter.bind(this, field)}/>
-                                            </div>
+                                            {/*<div className="remove">*/}
+                                                {/*<RoundedIcon*/}
+                                                    {/*icon={'delete'}*/}
+                                                    {/*size={'small'}*/}
+                                                    {/*fontSize={'16px'}*/}
+                                                    {/*disabled={field === 'group' && thread.groupId != null}*/}
+                                                    {/*onClickHandler={this.handleClickRemoveFilter.bind(this, field)}/>*/}
+                                            {/*</div>*/}
                                             {this.renderField(field)}
                                         </div>
                                     )}

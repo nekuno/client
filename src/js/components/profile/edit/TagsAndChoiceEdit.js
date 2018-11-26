@@ -177,7 +177,7 @@ export default class TagsAndChoiceEdit extends Component {
                                         title={metadata.choiceLabel['es']}/>
                         </div>
                         : ''}
-                    {selectedTagAndChoice.tag ? <div className="remove-tags-and-choice" onClick={this.handleClickRemoveTagsAndChoice}>{strings.remove} <span className="icon-delete"></span></div> : ''}
+                    {/*{selectedTagAndChoice.tag ? <div className="remove-tags-and-choice" onClick={this.handleClickRemoveTagsAndChoice}>{strings.remove} <span className="icon-delete"></span></div> : ''}*/}
                     {data.length > 0 ?
                         <div className="tags-and-choice-unselected-filters">
                             {data.filter(value => value.tag !== selectedTagAndChoice.tag).map((value, index) =>

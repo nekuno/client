@@ -357,6 +357,7 @@ export default keyMirror({
     REQUEST_PROPOSAL_RECOMMENDATIONS_ERROR  : null,
 
     MERGE_CREATING_PROPOSAL : null,
+    CLEAN_CREATING_PROPOSAL : null,
 
     CHANGE_LOCALE: null
 

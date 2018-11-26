@@ -77,6 +77,12 @@ export default class PreviewPage extends Component {
         this.handleStepsBarClick = this.handleStepsBarClick.bind(this);
     }
 
+    componentDidMount() {
+        if (CreatingProposalStore.proposal.fields.title === '') {
+            this.context.router.push('/proposals');
+        }
+    }
+
     componentWillMount() {
 
     }
@@ -89,12 +95,13 @@ export default class PreviewPage extends Component {
         this.setState({description: event});
     }
 
-    topNavBarRightLinkClick() {
-        this.context.router.push('/proposals');
-    }
-
     topNavBarLeftLinkClick() {
         this.context.router.push('/proposals-project-features');
+    }
+
+    topNavBarRightLinkClick() {
+        ProposalActionCreators.cleanCreatingProposal();
+        this.context.router.push('/proposals');
     }
 
     handleStepsBarClick() {
@@ -102,6 +109,7 @@ export default class PreviewPage extends Component {
         proposal.type = 'work';
         ProposalActionCreators.createProposal(proposal)
             .then(() => {
+                ProposalActionCreators.cleanCreatingProposal();
                 this.context.router.push('/proposals');
             }, () => {
                 // TODO: Handle error

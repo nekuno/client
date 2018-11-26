@@ -38,7 +38,7 @@ export default class IntroductionPage extends Component {
 
         return (
             <div className="views">
-                <div className="view view-main proposals-introduction-view">
+                <div className="view view-main proposals-leisure-introduction-view">
                     <Overlay/>
                     <TopNavBar
                         background={'transparent'}

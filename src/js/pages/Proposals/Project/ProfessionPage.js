@@ -57,6 +57,7 @@ export default class ProfessionPage extends Component {
     }
 
     topNavBarRightLinkClick() {
+        ProposalActionCreators.cleanCreatingProposal();
         this.context.router.push('/proposals');
     }
 

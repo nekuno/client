@@ -68,6 +68,7 @@ export default class AvailabilityPage extends Component {
     }
 
     topNavBarRightLinkClick() {
+        ProposalActionCreators.cleanCreatingProposal();
         this.context.router.push('/proposals');
     }
 

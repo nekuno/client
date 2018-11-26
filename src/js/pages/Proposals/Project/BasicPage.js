@@ -56,6 +56,7 @@ export default class BasicPage extends Component {
     }
 
     topNavBarRightLinkClick() {
+        ProposalActionCreators.cleanCreatingProposal();
         this.context.router.push('/proposals');
     }
 

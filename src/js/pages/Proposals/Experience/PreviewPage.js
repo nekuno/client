@@ -82,18 +82,20 @@ export default class PreviewPage extends Component {
         this.setState({resume: event});
     }
 
-    topNavBarRightLinkClick() {
-        this.context.router.push('/proposals');
-    }
-
     topNavBarLeftLinkClick() {
         this.context.router.push('/proposals-experience-features');
+    }
+
+    topNavBarRightLinkClick() {
+        ProposalActionCreators.cleanCreatingProposal();
+        this.context.router.push('/proposals');
     }
 
     handleStepsBarClick() {
         const proposal = CreatingProposalStore.proposal;
         ProposalActionCreators.createProposal(proposal)
             .then(() => {
+                ProposalActionCreators.cleanCreatingProposal();
                 this.context.router.push('/proposals');
             }, () => {
                 // TODO: Handle error

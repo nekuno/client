@@ -125,6 +125,7 @@ export default class FeaturesPage extends Component {
     }
 
     topNavBarRightLinkClick() {
+        ProposalActionCreators.cleanCreatingProposal();
         this.context.router.push('/proposals');
     }
 

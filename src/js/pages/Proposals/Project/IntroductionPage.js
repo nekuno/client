@@ -5,6 +5,7 @@ import TopNavBar from '../../../components/TopNavBar/TopNavBar.js';
 import '../../../../scss/pages/proposals/project/introduction.scss';
 import Overlay from "../../../components/ui/Overlay/Overlay";
 import Button from "../../../components/ui/Button/Button";
+import * as ProposalActionCreators from "../../../actions/ProposalActionCreators";
 
 @translate('ProposalsProjectIntroductionPage')
 export default class IntroductionPage extends Component {
@@ -30,6 +31,7 @@ export default class IntroductionPage extends Component {
     }
 
     topNavBarRightLinkClick() {
+        ProposalActionCreators.cleanCreatingProposal();
         this.context.router.push('/proposals-project-basic');
     }
 
@@ -38,7 +40,7 @@ export default class IntroductionPage extends Component {
 
         return (
             <div className="views">
-                <div className="view view-main proposals-introduction-view">
+                <div className="view view-main proposals-project-introduction-view">
                     <Overlay/>
                     <TopNavBar
                         background={'transparent'}

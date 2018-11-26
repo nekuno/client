@@ -64,6 +64,7 @@ export default class TypePage extends Component {
     }
 
     topNavBarRightLinkClick() {
+        ProposalActionCreators.cleanCreatingProposal();
         this.context.router.push('/proposals');
     }
     handleInputTagClick(tags) {

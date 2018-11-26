@@ -11,7 +11,6 @@ import BottomNotificationBar from "../components/ui/BottomNotificationBar/Bottom
 import WorkersStore from '../stores/WorkersStore';
 import ProposalStore from '../stores/ProposalStore';
 import ProposalRecommendationsStore from '../stores/ProposalRecommendationsStore';
-import * as ProposalActionCreators from '../actions/ProposalActionCreators';
 import '../../scss/pages/proposals.scss';
 import * as ProposalActionCreators from "../actions/ProposalActionCreators";
 

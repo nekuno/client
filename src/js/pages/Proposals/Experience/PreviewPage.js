@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import translate from '../../../i18n/Translate';
 import TopNavBar from '../../../components/TopNavBar/TopNavBar.js';
-import '../../../../scss/pages/proposals/leisure/preview.scss';
+import '../../../../scss/pages/proposals/experience/preview.scss';
 import RoundedIcon from "../../../components/ui/RoundedIcon/RoundedIcon";
 import CreatingProposalStore from "../../../stores/CreatingProposalStore";
 import connectToStores from "../../../utils/connectToStores";
@@ -83,7 +83,7 @@ export default class PreviewPage extends Component {
     }
 
     topNavBarLeftLinkClick() {
-        this.context.router.push('/proposals-leisure-features');
+        this.context.router.push('/proposals-experience-features');
     }
 
     topNavBarRightLinkClick() {
@@ -123,7 +123,7 @@ export default class PreviewPage extends Component {
 
         return (
             <div className="views">
-                <div className="view view-main proposals-leisure-preview-view">
+                <div className="view view-main proposals-experience-preview-view">
                     <TopNavBar
                         position={'absolute'}
                         background={'transparent'}
@@ -132,7 +132,7 @@ export default class PreviewPage extends Component {
                         textSize={'small'}
                         onLeftLinkClickHandler={this.topNavBarLeftLinkClick}
                         onRightLinkClickHandler={this.topNavBarRightLinkClick}/>
-                    <div className="proposals-leisure-preview-wrapper">
+                    <div className="proposals-experience-preview-wrapper">
                         <div className={'image-wrapper'}>
                             <img src={'https://via.placeholder.com/480x240'}/>
                             <h2 className={'bottom-left'}>{title}</h2>
@@ -221,7 +221,7 @@ export default class PreviewPage extends Component {
                     </div>
                 </div>
                 <StepsBar
-                    color={'pink'}
+                    color={'green'}
                     canContinue={true}
                     continueText={strings.publishProposal}
                     totalSteps={0}

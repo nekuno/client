@@ -76,3 +76,20 @@ export const INFINITE_CALENDAR_PINK_THEME = {
         chevron: '#FFA726'
     }
 };
+
+export const INFINITE_CALENDAR_GREEN_THEME = {
+    textColor: {
+        default: '#333',
+        active: '#FFF'
+    },
+    selectionColor: '#7bd47e',
+    todayColor: '#7bd47e',
+    weekdayColor: '#c8edc9',
+    headerColor: '#7bd47e',
+    accentColor: '#7bd47e',
+    floatingNav: {
+        background: 'rgba(99, 66, 177, 0.9)',
+        color: '#FFF',
+        chevron: '#FFA726'
+    }
+};

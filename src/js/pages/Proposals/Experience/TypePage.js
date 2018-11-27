@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import translate from '../../../i18n/Translate';
 import TopNavBar from '../../../components/TopNavBar/TopNavBar.js';
-import '../../../../scss/pages/proposals/leisure/type.scss';
+import '../../../../scss/pages/proposals/experience/type.scss';
 import InputSelectText from "../../../components/RegisterFields/InputSelectText/InputSelectText";
 import StepsBar from "../../../components/ui/StepsBar/StepsBar";
 import connectToStores from "../../../utils/connectToStores";
@@ -60,7 +60,7 @@ export default class TypePage extends Component {
     }
 
     topNavBarLeftLinkClick() {
-        this.context.router.push('/proposals-leisure-basic');
+        this.context.router.push('/proposals-experience-basic');
     }
 
     topNavBarRightLinkClick() {
@@ -90,7 +90,7 @@ export default class TypePage extends Component {
             typeValues : this.state.type,
         };
         ProposalActionCreators.mergeCreatingProposal(proposal);
-        this.context.router.push('/proposals-leisure-availability');
+        this.context.router.push('/proposals-experience-availability');
     }
 
     render() {
@@ -99,7 +99,7 @@ export default class TypePage extends Component {
 
         return (
             <div className="views">
-                <div className="view view-main proposals-leisure-type-view">
+                <div className="view view-main proposals-experience-type-view">
                     <TopNavBar
                         background={'transparent'}
                         iconLeft={'arrow-left'}
@@ -108,26 +108,26 @@ export default class TypePage extends Component {
                         textSize={'small'}
                         onLeftLinkClickHandler={this.topNavBarLeftLinkClick}
                         onRightLinkClickHandler={this.topNavBarRightLinkClick}/>
-                    <div className="proposals-leisure-type-wrapper">
+                    <div className="proposals-experience-type-wrapper">
                         <h2>{strings.title}</h2>
-                        {CreatingProposalStore.proposal.type[0] === 'games' ?
-                        <InputSelectImage
-                            options={typeOptions}/>
-                            :
+                        {/*{CreatingProposalStore.proposal.type[0] === 'games' ?*/}
+                        {/*<InputSelectImage*/}
+                            {/*options={typeOptions}/>*/}
+                            {/*:*/}
                             <InputTag
                                 tags={typeOptions}
                                 placeholder={strings.placeholder}
                                 searchIcon={true}
                                 size={'small'}
-                                chipsColor={'pink'}
+                                chipsColor={'green'}
                                 onChangeHandler={this.handleInputTagChange}
                                 onClickHandler={this.handleInputTagClick}
                                 selectedLabel={strings.selectedLabel}/>
-                        }
+                        {/*}*/}
                     </div>
                 </div>
                 <StepsBar
-                    color={'pink'}
+                    color={'green'}
                     totalSteps={5}
                     currentStep={1}
                     continueText={strings.stepsBarContinueText}

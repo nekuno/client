@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import translate from '../../../i18n/Translate';
 import TopNavBar from '../../../components/TopNavBar/TopNavBar.js';
-import '../../../../scss/pages/proposals/project/availability.scss';
+import '../../../../scss/pages/proposals/experience/availability.scss';
 import StepsBar from "../../../components/ui/StepsBar/StepsBar";
 import connectToStores from "../../../utils/connectToStores";
 import * as ProposalActionCreators from "../../../actions/ProposalActionCreators";
@@ -19,7 +19,7 @@ function getState() {
     };
 }
 
-@translate('ProposalsProjectAvailabilityPage')
+@translate('ProposalsLeisureAvailabilityPage')
 @connectToStores([CreatingProposalStore], getState)
 export default class AvailabilityPage extends Component {
 
@@ -45,8 +45,8 @@ export default class AvailabilityPage extends Component {
         this.topNavBarLeftLinkClick = this.topNavBarLeftLinkClick.bind(this);
         this.topNavBarRightLinkClick = this.topNavBarRightLinkClick.bind(this);
         this.onClickAvailabilityHandler = this.onClickAvailabilityHandler.bind(this);
-        this.onClickProjectParticipantsSubstractHandler = this.onClickProjectParticipantsSubstractHandler.bind(this);
-        this.onClickProjectParticipantsPlusHandler = this.onClickProjectParticipantsPlusHandler.bind(this);
+        this.onClickParticipantsSubstractHandler = this.onClickParticipantsSubstractHandler.bind(this);
+        this.onClickParticipantsPlusHandler = this.onClickParticipantsPlusHandler.bind(this);
         this.handleStepsBarClick = this.handleStepsBarClick.bind(this);
     }
 
@@ -64,7 +64,7 @@ export default class AvailabilityPage extends Component {
     }
 
     topNavBarLeftLinkClick() {
-        this.context.router.push('/proposals-project-profession');
+        this.context.router.push('/proposals-experience-type');
     }
 
     topNavBarRightLinkClick() {
@@ -77,10 +77,10 @@ export default class AvailabilityPage extends Component {
             participantLimit : this.state.participantLimit,
         };
         ProposalActionCreators.mergeCreatingProposal(proposal);
-        this.context.router.push('/proposals-project-availability-dates');
+        this.context.router.push('/proposals-experience-availability-dates');
     }
 
-    onClickProjectParticipantsSubstractHandler() {
+    onClickParticipantsSubstractHandler() {
         const newParticipantLimit = this.state.participantLimit - 1;
         this.setState({
             participantLimit : newParticipantLimit,
@@ -93,7 +93,7 @@ export default class AvailabilityPage extends Component {
         }
     }
 
-    onClickProjectParticipantsPlusHandler() {
+    onClickParticipantsPlusHandler() {
         const newParticipantLimit = this.state.participantLimit + 1;
         this.setState({
             participantLimit : newParticipantLimit,
@@ -111,7 +111,7 @@ export default class AvailabilityPage extends Component {
             participantLimit : this.state.participantLimit,
         };
         ProposalActionCreators.mergeCreatingProposal(proposal);
-        this.context.router.push('/proposals-project-features');
+        this.context.router.push('/proposals-experience-features');
     }
 
     render() {
@@ -138,7 +138,7 @@ export default class AvailabilityPage extends Component {
 
         return (
             <div className="views">
-                <div className="view view-main proposals-project-availability-view">
+                <div className="view view-main proposals-experience-availability-view">
                     <TopNavBar
                         background={'transparent'}
                         iconLeft={'arrow-left'}
@@ -147,9 +147,9 @@ export default class AvailabilityPage extends Component {
                         textSize={'small'}
                         onLeftLinkClickHandler={this.topNavBarLeftLinkClick}
                         onRightLinkClickHandler={this.topNavBarRightLinkClick}/>
-                    <div className="proposals-project-availability-wrapper">
+                    <div className="proposals-experience-availability-wrapper">
                         <h2>{strings.title}</h2>
-                        <div className="proposals-project-availability-frame-wrapper">
+                        <div className="proposals-experience-availability-frame-wrapper">
                             <Frame
                                 onClickHandler={this.onClickAvailabilityHandler}>
                                 <div className={'rounded-icon-wrapper'}>
@@ -206,22 +206,22 @@ export default class AvailabilityPage extends Component {
                                 <RoundedIcon
                                     disabled={disableSubstract}
                                     color={disableSubstract?'#818fa1':'#FFFFFF'}
-                                    background={disableSubstract?'#FFFFFF':'#63CAFF'}
+                                    background={disableSubstract?'#FFFFFF':'#7bd47e'}
                                     icon={'minus'} size={'small'}
                                     border={'1px solid #F0F1FA'}
-                                    onClickHandler={this.onClickProjectParticipantsSubstractHandler}/>
+                                    onClickHandler={this.onClickParticipantsSubstractHandler}/>
                                 <div className={'participants-number-text'}>{participantLimit}</div>
                                 <RoundedIcon
-                                    background={'#63CAFF'}
+                                    background={'#7bd47e'}
                                     icon={'plus'}
                                     size={'small'}
-                                    onClickHandler={this.onClickProjectParticipantsPlusHandler}/>
+                                    onClickHandler={this.onClickParticipantsPlusHandler}/>
                             </div>
                         </Frame>
                     </div>
                 </div>
                 <StepsBar
-                    color={'blue'}
+                    color={'green'}
                     totalSteps={5}
                     currentStep={3}
                     continueText={strings.stepsBarContinueText}
@@ -235,26 +235,26 @@ export default class AvailabilityPage extends Component {
 
 AvailabilityPage.defaultProps = {
     strings: {
-        publishProposal          : 'Publish proposal',
-        title                    : 'What implication do you need for the project?',
-        availabilityTitle        : 'Availability',
-        availabilityDescription  : 'Indicate in what time or range of days you would like to develop the project',
-        participantsTitle        : 'Number of participants',
-        stepsBarContinueText     : 'Continue',
-        stepsBarCantContinueText : 'Indicate at least one parameter',
-        monday                   : 'Monday',
-        tuesday                  : 'Tuesday',
-        wednesday                : 'Wednesday',
-        thursday                 : 'Thursday',
-        friday                   : 'Friday',
-        saturday                 : 'Saturday',
-        sunday                   : 'Sunday',
-        and                      : 'and',
-        scheduleOf               : 'schedule of',
-        morning                  : 'morning',
-        afternoon                : 'afternoon',
-        night                    : 'night',
-        from                     : 'From',
-        to                       : 'to',
+        publishProposal         : 'Publish proposal',
+        title                   : 'What availability and number of people need?',
+        availabilityTitle       : 'Availability',
+        availabilityDescription : 'Indicate in what time or range of days',
+        participantsTitle       : 'Number of participants',
+        stepsBarContinueText    : 'Continue',
+        stepsBarCantContinueText: 'Indicate at least one parameter',
+        monday                  : 'Monday',
+        tuesday                 : 'Tuesday',
+        wednesday               : 'Wednesday',
+        thursday                : 'Thursday',
+        friday                  : 'Friday',
+        saturday                : 'Saturday',
+        sunday                  : 'Sunday',
+        and                     : 'and',
+        scheduleOf              : 'schedule of',
+        morning                 : 'morning',
+        afternoon               : 'afternoon',
+        night                   : 'night',
+        from                    : 'From',
+        to                      : 'to',
     }
 };

@@ -61,6 +61,7 @@ export default class IndustryPage extends Component {
     }
 
     topNavBarRightLinkClick() {
+        ProposalActionCreators.cleanCreatingProposal();
         this.context.router.push('/proposals');
     }
 

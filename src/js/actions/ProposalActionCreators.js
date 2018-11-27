@@ -99,3 +99,7 @@ export function skipCandidate(data, skipped = true) {
 export function mergeCreatingProposal(data) {
     dispatch(ActionTypes.MERGE_CREATING_PROPOSAL, {data});
 }
+
+export function cleanCreatingProposal() {
+    dispatch(ActionTypes.CLEAN_CREATING_PROPOSAL, {});
+}

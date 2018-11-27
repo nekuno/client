@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import translate from '../../../i18n/Translate';
 import TopNavBar from '../../../components/TopNavBar/TopNavBar.js';
-import '../../../../scss/pages/proposals/project/features.scss';
+import '../../../../scss/pages/proposals/experience/features.scss';
 import StepsBar from "../../../components/ui/StepsBar/StepsBar";
 import connectToStores from "../../../utils/connectToStores";
 import * as ProposalActionCreators from "../../../actions/ProposalActionCreators";
@@ -64,7 +64,7 @@ function getState(props) {
 }
 
 @AuthenticatedComponent
-@translate('ProposalsProjectFeaturesPage')
+@translate('ProposalsLeisureFeaturesPage')
 @connectToStores([FilterStore, TagSuggestionsStore, ThreadStore], getState)
 export default class FeaturesPage extends Component {
 
@@ -121,7 +121,7 @@ export default class FeaturesPage extends Component {
     }
 
     topNavBarLeftLinkClick() {
-        this.context.router.push('/proposals-project-availability');
+        this.context.router.push('/proposals-experience-availability');
     }
 
     topNavBarRightLinkClick() {
@@ -338,7 +338,7 @@ export default class FeaturesPage extends Component {
             }
         };
         ProposalActionCreators.mergeCreatingProposal(proposal);
-        this.context.router.push('/proposals-project-preview');
+        this.context.router.push('/proposals-experience-preview');
     }
 
     render() {
@@ -348,7 +348,7 @@ export default class FeaturesPage extends Component {
 
         return (
             <div className="views">
-                <div className="view view-main proposals-project-features-view">
+                <div className="view view-main proposals-experience-features-view">
                     <TopNavBar
                         background={'#FBFCFD'}
                         iconLeft={'arrow-left'}
@@ -357,7 +357,7 @@ export default class FeaturesPage extends Component {
                         textSize={'small'}
                         onLeftLinkClickHandler={this.topNavBarLeftLinkClick}
                         onRightLinkClickHandler={this.topNavBarRightLinkClick}/>
-                    <div className="proposals-project-features-wrapper">
+                    <div className="proposals-experience-features-wrapper">
                         <h2>{strings.title}</h2>
                         <div className={'warning-container'}>
                             <div className={'warning-icon-container'}>
@@ -395,7 +395,7 @@ export default class FeaturesPage extends Component {
                 </div>
 
                 <StepsBar
-                    color={'blue'}
+                    color={'green'}
                     totalSteps={5}
                     currentStep={4}
                     continueText={strings.stepsBarContinueText}
@@ -409,9 +409,9 @@ export default class FeaturesPage extends Component {
 
 FeaturesPage.defaultProps = {
     strings: {
+        publishProposal         : 'Publish proposal',
         title                    : 'Are you looking for people with specific features?',
         filterWarning            : 'This filters only be visible for you and we need to filter users',
-        showResults              : 'Show results',
         stepsBarContinueText     : 'Continue',
         stepsBarCantContinueText : 'You cannot continue',
     }

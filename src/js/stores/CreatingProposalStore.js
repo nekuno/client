@@ -15,6 +15,10 @@ class CreatingProposalStore extends BaseStore {
                 Object.assign(this._proposal, action.data);
                 this.emitChange();
                 break;
+            case ActionTypes.CLEAN_CREATING_PROPOSAL:
+                this.setInitial();
+                this.emitChange();
+                break;
             default:
                 break;
         }

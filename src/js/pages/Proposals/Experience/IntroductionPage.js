@@ -2,12 +2,11 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import translate from '../../../i18n/Translate';
 import TopNavBar from '../../../components/TopNavBar/TopNavBar.js';
-import '../../../../scss/pages/proposals/project/introduction.scss';
-import Overlay from "../../../components/ui/Overlay/Overlay";
+import '../../../../scss/pages/proposals/experience/introduction.scss';
 import Button from "../../../components/ui/Button/Button";
-import * as ProposalActionCreators from "../../../actions/ProposalActionCreators";
+import Overlay from "../../../components/ui/Overlay/Overlay";
 
-@translate('ProposalsProjectIntroductionPage')
+@translate('ProposalsExperienceIntroductionPage')
 export default class IntroductionPage extends Component {
 
     static propTypes = {
@@ -31,8 +30,7 @@ export default class IntroductionPage extends Component {
     }
 
     topNavBarRightLinkClick() {
-        ProposalActionCreators.cleanCreatingProposal();
-        this.context.router.push('/proposals-project-basic');
+        this.context.router.push('/proposals-experience-basic');
     }
 
     render() {
@@ -40,7 +38,7 @@ export default class IntroductionPage extends Component {
 
         return (
             <div className="views">
-                <div className="view view-main proposals-project-introduction-view">
+                <div className="view view-main proposals-experience-introduction-view">
                     <Overlay/>
                     <TopNavBar
                         background={'transparent'}
@@ -56,7 +54,7 @@ export default class IntroductionPage extends Component {
                             <img src="/img/proposals/Trabajo.png"/>
                         </div>
                         <h1>{strings.title}</h1>
-                        <div className="resume">{strings.description}</div>
+                        <div className="resume">{strings.resume}</div>
                         <Button onClickHandler={this.topNavBarRightLinkClick}>{strings.doProposal}</Button>
                     </div>
                 </div>
@@ -69,8 +67,8 @@ export default class IntroductionPage extends Component {
 IntroductionPage.defaultProps = {
     strings: {
         publishProposal: 'Publish proposal',
-        title          : 'Do your proposal for a project',
-        description    : 'Publish that idea or project that you have in mind and we will find related people to carry it out.',
-        doProposal     : 'Create proposal'
+        title: 'Do your experience proposal',
+        resume: 'Publish that experience or activity that you have in mind and we will find related people to carry it out.',
+        doProposal: 'Create proposal'
     }
 };

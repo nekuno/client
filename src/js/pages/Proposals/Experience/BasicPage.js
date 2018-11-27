@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import translate from '../../../i18n/Translate';
 import TopNavBar from '../../../components/TopNavBar/TopNavBar.js';
-import '../../../../scss/pages/proposals/leisure/basic.scss';
+import '../../../../scss/pages/proposals/experience/basic.scss';
 import StepsBar from "../../../components/ui/StepsBar/StepsBar";
 import Input from "../../../components/ui/Input/Input";
 import Textarea from "../../../components/ui/Textarea/Textarea";
@@ -10,7 +10,7 @@ import CreatingProposalStore from '../../../stores/CreatingProposalStore';
 import * as ProposalActionCreators from "../../../actions/ProposalActionCreators";
 import SelectInline from "../../../components/ui/SelectInline/SelectInline";
 
-@translate('ProposalsLeisureBasicPage')
+@translate('ProposalsExperienceBasicPage')
 export default class BasicPage extends Component {
 
     static propTypes = {
@@ -60,7 +60,7 @@ export default class BasicPage extends Component {
     }
 
     topNavBarLeftLinkClick() {
-        this.context.router.push('/proposals-leisure-introduction');
+        this.context.router.push('/proposals-experience-introduction');
     }
 
     topNavBarRightLinkClick() {
@@ -89,7 +89,7 @@ export default class BasicPage extends Component {
             }
         };
         ProposalActionCreators.mergeCreatingProposal(proposal);
-        this.context.router.push('/proposals-leisure-type');
+        this.context.router.push('/proposals-experience-type');
     }
 
     render() {
@@ -98,21 +98,21 @@ export default class BasicPage extends Component {
 
         const TypeChoices = [
             {
-                id: "sports",
-                text: strings.sport
+                id: "events",
+                text: strings.events
             },
             {
-                id: "hobbies",
-                text: strings.hobbie
+                id: "gourmet",
+                text: strings.gourmet
             },
             {
-                id: "games",
-                text: strings.game
+                id: "plan",
+                text: strings.plan
             }
         ];
         return (
             <div className="views">
-                <div className="view view-main proposals-leisure-basic-view">
+                <div className="view view-main proposals-experience-basic-view">
                     <TopNavBar
                         background={'transparent'}
                         iconLeft={'arrow-left'}
@@ -121,11 +121,11 @@ export default class BasicPage extends Component {
                         textSize={'small'}
                         onLeftLinkClickHandler={this.topNavBarLeftLinkClick}
                         onRightLinkClickHandler={this.topNavBarRightLinkClick}/>
-                    <div className="proposals-leisure-basic-wrapper">
+                    <div className="proposals-experience-basic-wrapper">
                         <h2>{strings.title}</h2>
                         <SelectInline
                             onClickHandler={this.handleSelectInlineClick}
-                            color={'pink'}
+                            color={'green'}
                             options={TypeChoices}
                             defaultOption={this.state.type[0]}/>
                         <div className={'image-wrapper'}>
@@ -143,7 +143,7 @@ export default class BasicPage extends Component {
                     </div>
                 </div>
                 <StepsBar
-                    color={'pink'}
+                    color={'green'}
                     totalSteps={5}
                     currentStep={0}
                     continueText={strings.stepsBarContinueText}
@@ -158,10 +158,10 @@ export default class BasicPage extends Component {
 BasicPage.defaultProps = {
     strings: {
         publishProposal          : 'Publish proposal',
-        title                    : 'What is your project proposal?',
-        sport                    : 'Sport',
-        hobbie                   : 'Hobbie',
-        game                     : 'Game',
+        title                    : 'What is your proposal?',
+        events                   : 'Events',
+        gourmet                  : 'Gourmet',
+        plan                     : 'Plan',
         titlePlaceholder         : 'Propose title',
         descriptionPlaceholder   : 'Explain how you want to carry it out...',
         stepsBarContinueText     : 'Continue',

@@ -10,15 +10,14 @@ import BottomNotificationBar from "../components/ui/BottomNotificationBar/Bottom
 import WorkersStore from '../stores/WorkersStore';
 import ProposalStore from '../stores/ProposalStore';
 import ProposalRecommendationsStore from '../stores/ProposalRecommendationsStore';
-import * as ProposalActionCreators from '../actions/ProposalActionCreators';
 import '../../scss/pages/proposals.scss';
+import * as ProposalActionCreators from "../actions/ProposalActionCreators";
 
 function requestData(props) {
     ProposalActionCreators.requestRecommendations();
 }
 
 function getState(props) {
-
     const networks = WorkersStore.getAll();
     const error = WorkersStore.getConnectError();
     const isLoading = WorkersStore.isLoading();
@@ -56,6 +55,8 @@ export default class ProposalsPage extends Component {
 
     constructor(props) {
         super(props);
+
+        ProposalActionCreators.cleanCreatingProposal();
 
         this.goToEditAvailability = this.goToEditAvailability.bind(this);
 

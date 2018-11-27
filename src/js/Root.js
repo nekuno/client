@@ -88,6 +88,14 @@ import ProposalsLeisureAvailabilityDatesPage from "./pages/Proposals/Leisure/Ava
 import ProposalsLeisureFeaturesPage          from "./pages/Proposals/Leisure/FeaturesPage";
 import ProposalsLeisurePreviewPage           from "./pages/Proposals/Leisure/PreviewPage";
 
+import ProposalsExperienceIntroductionPage      from "./pages/Proposals/Experience/IntroductionPage";
+import ProposalsExperienceBasicPage             from "./pages/Proposals/Experience/BasicPage";
+import ProposalsExperienceTypePage              from "./pages/Proposals/Experience/TypePage";
+import ProposalsExperienceAvailability          from "./pages/Proposals/Experience/AvailabilityPage";
+import ProposalsExperienceAvailabilityDatesPage from "./pages/Proposals/Experience/AvailabilityDatesPage";
+import ProposalsExperienceFeaturesPage          from "./pages/Proposals/Experience/FeaturesPage";
+import ProposalsExperiencePreviewPage           from "./pages/Proposals/Experience/PreviewPage";
+
 function requireAuth(nextState, replaceState) {
 
     if (!LoginStore.isLoggedIn()) {
@@ -148,7 +156,14 @@ export default class Root extends Component {
                         <Route name="proposals-leisure-availability" path="/proposals-leisure-availability" component={ProposalsLeisureAvailability}/>
                         <Route name="proposals-leisure-availability-dates" path="/proposals-leisure-availability-dates" component={ProposalsLeisureAvailabilityDatesPage}/>
                         <Route name="proposals-leisure-features" path="/proposals-leisure-features" component={ProposalsLeisureFeaturesPage}/>
-                        <Route name="proposals-leisure-preview" path="/proposals-leisure-preview" component={ProposalsLeisurePreviewPage}/>
+                        <Route name="proposals-experience-preview" path="/proposals-experience-preview" component={ProposalsExperiencePreviewPage}/>
+                        <Route name="proposals-experience-introduction" path="/proposals-experience-introduction" component={ProposalsExperienceIntroductionPage}/>
+                        <Route name="proposals-experience-basic" path="/proposals-experience-basic" component={ProposalsExperienceBasicPage}/>
+                        <Route name="proposals-experience-type" path="/proposals-experience-type" component={ProposalsExperienceTypePage}/>
+                        <Route name="proposals-experience-availability" path="/proposals-experience-availability" component={ProposalsExperienceAvailability}/>
+                        <Route name="proposals-experience-availability-dates" path="/proposals-experience-availability-dates" component={ProposalsExperienceAvailabilityDatesPage}/>
+                        <Route name="proposals-experience-features" path="/proposals-experience-features" component={ProposalsExperienceFeaturesPage}/>
+                        <Route name="proposals-experience-preview" path="/proposals-experience-preview" component={ProposalsExperiencePreviewPage}/>
                         <Route name="persons" path="/persons" component={PersonsPage}/>
                         <Route name="persons-all" path="/persons-all" component={PersonsAllPage}/>
                         <Route name="persons-filter" path="/persons-filter/:threadId" component={PersonsFilterPage}/>

@@ -31,7 +31,7 @@ export default class ThreadUnselectedFilter extends Component {
                 <TextCheckboxes labels={[{key: filterKey, text: FilterStore.getFilterLabel(filter, data)}]}
                                 onClickHandler={this.handleClickFilter}
                                 values={FilterStore.isFilterSet(filter, data) ? [filterKey] : []} />
-                {cantRemove ? null : <div className="delete-filter icon-wrapper" onClick={this.handleClickRemoveFilter}><span className="icon-delete"></span></div>}
+                {/*{cantRemove ? null : <div className="delete-filter icon-wrapper" onClick={this.handleClickRemoveFilter}><span className="icon-delete"></span></div>}*/}
                 <div className="table-row"></div>
             </div>
         );

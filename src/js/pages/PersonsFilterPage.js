@@ -6,7 +6,6 @@ import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import * as ThreadActionCreators from '../actions/ThreadActionCreators';
 import FrameCollapsible from '../components/ui/FrameCollapsible/FrameCollapsible.js';
 import TopNavBar from '../components/TopNavBar/TopNavBar.js';
-import RoundedIcon from '../components/ui/RoundedIcon/RoundedIcon';
 import ChoiceFilter from '../components/_threads/filters/ChoiceFilter';
 import LocationFilter from '../components/Threads/Filters/LocationFilter';
 import IntegerRangeFilter from '../components/Threads/Filters/IntegerRangeFilter';

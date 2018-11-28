@@ -2,6 +2,8 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import Geosuggest from 'react-geosuggest';
 import styles from './LocationInput.scss';
+import Input from "../Input/Input";
+import {action} from "@storybook/addon-actions";
 
 export default class LocationInput extends Component {
 

@@ -4,6 +4,7 @@ import LocationInput from '../../ui/LocationInput/LocationInput.js';
 import Select from '../../ui/Select/Select.js';
 import translate from '../../../i18n/Translate';
 import selectn from 'selectn';
+import InputSlider from "../../ui/InputSlider/InputSlider";
 
 @translate('LocationFilter')
 export default class LocationFilter extends Component {
@@ -24,34 +25,26 @@ export default class LocationFilter extends Component {
         super(props);
 
         this.handleClickLocationSuggestion = this.handleClickLocationSuggestion.bind(this);
-        this.handleClickChoice = this.handleClickChoice.bind(this);
+        this.handleChangeInputSlider = this.handleChangeInputSlider.bind(this);
     }
 
     handleClickLocationSuggestion(location) {
         let {filterKey} = this.props;
         let data = {
             location: location,
-            distance: 50
+            distance: 10
         };
         this.props.handleChangeFilter(filterKey, data);
     }
 
-    handleClickChoice(choice) {
-        let {filterKey, data} = this.props;
-        data.distance = parseInt(choice);
-        this.props.handleChangeFilter(filterKey, data);
+    handleChangeInputSlider(value) {
+        const {filterKey, data} = this.props;
+        let newData = {
+            location: data.location,
+            distance: value,
+        };
+        this.props.handleChangeFilter(filterKey, newData);
     }
-
-    getDistanceLabels = function() {
-        return [
-            {key: 10, text: '10 Km'},
-            {key: 25, text: '25 Km'},
-            {key: 50, text: '50 Km'},
-            {key: 100, text: '100 Km'},
-            {key: 250, text: '250 Km'},
-            {key: 500, text: '500 Km'}
-        ]
-    };
 
     render() {
         const {data, strings} = this.props;
@@ -62,10 +55,7 @@ export default class LocationFilter extends Component {
                 {data && data.location ?
                     <div>
                         <br/>
-                        <Select options={this.getDistanceLabels()}
-                                onClickHandler={this.handleClickChoice}
-                                defaultOption={data.distance}
-                                title={strings.minDistance}/>
+                        <InputSlider data={data.distance} handleChangeInputSlider={this.handleChangeInputSlider}/>
                     </div>
                     : null}
             </div>

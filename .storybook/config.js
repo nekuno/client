@@ -24,6 +24,7 @@ function loadStories() {
     require('../stories/InputRadio.stories');
     require('../stories/InputSelectImage.stories');
     require('../stories/InputSelectText.stories');
+    require('../stories/InputSlider.stories');
     require('../stories/InputTag.stories');
     require('../stories/LastMessage.stories');
     require('../stories/LeftPanel.stories');

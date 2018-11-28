@@ -1099,6 +1099,10 @@ export default {
         compatibleWithProposal: 'Compatible with your proposal!',
         defaultDescription: 'Hi! I am ',
     },
+    MatchingBars:{
+        compatible: 'Compatibility',
+        similar   : 'Similarity'
+    },
     ReportContentPopup               : {
         title      : 'Write a brief explanation of the report',
         placeholder: 'Text...',

@@ -2,9 +2,9 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import RoundedImage from '../../ui/RoundedImage/RoundedImage.js';
 import RoundedIcon from '../../ui/RoundedIcon/RoundedIcon.js';
-import ProgressBar from '../../ui/ProgressBar/ProgressBar.js';
 import styles from './ProposalCard.scss';
 import translate from '../../../i18n/Translate';
+import MatchingBars from "../../ui/MatchingBars/MatchingBars";
 
 @translate('ProposalCard')
 export default class ProposalCard extends Component {
@@ -73,16 +73,7 @@ export default class ProposalCard extends Component {
                             <div className={styles.ageCity}>{location.locality} &bull; {age}</div>
                         </div>
                     </div>
-                    <div className={styles.progressBars}>
-                        <div className={styles.progressBarTitle}>{strings.compatible}&nbsp;</div>
-                        <div className={styles.progressBar}>
-                            <ProgressBar percentage={matching} size={'small'} strokeColor={'#756EE5'}  background={'white'}/>
-                        </div>
-                        <div className={styles.progressBarTitle}>{strings.similar}&nbsp;</div>
-                        <div className={styles.progressBar}>
-                            <ProgressBar percentage={similarity} size={'small'} strokeColor={'#756EE5'}  background={'white'}/>
-                        </div>
-                    </div>
+                    <MatchingBars matching={matching} similarity={similarity}/>
                     <div className={styles.description}>
                         <div className={styles.resumeTitle}>{strings.project}</div>
                         <div className={styles.resumeText}>{description}</div>

@@ -4,6 +4,7 @@ import styles from './CandidateCard.scss';
 import RoundedIcon from "../../ui/RoundedIcon/RoundedIcon";
 import ProgressBar from "../../ui/ProgressBar/ProgressBar";
 import translate from "../../../i18n/Translate";
+import MatchingBars from "../../ui/MatchingBars/MatchingBars";
 
 @translate('CandidateCard')
 export default class CandidateCard extends Component {
@@ -71,16 +72,7 @@ export default class CandidateCard extends Component {
                         </div>
                     </div>
 
-                    <div className={styles.progressBars}>
-                        <div className={styles.progressBarTitle}>{strings.compatible}&nbsp;</div>
-                        <div className={styles.progressBar}>
-                            <ProgressBar percentage={matching} size={'small'} strokeColor={'#756EE5'} background={'white'}/>
-                        </div>
-                        <div className={styles.progressBarTitle}>{strings.similar}&nbsp;</div>
-                        <div className={styles.progressBar}>
-                            <ProgressBar percentage={similarity} size={'small'} strokeColor={'#756EE5'} background={'white'}/>
-                        </div>
-                    </div>
+                    <MatchingBars matching={matching} similarity={similarity}/>
 
                     <div className={styles.description}>
                         <div className={styles.resumeText}>{bio}</div>

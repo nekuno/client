@@ -88,7 +88,7 @@ export function removeThread(threadId, url= `threads/${threadId}`) {
     return deleteData(url);
 }
 
-export function getRecommendations(url) {
+export function getRecommendations(threadId, url=`threads/${threadId}/recommendation`) {
     return getData(url);
 }
 

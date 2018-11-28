@@ -28,6 +28,7 @@ function loadStories() {
     require('../stories/LastMessage.stories');
     require('../stories/LeftPanel.stories');
     require('../stories/LocationInput.stories');
+    require('../stories/MatchingBars.stories');
     require('../stories/OwnProposalCard.stories');
     require('../stories/Overlay.stories');
     require('../stories/ProgressBar.stories');

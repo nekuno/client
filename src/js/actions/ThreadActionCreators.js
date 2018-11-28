@@ -21,7 +21,7 @@ export function requestThreadPage(userId, groupId = null) {
 
 export function requestThreads(userId = null, url = null) {
 
-    if (null === userId){
+    if (null === userId) {
         userId = LoginStore.user.id;
     }
 
@@ -90,17 +90,21 @@ export function requestRecommendationPage(userId, threadId) {
     if (!ThreadStore.contains(threadId)) {
         promise = promise.then(() => {
             this.requestThreads(userId);
-        }, (error) => { console.log(error) });
+        }, (error) => {
+            console.log(error)
+        });
     }
 
     promise.then(() => {
         requestRecommendations(threadId)
-    }, (error) => { console.log(error) });
+    }, (error) => {
+        console.log(error)
+    });
 
 }
 
 export function requestRecommendations(threadId, url) {
-    return dispatchAsync((UserAPI.getRecommendations(url)), {
+    return dispatchAsync((UserAPI.getRecommendations(threadId, url)), {
         request: ActionTypes.REQUEST_RECOMMENDATIONS,
         success: ActionTypes.REQUEST_RECOMMENDATIONS_SUCCESS,
         failure: ActionTypes.REQUEST_RECOMMENDATIONS_ERROR
@@ -126,5 +130,21 @@ export function recommendationsNext(threadId) {
 
 export function saveIndex(index) {
     dispatch(ActionTypes.SAVE_RECOMMENDATIONS_INDEX, {index});
+}
+
+export function requestDefaultRecommendations() {
+
+    return this.requestThreads().then(() => {
+            setTimeout(() => {
+                const defaultThread = ThreadStore.getOwnDefault();
+                if (null === defaultThread) {
+                    return;
+                }
+
+                const defaultThreadId = defaultThread.id;
+                this.requestRecommendations(defaultThreadId);
+            }, 1);
+        }
+    );
 }
 

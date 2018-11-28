@@ -107,38 +107,8 @@
       }
     }
 
-    .progress-bars {
-      margin-top: 16px;
-      padding: 0 5%;
-
-      .progress-bar-title {
-        display: inline-block;
-        font-size: 10px;
-        height: 33px;
-        line-height: 33px;
-        width: 40%;
-
-        @media only screen and (min-width: 320px) {
-          font-size: 12px;
-        }
-        @media only screen and (min-width: 350px) {
-          font-size: inherit;
-        }
-      }
-
-      .progress-bar {
-        display: inline-block;
-        width: 50%;
-      }
-    }
-
     .description {
       padding: 16px 5%;
-
-      //.resume-text {
-      //  font-weight: normal;
-      //  margin-top: 16px;
-      //}
     }
 
     .horizontal-line {

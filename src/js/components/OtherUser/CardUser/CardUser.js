@@ -2,8 +2,8 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import styles from './CardUser.scss';
 import RoundedImage from '../../ui/RoundedImage/RoundedImage.js';
-import ProgressBar from '../../ui/ProgressBar/ProgressBar.js';
 import translate from '../../../i18n/Translate';
+import MatchingBars from "../../ui/MatchingBars/MatchingBars";
 
 @translate('CardUser')
 export default class CardUser extends Component {
@@ -30,6 +30,9 @@ export default class CardUser extends Component {
     render() {
         const {photo, username, age, location, matching, similarity, sharedLinks, group, size, strings} = this.props;
 
+        const matchingPercentage = Math.round(matching*100);
+        const similarityPercentage = Math.round(similarity*100);
+        const condensed = size === 'small';
         return (
             <div className={styles.cardUser + ' ' + styles[size]} onClick={this.handleClick.bind(this)}>
                 <div className={styles.frame}>
@@ -47,16 +50,7 @@ export default class CardUser extends Component {
                         <div className={styles.nickname}>{username}</div>
                         <div className={styles.ageCity}>{location ? location.locality || location.country || 'N/A' : 'N/A'} &bull; {age}</div>
                     </div>
-                    <div className={styles.progressBars}>
-                        <div className={styles.progressBarTitle}>{strings.compatible}&nbsp;</div>
-                        <div className={styles.progressBar}>
-                            <ProgressBar percentage={Math.round(matching*100)} size={'small'} strokeColor={'#756EE5'}/>
-                        </div>
-                        <div className={styles.progressBarTitle}>{strings.similar}&nbsp;</div>
-                        <div className={styles.progressBar}>
-                            <ProgressBar percentage={Math.round(similarity*100)} size={'small'} strokeColor={'#756EE5'}/>
-                        </div>
-                    </div>
+                    <MatchingBars similarity={similarityPercentage} matching={matchingPercentage} condensed={condensed}/>
                     <div className={styles.coincidences}>{sharedLinks} {strings.coincidences}</div>
                 </div>
             </div>

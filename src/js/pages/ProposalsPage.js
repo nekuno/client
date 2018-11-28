@@ -4,7 +4,6 @@ import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import ProposalRecommendationList from '../components/ui/ProposalRecommendationList/ProposalRecommendationList';
-import ProposalCard from '../components/Proposal/ProposalCard/ProposalCard.js';
 import BottomNavBar from '../components/BottomNavBar/BottomNavBar.js';
 import TopNavBar from '../components/TopNavBar/TopNavBar.js';
 import BottomNotificationBar from "../components/ui/BottomNotificationBar/BottomNotificationBar";

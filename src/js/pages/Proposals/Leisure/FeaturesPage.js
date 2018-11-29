@@ -13,7 +13,7 @@ import ThreadStore from "../../../stores/ThreadStore";
 import FilterStore from "../../../stores/FilterStore";
 import * as ThreadActionCreators from "../../../actions/ThreadActionCreators";
 import ChoiceFilter from "../../../components/_threads/filters/ChoiceFilter";
-import LocationFilter from "../../../components/_threads/filters/LocationFilter";
+import LocationFilter from "../../../components/Threads/Filters/LocationFilter";
 import IntegerRangeFilter from "../../../components/Threads/Filters/IntegerRangeFilter";
 import IntegerFilter from "../../../components/Threads/Filters/IntegerFilter";
 import MultipleChoicesFilter from "../../../components/Threads/Filters/MultipleChoicesFilter";

@@ -72,6 +72,8 @@ export default class LocationInput extends Component {
     render() {
         const {title, defaultValue, placeholder} = this.props;
 
+        const inputStyles = { 'input': {'test': 'test', 'anothertest': 'anothertest'}, 'suggests': {}, 'suggestItem': {} };
+
         return (
             <div className={styles.locationInputWrapper}>
                 <div className={styles.title}>{title}</div>
@@ -80,6 +82,7 @@ export default class LocationInput extends Component {
                                 autoActivateFirstSuggest={true}
                                 initialValue={defaultValue}
                                 placeholder={placeholder}
+                                inputClassName={'additional-class'}
                                 ref="geosuggest"
                                 onSuggestSelect={this.onSuggestSelect}
                                 getSuggestLabel={function(suggest) { return suggest.description.length > 35 ? suggest.description.slice(0, 35) + '...' : suggest.description }}

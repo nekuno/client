@@ -5,7 +5,7 @@
 
   .input {
     border-radius: 32px;
-    border: 1px solid $gray-secondary-text;
+    border: 1px solid $border;
     color: $gray-main-text;
     height: 200px;
     line-height: 60px;
@@ -13,7 +13,7 @@
     text-align: center;
 
     textarea {
-      background-color: #ffffff00;
+      background-color: $background-white;
       border: none;
       -moz-box-shadow: none;
       -webkit-box-shadow: none;

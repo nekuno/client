@@ -34,7 +34,9 @@ export default class InputSlider extends Component {
         };
 
         return (
-            <SliderCustom {...rangeProps}/>
+            <div className={styles.inputSlider}>
+                <SliderCustom {...rangeProps}/>
+            </div>
         );
     }
 }

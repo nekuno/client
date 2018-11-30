@@ -70,6 +70,7 @@ export default class BasicPage extends Component {
 
     handleStepsBarClick() {
         const proposal = {
+            type        : 'work',
             fields : {
                 title       : this.state.title,
                 description : this.state.description,

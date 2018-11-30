@@ -17,8 +17,8 @@ function getState() {
     const proposal = CreatingProposalStore.proposal;
     const title = proposal.fields.title;
     const description = proposal.fields.description;
-    const industrySector = proposal.industry;
-    const profession = proposal.profession;
+    const industrySector = proposal.fields.industry;
+    const profession = proposal.fields.profession;
     const availability = proposal.availability;
     const participantLimit = proposal.participantLimit;
     const proposalFilters = proposal.filters.userFilters;

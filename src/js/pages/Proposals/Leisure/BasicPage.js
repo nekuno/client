@@ -77,7 +77,8 @@ export default class BasicPage extends Component {
     }
 
     handleSelectInlineClick(event) {
-        this.setState({type : event});
+        const type = event[0];
+        this.setState({type});
     }
 
     handleStepsBarClick() {

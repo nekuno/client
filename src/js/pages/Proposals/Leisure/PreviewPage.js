@@ -18,7 +18,7 @@ function getState() {
     const title = proposal.fields.title;
     const description = proposal.fields.description;
     const type = proposal.type;
-    const typeValues = proposal.typeValues;
+    const typeValues = proposal.fields.typeValues;
     const availability = proposal.availability;
     const participantLimit = proposal.participantLimit;
     const proposalFilters = proposal.filters.userFilters;

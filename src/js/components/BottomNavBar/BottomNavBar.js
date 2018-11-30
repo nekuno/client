@@ -181,12 +181,12 @@ export default class BottomNavBar extends Component {
                                         <path d={this.describeArc(70, 70, 235, 270 + 215)}
                                               fill={'none'} strokeWidth={70} stroke={'white'} strokeLinecap="round"
                                         />
-                                        {this.renderIcon('paperclip', 70, 270, '#63CAFF', this.addProfessionalProposal)}
                                         {this.renderIconText(strings.proposal, 70, 270)}
-                                        {this.renderIcon('send', 70, 0, '#D380D3',  this.addLeisurePlan)}
+                                        {this.renderIcon('paperclip', 70, 270, '#63CAFF', this.addProfessionalProposal)}
                                         {this.renderIconText(strings.leisure, 70, 0)}
-                                        {this.renderIcon('compass', 70, 90, '#7BD47E',  this.addExperienceProposal)}
+                                        {this.renderIcon('send', 70, 0, '#D380D3',  this.addLeisurePlan)}
                                         {this.renderIconText(strings.experience, 70, 90)}
+                                        {this.renderIcon('compass', 70, 90, '#7BD47E',  this.addExperienceProposal)}
                                     </g>
                                 </svg>
                             </div>

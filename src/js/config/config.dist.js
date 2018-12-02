@@ -1,5 +1,5 @@
 export default {
-    API_ROOT                : 'http://brain.local.nekuno.com/index_dev.php/',
+    API_ROOT                : 'http://brain.local.nekuno.com/index.php/',
     INVITATIONS_ROOT        : 'http://client.local.nekuno.com/#/register/',
     SHARED_USER_ROOT        : 'http://client.local.nekuno.com/#/p/',
     INSTANT_HOST            : 'https://local.nekuno.com:8008/',

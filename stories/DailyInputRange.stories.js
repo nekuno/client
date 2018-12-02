@@ -4,7 +4,7 @@ import { action } from '@storybook/addon-actions';
 import { linkTo } from '@storybook/addon-links'
 import DailyInputRange from '../src/js/components/ui/DailyInputRange/DailyInputRange.js';
 
-let data = ['morning', 'afternoon', 'night'];
+let data = ['Morning', 'Afternoon', 'Night'];
 
 function handleClick(id, newData) {
     data = newData;

@@ -100,15 +100,15 @@ export default class BasicPage extends Component {
         const TypeChoices = [
             {
                 id: "sports",
-                text: strings.sport
+                text: strings.sports
             },
             {
                 id: "hobbies",
-                text: strings.hobbie
+                text: strings.hobbies
             },
             {
                 id: "games",
-                text: strings.game
+                text: strings.games
             }
         ];
         return (
@@ -160,9 +160,9 @@ BasicPage.defaultProps = {
     strings: {
         publishProposal          : 'Publish proposal',
         title                    : 'What is your project proposal?',
-        sport                    : 'Sport',
-        hobbie                   : 'Hobbie',
-        game                     : 'Game',
+        sports                   : 'Sport',
+        hobbies                  : 'Hobby',
+        games                    : 'Game',
         titlePlaceholder         : 'Propose title',
         descriptionPlaceholder   : 'Explain how you want to carry it out...',
         stepsBarContinueText     : 'Continue',

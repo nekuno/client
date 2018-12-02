@@ -40,15 +40,15 @@ export default class DailyInputRange extends Component {
         const {data, strings, color} = this.props;
         const options = [
             {
-                id: 'morning',
+                id: 'Morning',
                 text: strings.morning
             },
             {
-                id: 'afternoon',
+                id: 'Afternoon',
                 text: strings.afternoon
             },
             {
-                id: 'night',
+                id: 'Night',
                 text: strings.night
             }
         ];

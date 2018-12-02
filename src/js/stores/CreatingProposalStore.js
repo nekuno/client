@@ -48,6 +48,23 @@ class CreatingProposalStore extends BaseStore {
     get proposal() {
         return this._proposal;
     }
+
+    _getChoicesKey(type)
+    {
+        const keys = {sports:'sports', games:'games', hobbies:'hobbies', shows:'shows', restaurants:'restaurants', plans:'plans'};
+
+        return keys[type];
+    }
+
+    getFinalProposal() {
+        const proposal = this._proposal;
+
+        const choicesKey = this._getChoicesKey(proposal.type);
+        proposal[choicesKey] = proposal.fields.typeValues;
+        delete proposal.fields.typeValues;
+
+        return proposal;
+    }
 }
 
 export default new CreatingProposalStore();

@@ -92,7 +92,7 @@ export default class PreviewPage extends Component {
     }
 
     handleStepsBarClick() {
-        const proposal = CreatingProposalStore.proposal;
+        const proposal = CreatingProposalStore.getFinalProposal();
         ProposalActionCreators.createProposal(proposal)
             .then(() => {
                 ProposalActionCreators.cleanCreatingProposal();

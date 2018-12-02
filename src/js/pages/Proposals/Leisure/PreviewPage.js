@@ -92,7 +92,7 @@ export default class PreviewPage extends Component {
     }
 
     handleStepsBarClick() {
-        const proposal = CreatingProposalStore.proposal;
+        const proposal = CreatingProposalStore.getFinalProposal();
         ProposalActionCreators.createProposal(proposal)
             .then(() => {
                 ProposalActionCreators.cleanCreatingProposal();
@@ -116,9 +116,9 @@ export default class PreviewPage extends Component {
         };
 
         const stringRanges = {
-            morning  : strings.morning,
-            afternoon: strings.afternoon,
-            night    : strings.night,
+            Morning  : strings.morning,
+            Afternoon: strings.afternoon,
+            Night    : strings.night,
         };
 
         return (

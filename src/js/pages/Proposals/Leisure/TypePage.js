@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import translate from '../../../i18n/Translate';
 import TopNavBar from '../../../components/TopNavBar/TopNavBar.js';
 import '../../../../scss/pages/proposals/leisure/type.scss';
-import InputSelectText from "../../../components/RegisterFields/InputSelectText/InputSelectText";
 import StepsBar from "../../../components/ui/StepsBar/StepsBar";
 import connectToStores from "../../../utils/connectToStores";
 import * as ProposalActionCreators from "../../../actions/ProposalActionCreators";
@@ -34,8 +33,7 @@ export default class TypePage extends Component {
         // Injected by @translate:
         strings     : PropTypes.object,
         // Injected by @connectToStores:
-        typeOptions : PropTypes.array,
-        canContinue : PropTypes.bool,
+        typeOptions : PropTypes.array
     };
 
     static contextTypes = {
@@ -45,7 +43,7 @@ export default class TypePage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            type : [],
+            typeValues : [],
         };
 
         this.topNavBarLeftLinkClick = this.topNavBarLeftLinkClick.bind(this);
@@ -71,7 +69,7 @@ export default class TypePage extends Component {
         resetTagSuggestions();
 
         this.setState({
-            type: tags,
+            typeValues: tags,
         });
     }
 
@@ -86,16 +84,15 @@ export default class TypePage extends Component {
     }
 
     handleStepsBarClick() {
-        const proposal = {
-            typeValues : this.state.type,
-        };
+        const proposal = {typeValues: this.state.typeValues};
+
         ProposalActionCreators.mergeCreatingProposal(proposal);
         this.context.router.push('/proposals-leisure-availability');
     }
 
     render() {
         const {strings, typeOptions} = this.props;
-        const canContinue = this.state.type.length >= 1;
+        const canContinue = this.state.typeValues.length >= 1;
 
         return (
             <div className="views">

@@ -130,9 +130,9 @@ export default class PreviewPage extends Component {
         };
 
         const stringRanges = {
-            morning  : strings.morning,
-            afternoon: strings.afternoon,
-            night    : strings.night,
+            Morning  : strings.morning,
+            Afternoon: strings.afternoon,
+            Night    : strings.night,
         };
 
         return (

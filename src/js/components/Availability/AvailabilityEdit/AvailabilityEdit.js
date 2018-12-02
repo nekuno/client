@@ -50,7 +50,7 @@ export default class AvailabilityEdit extends Component {
         if (index !== -1) {
             newSelection = availability.dynamic.filter(dynamicOption => dynamicOption.weekday !== option);
         } else {
-            newSelection = [...availability.dynamic, {weekday: option, range: ["morning", "afternoon", "night"]}];
+            newSelection = [...availability.dynamic, {weekday: option, range: ["Morning", "Afternoon", "Night"]}];
         }
 
         this.props.onSave({
@@ -89,7 +89,7 @@ export default class AvailabilityEdit extends Component {
 
         let newSelection = availability.static.slice(0);
         if (!newSelection[index]) {
-            newSelection[index] = {days: {}, range: ["morning", "afternoon", "night"]};
+            newSelection[index] = {days: {}, range: ["Morning", "Afternoon", "Night"]};
         }
         if (values) {
             newSelection[index].days = values;

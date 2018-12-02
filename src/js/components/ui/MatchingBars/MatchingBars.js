@@ -10,7 +10,7 @@ export default class MatchingBars extends Component {
     static propTypes = {
         matching  : PropTypes.number,
         similarity: PropTypes.number,
-        condensed : PropTypes.boolean,
+        condensed : PropTypes.bool,
     };
 
     render() {

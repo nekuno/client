@@ -19,9 +19,9 @@ function getState() {
 export default class ProposalFilterPreview extends Component {
 
     static propTypes = {
+        proposalFilters: PropTypes.object,
         // Injected by @translate:
         strings        : PropTypes.object,
-        proposalFilters: PropTypes.object,
         // Injected by @connectToStores:
         filters        : PropTypes.object,
     };

@@ -46,7 +46,7 @@ export default class ProposalCard extends Component {
         const {proposal, user, strings} = this.props;
         const {type, fields} = proposal;
         const {title, description} = fields;
-        const proposalPhoto = fields.photo;
+        const proposalPhoto = fields.photo !== '' ? fields.photo : 'img/default-upload-image.png';
         const {username, location, age, photo, matching, similarity} = user;
 
         const {icon, background} = this.getVisualByType(type);

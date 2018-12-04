@@ -8,7 +8,8 @@ export default class MultipleChoicesFilter extends Component {
         filterKey         : PropTypes.string.isRequired,
         filter            : PropTypes.object.isRequired,
         data              : PropTypes.array,
-        handleChangeFilter: PropTypes.func.isRequired
+        handleChangeFilter: PropTypes.func.isRequired,
+        color             : PropTypes.string,
     };
 
     constructor(props) {
@@ -34,12 +35,13 @@ export default class MultipleChoicesFilter extends Component {
     }
 
     render() {
-        const {filter, data} = this.props;
+        const {filter, data, color} = this.props;
         return (
             <SelectMultiple labels={filter.choices}
                             onClickHandler={this.handleClickMultipleChoice}
                             values={data || []}
                             title={filter.label}
+                            color={color}
             />
         );
     }

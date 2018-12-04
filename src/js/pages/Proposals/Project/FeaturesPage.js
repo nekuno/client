@@ -276,6 +276,7 @@ export default class FeaturesPage extends Component {
                                    filter={filter}
                                    data={data}
                                    handleChangeFilter={this.handleChangeFilter}
+                                   color={'blue'}
             />
         );
     }

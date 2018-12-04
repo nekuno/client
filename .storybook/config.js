@@ -35,6 +35,7 @@ function loadStories() {
     require('../stories/ProgressBar.stories');
     require('../stories/ProposalCard.stories');
     require('../stories/ProposalRecommendationList.stories');
+    require('../stories/RoundOption.stories');
     require('../stories/RoundedIcon.stories');
     require('../stories/RoundedImage.stories');
     require('../stories/Select.stories');

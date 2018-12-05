@@ -71,7 +71,12 @@ export default class LeisureProfilePage extends Component {
                         </div>
                         <h1>{strings.title}</h1>
                         <div className="resume">{strings.description}</div>
-                        <Button onClickHandler={this.goToLeisureProfileSportsPage}>{strings.fillProfile}</Button>
+                        {/*<Button onClickHandler={this.goToLeisureProfileSportsPage}>{strings.fillProfile}</Button>*/}
+
+                        <div className="skip-wrapper-center small" onClick={this.goToLeisureProfileSportsPage}>
+                            <span className="skip-text">{strings.fillProfile}&nbsp;</span>
+                        </div>
+
                         <div className="skip-wrapper small" onClick={this.goToExplorerProfilePage}>
                             <span className="skip-text">{strings.skip}&nbsp;</span>
                             <span className="icon-arrow-right" />

@@ -167,7 +167,7 @@ export default class AvailabilityPage extends Component {
                                             {availability.dynamic.map((day, index) =>
                                                 <div key={index}>
                                                     {dailyWeekdayOptions[day.weekday]}
-                                                    , {strings.scheduleOf}
+                                                    ,
                                                     {day.range.map((range, rangeIndex) =>
                                                         <span key={rangeIndex}> {day.range.length === rangeIndex + 1 ? strings.and + ' ' + stringRanges[range] : stringRanges[range]}</span>
                                                     )}
@@ -177,7 +177,7 @@ export default class AvailabilityPage extends Component {
                                             {availability.static.map((day, index) =>
                                                 <div key={index}>
                                                     {strings.from} {day.days.start} {strings.to} {day.days.end}
-                                                    , {strings.scheduleOf}
+                                                    ,
                                                     {day.range.map((range, rangeIndex) =>
                                                         <span key={rangeIndex}> {day.range.length === rangeIndex + 1 ? strings.and + ' ' + stringRanges[range] : stringRanges[range]}</span>
                                                     )}
@@ -250,7 +250,6 @@ AvailabilityPage.defaultProps = {
         saturday                 : 'Saturday',
         sunday                   : 'Sunday',
         and                      : 'and',
-        scheduleOf               : 'schedule of',
         morning                  : 'morning',
         afternoon                : 'afternoon',
         night                    : 'night',

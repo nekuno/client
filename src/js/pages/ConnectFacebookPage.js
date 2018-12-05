@@ -117,7 +117,9 @@ export default class ConnectFacebookPage extends Component {
                         </div>
                         <h1>{strings.title}</h1>
                         <div className="resume">{strings.description}</div>
-                        <Button onClickHandler={this.connectFacebook} disabled={registering}>{strings.connect}</Button>
+                        <div className="skip-wrapper-center small" onClick={this.connectFacebook}>
+                            <span className="skip-text">{strings.connect}&nbsp;</span>
+                        </div>
                     </div>
                 </div>
             </div>

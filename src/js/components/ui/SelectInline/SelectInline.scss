@@ -4,7 +4,21 @@
   font-weight: 600;
   margin-bottom: 16px;
 }
+
 .select-inline-wrapper {
+  &.purple {
+    border: 1px solid $purple-main;
+  }
+  &.blue {
+    border: 1px solid $blue-projects;
+  }
+  &.pink {
+    color: $pink-hobbies;
+    border: 1px solid $pink-hobbies;
+  }
+  &.green {
+    border: 1px solid $green-experiences;
+  }
   border: 1px solid $gray-border;
   border-radius: 18px;
   cursor: pointer;
@@ -23,6 +37,19 @@
     height: 38px;
 
     .option-wrapper {
+      &.purple {
+        color: $purple-main;
+      }
+      &.blue {
+        color: $blue-projects;
+      }
+      &.pink {
+        color: $pink-hobbies;
+      }
+      &.green {
+        color: $green-experiences;
+      }
+
       background: $white-background;
       color: $gray-secondary-text;
       display: inline-block;
@@ -31,6 +58,23 @@
       text-align: center;
 
       .option {
+        &.purple {
+          border-left: 1px solid $purple-main;
+          border-right: 1px solid $purple-main;
+        }
+        &.blue {
+          border-left: 1px solid $blue-projects;
+          border-right: 1px solid $blue-projects;
+        }
+        &.pink {
+          border-left: 1px solid $pink-hobbies;
+          border-right: 1px solid $pink-hobbies;
+        }
+        &.green {
+          border-left: 1px solid $green-experiences;
+          border-right: 1px solid $green-experiences;
+        }
+
         border-left: 1px solid $gray-border;
         border-right: 1px solid $gray-border;
         width: 100%;

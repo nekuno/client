@@ -14,6 +14,7 @@ export default class AvailabilityEdit extends Component {
         availability     : PropTypes.object,
         interfaceLanguage: PropTypes.string,
         onSave           : PropTypes.func.isRequired,
+        onClick          : PropTypes.func,
         title            : PropTypes.string,
         color            : PropTypes.string,
         theme            : PropTypes.object
@@ -22,6 +23,7 @@ export default class AvailabilityEdit extends Component {
     constructor(props) {
         super(props);
 
+        this.onDateInputRangeClick = this.onDateInputRangeClick.bind(this);
         this.onChangeMain = this.onChangeMain.bind(this);
         this.onChangeDailyWeekday = this.onChangeDailyWeekday.bind(this);
         this.onChangeDynamicDailyRange = this.onChangeDynamicDailyRange.bind(this);
@@ -31,6 +33,7 @@ export default class AvailabilityEdit extends Component {
 
         this.state = {
             view: 'daily',
+            showUI: true,
         };
     }
 
@@ -87,6 +90,9 @@ export default class AvailabilityEdit extends Component {
     onChangeRange(index, values) {
         const availability = this.getAvailability();
 
+
+
+
         let newSelection = availability.static.slice(0);
         if (!newSelection[index]) {
             newSelection[index] = {days: {}, range: ["morning", "afternoon", "night"]};
@@ -101,6 +107,12 @@ export default class AvailabilityEdit extends Component {
             dynamic: availability.dynamic,
             static : newSelection
         });
+    }
+
+    onDateInputRangeClick() {
+        console.log('onDateInputRangeClick');
+        this.setState({showUI: !this.state.showUI});
+        this.props.onClick(!this.state.showUI);
     }
 
     getAvailability() {
@@ -147,13 +159,19 @@ export default class AvailabilityEdit extends Component {
 
         return (
             <div className={styles.availabilityEdit}>
-                {title === undefined ?
-                    <h2>{strings.title}</h2>
-                    :
-                    <h2>{title}</h2>
+                {this.state.showUI &&
+                    <div>
+                        {title === undefined ?
+                            <h2>{strings.title}</h2>
+                            :
+                            <h2>{title}</h2>
+                        }
+                    </div>
                 }
-                <SelectInline color={color} options={mainOptions} defaultOption={'daily'} onClickHandler={this.onChangeMain}/>
-                <br/>
+                {this.state.showUI &&
+                    <SelectInline color={color} options={mainOptions} defaultOption={view} onClickHandler={this.onChangeMain}/>
+                }
+
                 {view === 'daily' ?
                     <div className={styles.dailyOptions}>
                         {dailyWeekdayOptions.map(option =>
@@ -167,15 +185,22 @@ export default class AvailabilityEdit extends Component {
                         )}
                     </div>
                     :
-                    <div className={styles.datesOptions}>
-                        {availability.static.map((staticOption, index) =>
-                            <div className={styles.datesOption} key={index}>
-                                <DateInputRange theme={theme} color={color} index={index} placeholder={strings.addRange} defaultValue={staticOption.days} locale={interfaceLanguage} onChange={this.onChangeRange}/>
-                                <DailyInputRange color={color} id={index} data={staticOption.range} onClickHandler={this.onChangeStaticDailyRange}/>
+                    <div>
+                        {this.state.showUI &&
+                            <div className={styles.datesOptions}>
+                                {availability.static.map((staticOption, index) =>
+                                    <div className={styles.datesOption} key={index}>
+                                        <DateInputRange theme={theme} color={color} index={index}
+                                                        placeholder={strings.addRange} defaultValue={staticOption.days}
+                                                        locale={interfaceLanguage} onChange={this.onChangeRange}/>
+                                        <DailyInputRange color={color} id={index} data={staticOption.range}
+                                                         onClickHandler={this.onChangeStaticDailyRange}/>
+                                    </div>
+                                )}
                             </div>
-                        )}
+                        }
                         <div className={styles.datesOption} key={availability.static.length}>
-                            <DateInputRange theme={theme} color={color} index={availability.static.length} placeholder={strings.addRange} locale={interfaceLanguage} onChange={this.onChangeRange}/>
+                            <DateInputRange theme={theme} color={color} index={availability.static.length} placeholder={strings.addRange} locale={interfaceLanguage} onClick={this.onDateInputRangeClick} onChange={this.onChangeRange}/>
                         </div>
                     </div>
                 }

@@ -26,6 +26,22 @@ body #root .App .views .view.availability-view {
       margin-bottom: 32px;
     }
 
+    .skip-wrapper-center {
+      .skip-text {
+        border: 1px solid #fff;
+        padding: 20px 60px;
+        border-radius: 30px;
+      }
+      font-size: 16px;
+      cursor: pointer;
+      font-weight: bold;
+      z-index: 111;
+      position: absolute;
+      width: 100%;
+      bottom: 80px;
+      text-align: center;
+    }
+
     .skip-wrapper {
       cursor: pointer;
       font-weight: bold;

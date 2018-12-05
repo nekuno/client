@@ -43,6 +43,11 @@ export default class AvailabilityDatesPage extends Component {
         this.topNavBarLeftLinkClick = this.topNavBarLeftLinkClick.bind(this);
         this.topNavBarRightLinkClick = this.topNavBarRightLinkClick.bind(this);
         this.onSave = this.onSave.bind(this);
+        this.onClick = this.onClick.bind(this);
+
+        this.state = {
+            showUI: true,
+        };
     }
 
 
@@ -61,6 +66,11 @@ export default class AvailabilityDatesPage extends Component {
         ProposalActionCreators.mergeCreatingProposal(proposal);
     }
 
+    onClick(showUI) {
+        this.setState({showUI: showUI});
+        console.log('onClick ShowUI: ' + showUI);
+    }
+
     render() {
         const {availability, interfaceLanguage, strings} = this.props;
         const canContinue = (!(availability.dynamic.length === 0 && availability.static.length === 0));
@@ -68,6 +78,7 @@ export default class AvailabilityDatesPage extends Component {
         return (
             <div className="views">
                 <div className="view view-main proposals-project-availability-dates-view">
+                    {this.state.showUI &&
                     <TopNavBar
                         background={canContinue ? '#63caff' : 'transparent'}
                         color={canContinue ? '#FFFFFF' : '#000'}
@@ -77,13 +88,15 @@ export default class AvailabilityDatesPage extends Component {
                         textSize={'small'}
                         onLeftLinkClickHandler={this.topNavBarLeftLinkClick}
                         onRightLinkClickHandler={this.topNavBarRightLinkClick}/>
+                    }
                     <div className="proposals-project-availability-dates-wrapper">
                         <AvailabilityEdit
                             theme={INFINITE_CALENDAR_BLUE_THEME}
                             color={'blue'} title={strings.title}
                             availability={availability}
                             interfaceLanguage={interfaceLanguage}
-                            onSave={this.onSave}/>
+                            onSave={this.onSave}
+                            onClick={this.onClick}/>
                     </div>
                 </div>
             </div>

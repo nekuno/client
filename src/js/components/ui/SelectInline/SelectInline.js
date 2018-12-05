@@ -49,17 +49,20 @@ export default class SelectInline extends Component {
         const {selected} = this.state;
         const optionWidthPercent = 100 / options.length;
 
+        // const borderColor = {border: '1px solid ' + styles[color]};
+        // console.log(borderColor);
+
         return (
             <div>
                 {title ? <div className={styles.title + ' small'}>{title}</div> : null}
-                <div className={styles.selectInlineWrapper}>
+                <div className={styles.selectInlineWrapper + ' ' +  styles[color]}>
                     <div className={styles.selectInline}>
                         {options.map(option => {
                             let optionClass = selected.some(selectedOption => selectedOption === option.id) ? styles.optionWrapper + ' ' + styles.selected : styles.optionWrapper;
                             optionClass = optionClass + ' ' + styles[color];
                             return (
-                                <div key={option.id} className={optionClass} onClick={this.handleClick.bind(this, option.id)} style={{width: optionWidthPercent + '%'}}>
-                                    <div className={styles.option}>
+                                <div key={option.id} className={optionClass + ' ' + styles[color]} onClick={this.handleClick.bind(this, option.id)} style={{width: optionWidthPercent + '%'}}>
+                                    <div className={styles.option + ' ' + styles[color]}>
                                         <div className={styles.optionText}>
                                             {option.text}
                                         </div>

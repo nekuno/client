@@ -80,7 +80,11 @@ export default class AvailabilityPage extends Component {
                         </div>
                         <h1>{titleText}</h1>
                         <div className="resume">{resumeText}</div>
-                        <Button onClickHandler={this.goToAvailabilityEditPage}>{buttonText}</Button>
+
+                        <div className="skip-wrapper-center small" onClick={this.goToAvailabilityEditPage}>
+                            <span className="skip-text">{buttonText}&nbsp;</span>
+                        </div>
+
                         <div className="skip-wrapper small" onClick={this.goToConnectFacebookPage}>
                             <span className="skip-text">{skipText}&nbsp;</span>
                             <span className="icon-arrow-right" />

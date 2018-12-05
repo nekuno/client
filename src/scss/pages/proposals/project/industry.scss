@@ -1,6 +1,7 @@
 @import '../../../_partials/colors';
 
 body #root .App .views .view.proposals-project-industry-view {
+  background-color: $background-white;
   color: $gray-main-text;
   text-align: center;
   z-index: 0;

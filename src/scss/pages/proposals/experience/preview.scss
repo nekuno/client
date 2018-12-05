@@ -1,6 +1,7 @@
 @import '../../../_partials/colors';
 
 body #root .App .views .view.proposals-experience-preview-view {
+  background-color: $background-white;
   color: $text;
   z-index: 0;
 

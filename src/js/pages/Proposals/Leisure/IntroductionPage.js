@@ -48,14 +48,22 @@ export default class IntroductionPage extends Component {
                         position={'absolute'}
                         textSize={'small'}
                         onLeftLinkClickHandler={this.topNavBarLeftLinkClick}
-                        onRightLinkClickHandler={this.topNavBarRightLinkClick}/>
+                        onRightLinkClickHandler={this.topNavBarLeftLinkClick}/>
                     <div className="proposals-introduction-wrapper">
                         <div className="image-wrapper">
                             <img src="/img/proposals/Trabajo.png"/>
                         </div>
                         <h1>{strings.title}</h1>
                         <div className="resume">{strings.resume}</div>
-                        <Button onClickHandler={this.topNavBarRightLinkClick}>{strings.doProposal}</Button>
+
+                        <div className="skip-wrapper-center small" onClick={this.topNavBarRightLinkClick}>
+                            <span className="skip-text">{strings.doProposal}&nbsp;</span>
+                        </div>
+
+                        {/*<div className="skip-wrapper small" onClick={this.topNavBarRightLinkClick}>*/}
+                            {/*<span className="skip-text">{strings.doProposal}&nbsp;</span>*/}
+                            {/*<span className="icon-arrow-right" />*/}
+                        {/*</div>*/}
                     </div>
                 </div>
             </div>

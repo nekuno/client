@@ -8,7 +8,8 @@ export default class ChoiceAndMultipleChoicesFilter extends Component {
         filterKey: PropTypes.string.isRequired,
         filter: PropTypes.object.isRequired,
         data: PropTypes.object,
-        handleChangeFilter: PropTypes.func.isRequired
+        handleChangeFilter: PropTypes.func.isRequired,
+        color            : PropTypes.string,
     };
     
     constructor(props) {
@@ -46,17 +47,17 @@ export default class ChoiceAndMultipleChoicesFilter extends Component {
     }
 
     render() {
-        const {filter, data} = this.props;
+        const {filter, data, color} = this.props;
         const {selectedChoice} = this.state;
 
         const dataChoice = data !== null ? data.choice : null;
 
         return(
             <div>
-                <SelectInline title={filter.label} options={filter.choices} defaultOption={dataChoice} onClickHandler={this.handleClickChoice}/>
+                <SelectInline color={color} title={filter.label} options={filter.choices} defaultOption={dataChoice} onClickHandler={this.handleClickChoice}/>
                 <br/>
                 {selectedChoice ?
-                    <SelectMultiple labels={data.choice ? Object.keys(filter.doubleChoices[data.choice]).map(doubleChoice => { return({id: doubleChoice, text: filter.doubleChoices[data.choice][doubleChoice]}); }) : []} onClickHandler={this.handleClickDetail} values={data.details || []} />
+                    <SelectMultiple color={color} labels={data.choice ? Object.keys(filter.doubleChoices[data.choice]).map(doubleChoice => { return({id: doubleChoice, text: filter.doubleChoices[data.choice][doubleChoice]}); }) : []} onClickHandler={this.handleClickDetail} values={data.details || []} />
                     : ''}
             </div>
         );

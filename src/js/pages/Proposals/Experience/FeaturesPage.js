@@ -246,6 +246,7 @@ export default class FeaturesPage extends Component {
                             handleClickRemoveFilter={this.handleClickRemoveFilter}
                             handleChangeFilter={this.handleChangeFilter}
                             handleClickFilter={this.handleClickFilter}
+                            color={'#7bd47e'}
             />
         );
     }
@@ -256,6 +257,7 @@ export default class FeaturesPage extends Component {
                                 filter={filter}
                                 data={data}
                                 handleChangeFilter={this.handleChangeFilter}
+                                color={'#7bd47e'}
             />
         )
     }
@@ -276,6 +278,7 @@ export default class FeaturesPage extends Component {
                                    filter={filter}
                                    data={data}
                                    handleChangeFilter={this.handleChangeFilter}
+                                   color={'green'}
             />
         );
     }
@@ -289,6 +292,7 @@ export default class FeaturesPage extends Component {
                                          handleClickRemoveFilter={this.handleClickRemoveFilter}
                                          handleChangeFilter={this.handleChangeFilter}
                                          handleClickFilter={this.handleClickFilter}
+                                         color={'green'}
             />
         );
     }
@@ -299,6 +303,7 @@ export default class FeaturesPage extends Component {
                                             filter={filter}
                                             data={data}
                                             handleChangeFilter={this.handleChangeFilter}
+                                            color={'green'}
             />
         );
     }
@@ -313,6 +318,7 @@ export default class FeaturesPage extends Component {
                        handleChangeFilter={this.handleChangeFilterAndUnSelect}
                        handleClickFilter={this.handleClickFilter}
                        tags={tags}
+                       color={'green'}
             />
         );
     }
@@ -327,6 +333,7 @@ export default class FeaturesPage extends Component {
                                           handleChangeFilter={this.handleChangeFilter}
                                           handleClickFilter={this.handleClickFilter}
                                           tags={tags}
+                                          color={'green'}
             />
         );
     }

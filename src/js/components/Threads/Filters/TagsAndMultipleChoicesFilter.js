@@ -24,7 +24,8 @@ export default class TagsAndMultipleChoicesFilter extends Component {
         handleClickFilter      : PropTypes.func.isRequired,
         tags                   : PropTypes.array.isRequired,
         // Injected by @translate:
-        strings                : PropTypes.object
+        strings                : PropTypes.object,
+        color            : PropTypes.string,
     };
 
     constructor(props) {
@@ -127,18 +128,19 @@ export default class TagsAndMultipleChoicesFilter extends Component {
     }
 
     render() {
-        let {filter, data, tags, strings} = this.props;
+        let {filter, data, tags, strings, color} = this.props;
         const {selectedTagAndChoice} = this.state;
         data = data || [];
         return (
             <div className="tags-and-choice-wrapper">
                 <InputTag ref={'inputTag'} placeholder={strings.placeholder} tags={tags.map(tag => tag.name)} value={selectedTagAndChoice.tag ? selectedTagAndChoice.tag.name :''}
                           onChangeHandler={this.handleKeyUpTagAndChoiceTag} onClickHandler={this.handleClickTagSuggestion}
-                          title={filter.label}/>
+                          title={filter.label}
+                          chipsColor={color}/>
                 {selectedTagAndChoice.tag ?
                     <div className="tags-and-choice-choice">
                         <div className="table-row"></div>
-                        <SelectMultiple title={filter.choiceLabel['es']} labels={Object.keys(filter.choices).map(key => { return({id: key, text: filter.choices[key]['es']})})} values={selectedTagAndChoice.choices || []} onClickHandler={this.handleClickChoice}/>
+                        <SelectMultiple title={filter.choiceLabel['es']} labels={Object.keys(filter.choices).map(key => { return({id: key, text: filter.choices[key]['es']})})} values={selectedTagAndChoice.choices || []} onClickHandler={this.handleClickChoice} color={color}/>
                     </div>
                     : ''}
                 {/*{selectedTagAndChoice.tag ? <div className="remove-tags-and-choice" onClick={this.handleClickRemoveTagsAndChoice}>{strings.remove} <span className="icon-delete"></span></div> : ''}*/}
@@ -148,7 +150,8 @@ export default class TagsAndMultipleChoicesFilter extends Component {
                             <div className="tags-and-choice-unselected-filter" key={index}>
                                 <SelectMultiple labels={[{id: value.tag.name, text: value.choices && value.choices.length > 0 ? value.tag.name + ' ' + value.choices.map(choice => filter.choices[choice]['es']).join(', ') : value.tag.name}]}
                                                 values={[value.tag]}
-                                                onClickHandler={this.handleClickTagAndChoiceTag}/>
+                                                onClickHandler={this.handleClickTagAndChoiceTag}
+                                                color={color}/>
                             </div>
                         )}
                     </div> : ''

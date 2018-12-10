@@ -246,6 +246,7 @@ export default class FeaturesPage extends Component {
                             handleClickRemoveFilter={this.handleClickRemoveFilter}
                             handleChangeFilter={this.handleChangeFilter}
                             handleClickFilter={this.handleClickFilter}
+                            color={'#63caff'}
             />
         );
     }
@@ -256,6 +257,7 @@ export default class FeaturesPage extends Component {
                                 filter={filter}
                                 data={data}
                                 handleChangeFilter={this.handleChangeFilter}
+                                color={'#63caff'}
             />
         )
     }
@@ -290,6 +292,7 @@ export default class FeaturesPage extends Component {
                                          handleClickRemoveFilter={this.handleClickRemoveFilter}
                                          handleChangeFilter={this.handleChangeFilter}
                                          handleClickFilter={this.handleClickFilter}
+                                         color={'blue'}
             />
         );
     }
@@ -300,6 +303,7 @@ export default class FeaturesPage extends Component {
                                             filter={filter}
                                             data={data}
                                             handleChangeFilter={this.handleChangeFilter}
+                                            color={'blue'}
             />
         );
     }
@@ -314,6 +318,7 @@ export default class FeaturesPage extends Component {
                        handleChangeFilter={this.handleChangeFilterAndUnSelect}
                        handleClickFilter={this.handleClickFilter}
                        tags={tags}
+                       color={'blue'}
             />
         );
     }
@@ -328,6 +333,7 @@ export default class FeaturesPage extends Component {
                                           handleChangeFilter={this.handleChangeFilter}
                                           handleClickFilter={this.handleClickFilter}
                                           tags={tags}
+                                          color={'blue'}
             />
         );
     }
@@ -346,6 +352,7 @@ export default class FeaturesPage extends Component {
         const {user, tags, thread, categories, strings} = this.props;
         const {updated} = this.state;
         const canContinue = true;
+
 
         return (
             <div className="views">
@@ -370,7 +377,6 @@ export default class FeaturesPage extends Component {
                             </div>
                             <div>{strings.filterWarning}</div>
                         </div>
-
                         {categories ?
                             categories.map((category, index) =>
                                 <FrameCollapsible
@@ -378,14 +384,6 @@ export default class FeaturesPage extends Component {
                                     title={category.label}>
                                     {category.fields.map((field, index) =>
                                         <div key={index} className="filter">
-                                            {/*<div className="remove">*/}
-                                                {/*<RoundedIcon*/}
-                                                    {/*icon={'delete'}*/}
-                                                    {/*size={'small'}*/}
-                                                    {/*fontSize={'16px'}*/}
-                                                    {/*disabled={field === 'group' && thread.groupId != null}*/}
-                                                    {/*onClickHandler={this.handleClickRemoveFilter.bind(this, field)}/>*/}
-                                            {/*</div>*/}
                                             {this.renderField(field)}
                                         </div>
                                     )}

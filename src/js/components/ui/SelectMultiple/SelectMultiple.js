@@ -49,7 +49,7 @@ export default class SelectMultiple extends Component {
                     :
                     <div className={styles.chips}>
                         {title ? <div className={styles.title + ' small'}>{title}</div> : null}
-                        {labels.map(label => <Chip key={label.id} text={label.text} onClickHandler={this.handleClick.bind(this, label.id)} selected={values.some(value => value == label.id)}/>)}
+                        {labels.map(label => <Chip key={label.id} color={color} text={label.text} onClickHandler={this.handleClick.bind(this, label.id)} selected={values.some(value => value == label.id)}/>)}
                     </div>
                 }
             </div>

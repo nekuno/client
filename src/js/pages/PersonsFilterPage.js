@@ -227,6 +227,7 @@ export default class PersonsFilterPage extends Component {
                             handleClickRemoveFilter={this.handleClickRemoveFilter}
                             handleChangeFilter={this.handleChangeFilter}
                             handleClickFilter={this.handleClickFilter}
+                            color={'#615acb'}
             />
         );
     }
@@ -237,6 +238,7 @@ export default class PersonsFilterPage extends Component {
                                 filter={filter}
                                 data={data}
                                 handleChangeFilter={this.handleChangeFilter}
+                                color={'#615acb'}
             />
         )
     }
@@ -257,6 +259,7 @@ export default class PersonsFilterPage extends Component {
                                    filter={filter}
                                    data={data}
                                    handleChangeFilter={this.handleChangeFilter}
+                                   color={'purple'}
             />
         );
     }
@@ -270,6 +273,7 @@ export default class PersonsFilterPage extends Component {
                                          handleClickRemoveFilter={this.handleClickRemoveFilter}
                                          handleChangeFilter={this.handleChangeFilter}
                                          handleClickFilter={this.handleClickFilter}
+                                         color={'purple'}
             />
         );
     }
@@ -280,6 +284,7 @@ export default class PersonsFilterPage extends Component {
                                             filter={filter}
                                             data={data}
                                             handleChangeFilter={this.handleChangeFilter}
+                                            color={'purple'}
             />
         );
     }
@@ -294,6 +299,7 @@ export default class PersonsFilterPage extends Component {
                        handleChangeFilter={this.handleChangeFilterAndUnSelect}
                        handleClickFilter={this.handleClickFilter}
                        tags={tags}
+                       color={'purple'}
             />
         );
     }
@@ -308,6 +314,7 @@ export default class PersonsFilterPage extends Component {
                                           handleChangeFilter={this.handleChangeFilter}
                                           handleClickFilter={this.handleClickFilter}
                                           tags={tags}
+                                          color={'purple'}
             />
         );
     }

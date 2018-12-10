@@ -13,7 +13,8 @@ export default class InputNumberRange extends Component {
         value  : PropTypes.array,
         minNum: PropTypes.number.isRequired,
         maxNum: PropTypes.number.isRequired,
-        onChangeHandler : PropTypes.func.isRequired
+        onChangeHandler : PropTypes.func.isRequired,
+        color : PropTypes.string,
     };
 
     handleChangeRange(range) {
@@ -21,14 +22,19 @@ export default class InputNumberRange extends Component {
     }
 
     render() {
-        const {value, minNum, maxNum} = this.props;
+        const {value, minNum, maxNum, color} = this.props;
         let rangeProps = {
             marks: {[minNum]: minNum, [Math.round((maxNum + minNum) / 2)]: Math.round((maxNum + minNum) / 2), [maxNum]: maxNum},
             min: minNum,
             max: maxNum,
             defaultValue: value,
-            handleStyle: [{background: '#756EE5', color: '#756EE5', borderColor: '#756EE5', boxShadow: 'none'}],
-            trackStyle: [{background: '#756EE5', color: '#756EE5', borderColor: '#756EE5'}],
+            // handleStyle: [{background: color, color: color, borderColor: color, boxShadow: 'none'}],
+            // trackStyle: [{background: color, color: color, borderColor: color}],
+
+            handleStyle: [{background: color, color: color, borderColor: color, boxShadow: 'none'}],
+            trackStyle: [{background: color, color: color, borderColor: color}],
+            
+
             dotStyle: {background: 'transparent', borderColor: 'transparent'},
             activeDotStyle: {background: 'transparent', borderColor: 'transparent'},
             onAfterChange: this.handleChangeRange.bind(this)

@@ -8,7 +8,8 @@ export default class IntegerRangeFilter extends Component {
         filterKey              : PropTypes.string.isRequired,
         filter                 : PropTypes.object.isRequired,
         data                   : PropTypes.object,
-        handleChangeFilter     : PropTypes.func.isRequired
+        handleChangeFilter     : PropTypes.func.isRequired,
+        color                  : PropTypes.string,
     };
 
     constructor(props) {
@@ -26,11 +27,11 @@ export default class IntegerRangeFilter extends Component {
     }
 
     render() {
-        const {filter, data} = this.props;
+        const {filter, data, color} = this.props;
         const value = data && data.min && data.max ? [data.min, data.max] : null;
 
         return (
-            <InputNumberRange minNum={filter.min} maxNum={filter.max} value={value} title={filter.label} onChangeHandler={this.handleChangeIntegerInput}/>
+            <InputNumberRange minNum={filter.min} maxNum={filter.max} value={value} title={filter.label} color={color} onChangeHandler={this.handleChangeIntegerInput}/>
         );
     }
 }

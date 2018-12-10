@@ -11,6 +11,7 @@ export default class InputSlider extends Component {
     static propTypes = {
         handleChangeInputSlider : PropTypes.func.isRequired,
         data                    : PropTypes.number,
+        color                   : PropTypes.string,
     };
 
     handleChangeInputSlider(slider) {
@@ -18,7 +19,7 @@ export default class InputSlider extends Component {
     }
 
     render() {
-        const {children, data} = this.props;
+        const {children, data, color} = this.props;
 
         let rangeProps = {
             marks: {10:'10', 50:'50', 100:'100', 250:'250', 500:'500'},
@@ -26,10 +27,11 @@ export default class InputSlider extends Component {
             max: 500,
             step: 10,
             defaultValue: data,
-            handleStyle: [{background: '#756EE5', color: '#756EE5', borderColor: '#756EE5', boxShadow: 'none'}],
-            trackStyle: [{background: '#756EE5', color: '#756EE5', borderColor: '#756EE5'}],
-            dotStyle: {background: 'transparent', borderColor: 'transparent'},
-            activeDotStyle: {background: 'transparent', borderColor: 'transparent'},
+            handleStyle: [{background: color, color: color, borderColor: color, boxShadow: 'none'}],
+            trackStyle: [{background: color, color: color, borderColor: color}],
+            railStyle: {background: color, borderColor: color},
+            dotStyle: {background: color, borderColor: color},
+            activeDotStyle: {background: color, borderColor: color},
             onAfterChange: this.handleChangeInputSlider.bind(this)
         };
 

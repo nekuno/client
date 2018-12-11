@@ -6,10 +6,12 @@ import styles from './SelectMultiple.scss';
 export default class SelectMultiple extends Component {
 
     static propTypes = {
-        title: PropTypes.string,
-        labels: PropTypes.array.isRequired,
-        values: PropTypes.array.isRequired,
-        onClickHandler: PropTypes.func.isRequired
+        title          : PropTypes.string,
+        labels         : PropTypes.array.isRequired,
+        values         : PropTypes.array.isRequired,
+        onClickHandler : PropTypes.func.isRequired,
+        color          : PropTypes.string,
+
     };
 
     handleClick(id) {
@@ -27,7 +29,7 @@ export default class SelectMultiple extends Component {
     }
 
     render() {
-        const {title, labels, values} = this.props;
+        const {title, labels, values, color} = this.props;
         const showSelect = labels.length > 40;
         return (
             <div className={styles.selectMultiple}>
@@ -41,13 +43,13 @@ export default class SelectMultiple extends Component {
                             )}
                         </select>
                         {labels.map(label => values.some(value => value == label.id) ?
-                            <Chip key={label.id} text={label.text} selected={true} onClickHandler={this.handleClick.bind(this, label.id)}/> : null
+                            <Chip key={label.id} text={label.text} selected={true} color={color} onClickHandler={this.handleClick.bind(this, label.id)}/> : null
                         )}
                     </div>
                     :
                     <div className={styles.chips}>
                         {title ? <div className={styles.title + ' small'}>{title}</div> : null}
-                        {labels.map(label => <Chip key={label.id} text={label.text} onClickHandler={this.handleClick.bind(this, label.id)} selected={values.some(value => value == label.id)}/>)}
+                        {labels.map(label => <Chip key={label.id} color={color} text={label.text} onClickHandler={this.handleClick.bind(this, label.id)} selected={values.some(value => value == label.id)}/>)}
                     </div>
                 }
             </div>

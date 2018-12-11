@@ -17,6 +17,7 @@ export default class LocationFilter extends Component {
         handleClickRemoveFilter: PropTypes.func.isRequired,
         handleChangeFilter     : PropTypes.func.isRequired,
         handleClickFilter      : PropTypes.func.isRequired,
+        color                  : PropTypes.string,
         // Injected by @translate:
         strings                : PropTypes.object
     };
@@ -47,7 +48,7 @@ export default class LocationFilter extends Component {
     }
 
     render() {
-        const {data, strings} = this.props;
+        const {data, strings, color} = this.props;
 
         return (
             <div>
@@ -55,7 +56,7 @@ export default class LocationFilter extends Component {
                 {data && data.location ?
                     <div>
                         <br/>
-                        <InputSlider data={data.distance} handleChangeInputSlider={this.handleChangeInputSlider}/>
+                        <InputSlider data={data.distance} color={color} handleChangeInputSlider={this.handleChangeInputSlider}/>
                     </div>
                     : null}
             </div>

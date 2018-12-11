@@ -1,6 +1,7 @@
 @import '../_partials/colors';
 
 body #root .App .views .view.availability-edit-view {
+  background-color: $background;
   color: $text;
   text-align: center;
   z-index: 0;

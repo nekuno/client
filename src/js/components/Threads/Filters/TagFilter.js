@@ -27,7 +27,8 @@ export default class TagFilter extends Component {
         handleClickFilter      : PropTypes.func.isRequired,
         tags                   : PropTypes.array.isRequired,
         // Injected by @translate:
-        strings                : PropTypes.object
+        strings                : PropTypes.object,
+        color            : PropTypes.string,
     };
 
     constructor(props) {
@@ -55,11 +56,11 @@ export default class TagFilter extends Component {
     }
 
     render() {
-        const {filter, data, tags, strings} = this.props;
+        const {filter, data, tags, strings, color} = this.props;
         const tagValues = tags ? tags.map(tag => tag.name) : [];
 
         return (
-            <InputTag tags={tagValues} selected={data} title={filter.label} selectedLabel={strings.selected} placeholder={strings.placeholder} onChangeHandler={this.handleKeyUpTag} onClickHandler={this.handleClickTagSuggestion}/>
+            <InputTag tags={tagValues} selected={data} title={filter.label} selectedLabel={strings.selected} placeholder={strings.placeholder} onChangeHandler={this.handleKeyUpTag} onClickHandler={this.handleClickTagSuggestion} chipsColor={color}/>
         );
     }
 }

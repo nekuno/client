@@ -11,6 +11,7 @@
     line-height: 60px;
     margin: 16px;
     text-align: center;
+    background-color: $background-white;
 
     textarea {
       background-color: $background-white;
@@ -20,11 +21,12 @@
       box-shadow: none;
       font-family: Arial;
       font-size: 16px;
-      height: 200px;
+      height: 190px;
       line-height: 40px;
       overflow: auto;
       text-align: left;
       width: 85%;
+      resize: none;
       &:focus {
         outline: none;
       }

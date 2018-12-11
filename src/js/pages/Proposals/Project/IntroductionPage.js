@@ -50,14 +50,16 @@ export default class IntroductionPage extends Component {
                         position={'absolute'}
                         textSize={'small'}
                         onLeftLinkClickHandler={this.topNavBarLeftLinkClick}
-                        onRightLinkClickHandler={this.topNavBarRightLinkClick}/>
+                        onRightLinkClickHandler={this.topNavBarLeftLinkClick}/>
                     <div className="proposals-introduction-wrapper">
                         <div className="image-wrapper">
                             <img src="/img/proposals/Trabajo.png"/>
                         </div>
                         <h1>{strings.title}</h1>
                         <div className="resume">{strings.description}</div>
-                        <Button onClickHandler={this.topNavBarRightLinkClick}>{strings.doProposal}</Button>
+                        <div className="skip-wrapper-center small" onClick={this.topNavBarRightLinkClick}>
+                            <span className="skip-text">{strings.doProposal}&nbsp;</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -71,6 +73,6 @@ IntroductionPage.defaultProps = {
         publishProposal: 'Publish proposal',
         title          : 'Do your proposal for a project',
         description    : 'Publish that idea or project that you have in mind and we will find related people to carry it out.',
-        doProposal     : 'Create proposal'
+        doProposal     : 'Create proposal',
     }
 };

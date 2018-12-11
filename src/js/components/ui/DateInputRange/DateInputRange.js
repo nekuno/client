@@ -22,6 +22,7 @@ export default class DateInputRange extends Component {
         label        : PropTypes.string,
         placeholder  : PropTypes.string.isRequired,
         defaultValue : PropTypes.object,
+        onClick      : PropTypes.func,
         onChange     : PropTypes.func,
         autoFocus    : PropTypes.bool,
         locale       : PropTypes.string,
@@ -40,7 +41,8 @@ export default class DateInputRange extends Component {
         this.state = {
             selected: props.autoFocus ? true : null,
             selectingYear: true,
-            value: props.defaultValue
+            value: props.defaultValue,
+            showUI: true,
         }
     }
 
@@ -86,6 +88,8 @@ export default class DateInputRange extends Component {
         this.setState({
             selected: !selected
         });
+
+        this.props.onClick({showUI: !this.state.showUI})
     }
 
     onCancel() {

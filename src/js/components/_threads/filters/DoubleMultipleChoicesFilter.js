@@ -12,7 +12,8 @@ export default class DoubleMultipleChoicesFilter extends Component {
         data: PropTypes.object,
         handleClickRemoveFilter: PropTypes.func.isRequired,
         handleChangeFilter: PropTypes.func.isRequired,
-        handleClickFilter: PropTypes.func.isRequired
+        handleClickFilter: PropTypes.func.isRequired,
+        color            : PropTypes.string,
     };
     
     constructor(props) {
@@ -63,7 +64,7 @@ export default class DoubleMultipleChoicesFilter extends Component {
     }
 
     render() {
-        let {filterKey, selected, filter, data, handleClickRemoveFilter, handleClickFilter} = this.props;
+        let {filterKey, selected, filter, data, handleClickRemoveFilter, handleClickFilter, color} = this.props;
         const {selectedChoice} = this.state;
         data = data || {};
         return(
@@ -72,11 +73,11 @@ export default class DoubleMultipleChoicesFilter extends Component {
                     <div className="double-choice-filter">
                         <TextCheckboxes labels={filter.choices.map(choice => { return({key: choice.id, text: choice.text}) })}
                                         onClickHandler={this.handleClickDoubleMultipleChoiceChoice} values={data.choices || []} className={'double-multiple-choice-choice'}
-                                        title={filter.label} />
+                                        title={filter.label} color={color} />
                         <div className="table-row"></div>
                         {selectedChoice ?
                             <TextCheckboxes labels={Object.keys(filter.doubleChoices[data.choices[0]]).map(doubleChoice => { return({key: doubleChoice, text: filter.doubleChoices[data.choices[0]][doubleChoice]}); }) }
-                                        onClickHandler={this.handleClickDoubleMultipleChoiceDetail} values={data.details || []} className={'double-multiple-choice-detail'}/>
+                                        onClickHandler={this.handleClickDoubleMultipleChoiceDetail} values={data.details || []} className={'double-multiple-choice-detail'} color={color}/>
                             : ''}
                     </div>
                 </ThreadSelectedFilter>

@@ -130,7 +130,7 @@ export default class BasicPage extends Component {
                             options={TypeChoices}
                             defaultOption={this.state.type[0]}/>
                         <div className={'image-wrapper'}>
-                            <img src={'http://via.placeholder.com/480x240'}/>
+                            <img src={'../../../../img/default-upload-image.png'}/>
                         </div>
                         <Input
                             size={'small'}

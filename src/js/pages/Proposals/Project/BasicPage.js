@@ -98,7 +98,7 @@ export default class BasicPage extends Component {
                     <div className="proposals-project-basic-wrapper">
                         <h2>{strings.title}</h2>
                         <div className={'image-wrapper'}>
-                            <img src={'http://via.placeholder.com/480x240'}/>
+                            <img src={'../../../../img/default-upload-image.png'}/>
                         </div>
                         <Input
                             size={'small'}

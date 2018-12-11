@@ -8,13 +8,6 @@
   height: calc(100% - 150px);
 }
 
-.shownRecommendation {
-
-}
-
-.nextRecommendation {
-  position: absolute;
-  left: 100%;
-  top: 0;
-  display: none;
+.prev, .next {
+  opacity: 0;
 }

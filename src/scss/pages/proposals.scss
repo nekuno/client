@@ -5,12 +5,4 @@ body #root .App .views .view.proposals-view {
   color: $gray-main-text;
   text-align: center;
   overflow-y: hidden;
-
-  .proposals-wrapper {
-    // min-height: 100vh;
-    margin: 24px auto;
-
-    .proposal {
-    }
-  }
 }

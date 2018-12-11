@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
+import ReactSwipe from 'react-swipe';
 import BottomNavBar from '../components/BottomNavBar/BottomNavBar.js';
 import TopNavBar from '../components/TopNavBar/TopNavBar.js';
 import OwnProposalCard from '../components/Proposal/OwnProposalCard/OwnProposalCard.js';
@@ -73,6 +74,41 @@ export default class OwnProposalsPage extends Component {
 
     }
 
+    swiping(e, deltaX, deltaY, absX, absY, velocity) {
+        console.log("You're Swiping...", e, deltaX, deltaY, absX, absY, velocity)
+    }
+
+    swipingLeft(e, absX) {
+        console.log("You're Swiping to the Left...", e, absX)
+    }
+
+    swiped(e, deltaX, deltaY, isFlick, velocity) {
+        console.log("You Swiped...", e, deltaX, deltaY, isFlick, velocity)
+    }
+
+    swipedUp(e, deltaY, isFlick) {
+        console.log("You Swiped Up...", e, deltaY, isFlick)
+    }
+
+    getCards(proposals)
+    {
+        return proposals.filter((proposal, index) => index < 2).map((proposal, index) => {
+                    return index === 0 ?
+                        <div key={index} className="proposal proposal-1">
+                            <OwnProposalCard {...proposal}/>
+                        </div>
+                        :
+                        <div key={index} className="proposal proposal-2">
+                            <OwnProposalCard {...proposal} size="medium"/>
+                        </div>
+                }
+            );
+    }
+
+    onSwipedLeft(){
+        console.log('left');
+    }
+
     render() {
         const {user, ownProposals, networks, notifications, strings} = this.props;
         let imgSrc = user && user.photo ? user.photo.thumbnail.medium : 'img/no-img/medium.jpg';
@@ -85,17 +121,11 @@ export default class OwnProposalsPage extends Component {
                         <div className="popular-title">{strings.popularProposals}</div>
                         {/*<div className="view-all">{strings.viewAll}</div>*/}
                         <div className="proposals">
-                            {ownProposals.filter((proposal, index) => index < 2).map((proposal, index) => {
-                                return index === 0 ?
-                                    <div key={index} className="proposal proposal-1">
-                                        <OwnProposalCard {...proposal}/>
-                                    </div>
-                                    :
-                                    <div key={index} className="proposal proposal-2">
-                                        <OwnProposalCard {...proposal} size="medium"/>
-                                    </div>
-                                }
-                            )}
+                            <ReactSwipe
+                                className="carousel"
+                                swipeOptions={{ continuous: false , speed: 1000}}>
+                                {this.getCards(ownProposals)}
+                            </ReactSwipe>
                         </div>
                         <div className="other-published-title">{strings.otherPublished}</div>
                     </div>

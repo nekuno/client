@@ -22,7 +22,7 @@ function getState() {
     const interfaceLanguage = LocaleStore.locale;
     const metadata = ProfileStore.getMetadata();
     // TODO: Replace with restaurants
-    const choices = metadata && metadata.industry ? metadata.industry.choices : [];
+    const choices = metadata && metadata.restaurants ? metadata.restaurants.choices : [];
     const user = RegisterStore.user;
     const username = user && user.username ? user.username : null;
     const profile = RegisterStore.profile;

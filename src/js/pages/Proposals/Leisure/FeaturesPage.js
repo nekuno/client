@@ -185,6 +185,18 @@ export default class FeaturesPage extends Component {
         this.setState({data: filters.userFilters});
     }
 
+    hideRenderCategory(categories) {
+        const categoriesToHide = ["sports", "hobbies", "games"];
+
+        if (categories) {
+            categories.forEach(function (category, index) {
+                if (JSON.stringify(category.fields) === JSON.stringify(categoriesToHide)) {
+                    categories.splice(index, 1);
+                }
+            });
+        }
+    }
+
     renderField(field) {
         const {tags, filters} = this.props;
         const {data} = this.state;
@@ -353,6 +365,8 @@ export default class FeaturesPage extends Component {
         const {updated} = this.state;
         const canContinue = true;
 
+        this.hideRenderCategory(categories);
+
         return (
             <div className="views">
                 <div className="view view-main proposals-leisure-features-view">
@@ -384,14 +398,6 @@ export default class FeaturesPage extends Component {
                                     title={category.label}>
                                     {category.fields.map((field, index) =>
                                         <div key={index} className="filter">
-                                            {/*<div className="remove">*/}
-                                                {/*<RoundedIcon*/}
-                                                    {/*icon={'delete'}*/}
-                                                    {/*size={'small'}*/}
-                                                    {/*fontSize={'16px'}*/}
-                                                    {/*disabled={field === 'group' && thread.groupId != null}*/}
-                                                    {/*onClickHandler={this.handleClickRemoveFilter.bind(this, field)}/>*/}
-                                            {/*</div>*/}
                                             {this.renderField(field)}
                                         </div>
                                     )}

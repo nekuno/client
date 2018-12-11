@@ -185,6 +185,18 @@ export default class FeaturesPage extends Component {
         this.setState({data: filters.userFilters});
     }
 
+    hideRenderCategory(categories) {
+        const categoriesToHide = ["leisureMoney", "shows", "plans", "restaurants"];
+
+        if (categories) {
+            categories.forEach(function (category, index) {
+                if (JSON.stringify(category.fields) === JSON.stringify(categoriesToHide)) {
+                    categories.splice(index, 1);
+                }
+            });
+        }
+    }
+
     renderField(field) {
         const {tags, filters} = this.props;
         const {data} = this.state;
@@ -352,6 +364,8 @@ export default class FeaturesPage extends Component {
         const {user, tags, thread, categories, strings} = this.props;
         const {updated} = this.state;
         const canContinue = true;
+
+        this.hideRenderCategory(categories);
 
         return (
             <div className="views">

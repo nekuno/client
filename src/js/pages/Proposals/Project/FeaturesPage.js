@@ -185,9 +185,43 @@ export default class FeaturesPage extends Component {
         this.setState({data: filters.userFilters});
     }
 
+    hideRenderCategory(categories) {
+        const categoriesToHide = [
+            ["profession", "industry"],
+            ["alcohol", "smoke", "drugs"]
+        ];
+
+        console.log(categories);
+
+        if (categories) {
+            categories.forEach(function (category, categoryIndex) {
+                categoriesToHide.forEach(function (categoryToHide, categoryToHideIndex) {
+                    if (JSON.stringify(category.fields) === JSON.stringify(categoryToHide)) {
+                        categories.splice(categoryIndex, 1);
+                    }
+                });
+            });
+        }
+    }
+
+    hideRenderField(categories) {
+        const fieldsToHide = ['religion', 'ideology'];
+
+        if (categories) {
+            categories.forEach(function (category, categoryIndex) {
+                fieldsToHide.forEach(function (fieldsToHide, fieldsToHideIndex) {
+                    const index = category.fields.indexOf(fieldsToHide);
+                    if (index !== -1) category.fields.splice(index, 1);
+                });
+            });
+        }
+    }
+
     renderField(field) {
         const {tags, filters} = this.props;
         const {data} = this.state;
+
+        // const shouldHideField = this.hideRenderField(field);
 
         if (filters && filters.userFilters && filters.userFilters[field]) {
             const filter = filters.userFilters[field];
@@ -353,6 +387,8 @@ export default class FeaturesPage extends Component {
         const {updated} = this.state;
         const canContinue = true;
 
+        this.hideRenderCategory(categories);
+        this.hideRenderField(categories);
 
         return (
             <div className="views">

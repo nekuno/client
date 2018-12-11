@@ -11,6 +11,7 @@ import * as TagSuggestionsActionCreators from "../../../actions/TagSuggestionsAc
 import InputTag from "../../../components/RegisterFields/InputTag/InputTag";
 import CreatingProposalStore from "../../../stores/CreatingProposalStore";
 import InputSelectImage from "../../../components/RegisterFields/InputSelectImage/InputSelectImage";
+import ProfileStore from "../../../stores/ProfileStore";
 
 function resetTagSuggestions() {
     TagSuggestionsActionCreators.resetTagSuggestions();
@@ -107,20 +108,15 @@ export default class TypePage extends Component {
                         onRightLinkClickHandler={this.topNavBarRightLinkClick}/>
                     <div className="proposals-leisure-type-wrapper">
                         <h2>{strings.title}</h2>
-                        {CreatingProposalStore.proposal.type[0] === 'games' ?
-                        <InputSelectImage
-                            options={typeOptions}/>
-                            :
-                            <InputTag
-                                tags={typeOptions}
-                                placeholder={strings.placeholder}
-                                searchIcon={true}
-                                size={'small'}
-                                chipsColor={'pink'}
-                                onChangeHandler={this.handleInputTagChange}
-                                onClickHandler={this.handleInputTagClick}
-                                selectedLabel={strings.selectedLabel}/>
-                        }
+                        <InputTag
+                            tags={typeOptions}
+                            placeholder={strings.placeholder}
+                            searchIcon={true}
+                            size={'small'}
+                            chipsColor={'pink'}
+                            onChangeHandler={this.handleInputTagChange}
+                            onClickHandler={this.handleInputTagClick}
+                            selectedLabel={strings.selectedLabel}/>
                     </div>
                 </div>
                 <StepsBar

@@ -21,8 +21,7 @@ function requestData(props) {
 function getState() {
     const interfaceLanguage = LocaleStore.locale;
     const metadata = ProfileStore.getMetadata();
-    // TODO: Replace with plans
-    const choices = metadata && metadata.industry ? metadata.industry.choices : [];
+    const choices = metadata && metadata.plans ? metadata.plans.choices : [];
     const user = RegisterStore.user;
     const username = user && user.username ? user.username : null;
     const profile = RegisterStore.profile;

@@ -73,7 +73,7 @@ export default class InputSelectImage extends Component {
                     <div key={index} className={styles.suggestedItem}>
                         <div className={styles.suggestedImageWrapper} onClick={this.handleClick.bind(this, item.id)}>
                             <div className={styles.suggestedImage}>
-                                <img className={styles.image} src={item.image} />
+                                <img className={styles.picture} src={item.picture} />
                             </div>
                             {selected.some(selectedItem => selectedItem.id === item.id) ?
                                 <div className={styles.selectedItem}>

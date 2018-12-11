@@ -72,7 +72,7 @@ export default class ProfessionalProfilePage extends Component {
                         <h1>{strings.title}</h1>
                         <div className="resume">{strings.description}</div>
                         <div className="skip-wrapper-center small" onClick={this.goToProfessionalProfileIndustryPage}>
-                            <span className="skip-text">{strings.fillProfile}&nbsp; <span className="icon-arrow-right" /></span>
+                            <span className="skip-text">{strings.fillProfile}&nbsp;</span>
                         </div>
 
                         <div className="skip-wrapper small" onClick={this.goToLeisureProfilePage}>

@@ -44,12 +44,9 @@ export default class FrameCollapsible extends Component {
                             }
                         </div>
                     </div>
-                    {open ?
-                        <div className={styles.content}>
-                            {children}
-                        </div>
-                        : null
-                    }
+                    <div className={styles.content} style={{display: open ? 'block' : 'none'}}>
+                        {children}
+                    </div>
                 </div>
             </Frame>
         );

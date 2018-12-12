@@ -156,7 +156,7 @@ export default class Root extends Component {
                         <Route name="proposals-leisure-availability" path="/proposals-leisure-availability" component={ProposalsLeisureAvailability}/>
                         <Route name="proposals-leisure-availability-dates" path="/proposals-leisure-availability-dates" component={ProposalsLeisureAvailabilityDatesPage}/>
                         <Route name="proposals-leisure-features" path="/proposals-leisure-features" component={ProposalsLeisureFeaturesPage}/>
-                        <Route name="proposals-experience-preview" path="/proposals-experience-preview" component={ProposalsExperiencePreviewPage}/>
+                        <Route name="proposals-leisure-preview" path="/proposals-leisure-preview" component={ProposalsLeisurePreviewPage}/>
                         <Route name="proposals-experience-introduction" path="/proposals-experience-introduction" component={ProposalsExperienceIntroductionPage}/>
                         <Route name="proposals-experience-basic" path="/proposals-experience-basic" component={ProposalsExperienceBasicPage}/>
                         <Route name="proposals-experience-type" path="/proposals-experience-type" component={ProposalsExperienceTypePage}/>

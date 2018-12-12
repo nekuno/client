@@ -142,24 +142,10 @@ export default class FeaturesPage extends Component {
     }
 
     handleClickRemoveFilter(field) {
-        // const threadId = this.props.thread.id;
         let userFilters = Object.assign({}, this.props.thread.filters.userFilters);
         if (userFilters[field]) {
             userFilters[field] = null;
         }
-
-        // let data = {
-        //     name    : this.props.thread.name,
-        //     filters : {userFilters: userFilters},
-        //     category: 'ThreadUsers'
-        // };
-
-        // ThreadActionCreators.updateThread(threadId, data)
-        //     .then(() => {
-        //         this.setState({updated: true});
-        //     }, () => {
-        //         // TODO: Handle error
-        //     });
         this.setState({data: userFilters});
     }
 
@@ -168,20 +154,7 @@ export default class FeaturesPage extends Component {
     }
 
     save(field, filter) {
-        // const threadId = this.props.thread.id;
         const filters = {userFilters: {...this.props.thread.filters.userFilters, ...{[field]: filter}}};
-        // let data = {
-        //     name    : this.props.thread.name,
-        //     filters : filters,
-        //     category: 'ThreadUsers'
-        // };
-
-        // ThreadActionCreators.updateThread(threadId, data)
-        //     .then(() => {
-        //         this.setState({updated: true});
-        //     }, () => {
-        //         // TODO: Handle error
-        //     });
         this.setState({data: filters.userFilters});
     }
 
@@ -362,7 +335,6 @@ export default class FeaturesPage extends Component {
 
     render() {
         const {user, tags, thread, categories, strings} = this.props;
-        const {updated} = this.state;
         const canContinue = true;
 
         this.hideRenderCategory(categories);

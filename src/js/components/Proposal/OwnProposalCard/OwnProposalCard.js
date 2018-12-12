@@ -24,7 +24,7 @@ export default class OwnProposalCard extends Component {
     }
 
     render() {
-        const {image, title, resume, type, photos, strings} = this.props;
+        const {image, title, description, type, photos, strings} = this.props;
         let icon = null;
         let background = null;
         switch (type) {
@@ -58,7 +58,7 @@ export default class OwnProposalCard extends Component {
                         <img src={image}/>
                     </div>
                     <div className={styles.description}>
-                        <div className={styles.resumeText}>{resume}</div>
+                        <div className={styles.resumeText}>{description}</div>
                     </div>
                     <div className={styles.userData}>
                         <div className={styles.photos}>

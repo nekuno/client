@@ -11,6 +11,7 @@ function loadStories() {
     require('../stories/CandidateCard.stories');
     require('../stories/CardTopData.stories');
     require('../stories/CardUser.stories');
+    require('../stories/CarouselContinuous.stories');
     require('../stories/Chip.stories');
     require('../stories/DateInputRange.stories');
     require('../stories/DailyInputRange.stories');

@@ -26,18 +26,6 @@ body #root .App .views .view.persons-view {
     .persons {
       position: relative;
       width: 100%;
-
-      .person {
-
-        &.person-1 {
-        }
-        &.person-2 {
-          position: absolute;
-          width: 100%;
-          top: 0;
-          left: 60%;
-        }
-      }
     }
     .groups-persons-title {
       font-weight: 600;

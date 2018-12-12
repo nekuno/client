@@ -28,18 +28,6 @@ body #root .App .views .view.own-proposals-view {
     .proposals {
       position: relative;
       width: 100%;
-
-      .proposal {
-
-        &.proposal-1 {
-        }
-        &.proposal-2 {
-          position: absolute;
-          width: 100%;
-          top: 0;
-          left: 78%;
-        }
-      }
     }
     .other-published-title {
       margin-top: 16px;

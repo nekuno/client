@@ -11,6 +11,7 @@ import RecommendationStore from '../stores/RecommendationStore';
 import ThreadStore from '../stores/ThreadStore';
 import * as ThreadActionCreators from '../actions/ThreadActionCreators';
 import '../../scss/pages/persons.scss';
+import CarouselContinuous from "../components/ui/CarouselContinuous/CarouselContinuous";
 
 function requestData(props) {
     ThreadActionCreators.requestDefaultRecommendations();
@@ -155,9 +156,19 @@ export default class PersonsPage extends Component {
         this.context.router.push('/persons-all');
     }
 
+    getCards(users) {
+        return users.map((singleUser, index) => {
+            return <div key={index} className="person">
+                <CardUser {...singleUser} size="medium"/>
+            </div>
+        });
+    }
+
     render() {
         const {user, users, groupUsers, networks, notifications, strings} = this.props;
         let imgSrc = user && user.photo ? user.photo.thumbnail.medium : 'img/no-img/medium.jpg';
+
+        const carouselMargin = -30;
 
         return (
             <div className="views">
@@ -169,35 +180,8 @@ export default class PersonsPage extends Component {
                         {users.length === 0 ?
                             <div className="loading-gif"></div>
                             :
-
-                            <div className="persons">
-                                {users.filter((singleUser, index) => index < 2).map((singleUser, index) => {
-                                        return index === 0 ?
-                                            <div key={index} className="person person-1">
-                                                <CardUser {...singleUser} size="medium"/>
-                                            </div>
-                                            :
-                                            <div key={index} className="person person-2">
-                                                <CardUser {...singleUser} size="medium"/>
-                                            </div>
-                                    }
-                                )}
-                            </div>
+                            <CarouselContinuous items={this.getCards(users)} marginRight={carouselMargin}/>
                         }
-                        <div className="groups-persons-title">{strings.groupsPersons}</div>
-                        <div className="persons">
-                            {groupUsers.filter((singleUser, index) => index < 2).map((singleUser, index) => {
-                                    return index === 0 ?
-                                        <div key={index} className="person person-1">
-                                            <CardUser {...singleUser} size="medium"/>
-                                        </div>
-                                        :
-                                        <div key={index} className="person person-2">
-                                            <CardUser {...singleUser} size="medium"/>
-                                        </div>
-                                }
-                            )}
-                        </div>
                     </div>
                     <BottomNavBar current={'persons'} notifications={notifications}/>
                 </div>

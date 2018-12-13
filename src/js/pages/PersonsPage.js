@@ -178,11 +178,11 @@ export default class PersonsPage extends Component {
                     <div className="persons-wrapper">
                         <h1>{strings.closestPeople}</h1>
                         <div className="view-all" onClick={this.viewAll}>{strings.viewAll}</div>
-                        {/*{users.length === 0 ?*/}
-                        <div className="loading"> <LoadingGif /> </div>
-                            {/*:*/}
-                            {/*<CarouselContinuous items={this.getCards(users)} marginRight={carouselMargin}/>*/}
-                        {/*}*/}
+                        {users.length === 0 ?
+                            <div className="loading"><LoadingGif/></div>
+                            :
+                            <CarouselContinuous items={this.getCards(users)} marginRight={carouselMargin}/>
+                        }
                     </div>
                     <BottomNavBar current={'persons'} notifications={notifications}/>
                 </div>

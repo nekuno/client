@@ -62,8 +62,8 @@ export default class OwnProposalCard extends Component {
                     </div>
                     <div className={styles.userData}>
                         <div className={styles.photos}>
-                            {photos.map(photo =>
-                                <div className={styles.photo}>
+                            {photos.map((photo, index) =>
+                                <div className={styles.photo} key={index}>
                                     <RoundedImage size={'x-small'} url={photo}/>
                                 </div>
                             )}

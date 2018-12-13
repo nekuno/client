@@ -18,8 +18,8 @@ export default class CarouselContinuous extends Component {
 
     renderItems() {
         const marginRight = this.props.marginRight;
-        return this.props.items.map((item) => {
-            return <div className={styles.item} style={{'margin-right': marginRight + '%'}}>
+        return this.props.items.map((item, index) => {
+            return <div key={index} className={styles.item} style={{'marginRight': marginRight + '%'}}>
                 {item}
             </div>
         });

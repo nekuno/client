@@ -65,7 +65,7 @@ export default class SharedUserPage extends Component {
     componentDidUpdate() {
         if (this.props.error){
             Framework7Service.nekunoApp().alert(this.props.error, () => {
-                const path = '/discover';
+                const path = '/proposals';
                 console.log('Redirecting to path', path);
                 RouterActionCreators.replaceRoute(path);
 

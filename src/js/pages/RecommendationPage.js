@@ -245,7 +245,7 @@ export default class RecommendationPage extends Component {
             const router = this.context.router;
             ThreadActionCreators.deleteThread(threadId)
                 .then(() => {
-                    router.push('/discover');
+                    router.push('/proposals');
                 }, (error) => { console.log(error) });
         });
     }

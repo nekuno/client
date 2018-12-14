@@ -33,7 +33,8 @@ class ProposalStore extends BaseStore {
                 this.emitChange();
                 break;
             case ActionTypes.REQUEST_USER_SUCCESS:
-                const user = action.response.user;
+                const responseUsers = action.response.entities.users;
+                const user = Object.keys(responseUsers).map((key) => {return responseUsers[key]})[0];
                 const userSlug = user.slug;
                 proposals = user.proposals;
                 proposals.forEach(proposal => {
@@ -80,7 +81,8 @@ class ProposalStore extends BaseStore {
     }
 
     getAll(userSlug) {
-        return this._otherProposals[userSlug] ? this._otherProposals[userSlug] : [];
+        this._initialize(userSlug);
+        return this._otherProposals[userSlug];
     }
 
     getAllOwn()
@@ -104,7 +106,7 @@ class ProposalStore extends BaseStore {
     }
 
     _replaceOwnProposal(newProposal) {
-        proposalId = newProposal.id;
+        const proposalId = newProposal.id;
         this._ownProposals.forEach((proposal, index) => {
             if (proposal.id === proposalId) {
                 this._ownProposals[index] = newProposal;
@@ -123,11 +125,13 @@ class ProposalStore extends BaseStore {
 
     addProposal(proposal, userSlug)
     {
+        this._initialize(userSlug);
         this._otherProposals[userSlug].push(proposal);
         this.sort(userSlug);
     }
 
     sort(userSlug) {
+        this._initialize(userSlug);
         this._otherProposals[userSlug] = this._otherProposals[userSlug].sort(this._compareTwoProposals);
     }
 
@@ -138,6 +142,11 @@ class ProposalStore extends BaseStore {
     _compareTwoProposals(proposalA, proposalB)
     {
         return proposalA.matches - proposalB.matches;
+    }
+
+    _initialize(userSlug)
+    {
+        this._otherProposals[userSlug] = this._otherProposals[userSlug] || [];
     }
 }
 

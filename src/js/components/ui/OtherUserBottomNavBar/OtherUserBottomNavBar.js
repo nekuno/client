@@ -1,18 +1,18 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import translate from '../../i18n/Translate';
-import RoundedIcon from '../ui/RoundedIcon/RoundedIcon';
-import styles from './BottomNavBar.scss';
+import styles from './OtherUserBottomNavBar.scss';
+import RoundedIcon from "../RoundedIcon/RoundedIcon";
+import translate from "../../../i18n/Translate";
 
-@translate('BottomNavBar')
-export default class BottomNavBar extends Component {
+@translate('OtherUserBottomNavBar')
+export default class OtherUserBottomNavBar extends Component {
 
     static propTypes = {
-        current        : PropTypes.oneOf(['proposals', 'persons', 'plans', 'messages']),
+        userSlug       : PropTypes.string,
+        current        : PropTypes.oneOf(['about-me', 'proposals', 'persons', 'plans', 'messages']),
         notifications  : PropTypes.number,
         onClickHandler : PropTypes.func
     };
-
 
     static contextTypes = {
         router: PropTypes.object.isRequired
@@ -21,10 +21,11 @@ export default class BottomNavBar extends Component {
     constructor(props) {
         super(props);
 
+        this.handleClickAboutMe = this.handleClickAboutMe.bind(this);
         this.handleClickProposals = this.handleClickProposals.bind(this);
-        this.handleClickPersons = this.handleClickPersons.bind(this);
-        this.handleClickPlans = this.handleClickPlans.bind(this);
-        this.handleClickMessages = this.handleClickMessages.bind(this);
+        this.handleClickAnswers = this.handleClickAnswers.bind(this);
+        this.handleClickInterests = this.handleClickInterests.bind(this);
+
         this.handleClickAdd = this.handleClickAdd.bind(this);
         this.addProfessionalProposal = this.addProfessionalProposal.bind(this);
         this.addLeisurePlan = this.addLeisurePlan.bind(this);
@@ -36,35 +37,35 @@ export default class BottomNavBar extends Component {
         };
     }
 
+    handleClickAboutMe() {
+        const {userSlug, current} = this.props;
+
+        if (current !== 'about-me') {
+            this.context.router.push('/p/' + userSlug + '/about-me');
+        }
+    }
+
     handleClickProposals() {
         const {current} = this.props;
 
         if (current !== 'proposals') {
-            this.context.router.push('/proposals');
+            this.context.router.push('/p/' + userSlug + '/proposals');
         }
     }
 
-    handleClickPersons() {
+    handleClickAnswers() {
         const {current} = this.props;
 
-        if (current !== 'persons') {
-            this.context.router.push('/persons');
+        if (current !== 'answers') {
+            this.context.router.push('/p/' + userSlug + '/answers');
         }
     }
 
-    handleClickPlans() {
+    handleClickInterests() {
         const {current} = this.props;
 
-        if (current !== 'plans') {
-            this.context.router.push('/plans');
-        }
-    }
-
-    handleClickMessages() {
-        const {current} = this.props;
-
-        if (current !== 'messages') {
-            this.context.router.push('/conversations');
+        if (current !== 'interests') {
+            this.context.router.push('/p/' + userSlug + '/interests');
         }
     }
 
@@ -143,26 +144,26 @@ export default class BottomNavBar extends Component {
         const {addingProposal} = this.state;
 
         return (
-            <div className={styles.bottomNavBar}>
+            <div className={styles.otherUserBottomNavbar}>
+                <div className={current === 'about-me' ? styles.iconWrapper + ' ' + styles.current : styles.iconWrapper} onClick={this.handleClickAboutMe}>
+                    <div className={styles.icon + ' icon icon-user'}/>
+                    <div className={styles.iconText + ' small'}>{strings.aboutMe}</div>
+                </div>
                 <div className={current === 'proposals' ? styles.iconWrapper + ' ' + styles.current : styles.iconWrapper} onClick={this.handleClickProposals}>
                     <div className={styles.icon + ' icon icon-copy'}/>
                     <div className={styles.iconText + ' small'}>{strings.proposals}</div>
                 </div>
-                <div className={current === 'persons' ? styles.iconWrapper + ' ' + styles.current : styles.iconWrapper} onClick={this.handleClickPersons}>
-                    <div className={styles.icon + ' icon icon-users'}/>
-                    <div className={styles.iconText + ' small'}>{strings.persons}</div>
-                </div>
                 <div className={styles.iconWrapper + ' ' + styles.middleIconWrapper} onClick={this.handleClickAdd}>
                     <div className={styles.middleIconCircle}>
-                        <div className={styles.icon + ' icon icon-plus'}/>
+                        <div className={styles.icon + ' icon icon-edit'}/>
                     </div>
                 </div>
-                <div className={current === 'plans' ? styles.iconWrapper + ' ' + styles.current : styles.iconWrapper} onClick={this.handleClickPlans}>
-                    <div className={styles.icon + ' icon icon-calendar'}/>
-                    <div className={styles.iconText + ' small'}>{strings.plans}</div>
+                <div className={current === 'answers' ? styles.iconWrapper + ' ' + styles.current : styles.iconWrapper} onClick={this.handleClickAnswers}>
+                    <div className={styles.icon + ' icon icon-check-square'}/>
+                    <div className={styles.iconText + ' small'}>{strings.answers}</div>
                 </div>
-                <div className={current === 'messages' ? styles.iconWrapper + ' ' + styles.current : styles.iconWrapper} onClick={this.handleClickMessages}>
-                    <div className={styles.icon + ' icon icon-mail'}/>
+                <div className={current === 'interests' ? styles.iconWrapper + ' ' + styles.current : styles.iconWrapper} onClick={this.handleClickInterests}>
+                    <div className={styles.icon + ' icon icon-bookmark'}/>
                     {notifications ?
                         <div className={styles.notificationsWrapper}>
                             <div className={styles.notifications}>
@@ -171,43 +172,40 @@ export default class BottomNavBar extends Component {
                         </div>
                         : null
                     }
-                    <div className={styles.iconText + ' small'}>{strings.messages}</div>
+                    <div className={styles.iconText + ' small'}>{strings.interests}</div>
                 </div>
-                {addingProposal ?
-                    <div className={styles.addProposalWrapper} onClick={this.closeAddModal}>
-                        <div className={styles.addProposalAbsoluteWrapper}>
-                            <div className={styles.addProposal}>
-                                <svg width={70 * 2 + 70 * 2} height={70 * 2 + 70 * 2} xmlns="http://www.w3.org/2000/svg">
-                                    <g>
-                                        <path d={this.describeArc(70, 70, 235, 270 + 215)}
-                                              fill={'none'} strokeWidth={70} stroke={'white'} strokeLinecap="round"
-                                        />
-                                        {this.renderIconText(strings.proposal, 70, 270)}
-                                        {this.renderIcon('paperclip', 70, 270, '#63CAFF', this.addProfessionalProposal)}
-                                        {this.renderIconText(strings.leisure, 70, 0)}
-                                        {this.renderIcon('send', 70, 0, '#D380D3',  this.addLeisurePlan)}
-                                        {this.renderIconText(strings.experience, 70, 90)}
-                                        {this.renderIcon('compass', 70, 90, '#7BD47E',  this.addExperienceProposal)}
-                                    </g>
-                                </svg>
-                            </div>
-                        </div>
-                    </div>
-                    : null
-                }
+                {/*{addingProposal ?*/}
+                    {/*<div className={styles.addProposalWrapper} onClick={this.closeAddModal}>*/}
+                        {/*<div className={styles.addProposalAbsoluteWrapper}>*/}
+                            {/*<div className={styles.addProposal}>*/}
+                                {/*<svg width={70 * 2 + 70 * 2} height={70 * 2 + 70 * 2} xmlns="http://www.w3.org/2000/svg">*/}
+                                    {/*<g>*/}
+                                        {/*<path d={this.describeArc(70, 70, 235, 270 + 215)}*/}
+                                              {/*fill={'none'} strokeWidth={70} stroke={'white'} strokeLinecap="round"*/}
+                                        {/*/>*/}
+                                        {/*{this.renderIconText(strings.proposal, 70, 270)}*/}
+                                        {/*{this.renderIcon('paperclip', 70, 270, '#63CAFF', this.addProfessionalProposal)}*/}
+                                        {/*{this.renderIconText(strings.leisure, 70, 0)}*/}
+                                        {/*{this.renderIcon('send', 70, 0, '#D380D3',  this.addLeisurePlan)}*/}
+                                        {/*{this.renderIconText(strings.experience, 70, 90)}*/}
+                                        {/*{this.renderIcon('compass', 70, 90, '#7BD47E',  this.addExperienceProposal)}*/}
+                                    {/*</g>*/}
+                                {/*</svg>*/}
+                            {/*</div>*/}
+                        {/*</div>*/}
+                    {/*</div>*/}
+                    {/*: null*/}
+                {/*}*/}
             </div>
         );
     }
 }
 
-BottomNavBar.defaultProps = {
+OtherUserBottomNavBar.defaultProps = {
     strings: {
+        aboutMe   : 'About me',
         proposals : 'Proposals',
-        persons   : 'Persons',
-        plans     : 'Plans',
-        messages  : 'Messages',
-        proposal  : 'Proposal',
-        leisure   : 'Leisure plan',
-        experience: 'Experience',
+        answers   : 'Answers',
+        interests : 'Interests',
     }
 };

@@ -1,0 +1,101 @@
+@import '../../../../scss/_partials/colors';
+
+.other-user-proposal-card {
+  cursor: pointer;
+  display: inline-block;
+  font-weight: 600;
+  margin: auto;
+  position: relative;
+  text-align: left;
+  width: 100%;
+
+  .frame {
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    box-shadow: 0 0 5px $gray-border;
+    border: 1px solid $border;
+    color: #6C6F82;
+    font-size: 14px;
+    margin: 8px 16px;
+    padding: 0;
+    //width: 95%;
+
+    .proposal-image {
+      border-radius: 10px 10px 0 0;
+      -moz-border-radius: 10px 10px 0 0;
+      -webkit-border-radius: 10px 10px 0 0;
+      height: 130px;
+      overflow: hidden;
+      text-align: center;
+      width: 100%;
+
+      img {
+        border-radius: 10px 10px 0 0;
+        -moz-border-radius: 10px 10px 0 0;
+        -webkit-border-radius: 10px 10px 0 0;
+        width: 100%;
+      }
+
+    }
+    .top-data {
+      color: white;
+      height: 130px;
+      // padding: 0 5%;
+      position: absolute;
+      width: 80%;
+
+      h2 {
+        bottom: -10px;
+        font-weight: 600;
+        max-height: 75px;
+        overflow: hidden;
+        position: absolute;
+        padding: 0 24px 0 0;
+      }
+    }
+    .description {
+      background: $background-white;
+      padding: 16px;
+      -moz-border-radius: 10px 10px 0 0;
+      -webkit-border-radius: 10px 10px 0 0;
+      border-radius: 10px;
+      .description-text {
+        font-weight: normal;
+        height: 66px;
+        overflow: hidden;
+        // margin-top: 16px;
+      }
+    }
+    .type {
+      position: absolute;
+      right: 25px;
+      top: 25px;
+    }
+    .user-data {
+      height: 60px;
+      margin-top: 16px;
+      overflow: hidden;
+      padding: 0 5%;
+
+      .photos {
+        display: inline-block;
+        margin-left: 6px;
+        vertical-align: super;
+
+        .photo {
+          display: inline-block;
+          margin-right: -30px;
+        }
+      }
+      .matches {
+        color: $gray-main-text;
+        display: inline-block;
+        line-height: 50px;
+        height: 50px;
+        margin-left: 35px;
+        vertical-align: top;
+      }
+    }
+  }
+}

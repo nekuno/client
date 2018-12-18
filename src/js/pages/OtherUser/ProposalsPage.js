@@ -5,14 +5,52 @@ import TopNavBar from '../../components/TopNavBar/TopNavBar.js';
 import '../../../scss/pages/other-user/proposals.scss';
 import SelectCollapsible from "../../components/ui/SelectCollapsible/SelectCollapsible";
 import {action} from "@storybook/addon-actions";
-import OwnProposalCard from "../../components/Proposal/OwnProposalCard/OwnProposalCard";
+import OtherUserProposalCard from "../../components/ui/OtherUserProposalCard/OtherUserProposalCard";
+import BottomNavBar from "../../components/BottomNavBar/BottomNavBar";
+import connectToStores from "../../utils/connectToStores";
+import AuthenticatedComponent from "../../components/AuthenticatedComponent";
+import UserStore from "../../stores/UserStore";
+import * as UserActionCreators from "../../actions/UserActionCreators";
+import OtherUserBottomNavBar from "../../components/ui/OtherUserBottomNavBar/OtherUserBottomNavBar";
 
+/**
+ * Requests data from server (or store) for current props.
+ */
+function requestData(props) {
+    UserActionCreators.requestUser(props.params.slug, ['username']);
+}
+
+/**
+ * Retrieves state from stores for current props.
+ */
+function getState(props) {
+    const {params} = props;
+    const slug = params.slug;
+    const otherUser = UserStore.getBySlug(slug);
+    const proposals = otherUser ? otherUser.proposals : null;
+
+    return {
+        slug,
+        otherUser,
+        proposals,
+    };
+}
+
+@AuthenticatedComponent
 @translate('OtherUserProposalsPage')
+@connectToStores([UserStore], getState)
 export default class ProposalsPage extends Component {
 
     static propTypes = {
+        // Injected by React Router:
+        params    : PropTypes.shape({
+            slug : PropTypes.string,
+        }),
         // Injected by @translate:
-        strings           : PropTypes.object,
+        strings   : PropTypes.object,
+        // Injected by @connectToStores:
+        otherUser : PropTypes.object,
+        proposals : PropTypes.array,
     };
 
     static contextTypes = {
@@ -22,34 +60,69 @@ export default class ProposalsPage extends Component {
     constructor(props) {
         super(props);
 
-        // this.topNavBarLeftLinkClick = this.topNavBarLeftLinkClick.bind(this);
-        // this.topNavBarRightLinkClick = this.topNavBarRightLinkClick.bind(this);
+        this.topNavBarLeftLinkClick = this.topNavBarLeftLinkClick.bind(this);
+        this.handleClickOtherUserProposalCard = this.handleClickOtherUserProposalCard.bind(this);
+
+        this.onClickSelectCollapsible = this.onClickSelectCollapsible.bind(this);
+
+        this.state = null;
+    }
+
+    componentDidMount() {
+        window.setTimeout(() => requestData(this.props), 0);
+    }
+
+    topNavBarLeftLinkClick() {
+        // this.context.router.push('/proposals-experience-availability');
+    }
+
+    handleClickOtherUserProposalCard() {
+
+    }
+
+    onClickSelectCollapsible(id) {
+        const {proposals} = this.props;
+        // console.log(proposals);
+        // console.log(this.state.proposals);
+        this.setState({
+            proposals: this.orderBy(id, proposals)
+        });
+    }
+
+    orderBy(needle, haystack) {
+        let haystackWithNeedles = [];
+        haystack.forEach(function (item, key) {
+            if (needle.includes(item.type)) {
+                haystackWithNeedles.push(item);
+            }
+        });
+        haystack.forEach(function (item, key) {
+            if (!needle.includes(item.type)) {
+                haystackWithNeedles.push(item);
+            }
+        });
+        return haystackWithNeedles;
     }
 
 
-    // topNavBarLeftLinkClick() {
-    //     this.context.router.push('/proposals-experience-availability');
-    // }
-    //
-    // topNavBarRightLinkClick() {
-    //     this.context.router.push('/proposals-experience-availability');
-    // }
-
     render() {
-        const {strings} = this.props;
+        const {strings, otherUser, proposals} = this.props;
+
+        console.log('onRender');
+        console.log(proposals);
 
         const options = [
             {
-                id: 'compatibility',
-                text: 'Compatibility'
+                id: 'work',
+                text: 'Trabajo'
             },
             {
-                id: 'similarity',
-                text: 'Similarity'
+                id: 'sports',
+                text: 'Ocio'
             },
             {
-                id: 'coincidences',
-                text: 'Coincidences'
+                id: 'shows',
+                text: 'Experiencia'
             }
         ];
 
@@ -59,25 +132,35 @@ export default class ProposalsPage extends Component {
                     <TopNavBar
                         background={'FFFFFF'}
                         iconLeft={'arrow-left'}
-                        firstIconRight={'x'}
-                        textCenter={strings.topNavBarText}
+                        textCenter={otherUser ? strings.topNavBarText.replace('%username%', otherUser.username) : ''}
                         textSize={'small'}
                         onLeftLinkClickHandler={this.topNavBarLeftLinkClick}/>
                     <div className="other-user-proposals-view-wrapper">
                         <div className="select-collapsible-wrapper">
                             <SelectCollapsible
-                                selected={'compatibility'}
+                                selected={'work'}
                                 options={options}
-                                title={'Order'}
-                                onClickHandler={action('clicked')}/>
+                                onClickSelectCollapsible={this.onClickSelectCollapsible}
+                                title={strings.orderBy.replace('%orderBy%', 'Experiences')}/>
+
                         </div>
-                        <OwnProposalCard
-                            image={'http://via.placeholder.com/360x180'}
-                            title={'Lorem ipsum dolor sit amet, consectetur adipiscing elit'}
-                            description={'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.'}
-                            type={'work'}/>
+                        {proposals ?
+                            proposals.map((proposal, proposalIndex) =>
+                                <div key={proposalIndex}>
+                                    <OtherUserProposalCard
+                                        image={proposal.fields.photo ? proposal.fields.photo : 'http://via.placeholder.com/360x180'}
+                                        title={proposal.fields.title}
+                                        description={proposal.fields.description}
+                                        type={proposal.type}
+                                        onClickHandler={this.handleClickOtherUserProposalCard}/>
+                                </div>
+                            )
+                            : ''
+                        }
+
                     </div>
                 </div>
+                <OtherUserBottomNavBar userSlug={otherUser && otherUser.slug} current={'proposals'}/>
             </div>
         );
     }
@@ -85,7 +168,7 @@ export default class ProposalsPage extends Component {
 
 ProposalsPage.defaultProps = {
     strings: {
-        topNavBarText : 'Jackson proposals',
-        orderBy       : 'Order by Experiences',
+        topNavBarText : '%username% proposals',
+        orderBy       : 'Order by %orderBy%',
     }
 };

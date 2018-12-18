@@ -7,12 +7,12 @@ ShallowWrapper {
   Symbol(enzyme.__unrendered__): <TranslationComponent
     age={36}
     city="New York"
+    description="Lorem ipsum dolor sit amet"
     image="http://via.placeholder.com/360x180"
     matching={12}
     nickname="JohnDoe"
     onClickHandler={[MockFunction]}
     photo="http://via.placeholder.com/100x100"
-    resume="Lorem ipsum dolor sit amet"
     similarity={35}
     strings={
       Object {
@@ -38,13 +38,13 @@ ShallowWrapper {
     "props": Object {
       "age": 36,
       "city": "New York",
+      "description": "Lorem ipsum dolor sit amet",
       "image": "http://via.placeholder.com/360x180",
       "locale": undefined,
       "matching": 12,
       "nickname": "JohnDoe",
       "onClickHandler": [MockFunction],
       "photo": "http://via.placeholder.com/100x100",
-      "resume": "Lorem ipsum dolor sit amet",
       "similarity": 35,
       "strings": Object {
         "compatible": "Compatible",
@@ -66,13 +66,13 @@ ShallowWrapper {
       "props": Object {
         "age": 36,
         "city": "New York",
+        "description": "Lorem ipsum dolor sit amet",
         "image": "http://via.placeholder.com/360x180",
         "locale": undefined,
         "matching": 12,
         "nickname": "JohnDoe",
         "onClickHandler": [MockFunction],
         "photo": "http://via.placeholder.com/100x100",
-        "resume": "Lorem ipsum dolor sit amet",
         "similarity": 35,
         "strings": Object {
           "compatible": "Compatible",

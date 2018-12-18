@@ -38,10 +38,6 @@ ShallowWrapper {
           }
           type="text"
         />
-        <span
-          className="iconCancel icon icon-x"
-          onClick={[Function]}
-        />
       </div>,
       "className": "inputWrapper null",
     },
@@ -66,10 +62,6 @@ ShallowWrapper {
               }
             }
             type="text"
-          />,
-          <span
-            className="iconCancel icon icon-x"
-            onClick={[Function]}
           />,
           null,
         ],
@@ -101,18 +93,6 @@ ShallowWrapper {
           "rendered": null,
           "type": "input",
         },
-        Object {
-          "instance": null,
-          "key": undefined,
-          "nodeType": "host",
-          "props": Object {
-            "className": "iconCancel icon icon-x",
-            "onClick": [Function],
-          },
-          "ref": null,
-          "rendered": null,
-          "type": "span",
-        },
         null,
       ],
       "type": "div",
@@ -142,10 +122,6 @@ ShallowWrapper {
             }
             type="text"
           />
-          <span
-            className="iconCancel icon icon-x"
-            onClick={[Function]}
-          />
         </div>,
         "className": "inputWrapper null",
       },
@@ -170,10 +146,6 @@ ShallowWrapper {
                 }
               }
               type="text"
-            />,
-            <span
-              className="iconCancel icon icon-x"
-              onClick={[Function]}
             />,
             null,
           ],
@@ -204,18 +176,6 @@ ShallowWrapper {
             "ref": "input",
             "rendered": null,
             "type": "input",
-          },
-          Object {
-            "instance": null,
-            "key": undefined,
-            "nodeType": "host",
-            "props": Object {
-              "className": "iconCancel icon icon-x",
-              "onClick": [Function],
-            },
-            "ref": null,
-            "rendered": null,
-            "type": "span",
           },
           null,
         ],

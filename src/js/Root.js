@@ -96,6 +96,8 @@ import ProposalsExperienceAvailabilityDatesPage from "./pages/Proposals/Experien
 import ProposalsExperienceFeaturesPage          from "./pages/Proposals/Experience/FeaturesPage";
 import ProposalsExperiencePreviewPage           from "./pages/Proposals/Experience/PreviewPage";
 
+import OtherUserProposalsPage from "./pages/OtherUser/ProposalsPage";
+
 function requireAuth(nextState, replaceState) {
 
     if (!LoginStore.isLoggedIn()) {
@@ -164,6 +166,7 @@ export default class Root extends Component {
                         <Route name="proposals-experience-availability-dates" path="/proposals-experience-availability-dates" component={ProposalsExperienceAvailabilityDatesPage}/>
                         <Route name="proposals-experience-features" path="/proposals-experience-features" component={ProposalsExperienceFeaturesPage}/>
                         <Route name="proposals-experience-preview" path="/proposals-experience-preview" component={ProposalsExperiencePreviewPage}/>
+                        <Route name="other-user-proposals" path="/other-user-proposals" component={OtherUserProposalsPage}/>
                         <Route name="persons" path="/persons" component={PersonsPage}/>
                         <Route name="persons-all" path="/persons-all" component={PersonsAllPage}/>
                         <Route name="persons-filter" path="/persons-filter/:threadId" component={PersonsFilterPage}/>

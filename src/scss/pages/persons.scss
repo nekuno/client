@@ -8,6 +8,7 @@ body #root .App .views .view.persons-view {
   .persons-wrapper {
     margin-top: 24px;
     padding: 0 8px;
+    height: calc(100% - 127px);
 
     h1 {
       display: inline-block;
@@ -26,22 +27,16 @@ body #root .App .views .view.persons-view {
     .persons {
       position: relative;
       width: 100%;
-
-      .person {
-
-        &.person-1 {
-        }
-        &.person-2 {
-          position: absolute;
-          width: 100%;
-          top: 0;
-          left: 60%;
-        }
-      }
     }
     .groups-persons-title {
       font-weight: 600;
       margin: 32px 12px 16px;
+    }
+
+    .loading {
+      display: flex;
+      justify-content: space-around;
+      align-items: flex-start;
     }
   }
 }

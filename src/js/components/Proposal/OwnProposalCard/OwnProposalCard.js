@@ -13,7 +13,7 @@ export default class OwnProposalCard extends Component {
         title         : PropTypes.string.isRequired,
         description   : PropTypes.string.isRequired,
         type          : PropTypes.string.isRequired,
-        photos        : PropTypes.array,
+        photos        : PropTypes.array.isRequired,
         onClickHandler: PropTypes.func
     };
 
@@ -63,8 +63,8 @@ export default class OwnProposalCard extends Component {
                     {photos &&
                     <div className={styles.userData}>
                         <div className={styles.photos}>
-                            {photos.map(photo =>
-                                <div className={styles.photo}>
+                            {photos.map((photo, index) =>
+                                <div className={styles.photo} key={index}>
                                     <RoundedImage size={'x-small'} url={photo}/>
                                 </div>
                             )}

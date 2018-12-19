@@ -166,8 +166,6 @@ class ThreadStore extends BaseStore {
 
     getOwnDefault() {
         const ownThreads = this._threads;
-        console.log('ownThreads');
-        console.log(ownThreads);
 
         return ownThreads === undefined ? null : ownThreads.find(thread => thread.default === true);
     }

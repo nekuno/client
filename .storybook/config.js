@@ -11,6 +11,7 @@ function loadStories() {
     require('../stories/CandidateCard.stories');
     require('../stories/CardTopData.stories');
     require('../stories/CardUser.stories');
+    require('../stories/CarouselContinuous.stories');
     require('../stories/Chip.stories');
     require('../stories/DateInputRange.stories');
     require('../stories/DailyInputRange.stories');
@@ -28,6 +29,7 @@ function loadStories() {
     require('../stories/InputTag.stories');
     require('../stories/LastMessage.stories');
     require('../stories/LeftPanel.stories');
+    require('../stories/LoadingGif.stories');
     require('../stories/LocationInput.stories');
     require('../stories/MatchingBars.stories');
     require('../stories/OtherUserBottomNavBar.stories');

@@ -155,7 +155,7 @@ export default class AnswerNextQuestionPage extends Component {
             const route = RouterStore.nextTransitionPath;
             this.context.router.push(route);
         } else {
-            this.context.router.push('/discover');
+            this.context.router.push('/proposals');
         }
     }
 

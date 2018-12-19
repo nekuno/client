@@ -49,7 +49,7 @@ export function requestUser(userSlug, fields) {
         .catch((status) => {
             if (status.error) {
                 Framework7Service.nekunoApp().alert(status.error, () => {
-                    const path = '/discover';
+                    const path = '/proposals';
                     console.log('Redirecting to path', path);
                     RouterActionCreators.replaceRoute(path);
                 });

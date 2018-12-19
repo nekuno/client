@@ -48,7 +48,7 @@ export default class ProposalCard extends Component {
         const {title, description} = fields;
         const proposalPhoto = fields.photo !== '' ? fields.photo : 'img/default-upload-image.png';
         const {username, location, age, photo, matching, similarity} = user;
-
+        const locality = location && location.hasOwnProperty('locality') ? location.locality : '';
         const {icon, background} = this.getVisualByType(type);
 
         return (
@@ -70,7 +70,7 @@ export default class ProposalCard extends Component {
                         <RoundedImage size={'small'} url={photo.url}/>
                         <div className={styles.userText}>
                             <div className={styles.username}>{username}</div>
-                            <div className={styles.ageCity}>{location.locality} &bull; {age}</div>
+                            <div className={styles.ageCity}>{locality} &bull; {age}</div>
                         </div>
                     </div>
                     <MatchingBars matching={matching} similarity={similarity}/>

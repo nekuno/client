@@ -35,14 +35,14 @@ class RouterStore extends BaseStore {
                 if (this._routes.length > 0) {
                     const lastRoute = this._routes[this._routes.length - 1];
                     if (action.route === lastRoute) {
-                        setTimeout(router.replace('discover'), 0);
+                        setTimeout(router.replace('proposals'), 0);
                     } else if (DO_NOT_BACK_ROUTES.some(route => route === lastRoute)) {
-                        setTimeout(router.replace('discover'), 0);
+                        setTimeout(router.replace('proposals'), 0);
                     } else {
                         router.goBack();
                     }
                 } else {
-                    setTimeout(router.replace('discover'), 0);
+                    setTimeout(router.replace('proposals'), 0);
                 }
                 this.emitChange();
                 break;

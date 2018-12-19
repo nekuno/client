@@ -12,6 +12,8 @@ import AuthenticatedComponent from "../../components/AuthenticatedComponent";
 import UserStore from "../../stores/UserStore";
 import * as UserActionCreators from "../../actions/UserActionCreators";
 import OtherUserBottomNavBar from "../../components/ui/OtherUserBottomNavBar/OtherUserBottomNavBar";
+import ProposalStore from "../../stores/ProposalStore";
+import * as ProposalActionCreators from "../../actions/ProposalActionCreators";
 
 /**
  * Requests data from server (or store) for current props.
@@ -26,8 +28,11 @@ function requestData(props) {
 function getState(props) {
     const {params} = props;
     const slug = params.slug;
+    // const otherUser = ProposalStore.getAll(slug);
     const otherUser = UserStore.getBySlug(slug);
-    const proposals = otherUser ? otherUser.proposals : null;
+
+    console.log(otherUser);
+    const proposals = ProposalStore.getAll(slug);
 
     return {
         slug,
@@ -38,7 +43,7 @@ function getState(props) {
 
 @AuthenticatedComponent
 @translate('OtherUserProposalsPage')
-@connectToStores([UserStore], getState)
+@connectToStores([UserStore, ProposalStore], getState)
 export default class ProposalsPage extends Component {
 
     static propTypes = {
@@ -49,7 +54,7 @@ export default class ProposalsPage extends Component {
         // Injected by @translate:
         strings   : PropTypes.object,
         // Injected by @connectToStores:
-        otherUser : PropTypes.object,
+        otherUser : PropTypes.array,
         proposals : PropTypes.array,
     };
 
@@ -80,28 +85,15 @@ export default class ProposalsPage extends Component {
 
     }
 
-    onClickSelectCollapsible(id) {
-        const {proposals} = this.props;
+    onClickSelectCollapsible(orderCriteria) {
+        const {proposals, slug} = this.props;
         // console.log(proposals);
         // console.log(this.state.proposals);
-        this.setState({
-            proposals: this.orderBy(id, proposals)
-        });
-    }
-
-    orderBy(needle, haystack) {
-        let haystackWithNeedles = [];
-        haystack.forEach(function (item, key) {
-            if (needle.includes(item.type)) {
-                haystackWithNeedles.push(item);
-            }
-        });
-        haystack.forEach(function (item, key) {
-            if (!needle.includes(item.type)) {
-                haystackWithNeedles.push(item);
-            }
-        });
-        return haystackWithNeedles;
+        // lanzar accion en ProposalStore (slug, criterio)
+        ProposalActionCreators.orderProposals(orderCriteria, slug);
+        // this.setState({
+        //     proposals: this.orderBy(id, proposals)
+        // });
     }
 
 

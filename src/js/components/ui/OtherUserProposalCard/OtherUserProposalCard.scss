@@ -1,25 +1,25 @@
 @import '../../../../scss/_partials/colors';
 
-.own-proposal-card {
+.other-user-proposal-card {
   cursor: pointer;
   display: inline-block;
   font-weight: 600;
   margin: auto;
   position: relative;
   text-align: left;
-  width: 80%;
+  width: 100%;
 
   .frame {
-    background: #FFF;
     border-radius: 10px;
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
     box-shadow: 0 0 5px $gray-border;
+    border: 1px solid $border;
     color: #6C6F82;
     font-size: 14px;
-    margin: 2.5%;
+    margin: 8px 16px;
     padding: 0;
-    width: 95%;
+    //width: 95%;
 
     .proposal-image {
       border-radius: 10px 10px 0 0;
@@ -41,7 +41,7 @@
     .top-data {
       color: white;
       height: 130px;
-      padding: 0 5%;
+      // padding: 0 5%;
       position: absolute;
       width: 80%;
 
@@ -51,10 +51,15 @@
         max-height: 75px;
         overflow: hidden;
         position: absolute;
+        padding: 0 24px 0 0;
       }
     }
     .description {
+      background: $background-white;
       padding: 16px;
+      -moz-border-radius: 10px 10px 0 0;
+      -webkit-border-radius: 10px 10px 0 0;
+      border-radius: 10px;
       .description-text {
         font-weight: normal;
         height: 66px;
@@ -64,8 +69,8 @@
     }
     .type {
       position: absolute;
-      right: 16px;
-      top: 16px;
+      right: 25px;
+      top: 25px;
     }
     .user-data {
       height: 60px;

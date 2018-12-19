@@ -5,7 +5,7 @@ import { getValidationErrors } from '../utils/StoreUtils';
 class ProposalStore extends BaseStore {
 
     setInitial() {
-        this._otherProposals = [];
+        this._otherProposals = {};
         this._ownProposals = [];
         this._errors = '';
         this._isRequesting = false;
@@ -63,7 +63,11 @@ class ProposalStore extends BaseStore {
                 this._removeOwnProposal(proposalId);
                 this.emitChange();
                 break;
-
+            case ActionTypes.ORDER_PROPOSALS:
+                this._otherProposals[action.slug] = this.orderBy(action.orderCriteria, this._otherProposals[action.slug]);
+                console.log(this._otherProposals);
+                this.emitChange();
+                break;
             default:
                 break;
         }
@@ -137,6 +141,21 @@ class ProposalStore extends BaseStore {
 
     sortOwn() {
         this._ownProposals = this._ownProposals.sort(this._compareTwoProposals);
+    }
+
+    orderBy(orderCriteria, proposals) {
+        let proposalsWithOrderCriteria = [];
+        proposals.forEach(function (item, key) {
+            if (item.type === orderCriteria) {
+                proposalsWithOrderCriteria.push(item);
+            }
+        });
+        proposals.forEach(function (item, key) {
+            if (item.type !== orderCriteria) {
+                proposalsWithOrderCriteria.push(item);
+            }
+        });
+        return proposalsWithOrderCriteria;
     }
 
     _compareTwoProposals(proposalA, proposalB)

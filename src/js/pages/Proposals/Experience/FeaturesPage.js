@@ -412,7 +412,7 @@ export default class FeaturesPage extends Component {
                                 </FrameCollapsible>)
                             : null
                         }
-                    </div>
+                    </div>availability, interfaceLanguage,
                 </div>
 
                 <StepsBar

@@ -42,13 +42,13 @@ ShallowWrapper {
       "children": Array [
         null,
         <div
-          className="selectInlineWrapper"
+          className="selectInlineWrapper undefined"
         >
           <div
             className="selectInline"
           >
             <div
-              className="optionWrapper undefined"
+              className="optionWrapper undefined undefined"
               onClick={[Function]}
               style={
                 Object {
@@ -57,7 +57,7 @@ ShallowWrapper {
               }
             >
               <div
-                className="option"
+                className="option undefined"
               >
                 <div
                   className="optionText"
@@ -67,7 +67,7 @@ ShallowWrapper {
               </div>
             </div>
             <div
-              className="optionWrapper undefined"
+              className="optionWrapper undefined undefined"
               onClick={[Function]}
               style={
                 Object {
@@ -76,7 +76,7 @@ ShallowWrapper {
               }
             >
               <div
-                className="option"
+                className="option undefined"
               >
                 <div
                   className="optionText"
@@ -86,7 +86,7 @@ ShallowWrapper {
               </div>
             </div>
             <div
-              className="optionWrapper undefined"
+              className="optionWrapper undefined undefined"
               onClick={[Function]}
               style={
                 Object {
@@ -95,7 +95,7 @@ ShallowWrapper {
               }
             >
               <div
-                className="option"
+                className="option undefined"
               >
                 <div
                   className="optionText"
@@ -105,7 +105,7 @@ ShallowWrapper {
               </div>
             </div>
             <div
-              className="optionWrapper undefined"
+              className="optionWrapper undefined undefined"
               onClick={[Function]}
               style={
                 Object {
@@ -114,7 +114,7 @@ ShallowWrapper {
               }
             >
               <div
-                className="option"
+                className="option undefined"
               >
                 <div
                   className="optionText"
@@ -139,7 +139,7 @@ ShallowWrapper {
             className="selectInline"
           >
             <div
-              className="optionWrapper undefined"
+              className="optionWrapper undefined undefined"
               onClick={[Function]}
               style={
                 Object {
@@ -148,7 +148,7 @@ ShallowWrapper {
               }
             >
               <div
-                className="option"
+                className="option undefined"
               >
                 <div
                   className="optionText"
@@ -158,7 +158,7 @@ ShallowWrapper {
               </div>
             </div>
             <div
-              className="optionWrapper undefined"
+              className="optionWrapper undefined undefined"
               onClick={[Function]}
               style={
                 Object {
@@ -167,7 +167,7 @@ ShallowWrapper {
               }
             >
               <div
-                className="option"
+                className="option undefined"
               >
                 <div
                   className="optionText"
@@ -177,7 +177,7 @@ ShallowWrapper {
               </div>
             </div>
             <div
-              className="optionWrapper undefined"
+              className="optionWrapper undefined undefined"
               onClick={[Function]}
               style={
                 Object {
@@ -186,7 +186,7 @@ ShallowWrapper {
               }
             >
               <div
-                className="option"
+                className="option undefined"
               >
                 <div
                   className="optionText"
@@ -196,7 +196,7 @@ ShallowWrapper {
               </div>
             </div>
             <div
-              className="optionWrapper undefined"
+              className="optionWrapper undefined undefined"
               onClick={[Function]}
               style={
                 Object {
@@ -205,7 +205,7 @@ ShallowWrapper {
               }
             >
               <div
-                className="option"
+                className="option undefined"
               >
                 <div
                   className="optionText"
@@ -215,7 +215,7 @@ ShallowWrapper {
               </div>
             </div>
           </div>,
-          "className": "selectInlineWrapper",
+          "className": "selectInlineWrapper undefined",
         },
         "ref": null,
         "rendered": Object {
@@ -225,7 +225,7 @@ ShallowWrapper {
           "props": Object {
             "children": Array [
               <div
-                className="optionWrapper undefined"
+                className="optionWrapper undefined undefined"
                 onClick={[Function]}
                 style={
                   Object {
@@ -234,7 +234,7 @@ ShallowWrapper {
                 }
               >
                 <div
-                  className="option"
+                  className="option undefined"
                 >
                   <div
                     className="optionText"
@@ -244,7 +244,7 @@ ShallowWrapper {
                 </div>
               </div>,
               <div
-                className="optionWrapper undefined"
+                className="optionWrapper undefined undefined"
                 onClick={[Function]}
                 style={
                   Object {
@@ -253,7 +253,7 @@ ShallowWrapper {
                 }
               >
                 <div
-                  className="option"
+                  className="option undefined"
                 >
                   <div
                     className="optionText"
@@ -263,7 +263,7 @@ ShallowWrapper {
                 </div>
               </div>,
               <div
-                className="optionWrapper undefined"
+                className="optionWrapper undefined undefined"
                 onClick={[Function]}
                 style={
                   Object {
@@ -272,7 +272,7 @@ ShallowWrapper {
                 }
               >
                 <div
-                  className="option"
+                  className="option undefined"
                 >
                   <div
                     className="optionText"
@@ -282,7 +282,7 @@ ShallowWrapper {
                 </div>
               </div>,
               <div
-                className="optionWrapper undefined"
+                className="optionWrapper undefined undefined"
                 onClick={[Function]}
                 style={
                   Object {
@@ -291,7 +291,7 @@ ShallowWrapper {
                 }
               >
                 <div
-                  className="option"
+                  className="option undefined"
                 >
                   <div
                     className="optionText"
@@ -311,7 +311,7 @@ ShallowWrapper {
               "nodeType": "host",
               "props": Object {
                 "children": <div
-                  className="option"
+                  className="option undefined"
                 >
                   <div
                     className="optionText"
@@ -319,7 +319,7 @@ ShallowWrapper {
                     Lorem
                   </div>
                 </div>,
-                "className": "optionWrapper undefined",
+                "className": "optionWrapper undefined undefined",
                 "onClick": [Function],
                 "style": Object {
                   "width": "25%",
@@ -336,7 +336,7 @@ ShallowWrapper {
                   >
                     Lorem
                   </div>,
-                  "className": "option",
+                  "className": "option undefined",
                 },
                 "ref": null,
                 "rendered": Object {
@@ -361,7 +361,7 @@ ShallowWrapper {
               "nodeType": "host",
               "props": Object {
                 "children": <div
-                  className="option"
+                  className="option undefined"
                 >
                   <div
                     className="optionText"
@@ -369,7 +369,7 @@ ShallowWrapper {
                     Ipsum
                   </div>
                 </div>,
-                "className": "optionWrapper undefined",
+                "className": "optionWrapper undefined undefined",
                 "onClick": [Function],
                 "style": Object {
                   "width": "25%",
@@ -386,7 +386,7 @@ ShallowWrapper {
                   >
                     Ipsum
                   </div>,
-                  "className": "option",
+                  "className": "option undefined",
                 },
                 "ref": null,
                 "rendered": Object {
@@ -411,7 +411,7 @@ ShallowWrapper {
               "nodeType": "host",
               "props": Object {
                 "children": <div
-                  className="option"
+                  className="option undefined"
                 >
                   <div
                     className="optionText"
@@ -419,7 +419,7 @@ ShallowWrapper {
                     Lorem ipsum
                   </div>
                 </div>,
-                "className": "optionWrapper undefined",
+                "className": "optionWrapper undefined undefined",
                 "onClick": [Function],
                 "style": Object {
                   "width": "25%",
@@ -436,7 +436,7 @@ ShallowWrapper {
                   >
                     Lorem ipsum
                   </div>,
-                  "className": "option",
+                  "className": "option undefined",
                 },
                 "ref": null,
                 "rendered": Object {
@@ -461,7 +461,7 @@ ShallowWrapper {
               "nodeType": "host",
               "props": Object {
                 "children": <div
-                  className="option"
+                  className="option undefined"
                 >
                   <div
                     className="optionText"
@@ -469,7 +469,7 @@ ShallowWrapper {
                     Sed ut perspiciatis
                   </div>
                 </div>,
-                "className": "optionWrapper undefined",
+                "className": "optionWrapper undefined undefined",
                 "onClick": [Function],
                 "style": Object {
                   "width": "25%",
@@ -486,7 +486,7 @@ ShallowWrapper {
                   >
                     Sed ut perspiciatis
                   </div>,
-                  "className": "option",
+                  "className": "option undefined",
                 },
                 "ref": null,
                 "rendered": Object {
@@ -522,13 +522,13 @@ ShallowWrapper {
         "children": Array [
           null,
           <div
-            className="selectInlineWrapper"
+            className="selectInlineWrapper undefined"
           >
             <div
               className="selectInline"
             >
               <div
-                className="optionWrapper undefined"
+                className="optionWrapper undefined undefined"
                 onClick={[Function]}
                 style={
                   Object {
@@ -537,7 +537,7 @@ ShallowWrapper {
                 }
               >
                 <div
-                  className="option"
+                  className="option undefined"
                 >
                   <div
                     className="optionText"
@@ -547,7 +547,7 @@ ShallowWrapper {
                 </div>
               </div>
               <div
-                className="optionWrapper undefined"
+                className="optionWrapper undefined undefined"
                 onClick={[Function]}
                 style={
                   Object {
@@ -556,7 +556,7 @@ ShallowWrapper {
                 }
               >
                 <div
-                  className="option"
+                  className="option undefined"
                 >
                   <div
                     className="optionText"
@@ -566,7 +566,7 @@ ShallowWrapper {
                 </div>
               </div>
               <div
-                className="optionWrapper undefined"
+                className="optionWrapper undefined undefined"
                 onClick={[Function]}
                 style={
                   Object {
@@ -575,7 +575,7 @@ ShallowWrapper {
                 }
               >
                 <div
-                  className="option"
+                  className="option undefined"
                 >
                   <div
                     className="optionText"
@@ -585,7 +585,7 @@ ShallowWrapper {
                 </div>
               </div>
               <div
-                className="optionWrapper undefined"
+                className="optionWrapper undefined undefined"
                 onClick={[Function]}
                 style={
                   Object {
@@ -594,7 +594,7 @@ ShallowWrapper {
                 }
               >
                 <div
-                  className="option"
+                  className="option undefined"
                 >
                   <div
                     className="optionText"
@@ -619,7 +619,7 @@ ShallowWrapper {
               className="selectInline"
             >
               <div
-                className="optionWrapper undefined"
+                className="optionWrapper undefined undefined"
                 onClick={[Function]}
                 style={
                   Object {
@@ -628,7 +628,7 @@ ShallowWrapper {
                 }
               >
                 <div
-                  className="option"
+                  className="option undefined"
                 >
                   <div
                     className="optionText"
@@ -638,7 +638,7 @@ ShallowWrapper {
                 </div>
               </div>
               <div
-                className="optionWrapper undefined"
+                className="optionWrapper undefined undefined"
                 onClick={[Function]}
                 style={
                   Object {
@@ -647,7 +647,7 @@ ShallowWrapper {
                 }
               >
                 <div
-                  className="option"
+                  className="option undefined"
                 >
                   <div
                     className="optionText"
@@ -657,7 +657,7 @@ ShallowWrapper {
                 </div>
               </div>
               <div
-                className="optionWrapper undefined"
+                className="optionWrapper undefined undefined"
                 onClick={[Function]}
                 style={
                   Object {
@@ -666,7 +666,7 @@ ShallowWrapper {
                 }
               >
                 <div
-                  className="option"
+                  className="option undefined"
                 >
                   <div
                     className="optionText"
@@ -676,7 +676,7 @@ ShallowWrapper {
                 </div>
               </div>
               <div
-                className="optionWrapper undefined"
+                className="optionWrapper undefined undefined"
                 onClick={[Function]}
                 style={
                   Object {
@@ -685,7 +685,7 @@ ShallowWrapper {
                 }
               >
                 <div
-                  className="option"
+                  className="option undefined"
                 >
                   <div
                     className="optionText"
@@ -695,7 +695,7 @@ ShallowWrapper {
                 </div>
               </div>
             </div>,
-            "className": "selectInlineWrapper",
+            "className": "selectInlineWrapper undefined",
           },
           "ref": null,
           "rendered": Object {
@@ -705,7 +705,7 @@ ShallowWrapper {
             "props": Object {
               "children": Array [
                 <div
-                  className="optionWrapper undefined"
+                  className="optionWrapper undefined undefined"
                   onClick={[Function]}
                   style={
                     Object {
@@ -714,7 +714,7 @@ ShallowWrapper {
                   }
                 >
                   <div
-                    className="option"
+                    className="option undefined"
                   >
                     <div
                       className="optionText"
@@ -724,7 +724,7 @@ ShallowWrapper {
                   </div>
                 </div>,
                 <div
-                  className="optionWrapper undefined"
+                  className="optionWrapper undefined undefined"
                   onClick={[Function]}
                   style={
                     Object {
@@ -733,7 +733,7 @@ ShallowWrapper {
                   }
                 >
                   <div
-                    className="option"
+                    className="option undefined"
                   >
                     <div
                       className="optionText"
@@ -743,7 +743,7 @@ ShallowWrapper {
                   </div>
                 </div>,
                 <div
-                  className="optionWrapper undefined"
+                  className="optionWrapper undefined undefined"
                   onClick={[Function]}
                   style={
                     Object {
@@ -752,7 +752,7 @@ ShallowWrapper {
                   }
                 >
                   <div
-                    className="option"
+                    className="option undefined"
                   >
                     <div
                       className="optionText"
@@ -762,7 +762,7 @@ ShallowWrapper {
                   </div>
                 </div>,
                 <div
-                  className="optionWrapper undefined"
+                  className="optionWrapper undefined undefined"
                   onClick={[Function]}
                   style={
                     Object {
@@ -771,7 +771,7 @@ ShallowWrapper {
                   }
                 >
                   <div
-                    className="option"
+                    className="option undefined"
                   >
                     <div
                       className="optionText"
@@ -791,7 +791,7 @@ ShallowWrapper {
                 "nodeType": "host",
                 "props": Object {
                   "children": <div
-                    className="option"
+                    className="option undefined"
                   >
                     <div
                       className="optionText"
@@ -799,7 +799,7 @@ ShallowWrapper {
                       Lorem
                     </div>
                   </div>,
-                  "className": "optionWrapper undefined",
+                  "className": "optionWrapper undefined undefined",
                   "onClick": [Function],
                   "style": Object {
                     "width": "25%",
@@ -816,7 +816,7 @@ ShallowWrapper {
                     >
                       Lorem
                     </div>,
-                    "className": "option",
+                    "className": "option undefined",
                   },
                   "ref": null,
                   "rendered": Object {
@@ -841,7 +841,7 @@ ShallowWrapper {
                 "nodeType": "host",
                 "props": Object {
                   "children": <div
-                    className="option"
+                    className="option undefined"
                   >
                     <div
                       className="optionText"
@@ -849,7 +849,7 @@ ShallowWrapper {
                       Ipsum
                     </div>
                   </div>,
-                  "className": "optionWrapper undefined",
+                  "className": "optionWrapper undefined undefined",
                   "onClick": [Function],
                   "style": Object {
                     "width": "25%",
@@ -866,7 +866,7 @@ ShallowWrapper {
                     >
                       Ipsum
                     </div>,
-                    "className": "option",
+                    "className": "option undefined",
                   },
                   "ref": null,
                   "rendered": Object {
@@ -891,7 +891,7 @@ ShallowWrapper {
                 "nodeType": "host",
                 "props": Object {
                   "children": <div
-                    className="option"
+                    className="option undefined"
                   >
                     <div
                       className="optionText"
@@ -899,7 +899,7 @@ ShallowWrapper {
                       Lorem ipsum
                     </div>
                   </div>,
-                  "className": "optionWrapper undefined",
+                  "className": "optionWrapper undefined undefined",
                   "onClick": [Function],
                   "style": Object {
                     "width": "25%",
@@ -916,7 +916,7 @@ ShallowWrapper {
                     >
                       Lorem ipsum
                     </div>,
-                    "className": "option",
+                    "className": "option undefined",
                   },
                   "ref": null,
                   "rendered": Object {
@@ -941,7 +941,7 @@ ShallowWrapper {
                 "nodeType": "host",
                 "props": Object {
                   "children": <div
-                    className="option"
+                    className="option undefined"
                   >
                     <div
                       className="optionText"
@@ -949,7 +949,7 @@ ShallowWrapper {
                       Sed ut perspiciatis
                     </div>
                   </div>,
-                  "className": "optionWrapper undefined",
+                  "className": "optionWrapper undefined undefined",
                   "onClick": [Function],
                   "style": Object {
                     "width": "25%",
@@ -966,7 +966,7 @@ ShallowWrapper {
                     >
                       Sed ut perspiciatis
                     </div>,
-                    "className": "option",
+                    "className": "option undefined",
                   },
                   "ref": null,
                   "rendered": Object {

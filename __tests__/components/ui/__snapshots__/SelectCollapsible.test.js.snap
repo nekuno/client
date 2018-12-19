@@ -4,7 +4,7 @@ exports[`Test SelectCollapsible component should render correctly 1`] = `
 ShallowWrapper {
   "length": 1,
   Symbol(enzyme.__root__): [Circular],
-  Symbol(enzyme.__unrendered__): <SelectCollapsible
+  Symbol(enzyme.__unrendered__): <TranslationComponent
     onClickHandler={[MockFunction]}
     options={
       Array [
@@ -23,6 +23,17 @@ ShallowWrapper {
       ]
     }
     selected="compatibility"
+    strings={
+      Object {
+        "games": "Leisure",
+        "hobbies": "Leisure",
+        "plans": "Experience",
+        "restaurants": "Experience",
+        "shows": "Experience",
+        "sports": "Leisure",
+        "work": "Work",
+      }
+    }
     title="Order"
   />,
   Symbol(enzyme.__renderer__): Object {
@@ -35,99 +46,77 @@ ShallowWrapper {
   Symbol(enzyme.__node__): Object {
     "instance": null,
     "key": undefined,
-    "nodeType": "host",
+    "nodeType": "class",
     "props": Object {
-      "children": Array [
-        <div
-          className="title small"
-        >
-          Order
-        </div>,
-        <div
-          className="arrow icon icon-chevron-down"
-        />,
-        null,
+      "locale": undefined,
+      "onClickHandler": [MockFunction],
+      "options": Array [
+        Object {
+          "id": "compatibility",
+          "text": "Compatibility",
+        },
+        Object {
+          "id": "similarity",
+          "text": "Similarity",
+        },
+        Object {
+          "id": "coincidences",
+          "text": "Coincidences",
+        },
       ],
-      "className": "selectCollapsible",
-      "onClick": [Function],
+      "selected": "compatibility",
+      "strings": Object {
+        "games": "Leisure",
+        "hobbies": "Leisure",
+        "plans": "Experience",
+        "restaurants": "Experience",
+        "shows": "Experience",
+        "sports": "Leisure",
+        "work": "Work",
+      },
+      "title": "Order",
     },
     "ref": null,
-    "rendered": Array [
-      Object {
-        "instance": null,
-        "key": undefined,
-        "nodeType": "host",
-        "props": Object {
-          "children": "Order",
-          "className": "title small",
-        },
-        "ref": null,
-        "rendered": "Order",
-        "type": "div",
-      },
-      Object {
-        "instance": null,
-        "key": undefined,
-        "nodeType": "host",
-        "props": Object {
-          "className": "arrow icon icon-chevron-down",
-        },
-        "ref": null,
-        "rendered": null,
-        "type": "div",
-      },
-      null,
-    ],
-    "type": "div",
+    "rendered": null,
+    "type": [Function],
   },
   Symbol(enzyme.__nodes__): Array [
     Object {
       "instance": null,
       "key": undefined,
-      "nodeType": "host",
+      "nodeType": "class",
       "props": Object {
-        "children": Array [
-          <div
-            className="title small"
-          >
-            Order
-          </div>,
-          <div
-            className="arrow icon icon-chevron-down"
-          />,
-          null,
+        "locale": undefined,
+        "onClickHandler": [MockFunction],
+        "options": Array [
+          Object {
+            "id": "compatibility",
+            "text": "Compatibility",
+          },
+          Object {
+            "id": "similarity",
+            "text": "Similarity",
+          },
+          Object {
+            "id": "coincidences",
+            "text": "Coincidences",
+          },
         ],
-        "className": "selectCollapsible",
-        "onClick": [Function],
+        "selected": "compatibility",
+        "strings": Object {
+          "games": "Leisure",
+          "hobbies": "Leisure",
+          "plans": "Experience",
+          "restaurants": "Experience",
+          "shows": "Experience",
+          "sports": "Leisure",
+          "work": "Work",
+        },
+        "title": "Order",
       },
       "ref": null,
-      "rendered": Array [
-        Object {
-          "instance": null,
-          "key": undefined,
-          "nodeType": "host",
-          "props": Object {
-            "children": "Order",
-            "className": "title small",
-          },
-          "ref": null,
-          "rendered": "Order",
-          "type": "div",
-        },
-        Object {
-          "instance": null,
-          "key": undefined,
-          "nodeType": "host",
-          "props": Object {
-            "className": "arrow icon icon-chevron-down",
-          },
-          "ref": null,
-          "rendered": null,
-          "type": "div",
-        },
-        null,
-      ],
-      "type": "div",
+      "rendered": null,
+      "type": [Function],
     },
   ],
   Symbol(enzyme.__options__): Object {

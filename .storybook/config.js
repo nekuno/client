@@ -32,6 +32,8 @@ function loadStories() {
     require('../stories/LoadingGif.stories');
     require('../stories/LocationInput.stories');
     require('../stories/MatchingBars.stories');
+    require('../stories/OtherUserBottomNavBar.stories');
+    require('../stories/OtherUserProposalCard.stories');
     require('../stories/OwnProposalCard.stories');
     require('../stories/Overlay.stories');
     require('../stories/ProgressBar.stories');

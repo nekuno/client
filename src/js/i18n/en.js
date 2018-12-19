@@ -1,3 +1,5 @@
+import OtherUserBottomNavBar from "../components/ui/OtherUserBottomNavBar/OtherUserBottomNavBar";
+
 export default {
     AnswerQuestionPage               : {
         question               : 'Question',
@@ -277,6 +279,16 @@ export default {
         loading              : 'Loading interests',
         empty                : 'No interests to show with this filters',
         reported             : 'The content has been reported. We will review it within next 24 hours'
+    },
+    OtherUserBottomNavBar            : {
+        aboutMe   : 'About me',
+        proposals : 'Proposals',
+        answers   : 'Answers',
+        interests : 'Interests',
+    },
+    OtherUserProposalsPage           : {
+        topNavBarText : '%username% proposals',
+        orderBy       : 'Order by %orderBy%',
     },
     OtherQuestionsPage               : {
         coincidences: 'Coincidences of',
@@ -1020,6 +1032,16 @@ export default {
         matchingPreparingTitle  : 'Preparing to calculate matching',
         affinityPreparingTitle  : 'Preparing to calculate affinity',
         registerWorkersFinish   : 'Congratulations! The registration processes have finished.'
+    },
+    SelectCollapsible                : {
+        orderBy     : 'Ordenar por',
+        work        : 'Trabajo',
+        shows       : 'Experiencia',
+        restaurants : 'Experiencia',
+        plans       : 'Experiencia',
+        sports      : 'Ocio',
+        hobbies     : 'Ocio',
+        games       : 'Ocio',
     },
     ThreadNoResults                  : {
         emptyThread: 'This yarn is empty. Edit or delete it.',

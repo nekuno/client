@@ -1,0 +1,18 @@
+@import '../../_partials/colors';
+
+body #root .App .views .view.other-user-proposals-view {
+  background-color: $background;
+  color: $gray-main-text;
+  text-align: center;
+  z-index: 0;
+
+  .select-collapsible-wrapper {
+    background-color: $background-white;
+  }
+
+  .other-user-proposals-view-wrapper {
+    h2 {
+      padding: 0 24px;
+    }
+  }
+}

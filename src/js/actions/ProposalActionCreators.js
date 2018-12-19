@@ -103,3 +103,7 @@ export function mergeCreatingProposal(data) {
 export function cleanCreatingProposal() {
     dispatch(ActionTypes.CLEAN_CREATING_PROPOSAL, {});
 }
+
+export function orderProposals(orderCriteria, slug) {
+    dispatch(ActionTypes.ORDER_PROPOSALS, {orderCriteria, slug});
+}

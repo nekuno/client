@@ -56,10 +56,10 @@ ShallowWrapper {
             handleStyle={
               Array [
                 Object {
-                  "background": "#756EE5",
-                  "borderColor": "#756EE5",
+                  "background": undefined,
+                  "borderColor": undefined,
                   "boxShadow": "none",
-                  "color": "#756EE5",
+                  "color": undefined,
                 },
               ]
             }
@@ -78,9 +78,9 @@ ShallowWrapper {
             trackStyle={
               Array [
                 Object {
-                  "background": "#756EE5",
-                  "borderColor": "#756EE5",
-                  "color": "#756EE5",
+                  "background": undefined,
+                  "borderColor": undefined,
+                  "color": undefined,
                 },
               ]
             }
@@ -130,10 +130,10 @@ ShallowWrapper {
             handleStyle={
               Array [
                 Object {
-                  "background": "#756EE5",
-                  "borderColor": "#756EE5",
+                  "background": undefined,
+                  "borderColor": undefined,
                   "boxShadow": "none",
-                  "color": "#756EE5",
+                  "color": undefined,
                 },
               ]
             }
@@ -152,9 +152,9 @@ ShallowWrapper {
             trackStyle={
               Array [
                 Object {
-                  "background": "#756EE5",
-                  "borderColor": "#756EE5",
-                  "color": "#756EE5",
+                  "background": undefined,
+                  "borderColor": undefined,
+                  "color": undefined,
                 },
               ]
             }
@@ -181,10 +181,10 @@ ShallowWrapper {
             },
             "handleStyle": Array [
               Object {
-                "background": "#756EE5",
-                "borderColor": "#756EE5",
+                "background": undefined,
+                "borderColor": undefined,
                 "boxShadow": "none",
-                "color": "#756EE5",
+                "color": undefined,
               },
             ],
             "marks": Object {
@@ -199,9 +199,9 @@ ShallowWrapper {
             "tipProps": Object {},
             "trackStyle": Array [
               Object {
-                "background": "#756EE5",
-                "borderColor": "#756EE5",
-                "color": "#756EE5",
+                "background": undefined,
+                "borderColor": undefined,
+                "color": undefined,
               },
             ],
           },
@@ -249,10 +249,10 @@ ShallowWrapper {
               handleStyle={
                 Array [
                   Object {
-                    "background": "#756EE5",
-                    "borderColor": "#756EE5",
+                    "background": undefined,
+                    "borderColor": undefined,
                     "boxShadow": "none",
-                    "color": "#756EE5",
+                    "color": undefined,
                   },
                 ]
               }
@@ -271,9 +271,9 @@ ShallowWrapper {
               trackStyle={
                 Array [
                   Object {
-                    "background": "#756EE5",
-                    "borderColor": "#756EE5",
-                    "color": "#756EE5",
+                    "background": undefined,
+                    "borderColor": undefined,
+                    "color": undefined,
                   },
                 ]
               }
@@ -323,10 +323,10 @@ ShallowWrapper {
               handleStyle={
                 Array [
                   Object {
-                    "background": "#756EE5",
-                    "borderColor": "#756EE5",
+                    "background": undefined,
+                    "borderColor": undefined,
                     "boxShadow": "none",
-                    "color": "#756EE5",
+                    "color": undefined,
                   },
                 ]
               }
@@ -345,9 +345,9 @@ ShallowWrapper {
               trackStyle={
                 Array [
                   Object {
-                    "background": "#756EE5",
-                    "borderColor": "#756EE5",
-                    "color": "#756EE5",
+                    "background": undefined,
+                    "borderColor": undefined,
+                    "color": undefined,
                   },
                 ]
               }
@@ -374,10 +374,10 @@ ShallowWrapper {
               },
               "handleStyle": Array [
                 Object {
-                  "background": "#756EE5",
-                  "borderColor": "#756EE5",
+                  "background": undefined,
+                  "borderColor": undefined,
                   "boxShadow": "none",
-                  "color": "#756EE5",
+                  "color": undefined,
                 },
               ],
               "marks": Object {
@@ -392,9 +392,9 @@ ShallowWrapper {
               "tipProps": Object {},
               "trackStyle": Array [
                 Object {
-                  "background": "#756EE5",
-                  "borderColor": "#756EE5",
-                  "color": "#756EE5",
+                  "background": undefined,
+                  "borderColor": undefined,
+                  "color": undefined,
                 },
               ],
             },

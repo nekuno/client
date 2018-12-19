@@ -41,6 +41,16 @@ ShallowWrapper {
             />
           </div>
         </div>
+        <div
+          className="content"
+          style={
+            Object {
+              "display": "none",
+            }
+          }
+        >
+          Lorem ipsum
+        </div>
       </div>,
     },
     "ref": null,
@@ -67,7 +77,16 @@ ShallowWrapper {
               />
             </div>
           </div>,
-          null,
+          <div
+            className="content"
+            style={
+              Object {
+                "display": "none",
+              }
+            }
+          >
+            Lorem ipsum
+          </div>,
         ],
         "className": "frameCollapsible",
       },
@@ -136,7 +155,21 @@ ShallowWrapper {
           ],
           "type": "div",
         },
-        null,
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": "Lorem ipsum",
+            "className": "content",
+            "style": Object {
+              "display": "none",
+            },
+          },
+          "ref": null,
+          "rendered": "Lorem ipsum",
+          "type": "div",
+        },
       ],
       "type": "div",
     },
@@ -168,6 +201,16 @@ ShallowWrapper {
               />
             </div>
           </div>
+          <div
+            className="content"
+            style={
+              Object {
+                "display": "none",
+              }
+            }
+          >
+            Lorem ipsum
+          </div>
         </div>,
       },
       "ref": null,
@@ -194,7 +237,16 @@ ShallowWrapper {
                 />
               </div>
             </div>,
-            null,
+            <div
+              className="content"
+              style={
+                Object {
+                  "display": "none",
+                }
+              }
+            >
+              Lorem ipsum
+            </div>,
           ],
           "className": "frameCollapsible",
         },
@@ -263,7 +315,21 @@ ShallowWrapper {
             ],
             "type": "div",
           },
-          null,
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": "Lorem ipsum",
+              "className": "content",
+              "style": Object {
+                "display": "none",
+              },
+            },
+            "ref": null,
+            "rendered": "Lorem ipsum",
+            "type": "div",
+          },
         ],
         "type": "div",
       },

@@ -1,0 +1,42 @@
+@import '../../../../scss/_partials/colors';
+
+.swiper-slide {
+  height: 100%;
+  text-align: center;
+
+  .photo {
+    margin-top: 24px;
+    text-align: center;
+    img {
+      margin: auto;
+      width: 75%;
+    }
+  }
+}
+
+.slick-dots {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+
+  li {
+    display: inline-block;
+    margin: 0;
+
+    .dot {
+      background-color: #fff;
+      border: 8px solid rgba(255, 255, 255, 0);
+      background-clip: padding-box;
+      border-radius: 50%;
+      display: inline-block;
+      height: 4px;
+      width: 4px;
+    }
+    &.slick-active {
+      .dot {
+        border: 8px solid rgba(255, 255, 255, 0.2);
+      }
+    }
+  }
+}

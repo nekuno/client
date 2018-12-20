@@ -45,11 +45,13 @@ function loadStories() {
     require('../stories/SelectMultiple.stories');
     require('../stories/SelectCollapsible.stories');
     require('../stories/SelectInline.stories');
+    require('../stories/SliderPhotos.stories');
     require('../stories/StepsBar.stories');
     require('../stories/Tabs.stories');
     require('../stories/Textarea.stories');
     require('../stories/TopBar.stories');
     require('../stories/TopNavBar.stories');
+    require('../stories/UserTopData.stories');
 
     // require as many stories as you need.
 }

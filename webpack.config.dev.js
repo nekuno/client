@@ -81,6 +81,14 @@ module.exports = {
                 ],
             },
             {
+                "test": /src\/js\/pages\/.+\.s?css$/,
+                "use": [
+                    devMode ? 'style-loader' : MiniCssExtractPlugin.loader,
+                    "css-loader?modules&camelCase",
+                    "sass-loader"
+                ],
+            },
+            {
                 test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
                 use: [{
                     loader: 'file-loader',

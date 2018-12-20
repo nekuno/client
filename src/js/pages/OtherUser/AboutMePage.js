@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import styles from './AboutMePage.scss';
 import translate from '../../i18n/Translate';
 import TopNavBar from '../../components/TopNavBar/TopNavBar.js';
 import '../../../scss/pages/other-user/proposals.scss';
@@ -15,6 +16,7 @@ import * as UserActionCreators from "../../actions/UserActionCreators";
 import UserStore from "../../stores/UserStore";
 import LoginStore from "../../stores/LoginStore";
 import LoadingGif from "../../components/ui/LoadingGif/LoadingGif";
+import UserTopData from "../../components/ui/UserTopData/UserTopData";
 
 function requestData(props) {
     UserActionCreators.requestOtherUserPage(props.params.slug);
@@ -112,19 +114,21 @@ export default class AboutMePage extends Component {
         })
     }
     render() {
-        const {strings, photos, matching, similarity, isLoading} = this.props;
+        const {photos, matching, similarity, isLoading, username, location, age} = this.props;
 
         return (
             <div className="views">
-                <div className="view view-main other-user-proposals-view">
-                    <TopNavBar
-                        background={'transparent'}
-                        iconLeft={'arrow-left'}
-                        firstIconRight={'x'} //empty or filled heart
-                        textCenter={''}
-                        onLeftLinkClickHandler={this.goBack}
-                        onRightLinkClickHandler={this.likeUser}
-                    />
+                <div className="view other-user-proposals-view">
+                    <div className={styles.topNavBar}>
+                        <TopNavBar
+                            background={'transparent'}
+                            iconLeft={'arrow-left'}
+                            firstIconRight={'x'} //empty or filled heart
+                            textCenter={''}
+                            onLeftLinkClickHandler={this.goBack}
+                            onRightLinkClickHandler={this.likeUser}
+                        />
+                    </div>
 
                     {isLoading
                         ?
@@ -132,10 +136,10 @@ export default class AboutMePage extends Component {
                         :
                         <div>
                             <CarouselContinuous items={this.getPhotos(photos)}/>
+                            <UserTopData username={username} age={age} location={{locality:location}} usernameColor={'black'} subColor={'grey'}/>
                             <MatchingBars matching={matching} similarity={similarity}/>
                         </div>
                     }
-
 
                 </div>
             </div>

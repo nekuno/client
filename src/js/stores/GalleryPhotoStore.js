@@ -1,6 +1,7 @@
 import ActionTypes from '../constants/ActionTypes';
 import BaseStore from './BaseStore';
 import { getValidationErrors } from '../utils/StoreUtils';
+import UserStore from "./UserStore";
 
 class GalleryPhotoStore extends BaseStore {
 
@@ -28,6 +29,10 @@ class GalleryPhotoStore extends BaseStore {
                 this._loadingPhotos = false;
                 this.emitChange();
                 break;
+            case ActionTypes.REQUEST_OTHER_USER_SUCCESS:
+                userId = UserStore.getBySlug(action.slug).id;
+                this._photos[userId] = action.response.photos;
+                this._noPhotos[userId] = this._photos[userId].length === 0;
             case ActionTypes.UPLOAD_PHOTO:
                 this._loadingPhoto = true;
                 this.emitChange();

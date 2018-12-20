@@ -29,7 +29,7 @@ class ProfileStore extends BaseStore {
             case ActionTypes.REQUEST_PROFILE_ERROR:
                 break;
             case ActionTypes.REQUEST_OWN_PROFILE_SUCCESS:
-                this._initialize(action.slug);
+                this._profiles[action.slug] = this._profiles[action.slug] || {};
                 const newProfiles = {[action.slug]: action.response};
                 mergeIntoBag(this._profiles, newProfiles);
                 this._setInitialRequiredProfileQuestionsCount(action.slug);
@@ -43,20 +43,14 @@ class ProfileStore extends BaseStore {
                 break;
             case ActionTypes.REQUEST_LOGIN_USER_SUCCESS:
             case ActionTypes.REQUEST_AUTOLOGIN_SUCCESS:
-                this._initialize(LoginStore.user.slug);
+                this._profiles[LoginStore.user.slug] = this._profiles[LoginStore.user.slug] || {};
                 mergeIntoBag(this._profiles[LoginStore.user.slug], action.response.profile);
                 this._setInitialRequiredProfileQuestionsCount(LoginStore.user.slug);
                 this.emitChange();
                 break;
             case ActionTypes.REQUEST_PROFILE_SUCCESS:
-                this._initialize(action.slug);
+                this._profiles[action.slug] = this._profiles[action.slug] || {};
                 mergeIntoBag(this._profiles[action.slug], action.response);
-                this.emitChange();
-                break;
-            case ActionTypes.REQUEST_OTHER_USER_SUCCESS:
-                this._initialize(action.slug);
-                const profile = {location: action.response.location, birthday: action.response.birthday};
-                mergeIntoBag(this._profiles[action.slug], profile);
                 this.emitChange();
                 break;
             case ActionTypes.REQUEST_METADATA_SUCCESS:
@@ -96,11 +90,6 @@ class ProfileStore extends BaseStore {
             default:
                 break;
         }
-    }
-
-    _initialize(slug)
-    {
-        this._profiles[slug] = this._profiles[slug] || {};
     }
 
     contains(slug, fields) {

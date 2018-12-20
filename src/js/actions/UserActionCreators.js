@@ -102,8 +102,19 @@ export function requestProfile(slug, fields) {
     }, {slug});
 }
 
+export function requestOtherUserPage(slug) {
+    requestUser(slug).then(() => {
+            return dispatchAsync(UserAPI.getOtherUser(slug), {
+                request: ActionTypes.REQUEST_OTHER_USER,
+                success: ActionTypes.REQUEST_OTHER_USER_SUCCESS,
+                failure: ActionTypes.REQUEST_OTHER_USER_ERROR
+            }, {slug});
+        }
+    )
+}
+
 export function requestSharedUser(slug) {
-    if (UserStore.containsSlug(slug)){
+    if (UserStore.containsSlug(slug)) {
         return;
     }
     dispatchAsync(UserAPI.getPublicUser(slug), {

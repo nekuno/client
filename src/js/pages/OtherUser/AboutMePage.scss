@@ -1,7 +1,21 @@
 @import '../../../scss/_partials/colors';
 
-.top-nav-bar{
-  position:absolute;
+.top-nav-bar {
+  position: absolute;
   top: 0;
   width: 100%;
+}
+
+.top-data {
+  text-align: left;
+  padding-left: 10%;
+  padding-top: 5%;
+}
+
+.natural-category {
+  display: flex;
+}
+
+.loading {
+  margin-top: 100px;
 }

@@ -26,6 +26,14 @@ export default class NaturalCategory extends Component {
                 icon = 'compass';
                 background = '#7BD47E';
                 break;
+            case 'Basic':
+                icon = 'user';
+                background = 'lightgray';
+                break;
+            case 'Miscellaneus':
+                icon = 'sun';
+                background = 'lightgray';
+                break;
         }
 
         return {icon, background};

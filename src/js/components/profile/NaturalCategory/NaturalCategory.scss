@@ -1,7 +1,17 @@
 @import '../../../../scss/_partials/colors';
 
-.naturalcategory {
-  background: #fff;
-  font-size: 15px;
-  padding: 25px;
+.natural-category {
+  display: flex;
+  align-items: center;
+  padding: 5%;
+
+  .icon {
+    width: 20%;
+    height: 100%;
+  }
+
+  .text {
+    width: 80%;
+    text-align: left;
+  }
 }

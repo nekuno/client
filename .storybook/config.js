@@ -2,6 +2,7 @@ import { configure } from '@storybook/react';
 import '../src/scss/layout.scss';
 
 function loadStories() {
+    require('../stories/AboutMeCategory.stories');
     require('../stories/AvailabilityEdit.stories');
     require('../stories/ProposalFilterPreview');
     require('../stories/Banner.stories');

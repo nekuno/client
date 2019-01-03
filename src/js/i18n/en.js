@@ -846,6 +846,9 @@ export default {
         loginText   : 'I\'m already registered',
         registerNow : "You can sign up now",
     },
+    AboutMeCategory: {
+        about: 'About me',
+    },
     ProfileDataList                  : {
         cannotRemove: 'This field cannot be deleted',
     },

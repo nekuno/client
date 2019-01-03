@@ -1,3 +1,5 @@
+import SelectCollapsible from "../components/ui/SelectCollapsible/SelectCollapsible";
+
 export default {
     AnswerQuestionPage               : {
         question               : 'Pregunta',
@@ -277,6 +279,16 @@ export default {
         loading              : 'Cargando intereses',
         empty                : 'No hay intereses con estos filtros',
         reported             : 'El contenido ha sido reportado. Lo revisaremos en las próximas 24 horas'
+    },
+    OtherUserBottomNavBar            : {
+        aboutMe   : 'Sobre mi',
+        proposals : 'Propuestas',
+        answers   : 'Respuestas',
+        interests : 'Intereses',
+    },
+    OtherUserProposalsPage           : {
+        topNavBarText : 'Propuestas de %username%',
+        orderBy       : 'Ordenar por %orderBy%',
     },
     OtherQuestionsPage               : {
         coincidences: 'Coincidencias de',
@@ -1104,6 +1116,16 @@ export default {
         placeholder: 'Texto...',
         send       : 'Enviar reporte',
         close      : 'Cerrar'
+    },
+    SelectCollapsible                : {
+        orderBy     : 'Ordenar por',
+        work        : 'Trabajo',
+        shows       : 'Experiencia',
+        restaurants : 'Experiencia',
+        plans       : 'Experiencia',
+        sports      : 'Ocio',
+        hobbies     : 'Ocio',
+        games       : 'Ocio',
     },
     FilterContentButtonsList         : {
         videos  : 'Videos',

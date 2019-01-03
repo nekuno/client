@@ -1,14 +1,17 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import styles from './SelectCollapsible.scss';
+import translate from "../../../i18n/Translate";
+import AvailabilityEdit from "../../Availability/AvailabilityEdit/AvailabilityEdit";
 
+@translate('SelectCollapsible')
 export default class SelectCollapsible extends Component {
 
     static propTypes = {
         options       : PropTypes.array.isRequired,
         selected      : PropTypes.string.isRequired,
         title         : PropTypes.string,
-        onClickHandler: PropTypes.func
+        onClickSelectCollapsible: PropTypes.func
     };
 
     constructor(props) {
@@ -30,19 +33,33 @@ export default class SelectCollapsible extends Component {
     }
 
     handleClickItem(id) {
-        this.setState({open: false});
+        this.setState({
+            open: false,
+            selected: id,
+        });
 
-        this.props.onClickHandler(id);
+        this.props.onClickSelectCollapsible(id);
     }
 
     render() {
-        const {options, title} = this.props;
+        const {strings, options, title} = this.props;
         const {open, selected} = this.state;
+
+        const orderStrings = {
+            work        : strings.work,
+            shows       : strings.shows,
+            restaurants : strings.shows,
+            plans       : strings.shows,
+            sports      : strings.sports,
+            hobbies     : strings.sports,
+            games       : strings.sports,
+        };
 
         return (
             <div className={styles.selectCollapsible} onClick={this.handleClickToggle}>
                 <div className={styles.title + ' small'}>
-                    {title}
+                    {/*{title}*/}
+                    {strings.orderBy} {orderStrings[selected]}
                 </div>
                 {open ?
                     <div className={styles.arrow + ' icon icon-chevron-up'}/>
@@ -67,3 +84,16 @@ export default class SelectCollapsible extends Component {
         );
     }
 }
+
+SelectCollapsible.defaultProps = {
+    strings: {
+        orderBy     : 'Order by',
+        work        : 'Work',
+        shows       : 'Experience',
+        restaurants : 'Experience',
+        plans       : 'Experience',
+        sports      : 'Leisure',
+        hobbies     : 'Leisure',
+        games       : 'Leisure',
+    }
+};

@@ -69,8 +69,7 @@ ShallowWrapper {
                 className="suggestedImage"
               >
                 <img
-                  className="image"
-                  src="http://via.placeholder.com/300x300"
+                  className="picture"
                 />
               </div>
             </div>
@@ -91,8 +90,7 @@ ShallowWrapper {
                 className="suggestedImage"
               >
                 <img
-                  className="image"
-                  src="http://via.placeholder.com/300x300"
+                  className="picture"
                 />
               </div>
             </div>
@@ -113,8 +111,7 @@ ShallowWrapper {
                 className="suggestedImage"
               >
                 <img
-                  className="image"
-                  src="http://via.placeholder.com/300x300"
+                  className="picture"
                 />
               </div>
             </div>
@@ -135,8 +132,7 @@ ShallowWrapper {
                 className="suggestedImage"
               >
                 <img
-                  className="image"
-                  src="http://via.placeholder.com/300x300"
+                  className="picture"
                 />
               </div>
             </div>
@@ -157,8 +153,7 @@ ShallowWrapper {
                 className="suggestedImage"
               >
                 <img
-                  className="image"
-                  src="http://via.placeholder.com/300x300"
+                  className="picture"
                 />
               </div>
             </div>
@@ -203,8 +198,7 @@ ShallowWrapper {
                 className="suggestedImage"
               >
                 <img
-                  className="image"
-                  src="http://via.placeholder.com/300x300"
+                  className="picture"
                 />
               </div>
             </div>,
@@ -228,8 +222,7 @@ ShallowWrapper {
                   className="suggestedImage"
                 >
                   <img
-                    className="image"
-                    src="http://via.placeholder.com/300x300"
+                    className="picture"
                   />
                 </div>,
                 null,
@@ -245,8 +238,7 @@ ShallowWrapper {
                 "nodeType": "host",
                 "props": Object {
                   "children": <img
-                    className="image"
-                    src="http://via.placeholder.com/300x300"
+                    className="picture"
                   />,
                   "className": "suggestedImage",
                 },
@@ -256,8 +248,8 @@ ShallowWrapper {
                   "key": undefined,
                   "nodeType": "host",
                   "props": Object {
-                    "className": "image",
-                    "src": "http://via.placeholder.com/300x300",
+                    "className": "picture",
+                    "src": undefined,
                   },
                   "ref": null,
                   "rendered": null,
@@ -298,8 +290,7 @@ ShallowWrapper {
                 className="suggestedImage"
               >
                 <img
-                  className="image"
-                  src="http://via.placeholder.com/300x300"
+                  className="picture"
                 />
               </div>
             </div>,
@@ -323,8 +314,7 @@ ShallowWrapper {
                   className="suggestedImage"
                 >
                   <img
-                    className="image"
-                    src="http://via.placeholder.com/300x300"
+                    className="picture"
                   />
                 </div>,
                 null,
@@ -340,8 +330,7 @@ ShallowWrapper {
                 "nodeType": "host",
                 "props": Object {
                   "children": <img
-                    className="image"
-                    src="http://via.placeholder.com/300x300"
+                    className="picture"
                   />,
                   "className": "suggestedImage",
                 },
@@ -351,8 +340,8 @@ ShallowWrapper {
                   "key": undefined,
                   "nodeType": "host",
                   "props": Object {
-                    "className": "image",
-                    "src": "http://via.placeholder.com/300x300",
+                    "className": "picture",
+                    "src": undefined,
                   },
                   "ref": null,
                   "rendered": null,
@@ -393,8 +382,7 @@ ShallowWrapper {
                 className="suggestedImage"
               >
                 <img
-                  className="image"
-                  src="http://via.placeholder.com/300x300"
+                  className="picture"
                 />
               </div>
             </div>,
@@ -418,8 +406,7 @@ ShallowWrapper {
                   className="suggestedImage"
                 >
                   <img
-                    className="image"
-                    src="http://via.placeholder.com/300x300"
+                    className="picture"
                   />
                 </div>,
                 null,
@@ -435,8 +422,7 @@ ShallowWrapper {
                 "nodeType": "host",
                 "props": Object {
                   "children": <img
-                    className="image"
-                    src="http://via.placeholder.com/300x300"
+                    className="picture"
                   />,
                   "className": "suggestedImage",
                 },
@@ -446,8 +432,8 @@ ShallowWrapper {
                   "key": undefined,
                   "nodeType": "host",
                   "props": Object {
-                    "className": "image",
-                    "src": "http://via.placeholder.com/300x300",
+                    "className": "picture",
+                    "src": undefined,
                   },
                   "ref": null,
                   "rendered": null,
@@ -488,8 +474,7 @@ ShallowWrapper {
                 className="suggestedImage"
               >
                 <img
-                  className="image"
-                  src="http://via.placeholder.com/300x300"
+                  className="picture"
                 />
               </div>
             </div>,
@@ -513,8 +498,7 @@ ShallowWrapper {
                   className="suggestedImage"
                 >
                   <img
-                    className="image"
-                    src="http://via.placeholder.com/300x300"
+                    className="picture"
                   />
                 </div>,
                 null,
@@ -530,8 +514,7 @@ ShallowWrapper {
                 "nodeType": "host",
                 "props": Object {
                   "children": <img
-                    className="image"
-                    src="http://via.placeholder.com/300x300"
+                    className="picture"
                   />,
                   "className": "suggestedImage",
                 },
@@ -541,8 +524,8 @@ ShallowWrapper {
                   "key": undefined,
                   "nodeType": "host",
                   "props": Object {
-                    "className": "image",
-                    "src": "http://via.placeholder.com/300x300",
+                    "className": "picture",
+                    "src": undefined,
                   },
                   "ref": null,
                   "rendered": null,
@@ -583,8 +566,7 @@ ShallowWrapper {
                 className="suggestedImage"
               >
                 <img
-                  className="image"
-                  src="http://via.placeholder.com/300x300"
+                  className="picture"
                 />
               </div>
             </div>,
@@ -608,8 +590,7 @@ ShallowWrapper {
                   className="suggestedImage"
                 >
                   <img
-                    className="image"
-                    src="http://via.placeholder.com/300x300"
+                    className="picture"
                   />
                 </div>,
                 null,
@@ -625,8 +606,7 @@ ShallowWrapper {
                 "nodeType": "host",
                 "props": Object {
                   "children": <img
-                    className="image"
-                    src="http://via.placeholder.com/300x300"
+                    className="picture"
                   />,
                   "className": "suggestedImage",
                 },
@@ -636,8 +616,8 @@ ShallowWrapper {
                   "key": undefined,
                   "nodeType": "host",
                   "props": Object {
-                    "className": "image",
-                    "src": "http://via.placeholder.com/300x300",
+                    "className": "picture",
+                    "src": undefined,
                   },
                   "ref": null,
                   "rendered": null,
@@ -693,8 +673,7 @@ ShallowWrapper {
                   className="suggestedImage"
                 >
                   <img
-                    className="image"
-                    src="http://via.placeholder.com/300x300"
+                    className="picture"
                   />
                 </div>
               </div>
@@ -715,8 +694,7 @@ ShallowWrapper {
                   className="suggestedImage"
                 >
                   <img
-                    className="image"
-                    src="http://via.placeholder.com/300x300"
+                    className="picture"
                   />
                 </div>
               </div>
@@ -737,8 +715,7 @@ ShallowWrapper {
                   className="suggestedImage"
                 >
                   <img
-                    className="image"
-                    src="http://via.placeholder.com/300x300"
+                    className="picture"
                   />
                 </div>
               </div>
@@ -759,8 +736,7 @@ ShallowWrapper {
                   className="suggestedImage"
                 >
                   <img
-                    className="image"
-                    src="http://via.placeholder.com/300x300"
+                    className="picture"
                   />
                 </div>
               </div>
@@ -781,8 +757,7 @@ ShallowWrapper {
                   className="suggestedImage"
                 >
                   <img
-                    className="image"
-                    src="http://via.placeholder.com/300x300"
+                    className="picture"
                   />
                 </div>
               </div>
@@ -827,8 +802,7 @@ ShallowWrapper {
                   className="suggestedImage"
                 >
                   <img
-                    className="image"
-                    src="http://via.placeholder.com/300x300"
+                    className="picture"
                   />
                 </div>
               </div>,
@@ -852,8 +826,7 @@ ShallowWrapper {
                     className="suggestedImage"
                   >
                     <img
-                      className="image"
-                      src="http://via.placeholder.com/300x300"
+                      className="picture"
                     />
                   </div>,
                   null,
@@ -869,8 +842,7 @@ ShallowWrapper {
                   "nodeType": "host",
                   "props": Object {
                     "children": <img
-                      className="image"
-                      src="http://via.placeholder.com/300x300"
+                      className="picture"
                     />,
                     "className": "suggestedImage",
                   },
@@ -880,8 +852,8 @@ ShallowWrapper {
                     "key": undefined,
                     "nodeType": "host",
                     "props": Object {
-                      "className": "image",
-                      "src": "http://via.placeholder.com/300x300",
+                      "className": "picture",
+                      "src": undefined,
                     },
                     "ref": null,
                     "rendered": null,
@@ -922,8 +894,7 @@ ShallowWrapper {
                   className="suggestedImage"
                 >
                   <img
-                    className="image"
-                    src="http://via.placeholder.com/300x300"
+                    className="picture"
                   />
                 </div>
               </div>,
@@ -947,8 +918,7 @@ ShallowWrapper {
                     className="suggestedImage"
                   >
                     <img
-                      className="image"
-                      src="http://via.placeholder.com/300x300"
+                      className="picture"
                     />
                   </div>,
                   null,
@@ -964,8 +934,7 @@ ShallowWrapper {
                   "nodeType": "host",
                   "props": Object {
                     "children": <img
-                      className="image"
-                      src="http://via.placeholder.com/300x300"
+                      className="picture"
                     />,
                     "className": "suggestedImage",
                   },
@@ -975,8 +944,8 @@ ShallowWrapper {
                     "key": undefined,
                     "nodeType": "host",
                     "props": Object {
-                      "className": "image",
-                      "src": "http://via.placeholder.com/300x300",
+                      "className": "picture",
+                      "src": undefined,
                     },
                     "ref": null,
                     "rendered": null,
@@ -1017,8 +986,7 @@ ShallowWrapper {
                   className="suggestedImage"
                 >
                   <img
-                    className="image"
-                    src="http://via.placeholder.com/300x300"
+                    className="picture"
                   />
                 </div>
               </div>,
@@ -1042,8 +1010,7 @@ ShallowWrapper {
                     className="suggestedImage"
                   >
                     <img
-                      className="image"
-                      src="http://via.placeholder.com/300x300"
+                      className="picture"
                     />
                   </div>,
                   null,
@@ -1059,8 +1026,7 @@ ShallowWrapper {
                   "nodeType": "host",
                   "props": Object {
                     "children": <img
-                      className="image"
-                      src="http://via.placeholder.com/300x300"
+                      className="picture"
                     />,
                     "className": "suggestedImage",
                   },
@@ -1070,8 +1036,8 @@ ShallowWrapper {
                     "key": undefined,
                     "nodeType": "host",
                     "props": Object {
-                      "className": "image",
-                      "src": "http://via.placeholder.com/300x300",
+                      "className": "picture",
+                      "src": undefined,
                     },
                     "ref": null,
                     "rendered": null,
@@ -1112,8 +1078,7 @@ ShallowWrapper {
                   className="suggestedImage"
                 >
                   <img
-                    className="image"
-                    src="http://via.placeholder.com/300x300"
+                    className="picture"
                   />
                 </div>
               </div>,
@@ -1137,8 +1102,7 @@ ShallowWrapper {
                     className="suggestedImage"
                   >
                     <img
-                      className="image"
-                      src="http://via.placeholder.com/300x300"
+                      className="picture"
                     />
                   </div>,
                   null,
@@ -1154,8 +1118,7 @@ ShallowWrapper {
                   "nodeType": "host",
                   "props": Object {
                     "children": <img
-                      className="image"
-                      src="http://via.placeholder.com/300x300"
+                      className="picture"
                     />,
                     "className": "suggestedImage",
                   },
@@ -1165,8 +1128,8 @@ ShallowWrapper {
                     "key": undefined,
                     "nodeType": "host",
                     "props": Object {
-                      "className": "image",
-                      "src": "http://via.placeholder.com/300x300",
+                      "className": "picture",
+                      "src": undefined,
                     },
                     "ref": null,
                     "rendered": null,
@@ -1207,8 +1170,7 @@ ShallowWrapper {
                   className="suggestedImage"
                 >
                   <img
-                    className="image"
-                    src="http://via.placeholder.com/300x300"
+                    className="picture"
                   />
                 </div>
               </div>,
@@ -1232,8 +1194,7 @@ ShallowWrapper {
                     className="suggestedImage"
                   >
                     <img
-                      className="image"
-                      src="http://via.placeholder.com/300x300"
+                      className="picture"
                     />
                   </div>,
                   null,
@@ -1249,8 +1210,7 @@ ShallowWrapper {
                   "nodeType": "host",
                   "props": Object {
                     "children": <img
-                      className="image"
-                      src="http://via.placeholder.com/300x300"
+                      className="picture"
                     />,
                     "className": "suggestedImage",
                   },
@@ -1260,8 +1220,8 @@ ShallowWrapper {
                     "key": undefined,
                     "nodeType": "host",
                     "props": Object {
-                      "className": "image",
-                      "src": "http://via.placeholder.com/300x300",
+                      "className": "picture",
+                      "src": undefined,
                     },
                     "ref": null,
                     "rendered": null,

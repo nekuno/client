@@ -2,22 +2,25 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import RoundedImage from '../../ui/RoundedImage/RoundedImage.js';
 import RoundedIcon from '../../ui/RoundedIcon/RoundedIcon.js';
-import styles from './OwnProposalCard.scss';
 import translate from '../../../i18n/Translate';
+import styles from './OtherUserProposalCard.scss';
 
-@translate('OwnProposalCard')
-export default class OwnProposalCard extends Component {
+@translate('OtherUserProposalCard')
+export default class OtherUserProposalCard extends Component {
 
     static propTypes = {
         image         : PropTypes.string.isRequired,
         title         : PropTypes.string.isRequired,
         description   : PropTypes.string.isRequired,
         type          : PropTypes.string.isRequired,
-        photos        : PropTypes.array.isRequired,
+        photos        : PropTypes.array,
         onClickHandler: PropTypes.func
     };
 
     handleClick() {
+        const {image, title, description, type, photos, strings} = this.props;
+
+
         if (this.props.onClickHandler) {
             this.props.onClickHandler();
         }
@@ -32,18 +35,18 @@ export default class OwnProposalCard extends Component {
                 icon = 'paperclip';
                 background = '#63CAFF';
                 break;
-            case 'leisure-plan':
+            case 'sports' || 'hobies' || 'games':
                 icon = 'send';
                 background = '#D380D3';
                 break;
-            case 'experience-plan':
+            case 'shows' || 'restaurants' || 'plans':
                 icon = 'compass';
                 background = '#7BD47E';
                 break;
         }
 
         return (
-            <div className={styles.ownProposalCard} onClick={this.handleClick.bind(this)}>
+            <div className={styles.otherUserProposalCard} onClick={this.handleClick.bind(this)}>
                 <div className={styles.frame}>
                     <div className={styles.topData}>
                         <h2>{title}</h2>
@@ -63,8 +66,8 @@ export default class OwnProposalCard extends Component {
                     {photos &&
                     <div className={styles.userData}>
                         <div className={styles.photos}>
-                            {photos.map((photo, index) =>
-                                <div className={styles.photo} key={index}>
+                            {photos.map(photo =>
+                                <div className={styles.photo}>
                                     <RoundedImage size={'x-small'} url={photo}/>
                                 </div>
                             )}
@@ -81,7 +84,7 @@ export default class OwnProposalCard extends Component {
     }
 }
 
-OwnProposalCard.defaultProps = {
+OtherUserProposalCard.defaultProps = {
     strings: {
         matches: 'Matches',
     }

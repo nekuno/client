@@ -1,0 +1,259 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test InputSlider component should render correctly 1`] = `
+ShallowWrapper {
+  "length": 1,
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <InputSlider
+    handleChangeInputSlider={[MockFunction]}
+  >
+    Lorem ipsum
+  </InputSlider>,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "host",
+    "props": Object {
+      "children": <ComponentWrapper
+        activeDotStyle={
+          Object {
+            "background": undefined,
+            "borderColor": undefined,
+          }
+        }
+        dotStyle={
+          Object {
+            "background": undefined,
+            "borderColor": undefined,
+          }
+        }
+        handleStyle={
+          Array [
+            Object {
+              "background": undefined,
+              "borderColor": undefined,
+              "boxShadow": "none",
+              "color": undefined,
+            },
+          ]
+        }
+        marks={
+          Object {
+            "10": "10",
+            "100": "100",
+            "250": "250",
+            "50": "50",
+            "500": "500",
+          }
+        }
+        max={500}
+        min={10}
+        onAfterChange={[Function]}
+        railStyle={
+          Object {
+            "background": undefined,
+            "borderColor": undefined,
+          }
+        }
+        step={10}
+        tipFormatter={[Function]}
+        tipProps={Object {}}
+        trackStyle={
+          Array [
+            Object {
+              "background": undefined,
+              "borderColor": undefined,
+              "color": undefined,
+            },
+          ]
+        }
+      />,
+      "className": "inputSlider",
+    },
+    "ref": null,
+    "rendered": Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "class",
+      "props": Object {
+        "activeDotStyle": Object {
+          "background": undefined,
+          "borderColor": undefined,
+        },
+        "defaultValue": undefined,
+        "dotStyle": Object {
+          "background": undefined,
+          "borderColor": undefined,
+        },
+        "handleStyle": Array [
+          Object {
+            "background": undefined,
+            "borderColor": undefined,
+            "boxShadow": "none",
+            "color": undefined,
+          },
+        ],
+        "marks": Object {
+          "10": "10",
+          "100": "100",
+          "250": "250",
+          "50": "50",
+          "500": "500",
+        },
+        "max": 500,
+        "min": 10,
+        "onAfterChange": [Function],
+        "railStyle": Object {
+          "background": undefined,
+          "borderColor": undefined,
+        },
+        "step": 10,
+        "tipFormatter": [Function],
+        "tipProps": Object {},
+        "trackStyle": Array [
+          Object {
+            "background": undefined,
+            "borderColor": undefined,
+            "color": undefined,
+          },
+        ],
+      },
+      "ref": null,
+      "rendered": null,
+      "type": [Function],
+    },
+    "type": "div",
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": <ComponentWrapper
+          activeDotStyle={
+            Object {
+              "background": undefined,
+              "borderColor": undefined,
+            }
+          }
+          dotStyle={
+            Object {
+              "background": undefined,
+              "borderColor": undefined,
+            }
+          }
+          handleStyle={
+            Array [
+              Object {
+                "background": undefined,
+                "borderColor": undefined,
+                "boxShadow": "none",
+                "color": undefined,
+              },
+            ]
+          }
+          marks={
+            Object {
+              "10": "10",
+              "100": "100",
+              "250": "250",
+              "50": "50",
+              "500": "500",
+            }
+          }
+          max={500}
+          min={10}
+          onAfterChange={[Function]}
+          railStyle={
+            Object {
+              "background": undefined,
+              "borderColor": undefined,
+            }
+          }
+          step={10}
+          tipFormatter={[Function]}
+          tipProps={Object {}}
+          trackStyle={
+            Array [
+              Object {
+                "background": undefined,
+                "borderColor": undefined,
+                "color": undefined,
+              },
+            ]
+          }
+        />,
+        "className": "inputSlider",
+      },
+      "ref": null,
+      "rendered": Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "activeDotStyle": Object {
+            "background": undefined,
+            "borderColor": undefined,
+          },
+          "defaultValue": undefined,
+          "dotStyle": Object {
+            "background": undefined,
+            "borderColor": undefined,
+          },
+          "handleStyle": Array [
+            Object {
+              "background": undefined,
+              "borderColor": undefined,
+              "boxShadow": "none",
+              "color": undefined,
+            },
+          ],
+          "marks": Object {
+            "10": "10",
+            "100": "100",
+            "250": "250",
+            "50": "50",
+            "500": "500",
+          },
+          "max": 500,
+          "min": 10,
+          "onAfterChange": [Function],
+          "railStyle": Object {
+            "background": undefined,
+            "borderColor": undefined,
+          },
+          "step": 10,
+          "tipFormatter": [Function],
+          "tipProps": Object {},
+          "trackStyle": Array [
+            Object {
+              "background": undefined,
+              "borderColor": undefined,
+              "color": undefined,
+            },
+          ],
+        },
+        "ref": null,
+        "rendered": null,
+        "type": [Function],
+      },
+      "type": "div",
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+      },
+    },
+  },
+}
+`;

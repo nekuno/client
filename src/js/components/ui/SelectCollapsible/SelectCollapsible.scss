@@ -15,14 +15,16 @@
     font-weight: bold;
   }
   .collapsible {
-    background: $white-background;
+    background: $background-white;
     padding: 0 5%;
     text-align: left;
     position: absolute;
     width: 90%;
+    z-index: 999;
 
     .option {
       color: $gray-secondary-text;
+      margin: 8px 0;
 
       &.option-selected {
         cursor: default;

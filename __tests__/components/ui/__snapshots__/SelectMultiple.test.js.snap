@@ -133,6 +133,7 @@ ShallowWrapper {
           "key": "lorem",
           "nodeType": "class",
           "props": Object {
+            "color": undefined,
             "onClickHandler": [Function],
             "selected": true,
             "text": "Lorem",
@@ -146,6 +147,7 @@ ShallowWrapper {
           "key": "ipsum",
           "nodeType": "class",
           "props": Object {
+            "color": undefined,
             "onClickHandler": [Function],
             "selected": false,
             "text": "Ipsum",
@@ -159,6 +161,7 @@ ShallowWrapper {
           "key": "lorem-ipsum",
           "nodeType": "class",
           "props": Object {
+            "color": undefined,
             "onClickHandler": [Function],
             "selected": true,
             "text": "Lorem ipsum",
@@ -172,6 +175,7 @@ ShallowWrapper {
           "key": "sed-ut-perspiciatis",
           "nodeType": "class",
           "props": Object {
+            "color": undefined,
             "onClickHandler": [Function],
             "selected": false,
             "text": "Sed ut perspiciatis",
@@ -278,6 +282,7 @@ ShallowWrapper {
             "key": "lorem",
             "nodeType": "class",
             "props": Object {
+              "color": undefined,
               "onClickHandler": [Function],
               "selected": true,
               "text": "Lorem",
@@ -291,6 +296,7 @@ ShallowWrapper {
             "key": "ipsum",
             "nodeType": "class",
             "props": Object {
+              "color": undefined,
               "onClickHandler": [Function],
               "selected": false,
               "text": "Ipsum",
@@ -304,6 +310,7 @@ ShallowWrapper {
             "key": "lorem-ipsum",
             "nodeType": "class",
             "props": Object {
+              "color": undefined,
               "onClickHandler": [Function],
               "selected": true,
               "text": "Lorem ipsum",
@@ -317,6 +324,7 @@ ShallowWrapper {
             "key": "sed-ut-perspiciatis",
             "nodeType": "class",
             "props": Object {
+              "color": undefined,
               "onClickHandler": [Function],
               "selected": false,
               "text": "Sed ut perspiciatis",

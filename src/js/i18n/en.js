@@ -1,5 +1,3 @@
-import OtherUserBottomNavBar from "../components/ui/OtherUserBottomNavBar/OtherUserBottomNavBar";
-
 export default {
     AnswerQuestionPage               : {
         question               : 'Question',

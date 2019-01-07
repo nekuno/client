@@ -1,5 +1,3 @@
-import SelectCollapsible from "../components/ui/SelectCollapsible/SelectCollapsible";
-
 export default {
     AnswerQuestionPage               : {
         question               : 'Pregunta',

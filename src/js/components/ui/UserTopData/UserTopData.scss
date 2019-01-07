@@ -1,0 +1,15 @@
+@import '../../../../scss/_partials/colors';
+
+.user-top-data {
+  color: white;
+  padding: 0 5%;
+  .username {
+    font-size: 20px;
+  }
+  .age-city {
+    font-size: 14px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}

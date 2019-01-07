@@ -48,6 +48,10 @@ export function getProfile(slug, url = `profile/${slug}`) {
     return getData(url);
 }
 
+export function getOtherUser(slug, url = `profile/${slug}/page`) {
+    return getData(url);
+}
+
 export function editProfile(data, url = `profile`) {
     return putData(url, data);
 }

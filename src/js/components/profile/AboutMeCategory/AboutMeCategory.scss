@@ -1,0 +1,22 @@
+@import '../../../../scss/_partials/colors';
+
+.aboutmecategory {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 5%;
+
+  .title {
+    width: 100%;
+    font-size: larger;
+    text-align: left;
+    padding-bottom: 20px;
+  }
+
+  .text {
+    width: 100%;
+    text-align: left;
+    font-size: medium;
+  }
+
+}

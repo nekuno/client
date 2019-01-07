@@ -2,6 +2,7 @@ import ActionTypes from '../constants/ActionTypes';
 import { waitFor } from '../dispatcher/Dispatcher';
 import BaseStore from './BaseStore';
 import UserStore from '../stores/UserStore'
+import LoginStore from "./LoginStore";
 
 class SimilarityStore extends BaseStore {
 
@@ -20,6 +21,13 @@ class SimilarityStore extends BaseStore {
             case ActionTypes.REQUEST_SIMILARITY_SUCCESS:
                 const {userId1, userId2} = action;
                 this.merge(userId1, userId2, action.response.similarity);
+                this.emitChange();
+                break;
+            case ActionTypes.REQUEST_OTHER_USER_SUCCESS:
+                const loggedUserId = LoginStore.user.id;
+                const otherUserId = UserStore.getBySlug(action.slug).id;
+
+                this.merge(loggedUserId, otherUserId, action.response.similarity);
                 this.emitChange();
                 break;
         }

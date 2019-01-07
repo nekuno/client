@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import styles from './CarouselContinuous.scss';
-import PersonsPage from "../../../pages/PersonsPage";
 
 export default class CarouselContinuous extends Component {
 

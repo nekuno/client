@@ -851,6 +851,9 @@ export default {
         loginText   : 'Ya estoy registrade',
         registerNow : 'Puedes registrarte ahora',
     },
+    AboutMeCategory: {
+        about: 'Sobre mi',
+    },
     ProfileDataList                  : {
         cannotRemove: 'Este campo no se puede eliminar',
     },

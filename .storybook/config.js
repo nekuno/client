@@ -2,6 +2,7 @@ import { configure } from '@storybook/react';
 import '../src/scss/layout.scss';
 
 function loadStories() {
+    require('../stories/AboutMeCategory.stories');
     require('../stories/AvailabilityEdit.stories');
     require('../stories/ProposalFilterPreview');
     require('../stories/Banner.stories');
@@ -32,6 +33,7 @@ function loadStories() {
     require('../stories/LoadingGif.stories');
     require('../stories/LocationInput.stories');
     require('../stories/MatchingBars.stories');
+    require('../stories/NaturalCategory.stories');
     require('../stories/OtherUserBottomNavBar.stories');
     require('../stories/OtherUserProposalCard.stories');
     require('../stories/OwnProposalCard.stories');
@@ -46,11 +48,13 @@ function loadStories() {
     require('../stories/SelectMultiple.stories');
     require('../stories/SelectCollapsible.stories');
     require('../stories/SelectInline.stories');
+    require('../stories/SliderPhotos.stories');
     require('../stories/StepsBar.stories');
     require('../stories/Tabs.stories');
     require('../stories/Textarea.stories');
     require('../stories/TopBar.stories');
     require('../stories/TopNavBar.stories');
+    require('../stories/UserTopData.stories');
 
     // require as many stories as you need.
 }

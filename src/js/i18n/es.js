@@ -288,6 +288,10 @@ export default {
         topNavBarText : 'Propuestas de %username%',
         orderBy       : 'Ordenar por %orderBy%',
     },
+    OtherUserInterestsPage : {
+        topNavBarText : 'Intereses de %username%',
+        orderBy       : 'Ordenar por %orderBy%',
+    },
     OtherQuestionsPage               : {
         coincidences: 'Coincidencias de',
         about       : 'Acerca de',

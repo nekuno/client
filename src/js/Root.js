@@ -31,7 +31,7 @@ import OwnProposalsPage from './pages/OwnProposalsPage';
 import ExplorePage from './pages/ExplorePage';
 import ChatThreadsPage from './pages/ChatThreadsPage';
 import ChatMessagesPage from './pages/ChatMessagesPage';
-import InterestsPage from './pages/InterestsPage';
+import InterestsPage from './pages/OtherUser/InterestsPage';
 import GalleryPage from './pages/GalleryPage';
 import OtherGalleryPage from './pages/OtherGalleryPage';
 import GalleryPhotoPage from './pages/GalleryPhotoPage';
@@ -141,6 +141,7 @@ export default class Root extends Component {
                     <Route name="login" path="/login" component={LoginPage}/>
                     <Route name="register" path="/register" component={RegisterPage}/>
                     <Route name="shared-user" path="/p/:slug" component={AboutMePage}/>
+                    <Route name="shared-user-interests" path="/p/:slug/interests" component={InterestsPage}/>
 
                     <Route onEnter={requireAuth}>
                         <Route name="connecting-facebook" path="/connecting-facebook" component={ConnectingFacebookPage}/>
@@ -179,8 +180,8 @@ export default class Root extends Component {
                         <Route name="answer-profile-fields" path="/answer-profile-fields" component={AnswerProfileFieldPage}/>
                         <Route name="notifications" path="/conversations" component={ChatThreadsPage}/>
                         <Route name="messages" path="/conversations/:slug" component={ChatMessagesPage}/>
-                        <Route name="interests" path="/interests" component={InterestsPage}/>
-                        <Route name="other-interests" path="/users/:slug/other-interests" component={OtherInterestsPage}/>
+                        {/*<Route name="interests" path="/interests" component={InterestsPage}/>*/}
+                        {/*<Route name="other-interests" path="/users/:slug/other-interests" component={OtherInterestsPage}/>*/}
                         <Route name="gallery" path="/gallery" component={GalleryPage}/>
                         <Route name="other-gallery" path="/users/:slug/other-gallery/:photoId" component={OtherGalleryPage}/>
                         <Route name="gallery-photo" path="/gallery-photo" component={GalleryPhotoPage}/>

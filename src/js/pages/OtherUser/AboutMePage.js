@@ -21,6 +21,7 @@ import AboutMeCategory from "../../components/profile/AboutMeCategory/AboutMeCat
 import LikeStore from "../../stores/LikeStore";
 import { ORIGIN_CONTEXT } from "../../constants/Constants";
 import SliderPhotos from "../../components/ui/SliderPhotos/SliderPhotos";
+import OtherUserBottomNavBar from "../../components/ui/OtherUserBottomNavBar/OtherUserBottomNavBar";
 
 function requestData(props) {
     UserActionCreators.requestOtherUserPage(props.params.slug);
@@ -180,6 +181,8 @@ export default class AboutMePage extends Component {
                             <MatchingBars matching={matching} similarity={similarity} background={'transparent'}/>
 
                             {this.getNatural(natural)};
+
+                            <OtherUserBottomNavBar userSlug={this.props.params.slug} current={'about-me'}/>
 
                         </div>
                     }

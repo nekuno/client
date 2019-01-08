@@ -36,6 +36,7 @@ function loadStories() {
     require('../stories/LocationInput.stories');
     require('../stories/MatchingBars.stories');
     require('../stories/NaturalCategory.stories');
+    require('../stories/NetworkLine.stories');
     require('../stories/OtherUserBottomNavBar.stories');
     require('../stories/OtherUserProposalCard.stories');
     require('../stories/OwnProposalCard.stories');

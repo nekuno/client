@@ -1,7 +1,28 @@
 @import '../../../../scss/_partials/colors';
 
-.cardcontent {
-  background: #fff;
-  font-size: 15px;
-  padding: 25px;
+.card-content {
+  background: #FFF;
+  border-radius: 10px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  box-shadow: 0 0 5px $gray-border;
+  color: #6C6F82;
+  font-size: 14px;
+  margin: 2.5%;
+  padding: 0;
+
+  .content-image {
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+
+    img {
+      border-radius: 10px 10px 0 0;
+      -moz-border-radius: 10px 10px 0 0;
+      -webkit-border-radius: 10px 10px 0 0;
+      width: 360px;
+      height: 180px;
+    }
+  }
 }

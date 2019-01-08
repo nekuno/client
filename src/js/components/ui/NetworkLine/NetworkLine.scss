@@ -1,0 +1,17 @@
+@import '../../../../scss/_partials/colors';
+
+.network-line {
+  width: 100%;
+  display: flex;
+
+  .network-icon {
+    width: 10%;
+    display: inline-block;
+  }
+
+  .network-name {
+    width: 90%;
+    line-height: 35px;
+    display: inline-block;
+  }
+}

@@ -46,7 +46,7 @@ export default class OtherUserBottomNavBar extends Component {
     }
 
     handleClickProposals() {
-        const {current} = this.props;
+        const {userSlug, current} = this.props;
 
         if (current !== 'proposals') {
             this.context.router.push('/p/' + userSlug + '/proposals');
@@ -54,7 +54,7 @@ export default class OtherUserBottomNavBar extends Component {
     }
 
     handleClickAnswers() {
-        const {current} = this.props;
+        const {userSlug, current} = this.props;
 
         if (current !== 'answers') {
             this.context.router.push('/p/' + userSlug + '/answers');
@@ -62,7 +62,7 @@ export default class OtherUserBottomNavBar extends Component {
     }
 
     handleClickInterests() {
-        const {current} = this.props;
+        const {userSlug, current} = this.props;
 
         if (current !== 'interests') {
             this.context.router.push('/p/' + userSlug + '/interests');

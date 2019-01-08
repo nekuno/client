@@ -278,18 +278,10 @@ export default {
         empty                : 'No interests to show with this filters',
         reported             : 'The content has been reported. We will review it within next 24 hours'
     },
-    OtherUserBottomNavBar            : {
-        aboutMe   : 'About me',
-        proposals : 'Proposals',
-        answers   : 'Answers',
-        interests : 'Interests',
-    },
-    OwnUserBottomNavBar: {
-        aboutMe  : 'About me',
-        networks : 'Networks',
-        friends  : 'Friends',
-        answers  : 'Answers',
-        interests: 'Interests',
+    OtherUserAnswersPage           : {
+        topNavBarText : '%username% answers',
+        affinity      : 'Affinity',
+        compatibility : 'Compatibility',
     },
     OtherUserProposalsPage           : {
         topNavBarText : '%username% proposals',
@@ -808,6 +800,19 @@ export default {
         leisure   : 'Leisure plan',
         experience: 'Experience'
     },
+    OtherUserBottomNavBar            : {
+        aboutMe   : 'About me',
+        proposals : 'Proposals',
+        answers   : 'Answers',
+        interests : 'Interests',
+    },
+    OwnUserBottomNavBar: {
+        aboutMe  : 'About me',
+        networks : 'Networks',
+        friends  : 'Friends',
+        answers  : 'Answers',
+        interests: 'Interests',
+    },
     LeftPanel                        : {
         interests     : 'Interests',
         threads       : 'Discover',
@@ -958,6 +963,9 @@ export default {
         noMoreQuestions: 'No more questions',
         loading        : 'Loading question'
     },
+    AnswerQuestionCard               : {
+        answerQuestion      : 'Answer to see your answer',
+    },
     AnswerQuestionForm               : {
         you        : 'You',
         them       : 'Them',
@@ -1043,13 +1051,6 @@ export default {
     },
     SelectCollapsible                : {
         orderBy     : 'Ordenar por',
-        work        : 'Trabajo',
-        shows       : 'Experiencia',
-        restaurants : 'Experiencia',
-        plans       : 'Experiencia',
-        sports      : 'Ocio',
-        hobbies     : 'Ocio',
-        games       : 'Ocio',
     },
     ThreadNoResults                  : {
         emptyThread: 'This yarn is empty. Edit or delete it.',

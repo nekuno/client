@@ -1,0 +1,113 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test AnswerQuestionCard component should render correctly 1`] = `
+ShallowWrapper {
+  "length": 1,
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <AnswerQuestionCard
+    onClickHandler={[MockFunction]}
+  >
+    Lorem ipsum
+  </AnswerQuestionCard>,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "host",
+    "props": Object {
+      "children": Array [
+        <h3>
+          ¿Prefieres el mar o la montaña?
+        </h3>,
+        <p>
+          Responde para ver su respuesta
+        </p>,
+      ],
+      "className": "answerQuestionCard",
+    },
+    "ref": null,
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": "¿Prefieres el mar o la montaña?",
+        },
+        "ref": null,
+        "rendered": "¿Prefieres el mar o la montaña?",
+        "type": "h3",
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": "Responde para ver su respuesta",
+        },
+        "ref": null,
+        "rendered": "Responde para ver su respuesta",
+        "type": "p",
+      },
+    ],
+    "type": "div",
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": Array [
+          <h3>
+            ¿Prefieres el mar o la montaña?
+          </h3>,
+          <p>
+            Responde para ver su respuesta
+          </p>,
+        ],
+        "className": "answerQuestionCard",
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": "¿Prefieres el mar o la montaña?",
+          },
+          "ref": null,
+          "rendered": "¿Prefieres el mar o la montaña?",
+          "type": "h3",
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": "Responde para ver su respuesta",
+          },
+          "ref": null,
+          "rendered": "Responde para ver su respuesta",
+          "type": "p",
+        },
+      ],
+      "type": "div",
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+      },
+    },
+  },
+}
+`;

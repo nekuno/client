@@ -41,6 +41,14 @@ export default class SelectCollapsible extends Component {
         this.props.onClickSelectCollapsible(id);
     }
 
+    search(nameKey, myArray){
+        for (var i=0; i < myArray.length; i++) {
+            if (myArray[i].id === nameKey) {
+                return myArray[i];
+            }
+        }
+    }
+
     render() {
         const {strings, options, title} = this.props;
         const {open, selected} = this.state;
@@ -58,8 +66,7 @@ export default class SelectCollapsible extends Component {
         return (
             <div className={styles.selectCollapsible} onClick={this.handleClickToggle}>
                 <div className={styles.title + ' small'}>
-                    {/*{title}*/}
-                    {strings.orderBy} {orderStrings[selected]}
+                    {strings.orderBy} {this.search(selected, options).text}
                 </div>
                 {open ?
                     <div className={styles.arrow + ' icon icon-chevron-up'}/>
@@ -88,12 +95,5 @@ export default class SelectCollapsible extends Component {
 SelectCollapsible.defaultProps = {
     strings: {
         orderBy     : 'Order by',
-        work        : 'Work',
-        shows       : 'Experience',
-        restaurants : 'Experience',
-        plans       : 'Experience',
-        sports      : 'Leisure',
-        hobbies     : 'Leisure',
-        games       : 'Leisure',
     }
 };

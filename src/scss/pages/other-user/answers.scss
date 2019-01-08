@@ -1,0 +1,94 @@
+@import '../../_partials/colors';
+
+body #root .App .views .view.other-user-answers-view {
+  background-color: $background;
+  color: $gray-main-text;
+  // text-align: center;
+  z-index: 0;
+
+  .other-user-answers-view-wrapper {
+    .select-collapsible-wrapper {
+      background-color: $background-white;
+    }
+
+    .other-user-answer-wrapper {
+      background-color: $background-white;
+      border-radius: 8px;
+      text-align: left;
+      margin: 8px 16px;
+      padding: 4px 16px 8px 16px;
+      .title-answer {
+        font-size: 16px;
+        font-weight: 600;
+      }
+      .user-data {
+        height: 60px;
+        //margin-top: 16px;
+        overflow: hidden; //
+
+        .photos {
+          display: inline-block;
+          margin-right: 5%;
+          vertical-align: super;
+          width: 15%;
+
+          .photo {
+            display: inline-block;
+            margin-right: -20px;
+          }
+        }
+
+        .user-text-one-line {
+          display: inline-block;
+          line-height: 50px;
+          height: 50px;
+          //margin-left: 35px;
+          vertical-align: top;
+          width: 80%;
+
+          .answer {
+            width: 90%;
+            font-size: 14px;
+            display: inline-block
+          }
+
+          .answer-icon {
+            display: inline-block;
+            width: 10%;
+          }
+        }
+
+        .user-text {
+          display: inline-block;
+          //margin-left: 6px;
+          vertical-align: super;
+          width: 80%;
+
+          .answer {
+            font-size: 14px;
+          }
+
+          .edit-answer {
+            font-size: 14px;
+            font-weight: normal;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            color: $links;
+          }
+        }
+      }
+    }
+
+    .other-user-answer-questions-title {
+      margin: 16px 16px;
+      text-align: left;
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .other-user-answer-questions-wrapper {
+      text-align: left;
+    }
+  }
+}

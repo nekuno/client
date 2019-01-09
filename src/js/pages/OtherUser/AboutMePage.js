@@ -51,8 +51,6 @@ function getState(props) {
         return {isLoading: true}
     }
     const location = profile[0].fields.location.value || '';
-    console.log(profile);
-    console.log(location);
     const age = profile[0].fields.birthday.value;
 
     const photos = GalleryPhotoStore.get(otherUserId);
@@ -155,7 +153,7 @@ export default class AboutMePage extends Component {
 
         return (
             <div className="views">
-                <div className="view other-user-proposals-view">
+                <div className="view other-user-about-me">
                     <div className={styles.topNavBar}>
                         <TopNavBar
                             background={'transparent'}
@@ -172,21 +170,25 @@ export default class AboutMePage extends Component {
                             <LoadingGif/>
                         </div>
                         :
-                        <div>
+                        <div className={styles.loaded}>
                             <SliderPhotos photos={this.getPhotos(photos)}/>
 
                             <div className={styles.topData}>
                                 <UserTopData username={username} age={age} location={{locality: location}} usernameColor={'black'} subColor={'grey'}/>
                             </div>
-                            <MatchingBars matching={matching} similarity={similarity} background={'transparent'}/>
+                            <div className={styles.matchingBarsWrapper}><
+                                MatchingBars matching={matching} similarity={similarity} background={'transparent'}/>
+                            </div>
 
-                            {this.getNatural(natural)};
+                            {this.getNatural(natural)}
 
-                            <OtherUserBottomNavBar userSlug={this.props.params.slug} current={'about-me'}/>
 
                         </div>
                     }
 
+                </div>
+                <div className={styles.navbarWrapper}>
+                    <OtherUserBottomNavBar userSlug={this.props.params.slug} current={'about-me'}/>
                 </div>
             </div>
         );

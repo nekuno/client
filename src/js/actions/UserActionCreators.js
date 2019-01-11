@@ -102,8 +102,9 @@ export function requestProfile(slug, fields) {
     }, {slug});
 }
 
+//TODO: Inconsistent action naming. Conflict with request_own_user
 export function requestOtherUserPage(slug) {
-    requestUser(slug).then(() => {
+    return requestUser(slug).then(() => {
             return dispatchAsync(UserAPI.getOtherUser(slug), {
                 request: ActionTypes.REQUEST_OTHER_USER,
                 success: ActionTypes.REQUEST_OTHER_USER_SUCCESS,
@@ -111,6 +112,14 @@ export function requestOtherUserPage(slug) {
             }, {slug});
         }
     )
+}
+
+export function requestOwnUserPage() {
+    return dispatchAsync(UserAPI.getOwnUserPage(), {
+        request: ActionTypes.REQUEST_OWN_USER_PAGE,
+        success: ActionTypes.REQUEST_OWN_USER_PAGE_SUCCESS,
+        failure: ActionTypes.REQUEST_OWN_USER_PAGE_ERROR
+    });
 }
 
 export function requestSharedUser(slug) {

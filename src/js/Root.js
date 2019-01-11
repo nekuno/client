@@ -97,7 +97,8 @@ import ProposalsExperienceFeaturesPage          from "./pages/Proposals/Experien
 import ProposalsExperiencePreviewPage           from "./pages/Proposals/Experience/PreviewPage";
 
 import OtherUserProposalsPage from "./pages/OtherUser/ProposalsPage";
-import AboutMePage from "./pages/OtherUser/AboutMePage";
+import OtherUserAboutMePage from "./pages/OtherUser/AboutMePage";
+import OwnUserAboutMePage from "./pages/OwnUser/AboutMePage";
 
 function requireAuth(nextState, replaceState) {
 
@@ -140,7 +141,7 @@ export default class Root extends Component {
                     <Route name="connect-facebook" path="/connect-facebook" component={ConnectFacebookPage}/>
                     <Route name="login" path="/login" component={LoginPage}/>
                     <Route name="register" path="/register" component={RegisterPage}/>
-                    <Route name="shared-user" path="/p/:slug" component={AboutMePage}/>
+                    <Route name="shared-user" path="/p/:slug" component={OtherUserAboutMePage}/>
 
                     <Route onEnter={requireAuth}>
                         <Route name="connecting-facebook" path="/connecting-facebook" component={ConnectingFacebookPage}/>
@@ -172,6 +173,7 @@ export default class Root extends Component {
                         <Route name="persons-all" path="/persons-all" component={PersonsAllPage}/>
                         <Route name="persons-filter" path="/persons-filter/:threadId" component={PersonsFilterPage}/>
                         <Route name="plans" path="/plans" component={OwnProposalsPage}/>
+                        <Route name="about-me" path="/about-me" component={OwnUserAboutMePage}/>
                         <Route name="availability-edit" path="/availability-edit" component={AvailabilityEditPage}/>
                         <Route name="explore" path="/explore" component={ExplorePage}/>
                         <Route name="register-questions-landing" path="/register-questions-landing" component={RegisterQuestionsLandingPage}/>

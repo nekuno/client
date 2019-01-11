@@ -4,7 +4,6 @@ import styles from './AboutMePage.scss';
 import translate from '../../i18n/Translate';
 import TopNavBar from '../../components/TopNavBar/TopNavBar.js';
 import '../../../scss/pages/other-user/proposals.scss';
-import MatchingBars from "../../components/ui/MatchingBars/MatchingBars";
 import connectToStores from "../../utils/connectToStores";
 import MatchingStore from "../../stores/MatchingStore";
 import SimilarityStore from "../../stores/SimilarityStore";
@@ -18,33 +17,23 @@ import LoadingGif from "../../components/ui/LoadingGif/LoadingGif";
 import UserTopData from "../../components/ui/UserTopData/UserTopData";
 import NaturalCategory from "../../components/profile/NaturalCategory/NaturalCategory";
 import AboutMeCategory from "../../components/profile/AboutMeCategory/AboutMeCategory";
-import LikeStore from "../../stores/LikeStore";
-import { ORIGIN_CONTEXT } from "../../constants/Constants";
 import SliderPhotos from "../../components/ui/SliderPhotos/SliderPhotos";
 import OtherUserBottomNavBar from "../../components/ui/OtherUserBottomNavBar/OtherUserBottomNavBar";
 
 function requestData(props) {
-    UserActionCreators.requestOtherUserPage(props.params.slug);
+    UserActionCreators.requestOwnUserPage(props.params.slug);
 }
 
 /**
  * Retrieves state from stores for current props.
  */
 function getState(props) {
-    const slug = props.params.slug;
 
-    const otherUser = UserStore.getBySlug(slug);
-    if (!otherUser) {
-        return {isLoading: true}
-    }
+    const user = LoginStore.user;
 
-    const username = otherUser.username;
-
-    const otherUserId = otherUser ? otherUser.id : null;
-
-    const ownUserId = LoginStore.user.id;
-    const matching = MatchingStore.get(ownUserId, otherUserId);
-    const similarity = SimilarityStore.get(ownUserId, otherUserId);
+    const username = user.username;
+    const slug = user.slug;
+    const userId = user.id;
 
     const profile = ProfileStore.getWithMetadata(slug);
     if (profile.length === 0) {
@@ -53,46 +42,35 @@ function getState(props) {
     const location = profile[0].fields.location.value || '';
     const age = profile[0].fields.birthday.value;
 
-    const photos = GalleryPhotoStore.get(otherUserId);
+    const photos = GalleryPhotoStore.get(userId);
 
     const natural = NaturalCategoryStore.get(slug);
 
-    const ownUserSlug = LoginStore.user.slug;
-    const liked = LikeStore.get(ownUserSlug, slug);
-
     return {
-        isLoading: false,
-        matching,
-        similarity,
+        isLoading  : false,
         username,
         location,
         age,
         photos,
         natural,
-        liked,
-        ownUserSlug
+        slug
     };
 }
 
-@translate('OtherUserAboutMePage')
+@translate('OwnUserAboutMePage')
 @connectToStores([UserStore, MatchingStore, SimilarityStore, ProfileStore, GalleryPhotoStore, NaturalCategoryStore], getState)
 export default class AboutMePage extends Component {
 
     static propTypes = {
-        params     : PropTypes.shape({
-            slug: PropTypes.string.isRequired
-        }).isRequired,        // Injected by @translate:
-        strings    : PropTypes.object,
+        // Injected by @translate:
+        strings  : PropTypes.object,
         // Injected by @connectToStores:
-        isLoading  : PropTypes.bool.isRequired,
-        matching   : PropTypes.number,
-        similarity : PropTypes.number,
-        username   : PropTypes.string,
-        location   : PropTypes.string,
-        age        : PropTypes.string,
-        photos     : PropTypes.array,
-        liked      : PropTypes.bool,
-        ownUserSlug: PropTypes.string,
+        isLoading: PropTypes.bool.isRequired,
+        username : PropTypes.string,
+        location : PropTypes.string,
+        age      : PropTypes.string,
+        photos   : PropTypes.array,
+        slug     : PropTypes.string,
     };
 
     static contextTypes = {
@@ -103,30 +81,10 @@ export default class AboutMePage extends Component {
         requestData(this.props);
     }
 
-    constructor(props) {
-        super(props);
-
-        this.likeUser = this.likeUser.bind(this);
-        this.dislikeUser = this.dislikeUser.bind(this);
-    }
-
-    likeUser() {
-        const from = this.props.ownUserSlug;
-        const to = this.props.params.slug;
-
-        UserActionCreators.likeUser(from, to, ORIGIN_CONTEXT.OTHER_USER_PAGE, to);
-    }
-
-    dislikeUser() {
-        const from = this.props.ownUserSlug;
-        const to = this.props.params.slug;
-
-        UserActionCreators.dislikeUser(from, to, ORIGIN_CONTEXT.OTHER_USER_PAGE, to);
-    }
-
     getPhotos(photos) {
+        //TODO: TESTING
+        return ['https://cdn5.img.sputniknews.com/images/105967/95/1059679556.jpg'];
         return photos.map((photo) => {
-            // return <img src={photo.url} alt={'photo'}/>
             return photo.url
         })
     }
@@ -142,14 +100,15 @@ export default class AboutMePage extends Component {
                         <NaturalCategory category={type} text={text}/>
                 }
             </div>
-
         })
     }
 
-    render() {
-        const {photos, matching, similarity, isLoading, username, location, age, natural, liked} = this.props;
+    logout() {
+        alert('Here should be logging out');
+    }
 
-        const rightIcon = liked ? 'heart' : 'empty - heart';
+    render() {
+        const {photos, isLoading, username, location, age, natural, slug} = this.props;
 
         return (
             <div className="views">
@@ -158,9 +117,9 @@ export default class AboutMePage extends Component {
                         <TopNavBar
                             background={'transparent'}
                             iconLeft={'arrow-left'}
-                            firstIconRight={'x'}
+                            firstIconRight={'log-out'}
                             textCenter={''}
-                            onRightLinkClickHandler={this.likeUser}
+                            onRightLinkClickHandler={this.logout}
                         />
                     </div>
 
@@ -176,27 +135,16 @@ export default class AboutMePage extends Component {
                             <div className={styles.topData}>
                                 <UserTopData username={username} age={age} location={{locality: location}} usernameColor={'black'} subColor={'grey'}/>
                             </div>
-                            <div className={styles.matchingBarsWrapper}><
-                                MatchingBars matching={matching} similarity={similarity} background={'transparent'}/>
-                            </div>
 
                             {this.getNatural(natural)}
-
-
                         </div>
                     }
-
                 </div>
+
                 <div className={styles.navbarWrapper}>
-                    <OtherUserBottomNavBar userSlug={this.props.params.slug} current={'about-me'}/>
+                    <OtherUserBottomNavBar userSlug={slug} current={'about-me'}/>
                 </div>
             </div>
         );
     }
 }
-
-AboutMePage.defaultProps = {
-    strings: {
-        orderBy: 'Order by Experiences',
-    }
-};

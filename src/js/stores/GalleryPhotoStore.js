@@ -2,6 +2,7 @@ import ActionTypes from '../constants/ActionTypes';
 import BaseStore from './BaseStore';
 import { getValidationErrors } from '../utils/StoreUtils';
 import UserStore from "./UserStore";
+import LoginStore from "./LoginStore";
 
 class GalleryPhotoStore extends BaseStore {
 
@@ -33,6 +34,12 @@ class GalleryPhotoStore extends BaseStore {
                 userId = UserStore.getBySlug(action.slug).id;
                 this._photos[userId] = action.response.photos;
                 this._noPhotos[userId] = this._photos[userId].length === 0;
+                break;
+            case ActionTypes.REQUEST_OWN_USER_PAGE_SUCCESS:
+                userId = LoginStore.user.id;
+                this._photos[userId] = action.response.photos;
+                this._noPhotos[userId] = this._photos[userId].length === 0;
+                break;
             case ActionTypes.UPLOAD_PHOTO:
                 this._loadingPhoto = true;
                 this.emitChange();

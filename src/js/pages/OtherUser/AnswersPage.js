@@ -123,7 +123,8 @@ export default class AnswersPage extends Component {
     }
 
     onBottomScroll() {
-        const {user, requestQuestionsUrl, isLoadingOwnQuestions} = this.props;
+        const {user, otherUser, requestQuestionsUrl, isLoadingOwnQuestions} = this.props;
+        //const {user, isLoadingOwnQuestions} = this.props;
         console.log('onBottomScroll');
         console.log(requestQuestionsUrl);
         console.log(isLoadingOwnQuestions);
@@ -132,7 +133,10 @@ export default class AnswersPage extends Component {
         if (isLoadingOwnQuestions || !requestQuestionsUrl) {
             return Promise.resolve();
         }
-        return QuestionActionCreators.requestComparedQuestions(user.id, requestQuestionsUrl);
+        //const requestQuestionsUrl = 'https://brain.pre.nekuno.com/answers/compare/5?limit=20&locale=es&offset=40';
+        const questions = QuestionActionCreators.requestComparedQuestions(otherUser.id, requestQuestionsUrl);
+        console.log(questions);
+        return questions;
     }
 
     getQuestions() {

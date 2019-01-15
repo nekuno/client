@@ -179,7 +179,7 @@ export default class Scroll extends Component {
         const {mustRender} = this.state;
 
         return mustRender ?
-            <div id="infinite-scroll" onScroll={this.handleScroll} style={{height: this.getHeight()}}>
+            <div id="infinite-scroll" onScroll={this.handleScroll} style={{height: this.getHeight(), overflowY: 'scroll'}}>
                 {this.renderScroll()}
             </div>
             : null;

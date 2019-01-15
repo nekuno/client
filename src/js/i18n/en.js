@@ -279,9 +279,11 @@ export default {
         reported             : 'The content has been reported. We will review it within next 24 hours'
     },
     OtherUserAnswersPage           : {
-        topNavBarText : '%username% answers',
-        affinity      : 'Affinity',
-        compatibility : 'Compatibility',
+        topNavBarText             : '%username% answers',
+        affinity                  : 'Affinity',
+        compatibility             : 'Compatibility',
+        loading                   : 'Loading questions',
+        otherNotAnsweredQuestions : 'Check if you are compatible',
     },
     OtherUserProposalsPage           : {
         topNavBarText : '%username% proposals',

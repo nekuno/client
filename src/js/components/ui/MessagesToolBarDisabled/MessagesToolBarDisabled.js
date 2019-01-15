@@ -1,7 +1,10 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import translate from '../../i18n/Translate';
-import Framework7Service from '../../services/Framework7Service';
+import translate from '../../../i18n/Translate';
+import Framework7Service from '../../../services/Framework7Service';
+import styles from './MessagesToolBarDisabled.scss';
+import RoundedImage from "../RoundedImage/RoundedImage";
+
 
 @translate('MessagesToolBarDisabled')
 export default class MessagesToolBarDisabled extends Component {
@@ -25,12 +28,16 @@ export default class MessagesToolBarDisabled extends Component {
     render() {
         const {text} = this.props;
         return (
-            <div className="toolbar messagebar">
-                <div className="toolbar-inner" onClick={this.alertDisabled}>
-                    <textarea placeholder={this.props.strings.forbidden} ref="textarea" disabled/>
-                    <a className="link" disabled="disabled" style={{color: "#F44336"}}>{text}</a>
+                <div className={styles.toolbar}>
+                    <div className={styles.toolbarInner} onClick={this.alertDisabled}>
+                        <div className={styles.textareaWrapper}>
+                            {/*<RoundedImage url={image} size={"xx-small"}/>*/}
+                            <textarea placeholder={this.props.strings.forbidden} ref="textarea" disabled/>
+                        </div>
+                        <a className={styles.link} disabled="disabled" style={{color: "#F44336"}}>{text}</a>
+                    </div>
                 </div>
-            </div>
+
         );
     }
 }

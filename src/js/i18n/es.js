@@ -279,9 +279,11 @@ export default {
         reported             : 'El contenido ha sido reportado. Lo revisaremos en las próximas 24 horas'
     },
     OtherUserAnswersPage           : {
-        topNavBarText : 'Respuestas de %username%',
-        affinity      : 'Afinidad',
-        compatibility : 'Compatibilidad',
+        topNavBarText             : 'Respuestas de %username%',
+        affinity                  : 'Afinidad',
+        compatibility             : 'Compatibilidad',
+        loading                   : 'Cargando preguntas',
+        otherNotAnsweredQuestions : 'Comprueba si sois compatible',
     },
     OtherUserProposalsPage           : {
         topNavBarText : 'Propuestas de %username%',

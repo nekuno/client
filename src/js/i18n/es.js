@@ -285,6 +285,13 @@ export default {
         loading                   : 'Cargando preguntas',
         otherNotAnsweredQuestions : 'Comprueba si sois compatible',
     },
+    OtherUserAnswersPage           : {
+        topNavBarText             : 'Respuestas de %username%',
+        affinity                  : 'Afinidad',
+        compatibility             : 'Compatibilidad',
+        loading                   : 'Cargando preguntas',
+        otherNotAnsweredQuestions : 'Comprueba si sois compatible',
+    },
     OtherUserProposalsPage           : {
         topNavBarText : 'Propuestas de %username%',
         orderBy       : 'Ordenar por %orderBy%',

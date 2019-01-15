@@ -40,6 +40,8 @@ class NaturalCategoryStore extends BaseStore {
     }
 
     get(slug) {
+        this._initialize(slug);
+
         return this._natural[slug];
     }
 }

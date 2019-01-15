@@ -19,6 +19,7 @@ import NaturalCategory from "../../components/profile/NaturalCategory/NaturalCat
 import AboutMeCategory from "../../components/profile/AboutMeCategory/AboutMeCategory";
 import SliderPhotos from "../../components/ui/SliderPhotos/SliderPhotos";
 import OtherUserBottomNavBar from "../../components/ui/OtherUserBottomNavBar/OtherUserBottomNavBar";
+import OwnUserBottomNavBar from "../../components/ui/OwnUserBottomNavBar/OwnUserBottomNavBar";
 
 function requestData(props) {
     UserActionCreators.requestOwnUserPage(props.params.slug);
@@ -142,7 +143,7 @@ export default class AboutMePage extends Component {
                 </div>
 
                 <div className={styles.navbarWrapper}>
-                    <OtherUserBottomNavBar userSlug={slug} current={'about-me'}/>
+                    <OwnUserBottomNavBar current={'about-me'}/>
                 </div>
             </div>
         );

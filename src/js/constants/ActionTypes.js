@@ -60,6 +60,10 @@ export default keyMirror({
     REQUEST_OTHER_USER_SUCCESS: null,
     REQUEST_OTHER_USER_ERROR  : null,
 
+    REQUEST_OWN_USER_PAGE        : null,
+    REQUEST_OWN_USER_PAGE_SUCCESS: null,
+    REQUEST_OWN_USER_PAGE_ERROR  : null,
+
     REQUEST_OWN_PROFILE        : null,
     REQUEST_OWN_PROFILE_SUCCESS: null,
     REQUEST_OWN_PROFILE_ERROR  : null,

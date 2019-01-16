@@ -39,6 +39,7 @@ function loadStories() {
     require('../stories/NetworkLine.stories');
     require('../stories/OtherUserBottomNavBar.stories');
     require('../stories/OtherUserProposalCard.stories');
+    require('../stories/OwnUserBottomNavBar.stories');
     require('../stories/OwnProposalCard.stories');
     require('../stories/Overlay.stories');
     require('../stories/ProgressBar.stories');

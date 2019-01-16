@@ -52,6 +52,10 @@ export function getOtherUser(slug, url = `profile/${slug}/page`) {
     return getData(url);
 }
 
+export function getOwnUserPage(url = `profile/page`) {
+    return getData(url);
+}
+
 export function editProfile(data, url = `profile`) {
     return putData(url, data);
 }

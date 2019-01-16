@@ -17,9 +17,16 @@ class NaturalCategoryStore extends BaseStore {
     _registerToActions(action) {
         waitFor([UserStore.dispatchToken, LoginStore.dispatchToken]);
         super._registerToActions(action);
+        let slug;
         switch (action.type) {
             case ActionTypes.REQUEST_OTHER_USER_SUCCESS:
-                const slug = action.slug;
+                slug = action.slug;
+                this._initialize(slug);
+                this._natural[slug] = action.response.naturalProfile;
+                this.emitChange();
+                break;
+            case ActionTypes.REQUEST_OWN_USER_PAGE_SUCCESS:
+                slug = LoginStore.user.slug;
                 this._initialize(slug);
                 this._natural[slug] = action.response.naturalProfile;
                 this.emitChange();
@@ -33,6 +40,8 @@ class NaturalCategoryStore extends BaseStore {
     }
 
     get(slug) {
+        this._initialize(slug);
+
         return this._natural[slug];
     }
 }

@@ -284,6 +284,13 @@ export default {
         answers   : 'Answers',
         interests : 'Interests',
     },
+    OwnUserBottomNavBar: {
+        aboutMe  : 'About me',
+        networks : 'Networks',
+        friends  : 'Friends',
+        answers  : 'Answers',
+        interests: 'Interests',
+    },
     OtherUserProposalsPage           : {
         topNavBarText : '%username% proposals',
         orderBy       : 'Order by %orderBy%',

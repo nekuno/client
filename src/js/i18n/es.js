@@ -284,6 +284,13 @@ export default {
         answers   : 'Respuestas',
         interests : 'Intereses',
     },
+    OwnUserBottomNavBar: {
+        aboutMe  : 'Sobre mi',
+        networks : 'Redes',
+        friends  : 'Amigos',
+        answers  : 'Respuestas',
+        interests: 'Intereses',
+    },
     OtherUserProposalsPage           : {
         topNavBarText : 'Propuestas de %username%',
         orderBy       : 'Ordenar por %orderBy%',

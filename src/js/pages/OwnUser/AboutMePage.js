@@ -1,25 +1,28 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import styles from './AboutMePage.scss';
-import translate from '../../i18n/Translate';
-import TopNavBar from '../../components/TopNavBar/TopNavBar.js';
 import '../../../scss/pages/other-user/proposals.scss';
+import translate from '../../i18n/Translate';
 import connectToStores from "../../utils/connectToStores";
+import AuthenticatedComponent from "../../components/AuthenticatedComponent";
 import MatchingStore from "../../stores/MatchingStore";
 import SimilarityStore from "../../stores/SimilarityStore";
 import ProfileStore from "../../stores/ProfileStore";
 import GalleryPhotoStore from "../../stores/GalleryPhotoStore";
 import NaturalCategoryStore from "../../stores/NaturalCategoryStore";
-import * as UserActionCreators from "../../actions/UserActionCreators";
 import UserStore from "../../stores/UserStore";
 import LoginStore from "../../stores/LoginStore";
+import * as UserActionCreators from "../../actions/UserActionCreators";
+import LoginActionCreators from "../../actions/LoginActionCreators";
+import UploadImageService from "../../services/UploadImageService";
+import TopNavBar from '../../components/TopNavBar/TopNavBar.js';
 import LoadingGif from "../../components/ui/LoadingGif/LoadingGif";
 import UserTopData from "../../components/ui/UserTopData/UserTopData";
 import NaturalCategory from "../../components/profile/NaturalCategory/NaturalCategory";
 import AboutMeCategory from "../../components/profile/AboutMeCategory/AboutMeCategory";
 import SliderPhotos from "../../components/ui/SliderPhotos/SliderPhotos";
-import OtherUserBottomNavBar from "../../components/ui/OtherUserBottomNavBar/OtherUserBottomNavBar";
 import OwnUserBottomNavBar from "../../components/ui/OwnUserBottomNavBar/OwnUserBottomNavBar";
+import RoundedIcon from "../../components/ui/RoundedIcon/RoundedIcon";
 
 function requestData(props) {
     UserActionCreators.requestOwnUserPage(props.params.slug);
@@ -48,7 +51,7 @@ function getState(props) {
     const natural = NaturalCategoryStore.get(slug);
 
     return {
-        isLoading  : false,
+        isLoading: false,
         username,
         location,
         age,
@@ -58,6 +61,7 @@ function getState(props) {
     };
 }
 
+@AuthenticatedComponent
 @translate('OwnUserAboutMePage')
 @connectToStores([UserStore, MatchingStore, SimilarityStore, ProfileStore, GalleryPhotoStore, NaturalCategoryStore], getState)
 export default class AboutMePage extends Component {
@@ -78,13 +82,19 @@ export default class AboutMePage extends Component {
         router: PropTypes.object.isRequired
     };
 
+    constructor(props) {
+        super(props);
+
+        this.uploadPhoto = this.uploadPhoto.bind(this);
+    }
+
     componentDidMount() {
         requestData(this.props);
     }
 
     getPhotos(photos) {
         //TODO: TESTING
-        return ['https://cdn5.img.sputniknews.com/images/105967/95/1059679556.jpg'];
+        // return ['https://cdn5.img.sputniknews.com/images/105967/95/1059679556.jpg'];
         return photos.map((photo) => {
             return photo.url
         })
@@ -104,12 +114,19 @@ export default class AboutMePage extends Component {
         })
     }
 
+    uploadPhoto(e) {
+        e.preventDefault();
+
+        const userId = this.props.user.id;
+        UploadImageService.uploadPhoto(e, userId);
+    }
+
     logout() {
-        alert('Here should be logging out');
+        LoginActionCreators.logoutUser();
     }
 
     render() {
-        const {photos, isLoading, username, location, age, natural, slug} = this.props;
+        const {photos, isLoading, username, location, age, natural} = this.props;
 
         return (
             <div className="views">
@@ -132,6 +149,10 @@ export default class AboutMePage extends Component {
                         :
                         <div className={styles.loaded}>
                             <SliderPhotos photos={this.getPhotos(photos)}/>
+                            <div className={styles.uploadWrapper}>
+                                <div className={styles.roundedIcon}><RoundedIcon icon="image" size="medium" background="lightgray"/></div>
+                                <div className={styles.input}><input style={{opacity: 0}} type='file' ref='fileInput' onChange={this.uploadPhoto}/></div>
+                            </div>
 
                             <div className={styles.topData}>
                                 <UserTopData username={username} age={age} location={{locality: location}} usernameColor={'black'} subColor={'grey'}/>

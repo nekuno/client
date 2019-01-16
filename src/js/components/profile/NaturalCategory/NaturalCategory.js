@@ -46,7 +46,7 @@ export default class NaturalCategory extends Component {
         return (
             <div className={styles.naturalCategory}>
                 <div className={styles.icon}>
-                    <RoundedIcon icon={icon} size={'medium'} background={background} fontSize={'24px'}/>
+                    <RoundedIcon icon={icon} size={'medium'} background={background} fontSize={'24px'} disabled={true}/>
                 </div>
                 <div className={styles.text}>
                     {text}

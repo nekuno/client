@@ -10,19 +10,28 @@
   font-size: 14px;
   margin: 2.5%;
   padding: 0;
+  //TODO: Move from here to CardContentList
+  width: 45%;
+  height: 250px;
 
-  .content-image {
-    height: 100%;
-    overflow: hidden;
-    position: relative;
-    width: 100%;
+  .content-image-wrapper {
+    //height: 100%;
+    //overflow: hidden;
+    //position: relative;
+    //width: 100%;
 
     img {
       border-radius: 10px 10px 0 0;
       -moz-border-radius: 10px 10px 0 0;
       -webkit-border-radius: 10px 10px 0 0;
-      width: 360px;
-      height: 180px;
+      width: 100%;
+      height: 150px;
     }
+  }
+
+  .footer {
+    width: 40px;
+    float: right;
+    margin-top: 10px;
   }
 }

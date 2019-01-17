@@ -1,24 +1,18 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import styles from './AboutMePage.scss';
-import translate from '../../i18n/Translate';
-import TopNavBar from '../../components/TopNavBar/TopNavBar.js';
 import '../../../scss/pages/other-user/proposals.scss';
-import CardContentList from '../../components/interests/CardContentList';
+import translate from '../../i18n/Translate';
 import connectToStores from "../../utils/connectToStores";
+import AuthenticatedComponent from "../../components/AuthenticatedComponent";
 import MatchingStore from "../../stores/MatchingStore";
 import SimilarityStore from "../../stores/SimilarityStore";
-import ProfileStore from "../../stores/ProfileStore";
-import GalleryPhotoStore from "../../stores/GalleryPhotoStore";
-import NaturalCategoryStore from "../../stores/NaturalCategoryStore";
-import * as UserActionCreators from "../../actions/UserActionCreators";
-import UserStore from "../../stores/UserStore";
-import NaturalCategory from "../../components/profile/NaturalCategory/NaturalCategory";
-import AboutMeCategory from "../../components/profile/AboutMeCategory/AboutMeCategory";
-import { ORIGIN_CONTEXT } from "../../constants/Constants";
 import InterestStore from "../../stores/InterestStore";
+import UserStore from "../../stores/UserStore";
+import * as UserActionCreators from "../../actions/UserActionCreators";
 import * as InterestsActionCreators from "../../actions/InterestsActionCreators";
-import AuthenticatedComponent from "../../components/AuthenticatedComponent";
+import TopNavBar from '../../components/TopNavBar/TopNavBar.js';
+import CardContentList from '../../components/interests/CardContentList';
 
 function parseId(user) {
     return user ? user.id : null;
@@ -65,13 +59,13 @@ function getState(props) {
         otherUser,
         type,
         showOnlyCommon,
-        requestComparedInterestsUrl
+        requestInterestsUrl: requestComparedInterestsUrl
     };
 }
 
 @AuthenticatedComponent
 @translate('OtherUserInterestsPage')
-@connectToStores([UserStore, MatchingStore, SimilarityStore, ProfileStore, GalleryPhotoStore, NaturalCategoryStore], getState)
+@connectToStores([UserStore, MatchingStore, SimilarityStore, InterestStore], getState)
 export default class InterestsPage extends Component {
 
     static propTypes = {
@@ -110,50 +104,14 @@ export default class InterestsPage extends Component {
             const otherUserId = parseId(otherUser);
             const userId = parseId(user);
 
-            InterestsActionCreators.requestComparedInterests(userId, otherUserId, this.props.requestComparedInterestsUrl);
+            InterestsActionCreators.requestComparedInterests(userId, otherUserId, this.props.requestInterestsUrl);
         }
-    }
-
-    constructor(props) {
-        super(props);
-
-        this.likeUser = this.likeUser.bind(this);
-        this.dislikeUser = this.dislikeUser.bind(this);
-    }
-
-    likeUser() {
-        const from = this.props.ownUserSlug;
-        const to = this.props.params.slug;
-
-        UserActionCreators.likeUser(from, to, ORIGIN_CONTEXT.OTHER_USER_PAGE, to);
-    }
-
-    dislikeUser() {
-        const from = this.props.ownUserSlug;
-        const to = this.props.params.slug;
-
-        UserActionCreators.dislikeUser(from, to, ORIGIN_CONTEXT.OTHER_USER_PAGE, to);
     }
 
     getPhotos(photos) {
         return photos.map((photo) => {
             // return <img src={photo.url} alt={'photo'}/>
             return photo.url
-        })
-    }
-
-    getNatural(natural) {
-        return Object.keys(natural).map((type) => {
-            const text = natural[type];
-            return <div key={type} className={styles.naturalCategory}>
-                {
-                    type === 'About Me' ?
-                        <AboutMeCategory text={text}/>
-                        :
-                        <NaturalCategory category={type} text={text}/>
-                }
-            </div>
-
         })
     }
 
@@ -167,7 +125,7 @@ export default class InterestsPage extends Component {
     }
 
     render() {
-        const {strings, interests, isLoadingComparedInterests} = this.props;
+        const {strings, interests, isLoadingComparedInterests, noInterests} = this.props;
         return (
             <div className="views">
                 <div className="view other-user-proposals-view">
@@ -179,8 +137,10 @@ export default class InterestsPage extends Component {
                         />
                     </div>
 
-                    <CardContentList contents={interests}
-                                     onBottomScroll={this.onBottomScroll.bind(this)} isLoading={isLoadingComparedInterests}/>
+                    {noInterests ? '' :
+                        <CardContentList contents={interests}
+                                         onBottomScroll={this.onBottomScroll.bind(this)} isLoading={isLoadingComparedInterests}/>
+                    }
 
                 </div>
             </div>

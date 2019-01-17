@@ -10,14 +10,14 @@ import ContentTypeIcon from "../ContentTypeIcon/ContentTypeIcon";
 export default class CardContent extends Component {
 
     static propTypes = {
-        title       : PropTypes.string,
-        description : PropTypes.string,
-        type        : PropTypes.string.isRequired,
-        network     : PropTypes.string.isRequired,
-        url         : PropTypes.string.isRequired,
-        embed_id    : PropTypes.string,
-        embed_type  : PropTypes.string,
-        thumbnail   : PropTypes.string,
+        title      : PropTypes.string,
+        description: PropTypes.string,
+        types      : PropTypes.array.isRequired,
+        // network    : PropTypes.string.isRequired,
+        url        : PropTypes.string.isRequired,
+        embed_id   : PropTypes.string,
+        embed_type : PropTypes.string,
+        thumbnail  : PropTypes.string,
     };
 
     constructor(props) {
@@ -78,11 +78,17 @@ export default class CardContent extends Component {
         e.preventDefault();
     }
 
+    getType(types)
+    {
+        return types.find((type) => {return type !== 'Link'});
+    }
+
     render() {
         const {title, description, types, thumbnail, url, strings} = this.props;
         const cardTitle = title ? title.length > 20 ? title.substr(0, 20) + '...' : title : strings.emptyTitle;
         const subTitle = description ? <div>{description.substr(0, 20)}{description.length > 20 ? '...' : ''}</div> : '';
-        const isImage = types.indexOf('Image') > -1;
+        const type = this.getType(types);
+        const isImage = type === 'Image';
         const defaultSrc = 'img/default-content-image.jpg';
         let imgSrc = defaultSrc;
         if (thumbnail) {
@@ -91,22 +97,24 @@ export default class CardContent extends Component {
             imgSrc = url;
         }
         imgSrc = LinkImageService.getThumbnail(imgSrc, 'medium');
+        //TODO: testing:
+        imgSrc = 'https://cdn.hobbyconsolas.com/sites/navi.axelspringer.es/public/media/image/2017/03/evolucion-link.jpg';
 
         return (
             <div className={styles.cardContent}>
                 {isImage ?
                     <div>
                         <div className={styles.contentImageFullWrapper}>
-                            <img src={imgSrc} alt={imgSrc}/>
-                            <NetworkLine network={network}/>
+                            <img src={imgSrc} alt=''/>
+                            {/*<NetworkLine network={network}/>*/}
                         </div>
                     </div>
                     :
                     <div>
                         <div className={styles.contentImageWrapper}>
-                            <img src={""} alt=""/>
+                            <img src={imgSrc} alt=''/>
                         </div>
-                        <NetworkLine network={network}/>
+                        {/*<NetworkLine network={network}/>*/}
                         <div className={styles.cardTitle} onClick={this.handleClick}>
                             <a href={url} onClick={this.preventDefault}>
                                 {cardTitle}

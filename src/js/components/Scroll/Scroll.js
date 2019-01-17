@@ -82,6 +82,7 @@ export default class Scroll extends Component {
         const scrollBehavior = this.context.scrollBehavior.scrollBehavior;
         const containerId = this.props.containerId;
 
+        console.log('scroll');
         scrollBehavior._saveElementPosition(containerId);
 
         this.isAtBottom() && !this.props.loading ? this.onLoad() : null;
@@ -148,7 +149,7 @@ export default class Scroll extends Component {
 
         return wrappedItems.map((wrappedItem, index) => {
             return (
-                <div key={index}>
+                <div key={index} style={{display: 'flex'}}>
                     {wrappedItem}
                 </div>
             );

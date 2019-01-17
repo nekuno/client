@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import styles from './CardContentList.scss';
 import CardContent from '../ui/CardContent/CardContent';
 import EmptyMessage from '../ui/EmptyMessage';
 import Scroll from '../Scroll/Scroll';
@@ -38,20 +39,35 @@ export default class CardContentList extends Component {
                 [<div key="empty-message"><EmptyMessage text={strings.loading} loadingGif={true}/></div>]
                 : [<div key="empty-message"><EmptyMessage text={strings.empty} loadingGif={false}/></div>];
         }
-        return contents.map((content, index) => {
+        //TESTING:
+        let contents1 = contents.map((content, index) => {
             return this.buildCardContent(content, index);
         });
+
+        let contents2 = contents.map((content, index) => {
+            return this.buildCardContent(content, index);
+        });
+
+        let contents3 = contents.map((content, index) => {
+            return this.buildCardContent(content, index);
+        });
+
+        let contents4 = contents.map((content, index) => {
+            return this.buildCardContent(content, index);
+        });
+
+        return contents1.concat(contents2).concat(contents3).concat(contents4);
     }
 
     render() {
         return (
-            <div className="content-list">
+            <div className={styles.cardContentList} id="content-list">
                 <Scroll
                     items={this.getCardContents()}
                     firstItems={this.props.firstItems}
                     columns={2}
                     onLoad={this.props.onBottomScroll}
-                    containerId="interests-view-main"
+                    containerId="content-list"
                     loading={this.props.isLoading}
                 />
             </div>

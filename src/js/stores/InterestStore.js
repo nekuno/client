@@ -161,7 +161,7 @@ class InterestStore extends BaseStore {
     }
 
     get(id) {
-        return this._interests[id];
+        return this._interests[id] || [];
     }
 
     noInterests(id) {

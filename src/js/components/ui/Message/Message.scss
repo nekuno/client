@@ -1,0 +1,45 @@
+@import '../../../../scss/_partials/colors';
+
+
+.notification {
+  margin: 0 12px;
+  .notification-text-right {
+    display: flex;
+    justify-content: space-between;
+    .notification-excerpt {
+      text-align: right;
+      max-width: 80%;
+      margin: 1px 0;
+      border: 1px solid $gray-border;
+      padding: 6px 12px;
+      border-radius: 20px 0 20px 20px;
+      background-color: $background;
+      span {
+        line-height: 24px;
+      }
+    }
+    .notification-excerpt-padding {
+      width: 20%;
+    }
+  }
+
+  .notification-text {
+    display: flex;
+    justify-content: space-between;
+    .notification-excerpt {
+      text-align: left;
+      max-width: 80%;
+      margin: 1px 0;
+      border: 1px solid $gray-border;
+      padding: 6px 12px;
+      border-radius: 0 20px 20px 20px;
+      background-color: $background-white;
+      span {
+        line-height: 24px;
+      }
+    }
+    .notification-excerpt-padding {
+      width: 20%;
+    }
+  }
+}

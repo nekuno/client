@@ -2,8 +2,10 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import moment from 'moment';
 import Emojify from 'react-emojione';
-import Image from './Image';
-import ChatActionCreators from '../../actions/ChatActionCreators';
+import Image from '../Image';
+import ChatActionCreators from '../../../actions/ChatActionCreators';
+import styles from './Message.scss';
+
 
 export default class Message extends Component {
 
@@ -42,34 +44,35 @@ export default class Message extends Component {
         return (
             <div>
                 {mine ?
-                    <div className="notification">
-                        <div className="notification-text-right">
-                            <div className="notification-excerpt break-words">
+                    <div className={styles.notification}>
+                        <div className={styles.notificationTextRight}>
+                            {/*<div className={styles.notificationExcerpt + ' ' + styles.breakWords}>*/}
+                            <div className={styles.notificationExcerptPadding}>
+
+                            </div>
+                            <div className={styles.notificationExcerpt}>
                                 <Emojify><span>{text}</span></Emojify>
                             </div>
-                            <div className="notification-time" title={createdAt.toLocaleString()}>
-                                <span className="icon-clock"></span>&nbsp;
-                                <span className="notification-time-text">{moment(createdAt).fromNow()}</span>
-                            </div>
                         </div>
-                        <div className="notification-picture-right">
-                            <Image src={imageSrc} onError={this.requestMessages}/>
-                        </div>
+                        {/*<div className="notification-time" title={createdAt.toLocaleString()}>*/}
+                            {/*<span className="icon-clock"></span>&nbsp;*/}
+                            {/*<span className="notification-time-text">{moment(createdAt).fromNow()}</span>*/}
+                        {/*</div>*/}
                     </div>
                     :
-                    <div className="notification">
-                        <div className="notification-picture" onClick={() => this.context.router.push(userLink)}>
-                            <Image src={imageSrc} onError={this.requestMessages}/>
-                        </div>
-                        <div className="notification-text">
-                            <div className="notification-excerpt" style={style}>
+                    <div className={styles.notification}>
+                        <div className={styles.notificationText}>
+                            <div className={styles.notificationExcerpt} style={style}>
                                 <Emojify><span>{text}</span></Emojify>
                             </div>
-                            <div className="notification-time" title={createdAt.toLocaleString()}>
-                                <span className="icon-clock"></span>&nbsp;
-                                <span className="notification-time-text">{moment(createdAt).fromNow()}</span>
+                            <div className={styles.notificationExcerptPadding}>
+
                             </div>
                         </div>
+                        {/*<div className="notification-time" title={createdAt.toLocaleString()}>*/}
+                            {/*<span className="icon-clock"></span>&nbsp;*/}
+                            {/*<span className="notification-time-text">{moment(createdAt).fromNow()}</span>*/}
+                        {/*</div>*/}
                     </div>
                 }
             </div>

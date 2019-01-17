@@ -1,7 +1,7 @@
 export default {
     API_ROOT                : 'http://brain.local.nekuno.com/index.php/',
-    INVITATIONS_ROOT        : 'http://client.local.nekuno.com/#/register/',
-    SHARED_USER_ROOT        : 'http://client.local.nekuno.com/#/p/',
+    INVITATIONS_ROOT        : 'http://m.local.nekuno.com/#/register/',
+    SHARED_USER_ROOT        : 'http://m.local.nekuno.com/#/p/',
     INSTANT_HOST            : 'https://local.nekuno.com:8008/',
     IMAGINE_ROOT            : 'https://imagine.local.nekuno.com/index.php/media/cache/',
     FACEBOOK_ID             : 525923770862645,

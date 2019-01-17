@@ -84,7 +84,6 @@ export default class Scroll extends Component {
 
         console.log('scroll');
         scrollBehavior._saveElementPosition(containerId);
-
         this.isAtBottom() && !this.props.loading ? this.onLoad() : null;
     }
 
@@ -179,7 +178,7 @@ export default class Scroll extends Component {
         const {mustRender} = this.state;
 
         return mustRender ?
-            <div id="infinite-scroll" onScroll={this.handleScroll} style={{height: this.getHeight()}}>
+            <div id="infinite-scroll" onScroll={this.handleScroll} style={{height: this.getHeight(), overflowY: 'scroll'}}>
                 {this.renderScroll()}
             </div>
             : null;
@@ -191,7 +190,7 @@ Scroll.defaultProps = {
     },
     firstItems: [],
     items     : [],
-    itemHeight: 360,
+    itemHeight: 100,
     columns   : 1,
     loading   : false,
 };

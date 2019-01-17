@@ -156,6 +156,8 @@ export default keyMirror({
     SKIP_QUESTION_SUCCESS: null,
     SKIP_QUESTION_ERROR  : null,
 
+    ORDER_QUESTIONS : null,
+
     REQUEST_OWN_INTERESTS        : null,
     REQUEST_OWN_INTERESTS_SUCCESS: null,
     REQUEST_OWN_INTERESTS_ERROR  : null,

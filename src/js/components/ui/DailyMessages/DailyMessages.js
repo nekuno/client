@@ -1,7 +1,9 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import Message from './Message';
+import Message from '../Message/Message';
 import moment from 'moment';
+import styles from './DailyMessages.scss';
+
 
 export default class DailyMessages extends Component {
 
@@ -11,15 +13,19 @@ export default class DailyMessages extends Component {
         canContact: PropTypes.bool
     };
 
+
     render() {
         const {userLink, canContact} = this.props;
         let dates = [];
         let messagesByDate = [];
+
+        console.log(this.props.messages);
+
         this.props.messages.forEach((message) => {
             let date = moment(message.createdAt).format('YYYYMMDD');
             if (dates.indexOf(date) === -1) {
                 dates.push(date);
-                messagesByDate.push(<div key={date} className="daily-message-title">{moment(date).format('dddd, D MMMM YYYY')}</div>);
+                messagesByDate.push(<div key={date} className={styles.dailyMessageTitle}>{moment(date).format('dddd, D MMMM YYYY')}</div>);
                 messagesByDate.push(<Message key={message.id} message={message} userLink={userLink}/>);
             } else {
                 messagesByDate.push(<Message key={message.id} message={message} userLink={userLink}/>);

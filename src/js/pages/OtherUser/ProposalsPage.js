@@ -28,10 +28,8 @@ function requestData(props) {
 function getState(props) {
     const {params} = props;
     const slug = params.slug;
-    // const otherUser = ProposalStore.getAll(slug);
     const otherUser = UserStore.getBySlug(slug);
 
-    console.log(otherUser);
     const proposals = ProposalStore.getAll(slug);
 
     return {
@@ -54,7 +52,7 @@ export default class ProposalsPage extends Component {
         // Injected by @translate:
         strings   : PropTypes.object,
         // Injected by @connectToStores:
-        otherUser : PropTypes.array,
+        otherUser : PropTypes.object,
         proposals : PropTypes.array,
     };
 
@@ -69,8 +67,6 @@ export default class ProposalsPage extends Component {
         this.handleClickOtherUserProposalCard = this.handleClickOtherUserProposalCard.bind(this);
 
         this.onClickSelectCollapsible = this.onClickSelectCollapsible.bind(this);
-
-        this.state = null;
     }
 
     componentDidMount() {
@@ -86,22 +82,13 @@ export default class ProposalsPage extends Component {
     }
 
     onClickSelectCollapsible(orderCriteria) {
-        const {proposals, slug} = this.props;
-        // console.log(proposals);
-        // console.log(this.state.proposals);
-        // lanzar accion en ProposalStore (slug, criterio)
+        const {slug} = this.props;
         ProposalActionCreators.orderProposals(orderCriteria, slug);
-        // this.setState({
-        //     proposals: this.orderBy(id, proposals)
-        // });
     }
 
 
     render() {
         const {strings, otherUser, proposals} = this.props;
-
-        console.log('onRender');
-        console.log(proposals);
 
         const options = [
             {
@@ -132,9 +119,7 @@ export default class ProposalsPage extends Component {
                             <SelectCollapsible
                                 selected={'work'}
                                 options={options}
-                                onClickSelectCollapsible={this.onClickSelectCollapsible}
-                                title={strings.orderBy.replace('%orderBy%', 'Experiences')}/>
-
+                                onClickSelectCollapsible={this.onClickSelectCollapsible}/>
                         </div>
                         {proposals ?
                             proposals.map((proposal, proposalIndex) =>

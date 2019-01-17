@@ -92,3 +92,24 @@
     }
   }
 }
+
+.offline {
+  width: 10px;
+  height: 10px;
+  background-color: $red;
+  top: 42px;
+  right: 16px;
+  position: absolute;
+  border-radius: 10px;
+  border: 2px solid #fff;
+}
+.online {
+  width: 10px;
+  height: 10px;
+  background-color: $green;
+  top: 42px;
+  right: 16px;
+  position: absolute;
+  border-radius: 10px;
+  border: 2px solid #fff;
+}

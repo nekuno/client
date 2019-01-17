@@ -38,6 +38,7 @@ export default class TopNavBar extends Component {
         onSearchChange               : PropTypes.func,
         onRightLinkClickHandler      : PropTypes.func,
         onSecondRightLinkClickHandler: PropTypes.func,
+        online                       : PropTypes.bool,
         children                     : PropTypes.object,
     };
 
@@ -113,6 +114,7 @@ export default class TopNavBar extends Component {
             textRight,
             textRightColored,
             searchInput,
+            online,
             children
         } = this.props;
         const {searching} = this.state;
@@ -181,10 +183,18 @@ export default class TopNavBar extends Component {
                                 : null
                             }
                             {imageRight ?
-                                <RoundedImage url={imageRight}
-                                              size="small"
-                                              onClickHandler={this.props.onRightLinkClickHandler}
-                                />
+                                <div>
+                                    <RoundedImage url={imageRight}
+                                                  size="small"
+                                                  onClickHandler={this.props.onRightLinkClickHandler}
+                                    />
+                                    {online !== undefined ?
+                                        online ?
+                                        <div className={styles.online}></div>
+                                            : <div className={styles.offline}></div>
+                                        : null
+                                    }
+                                </div>
                                 : null
                             }
                             {messagesIcon ?

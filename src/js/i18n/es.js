@@ -278,18 +278,12 @@ export default {
         empty                : 'No hay intereses con estos filtros',
         reported             : 'El contenido ha sido reportado. Lo revisaremos en las próximas 24 horas'
     },
-    OtherUserBottomNavBar            : {
-        aboutMe   : 'Sobre mi',
-        proposals : 'Propuestas',
-        answers   : 'Respuestas',
-        interests : 'Intereses',
-    },
-    OwnUserBottomNavBar: {
-        aboutMe  : 'Sobre mi',
-        networks : 'Redes',
-        friends  : 'Amigos',
-        answers  : 'Respuestas',
-        interests: 'Intereses',
+    OtherUserAnswersPage           : {
+        topNavBarText             : 'Respuestas de %username%',
+        affinity                  : 'Afinidad',
+        compatibility             : 'Compatibilidad',
+        loading                   : 'Cargando preguntas',
+        otherNotAnsweredQuestions : 'Comprueba si sois compatible',
     },
     OtherUserProposalsPage           : {
         topNavBarText : 'Propuestas de %username%',
@@ -805,6 +799,19 @@ export default {
         leisure   : 'Plan de ocio',
         experience: 'Experiencia'
     },
+    OtherUserBottomNavBar            : {
+        aboutMe   : 'Sobre mi',
+        proposals : 'Propuestas',
+        answers   : 'Respuestas',
+        interests : 'Intereses',
+    },
+    OwnUserBottomNavBar: {
+        aboutMe  : 'Sobre mi',
+        networks : 'Redes',
+        friends  : 'Amigos',
+        answers  : 'Respuestas',
+        interests: 'Intereses',
+    },
     LeftPanel                        : {
         interests     : 'Intereses',
         threads       : 'Descubrir',
@@ -954,6 +961,9 @@ export default {
     AnswerQuestion                   : {
         noMoreQuestions: 'No hay más preguntas',
         loading        : 'Cargando pregunta'
+    },
+    AnswerQuestionCard               : {
+        answerQuestion      : 'Responde para ver su pregunta',
     },
     AnswerQuestionForm               : {
         you        : 'Tú',
@@ -1128,13 +1138,6 @@ export default {
     },
     SelectCollapsible                : {
         orderBy     : 'Ordenar por',
-        work        : 'Trabajo',
-        shows       : 'Experiencia',
-        restaurants : 'Experiencia',
-        plans       : 'Experiencia',
-        sports      : 'Ocio',
-        hobbies     : 'Ocio',
-        games       : 'Ocio',
     },
     FilterContentButtonsList         : {
         videos  : 'Videos',

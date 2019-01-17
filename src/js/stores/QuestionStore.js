@@ -7,6 +7,7 @@ import UserStore from './UserStore';
 import LoginStore from './LoginStore';
 import { getValidationErrors } from '../utils/StoreUtils';
 import BaseStore from './BaseStore';
+import React from "react";
 
 class QuestionStore extends BaseStore {
     setInitial() {
@@ -184,6 +185,10 @@ class QuestionStore extends BaseStore {
             case ActionTypes.REQUEST_STATS_SUCCESS:
                 this._answersLength = action.response.numberOfQuestionsAnswered;
                 this.emitChange();
+            case ActionTypes.ORDER_QUESTIONS:
+                this._questions = this.orderBy(action.orderCriteria, this._questions, action.otherUserQuestions, action.userQuestions);
+                this.emitChange();
+                break;
         }
     }
 
@@ -333,6 +338,22 @@ class QuestionStore extends BaseStore {
         sortable.forEach((question, index) => {
             this._comparedOrder[userId][question.question.questionId] = this._comparedOrder[userId][question.question.questionId] !== undefined ? this._comparedOrder[userId][question.question.questionId] : index + comparedOrderLength;
         });
+    }
+
+    orderBy(orderCriteria, questions, otherUserQuestions, userQuestions) {
+        let questionsWithOrderCriteria = [];
+        //
+        // questions.forEach(function (item, key) {
+        //     if (item.type === orderCriteria) {
+        //         questionsWithOrderCriteria.push(item);
+        //     }
+        // });
+        // questions.forEach(function (item, key) {
+        //     if (item.type !== orderCriteria) {
+        //         questionsWithOrderCriteria.push(item);
+        //     }
+        // });
+        return questionsWithOrderCriteria;
     }
 
 }

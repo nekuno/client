@@ -99,6 +99,8 @@ import ProposalsExperiencePreviewPage           from "./pages/Proposals/Experien
 import OtherUserProposalsPage from "./pages/OtherUser/ProposalsPage";
 import OtherUserAboutMePage from "./pages/OtherUser/AboutMePage";
 import OwnUserAboutMePage from "./pages/OwnUser/AboutMePage";
+import OtherUserAnswersPage from "./pages/OtherUser/AnswersPage";
+
 
 function requireAuth(nextState, replaceState) {
 
@@ -170,6 +172,7 @@ export default class Root extends Component {
                         <Route name="proposals-experience-features" path="/proposals-experience-features" component={ProposalsExperienceFeaturesPage}/>
                         <Route name="proposals-experience-preview" path="/proposals-experience-preview" component={ProposalsExperiencePreviewPage}/>
                         <Route name="other-user-proposals" path="/p/:slug/proposals" component={OtherUserProposalsPage}/>
+                        <Route name="other-user-answers" path="/p/:slug/answers" component={OtherUserAnswersPage}/>
                         <Route name="persons" path="/persons" component={PersonsPage}/>
                         <Route name="persons-all" path="/persons-all" component={PersonsAllPage}/>
                         <Route name="persons-filter" path="/persons-filter/:threadId" component={PersonsFilterPage}/>

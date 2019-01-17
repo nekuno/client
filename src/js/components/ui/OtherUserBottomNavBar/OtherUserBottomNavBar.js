@@ -9,7 +9,7 @@ export default class OtherUserBottomNavBar extends Component {
 
     static propTypes = {
         userSlug       : PropTypes.string,
-        current        : PropTypes.oneOf(['about-me', 'proposals', 'persons', 'plans', 'messages']),
+        current        : PropTypes.oneOf(['about-me', 'proposals', 'messages', 'answers', 'interests']),
         notifications  : PropTypes.number,
         onClickHandler : PropTypes.func
     };

@@ -2,6 +2,7 @@ import { dispatchAsync, dispatch, waitFor } from '../dispatcher/Dispatcher';
 import ActionTypes from '../constants/ActionTypes';
 import * as QuestionAPI from '../api/QuestionAPI';
 import QuestionStore from '../stores/QuestionStore';
+import * as UserActionCreators from "./UserActionCreators";
 
 export function requestQuestions(userId, link) {
     const isLoading = QuestionStore.isLoadingOwnQuestions();
@@ -14,6 +15,14 @@ export function requestQuestions(userId, link) {
         success: ActionTypes.REQUEST_QUESTIONS_SUCCESS,
         failure: ActionTypes.REQUEST_QUESTIONS_ERROR
     }, {userId});
+}
+
+export function requestQuestionsBySlug(userSlug) {
+    const user = UserActionCreators.requestUser(userSlug, []);
+    return user.then(function (userData) {
+        const userId = Object.keys(userData.entities.users)[0];
+        return requestComparedQuestions(userId, QuestionStore.getRequestComparedQuestionsUrl(userId, []));
+    });
 }
 
 export function requestComparedQuestions(otherUserId, link) {
@@ -91,4 +100,8 @@ export function popupDisplayed() {
 export function setQuestionEditable(questionId)
 {
     dispatch(ActionTypes.SET_QUESTION_EDITABLE, {questionId});
+}
+
+export function orderQuestions(orderCriteria, slug) {
+    dispatch(ActionTypes.ORDER_QUESTIONS, {orderCriteria, slug});
 }

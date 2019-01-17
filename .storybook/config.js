@@ -3,6 +3,7 @@ import '../src/scss/layout.scss';
 
 function loadStories() {
     require('../stories/AboutMeCategory.stories');
+    require('../stories/AnswerQuestionCard.stories');
     require('../stories/AvailabilityEdit.stories');
     require('../stories/ProposalFilterPreview');
     require('../stories/Banner.stories');
@@ -59,6 +60,9 @@ function loadStories() {
     require('../stories/TopBar.stories');
     require('../stories/TopNavBar.stories');
     require('../stories/UserTopData.stories');
+    require('../stories/QuestionMatch.stories');
+    require('../stories/QuestionNotMatch.stories');
+    require('../stories/QuestionPartialMatch.stories');
 
     // require as many stories as you need.
 }

@@ -94,9 +94,6 @@ class QuestionStore extends BaseStore {
                 this.emitChange();
                 break;
             case ActionTypes.REQUEST_COMPARED_QUESTIONS_SUCCESS:
-                if (this._otherNotAnsweredQuestions[action.otherUserId]) {
-                    console.log(Object.keys(this._otherNotAnsweredQuestions[action.otherUserId]).length);
-                }
                 let items = action.response.items;
                 const otherUserId = action.otherUserId;
                 const otherQuestions = items.otherQuestions.questions ? items.otherQuestions.questions : {};
@@ -120,9 +117,6 @@ class QuestionStore extends BaseStore {
                 this._loadingComparedQuestions = false;
 
                 mergeIntoBag(this._questions, newItems);
-                // if (this._otherNotAnsweredQuestions[action.otherUserId]) {
-                    console.log(this._otherNotAnsweredQuestions);
-                // }
                 this.emitChange();
                 break;
             case ActionTypes.REQUEST_LOGIN_USER_SUCCESS:

@@ -5,6 +5,7 @@ body #root .App .views .view.other-user-answers-view {
   color: $gray-main-text;
   // text-align: center;
   z-index: 0;
+  overflow-y: hidden;
 
   .other-user-answers-view-wrapper {
     .select-collapsible-wrapper {

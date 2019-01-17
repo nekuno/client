@@ -15,6 +15,7 @@ import QuestionPartialMatch from "../../components/ui/QuestionPartialMatch/Quest
 import Scroll from "../../components/Scroll/Scroll";
 import EmptyMessage from "../../components/ui/EmptyMessage";
 import QuestionNotMatch from "../../components/ui/QuestionNotMatch/QuestionNotMatch";
+import ProposalStore from "../../stores/ProposalStore";
 
 /**
  * Requests data from server (or store) for current props.
@@ -34,6 +35,7 @@ function getState(props) {
     const otherNotAnsweredQuestions = otherUser ? QuestionStore.getOtherNotAnsweredQuestions(otherUser.id) : null;
     const isLoadingOwnQuestions = QuestionStore.isLoadingComparedQuestions();
     const requestQuestionsUrl = otherUser ? QuestionStore.getRequestComparedQuestionsUrl(otherUser.id, []) : null;
+
 
     return {
         otherUser,
@@ -124,55 +126,48 @@ export default class AnswersPage extends Component {
 
     onBottomScroll() {
         const {user, otherUser, requestQuestionsUrl, isLoadingOwnQuestions} = this.props;
-        //const {user, isLoadingOwnQuestions} = this.props;
-        console.log('onBottomScroll');
-        console.log(requestQuestionsUrl);
-        console.log(isLoadingOwnQuestions);
-        console.log(user);
 
         if (isLoadingOwnQuestions || !requestQuestionsUrl) {
             return Promise.resolve();
         }
-        //const requestQuestionsUrl = 'https://brain.pre.nekuno.com/answers/compare/5?limit=20&locale=es&offset=40';
         const questions = QuestionActionCreators.requestComparedQuestions(otherUser.id, requestQuestionsUrl);
-        console.log(questions);
         return questions;
     }
 
     getQuestions() {
-        const {strings, otherUser, otherNotAnsweredQuestions, isLoadingOwnQuestions} = this.props;
+        const {user, strings, otherUser, otherUserQuestions, userQuestions, otherNotAnsweredQuestions, isLoadingOwnQuestions, questions} = this.props;
 
-        const questionComponents = Object.keys(otherNotAnsweredQuestions).map((question, questionIndex) =>
+        const answeredQuestionComponents = Object.keys(otherUserQuestions).map((question, questionIndex) =>
+            otherUserQuestions[question].userAnswer.answerId === userQuestions[question].userAnswer.answerId ?
+                <div key={questionIndex}>{this.renderMatch(otherUserQuestions[question], userQuestions[question], otherUser, user)}</div>
+                :
+                otherUserQuestions[question].userAnswer.acceptedAnswers.indexOf(userQuestions[question].userAnswer.answerId) !== -1 ?
+                    <div key={questionIndex}>{this.renderPartialMatch(otherUserQuestions[question], userQuestions[question], otherUser, user)}</div>
+                    :
+                    <div key={questionIndex}>{this.renderNotMatch(otherUserQuestions[question], userQuestions[question], otherUser, user)}</div>
+        );
+
+        const notAnsweredQuestionComponents = Object.keys(otherNotAnsweredQuestions).map((question, questionIndex) =>
             <div key={questionIndex}>
-                <AnswerQuestionCard
-                    question={otherNotAnsweredQuestions[question]}
-                    otherUser={otherUser}/>
+                <div style={{display: questionIndex === Object.keys(otherUserQuestions).length ? 'block' : 'none'}}>
+                    <h3 className='other-user-answer-questions-title'>{strings.otherNotAnsweredQuestions}</h3>
+                </div>
+                <div>
+                    <AnswerQuestionCard
+                        question={otherNotAnsweredQuestions[question]}
+                        otherUser={otherUser}/>
+                </div>
             </div>
         );
 
-        // const questionComponents = Object.keys(questions).map((questionId, index) =>
-        //     <div key={index} className="question-list">
-        //         <Question userSlug={userSlug}
-        //                   userAnswer={questions[questionId].userAnswer}
-        //                   ownPicture={ownPicture}
-        //                   defaultPicture={defaultPicture}
-        //                   key={index}
-        //                   accessibleKey={index}
-        //                   question={questions[questionId]}
-        //                   last={index === questions.length}
-        //                   onClickHandler={this.onClickHandler}
-        //                   onTimerEnd={onTimerEnd}
-        //                   graphActive={this.state.graphDisplayQuestionId === questionId}
-        //         />
-        //     </div>);
-
+        const questionComponents = Object.assign(notAnsweredQuestionComponents, answeredQuestionComponents)
         return isLoadingOwnQuestions && questionComponents.length === 0 ?
             [<div key="empty-message"><EmptyMessage text={strings.loading} loadingGif={true}/></div>]
             : questionComponents;
     }
 
     render() {
-        const {user, strings, otherUser, otherUserQuestions, userQuestions, otherNotAnsweredQuestions, isLoadingOwnQuestions} = this.props;
+        const {user, strings, otherUser, otherUserQuestions, userQuestions, otherNotAnsweredQuestions, isLoadingOwnQuestions, questions} = this.props;
 
         return (
             <div className="views">
@@ -190,27 +185,26 @@ export default class AnswersPage extends Component {
                             {/*options={options}*/}
                             {/*onClickSelectCollapsible={this.onClickSelectCollapsible}/>*/}
                         {/*</div>*/}
-                        {otherUserQuestions && userQuestions ?
-                            Object.keys(otherUserQuestions).map((question, questionIndex) =>
-                                otherUserQuestions[question].userAnswer.answerId === userQuestions[question].userAnswer.answerId ?
-                                    <div key={questionIndex}>{this.renderMatch(otherUserQuestions[question], userQuestions[question], otherUser, user)}</div>
-                                :
-                                    otherUserQuestions[question].userAnswer.acceptedAnswers.indexOf(userQuestions[question].userAnswer.answerId) !== -1 ?
-                                        <div key={questionIndex}>{this.renderPartialMatch(otherUserQuestions[question], userQuestions[question], otherUser, user)}</div>
-                                    :
-                                        <div key={questionIndex}>{this.renderNotMatch(otherUserQuestions[question], userQuestions[question], otherUser, user)}</div>
-                            )
-                            : ''
-                        }
 
-                        <h3 className='other-user-answer-questions-title'>{strings.otherNotAnsweredQuestions}</h3>
+                        {/*{otherUserQuestions && userQuestions ?*/}
+                            {/*Object.keys(otherUserQuestions).map((question, questionIndex) =>*/}
+                                {/*otherUserQuestions[question].userAnswer.answerId === userQuestions[question].userAnswer.answerId ?*/}
+                                    {/*<div key={questionIndex}>{this.renderMatch(otherUserQuestions[question], userQuestions[question], otherUser, user)}</div>*/}
+                                {/*:*/}
+                                    {/*otherUserQuestions[question].userAnswer.acceptedAnswers.indexOf(userQuestions[question].userAnswer.answerId) !== -1 ?*/}
+                                        {/*<div key={questionIndex}>{this.renderPartialMatch(otherUserQuestions[question], userQuestions[question], otherUser, user)}</div>*/}
+                                    {/*:*/}
+                                        {/*<div key={questionIndex}>{this.renderNotMatch(otherUserQuestions[question], userQuestions[question], otherUser, user)}</div>*/}
+                            {/*)*/}
+                            {/*: ''*/}
+                        {/*}*/}
 
-                        <div id={'other-user-answer-questions-wrapper'} className='other-user-answer-questions-wrapper'>
-                            {otherNotAnsweredQuestions && Object.keys(otherNotAnsweredQuestions).length > 0 ?
+
+                        <div className='other-user-answer-questions-wrapper'>
+                            {otherUserQuestions && userQuestions && otherNotAnsweredQuestions && Object.keys(otherNotAnsweredQuestions).length > 0 ?
                                 <Scroll
                                     items={this.getQuestions()}
                                     // firstItems={}
-                                    // onLoad={this.onBottomScroll()}
                                     onLoad={this.onBottomScroll}
                                     containerId="other-user-answers-view"
                                     loading={isLoadingOwnQuestions}

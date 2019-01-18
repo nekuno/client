@@ -9,11 +9,12 @@ import translate from '../../i18n/Translate';
 @translate('CardContentList')
 export default class CardContentList extends Component {
     static propTypes = {
-        firstItems    : PropTypes.array,
-        contents      : PropTypes.array.isRequired,
-        onBottomScroll: PropTypes.func,
-        isLoading     : PropTypes.bool,
-        loadingFirst  : PropTypes.bool,
+        firstItems       : PropTypes.array,
+        contents         : PropTypes.array.isRequired,
+        onBottomScroll   : PropTypes.func,
+        isLoading        : PropTypes.bool,
+        loadingFirst     : PropTypes.bool,
+        scrollContainerId: PropTypes.string
     };
 
     constructor(props) {
@@ -60,14 +61,16 @@ export default class CardContentList extends Component {
     }
 
     render() {
+        const {scrollContainerId} = this.props;
+
         return (
-            <div className={styles.cardContentList} id="content-list">
+            <div className={styles.cardContentList} id={scrollContainerId}>
                 <Scroll
                     items={this.getCardContents()}
                     firstItems={this.props.firstItems}
                     columns={2}
                     onLoad={this.props.onBottomScroll}
-                    containerId="content-list"
+                    containerId={scrollContainerId}
                     loading={this.props.isLoading}
                 />
             </div>
@@ -76,13 +79,14 @@ export default class CardContentList extends Component {
 }
 
 CardContentList.defaultProps = {
-    strings         : {
+    strings          : {
         loading: 'Loading interests',
         empty  : 'No interests'
     },
-    'firstItems'    : [],
-    'onBottomScroll': () => {
+    'firstItems'     : [],
+    'onBottomScroll' : () => {
     },
-    'isLoading'     : false,
-    'loadingFirst'  : false,
+    'isLoading'      : false,
+    'loadingFirst'   : false,
+    scrollContainerId: 'view'
 };

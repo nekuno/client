@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import styles from './AboutMePage.scss';
+import styles from './InterestsPage.scss';
 import '../../../scss/pages/other-user/proposals.scss';
 import translate from '../../i18n/Translate';
 import connectToStores from "../../utils/connectToStores";
@@ -13,6 +13,7 @@ import * as UserActionCreators from "../../actions/UserActionCreators";
 import * as InterestsActionCreators from "../../actions/InterestsActionCreators";
 import TopNavBar from '../../components/TopNavBar/TopNavBar.js';
 import CardContentList from '../../components/interests/CardContentList';
+import OtherUserBottomNavBar from "../../components/ui/OtherUserBottomNavBar/OtherUserBottomNavBar";
 
 function parseId(user) {
     return user ? user.id : null;
@@ -125,10 +126,10 @@ export default class InterestsPage extends Component {
     }
 
     render() {
-        const {strings, interests, isLoadingComparedInterests, noInterests} = this.props;
+        const {strings, interests, isLoadingComparedInterests, noInterests, params} = this.props;
         return (
             <div className="views">
-                <div className="view other-user-proposals-view">
+                <div className={styles.view} id="other-user-interests-view">
                     <div className={styles.topNavBar}>
                         <TopNavBar
                             background={'transparent'}
@@ -138,10 +139,13 @@ export default class InterestsPage extends Component {
                     </div>
 
                     {noInterests ? '' :
-                        <CardContentList contents={interests}
+                        <CardContentList contents={interests} scrollContainerId='other-user-interests-view'
                                          onBottomScroll={this.onBottomScroll.bind(this)} isLoading={isLoadingComparedInterests}/>
                     }
 
+                </div>
+                <div className={styles.navbarWrapper}>
+                    <OtherUserBottomNavBar current={'interests'} userSlug={params.slug}/>
                 </div>
             </div>
         );

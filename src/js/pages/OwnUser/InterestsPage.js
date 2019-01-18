@@ -24,7 +24,9 @@ function requestData(props) {
 
         console.log('url');
         console.log(requestInterestsUrl);
-        InterestsActionCreators.requestOwnInterests(userId, requestInterestsUrl);
+        if (requestInterestsUrl){
+            InterestsActionCreators.requestOwnInterests(userId, requestInterestsUrl);
+        }
 }
 
 /**
@@ -108,7 +110,7 @@ export default class InterestsPage extends Component {
         const {strings, interests, isLoadingComparedInterests, noInterests} = this.props;
         return (
             <div className="views">
-                <div className="view other-user-proposals-view">
+                <div className={styles.view} id="own-user-interests-view">
                     <div className={styles.topNavBar}>
                         <TopNavBar
                             background={'transparent'}
@@ -118,7 +120,7 @@ export default class InterestsPage extends Component {
                     </div>
 
                     {noInterests ? '' :
-                        <CardContentList contents={interests}
+                        <CardContentList contents={interests} scrollContainerId='own-user-interests-view'
                                          onBottomScroll={this.onBottomScroll.bind(this)} isLoading={isLoadingComparedInterests}/>
                     }
 

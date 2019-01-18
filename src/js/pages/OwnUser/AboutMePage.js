@@ -40,7 +40,10 @@ function getState(props) {
     const userId = user.id;
 
     const profile = ProfileStore.getWithMetadata(slug);
-    if (profile.length === 0) {
+    const isStoreLoading = NaturalCategoryStore.isLoading();
+    if ((profile.length === 0) || isStoreLoading) {
+        console.log(profile.length);
+        console.log(isStoreLoading);
         return {isLoading: true}
     }
     const location = profile[0].fields.location.value || '';

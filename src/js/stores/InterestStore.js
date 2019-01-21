@@ -185,7 +185,7 @@ class InterestStore extends BaseStore {
     }
 
     getShowOnlyCommon(userId) {
-        return this._showOnlyCommon.hasOwnProperty(userId) ? this._showOnlyCommon[userId] : 1;
+        return 0;
     }
 
     setShowOnlyCommon(userId, showOnlyCommon) {

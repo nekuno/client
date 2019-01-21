@@ -55,7 +55,7 @@ function getState(props) {
 }
 
 @AuthenticatedComponent
-@translate('OtherUserInterestsPage')
+@translate('OwnUserInterestsPage')
 @connectToStores([UserStore, ProfileStore, InterestStore], getState)
 export default class InterestsPage extends Component {
 

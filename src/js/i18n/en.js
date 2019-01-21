@@ -306,6 +306,10 @@ export default {
         otherPublished  : 'Other published proposals',
         matches         : 'Matches',
     },
+    OwnUserInterestsPage : {
+        topNavBarText : 'My interests',
+        orderBy       : 'Order by %orderBy%',
+    },
     PersonsPage                      : {
         relatedPeople: 'People related to you',
         closestPeople: 'The closest people',

@@ -300,6 +300,10 @@ export default {
         questions   : 'Respuestas',
         interests   : 'Intereses'
     },
+    OwnUserInterestsPage : {
+        topNavBarText : 'Mis intereses',
+        orderBy       : 'Ordenar por %orderBy%',
+    },
     OwnProposalsPage                 : {
         myPlans         : 'Mis planes',
         popularProposals: 'Propuestas más populares',

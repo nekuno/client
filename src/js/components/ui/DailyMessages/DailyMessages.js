@@ -19,8 +19,6 @@ export default class DailyMessages extends Component {
         let dates = [];
         let messagesByDate = [];
 
-        console.log(this.props.messages);
-
         this.props.messages.forEach((message) => {
             let date = moment(message.createdAt).format('YYYYMMDD');
             if (dates.indexOf(date) === -1) {

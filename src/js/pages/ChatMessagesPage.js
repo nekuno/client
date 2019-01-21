@@ -153,10 +153,12 @@ export default class ChatMessagesPage extends Component {
     }
 
     componentDidUpdate(prevProps) {
+        this.refs.list.scrollTop = 100;
         if (this.props.otherUserId && (!prevProps.otherUserId || ChatMessageStore.isFresh(this.props.otherUserId))) {
             this._scrollToBottom();
             this.markReaded();
         }
+
     }
 
     scrollIfNeeded() {
@@ -240,16 +242,15 @@ export default class ChatMessagesPage extends Component {
                         online={online}/>
 
                     <div className="notifications-wrapper" ref="list">
-                        { isGuest ? '' :
-                            canContact ?
-                                <MessagesToolBar onClickHandler={this.sendMessageHandler} onFocusHandler={this.handleFocus} placeholder={strings.placeholder} text={strings.text} image={imgSrc}/>
-                                :
-                                <MessagesToolBarDisabled text={strings.text}/>
-                        }
-
                         {this.state.noMoreMessages ? <div className="daily-message-title">{strings.noMoreMessages}</div> : '' }
                         <DailyMessages messages={messages} userLink={`p/${params.slug}`} enabled={canContact}/>
                     </div>
+                    { isGuest ? '' :
+                        canContact ?
+                            <MessagesToolBar onClickHandler={this.sendMessageHandler} onFocusHandler={this.handleFocus} placeholder={strings.placeholder} text={strings.text} image={imgSrc}/>
+                            :
+                            <MessagesToolBarDisabled text={strings.text}/>
+                    }
                 </div>
             </div>
         );

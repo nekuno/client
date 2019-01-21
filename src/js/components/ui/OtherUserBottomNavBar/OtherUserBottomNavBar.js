@@ -70,7 +70,9 @@ export default class OtherUserBottomNavBar extends Component {
     }
 
     handleClickAdd() {
-        this.setState({addingProposal: true});
+        const {userSlug} = this.props;
+
+        this.context.router.push('/p/' + userSlug + '/conversations');
     }
 
     addProfessionalProposal() {
@@ -174,28 +176,6 @@ export default class OtherUserBottomNavBar extends Component {
                     }
                     <div className={styles.iconText + ' small'}>{strings.interests}</div>
                 </div>
-                {/*{addingProposal ?*/}
-                    {/*<div className={styles.addProposalWrapper} onClick={this.closeAddModal}>*/}
-                        {/*<div className={styles.addProposalAbsoluteWrapper}>*/}
-                            {/*<div className={styles.addProposal}>*/}
-                                {/*<svg width={70 * 2 + 70 * 2} height={70 * 2 + 70 * 2} xmlns="http://www.w3.org/2000/svg">*/}
-                                    {/*<g>*/}
-                                        {/*<path d={this.describeArc(70, 70, 235, 270 + 215)}*/}
-                                              {/*fill={'none'} strokeWidth={70} stroke={'white'} strokeLinecap="round"*/}
-                                        {/*/>*/}
-                                        {/*{this.renderIconText(strings.proposal, 70, 270)}*/}
-                                        {/*{this.renderIcon('paperclip', 70, 270, '#63CAFF', this.addProfessionalProposal)}*/}
-                                        {/*{this.renderIconText(strings.leisure, 70, 0)}*/}
-                                        {/*{this.renderIcon('send', 70, 0, '#D380D3',  this.addLeisurePlan)}*/}
-                                        {/*{this.renderIconText(strings.experience, 70, 90)}*/}
-                                        {/*{this.renderIcon('compass', 70, 90, '#7BD47E',  this.addExperienceProposal)}*/}
-                                    {/*</g>*/}
-                                {/*</svg>*/}
-                            {/*</div>*/}
-                        {/*</div>*/}
-                    {/*</div>*/}
-                    {/*: null*/}
-                {/*}*/}
             </div>
         );
     }

@@ -178,27 +178,6 @@ export default class AnswersPage extends Component {
                         textSize={'small'}
                         onLeftLinkClickHandler={this.topNavBarLeftLinkClick}/>
                     <div className="other-user-answers-view-wrapper">
-                        {/*<div className="select-collapsible-wrapper">*/}
-                            {/*<SelectCollapsible*/}
-                            {/*selected={'affinity'}*/}
-                            {/*options={options}*/}
-                            {/*onClickSelectCollapsible={this.onClickSelectCollapsible}/>*/}
-                        {/*</div>*/}
-
-                        {/*{otherUserQuestions && userQuestions ?*/}
-                            {/*Object.keys(otherUserQuestions).map((question, questionIndex) =>*/}
-                                {/*otherUserQuestions[question].userAnswer.answerId === userQuestions[question].userAnswer.answerId ?*/}
-                                    {/*<div key={questionIndex}>{this.renderMatch(otherUserQuestions[question], userQuestions[question], otherUser, user)}</div>*/}
-                                {/*:*/}
-                                    {/*otherUserQuestions[question].userAnswer.acceptedAnswers.indexOf(userQuestions[question].userAnswer.answerId) !== -1 ?*/}
-                                        {/*<div key={questionIndex}>{this.renderPartialMatch(otherUserQuestions[question], userQuestions[question], otherUser, user)}</div>*/}
-                                    {/*:*/}
-                                        {/*<div key={questionIndex}>{this.renderNotMatch(otherUserQuestions[question], userQuestions[question], otherUser, user)}</div>*/}
-                            {/*)*/}
-                            {/*: ''*/}
-                        {/*}*/}
-
-
                         <div className='other-user-answer-questions-wrapper'>
                             {otherUserQuestions && userQuestions && otherNotAnsweredQuestions && Object.keys(otherNotAnsweredQuestions).length > 0 ?
                                 <Scroll

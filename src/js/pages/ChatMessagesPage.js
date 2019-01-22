@@ -153,7 +153,7 @@ export default class ChatMessagesPage extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        this.refs.list.scrollTop = 100;
+        this.refs.list.scrollTop = 500;
         if (this.props.otherUserId && (!prevProps.otherUserId || ChatMessageStore.isFresh(this.props.otherUserId))) {
             this._scrollToBottom();
             this.markReaded();

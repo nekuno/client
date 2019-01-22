@@ -152,7 +152,18 @@ export default class TopNavBar extends Component {
                                 <div className={styles.icon + ' ' + styles.iconSearch + ' icon icon-search'} onClick={this.handleSearchClick}/>
                                 : null
                             }
-                            {firstIconRight ?
+                            {firstIconRight === 'icon-proyecto' || firstIconRight === 'icon-hobbie' || firstIconRight === 'icon-experiencia' ?
+                                <span className={styles.icon + " " + styles.iconProposals + " " + firstIconRight}>
+                                    <span className="path1"></span>
+                                    <span className="path2"></span>
+                                    <span className="path3"></span>
+                                    <span className="path4"></span>
+                                    <span className="path5"></span>
+                                    <span className="path6"></span>
+                                    <span className="path7"></span>
+                                </span>
+                                :
+                                firstIconRight.includes() ?
                                 iconsRightBackground ?
                                     <div className={styles.roundedIcon}>
                                         <RoundedIcon icon={firstIconRight}

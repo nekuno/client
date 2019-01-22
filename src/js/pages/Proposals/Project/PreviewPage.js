@@ -142,7 +142,7 @@ export default class PreviewPage extends Component {
                         position={'absolute'}
                         background={'transparent'}
                         iconLeft={'arrow-left'}
-                        firstIconRight={'edit'}
+                        firstIconRight={'icon-proyecto'}
                         textSize={'small'}
                         onLeftLinkClickHandler={this.topNavBarLeftLinkClick}
                         onRightLinkClickHandler={this.topNavBarRightLinkClick}/>

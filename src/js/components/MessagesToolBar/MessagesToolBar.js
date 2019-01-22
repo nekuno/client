@@ -39,8 +39,8 @@ export default class MessagesToolBar extends Component {
     }
 
     componentWillUnmount() {
-        // this.myMessagebar = {};
-        this.myMessagebar.destroy('.messagebar');
+        this.myMessagebar = {};
+        // this.myMessagebar.destroy('.messagebar');
     }
 
     handleClick() {

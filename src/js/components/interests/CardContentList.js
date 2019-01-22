@@ -5,6 +5,7 @@ import CardContent from '../ui/CardContent/CardContent';
 import EmptyMessage from '../ui/EmptyMessage';
 import Scroll from '../Scroll/Scroll';
 import translate from '../../i18n/Translate';
+import LoadingGif from "../ui/LoadingGif/LoadingGif";
 
 @translate('CardContentList')
 export default class CardContentList extends Component {
@@ -37,8 +38,8 @@ export default class CardContentList extends Component {
 
         if (contents.length === 0) {
             return isLoading ?
-                [<div key="empty-message"><EmptyMessage text={strings.loading} loadingGif={true}/></div>]
-                : [<div key="empty-message"><EmptyMessage text={strings.empty} loadingGif={false}/></div>];
+                [<div key="loading" className={styles.loading}><LoadingGif /></div>]
+                : [<div key="empty-message" className={styles.empty}><EmptyMessage text={strings.empty} loadingGif={false}/></div>];
         }
         //TESTING:
         let contents1 = contents.map((content, index) => {

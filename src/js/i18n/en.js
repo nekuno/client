@@ -308,7 +308,7 @@ export default {
     },
     OwnUserInterestsPage : {
         topNavBarText : 'My interests',
-        orderBy       : 'Order by %orderBy%',
+        orderBy       : 'Filter by type',
     },
     PersonsPage                      : {
         relatedPeople: 'People related to you',

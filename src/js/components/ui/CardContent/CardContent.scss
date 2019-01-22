@@ -13,6 +13,9 @@
   //TODO: Move from here to CardContentList
   width: 45%;
   height: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 
   .content-image-wrapper {
     //height: 100%;
@@ -31,14 +34,17 @@
 
   .footer {
     width: 40px;
-    float: right;
-    margin-top: 10px;
+    align-self: flex-end;
+    margin-right: 8px;
+    margin-bottom: 8px;
   }
 }
 
 .card-title {
   font-size: 16px;
   color: rgb(43, 56, 87);
+  margin-left: 12px;
+  margin-top: 8px;
 
   a {
     color: rgb(43, 56, 87);
@@ -47,5 +53,7 @@
 
 .card-subtitle {
   font-size: 13px;
-  color: rgb(129, 143, 161)
+  color: rgb(129, 143, 161);
+  margin-left: 12px;
+
 }

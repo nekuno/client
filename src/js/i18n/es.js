@@ -302,7 +302,7 @@ export default {
     },
     OwnUserInterestsPage : {
         topNavBarText : 'Mis intereses',
-        orderBy       : 'Ordenar por %orderBy%',
+        orderBy       : 'Filtrar por tipo',
     },
     OwnProposalsPage                 : {
         myPlans         : 'Mis planes',

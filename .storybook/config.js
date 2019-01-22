@@ -52,6 +52,7 @@ function loadStories() {
     require('../stories/Select.stories');
     require('../stories/SelectMultiple.stories');
     require('../stories/SelectCollapsible.stories');
+    require('../stories/SelectCollapsibleInterest.stories');
     require('../stories/SelectInline.stories');
     require('../stories/SliderPhotos.stories');
     require('../stories/StepsBar.stories');

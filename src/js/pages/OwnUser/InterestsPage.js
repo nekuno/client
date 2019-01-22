@@ -12,6 +12,7 @@ import InterestStore from "../../stores/InterestStore";
 import * as InterestsActionCreators from "../../actions/InterestsActionCreators";
 import AuthenticatedComponent from "../../components/AuthenticatedComponent";
 import OwnUserBottomNavBar from "../../components/ui/OwnUserBottomNavBar/OwnUserBottomNavBar";
+import SelectCollapsibleInterest from "../../components/ui/SelectCollapsibleInterest/SelectCollapsibleInterest";
 
 function parseId(user) {
     return user ? user.id : null;
@@ -19,14 +20,14 @@ function parseId(user) {
 
 function requestData(props) {
 
-        const userId = parseId(props.user);
-        const requestInterestsUrl = InterestStore.getRequestInterestsUrl(userId);
+    const userId = parseId(props.user);
+    const requestInterestsUrl = InterestStore.getRequestInterestsUrl(userId);
 
-        console.log('url');
-        console.log(requestInterestsUrl);
-        if (requestInterestsUrl){
-            InterestsActionCreators.requestOwnInterests(userId, requestInterestsUrl);
-        }
+    console.log('url');
+    console.log(requestInterestsUrl);
+    if (requestInterestsUrl) {
+        InterestsActionCreators.requestOwnInterests(userId, requestInterestsUrl);
+    }
 }
 
 /**
@@ -77,6 +78,14 @@ export default class InterestsPage extends Component {
         router: PropTypes.object.isRequired
     };
 
+    constructor(props) {
+
+        super(props);
+
+        this.changeType = this.changeType.bind(this);
+        this.onBottomScroll = this.onBottomScroll.bind(this);
+    }
+
     componentDidMount() {
         requestData(this.props);
     }
@@ -106,8 +115,18 @@ export default class InterestsPage extends Component {
         }
     }
 
+    changeType(newType) {
+        const {type} = this.props;
+
+        if (type !== newType) {
+            InterestsActionCreators.setType(newType);
+        } else {
+            InterestsActionCreators.removeType();
+        }
+    }
+
     render() {
-        const {strings, interests, isLoadingComparedInterests, noInterests} = this.props;
+        const {strings, interests, isLoadingOwnInterests, noInterests, type} = this.props;
         return (
             <div className="views">
                 <div className={styles.view} id="own-user-interests-view">
@@ -119,9 +138,15 @@ export default class InterestsPage extends Component {
                         />
                     </div>
 
-                    {noInterests ? '' :
-                        <CardContentList contents={interests} scrollContainerId='own-user-interests-view'
-                                         onBottomScroll={this.onBottomScroll.bind(this)} isLoading={isLoadingComparedInterests}/>
+                    {noInterests ?
+                        <div className={styles.collapsible}><SelectCollapsibleInterest selected={type} onClickSelectCollapsible={this.changeType}/></div>
+                        :
+                        <div>
+                            <div className={styles.collapsible}><SelectCollapsibleInterest selected={type} onClickSelectCollapsible={this.changeType}/></div>
+                            <CardContentList contents={interests} scrollContainerId='own-user-interests-view'
+                                             onBottomScroll={this.onBottomScroll.bind(this)} isLoading={isLoadingOwnInterests}/>
+                        </div>
+
                     }
 
                 </div>
@@ -135,7 +160,7 @@ export default class InterestsPage extends Component {
 
 InterestsPage.defaultProps = {
     strings: {
-        orderBy      : 'Order by Experiences',
+        orderBy      : 'Filter by type',
         topNavBarText: 'Interests'
     }
 };

@@ -82,7 +82,6 @@ export default class Scroll extends Component {
         const scrollBehavior = this.context.scrollBehavior.scrollBehavior;
         const containerId = this.props.containerId;
 
-        console.log('scroll');
         scrollBehavior._saveElementPosition(containerId);
         this.isAtBottom() && !this.props.loading ? this.onLoad() : null;
     }

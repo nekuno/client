@@ -296,12 +296,20 @@ export default {
         topNavBarText : 'Propuestas de %username%',
         orderBy       : 'Ordenar por %orderBy%',
     },
+    OtherUserInterestsPage : {
+        topNavBarText : 'Intereses de %username%',
+        orderBy       : 'Ordenar por %orderBy%',
+    },
     OtherQuestionsPage               : {
         coincidences: 'Coincidencias de',
         about       : 'Acerca de',
         photos      : 'Fotos',
         questions   : 'Respuestas',
         interests   : 'Intereses'
+    },
+    OwnUserInterestsPage : {
+        topNavBarText : 'Mis intereses',
+        orderBy       : 'Filtrar por tipo',
     },
     OwnProposalsPage                 : {
         myPlans         : 'Mis planes',

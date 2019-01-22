@@ -5,19 +5,19 @@
   flex-direction: column;
   align-items: center;
   padding: 5%;
+  color: black;
 
   .title {
     width: 100%;
-    font-size: larger;
     text-align: left;
     padding-bottom: 20px;
+    font-size: 16px;
   }
 
   .text {
     width: 100%;
     text-align: left;
-    font-size: medium;
-    color: black;
+    font-size: 14px;
   }
 
 }

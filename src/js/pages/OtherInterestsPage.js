@@ -50,7 +50,7 @@ function getState(props) {
         otherUser,
         type,
         showOnlyCommon,
-        requestComparedInterestsUrl
+        requestInterestsUrl: requestComparedInterestsUrl
     };
 }
 
@@ -61,27 +61,27 @@ function getState(props) {
 export default class OtherInterestsPage extends Component {
     static propTypes = {
         // Injected by React Router:
-        params                     : PropTypes.shape({
+        params                    : PropTypes.shape({
             slug: PropTypes.string.isRequired
         }).isRequired,
         // Injected by @AuthenticatedComponent
-        user                       : PropTypes.object.isRequired,
+        user                      : PropTypes.object.isRequired,
         // Injected by @translate:
         strings                    : PropTypes.object,
         // Injected by @connectToStores:
-        pagination                 : PropTypes.object,
-        totals                     : PropTypes.object,
-        interests                  : PropTypes.array.isRequired,
-        noInterests                : PropTypes.bool,
-        isLoadingComparedInterests : PropTypes.bool,
-        otherUser                  : PropTypes.object,
-        type                       : PropTypes.string.isRequired,
-        showOnlyCommon             : PropTypes.number.isRequired,
-        requestComparedInterestsUrl: PropTypes.string,
+        pagination                : PropTypes.object,
+        totals                    : PropTypes.object,
+        interests                 : PropTypes.array.isRequired,
+        noInterests               : PropTypes.bool,
+        isLoadingComparedInterests: PropTypes.bool,
+        otherUser                 : PropTypes.object,
+        type                      : PropTypes.string.isRequired,
+        showOnlyCommon            : PropTypes.number.isRequired,
+        requestInterestsUrl       : PropTypes.string,
         // Injected by @popup:
-        showPopup                  : PropTypes.func,
-        closePopup                 : PropTypes.func,
-        popupContentRef            : PropTypes.func,
+        showPopup                 : PropTypes.func,
+        closePopup                : PropTypes.func,
+        popupContentRef           : PropTypes.func,
     };
 
     constructor(props) {
@@ -118,7 +118,7 @@ export default class OtherInterestsPage extends Component {
             const otherUserId = parseId(otherUser);
             const userId = parseId(user);
 
-            InterestsActionCreators.requestComparedInterests(userId, otherUserId, this.props.requestComparedInterestsUrl);
+            InterestsActionCreators.requestComparedInterests(userId, otherUserId, this.props.requestInterestsUrl);
         }
 
         if (!this.state.carousel || this.props.interests.length === 0) {
@@ -186,7 +186,7 @@ export default class OtherInterestsPage extends Component {
         });
 
         function onReachEnd() {
-            InterestsActionCreators.requestComparedInterests(parseId(_self.props.user), parseId(_self.props.otherUser), _self.props.requestComparedInterestsUrl);
+            InterestsActionCreators.requestComparedInterests(parseId(_self.props.user), parseId(_self.props.otherUser), _self.props.requestInterestsUrl);
         }
     }
 

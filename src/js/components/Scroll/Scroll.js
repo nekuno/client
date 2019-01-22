@@ -149,7 +149,7 @@ export default class Scroll extends Component {
 
         return wrappedItems.map((wrappedItem, index) => {
             return (
-                <div key={index}>
+                <div key={index} style={{display: 'flex'}}>
                     {wrappedItem}
                 </div>
             );

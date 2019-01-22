@@ -31,7 +31,8 @@ import OwnProposalsPage from './pages/OwnProposalsPage';
 import ExplorePage from './pages/ExplorePage';
 import ChatThreadsPage from './pages/ChatThreadsPage';
 import ChatMessagesPage from './pages/ChatMessagesPage';
-import InterestsPage from './pages/InterestsPage';
+import OtherUserInterestsPage from './pages/OtherUser/InterestsPage';
+import OwnUserInterestsPage from './pages/OwnUser/InterestsPage';
 import GalleryPage from './pages/GalleryPage';
 import OtherGalleryPage from './pages/OtherGalleryPage';
 import GalleryPhotoPage from './pages/GalleryPhotoPage';
@@ -39,7 +40,6 @@ import OtherGalleryPhotoPage from './pages/OtherGalleryPhotoPage';
 import GalleryProfilePhotoPage from './pages/GalleryProfilePhotoPage';
 import GalleryAlbumsPage from './pages/GalleryAlbumsPage';
 import GalleryAlbumPhotosPage from './pages/GalleryAlbumPhotosPage';
-import OtherInterestsPage from './pages/OtherInterestsPage';
 import QuestionsPage from './pages/QuestionsPage';
 import OtherQuestionsPage from './pages/OtherQuestionsPage';
 import AnswerQuestionPage from './pages/AnswerQuestionPage';
@@ -53,9 +53,6 @@ import RegisterPage from './pages/RegisterPage';
 import RegisterQuestionsLandingPage from './pages/RegisterQuestionLandingPage';
 import AnswerUserFieldPage from './pages/AnswerUserFieldPage';
 import AnswerProfileFieldPage from './pages/AnswerProfileFieldPage';
-import UserPage from './pages/UserPage';
-import OtherUserPage from './pages/OtherUserPage';
-import SharedUserPage from './pages/SharedUserPage';
 import ProfilePage from './pages/ProfilePage';
 import DiscoverPage from './pages/DiscoverPage';
 import RecommendationPage from './pages/RecommendationPage';
@@ -64,9 +61,6 @@ import ConnectSocialNetworksOnSignUpPage from './pages/ConnectSocialNetworksOnSi
 import ConnectSocialNetworksPage from './pages/ConnectSocialNetworksPage';
 import EditThreadLitePage from './pages/EditThreadLitePage';
 import GroupPage from './pages/GroupPage';
-import GroupStatsPage from './pages/GroupStatsPage';
-import GroupMembersPage from './pages/GroupMembersPage';
-import GroupContentsPage from './pages/GroupContentsPage';
 import SettingsPage from './pages/SettingsPage';
 import RouterActionCreators from './actions/RouterActionCreators';
 import LoginStore from './stores/LoginStore';
@@ -143,7 +137,8 @@ export default class Root extends Component {
                     <Route name="connect-facebook" path="/connect-facebook" component={ConnectFacebookPage}/>
                     <Route name="login" path="/login" component={LoginPage}/>
                     <Route name="register" path="/register" component={RegisterPage}/>
-                    <Route name="shared-user" path="/p/:slug" component={OtherUserAboutMePage}/>
+                    <Route name="shared-user" path="/p/:slug" component={ProfilePage}/>
+                    <Route name="shared-user-interests" path="/p/:slug/interests" component={OtherUserInterestsPage}/>
 
                     <Route onEnter={requireAuth}>
                         <Route name="connecting-facebook" path="/connecting-facebook" component={ConnectingFacebookPage}/>
@@ -184,8 +179,8 @@ export default class Root extends Component {
                         <Route name="answer-profile-fields" path="/answer-profile-fields" component={AnswerProfileFieldPage}/>
                         <Route name="notifications" path="/conversations" component={ChatThreadsPage}/>
                         <Route name="messages" path="/p/:slug/conversations" component={ChatMessagesPage}/>
-                        <Route name="interests" path="/interests" component={InterestsPage}/>
-                        <Route name="other-interests" path="/users/:slug/other-interests" component={OtherInterestsPage}/>
+                        <Route name="interests" path="/interests" component={OwnUserInterestsPage}/>
+                        {/*<Route name="other-interests" path="/users/:slug/other-interests" component={OtherInterestsPage}/>*/}
                         <Route name="gallery" path="/gallery" component={GalleryPage}/>
                         <Route name="other-gallery" path="/users/:slug/other-gallery/:photoId" component={OtherGalleryPage}/>
                         <Route name="gallery-photo" path="/gallery-photo" component={GalleryPhotoPage}/>

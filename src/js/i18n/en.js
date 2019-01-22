@@ -296,6 +296,10 @@ export default {
         topNavBarText : '%username% proposals',
         orderBy       : 'Order by %orderBy%',
     },
+    OtherUserInterestsPage : {
+        topNavBarText : '%username% interests',
+        orderBy       : 'Order by %orderBy%',
+    },
     OtherQuestionsPage               : {
         coincidences: 'Coincidences of',
         about       : 'About',
@@ -308,6 +312,10 @@ export default {
         popularProposals: 'Most popular proposals',
         otherPublished  : 'Other published proposals',
         matches         : 'Matches',
+    },
+    OwnUserInterestsPage : {
+        topNavBarText : 'My interests',
+        orderBy       : 'Filter by type',
     },
     PersonsPage                      : {
         relatedPeople: 'People related to you',

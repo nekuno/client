@@ -12,9 +12,11 @@ function loadStories() {
     require('../stories/Button.stories');
     require('../stories/CandidateCard.stories');
     require('../stories/CardTopData.stories');
+    require('../stories/CardContent.stories');
     require('../stories/CardUser.stories');
     require('../stories/CarouselContinuous.stories');
     require('../stories/Chip.stories');
+    require('../stories/ContentTypeIcon.stories');
     require('../stories/DateInputRange.stories');
     require('../stories/DailyInputRange.stories');
     require('../stories/ErrorMessage.stories');
@@ -35,6 +37,7 @@ function loadStories() {
     require('../stories/LocationInput.stories');
     require('../stories/MatchingBars.stories');
     require('../stories/NaturalCategory.stories');
+    require('../stories/NetworkLine.stories');
     require('../stories/OtherUserBottomNavBar.stories');
     require('../stories/OtherUserProposalCard.stories');
     require('../stories/OwnUserBottomNavBar.stories');
@@ -49,6 +52,7 @@ function loadStories() {
     require('../stories/Select.stories');
     require('../stories/SelectMultiple.stories');
     require('../stories/SelectCollapsible.stories');
+    require('../stories/SelectCollapsibleInterest.stories');
     require('../stories/SelectInline.stories');
     require('../stories/SliderPhotos.stories');
     require('../stories/StepsBar.stories');

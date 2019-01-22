@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import styles from './CandidateCard.scss';
 import RoundedIcon from "../../ui/RoundedIcon/RoundedIcon";
-import ProgressBar from "../../ui/ProgressBar/ProgressBar";
 import translate from "../../../i18n/Translate";
 import MatchingBars from "../../ui/MatchingBars/MatchingBars";
 

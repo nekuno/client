@@ -47,6 +47,7 @@ export default class ProgressBar extends Component {
     render() {
         const {title, size, withoutNumber, strokeColor, trailColor, background, textColor} = this.props;
         const {prevPercentage, percentage} = this.state;
+        const percentageToShow = Math.round(percentage);
         const lineWidth = size === "small" ? "5" : size === "medium" ? "3" : "2";
 
         return (
@@ -63,7 +64,7 @@ export default class ProgressBar extends Component {
                     </div>
                     {!withoutNumber ?
                         <div className={styles.percentage} style={textColor ? {color: textColor} : {}}>
-                            {percentage || 0}%
+                            {percentageToShow || 0}%
                         </div>
                         : null}
                 </div>

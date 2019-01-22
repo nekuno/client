@@ -124,8 +124,17 @@ export default class BottomNavBar extends Component {
 
     renderIcon = function(icon, radius, degrees, background, onClick) {
         return (
-            <foreignObject key={icon} x={this.iconXValue(radius, degrees)} y={this.iconYValue(radius, degrees)} width="60" height="60">
-                <RoundedIcon icon={icon} size={'medium'} background={background} fontSize={'25px'} onClickHandler={onClick}/>
+            <foreignObject key={icon} x={this.iconXValue(radius, degrees)} y={this.iconYValue(radius, degrees)} width="60" height="60" onClick={onClick}>
+                <span className={styles.icon + " " + icon}>
+                    <span className="path1"></span>
+                    <span className="path2"></span>
+                    <span className="path3"></span>
+                    <span className="path4"></span>
+                    <span className="path5"></span>
+                    <span className="path6"></span>
+                    <span className="path7"></span>
+                </span>
+                {/*<RoundedIcon icon={icon} size={'medium'} background={background} fontSize={'25px'} onClickHandler={onClick}/>*/}
             </foreignObject>
         );
     };
@@ -139,6 +148,7 @@ export default class BottomNavBar extends Component {
     };
 
     render() {
+
         const {current, notifications, strings} = this.props;
         const {addingProposal} = this.state;
 
@@ -183,11 +193,11 @@ export default class BottomNavBar extends Component {
                                               fill={'none'} strokeWidth={70} stroke={'white'} strokeLinecap="round"
                                         />
                                         {this.renderIconText(strings.proposal, 70, 270)}
-                                        {this.renderIcon('paperclip', 70, 270, '#63CAFF', this.addProfessionalProposal)}
+                                        {this.renderIcon('icon-proyecto', 70, 270, '#63CAFF', this.addProfessionalProposal)}
                                         {this.renderIconText(strings.leisure, 70, 0)}
-                                        {this.renderIcon('send', 70, 0, '#D380D3',  this.addLeisurePlan)}
+                                        {this.renderIcon('icon-hobbie', 70, 0, '#D380D3',  this.addLeisurePlan)}
                                         {this.renderIconText(strings.experience, 70, 90)}
-                                        {this.renderIcon('compass', 70, 90, '#7BD47E',  this.addExperienceProposal)}
+                                        {this.renderIcon('icon-experiencia', 70, 90, '#7BD47E',  this.addExperienceProposal)}
                                     </g>
                                 </svg>
                             </div>

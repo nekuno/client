@@ -24,6 +24,7 @@
     height: 50px;
     width: 40px;
   }
+
   .rounded-icon {
     display: inline-block;
   }
@@ -75,6 +76,11 @@
       color: $purple-main;
     }
   }
+
+  .icon-proposals {
+    font-size: 45px !important;
+  }
+
   .rounded-icon {
     display: inline-block;
     height: 35px;

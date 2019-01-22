@@ -101,8 +101,6 @@ export default class CardContent extends Component {
             imgSrc = url;
         }
         imgSrc = LinkImageService.getThumbnail(imgSrc, 'medium');
-        //TODO: testing:
-        imgSrc = 'https://cdn.hobbyconsolas.com/sites/navi.axelspringer.es/public/media/image/2017/03/evolucion-link.jpg';
 
         return (
             <div className={styles.cardContent}>

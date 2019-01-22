@@ -2,6 +2,8 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { ScrollContainer } from 'react-router-scroll';
 import LoadingSpinnerCSS from '../ui/LoadingSpinnerCSS';
+import LoadingGif from "../ui/LoadingGif/LoadingGif";
+import styles from './Scroll.scss';
 
 export default class Scroll extends Component {
 
@@ -167,7 +169,10 @@ export default class Scroll extends Component {
             <div>
                 {this.getList()}
                 {loading && items.length > 1 ?
-                    <div key="loading-gif">{this.getLoadingGif()}</div> : null
+                    <div className={styles.loadingContainer}>
+                        <LoadingGif/>
+                    </div>
+                    : null
                 }
             </div>
         </ScrollContainer>

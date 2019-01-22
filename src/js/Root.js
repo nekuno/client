@@ -178,7 +178,7 @@ export default class Root extends Component {
                         <Route name="answer-user-fields" path="/answer-user-fields" component={AnswerUserFieldPage}/>
                         <Route name="answer-profile-fields" path="/answer-profile-fields" component={AnswerProfileFieldPage}/>
                         <Route name="notifications" path="/conversations" component={ChatThreadsPage}/>
-                        <Route name="messages" path="/conversations/:slug" component={ChatMessagesPage}/>
+                        <Route name="messages" path="/p/:slug/conversations" component={ChatMessagesPage}/>
                         <Route name="interests" path="/interests" component={OwnUserInterestsPage}/>
                         {/*<Route name="other-interests" path="/users/:slug/other-interests" component={OtherInterestsPage}/>*/}
                         <Route name="gallery" path="/gallery" component={GalleryPage}/>

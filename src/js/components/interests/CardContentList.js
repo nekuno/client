@@ -42,23 +42,9 @@ export default class CardContentList extends Component {
                 : [<div key="empty-message" className={styles.empty}><EmptyMessage text={strings.empty} loadingGif={false}/></div>];
         }
         //TESTING:
-        let contents1 = contents.map((content, index) => {
+        return contents.map((content, index) => {
             return this.buildCardContent(content, index);
         });
-
-        let contents2 = contents.map((content, index) => {
-            return this.buildCardContent(content, index);
-        });
-
-        let contents3 = contents.map((content, index) => {
-            return this.buildCardContent(content, index);
-        });
-
-        let contents4 = contents.map((content, index) => {
-            return this.buildCardContent(content, index);
-        });
-
-        return contents1.concat(contents2).concat(contents3).concat(contents4);
     }
 
     render() {

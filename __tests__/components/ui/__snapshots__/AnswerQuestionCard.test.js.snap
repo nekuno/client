@@ -4,11 +4,16 @@ exports[`Test AnswerQuestionCard component should render correctly 1`] = `
 ShallowWrapper {
   "length": 1,
   Symbol(enzyme.__root__): [Circular],
-  Symbol(enzyme.__unrendered__): <AnswerQuestionCard
+  Symbol(enzyme.__unrendered__): <TranslationComponent
     onClickHandler={[MockFunction]}
+    strings={
+      Object {
+        "answerQuestion": "Answer to see your answer",
+      }
+    }
   >
     Lorem ipsum
-  </AnswerQuestionCard>,
+  </TranslationComponent>,
   Symbol(enzyme.__renderer__): Object {
     "batchedUpdates": [Function],
     "getNode": [Function],
@@ -19,87 +24,35 @@ ShallowWrapper {
   Symbol(enzyme.__node__): Object {
     "instance": null,
     "key": undefined,
-    "nodeType": "host",
+    "nodeType": "class",
     "props": Object {
-      "children": Array [
-        <h3>
-          ¿Prefieres el mar o la montaña?
-        </h3>,
-        <p>
-          Responde para ver su respuesta
-        </p>,
-      ],
-      "className": "answerQuestionCard",
+      "children": "Lorem ipsum",
+      "locale": undefined,
+      "onClickHandler": [MockFunction],
+      "strings": Object {
+        "answerQuestion": "Answer to see your answer",
+      },
     },
     "ref": null,
-    "rendered": Array [
-      Object {
-        "instance": null,
-        "key": undefined,
-        "nodeType": "host",
-        "props": Object {
-          "children": "¿Prefieres el mar o la montaña?",
-        },
-        "ref": null,
-        "rendered": "¿Prefieres el mar o la montaña?",
-        "type": "h3",
-      },
-      Object {
-        "instance": null,
-        "key": undefined,
-        "nodeType": "host",
-        "props": Object {
-          "children": "Responde para ver su respuesta",
-        },
-        "ref": null,
-        "rendered": "Responde para ver su respuesta",
-        "type": "p",
-      },
-    ],
-    "type": "div",
+    "rendered": "Lorem ipsum",
+    "type": [Function],
   },
   Symbol(enzyme.__nodes__): Array [
     Object {
       "instance": null,
       "key": undefined,
-      "nodeType": "host",
+      "nodeType": "class",
       "props": Object {
-        "children": Array [
-          <h3>
-            ¿Prefieres el mar o la montaña?
-          </h3>,
-          <p>
-            Responde para ver su respuesta
-          </p>,
-        ],
-        "className": "answerQuestionCard",
+        "children": "Lorem ipsum",
+        "locale": undefined,
+        "onClickHandler": [MockFunction],
+        "strings": Object {
+          "answerQuestion": "Answer to see your answer",
+        },
       },
       "ref": null,
-      "rendered": Array [
-        Object {
-          "instance": null,
-          "key": undefined,
-          "nodeType": "host",
-          "props": Object {
-            "children": "¿Prefieres el mar o la montaña?",
-          },
-          "ref": null,
-          "rendered": "¿Prefieres el mar o la montaña?",
-          "type": "h3",
-        },
-        Object {
-          "instance": null,
-          "key": undefined,
-          "nodeType": "host",
-          "props": Object {
-            "children": "Responde para ver su respuesta",
-          },
-          "ref": null,
-          "rendered": "Responde para ver su respuesta",
-          "type": "p",
-        },
-      ],
-      "type": "div",
+      "rendered": "Lorem ipsum",
+      "type": [Function],
     },
   ],
   Symbol(enzyme.__options__): Object {

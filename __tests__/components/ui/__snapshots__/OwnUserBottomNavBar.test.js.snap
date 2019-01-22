@@ -1,20 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Test MatchingBars component should render correctly 1`] = `
+exports[`Test OwnUserBottomNavBar component should render correctly 1`] = `
 ShallowWrapper {
   "length": 1,
   Symbol(enzyme.__root__): [Circular],
   Symbol(enzyme.__unrendered__): <TranslationComponent
-    background="white"
-    condensed={false}
-    matching={0}
     onClickHandler={[MockFunction]}
-    similarity={0}
     strings={
       Object {
-        "compatible": "Compatibilidad",
-        "condensed": false,
-        "similar": "Similaridad",
+        "aboutMe": "About me",
+        "answers": "Answers",
+        "friends": "Friends",
+        "interests": "Interests",
+        "networks": "Networks",
       }
     }
   >
@@ -32,17 +30,15 @@ ShallowWrapper {
     "key": undefined,
     "nodeType": "class",
     "props": Object {
-      "background": "white",
       "children": "Lorem ipsum",
-      "condensed": false,
       "locale": undefined,
-      "matching": 0,
       "onClickHandler": [MockFunction],
-      "similarity": 0,
       "strings": Object {
-        "compatible": "Compatibilidad",
-        "condensed": false,
-        "similar": "Similaridad",
+        "aboutMe": "About me",
+        "answers": "Answers",
+        "friends": "Friends",
+        "interests": "Interests",
+        "networks": "Networks",
       },
     },
     "ref": null,
@@ -55,17 +51,15 @@ ShallowWrapper {
       "key": undefined,
       "nodeType": "class",
       "props": Object {
-        "background": "white",
         "children": "Lorem ipsum",
-        "condensed": false,
         "locale": undefined,
-        "matching": 0,
         "onClickHandler": [MockFunction],
-        "similarity": 0,
         "strings": Object {
-          "compatible": "Compatibilidad",
-          "condensed": false,
-          "similar": "Similaridad",
+          "aboutMe": "About me",
+          "answers": "Answers",
+          "friends": "Friends",
+          "interests": "Interests",
+          "networks": "Networks",
         },
       },
       "ref": null,

@@ -152,20 +152,30 @@ export default class TopNavBar extends Component {
                                 <div className={styles.icon + ' ' + styles.iconSearch + ' icon icon-search'} onClick={this.handleSearchClick}/>
                                 : null
                             }
-                            {firstIconRight ?
-                                iconsRightBackground ?
-                                    <div className={styles.roundedIcon}>
-                                        <RoundedIcon icon={firstIconRight}
-                                                     size="small"
-                                                     background={iconsRightBackground}
-                                                     color={iconsRightColor}
-                                                     fontSize={'15px'}
-                                                     onClickHandler={this.props.onRightLinkClickHandler}
-                                        />
-                                    </div>
-                                    :
-                                    <div className={styles.icon + ' icon icon-' + firstIconRight} style={{color: iconsRightColor}} onClick={this.props.onRightLinkClickHandler}/>
+                            {firstIconRight === 'icon-proyecto' || firstIconRight === 'icon-hobbie' || firstIconRight === 'icon-experiencia' ?
+                                <span className={styles.icon + " " + styles.iconProposals + " " + firstIconRight}>
+                                    <span className="path1"></span>
+                                    <span className="path2"></span>
+                                    <span className="path3"></span>
+                                    <span className="path4"></span>
+                                    <span className="path5"></span>
+                                    <span className="path6"></span>
+                                    <span className="path7"></span>
+                                </span>
                                 : null
+                            }
+                            {iconsRightBackground ?
+                                <div className={styles.roundedIcon}>
+                                    <RoundedIcon icon={firstIconRight}
+                                                 size="small"
+                                                 background={iconsRightBackground}
+                                                 color={iconsRightColor}
+                                                 fontSize={'15px'}
+                                                 onClickHandler={this.props.onRightLinkClickHandler}
+                                    />
+                                </div>
+                                :
+                                    <div className={styles.icon + ' icon icon-' + firstIconRight} style={{color: iconsRightColor}} onClick={this.props.onRightLinkClickHandler}/>
                             }
                             {secondIconRight ?
                                 iconsRightBackground ?

@@ -6,7 +6,9 @@ import Image from '../Image';
 import LinkImageService from '../../../services/LinkImageService';
 import NetworkLine from "../NetworkLine/NetworkLine";
 import ContentTypeIcon from "../ContentTypeIcon/ContentTypeIcon";
+import translate from "../../../i18n/Translate";
 
+@translate('CardContent')
 export default class CardContent extends Component {
 
     static propTypes = {
@@ -78,9 +80,10 @@ export default class CardContent extends Component {
         e.preventDefault();
     }
 
-    getType(types)
-    {
-        return types.find((type) => {return type !== 'Link'});
+    getType(types) {
+        return types.find((type) => {
+            return type !== 'Link'
+        });
     }
 
     render() {
@@ -89,6 +92,7 @@ export default class CardContent extends Component {
         const subTitle = description ? <div>{description.substr(0, 20)}{description.length > 20 ? '...' : ''}</div> : '';
         const type = this.getType(types);
         const isImage = type === 'Image';
+        const footerClassName = isImage ? styles.footerImage : styles.footer;
         const defaultSrc = 'img/default-content-image.jpg';
         let imgSrc = defaultSrc;
         if (thumbnail) {
@@ -103,11 +107,9 @@ export default class CardContent extends Component {
         return (
             <div className={styles.cardContent}>
                 {isImage ?
-                    <div>
-                        <div className={styles.contentImageFullWrapper}>
-                            <img src={imgSrc} alt=''/>
-                            {/*<NetworkLine network={network}/>*/}
-                        </div>
+                    <div className={styles.contentImageFullWrapper}>
+                        <img src={imgSrc} alt=''/>
+                        {/*<NetworkLine network={network}/>*/}
                     </div>
                     :
                     <div>
@@ -126,7 +128,7 @@ export default class CardContent extends Component {
                     </div>
 
                 }
-                <div className={styles.footer}>
+                <div className={footerClassName}>
                     <ContentTypeIcon type={type}/>
                 </div>
             </div>

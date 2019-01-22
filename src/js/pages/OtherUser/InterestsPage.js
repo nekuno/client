@@ -14,6 +14,7 @@ import * as InterestsActionCreators from "../../actions/InterestsActionCreators"
 import TopNavBar from '../../components/TopNavBar/TopNavBar.js';
 import CardContentList from '../../components/interests/CardContentList';
 import OtherUserBottomNavBar from "../../components/ui/OtherUserBottomNavBar/OtherUserBottomNavBar";
+import SelectCollapsibleInterest from "../../components/ui/SelectCollapsibleInterest/SelectCollapsibleInterest";
 
 function parseId(user) {
     return user ? user.id : null;
@@ -29,8 +30,6 @@ function requestData(props) {
         const otherUserId = parseId(otherUser);
         const requestComparedInterestsUrl = InterestStore.getRequestComparedInterestsUrl(otherUserId);
 
-        console.log('url');
-        console.log(requestComparedInterestsUrl);
         InterestsActionCreators.requestComparedInterests(userId, otherUserId, requestComparedInterestsUrl);
     });
 }
@@ -48,7 +47,6 @@ function getState(props) {
     const noInterests = otherUserId ? InterestStore.noInterests(otherUserId) || false : null;
     const isLoadingComparedInterests = InterestStore.isLoadingComparedInterests();
     const type = InterestStore.getType(otherUserId);
-    const showOnlyCommon = InterestStore.getShowOnlyCommon(otherUserId);
     const requestComparedInterestsUrl = InterestStore.getRequestComparedInterestsUrl(otherUserId);
 
     return {
@@ -59,8 +57,7 @@ function getState(props) {
         isLoadingComparedInterests,
         otherUser,
         type,
-        showOnlyCommon,
-        requestInterestsUrl: requestComparedInterestsUrl
+        requestComparedInterestsUrl
     };
 }
 
@@ -89,6 +86,13 @@ export default class InterestsPage extends Component {
     static contextTypes = {
         router: PropTypes.object.isRequired
     };
+
+    constructor(props) {
+
+        super(props);
+
+        this.changeType = this.changeType.bind(this);
+    }
 
     componentDidMount() {
         requestData(this.props);
@@ -125,8 +129,19 @@ export default class InterestsPage extends Component {
         }
     }
 
+    changeType(newType) {
+        const {type, otherUser} = this.props;
+
+        if (type !== newType) {
+            InterestsActionCreators.setType(newType, otherUser.id);
+        } else {
+            InterestsActionCreators.removeType();
+        }
+    }
+
     render() {
-        const {strings, interests, isLoadingComparedInterests, noInterests, params} = this.props;
+        const {strings, interests, isLoadingComparedInterests, noInterests, params, type, otherUser} = this.props;
+        const topNavBarText = otherUser ? strings.topNavBarText.replace('%username%', otherUser.username) : strings.topNavBarText.replace('%username%', params.slug);
         return (
             <div className="views">
                 <div className={styles.view} id="other-user-interests-view">
@@ -134,13 +149,18 @@ export default class InterestsPage extends Component {
                         <TopNavBar
                             background={'transparent'}
                             iconLeft={'arrow-left'}
-                            textCenter={strings.topNavBarText}
+                            textCenter={topNavBarText}
                         />
                     </div>
 
-                    {noInterests ? '' :
-                        <CardContentList contents={interests} scrollContainerId='other-user-interests-view'
-                                         onBottomScroll={this.onBottomScroll.bind(this)} isLoading={isLoadingComparedInterests}/>
+                    {noInterests ?
+                        <div className={styles.collapsible}><SelectCollapsibleInterest selected={type} onClickSelectCollapsible={this.changeType}/></div>
+                        :
+                        <div>
+                            <div className={styles.collapsible}><SelectCollapsibleInterest selected={type} onClickSelectCollapsible={this.changeType}/></div>
+                            <CardContentList contents={interests} scrollContainerId='other-user-interests-view'
+                                             onBottomScroll={this.onBottomScroll.bind(this)} isLoading={isLoadingComparedInterests}/>
+                        </div>
                     }
 
                 </div>

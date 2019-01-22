@@ -22,11 +22,6 @@
   display: flex;
 }
 
-.loading {
-  margin-top: 100px;
-  text-align: center;
-}
-
 .navbar-wrapper {
   position: absolute;
   bottom: 0;
@@ -58,4 +53,8 @@
     cursor: pointer;
   }
 
+}
+
+.collapsible {
+  margin-top: 50px;
 }

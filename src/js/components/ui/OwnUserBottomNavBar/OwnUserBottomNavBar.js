@@ -2,7 +2,9 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import styles from './OwnUserBottomNavBar.scss';
 import translate from "../../../i18n/Translate";
+import AuthenticatedComponent from "../../AuthenticatedComponent";
 
+@AuthenticatedComponent
 @translate('OwnUserBottomNavBar')
 export default class OwnUserBottomNavBar extends Component {
 
@@ -27,7 +29,7 @@ export default class OwnUserBottomNavBar extends Component {
     }
 
     handleClickAboutMe() {
-        this.redirectTo('about-me');
+        this.redirectTo('p/'+this.props.user.slug);
     }
 
     handleClickNetworks() {

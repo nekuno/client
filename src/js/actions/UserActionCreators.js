@@ -37,7 +37,11 @@ export function requestUser(userSlug, fields) {
     // Exit early if we know enough about this user
     if (UserStore.containsSlug(userSlug, fields)) {
         return new Promise((resolve) => {
-            resolve(true)
+            const user = UserStore.getBySlug(userSlug);
+            const userId = user.id;
+            let result = {entities : {users : {}}};
+            result.entities.users[userId] = user;
+            resolve(result);
         });
     }
 

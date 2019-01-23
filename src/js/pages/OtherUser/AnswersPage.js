@@ -179,7 +179,7 @@ export default class AnswersPage extends Component {
                         onLeftLinkClickHandler={this.topNavBarLeftLinkClick}/>
                     <div className="other-user-answers-view-wrapper">
                         <div className='other-user-answer-questions-wrapper'>
-                            {otherUserQuestions && userQuestions && otherNotAnsweredQuestions && Object.keys(otherNotAnsweredQuestions).length > 0 ?
+                            {otherUserQuestions && userQuestions && otherNotAnsweredQuestions ?
                                 <Scroll
                                     items={this.getQuestions()}
                                     // firstItems={}

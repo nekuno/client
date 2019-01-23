@@ -18,13 +18,22 @@ export default class CardUser extends Component {
         sharedLinks   : PropTypes.number.isRequired,
         group         : PropTypes.object,
         size          : PropTypes.oneOf(['small', 'medium']).isRequired,
-        onClickHandler: PropTypes.func
+        slug          : PropTypes.string,
     };
 
+    static contextTypes = {
+        router: PropTypes.object.isRequired
+    };
+
+    constructor(props) {
+        super(props);
+
+        this.handleClick = this.handleClick.bind(this);
+    }
+
     handleClick() {
-        if (this.props.onClickHandler) {
-            this.props.onClickHandler();
-        }
+        const {slug} = this.props;
+        this.context.router.push('/p/' + slug);
     }
 
     render() {

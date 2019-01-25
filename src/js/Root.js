@@ -92,8 +92,10 @@ import ProposalsExperiencePreviewPage           from "./pages/Proposals/Experien
 
 import OtherUserProposalsPage from "./pages/OtherUser/ProposalsPage";
 import OtherUserAboutMePage from "./pages/OtherUser/AboutMePage";
-import OwnUserAboutMePage from "./pages/OwnUser/AboutMePage";
 import OtherUserAnswersPage from "./pages/OtherUser/AnswersPage";
+
+import OwnUserAboutMePage from "./pages/OwnUser/AboutMePage";
+import OwnUserAnswersPage from "./pages/OwnUser/AnswersPage";
 
 
 function requireAuth(nextState, replaceState) {
@@ -172,6 +174,7 @@ export default class Root extends Component {
                         <Route name="persons-filter" path="/persons-filter/:threadId" component={PersonsFilterPage}/>
                         <Route name="plans" path="/plans" component={OwnProposalsPage}/>
                         <Route name="about-me" path="/about-me" component={OwnUserAboutMePage}/>
+                        <Route name="answers" path="/answers/:slug" component={OwnUserAnswersPage}/>
                         <Route name="availability-edit" path="/availability-edit" component={AvailabilityEditPage}/>
                         <Route name="explore" path="/explore" component={ExplorePage}/>
                         <Route name="register-questions-landing" path="/register-questions-landing" component={RegisterQuestionsLandingPage}/>

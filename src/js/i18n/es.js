@@ -307,6 +307,14 @@ export default {
         questions   : 'Respuestas',
         interests   : 'Intereses'
     },
+    OwnUserAnswersPage               : {
+        topNavBarText        : 'Mis respuestas',
+        myAnswersTitle       : '¡Queremoos conocerte mejor!',
+        myAnswersDescription : 'Cuantas más preguntas sobre tu personalidad respondas, mejores serán las recomendaciones que podamos hacerte.',
+        myAnswersButton      : 'Responder al test',
+        answeredQuestions    : 'Has respondido a 1 de 100 preguntas',
+        editAnswer           : 'Editar respuesta',
+    },
     OwnUserInterestsPage : {
         topNavBarText : 'Mis intereses',
         orderBy       : 'Filtrar por tipo',

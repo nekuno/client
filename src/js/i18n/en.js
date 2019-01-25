@@ -285,13 +285,6 @@ export default {
         loading                   : 'Loading questions',
         otherNotAnsweredQuestions : 'Check if you are compatible',
     },
-    OtherUserAnswersPage           : {
-        topNavBarText             : '%username% answers',
-        affinity                  : 'Affinity',
-        compatibility             : 'Compatibility',
-        loading                   : 'Loading questions',
-        otherNotAnsweredQuestions : 'Check if you are compatible',
-    },
     OtherUserProposalsPage           : {
         topNavBarText : '%username% proposals',
         orderBy       : 'Order by %orderBy%',
@@ -306,6 +299,14 @@ export default {
         photos      : 'Photos',
         questions   : 'Answers',
         interests   : 'Interests'
+    },
+    OwnUserAnswersPage               : {
+        topNavBarText        : 'My answers',
+        myAnswersTitle       : 'We want to know you better!',
+        myAnswersDescription : 'The more questions about your personality you answer, the better recommendations we can make.',
+        myAnswersButton      : 'Answer the test',
+        answeredQuestions    : 'You have answered 1 of 100 questions',
+        editAnswer           : 'Edit answer',
     },
     OwnProposalsPage                 : {
         myPlans         : 'My Plans',

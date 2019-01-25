@@ -3,13 +3,13 @@
 .view {
   background-color: $background;
   overflow-y: hidden;
-  height: 100%;
+  z-index: 0;
+  height: calc(100% - 100px);
 }
 
 .top-nav-bar {
-  position: absolute;
-  top: 0;
-  width: 100%;
+  //position: sticky;
+  background: $background;
 }
 
 .top-data {
@@ -23,7 +23,7 @@
 }
 
 .navbar-wrapper {
-  position: absolute;
+  //position: absolute;
   bottom: 0;
   width: 100%;
   z-index: 9001;
@@ -47,7 +47,7 @@
   }
 
   .roundedIcon {
-    position:absolute;
+    position: absolute;
     left: 0;
     top: 0;
     cursor: pointer;
@@ -56,5 +56,9 @@
 }
 
 .collapsible {
-  margin-top: 50px;
 }
+
+.card-content-list {
+  height: calc(100% - 50px);
+}
+

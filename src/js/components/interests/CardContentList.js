@@ -38,7 +38,7 @@ export default class CardContentList extends Component {
 
         if (contents.length === 0) {
             return isLoading ?
-                [<div key="loading" className={styles.loading}><LoadingGif /></div>]
+                [<div key="loading" className={styles.loading}><LoadingGif/></div>]
                 : [<div key="empty-message" className={styles.empty}><EmptyMessage text={strings.empty} loadingGif={false}/></div>];
         }
         //TESTING:
@@ -51,16 +51,14 @@ export default class CardContentList extends Component {
         const {scrollContainerId} = this.props;
 
         return (
-            <div className={styles.cardContentList} id={scrollContainerId}>
-                <Scroll
-                    items={this.getCardContents()}
-                    firstItems={this.props.firstItems}
-                    columns={2}
-                    onLoad={this.props.onBottomScroll}
-                    containerId={scrollContainerId}
-                    loading={this.props.isLoading}
-                />
-            </div>
+            <Scroll
+                items={this.getCardContents()}
+                firstItems={this.props.firstItems}
+                columns={2}
+                onLoad={this.props.onBottomScroll}
+                containerId={scrollContainerId}
+                loading={this.props.isLoading}
+            />
         );
     }
 }

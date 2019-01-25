@@ -100,7 +100,7 @@ export default class InterestsPage extends Component {
 
     componentDidUpdate(prevProps, prevState, snapshot) {
 
-        const {otherUser, type, user} = this.props;
+        const {otherUser, type, user, requestComparedInterestsUrl} = this.props;
 
         const otherUserChanged = parseId(prevProps.otherUser) !== parseId(otherUser);
         const typeChanged = prevProps.type !== type;
@@ -109,7 +109,7 @@ export default class InterestsPage extends Component {
             const otherUserId = parseId(otherUser);
             const userId = parseId(user);
 
-            InterestsActionCreators.requestComparedInterests(userId, otherUserId, this.props.requestInterestsUrl);
+            InterestsActionCreators.requestComparedInterests(userId, otherUserId, requestComparedInterestsUrl);
         }
     }
 
@@ -135,7 +135,7 @@ export default class InterestsPage extends Component {
         if (type !== newType) {
             InterestsActionCreators.setType(newType, otherUser.id);
         } else {
-            InterestsActionCreators.removeType();
+            InterestsActionCreators.removeType(otherUser.id);
         }
     }
 
@@ -144,29 +144,28 @@ export default class InterestsPage extends Component {
         const topNavBarText = otherUser ? strings.topNavBarText.replace('%username%', otherUser.username) : strings.topNavBarText.replace('%username%', params.slug);
         return (
             <div className="views">
-                <div className={styles.view} id="other-user-interests-view">
-                    <div className={styles.topNavBar}>
-                        <TopNavBar
-                            background={'transparent'}
-                            iconLeft={'arrow-left'}
-                            textCenter={topNavBarText}
-                        />
+                <div className={styles.topNavBar}>
+                    <TopNavBar
+                        background={'transparent'}
+                        iconLeft={'arrow-left'}
+                        textCenter={topNavBarText}
+                    />
+                </div>
+                <div className={styles.view}>
+                    <div className={styles.collapsible}>
+                        <SelectCollapsibleInterest selected={type} onClickSelectCollapsible={this.changeType}/>
                     </div>
 
-                    {noInterests ?
-                        <div className={styles.collapsible}><SelectCollapsibleInterest selected={type} onClickSelectCollapsible={this.changeType}/></div>
+                    {noInterests ? ''
                         :
-                        <div>
-                            <div className={styles.collapsible}><SelectCollapsibleInterest selected={type} onClickSelectCollapsible={this.changeType}/></div>
+                        <div className={styles.cardContentList} id="other-user-interests-view">
                             <CardContentList contents={interests} scrollContainerId='other-user-interests-view'
                                              onBottomScroll={this.onBottomScroll.bind(this)} isLoading={isLoadingComparedInterests}/>
                         </div>
                     }
+                </div>
+                <OtherUserBottomNavBar current={'interests'} userSlug={params.slug}/>
 
-                </div>
-                <div className={styles.navbarWrapper}>
-                    <OtherUserBottomNavBar current={'interests'} userSlug={params.slug}/>
-                </div>
             </div>
         );
     }

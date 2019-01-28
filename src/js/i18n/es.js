@@ -283,14 +283,7 @@ export default {
         affinity                  : 'Afinidad',
         compatibility             : 'Compatibilidad',
         loading                   : 'Cargando preguntas',
-        otherNotAnsweredQuestions : 'Comprueba si sois compatible',
-    },
-    OtherUserAnswersPage           : {
-        topNavBarText             : 'Respuestas de %username%',
-        affinity                  : 'Afinidad',
-        compatibility             : 'Compatibilidad',
-        loading                   : 'Cargando preguntas',
-        otherNotAnsweredQuestions : 'Comprueba si sois compatible',
+        otherNotAnsweredQuestions : 'Comprueba si sois compatibles',
     },
     OtherUserProposalsPage           : {
         topNavBarText : 'Propuestas de %username%',
@@ -309,10 +302,10 @@ export default {
     },
     OwnUserAnswersPage               : {
         topNavBarText        : 'Mis respuestas',
-        myAnswersTitle       : '¡Queremoos conocerte mejor!',
+        myAnswersTitle       : '¡Queremos conocerte mejor!',
         myAnswersDescription : 'Cuantas más preguntas sobre tu personalidad respondas, mejores serán las recomendaciones que podamos hacerte.',
         myAnswersButton      : 'Responder al test',
-        answeredQuestions    : 'Has respondido a 1 de 100 preguntas',
+        answeredQuestions    : 'Has respondido a %questionsTotal% de 100 preguntas',
         editAnswer           : 'Editar respuesta',
     },
     OwnUserInterestsPage : {

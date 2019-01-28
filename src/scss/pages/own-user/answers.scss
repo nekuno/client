@@ -1,19 +1,18 @@
 @import '../../_partials/colors';
 
-body #root .App .views .view.user-answers-view {
+.user-answers-view {
   background-color: $background;
   color: $gray-main-text;
   // text-align: center;
   z-index: 0;
-  overflow-y: hidden;
-  // height: calc(100% - 54px);
-
+  height: 100%;
 
   .user-answers-view-wrapper {
-    // padding: 16px;
+    height: calc(100% - 100px);
 
-    #infinite-scroll {
-      height: calc(100% - 54px);
+    h3 {
+      font-weight: 600;
+      font-size: 18px;
     }
 
     .first-items {
@@ -49,10 +48,7 @@ body #root .App .views .view.user-answers-view {
         }
       }
 
-      h3 {
-        font-weight: 600;
-        font-size: 18px;
-      }
+
     }
 
     .user-question-card {
@@ -66,6 +62,9 @@ body #root .App .views .view.user-answers-view {
 
         .photo {
           margin-right: 16px;
+          .icon-nekuno-wrapper {
+            margin-left: 6px;
+          }
         }
       }
       .edit-answer {

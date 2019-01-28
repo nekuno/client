@@ -305,7 +305,7 @@ export default {
         myAnswersTitle       : 'We want to know you better!',
         myAnswersDescription : 'The more questions about your personality you answer, the better recommendations we can make.',
         myAnswersButton      : 'Answer the test',
-        answeredQuestions    : 'You have answered 1 of 100 questions',
+        answeredQuestions    : 'You have answered %questionsTotal% of 100 questions',
         editAnswer           : 'Edit answer',
     },
     OwnProposalsPage                 : {

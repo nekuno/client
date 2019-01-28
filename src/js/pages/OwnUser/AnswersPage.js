@@ -16,6 +16,8 @@ import Scroll from "../../components/Scroll/Scroll";
 import AnswerQuestionCard from "../../components/ui/AnswerQuestionCard/AnswerQuestionCard";
 import EmptyMessage from "../../components/ui/EmptyMessage";
 import OwnUserBottomNavBar from "../../components/ui/OwnUserBottomNavBar/OwnUserBottomNavBar";
+import RoundedIcon from "../../components/ui/RoundedIcon/RoundedIcon";
+import RouterStore from "../../stores/RouterStore";
 
 function requestData(props) {
     // const user = UserActionCreators.requestUser(props.params.slug);
@@ -27,14 +29,15 @@ function requestData(props) {
  */
 function getState(props) {
     const userQuestions = props.user ? QuestionStore.get(props.user.id) : null;
-
     const isLoadingOwnQuestions = QuestionStore.isLoadingComparedQuestions();
     const requestQuestionsUrl = QuestionStore.getRequestComparedQuestionsUrl(props.user.id, []);
+    const questionsTotal = QuestionStore.ownAnswersLength(props.user.id);
 
     return {
         userQuestions,
         isLoadingOwnQuestions,
         requestQuestionsUrl,
+        questionsTotal,
     };
 }
 
@@ -66,9 +69,8 @@ export default class AnswersPage extends Component {
         super(props);
 
         this.topNavBarLeftLinkClick = this.topNavBarLeftLinkClick.bind(this);
-
+        this.onAnswerTest = this.onAnswerTest.bind(this);
         this.firstItems = this.firstItems.bind(this);
-
         this.onBottomScroll = this.onBottomScroll.bind(this);
     }
 
@@ -82,22 +84,24 @@ export default class AnswersPage extends Component {
     }
 
     getQuestions() {
-        const {strings, userQuestions, isLoadingOwnQuestions} = this.props;
+        const {user, strings, userQuestions, isLoadingOwnQuestions} = this.props;
 
         const questionComponents = Object.keys(userQuestions).map((question, questionIndex) =>
             <div key={questionIndex} className="user-question-card">
                 <h3>{userQuestions[question].question.text}</h3>
                 {userQuestions[question].question.answers.map((answer, answerIndex) =>
-                    <div>
+                    <div key={answerIndex}>
                         {userQuestions[question].userAnswer.acceptedAnswers.map((acceptedAnswer, acceptedAnswerIndex) =>
                             <div>
                                 {acceptedAnswer === answer.answerId ?
                                 <div key={answerIndex} className="user-question-card-answer">
                                     <div className="photo">
                                         {userQuestions[question].userAnswer.answerId === answer.answerId ?
-                                            <RoundedImage size={'x-small'} url="https://dummyimage.com/600x400/ff0000/fff"/>
+                                            <RoundedImage size={'x-small'} url={user.photo.thumbnail.small}/>
                                             :
-                                            <RoundedImage size={'x-small'} url="https://dummyimage.com/25x25/000/fff"/>
+                                            <div className="icon-nekuno-wrapper">
+                                                <RoundedIcon icon={'nekuno'} size={'small'} background={'#615acb'}/>
+                                            </div>
                                         }
 
                                     </div>
@@ -122,8 +126,12 @@ export default class AnswersPage extends Component {
             : questionComponents;
     }
 
+    onAnswerTest() {
+        this.context.router.push('/answer-question/next');
+    }
+
     firstItems() {
-        const {strings, userQuestions, isLoadingOwnQuestions} = this.props;
+        const {strings, userQuestions, isLoadingOwnQuestions, questionsTotal} = this.props;
 
         return [
             <div className={"first-items"}>
@@ -134,12 +142,12 @@ export default class AnswersPage extends Component {
                     </div>
                     <div className="user-answer-presentation-card-description">{strings.myAnswersDescription}</div>
                     <div className="user-answer-presentation-card-button">
-                        <Button textAlign={'left'} size={'small'} backgroundColor={'#928bff'}>
+                        <Button textAlign={'left'} size={'small'} backgroundColor={'#928bff'} onClickHandler={this.onAnswerTest}>
                             {strings.myAnswersButton}
                         </Button>
                     </div>
                 </div>
-                <h3>{strings.answeredQuestions}</h3>
+                <h3>{strings.answeredQuestions.replace("%questionsTotal%", questionsTotal)}</h3>
             </div>
         ]
     }
@@ -157,6 +165,32 @@ export default class AnswersPage extends Component {
     render() {
         const {strings, userQuestions, isLoadingOwnQuestions} = this.props;
 
+        return (
+            <div className={"user-answers-view"}>
+                <TopNavBar
+                    background={'FFFFFF'}
+                    iconLeft={'arrow-left'}
+                    textCenter={strings.topNavBarText}
+                    textSize={'small'}
+                    onLeftLinkClickHandler={this.topNavBarLeftLinkClick}/>
+                <div id={"user-answers-view"} className={"user-answers-view-wrapper"}>
+                    {userQuestions ?
+                        <Scroll
+                            items={this.getQuestions()}
+                            firstItems={this.firstItems()}
+                            onLoad={this.onBottomScroll}
+                            containerId="user-answers-view"
+                            loading={isLoadingOwnQuestions}
+                            columns={1}
+                        />
+                        : null
+                    }
+                </div>
+                <OwnUserBottomNavBar current={"answers"}/>
+            </div>
+        );
+
+/*
         return (
             <div className="views">
                 <div id={'user-answers-view'} className="view view-main user-answers-view">
@@ -183,6 +217,7 @@ export default class AnswersPage extends Component {
                 <OwnUserBottomNavBar current={"answers"}/>
             </div>
         );
+        */
     }
 }
 
@@ -192,7 +227,7 @@ AnswersPage.defaultProps = {
         myAnswersTitle       : 'We want to know you better!',
         myAnswersDescription : 'The more questions about your personality you answer, the better recommendations we can make.',
         myAnswersButton      : 'Answer the test',
-        answeredQuestions    : 'You have answered 1 of 100 questions',
+        answeredQuestions    : 'You have answered %questionsTotal% of 100 questions',
         editAnswer           : 'Edit answer',
     }
 };

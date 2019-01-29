@@ -96,10 +96,8 @@ export default {
         topText: 'Select a date range'
     },
     EditProfilePage                  : {
-        title       : 'Edit profile',
-        cancel      : 'Cancel',
-        saveChanges : 'Save changes',
-        cannotRemove: 'This field cannot be deleted'
+        top       : 'Edit profile',
+        bottom : 'Save changes',
     },
     ExplorerProfilePage              : {
         yourAccount: 'Your account at Nekuno',
@@ -277,13 +275,6 @@ export default {
         loading              : 'Loading interests',
         empty                : 'No interests to show with this filters',
         reported             : 'The content has been reported. We will review it within next 24 hours'
-    },
-    OtherUserAnswersPage           : {
-        topNavBarText             : '%username% answers',
-        affinity                  : 'Affinity',
-        compatibility             : 'Compatibility',
-        loading                   : 'Loading questions',
-        otherNotAnsweredQuestions : 'Check if you are compatible',
     },
     OtherUserAnswersPage           : {
         topNavBarText             : '%username% answers',

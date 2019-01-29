@@ -40,6 +40,10 @@ module.exports = {
                 "loader": "style-loader!css-loader?modules&camelCase&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!sass-loader"
             },
             {
+                "test": /src\/js\/pages\/.+\.s?css$/,
+                "loader": "style-loader!css-loader?modules&camelCase&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!sass-loader"
+            },
+            {
                 test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
                 use: [{
                     loader: 'file-loader',

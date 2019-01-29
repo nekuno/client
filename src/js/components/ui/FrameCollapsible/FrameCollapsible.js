@@ -6,7 +6,8 @@ import styles from './FrameCollapsible.scss';
 export default class FrameCollapsible extends Component {
 
     static propTypes = {
-        title         : PropTypes.string
+        title         : PropTypes.string,
+        onToggle : PropTypes.func,
     };
 
     constructor(props) {
@@ -23,6 +24,8 @@ export default class FrameCollapsible extends Component {
         const {open} = this.state;
 
         this.setState({open: !open});
+
+        this.props.onToggle();
     }
 
     render() {
@@ -52,3 +55,7 @@ export default class FrameCollapsible extends Component {
         );
     }
 }
+
+FrameCollapsible.defaultProps = {
+    onToggle: () => {},
+};

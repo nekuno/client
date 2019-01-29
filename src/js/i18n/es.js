@@ -96,10 +96,8 @@ export default {
         topText: 'Selecciona un rango de fechas'
     },
     EditProfilePage                  : {
-        title       : 'Editar perfil',
-        cancel      : 'Cancelar',
-        saveChanges : 'Guardar cambios',
-        cannotRemove: 'Este campo no se puede eliminar'
+        top       : 'Editar perfil',
+        bottom : 'Guardar cambios',
     },
     ExplorerProfilePage              : {
         yourAccount: 'Tu cuenta en Nekuno',
@@ -277,13 +275,6 @@ export default {
         loading              : 'Cargando intereses',
         empty                : 'No hay intereses con estos filtros',
         reported             : 'El contenido ha sido reportado. Lo revisaremos en las próximas 24 horas'
-    },
-    OtherUserAnswersPage           : {
-        topNavBarText             : 'Respuestas de %username%',
-        affinity                  : 'Afinidad',
-        compatibility             : 'Compatibilidad',
-        loading                   : 'Cargando preguntas',
-        otherNotAnsweredQuestions : 'Comprueba si sois compatible',
     },
     OtherUserAnswersPage           : {
         topNavBarText             : 'Respuestas de %username%',

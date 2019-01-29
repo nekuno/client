@@ -91,9 +91,9 @@ import ProposalsExperienceFeaturesPage          from "./pages/Proposals/Experien
 import ProposalsExperiencePreviewPage           from "./pages/Proposals/Experience/PreviewPage";
 
 import OtherUserProposalsPage from "./pages/OtherUser/ProposalsPage";
-import OtherUserAboutMePage from "./pages/OtherUser/AboutMePage";
 import OwnUserAboutMePage from "./pages/OwnUser/AboutMePage";
 import OtherUserAnswersPage from "./pages/OtherUser/AnswersPage";
+import EditProfilePage from "./pages/OwnUser/EditProfilePage";
 
 
 function requireAuth(nextState, replaceState) {
@@ -138,6 +138,7 @@ export default class Root extends Component {
                     <Route name="login" path="/login" component={LoginPage}/>
                     <Route name="register" path="/register" component={RegisterPage}/>
                     <Route name="shared-user" path="/p/:slug" component={ProfilePage}/>
+                    <Route name="shared-user-edit" path="/p/:slug/edit" component={EditProfilePage}/>
                     <Route name="shared-user-interests" path="/p/:slug/interests" component={OtherUserInterestsPage}/>
 
                     <Route onEnter={requireAuth}>

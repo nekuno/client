@@ -43,4 +43,13 @@
       line-height: 32px;
     }
   }
+  &.xx-small {
+    height: 25px;
+    width: 25px;
+
+    .icon {
+      font-size: 25px;
+      line-height: 25px;
+    }
+  }
 }

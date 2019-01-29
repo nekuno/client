@@ -23,7 +23,7 @@ function getState() {
     const noMoreMessages = ChatThreadStore.getNoMoreMessages();
     const onlineUserIds = ChatUserStatusStore.getOnlineUserIds() || [];
     const threads = ChatThreadStore.getThreads();
-    console.log(threads);
+    // console.log(threads);
 
     // const today = new Date();
     // let yesterday = new Date();
@@ -165,15 +165,15 @@ export default class ChatThreadsPage extends Component {
                 <TopNavBar textCenter={strings.title} imageLeft={imgSrc} boxShadow={true}/>
                 {/*<h4>{strings.otherMessages}</h4>*/}
                 <div id="chat-threads-view" className="chat-threads-wrapper">
-                        {threads.length > 0 ?
-                            <Scroll
-                                items={this.renderMessages()}
-                                containerId="chat-threads-view"
-                                onLoad={this.onBottomScroll}
-                                loading={loading}
-                                useSpinner={true}
-                            />
-                            : null}
+                    {threads.length > 0 ?
+                        <Scroll
+                            items={this.renderMessages()}
+                            containerId="chat-threads-view"
+                            onLoad={this.onBottomScroll}
+                            loading={loading}
+                            useSpinner={true}
+                        />
+                        : null}
                 </div>
                 <BottomNavBar current={'messages'} notifications={notifications}/>
             </div>

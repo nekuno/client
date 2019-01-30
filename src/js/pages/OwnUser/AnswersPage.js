@@ -92,9 +92,9 @@ export default class AnswersPage extends Component {
                 {userQuestions[question].question.answers.map((answer, answerIndex) =>
                     <div key={answerIndex}>
                         {userQuestions[question].userAnswer.acceptedAnswers.map((acceptedAnswer, acceptedAnswerIndex) =>
-                            <div>
+                            <div key={acceptedAnswerIndex}>
                                 {acceptedAnswer === answer.answerId ?
-                                <div key={answerIndex} className="user-question-card-answer">
+                                <div className="user-question-card-answer">
                                     <div className="photo">
                                         {userQuestions[question].userAnswer.answerId === answer.answerId ?
                                             <RoundedImage size={'x-small'} url={user.photo.thumbnail.small}/>

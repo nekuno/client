@@ -293,13 +293,6 @@ class QuestionStore extends BaseStore {
             Array.isArray(this._questions[userId]) ? Object.keys(this._questions[userId]).length : 0;
     }
 
-    notAnsweredLength(userId) {
-        console.log(this._otherNotAnsweredQuestions);
-        return this._otherNotAnsweredQuestions;
-        return this.getPagination(userId).hasOwnProperty('total') ? this.getPagination(userId).total :
-            Array.isArray(this._questions[userId]) ? Object.keys(this._questions[userId]).length : 0;
-    }
-
     registerQuestionsLength() {
         return this._registerQuestionsLength;
     }

@@ -38,6 +38,8 @@ function getState(props) {
     const isLoadingOwnQuestions = QuestionStore.isLoadingComparedQuestions();
     const requestQuestionsUrl = otherUser ? QuestionStore.getRequestComparedQuestionsUrl(otherUser.id, []) : null;
 
+    console.log(otherNotAnsweredQuestions);
+
     return {
         otherUser,
         otherUserQuestions,

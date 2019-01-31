@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import SelectedEdit from './SelectedEdit';
 import TextCheckboxes from '../../ui/TextCheckboxes';
-import ChoiceEdit from '../edit/ChoiceEdit';
+import ChoiceEdit from './ChoiceEdit/ChoiceEdit';
 import IntegerEdit from '../edit/IntegerEdit';
 import LocationEdit from '../edit/LocationEdit';
 import TagsAndChoiceEdit from '../edit/TagsAndChoiceEdit';

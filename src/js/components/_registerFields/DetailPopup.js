@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import FullWidthButton from '../ui/FullWidthButton';
 import EmptyMessage from '../ui/EmptyMessage';
-import ChoiceEdit from '../../components/profile/edit/ChoiceEdit';
+import ChoiceEdit from '../profile/edit/ChoiceEdit/ChoiceEdit';
 import LocationEdit from '../../components/profile/edit/LocationEdit';
 import IntegerEdit from '../../components/profile/edit/IntegerEdit';
 import TagsAndChoiceEdit from '../../components/profile/edit/TagsAndChoiceEdit';

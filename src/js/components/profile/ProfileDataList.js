@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import styles from './ProfileDataList.scss';
 import ProfileData from './ProfileData';
 import * as UserActionCreators from '../../actions/UserActionCreators';
 import translate from '../../i18n/Translate';
@@ -7,7 +8,7 @@ import connectToStores from '../../utils/connectToStores';
 import ProfileStore from '../../stores/ProfileStore';
 import FilterStore from '../../stores/FilterStore';
 import TagSuggestionsStore from '../../stores/TagSuggestionsStore';
-import ChoiceEdit from '../../components/profile/edit/ChoiceEdit';
+import ChoiceEdit from './edit/ChoiceEdit/ChoiceEdit';
 import LocationEdit from '../../components/profile/edit/LocationEdit';
 import IntegerEdit from '../../components/profile/edit/IntegerEdit';
 import TagsAndChoiceEdit from '../../components/profile/edit/TagsAndChoiceEdit';
@@ -15,7 +16,6 @@ import MultipleChoicesEdit from '../../components/profile/edit/MultipleChoicesEd
 import MultipleFieldsEdit from '../../components/profile/edit/MultipleFieldsEdit';
 import MultipleLocationsEdit from '../../components/profile/edit/MultipleLocationsEdit';
 import DoubleChoiceEdit from '../../components/profile/edit/DoubleChoiceEdit';
-import TagEdit from '../../components/profile/edit/TagEdit';
 import BirthdayEdit from '../../components/profile/edit/BirthdayEdit';
 import TextAreaEdit from '../../components/profile/edit/TextAreaEdit';
 import Framework7Service from '../../services/Framework7Service';
@@ -177,7 +177,7 @@ export default class ProfileDataList extends Component {
     renderFields(category) {
         const {profile, metadata} = this.props;
         return Object.keys(category.fields).map(field =>
-            <div key={'parent-' + field} className="profile-category-edition">
+            <div key={'parent-' + field} className={styles.profileCategoryEdition}>
                 <hr/>
                 <br/>
                 {this.renderField(profile.hasOwnProperty(field) ? profile : [], metadata, field)}
@@ -193,7 +193,7 @@ export default class ProfileDataList extends Component {
             return '';
         }
         let props = {
-            title                : dataName,
+            title                : metadata[dataname].labelEdit,
             editKey              : dataName,
             metadata             : metadata[dataName],
             selected             : selected,
@@ -204,8 +204,15 @@ export default class ProfileDataList extends Component {
         let handleClick = this.handleChangeEditAndSave.bind(this, dataName); //called only with data
         switch (metadata[dataName]['type']) {
             case 'choice':
-                props.data = data ? data : '';
-                props.handleChangeEdit = this.handleChangeEditAndSave;
+                props.selected = data ? data : '';
+                let handleClickChoice = function(data)
+                {
+                    const options = metadata[dataName]['choices'];
+                    const option = options.find((each) => {return each.text === data});
+                    handleClick(option.id);
+                };
+                props.handleChangeEdit = handleClickChoice;
+                props.onClickHandler = handleClick;
                 filter = <ChoiceEdit {...props} />;
                 break;
             case 'integer':
@@ -287,7 +294,7 @@ export default class ProfileDataList extends Component {
         const {profileWithMetadata} = this.props;
 
         return (
-            <div className="profile-data-list">
+            <div className={styles.profileDataList}>
                 {profileWithMetadata.map(
                     category => {
                         // return (

@@ -1,5 +1,5 @@
 export default {
-    AnswerQuestionPage               : {
+    AnswerQuestionPage                      : {
         question               : 'Pregunta',
         skip                   : 'Omitir',
         tutorialFirstStepTitle : 'Tu respuesta',
@@ -9,7 +9,7 @@ export default {
         tutorialThirdStepTitle : 'Importancia',
         tutorialThirdStep      : 'Esta será la importancia que tendrá la pregunta a la hora de hacer los cálculos de compatibilidad.'
     },
-    AnswerNextQuestionPage           : {
+    AnswerNextQuestionPage                  : {
         question               : 'Pregunta',
         skip                   : 'Omitir',
         tutorialFirstStepTitle : 'Tu respuesta',
@@ -19,7 +19,7 @@ export default {
         tutorialThirdStepTitle : 'Importancia',
         tutorialThirdStep      : 'Esta será la importancia que tendrá la pregunta a la hora de hacer los cálculos de compatibilidad.'
     },
-    AnswerNextOtherQuestionPage      : {
+    AnswerNextOtherQuestionPage             : {
         question               : 'Pregunta',
         noMoreQuestions        : 'No hay más preguntas de este usuario',
         tutorialFirstStepTitle : 'Tu respuesta',
@@ -29,7 +29,7 @@ export default {
         tutorialThirdStepTitle : 'Importancia',
         tutorialThirdStep      : 'Esta será la importancia que tendrá la pregunta a la hora de hacer los cálculos de compatibilidad.'
     },
-    AvailabilityPage                 : {
+    AvailabilityPage                        : {
         yourAccount : 'Tu cuenta en Nekuno',
         title       : 'Dinos cuál es tu disponibilidad',
         finishTitle : '¡Disponibilidad añadida!',
@@ -40,34 +40,34 @@ export default {
         skip        : 'En otro momento',
         signUp      : 'Finalizar registro',
     },
-    AvailabilityEditPage             : {
+    AvailabilityEditPage                    : {
         yourAvailability: 'Mi Disponibilidad',
         continue        : 'Guardar cambios'
     },
-    AvailabilityEditOnSignUpPage     : {
+    AvailabilityEditOnSignUpPage            : {
         yourAvailability: 'Tu disponibilidad',
         continue        : 'Guardar y continuar'
     },
-    ChatMessagesPage                 : {
+    ChatMessagesPage                        : {
         noMoreMessages: 'No tienes más mensajes',
         placeholder   : 'Escribe un mensaje...',
         text          : 'Enviar'
     },
-    ChatThreadsPage                  : {
+    ChatThreadsPage                         : {
         title: 'Mensajes'
     },
-    ConnectFacebookPage              : {
+    ConnectFacebookPage                     : {
         yourAccount: 'Tu cuenta en Nekuno',
         title      : '¡Ya casi estamos! Conecta con Facebook',
         description: 'Necesitamos recopilar información sobre el tipo de contenidos que te gustan para recomendarte personas compatibles',
         connect    : 'Conectar con Facebook'
     },
-    ConnectingFacebookPage           : {
+    ConnectingFacebookPage                  : {
         analyzing  : 'Analizando datos',
         title      : '¡Hola %username%!',
         description: 'Ya formas parte de Nekuno',
     },
-    ConnectSocialNetworksOnSignUpPage: {
+    ConnectSocialNetworksOnSignUpPage       : {
         next         : 'Continuar',
         welcome      : 'Bienvenido',
         excerpt1     : '¡Por fin tus datos trabajarán para ti!',
@@ -75,65 +75,65 @@ export default {
         error        : 'Error conectando red. Quizás ya la has conectado con otro usuario.',
         answerExplore: 'Quieres contestar los objetivos de explorar?'
     },
-    ConnectSocialNetworksPage        : {
+    ConnectSocialNetworksPage               : {
         top    : 'Redes Sociales',
         title  : 'Mejora las recomendaciones',
         excerpt: '¡Por fin tus datos trabajarán para ti! ¡Cuantos más intereses aportes, mejores recomendaciones obtendrás!',
         error  : 'Error conectando red. Quizás ya la has conectado con otro usuario.'
     },
-    ConnectSteamAnonymous            : {
+    ConnectSteamAnonymous                   : {
         connect       : 'Conecta Steam',
         description   : 'Carga automáticamente tus juegos favoritos',
         cannotGetGames: 'Quizás tengas la configuración de privacidad como privada. Cámbiala a pública para ver tus juegos.'
     },
-    DailyInputRange                  : {
+    DailyInputRange                         : {
         morning  : 'Mañana',
         afternoon: 'Tarde',
         night    : 'Noche',
         continue : 'Guardar y continuar'
     },
-    DateInputRange                   : {
+    DateInputRange                          : {
         topText: 'Selecciona un rango de fechas'
     },
-    EditProfilePage                  : {
-        top       : 'Editar perfil',
-        bottom : 'Guardar cambios',
+    EditProfilePage                         : {
+        top   : 'Editar perfil',
+        bottom: 'Guardar cambios',
     },
-    ExplorerProfilePage              : {
+    ExplorerProfilePage                     : {
         yourAccount: 'Tu cuenta en Nekuno',
         title      : 'Completa tu perfil de explorador',
         description: 'Necesitamos saber qué tipo de actividades y experiencias te gustan para recomendarte personas y planes',
         fillProfile: 'Completar perfil',
         skip       : 'En otro momento'
     },
-    ExplorerProfileCostPage          : {
+    ExplorerProfileCostPage                 : {
         activitiesAndExperiences: 'Actividades y Experiencias',
         title                   : '¿Cuál es el coste ideal para ti por una entrada?',
         addCost                 : 'Selecciona para continuar',
         continue                : 'Continuar'
     },
-    ExplorerProfileEventsPage        : {
+    ExplorerProfileEventsPage               : {
         activitiesAndExperiences: 'Actividades y Experiencias',
         title                   : '¿A qué tipo de eventos te gusta asistir?',
         searchEvent             : 'Buscar tipo de evento',
         addEvent                : 'Selecciona para continuar',
         continue                : 'Continuar'
     },
-    ExplorerProfilePlansPage         : {
+    ExplorerProfilePlansPage                : {
         activitiesAndExperiences: 'Actividades y Experiencias',
         title                   : '¿Qué tipo de planes te gusta hacer en tu tiempo libre?',
         searchPlan              : 'Buscar tipo de plan',
         addPlan                 : 'Selecciona para continuar',
         continue                : 'Continuar'
     },
-    ExplorerProfileRestaurantsPage   : {
+    ExplorerProfileRestaurantsPage          : {
         activitiesAndExperiences: 'Actividades y Experiencias',
         title                   : '¿A qué tipo de restaurantes te gusta ir a comer o cenar?',
         searchRestaurant        : 'Buscar tipo de restaurante',
         addRestaurant           : 'Selecciona para continuar',
         continue                : 'Continuar'
     },
-    HomePage                         : {
+    HomePage                                : {
         title1       : 'Conoce personas afines a ti',
         title2       : 'Comparte tus ideas y planes',
         title3       : 'Participa en proyectos y planes',
@@ -143,11 +143,11 @@ export default {
         skip         : 'Omitir',
         blockingError: 'Tu navegador está bloqueando una petición a Facebook y no podemos registrar tu usuario. Por favor, deshabilita el bloqueo en la configuración o utiliza otro navegador.'
     },
-    ExplorePage                      : {
+    ExplorePage                             : {
         title  : 'Compartir lo que te encanta' + "\n" + 'uniéndote y creando propuestas',
         explore: 'Explorar',
     },
-    InterestsPage                    : {
+    InterestsPage                           : {
         cancel   : 'Cancelar',
         myProfile: 'Mi Perfil',
         about    : 'Sobre mi',
@@ -158,7 +158,7 @@ export default {
         empty    : 'No tienes ningún interés todavía. Por favor, conecta tus redes sociales o explora tus ovillos y cuéntanos lo que te interesa.',
         reported : 'El contenido ha sido reportado. Lo revisaremos en las próximas 24 horas'
     },
-    GalleryPage                      : {
+    GalleryPage                             : {
         importAlbum    : 'Importar fotos',
         empty          : 'No has importado ninguna foto',
         myProfile      : 'Mi Perfil',
@@ -170,34 +170,34 @@ export default {
         importingAlbums: 'Cargando álbumes',
         invalidMimeType: 'Imagen inválida'
     },
-    OtherGalleryPage                 : {
+    OtherGalleryPage                        : {
         empty  : 'El usuario no ha importado ninguna foto',
         loading: 'Cargando fotos'
     },
-    GalleryAlbumsPage                : {
+    GalleryAlbumsPage                       : {
         albums        : 'Álbumes de %resource%',
         empty         : 'No hay álbumes',
         importingAlbum: 'Cargando álbum'
     },
-    GalleryAlbumPhotosPage           : {
+    GalleryAlbumPhotosPage                  : {
         empty       : 'No hay fotos en este álbum',
         importPhotos: 'Importar fotos'
     },
-    GalleryPhotoPage                 : {
+    GalleryPhotoPage                        : {
         photos       : 'Fotos',
         profilePhoto : 'Foto de perfil',
         confirmDelete: '¿Estás seguro de que quieres borrar esta foto?'
     },
-    OtherGalleryPhotoPage            : {
+    OtherGalleryPhotoPage                   : {
         photos: 'Fotos'
     },
-    GalleryProfilePhotoPage          : {
+    GalleryProfilePhotoPage                 : {
         confirmSetAsProfilePhoto: '¿Quieres usar esta foto como foto de perfil?',
         cancel                  : 'Cancelar',
         photos                  : 'Fotos',
         changeProfilePhoto      : 'Cambiar foto de perfil'
     },
-    GroupPage                        : {
+    GroupPage                               : {
         groups      : 'Tus insignias',
         create      : 'Crear insignia',
         creating    : 'Creando insignia',
@@ -207,7 +207,7 @@ export default {
         joiningError: 'Error desbloqueando esta insignia',
         noGroupToken: 'Este código no tiene ninguna insignia asociada'
     },
-    GroupStatsPage                   : {
+    GroupStatsPage                          : {
         group            : 'Grupo',
         share            : 'Url a compartir',
         shareSubject     : 'Únete al grupo de Nekuno ',
@@ -217,20 +217,20 @@ export default {
         leave_error      : '¡Lo sentimos! Por favor, intenta salir de nuevo',
         copiedToClipboard: 'Copiado al portapapeles'
     },
-    UnlockGroupPopup                 : {
+    UnlockGroupPopup                        : {
         enterToken    : 'Código de insignia',
         enterTokenText: 'Escribe el código de la insignia',
         close         : 'Cerrar',
         ok            : 'Desbloquear'
     },
-    LeisureProfilePage               : {
+    LeisureProfilePage                      : {
         yourAccount: 'Tu cuenta en Nekuno',
         title      : 'Completa tu perfil de ocio',
         description: 'Necesitamos saber tus deportes, juegos y hobbies preferidos para recomendarte personas y actividades',
         fillProfile: 'Completar perfil',
         skip       : 'En otro momento'
     },
-    LeisureProfileGamesPage          : {
+    LeisureProfileGamesPage                 : {
         sportsAndGames: 'Deportes, Juegos y Hobbies',
         title         : '¿A qué juegos te gusta jugar en tu tiempo libre?',
         selected      : 'Juegos que te gustan',
@@ -238,14 +238,14 @@ export default {
         addGame       : 'Añade un juego para continuar',
         continue      : 'Continuar'
     },
-    LeisureProfileHobbiesPage        : {
+    LeisureProfileHobbiesPage               : {
         sportsAndGames: 'Deportes, Juegos y Hobbies',
         title         : '¿Qué hobbies te gusta practicar en tu tiempo libre?',
         searchHobby   : 'Buscar hobby',
         addHobby      : 'Añade un hobby para continuar',
         continue      : 'Continuar'
     },
-    LeisureProfileSportsPage         : {
+    LeisureProfileSportsPage                : {
         sportsAndGames: 'Deportes, Juegos y Hobbies',
         title         : '¿Qué deportes te gusta practicar en tu tiempo libre?',
         selected      : 'Tus deportes seleccionados',
@@ -253,7 +253,7 @@ export default {
         addSport      : 'Añade un deporte para continuar',
         continue      : 'Continuar'
     },
-    LoginPage                        : {
+    LoginPage                               : {
         login        : 'Iniciar sesión',
         cancel       : 'Cancelar',
         loginResource: 'Entra con una red social',
@@ -262,7 +262,7 @@ export default {
         wantGuest    : '¿Quieres probarlo?',
         asGuest      : 'Entra como invitado'
     },
-    OtherInterestsPage               : {
+    OtherInterestsPage                      : {
         cancel               : 'Cancelar',
         interestsCount       : '%count% Intereses',
         similarInterestsCount: '%count% Intereses similares',
@@ -276,52 +276,52 @@ export default {
         empty                : 'No hay intereses con estos filtros',
         reported             : 'El contenido ha sido reportado. Lo revisaremos en las próximas 24 horas'
     },
-    OtherUserAnswersPage           : {
-        topNavBarText             : 'Respuestas de %username%',
-        affinity                  : 'Afinidad',
-        compatibility             : 'Compatibilidad',
-        loading                   : 'Cargando preguntas',
-        otherNotAnsweredQuestions : 'Comprueba si sois compatible',
+    OtherUserAnswersPage                    : {
+        topNavBarText            : 'Respuestas de %username%',
+        affinity                 : 'Afinidad',
+        compatibility            : 'Compatibilidad',
+        loading                  : 'Cargando preguntas',
+        otherNotAnsweredQuestions: 'Comprueba si sois compatible',
     },
-    OtherUserProposalsPage           : {
-        topNavBarText : 'Propuestas de %username%',
-        orderBy       : 'Ordenar por %orderBy%',
+    OtherUserProposalsPage                  : {
+        topNavBarText: 'Propuestas de %username%',
+        orderBy      : 'Ordenar por %orderBy%',
     },
-    OtherUserInterestsPage : {
-        topNavBarText : 'Intereses de %username%',
-        orderBy       : 'Ordenar por %orderBy%',
+    OtherUserInterestsPage                  : {
+        topNavBarText: 'Intereses de %username%',
+        orderBy      : 'Ordenar por %orderBy%',
     },
-    OtherQuestionsPage               : {
+    OtherQuestionsPage                      : {
         coincidences: 'Coincidencias de',
         about       : 'Acerca de',
         photos      : 'Fotos',
         questions   : 'Respuestas',
         interests   : 'Intereses'
     },
-    OwnUserInterestsPage : {
-        topNavBarText : 'Mis intereses',
-        orderBy       : 'Filtrar por tipo',
+    OwnUserInterestsPage                    : {
+        topNavBarText: 'Mis intereses',
+        orderBy      : 'Filtrar por tipo',
     },
-    OwnProposalsPage                 : {
+    OwnProposalsPage                        : {
         myPlans         : 'Mis planes',
         popularProposals: 'Propuestas más populares',
         otherPublished  : 'Otras propuestas publicadas',
         matches         : 'Matches',
     },
-    PersonsPage                      : {
+    PersonsPage                             : {
         relatedPeople: 'Personas afines a ti',
         closestPeople: 'Las personas más afines',
         viewAll      : 'Ver todos',
         groupsPersons: 'Personas de tus insignias'
     },
-    PersonsAllPage                   : {
+    PersonsAllPage                          : {
         title        : 'Personas Nekuno',
         orderedBy    : 'Ordenadas por',
         compatibility: 'Compatibilidad',
         similarity   : 'Similaridad',
         coincidences : 'Coincidencias'
     },
-    PersonsFilterPage                : {
+    PersonsFilterPage                       : {
         title        : 'Gente Nekuno',
         orderedBy    : 'Ordenado por',
         compatibility: 'compatibilidad',
@@ -329,14 +329,14 @@ export default {
         coincidences : 'coincidencias',
         showResults  : 'Mostrar resultados'
     },
-    ProfessionalProfilePage          : {
+    ProfessionalProfilePage                 : {
         yourAccount: 'Tu cuenta en Nekuno',
         title      : 'Completa tu perfil profesional',
         description: 'Necesitamos saber tus sectores y hablilidades profesionales para recomendarte personas y proyectos',
         fillProfile: 'Completar perfil',
         skip       : 'En otro momento'
     },
-    ProfessionalProfileIndustryPage  : {
+    ProfessionalProfileIndustryPage         : {
         workAndIdeas  : 'Trabajo, Ideas y Proyectos',
         title         : '¿Cuáles son tus sectores professionales?',
         selected      : 'Tus sectores profesionales',
@@ -344,7 +344,7 @@ export default {
         addIndustry   : 'Añade un sector para continuar',
         continue      : 'Continuar'
     },
-    ProfessionalProfileSkillsPage    : {
+    ProfessionalProfileSkillsPage           : {
         workAndIdeas  : 'Trabajo, Ideas y Proyectos',
         title         : '¿Cuáles son tus habilidades professionales?',
         selected      : 'Tus habilidades profesionales',
@@ -352,7 +352,7 @@ export default {
         addIndustry   : 'Añade una habilidad para continuar',
         continue      : 'Continuar'
     },
-    ProposalsPage                    : {
+    ProposalsPage                           : {
         discover: 'Descubre propuestas'
     },
     ProposalsProjectIntroductionPage        : {
@@ -361,31 +361,31 @@ export default {
         description    : 'Publica esa idea o proyecto que tienes en mente y te encomendaremos personas afines con quien realizarla.',
         doProposal     : 'Hacer propuesta'
     },
-    ProposalsProjectBasicPage        : {
-        publishProposal: 'Publicar propuesta',
-        title: '¿En qué consiste tu  propuesta de proyecto?',
-        titlePlaceholder: 'Título propuesta',
-        descriptionPlaceholder: 'Explica cómo quieres llevarla a cabo...',
-        stepsBarContinueText: 'Continuar',
+    ProposalsProjectBasicPage               : {
+        publishProposal         : 'Publicar propuesta',
+        title                   : '¿En qué consiste tu  propuesta de proyecto?',
+        titlePlaceholder        : 'Título propuesta',
+        descriptionPlaceholder  : 'Explica cómo quieres llevarla a cabo...',
+        stepsBarContinueText    : 'Continuar',
         stepsBarCantContinueText: 'Rellena para continuar',
     },
-    ProposalsProjectIndustryPage     : {
-        publishProposal: 'Publicar propuesta',
-        title: '¿Qué sectores profesionales requieres para el proyecto?',
-        placeholder: 'Buscar sector',
-        selectedLabel: 'Sectores que quieres',
-        stepsBarContinueText: 'Continuar',
+    ProposalsProjectIndustryPage            : {
+        publishProposal         : 'Publicar propuesta',
+        title                   : '¿Qué sectores profesionales requieres para el proyecto?',
+        placeholder             : 'Buscar sector',
+        selectedLabel           : 'Sectores que quieres',
+        stepsBarContinueText    : 'Continuar',
         stepsBarCantContinueText: 'Indica uno para continuar',
     },
-    ProposalsProjectProfessionPage     : {
-        publishProposal: 'Publicar propuesta',
-        title: '¿Qué habilidades te gustaría para el proyecto?',
-        placeholder: 'Buscar habilidad',
-        selectedLabel: 'Habilidades que quieres',
-        stepsBarContinueText: 'Continuar',
+    ProposalsProjectProfessionPage          : {
+        publishProposal         : 'Publicar propuesta',
+        title                   : '¿Qué habilidades te gustaría para el proyecto?',
+        placeholder             : 'Buscar habilidad',
+        selectedLabel           : 'Habilidades que quieres',
+        stepsBarContinueText    : 'Continuar',
         stepsBarCantContinueText: 'Indica una para continuar',
     },
-    ProposalsProjectAvailabilityPage : {
+    ProposalsProjectAvailabilityPage        : {
         publishProposal         : 'Publicar propuesta',
         title                   : '¿Qué implicación necesitas para el proyecto?',
         availabilityTitle       : 'Disponibilidad',
@@ -408,25 +408,25 @@ export default {
         from                    : 'De',
         to                      : 'hasta',
     },
-    ProposalsProjectAvailabilityDatesPage : {
-        publishProposal         : 'Publicar propuesta',
-        title                   : '¿Qué disponibilidad necesitas para el proyecto?',
+    ProposalsProjectAvailabilityDatesPage   : {
+        publishProposal: 'Publicar propuesta',
+        title          : '¿Qué disponibilidad necesitas para el proyecto?',
     },
-    ProposalsProjectFeaturesPage : {
-        publishProposal          : 'Publicar propuesta',
-        title               : '¿Buscas personas con características específicas?',
-        filterWarning       : 'Estos filtros sólo serán visibles para ti y nos sirven para filtrar usuarios',
-        featuresBasic       : 'Aspectos básicos',
-        featuresAvailability: 'Disponibilidad',
-        featuresPhysical    : 'Apariencia física',
-        featuresCulture     : 'Cultura e idiomas',
-        featuresDrugs       : 'Drogas y otros vicios',
-        featuresFamiliar    : 'Aspectos familiares',
-        stepsBarContinueText: 'Continuar',
+    ProposalsProjectFeaturesPage            : {
+        publishProposal         : 'Publicar propuesta',
+        title                   : '¿Buscas personas con características específicas?',
+        filterWarning           : 'Estos filtros sólo serán visibles para ti y nos sirven para filtrar usuarios',
+        featuresBasic           : 'Aspectos básicos',
+        featuresAvailability    : 'Disponibilidad',
+        featuresPhysical        : 'Apariencia física',
+        featuresCulture         : 'Cultura e idiomas',
+        featuresDrugs           : 'Drogas y otros vicios',
+        featuresFamiliar        : 'Aspectos familiares',
+        stepsBarContinueText    : 'Continuar',
         stepsBarCantContinueText: 'Indica una para continuar',
     },
-    ProposalsProjectPreviewPage : {
-        publishProposal          : 'Publicar propuesta',
+    ProposalsProjectPreviewPage             : {
+        publishProposal: 'Publicar propuesta',
         project        : 'Proyecto',
         sectors        : 'Sectores',
         skills         : 'Habilidades',
@@ -452,31 +452,31 @@ export default {
         withinRadioOf  : 'en un radio de'
     },
     ProposalsLeisureIntroductionPage        : {
-        publishProposal : 'Publicar propuesta',
-        title           : 'Haz tu propuesta de entretenimiento',
-        resume          : 'Publica ese hobbie o actividad que tienes en mente y te encomendaremos personas afines con quien realizarla.',
-        doProposal      : 'Hacer propuesta'
+        publishProposal: 'Publicar propuesta',
+        title          : 'Haz tu propuesta de entretenimiento',
+        resume         : 'Publica ese hobbie o actividad que tienes en mente y te encomendaremos personas afines con quien realizarla.',
+        doProposal     : 'Hacer propuesta'
     },
-    ProposalsLeisureBasicPage        : {
-        publishProposal          : 'Publicar propuesta',
-        title                    : '¿En qué consiste tu propuesta?',
-        sports                   : 'Deporte',
-        hobbies                  : 'Hobby',
-        games                    : 'Juego',
-        titlePlaceholder         : 'Título propuesta',
-        descriptionPlaceholder   : 'Explica cómo quieres llevarla a cabo...',
-        stepsBarContinueText     : 'Continuar',
-        stepsBarCantContinueText : 'Rellena para continuar',
+    ProposalsLeisureBasicPage               : {
+        publishProposal         : 'Publicar propuesta',
+        title                   : '¿En qué consiste tu propuesta?',
+        sports                  : 'Deporte',
+        hobbies                 : 'Hobby',
+        games                   : 'Juego',
+        titlePlaceholder        : 'Título propuesta',
+        descriptionPlaceholder  : 'Explica cómo quieres llevarla a cabo...',
+        stepsBarContinueText    : 'Continuar',
+        stepsBarCantContinueText: 'Rellena para continuar',
     },
-    ProposalsLeisureTypePage        : {
-        publishProposal          : 'Publicar propuesta',
-        title                    : 'Selecciona de qué trata tu propuesta',
-        placeholder              : 'Buscar',
-        selectedLabel            : 'Valores seleccionados',
-        stepsBarContinueText     : 'Continuar',
-        stepsBarCantContinueText : 'Indica uno para continuar',
+    ProposalsLeisureTypePage                : {
+        publishProposal         : 'Publicar propuesta',
+        title                   : 'Selecciona de qué trata tu propuesta',
+        placeholder             : 'Buscar',
+        selectedLabel           : 'Valores seleccionados',
+        stepsBarContinueText    : 'Continuar',
+        stepsBarCantContinueText: 'Indica uno para continuar',
     },
-    ProposalsLeisureAvailabilityPage : {
+    ProposalsLeisureAvailabilityPage        : {
         publishProposal         : 'Publicar propuesta',
         title                   : '¿Qué disponibilidad y número de personas necesitas?',
         availabilityTitle       : 'Disponibilidad',
@@ -499,19 +499,19 @@ export default {
         from                    : 'De',
         to                      : 'hasta',
     },
-    ProposalsLeisureAvailabilityDatesPage : {
-        publishProposal         : 'Publicar propuesta',
-        title                   : '¿Qué disponibilidad necesitas para el proyecto?',
+    ProposalsLeisureAvailabilityDatesPage   : {
+        publishProposal: 'Publicar propuesta',
+        title          : '¿Qué disponibilidad necesitas para el proyecto?',
     },
-    ProposalsLeisureFeaturesPage : {
-        publishProposal          : 'Publicar propuesta',
-        title               : '¿Buscas personas con características específicas?',
-        filterWarning       : 'Estos filtros sólo serán visibles para ti y nos sirven para filtrar usuarios',
-        stepsBarContinueText: 'Continuar',
+    ProposalsLeisureFeaturesPage            : {
+        publishProposal         : 'Publicar propuesta',
+        title                   : '¿Buscas personas con características específicas?',
+        filterWarning           : 'Estos filtros sólo serán visibles para ti y nos sirven para filtrar usuarios',
+        stepsBarContinueText    : 'Continuar',
         stepsBarCantContinueText: 'Indica una para continuar',
     },
-    ProposalsLeisurePreviewPage : {
-        publishProposal          : 'Publicar propuesta',
+    ProposalsLeisurePreviewPage             : {
+        publishProposal: 'Publicar propuesta',
         project        : 'Proyecto',
         sectors        : 'Sectores',
         skills         : 'Habilidades',
@@ -536,32 +536,32 @@ export default {
         years          : 'años',
         withinRadioOf  : 'en un radio de'
     },
-    ProposalsExperienceIntroductionPage        : {
-        publishProposal : 'Publicar propuesta',
-        title           : 'Haz tu propuesta de entretenimiento',
-        resume          : 'Publica ese hobbie o actividad que tienes en mente y te encomendaremos personas afines con quien realizarla.',
-        doProposal      : 'Hacer propuesta'
+    ProposalsExperienceIntroductionPage     : {
+        publishProposal: 'Publicar propuesta',
+        title          : 'Haz tu propuesta de entretenimiento',
+        resume         : 'Publica ese hobbie o actividad que tienes en mente y te encomendaremos personas afines con quien realizarla.',
+        doProposal     : 'Hacer propuesta'
     },
-    ProposalsExperienceBasicPage        : {
-        publishProposal          : 'Publicar propuesta',
-        title                    : '¿En qué consiste tu propuesta?',
-        shows                    : 'Evento',
-        restaurants              : 'Gourmet',
-        plans                    : 'Plan',
-        titlePlaceholder         : 'Título propuesta',
-        descriptionPlaceholder   : 'Explica cómo quieres llevarla a cabo...',
-        stepsBarContinueText     : 'Continuar',
-        stepsBarCantContinueText : 'Rellena para continuar',
+    ProposalsExperienceBasicPage            : {
+        publishProposal         : 'Publicar propuesta',
+        title                   : '¿En qué consiste tu propuesta?',
+        shows                   : 'Evento',
+        restaurants             : 'Gourmet',
+        plans                   : 'Plan',
+        titlePlaceholder        : 'Título propuesta',
+        descriptionPlaceholder  : 'Explica cómo quieres llevarla a cabo...',
+        stepsBarContinueText    : 'Continuar',
+        stepsBarCantContinueText: 'Rellena para continuar',
     },
-    ProposalsExperienceTypePage        : {
-        publishProposal          : 'Publicar propuesta',
-        title                    : 'Selecciona de qué trata tu propuesta',
-        placeholder              : 'Buscar',
-        selectedLabel            : 'Valores seleccionados',
-        stepsBarContinueText     : 'Continuar',
-        stepsBarCantContinueText : 'Indica uno para continuar',
+    ProposalsExperienceTypePage             : {
+        publishProposal         : 'Publicar propuesta',
+        title                   : 'Selecciona de qué trata tu propuesta',
+        placeholder             : 'Buscar',
+        selectedLabel           : 'Valores seleccionados',
+        stepsBarContinueText    : 'Continuar',
+        stepsBarCantContinueText: 'Indica uno para continuar',
     },
-    ProposalsExperienceAvailabilityPage : {
+    ProposalsExperienceAvailabilityPage     : {
         publishProposal         : 'Publicar propuesta',
         title                   : '¿Qué disponibilidad y número de personas necesitas?',
         availabilityTitle       : 'Disponibilidad',
@@ -584,19 +584,19 @@ export default {
         from                    : 'De',
         to                      : 'hasta',
     },
-    ProposalsExperienceAvailabilityDatesPage : {
-        publishProposal         : 'Publicar propuesta',
-        title                   : '¿Qué disponibilidad necesitas para el proyecto?',
+    ProposalsExperienceAvailabilityDatesPage: {
+        publishProposal: 'Publicar propuesta',
+        title          : '¿Qué disponibilidad necesitas para el proyecto?',
     },
-    ProposalsExperienceFeaturesPage : {
-        publishProposal          : 'Publicar propuesta',
-        title               : '¿Buscas personas con características específicas?',
-        filterWarning       : 'Estos filtros sólo serán visibles para ti y nos sirven para filtrar usuarios',
-        stepsBarContinueText: 'Continuar',
+    ProposalsExperienceFeaturesPage         : {
+        publishProposal         : 'Publicar propuesta',
+        title                   : '¿Buscas personas con características específicas?',
+        filterWarning           : 'Estos filtros sólo serán visibles para ti y nos sirven para filtrar usuarios',
+        stepsBarContinueText    : 'Continuar',
         stepsBarCantContinueText: 'Indica una para continuar',
     },
-    ProposalsExperiencePreviewPage : {
-        publishProposal          : 'Publicar propuesta',
+    ProposalsExperiencePreviewPage          : {
+        publishProposal: 'Publicar propuesta',
         project        : 'Proyecto',
         sectors        : 'Sectores',
         skills         : 'Habilidades',
@@ -621,22 +621,22 @@ export default {
         years          : 'años',
         withinRadioOf  : 'en un radio de'
     },
-    QuestionsPage                    : {
+    QuestionsPage                           : {
         myProfile: 'Mi Perfil',
         about    : 'Sobre mi',
         photos   : 'Fotos',
         questions: 'Respuestas',
         interests: 'Intereses'
     },
-    QuestionStatsPage                : {
+    QuestionStatsPage                       : {
         statistics: 'Estadísticas',
         next      : 'Continuar'
     },
-    QuestionEditedStatsPage          : {
+    QuestionEditedStatsPage                 : {
         statistics: 'Estadísticas',
         next      : 'Continuar'
     },
-    RegisterPage                     : {
+    RegisterPage                            : {
         register          : 'Crear cuenta',
         cancel            : 'Cancelar',
         title             : 'Nekuno analiza tus intereses para ofrecerte recomendaciones',
@@ -654,12 +654,12 @@ export default {
         blockingError     : 'Tu navegador está bloqueando una petición a Facebook y no podemos registrar tu usuario. Por favor, deshabilita el bloqueo en la configuración o utiliza otro navegador.'
 
     },
-    RegisterQuestionLandingPage      : {
+    RegisterQuestionLandingPage             : {
         title  : 'Queremos conocerte un poco mejor',
         excerpt: 'Realiza el test y elige lo que te gustaría que respondiera otro usuario para ser compatible contigo. Responde a estas cuatro preguntas y habremos terminado',
         next   : 'HACER TEST'
     },
-    ThreadPage                       : {
+    ThreadPage                              : {
         threads                : 'Descubrir',
         create                 : 'Crear',
         loadingMessage         : 'Cargando ovillos',
@@ -670,13 +670,13 @@ export default {
         tutorialThirdStepTitle : 'Menú',
         tutorialThirdStep      : 'Este es el botón para abrir el menú y este punto verde indica que tienes mensajes nuevos. ¡Te invitamos a que explores todo Nekuno! ¡Gracias por participar en esta Beta privada!'
     },
-    DiscoverPage                     : {
+    DiscoverPage                            : {
         discover         : 'Descubrir',
         editFilters      : 'Editar filtros',
         loadingMessage   : 'Cargando recomendaciones',
         noRecommendations: 'No hay recomendaciones con los filtros seleccionados'
     },
-    RecommendationPage               : {
+    RecommendationPage                      : {
         loadingMessage   : 'Cargando recomendaciones',
         confirmDelete    : '¿Estás seguro de que quieres borrar este ovillo?',
         processingThread : 'Estos resultados son provisionales, en breve mejorarán',
@@ -684,7 +684,7 @@ export default {
         copiedToClipboard: 'Copiado al portapapeles',
         shareError       : 'Parece que ha habido un error mientras compartías este contenido'
     },
-    InvitationsPage                  : {
+    InvitationsPage                         : {
         invitations           : 'Invitaciones',
         title                 : 'Tienes %invitationNumber% invitaciones',
         defaultInvitationTitle: 'Invitación de un solo uso',
@@ -696,14 +696,14 @@ export default {
         shareError            : 'Ha ocurrido un error enviando la invitación.',
         copiedToClipboard     : 'Copiado al portapapeles'
     },
-    UserPage                         : {
+    UserPage                                : {
         aboutMe  : 'Sobre mi',
         photos   : 'Fotos',
         questions: 'Respuestas',
         interests: 'Intereses',
         myProfile: 'Mi Perfil'
     },
-    OtherUserPage                    : {
+    OtherUserPage                           : {
         profile               : 'Perfil',
         loading               : 'Cargando perfil',
         age                   : 'Edad',
@@ -729,7 +729,7 @@ export default {
         spam                  : 'Este usuario envía spam',
         otherReasons          : 'Otros motivos'
     },
-    SharedUserPage                   : {
+    SharedUserPage                          : {
         title          : '¿Quieres ver tu compatibilidad con %username%?',
         signUp         : 'Entra con Facebook',
         loginUser      : 'Intentando iniciar sesión',
@@ -739,7 +739,7 @@ export default {
         legalTerms     : 'Nunca publicaremos nada en tus redes.</br>Al registrarte, estás aceptando los <a href="https://nekuno.com/terms-and-conditions" target="_blank">Términos Legales</a>.',
         blockingError  : 'Tu navegador está bloqueando una petición a Facebook y no podemos registrar tu usuario. Por favor, deshabilita el bloqueo en la configuración o utiliza otro navegador.'
     },
-    CreateThreadPage                 : {
+    CreateThreadPage                        : {
         create  : 'Crear ovillos',
         title   : '¿Qué deseas descubrir en este nuevo ovillo?',
         cancel  : 'Cancelar',
@@ -747,7 +747,7 @@ export default {
         contents: 'Contenido interesante',
         creating: 'Creando ovillo',
     },
-    EditThreadPage                   : {
+    EditThreadPage                          : {
         edit       : 'Editar ovillo',
         cancel     : 'Cancelar',
         placeholder: 'Título',
@@ -755,7 +755,7 @@ export default {
         contents   : 'Contenido interesante',
         updating   : 'Editando ovillo',
     },
-    EditThreadLitePage               : {
+    EditThreadLitePage                      : {
         edit       : 'Editar ovillo',
         cancel     : 'Cancelar',
         placeholder: 'Título',
@@ -764,7 +764,7 @@ export default {
         updating   : 'Editando ovillo',
         filters    : 'Filtros'
     },
-    SettingsPage                     : {
+    SettingsPage                            : {
         title         : 'Ajustes',
         version       : 'Versión de Nekuno',
         legalTerms    : 'Términos legales',
@@ -779,7 +779,7 @@ export default {
     ////////////////
     // Components //
     ////////////////
-    AvailabilityEdit                 : {
+    AvailabilityEdit                        : {
         title    : '¿Cuál es tu disponibilidad?',
         daily    : 'A diario',
         dates    : 'Fechas',
@@ -792,7 +792,7 @@ export default {
         saturday : 'Sábado',
         sunday   : 'Domingo',
     },
-    BottomNavBar                     : {
+    BottomNavBar                            : {
         proposals : 'Propuestas',
         persons   : 'Personas',
         plans     : 'Planes',
@@ -801,20 +801,20 @@ export default {
         leisure   : 'Plan de ocio',
         experience: 'Experiencia'
     },
-    OtherUserBottomNavBar            : {
-        aboutMe   : 'Sobre mi',
-        proposals : 'Propuestas',
-        answers   : 'Respuestas',
-        interests : 'Intereses',
+    OtherUserBottomNavBar                   : {
+        aboutMe  : 'Sobre mi',
+        proposals: 'Propuestas',
+        answers  : 'Respuestas',
+        interests: 'Intereses',
     },
-    OwnUserBottomNavBar: {
+    OwnUserBottomNavBar                     : {
         aboutMe  : 'Sobre mi',
         networks : 'Redes',
         friends  : 'Amigos',
         answers  : 'Respuestas',
         interests: 'Intereses',
     },
-    LeftPanel                        : {
+    LeftPanel                               : {
         interests     : 'Intereses',
         threads       : 'Descubrir',
         groups        : 'Insignias',
@@ -827,12 +827,12 @@ export default {
         invitations   : 'Invitaciones',
         logout        : 'Salir'
     },
-    GroupField                       : {
+    GroupField                              : {
         placeholder: 'Código de insignia',
         save       : 'Continuar',
         selectOther: 'Selecciona otros objetivos si quieres'
     },
-    ExploreField                     : {
+    ExploreField                            : {
         explore     : 'Explorar',
         work1       : 'Trabajo',
         work2       : '& ideas',
@@ -857,25 +857,25 @@ export default {
         skip        : 'Pasar',
         selectOther : 'Puedes seleccionar más de uno'
     },
-    OrientationField                 : {
+    OrientationField                        : {
         iAm         : 'Soy',
         heterosexual: 'Hetero',
         homosexual  : 'Homo',
         bisexual    : 'Bisexual',
         other       : 'Otro',
     },
-    AccessButtons                    : {
+    AccessButtons                           : {
         registerText: 'Regístrate ahora',
         loginText   : 'Ya estoy registrade',
         registerNow : 'Puedes registrarte ahora',
     },
-    AboutMeCategory: {
+    AboutMeCategory                         : {
         about: 'Sobre mi',
     },
-    ProfileDataList                  : {
+    ProfileDataList                         : {
         cannotRemove: 'Este campo no se puede eliminar',
     },
-    OtherProfileData                 : {
+    OtherProfileData                        : {
         coincidences       : 'Coincidencias',
         similarInterests   : 'Intereses similares',
         compatibility      : 'Compatibilidad',
@@ -883,18 +883,18 @@ export default {
         calculatingMatching: 'Calculando compatibilidad...',
         commonGroups       : 'Insignias en común'
     },
-    ProfileData                      : {
+    ProfileData                             : {
         seeLess: 'Ver menos',
         seeMore: 'Ver más'
     },
-    ProposalFilterPreview            : {
-        filterText     : 'Filtros para el target de tu propuesta',
-        from           : 'De',
-        to             : 'hasta',
-        years          : 'años',
-        withinRadioOf  : 'en un radio de'
+    ProposalFilterPreview                   : {
+        filterText   : 'Filtros para el target de tu propuesta',
+        from         : 'De',
+        to           : 'hasta',
+        years        : 'años',
+        withinRadioOf: 'en un radio de'
     },
-    AnswerUsernamePage               : {
+    AnswerUsernamePage                      : {
         yourAccount      : 'Tu cuenta en Nekuno',
         heading          : "¡Empezamos!",
         heading2         : "¿Qué nombre te gustaría tener en Nekuno?",
@@ -904,32 +904,32 @@ export default {
         continue         : 'Continuar',
         invalidUsername  : '¡Oh no! Este nombre no está disponible :(',
     },
-    AnswerUserFieldPage              : {
+    AnswerUserFieldPage                     : {
         question      : 'Pregunta',
         loadingMessage: 'Cargando preguntas'
     },
-    AnswerProfileFieldPage           : {
+    AnswerProfileFieldPage                  : {
         question      : 'Pregunta',
         loadingMessage: 'Cargando preguntas',
         genderEmpty   : 'No has seleccionado el género'
     },
-    UsernameField                    : {
+    UsernameField                           : {
         username       : 'Nombre de usuario',
         title          : 'Elige tu nombre de usuario',
         save           : 'Continuar',
         invalidUsername: 'El nombre de usuario no es válido o ya está en uso. Los caracteres válidos son letras, números y _'
     },
-    EmailField                       : {
+    EmailField                              : {
         email: 'e-mail',
         title: '¿Cuál es tu e-mail?',
         save : 'Guardar'
     },
-    BirthdayField                    : {
+    BirthdayField                           : {
         birthday           : 'Fecha de nacimiento',
         title              : '¿Cúando naciste?',
         birthdayPlaceholder: 'Tu fecha de nacimiento'
     },
-    GenderField                      : {
+    GenderField                             : {
         include              : 'Incluirme en las búsquedas como',
         gender               : 'Género',
         male                 : 'Hombre',
@@ -940,19 +940,19 @@ export default {
         title                : 'Selecciona tu género',
         save                 : 'Guardar'
     },
-    LocationField                    : {
+    LocationField                           : {
         location: 'Ubicación',
         title   : '¿En qué población vives?',
         save    : 'Guardar'
     },
-    ObjectivesField                  : {
+    ObjectivesField                         : {
         title            : 'Quiero conocer gente compatible para...',
         existingUserTitle: 'Quiero conocer gente compatible para...',
         minObjectives    : 'El número mínimo de opciones es %min%, selecciona alguna opción y guarda',
         objectives       : 'Selecciona tus objetivos',
         save             : 'Continuar'
     },
-    AcceptedAnswersImportance        : {
+    AcceptedAnswersImportance               : {
         title     : '¿Qué importancia tiene esta pregunta para ti?',
         irrelevant: 'Irrelevante',
         few       : 'Poca',
@@ -960,14 +960,14 @@ export default {
         aLot      : 'Mucha ',
         alert     : 'Marca tu respuesta y una o varias opciones en la segunda columna para indicar qué te gustaría que respondiera otro usuario para ser compatible contigo'
     },
-    AnswerQuestion                   : {
+    AnswerQuestion                          : {
         noMoreQuestions: 'No hay más preguntas',
         loading        : 'Cargando pregunta'
     },
-    AnswerQuestionCard               : {
-        answerQuestion      : 'Responde para ver su pregunta',
+    AnswerQuestionCard                      : {
+        answerQuestion: 'Responde para ver su pregunta',
     },
-    AnswerQuestionForm               : {
+    AnswerQuestionForm                      : {
         you        : 'Tú',
         them       : 'Ellos',
         alertFirst : 'Marca tu respuesta en la primera columna',
@@ -976,29 +976,29 @@ export default {
         theirAnswer: 'Respuestas que aceptas de otros',
         importance : '¿Qué importancia tiene esta pregunta para ti?'
     },
-    QuestionList                     : {
+    QuestionList                            : {
         loading: 'Cargando preguntas'
     },
-    OtherQuestionList                : {
+    OtherQuestionList                       : {
         loading    : 'Cargando preguntas',
         empty      : 'No hay preguntas',
         notAnswered: 'Otras preguntas a las que respondió',
         answer     : '¡Responde y descubre si coincidís!'
     },
-    OtherNotAnsweredQuestion         : {
+    OtherNotAnsweredQuestion                : {
         answer: 'Responder pregunta'
     },
-    OtherQuestion                    : {
+    OtherQuestion                           : {
         didntAnswered: 'No has contestado a esta pregunta'
     },
-    QuestionEditCountdown            : {
+    QuestionEditCountdown                   : {
         text: 'Por favor espera %s% para responder de nuevo'
     },
-    QuestionStats                    : {
+    QuestionStats                           : {
         yourAnswer: 'Tu respuesta',
         statistics: 'Estadísticas de la comunidad Nekuno'
     },
-    QuestionStatsGraph               : {
+    QuestionStatsGraph                      : {
         females   : 'Mujeres',
         males     : 'Hombres',
         young     : '- de 30',
@@ -1006,25 +1006,25 @@ export default {
         typeAge   : 'Distribución por edad',
         typeGender: 'Distribución por género'
     },
-    QuestionStatsInline              : {
+    QuestionStatsInline                     : {
         statistics: 'Estadísticas de la comunidad Nekuno'
     },
-    QuestionsBanner                  : {
+    QuestionsBanner                         : {
         title    : '¿Quieres que hilemos más fino?',
         text     : 'Responde más preguntas',
         completed: 'Preguntas completadas'
     },
-    OtherQuestionsBanner             : {
+    OtherQuestionsBanner                    : {
         title    : 'Responde las preguntas de %username% para mejorar el cálculo de compatibilidad',
         text     : '',
         completed: 'Preguntas completadas'
     },
-    SocialNetworksBanner             : {
+    SocialNetworksBanner                    : {
         title         : '¿Quieres que hilemos más fino?',
         text          : 'Descubramos automáticamente tus intereses',
         publishMessage: 'No públicaremos nada'
     },
-    ShareProfileBanner               : {
+    ShareProfileBanner                      : {
         title                 : '¡Compárate ya con tus amigos y seguidores!',
         text                  : 'Descubre a los más compatibles compartiendo la url de tu perfil',
         copyLink              : 'Compartir url de perfil',
@@ -1032,11 +1032,11 @@ export default {
         copiedToClipboard     : 'Copiado al portapapeles',
         shareError            : 'Ha ocurrido un error compartiendo el enlace.'
     },
-    SocialWheels                     : {
+    SocialWheels                            : {
         excerpt      : 'Nekuno nunca publicará nada en tus redes',
         otherNetworks: 'Otras redes conectadas'
     },
-    ProcessesProgress                : {
+    ProcessesProgress                       : {
         title                   : 'Estamos reprocesando tus datos',
         registrationTitle       : 'Estamos analizando tus datos',
         linksTitle              : 'Procesando enlaces',
@@ -1050,26 +1050,26 @@ export default {
         affinityPreparingTitle  : 'Preparando para calcular afinidad',
         registerWorkersFinish   : '¡Felicidades! Los procesos de registro han finalizado'
     },
-    ThreadNoResults                  : {
+    ThreadNoResults                         : {
         emptyThread: 'Este ovillo está vacío. Edítalo o elimínalo',
         edit       : 'Editar',
         delete     : 'Eliminar',
         deleting   : 'Eliminando'
     },
-    ThreadToolBar                    : {
+    ThreadToolBar                           : {
         next: 'Siguiente'
     },
-    MessagesToolBar                  : {
+    MessagesToolBar                         : {
         maxLengthIs: 'La máxima longitud del mensaje es  '
     },
-    MessagesToolBarDisabled          : {
+    MessagesToolBarDisabled                 : {
         forbidden: 'Este usuario no acepta mensajes'
     },
-    CardContentList                  : {
+    CardContentList                         : {
         loading: 'Cargando intereses',
         empty  : 'No hay intereses'
     },
-    CardContent                      : {
+    CardContent                             : {
         like             : 'Me interesa',
         unlike           : 'No me interesa',
         share            : 'Compartir',
@@ -1085,29 +1085,29 @@ export default {
         spam             : 'Este contenido es spam',
         otherReasons     : 'Otros motivos'
     },
-    CardUser                         : {
+    CardUser                                : {
         compatible  : 'Compatible',
         similar     : 'Similar',
         coincidences: 'Coincidencias'
     },
-    CardUserPlaceholder              : {
+    CardUserPlaceholder                     : {
         matching  : 'Compatibilidad',
         similarity: 'Similaridad',
         loading   : 'Cargando...',
     },
-    OrientationPopup                 : {
+    OrientationPopup                        : {
         title : 'Orientación sexual',
         cancel: 'Cancelar'
     },
-    DetailPopup                      : {
+    DetailPopup                             : {
         continue: 'Continuar',
     },
-    ImportAlbumPopup                 : {
+    ImportAlbumPopup                        : {
         close           : 'Cerrar',
         importAlbum     : 'Importar un álbum',
         uploadFromDevice: 'Subir desde dispositivo'
     },
-    FilterContentPopup               : {
+    FilterContentPopup                      : {
         close    : 'Cerrar',
         interests: 'Intereses',
         videos   : 'Videos',
@@ -1117,31 +1117,34 @@ export default {
         people   : 'Personas',
         channels : 'Canales'
     },
-    ProposalCard                     : {
+    ProposalCard                            : {
         compatible: 'Compatible',
         similar   : 'Similar',
         project   : 'Proyecto'
     },
-    CandidateCard                    : {
-        compatible: 'Compatible',
-        similar   : 'Similar',
+    CandidateCard                           : {
+        compatible            : 'Compatible',
+        similar               : 'Similar',
         compatibleWithProposal: '¡Compatible con tu propuesta!',
-        defaultDescription: '¡Hola! Yo soy ',
+        defaultDescription    : '¡Hola! Yo soy ',
     },
-    MatchingBars:{
+    MatchingBars                            : {
         compatible: 'Compatibilidad',
         similar   : 'Similaridad'
     },
-    ReportContentPopup               : {
+    ReportContentPopup                      : {
         title      : 'Escribe brevemente el motivo del reporte',
         placeholder: 'Texto...',
         send       : 'Enviar reporte',
         close      : 'Cerrar'
     },
-    SelectCollapsible                : {
-        orderBy     : 'Ordenar por',
+    SelectCollapsible                       : {
+        orderBy: 'Ordenar por',
     },
-    FilterContentButtonsList         : {
+    InputSelectSingle                       : {
+        placeholder: 'Elige uno',
+    },
+    FilterContentButtonsList                : {
         videos  : 'Videos',
         audios  : 'Música',
         photos  : 'Fotos',
@@ -1150,24 +1153,24 @@ export default {
         channels: 'Canales',
         games   : 'Juegos'
     },
-    OrientationRequiredPopup         : {
+    OrientationRequiredPopup                : {
         title              : 'Indícanos tu orientación sexual para ver este perfil',
         orientationRequired: 'Orientación sexual requerida',
         moreOptions        : 'Hay más opciones disponibles en edición de tu perfil',
         cancel             : 'Cancelar'
     },
-    RegisterQuestionsFinishedPopup   : {
+    RegisterQuestionsFinishedPopup          : {
         title    : '¡Felicidades!',
         text     : 'Has completado las primeras preguntas indispensables. Si quieres seguir contestando preguntas para mejorar las recomendaciones, puedes hacerlo desde tu perfil.',
         moreTests: 'Hacer más tests',
         continue : 'Continuar a recomendaciones'
     },
-    SetThreadTitlePopup              : {
+    SetThreadTitlePopup                     : {
         title      : '¿Qué título quieres que tenga este ovillo?',
         placeholder: 'Título',
         finish     : 'Terminar'
     },
-    CreateContentThread              : {
+    CreateContentThread                     : {
         back          : 'Volver',
         selectFilter  : 'Selecciona un filtro',
         addFilterTitle: 'Puedes añadir filtros para que los resultados sean más específicos',
@@ -1176,7 +1179,7 @@ export default {
         create        : 'Crear ovillo',
         addFilters    : 'Añade un filtro primero'
     },
-    CreateUsersThread                : {
+    CreateUsersThread                       : {
         back          : 'Volver',
         selectFilter  : 'Selecciona un filtro',
         addFilterTitle: 'Puedes añadir filtros para que los resultados sean más específicos',
@@ -1188,79 +1191,79 @@ export default {
         matching      : 'Compatibilidad',
         similarity    : 'Similaridad',
     },
-    ThreadContent                    : {
+    ThreadContent                           : {
         contents: 'Contenidos',
         disabled: 'Estos resultados son provisionales, en breve mejorarán.',
         filters : 'Filtros: ',
     },
-    ThreadUsers                      : {
+    ThreadUsers                             : {
         people  : 'Personas',
         users   : 'Usuarios',
         disabled: 'Estos resultados son provisionales, en breve mejorarán.',
         filters : 'Filtros: ',
     },
-    IntegerEdit                      : {
+    IntegerEdit                             : {
         minValue   : 'El valor mínimo es ',
         maxValue   : 'El valor máximo es ',
         value      : 'Este valor debe ser un número entero',
         placeholder: 'Escribe un número'
     },
-    MultipleChoicesEdit              : {
+    MultipleChoicesEdit                     : {
         minChoices: 'Selecciona al menos %min% opciones',
         maxChoices: 'Selecciona %max% opciones como máximo'
     },
-    MultipleChoicesFilter            : {
+    MultipleChoicesFilter                   : {
         maxChoices: 'Selecciona %max% opciones como máximo'
     },
-    TagEdit                          : {
+    TagEdit                                 : {
         placeholder: 'Escribe una palabra',
         remove     : 'Eliminar'
     },
-    TagsAndChoiceEdit                : {
+    TagsAndChoiceEdit                       : {
         placeholder: 'Escribe una palabra',
         remove     : 'Eliminar',
         add        : 'Añadir'
     },
-    LocationEdit                     : {
+    LocationEdit                            : {
         location   : 'Ubicación',
         placeholder: 'Escribe una ubicación'
     },
-    MultipleLocationsEdit            : {
+    MultipleLocationsEdit                   : {
         placeholder: 'Escribe una ubicación',
         maxChoices : 'Selecciona %max% opciones como máximo'
     },
-    MultipleFieldsEdit               : {
+    MultipleFieldsEdit                      : {
         minChoices: 'Selecciona al menos %min% opciones',
         maxChoices: 'Selecciona %max% opciones como máximo',
         isRequired: 'es obligatorio',
         add       : 'Añadir',
         remove    : 'Eliminar'
     },
-    IntegerFilter                    : {
+    IntegerFilter                           : {
         minValue   : 'El valor mínimo es ',
         maxValue   : 'El valor máximo es ',
         value      : 'El valor debe ser un número entero',
         placeholder: 'Escribe un número'
     },
-    LocationFilter                   : {
+    LocationFilter                          : {
         location   : 'Ubicación',
         placeholder: 'Escribe una ubicación',
         minDistance: 'Distancia mínima'
     },
-    TagFilter                        : {
+    TagFilter                               : {
         placeholder: 'Escribe una palabra'
     },
-    TagsAndChoiceFilter              : {
+    TagsAndChoiceFilter                     : {
         placeholder: 'Escribe una palabra',
         remove     : 'Eliminar',
         add        : 'Añadir'
     },
-    TagsAndMultipleChoicesFilter     : {
+    TagsAndMultipleChoicesFilter            : {
         placeholder: 'Escribe una palabra',
         remove     : 'Eliminar',
         add        : 'Añadir'
     },
-    IntegerRangeFilter               : {
+    IntegerRangeFilter                      : {
         minValue      : 'El valor mínimo es ',
         maxValue      : 'El valor máximo es ',
         minMaxValue   : 'El valor máximo debe ser igual o mayor que el valor mínimo',
@@ -1268,24 +1271,24 @@ export default {
         placeholderMin: 'Mínimo',
         placeholderMax: 'Máximo'
     },
-    GuestBanner                      : {
+    GuestBanner                             : {
         text: 'Estás en modo invitado. Haz click aquí para registrarte'
     },
-    BirthdayEdit                     : {
+    BirthdayEdit                            : {
         birthdayPlaceholder: 'Tu fecha de nacimiento'
     },
-    Group                            : {
+    Group                                   : {
         users            : 'usuarios',
         sendInvitation   : 'Enviar invitación',
         invitationTitle  : 'Invitación a insignia',
         shareError       : 'Ha ocurrido un error compartiendo el enlace.',
         copiedToClipboard: 'Copiado al portapapeles'
     },
-    RecommendationUser               : {
+    RecommendationUser                      : {
         age    : 'Edad',
         message: 'Mensaje',
     },
-    RecommendationUserDetails        : {
+    RecommendationUserDetails               : {
         questions            : 'Preguntas',
         coincidences         : 'Coincidencias',
         interests            : 'Intereses',
@@ -1295,16 +1298,16 @@ export default {
         interestsCount       : '%count% Intereses',
         similarInterestsCount: '%count% Intereses similares',
     },
-    SocialWheel                      : {
+    SocialWheel                             : {
         isLoading: 'Pidiendo información...',
     },
-    BottomNotificationBar            : {
-        analyzingData   : 'Analizando datos...',
+    BottomNotificationBar                   : {
+        analyzingData: 'Analizando datos...',
     },
     ////////////////
     // Framework7 //
     ////////////////
-    Framework7                       : {
+    Framework7                              : {
         modalTitle       : 'AVISO',
         modalButtonOk    : 'ACEPTAR',
         modalButtonCancel: 'CANCELAR'
@@ -1312,7 +1315,7 @@ export default {
     ////////////////
     // Tutorial //
     ////////////////
-    TutorialComponent                : {
+    TutorialComponent                       : {
         back   : 'Volver',
         close  : 'Entendido',
         last   : 'Entendido',
@@ -1320,13 +1323,13 @@ export default {
         skip   : 'Omitir',
         seeMore: '<a href="https://nekuno.com" target="_blank">Ver más sobre Nekuno</a>'
     },
-    OfflineService                   : {
+    OfflineService                          : {
         isOffline: 'La aplicación no funcionará correctamente porque no tienes conexión a Internet. Pulsa "Aceptar" para recargar'
     },
     /////////////////////////
     // LoginActionCreators //
     ////////////////////////
-    LoginActionCreators              : {
+    LoginActionCreators                     : {
         inactiveAccount: 'Cuenta desactivada',
         enableQuestion : 'Tu cuenta está desactivada. ¿Quieres reactivarla?'
     }

@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import styles from './EmptyMessage.scss';
 
 export default class EmptyMessage extends Component {
 
@@ -13,7 +14,7 @@ export default class EmptyMessage extends Component {
         const {text, loadingGif, shortMarginTop} = this.props;
         return (
             <div className={shortMarginTop ? "short-margin-top empty-message" : "empty-message"}>
-                <div className="empty-message-text">{text}</div>
+                <div className="empty-,essage-text">{text}</div>
                 <div className="empty-message-gif">
                     {loadingGif ? <div className="loading-gif"></div> : ''}
                 </div>

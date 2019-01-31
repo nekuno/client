@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import LoginActionCreators from '../../actions/LoginActionCreators';
 import TextRadios from '../ui/TextRadios';
 import FullWidthButton from '../ui/FullWidthButton';
-import EmptyMessage from '../ui/EmptyMessage';
+import EmptyMessage from '../ui/EmptyMessage/EmptyMessage';
 import translate from '../../i18n/Translate';
 import connectToStores from '../../utils/connectToStores';
 import ProfileStore from '../../stores/ProfileStore';

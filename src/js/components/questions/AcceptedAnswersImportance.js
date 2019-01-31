@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import TextRadios from './../ui/TextRadios';
 import translate from '../../i18n/Translate';
 import Framework7Service from '../../services/Framework7Service';
+import SelectInline from "../ui/SelectInline/SelectInline";
 
 @translate('AcceptedAnswersImportance')
 export default class AcceptedAnswersImportance extends Component {
@@ -18,6 +19,8 @@ export default class AcceptedAnswersImportance extends Component {
         super(props);
 
         this.handleOnImportanceClick = this.handleOnImportanceClick.bind(this);
+        this.handleSelectInlineOnImportanceClick = this.handleSelectInlineOnImportanceClick.bind(this);
+
         this.showNotCompleteModal = this.showNotCompleteModal.bind(this);
 
         this.state = {
@@ -37,6 +40,18 @@ export default class AcceptedAnswersImportance extends Component {
         this.props.onClickHandler(key);
     }
 
+    handleSelectInlineOnImportanceClick(key) {
+        if (!this.props.answeredAndAccepted) {
+            this.showNotCompleteModal();
+            return;
+        }
+
+        this.setState({
+            importance: key[0]
+        });
+        this.props.onClickHandler(key[0]);
+    }
+
     showNotCompleteModal() {
         const {strings} = this.props;
         Framework7Service.nekunoApp().alert(strings.alert);
@@ -45,18 +60,35 @@ export default class AcceptedAnswersImportance extends Component {
     render() {
         const {answeredAndAccepted, strings} = this.props;
         const className = answeredAndAccepted ? 'accepted-answers-importance' : 'accepted-answers-importance disabled';
+
+        const options = [
+            {
+                id: "few",
+                text: strings.few
+            },
+            {
+                id: "normal",
+                text: strings.normal
+            },
+            {
+                id: "aLot",
+                text: strings.aLot
+            }
+        ];
+
         return (
             <div className={className}>
                 {this.props.irrelevant ?
                     <TextRadios labels={[
-						{key: 'irrelevant', text: strings.irrelevant}
-						]} onClickHandler={this.handleOnImportanceClick} value={this.state.importance}/>
+                        {key: 'irrelevant', text: strings.irrelevant}
+                    ]} onClickHandler={this.handleOnImportanceClick} value={this.state.importance}/>
                     :
-                    <TextRadios labels={[
-						{key: 'few', text: strings.few},
-						{key: 'normal', text: strings.normal},
-						{key: 'aLot', text: strings.aLot}
-					]} onClickHandler={this.handleOnImportanceClick} value={this.state.importance}/>
+                    <SelectInline
+                        options={options}
+                        onClickHandler={this.handleSelectInlineOnImportanceClick}
+                        defaultOption={this.state.importance}
+                    />
+
                 }
             </div>
         );

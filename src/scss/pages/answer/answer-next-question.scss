@@ -1,0 +1,14 @@
+@import '../../_partials/colors';
+
+.answer-next-question-page {
+  background-color: $background-white;
+  color: $gray-main-text;
+  text-align: center;
+  z-index: 0;
+  height: 100%;
+  .answer-next-question-page-wrapper {
+    margin: 16px;
+  }
+}
+
+

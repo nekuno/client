@@ -14,7 +14,7 @@ import * as QuestionActionCreators from "../../actions/QuestionActionCreators";
 import * as UserActionCreators from "../../actions/UserActionCreators";
 import Scroll from "../../components/Scroll/Scroll";
 import AnswerQuestionCard from "../../components/ui/AnswerQuestionCard/AnswerQuestionCard";
-import EmptyMessage from "../../components/ui/EmptyMessage";
+import EmptyMessage from "../../components/ui/EmptyMessage/EmptyMessage";
 import OwnUserBottomNavBar from "../../components/ui/OwnUserBottomNavBar/OwnUserBottomNavBar";
 import RoundedIcon from "../../components/ui/RoundedIcon/RoundedIcon";
 import RouterStore from "../../stores/RouterStore";

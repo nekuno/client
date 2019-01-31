@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import TopNavBar from '../components/ui/TopNavBar';
 import CardUserList from '../components/user/CardUserList';
-import EmptyMessage from '../components/ui/EmptyMessage';
+import EmptyMessage from '../components/ui/EmptyMessage/EmptyMessage';
 import ChipList from './../components/ui/ChipList';
 import Button from './../components/ui/Button';
 import ProcessesProgress from '../components/processes/ProcessesProgress';

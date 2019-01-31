@@ -13,7 +13,7 @@ import * as QuestionActionCreators from "../../actions/QuestionActionCreators";
 import QuestionMatch from "../../components/ui/QuestionMatch/QuestionMatch";
 import QuestionPartialMatch from "../../components/ui/QuestionPartialMatch/QuestionPartialMatch";
 import Scroll from "../../components/Scroll/Scroll";
-import EmptyMessage from "../../components/ui/EmptyMessage";
+import EmptyMessage from "../../components/ui/EmptyMessage/EmptyMessage";
 import QuestionNotMatch from "../../components/ui/QuestionNotMatch/QuestionNotMatch";
 import ProposalStore from "../../stores/ProposalStore";
 import CardContentList from "../../components/interests/CardContentList";

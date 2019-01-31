@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import TopNavBar from '../components/ui/TopNavBar';
 import ToolBar from '../components/ui/ToolBar';
 import ImageComponent from '../components/ui/Image';
-import EmptyMessage from '../components/ui/EmptyMessage';
+import EmptyMessage from '../components/ui/EmptyMessage/EmptyMessage';
 import ImportAlbumPopup from '../components/gallery/ImportAlbumPopup';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';

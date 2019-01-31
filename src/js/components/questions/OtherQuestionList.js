@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import selectn from 'selectn';
-import EmptyMessage from '../ui/EmptyMessage';
+import EmptyMessage from '../ui/EmptyMessage/EmptyMessage';
 import OtherQuestion from './OtherQuestion';
 import OtherNotAnsweredQuestion from './OtherNotAnsweredQuestion';
 import Scroll from "../Scroll/Scroll";

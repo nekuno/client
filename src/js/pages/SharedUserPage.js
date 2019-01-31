@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import FacebookButton from '../components/ui/FacebookButton';
-import EmptyMessage from '../components/ui/EmptyMessage';
+import EmptyMessage from '../components/ui/EmptyMessage/EmptyMessage';
 import Image from '../components/ui/Image';
 import connectToStores from '../utils/connectToStores';
 import translate from '../i18n/Translate';

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import TopNavBar from '../components/ui/TopNavBar';
-import EmptyMessage from '../components/ui/EmptyMessage';
+import EmptyMessage from '../components/ui/EmptyMessage/EmptyMessage';
 import Image from '../components/ui/Image';
 import FullWidthButton from '../components/ui/FullWidthButton';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';

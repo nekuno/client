@@ -5,9 +5,13 @@ import * as QuestionActionCreators from '../../actions/QuestionActionCreators';
 import AnswerRadio from './AnswerRadio';
 import AcceptedAnswerCheckbox from './AcceptedAnswerCheckbox';
 import AcceptedAnswersImportance from './AcceptedAnswersImportance';
-import EmptyMessage from '../ui/EmptyMessage';
+import EmptyMessage from '../ui/EmptyMessage/EmptyMessage';
 import translate from '../../i18n/Translate';
 import Framework7Service from '../../services/Framework7Service';
+import styles from './AnswerQuestionForm.scss';
+import RoundedImage from "../ui/RoundedImage/RoundedImage";
+import RoundedIcon from "../ui/RoundedIcon/RoundedIcon";
+
 
 @translate('AnswerQuestionForm')
 export default class AnswerQuestionForm extends Component {
@@ -111,6 +115,8 @@ export default class AnswerQuestionForm extends Component {
         let acceptedAnswers = selectn('userAnswer.acceptedAnswers', this.props) ? selectn('userAnswer.acceptedAnswers', this.props) : [];
         let userAnswerId = selectn('userAnswer.answerId', this.props);
 
+        console.log();
+
         if (!answers) {
             return null;
         }
@@ -119,6 +125,48 @@ export default class AnswerQuestionForm extends Component {
         return (
             this.state.rated ? <EmptyMessage text={strings.saving} loadingGif={true}/> :
             <div className="answer-question-form">
+                <div className={styles.answerQuestionContainer}>
+                    <div className={styles.header}>
+                        <div className={styles.text}>Marca tu respuesta y las respuestas que aceptarías de otro usuario</div>
+                        <div className={styles.image}>
+                            <RoundedImage url={ownPicture} size={"x-small"}/>
+                        </div>
+                        <div className={styles.image}>
+                            <RoundedIcon icon={'nekuno'} background={"#928bff"} size={'answer'}/>
+                        </div>
+                    </div>
+
+                    <div className={styles.body}>
+                        <div className={styles.text}>Sí, lo más posible</div>
+                        <div className={styles.image}>
+                            <RoundedIcon background={"#928bff"} icon={'check'} size={'xx-small'}/>
+                        </div>
+                        <div className={styles.image}>
+                            <RoundedImage url={"https://dummyimage.com/50x50/000/fff"} size={"xx-small"}/>
+                        </div>
+                    </div>
+
+                    <div className={styles.body}>
+                        <div className={styles.text}>Me gusta, pero es demasiado caro</div>
+                        <div className={styles.image}>
+                            <RoundedIcon border={"1px solid #c5d0de"} background={"#ffffff"} icon={''} size={'xx-small'}/>
+                        </div>
+                        <div className={styles.image}>
+                            <RoundedImage url={"https://dummyimage.com/50x50/000/fff"} size={"xx-small"}/>
+                        </div>
+                    </div>
+
+                    <div className={styles.body}>
+                        <div className={styles.text}>No, me da igual si son orgánicos</div>
+                        <div className={styles.image}>
+                            <RoundedIcon background={"#928bff"} icon={'check'} size={'xx-small'}/>
+                        </div>
+                        <div className={styles.image}>
+                            <RoundedImage url={"https://dummyimage.com/50x50/000/fff"} size={"xx-small"}/>
+                        </div>
+                    </div>
+                </div>
+
                 <form>
                     <div className="answers-block">
                         <div className={acceptedAnswersClassName}>
@@ -167,9 +215,9 @@ export default class AnswerQuestionForm extends Component {
                                 })}
                             </ul>
                         </div>
-                        <div className="answer-step-text">
-                            {!this.state.answerId ? strings.yourAnswer
-                                : this.state.acceptedAnswers.length == 0 ? strings.theirAnswer
+                        <div className={styles.answerStepText}>
+                            {!this.state.answerId ? strings.importance
+                                : this.state.acceptedAnswers.length == 0 ? strings.importance
                                     : strings.importance
                             }
                         </div>

@@ -49,9 +49,6 @@ export default class SelectInline extends Component {
         const {selected} = this.state;
         const optionWidthPercent = 100 / options.length;
 
-        // const borderColor = {border: '1px solid ' + styles[color]};
-        // console.log(borderColor);
-
         return (
             <div>
                 {title ? <div className={styles.title + ' small'}>{title}</div> : null}

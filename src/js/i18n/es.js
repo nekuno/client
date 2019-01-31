@@ -9,7 +9,8 @@ export default {
         tutorialThirdStepTitle : 'Importancia',
         tutorialThirdStep      : 'Esta será la importancia que tendrá la pregunta a la hora de hacer los cálculos de compatibilidad.'
     },
-    AnswerNextQuestionPage                  : {
+    AnswerNextQuestionPage           : {
+        topNavBarText          : 'Test de personalidad',
         question               : 'Pregunta',
         skip                   : 'Omitir',
         tutorialFirstStepTitle : 'Tu respuesta',

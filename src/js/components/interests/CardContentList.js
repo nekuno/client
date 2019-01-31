@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import styles from './CardContentList.scss';
 import CardContent from '../ui/CardContent/CardContent';
-import EmptyMessage from '../ui/EmptyMessage';
+import EmptyMessage from '../ui/EmptyMessage/EmptyMessage';
 import Scroll from '../Scroll/Scroll';
 import translate from '../../i18n/Translate';
 import LoadingGif from "../ui/LoadingGif/LoadingGif";

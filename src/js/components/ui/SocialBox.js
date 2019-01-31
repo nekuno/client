@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import translate from '../../i18n/Translate';
 import { SOCIAL_NETWORKS } from '../../constants/Constants';
-import EmptyMessage from "./EmptyMessage";
+import EmptyMessage from "./EmptyMessage/EmptyMessage";
 
 @translate('SocialBox')
 export default class SocialBox extends Component {

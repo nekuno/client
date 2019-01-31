@@ -6,7 +6,7 @@ export default class RoundedIcon extends Component {
 
     static propTypes = {
         icon           : PropTypes.string.isRequired,
-        size           : PropTypes.oneOf(['small', 'medium', 'large']).isRequired,
+        size           : PropTypes.oneOf(['x-small', 'small', 'medium', 'large', 'answer']).isRequired,
         disabled       : PropTypes.bool,
         background     : PropTypes.string,
         color          : PropTypes.string,

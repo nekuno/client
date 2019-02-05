@@ -8,7 +8,7 @@ import IntegerEdit from '../../components/profile/edit/IntegerEdit';
 import TagsAndChoiceEdit from '../../components/profile/edit/TagsAndChoiceEdit';
 import MultipleChoicesEdit from '../../components/profile/edit/MultipleChoicesEdit';
 import MultipleFieldsEdit from '../../components/profile/edit/MultipleFieldsEdit';
-import DoubleChoiceEdit from '../../components/profile/edit/DoubleChoiceEdit';
+import DoubleChoiceEdit from '../profile/edit/DoubleChoiceEdit/DoubleChoiceEdit';
 import TagEdit from '../../components/profile/edit/TagEdit';
 import BirthdayEdit from '../../components/profile/edit/BirthdayEdit';
 import TextAreaEdit from '../../components/profile/edit/TextAreaEdit';

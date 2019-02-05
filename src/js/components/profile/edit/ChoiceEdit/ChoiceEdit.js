@@ -8,7 +8,7 @@ export default class ChoiceEdit extends Component {
     static propTypes = {
         editKey              : PropTypes.string.isRequired,
         selected             : PropTypes.string,
-        metadata             : PropTypes.object.isRequired,
+        choices             : PropTypes.array.isRequired,
         handleClickRemoveEdit: PropTypes.func,
         handleChangeEdit     : PropTypes.func.isRequired,
         title                : PropTypes.string,
@@ -44,8 +44,7 @@ export default class ChoiceEdit extends Component {
     }
 
     render() {
-        const {selected, metadata, title} = this.props;
-        const choices = metadata.choices;
+        const {selected, choices, title} = this.props;
         const selectedText = selected ? choices.find(choice => {
             return choice.id === selected
         }).text : '';

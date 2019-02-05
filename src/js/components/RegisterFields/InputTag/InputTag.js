@@ -24,7 +24,7 @@ export default class InputTag extends Component {
         this.handleClick = this.handleClick.bind(this);
 
         this.state = {
-            selected: props.selected || [],
+            selected: props.tags || [],
             text: ''
         }
     }
@@ -99,14 +99,6 @@ export default class InputTag extends Component {
                         />
                     </div> : null
                 }
-                {this.refs.inputTag && this.refs.inputTag.isFocused() ? tags.filter(tag => !selected.some(selectedTag => selectedTag === tag)).map((tag, index) =>
-                    <div key={index} className={styles.suggestedChip}>
-                        <Chip onClickHandler={this.handleClick}
-                              text={tag}
-                              color={chipsColor}
-                        />
-                    </div>
-                ) : null}
                 {selected.length > 0 ?
                     <div className={styles.selectedLabel + " small"}>{selectedLabel}</div> : null
                 }

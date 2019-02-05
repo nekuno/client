@@ -15,12 +15,13 @@ import TagsAndChoiceEdit from '../../components/profile/edit/TagsAndChoiceEdit';
 import MultipleChoicesEdit from '../../components/profile/edit/MultipleChoicesEdit';
 import MultipleFieldsEdit from '../../components/profile/edit/MultipleFieldsEdit';
 import MultipleLocationsEdit from '../../components/profile/edit/MultipleLocationsEdit';
-import DoubleChoiceEdit from '../../components/profile/edit/DoubleChoiceEdit';
+import DoubleChoiceEdit from './edit/DoubleChoiceEdit/DoubleChoiceEdit';
 import BirthdayEdit from '../../components/profile/edit/BirthdayEdit';
 import TextAreaEdit from '../../components/profile/edit/TextAreaEdit';
 import Framework7Service from '../../services/Framework7Service';
 import EditProfileCategory from "../OwnUser/EditProfileCategory";
 import InputTag from "../RegisterFields/InputTag/InputTag";
+import TagEdit from "./edit/TagEdit";
 
 /**
  * Retrieves state from stores for current props.
@@ -98,7 +99,6 @@ export default class ProfileDataList extends Component {
     }
 
     onFilterSelect(key) {
-        console.log('onFilterselect');
         this.setState({
             selectedEdit: key,
         });
@@ -193,7 +193,7 @@ export default class ProfileDataList extends Component {
             return '';
         }
         let props = {
-            title                : metadata[dataname].labelEdit,
+            title                : metadata[dataName].labelEdit,
             editKey              : dataName,
             metadata             : metadata[dataName],
             selected             : selected,
@@ -202,12 +202,13 @@ export default class ProfileDataList extends Component {
         };
         let filter = null;
         let handleClick = this.handleChangeEditAndSave.bind(this, dataName); //called only with data
+        const options = metadata[dataName]['choices'];
         switch (metadata[dataName]['type']) {
             case 'choice':
                 props.selected = data ? data : '';
+                props.choices = options;
                 let handleClickChoice = function(data)
                 {
-                    const options = metadata[dataName]['choices'];
                     const option = options.find((each) => {return each.text === data});
                     handleClick(option.id);
                 };
@@ -252,9 +253,20 @@ export default class ProfileDataList extends Component {
                 filter = <MultipleLocationsEdit {...props} />;
                 break;
             case 'double_choice':
-                props.data = data ? data : {};
-                props.handleChangeEdit = this.handleChangeEditAndSave;
-                props.handleChangeEditDetail = this.handleChangeEditAndSave;
+                const details = metadata[dataName]['doubleChoices'];
+                let handleClickDoubleChoice = function(data)
+                {
+                    console.log(options);
+                    console.log(details);
+                    console.log(data);
+                    const choiceId = data.choice;
+
+                    const choiceDetails = details[choiceId];
+                    const detailId = Object.keys(choiceDetails).find(eachKey => {return choiceDetails[eachKey] === data.detail});
+                    handleClick({choice: choiceId, detail: detailId});
+                };
+                props.selected = data ? data : {};
+                props.handleChangeEdit = handleClickDoubleChoice;
                 filter = <DoubleChoiceEdit {...props} />;
                 break;
             case 'tags':
@@ -264,16 +276,16 @@ export default class ProfileDataList extends Component {
                     });
                     return handleClick(tags);
                 };
-                props.tags = data ? data.map((tag) => {return tag.name}) : [];
+                props.tags = data ? data : [];
                 props.selected = props.tags;
                 // props.onClickHandler = this.onFilterSelect;
                 props.onClickHandler = handleClickTag;
                 // props.onChangeHandler = this.handleChangeEditAndSave;
                 props.onChangeHandler = this.onFilterSelect;
                 props.profile = this.props.profile;
-                // filter = <TagEdit {...props} />;
+                filter = <TagEdit {...props} />;
 
-                filter = <InputTag {...props}/>;
+                // filter = <InputTag {...props}/>;
                 break;
             case 'birthday':
                 props.data = data ? data : null;

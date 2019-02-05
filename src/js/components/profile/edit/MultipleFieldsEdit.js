@@ -8,7 +8,7 @@ import LocationEdit from '../edit/LocationEdit';
 import TagsAndChoiceEdit from '../edit/TagsAndChoiceEdit';
 import MultipleChoicesEdit from '../edit/MultipleChoicesEdit';
 import MultipleLocationsEdit from '../edit/MultipleLocationsEdit';
-import DoubleChoiceEdit from '../edit/DoubleChoiceEdit';
+import DoubleChoiceEdit from './DoubleChoiceEdit/DoubleChoiceEdit';
 import TagEdit from '../edit/TagEdit';
 import BirthdayEdit from '../edit/BirthdayEdit';
 import TextAreaEdit from '../edit/TextAreaEdit';

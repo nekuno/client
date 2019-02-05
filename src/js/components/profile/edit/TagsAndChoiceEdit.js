@@ -1,13 +1,8 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import SelectedEdit from './SelectedEdit';
-import TagInput from '../../ui/TagInput';
-import TextRadios from '../../ui/TextRadios';
-import TextCheckboxes from '../../ui/TextCheckboxes';
 import * as TagSuggestionsActionCreators from '../../../actions/TagSuggestionsActionCreators';
 import translate from '../../../i18n/Translate';
 import ChoiceEdit from "./ChoiceEdit/ChoiceEdit";
-import InputTag from "../../RegisterFields/InputTag/InputTag";
 import TagEdit from "./TagEdit";
 
 function resetTagSuggestions() {

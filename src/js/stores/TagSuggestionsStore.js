@@ -5,12 +5,17 @@ class TagSuggestionsStore extends BaseStore {
 
     setInitial() {
         this._tags = [];
+        this._tagType = '';
     }
 
     _registerToActions(action) {
         super._registerToActions(action);
 
         switch (action.type) {
+            case ActionTypes.REQUEST_TAG_SUGGESTIONS:
+                this._tagType = action.tagType;
+                this.emitChange();
+                break;
             case ActionTypes.REQUEST_TAG_SUGGESTIONS_SUCCESS:
                 this._tags = action.response.items;
                 this.emitChange();
@@ -51,6 +56,10 @@ class TagSuggestionsStore extends BaseStore {
 
     get tags() {
         return this._tags || [];
+    }
+
+    get tagType() {
+        return this._tagType || '';
     }
 }
 

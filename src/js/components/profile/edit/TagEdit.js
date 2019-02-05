@@ -1,8 +1,5 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import SelectedEdit from './SelectedEdit';
-import TagInput from '../../ui/TagInput';
-import TextCheckboxes from '../../ui/TextCheckboxes';
 import * as TagSuggestionsActionCreators from '../../../actions/TagSuggestionsActionCreators';
 import translate from '../../../i18n/Translate';
 import InputTag from "../../RegisterFields/InputTag/InputTag";
@@ -21,7 +18,8 @@ export default class TagEdit extends Component {
         handleClickInput     : PropTypes.func,
         handleClickRemoveEdit: PropTypes.func,
         handleChangeEdit     : PropTypes.func.isRequired,
-        tags                 : PropTypes.array.isRequired,
+        selected             : PropTypes.array.isRequired,
+        tagSuggestions       : PropTypes.array,
         profile              : PropTypes.object.isRequired,
         // Injected by @translate:
         strings              : PropTypes.object
@@ -68,22 +66,22 @@ export default class TagEdit extends Component {
         }
     }
 
-    handleClickTagSuggestion(tagString) {
-        let {editKey, data} = this.props;
-        data = data || [];
+    handleClickTagSuggestion(tagStringArray) {
+        let {editKey} = this.props;
         this.refs['tagInput' + editKey].clearValue();
         this.refs['tagInput' + editKey].focus();
 
-        let tag = this.props.tags.find(propTag => propTag.name === tagString);
-        if (tag === undefined){
-            tag = {name: tagString};
-        }
+        // let tag = this.props.selected.find(propTag => propTag.name === tagString);
+        // if (tag === undefined) {
+        //     tag = {name: tagString};
+        // }
 
-        const exists = data.some(value => value.name === tagString);
-        if (!exists) {
-            data.push(tag);
-        }
-        this.props.handleChangeEdit(editKey, data);
+        // const exists = data.some(value => value.name === tagString);
+        // if (!exists) {
+        //     data.push(tag);
+        // }
+        const tags = tagStringArray.map(string => {return {name: string}});
+        this.props.handleChangeEdit(tags);
         this.setState({
             selectedTag: null
         });
@@ -109,7 +107,7 @@ export default class TagEdit extends Component {
         this.setState({
             selectedTag: null
         });
-        this.props.handleChangeEdit(editKey, data);
+        this.props.handleChangeEdit(data);
         resetTagSuggestions();
     }
 
@@ -142,23 +140,27 @@ export default class TagEdit extends Component {
     }
 
     render() {
-        const {editKey, metadata, strings} = this.props;
-        let tags = this.props.tags.slice(0).map(tag => tag.name);
+        const {editKey, metadata, strings, tagSuggestions, selected} = this.props;
+        let selectedTags = selected.slice(0).map(tag => tag.name);
 
         if (this.refs.hasOwnProperty('tagInput' + editKey) && this.refs['tagInput' + editKey].getValue()) {
-            tags.push(this.refs['tagInput' + editKey].getValue());
+            selectedTags.push(this.refs['tagInput' + editKey].getValue());
         }
         return (
-                <InputTag ref={'tagInput' + editKey} placeholder={strings.placeholder} tags={tags}
-                          onChangeHandler={this.handleKeyUpTag} onClickHandler={this.handleClickTagSuggestion}
-                          title={metadata.labelEdit}/>
+            <InputTag ref={'tagInput' + editKey} placeholder={strings.placeholder} selected={selectedTags} tags={tagSuggestions}
+                      onChangeHandler={this.handleKeyUpTag} onClickHandler={this.handleClickTagSuggestion}
+                      title={metadata.labelEdit}/>
         );
     }
 }
 
 TagEdit.defaultProps = {
-    strings: {
+    strings         : {
         placeholder: 'Type a tag',
         remove     : 'Remove'
-    }
+    },
+    tagSuggestions  : [],
+    selected        : [],
+    handleChangeEdit: () => {
+    },
 };

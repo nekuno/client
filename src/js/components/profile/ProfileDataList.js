@@ -30,11 +30,13 @@ function getState(props) {
     const categories = ProfileStore.getCategories();
     const filters = FilterStore.filters;
     const tags = TagSuggestionsStore.tags;
+    const tagType = TagSuggestionsStore.tagType;
 
     return {
         categories,
         filters,
-        tags
+        tags,
+        tagType
     };
 }
 
@@ -49,6 +51,7 @@ export default class ProfileDataList extends Component {
         categories         : PropTypes.array,
         filters            : PropTypes.object,
         tags               : PropTypes.array,
+        tagType            : PropTypes.string,
         saveProfile        : PropTypes.func.isRequired,
         // Injected by @AuthenticatedComponent
         user               : PropTypes.object,
@@ -207,9 +210,10 @@ export default class ProfileDataList extends Component {
             case 'choice':
                 props.selected = data ? data : '';
                 props.choices = options;
-                let handleClickChoice = function(data)
-                {
-                    const option = options.find((each) => {return each.text === data});
+                let handleClickChoice = function(data) {
+                    const option = options.find((each) => {
+                        return each.text === data
+                    });
                     handleClick(option.id);
                 };
                 props.handleChangeEdit = handleClickChoice;
@@ -254,15 +258,13 @@ export default class ProfileDataList extends Component {
                 break;
             case 'double_choice':
                 const details = metadata[dataName]['doubleChoices'];
-                let handleClickDoubleChoice = function(data)
-                {
-                    console.log(options);
-                    console.log(details);
-                    console.log(data);
+                let handleClickDoubleChoice = function(data) {
                     const choiceId = data.choice;
 
                     const choiceDetails = details[choiceId];
-                    const detailId = Object.keys(choiceDetails).find(eachKey => {return choiceDetails[eachKey] === data.detail});
+                    const detailId = Object.keys(choiceDetails).find(eachKey => {
+                        return choiceDetails[eachKey] === data.detail
+                    });
                     handleClick({choice: choiceId, detail: detailId});
                 };
                 props.selected = data ? data : {};
@@ -270,22 +272,20 @@ export default class ProfileDataList extends Component {
                 filter = <DoubleChoiceEdit {...props} />;
                 break;
             case 'tags':
-                let handleClickTag = function(data){
+                let handleClickTag = function(data) {
                     const tags = data.map(tag => {
                         return {name: tag}
                     });
                     return handleClick(tags);
                 };
-                props.tags = data ? data : [];
-                props.selected = props.tags;
+                props.selected = data ? data : [];
+                props.tagSuggestions = this.props.tagType === dataName ? this.props.tags.map(tag => tag.name) : [];
                 // props.onClickHandler = this.onFilterSelect;
-                props.onClickHandler = handleClickTag;
+                // props.handleClickInput = handleClickTag;
                 // props.onChangeHandler = this.handleChangeEditAndSave;
-                props.onChangeHandler = this.onFilterSelect;
+                props.handleChangeEdit = handleClick;
                 props.profile = this.props.profile;
                 filter = <TagEdit {...props} />;
-
-                // filter = <InputTag {...props}/>;
                 break;
             case 'birthday':
                 props.data = data ? data : null;

@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import styles from './RoundedIcon.scss';
+import styles from './SquareIcon.scss';
 
-export default class RoundedIcon extends Component {
+export default class SquareIcon extends Component {
 
     static propTypes = {
         icon           : PropTypes.string,
@@ -12,23 +12,18 @@ export default class RoundedIcon extends Component {
         color          : PropTypes.string,
         fontSize       : PropTypes.string,
         onClickHandler : PropTypes.func,
-        border         : PropTypes.string,
-        value          : PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-
+        border         : PropTypes.string
     };
 
     handleClick() {
-        const {value} = this.props;
-
-        if (!this.props.disabled && this.props.onClickHandler) {
+        if (this.props.onClickHandler) {
             this.props.onClickHandler();
         }
-
     }
 
     render() {
         const {icon, size, disabled, background, color, fontSize, border} = this.props;
-        let className = styles.roundedIcon + ' ' + styles[size];
+        let className = styles.squareIcon + ' ' + styles[size];
         className = disabled ? styles.disabled + ' ' + className : className;
 
         return (

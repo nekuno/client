@@ -16,6 +16,8 @@ function loadStories() {
     require('../stories/CardContent.stories');
     require('../stories/CardUser.stories');
     require('../stories/CarouselContinuous.stories');
+    require('../stories/CheckboxSquare.stories');
+    require('../stories/CheckboxRounded.stories');
     require('../stories/Chip.stories');
     require('../stories/ContentTypeIcon.stories');
     require('../stories/DateInputRange.stories');
@@ -59,6 +61,7 @@ function loadStories() {
     require('../stories/SelectCollapsibleInterest.stories');
     require('../stories/SelectInline.stories');
     require('../stories/SliderPhotos.stories');
+    require('../stories/SquareIcon.stories');
     require('../stories/StepsBar.stories');
     require('../stories/Tabs.stories');
     require('../stories/Textarea.stories');

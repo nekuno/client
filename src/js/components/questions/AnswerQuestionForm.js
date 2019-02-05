@@ -11,6 +11,10 @@ import Framework7Service from '../../services/Framework7Service';
 import styles from './AnswerQuestionForm.scss';
 import RoundedImage from "../ui/RoundedImage/RoundedImage";
 import RoundedIcon from "../ui/RoundedIcon/RoundedIcon";
+import InputCheckbox from "../ui/InputCheckbox";
+import SquareIcon from "../ui/SquareIcon/SquareIcon";
+import CheckboxSquare from "../ui/CheckboxSquare/CheckboxSquare";
+import CheckboxRounded from "../ui/CheckboxRounded/CheckboxRounded";
 
 
 @translate('AnswerQuestionForm')
@@ -34,6 +38,10 @@ export default class AnswerQuestionForm extends Component {
         this.handleOnClickAnswer = this.handleOnClickAnswer.bind(this);
         this.handleOnClickAcceptedAnswer = this.handleOnClickAcceptedAnswer.bind(this);
         this.handleOnClickImportance = this.handleOnClickImportance.bind(this);
+
+        this.onClickCheckboxRounded = this.onClickCheckboxRounded.bind(this);
+        this.onClickCheckboxSquare = this.onClickCheckboxSquare.bind(this);
+
 
         this.state = {
             answerId       : selectn('userAnswer.answerId', props),
@@ -109,18 +117,46 @@ export default class AnswerQuestionForm extends Component {
         return rating;
     };
 
+    onClickCheckboxRounded(value) {
+        let answerId = parseInt(value);
+
+        this.setState({
+            answerId: answerId
+        });
+    }
+
+    onClickCheckboxSquare(checked, value) {
+        console.log(value);
+        if (!this.state.answerId) {
+            Framework7Service.nekunoApp().alert(this.props.strings.alertFirst);
+        }
+
+        let acceptedAnswers = this.state.acceptedAnswers;
+        let acceptedAnswerId = parseInt(value);
+        if (checked) {
+            acceptedAnswers.push(acceptedAnswerId);
+        } else {
+            acceptedAnswers = acceptedAnswers.filter(value => value !== acceptedAnswerId);
+        }
+
+        this.setState({
+            acceptedAnswers: acceptedAnswers
+        });
+    }
+
     render() {
         const {ownPicture, strings} = this.props;
         let answers = this.props.answers;
         let acceptedAnswers = selectn('userAnswer.acceptedAnswers', this.props) ? selectn('userAnswer.acceptedAnswers', this.props) : [];
         let userAnswerId = selectn('userAnswer.answerId', this.props);
 
-        console.log();
-
         if (!answers) {
             return null;
         }
         const acceptedAnswersClassName = this.state.answerId ? "list-block accepted-answers" : "list-block accepted-answers disabled";
+
+        console.log(this.state.answerId);
+        let answerDisabledClassName = this.state.answerId === null ? styles.answerDisabled : '';
 
         return (
             this.state.rated ? <EmptyMessage text={strings.saving} loadingGif={true}/> :
@@ -129,92 +165,35 @@ export default class AnswerQuestionForm extends Component {
                     <div className={styles.header}>
                         <div className={styles.text}>Marca tu respuesta y las respuestas que aceptarías de otro usuario</div>
                         <div className={styles.image}>
-                            <RoundedImage url={ownPicture} size={"x-small"}/>
+                            <RoundedImage url={ownPicture} size={"x-small"} onClickHandler={this.onClickRoundedImage}/>
                         </div>
                         <div className={styles.image}>
                             <RoundedIcon icon={'nekuno'} background={"#928bff"} size={'answer'}/>
                         </div>
                     </div>
-
-                    <div className={styles.body}>
-                        <div className={styles.text}>Sí, lo más posible</div>
-                        <div className={styles.image}>
-                            <RoundedIcon background={"#928bff"} icon={'check'} size={'xx-small'}/>
-                        </div>
-                        <div className={styles.image}>
-                            <RoundedImage url={"https://dummyimage.com/50x50/000/fff"} size={"xx-small"}/>
-                        </div>
-                    </div>
-
-                    <div className={styles.body}>
-                        <div className={styles.text}>Me gusta, pero es demasiado caro</div>
-                        <div className={styles.image}>
-                            <RoundedIcon border={"1px solid #c5d0de"} background={"#ffffff"} icon={''} size={'xx-small'}/>
-                        </div>
-                        <div className={styles.image}>
-                            <RoundedImage url={"https://dummyimage.com/50x50/000/fff"} size={"xx-small"}/>
-                        </div>
-                    </div>
-
-                    <div className={styles.body}>
-                        <div className={styles.text}>No, me da igual si son orgánicos</div>
-                        <div className={styles.image}>
-                            <RoundedIcon background={"#928bff"} icon={'check'} size={'xx-small'}/>
-                        </div>
-                        <div className={styles.image}>
-                            <RoundedImage url={"https://dummyimage.com/50x50/000/fff"} size={"xx-small"}/>
-                        </div>
-                    </div>
+                    {answers.map((answer, answerIndex) => {
+                        let answerChecked = false;
+                        this.state.acceptedAnswers.forEach((answerId) => {
+                            if (answerId === answer.answerId) {
+                                answerChecked = true;
+                            }
+                        });
+                        return (
+                            <div key={answerIndex} className={styles.body}>
+                                <div className={styles.text}>{answer.text}</div>
+                                <div className={styles.image}>
+                                    <CheckboxRounded value={answer.answerId} checked={this.state.answerId === answer.answerId} onClickHandler={this.onClickCheckboxRounded}/>
+                                </div>
+                                <div className={styles.image + ' ' + answerDisabledClassName}>
+                                    <CheckboxSquare value={answer.answerId} checked={answerChecked} onClickHandler={this.onClickCheckboxSquare}/>
+                                </div>
+                            </div>
+                        );
+                    })}
                 </div>
 
                 <form>
                     <div className="answers-block">
-                        <div className={acceptedAnswersClassName}>
-                            <div id="joyride-2-others-answers" className="answers-tutorial-block"></div>
-                            <div className="answer-question-who-text">{strings.them}</div>
-                            <div className="answer-question-picture">
-                                <div className="answer-question-other-picture-container">
-                                    <div className="answer-question-other-picture">
-                                        <span className="icon-users"></span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <ul>
-                                {answers.map((answer, index) => {
-                                    let answerChecked = false;
-                                    this.state.acceptedAnswers.forEach((answerId) => {
-                                        if (answerId === answer.answerId) {
-                                            answerChecked = true;
-                                        }
-                                    });
-                                    return (
-                                        <AcceptedAnswerCheckbox key={index} answer={answer} checked={answerChecked} onClickHandler={this.handleOnClickAcceptedAnswer}/>
-                                    );
-                                })}
-                            </ul>
-                        </div>
-                        <div className="list-block answers">
-                            <div id="joyride-1-your-answer" className="answers-tutorial-block"></div>
-                            <div className="answer-question-who-text">{strings.you}</div>
-                            <div className="answer-question-picture">
-                                <div className="joyride-start-button-wrapper" onClick={this.props.startTutorial ? this.props.startTutorial.bind(true) : null}>
-                                    <div className="joyride-start-button">?</div>
-                                </div>
-                                <div className="answer-question-own-picture-container">
-                                    <div id="joyride-container-2" className="answer-question-own-picture">
-                                        <img src={ownPicture}/>
-                                    </div>
-                                </div>
-                            </div>
-                            <ul>
-                                {answers.map((answer, index) => {
-                                    return (
-                                        <AnswerRadio key={index} answer={answer} checked={this.state.answerId === answer.answerId} onClickHandler={this.handleOnClickAnswer}/>
-                                    );
-                                })}
-                            </ul>
-                        </div>
                         <div className={styles.answerStepText}>
                             {!this.state.answerId ? strings.importance
                                 : this.state.acceptedAnswers.length == 0 ? strings.importance

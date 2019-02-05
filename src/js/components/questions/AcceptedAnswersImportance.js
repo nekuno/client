@@ -79,9 +79,11 @@ export default class AcceptedAnswersImportance extends Component {
         return (
             <div className={className}>
                 {this.props.irrelevant ?
-                    <TextRadios labels={[
-                        {key: 'irrelevant', text: strings.irrelevant}
-                    ]} onClickHandler={this.handleOnImportanceClick} value={this.state.importance}/>
+                    <SelectInline
+                        options={[{id: 'irrelevant', text: strings.irrelevant}]}
+                        onClickHandler={this.handleSelectInlineOnImportanceClick}
+                        value={this.state.importance}
+                    />
                     :
                     <SelectInline
                         options={options}

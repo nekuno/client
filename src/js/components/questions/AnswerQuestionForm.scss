@@ -40,6 +40,9 @@
       width: 15%;
       text-align: center;
     }
+    .answer-disabled {
+      pointer-events: none;
+    }
   }
 }
 

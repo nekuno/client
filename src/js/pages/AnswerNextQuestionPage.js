@@ -118,6 +118,7 @@ export default class AnswerNextQuestionPage extends Component {
         this.onContinue = this.onContinue.bind(this);
         this.onClosePopup = this.onClosePopup.bind(this);
         this.forceStartTutorial = this.forceStartTutorial.bind(this);
+        this.onSkipClick = this.onSkipClick.bind(this);
     }
 
     componentWillMount() {
@@ -169,6 +170,12 @@ export default class AnswerNextQuestionPage extends Component {
         this.joyride.reset(true);
     }
 
+    onSkipClick() {
+        let userId = parseId(this.props.user);
+        let questionId = this.props.question.questionId;
+        QuestionActionCreators.skipQuestion(userId, questionId);
+    }
+
     render() {
         const {user, strings, errors, noMoreQuestions, isLoadingOwnQuestions, userAnswer, question, isJustRegistered, isJustCompleted, totalQuestions, questionNumber, steps, tutorialLocale, endTutorialHandler, joyrideRunning} = this.props;
         const userId = parseId(user);
@@ -198,6 +205,9 @@ export default class AnswerNextQuestionPage extends Component {
                         </div>
                     </div>
                     <RegisterQuestionsFinishedPopup onContinue={this.onContinue} onClose={this.onClosePopup} contentRef={this.props.popupContentRef}/>
+                </div>
+                <div className="skip-nav-bar" onClick={this.onSkipClick}>
+                    <div className="text">Omitir <span className="icon icon-arrow-right"/></div>
                 </div>
             </div>
         );

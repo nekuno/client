@@ -56,9 +56,8 @@ export default class ChoiceEdit extends Component {
             <div>
                 <div className={styles.title}> {title} </div>
                 {compact ?
-                    <SelectInline options={choices} onClickHandler={this.handleClickChoice} multiple={false}/>
+                    <SelectInline options={choices} onClickHandler={this.handleClickChoice} multiple={false} defaultOption={selected}/>
                     :
-
                     <InputSelectSingle options={choiceTexts} onClickHandler={this.handleClickChoiceText} selected={selectedText}/>
                 }
             </div>);

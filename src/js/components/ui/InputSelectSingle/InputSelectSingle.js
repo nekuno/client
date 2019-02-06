@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import styles from './InputSelectSingle.scss';
 import translate from "../../../i18n/Translate";
+import IconCollapsible from "../IconCollapsible/IconCollapsible";
 
 @translate('InputSelectSingle')
 export default class InputSelectSingle extends Component {
@@ -12,6 +13,7 @@ export default class InputSelectSingle extends Component {
         onCancelHandler: PropTypes.func,
         options        : PropTypes.array.isRequired,
         selected       : PropTypes.string,
+        placeholderText: PropTypes.string,
         // Injected by @translate:
         strings        : PropTypes.object
     };
@@ -56,6 +58,9 @@ export default class InputSelectSingle extends Component {
             <div className={styles.text}>
                 {strings.placeholder}
             </div>
+            <div className={styles.arrow}>
+                <IconCollapsible open={open}/>
+            </div>
         </div>];
 
         const nextOptions = options.map((option) => {
@@ -73,10 +78,10 @@ export default class InputSelectSingle extends Component {
     }
 
     render() {
-        const {strings} = this.props;
+        const {strings, placeholderText} = this.props;
         const {open, selected} = this.state;
 
-        const text = selected ? selected : strings.placeholder;
+        const text = selected ? selected : (placeholderText ? placeholderText : strings.placeholder);
 
         return (
             <div className={styles.inputSelectSingle}>
@@ -84,6 +89,9 @@ export default class InputSelectSingle extends Component {
                     <div className={styles.closed} onClick={this.toggleOpen}>
                         <div className={styles.text}>
                             {text}
+                        </div>
+                        <div className={styles.arrow}>
+                            <IconCollapsible open={open}/>
                         </div>
                     </div>
                     :

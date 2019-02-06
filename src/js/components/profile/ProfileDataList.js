@@ -20,8 +20,9 @@ import BirthdayEdit from '../../components/profile/edit/BirthdayEdit';
 import TextAreaEdit from '../../components/profile/edit/TextAreaEdit';
 import Framework7Service from '../../services/Framework7Service';
 import EditProfileCategory from "../OwnUser/EditProfileCategory";
-import InputTag from "../RegisterFields/InputTag/InputTag";
 import TagEdit from "./edit/TagEdit";
+import RoundedIcon from "../ui/RoundedIcon/RoundedIcon";
+import AuthenticatedComponent from "../AuthenticatedComponent";
 
 /**
  * Retrieves state from stores for current props.
@@ -41,6 +42,7 @@ function getState(props) {
 }
 
 @translate('ProfileDataList')
+@AuthenticatedComponent
 @connectToStores([ProfileStore, FilterStore, TagSuggestionsStore], getState)
 export default class ProfileDataList extends Component {
 
@@ -178,14 +180,24 @@ export default class ProfileDataList extends Component {
     }
 
     renderFields(category) {
-        const {profile, metadata} = this.props;
-        return Object.keys(category.fields).map(field =>
+        const {profile, metadata, user} = this.props;
+        const renderedCategory =  Object.keys(category.fields).map(field =>
             <div key={'parent-' + field} className={styles.profileCategoryEdition}>
-                <hr/>
-                <br/>
                 {this.renderField(profile.hasOwnProperty(field) ? profile : [], metadata, field)}
             </div>
-        )
+        );
+
+        const isMainCategory = category.fields.birthday !== undefined;
+        if (isMainCategory)
+        {
+            const userField = <div key={'parent-user'} className={styles["profile-category-edition"] + ' ' + styles.userField}>
+                <div className={styles.userPhoto}><RoundedIcon icon={user.photo.thumbnail.medium} size={'medium'}/></div>
+                <div className={styles.userName}> {user.username} </div>
+            </div>;
+            renderedCategory.unshift(userField);
+        }
+
+        return renderedCategory;
     }
 
     renderField(dataArray, metadata, dataName) {
@@ -272,17 +284,8 @@ export default class ProfileDataList extends Component {
                 filter = <DoubleChoiceEdit {...props} />;
                 break;
             case 'tags':
-                let handleClickTag = function(data) {
-                    const tags = data.map(tag => {
-                        return {name: tag}
-                    });
-                    return handleClick(tags);
-                };
                 props.selected = data ? data : [];
                 props.tagSuggestions = this.props.tagType === dataName ? this.props.tags.map(tag => tag.name) : [];
-                // props.onClickHandler = this.onFilterSelect;
-                // props.handleClickInput = handleClickTag;
-                // props.onChangeHandler = this.handleChangeEditAndSave;
                 props.handleChangeEdit = handleClick;
                 props.profile = this.props.profile;
                 filter = <TagEdit {...props} />;
@@ -306,37 +309,11 @@ export default class ProfileDataList extends Component {
         const {profileWithMetadata} = this.props;
 
         return (
-            <div className={styles.profileDataList}>
-                {profileWithMetadata.map(
+                profileWithMetadata.map(
                     category => {
-                        // return (
-                        //     <div key={category.label} ref={this.state.selectedCategory === category.label ? "selectedCategoryEdit" : null}>
-                        //         <div className="profile-category" ref={category.label === this.state.selectedCategory ? 'selectedCategory' : null}>
-                        //             <h3>{category.label} <span className="icon-wrapper" onClick={this.onCategoryToggle.bind(this, category.label)}><span className={category.label === this.state.selectedCategory ? 'icon-checkmark' : 'icon-edit'}/></span></h3>
-                        //         </div>
-                        //
-                        //         {this.state.selectedCategory === category.label ?
-                        //             Object.keys(category.fields).map(field =>
-                        //                 <div key={'parent-' + field} className="profile-category-edition">
-                        //                     <hr/>
-                        //                     <br/>
-                        //                     {this.renderField(profile.hasOwnProperty(field) ? profile : [], metadata, field)}
-                        //                 </div>
-                        //             )
-                        //             :
-                        //             Object.keys(category.fields).map(
-                        //                 profileDataKey =>
-                        //                     category.fields[profileDataKey].value && metadata[profileDataKey].hidden !== true?
-                        //                         <ProfileData key={profileDataKey} name={category.fields[profileDataKey].text} value={category.fields[profileDataKey].value} forceLong={category.fields[profileDataKey].type === 'textarea'}/>
-                        //                         : null
-                        //             )
-                        //         }
-                        //     </div>
-                        // )
                         return <EditProfileCategory key={category.label} title={category.label} fields={this.renderFields(category)} onToggleCollapse={this.onCategoryToggle.bind(this, category.label)}/>
                     }
-                )}
-            </div>
+                )
         );
     }
 }

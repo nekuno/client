@@ -1,15 +1,16 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import styles from './DateInput.scss';
 import InfiniteCalendar from 'react-infinite-calendar';
 import {
     INFINITE_CALENDAR_LOCALE_ES,
     INFINITE_CALENDAR_LOCALE_EN,
     INFINITE_CALENDAR_THEME,
-} from '../../constants/InfiniteCalendarConstants';
+} from '../../../constants/InfiniteCalendarConstants';
 import { format } from 'date-fns';
-import LocaleStore from '../../stores/LocaleStore';
-import connectToStores from '../../utils/connectToStores';
-import Chip from './Chip';
+import LocaleStore from '../../../stores/LocaleStore';
+import connectToStores from '../../../utils/connectToStores';
+import Chip from '../Chip';
 
 /**
  * Retrieves state from stores for current props.
@@ -85,9 +86,9 @@ export default class DateInput extends Component {
 
         return (
             !selected ?
-                <div className="text-checkboxes">
-                    <div className="text-checkboxes-title">{label}</div>
-                    <Chip chipClass={'chip-1'}
+                <div className={styles.selected}>
+                    <div className={styles.title}>{label}</div>
+                    <Chip chipClass={styles.chip}
                           label={value ? label + ': ' + value : placeholder}
                           onClickHandler={this.toggleSelection}
                     />

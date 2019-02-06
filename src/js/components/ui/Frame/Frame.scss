@@ -2,11 +2,6 @@
 
 .frame {
   background: #FFF;
-  border: 1px solid #E2E3E7;
-  border-radius: 10px;
-  -moz-border-radius: 10px;
-  -webkit-border-radius: 10px;
-  box-shadow: 0 0 5px $gray-border;
   color: #6C6F82;
   display: inline-block;
   font-size: 15px;
@@ -16,10 +11,6 @@
 
   .title {
     background: #E2E3E7;
-    border: 1px solid #E2E3E7;
-    border-radius: 10px 10px 0 0;
-    -moz-border-radius: 10px 10px 0 0;
-    -webkit-border-radius: 10px 10px 0 0;
     color: #6C6F82;
     height: 10px;
     line-height: 10px;

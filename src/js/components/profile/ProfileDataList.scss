@@ -1,5 +1,22 @@
 @import '../../../scss/_partials/colors';
 
+.profile-category-edition {
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+
+.userField {
+  display: flex;
+}
+
+.userPhoto {
+  width: 30%;
+}
+
+.userName {
+  width: 70%;
+}
+
 body #root .App .views .view .page.user-page  {
   position: relative;
 
@@ -14,10 +31,7 @@ body #root .App .views .view .page.user-page  {
       padding-bottom: 1px;
     }
 
-    .profile-category-edition {
-      margin-left: 5%;
-      margin-right: 5%;
-    }
+
 
     .profile-field.textarea-filter {
       display: block;

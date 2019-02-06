@@ -1,7 +1,7 @@
 @import '../../../../scss/_partials/colors';
 
 .input-select-single {
-  background: $white-background;
+  //background: $white-background;
   color: $gray-secondary-text;
   cursor: pointer;
   display: inline-block;
@@ -27,29 +27,6 @@
   width: 200px;
   position: relative;
 
-  //&.selected {
-  //  background: $purple-main;
-  //  border-color: $purple-main;
-  //  color: $white-background;
-  //
-  //  &.purple {
-  //    background: $purple-main;
-  //    border-color: $purple-main;
-  //  }
-  //  &.blue {
-  //    background: $blue-projects;
-  //    border-color: $blue-projects;
-  //  }
-  //  &.pink {
-  //    background: $pink-hobbies;
-  //    border-color: $pink-hobbies;
-  //  }
-  //  &.green {
-  //    background: $green-experiences;
-  //    border-color: $green-experiences;
-  //  }
-  //}
-
   .open {
     width: 100%;
     z-index: 1000;
@@ -57,7 +34,7 @@
     top: 0;
     left: 0;
 
-    div {
+    >div {
       border: 1px solid #F0F1FA;
       border-radius: 40px;
       -moz-border-radius: 40px;
@@ -71,19 +48,28 @@
 
     .optionUnselected {
       background-color: $white;
+      display: flex;
     }
   }
 
   .closed {
     width: 100%;
     z-index: 100;
+    display: flex;
 
-    div {
-      background-color: $white;
+    >div {
+      background-color: transparent;
     }
   }
 
   .text {
     padding-left: 18px;
+    width: 80%;
+  }
+
+  .arrow {
+    display: inline-block;
+    text-align: right;
+    width: 19%;
   }
 }

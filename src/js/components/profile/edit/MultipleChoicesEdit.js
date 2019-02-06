@@ -9,12 +9,12 @@ import Framework7Service from '../../../services/Framework7Service';
 @translate('MultipleChoicesEdit')
 export default class MultipleChoicesEdit extends Component {
     static propTypes = {
-        editKey: PropTypes.string.isRequired,
-        selected: PropTypes.bool.isRequired,
-        metadata: PropTypes.object.isRequired,
-        data: PropTypes.array,
+        editKey              : PropTypes.string.isRequired,
+        selected             : PropTypes.bool.isRequired,
+        metadata             : PropTypes.object.isRequired,
+        data                 : PropTypes.array,
         handleClickRemoveEdit: PropTypes.func,
-        handleChangeEdit: PropTypes.func.isRequired,
+        handleChangeEdit     : PropTypes.func.isRequired,
     };
 
     constructor(props) {
@@ -24,7 +24,7 @@ export default class MultipleChoicesEdit extends Component {
         this.handleChangeRange = this.handleChangeRange.bind(this);
         this.handleClickRemoveEdit = this.handleClickRemoveEdit.bind(this);
     }
-    
+
     handleClickMultipleChoice(choice) {
         let {editKey, metadata, data, strings} = this.props;
         data = data || [];
@@ -61,7 +61,6 @@ export default class MultipleChoicesEdit extends Component {
         this.props.handleChangeEdit(editKey, fixedChoices);
     }
 
-
     handleClickRemoveEdit() {
         const {editKey} = this.props;
         this.props.handleClickRemoveEdit(editKey);
@@ -71,23 +70,34 @@ export default class MultipleChoicesEdit extends Component {
         const {editKey, selected, metadata, data} = this.props;
         const minRangeData = data.length > 0 ? Math.min(...data.map(choice => metadata.choices.findIndex(metadataChoice => metadataChoice.id === choice))) : 0;
         const maxRangeData = data.length > 0 ? Math.max(...data.map(choice => metadata.choices.findIndex(metadataChoice => metadataChoice.id === choice))) : 0;
+        const color='#756EE5'; //$purple_main
 
-        return(
+        let rangeProps = {
+            marks        : Object.assign({}, metadata.choices.map(value => value.text)),
+            max          : metadata.choices.length - 1,
+            defaultValue : [minRangeData, maxRangeData],
+            onAfterChange: this.handleChangeRange,
+
+            handleStyle: [{background: color, color: color, borderColor: color, boxShadow: 'none'}],
+            trackStyle : [{background: color, color: color, borderColor: color}],
+
+            dotStyle      : {background: 'transparent', borderColor: 'transparent'},
+            activeDotStyle: {background: 'transparent', borderColor: 'transparent'},
+        };
+
+        return (
             <SelectedEdit key={selected ? 'selected-filter' : editKey} type={'checkbox'} active={data && data.length > 0} handleClickRemoveEdit={this.props.handleClickRemoveEdit ? this.handleClickRemoveEdit : null}>
                 {metadata.isRange ?
                     <div className="range-filter">
                         <div className="checkbox-title">{metadata.labelEdit}</div>
-                        <Range
-                            marks={Object.assign({}, metadata.choices.map(value => value.text))}
-                            defaultValue={[minRangeData, maxRangeData]}
-                            max={metadata.choices.length - 1}
-                            onAfterChange={this.handleChangeRange}
-                        />
+                        <Range {...rangeProps}/>
                     </div>
                     :
-                    <TextCheckboxes labels={metadata.choices.map(choice => { return({key: choice.id, text: choice.text}) })}
-                                onClickHandler={this.handleClickMultipleChoice} values={data || []} className={'multiple-choice-filter'}
-                                title={metadata.labelEdit} />
+                    <TextCheckboxes labels={metadata.choices.map(choice => {
+                        return ({key: choice.id, text: choice.text})
+                    })}
+                                    onClickHandler={this.handleClickMultipleChoice} values={data || []} className={'multiple-choice-filter'}
+                                    title={metadata.labelEdit}/>
                 }
             </SelectedEdit>
         );

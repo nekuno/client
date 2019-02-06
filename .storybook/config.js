@@ -24,6 +24,7 @@ function loadStories() {
     require('../stories/ErrorMessage.stories');
     require('../stories/Frame.stories');
     require('../stories/FrameCollapsible.stories');
+    require('../stories/IconCollapsible.stories');
     require('../stories/IconNotification.stories');
     require('../stories/InputSelectSingle.stories');
     require('../stories/Input.stories');

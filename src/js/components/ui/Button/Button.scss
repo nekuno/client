@@ -33,5 +33,22 @@
     &:disabled {
       cursor: default;
     }
+
+    &.small {
+      width: 180px;
+      height: 40px;
+      line-height: 38px;
+    }
+  }
+  &.left {
+    text-align: left;
+  }
+
+  &.center {
+    text-align: center;
+  }
+
+  &.right {
+    text-align: right;
   }
 }

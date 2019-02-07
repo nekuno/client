@@ -5,12 +5,14 @@
   min-height: 70px;
   padding: 10px 16px 5px 16px;
   position: relative;
+  border-bottom: 1px solid $gray-border;
+  background-color: $white-background;
 
   .photo {
     display: inline-block;
     margin-right: 5%;
     vertical-align: top;
-    width: 12%;
+    width: 15%;
 
     .status-online {
       color: $green-experiences;
@@ -26,6 +28,11 @@
     display: inline-block;
     vertical-align: top;
     width: 80%;
+
+    .proposal-icon {
+      margin-right: 8px;
+      display: inline-block;
+    }
 
     .username {
       display: inline-block;

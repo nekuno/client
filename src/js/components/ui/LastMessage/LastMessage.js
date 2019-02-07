@@ -59,14 +59,16 @@ export default class LastMessage extends Component {
         }
 
         return (
-            <div className={styles.lastMessage} style={{background: mainBackground}}>
+            <div className={styles.lastMessage}>
                 <div className={styles.photo} onClick={this.handleClickUser.bind(this)}>
                     <RoundedImage size={'small'} url={photo}/>
                     {online ? <div className={styles.statusOnline + ' small'}>Online</div> : ''}
                 </div>
                 <div className={styles.text} onClick={this.handleClick.bind(this)}>
                     {icon && background ?
-                        <RoundedIcon icon={icon} size="small" background={background} fontSize={"12px"}/>
+                        <div className={styles.proposalIcon}>
+                            <RoundedIcon icon={icon} size="xx-small" background={background} fontSize={"12px"}/>
+                        </div>
                         : null
                     }
                     <div className={styles.username + ' small'}>{username}</div>

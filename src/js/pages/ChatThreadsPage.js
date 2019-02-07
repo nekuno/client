@@ -17,65 +17,66 @@ function requestData(props) {
 }
 
 function getState() {
-
     const offset = ChatThreadStore.getOffset();
     const limit = ChatThreadStore.getLimit();
     const loading = ChatThreadStore.getLoading();
     const noMoreMessages = ChatThreadStore.getNoMoreMessages();
     const onlineUserIds = ChatUserStatusStore.getOnlineUserIds() || [];
-    //const threads = ChatThreadStore.getThreads();
-    const today = new Date();
-    let yesterday = new Date();
-    yesterday.setDate(today.getDate() - 1);
-    const threads = [
-        {
-            message: {
-                text: 'Lorm ipsum',
-                createdAt: today
-            },
-            user: {
-                username: 'JohnDoe',
-                slug: 'johndoe',
-                photo: {
-                    thumbnail: {
-                        medium: 'http://via.placeholder.com/100x100/928BFF'
-                    }
-                }
-            },
-            proposalType: "work"
-        },
-        {
-            message: {
-                text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-                createdAt: yesterday
-            },
-            user: {
-                username: 'JaneDoe',
-                slug: 'janedoe',
-                photo: {
-                    thumbnail: {
-                        medium: 'http://via.placeholder.com/100x100/818FA1'
-                    }
-                }
-            }
-        },
-        {
-            message: {
-                text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip',
-                createdAt: yesterday
-            },
-            user: {
-                username: 'TomDoe',
-                slug: 'tomdoe',
-                photo: {
-                    thumbnail: {
-                        medium: 'http://via.placeholder.com/100x100/63CAFF'
-                    }
-                }
-            },
-            proposalType: "leisure-plan"
-        }
-    ];
+    const threads = ChatThreadStore.getThreads();
+    // console.log(threads);
+
+    // const today = new Date();
+    // let yesterday = new Date();
+    // yesterday.setDate(today.getDate() - 1);
+    // const threads = [
+    //     {
+    //         message: {
+    //             text: 'Lorm ipsum',
+    //             createdAt: today
+    //         },
+    //         user: {
+    //             username: 'JohnDoe',
+    //             slug: 'johndoe',
+    //             photo: {
+    //                 thumbnail: {
+    //                     medium: 'http://via.placeholder.com/100x100/928BFF'
+    //                 }
+    //             }
+    //         },
+    //         proposalType: "work"
+    //     },
+    //     {
+    //         message: {
+    //             text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+    //             createdAt: yesterday
+    //         },
+    //         user: {
+    //             username: 'JaneDoe',
+    //             slug: 'janedoe',
+    //             photo: {
+    //                 thumbnail: {
+    //                     medium: 'http://via.placeholder.com/100x100/818FA1'
+    //                 }
+    //             }
+    //         }
+    //     },
+    //     {
+    //         message: {
+    //             text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip',
+    //             createdAt: yesterday
+    //         },
+    //         user: {
+    //             username: 'TomDoe',
+    //             slug: 'tomdoe',
+    //             photo: {
+    //                 thumbnail: {
+    //                     medium: 'http://via.placeholder.com/100x100/63CAFF'
+    //                 }
+    //             }
+    //         },
+    //         proposalType: "leisure-plan"
+    //     }
+    // ];
 
     return {
         threads,
@@ -120,11 +121,11 @@ export default class ChatThreadsPage extends Component {
     };
 
     goToUserMessagesPage(slug) {
-        this.context.router.push(`/conversations/${slug}`);
+        this.context.router.push("/p/" + slug + "/conversations");
     }
 
     goToUserPage(slug) {
-        this.context.router.push(`/p/${slug}`);
+        this.context.router.push("/p/" + slug);
     }
 
     renderMessages() {
@@ -160,22 +161,21 @@ export default class ChatThreadsPage extends Component {
         const imgSrc = user && user.photo ? user.photo.thumbnail.medium : 'img/no-img/medium.jpg';
 
         return (
-            <div className="views">
-                <div  id="chat-threads-view" className="view view-main chat-threads-view">
-                    <TopNavBar textCenter={strings.title} imageLeft={imgSrc} boxShadow={true}/>
-                    <div className="chat-threads-wrapper">
-                        {threads.length > 0 ?
-                            <Scroll
-                                items={this.renderMessages()}
-                                containerId="chat-threads-view"
-                                onLoad={this.onBottomScroll}
-                                loading={loading}
-                                useSpinner={true}
-                            />
-                            : null}
-                    </div>
-                    <BottomNavBar current={'messages'} notifications={notifications}/>
+            <div className="chat-threads-view">
+                <TopNavBar textCenter={strings.title} imageLeft={imgSrc} boxShadow={true}/>
+                {/*<h4>{strings.otherMessages}</h4>*/}
+                <div id="chat-threads-view" className="chat-threads-wrapper">
+                    {threads.length > 0 ?
+                        <Scroll
+                            items={this.renderMessages()}
+                            containerId="chat-threads-view"
+                            onLoad={this.onBottomScroll}
+                            loading={loading}
+                            useSpinner={true}
+                        />
+                        : null}
                 </div>
+                <BottomNavBar current={'messages'} notifications={notifications}/>
             </div>
         );
     }
@@ -183,6 +183,7 @@ export default class ChatThreadsPage extends Component {
 
 ChatThreadsPage.defaultProps = {
     strings: {
-        title: 'Messages'
+        title: 'Messages',
+        // otherMessages: 'Other messages',
     }
 };

@@ -1,18 +1,14 @@
 @import '../../_partials/colors';
 
-body #root .App .views .view.other-user-proposals-view {
+body #root .App .views .view.user-answers-view {
   background-color: $background;
   color: $gray-main-text;
-  text-align: center;
+  // text-align: center;
   z-index: 0;
+  overflow-y: hidden;
 
-  .select-collapsible-wrapper {
-    background-color: $background-white;
-  }
 
-  .other-user-proposals-view-wrapper {
-    h2 {
-      padding: 0 24px;
-    }
+  .user-answers-view-wrapper {
+
   }
 }

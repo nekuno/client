@@ -276,29 +276,37 @@ export default {
         empty                : 'No interests to show with this filters',
         reported             : 'The content has been reported. We will review it within next 24 hours'
     },
-    OtherUserAnswersPage                    : {
-        topNavBarText            : '%username% answers',
-        affinity                 : 'Affinity',
-        compatibility            : 'Compatibility',
-        loading                  : 'Loading questions',
-        otherNotAnsweredQuestions: 'Check if you are compatible',
+    OtherUserAnswersPage           : {
+        topNavBarText             : '%username% answers',
+        affinity                  : 'Affinity',
+        compatibility             : 'Compatibility',
+        loading                   : 'Loading questions',
+        otherNotAnsweredQuestions : 'Check if you are compatible',
     },
-    OtherUserProposalsPage                  : {
-        topNavBarText: '%username% proposals',
-        orderBy      : 'Order by %orderBy%',
+    OtherUserProposalsPage           : {
+        topNavBarText : '%username% proposals',
+        orderBy       : 'Order by %orderBy%',
     },
-    OtherUserInterestsPage                  : {
-        topNavBarText: '%username% interests',
-        orderBy      : 'Order by %orderBy%',
+    OtherUserInterestsPage : {
+        topNavBarText : '%username% interests',
+        orderBy       : 'Order by %orderBy%',
     },
-    OtherQuestionsPage                      : {
+    OtherQuestionsPage               : {
         coincidences: 'Coincidences of',
         about       : 'About',
         photos      : 'Photos',
         questions   : 'Answers',
         interests   : 'Interests'
     },
-    OwnProposalsPage                        : {
+    OwnUserAnswersPage               : {
+        topNavBarText        : 'My answers',
+        myAnswersTitle       : 'We want to know you better!',
+        myAnswersDescription : 'The more questions about your personality you answer, the better recommendations we can make.',
+        myAnswersButton      : 'Answer the test',
+        answeredQuestions    : 'You have answered %questionsTotal% of 100 questions',
+        editAnswer           : 'Edit answer',
+    },
+    OwnProposalsPage                 : {
         myPlans         : 'My Plans',
         popularProposals: 'Most popular proposals',
         otherPublished  : 'Other published proposals',

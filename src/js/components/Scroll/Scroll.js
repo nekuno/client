@@ -15,6 +15,7 @@ export default class Scroll extends Component {
         onLoad     : PropTypes.func,
         loading    : PropTypes.bool,
         useSpinner : PropTypes.bool,
+        flex       : PropTypes.bool,
     };
 
     static contextTypes = {
@@ -139,6 +140,8 @@ export default class Scroll extends Component {
     }
 
     wrap(items, columns) {
+        const {flex} = this.props;
+
         let wrappedItems = [];
         let index = 0;
         while (index < items.length) {
@@ -149,7 +152,7 @@ export default class Scroll extends Component {
 
         return wrappedItems.map((wrappedItem, index) => {
             return (
-                <div key={index} style={{display: 'flex'}}>
+                <div key={index} style={flex ? {display: 'flex'} : {}}>
                     {wrappedItem}
                 </div>
             );

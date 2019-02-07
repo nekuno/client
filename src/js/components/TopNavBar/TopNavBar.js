@@ -175,7 +175,7 @@ export default class TopNavBar extends Component {
                                     />
                                 </div>
                                 :
-                                    <div className={styles.icon + ' icon icon-' + firstIconRight} style={{color: iconsRightColor}} onClick={this.props.onRightLinkClickHandler}/>
+                                <div className={styles.icon + ' icon icon-' + firstIconRight} style={{color: iconsRightColor}} onClick={this.props.onRightLinkClickHandler}/>
                             }
                             {secondIconRight ?
                                 iconsRightBackground ?
@@ -200,7 +200,7 @@ export default class TopNavBar extends Component {
                                     />
                                     {online !== undefined ?
                                         online ?
-                                        <div className={styles.online}></div>
+                                            <div className={styles.online}></div>
                                             : <div className={styles.offline}></div>
                                         : null
                                     }

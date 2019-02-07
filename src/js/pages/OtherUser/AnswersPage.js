@@ -16,6 +16,8 @@ import Scroll from "../../components/Scroll/Scroll";
 import EmptyMessage from "../../components/ui/EmptyMessage";
 import QuestionNotMatch from "../../components/ui/QuestionNotMatch/QuestionNotMatch";
 import ProposalStore from "../../stores/ProposalStore";
+import CardContentList from "../../components/interests/CardContentList";
+import OwnUserBottomNavBar from "../../components/ui/OwnUserBottomNavBar/OwnUserBottomNavBar";
 
 /**
  * Requests data from server (or store) for current props.
@@ -35,6 +37,8 @@ function getState(props) {
     const otherNotAnsweredQuestions = otherUser ? QuestionStore.getOtherNotAnsweredQuestions(otherUser.id) : null;
     const isLoadingOwnQuestions = QuestionStore.isLoadingComparedQuestions();
     const requestQuestionsUrl = otherUser ? QuestionStore.getRequestComparedQuestionsUrl(otherUser.id, []) : null;
+
+    console.log(otherNotAnsweredQuestions);
 
     return {
         otherUser,
@@ -193,6 +197,11 @@ export default class AnswersPage extends Component {
                     </div>
                 </div>
                 <OtherUserBottomNavBar userSlug={otherUser && otherUser.slug} current={'answers'}/>
+
+
+
+
+
             </div>
         );
     }

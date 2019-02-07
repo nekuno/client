@@ -276,31 +276,39 @@ export default {
         empty                : 'No hay intereses con estos filtros',
         reported             : 'El contenido ha sido reportado. Lo revisaremos en las próximas 24 horas'
     },
-    OtherUserAnswersPage                    : {
-        topNavBarText            : 'Respuestas de %username%',
-        affinity                 : 'Afinidad',
-        compatibility            : 'Compatibilidad',
-        loading                  : 'Cargando preguntas',
-        otherNotAnsweredQuestions: 'Comprueba si sois compatible',
+    OtherUserAnswersPage           : {
+        topNavBarText             : 'Respuestas de %username%',
+        affinity                  : 'Afinidad',
+        compatibility             : 'Compatibilidad',
+        loading                   : 'Cargando preguntas',
+        otherNotAnsweredQuestions : 'Comprueba si sois compatibles',
     },
-    OtherUserProposalsPage                  : {
-        topNavBarText: 'Propuestas de %username%',
-        orderBy      : 'Ordenar por %orderBy%',
+    OtherUserProposalsPage           : {
+        topNavBarText : 'Propuestas de %username%',
+        orderBy       : 'Ordenar por %orderBy%',
     },
-    OtherUserInterestsPage                  : {
-        topNavBarText: 'Intereses de %username%',
-        orderBy      : 'Ordenar por %orderBy%',
+    OtherUserInterestsPage : {
+        topNavBarText : 'Intereses de %username%',
+        orderBy       : 'Ordenar por %orderBy%',
     },
-    OtherQuestionsPage                      : {
+    OtherQuestionsPage               : {
         coincidences: 'Coincidencias de',
         about       : 'Acerca de',
         photos      : 'Fotos',
         questions   : 'Respuestas',
         interests   : 'Intereses'
     },
-    OwnUserInterestsPage                    : {
-        topNavBarText: 'Mis intereses',
-        orderBy      : 'Filtrar por tipo',
+    OwnUserAnswersPage               : {
+        topNavBarText        : 'Mis respuestas',
+        myAnswersTitle       : '¡Queremos conocerte mejor!',
+        myAnswersDescription : 'Cuantas más preguntas sobre tu personalidad respondas, mejores serán las recomendaciones que podamos hacerte.',
+        myAnswersButton      : 'Responder al test',
+        answeredQuestions    : 'Has respondido a %questionsTotal% de 100 preguntas',
+        editAnswer           : 'Editar respuesta',
+    },
+    OwnUserInterestsPage : {
+        topNavBarText : 'Mis intereses',
+        orderBy       : 'Filtrar por tipo',
     },
     OwnProposalsPage                        : {
         myPlans         : 'Mis planes',

@@ -8,7 +8,7 @@ export default class ChoiceEdit extends Component {
     static propTypes = {
         editKey              : PropTypes.string.isRequired,
         selected             : PropTypes.string,
-        choices             : PropTypes.array.isRequired,
+        choices              : PropTypes.array.isRequired,
         handleClickRemoveEdit: PropTypes.func,
         handleChangeEdit     : PropTypes.func.isRequired,
         title                : PropTypes.string,
@@ -45,6 +45,8 @@ export default class ChoiceEdit extends Component {
 
     render() {
         const {selected, choices, title} = this.props;
+        console.log(selected);
+        console.log(choices);
         const selectedText = selected ? choices.find(choice => {
             return choice.id === selected
         }).text : '';
@@ -55,11 +57,13 @@ export default class ChoiceEdit extends Component {
         return (
             <div>
                 <div className={styles.title}> {title} </div>
-                {compact ?
-                    <SelectInline options={choices} onClickHandler={this.handleClickChoice} multiple={false} defaultOption={selected}/>
-                    :
-                    <InputSelectSingle options={choiceTexts} onClickHandler={this.handleClickChoiceText} selected={selectedText}/>
-                }
+                <div className={styles.select}>
+                    {compact ?
+                        <SelectInline options={choices} onClickHandler={this.handleClickChoice} multiple={false} defaultOption={selected}/>
+                        :
+                        <InputSelectSingle options={choiceTexts} onClickHandler={this.handleClickChoiceText} selected={selectedText}/>
+                    }
+                </div>
             </div>);
     }
 }

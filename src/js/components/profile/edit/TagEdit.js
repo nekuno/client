@@ -71,15 +71,6 @@ export default class TagEdit extends Component {
         this.refs['tagInput' + editKey].clearValue();
         this.refs['tagInput' + editKey].focus();
 
-        // let tag = this.props.selected.find(propTag => propTag.name === tagString);
-        // if (tag === undefined) {
-        //     tag = {name: tagString};
-        // }
-
-        // const exists = data.some(value => value.name === tagString);
-        // if (!exists) {
-        //     data.push(tag);
-        // }
         const tags = tagStringArray.map(string => {return {name: string}});
         this.props.handleChangeEdit(tags);
         this.setState({

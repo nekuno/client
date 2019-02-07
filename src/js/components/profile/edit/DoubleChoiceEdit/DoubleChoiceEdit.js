@@ -5,19 +5,20 @@ import ChoiceEdit from "../ChoiceEdit/ChoiceEdit";
 
 export default class DoubleChoiceEdit extends Component {
     static propTypes = {
-        editKey               : PropTypes.string.isRequired,
-        metadata              : PropTypes.object.isRequired,
-        data                  : PropTypes.object,
-        handleClickRemoveEdit : PropTypes.func,
-        handleChangeEdit      : PropTypes.func.isRequired,
-        firstChoiceSelected   : PropTypes.string,
+        editKey              : PropTypes.string.isRequired,
+        metadata             : PropTypes.object.isRequired,
+        handleClickRemoveEdit: PropTypes.func,
+        handleChangeEdit     : PropTypes.func.isRequired,
+        firstChoiceSelected  : PropTypes.string,
+        detailSelected       : PropTypes.string,
     };
 
     constructor(props) {
         super(props);
 
         this.state = {
-            firstChoiceSelected: props.firstChoiceSelected
+            firstChoiceSelected: props.firstChoiceSelected,
+            detailSelected     : props.detailSelected,
         };
 
         this.handleClickDetail = this.handleClickDetail.bind(this);
@@ -45,7 +46,7 @@ export default class DoubleChoiceEdit extends Component {
     buildDoubleChoicesAsChoices() {
         const {metadata} = this.props;
         const firstChoiceSelected = this.state.firstChoiceSelected;
-        if (null === firstChoiceSelected){
+        if (null === firstChoiceSelected) {
             return [];
         }
         const doubleChoices = metadata.doubleChoices[firstChoiceSelected];
@@ -62,17 +63,17 @@ export default class DoubleChoiceEdit extends Component {
 
     render() {
         const {editKey, metadata} = this.props;
-        const firstChoiceSelected = this.state.firstChoiceSelected;
+        const {firstChoiceSelected, detailSelected} = this.state;
         const choices = metadata.choices;
         const doubleChoices = this.buildDoubleChoicesAsChoices();
         return (
             <div className={styles.doubleChoiceEdit}>
                 <div className={styles.firstChoice}>
-                    <ChoiceEdit editKey={editKey + 'first'} choices={choices} handleChangeEdit={this.handleClickChoice}/>
+                    <ChoiceEdit editKey={editKey + 'first'} choices={choices} handleChangeEdit={this.handleClickChoice} selected={firstChoiceSelected}/>
                 </div>
                 {firstChoiceSelected ?
                     <div className={styles.secondChoice}>
-                        <ChoiceEdit editKey={editKey + 'second'} choices={doubleChoices} handleChangeEdit={this.handleClickDetail}/>
+                        <ChoiceEdit editKey={editKey + 'second'} choices={doubleChoices} handleChangeEdit={this.handleClickDetail} selected={detailSelected}/>
                     </div>
                     :
                     null

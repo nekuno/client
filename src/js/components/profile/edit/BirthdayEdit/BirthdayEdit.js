@@ -1,8 +1,9 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import DateInput from '../../ui/DateInput/DateInput';
-import translate from '../../../i18n/Translate';
-import InputSelectSingle from "../../ui/InputSelectSingle/InputSelectSingle";
+import styles from './BirthdayEdit.scss';
+import DateInput from '../../../ui/DateInput/DateInput';
+import translate from '../../../../i18n/Translate';
+import InputSelectSingle from "../../../ui/InputSelectSingle/InputSelectSingle";
 
 @translate('BirthdayEdit')
 export default class BirthdayEdit extends Component {
@@ -51,7 +52,8 @@ export default class BirthdayEdit extends Component {
         const {metadata, data, strings} = this.props;
         const {open} = this.state;
         return (
-                    <div className="birthday-filter-wrapper">
+                    <div className={styles.wrapper}>
+                        <div className={styles.title}> {metadata.labelEdit} </div>
                         {!open ?
                             <InputSelectSingle options={[data]} onToggle={this.toggleOpen} placeholderText={data}/>
                         :

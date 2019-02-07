@@ -1,10 +1,11 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import SelectedEdit from './SelectedEdit';
-import TextCheckboxes from '../../ui/TextCheckboxes';
+import styles from './MultipleChoicesEdit.scss';
+import SelectedEdit from '../SelectedEdit';
+import TextCheckboxes from '../../../ui/TextCheckboxes';
 import { Range } from 'rc-slider';
-import translate from '../../../i18n/Translate';
-import Framework7Service from '../../../services/Framework7Service';
+import translate from '../../../../i18n/Translate';
+import Framework7Service from '../../../../services/Framework7Service';
 
 @translate('MultipleChoicesEdit')
 export default class MultipleChoicesEdit extends Component {
@@ -88,7 +89,7 @@ export default class MultipleChoicesEdit extends Component {
         return (
             <SelectedEdit key={selected ? 'selected-filter' : editKey} type={'checkbox'} active={data && data.length > 0} handleClickRemoveEdit={this.props.handleClickRemoveEdit ? this.handleClickRemoveEdit : null}>
                 {metadata.isRange ?
-                    <div className="range-filter">
+                    <div className={styles.range}>
                         <div className="checkbox-title">{metadata.labelEdit}</div>
                         <Range {...rangeProps}/>
                     </div>

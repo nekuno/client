@@ -10,6 +10,7 @@ function loadStories() {
     require('../stories/BottomNavBar.stories');
     require('../stories/BottomNotificationBar.stories');
     require('../stories/Button.stories');
+    require('../stories/ButtonOverlayBottomPage.stories');
     require('../stories/CandidateCard.stories');
     require('../stories/CardTopData.stories');
     require('../stories/CardContent.stories');
@@ -19,10 +20,13 @@ function loadStories() {
     require('../stories/ContentTypeIcon.stories');
     require('../stories/DateInputRange.stories');
     require('../stories/DailyInputRange.stories');
+    require('../stories/EditProfileCategory.stories');
     require('../stories/ErrorMessage.stories');
     require('../stories/Frame.stories');
     require('../stories/FrameCollapsible.stories');
+    require('../stories/IconCollapsible.stories');
     require('../stories/IconNotification.stories');
+    require('../stories/InputSelectSingle.stories');
     require('../stories/Input.stories');
     require('../stories/InputNumber.stories');
     require('../stories/InputNumberRange.stories');

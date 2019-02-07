@@ -2,11 +2,13 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import Frame from '../Frame/Frame.js';
 import styles from './FrameCollapsible.scss';
+import IconCollapsible from "../IconCollapsible/IconCollapsible";
 
 export default class FrameCollapsible extends Component {
 
     static propTypes = {
-        title         : PropTypes.string
+        title         : PropTypes.string,
+        onToggle : PropTypes.func,
     };
 
     constructor(props) {
@@ -23,6 +25,8 @@ export default class FrameCollapsible extends Component {
         const {open} = this.state;
 
         this.setState({open: !open});
+
+        this.props.onToggle();
     }
 
     render() {
@@ -37,11 +41,7 @@ export default class FrameCollapsible extends Component {
                             {title}
                         </div>
                         <div className={styles.arrow}>
-                            {open ?
-                                <div className={styles.arrow + ' icon icon-chevron-up'}/>
-                                :
-                                <div className={styles.arrow + ' icon icon-chevron-down'}/>
-                            }
+                            <IconCollapsible open={open}/>
                         </div>
                     </div>
                     <div className={styles.content} style={{display: open ? 'block' : 'none'}}>
@@ -52,3 +52,7 @@ export default class FrameCollapsible extends Component {
         );
     }
 }
+
+FrameCollapsible.defaultProps = {
+    onToggle: () => {},
+};

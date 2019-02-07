@@ -108,6 +108,7 @@ class ProfileStore extends BaseStore {
     }
 
     get(slug) {
+        this._initialize(slug);
         return this._profiles[slug];
     }
 
@@ -155,9 +156,9 @@ class ProfileStore extends BaseStore {
                     const thisMetadata = metadata[field];
                     type = thisMetadata.type;
                     name = thisMetadata.label;
-                    value = this.getFieldText(type, thisMetadata, basicProfile, field)
+                    value = this.getFieldText(type, thisMetadata, basicProfile, field);
 
-                    if (value === '' || value == false) {
+                    if (value === '' || value === false) {
                         return;
                     }
                 }

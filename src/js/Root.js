@@ -93,6 +93,7 @@ import ProposalsExperiencePreviewPage           from "./pages/Proposals/Experien
 import OtherUserProposalsPage from "./pages/OtherUser/ProposalsPage";
 import OtherUserAboutMePage from "./pages/OtherUser/AboutMePage";
 import OtherUserAnswersPage from "./pages/OtherUser/AnswersPage";
+import EditProfilePage from "./pages/OwnUser/EditProfilePage";
 
 import OwnUserAboutMePage from "./pages/OwnUser/AboutMePage";
 import OwnUserAnswersPage from "./pages/OwnUser/AnswersPage";
@@ -140,6 +141,7 @@ export default class Root extends Component {
                     <Route name="login" path="/login" component={LoginPage}/>
                     <Route name="register" path="/register" component={RegisterPage}/>
                     <Route name="shared-user" path="/p/:slug" component={ProfilePage}/>
+                    <Route name="shared-user-edit" path="/p/:slug/edit" component={EditProfilePage}/>
                     <Route name="shared-user-interests" path="/p/:slug/interests" component={OtherUserInterestsPage}/>
 
                     <Route onEnter={requireAuth}>

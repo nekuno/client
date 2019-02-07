@@ -1,8 +1,9 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import SelectedEdit from './SelectedEdit';
-import DateInput from '../../ui/DateInput';
-import translate from '../../../i18n/Translate';
+import styles from './BirthdayEdit.scss';
+import DateInput from '../../../ui/DateInput/DateInput';
+import translate from '../../../../i18n/Translate';
+import InputSelectSingle from "../../../ui/InputSelectSingle/InputSelectSingle";
 
 @translate('BirthdayEdit')
 export default class BirthdayEdit extends Component {
@@ -20,12 +21,18 @@ export default class BirthdayEdit extends Component {
     constructor(props) {
         super(props);
 
+        this.state = {
+            open: false
+        };
+
         this.onChangeValue = this.onChangeValue.bind(this);
         this.handleClickRemoveEdit = this.handleClickRemoveEdit.bind(this);
+        this.toggleOpen = this.toggleOpen.bind(this);
     }
 
     onChangeValue(date) {
         const {editKey} = this.props;
+        this.toggleOpen();
         this.props.handleChangeEdit(editKey, date);
     }
 
@@ -34,14 +41,27 @@ export default class BirthdayEdit extends Component {
         this.props.handleClickRemoveEdit(editKey);
     }
 
+    toggleOpen() {
+        const {open} = this.state;
+        this.setState({
+            open: !open
+        })
+    }
+
     render() {
-        const {editKey, selected, metadata, data, strings} = this.props;
+        const {metadata, data, strings} = this.props;
+        const {open} = this.state;
         return (
-            <SelectedEdit key={selected ? 'selected-filter' : editKey} type={'birthday'} addedClass={'tag-filter'} handleClickRemoveEdit={this.props.handleClickRemoveEdit ? this.handleClickRemoveEdit : null}>
-                <div className="birthday-filter-wrapper">
-                    <DateInput label={metadata.labelEdit} placeholder={strings.birthdayPlaceholder} defaultValue={data} onChange={this.onChangeValue}/>
-                </div>
-            </SelectedEdit>
+                    <div className={styles.wrapper}>
+                        <div className={styles.title}> {metadata.labelEdit} </div>
+                        {!open ?
+                            <InputSelectSingle options={[data]} onToggle={this.toggleOpen} placeholderText={data}/>
+                        :
+                            <DateInput label={metadata.labelEdit} placeholder={strings.birthdayPlaceholder} defaultValue={data} onChange={this.onChangeValue} autoFocus={true}/>
+                        }
+
+                    </div>
+
 
         );
     }

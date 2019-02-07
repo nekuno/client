@@ -58,7 +58,7 @@ export default class TextArea extends Component {
     render() {
         const {placeholder, title, style, defaultValue} = this.props;
         return (
-            <li>
+            <div>
                 <div className="textarea-title">{title}</div>
                 <textarea ref="textarea"
                           placeholder={placeholder}
@@ -68,7 +68,7 @@ export default class TextArea extends Component {
                           defaultValue={defaultValue}
                           required
                 />
-            </li>
+            </div>
         );
     }
 

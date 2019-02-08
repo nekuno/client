@@ -53,18 +53,25 @@ export const THREAD_TYPES = {
 };
 
 export const QUESTION_STATS_COLORS = [
-    // light green
-    '#32ca91',
     // purple
-    '#2d205f',
-    // deep purple
-    '#6342b1',
+    '#756ee5',
+    // green
+    '#7bd47e',
+    // pink
+    '#d380d3',
+    // OLD COLORS
     // light blue
     '#6abeee',
     // yellow
     '#adb32f',
+    // purple
+    '#2d205f',
+    // light green
+    '#32ca91',
+    // deep purple
+    '#6342b1',
     // flesh-colored
-    '#d96484'
+    '#d96484',
 ];
 
 export const SOCIAL_NETWORKS_NAMES = {

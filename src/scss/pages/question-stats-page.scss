@@ -1,16 +1,16 @@
-@import '../../_partials/colors';
+@import '../_partials/colors';
 
-.answer-next-question-page {
-  background-color: $background-white;
+.question-stats-page {
+  background: $background-white;
   color: $gray-main-text;
   text-align: center;
-  z-index: 0;
   height: 100%;
-  .answer-next-question-page-wrapper {
-    padding: 0 16px;
+  .question-stats-page-wrapper {
+    padding: 0 24px;
     height: calc(100% - 108px);
     overflow: auto;
   }
+
   .skip-nav-bar {
     background-color: $purple-one;
     height: 54px;
@@ -30,8 +30,8 @@
       cursor: pointer;
 
       .icon {
-          font-size: 24px;
-          margin: 0 8px;
+        font-size: 24px;
+        margin: 0 8px;
       }
     }
   }

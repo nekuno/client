@@ -1,0 +1,19 @@
+@import '../../../scss/_partials/colors';
+
+.community-question-stats {
+  .question-stats-graph-title {
+    color: $text;
+    margin: 0 0 16px 0;
+    font-weight: 600;
+    text-align: left;
+  }
+  .charts-container {
+    display: flex;
+    justify-content: center;
+    .first-chart {
+      margin: 0 24px 0 0;
+    }
+    .second-chart {
+    }
+  }
+}

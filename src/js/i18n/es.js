@@ -635,11 +635,12 @@ export default {
         about    : 'Sobre mi',
         photos   : 'Fotos',
         questions: 'Respuestas',
-        interests: 'Intereses'
+        interests: 'Intereses',
     },
     QuestionStatsPage                       : {
         statistics: 'Estadísticas',
-        next      : 'Continuar'
+        next      : 'Continuar',
+        nextQuestion : 'Siguiente pregunta'
     },
     QuestionEditedStatsPage                 : {
         statistics: 'Estadísticas',
@@ -1003,17 +1004,26 @@ export default {
     QuestionEditCountdown                   : {
         text: 'Por favor espera %s% para responder de nuevo'
     },
-    QuestionStats                           : {
-        yourAnswer: 'Tu respuesta',
-        statistics: 'Estadísticas de la comunidad Nekuno'
+    QuestionStats                    : {
+        yourAnswer       : 'Tu respuesta',
+        statistics       : 'Estadísticas de la comunidad Nekuno',
+        otherUserAnswers : 'Respuestas que acepto de otro usuario',
+        few              : 'Poca',
+        normal           : 'Normal',
+        aLot             : 'Mucha',
+        irrelevant       : 'Irrelevante',
+        userImportance   : 'La importancia de su respuesta es',
+        editAnswer       : 'Editar respuesta',
+
     },
-    QuestionStatsGraph                      : {
+    QuestionStatsGraph               : {
+        statistics: 'Estadísticas de la comunidad Nekuno',
         females   : 'Mujeres',
         males     : 'Hombres',
         young     : '- de 30',
         old       : '+ de 30',
-        typeAge   : 'Distribución por edad',
-        typeGender: 'Distribución por género'
+        typeAge   : 'distribución por edad',
+        typeGender: 'distribución por género'
     },
     QuestionStatsInline                     : {
         statistics: 'Estadísticas de la comunidad Nekuno'

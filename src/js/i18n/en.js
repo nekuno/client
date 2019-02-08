@@ -642,11 +642,12 @@ export default {
         about    : 'About me',
         photos   : 'Photos',
         questions: 'Answers',
-        interests: 'Interests'
+        interests: 'Interests',
     },
     QuestionStatsPage                       : {
         statistics: 'Statistics',
-        next      : 'Continue'
+        next      : 'Continue',
+        nextQuestion : 'Next question'
     },
     QuestionEditedStatsPage                 : {
         statistics: 'Statistics',
@@ -1010,17 +1011,25 @@ export default {
     QuestionEditCountdown                   : {
         text: 'Please wait %s% to answer again'
     },
-    QuestionStats                           : {
-        yourAnswer: 'Your answer',
-        statistics: 'Community answer statistics'
+    QuestionStats                    : {
+        yourAnswer       : 'Your answer',
+        statistics       : 'Community answer statistics',
+        otherUserAnswers : 'Answers that I accept from another user',
+        few              : 'Few',
+        normal           : 'Normal',
+        aLot             : 'A lot',
+        irrelevant       : 'Irrelevant',
+        userImportance   : 'The importance of your answer is',
+        editAnswer       : 'Edit answer',
     },
-    QuestionStatsGraph                      : {
+    QuestionStatsGraph               : {
+        statistics: 'Community answer statistics',
         females   : 'Girls',
         males     : 'Boys',
         young     : '- than 30',
         old       : '+ than 30',
-        typeAge   : 'Distribution by age',
-        typeGender: 'Distribution by gender'
+        typeAge   : 'distribution by age',
+        typeGender: 'distribution by gender'
     },
     QuestionStatsInline                     : {
         statistics: 'Community answer statistics'

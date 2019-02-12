@@ -133,7 +133,6 @@ export default class ProfileDataList extends Component {
     }
 
     handleChangeEditAndSave(key, data) {
-        console.log('handleChangeEditAndSave');
         let {profile} = this.state;
         let oldProfile = Object.assign({}, profile);
         profile[key] = data;

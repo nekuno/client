@@ -60,7 +60,7 @@ class CreatingProposalStore extends BaseStore {
         const proposal = this._proposal;
 
         const choicesKey = this._getChoicesKey(proposal.type);
-        proposal[choicesKey] = proposal.fields.typeValues;
+        proposal.fields[choicesKey] = proposal.fields.typeValues;
         delete proposal.fields.typeValues;
 
         return proposal;

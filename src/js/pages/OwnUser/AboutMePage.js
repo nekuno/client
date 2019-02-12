@@ -89,6 +89,7 @@ export default class AboutMePage extends Component {
         super(props);
 
         this.uploadPhoto = this.uploadPhoto.bind(this);
+        this.goToEdit = this.goToEdit.bind(this);
     }
 
     componentDidMount() {
@@ -96,8 +97,6 @@ export default class AboutMePage extends Component {
     }
 
     getPhotos(photos) {
-        //TODO: TESTING
-        // return ['https://cdn5.img.sputniknews.com/images/105967/95/1059679556.jpg'];
         return photos.map((photo) => {
             return photo.url
         })
@@ -124,12 +123,17 @@ export default class AboutMePage extends Component {
         UploadImageService.uploadPhoto(e, userId);
     }
 
+    goToEdit() {
+        const {slug} = this.props;
+        this.context.router.push('/p/' + slug + '/edit');
+    }
+
     logout() {
         LoginActionCreators.logoutUser();
     }
 
     render() {
-        const {photos, isLoading, username, location, age, natural} = this.props;
+        const {photos, isLoading, username, location, age, natural, strings} = this.props;
 
         return (
             <div className="views">
@@ -157,9 +161,15 @@ export default class AboutMePage extends Component {
                                 <div className={styles.input}><input style={{opacity: 0}} type='file' ref='fileInput' onChange={this.uploadPhoto}/></div>
                             </div>
 
-                            <div className={styles.topData}>
-                                <UserTopData username={username} age={age} location={{locality: location}} usernameColor={'black'} subColor={'grey'}/>
+                            <div className={styles.centerLine}>
+                                <div className={styles.topData}>
+                                    <UserTopData username={username} age={age} location={{locality: location}} usernameColor={'black'} subColor={'grey'}/>
+                                </div>
+                                <div className={styles.editLink} onClick={this.goToEdit}>
+                                    {strings.edit}
+                                </div>
                             </div>
+
 
                             {this.getNatural(natural)}
                         </div>

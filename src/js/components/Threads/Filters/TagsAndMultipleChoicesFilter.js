@@ -74,7 +74,6 @@ export default class TagsAndMultipleChoicesFilter extends Component {
 
     handleClickChoice(choice) {
         let {filterKey, data} = this.props;
-        console.log(choice)
         this.refs.inputTag.focus();
         let selectedTagAndChoice = this.state.selectedTagAndChoice;
         const valuesIndex = data.findIndex(value => value.tag === selectedTagAndChoice.tag);
@@ -107,7 +106,6 @@ export default class TagsAndMultipleChoicesFilter extends Component {
         let {data} = this.props;
         this.refs.inputTag.setValue(tag);
         this.refs.inputTag.focus();
-        console.log(data)
         const index = data.findIndex(value => value.tag === tag);
         if (index > -1) {
             let selectedTagAndChoice = data[index];

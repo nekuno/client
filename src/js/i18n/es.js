@@ -299,6 +299,9 @@ export default {
         questions   : 'Respuestas',
         interests   : 'Intereses'
     },
+    OwnUserAboutMePage : {
+        edit: 'Editar perfil'
+    },
     OwnUserAnswersPage               : {
         topNavBarText        : 'Mis respuestas',
         myAnswersTitle       : '¡Queremos conocerte mejor!',

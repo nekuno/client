@@ -23,10 +23,11 @@ export default class ChoiceEdit extends Component {
     }
 
     handleClickChoice(editKeyChoice) {
-        let {editKey, data} = this.props;
-        const choice = editKeyChoice[0].replace(editKey, '');
-        if (choice !== data) {
-            this.props.handleChangeEdit(choice);
+        let {editKey, data, choices} = this.props;
+        const choiceId = editKeyChoice[0].replace(editKey, '');
+        const choiceText = choices.find(choice => {return choice.id === choiceId}).text;
+        if (choiceText !== data) {
+            this.props.handleChangeEdit(choiceText);
         }
     }
 
@@ -45,8 +46,6 @@ export default class ChoiceEdit extends Component {
 
     render() {
         const {selected, choices, title} = this.props;
-        console.log(selected);
-        console.log(choices);
         const selectedText = selected ? choices.find(choice => {
             return choice.id === selected
         }).text : '';

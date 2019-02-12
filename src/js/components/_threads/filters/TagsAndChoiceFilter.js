@@ -112,7 +112,6 @@ export default class TagsAndChoiceFilter extends Component {
         if (tag.length > 2) {
             // TODO: Call get tags action and save in store
             // TODO: Replace this example setting the tagSuggestions in getState method as props
-            console.log(tag);
             this.setState({
                 tagSuggestions: [tag, tag + '2', tag + '3']
             });

@@ -57,6 +57,10 @@ export default class EditProfilePage extends Component {
         metadata           : PropTypes.object
     };
 
+    static contextTypes = {
+        router : PropTypes.object.isRequired
+    };
+
     constructor(props) {
         super(props);
 
@@ -84,7 +88,9 @@ export default class EditProfilePage extends Component {
     }
 
     save() {
-        UserActionCreators.editProfile(this.state.newProfile, this.state.oldProfile);
+        UserActionCreators.editProfile(this.state.newProfile, this.state.oldProfile).then(() => {
+            this.goToProfile();
+        });
     }
 
     goToProfile() {

@@ -1,3 +1,5 @@
+import ProposalDetailPage from "../pages/ProposalDetailPage";
+
 export default {
     AnswerQuestionPage                      : {
         question               : 'Question',
@@ -640,6 +642,18 @@ export default {
         to             : 'to',
         years          : 'years',
         withinRadioOf  : 'within radio of'
+    },
+    ProposalDetailPage                      : {
+        numberOfMatches : 'Good! %numberOfMatches% matches',
+        viewAll         : 'View all',
+        project         : 'Project',
+        sectors         : 'Sectors',
+        profession      : 'Skills',
+        availability    : 'Availability',
+        numberOfMembers : 'Number of members',
+        deleteProposal  : 'Delete proposal',
+        deleteProposalDescription : 'If you delete the proposal the data will be completely deleted and will no longer be visible to users who have matched this.',
+        editProposal    : 'Edit proposal',
     },
     QuestionsPage                           : {
         myProfile: 'My profile',

@@ -636,6 +636,18 @@ export default {
         years          : 'años',
         withinRadioOf  : 'en un radio de'
     },
+    ProposalDetailPage                      : {
+        numberOfMatches : '¡Bien! Tienes %numberOfMatches% matchs',
+        viewAll         : 'Ver todos',
+        project         : 'Proyecto',
+        sectors         : 'Sectores',
+        profession      : 'Habilidades',
+        availability    : 'Disponibilidad',
+        numberOfMembers : 'Número de participantes',
+        deleteProposal  : 'Borrar propuesta',
+        deleteProposalDescription : 'Si eliminas la propuesta los se borrarán completamente y ya no será visible para los usuarios match.',
+        editProposal    : 'Editar propuesta',
+    },
     QuestionsPage                           : {
         myProfile: 'Mi Perfil',
         about    : 'Sobre mi',

@@ -93,6 +93,17 @@ class ProposalStore extends BaseStore {
         return this._ownProposals;
     }
 
+    getOwnProposal(id)
+    {
+        let myProposal = null;
+        this._ownProposals.forEach(proposal => {
+            if (proposal.id === parseInt(id)) {
+                myProposal = proposal;
+            }
+        });
+        return myProposal;
+    }
+
     isRequesting() {
         return this._isRequesting;
     }

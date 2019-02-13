@@ -96,26 +96,28 @@ export default class ProposalFilterPreview extends Component {
     render() {
         const {strings, proposalFilters, filters} = this.props;
         return (
-            <div className={styles.availabilityPreview}>
-                <div className={styles.roundedIconWrapper}>
-                    <RoundedIcon
-                        icon={'eye-off'}
-                        size={'small'}
-                        color={'#2B3857'}
-                        background={'#E9E9E9'}/>
-                </div>
-                <div className={styles.textWrapper}>
-                    <div className={[styles.title,styles.small]}>{strings.filterText}</div>
-                </div>
-                {Object.keys(proposalFilters).map((item, index) =>
-                    <div key={index} className={styles.filterWrapper}>
-                        <div className={styles.small}>
-                            <strong>{filters.userFilters[item].label}</strong>
-                        </div>
-                        <div className={styles.small}>{this.renderProposalFilter(item, proposalFilters[item])}</div>
+            filters ?
+                <div className={styles.availabilityPreview}>
+                    <div className={styles.roundedIconWrapper}>
+                        <RoundedIcon
+                            icon={'eye-off'}
+                            size={'small'}
+                            color={'#2B3857'}
+                            background={'#E9E9E9'}/>
                     </div>
-                )}
-            </div>
+                    <div className={styles.textWrapper}>
+                        <div className={[styles.title,styles.small]}>{strings.filterText}</div>
+                    </div>
+                    {Object.keys(proposalFilters).map((item, index) =>
+                        <div key={index} className={styles.filterWrapper}>
+                            <div className={styles.small}>
+                                <strong>{filters.userFilters[item].label}</strong>
+                            </div>
+                            <div className={styles.small}>{this.renderProposalFilter(item, proposalFilters[item])}</div>
+                        </div>
+                    )}
+                </div>
+                : null
         );
     }
 }

@@ -1,4 +1,5 @@
 import ProposalDetailPage from "../pages/ProposalDetailPage";
+import ProposalDetailMatchesPage from "../pages/ProposalDetailMatchesPage";
 
 export default {
     AnswerQuestionPage                      : {
@@ -654,6 +655,13 @@ export default {
         deleteProposal  : 'Delete proposal',
         deleteProposalDescription : 'If you delete the proposal the data will be completely deleted and will no longer be visible to users who have matched this.',
         editProposal    : 'Edit proposal',
+    },
+    ProposalDetailMatchesPage                      : {
+        topNavBarText: 'People Nekuno',
+        orderedBy    : 'Ordered by',
+        compatibility: 'compatibility',
+        similarity   : 'similarity',
+        coincidences : 'coincidences'
     },
     QuestionsPage                           : {
         myProfile: 'My profile',

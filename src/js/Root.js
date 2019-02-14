@@ -98,6 +98,7 @@ import EditProfilePage from "./pages/OwnUser/EditProfilePage";
 import OwnUserAboutMePage from "./pages/OwnUser/AboutMePage";
 import OwnUserAnswersPage from "./pages/OwnUser/AnswersPage";
 import ProposalDetailPage from "./pages/ProposalDetailPage";
+import ProposalDetailMatchesPage from "./pages/ProposalDetailMatchesPage";
 import OtherUserProposalDetailPage from "./pages/OtherUserProposalDetailPage";
 
 
@@ -179,6 +180,7 @@ export default class Root extends Component {
                         <Route name="persons-filter" path="/persons-filter/:threadId" component={PersonsFilterPage}/>
                         <Route name="plans" path="/plans" component={OwnProposalsPage}/>
                         <Route name="proposal-detail" path="/proposal/:proposalId" component={ProposalDetailPage}/>
+                        <Route name="proposal-detail-matches" path="/proposal/:proposalId/matches" component={ProposalDetailMatchesPage}/>
                         <Route name="about-me" path="/about-me" component={OwnUserAboutMePage}/>
                         <Route name="answers" path="/answers/:slug" component={OwnUserAnswersPage}/>
                         <Route name="availability-edit" path="/availability-edit" component={AvailabilityEditPage}/>

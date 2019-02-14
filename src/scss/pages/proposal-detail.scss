@@ -9,6 +9,14 @@
     height: calc(100% - 54px);
     overflow: auto;
 
+    .proposal-floating-icon-container {
+      position: absolute;
+      z-index: 1;
+      right: 24px;
+      top: 8px;
+      font-size: 45px;
+    }
+
     h2 {
       padding: 0 24px;
     }

@@ -25,6 +25,7 @@
     .option {
       color: $gray-secondary-text;
       margin: 8px 0;
+      text-transform: capitalize;
 
       &.option-selected {
         cursor: default;

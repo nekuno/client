@@ -164,18 +164,20 @@ export default class TopNavBar extends Component {
                                 </span>
                                 : null
                             }
-                            {iconsRightBackground ?
-                                <div className={styles.roundedIcon}>
-                                    <RoundedIcon icon={firstIconRight}
-                                                 size="small"
-                                                 background={iconsRightBackground}
-                                                 color={iconsRightColor}
-                                                 fontSize={'15px'}
-                                                 onClickHandler={this.props.onRightLinkClickHandler}
-                                    />
-                                </div>
-                                :
-                                <div className={styles.icon + ' icon icon-' + firstIconRight} style={{color: iconsRightColor}} onClick={this.props.onRightLinkClickHandler}/>
+                            {firstIconRight ?
+                                iconsRightBackground ?
+                                    <div className={styles.roundedIcon}>
+                                        <RoundedIcon icon={firstIconRight}
+                                                     size="small"
+                                                     background={iconsRightBackground}
+                                                     color={iconsRightColor}
+                                                     fontSize={'15px'}
+                                                     onClickHandler={this.props.onRightLinkClickHandler}
+                                        />
+                                    </div>
+                                    :
+                                    <div className={styles.icon + ' icon icon-' + firstIconRight} style={{color: iconsRightColor}} onClick={this.props.onRightLinkClickHandler}/>
+                                : null
                             }
                             {secondIconRight ?
                                 iconsRightBackground ?

@@ -19,6 +19,8 @@ import ProfileStore from "../stores/ProfileStore";
 import TagSuggestionsStore from "../stores/TagSuggestionsStore";
 import RouterActionCreators from "../actions/RouterActionCreators";
 import RoundedImage from "../components/ui/RoundedImage/RoundedImage";
+import styles from "../components/TopNavBar/TopNavBar.scss";
+import ChatUserStatusStore from "../stores/ChatUserStatusStore";
 
 /**
  * Requests data from server for current props.
@@ -34,15 +36,19 @@ function getState(props) {
     const metadata = ProfileStore.getMetadata();
     const industryChoices = metadata && metadata.industry ? metadata.industry.choices : [];
 
+    const onlineUserIds = ChatUserStatusStore.getOnlineUserIds() || [];
+
+
     return {
         proposal,
         industryChoices,
+        onlineUserIds,
     };
 }
 
 @AuthenticatedComponent
 @translate('ProposalDetailPage')
-@connectToStores([ProposalStore, ProfileStore, TagSuggestionsStore], getState)
+@connectToStores([ProposalStore, ProfileStore, TagSuggestionsStore, ChatUserStatusStore], getState)
 export default class ProposalDetailPage extends Component {
 
     static propTypes = {
@@ -56,12 +62,14 @@ export default class ProposalDetailPage extends Component {
         // Injected by @connectToStores:
         proposal    : PropTypes.object,
         industryChoices : PropTypes.array,
-
-        // networks    : PropTypes.array.isRequired,
-        // error       : PropTypes.bool,
-        // isLoading   : PropTypes.bool,
-        // ownProposals: PropTypes.array,
     };
+
+    constructor(props) {
+        super(props);
+
+        this.removeProposalClick = this.removeProposalClick.bind(this);
+        this.viewAllMatchesClick = this.viewAllMatchesClick.bind(this);
+    }
 
     static contextTypes = {
         router: PropTypes.object.isRequired
@@ -72,17 +80,66 @@ export default class ProposalDetailPage extends Component {
     }
 
     removeProposalClick() {
-        // remove proposal
+        ProposalActionCreators.deleteProposal(this.props.params.proposalId);
     }
 
     handleContinueClick() {
         // Go edit proposal
     }
 
+    viewAllMatchesClick() {
+        this.context.router.push(`/proposal/` + this.props.params.proposalId + `/matches`);
+    }
+
+    renderFloatingIcon() {
+        const {proposal} = this.props;
+        let icon = '';
+
+        switch (proposal.type) {
+            case 'work':
+                icon = 'icon-proyecto';
+                break;
+            case 'sports':
+                icon = 'icon-hobbie';
+                break;
+            case 'hobbies':
+                icon = 'icon-hobbie';
+                break;
+            case 'games':
+                icon = 'icon-hobbie';
+                break;
+            case 'shows':
+                icon = 'icon-experiencia';
+                break;
+            case 'restaurants':
+                icon = 'icon-experiencia';
+                break;
+            case 'plans':
+                icon = 'icon-experiencia';
+                break;
+            default:
+                break;
+        }
+
+        return (
+            <span className={icon}>
+                <span className="path1"></span>
+                <span className="path2"></span>
+                <span className="path3"></span>
+                <span className="path4"></span>
+                <span className="path5"></span>
+                <span className="path6"></span>
+                <span className="path7"></span>
+            </span>
+        );
+    }
+
     render() {
-        const {params, user, strings, proposal, industryChoices} = this.props;
+        const {params, user, strings, proposal, industryChoices, onlineUserIds} = this.props;
 
         console.log(proposal);
+
+        console.log(onlineUserIds);
 
         return (
             proposal ?
@@ -91,11 +148,13 @@ export default class ProposalDetailPage extends Component {
                         position={'absolute'}
                         background={'transparent'}
                         iconLeft={'arrow-left'}
-                        firstIconRight={'icon-proyecto'}
                         textSize={'small'}
                         onLeftLinkClickHandler={this.topNavBarLeftLinkClick}
                         onRightLinkClickHandler={this.topNavBarRightLinkClick}/>
                     <div className="proposals-project-preview-wrapper">
+                        <div className={"proposal-floating-icon-container"}>
+                            {this.renderFloatingIcon()}
+                        </div>
                         <div className={'image-wrapper'}>
                             <img src={'https://via.placeholder.com/480x240'}/>
                             <h2 className={'bottom-left'}>{proposal.fields.title}</h2>
@@ -105,7 +164,7 @@ export default class ProposalDetailPage extends Component {
                             <div className={'proposal-users-match'}>
                                 <div className={'proposal-users-match-header'}>
                                     <div className={'matches-number'}>{strings.numberOfMatches.replace("%numberOfMatches%", 5)}</div>
-                                    <div className={'view-all'}>{strings.viewAll}</div>
+                                    <div className={'view-all'} onClick={this.viewAllMatchesClick}>{strings.viewAll}</div>
                                 </div>
                                 <div className={'proposal-users-match-body'}>
                                     <div className={'proposal-users-image'}>

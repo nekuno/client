@@ -645,8 +645,15 @@ export default {
         availability    : 'Disponibilidad',
         numberOfMembers : 'Número de participantes',
         deleteProposal  : 'Borrar propuesta',
-        deleteProposalDescription : 'Si eliminas la propuesta los se borrarán completamente y ya no será visible para los usuarios match.',
+        deleteProposalDescription : 'Si eliminas la propuesta los datos se borrarán completamente y ya no será visible para los usuarios match.',
         editProposal    : 'Editar propuesta',
+    },
+    ProposalDetailMatchesPage                      : {
+        topNavBarText: 'Personas Nekuno',
+        orderedBy    : 'Ordenar por',
+        compatibility: 'compatibilidad',
+        similarity   : 'similaridad',
+        coincidences : 'coincidencias'
     },
     QuestionsPage                           : {
         myProfile: 'Mi Perfil',

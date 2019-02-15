@@ -22,7 +22,7 @@ function loadStories() {
     require('../stories/ContentTypeIcon.stories');
     require('../stories/DateInputRange.stories');
     require('../stories/DailyInputRange.stories');
-    require('../stories/EditProfileCategory.stories');
+    // require('../stories/EditProfileCategory.stories');
     require('../stories/ErrorMessage.stories');
     require('../stories/Frame.stories');
     require('../stories/FrameCollapsible.stories');

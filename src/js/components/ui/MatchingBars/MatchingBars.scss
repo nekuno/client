@@ -6,19 +6,20 @@
 
   .progress-bar-title {
     display: inline-block;
-    font-size: 8px;
+    font-size: 14px;
+    font-weight: 600;
     height: 33px;
     line-height: 33px;
     width: 50%;
     text-align: left;
-    color: black;
+    color: $text;
 
-    @media only screen and (min-width: 320px) {
-      font-size: 10px;
-    }
-    @media only screen and (min-width: 370px) {
-      font-size: 12px;
-    }
+    //@media only screen and (min-width: 320px) {
+    //  font-size: 10px;
+    //}
+    //@media only screen and (min-width: 370px) {
+    //  font-size: 12px;
+    //}
   }
 
   .progress-bar {
@@ -33,19 +34,20 @@
 
   .progress-bar-title {
     display: inline-block;
-    font-size: 8px;
+    font-size: 14px;
+    font-weight: 600;
     height: 33px;
     line-height: 33px;
     width: 100%;
     margin-bottom: -10px;
-    color: black;
+    color: $text;
 
-    @media only screen and (min-width: 320px) {
-      font-size: 10px;
-    }
-    @media only screen and (min-width: 370px) {
-      font-size: 14px;
-    }
+    //@media only screen and (min-width: 320px) {
+    //  font-size: 10px;
+    //}
+    //@media only screen and (min-width: 370px) {
+    //  font-size: 14px;
+    //}
   }
 
   .progress-bar {

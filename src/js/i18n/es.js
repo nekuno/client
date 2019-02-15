@@ -1,3 +1,5 @@
+import OtherUserProposalDetailPage from "../pages/OtherUserProposalDetailPage";
+
 export default {
     AnswerQuestionPage                      : {
         question               : 'Pregunta',
@@ -741,6 +743,14 @@ export default {
         harmful               : 'Este usuario es abusivo o perjudicial',
         spam                  : 'Este usuario envía spam',
         otherReasons          : 'Otros motivos'
+    },
+    OtherUserProposalDetailPage                           : {
+        project    : 'Proyecto',
+        leisure    : 'Ocio',
+        experience : 'Experiencia',
+
+        sectors: 'Sectores',
+        skills: 'Habilidades',
     },
     SharedUserPage                          : {
         title          : '¿Quieres ver tu compatibilidad con %username%?',

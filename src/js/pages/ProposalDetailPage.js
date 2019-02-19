@@ -3,23 +3,15 @@ import React, { Component } from 'react';
 import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
-import BottomNavBar from '../components/BottomNavBar/BottomNavBar.js';
 import TopNavBar from '../components/TopNavBar/TopNavBar.js';
-import OwnProposalCard from '../components/Proposal/OwnProposalCard/OwnProposalCard.js';
-import WorkersStore from '../stores/WorkersStore';
 import '../../scss/pages/proposal-detail.scss';
-import CarouselContinuous from "../components/ui/CarouselContinuous/CarouselContinuous";
 import ProposalStore from "../stores/ProposalStore";
-import * as UserActionCreators from "../actions/UserActionCreators";
-import * as QuestionActionCreators from "../actions/QuestionActionCreators";
 import * as ProposalActionCreators from "../actions/ProposalActionCreators";
 import RoundedIcon from "../components/ui/RoundedIcon/RoundedIcon";
 import ProposalFilterPreview from "../components/ui/ProposalFilterPreview/ProposalFilterPreview";
 import ProfileStore from "../stores/ProfileStore";
 import TagSuggestionsStore from "../stores/TagSuggestionsStore";
-import RouterActionCreators from "../actions/RouterActionCreators";
 import RoundedImage from "../components/ui/RoundedImage/RoundedImage";
-import styles from "../components/TopNavBar/TopNavBar.scss";
 import ChatUserStatusStore from "../stores/ChatUserStatusStore";
 
 /**
@@ -62,6 +54,7 @@ export default class ProposalDetailPage extends Component {
         // Injected by @connectToStores:
         proposal    : PropTypes.object,
         industryChoices : PropTypes.array,
+        onlineUserIds : PropTypes.array,
     };
 
     constructor(props) {
@@ -84,7 +77,7 @@ export default class ProposalDetailPage extends Component {
     }
 
     handleContinueClick() {
-        // Go edit proposal
+        // TODO: Go edit proposal
     }
 
     viewAllMatchesClick() {
@@ -136,11 +129,6 @@ export default class ProposalDetailPage extends Component {
 
     render() {
         const {params, user, strings, proposal, industryChoices, onlineUserIds} = this.props;
-
-        console.log(proposal);
-
-        console.log(onlineUserIds);
-
         return (
             proposal ?
                 <div className="proposal-detail-view">
@@ -211,7 +199,7 @@ export default class ProposalDetailPage extends Component {
                                         <div className={'title small'}>{strings.sectors}</div>
                                         {proposal.fields.industry.map((item, index) =>
                                             <div className={'small'} key={index}>
-                                                {industryChoices.find(x => x.id === item.value).text}
+                                                {/*{industryChoices.find(x => x.id === item.value).text}*/}
                                             </div>
                                         )}
                                     </div>

@@ -88,6 +88,8 @@ export default class ProposalFilterPreview extends Component {
             case 'objective':
                 return this.renderProposalFilterArray(filter, filters.userFilters[item].choices);
                 break;
+            case 'order':
+                return null;
             default:
                 break;
         }
@@ -109,12 +111,14 @@ export default class ProposalFilterPreview extends Component {
                         <div className={[styles.title,styles.small]}>{strings.filterText}</div>
                     </div>
                     {Object.keys(proposalFilters).map((item, index) =>
-                        <div key={index} className={styles.filterWrapper}>
-                            <div className={styles.small}>
-                                <strong>{filters.userFilters[item].label}</strong>
+                        item !== 'order' ?
+                            <div key={index} className={styles.filterWrapper}>
+                                <div className={styles.small}>
+                                    <strong>{filters.userFilters[item].label}</strong>
+                                </div>
+                                <div className={styles.small}>{this.renderProposalFilter(item, proposalFilters[item])}</div>
                             </div>
-                            <div className={styles.small}>{this.renderProposalFilter(item, proposalFilters[item])}</div>
-                        </div>
+                        : null
                     )}
                 </div>
                 : null

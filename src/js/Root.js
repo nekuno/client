@@ -99,7 +99,6 @@ import OwnUserAboutMePage from "./pages/OwnUser/AboutMePage";
 import OwnUserAnswersPage from "./pages/OwnUser/AnswersPage";
 import OtherUserProposalDetailPage from "./pages/OtherUserProposalDetailPage";
 
-
 function requireAuth(nextState, replaceState) {
 
     if (!LoginStore.isLoggedIn()) {

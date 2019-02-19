@@ -21,7 +21,7 @@ class ProposalStore extends BaseStore {
                 this.emitChange();
                 break;
             case ActionTypes.REQUEST_PROPOSALS_SUCCESS:
-                proposals = response.items;
+                proposals = response;
                 proposals.forEach(proposal => {
                     this.addOwnProposal(proposal);
                 });

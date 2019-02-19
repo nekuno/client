@@ -320,7 +320,8 @@ export default {
         myPlans         : 'Mis planes',
         popularProposals: 'Propuestas más populares',
         otherPublished  : 'Otras propuestas publicadas',
-        matches         : 'Matches',
+        matches         : 'Matchs',
+        otherPublishedProposals: 'Otras propuestas publicadas',
     },
     PersonsPage                             : {
         relatedPeople: 'Personas afines a ti',

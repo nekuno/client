@@ -1,20 +1,21 @@
 @import '../_partials/colors';
 
-body #root .App .views .view.own-proposals-view {
+.own-proposals-published-view {
   background-color: $background;
   color: $gray-main-text;
   text-align: left;
 
   .own-proposals-wrapper {
-    margin-top: 16px;
+    // margin-top: 16px;
     min-height: 100vh;
-    padding: 0 16px;
+    //padding: 0 16px;
 
-    .popular-title {
+    .pre-card-title {
       display: inline-block;
-      padding: 5px 8px;
+      padding: 24px 8px 16px 16px;
       font-weight: 600;
       width: 75%;
+      font-size: 14px;
     }
     //.view-all {
     //  display: inline-block;
@@ -29,10 +30,44 @@ body #root .App .views .view.own-proposals-view {
       position: relative;
       width: 100%;
     }
-    .other-published-title {
-      margin-top: 16px;
-      padding: 5px 8px;
-      font-weight: 600;
+
+    .other-published-proposals {
+      cursor: pointer;
+      .proposal {
+        background-color: $white-background;
+        display: flex;
+        padding: 16px;
+        border-bottom: 1px solid $gray-border;
+        .icon {
+          width: 10%;
+          font-size: 35px;
+        }
+        .proposal-text {
+          margin: 0 3%;
+          width: 54%;
+          color: $text;
+          font-size: 14px;
+          font-weight: 600;
+          line-height: 19px;
+        }
+        .matches {
+          text-align: center;
+          border-left: 1px solid $gray-border;
+          width: 30%;
+          .number {
+            color: $text;
+            font-size: 19px;
+            font-weight: 400;
+            line-height: 24px;
+          }
+          .match {
+            color: $text-two;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 19px;
+          }
+        }
+      }
     }
   }
 }

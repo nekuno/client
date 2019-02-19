@@ -9,11 +9,14 @@ import translate from '../../../i18n/Translate';
 export default class OwnProposalCard extends Component {
 
     static propTypes = {
-        image         : PropTypes.string.isRequired,
-        title         : PropTypes.string.isRequired,
-        description   : PropTypes.string.isRequired,
+        fields                 : PropTypes.shape({
+            photo : PropTypes.string.isRequired,
+            title         : PropTypes.string.isRequired,
+            description   : PropTypes.string.isRequired,
+        }),
+        image         : PropTypes.string,
         type          : PropTypes.string.isRequired,
-        photos        : PropTypes.array.isRequired,
+        photos        : PropTypes.array,
         onClickHandler: PropTypes.func
     };
 
@@ -23,8 +26,50 @@ export default class OwnProposalCard extends Component {
         }
     }
 
+    renderProposalIcon(proposal) {
+        let icon = '';
+
+        switch (proposal.type) {
+            case 'work':
+                icon = 'icon-proyecto';
+                break;
+            case 'sports':
+                icon = 'icon-hobbie';
+                break;
+            case 'hobbies':
+                icon = 'icon-hobbie';
+                break;
+            case 'games':
+                icon = 'icon-hobbie';
+                break;
+            case 'shows':
+                icon = 'icon-experiencia';
+                break;
+            case 'restaurants':
+                icon = 'icon-experiencia';
+                break;
+            case 'plans':
+                icon = 'icon-experiencia';
+                break;
+            default:
+                break;
+        }
+
+        return (
+            <span className={icon}>
+                <span className="path1"></span>
+                <span className="path2"></span>
+                <span className="path3"></span>
+                <span className="path4"></span>
+                <span className="path5"></span>
+                <span className="path6"></span>
+                <span className="path7"></span>
+            </span>
+        );
+    }
+
     render() {
-        const {image, title, description, type, photos, strings} = this.props;
+        const {type, photos, strings, fields} = this.props;
         let icon = null;
         let background = null;
         switch (type) {
@@ -46,19 +91,20 @@ export default class OwnProposalCard extends Component {
             <div className={styles.ownProposalCard} onClick={this.handleClick.bind(this)}>
                 <div className={styles.frame}>
                     <div className={styles.topData}>
-                        <h2>{title}</h2>
+                        <h2>{fields.title}</h2>
                     </div>
                     {icon ?
                         <div className={styles.type}>
-                            <RoundedIcon icon={icon} size={'medium'} background={background} fontSize={'24px'}/>
+                            {this.renderProposalIcon({type: type})}
+                            {/*<RoundedIcon icon={icon} size={'medium'} background={background} fontSize={'24px'}/>*/}
                         </div>
                         : null
                     }
                     <div className={styles.proposalImage}>
-                        <img src={image}/>
+                        <img src={fields.photo}/>
                     </div>
                     <div className={styles.description}>
-                        <div className={styles.descriptionText + ' ' + styles.truncate}>{description}</div>
+                        <div className={styles.descriptionText + ' ' + styles.truncate}>{fields.description}</div>
                     </div>
                     {photos &&
                     <div className={styles.userData}>

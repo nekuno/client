@@ -315,6 +315,7 @@ export default {
         popularProposals: 'Most popular proposals',
         otherPublished  : 'Other published proposals',
         matches         : 'Matches',
+        otherPublishedProposals: 'Other published proposals',
     },
     OwnUserInterestsPage                    : {
         topNavBarText: 'My interests',

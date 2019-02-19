@@ -8,36 +8,33 @@ import TopNavBar from '../components/TopNavBar/TopNavBar.js';
 import OwnProposalCard from '../components/Proposal/OwnProposalCard/OwnProposalCard.js';
 import WorkersStore from '../stores/WorkersStore';
 import '../../scss/pages/own-proposals.scss';
+
 import CarouselContinuous from "../components/ui/CarouselContinuous/CarouselContinuous";
+import ProposalStore from "../stores/ProposalStore";
+import * as QuestionActionCreators from "../actions/QuestionActionCreators";
+import * as ProposalActionCreators from "../actions/ProposalActionCreators";
+import RoundedIcon from "../components/ui/RoundedIcon/RoundedIcon";
+import SelectInline from "../components/ui/SelectInline/SelectInline";
+
+/**
+ * Requests data from server (or store) for current props.
+ */
+function requestData(props) {
+    // const {user, params} = props;
+    // const questionId = params.hasOwnProperty('questionId') ? parseInt(params.questionId) : null;
+    // const currentUserId = parseId(user);
+    // QuestionActionCreators.requestQuestion(currentUserId, questionId);
+
+    ProposalActionCreators.requestOwnProposals();
+}
+
 
 function getState(props) {
 
     const networks = WorkersStore.getAll();
     const error = WorkersStore.getConnectError();
     const isLoading = WorkersStore.isLoading();
-    const ownProposals = [
-        {
-            title      : 'Lorem ipsum dolor',
-            image      : 'http://via.placeholder.com/360x180',
-            type       : 'work',
-            photos     : ['http://via.placeholder.com/100x100/928BFF', 'http://via.placeholder.com/100x100/2B3857', 'http://via.placeholder.com/100x100/818FA1', 'http://via.placeholder.com/100x100/63CAFF', 'http://via.placeholder.com/100x100/009688'],
-            description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
-        },
-        {
-            title      : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
-            image      : 'http://via.placeholder.com/360x180',
-            type       : 'leisure-plan',
-            photos     : ['http://via.placeholder.com/100x100/818FA1', 'http://via.placeholder.com/100x100/63CAFF', 'http://via.placeholder.com/100x100/009688'],
-            description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-        },
-        {
-            title      : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-            image      : 'http://via.placeholder.com/360x180',
-            type       : 'leisure-plan',
-            photos     : ['http://via.placeholder.com/100x100/818FA1', 'http://via.placeholder.com/100x100/63CAFF', 'http://via.placeholder.com/100x100/009688'],
-            description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-        },
-    ];
+    const ownProposals = ProposalStore.getAllOwn();
 
     return {
         networks,
@@ -70,12 +67,64 @@ export default class OwnProposalsPage extends Component {
 
     constructor(props) {
         super(props);
+
+        this.clickProposal = this.clickProposal.bind(this);
+    }
+
+    componentDidMount() {
+        window.setTimeout(() => requestData(this.props), 0);
+    }
+
+    clickProposal(proposalId) {
+        this.context.router.push('/proposal/' + proposalId);
     }
 
     getCards(proposals) {
         return proposals.map((proposal, index) => {
-                    return <OwnProposalCard key={index} {...proposal}/>
+                return <OwnProposalCard key={index} {...proposal} onClickHandler={() => this.clickProposal(proposal.id)}/>
             }
+        );
+    }
+
+    renderProposalIcon(proposal) {
+        let icon = '';
+
+        switch (proposal.type) {
+            case 'work':
+                icon = 'icon-proyecto';
+                break;
+            case 'sports':
+                icon = 'icon-hobbie';
+                break;
+            case 'hobbies':
+                icon = 'icon-hobbie';
+                break;
+            case 'games':
+                icon = 'icon-hobbie';
+                break;
+            case 'shows':
+                icon = 'icon-experiencia';
+                break;
+            case 'restaurants':
+                icon = 'icon-experiencia';
+                break;
+            case 'plans':
+                icon = 'icon-experiencia';
+                break;
+            default:
+                break;
+        }
+
+        return (
+            <span className={icon}>
+                <span className="path1"></span>
+                <span className="path2"></span>
+                <span className="path3"></span>
+                <span className="path4"></span>
+                <span className="path5"></span>
+                <span className="path6"></span>
+                <span className="path7"></span>
+            </span>
         );
     }
 
@@ -85,19 +134,41 @@ export default class OwnProposalsPage extends Component {
 
         const carouselMargin = -15;
 
+        const numberOfProposalsFeatured = 10;
+
+        // TODO: Number of matches
         return (
-            <div className="views">
-                <div className="view view-main own-proposals-view">
-                    <TopNavBar textCenter={strings.myPlans} imageLeft={imgSrc} boxShadow={true}/>
-                    <div className="own-proposals-wrapper">
-                        <div className="popular-title">{strings.popularProposals}</div>
-                        {/*<div className="view-all">{strings.viewAll}</div>*/}
-                        <div className="proposals">
-                            <CarouselContinuous items={this.getCards(ownProposals)} marginRight={carouselMargin}/>
-                        </div>
+            <div className="own-proposals-published-view">
+                <TopNavBar textCenter={strings.myPlans} imageLeft={imgSrc} boxShadow={true} />
+                <div className="own-proposals-wrapper">
+                    <div className="pre-card-title">{strings.popularProposals}</div>
+                    {/*<div className="view-all">{strings.viewAll}</div>*/}
+                    <div className="proposals">
+                        <CarouselContinuous items={this.getCards(ownProposals.slice(0, numberOfProposalsFeatured))} marginRight={carouselMargin}/>
                     </div>
-                    <BottomNavBar current={'plans'} notifications={notifications}/>
+                    {ownProposals.length > numberOfProposalsFeatured ?
+                        <div>
+                            <div className="pre-card-title">{strings.otherPublishedProposals}</div>
+                            {ownProposals.slice(numberOfProposalsFeatured, ownProposals.length).map((proposal, index) =>
+                                <div key={index} className={"other-published-proposals"} onClick={() => this.clickProposal(proposal.id)}>
+                                    <div className={"proposal"}>
+                                        <div className={"icon"}>
+                                            {this.renderProposalIcon(proposal)}
+                                        </div>
+                                        <div className={"proposal-text"}>{proposal.fields.title}</div>
+                                        <div className={"matches"}>
+                                            <div className={"number"}>3</div>
+                                            <div className={"match"}>{strings.matches}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+                        : null
+
+                    }
                 </div>
+                <BottomNavBar current={'plans'} notifications={notifications}/>
             </div>
         );
     }
@@ -106,9 +177,12 @@ export default class OwnProposalsPage extends Component {
 
 OwnProposalsPage.defaultProps = {
     strings: {
-        myPlans         : 'My Plans',
-        popularProposals: 'Most popular proposals',
-        otherPublished  : 'Other published proposals',
-        matches         : 'Matches',
+        myPlans                : 'My Plans',
+        popularProposals       : 'Most popular proposals',
+        otherPublished         : 'Other published proposals',
+        matches                : 'Matches',
+        otherPublishedProposals: 'Other published proposals',
+        published              : "Published",
+        others                 : "Others",
     }
 };

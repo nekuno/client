@@ -12,8 +12,7 @@ import {INFINITE_CALENDAR_PINK_THEME} from "../../../constants/InfiniteCalendarC
 
 function getState() {
     const interfaceLanguage = LocaleStore.locale;
-    const proposal = CreatingProposalStore.proposal;
-    const availability = proposal.availability ? proposal.availability : {'dynamic' : [], 'static' : []};
+    const availability = CreatingProposalStore.availability;
 
     return {
         interfaceLanguage,

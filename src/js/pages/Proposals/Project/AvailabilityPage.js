@@ -11,8 +11,7 @@ import RoundedIcon from "../../../components/ui/RoundedIcon/RoundedIcon";
 import CreatingProposalStore from "../../../stores/CreatingProposalStore";
 
 function getState() {
-    const proposal = CreatingProposalStore.proposal;
-    const availability = proposal.availability ? proposal.availability : null;
+    const availability = CreatingProposalStore.availability;
 
     return {
         availability,
@@ -116,7 +115,7 @@ export default class AvailabilityPage extends Component {
 
     render() {
         const {strings, availability} = this.props;
-        const canContinue = availability !== null;
+        const canContinue = (!(availability.dynamic.length === 0 && availability.static.length === 0));
         const participantLimit = this.state.participantLimit;
         const disableSubstract = this.state.disableSubstract;
 

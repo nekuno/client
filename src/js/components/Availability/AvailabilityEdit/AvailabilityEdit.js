@@ -222,5 +222,6 @@ AvailabilityEdit.defaultProps = {
         friday   : 'Friday',
         saturday : 'Saturday',
         sunday   : 'Sunday',
-    }
+    },
+    onClick: () => {},
 };

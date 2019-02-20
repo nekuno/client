@@ -19,8 +19,8 @@ function getState() {
     const description = proposal.fields.description;
     const type = proposal.type;
     const typeValues = proposal.fields.typeValues;
-    const availability = proposal.availability;
-    const participantLimit = proposal.participantLimit;
+    const availability = CreatingProposalStore.availability;
+    const participantLimit = proposal.fields.participantLimit;
     const proposalFilters = proposal.filters.userFilters;
 
     const filters = FilterStore.filters;
@@ -104,6 +104,7 @@ export default class PreviewPage extends Component {
 
     render() {
         const {strings, title, description, type, typeValues, availability, participantLimit, proposalFilters, filters} = this.props;
+        const isAvailabilityFilled = (!(availability.dynamic.length === 0 && availability.static.length === 0));
 
         const dailyWeekdayOptions = {
             monday   : strings.monday,
@@ -173,7 +174,7 @@ export default class PreviewPage extends Component {
                                 </div>
                                 <div className={'text-wrapper'}>
                                     <div className={'title small'}>{strings.availability}</div>
-                                    {availability ? (
+                                    {isAvailabilityFilled ? (
                                         <div className="resume small">
                                             {availability.dynamic.map((day, index) =>
                                                 <div key={index}>

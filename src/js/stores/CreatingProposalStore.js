@@ -35,7 +35,7 @@ class CreatingProposalStore extends BaseStore {
                 return;
             }
 
-            const baseLevelKeys = ['filters', 'type', 'locale', 'availability', 'participantLimit'];
+            const baseLevelKeys = ['filters', 'type', 'locale'];
             if (baseLevelKeys.includes(key)){
                 Object.assign(this._proposal, data);
             } else {
@@ -47,6 +47,10 @@ class CreatingProposalStore extends BaseStore {
 
     get proposal() {
         return this._proposal;
+    }
+
+    get availability() {
+        return this._proposal.fields.availability ? this._proposal.fields.availability : {'dynamic' : [], 'static' : []};
     }
 
     _getChoicesKey(type)

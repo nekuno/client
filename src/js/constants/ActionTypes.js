@@ -371,6 +371,12 @@ export default keyMirror({
     MERGE_CREATING_PROPOSAL : null,
     CLEAN_CREATING_PROPOSAL : null,
 
+    EDIT_AVAILABILITY: null,
+
+    UPDATE_AVAILABILITY: null,
+    UPDATE_AVAILABILITY_SUCCESS: null,
+    UPDATE_AVAILABILITY_ERROR: null,
+
     CHANGE_LOCALE: null
 
 });

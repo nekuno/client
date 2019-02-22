@@ -7,21 +7,23 @@ import LoginActionCreators from '../actions/LoginActionCreators';
 import SocialNetworkService from '../services/SocialNetworkService';
 import LocaleStore from '../stores/LocaleStore';
 import RegisterStore from '../stores/RegisterStore';
-import Button from '../components/ui/Button/Button.js';
 import Overlay from '../components/ui/Overlay/Overlay.js';
 import TopNavBar from '../components/TopNavBar/TopNavBar.js';
 import '../../scss/pages/connect-facebook.scss';
+import AvailabilityStore from "../stores/AvailabilityStore";
 
 function getState() {
     const interfaceLanguage = LocaleStore.locale;
     const user = RegisterStore.user;
     const username = user && user.username ? user.username : null;
     const profile = RegisterStore.profile;
+    const availability = AvailabilityStore.ownAvailability;
 
     return {
         interfaceLanguage,
         username,
-        profile
+        profile,
+        availability
     };
 }
 
@@ -36,6 +38,7 @@ export default class ConnectFacebookPage extends Component {
         interfaceLanguage: PropTypes.string,
         username         : PropTypes.string,
         profile          : PropTypes.object,
+        availability     : PropTypes.object
     };
 
     static contextTypes = {
@@ -60,7 +63,7 @@ export default class ConnectFacebookPage extends Component {
 
     connectFacebook() {
         const {interfaceLanguage, strings} = this.props;
-        let {username, profile, token} = this.props;
+        let {username, profile, token, availability} = this.props;
         const resource = 'facebook';
         token = token || 'join';
         this.setState({registering: true});
@@ -81,7 +84,7 @@ export default class ConnectFacebookPage extends Component {
                     if (!oauthData || !userFromNetwork || !profileFromNetwork) {
                         alert(strings.blockingError);
                     } else {
-                        const user = {...userFromNetwork, username: username};
+                        const user = {...userFromNetwork, username: username, availability: availability};
                         profile = {...profileFromNetwork, ...profile};
                         profile.interfaceLanguage = interfaceLanguage;
                         profile.orientationRequired = false;

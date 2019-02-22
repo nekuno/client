@@ -40,6 +40,10 @@ export function editUser(data, url = `users`) {
     return putData(url, data);
 }
 
+export function updateAvailability(data, url=`availability`) {
+    return putData(url, data);
+}
+
 export function getOwnProfile(url = `profile`) {
     return getData(url);
 }

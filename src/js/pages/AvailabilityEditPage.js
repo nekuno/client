@@ -10,38 +10,30 @@ import TopNavBar from '../components/TopNavBar/TopNavBar.js';
 import AvailabilityEdit from '../components/Availability/AvailabilityEdit/AvailabilityEdit.js';
 import * as UserActionCreators from '../actions/UserActionCreators';
 import '../../scss/pages/availability-edit.scss';
-import {INFINITE_CALENDAR_THEME} from "../constants/InfiniteCalendarConstants";
-
-function requestData(props) {
-    if (!props.profile && props.user.slug) {
-        UserActionCreators.requestOwnProfile(props.user.slug);
-    }
-}
+import { INFINITE_CALENDAR_THEME } from "../constants/InfiniteCalendarConstants";
+import AvailabilityStore from "../stores/AvailabilityStore";
 
 function getState(props) {
-    const {user} = props;
-    const profile = ProfileStore.get(user.slug);
+    const profile = ProfileStore.get(props.user.slug);
     const interfaceLanguage = profile ? profile.interfaceLanguage : null;
-    const availability = profile && profile.availability ? profile.availability : null;
+    const availability = AvailabilityStore.ownAvailability;
 
     return {
         interfaceLanguage,
-        profile,
         availability
     };
 }
 
 @AuthenticatedComponent
 @translate('AvailabilityEditPage')
-@connectToStores([ProfileStore], getState)
+@connectToStores([AvailabilityStore], getState)
 export default class AvailabilityEditPage extends Component {
 
     static propTypes = {
         // Injected by @translate:
         strings          : PropTypes.object,
         // Injected by @connectToStores:
-        profile          : PropTypes.object,
-        availability     : PropTypes.object,
+        availability     : PropTypes.object.isRequired,
         username         : PropTypes.string,
         interfaceLanguage: PropTypes.string
     };
@@ -55,25 +47,31 @@ export default class AvailabilityEditPage extends Component {
 
         this.onSave = this.onSave.bind(this);
         this.saveAndContinue = this.saveAndContinue.bind(this);
-    }
 
-    componentDidMount() {
-        requestData(this.props);
+        this.state = {
+            updating: false,
+        }
     }
 
     saveAndContinue() {
-        this.context.router.push('/proposals');
+        this.setState({
+            updating: true,
+        });
+
+        const {availability} = this.props;
+        console.log(availability);
+        UserActionCreators.updateAvailability(availability).then(() => {
+            this.context.router.push('/proposals');
+        });
     }
 
-    onSave(availability) {
-        const {profile} = this.props;
-
-        UserActionCreators.editProfile({...profile, ...{availability: availability}});
+    onSave(data) {
+        UserActionCreators.editAvailability(data)
     }
 
     render() {
-        const {availability, interfaceLanguage, strings} = this.props;
-        const canContinue = availability && (availability.dynamic && availability.dynamic.length > 0 || availability.static && availability.static.length > 0);
+        const {interfaceLanguage, strings, availability} = this.props;
+        const canContinue = availability.dynamic.length > 0 || availability.static.length > 0;
 
         return (
             <div className="views">

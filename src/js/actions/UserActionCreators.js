@@ -348,3 +348,15 @@ export function requestLikeUser(from, to) {
         failure: ActionTypes.REQUEST_LIKE_USER_ERROR
     }, {from, to});
 }
+
+export function editAvailability(availability) {
+    return dispatch(ActionTypes.EDIT_AVAILABILITY, {availability})
+}
+
+export function updateAvailability(availability) {
+    return dispatchAsync(UserAPI.updateAvailability({availability}), {
+        request: ActionTypes.UPDATE_AVAILABILITY,
+        success: ActionTypes.UPDATE_AVAILABILITY_SUCCESS,
+        error: ActionTypes.UPDATE_AVAILABILITY_ERROR
+    }, {availability})
+}

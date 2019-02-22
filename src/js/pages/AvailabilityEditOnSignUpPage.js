@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import connectToStores from '../utils/connectToStores';
 import { format } from 'date-fns';
 import translate from '../i18n/Translate';
-import LoginActionCreators from '../actions/LoginActionCreators';
+import * as UserActionCreators from '../actions/UserActionCreators';
 import LocaleStore from '../stores/LocaleStore';
 import ProfileStore from '../stores/ProfileStore';
 import RegisterStore from '../stores/RegisterStore';
@@ -12,31 +12,29 @@ import TopNavBar from '../components/TopNavBar/TopNavBar.js';
 import AvailabilityEdit from '../components/Availability/AvailabilityEdit/AvailabilityEdit.js';
 import '../../scss/pages/availability-edit.scss';
 import {INFINITE_CALENDAR_THEME} from "../constants/InfiniteCalendarConstants";
+import AvailabilityStore from "../stores/AvailabilityStore";
 
 function getState() {
     const interfaceLanguage = LocaleStore.locale;
     const user = RegisterStore.user;
     const username = user && user.username ? user.username : null;
-    const profile = RegisterStore.profile;
-    const availability = profile && profile.availability ? profile.availability : null;
+    const availability = AvailabilityStore.ownAvailability;
 
     return {
         interfaceLanguage,
-        profile,
         availability,
         username
     };
 }
 
 @translate('AvailabilityEditOnSignUpPage')
-@connectToStores([LocaleStore, ProfileStore, RegisterStore], getState)
+@connectToStores([LocaleStore, RegisterStore, AvailabilityStore], getState)
 export default class AvailabilityEditOnSignUpPage extends Component {
 
     static propTypes = {
         // Injected by @translate:
         strings          : PropTypes.object,
         // Injected by @connectToStores:
-        profile          : PropTypes.object,
         availability     : PropTypes.object,
         username         : PropTypes.string,
         interfaceLanguage: PropTypes.string
@@ -60,18 +58,16 @@ export default class AvailabilityEditOnSignUpPage extends Component {
     }
 
     saveAndContinue() {
-        this.context.router.push('/availability');
+        this.context.router.push('/connect-facebook');
     }
 
     onSave(availability) {
-        const {profile} = this.props;
-
-        LoginActionCreators.preRegisterProfile({...profile, ...{availability: availability}});
+        UserActionCreators.editAvailability(availability);
     }
 
     render() {
         const {availability, interfaceLanguage, strings} = this.props;
-        const canContinue = availability && (availability.dynamic && availability.dynamic.length > 0 || availability.static && availability.static.length > 0);
+        const canContinue = availability.dynamic.length > 0 || availability.static.length > 0;
 
         return (
             <div className="views">

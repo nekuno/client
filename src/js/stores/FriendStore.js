@@ -36,15 +36,6 @@ class FriendStore extends BaseStore {
     _merge(friends)
     {
         friends.forEach((friend) => {
-            //TODO: Multiple times just for testing
-            this._friends.push(friend);
-            this._friends.push(friend);
-            this._friends.push(friend);
-            this._friends.push(friend);
-            this._friends.push(friend);
-            this._friends.push(friend);
-            this._friends.push(friend);
-            this._friends.push(friend);
             this._friends.push(friend);
         });
     }

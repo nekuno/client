@@ -1,0 +1,42 @@
+@import '../../../scss/_partials/colors';
+
+.view {
+  background-color: $background;
+  overflow-y: hidden;
+  height: 100%;
+}
+
+.top-nav-bar {
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+.collapsible {
+  margin-top: 50px;
+}
+
+.navbar-wrapper {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  z-index: 9001;
+}
+
+.scroll-wrapper {
+  height: 100%;
+  top: 0;
+  position: absolute;
+  margin-top: 105px;
+  width: 100%;
+
+  //.persons {
+  //  height: 100%;
+  //  position: relative;
+  //  width: 100%;
+  //
+  //  .person {
+  //    display: inline;
+  //  }
+  //}
+}

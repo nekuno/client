@@ -198,7 +198,13 @@ export default keyMirror({
     REQUEST_LIKE_USER        : null,
     REQUEST_LIKE_USER_SUCCESS: null,
     REQUEST_LIKE_USER_ERROR  : null,
+    
+    REQUEST_FRIENDS        : null,
+    REQUEST_FRIENDS_SUCCESS: null,
+    REQUEST_FRIENDS_ERROR  : null,
 
+    CHANGE_FRIENDS_ORDER: null,
+    
     BLOCK_USER        : null,
     BLOCK_USER_SUCCESS: null,
     BLOCK_USER_ERROR  : null,

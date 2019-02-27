@@ -286,6 +286,18 @@ export function reportUser(from, to, data) {
     }, {from, to, data});
 }
 
+export function requestFriends() {
+    return dispatchAsync(UserAPI.getFriends(), {
+        request: ActionTypes.REQUEST_FRIENDS,
+        success: ActionTypes.REQUEST_FRIENDS_SUCCESS,
+        failure: ActionTypes.REQUEST_FRIENDS_ERROR
+    });
+}
+
+export function changeFriendsOrder(order) {
+    return dispatch(ActionTypes.CHANGE_FRIENDS_ORDER, {order})
+}
+
 export function likeContent(from, to, originContext, originName) {
     dispatchAsync(UserAPI.setLikeContent(to, originContext, originName), {
         request: ActionTypes.LIKE_CONTENT,

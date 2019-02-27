@@ -140,6 +140,10 @@ export function getLikeUser(to, url = `likes/${to}`) {
     return getData(url);
 }
 
+export function getFriends(url = `friends`) {
+    return getData(url);
+}
+
 export function setLikeContent(to, originContext, originName, url = `content/rate`) {
     return postLikeContent(url, to, originContext, originName);
 }

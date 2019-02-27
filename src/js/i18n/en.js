@@ -337,6 +337,13 @@ export default {
         similarity   : 'Similarity',
         coincidences : 'Coincidences'
     },
+    FriendsPage                          : {
+        title        : 'My friends',
+        orderedBy    : 'Ordered by',
+        compatibility: 'Compatibility',
+        similarity   : 'Similarity',
+        coincidences : 'Coincidences'
+    },
     PersonsFilterPage                       : {
         title        : 'Nekuno People',
         orderedBy    : 'Ordered by',

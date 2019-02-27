@@ -59,7 +59,6 @@ export default class AvailabilityEditPage extends Component {
         });
 
         const {availability} = this.props;
-        console.log(availability);
         UserActionCreators.updateAvailability(availability).then(() => {
             this.context.router.push('/proposals');
         });

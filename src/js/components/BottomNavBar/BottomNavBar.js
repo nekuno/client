@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import translate from '../../i18n/Translate';
 import RoundedIcon from '../ui/RoundedIcon/RoundedIcon';
 import styles from './BottomNavBar.scss';
+import CreatingProposalStore from "../../stores/CreatingProposalStore";
 
 @translate('BottomNavBar')
 export default class BottomNavBar extends Component {
@@ -73,15 +74,22 @@ export default class BottomNavBar extends Component {
     }
 
     addProfessionalProposal() {
-        this.context.router.push('/proposals-project-introduction');
+        CreatingProposalStore.proposal.type = 'work';
+        this.context.router.push('/proposal-basic-edit');
+        // this.context.router.push('/proposals-project-introduction');
     }
 
     addLeisurePlan() {
-        this.context.router.push('/proposals-leisure-introduction');
+        CreatingProposalStore.proposal.selectedType = 'leisure';
+        this.context.router.push('/proposal-basic-edit');
+
+        // this.context.router.push('/proposals-leisure-introduction');
     }
 
     addExperienceProposal() {
-        this.context.router.push('/proposals-experience-introduction');
+        CreatingProposalStore.proposal.selectedType = 'experience';
+        this.context.router.push('/proposal-basic-edit');
+        // this.context.router.push('/proposals-experience-introduction');
     }
 
     closeAddModal() {

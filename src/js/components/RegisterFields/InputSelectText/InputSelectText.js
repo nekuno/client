@@ -12,7 +12,8 @@ export default class InputSelectText extends Component {
         selectedLabel  : PropTypes.string,
         chipsColor     : PropTypes.oneOf(['purple', 'blue', 'pink', 'green']),
         onChangeHandler: PropTypes.func,
-        onClickHandler : PropTypes.func
+        onClickHandler : PropTypes.func,
+        selectedValues : PropTypes.array,
     };
 
     constructor(props) {
@@ -21,8 +22,14 @@ export default class InputSelectText extends Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleClick = this.handleClick.bind(this);
 
+        let selected = [];
+
+        if (props.selectedValues) {
+            selected = props.selectedValues;
+        }
+
         this.state = {
-            selected: [],
+            selected: selected,
             suggested: []
         }
     }
@@ -47,23 +54,33 @@ export default class InputSelectText extends Component {
         const {selected} = this.state;
         let newSelected = selected.slice(0);
         const index = selected.findIndex(option => option.id === id);
+        console.log(newSelected);
 
         if (index !== -1) {
             newSelected.splice(index, 1);
         } else {
-            newSelected.push(options.find(option => option.id === id));
+            console.log(options.find(option => option.id === id));
+            const option = options.find(option => option.id === id);
+            console.log(option);
+            console.log(newSelected);
+            const newOption = {
+                value: option.id,
+                image: null,
+            };
+            // newSelected.push(options.find(option => option.id === id));
+            newSelected.push(newOption);
         }
         this.setState({selected: newSelected, suggested: []});
 
         this.refs["input"].clearValue();
 
         if (this.props.onClickHandler) {
-            this.props.onClickHandler(newSelected.map(option => option.id));
+            this.props.onClickHandler(newSelected.map(option => option.value));
         }
     }
 
     render() {
-        const {placeholder, selectedLabel, chipsColor} = this.props;
+        const {placeholder, options, selectedLabel, chipsColor, selectedValues} = this.props;
         const {selected, suggested} = this.state;
 
         return (
@@ -82,16 +99,20 @@ export default class InputSelectText extends Component {
                 {selected.length > 0 ?
                     <div className={styles.selectedLabel + " small"}>{selectedLabel}</div> : null
                 }
-                {selected.map((item, index) =>
-                    <div key={index} className={styles.selectedChip}>
-                        <Chip onClickHandler={this.handleClick}
-                              text={item.text}
-                              value={item.id}
-                              color={chipsColor}
-                              selected={true}
-                        />
-                    </div>
-                )}
+
+                {options.length > 0 ?
+                    selected.map((item, index) =>
+                        <div key={index} className={styles.selectedChip}>
+                            <Chip onClickHandler={this.handleClick}
+                                  text={options.find(x => x.id === item.value).text}
+                                  value={options.find(x => x.id === item.value).id}
+                                  color={chipsColor}
+                                  selected={true}
+                            />
+                        </div>
+                    )
+                    : null
+                }
             </div>
         );
     }

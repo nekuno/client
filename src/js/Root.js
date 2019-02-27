@@ -90,6 +90,10 @@ import ProposalsExperienceAvailabilityDatesPage from "./pages/Proposals/Experien
 import ProposalsExperienceFeaturesPage          from "./pages/Proposals/Experience/FeaturesPage";
 import ProposalsExperiencePreviewPage           from "./pages/Proposals/Experience/PreviewPage";
 
+import ProposalBasicEditPage from "./pages/Proposals/Edit/BasicPage";
+import ProposalTypeEditPage from "./pages/Proposals/Edit/TypePage";
+
+
 import OtherUserProposalsPage from "./pages/OtherUser/ProposalsPage";
 import OtherUserAboutMePage from "./pages/OtherUser/AboutMePage";
 import OtherUserAnswersPage from "./pages/OtherUser/AnswersPage";
@@ -174,6 +178,13 @@ export default class Root extends Component {
                         <Route name="proposals-experience-availability-dates" path="/proposals-experience-availability-dates" component={ProposalsExperienceAvailabilityDatesPage}/>
                         <Route name="proposals-experience-features" path="/proposals-experience-features" component={ProposalsExperienceFeaturesPage}/>
                         <Route name="proposals-experience-preview" path="/proposals-experience-preview" component={ProposalsExperiencePreviewPage}/>
+
+                        <Route name="proposal-basic-edit" path="/proposal-basic-edit/:proposalId" component={ProposalBasicEditPage}/>
+                        <Route name="proposal-basic-create" path="/proposal-basic-edit" component={ProposalBasicEditPage}/>
+
+                        <Route name="proposal-type-edit" path="/proposal-type-edit/:proposalId" component={ProposalTypeEditPage}/>
+                        <Route name="proposal-type-create" path="/proposal-type-edit" component={ProposalTypeEditPage}/>
+
                         <Route name="other-user-proposals" path="/p/:slug/proposals" component={OtherUserProposalsPage}/>
                         <Route name="other-user-answers" path="/p/:slug/answers" component={OtherUserAnswersPage}/>
                         <Route name="other-user-proposal-detail" path="/p/:slug/proposal/:proposalId" component={OtherUserProposalDetailPage}/>

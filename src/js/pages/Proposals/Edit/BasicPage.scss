@@ -1,0 +1,12 @@
+@import '../../../../scss/_partials/colors';
+
+.view {
+  background-color: $background;
+}
+
+body #root .App .proposal-basic-edit {
+  background-color: $background-white;
+  color: $gray-main-text;
+  text-align: center;
+  z-index: 0;
+}

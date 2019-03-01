@@ -227,12 +227,12 @@ export default class ProposalTypeEditPage extends Component {
             } else {
                 this.context.router.push('/proposal-profession-edit/');
             }
-        }
-
-        if (params.proposalId) {
-            this.context.router.push('/proposal-availability-edit/' + params.proposalId);
         } else {
-            this.context.router.push('/proposal-availability-edit/');
+            if (params.proposalId) {
+                this.context.router.push('/proposal-availability-edit/' + params.proposalId);
+            } else {
+                this.context.router.push('/proposal-availability-edit/');
+            }
         }
     }
 
@@ -392,7 +392,7 @@ export default class ProposalTypeEditPage extends Component {
                         currentStep={1}
                         continueText={strings.stepsBarContinueText}
                         cantContinueText={strings.stepsBarCantContinueText}
-                        canContinue={canContinue}
+                        canContinue={canContinue} // TODO: Can continue?
                         onClickHandler={this.handleStepsBarClick}/>
                 </div>
                 :

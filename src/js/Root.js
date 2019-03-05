@@ -92,10 +92,11 @@ import ProposalsExperiencePreviewPage           from "./pages/Proposals/Experien
 
 import ProposalBasicEditPage from "./pages/Proposals/Edit/BasicPage";
 import ProposalTypeEditPage from "./pages/Proposals/Edit/TypePage";
-import ProposalTypeEditPage from "./pages/Proposals/Edit/TypePage";
 import ProposalProfessionEditPage from "./pages/Proposals/Edit/ProfessionPage";
 import ProposalAvailabilityEditPage from "./pages/Proposals/Edit/AvailabilityPage";
 import ProposalAvailabilityDatesEditPage from "./pages/Proposals/Edit/AvailabilityDatesPage";
+import ProposalFeaturesPage from "./pages/Proposals/Edit/FeaturesPage";
+import ProposalPreviewPage from "./pages/Proposals/Edit/PreviewPage";
 
 import OtherUserProposalsPage from "./pages/OtherUser/ProposalsPage";
 import OtherUserAboutMePage from "./pages/OtherUser/AboutMePage";
@@ -197,10 +198,11 @@ export default class Root extends Component {
                         <Route name="proposal-availability-dates-edit" path="/proposal-availability-dates-edit/:proposalId" component={ProposalAvailabilityDatesEditPage}/>
                         <Route name="proposal-availability-dates-create" path="/proposal-availability-dates-edit" component={ProposalAvailabilityDatesEditPage}/>
 
-                        {/*<Route name="proposal-features-edit" path="/proposal-features-edit/:proposalId" component={}/>*/}
-                        {/*<Route name="proposal-features-create" path="/proposal-features-edit" component={}/>*/} bgv
+                        <Route name="proposal-features-edit" path="/proposal-features-edit/:proposalId" component={ProposalFeaturesPage}/>
+                        <Route name="proposal-features-create" path="/proposal-features-edit" component={ProposalFeaturesPage}/>
 
-                        {/*<Route name="proposal-preview" path="/proposal-preview" component={}/>*/}
+                        <Route name="proposal-preview-edit" path="/proposal-preview/:proposalId" component={ProposalPreviewPage}/>
+                        <Route name="proposal-preview-create" path="/proposal-preview" component={ProposalPreviewPage}/>
 
                         <Route name="other-user-proposals" path="/p/:slug/proposals" component={OtherUserProposalsPage}/>
                         <Route name="other-user-answers" path="/p/:slug/answers" component={OtherUserAnswersPage}/>

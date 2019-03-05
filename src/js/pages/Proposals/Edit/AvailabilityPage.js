@@ -29,8 +29,12 @@ function getState() {
 
     let availability = null;
     if (proposal) {
-        availability = proposal.availability ? proposal.availability : null;
+        availability = proposal.fields.availability ? proposal.fields.availability : null;
     }
+
+    console.log(CreatingProposalStore.proposal);
+    console.log(proposal);
+
 
     return {
         proposal,
@@ -64,8 +68,8 @@ export default class ProposalAvailabilityEditPage extends Component {
         super(props);
 
         this.state = {
-            participantLimit : 1,
-            disableSubstract : true,
+            participantLimit : props.proposal.fields.participantLimit ? props.proposal.fields.participantLimit : 1,
+            disableSubstract : props.proposal.fields.participantLimit === 1,
         };
 
         this.topNavBarLeftLinkClick = this.topNavBarLeftLinkClick.bind(this);
@@ -104,11 +108,13 @@ export default class ProposalAvailabilityEditPage extends Component {
 
     onClickAvailabilityHandler() {
         const {params} = this.props;
+        console.log(CreatingProposalStore.proposal);
 
-        const proposal = {
-            participantLimit : CreatingProposalStore.proposal.fields.participantLimit,
-        };
-        ProposalActionCreators.mergeCreatingProposal(proposal);
+        //
+        // const proposal = {
+        //     participantLimit : CreatingProposalStore.proposal.fields.participantLimit,
+        // };
+        // ProposalActionCreators.mergeCreatingProposal(CreatingProposalStore.proposal);
 
         if (params.proposalId) {
             this.context.router.push('/proposal-availability-dates-edit/' + params.proposalId);
@@ -128,7 +134,15 @@ export default class ProposalAvailabilityEditPage extends Component {
                 disableSubstract : true,
             });
         }
-        CreatingProposalStore.proposal.fields.participantLimit = newParticipantLimit;
+
+        const proposal = {
+            fields : {
+                participantLimit : this.state.participantLimit,
+            }
+        };
+
+        ProposalActionCreators.mergeCreatingProposal(proposal);
+        // CreatingProposalStore.proposal.fields.participantLimit = newParticipantLimit;
     }
 
     onClickProjectParticipantsPlusHandler() {
@@ -142,28 +156,42 @@ export default class ProposalAvailabilityEditPage extends Component {
                 disableSubstract : false,
             });
         }
-        CreatingProposalStore.proposal.fields.participantLimit = newParticipantLimit;
+
+        const proposal = {
+            fields : {
+                participantLimit : this.state.participantLimit,
+            }
+        };
+
+        ProposalActionCreators.mergeCreatingProposal(proposal);
+        // CreatingProposalStore.proposal.fields.participantLimit = newParticipantLimit;
     }
 
 
 
     handleStepsBarClick() {
-        // const {params} = this.props;
-        //
-        // console.log(CreatingProposalStore.proposal.fields);
+        const {params} = this.props;
+
+        // CreatingProposalStore.proposal.fields.participantLimit = this.state.participantLimit;
         //
         // const proposal = {
         //     fields: CreatingProposalStore.proposal.fields,
         //     type: CreatingProposalStore.proposal.type
         // };
+
+        // const proposal = {
+        //     fields : {
+        //         participantLimit : this.state.participantLimit,
+        //     }
+        // };
         //
         // ProposalActionCreators.mergeCreatingProposal(proposal);
-        //
-        // if (params.proposalId) {
-        //     this.context.router.push('/proposal-availability-edit/' + params.proposalId);
-        // } else {
-        //     this.context.router.push('/proposal-availability-edit/');
-        // }
+
+        if (params.proposalId) {
+            this.context.router.push('/proposal-features-edit/' + params.proposalId);
+        } else {
+            this.context.router.push('/proposal-features-edit/');
+        }
     }
 
     getProposalColor() {
@@ -248,6 +276,8 @@ export default class ProposalAvailabilityEditPage extends Component {
             Afternoon : strings.afternoon,
             Night     : strings.night,
         };
+
+        console.log(CreatingProposalStore.proposal);
 
         return (
             <div className="views">

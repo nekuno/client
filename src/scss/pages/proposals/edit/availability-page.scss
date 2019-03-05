@@ -1,14 +1,22 @@
 @import '../../../_partials/colors';
 
-body #root .App .views .view.proposals-project-availability-view {
+body #root .App .views .view.proposal-preview-view {
   background-color: $background-white;
   color: $gray-main-text;
   text-align: center;
   z-index: 0;
 
-  .proposals-project-availability-wrapper {
+  .proposal-preview-wrapper {
     h2 {
       padding: 0 24px;
+    }
+
+    .proposal-floating-icon-container {
+      position: absolute;
+      z-index: 1;
+      right: 24px;
+      top: 8px;
+      font-size: 45px;
     }
 
     .proposals-project-availability-frame-wrapper {

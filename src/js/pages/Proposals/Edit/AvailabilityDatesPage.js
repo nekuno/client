@@ -21,7 +21,7 @@ import {
 function getState() {
     const interfaceLanguage = LocaleStore.locale;
     const proposal = CreatingProposalStore.proposal;
-    const availability = proposal.availability ? proposal.availability : {'dynamic' : [], 'static' : []};
+    const availability = proposal.fields.availability ? proposal.fields.availability : {'dynamic' : [], 'static' : []};
 
     return {
         proposal,
@@ -77,6 +77,8 @@ export default class ProposalAvailabilityDatesEditPage extends Component {
     topNavBarLeftLinkClick() {
         const {params} = this.props;
 
+        // ProposalActionCreators.mergeCreatingProposal(CreatingProposalStore.proposal);
+
         if (params.proposalId) {
             this.context.router.push('/proposal-availability-edit/' + params.proposalId);
         } else {
@@ -87,6 +89,8 @@ export default class ProposalAvailabilityDatesEditPage extends Component {
     topNavBarRightLinkClick() {
         const {params} = this.props;
 
+        // ProposalActionCreators.mergeCreatingProposal(CreatingProposalStore.proposal);
+
         if (params.proposalId) {
             this.context.router.push('/proposal-availability-edit/' + params.proposalId);
         } else {
@@ -95,8 +99,14 @@ export default class ProposalAvailabilityDatesEditPage extends Component {
     }
 
     onSave(availability) {
+        this.setState({
+            availability: availability
+        });
+
         const proposal = {
-            availability : availability,
+            fields : {
+                availability : availability,
+            }
         };
         ProposalActionCreators.mergeCreatingProposal(proposal);
     }

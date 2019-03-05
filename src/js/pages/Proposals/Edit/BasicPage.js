@@ -40,7 +40,9 @@ function getState(props) {
         proposal = {};
         CreatingProposalStore.proposal.fields.title = "";
         CreatingProposalStore.proposal.fields.description = "";
-        CreatingProposalStore.proposal.type = "";
+        if (CreatingProposalStore.proposal.type !== 'work') {
+            CreatingProposalStore.proposal.type = "";
+        }
     }
 
     return {

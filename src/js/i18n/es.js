@@ -1154,6 +1154,19 @@ export default {
         similarity: 'Similaridad',
         loading   : 'Cargando...',
     },
+    NetworkInformation                      : {
+        middleText: 'Información recopilada',
+    },
+    UnconnectedNetworkCard                  : {
+        spotify: 'Descubre con quién eres más compatible musicalmente',
+        tumblr: 'Descubre con quién eres más compatible en intereses',
+        steam: 'Conoce personas compatibles para echar tus juegos preferidos',
+        facebook: 'Conoce personas a las que les gusta lo que compartes',
+        twitter: 'Descubre gente que habla de lo que tú hablas',
+        google: 'Conoce personas que ven los mismos videos que tú',
+        linkedin: 'Descubre gente parecida a ti profesionalmente',
+        connect: 'Conecta con %network%'
+    },
     OrientationPopup                        : {
         title : 'Orientación sexual',
         cancel: 'Cancelar'

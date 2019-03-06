@@ -1,0 +1,73 @@
+@import '../../../scss/_partials/colors';
+
+.view {
+  background-color: $background;
+  overflow-y: hidden;
+  height: 100%;
+}
+
+.top-nav-bar {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  background: white;
+  z-index: 9001;
+}
+
+.navbar-wrapper {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  z-index: 9001;
+}
+
+.main {
+  height: calc(100% - 100px);
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.connected-networks {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-top: 50px;
+}
+
+.connected-networks-title {
+  width: 100%;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+  margin-left: 5%;
+  margin-top: 15px;
+}
+
+.connected-networks-cards {
+  width: 100%;
+}
+
+.network-card {
+  width: 90%;
+  margin-left: 5%;
+  margin-top: 10px;
+}
+
+.unconnected-network-card {
+  width: 90%;
+  margin-left: 5%;
+  margin-top: 10px;
+}
+
+.connect-more {
+  width: 100%;
+  margin-top: 25px;
+  margin-left: 5%;
+}
+
+.connect-more-title {
+  width: 100%;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+}

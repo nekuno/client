@@ -43,6 +43,7 @@ function loadStories() {
     require('../stories/LocationInput.stories');
     require('../stories/MatchingBars.stories');
     require('../stories/NaturalCategory.stories');
+    require('../stories/NetworkInformation.stories');
     require('../stories/NetworkLine.stories');
     require('../stories/OtherUserBottomNavBar.stories');
     require('../stories/OtherUserProposalCard.stories');
@@ -67,6 +68,7 @@ function loadStories() {
     require('../stories/Textarea.stories');
     require('../stories/TopBar.stories');
     require('../stories/TopNavBar.stories');
+    require('../stories/UnconnectedNetworkCard.stories');
     require('../stories/UserTopData.stories');
     require('../stories/QuestionMatch.stories');
     require('../stories/QuestionNotMatch.stories');

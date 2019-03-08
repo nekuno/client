@@ -14,12 +14,10 @@ import SelectInline from "../../../components/ui/SelectInline/SelectInline";
 import ProposalStore from "../../../stores/ProposalStore";
 import '../../../../scss/pages/proposals/edit/basic-page.scss';
 
-
-
 /**
  * Requests data from server (or store) for current props.
  */
-function requestData(props) {
+function requestData() {
     ProposalActionCreators.requestOwnProposals();
 }
 
@@ -31,19 +29,25 @@ function getState(props) {
     let proposal;
     if (proposalId) {
         proposal = ProposalStore.getOwnProposal(proposalId);
+        console.log(proposal);
         if (proposal) {
+            CreatingProposalStore.proposal.id = proposal.id;
             CreatingProposalStore.proposal.type = proposal.type;
-            CreatingProposalStore.proposal.fields.title = proposal.fields.title;
-            CreatingProposalStore.proposal.fields.description = proposal.fields.description;
+            CreatingProposalStore.proposal.filters = proposal.filters;
+            CreatingProposalStore.proposal.fields = proposal.fields;
         }
     } else {
         proposal = {};
         CreatingProposalStore.proposal.fields.title = "";
         CreatingProposalStore.proposal.fields.description = "";
+        CreatingProposalStore.proposal.filters = {};
         if (CreatingProposalStore.proposal.type !== 'work') {
             CreatingProposalStore.proposal.type = "";
         }
     }
+
+    console.log(CreatingProposalStore.proposal);
+    console.log(proposal);
 
     return {
         proposal,
@@ -139,14 +143,7 @@ export default class ProposalBasicEditPage extends Component {
     handleStepsBarClick() {
         const {params} = this.props;
 
-        const proposal = {
-            type : CreatingProposalStore.proposal.type,
-            fields : {
-                title       : CreatingProposalStore.proposal.fields.title,
-                description : CreatingProposalStore.proposal.fields.description,
-            }
-        };
-        ProposalActionCreators.mergeCreatingProposal(proposal);
+        ProposalActionCreators.mergeCreatingProposal(CreatingProposalStore.proposal);
 
         if (params.proposalId) {
             this.context.router.push('/proposal-type-edit/' + params.proposalId);
@@ -289,7 +286,7 @@ export default class ProposalBasicEditPage extends Component {
                             background={'transparent'}
                             iconLeft={'arrow-left'}
                             firstIconRight={'x'}
-                            textCenter={strings.editProposal}
+                            textCenter={CreatingProposalStore.proposal.id ? strings.editProposal : strings.publishProposal}
                             textSize={'small'}
                             // onLeftLinkClickHandler={this.topNavBarLeftLinkClick}
                             onRightLinkClickHandler={this.topNavBarRightLinkClick}/>
@@ -329,20 +326,18 @@ export default class ProposalBasicEditPage extends Component {
 
 ProposalBasicEditPage.defaultProps = {
     strings: {
+        publishProposal          : 'Publish proposal',
         editProposal             : 'Edit proposal',
-
-        shows                    : 'Events',
-        restaurants              : 'Gourmet',
-        plans                    : 'Plan',
-
-        sports                   : 'Sport',
-        hobbies                  : 'Hobby',
-        games                    : 'Game',
-
         title                    : 'What is your proposal?',
         titlePlaceholder         : 'Propose title',
         descriptionPlaceholder   : 'Explain how you want to carry it out...',
-        stepsBarContinueText     : 'Continue',
+        shows                    : 'Events',
+        restaurants              : 'Gourmet',
+        plans                    : 'Plans',
+        sports                   : 'Sports',
+        hobbies                  : 'Hobbys',
+        games                    : 'Games',
         stepsBarCantContinueText : 'You cannot continue',
+        stepsBarContinueText     : 'Continue',
     }
 };

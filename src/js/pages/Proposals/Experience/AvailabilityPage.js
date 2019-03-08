@@ -172,8 +172,8 @@ export default class AvailabilityPage extends Component {
                                                     )}
                                                 </div>
                                             )}
-
-                                            {availability.static.map((day, index) =>
+                                            {availability.static !== [] ?
+                                                availability.static.map((day, index) =>
                                                 <div key={index}>
                                                     {strings.from} {day.days.start} {strings.to} {day.days.end}
                                                     ,
@@ -181,7 +181,8 @@ export default class AvailabilityPage extends Component {
                                                         <span key={rangeIndex}> {day.range.length === rangeIndex + 1 ? strings.and + ' ' + stringRanges[range] : stringRanges[range]}</span>
                                                     )}
                                                 </div>
-                                            )}
+                                                )
+                                                : null}
                                         </div>
                                     ) : (
                                         <div className="resume small">{strings.availabilityDescription}</div>

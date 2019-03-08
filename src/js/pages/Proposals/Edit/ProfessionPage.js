@@ -19,36 +19,33 @@ function resetTagSuggestions() {
 }
 
 /**
- * Requests data from server (or store) for current props.
- */
-function requestData(props) {
-    ProposalActionCreators.requestOwnProposals();
-}
-
-/**
  * Retrieves state from stores for current props.
  */
 function getState(props) {
     const proposalId = props.params.proposalId;
 
-    console.log(CreatingProposalStore.proposal);
-
 
     const tags = TagSuggestionsStore.tags || [];
     const professionChoices = tags.map(tag => tag.name);
 
+    const proposal = CreatingProposalStore.proposal;
+
+    console.log(proposal);
 
 
-    let proposal;
-    if (proposalId) {
-        proposal = ProposalStore.getOwnProposal(proposalId);
-        if (proposal) {
-            CreatingProposalStore.proposal.fields.profession = proposal.fields.profession;
-        }
-    } else {
-        proposal = CreatingProposalStore.proposal;
-        // CreatingProposalStore.proposal.fields.profession = [];
-    }
+
+    // let proposal;
+    // if (proposalId) {
+    //     proposal = ProposalStore.getOwnProposal(proposalId);
+    //     if (proposal) {
+    //         CreatingProposalStore.proposal.fields.profession = proposal.fields.profession;
+    //     }
+    // } else {
+    //
+    //     // CreatingProposalStore.proposal.fields.profession = [];
+    // }
+
+    console.log(proposal);
 
     return {
         proposal,
@@ -90,10 +87,6 @@ export default class ProposalProfessionEditPage extends Component {
         this.onChangeInputTagHandler = this.onChangeInputTagHandler.bind(this);
         this.onClickInputTagHandler = this.onClickInputTagHandler.bind(this);
         this.handleStepsBarClick = this.handleStepsBarClick.bind(this);
-    }
-
-    componentDidMount() {
-        requestData(this.props);
     }
 
     // componentWillMount() {
@@ -138,12 +131,14 @@ export default class ProposalProfessionEditPage extends Component {
 
         console.log(CreatingProposalStore.proposal.fields);
 
-        const proposal = {
-            fields: CreatingProposalStore.proposal.fields,
-            type: CreatingProposalStore.proposal.type
-        };
+        // const proposal = {
+        //     fields: CreatingProposalStore.proposal.fields,
+        //     type: CreatingProposalStore.proposal.type
+        // };
 
-        ProposalActionCreators.mergeCreatingProposal(proposal);
+        ProposalActionCreators.mergeCreatingProposal(CreatingProposalStore.proposal);
+
+        // ProposalActionCreators.mergeCreatingProposal(proposal);
 
         if (params.proposalId) {
             this.context.router.push('/proposal-availability-edit/' + params.proposalId);
@@ -192,6 +187,8 @@ export default class ProposalProfessionEditPage extends Component {
         const {strings, proposal, professionChoices} = this.props;
         const canContinue = !!CreatingProposalStore.proposal.fields.profession;
 
+        console.log(proposal.fields.profession);
+
         return (
             CreatingProposalStore.proposal && proposal ?
                 <div className="views">
@@ -200,7 +197,7 @@ export default class ProposalProfessionEditPage extends Component {
                             background={'transparent'}
                             iconLeft={'arrow-left'}
                             firstIconRight={'x'}
-                            textCenter={strings.publishProposal}
+                            textCenter={CreatingProposalStore.proposal.id ? strings.editProposal : strings.publishProposal}
                             textSize={'small'}
                             onLeftLinkClickHandler={this.topNavBarLeftLinkClick}
                             onRightLinkClickHandler={this.topNavBarRightLinkClick}/>
@@ -215,7 +212,8 @@ export default class ProposalProfessionEditPage extends Component {
                                     chipsColor={'blue'}
                                     onChangeHandler={this.onChangeInputTagHandler}
                                     onClickHandler={this.onClickInputTagHandler}
-                                    selectedLabel={strings.selectedLabel}/>
+                                    selected={proposal.fields.profession}
+                                    selectedLabel={strings.selectedItems}/>
                                 :
                                 null
                             }
@@ -238,10 +236,12 @@ export default class ProposalProfessionEditPage extends Component {
 
 ProposalProfessionEditPage.defaultProps = {
     strings: {
+        publishProposal          : 'Publish proposal',
+        editProposal             : 'Edit proposal',
         title                    : 'What skills would you like for the project?',
-        placeholder              : 'Search hability',
-        selectedLabel            : 'Habilities you want',
+        placeholder              : 'Search skill',
+        selectedItems            : 'Skills you want',
+        stepsBarCantContinueText : 'You cannot continue',
         stepsBarContinueText     : 'Continue',
-        stepsBarCantContinueText : 'Indicate one to continue',
     }
 };

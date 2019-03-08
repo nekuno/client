@@ -40,21 +40,7 @@ function getState(props) {
 
     console.log(CreatingProposalStore.proposal);
 
-    let proposal;
-    if (proposalId) {
-        proposal = ProposalStore.getOwnProposal(proposalId);
-        if (proposal) {
-            // CreatingProposalStore.proposal.type = proposal.type;
-            // CreatingProposalStore.proposal.fields.title = proposal.fields.title;
-            // CreatingProposalStore.proposal.fields.description = proposal.fields.description;
-        }
-    } else {
-        proposal = CreatingProposalStore.proposal;
-        // CreatingProposalStore.proposal.type = '';
-        // CreatingProposalStore.proposal.fields.title = "";
-        // CreatingProposalStore.proposal.fields.description = "";
-    }
-
+    const proposal = CreatingProposalStore.proposal;
 
     const metadata = ProfileStore.getMetadata();
     const industryOptions = metadata && metadata.industry ? metadata.industry.choices : [];
@@ -76,8 +62,6 @@ function getState(props) {
     }
 
     console.log(proposal);
-    console.log(industryOptions);
-    console.log(leisureOptions);
 
     return {
         proposal,
@@ -213,13 +197,7 @@ export default class ProposalTypeEditPage extends Component {
     handleStepsBarClick() {
         const {params} = this.props;
 
-        const fields = CreatingProposalStore.proposal.fields;
-        const proposal = {
-            fields: fields,
-            type: CreatingProposalStore.proposal.type
-        };
-
-        ProposalActionCreators.mergeCreatingProposal(proposal);
+        ProposalActionCreators.mergeCreatingProposal(CreatingProposalStore.proposal);
 
         if (CreatingProposalStore.proposal.type === 'work') {
             if (params.proposalId) {
@@ -283,32 +261,55 @@ export default class ProposalTypeEditPage extends Component {
         console.log(CreatingProposalStore.proposal.type);
         switch (CreatingProposalStore.proposal.type) {
             case 'sports':
-            case 'hobbies':
-            case 'games':
                 component = <InputTag
                     tags={leisureOptions}
-                    placeholder={strings.placeholder}
+                    placeholder={strings.inputPlaceholder}
                     searchIcon={true}
                     size={'small'}
                     chipsColor={'pink'}
                     onChangeHandler={this.handleInputTagChange}
                     onClickHandler={this.handleInputTagClick}
-                    selectedLabel={strings.selectedLabel}/>;
+                    selectedLabel={strings.selectedItems}
+                    selected={proposal.fields.sports}/>;
+                break;
+            case 'hobbies':
+                component = <InputTag
+                    tags={leisureOptions}
+                    placeholder={strings.inputPlaceholder}
+                    searchIcon={true}
+                    size={'small'}
+                    chipsColor={'pink'}
+                    onChangeHandler={this.handleInputTagChange}
+                    onClickHandler={this.handleInputTagClick}
+                    selectedLabel={strings.selectedItems}
+                    selected={proposal.fields.hobbies}/>;
+                break;
+            case 'games':
+                component = <InputTag
+                    tags={leisureOptions}
+                    placeholder={strings.inputPlaceholder}
+                    searchIcon={true}
+                    size={'small'}
+                    chipsColor={'pink'}
+                    onChangeHandler={this.handleInputTagChange}
+                    onClickHandler={this.handleInputTagClick}
+                    selectedLabel={strings.selectedItems}
+                    selected={proposal.fields.games}/>;
                 break;
             case 'shows':
             case 'restaurants':
             case 'plans':
                 component = <InputSelectImage
                     options={experienceOptions}
-                    placeholder={strings.placeholder}
+                    placeholder={strings.inputPlaceholder}
                     onClickHandler={this.onChange}/>;
                 break;
             default:
                 component = <InputSelectText
                     chipsColor={'blue'}
                     options={industryOptions}
-                    selectedLabel={strings.selectedLabel}
-                    placeholder={strings.placeholder}
+                    selectedLabel={strings.selectedItems}
+                    placeholder={strings.inputPlaceholder}
                     onClickHandler={this.onClickInputSelectTextHandler}
                     selectedValues={proposal.fields.industry}/>;
                 break;
@@ -333,7 +334,7 @@ export default class ProposalTypeEditPage extends Component {
                             background={'transparent'}
                             iconLeft={'arrow-left'}
                             firstIconRight={'x'}
-                            textCenter={strings.publishProposal}
+                            textCenter={CreatingProposalStore.proposal.id ? strings.editProposal : strings.publishProposal}
                             textSize={'small'}
                             onLeftLinkClickHandler={this.topNavBarLeftLinkClick}
                             onRightLinkClickHandler={this.topNavBarRightLinkClick}/>
@@ -354,73 +355,17 @@ export default class ProposalTypeEditPage extends Component {
             :
             null
         );
-
-        return (
-            CreatingProposalStore.proposal && proposal ?
-                <div className='views'>
-                    <div className="view view-main proposal-basic-edit">
-                        <TopNavBar
-                            background={'transparent'}
-                            iconLeft={'arrow-left'}
-                            firstIconRight={'x'}
-                            textCenter={strings.editProposal}
-                            textSize={'small'}
-                            // onLeftLinkClickHandler={this.topNavBarLeftLinkClick}
-                            onRightLinkClickHandler={this.topNavBarRightLinkClick}/>
-                        <div className="proposal-wrapper">
-                            <h2>{strings.title}</h2>
-                            <div>
-                                {this.renderSelectInline()}
-                                <div className={'image-wrapper'}>
-                                    <img src={'../../../../img/default-upload-image.png'}/>
-                                </div>
-                                <Input
-                                    size={'small'}
-                                    placeholder={strings.titlePlaceholder}
-                                    defaultValue={CreatingProposalStore.proposal.fields.title}
-                                    onChange={this.handleTitleChange}/>
-                                <Textarea
-                                    defaultValue={CreatingProposalStore.proposal.fields.description}
-                                    placeholder={strings.descriptionPlaceholder}
-                                    onChange={this.handleDescriptionChange}/>
-                            </div>
-                        </div>
-                    </div>
-                    <StepsBar
-                        color={this.getProposalColor()}
-                        totalSteps={5}
-                        currentStep={1}
-                        continueText={strings.stepsBarContinueText}
-                        cantContinueText={strings.stepsBarCantContinueText}
-                        canContinue={canContinue} // TODO: Can continue?
-                        onClickHandler={this.handleStepsBarClick}/>
-                </div>
-                :
-                null
-        );
     }
 }
 
 ProposalTypeEditPage.defaultProps = {
     strings: {
+        publishProposal          : 'Publish proposal',
         editProposal             : 'Edit proposal',
-
-        shows                    : 'Events',
-        restaurants              : 'Gourmet',
-        plans                    : 'Plan',
-
-        sports                   : 'Sport',
-        hobbies                  : 'Hobby',
-        games                    : 'Game',
-
         title                    : 'What is your proposal?',
-        titlePlaceholder         : 'Propose title',
-        descriptionPlaceholder   : 'Explain how you want to carry it out...',
-        stepsBarContinueText     : 'Continue',
+        inputPlaceholder         : 'Search professional sector',
+        selectedItems            : 'Selected items',
         stepsBarCantContinueText : 'You cannot continue',
-
-        selectedLabel            : 'Sectors you want',
-        placeholder              : 'Search professional sector',
-
+        stepsBarContinueText     : 'Continue',
     }
 };

@@ -97,6 +97,7 @@ export default class ProposalFilterPreview extends Component {
 
     render() {
         const {strings, proposalFilters, filters} = this.props;
+        console.log(proposalFilters);
         return (
             filters ?
                 <div className={styles.availabilityPreview}>
@@ -120,6 +121,9 @@ export default class ProposalFilterPreview extends Component {
                             </div>
                         : null
                     )}
+                    {proposalFilters.length === 0 ?
+                        <p>No has seleccionado filtros.</p>
+                        : null }
                 </div>
                 : null
         );

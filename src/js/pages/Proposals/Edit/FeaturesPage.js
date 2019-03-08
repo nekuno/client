@@ -63,11 +63,18 @@ function getState(props) {
 
     let proposal;
     let selectedFilters = null;
+
+    if (!CreatingProposalStore.proposal.filters) {
+        CreatingProposalStore.proposal.filters = {};
+    }
     const proposalId = props.params.proposalId;
     if (proposalId) {
         proposal = ProposalStore.getOwnProposal(proposalId);
         if (proposal) {
-            selectedFilters = proposal.filters;
+
+            selectedFilters = proposal.filters.userFilters;
+            CreatingProposalStore.proposal.filters.userFilters = selectedFilters;
+
             // CreatingProposalStore.proposal.type = proposal.type;
             // CreatingProposalStore.proposal.fields.title = proposal.fields.title;
             // CreatingProposalStore.proposal.fields.description = proposal.fields.description;
@@ -124,8 +131,9 @@ export default class ProposalFeaturesPage extends Component {
         const data = props.thread && props.thread.filters && props.thread.filters.userFilters ? props.thread.filters.userFilters : {};
 
         this.state = {
-            data: data,
+            data: CreatingProposalStore.proposal.filters.userFilters ? CreatingProposalStore.proposal.filters.userFilters : data,
         };
+        CreatingProposalStore.proposal.filters.userFilters = data;
 
         this.topNavBarLeftLinkClick = this.topNavBarLeftLinkClick.bind(this);
         this.topNavBarRightLinkClick = this.topNavBarRightLinkClick.bind(this);
@@ -184,8 +192,19 @@ export default class ProposalFeaturesPage extends Component {
     }
 
     save(field, filter) {
+        console.log(field);
+        console.log(filter);
         const filters = {userFilters: {...this.props.thread.filters.userFilters, ...{[field]: filter}}};
+        console.log(filters);
+
+        const allFilters = Object.assign(filters.userFilters, CreatingProposalStore.proposal.filters.userFilters);
+        console.log(allFilters);
+
+        const filterValue = {[field] : filter};
+        console.log(filterValue);
+
         this.setState({data: filters.userFilters});
+        CreatingProposalStore.proposal.filters.userFilters = filters.userFilters;
     }
 
     hideRenderCategory(categories) {
@@ -250,10 +269,14 @@ export default class ProposalFeaturesPage extends Component {
     renderField(field) {
         const {tags, filters} = this.props;
         const {data} = this.state;
+        // const data = CreatingProposalStore.proposal.filters.userFilters;
 
-        if (filters && filters.userFilters && filters.userFilters[field]) {
+        if (filters && filters.userFilters && filters.userFilters[field] && data) {
             const filter = filters.userFilters[field];
-            const filterData = data[field] ? data[field] : null;
+            console.log(field);
+            console.log(data);
+            console.log(data[field]);
+            const filterData =  data[field] ? data[field] : null;
             switch (filter.type) {
                 case 'location_distance':
                     return this.renderLocationFilter(field, filter, filterData);
@@ -405,29 +428,13 @@ export default class ProposalFeaturesPage extends Component {
     handleStepsBarClick() {
         const {params} = this.props;
 
-        const proposal = {
-            fields : {
-                filters: {
-                    userFilters: this.state.data
-                }
-            }
-        };
-        ProposalActionCreators.mergeCreatingProposal(proposal);
+        ProposalActionCreators.mergeCreatingProposal(CreatingProposalStore.proposal);
 
         if (params.proposalId) {
             this.context.router.push('/proposal-preview/' + params.proposalId);
         } else {
             this.context.router.push('/proposal-preview/');
         }
-
-
-        // const proposal = {
-        //     filters: {
-        //         userFilters: this.state.data
-        //     }
-        // };
-        // ProposalActionCreators.mergeCreatingProposal(proposal);
-        // this.context.router.push('/proposals-leisure-preview');
     }
 
     getProposalColor() {
@@ -494,15 +501,9 @@ export default class ProposalFeaturesPage extends Component {
         const {proposal, selectedFilters, user, tags, filters, thread, categories, strings} = this.props;
         const canContinue = true;
 
-        console.log(filters);
-        console.log(selectedFilters);
+        // this.hideRenderCategory(categories);
+        // this.hideRenderField(categories);
 
-        console.log(categories);
-
-        this.hideRenderCategory(categories);
-        this.hideRenderField(categories);
-
-        console.log(categories);
 
 
 
@@ -513,7 +514,7 @@ export default class ProposalFeaturesPage extends Component {
                         background={'#FBFCFD'}
                         iconLeft={'arrow-left'}
                         firstIconRight={'x'}
-                        textCenter={strings.publishProposal}
+                        textCenter={CreatingProposalStore.proposal.id ? strings.editProposal : strings.publishProposal}
                         textSize={'small'}
                         onLeftLinkClickHandler={this.topNavBarLeftLinkClick}
                         onRightLinkClickHandler={this.topNavBarRightLinkClick}/>
@@ -562,6 +563,7 @@ export default class ProposalFeaturesPage extends Component {
 ProposalFeaturesPage.defaultProps = {
     strings: {
         publishProposal          : 'Publish proposal',
+        editProposal             : 'Edit proposal',
         title                    : 'Are you looking for people with specific features?',
         filterWarning            : 'This filters only be visible for you and we need to filter users',
         stepsBarContinueText     : 'Continue',

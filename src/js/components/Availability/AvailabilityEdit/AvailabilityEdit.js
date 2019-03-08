@@ -128,31 +128,31 @@ export default class AvailabilityEdit extends Component {
         const mainOptions = [{id: 'daily', text: strings.daily}, {id: 'dates', text: strings.dates}];
         const dailyWeekdayOptions = [
             {
-                id  : 'monday',
+                id  : 'Monday',
                 text: strings.monday
             },
             {
-                id  : 'tuesday',
+                id  : 'Tuesday',
                 text: strings.tuesday
             },
             {
-                id  : 'wednesday',
+                id  : 'Wednesday',
                 text: strings.wednesday
             },
             {
-                id  : 'thursday',
+                id  : 'Thursday',
                 text: strings.thursday
             },
             {
-                id  : 'friday',
+                id  : 'Friday',
                 text: strings.friday
             },
             {
-                id  : 'saturday',
+                id  : 'Saturday',
                 text: strings.saturday
             },
             {
-                id  : 'sunday',
+                id  : 'Sunday',
                 text: strings.sunday
             }
         ];

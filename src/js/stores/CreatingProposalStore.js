@@ -25,25 +25,30 @@ class CreatingProposalStore extends BaseStore {
 
     _mergeData(data)
     {
-        Object.keys(data).forEach(function(key) {
-
-            if (key === 'fields'){
-                Object.keys(data[key]).forEach((fieldKey => {
-                    const fieldValue = data[key][fieldKey];
-                    this._proposal.fields[fieldKey] = fieldValue;
-                }));
-                return;
-            }
-
-            const baseLevelKeys = ['filters', 'type', 'locale'];
-            if (baseLevelKeys.includes(key)){
-                Object.assign(this._proposal, data);
-            } else {
-                Object.assign(this._proposal.fields, data);
-            }
-
-        }.bind(this));
+        this._proposal = Object.assign(this._proposal, data);
     }
+
+//    _mergeData(data)
+//    {
+//        Object.keys(data).forEach(function(key) {
+//
+//            if (key === 'fields'){
+//                Object.keys(data[key]).forEach((fieldKey => {
+//                    const fieldValue = data[key][fieldKey];
+//                    this._proposal.fields[fieldKey] = fieldValue;
+//                }));
+//                return;
+//            }
+//
+//             const baseLevelKeys = ['filters', 'type', 'locale'];
+//             if (baseLevelKeys.includes(key)){
+//                 Object.assign(this._proposal, data);
+//            } else {
+//                 Object.assign(this._proposal.fields, data);
+//             }
+// 
+//         }.bind(this));
+//  }
 
     get proposal() {
         return this._proposal;

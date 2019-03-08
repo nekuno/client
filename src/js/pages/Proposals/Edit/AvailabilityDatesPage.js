@@ -23,6 +23,9 @@ function getState() {
     const proposal = CreatingProposalStore.proposal;
     const availability = proposal.fields.availability ? proposal.fields.availability : {'dynamic' : [], 'static' : []};
 
+
+    console.log(proposal);
+
     return {
         proposal,
         interfaceLanguage,
@@ -108,7 +111,8 @@ export default class ProposalAvailabilityDatesEditPage extends Component {
                 availability : availability,
             }
         };
-        ProposalActionCreators.mergeCreatingProposal(proposal);
+        CreatingProposalStore.proposal.fields.availability = availability;
+        ProposalActionCreators.mergeCreatingProposal(CreatingProposalStore.proposal);
     }
 
     onClick(showUI) {
@@ -199,6 +203,8 @@ export default class ProposalAvailabilityDatesEditPage extends Component {
         const {strings, proposal, availability, interfaceLanguage} = this.props;
         const canContinue = (!(availability.dynamic.length === 0 && availability.static.length === 0));
 
+        console.log(availability);
+
         return (
             <div className="views">
                 <div className="view view-main proposals-project-availability-dates-view">
@@ -208,7 +214,7 @@ export default class ProposalAvailabilityDatesEditPage extends Component {
                         color={canContinue ? '#FFFFFF' : '#000'}
                         iconLeft={canContinue ? 'check' : ''}
                         firstIconRight={'x'}
-                        textCenter={strings.publishProposal}
+                        textCenter={CreatingProposalStore.proposal.id ? strings.editProposal : strings.publishProposal}
                         textSize={'small'}
                         onLeftLinkClickHandler={this.topNavBarLeftLinkClick}
                         onRightLinkClickHandler={this.topNavBarRightLinkClick}/>
@@ -230,7 +236,8 @@ export default class ProposalAvailabilityDatesEditPage extends Component {
 
 ProposalAvailabilityDatesEditPage.defaultProps = {
     strings: {
-        publishProposal : 'Publish proposal',
-        title           : 'What availability do you need for the project?'
+        publishProposal         : 'Publish proposal',
+        editProposal            : 'Edit proposal',
+        title                   : 'What availability do you need for the project?'
     }
 };

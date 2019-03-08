@@ -53,16 +53,12 @@ export default class InputSelectText extends Component {
         const {options} = this.props;
         const {selected} = this.state;
         let newSelected = selected.slice(0);
-        const index = selected.findIndex(option => option.id === id);
-        console.log(newSelected);
+        const index = selected.findIndex(option => option.value === id);
 
         if (index !== -1) {
             newSelected.splice(index, 1);
         } else {
-            console.log(options.find(option => option.id === id));
             const option = options.find(option => option.id === id);
-            console.log(option);
-            console.log(newSelected);
             const newOption = {
                 value: option.id,
                 image: null,

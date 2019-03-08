@@ -32,7 +32,6 @@ function getState() {
         availability = proposal.fields.availability ? proposal.fields.availability : null;
     }
 
-    console.log(CreatingProposalStore.proposal);
     console.log(proposal);
 
 
@@ -141,8 +140,8 @@ export default class ProposalAvailabilityEditPage extends Component {
             }
         };
 
-        ProposalActionCreators.mergeCreatingProposal(proposal);
-        // CreatingProposalStore.proposal.fields.participantLimit = newParticipantLimit;
+        // ProposalActionCreators.mergeCreatingProposal(proposal);
+        CreatingProposalStore.proposal.fields.participantLimit = newParticipantLimit;
     }
 
     onClickProjectParticipantsPlusHandler() {
@@ -163,8 +162,8 @@ export default class ProposalAvailabilityEditPage extends Component {
             }
         };
 
-        ProposalActionCreators.mergeCreatingProposal(proposal);
-        // CreatingProposalStore.proposal.fields.participantLimit = newParticipantLimit;
+        // ProposalActionCreators.mergeCreatingProposal(proposal);
+        CreatingProposalStore.proposal.fields.participantLimit = newParticipantLimit;
     }
 
 
@@ -185,7 +184,7 @@ export default class ProposalAvailabilityEditPage extends Component {
         //     }
         // };
         //
-        // ProposalActionCreators.mergeCreatingProposal(proposal);
+        ProposalActionCreators.mergeCreatingProposal(CreatingProposalStore.proposal);
 
         if (params.proposalId) {
             this.context.router.push('/proposal-features-edit/' + params.proposalId);
@@ -262,13 +261,13 @@ export default class ProposalAvailabilityEditPage extends Component {
         const disableSubstract = this.state.disableSubstract;
 
         const dailyWeekdayOptions = {
-            monday    : strings.monday,
-            tuesday   : strings.tuesday,
-            wednesday : strings.wednesday,
-            thursday  : strings.thursday,
-            friday    : strings.friday,
-            saturday  : strings.saturday,
-            sunday    : strings.sunday
+            Monday    : strings.monday,
+            Tuesday   : strings.tuesday,
+            Wednesday : strings.wednesday,
+            Thursday  : strings.thursday,
+            Friday    : strings.friday,
+            Saturday  : strings.saturday,
+            Sunday    : strings.sunday
         };
 
         const stringRanges = {
@@ -286,7 +285,7 @@ export default class ProposalAvailabilityEditPage extends Component {
                         background={'transparent'}
                         iconLeft={'arrow-left'}
                         firstIconRight={'x'}
-                        textCenter={strings.publishProposal}
+                        textCenter={CreatingProposalStore.proposal.id ? strings.editProposal : strings.publishProposal}
                         textSize={'small'}
                         onLeftLinkClickHandler={this.topNavBarLeftLinkClick}
                         onRightLinkClickHandler={this.topNavBarRightLinkClick}/>
@@ -316,16 +315,18 @@ export default class ProposalAvailabilityEditPage extends Component {
                                                     )}
                                                 </div>
                                             )}
-
-                                            {availability.static.map((day, index) =>
-                                                <div key={index}>
-                                                    {strings.from} {day.days.start} {strings.to} {day.days.end}
-                                                    ,
-                                                    {day.range.map((range, rangeIndex) =>
-                                                        <span key={rangeIndex}> {day.range.length === rangeIndex + 1 ? strings.and + ' ' + stringRanges[range] : stringRanges[range]}</span>
-                                                    )}
-                                                </div>
-                                            )}
+                                            {availability.static !== [] ?
+                                                availability.static.map((day, index) =>
+                                                    <div key={index}>
+                                                        {strings.from} {day.days.start} {strings.to} {day.days.end}
+                                                        ,
+                                                        {day.range.map((range, rangeIndex) =>
+                                                            <span key={rangeIndex}> {day.range.length === rangeIndex + 1 ? strings.and + ' ' + stringRanges[range] : stringRanges[range]}</span>
+                                                        )}
+                                                    </div>
+                                                )
+                                                : null
+                                            }
                                         </div>
                                     ) : (
                                         <div className="resume small">{strings.availabilityDescription}</div>
@@ -379,12 +380,11 @@ export default class ProposalAvailabilityEditPage extends Component {
 ProposalAvailabilityEditPage.defaultProps = {
     strings: {
         publishProposal          : 'Publish proposal',
+        editProposal             : 'Edit proposal',
         title                    : 'What implication do you need for the project?',
         availabilityTitle        : 'Availability',
         availabilityDescription  : 'Indicate in what time or range of days you would like to develop the project',
         participantsTitle        : 'Number of participants',
-        stepsBarContinueText     : 'Continue',
-        stepsBarCantContinueText : 'Indicate at least one parameter',
         monday                   : 'Monday',
         tuesday                  : 'Tuesday',
         wednesday                : 'Wednesday',
@@ -398,5 +398,7 @@ ProposalAvailabilityEditPage.defaultProps = {
         night                    : 'night',
         from                     : 'From',
         to                       : 'to',
+        stepsBarCantContinueText : 'You cannot continue',
+        stepsBarContinueText     : 'Continue',
     }
 };

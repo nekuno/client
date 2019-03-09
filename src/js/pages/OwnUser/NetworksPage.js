@@ -95,7 +95,7 @@ export default class NetworksPage extends Component {
 
 
                 <div className={styles.navbarWrapper}>
-                    <OwnUserBottomNavBar current={'interests'}/>
+                    <OwnUserBottomNavBar current={'networks'}/>
                 </div>
             </div>
         );

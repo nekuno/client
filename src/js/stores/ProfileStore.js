@@ -15,6 +15,7 @@ class ProfileStore extends BaseStore {
         this._metadata = null;
         this._categories = null;
         this._isLoadingCategories = false;
+        this._isEditing = false;
         this._initialRequiredProfileQuestionsCount = 0;
         this._errors = null;
     }
@@ -82,11 +83,17 @@ class ProfileStore extends BaseStore {
                 break;
             case ActionTypes.EDIT_PROFILE:
                 this._profiles[LoginStore.user.slug] = action.data;
+                this._isEditing = true;
                 this.emitChange();
                 break;
             case ActionTypes.EDIT_PROFILE_ERROR:
                 this._errors = getValidationErrors(action.error);
                 this._profiles[LoginStore.user.slug] = action.oldProfile;
+                this._isEditing = false;
+                this.emitChange();
+                break;
+            case ActionTypes.EDIT_PROFILE_SUCCESS:
+                this._isEditing = true;
                 this.emitChange();
                 break;
             case ActionTypes.REQUEST_RECOMMENDATIONS_SUCCESS:
@@ -130,6 +137,10 @@ class ProfileStore extends BaseStore {
         return this._isLoadingCategories;
     }
 
+    isEditing() {
+        return this._isEditing;
+    }
+
     getWithMetadata(slug) {
         const basicProfile = this.get(slug);
         const metadata = this.getMetadata();
@@ -158,7 +169,7 @@ class ProfileStore extends BaseStore {
                     name = thisMetadata.label;
                     value = this.getFieldText(type, thisMetadata, basicProfile, field);
 
-                    if (value === '' || value === false) {
+                    if (value === '' || value === false || value === undefined) {
                         return;
                     }
                 }

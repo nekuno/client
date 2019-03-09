@@ -41,7 +41,7 @@ export default class CardContentList extends Component {
                 [<div key="loading" className={styles.loading}><LoadingGif/></div>]
                 : [<div key="empty-message" className={styles.empty}><EmptyMessage text={strings.empty} loadingGif={false}/></div>];
         }
-        //TESTING:
+
         return contents.map((content, index) => {
             return this.buildCardContent(content, index);
         });
@@ -58,6 +58,7 @@ export default class CardContentList extends Component {
                 onLoad={this.props.onBottomScroll}
                 containerId={scrollContainerId}
                 loading={this.props.isLoading}
+                flex={true}
             />
         );
     }

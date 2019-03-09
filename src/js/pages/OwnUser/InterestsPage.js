@@ -129,27 +129,26 @@ export default class InterestsPage extends Component {
         const {strings, interests, isLoadingOwnInterests, noInterests, type} = this.props;
         return (
             <div className="views">
-                <div className={styles.view} id="own-user-interests-view">
-                    <div className={styles.topNavBar}>
-                        <TopNavBar
-                            background={'transparent'}
-                            iconLeft={'arrow-left'}
-                            textCenter={strings.topNavBarText}
-                        />
-                    </div>
+                <div className={styles.topNavBar}>
+                    <TopNavBar
+                        background={'transparent'}
+                        iconLeft={'arrow-left'}
+                        textCenter={strings.topNavBarText}
+                    />
+                </div>
 
-                    {noInterests ?
-                        <div className={styles.collapsible}><SelectCollapsibleInterest selected={type} onClickSelectCollapsible={this.changeType}/></div>
+                <div className={styles.view}>
+                    <div className={styles.collapsible}><SelectCollapsibleInterest selected={type} onClickSelectCollapsible={this.changeType}/></div>
+
+                    {noInterests ? null
                         :
-                        <div>
-                            <div className={styles.collapsible}><SelectCollapsibleInterest selected={type} onClickSelectCollapsible={this.changeType}/></div>
+                        <div id='own-user-interests-view' className={styles.cardContentList}>
                             <CardContentList contents={interests} scrollContainerId='own-user-interests-view'
                                              onBottomScroll={this.onBottomScroll.bind(this)} isLoading={isLoadingOwnInterests}/>
                         </div>
-
                     }
-
                 </div>
+
                 <div className={styles.navbarWrapper}>
                     <OwnUserBottomNavBar current={'interests'}/>
                 </div>

@@ -35,12 +35,15 @@ function getState(props) {
         return {isLoading: true}
     }
 
+    const isEditing = ProfileStore.isEditing();
+
     return {
         isLoading: false,
         username,
         profile,
         profileWithMetadata,
-        metadata
+        metadata,
+        isEditing
     };
 }
 
@@ -54,7 +57,8 @@ export default class EditProfilePage extends Component {
         username           : PropTypes.string,
         profile            : PropTypes.object,
         profileWithMetadata: PropTypes.array,
-        metadata           : PropTypes.object
+        metadata           : PropTypes.object,
+        isEditing          : PropTypes.bool
     };
 
     static contextTypes = {
@@ -99,7 +103,7 @@ export default class EditProfilePage extends Component {
     }
 
     render() {
-        const {isLoading, strings, profile, profileWithMetadata, metadata} = this.props;
+        const {isLoading, isEditing, strings, profile, profileWithMetadata, metadata} = this.props;
 
         return (
 
@@ -117,7 +121,11 @@ export default class EditProfilePage extends Component {
                         <ProfileDataList profile={profile} profileWithMetadata={profileWithMetadata} metadata={metadata} saveProfile={this.saveToState}/>
                     }
                 </div>
-                <ButtonOverlayBottomPage text={strings.bottom} onClickHandler={this.save}/>
+                {isEditing ?
+                    <div className={styles.loadingEditing}><LoadingGif/></div>
+                    :
+                    <ButtonOverlayBottomPage text={strings.bottom} onClickHandler={this.save}/>
+                }
             </div>
         );
     }

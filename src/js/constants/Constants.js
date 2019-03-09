@@ -194,5 +194,6 @@ export const DO_NOT_BACK_ROUTES = [
     'social-networks-on-sign-up',
     '/social-networks-on-sign-up',
     'register-questions-landing',
-    '/register-questions-landing'
+    '/register-questions-landing',
+    '/connecting-facebook'
 ];

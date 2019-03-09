@@ -3,13 +3,15 @@
 .view {
   background-color: $background;
   overflow-y: hidden;
-  height: 100%;
+  z-index: 0;
+  height: calc(100% - 100px);
 }
 
 .top-nav-bar {
-  position: absolute;
-  top: 0;
-  width: 100%;
+  //position: absolute;
+  //top: 0;
+  //width: 100%;
+  background: $background;
 }
 
 .top-data {
@@ -55,6 +57,9 @@
 
 }
 
+.card-content-list {
+  height: calc(100% - 50px);
+}
+
 .collapsible {
-  margin-top: 50px;
 }

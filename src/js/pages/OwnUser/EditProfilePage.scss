@@ -8,7 +8,22 @@
 }
 
 .loading {
-    width: 100%;
-    text-align: center;
-    padding-top: 50px;
+  width: 100%;
+  text-align: center;
+  background: $background-darken;
+
+  img {
+    margin-top: 50px;
+  }
+}
+
+.loading-editing {
+  width: 100%;
+  text-align: center;
+  background: $background-darken;
+  height: 60px;
+
+  img {
+    margin-top: -100px;
+  }
 }

@@ -42,8 +42,6 @@ function getState(props) {
     const profile = ProfileStore.getWithMetadata(slug);
     const isStoreLoading = NaturalCategoryStore.isLoading();
     if ((profile.length === 0) || isStoreLoading) {
-        console.log(profile.length);
-        console.log(isStoreLoading);
         return {isLoading: true}
     }
     const location = profile[0].fields.location.value || '';

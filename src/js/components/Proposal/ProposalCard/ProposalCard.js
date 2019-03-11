@@ -21,25 +21,37 @@ export default class ProposalCard extends Component {
         }
     }
 
-    getVisualByType(type) {
-        let icon = null;
-        let background = null;
-        switch (type) {
+    renderProposalIcon(proposal) {
+        let icon = '';
+
+        switch (proposal.type) {
+            case 'sports':
+            case 'hobbies':
+            case 'games':
+                icon = 'icon-hobbie';
+                break;
+            case 'shows':
+            case 'restaurants':
+            case 'plans':
+                icon = 'icon-experience';
+                break;
             case 'work':
-                icon = 'paperclip';
-                background = '#63CAFF';
-                break;
-            case 'leisure-plan':
-                icon = 'send';
-                background = '#D380D3';
-                break;
-            case 'experience-plan':
-                icon = 'compass';
-                background = '#7BD47E';
+            default:
+                icon = 'icon-project';
                 break;
         }
 
-        return {icon, background};
+        return (
+            <span className={icon}>
+                <span className="path1"></span>
+                <span className="path2"></span>
+                <span className="path3"></span>
+                <span className="path4"></span>
+                <span className="path5"></span>
+                <span className="path6"></span>
+                <span className="path7"></span>
+            </span>
+        );
     }
 
     render() {
@@ -54,12 +66,9 @@ export default class ProposalCard extends Component {
         return (
             <div className={styles.proposalCard} onClick={this.handleClick.bind(this)}>
                 <div className={styles.frame}>
-                    {icon ?
-                        <div className={styles.type}>
-                            <RoundedIcon icon={icon} size={'medium'} background={background} fontSize={'24px'}/>
-                        </div>
-                        : null
-                    }
+                    <div className={styles.type}>
+                        {this.renderProposalIcon(proposal)}
+                    </div>
                     <div className={styles.proposalImage}>
                         <img src={proposalPhoto}/>
                         <div className={styles.topData}>

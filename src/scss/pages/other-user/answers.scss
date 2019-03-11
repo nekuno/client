@@ -78,6 +78,7 @@ body #root .App .views .view.other-user-answers-view {
             overflow: hidden;
             text-overflow: ellipsis;
             color: $links;
+            cursor: pointer;
           }
         }
       }

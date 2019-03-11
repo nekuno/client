@@ -1,5 +1,6 @@
 export default {
     AnswerQuestionPage                      : {
+        topNavBarText          : 'Test de personalidad',
         question               : 'Pregunta',
         skip                   : 'Omitir',
         tutorialFirstStepTitle : 'Tu respuesta',
@@ -780,13 +781,22 @@ export default {
         interests: 'Intereses',
     },
     QuestionStatsPage                       : {
-        statistics: 'Estadísticas',
-        next      : 'Continuar',
+        topNavBarText: 'Test de personalidad',
+        statistics   : 'Estadísticas',
+        next         : 'Continuar',
         nextQuestion : 'Siguiente pregunta'
     },
     QuestionEditedStatsPage                 : {
-        statistics: 'Estadísticas',
-        next      : 'Continuar'
+        topNavBarText: 'Test de personalidad',
+        statistics   : 'Estadísticas',
+        next         : 'Continuar',
+        nextQuestion : 'Siguiente pregunta'
+    },
+    QuestionOtherStatsPage                 : {
+        topNavBarText: 'Test de personalidad',
+        statistics   : 'Estadísticas',
+        next         : 'Continuar',
+        nextQuestion : 'Siguiente pregunta'
     },
     RegisterPage                            : {
         register          : 'Crear cuenta',

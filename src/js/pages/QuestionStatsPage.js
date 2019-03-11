@@ -90,8 +90,8 @@ export default class QuestionStatsPage extends Component {
 QuestionStatsPage.defaultProps = {
     strings: {
         topNavBarText: 'Personality test',
-        statistics: 'Statistics',
-        next      : 'Continue',
+        statistics   : 'Statistics',
+        next         : 'Continue',
         nextQuestion : 'Next question',
     }
 };

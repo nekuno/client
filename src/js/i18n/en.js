@@ -2,9 +2,11 @@ import ProposalAvailabilityEditPage from "../pages/Proposals/Edit/AvailabilityPa
 import ProposalAvailabilityDatesEditPage from "../pages/Proposals/Edit/AvailabilityDatesPage";
 import ProposalFeaturesPage from "../pages/Proposals/Edit/FeaturesPage";
 import ProposalPreviewPage from "../pages/Proposals/Edit/PreviewPage";
+import QuestionOtherStatsPage from "../pages/QuestionOtherStatsPage";
 
 export default {
     AnswerQuestionPage                      : {
+        topNavBarText          : 'Personality test',
         question               : 'Question',
         skip                   : 'Skip',
         tutorialFirstStepTitle : 'Your answer',
@@ -789,13 +791,22 @@ export default {
         interests: 'Interests',
     },
     QuestionStatsPage                       : {
-        statistics: 'Statistics',
-        next      : 'Continue',
-        nextQuestion : 'Next question'
+        topNavBarText: 'Personality test',
+        statistics   : 'Statistics',
+        next         : 'Continue',
+        nextQuestion : 'Next question',
     },
     QuestionEditedStatsPage                 : {
-        statistics: 'Statistics',
-        next      : 'Continue'
+        topNavBarText: 'Personality test',
+        statistics   : 'Statistics',
+        next         : 'Continue',
+        nextQuestion : 'Next question',
+    },
+    QuestionOtherStatsPage                 : {
+        topNavBarText: 'Personality test',
+        statistics   : 'Statistics',
+        next         : 'Continue',
+        nextQuestion : 'Next question',
     },
     RegisterPage                            : {
         register          : 'Create account',

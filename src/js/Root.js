@@ -31,7 +31,6 @@ import OwnProposalsPage from './pages/OwnProposalsPage';
 import ExplorePage from './pages/ExplorePage';
 import ChatThreadsPage from './pages/ChatThreadsPage';
 import ChatMessagesPage from './pages/ChatMessagesPage';
-import OtherUserInterestsPage from './pages/OtherUser/InterestsPage';
 import OwnUserInterestsPage from './pages/OwnUser/InterestsPage';
 import GalleryPage from './pages/GalleryPage';
 import OtherGalleryPage from './pages/OtherGalleryPage';
@@ -66,30 +65,8 @@ import RouterActionCreators from './actions/RouterActionCreators';
 import LoginStore from './stores/LoginStore';
 
 import ProposalsProjectIntroductionPage from "./pages/Proposals/Project/IntroductionPage";
-import ProposalsProjectBasicPage from "./pages/Proposals/Project/BasicPage";
-import ProposalsProjectIndustryPage from "./pages/Proposals/Project/IndustryPage";
-import ProposalsProjectProfessionPage from "./pages/Proposals/Project/ProfessionPage";
-import ProposalsProjectAvailabilityPage from "./pages/Proposals/Project/AvailabilityPage";
-import ProposalsProjectAvailabilityDatesPage from "./pages/Proposals/Project/AvailabilityDatesPage";
-import ProposalsProjectFeaturesPage from "./pages/Proposals/Project/FeaturesPage";
-import ProposalsProjectPreviewPage from "./pages/Proposals/Project/PreviewPage";
-
 import ProposalsLeisureIntroductionPage      from "./pages/Proposals/Leisure/IntroductionPage";
-import ProposalsLeisureBasicPage             from "./pages/Proposals/Leisure/BasicPage";
-import ProposalsLeisureTypePage              from "./pages/Proposals/Leisure/TypePage";
-import ProposalsLeisureAvailability          from "./pages/Proposals/Leisure/AvailabilityPage";
-import ProposalsLeisureAvailabilityDatesPage from "./pages/Proposals/Leisure/AvailabilityDatesPage";
-import ProposalsLeisureFeaturesPage          from "./pages/Proposals/Leisure/FeaturesPage";
-import ProposalsLeisurePreviewPage           from "./pages/Proposals/Leisure/PreviewPage";
-
 import ProposalsExperienceIntroductionPage      from "./pages/Proposals/Experience/IntroductionPage";
-import ProposalsExperienceBasicPage             from "./pages/Proposals/Experience/BasicPage";
-import ProposalsExperienceTypePage              from "./pages/Proposals/Experience/TypePage";
-import ProposalsExperienceAvailability          from "./pages/Proposals/Experience/AvailabilityPage";
-import ProposalsExperienceAvailabilityDatesPage from "./pages/Proposals/Experience/AvailabilityDatesPage";
-import ProposalsExperienceFeaturesPage          from "./pages/Proposals/Experience/FeaturesPage";
-import ProposalsExperiencePreviewPage           from "./pages/Proposals/Experience/PreviewPage";
-
 import ProposalBasicEditPage from "./pages/Proposals/Edit/BasicPage";
 import ProposalTypeEditPage from "./pages/Proposals/Edit/TypePage";
 import ProposalProfessionEditPage from "./pages/Proposals/Edit/ProfessionPage";
@@ -101,15 +78,16 @@ import ProposalPreviewPage from "./pages/Proposals/Edit/PreviewPage";
 import OtherUserProposalsPage from "./pages/OtherUser/ProposalsPage";
 import OtherUserAboutMePage from "./pages/OtherUser/AboutMePage";
 import OtherUserAnswersPage from "./pages/OtherUser/AnswersPage";
-import EditProfilePage from "./pages/OwnUser/EditProfilePage";
+import OtherUserProposalDetailPage from "./pages/OtherUserProposalDetailPage";
+import OtherUserInterestsPage from './pages/OtherUser/InterestsPage';
 
-import OwnUserAboutMePage from "./pages/OwnUser/AboutMePage";
-import OwnUserAnswersPage from "./pages/OwnUser/AnswersPage";
 import ProposalDetailPage from "./pages/ProposalDetailPage";
 import ProposalDetailMatchesPage from "./pages/ProposalDetailMatchesPage";
-import OtherUserProposalDetailPage from "./pages/OtherUserProposalDetailPage";
+import OwnUserAboutMePage from "./pages/OwnUser/AboutMePage";
+import OwnUserAnswersPage from "./pages/OwnUser/AnswersPage";
 import FriendsPage from "./pages/OwnUser/FriendsPage";
 import NetworksPage from "./pages/OwnUser/NetworksPage";
+import EditProfilePage from "./pages/OwnUser/EditProfilePage";
 
 
 function requireAuth(nextState, replaceState) {
@@ -161,49 +139,22 @@ export default class Root extends Component {
                         <Route name="connecting-facebook" path="/connecting-facebook" component={ConnectingFacebookPage}/>
                         <Route name="proposals" path="/proposals" component={ProposalsPage}/>
                         <Route name="proposals-project-introduction" path="/proposals-project-introduction" component={ProposalsProjectIntroductionPage}/>
-                        <Route name="proposals-project-basic" path="/proposals-project-basic" component={ProposalsProjectBasicPage}/>
-                        <Route name="proposals-project-industry" path="/proposals-project-industry" component={ProposalsProjectIndustryPage}/>
-                        <Route name="proposals-project-profession" path="/proposals-project-profession" component={ProposalsProjectProfessionPage}/>
-                        <Route name="proposals-project-availability" path="/proposals-project-availability" component={ProposalsProjectAvailabilityPage}/>
-                        <Route name="proposals-project-availability-dates" path="/proposals-project-availability-dates" component={ProposalsProjectAvailabilityDatesPage}/>
-                        <Route name="proposals-project-features" path="/proposals-project-features" component={ProposalsProjectFeaturesPage}/>
-                        <Route name="proposals-project-preview" path="/proposals-project-preview" component={ProposalsProjectPreviewPage}/>
                         <Route name="proposals-leisure-introduction" path="/proposals-leisure-introduction" component={ProposalsLeisureIntroductionPage}/>
-                        <Route name="proposals-leisure-basic" path="/proposals-leisure-basic" component={ProposalsLeisureBasicPage}/>
-                        <Route name="proposals-leisure-type" path="/proposals-leisure-type" component={ProposalsLeisureTypePage}/>
-                        <Route name="proposals-leisure-availability" path="/proposals-leisure-availability" component={ProposalsLeisureAvailability}/>
-                        <Route name="proposals-leisure-availability-dates" path="/proposals-leisure-availability-dates" component={ProposalsLeisureAvailabilityDatesPage}/>
-                        <Route name="proposals-leisure-features" path="/proposals-leisure-features" component={ProposalsLeisureFeaturesPage}/>
-                        <Route name="proposals-leisure-preview" path="/proposals-leisure-preview" component={ProposalsLeisurePreviewPage}/>
                         <Route name="proposals-experience-introduction" path="/proposals-experience-introduction" component={ProposalsExperienceIntroductionPage}/>
-                        <Route name="proposals-experience-basic" path="/proposals-experience-basic" component={ProposalsExperienceBasicPage}/>
-                        <Route name="proposals-experience-type" path="/proposals-experience-type" component={ProposalsExperienceTypePage}/>
-                        <Route name="proposals-experience-availability" path="/proposals-experience-availability" component={ProposalsExperienceAvailability}/>
-                        <Route name="proposals-experience-availability-dates" path="/proposals-experience-availability-dates" component={ProposalsExperienceAvailabilityDatesPage}/>
-                        <Route name="proposals-experience-features" path="/proposals-experience-features" component={ProposalsExperienceFeaturesPage}/>
-                        <Route name="proposals-experience-preview" path="/proposals-experience-preview" component={ProposalsExperiencePreviewPage}/>
-
                         <Route name="proposal-basic-edit" path="/proposal-basic-edit/:proposalId" component={ProposalBasicEditPage}/>
                         <Route name="proposal-basic-create" path="/proposal-basic-edit" component={ProposalBasicEditPage}/>
-
                         <Route name="proposal-type-edit" path="/proposal-type-edit/:proposalId" component={ProposalTypeEditPage}/>
                         <Route name="proposal-type-create" path="/proposal-type-edit" component={ProposalTypeEditPage}/>
-
                         <Route name="proposal-profession-edit" path="/proposal-profession-edit/:proposalId" component={ProposalProfessionEditPage}/>
                         <Route name="proposal-profession-create" path="/proposal-profession-edit" component={ProposalProfessionEditPage}/>
-
                         <Route name="proposal-availability-edit" path="/proposal-availability-edit/:proposalId" component={ProposalAvailabilityEditPage}/>
                         <Route name="proposal-availability-create" path="/proposal-availability-edit" component={ProposalAvailabilityEditPage}/>
-
                         <Route name="proposal-availability-dates-edit" path="/proposal-availability-dates-edit/:proposalId" component={ProposalAvailabilityDatesEditPage}/>
                         <Route name="proposal-availability-dates-create" path="/proposal-availability-dates-edit" component={ProposalAvailabilityDatesEditPage}/>
-
                         <Route name="proposal-features-edit" path="/proposal-features-edit/:proposalId" component={ProposalFeaturesPage}/>
                         <Route name="proposal-features-create" path="/proposal-features-edit" component={ProposalFeaturesPage}/>
-
                         <Route name="proposal-preview-edit" path="/proposal-preview/:proposalId" component={ProposalPreviewPage}/>
                         <Route name="proposal-preview-create" path="/proposal-preview" component={ProposalPreviewPage}/>
-
                         <Route name="other-user-proposals" path="/p/:slug/proposals" component={OtherUserProposalsPage}/>
                         <Route name="other-user-answers" path="/p/:slug/answers" component={OtherUserAnswersPage}/>
                         <Route name="other-user-proposal-detail" path="/p/:slug/proposal/:proposalId" component={OtherUserProposalDetailPage}/>

@@ -48,6 +48,8 @@ class RouterStore extends BaseStore {
                         router.goBack();
                     }
                 } else {
+                    const userSlug = LoginStore.user.slug;
+                    const defaultRoute = 'p/'+userSlug;
                     setTimeout(router.replace(defaultRoute), 0);
                 }
                 this.emitChange();

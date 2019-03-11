@@ -181,7 +181,7 @@ export default class ProposalPreviewPage extends Component {
 
         switch (proposal.type) {
             case 'work':
-                icon = 'icon-proyecto';
+                icon = 'icon-project';
                 break;
             case 'sports':
             case 'hobbies':
@@ -191,7 +191,7 @@ export default class ProposalPreviewPage extends Component {
             case 'shows':
             case 'restaurants':
             case 'plans':
-                icon = 'icon-experiencia';
+                icon = 'icon-experience';
                 break;
             default:
                 break;

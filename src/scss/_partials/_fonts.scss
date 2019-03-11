@@ -110,55 +110,54 @@ $nekuno-logo-font: 'klinic_slabmedium';
 .disabled-icon {
 	opacity: 0.5;
 }
-
-.icon-experiencia .path1:before {
+.icon-project .path1:before {
 	content: "\e900";
-	color: rgb(123, 212, 126);
+	color: rgb(99, 202, 255);
 }
-.icon-experiencia .path2:before {
+.icon-project .path2:before {
 	content: "\e901";
 	margin-left: -1em;
 	color: rgb(255, 255, 255);
 }
-.icon-hobbie .path1:before {
+.icon-project .path3:before {
 	content: "\e902";
-	color: rgb(211, 128, 211);
+	margin-left: -1em;
+	color: rgb(255, 255, 255);
 }
-.icon-hobbie .path2:before {
+.icon-project .path4:before {
 	content: "\e903";
 	margin-left: -1em;
 	color: rgb(255, 255, 255);
 }
-.icon-proyecto .path1:before {
+.icon-project .path5:before {
 	content: "\e904";
-	color: rgb(99, 202, 255);
+	margin-left: -1em;
+	color: rgb(255, 255, 255);
 }
-.icon-proyecto .path2:before {
+.icon-project .path6:before {
 	content: "\e905";
 	margin-left: -1em;
 	color: rgb(255, 255, 255);
 }
-.icon-proyecto .path3:before {
+.icon-project .path7:before {
 	content: "\e906";
 	margin-left: -1em;
 	color: rgb(255, 255, 255);
 }
-.icon-proyecto .path4:before {
+.icon-experience .path1:before {
 	content: "\e907";
-	margin-left: -1em;
-	color: rgb(255, 255, 255);
+	color: rgb(123, 212, 126);
 }
-.icon-proyecto .path5:before {
+.icon-experience .path2:before {
 	content: "\e908";
 	margin-left: -1em;
 	color: rgb(255, 255, 255);
 }
-.icon-proyecto .path6:before {
+.icon-hobbie .path1:before {
 	content: "\e909";
-	margin-left: -1em;
-	color: rgb(255, 255, 255);
+	color: rgb(211, 128, 211);
 }
-.icon-proyecto .path7:before {
+.icon-hobbie .path2:before {
 	content: "\e90a";
 	margin-left: -1em;
 	color: rgb(255, 255, 255);

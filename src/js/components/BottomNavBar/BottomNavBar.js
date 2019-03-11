@@ -200,11 +200,11 @@ export default class BottomNavBar extends Component {
                                               fill={'none'} strokeWidth={70} stroke={'white'} strokeLinecap="round"
                                         />
                                         {this.renderIconText(strings.proposal, 70, 270)}
-                                        {this.renderIcon('icon-proyecto', 70, 270, '#63CAFF', this.addProfessionalProposal)}
+                                        {this.renderIcon('icon-project', 70, 270, '#63CAFF', this.addProfessionalProposal)}
                                         {this.renderIconText(strings.leisure, 70, 0)}
                                         {this.renderIcon('icon-hobbie', 70, 0, '#D380D3',  this.addLeisurePlan)}
                                         {this.renderIconText(strings.experience, 70, 90)}
-                                        {this.renderIcon('icon-experiencia', 70, 90, '#7BD47E',  this.addExperienceProposal)}
+                                        {this.renderIcon('icon-experience', 70, 90, '#7BD47E',  this.addExperienceProposal)}
                                     </g>
                                 </svg>
                             </div>

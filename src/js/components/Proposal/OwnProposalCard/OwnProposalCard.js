@@ -31,7 +31,7 @@ export default class OwnProposalCard extends Component {
 
         switch (proposal.type) {
             case 'work':
-                icon = 'icon-proyecto';
+                icon = 'icon-project';
                 break;
             case 'sports':
                 icon = 'icon-hobbie';
@@ -43,13 +43,13 @@ export default class OwnProposalCard extends Component {
                 icon = 'icon-hobbie';
                 break;
             case 'shows':
-                icon = 'icon-experiencia';
+                icon = 'icon-experience';
                 break;
             case 'restaurants':
-                icon = 'icon-experiencia';
+                icon = 'icon-experience';
                 break;
             case 'plans':
-                icon = 'icon-experiencia';
+                icon = 'icon-experience';
                 break;
             default:
                 break;
@@ -70,22 +70,6 @@ export default class OwnProposalCard extends Component {
 
     render() {
         const {type, photos, strings, fields} = this.props;
-        let icon = null;
-        let background = null;
-        switch (type) {
-            case 'work':
-                icon = 'paperclip';
-                background = '#63CAFF';
-                break;
-            case 'leisure-plan':
-                icon = 'send';
-                background = '#D380D3';
-                break;
-            case 'experience-plan':
-                icon = 'compass';
-                background = '#7BD47E';
-                break;
-        }
 
         return (
             <div className={styles.ownProposalCard} onClick={this.handleClick.bind(this)}>
@@ -93,7 +77,7 @@ export default class OwnProposalCard extends Component {
                     <div className={styles.topData}>
                         <h2>{fields.title}</h2>
                     </div>
-                    {icon ?
+                    {type ?
                         <div className={styles.type}>
                             {this.renderProposalIcon({type: type})}
                             {/*<RoundedIcon icon={icon} size={'medium'} background={background} fontSize={'24px'}/>*/}
@@ -101,7 +85,7 @@ export default class OwnProposalCard extends Component {
                         : null
                     }
                     <div className={styles.proposalImage}>
-                        <img src={fields.photo}/>
+                        <img src={fields.photo === '' ? 'https://dummyimage.com/290x130/000000/fff' : fields.photo }/>
                     </div>
                     <div className={styles.description}>
                         <div className={styles.descriptionText + ' ' + styles.truncate}>{fields.description}</div>

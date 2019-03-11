@@ -86,7 +86,7 @@ export default class OtherUserProposalDetailPage extends Component {
 
         switch (proposal.type) {
             case 'work':
-                icon = 'icon-proyecto';
+                icon = 'icon-project';
                 break;
             case 'sports':
                 icon = 'icon-hobbie';
@@ -98,13 +98,13 @@ export default class OtherUserProposalDetailPage extends Component {
                 icon = 'icon-hobbie';
                 break;
             case 'shows':
-                icon = 'icon-experiencia';
+                icon = 'icon-experience';
                 break;
             case 'restaurants':
-                icon = 'icon-experiencia';
+                icon = 'icon-experience';
                 break;
             case 'plans':
-                icon = 'icon-experiencia';
+                icon = 'icon-experience';
                 break;
             default:
                 break;

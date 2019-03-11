@@ -32,8 +32,6 @@ function getState() {
     const metadata = ProfileStore.getMetadata();
     const industrySectorChoices = metadata && metadata.industry ? metadata.industry.choices : null;
 
-    console.log(proposal);
-    console.log(industrySectorChoices);
 
     return {
         proposal,
@@ -66,7 +64,7 @@ export default class ProposalPreviewPage extends Component {
     constructor(props) {
         super(props);
 
-        this.topNavBarRightLinkClick = this.topNavBarRightLinkClick.bind(this);
+        // this.topNavBarRightLinkClick = this.topNavBarRightLinkClick.bind(this);
         this.topNavBarLeftLinkClick = this.topNavBarLeftLinkClick.bind(this);
         this.handleStepsBarClick = this.handleStepsBarClick.bind(this);
     }
@@ -89,13 +87,13 @@ export default class ProposalPreviewPage extends Component {
     }
 
     topNavBarLeftLinkClick() {
-        // this.context.router.push('/proposals-experience-introduction');
+        this.context.router.goBack();
     }
 
-    topNavBarRightLinkClick() {
-        // ProposalActionCreators.cleanCreatingProposal();
-        // this.context.router.push('/proposals');
-    }
+    // topNavBarRightLinkClick() {
+    //     ProposalActionCreators.cleanCreatingProposal();
+    //     this.context.router.push('/proposals');
+    // }
 
     handleStepsBarClick() {
         const {params} = this.props;
@@ -121,8 +119,6 @@ export default class ProposalPreviewPage extends Component {
 
     getProposalColor() {
         let color;
-
-        console.log(CreatingProposalStore.proposal.selectedType);
 
         if (CreatingProposalStore.proposal.selectedType) {
             switch (CreatingProposalStore.proposal.selectedType) {
@@ -239,9 +235,6 @@ export default class ProposalPreviewPage extends Component {
             experience: strings.experience,
         };
 
-        console.log(proposal);
-        console.log(industrySectorChoices);
-
         return (
             <div className="views">
                 <div className="view view-main proposal-preview-view">
@@ -250,8 +243,7 @@ export default class ProposalPreviewPage extends Component {
                         background={'transparent'}
                         iconLeft={'arrow-left'}
                         textSize={'small'}
-                        onLeftLinkClickHandler={this.topNavBarLeftLinkClick}
-                        onRightLinkClickHandler={this.topNavBarRightLinkClick}/>
+                        onLeftLinkClickHandler={this.topNavBarLeftLinkClick}/>
                     {proposal ?
                         <div className="proposal-preview-wrapper">
 

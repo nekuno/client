@@ -4,7 +4,6 @@ import translate from '../../../i18n/Translate';
 import AuthenticatedComponent from "../../../components/AuthenticatedComponent";
 import connectToStores from "../../../utils/connectToStores";
 import TopNavBar from '../../../components/TopNavBar/TopNavBar.js';
-import '../../../../scss/pages/proposals/experience/basic.scss';
 import StepsBar from "../../../components/ui/StepsBar/StepsBar";
 import Input from "../../../components/ui/Input/Input";
 import Textarea from "../../../components/ui/Textarea/Textarea";
@@ -29,7 +28,6 @@ function getState(props) {
     let proposal;
     if (proposalId) {
         proposal = ProposalStore.getOwnProposal(proposalId);
-        console.log(proposal);
         if (proposal) {
             CreatingProposalStore.proposal.id = proposal.id;
             CreatingProposalStore.proposal.type = proposal.type;
@@ -38,16 +36,15 @@ function getState(props) {
         }
     } else {
         proposal = {};
-        CreatingProposalStore.proposal.fields.title = "";
-        CreatingProposalStore.proposal.fields.description = "";
-        CreatingProposalStore.proposal.filters = {};
-        if (CreatingProposalStore.proposal.type !== 'work') {
+        if (!CreatingProposalStore.proposal.fields.title)
+            CreatingProposalStore.proposal.fields.title = "";
+        if (!CreatingProposalStore.proposal.fields.description)
+            CreatingProposalStore.proposal.fields.description = "";
+        if (!CreatingProposalStore.proposal.filters)
+            CreatingProposalStore.proposal.filters = {};
+        if (!CreatingProposalStore.proposal.type)
             CreatingProposalStore.proposal.type = "";
-        }
     }
-
-    console.log(CreatingProposalStore.proposal);
-    console.log(proposal);
 
     return {
         proposal,
@@ -56,7 +53,7 @@ function getState(props) {
 
 @AuthenticatedComponent
 @translate('ProposalBasicEditPage')
-@connectToStores([ProposalStore], getState)
+@connectToStores([ProposalStore, CreatingProposalStore], getState)
 export default class ProposalBasicEditPage extends Component {
 
     static propTypes = {
@@ -83,8 +80,8 @@ export default class ProposalBasicEditPage extends Component {
             description : '',
         };
 
-        // this.topNavBarLeftLinkClick = this.topNavBarLeftLinkClick.bind(this);
-        // this.topNavBarRightLinkClick = this.topNavBarRightLinkClick.bind(this);
+        this.topNavBarLeftLinkClick = this.topNavBarLeftLinkClick.bind(this);
+        this.topNavBarRightLinkClick = this.topNavBarRightLinkClick.bind(this);
 
         this.handleTitleChange = this.handleTitleChange.bind(this);
         this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
@@ -117,12 +114,13 @@ export default class ProposalBasicEditPage extends Component {
     // }
 
     topNavBarLeftLinkClick() {
-        // this.context.router.push('/proposals-experience-introduction');
+        ProposalActionCreators.cleanCreatingProposal();
+        this.context.router.goBack();
     }
 
     topNavBarRightLinkClick() {
-        // ProposalActionCreators.cleanCreatingProposal();
-        // this.context.router.push('/proposals');
+        ProposalActionCreators.cleanCreatingProposal();
+        this.context.router.goBack();
     }
 
     handleTitleChange(event) {
@@ -272,14 +270,14 @@ export default class ProposalBasicEditPage extends Component {
     }
 
     render() {
-        const {strings, proposal} = this.props;
+        const {strings} = this.props;
         const canContinue =
             CreatingProposalStore.proposal.fields.title !== "" &&
             CreatingProposalStore.proposal.fields.description !== "" &&
             CreatingProposalStore.proposal.type !== "";
 
         return (
-            CreatingProposalStore.proposal && proposal ?
+            CreatingProposalStore.proposal ?
                 <div className='views'>
                     <div className="view view-main proposal-basic-edit">
                         <TopNavBar
@@ -288,7 +286,7 @@ export default class ProposalBasicEditPage extends Component {
                             firstIconRight={'x'}
                             textCenter={CreatingProposalStore.proposal.id ? strings.editProposal : strings.publishProposal}
                             textSize={'small'}
-                            // onLeftLinkClickHandler={this.topNavBarLeftLinkClick}
+                            onLeftLinkClickHandler={this.topNavBarLeftLinkClick}
                             onRightLinkClickHandler={this.topNavBarRightLinkClick}/>
                         <div className="proposal-wrapper">
                             <h2>{strings.title}</h2>

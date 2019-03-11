@@ -30,7 +30,6 @@ function getState(props) {
 
     const proposal = CreatingProposalStore.proposal;
 
-    console.log(proposal);
 
 
 
@@ -45,7 +44,6 @@ function getState(props) {
     //     // CreatingProposalStore.proposal.fields.profession = [];
     // }
 
-    console.log(proposal);
 
     return {
         proposal,
@@ -84,6 +82,7 @@ export default class ProposalProfessionEditPage extends Component {
 
         this.topNavBarLeftLinkClick = this.topNavBarLeftLinkClick.bind(this);
         this.topNavBarRightLinkClick = this.topNavBarRightLinkClick.bind(this);
+
         this.onChangeInputTagHandler = this.onChangeInputTagHandler.bind(this);
         this.onClickInputTagHandler = this.onClickInputTagHandler.bind(this);
         this.handleStepsBarClick = this.handleStepsBarClick.bind(this);
@@ -98,12 +97,12 @@ export default class ProposalProfessionEditPage extends Component {
     // }
 
     topNavBarLeftLinkClick() {
-        // this.context.router.push('/proposals-experience-introduction');
+        this.context.router.goBack();
     }
 
     topNavBarRightLinkClick() {
-        // ProposalActionCreators.cleanCreatingProposal();
-        // this.context.router.push('/proposals');
+        ProposalActionCreators.cleanCreatingProposal();
+        this.context.router.push('/proposals');
     }
 
 
@@ -116,7 +115,6 @@ export default class ProposalProfessionEditPage extends Component {
     }
 
     onClickInputTagHandler(event) {
-        console.log(event);
         resetTagSuggestions();
 
         this.setState({
@@ -129,7 +127,6 @@ export default class ProposalProfessionEditPage extends Component {
     handleStepsBarClick() {
         const {params} = this.props;
 
-        console.log(CreatingProposalStore.proposal.fields);
 
         // const proposal = {
         //     fields: CreatingProposalStore.proposal.fields,
@@ -186,8 +183,6 @@ export default class ProposalProfessionEditPage extends Component {
     render() {
         const {strings, proposal, professionChoices} = this.props;
         const canContinue = !!CreatingProposalStore.proposal.fields.profession;
-
-        console.log(proposal.fields.profession);
 
         return (
             CreatingProposalStore.proposal && proposal ?

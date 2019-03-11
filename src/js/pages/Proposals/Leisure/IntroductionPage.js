@@ -5,6 +5,8 @@ import TopNavBar from '../../../components/TopNavBar/TopNavBar.js';
 import '../../../../scss/pages/proposals/leisure/introduction.scss';
 import Button from "../../../components/ui/Button/Button";
 import Overlay from "../../../components/ui/Overlay/Overlay";
+import * as ProposalActionCreators from "../../../actions/ProposalActionCreators";
+import CreatingProposalStore from "../../../stores/CreatingProposalStore";
 
 @translate('ProposalsLeisureIntroductionPage')
 export default class IntroductionPage extends Component {
@@ -30,11 +32,14 @@ export default class IntroductionPage extends Component {
     }
 
     topNavBarRightLinkClick() {
-        this.context.router.push('/proposals-leisure-basic');
+        CreatingProposalStore.proposal.selectedType = 'leisure';
+        this.context.router.push('/proposal-basic-edit');
     }
 
     render() {
         const {strings} = this.props;
+
+        ProposalActionCreators.cleanCreatingProposal();
 
         return (
             <div className="views">

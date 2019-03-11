@@ -5,8 +5,6 @@ import AuthenticatedComponent from "../../../components/AuthenticatedComponent";
 import connectToStores from "../../../utils/connectToStores";
 import TopNavBar from '../../../components/TopNavBar/TopNavBar.js';
 import StepsBar from "../../../components/ui/StepsBar/StepsBar";
-import Input from "../../../components/ui/Input/Input";
-import Textarea from "../../../components/ui/Textarea/Textarea";
 import CreatingProposalStore from '../../../stores/CreatingProposalStore';
 import * as ProposalActionCreators from "../../../actions/ProposalActionCreators";
 import ProposalStore from "../../../stores/ProposalStore";
@@ -17,7 +15,6 @@ import InputTag from "../../../components/RegisterFields/InputTag/InputTag";
 import * as TagSuggestionsActionCreators from "../../../actions/TagSuggestionsActionCreators";
 import TagSuggestionsStore from "../../../stores/TagSuggestionsStore";
 import InputSelectImage from "../../../components/RegisterFields/InputSelectImage/InputSelectImage";
-import LoginActionCreators from "../../../actions/LoginActionCreators";
 
 
 
@@ -37,8 +34,6 @@ function requestData(props) {
  */
 function getState(props) {
     const proposalId = props.params.proposalId;
-
-    console.log(CreatingProposalStore.proposal);
 
     const proposal = CreatingProposalStore.proposal;
 
@@ -61,7 +56,6 @@ function getState(props) {
             break;
     }
 
-    console.log(proposal);
 
     return {
         proposal,
@@ -95,17 +89,17 @@ export default class ProposalTypeEditPage extends Component {
 
     constructor(props) {
         super(props);
+
         this.state = {
             industry : [],
         };
 
+        this.topNavBarLeftLinkClick = this.topNavBarLeftLinkClick.bind(this);
+        this.topNavBarRightLinkClick = this.topNavBarRightLinkClick.bind(this);
+
 
         this.handleInputTagClick = this.handleInputTagClick.bind(this);
         this.handleInputTagChange = this.handleInputTagChange.bind(this);
-
-
-        this.topNavBarLeftLinkClick = this.topNavBarLeftLinkClick.bind(this);
-        this.topNavBarRightLinkClick = this.topNavBarRightLinkClick.bind(this);
         this.onClickInputSelectTextHandler = this.onClickInputSelectTextHandler.bind(this);
         this.handleStepsBarClick = this.handleStepsBarClick.bind(this);
     }
@@ -123,17 +117,16 @@ export default class ProposalTypeEditPage extends Component {
     // }
 
     topNavBarLeftLinkClick() {
-        // this.context.router.push('/proposals-experience-introduction');
+        this.context.router.goBack();
     }
 
     topNavBarRightLinkClick() {
-        // ProposalActionCreators.cleanCreatingProposal();
-        // this.context.router.push('/proposals');
+        ProposalActionCreators.cleanCreatingProposal();
+        this.context.router.push('/proposals');
     }
 
 
     onClickInputSelectTextHandler(event) {
-        console.log(event);
         this.setState({
             type : event,
         });
@@ -172,7 +165,6 @@ export default class ProposalTypeEditPage extends Component {
     }
 
     onChange(event) {
-        console.log(event);
 
         // this.setState({
         //     type: event,
@@ -217,7 +209,6 @@ export default class ProposalTypeEditPage extends Component {
     getProposalColor() {
         let color;
 
-        console.log(CreatingProposalStore.proposal.selectedType);
 
         if (CreatingProposalStore.proposal.selectedType) {
             switch (CreatingProposalStore.proposal.selectedType) {
@@ -258,7 +249,6 @@ export default class ProposalTypeEditPage extends Component {
         const {strings, proposal, industryOptions, leisureOptions, experienceOptions} = this.props;
 
         let component;
-        console.log(CreatingProposalStore.proposal.type);
         switch (CreatingProposalStore.proposal.type) {
             case 'sports':
                 component = <InputTag

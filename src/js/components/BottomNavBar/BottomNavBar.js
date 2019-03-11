@@ -74,22 +74,21 @@ export default class BottomNavBar extends Component {
     }
 
     addProfessionalProposal() {
-        CreatingProposalStore.proposal.type = 'work';
-        this.context.router.push('/proposal-basic-edit');
-        // this.context.router.push('/proposals-project-introduction');
+        // CreatingProposalStore.proposal.type = 'work';
+        // this.context.router.push('/proposal-basic-edit');
+        this.context.router.push('/proposals-project-introduction');
     }
 
     addLeisurePlan() {
-        CreatingProposalStore.proposal.selectedType = 'leisure';
-        this.context.router.push('/proposal-basic-edit');
-
-        // this.context.router.push('/proposals-leisure-introduction');
+        // CreatingProposalStore.proposal.selectedType = 'leisure';
+        // this.context.router.push('/proposal-basic-edit');
+        this.context.router.push('/proposals-leisure-introduction');
     }
 
     addExperienceProposal() {
-        CreatingProposalStore.proposal.selectedType = 'experience';
-        this.context.router.push('/proposal-basic-edit');
-        // this.context.router.push('/proposals-experience-introduction');
+        // CreatingProposalStore.proposal.selectedType = 'experience';
+        // this.context.router.push('/proposal-basic-edit');
+        this.context.router.push('/proposals-experience-introduction');
     }
 
     closeAddModal() {

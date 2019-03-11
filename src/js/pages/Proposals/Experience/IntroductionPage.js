@@ -3,8 +3,9 @@ import React, { Component } from 'react';
 import translate from '../../../i18n/Translate';
 import TopNavBar from '../../../components/TopNavBar/TopNavBar.js';
 import '../../../../scss/pages/proposals/experience/introduction.scss';
-import Button from "../../../components/ui/Button/Button";
 import Overlay from "../../../components/ui/Overlay/Overlay";
+import CreatingProposalStore from "../../../stores/CreatingProposalStore";
+import * as ProposalActionCreators from "../../../actions/ProposalActionCreators";
 
 @translate('ProposalsExperienceIntroductionPage')
 export default class IntroductionPage extends Component {
@@ -30,11 +31,14 @@ export default class IntroductionPage extends Component {
     }
 
     topNavBarRightLinkClick() {
-        this.context.router.push('/proposals-experience-basic');
+        CreatingProposalStore.proposal.selectedType = 'experience';
+        this.context.router.push('/proposal-basic-edit');
     }
 
     render() {
         const {strings} = this.props;
+
+        ProposalActionCreators.cleanCreatingProposal();
 
         return (
             <div className="views">

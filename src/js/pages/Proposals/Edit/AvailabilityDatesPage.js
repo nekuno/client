@@ -23,9 +23,6 @@ function getState() {
     const proposal = CreatingProposalStore.proposal;
     const availability = proposal.fields.availability ? proposal.fields.availability : {'dynamic' : [], 'static' : []};
 
-
-    console.log(proposal);
-
     return {
         proposal,
         interfaceLanguage,
@@ -202,8 +199,6 @@ export default class ProposalAvailabilityDatesEditPage extends Component {
     render() {
         const {strings, proposal, availability, interfaceLanguage} = this.props;
         const canContinue = (!(availability.dynamic.length === 0 && availability.static.length === 0));
-
-        console.log(availability);
 
         return (
             <div className="views">

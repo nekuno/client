@@ -85,7 +85,6 @@ function getState(props) {
         // CreatingProposalStore.proposal.fields.title = "";
         // CreatingProposalStore.proposal.fields.description = "";
     }
-    console.log(proposal);
 
     return {
         proposal,
@@ -137,6 +136,7 @@ export default class ProposalFeaturesPage extends Component {
 
         this.topNavBarLeftLinkClick = this.topNavBarLeftLinkClick.bind(this);
         this.topNavBarRightLinkClick = this.topNavBarRightLinkClick.bind(this);
+
         this.handleClickFilter = this.handleClickFilter.bind(this);
         this.handleChangeFilter = this.handleChangeFilter.bind(this);
         this.handleChangeFilterAndUnSelect = this.handleChangeFilterAndUnSelect.bind(this);
@@ -159,12 +159,12 @@ export default class ProposalFeaturesPage extends Component {
     }
 
     topNavBarLeftLinkClick() {
-        // this.context.router.push('/proposals-experience-introduction');
+        this.context.router.goBack();
     }
 
     topNavBarRightLinkClick() {
-        // ProposalActionCreators.cleanCreatingProposal();
-        // this.context.router.push('/proposals');
+        ProposalActionCreators.cleanCreatingProposal();
+        this.context.router.push('/proposals');
     }
 
     handleClickFilter(field, filter) {
@@ -192,16 +192,10 @@ export default class ProposalFeaturesPage extends Component {
     }
 
     save(field, filter) {
-        console.log(field);
-        console.log(filter);
         const filters = {userFilters: {...this.props.thread.filters.userFilters, ...{[field]: filter}}};
-        console.log(filters);
 
         const allFilters = Object.assign(filters.userFilters, CreatingProposalStore.proposal.filters.userFilters);
-        console.log(allFilters);
-
         const filterValue = {[field] : filter};
-        console.log(filterValue);
 
         this.setState({data: filters.userFilters});
         CreatingProposalStore.proposal.filters.userFilters = filters.userFilters;
@@ -273,9 +267,6 @@ export default class ProposalFeaturesPage extends Component {
 
         if (filters && filters.userFilters && filters.userFilters[field] && data) {
             const filter = filters.userFilters[field];
-            console.log(field);
-            console.log(data);
-            console.log(data[field]);
             const filterData =  data[field] ? data[field] : null;
             switch (filter.type) {
                 case 'location_distance':
@@ -440,8 +431,6 @@ export default class ProposalFeaturesPage extends Component {
     getProposalColor() {
         let color;
 
-        console.log(CreatingProposalStore.proposal.selectedType);
-
         if (CreatingProposalStore.proposal.selectedType) {
             switch (CreatingProposalStore.proposal.selectedType) {
                 case 'leisure':
@@ -501,8 +490,8 @@ export default class ProposalFeaturesPage extends Component {
         const {proposal, selectedFilters, user, tags, filters, thread, categories, strings} = this.props;
         const canContinue = true;
 
-        // this.hideRenderCategory(categories);
-        // this.hideRenderField(categories);
+        this.hideRenderCategory(categories);
+        this.hideRenderField(categories);
 
 
 

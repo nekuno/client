@@ -32,8 +32,6 @@ function getState() {
         availability = proposal.fields.availability ? proposal.fields.availability : null;
     }
 
-    console.log(proposal);
-
 
     return {
         proposal,
@@ -73,6 +71,7 @@ export default class ProposalAvailabilityEditPage extends Component {
 
         this.topNavBarLeftLinkClick = this.topNavBarLeftLinkClick.bind(this);
         this.topNavBarRightLinkClick = this.topNavBarRightLinkClick.bind(this);
+
         this.onClickAvailabilityHandler = this.onClickAvailabilityHandler.bind(this);
         this.onClickProjectParticipantsSubstractHandler = this.onClickProjectParticipantsSubstractHandler.bind(this);
         this.onClickProjectParticipantsPlusHandler = this.onClickProjectParticipantsPlusHandler.bind(this);
@@ -97,17 +96,16 @@ export default class ProposalAvailabilityEditPage extends Component {
     }
 
     topNavBarLeftLinkClick() {
-        // this.context.router.push('/proposals-experience-introduction');
+        this.context.router.goBack();
     }
 
     topNavBarRightLinkClick() {
-        // ProposalActionCreators.cleanCreatingProposal();
-        // this.context.router.push('/proposals');
+        ProposalActionCreators.cleanCreatingProposal();
+        this.context.router.push('/proposals');
     }
 
     onClickAvailabilityHandler() {
         const {params} = this.props;
-        console.log(CreatingProposalStore.proposal);
 
         //
         // const proposal = {
@@ -196,8 +194,6 @@ export default class ProposalAvailabilityEditPage extends Component {
     getProposalColor() {
         let color;
 
-        console.log(CreatingProposalStore.proposal.selectedType);
-
         if (CreatingProposalStore.proposal.selectedType) {
             switch (CreatingProposalStore.proposal.selectedType) {
                 case 'leisure':
@@ -276,7 +272,6 @@ export default class ProposalAvailabilityEditPage extends Component {
             Night     : strings.night,
         };
 
-        console.log(CreatingProposalStore.proposal);
 
         return (
             <div className="views">

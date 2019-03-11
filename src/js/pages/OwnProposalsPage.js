@@ -15,6 +15,7 @@ import * as QuestionActionCreators from "../actions/QuestionActionCreators";
 import * as ProposalActionCreators from "../actions/ProposalActionCreators";
 import RoundedIcon from "../components/ui/RoundedIcon/RoundedIcon";
 import SelectInline from "../components/ui/SelectInline/SelectInline";
+import ProposalRecommendationsStore from "../stores/ProposalRecommendationsStore";
 
 /**
  * Requests data from server (or store) for current props.
@@ -26,6 +27,8 @@ function requestData(props) {
     // QuestionActionCreators.requestQuestion(currentUserId, questionId);
 
     ProposalActionCreators.requestOwnProposals();
+    ProposalActionCreators.requestRecommendations();
+
 }
 
 
@@ -46,7 +49,7 @@ function getState(props) {
 
 @AuthenticatedComponent
 @translate('OwnProposalsPage')
-@connectToStores([WorkersStore], getState)
+@connectToStores([WorkersStore, ProposalStore, ProposalRecommendationsStore], getState)
 export default class OwnProposalsPage extends Component {
 
     static propTypes = {
@@ -136,6 +139,8 @@ export default class OwnProposalsPage extends Component {
 
         const numberOfProposalsFeatured = 10;
 
+        console.log(ownProposals);
+
         // TODO: Number of matches
         return (
             <div className="own-proposals-published-view">
@@ -157,7 +162,7 @@ export default class OwnProposalsPage extends Component {
                                         </div>
                                         <div className={"proposal-text"}>{proposal.fields.title}</div>
                                         <div className={"matches"}>
-                                            <div className={"number"}>3</div>
+                                            <div className={"number"}>{proposal.countMatches}</div>
                                             <div className={"match"}>{strings.matches}</div>
                                         </div>
                                     </div>

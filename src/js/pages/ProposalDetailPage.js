@@ -151,7 +151,7 @@ export default class ProposalDetailPage extends Component {
 
                             <div className={'proposal-users-match'}>
                                 <div className={'proposal-users-match-header'}>
-                                    <div className={'matches-number'}>{strings.numberOfMatches.replace("%numberOfMatches%", 5)}</div>
+                                    <div className={'matches-number'}>{strings.numberOfMatches.replace("%numberOfMatches%", proposal.countMatches)}</div>
                                     <div className={'view-all'} onClick={this.viewAllMatchesClick}>{strings.viewAll}</div>
                                 </div>
                                 <div className={'proposal-users-match-body'}>

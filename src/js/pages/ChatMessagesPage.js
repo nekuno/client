@@ -120,6 +120,7 @@ export default class ChatMessagesPage extends Component {
         this.markReaded = this.markReaded.bind(this);
         this.handleScroll = this.handleScroll.bind(this);
         this.goToProfilePage = this.goToProfilePage.bind(this);
+        this.goToChatThreadsPage = this.goToChatThreadsPage.bind(this);
         this.scrollIfNeeded = this.scrollIfNeeded.bind(this);
 
         this.state = {

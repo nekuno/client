@@ -8,19 +8,14 @@ import UserStore from "../../stores/UserStore";
 import QuestionStore from "../../stores/QuestionStore";
 import TopNavBar from '../../components/TopNavBar/TopNavBar.js';
 import Button from "../../components/ui/Button/Button";
-import styles from "../../components/ui/QuestionNotMatch/QuestionNotMatch.scss";
 import RoundedImage from "../../components/ui/RoundedImage/RoundedImage";
 import * as QuestionActionCreators from "../../actions/QuestionActionCreators";
-import * as UserActionCreators from "../../actions/UserActionCreators";
 import Scroll from "../../components/Scroll/Scroll";
-import AnswerQuestionCard from "../../components/ui/AnswerQuestionCard/AnswerQuestionCard";
 import EmptyMessage from "../../components/ui/EmptyMessage/EmptyMessage";
 import OwnUserBottomNavBar from "../../components/ui/OwnUserBottomNavBar/OwnUserBottomNavBar";
 import RoundedIcon from "../../components/ui/RoundedIcon/RoundedIcon";
-import RouterStore from "../../stores/RouterStore";
 
 function requestData(props) {
-    // const user = UserActionCreators.requestUser(props.params.slug);
     QuestionActionCreators.requestQuestionsBySlug(props.params.slug);
 }
 
@@ -76,7 +71,6 @@ export default class AnswersPage extends Component {
 
     componentDidMount() {
         requestData(this.props);
-        // window.setTimeout(() => requestData(this.props), 0);
     }
 
     topNavBarLeftLinkClick() {
@@ -159,7 +153,6 @@ export default class AnswersPage extends Component {
             return Promise.resolve();
         }
         return QuestionActionCreators.requestQuestions(user.id, requestQuestionsUrl);
-        // return QuestionActionCreators.requestComparedQuestions(user.id, requestQuestionsUrl);
     }
 
     render() {
@@ -189,35 +182,6 @@ export default class AnswersPage extends Component {
                 <OwnUserBottomNavBar current={"answers"}/>
             </div>
         );
-
-/*
-        return (
-            <div className="views">
-                <div id={'user-answers-view'} className="view view-main user-answers-view">
-                    <TopNavBar
-                        background={'FFFFFF'}
-                        iconLeft={'arrow-left'}
-                        textCenter={strings.topNavBarText}
-                        textSize={'small'}
-                        onLeftLinkClickHandler={this.topNavBarLeftLinkClick}/>
-                    <div className="user-answers-view-wrapper">
-                        {userQuestions ?
-                            <Scroll
-                                items={this.getQuestions()}
-                                firstItems={this.firstItems()}
-                                onLoad={this.onBottomScroll}
-                                containerId="user-answers-view"
-                                loading={isLoadingOwnQuestions}
-                                columns={1}
-                            />
-                            : null
-                        }
-                    </div>
-                </div>
-                <OwnUserBottomNavBar current={"answers"}/>
-            </div>
-        );
-        */
     }
 }
 

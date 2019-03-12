@@ -16,7 +16,6 @@ import * as UserActionCreators from "../../actions/UserActionCreators";
  * Retrieves state from stores for current props.
  */
 function getState(props) {
-
     const user = props.user;
 
     if (!user.username) {
@@ -53,6 +52,13 @@ function getState(props) {
 export default class EditProfilePage extends Component {
 
     static propTypes = {
+        // Injected by @AuthenticatedComponent
+        user                      : PropTypes.object.isRequired,
+        // Injected by React Router:
+        params           : PropTypes.shape({
+            slug: PropTypes.string.isRequired
+        }).isRequired,
+        // Injected by @connectToStores:
         isLoading          : PropTypes.bool.isRequired,
         username           : PropTypes.string,
         profile            : PropTypes.object,
@@ -98,15 +104,20 @@ export default class EditProfilePage extends Component {
     }
 
     goToProfile() {
-        const slug = this.props.params.slug;
-        this.context.router.push('/p/' + slug);
+        // const slug = this.props.params.slug;
+        const { user } = this.props;
+        this.context.router.push('/p/' + user.slug);
     }
 
     render() {
-        const {isLoading, isEditing, strings, profile, profileWithMetadata, metadata} = this.props;
+        const { isLoading, isEditing, strings, profile, profileWithMetadata, metadata, user, params } = this.props;
+        const { slug } = params;
+
+        if (user.slug && (slug !== user.slug)) {
+            this.goToProfile();
+        }
 
         return (
-
             <div className='views'>
                 <TopNavBar
                     background={'#F6F6F6'}

@@ -106,22 +106,19 @@ export default class AboutMePage extends Component {
     constructor(props) {
         super(props);
 
-        this.likeUser = this.likeUser.bind(this);
-        this.dislikeUser = this.dislikeUser.bind(this);
+        this.toggleLikeUser = this.toggleLikeUser.bind(this);
     }
 
-    likeUser() {
+    toggleLikeUser() {
         const from = this.props.ownUserSlug;
         const to = this.props.params.slug;
+        const liked = this.props.liked;
 
-        UserActionCreators.likeUser(from, to, ORIGIN_CONTEXT.OTHER_USER_PAGE, to);
-    }
-
-    dislikeUser() {
-        const from = this.props.ownUserSlug;
-        const to = this.props.params.slug;
-
-        UserActionCreators.dislikeUser(from, to, ORIGIN_CONTEXT.OTHER_USER_PAGE, to);
+        if (liked) {
+            UserActionCreators.dislikeUser(from, to, ORIGIN_CONTEXT.OTHER_USER_PAGE, to);
+        } else {
+            UserActionCreators.likeUser(from, to, ORIGIN_CONTEXT.OTHER_USER_PAGE, to);
+        }
     }
 
     getPhotos(photos) {
@@ -149,7 +146,7 @@ export default class AboutMePage extends Component {
     render() {
         const {photos, matching, similarity, isLoading, username, location, age, natural, liked} = this.props;
 
-        const rightIcon = liked ? 'heart' : 'empty - heart';
+        const rightIcon = liked ? 'thumbs-down' : 'thumbs-up';
 
         return (
             <div className="views">
@@ -158,9 +155,9 @@ export default class AboutMePage extends Component {
                         <TopNavBar
                             background={'transparent'}
                             iconLeft={'arrow-left'}
-                            firstIconRight={'heart'}
+                            firstIconRight={rightIcon}
                             textCenter={''}
-                            onRightLinkClickHandler={this.likeUser}
+                            onRightLinkClickHandler={this.toggleLikeUser}
                         />
                     </div>
 

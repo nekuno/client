@@ -131,7 +131,7 @@ export default class BottomNavBar extends Component {
 
     renderIcon = function(icon, radius, degrees, background, onClick) {
         return (
-            <foreignObject key={icon} x={this.iconXValue(radius, degrees)} y={this.iconYValue(radius, degrees)} width="60" height="60" onClick={onClick}>
+            <foreignObject key={icon} x={this.iconXValue(radius, degrees)} y={this.iconYValue(radius, degrees)} width="60" height="50" onClick={onClick}>
                 <span className={styles.icon + " " + icon}>
                     <span className="path1"></span>
                     <span className="path2"></span>
@@ -148,14 +148,13 @@ export default class BottomNavBar extends Component {
 
     renderIconText = function(text, radius, degrees) {
         return (
-            <foreignObject x={this.iconXValue(radius, degrees)} y={this.iconYValue(radius, degrees)} width="60" height="60">
+            <foreignObject x={this.iconXValue(radius, degrees)} y={this.iconYValue(radius, degrees)} width="60" height="75">
                 <div className={styles.iconText + ' small'}>{text}</div>
             </foreignObject>
         );
     };
 
     render() {
-
         const {current, notifications, strings} = this.props;
         const {addingProposal} = this.state;
 

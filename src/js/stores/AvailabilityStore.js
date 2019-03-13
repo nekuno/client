@@ -34,10 +34,6 @@ class AvailabilityStore extends BaseStore {
     }
 
     set availability(availability) {
-        availability.dynamic.forEach((dynamicCase) => {
-            dynamicCase.weekday = dynamicCase.weekday.toLowerCase();
-        });
-
         this._availability = availability;
     }
 

@@ -275,7 +275,7 @@ export default class ProposalAvailabilityEditPage extends Component {
 
         return (
             <div className="views">
-                <div className="view view-main proposals-project-availability-view">
+                <div className="view view-main proposals-availability-view">
                     <TopNavBar
                         background={'transparent'}
                         iconLeft={'arrow-left'}
@@ -284,9 +284,9 @@ export default class ProposalAvailabilityEditPage extends Component {
                         textSize={'small'}
                         onLeftLinkClickHandler={this.topNavBarLeftLinkClick}
                         onRightLinkClickHandler={this.topNavBarRightLinkClick}/>
-                    <div className="proposals-project-availability-wrapper">
+                    <div className="proposals-availability-wrapper">
                         <h2>{strings.title}</h2>
-                        <div className="proposals-project-availability-frame-wrapper">
+                        <div className="proposals-availability-frame-wrapper">
                             <Frame
                                 onClickHandler={this.onClickAvailabilityHandler}>
                                 <div className={'rounded-icon-wrapper'}>

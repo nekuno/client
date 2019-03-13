@@ -158,7 +158,7 @@ export default class AboutMePage extends Component {
                         <TopNavBar
                             background={'transparent'}
                             iconLeft={'arrow-left'}
-                            firstIconRight={'x'}
+                            firstIconRight={'heart'}
                             textCenter={''}
                             onRightLinkClickHandler={this.likeUser}
                         />
@@ -176,8 +176,8 @@ export default class AboutMePage extends Component {
                             <div className={styles.topData}>
                                 <UserTopData username={username} age={age} location={{locality: location}} usernameColor={'black'} subColor={'grey'}/>
                             </div>
-                            <div className={styles.matchingBarsWrapper}><
-                                MatchingBars matching={matching} similarity={similarity} background={'transparent'}/>
+                            <div className={styles.matchingBarsWrapper}>
+                                <MatchingBars matching={matching} similarity={similarity} background={'transparent'}/>
                             </div>
 
                             {this.getNatural(natural)}

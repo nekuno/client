@@ -1,17 +1,17 @@
 @import '../../../_partials/colors';
 
-body #root .App .views .view.proposals-leisure-availability-view {
+body #root .App .views .view.proposals-availability-view {
   background-color: $background-white;
   color: $gray-main-text;
   text-align: center;
   z-index: 0;
 
-  .proposals-leisure-availability-wrapper {
+  .proposals-availability-wrapper {
     h2 {
       padding: 0 24px;
     }
 
-    .proposals-leisure-availability-frame-wrapper {
+    .proposals-availability-frame-wrapper {
       cursor: pointer;
       .rounded-icon-wrapper {
         text-align: center;

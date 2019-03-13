@@ -49,6 +49,13 @@ class MatchingStore extends BaseStore {
         }
     }
 
+    getPercentage(userId1, userId2)
+    {
+        const matching = this.get(userId1, userId2);
+
+        return matching*100;
+    }
+
     merge(userId1, userId2, value){
         this._matching[userId1] = (userId1 in this._matching) ? this._matching[userId1] : [];
         this._matching[userId1][userId2] = value;

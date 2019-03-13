@@ -43,8 +43,8 @@ function getState(props) {
     const otherUserId = otherUser ? otherUser.id : null;
 
     const ownUserId = LoginStore.user.id;
-    const matching = MatchingStore.get(ownUserId, otherUserId);
-    const similarity = SimilarityStore.get(ownUserId, otherUserId);
+    const matching = MatchingStore.getPercentage(ownUserId, otherUserId);
+    const similarity = SimilarityStore.getPercentage(ownUserId, otherUserId);
 
     const profile = ProfileStore.getWithMetadata(slug);
     if (profile.length === 0) {

@@ -50,6 +50,13 @@ class SimilarityStore extends BaseStore {
         }
     }
 
+    getPercentage(userId1, userId2)
+    {
+        const similarity = this.get(userId1, userId2);
+
+        return similarity*100;
+    }
+
     merge(userId1, userId2, value){
         this._similarity[userId1] = (userId1 in this._similarity) ? this._similarity[userId1] : [];
         this._similarity[userId1][userId2] = value;

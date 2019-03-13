@@ -36,7 +36,7 @@ class ProposalStore extends BaseStore {
                 const responseUsers = action.response.entities.users;
                 const user = Object.keys(responseUsers).map((key) => {return responseUsers[key]})[0];
                 const userSlug = user.slug;
-                proposals = user.proposals;
+                proposals = user.proposals || [];
                 proposals.forEach(proposal => {
                     this.addProposal(proposal, userSlug);
                 });

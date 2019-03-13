@@ -41,7 +41,7 @@ export default class OtherUserBottomNavBar extends Component {
         const {userSlug, current} = this.props;
 
         if (current !== 'about-me') {
-            this.context.router.push('/p/' + userSlug + '/about-me');
+            this.context.router.push('/p/' + userSlug);
         }
     }
 

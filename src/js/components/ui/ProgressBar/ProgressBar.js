@@ -27,8 +27,8 @@ export default class ProgressBar extends Component {
         }
     }
 
-    shouldComponentUpdate(nextProps) {
-        return this.props.percentage !== nextProps.percentage;
+    shouldComponentUpdate(nextProps, nextState) {
+        return this.props.percentage !== nextProps.percentage || (this.state.percentage !== nextState.percentage);
     }
 
     componentDidUpdate(prevProps) {

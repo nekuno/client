@@ -159,11 +159,6 @@ export default class OtherUserProposalDetailPage extends Component {
     render() {
         const {params, user, strings, proposal, otherUser, otherUserProfile, industrySectorChoices} = this.props;
 
-        console.log(proposal);
-        console.log(otherUser);
-        console.log(otherUserProfile);
-        console.log(industrySectorChoices);
-
         // TODO: Get matching and similarity
         // TODO: Get Availability
         // TODO: Get ParticipantLimit

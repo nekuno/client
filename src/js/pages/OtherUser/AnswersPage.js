@@ -77,7 +77,7 @@ export default class AnswersPage extends Component {
     constructor(props) {
         super(props);
 
-        this.topNavBarLeftLinkClick = this.topNavBarLeftLinkClick.bind(this);
+        // this.topNavBarLeftLinkClick = this.topNavBarLeftLinkClick.bind(this);
         // this.onClickSelectCollapsible = this.onClickSelectCollapsible.bind(this);
         this.onClickEditQuestion = this.onClickEditQuestion.bind(this);
 
@@ -86,10 +86,6 @@ export default class AnswersPage extends Component {
 
     componentDidMount() {
         window.setTimeout(() => requestData(this.props), 0);
-    }
-
-    topNavBarLeftLinkClick() {
-
     }
 
     // onClickSelectCollapsible(orderCriteria) {
@@ -176,8 +172,7 @@ export default class AnswersPage extends Component {
                         background={'FFFFFF'}
                         iconLeft={'arrow-left'}
                         textCenter={otherUser ? strings.topNavBarText.replace('%username%', otherUser.username) : ''}
-                        textSize={'small'}
-                        onLeftLinkClickHandler={this.topNavBarLeftLinkClick}/>
+                        textSize={'small'}/>
                     <div className="other-user-answers-view-wrapper">
                         <div className='other-user-answer-questions-wrapper'>
                             {otherUserQuestions && userQuestions && otherNotAnsweredQuestions ?

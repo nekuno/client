@@ -4,9 +4,7 @@ import translate from '../../i18n/Translate';
 import TopNavBar from '../../components/TopNavBar/TopNavBar.js';
 import '../../../scss/pages/other-user/proposals.scss';
 import SelectCollapsible from "../../components/ui/SelectCollapsible/SelectCollapsible";
-import {action} from "@storybook/addon-actions";
 import OtherUserProposalCard from "../../components/ui/OtherUserProposalCard/OtherUserProposalCard";
-import BottomNavBar from "../../components/BottomNavBar/BottomNavBar";
 import connectToStores from "../../utils/connectToStores";
 import AuthenticatedComponent from "../../components/AuthenticatedComponent";
 import UserStore from "../../stores/UserStore";
@@ -63,18 +61,12 @@ export default class ProposalsPage extends Component {
     constructor(props) {
         super(props);
 
-        this.topNavBarLeftLinkClick = this.topNavBarLeftLinkClick.bind(this);
         this.handleClickOtherUserProposalCard = this.handleClickOtherUserProposalCard.bind(this);
-
         this.onClickSelectCollapsible = this.onClickSelectCollapsible.bind(this);
     }
 
     componentDidMount() {
         window.setTimeout(() => requestData(this.props), 0);
-    }
-
-    topNavBarLeftLinkClick() {
-        // this.context.router.push('/proposals-experience-availability');
     }
 
     handleClickOtherUserProposalCard() {
@@ -112,14 +104,15 @@ export default class ProposalsPage extends Component {
                         background={'FFFFFF'}
                         iconLeft={'arrow-left'}
                         textCenter={otherUser ? strings.topNavBarText.replace('%username%', otherUser.username) : ''}
-                        textSize={'small'}
-                        onLeftLinkClickHandler={this.topNavBarLeftLinkClick}/>
+                        textSize={'small'}>
+                        <SelectCollapsible
+                            selected={'work'}
+                            options={options}
+                            onClickSelectCollapsible={this.onClickSelectCollapsible}/>
+                    </TopNavBar>
                     <div className="other-user-proposals-view-wrapper">
                         <div className="select-collapsible-wrapper">
-                            <SelectCollapsible
-                                selected={'work'}
-                                options={options}
-                                onClickSelectCollapsible={this.onClickSelectCollapsible}/>
+
                         </div>
                         {proposals ?
                             proposals.map((proposal, proposalIndex) =>

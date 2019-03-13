@@ -63,7 +63,6 @@ export default class AnswersPage extends Component {
     constructor(props) {
         super(props);
 
-        this.topNavBarLeftLinkClick = this.topNavBarLeftLinkClick.bind(this);
         this.onAnswerTest = this.onAnswerTest.bind(this);
         this.firstItems = this.firstItems.bind(this);
         this.onBottomScroll = this.onBottomScroll.bind(this);
@@ -71,10 +70,6 @@ export default class AnswersPage extends Component {
 
     componentDidMount() {
         requestData(this.props);
-    }
-
-    topNavBarLeftLinkClick() {
-
     }
 
     getQuestions() {
@@ -164,8 +159,7 @@ export default class AnswersPage extends Component {
                     background={'FFFFFF'}
                     iconLeft={'arrow-left'}
                     textCenter={strings.topNavBarText}
-                    textSize={'small'}
-                    onLeftLinkClickHandler={this.topNavBarLeftLinkClick}/>
+                    textSize={'small'}/>
                 <div id={"user-answers-view"} className={"user-answers-view-wrapper"}>
                     {userQuestions ?
                         <Scroll

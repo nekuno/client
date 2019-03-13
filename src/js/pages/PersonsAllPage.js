@@ -116,6 +116,7 @@ export default class PersonsAllPage extends Component {
     constructor(props) {
         super(props);
 
+        this.onLeftLinkClickHandler = this.onLeftLinkClickHandler.bind(this);
         this.handleSearch = this.handleSearch.bind(this);
         this.goToPersonsFilters = this.goToPersonsFilters.bind(this);
         this.onBottomScroll = this.onBottomScroll.bind(this);
@@ -140,6 +141,10 @@ export default class PersonsAllPage extends Component {
         if ((receivedThread || canRequestFirstInterests) && !isLoadingRecommendations && threadId) {
             ThreadActionCreators.requestRecommendations(threadId, recommendationUrl);
         }
+    }
+
+    onLeftLinkClickHandler() {
+        this.context.router.push(`/persons`);
     }
 
     handleSearch(value) {
@@ -199,7 +204,14 @@ export default class PersonsAllPage extends Component {
         return (
             <div className="views">
                 <div className="view view-main persons-all-view">
-                    <TopNavBar textCenter={strings.title} textSize={'small'} iconLeft={'arrow-left'} boxShadow={true} searchInput={true} onSearchChange={this.handleSearch}>
+                    <TopNavBar
+                        textCenter={strings.title}
+                        textSize={'small'}
+                        iconLeft={'arrow-left'}
+                        boxShadow={true}
+                        searchInput={true}
+                        onSearchChange={this.handleSearch}
+                        onLeftLinkClickHandler={this.onLeftLinkClickHandler}>
                         <SelectCollapsible options={orderOptions} selected={order} title={strings.orderedBy + ' ' + strings[order].toLowerCase()} onClickHandler={this.handleChangeOrder}/>
                     </TopNavBar>
                     <div id="scroll-wrapper" className="persons-all-wrapper">

@@ -498,7 +498,7 @@ export default class ProposalFeaturesPage extends Component {
 
         return (
             <div className="views">
-                <div className="view view-main proposals-leisure-features-view">
+                <div className="view view-main proposals-features-view">
                     <TopNavBar
                         background={'#FBFCFD'}
                         iconLeft={'arrow-left'}
@@ -507,7 +507,7 @@ export default class ProposalFeaturesPage extends Component {
                         textSize={'small'}
                         onLeftLinkClickHandler={this.topNavBarLeftLinkClick}
                         onRightLinkClickHandler={this.topNavBarRightLinkClick}/>
-                    <div className="proposals-leisure-features-wrapper">
+                    <div className="proposals-features-wrapper">
                         <h2>{strings.title}</h2>
                         <div className={'warning-container'}>
                             <div className={'warning-icon-container'}>

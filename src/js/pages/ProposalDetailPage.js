@@ -13,6 +13,7 @@ import ProfileStore from "../stores/ProfileStore";
 import TagSuggestionsStore from "../stores/TagSuggestionsStore";
 import RoundedImage from "../components/ui/RoundedImage/RoundedImage";
 import ChatUserStatusStore from "../stores/ChatUserStatusStore";
+import ChatActionCreators from "../actions/ChatActionCreators";
 
 /**
  * Requests data from server for current props.
@@ -29,7 +30,6 @@ function getState(props) {
     const industryChoices = metadata && metadata.industry ? metadata.industry.choices : [];
 
     const onlineUserIds = ChatUserStatusStore.getOnlineUserIds() || [];
-
 
     return {
         proposal,
@@ -129,9 +129,12 @@ export default class ProposalDetailPage extends Component {
 
     render() {
         const {params, user, strings, proposal, industryChoices, onlineUserIds} = this.props;
+
+        console.log(proposal);
+
         return (
             proposal ?
-                <div className="proposal-detail-view">
+                <div className="other-user-proposal-detail-view">
                     <TopNavBar
                         position={'absolute'}
                         background={'transparent'}
@@ -139,7 +142,7 @@ export default class ProposalDetailPage extends Component {
                         textSize={'small'}
                         onLeftLinkClickHandler={this.topNavBarLeftLinkClick}
                         onRightLinkClickHandler={this.topNavBarRightLinkClick}/>
-                    <div className="proposals-project-preview-wrapper">
+                    <div className="other-user-proposal-detail-wrapper">
                         <div className={"proposal-floating-icon-container"}>
                             {this.renderFloatingIcon()}
                         </div>
@@ -155,30 +158,13 @@ export default class ProposalDetailPage extends Component {
                                     <div className={'view-all'} onClick={this.viewAllMatchesClick}>{strings.viewAll}</div>
                                 </div>
                                 <div className={'proposal-users-match-body'}>
-                                    <div className={'proposal-users-image'}>
-                                        <RoundedImage url={'https://dummyimage.com/50x50/000/fff'} size={'x-small'}/>
-                                        <div className={"status online"}></div>
-                                    </div>
-                                    <div className={'proposal-users-image'}>
-                                        <RoundedImage url={'https://dummyimage.com/50x50/000/fff'} size={'x-small'}/>
-                                        <div className={"status offline"}></div>
-                                    </div>
-                                    <div className={'proposal-users-image'}>
-                                        <RoundedImage url={'https://dummyimage.com/50x50/000/fff'} size={'x-small'}/>
-                                        <div className={"status offline"}></div>
-                                    </div>
-                                    <div className={'proposal-users-image'}>
-                                        <RoundedImage url={'https://dummyimage.com/50x50/000/fff'} size={'x-small'}/>
-                                        <div className={"status offline"}></div>
-                                    </div>
-                                    <div className={'proposal-users-image'}>
-                                        <RoundedImage url={'https://dummyimage.com/50x50/000/fff'} size={'x-small'}/>
-                                        <div className={"status online"}></div>
-                                    </div>
-                                    <div className={'proposal-users-image'}>
-                                        <RoundedImage url={'https://dummyimage.com/50x50/000/fff'} size={'x-small'}/>
-                                        <div className={"status offline"}></div>
-                                    </div>
+                                    {console.log(onlineUserIds)}
+                                    {proposal.matches.map((item, index) =>
+                                        <div key={index} className={'proposal-users-image'}>
+                                            <RoundedImage url={item.photo.thumbnail.small} size={'x-small'}/>
+                                            <div className={"status " + onlineUserIds.find(x => x === item.id) ? 'online' : 'offline'}></div>
+                                        </div>
+                                    )}
                                 </div>
                             </div>
 

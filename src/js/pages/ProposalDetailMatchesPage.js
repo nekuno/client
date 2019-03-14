@@ -3,24 +3,17 @@ import React, { Component } from 'react';
 import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
-import BottomNavBar from '../components/BottomNavBar/BottomNavBar.js';
 import TopNavBar from '../components/TopNavBar/TopNavBar.js';
-import OwnProposalCard from '../components/Proposal/OwnProposalCard/OwnProposalCard.js';
-import WorkersStore from '../stores/WorkersStore';
 import '../../scss/pages/proposal-detail.scss';
-import CarouselContinuous from "../components/ui/CarouselContinuous/CarouselContinuous";
 import ProposalStore from "../stores/ProposalStore";
-import * as UserActionCreators from "../actions/UserActionCreators";
-import * as QuestionActionCreators from "../actions/QuestionActionCreators";
 import * as ProposalActionCreators from "../actions/ProposalActionCreators";
-import RoundedIcon from "../components/ui/RoundedIcon/RoundedIcon";
-import ProposalFilterPreview from "../components/ui/ProposalFilterPreview/ProposalFilterPreview";
 import ProfileStore from "../stores/ProfileStore";
 import TagSuggestionsStore from "../stores/TagSuggestionsStore";
-import RouterActionCreators from "../actions/RouterActionCreators";
-import RoundedImage from "../components/ui/RoundedImage/RoundedImage";
 import SelectCollapsible from "../components/ui/SelectCollapsible/SelectCollapsible";
-import SelectCollapsibleInterest from "../components/ui/SelectCollapsibleInterest/SelectCollapsibleInterest";
+import InfiniteScroll from "../components/Scroll/InfiniteScroll";
+import CardUser from "../components/OtherUser/CardUser/CardUser";
+import * as ThreadActionCreators from "../actions/ThreadActionCreators";
+import ThreadStore from "../stores/ThreadStore";
 
 /**
  * Requests data from server for current props.
@@ -36,17 +29,22 @@ function getState(props) {
     const metadata = ProfileStore.getMetadata();
     const industryChoices = metadata && metadata.industry ? metadata.industry.choices : [];
 
+    const isLoadingThread = ThreadStore.isRequesting();
+
+
     return {
         proposal,
         industryChoices,
+        isLoadingThread,
     };
 }
 
 @AuthenticatedComponent
 @translate('ProposalDetailMatchesPage')
-@connectToStores([ProposalStore, ProfileStore, TagSuggestionsStore], getState)
+@connectToStores([ProposalStore, ProfileStore, TagSuggestionsStore, ThreadStore], getState)
 export default class ProposalDetailMatchesPage extends Component {
 
+    0
     static propTypes = {
         params           : PropTypes.shape({
             proposalId: PropTypes.string.isRequired
@@ -69,6 +67,9 @@ export default class ProposalDetailMatchesPage extends Component {
         super(props);
 
         this.topNavBarLeftLinkClick = this.topNavBarLeftLinkClick.bind(this);
+        this.handleSearch = this.handleSearch.bind(this);
+        this.onBottomScroll = this.onBottomScroll.bind(this);
+        this.onResize = this.onResize.bind(this);
     }
 
     static contextTypes = {
@@ -79,22 +80,44 @@ export default class ProposalDetailMatchesPage extends Component {
         requestData(this.props);
     }
 
-    removeProposalClick() {
-        // remove proposal
-    }
-
-    handleContinueClick() {
-        // Go edit proposal
-    }
-
     topNavBarLeftLinkClick() {
         const {params} = this.props;
 
         this.context.router.push(`/proposal/` + params.proposalId);
     }
 
+    handleSearch(value) {
+        // TODO: Call endpoint for filtering users by name
+    }
+
+    handleChangeOrder(order) {
+        // TODO: Call endpoint for new order
+    }
+
+    onBottomScroll() {
+        const {thread, recommendationUrl, isLoadingRecommendations, isLoadingThread, isInitialRequest} = this.props;
+        const threadId = parseThreadId(thread);
+        if (threadId && recommendationUrl && !isInitialRequest && !isLoadingRecommendations && !isLoadingThread) {
+            return ThreadActionCreators.requestRecommendations(threadId, recommendationUrl);
+        } else {
+            return Promise.resolve();
+        }
+    }
+
+    getItemHeight = function() {
+        const iW = window.innerWidth;
+        const photoHeight = iW >= 480 ? 230.39 : iW / 2 - 4 * iW / 100;
+        const bottomHeight = 137;
+
+        return photoHeight + bottomHeight;
+    };
+
+    onResize() {
+        this.setState({itemHeight: this.getItemHeight()});
+    }
+
     render() {
-        const {params, user, strings, proposal} = this.props;
+        const {params, user, strings, proposal, isLoadingThread} = this.props;
 
         const orderOptions = [
             {
@@ -111,24 +134,49 @@ export default class ProposalDetailMatchesPage extends Component {
             }
         ];
 
+        console.log(proposal);
+
         return (
-            proposal ?
-                <div className="proposal-detail-view">
+            <div className="views">
+                <div className="view view-main persons-all-view">
                     <TopNavBar
+                        textCenter={strings.title}
+                        textSize={'small'}
                         iconLeft={'arrow-left'}
                         boxShadow={true}
                         searchInput={true}
-                        textSize={'small'}
-                        onLeftLinkClickHandler={this.topNavBarLeftLinkClick}
-                        textCenter={strings.topNavBarText}
-                        onSearchChange={this.handleSearch}>
-                        <SelectCollapsible options={orderOptions} selected={'compatibility'} title={strings.orderedBy}/>
+                        onSearchChange={this.handleSearch}
+                        onLeftLinkClickHandler={this.onLeftLinkClickHandler}>
+                        <SelectCollapsible options={orderOptions} selected={'compatibility'} title={strings.orderedBy + ' ' + 'compatibility'} onClickHandler={this.handleChangeOrder}/>
                     </TopNavBar>
-                    <div className="proposals-project-preview-wrapper">
+                    <div id="scroll-wrapper" className="persons-all-wrapper">
+                        <div id="persons" className="persons">
+                            {proposal && proposal.matches && proposal.matches.length > 0 ?
+                                <InfiniteScroll
+                                    items={proposal.matches.map((item, index) =>
+                                        <div key={index} className="person">
+                                            <CardUser {...item} size="small"/>
+                                        </div>
+                                    )}
+                                    itemHeight={this.getItemHeight()}
+                                    onResize={this.onResize}
+                                    columns={2}
+                                    onInfiniteLoad={this.onBottomScroll}
+                                    containerId="scroll-wrapper"
+                                    loading={isLoadingThread}
+                                />
+                                : null
+                            }
 
+                        </div>
                     </div>
+                    {/*<div className="filters-button">*/}
+                        {/*<div className="filters-button-fixed">*/}
+                            {/*<RoundedIcon icon={'filter'} size={'large'} background={'#928BFF'} fontSize={'35px'} onClickHandler={this.goToPersonsFilters}/>*/}
+                        {/*</div>*/}
+                    {/*</div>*/}
                 </div>
-                : null
+            </div>
         );
     }
 

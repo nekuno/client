@@ -8,13 +8,11 @@ import StepsBar from "../../../components/ui/StepsBar/StepsBar";
 import CreatingProposalStore from '../../../stores/CreatingProposalStore';
 import * as ProposalActionCreators from "../../../actions/ProposalActionCreators";
 import ProposalStore from "../../../stores/ProposalStore";
-import '../../../../scss/pages/proposals/edit/features-page.scss';
+import '../../../../scss/pages/proposals/edit/preview-page.scss';
 import RoundedIcon from "../../../components/ui/RoundedIcon/RoundedIcon";
 import FilterStore from "../../../stores/FilterStore";
 import ProposalFilterPreview from "../../../components/ui/ProposalFilterPreview/ProposalFilterPreview";
 import ProfileStore from "../../../stores/ProfileStore";
-import * as TagSuggestionsActionCreators from "../../../actions/TagSuggestionsActionCreators";
-import TagSuggestionsStore from "../../../stores/TagSuggestionsStore";
 
 /**
  * Requests data from server (or store) for current props.

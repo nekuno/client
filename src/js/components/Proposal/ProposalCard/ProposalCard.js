@@ -61,7 +61,6 @@ export default class ProposalCard extends Component {
         const proposalPhoto = fields.photo !== '' ? fields.photo : 'img/default-upload-image.png';
         const {username, location, age, photo, matching, similarity} = user;
         const locality = location && location.hasOwnProperty('locality') ? location.locality : '';
-        const {icon, background} = this.getVisualByType(type);
 
         return (
             <div className={styles.proposalCard} onClick={this.handleClick.bind(this)}>

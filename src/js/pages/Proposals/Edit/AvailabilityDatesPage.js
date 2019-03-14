@@ -7,7 +7,7 @@ import TopNavBar from '../../../components/TopNavBar/TopNavBar.js';
 import CreatingProposalStore from '../../../stores/CreatingProposalStore';
 import * as ProposalActionCreators from "../../../actions/ProposalActionCreators";
 import ProposalStore from "../../../stores/ProposalStore";
-import '../../../../scss/pages/proposals/edit/type-page.scss';
+import '../../../../scss/pages/proposals/edit/availability-dates.scss';
 import LocaleStore from "../../../stores/LocaleStore";
 import AvailabilityEdit from "../../../components/Availability/AvailabilityEdit/AvailabilityEdit";
 import {
@@ -202,7 +202,7 @@ export default class ProposalAvailabilityDatesEditPage extends Component {
 
         return (
             <div className="views">
-                <div className="view view-main proposals-project-availability-dates-view">
+                <div className="view view-main proposals-availability-dates-view">
                     {this.state.showUI &&
                     <TopNavBar
                         background={canContinue ? this.getHexadecimalColor() : 'transparent'}

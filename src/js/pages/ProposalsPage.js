@@ -58,6 +58,7 @@ export default class ProposalsPage extends Component {
 
         ProposalActionCreators.cleanCreatingProposal();
 
+        this.onLeftLinkClickHandler = this.onLeftLinkClickHandler.bind(this);
         this.goToEditAvailability = this.goToEditAvailability.bind(this);
 
         this.state = {
@@ -67,6 +68,10 @@ export default class ProposalsPage extends Component {
 
     componentDidMount() {
         requestData(this.props);
+    }
+
+    onLeftLinkClickHandler() {
+        this.context.router.push(`/about-me`);
     }
 
     goToEditAvailability() {
@@ -81,7 +86,7 @@ export default class ProposalsPage extends Component {
         return (
             <div className="views">
                 <div className="view view-main proposals-view">
-                    <TopNavBar textCenter={strings.discover} imageLeft={imgSrc} firstIconRight={'clock'} onRightLinkClickHandler={this.goToEditAvailability} boxShadow={true} iconsRightColor={'#756EE5'}/>
+                    <TopNavBar textCenter={strings.discover} imageLeft={imgSrc} firstIconRight={'clock'} onRightLinkClickHandler={this.goToEditAvailability} boxShadow={true} iconsRightColor={'#756EE5'} onLeftLinkClickHandler={this.onLeftLinkClickHandler}/>
                     <ProposalRecommendationList recommendations={recommendations}/>
                     <BottomNotificationBar/>
                     <BottomNavBar current={'proposals'} notifications={notifications}/>

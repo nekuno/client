@@ -146,11 +146,16 @@ export default class PersonsPage extends Component {
     constructor(props) {
         super(props);
 
+        this.onLeftLinkClickHandler = this.onLeftLinkClickHandler.bind(this);
         this.viewAll = this.viewAll.bind(this);
     }
 
     componentDidMount(props) {
         requestData(props);
+    }
+
+    onLeftLinkClickHandler() {
+        this.context.router.push(`/about-me`);
     }
 
     viewAll() {
@@ -174,7 +179,7 @@ export default class PersonsPage extends Component {
         return (
             <div className="views">
                 <div className="view view-main persons-view">
-                    <TopNavBar textCenter={strings.relatedPeople} imageLeft={imgSrc} boxShadow={true}/>
+                    <TopNavBar textCenter={strings.relatedPeople} imageLeft={imgSrc} boxShadow={true} onLeftLinkClickHandler={this.onLeftLinkClickHandler}/>
                     <div className="persons-wrapper">
                         <h1>{strings.closestPeople}</h1>
                         <div className="view-all" onClick={this.viewAll}>{strings.viewAll}</div>

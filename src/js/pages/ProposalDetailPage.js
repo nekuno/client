@@ -61,6 +61,7 @@ export default class ProposalDetailPage extends Component {
     constructor(props) {
         super(props);
 
+        this.topNavBarLeftLinkClick = this.topNavBarLeftLinkClick.bind(this);
         this.removeProposalClick = this.removeProposalClick.bind(this);
         this.viewAllMatchesClick = this.viewAllMatchesClick.bind(this);
     }
@@ -79,6 +80,10 @@ export default class ProposalDetailPage extends Component {
 
     handleContinueClick() {
         // TODO: Go edit proposal
+    }
+
+    topNavBarLeftLinkClick() {
+        
     }
 
     viewAllMatchesClick() {

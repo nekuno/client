@@ -14,10 +14,26 @@ export default class CandidateCard extends Component {
         onClickHandler: PropTypes.func
     };
 
+    static contextTypes = {
+        router: PropTypes.object.isRequired
+    };
+
+    constructor(props) {
+        super(props);
+
+        this.handleClick = this.handleClick.bind(this);
+    }
+
     handleClick() {
+        const {user} = this.props;
+        const {slug} = user;
+
         if (this.props.onClickHandler) {
             this.props.onClickHandler();
         }
+        const userLink = '/p/' + slug;
+
+        this.context.router.push(userLink);
     }
 
     renderProposalIcon(proposal) {

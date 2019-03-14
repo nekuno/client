@@ -15,10 +15,26 @@ export default class ProposalCard extends Component {
         onClickHandler: PropTypes.func
     };
 
+    static contextTypes = {
+        router: PropTypes.object.isRequired
+    };
+
+    constructor(props) {
+        super(props);
+
+        this.handleClick = this.handleClick.bind(this);
+    }
+
     handleClick() {
+        const {proposal} = this.props;
+        const {id} = proposal;
+
         if (this.props.onClickHandler) {
             this.props.onClickHandler();
         }
+        const userLink = '/proposals/' + id;
+
+        this.context.router.push(userLink);
     }
 
     renderProposalIcon(proposal) {

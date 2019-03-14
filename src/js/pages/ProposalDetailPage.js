@@ -20,11 +20,12 @@ import ChatActionCreators from "../actions/ChatActionCreators";
  */
 function requestData(props) {
     ProposalActionCreators.requestOwnProposals();
+    ProposalActionCreators.requestRecommendations();
 }
 
 function getState(props) {
     const proposalId = props.params.proposalId;
-    const proposal = ProposalStore.getOwnProposal(proposalId);
+    const proposal = ProposalStore.getOwnProposal(proposalId) ? ProposalStore.getOwnProposal(proposalId) : ProposalStore.getAnyById(proposalId);
 
     const metadata = ProfileStore.getMetadata();
     const industryChoices = metadata && metadata.industry ? metadata.industry.choices : [];
@@ -130,8 +131,6 @@ export default class ProposalDetailPage extends Component {
     render() {
         const {params, user, strings, proposal, industryChoices, onlineUserIds} = this.props;
 
-        console.log(proposal);
-
         return (
             proposal ?
                 <div className="other-user-proposal-detail-view">
@@ -158,7 +157,6 @@ export default class ProposalDetailPage extends Component {
                                     <div className={'view-all'} onClick={this.viewAllMatchesClick}>{strings.viewAll}</div>
                                 </div>
                                 <div className={'proposal-users-match-body'}>
-                                    {console.log(onlineUserIds)}
                                     {proposal.matches.map((item, index) =>
                                         <div key={index} className={'proposal-users-image'}>
                                             <RoundedImage url={item.photo.thumbnail.small} size={'x-small'}/>

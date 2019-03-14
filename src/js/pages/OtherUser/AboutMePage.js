@@ -75,7 +75,7 @@ function getState(props) {
 }
 
 @translate('OtherUserAboutMePage')
-@connectToStores([UserStore, MatchingStore, SimilarityStore, ProfileStore, GalleryPhotoStore, NaturalCategoryStore], getState)
+@connectToStores([UserStore, MatchingStore, SimilarityStore, ProfileStore, GalleryPhotoStore, NaturalCategoryStore, LikeStore], getState)
 export default class AboutMePage extends Component {
 
     static propTypes = {

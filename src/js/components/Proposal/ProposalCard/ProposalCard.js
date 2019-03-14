@@ -32,7 +32,7 @@ export default class ProposalCard extends Component {
         if (this.props.onClickHandler) {
             this.props.onClickHandler();
         }
-        const userLink = '/proposals/' + id;
+        const userLink = '/proposal/' + id;
 
         this.context.router.push(userLink);
     }

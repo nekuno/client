@@ -57,7 +57,7 @@ class LikeStore extends BaseStore {
 
     get(userSlug1, userSlug2) {
         const like = this._likes.find(like => like.from == userSlug1 && like.to == userSlug2) || {value: 0};
-        return like.value;
+        return like.value === 1;
     }
 
     merge(userSlug1, userSlug2, value) {

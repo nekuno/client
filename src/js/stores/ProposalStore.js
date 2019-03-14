@@ -34,7 +34,9 @@ class ProposalStore extends BaseStore {
                 break;
             case ActionTypes.REQUEST_USER_SUCCESS:
                 const responseUsers = action.response.entities.users;
-                const user = Object.keys(responseUsers).map((key) => {return responseUsers[key]})[0];
+                const user = Object.keys(responseUsers).map((key) => {
+                    return responseUsers[key]
+                })[0];
                 const userSlug = user.slug;
                 proposals = user.proposals || [];
                 proposals.forEach(proposal => {
@@ -67,6 +69,17 @@ class ProposalStore extends BaseStore {
                 this._otherProposals[action.slug] = this.orderBy(action.orderCriteria, this._otherProposals[action.slug]);
                 this.emitChange();
                 break;
+            case ActionTypes.REQUEST_PROPOSAL_RECOMMENDATIONS_SUCCESS:
+                const recommendations = action.response;
+
+                recommendations.forEach((element) => {
+                    const proposal = element.proposal;
+                    const slug = element.owner ? element.owner.slug : element.slug;
+                    this.addProposal(proposal, slug);
+                });
+
+                this.emitChange();
+                break;
             default:
                 break;
         }
@@ -88,13 +101,11 @@ class ProposalStore extends BaseStore {
         return this._otherProposals[userSlug];
     }
 
-    getAllOwn()
-    {
+    getAllOwn() {
         return this._ownProposals;
     }
 
-    getOwnProposal(id)
-    {
+    getOwnProposal(id) {
         let myProposal = null;
         this._ownProposals.forEach(proposal => {
             if (proposal.id === parseInt(id)) {
@@ -102,6 +113,23 @@ class ProposalStore extends BaseStore {
             }
         });
         return myProposal;
+    }
+
+    getAnyById(proposalId) {
+        let proposal = this.getOwnProposal(proposalId);
+
+        if (proposal) {
+            return proposal;
+        }
+
+        Object.keys(this._otherProposals).forEach((key) => {
+            const proposals = this._otherProposals[key];
+            if (proposals.find(proposal => proposal && proposal.id == proposalId)) {
+                proposal = proposals.find(proposal => proposal && proposal.id == proposalId);
+            }
+        });
+
+        return proposal;
     }
 
     isRequesting() {
@@ -128,8 +156,7 @@ class ProposalStore extends BaseStore {
         });
     }
 
-    _removeOwnProposal(proposalId)
-    {
+    _removeOwnProposal(proposalId) {
         this._otherProposals.forEach((proposal, index) => {
             if (proposal.id == proposalId) {
                 this._otherProposals.splice(index, 1);
@@ -137,8 +164,7 @@ class ProposalStore extends BaseStore {
         });
     }
 
-    addProposal(proposal, userSlug)
-    {
+    addProposal(proposal, userSlug) {
         this._initialize(userSlug);
         this._otherProposals[userSlug].push(proposal);
         this.sort(userSlug);
@@ -155,12 +181,12 @@ class ProposalStore extends BaseStore {
 
     orderBy(orderCriteria, proposals) {
         let proposalsWithOrderCriteria = [];
-        proposals.forEach(function (item, key) {
+        proposals.forEach(function(item, key) {
             if (item.type === orderCriteria) {
                 proposalsWithOrderCriteria.push(item);
             }
         });
-        proposals.forEach(function (item, key) {
+        proposals.forEach(function(item, key) {
             if (item.type !== orderCriteria) {
                 proposalsWithOrderCriteria.push(item);
             }
@@ -168,13 +194,11 @@ class ProposalStore extends BaseStore {
         return proposalsWithOrderCriteria;
     }
 
-    _compareTwoProposals(proposalA, proposalB)
-    {
+    _compareTwoProposals(proposalA, proposalB) {
         return proposalA.matches - proposalB.matches;
     }
 
-    _initialize(userSlug)
-    {
+    _initialize(userSlug) {
         this._otherProposals[userSlug] = this._otherProposals[userSlug] || [];
     }
 }

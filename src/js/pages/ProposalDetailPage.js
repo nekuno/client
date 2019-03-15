@@ -14,6 +14,7 @@ import TagSuggestionsStore from "../stores/TagSuggestionsStore";
 import RoundedImage from "../components/ui/RoundedImage/RoundedImage";
 import ChatUserStatusStore from "../stores/ChatUserStatusStore";
 import ChatActionCreators from "../actions/ChatActionCreators";
+import CreatingProposalStore from "../stores/CreatingProposalStore";
 
 /**
  * Requests data from server for current props.
@@ -31,10 +32,28 @@ function getState(props) {
 
     const onlineUserIds = ChatUserStatusStore.getOnlineUserIds() || [];
 
+    let experienceOptions = null;
+    if (proposal) {
+        switch (proposal.type) {
+            case 'shows':
+                experienceOptions = metadata && metadata.shows ? metadata.shows.choices : [];
+                break;
+            case 'restaurants':
+                experienceOptions = metadata && metadata.restaurants ? metadata.restaurants.choices : [];
+                break;
+            case 'plans':
+                experienceOptions = metadata && metadata.plans ? metadata.plans.choices : [];
+                break;
+            default:
+                break;
+        }
+    }
+
     return {
         proposal,
         industrySectorChoices,
         onlineUserIds,
+        experienceOptions,
     };
 }
 
@@ -55,6 +74,7 @@ export default class ProposalDetailPage extends Component {
         proposal    : PropTypes.object,
         industrySectorChoices: PropTypes.array,
         onlineUserIds : PropTypes.array,
+        experienceOptions : PropTypes.array,
     };
 
     constructor(props) {
@@ -134,7 +154,10 @@ export default class ProposalDetailPage extends Component {
     }
 
     render() {
-        const {params, user, strings, proposal, industrySectorChoices, onlineUserIds} = this.props;
+        const {params, user, strings, proposal, industrySectorChoices, onlineUserIds, experienceOptions} = this.props;
+
+        console.log(proposal);
+        console.log(experienceOptions);
 
 
         const dailyWeekdayOptions = {
@@ -198,7 +221,7 @@ export default class ProposalDetailPage extends Component {
                             <p className={'category'}>{strings.project}</p>
                             <p>{proposal.fields.description}</p>
 
-                            {proposal.fields.industry !== null && industrySectorChoices !== null ?
+                            {proposal.fields.industry && industrySectorChoices !== null ?
                                 <div className={'information-wrapper'}>
                                     <div className={'rounded-icon-wrapper'}>
                                         <RoundedIcon
@@ -219,6 +242,7 @@ export default class ProposalDetailPage extends Component {
                                 </div>
                                 : null
                             }
+
                             {proposal.fields.profession ?
                                 <div className={'information-wrapper'}>
                                     <div className={'rounded-icon-wrapper'}>
@@ -240,6 +264,7 @@ export default class ProposalDetailPage extends Component {
                                 </div>
                                 : null
                             }
+
 
 
                             {proposal.fields.sports ?
@@ -324,7 +349,9 @@ export default class ProposalDetailPage extends Component {
                                         <div className={'title small'}>{strings.shows}</div>
                                         {proposal.fields.shows.map((item, index) =>
                                             <div className={'small'} key={index}>
-                                                {item}
+                                                {experienceOptions.length > 0 ?
+                                                    experienceOptions.find(x => x.id === item.value).text
+                                                    : null}
                                             </div>
                                         )}
                                     </div>
@@ -346,7 +373,9 @@ export default class ProposalDetailPage extends Component {
                                         <div className={'title small'}>{strings.restaurants}</div>
                                         {proposal.fields.restaurants.map((item, index) =>
                                             <div className={'small'} key={index}>
-                                                {item.value}
+                                                {experienceOptions.length > 0 ?
+                                                    experienceOptions.find(x => x.id === item.value).text
+                                                    : null}
                                             </div>
                                         )}
                                     </div>
@@ -368,7 +397,9 @@ export default class ProposalDetailPage extends Component {
                                         <div className={'title small'}>{strings.plans}</div>
                                         {proposal.fields.plans.map((item, index) =>
                                             <div className={'small'} key={index}>
-                                                {item}
+                                                {experienceOptions.length > 0 ?
+                                                    experienceOptions.find(x => x.id === item.value).text
+                                                    : null}
                                             </div>
                                         )}
                                     </div>
@@ -417,10 +448,6 @@ export default class ProposalDetailPage extends Component {
                                 </div>
                             </div>
 
-
-
-
-                            {proposal.fields.participantLimit ?
                             <div className={'information-wrapper'}>
                                 <div className={'rounded-icon-wrapper'}>
                                     <RoundedIcon
@@ -435,8 +462,6 @@ export default class ProposalDetailPage extends Component {
                                     <div className={'resume small'}>{proposal.fields.participantLimit} {strings.people}</div>
                                 </div>
                             </div>
-                                : null
-                            }
                             {proposal.filters ?
                                 <ProposalFilterPreview proposalFilters={proposal.filters.userFilters}/>
                                 : null

@@ -13,6 +13,7 @@ import RoundedIcon from "../../../components/ui/RoundedIcon/RoundedIcon";
 import FilterStore from "../../../stores/FilterStore";
 import ProposalFilterPreview from "../../../components/ui/ProposalFilterPreview/ProposalFilterPreview";
 import ProfileStore from "../../../stores/ProfileStore";
+import TagSuggestionsStore from "../../../stores/TagSuggestionsStore";
 
 /**
  * Requests data from server (or store) for current props.
@@ -30,10 +31,26 @@ function getState() {
     const metadata = ProfileStore.getMetadata();
     const industrySectorChoices = metadata && metadata.industry ? metadata.industry.choices : null;
 
+    let experienceOptions = null;
+    switch (CreatingProposalStore.proposal.type) {
+        case 'shows':
+            experienceOptions = metadata && metadata.shows ? metadata.shows.choices : [];
+            break;
+        case 'restaurants':
+            experienceOptions = metadata && metadata.restaurants ? metadata.restaurants.choices : [];
+            break;
+        case 'plans':
+            experienceOptions = metadata && metadata.plans ? metadata.plans.choices : [];
+            break;
+        default:
+            break;
+    }
+
 
     return {
         proposal,
         industrySectorChoices,
+        experienceOptions,
     };
 }
 
@@ -53,6 +70,8 @@ export default class ProposalPreviewPage extends Component {
         // Injected by @connectToStores:
         proposal    : PropTypes.object,
         industrySectorChoices: PropTypes.array,
+        experienceOptions : PropTypes.array,
+
     };
 
     static contextTypes = {
@@ -215,7 +234,10 @@ export default class ProposalPreviewPage extends Component {
     }
 
     render() {
-        const {strings, proposal, industrySectorChoices} = this.props;
+        const {strings, proposal, industrySectorChoices, experienceOptions} = this.props;
+
+        console.log(proposal);
+        console.log(experienceOptions);
 
         const dailyWeekdayOptions = {
             Monday   : strings.monday,
@@ -390,7 +412,7 @@ export default class ProposalPreviewPage extends Component {
                                             <div className={'title small'}>{strings.shows}</div>
                                             {proposal.fields.shows.map((item, index) =>
                                                 <div className={'small'} key={index}>
-                                                    {item}
+                                                    {experienceOptions.find(x => x.id === item).text}
                                                 </div>
                                             )}
                                         </div>
@@ -412,7 +434,7 @@ export default class ProposalPreviewPage extends Component {
                                             <div className={'title small'}>{strings.restaurants}</div>
                                             {proposal.fields.restaurants.map((item, index) =>
                                                 <div className={'small'} key={index}>
-                                                    {item.value}
+                                                    {experienceOptions.find(x => x.id === item).text}
                                                 </div>
                                             )}
                                         </div>
@@ -434,7 +456,7 @@ export default class ProposalPreviewPage extends Component {
                                             <div className={'title small'}>{strings.plans}</div>
                                             {proposal.fields.plans.map((item, index) =>
                                                 <div className={'small'} key={index}>
-                                                    {item}
+                                                    {experienceOptions.find(x => x.id === item).text}
                                                 </div>
                                             )}
                                         </div>

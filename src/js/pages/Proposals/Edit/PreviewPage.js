@@ -62,6 +62,10 @@ export default class ProposalPreviewPage extends Component {
     constructor(props) {
         super(props);
 
+        this.state = {
+            loading : false,
+        };
+
         // this.topNavBarRightLinkClick = this.topNavBarRightLinkClick.bind(this);
         this.topNavBarLeftLinkClick = this.topNavBarLeftLinkClick.bind(this);
         this.handleStepsBarClick = this.handleStepsBarClick.bind(this);
@@ -95,23 +99,25 @@ export default class ProposalPreviewPage extends Component {
 
     handleStepsBarClick() {
         const {params} = this.props;
-
-        if (params.proposalId) {
-            ProposalActionCreators.updateProposal(CreatingProposalStore.proposal.id, CreatingProposalStore.proposal)
-                .then(() => {
-                    ProposalActionCreators.cleanCreatingProposal();
-                    this.context.router.push('/proposals');
-                }, () => {
-                    // TODO: Handle error
-                });
-        } else {
-            ProposalActionCreators.createProposal(CreatingProposalStore.proposal)
-                .then(() => {
-                    ProposalActionCreators.cleanCreatingProposal();
-                    this.context.router.push('/proposals');
-                }, () => {
-                    // TODO: Handle error
-                });
+        if (!this.state.loading) {
+            this.setState({loading: true});
+            if (params.proposalId) {
+                ProposalActionCreators.updateProposal(CreatingProposalStore.proposal.id, CreatingProposalStore.proposal)
+                    .then(() => {
+                        ProposalActionCreators.cleanCreatingProposal();
+                        this.context.router.push('/proposals');
+                    }, () => {
+                        this.setState({loading: false});
+                    });
+            } else {
+                ProposalActionCreators.createProposal(CreatingProposalStore.proposal)
+                    .then(() => {
+                        ProposalActionCreators.cleanCreatingProposal();
+                        this.context.router.push('/proposals');
+                    }, () => {
+                        this.setState({loading: false});
+                    });
+            }
         }
     }
 
@@ -235,7 +241,7 @@ export default class ProposalPreviewPage extends Component {
 
         return (
             <div className="views">
-                <div className="view view-main proposal-preview-view">
+                <div className="view view-main proposals-preview-view">
                     <TopNavBar
                         position={'absolute'}
                         background={'transparent'}
@@ -243,7 +249,7 @@ export default class ProposalPreviewPage extends Component {
                         textSize={'small'}
                         onLeftLinkClickHandler={this.topNavBarLeftLinkClick}/>
                     {proposal ?
-                        <div className="proposal-preview-wrapper">
+                        <div className="proposals-preview-wrapper">
 
                             <div className={"proposal-floating-icon-container"}>
                                 {this.renderFloatingIcon()}
@@ -299,17 +305,6 @@ export default class ProposalPreviewPage extends Component {
                                 </div>
                                     : null
                                 }
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -381,16 +376,6 @@ export default class ProposalPreviewPage extends Component {
 
 
 
-
-
-
-
-
-
-
-
-
-
                                 {proposal.fields.shows ?
                                     <div className={'information-wrapper'}>
                                         <div className={'rounded-icon-wrapper'}>
@@ -456,41 +441,6 @@ export default class ProposalPreviewPage extends Component {
                                     </div>
                                     : null
                                 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

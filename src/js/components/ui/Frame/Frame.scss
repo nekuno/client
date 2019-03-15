@@ -1,0 +1,27 @@
+@import '../../../../scss/_partials/colors';
+
+.frame {
+  background: #FFF;
+  color: #6C6F82;
+  display: inline-block;
+  font-size: 15px;
+  margin: 2.5%;
+  padding: 0;
+  width: 95%;
+
+  .title {
+    background: #E2E3E7;
+    color: #6C6F82;
+    height: 10px;
+    line-height: 10px;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .content {
+    width: 100%;
+  }
+}

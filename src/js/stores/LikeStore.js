@@ -2,6 +2,7 @@ import { waitFor } from '../dispatcher/Dispatcher';
 import UserStore from '../stores/UserStore';
 import ActionTypes from '../constants/ActionTypes';
 import BaseStore from './BaseStore';
+import LoginStore from "./LoginStore";
 
 class LikeStore extends BaseStore {
     setInitial() {
@@ -11,7 +12,8 @@ class LikeStore extends BaseStore {
     _registerToActions(action) {
         waitFor([UserStore.dispatchToken]);
         super._registerToActions(action);
-        const {from, to} = action;
+        let {from, to} = action;
+        let liked;
         switch (action.type) {
             case ActionTypes.LIKE_USER:
             case ActionTypes.UNLIKE_USER:
@@ -39,8 +41,15 @@ class LikeStore extends BaseStore {
                 this.emitChange();
                 break;
             case ActionTypes.REQUEST_LIKE_USER_SUCCESS:
-                const like = Object.keys(action.response).length === 0 ? 0 : 1;
-                this.merge(from, to, like);
+                liked = Object.keys(action.response).length === 0 ? 0 : 1;
+                this.merge(from, to, liked);
+                this.emitChange();
+                break;
+            case ActionTypes.REQUEST_OTHER_USER_SUCCESS:
+                from = LoginStore.user.slug;
+                to = action.slug;
+                liked = action.response.liked;
+                this.merge(from, to, liked);
                 this.emitChange();
                 break;
         }
@@ -48,7 +57,7 @@ class LikeStore extends BaseStore {
 
     get(userSlug1, userSlug2) {
         const like = this._likes.find(like => like.from == userSlug1 && like.to == userSlug2) || {value: 0};
-        return like.value;
+        return like.value === 1;
     }
 
     merge(userSlug1, userSlug2, value) {

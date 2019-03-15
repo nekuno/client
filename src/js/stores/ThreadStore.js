@@ -4,6 +4,7 @@ import BaseStore from './BaseStore';
 import UserStore from './UserStore';
 import RecommendationStore from './RecommendationStore';
 import { getValidationErrors } from '../utils/StoreUtils';
+import LoginStore from "./LoginStore";
 
 class ThreadStore extends BaseStore {
 
@@ -161,6 +162,12 @@ class ThreadStore extends BaseStore {
 
     sort() {
         this._threads = this._threads.sort((threadA, threadB) => threadA.updatedAt - threadB.updatedAt).reverse();
+    }
+
+    getOwnDefault() {
+        const ownThreads = this._threads;
+
+        return ownThreads === undefined ? null : ownThreads.find(thread => thread.default === true);
     }
 }
 

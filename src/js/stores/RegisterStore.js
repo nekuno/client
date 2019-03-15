@@ -60,10 +60,10 @@ class RegisterStore extends BaseStore {
                 this.emitChange();
                 break;
 
-            case ActionTypes.REQUEST_VALIDATE_USERNAME:
-                this._validUsername = true;
-                this.emitChange();
-                break;
+            // case ActionTypes.REQUEST_VALIDATE_USERNAME:
+            //     this._validUsername = false;
+            //     this.emitChange();
+            //     break;
 
             case ActionTypes.REQUEST_VALIDATE_USERNAME_SUCCESS:
                 this._validUsername = true;
@@ -81,9 +81,7 @@ class RegisterStore extends BaseStore {
     }
 
     validUsername() {
-        let valid = this._validUsername;
-        this._validUsername = true;
-        return valid;
+        return this._validUsername;
     }
 
     getData() {
@@ -93,6 +91,10 @@ class RegisterStore extends BaseStore {
             token: this._token,
             oauth: this._oauth
         }
+    }
+
+    get user() {
+        return this._user;
     }
 
     get profile() {

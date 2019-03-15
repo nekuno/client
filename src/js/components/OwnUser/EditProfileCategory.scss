@@ -1,0 +1,11 @@
+@import '../../../scss/_partials/colors';
+
+.frame {
+  width: 91%;
+  border-radius: 8px;
+  background-color: $white;
+  color: #615acb;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  margin-left: 4.5%;
+}

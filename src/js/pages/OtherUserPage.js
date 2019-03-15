@@ -6,7 +6,7 @@ import OtherProfileDataList from '../components/profile/OtherProfileDataList'
 import TopNavBar from '../components/ui/TopNavBar';
 import ToolBar from '../components/ui/ToolBar';
 import Image from '../components/ui/Image';
-import EmptyMessage from '../components/ui/EmptyMessage';
+import EmptyMessage from '../components/ui/EmptyMessage/EmptyMessage';
 import OrientationRequiredPopup from '../components/ui/OrientationRequiredPopup';
 import ReportContentPopup from '../components/interests/ReportContentPopup';
 import ShareService from '../services/ShareService';

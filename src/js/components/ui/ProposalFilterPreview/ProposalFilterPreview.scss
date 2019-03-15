@@ -1,0 +1,36 @@
+@import '../../../../scss/_partials/colors';
+
+.availability-preview {
+  padding: 16px;
+  background: $background-darken;
+}
+
+.rounded-icon-wrapper {
+  text-align: center;
+  display: inline-block;
+  margin-right: 4%;
+  width: 8%;
+  vertical-align: middle;
+}
+
+.text-wrapper {
+  display: inline-block;
+  text-align: left;
+  vertical-align: middle;
+  width: 88%;
+}
+
+.title {
+  font-weight: bold;
+  margin-bottom: 8px;
+  text-align: left;
+  color: $text;
+}
+
+.small {
+  font-size: 14px;
+}
+
+.filter-wrapper {
+  margin: 16px 0;
+}

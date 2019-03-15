@@ -1,7 +1,7 @@
 export default {
-    API_ROOT                : 'http://brain.local.nekuno.com/index_dev.php/',
-    INVITATIONS_ROOT        : 'http://client.local.nekuno.com/#/register/',
-    SHARED_USER_ROOT        : 'http://client.local.nekuno.com/#/p/',
+    API_ROOT                : 'http://brain.local.nekuno.com/index.php/',
+    INVITATIONS_ROOT        : 'http://m.local.nekuno.com/#/register/',
+    SHARED_USER_ROOT        : 'http://m.local.nekuno.com/#/p/',
     INSTANT_HOST            : 'https://local.nekuno.com:8008/',
     IMAGINE_ROOT            : 'https://imagine.local.nekuno.com/index.php/media/cache/',
     FACEBOOK_ID             : 525923770862645,
@@ -20,6 +20,7 @@ export default {
     LINKEDIN_SCOPE          : 'r_basicprofile',
     INSTAGRAM_ID            : '7d6f40c53c9b49ef8838710fa775eda8',
     INSTAGRAM_SCOPE         : 'basic',
+    STEAM_API_KEY           : '',
     TRACKER_ID_WEB          : 'UA-55709950-6',
     TRACKER_ID_APP          : 'UA-55709950-7',
     GOOGLE_MAPS_API_KEY     : 'AIzaSyDPRiBUXY4zmP1dUd45lJb9se8n7IGMQBg',

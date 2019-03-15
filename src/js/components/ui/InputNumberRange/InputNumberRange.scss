@@ -1,0 +1,14 @@
+@import '../../../../scss/_partials/colors';
+
+.input-number-range {
+
+  .title {
+    font-weight: 600;
+  }
+  .range {
+    margin-top: 16px;
+    margin-bottom: 48px;
+    padding-left: 16px;
+    padding-right: 48px;
+  }
+}

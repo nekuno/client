@@ -1,4 +1,4 @@
-import { Schema, arrayOf, normalize } from 'normalizr';
+import { schema, normalize } from 'normalizr';
 import selectn from 'selectn';
 import OfflineService from '../services/OfflineService';
 import Framework7Service from '../services/Framework7Service';
@@ -20,25 +20,20 @@ import LocaleStore from '../stores/LocaleStore';
 
 // Read more about Normalizr: https://github.com/gaearon/normalizr
 
-const userSchema = new Schema('users', {idAttribute: 'id'});
-const questionsSchema = new Schema('questions', {idAttribute: 'questionId'});
-const questionSchema = new Schema('question', {idAttribute: 'questionId'});
-const userAnswersSchema = new Schema('userAnswers', {idAttribute: 'questionId'});
-const questionsAndAnswersSchema = new Schema('items', {
-    idAttribute: entity=> {
+const userSchema = new schema.Entity('users', {}, {idAttribute: 'id'});
+const questionsSchema = new schema.Array('questions', {}, {idAttribute: 'questionId'});
+const questionSchema = new schema.Entity('question', {}, {idAttribute: 'questionId'});
+const userAnswersSchema = new schema.Array('userAnswers', {}, {idAttribute: 'questionId'});
+const questionsAndAnswersSchema = new schema.Entity('items', {
+    questions  : questionsSchema,
+    userAnswers: userAnswersSchema
+}, {
+    idAttribute: entity => {
         return selectn('question.questionId', entity);
     }
 });
-questionsAndAnswersSchema.define({
-    questions  : arrayOf(questionsSchema),
-    userAnswers: arrayOf(userAnswersSchema)
-});
-const comparedQuestionsAndAnswersSchema = new Schema('items', {
-    idAttribute: entity=> {
-        return parseInt(selectn('userId', entity));
-    }
-});
-const blockedUserSchema = new Schema('blocked', {idAttribute: 'id'});
+
+const blockedUserSchema = new schema.Entity('blocked', {}, {idAttribute: 'id'});
 
 //TODO: Implement location schema and store
 //TODO: Check pull request https://github.com/gaearon/normalizr/pull/42 for recommendation of different types
@@ -141,7 +136,7 @@ export function fetchUser(url) {
 
 export function fetchAnswers(url) {
     return fetchAndNormalize(url, {
-        items     : arrayOf(questionsAndAnswersSchema),
+        items     : [questionsAndAnswersSchema],
         pagination: {}
     });
 }

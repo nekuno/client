@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import DateInput from '../../ui/DateInput';
+import DateInput from '../../ui/DateInput/DateInput';
 import translate from '../../../i18n/Translate';
 
 @translate('BirthdayField')

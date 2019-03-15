@@ -13,6 +13,12 @@ import GeocoderService from './services/GeocoderService';
 import RecaptchaService from './services/RecaptchaService';
 import SocialNetworkService from './services/SocialNetworkService';
 import OfflineService from './services/OfflineService';
+import '../../node_modules/framework7/dist/css/framework7.ios.css';
+import '../../node_modules/Framework7-3D-Panels/dist/framework7.3dpanels.css';
+import '../../node_modules/slick-carousel/slick/slick.css';
+import '../../node_modules/react-image-crop/dist/ReactCrop.css';
+import '../../node_modules/react-joyride/lib/react-joyride-compiled.css';
+import '../scss/layout.scss';
 
 Framework7Service.init();
 OfflineService.check().then(() => {

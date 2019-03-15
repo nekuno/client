@@ -1,0 +1,29 @@
+@import '../../../scss/_partials/colors';
+@import '../../../scss/_partials/theme.color';
+
+.view {
+  height: calc(100% - 110px);
+  overflow-y: scroll;
+  background: $background-darken;
+}
+
+.loading {
+  width: 100%;
+  text-align: center;
+  background: $background-darken;
+
+  img {
+    margin-top: 50px;
+  }
+}
+
+.loading-editing {
+  width: 100%;
+  text-align: center;
+  background: $background-darken;
+  height: 60px;
+
+  img {
+    margin-top: -100px;
+  }
+}

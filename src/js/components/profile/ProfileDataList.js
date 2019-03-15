@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import styles from './ProfileDataList.scss';
 import ProfileData from './ProfileData';
 import * as UserActionCreators from '../../actions/UserActionCreators';
 import translate from '../../i18n/Translate';
@@ -7,18 +8,21 @@ import connectToStores from '../../utils/connectToStores';
 import ProfileStore from '../../stores/ProfileStore';
 import FilterStore from '../../stores/FilterStore';
 import TagSuggestionsStore from '../../stores/TagSuggestionsStore';
-import ChoiceEdit from '../../components/profile/edit/ChoiceEdit';
+import ChoiceEdit from './edit/ChoiceEdit/ChoiceEdit';
 import LocationEdit from '../../components/profile/edit/LocationEdit';
 import IntegerEdit from '../../components/profile/edit/IntegerEdit';
 import TagsAndChoiceEdit from '../../components/profile/edit/TagsAndChoiceEdit';
-import MultipleChoicesEdit from '../../components/profile/edit/MultipleChoicesEdit';
+import MultipleChoicesEdit from './edit/MultipleChoicesEdit/MultipleChoicesEdit';
 import MultipleFieldsEdit from '../../components/profile/edit/MultipleFieldsEdit';
 import MultipleLocationsEdit from '../../components/profile/edit/MultipleLocationsEdit';
-import DoubleChoiceEdit from '../../components/profile/edit/DoubleChoiceEdit';
-import TagEdit from '../../components/profile/edit/TagEdit';
-import BirthdayEdit from '../../components/profile/edit/BirthdayEdit';
+import DoubleChoiceEdit from './edit/DoubleChoiceEdit/DoubleChoiceEdit';
+import BirthdayEdit from './edit/BirthdayEdit/BirthdayEdit';
 import TextAreaEdit from '../../components/profile/edit/TextAreaEdit';
 import Framework7Service from '../../services/Framework7Service';
+import EditProfileCategory from "../OwnUser/EditProfileCategory";
+import TagEdit from "./edit/TagEdit";
+import RoundedIcon from "../ui/RoundedIcon/RoundedIcon";
+import AuthenticatedComponent from "../AuthenticatedComponent";
 
 /**
  * Retrieves state from stores for current props.
@@ -27,15 +31,18 @@ function getState(props) {
     const categories = ProfileStore.getCategories();
     const filters = FilterStore.filters;
     const tags = TagSuggestionsStore.tags;
+    const tagType = TagSuggestionsStore.tagType;
 
     return {
         categories,
         filters,
-        tags
+        tags,
+        tagType
     };
 }
 
 @translate('ProfileDataList')
+@AuthenticatedComponent
 @connectToStores([ProfileStore, FilterStore, TagSuggestionsStore], getState)
 export default class ProfileDataList extends Component {
 
@@ -46,6 +53,8 @@ export default class ProfileDataList extends Component {
         categories         : PropTypes.array,
         filters            : PropTypes.object,
         tags               : PropTypes.array,
+        tagType            : PropTypes.string,
+        saveProfile        : PropTypes.func.isRequired,
         // Injected by @AuthenticatedComponent
         user               : PropTypes.object,
         // Injected by @translate:
@@ -69,6 +78,7 @@ export default class ProfileDataList extends Component {
         this.handleClickOutside = this.handleClickOutside.bind(this);
         this.saveProfile = this.saveProfile.bind(this);
         this.renderField = this.renderField.bind(this);
+        this.renderFields = this.renderFields.bind(this);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -130,7 +140,7 @@ export default class ProfileDataList extends Component {
             profile     : profile,
             selectedEdit: null
         });
-        this.saveProfile(oldProfile);
+        this.props.saveProfile(oldProfile, profile);
     }
 
     handleClickRemoveEdit(editKey) {
@@ -168,6 +178,27 @@ export default class ProfileDataList extends Component {
         }
     }
 
+    renderFields(category) {
+        const {profile, metadata, user} = this.props;
+        const renderedCategory =  Object.keys(category.fields).map(field =>
+            <div key={'parent-' + field} className={styles.profileCategoryEdition}>
+                {this.renderField(profile.hasOwnProperty(field) ? profile : [], metadata, field)}
+            </div>
+        );
+
+        const isMainCategory = category.fields.birthday !== undefined;
+        if (isMainCategory)
+        {
+            const userField = <div key={'parent-user'} className={styles["profile-category-edition"] + ' ' + styles.userField}>
+                <div className={styles.userPhoto}><RoundedIcon icon={user.photo.thumbnail.medium} size={'medium'}/></div>
+                <div className={styles.userName}> {user.username} </div>
+            </div>;
+            renderedCategory.unshift(userField);
+        }
+
+        return renderedCategory;
+    }
+
     renderField(dataArray, metadata, dataName) {
         let data = dataArray.hasOwnProperty(dataName) ? dataArray[dataName] : null;
 
@@ -176,6 +207,7 @@ export default class ProfileDataList extends Component {
             return '';
         }
         let props = {
+            title                : metadata[dataName].labelEdit,
             editKey              : dataName,
             metadata             : metadata[dataName],
             selected             : selected,
@@ -183,10 +215,20 @@ export default class ProfileDataList extends Component {
             handleClickEdit      : this.handleClickEdit
         };
         let filter = null;
+        let handleClick = this.handleChangeEditAndSave.bind(this, dataName); //called only with data
+        const options = metadata[dataName]['choices'];
         switch (metadata[dataName]['type']) {
             case 'choice':
-                props.data = data ? data : '';
-                props.handleChangeEdit = this.handleChangeEditAndSave;
+                props.selected = data ? data : '';
+                props.choices = options;
+                let handleClickChoice = function(data) {
+                    const option = options.find((each) => {
+                        return each.text === data
+                    });
+                    handleClick(option.id);
+                };
+                props.handleChangeEdit = handleClickChoice;
+                props.onClickHandler = handleClick;
                 filter = <ChoiceEdit {...props} />;
                 break;
             case 'integer':
@@ -226,16 +268,26 @@ export default class ProfileDataList extends Component {
                 filter = <MultipleLocationsEdit {...props} />;
                 break;
             case 'double_choice':
-                props.data = data ? data : {};
-                props.handleChangeEdit = this.handleChangeEditAndSave;
-                props.handleChangeEditDetail = this.handleChangeEditAndSave;
+                const details = metadata[dataName]['doubleChoices'];
+                let handleClickDoubleChoice = function(data) {
+                    const choiceId = data.choice;
+
+                    const choiceDetails = details[choiceId];
+                    const detailId = Object.keys(choiceDetails).find(eachKey => {
+                        return choiceDetails[eachKey] === data.detail
+                    });
+                    handleClick({choice: choiceId, detail: detailId});
+                };
+                data = data ? data : {};
+                props.firstChoiceSelected = data.choice ? data.choice : null;
+                props.detailSelected = data.detail ? data.detail : null;
+                props.handleChangeEdit = handleClickDoubleChoice;
                 filter = <DoubleChoiceEdit {...props} />;
                 break;
             case 'tags':
-                props.data = data ? data : [];
-                props.handleClickInput = this.onFilterSelect;
-                props.handleChangeEdit = this.handleChangeEditAndSave;
-                props.tags = this.props.tags;
+                props.selected = data ? data : [];
+                props.tagSuggestions = this.props.tagType === dataName ? this.props.tags.map(tag => tag.name) : [];
+                props.handleChangeEdit = handleClick;
                 props.profile = this.props.profile;
                 filter = <TagEdit {...props} />;
                 break;
@@ -255,38 +307,14 @@ export default class ProfileDataList extends Component {
 
     render() {
 
-        const {profile, metadata, profileWithMetadata} = this.props;
+        const {profileWithMetadata} = this.props;
 
         return (
-            <div className="profile-data-list">
-                {profileWithMetadata.map(
+                profileWithMetadata.map(
                     category => {
-                        return (
-                            <div key={category.label} ref={this.state.selectedCategory === category.label ? "selectedCategoryEdit" : null}>
-                                <div className="profile-category" ref={category.label === this.state.selectedCategory ? 'selectedCategory' : null}>
-                                    <h3>{category.label} <span className="icon-wrapper" onClick={this.onCategoryToggle.bind(this, category.label)}><span className={category.label === this.state.selectedCategory ? 'icon-checkmark' : 'icon-edit'}/></span></h3>
-                                </div>
-                                {this.state.selectedCategory === category.label ?
-                                    Object.keys(category.fields).map(field =>
-                                        <div key={'parent-' + field} className="profile-category-edition">
-                                            <hr/>
-                                            <br/>
-                                            {this.renderField(profile.hasOwnProperty(field) ? profile : [], metadata, field)}
-                                        </div>
-                                    )
-                                    :
-                                    Object.keys(category.fields).map(
-                                        profileDataKey =>
-                                            category.fields[profileDataKey].value && metadata[profileDataKey].hidden !== true?
-                                                <ProfileData key={profileDataKey} name={category.fields[profileDataKey].text} value={category.fields[profileDataKey].value} forceLong={category.fields[profileDataKey].type === 'textarea'}/>
-                                                : null
-                                    )
-                                }
-                            </div>
-                        )
+                        return <EditProfileCategory key={category.label} title={category.label} fields={this.renderFields(category)} onToggleCollapse={this.onCategoryToggle.bind(this, category.label)}/>
                     }
-                )}
-            </div>
+                )
         );
     }
 }

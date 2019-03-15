@@ -1,0 +1,36 @@
+@import '../../../../scss/_partials/colors';
+
+.select-collapsible {
+  cursor: pointer;
+  font-weight: normal;
+  padding-bottom: 8px;
+  text-align: center;
+  width: 100%;
+
+  .title {
+    margin-bottom: 5px;
+  }
+  .arrow {
+    color: $purple-main;
+    font-weight: bold;
+  }
+  .collapsible {
+    background: $background-white;
+    padding: 0 5%;
+    text-align: left;
+    position: absolute;
+    width: 90%;
+    z-index: 999;
+
+    .option {
+      color: $gray-secondary-text;
+      margin: 8px 0;
+      text-transform: capitalize;
+
+      &.option-selected {
+        cursor: default;
+        color: $gray-main-text;
+      }
+    }
+  }
+}

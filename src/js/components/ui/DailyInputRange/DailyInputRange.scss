@@ -1,0 +1,10 @@
+@import '../../../../scss/_partials/colors';
+
+.daily-input-range {
+  padding: 0 12px;
+
+  .range-option {
+    display: inline-block;
+    width: 33%;
+  }
+}

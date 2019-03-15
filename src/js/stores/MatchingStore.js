@@ -2,6 +2,7 @@ import ActionTypes from '../constants/ActionTypes';
 import { waitFor } from '../dispatcher/Dispatcher';
 import UserStore from '../stores/UserStore';
 import BaseStore from './BaseStore';
+import LoginStore from './LoginStore';
 
 class MatchingStore extends BaseStore {
     setInitial() {
@@ -23,6 +24,13 @@ class MatchingStore extends BaseStore {
                 }
                 this.emitChange();
                 break;
+            case ActionTypes.REQUEST_OTHER_USER_SUCCESS:
+                const loggedUserId = LoginStore.user.id;
+                const otherUserId = UserStore.getBySlug(action.slug).id;
+
+                this.merge(loggedUserId, otherUserId, action.response.matching);
+                this.emitChange();
+                break;
         }
     }
 
@@ -39,6 +47,13 @@ class MatchingStore extends BaseStore {
         } else {
             return null;
         }
+    }
+
+    getPercentage(userId1, userId2)
+    {
+        const matching = this.get(userId1, userId2);
+
+        return matching*100;
     }
 
     merge(userId1, userId2, value){

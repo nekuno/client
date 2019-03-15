@@ -10,7 +10,7 @@ import OtherProfileDataList from '../profile/OtherProfileDataList';
 import OtherQuestionList from '../questions/OtherQuestionList';
 import CardContentList from '../interests/CardContentList';
 import TextRadios from '../ui/TextRadios';
-import EmptyMessage from '../ui/EmptyMessage';
+import EmptyMessage from '../ui/EmptyMessage/EmptyMessage';
 
 function getState(props) {
     const userId = parseInt(props.userId);

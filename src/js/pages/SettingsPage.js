@@ -44,6 +44,10 @@ export default class SettingsPage extends Component {
         )
     }
 
+    logout(e) {
+        LoginActionCreators.logoutUser();
+    }
+
     render() {
 
         const {strings} = this.props;
@@ -58,6 +62,7 @@ export default class SettingsPage extends Component {
                             <p><a href="https://nekuno.com/terms-and-conditions" target="_blank">{strings.legalTerms}</a></p>
                             <p><a href="https://nekuno.com/privacy-policy" target="_blank">{strings.privacyPolicy}</a></p>
                             <p><a href="javascript:void(0)" onClick={this.disableAccount}><span className="icon-warning"></span>&nbsp;&nbsp;{strings.disable}</a></p>
+                            <div onClick={(e) => { if (window.confirm(strings.logoutConfirm)) this.logout(e) } }>{strings.logout}</div>
                         </div>
                     </div>
                 </div>
@@ -73,6 +78,8 @@ SettingsPage.defaultProps = {
         legalTerms    : 'End-user license agreement',
         privacyPolicy : 'Privacy Policy',
         disable       : 'Disable account',
+        logout        : 'Logout',
+        logoutConfirm : 'Are you sure you want logout?',
         disableConfirm: 'Do you want to disable your account? It will be deleted after 3 months if you don`t enable it again.',
         disableTitle  : 'Disable account',
         disableError  : 'We couldn´t disable your account'

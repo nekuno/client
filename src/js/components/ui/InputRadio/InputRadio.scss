@@ -1,0 +1,27 @@
+@import '../../../../scss/_partials/colors';
+
+// TODO: All
+.input-radio {
+  .item-wrapper {
+    .item-text {
+      //text-transform: none;
+      //white-space: normal;
+      //width: 50%;
+    }
+    &::after {
+      content: none;
+    }
+  }
+
+  .icon-wrapper {
+
+  }
+
+  &::after {
+    content: none;
+  }
+}
+
+//.label-checkbox.active-state {
+//  background-color: transparent !important;
+//}

@@ -9,9 +9,11 @@ export default function translate(key) {
 
             componentWillMount() {
                 let strings = TranslationService.getCategoryStrings(this.context.locale, 'Framework7');
-                Framework7Service.nekunoApp().params.modalTitle = strings.modalTitle;
-                Framework7Service.nekunoApp().params.modalButtonOk = strings.modalButtonOk;
-                Framework7Service.nekunoApp().params.modalButtonCancel = strings.modalButtonCancel;
+                if (Framework7Service.nekunoApp().params) {
+                    Framework7Service.nekunoApp().params.modalTitle = strings.modalTitle;
+                    Framework7Service.nekunoApp().params.modalButtonOk = strings.modalButtonOk;
+                    Framework7Service.nekunoApp().params.modalButtonCancel = strings.modalButtonCancel;
+                }
             }
 
             render() {

@@ -2,6 +2,7 @@ import ActionTypes from '../constants/ActionTypes';
 import BaseStore from './BaseStore';
 import RouterContainer from '../services/RouterContainer';
 import {DO_NOT_BACK_ROUTES} from '../constants/Constants';
+import LoginStore from "./LoginStore";
 
 class RouterStore extends BaseStore {
 
@@ -32,17 +33,24 @@ class RouterStore extends BaseStore {
 
             case ActionTypes.PREVIOUS_ROUTE:
                 this._routes.pop();
+
                 if (this._routes.length > 0) {
                     const lastRoute = this._routes[this._routes.length - 1];
                     if (action.route === lastRoute) {
-                        setTimeout(router.replace('discover'), 0);
+                        const userSlug = LoginStore.user.slug;
+                        const defaultRoute = 'p/'+userSlug;
+                        setTimeout(router.replace(defaultRoute), 0);
                     } else if (DO_NOT_BACK_ROUTES.some(route => route === lastRoute)) {
-                        setTimeout(router.replace('discover'), 0);
+                        const userSlug = LoginStore.user.slug;
+                        const defaultRoute = 'p/'+userSlug;
+                        setTimeout(router.replace(defaultRoute), 0);
                     } else {
                         router.goBack();
                     }
                 } else {
-                    setTimeout(router.replace('discover'), 0);
+                    const userSlug = LoginStore.user.slug;
+                    const defaultRoute = 'p/'+userSlug;
+                    setTimeout(router.replace(defaultRoute), 0);
                 }
                 this.emitChange();
                 break;

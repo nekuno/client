@@ -1,0 +1,58 @@
+@import '../../../scss/_partials/colors';
+
+.answer-question-container {
+  text-align: left;
+  .header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+
+    .text {
+      color: $text;
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 19px;
+      width: 60%;
+      margin: 0 10% 0 0;
+    }
+
+    .image {
+      width: 15%;
+      text-align: center;
+    }
+  }
+
+  .body {
+    display: flex;
+    align-items: center;
+    margin: 0 0 24px;
+
+    .text {
+      color: $text;
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 24px;
+      width: 60%;
+      margin: 0 10% 0 0;
+    }
+
+    .image {
+      width: 15%;
+      text-align: center;
+    }
+    .answer-disabled {
+      pointer-events: none;
+    }
+  }
+}
+
+
+
+.answer-step-text {
+  text-align: left;
+  color: $text;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 19px;
+  margin: 0 0 16px 0;
+}

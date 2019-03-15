@@ -1,0 +1,14 @@
+@import '../../../_partials/colors';
+
+body #root .App .views .view.proposals-project-profession-view {
+  background-color: $background-white;
+  color: $gray-main-text;
+  text-align: center;
+  z-index: 0;
+
+  .proposals-project-profession-wrapper {
+    h2 {
+      padding: 0 24px;
+    }
+  }
+}

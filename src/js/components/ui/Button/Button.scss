@@ -1,0 +1,54 @@
+@import '../../../../scss/_partials/colors';
+
+.button-wrapper {
+  text-align: center;
+
+  .button {
+    background: transparent;
+    border: 1px solid $white-background;
+    border-radius: 30px;
+    -moz-border-radius: 30px;
+    -webkit-border-radius: 30px;
+    color: $white-background;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    height: 60px;
+    line-height: 60px;
+    width: 70%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-box-flex: 1;
+    -webkit-flex-shrink: 1;
+    -ms-flex: 0 1 auto;
+    flex-shrink: 1;
+    min-width: 0;
+    outline: none;
+
+    &:disabled, &:active {
+      opacity: 0.5;
+    }
+
+    &:disabled {
+      cursor: default;
+    }
+
+    &.small {
+      width: 180px;
+      height: 40px;
+      line-height: 38px;
+    }
+  }
+  &.left {
+    text-align: left;
+  }
+
+  &.center {
+    text-align: center;
+  }
+
+  &.right {
+    text-align: right;
+  }
+}

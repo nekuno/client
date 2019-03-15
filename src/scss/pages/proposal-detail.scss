@@ -1,0 +1,397 @@
+@import '../_partials/colors';
+
+.other-user-proposal-detail-view {
+  background-color: $background-white;
+  color: $gray-main-text;
+  text-align: left;
+  height: 100%;
+  .other-user-proposal-detail-wrapper {
+    height: calc(100% - 54px);
+    overflow: auto;
+
+    .proposal-floating-icon-container {
+      position: absolute;
+      z-index: 1;
+      right: 24px;
+      top: 8px;
+      font-size: 45px;
+    }
+
+    h2 {
+      padding: 0 24px;
+    }
+    h2, p {
+      font-weight: normal;
+    }
+    .category {
+      font-size: 14px;
+      font-weight: bold;
+    }
+    .image-wrapper {
+      position: relative;
+      color: white;
+      img {
+        width: 100%;
+      }
+      .bottom-left {
+        position: absolute;
+        bottom: 5px;
+      }
+    }
+
+    .user-data {
+      height: 60px;
+      margin-top: 16px;
+      padding: 0 5%;
+
+      .user-text {
+        display: inline-block;
+        margin-left: 6px;
+        vertical-align: super;
+
+        .username {
+          color: $text;
+          font-size: 21px;
+          font-weight: 600;
+          line-height: 24px;
+        }
+        .age-city {
+          color: $text-two;
+          font-size: 14px;
+          font-weight: normal;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+      }
+    }
+
+    .content-wrapper {
+      padding: 0 24px;
+      .information-wrapper {
+        margin-bottom: 24px;
+      }
+    }
+
+    .text-wrapper {
+      display: inline-block;
+      text-align: left;
+      vertical-align: top;
+      width: 88%;
+
+      .title {
+        font-weight: bold;
+        margin-bottom: 8px;
+        text-align: left;
+        color: $text;
+      }
+      .small {
+        font-size: 14px;
+      }
+    }
+
+    .filters-wrapper {
+      padding: 16px;
+      background: $background-darken;
+    }
+  }
+
+  .remove-proposal-container {
+    text-align: left;
+    margin: 24px;
+    .remove-proposal-title {
+      color: $red;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 19px;
+      margin: 0 0 8px;
+      cursor: pointer;
+    }
+    .remove-proposal-description {
+      color: $text-two;
+      font-size: 13px;
+      font-weight: 400;
+    }
+  }
+
+  .proposal-users-match {
+    margin: 16px 0;
+    .proposal-users-match-header {
+      display: flex;
+      justify-content: space-between;
+      margin: 0 0 16px;
+      .matches-number {
+        color: $text;
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 19px;
+      }
+      .view-all {
+        color: $links;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 19px;
+        cursor: pointer;
+      }
+    }
+    .proposal-users-match-body {
+      display: flex;
+      .proposal-users-image {
+        position: relative;
+        .status {
+          width: 10px;
+          height: 10px;
+          top: 28px;
+          left: 28px;
+          position: absolute;
+          border-radius: 10px;
+          border: 2px solid #fff;
+        }
+        .online {
+          background-color: $green;
+        }
+        .offline {
+          background-color: $red;
+        }
+      }
+    }
+  }
+
+  .skip-nav-bar {
+    background-color: $purple-one;
+    height: 54px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    .text {
+      color: $white;
+      font-size: 16px;
+      font-weight: 600;
+      height: 100%;
+      width: 100%;
+      align-items: center;
+      display: flex;
+      justify-content: center;
+      cursor: pointer;
+
+      .icon {
+        font-size: 24px;
+        margin: 0 8px;
+      }
+    }
+  }
+}
+
+.rounded-icon-wrapper {
+  text-align: center;
+  display: inline-block;
+  margin-right: 4%;
+  width: 8%;
+  vertical-align: top;
+}
+
+
+//@import '../_partials/colors';
+//
+//body #root .App .views .view.persons-all-view {
+//  background-color: $background;
+//  color: $gray-main-text;
+//  height: 100%;
+//  overflow: hidden;
+//  position: relative;
+//  text-align: left;
+//
+//  .persons-all-wrapper {
+//    height: 100%;
+//    top: 0;
+//    position: absolute;
+//    margin-top: 105px;
+//    width: 100%;
+//
+//    .persons {
+//      height: 100%;
+//      position: relative;
+//      width: 100%;
+//
+//      .person {
+//        display: inline;
+//      }
+//    }
+//  }
+//  .filters-button {
+//    position: absolute;
+//    right: 100px;
+//
+//
+//    .filters-button-fixed {
+//      bottom: 8px;
+//      position: fixed;
+//    }
+//  }
+//}
+
+//
+//@import '../_partials/colors';
+//
+//.proposal-detail-view {
+//  background-color: $background;
+//  color: $gray-main-text;
+//  text-align: left;
+//  height: 100%;
+//  .proposals-project-preview-wrapper {
+//    height: calc(100% - 54px);
+//    overflow: auto;
+//
+//    .proposal-floating-icon-container {
+//      position: absolute;
+//      z-index: 1;
+//      right: 24px;
+//      top: 8px;
+//      font-size: 45px;
+//    }
+//
+//    h2 {
+//      padding: 0 24px;
+//    }
+//    h2, p {
+//      font-weight: normal;
+//    }
+//    .category {
+//      font-size: 14px;
+//      font-weight: bold;
+//    }
+//    .image-wrapper {
+//      position: relative;
+//      color: white;
+//      img {
+//        width: 100%;
+//      }
+//      .bottom-left {
+//        position: absolute;
+//        bottom: 5px;
+//      }
+//    }
+//
+//    .content-wrapper {
+//      padding: 0 24px;
+//      .information-wrapper {
+//        margin-bottom: 24px;
+//      }
+//    }
+//
+//    .text-wrapper {
+//      display: inline-block;
+//      text-align: left;
+//      vertical-align: top;
+//      width: 88%;
+//
+//      .title {
+//        font-weight: bold;
+//        margin-bottom: 8px;
+//        text-align: left;
+//        color: $text;
+//      }
+//      .small {
+//        font-size: 14px;
+//      }
+//    }
+//
+//    .filters-wrapper {
+//      padding: 16px;
+//      background: $background-darken;
+//    }
+//  }
+//
+//  .remove-proposal-container {
+//    text-align: left;
+//    margin: 24px;
+//    .remove-proposal-title {
+//      color: $red;
+//      font-size: 14px;
+//      font-weight: 400;
+//      line-height: 19px;
+//      margin: 0 0 8px;
+//      cursor: pointer;
+//    }
+//    .remove-proposal-description {
+//      color: $text-two;
+//      font-size: 13px;
+//      font-weight: 400;
+//    }
+//  }
+//
+//  .proposal-users-match {
+//    margin: 16px 0;
+//    .proposal-users-match-header {
+//      display: flex;
+//      justify-content: space-between;
+//      margin: 0 0 16px;
+//      .matches-number {
+//        color: $text;
+//        font-size: 14px;
+//        font-weight: 600;
+//        line-height: 19px;
+//      }
+//      .view-all {
+//        color: $links;
+//        font-size: 14px;
+//        font-weight: 400;
+//        line-height: 19px;
+//        cursor: pointer;
+//      }
+//    }
+//    .proposal-users-match-body {
+//      display: flex;
+//      .proposal-users-image {
+//        position: relative;
+//        .status {
+//          width: 10px;
+//          height: 10px;
+//          top: 28px;
+//          left: 28px;
+//          position: absolute;
+//          border-radius: 10px;
+//          border: 2px solid #fff;
+//        }
+//        .online {
+//          background-color: $green;
+//        }
+//        .offline {
+//          background-color: $red;
+//        }
+//      }
+//    }
+//  }
+//
+//  .skip-nav-bar {
+//    background-color: $purple-one;
+//    height: 54px;
+//    position: absolute;
+//    bottom: 0;
+//    width: 100%;
+//    .text {
+//      color: $white;
+//      font-size: 16px;
+//      font-weight: 600;
+//      height: 100%;
+//      width: 100%;
+//      align-items: center;
+//      display: flex;
+//      justify-content: center;
+//      cursor: pointer;
+//
+//      .icon {
+//        font-size: 24px;
+//        margin: 0 8px;
+//      }
+//    }
+//  }
+//}
+//
+//.rounded-icon-wrapper {
+//  text-align: center;
+//  display: inline-block;
+//  margin-right: 4%;
+//  width: 8%;
+//  vertical-align: top;
+//}

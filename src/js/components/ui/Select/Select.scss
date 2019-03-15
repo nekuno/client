@@ -1,0 +1,30 @@
+@import '../../../../scss/_partials/colors';
+
+.select-wrapper {
+
+  .title {
+    font-weight: 600;
+  }
+  .select {
+    .option-wrapper {
+
+      .option {
+
+        .optionText {
+
+        }
+
+      }
+
+      &.selected {
+
+        .option {
+
+          .optionText {
+
+          }
+        }
+      }
+    }
+  }
+}

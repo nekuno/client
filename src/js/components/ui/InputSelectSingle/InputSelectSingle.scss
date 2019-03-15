@@ -1,0 +1,74 @@
+@import '../../../../scss/_partials/colors';
+
+.input-select-single {
+  //background: $white-background;
+  color: $gray-secondary-text;
+  cursor: pointer;
+  display: inline-block;
+  height: 40px;
+  line-height: 40px;
+  border: 1px solid $gray-border;
+  border-radius: 40px;
+  -moz-border-radius: 40px;
+  -webkit-border-radius: 40px;
+  padding: 0 10px;
+  box-sizing: border-box;
+  vertical-align: middle;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: -webkit-inline-flex;
+  display: inline-flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+  margin: 5px;
+  width: 90%;
+  position: relative;
+
+  .open {
+    width: 100%;
+    z-index: 1000;
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    >div {
+      border: 1px solid #F0F1FA;
+      border-radius: 40px;
+      -moz-border-radius: 40px;
+      -webkit-border-radius: 40px;
+    }
+
+    .optionSelected {
+      background-color: $purple-main;
+      color: $white;
+    }
+
+    .optionUnselected {
+      background-color: $white;
+      display: flex;
+    }
+  }
+
+  .closed {
+    width: 100%;
+    z-index: 100;
+    display: flex;
+
+    >div {
+      background-color: transparent;
+    }
+  }
+
+  .text {
+    padding-left: 18px;
+    width: 80%;
+  }
+
+  .arrow {
+    display: inline-block;
+    text-align: right;
+    width: 19%;
+  }
+}

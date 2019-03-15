@@ -32,7 +32,7 @@ export default class SelectedEdit extends Component {
         const className = addedClass ? addedClass + ' profile-field ' + type + '-filter' : 'profile-field ' + type + '-filter';
         return (
             <div className={className} onClick={onClickHandler}>
-                {this.renderSelectedEditBackground(handleClickRemoveEdit)}
+                {/*{this.renderSelectedEditBackground(handleClickRemoveEdit)}*/}
                 {children}
                 <div className="table-row"></div>
             </div>

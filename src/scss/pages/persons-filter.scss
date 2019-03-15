@@ -1,0 +1,24 @@
+@import '../_partials/colors';
+
+body #root .App .views .view.persons-filter-view {
+  background-color: $background;
+  color: $gray-main-text;
+  position: relative;
+  text-align: left;
+
+  .persons-filter-wrapper {
+    margin-bottom: 48px;
+    margin-top: 24px;
+    padding: 0 8px;
+
+    .filter {
+      margin: 24px 0;
+
+      .remove {
+        position: absolute;
+        right: 48px;
+        margin-top: -6px;
+      }
+    }
+  }
+}

@@ -1,0 +1,65 @@
+@import '../../../scss/_partials/colors';
+
+.view {
+  background-color: $background;
+  overflow-y: hidden;
+  z-index: 0;
+  height: calc(100% - 100px);
+}
+
+.top-nav-bar {
+  //position: absolute;
+  //top: 0;
+  //width: 100%;
+  background: $background;
+}
+
+.top-data {
+  text-align: left;
+  padding-left: 10%;
+  padding-top: 5%;
+}
+
+.natural-category {
+  display: flex;
+}
+
+.navbar-wrapper {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  z-index: 9001;
+}
+
+.upload-wrapper {
+  position: absolute;
+  right: 25px;
+  top: 200px;
+  width: 50px;
+  height: 50px;
+
+  .input {
+    position: absolute;
+    left:0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    padding-left:0;
+    cursor: pointer;
+  }
+
+  .roundedIcon {
+    position:absolute;
+    left: 0;
+    top: 0;
+    cursor: pointer;
+  }
+
+}
+
+.card-content-list {
+  height: calc(100% - 50px);
+}
+
+.collapsible {
+}

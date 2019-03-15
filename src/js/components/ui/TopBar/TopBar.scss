@@ -1,0 +1,23 @@
+@import '../../../../scss/_partials/colors';
+
+.top-bar {
+  background: #fff;
+  color: $gray-main-text;
+  font-weight: bold;
+  min-height: 50px;
+  line-height: 50px;
+  margin: auto;
+  position: sticky;
+  text-align: center;
+  top: 0;
+  vertical-align: bottom;
+  width: 100%;
+  z-index: 1;
+
+  &.left {
+    text-align: left;
+  }
+  &.box-shadow {
+    box-shadow: 0 2px 5px $gray-border;
+  }
+}

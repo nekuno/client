@@ -7,6 +7,7 @@ import UserStore from './UserStore';
 import LoginStore from './LoginStore';
 import { getValidationErrors } from '../utils/StoreUtils';
 import BaseStore from './BaseStore';
+import React from "react";
 
 class QuestionStore extends BaseStore {
     setInitial() {
@@ -26,6 +27,7 @@ class QuestionStore extends BaseStore {
         this._loadingOwnQuestions = false;
         this._isRequestedQuestion = {};
         this._comparedOrder = {};
+        this._totaDatabaselQuestions = 157;
     }
 
     _registerToActions(action) {
@@ -183,7 +185,13 @@ class QuestionStore extends BaseStore {
                 break;
             case ActionTypes.REQUEST_STATS_SUCCESS:
                 this._answersLength = action.response.numberOfQuestionsAnswered;
+                this._totaDatabaselQuestions = action.response.totalQuestions;
                 this.emitChange();
+                break;
+            case ActionTypes.ORDER_QUESTIONS:
+                this._questions = this.orderBy(action.orderCriteria, this._questions, action.otherUserQuestions, action.userQuestions);
+                this.emitChange();
+                break;
         }
     }
 
@@ -335,6 +343,25 @@ class QuestionStore extends BaseStore {
         });
     }
 
+    orderBy(orderCriteria, questions, otherUserQuestions, userQuestions) {
+        let questionsWithOrderCriteria = [];
+        //
+        // questions.forEach(function (item, key) {
+        //     if (item.type === orderCriteria) {
+        //         questionsWithOrderCriteria.push(item);
+        //     }
+        // });
+        // questions.forEach(function (item, key) {
+        //     if (item.type !== orderCriteria) {
+        //         questionsWithOrderCriteria.push(item);
+        //     }
+        // });
+        return questionsWithOrderCriteria;
+    }
+
+    get totalDatabaseQuestions(){
+        return this._totaDatabaselQuestions;
+    }
 }
 
 export default new QuestionStore();

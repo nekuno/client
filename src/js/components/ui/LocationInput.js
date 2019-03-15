@@ -12,7 +12,7 @@ export default class LocationInput extends Component {
     };
 
     static defaultProps = {
-        autoFocus: true
+        // autoFocus: true
     };
 
     constructor() {

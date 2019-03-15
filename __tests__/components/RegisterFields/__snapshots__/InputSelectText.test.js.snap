@@ -1,0 +1,132 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test InputSelectText component should render correctly 1`] = `
+ShallowWrapper {
+  "length": 1,
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <InputSelectText
+    onClickHandler={[MockFunction]}
+    options={
+      Array [
+        Object {
+          "id": "lorem",
+          "text": "Lorem",
+        },
+        Object {
+          "id": "ipsum",
+          "text": "Ipsum",
+        },
+        Object {
+          "id": "lorem-ipsum",
+          "text": "Lorem ipsum",
+        },
+        Object {
+          "id": "sed-ut-perspiciatis",
+          "text": "Sed ut perspiciatis",
+        },
+        Object {
+          "id": "perspiciatis",
+          "text": "perspiciatis",
+        },
+      ]
+    }
+    placeholder="Foo"
+  />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "host",
+    "props": Object {
+      "children": Array [
+        <Input
+          doNotScroll={true}
+          onChange={[Function]}
+          placeholder="Foo"
+          searchIcon={true}
+          size="small"
+        />,
+        Array [],
+        null,
+        Array [],
+      ],
+      "className": "inputSelectText",
+    },
+    "ref": null,
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "doNotScroll": true,
+          "onChange": [Function],
+          "placeholder": "Foo",
+          "searchIcon": true,
+          "size": "small",
+        },
+        "ref": "input",
+        "rendered": null,
+        "type": [Function],
+      },
+      null,
+    ],
+    "type": "div",
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": Array [
+          <Input
+            doNotScroll={true}
+            onChange={[Function]}
+            placeholder="Foo"
+            searchIcon={true}
+            size="small"
+          />,
+          Array [],
+          null,
+          Array [],
+        ],
+        "className": "inputSelectText",
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "doNotScroll": true,
+            "onChange": [Function],
+            "placeholder": "Foo",
+            "searchIcon": true,
+            "size": "small",
+          },
+          "ref": "input",
+          "rendered": null,
+          "type": [Function],
+        },
+        null,
+      ],
+      "type": "div",
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+      },
+    },
+  },
+}
+`;

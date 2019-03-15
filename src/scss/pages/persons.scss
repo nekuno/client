@@ -1,0 +1,42 @@
+@import '../_partials/colors';
+
+body #root .App .views .view.persons-view {
+  background-color: $background;
+  color: $gray-main-text;
+  text-align: left;
+
+  .persons-wrapper {
+    margin-top: 24px;
+    padding: 0 8px;
+    height: calc(100% - 127px);
+
+    h1 {
+      display: inline-block;
+      padding: 0 8px;
+      width: 70%;
+    }
+    .view-all {
+      display: inline-block;
+      color: $purple-main;
+      cursor: pointer;
+      font-weight: bold;
+      text-align: right;
+      width: 23%;
+    }
+
+    .persons {
+      position: relative;
+      width: 100%;
+    }
+    .groups-persons-title {
+      font-weight: 600;
+      margin: 32px 12px 16px;
+    }
+
+    .loading {
+      display: flex;
+      justify-content: space-around;
+      align-items: flex-start;
+    }
+  }
+}

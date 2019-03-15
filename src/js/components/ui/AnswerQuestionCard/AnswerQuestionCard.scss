@@ -1,0 +1,18 @@
+@import '../../../../scss/_partials/colors';
+
+.answer-question-card {
+  background-color: $purple-one;
+  color: $white;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  border-radius: 8px;
+  margin: 8px 16px;
+  padding: 4px 16px 8px 16px;
+  h3 {
+    font-size: 16px;
+    font-weight: 600;
+  }
+  p {
+    font-size: 14px;
+  }
+}

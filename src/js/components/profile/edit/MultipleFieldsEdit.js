@@ -2,15 +2,15 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import SelectedEdit from './SelectedEdit';
 import TextCheckboxes from '../../ui/TextCheckboxes';
-import ChoiceEdit from '../edit/ChoiceEdit';
+import ChoiceEdit from './ChoiceEdit/ChoiceEdit';
 import IntegerEdit from '../edit/IntegerEdit';
 import LocationEdit from '../edit/LocationEdit';
 import TagsAndChoiceEdit from '../edit/TagsAndChoiceEdit';
-import MultipleChoicesEdit from '../edit/MultipleChoicesEdit';
+import MultipleChoicesEdit from './MultipleChoicesEdit/MultipleChoicesEdit';
 import MultipleLocationsEdit from '../edit/MultipleLocationsEdit';
-import DoubleChoiceEdit from '../edit/DoubleChoiceEdit';
+import DoubleChoiceEdit from './DoubleChoiceEdit/DoubleChoiceEdit';
 import TagEdit from '../edit/TagEdit';
-import BirthdayEdit from '../edit/BirthdayEdit';
+import BirthdayEdit from './BirthdayEdit/BirthdayEdit';
 import TextAreaEdit from '../edit/TextAreaEdit';
 import translate from '../../../i18n/Translate';
 import Framework7Service from '../../../services/Framework7Service';
@@ -280,7 +280,7 @@ export default class MultipleFieldsEdit extends Component {
                 <div className="multiple-fields">
                     {Object.keys(metadata.metadata).map(key => this.renderField(selectedData, metadata.metadata, key))}
                 </div>
-                {null !== selectedIndex ? <div className="remove-multiple-field" onClick={this.handleClickRemove}>{strings.remove} <span className="icon-delete"></span></div> : ''}
+                {/*{null !== selectedIndex ? <div className="remove-multiple-field" onClick={this.handleClickRemove}>{strings.remove} <span className="icon-delete"></span></div> : ''}*/}
                 {profile[editKey] && profile[editKey].length > 0 ? <div className="add-multiple-field" onClick={this.handleClickAdd}>{strings.add} <span className="icon-plus"></span></div> : ''}
                 {profile[editKey] && profile[editKey].length > 0 ? profile[editKey].map((value, index) =>
                     index !== selectedIndex ?

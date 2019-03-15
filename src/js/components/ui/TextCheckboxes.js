@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import Chip from './Chip';
+import Chip from './Chip/Chip.js';
 
 export default class TextCheckboxes extends Component {
 	static propTypes = {
@@ -8,7 +8,8 @@ export default class TextCheckboxes extends Component {
 		labels: PropTypes.array.isRequired,
 		values: PropTypes.array.isRequired,
 		onClickHandler: PropTypes.func.isRequired,
-		big: PropTypes.bool
+		big: PropTypes.bool,
+        color : PropTypes.string,
 	};
 
 	constructor(props) {
@@ -18,7 +19,7 @@ export default class TextCheckboxes extends Component {
 	}
 
 	render() {
-		const {values, labels, title} = this.props;
+		const {values, labels, title, color} = this.props;
         const showSelect = labels.length > 40;
 		return (
             showSelect ?
@@ -31,13 +32,13 @@ export default class TextCheckboxes extends Component {
 						)}
 					</select>
                     {labels.map(label => values.some(value => value == label.key) ?
-						<Chip key={label.key} label={label.text} onClickHandler={this.onClickHandler.bind(this, label.key)}/> : null
+						<Chip key={label.key} text={label.text} onClickHandler={this.onClickHandler.bind(this, label.key)} color={color}/> : null
                     )}
 				</div>
                 :
 				<div className="text-checkboxes">
 					{this.props.title ? <div className="text-checkboxes-title">{this.props.title}</div> : null}
-					{this.props.labels.map(label => <Chip key={label.key} label={label.text} onClickHandler={this.onClickHandler.bind(this, label.key)} disabled={!this.props.values.some(value => value == label.key)} />)}
+					{this.props.labels.map(label => <Chip key={label.key} text={label.text} onClickHandler={this.onClickHandler.bind(this, label.key)} selected={this.props.values.some(value => value == label.key)} color={color}/>)}
 				</div>
 		);
 	}

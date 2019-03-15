@@ -37,7 +37,11 @@ export function requestUser(userSlug, fields) {
     // Exit early if we know enough about this user
     if (UserStore.containsSlug(userSlug, fields)) {
         return new Promise((resolve) => {
-            resolve(true)
+            const user = UserStore.getBySlug(userSlug);
+            const userId = user.id;
+            let result = {entities : {users : {}}};
+            result.entities.users[userId] = user;
+            resolve(result);
         });
     }
 
@@ -49,7 +53,7 @@ export function requestUser(userSlug, fields) {
         .catch((status) => {
             if (status.error) {
                 Framework7Service.nekunoApp().alert(status.error, () => {
-                    const path = '/discover';
+                    const path = '/proposals';
                     console.log('Redirecting to path', path);
                     RouterActionCreators.replaceRoute(path);
                 });
@@ -102,8 +106,28 @@ export function requestProfile(slug, fields) {
     }, {slug});
 }
 
+//TODO: Inconsistent action naming. Conflict with request_own_user
+export function requestOtherUserPage(slug) {
+    return requestUser(slug).then(() => {
+            return dispatchAsync(UserAPI.getOtherUser(slug), {
+                request: ActionTypes.REQUEST_OTHER_USER,
+                success: ActionTypes.REQUEST_OTHER_USER_SUCCESS,
+                failure: ActionTypes.REQUEST_OTHER_USER_ERROR
+            }, {slug});
+        }
+    )
+}
+
+export function requestOwnUserPage() {
+    return dispatchAsync(UserAPI.getOwnUserPage(), {
+        request: ActionTypes.REQUEST_OWN_USER_PAGE,
+        success: ActionTypes.REQUEST_OWN_USER_PAGE_SUCCESS,
+        failure: ActionTypes.REQUEST_OWN_USER_PAGE_ERROR
+    });
+}
+
 export function requestSharedUser(slug) {
-    if (UserStore.containsSlug(slug)){
+    if (UserStore.containsSlug(slug)) {
         return;
     }
     dispatchAsync(UserAPI.getPublicUser(slug), {
@@ -262,6 +286,18 @@ export function reportUser(from, to, data) {
     }, {from, to, data});
 }
 
+export function requestFriends() {
+    return dispatchAsync(UserAPI.getFriends(), {
+        request: ActionTypes.REQUEST_FRIENDS,
+        success: ActionTypes.REQUEST_FRIENDS_SUCCESS,
+        failure: ActionTypes.REQUEST_FRIENDS_ERROR
+    });
+}
+
+export function changeFriendsOrder(order) {
+    return dispatch(ActionTypes.CHANGE_FRIENDS_ORDER, {order})
+}
+
 export function likeContent(from, to, originContext, originName) {
     dispatchAsync(UserAPI.setLikeContent(to, originContext, originName), {
         request: ActionTypes.LIKE_CONTENT,
@@ -323,4 +359,16 @@ export function requestLikeUser(from, to) {
         success: ActionTypes.REQUEST_LIKE_USER_SUCCESS,
         failure: ActionTypes.REQUEST_LIKE_USER_ERROR
     }, {from, to});
+}
+
+export function editAvailability(availability) {
+    return dispatch(ActionTypes.EDIT_AVAILABILITY, {availability})
+}
+
+export function updateAvailability(availability) {
+    return dispatchAsync(UserAPI.updateAvailability({availability}), {
+        request: ActionTypes.UPDATE_AVAILABILITY,
+        success: ActionTypes.UPDATE_AVAILABILITY_SUCCESS,
+        error: ActionTypes.UPDATE_AVAILABILITY_ERROR
+    }, {availability})
 }

@@ -1,0 +1,347 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test FrameCollapsible component should render correctly 1`] = `
+ShallowWrapper {
+  "length": 1,
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <FrameCollapsible
+    title="Title"
+  >
+    Lorem ipsum
+  </FrameCollapsible>,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "class",
+    "props": Object {
+      "children": <div
+        className="frameCollapsible"
+      >
+        <div
+          className="frameTop"
+          onClick={[Function]}
+        >
+          <div
+            className="title"
+          >
+            Title
+          </div>
+          <div
+            className="arrow"
+          >
+            <div
+              className="arrow icon icon-chevron-down"
+            />
+          </div>
+        </div>
+        <div
+          className="content"
+          style={
+            Object {
+              "display": "none",
+            }
+          }
+        >
+          Lorem ipsum
+        </div>
+      </div>,
+    },
+    "ref": null,
+    "rendered": Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": Array [
+          <div
+            className="frameTop"
+            onClick={[Function]}
+          >
+            <div
+              className="title"
+            >
+              Title
+            </div>
+            <div
+              className="arrow"
+            >
+              <div
+                className="arrow icon icon-chevron-down"
+              />
+            </div>
+          </div>,
+          <div
+            className="content"
+            style={
+              Object {
+                "display": "none",
+              }
+            }
+          >
+            Lorem ipsum
+          </div>,
+        ],
+        "className": "frameCollapsible",
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": Array [
+              <div
+                className="title"
+              >
+                Title
+              </div>,
+              <div
+                className="arrow"
+              >
+                <div
+                  className="arrow icon icon-chevron-down"
+                />
+              </div>,
+            ],
+            "className": "frameTop",
+            "onClick": [Function],
+          },
+          "ref": null,
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": "Title",
+                "className": "title",
+              },
+              "ref": null,
+              "rendered": "Title",
+              "type": "div",
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": <div
+                  className="arrow icon icon-chevron-down"
+                />,
+                "className": "arrow",
+              },
+              "ref": null,
+              "rendered": Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "className": "arrow icon icon-chevron-down",
+                },
+                "ref": null,
+                "rendered": null,
+                "type": "div",
+              },
+              "type": "div",
+            },
+          ],
+          "type": "div",
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": "Lorem ipsum",
+            "className": "content",
+            "style": Object {
+              "display": "none",
+            },
+          },
+          "ref": null,
+          "rendered": "Lorem ipsum",
+          "type": "div",
+        },
+      ],
+      "type": "div",
+    },
+    "type": [Function],
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "class",
+      "props": Object {
+        "children": <div
+          className="frameCollapsible"
+        >
+          <div
+            className="frameTop"
+            onClick={[Function]}
+          >
+            <div
+              className="title"
+            >
+              Title
+            </div>
+            <div
+              className="arrow"
+            >
+              <div
+                className="arrow icon icon-chevron-down"
+              />
+            </div>
+          </div>
+          <div
+            className="content"
+            style={
+              Object {
+                "display": "none",
+              }
+            }
+          >
+            Lorem ipsum
+          </div>
+        </div>,
+      },
+      "ref": null,
+      "rendered": Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": Array [
+            <div
+              className="frameTop"
+              onClick={[Function]}
+            >
+              <div
+                className="title"
+              >
+                Title
+              </div>
+              <div
+                className="arrow"
+              >
+                <div
+                  className="arrow icon icon-chevron-down"
+                />
+              </div>
+            </div>,
+            <div
+              className="content"
+              style={
+                Object {
+                  "display": "none",
+                }
+              }
+            >
+              Lorem ipsum
+            </div>,
+          ],
+          "className": "frameCollapsible",
+        },
+        "ref": null,
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": Array [
+                <div
+                  className="title"
+                >
+                  Title
+                </div>,
+                <div
+                  className="arrow"
+                >
+                  <div
+                    className="arrow icon icon-chevron-down"
+                  />
+                </div>,
+              ],
+              "className": "frameTop",
+              "onClick": [Function],
+            },
+            "ref": null,
+            "rendered": Array [
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": "Title",
+                  "className": "title",
+                },
+                "ref": null,
+                "rendered": "Title",
+                "type": "div",
+              },
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": <div
+                    className="arrow icon icon-chevron-down"
+                  />,
+                  "className": "arrow",
+                },
+                "ref": null,
+                "rendered": Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "className": "arrow icon icon-chevron-down",
+                  },
+                  "ref": null,
+                  "rendered": null,
+                  "type": "div",
+                },
+                "type": "div",
+              },
+            ],
+            "type": "div",
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": "Lorem ipsum",
+              "className": "content",
+              "style": Object {
+                "display": "none",
+              },
+            },
+            "ref": null,
+            "rendered": "Lorem ipsum",
+            "type": "div",
+          },
+        ],
+        "type": "div",
+      },
+      "type": [Function],
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+      },
+    },
+  },
+}
+`;

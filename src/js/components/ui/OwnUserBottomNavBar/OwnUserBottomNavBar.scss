@@ -1,0 +1,59 @@
+@import '../../../../scss/_partials/colors';
+
+.own-user-bottom-navbar {
+  background: $white-background;
+  box-shadow: 0 -2px 5px $gray-border;
+  bottom: 0;
+  color: $gray-main-text;
+  font-size: 14px;
+  height: 50px;
+  line-height: 50px;
+  position: sticky;
+  width: 100%;
+
+  .icon-wrapper {
+    color: $gray-main-text;
+    cursor: pointer;
+    display: inline-block;
+    height: 50px;
+    opacity: 0.5;
+    text-align: center;
+    vertical-align: middle;
+    width: 20%;
+
+    .icon {
+      font-size: 28px;
+      width: 100%;
+    }
+    .icon-text {
+      font-size: 10px;
+      width: 100%;
+    }
+
+    &.current {
+      cursor: default;
+      opacity: 1;
+    }
+
+    .notifications-wrapper {
+      background: $green-experiences;
+      border-radius: 50%;
+      -moz-border-radius: 50%;
+      -webkit-border-radius: 50%;
+      position: absolute;
+      text-align: center;
+      line-height: 20px;
+      margin-left: 11%;
+      top: 15px;
+      height: 20px;
+      width: 20px;
+
+      .notifications {
+        color: #fff;
+        line-height: 20px;
+        font-size: 10px;
+        font-weight: bold;
+      }
+    }
+  }
+}

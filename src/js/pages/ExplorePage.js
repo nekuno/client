@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import ExploreField from '../components/registerFields/ExploreField';
-import DetailPopup from '../components/registerFields/DetailPopup';
+import ExploreField from '../components/_registerFields/ExploreField';
+import DetailPopup from '../components/_registerFields/DetailPopup';
 import connectToStores from '../utils/connectToStores';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';

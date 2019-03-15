@@ -1,0 +1,21 @@
+@import '../../../../scss/_partials/colors';
+
+.tab {
+  border-bottom: 2px solid transparent;
+  color: $deep-purple;
+  display: inline-block;
+  font-size: 13px;
+  font-weight: bold;
+  position: relative;
+  list-style: none;
+  padding: 6px 0;
+  cursor: pointer;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  &.selected {
+    border-bottom: 2px solid $deep-purple;
+  }
+}

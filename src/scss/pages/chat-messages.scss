@@ -1,0 +1,14 @@
+@import '../_partials/colors';
+
+body #root .App .views .view.notifications-view {
+  background-color: $background-white !important;
+  color: $gray-main-text;
+  text-align: center;
+  z-index: 0;
+  overflow-y: hidden;
+
+  .notifications-wrapper {
+    height: calc(100% - 115px);
+    overflow: auto;
+  }
+}

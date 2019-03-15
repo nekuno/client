@@ -1,0 +1,132 @@
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import styles from './CandidateCard.scss';
+import RoundedIcon from "../../ui/RoundedIcon/RoundedIcon";
+import translate from "../../../i18n/Translate";
+import MatchingBars from "../../ui/MatchingBars/MatchingBars";
+
+@translate('CandidateCard')
+export default class CandidateCard extends Component {
+
+    static propTypes = {
+        proposal      : PropTypes.object.isRequired,
+        user          : PropTypes.object.isRequired,
+        onClickHandler: PropTypes.func
+    };
+
+    static contextTypes = {
+        router: PropTypes.object.isRequired
+    };
+
+    constructor(props) {
+        super(props);
+
+        this.handleClick = this.handleClick.bind(this);
+    }
+
+    handleClick() {
+        const {user} = this.props;
+        const {slug} = user;
+
+        if (this.props.onClickHandler) {
+            this.props.onClickHandler();
+        }
+        const userLink = '/p/' + slug;
+
+        this.context.router.push(userLink);
+    }
+
+    renderProposalIcon(proposal) {
+        let icon = '';
+
+        switch (proposal.type) {
+            case 'sports':
+            case 'hobbies':
+            case 'games':
+                icon = 'icon-hobbie';
+                break;
+            case 'shows':
+            case 'restaurants':
+            case 'plans':
+                icon = 'icon-experience';
+                break;
+            case 'work':
+            default:
+                icon = 'icon-project';
+                break;
+        }
+
+        return (
+            <span className={icon}>
+                <span className="path1"></span>
+                <span className="path2"></span>
+                <span className="path3"></span>
+                <span className="path4"></span>
+                <span className="path5"></span>
+                <span className="path6"></span>
+                <span className="path7"></span>
+            </span>
+        );
+    }
+
+    render() {
+        const {proposal, user, strings} = this.props;
+        const {type, fields} = proposal;
+        const {title, description, image} = fields;
+        const proposalPhoto = fields.photo;
+        const {username, location, age, photo, matching, similarity, aboutMe} = user;
+        const locality = location && location.hasOwnProperty('locality') ? location.locality : '';
+        const bio = aboutMe && aboutMe !== '' ? aboutMe : strings.defaultDescription + username;
+
+        return (
+            <div className={styles.candidateCard} onClick={this.handleClick.bind(this)}>
+                <div className={styles.frame}>
+                    <div className={styles.type}>
+                        {this.renderProposalIcon(proposal)}
+                    </div>
+                    <div className={styles.candidateImage}>
+                        <img src={photo.url}/>
+                        <div className={styles.topData}>
+                            <div className={styles.userText}>
+                                <div className={styles.username}>{username}</div>
+                                <div className={styles.ageCity}>{locality} &bull; {age}</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <MatchingBars matching={matching} similarity={similarity}/>
+
+                    <div className={styles.description}>
+                        <div className={styles.resumeText}>{bio}</div>
+                    </div>
+
+                    <div className={styles.horizontalLine}>
+                        <hr/>
+                    </div>
+
+                    <div className={styles.proposal}>
+                        <div className={styles.compatibleProposalTitle}>
+                            <h4>{strings.compatibleWithProposal}</h4>
+                        </div>
+                        <div className={styles.proposalContent}>
+                            <img src={proposalPhoto}/>
+                            <div className={styles.proposalDescription}>
+                                {title}
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        );
+    }
+}
+
+CandidateCard.defaultProps = {
+    strings: {
+        compatible            : 'Compatible',
+        similar               : 'Similar',
+        compatibleWithProposal: 'Compatible with your proposal!',
+        defaultDescription    : 'Hi! I am ',
+    }
+};

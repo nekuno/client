@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import UserPage from './UserPage';
-import OtherUserPage from './OtherUserPage';
+import UserPage from './OwnUser/AboutMePage';
+import OtherUserPage from './OtherUser/AboutMePage';
 import SharedUserPage from './SharedUserPage';
 import connectToStores from '../utils/connectToStores';
 import LoginStore from '../stores/LoginStore';

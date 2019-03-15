@@ -1,0 +1,38 @@
+@import '../_partials/colors';
+
+.question-stats-page {
+  background: $background-white;
+  color: $gray-main-text;
+  text-align: center;
+  height: 100%;
+  .question-stats-page-wrapper {
+    padding: 0 24px;
+    height: calc(100% - 108px);
+    overflow: auto;
+  }
+
+  .skip-nav-bar {
+    background-color: $purple-one;
+    height: 54px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    .text {
+      color: $white;
+      font-size: 14px;
+      text-align: right;
+      font-weight: 600;
+      height: 100%;
+      width: 100%;
+      align-items: center;
+      display: flex;
+      justify-content: flex-end;
+      cursor: pointer;
+
+      .icon {
+        font-size: 24px;
+        margin: 0 8px;
+      }
+    }
+  }
+}

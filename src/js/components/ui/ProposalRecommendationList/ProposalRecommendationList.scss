@@ -1,0 +1,13 @@
+@import '../../../../scss/_partials/colors';
+
+.proposalRecommendationList {
+  background: rgba(146, 139, 255, 0.1);
+  font-size: 15px;
+  padding: 25px;
+  overflow-x: hidden;
+  height: calc(100% - 150px);
+}
+
+.prev, .next {
+  opacity: 0;
+}

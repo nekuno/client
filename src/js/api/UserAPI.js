@@ -40,11 +40,23 @@ export function editUser(data, url = `users`) {
     return putData(url, data);
 }
 
+export function updateAvailability(data, url=`availability`) {
+    return putData(url, data);
+}
+
 export function getOwnProfile(url = `profile`) {
     return getData(url);
 }
 
 export function getProfile(slug, url = `profile/${slug}`) {
+    return getData(url);
+}
+
+export function getOtherUser(slug, url = `profile/${slug}/page`) {
+    return getData(url);
+}
+
+export function getOwnUserPage(url = `profile/page`) {
     return getData(url);
 }
 
@@ -88,7 +100,7 @@ export function removeThread(threadId, url= `threads/${threadId}`) {
     return deleteData(url);
 }
 
-export function getRecommendations(url) {
+export function getRecommendations(threadId, url=`threads/${threadId}/recommendation`) {
     return getData(url);
 }
 
@@ -128,6 +140,10 @@ export function getLikeUser(to, url = `likes/${to}`) {
     return getData(url);
 }
 
+export function getFriends(url = `friends`) {
+    return getData(url);
+}
+
 export function setLikeContent(to, originContext, originName, url = `content/rate`) {
     return postLikeContent(url, to, originContext, originName);
 }
@@ -154,4 +170,44 @@ export function getMatching(userId, url = `matching/${userId}`) {
 
 export function getSimilarity(userId, url = `similarity/${userId}`) {
     return getData(url);
+}
+
+//Proposals
+
+export function createProposal(data, url='proposals') {
+    return postData(url, data);
+}
+
+export function updateProposal(proposalId, data, url= `proposals/${proposalId}`) {
+    return putData(url, data);
+}
+
+export function removeProposal(proposalId, url= `proposals/${proposalId}`) {
+    return deleteData(url);
+}
+
+export function getProposalRecommendations(url='proposals/recommendations') {
+    return getData(url);
+}
+
+export function getOwnProposals(url = 'proposals') {
+    return getData(url);
+}
+
+export function acceptCandidate(data, url = 'recommendations/candidates') {
+    return postData(url, data);
+}
+
+export function interestProposal(proposalId, data = {interested: true}, url = 'recommendations/proposals') {
+    data.proposalId = proposalId;
+    return postData(url, data);
+}
+
+export function skipCandidate(data, url = 'recommendations/candidates/skip') {
+    return postData(url, data)
+}
+
+export function skipProposal(proposalId, data = {skipped: true}, url = 'recommendations/proposals/skip') {
+    data.proposalId = proposalId;
+    return postData(url, data)
 }

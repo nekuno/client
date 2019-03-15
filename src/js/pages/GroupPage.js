@@ -5,7 +5,7 @@ import TopNavBar from '../components/ui/TopNavBar';
 import Button from '../components/ui/Button';
 import Group from '../components/groups/Group';
 import UnlockGroupPopup from '../components/groups/UnlockGroupPopup';
-import EmptyMessage from '../components/ui/EmptyMessage';
+import EmptyMessage from '../components/ui/EmptyMessage/EmptyMessage';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';

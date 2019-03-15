@@ -1,21 +1,21 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import CardContent from '../ui/CardContent';
-import EmptyMessage from '../ui/EmptyMessage';
-import Scroll from '../scroll/Scroll';
+import styles from './CardContentList.scss';
+import CardContent from '../ui/CardContent/CardContent';
+import EmptyMessage from '../ui/EmptyMessage/EmptyMessage';
+import Scroll from '../Scroll/Scroll';
 import translate from '../../i18n/Translate';
+import LoadingGif from "../ui/LoadingGif/LoadingGif";
 
 @translate('CardContentList')
 export default class CardContentList extends Component {
     static propTypes = {
-        firstItems    : PropTypes.array,
-        contents      : PropTypes.array.isRequired,
-        userId        : PropTypes.number.isRequired,
-        otherUserId   : PropTypes.number,
-        onReport      : PropTypes.func,
-        onBottomScroll: PropTypes.func,
-        isLoading     : PropTypes.bool,
-        loadingFirst  : PropTypes.bool,
+        firstItems       : PropTypes.array,
+        contents         : PropTypes.array.isRequired,
+        onBottomScroll   : PropTypes.func,
+        isLoading        : PropTypes.bool,
+        loadingFirst     : PropTypes.bool,
+        scrollContainerId: PropTypes.string
     };
 
     constructor(props) {
@@ -30,53 +30,49 @@ export default class CardContentList extends Component {
     }
 
     buildCardContent(content, index) {
-        const {userId, otherUserId} = this.props;
-
-        return <CardContent key={index} hideLikeButton={false} {...content} loggedUserId={userId} otherUserId={otherUserId}
-                         embed_id={content.embed ? content.embed.id : null} embed_type={content.embed ? content.embed.type : null}
-                         fixedHeight={true} onReport={this.onReport}/>
-        ;
+        return <CardContent key={index} {...content} embed_id={content.embed ? content.embed.id : null} embed_type={content.embed ? content.embed.type : null}/>;
     }
 
     getCardContents() {
         const {contents, isLoading, strings} = this.props;
 
-        if (contents.length == 0) {
+        if (contents.length === 0) {
             return isLoading ?
-                [<div key="empty-message"><EmptyMessage text={strings.loading} loadingGif={true}/></div>]
-                : [<div key="empty-message"><EmptyMessage text={strings.empty} loadingGif={false}/></div>];
+                [<div key="loading" className={styles.loading}><LoadingGif/></div>]
+                : [<div key="empty-message" className={styles.empty}><EmptyMessage text={strings.empty} loadingGif={false}/></div>];
         }
+
         return contents.map((content, index) => {
             return this.buildCardContent(content, index);
         });
     }
 
     render() {
+        const {scrollContainerId} = this.props;
+
         return (
-            <div className="content-list">
-                <Scroll
-                    items = {this.getCardContents()}
-                    firstItems={this.props.firstItems}
-                    columns = {2}
-                    onLoad={this.props.onBottomScroll}
-                    containerId="interests-view-main"
-                    loading = {this.props.isLoading}
-                />
-            </div>
+            <Scroll
+                items={this.getCardContents()}
+                firstItems={this.props.firstItems}
+                columns={2}
+                onLoad={this.props.onBottomScroll}
+                containerId={scrollContainerId}
+                loading={this.props.isLoading}
+                flex={true}
+            />
         );
     }
 }
 
 CardContentList.defaultProps = {
-    strings         : {
+    strings          : {
         loading: 'Loading interests',
         empty  : 'No interests'
     },
-    'firstItems'    : [],
-    'onBottomScroll': () => {
+    'firstItems'     : [],
+    'onBottomScroll' : () => {
     },
-    'onReport'      : () => {
-    },
-    'isLoading'     : false,
-    'loadingFirst' : false,
+    'isLoading'      : false,
+    'loadingFirst'   : false,
+    scrollContainerId: 'view'
 };

@@ -1,0 +1,80 @@
+@import '../../_partials/colors';
+
+.user-answers-view {
+  background-color: $background;
+  color: $gray-main-text;
+  // text-align: center;
+  z-index: 0;
+  height: 100%;
+
+  .user-answers-view-wrapper {
+    height: calc(100% - 100px);
+
+    h3 {
+      font-weight: 600;
+      font-size: 18px;
+    }
+
+    .first-items {
+      margin: 16px;
+
+      .user-answer-presentation-card {
+        padding: 16px;
+        background-color: $background-white;
+
+        .user-answer-presentation-card-title {
+          display: flex;
+          align-items: center;
+
+          img {
+            margin: 0 16px 8px 0;
+          }
+
+          h2 {
+            font-weight: 600;
+            font-size: 20px;
+          }
+        }
+
+        .user-answer-presentation-card-description {
+          margin: 8px 0 16px 0;
+          font-size: 14px;
+          color: $text-two;
+        }
+
+        .user-answer-presentation-card-button {
+          text-align: left;
+          font-size: 20px;
+        }
+      }
+
+
+    }
+
+    .user-question-card {
+      padding: 16px;
+      margin: 16px;
+      background-color: $background-white;
+
+      .user-question-card-answer {
+        display: flex;
+        align-items: center;
+
+        .photo {
+          margin-right: 16px;
+          .icon-nekuno-wrapper {
+            margin-left: 6px;
+          }
+        }
+      }
+      .edit-answer {
+        font-size: 14px;
+        font-weight: normal;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        color: $links;
+      }
+    }
+  }
+}

@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { QUESTION_STATS_COLORS } from '../../constants/Constants';
 import Chart from 'chart.js';
 import translate from '../../i18n/Translate';
+import styles from './QuestionStatsGraphs.scss';
 
 @translate('QuestionStatsGraph')
 export default class QuestionStatsGraph extends Component {
@@ -22,7 +23,7 @@ export default class QuestionStatsGraph extends Component {
 
         let options = {
             segmentShowStroke    : false,
-            percentageInnerCutout: 55,
+            percentageInnerCutout: 70,
             tooltipTemplate      : "<%= value %>%"
         };
 
@@ -58,8 +59,10 @@ export default class QuestionStatsGraph extends Component {
             });
         });
 
-        let firstElem = document.getElementById(firstGraphClass);
-        let secondElem = document.getElementById(secondGraphClass);
+        let firstElem = this.refs.firstGraphClass;
+        let secondElem = this.refs.secondGraphClass;
+
+
         let canvasWidth = firstElem.style.width;
         let canvasHeight = firstElem.style.height;
 
@@ -77,6 +80,7 @@ export default class QuestionStatsGraph extends Component {
         if (question[secondProperty]) {
             new Chart(ctx2).Doughnut(secondStats, options);
         }
+
     }
 
     isGenderDiffGreater = function(question) {
@@ -99,24 +103,32 @@ export default class QuestionStatsGraph extends Component {
         const isGenderDiffGreater = this.isGenderDiffGreater(question);
         const firstIcon = isGenderDiffGreater ? 'icon-female stats-icon' : 'icon-cool stats-icon';
         const secondIcon = isGenderDiffGreater ? 'icon-male stats-icon' : 'icon-hipster stats-icon';
-        const firstGraphClass = isGenderDiffGreater ? "female-answer-chart-" + userAnswer.answerId : "young-answer-chart-" + userAnswer.answerId
-        const secondGraphClass = isGenderDiffGreater ? "male-answer-chart-" + userAnswer.answerId : "old-answer-chart-" + userAnswer.answerId
+        const firstGraphClass = isGenderDiffGreater ? "female-answer-chart-" + userAnswer.answerId : "young-answer-chart-" + userAnswer.answerId;
+        const secondGraphClass = isGenderDiffGreater ? "male-answer-chart-" + userAnswer.answerId : "old-answer-chart-" + userAnswer.answerId;
         const firstText = isGenderDiffGreater ? strings.females : strings.young;
         const secondText = isGenderDiffGreater ? strings.males : strings.old;
         const statsType = isGenderDiffGreater ? strings.typeGender : strings.typeAge;
 
         return (
-            <div className="community-question-stats">
-                <div className="question-stats-type">{statsType}</div>
-                <div className="first-answer-chart-container">
-                    <canvas id={firstGraphClass}></canvas>
-                    <div className={firstIcon}></div>
-                    <div className="stats-text">{firstText}</div>
+            <div className={styles.communityQuestionStats}>
+                <div className={styles.questionStatsGraphTitle}>
+                    {strings.statistics + ' ' + statsType}
                 </div>
-                <div className="second-answer-chart-container">
-                    <canvas id={secondGraphClass}></canvas>
-                    <div className={secondIcon}></div>
-                    <div className="stats-text">{secondText}</div>
+                <div className={styles.chartsContainer}>
+                    <div className={styles.firstChart}>
+                        <div className="stats-text">{firstText}</div>
+                        <canvas ref={'firstGraphClass'}
+                                style={{display: 'block', width: '100px', height: '100px'}}
+                                id={firstGraphClass}></canvas>
+                        <div className={firstIcon}></div>
+                    </div>
+                    <div className={styles.secondChart}>
+                        <div className="stats-text">{secondText}</div>
+                        <canvas ref={'secondGraphClass'}
+                                style={{display: 'block', width: '100px', height: '100px'}}
+                                id={secondGraphClass}></canvas>
+                        <div className={secondIcon}></div>
+                    </div>
                 </div>
             </div>
         );
@@ -125,11 +137,12 @@ export default class QuestionStatsGraph extends Component {
 
 QuestionStatsGraph.defaultProps = {
     strings: {
+        statistics: 'Statistics answers community',
         females   : 'Girls',
         males     : 'Boys',
         young     : '- than 30',
         old       : '+ than 30',
-        typeGender: 'Distribution by gender',
-        typeAge   : 'Distribution by age',
+        typeGender: 'distribution by gender',
+        typeAge   : 'distribution by age',
     }
 };

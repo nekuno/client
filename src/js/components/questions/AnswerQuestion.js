@@ -1,9 +1,11 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import selectn from 'selectn';
-import EmptyMessage from '../ui/EmptyMessage';
+import EmptyMessage from '../ui/EmptyMessage/EmptyMessage';
 import AnswerQuestionForm from './AnswerQuestionForm';
 import translate from '../../i18n/Translate';
+import styles from './AnswerQuestion.scss';
+
 
 @translate('AnswerQuestion')
 export default class AnswerQuestion extends Component {
@@ -24,7 +26,7 @@ export default class AnswerQuestion extends Component {
         const {noMoreQuestions, question, isLoadingOwnQuestions, strings} = this.props;
         let questionId = selectn('questionId', question);
         let answers = selectn('answers', question) || [];
-        const questionTitleClass = questionId && question.text.length > 60 ? "title answer-question-title answer-question-title-long" : "title answer-question-title";
+        const questionTitleClass = questionId && question.text.length > 60 ? "title " + styles.answerQuestionTitle + " answer-question-title-long" : "title " + styles.answerQuestionTitle;
         return (
             <div>
                 {

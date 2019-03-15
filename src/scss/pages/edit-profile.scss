@@ -1,10 +1,11 @@
 @import '../_partials/colors';
 
-body #root .App .views .view .page.user-page  {
+body #root .App .views .view .page.user-page {
   position: relative;
 
   #page-content {
     width: 100%;
+
     .profile-category {
       width: 100%;
       background-color: $deep-purple-translucent;
@@ -25,330 +26,340 @@ body #root .App .views .view .page.user-page  {
       margin-bottom: -20px;
       margin-top: -35px;
     }
+
     .textarea-filter-wrapper {
       width: 100%;
 
-      .list-block {
-        margin: 30px 0 0 0;
+      .textarea-title {
+        font-size: 0.8em;
+        font-weight: bold;
+        margin-bottom: 20px;
+        max-width: 90%;
+      }
 
-        li {
-          .textarea-title {
-            font-size: 0.8em;
-            font-weight: bold;
-            margin-bottom: 20px;
-            max-width: 90%;
-          }
-          textarea {
-            display: block;
-            font-size: 0.85em;
-            height: 100px;
-            width: 100%;
-          }
-          &::after {
-            content: none;
-          }
-        }
+      textarea {
+        display: block;
+        font-size: 0.85em;
+        height: 100px;
+        width: 100%;
+      }
+
+      &::after {
+        content: none;
       }
     }
 
-    .radio-filter, .tags-and-choice-filter {
-      .double-choice-filter, .tags-and-choice-choice {
-        display: inline-block;
-        width: 100%;
-        vertical-align: middle;
+  .radio-filter, .tags-and-choice-filter {
+    .double-choice-filter, .tags-and-choice-choice {
+      display: inline-block;
+      width: 100%;
+      vertical-align: middle;
 
-        .list-block {
-          margin: 0 0 0 15px;
-          min-width: 250px;
-        }
-        .tags-and-choice-choice-radios {
-          margin-top: 20px;
-        }
+      .list-block {
+        margin: 0 0 0 15px;
+        min-width: 250px;
       }
-      .tags-and-choice-choice {
+
+      .tags-and-choice-choice-radios {
         margin-top: 20px;
       }
-      .tags-and-choice-unselected-filters {
-        display: inline-block;
-        margin-left: 15px;
+    }
 
-        .tags-and-choice-unselected-filter {
-          display: inline-block;
-        }
-      }
-      .add-tags-and-choice, .remove-tags-and-choice {
-        cursor: pointer;
-        margin: 20px 0 20px 30px;
+    .tags-and-choice-choice {
+      margin-top: 20px;
+    }
+
+    .tags-and-choice-unselected-filters {
+      display: inline-block;
+      margin-left: 15px;
+
+      .tags-and-choice-unselected-filter {
+        display: inline-block;
       }
     }
 
-    .choice-filter {
-      vertical-align: middle;
+    .add-tags-and-choice, .remove-tags-and-choice {
+      cursor: pointer;
+      margin: 20px 0 20px 30px;
     }
+  }
 
-    .tag-input-wrapper {
-      min-width: 220px;
-    }
+  .choice-filter {
+    vertical-align: middle;
+  }
 
-    .profile-field {
-      display: table;
-      height: 70px;
-      width: 100%;
+  .tag-input-wrapper {
+    min-width: 220px;
+  }
 
-      .profile-field-remove {
-        cursor: pointer;
-        right: 5%;
-        position: absolute;
-        z-index: 11;
-      }
+  .profile-field {
+    display: table;
+    height: 70px;
+    width: 100%;
 
-      .text-radios {
-        display: inline-block;
-        width: 110%;
-        padding: 0;
-        z-index: 111;
-      }
-      .text-checkboxes {
-        display: inline-block;
-        max-width: 100%;
-        padding: 0;
-        text-align: left;
-        vertical-align: middle;
-        z-index: 111;
-
-        .chip {
-          margin: 5px;
-        }
-      }
-      .remove-multiple-field , .add-multiple-field {
-        cursor: pointer;
-        margin: 20px auto;
-      }
-      .text-multiple-fields {
-        display: inline-block;
-        max-width: 100%;
-        font-size: 1.5em;
-        margin-top: 0;
-        margin-bottom: 15px;
-        text-align: left;
-        vertical-align: middle;
-        z-index: 111;
-      }
-    }
-
-    .profile-field-opposite-background {
-      background: $dark-purple;
-      height: 30%;
-      left: 0;
-      margin-top: 15px;
-      padding: 40px 0;
+    .profile-field-remove {
+      cursor: pointer;
+      right: 5%;
       position: absolute;
-      width: 100%;
-      z-index: -1;
+      z-index: 11;
     }
 
-    .radio-filter, .tags-and-choice-filter {
-      display: table-row;
+    .text-radios {
+      display: inline-block;
+      width: 110%;
+      padding: 0;
+      z-index: 111;
+    }
+
+    .text-checkboxes {
+      display: inline-block;
+      max-width: 100%;
+      padding: 0;
+      text-align: left;
+      vertical-align: middle;
+      z-index: 111;
+
+      .chip {
+        margin: 5px;
+      }
+    }
+
+    .remove-multiple-field, .add-multiple-field {
+      cursor: pointer;
+      margin: 20px auto;
+    }
+
+    .text-multiple-fields {
+      display: inline-block;
+      max-width: 100%;
+      font-size: 1.5em;
+      margin-top: 0;
+      margin-bottom: 15px;
+      text-align: left;
+      vertical-align: middle;
+      z-index: 111;
+    }
+  }
+
+  .profile-field-opposite-background {
+    background: $dark-purple;
+    height: 30%;
+    left: 0;
+    margin-top: 15px;
+    padding: 40px 0;
+    position: absolute;
+    width: 100%;
+    z-index: -1;
+  }
+
+  .radio-filter, .tags-and-choice-filter {
+    display: table-row;
+    width: 100%;
+
+    .tags-and-choice-wrapper {
+      display: inline;
+    }
+
+    .list-block {
+      display: inline-block;
+      margin: 0;
+      width: 100%;
+      vertical-align: middle;
+
+      .item-title {
+        width: 100%;
+      }
+    }
+  }
+
+  .integer-filter, .tags-and-choice-filter {
+    .list-block {
+      display: inline-block;
+      margin: 0;
+      min-width: 220px;
+      vertical-align: middle;
       width: 100%;
 
-      .tags-and-choice-wrapper {
-        display: inline;
+      .integer-title, .tags-and-choice-title {
+        font-size: 0.8em;
+        font-weight: bold;
+        text-align: center;
       }
-      
-      .list-block {
-        display: inline-block;
-        margin: 0;
-        width: 100%;
-        vertical-align: middle;
 
-        .item-title {
+      .item-input {
+        font-weight: 400;
+        background: transparent;
+        height: 60px;
+        line-height: 60px;
+        padding: 0 5px;
+        vertical-align: middle;
+        margin: 2px 0;
+        width: 100%;
+
+        input[type=time], input[type=number], input[type=search], input[type=text], input[type=password], input[type=email], input[type=tel], input[type=url], input[type=date], input[type=datetime-local] {
+          background-color: transparent;
+          border: none;
+          color: #fff;
           width: 100%;
         }
       }
     }
+  }
 
-    .integer-filter, .tags-and-choice-filter {
+  .table-row {
+    display: block;
+    height: 30px;
+    width: 100%;
+  }
+
+  .location-tag-filter, .birthday-filter {
+    .location-filter-wrapper, .birthday-filter-wrapper {
+      display: inline-block;
+      min-width: 250px;
+      width: 100%;
+      vertical-align: middle;
+
       .list-block {
         display: inline-block;
         margin: 0;
-        min-width: 220px;
         vertical-align: middle;
         width: 100%;
 
-        .integer-title, .tags-and-choice-title {
+        .location-title {
           font-size: 0.8em;
           font-weight: bold;
           text-align: center;
         }
 
-        .item-input {
-          font-weight: 400;
-          background: transparent;
-          height: 60px;
-          line-height: 60px;
-          padding: 0 5px;
-          vertical-align: middle;
-          margin: 2px 0;
-          width: 100%;
-
-          input[type=time], input[type=number], input[type=search], input[type=text], input[type=password], input[type=email], input[type=tel], input[type=url], input[type=date], input[type=datetime-local] {
-            background-color: transparent;
-            border: none;
-            color: #fff;
-            width: 100%;
-          }
-        }
-      }
-    }
-
-    .table-row {
-      display: block;
-      height: 30px;
-      width: 100%;
-    }
-
-    .location-tag-filter, .birthday-filter {
-      .location-filter-wrapper, .birthday-filter-wrapper {
-        display: inline-block;
-        min-width: 250px;
-        width: 100%;
-        vertical-align: middle;
-
-        .list-block {
-          display: inline-block;
-          margin: 0;
-          vertical-align: middle;
-          width: 100%;
-
-          .location-title {
-            font-size: 0.8em;
-            font-weight: bold;
-            text-align: center;
-          }
-
-          input[type="date"] {
-            text-align: left;
-          }
-        }
-      }
-    }
-
-    .select-filter {
-      background: $dark-purple;
-      height: 500px;
-      left: 0;
-      padding-top: 30px;
-      position: absolute;
-      top: -50px;
-      width: 100%;
-      z-index: 1111;
-
-      .back-to-selected-filters {
-        cursor: pointer;
-        margin-left: 5%;
-      }
-
-      .list-block {
-        margin: 35px 0 35px 5%;
-
-        ul.checkbox-filters-list {
-          display: inline-table;
-          padding: 0 2.5%;
-          width: 45%;
-
-          li {
-            .label-checkbox {
-              .item-inner {
-                .item-title {
-                  width: 100%;
-                }
-              }
-            }
-            &::after {
-              content: none;
-            }
-          }
-          .active-state {
-            background-color: transparent;
-          }
-        }
-      }
-    }
-
-    .add-filter {
-      display: inline-block;
-
-      .add-filter-button-wrapper {
-        font-weight: 400;
-        background: $deep-purple;
-        height: 60px;
-        line-height: 60px;
-        border-radius: 30px;
-        -moz-border-radius: 30px;
-        -webkit-border-radius: 30px;
-        padding: 0 24px;
-        box-sizing: border-box;
-        vertical-align: middle;
-        display: -webkit-inline-box;
-        display: -ms-inline-flexbox;
-        display: -webkit-inline-flex;
-        display: inline-flex;
-        -webkit-box-align: center;
-        -ms-flex-align: center;
-        -webkit-align-items: center;
-        align-items: center;
-        margin: 2px 0;
-
-        .add-filter-button {
-          cursor: pointer;
-          font-size: 1.3em;
-        }
-      }
-    }
-
-    @media only screen and (max-width: 300px) {
-      .textarea-filter-wrapper {
-        .list-block {
-          li {
-            .textarea-title {
-              max-width: 70%;
-            }
-          }
-        }
-      }
-    }
-
-    @media only screen and (min-width: 360px) and (max-width: 375px) {
-      .profile-field {
-        .text-radios .chip {
-          max-width: 265px;
-        }
-        .text-checkboxes .chip {
-          max-width: 265px;
-        }
-      }
-    }
-
-    @media only screen and (min-width: 340px) and (max-width: 359px) {
-      .profile-field {
-        .text-radios {
-          max-width: 255px;
-        }
-        .text-checkboxes .chip {
-          max-width: 255px;
-        }
-      }
-    }
-
-    @media only screen and (max-width: 339px) {
-      .profile-field {
-        .text-radios {
-          max-width: 220px;
-        }
-        .text-checkboxes .chip {
-          max-width: 220px;
+        input[type="date"] {
+          text-align: left;
         }
       }
     }
   }
+
+  .select-filter {
+    background: $dark-purple;
+    height: 500px;
+    left: 0;
+    padding-top: 30px;
+    position: absolute;
+    top: -50px;
+    width: 100%;
+    z-index: 1111;
+
+    .back-to-selected-filters {
+      cursor: pointer;
+      margin-left: 5%;
+    }
+
+    .list-block {
+      margin: 35px 0 35px 5%;
+
+      ul.checkbox-filters-list {
+        display: inline-table;
+        padding: 0 2.5%;
+        width: 45%;
+
+        li {
+          .label-checkbox {
+            .item-inner {
+              .item-title {
+                width: 100%;
+              }
+            }
+          }
+
+          &::after {
+            content: none;
+          }
+        }
+
+        .active-state {
+          background-color: transparent;
+        }
+      }
+    }
+  }
+
+  .add-filter {
+    display: inline-block;
+
+    .add-filter-button-wrapper {
+      font-weight: 400;
+      background: $deep-purple;
+      height: 60px;
+      line-height: 60px;
+      border-radius: 30px;
+      -moz-border-radius: 30px;
+      -webkit-border-radius: 30px;
+      padding: 0 24px;
+      box-sizing: border-box;
+      vertical-align: middle;
+      display: -webkit-inline-box;
+      display: -ms-inline-flexbox;
+      display: -webkit-inline-flex;
+      display: inline-flex;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      -webkit-align-items: center;
+      align-items: center;
+      margin: 2px 0;
+
+      .add-filter-button {
+        cursor: pointer;
+        font-size: 1.3em;
+      }
+    }
+  }
+
+  @media only screen and (max-width: 300px) {
+    .textarea-filter-wrapper {
+      .list-block {
+        li {
+          .textarea-title {
+            max-width: 70%;
+          }
+        }
+      }
+    }
+  }
+
+  @media only screen and (min-width: 360px) and (max-width: 375px) {
+    .profile-field {
+      .text-radios .chip {
+        max-width: 265px;
+      }
+
+      .text-checkboxes .chip {
+        max-width: 265px;
+      }
+    }
+  }
+
+  @media only screen and (min-width: 340px) and (max-width: 359px) {
+    .profile-field {
+      .text-radios {
+        max-width: 255px;
+      }
+
+      .text-checkboxes .chip {
+        max-width: 255px;
+      }
+    }
+  }
+
+  @media only screen and (max-width: 339px) {
+    .profile-field {
+      .text-radios {
+        max-width: 220px;
+      }
+
+      .text-checkboxes .chip {
+        max-width: 220px;
+      }
+    }
+  }
+}
+
 }

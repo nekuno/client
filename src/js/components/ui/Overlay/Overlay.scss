@@ -1,0 +1,9 @@
+@import '../../../../scss/_partials/colors';
+
+.overlay {
+  background: linear-gradient(to bottom, $overlay-top 0%, $overlay-bottom 100%);
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  z-index: -1;
+}

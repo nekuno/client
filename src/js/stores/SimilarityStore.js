@@ -2,6 +2,7 @@ import ActionTypes from '../constants/ActionTypes';
 import { waitFor } from '../dispatcher/Dispatcher';
 import BaseStore from './BaseStore';
 import UserStore from '../stores/UserStore'
+import LoginStore from "./LoginStore";
 
 class SimilarityStore extends BaseStore {
 
@@ -22,6 +23,13 @@ class SimilarityStore extends BaseStore {
                 this.merge(userId1, userId2, action.response.similarity);
                 this.emitChange();
                 break;
+            case ActionTypes.REQUEST_OTHER_USER_SUCCESS:
+                const loggedUserId = LoginStore.user.id;
+                const otherUserId = UserStore.getBySlug(action.slug).id;
+
+                this.merge(loggedUserId, otherUserId, action.response.similarity);
+                this.emitChange();
+                break;
         }
     }
 
@@ -40,6 +48,13 @@ class SimilarityStore extends BaseStore {
         } else {
             return null;
         }
+    }
+
+    getPercentage(userId1, userId2)
+    {
+        const similarity = this.get(userId1, userId2);
+
+        return similarity*100;
     }
 
     merge(userId1, userId2, value){

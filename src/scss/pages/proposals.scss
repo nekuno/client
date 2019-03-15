@@ -1,0 +1,8 @@
+@import '../_partials/colors';
+
+body #root .App .views .view.proposals-view {
+  background-color: $background;
+  color: $gray-main-text;
+  text-align: center;
+  overflow-y: hidden;
+}

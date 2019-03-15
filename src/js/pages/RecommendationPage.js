@@ -4,7 +4,7 @@ import { ORIGIN_CONTEXT } from '../constants/Constants';
 import RecommendationList from '../components/recommendations/RecommendationList';
 import TopNavBar from '../components/ui/TopNavBar';
 import ThreadToolBar from '../components/ui/ThreadToolBar';
-import EmptyMessage from '../components/ui/EmptyMessage';
+import EmptyMessage from '../components/ui/EmptyMessage/EmptyMessage';
 import * as UserActionCreators from '../actions/UserActionCreators';
 import GalleryPhotoActionCreators from '../actions/GalleryPhotoActionCreators';
 import * as QuestionActionCreators from '../actions/QuestionActionCreators';
@@ -245,7 +245,7 @@ export default class RecommendationPage extends Component {
             const router = this.context.router;
             ThreadActionCreators.deleteThread(threadId)
                 .then(() => {
-                    router.push('/discover');
+                    router.push('/proposals');
                 }, (error) => { console.log(error) });
         });
     }

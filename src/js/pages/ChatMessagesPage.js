@@ -1,9 +1,8 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import TopNavBar from '../components/ui/TopNavBar';
-import DailyMessages from '../components/ui/DailyMessages';
-import MessagesToolBar from '../components/ui/MessagesToolBar';
-import MessagesToolBarDisabled from '../components/ui/MessagesToolBarDisabled';
+import DailyMessages from '../components/ui/DailyMessages/DailyMessages';
+import MessagesToolBar from '../components/MessagesToolBar/MessagesToolBar';
+import MessagesToolBarDisabled from '../components/ui/MessagesToolBarDisabled/MessagesToolBarDisabled';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
@@ -14,6 +13,8 @@ import UserStore from '../stores/UserStore';
 import BlockStore from '../stores/BlockStore';
 import ChatMessageStore from '../stores/ChatMessageStore';
 import ChatUserStatusStore from '../stores/ChatUserStatusStore';
+import '../../scss/pages/chat-messages.scss';
+import TopNavBar from '../components/TopNavBar/TopNavBar';
 
 function parseUserId(user) {
     return user ? user.id : null;
@@ -119,6 +120,7 @@ export default class ChatMessagesPage extends Component {
         this.markReaded = this.markReaded.bind(this);
         this.handleScroll = this.handleScroll.bind(this);
         this.goToProfilePage = this.goToProfilePage.bind(this);
+        this.goToChatThreadsPage = this.goToChatThreadsPage.bind(this);
         this.scrollIfNeeded = this.scrollIfNeeded.bind(this);
 
         this.state = {
@@ -152,10 +154,12 @@ export default class ChatMessagesPage extends Component {
     }
 
     componentDidUpdate(prevProps) {
+        this.refs.list.scrollTop = 500;
         if (this.props.otherUserId && (!prevProps.otherUserId || ChatMessageStore.isFresh(this.props.otherUserId))) {
             this._scrollToBottom();
             this.markReaded();
         }
+
     }
 
     scrollIfNeeded() {
@@ -207,34 +211,47 @@ export default class ChatMessagesPage extends Component {
         }
     }
 
+    goToChatThreadsPage() {
+        const {params} = this.props;
+        this.context.router.push(`conversations`);
+    }
+
     goToProfilePage() {
         const {params} = this.props;
-        this.context.router.push(`p/${params.slug}`)
+        this.context.router.push(`p/${params.slug}`);
     }
 
     render() {
-        const {otherUser, messages, online, strings, params, isGuest, canContact} = this.props;
+        const {user, otherUser, messages, online, strings, params, isGuest, canContact} = this.props;
+
         let otherUsername = otherUser ? otherUser.username : '';
+        let imgSrc = user && user.photo ? user.photo.thumbnail.medium : 'img/no-img/medium.jpg';
+
+        let otherUserImgSrc = otherUser && otherUser.photo ? otherUser.photo.thumbnail.medium : 'img/no-img/medium.jpg';
+
         return (
             <div className="views">
-                <TopNavBar leftIcon={'left-arrow'} centerText={otherUsername} bottomText={online ? 'Online' : null} onCenterLinkClickHandler={this.goToProfilePage}/>
                 <div className="view view-main notifications-view">
-                    <div className="page toolbar-fixed notifications-page">
-                        { isGuest ? '' :
-                            canContact ?
-                                <MessagesToolBar onClickHandler={this.sendMessageHandler} onFocusHandler={this.handleFocus} placeholder={strings.placeholder} text={strings.text}/>
-                                :
-                                <MessagesToolBarDisabled text={strings.text}/>
-                        }
-                        <div id="page-content" className="page-content notifications-content messages-content" ref="list">
-                            {this.state.noMoreMessages ? <div className="daily-message-title">{strings.noMoreMessages}</div> : '' }
-                            <DailyMessages messages={messages} userLink={`p/${params.slug}`} enabled={canContact}/>
-                            <br />
-                            <br />
-                            <br />
-                            <br />
-                        </div>
+                    <TopNavBar
+                        background={'white'}
+                        iconLeft={'arrow-left'}
+                        textCenter={otherUsername}
+                        textSize={'small'}
+                        imageRight={otherUserImgSrc}
+                        onLeftLinkClickHandler={this.goToChatThreadsPage}
+                        onRightLinkClickHandler={this.goToProfilePage}
+                        online={online}/>
+
+                    <div className="notifications-wrapper" ref="list">
+                        {this.state.noMoreMessages ? <div className="daily-message-title">{strings.noMoreMessages}</div> : '' }
+                        <DailyMessages messages={messages} userLink={`p/${params.slug}`} enabled={canContact}/>
                     </div>
+                    { isGuest ? '' :
+                        canContact ?
+                            <MessagesToolBar onClickHandler={this.sendMessageHandler} onFocusHandler={this.handleFocus} placeholder={strings.placeholder} text={strings.text} image={imgSrc}/>
+                            :
+                            <MessagesToolBarDisabled text={strings.text}/>
+                    }
                 </div>
             </div>
         );

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import selectn from 'selectn';
-import TopNavBar from '../components/ui/TopNavBar';
+import TopNavBar from "../components/TopNavBar/TopNavBar";
 import AnswerQuestion from '../components/questions/AnswerQuestion';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
@@ -12,6 +12,9 @@ import RouterActionCreators from '../actions/RouterActionCreators';
 import UserStore from '../stores/UserStore';
 import QuestionStore from '../stores/QuestionStore';
 import Joyride from 'react-joyride';
+import '../../scss/pages/answer/answer-next-question.scss';
+import RegisterQuestionsFinishedPopup from "../components/questions/RegisterQuestionsFinishedPopup";
+
 
 function parseId(user) {
     return user.id;
@@ -137,15 +140,30 @@ export default class AnswerQuestionPage extends Component {
         const isRegisterQuestion = selectn('isRegisterQuestion', question);
 
         return (
-            <div className="views">
-                <TopNavBar leftIcon={'left-arrow'} centerText={strings.question} rightIcon={isRegisterQuestion ? '' : 'delete'} onRightLinkClickHandler={isRegisterQuestion ? null : this.skipQuestionHandler}/>
-                <div className="view view-main">
+            <div className="answer-next-question-page">
+                <TopNavBar
+                    background={'FFFFFF'}
+                    iconLeft={'arrow-left'}
+                    textCenter={strings.topNavBarText}
+                    textSize={'small'}
+                    //onLeftLinkClickHandler={this.topNavBarLeftLinkClick}
+                />
+                {/*{isJustRegistered ?*/}
+                {/*<TopNavBar centerText={navBarTitle}/>*/}
+                {/*:*/}
+                {/*<TopNavBar leftIcon={'left-arrow'} centerText={navBarTitle} rightText={isRegisterQuestion ? '' : strings.skip} onRightLinkClickHandler={isRegisterQuestion ? null : this.skipQuestionHandler}/>*/}
+                {/*}*/}
+                <div className="answer-next-question-page-wrapper">
                     <Joyride ref={c => this.joyride = c} steps={steps} locale={tutorialLocale} callback={endTutorialHandler} type="continuous" run={joyrideRunning} autoStart={true}/>
-                    <div className="page answer-question-page">
+                    <div className="">
                         <div id="page-content" className="answer-question-content">
                             <AnswerQuestion question={question} userAnswer={userAnswer} userId={userId} errors={errors} noMoreQuestions={noMoreQuestions} ownPicture={ownPicture} startTutorial={this.forceStartTutorial} isLoadingOwnQuestions={isLoadingOwnQuestions}/>
                         </div>
                     </div>
+                    <RegisterQuestionsFinishedPopup onContinue={this.onContinue} onClose={this.onClosePopup} contentRef={this.props.popupContentRef}/>
+                </div>
+                <div className="skip-nav-bar" onClick={this.onSkipClick}>
+                    <div className="text">Omitir <span className="icon icon-arrow-right"/></div>
                 </div>
             </div>
         );
@@ -154,8 +172,9 @@ export default class AnswerQuestionPage extends Component {
 
 AnswerQuestionPage.defaultProps = {
     strings: {
-        question: 'Question',
-        skip    : 'Skip',
+        topNavBarText          : 'Personality test',
+        question               : 'Question',
+        skip                   : 'Skip',
         tutorialFirstStepTitle : 'Your answer',
         tutorialFirstStep      : 'This is your answer to the above question.',
         tutorialSecondStepTitle: 'Others answers',

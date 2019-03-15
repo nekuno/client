@@ -1,0 +1,68 @@
+@import '../../../_partials/colors';
+
+body #root .App .views .view.proposals-project-preview-view {
+  background-color: $background-white;
+  color: $text;
+  z-index: 0;
+
+  .proposals-project-preview-wrapper {
+    h2 {
+      padding: 0 24px;
+    }
+    h2, p {
+      font-weight: normal;
+    }
+    .category {
+      font-size: 14px;
+      font-weight: bold;
+    }
+    .image-wrapper {
+      position: relative;
+      color: white;
+      img {
+        width: 100%;
+      }
+      .bottom-left {
+        position: absolute;
+        bottom: 5px;
+      }
+    }
+
+    .content-wrapper {
+      padding: 0 24px;
+      .information-wrapper {
+        margin-bottom: 24px;
+      }
+    }
+
+    .text-wrapper {
+      display: inline-block;
+      text-align: left;
+      vertical-align: top;
+      width: 88%;
+
+      .title {
+        font-weight: bold;
+        margin-bottom: 8px;
+        text-align: left;
+        color: $text;
+      }
+      .small {
+        font-size: 14px;
+      }
+    }
+
+    .filters-wrapper {
+      padding: 16px;
+      background: $background-darken;
+    }
+  }
+}
+
+.rounded-icon-wrapper {
+  text-align: center;
+  display: inline-block;
+  margin-right: 4%;
+  width: 8%;
+  vertical-align: top;
+}

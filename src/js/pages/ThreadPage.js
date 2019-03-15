@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import ThreadList from '../components/threads/ThreadList';
 import TopNavBar from '../components/ui/TopNavBar';
 import QuestionsBanner from '../components/questions/QuestionsBanner';
-import EmptyMessage from '../components/ui/EmptyMessage';
+import EmptyMessage from '../components/ui/EmptyMessage/EmptyMessage';
 import ProcessesProgress from '../components/processes/ProcessesProgress';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';

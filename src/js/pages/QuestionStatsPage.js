@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import TopNavBar from '../components/ui/TopNavBar';
 import ButtonFloating from '../components/ui/ButtonFloating';
 import QuestionStats from '../components/questions/QuestionStats';
 import * as QuestionActionCreators from '../actions/QuestionActionCreators';
@@ -10,6 +9,9 @@ import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
 import UserStore from '../stores/UserStore';
 import QuestionStore from '../stores/QuestionStore';
+import '../../scss/pages/question-stats-page.scss';
+import TopNavBar from "../components/TopNavBar/TopNavBar";
+
 
 function parseId(user) {
     return user.id;
@@ -61,28 +63,25 @@ export default class QuestionStatsPage extends Component {
     }
 
     render() {
-        const {user, question, userAnswer, isJustRegistered, isJustCompleted, strings} = this.props;
+        const {user, question, userAnswer, strings} = this.props;
         return (
-            <div className="views">
-                {isJustRegistered || isJustCompleted ?
-                    <TopNavBar centerText={strings.statistics} rightText={strings.next} onRightLinkClickHandler={this.handleContinueClick}/>
-                    :
-                    <TopNavBar leftIcon={'left-arrow'} centerText={strings.statistics} rightText={strings.next} onRightLinkClickHandler={this.handleContinueClick}/>
-                }
-                <div className="view view-main">
-                    <div className="page question-stats-page">
-                        <div id="page-content" className="question-stats-content">
-                            {userAnswer && question ?
-                                <QuestionStats question={question} userAnswer={userAnswer} userId={parseId(user)}/>
-                                :
-                                ''
-                            }
-                        </div>
-                        <br />
-                        <br />
-                    </div>
+            <div className="question-stats-page">
+                <TopNavBar
+                    background={'FFFFFF'}
+                    iconLeft={'arrow-left'}
+                    textCenter={strings.topNavBarText}
+                    textSize={'small'}
+                />
+                <div id="page-content" className="question-stats-page-wrapper">
+                    {userAnswer && question ?
+                        <QuestionStats question={question} userAnswer={userAnswer} user={user}/>
+                        :
+                        ''
+                    }
                 </div>
-                <ButtonFloating icon={'arrow-right'} onClickHandler={this.handleContinueClick}/>
+                <div className="skip-nav-bar" onClick={this.handleContinueClick}>
+                    <div className="text">{strings.nextQuestion} <span className="icon icon-arrow-right"/></div>
+                </div>
             </div>
         );
     }
@@ -90,7 +89,9 @@ export default class QuestionStatsPage extends Component {
 
 QuestionStatsPage.defaultProps = {
     strings: {
-        statistics: 'Statistics',
-        next      : 'Continue'
+        topNavBarText: 'Personality test',
+        statistics   : 'Statistics',
+        next         : 'Continue',
+        nextQuestion : 'Next question',
     }
 };

@@ -1,0 +1,24 @@
+@import '../../../../scss/_partials/colors';
+
+.square-icon {
+  text-align: center;
+  margin: auto;
+  cursor: pointer;
+
+
+  &.disabled {
+    cursor: default;
+    opacity: 0.5;
+  }
+
+  &.xx-small {
+    height: 23px;
+    width: 23px;
+
+    .icon {
+      font-size: 18px;
+      line-height: 23px;
+      font-weight: bold;
+    }
+  }
+}

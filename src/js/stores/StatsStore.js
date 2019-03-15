@@ -7,6 +7,7 @@ class StatsStore extends BaseStore {
 
     setInitial() {
         this._stats = null;
+        this._allNetworks = ['spotify', 'facebook', 'tumblr', 'twitter', 'google', 'linkedin', 'steam'];
     }
 
     get stats() {
@@ -15,6 +16,16 @@ class StatsStore extends BaseStore {
 
     getGroups() {
         return this.stats ? this.stats.groupsBelonged : null;
+    }
+
+    get networks() {
+        return this.stats? this.stats.likesByTypeAndNetwork : {};
+    }
+
+    get unconnectedNetworks() {
+        const networks = this.networks;
+
+        return this._allNetworks.filter(function(i) {return Object.keys(networks).indexOf(i) < 0;});
     }
 
     _registerToActions(action) {

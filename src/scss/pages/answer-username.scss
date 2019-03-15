@@ -1,0 +1,32 @@
+@import '../_partials/colors';
+
+body #root .App .views .view.answer-username-view {
+  background: $purple-main;
+
+  .content {
+    margin-top: 50px;
+    padding: 16px;
+    position: relative;
+    text-align: center;
+
+    h2 {
+      margin: 0;
+    }
+
+    .login1, .login2 {
+      cursor: pointer;
+      font-weight: 500;
+    }
+  }
+
+  .continue-wrapper {
+    cursor: pointer;
+    font-weight: bold;
+    text-align: right;
+    z-index: 111;
+    position: absolute;
+    width: 100%;
+    bottom: 24px;
+    right: 24px;
+  }
+}

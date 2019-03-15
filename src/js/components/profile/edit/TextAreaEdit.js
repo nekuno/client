@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import SelectedEdit from './SelectedEdit';
 import TextArea from '../../ui/TextArea';
+import Textarea from "../../ui/Textarea/Textarea";
 
 export default class TextAreaEdit extends Component {
 
@@ -63,17 +64,11 @@ export default class TextAreaEdit extends Component {
     }
 
     render() {
-        const {editKey, selected, metadata} = this.props;
+        const {editKey, metadata} = this.props;
         return (
-            <SelectedEdit key={selected ? 'selected-filter' : editKey} type={'textarea'} plusIcon={true} handleClickRemoveEdit={this.props.handleClickRemoveEdit ? this.handleClickRemoveEdit : null}>
-                <div className="textarea-filter-wrapper">
-                    <div className="list-block">
-                        <ul>
-                            <TextArea ref={editKey} title={metadata.labelEdit} placeholder={metadata.labelEdit} defaultValue={this.state.value} onChange={this.onChangeValue}/>
-                        </ul>
-                    </div>
-                </div>
-            </SelectedEdit>
+            <div className="textarea-filter-wrapper">
+                <Textarea ref={editKey} title={''} placeholder={metadata.labelEdit} defaultValue={this.state.value} onChange={this.onChangeValue}/>
+            </div>
         );
     }
 }

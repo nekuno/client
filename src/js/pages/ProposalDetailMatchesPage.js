@@ -44,7 +44,6 @@ function getState(props) {
 @connectToStores([ProposalStore, ProfileStore, TagSuggestionsStore, ThreadStore], getState)
 export default class ProposalDetailMatchesPage extends Component {
 
-    0
     static propTypes = {
         params           : PropTypes.shape({
             proposalId: PropTypes.string.isRequired

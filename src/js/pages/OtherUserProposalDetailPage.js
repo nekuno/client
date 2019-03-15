@@ -13,6 +13,7 @@ import RoundedImage from "../components/ui/RoundedImage/RoundedImage";
 import MatchingBars from "../components/ui/MatchingBars/MatchingBars";
 import UserStore from "../stores/UserStore";
 import ProfileStore from "../stores/ProfileStore";
+import CreatingProposalStore from "../stores/CreatingProposalStore";
 
 /**
  * Requests data from server for current props.
@@ -33,11 +34,27 @@ function getState(props) {
     const metadata = ProfileStore.getMetadata();
     const industrySectorChoices = metadata && metadata.industry ? metadata.industry.choices : null;
 
+    let experienceOptions = null;
+    switch (proposal.type) {
+        case 'shows':
+            experienceOptions = metadata && metadata.shows ? metadata.shows.choices : [];
+            break;
+        case 'restaurants':
+            experienceOptions = metadata && metadata.restaurants ? metadata.restaurants.choices : [];
+            break;
+        case 'plans':
+            experienceOptions = metadata && metadata.plans ? metadata.plans.choices : [];
+            break;
+        default:
+            break;
+    }
+
     return {
         proposal,
         otherUser,
         otherUserProfile,
         industrySectorChoices,
+        experienceOptions,
     };
 }
 
@@ -60,6 +77,7 @@ export default class OtherUserProposalDetailPage extends Component {
         otherUser: PropTypes.object,
         industrySectorChoices: PropTypes.array,
         otherUserProfile: PropTypes.object,
+        experienceOptions : PropTypes.array,
     };
 
     constructor(props) {
@@ -157,7 +175,7 @@ export default class OtherUserProposalDetailPage extends Component {
     }
 
     render() {
-        const {params, user, strings, proposal, otherUser, otherUserProfile, industrySectorChoices} = this.props;
+        const {params, user, strings, proposal, otherUser, otherUserProfile, industrySectorChoices, experienceOptions} = this.props;
 
         // TODO: Get matching and similarity
         // TODO: Get Availability
@@ -218,22 +236,223 @@ export default class OtherUserProposalDetailPage extends Component {
                                 </div>
                             </div>
 
+                            {proposal.fields.profession ?
+                                <div className={'information-wrapper'}>
+                                    <div className={'rounded-icon-wrapper'}>
+                                        <RoundedIcon
+                                            icon={'briefcase'}
+                                            size={'small'}
+                                            color={'#2B3857'}
+                                            background={'#FBFCFD'}
+                                            border={'1px solid #F0F1FA'}/>
+                                    </div>
+                                    <div className={'text-wrapper'}>
+                                        <div className={'title small'}>{strings.profession}</div>
+                                        {proposal.fields.profession.map((item, index) =>
+                                            <div className={'small'} key={index}>
+                                                {item}
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
+                                : null
+                            }
+
+
+
+                            {proposal.fields.sports ?
+                                <div className={'information-wrapper'}>
+                                    <div className={'rounded-icon-wrapper'}>
+                                        <RoundedIcon
+                                            icon={'briefcase'}
+                                            size={'small'}
+                                            color={'#2B3857'}
+                                            background={'#FBFCFD'}
+                                            border={'1px solid #F0F1FA'}/>
+                                    </div>
+                                    <div className={'text-wrapper'}>
+                                        <div className={'title small'}>{strings.sports}</div>
+                                        {proposal.fields.sports.map((item, index) =>
+                                            <div className={'small'} key={index}>
+                                                {item}
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
+                                : null
+                            }
+
+                            {proposal.fields.hobbies ?
+                                <div className={'information-wrapper'}>
+                                    <div className={'rounded-icon-wrapper'}>
+                                        <RoundedIcon
+                                            icon={'briefcase'}
+                                            size={'small'}
+                                            color={'#2B3857'}
+                                            background={'#FBFCFD'}
+                                            border={'1px solid #F0F1FA'}/>
+                                    </div>
+                                    <div className={'text-wrapper'}>
+                                        <div className={'title small'}>{strings.hobbies}</div>
+                                        {proposal.fields.hobbies.map((item, index) =>
+                                            <div className={'small'} key={index}>
+                                                {item}
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
+                                : null
+                            }
+
+                            {proposal.fields.games ?
+                                <div className={'information-wrapper'}>
+                                    <div className={'rounded-icon-wrapper'}>
+                                        <RoundedIcon
+                                            icon={'briefcase'}
+                                            size={'small'}
+                                            color={'#2B3857'}
+                                            background={'#FBFCFD'}
+                                            border={'1px solid #F0F1FA'}/>
+                                    </div>
+                                    <div className={'text-wrapper'}>
+                                        <div className={'title small'}>{strings.games}</div>
+                                        {proposal.fields.games.map((item, index) =>
+                                            <div className={'small'} key={index}>
+                                                {item}
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
+                                : null
+                            }
+
+
+
+                            {proposal.fields.shows ?
+                                <div className={'information-wrapper'}>
+                                    <div className={'rounded-icon-wrapper'}>
+                                        <RoundedIcon
+                                            icon={'briefcase'}
+                                            size={'small'}
+                                            color={'#2B3857'}
+                                            background={'#FBFCFD'}
+                                            border={'1px solid #F0F1FA'}/>
+                                    </div>
+                                    <div className={'text-wrapper'}>
+                                        <div className={'title small'}>{strings.shows}</div>
+                                        {proposal.fields.shows.map((item, index) =>
+                                            <div className={'small'} key={index}>
+                                                {experienceOptions.length > 0 ?
+                                                    experienceOptions.find(x => x.id === item.value).text
+                                                    : null}
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
+                                : null
+                            }
+
+                            {proposal.fields.restaurants ?
+                                <div className={'information-wrapper'}>
+                                    <div className={'rounded-icon-wrapper'}>
+                                        <RoundedIcon
+                                            icon={'briefcase'}
+                                            size={'small'}
+                                            color={'#2B3857'}
+                                            background={'#FBFCFD'}
+                                            border={'1px solid #F0F1FA'}/>
+                                    </div>
+                                    <div className={'text-wrapper'}>
+                                        <div className={'title small'}>{strings.restaurants}</div>
+                                        {proposal.fields.restaurants.map((item, index) =>
+                                            <div className={'small'} key={index}>
+                                                {experienceOptions.length > 0 ?
+                                                    experienceOptions.find(x => x.id === item.value).text
+                                                    : null}
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
+                                : null
+                            }
+
+                            {proposal.fields.plans ?
+                                <div className={'information-wrapper'}>
+                                    <div className={'rounded-icon-wrapper'}>
+                                        <RoundedIcon
+                                            icon={'briefcase'}
+                                            size={'small'}
+                                            color={'#2B3857'}
+                                            background={'#FBFCFD'}
+                                            border={'1px solid #F0F1FA'}/>
+                                    </div>
+                                    <div className={'text-wrapper'}>
+                                        <div className={'title small'}>{strings.plans}</div>
+                                        {proposal.fields.plans.map((item, index) =>
+                                            <div className={'small'} key={index}>
+                                                {experienceOptions.length > 0 ?
+                                                    experienceOptions.find(x => x.id === item.value).text
+                                                    : null}
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
+                                : null
+                            }
+
+
+
                             <div className={'information-wrapper'}>
                                 <div className={'rounded-icon-wrapper'}>
                                     <RoundedIcon
-                                        icon={'briefcase'}
+                                        icon={'calendar'}
                                         size={'small'}
                                         color={'#2B3857'}
                                         background={'#FBFCFD'}
                                         border={'1px solid #F0F1FA'}/>
                                 </div>
                                 <div className={'text-wrapper'}>
-                                    <div className={'title small'}>{strings.skills}</div>
-                                    {proposal.fields.profession.map((item, index) =>
-                                        <div className={'small'} key={index}>
-                                            {item}
+                                    <div className={'title small'}>{strings.availability}</div>
+                                    {proposal.fields.availability ? (
+                                        <div className="resume small">
+                                            {proposal.fields.availability.dynamic.map((day, index) =>
+                                                <div key={index}>
+                                                    {dailyWeekdayOptions[day.weekday]}
+                                                    ,
+                                                    {day.range.map((range, rangeIndex) =>
+                                                        <span key={rangeIndex}> {day.range.length === rangeIndex + 1 ? strings.and + ' ' + stringRanges[range] : stringRanges[range]}</span>
+                                                    )}
+                                                </div>
+                                            )}
+
+                                            {proposal.fields.availability.static.map((day, index) =>
+                                                <div key={index}>
+                                                    {strings.from} {day.days.start} {strings.to} {day.days.end}
+                                                    ,
+                                                    {day.range.map((range, rangeIndex) =>
+                                                        <span key={rangeIndex}> {day.range.length === rangeIndex + 1 ? strings.and + ' ' + stringRanges[range] : stringRanges[range]}</span>
+                                                    )}
+                                                </div>
+                                            )}
                                         </div>
+                                    ) : (
+                                        <div className="resume small">{strings.availabilityDescription}</div>
                                     )}
+                                </div>
+                            </div>
+
+                            <div className={'information-wrapper'}>
+                                <div className={'rounded-icon-wrapper'}>
+                                    <RoundedIcon
+                                        icon={'users'}
+                                        size={'small'}
+                                        color={'#2B3857'}
+                                        background={'#FBFCFD'}
+                                        border={'1px solid #F0F1FA'}/>
+                                </div>
+                                <div className={'text-wrapper'}>
+                                    <div className={'title small'}>{strings.numberOfMembers}</div>
+                                    <div className={'resume small'}>{proposal.fields.participantLimit} {strings.people}</div>
                                 </div>
                             </div>
                         </div>

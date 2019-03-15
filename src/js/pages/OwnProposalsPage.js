@@ -21,14 +21,8 @@ import ProposalRecommendationsStore from "../stores/ProposalRecommendationsStore
  * Requests data from server (or store) for current props.
  */
 function requestData(props) {
-    // const {user, params} = props;
-    // const questionId = params.hasOwnProperty('questionId') ? parseInt(params.questionId) : null;
-    // const currentUserId = parseId(user);
-    // QuestionActionCreators.requestQuestion(currentUserId, questionId);
-
+    ProposalStore.setInitial();
     ProposalActionCreators.requestOwnProposals();
-    ProposalActionCreators.requestRecommendations();
-
 }
 
 
@@ -148,9 +142,11 @@ export default class OwnProposalsPage extends Component {
                 <div className="own-proposals-wrapper">
                     <div className="pre-card-title">{strings.popularProposals}</div>
                     {/*<div className="view-all">{strings.viewAll}</div>*/}
-                    <div className="proposals">
-                        <CarouselContinuous items={this.getCards(ownProposals.slice(0, numberOfProposalsFeatured))} marginRight={carouselMargin}/>
-                    </div>
+                    {ownProposals ?
+                        <div className="proposals">
+                            <CarouselContinuous items={this.getCards(ownProposals.slice(0, numberOfProposalsFeatured))} marginRight={carouselMargin}/>
+                        </div>
+                        : null }
                     {ownProposals.length > numberOfProposalsFeatured ?
                         <div>
                             <div className="pre-card-title">{strings.otherPublishedProposals}</div>

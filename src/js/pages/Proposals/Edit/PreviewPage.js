@@ -13,6 +13,7 @@ import RoundedIcon from "../../../components/ui/RoundedIcon/RoundedIcon";
 import FilterStore from "../../../stores/FilterStore";
 import ProposalFilterPreview from "../../../components/ui/ProposalFilterPreview/ProposalFilterPreview";
 import ProfileStore from "../../../stores/ProfileStore";
+import TagSuggestionsStore from "../../../stores/TagSuggestionsStore";
 
 /**
  * Requests data from server (or store) for current props.
@@ -30,10 +31,26 @@ function getState() {
     const metadata = ProfileStore.getMetadata();
     const industrySectorChoices = metadata && metadata.industry ? metadata.industry.choices : null;
 
+    let experienceOptions = null;
+    switch (CreatingProposalStore.proposal.type) {
+        case 'shows':
+            experienceOptions = metadata && metadata.shows ? metadata.shows.choices : [];
+            break;
+        case 'restaurants':
+            experienceOptions = metadata && metadata.restaurants ? metadata.restaurants.choices : [];
+            break;
+        case 'plans':
+            experienceOptions = metadata && metadata.plans ? metadata.plans.choices : [];
+            break;
+        default:
+            break;
+    }
+
 
     return {
         proposal,
         industrySectorChoices,
+        experienceOptions,
     };
 }
 
@@ -53,6 +70,8 @@ export default class ProposalPreviewPage extends Component {
         // Injected by @connectToStores:
         proposal    : PropTypes.object,
         industrySectorChoices: PropTypes.array,
+        experienceOptions : PropTypes.array,
+
     };
 
     static contextTypes = {
@@ -61,6 +80,10 @@ export default class ProposalPreviewPage extends Component {
 
     constructor(props) {
         super(props);
+
+        this.state = {
+            loading : false,
+        };
 
         // this.topNavBarRightLinkClick = this.topNavBarRightLinkClick.bind(this);
         this.topNavBarLeftLinkClick = this.topNavBarLeftLinkClick.bind(this);
@@ -95,23 +118,25 @@ export default class ProposalPreviewPage extends Component {
 
     handleStepsBarClick() {
         const {params} = this.props;
-
-        if (params.proposalId) {
-            ProposalActionCreators.updateProposal(CreatingProposalStore.proposal.id, CreatingProposalStore.proposal)
-                .then(() => {
-                    ProposalActionCreators.cleanCreatingProposal();
-                    this.context.router.push('/proposals');
-                }, () => {
-                    // TODO: Handle error
-                });
-        } else {
-            ProposalActionCreators.createProposal(CreatingProposalStore.proposal)
-                .then(() => {
-                    ProposalActionCreators.cleanCreatingProposal();
-                    this.context.router.push('/proposals');
-                }, () => {
-                    // TODO: Handle error
-                });
+        if (!this.state.loading) {
+            this.setState({loading: true});
+            if (params.proposalId) {
+                ProposalActionCreators.updateProposal(CreatingProposalStore.proposal.id, CreatingProposalStore.proposal)
+                    .then(() => {
+                        ProposalActionCreators.cleanCreatingProposal();
+                        this.context.router.push('/proposals');
+                    }, () => {
+                        this.setState({loading: false});
+                    });
+            } else {
+                ProposalActionCreators.createProposal(CreatingProposalStore.proposal)
+                    .then(() => {
+                        ProposalActionCreators.cleanCreatingProposal();
+                        this.context.router.push('/proposals');
+                    }, () => {
+                        this.setState({loading: false});
+                    });
+            }
         }
     }
 
@@ -209,7 +234,10 @@ export default class ProposalPreviewPage extends Component {
     }
 
     render() {
-        const {strings, proposal, industrySectorChoices} = this.props;
+        const {strings, proposal, industrySectorChoices, experienceOptions} = this.props;
+
+        console.log(proposal);
+        console.log(experienceOptions);
 
         const dailyWeekdayOptions = {
             Monday   : strings.monday,
@@ -235,7 +263,7 @@ export default class ProposalPreviewPage extends Component {
 
         return (
             <div className="views">
-                <div className="view view-main proposal-preview-view">
+                <div className="view view-main proposals-preview-view">
                     <TopNavBar
                         position={'absolute'}
                         background={'transparent'}
@@ -243,7 +271,7 @@ export default class ProposalPreviewPage extends Component {
                         textSize={'small'}
                         onLeftLinkClickHandler={this.topNavBarLeftLinkClick}/>
                     {proposal ?
-                        <div className="proposal-preview-wrapper">
+                        <div className="proposals-preview-wrapper">
 
                             <div className={"proposal-floating-icon-container"}>
                                 {this.renderFloatingIcon()}
@@ -299,17 +327,6 @@ export default class ProposalPreviewPage extends Component {
                                 </div>
                                     : null
                                 }
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -381,16 +398,6 @@ export default class ProposalPreviewPage extends Component {
 
 
 
-
-
-
-
-
-
-
-
-
-
                                 {proposal.fields.shows ?
                                     <div className={'information-wrapper'}>
                                         <div className={'rounded-icon-wrapper'}>
@@ -405,7 +412,7 @@ export default class ProposalPreviewPage extends Component {
                                             <div className={'title small'}>{strings.shows}</div>
                                             {proposal.fields.shows.map((item, index) =>
                                                 <div className={'small'} key={index}>
-                                                    {item}
+                                                    {experienceOptions.find(x => x.id === item).text}
                                                 </div>
                                             )}
                                         </div>
@@ -427,7 +434,7 @@ export default class ProposalPreviewPage extends Component {
                                             <div className={'title small'}>{strings.restaurants}</div>
                                             {proposal.fields.restaurants.map((item, index) =>
                                                 <div className={'small'} key={index}>
-                                                    {item.value}
+                                                    {experienceOptions.find(x => x.id === item).text}
                                                 </div>
                                             )}
                                         </div>
@@ -449,48 +456,13 @@ export default class ProposalPreviewPage extends Component {
                                             <div className={'title small'}>{strings.plans}</div>
                                             {proposal.fields.plans.map((item, index) =>
                                                 <div className={'small'} key={index}>
-                                                    {item}
+                                                    {experienceOptions.find(x => x.id === item).text}
                                                 </div>
                                             )}
                                         </div>
                                     </div>
                                     : null
                                 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

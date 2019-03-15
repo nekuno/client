@@ -20,7 +20,6 @@ import ChatActionCreators from "../actions/ChatActionCreators";
  */
 function requestData(props) {
     ProposalActionCreators.requestOwnProposals();
-    ProposalActionCreators.requestRecommendations();
 }
 
 function getState(props) {
@@ -28,13 +27,13 @@ function getState(props) {
     const proposal = ProposalStore.getOwnProposal(proposalId) ? ProposalStore.getOwnProposal(proposalId) : ProposalStore.getAnyById(proposalId);
 
     const metadata = ProfileStore.getMetadata();
-    const industryChoices = metadata && metadata.industry ? metadata.industry.choices : [];
+    const industrySectorChoices = metadata && metadata.industry ? metadata.industry.choices : null;
 
     const onlineUserIds = ChatUserStatusStore.getOnlineUserIds() || [];
 
     return {
         proposal,
-        industryChoices,
+        industrySectorChoices,
         onlineUserIds,
     };
 }
@@ -54,7 +53,7 @@ export default class ProposalDetailPage extends Component {
         strings     : PropTypes.object,
         // Injected by @connectToStores:
         proposal    : PropTypes.object,
-        industryChoices : PropTypes.array,
+        industrySectorChoices: PropTypes.array,
         onlineUserIds : PropTypes.array,
     };
 
@@ -62,6 +61,7 @@ export default class ProposalDetailPage extends Component {
         super(props);
 
         this.topNavBarLeftLinkClick = this.topNavBarLeftLinkClick.bind(this);
+        this.handleContinueClick = this.handleContinueClick.bind(this);
         this.removeProposalClick = this.removeProposalClick.bind(this);
         this.viewAllMatchesClick = this.viewAllMatchesClick.bind(this);
     }
@@ -79,11 +79,11 @@ export default class ProposalDetailPage extends Component {
     }
 
     handleContinueClick() {
-        // TODO: Go edit proposal
+        this.context.router.push('/proposal-basic-edit/' + this.props.params.proposalId);
     }
 
     topNavBarLeftLinkClick() {
-        
+        this.context.router.push('/plans');
     }
 
     viewAllMatchesClick() {
@@ -134,7 +134,31 @@ export default class ProposalDetailPage extends Component {
     }
 
     render() {
-        const {params, user, strings, proposal, industryChoices, onlineUserIds} = this.props;
+        const {params, user, strings, proposal, industrySectorChoices, onlineUserIds} = this.props;
+
+
+        const dailyWeekdayOptions = {
+            Monday   : strings.monday,
+            Tuesday  : strings.tuesday,
+            Wednesday: strings.wednesday,
+            Thursday : strings.thursday,
+            Friday   : strings.friday,
+            Saturday : strings.saturday,
+            Sunday   : strings.sunday
+        };
+
+        const stringRanges = {
+            Morning  : strings.morning,
+            Afternoon: strings.afternoon,
+            Night    : strings.night,
+        };
+
+        const stringProposalTypes = {
+            work: strings.work,
+            leisure: strings.leisure,
+            experience: strings.experience,
+        };
+
 
         return (
             proposal ?
@@ -174,7 +198,7 @@ export default class ProposalDetailPage extends Component {
                             <p className={'category'}>{strings.project}</p>
                             <p>{proposal.fields.description}</p>
 
-                            {proposal.fields.industry && industryChoices.length > 0 ?
+                            {proposal.fields.industry !== null && industrySectorChoices !== null ?
                                 <div className={'information-wrapper'}>
                                     <div className={'rounded-icon-wrapper'}>
                                         <RoundedIcon
@@ -188,14 +212,14 @@ export default class ProposalDetailPage extends Component {
                                         <div className={'title small'}>{strings.sectors}</div>
                                         {proposal.fields.industry.map((item, index) =>
                                             <div className={'small'} key={index}>
-                                                {/*{industryChoices.find(x => x.id === item.value).text}*/}
+                                                {industrySectorChoices.find(x => x.id === item.value).text}
                                             </div>
                                         )}
                                     </div>
                                 </div>
                                 : null
                             }
-                            {proposal.fields.profession && proposal.fields.profession.length > 0 ?
+                            {proposal.fields.profession ?
                                 <div className={'information-wrapper'}>
                                     <div className={'rounded-icon-wrapper'}>
                                         <RoundedIcon
@@ -218,44 +242,184 @@ export default class ProposalDetailPage extends Component {
                             }
 
 
-                            {/*<div className={'information-wrapper'}>*/}
-                                {/*<div className={'rounded-icon-wrapper'}>*/}
-                                    {/*<RoundedIcon*/}
-                                        {/*icon={'calendar'}*/}
-                                        {/*size={'small'}*/}
-                                        {/*color={'#2B3857'}*/}
-                                        {/*background={'#FBFCFD'}*/}
-                                        {/*border={'1px solid #F0F1FA'}/>*/}
-                                {/*</div>*/}
-                                {/*<div className={'text-wrapper'}>*/}
-                                    {/*<div className={'title small'}>{strings.availability}</div>*/}
-                                    {/*{availability ? (*/}
-                                        {/*<div className="resume small">*/}
-                                            {/*{availability.dynamic.map((day, index) =>*/}
-                                                {/*<div key={index}>*/}
-                                                    {/*{dailyWeekdayOptions[day.weekday]}*/}
-                                                    {/*,*/}
-                                                    {/*{day.range.map((range, rangeIndex) =>*/}
-                                                        {/*<span key={rangeIndex}> {day.range.length === rangeIndex + 1 ? strings.and + ' ' + stringRanges[range] : stringRanges[range]}</span>*/}
-                                                    {/*)}*/}
-                                                {/*</div>*/}
-                                            {/*)}*/}
+                            {proposal.fields.sports ?
+                                <div className={'information-wrapper'}>
+                                    <div className={'rounded-icon-wrapper'}>
+                                        <RoundedIcon
+                                            icon={'briefcase'}
+                                            size={'small'}
+                                            color={'#2B3857'}
+                                            background={'#FBFCFD'}
+                                            border={'1px solid #F0F1FA'}/>
+                                    </div>
+                                    <div className={'text-wrapper'}>
+                                        <div className={'title small'}>{strings.sports}</div>
+                                        {proposal.fields.sports.map((item, index) =>
+                                            <div className={'small'} key={index}>
+                                                {item}
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
+                                : null
+                            }
 
-                                            {/*{availability.static.map((day, index) =>*/}
-                                                {/*<div key={index}>*/}
-                                                    {/*{strings.from} {day.days.start} {strings.to} {day.days.end}*/}
-                                                    {/*,*/}
-                                                    {/*{day.range.map((range, rangeIndex) =>*/}
-                                                        {/*<span key={rangeIndex}> {day.range.length === rangeIndex + 1 ? strings.and + ' ' + stringRanges[range] : stringRanges[range]}</span>*/}
-                                                    {/*)}*/}
-                                                {/*</div>*/}
-                                            {/*)}*/}
-                                        {/*</div>*/}
-                                    {/*) : (*/}
-                                        {/*<div className="resume small">{strings.availabilityDescription}</div>*/}
-                                    {/*)}*/}
-                                {/*</div>*/}
-                            {/*</div>*/}
+                            {proposal.fields.hobbies ?
+                                <div className={'information-wrapper'}>
+                                    <div className={'rounded-icon-wrapper'}>
+                                        <RoundedIcon
+                                            icon={'briefcase'}
+                                            size={'small'}
+                                            color={'#2B3857'}
+                                            background={'#FBFCFD'}
+                                            border={'1px solid #F0F1FA'}/>
+                                    </div>
+                                    <div className={'text-wrapper'}>
+                                        <div className={'title small'}>{strings.hobbies}</div>
+                                        {proposal.fields.hobbies.map((item, index) =>
+                                            <div className={'small'} key={index}>
+                                                {item}
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
+                                : null
+                            }
+
+                            {proposal.fields.games ?
+                                <div className={'information-wrapper'}>
+                                    <div className={'rounded-icon-wrapper'}>
+                                        <RoundedIcon
+                                            icon={'briefcase'}
+                                            size={'small'}
+                                            color={'#2B3857'}
+                                            background={'#FBFCFD'}
+                                            border={'1px solid #F0F1FA'}/>
+                                    </div>
+                                    <div className={'text-wrapper'}>
+                                        <div className={'title small'}>{strings.games}</div>
+                                        {proposal.fields.games.map((item, index) =>
+                                            <div className={'small'} key={index}>
+                                                {item}
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
+                                : null
+                            }
+
+
+
+                            {proposal.fields.shows ?
+                                <div className={'information-wrapper'}>
+                                    <div className={'rounded-icon-wrapper'}>
+                                        <RoundedIcon
+                                            icon={'briefcase'}
+                                            size={'small'}
+                                            color={'#2B3857'}
+                                            background={'#FBFCFD'}
+                                            border={'1px solid #F0F1FA'}/>
+                                    </div>
+                                    <div className={'text-wrapper'}>
+                                        <div className={'title small'}>{strings.shows}</div>
+                                        {proposal.fields.shows.map((item, index) =>
+                                            <div className={'small'} key={index}>
+                                                {item}
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
+                                : null
+                            }
+
+                            {proposal.fields.restaurants ?
+                                <div className={'information-wrapper'}>
+                                    <div className={'rounded-icon-wrapper'}>
+                                        <RoundedIcon
+                                            icon={'briefcase'}
+                                            size={'small'}
+                                            color={'#2B3857'}
+                                            background={'#FBFCFD'}
+                                            border={'1px solid #F0F1FA'}/>
+                                    </div>
+                                    <div className={'text-wrapper'}>
+                                        <div className={'title small'}>{strings.restaurants}</div>
+                                        {proposal.fields.restaurants.map((item, index) =>
+                                            <div className={'small'} key={index}>
+                                                {item.value}
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
+                                : null
+                            }
+
+                            {proposal.fields.plans ?
+                                <div className={'information-wrapper'}>
+                                    <div className={'rounded-icon-wrapper'}>
+                                        <RoundedIcon
+                                            icon={'briefcase'}
+                                            size={'small'}
+                                            color={'#2B3857'}
+                                            background={'#FBFCFD'}
+                                            border={'1px solid #F0F1FA'}/>
+                                    </div>
+                                    <div className={'text-wrapper'}>
+                                        <div className={'title small'}>{strings.plans}</div>
+                                        {proposal.fields.plans.map((item, index) =>
+                                            <div className={'small'} key={index}>
+                                                {item}
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
+                                : null
+                            }
+
+
+
+                            <div className={'information-wrapper'}>
+                                <div className={'rounded-icon-wrapper'}>
+                                    <RoundedIcon
+                                        icon={'calendar'}
+                                        size={'small'}
+                                        color={'#2B3857'}
+                                        background={'#FBFCFD'}
+                                        border={'1px solid #F0F1FA'}/>
+                                </div>
+                                <div className={'text-wrapper'}>
+                                    <div className={'title small'}>{strings.availability}</div>
+                                    {proposal.fields.availability ? (
+                                        <div className="resume small">
+                                            {proposal.fields.availability.dynamic.map((day, index) =>
+                                                <div key={index}>
+                                                    {dailyWeekdayOptions[day.weekday]}
+                                                    ,
+                                                    {day.range.map((range, rangeIndex) =>
+                                                        <span key={rangeIndex}> {day.range.length === rangeIndex + 1 ? strings.and + ' ' + stringRanges[range] : stringRanges[range]}</span>
+                                                    )}
+                                                </div>
+                                            )}
+
+                                            {proposal.fields.availability.static.map((day, index) =>
+                                                <div key={index}>
+                                                    {strings.from} {day.days.start} {strings.to} {day.days.end}
+                                                    ,
+                                                    {day.range.map((range, rangeIndex) =>
+                                                        <span key={rangeIndex}> {day.range.length === rangeIndex + 1 ? strings.and + ' ' + stringRanges[range] : stringRanges[range]}</span>
+                                                    )}
+                                                </div>
+                                            )}
+                                        </div>
+                                    ) : (
+                                        <div className="resume small">{strings.availabilityDescription}</div>
+                                    )}
+                                </div>
+                            </div>
+
+
+
+
                             {proposal.fields.participantLimit ?
                             <div className={'information-wrapper'}>
                                 <div className={'rounded-icon-wrapper'}>
@@ -297,34 +461,44 @@ export default class ProposalDetailPage extends Component {
 
 ProposalDetailPage.defaultProps = {
     strings: {
-        myPlans         : 'My Plans',
-        popularProposals: 'Most popular proposals',
-        otherPublished  : 'Other published proposals',
-        matches         : 'Matches',
-
-        project         : 'Project',
-        sectors         : 'Sectors',
-        profession      : 'Skills',
-        availability    : 'Availability',
-        numberOfMembers : 'Number of members',
-        publishProposal : 'Publish proposal',
-        people          : 'people',
-        monday          : 'Monday',
-        tuesday         : 'Tuesday',
-        wednesday       : 'Wednesday',
-        thursday        : 'Thursday',
-        friday          : 'Friday',
-        saturday        : 'Saturday',
-        sunday          : 'Sunday',
-        and             : 'and',
-        morning         : 'morning',
-        afternoon       : 'afternoon',
-        night           : 'night',
-        from            : 'From',
-        to              : 'to',
-        editProposal    : 'Edit proposal',
-        numberOfMatches : 'Good! %numberOfMatches% matches',
-        viewAll         : 'View all',
+        numberOfMatches: 'Good! %numberOfMatches% matches',
+        publishProposal          : 'Publish proposal',
+        editProposal             : 'Edit proposal',
+        work           : 'Project',
+        leisure        : 'Leisure',
+        experience     : 'Experience',
+        sectors        : 'Sectors',
+        profession     : 'Professions',
+        skills         : 'Skills',
+        availability   : 'Availability',
+        numberOfMembers: 'Number of members',
+        filterText     : 'Filters to your proposal target',
+        basics         : 'Basics',
+        culture        : 'Culture and languages',
+        drugs          : 'Drugs and other services',
+        familiar       : 'Familiar aspects',
+        people         : 'people',
+        monday         : 'Monday',
+        tuesday        : 'Tuesday',
+        wednesday      : 'Wednesday',
+        thursday       : 'Thursday',
+        friday         : 'Friday',
+        saturday       : 'Saturday',
+        sunday         : 'Sunday',
+        and            : 'and',
+        morning        : 'morning',
+        afternoon      : 'afternoon',
+        night          : 'night',
+        from           : 'From',
+        to             : 'to',
+        years          : 'years',
+        withinRadioOf  : 'within radio of',
+        shows                    : 'Events',
+        restaurants              : 'Gourmet',
+        plans                    : 'Plans',
+        sports                   : 'Sports',
+        hobbies                  : 'Hobbys',
+        games                    : 'Games',
         deleteProposal  : 'Delete proposal',
         deleteProposalDescription : 'If you delete the proposal the data will be completely deleted and will no longer be visible to users who have matched this.',
     }

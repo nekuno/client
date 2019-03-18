@@ -110,6 +110,104 @@ $nekuno-logo-font: 'klinic_slabmedium';
 .disabled-icon {
 	opacity: 0.5;
 }
+.icon-danger:before {
+	content: "\ea1b";
+	color: #d80027;
+}
+.icon-checked:before {
+	content: "\ea1c";
+	color: #91dc5a;
+}
+.icon-availability .path1:before {
+	content: "\ea1d";
+	color: rgb(255, 255, 255);
+	opacity: 0.2;
+}
+.icon-availability .path2:before {
+	content: "\ea1e";
+	margin-left: -1em;
+	color: rgb(43, 56, 87);
+}
+.icon-availability .path3:before {
+	content: "\ea1f";
+	margin-left: -1em;
+	color: rgb(43, 56, 87);
+}
+.icon-availability .path4:before {
+	content: "\ea20";
+	margin-left: -1em;
+	color: rgb(43, 56, 87);
+}
+.icon-availability .path5:before {
+	content: "\ea21";
+	margin-left: -1em;
+	color: rgb(43, 56, 87);
+}
+.icon-availability .path6:before {
+	content: "\ea22";
+	margin-left: -1em;
+	color: rgb(43, 56, 87);
+}
+.icon-availability .path7:before {
+	content: "\ea23";
+	margin-left: -1em;
+	color: rgb(43, 56, 87);
+}
+.icon-participants .path1:before {
+	content: "\ea24";
+	color: rgb(255, 255, 255);
+	opacity: 0.2;
+}
+.icon-participants .path2:before {
+	content: "\ea25";
+	margin-left: -1em;
+	color: rgb(43, 56, 87);
+}
+.icon-sectors .path1:before {
+	content: "\ea26";
+	color: rgb(255, 255, 255);
+	opacity: 0.2;
+}
+.icon-sectors .path2:before {
+	content: "\ea27";
+	margin-left: -1em;
+	color: rgb(43, 56, 87);
+}
+.icon-skills .path1:before {
+	content: "\ea28";
+	color: rgb(255, 255, 255);
+	opacity: 0.2;
+}
+.icon-skills .path2:before {
+	content: "\ea29";
+	margin-left: -1em;
+	color: rgb(43, 56, 87);
+}
+.icon-skills .path3:before {
+	content: "\ea2a";
+	margin-left: -1em;
+	color: rgb(43, 56, 87);
+}
+.icon-skills .path4:before {
+	content: "\ea2b";
+	margin-left: -1em;
+	color: rgb(43, 56, 87);
+}
+.icon-skills .path5:before {
+	content: "\ea2c";
+	margin-left: -1em;
+	color: rgb(43, 56, 87);
+}
+.icon-skills .path6:before {
+	content: "\ea2d";
+	margin-left: -1em;
+	color: rgb(43, 56, 87);
+}
+.icon-skills .path7:before {
+	content: "\ea2e";
+	margin-left: -1em;
+	color: rgb(43, 56, 87);
+}
 .icon-project .path1:before {
 	content: "\e900";
 	color: rgb(99, 202, 255);

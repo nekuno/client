@@ -5,6 +5,7 @@ import ReactSwipe from '../ReactSwipe/ReactSwipe';
 import ProposalCard from "../../Proposal/ProposalCard/ProposalCard";
 import * as ProposalActionCreators from '../../../actions/ProposalActionCreators';
 import CandidateCard from "../../Proposal/CandidateCard/CandidateCard";
+import LoadingGif from "../LoadingGif/LoadingGif";
 
 export default class ProposalRecommendationList extends Component {
 
@@ -178,7 +179,9 @@ export default class ProposalRecommendationList extends Component {
                             {this.renderRecommendations(recommendations)}
                         </ReactSwipe>
                         :
-                        null
+                        <div className={styles.loadingGif}>
+                            <LoadingGif />
+                        </div>
                     }
                 </div>
             </div>

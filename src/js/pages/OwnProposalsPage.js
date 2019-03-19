@@ -133,8 +133,6 @@ export default class OwnProposalsPage extends Component {
 
         const numberOfProposalsFeatured = 10;
 
-        console.log(ownProposals);
-
         // TODO: Number of matches
         return (
             <div className="own-proposals-published-view">
@@ -142,7 +140,7 @@ export default class OwnProposalsPage extends Component {
                 <div className="own-proposals-wrapper">
                     <div className="pre-card-title">{strings.popularProposals}</div>
                     {/*<div className="view-all">{strings.viewAll}</div>*/}
-                    {ownProposals ?
+                    {ownProposals && ownProposals.length > 0?
                         <div className="proposals">
                             <CarouselContinuous items={this.getCards(ownProposals.slice(0, numberOfProposalsFeatured))} marginRight={carouselMargin}/>
                         </div>

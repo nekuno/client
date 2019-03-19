@@ -22,6 +22,7 @@ class ProposalStore extends BaseStore {
                 break;
             case ActionTypes.REQUEST_PROPOSALS_SUCCESS:
                 proposals = response;
+                this._ownProposals = []; //To be deleted when it´s paginated
                 proposals.forEach(proposal => {
                     this.addOwnProposal(proposal);
                 });

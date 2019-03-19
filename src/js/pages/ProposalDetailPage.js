@@ -6,6 +6,7 @@ import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import TopNavBar from '../components/TopNavBar/TopNavBar.js';
 import '../../scss/pages/proposal-detail.scss';
 import ProposalStore from "../stores/ProposalStore";
+import RouterActionCreators from '../actions/RouterActionCreators';
 import * as ProposalActionCreators from "../actions/ProposalActionCreators";
 import RoundedIcon from "../components/ui/RoundedIcon/RoundedIcon";
 import ProposalFilterPreview from "../components/ui/ProposalFilterPreview/ProposalFilterPreview";
@@ -13,8 +14,6 @@ import ProfileStore from "../stores/ProfileStore";
 import TagSuggestionsStore from "../stores/TagSuggestionsStore";
 import RoundedImage from "../components/ui/RoundedImage/RoundedImage";
 import ChatUserStatusStore from "../stores/ChatUserStatusStore";
-import ChatActionCreators from "../actions/ChatActionCreators";
-import CreatingProposalStore from "../stores/CreatingProposalStore";
 
 /**
  * Requests data from server for current props.
@@ -103,7 +102,7 @@ export default class ProposalDetailPage extends Component {
     }
 
     topNavBarLeftLinkClick() {
-        this.context.router.push('/plans');
+        RouterActionCreators.previousRoute(this.context.router.getCurrentLocation().pathname);
     }
 
     viewAllMatchesClick() {
@@ -155,10 +154,6 @@ export default class ProposalDetailPage extends Component {
 
     render() {
         const {params, user, strings, proposal, industrySectorChoices, onlineUserIds, experienceOptions} = this.props;
-
-        console.log(proposal);
-        console.log(experienceOptions);
-
 
         const dailyWeekdayOptions = {
             Monday   : strings.monday,

@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import styles from './CandidateCard.scss';
-import RoundedIcon from "../../ui/RoundedIcon/RoundedIcon";
 import translate from "../../../i18n/Translate";
 import MatchingBars from "../../ui/MatchingBars/MatchingBars";
 
@@ -25,15 +24,7 @@ export default class CandidateCard extends Component {
     }
 
     handleClick() {
-        const {user} = this.props;
-        const {slug} = user;
-
-        if (this.props.onClickHandler) {
-            this.props.onClickHandler();
-        }
-        const userLink = '/p/' + slug;
-
-        this.context.router.push(userLink);
+        this.props.onClickHandler();
     }
 
     renderProposalIcon(proposal) {
@@ -79,7 +70,7 @@ export default class CandidateCard extends Component {
         const bio = aboutMe && aboutMe !== '' ? aboutMe : strings.defaultDescription + username;
 
         return (
-            <div className={styles.candidateCard} onClick={this.handleClick.bind(this)}>
+            <div className={styles.candidateCard}>
                 <div className={styles.frame}>
                     <div className={styles.type}>
                         {this.renderProposalIcon(proposal)}
@@ -123,10 +114,12 @@ export default class CandidateCard extends Component {
 }
 
 CandidateCard.defaultProps = {
-    strings: {
+    strings       : {
         compatible            : 'Compatible',
         similar               : 'Similar',
         compatibleWithProposal: 'Compatible with your proposal!',
         defaultDescription    : 'Hi! I am ',
+    },
+    onClickHandler: () => {
     }
 };

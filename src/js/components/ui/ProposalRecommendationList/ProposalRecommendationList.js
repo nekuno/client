@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import styles from './ProposalRecommendationList.scss';
-import ReactSwipe from 'react-swipe';
+import ReactSwipe from '../ReactSwipe/ReactSwipe';
 import ProposalCard from "../../Proposal/ProposalCard/ProposalCard";
 import * as ProposalActionCreators from '../../../actions/ProposalActionCreators';
 import CandidateCard from "../../Proposal/CandidateCard/CandidateCard";
@@ -12,6 +12,10 @@ export default class ProposalRecommendationList extends Component {
         recommendations: PropTypes.array.isRequired
     };
 
+    static contextTypes = {
+        router: PropTypes.object.isRequired
+    };
+
     constructor(props) {
         super(props);
 
@@ -19,10 +23,13 @@ export default class ProposalRecommendationList extends Component {
 
         this.likeCandidate = this.likeCandidate.bind(this);
         this.skipCandidate = this.skipCandidate.bind(this);
+        this.goToCandidate = this.goToCandidate.bind(this);
         this.likeProposal = this.likeProposal.bind(this);
         this.skipProposal = this.skipProposal.bind(this);
+        this.goToProposal = this.goToProposal.bind(this);
         this.swiping = this.swiping.bind(this);
         this.callback = this.callback.bind(this);
+        this.onClick = this.onClick.bind(this);
         this.transitionEnd = this.transitionEnd.bind(this);
     }
 
@@ -68,7 +75,7 @@ export default class ProposalRecommendationList extends Component {
     }
 
     renderCandidateCard(recommendation) {
-        return <div key={recommendation.id}>
+        return <div key={recommendation.id} onClick={this.goToCandidate}>
             <CandidateCard proposal={recommendation.proposal} user={recommendation}/> <br/>
         </div>;
     }
@@ -107,7 +114,33 @@ export default class ProposalRecommendationList extends Component {
             // this.state.swiper.setup();
             this.forceUpdate();
         }
+    }
 
+    onClick() {
+        const isProposal = this.props.recommendations[0].hasOwnProperty('owner');
+        if (isProposal) {
+            this.goToProposal();
+        } else {
+            this.goToCandidate();
+        }
+    }
+
+    goToProposal() {
+        const {recommendations} = this.props;
+
+        const proposalId = recommendations[0].proposal.id;
+        const proposalLink = '/proposal/' + proposalId;
+
+        this.context.router.push(proposalLink);
+    }
+
+    goToCandidate() {
+        const {recommendations} = this.props;
+
+        const userId = recommendations[0].slug;
+        const userLink = '/p/' + userId;
+
+        this.context.router.push(userLink);
     }
 
     transitionEnd() {
@@ -127,8 +160,8 @@ export default class ProposalRecommendationList extends Component {
         const firstRecommendation = recommendations[0];
 
         return (
-            <div className={styles.proposalRecommendationList}>
-                <div style={{opacity: opacity}}>
+            <div className={styles.proposalRecommendationList} onClick={this.goToCandidate}>
+                <div style={{opacity: opacity}} onClick={this.goToCandidate}>
                     {firstRecommendation ?
                         <ReactSwipe
                             ref={el => (this.swiper = el)}
@@ -139,6 +172,7 @@ export default class ProposalRecommendationList extends Component {
                                 swiping      : this.swiping,
                                 callback     : this.callback,
                                 transitionEnd: this.transitionEnd,
+                                clicking     : this.onClick,
                             }}
                             childCount={recommendations.length}>
                             {this.renderRecommendations(recommendations)}

@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import RoundedImage from '../../ui/RoundedImage/RoundedImage.js';
-import RoundedIcon from '../../ui/RoundedIcon/RoundedIcon.js';
 import styles from './ProposalCard.scss';
 import translate from '../../../i18n/Translate';
 import MatchingBars from "../../ui/MatchingBars/MatchingBars";
@@ -26,15 +25,7 @@ export default class ProposalCard extends Component {
     }
 
     handleClick() {
-        const {proposal} = this.props;
-        const {id} = proposal;
-
-        if (this.props.onClickHandler) {
-            this.props.onClickHandler();
-        }
-        const userLink = '/proposal/' + id;
-
-        this.context.router.push(userLink);
+        this.props.onClickHandler();
     }
 
     renderProposalIcon(proposal) {
@@ -79,7 +70,7 @@ export default class ProposalCard extends Component {
         const locality = location && location.hasOwnProperty('locality') ? location.locality : '';
 
         return (
-            <div className={styles.proposalCard} onClick={this.handleClick.bind(this)}>
+            <div className={styles.proposalCard}>
                 <div className={styles.frame}>
                     <div className={styles.type}>
                         {this.renderProposalIcon(proposal)}
@@ -113,5 +104,7 @@ ProposalCard.defaultProps = {
         compatible: 'Compatible',
         similar   : 'Similar',
         project   : 'Project',
+    },
+    onClickHandler: () => {
     }
 };

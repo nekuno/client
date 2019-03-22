@@ -11,11 +11,9 @@ import '../../scss/pages/own-proposals.scss';
 
 import CarouselContinuous from "../components/ui/CarouselContinuous/CarouselContinuous";
 import ProposalStore from "../stores/ProposalStore";
-import * as QuestionActionCreators from "../actions/QuestionActionCreators";
 import * as ProposalActionCreators from "../actions/ProposalActionCreators";
-import RoundedIcon from "../components/ui/RoundedIcon/RoundedIcon";
-import SelectInline from "../components/ui/SelectInline/SelectInline";
 import ProposalRecommendationsStore from "../stores/ProposalRecommendationsStore";
+import ProposalIcon from "../components/ui/ProposalIcon/ProposalIcon";
 
 /**
  * Requests data from server (or store) for current props.
@@ -113,15 +111,7 @@ export default class OwnProposalsPage extends Component {
         }
 
         return (
-            <span className={icon}>
-                <span className="path1"></span>
-                <span className="path2"></span>
-                <span className="path3"></span>
-                <span className="path4"></span>
-                <span className="path5"></span>
-                <span className="path6"></span>
-                <span className="path7"></span>
-            </span>
+            <ProposalIcon size={"medium"} icon={icon}/>
         );
     }
 

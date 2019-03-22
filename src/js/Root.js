@@ -167,7 +167,7 @@ export default class Root extends Component {
                         <Route name="proposal-detail" path="/proposal/:proposalId" component={ProposalDetailPage}/>
                         <Route name="proposal-detail-matches" path="/proposal/:proposalId/matches" component={ProposalDetailMatchesPage}/>
                         <Route name="about-me" path="/about-me" component={OwnUserAboutMePage}/>
-                        <Route name="answers" path="/answers/:slug" component={OwnUserAnswersPage}/>
+                        <Route name="answers" path="/answers" component={OwnUserAnswersPage}/>
                         <Route name="availability-edit" path="/availability-edit" component={AvailabilityEditPage}/>
                         <Route name="explore" path="/explore" component={ExplorePage}/>
                         <Route name="register-questions-landing" path="/register-questions-landing" component={RegisterQuestionsLandingPage}/>

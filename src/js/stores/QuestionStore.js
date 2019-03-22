@@ -201,7 +201,7 @@ class QuestionStore extends BaseStore {
     }
 
     get(userId) {
-        return this._questions[userId];
+        return this._questions[userId] || {};
     }
 
     getCompared(otherUserId) {

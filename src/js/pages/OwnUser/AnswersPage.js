@@ -16,7 +16,9 @@ import OwnUserBottomNavBar from "../../components/ui/OwnUserBottomNavBar/OwnUser
 import RoundedIcon from "../../components/ui/RoundedIcon/RoundedIcon";
 
 function requestData(props) {
-    QuestionActionCreators.requestQuestionsBySlug(props.params.slug);
+    const userId = props.user.id;
+    const questionsUrl = QuestionStore.getRequestQuestionsUrl(userId);
+    QuestionActionCreators.requestQuestions(userId, questionsUrl);
 }
 
 /**
@@ -24,8 +26,8 @@ function requestData(props) {
  */
 function getState(props) {
     const userQuestions = props.user ? QuestionStore.get(props.user.id) : null;
-    const isLoadingOwnQuestions = QuestionStore.isLoadingComparedQuestions();
-    const requestQuestionsUrl = QuestionStore.getRequestComparedQuestionsUrl(props.user.id, []);
+    const isLoadingOwnQuestions = QuestionStore.isLoadingOwnQuestions();
+    const requestQuestionsUrl = QuestionStore.getRequestQuestionsUrl(props.user.id, []);
     const questionsTotal = QuestionStore.ownAnswersLength(props.user.id);
 
     return {
@@ -120,7 +122,7 @@ export default class AnswersPage extends Component {
     }
 
     firstItems() {
-        const {strings, userQuestions, isLoadingOwnQuestions, questionsTotal} = this.props;
+        const {strings, questionsTotal} = this.props;
 
         return [
             <div className={"first-items"}>

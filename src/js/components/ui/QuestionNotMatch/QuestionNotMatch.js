@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import styles from './QuestionNotMatch.scss';
 import RoundedImage from "../RoundedImage/RoundedImage";
+import ProposalIcon from "../ProposalIcon/ProposalIcon";
 
 export default class QuestionNotMatch extends Component {
 
@@ -41,7 +42,7 @@ export default class QuestionNotMatch extends Component {
                             answer.answerId === otherQuestion.userAnswer.answerId ?
                                 <div key={answerId}>
                                     <div className={styles.answer}>{answer.text}</div>
-                                    <div className={styles.answerIcon}>X</div>
+                                    <div className={styles.answerIcon}><ProposalIcon size={'small'} icon={'danger'}/></div>
                                 </div>
                                 :
                                 ''

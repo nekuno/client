@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import styles from './AnswersPage.scss';
 import translate from '../../i18n/Translate';
 import TopNavBar from '../../components/TopNavBar/TopNavBar.js';
 import '../../../scss/pages/other-user/answers.scss';
@@ -13,8 +14,8 @@ import * as QuestionActionCreators from "../../actions/QuestionActionCreators";
 import QuestionMatch from "../../components/ui/QuestionMatch/QuestionMatch";
 import QuestionPartialMatch from "../../components/ui/QuestionPartialMatch/QuestionPartialMatch";
 import Scroll from "../../components/Scroll/Scroll";
-import EmptyMessage from "../../components/ui/EmptyMessage/EmptyMessage";
 import QuestionNotMatch from "../../components/ui/QuestionNotMatch/QuestionNotMatch";
+import LoadingGif from "../../components/ui/LoadingGif/LoadingGif";
 
 /**
  * Requests data from server (or store) for current props.
@@ -29,13 +30,11 @@ function requestData(props) {
 function getState(props) {
     const {params} = props;
     const otherUser = UserStore.getBySlug(params.slug);
-    const otherUserQuestions = otherUser ? QuestionStore.get(otherUser.id) : null;
-    const userQuestions = props.user ? QuestionStore.get(props.user.id) : null;
-    const otherNotAnsweredQuestions = otherUser ? QuestionStore.getOtherNotAnsweredQuestions(otherUser.id) : null;
+    const otherUserQuestions = otherUser ? QuestionStore.get(otherUser.id) : {};
+    const userQuestions = props.user ? QuestionStore.get(props.user.id) : {};
+    const otherNotAnsweredQuestions = otherUser ? QuestionStore.getOtherNotAnsweredQuestions(otherUser.id) : {};
     const isLoadingOwnQuestions = QuestionStore.isLoadingComparedQuestions();
     const requestQuestionsUrl = otherUser ? QuestionStore.getRequestComparedQuestionsUrl(otherUser.id, []) : null;
-
-    console.log(otherNotAnsweredQuestions);
 
     return {
         otherUser,
@@ -54,24 +53,24 @@ export default class AnswersPage extends Component {
 
     static propTypes = {
         // Injected by @AuthenticatedComponent
-        user                      : PropTypes.object.isRequired,
+        user                     : PropTypes.object.isRequired,
         // Injected by React Router:
-        params                    : PropTypes.shape({
-            slug : PropTypes.string,
+        params                   : PropTypes.shape({
+            slug: PropTypes.string,
         }),
         // Injected by @translate:
-        strings                   : PropTypes.object,
+        strings                  : PropTypes.object,
         // Injected by @connectToStores:
-        otherUser                 : PropTypes.object,
-        otherUserQuestions        : PropTypes.object,
-        userQuestions             : PropTypes.object,
-        otherNotAnsweredQuestions : PropTypes.object,
-        isLoadingOwnQuestions     : PropTypes.bool,
-        requestQuestionsUrl       : PropTypes.string,
+        otherUser                : PropTypes.object,
+        otherUserQuestions       : PropTypes.object,
+        userQuestions            : PropTypes.object,
+        otherNotAnsweredQuestions: PropTypes.object,
+        isLoadingOwnQuestions    : PropTypes.bool,
+        requestQuestionsUrl      : PropTypes.string,
     };
 
     static contextTypes = {
-        router : PropTypes.object.isRequired
+        router: PropTypes.object.isRequired
     };
 
     constructor(props) {
@@ -121,7 +120,7 @@ export default class AnswersPage extends Component {
     }
 
     onBottomScroll() {
-        const {user, otherUser, requestQuestionsUrl, isLoadingOwnQuestions} = this.props;
+        const {otherUser, requestQuestionsUrl, isLoadingOwnQuestions} = this.props;
 
         if (isLoadingOwnQuestions || !requestQuestionsUrl) {
             return Promise.resolve();
@@ -131,7 +130,7 @@ export default class AnswersPage extends Component {
     }
 
     getQuestions() {
-        const {user, strings, otherUser, otherUserQuestions, userQuestions, otherNotAnsweredQuestions, isLoadingOwnQuestions, questions} = this.props;
+        const {user, strings, otherUser, otherUserQuestions, userQuestions, otherNotAnsweredQuestions, isLoadingOwnQuestions} = this.props;
 
         const answeredQuestionComponents = Object.keys(otherUserQuestions).map((question, questionIndex) =>
             otherUserQuestions[question].userAnswer.answerId === userQuestions[question].userAnswer.answerId ?
@@ -156,44 +155,35 @@ export default class AnswersPage extends Component {
             </div>
         );
 
-        const questionComponents = Object.assign(notAnsweredQuestionComponents, answeredQuestionComponents)
+        const questionComponents = Object.assign(notAnsweredQuestionComponents, answeredQuestionComponents);
         return isLoadingOwnQuestions && questionComponents.length === 0 ?
-            [<div key="empty-message"><EmptyMessage text={strings.loading} loadingGif={true}/></div>]
+            [<div key="empty-message"><LoadingGif/></div>]
             : questionComponents;
     }
 
     render() {
-        const {user, strings, otherUser, otherUserQuestions, userQuestions, otherNotAnsweredQuestions, isLoadingOwnQuestions, questions} = this.props;
+        const {strings, otherUser, otherUserQuestions, otherNotAnsweredQuestions, isLoadingOwnQuestions} = this.props;
 
         return (
             <div className="views">
-                <div id={'other-user-answers-view'} className="view view-main other-user-answers-view">
-                    <TopNavBar
-                        background={'FFFFFF'}
-                        iconLeft={'arrow-left'}
-                        textCenter={otherUser ? strings.topNavBarText.replace('%username%', otherUser.username) : ''}
-                        textSize={'small'}/>
-                    <div className="other-user-answers-view-wrapper">
-                        <div className='other-user-answer-questions-wrapper'>
-                            {otherUserQuestions && userQuestions && otherNotAnsweredQuestions ?
-                                <Scroll
-                                    items={this.getQuestions()}
-                                    // firstItems={}
-                                    onLoad={this.onBottomScroll}
-                                    containerId="other-user-answers-view"
-                                    loading={isLoadingOwnQuestions}
-                                    columns={1}
-                                />
-                            : ''}
-                        </div>
-                    </div>
+                <TopNavBar
+                    background={'FFFFFF'}
+                    iconLeft={'arrow-left'}
+                    textCenter={otherUser ? strings.topNavBarText.replace('%username%', otherUser.username) : ''}
+                    textSize={'small'}/>
+                <div className={styles.view} id="other-user-answers-view-wrapper">
+                    {otherUserQuestions || otherNotAnsweredQuestions ?
+                        <Scroll
+                            items={this.getQuestions()}
+                            // firstItems={}
+                            onLoad={this.onBottomScroll}
+                            containerId="other-user-answers-view-wrapper"
+                            loading={isLoadingOwnQuestions}
+                            columns={1}
+                        />
+                        : ''}
                 </div>
                 <OtherUserBottomNavBar userSlug={otherUser && otherUser.slug} current={'answers'}/>
-
-
-
-
-
             </div>
         );
     }
@@ -201,10 +191,10 @@ export default class AnswersPage extends Component {
 
 AnswersPage.defaultProps = {
     strings: {
-        topNavBarText             : '%username% answers',
-        affinity                  : 'Affinity',
-        compatibility             : 'Compatibility',
-        loading                   : 'Loading questions',
-        otherNotAnsweredQuestions : 'Check if you are compatible',
+        topNavBarText            : '%username% answers',
+        affinity                 : 'Affinity',
+        compatibility            : 'Compatibility',
+        loading                  : 'Loading questions',
+        otherNotAnsweredQuestions: 'Check if you are compatible',
     }
 };

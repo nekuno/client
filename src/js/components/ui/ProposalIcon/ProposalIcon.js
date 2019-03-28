@@ -8,7 +8,7 @@ export default class ProposalIcon extends Component {
         icon          : PropTypes.string,
         size          : PropTypes.oneOf(['xx-small', 'x-small', 'small', 'medium-small', 'medium', 'large', 'answer']).isRequired,
         disabled      : PropTypes.bool,
-        // background    : PropTypes.string,
+        background    : PropTypes.string,
         // color         : PropTypes.string,
         // fontSize      : PropTypes.string,
         onClickHandler: PropTypes.func,
@@ -23,14 +23,14 @@ export default class ProposalIcon extends Component {
     }
 
     render() {
-        const {icon, size, disabled} = this.props;
+        const {icon, size, disabled, background} = this.props;
         let className = styles.roundedIcon + ' ' + styles[size];
         className = disabled ? styles.disabled + ' ' + className : className;
 
         return (
 
-            <div className={className} onClick={this.handleClick.bind(this)}>
-                <span className={icon}>
+            <div className={className} onClick={this.handleClick.bind(this)} style={{background: background}}>
+                <span className={'icon-' + icon}>
                     <span className="path1"></span>
                     <span className="path2"></span>
                     <span className="path3"></span>

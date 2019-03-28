@@ -9,6 +9,7 @@ import * as ProposalActionCreators from "../../../actions/ProposalActionCreators
 import Frame from "../../../components/ui/Frame/Frame";
 import RoundedIcon from "../../../components/ui/RoundedIcon/RoundedIcon";
 import CreatingProposalStore from "../../../stores/CreatingProposalStore";
+import ProposalIcon from "../Project/PreviewPage";
 
 function getState() {
     const availability = CreatingProposalStore.availability;
@@ -152,12 +153,7 @@ export default class AvailabilityPage extends Component {
                             <Frame
                                 onClickHandler={this.onClickAvailabilityHandler}>
                                 <div className={'rounded-icon-wrapper'}>
-                                    <RoundedIcon
-                                        icon={'calendar'}
-                                        size={'small'}
-                                        color={'#2B3857'}
-                                        background={'#FFFFFF'}
-                                        border={'1px solid #F0F1FA'}/>
+                                    <ProposalIcon size={'medium-small'} icon={'availability'} background={'white'}/>
                                 </div>
                                 <div className="text-wrapper">
                                     <div className="title small">{strings.availabilityTitle}</div>
@@ -191,12 +187,7 @@ export default class AvailabilityPage extends Component {
                         </div>
                         <Frame>
                             <div className={'rounded-icon-wrapper'}>
-                                <RoundedIcon
-                                    icon={'users'}
-                                    size={'small'}
-                                    color={'#2B3857'}
-                                    background={'#FFFFFF'}
-                                    border={'1px solid #F0F1FA'}/>
+                                <ProposalIcon size={'medium-small'} icon={'participants'} background={'white'}/>
                             </div>
                             <div className="text-participants-wrapper">
                                 <div className="title small">{strings.participantsTitle}</div>

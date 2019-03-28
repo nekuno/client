@@ -31,32 +31,32 @@ export default class OwnProposalCard extends Component {
 
         switch (proposal.type) {
             case 'work':
-                icon = 'icon-project';
+                icon = 'project';
                 break;
             case 'sports':
-                icon = 'icon-hobbie';
+                icon = 'hobbie';
                 break;
             case 'hobbies':
-                icon = 'icon-hobbie';
+                icon = 'hobbie';
                 break;
             case 'games':
-                icon = 'icon-hobbie';
+                icon = 'hobbie';
                 break;
             case 'shows':
-                icon = 'icon-experience';
+                icon = 'experience';
                 break;
             case 'restaurants':
-                icon = 'icon-experience';
+                icon = 'experience';
                 break;
             case 'plans':
-                icon = 'icon-experience';
+                icon = 'experience';
                 break;
             default:
                 break;
         }
 
         return (
-            <ProposalIcon size={"medium-small"} icon={icon}/>
+            <ProposalIcon size={"medium-small"} icon={icon} background={"transparent"}/>
         );
     }
 

@@ -145,7 +145,7 @@ export default class AnswersPage extends Component {
         const notAnsweredQuestionComponents = Object.keys(otherNotAnsweredQuestions).map((question, questionIndex) =>
             <div key={questionIndex}>
                 <div style={{display: questionIndex === Object.keys(otherUserQuestions).length ? 'block' : 'none'}}>
-                    <h3 className='other-user-answer-questions-title'>{strings.otherNotAnsweredQuestions}</h3>
+                    <h3 className={styles.otherUserAnswers}>{strings.otherNotAnsweredQuestions}</h3>
                 </div>
                 <div>
                     <AnswerQuestionCard
@@ -157,7 +157,7 @@ export default class AnswersPage extends Component {
 
         const questionComponents = Object.assign(notAnsweredQuestionComponents, answeredQuestionComponents);
         return isLoadingOwnQuestions && questionComponents.length === 0 ?
-            [<div key="empty-message"><LoadingGif/></div>]
+            [<div key="empty-message" className={styles.loading}><LoadingGif/></div>]
             : questionComponents;
     }
 

@@ -62,3 +62,18 @@
   z-index: 0;
   height: calc(100% - 100px);
 }
+
+.other-user-answers{
+  margin: 16px 16px;
+  text-align: left;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.loading {
+  width: 100%;
+  margin-top: 25px;
+  display: flex;
+  justify-content: space-around;
+  height: 100px;
+}

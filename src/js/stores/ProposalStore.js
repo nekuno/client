@@ -33,6 +33,18 @@ class ProposalStore extends BaseStore {
                 this._isRequesting = false;
                 this.emitChange();
                 break;
+            case ActionTypes.REQUEST_PROPOSAL_SUCCESS:
+                const proposal = action.response;
+                const slug = action.slug;
+
+                if ('' === slug){
+                    this.addOwnProposal(proposal);
+                } else {
+                    this.addProposal(proposal, slug);
+                }
+
+                this.emitChange();
+                break;
             case ActionTypes.REQUEST_USER_SUCCESS:
                 const responseUsers = action.response.entities.users;
                 const user = Object.keys(responseUsers).map((key) => {

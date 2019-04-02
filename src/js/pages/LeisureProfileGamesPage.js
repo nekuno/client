@@ -83,11 +83,17 @@ export default class LeisureProfileGamesPage extends Component {
         this.context.router.push('/explorer-profile');
     }
 
-    onChange(tags) {
+    onChange(values) {
         const {profile} = this.props;
 
+        const tags = this.buildTags(values);
         resetTagSuggestions();
         LoginActionCreators.preRegisterProfile({...profile, ...{games: tags}});
+    }
+
+    buildTags(strings)
+    {
+        return strings.map((choice) => {return {name: choice}});
     }
 
     onChangeText(text) {

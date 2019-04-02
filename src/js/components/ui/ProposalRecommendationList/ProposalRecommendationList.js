@@ -130,7 +130,8 @@ export default class ProposalRecommendationList extends Component {
         const {recommendations} = this.props;
 
         const proposalId = recommendations[0].proposal.id;
-        const proposalLink = '/proposal/' + proposalId;
+        const slug = recommendations[0].owner.slug;
+        const proposalLink = 'p/' + slug + '/proposal/' + proposalId;
 
         this.context.router.push(proposalLink);
     }

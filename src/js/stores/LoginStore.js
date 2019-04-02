@@ -128,6 +128,14 @@ class LoginStore extends BaseStore {
         return this._user;
     }
 
+    get photo() {
+        return this.user && this.user.photo ? this.user.photo.thumbnail.medium : 'img/no-img/medium.jpg';
+    }
+
+    get slug() {
+        return this.user && this.user.slug ? this.user.slug : '';
+    }
+
     get error() {
         const error = this._error;
         this._error = null;

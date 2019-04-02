@@ -13,7 +13,7 @@ import ProposalRecommendationsStore from '../stores/ProposalRecommendationsStore
 import '../../scss/pages/proposals.scss';
 import * as ProposalActionCreators from "../actions/ProposalActionCreators";
 
-function requestData(props) {
+function requestData() {
     ProposalActionCreators.requestRecommendations();
 }
 
@@ -79,14 +79,12 @@ export default class ProposalsPage extends Component {
     }
 
     render() {
-        const {user, recommendations, networks, notifications, strings} = this.props;
-
-        let imgSrc = user && user.photo ? user.photo.thumbnail.medium : 'img/no-img/medium.jpg';
+        const {recommendations, notifications, strings} = this.props;
 
         return (
             <div className="views">
                 <div className="view view-main proposals-view">
-                    <TopNavBar textCenter={strings.discover} imageLeft={imgSrc} firstIconRight={'clock'} onRightLinkClickHandler={this.goToEditAvailability} boxShadow={true} iconsRightColor={'#756EE5'} onLeftLinkClickHandler={this.onLeftLinkClickHandler}/>
+                    <TopNavBar isLeftProfile={true} textCenter={strings.discover} firstIconRight={'clock'} onRightLinkClickHandler={this.goToEditAvailability} boxShadow={true} iconsRightColor={'#756EE5'} />
                     <ProposalRecommendationList recommendations={recommendations}/>
                     <BottomNotificationBar/>
                     <BottomNavBar current={'proposals'} notifications={notifications}/>

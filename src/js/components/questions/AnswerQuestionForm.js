@@ -155,7 +155,6 @@ export default class AnswerQuestionForm extends Component {
         }
         const acceptedAnswersClassName = this.state.answerId ? "list-block accepted-answers" : "list-block accepted-answers disabled";
 
-        console.log(this.state.answerId);
         let answerDisabledClassName = this.state.answerId === null ? styles.answerDisabled : '';
 
         return (

@@ -193,8 +193,6 @@ export default class FeaturesPage extends Component {
             ["alcohol", "smoke", "drugs"]
         ];
 
-        console.log(categories);
-
         if (categories) {
             categories.forEach(function (category, categoryIndex) {
                 categoriesToHide.forEach(function (categoryToHide, categoryToHideIndex) {

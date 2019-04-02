@@ -88,7 +88,6 @@ export default class GroupContentsPage extends Component {
                             <div className="page group-page">
                                 <div id="page-content">
                                     Datos de los contenidos consoleados.
-                                    {console.log(contents)}
                                 </div>
                                 <CardContentList contents={contents} userId={user.id}/>
                             </div>

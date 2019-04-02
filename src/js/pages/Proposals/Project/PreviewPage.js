@@ -14,7 +14,7 @@ import * as ProposalActionCreators from '../../../actions/ProposalActionCreators
 import ProposalIcon from "../../../components/ui/ProposalIcon/ProposalIcon";
 
 function getState() {
-    const proposal = CreatingProposalStore.proposal;
+    const proposal = CreatingProposalStore.proposal || '';
     const title = proposal.fields.title;
     const description = proposal.fields.description;
     const industrySector = proposal.fields.industry;

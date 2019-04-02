@@ -85,36 +85,12 @@ export default class ProposalPreviewPage extends Component {
             loading : false,
         };
 
-        // this.topNavBarRightLinkClick = this.topNavBarRightLinkClick.bind(this);
-        this.topNavBarLeftLinkClick = this.topNavBarLeftLinkClick.bind(this);
         this.handleStepsBarClick = this.handleStepsBarClick.bind(this);
     }
 
     componentDidMount() {
         requestData(this.props);
     }
-
-    componentWillMount() {
-        // if (CreatingProposalStore.proposal.participantLimit) {
-        //     this.setState({
-        //         participantLimit : CreatingProposalStore.proposal.participantLimit,
-        //     });
-        //     if (CreatingProposalStore.proposal.participantLimit > 1) {
-        //         this.setState({
-        //             disableSubstract : false,
-        //         });
-        //     }
-        // }
-    }
-
-    topNavBarLeftLinkClick() {
-        this.context.router.goBack();
-    }
-
-    // topNavBarRightLinkClick() {
-    //     ProposalActionCreators.cleanCreatingProposal();
-    //     this.context.router.push('/proposals');
-    // }
 
     handleStepsBarClick() {
         const {params} = this.props;
@@ -259,9 +235,8 @@ export default class ProposalPreviewPage extends Component {
                     <TopNavBar
                         position={'absolute'}
                         background={'transparent'}
-                        iconLeft={'arrow-left'}
-                        textSize={'small'}
-                        onLeftLinkClickHandler={this.topNavBarLeftLinkClick}/>
+                        isLeftBack={true}
+                        textSize={'small'}/>
                     {proposal ?
                         <div className="proposals-preview-wrapper">
 

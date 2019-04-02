@@ -33,6 +33,13 @@ class UserStore extends BaseStore {
                 mergeIntoBag(this._users, responseUsers);
                 this.emitChange();
                 break;
+            case ActionTypes.REQUEST_PROPOSAL_RECOMMENDATIONS_SUCCESS:
+                const recommendations = action.response;
+                const proposalRecommendations = recommendations.filter(recommendation => recommendation.hasOwnProperty('owner'));
+                const users = proposalRecommendations.map(recommendation => recommendation.owner);
+                mergeIntoBag(this._users, users);
+                this.emitChange();
+                break;
             default:
                 break;
         }

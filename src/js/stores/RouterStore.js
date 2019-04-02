@@ -9,6 +9,7 @@ class RouterStore extends BaseStore {
     setInitial() {
         this._nextPath = null;
         this._routes = [];
+        this._routesBackedFrom = [];
     }
 
     _registerToActions(action) {
@@ -34,23 +35,27 @@ class RouterStore extends BaseStore {
             case ActionTypes.PREVIOUS_ROUTE:
                 this._routes.pop();
 
+                const currentRoute = action.route;
+                const userSlug = LoginStore.slug;
+                const profileDefaultRoute = 'p/'+userSlug;
+                const proposalsDefaultRoute = 'proposals';
+
                 if (this._routes.length > 0) {
                     const lastRoute = this._routes[this._routes.length - 1];
-                    if (action.route === lastRoute) {
-                        const userSlug = LoginStore.user.slug;
-                        const defaultRoute = 'p/'+userSlug;
-                        setTimeout(router.replace(defaultRoute), 0);
+                    const isInLoop = currentRoute === lastRoute;
+                    const isInLoop2= this._routesBackedFrom;
+                    console.log(action);
+                    console.log(lastRoute);
+                    if (currentRoute === lastRoute) {
+                        setTimeout(router.replace(profileDefaultRoute), 0);
                     } else if (DO_NOT_BACK_ROUTES.some(route => route === lastRoute)) {
-                        const userSlug = LoginStore.user.slug;
-                        const defaultRoute = 'p/'+userSlug;
-                        setTimeout(router.replace(defaultRoute), 0);
+                        setTimeout(router.replace(profileDefaultRoute), 0);
                     } else {
+                        this._routesBackedFrom.push(currentRoute);
                         router.goBack();
                     }
                 } else {
-                    const userSlug = LoginStore.user.slug;
-                    const defaultRoute = 'p/'+userSlug;
-                    setTimeout(router.replace(defaultRoute), 0);
+                    setTimeout(router.replace(profileDefaultRoute), 0);
                 }
                 this.emitChange();
                 break;

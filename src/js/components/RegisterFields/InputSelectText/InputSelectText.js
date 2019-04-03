@@ -39,7 +39,7 @@ export default class InputSelectText extends Component {
         const {selected} = this.state;
 
         this.setState({suggested: options.filter(
-            option => text
+            option => text && option.text
                 && option.text.toLowerCase().indexOf(text.toLowerCase()) !== -1
                 && !selected.some(item => item.id === option.id)
         )});

@@ -11,6 +11,7 @@ import Overlay from '../components/ui/Overlay/Overlay.js';
 import TopNavBar from '../components/TopNavBar/TopNavBar.js';
 import '../../scss/pages/connect-facebook.scss';
 import AvailabilityStore from "../stores/AvailabilityStore";
+import LoadingGif from "../components/ui/LoadingGif/LoadingGif";
 
 function getState() {
     const interfaceLanguage = LocaleStore.locale;
@@ -96,6 +97,7 @@ export default class ConnectFacebookPage extends Component {
                         }).catch(error => {
                             console.log(error);
                             alert(error);
+                            this.setState({registering: false});
                         });
                     }
                 });
@@ -120,9 +122,13 @@ export default class ConnectFacebookPage extends Component {
                         </div>
                         <h1>{strings.title}</h1>
                         <div className="resume">{strings.description}</div>
-                        <div className="skip-wrapper-center small" onClick={this.connectFacebook}>
-                            <span className="skip-text">{strings.connect}&nbsp;</span>
-                        </div>
+                        {registering ?
+                        <LoadingGif/>
+                        :
+                            <div className="skip-wrapper-center small" onClick={this.connectFacebook}>
+                                <span className="skip-text">{strings.connect}&nbsp;</span>
+                            </div>
+                        }
                     </div>
                 </div>
             </div>

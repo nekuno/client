@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import styles from './QuestionMatch.scss';
 import RoundedImage from "../RoundedImage/RoundedImage";
+import ProposalIcon from "../ProposalIcon/ProposalIcon";
 
 export default class QuestionMatch extends Component {
 
@@ -49,6 +50,7 @@ export default class QuestionMatch extends Component {
                                 ''
                         )}
                     </div>
+                    <div className={styles.answerIcon}><ProposalIcon size={'small'} icon={'checked'} background={'transparent'}/></div>
                 </div>
             </div>
         );

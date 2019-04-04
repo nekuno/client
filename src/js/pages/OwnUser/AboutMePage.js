@@ -86,17 +86,12 @@ export default class AboutMePage extends Component {
     constructor(props) {
         super(props);
 
-        this.topNavBarLeftLinkClick = this.topNavBarLeftLinkClick.bind(this);
         this.uploadPhoto = this.uploadPhoto.bind(this);
         this.goToEdit = this.goToEdit.bind(this);
     }
 
     componentDidMount() {
         requestData(this.props);
-    }
-
-    topNavBarLeftLinkClick() {
-        this.context.router.push('/proposals');
     }
 
     getPhotos(photos) {
@@ -143,11 +138,10 @@ export default class AboutMePage extends Component {
                 <div className={"view " + styles.view}>
                     <div className={styles.topNavBar}>
                         <TopNavBar
+                            isLeftBack={true}
                             background={'transparent'}
-                            iconLeft={'arrow-left'}
                             firstIconRight={'log-out'}
                             textCenter={''}
-                            onLeftLinkClickHandler={this.topNavBarLeftLinkClick}
                             onRightLinkClickHandler={this.logout}
                         />
                     </div>

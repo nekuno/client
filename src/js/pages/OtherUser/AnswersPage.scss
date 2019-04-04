@@ -1,0 +1,79 @@
+@import '../../../scss/_partials/colors';
+
+.view {
+  background-color: $background;
+  overflow-y: hidden;
+  z-index: 0;
+  height: calc(100% - 100px);
+}
+
+.top-nav-bar {
+  //position: sticky;
+  background: $background;
+}
+
+.top-data {
+  text-align: left;
+  padding-left: 10%;
+  padding-top: 5%;
+}
+
+.natural-category {
+  display: flex;
+}
+
+.navbar-wrapper {
+  //position: absolute;
+  bottom: 0;
+  width: 100%;
+  z-index: 9001;
+}
+
+.upload-wrapper {
+  position: absolute;
+  right: 25px;
+  top: 200px;
+  width: 50px;
+  height: 50px;
+
+  .input {
+    position: absolute;
+    left:0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    padding-left:0;
+    cursor: pointer;
+  }
+
+  .roundedIcon {
+    position: absolute;
+    left: 0;
+    top: 0;
+    cursor: pointer;
+  }
+
+}
+
+.view {
+  text-align: left;
+  background-color: $background;
+  overflow-y: hidden;
+  z-index: 0;
+  height: calc(100% - 100px);
+}
+
+.other-user-answers{
+  margin: 16px 16px;
+  text-align: left;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.loading {
+  width: 100%;
+  margin-top: 25px;
+  display: flex;
+  justify-content: space-around;
+  height: 100px;
+}

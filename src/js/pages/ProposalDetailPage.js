@@ -6,15 +6,14 @@ import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import TopNavBar from '../components/TopNavBar/TopNavBar.js';
 import '../../scss/pages/proposal-detail.scss';
 import ProposalStore from "../stores/ProposalStore";
+import RouterActionCreators from '../actions/RouterActionCreators';
 import * as ProposalActionCreators from "../actions/ProposalActionCreators";
-import RoundedIcon from "../components/ui/RoundedIcon/RoundedIcon";
 import ProposalFilterPreview from "../components/ui/ProposalFilterPreview/ProposalFilterPreview";
 import ProfileStore from "../stores/ProfileStore";
 import TagSuggestionsStore from "../stores/TagSuggestionsStore";
 import RoundedImage from "../components/ui/RoundedImage/RoundedImage";
 import ChatUserStatusStore from "../stores/ChatUserStatusStore";
-import ChatActionCreators from "../actions/ChatActionCreators";
-import CreatingProposalStore from "../stores/CreatingProposalStore";
+import ProposalIcon from "./Proposals/Project/PreviewPage";
 
 /**
  * Requests data from server for current props.
@@ -103,7 +102,7 @@ export default class ProposalDetailPage extends Component {
     }
 
     topNavBarLeftLinkClick() {
-        this.context.router.push('/plans');
+        RouterActionCreators.previousRoute(this.context.router.getCurrentLocation().pathname);
     }
 
     viewAllMatchesClick() {
@@ -155,10 +154,6 @@ export default class ProposalDetailPage extends Component {
 
     render() {
         const {params, user, strings, proposal, industrySectorChoices, onlineUserIds, experienceOptions} = this.props;
-
-        console.log(proposal);
-        console.log(experienceOptions);
-
 
         const dailyWeekdayOptions = {
             Monday   : strings.monday,
@@ -224,12 +219,7 @@ export default class ProposalDetailPage extends Component {
                             {proposal.fields.industry && industrySectorChoices !== null ?
                                 <div className={'information-wrapper'}>
                                     <div className={'rounded-icon-wrapper'}>
-                                        <RoundedIcon
-                                            icon={'briefcase'}
-                                            size={'small'}
-                                            color={'#2B3857'}
-                                            background={'#FBFCFD'}
-                                            border={'1px solid #F0F1FA'}/>
+                                        <ProposalIcon size={'medium-small'} icon={'sectors'} background={'white'}/>
                                     </div>
                                     <div className={'text-wrapper'}>
                                         <div className={'title small'}>{strings.sectors}</div>
@@ -246,12 +236,7 @@ export default class ProposalDetailPage extends Component {
                             {proposal.fields.profession ?
                                 <div className={'information-wrapper'}>
                                     <div className={'rounded-icon-wrapper'}>
-                                        <RoundedIcon
-                                            icon={'briefcase'}
-                                            size={'small'}
-                                            color={'#2B3857'}
-                                            background={'#FBFCFD'}
-                                            border={'1px solid #F0F1FA'}/>
+                                        <ProposalIcon size={'medium-small'} icon={'sectors'} background={'white'}/>
                                     </div>
                                     <div className={'text-wrapper'}>
                                         <div className={'title small'}>{strings.profession}</div>
@@ -270,12 +255,7 @@ export default class ProposalDetailPage extends Component {
                             {proposal.fields.sports ?
                                 <div className={'information-wrapper'}>
                                     <div className={'rounded-icon-wrapper'}>
-                                        <RoundedIcon
-                                            icon={'briefcase'}
-                                            size={'small'}
-                                            color={'#2B3857'}
-                                            background={'#FBFCFD'}
-                                            border={'1px solid #F0F1FA'}/>
+                                        <ProposalIcon size={'medium-small'} icon={'sectors'} background={'white'}/>
                                     </div>
                                     <div className={'text-wrapper'}>
                                         <div className={'title small'}>{strings.sports}</div>
@@ -292,12 +272,7 @@ export default class ProposalDetailPage extends Component {
                             {proposal.fields.hobbies ?
                                 <div className={'information-wrapper'}>
                                     <div className={'rounded-icon-wrapper'}>
-                                        <RoundedIcon
-                                            icon={'briefcase'}
-                                            size={'small'}
-                                            color={'#2B3857'}
-                                            background={'#FBFCFD'}
-                                            border={'1px solid #F0F1FA'}/>
+                                        <ProposalIcon size={'medium-small'} icon={'sectors'} background={'white'}/>
                                     </div>
                                     <div className={'text-wrapper'}>
                                         <div className={'title small'}>{strings.hobbies}</div>
@@ -314,12 +289,7 @@ export default class ProposalDetailPage extends Component {
                             {proposal.fields.games ?
                                 <div className={'information-wrapper'}>
                                     <div className={'rounded-icon-wrapper'}>
-                                        <RoundedIcon
-                                            icon={'briefcase'}
-                                            size={'small'}
-                                            color={'#2B3857'}
-                                            background={'#FBFCFD'}
-                                            border={'1px solid #F0F1FA'}/>
+                                        <ProposalIcon size={'medium-small'} icon={'sectors'} background={'white'}/>
                                     </div>
                                     <div className={'text-wrapper'}>
                                         <div className={'title small'}>{strings.games}</div>
@@ -338,12 +308,7 @@ export default class ProposalDetailPage extends Component {
                             {proposal.fields.shows ?
                                 <div className={'information-wrapper'}>
                                     <div className={'rounded-icon-wrapper'}>
-                                        <RoundedIcon
-                                            icon={'briefcase'}
-                                            size={'small'}
-                                            color={'#2B3857'}
-                                            background={'#FBFCFD'}
-                                            border={'1px solid #F0F1FA'}/>
+                                        <ProposalIcon size={'medium-small'} icon={'sectors'} background={'white'}/>
                                     </div>
                                     <div className={'text-wrapper'}>
                                         <div className={'title small'}>{strings.shows}</div>
@@ -362,12 +327,7 @@ export default class ProposalDetailPage extends Component {
                             {proposal.fields.restaurants ?
                                 <div className={'information-wrapper'}>
                                     <div className={'rounded-icon-wrapper'}>
-                                        <RoundedIcon
-                                            icon={'briefcase'}
-                                            size={'small'}
-                                            color={'#2B3857'}
-                                            background={'#FBFCFD'}
-                                            border={'1px solid #F0F1FA'}/>
+                                        <ProposalIcon size={'medium-small'} icon={'sectors'} background={'white'}/>
                                     </div>
                                     <div className={'text-wrapper'}>
                                         <div className={'title small'}>{strings.restaurants}</div>
@@ -386,12 +346,7 @@ export default class ProposalDetailPage extends Component {
                             {proposal.fields.plans ?
                                 <div className={'information-wrapper'}>
                                     <div className={'rounded-icon-wrapper'}>
-                                        <RoundedIcon
-                                            icon={'briefcase'}
-                                            size={'small'}
-                                            color={'#2B3857'}
-                                            background={'#FBFCFD'}
-                                            border={'1px solid #F0F1FA'}/>
+                                        <ProposalIcon size={'medium-small'} icon={'sectors'} background={'white'}/>
                                     </div>
                                     <div className={'text-wrapper'}>
                                         <div className={'title small'}>{strings.plans}</div>
@@ -411,12 +366,7 @@ export default class ProposalDetailPage extends Component {
 
                             <div className={'information-wrapper'}>
                                 <div className={'rounded-icon-wrapper'}>
-                                    <RoundedIcon
-                                        icon={'calendar'}
-                                        size={'small'}
-                                        color={'#2B3857'}
-                                        background={'#FBFCFD'}
-                                        border={'1px solid #F0F1FA'}/>
+                                    <ProposalIcon size={'medium-small'} icon={'availability'} background={'white'}/>
                                 </div>
                                 <div className={'text-wrapper'}>
                                     <div className={'title small'}>{strings.availability}</div>
@@ -450,12 +400,7 @@ export default class ProposalDetailPage extends Component {
 
                             <div className={'information-wrapper'}>
                                 <div className={'rounded-icon-wrapper'}>
-                                    <RoundedIcon
-                                        icon={'users'}
-                                        size={'small'}
-                                        color={'#2B3857'}
-                                        background={'#FBFCFD'}
-                                        border={'1px solid #F0F1FA'}/>
+                                    <ProposalIcon size={'medium-small'} icon={'participants'} background={'white'}/>
                                 </div>
                                 <div className={'text-wrapper'}>
                                     <div className={'title small'}>{strings.numberOfMembers}</div>

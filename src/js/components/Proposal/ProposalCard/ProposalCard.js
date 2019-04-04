@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import RoundedImage from '../../ui/RoundedImage/RoundedImage.js';
-import RoundedIcon from '../../ui/RoundedIcon/RoundedIcon.js';
 import styles from './ProposalCard.scss';
 import translate from '../../../i18n/Translate';
 import MatchingBars from "../../ui/MatchingBars/MatchingBars";
+import ProposalIcon from "../../../components/ui/ProposalIcon/ProposalIcon";
 
 @translate('ProposalCard')
 export default class ProposalCard extends Component {
@@ -26,15 +26,7 @@ export default class ProposalCard extends Component {
     }
 
     handleClick() {
-        const {proposal} = this.props;
-        const {id} = proposal;
-
-        if (this.props.onClickHandler) {
-            this.props.onClickHandler();
-        }
-        const userLink = '/proposal/' + id;
-
-        this.context.router.push(userLink);
+        this.props.onClickHandler();
     }
 
     renderProposalIcon(proposal) {
@@ -44,42 +36,34 @@ export default class ProposalCard extends Component {
             case 'sports':
             case 'hobbies':
             case 'games':
-                icon = 'icon-hobbie';
+                icon = 'hobbie';
                 break;
             case 'shows':
             case 'restaurants':
             case 'plans':
-                icon = 'icon-experience';
+                icon = 'experience';
                 break;
             case 'work':
             default:
-                icon = 'icon-project';
+                icon = 'project';
                 break;
         }
 
         return (
-            <span className={icon}>
-                <span className="path1"></span>
-                <span className="path2"></span>
-                <span className="path3"></span>
-                <span className="path4"></span>
-                <span className="path5"></span>
-                <span className="path6"></span>
-                <span className="path7"></span>
-            </span>
+            <ProposalIcon size={'medium-small'} icon={icon} background={'white'}/>
         );
     }
 
     render() {
         const {proposal, user, strings} = this.props;
-        const {type, fields} = proposal;
+        const {fields} = proposal;
         const {title, description} = fields;
         const proposalPhoto = fields.photo !== '' ? fields.photo : 'img/default-upload-image.png';
         const {username, location, age, photo, matching, similarity} = user;
         const locality = location && location.hasOwnProperty('locality') ? location.locality : '';
 
         return (
-            <div className={styles.proposalCard} onClick={this.handleClick.bind(this)}>
+            <div className={styles.proposalCard}>
                 <div className={styles.frame}>
                     <div className={styles.type}>
                         {this.renderProposalIcon(proposal)}
@@ -113,5 +97,7 @@ ProposalCard.defaultProps = {
         compatible: 'Compatible',
         similar   : 'Similar',
         project   : 'Project',
+    },
+    onClickHandler: () => {
     }
 };

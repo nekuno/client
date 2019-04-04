@@ -10,9 +10,7 @@ import StepsBar from '../components/ui/StepsBar/StepsBar.js';
 import TopNavBar from '../components/TopNavBar/TopNavBar.js';
 import * as UserActionCreators from '../actions/UserActionCreators';
 import '../../scss/pages/leisure-profile-hobbies.scss';
-import * as TagSuggestionsActionCreators from "../actions/TagSuggestionsActionCreators";
-import TagSuggestionsStore from "../stores/TagSuggestionsStore";
-import InputTag from '../components/RegisterFields/InputTag/InputTag.js';
+import InputSelectText from '../components/RegisterFields/InputSelectText/InputSelectText.js';
 
 function requestData(props) {
     if (!props.metadata) {
@@ -20,21 +18,18 @@ function requestData(props) {
     }
 }
 
-function resetTagSuggestions() {
-    TagSuggestionsActionCreators.resetTagSuggestions();
-}
-
 function getState() {
     const interfaceLanguage = LocaleStore.locale;
-    const tags = TagSuggestionsStore.tags || [];
-    const tagValues = tags.map(tag => tag.name);
     const user = RegisterStore.user;
     const username = user && user.username ? user.username : null;
     const profile = RegisterStore.profile;
+    const metadata = ProfileStore.getMetadata();
+    const choices = metadata && metadata.hobbies ? metadata.hobbies.choices.filter((choice) => (!!choice.id)) : [];
+
 
     return {
         interfaceLanguage,
-        tagValues,
+        choices,
         profile,
         username
     };
@@ -69,7 +64,6 @@ export default class LeisureProfileHobbiesPage extends Component {
         if (!this.props.username) {
             this.context.router.push('/answer-username');
         }
-        resetTagSuggestions();
         requestData(this.props);
     }
 
@@ -77,23 +71,14 @@ export default class LeisureProfileHobbiesPage extends Component {
         this.context.router.push('/leisure-profile-games');
     }
 
-    onChange(tags) {
+    onChange(choices) {
         const {profile} = this.props;
 
-        resetTagSuggestions();
-        LoginActionCreators.preRegisterProfile({...profile, ...{hobbies: tags}});
-    }
-
-    onChangeText(text) {
-        if (text) {
-            TagSuggestionsActionCreators.requestProfileTagSuggestions(text, 'hobbies');
-        } else {
-            resetTagSuggestions();
-        }
+        LoginActionCreators.preRegisterProfile({...profile, ...{hobbies: choices}});
     }
 
     render() {
-        const {tagValues, profile, strings} = this.props;
+        const {choices, profile, strings} = this.props;
         const canContinue = profile && profile.hobbies && profile.hobbies.length > 0;
 
         return (
@@ -102,14 +87,13 @@ export default class LeisureProfileHobbiesPage extends Component {
                     <TopNavBar iconLeft={'arrow-left'} textCenter={strings.sportsAndGames} textSize={'small'}/>
                     <div className="leisure-profile-hobbies-wrapper">
                         <h2>{strings.title}</h2>
-                        <InputTag tags={tagValues}
-                                  placeholder={strings.searchHobby}
-                                  searchIcon={true}
-                                  size={'small'}
-                                  chipsColor={'pink'}
-                                  onChangeHandler={this.onChangeText}
-                                  onClickHandler={this.onChange}
-                                  selectedLabel={strings.selected}/>
+                        <InputSelectText options={choices}
+                                         placeholder={strings.searchHobby}
+                                         searchIcon={true}
+                                         size={'small'}
+                                         chipsColor={'blue'}
+                                         onClickHandler={this.onChange}
+                                         selectedLabel={strings.selected}/>
                     </div>
                 </div>
                 <StepsBar color={'pink'} canContinue={canContinue} cantContinueText={strings.addHobby} continueText={strings.continue} currentStep={1} totalSteps={3} onClickHandler={this.goToLeisureProfileGamesPage}/>

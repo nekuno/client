@@ -77,11 +77,17 @@ export default class LeisureProfileSportsPage extends Component {
         this.context.router.push('/leisure-profile-hobbies');
     }
 
-    onChange(tags) {
+    onChange(values) {
         const {profile} = this.props;
 
+        const tags = this.buildTags(values);
         resetTagSuggestions();
         LoginActionCreators.preRegisterProfile({...profile, ...{sports: tags}});
+    }
+
+    buildTags(strings)
+    {
+        return strings.map((choice) => {return {name: choice}});
     }
 
     onChangeText(text) {

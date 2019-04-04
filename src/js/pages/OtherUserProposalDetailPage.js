@@ -8,18 +8,19 @@ import '../../scss/pages/other-user-proposal-detail.scss';
 import ProposalStore from "../stores/ProposalStore";
 import * as UserActionCreators from "../actions/UserActionCreators";
 import * as ProposalActionCreators from "../actions/ProposalActionCreators";
-import RoundedIcon from "../components/ui/RoundedIcon/RoundedIcon";
 import RoundedImage from "../components/ui/RoundedImage/RoundedImage";
 import MatchingBars from "../components/ui/MatchingBars/MatchingBars";
 import UserStore from "../stores/UserStore";
 import ProfileStore from "../stores/ProfileStore";
-import CreatingProposalStore from "../stores/CreatingProposalStore";
+import ProposalIcon from "../components/ui/ProposalIcon/ProposalIcon";
 
 /**
  * Requests data from server for current props.
  */
 function requestData(props) {
-    UserActionCreators.requestUser(props.params.slug);
+    const {slug, proposalId} = props.params;
+    UserActionCreators.requestUser(slug);
+    ProposalActionCreators.requestOtherProposal(proposalId, slug);
 }
 
 function getState(props) {
@@ -76,7 +77,7 @@ export default class OtherUserProposalDetailPage extends Component {
         proposal: PropTypes.object,
         otherUser: PropTypes.object,
         industrySectorChoices: PropTypes.array,
-        otherUserProfile: PropTypes.object,
+        otherUserProfile: PropTypes.array,
         experienceOptions : PropTypes.array,
     };
 
@@ -104,40 +105,24 @@ export default class OtherUserProposalDetailPage extends Component {
 
         switch (proposal.type) {
             case 'work':
-                icon = 'icon-project';
+                icon = 'project';
                 break;
             case 'sports':
-                icon = 'icon-hobbie';
-                break;
             case 'hobbies':
-                icon = 'icon-hobbie';
-                break;
             case 'games':
-                icon = 'icon-hobbie';
+                icon = 'hobbie';
                 break;
             case 'shows':
-                icon = 'icon-experience';
-                break;
             case 'restaurants':
-                icon = 'icon-experience';
-                break;
             case 'plans':
-                icon = 'icon-experience';
+                icon = 'experience';
                 break;
             default:
                 break;
         }
 
         return (
-            <span className={icon}>
-                <span className="path1"></span>
-                <span className="path2"></span>
-                <span className="path3"></span>
-                <span className="path4"></span>
-                <span className="path5"></span>
-                <span className="path6"></span>
-                <span className="path7"></span>
-            </span>
+            <ProposalIcon size={'medium-small'} icon={icon} background={'white'}/>
         );
     }
 
@@ -151,20 +136,12 @@ export default class OtherUserProposalDetailPage extends Component {
                 proposalType = strings.project;
                 break;
             case 'sports':
-                proposalType = strings.leisure;
-                break;
             case 'hobbies':
-                proposalType = strings.leisure;
-                break;
             case 'games':
                 proposalType = strings.leisure;
                 break;
             case 'shows':
-                proposalType = strings.experience;
-                break;
             case 'restaurants':
-                proposalType = strings.experience;
-                break;
             case 'plans':
                 proposalType = strings.experience;
                 break;
@@ -175,11 +152,28 @@ export default class OtherUserProposalDetailPage extends Component {
     }
 
     render() {
-        const {params, user, strings, proposal, otherUser, otherUserProfile, industrySectorChoices, experienceOptions} = this.props;
+        const {strings, proposal, otherUser, otherUserProfile, industrySectorChoices, experienceOptions} = this.props;
 
         // TODO: Get matching and similarity
         // TODO: Get Availability
         // TODO: Get ParticipantLimit
+
+        const dailyWeekdayOptions = {
+            monday   : strings.monday,
+            tuesday  : strings.tuesday,
+            wednesday: strings.wednesday,
+            thursday : strings.thursday,
+            friday   : strings.friday,
+            saturday : strings.saturday,
+            sunday   : strings.sunday
+        };
+
+        const stringRanges = {
+            Morning  : strings.morning,
+            Afternoon: strings.afternoon,
+            Night    : strings.night,
+        };
+
         return (
             <div className="other-user-proposal-detail-view">
                 <TopNavBar
@@ -216,16 +210,11 @@ export default class OtherUserProposalDetailPage extends Component {
 
                             <div className={'information-wrapper'}>
                                 <div className={'rounded-icon-wrapper'}>
-                                    <RoundedIcon
-                                        icon={'briefcase'}
-                                        size={'small'}
-                                        color={'#2B3857'}
-                                        background={'#FBFCFD'}
-                                        border={'1px solid #F0F1FA'}/>
+                                    <ProposalIcon size={'medium-small'} icon={'sectors'} background={'white'}/>
                                 </div>
                                 <div className={'text-wrapper'}>
                                     <div className={'title small'}>{strings.sectors}</div>
-                                    {industrySectorChoices ?
+                                    {industrySectorChoices && proposal && proposal.fields.industry?
                                         proposal.fields.industry.map((item, index) =>
                                             <div className={'small'} key={index}>
                                                 {industrySectorChoices.find(x => x.id === item.value).text}
@@ -239,12 +228,7 @@ export default class OtherUserProposalDetailPage extends Component {
                             {proposal.fields.profession ?
                                 <div className={'information-wrapper'}>
                                     <div className={'rounded-icon-wrapper'}>
-                                        <RoundedIcon
-                                            icon={'briefcase'}
-                                            size={'small'}
-                                            color={'#2B3857'}
-                                            background={'#FBFCFD'}
-                                            border={'1px solid #F0F1FA'}/>
+                                        <ProposalIcon size={'medium-small'} icon={'sectors'} background={'white'}/>
                                     </div>
                                     <div className={'text-wrapper'}>
                                         <div className={'title small'}>{strings.profession}</div>
@@ -263,12 +247,7 @@ export default class OtherUserProposalDetailPage extends Component {
                             {proposal.fields.sports ?
                                 <div className={'information-wrapper'}>
                                     <div className={'rounded-icon-wrapper'}>
-                                        <RoundedIcon
-                                            icon={'briefcase'}
-                                            size={'small'}
-                                            color={'#2B3857'}
-                                            background={'#FBFCFD'}
-                                            border={'1px solid #F0F1FA'}/>
+                                        <ProposalIcon size={'medium-small'} icon={'sectors'} background={'white'}/>
                                     </div>
                                     <div className={'text-wrapper'}>
                                         <div className={'title small'}>{strings.sports}</div>
@@ -285,12 +264,7 @@ export default class OtherUserProposalDetailPage extends Component {
                             {proposal.fields.hobbies ?
                                 <div className={'information-wrapper'}>
                                     <div className={'rounded-icon-wrapper'}>
-                                        <RoundedIcon
-                                            icon={'briefcase'}
-                                            size={'small'}
-                                            color={'#2B3857'}
-                                            background={'#FBFCFD'}
-                                            border={'1px solid #F0F1FA'}/>
+                                        <ProposalIcon size={'medium-small'} icon={'sectors'} background={'white'}/>
                                     </div>
                                     <div className={'text-wrapper'}>
                                         <div className={'title small'}>{strings.hobbies}</div>
@@ -307,12 +281,7 @@ export default class OtherUserProposalDetailPage extends Component {
                             {proposal.fields.games ?
                                 <div className={'information-wrapper'}>
                                     <div className={'rounded-icon-wrapper'}>
-                                        <RoundedIcon
-                                            icon={'briefcase'}
-                                            size={'small'}
-                                            color={'#2B3857'}
-                                            background={'#FBFCFD'}
-                                            border={'1px solid #F0F1FA'}/>
+                                        <ProposalIcon size={'medium-small'} icon={'sectors'} background={'white'}/>
                                     </div>
                                     <div className={'text-wrapper'}>
                                         <div className={'title small'}>{strings.games}</div>
@@ -331,12 +300,7 @@ export default class OtherUserProposalDetailPage extends Component {
                             {proposal.fields.shows ?
                                 <div className={'information-wrapper'}>
                                     <div className={'rounded-icon-wrapper'}>
-                                        <RoundedIcon
-                                            icon={'briefcase'}
-                                            size={'small'}
-                                            color={'#2B3857'}
-                                            background={'#FBFCFD'}
-                                            border={'1px solid #F0F1FA'}/>
+                                        <ProposalIcon size={'medium-small'} icon={'sectors'} background={'white'}/>
                                     </div>
                                     <div className={'text-wrapper'}>
                                         <div className={'title small'}>{strings.shows}</div>
@@ -355,12 +319,7 @@ export default class OtherUserProposalDetailPage extends Component {
                             {proposal.fields.restaurants ?
                                 <div className={'information-wrapper'}>
                                     <div className={'rounded-icon-wrapper'}>
-                                        <RoundedIcon
-                                            icon={'briefcase'}
-                                            size={'small'}
-                                            color={'#2B3857'}
-                                            background={'#FBFCFD'}
-                                            border={'1px solid #F0F1FA'}/>
+                                        <ProposalIcon size={'medium-small'} icon={'sectors'} background={'white'}/>
                                     </div>
                                     <div className={'text-wrapper'}>
                                         <div className={'title small'}>{strings.restaurants}</div>
@@ -379,12 +338,7 @@ export default class OtherUserProposalDetailPage extends Component {
                             {proposal.fields.plans ?
                                 <div className={'information-wrapper'}>
                                     <div className={'rounded-icon-wrapper'}>
-                                        <RoundedIcon
-                                            icon={'briefcase'}
-                                            size={'small'}
-                                            color={'#2B3857'}
-                                            background={'#FBFCFD'}
-                                            border={'1px solid #F0F1FA'}/>
+                                        <ProposalIcon size={'medium-small'} icon={'sectors'} background={'white'}/>
                                     </div>
                                     <div className={'text-wrapper'}>
                                         <div className={'title small'}>{strings.plans}</div>
@@ -404,12 +358,7 @@ export default class OtherUserProposalDetailPage extends Component {
 
                             <div className={'information-wrapper'}>
                                 <div className={'rounded-icon-wrapper'}>
-                                    <RoundedIcon
-                                        icon={'calendar'}
-                                        size={'small'}
-                                        color={'#2B3857'}
-                                        background={'#FBFCFD'}
-                                        border={'1px solid #F0F1FA'}/>
+                                    <ProposalIcon size={'medium-small'} icon={'availability'} background={'white'}/>
                                 </div>
                                 <div className={'text-wrapper'}>
                                     <div className={'title small'}>{strings.availability}</div>
@@ -443,12 +392,7 @@ export default class OtherUserProposalDetailPage extends Component {
 
                             <div className={'information-wrapper'}>
                                 <div className={'rounded-icon-wrapper'}>
-                                    <RoundedIcon
-                                        icon={'users'}
-                                        size={'small'}
-                                        color={'#2B3857'}
-                                        background={'#FBFCFD'}
-                                        border={'1px solid #F0F1FA'}/>
+                                    <ProposalIcon size={'medium-small'} icon={'participants'} background={'white'}/>
                                 </div>
                                 <div className={'text-wrapper'}>
                                     <div className={'title small'}>{strings.numberOfMembers}</div>

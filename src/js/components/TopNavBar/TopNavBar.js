@@ -7,7 +7,22 @@ import RoundedIcon from '../ui/RoundedIcon/RoundedIcon.js';
 import RoundedImage from '../ui/RoundedImage/RoundedImage.js';
 import Input from '../ui/Input/Input.js';
 import RouterActionCreators from '../../actions/RouterActionCreators';
+import connectToStores from "../../utils/connectToStores";
+import WorkersStore from "../../stores/WorkersStore";
+import ProposalStore from "../../stores/ProposalStore";
+import ProposalRecommendationsStore from "../../stores/ProposalRecommendationsStore";
+import LoginStore from "../../stores/LoginStore";
 
+function getState() {
+    const photo = LoginStore.photo;
+    const slug = LoginStore.slug;
+
+    return {
+        photo,
+        slug
+    }
+}
+@connectToStores([LoginStore], getState)
 export default class TopNavBar extends Component {
 
     static propTypes = {
@@ -17,6 +32,8 @@ export default class TopNavBar extends Component {
         boxShadow                    : PropTypes.bool,
         textAlign                    : PropTypes.oneOf(['center', 'left']),
         textSize                     : PropTypes.oneOf(['regular', 'small']),
+        isLeftProfile                : PropTypes.bool,
+        isLeftBack                   : PropTypes.bool,
         iconLeft                     : PropTypes.string,
         textLeft                     : PropTypes.string,
         imageLeft                    : PropTypes.string,
@@ -40,6 +57,10 @@ export default class TopNavBar extends Component {
         onSecondRightLinkClickHandler: PropTypes.func,
         online                       : PropTypes.bool,
         children                     : PropTypes.object,
+
+        //injected by @connectToStores
+        photo                        : PropTypes.string,
+        slug                         : PropTypes.string,
     };
 
     static contextTypes = {
@@ -51,6 +72,7 @@ export default class TopNavBar extends Component {
 
         this.handleSearchClick = this.handleSearchClick.bind(this);
         this.handleChangeInput = this.handleChangeInput.bind(this);
+        this.goBack = this.goBack.bind(this);
 
         this.state = {
             searching: false
@@ -58,10 +80,15 @@ export default class TopNavBar extends Component {
     }
 
     handleLeftClick() {
-        if (this.props.onLeftLinkClickHandler) {
+        if (this.props.isLeftProfile) {
+            const profileUrl = `/p/` + this.props.slug;
+            this.context.router.push(profileUrl);
+        } else if(this.props.isLeftBack) {
+            this.goBack();
+        } else if (this.props.onLeftLinkClickHandler) {
             this.props.onLeftLinkClickHandler();
         } else {
-            this.goBack.bind(this)();
+            this.goBack();
         }
     }
 
@@ -90,13 +117,15 @@ export default class TopNavBar extends Component {
     }
 
     render() {
-        const {
+        let {
             position,
             background,
             color,
             boxShadow,
             textAlign,
             textSize,
+            isLeftProfile,
+            isLeftBack,
             iconLeft,
             textLeft,
             imageLeft,
@@ -115,7 +144,8 @@ export default class TopNavBar extends Component {
             textRightColored,
             searchInput,
             online,
-            children
+            children,
+            photo
         } = this.props;
         const {searching} = this.state;
         const leftClassName = textSize === 'small' ? styles.left + ' ' + styles.small : styles.left;
@@ -123,6 +153,15 @@ export default class TopNavBar extends Component {
         const rightClassName = textSize === 'small' ? styles.right + ' ' + styles.small : styles.right;
         const textLeftClassName = textLeftColored ? styles.linkColored + ' ' + styles.link : styles.link;
         const textRightClassName = textRightColored ? styles.linkColored + ' ' + styles.link : styles.link;
+
+        if (isLeftProfile){
+            iconLeft = null;
+            imageLeft = photo;
+        }
+        if (isLeftBack) {
+            iconLeft = null;
+            imageLeft = 'arrow-left'
+        }
 
         return (
             <TopBar position={position} background={background} textAlign={textAlign} color={color} boxShadow={boxShadow}>

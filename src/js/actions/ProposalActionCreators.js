@@ -52,6 +52,18 @@ export function deleteProposal(proposalId) {
     }, {proposalId})
 }
 
+export function requestOwnProposal(proposalId) {
+    return requestOtherProposal(proposalId, '')
+}
+
+export function requestOtherProposal(proposalId, slug) {
+    return dispatchAsync(UserAPI.getProposal(proposalId), {
+        request: ActionTypes.REQUEST_PROPOSAL,
+        success: ActionTypes.REQUEST_PROPOSAL_SUCCESS,
+        failure: ActionTypes.REQUEST_PROPOSAL_ERROR
+    }, {proposalId, slug})
+}
+
 export function requestRecommendations(url) {
     return dispatchAsync((UserAPI.getProposalRecommendations(url)), {
         request: ActionTypes.REQUEST_PROPOSAL_RECOMMENDATIONS,

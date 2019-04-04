@@ -186,6 +186,10 @@ export function removeProposal(proposalId, url= `proposals/${proposalId}`) {
     return deleteData(url);
 }
 
+export function getProposal(proposalId, url= `proposals/${proposalId}`) {
+    return getData(url);
+}
+
 export function getProposalRecommendations(url='proposals/recommendations') {
     return getData(url);
 }

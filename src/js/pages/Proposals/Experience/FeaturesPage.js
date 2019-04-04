@@ -53,13 +53,15 @@ function getState(props) {
     const thread = ThreadStore.get(threadId);
     const categories = ThreadStore.getCategories();
     const errors = ThreadStore.getErrors();
+    const isLoadingFilters = FilterStore.isLoading();
 
     return {
         tags,
         filters,
         thread,
         categories,
-        errors
+        errors,
+        isLoadingFilters
     };
 }
 
@@ -361,9 +363,9 @@ export default class FeaturesPage extends Component {
     }
 
     render() {
-        const {user, tags, thread, categories, strings} = this.props;
+        const {user, tags, thread, categories, strings, isLoadingFilters} = this.props;
         const {updated} = this.state;
-        const canContinue = true;
+        const canContinue = !isLoadingFilters;
 
         this.hideRenderCategory(categories);
 

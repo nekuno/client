@@ -97,7 +97,7 @@ export default class ProposalFilterPreview extends Component {
 
     render() {
         const {strings, proposalFilters, filters} = this.props;
-        console.log(proposalFilters);
+
         return (
             filters ?
                 <div className={styles.availabilityPreview}>

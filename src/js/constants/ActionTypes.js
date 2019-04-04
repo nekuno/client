@@ -352,6 +352,10 @@ export default keyMirror({
     DELETE_PROPOSAL_SUCCESS: null,
     DELETE_PROPOSAL_ERROR  : null,
 
+    REQUEST_PROPOSAL        : null,
+    REQUEST_PROPOSAL_SUCCESS: null,
+    REQUEST_PROPOSAL_ERROR  : null,
+
     INTEREST_PROPOSAL        : null,
     INTEREST_PROPOSAL_SUCCESS: null,
     INTEREST_PROPOSAL_ERROR  : null,

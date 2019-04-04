@@ -110,7 +110,6 @@ export default class AvailabilityEdit extends Component {
     }
 
     onDateInputRangeClick() {
-        console.log('onDateInputRangeClick');
         this.setState({showUI: !this.state.showUI});
         this.props.onClick(!this.state.showUI);
     }

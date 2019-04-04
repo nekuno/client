@@ -22,6 +22,7 @@ class ProposalStore extends BaseStore {
                 break;
             case ActionTypes.REQUEST_PROPOSALS_SUCCESS:
                 proposals = response;
+                this._ownProposals = []; //To be deleted when it´s paginated
                 proposals.forEach(proposal => {
                     this.addOwnProposal(proposal);
                 });
@@ -30,6 +31,18 @@ class ProposalStore extends BaseStore {
                 break;
             case ActionTypes.REQUEST_PROPOSALS_ERROR:
                 this._isRequesting = false;
+                this.emitChange();
+                break;
+            case ActionTypes.REQUEST_PROPOSAL_SUCCESS:
+                const proposal = action.response;
+                const slug = action.slug;
+
+                if ('' === slug){
+                    this.addOwnProposal(proposal);
+                } else {
+                    this.addProposal(proposal, slug);
+                }
+
                 this.emitChange();
                 break;
             case ActionTypes.REQUEST_USER_SUCCESS:

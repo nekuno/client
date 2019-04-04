@@ -3,15 +3,14 @@ import React, { Component } from 'react';
 import translate from '../../../i18n/Translate';
 import TopNavBar from '../../../components/TopNavBar/TopNavBar.js';
 import '../../../../scss/pages/proposals/leisure/preview.scss';
-import RoundedIcon from "../../../components/ui/RoundedIcon/RoundedIcon";
 import CreatingProposalStore from "../../../stores/CreatingProposalStore";
 import connectToStores from "../../../utils/connectToStores";
-import ProfileStore from "../../../stores/ProfileStore";
 import StepsBar from "../../../components/ui/StepsBar/StepsBar";
 import FilterStore from "../../../stores/FilterStore";
 import ProposalFilterPreview from "../../../components/ui/ProposalFilterPreview/ProposalFilterPreview";
 import ProposalStore from "../../../stores/ProposalStore";
 import * as ProposalActionCreators from '../../../actions/ProposalActionCreators';
+import ProposalIcon from "../../../components/ui/ProposalIcon/ProposalIcon";
 
 function getState() {
     const proposal = CreatingProposalStore.proposal;
@@ -144,12 +143,7 @@ export default class PreviewPage extends Component {
 
                             <div className={'information-wrapper'}>
                                 <div className={'rounded-icon-wrapper'}>
-                                    <RoundedIcon
-                                        icon={'briefcase'}
-                                        size={'small'}
-                                        color={'#2B3857'}
-                                        background={'#FBFCFD'}
-                                        border={'1px solid #F0F1FA'}/>
+                                     <ProposalIcon size={'medium-small'} icon={'sectors'} background={'white'}/>
                                 </div>
                                 <div className={'text-wrapper'}>
                                     <div className={'title small'}>{strings.profession}</div>
@@ -165,12 +159,7 @@ export default class PreviewPage extends Component {
 
                             <div className={'information-wrapper'}>
                                 <div className={'rounded-icon-wrapper'}>
-                                    <RoundedIcon
-                                        icon={'calendar'}
-                                        size={'small'}
-                                        color={'#2B3857'}
-                                        background={'#FBFCFD'}
-                                        border={'1px solid #F0F1FA'}/>
+                                    <ProposalIcon size={'medium-small'} icon={'availability'} background={'white'}/>
                                 </div>
                                 <div className={'text-wrapper'}>
                                     <div className={'title small'}>{strings.availability}</div>
@@ -204,12 +193,7 @@ export default class PreviewPage extends Component {
 
                             <div className={'information-wrapper'}>
                                 <div className={'rounded-icon-wrapper'}>
-                                    <RoundedIcon
-                                        icon={'users'}
-                                        size={'small'}
-                                        color={'#2B3857'}
-                                        background={'#FBFCFD'}
-                                        border={'1px solid #F0F1FA'}/>
+                                    <ProposalIcon size={'medium-small'} icon={'participants'} background={'white'}/>
                                 </div>
                                 <div className={'text-wrapper'}>
                                     <div className={'title small'}>{strings.numberOfMembers}</div>

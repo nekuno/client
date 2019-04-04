@@ -17,7 +17,6 @@ class AvailabilityStore extends BaseStore {
             case ActionTypes.REQUEST_LOGIN_USER_SUCCESS:
             case ActionTypes.REQUEST_AUTOLOGIN_SUCCESS:
                 this.availability = action.response.user.availability ? action.response.user.availability : this._availability;
-                console.log(this.ownAvailability);
                 this.emitChange();
                 break;
             case ActionTypes.REQUEST_REGISTER_USER_SUCCESS:

@@ -67,7 +67,6 @@ export default class AvailabilityDatesPage extends Component {
 
     onClick(showUI) {
         this.setState({showUI: showUI});
-        console.log('onClick ShowUI: ' + showUI);
     }
 
     render() {

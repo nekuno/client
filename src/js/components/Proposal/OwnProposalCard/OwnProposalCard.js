@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import RoundedImage from '../../ui/RoundedImage/RoundedImage.js';
-import RoundedIcon from '../../ui/RoundedIcon/RoundedIcon.js';
 import styles from './OwnProposalCard.scss';
 import translate from '../../../i18n/Translate';
+import ProposalIcon from "../../../components/ui/ProposalIcon/ProposalIcon";
 
 @translate('OwnProposalCard')
 export default class OwnProposalCard extends Component {
@@ -31,40 +31,32 @@ export default class OwnProposalCard extends Component {
 
         switch (proposal.type) {
             case 'work':
-                icon = 'icon-project';
+                icon = 'project';
                 break;
             case 'sports':
-                icon = 'icon-hobbie';
+                icon = 'hobbie';
                 break;
             case 'hobbies':
-                icon = 'icon-hobbie';
+                icon = 'hobbie';
                 break;
             case 'games':
-                icon = 'icon-hobbie';
+                icon = 'hobbie';
                 break;
             case 'shows':
-                icon = 'icon-experience';
+                icon = 'experience';
                 break;
             case 'restaurants':
-                icon = 'icon-experience';
+                icon = 'experience';
                 break;
             case 'plans':
-                icon = 'icon-experience';
+                icon = 'experience';
                 break;
             default:
                 break;
         }
 
         return (
-            <span className={icon}>
-                <span className="path1"></span>
-                <span className="path2"></span>
-                <span className="path3"></span>
-                <span className="path4"></span>
-                <span className="path5"></span>
-                <span className="path6"></span>
-                <span className="path7"></span>
-            </span>
+            <ProposalIcon size={"medium-small"} icon={icon} background={"transparent"}/>
         );
     }
 

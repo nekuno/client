@@ -51,7 +51,7 @@
       display: inline-block;
       //margin-left: 6px;
       vertical-align: super;
-      width: 80%;
+      width: 70%;
 
       .answer {
         font-size: 14px;
@@ -65,6 +65,11 @@
         text-overflow: ellipsis;
         color: $links;
       }
+    }
+
+    .answer-icon {
+      display: inline-block;
+      width: 10%;
     }
   }
 }

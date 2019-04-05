@@ -10,6 +10,7 @@ class RouterStore extends BaseStore {
         this._nextPath = null;
         this._routes = [];
         this._routesBackedFrom = [];
+        this._isOnlyGoingBack = false;
     }
 
     _registerToActions(action) {
@@ -23,6 +24,7 @@ class RouterStore extends BaseStore {
 
             case ActionTypes.NEXT_ROUTE:
                 this._routes.push(action.route);
+                this._clearLoopCheck();
                 this.emitChange();
                 break;
 
@@ -35,34 +37,66 @@ class RouterStore extends BaseStore {
             case ActionTypes.PREVIOUS_ROUTE:
                 this._routes.pop();
 
-                const currentRoute = action.route;
-                const userSlug = LoginStore.slug;
-                const profileDefaultRoute = 'p/'+userSlug;
-                const proposalsDefaultRoute = 'proposals';
+                const defaultRoute = this._getDefaultRoute(action);
 
-                if (this._routes.length > 0) {
-                    const lastRoute = this._routes[this._routes.length - 1];
-                    const isInLoop = currentRoute === lastRoute;
-                    const isInLoop2= this._routesBackedFrom;
-                    console.log(action);
-                    console.log(lastRoute);
-                    if (currentRoute === lastRoute) {
-                        setTimeout(router.replace(profileDefaultRoute), 0);
-                    } else if (DO_NOT_BACK_ROUTES.some(route => route === lastRoute)) {
-                        setTimeout(router.replace(profileDefaultRoute), 0);
-                    } else {
-                        this._routesBackedFrom.push(currentRoute);
-                        router.goBack();
-                    }
-                } else {
-                    setTimeout(router.replace(profileDefaultRoute), 0);
+                const noBackRoutes = this._routes.length === 0;
+                if (noBackRoutes){
+                    setTimeout(router.replace(defaultRoute), 0);
+                    this.emitChange();
+                    break;
                 }
+
+                const lastRoute = this._routes[this._routes.length - 1];
+                const isForbiddenBack = DO_NOT_BACK_ROUTES.some(route => route === lastRoute);
+                if (isForbiddenBack){
+                    setTimeout(router.replace(defaultRoute), 0);
+                    this.emitChange();
+                    break;
+                }
+
+                const currentRoute = action.route;
+                const isRepeatingRoute = lastRoute === currentRoute;
+                const isInLoop = this._checkLoop(currentRoute);
+                if (isInLoop || isRepeatingRoute){
+                    setTimeout(router.replace(defaultRoute), 0);
+                    this.emitChange();
+                    break;
+                }
+
+                this._routesBackedFrom.push(currentRoute);
+                router.goBack();
                 this.emitChange();
                 break;
 
             default:
                 break;
         }
+    }
+
+    _getDefaultRoute(action){
+        const userSlug = LoginStore.slug;
+        const profileDefaultRoute = '/p/'+userSlug;
+        const proposalsDefaultRoute = '/proposals';
+
+        console.log(action.route);
+        console.log(profileDefaultRoute);
+        if (action.route === profileDefaultRoute || this._routesBackedFrom.indexOf(profileDefaultRoute)!== -1 ){
+            return proposalsDefaultRoute;
+        }
+
+        return profileDefaultRoute;
+    }
+
+    _clearLoopCheck(){
+        this._isOnlyGoingBack = false;
+        this._routesBackedFrom = [];
+    }
+
+    _checkLoop(route) {
+        this._routesBackedFrom.push(route);
+        const isInLoop= this._isOnlyGoingBack && this._routes.indexOf((route)) !== -1;
+
+        return isInLoop;
     }
 
     hasNextTransitionPath() {

@@ -1287,6 +1287,9 @@ export default {
         affinityPreparingTitle  : 'Preparing to calculate affinity',
         registerWorkersFinish   : 'Congratulations! The registration processes have finished.'
     },
+    ProposalRecommendationList              : {
+        empty: 'You explored all Nekuno! Make some new proposals or go to the persons section at the bottom.',
+    },
     SelectCollapsible                       : {
         orderBy: 'Ordenar por',
     },

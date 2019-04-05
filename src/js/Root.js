@@ -23,7 +23,7 @@ import AvailabilityEditOnSignUpPage from './pages/AvailabilityEditOnSignUpPage';
 import AvailabilityEditPage from './pages/AvailabilityEditPage';
 import ConnectFacebookPage from './pages/ConnectFacebookPage';
 import ConnectingFacebookPage from './pages/ConnectingFacebookPage';
-import ProposalsPage from './pages/ProposalsPage';
+import ProposalsPage from './pages/Proposals/Recommendation/ProposalsPage';
 import PersonsPage from './pages/PersonsPage';
 import PersonsAllPage from './pages/PersonsAllPage';
 import PersonsFilterPage from './pages/PersonsFilterPage';

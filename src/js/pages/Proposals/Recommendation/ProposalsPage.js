@@ -1,17 +1,19 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import translate from '../i18n/Translate';
-import connectToStores from '../utils/connectToStores';
-import AuthenticatedComponent from '../components/AuthenticatedComponent';
-import ProposalRecommendationList from '../components/ui/ProposalRecommendationList/ProposalRecommendationList';
-import BottomNavBar from '../components/BottomNavBar/BottomNavBar.js';
-import TopNavBar from '../components/TopNavBar/TopNavBar.js';
-import BottomNotificationBar from "../components/ui/BottomNotificationBar/BottomNotificationBar";
-import WorkersStore from '../stores/WorkersStore';
-import ProposalStore from '../stores/ProposalStore';
-import ProposalRecommendationsStore from '../stores/ProposalRecommendationsStore';
-import '../../scss/pages/proposals.scss';
-import * as ProposalActionCreators from "../actions/ProposalActionCreators";
+import styles from './ProposalsPage.scss';
+import translate from '../../../i18n/Translate';
+import connectToStores from '../../../utils/connectToStores';
+import AuthenticatedComponent from '../../../components/AuthenticatedComponent';
+import ProposalRecommendationList from '../../../components/ui/ProposalRecommendationList/ProposalRecommendationList';
+import BottomNavBar from '../../../components/BottomNavBar/BottomNavBar.js';
+import TopNavBar from '../../../components/TopNavBar/TopNavBar.js';
+import BottomNotificationBar from "../../../components/ui/BottomNotificationBar/BottomNotificationBar";
+import LoadingGif from "../../../components/ui/LoadingGif/LoadingGif";
+import WorkersStore from '../../../stores/WorkersStore';
+import ProposalStore from '../../../stores/ProposalStore';
+import ProposalRecommendationsStore from '../../../stores/ProposalRecommendationsStore';
+import '../../../../scss/pages/proposals.scss';
+import * as ProposalActionCreators from "../../../actions/ProposalActionCreators";
 
 function requestData() {
     ProposalActionCreators.requestRecommendations();
@@ -78,17 +80,26 @@ export default class ProposalsPage extends Component {
         this.context.router.push('/availability-edit');
     }
 
+    renderEmptyMessage() {
+        return <div className={styles.empty}>strings.empty</div>
+    }
+
     render() {
-        const {recommendations, notifications, strings} = this.props;
+        const {recommendations, notifications, strings, isLoading} = this.props;
 
         return (
-            <div className="views">
-                <div className="view view-main proposals-view">
-                    <TopNavBar isLeftProfile={true} textCenter={strings.discover} firstIconRight={'clock'} onRightLinkClickHandler={this.goToEditAvailability} boxShadow={true} iconsRightColor={'#756EE5'} />
-                    <ProposalRecommendationList recommendations={recommendations}/>
-                    <BottomNotificationBar/>
-                    <BottomNavBar current={'proposals'} notifications={notifications}/>
+            <div className={'views'}>
+                <div className={styles.topNavBar}>
+                    <TopNavBar isLeftProfile={true} textCenter={strings.discover} firstIconRight={'clock'} onRightLinkClickHandler={this.goToEditAvailability} boxShadow={true} iconsRightColor={'#756EE5'}/>
                 </div>
+                <div className={styles.view}>
+                    {isLoading ?
+                        <LoadingGif/>
+                        : <ProposalRecommendationList recommendations={recommendations}/>
+                    }
+                </div>
+                <BottomNotificationBar/>
+                <BottomNavBar current={'proposals'} notifications={notifications}/>
             </div>
         );
     }

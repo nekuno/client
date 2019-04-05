@@ -1257,6 +1257,9 @@ export default {
         affinityPreparingTitle  : 'Preparando para calcular afinidad',
         registerWorkersFinish   : '¡Felicidades! Los procesos de registro han finalizado'
     },
+    ProposalRecommendationList              : {
+        empty: '¡Has explorado todo Nekuno! Haz alguna propuesta nueva o ve a la sección de personas en la barra inferior.',
+    },
     ThreadNoResults                         : {
         emptyThread: 'Este ovillo está vacío. Edítalo o elimínalo',
         edit       : 'Editar',

@@ -1,0 +1,15 @@
+@import '../../../../scss/_partials/colors';
+
+.view {
+  background-color: $background;
+  overflow-y: hidden;
+  z-index: 0;
+  height: calc(100% - 100px);
+  color: $gray-main-text;
+  text-align: center;
+}
+
+.top-nav-bar {
+  //position: sticky;
+  background: $background;
+}

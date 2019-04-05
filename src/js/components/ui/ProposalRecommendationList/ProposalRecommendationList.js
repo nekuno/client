@@ -5,12 +5,15 @@ import ReactSwipe from '../ReactSwipe/ReactSwipe';
 import ProposalCard from "../../Proposal/ProposalCard/ProposalCard";
 import * as ProposalActionCreators from '../../../actions/ProposalActionCreators';
 import CandidateCard from "../../Proposal/CandidateCard/CandidateCard";
-import LoadingGif from "../LoadingGif/LoadingGif";
+import translate from "../../../i18n/Translate";
 
+@translate('ProposalRecommendationList')
 export default class ProposalRecommendationList extends Component {
 
     static propTypes = {
-        recommendations: PropTypes.array.isRequired
+        recommendations: PropTypes.array.isRequired,
+        // Injected by @translate:
+        strings        : PropTypes.object,
     };
 
     static contextTypes = {
@@ -156,7 +159,7 @@ export default class ProposalRecommendationList extends Component {
     }
 
     render() {
-        const {recommendations} = this.props;
+        const {recommendations, strings} = this.props;
         const opacity = Math.max(1 - (Math.abs(this.state.swiping)), 0);
 
         const firstRecommendation = recommendations[0];
@@ -180,8 +183,8 @@ export default class ProposalRecommendationList extends Component {
                             {this.renderRecommendations(recommendations)}
                         </ReactSwipe>
                         :
-                        <div className={styles.loadingGif}>
-                            <LoadingGif />
+                        <div className={styles.empty}>
+                            {strings.empty}
                         </div>
                     }
                 </div>
@@ -189,3 +192,10 @@ export default class ProposalRecommendationList extends Component {
         );
     }
 }
+
+
+ProposalRecommendationList.defaultProps = {
+    strings: {
+        empty: 'You explored all Nekuno! Make some new proposals or go to the persons section at the bottom.',
+    }
+};

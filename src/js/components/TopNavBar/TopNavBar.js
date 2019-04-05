@@ -159,8 +159,8 @@ export default class TopNavBar extends Component {
             imageLeft = photo;
         }
         if (isLeftBack) {
-            iconLeft = null;
-            imageLeft = 'arrow-left'
+            iconLeft = 'arrow-left';
+            imageLeft = null;
         }
 
         return (

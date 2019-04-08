@@ -15,6 +15,10 @@ export default class SliderPhotos extends Component {
         this.onSwipe = this.onSwipe.bind(this);
     }
 
+    componentDidMount() {
+        this.slider.slickGoTo(0, true);
+    }
+
     onSwipe(index) {
         this.slider.slickGoTo(index, true);
     }

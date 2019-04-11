@@ -14,6 +14,7 @@ import FilterStore from "../../../stores/FilterStore";
 import ProposalFilterPreview from "../../../components/ui/ProposalFilterPreview/ProposalFilterPreview";
 import ProfileStore from "../../../stores/ProfileStore";
 import ProposalIcon from "../../../components/ui/ProposalIcon/ProposalIcon";
+import AvailabilityPreview from "../../../components/ui/AvailabilityPreview/AvailabilityPreview";
 
 /**
  * Requests data from server (or store) for current props.
@@ -204,25 +205,6 @@ export default class ProposalPreviewPage extends Component {
     render() {
         const {strings, proposal, industrySectorChoices, experienceOptions} = this.props;
 
-        console.log(proposal);
-        console.log(experienceOptions);
-
-        const dailyWeekdayOptions = {
-            Monday   : strings.monday,
-            Tuesday  : strings.tuesday,
-            Wednesday: strings.wednesday,
-            Thursday : strings.thursday,
-            Friday   : strings.friday,
-            Saturday : strings.saturday,
-            Sunday   : strings.sunday
-        };
-
-        const stringRanges = {
-            Morning  : strings.morning,
-            Afternoon: strings.afternoon,
-            Night    : strings.night,
-        };
-
         const stringProposalTypes = {
             work: strings.work,
             leisure: strings.leisure,
@@ -396,40 +378,8 @@ export default class ProposalPreviewPage extends Component {
                                     : null
                                 }
 
-
-
                                 <div className={'information-wrapper'}>
-                                    <div className={'rounded-icon-wrapper'}>
-                                        <ProposalIcon size={'medium-small'} icon={'availability'} background={'white'}/>
-                                    </div>
-                                    <div className={'text-wrapper'}>
-                                        <div className={'title small'}>{strings.availability}</div>
-                                        {proposal.fields.availability ? (
-                                            <div className="resume small">
-                                                {proposal.fields.availability.dynamic.map((day, index) =>
-                                                    <div key={index}>
-                                                        {dailyWeekdayOptions[day.weekday]}
-                                                        ,
-                                                        {day.range.map((range, rangeIndex) =>
-                                                            <span key={rangeIndex}> {day.range.length === rangeIndex + 1 ? strings.and + ' ' + stringRanges[range] : stringRanges[range]}</span>
-                                                        )}
-                                                    </div>
-                                                )}
-
-                                                {proposal.fields.availability.static.map((day, index) =>
-                                                    <div key={index}>
-                                                        {strings.from} {day.days.start} {strings.to} {day.days.end}
-                                                        ,
-                                                        {day.range.map((range, rangeIndex) =>
-                                                            <span key={rangeIndex}> {day.range.length === rangeIndex + 1 ? strings.and + ' ' + stringRanges[range] : stringRanges[range]}</span>
-                                                        )}
-                                                    </div>
-                                                )}
-                                            </div>
-                                        ) : (
-                                            <div className="resume small">{strings.availabilityDescription}</div>
-                                        )}
-                                    </div>
+                                    <AvailabilityPreview availability={proposal.fields.availability}/>
                                 </div>
 
                                 <div className={'information-wrapper'}>

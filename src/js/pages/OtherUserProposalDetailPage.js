@@ -13,6 +13,7 @@ import MatchingBars from "../components/ui/MatchingBars/MatchingBars";
 import UserStore from "../stores/UserStore";
 import ProfileStore from "../stores/ProfileStore";
 import ProposalIcon from "../components/ui/ProposalIcon/ProposalIcon";
+import AvailabilityPreview from "../components/ui/AvailabilityPreview/AvailabilityPreview";
 
 /**
  * Requests data from server for current props.
@@ -154,25 +155,6 @@ export default class OtherUserProposalDetailPage extends Component {
     render() {
         const {strings, proposal, otherUser, otherUserProfile, industrySectorChoices, experienceOptions} = this.props;
 
-        // TODO: Get matching and similarity
-        // TODO: Get Availability
-        // TODO: Get ParticipantLimit
-
-        const dailyWeekdayOptions = {
-            monday   : strings.monday,
-            tuesday  : strings.tuesday,
-            wednesday: strings.wednesday,
-            thursday : strings.thursday,
-            friday   : strings.friday,
-            saturday : strings.saturday,
-            sunday   : strings.sunday
-        };
-
-        const stringRanges = {
-            Morning  : strings.morning,
-            Afternoon: strings.afternoon,
-            Night    : strings.night,
-        };
 
         return (
             <div className="other-user-proposal-detail-view">
@@ -354,40 +336,8 @@ export default class OtherUserProposalDetailPage extends Component {
                                 : null
                             }
 
-
-
                             <div className={'information-wrapper'}>
-                                <div className={'rounded-icon-wrapper'}>
-                                    <ProposalIcon size={'medium-small'} icon={'availability'} background={'white'}/>
-                                </div>
-                                <div className={'text-wrapper'}>
-                                    <div className={'title small'}>{strings.availability}</div>
-                                    {proposal.fields.availability ? (
-                                        <div className="resume small">
-                                            {proposal.fields.availability.dynamic.map((day, index) =>
-                                                <div key={index}>
-                                                    {dailyWeekdayOptions[day.weekday]}
-                                                    ,
-                                                    {day.range.map((range, rangeIndex) =>
-                                                        <span key={rangeIndex}> {day.range.length === rangeIndex + 1 ? strings.and + ' ' + stringRanges[range] : stringRanges[range]}</span>
-                                                    )}
-                                                </div>
-                                            )}
-
-                                            {proposal.fields.availability.static.map((day, index) =>
-                                                <div key={index}>
-                                                    {strings.from} {day.days.start} {strings.to} {day.days.end}
-                                                    ,
-                                                    {day.range.map((range, rangeIndex) =>
-                                                        <span key={rangeIndex}> {day.range.length === rangeIndex + 1 ? strings.and + ' ' + stringRanges[range] : stringRanges[range]}</span>
-                                                    )}
-                                                </div>
-                                            )}
-                                        </div>
-                                    ) : (
-                                        <div className="resume small">{strings.availabilityDescription}</div>
-                                    )}
-                                </div>
+                                <AvailabilityPreview availability={availability}/>
                             </div>
 
                             <div className={'information-wrapper'}>

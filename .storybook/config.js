@@ -5,6 +5,7 @@ function loadStories() {
     require('../stories/AboutMeCategory.stories');
     require('../stories/AnswerQuestionCard.stories');
     require('../stories/AvailabilityEdit.stories');
+    require('../stories/AvailabilityPreview.stories');
     require('../stories/ProposalFilterPreview');
     require('../stories/Banner.stories');
     require('../stories/BottomNavBar.stories');

@@ -10,6 +10,7 @@ import Frame from "../../../components/ui/Frame/Frame";
 import RoundedIcon from "../../../components/ui/RoundedIcon/RoundedIcon";
 import CreatingProposalStore from "../../../stores/CreatingProposalStore";
 import ProposalIcon from "../Project/PreviewPage";
+import AvailabilityPreview from "../../../components/ui/AvailabilityPreview/AvailabilityPreview";
 
 function getState() {
     const availability = CreatingProposalStore.availability;
@@ -120,22 +121,6 @@ export default class AvailabilityPage extends Component {
         const participantLimit = this.state.participantLimit;
         const disableSubstract = this.state.disableSubstract;
 
-        const dailyWeekdayOptions = {
-            monday    : strings.monday,
-            tuesday   : strings.tuesday,
-            wednesday : strings.wednesday,
-            thursday  : strings.thursday,
-            friday    : strings.friday,
-            saturday  : strings.saturday,
-            sunday    : strings.sunday
-        };
-
-        const stringRanges = {
-            Morning   : strings.morning,
-            Afternoon : strings.afternoon,
-            Night     : strings.night,
-        };
-
         return (
             <div className="views">
                 <div className="view view-main proposals-experience-availability-view">
@@ -152,38 +137,7 @@ export default class AvailabilityPage extends Component {
                         <div className="proposals-experience-availability-frame-wrapper">
                             <Frame
                                 onClickHandler={this.onClickAvailabilityHandler}>
-                                <div className={'rounded-icon-wrapper'}>
-                                    <ProposalIcon size={'medium-small'} icon={'availability'} background={'white'}/>
-                                </div>
-                                <div className="text-wrapper">
-                                    <div className="title small">{strings.availabilityTitle}</div>
-                                    {availability ? (
-                                        <div className="resume small">
-                                            {availability.dynamic.map((day, index) =>
-                                                <div key={index}>
-                                                    {dailyWeekdayOptions[day.weekday]}
-                                                    ,
-                                                    {day.range.map((range, rangeIndex) =>
-                                                        <span key={rangeIndex}> {day.range.length === rangeIndex + 1 ? strings.and + ' ' + stringRanges[range] : stringRanges[range]}</span>
-                                                    )}
-                                                </div>
-                                            )}
-                                            {availability.static !== [] ?
-                                                availability.static.map((day, index) =>
-                                                <div key={index}>
-                                                    {strings.from} {day.days.start} {strings.to} {day.days.end}
-                                                    ,
-                                                    {day.range.map((range, rangeIndex) =>
-                                                        <span key={rangeIndex}> {day.range.length === rangeIndex + 1 ? strings.and + ' ' + stringRanges[range] : stringRanges[range]}</span>
-                                                    )}
-                                                </div>
-                                                )
-                                                : null}
-                                        </div>
-                                    ) : (
-                                        <div className="resume small">{strings.availabilityDescription}</div>
-                                    )}
-                                </div>
+                                <AvailabilityPreview availability={availability}/>
                             </Frame>
                         </div>
                         <Frame>
@@ -233,18 +187,5 @@ AvailabilityPage.defaultProps = {
         participantsTitle       : 'Number of participants',
         stepsBarContinueText    : 'Continue',
         stepsBarCantContinueText: 'Indicate at least one parameter',
-        monday                  : 'Monday',
-        tuesday                 : 'Tuesday',
-        wednesday               : 'Wednesday',
-        thursday                : 'Thursday',
-        friday                  : 'Friday',
-        saturday                : 'Saturday',
-        sunday                  : 'Sunday',
-        and                     : 'and',
-        morning                 : 'morning',
-        afternoon               : 'afternoon',
-        night                   : 'night',
-        from                    : 'From',
-        to                      : 'to',
     }
 };

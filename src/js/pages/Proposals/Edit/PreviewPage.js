@@ -9,12 +9,12 @@ import CreatingProposalStore from '../../../stores/CreatingProposalStore';
 import * as ProposalActionCreators from "../../../actions/ProposalActionCreators";
 import ProposalStore from "../../../stores/ProposalStore";
 import '../../../../scss/pages/proposals/edit/preview-page.scss';
-import RoundedIcon from "../../../components/ui/RoundedIcon/RoundedIcon";
 import FilterStore from "../../../stores/FilterStore";
 import ProposalFilterPreview from "../../../components/ui/ProposalFilterPreview/ProposalFilterPreview";
 import ProfileStore from "../../../stores/ProfileStore";
 import ProposalIcon from "../../../components/ui/ProposalIcon/ProposalIcon";
 import AvailabilityPreview from "../../../components/ui/AvailabilityPreview/AvailabilityPreview";
+import ProposalFieldsPreview from "../../../components/ui/ProposalFieldsPreview/ProposalFieldsPreview";
 
 /**
  * Requests data from server (or store) for current props.
@@ -29,29 +29,8 @@ function requestData(props) {
 function getState() {
     const proposal = CreatingProposalStore.proposal;
 
-    const metadata = ProfileStore.getMetadata();
-    const industrySectorChoices = metadata && metadata.industry ? metadata.industry.choices : null;
-
-    let experienceOptions = null;
-    switch (CreatingProposalStore.proposal.type) {
-        case 'shows':
-            experienceOptions = metadata && metadata.shows ? metadata.shows.choices : [];
-            break;
-        case 'restaurants':
-            experienceOptions = metadata && metadata.restaurants ? metadata.restaurants.choices : [];
-            break;
-        case 'plans':
-            experienceOptions = metadata && metadata.plans ? metadata.plans.choices : [];
-            break;
-        default:
-            break;
-    }
-
-
     return {
-        proposal,
-        industrySectorChoices,
-        experienceOptions,
+        proposal
     };
 }
 
@@ -70,8 +49,6 @@ export default class ProposalPreviewPage extends Component {
         strings     : PropTypes.object,
         // Injected by @connectToStores:
         proposal    : PropTypes.object,
-        industrySectorChoices: PropTypes.array,
-        experienceOptions : PropTypes.array,
 
     };
 
@@ -203,7 +180,7 @@ export default class ProposalPreviewPage extends Component {
     }
 
     render() {
-        const {strings, proposal, industrySectorChoices, experienceOptions} = this.props;
+        const {strings, proposal} = this.props;
 
         const stringProposalTypes = {
             work: strings.work,
@@ -234,149 +211,7 @@ export default class ProposalPreviewPage extends Component {
                                 <p className={'category'}>{stringProposalTypes[proposal.type]}</p>
                                 <p>{proposal.fields.description}</p>
 
-                                {proposal.fields.industry && industrySectorChoices !== null ?
-                                    <div className={'information-wrapper'}>
-                                        <div className={'rounded-icon-wrapper'}>
-                                            <RoundedIcon
-                                                icon={'briefcase'}
-                                                size={'small'}
-                                                color={'#2B3857'}
-                                                background={'#FBFCFD'}
-                                                border={'1px solid #F0F1FA'}/>
-                                        </div>
-                                        <div className={'text-wrapper'}>
-                                            <div className={'title small'}>{strings.sectors}</div>
-                                            {proposal.fields.industry.map((item, index) =>
-                                                <div className={'small'} key={index}>
-                                                    {industrySectorChoices.find(x => x.id === item).text}
-                                                </div>
-                                            )}
-                                        </div>
-                                    </div>
-                                    : null
-                                }
-                                {proposal.fields.profession ?
-                                <div className={'information-wrapper'}>
-                                    <div className={'rounded-icon-wrapper'}>
-                                        <ProposalIcon size={'medium-small'} icon={'skills'} background={'white'}/>
-                                    </div>
-                                    <div className={'text-wrapper'}>
-                                        <div className={'title small'}>{strings.profession}</div>
-                                        {proposal.fields.profession.map((item, index) =>
-                                            <div className={'small'} key={index}>
-                                                {item}
-                                            </div>
-                                        )}
-                                    </div>
-                                </div>
-                                    : null
-                                }
-
-
-
-                                {proposal.fields.sports ?
-                                    <div className={'information-wrapper'}>
-                                        <div className={'rounded-icon-wrapper'}>
-                                            <ProposalIcon size={'medium-small'} icon={'sectors'} background={'white'}/>
-                                        </div>
-                                        <div className={'text-wrapper'}>
-                                            <div className={'title small'}>{strings.sports}</div>
-                                            {proposal.fields.sports.map((item, index) =>
-                                                <div className={'small'} key={index}>
-                                                    {item}
-                                                </div>
-                                            )}
-                                        </div>
-                                    </div>
-                                    : null
-                                }
-
-                                {proposal.fields.hobbies ?
-                                    <div className={'information-wrapper'}>
-                                        <div className={'rounded-icon-wrapper'}>
-                                            <ProposalIcon size={'medium-small'} icon={'sectors'} background={'white'}/>
-                                        </div>
-                                        <div className={'text-wrapper'}>
-                                            <div className={'title small'}>{strings.hobbies}</div>
-                                            {proposal.fields.hobbies.map((item, index) =>
-                                                <div className={'small'} key={index}>
-                                                    {item}
-                                                </div>
-                                            )}
-                                        </div>
-                                    </div>
-                                    : null
-                                }
-
-                                {proposal.fields.games ?
-                                    <div className={'information-wrapper'}>
-                                        <div className={'rounded-icon-wrapper'}>
-                                            <ProposalIcon size={'medium-small'} icon={'sectors'} background={'white'}/>
-                                        </div>
-                                        <div className={'text-wrapper'}>
-                                            <div className={'title small'}>{strings.games}</div>
-                                            {proposal.fields.games.map((item, index) =>
-                                                <div className={'small'} key={index}>
-                                                    {item}
-                                                </div>
-                                            )}
-                                        </div>
-                                    </div>
-                                    : null
-                                }
-
-
-
-                                {proposal.fields.shows ?
-                                    <div className={'information-wrapper'}>
-                                        <div className={'rounded-icon-wrapper'}>
-                                            <ProposalIcon size={'medium-small'} icon={'sectors'} background={'white'}/>
-                                        </div>
-                                        <div className={'text-wrapper'}>
-                                            <div className={'title small'}>{strings.shows}</div>
-                                            {proposal.fields.shows.map((item, index) =>
-                                                <div className={'small'} key={index}>
-                                                    {experienceOptions.find(x => x.id === item).text}
-                                                </div>
-                                            )}
-                                        </div>
-                                    </div>
-                                    : null
-                                }
-
-                                {proposal.fields.restaurants ?
-                                    <div className={'information-wrapper'}>
-                                        <div className={'rounded-icon-wrapper'}>
-                                            <ProposalIcon size={'medium-small'} icon={'sectors'} background={'white'}/>
-                                        </div>
-                                        <div className={'text-wrapper'}>
-                                            <div className={'title small'}>{strings.restaurants}</div>
-                                            {proposal.fields.restaurants.map((item, index) =>
-                                                <div className={'small'} key={index}>
-                                                    {experienceOptions.find(x => x.id === item).text}
-                                                </div>
-                                            )}
-                                        </div>
-                                    </div>
-                                    : null
-                                }
-
-                                {proposal.fields.plans ?
-                                    <div className={'information-wrapper'}>
-                                        <div className={'rounded-icon-wrapper'}>
-                                            <ProposalIcon size={'medium-small'} icon={'sectors'} background={'white'}/>
-                                        </div>
-                                        <div className={'text-wrapper'}>
-                                            <div className={'title small'}>{strings.plans}</div>
-                                            {proposal.fields.plans.map((item, index) =>
-                                                <div className={'small'} key={index}>
-                                                    {experienceOptions.find(x => x.id === item).text}
-                                                </div>
-                                            )}
-                                        </div>
-                                    </div>
-                                    : null
-                                }
+                                <ProposalFieldsPreview proposal={proposal}/>
 
                                 <div className={'information-wrapper'}>
                                     <AvailabilityPreview availability={proposal.fields.availability}/>
@@ -432,19 +267,6 @@ ProposalPreviewPage.defaultProps = {
         drugs          : 'Drugs and other services',
         familiar       : 'Familiar aspects',
         people         : 'people',
-        monday         : 'Monday',
-        tuesday        : 'Tuesday',
-        wednesday      : 'Wednesday',
-        thursday       : 'Thursday',
-        friday         : 'Friday',
-        saturday       : 'Saturday',
-        sunday         : 'Sunday',
-        and            : 'and',
-        morning        : 'morning',
-        afternoon      : 'afternoon',
-        night          : 'night',
-        from           : 'From',
-        to             : 'to',
         years          : 'years',
         withinRadioOf  : 'within radio of',
         shows                    : 'Events',

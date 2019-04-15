@@ -14,6 +14,7 @@ import UserStore from "../stores/UserStore";
 import ProfileStore from "../stores/ProfileStore";
 import ProposalIcon from "../components/ui/ProposalIcon/ProposalIcon";
 import AvailabilityPreview from "../components/ui/AvailabilityPreview/AvailabilityPreview";
+import ProposalFieldsPreview from "../components/ui/ProposalFieldsPreview/ProposalFieldsPreview";
 
 /**
  * Requests data from server for current props.
@@ -33,30 +34,10 @@ function getState(props) {
 
     const otherUserProfile = ProfileStore.getWithMetadata(userSlug);
 
-    const metadata = ProfileStore.getMetadata();
-    const industrySectorChoices = metadata && metadata.industry ? metadata.industry.choices : null;
-
-    let experienceOptions = null;
-    switch (proposal.type) {
-        case 'shows':
-            experienceOptions = metadata && metadata.shows ? metadata.shows.choices : [];
-            break;
-        case 'restaurants':
-            experienceOptions = metadata && metadata.restaurants ? metadata.restaurants.choices : [];
-            break;
-        case 'plans':
-            experienceOptions = metadata && metadata.plans ? metadata.plans.choices : [];
-            break;
-        default:
-            break;
-    }
-
     return {
         proposal,
         otherUser,
         otherUserProfile,
-        industrySectorChoices,
-        experienceOptions,
     };
 }
 
@@ -153,7 +134,7 @@ export default class OtherUserProposalDetailPage extends Component {
     }
 
     render() {
-        const {strings, proposal, otherUser, otherUserProfile, industrySectorChoices, experienceOptions} = this.props;
+        const {strings, proposal, otherUser, otherUserProfile} = this.props;
 
 
         return (
@@ -190,151 +171,7 @@ export default class OtherUserProposalDetailPage extends Component {
                             <p className={'category'}>{this.renderProposalType()}</p>
                             <p>{proposal.fields.description}</p>
 
-                            <div className={'information-wrapper'}>
-                                <div className={'rounded-icon-wrapper'}>
-                                    <ProposalIcon size={'medium-small'} icon={'sectors'} background={'white'}/>
-                                </div>
-                                <div className={'text-wrapper'}>
-                                    <div className={'title small'}>{strings.sectors}</div>
-                                    {industrySectorChoices && proposal && proposal.fields.industry?
-                                        proposal.fields.industry.map((item, index) =>
-                                            <div className={'small'} key={index}>
-                                                {industrySectorChoices.find(x => x.id === item.value).text}
-                                            </div>
-                                        )
-                                        : null
-                                    }
-                                </div>
-                            </div>
-
-                            {proposal.fields.profession ?
-                                <div className={'information-wrapper'}>
-                                    <div className={'rounded-icon-wrapper'}>
-                                        <ProposalIcon size={'medium-small'} icon={'sectors'} background={'white'}/>
-                                    </div>
-                                    <div className={'text-wrapper'}>
-                                        <div className={'title small'}>{strings.profession}</div>
-                                        {proposal.fields.profession.map((item, index) =>
-                                            <div className={'small'} key={index}>
-                                                {item}
-                                            </div>
-                                        )}
-                                    </div>
-                                </div>
-                                : null
-                            }
-
-
-
-                            {proposal.fields.sports ?
-                                <div className={'information-wrapper'}>
-                                    <div className={'rounded-icon-wrapper'}>
-                                        <ProposalIcon size={'medium-small'} icon={'sectors'} background={'white'}/>
-                                    </div>
-                                    <div className={'text-wrapper'}>
-                                        <div className={'title small'}>{strings.sports}</div>
-                                        {proposal.fields.sports.map((item, index) =>
-                                            <div className={'small'} key={index}>
-                                                {item}
-                                            </div>
-                                        )}
-                                    </div>
-                                </div>
-                                : null
-                            }
-
-                            {proposal.fields.hobbies ?
-                                <div className={'information-wrapper'}>
-                                    <div className={'rounded-icon-wrapper'}>
-                                        <ProposalIcon size={'medium-small'} icon={'sectors'} background={'white'}/>
-                                    </div>
-                                    <div className={'text-wrapper'}>
-                                        <div className={'title small'}>{strings.hobbies}</div>
-                                        {proposal.fields.hobbies.map((item, index) =>
-                                            <div className={'small'} key={index}>
-                                                {item}
-                                            </div>
-                                        )}
-                                    </div>
-                                </div>
-                                : null
-                            }
-
-                            {proposal.fields.games ?
-                                <div className={'information-wrapper'}>
-                                    <div className={'rounded-icon-wrapper'}>
-                                        <ProposalIcon size={'medium-small'} icon={'sectors'} background={'white'}/>
-                                    </div>
-                                    <div className={'text-wrapper'}>
-                                        <div className={'title small'}>{strings.games}</div>
-                                        {proposal.fields.games.map((item, index) =>
-                                            <div className={'small'} key={index}>
-                                                {item}
-                                            </div>
-                                        )}
-                                    </div>
-                                </div>
-                                : null
-                            }
-
-
-
-                            {proposal.fields.shows ?
-                                <div className={'information-wrapper'}>
-                                    <div className={'rounded-icon-wrapper'}>
-                                        <ProposalIcon size={'medium-small'} icon={'sectors'} background={'white'}/>
-                                    </div>
-                                    <div className={'text-wrapper'}>
-                                        <div className={'title small'}>{strings.shows}</div>
-                                        {proposal.fields.shows.map((item, index) =>
-                                            <div className={'small'} key={index}>
-                                                {experienceOptions.length > 0 ?
-                                                    experienceOptions.find(x => x.id === item.value).text
-                                                    : null}
-                                            </div>
-                                        )}
-                                    </div>
-                                </div>
-                                : null
-                            }
-
-                            {proposal.fields.restaurants ?
-                                <div className={'information-wrapper'}>
-                                    <div className={'rounded-icon-wrapper'}>
-                                        <ProposalIcon size={'medium-small'} icon={'sectors'} background={'white'}/>
-                                    </div>
-                                    <div className={'text-wrapper'}>
-                                        <div className={'title small'}>{strings.restaurants}</div>
-                                        {proposal.fields.restaurants.map((item, index) =>
-                                            <div className={'small'} key={index}>
-                                                {experienceOptions.length > 0 ?
-                                                    experienceOptions.find(x => x.id === item.value).text
-                                                    : null}
-                                            </div>
-                                        )}
-                                    </div>
-                                </div>
-                                : null
-                            }
-
-                            {proposal.fields.plans ?
-                                <div className={'information-wrapper'}>
-                                    <div className={'rounded-icon-wrapper'}>
-                                        <ProposalIcon size={'medium-small'} icon={'sectors'} background={'white'}/>
-                                    </div>
-                                    <div className={'text-wrapper'}>
-                                        <div className={'title small'}>{strings.plans}</div>
-                                        {proposal.fields.plans.map((item, index) =>
-                                            <div className={'small'} key={index}>
-                                                {experienceOptions.length > 0 ?
-                                                    experienceOptions.find(x => x.id === item.value).text
-                                                    : null}
-                                            </div>
-                                        )}
-                                    </div>
-                                </div>
-                                : null
-                            }
+                            <ProposalFieldsPreview proposal={proposal}/>
 
                             <div className={'information-wrapper'}>
                                 <AvailabilityPreview availability={availability}/>

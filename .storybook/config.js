@@ -53,6 +53,7 @@ function loadStories() {
     require('../stories/Overlay.stories');
     require('../stories/ProgressBar.stories');
     require('../stories/ProposalCard.stories');
+    require('../stories/ProposalFieldsPreview.stories');
     require('../stories/ProposalRecommendationList.stories');
     require('../stories/RoundOption.stories');
     require('../stories/RoundedIcon.stories');

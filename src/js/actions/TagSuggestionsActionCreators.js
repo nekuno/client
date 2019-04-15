@@ -12,7 +12,7 @@ export function requestContentTagSuggestions(search) {
 }
 
 export function requestProfileTagSuggestions(search, tagType) {
-    dispatchAsync(TagSuggestionsAPI.getProfileTagSuggestions(search, tagType), {
+    return dispatchAsync(TagSuggestionsAPI.getProfileTagSuggestions(search, tagType), {
         request: ActionTypes.REQUEST_TAG_SUGGESTIONS,
         success: ActionTypes.REQUEST_TAG_SUGGESTIONS_SUCCESS,
         failure: ActionTypes.REQUEST_TAG_SUGGESTIONS_ERROR

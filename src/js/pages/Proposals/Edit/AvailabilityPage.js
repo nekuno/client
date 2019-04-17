@@ -9,10 +9,10 @@ import CreatingProposalStore from '../../../stores/CreatingProposalStore';
 import * as ProposalActionCreators from "../../../actions/ProposalActionCreators";
 import ProposalStore from "../../../stores/ProposalStore";
 import '../../../../scss/pages/proposals/edit/availability-page.scss';
-import InputTag from "../../../components/RegisterFields/InputTag/InputTag";
 import Frame from "../../../components/ui/Frame/Frame";
 import RoundedIcon from "../../../components/ui/RoundedIcon/RoundedIcon";
 import ProposalIcon from "../../../components/ui/ProposalIcon/ProposalIcon";
+import AvailabilityPreview from "../../../components/ui/AvailabilityPreview/AvailabilityPreview";
 
 /**
  * Requests data from server (or store) for current props.
@@ -251,28 +251,11 @@ export default class ProposalAvailabilityEditPage extends Component {
     }
 
     render() {
-        const {strings, proposal, availability} = this.props;
+        const {strings, availability} = this.props;
 
 
         const canContinue = availability !== null;
         const disableSubstract = this.state.disableSubstract;
-
-        const dailyWeekdayOptions = {
-            Monday    : strings.monday,
-            Tuesday   : strings.tuesday,
-            Wednesday : strings.wednesday,
-            Thursday  : strings.thursday,
-            Friday    : strings.friday,
-            Saturday  : strings.saturday,
-            Sunday    : strings.sunday
-        };
-
-        const stringRanges = {
-            Morning   : strings.morning,
-            Afternoon : strings.afternoon,
-            Night     : strings.night,
-        };
-
 
         return (
             <div className="views">
@@ -290,39 +273,7 @@ export default class ProposalAvailabilityEditPage extends Component {
                         <div className="proposals-availability-frame-wrapper">
                             <Frame
                                 onClickHandler={this.onClickAvailabilityHandler}>
-                                <div className={'rounded-icon-wrapper'}>
-                                    <ProposalIcon size={'medium-small'} icon={'availability'} background={'transparent'}/>
-                                </div>
-                                <div className="text-wrapper">
-                                    <div className="title small">{strings.availabilityTitle}</div>
-                                    {availability ? (
-                                        <div className="resume small">
-                                            {availability.dynamic.map((day, index) =>
-                                                <div key={index}>
-                                                    {dailyWeekdayOptions[day.weekday]}
-                                                    ,
-                                                    {day.range.map((range, rangeIndex) =>
-                                                        <span key={rangeIndex}> {day.range.length === rangeIndex + 1 ? strings.and + ' ' + stringRanges[range] : stringRanges[range]}</span>
-                                                    )}
-                                                </div>
-                                            )}
-                                            {availability.static !== [] ?
-                                                availability.static.map((day, index) =>
-                                                    <div key={index}>
-                                                        {strings.from} {day.days.start} {strings.to} {day.days.end}
-                                                        ,
-                                                        {day.range.map((range, rangeIndex) =>
-                                                            <span key={rangeIndex}> {day.range.length === rangeIndex + 1 ? strings.and + ' ' + stringRanges[range] : stringRanges[range]}</span>
-                                                        )}
-                                                    </div>
-                                                )
-                                                : null
-                                            }
-                                        </div>
-                                    ) : (
-                                        <div className="resume small">{strings.availabilityDescription}</div>
-                                    )}
-                                </div>
+                                <AvailabilityPreview availability={availability}/>
                             </Frame>
                         </div>
                         <Frame>
@@ -371,19 +322,6 @@ ProposalAvailabilityEditPage.defaultProps = {
         availabilityTitle        : 'Availability',
         availabilityDescription  : 'Indicate in what time or range of days you would like to develop the project',
         participantsTitle        : 'Number of participants',
-        monday                   : 'Monday',
-        tuesday                  : 'Tuesday',
-        wednesday                : 'Wednesday',
-        thursday                 : 'Thursday',
-        friday                   : 'Friday',
-        saturday                 : 'Saturday',
-        sunday                   : 'Sunday',
-        and                      : 'and',
-        morning                  : 'morning',
-        afternoon                : 'afternoon',
-        night                    : 'night',
-        from                     : 'From',
-        to                       : 'to',
         stepsBarCantContinueText : 'You cannot continue',
         stepsBarContinueText     : 'Continue',
     }

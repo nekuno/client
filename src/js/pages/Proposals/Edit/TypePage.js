@@ -17,7 +17,6 @@ import TagSuggestionsStore from "../../../stores/TagSuggestionsStore";
 import InputSelectImage from "../../../components/RegisterFields/InputSelectImage/InputSelectImage";
 
 
-
 function resetTagSuggestions() {
     TagSuggestionsActionCreators.resetTagSuggestions();
 }
@@ -92,6 +91,7 @@ export default class ProposalTypeEditPage extends Component {
 
         this.state = {
             industry : [],
+            validationPromise: Promise.resolve(true)
         };
 
         this.topNavBarLeftLinkClick = this.topNavBarLeftLinkClick.bind(this);
@@ -149,6 +149,7 @@ export default class ProposalTypeEditPage extends Component {
                 break;
             case 'games':
                 CreatingProposalStore.proposal.fields.games = event;
+                break;
             default:
                 break;
         }
@@ -157,11 +158,28 @@ export default class ProposalTypeEditPage extends Component {
     handleInputTagChange(event) {
         if (event) {
             if (CreatingProposalStore.proposal.type) {
-                TagSuggestionsActionCreators.requestProfileTagSuggestions(event, CreatingProposalStore.proposal.type);
+                this.requestTagSuggestion(event, CreatingProposalStore.proposal.type)
             }
         } else {
             resetTagSuggestions();
         }
+    }
+
+    requestTagSuggestion(event, type)
+    {
+        //TODO: Unify with username validation to standarize a "promise in X time" way.
+        const {validationPromise} = this.state;
+        if (typeof validationPromise.cancel !== 'undefined') {
+            validationPromise.cancel();
+        }
+
+        if (typeof this.tagSuggestionTimeout !== 'undefined') {
+            clearTimeout(this.tagSuggestionTimeout);
+        }
+        this.tagSuggestionTimeout = setTimeout(() => {
+            let newPromise = TagSuggestionsActionCreators.requestProfileTagSuggestions(event, type);
+            this.setState({validationPromise: newPromise});
+        }, 1000);
     }
 
     onChange(event) {
@@ -179,6 +197,7 @@ export default class ProposalTypeEditPage extends Component {
                 break;
             case 'plans':
                 CreatingProposalStore.proposal.fields.plans = event;
+                break;
             default:
                 break;
         }

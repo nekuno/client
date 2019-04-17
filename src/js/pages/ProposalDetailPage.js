@@ -9,11 +9,12 @@ import ProposalStore from "../stores/ProposalStore";
 import RouterActionCreators from '../actions/RouterActionCreators';
 import * as ProposalActionCreators from "../actions/ProposalActionCreators";
 import ProposalFilterPreview from "../components/ui/ProposalFilterPreview/ProposalFilterPreview";
-import ProfileStore from "../stores/ProfileStore";
 import TagSuggestionsStore from "../stores/TagSuggestionsStore";
 import RoundedImage from "../components/ui/RoundedImage/RoundedImage";
 import ChatUserStatusStore from "../stores/ChatUserStatusStore";
 import ProposalIcon from "./Proposals/Project/PreviewPage";
+import AvailabilityPreview from "../components/ui/AvailabilityPreview/AvailabilityPreview";
+import ProposalFieldsPreview from "../components/ui/ProposalFieldsPreview/ProposalFieldsPreview";
 
 /**
  * Requests data from server for current props.
@@ -26,39 +27,17 @@ function getState(props) {
     const proposalId = props.params.proposalId;
     const proposal = ProposalStore.getOwnProposal(proposalId) ? ProposalStore.getOwnProposal(proposalId) : ProposalStore.getAnyById(proposalId);
 
-    const metadata = ProfileStore.getMetadata();
-    const industrySectorChoices = metadata && metadata.industry ? metadata.industry.choices : null;
-
     const onlineUserIds = ChatUserStatusStore.getOnlineUserIds() || [];
 
-    let experienceOptions = null;
-    if (proposal) {
-        switch (proposal.type) {
-            case 'shows':
-                experienceOptions = metadata && metadata.shows ? metadata.shows.choices : [];
-                break;
-            case 'restaurants':
-                experienceOptions = metadata && metadata.restaurants ? metadata.restaurants.choices : [];
-                break;
-            case 'plans':
-                experienceOptions = metadata && metadata.plans ? metadata.plans.choices : [];
-                break;
-            default:
-                break;
-        }
-    }
 
     return {
         proposal,
-        industrySectorChoices,
-        onlineUserIds,
-        experienceOptions,
-    };
+        onlineUserIds,};
 }
 
 @AuthenticatedComponent
 @translate('ProposalDetailPage')
-@connectToStores([ProposalStore, ProfileStore, TagSuggestionsStore, ChatUserStatusStore], getState)
+@connectToStores([ProposalStore, TagSuggestionsStore, ChatUserStatusStore], getState)
 export default class ProposalDetailPage extends Component {
 
     static propTypes = {
@@ -153,30 +132,7 @@ export default class ProposalDetailPage extends Component {
     }
 
     render() {
-        const {params, user, strings, proposal, industrySectorChoices, onlineUserIds, experienceOptions} = this.props;
-
-        const dailyWeekdayOptions = {
-            Monday   : strings.monday,
-            Tuesday  : strings.tuesday,
-            Wednesday: strings.wednesday,
-            Thursday : strings.thursday,
-            Friday   : strings.friday,
-            Saturday : strings.saturday,
-            Sunday   : strings.sunday
-        };
-
-        const stringRanges = {
-            Morning  : strings.morning,
-            Afternoon: strings.afternoon,
-            Night    : strings.night,
-        };
-
-        const stringProposalTypes = {
-            work: strings.work,
-            leisure: strings.leisure,
-            experience: strings.experience,
-        };
-
+        const {strings, proposal, onlineUserIds} = this.props;
 
         return (
             proposal ?
@@ -216,186 +172,10 @@ export default class ProposalDetailPage extends Component {
                             <p className={'category'}>{strings.project}</p>
                             <p>{proposal.fields.description}</p>
 
-                            {proposal.fields.industry && industrySectorChoices !== null ?
-                                <div className={'information-wrapper'}>
-                                    <div className={'rounded-icon-wrapper'}>
-                                        <ProposalIcon size={'medium-small'} icon={'sectors'} background={'white'}/>
-                                    </div>
-                                    <div className={'text-wrapper'}>
-                                        <div className={'title small'}>{strings.sectors}</div>
-                                        {proposal.fields.industry.map((item, index) =>
-                                            <div className={'small'} key={index}>
-                                                {industrySectorChoices.find(x => x.id === item.value).text}
-                                            </div>
-                                        )}
-                                    </div>
-                                </div>
-                                : null
-                            }
-
-                            {proposal.fields.profession ?
-                                <div className={'information-wrapper'}>
-                                    <div className={'rounded-icon-wrapper'}>
-                                        <ProposalIcon size={'medium-small'} icon={'sectors'} background={'white'}/>
-                                    </div>
-                                    <div className={'text-wrapper'}>
-                                        <div className={'title small'}>{strings.profession}</div>
-                                        {proposal.fields.profession.map((item, index) =>
-                                            <div className={'small'} key={index}>
-                                                {item}
-                                            </div>
-                                        )}
-                                    </div>
-                                </div>
-                                : null
-                            }
-
-
-
-                            {proposal.fields.sports ?
-                                <div className={'information-wrapper'}>
-                                    <div className={'rounded-icon-wrapper'}>
-                                        <ProposalIcon size={'medium-small'} icon={'sectors'} background={'white'}/>
-                                    </div>
-                                    <div className={'text-wrapper'}>
-                                        <div className={'title small'}>{strings.sports}</div>
-                                        {proposal.fields.sports.map((item, index) =>
-                                            <div className={'small'} key={index}>
-                                                {item}
-                                            </div>
-                                        )}
-                                    </div>
-                                </div>
-                                : null
-                            }
-
-                            {proposal.fields.hobbies ?
-                                <div className={'information-wrapper'}>
-                                    <div className={'rounded-icon-wrapper'}>
-                                        <ProposalIcon size={'medium-small'} icon={'sectors'} background={'white'}/>
-                                    </div>
-                                    <div className={'text-wrapper'}>
-                                        <div className={'title small'}>{strings.hobbies}</div>
-                                        {proposal.fields.hobbies.map((item, index) =>
-                                            <div className={'small'} key={index}>
-                                                {item}
-                                            </div>
-                                        )}
-                                    </div>
-                                </div>
-                                : null
-                            }
-
-                            {proposal.fields.games ?
-                                <div className={'information-wrapper'}>
-                                    <div className={'rounded-icon-wrapper'}>
-                                        <ProposalIcon size={'medium-small'} icon={'sectors'} background={'white'}/>
-                                    </div>
-                                    <div className={'text-wrapper'}>
-                                        <div className={'title small'}>{strings.games}</div>
-                                        {proposal.fields.games.map((item, index) =>
-                                            <div className={'small'} key={index}>
-                                                {item}
-                                            </div>
-                                        )}
-                                    </div>
-                                </div>
-                                : null
-                            }
-
-
-
-                            {proposal.fields.shows ?
-                                <div className={'information-wrapper'}>
-                                    <div className={'rounded-icon-wrapper'}>
-                                        <ProposalIcon size={'medium-small'} icon={'sectors'} background={'white'}/>
-                                    </div>
-                                    <div className={'text-wrapper'}>
-                                        <div className={'title small'}>{strings.shows}</div>
-                                        {proposal.fields.shows.map((item, index) =>
-                                            <div className={'small'} key={index}>
-                                                {experienceOptions.length > 0 ?
-                                                    experienceOptions.find(x => x.id === item.value).text
-                                                    : null}
-                                            </div>
-                                        )}
-                                    </div>
-                                </div>
-                                : null
-                            }
-
-                            {proposal.fields.restaurants ?
-                                <div className={'information-wrapper'}>
-                                    <div className={'rounded-icon-wrapper'}>
-                                        <ProposalIcon size={'medium-small'} icon={'sectors'} background={'white'}/>
-                                    </div>
-                                    <div className={'text-wrapper'}>
-                                        <div className={'title small'}>{strings.restaurants}</div>
-                                        {proposal.fields.restaurants.map((item, index) =>
-                                            <div className={'small'} key={index}>
-                                                {experienceOptions.length > 0 ?
-                                                    experienceOptions.find(x => x.id === item.value).text
-                                                    : null}
-                                            </div>
-                                        )}
-                                    </div>
-                                </div>
-                                : null
-                            }
-
-                            {proposal.fields.plans ?
-                                <div className={'information-wrapper'}>
-                                    <div className={'rounded-icon-wrapper'}>
-                                        <ProposalIcon size={'medium-small'} icon={'sectors'} background={'white'}/>
-                                    </div>
-                                    <div className={'text-wrapper'}>
-                                        <div className={'title small'}>{strings.plans}</div>
-                                        {proposal.fields.plans.map((item, index) =>
-                                            <div className={'small'} key={index}>
-                                                {experienceOptions.length > 0 ?
-                                                    experienceOptions.find(x => x.id === item.value).text
-                                                    : null}
-                                            </div>
-                                        )}
-                                    </div>
-                                </div>
-                                : null
-                            }
-
-
+                            <ProposalFieldsPreview proposal={proposal}/>
 
                             <div className={'information-wrapper'}>
-                                <div className={'rounded-icon-wrapper'}>
-                                    <ProposalIcon size={'medium-small'} icon={'availability'} background={'white'}/>
-                                </div>
-                                <div className={'text-wrapper'}>
-                                    <div className={'title small'}>{strings.availability}</div>
-                                    {proposal.fields.availability ? (
-                                        <div className="resume small">
-                                            {proposal.fields.availability.dynamic.map((day, index) =>
-                                                <div key={index}>
-                                                    {dailyWeekdayOptions[day.weekday]}
-                                                    ,
-                                                    {day.range.map((range, rangeIndex) =>
-                                                        <span key={rangeIndex}> {day.range.length === rangeIndex + 1 ? strings.and + ' ' + stringRanges[range] : stringRanges[range]}</span>
-                                                    )}
-                                                </div>
-                                            )}
-
-                                            {proposal.fields.availability.static.map((day, index) =>
-                                                <div key={index}>
-                                                    {strings.from} {day.days.start} {strings.to} {day.days.end}
-                                                    ,
-                                                    {day.range.map((range, rangeIndex) =>
-                                                        <span key={rangeIndex}> {day.range.length === rangeIndex + 1 ? strings.and + ' ' + stringRanges[range] : stringRanges[range]}</span>
-                                                    )}
-                                                </div>
-                                            )}
-                                        </div>
-                                    ) : (
-                                        <div className="resume small">{strings.availabilityDescription}</div>
-                                    )}
-                                </div>
+                                <AvailabilityPreview availability={proposal.fields.availability}/>
                             </div>
 
                             <div className={'information-wrapper'}>
@@ -437,9 +217,6 @@ ProposalDetailPage.defaultProps = {
         work           : 'Project',
         leisure        : 'Leisure',
         experience     : 'Experience',
-        sectors        : 'Sectors',
-        profession     : 'Professions',
-        skills         : 'Skills',
         availability   : 'Availability',
         numberOfMembers: 'Number of members',
         filterText     : 'Filters to your proposal target',
@@ -448,27 +225,8 @@ ProposalDetailPage.defaultProps = {
         drugs          : 'Drugs and other services',
         familiar       : 'Familiar aspects',
         people         : 'people',
-        monday         : 'Monday',
-        tuesday        : 'Tuesday',
-        wednesday      : 'Wednesday',
-        thursday       : 'Thursday',
-        friday         : 'Friday',
-        saturday       : 'Saturday',
-        sunday         : 'Sunday',
-        and            : 'and',
-        morning        : 'morning',
-        afternoon      : 'afternoon',
-        night          : 'night',
-        from           : 'From',
-        to             : 'to',
         years          : 'years',
         withinRadioOf  : 'within radio of',
-        shows                    : 'Events',
-        restaurants              : 'Gourmet',
-        plans                    : 'Plans',
-        sports                   : 'Sports',
-        hobbies                  : 'Hobbys',
-        games                    : 'Games',
         deleteProposal  : 'Delete proposal',
         deleteProposalDescription : 'If you delete the proposal the data will be completely deleted and will no longer be visible to users who have matched this.',
     }

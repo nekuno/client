@@ -12,6 +12,7 @@ import ProposalFilterPreview from "../../../components/ui/ProposalFilterPreview/
 import ProposalStore from "../../../stores/ProposalStore";
 import * as ProposalActionCreators from '../../../actions/ProposalActionCreators';
 import ProposalIcon from "../../../components/ui/ProposalIcon/ProposalIcon";
+import AvailabilityPreview from "../../../components/ui/AvailabilityPreview/AvailabilityPreview";
 
 function getState() {
     const proposal = CreatingProposalStore.proposal || '';
@@ -117,24 +118,7 @@ export default class PreviewPage extends Component {
     }
 
     render() {
-        const {strings, title, description, industrySector, profession, availability, participantLimit, proposalFilters, industrySectorChoices, filters} = this.props;
-        const isAvailabilityFilled = (!(availability.dynamic.length === 0 && availability.static.length === 0));
-
-        const dailyWeekdayOptions = {
-            monday   : strings.monday,
-            tuesday  : strings.tuesday,
-            wednesday: strings.wednesday,
-            thursday : strings.thursday,
-            friday   : strings.friday,
-            saturday : strings.saturday,
-            sunday   : strings.sunday
-        };
-
-        const stringRanges = {
-            Morning  : strings.morning,
-            Afternoon: strings.afternoon,
-            Night    : strings.night,
-        };
+        const {strings, title, description, industrySector, profession, availability, participantLimit, proposalFilters, industrySectorChoices} = this.props;
 
         return (
             <div className="views">
@@ -185,37 +169,7 @@ export default class PreviewPage extends Component {
                             </div>
 
                             <div className={'information-wrapper'}>
-                                <div className={'rounded-icon-wrapper'}>
-                                    <ProposalIcon size={'medium-small'} icon={'availability'} background={'white'}/>
-                                </div>
-                                <div className={'text-wrapper'}>
-                                    <div className={'title small'}>{strings.availability}</div>
-                                    {isAvailabilityFilled ? (
-                                        <div className="resume small">
-                                            {availability.dynamic.map((day, index) =>
-                                                <div key={index}>
-                                                    {dailyWeekdayOptions[day.weekday]}
-                                                    ,
-                                                    {day.range.map((range, rangeIndex) =>
-                                                        <span key={rangeIndex}> {day.range.length === rangeIndex + 1 ? strings.and + ' ' + stringRanges[range] : stringRanges[range]}</span>
-                                                    )}
-                                                </div>
-                                            )}
-
-                                            {availability.static.map((day, index) =>
-                                                <div key={index}>
-                                                    {strings.from} {day.days.start} {strings.to} {day.days.end}
-                                                    ,
-                                                    {day.range.map((range, rangeIndex) =>
-                                                        <span key={rangeIndex}> {day.range.length === rangeIndex + 1 ? strings.and + ' ' + stringRanges[range] : stringRanges[range]}</span>
-                                                    )}
-                                                </div>
-                                            )}
-                                        </div>
-                                    ) : (
-                                        <div className="resume small">{strings.availabilityDescription}</div>
-                                    )}
-                                </div>
+                                <AvailabilityPreview availability={availability}/>
                             </div>
 
                             <div className={'information-wrapper'}>
@@ -253,18 +207,5 @@ PreviewPage.defaultProps = {
         numberOfMembers : 'Number of members',
         publishProposal : 'Publish proposal',
         people          : 'people',
-        monday          : 'Monday',
-        tuesday         : 'Tuesday',
-        wednesday       : 'Wednesday',
-        thursday        : 'Thursday',
-        friday          : 'Friday',
-        saturday        : 'Saturday',
-        sunday          : 'Sunday',
-        and             : 'and',
-        morning         : 'morning',
-        afternoon       : 'afternoon',
-        night           : 'night',
-        from            : 'From',
-        to              : 'to',
     }
 };

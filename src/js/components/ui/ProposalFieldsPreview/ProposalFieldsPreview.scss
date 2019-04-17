@@ -1,0 +1,25 @@
+@import '../../../../scss/_partials/colors';
+
+
+.text-wrapper {
+  display: inline-block;
+  text-align: left;
+  vertical-align: top;
+  width: 88%;
+}
+
+.title {
+  font-weight: bold;
+  margin-bottom: 8px;
+  text-align: left;
+  color: $text;
+}
+
+.small {
+  font-size: 14px;
+}
+
+.resume {
+  margin-bottom: 32px;
+  font-size: 13px;
+}

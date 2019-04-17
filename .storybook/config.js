@@ -5,6 +5,7 @@ function loadStories() {
     require('../stories/AboutMeCategory.stories');
     require('../stories/AnswerQuestionCard.stories');
     require('../stories/AvailabilityEdit.stories');
+    require('../stories/AvailabilityPreview.stories');
     require('../stories/ProposalFilterPreview');
     require('../stories/Banner.stories');
     require('../stories/BottomNavBar.stories');
@@ -52,6 +53,7 @@ function loadStories() {
     require('../stories/Overlay.stories');
     require('../stories/ProgressBar.stories');
     require('../stories/ProposalCard.stories');
+    require('../stories/ProposalFieldsPreview.stories');
     require('../stories/ProposalRecommendationList.stories');
     require('../stories/RoundOption.stories');
     require('../stories/RoundedIcon.stories');

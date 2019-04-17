@@ -23,7 +23,7 @@ export default class QuestionNotMatch extends Component {
     }
 
     render() {
-        const {children, otherQuestion, ownQuestion, otherUser, user} = this.props;
+        const {otherQuestion, ownQuestion, otherUser, user} = this.props;
 
         return (
             <div className={styles.questionNotMatch}>

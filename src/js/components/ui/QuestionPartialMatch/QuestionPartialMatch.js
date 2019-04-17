@@ -23,7 +23,7 @@ export default class QuestionPartialMatch extends Component {
     }
 
     render() {
-        const {children, otherQuestion, ownQuestion, otherUser, user} = this.props;
+        const {otherQuestion, ownQuestion, otherUser, user} = this.props;
 
         return (
             <div className={styles.questionPartialMatch} onClick={this.handleClick.bind(this)}>
@@ -62,7 +62,7 @@ export default class QuestionPartialMatch extends Component {
                             answer.answerId === ownQuestion.userAnswer.answerId ?
                                 <div key={answerId}>
                                     <div className={styles.answer}>{answer.text}</div>
-                                    <div className={styles.editAnswer} onClick={this.handleClick.bind(this, answer.answerId)}>Editar respuesta</div>
+                                    <div className={styles.editAnswer} onClick={this.handleClick.bind(this, ownQuestion.question.questionId)}>Editar respuesta</div>
                                 </div>
                                 :
                                 ''

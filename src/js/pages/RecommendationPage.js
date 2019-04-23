@@ -148,6 +148,7 @@ function getState(props) {
     }
 }
 
+//TODO: Remove
 @AuthenticatedComponent
 @translate('RecommendationPage')
 @connectToStores([ThreadStore, RecommendationStore, FilterStore, LikeStore, ProfileStore, ComparedStatsStore, GalleryPhotoStore, QuestionStore, InterestStore], getState)

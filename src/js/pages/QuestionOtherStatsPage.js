@@ -29,6 +29,7 @@ function getState(props) {
     };
 }
 
+//TODO: Remove
 @AuthenticatedComponent
 @translate('QuestionOtherStatsPage')
 @connectToStores([QuestionStore], getState)

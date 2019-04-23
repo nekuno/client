@@ -17,7 +17,7 @@ export default class QuestionPartialMatch extends Component {
         router: PropTypes.object.isRequired
     };
 
-    handleClick() {
+    handleClick(questionId) {
         const {user} = this.props;
         this.context.router.push(`/answer-question/${questionId}/${user.slug}`);
     }

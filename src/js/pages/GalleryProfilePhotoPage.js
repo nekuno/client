@@ -22,6 +22,7 @@ function getState() {
     }
 }
 
+//TODO: Remove
 @AuthenticatedComponent
 @translate('GalleryProfilePhotoPage')
 @connectToStores([GalleryPhotoStore], getState)

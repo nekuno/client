@@ -8,6 +8,7 @@ import Framework7Service from '../services/Framework7Service';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
 
+//TODO: Remove
 @AuthenticatedComponent
 @translate('SettingsPage')
 export default class SettingsPage extends Component {

@@ -162,7 +162,7 @@ export default class AnswerQuestionPage extends Component {
                     </div>
                     <RegisterQuestionsFinishedPopup onContinue={this.onContinue} onClose={this.onClosePopup} contentRef={this.props.popupContentRef}/>
                 </div>
-                <div className="skip-nav-bar" onClick={this.onSkipClick}>
+                <div className="skip-nav-bar" onClick={this.skipQuestionHandler}>
                     <div className="text">Omitir <span className="icon icon-arrow-right"/></div>
                 </div>
             </div>

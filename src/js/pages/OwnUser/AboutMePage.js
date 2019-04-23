@@ -62,6 +62,7 @@ function getState(props) {
     };
 }
 
+//TODO: Remove
 @AuthenticatedComponent
 @translate('OwnUserAboutMePage')
 @connectToStores([UserStore, MatchingStore, SimilarityStore, ProfileStore, GalleryPhotoStore, NaturalCategoryStore], getState)

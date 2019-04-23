@@ -20,6 +20,7 @@ function getState(props) {
     };
 }
 
+//TODO: Remove
 @AuthenticatedComponent
 @translate('ConnectSocialNetworksPage')
 @connectToStores([WorkersStore], getState)

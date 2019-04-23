@@ -154,10 +154,6 @@ export default class PersonsPage extends Component {
         requestData(props);
     }
 
-    onLeftLinkClickHandler() {
-        this.context.router.push(`/about-me`);
-    }
-
     viewAll() {
         this.context.router.push('/persons-all');
     }
@@ -171,15 +167,14 @@ export default class PersonsPage extends Component {
     }
 
     render() {
-        const {user, users, groupUsers, networks, notifications, strings} = this.props;
-        let imgSrc = user && user.photo ? user.photo.thumbnail.medium : 'img/no-img/medium.jpg';
+        const {users, notifications, strings} = this.props;
 
         const carouselMargin = -30;
 
         return (
             <div className="views">
                 <div className="view view-main persons-view">
-                    <TopNavBar textCenter={strings.relatedPeople} imageLeft={imgSrc} boxShadow={true} onLeftLinkClickHandler={this.onLeftLinkClickHandler}/>
+                    <TopNavBar textCenter={strings.relatedPeople} isLeftProfile={true} boxShadow={true} />
                     <div className="persons-wrapper">
                         <h1>{strings.closestPeople}</h1>
                         <div className="view-all" onClick={this.viewAll}>{strings.viewAll}</div>

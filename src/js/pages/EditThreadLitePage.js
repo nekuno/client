@@ -45,6 +45,7 @@ function getState(props) {
     };
 }
 
+//TODO: Remove
 @AuthenticatedComponent
 @translate('EditThreadLitePage')
 @connectToStores([ThreadStore, FilterStore, TagSuggestionsStore], getState)

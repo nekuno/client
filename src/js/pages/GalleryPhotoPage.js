@@ -52,6 +52,7 @@ function initPhotosSwiper(photos, photoIndex) {
     return gallerySwiper;
 }
 
+//TODO: Remove
 @AuthenticatedComponent
 @translate('GalleryPhotoPage')
 @connectToStores([GalleryPhotoStore], getState)

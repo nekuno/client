@@ -28,6 +28,7 @@ function getState(props) {
     };
 }
 
+//TODO: Remove
 @AuthenticatedComponent
 @translate('ExplorePage')
 @popup('popup-detail')

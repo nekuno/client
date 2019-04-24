@@ -39,6 +39,7 @@ function getState() {
     };
 }
 
+//TODO: Remove
 @AuthenticatedComponent
 @translate('InvitationsPage')
 @connectToStores([InvitationStore], getState)

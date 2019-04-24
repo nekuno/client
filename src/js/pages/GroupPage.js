@@ -43,6 +43,7 @@ function getState(props) {
     };
 }
 
+//TODO: Remove
 @AuthenticatedComponent
 @translate('GroupPage')
 @popup('popup-unlock-group')

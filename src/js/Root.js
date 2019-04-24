@@ -131,9 +131,7 @@ export default class Root extends Component {
                     <Route name="connect-facebook" path="/connect-facebook" component={ConnectFacebookPage}/>
                     <Route name="login" path="/login" component={LoginPage}/>
                     <Route name="register" path="/register" component={RegisterPage}/>
-                    <Route name="shared-user" path="/p/:slug" component={ProfilePage}/>
-                    <Route name="shared-user-edit" path="/p/:slug/edit" component={EditProfilePage}/>
-                    <Route name="shared-user-interests" path="/p/:slug/interests" component={OtherUserInterestsPage}/>
+
 
                     <Route onEnter={requireAuth}>
                         <Route name="connecting-facebook" path="/connecting-facebook" component={ConnectingFacebookPage}/>
@@ -157,7 +155,10 @@ export default class Root extends Component {
                         <Route name="proposal-preview-create" path="/proposal-preview" component={ProposalPreviewPage}/>
                         <Route name="other-user-proposals" path="/p/:slug/proposals" component={OtherUserProposalsPage}/>
                         <Route name="other-user-answers" path="/p/:slug/answers" component={OtherUserAnswersPage}/>
+                        <Route name="other-user-interests" path="/p/:slug/interests" component={OtherUserInterestsPage}/>
                         <Route name="other-user-proposal-detail" path="/p/:slug/proposal/:proposalId" component={OtherUserProposalDetailPage}/>
+                        <Route name="profile" path="/p/:slug" component={ProfilePage}/>
+                        <Route name="own-profile-edit" path="/p/:slug/edit" component={EditProfilePage}/>
                         <Route name="persons" path="/persons" component={PersonsPage}/>
                         <Route name="persons-all" path="/persons-all" component={PersonsAllPage}/>
                         <Route name="persons-filter" path="/persons-filter/:threadId" component={PersonsFilterPage}/>
@@ -166,44 +167,44 @@ export default class Root extends Component {
                         <Route name="plans" path="/plans" component={OwnProposalsPage}/>
                         <Route name="proposal-detail" path="/proposal/:proposalId" component={ProposalDetailPage}/>
                         <Route name="proposal-detail-matches" path="/proposal/:proposalId/matches" component={ProposalDetailMatchesPage}/>
-                        <Route name="about-me" path="/about-me" component={OwnUserAboutMePage}/>
+                        {/*<Route name="about-me" path="/about-me" component={OwnUserAboutMePage}/>*/}
                         <Route name="answers" path="/answers" component={OwnUserAnswersPage}/>
                         <Route name="availability-edit" path="/availability-edit" component={AvailabilityEditPage}/>
-                        <Route name="explore" path="/explore" component={ExplorePage}/>
-                        <Route name="register-questions-landing" path="/register-questions-landing" component={RegisterQuestionsLandingPage}/>
-                        <Route name="answer-user-fields" path="/answer-user-fields" component={AnswerUserFieldPage}/>
-                        <Route name="answer-profile-fields" path="/answer-profile-fields" component={AnswerProfileFieldPage}/>
+                        {/*<Route name="explore" path="/explore" component={ExplorePage}/>*/}
+                        {/*<Route name="register-questions-landing" path="/register-questions-landing" component={RegisterQuestionsLandingPage}/>*/}
+                        {/*<Route name="answer-user-fields" path="/answer-user-fields" component={AnswerUserFieldPage}/>*/}
+                        {/*<Route name="answer-profile-fields" path="/answer-profile-fields" component={AnswerProfileFieldPage}/>*/}
                         <Route name="notifications" path="/conversations" component={ChatThreadsPage}/>
                         <Route name="messages" path="/p/:slug/conversations" component={ChatMessagesPage}/>
                         <Route name="interests" path="/interests" component={OwnUserInterestsPage}/>
                         {/*<Route name="other-interests" path="/users/:slug/other-interests" component={OtherInterestsPage}/>*/}
-                        <Route name="gallery" path="/gallery" component={GalleryPage}/>
-                        <Route name="other-gallery" path="/users/:slug/other-gallery/:photoId" component={OtherGalleryPage}/>
-                        <Route name="gallery-photo" path="/gallery-photo" component={GalleryPhotoPage}/>
-                        <Route name="other-gallery-photo" path="/users/:userId/other-gallery-photo" component={OtherGalleryPhotoPage}/>
-                        <Route name="gallery-profile-photo" path="/gallery-profile-photo" component={GalleryProfilePhotoPage}/>
-                        <Route name="gallery-albums" path="/gallery-albums" component={GalleryAlbumsPage}/>
-                        <Route name="gallery-album-photos" path="/gallery-album-photos" component={GalleryAlbumPhotosPage}/>
-                        <Route name="questions" path="/questions" component={QuestionsPage}/>
-                        <Route name="other-questions" path="/users/:slug/other-questions" component={OtherQuestionsPage}/>
+                        {/*<Route name="gallery" path="/gallery" component={GalleryPage}/>*/}
+                        {/*<Route name="other-gallery" path="/users/:slug/other-gallery/:photoId" component={OtherGalleryPage}/>*/}
+                        {/*<Route name="gallery-photo" path="/gallery-photo" component={GalleryPhotoPage}/>*/}
+                        {/*<Route name="other-gallery-photo" path="/users/:userId/other-gallery-photo" component={OtherGalleryPhotoPage}/>*/}
+                        {/*<Route name="gallery-profile-photo" path="/gallery-profile-photo" component={GalleryProfilePhotoPage}/>*/}
+                        {/*<Route name="gallery-albums" path="/gallery-albums" component={GalleryAlbumsPage}/>*/}
+                        {/*<Route name="gallery-album-photos" path="/gallery-album-photos" component={GalleryAlbumPhotosPage}/>*/}
+                        {/*<Route name="questions" path="/questions" component={QuestionsPage}/>*/}
+                        {/*<Route name="other-questions" path="/users/:slug/other-questions" component={OtherQuestionsPage}/>*/}
                         <Route name="answer-question" path="/answer-question/:questionId/:from" component={AnswerQuestionPage}/>
                         <Route name="answer-question-next" path="/answer-question/next" component={AnswerNextQuestionPage}/>
                         <Route name="answer-other-question-next" path="/answer-other-question/:slug/next" component={AnswerNextOtherQuestionPage}/>
-                        <Route name="question-stats" path="/question-stats" component={QuestionStatsPage}/>
+                        {/*<Route name="question-stats" path="/question-stats" component={QuestionStatsPage}/>*/}
                         <Route name="question-stats-from" path="/question-stats/:from" component={QuestionEditedStatsPage}/>
-                        <Route name="question-stats-other" path="/question-other-stats/:slug" component={QuestionOtherStatsPage}/>
-                        <Route name="invitations" path="/invitations" component={InvitationsPage}/>
-                        <Route name="discover" path="/discover" component={DiscoverPage}/>
-                        <Route name="recommendations" path="/recommendations/:threadId" component={RecommendationPage}/>
-                        <Route name="social-networks-on-sign-up" path="/social-networks-on-sign-up" component={ConnectSocialNetworksOnSignUpPage}/>
-                        <Route name="social-networks" path="/social-networks" component={ConnectSocialNetworksPage}/>
-                        <Route name="edit-thread" path="/edit-thread/:threadId" component={EditThreadLitePage}/>
-                        <Route name="groups" path="/badges" component={GroupPage}/>
-                        <Route name="group-discover" path="/badges/:groupId/discover" component={DiscoverPage}/>
+                        {/*<Route name="question-stats-other" path="/question-other-stats/:slug" component={QuestionOtherStatsPage}/>*/}
+                        {/*<Route name="invitations" path="/invitations" component={InvitationsPage}/>*/}
+                        {/*<Route name="discover" path="/discover" component={DiscoverPage}/>*/}
+                        {/*<Route name="recommendations" path="/recommendations/:threadId" component={RecommendationPage}/>*/}
+                        {/*<Route name="social-networks-on-sign-up" path="/social-networks-on-sign-up" component={ConnectSocialNetworksOnSignUpPage}/>*/}
+                        {/*<Route name="social-networks" path="/social-networks" component={ConnectSocialNetworksPage}/>*/}
+                        {/*<Route name="edit-thread" path="/edit-thread/:threadId" component={EditThreadLitePage}/>*/}
+                        {/*<Route name="groups" path="/badges" component={GroupPage}/>*/}
+                        {/*<Route name="group-discover" path="/badges/:groupId/discover" component={DiscoverPage}/>*/}
                         {/*<Route name="group-stats" path="/badges/:groupId" component={GroupStatsPage}/>
                         <Route name="group-members" path="/badges/:groupId/members" component={GroupMembersPage}/>
                         <Route name="group-contents" path="/badges/:groupId/contents" component={GroupContentsPage}/>*/}
-                        <Route name="settings" path="/settings" component={SettingsPage}/>
+                        {/*<Route name="settings" path="/settings" component={SettingsPage}/>*/}
                     </Route>
                 </Route>
             </Router>

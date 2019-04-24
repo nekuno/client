@@ -41,6 +41,7 @@ function getState(props) {
     };
 }
 
+//TODO: Remove
 @AuthenticatedComponent
 @translate('GalleryPage')
 @popup('popup-import-album')

@@ -55,6 +55,7 @@ function initPhotosSwiper(photoIndex) {
     });
 }
 
+//TODO: Remove
 @AuthenticatedComponent
 @translate('OtherGalleryPage')
 @connectToStores([UserStore, GalleryPhotoStore], getState)

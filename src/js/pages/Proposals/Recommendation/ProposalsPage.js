@@ -60,7 +60,6 @@ export default class ProposalsPage extends Component {
 
         ProposalActionCreators.cleanCreatingProposal();
 
-        this.onLeftLinkClickHandler = this.onLeftLinkClickHandler.bind(this);
         this.goToEditAvailability = this.goToEditAvailability.bind(this);
 
         this.state = {
@@ -70,10 +69,6 @@ export default class ProposalsPage extends Component {
 
     componentDidMount() {
         requestData(this.props);
-    }
-
-    onLeftLinkClickHandler() {
-        this.context.router.push(`/about-me`);
     }
 
     goToEditAvailability() {

@@ -27,6 +27,7 @@ function getState() {
     };
 }
 
+//TODO: Remove
 @AuthenticatedComponent
 @translate('GalleryAlbumPhotosPage')
 @connectToStores([GalleryAlbumStore], getState)

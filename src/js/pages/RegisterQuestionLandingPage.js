@@ -29,6 +29,7 @@ function requestData(props) {
     }
 }
 
+//TODO: Remove
 @AuthenticatedComponent
 @translate('RegisterQuestionLandingPage')
 export default class RegisterQuestionLandingPage extends Component {

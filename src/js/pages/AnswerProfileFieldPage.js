@@ -64,6 +64,7 @@ function getState(props) {
     };
 }
 
+//TODO: Remove
 @AuthenticatedComponent
 @translate('AnswerProfileFieldPage')
 @connectToStores([RegisterStore, LoginStore, ProfileStore, QuestionStore], getState)

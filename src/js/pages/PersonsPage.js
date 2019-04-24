@@ -146,7 +146,6 @@ export default class PersonsPage extends Component {
     constructor(props) {
         super(props);
 
-        this.onLeftLinkClickHandler = this.onLeftLinkClickHandler.bind(this);
         this.viewAll = this.viewAll.bind(this);
     }
 

@@ -50,10 +50,12 @@ function loadStories() {
     require('../stories/OtherUserProposalCard.stories');
     require('../stories/OwnUserBottomNavBar.stories');
     require('../stories/OwnProposalCard.stories');
+    require('../stories/OwnProposalsOtherList.stories');
     require('../stories/Overlay.stories');
     require('../stories/ProgressBar.stories');
     require('../stories/ProposalCard.stories');
     require('../stories/ProposalFieldsPreview.stories');
+    require('../stories/ProposalSummary.stories');
     require('../stories/ProposalRecommendationList.stories');
     require('../stories/RoundOption.stories');
     require('../stories/RoundedIcon.stories');

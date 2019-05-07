@@ -11,8 +11,8 @@ export default class OwnProposalCard extends Component {
     static propTypes = {
         fields                 : PropTypes.shape({
             photo : PropTypes.string.isRequired,
-            title         : PropTypes.string.isRequired,
-            description   : PropTypes.string.isRequired,
+            title         : PropTypes.string,
+            description   : PropTypes.string,
         }),
         image         : PropTypes.string,
         type          : PropTypes.string.isRequired,

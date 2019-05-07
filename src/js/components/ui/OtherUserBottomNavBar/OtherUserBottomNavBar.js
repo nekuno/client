@@ -153,7 +153,7 @@ export default class OtherUserBottomNavBar extends Component {
                 </div>
                 <div className={current === 'proposals' ? styles.iconWrapper + ' ' + styles.current : styles.iconWrapper} onClick={this.handleClickProposals}>
                     <div className={styles.icon + ' icon icon-copy'}/>
-                    <div className={styles.iconText + ' small'}>{strings.proposals}</div>
+                    <div className={styles.iconText + ' small'}>{strings.proposalsLiked}</div>
                 </div>
                 <div className={styles.iconWrapper + ' ' + styles.middleIconWrapper} onClick={this.handleClickAdd}>
                     <div className={styles.middleIconCircle}>
@@ -183,9 +183,9 @@ export default class OtherUserBottomNavBar extends Component {
 
 OtherUserBottomNavBar.defaultProps = {
     strings: {
-        aboutMe   : 'About me',
-        proposals : 'Proposals',
-        answers   : 'Answers',
-        interests : 'Interests',
+        aboutMe       : 'About me',
+        proposalsLiked: 'Proposals',
+        answers       : 'Answers',
+        interests     : 'Interests',
     }
 };

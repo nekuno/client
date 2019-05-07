@@ -72,6 +72,7 @@ export default class Scroll extends Component {
         })
     }
 
+    //TODO: Unify "if not loading, execute onLoad" managed inside component or outside component
     onLoad() {
         this.props.onLoad();
     }

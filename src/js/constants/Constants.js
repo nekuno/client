@@ -40,11 +40,12 @@ export const API_URLS = {
     CONNECTION_STATUS        : API_ROOT + 'client/status',
 
     //Pagination urls
-    ANSWERS           : API_ROOT + 'answers',
-    COMPARED_ANSWERS  : API_ROOT + 'answers/compare/{otherUserId}',
-    OWN_INTERESTS     : API_ROOT + 'content?type[]={type}',
-    COMPARED_INTERESTS: API_ROOT + 'content/compare/{userId}?type[]={type}&showOnlyCommon={showOnlyCommon}',
-    RECOMMENDATIONS   : API_ROOT + 'threads/{threadId}/recommendation',
+    ANSWERS            : API_ROOT + 'answers',
+    COMPARED_ANSWERS   : API_ROOT + 'answers/compare/{otherUserId}',
+    OWN_INTERESTS      : API_ROOT + 'content?type[]={type}',
+    COMPARED_INTERESTS : API_ROOT + 'content/compare/{userId}?type[]={type}&showOnlyCommon={showOnlyCommon}',
+    RECOMMENDATIONS    : API_ROOT + 'threads/{threadId}/recommendation',
+    OWN_PROPOSALS_LIKED: API_ROOT + 'proposals/liked',
 };
 
 export const THREAD_TYPES = {

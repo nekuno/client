@@ -27,7 +27,7 @@ import ProposalsPage from './pages/Proposals/Recommendation/ProposalsPage';
 import PersonsPage from './pages/PersonsPage';
 import PersonsAllPage from './pages/PersonsAllPage';
 import PersonsFilterPage from './pages/PersonsFilterPage';
-import OwnProposalsPage from './pages/OwnProposalsPage';
+import OwnProposalsPage from './pages/OwnUser/OwnProposalsPage';
 import ExplorePage from './pages/ExplorePage';
 import ChatThreadsPage from './pages/ChatThreadsPage';
 import ChatMessagesPage from './pages/ChatMessagesPage';
@@ -190,7 +190,7 @@ export default class Root extends Component {
                         <Route name="answer-question" path="/answer-question/:questionId/:from" component={AnswerQuestionPage}/>
                         <Route name="answer-question-next" path="/answer-question/next" component={AnswerNextQuestionPage}/>
                         <Route name="answer-other-question-next" path="/answer-other-question/:slug/next" component={AnswerNextOtherQuestionPage}/>
-                        {/*<Route name="question-stats" path="/question-stats" component={QuestionStatsPage}/>*/}
+                        <Route name="question-stats" path="/question-stats" component={QuestionStatsPage}/>
                         <Route name="question-stats-from" path="/question-stats/:from" component={QuestionEditedStatsPage}/>
                         {/*<Route name="question-stats-other" path="/question-other-stats/:slug" component={QuestionOtherStatsPage}/>*/}
                         {/*<Route name="invitations" path="/invitations" component={InvitationsPage}/>*/}

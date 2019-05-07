@@ -1,12 +1,16 @@
 import ActionTypes from '../constants/ActionTypes';
 import BaseStore from './BaseStore';
-import { getValidationErrors } from '../utils/StoreUtils';
+import { API_URLS } from '../constants/Constants';
+import { getValidationErrors, mergeIntoBag } from '../utils/StoreUtils';
 
 class ProposalStore extends BaseStore {
 
     setInitial() {
         this._otherProposals = {};
         this._ownProposals = [];
+        this._ownProposalsLiked = [];
+        this._ownProposalsLikedPagination = {};
+        this._ownProposalsLikedInitialUrl = API_URLS.OWN_PROPOSALS_LIKED;
         this._errors = '';
         this._isRequesting = false;
     }
@@ -15,6 +19,7 @@ class ProposalStore extends BaseStore {
         super._registerToActions(action);
         let response = action.response;
         let proposals;
+        let proposal;
         switch (action.type) {
             case ActionTypes.REQUEST_PROPOSALS:
                 this._isRequesting = true;
@@ -23,8 +28,8 @@ class ProposalStore extends BaseStore {
             case ActionTypes.REQUEST_PROPOSALS_SUCCESS:
                 proposals = response;
                 this._ownProposals = []; //To be deleted when it´s paginated
-                proposals.forEach(proposal => {
-                    this.addOwnProposal(proposal);
+                proposals.forEach(actionProposal => {
+                    this.addOwnProposal(actionProposal);
                 });
                 this._isRequesting = false;
                 this.emitChange();
@@ -34,7 +39,7 @@ class ProposalStore extends BaseStore {
                 this.emitChange();
                 break;
             case ActionTypes.REQUEST_PROPOSAL_SUCCESS:
-                const proposal = action.response;
+                proposal = action.response;
                 const slug = action.slug;
 
                 if ('' === slug){
@@ -51,9 +56,9 @@ class ProposalStore extends BaseStore {
                     return responseUsers[key]
                 })[0];
                 const userSlug = user.slug;
-                proposals = user.proposals || [];
-                proposals.forEach(proposal => {
-                    this.addProposal(proposal, userSlug);
+                proposals = user.proposalsLiked || [];
+                proposals.forEach(actionProposal => {
+                    this.addProposal(actionProposal, userSlug);
                 });
                 this.emitChange();
                 break;
@@ -70,6 +75,7 @@ class ProposalStore extends BaseStore {
                 this.emitChange();
                 break;
             case ActionTypes.UPDATE_PROPOSAL_SUCCESS:
+                proposal = action.proposal;
                 this._replaceOwnProposal(proposal);
                 this.emitChange();
                 break;
@@ -87,10 +93,25 @@ class ProposalStore extends BaseStore {
 
                 recommendations.forEach((element) => {
                     const proposal = element.proposal;
-                    const slug = element.owner ? element.owner.slug : element.slug;
-                    this.addProposal(proposal, slug);
+                    const thisSlug = element.owner ? element.owner.slug : element.slug;
+                    this.addProposal(proposal, thisSlug);
                 });
 
+                this.emitChange();
+                break;
+            case ActionTypes.REQUEST_OWN_PROPOSALS_LIKED:
+                this._isRequesting = true;
+                this.emitChange();
+                break;
+            case ActionTypes.REQUEST_OWN_PROPOSALS_LIKED_SUCCESS:
+                proposals = action.response.items;
+                this._ownProposalsLikedPagination = action.response.pagination;
+                mergeIntoBag(this._ownProposalsLiked, proposals);
+                this._isRequesting = false;
+                this.emitChange();
+                break;
+            case ActionTypes.REQUEST_OWN_PROPOSALS_LIKED_ERROR:
+                this._isRequesting = false;
                 this.emitChange();
                 break;
             default:
@@ -117,6 +138,18 @@ class ProposalStore extends BaseStore {
     getAllOwn() {
         return this._ownProposals;
     }
+
+    getOwnProposalsLiked() {
+        return this._ownProposalsLiked;
+    }
+
+    getOwnProposalsLikedPaginationUrl() {
+        const hasReceivedPagination = Object.keys(this._ownProposalsLikedPagination).length > 0;
+
+        return !hasReceivedPagination ? this._ownProposalsLikedInitialUrl :
+            this._pagination.nextLink ? this._pagination.nextLink : '';
+    }
+
 
     getOwnProposal(id) {
         let myProposal = null;

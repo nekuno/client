@@ -9,7 +9,7 @@ export default class SelectInline extends Component {
         options        : PropTypes.array.isRequired,
         defaultOption  : PropTypes.string,
         multiple       : PropTypes.bool,
-        color          : PropTypes.oneOf(['purple', 'blue', 'pink', 'green']),
+        color          : PropTypes.oneOf(['purple', 'blue', 'pink', 'green']).isRequired,
         nullable       : PropTypes.bool,
         onClickHandler : PropTypes.func
     };

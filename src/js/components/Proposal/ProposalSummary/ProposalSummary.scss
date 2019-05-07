@@ -1,0 +1,59 @@
+@import '../../../../scss/_partials/colors';
+
+.proposal {
+  cursor: pointer;
+  background-color: $white-background;
+  display: flex;
+  padding: 16px;
+  border-bottom: 1px solid $gray-border;
+  .icon {
+    width: 10%;
+    font-size: 35px;
+  }
+  .proposal-text {
+    margin: 0 3%;
+    width: 54%;
+    color: $text;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 19px;
+  }
+  .countMatches {
+    text-align: center;
+    border-left: 1px solid $gray-border;
+    width: 30%;
+    .number {
+      color: $text;
+      font-size: 19px;
+      font-weight: 400;
+      line-height: 24px;
+    }
+    .matchString {
+      color: $text-two;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 19px;
+    }
+  }
+
+  .owner {
+    text-align: center;
+    border-left: 1px solid $gray-border;
+    width: 30%;
+    .userPhoto {
+      color: $text;
+      font-size: 19px;
+      font-weight: 400;
+      line-height: 24px;
+    }
+    .username {
+      color: $text-two;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 19px;
+    }
+  }
+  .has-no-match {
+    opacity: 0.5;
+  }
+}

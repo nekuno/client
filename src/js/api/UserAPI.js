@@ -198,6 +198,10 @@ export function getOwnProposals(url = 'proposals') {
     return getData(url);
 }
 
+export function getOwnProposalsLiked(url) {
+    return getData(url);
+}
+
 export function acceptCandidate(data, url = 'recommendations/candidates') {
     return postData(url, data);
 }

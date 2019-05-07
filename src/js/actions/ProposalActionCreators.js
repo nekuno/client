@@ -10,6 +10,14 @@ export function requestOwnProposals() {
     })
 }
 
+export function requestOwnProposalsLiked(url) {
+    return dispatchAsync(UserAPI.getOwnProposalsLiked(url), {
+        request: ActionTypes.REQUEST_OWN_PROPOSALS_LIKED,
+        success: ActionTypes.REQUEST_OWN_PROPOSALS_LIKED_SUCCESS,
+        failure: ActionTypes.REQUEST_OWN_PROPOSALS_LIKED_ERROR
+    })
+}
+
 /**
  * @param data structure: {
  *     type: 'work',

@@ -162,7 +162,7 @@ export default class BottomNavBar extends Component {
             <div className={styles.bottomNavBar}>
                 <div className={current === 'proposals' ? styles.iconWrapper + ' ' + styles.current : styles.iconWrapper} onClick={this.handleClickProposals}>
                     <div className={styles.icon + ' icon icon-copy'}/>
-                    <div className={styles.iconText + ' small'}>{strings.proposals}</div>
+                    <div className={styles.iconText + ' small'}>{strings.proposalsLiked}</div>
                 </div>
                 <div className={current === 'persons' ? styles.iconWrapper + ' ' + styles.current : styles.iconWrapper} onClick={this.handleClickPersons}>
                     <div className={styles.icon + ' icon icon-users'}/>
@@ -218,12 +218,12 @@ export default class BottomNavBar extends Component {
 
 BottomNavBar.defaultProps = {
     strings: {
-        proposals : 'Proposals',
-        persons   : 'Persons',
-        plans     : 'Plans',
-        messages  : 'Messages',
-        proposal  : 'Proposal',
-        leisure   : 'Leisure plan',
-        experience: 'Experience',
+        proposalsLiked: 'Proposals',
+        persons       : 'Persons',
+        plans         : 'Plans',
+        messages      : 'Messages',
+        proposal      : 'Proposal',
+        leisure       : 'Leisure plan',
+        experience    : 'Experience',
     }
 };

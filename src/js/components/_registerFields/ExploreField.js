@@ -78,7 +78,7 @@ export default class ExploreField extends Component {
                 <Button type="submit" onClick={() => this.props.onDetailSelection('profession')}>{strings.skills}</Button>
             </div>
             <div className={this.profileHasField(profile, 'proposal') ? "button-wrapper active" : "button-wrapper"}>
-                <Button type="submit" onClick={() => this.props.onDetailSelection('proposal')}>{strings.proposals}</Button>
+                <Button type="submit" onClick={() => this.props.onDetailSelection('proposal')}>{strings.proposalsLiked}</Button>
             </div>
             {profile.objective && profile.objective.some(objective => objective === 'work') ?
                 <div className="button-wrapper active">
@@ -217,28 +217,28 @@ export default class ExploreField extends Component {
 
 ExploreField.defaultProps = {
     strings: {
-        explore     : 'Explore',
-        work1       : 'Work',
-        work2       : '& ideas',
-        hobbies1    : 'Hobbies',
-        hobbies2    : '& games',
-        leisure1    : 'Adventures',
-        leisure2    : '& activity',
-        industry    : 'Industry',
-        skills      : 'Skills',
-        proposals   : 'Proposals',
-        sports      : 'Sports',
-        games       : 'Games',
-        creative    : 'Creative',
-        leisureTime : 'Time',
-        leisureMoney: 'Money',
-        travels     : 'Travels',
-        tickets     : 'Tickets',
-        activities  : 'Activities',
-        leisurePlans: 'Plans',
-        save        : 'Continue',
-        finish      : 'Finish',
-        skip        : 'Skip',
-        selectOther : 'You can select more than one'
+        explore       : 'Explore',
+        work1         : 'Work',
+        work2         : '& ideas',
+        hobbies1      : 'Hobbies',
+        hobbies2      : '& games',
+        leisure1      : 'Adventures',
+        leisure2      : '& activity',
+        industry      : 'Industry',
+        skills        : 'Skills',
+        proposalsLiked: 'Proposals',
+        sports        : 'Sports',
+        games         : 'Games',
+        creative      : 'Creative',
+        leisureTime   : 'Time',
+        leisureMoney  : 'Money',
+        travels       : 'Travels',
+        tickets       : 'Tickets',
+        activities    : 'Activities',
+        leisurePlans  : 'Plans',
+        save          : 'Continue',
+        finish        : 'Finish',
+        skip          : 'Skip',
+        selectOther   : 'You can select more than one'
     }
 };

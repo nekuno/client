@@ -164,7 +164,7 @@ export default class ChatThreadsPage extends Component {
             <div className="chat-threads-view">
                 <TopNavBar
                     textCenter={strings.title}
-                    imageLeft={imgSrc}
+                    isLeftProfile={true}
                     boxShadow={true}/>
                 {/*<h4>{strings.otherMessages}</h4>*/}
                 <div id="chat-threads-view" className="chat-threads-wrapper">

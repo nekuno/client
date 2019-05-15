@@ -91,7 +91,7 @@ export default class LeisureProfileHobbiesPage extends Component {
                                          placeholder={strings.searchHobby}
                                          searchIcon={true}
                                          size={'small'}
-                                         chipsColor={'blue'}
+                                         chipsColor={'pink'}
                                          onClickHandler={this.onChange}
                                          selectedLabel={strings.selected}/>
                     </div>

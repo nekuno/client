@@ -23,6 +23,7 @@ import AboutMeCategory from "../../components/profile/AboutMeCategory/AboutMeCat
 import SliderPhotos from "../../components/ui/SliderPhotos/SliderPhotos";
 import OwnUserBottomNavBar from "../../components/ui/OwnUserBottomNavBar/OwnUserBottomNavBar";
 import RoundedIcon from "../../components/ui/RoundedIcon/RoundedIcon";
+import Framework7Service from '../../services/Framework7Service';
 
 function requestData(props) {
     UserActionCreators.requestOwnUserPage(props.params.slug);
@@ -89,6 +90,7 @@ export default class AboutMePage extends Component {
 
         this.uploadPhoto = this.uploadPhoto.bind(this);
         this.goToEdit = this.goToEdit.bind(this);
+        this.logout = this.logout.bind(this)
     }
 
     componentDidMount() {
@@ -128,7 +130,10 @@ export default class AboutMePage extends Component {
     }
 
     logout() {
-        LoginActionCreators.logoutUser();
+        Framework7Service.nekunoApp().confirm(this.props.strings.logoutConfirm, '', () => {
+            LoginActionCreators.logoutUser();
+
+        });
     }
 
     render() {

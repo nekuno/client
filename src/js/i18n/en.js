@@ -301,7 +301,8 @@ export default {
         interests   : 'Interests'
     },
     OwnUserAboutMePage : {
-        edit: 'Edit profile'
+        edit: 'Edit profile',
+        logoutConfirm: 'Are you sure you want to log out?'
     },
     OwnUserAnswersPage               : {
         topNavBarText       : 'My answers',

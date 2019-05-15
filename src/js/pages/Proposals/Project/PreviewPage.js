@@ -84,10 +84,6 @@ export default class PreviewPage extends Component {
         }
     }
 
-    componentWillMount() {
-
-    }
-
     handleTitleChange(event) {
         this.setState({title: event});
     }

@@ -12,7 +12,7 @@ import ProposalFilterPreview from "../components/ui/ProposalFilterPreview/Propos
 import TagSuggestionsStore from "../stores/TagSuggestionsStore";
 import RoundedImage from "../components/ui/RoundedImage/RoundedImage";
 import ChatUserStatusStore from "../stores/ChatUserStatusStore";
-import ProposalIcon from "./Proposals/Project/PreviewPage";
+import ProposalIcon from "../components/ui/ProposalIcon/ProposalIcon";
 import AvailabilityPreview from "../components/ui/AvailabilityPreview/AvailabilityPreview";
 import ProposalFieldsPreview from "../components/ui/ProposalFieldsPreview/ProposalFieldsPreview";
 

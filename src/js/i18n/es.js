@@ -301,7 +301,8 @@ export default {
         interests   : 'Intereses'
     },
     OwnUserAboutMePage : {
-        edit: 'Editar perfil'
+        edit: 'Editar perfil',
+        logoutConfirm: '¿Quieres cerrar sesión?'
     },
     OwnUserAnswersPage               : {
         topNavBarText       : 'Mis respuestas',

@@ -85,7 +85,7 @@ export default class ProposalFieldsPreview extends Component {
                         {industrySectorChoices && fields.industry ?
                             fields.industry.map((item, index) =>
                                 <div className={styles.small} key={index}>
-                                    {industrySectorChoices.find(x => x.id === item.value).text}
+                                    {industrySectorChoices.find(x => x.id === item.value ? item.value : item).text}
                                 </div>
                             )
                             : null

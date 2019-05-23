@@ -24,7 +24,7 @@ function getState(props) {
 }
 
 @AuthenticatedComponent
-@translate('OwnUserInterestsPage')
+@translate('NetworksPage')
 @connectToStores([StatsStore], getState)
 export default class NetworksPage extends Component {
 

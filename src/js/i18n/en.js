@@ -264,6 +264,11 @@ export default {
         wantGuest    : 'Do you want to try it?',
         asGuest      : 'Enter as guest'
     },
+    NetworksPage : {
+        networksTitle: 'You have %amount% networks connected',
+        connectMore  : 'Connect More Networks',
+        topNavBarText: 'My networks'
+    },
     OtherInterestsPage                      : {
         cancel               : 'Cancel',
         interestsCount       : '%count% Interests',
@@ -318,6 +323,8 @@ export default {
         otherPublished         : 'Other published proposals',
         matches                : 'Matches',
         otherPublishedProposals: 'Other published proposals',
+        published              : "Published",
+        others                 : "Others",
     },
     OwnUserInterestsPage                    : {
         topNavBarText: 'My interests',
@@ -384,6 +391,22 @@ export default {
         participantsTitle       : 'Number of participants',
         stepsBarCantContinueText: 'You cannot continue',
         stepsBarContinueText    : 'Continue',
+    },
+    AvailabilityPreview : {
+        availability   : 'Availability',
+        monday         : 'Monday',
+        tuesday        : 'Tuesday',
+        wednesday      : 'Wednesday',
+        thursday       : 'Thursday',
+        friday         : 'Friday',
+        saturday       : 'Saturday',
+        sunday         : 'Sunday',
+        and            : 'and',
+        morning        : 'morning',
+        afternoon      : 'afternoon',
+        night          : 'night',
+        from           : 'From',
+        to             : 'to',
     },
     ProposalAvailabilityDatesEditPage            : {
         publishProposal: 'Publish proposal',
@@ -458,22 +481,6 @@ export default {
         hobbies        : 'Hobbys',
         games          : 'Games',
     },
-    AvailabilityPreview : {
-        availability   : 'Availability',
-        monday         : 'Monday',
-        tuesday        : 'Tuesday',
-        wednesday      : 'Wednesday',
-        thursday       : 'Thursday',
-        friday         : 'Friday',
-        saturday       : 'Saturday',
-        sunday         : 'Sunday',
-        and            : 'and',
-        morning        : 'morning',
-        afternoon      : 'afternoon',
-        night          : 'night',
-        from           : 'From',
-        to             : 'to',
-    },
     ProposalsPage                           : {
         discover: 'Discover proposals'
     },
@@ -524,7 +531,6 @@ export default {
         publishProposal         : 'Publish proposal',
         title                   : 'Are you looking for people with specific features?',
         filterWarning           : 'This filters only be visible for you and we need to filter users',
-        showResults             : 'Show results',
         stepsBarContinueText    : 'Continue',
         stepsBarCantContinueText: 'You cannot continue',
     },
@@ -1194,7 +1200,10 @@ export default {
         separation: 'Other proposals'
     },
     SelectCollapsible                       : {
-        orderBy: 'Ordenar por',
+        orderBy: 'Order by',
+    },
+    SelectCollapsibleInterest                       : {
+        orderBy: 'Order by',
     },
     InputSelectSingle                       : {
         placeholder: 'Choose one',

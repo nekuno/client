@@ -229,31 +229,22 @@ export default class FeaturesPage extends Component {
             switch (filter.type) {
                 case 'location_distance':
                     return this.renderLocationFilter(field, filter, filterData);
-                    break;
                 case 'integer_range':
                     return this.renderIntegerRangeFilter(field, filter, filterData);
-                    break;
                 case 'birthday_range':
                     return this.renderIntegerRangeFilter(field, filter, filterData);
-                    break;
                 case 'integer':
                     return this.renderIntegerFilter(field, filter, filterData);
-                    break;
                 case 'multiple_choices':
                     return this.renderMultipleChoicesFilter(field, filter, filterData);
-                    break;
                 case 'double_multiple_choices':
                     return this.renderDoubleMultipleChoicesFilter(field, filter, filterData);
-                    break;
                 case 'choice_and_multiple_choices':
                     return this.renderChoiceAndMultipleChoicesFilter(field, filter, filterData);
-                    break;
                 case 'tags_and_multiple_choices':
                     return this.renderTagsAndMultipleChoicesFilter(field, filter, filterData, tags);
-                    break;
                 case 'tags':
                     return this.renderTagFilter(field, filter, filterData, tags);
-                    break;
             }
         }
     }
@@ -444,9 +435,9 @@ export default class FeaturesPage extends Component {
 
 FeaturesPage.defaultProps = {
     strings: {
+        publishProposal          : 'Publish proposal',
         title                    : 'Are you looking for people with specific features?',
         filterWarning            : 'This filters only be visible for you and we need to filter users',
-        showResults              : 'Show results',
         stepsBarContinueText     : 'Continue',
         stepsBarCantContinueText : 'You cannot continue',
     }

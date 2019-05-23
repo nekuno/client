@@ -264,6 +264,11 @@ export default {
         wantGuest    : '¿Quieres probarlo?',
         asGuest      : 'Entra como invitado'
     },
+    NetworksPage : {
+        networksTitle: 'Tienes %amount% redes conectadas',
+        connectMore  : 'Conecta más redes',
+        topNavBarText: 'Mis redes'
+    },
     OtherInterestsPage                      : {
         cancel               : 'Cancelar',
         interestsCount       : '%count% Intereses',
@@ -322,6 +327,8 @@ export default {
         otherPublished  : 'Otras propuestas publicadas',
         matches         : 'Matchs',
         otherPublishedProposals: 'Otras propuestas publicadas',
+        published              : "Publicadas",
+        others                 : "Otras",
     },
     PersonsPage                             : {
         relatedPeople: 'Personas afines a ti',
@@ -524,12 +531,6 @@ export default {
         publishProposal         : 'Publicar propuesta',
         title                   : '¿Buscas personas con características específicas?',
         filterWarning           : 'Estos filtros sólo serán visibles para ti y nos sirven para filtrar usuarios',
-        featuresBasic           : 'Aspectos básicos',
-        featuresAvailability    : 'Disponibilidad',
-        featuresPhysical        : 'Apariencia física',
-        featuresCulture         : 'Cultura e idiomas',
-        featuresDrugs           : 'Drogas y otros vicios',
-        featuresFamiliar        : 'Aspectos familiares',
         stepsBarContinueText    : 'Continuar',
         stepsBarCantContinueText: 'Indica una para continuar',
     },
@@ -1276,6 +1277,9 @@ export default {
         close      : 'Cerrar'
     },
     SelectCollapsible                       : {
+        orderBy: 'Ordenar por',
+    },
+    SelectCollapsibleInterest                       : {
         orderBy: 'Ordenar por',
     },
     InputSelectSingle                       : {

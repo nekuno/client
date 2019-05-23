@@ -39,6 +39,7 @@ class LocaleStore extends BaseStore {
     }
 
     get locale() {
+        return 'es';
         return this._locale;
     }
 

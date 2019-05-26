@@ -12,6 +12,7 @@ import * as UserActionCreators from "../../actions/UserActionCreators";
 import OtherUserBottomNavBar from "../../components/ui/OtherUserBottomNavBar/OtherUserBottomNavBar";
 import ProposalStore from "../../stores/ProposalStore";
 import * as ProposalActionCreators from "../../actions/ProposalActionCreators";
+import RouterStore from '../../stores/RouterStore';
 
 /**
  * Requests data from server (or store) for current props.
@@ -30,10 +31,13 @@ function getState(props) {
 
     const proposals = ProposalStore.getAll(slug);
 
+    const routes = RouterStore._routes;
+
     return {
         slug,
         otherUser,
         proposals,
+        routes,
     };
 }
 
@@ -52,6 +56,7 @@ export default class ProposalsPage extends Component {
         // Injected by @connectToStores:
         otherUser : PropTypes.object,
         proposals : PropTypes.array,
+        routes   : PropTypes.array,
     };
 
     static contextTypes = {
@@ -78,9 +83,17 @@ export default class ProposalsPage extends Component {
         ProposalActionCreators.orderProposals(orderCriteria, slug);
     }
 
+    goBack(routes) {
+        const regex = /^(\/p\/.*)*(\/networks)*(\/friends)*(\/answers)*(\/interests)*$/
+        const next = routes.reverse().find((route) => {
+            return !regex.test(route)
+        })
+
+        this.context.router.push(next || '');
+    }
 
     render() {
-        const {strings, otherUser, proposals} = this.props;
+        const {strings, otherUser, proposals, routes} = this.props;
 
         const options = [
             {
@@ -102,7 +115,8 @@ export default class ProposalsPage extends Component {
                 <div className="view view-main other-user-proposals-view">
                     <TopNavBar
                         background={'FFFFFF'}
-                        iconLeft={'arrow-left'}
+                        iconLeft="arrow-left"
+                        onLeftLinkClickHandler={() => this.goBack(routes)}
                         textCenter={otherUser ? strings.topNavBarText.replace('%username%', otherUser.username) : ''}
                         textSize={'small'}>
                         <SelectCollapsible

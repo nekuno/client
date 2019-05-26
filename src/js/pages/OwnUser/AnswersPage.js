@@ -14,6 +14,7 @@ import Scroll from "../../components/Scroll/Scroll";
 import EmptyMessage from "../../components/ui/EmptyMessage/EmptyMessage";
 import OwnUserBottomNavBar from "../../components/ui/OwnUserBottomNavBar/OwnUserBottomNavBar";
 import RoundedIcon from "../../components/ui/RoundedIcon/RoundedIcon";
+import RouterStore from '../../stores/RouterStore';
 
 function requestData(props) {
     const userId = props.user.id;
@@ -30,11 +31,14 @@ function getState(props) {
     const requestQuestionsUrl = QuestionStore.getRequestQuestionsUrl(props.user.id, []);
     const questionsTotal = QuestionStore.ownAnswersLength(props.user.id);
 
+    const routes = RouterStore._routes;
+
     return {
         userQuestions,
         isLoadingOwnQuestions,
         requestQuestionsUrl,
         questionsTotal,
+        routes,
     };
 }
 
@@ -56,6 +60,7 @@ export default class AnswersPage extends Component {
         userQuestions             : PropTypes.object,
         isLoadingOwnQuestions     : PropTypes.bool,
         requestQuestionsUrl       : PropTypes.string,
+        routes   : PropTypes.array,
     };
 
     static contextTypes = {
@@ -152,14 +157,24 @@ export default class AnswersPage extends Component {
         return QuestionActionCreators.requestQuestions(user.id, requestQuestionsUrl);
     }
 
+    goBack(routes) {
+        const regex = /^(\/p\/.*)*(\/networks)*(\/friends)*(\/answers)*(\/interests)*$/
+        const next = routes.reverse().find((route) => {
+            return !regex.test(route)
+        })
+
+        this.context.router.push(next || '');
+    }
+
     render() {
-        const {strings, userQuestions, isLoadingOwnQuestions} = this.props;
+        const {strings, userQuestions, isLoadingOwnQuestions, routes} = this.props;
 
         return (
             <div className={"user-answers-view"}>
                 <TopNavBar
                     background={'FFFFFF'}
-                    iconLeft={'arrow-left'}
+                    iconLeft="arrow-left"
+                    onLeftLinkClickHandler={() => this.goBack(routes)}
                     textCenter={strings.topNavBarText}
                     textSize={'small'}/>
                 <div id={"user-answers-view"} className={"user-answers-view-wrapper"}>

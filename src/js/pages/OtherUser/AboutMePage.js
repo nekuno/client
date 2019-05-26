@@ -22,6 +22,7 @@ import LikeStore from "../../stores/LikeStore";
 import { ORIGIN_CONTEXT } from "../../constants/Constants";
 import SliderPhotos from "../../components/ui/SliderPhotos/SliderPhotos";
 import OtherUserBottomNavBar from "../../components/ui/OtherUserBottomNavBar/OtherUserBottomNavBar";
+import RouterStore from '../../stores/RouterStore';
 
 function requestData(props) {
     UserActionCreators.requestOtherUserPage(props.params.slug);
@@ -60,6 +61,8 @@ function getState(props) {
     const ownUserSlug = LoginStore.user.slug;
     const liked = LikeStore.get(ownUserSlug, slug);
 
+    const routes = RouterStore._routes;
+
     return {
         isLoading: false,
         matching,
@@ -70,7 +73,8 @@ function getState(props) {
         photos,
         natural,
         liked,
-        ownUserSlug
+        ownUserSlug,
+        routes
     };
 }
 
@@ -93,6 +97,7 @@ export default class AboutMePage extends Component {
         photos     : PropTypes.array,
         liked      : PropTypes.bool,
         ownUserSlug: PropTypes.string,
+        routes   : PropTypes.array,
     };
 
     static contextTypes = {
@@ -143,8 +148,17 @@ export default class AboutMePage extends Component {
         })
     }
 
+    goBack(routes) {
+        const regex = /^(\/p\/.*\/?.*)*$/
+        const next = routes.reverse().find((route) => {
+            return !regex.test(route)
+        })
+
+        this.context.router.push(next || '');
+    }
+
     render() {
-        const {photos, matching, similarity, isLoading, username, location, age, natural, liked} = this.props;
+        const {photos, matching, similarity, isLoading, username, location, age, natural, liked, routes} = this.props;
 
         const rightIcon = liked ? 'thumbs-down' : 'thumbs-up';
 
@@ -154,7 +168,8 @@ export default class AboutMePage extends Component {
                     <div className={styles.topNavBar}>
                         <TopNavBar
                             background={'transparent'}
-                            iconLeft={'arrow-left'}
+                            iconLeft="arrow-left"
+                            onLeftLinkClickHandler={() => this.goBack(routes)}
                             firstIconRight={rightIcon}
                             textCenter={''}
                             onRightLinkClickHandler={this.toggleLikeUser}

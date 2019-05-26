@@ -307,7 +307,9 @@ export default {
     },
     OwnUserAboutMePage : {
         edit: 'Editar perfil',
-        logoutConfirm: '¿Quieres cerrar sesión?'
+        logoutConfirm: '¿Quieres cerrar sesión?',
+        logoutDismiss: 'Cancelar',
+        logoutAccept: 'Cerrar sesión',
     },
     OwnUserAnswersPage               : {
         topNavBarText       : 'Mis respuestas',

@@ -47,13 +47,32 @@
   z-index: 9001;
 }
 
+.logoutContent {
+  display: flex;
+  flex-direction: column;
+  font-weight: 500;
+  align-items: center;
+  .text {
+    margin: 12px 0 8px;
+  }
+}
+.logoutDismiss, .logoutAccept {
+  font-size: 16px;
+}
+.logoutDismiss {
+  color: #818fa0;
+}
+.logoutAccept {
+  color: #208fe1;
+}
+
 .upload-wrapper {
   position: absolute;
   right: 25px;
   top: 200px;
   width: 50px;
   height: 50px;
-
+  
   .input {
     position: absolute;
     left:0;
@@ -63,12 +82,12 @@
     padding-left:0;
     cursor: pointer;
   }
-
+  
   .roundedIcon {
     position:absolute;
     left: 0;
     top: 0;
     cursor: pointer;
   }
-
+  
 }

@@ -307,7 +307,9 @@ export default {
     },
     OwnUserAboutMePage : {
         edit: 'Edit profile',
-        logoutConfirm: 'Are you sure you want to log out?'
+        logoutConfirm: 'Are you sure you want to log out?',
+        logoutDismiss: 'Cancel',
+        logoutAccept: 'Log out',
     },
     OwnUserAnswersPage               : {
         topNavBarText       : 'My answers',

@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import ReactDOMServer from 'react-dom/server';
 import styles from './AboutMePage.scss';
 import '../../../scss/pages/other-user/proposals.scss';
 import translate from '../../i18n/Translate';
@@ -24,6 +25,7 @@ import SliderPhotos from "../../components/ui/SliderPhotos/SliderPhotos";
 import OwnUserBottomNavBar from "../../components/ui/OwnUserBottomNavBar/OwnUserBottomNavBar";
 import RoundedIcon from "../../components/ui/RoundedIcon/RoundedIcon";
 import Framework7Service from '../../services/Framework7Service';
+import RoundedImage from '../../components/ui/RoundedImage/RoundedImage';
 
 function requestData(props) {
     UserActionCreators.requestOwnUserPage(props.params.slug);
@@ -35,6 +37,7 @@ function requestData(props) {
 function getState(props) {
 
     const user = LoginStore.user;
+    const avatar = LoginStore.photo;
 
     const username = user.username;
     const slug = user.slug;
@@ -59,7 +62,8 @@ function getState(props) {
         age,
         photos,
         natural,
-        slug
+        slug,
+        avatar
     };
 }
 
@@ -79,6 +83,7 @@ export default class AboutMePage extends Component {
         age      : PropTypes.string,
         photos   : PropTypes.array,
         slug     : PropTypes.string,
+        avatar   : PropTypes.string
     };
 
     static contextTypes = {
@@ -130,9 +135,32 @@ export default class AboutMePage extends Component {
     }
 
     logout() {
-        Framework7Service.nekunoApp().confirm(this.props.strings.logoutConfirm, '', () => {
-            LoginActionCreators.logoutUser();
-
+        Framework7Service.nekunoApp().modal({
+            buttons: [
+                {
+                    text: ReactDOMServer.renderToStaticMarkup(
+                        <span className={styles.logoutDismiss}>
+                            {this.props.strings.logoutDismiss}
+                        </span>
+                        ),
+                },
+                {
+                    text: ReactDOMServer.renderToStaticMarkup(
+                        <span className={styles.logoutAccept}>
+                            {this.props.strings.logoutAccept}
+                        </span>
+                        ),
+                    onClick: () => LoginActionCreators.logoutUser(),
+                },
+            ],
+            text: ReactDOMServer.renderToStaticMarkup(
+                <div className={styles.logoutContent}>
+                    <RoundedImage url={this.props.avatar} size="medium" />
+                    <span className={styles.text}>
+                        {this.props.strings.logoutConfirm}
+                    </span>
+                </div>
+            ),
         });
     }
 

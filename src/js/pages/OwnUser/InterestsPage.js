@@ -13,6 +13,7 @@ import * as InterestsActionCreators from "../../actions/InterestsActionCreators"
 import AuthenticatedComponent from "../../components/AuthenticatedComponent";
 import OwnUserBottomNavBar from "../../components/ui/OwnUserBottomNavBar/OwnUserBottomNavBar";
 import SelectCollapsibleInterest from "../../components/ui/SelectCollapsibleInterest/SelectCollapsibleInterest";
+import RouterStore from '../../stores/RouterStore';
 
 function parseId(user) {
     return user ? user.id : null;
@@ -44,6 +45,8 @@ function getState(props) {
     const type = InterestStore.getType(userId);
     const requestInterestsUrl = InterestStore.getRequestInterestsUrl(userId);
 
+    const routes = RouterStore._routes;
+
     return {
         pagination,
         totals,
@@ -51,7 +54,8 @@ function getState(props) {
         noInterests,
         isLoadingOwnInterests,
         type,
-        requestInterestsUrl
+        requestInterestsUrl,
+        routes
     };
 }
 
@@ -63,6 +67,7 @@ export default class InterestsPage extends Component {
     static propTypes = {
         strings: PropTypes.object,
         // Injected by @connectToStores:
+        routes   : PropTypes.array,
         // isLoading  : PropTypes.bool.isRequired,
         // matching   : PropTypes.number,
         // similarity : PropTypes.number,
@@ -125,14 +130,24 @@ export default class InterestsPage extends Component {
         }
     }
 
+    goBack(routes) {
+        const regex = /^(\/p\/.*)*(\/networks)*(\/friends)*(\/answers)*(\/interests)*$/
+        const next = routes.reverse().find((route) => {
+            return !regex.test(route)
+        })
+
+        this.context.router.push(next || '');
+    }
+
     render() {
-        const {strings, interests, isLoadingOwnInterests, noInterests, type} = this.props;
+        const {strings, interests, isLoadingOwnInterests, noInterests, type, routes} = this.props;
         return (
             <div className="views">
                 <div className={styles.topNavBar}>
                     <TopNavBar
                         background={'transparent'}
-                        iconLeft={'arrow-left'}
+                        iconLeft="arrow-left"
+                        onLeftLinkClickHandler={() => this.goBack(routes)}
                         textCenter={strings.topNavBarText}
                     />
                 </div>

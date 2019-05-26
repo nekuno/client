@@ -15,6 +15,7 @@ import TopNavBar from '../../components/TopNavBar/TopNavBar.js';
 import CardContentList from '../../components/interests/CardContentList';
 import OtherUserBottomNavBar from "../../components/ui/OtherUserBottomNavBar/OtherUserBottomNavBar";
 import SelectCollapsibleInterest from "../../components/ui/SelectCollapsibleInterest/SelectCollapsibleInterest";
+import RouterStore from '../../stores/RouterStore';
 
 function parseId(user) {
     return user ? user.id : null;
@@ -49,6 +50,8 @@ function getState(props) {
     const type = InterestStore.getType(otherUserId);
     const requestComparedInterestsUrl = InterestStore.getRequestComparedInterestsUrl(otherUserId);
 
+    const routes = RouterStore._routes;
+
     return {
         pagination,
         totals,
@@ -57,7 +60,8 @@ function getState(props) {
         isLoadingComparedInterests,
         otherUser,
         type,
-        requestComparedInterestsUrl
+        requestComparedInterestsUrl,
+        routes
     };
 }
 
@@ -72,6 +76,7 @@ export default class InterestsPage extends Component {
         }).isRequired,        // Injected by @translate:
         strings: PropTypes.object,
         // Injected by @connectToStores:
+        routes   : PropTypes.array,
         // isLoading  : PropTypes.bool.isRequired,
         // matching   : PropTypes.number,
         // similarity : PropTypes.number,
@@ -139,15 +144,25 @@ export default class InterestsPage extends Component {
         }
     }
 
+    goBack(routes) {
+        const regex = /^(\/p\/.*)*(\/networks)*(\/friends)*(\/answers)*(\/interests)*$/
+        const next = routes.reverse().find((route) => {
+            return !regex.test(route)
+        })
+
+        this.context.router.push(next || '');
+    }
+
     render() {
-        const {strings, interests, isLoadingComparedInterests, noInterests, params, type, otherUser} = this.props;
+        const {strings, interests, isLoadingComparedInterests, noInterests, params, type, otherUser, routes} = this.props;
         const topNavBarText = otherUser ? strings.topNavBarText.replace('%username%', otherUser.username) : strings.topNavBarText.replace('%username%', params.slug);
         return (
             <div className="views">
                 <div className={styles.topNavBar}>
                     <TopNavBar
                         background={'transparent'}
-                        iconLeft={'arrow-left'}
+                        iconLeft="arrow-left"
+                        onLeftLinkClickHandler={() => this.goBack(routes)}
                         textCenter={topNavBarText}
                     />
                 </div>

@@ -16,6 +16,7 @@ import QuestionPartialMatch from "../../components/ui/QuestionPartialMatch/Quest
 import Scroll from "../../components/Scroll/Scroll";
 import QuestionNotMatch from "../../components/ui/QuestionNotMatch/QuestionNotMatch";
 import LoadingGif from "../../components/ui/LoadingGif/LoadingGif";
+import RouterStore from '../../stores/RouterStore';
 
 /**
  * Requests data from server (or store) for current props.
@@ -36,6 +37,8 @@ function getState(props) {
     const isLoadingOwnQuestions = QuestionStore.isLoadingComparedQuestions();
     const requestQuestionsUrl = otherUser ? QuestionStore.getRequestComparedQuestionsUrl(otherUser.id, []) : null;
 
+    const routes = RouterStore._routes;
+
     return {
         otherUser,
         otherUserQuestions,
@@ -43,6 +46,7 @@ function getState(props) {
         otherNotAnsweredQuestions,
         isLoadingOwnQuestions,
         requestQuestionsUrl,
+        routes
     };
 }
 
@@ -67,6 +71,7 @@ export default class AnswersPage extends Component {
         otherNotAnsweredQuestions: PropTypes.object,
         isLoadingOwnQuestions    : PropTypes.bool,
         requestQuestionsUrl      : PropTypes.string,
+        routes   : PropTypes.array,
     };
 
     static contextTypes = {
@@ -161,14 +166,24 @@ export default class AnswersPage extends Component {
             : questionComponents;
     }
 
+    goBack(routes) {
+        const regex = /^(\/p\/.*)*(\/networks)*(\/friends)*(\/answers)*(\/interests)*$/
+        const next = routes.reverse().find((route) => {
+            return !regex.test(route)
+        })
+
+        this.context.router.push(next || '');
+    }
+
     render() {
-        const {strings, otherUser, otherUserQuestions, otherNotAnsweredQuestions, isLoadingOwnQuestions} = this.props;
+        const {strings, otherUser, otherUserQuestions, otherNotAnsweredQuestions, isLoadingOwnQuestions, routes} = this.props;
 
         return (
             <div className="views">
                 <TopNavBar
                     background={'FFFFFF'}
-                    iconLeft={'arrow-left'}
+                    iconLeft="arrow-left"
+                    onLeftLinkClickHandler={() => this.goBack(routes)}
                     textCenter={otherUser ? strings.topNavBarText.replace('%username%', otherUser.username) : ''}
                     textSize={'small'}/>
                 <div className={styles.view} id="other-user-answers-view-wrapper">

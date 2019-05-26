@@ -9,6 +9,7 @@ import OwnUserBottomNavBar from "../../components/ui/OwnUserBottomNavBar/OwnUser
 import StatsStore from "../../stores/StatsStore";
 import NetworkInformation from "../../components/ui/NetworkInformation/NetworkInformation";
 import UnconnectedNetworkCard from "../../components/ui/UnconnectedNetworkCard/UnconnectedNetworkCard";
+import RouterStore from '../../stores/RouterStore';
 
 /**
  * Retrieves state from stores for current props.
@@ -17,9 +18,12 @@ function getState(props) {
     const networks = StatsStore.networks;
     const unconnectedNetworks = StatsStore.unconnectedNetworks;
 
+    const routes = RouterStore._routes;
+
     return {
         networks,
-        unconnectedNetworks
+        unconnectedNetworks,
+        routes
     };
 }
 
@@ -33,6 +37,11 @@ export default class NetworksPage extends Component {
         // Injected by @connectToStores:
         networks           : PropTypes.object.isRequired,
         unconnectedNetworks: PropTypes.array,
+        routes   : PropTypes.array,
+    };
+
+    static contextTypes = {
+        router: PropTypes.object.isRequired
     };
 
     constructor(props) {
@@ -60,8 +69,17 @@ export default class NetworksPage extends Component {
         });
     }
 
+    goBack(routes) {
+        const regex = /^(\/p\/.*)*(\/networks)*(\/friends)*(\/answers)*(\/interests)*$/
+        const next = routes.reverse().find((route) => {
+            return !regex.test(route)
+        })
+
+        this.context.router.push(next || '');
+    }
+
     render() {
-        const {strings, networks} = this.props;
+        const {strings, networks, routes} = this.props;
         const networksAmount = Object.keys(networks).length;
         const networksTitle = strings.networksTitle.replace('%amount%', networksAmount);
 
@@ -70,7 +88,8 @@ export default class NetworksPage extends Component {
                 <div className={styles.topNavBar}>
                     <TopNavBar
                         background={'transparent'}
-                        iconLeft={'arrow-left'}
+                        iconLeft="arrow-left"
+                        onLeftLinkClickHandler={() => this.goBack(routes)}
                         textCenter={strings.topNavBarText}
                     />
                 </div>

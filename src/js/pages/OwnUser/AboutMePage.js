@@ -26,6 +26,7 @@ import OwnUserBottomNavBar from "../../components/ui/OwnUserBottomNavBar/OwnUser
 import RoundedIcon from "../../components/ui/RoundedIcon/RoundedIcon";
 import Framework7Service from '../../services/Framework7Service';
 import RoundedImage from '../../components/ui/RoundedImage/RoundedImage';
+import RouterStore from '../../stores/RouterStore';
 
 function requestData(props) {
     UserActionCreators.requestOwnUserPage(props.params.slug);
@@ -55,6 +56,8 @@ function getState(props) {
 
     const natural = NaturalCategoryStore.get(slug);
 
+    const routes = RouterStore._routes;
+
     return {
         isLoading: false,
         username,
@@ -63,7 +66,8 @@ function getState(props) {
         photos,
         natural,
         slug,
-        avatar
+        avatar,
+        routes
     };
 }
 
@@ -83,7 +87,8 @@ export default class AboutMePage extends Component {
         age      : PropTypes.string,
         photos   : PropTypes.array,
         slug     : PropTypes.string,
-        avatar   : PropTypes.string
+        avatar   : PropTypes.string,
+        routes   : PropTypes.array,
     };
 
     static contextTypes = {
@@ -134,7 +139,7 @@ export default class AboutMePage extends Component {
         this.context.router.push('/p/' + slug + '/edit');
     }
 
-    logout() {
+    logout(avatar) {
         Framework7Service.nekunoApp().modal({
             buttons: [
                 {
@@ -155,7 +160,7 @@ export default class AboutMePage extends Component {
             ],
             text: ReactDOMServer.renderToStaticMarkup(
                 <div className={styles.logoutContent}>
-                    <RoundedImage url={this.props.avatar} size="medium" />
+                    <RoundedImage url={avatar} size="medium" />
                     <span className={styles.text}>
                         {this.props.strings.logoutConfirm}
                     </span>
@@ -164,19 +169,29 @@ export default class AboutMePage extends Component {
         });
     }
 
+    goBack(routes) {
+        const regex = /^(\/p\/.*)*(\/networks)*(\/friends)*(\/answers)*(\/interests)*$/
+        const next = routes.reverse().find((route) => {
+            return !regex.test(route)
+        })
+
+        this.context.router.push(next || '');
+    }
+
     render() {
-        const {photos, isLoading, username, location, age, natural, strings} = this.props;
+        const {photos, isLoading, username, location, age, natural, strings, avatar, routes} = this.props;
 
         return (
             <div className="views">
                 <div className={"view " + styles.view}>
                     <div className={styles.topNavBar}>
                         <TopNavBar
-                            isLeftBack={true}
                             background={'transparent'}
                             firstIconRight={'log-out'}
                             textCenter={''}
-                            onRightLinkClickHandler={this.logout}
+                            onRightLinkClickHandler={() => this.logout(avatar)}
+                            iconLeft="arrow-left"
+                            onLeftLinkClickHandler={() => this.goBack(routes)}
                         />
                     </div>
 

@@ -58,6 +58,9 @@ export default {
     ChatThreadsPage                         : {
         title: 'Mensajes'
     },
+    ButtonGoToProposalChat                  : {
+        chat: 'Conversar sobre la propuesta'
+    },
     ConnectFacebookPage                     : {
         yourAccount: 'Tu cuenta en Nekuno',
         title      : '¡Ya casi estamos! Conecta con Facebook',

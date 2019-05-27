@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
@@ -15,6 +15,7 @@ import ProfileStore from "../stores/ProfileStore";
 import ProposalIcon from "../components/ui/ProposalIcon/ProposalIcon";
 import AvailabilityPreview from "../components/ui/AvailabilityPreview/AvailabilityPreview";
 import ProposalFieldsPreview from "../components/ui/ProposalFieldsPreview/ProposalFieldsPreview";
+import ButtonGoToProposalChat from "../components/ui/ButtonGoToProposalChat/ButtonGoToProposalChat";
 
 /**
  * Requests data from server for current props.
@@ -47,20 +48,20 @@ function getState(props) {
 export default class OtherUserProposalDetailPage extends Component {
 
     static propTypes = {
-        params: PropTypes.shape({
-            slug: PropTypes.string.isRequired,
+        params               : PropTypes.shape({
+            slug      : PropTypes.string.isRequired,
             proposalId: PropTypes.string.isRequired
         }).isRequired,
         // Injected by @AuthenticatedComponent
-        user: PropTypes.object.isRequired,
+        user                 : PropTypes.object.isRequired,
         // Injected by @translate:
-        strings: PropTypes.object,
+        strings              : PropTypes.object,
         // Injected by @connectToStores:
-        proposal: PropTypes.object,
-        otherUser: PropTypes.object,
+        proposal             : PropTypes.object,
+        otherUser            : PropTypes.object,
         industrySectorChoices: PropTypes.array,
-        otherUserProfile: PropTypes.array,
-        experienceOptions : PropTypes.array,
+        otherUserProfile     : PropTypes.array,
+        experienceOptions    : PropTypes.array,
     };
 
     constructor(props) {
@@ -108,7 +109,6 @@ export default class OtherUserProposalDetailPage extends Component {
         );
     }
 
-
     renderProposalType() {
         const {proposal, strings} = this.props;
         let proposalType = '';
@@ -135,7 +135,10 @@ export default class OtherUserProposalDetailPage extends Component {
 
     render() {
         const {strings, proposal, otherUser, otherUserProfile} = this.props;
-
+        const availability = proposal.fields ? proposal.fields.availability : null;
+        const otherUserThumbnail = otherUser ? otherUser.photo.thumbnail.small : '';
+        const otherUserUsername = otherUser ? otherUser.username : '';
+        const hasMatch = proposal.hasMatch ? proposal.hasMatch : null;
 
         return (
             <div className="other-user-proposal-detail-view">
@@ -156,9 +159,9 @@ export default class OtherUserProposalDetailPage extends Component {
                         </div>
 
                         <div className={'user-data'}>
-                            <RoundedImage size={'small'} url={otherUser.photo.thumbnail.small}/>
+                            <RoundedImage size={'small'} url={otherUserThumbnail}/>
                             <div className={'user-text'}>
-                                <div className={'username'}>{otherUser.username}</div>
+                                <div className={'username'}>{otherUserUsername}</div>
                                 {otherUserProfile[0] ?
                                     <div className={'age-city'}>{otherUserProfile[0].fields.location.value} &bull; {otherUserProfile[0].fields.birthday.value}</div>
                                     : null
@@ -190,7 +193,14 @@ export default class OtherUserProposalDetailPage extends Component {
 
 
                     </div>
+
                     : null
+                }
+                {
+                    hasMatch && otherUser?
+                        <ButtonGoToProposalChat user={otherUser}/>
+                        :
+                        null
                 }
             </div>
         );
@@ -199,11 +209,11 @@ export default class OtherUserProposalDetailPage extends Component {
 
 OtherUserProposalDetailPage.defaultProps = {
     strings: {
-        project    : 'Project',
-        leisure    : 'Leisure',
-        experience : 'Experience',
+        project   : 'Project',
+        leisure   : 'Leisure',
+        experience: 'Experience',
 
         sectors: 'Sectors',
-        skills: 'Skills',
+        skills : 'Skills',
     }
 };

@@ -33,8 +33,9 @@ body #root .App .views .view .page.user-page {
       .profile-data {
         display: table;
         padding: 5px;
-        margin: 0 10%;
+        margin: 0 32px;
         width: 80%;
+        font-size: 14px;
 
         > span {
           width: 50%;

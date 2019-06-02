@@ -1,17 +1,22 @@
-.navbar {
-	height: 52px;
+@import'./variables';
+@import './colors';
+
+.navbar-no-f7 {
+	height: $navbar-hg;
 	z-index: 11111;
 }
 
-.navbar,
+.navbar-no-f7,
 .subnavbar,
 #bottom-toolbar.toolbar,
 #messages-toolbar.toolbar {
+	width: 100%;
 	background-color: $navbar-bg;
 	color: $text-prin;
 	position: fixed;
 	display: flex;
 	padding: 0 16px;
+	box-sizing: border-box;
 	&.transparent-background-navbar {
 		background-color: transparent;
 	}
@@ -29,7 +34,8 @@
 	.center {
 		display: flex;
 		justify-content: center;
-		font-size: 0.941176471em;
+		align-items: center;
+		font-size: 20px;
 	}
 
 	.center.large {
@@ -50,12 +56,13 @@
 	.right {
 		color: $deep-purple;
 		display: flex;
+		align-items: center;
 		font-size: 0.882352941em;
-
+		margin: 0;
 
 		.icon-left-arrow {
 			color: $ocean-blue;
-			font-size: 25px;
+			font-size: 20px;
 		}
 	}
 	.bottom-text {

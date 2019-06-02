@@ -46,11 +46,8 @@ export default class TopNavBar extends Component {
 			transparentBackground
 		} = this.props;
 		const navBarClass = transparentBackground
-			? "navbar transparent-background-navbar"
-			: "navbar";
-		const navBarInnerClass = secondRightIcon
-			? "two-right-icons-navbar navbar-inner"
-			: "navbar-inner";
+			? "navbar-no-f7 transparent-background-navbar"
+			: "navbar-no-f7";
 		return (
 			<div className={navBarClass}>
 				{leftMenuIcon ? (

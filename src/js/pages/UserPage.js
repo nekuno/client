@@ -106,12 +106,6 @@ export default class UserPage extends Component {
                                 </div>
                                 <ShareProfileBanner user={user}/>
                                 <ProfileDataList profile={profile} metadata={metadata} profileWithMetadata={profileWithMetadata}/>
-                                <br />
-                                <br />
-                                <br />
-                                <br />
-                                <br />
-                                <br />
                             </div>
                             : ''}
                     </div>

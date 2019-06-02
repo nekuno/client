@@ -1,29 +1,31 @@
 body #root .App .view {
-  .share-profile-container {
-    background-color: $deep-purple;
-    cursor: pointer;
-    left: 0;
-    margin-top: 20px;
-    padding: 10px 10px 5%;
-    right: 0;
-    text-align: center;
+	.share-profile-container {
+    width: 100%;
+    box-sizing: border-box;
 
-    .share-profile-title {
-      font-size: 1.428571429em !important;
-      font-weight: bold;
-      margin-bottom: 10px;
-      margin-top: 10px;
-    }
+    display: flex;
+    justify-content: center;
+    padding: 16px 0;
+		.button {
+			cursor: pointer;
+			height: 40px;
 
-    .share-profile-button {
-      margin-top: 15px;
-      .button {
-        background: #fff;
-        color: $deep-purple;
-        .icon-share {
-          color: $deep-purple;
-        }
-      }
-    }
-  }
+			background: $deep-purple;
+      color: $white;
+			font-size: 12px;
+			border-radius: 20px;
+
+			display: flex;
+			align-items: center;
+
+			.icon-share {
+				color: $white;
+				font-size: 12px;
+				margin-right: 8px;
+			}
+			.share-text {
+				line-height: normal;
+			}
+		}
+	}
 }

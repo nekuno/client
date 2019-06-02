@@ -4,8 +4,8 @@
 }
 
 .navbar, .subnavbar, #bottom-toolbar.toolbar, #messages-toolbar.toolbar {
-	background-color: $dark-purple;
-	color: #fff;
+	background-color: $navbar-bg;
+	color: $text-prin;
 	&.transparent-background-navbar {
 		background-color: transparent;
 	}

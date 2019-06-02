@@ -1,8 +1,9 @@
 @import '../_partials/colors';
+@import '../_partials/variables';
 
 body #root .App .views .view .page.other-user-page {
   #page-content {
-    margin: 0 auto;
+    margin: 0 auto $bottombar-hg + 16px;
     width: 100%;
     .user-interests {
       .label {

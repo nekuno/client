@@ -1,8 +1,10 @@
 @import '../_partials/colors';
+@import '../_partials/variables';
 
 body #root .App .views .view .page.user-page {
   #page-content {
     width: 100%;
+    margin-bottom: $bottombar-hg + 16px;
     .user-interests {
       .label {
         font-size: 0.857142857em;
@@ -21,7 +23,10 @@ body #root .App .views .view .page.user-page {
 
         h3 {
           font-size: 1.3em;
-          margin-left: 10%;
+          display: flex;
+          justify-content: space-between;
+          padding: 0 16px;
+          align-items: center;
         }
       }
 

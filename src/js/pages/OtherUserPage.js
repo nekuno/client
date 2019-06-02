@@ -453,12 +453,6 @@ export default class OtherUserPage extends Component {
                                     </div>
                                 </div>
                                 <OtherProfileDataList profileWithMetadata={profileWithMetadata} metadata={metadata}/>
-                                <br/>
-                                <br/>
-                                <br/>
-                                <br/>
-                                <br/>
-                                <br/>
                             </div>
                             : <EmptyMessage text={strings.loading} loadingGif={true}/>}
                     </div>

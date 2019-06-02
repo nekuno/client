@@ -169,8 +169,8 @@ body {
 				}
 
 				.view {
-					background: $dark-purple;
-					color: #fff;
+					background: $page-bg;
+					color: $text-prin;
 					overflow-y: scroll;
 					-webkit-overflow-scrolling: touch;
 					.title {
@@ -179,7 +179,7 @@ body {
 					}
 
 					.content-block {
-						color: #fff;
+						color: $text-prin;
 					}
 
 					.bold {
@@ -194,7 +194,7 @@ body {
 					}
 
 					.page {
-						background: $dark-purple;
+						background: $page-bg;
 						height: auto;
 
 						#page-content {

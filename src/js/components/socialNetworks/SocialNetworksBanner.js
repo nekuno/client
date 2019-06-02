@@ -56,9 +56,6 @@ export default class SocialNetworksBanner extends Component {
                             : <div><LoadingSpinnerCSS /></div>}
                         <p>{strings.publishMessage}</p>
                     </div>
-                    <div className="social-networks-link-picture">
-                        <img src={ownPicture}/>
-                    </div>
                 </div>
             </div>
         );

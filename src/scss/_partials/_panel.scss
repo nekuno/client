@@ -20,6 +20,7 @@ body.panels-3d.with-panel-left-reveal .views {
 	}
 	.top-menu {
 		margin-top: 12px;
+		padding-left: 12px;
 		position: absolute;
 
 		.icon-circle {
@@ -29,9 +30,9 @@ body.panels-3d.with-panel-left-reveal .views {
 		}
 	}
 	.close-panel {
-		color: $deep-purple;
+		color: $ocean-blue;
 		display: block;
-		font-size: 29px;
+		font-size: 20px;
 		width: 100px;
 	}
 	.menu {

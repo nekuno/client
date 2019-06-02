@@ -1,94 +1,97 @@
 .navbar {
-  height: 52px;
-  z-index: 11111;
+	height: 52px;
+	z-index: 11111;
 }
 
-.navbar, .subnavbar, #bottom-toolbar.toolbar, #messages-toolbar.toolbar {
+.navbar,
+.subnavbar,
+#bottom-toolbar.toolbar,
+#messages-toolbar.toolbar {
 	background-color: $navbar-bg;
 	color: $text-prin;
+	position: fixed;
+	display: flex;
+	padding: 0 16px;
 	&.transparent-background-navbar {
 		background-color: transparent;
 	}
 
-	#navbar-inner {
-		overflow-y: hidden;
-		overflow-x: hidden;
-		.row {
-			margin: auto;
-			width: 100%;
+	.col-30 {
+		cursor: pointer;
+		height: 50px;
+		flex-basis: 33%;
+	}
+	.col-40 {
+		cursor: pointer;
+		height: 50px;
+		flex-basis: 33%;
+	}
+	.center {
+		display: flex;
+		justify-content: center;
+		font-size: 0.941176471em;
+	}
+
+	.center.large {
+		font-size: 1.3125em;
+	}
+
+	.left {
+		margin-top: 12px;
+		text-align: left;
+		justify-content: flex-start;
+	}
+	.right {
+		margin-top: 8px;
+		text-align: right;
+		justify-content: flex-end;
+	}
+	.left,
+	.right {
+		color: $deep-purple;
+		display: flex;
+		font-size: 0.882352941em;
+
+
+		.icon-left-arrow {
+			color: $ocean-blue;
+			font-size: 25px;
 		}
+	}
+	.bottom-text {
+		margin-top: -25px;
+		font-size: 0.7em;
+		color: $light-green;
+		font-weight: bold;
+	}
+
+	.open-panel {
+		display: block;
+		height: 50px;
+		width: 100%;
+
+		.icon-menu {
+			font-size: 25px;
+		}
+	}
+
+	.icon-circle {
+		color: $green-alert;
+		font-size: 0.5em;
+		margin-left: 5px;
+		position: absolute;
+	}
+
+	.navbar-link-text {
+		font-weight: bold;
+	}
+
+	&.two-right-icons-navbar {
 		.col-30 {
-			cursor: pointer;
-			height: 50px;
-			width: 25%;
+			width: 35%;
 		}
 		.col-40 {
-			cursor: pointer;
-			height: 50px;
-			width: 40%;
-		}
-		.center {
-			display: block;
-			font-size: 0.941176471em;
-		}
-
-		.center.large {
-			font-size: 1.3125em;
-		}
-
-		.left {
-			margin-top: 12px;
-			text-align: left;
-		}
-		.right {
-			margin-top: 8px;
-			text-align: right;
-		}
-		.left, .right {
-			color: $deep-purple;
-			display: block;
-			font-size: 0.882352941em;
-
-			.icon-left-arrow {
-				color: #fff;
-				font-size: 25px;
-			}
-		}
-		.bottom-text {
-			margin-top: -25px;
-			font-size: 0.7em;
-			color: $light-green;
-			font-weight: bold;
-		}
-
-		.open-panel {
-			display: block;
-			height: 50px;
-			width: 100%;
-
-			.icon-menu {
-				font-size: 25px;
-			}
-		}
-
-		.icon-circle {
-			color: $green-alert;
-			font-size: 0.5em;
-			margin-left: 5px;
-			position: absolute;
-		}
-
-		.navbar-link-text {
-			font-weight: bold;
-		}
-
-		&.two-right-icons-navbar {
-			.col-30 {
-				width: 35%;
-			}
-			.col-40 {
-				width: 20%;
-			}
+			width: 20%;
 		}
 	}
 

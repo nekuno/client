@@ -223,7 +223,14 @@ body {
 					}
 
 					.loading-gif {
-						background: url('img/loading.gif') no-repeat;
+						@keyframes loading-gif {
+						  	0%   {opacity: 1;}
+						    50%  {opacity: 0.5;}
+						    100% {opacity: 1;}
+						}
+						animation-name: loading-gif;
+						animation-duration: 1.8s;
+						background: url('img/loading.png') no-repeat;
 						background-size: 100px 100px;
 						height: 100px;
 						margin: auto;

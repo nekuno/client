@@ -155,3 +155,51 @@ export function getMatching(userId, url = `matching/${userId}`) {
 export function getSimilarity(userId, url = `similarity/${userId}`) {
     return getData(url);
 }
+
+//Proposals
+
+export function createProposal(data, url='proposals') {
+    return postData(url, data);
+}
+
+export function updateProposal(proposalId, data, url= `proposals/${proposalId}`) {
+    return putData(url, data);
+}
+
+export function removeProposal(proposalId, url= `proposals/${proposalId}`) {
+    return deleteData(url);
+}
+
+export function getProposal(proposalId, url= `proposals/${proposalId}`) {
+    return getData(url);
+}
+
+export function getProposalRecommendations(url='proposals/recommendations') {
+    return getData(url);
+}
+
+export function getOwnProposals(url = 'proposals') {
+    return getData(url);
+}
+
+export function getOwnProposalsLiked(url) {
+    return getData(url);
+}
+
+export function acceptCandidate(data, url = 'recommendations/candidates') {
+    return postData(url, data);
+}
+
+export function interestProposal(proposalId, data = {interested: true}, url = 'recommendations/proposals') {
+    data.proposalId = proposalId;
+    return postData(url, data);
+}
+
+export function skipCandidate(data, url = 'recommendations/candidates/skip') {
+    return postData(url, data)
+}
+
+export function skipProposal(proposalId, data = {skipped: true}, url = 'recommendations/proposals/skip') {
+    data.proposalId = proposalId;
+    return postData(url, data)
+}

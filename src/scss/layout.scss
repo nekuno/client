@@ -53,7 +53,7 @@ body {
 	-webkit-text-size-adjust: none; /* prevent webkit from resizing text to fit */
 	-webkit-user-select: none; /* prevent copy paste, to allow, change 'none' to 'text' */
 
-	background: $dark-gray;
+	background: $white;
 	font-family: $nekuno-font;
 	font-size: 10px;
 	margin: auto;
@@ -169,8 +169,8 @@ body {
 				}
 
 				.view {
-					background: $dark-purple;
-					color: #fff;
+					background: $page-bg;
+					color: $text-prin;
 					overflow-y: scroll;
 					-webkit-overflow-scrolling: touch;
 					.title {
@@ -179,7 +179,7 @@ body {
 					}
 
 					.content-block {
-						color: #fff;
+						color: $text-prin;
 					}
 
 					.bold {
@@ -194,11 +194,11 @@ body {
 					}
 
 					.page {
-						background: $dark-purple;
+						background: $page-bg;
 						height: auto;
 
 						#page-content {
-							margin: 60px auto 0 auto;
+							margin: $navbar-hg auto 0 auto;
 							width: 85%;
 
 							.sub-title {
@@ -223,7 +223,14 @@ body {
 					}
 
 					.loading-gif {
-						background: url('img/loading.gif') no-repeat;
+						@keyframes loading-gif {
+						  	0%   {opacity: 1;}
+						    50%  {opacity: 0.5;}
+						    100% {opacity: 1;}
+						}
+						animation-name: loading-gif;
+						animation-duration: 1.8s;
+						background: url('img/loading.png') no-repeat;
 						background-size: 100px 100px;
 						height: 100px;
 						margin: auto;

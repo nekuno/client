@@ -263,8 +263,8 @@ export default class ProfileDataList extends Component {
                     category => {
                         return (
                             <div key={category.label} ref={this.state.selectedCategory === category.label ? "selectedCategoryEdit" : null}>
-                                <div className="profile-category" ref={category.label === this.state.selectedCategory ? 'selectedCategory' : null}>
-                                    <h3>{category.label} <span className="icon-wrapper" onClick={this.onCategoryToggle.bind(this, category.label)}><span className={category.label === this.state.selectedCategory ? 'icon-checkmark' : 'icon-edit'}/></span></h3>
+                                <div className="profile-category" onClick={this.onCategoryToggle.bind(this, category.label)} ref={category.label === this.state.selectedCategory ? 'selectedCategory' : null}>
+                                    <h3 className="profile-category-title">{category.label} <span className={category.label === this.state.selectedCategory ? 'icon-checkmark' : 'icon-edit'}/></h3>
                                 </div>
                                 {this.state.selectedCategory === category.label ?
                                     Object.keys(category.fields).map(field =>

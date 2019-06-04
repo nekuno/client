@@ -1,15 +1,17 @@
+@import './variables';
+
 .toolbar {
   z-index: 11111;
 }
 
 .toolbar:not(.messagebar) {
-  height: 60px;
+  height: $bottombar-hg;
 
   .arrow-up {
     border-left: 5px solid transparent;
     border-right: 5px solid transparent;
     border-bottom: 5px solid $deep-purple;
-    bottom: 60px;
+    bottom: $bottombar-hg;
     margin-top: -5px;
     position: absolute;
     height: 0;
@@ -19,17 +21,18 @@
   .toolbar-inner {
     background-color: $deep-purple;
     font-size: 0.823529412em;
-    height: 60px;
+    height: $bottombar-hg;
 
     .toolbar-link-wrapper {
-      height: 60px;
-      text-align: center;
+      height: $bottombar-hg;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       width: 30%;
 
       a {
         color: #fff;
         display: block;
-        padding-top: 20px;
       }
     }
   }

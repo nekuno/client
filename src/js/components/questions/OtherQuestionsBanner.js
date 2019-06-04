@@ -41,9 +41,6 @@ export default class OtherQuestionsBanner extends Component {
                         <p>{questionsTotal}</p>
                         <p>{strings.completed}</p>
                     </div>
-                    <div className="answer-questions-link-picture">
-                        <img src={otherPicture}/>
-                    </div>
                 </a>
             </div>
         );

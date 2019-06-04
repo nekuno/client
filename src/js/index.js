@@ -14,6 +14,16 @@ import RecaptchaService from './services/RecaptchaService';
 import SocialNetworkService from './services/SocialNetworkService';
 import OfflineService from './services/OfflineService';
 
+import 'framework7/dist/css/framework7.ios.css';
+import 'Framework7-3D-Panels/dist/framework7.3dpanels.css';
+import 'slick-carousel/slick/slick.css';
+import 'react-image-crop/dist/ReactCrop.css';
+import 'react-joyride/lib/react-joyride-compiled.css';
+import 'react-infinite-calendar/styles.css';
+import 'rc-slider/assets/index.css';
+require.context('../scss', false, /\.scss$/);
+require.context('../scss/pages', true, /\.scss$/);
+
 Framework7Service.init();
 OfflineService.check().then(() => {
     AnalyticsService.init();

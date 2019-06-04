@@ -11,7 +11,7 @@ body #root .App .views .view {
     .register-image {
       background-size: 200% 200%;
       height: 100%;
-      background: url("img/register/480x711.jpg") no-repeat center bottom;
+      background: url("../img/register/480x711.jpg") no-repeat center bottom;
       margin: 0 0 0 -50%;
       position: absolute;
       top: 0;
@@ -35,7 +35,7 @@ body #root .App .views .view {
       z-index: 100;
 
       .register-nekuno-logo {
-        background: url('img/logo-250x132.png') no-repeat;
+        background: url('../img/logo-250x132.png') no-repeat;
         background-size: 100% auto;
         height: 100%;
         margin: auto;
@@ -167,18 +167,18 @@ body #root .App .views .view {
 
 @media only screen and (min-height: 712px) {
   body #root .App .views .view .page.register-page .register-image {
-    background: url("img/register/750x1112.jpg") no-repeat center center;
+    background: url("../img/register/750x1112.jpg") no-repeat center center;
     margin: 0 0 0 -150%;
     width: 400%;
   }
 }
 @media only screen and (min-height: 1113px) {
   body #root .App .views .view .page.register-page .register-image {
-    background: url("img/register/1200x1779.jpg") no-repeat center center;
+    background: url("../img/register/1200x1779.jpg") no-repeat center center;
   }
 }
 @media only screen and (min-height: 1800px) {
   body #root .App .views .view .page.register-page .register-image {
-    background: url("img/register/1200x1779.jpg") no-repeat center center;
+    background: url("../img/register/1200x1779.jpg") no-repeat center center;
   }
 }

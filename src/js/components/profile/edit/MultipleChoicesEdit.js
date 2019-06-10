@@ -5,6 +5,7 @@ import TextCheckboxes from '../../ui/TextCheckboxes';
 import { Range } from 'rc-slider';
 import translate from '../../../i18n/Translate';
 import Framework7Service from '../../../services/Framework7Service';
+import TextRadiosWithImages from "../../ui/TextRadiosWithImages";
 
 @translate('MultipleChoicesEdit')
 export default class MultipleChoicesEdit extends Component {
@@ -24,7 +25,7 @@ export default class MultipleChoicesEdit extends Component {
         this.handleChangeRange = this.handleChangeRange.bind(this);
         this.handleClickRemoveEdit = this.handleClickRemoveEdit.bind(this);
     }
-    
+
     handleClickMultipleChoice(choice) {
         let {editKey, metadata, data, strings} = this.props;
         data = data || [];
@@ -84,10 +85,16 @@ export default class MultipleChoicesEdit extends Component {
                             onAfterChange={this.handleChangeRange}
                         />
                     </div>
+                    : metadata.withImages ?
+                        <TextRadiosWithImages labels={metadata.choices.map(choice => { return({key: choice.id, text: choice.text, image: choice.picture}) })}
+                                        onClickHandler={this.handleClickMultipleChoice} values={data || []} className={'multiple-choice-filter'}
+                                        title={metadata.labelEdit} />
                     :
                     <TextCheckboxes labels={metadata.choices.map(choice => { return({key: choice.id, text: choice.text}) })}
-                                onClickHandler={this.handleClickMultipleChoice} values={data || []} className={'multiple-choice-filter'}
-                                title={metadata.labelEdit} />
+                    onClickHandler={this.handleClickMultipleChoice} values={data || []} className={'multiple-choice-filter'}
+                    title={metadata.labelEdit} />
+
+
                 }
             </SelectedEdit>
         );

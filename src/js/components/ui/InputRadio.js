@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import RoundedImage from "./RoundedImage/RoundedImage";
 
 export default class InputRadio extends Component {
 
@@ -8,7 +9,8 @@ export default class InputRadio extends Component {
         text          : PropTypes.string.isRequired,
         checked       : PropTypes.bool.isRequired,
         onClickHandler: PropTypes.func.isRequired,
-        reverse       : PropTypes.bool
+        reverse       : PropTypes.bool,
+        image         : PropTypes.string,
     };
 
     constructor(props) {
@@ -21,12 +23,25 @@ export default class InputRadio extends Component {
         this.props.onClickHandler(this.props.value);
     }
 
+    renderImage() {
+        const {image} = this.props;
+
+        if (!image){
+            return null;
+        }
+
+        return <div className="item-image">
+            <RoundedImage url={image} size={'small'} />
+        </div>
+    }
+
     render() {
         const {reverse, checked, text} = this.props;
         const className = checked ? 'icon icon-form-checkbox checked' : 'icon icon-form-checkbox';
         return (
             reverse ?
                 <label className="label-checkbox item-content" onClick={this.onClickHandler}>
+                    {this.renderImage()}
                     <div className="item-media">
                         <i className={className}/>
                     </div>
@@ -42,6 +57,7 @@ export default class InputRadio extends Component {
                     <div className="item-media">
                         <i className={className}/>
                     </div>
+                    {this.renderImage()}
                 </label>
         );
     }

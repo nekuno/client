@@ -244,8 +244,8 @@ export default class DiscoverPage extends Component {
 
     getFirstItems() {
         let firstItems = [
-            <div key="chip-list">{this.renderChipList.bind(this)()}</div>,
-            <div key="edit-button">{this.getEditButton.bind(this)()}</div>,
+            /* <div key="chip-list">{this.renderChipList.bind(this)()}</div>, */
+            /* <div key="edit-button">{this.getEditButton.bind(this)()}</div>, */
             <div key="banner">{this.getBanner.bind(this)()}</div>,
             <div key="processes-progress">{this.getProcessesProgress.bind(this)()}</div>
         ];

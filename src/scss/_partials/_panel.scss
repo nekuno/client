@@ -3,6 +3,19 @@ body.panels-3d.with-panel-left-reveal .views {
 	height: 110%;
 }
 
+
+.panel-overlay {
+	background: $overlay-bg;
+	transition-duration: 0.4s; // mantener sincronizado con la del panel
+	transition-property: opacity;
+	body.panel-closing & {
+		display: block;
+	}
+	body.with-panel-left-cover & {
+		opacity: 1;
+	}
+}
+
 .panel {
 	background: $panel-bg;
 	box-shadow: 0px 2px 8px rgba(0,0,0,.25);

@@ -6,6 +6,7 @@ $dark-purple-semi-translucent: rgba(21, 18, 50, 0.9);
 $purple: #2d205f;
 $white: #ffffff;
 $ocean-blue: #2b3758;
+$ocean-blue-translucent: rgba(43, 55, 88, 0.2);
 $dark-blue: #1b1843;
 $light-blue: #6abeee;
 $dark-gray: #1d2029;
@@ -54,5 +55,6 @@ $material-blue-grey: #607D8B;
 $text-prin: $ocean-blue;
 $page-bg: $white;
 $panel-bg: $white;
+$overlay-bg: $ocean-blue-translucent;
 
 $navbar-bg: $white;

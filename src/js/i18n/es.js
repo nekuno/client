@@ -321,7 +321,7 @@ export default {
         filters    : 'Filtros'
     },
     SettingsPage                     : {
-        title         : 'Ajustes',
+        title         : 'Términos y condiciones',
         version       : 'Versión de Nekuno',
         legalTerms    : 'Términos legales',
         privacyPolicy : 'Política de Privacidad',
@@ -342,7 +342,7 @@ export default {
         socialNetworks: 'Mis redes sociales',
         more          : 'Más',
         less          : 'Menos',
-        settings      : 'Ajustes',
+        settings      : 'Términos y condiciones',
         invitations   : 'Invitaciones',
         logout        : 'Salir'
     },

@@ -10,7 +10,7 @@ body #root .App .views .view .page.create-thread-page  {
       width: 200%;
       background-color: $deep-purple-translucent;
       margin-left: -50%;
-      margin-bottom: 10px;
+      margin-top: 10px;
       padding-top: 1px;
       padding-bottom: 1px;
       padding-left: 50%;
@@ -227,7 +227,7 @@ body #root .App .views .view .page.create-thread-page  {
     }
 
     .thread-filter-opposite-background {
-      background: $dark-purple;
+      background: $page-bg;
       height: 491px;
       left: 0;
       margin-top: 15px;
@@ -319,8 +319,7 @@ body #root .App .views .view .page.create-thread-page  {
     }
 
     .select-filter {
-      background: $dark-purple;
-      height: 500px;
+      background: $page-bg;
       left: 0;
       padding-top: 60px;
       position: absolute;
@@ -367,6 +366,7 @@ body #root .App .views .view .page.create-thread-page  {
       .add-filter-button-wrapper {
         font-weight: 400;
         background: $deep-purple;
+        color: $white;
         height: 60px;
         line-height: 60px;
         border-radius: 30px;

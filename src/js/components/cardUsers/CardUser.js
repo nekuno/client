@@ -95,7 +95,7 @@ export default class CardUser extends Component {
                         </div>
                     </div>
                 </div>
-                <CardUserTopLinks topLinks={topLinks} sharedLinks={sharedLinks} onClick={this.handleGoToProfile}/>
+                {/* <CardUserTopLinks topLinks={topLinks} sharedLinks={sharedLinks} onClick={this.handleGoToProfile}/> */}
                 {/*<div className="card-header">
 
                     <div className="card-sub-title">

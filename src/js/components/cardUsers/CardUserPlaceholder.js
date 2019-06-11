@@ -29,7 +29,7 @@ export default class CardUserPlaceholder extends Component {
                         </div>
                     </div>
                 </div>
-                <CardUserTopLinks topLinks={[]} sharedLinks={0}/>
+                {/* <CardUserTopLinks topLinks={[]} sharedLinks={0}/> */}
                 <div className={"card-footer"}>
                     <div>
                         <div className="card-title">

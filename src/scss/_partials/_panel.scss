@@ -8,6 +8,15 @@ body.panels-3d.with-panel-left-reveal .views {
 	box-shadow: 0px 2px 8px rgba(0,0,0,.25);
 	// color: #fff;
 
+	width: $panel-width;
+	&.panel-left.panel-cover {
+		left: -($panel-width);
+		body.with-panel-left-cover & {
+			-webkit-transform: translate3d($panel-width, 0, 0);
+    		transform: translate3d($panel-width, 0, 0);
+		}
+	}
+
 	.content-block {
 		// color: #fff;
 	}

@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import shouldPureComponentUpdate from 'react-pure-render/function';
 import RouterActionCreators from '../../actions/RouterActionCreators';
+import Icon from './Icon';
 
 export default class TopLeftLink extends Component {
 	static contextTypes = {
@@ -33,10 +34,10 @@ export default class TopLeftLink extends Component {
 				{icon ?
                     wrapIcon ?
 						<div className="icon-wrapper translucent-icon-wrapper">
-							<span className={'icon-' + icon}></span>
+							<Icon icon={icon} />
 						</div>
 						:
-						<span className={'icon-' + icon}></span>
+							<Icon icon={icon} />
 					:
 					<a className="navbar-link-text">
 						{text}

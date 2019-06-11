@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import connectToStores from '../../utils/connectToStores';
 import ChatThreadStore from '../../stores/ChatThreadStore';
+import Icon from './Icon';
 
 function getState() {
 	const hasUnread = ChatThreadStore.hasUnread() || false;
@@ -23,7 +24,7 @@ export default class TopLeftMenuLink extends Component {
 				<a className="open-panel">
 					<span id="joyride-3-menu" className="icon-menu"></span>
 					{this.props.hasUnread ?
-						<span className="icon-circle"></span> : ''
+						<Icon icon="circle" /> : ''
 					}
 				</a>
 			</div>

@@ -53,7 +53,7 @@ body {
 	-webkit-text-size-adjust: none; /* prevent webkit from resizing text to fit */
 	-webkit-user-select: none; /* prevent copy paste, to allow, change 'none' to 'text' */
 
-	background: $white;
+	background: $page-bg;
 	font-family: $nekuno-font;
 	font-size: 10px;
 	margin: auto;
@@ -232,6 +232,7 @@ body {
 						animation-duration: 1.8s;
 						background: url('img/loading.png') no-repeat;
 						background-size: 100px 100px;
+						background-position: center;
 						height: 100px;
 						margin: auto;
 						width: 100px;

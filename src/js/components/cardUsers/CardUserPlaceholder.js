@@ -24,7 +24,7 @@ export default class CardUserPlaceholder extends Component {
                     <div className="card-content">
                         <div className="card-content-inner">
                             <div className="image fixed-max-height-image">
-                                <Image src='img/loading.gif'/>
+                                <div className="loading-gif" style={{height: 0, paddingBottom: '100%'}}></div>
                             </div>
                         </div>
                     </div>

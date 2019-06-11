@@ -280,8 +280,8 @@ export default class DiscoverPage extends Component {
         return (
             <div id="discover-views" className="views">
                 {Object.keys(thread).length > 0 ?
-                    <TopNavBar leftMenuIcon={!isThreadGroup} leftIcon="left-arrow" centerText={title} onLeftLinkClickHandler={this.leftClickHandler}/>
-                    : <TopNavBar leftMenuIcon={true} centerText={title}/>}
+                    <TopNavBar leftMenuIcon={!isThreadGroup} leftIcon="left-arrow" centerText={title} onLeftLinkClickHandler={this.leftClickHandler} rightIcon="mdi-tune-vertical" rightIconsWithoutCircle={true} onRightLinkClickHandler={this.editThread} />
+                    : <TopNavBar leftMenuIcon={true}  centerText={title} rightIcon="mdi-tune-vertical" rightIconsWithoutCircle={true} onRightLinkClickHandler={this.editThread} />}
                 <div className="view view-main" id="discover-view-main" style={{overflow: 'hidden'}}>
                     <div className="page discover-page">
                         <div id="page-content">

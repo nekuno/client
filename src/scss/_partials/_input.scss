@@ -6,7 +6,7 @@
 		width: 0;
 	}
 	input[type=time], input[type=number], input[type=search], input[type=text], input[type=password], input[type=email], input[type=tel], input[type=url], input[type=date], input[type=datetime-local], select {
-		color: #fff;
+		color: $text-prin;
 		font-size: 1em;
 		margin-bottom: 10px;
 		margin-top: 15px;
@@ -39,7 +39,7 @@
 	}
 
 	textarea {
-		color: #fff;
+		color: $text-prin;
 		font-size: 1em;
 		margin-bottom: 10px;
 		margin-top: 5px;

@@ -29,14 +29,14 @@
 			.geosuggest__input {
 				background-color: transparent;
 				border: none;
-				color: #fff;
+				color: $text-prin;
 				font-size: 1em;
 				//width: 95%;
 			}
 		}
 
 		.geosuggest__suggests-wrapper {
-			color: #fff;
+			color: $white;
 			position: absolute;
 			z-index: 111;
 			background: $purple;

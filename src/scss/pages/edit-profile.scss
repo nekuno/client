@@ -194,7 +194,7 @@ body #root .App .views .view .page.user-page  {
           input[type=time], input[type=number], input[type=search], input[type=text], input[type=password], input[type=email], input[type=tel], input[type=url], input[type=date], input[type=datetime-local] {
             background-color: transparent;
             border: none;
-            color: #fff;
+            color: $text-prin;
             width: 100%;
           }
         }
@@ -281,6 +281,7 @@ body #root .App .views .view .page.user-page  {
       .add-filter-button-wrapper {
         font-weight: 400;
         background: $deep-purple;
+        color: $white;
         height: 60px;
         line-height: 60px;
         border-radius: 30px;

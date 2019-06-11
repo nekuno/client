@@ -153,7 +153,7 @@ export default class LeftPanel extends Component {
         return (
             <div className="LeftPanel">
                 <div className="panel-overlay"></div>
-                <div className="panel panel-left panel-reveal">
+                <div className="panel panel-left panel-cover">
                     <div className="content-block top-menu">
                         <a className="close-panel">
                             <span className="icon-left-arrow"/>

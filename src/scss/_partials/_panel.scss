@@ -4,9 +4,9 @@ body.panels-3d.with-panel-left-reveal .views {
 }
 
 .panel {
-	background: $white;
+	background: $panel-bg;
+	box-shadow: 0px 2px 8px rgba(0,0,0,.25);
 	// color: #fff;
-	width: 100%;
 
 	.content-block {
 		// color: #fff;
@@ -41,7 +41,7 @@ body.panels-3d.with-panel-left-reveal .views {
 		a {
 			display: block;
 			font-size: 1.142857143em;
-			padding: 20px;
+			padding: 16px 20px;
 
 			.unread-messages-count {
 				background: $green-alert;

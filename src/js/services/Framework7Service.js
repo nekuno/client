@@ -1,5 +1,4 @@
 import 'framework7';
-import 'Framework7-3D-Panels/dist/framework7.3dpanels';
 
 class Framework7Service {
 
@@ -12,7 +11,9 @@ class Framework7Service {
         this._nekunoApp = new Framework7({
             cache: false,
             router: false,
-            swipeBackPage: false
+            swipeBackPage: false,
+            swipePanel: 'left',
+            swipePanelActiveArea: 0.25 * document.documentElement.clientWidth,
         });
         this._$$ = Dom7;
     }

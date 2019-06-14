@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import Input from '../../ui/Input/Input.js';
 import styles from './InputSelectImage.scss';
+import LinkImageService from '../../../services/LinkImageService';
 
 export default class InputSelectImage extends Component {
 
@@ -73,7 +74,7 @@ export default class InputSelectImage extends Component {
                     <div key={index} className={styles.suggestedItem}>
                         <div className={styles.suggestedImageWrapper} onClick={this.handleClick.bind(this, item.id)}>
                             <div className={styles.suggestedImage}>
-                                <img className={styles.picture} src={item.picture} />
+                                <img className={styles.picture} src={LinkImageService.getThumbnail(item.picture, 'medium')} />
                             </div>
                             {selected.some(selectedItem => selectedItem.id === item.id) ?
                                 <div className={styles.selectedItem}>

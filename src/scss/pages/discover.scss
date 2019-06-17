@@ -34,6 +34,34 @@ body #root .App .views .view .page.discover-page {
       }
     }
 
+    .no-recommendations {
+      padding: 16px;
+      text-align: center;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      
+      .header-image {
+        max-width: 70%;
+        margin: 16px 0;
+      }
+      
+      p {
+        color: $text-second;
+        font-size: 20px;
+        margin: 16px 0;
+      }
+  
+      p.title {
+        color: $text-prin;
+        font-size: 24px;
+      }
+      
+      a { color: $deep-purple; }
+    }
+
     .user-list {
       .infinite-column {
         display: flex;

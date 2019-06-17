@@ -20,6 +20,7 @@ import QuestionStore from '../stores/QuestionStore';
 import RecommendationStore from '../stores/RecommendationStore';
 import WorkersStore from '../stores/WorkersStore';
 import ProfileStore from '../stores/ProfileStore';
+import Image from '../components/ui/Image';
 
 function parseId(user) {
     return user.id;
@@ -290,7 +291,14 @@ export default class DiscoverPage extends Component {
                                               handleSelectProfile={this.selectProfile} onBottomScroll={this.onBottomScroll} isLoading={isLoadingRecommendations}
                                               isFirstLoading={isFirstLoading} orientationMustBeAsked={orientationMustBeAsked}/>
                                 :
-                                this.getEmptyMessage(this.props, true)
+                                <div className="no-recommendations">
+                                    <div>
+                                        <Image className="header-image" src="img/no-recommendations.png" />
+                                        <p className="title">{strings.noRecommendationsTitle}</p>
+                                        <p>{strings.noRecommendationsText}</p>
+                                        <p><a onClick={this.editThread}>{strings.noRecommendationsAction}</a></p>
+                                    </div>
+                                </div>
                             }
                             <br />
                         </div>

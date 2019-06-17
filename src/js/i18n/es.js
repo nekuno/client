@@ -227,10 +227,12 @@ export default {
         tutorialThirdStep      : 'Este es el botón para abrir el menú y este punto verde indica que tienes mensajes nuevos. ¡Te invitamos a que explores todo Nekuno! ¡Gracias por participar en esta Beta privada!'
     },
     DiscoverPage                     : {
-        discover         : 'Descubrir',
-        editFilters      : 'Editar filtros',
-        loadingMessage   : 'Cargando recomendaciones',
-        noRecommendations: 'No hay recomendaciones con los filtros seleccionados'
+        discover               : 'Descubrir',
+        editFilters            : 'Editar filtros',
+        loadingMessage         : 'Cargando recomendaciones',
+        noRecommendationsTitle : '¡Oh vaya!',
+        noRecommendationsText  : 'No hemos encontrado a nadie que cumpla con todos los requisitos',
+        noRecommendationsAction: '¡Prueba a hacer una búsqueda más abierta!',
     },
     RecommendationPage               : {
         loadingMessage   : 'Cargando recomendaciones',

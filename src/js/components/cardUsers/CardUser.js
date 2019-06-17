@@ -86,32 +86,32 @@ export default class CardUser extends Component {
                 <div className="card-header">
                     <div className="card-content">
                         <div className="card-content-inner">
+                            <div className="image fixed-max-height-image">
+                                <Image src={imgSrc} defaultSrc={defaultSrc}/>
+                            </div>
+                        </div>
+                        <div className="card-content-overlay">
                             {like ?
                                 <div className="like-icon-container"><span className="icon-star"></span></div>
                                 : null
                             }
-                            <div className="image fixed-max-height-image">
-                                <Image src={imgSrc} defaultSrc={defaultSrc}/>
+                            <div className="data-container">
+                                <div className="card-title">{username}</div>
+                                <div className="card-sub-title">{subTitle}</div>
+                                {/* {online ? <div className="online-status">Online</div> : null}
+                                <div className="send-message-button icon-wrapper">
+                                {messageButton}
+                                </div> */}
                             </div>
                         </div>
                     </div>
                 </div>
                 {/* <CardUserTopLinks topLinks={topLinks} sharedLinks={sharedLinks} onClick={this.handleGoToProfile}/> */}
-                {/*<div className="card-header">
-
-                    <div className="card-sub-title">
-                        {subTitle}
-                    </div>
-                    {online ? <div className="online-status">Online</div> : null}
-                    <div className="send-message-button icon-wrapper">
-                    {messageButton}
-                    </div>
-                </div>*/}
                 <div className={"card-footer"}>
                     <div>
-                        <div className="card-title">
+                        {/* <div className="card-title">
                             {username}
-                        </div>
+                        </div> */}
 
                         <div className="matching-string">{strings.matching}</div>
                         <div className="matching-value">

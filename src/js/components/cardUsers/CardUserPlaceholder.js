@@ -32,10 +32,6 @@ export default class CardUserPlaceholder extends Component {
                 {/* <CardUserTopLinks topLinks={[]} sharedLinks={0}/> */}
                 <div className={"card-footer"}>
                     <div>
-                        <div className="card-title">
-                            {strings.loading}
-                        </div>
-
                         <div className="matching-string">{strings.matching}</div>
                         <div className="matching-value">
                             <ProgressBar percentage={0}/>

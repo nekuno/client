@@ -171,7 +171,31 @@
 			}
 		}
 		.card-content {
+			position: relative;
+			padding-bottom: 100%;
+			overflow: hidden;
+			
 			.card-content-inner {
+				position: absolute;
+				left: 0;
+				top: 0;
+				width: 100%;
+				.matching {
+					margin-top: -7px;
+				}
+			}
+			.card-content-overlay {
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				background: linear-gradient(to bottom, rgba(0,0,0,0) 50%, rgba(0,0,0,.65) 100%);
+				.data-container {
+					position: absolute;
+					left: 16px;
+					bottom: 16px;
+				}
 				.like-icon-container {
 					color: $material-orange-light;
 					margin: auto;
@@ -185,15 +209,23 @@
 						}
 					}
 				}
-				.matching {
-					margin-top: -7px;
-				}
+			}
+			.card-title, .card-sub-title {
+				color: $white;
+				font-size: 14px;
+				font-weight: 400;
+				text-align: left;
+				margin: 0;
+			}
+			.card-title {
+				font-size: 20px;
+				margin-bottom: 4px;
 			}
 		}
 		.card-footer {
 			.card-title {
 				font-weight: bold;
-				padding: 10px;
+				padding: 8px;
 				overflow: hidden;
 				text-overflow: ellipsis;
 				width: 90%;

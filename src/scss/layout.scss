@@ -230,6 +230,7 @@ body {
 						}
 						animation-name: loading-gif;
 						animation-duration: 1.8s;
+						animation-iteration-count: infinite;
 						background: url('img/loading.png') no-repeat;
 						background-size: 100px 100px;
 						background-position: center;

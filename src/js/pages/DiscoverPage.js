@@ -22,6 +22,7 @@ import RecommendationStore from '../stores/RecommendationStore';
 import WorkersStore from '../stores/WorkersStore';
 import ProfileStore from '../stores/ProfileStore';
 import Image from '../components/ui/Image';
+import TextRadios from '../components/ui/TextRadios';
 
 function parseId(user) {
     return user.id;
@@ -141,9 +142,12 @@ export default class DiscoverPage extends Component {
         this.onBottomScroll = this.onBottomScroll.bind(this);
         this.goToProfile = this.goToProfile.bind(this);
         this.selectProfile = this.selectProfile.bind(this);
+        this.selectOrder = this.selectOrder.bind(this);
+        this.changeOrder = this.changeOrder.bind(this);
 
         this.state = {
-            selectedUserSlug: null
+            selectedUserSlug: null,
+            orderSelected: false,
         };
     }
 
@@ -169,6 +173,23 @@ export default class DiscoverPage extends Component {
 
     editThread() {
         this.context.router.push(this.props.editThreadUrl);
+    }
+    
+    selectOrder() {
+        this.setState({orderSelected: true});
+    }
+    
+    changeOrder(order) {
+        const userFilters = selectn('thread.filters.userFilters', this.props);
+        if (!userFilters) return;
+        userFilters.order = order;
+
+        ThreadActionCreators.createThread(this.props.user.id,
+            { name: this.props.thread.name, filters: {userFilters}, category: 'ThreadUsers' })
+            .then((createdThread) => {
+            }, () => {
+            });
+        this.setState({orderSelected: false});
     }
 
     leftClickHandler() {
@@ -228,6 +249,25 @@ export default class DiscoverPage extends Component {
         }
     }
 
+    renderOrderSelector() {
+        const {strings} = this.props;
+        const {orderSelected} = this.state;
+        const value = selectn('thread.filters.userFilters.order', this.props) || 'matching';
+        return orderSelected && this.props.recommendations.length > 0 ?
+            <div key="order-selector" className="order-selector selected">
+                <TextRadios labels={['matching', 'similarity'].map(key => ({ key, text: strings[key] }) )}
+                                onClickHandler={this.changeOrder} value={value}
+                                title={strings.order} />
+            </div>
+            :
+            <div key="order-selector" className="order-selector" onClick={this.selectOrder}>
+                <span className="order-selector-status">
+                    {value == 'matching' ? strings.orderMatching : strings.orderSimilarity}
+                </span>
+                <span className="icon mdi mdi-chevron-down"></span>
+            </div>;
+    }
+
     getProcessesProgress() {
         return <ProcessesProgress />
     }
@@ -246,6 +286,7 @@ export default class DiscoverPage extends Component {
 
     getFirstItems() {
         let firstItems = [
+            this.renderOrderSelector(),
         ];
 
         if (this.props.profile) {

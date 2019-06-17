@@ -452,7 +452,6 @@ export default class CreateUsersThread extends Component {
                 <div className="users-filters-wrapper">
                     <div className="table-row"></div>
                     {this.renderActiveFilters()}
-                    {this.renderChoiceFilter(this.getOrderDefaultFilter(), 'order', data['order'] || 'matching', this.state.selectedFilter === 'order')}
                     <div className="table-row"></div>
                     <div className="add-filter-title">{strings.addFilterTitle}</div>
                     <div className="thread-filter add-filter">

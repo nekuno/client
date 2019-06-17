@@ -233,6 +233,10 @@ export default {
         noRecommendationsTitle : '¡Oh vaya!',
         noRecommendationsText  : 'No hemos encontrado a nadie que cumpla con todos los requisitos',
         noRecommendationsAction: '¡Prueba a hacer una búsqueda más abierta!',
+        orderMatching          : 'Ordenadas por compatibilidad',
+        orderSimilarity        : 'Ordenadas por similaridad',
+        matching               : 'Compatibilidad',
+        similarity             : 'Similaridad',
     },
     RecommendationPage               : {
         loadingMessage   : 'Cargando recomendaciones',

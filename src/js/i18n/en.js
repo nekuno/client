@@ -233,6 +233,10 @@ export default {
         noRecommendationsTitle : '',
         noRecommendationsText  : '',
         noRecommendationsAction: '',
+        orderMatching          : '',
+        orderSimilarity        : '',
+        matching               : 'Matching',
+        similarity             : 'Similarity',
     },
     RecommendationPage               : {
         loadingMessage   : 'Loading recommendations',

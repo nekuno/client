@@ -36,14 +36,16 @@ export default class CardUserPlaceholder extends Component {
                             {strings.loading}
                         </div>
 
-                        <PercentageValue percentage={0} text={strings.matching}/>
-                        <div className="matching-progress">
+                        <div className="matching-string">{strings.matching}</div>
+                        <div className="matching-value">
                             <ProgressBar percentage={0}/>
+                            <div className="matching-percentage"></div>
                         </div>
-
-                        <PercentageValue percentage={0} text={strings.similarity}/>
-                        <div className="similarity-progress">
+                        
+                        <div className="matching-string">{strings.similarity}</div>
+                        <div className="matching-value">
                             <ProgressBar percentage={0}/>
+                            <div className="matching-percentage"></div>
                         </div>
                     </div>
                 </div>

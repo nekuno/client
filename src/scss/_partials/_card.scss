@@ -199,28 +199,28 @@
 				width: 90%;
 				white-space: nowrap;
 			}
-			.matching-value {
-				color: $regular-gray;
-				display: inline-flex;
-				font-weight: bold;
-				margin: 5px auto;
-				width: 100%;
 
-				.matching-string {
-					display: inline-block;
-					margin: auto;
-					white-space: nowrap;
-					overflow: hidden;
-					text-overflow: ellipsis;
-				}
-				.matching-percentage {
-					display: inline-block;
-					margin: auto;
-					width: 31px;
-				}
+			.matching-string {
+				display: block;
+				margin-top: 12px;
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				font-size: 14px;
+				text-align: left;
+				line-height: 1;
 			}
 
-			.matching-progress {
+			.matching-value {
+				color: $regular-gray;
+				display: flex;
+				align-items: center;
+				font-size: 14px;
+				line-height: 1;
+				.matching-percentage {
+					text-align: right;
+					width: 3em;
+				}
 				.progress-bar {
 					flex: 1;
 		        	background-color: #E6E9EC;

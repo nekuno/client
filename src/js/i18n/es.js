@@ -592,6 +592,7 @@ export default {
         similarity: 'Similaridad',
         saving    : 'Guardando...',
         age       : 'Edad',
+        noLocation: 'El mundo',
     },
     CardUserPlaceholder              : {
         matching  : 'Compatibilidad',

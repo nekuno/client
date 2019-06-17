@@ -7,18 +7,18 @@ body #root .App .view {
     //position: absolute;
     right: 0;
     text-align: center;
+    font-size: 16px;
 
     a {
       color: white;
 
       .answer-questions-link-title {
-        font-size: 1.2em;
+        font-size: 16px;
         font-weight: bold;
         height: 55px;
       }
 
       .answer-questions-link-stats {
-        font-size: 0.857142857em;
         margin-top: 10px;
 
         p {
@@ -39,16 +39,6 @@ body #root .App .view {
           -moz-border-radius: 50%;
           -webkit-border-radius: 50%;
           width: 90px;
-        }
-      }
-    }
-  }
-
-  @media only screen and (min-width: 350px) {
-    .answer-questions-link-container {
-      a {
-        .answer-questions-link-title {
-          font-size: 1.428571429em;
         }
       }
     }

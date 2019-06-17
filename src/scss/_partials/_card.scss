@@ -221,21 +221,17 @@
 			}
 
 			.matching-progress {
-				.progress-bar [class^="progress-bar-"], .progress-bar [class*=" progress-bar-"] {
-					background-color: $flesh-colored;
+				.progress-bar {
+					flex: 1;
+		        	background-color: #E6E9EC;
+		          	margin-top: 4px;
+		          	margin-bottom: 5px;
 				}
-			}
-
-			.progress-bar {
-				height: 20px;
-				margin-top: -25px;
-				margin-left: -15px;
-				opacity: 0.6;
-				position: absolute;
-			}
-			.progress-bar [class^="progress-bar-"], .progress-bar [class*=" progress-bar-"] {
-				color: #bbb;
-				height: 20px;
+		        [class^="progress-bar"], [class*=" progress-bar-"] {
+		        	height: 3px;
+		          	border-radius: 1.5px;
+		          	min-width: 3px;
+		        }
 			}
 
 			&::before {

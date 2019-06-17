@@ -29,7 +29,6 @@ export default class CardUser extends Component {
         like                  : PropTypes.number,
         hideLikeButton        : PropTypes.bool.isRequired,
         loggedUserSlug        : PropTypes.string.isRequired,
-        profile               : PropTypes.object.isRequired,
         handleSelectProfile   : PropTypes.func,
         online                : PropTypes.bool,
         topLinks              : PropTypes.array,

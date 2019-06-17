@@ -26,7 +26,6 @@ export default class CardUserList extends Component {
     static propTypes = {
         recommendations       : PropTypes.array.isRequired,
         user                  : PropTypes.object.isRequired,
-        profile               : PropTypes.object.isRequired,
         handleSelectProfile   : PropTypes.func.isRequired,
         onBottomScroll        : PropTypes.func,
         isLoading             : PropTypes.bool,
@@ -48,7 +47,7 @@ export default class CardUserList extends Component {
     }
 
     buildCardUser(recommendation, index) {
-        const {user, profile, onlineUserIds, handleSelectProfile, orientationMustBeAsked} = this.props;
+        const {user, onlineUserIds, handleSelectProfile, orientationMustBeAsked} = this.props;
 
         return <CardUser
             key={index}
@@ -63,7 +62,6 @@ export default class CardUserList extends Component {
             like={recommendation.like}
             hideLikeButton={false}
             loggedUserSlug={user.slug}
-            profile={profile}
             handleSelectProfile={handleSelectProfile}
             online={onlineUserIds.some(id => id === recommendation.id)}
             slug={recommendation.slug}

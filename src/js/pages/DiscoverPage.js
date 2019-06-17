@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import selectn from 'selectn';
 import React, { Component } from 'react';
 import TopNavBar from '../components/ui/TopNavBar';
 import CardUserList from '../components/user/CardUserList';
@@ -245,38 +246,36 @@ export default class DiscoverPage extends Component {
 
     getFirstItems() {
         let firstItems = [
-            /* <div key="chip-list">{this.renderChipList.bind(this)()}</div>, */
-            /* <div key="edit-button">{this.getEditButton.bind(this)()}</div>, */
-            <div key="banner">{this.getBanner.bind(this)()}</div>,
-            <div key="processes-progress">{this.getProcessesProgress.bind(this)()}</div>
         ];
+
+        if (this.props.profile) {
+            firstItems.push(<div key="banner">{this.getBanner.bind(this)()}</div>);
+            firstItems.push(<div key="processes-progress">{this.getProcessesProgress.bind(this)()}</div>);
+        }
 
         const noRecommendations = this.props.recommendations.length === 0;
         const isThreadLoading = Object.keys(this.props.thread).length === 0;
-        const noUserInfo = Object.keys(this.props.profile).length === 0;
+        const noUserInfo = this.props.profile && Object.keys(this.props.profile).length === 0;
 
-        if ((isThreadLoading && noRecommendations ) || noUserInfo) {
-            firstItems.push(this.getEmptyMessage(this.props, !this.props.isLoadingRecommendations));
-        }
+        /*if ((isThreadLoading && noRecommendations) || noUserInfo) {
+            return [this.getLoadingMessage(this.props)];
+        }*/
 
         return firstItems;
     }
 
-    getEmptyMessage(props, loadingGif) {
-        const text = this.getEmptyMessageText(props);
-
-        return <div key="empty-message"><EmptyMessage text={text} loadingGif={loadingGif}/></div>;
-    }
-
-    getEmptyMessageText(props) {
-        const {thread, isLoadingRecommendations, strings} = props;
-        return !parseThreadId(thread) || isLoadingRecommendations ? strings.loadingMessage : strings.noRecommendations;
-    }
+    /*getLoadingMessage(props) {
+        const {strings} = props;
+        return <div key="empty-message"><EmptyMessage text={strings.loadingMessage} loadingGif={true}/></div>;
+    }*/
 
     render() {
         const {user, profile, orientationMustBeAsked, strings, recommendations, thread, isLoadingRecommendations, isThreadGroup} = this.props;
         const title = isThreadGroup ? thread.name : strings.discover;
         const isFirstLoading = isLoadingRecommendations && recommendations.length === 0;
+        const isThreadLoading = Object.keys(this.props.thread).length === 0;
+        const noUserInfo = this.props.profile && Object.keys(this.props.profile).length === 0;
+        const noRecommendations = !noUserInfo && !isThreadLoading && !isLoadingRecommendations && recommendations.length === 0;
 
         return (
             <div id="discover-views" className="views">
@@ -286,8 +285,8 @@ export default class DiscoverPage extends Component {
                 <div className="view view-main" id="discover-view-main" style={{overflow: 'hidden'}}>
                     <div className="page discover-page">
                         <div id="page-content">
-                            {profile ?
-                                <CardUserList firstItems={this.getFirstItems.bind(this)()} recommendations={recommendations} user={user} profile={profile}
+                            { !noRecommendations ?
+                                <CardUserList firstItems={this.getFirstItems.bind(this)()} recommendations={recommendations} user={user}
                                               handleSelectProfile={this.selectProfile} onBottomScroll={this.onBottomScroll} isLoading={isLoadingRecommendations}
                                               isFirstLoading={isFirstLoading} orientationMustBeAsked={orientationMustBeAsked}/>
                                 :
@@ -300,7 +299,6 @@ export default class DiscoverPage extends Component {
                                     </div>
                                 </div>
                             }
-                            <br />
                         </div>
                     </div>
                     {profile ? <OrientationRequiredPopup profile={profile} onContinue={this.goToProfile}/> : null}

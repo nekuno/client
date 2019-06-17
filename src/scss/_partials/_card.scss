@@ -3,6 +3,7 @@
 	vertical-align: top;
 	z-index: 100;
 	border-radius: $card-border-radius;
+	box-shadow: 0 0 2px rgba(0,0,0, .25);
 
 	.card-header {
 		display:block;
@@ -223,6 +224,8 @@
 			}
 		}
 		.card-footer {
+			padding: 0px 16px 16px;
+			
 			.card-title {
 				font-weight: bold;
 				padding: 8px;

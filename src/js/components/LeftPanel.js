@@ -161,6 +161,8 @@ export default class LeftPanel extends Component {
                     </div>
                     { userLoggedIn ?
                         <User {...this.props} onClick={this.handleGoClickProfile}/>
+                        : '' }
+                    { userLoggedIn ?
                         <div className="user-interests">
                             <a href="javascript:void(0)" onClick={this.handleGoClickInterests}>
                                 <div className="number">
@@ -171,6 +173,8 @@ export default class LeftPanel extends Component {
                                 </div>
                             </a>
                         </div>
+                        : '' }
+                    { userLoggedIn ?
                         <div className="content-block menu">
                             <a href="javascript:void(0)" onClick={this.handleGoClickProfile}>
                                 <span className="icon-person"></span>&nbsp;&nbsp;{strings.myProfile}

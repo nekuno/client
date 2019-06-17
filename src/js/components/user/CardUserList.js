@@ -77,9 +77,12 @@ export default class CardUserList extends Component {
         if (this.props.isFirstLoading) {
             return this.getPlaceholders();
         }
-        return this.props.recommendations.map((recommendation, index) => {
+        const cards = this.props.recommendations.map((recommendation, index) => {
             return this.buildCardUser(recommendation, index);
-        })
+        });
+        if (cards.length % 2 != 0)
+            cards.push(<CardUserPlaceholder key={cards.length} className="filler"/>);
+        return cards;
     }
 
     getPlaceholders() {

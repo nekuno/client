@@ -35,10 +35,16 @@ body #root .App .views .view .page.discover-page {
     }
 
     .user-list {
+      .infinite-column {
+        display: flex;
+        padding: 8px 12px 0;
+      }
       .card {
-        display: inline-block;
-        margin: 5px 1% 5px 1%;
-        width: 48%;
+        margin: 0 4px;
+        flex: 1;
+        &.filler {
+          visibility: hidden;
+        }
       }
     }
   }

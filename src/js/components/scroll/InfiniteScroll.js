@@ -152,7 +152,7 @@ export default class InfiniteScroll extends Component {
 
         return wrappedItems.map((wrappedItem, index) => {
             return (
-                <div key={index}>
+                <div className="infinite-column" key={index}>
                     {wrappedItem}
                 </div>
             );

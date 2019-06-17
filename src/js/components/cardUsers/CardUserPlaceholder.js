@@ -10,7 +10,7 @@ import PercentageValue from "./PercentageValue";
 export default class CardUserPlaceholder extends Component {
 
     static propTypes = {
-
+        className: PropTypes.string,
         // Injected by @translate:
         strings: PropTypes.object
     };
@@ -19,7 +19,7 @@ export default class CardUserPlaceholder extends Component {
 
         const {strings} = this.props;
         return (
-            <div className="card person-card">
+            <div className={`${this.props.className} card person-card`}>
                 <div className="card-header">
                     <div className="card-content">
                         <div className="card-content-inner">

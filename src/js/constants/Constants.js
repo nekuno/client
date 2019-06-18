@@ -45,6 +45,7 @@ export const API_URLS = {
     OWN_INTERESTS     : API_ROOT + 'content?type[]={type}',
     COMPARED_INTERESTS: API_ROOT + 'content/compare/{userId}?type[]={type}&showOnlyCommon={showOnlyCommon}',
     RECOMMENDATIONS   : API_ROOT + 'threads/{threadId}/recommendation',
+    OWN_LIKED_USERS   : API_ROOT + 'users/liked',
 };
 
 export const THREAD_TYPES = {

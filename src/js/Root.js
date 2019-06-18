@@ -102,6 +102,7 @@ export default class Root extends Component {
                         <Route name="question-stats" path="/question-stats" component={QuestionStatsPage}/>
                         <Route name="question-stats-from" path="/question-stats/:from" component={QuestionEditedStatsPage}/>
                         <Route name="question-stats-other" path="/question-other-stats/:slug" component={QuestionOtherStatsPage}/>
+                        <Route name="own-liked-users" path="/liked" component={DiscoverPage}/>
                         <Route name="invitations" path="/invitations" component={InvitationsPage}/>
                         <Route name="discover" path="/discover" component={DiscoverPage}/>
                         <Route name="recommendations" path="/recommendations/:threadId" component={RecommendationPage}/>

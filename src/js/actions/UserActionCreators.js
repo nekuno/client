@@ -238,6 +238,14 @@ export function dislikeUser(from, to, originContext, originName) {
     }, {from, to});
 }
 
+export function requestOwnLiked(url) {
+    return dispatchAsync(UserAPI.requestOwnLiked(url), {
+        request: ActionTypes.REQUEST_OWN_LIKED_USERS,
+        success: ActionTypes.REQUEST_OWN_LIKED_USERS_SUCCESS,
+        failure: ActionTypes.REQUEST_OWN_LIKED_USERS_ERROR
+    });
+}
+
 export function ignoreUser(from, to, originContext, originName) {
     dispatchAsync(UserAPI.setIgnoreUser(to, originContext, originName), {
         request: ActionTypes.IGNORE_USER,

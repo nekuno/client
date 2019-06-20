@@ -424,7 +424,7 @@ export default class OtherUserPage extends Component {
                                     </div>
                                 </div>
                                 <div className="user-header">
-                                    <div class="user-header-data">
+                                    <div className="user-header-data">
                                         <div className="username-title">
                                             {otherUser.username}
                                             {online ? <span className="online-status mdi mdi-circle"></span> : null}

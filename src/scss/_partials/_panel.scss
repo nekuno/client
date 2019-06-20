@@ -4,7 +4,7 @@ body.panels-3d.with-panel-left-reveal .views {
 }
 
 
-.panel-overlay {
+.panel-overlay { // FIXME: usar parámetro material
 	background: $overlay-bg;
 	transition-duration: 0.4s; // mantener sincronizado con la del panel
 	transition-property: opacity;

@@ -187,6 +187,8 @@ export default class DiscoverPage extends Component {
         ThreadActionCreators.createThread(this.props.user.id,
             { name: this.props.thread.name, filters: {userFilters}, category: 'ThreadUsers' })
             .then((createdThread) => {
+                // FIXME
+                ThreadActionCreators.requestRecommendations(createdThread.id, this.props.recommendationUrl);
             }, () => {
             });
         this.setState({orderSelected: false});
@@ -354,6 +356,7 @@ DiscoverPage.defaultProps = {
         discover         : 'Discover',
         editFilters      : 'Edit filters',
         loadingMessage   : 'Loading recommendations',
-        noRecommendations: 'There are no recommendations with selected filters'
+        noRecommendations: 'There are no recommendations with selected filters',
+        // FIXME: sync default props with strings
     }
 };

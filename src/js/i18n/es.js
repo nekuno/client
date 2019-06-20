@@ -268,8 +268,7 @@ export default {
     OtherUserPage                    : {
         profile               : 'Perfil',
         loading               : 'Cargando perfil',
-        age                   : 'Edad',
-        message               : 'Mensaje',
+        noLocation            : 'El mundo',
         about                 : 'Acerca de',
         photos                : 'Fotos',
         questions             : 'Respuestas',

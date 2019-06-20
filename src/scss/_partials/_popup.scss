@@ -3,14 +3,14 @@
 }
 
 .popup {
-	background: $overlay-bg;
+	background: $page-bg;
 	margin-top: 50px;
 	overflow: hidden;
 	position: fixed;
 
 	.content-block {
 		a {
-			color: #fff;
+			color: $deep_purple;
 			font-size: 1.1em;
 		}
 		p {
@@ -25,12 +25,12 @@
 			margin-bottom: 40px;
 		}
 		.popup-orientation-required-title {
-			color: #fff;
-			font-size: 1.785714286em;
+			color: $text_prin;
+			font-size: 20px;
 			text-align: center;
 		}
 		.popup-orientation-required-clarification {
-			color: #fff;
+			color: $text_prin;
 			margin-bottom: 10px;
 			font-weight: bold;
 			text-align: center;
@@ -86,7 +86,7 @@
 	&.popup-orientation-required {
 		z-index: 11111;
 		.text-radios-title {
-			color: #fff;
+			color: $text_prin;
 		}
 	}
 
@@ -104,7 +104,7 @@
 			}
 		}
 		.textarea-title {
-			color: #fff;
+			color: $text_prin;
 			margin: auto;
 			text-align: center;
 		}

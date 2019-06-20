@@ -19,20 +19,31 @@
   }
 
   .toolbar-inner {
-    background-color: $deep-purple;
-    font-size: 0.823529412em;
+    background: $white;
+    font-size: 14px;
+    height: 56px;
+    box-shadow: 0px -1px 19px rgba(101,150,255,0.15);
     height: $bottombar-hg;
+    display: flex;
 
-    .toolbar-link-wrapper {
-      height: $bottombar-hg;
+    .toolbar-link {
+      flex-basis: 0;
+      flex: 1;
+
       display: flex;
-      justify-content: center;
+      flex-direction: column;
+      text-align: center;
       align-items: center;
-      width: 30%;
-
-      a {
-        color: #fff;
-        display: block;
+      justify-content: center;
+      color: $text_second;
+      .icon {
+        position: relative;
+        font-size: 24px;
+        margin: -3px 0 -6px;
+      }
+      &.active {
+        .icon { color: $deep_purple; }
+        .text { color: $text_prin; }
       }
     }
   }

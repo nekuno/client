@@ -94,11 +94,11 @@ export default class CardUserList extends Component {
     }
 
     getItemHeight() {
-        const iW = window.innerWidth;
-        const photoHeight = iW >= 480 ? 230.39 : iW / 2 - 4 * iW / 100;
-        const bottomHeight = 137;
+        const iW = Math.min(window.innerWidth, 480);
+        const photoHeight = (iW - (16+8+16)) / 2;
+        const bottomHeight = 96;
 
-        return photoHeight + bottomHeight
+        return 8 + photoHeight + bottomHeight;
     }
 
     onResize() {

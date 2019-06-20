@@ -37,7 +37,9 @@ export default class TopLeftLink extends Component {
 							<Icon icon={icon} />
 						</div>
 						:
+						<a>
 							<Icon icon={icon} />
+						</a>
 					:
 					<a className="navbar-link-text">
 						{text}

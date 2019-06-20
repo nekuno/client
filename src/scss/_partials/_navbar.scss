@@ -17,24 +17,22 @@
 	display: flex;
 	padding: 0 16px;
 	box-sizing: border-box;
+	height: 50px;
+	align-items: center;
 	&.transparent-background-navbar {
 		background-color: transparent;
 	}
 
 	.col-30 {
 		cursor: pointer;
-		height: 50px;
-		flex-basis: 33%;
+		min-width: 40px;
 	}
 	.col-40 {
 		cursor: pointer;
-		height: 50px;
-		flex-basis: 33%;
+		flex-grow: 1;
 	}
 	.center {
-		display: flex;
-		justify-content: center;
-		align-items: center;
+		text-align: center;
 		font-size: 20px;
 	}
 
@@ -72,10 +70,8 @@
 		font-weight: bold;
 	}
 
-	.open-panel {
-		.icon-menu {
-			font-size: 16px;
-		}
+	a {
+		font-size: 16px;
 	}
 
 	.icon-circle {

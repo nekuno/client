@@ -36,6 +36,9 @@ export default class TopRightLink extends Component {
 									<Icon icon={icon} />&nbsp;<span className="text">{text}</span>
 								</div>
 								:
+								iconsWithoutCircle ?
+									<a> <Icon icon={icon} /> </a>
+									:
 									<div className={iconsWrapperClass}>
 										<Icon icon={icon} />
 									</div>

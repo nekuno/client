@@ -47,11 +47,16 @@ class ThreadStore extends BaseStore {
                 this._isRequesting = false;
                 this.emitChange();
                 break;
+            case ActionTypes.UPDATE_THREAD:
+                this._isRequesting  = true;
+                this.emitChange();
+                break;
             case ActionTypes.CREATE_THREAD_ERROR:
             case ActionTypes.UPDATE_THREAD_ERROR:
                 if (action.error) {
                     this._errors = getValidationErrors(action.error);
                 }
+                this._isRequesting = false;
                 this.emitChange();
                 break;
             case ActionTypes.UPDATE_THREAD_SUCCESS:
@@ -61,6 +66,7 @@ class ThreadStore extends BaseStore {
                     }
                 });
                 this.disable(action.threadId);
+                this._isRequesting = false;
                 this.emitChange();
                 break;
             case ActionTypes.DELETE_THREAD:

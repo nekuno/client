@@ -23,6 +23,7 @@ import WorkersStore from '../stores/WorkersStore';
 import ProfileStore from '../stores/ProfileStore';
 import Image from '../components/ui/Image';
 import TextRadios from '../components/ui/TextRadios';
+import LikedUsersStore from '../stores/LikedUsersStore';
 
 function parseId(user) {
     return user.id;
@@ -41,6 +42,10 @@ function getDisplayedThread(props) {
     return ThreadStore.getMainDiscoverThread();
 }
 
+function isLocationLiked() {
+    return document.location.hash === '#/liked';
+}
+
 /**
  * Requests data from server for current props.
  */
@@ -55,11 +60,36 @@ function requestData(props) {
     ThreadActionCreators.requestFilters();
 }
 
+function getRecommendationsFromStore(threadId) {
+    if (isLocationLiked()) {
+        return LikedUsersStore.get();
+    }
+
+    return RecommendationStore.get(threadId) ? RecommendationStore.get(threadId) : [];
+}
+
+function getIsLoadingFromStore(threadId) {
+    if (isLocationLiked()) {
+        return LikedUsersStore.isLoading();
+    }
+
+    if (threadId) {
+        return RecommendationStore.isLoadingRecommendations(threadId);
+    }
+}
+
+function getRecommendationUrlFromStore(threadId) {
+    if (isLocationLiked()) {
+        return LikedUsersStore.getRequestUrl();
+    }
+
+    return RecommendationStore.getRecommendationUrl(threadId);
+}
+
 /**
  * Retrieves state from stores for current props.
  */
 function getState(props) {
-
     let userId = parseId(props.user);
     const profile = ProfileStore.get(props.user.slug);
     const orientationMustBeAsked = ProfileStore.orientationMustBeAsked();
@@ -70,18 +100,17 @@ function getState(props) {
     let thread = getDisplayedThread(props);
     const threadId = parseThreadId(thread);
     const isLoadingThread = ThreadStore.isRequesting();
-    let isLoadingRecommendations = false;
+    let isLoadingRecommendations = getIsLoadingFromStore(threadId);
     if (threadId) {
         if (Object.keys(thread).length !== 0) {
             thread.isEmpty = RecommendationStore.isEmpty(threadId);
-            isLoadingRecommendations = RecommendationStore.isLoadingRecommendations(threadId);
         }
         filters = FilterStore.filters;
-        recommendations = RecommendationStore.get(threadId) ? RecommendationStore.get(threadId) : [];
+        recommendations = getRecommendationsFromStore(threadId)
     }
     const networks = WorkersStore.getAll();
     const isThreadGroup = thread.groupId !== null;
-    const recommendationUrl = RecommendationStore.getRecommendationUrl(threadId);
+    const recommendationUrl = getRecommendationUrlFromStore(threadId);
     const isInitialRequest = RecommendationStore.isInitialRequestUrl(recommendationUrl, threadId);
     const editThreadUrl = ThreadStore.getEditThreadUrl(threadId);
 
@@ -105,7 +134,7 @@ function getState(props) {
 
 @AuthenticatedComponent
 @translate('DiscoverPage')
-@connectToStores([ThreadStore, RecommendationStore, FilterStore, WorkersStore, ProfileStore, QuestionStore], getState)
+@connectToStores([ThreadStore, RecommendationStore, LikedUsersStore, FilterStore, WorkersStore, ProfileStore, QuestionStore], getState)
 export default class DiscoverPage extends Component {
 
     static propTypes = {
@@ -137,13 +166,16 @@ export default class DiscoverPage extends Component {
     constructor(props) {
         super(props);
 
+        this.requestNewItems = this.requestNewItems.bind(this);
         this.editThread = this.editThread.bind(this);
         this.leftClickHandler = this.leftClickHandler.bind(this);
         this.onBottomScroll = this.onBottomScroll.bind(this);
         this.goToProfile = this.goToProfile.bind(this);
+        this.goToDiscover = this.goToDiscover.bind(this);
         this.selectProfile = this.selectProfile.bind(this);
         this.selectOrder = this.selectOrder.bind(this);
         this.changeOrder = this.changeOrder.bind(this);
+        this.renderNoRecommendations = this.renderNoRecommendations.bind(this);
 
         this.state = {
             selectedUserSlug: null,
@@ -151,13 +183,25 @@ export default class DiscoverPage extends Component {
         };
     }
 
+    requestNewItems(threadId, recommendationUrl, loading) {
+        if (loading){
+            return;
+        }
+        if (isLocationLiked()) {
+            UserActionCreators.requestOwnLiked(recommendationUrl);
+        } else {
+            ThreadActionCreators.requestRecommendations(threadId, recommendationUrl);
+        }
+    }
+
     componentDidMount() {
+        this.setState({isLocationLiked: this.context.router.location.pathname === '/liked'});
         const {thread, recommendationUrl, isLoadingRecommendations, recommendations} = this.props;
         requestData(this.props);
         const threadId = parseId(thread);
         const canRequestFirstInterests = recommendationUrl && recommendations.length === 0;
         if (canRequestFirstInterests && !isLoadingRecommendations && threadId) {
-            ThreadActionCreators.requestRecommendations(threadId, recommendationUrl);
+            this.requestNewItems(threadId, recommendationUrl, isLoadingRecommendations);
         }
     }
 
@@ -167,18 +211,18 @@ export default class DiscoverPage extends Component {
         const receivedThread = parseId(prevProps.thread) !== threadId;
         const canRequestFirstInterests = recommendationUrl && recommendations.length === 0;
         if ((receivedThread || canRequestFirstInterests) && !isLoadingRecommendations && threadId) {
-            ThreadActionCreators.requestRecommendations(threadId, recommendationUrl);
+            this.requestNewItems(threadId, recommendationUrl, isLoadingRecommendations);
         }
     }
 
     editThread() {
         this.context.router.push(this.props.editThreadUrl);
     }
-    
+
     selectOrder() {
         this.setState({orderSelected: true});
     }
-    
+
     changeOrder(order) {
         const userFilters = selectn('thread.filters.userFilters', this.props);
         if (!userFilters) return;
@@ -204,7 +248,7 @@ export default class DiscoverPage extends Component {
         const {thread, recommendationUrl, isLoadingRecommendations, isLoadingThread, isInitialRequest} = this.props;
         const threadId = parseThreadId(thread);
         if (threadId && recommendationUrl && !isInitialRequest && !isLoadingRecommendations && !isLoadingThread) {
-            return ThreadActionCreators.requestRecommendations(threadId, recommendationUrl);
+            this.requestNewItems(threadId, recommendationUrl);
         } else {
             return Promise.resolve();
         }
@@ -271,7 +315,7 @@ export default class DiscoverPage extends Component {
     }
 
     getProcessesProgress() {
-        return <ProcessesProgress />
+        return <ProcessesProgress/>
     }
 
     getBanner() {
@@ -312,19 +356,50 @@ export default class DiscoverPage extends Component {
         return <div key="empty-message"><EmptyMessage text={strings.loadingMessage} loadingGif={true}/></div>;
     }*/
 
+    renderNoRecommendations()
+    {
+        const {strings} = this.props;
+        return isLocationLiked() ?
+        <div className="no-recommendations">
+            <div>
+                <Image className="header-image" src="img/no-recommendations.png" />
+                <p className="title">{strings.noRecommendationsTitle}</p>
+                <p>{strings.noLikedText}</p>
+                <p><a onClick={this.goToDiscover}>{strings.noLikedAction}</a></p>
+            </div>
+        </div>
+            :
+            <div className="no-recommendations">
+                <div>
+                    <Image className="header-image" src="img/no-recommendations.png" />
+                    <p className="title">{strings.noRecommendationsTitle}</p>
+                    <p>{strings.noRecommendationsText}</p>
+                    <p><a onClick={this.editThread}>{strings.noRecommendationsAction}</a></p>
+                </div>
+            </div>
+        ;
+    }
+
+    goToDiscover() {
+        this.context.router.push(`/discover`);
+    }
+
     render() {
         const {user, profile, orientationMustBeAsked, strings, recommendations, thread, isLoadingRecommendations, isThreadGroup} = this.props;
-        const title = isThreadGroup ? thread.name : strings.discover;
+        const title = isThreadGroup ? thread.name : isLocationLiked() ? strings.liked : strings.discover;
         const isFirstLoading = isLoadingRecommendations && recommendations.length === 0;
         const isThreadLoading = Object.keys(this.props.thread).length === 0;
         const noUserInfo = this.props.profile && Object.keys(this.props.profile).length === 0;
         const noRecommendations = !noUserInfo && !isThreadLoading && !isLoadingRecommendations && recommendations.length === 0;
 
+        const filtersIcon = isLocationLiked() ? null : "mdi-tune-vertical";
+        const filtersHandler = isLocationLiked() ? null : this.editThread;
+
         return (
             <div id="discover-views" className="views">
                 {Object.keys(thread).length > 0 ?
-                    <TopNavBar leftMenuIcon={!isThreadGroup} leftIcon="left-arrow" centerText={title} onLeftLinkClickHandler={this.leftClickHandler} rightIcon="mdi-tune-vertical" rightIconsWithoutCircle={true} onRightLinkClickHandler={this.editThread} />
-                    : <TopNavBar leftMenuIcon={true}  centerText={title} rightIcon="mdi-tune-vertical" rightIconsWithoutCircle={true} onRightLinkClickHandler={this.editThread} />}
+                    <TopNavBar leftMenuIcon={!isThreadGroup} leftIcon="left-arrow" centerText={title} onLeftLinkClickHandler={this.leftClickHandler} rightIcon={filtersIcon} rightIconsWithoutCircle={true} onRightLinkClickHandler={filtersHandler}/>
+                    : <TopNavBar leftMenuIcon={true} centerText={title} rightIcon={filtersIcon} rightIconsWithoutCircle={true} onRightLinkClickHandler={filtersHandler}/>}
                 <div className="view view-main" id="discover-view-main" style={{overflow: 'hidden'}}>
                     <div className="page discover-page">
                         <div id="page-content">
@@ -333,14 +408,7 @@ export default class DiscoverPage extends Component {
                                               handleSelectProfile={this.selectProfile} onBottomScroll={this.onBottomScroll} isLoading={isLoadingRecommendations}
                                               isFirstLoading={isFirstLoading} orientationMustBeAsked={orientationMustBeAsked}/>
                                 :
-                                <div className="no-recommendations">
-                                    <div>
-                                        <Image className="header-image" src="img/no-recommendations.png" />
-                                        <p className="title">{strings.noRecommendationsTitle}</p>
-                                        <p>{strings.noRecommendationsText}</p>
-                                        <p><a onClick={this.editThread}>{strings.noRecommendationsAction}</a></p>
-                                    </div>
-                                </div>
+                                this.renderNoRecommendations()
                             }
                         </div>
                     </div>
@@ -354,6 +422,7 @@ export default class DiscoverPage extends Component {
 DiscoverPage.defaultProps = {
     strings: {
         discover         : 'Discover',
+        liked            : 'Liked users',
         editFilters      : 'Edit filters',
         loadingMessage   : 'Loading recommendations',
         noRecommendations: 'There are no recommendations with selected filters',

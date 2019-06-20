@@ -14,6 +14,9 @@ import UserStore from '../stores/UserStore';
 import ProfileStore from '../stores/ProfileStore';
 import StatsStore from '../stores/StatsStore';
 import Framework7Service from '../services/Framework7Service';
+import AboutMeCategory from "../components/profile/AboutMeCategory/AboutMeCategory";
+import NaturalCategory from "../components/profile/NaturalCategory/NaturalCategory";
+import Button from "../components/ui/Button";
 
 function parseId(user) {
     return user.id;
@@ -73,6 +76,16 @@ export default class UserPage extends Component {
         router: PropTypes.object.isRequired
     };
 
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            editMode: false,
+        };
+
+        this.getNatural = this.getNatural.bind(this);
+    }
+
     componentDidMount() {
         requestData(this.props);
     }
@@ -83,8 +96,41 @@ export default class UserPage extends Component {
         }
     }
 
+    getNatural() {
+        const {profile, strings} = this.props;
+        const natural = profile.naturalProfile;
+
+        const categories = Object.keys(natural).map((type) => {
+            const text = natural[type];
+            return <div key={type}>
+                {
+                    type === 'About Me' ?
+                        <AboutMeCategory text={text}/>
+                        :
+                        <NaturalCategory category={type} text={text}/>
+                }
+            </div>
+
+        });
+
+        let editButton = <div className='edit-profile-button'><Button key='editButton' onClick={this.toggleEditMode} >
+            <span> {strings.editProfile} </span>
+        </Button></div>;
+
+        categories.push(editButton);
+
+        return categories;
+    }
+
+    toggleEditMode() {
+        const {editMode} = this.state;
+
+        this.setState({editMode: !editMode})
+    }
+
     render() {
         const {user, profile, metadata, profileWithMetadata, stats, strings} = this.props;
+        const {editMode} = this.state;
         return (
             <div className="views">
                 <TopNavBar leftMenuIcon={true} centerText={strings.myProfile}/>
@@ -106,7 +152,11 @@ export default class UserPage extends Component {
                                     <div className="label">{strings.interests}</div>
                                 </div>
                                 <ShareProfileBanner user={user}/>
-                                <ProfileDataList profile={profile} metadata={metadata} profileWithMetadata={profileWithMetadata}/>
+                                {editMode ?
+                                    <ProfileDataList profile={profile} metadata={metadata} profileWithMetadata={profileWithMetadata}/>
+                                    :
+                                    this.getNatural()
+                                }
                             </div>
                             : ''}
                     </div>
@@ -122,6 +172,7 @@ UserPage.defaultProps = {
         photos   : 'Photos',
         questions: 'Answers',
         interests: 'Interests',
-        myProfile: 'My profile'
+        myProfile: 'My profile',
+        editProfile: 'Edit profile'
     }
 };

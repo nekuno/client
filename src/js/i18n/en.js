@@ -234,11 +234,14 @@ export default {
     },
     DiscoverPage                     : {
         discover               : 'Discover',
+        liked                  : 'Liked users',
         editFilters            : 'Edit filters',
         loadingMessage         : 'Loading recommendations',
         noRecommendationsTitle : '',
         noRecommendationsText  : '',
         noRecommendationsAction: '',
+        noLikedText            : '',
+        noLikedAction          : '',
         orderMatching          : '',
         orderSimilarity        : '',
         matching               : 'Matching',
@@ -269,7 +272,8 @@ export default {
         photos   : 'Photos',
         questions: 'Answers',
         interests: 'Interests',
-        myProfile: 'My profile'
+        myProfile: 'My profile',
+        editProfile: 'Edit profile'
     },
     OtherUserPage                    : {
         profile               : 'Profile',

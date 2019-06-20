@@ -117,7 +117,7 @@ body #root .App .view .page {
               text-align: right;
 
               .joyride-start-button-wrapper {
-                background-color: #fff;
+                //background: $white;
                 border-radius: 50%;
                 -moz-border-radius: 50%;
                 -webkit-border-radius: 50%;
@@ -127,12 +127,12 @@ body #root .App .view .page {
                 width: 42px;
                 
                 .joyride-start-button {
-                  background-color: $dark-blue;
+                  background-color: $deep-purple;
+                  color: $white;
                   border-radius: 50%;
                   -moz-border-radius: 50%;
                   -webkit-border-radius: 50%;
                   font-size: 1.6em;
-                  margin: 1px 0 0 1px;
                   text-align: center;
                   font-weight: bold;
                   height: 40px;
@@ -141,7 +141,7 @@ body #root .App .view .page {
               }
 
               .answer-question-own-picture-container, .answer-question-other-picture-container {
-                background-color: #fff;
+                // background: $white;
                 border-radius: 50%;
                 -moz-border-radius: 50%;
                 -webkit-border-radius: 50%;
@@ -166,11 +166,11 @@ body #root .App .view .page {
                   }
                 }
                 .answer-question-other-picture {
-                  background: $dark-blue;
+                  background: $deep-purple;
                   text-align: center;
+                  color: $white;
 
                   span {
-                    color: #fff;
                     line-height: 40px;
                   }
                 }
@@ -217,7 +217,7 @@ body #root .App .view .page {
                   }
                 }
                 .icon-form-checkbox {
-                  border-radius: 0;
+                  border-radius: 4px;
                 }
               }
             }
@@ -242,6 +242,10 @@ body #root .App .view .page {
           }
 
           .accepted-answers-importance {
+            padding: 30px 0;
+            .text-radios {
+              padding: 0;
+            }
             .text-radios .text-radios-title {
               width: 115%;
               margin-left: -7.5%;

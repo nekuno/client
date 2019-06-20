@@ -102,6 +102,7 @@ export default class OtherInterestsPage extends Component {
             swiper         : null,
             reportContentId: null,
             reportReason   : null,
+            filterExpanded : false,
         }
     }
 
@@ -280,18 +281,50 @@ export default class OtherInterestsPage extends Component {
             <TextRadios labels={[{key: 0, text: strings.all}, {key: 1, text: strings.common}]} value={showOnlyCommon} onClickHandler={this.onFilterCommonClick} disabled={isLoadingComparedInterests}/>
         </div>;
     }
+    
+    buildStatusMessage() { // FIXME: localize
+        const {type, showOnlyCommon, strings} = this.props;
+
+        const object = !type ? 'intereses' :
+            (type.substring(0, 4) === 'Link') ? `intereses de ${type.substring(4)}`
+            : strings['filter' + type];
+        const allPrefix = type === 'Audio' ? 'toda la ' : type === 'Image' ? 'todas las ' : 'todos los ';
+        const showAllPrefix = !type || !showOnlyCommon;
+        return 'Mostrando ' + (showAllPrefix ? allPrefix : '') + object + (showOnlyCommon ? ' en común' : '');
+    }
+    
+    getFilterArea() {
+        const {filterExpanded} = this.state;
+
+        const switchState =
+            <div className={`switch-state ${filterExpanded ? 'expanded' : 'collapsed'}`}
+                 onClick={() => this.setState({ filterExpanded: !filterExpanded })}>
+                { filterExpanded ? '' :
+                    <span className="status">{this.buildStatusMessage()}</span>}
+                <span className={`icon mdi mdi-chevron-${filterExpanded ? 'up' : 'down'}`}></span>
+            </div>;
+
+        return filterExpanded ?
+            <div className="filter-area" key="filter-area">
+                <div key="filter-buttons">{this.getFilterContentButtonsList()}</div>
+                <div key="common-content-button">{this.getCommonContentSwitch()}</div>
+                {switchState}
+            </div>
+            :
+            <div className="filter-area" key="filter-area">
+                {switchState}
+            </div>;
+    }
 
     getFirstItems() {
+        const filterArea = this.getFilterArea();
         const profileAvatarsConnection = <div key="avatars-connection">{this.getProfileAvatarsConnection.bind(this)()}</div>;
         const title = <div key="title">{this.getTitle.bind(this)()}</div>;
-        const filterButtons = <div key="filter-buttons">{this.getFilterContentButtonsList.bind(this)()}</div>;
-        const commonContentSwitch = <div key="common-content-button">{this.getCommonContentSwitch.bind(this)()}</div>;
 
         return [
+            filterArea,
             profileAvatarsConnection,
             title,
-            filterButtons,
-            commonContentSwitch
         ]
     }
 

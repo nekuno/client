@@ -168,7 +168,13 @@ export default {
         interests            : 'Intereses',
         loading              : 'Cargando intereses',
         empty                : 'No hay intereses con estos filtros',
-        reported             : 'El contenido ha sido reportado. Lo revisaremos en las próximas 24 horas'
+        reported             : 'El contenido ha sido reportado. Lo revisaremos en las próximas 24 horas',
+        filterVideo  : 'videos',
+        filterAudio  : 'música',
+        filterImage  : 'fotos',
+        filterWeb    : 'enlaces',
+        filterGame   : 'juegos',
+        filterCreator: 'canales',
     },
     OtherQuestionsPage               : {
         coincidences: 'Coincidencias de',

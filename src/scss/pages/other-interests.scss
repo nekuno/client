@@ -1,3 +1,5 @@
+@import '../_partials/colors';
+
 body #root .App .views {
 
   #other-interests-view-main {
@@ -9,8 +11,29 @@ body #root .App .views {
       margin: 60px auto 0 auto;
       width: 100%;
 
+      .filter-area {
+        box-shadow: 0 0 2px rgba(0,0,0, .3);
+        padding: 1px 0;
+        .switch-state {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          font-size: 16px;
+          padding: 8px 0 8px;
+          text-align: center;
+          &.expanded {
+            padding-top: 24px 0 24px;
+          }
+          .status {
+          }
+          .icon {
+            color: $deep-purple;
+          }
+        }
+      }
+
       .profile-avatars-connection {
-        margin: 50px auto 10px auto;
+        margin: 10px auto 10px auto;
         text-align: center;
       }
 
@@ -23,7 +46,7 @@ body #root .App .views {
         width: 75%;
 
         .text-radios {
-          padding: 5px 0 35px 0;
+          padding: 5px 0 5px 0;
 
           .chip {
             width: 49%;

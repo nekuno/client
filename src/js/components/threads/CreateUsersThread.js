@@ -59,7 +59,6 @@ export default class CreateUsersThread extends Component {
         this.handleChangeFilter = this.handleChangeFilter.bind(this);
         this.handleChangeFilterAndUnSelect = this.handleChangeFilterAndUnSelect.bind(this);
         this.handleClickOutside = this.handleClickOutside.bind(this);
-        this.scrollToFilter = this.scrollToFilter.bind(this);
         this.goToSelectedFilters = this.goToSelectedFilters.bind(this);
         this.editThread = this.editThread.bind(this);
         this.createThread = this.createThread.bind(this);
@@ -107,7 +106,6 @@ export default class CreateUsersThread extends Component {
                 selectedFilter: value,
                 filters       : filters
             });
-            this.scrollToFilter();
         } else {
             delete filters[value];
             this.setState({
@@ -344,17 +342,6 @@ export default class CreateUsersThread extends Component {
         if (selectedFilter && !selectedFilter.contains(e.target)) {
             this.setState({selectedFilter: null});
         }
-    }
-
-    scrollToFilter() {
-        clearTimeout(this.selectFilterTimeout);
-        this.selectFilterTimeout = setTimeout(() => {
-            let selectedFilterElem = this.refs.selectedFilter;
-            if (selectedFilterElem) {
-                selectedFilterElem.scrollIntoView();
-                document.getElementsByClassName('view')[0].scrollTop -= 100;
-            }
-        }, 0);
     }
 
     createThread() {

@@ -5,6 +5,12 @@ body #root .App .views .view .page.user-page {
   #page-content {
     width: 100%;
     margin-bottom: $bottombar-hg + 16px;
+
+    .edit-profile-button {
+      width: 120px;
+      margin: 0 auto;
+    }
+
     .user-interests {
       .label {
         font-size: 0.857142857em;

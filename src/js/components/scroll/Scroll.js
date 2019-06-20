@@ -92,7 +92,7 @@ export default class Scroll extends Component {
         const scrollHeight = scrollElem.children[0].clientHeight - scrollElem.clientHeight;
         const scrollPosition = scrollElem.scrollTop;
 
-        return scrollPosition >= scrollHeight;
+        return scrollPosition >= scrollHeight - 20;
     }
 
     getHeight() {

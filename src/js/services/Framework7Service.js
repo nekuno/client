@@ -17,6 +17,15 @@ class Framework7Service {
         });
         this._$$ = Dom7;
     }
+    
+    // La inicialización se hace cuando aún no existe el HTML del panel
+    // por tanto swipePanel y otros no funcionan. Como hack un poco cutre,
+    // esperaremos a que se monte el HTML y volveremos a llamar al método
+    // interno que inicializa el swipe
+    reinitialize() {
+        this._nekunoApp.initSwipePanels();
+    }
+
 
     nekunoApp() {
         return this._nekunoApp

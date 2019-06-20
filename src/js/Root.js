@@ -49,6 +49,7 @@ import GroupContentsPage from './pages/GroupContentsPage';
 import SettingsPage from './pages/SettingsPage';
 import RouterActionCreators from './actions/RouterActionCreators';
 import LoginStore from './stores/LoginStore';
+import Framework7Service from './services/Framework7Service';
 
 function requireAuth(nextState, replaceState) {
 
@@ -65,6 +66,10 @@ export default class Root extends Component {
     static propTypes = {
         history: PropTypes.object.isRequired
     };
+    
+    componentDidMount() {
+        Framework7Service.reinitialize();
+    }
 
     render() {
         const {history} = this.props;

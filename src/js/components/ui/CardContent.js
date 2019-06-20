@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { ORIGIN_CONTEXT } from '../../constants/Constants';
 import ProgressBar from './ProgressBar';
-import CardIcons from './CardIcons';
 import Image from './Image';
 import UserStore from '../../stores/UserStore';
 import * as UserActionCreators from '../../actions/UserActionCreators'
@@ -63,7 +62,9 @@ export default class CardContent extends Component {
         }
     }
 
-    onDropDown() {
+    onDropDown(e) {
+        e.stopPropagation();
+
         const {rate, title, strings} = this.props;
         const likeText = rate ? strings.unlike : strings.like;
         let buttons = [
@@ -209,8 +210,8 @@ export default class CardContent extends Component {
 
     render() {
         const {title, description, types, rate, hideLikeButton, fixedHeight, thumbnail, url, matching, strings} = this.props;
-        const cardTitle = title ? title.length > 20 ? title.substr(0, 20) +  '...' : title : strings.emptyTitle;
-        const subTitle = description ? <div>{description.substr(0, 20)}{description.length > 20 ? '...' : ''}</div> : fixedHeight ? <div>&nbsp;</div> : '';
+        const cardTitle = title ? title.length > 25 ? title.substr(0, 25) +  '...' : title : strings.emptyTitle;
+        const subTitle = description ? (description.substr(0, 40) + (description.length > 40 ? '...' : '')) : '';
         const imageClass = fixedHeight ? 'image fixed-max-height-image' : 'image';
         const isImage = types.indexOf('Image') > -1;
         const defaultSrc = 'img/default-content-image.jpg';
@@ -222,61 +223,55 @@ export default class CardContent extends Component {
         }
         imgSrc = LinkImageService.getThumbnail(imgSrc, 'medium');
 
-        return (
-            <div className="card content-card">
-                {isImage ?
-                    <div className={"card-drop-down-menu"} onClick={this.onDropDown}>
-                        <span className="icon-angle-down"></span>
-                    </div>
-                    :
-                    <div className="card-header">
-                        <div className={"card-drop-down-menu"} onClick={this.onDropDown}>
-                            <span className="icon-angle-down"></span>
-                        </div>
-                        <div className="card-title" onClick={this.handleClick}>
-                            <a href={url} onClick={this.preventDefault}>
-                                {cardTitle}
-                            </a>
-                        </div>
-                        <div className="card-sub-title" onClick={this.handleClick}>
-                            {subTitle}
-                        </div>
-                    </div>
-                }
-                <div className="card-icons" onClick={this.handleClick}>
-                    <CardIcons types={types}/>
-                </div>
-                <div className="card-content" onClick={this.handleClick}>
-                    <div className="card-content-inner">
-                        {this.state.embedHtml ? this.state.embedHtml :
-                            <a href={url} onClick={this.preventDefault}>
-                                <div className={imageClass}>
-                                    <Image src={imgSrc} defaultSrc={defaultSrc}/>
-                                </div>
-                            </a>
-                        }
-                        {!this.state.embedHtml && typeof matching !== 'undefined' ?
-                            <div className="matching">
-                                <div className="matching-value">{strings.compatibility} {matching ? matching + '%' : '?'}</div>
-                                <ProgressBar percentage={matching}/>
-                            </div>
-                            :
-                            null
-                        }
+        let network = null;
+        const networkIndex = types.findIndex(type => type.length > 4 && type.substr(0, 4) === 'Link');
+        if (networkIndex !== -1)
+            network = types[networkIndex].substr(4);
 
-                    </div>
+        const contentIcons = {
+            Video: 'play',
+            Audio: 'music-note',
+            Image: 'image-filter-hdr',
+            Web: 'link-variant',
+            Creator: 'rss',
+            Game: 'gamepad-variant',
+        };
+        const contentIndex = types.findIndex({}.hasOwnProperty.bind(contentIcons));
+        const contentIcon = contentIcons[types[contentIndex]];
+
+        return (
+            <div className="card content-card" onClick={this.handleClick}>
+                <div className="card-content" style={{ backgroundImage: `url(${imgSrc || defaultSrc})` }}>
+                    {this.state.embedHtml ?
+                        <div className="card-content-embed">
+                            {this.state.embedHtml}
+                        </div>
+                        :
+                        <div className="card-content-overlay">
+                            <div className={"card-drop-down-menu"} onClick={this.onDropDown}>
+                                <span className="mdi mdi-dots-vertical"></span>
+                            </div>
+                        </div>
+                    }
                 </div>
-                {!hideLikeButton ?
-                    <div className="card-footer">
-                        <div className="like-button icon-wrapper" onClick={rate !== null ? this.onRate : null}>
-                            <span className={rate === null ? 'icon-spinner rotation-animation' : rate && rate !== -1 ? 'icon-star yellow' : 'icon-star'}></span>
-                        </div>
-                        <div className="icon-wrapper" onClick={this.onShare}>
-                            <span className="icon-share"></span>
-                        </div>
+                <div className="card-footer">
+                    <div className="content-indicators">
+                        {network ?
+                            <div className="content-network">
+                                <span className={`icon mdi mdi-${network.toLowerCase()}`}></span>
+                                <span className="label">{network}</span>
+                            </div>
+                            : <div className="content-network"></div> }
+                        {contentIcon ?
+                            <div className="content-type">
+                                <span className={`mdi mdi-${contentIcon}`}></span>
+                            </div>
+                            : '' }
                     </div>
-                    : ''
-                }
+                    
+                    <div className="card-title">{cardTitle}</div>
+                    <div className="card-sub-title">{subTitle}</div>
+                </div>
             </div>
         );
     }

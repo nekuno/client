@@ -171,9 +171,11 @@ export default class DiscoverPage extends Component {
         this.leftClickHandler = this.leftClickHandler.bind(this);
         this.onBottomScroll = this.onBottomScroll.bind(this);
         this.goToProfile = this.goToProfile.bind(this);
+        this.goToDiscover = this.goToDiscover.bind(this);
         this.selectProfile = this.selectProfile.bind(this);
         this.selectOrder = this.selectOrder.bind(this);
         this.changeOrder = this.changeOrder.bind(this);
+        this.renderNoRecommendations = this.renderNoRecommendations.bind(this);
 
         this.state = {
             selectedUserSlug: null,
@@ -216,11 +218,11 @@ export default class DiscoverPage extends Component {
     editThread() {
         this.context.router.push(this.props.editThreadUrl);
     }
-    
+
     selectOrder() {
         this.setState({orderSelected: true});
     }
-    
+
     changeOrder(order) {
         const userFilters = selectn('thread.filters.userFilters', this.props);
         if (!userFilters) return;
@@ -352,19 +354,50 @@ export default class DiscoverPage extends Component {
         return <div key="empty-message"><EmptyMessage text={strings.loadingMessage} loadingGif={true}/></div>;
     }*/
 
+    renderNoRecommendations()
+    {
+        const {strings} = this.props;
+        return isLocationLiked() ?
+        <div className="no-recommendations">
+            <div>
+                <Image className="header-image" src="img/no-recommendations.png" />
+                <p className="title">{strings.noRecommendationsTitle}</p>
+                <p>{strings.noLikedText}</p>
+                <p><a onClick={this.goToDiscover}>{strings.noLikedAction}</a></p>
+            </div>
+        </div>
+            :
+            <div className="no-recommendations">
+                <div>
+                    <Image className="header-image" src="img/no-recommendations.png" />
+                    <p className="title">{strings.noRecommendationsTitle}</p>
+                    <p>{strings.noRecommendationsText}</p>
+                    <p><a onClick={this.editThread}>{strings.noRecommendationsAction}</a></p>
+                </div>
+            </div>
+        ;
+    }
+
+    goToDiscover() {
+        this.context.router.push(`/discover`);
+    }
+
     render() {
         const {user, profile, orientationMustBeAsked, strings, recommendations, thread, isLoadingRecommendations, isThreadGroup} = this.props;
-        const title = isThreadGroup ? thread.name : strings.discover;
+        const title = isThreadGroup ? thread.name : isLocationLiked() ? strings.liked : strings.discover;
         const isFirstLoading = isLoadingRecommendations && recommendations.length === 0;
         const isThreadLoading = Object.keys(this.props.thread).length === 0;
         const noUserInfo = this.props.profile && Object.keys(this.props.profile).length === 0;
         const noRecommendations = !noUserInfo && !isThreadLoading && !isLoadingRecommendations && recommendations.length === 0;
 
+        const filtersIcon = isLocationLiked() ? null : "mdi-tune-vertical";
+        const filtersHandler = isLocationLiked() ? null : this.editThread;
+
         return (
             <div id="discover-views" className="views">
                 {Object.keys(thread).length > 0 ?
-                    <TopNavBar leftMenuIcon={!isThreadGroup} leftIcon="left-arrow" centerText={title} onLeftLinkClickHandler={this.leftClickHandler} rightIcon="mdi-tune-vertical" rightIconsWithoutCircle={true} onRightLinkClickHandler={this.editThread}/>
-                    : <TopNavBar leftMenuIcon={true} centerText={title} rightIcon="mdi-tune-vertical" rightIconsWithoutCircle={true} onRightLinkClickHandler={this.editThread}/>}
+                    <TopNavBar leftMenuIcon={!isThreadGroup} leftIcon="left-arrow" centerText={title} onLeftLinkClickHandler={this.leftClickHandler} rightIcon={filtersIcon} rightIconsWithoutCircle={true} onRightLinkClickHandler={filtersHandler}/>
+                    : <TopNavBar leftMenuIcon={true} centerText={title} rightIcon={filtersIcon} rightIconsWithoutCircle={true} onRightLinkClickHandler={filtersHandler}/>}
                 <div className="view view-main" id="discover-view-main" style={{overflow: 'hidden'}}>
                     <div className="page discover-page">
                         <div id="page-content">
@@ -373,14 +406,7 @@ export default class DiscoverPage extends Component {
                                               handleSelectProfile={this.selectProfile} onBottomScroll={this.onBottomScroll} isLoading={isLoadingRecommendations}
                                               isFirstLoading={isFirstLoading} orientationMustBeAsked={orientationMustBeAsked}/>
                                 :
-                                <div className="no-recommendations">
-                                    <div>
-                                        <Image className="header-image" src="img/no-recommendations.png" />
-                                        <p className="title">{strings.noRecommendationsTitle}</p>
-                                        <p>{strings.noRecommendationsText}</p>
-                                        <p><a onClick={this.editThread}>{strings.noRecommendationsAction}</a></p>
-                                    </div>
-                                </div>
+                                this.renderNoRecommendations()
                             }
                         </div>
                     </div>
@@ -394,6 +420,7 @@ export default class DiscoverPage extends Component {
 DiscoverPage.defaultProps = {
     strings: {
         discover         : 'Discover',
+        liked            : 'Liked users',
         editFilters      : 'Edit filters',
         loadingMessage   : 'Loading recommendations',
         noRecommendations: 'There are no recommendations with selected filters'

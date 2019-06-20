@@ -228,11 +228,14 @@ export default {
     },
     DiscoverPage                     : {
         discover               : 'Descubrir',
+        liked                  : 'Favoritos',
         editFilters            : 'Editar filtros',
         loadingMessage         : 'Cargando recomendaciones',
         noRecommendationsTitle : '¡Oh vaya!',
         noRecommendationsText  : 'No hemos encontrado a nadie que cumpla con todos los requisitos',
         noRecommendationsAction: '¡Prueba a hacer una búsqueda más abierta!',
+        noLikedText            : 'No hemos encontrado a nadie que hayas marcado como favorito',
+        noLikedAction          : '¡Prueba a descubrir gente nueva!',
         orderMatching          : 'Ordenadas por compatibilidad',
         orderSimilarity        : 'Ordenadas por similaridad',
         matching               : 'Compatibilidad',
@@ -263,7 +266,8 @@ export default {
         photos   : 'Fotos',
         questions: 'Respuestas',
         interests: 'Intereses',
-        myProfile: 'Mi Perfil'
+        myProfile: 'Mi Perfil',
+        editProfile: 'Editar perfil'
     },
     OtherUserPage                    : {
         profile               : 'Perfil',

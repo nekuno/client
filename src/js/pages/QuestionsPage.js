@@ -93,10 +93,10 @@ export default class QuestionsPage extends Component {
             <div className="views">
                 <TopNavBar leftMenuIcon={true} centerText={strings.myProfile}/>
                 <ToolBar links={[
-                    {'url': `/p/${user.slug}`, 'text': strings.about},
-                    {'url': '/gallery', 'text': strings.photos},
-                    {'url': '/questions', 'text': strings.questions},
-                    {'url': '/interests', 'text': strings.interests}
+                    {'url': `/p/${user.slug}`, 'text': strings.about, 'icon': 'account'},
+                    {'url': '/gallery', 'text': strings.photos, 'icon': 'camera-outline'},
+                    {'url': '/questions', 'text': strings.questions, 'icon': 'comment-question-outline'},
+                    {'url': '/interests', 'text': strings.interests, 'icon': 'thumbs-up-down'},
                 ]} activeLinkIndex={2} arrowUpLeft={'60%'}/>
                 <div className="view view-main" id="questions-view-main">
                     <div className="page questions-page">

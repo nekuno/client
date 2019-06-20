@@ -259,7 +259,7 @@ export default {
         copiedToClipboard     : 'Copied to clipboard',
     },
     UserPage                         : {
-        aboutMe  : 'About me',
+        about    : 'About me',
         photos   : 'Photos',
         questions: 'Answers',
         interests: 'Interests',

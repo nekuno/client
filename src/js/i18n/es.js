@@ -495,6 +495,9 @@ export default {
         empty      : 'No hay preguntas',
         notAnswered: 'Otras preguntas a las que respondió',
         answer     : '¡Responde y descubre si coincidís!'
+        agreeMatching   : 'De acuerdo',
+        disagreeMatching: 'Desacuerdo',
+        exploreMatching : 'Explorar preguntas',
     },
     OtherNotAnsweredQuestion         : {
         answer: 'Responder pregunta'

@@ -18,6 +18,59 @@ body #root .App .view .page.other-questions-page  {
         }
       }
     }
+    .matching-type {
+      display: flex;
+      margin: 8px;
+      font-size: 16px;
+      
+      .type {
+        flex-basis: 0;
+        flex: 1;
+        
+        text-align: center;
+        font: inherit;
+        background: $white;
+        box-shadow: 0 0 2px rgba(0,0,0, .25);
+        border: none;
+        outline: none;
+        margin: 4px;
+        padding: 8px;
+        border-radius: 8px;
+        
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        
+        .label {
+          line-height: 1.4;
+          min-height: 2.8em;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+        }
+        
+        .icon {
+          position: relative;
+          font-size: 26px;
+          margin: 8px;
+          color: $deep-purple;
+        }
+        &.agree .icon { top: -2px; }
+        &.disagree .icon { top: +2px; }
+        
+        .count {
+        }
+        
+        &.selected {
+          color: $white;
+          background: $deep-purple;
+          .icon {
+            color: $white;
+          }
+        }
+      }
+    }
     .question-list {
       width:85%;
       margin-left:7.5%;

@@ -495,6 +495,9 @@ export default {
         empty      : 'No questions',
         notAnswered: 'Other questions that user answered',
         answer     : 'Answer and find out if you both agree!'
+        agreeMatching   : 'De acuerdo',
+        disagreeMatching: 'Desacuerdo',
+        exploreMatching : 'Explorar preguntas',
     },
     OtherNotAnsweredQuestion         : {
         answer: 'Answer question'

@@ -390,9 +390,10 @@ export default class OtherUserPage extends Component {
                 <TopNavBar leftIcon={'left-arrow'} transparentBackground={true}/>
                 {enoughData ?
                     <ToolBar links={[
-                        {'url': `/p/${params.slug}`, 'text': strings.about},
-                        {'url': `/users/${params.slug}/other-questions`, 'text': strings.questions},
-                        {'url': `/users/${params.slug}/other-interests`, 'text': strings.interests}]} activeLinkIndex={0} arrowUpLeft={'13%'}/>
+                        {'url': `/p/${params.slug}`, 'text': strings.about, 'icon': 'account'},
+                        {'url': `/users/${params.slug}/other-questions`, 'text': strings.questions, 'icon': 'comment-question-outline'},
+                        {'url': `/users/${params.slug}/other-interests`, 'text': strings.interests, 'icon': 'thumbs-up-down'}
+                    ]} activeLinkIndex={0} arrowUpLeft={'13%'}/>
                     : null}
                 <div className="view view-main">
                     <div className="page other-user-page">

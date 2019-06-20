@@ -178,9 +178,9 @@ export default class OtherQuestionsPage extends Component {
                 <TopNavBar leftIcon={'left-arrow'} centerText={otherUser ? otherUser.username : ''}/>
                 {otherUser ?
                     <ToolBar links={[
-                        {'url': `/p/${params.slug}`, 'text': strings.about},
-                        {'url': `/users/${params.slug}/other-questions`, 'text': strings.questions},
-                        {'url': `/users/${params.slug}/other-interests`, 'text': strings.interests}
+                        {'url': `/p/${params.slug}`, 'text': strings.about, 'icon': 'account'},
+                        {'url': `/users/${params.slug}/other-questions`, 'text': strings.questions, 'icon': 'comment-question-outline'},
+                        {'url': `/users/${params.slug}/other-interests`, 'text': strings.interests, 'icon': 'thumbs-up-down'}
                     ]} activeLinkIndex={1} arrowUpLeft={'48%'}/>
                     : null}
                 <div className="view view-main" id="questions-view-main">

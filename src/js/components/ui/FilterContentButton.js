@@ -11,17 +11,20 @@ export default class FilterContentButton extends Component {
         active        : PropTypes.bool,
         count         : PropTypes.number,
         loading       : PropTypes.bool,
+        grayed        : PropTypes.bool,
     };
 
     render() {
-        const {wrapperClass, text, active, onClickHandler, count, loading} = this.props;
-        const fullWrapperClass = wrapperClass ? active ? wrapperClass + " icons-large-wrapper active" : wrapperClass + " icons-large-wrapper" : active ? "icons-large-wrapper active" : "icons-large-wrapper";
-        const iconClass = loading && active ? "icon icon-spinner rotation-animation" : " icon icon-" + this.props.icon;
+        const {wrapperClass, text, active, onClickHandler, count, loading, grayed} = this.props;
+        const fullWrapperClass = `${wrapperClass || ''} icons-large-wrapper ${active ? 'active' : ''} ${grayed && !active ? 'grayed' : ''}`;
+        const iconClass = loading && active ? "icon icon-spinner rotation-animation" : " mdi mdi-" + this.props.icon;
 
         return (
             <div className={fullWrapperClass} onClick={onClickHandler} disabled={loading ? 'disabled' : null}>
-                <div className={iconClass} disabled={loading ? 'disabled' : null}></div>
-                <div className={loading && active ? "icons-large-text spinner-text" : "icons-large-text"}>{count}<br/>{text}</div>
+                <div className="icon-box">
+                    <span className={iconClass} disabled={loading ? 'disabled' : null}></span>
+                </div>
+                <div className={loading && active ? "icons-large-text spinner-text" : "icons-large-text"}>{count}{/*<br/>{text}*/}</div>
             </div>
         );
     }

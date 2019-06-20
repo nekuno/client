@@ -493,8 +493,6 @@ export default {
     OtherQuestionList                : {
         loading    : 'Loading questions',
         empty      : 'No questions',
-        notAnswered: 'Other questions that user answered',
-        answer     : 'Answer and find out if you both agree!'
         agreeMatching   : 'De acuerdo',
         disagreeMatching: 'Desacuerdo',
         exploreMatching : 'Explorar preguntas',
@@ -503,7 +501,7 @@ export default {
         answer: 'Answer question'
     },
     OtherQuestion                    : {
-        didntAnswered: 'You have not answered this question'
+        didntAnswered: ''
     },
     QuestionEditCountdown            : {
         text: 'Please wait %s% to answer again'

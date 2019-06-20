@@ -493,8 +493,6 @@ export default {
     OtherQuestionList                : {
         loading    : 'Cargando preguntas',
         empty      : 'No hay preguntas',
-        notAnswered: 'Otras preguntas a las que respondió',
-        answer     : '¡Responde y descubre si coincidís!'
         agreeMatching   : 'De acuerdo',
         disagreeMatching: 'Desacuerdo',
         exploreMatching : 'Explorar preguntas',
@@ -503,7 +501,7 @@ export default {
         answer: 'Responder pregunta'
     },
     OtherQuestion                    : {
-        didntAnswered: 'No has contestado a esta pregunta'
+        didntAnswered: 'Responde para desbloquear'
     },
     QuestionEditCountdown            : {
         text: 'Por favor espera %s% para responder de nuevo'

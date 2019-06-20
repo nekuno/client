@@ -164,7 +164,7 @@ export default class OtherQuestionsPage extends Component {
 
     getFirstItems() {
         return [
-            <div key="banner">{this.getBanner.bind(this)()}</div>,
+            /* <div key="banner">{this.getBanner.bind(this)()}</div>, */
             <div key="questions-header">{this.getQuestionsHeader.bind(this)()}</div>
         ]
     }

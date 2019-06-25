@@ -19,7 +19,7 @@
     input[type=time], input[type=number], input[type=search], input[type=text], input[type=password], input[type=email], input[type=tel], input[type=url], input[type=date], input[type=datetime-local] {
       background-color: transparent;
       border: none;
-      color: #fff;
+      color: $text-prin;
       width: 100%;
       font-size: 1em;
       padding: 0;
@@ -46,7 +46,7 @@
   }
 
   .tag-suggestions {
-    background: $purple;
+    //background: $purple;
     cursor: pointer;
     margin-top: 5px;
     border-radius: 20px;

@@ -168,7 +168,13 @@ export default {
         interests            : 'Intereses',
         loading              : 'Cargando intereses',
         empty                : 'No hay intereses con estos filtros',
-        reported             : 'El contenido ha sido reportado. Lo revisaremos en las próximas 24 horas'
+        reported             : 'El contenido ha sido reportado. Lo revisaremos en las próximas 24 horas',
+        filterVideo  : 'videos',
+        filterAudio  : 'música',
+        filterImage  : 'fotos',
+        filterWeb    : 'enlaces',
+        filterGame   : 'juegos',
+        filterCreator: 'canales',
     },
     OtherQuestionsPage               : {
         coincidences: 'Coincidencias de',
@@ -227,10 +233,19 @@ export default {
         tutorialThirdStep      : 'Este es el botón para abrir el menú y este punto verde indica que tienes mensajes nuevos. ¡Te invitamos a que explores todo Nekuno! ¡Gracias por participar en esta Beta privada!'
     },
     DiscoverPage                     : {
-        discover         : 'Descubrir',
-        editFilters      : 'Editar filtros',
-        loadingMessage   : 'Cargando recomendaciones',
-        noRecommendations: 'No hay recomendaciones con los filtros seleccionados'
+        discover               : 'Descubrir',
+        liked                  : 'Favoritos',
+        editFilters            : 'Editar filtros',
+        loadingMessage         : 'Cargando recomendaciones',
+        noRecommendationsTitle : '¡Oh vaya!',
+        noRecommendationsText  : 'No hemos encontrado a nadie que cumpla con todos los requisitos',
+        noRecommendationsAction: '¡Prueba a hacer una búsqueda más abierta!',
+        noLikedText            : 'No hemos encontrado a nadie que hayas marcado como favorito',
+        noLikedAction          : '¡Prueba a descubrir gente nueva!',
+        orderMatching          : 'Ordenadas por compatibilidad',
+        orderSimilarity        : 'Ordenadas por similaridad',
+        matching               : 'Compatibilidad',
+        similarity             : 'Similaridad',
     },
     RecommendationPage               : {
         loadingMessage   : 'Cargando recomendaciones',
@@ -253,17 +268,17 @@ export default {
         copiedToClipboard     : 'Copiado al portapapeles'
     },
     UserPage                         : {
-        aboutMe  : 'Sobre mi',
+        about    : 'Sobre mi',
         photos   : 'Fotos',
         questions: 'Respuestas',
         interests: 'Intereses',
-        myProfile: 'Mi Perfil'
+        myProfile: 'Mi Perfil',
+        editProfile: 'Editar perfil'
     },
     OtherUserPage                    : {
         profile               : 'Perfil',
         loading               : 'Cargando perfil',
-        age                   : 'Edad',
-        message               : 'Mensaje',
+        noLocation            : 'El mundo',
         about                 : 'Acerca de',
         photos                : 'Fotos',
         questions             : 'Respuestas',
@@ -321,7 +336,7 @@ export default {
         filters    : 'Filtros'
     },
     SettingsPage                     : {
-        title         : 'Ajustes',
+        title         : 'Términos y condiciones',
         version       : 'Versión de Nekuno',
         legalTerms    : 'Términos legales',
         privacyPolicy : 'Política de Privacidad',
@@ -342,7 +357,7 @@ export default {
         socialNetworks: 'Mis redes sociales',
         more          : 'Más',
         less          : 'Menos',
-        settings      : 'Ajustes',
+        settings      : 'Términos y condiciones',
         invitations   : 'Invitaciones',
         logout        : 'Salir'
     },
@@ -482,14 +497,15 @@ export default {
     OtherQuestionList                : {
         loading    : 'Cargando preguntas',
         empty      : 'No hay preguntas',
-        notAnswered: 'Otras preguntas a las que respondió',
-        answer     : '¡Responde y descubre si coincidís!'
+        agreeMatching   : 'De acuerdo',
+        disagreeMatching: 'Desacuerdo',
+        exploreMatching : 'Explorar preguntas',
     },
     OtherNotAnsweredQuestion         : {
         answer: 'Responder pregunta'
     },
     OtherQuestion                    : {
-        didntAnswered: 'No has contestado a esta pregunta'
+        didntAnswered: 'Responde para desbloquear'
     },
     QuestionEditCountdown            : {
         text: 'Por favor espera %s% para responder de nuevo'
@@ -592,6 +608,7 @@ export default {
         similarity: 'Similaridad',
         saving    : 'Guardando...',
         age       : 'Edad',
+        noLocation: 'El mundo',
     },
     CardUserPlaceholder              : {
         matching  : 'Compatibilidad',

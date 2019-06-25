@@ -46,6 +46,7 @@ import GroupContentsPage from "./pages/GroupContentsPage";
 import SettingsPage from "./pages/SettingsPage";
 import RouterActionCreators from "./actions/RouterActionCreators";
 import LoginStore from "./stores/LoginStore";
+import Framework7Service from "./services/Framework7Service";
 
 import ProposalsPage from "./pages/Proposals/Recommendation";
 import ProposalsLeisureIntroductionPage from "./pages/Proposals/Leisure/IntroductionPage";
@@ -78,6 +79,10 @@ export default class Root extends Component {
 	static propTypes = {
 		history: PropTypes.object.isRequired
 	};
+
+	componentDidMount() {
+		Framework7Service.reinitialize();
+	}
 
 	render() {
 		const { history } = this.props;
@@ -220,6 +225,11 @@ export default class Root extends Component {
 							name="question-stats-other"
 							path="/question-other-stats/:slug"
 							component={QuestionOtherStatsPage}
+						/>
+						<Route
+							name="own-liked-users"
+							path="/liked"
+							component={DiscoverPage}
 						/>
 						<Route
 							name="invitations"

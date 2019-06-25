@@ -18,13 +18,81 @@ body #root .App .views .view .page.discover-page {
     .edit-thread-button {
       margin: 20px auto;
       text-align: center;
+      
+      button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
+        height: 40px;
+        width: 180px;
+      }
+      
+      .text {
+        line-height: 1;
+        padding-left: 8px;
+      }
+    }
+
+    .order-selector {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 16px;
+      padding: 8px 0 8px;
+      .order-selector-status {
+      }
+      .icon {
+        color: $deep-purple;
+      }
+      .text-radios {
+        padding: 0 0 16px;
+        min-width: 16.5em;
+        .text-radios-title {
+          display: none;
+        }
+      }
+    }
+
+    .no-recommendations {
+      padding: 16px;
+      text-align: center;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      
+      .header-image {
+        max-width: 70%;
+        margin: 16px 0;
+      }
+      
+      p {
+        color: $text-second;
+        font-size: 20px;
+        margin: 16px 0;
+      }
+  
+      p.title {
+        color: $text-prin;
+        font-size: 24px;
+      }
+      
+      a { color: $deep-purple; }
     }
 
     .user-list {
+      .infinite-column {
+        display: flex;
+        padding: 8px 12px 0;
+      }
       .card {
-        display: inline-block;
-        margin: 5px 1% 5px 1%;
-        width: 48%;
+        margin: 0 4px;
+        flex: 1;
+        &.filler {
+          visibility: hidden;
+        }
       }
     }
   }

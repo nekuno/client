@@ -1,3 +1,5 @@
+@import 'fonts/materialdesignicons.min.css';
+
 $nekuno-font: 'Maven Pro';
 
 @font-face {
@@ -47,6 +49,10 @@ $nekuno-logo-font: 'klinic_slabmedium';
 	url('fonts/icomoon.svg?78ya5l#icomoon') format('svg');
 	font-weight: normal;
 	font-style: normal;
+}
+
+.mdi::before {
+	font-size: 1.2em;
 }
 
 [class^="icon-"], [class*=" icon-"] {

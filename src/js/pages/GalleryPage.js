@@ -224,10 +224,10 @@ export default class GalleryPage extends Component {
             <div className="views">
                 <TopNavBar leftMenuIcon={true} centerText={strings.myProfile} rightIcon={'uploadthin'} rightIconsWithoutCircle={true} onRightLinkClickHandler={this.importAlbumPopUp}/>
                 <ToolBar links={[
-                    {'url': `/p/${user.slug}`, 'text': strings.about},
-                    {'url': '/gallery', 'text': strings.photos},
-                    {'url': '/questions', 'text': strings.questions},
-                    {'url': '/interests', 'text': strings.interests}
+                    {'url': `/p/${user.slug}`, 'text': strings.about, 'icon': 'account'},
+                    {'url': '/gallery', 'text': strings.photos, 'icon': 'camera-outline'},
+                    {'url': '/questions', 'text': strings.questions, 'icon': 'comment-question-outline'},
+                    {'url': '/interests', 'text': strings.interests, 'icon': 'thumbs-up-down'},
                 ]} activeLinkIndex={1} arrowUpLeft={'36%'} />
                 <div className="view view-main" onScroll={this.handleScroll}>
                     <input style={{opacity: 0}} type='file' ref='fileInput' onChange={this.uploadFile} />

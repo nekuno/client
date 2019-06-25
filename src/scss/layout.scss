@@ -53,7 +53,7 @@ body {
 	-webkit-text-size-adjust: none; /* prevent webkit from resizing text to fit */
 	-webkit-user-select: none; /* prevent copy paste, to allow, change 'none' to 'text' */
 
-	background: $white;
+	background: $page-bg;
 	font-family: $nekuno-font;
 	font-size: 10px;
 	margin: auto;
@@ -174,7 +174,7 @@ body {
 					overflow-y: scroll;
 					-webkit-overflow-scrolling: touch;
 					.title {
-						font-size: 1.785714286em;
+						font-size: 20px;
 						text-align: center;
 					}
 
@@ -230,8 +230,10 @@ body {
 						}
 						animation-name: loading-gif;
 						animation-duration: 1.8s;
+						animation-iteration-count: infinite;
 						background: url('img/loading.png') no-repeat;
 						background-size: 100px 100px;
+						background-position: center;
 						height: 100px;
 						margin: auto;
 						width: 100px;

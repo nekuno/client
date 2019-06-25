@@ -4,7 +4,7 @@ body #root .App .view .page.other-questions-page  {
   #page-content {
     width: 100% !important;
     .other-questions-header-container {
-      padding-top: 20px;
+      padding-top: 8px;
       text-align: center;
 
       .other-questions-stats-title {
@@ -18,12 +18,66 @@ body #root .App .view .page.other-questions-page  {
         }
       }
     }
+    .matching-type {
+      display: flex;
+      margin: 8px;
+      font-size: 16px;
+      
+      .type {
+        flex-basis: 0;
+        flex: 1;
+        
+        text-align: center;
+        font: inherit;
+        background: $white;
+        box-shadow: 0 0 2px rgba(0,0,0, .25);
+        border: none;
+        outline: none;
+        margin: 4px;
+        padding: 8px;
+        border-radius: 8px;
+        
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        
+        .label {
+          line-height: 1.4;
+          min-height: 2.8em;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+        }
+        
+        .icon {
+          position: relative;
+          font-size: 26px;
+          margin: 8px;
+          color: $deep-purple;
+        }
+        &.agree .icon { top: -2px; }
+        &.disagree .icon { top: +2px; }
+        
+        .count {
+        }
+        
+        &.selected {
+          color: $white;
+          background: $deep-purple;
+          .icon {
+            color: $white;
+          }
+        }
+      }
+    }
     .question-list {
       width:85%;
       margin-left:7.5%;
       margin-top: 20px;
 
       .question {
+        font-size: 16px;
         margin-bottom: 15px;
 
         .question-title {
@@ -31,26 +85,15 @@ body #root .App .view .page.other-questions-page  {
           margin-bottom: 10px;
           width: 85%;
         }
-        a {
-          color: #fff;
-
-          .edit-question-button {
-            background-color: $deep-purple;
-            border-radius: 50%;
-            -moz-border-radius: 50%;
-            -webkit-border-radius: 50%;
-            display: block;
-            float: right;
-            height: 30px;
-            line-height: 30px;
-            text-align: center;
-            width: 30px;
-
-            .icon-edit:before {
-              font-size: 14px;
-              line-height: 30px;
-            }
-          }
+        .edit-question-button {
+          display: block;
+          float: right;
+          height: 30px;
+          line-height: 30px;
+          text-align: center;
+          width: 30px;
+          font-size: 20px;
+          color: $deep-purple;
         }
         .answer-answered, .answer-not-answered {
           .answer-answered-picture, .answer-not-answered-picture {
@@ -74,11 +117,31 @@ body #root .App .view .page.other-questions-page  {
             }
           }
 
-          .answer-answered-text, .answer-not-answered-text {
+          .answer-locked-text, .answer-answered-text, .answer-not-answered-text {
             display: inline-block;
             margin-top: -8px;
             vertical-align: text-top;
             max-width: 80%;
+            &.grayed {
+              color: $text_second;
+            }
+          }
+          
+          .answer-locked-text {
+            color: $text-second;
+            opacity: 0.5;
+            .text-placeholder {
+              /*display: inline-block;
+              background: $text-second;
+              vertical-align: +10%;
+              border-radius: 3px;
+              width: 2em;
+              height: 0.7em;*/
+              margin-right: 0.3em;
+              &::before {
+                content: '***';
+              }
+            }
           }
         }
 
@@ -89,20 +152,13 @@ body #root .App .view .page.other-questions-page  {
           margin-top: 15px;
         }
       }
-      &.not-answered-questions-title {
-        font-size: 1.6em;
-
-        .description {
-          font-size: 0.7em;
-        }
-      }
-      &.not-answered {
-
-      }
       .chip {
         cursor: pointer;
         margin: 20px 0;
       }
+    }
+    .empty-message {
+      margin-top: 56px;
     }
   }
 }

@@ -29,7 +29,6 @@ export default class CardUser extends Component {
         like                  : PropTypes.number,
         hideLikeButton        : PropTypes.bool.isRequired,
         loggedUserSlug        : PropTypes.string.isRequired,
-        profile               : PropTypes.object.isRequired,
         handleSelectProfile   : PropTypes.func,
         online                : PropTypes.bool,
         topLinks              : PropTypes.array,
@@ -72,8 +71,9 @@ export default class CardUser extends Component {
     }
 
     render() {
-        const {location, canSendMessage, like, hideLikeButton, photo, userId, username, matching, similarity, age, online, topLinks, sharedLinks, strings} = this.props;
-        const subTitle = <div><span className="icon-marker"></span>{location.substr(0, 15)}{location.length > 15 ? '...' : ''} - {strings.age}: {age}</div>;
+        const {canSendMessage, like, hideLikeButton, photo, userId, username, matching, similarity, age, online, topLinks, sharedLinks, strings} = this.props;
+        const location = this.props.location || strings.noLocation;
+        const subTitle = location.substr(0, 15) + (location.length > 15 ? '...' : '') + ' · ' + age;
         const messageButton = canSendMessage ? <span className="icon-message" onClick={this.handleMessage}></span> : '';
         const likeButtonText = like === null ? strings.saving : like ? strings.unlike : strings.like;
         const likeButton = hideLikeButton ? '' : <div className="like-button-container"><Button onClick={this.onLikeOrDislike} disabled={like === null ? 'disabled' : null}>{likeButtonText}</Button></div>;
@@ -85,41 +85,43 @@ export default class CardUser extends Component {
                 <div className="card-header">
                     <div className="card-content">
                         <div className="card-content-inner">
-                            {like ?
-                                <div className="like-icon-container"><span className="icon-star"></span></div>
-                                : null
-                            }
                             <div className="image fixed-max-height-image">
                                 <Image src={imgSrc} defaultSrc={defaultSrc}/>
                             </div>
                         </div>
+                        <div className="card-content-overlay">
+                            {like ?
+                                <div className="like-icon-container"><span className="icon-star"></span></div>
+                                : null
+                            }
+                            <div className="data-container">
+                                <div className="card-title">{username}</div>
+                                <div className="card-sub-title">{subTitle}</div>
+                                {/* {online ? <div className="online-status">Online</div> : null}
+                                <div className="send-message-button icon-wrapper">
+                                {messageButton}
+                                </div> */}
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <CardUserTopLinks topLinks={topLinks} sharedLinks={sharedLinks} onClick={this.handleGoToProfile}/>
-                {/*<div className="card-header">
-
-                    <div className="card-sub-title">
-                        {subTitle}
-                    </div>
-                    {online ? <div className="online-status">Online</div> : null}
-                    <div className="send-message-button icon-wrapper">
-                    {messageButton}
-                    </div>
-                </div>*/}
+                {/* <CardUserTopLinks topLinks={topLinks} sharedLinks={sharedLinks} onClick={this.handleGoToProfile}/> */}
                 <div className={"card-footer"}>
                     <div>
-                        <div className="card-title">
+                        {/* <div className="card-title">
                             {username}
-                        </div>
+                        </div> */}
 
-                        <PercentageValue percentage={matching ? matching : 0} text={strings.matching}/>
-                        <div className="matching-progress">
+                        <div className="matching-string">{strings.matching}</div>
+                        <div className="matching-value">
                             <ProgressBar percentage={matching}/>
+                            <div className="matching-percentage">{(matching ? matching : 0) + ' %'}</div>
                         </div>
-
-                        <PercentageValue percentage={similarity ? similarity : 0} text={strings.similarity}/>
-                        <div className="similarity-progress">
+                        
+                        <div className="matching-string">{strings.similarity}</div>
+                        <div className="matching-value">
                             <ProgressBar percentage={similarity}/>
+                            <div className="matching-percentage">{(similarity ? similarity : 0) + ' %'}</div>
                         </div>
                     </div>
                 </div>

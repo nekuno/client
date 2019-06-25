@@ -53,37 +53,50 @@ body #root .App .views .view .page.other-user-page {
         }
       }
     }
-    .other-user-main-data {
-      margin: 0 7.5%;
-      text-align: center;
-      .username-title {
-        display: inline-block;
-        font-size: 2em;
-        margin-right: 15px;
-        margin-top: 10px;
-      }
-      .send-message-button {
-        margin: 10px 0 0 20px;
+    .user-header {
+      display: flex;
+      align-items: flex-start;
+      margin: 8px 8px 8px;
 
-        .icon-message {
-          margin-right: 5px;
+      .user-header-data {
+        text-align: left;
+        flex: 1;
+        margin: 0 16px;
+
+        .username-title {
+          display: inline-block;
+          font-size: 2em;
+          .online-status {
+            font-size: 0.5em;
+            margin-left: 0.5em;
+            color: #32ca91;
+            vertical-align: middle;
+          }
+        }
+        
+        .user-description {
+          font-size: 16px;
+          color: $text-second;
         }
       }
-      .icon-fa-plus:before {
-        font-size: 19px;
-      }
-      .user-description {
-        margin-bottom: 5px;
 
-        .similarity {
-          font-weight: bold;
+      .user-header-actions {
+        display: flex;
+        text-align: right;
+        align-items: center;
+        
+        .action {
+          display: flex;
+          color: $deep-purple;
+          font-size: 26px;
+          margin: 0 8px 8px;
         }
-      }
-      .online-status {
-        font-size: 0.9em;
-        color: $light-green;
-        font-weight: bold;
-        margin-right: 15px;
+        .action.like-button span {
+          margin: 0 -0.1em;
+        }
+        .action.block-button span.mdi-dots-vertical {
+          margin: 0 -0.4em;
+        }
       }
     }
     .profile-data-list {
@@ -157,47 +170,36 @@ body #root .App .views .view .page.other-user-page {
     }
 
     .other-profile-wrapper {
-      width: 200%;
-      background-color: $deep-purple-translucent;
-      margin-left: -50%;
       margin-top: 20px;
       text-align: center;
     }
 
     .other-profile-data {
-      color: white;
-      margin: 10px auto;
-      display: inline-block;
-      width: 50%;
-      .other-profile-left {
-        width: 50%;
-        height: 100%;
-        float: left;
-
-        .other-profile-stats {
-          width: 100%;
-
-          a {
-            color: #fff;
-          }
-        }
-      }
       .other-profile-right {
-        width: 50%;
-        height: 100%;
-        float: right;
-
+        margin: 8px 24px;
+        .entry {
+          display: flex;
+          align-items: center;
+          margin: 4px 0;
+          font-size: 16px;
+        }
+        .label {
+          text-align: left;
+          min-width: 7.5em;
+        }
+        .percentage {
+          text-align: right;
+          min-width: 3.5em;
+        }
         .progress-bar {
-          margin-top: 5px;
-          margin-bottom: 5px;
-          border-radius: 5px;
-          -moz-border-radius: 5px;
-          -webkit-border-radius: 5px;
+          flex: 1;
+          margin: 0px 8px;
+		      background-color: #E6E9EC;
         }
         [class^="progress-bar"], [class*=" progress-bar-"] {
-          border-radius: 5px;
-          -moz-border-radius: 5px;
-          -webkit-border-radius: 5px;
+		      height: 5px;
+		      min-width: 5px;
+          border-radius: 2.5px;
         }
 
         .calculating-matching {
@@ -213,12 +215,8 @@ body #root .App .views .view .page.other-user-page {
       }
 
       .common-groups {
-        clear: both;
         text-align: left;
-        margin-left: 10%;
         position: relative;
-        top: 10px;
-        margin-bottom: 10px;
 
         .common-groups-title {
           display: inline-block;
@@ -239,21 +237,6 @@ body #root .App .views .view .page.other-user-page {
             width: 28px;
           }
         }
-      }
-    }
-
-    .like-button, .block-button {
-      font-size: 1.3em;
-      margin-top: -10px !important;
-      margin-left: 10px;
-      vertical-align: middle;
-
-      .yellow {
-        color: $material-yellow;
-      }
-
-      .blocked {
-        color: red;
       }
     }
   }

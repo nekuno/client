@@ -67,17 +67,6 @@ export default class OtherProfileData extends Component {
 
         return (
             <div className="other-profile-data">
-                <div className="other-profile-left">
-                    <ProfilesAvatarConnection ownPicture={ownImage} otherPicture={currentImage}/>
-                    <div className="other-profile-stats">
-                        <div className="other-profile-stats">
-                            <Link to={questionsUrl}>{commonAnswers} {strings.coincidences}</Link>
-                        </div>
-                        <div className="other-profile-stats">
-                            <Link to={interestsUrl}>{commonContent} {strings.similarInterests}</Link>
-                        </div>
-                    </div>
-                </div>
                 {isSomethingWorking && !matching ?
                     <div className="other-profile-right">
                         <div className="calculating-matching">
@@ -87,10 +76,16 @@ export default class OtherProfileData extends Component {
                     </div>
                     :
                     <div className="other-profile-right">
-                        <span> {matching ? Math.round(100*matching) : 0}% {strings.compatibility}</span>
-                        <ProgressBar percentage={matching ? Math.round(100*matching) : 0}/>
-                        <span> {similarity ? Math.round(100*similarity) : 0}% {strings.similarity}</span>
-                        <ProgressBar percentage={similarity ? Math.round(100*similarity) : 0}/>
+                        <div className="entry compatibility">
+                            <span className="label">{strings.compatibility}</span>
+                            <ProgressBar percentage={matching ? Math.round(100*matching) : 0}/>
+                            <span className="percentage">{matching ? Math.round(100*matching) : 0} %</span>
+                        </div>
+                        <div className="entry similarity">
+                            <span className="label">{strings.similarity}</span>
+                            <ProgressBar percentage={similarity ? Math.round(100*similarity) : 0}/>
+                            <span className="percentage">{similarity ? Math.round(100*similarity) : 0} %</span>
+                        </div>
                     </div>
                 }
                 {stats && stats.groupsBelonged && stats.groupsBelonged.length > 0 ?

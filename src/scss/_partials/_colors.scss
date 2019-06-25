@@ -1,18 +1,19 @@
-$deep-purple: #6342b1;
-$deep-purple-translucent: rgba(99, 66, 177, 0.2);
+$deep-purple: #6354ce;
+$deep-purple-translucent: rgba(99, 84, 206, 0.2);
 $dark-purple: #151232;
 $dark-purple-translucent: rgba(21, 18, 50, 0.5);
 $dark-purple-semi-translucent: rgba(21, 18, 50, 0.9);
 $purple: #2d205f;
 $white: #ffffff;
 $ocean-blue: #2b3758;
+$ocean-blue-translucent: rgba(43, 55, 88, 0.2);
 $dark-blue: #1b1843;
 $light-blue: #6abeee;
 $dark-gray: #1d2029;
 $regular-gray: #424242;
-$light-gray: #888888;
+$light-gray: #808fa2;
 $light-gray-translucent: rgba(50, 50, 50, 0.5);
-$light-green: #32ca91;
+$light-green: #74d67a;
 $light-green-translucent: rgba(50, 202, 145, 0.5);
 $green-alert: #69d6b8;
 $green-alert-translucent: rgba(105, 215, 184, 0.5);
@@ -52,8 +53,10 @@ $material-grey: #9E9E9E;
 $material-blue-grey: #607D8B;
 
 $text-prin: $ocean-blue;
+$text-second: $light-gray;
 $page-bg: $white;
 $panel-bg: $white;
+$overlay-bg: $ocean-blue-translucent;
 
 $navbar-bg: $white;
 

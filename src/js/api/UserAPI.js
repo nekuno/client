@@ -116,6 +116,10 @@ export function setDislikeUser(to, originContext, originName, url = `dislikes/${
     return postData(url, {originContext: originContext, originName: originName});
 }
 
+export function requestOwnLiked(url = `users/liked`) {
+    return getData(url);
+}
+
 export function setIgnoreUser(to, originContext, originName, url = `ignores/${to}`) {
     return postData(url, {originContext: originContext, originName: originName});
 }

@@ -1,5 +1,4 @@
 import 'framework7';
-import 'Framework7-3D-Panels/dist/framework7.3dpanels';
 
 class Framework7Service {
 
@@ -12,10 +11,21 @@ class Framework7Service {
         this._nekunoApp = new Framework7({
             cache: false,
             router: false,
-            swipeBackPage: false
+            swipeBackPage: false,
+            swipePanel: 'left',
+            swipePanelActiveArea: 0.25 * document.documentElement.clientWidth,
         });
         this._$$ = Dom7;
     }
+    
+    // La inicialización se hace cuando aún no existe el HTML del panel
+    // por tanto swipePanel y otros no funcionan. Como hack un poco cutre,
+    // esperaremos a que se monte el HTML y volveremos a llamar al método
+    // interno que inicializa el swipe
+    reinitialize() {
+        this._nekunoApp.initSwipePanels();
+    }
+
 
     nekunoApp() {
         return this._nekunoApp

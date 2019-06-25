@@ -34,7 +34,7 @@ export default class OtherQuestion extends Component {
     }
 
     isAnswerAcceptedByOtherAnswer(answer, otherAnswer) {
-        if (!answer.hasOwnProperty('acceptedAnswers') || !otherAnswer.hasOwnProperty('answerId')){
+        if (!answer || !otherAnswer || !answer.hasOwnProperty('acceptedAnswers') || !otherAnswer.hasOwnProperty('answerId')){
             return true;
         }
 
@@ -52,36 +52,32 @@ export default class OtherQuestion extends Component {
         let otherUserAnswer = this.props.question.userAnswer;
         const {strings} = this.props;
 
-        userAnswer.text = otherUserAnswer.text = strings.didntAnswered;
+        let userAnswerText, otherUserAnswerText;
         question.answers.forEach((answer) => {
-            if (answer.answerId === userAnswer.answerId) {
-                userAnswer.text = answer.text;
+            if (userAnswer && answer.answerId === userAnswer.answerId) {
+                userAnswerText = answer.text;
             }
-            if (answer.answerId === otherUserAnswer.answerId) {
-                otherUserAnswer.text = answer.text;
+            if (otherUserAnswer && answer.answerId === otherUserAnswer.answerId) {
+                otherUserAnswerText = answer.text;
             }
         });
 
+        const locked = !userAnswerText;
+
         return (
-            <div className="question">
+            <div className="question" onClick={editable ? this.goToAnswerQuestion : null}>
                 {editable ?
-                    <a href="javascript:void(0)" onClick={this.goToAnswerQuestion}>
-                        <span className="edit-question-button">
-                            <span className="icon-edit"></span>
-                        </span>
-                    </a>
+                    <span className="edit-question-button">
+                        <span className="mdi mdi-lead-pencil"></span>
+                    </span>
                     :
                     ''
                 }
                 <div className="question-title">
                     {question.text}
                 </div>
-                <Answer text={otherUserAnswer.text} answered={false} defaultPicture={this.props.otherPicture} accepted={this.isAnswerAcceptedByOtherAnswer(userAnswer, otherUserAnswer)} {...this.props}/>
-                {userAnswer.text ?
-                    <Answer text={userAnswer.text} answered={true} accepted={this.isAnswerAcceptedByOtherAnswer(otherUserAnswer, userAnswer)} {...this.props}/>
-                    :
-                    <div className="not-answered-text">{strings.didntAnswered}</div>
-                }
+                <Answer locked={locked} text={otherUserAnswerText} answered={false} defaultPicture={this.props.otherPicture} accepted={this.isAnswerAcceptedByOtherAnswer(userAnswer, otherUserAnswer)} {...this.props}/>
+                <Answer grayed={locked} text={userAnswerText || strings.didntAnswered} answered={true} accepted={this.isAnswerAcceptedByOtherAnswer(otherUserAnswer, userAnswer)} {...this.props}/>
                 {editable ? '' :
                     <QuestionEditCountdown seconds={userAnswer.editableIn} questionId={question.questionId} onTimerEnd={this.props.onTimerEnd}/>
                 }

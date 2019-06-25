@@ -153,14 +153,16 @@ export default class LeftPanel extends Component {
         return (
             <div className="LeftPanel">
                 <div className="panel-overlay"></div>
-                <div className="panel panel-left panel-reveal">
+                <div className="panel panel-left panel-cover">
                     <div className="content-block top-menu">
                         <a className="close-panel">
                             <span className="icon-left-arrow"/>
                         </a>
                     </div>
-                    { userLoggedIn ? <User {...this.props} onClick={this.handleGoClickProfile}/> : '' }
-                    { userLoggedIn && !moreActive ?
+                    { userLoggedIn ?
+                        <User {...this.props} onClick={this.handleGoClickProfile}/>
+                        : '' }
+                    { userLoggedIn ?
                         <div className="user-interests">
                             <a href="javascript:void(0)" onClick={this.handleGoClickInterests}>
                                 <div className="number">
@@ -171,51 +173,38 @@ export default class LeftPanel extends Component {
                                 </div>
                             </a>
                         </div>
-                        : null
-                    }
-                    { userLoggedIn && !moreActive ?
+                        : '' }
+                    { userLoggedIn ?
                         <div className="content-block menu">
+                            <a href="javascript:void(0)" onClick={this.handleGoClickProfile}>
+                                <span className="icon-person"></span>&nbsp;&nbsp;{strings.myProfile}
+                            </a>
                             <a href="javascript:void(0)" onClick={this.handleGoClickThreads}>
                                 <span className="icon-search"></span>&nbsp;&nbsp;{strings.threads}
                             </a>
-                            {/*<a href="javascript:void(0)" onClick={this.handleGoClickProfile}>
-                             {strings.myProfile}
-                             </a>*/}
                             <a href="javascript:void(0)" onClick={this.handleGoClickConversations}>
                                 <span className="icon-commenting"></span>&nbsp;&nbsp;{strings.conversations}
                                 {unreadCount ? <span className="unread-messages-count">
                                     <span className="unread-messages-count-text">{unreadCount}</span>
                                 </span> : ''}
                             </a>
-                            <a href="javascript:void(0)" onClick={this.handleGoClickGroups}>
+                            {/*<a href="javascript:void(0)" onClick={this.handleGoClickGroups}>
                                 <span className="icon-puzzle-piece"></span>&nbsp;&nbsp;{strings.groups}
+                            </a>*/}
+                            <a href="javascript:void(0)" onClick={this.handleGoClickSocialNetworks}>
+                                <span className="icon-plug"></span>&nbsp;&nbsp;{strings.socialNetworks}
                             </a>
-                            <a href="javascript:void(0)" onClick={this.handleClickMore}>
-                                <span className="icon-fa-plus"></span>&nbsp;&nbsp;{strings.more}
+                            <a href="javascript:void(0)" onClick={this.handleClickSettings}>
+                                <span className="icon-preferences"></span>&nbsp;&nbsp;{strings.settings}
+                            </a>
+                            {/*<Link to="/invitations" onClick={this.handleGoClickInvitations} onlyActiveOnIndex={false}>*/}
+                            {/*{strings.invitations}*/}
+                            {/*</Link>*/}
+                            <a href="javascript:void(0)" onClick={this.logout}>
+                                <span className="icon-sign-out"></span>&nbsp;&nbsp;{strings.logout}
                             </a>
                         </div>
-                        : moreActive ?
-                            <div className="content-block menu">
-                                <a href="javascript:void(0)" onClick={this.handleClickMore} style={{fontWeight: 'bold'}}>
-                                    <span className="icon-left-arrow"></span>&nbsp;&nbsp;{strings.less}
-                                </a>
-                                <a href="javascript:void(0)" onClick={this.handleGoClickProfile}>
-                                    <span className="icon-person"></span>&nbsp;&nbsp;{strings.myProfile}
-                                </a>
-                                <a href="javascript:void(0)" onClick={this.handleGoClickSocialNetworks}>
-                                    <span className="icon-plug"></span>&nbsp;&nbsp;{strings.socialNetworks}
-                                </a>
-                                <a href="javascript:void(0)" onClick={this.handleClickSettings}>
-                                    <span className="icon-preferences"></span>&nbsp;&nbsp;{strings.settings}
-                                </a>
-                                {/*<Link to="/invitations" onClick={this.handleGoClickInvitations} onlyActiveOnIndex={false}>*/}
-                                {/*{strings.invitations}*/}
-                                {/*</Link>*/}
-                                <a href="javascript:void(0)" onClick={this.logout}>
-                                    <span className="icon-sign-out"></span>&nbsp;&nbsp;{strings.logout}
-                                </a>
-                            </div>
-                            : '' }
+                        : '' }
                 </div>
             </div>
         );

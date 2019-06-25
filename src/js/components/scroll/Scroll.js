@@ -92,7 +92,7 @@ export default class Scroll extends Component {
         const scrollHeight = scrollElem.children[0].clientHeight - scrollElem.clientHeight;
         const scrollPosition = scrollElem.scrollTop;
 
-        return scrollPosition >= scrollHeight;
+        return scrollPosition >= scrollHeight - 20;
     }
 
     getHeight() {
@@ -148,7 +148,7 @@ export default class Scroll extends Component {
 
         return wrappedItems.map((wrappedItem, index) => {
             return (
-                <div key={index}>
+                <div key={index} className="infinite-column">
                     {wrappedItem}
                 </div>
             );

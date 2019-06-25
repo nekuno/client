@@ -16,18 +16,23 @@
   }
 
   .text-radios-container {
-    background-color: $deep-purple-translucent;
-    padding: 2px;
-    -moz-border-radius: 30px;
-    -webkit-border-radius: 30px;
-    border-radius: 30px;
-
+    display: flex;
+    align-items: stretch;
+    
     .chip {
-      display: inline-block;
-      height: 30px;
-      line-height: 30px;
+      margin: 0;
+      border-right-width: 0;
+      border-radius: 0;
       cursor: pointer;
-      text-align: center;
+    }
+    .chip:first-child {
+      border-top-left-radius: $chip-border-radius;
+      border-bottom-left-radius: $chip-border-radius;
+    }
+    .chip:last-child {
+      border-top-right-radius: $chip-border-radius;
+      border-bottom-right-radius: $chip-border-radius;
+      border-right-width: $chip-border-width;
     }
   }
   

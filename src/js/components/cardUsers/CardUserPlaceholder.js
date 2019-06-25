@@ -10,7 +10,7 @@ import PercentageValue from "./PercentageValue";
 export default class CardUserPlaceholder extends Component {
 
     static propTypes = {
-
+        className: PropTypes.string,
         // Injected by @translate:
         strings: PropTypes.object
     };
@@ -19,31 +19,29 @@ export default class CardUserPlaceholder extends Component {
 
         const {strings} = this.props;
         return (
-            <div className="card person-card">
+            <div className={`${this.props.className} card person-card`}>
                 <div className="card-header">
                     <div className="card-content">
                         <div className="card-content-inner">
                             <div className="image fixed-max-height-image">
-                                <Image src='img/loading.gif'/>
+                                <div className="loading-gif" style={{height: 0, paddingBottom: '100%'}}></div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <CardUserTopLinks topLinks={[]} sharedLinks={0}/>
+                {/* <CardUserTopLinks topLinks={[]} sharedLinks={0}/> */}
                 <div className={"card-footer"}>
                     <div>
-                        <div className="card-title">
-                            {strings.loading}
-                        </div>
-
-                        <PercentageValue percentage={0} text={strings.matching}/>
-                        <div className="matching-progress">
+                        <div className="matching-string">{strings.matching}</div>
+                        <div className="matching-value">
                             <ProgressBar percentage={0}/>
+                            <div className="matching-percentage"></div>
                         </div>
-
-                        <PercentageValue percentage={0} text={strings.similarity}/>
-                        <div className="similarity-progress">
+                        
+                        <div className="matching-string">{strings.similarity}</div>
+                        <div className="matching-value">
                             <ProgressBar percentage={0}/>
+                            <div className="matching-percentage"></div>
                         </div>
                     </div>
                 </div>

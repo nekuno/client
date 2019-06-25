@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import shouldPureComponentUpdate from 'react-pure-render/function';
+import Icon from './Icon';
 
 export default class TopRightLink extends Component {
 	static propTypes = {
@@ -21,10 +22,10 @@ export default class TopRightLink extends Component {
 			icon && secondIcon ?
 				<div className="col-30 right">
 					<div onClick={onClickHandler} className={iconsWrapperClass}>
-						<span className={'icon-' + icon}></span>
+						<Icon icon={icon} />
 					</div>
 					<div onClick={onSecondIconClickHandler} className={iconsWrapperClass}>
-						<span className={'icon-' + secondIcon}></span>
+						<Icon icon={secondIcon} />
 					</div>
 				</div>
 				:
@@ -32,12 +33,15 @@ export default class TopRightLink extends Component {
 					{icon ?
 							text ?
 								<div id="joyride-2-create-yarn" className={iconsWrapperClass + ' icon-wrapper-with-text'}>
-									<span className={'icon-' + icon}></span>&nbsp;<span className="text">{text}</span>
+									<Icon icon={icon} />&nbsp;<span className="text">{text}</span>
 								</div>
 								:
-								<div className={iconsWrapperClass}>
-									<span className={'icon-' + icon}></span>
-								</div>
+								iconsWithoutCircle ?
+									<a> <Icon icon={icon} /> </a>
+									:
+									<div className={iconsWrapperClass}>
+										<Icon icon={icon} />
+									</div>
 						:
 						<a className="navbar-link-text">
 							{text}

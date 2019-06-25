@@ -46,9 +46,12 @@ export default class CardContentList extends Component {
                 [<div key="empty-message"><EmptyMessage text={strings.loading} loadingGif={true}/></div>]
                 : [<div key="empty-message"><EmptyMessage text={strings.empty} loadingGif={false}/></div>];
         }
-        return contents.map((content, index) => {
+        const items = contents.map((content, index) => {
             return this.buildCardContent(content, index);
         });
+        if (items.length % 2 != 0)
+            items.push(<span key={items.length} className="filler"></span>);
+        return items;
     }
 
     render() {

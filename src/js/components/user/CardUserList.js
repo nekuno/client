@@ -26,7 +26,6 @@ export default class CardUserList extends Component {
     static propTypes = {
         recommendations       : PropTypes.array.isRequired,
         user                  : PropTypes.object.isRequired,
-        profile               : PropTypes.object.isRequired,
         handleSelectProfile   : PropTypes.func.isRequired,
         onBottomScroll        : PropTypes.func,
         isLoading             : PropTypes.bool,
@@ -48,7 +47,7 @@ export default class CardUserList extends Component {
     }
 
     buildCardUser(recommendation, index) {
-        const {user, profile, onlineUserIds, handleSelectProfile, orientationMustBeAsked} = this.props;
+        const {user, onlineUserIds, handleSelectProfile, orientationMustBeAsked} = this.props;
 
         return <CardUser
             key={index}
@@ -63,7 +62,6 @@ export default class CardUserList extends Component {
             like={recommendation.like}
             hideLikeButton={false}
             loggedUserSlug={user.slug}
-            profile={profile}
             handleSelectProfile={handleSelectProfile}
             online={onlineUserIds.some(id => id === recommendation.id)}
             slug={recommendation.slug}
@@ -77,9 +75,12 @@ export default class CardUserList extends Component {
         if (this.props.isFirstLoading) {
             return this.getPlaceholders();
         }
-        return this.props.recommendations.map((recommendation, index) => {
+        const cards = this.props.recommendations.map((recommendation, index) => {
             return this.buildCardUser(recommendation, index);
-        })
+        });
+        if (cards.length % 2 != 0)
+            cards.push(<CardUserPlaceholder key={cards.length} className="filler"/>);
+        return cards;
     }
 
     getPlaceholders() {
@@ -93,11 +94,11 @@ export default class CardUserList extends Component {
     }
 
     getItemHeight() {
-        const iW = window.innerWidth;
-        const photoHeight = iW >= 480 ? 230.39 : iW / 2 - 4 * iW / 100;
-        const bottomHeight = 137;
+        const iW = Math.min(window.innerWidth, 480);
+        const photoHeight = (iW - (16+8+16)) / 2;
+        const bottomHeight = 96;
 
-        return photoHeight + bottomHeight
+        return 8 + photoHeight + bottomHeight;
     }
 
     onResize() {

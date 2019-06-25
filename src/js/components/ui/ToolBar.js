@@ -32,13 +32,15 @@ export default class ToolBar extends Component {
         let className = isGuest ? "toolbar toolbar-guest" : "toolbar";
         return (
             <div id="toolbar-bottom" className={className}>
-                <div className="arrow-up" style={{ left: arrowUpLeft }}></div>
+                {/*<div className="arrow-up" style={{ left: arrowUpLeft }}></div>*/}
                 <div className="toolbar-inner">
                     {links.map((link, index) => {
                         return (
-                            <div key={index} className="toolbar-link-wrapper" onClick={this.onLinkClick.bind(this, link.url)}>
-                                <a href="javascript:void(0)">{activeLinkIndex === index ? <strong>{link.text}</strong> : link.text}</a>
-                            </div>
+                            <a key={index} className={`toolbar-link ${activeLinkIndex === index ? 'active' : ''}`}
+                               href="javascript:void(0)" onClick={this.onLinkClick.bind(this, link.url)}>
+                                {link.icon ? <span className={`icon mdi mdi-${link.icon}`}></span> : '' }
+                                <span className="text">{link.text}</span>
+                            </a>
                         );
                     })}
                 </div>

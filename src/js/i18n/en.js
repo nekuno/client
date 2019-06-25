@@ -80,7 +80,13 @@ export default {
         interests: 'Interests',
         loading  : 'Loading interests',
         empty    : 'You have no interests yet. Please, connect more social media or explore your yarns and let us know what are you interested in.',
-        reported : 'The content has been reported. We will review it within next 24 hours'
+        reported : 'The content has been reported. We will review it within next 24 hours',
+        filterVideo  : 'videos',
+        filterAudio  : 'music',
+        filterImage  : 'photos',
+        filterWeb    : 'links',
+        filterGame   : 'games',
+        filterCreator: 'channels',
     },
     GalleryPage                      : {
         importAlbum    : 'Import photos',
@@ -227,10 +233,19 @@ export default {
         tutorialThirdStep      : 'This is the button to open the menu and this green dot indicates you have new messages. We invite you to explore all Nekuno! Thank you for participating in this private Beta!'
     },
     DiscoverPage                     : {
-        discover         : 'Discover',
-        editFilters      : 'Edit filters',
-        loadingMessage   : 'Loading recommendations',
-        noRecommendations: 'There are no recommendations with selected filters'
+        discover               : 'Discover',
+        liked                  : 'Liked users',
+        editFilters            : 'Edit filters',
+        loadingMessage         : 'Loading recommendations',
+        noRecommendationsTitle : '',
+        noRecommendationsText  : '',
+        noRecommendationsAction: '',
+        noLikedText            : '',
+        noLikedAction          : '',
+        orderMatching          : '',
+        orderSimilarity        : '',
+        matching               : 'Matching',
+        similarity             : 'Similarity',
     },
     RecommendationPage               : {
         loadingMessage   : 'Loading recommendations',
@@ -253,17 +268,17 @@ export default {
         copiedToClipboard     : 'Copied to clipboard',
     },
     UserPage                         : {
-        aboutMe  : 'About me',
+        about    : 'About me',
         photos   : 'Photos',
         questions: 'Answers',
         interests: 'Interests',
-        myProfile: 'My profile'
+        myProfile: 'My profile',
+        editProfile: 'Edit profile'
     },
     OtherUserPage                    : {
         profile               : 'Profile',
         loading               : 'Loading profile',
-        age                   : 'Age',
-        message               : 'Message',
+        noLocation            : 'World',
         about                 : 'About',
         photos                : 'Photos',
         questions             : 'Answers',
@@ -321,7 +336,7 @@ export default {
         filters    : 'Filters'
     },
     SettingsPage                     : {
-        title         : 'Settings',
+        title         : 'Terms and conditions',
         version       : 'Nekuno version',
         legalTerms    : 'End-user license agreement',
         privacyPolicy : 'Privacy Policy',
@@ -342,7 +357,7 @@ export default {
         socialNetworks: 'My social networks',
         more          : 'More',
         less          : 'Less',
-        settings      : 'Settings',
+        settings      : 'Terms and conditions',
         invitations   : 'Invitations',
         logout        : 'Logout'
     },
@@ -482,14 +497,15 @@ export default {
     OtherQuestionList                : {
         loading    : 'Loading questions',
         empty      : 'No questions',
-        notAnswered: 'Other questions that user answered',
-        answer     : 'Answer and find out if you both agree!'
+        agreeMatching   : 'De acuerdo',
+        disagreeMatching: 'Desacuerdo',
+        exploreMatching : 'Explorar preguntas',
     },
     OtherNotAnsweredQuestion         : {
         answer: 'Answer question'
     },
     OtherQuestion                    : {
-        didntAnswered: 'You have not answered this question'
+        didntAnswered: ''
     },
     QuestionEditCountdown            : {
         text: 'Please wait %s% to answer again'
@@ -592,6 +608,7 @@ export default {
         similarity: 'Similarity',
         saving    : 'Saving...',
         age       : 'Age',
+        noLocation: 'World',
     },
     CardUserPlaceholder              : {
         matching  : 'Matching',

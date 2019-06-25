@@ -9,10 +9,18 @@ body #root .App .views {
     width: 100%;
 
     .content-list {
-      .card {
-        display: inline-block;
-        margin: 5px 1% 5px 1%;
-        width: 48%;
+      .infinite-column {
+        display: flex;
+        padding: 8px 12px 0;
+        justify-content: center;
+      }
+      .card, .filler {
+        margin: 0 4px;
+        flex: 1;
+        flex-basis: 0;
+      }
+      .filler {
+        visibility: hidden;
       }
     }
     .content-carousel .swiper-slide {

@@ -1,0 +1,20 @@
+@import '../../../../scss/_partials/colors';
+
+.natural-category {
+  display: flex;
+  align-items: center;
+  padding: 5%;
+  width: 100%;
+
+  .icon {
+    width: 20%;
+    height: 100%;
+  }
+
+  .text {
+    width: 80%;
+    text-align: left;
+    color: black;
+    font-size: 14px;
+  }
+}

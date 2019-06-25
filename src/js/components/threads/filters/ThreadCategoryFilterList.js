@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import InputCheckbox from '../../ui/InputCheckbox';
+import IntegerRangeFilter from "./IntegerRangeFilter";
 
 export default class ThreadCategoryFilterList extends Component {
 
@@ -16,17 +17,28 @@ export default class ThreadCategoryFilterList extends Component {
 
         this.renderCategory = this.renderCategory.bind(this);
         this.renderField = this.renderField.bind(this);
+        this.handleClickFilterOnList = this.handleClickFilterOnList.bind(this);
+    }
+
+    handleClickFilterOnList(checked, value)
+    {
+        if(checked)
+        {
+            document.getElementsByClassName('view')[0].scrollTop = 0;
+        }
+
+        this.props.handleClickFilterOnList(checked, value);
     }
 
     renderField(field) {
-        const {filters, filtersMetadata, handleClickFilterOnList} = this.props;
+        const {filters, filtersMetadata} = this.props;
         if (!filtersMetadata[field]) {
             return null;
         }
         let text = filtersMetadata[field].label;
         let checked = typeof filters[field] !== 'undefined';
         return <li key={field}>
-            <InputCheckbox value={field} text={text} checked={checked} onClickHandler={handleClickFilterOnList} reverse={true}/>
+            <InputCheckbox value={field} text={text} checked={checked} onClickHandler={this.handleClickFilterOnList} reverse={true}  />
         </li>;
     }
 
@@ -57,7 +69,6 @@ export default class ThreadCategoryFilterList extends Component {
 
     render() {
         const {categories} = this.props;
-        document.getElementsByClassName('view')[0].scrollTop = 0;
 
         return (
             <div className="list-block">

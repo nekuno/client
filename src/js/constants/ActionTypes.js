@@ -178,6 +178,10 @@ export default keyMirror({
     DISLIKE_USER_SUCCESS: null,
     DISLIKE_USER_ERROR  : null,
 
+    REQUEST_OWN_LIKED_USERS: null,
+    REQUEST_OWN_LIKED_USERS_SUCCESS: null,
+    REQUEST_OWN_LIKED_USERS_ERROR: null,
+
     IGNORE_USER        : null,
     IGNORE_USER_SUCCESS: null,
     IGNORE_USER_ERROR  : null,

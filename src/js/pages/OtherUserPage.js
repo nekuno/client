@@ -381,7 +381,7 @@ export default class OtherUserPage extends Component {
         const genderDataSet = profileWithMetadata.find(profileDataSet => typeof selectn('fields.gender.value', profileDataSet) !== 'undefined');
         const age = selectn('fields.birthday.value', birthdayDataSet);
         const gender = selectn('fields.gender.value', genderDataSet);
-        const location = selectn('location.locality', profile) || selectn('location.country', profile);
+        const location = selectn('location.locality', profile) || selectn('location.country', profile) || strings.noLocation;
         const enoughData = otherUser && profile && profileWithMetadata && ownProfile;
         const profilePhoto = photos.find((photo) => photo.isProfilePhoto === true);
 
@@ -390,9 +390,10 @@ export default class OtherUserPage extends Component {
                 <TopNavBar leftIcon={'left-arrow'} transparentBackground={true}/>
                 {enoughData ?
                     <ToolBar links={[
-                        {'url': `/p/${params.slug}`, 'text': strings.about},
-                        {'url': `/users/${params.slug}/other-questions`, 'text': strings.questions},
-                        {'url': `/users/${params.slug}/other-interests`, 'text': strings.interests}]} activeLinkIndex={0} arrowUpLeft={'13%'}/>
+                        {'url': `/p/${params.slug}`, 'text': strings.about, 'icon': 'account'},
+                        {'url': `/users/${params.slug}/other-questions`, 'text': strings.questions, 'icon': 'comment-question-outline'},
+                        {'url': `/users/${params.slug}/other-interests`, 'text': strings.interests, 'icon': 'thumbs-up-down'}
+                    ]} activeLinkIndex={0} arrowUpLeft={'13%'}/>
                     : null}
                 <div className="view view-main">
                     <div className="page other-user-page">
@@ -422,35 +423,38 @@ export default class OtherUserPage extends Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="other-user-main-data">
-                                    <div className="username-title">
-                                        {otherUser.username}
+                                <div className="user-header">
+                                    <div className="user-header-data">
+                                        <div className="username-title">
+                                            {otherUser.username}
+                                            {online ? <span className="online-status mdi mdi-circle"></span> : null}
+                                        </div>
+                                        <div className="user-description">
+                                            {location}
+                                            {' · '}
+                                            <span className="age">{age}</span>
+                                        </div>
                                     </div>
-                                    <div className="user-description">
-                                        <span className="icon-marker"/> {location} -
-                                        <span className="age"> {strings.age}: {age}</span> -
-                                        <span className="gender"> {gender}</span>
+                                    <div className="user-header-actions">
+                                        <div className="like-button action" onClick={like !== null ? this.onRate : null}>
+                                            <span className={like === null ? 'icon-spinner rotation-animation' : like && like !== -1 ? 'mdi mdi-heart' : 'mdi mdi-heart-outline'}/>
+                                        </div>
+                                        <div className="send-message-button action" onClick={this.handleClickMessageLink}>
+                                            <span className="mdi mdi-email-plus-outline"/>
+                                        </div>
+                                        <div className="block-button action" onClick={blocked !== null ? this.onBlock : null}>
+                                            <span className="mdi mdi-dots-vertical"/>
+                                        </div>
                                     </div>
-                                    {online ? <div className="online-status">Online</div> : null}
-                                    <div className="send-message-button icon-wrapper icon-wrapper-with-text" onClick={this.handleClickMessageLink}>
-                                        <span className="icon-message"/>
-                                        <span className="text">{strings.message}</span>
-                                    </div>
-                                    <div className="like-button icon-wrapper" onClick={like !== null ? this.onRate : null}>
-                                        <span className={like === null ? 'icon-spinner rotation-animation' : like && like !== -1 ? 'icon-star yellow' : 'icon-star'}/>
-                                    </div>
-                                    <div className="block-button icon-wrapper" onClick={blocked !== null ? this.onBlock : null}>
-                                        <span className="icon-fa-plus"/>
-                                    </div>
-                                    <div className="other-profile-wrapper bold">
-                                        <OtherProfileData matching={matching} similarity={similarity} stats={comparedStats} ownImage={ownPicture}
-                                                          currentImage={otherPictureSmall}
-                                                          interestsUrl={`/users/${params.slug}/other-interests`}
-                                                          questionsUrl={`/users/${params.slug}/other-questions`}
-                                                          userId={user.id}
-                                                          otherUserId={otherUser.id}
-                                        />
-                                    </div>
+                                </div>
+                                <div className="other-profile-wrapper">
+                                    <OtherProfileData matching={matching} similarity={similarity} stats={comparedStats} ownImage={ownPicture}
+                                                      currentImage={otherPictureSmall}
+                                                      interestsUrl={`/users/${params.slug}/other-interests`}
+                                                      questionsUrl={`/users/${params.slug}/other-questions`}
+                                                      userId={user.id}
+                                                      otherUserId={otherUser.id}
+                                    />
                                 </div>
                                 <OtherProfileDataList profileWithMetadata={profileWithMetadata} metadata={metadata}/>
                             </div>

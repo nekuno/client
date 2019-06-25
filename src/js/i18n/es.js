@@ -832,6 +832,35 @@ export default {
     ////////////////
     // PROPUESTAS //
     ////////////////
+    AvailabilityEdit                        : {
+        title    : '¿Cuál es tu disponibilidad?',
+        daily    : 'A diario',
+        dates    : 'Fechas',
+        addRange : 'Añadir rango de días',
+        monday   : 'Lunes',
+        tuesday  : 'Martes',
+        wednesday: 'Miércoles',
+        thursday : 'Jueves',
+        friday   : 'Viernes',
+        saturday : 'Sábado',
+        sunday   : 'Domingo',
+    },
+    DailyInputRange                         : {
+        morning  : 'Mañana',
+        afternoon: 'Tarde',
+        night    : 'Noche',
+        continue : 'Guardar y continuar'
+    },
+    DateInputRange                          : {
+        topText: 'Selecciona un rango de fechas'
+    },
+    SelectCollapsible                       : {
+        orderBy: 'Ordenar por',
+    },
+
+    ButtonGoToProposalChat                  : {
+        chat: 'Conversar sobre la propuesta'
+    },
     ProposalFilterPreview                   : {
         filterText   : 'Filtros para el target de tu propuesta',
         from         : 'De',
@@ -841,6 +870,10 @@ export default {
     },
     ProposalRecommendationList              : {
         empty: '¡Has explorado todo Nekuno! Haz alguna propuesta nueva o ve a la sección de personas en la barra inferior.',
+    },
+    OwnProposalsOtherList : {
+        first: 'Propuestas con match',
+        separation: 'Otras propuestas'
     },
     OtherUserProposalsPage           : {
         topNavBarText: 'Propuestas de %username%',
@@ -857,6 +890,8 @@ export default {
         otherPublished  : 'Otras propuestas publicadas',
         matches         : 'Matchs',
         otherPublishedProposals: 'Otras propuestas publicadas',
+        published              : "Publicadas",
+        others                 : "Otras",
     },
     ProposalCard                            : {
         compatible: 'Compatible',
@@ -1024,12 +1059,6 @@ export default {
         publishProposal         : 'Publicar propuesta',
         title                   : '¿Buscas personas con características específicas?',
         filterWarning           : 'Estos filtros sólo serán visibles para ti y nos sirven para filtrar usuarios',
-        featuresBasic           : 'Aspectos básicos',
-        featuresAvailability    : 'Disponibilidad',
-        featuresPhysical        : 'Apariencia física',
-        featuresCulture         : 'Cultura e idiomas',
-        featuresDrugs           : 'Drogas y otros vicios',
-        featuresFamiliar        : 'Aspectos familiares',
         stepsBarContinueText    : 'Continuar',
         stepsBarCantContinueText: 'Indica una para continuar',
     },

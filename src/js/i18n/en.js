@@ -835,6 +835,35 @@ export default {
     ////////////////
     // PROPUESTAS //
     ////////////////
+    AvailabilityEdit                        : {
+        title    : 'What is your availability?',
+        daily    : 'Daily',
+        dates    : 'Dates',
+        addRange : 'Add days range',
+        monday   : 'Monday',
+        tuesday  : 'Tuesday',
+        wednesday: 'Wednesday',
+        thursday : 'Thursday',
+        friday   : 'Friday',
+        saturday : 'Saturday',
+        sunday   : 'Sunday'
+    },
+    DailyInputRange                         : {
+        morning  : 'Morning',
+        afternoon: 'Afternoon',
+        night    : 'Night',
+        continue : 'Save & continue'
+    },
+    DateInputRange                          : {
+        topText: 'Select a date range'
+    },
+    SelectCollapsible                       : {
+        orderBy: 'Order by',
+    },
+
+    ButtonGoToProposalChat                  : {
+        chat: 'Chat about this proposal'
+    },
     ProposalFilterPreview                   : {
         filterText   : 'Filters to your proposal target',
         from         : 'From',
@@ -844,6 +873,10 @@ export default {
     },
     ProposalRecommendationList              : {
         empty: 'You explored all Nekuno! Make some new proposals or go to the persons section at the bottom.',
+    },
+    OwnProposalsOtherList : {
+        first: 'Proposals with match',
+        separation: 'Other proposals'
     },
     OtherUserProposalsPage           : {
         topNavBarText: '%username% proposals',
@@ -873,6 +906,8 @@ export default {
         otherPublished         : 'Other published proposals',
         matches                : 'Matches',
         otherPublishedProposals: 'Other published proposals',
+        published              : "Published",
+        others                 : "Others",
     },
     ProposalCard                            : {
         compatible: 'Compatible',
@@ -899,6 +934,22 @@ export default {
         participantsTitle       : 'Number of participants',
         stepsBarCantContinueText: 'You cannot continue',
         stepsBarContinueText    : 'Continue',
+    },
+    AvailabilityPreview : {
+        availability   : 'Availability',
+        monday         : 'Monday',
+        tuesday        : 'Tuesday',
+        wednesday      : 'Wednesday',
+        thursday       : 'Thursday',
+        friday         : 'Friday',
+        saturday       : 'Saturday',
+        sunday         : 'Sunday',
+        and            : 'and',
+        morning        : 'morning',
+        afternoon      : 'afternoon',
+        night          : 'night',
+        from           : 'From',
+        to             : 'to',
     },
     ProposalAvailabilityDatesEditPage            : {
         publishProposal: 'Publish proposal',
@@ -973,22 +1024,6 @@ export default {
         hobbies        : 'Hobbys',
         games          : 'Games',
     },
-    AvailabilityPreview : {
-        availability   : 'Availability',
-        monday         : 'Monday',
-        tuesday        : 'Tuesday',
-        wednesday      : 'Wednesday',
-        thursday       : 'Thursday',
-        friday         : 'Friday',
-        saturday       : 'Saturday',
-        sunday         : 'Sunday',
-        and            : 'and',
-        morning        : 'morning',
-        afternoon      : 'afternoon',
-        night          : 'night',
-        from           : 'From',
-        to             : 'to',
-    },
     ProposalsPage                           : {
         discover: 'Discover proposals'
     },
@@ -1039,7 +1074,6 @@ export default {
         publishProposal         : 'Publish proposal',
         title                   : 'Are you looking for people with specific features?',
         filterWarning           : 'This filters only be visible for you and we need to filter users',
-        showResults             : 'Show results',
         stepsBarContinueText    : 'Continue',
         stepsBarCantContinueText: 'You cannot continue',
     },

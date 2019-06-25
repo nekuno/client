@@ -84,6 +84,7 @@ export default class UserPage extends Component {
         };
 
         this.getNatural = this.getNatural.bind(this);
+        this.toggleEditMode = this.toggleEditMode.bind(this);
     }
 
     componentDidMount() {

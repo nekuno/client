@@ -6,7 +6,7 @@ export default class TextRadiosWithImages extends Component {
     static propTypes = {
         title         : PropTypes.string,
         labels        : PropTypes.array.isRequired,
-        value         : PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+        value         : PropTypes.array,
         onClickHandler: PropTypes.func.isRequired,
         className     : PropTypes.string,
         disabled      : PropTypes.bool,
@@ -14,17 +14,26 @@ export default class TextRadiosWithImages extends Component {
 
     constructor(props) {
         super(props);
+
+        this.isChecked = this.isChecked.bind(this);
+    }
+
+    isChecked(key)
+    {
+        const {value} = this.props;
+
+        return value.some(function(each) {return each === key});
     }
 
     render() {
-        const {title, labels, value, className} = this.props;
+        const {title, labels, className} = this.props;
         return (
             <div className={className ? "list-block " + className : "list-block"}>
                 <div className="checkbox-title">{title}</div>
                 <ul className="checkbox-list">
                     {labels.map(label =>
                         <li key={label.key}>
-                            <InputRadio value={label.key} text={label.text} checked={value === label.key} onClickHandler={this.onClickHandler.bind(this, label.key)} reverse={true} image={label.image}/>
+                            <InputRadio value={label.key} text={label.text} checked={this.isChecked(label.key)} onClickHandler={this.onClickHandler.bind(this, label.key)} reverse={true} image={label.image}/>
                         </li>
                     )}
                 </ul>

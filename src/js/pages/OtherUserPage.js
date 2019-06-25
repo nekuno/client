@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { ORIGIN_CONTEXT, SHARED_USER_URL } from '../constants/Constants';
 import OtherProfileData from '../components/profile/OtherProfileData';
-import OtherProfileDataList from '../components/profile/OtherProfileDataList'
 import TopNavBar from '../components/ui/TopNavBar';
 import ToolBar from '../components/ui/ToolBar';
 import Image from '../components/ui/Image';
@@ -27,6 +26,8 @@ import LikeStore from '../stores/LikeStore';
 import GalleryPhotoStore from '../stores/GalleryPhotoStore';
 import ChatUserStatusStore from '../stores/ChatUserStatusStore';
 import selectn from 'selectn';
+import AboutMeCategory from "../components/profile/AboutMeCategory/AboutMeCategory";
+import NaturalCategory from "../components/profile/NaturalCategory/NaturalCategory";
 
 function parseId(user) {
     return user.id;
@@ -159,6 +160,7 @@ export default class OtherUserPage extends Component {
     constructor(props) {
         super(props);
 
+        this.getNatural = this.getNatural.bind(this);
         this.onRate = this.onRate.bind(this);
         this.onBlock = this.onBlock.bind(this);
         this.handleClickMessageLink = this.handleClickMessageLink.bind(this);
@@ -371,6 +373,26 @@ export default class OtherUserPage extends Component {
         UserActionCreators.requestUser(this.props.params.slug, ['photo', 'force']);
     }
 
+    getNatural() {
+        const {profile} = this.props;
+        const natural = profile.naturalProfile;
+
+        const categories = Object.keys(natural).map((type) => {
+            const text = natural[type];
+            return <div key={type}>
+                {
+                    type === 'About Me' ?
+                        <AboutMeCategory text={text}/>
+                        :
+                        <NaturalCategory category={type} text={text}/>
+                }
+            </div>
+
+        });
+
+        return categories;
+    }
+
     render() {
         const {user, otherUser, profile, ownProfile, profileWithMetadata, metadata, matching, similarity, blocked, like, comparedStats, photos, noPhotos, online, orientationMustBeAsked, params, strings} = this.props;
         const otherPictureSmall = selectn('photo.thumbnail.small', otherUser);
@@ -456,7 +478,8 @@ export default class OtherUserPage extends Component {
                                                       otherUserId={otherUser.id}
                                     />
                                 </div>
-                                <OtherProfileDataList profileWithMetadata={profileWithMetadata} metadata={metadata}/>
+                                {/*<OtherProfileDataList profileWithMetadata={profileWithMetadata} metadata={metadata}/>*/}
+                                {this.getNatural()}
                             </div>
                             : <EmptyMessage text={strings.loading} loadingGif={true}/>}
                     </div>

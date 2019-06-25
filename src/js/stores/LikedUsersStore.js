@@ -11,6 +11,7 @@ class LikedUsersStore extends BaseStore {
         this._ownUsers = [];
         this._isLoading = false;
         this._nextUrl = '';
+        this._hadError = false;
     }
 
 
@@ -33,6 +34,7 @@ class LikedUsersStore extends BaseStore {
                 break;
             case ActionTypes.REQUEST_OWN_LIKED_USERS_ERROR:
                 this._isLoading = false;
+                this._hadError = true;
                 this.emitChange();
                 break;
             default:
@@ -45,7 +47,7 @@ class LikedUsersStore extends BaseStore {
     }
 
     isLoading() {
-        return this._isLoading;
+        return this._isLoading || this._hadError;
     }
 
     getRequestUrl() {

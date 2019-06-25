@@ -87,7 +87,7 @@ export default class MultipleChoicesEdit extends Component {
                     </div>
                     : metadata.withImages ?
                         <TextRadiosWithImages labels={metadata.choices.map(choice => { return({key: choice.id, text: choice.text, image: choice.picture}) })}
-                                        onClickHandler={this.handleClickMultipleChoice} values={data || []} className={'multiple-choice-filter'}
+                                        onClickHandler={this.handleClickMultipleChoice} value={data || []} className={'multiple-choice-filter'}
                                         title={metadata.labelEdit} />
                     :
                     <TextCheckboxes labels={metadata.choices.map(choice => { return({key: choice.id, text: choice.text}) })}

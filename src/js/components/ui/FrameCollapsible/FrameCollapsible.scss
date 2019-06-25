@@ -1,0 +1,28 @@
+@import '../../../../scss/_partials/colors';
+
+.frame-collapsible {
+
+  .frame-top {
+    cursor: pointer;
+    font-size: 18px;
+    width: 100%;
+
+    .title {
+      font-weight: 600;
+      display: inline-block;
+      padding: 3px 3%;
+      width: 69%;
+      color: #615acb;
+    }
+
+    .arrow {
+      display: inline-block;
+      text-align: right;
+      width: 19%;
+    }
+  }
+  .content {
+    margin-bottom: 8px;
+    margin-top: 24px;
+  }
+}

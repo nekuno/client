@@ -47,6 +47,20 @@ import SettingsPage from "./pages/SettingsPage";
 import RouterActionCreators from "./actions/RouterActionCreators";
 import LoginStore from "./stores/LoginStore";
 
+import ProposalsPage from "./pages/Proposals/Recommendation";
+import ProposalsLeisureIntroductionPage from "./pages/Proposals/Leisure/IntroductionPage";
+import ProposalBasicEditPage from "./pages/Proposals/Edit/BasicPage";
+import ProposalsProjectIntroductionPage from "./pages/Proposals/Project/IntroductionPage";
+import ProposalsExperienceIntroductionPage from "./pages/Proposals/Experience/IntroductionPage";
+import ProposalTypeEditPage from "./pages/Proposals/Edit/TypePage";
+import ProposalProfessionEditPage from "./pages/Proposals/Edit/ProfessionPage";
+import ProposalAvailabilityEditPage from "./pages/Proposals/Edit/AvailabilityPage";
+import ProposalAvailabilityDatesEditPage from "./pages/Proposals/Edit/AvailabilityDatesPage";
+import ProposalFeaturesPage from "./pages/Proposals/Edit/FeaturesPage";
+import ProposalPreviewPage from "./pages/Proposals/Edit/PreviewPage";
+import OtherUserProposalsPage from "./pages/OtherUser/ProposalsPage";
+import OtherUserProposalDetailPage from "./pages/OtherUserProposalDetailPage";
+
 function requireAuth(nextState, replaceState) {
 	if (!LoginStore.isLoggedIn()) {
 		let transitionPath = nextState.location.pathname;
@@ -259,6 +273,108 @@ export default class Root extends Component {
 							name="settings"
 							path="/settings"
 							component={SettingsPage}
+						/>
+
+						{/*Proposals*/}
+						<Route
+							name="proposals"
+							path="/proposals"
+							component={ProposalsPage}
+						/>
+						<Route
+							name="proposals-project-introduction"
+							path="/proposals-project-introduction"
+							component={ProposalsProjectIntroductionPage}
+						/>
+						<Route
+							name="proposals-leisure-introduction"
+							path="/proposals-leisure-introduction"
+							component={ProposalsLeisureIntroductionPage}
+						/>
+						<Route
+							name="proposals-experience-introduction"
+							path="/proposals-experience-introduction"
+							component={ProposalsExperienceIntroductionPage}
+						/>
+						<Route
+							name="proposal-basic-edit"
+							path="/proposal-basic-edit/:proposalId"
+							component={ProposalBasicEditPage}
+						/>
+						<Route
+							name="proposal-basic-create"
+							path="/proposal-basic-edit"
+							component={ProposalBasicEditPage}
+						/>
+						<Route
+							name="proposal-type-edit"
+							path="/proposal-type-edit/:proposalId"
+							component={ProposalTypeEditPage}
+						/>
+						<Route
+							name="proposal-type-create"
+							path="/proposal-type-edit"
+							component={ProposalTypeEditPage}
+						/>
+						<Route
+							name="proposal-profession-edit"
+							path="/proposal-profession-edit/:proposalId"
+							component={ProposalProfessionEditPage}
+						/>
+						<Route
+							name="proposal-profession-create"
+							path="/proposal-profession-edit"
+							component={ProposalProfessionEditPage}
+						/>
+						<Route
+							name="proposal-availability-edit"
+							path="/proposal-availability-edit/:proposalId"
+							component={ProposalAvailabilityEditPage}
+						/>
+						<Route
+							name="proposal-availability-create"
+							path="/proposal-availability-edit"
+							component={ProposalAvailabilityEditPage}
+						/>
+						<Route
+							name="proposal-availability-dates-edit"
+							path="/proposal-availability-dates-edit/:proposalId"
+							component={ProposalAvailabilityDatesEditPage}
+						/>
+						<Route
+							name="proposal-availability-dates-create"
+							path="/proposal-availability-dates-edit"
+							component={ProposalAvailabilityDatesEditPage}
+						/>
+						<Route
+							name="proposal-features-edit"
+							path="/proposal-features-edit/:proposalId"
+							component={ProposalFeaturesPage}
+						/>
+						<Route
+							name="proposal-features-create"
+							path="/proposal-features-edit"
+							component={ProposalFeaturesPage}
+						/>
+						<Route
+							name="proposal-preview-edit"
+							path="/proposal-preview/:proposalId"
+							component={ProposalPreviewPage}
+						/>
+						<Route
+							name="proposal-preview-create"
+							path="/proposal-preview"
+							component={ProposalPreviewPage}
+						/>
+						<Route
+							name="other-user-proposals"
+							path="/p/:slug/proposals"
+							component={OtherUserProposalsPage}
+						/>
+						<Route
+							name="other-user-proposal-detail"
+							path="/p/:slug/proposal/:proposalId"
+							component={OtherUserProposalDetailPage}
 						/>
 					</Route>
 				</Route>

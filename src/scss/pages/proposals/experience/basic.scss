@@ -1,0 +1,21 @@
+@import '../../../_partials/colors';
+
+body #root .App .views .view.proposals-experience-basic-view {
+  background-color: $background-white;
+  color: $gray-main-text;
+  text-align: center;
+  z-index: 0;
+
+  .proposals-experience-basic-wrapper {
+    h2 {
+      padding: 0 24px;
+    }
+    .image-wrapper {
+      padding: 0 24px;
+      img {
+        margin: 16px 0 0 0;
+        width: 100%;
+      }
+    }
+  }
+}

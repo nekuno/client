@@ -814,5 +814,8 @@ export default {
     LoginActionCreators              : {
         inactiveAccount: 'Inactive account',
         enableQuestion : 'Your account is disabled. Do you want to reenable it?'
-    }
+    },
+    ProposalsPage                           : {
+        discover: 'Discover proposals'
+    },
 }

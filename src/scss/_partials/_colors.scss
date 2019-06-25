@@ -56,3 +56,57 @@ $page-bg: $white;
 $panel-bg: $white;
 
 $navbar-bg: $white;
+
+// Proposals
+$background: #F6F6F6;
+$gray-main-text: #2B3857;
+$gray-secondary-text: #818FA1;
+$gray-border: #F0F1FA;
+$text: #2B3857;
+
+$overlay-image: rgba(43, 56, 87, 0.6);
+$overlay-top: rgba(43, 56, 87, 0);
+$overlay-bottom: rgba(43, 56, 87, 0.4);
+
+$background-white: #FFFFFF;
+$background-darken: darken(#f6f6f6, 5%);
+
+$purple-main: #756EE5;
+$purple-main-translucent: rgba(117, 110, 229, 0.2);;
+$purple-secondary: #928BFF;
+
+$white-background: #FBFCFD;
+
+$blue-projects: #63CAFF;
+$blue-projects-translucent: rgba(99, 202, 255, 0.2);
+
+$pink-hobbies: #D380D3;
+$pink-hobbies-translucent: rgba(211, 128, 211, 0.2);
+
+$green-experiences: #7BD47E;
+$green-experiences-translucent: rgba(123, 212, 126, 0.2);
+
+$border: #F0F1FA;
+
+$white: #FFFFFF;
+
+$purple-one: #928bff;
+$purple-one-light: lighten($purple-one, 20%);
+$purple-two: #615acb;
+$purple-two-light: lighten($purple-two, 20%);
+$green: #7bd47e;
+$green-light: lighten($green, 20%);
+$pink: #D380D3;
+$pink-light: lighten($pink, 20%);
+$blue: #63caff;
+$blue-lighten: lighten($blue, 20%);
+
+$calendar-black: lighten(#2B3857, 60%);
+
+$text: #2B3857;
+$text-two: #818fa1;
+
+$links: #1f8fe1;
+$red: #f42b54;
+
+$gray-main-translucent: rgba(43, 56, 87, 0.7);

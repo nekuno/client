@@ -1,0 +1,16 @@
+.input-tag {
+
+  .title {
+    font-weight: 600;
+  }
+  .suggested-chip, .selected-chip {
+    display: block;
+    margin: 0 16px;
+    text-align: left;
+  }
+  .selectedLabel {
+    font-weight: 600;
+    margin: 8px 24px;
+    text-align: left;
+  }
+}

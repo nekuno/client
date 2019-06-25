@@ -1,0 +1,71 @@
+@import '../../../_partials/colors';
+
+body #root .App .views .view.proposals-experience-availability-view {
+  background-color: $background-white;
+  color: $gray-main-text;
+  text-align: center;
+  z-index: 0;
+
+  .proposals-experience-availability-wrapper {
+    h2 {
+      padding: 0 24px;
+    }
+
+    .proposals-experience-availability-frame-wrapper {
+      cursor: pointer;
+      .rounded-icon-wrapper {
+        text-align: center;
+        display: inline-block;
+        margin-right: 4%;
+        width: 8%;
+        vertical-align: top;
+      }
+    }
+
+    .text-wrapper {
+      display: inline-block;
+      text-align: left;
+      vertical-align: top;
+      width: 88%;
+
+      .title {
+        font-weight: bold;
+        margin-bottom: 8px;
+        text-align: left;
+        color: $text;
+      }
+      .small {
+        font-size: 14px;
+      }
+    }
+    .text-participants-wrapper {
+      display: inline-block;
+      text-align: left;
+      vertical-align: top;
+      width: 34%;
+
+      .title {
+        font-weight: bold;
+        text-align: left;
+        color: $text;
+      }
+      .small {
+        font-size: 14px;
+      }
+    }
+    .participants-number {
+      display: inline-block;
+      width: 54%;
+      text-align: right;
+      .participants-number-text {
+        display: inline-block;
+        vertical-align: super;
+        font-weight: bold;
+        color: $text;
+        font-size: 24px;
+        width: 22%;
+        text-align: center;
+      }
+    }
+  }
+}

@@ -1,0 +1,91 @@
+@import '../../../../scss/_partials/colors';
+
+.proposal-card {
+  cursor: pointer;
+  display: inline-block;
+  font-weight: 600;
+  margin: auto;
+  position: relative;
+  text-align: left;
+  width: 80%;
+
+  .frame {
+    background: #FFF;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    box-shadow: 0 0 5px $gray-border;
+    color: #6C6F82;
+    font-size: 14px;
+    margin: 2.5%;
+    padding: 0;
+    width: 95%;
+
+    .proposal-image {
+      height: 100%;
+      overflow: hidden;
+      position: relative;
+      width: 100%;
+
+      img {
+        border-radius: 10px 10px 0 0;
+        -moz-border-radius: 10px 10px 0 0;
+        -webkit-border-radius: 10px 10px 0 0;
+        width: 100%;
+      }
+      .top-data {
+        bottom: 0;
+        color: white;
+        height: 100%;
+        padding: 0 5%;
+        position: absolute;
+        width: 80%;
+
+        h2 {
+          bottom: 0;
+          font-weight: 600;
+          max-height: 80px;
+          overflow: hidden;
+          position: absolute;
+        }
+      }
+
+    }
+    .type {
+      position: absolute;
+      right: 16px;
+      top: 16px;
+      z-index: 1;
+    }
+    .user-data {
+      height: 60px;
+      margin-top: 16px;
+      padding: 0 5%;
+
+      .user-text {
+        display: inline-block;
+        margin-left: 6px;
+        vertical-align: super;
+
+        .username {
+          font-size: 20px;
+        }
+        .age-city {
+          color: $gray-secondary-text;
+          font-size: 14px;
+          font-weight: normal;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+      }
+    }
+    .description {
+      padding: 16px 5%;
+      .resume-text {
+        font-weight: normal;
+        margin-top: 16px;
+      }
+    }
+  }
+}

@@ -1,0 +1,35 @@
+@import '../../../../scss/_partials/colors';
+
+.availability-edit {
+  margin-bottom: 60px;
+  text-align: center;
+
+  h2 {
+    margin-bottom: 36px;
+    padding: 0 24px
+  }
+
+  .daily-options {
+    margin-top: 24px;
+    .weekday {
+      margin: 8px 0;
+      width: 100%;
+
+      .range {
+        padding: 0 12px;
+
+        .range-option {
+          display: inline-block;
+          width: 33%;
+        }
+      }
+    }
+  }
+
+  .dates-options {
+    margin-top: 24px;
+    .dates-option {
+      margin-bottom: 24px;
+    }
+  }
+}

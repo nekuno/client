@@ -1,0 +1,24 @@
+@import '../../../_partials/colors';
+
+body #root .App .views .view.proposals-project-features-view {
+  background-color: $background-white;
+  color: $gray-main-text;
+  // text-align: center;
+  z-index: 0;
+
+  .proposals-project-features-wrapper {
+    color: $gray-secondary-text;
+
+    h2 {
+      padding: 0 24px;
+      text-align: center;
+    }
+
+
+  }
+
+  .warning-container {
+    margin: 2.5%;
+    display: flex;
+  }
+}

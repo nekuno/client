@@ -811,5 +811,8 @@ export default {
     LoginActionCreators              : {
         inactiveAccount: 'Cuenta desactivada',
         enableQuestion : 'Tu cuenta está desactivada. ¿Quieres reactivarla?'
-    }
+    },
+    ProposalsPage                           : {
+        discover: 'Descubre propuestas'
+    },
 }

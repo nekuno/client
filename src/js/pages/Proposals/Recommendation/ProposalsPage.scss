@@ -1,0 +1,29 @@
+@import "../../../../scss/_partials/colors";
+@import "../../../../scss/_partials/variables";
+
+.view {
+	background-color: $background;
+	overflow-y: hidden;
+	z-index: 0;
+	height: calc(100% - 100px);
+	color: $gray-main-text;
+	text-align: center;
+	margin-top: $navbar-hg;
+}
+
+.topNavBar {
+	//position: sticky;
+	background: $background;
+}
+
+.addProposal {
+  height: 64px;
+  width: 64px;
+  
+	position: absolute;
+	bottom: 8px;
+  right: 8px;
+  
+  background: $material-red;
+  border-radius: 50%;
+}

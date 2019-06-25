@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import translate from '../../../i18n/Translate';
 import SelectInline from '../../ui/SelectInline/';
-import Chip from '../../ui/Chip.js';
+import Chip from '../../ui/Chip/';
 import DateInputRange from '../../ui/DateInputRange/';
 import DailyInputRange from '../../ui/DailyInputRange/';
 import styles from './AvailabilityEdit.scss';

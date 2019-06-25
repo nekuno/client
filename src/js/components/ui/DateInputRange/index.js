@@ -9,7 +9,7 @@ import {
     INFINITE_CALENDAR_THEME, INFINITE_CALENDAR_BLUE_THEME,
 } from '../../../constants/InfiniteCalendarConstants';
 import { format } from 'date-fns';
-import Chip from '../Chip.js';
+import Chip from '../Chip/';
 import 'react-infinite-calendar/styles.css';
 import styles from './DateInputRange.scss';
 import '../../../../scss/_partials/_react-infinite-calendar.scss';

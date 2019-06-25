@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import translate from '../../../i18n/Translate';
-import Chip from '../Chip.js';
+import Chip from '../Chip/';
 import styles from './DailyInputRange.scss';
 
 @translate('DailyInputRange')

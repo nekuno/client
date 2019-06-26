@@ -420,7 +420,7 @@ export default class OtherUserPage extends Component {
                 <div className="view view-main">
                     <div className="page other-user-page">
                         {enoughData && !orientationMustBeAsked ?
-                            <div id="page-content">
+                            <div id="page-content" className="with-tab-bar">
                                 <div className="user-images">
                                     <div className="swiper-pagination"></div>
                                     <div className="user-images-wrapper">

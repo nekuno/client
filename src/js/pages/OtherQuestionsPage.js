@@ -186,7 +186,7 @@ export default class OtherQuestionsPage extends Component {
                 <div className="view view-main" id="questions-view-main">
                     <div className="page other-questions-page">
                         {user && otherUser && questions ?
-                            <div id="page-content" className="other-questions-content">
+                            <div id="page-content" className="other-questions-content with-tab-bar">
                                 <OtherQuestionList firstItems={this.getFirstItems.bind(this)()} otherQuestions={otherQuestions} questions={questions} otherUserSlug={otherUser.slug || ''} ownPicture={ownPicture} otherPicture={otherPicture}
                                                    onTimerEnd={this.onTimerEnd} isLoadingComparedQuestions={isLoadingComparedQuestions} onBottomScroll={this.onBottomScroll.bind(this)}
                                                    otherNotAnsweredQuestions={otherNotAnsweredQuestions}

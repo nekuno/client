@@ -194,7 +194,7 @@ export default class InterestsPage extends Component {
                 ]} activeLinkIndex={3} arrowUpLeft={'85%'}/>
                 <div className="view view-main" id="interests-view-main">
                     <div className="page interests-page">
-                        <div id="page-content" className="interests-content">
+                        <div id="page-content" className="interests-content with-tab-bar">
                             <CardContentList firstItems={this.getFirstItems.bind(this)()} contents={interests} userId={parseId(user)} onBottomScroll={this.onBottomScroll} loadingFirst={loadingFirst} isLoading={isLoadingOwnInterests} onReport={this.onReport}/>
                             <br/>
                         </div>

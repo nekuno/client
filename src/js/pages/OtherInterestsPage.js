@@ -351,7 +351,7 @@ export default class OtherInterestsPage extends Component {
                     ''}
                 <div className="view view-main" id="interests-view-main">
                     <div className="page other-interests-page">
-                        <div id="page-content" className="other-interests-content">
+                        <div id="page-content" className="other-interests-content with-tab-bar">
                             {
                                 /* Uncomment to enable carousel
                                  this.state.carousel ?

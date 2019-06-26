@@ -96,13 +96,12 @@ export default class Scroll extends Component {
     }
 
     getHeight() {
-        const topMargin = this.getTopMargin();
-        const toolbarHeight = this.getToolbarHeight();
+        const margin = this.getMargin();
         const scrollContainerHeight = this.getScrollContainerHeight.bind(this)();
-        return parseInt(scrollContainerHeight - (topMargin + toolbarHeight));
+        return parseInt(scrollContainerHeight - margin);
     }
 
-    getTopMargin() {
+    getMargin() {
         const pageContent = document.getElementById('page-content');
 
         if (!pageContent) {
@@ -110,20 +109,9 @@ export default class Scroll extends Component {
         }
 
         const style = window.getComputedStyle(pageContent);
-        const property = style.getPropertyValue('margin-top');
-        return parseInt(property.slice(0, -2));
-    }
-
-    getToolbarHeight() {
-        const toolbars = document.getElementsByClassName('toolbar');
-
-        if (toolbars.length === 0) {
-            return null;
-        }
-
-        const style = window.getComputedStyle(toolbars[0]);
-        const property = style.getPropertyValue('height');
-        return parseInt(property.slice(0, -2));
+        const top = parseInt(style.getPropertyValue('margin-top').slice(0, -2));
+        const bottom = parseInt(style.getPropertyValue('margin-bottom').slice(0, -2));
+        return top + bottom;
     }
 
     getScrollContainer() {

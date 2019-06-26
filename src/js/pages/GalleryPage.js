@@ -234,7 +234,7 @@ export default class GalleryPage extends Component {
                     <div className="page gallery-page">
                         {this.state.importingAlbums ? <EmptyMessage text={strings.importingAlbums} loadingGif={true}/>
                             :
-                            <div id="page-content" className="gallery-content">
+                            <div id="page-content" className="gallery-content with-tab-bar">
                                 <div className="import-album-wrapper photo-wrapper" onClick={this.importAlbumPopUp}>
                                     <div className="icon-image"></div>
                                     <div className="text">{strings.importAlbum}</div>

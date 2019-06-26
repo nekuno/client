@@ -100,7 +100,7 @@ export default class QuestionsPage extends Component {
                 ]} activeLinkIndex={2} arrowUpLeft={'60%'}/>
                 <div className="view view-main" id="questions-view-main">
                     <div className="page questions-page">
-                        <div id="page-content" className="questions-content">
+                        <div id="page-content" className="questions-content with-tab-bar">
                             <QuestionList firstItems={this.getFirstItems.bind(this)()} questions={questions} userSlug={user.slug || ''} ownPicture={ownPicture}
                                           defaultPicture={defaultPicture} onTimerEnd={this.onTimerEnd} onBottomScroll={this.onBottomScroll.bind(this)} isLoadingOwnQuestions={isLoadingOwnQuestions}/>
                         </div>

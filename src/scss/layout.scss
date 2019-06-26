@@ -200,6 +200,10 @@ body {
 						#page-content {
 							margin: $navbar-hg auto 0 auto;
 							width: 85%;
+							
+							&.with-tab-bar {
+								margin-bottom: $bottombar-hg;
+							}
 
 							.sub-title {
 								font-size: 1.214285714em;

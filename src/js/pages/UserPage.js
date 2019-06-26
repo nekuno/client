@@ -144,7 +144,7 @@ export default class UserPage extends Component {
                 <div className="view view-main">
                     <div className="page user-page">
                         {profile && metadata && stats ?
-                            <div id="page-content">
+                            <div id="page-content" className="with-tab-bar">
                                 <User user={user} profile={profile} onClick={() => this.context.router.push(`/gallery`)}/>
                                 <div className="user-interests">
                                     <div className="number">

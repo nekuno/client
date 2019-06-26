@@ -80,6 +80,10 @@ export default class InterestsPage extends Component {
         this.onBottomScroll = this.onBottomScroll.bind(this);
         this.onReport = this.onReport.bind(this);
         this.onReportReasonText = this.onReportReasonText.bind(this);
+        
+        this.state = {
+            filterExpanded: false,
+        };
     }
 
     componentDidUpdate(prevProps) {
@@ -165,17 +169,46 @@ export default class InterestsPage extends Component {
             }, (error) => console.log(error)
         );
     }
+    
+    buildStatusMessage() { // FIXME: localize
+        const {type, strings} = this.props;
+
+        const object = !type ? 'intereses' :
+            (type.substring(0, 4) === 'Link') ? `intereses de ${type.substring(4)}`
+            : strings['filter' + type];
+        const allPrefix = type === 'Audio' ? 'toda la ' : type === 'Image' ? 'todas las ' : 'todos los ';
+        const showAllPrefix = true;
+        return 'Mostrando ' + (showAllPrefix ? allPrefix : '') + object;
+    }
+    
+    getFilterArea() {
+        const {filterExpanded} = this.state;
+
+        const switchState =
+            <div className={`switch-state ${filterExpanded ? 'expanded' : 'collapsed'}`}
+                 onClick={() => this.setState({ filterExpanded: !filterExpanded })}>
+                { filterExpanded ? '' :
+                    <span className="status">{this.buildStatusMessage()}</span>}
+                <span className={`icon mdi mdi-chevron-${filterExpanded ? 'up' : 'down'}`}></span>
+            </div>;
+
+        return filterExpanded ?
+            <div className="filter-area" key="filter-area">
+                <div key="filter-buttons">{this.getFilterButtons()}</div>
+                {switchState}
+            </div>
+            :
+            <div className="filter-area" key="filter-area">
+                {switchState}
+            </div>;
+    }
 
     getFirstItems() {
         const {isLoadingOwnInterests, noInterests, type} = this.props;
 
+        const filterArea = this.getFilterArea();
         const banner = <div key="banner">{this.getBanner(this.props)}</div>;
-        let firstItems = [banner];
-
-        if (!noInterests || isLoadingOwnInterests || type !== '') {
-            const filterButtons = <div key="filter-buttons">{this.getFilterButtons.bind(this)()}</div>;
-            firstItems.push(filterButtons);
-        }
+        let firstItems = [filterArea, banner];
 
         return firstItems;
     }

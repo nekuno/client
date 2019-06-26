@@ -174,7 +174,13 @@ export default {
         interests            : 'Interests',
         loading              : 'Loading interests',
         empty                : 'No interests to show with this filters',
-        reported             : 'The content has been reported. We will review it within next 24 hours'
+        reported             : 'The content has been reported. We will review it within next 24 hours',
+        filterVideo  : 'videos',
+        filterAudio  : 'music',
+        filterImage  : 'photos',
+        filterWeb    : 'links',
+        filterGame   : 'games',
+        filterCreator: 'channels',
     },
     OtherQuestionsPage               : {
         coincidences: 'Coincidences of',

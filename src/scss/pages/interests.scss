@@ -1,3 +1,5 @@
+@import '../_partials/colors';
+
 body #root .App .views {
 
   #interests-view-main{
@@ -5,8 +7,27 @@ body #root .App .views {
   }
 
   .view .page.interests-page #page-content {
-    margin: 65px auto 0 auto;
     width: 100%;
+
+    .filter-area {
+      padding: 1px 0;
+      .switch-state {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-size: 16px;
+        padding: 8px 0 8px;
+        text-align: center;
+        &.expanded {
+          padding-top: 24px 0 24px;
+        }
+        .status {
+        }
+        .icon {
+          color: $deep-purple;
+        }
+      }
+    }
 
     .content-list {
       .infinite-column {

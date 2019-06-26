@@ -80,7 +80,13 @@ export default {
         interests: 'Intereses',
         loading  : 'Cargando intereses',
         empty    : 'No tienes ningún interés todavía. Por favor, conecta tus redes sociales o explora tus ovillos y cuéntanos lo que te interesa.',
-        reported : 'El contenido ha sido reportado. Lo revisaremos en las próximas 24 horas'
+        reported : 'El contenido ha sido reportado. Lo revisaremos en las próximas 24 horas',
+        filterVideo  : 'videos',
+        filterAudio  : 'música',
+        filterImage  : 'fotos',
+        filterWeb    : 'enlaces',
+        filterGame   : 'juegos',
+        filterCreator: 'canales',
     },
     GalleryPage                      : {
         importAlbum    : 'Importar fotos',

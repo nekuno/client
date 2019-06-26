@@ -88,9 +88,9 @@ export default class IndustryPage extends Component {
                 <div className="view view-main proposals-project-industry-view">
                     <TopNavBar
                         background={'transparent'}
-                        iconLeft={'arrow-left'}
-                        firstIconRight={'x'}
-                        textCenter={strings.publishProposal}
+                        leftIcon={'arrow-left'}
+                        rightIcon={'x'}
+                        centerText={strings.publishProposal}
                         textSize={'small'}
                         onLeftLinkClickHandler={this.topNavBarLeftLinkClick}
                         onRightLinkClickHandler={this.topNavBarRightLinkClick}/>

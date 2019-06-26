@@ -116,9 +116,9 @@ export default class BasicPage extends Component {
                 <div className="view view-main proposals-experience-basic-view">
                     <TopNavBar
                         background={'transparent'}
-                        iconLeft={'arrow-left'}
-                        firstIconRight={'x'}
-                        textCenter={strings.publishProposal}
+                        leftIcon={'arrow-left'}
+                        rightIcon={'x'}
+                        centerText={strings.publishProposal}
                         textSize={'small'}
                         onLeftLinkClickHandler={this.topNavBarLeftLinkClick}
                         onRightLinkClickHandler={this.topNavBarRightLinkClick}/>

@@ -74,7 +74,7 @@ export default class ProposalAvailabilityDatesEditPage extends Component {
     // }
     // }
 
-    topNavBarLeftLinkClick() {
+    topNavBarRightLinkClick() {
         const {params} = this.props;
 
         // ProposalActionCreators.mergeCreatingProposal(CreatingProposalStore.proposal);
@@ -86,7 +86,7 @@ export default class ProposalAvailabilityDatesEditPage extends Component {
         }
     }
 
-    topNavBarRightLinkClick() {
+    topNavBarLeftLinkClick() {
         const {params} = this.props;
 
         // ProposalActionCreators.mergeCreatingProposal(CreatingProposalStore.proposal);
@@ -207,10 +207,9 @@ export default class ProposalAvailabilityDatesEditPage extends Component {
                     <TopNavBar
                         background={canContinue ? this.getHexadecimalColor() : 'transparent'}
                         color={canContinue ? '#FFFFFF' : '#000'}
-                        iconLeft={canContinue ? 'check' : ''}
-                        firstIconRight={'x'}
-                        textCenter={CreatingProposalStore.proposal.id ? strings.editProposal : strings.publishProposal}
-                        textSize={'small'}
+                        leftIcon={'left-arrow'}
+                        rightIcon={canContinue ? 'check' : ''}
+                        centerText={CreatingProposalStore.proposal.id ? strings.editProposal : strings.publishProposal}
                         onLeftLinkClickHandler={this.topNavBarLeftLinkClick}
                         onRightLinkClickHandler={this.topNavBarRightLinkClick}/>
                     }

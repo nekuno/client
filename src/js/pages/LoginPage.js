@@ -66,9 +66,9 @@ export default class LoginPage extends Component {
         return (
             <div className="views">
                 {LoginStore.justLoggedOut ?
-                    <TopNavBar leftText={strings.cancel} centerText={strings.login} onLeftLinkClickHandler={this.goHome}/>
+                    <TopNavBar leftIcon="left-arrow" centerText={strings.login} onLeftLinkClickHandler={this.goHome}/>
                     :
-                    <TopNavBar leftText={strings.cancel} centerText={strings.login}/>
+                    <TopNavBar leftIcon="left-arrow" centerText={strings.login}/>
                 }
                 <div className="view view-main">
                     <div className="page">

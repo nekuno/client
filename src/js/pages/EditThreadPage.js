@@ -129,7 +129,7 @@ export default class EditThreadPage extends Component {
         const {category, threadName, updating} = this.state;
         return (
             <div className="views">
-                <TopNavBar centerText={strings.edit} leftText={strings.cancel}/>
+                <TopNavBar centerText={strings.edit} rightIcon="x" />
                 <div className="view view-main">
                     <div className="page create-thread-page">
                         <div id="page-content">

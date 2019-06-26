@@ -111,8 +111,8 @@ export default class PreviewPage extends Component {
                     <TopNavBar
                         position={'absolute'}
                         background={'transparent'}
-                        iconLeft={'arrow-left'}
-                        firstIconRight={'icon-experiencia'}
+                        leftIcon={'arrow-left'}
+                        rightIcon={'icon-experiencia'}
                         textSize={'small'}
                         onLeftLinkClickHandler={this.topNavBarLeftLinkClick}
                         onRightLinkClickHandler={this.topNavBarRightLinkClick}/>

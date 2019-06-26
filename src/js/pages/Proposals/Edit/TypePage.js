@@ -341,9 +341,9 @@ export default class ProposalTypeEditPage extends Component {
                     <div className="view view-main proposal-type-edit">
                         <TopNavBar
                             background={'transparent'}
-                            iconLeft={'arrow-left'}
-                            firstIconRight={'x'}
-                            textCenter={CreatingProposalStore.proposal.id ? strings.editProposal : strings.publishProposal}
+                            leftIcon={'arrow-left'}
+                            rightIcon={'x'}
+                            centerText={CreatingProposalStore.proposal.id ? strings.editProposal : strings.publishProposal}
                             textSize={'small'}
                             onLeftLinkClickHandler={this.topNavBarLeftLinkClick}
                             onRightLinkClickHandler={this.topNavBarRightLinkClick}/>

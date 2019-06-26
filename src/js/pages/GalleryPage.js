@@ -222,7 +222,7 @@ export default class GalleryPage extends Component {
 
         return (
             <div className="views">
-                <TopNavBar leftMenuIcon={true} centerText={strings.myProfile} rightIcon={'uploadthin'} rightIconsWithoutCircle={true} onRightLinkClickHandler={this.importAlbumPopUp}/>
+                <TopNavBar leftMenuIcon={true} centerText={strings.myProfile} rightIcon={'uploadthin'} onRightLinkClickHandler={this.importAlbumPopUp}/>
                 <ToolBar links={[
                     {'url': `/p/${user.slug}`, 'text': strings.about, 'icon': 'account'},
                     {'url': '/gallery', 'text': strings.photos, 'icon': 'camera'},

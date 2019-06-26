@@ -114,17 +114,15 @@ export default class ProposalsPage extends Component {
             <div className="views">
                 <div className="view view-main other-user-proposals-view">
                     <TopNavBar
-                        background={'FFFFFF'}
-                        iconLeft="arrow-left"
+                        leftIcon="arrow-left"
                         onLeftLinkClickHandler={() => this.goBack(routes)}
-                        textCenter={otherUser ? strings.topNavBarText.replace('%username%', otherUser.username) : ''}
-                        textSize={'small'}>
+                        centerText={otherUser ? strings.topNavBarText.replace('%username%', otherUser.username) : ''}>
+                    </TopNavBar>
+                    <div className="other-user-proposals-view-wrapper">
                         <SelectCollapsible
                             selected={'work'}
                             options={options}
                             onClickSelectCollapsible={this.onClickSelectCollapsible}/>
-                    </TopNavBar>
-                    <div className="other-user-proposals-view-wrapper">
                         <div className="select-collapsible-wrapper">
 
                         </div>

@@ -179,7 +179,7 @@ export default class AnswerNextQuestionPage extends Component {
                 {isJustRegistered ?
                     <TopNavBar centerText={navBarTitle}/>
                     :
-                    <TopNavBar leftIcon={'left-arrow'} centerText={navBarTitle} rightText={isRegisterQuestion ? '' : strings.skip} onRightLinkClickHandler={isRegisterQuestion ? null : this.skipQuestionHandler}/>
+                    <TopNavBar leftIcon={'left-arrow'} centerText={navBarTitle} />
                 }
                 <div className="view view-main">
                     <Joyride ref={c => this.joyride = c} steps={steps} locale={tutorialLocale} callback={endTutorialHandler} type="continuous" run={joyrideRunning} autoStart={true}/>

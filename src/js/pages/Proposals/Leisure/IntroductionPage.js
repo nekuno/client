@@ -46,8 +46,8 @@ class IntroductionPage extends Component {
 					<TopNavBar
 						background={"transparent"}
 						color={"white"}
-						firstIconRight={"x"}
-						textCenter={strings.publishProposal}
+						rightIcon={"x"}
+						centerText={strings.publishProposal}
 						position={"absolute"}
 						textSize={"small"}
 						onLeftLinkClickHandler={this.topNavBarLeftLinkClick}

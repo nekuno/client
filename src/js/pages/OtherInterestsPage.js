@@ -337,7 +337,7 @@ export default class OtherInterestsPage extends Component {
         return (
             <div className="views">
                 {this.state.carousel ?
-                    <TopNavBar leftText={strings.cancel} centerText={otherUser ? otherUser.username : ''} onLeftLinkClickHandler={this.onNavBarLeftLinkClick}/>
+                    <TopNavBar rightIcon={'x'} centerText={otherUser ? otherUser.username : ''} onRightLinkClickHandler={this.onNavBarLeftLinkClick}/>
                     :
                     <TopNavBar leftIcon={'left-arrow'} centerText={otherUser ? otherUser.username : ''}/>
                 }

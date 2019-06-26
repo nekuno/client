@@ -130,7 +130,7 @@ export default class EditThreadLitePage extends Component {
         return (
             <div className="views">
                 <div className="view view-main">
-                    <TopNavBar centerText={strings.edit} leftText={strings.cancel} onLeftLinkClickHandler={this.goToDiscover}/>
+                    <TopNavBar centerText={strings.edit} rightIcon="x" onRightLinkClickHandler={this.goToDiscover}/>
                     <div className="page create-thread-page lite">
                         <div id="page-content">
                             {updating ? <EmptyMessage text={strings.updating} loadingGif={true}/> :

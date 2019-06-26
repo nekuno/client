@@ -344,9 +344,9 @@ export default class FeaturesPage extends Component {
                 <div className="view view-main proposals-leisure-features-view">
                     <TopNavBar
                         background={'#FBFCFD'}
-                        iconLeft={'arrow-left'}
-                        firstIconRight={'x'}
-                        textCenter={strings.publishProposal}
+                        leftIcon={'arrow-left'}
+                        rightIcon={'x'}
+                        centerText={strings.publishProposal}
                         textSize={'small'}
                         onLeftLinkClickHandler={this.topNavBarLeftLinkClick}
                         onRightLinkClickHandler={this.topNavBarRightLinkClick}/>

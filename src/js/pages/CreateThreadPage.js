@@ -105,7 +105,7 @@ export default class CreateThreadPage extends Component {
         const {category, creating} = this.state;
         return (
             <div className="views">
-                <TopNavBar centerText={strings.create} leftText={strings.cancel}/>
+                <TopNavBar centerText={strings.create} rightIcon="x"/>
                 <div className="view view-main">
                     <div className="page create-thread-page">
                         <div id="page-content">

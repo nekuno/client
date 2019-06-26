@@ -135,12 +135,12 @@ export default class DateInputRange extends Component {
                     </div>
                     :
                     <div className={styles.calendar}>
-                        <TopNavBar iconLeft={'check'}
-                                   firstIconRight={'x'}
-                                   onLeftLinkClickHandler={() => {this.onSave(); this.toggleSelection()}}
-                                   onRightLinkClickHandler={() => {this.onCancel(); this.toggleSelection()}}
+                        <TopNavBar leftIcon={'left-arrow'}
+                                   rightIcon={'check'}
+                                   onLeftLinkClickHandler={() => {this.onCancel(); this.toggleSelection()}}
+                                   onRightLinkClickHandler={() => {this.onSave(); this.toggleSelection()}}
                                    background={theme.selectionColor}
-                                   textCenter={strings.topText}
+                                   centerText={strings.topText}
                                    color={'#fff'}
                                    textSize={'small'}
                         />

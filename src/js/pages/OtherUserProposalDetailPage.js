@@ -143,9 +143,8 @@ export default class OtherUserProposalDetailPage extends Component {
         return (
             <div className="other-user-proposal-detail-view">
                 <TopNavBar
-                    position={'absolute'}
                     background={'transparent'}
-                    iconLeft={'arrow-left'}
+                    leftIcon={'arrow-left'}
                     onLeftLinkClickHandler={this.topNavBarLeftLinkClick}/>
                 {proposal.fields ?
                     <div className="other-user-proposal-detail-wrapper">

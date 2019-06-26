@@ -409,7 +409,7 @@ export default class OtherUserPage extends Component {
 
         return (
             <div className="views">
-                <TopNavBar leftIcon={'left-arrow'} transparentBackground={true}/>
+                <TopNavBar leftIcon={'left-arrow'} wrapIcons={true} background="transparent"/>
                 {enoughData ?
                     <ToolBar links={[
                         {'url': `/p/${params.slug}`, 'text': strings.about, 'icon': 'account'},

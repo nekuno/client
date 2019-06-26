@@ -242,11 +242,6 @@ export default class Root extends Component {
 							component={DiscoverPage}
 						/>
 						<Route
-							name="recommendations"
-							path="/recommendations/:threadId"
-							component={RecommendationPage}
-						/>
-						<Route
 							name="social-networks-on-sign-up"
 							path="/social-networks-on-sign-up"
 							component={ConnectSocialNetworksOnSignUpPage}

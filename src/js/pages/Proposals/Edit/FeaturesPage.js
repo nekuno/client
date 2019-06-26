@@ -604,9 +604,9 @@ export default class ProposalFeaturesPage extends Component {
 				<div className="view view-main proposals-features-view">
 					<TopNavBar
 						background={"#FBFCFD"}
-						iconLeft={"arrow-left"}
-						firstIconRight={"x"}
-						textCenter={
+						leftIcon={"arrow-left"}
+						rightIcon={"x"}
+						centerText={
 							CreatingProposalStore.proposal.id
 								? strings.editProposal
 								: strings.publishProposal

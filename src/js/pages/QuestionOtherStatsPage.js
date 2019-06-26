@@ -62,7 +62,7 @@ export default class QuestionOtherStatsPage extends Component {
         const {user, question, userAnswer, strings} = this.props;
         return (
             <div className="views">
-                <TopNavBar leftIcon={'left-arrow'} centerText={strings.statistics} rightText={strings.next} onRightLinkClickHandler={this.handleContinueClick}/>
+                <TopNavBar leftIcon={'left-arrow'} centerText={strings.statistics} />
                 <div className="view view-main">
                     <div className="page question-stats-page">
                         <div id="page-content" className="question-stats-content">

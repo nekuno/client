@@ -217,7 +217,7 @@ export default class ChatMessagesPage extends Component {
         let otherUsername = otherUser ? otherUser.username : '';
         return (
             <div className="views">
-                <TopNavBar leftIcon={'left-arrow'} centerText={otherUsername} bottomText={online ? 'Online' : null} onCenterLinkClickHandler={this.goToProfilePage}/>
+                <TopNavBar leftIcon={'left-arrow'} centerText={otherUsername} />
                 <div className="view view-main notifications-view">
                     <div className="page toolbar-fixed notifications-page">
                         { isGuest ? '' :

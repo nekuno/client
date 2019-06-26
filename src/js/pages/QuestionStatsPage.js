@@ -65,9 +65,9 @@ export default class QuestionStatsPage extends Component {
         return (
             <div className="views">
                 {isJustRegistered || isJustCompleted ?
-                    <TopNavBar centerText={strings.statistics} rightText={strings.next} onRightLinkClickHandler={this.handleContinueClick}/>
+                    <TopNavBar centerText={strings.statistics} />
                     :
-                    <TopNavBar leftIcon={'left-arrow'} centerText={strings.statistics} rightText={strings.next} onRightLinkClickHandler={this.handleContinueClick}/>
+                    <TopNavBar leftIcon={'left-arrow'} centerText={strings.statistics} />
                 }
                 <div className="view view-main">
                     <div className="page question-stats-page">

@@ -1,79 +1,85 @@
 import PropTypes from "prop-types";
 import React, { Component } from "react";
 import shouldPureComponentUpdate from "react-pure-render/function";
-import TopLeftMenuLink from "./TopLeftMenuLink";
-import TopLeftLink from "./TopLeftLink";
-import TopRightLink from "./TopRightLink";
-import RegularTopTitle from "./RegularTopTitle";
+import Icon from './Icon';
+import AuthenticatedComponent from '../AuthenticatedComponent';
+import RouterActionCreators from '../../actions/RouterActionCreators';
 
+function parsePicture(user) {
+    return user && user.photo ? user.photo.thumbnail.small : 'img/no-img/small.jpg';
+}
+
+@AuthenticatedComponent
 export default class TopNavBar extends Component {
+	static contextTypes = {
+		router: PropTypes.object.isRequired
+	};
 	static propTypes = {
 		leftMenuIcon: PropTypes.bool,
 		leftIcon: PropTypes.string,
-		leftText: PropTypes.string,
 		centerText: PropTypes.string,
-		centerTextSize: PropTypes.string,
-		bottomText: PropTypes.string,
 		rightIcon: PropTypes.string,
-		secondRightIcon: PropTypes.string,
-		rightText: PropTypes.string,
-		rightIconsWithoutCircle: PropTypes.bool,
 		onLeftLinkClickHandler: PropTypes.func,
-		onCenterLinkClickHandler: PropTypes.func,
 		onRightLinkClickHandler: PropTypes.func,
-		onSecondRightLinkClickHandler: PropTypes.func,
-		transparentBackground: PropTypes.bool
+		wrapIcons: PropTypes.bool,
+		background: PropTypes.string,
+		color: PropTypes.string,
+		// Injected by @AuthenticatedComponent
+        user: PropTypes.object.isRequired,
 	};
+
+	goBack() {
+		RouterActionCreators.previousRoute(this.context.router.getCurrentLocation().pathname);
+	}
 
 	shouldComponentUpdate = shouldPureComponentUpdate;
 
 	render() {
 		const {
+			user,
 			leftMenuIcon,
-			leftIcon,
-			leftText,
 			centerText,
-			centerTextSize,
-			bottomText,
-			rightIcon,
-			secondRightIcon,
-			rightText,
-			rightIconsWithoutCircle,
 			onLeftLinkClickHandler,
-			onCenterLinkClickHandler,
 			onRightLinkClickHandler,
-			onSecondRightLinkClickHandler,
-			transparentBackground
+			background,
+			color,
+			wrapIcons,
 		} = this.props;
-		const navBarClass = transparentBackground
-			? "navbar-no-f7 transparent-background-navbar"
-			: "navbar-no-f7";
+		let navBarClass = "navbar-no-f7";
+		if (wrapIcons) navBarClass += ' wrap-icons';
+		
+		const style = {};
+		if (background) {
+			style.background = background;
+			style.boxShadow = 'none';
+		}
+		if (color) style.color = color;
+
 		return (
-			<div className={navBarClass}>
+			<div className={navBarClass} style={style}>
 				{leftMenuIcon ? (
-					<TopLeftMenuLink />
-				) : (
-					<TopLeftLink
-						icon={leftIcon}
-						wrapIcon={transparentBackground}
-						text={leftText}
-						onClickHandler={onLeftLinkClickHandler}
-					/>
-				)}
-				<RegularTopTitle
-					text={centerText}
-					textSize={centerTextSize}
-					bottomText={bottomText}
-					onClickHandler={onCenterLinkClickHandler}
-				/>
-				<TopRightLink
-					icon={rightIcon}
-					secondIcon={secondRightIcon}
-					text={rightText}
-					iconsWithoutCircle={rightIconsWithoutCircle}
-					onClickHandler={onRightLinkClickHandler}
-					onSecondIconClickHandler={onSecondRightLinkClickHandler}
-				/>
+					<a className="left open-panel" id="joyride-3-menu">
+						<img src={parsePicture(user)} className="profile-image" />
+					</a>
+				) : leftIcon ? (
+					<a className="left" onClick={onLeftLinkClickHandler || this.goBack.bind(this)}>
+						<span className="navbar-icon">
+							<Icon icon={leftIcon} />
+						</span>
+					</a>
+				) : <span className="left-gap"></span> }
+				
+				<span className="center">
+					{ centerText ? <span className="text">{centerText}</span> : '' }
+				</span>
+				
+				{ rightIcon ? (
+					<a className="right" onClick={onRightLinkClickHandler || this.goBack.bind(this)}>
+						<span className="navbar-icon">
+							<Icon icon={rightIcon} />
+						</span>
+					</a>
+				) : <span className="right"></span> }
 			</div>
 		);
 	}

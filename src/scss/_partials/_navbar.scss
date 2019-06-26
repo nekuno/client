@@ -1,100 +1,52 @@
 @import'./variables';
 @import './colors';
 
-.navbar-no-f7 {
-	height: $navbar-hg;
-	z-index: 11111;
-}
-
 .navbar-no-f7,
 .subnavbar,
-#bottom-toolbar.toolbar,
 #messages-toolbar.toolbar {
+	position: absolute;
+	z-index: 11111;
+	height: $navbar-hg;
 	width: 100%;
 	background-color: $navbar-bg;
 	color: $text-prin;
-	position: fixed;
+	font-size: 20px;
+	box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.16);
+
 	display: flex;
-	padding: 0 16px;
-	box-sizing: border-box;
-	height: 50px;
-	align-items: center;
-	&.transparent-background-navbar {
-		background-color: transparent;
+	
+	.profile-image {
+		height: 32px;
+		border-radius: 50%;
 	}
 
-	.col-30 {
-		cursor: pointer;
-		min-width: 40px;
+	& > .left, & > .right {
+		min-width: 64px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
 	}
-	.col-40 {
-		cursor: pointer;
+	& > .left-gap {
+		min-width: 16px;
+	}
+	& > .center {
 		flex-grow: 1;
-	}
-	.center {
-		text-align: center;
+		display: flex;
+		align-items: center;
+		justify-content: left;
 		font-size: 20px;
 	}
 
-	.center.large {
-		font-size: 1.3125em;
+	&.wrap-icons .navbar-icon {
+		background: rgba(255,255,255,.5);
+	    border-radius: 50%;
+	    width: 32px;
+	    height: 32px;
+	    display: flex;
+	    align-items: center;
+	    justify-content: center;
 	}
-
-	.left {
-		margin-top: 12px;
-		text-align: left;
-		justify-content: flex-start;
-	}
-	.right {
-		margin-top: 8px;
-		text-align: right;
-		justify-content: flex-end;
-	}
-	.left,
-	.right {
-		color: $deep-purple;
-		display: flex;
-		align-items: center;
-		font-size: 0.882352941em;
-		margin: 0;
-
-		.icon-left-arrow {
-			color: $ocean-blue;
-			font-size: 20px;
-		}
-	}
-	.bottom-text {
-		margin-top: -25px;
-		font-size: 0.7em;
-		color: $light-green;
-		font-weight: bold;
-	}
-
 	a {
-		font-size: 16px;
-	}
-
-	.icon-circle {
-		color: $green-alert;
-		font-size: 0.5em;
-		margin-left: 5px;
-		position: absolute;
-	}
-
-	.navbar-link-text {
-		font-weight: bold;
-	}
-
-	&.two-right-icons-navbar {
-		.col-30 {
-			width: 35%;
-		}
-		.col-40 {
-			width: 20%;
-		}
-	}
-
-	&::after {
-		content: none;
+		color: inherit;
 	}
 }

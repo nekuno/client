@@ -179,7 +179,7 @@ export default class OtherQuestionsPage extends Component {
                 {otherUser ?
                     <ToolBar links={[
                         {'url': `/p/${params.slug}`, 'text': strings.about, 'icon': 'account'},
-                        {'url': `/users/${params.slug}/other-questions`, 'text': strings.questions, 'icon': 'comment-question-outline'},
+                        {'url': `/users/${params.slug}/other-questions`, 'text': strings.questions, 'icon': 'comment-question'},
                         {'url': `/users/${params.slug}/other-interests`, 'text': strings.interests, 'icon': 'thumbs-up-down'}
                     ]} activeLinkIndex={1} arrowUpLeft={'48%'}/>
                     : null}

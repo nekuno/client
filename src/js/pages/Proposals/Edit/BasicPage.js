@@ -120,7 +120,7 @@ export default class ProposalBasicEditPage extends Component {
 
     topNavBarRightLinkClick() {
         ProposalActionCreators.cleanCreatingProposal();
-        this.context.router.goBack();
+        this.context.router.push('/proposals');
     }
 
     handleTitleChange(event) {

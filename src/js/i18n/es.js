@@ -74,7 +74,7 @@ export default {
     InterestsPage                    : {
         cancel   : 'Cancelar',
         myProfile: 'Mi Perfil',
-        about    : 'Sobre mi',
+        about    : 'Sobre mí',
         photos   : 'Fotos',
         questions: 'Respuestas',
         interests: 'Intereses',
@@ -87,7 +87,7 @@ export default {
         empty          : 'No has importado ninguna foto',
         myProfile      : 'Mi Perfil',
         profilePhoto   : 'Foto de perfil',
-        about          : 'Sobre mi',
+        about          : 'Sobre mí',
         photos         : 'Fotos',
         questions      : 'Respuestas',
         interests      : 'Intereses',
@@ -185,7 +185,7 @@ export default {
     },
     QuestionsPage                    : {
         myProfile: 'Mi Perfil',
-        about    : 'Sobre mi',
+        about    : 'Sobre mí',
         photos   : 'Fotos',
         questions: 'Respuestas',
         interests: 'Intereses'
@@ -268,7 +268,7 @@ export default {
         copiedToClipboard     : 'Copiado al portapapeles'
     },
     UserPage                         : {
-        about    : 'Sobre mi',
+        about    : 'Sobre mí',
         photos   : 'Fotos',
         questions: 'Respuestas',
         interests: 'Intereses',

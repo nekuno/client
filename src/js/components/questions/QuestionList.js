@@ -48,7 +48,7 @@ export default class QuestionList extends Component {
                           last={index === questions.length}
                           onClickHandler={this.onClickHandler}
                           onTimerEnd={onTimerEnd}
-                          graphActive={this.state.graphDisplayQuestionId === questionId}
+                          graphActive={this.state.graphDisplayQuestionId+"" === questionId}
                 />
             </div>);
 

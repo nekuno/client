@@ -46,10 +46,10 @@ export default class ProfileDataList extends Component {
         categories         : PropTypes.array,
         filters            : PropTypes.object,
         tags               : PropTypes.array,
-        // Injected by @AuthenticatedComponent
-        user               : PropTypes.object,
+
+        ownUser: PropTypes.object,
         // Injected by @translate:
-        strings            : PropTypes.object
+        strings: PropTypes.object
     };
 
     constructor(props) {
@@ -69,6 +69,7 @@ export default class ProfileDataList extends Component {
         this.handleClickOutside = this.handleClickOutside.bind(this);
         this.saveProfile = this.saveProfile.bind(this);
         this.renderField = this.renderField.bind(this);
+        this.renderShowname = this.renderShowname.bind(this);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -253,6 +254,22 @@ export default class ProfileDataList extends Component {
         return <div key={dataName} ref={selected ? 'selectedEdit' : ''}>{filter}</div>;
     }
 
+    renderShowname() {
+        const {ownUser, strings} = this.props;
+
+        const metadata = {type: 'string', label: strings.showname, labelEdit: strings.showname};
+
+        return <div key={'parent-showname'} className="profile-category-edition">
+            <hr/>
+            <br/>
+            <TextAreaEdit editKey={'showname'} selected={false} metadata={metadata} handleChangeEdit={this.handleChangeShowname} data={ownUser.username}/>
+        </div>
+    }
+
+    handleChangeShowname(data) {
+        UserActionCreators.editShowname(data);
+    }
+
     render() {
 
         const {profile, metadata, profileWithMetadata} = this.props;
@@ -260,24 +277,29 @@ export default class ProfileDataList extends Component {
         return (
             <div className="profile-data-list">
                 {profileWithMetadata.map(
-                    category => {
+                    (category, index) => {
                         return (
                             <div key={category.label} ref={this.state.selectedCategory === category.label ? "selectedCategoryEdit" : null}>
                                 <div className="profile-category" onClick={this.onCategoryToggle.bind(this, category.label)} ref={category.label === this.state.selectedCategory ? 'selectedCategory' : null}>
                                     <h3 className="profile-category-title">{category.label} <span className={category.label === this.state.selectedCategory ? 'icon-checkmark' : 'icon-edit'}/></h3>
                                 </div>
                                 {this.state.selectedCategory === category.label ?
-                                    Object.keys(category.fields).map(field =>
-                                        <div key={'parent-' + field} className="profile-category-edition">
-                                            <hr/>
-                                            <br/>
-                                            {this.renderField(profile.hasOwnProperty(field) ? profile : [], metadata, field)}
-                                        </div>
-                                    )
+                                    <div>
+                                        {index === 0 ? this.renderShowname() : null}
+                                        {Object.keys(category.fields).map(field =>
+                                            <div key={'parent-' + field} className="profile-category-edition">
+                                                <hr/>
+                                                <br/>
+                                                {this.renderField(profile.hasOwnProperty(field) ? profile : [], metadata, field)}
+                                            </div>
+                                        )
+                                        }
+                                    </div>
+
                                     :
                                     Object.keys(category.fields).map(
                                         profileDataKey =>
-                                            category.fields[profileDataKey].value && metadata[profileDataKey].hidden !== true?
+                                            category.fields[profileDataKey].value && metadata[profileDataKey].hidden !== true ?
                                                 <ProfileData key={profileDataKey} name={category.fields[profileDataKey].text} value={category.fields[profileDataKey].value} forceLong={category.fields[profileDataKey].type === 'textarea'}/>
                                                 : null
                                     )

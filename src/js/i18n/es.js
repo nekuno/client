@@ -406,6 +406,7 @@ export default {
     },
     ProfileDataList                  : {
         cannotRemove: 'Este campo no se puede eliminar',
+        showname    : 'Nombre para mostrar',
     },
     OtherProfileData                 : {
         coincidences       : 'Coincidencias',

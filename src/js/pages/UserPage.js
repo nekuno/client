@@ -154,7 +154,7 @@ export default class UserPage extends Component {
                                 </div>
                                 <ShareProfileBanner user={user}/>
                                 {editMode ?
-                                    <ProfileDataList profile={profile} metadata={metadata} profileWithMetadata={profileWithMetadata}/>
+                                    <ProfileDataList profile={profile} metadata={metadata} profileWithMetadata={profileWithMetadata} ownUser={user}/>
                                     :
                                     this.getNatural()
                                 }

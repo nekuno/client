@@ -52,6 +52,7 @@ export default class LeftPanel extends Component {
         this.handleGoClickThreads = this.handleGoClickThreads.bind(this);
         this.handleGoClickProfile = this.handleGoClickProfile.bind(this);
         this.handleGoClickConversations = this.handleGoClickConversations.bind(this);
+        this.handleGoClickProposals = this.handleGoClickProposals.bind(this);
         this.handleGoClickSocialNetworks = this.handleGoClickSocialNetworks.bind(this);
         this.handleGoClickInterests = this.handleGoClickInterests.bind(this);
         this.handleClickMore = this.handleClickMore.bind(this);
@@ -92,6 +93,13 @@ export default class LeftPanel extends Component {
         Framework7Service.nekunoApp().closePanel();
         Framework7Service.$$()('.panel-left').once('closed', () => {
             this.pushRoute('/conversations');
+        });
+    }
+
+    handleGoClickProposals() {
+        Framework7Service.nekunoApp().closePanel();
+        Framework7Service.$$()('.panel-left').once('closed', () => {
+            this.pushRoute(`/proposals`);
         });
     }
 
@@ -187,6 +195,9 @@ export default class LeftPanel extends Component {
                                 {unreadCount ? <span className="unread-messages-count">
                                     <span className="unread-messages-count-text">{unreadCount}</span>
                                 </span> : ''}
+                            </a>
+                            <a href="javascript:void(0)" onClick={this.handleGoClickProposals}>
+                                <span className="icon-compass"></span>&nbsp;&nbsp;{strings.proposals}
                             </a>
                             {/*<a href="javascript:void(0)" onClick={this.handleGoClickGroups}>
                                 <span className="icon-puzzle-piece"></span>&nbsp;&nbsp;{strings.groups}

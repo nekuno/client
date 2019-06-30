@@ -353,6 +353,7 @@ export default {
         threads       : 'Discover',
         groups        : 'Badges',
         myProfile     : 'Profile',
+        proposals     : 'Proposals',
         conversations : 'Messages',
         socialNetworks: 'My social networks',
         more          : 'More',

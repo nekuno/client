@@ -353,6 +353,7 @@ export default {
         threads       : 'Descubrir',
         groups        : 'Insignias',
         myProfile     : 'Mi perfil',
+        proposals     : 'Propuestas',
         conversations : 'Mensajes',
         socialNetworks: 'Mis redes sociales',
         more          : 'Más',

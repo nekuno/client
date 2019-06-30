@@ -16,14 +16,52 @@
 	background: $background;
 }
 
-.addProposal {
-  height: 64px;
-  width: 64px;
-  
+@mixin btn($diameter) {
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	height: $diameter;
+	width: $diameter;
+	margin: 4px;
+
+	color: #ffffff;
+}
+
+.buttons {
+	$buttons-margin: 4px;
+
 	position: absolute;
-	bottom: 8px;
-  right: 8px;
-  
-  background: $material-red;
-  border-radius: 50%;
+	bottom: $buttons-margin;
+	right: $buttons-margin;
+
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: flex-end;
+
+	.btn {
+		@include btn(40px);
+
+		$transition: 0.075s ease-in-out;
+		transition: height $transition, width $transition;
+		&.hidden {
+			height: 0;
+			width: 0;
+		}
+		&.project {
+			background: $blue-projects;
+		}
+		&.experience {
+			background: $green-experiences;
+		}
+		&.leisure {
+			background: $pink-hobbies;
+		}
+	}
+	.addProposal {
+		@include btn(64px);
+		background: $deep-purple;
+	}
 }

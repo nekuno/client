@@ -7,7 +7,7 @@
   margin: auto;
   position: relative;
   text-align: left;
-  width: 80%;
+  width: 100%;
 
   .frame {
     background: #FFF;
@@ -27,12 +27,14 @@
       position: relative;
       width: 100%;
 
-      img {
+      .image {
         border-radius: 10px 10px 0 0;
         -moz-border-radius: 10px 10px 0 0;
         -webkit-border-radius: 10px 10px 0 0;
-        width: 360px;
+        width: 100%;
         height: 180px;
+        background-size: cover;
+        background-position: center;
       }
 
       .top-data {

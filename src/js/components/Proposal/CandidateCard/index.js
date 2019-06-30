@@ -72,46 +72,58 @@ class CandidateCard extends Component {
         const bio = aboutMe && aboutMe !== '' ? aboutMe : strings.defaultDescription + username;
 
         return (
-            <div className={styles.candidateCard}>
-                <div className={styles.frame}>
-                    <div className={styles.type}>
-                        {this.renderProposalIcon(proposal)}
-                    </div>
-                    <div className={styles.candidateImage}>
-                        <img src={photo.url}/>
-                        <div className={styles.topData}>
-                            <div className={styles.userText}>
-                                <div className={styles.username}>{username}</div>
-                                <div className={styles.ageCity}>{locality} &bull; {age}</div>
-                            </div>
-                        </div>
-                    </div>
+			<div className={styles.candidateCard}>
+				<div className={styles.frame}>
+					<div className={styles.type}>
+						{this.renderProposalIcon(proposal)}
+					</div>
+					<div className={styles.candidateImage}>
+						<div
+							className={styles.image}
+							style={{
+								backgroundImage:
+									"url(" + photo.url + ")"
+							}}
+						/>
+						<div className={styles.topData}>
+							<div className={styles.userText}>
+								<div className={styles.username}>
+									{username}
+								</div>
+								<div className={styles.ageCity}>
+									{locality} &bull; {age}
+								</div>
+							</div>
+						</div>
+					</div>
 
-                    <MatchingBars matching={matching} similarity={similarity}/>
+					<MatchingBars
+						matching={matching}
+						similarity={similarity}
+					/>
 
-                    <div className={styles.description}>
-                        <div className={styles.resumeText}>{bio}</div>
-                    </div>
+					<div className={styles.description}>
+						<div className={styles.resumeText}>{bio}</div>
+					</div>
 
-                    <div className={styles.horizontalLine}>
-                        <hr/>
-                    </div>
+					<div className={styles.horizontalLine}>
+						<hr />
+					</div>
 
-                    <div className={styles.proposal}>
-                        <div className={styles.compatibleProposalTitle}>
-                            <h4>{strings.compatibleWithProposal}</h4>
-                        </div>
-                        <div className={styles.proposalContent}>
-                            <img src={proposalPhoto}/>
-                            <div className={styles.proposalDescription}>
-                                {title}
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        );
+					<div className={styles.proposal}>
+						<div className={styles.compatibleProposalTitle}>
+							<h4>{strings.compatibleWithProposal}</h4>
+						</div>
+						<div className={styles.proposalContent}>
+							<img src={proposalPhoto} />
+							<div className={styles.proposalDescription}>
+								{title}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		);
     }
 }
 

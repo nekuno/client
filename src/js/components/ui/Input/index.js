@@ -26,6 +26,7 @@ export default class Input extends Component {
         this.onFocusHandler = this.onFocusHandler.bind(this);
         this.onBlurHandler = this.onBlurHandler.bind(this);
         this.getValue = this.getValue.bind(this);
+        this.setValue = this.setValue.bind(this);
         this.clearValue = this.clearValue.bind(this);
         this.isFocused = this.isFocused.bind(this);
 
@@ -42,6 +43,9 @@ export default class Input extends Component {
     }
 
     setValue(value) {
+        console.log(value);
+        console.log(this.refs);
+        console.log(this.refs.input);
         if (this.refs.input) {
             this.refs.input.value = value;
         }

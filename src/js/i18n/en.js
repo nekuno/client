@@ -435,6 +435,7 @@ export default {
     },
     UsernameField                    : {
         username       : 'username',
+        showname       : '',
         title          : 'Choose your username',
         save           : 'Continue',
         invalidUsername: 'Username is invalid or already in use. Valid characters are letters, numbers and _.'

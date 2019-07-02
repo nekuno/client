@@ -435,6 +435,13 @@ export default {
     },
     UsernameField                    : {
         username       : 'Nombre de usuario',
+        showname       : 'Nombre para mostrar',
+        title          : 'Elige tu nombre de usuario',
+        save           : 'Continuar',
+        invalidUsername: 'El nombre de usuario no es válido o ya está en uso. Los caracteres válidos son letras, números y _'
+    },
+    ShownameField                    : {
+        username       : 'Nombre de usuario',
         title          : 'Elige tu nombre de usuario',
         save           : 'Continuar',
         invalidUsername: 'El nombre de usuario no es válido o ya está en uso. Los caracteres válidos son letras, números y _'

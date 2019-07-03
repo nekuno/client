@@ -74,6 +74,16 @@ export function editUser(data) {
     });
 }
 
+export function editShowname(showname) {
+    const data = {showname};
+
+    return dispatchAsync(UserAPI.editShowname(data), {
+        request: ActionTypes.EDIT_SHOWNAME,
+        success: ActionTypes.EDIT_SHOWNAME_SUCCESS,
+        failure: ActionTypes.EDIT_SHOWNAME_ERROR
+    })
+}
+
 export function requestOwnProfile(slug) {
     return dispatchAsync(UserAPI.getOwnProfile(), {
         request: ActionTypes.REQUEST_OWN_PROFILE,
@@ -103,7 +113,7 @@ export function requestProfile(slug, fields) {
 }
 
 export function requestSharedUser(slug) {
-    if (UserStore.containsSlug(slug)){
+    if (UserStore.containsSlug(slug)) {
         return;
     }
     dispatchAsync(UserAPI.getPublicUser(slug), {

@@ -359,6 +359,7 @@ export default {
         threads       : 'Discover',
         groups        : 'Badges',
         myProfile     : 'Profile',
+        proposals     : 'Proposals',
         conversations : 'Messages',
         socialNetworks: 'My social networks',
         more          : 'More',
@@ -411,6 +412,7 @@ export default {
     },
     ProfileDataList                  : {
         cannotRemove: 'This field cannot be deleted',
+        showname    : ''
     },
     OtherProfileData                 : {
         coincidences       : 'Coincidences',
@@ -439,6 +441,7 @@ export default {
     },
     UsernameField                    : {
         username       : 'username',
+        showname       : '',
         title          : 'Choose your username',
         save           : 'Continue',
         invalidUsername: 'Username is invalid or already in use. Valid characters are letters, numbers and _.'

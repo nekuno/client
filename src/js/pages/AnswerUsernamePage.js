@@ -63,9 +63,10 @@ export default class AnswerUsernamePage extends Component {
         }
     }
 
-    handleClickSave(username) {
+    handleClickSave(username, showname) {
         let {user, profile, token, oauth} = this.props;
         user.username = username;
+        user.showname = showname;
         this.setState({registering: true});
         LoginActionCreators.register(user, profile, token, oauth).then(() => {
             setTimeout(() =>  { RouterActionCreators.replaceRoute('social-networks-on-sign-up') }, 0);

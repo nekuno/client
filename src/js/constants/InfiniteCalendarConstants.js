@@ -4,6 +4,8 @@ export const INFINITE_CALENDAR_LOCALE_EN = {
     headerFormat: 'ddd, MMM Do',
     weekdays: ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],
     blank: 'Select a date...',
+    from: 'From',
+    to: 'to',
     todayLabel: {
         long: 'Today'
     },
@@ -16,6 +18,8 @@ export const INFINITE_CALENDAR_LOCALE_ES = {
     headerFormat: 'ddd, D MMM',
     weekdays: ["Dom","Lun","Mar","Mié","Jue","Vie","Sab"],
     blank: 'Selecciona una fecha...',
+    from: 'Del',
+    to: 'al',
     todayLabel: {
         long: 'Hoy'
     },
@@ -27,10 +31,62 @@ export const INFINITE_CALENDAR_THEME = {
         default: '#333',
         active: '#FFF'
     },
-    selectionColor: '#6342b1',
-    todayColor: '#151232',
-    weekdayColor: '#8262a1',
-    headerColor: '#6342b1',
+    selectionColor: '#756EE5',
+    todayColor: '#756EE5',
+    weekdayColor: '#928BFF',
+    headerColor: '#756EE5',
+    accentColor: '#756EE5',
+    floatingNav: {
+        background: 'rgba(99, 66, 177, 0.9)',
+        color: '#FFF',
+        chevron: '#FFA726'
+    }
+};
+
+export const INFINITE_CALENDAR_BLUE_THEME = {
+    textColor: {
+        default: '#333',
+        active: '#FFF'
+    },
+    selectionColor: '#63CAFF',
+    todayColor: '#63CAFF',
+    weekdayColor: '#8ed9ff',
+    headerColor: '#63CAFF',
+    accentColor: '#63CAFF',
+    floatingNav: {
+        background: 'rgba(99, 66, 177, 0.9)',
+        color: '#FFF',
+        chevron: '#FFA726'
+    }
+};
+
+export const INFINITE_CALENDAR_PINK_THEME = {
+    textColor: {
+        default: '#333',
+        active: '#FFF'
+    },
+    selectionColor: '#D380D3',
+    todayColor: '#D380D3',
+    weekdayColor: '#edcced',
+    headerColor: '#D380D3',
+    accentColor: '#D380D3',
+    floatingNav: {
+        background: 'rgba(99, 66, 177, 0.9)',
+        color: '#FFF',
+        chevron: '#FFA726'
+    }
+};
+
+export const INFINITE_CALENDAR_GREEN_THEME = {
+    textColor: {
+        default: '#333',
+        active: '#FFF'
+    },
+    selectionColor: '#7bd47e',
+    todayColor: '#7bd47e',
+    weekdayColor: '#c8edc9',
+    headerColor: '#7bd47e',
+    accentColor: '#7bd47e',
     floatingNav: {
         background: 'rgba(99, 66, 177, 0.9)',
         color: '#FFF',

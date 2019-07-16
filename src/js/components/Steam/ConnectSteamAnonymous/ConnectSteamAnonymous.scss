@@ -1,0 +1,24 @@
+@import '../../../../scss/_partials/colors';
+
+.connect-steam-account-anonymous {
+
+  .steam-icon {
+    display: inline-block;
+    text-align: left;
+    width: 25%;
+  }
+  .text-wrapper {
+    display: inline-block;
+    text-align: left;
+    vertical-align: top;
+    width: 75%;
+
+    .title {
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    .resume {
+
+    }
+  }
+}

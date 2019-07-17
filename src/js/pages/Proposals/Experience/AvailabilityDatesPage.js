@@ -45,11 +45,11 @@ export default class AvailabilityDatesPage extends Component {
     }
 
 
-    topNavBarRightLinkClick() {
+    topNavBarLeftLinkClick() {
         this.context.router.push('/proposals-experience-availability');
     }
 
-    topNavBarLeftLinkClick() {
+    topNavBarRightLinkClick() {
         this.context.router.push('/proposals-experience-availability');
     }
 
@@ -70,8 +70,8 @@ export default class AvailabilityDatesPage extends Component {
                     <TopNavBar
                         background={canContinue ? '#7bd47e' : 'transparent'}
                         color={canContinue ? '#FFFFFF' : '#000'}
-                        leftIcon={'left-arrow'}
-                        rightIcon={canContinue ? 'check' : ''}
+                        leftIcon={canContinue ? 'check' : ''}
+                        rightIcon={'x'}
                         centerText={strings.publishProposal}
                         textSize={'small'}
                         onLeftLinkClickHandler={this.topNavBarLeftLinkClick}

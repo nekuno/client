@@ -20,7 +20,7 @@ export default class PercentageValue extends Component {
         return (
             <div className="matching-value">
                 <div className="matching-string">{text}</div>
-                <div className="matching-percentage">{percentage + '%'}</div>
+                <div className="matching-percentage">{Math.round(percentage) + '%'}</div>
             </div>
         );
     }

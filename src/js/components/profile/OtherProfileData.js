@@ -78,12 +78,12 @@ export default class OtherProfileData extends Component {
                     <div className="other-profile-right">
                         <div className="entry compatibility">
                             <span className="label">{strings.compatibility}</span>
-                            <ProgressBar percentage={matching ? Math.round(100*matching) : 0}/>
+                            <ProgressBar percentage={matching ? 100*matching : 0}/>
                             <span className="percentage">{matching ? Math.round(100*matching) : 0} %</span>
                         </div>
                         <div className="entry similarity">
                             <span className="label">{strings.similarity}</span>
-                            <ProgressBar percentage={similarity ? Math.round(100*similarity) : 0}/>
+                            <ProgressBar percentage={similarity ? 100*similarity : 0}/>
                             <span className="percentage">{similarity ? Math.round(100*similarity) : 0} %</span>
                         </div>
                     </div>

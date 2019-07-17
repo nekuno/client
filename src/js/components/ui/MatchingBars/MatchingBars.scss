@@ -5,26 +5,37 @@
   padding: 0 5%;
 
   .progress-bar-title {
-    display: inline-block;
-    font-size: 14px;
-    font-weight: 600;
-    height: 33px;
-    line-height: 33px;
-    width: 50%;
+    display: block;
+    margin-top: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 16px;
     text-align: left;
-    color: $text;
-
-    //@media only screen and (min-width: 320px) {
-    //  font-size: 10px;
-    //}
-    //@media only screen and (min-width: 370px) {
-    //  font-size: 12px;
-    //}
+    line-height: 1;
   }
 
-  .progress-bar {
-    display: inline-block;
-    width: 40%;
+  .progress {
+    color: $regular-gray;
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    line-height: 1;
+    .matching-percentage {
+      text-align: right;
+      width: 3em;
+    }
+    .progress-bar {
+      flex: 1;
+      background-color: #E6E9EC;
+      margin-top: 4px;
+      margin-bottom: 5px;
+    }
+    [class^="progress-bar"], [class*=" progress-bar-"] {
+      height: 3px;
+      border-radius: 1.5px;
+      min-width: 3px;
+    }
   }
 }
 

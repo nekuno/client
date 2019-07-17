@@ -12,7 +12,7 @@ export default class ProgressBar extends Component {
 	render() {
 		return (
 			<div className="progress-bar">
-				<div className={'progress-bar-' + this.props.percentage}></div>
+				<div className={'progress-bar-' + Math.round(this.props.percentage)}></div>
 			</div>
 		);
 	}

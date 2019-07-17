@@ -9,39 +9,29 @@ class MatchingBars extends Component {
 	static propTypes = {
 		matching: PropTypes.number,
 		similarity: PropTypes.number,
-		condensed: PropTypes.bool,
 		background: PropTypes.string,
 		// Injected by @translate:
 		strings: PropTypes.object
 	};
 
 	render() {
-		const { matching, similarity, condensed, strings } = this.props;
+		const { matching, similarity, strings } = this.props;
 
-		const className = condensed
-			? styles.matchingBarsCondensed
-			: styles.matchingBars;
 		return (
-			<div className={className}>
+			<div className={styles.matchingBars}>
 				<div className={styles.progressBarTitle}>
 					{strings.compatible}&nbsp;
 				</div>
-				<div className={styles.progressBar}>
-					<ProgressBar
-						percentage={
-							matching
-						} /*size={'small'} strokeColor={'#756EE5'} background={background}*/
-					/>
+				<div className={styles.progress}>
+					<ProgressBar percentage={matching} /*size={'small'} strokeColor={'#756EE5'} background={background}*/ />
+					<div className={styles.matchingPercentage}>{Math.round(matching) + ' %'}</div>
 				</div>
 				<div className={styles.progressBarTitle}>
 					{strings.similar}&nbsp;
 				</div>
-				<div className={styles.progressBar}>
-					<ProgressBar
-						percentage={
-							similarity
-						} /*size={'small'} strokeColor={'#756EE5'} background={background}*/
-					/>
+				<div className={styles.progress}>
+					<ProgressBar percentage={similarity} /*size={'small'} strokeColor={'#756EE5'} background={background}*/ />
+					<div className={styles.matchingPercentage}>{Math.round(similarity) + ' %'}</div>
 				</div>
 			</div>
 		);
@@ -52,7 +42,6 @@ MatchingBars.defaultProps = {
 	strings: {
 		compatible: "Compatibilidad",
 		similar: "Similaridad",
-		condensed: false
 	},
 	matching: 0,
 	similarity: 0,

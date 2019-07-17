@@ -137,6 +137,13 @@ export function editProfile(data, oldProfile) {
         });
 }
 
+export function editProfileProposalField(data, currentProfile) {
+    const newProfile = Object.assign({}, currentProfile);
+    Object.assign(newProfile, data);
+
+    return editProfile(newProfile, currentProfile);
+}
+
 export function changeLocale(locale) {
     dispatch(ActionTypes.CHANGE_LOCALE, {locale});
 }

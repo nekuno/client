@@ -30,12 +30,14 @@ export default class InputTag extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (!this.state.selected && this.props.selected) {
+        console.log('input updated');
+        if (!this.state.selected.length && this.props.selected.length) {
+            console.log('state updated');
             this.setState({selected: this.props.selected});
         }
-        if (this.state.selected && prevProps.selected && !this.props.selected) {
-            this.setState({selected: []});
-        }
+        // if (this.state.selected && prevProps.selected && !this.props.selected) {
+        //     this.setState({selected: []});
+        // }
     }
 
     handleChange(text) {

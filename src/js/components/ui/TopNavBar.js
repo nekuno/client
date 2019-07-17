@@ -38,9 +38,11 @@ export default class TopNavBar extends Component {
 		const {
 			user,
 			leftMenuIcon,
+			leftIcon,
 			centerText,
 			onLeftLinkClickHandler,
 			onRightLinkClickHandler,
+			rightIcon,
 			background,
 			color,
 			wrapIcons,

@@ -62,6 +62,24 @@ import ProposalPreviewPage from "./pages/Proposals/Edit/PreviewPage";
 import OtherUserProposalsPage from "./pages/OtherUser/ProposalsPage";
 import OtherUserProposalDetailPage from "./pages/OtherUserProposalDetailPage";
 
+//post-register fields
+
+import ExplorerProfileCostPage from "./pages/ProfileProposalFields/Explore/ExplorerProfileCostPage";
+import ExplorerProfileShowsPage from "./pages/ProfileProposalFields/Explore/ExplorerProfileShowsPage";
+import ExplorerProfilePage from "./pages/ProfileProposalFields/Explore/ExplorerProfilePage";
+import ExplorerProfilePlansPage from "./pages/ProfileProposalFields/Explore/ExplorerProfilePlansPage";
+import ExplorerProfileRestaurantsPage from "./pages/ProfileProposalFields/Explore/ExplorerProfileRestaurantsPage";
+
+import LeisureProfileGamesPage from "./pages/ProfileProposalFields/Leisure/LeisureProfileGamesPage";
+import LeisureProfileHobbiesPage from "./pages/ProfileProposalFields/Leisure/LeisureProfileHobbiesPage";
+import LeisureProfilePage from "./pages/ProfileProposalFields/Leisure/LeisureProfilePage";
+import LeisureProfileSportsPage from "./pages/ProfileProposalFields/Leisure/LeisureProfileSportsPage";
+
+import ProfessionalProfileIndustryPage from "./pages/ProfileProposalFields/Professional/ProfessionalProfileIndustryPage";
+import ProfessionalProfilePage from "./pages/ProfileProposalFields/Professional/ProfessionalProfilePage";
+import ProfessionalProfileSkillsPage from "./pages/ProfileProposalFields/Professional/ProfessionalProfileSkillsPage";
+import AvailabilityPage from "./pages/ProfileProposalFields/Availability/AvailabilityPage";
+
 function requireAuth(nextState, replaceState) {
 	if (!LoginStore.isLoggedIn()) {
 		let transitionPath = nextState.location.pathname;
@@ -380,6 +398,83 @@ export default class Root extends Component {
 							name="other-user-proposal-detail"
 							path="/p/:slug/proposal/:proposalId"
 							component={OtherUserProposalDetailPage}
+						/>
+
+
+						{/*post-register fields*/}
+
+						<Route
+							name="profile-proposal-explore-cost"
+							path="/explorer-profile-cost"
+							component={ExplorerProfileCostPage}
+						/>
+
+						<Route
+							name="profile-proposal-explore-shows"
+							path="/explorer-profile-shows"
+							component={ExplorerProfileShowsPage}
+						/>
+
+						<Route
+							name="profile-proposal-explore"
+							path="/explorer-profile"
+							component={ExplorerProfilePage}
+						/>
+
+						<Route
+							name="profile-proposal-explore-plans"
+							path="/explorer-profile-plans"
+							component={ExplorerProfilePlansPage}
+						/>
+
+						<Route
+							name="profile-proposal-explore-restaurants"
+							path="/explorer-profile-restaurants"
+							component={ExplorerProfileRestaurantsPage}
+						/>
+
+						<Route
+							name="profile-proposal-leisure-games"
+							path="/leisure-profile-games"
+							component={LeisureProfileGamesPage}
+						/>
+
+						<Route
+							name="profile-proposal-leisure-hobbies"
+							path="/leisure-profile-hobbies"
+							component={LeisureProfileHobbiesPage}
+						/>
+
+						<Route
+							name="profile-proposal-leisure"
+							path="/leisure-profile"
+							component={LeisureProfilePage}
+						/>
+
+						<Route
+							name="profile-proposal-leisure-sports"
+							path="/leisure-profile-sports"
+							component={LeisureProfileSportsPage}
+						/>
+						<Route
+							name="profile-proposal-professional-industry"
+							path="/professional-profile-industry"
+							component={ProfessionalProfileIndustryPage}
+						/>
+						<Route
+							name="profile-proposal-professional"
+							path="/professional-profile"
+							component={ProfessionalProfilePage}
+						/>
+						<Route
+							name="profile-proposal-professional-skills"
+							path="/professional-profile-skills"
+							component={ProfessionalProfileSkillsPage}
+						/>
+						<Route
+							name="profile-proposal-availability"
+							path="/availability"
+							component={AvailabilityPage}
 						/>
 					</Route>
 				</Route>

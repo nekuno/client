@@ -9,7 +9,8 @@ export default class InputSelectImage extends Component {
         placeholder    : PropTypes.string,
         options        : PropTypes.array,
         onChangeHandler: PropTypes.func,
-        onClickHandler : PropTypes.func
+        onClickHandler : PropTypes.func,
+        selected       : PropTypes.array,
     };
 
     constructor(props) {
@@ -19,8 +20,25 @@ export default class InputSelectImage extends Component {
         this.handleClick = this.handleClick.bind(this);
 
         this.state = {
-            selected: [],
+            selected : props.selected,
             suggested: props.options
+        }
+    }
+
+    canUpdate(prevArray, newArray) {
+        return newArray
+            && prevArray
+            && !(newArray.some(element => typeof element === 'undefined'))
+            && JSON.stringify(prevArray) !== JSON.stringify(newArray);
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.canUpdate(prevProps.options, this.props.options)){
+            this.setState({suggested: this.props.options});
+        }
+
+        if (this.canUpdate(prevProps.selected, this.props.selected)) {
+            this.setState({selected: this.props.selected});
         }
     }
 
@@ -73,7 +91,7 @@ export default class InputSelectImage extends Component {
                     <div key={index} className={styles.suggestedItem}>
                         <div className={styles.suggestedImageWrapper} onClick={this.handleClick.bind(this, item.id)}>
                             <div className={styles.suggestedImage}>
-                                <img className={styles.picture} src={item.picture} />
+                                <img className={styles.picture} src={item.picture}/>
                             </div>
                             {selected.some(selectedItem => selectedItem.id === item.id) ?
                                 <div className={styles.selectedItem}>
@@ -93,3 +111,8 @@ export default class InputSelectImage extends Component {
         );
     }
 }
+
+InputSelectImage.defaultProps = {
+    options : [],
+    selected: []
+};

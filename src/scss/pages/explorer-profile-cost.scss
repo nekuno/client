@@ -1,0 +1,24 @@
+@import '../_partials/colors';
+
+body #root .App .views .view.explorer-profile-cost-view {
+  background-color: $background-white;
+  color: $gray-main-text;
+  text-align: center;
+  z-index: 0;
+
+  .explorer-profile-cost-wrapper {
+    margin-bottom: 60px;
+
+    h2 {
+      padding: 0 24px
+    }
+    .image-wrapper {
+      padding: 0 24px;
+      text-align: center;
+
+      img {
+        width: 75%;
+      }
+    }
+  }
+}

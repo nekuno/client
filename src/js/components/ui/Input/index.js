@@ -76,13 +76,13 @@ export default class Input extends Component {
         const {doNotScroll} = this.props;
         let inputElem = this.refs.input;
         if (inputElem && !doNotScroll) {
-            window.setTimeout(function () {
+            /*window.setTimeout(function () {
                 inputElem.scrollIntoView();
                 const viewClass = document.getElementsByClassName('view');
                 if (viewClass && viewClass[0]) {
                     viewClass[0].scrollTop -= 100;
                 }
-            }, 500);
+            }, 500);*/
         }
 
         this.setState({focused: true});

@@ -23,7 +23,7 @@ export default class Input extends Component {
 
     componentDidMount() {
         if (!this.props.doNotFocus) {
-            this.focus();
+            //this.focus();
         }
     }
 
@@ -67,10 +67,10 @@ export default class Input extends Component {
         const {doNotScroll} = this.props;
         let inputElem = this.refs.input;
         if (inputElem && !doNotScroll) {
-            window.setTimeout(function () {
+           /* window.setTimeout(function () {
                 inputElem.scrollIntoView();
                 document.getElementsByClassName('view')[0].scrollTop -= 100;
-            }, 500);
+            }, 500);*/
         }
     }
 }

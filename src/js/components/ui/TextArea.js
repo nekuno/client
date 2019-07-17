@@ -44,10 +44,10 @@ export default class TextArea extends Component {
     onFocusHandler() {
         let textareaElem = this.refs.textarea;
         if (textareaElem) {
-            window.setTimeout(function() {
+            /*window.setTimeout(function() {
                 textareaElem.scrollIntoView();
                 document.getElementsByClassName('view')[0].scrollTop -= 100;
-            }, 500);
+            }, 500);*/
         }
     }
 

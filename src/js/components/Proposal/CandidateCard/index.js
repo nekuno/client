@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import styles from './CandidateCard.scss';
 import translate from "../../../i18n/Translate";
 import MatchingBars from "../../ui/MatchingBars";
+import ProposalIcon from "../../ui/ProposalIcon";
 
 @translate('CandidateCard')
 class CandidateCard extends Component {
@@ -50,15 +51,7 @@ class CandidateCard extends Component {
         }
 
         return (
-            <span className={icon}>
-                <span className="path1"></span>
-                <span className="path2"></span>
-                <span className="path3"></span>
-                <span className="path4"></span>
-                <span className="path5"></span>
-                <span className="path6"></span>
-                <span className="path7"></span>
-            </span>
+            <ProposalIcon size={'medium-small'} icon={icon} background={'white'}/>
         );
     }
 

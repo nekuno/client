@@ -38,16 +38,16 @@ class ProposalCard extends Component {
             case 'sports':
             case 'hobbies':
             case 'games':
-                icon = 'hobbie';
+                icon = 'icon-hobbie';
                 break;
             case 'shows':
             case 'restaurants':
             case 'plans':
-                icon = 'experience';
+                icon = 'icon-experience';
                 break;
             case 'work':
             default:
-                icon = 'project';
+                icon = 'icon-project';
                 break;
         }
 

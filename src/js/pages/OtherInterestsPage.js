@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import TopNavBar from '../components/ui/TopNavBar';
-import ToolBar from '../components/ui/ToolBar';
+import ToolBar from '../components/ui/ToolBar/';
 import CardContentList from '../components/interests/CardContentList';
 import FilterContentButtonsList from '../components/ui/FilterContentButtonsList';
 import TextRadios from '../components/ui/TextRadios';

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import TopNavBar from '../components/ui/TopNavBar';
-import ToolBar from '../components/ui/ToolBar';
+import ToolBar from '../components/ui/ToolBar/';
 import LoadingSpinnerCSS from '../components/ui/LoadingSpinnerCSS'
 import OtherQuestionList from '../components/questions/OtherQuestionList';
 import ProfilesAvatarConnection from '../components/ui/ProfilesAvatarConnection';

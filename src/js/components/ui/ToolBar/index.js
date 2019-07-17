@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import connectToStores from '../../utils/connectToStores';
-import shouldPureComponentUpdate from '../../../../node_modules/react-pure-render/function';
-import LoginStore from '../../stores/LoginStore';
-import RouterActionCreators from '../../actions/RouterActionCreators';
+import connectToStores from '../../../utils/connectToStores';
+import shouldPureComponentUpdate from '../../../../../node_modules/react-pure-render/function';
+import LoginStore from '../../../stores/LoginStore';
+import RouterActionCreators from '../../../actions/RouterActionCreators';
 
 function getState() {
     const isGuest = LoginStore.isGuest();

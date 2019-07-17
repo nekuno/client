@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import TopNavBar from '../components/ui/TopNavBar';
-import ToolBar from '../components/ui/ToolBar';
+import ToolBar from '../components/ui/ToolBar/';
 import QuestionList from '../components/questions/QuestionList';
 import QuestionsBanner from '../components/questions/QuestionsBanner';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';

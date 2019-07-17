@@ -4,7 +4,7 @@ import { API_URLS, INVITATIONS_URL } from '../constants/Constants';
 import TopNavBar from '../components/ui/TopNavBar';
 import FullWidthButton from '../components/ui/FullWidthButton';
 import EmptyMessage from '../components/ui/EmptyMessage';
-import ToolBar from '../components/ui/ToolBar';
+import ToolBar from '../components/ui/ToolBar/';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';

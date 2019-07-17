@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import TopNavBar from '../components/ui/TopNavBar';
-import ToolBar from '../components/ui/ToolBar';
+import ToolBar from '../components/ui/ToolBar/';
 import ImageComponent from '../components/ui/Image';
 import EmptyMessage from '../components/ui/EmptyMessage';
 import ImportAlbumPopup from '../components/gallery/ImportAlbumPopup';

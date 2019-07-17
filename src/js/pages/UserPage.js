@@ -4,7 +4,7 @@ import User from '../components/User';
 import ProfileDataList from '../components/profile/ProfileDataList'
 import ShareProfileBanner from '../components/user/ShareProfileBanner';
 import TopNavBar from '../components/ui/TopNavBar';
-import ToolBar from '../components/ui/ToolBar';
+import ToolBar from '../components/ui/ToolBar/';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';

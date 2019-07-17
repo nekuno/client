@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { ORIGIN_CONTEXT, SHARED_USER_URL } from '../constants/Constants';
 import OtherProfileData from '../components/profile/OtherProfileData';
 import TopNavBar from '../components/ui/TopNavBar';
-import ToolBar from '../components/ui/ToolBar';
+import ToolBar from '../components/ui/ToolBar/';
 import Image from '../components/ui/Image';
 import EmptyMessage from '../components/ui/EmptyMessage';
 import OrientationRequiredPopup from '../components/ui/OrientationRequiredPopup';

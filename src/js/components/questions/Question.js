@@ -3,7 +3,9 @@ import React, { Component } from 'react';
 import Answer from './Answer';
 import QuestionStatsInLine from './QuestionStatsInline';
 import QuestionEditCountdown from './QuestionEditCountdown';
+import translate from '../../i18n/Translate';
 
+@translate('Question')
 export default class Question extends Component {
     static propTypes = {
         question      : PropTypes.object.isRequired,
@@ -34,6 +36,7 @@ export default class Question extends Component {
     }
 
     render() {
+        const { strings } = this.props;
         let question = this.props.question.question;
         let onTimerEnd = this.props.onTimerEnd;
         if (!question) {
@@ -44,11 +47,11 @@ export default class Question extends Component {
         let answers = question && question.answers.length > 0 ? question.answers : [];
 
         return (
-            <div className="question" onClick={this.onClickHandler}>
-                {editable ?
-                    <a href="javascript:void(0)" onClick={this.goToAnswerQuestion}>
+            <div className="question" onClick={editable ? this.goToAnswerQuestion : null}>
+                { editable ?
+                    <a href="javascript:void(0)">
                         <span className="edit-question-button">
-                            <span className="icon-edit"></span>
+                            <span className="mdi mdi-lead-pencil"></span>
                         </span>
                     </a>
                     :
@@ -70,14 +73,21 @@ export default class Question extends Component {
                     <QuestionEditCountdown seconds={userAnswer.editableIn} questionId={question.questionId} onTimerEnd={onTimerEnd} />
                 }
                 {this.props.graphActive ?
-                    <QuestionStatsInLine question={question} userAnswer={userAnswer}/> : ''
+                    <QuestionStatsInLine question={question} userAnswer={userAnswer} onClick={this.onClickHandler}/>
+                :
+                    <div class="view-question-stats" onClick={this.onClickHandler}>
+                        <span class="text">{strings.viewStats}</span>
+                        <span class="icon mdi mdi-chart-donut"></span>
+                    </div>
                 }
+                
                 <hr/>
             </div>
         );
     }
 
-    onClickHandler() {
+    onClickHandler(e) {
+        e.stopPropagation();
         this.props.onClickHandler(this.props.question.question.questionId);
     }
 }

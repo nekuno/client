@@ -15,6 +15,7 @@ body #root .App{
         margin-top: 20px;
 
         .question {
+          font-size: 16px;
           margin-bottom: 15px;
 
           .question-title {
@@ -22,26 +23,27 @@ body #root .App{
             margin-bottom: 10px;
             width: 85%;
           }
-          a {
-            color: #fff;
-
-            .edit-question-button {
-              background-color: $deep-purple;
-              border-radius: 50%;
-              -moz-border-radius: 50%;
-              -webkit-border-radius: 50%;
-              display: block;
-              float: right;
-              font-size: 10px;
-              height: 30px;
-              line-height: 30px;
-              text-align: center;
-              width: 30px;
-
-              .icon-edit:before {
-                font-size: 14px;
-                line-height: 30px;
-              }
+          .edit-question-button {
+            display: block;
+            float: right;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            width: 24px;
+            font-size: 20px;
+            color: $deep-purple;
+          }
+          .view-question-stats {
+            display: flex;
+            color: $deep-purple;
+            align-items: center;
+            font-size: 14px;
+            //padding: 8px 0;
+            .text {
+              flex: 1;
+            }
+            .icon {
+              font-size: 20px;
             }
           }
           .answer-answered, .answer-not-answered {
@@ -155,7 +157,7 @@ body #root .App{
             background-color: $deep-purple;
             border: none;
             height: 1px;
-            margin-top: 15px;
+            margin: 8px 0 16px;
           }
         }
       }

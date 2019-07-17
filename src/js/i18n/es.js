@@ -506,6 +506,9 @@ export default {
         theirAnswer: 'Respuestas que aceptas de otros',
         importance : '¿Qué importancia tiene esta pregunta para ti?'
     },
+    Question                         : {
+        viewStats: 'Ver estadísticas'
+    },
     QuestionList                     : {
         loading: 'Cargando preguntas'
     },

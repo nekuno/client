@@ -500,6 +500,9 @@ export default {
         theirAnswer: 'Answers which you accept from others',
         importance : 'Do you mind the user response?'
     },
+    Question                         : {
+        viewStats: 'View stats'
+    },
     QuestionList                     : {
         loading: 'Loading questions'
     },

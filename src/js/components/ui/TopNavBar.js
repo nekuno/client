@@ -54,6 +54,15 @@ export default class TopNavBar extends Component {
 			style.boxShadow = 'none';
 		}
 		if (color) style.color = color;
+		
+		// FIXME
+		let { leftIcon, rightIcon } = this.props;
+		if (leftIcon === 'left-arrow') leftIcon = 'mdi-arrow-left';
+		if (leftIcon === 'arrow-left') leftIcon = 'mdi-arrow-left';
+		if (leftIcon === 'x') leftIcon = 'mdi-close';
+		if (rightIcon === 'x') rightIcon = 'mdi-close';
+		if (leftIcon === 'check') leftIcon = 'mdi-check';
+		if (rightIcon === 'check') rightIcon = 'mdi-check';
 
 		return (
 			<div className={navBarClass} style={style}>

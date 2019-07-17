@@ -18,6 +18,8 @@
     <allow-intent href="geo:*" />
     <preference name="Orientation" value="portrait" />
     <preference name="SplashScreen" value="screen" />
+    <splash src="src/scss/img/splash/Default@1x~universal~anyany.png" />
+    <splash src="src/scss/img/splash/Default@2x~universal~anyany.png" />
     <platform name="android">
         <resource-file src="src/google-services.json" target="google-services.json" />
         <allow-intent href="market:*" />
@@ -25,10 +27,6 @@
         <icon density="mdpi" src="src/scss/img/icons/96 - xhdpi.png" />
         <icon density="hdpi" src="src/scss/img/icons/144 - xxhdpi.png" />
         <icon density="xhdpi" src="src/scss/img/icons/192 - xxxhpdi.png" />
-        <splash density="port-ldpi" src="src/scss/img/splash/ldpi.9.png" />
-        <splash density="port-mdpi" src="src/scss/img/splash/mdpi.9.png" />
-        <splash density="port-hdpi" src="src/scss/img/splash/hdpi.9.png" />
-        <splash density="port-xhdpi" src="src/scss/img/splash/xhdpi.9.png" />
     </platform>
     <platform name="ios">
         <resource-file src="src/GoogleService-Info.plist" />
@@ -50,9 +48,6 @@
         <icon height="100" src="src/scss/img/icons/ios/icon-50@2x.png" width="100" />
         <icon height="512" src="src/scss/img/icons/ios/iTunesArtwork.png" width="512" />
         <icon height="1024" src="src/scss/img/icons/ios/iTunesArtwork@2x.png" width="1024" />
-        <splash height="480" src="src/scss/img/splash/Default~iphone.png" width="320" />
-        <splash height="960" src="src/scss/img/splash/Default@2x~iphone.png" width="640" />
-        <splash height="1136" src="src/scss/img/splash/Default-568h@2x~iphone.png" width="640" />
     </platform>
     <preference name="android-minSdkVersion" value="16" />
     <engine name="android" spec="^6.2.3" />

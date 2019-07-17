@@ -72,9 +72,9 @@ class ProposalCard extends Component {
                     </div>
                     <div className={styles.proposalImage}>
                         <img src={proposalPhoto}/>
-                        <div className={styles.topData}>
-                            <h2>{title}</h2>
-                        </div>
+                    </div>
+                    <div className={styles.topData}>
+                        <h2>{title}</h2>
                     </div>
                     <div className={styles.userData}>
                         <RoundedImage size={'small'} url={photo.url}/>

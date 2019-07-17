@@ -17,7 +17,7 @@
     box-shadow: 0 0 5px $gray-border;
     color: #6C6F82;
     font-size: 14px;
-    margin: 2.5%;
+    margin: 0 2.5%;
     padding: 0;
     width: 95%;
 
@@ -32,19 +32,17 @@
         -moz-border-radius: 10px 10px 0 0;
         -webkit-border-radius: 10px 10px 0 0;
         width: 100%;
-        height: 180px;
+        height: 240px;
         background-size: cover;
         background-position: center;
       }
-
-      .top-data {
-        bottom: 0;
-        color: white;
+    }
+    
+    .top-data {
+        color: #6C6F82;
         //height: 100%;
         //padding: 0 5%;
-        position: absolute;
         width: 80%;
-        height: 60px;
         margin-top: 16px;
         padding: 0 5%;
 
@@ -57,17 +55,14 @@
         //}
 
         .user-text {
-          display: inline-block;
-          margin-left: 6px;
-          vertical-align: super;
 
           .username {
-            font-size: 20px;
+            font-size: 24px;
           }
 
           .age-city {
             color: $gray-secondary-text;
-            font-size: 14px;
+            font-size: 16px;
             font-weight: normal;
             white-space: nowrap;
             overflow: hidden;
@@ -76,14 +71,11 @@
         }
       }
 
-    }
-
     .type {
       position: absolute;
-      right: 16px;
+      right: 24px;
       top: 16px;
       z-index: 1;
-      font-size: 35px;
     }
 
     .user-data {
@@ -102,7 +94,7 @@
 
         .age-city {
           color: $gray-secondary-text;
-          font-size: 14px;
+          font-size: 16px;
           font-weight: normal;
           white-space: nowrap;
           overflow: hidden;
@@ -113,12 +105,11 @@
 
     .description {
       padding: 16px 5%;
+      font-size: 16px;
     }
 
     .horizontal-line {
-      width: 20%;
-      padding-top: 15%;
-      padding-left: 5%;
+      padding: 0 16px;
 
       hr {
         border-color: rgba(50, 50, 50, 0.1);

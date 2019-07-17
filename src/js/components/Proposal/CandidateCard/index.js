@@ -61,7 +61,7 @@ class CandidateCard extends Component {
         const {title} = fields;
         const proposalPhoto = fields.photo;
         const {username, location, age, photo, matching, similarity, aboutMe} = user;
-        const locality = location && location.hasOwnProperty('locality') ? location.locality : '';
+        const locality = location && location.hasOwnProperty('locality') ? location.locality : strings.noLocation;
         const bio = aboutMe && aboutMe !== '' ? aboutMe : strings.defaultDescription + username;
 
         return (
@@ -78,21 +78,22 @@ class CandidateCard extends Component {
 									"url(" + photo.url + ")"
 							}}
 						/>
-						<div className={styles.topData}>
-							<div className={styles.userText}>
-								<div className={styles.username}>
-									{username}
-								</div>
-								<div className={styles.ageCity}>
-									{locality} &bull; {age}
-								</div>
+					</div>
+					
+					<div className={styles.topData}>
+						<div className={styles.userText}>
+							<div className={styles.username}>
+								{username}
+							</div>
+							<div className={styles.ageCity}>
+								{locality} &bull; {age}
 							</div>
 						</div>
 					</div>
 
 					<MatchingBars
-						matching={matching}
-						similarity={similarity}
+						matching={matching || 0}
+						similarity={similarity || 0}
 					/>
 
 					<div className={styles.description}>

@@ -917,6 +917,7 @@ export default {
         project   : 'Proyecto'
     },
     CandidateCard                           : {
+        noLocation            : 'El mundo',
         compatible            : 'Compatible',
         similar               : 'Similar',
         compatibleWithProposal: '¡Compatible con tu propuesta!',

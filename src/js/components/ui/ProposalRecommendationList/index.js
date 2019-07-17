@@ -160,13 +160,12 @@ class ProposalRecommendationList extends Component {
 
     render() {
         const {recommendations, strings} = this.props;
-        const opacity = Math.max(1 - (Math.abs(this.state.swiping)), 0);
 
         const firstRecommendation = recommendations[0];
 
         return (
-            <div className={styles.proposalRecommendationList} onClick={this.goToCandidate}>
-                <div style={{opacity: opacity}} onClick={this.goToCandidate}>
+            <div className={styles.proposalRecommendationList}>
+                <div onClick={this.goToCandidate}>
                     {firstRecommendation ?
                         <ReactSwipe
                             ref={el => (this.swiper = el)}

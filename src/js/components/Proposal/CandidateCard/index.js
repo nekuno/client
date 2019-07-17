@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import styles from './CandidateCard.scss';
 import translate from "../../../i18n/Translate";
 import MatchingBars from "../../ui/MatchingBars";
+import CardOverlay from '../CardOverlay/';
 import ProposalIcon from "../../ui/ProposalIcon";
 
 @translate('CandidateCard')
@@ -11,6 +12,7 @@ class CandidateCard extends Component {
     static propTypes = {
         proposal      : PropTypes.object.isRequired,
         user          : PropTypes.object.isRequired,
+        swiping       : PropTypes.bool,
         onClickHandler: PropTypes.func,
         // Injected by @translate:
         strings        : PropTypes.object,
@@ -56,7 +58,7 @@ class CandidateCard extends Component {
     }
 
     render() {
-        const {proposal, user, strings} = this.props;
+        const {proposal, user, strings, swiping} = this.props;
         const {fields} = proposal;
         const {title} = fields;
         const proposalPhoto = fields.photo;
@@ -67,6 +69,7 @@ class CandidateCard extends Component {
         return (
 			<div className={styles.candidateCard}>
 				<div className={styles.frame}>
+				    <CardOverlay swiping={swiping} />
 					<div className={styles.type}>
 						{this.renderProposalIcon(proposal)}
 					</div>

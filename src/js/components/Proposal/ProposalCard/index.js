@@ -5,6 +5,7 @@ import styles from './ProposalCard.scss';
 import translate from '../../../i18n/Translate';
 import MatchingBars from "../../ui/MatchingBars";
 import ProposalIcon from "../../ui/ProposalIcon";
+import CardOverlay from '../CardOverlay/';
 
 @translate('ProposalCard')
 class ProposalCard extends Component {
@@ -12,6 +13,7 @@ class ProposalCard extends Component {
     static propTypes = {
         proposal      : PropTypes.object.isRequired,
         user          : PropTypes.object.isRequired,
+        swiping       : PropTypes.bool.isRequired,
         onClickHandler: PropTypes.func,
         // Injected by @translate:
         strings        : PropTypes.object,
@@ -57,7 +59,7 @@ class ProposalCard extends Component {
     }
 
     render() {
-        const {proposal, user, strings} = this.props;
+        const {proposal, user, strings, swiping} = this.props;
         const {fields} = proposal;
         const {title, description} = fields;
         const proposalPhoto = fields.photo !== '' ? fields.photo : 'img/default-upload-image.png';
@@ -67,6 +69,7 @@ class ProposalCard extends Component {
         return (
             <div className={styles.proposalCard}>
                 <div className={styles.frame}>
+                    <CardOverlay swiping={swiping} />
                     <div className={styles.type}>
                         {this.renderProposalIcon(proposal)}
                     </div>

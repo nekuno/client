@@ -62,13 +62,6 @@ class ProposalsPage extends Component {
 		ProposalActionCreators.cleanCreatingProposal();
 
 		this.goToEditAvailability = this.goToEditAvailability.bind(this);
-		this.submit = this.submit.bind(this);
-		this.go = this.go.bind(this);
-
-		this.state = {
-			current: 0,
-			hiddenButtons: true
-		};
 	}
 
 	componentDidMount() {
@@ -83,34 +76,17 @@ class ProposalsPage extends Component {
 		return <div className={styles.empty}>strings.empty</div>;
 	}
 
-	submit() {
-		this.setState(state => ({ hiddenButtons: !state.hiddenButtons }));
-	}
-
-	go(route) {
-		if (route === "project") {
-			this.context.router.push("/proposals-project-introduction");
-		} else if (route === "experience") {
-			this.context.router.push("/proposals-experience-introduction");
-		} else if (route === "leisure") {
-			this.context.router.push("/proposals-leisure-introduction");
-		}
-	}
-
 	render() {
 		const {
 			recommendations,
 			strings,
 			isLoading
 		} = this.props;
-		const { hiddenButtons } = this.state;
         const title = strings.discover;
 
 		return (
-			<div className={"views"}>
-				<div className={styles.topNavBar}>
-					<TopNavBar leftMenuIcon={true} centerText={title} />
-				</div>
+			<div className={"views " + styles.views}>
+				<TopNavBar leftMenuIcon={true} centerText={title} />
 				<div className={styles.view}>
 					{isLoading ? (
 						<LoadingSpinnerCSS />
@@ -119,45 +95,6 @@ class ProposalsPage extends Component {
 							recommendations={recommendations}
 						/>
 					)}
-				</div>
-				<div className={styles.buttons}>
-					<div
-						className={
-							styles.project +
-							" " +
-							styles.btn +
-							(hiddenButtons ? " " + styles.hidden : "")
-						}
-						onClick={() => this.go("project")}
-					/>
-					<div
-						className={
-							styles.experience +
-							" " +
-							styles.btn +
-							(hiddenButtons ? " " + styles.hidden : "")
-						}
-						onClick={() => this.go("experience")}
-					/>
-					<div
-						className={
-							styles.leisure +
-							" " +
-							styles.btn +
-							(hiddenButtons ? " " + styles.hidden : "")
-						}
-						onClick={() => this.go("leisure")}
-					/>
-					<div
-						className={styles.addProposal}
-						onClick={this.submit}
-					>
-						{hiddenButtons ? (
-							<span className="icon-plus" />
-						) : (
-							<span className="icon-close" />
-						)}
-					</div>
 				</div>
 				<ToolBarMaster activeLink="proposals" />
 			</div>

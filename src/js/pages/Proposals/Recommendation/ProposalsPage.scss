@@ -1,67 +1,16 @@
 @import "../../../../scss/_partials/colors";
 @import "../../../../scss/_partials/variables";
 
-.view {
-	background-color: $background;
-	overflow-y: hidden;
-	z-index: 0;
-	height: calc(100% - 100px);
-	color: $gray-main-text;
-	text-align: center;
-	margin-top: $navbar-hg;
-}
-
-.topNavBar {
-	//position: sticky;
-	background: $background;
-}
-
-@mixin btn($diameter) {
-	border-radius: 50%;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-
-	height: $diameter;
-	width: $diameter;
-	margin: 4px;
-
-	color: #ffffff;
-}
-
-.buttons {
-	$buttons-margin: 4px;
-
-	position: absolute;
-	bottom: $buttons-margin;
-	right: $buttons-margin;
-
+.views {
 	display: flex;
 	flex-direction: column;
-	align-items: center;
-	justify-content: flex-end;
-
-	.btn {
-		@include btn(40px);
-
-		$transition: 0.075s ease-in-out;
-		transition: height $transition, width $transition;
-		&.hidden {
-			height: 0;
-			width: 0;
-		}
-		&.project {
-			background: $blue-projects;
-		}
-		&.experience {
-			background: $green-experiences;
-		}
-		&.leisure {
-			background: $pink-hobbies;
-		}
-	}
-	.addProposal {
-		@include btn(64px);
-		background: $deep-purple;
+	.view {
+		background-color: $background;
+		z-index: 0;
+		flex-grow: 1;
+		color: $gray-main-text;
+		text-align: center;
+		margin-top: $navbar-hg;
+		margin-bottom: $bottombar-hg;
 	}
 }

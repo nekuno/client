@@ -1258,4 +1258,19 @@ export default {
         similarity   : 'similaridad',
         coincidences : 'coincidencias'
     },
+    ToolBarMaster : {
+        proposals: 'Propuestas',
+        people   : 'Personas',
+        plans    : 'Mis planes',
+        messages : 'Mensajes',
+    },
+    ToolBar : {
+        proposals : 'Propuestas',
+        persons   : 'Personas',
+        plans     : 'Planes',
+        messages  : 'Mensajes',
+        project   : 'Proyecto',
+        leisure   : 'Plan de ocio',
+        experience: 'Experiencia'
+    },
 }

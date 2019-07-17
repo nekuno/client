@@ -12,6 +12,7 @@ import ProposalRecommendationsStore from "../../../stores/ProposalRecommendation
 import "../../../../scss/pages/proposals.scss";
 import * as ProposalActionCreators from "../../../actions/ProposalActionCreators";
 import LoadingSpinnerCSS from "../../../components/ui/LoadingSpinnerCSS";
+import ToolBarMaster from '../../../components/ui/ToolBarMaster';
 
 function requestData() {
 	ProposalActionCreators.requestRecommendations();
@@ -158,6 +159,7 @@ class ProposalsPage extends Component {
 						)}
 					</div>
 				</div>
+				<ToolBarMaster activeLink="proposals" />
 			</div>
 		);
 	}

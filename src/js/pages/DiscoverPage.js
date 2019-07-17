@@ -24,6 +24,7 @@ import ProfileStore from '../stores/ProfileStore';
 import Image from '../components/ui/Image';
 import TextRadios from '../components/ui/TextRadios';
 import LikedUsersStore from '../stores/LikedUsersStore';
+import ToolBarMaster from '../components/ui/ToolBarMaster';
 
 function parseId(user) {
     return user.id;
@@ -414,6 +415,7 @@ export default class DiscoverPage extends Component {
                     </div>
                     {profile ? <OrientationRequiredPopup profile={profile} onContinue={this.goToProfile}/> : null}
                 </div>
+                <ToolBarMaster activeLink="people" />
             </div>
         );
     }

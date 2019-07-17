@@ -9,6 +9,7 @@ import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
 import Scroll from "../components/scroll/Scroll";
 import ChatActionCreators from '../actions/ChatActionCreators';
+import ToolBarMaster from '../components/ui/ToolBarMaster';
 
 function requestData(props) {
     ChatActionCreators.getThreadsMessages(props.offset, props.limit);
@@ -98,6 +99,7 @@ export default class ChatThreadsPage extends Component {
                         </div>
                     </div>
                 </div>
+                <ToolBarMaster activeLink="messages" />
             </div>
         );
     }

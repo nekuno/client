@@ -2,9 +2,23 @@
 
 .proposalRecommendationList {
   font-size: 15px;
-  padding: 25px;
-  overflow-x: hidden;
+  padding: 16px;
+  box-sizing: border-box;
   height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  .buttons {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    .likeIcon {
+      color: $material-green;
+    }
+    .passIcon {
+      color: $material-red;
+    }
+  }
 }
 
 .prev, .next {

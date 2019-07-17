@@ -6,6 +6,7 @@ import ProposalCard from "../../Proposal/ProposalCard";
 import * as ProposalActionCreators from '../../../actions/ProposalActionCreators';
 import CandidateCard from "../../Proposal/CandidateCard";
 import translate from "../../../i18n/Translate";
+import ProposalButton from '../ProposalButton/';
 
 @translate('ProposalRecommendationList')
 class ProposalRecommendationList extends Component {
@@ -35,6 +36,8 @@ class ProposalRecommendationList extends Component {
         this.callback = this.callback.bind(this);
         this.onClick = this.onClick.bind(this);
         this.transitionEnd = this.transitionEnd.bind(this);
+        this.likeButton = this.likeButton.bind(this);
+        this.passButton = this.passButton.bind(this);
     }
 
     likeProposal() {
@@ -73,15 +76,23 @@ class ProposalRecommendationList extends Component {
     }
 
     renderProposalCard(recommendation) {
-        return <div key={recommendation.proposal.id}>
-            <ProposalCard proposal={recommendation.proposal} user={recommendation.owner}/>
-        </div>
+        return (
+            <div key={recommendation.proposal.id}>
+                <ProposalCard
+                    proposal={recommendation.proposal}
+                    user={recommendation.owner}
+                    swiping={this.state.swiping} />
+            </div>);
     }
 
     renderCandidateCard(recommendation) {
-        return <div key={recommendation.id} onClick={this.goToCandidate}>
-            <CandidateCard proposal={recommendation.proposal} user={recommendation}/> <br/>
-        </div>;
+        return (
+            <div key={recommendation.id} onClick={this.goToCandidate}>
+                <CandidateCard
+                    proposal={recommendation.proposal}
+                    user={recommendation}
+                    swiping={this.state.swiping}/>
+            </div>);
     }
 
     renderRecommendations(recommendations) {
@@ -157,6 +168,34 @@ class ProposalRecommendationList extends Component {
         this.swiper.opacity = Math.max(1 - (Math.abs(percentage)), 0);
         this.setState({swiping: percentage})
     }
+    
+    likeButton() {
+        for (let i = 0; i > -1; i-=0.05) {
+            this.swiping(i);
+            this.transitionEnd();
+        }
+        
+        const isProposal = this.props.recommendations[0].hasOwnProperty('owner');
+        if (isProposal) {
+            this.likeProposal();
+        } else {
+            this.likeCandidate();
+        }
+    }
+    
+    passButton() {
+        for (let i = 0; i < 1; i+=0.05) {
+            this.swiping(i);
+            this.transitionEnd();
+        }
+        
+        const isProposal = this.props.recommendations[0].hasOwnProperty('owner');
+        if (isProposal) {
+            this.skipProposal();
+        } else {
+            this.skipCandidate();
+        }
+    }
 
     render() {
         const {recommendations, strings} = this.props;
@@ -167,26 +206,32 @@ class ProposalRecommendationList extends Component {
             <div className={styles.proposalRecommendationList}>
                 <div onClick={this.goToCandidate}>
                     {firstRecommendation ?
-                        <ReactSwipe
-                            ref={el => (this.swiper = el)}
-                            swipeOptions={{
-                                continuous   : true,
-                                speed        : 100,
-                                startSlide   : 1,
-                                swiping      : this.swiping,
-                                callback     : this.callback,
-                                transitionEnd: this.transitionEnd,
-                                clicking     : this.onClick,
-                            }}
-                            childCount={recommendations.length}>
-                            {this.renderRecommendations(recommendations)}
-                        </ReactSwipe>
+                            <ReactSwipe
+                                ref={el => (this.swiper = el)}
+                                swipeOptions={{
+                                    continuous   : true,
+                                    speed        : 100,
+                                    startSlide   : 1,
+                                    swiping      : this.swiping,
+                                    callback     : this.callback,
+                                    transitionEnd: this.transitionEnd,
+                                    clicking     : this.onClick,
+                                }}
+                                childCount={recommendations.length}>
+                                {this.renderRecommendations(recommendations)}
+                            </ReactSwipe>
                         :
                         <div className={styles.empty}>
                             {strings.empty}
                         </div>
                     }
                 </div>
+                { firstRecommendation && (
+                    <div className={styles.buttons}>
+                        <ProposalButton icon="check" iconClass={styles.likeIcon} click={() => this.likeButton()} />
+                        <ProposalButton icon="close" iconClass={styles.passIcon} click={() => this.passButton()} />
+                    </div>
+                )}
             </div>
         );
     }

@@ -1,3 +1,4 @@
+@import '../../../_partials/variables';
 @import '../../../_partials/colors';
 
 body #root .App .views .view.proposal-basic-edit {
@@ -5,11 +6,9 @@ body #root .App .views .view.proposal-basic-edit {
   color: $gray-main-text;
   text-align: center;
   z-index: 0;
+	margin-top: $navbar-hg;
 
   .proposal-wrapper {
-    margin-top: 55px;
-    padding-top: 1px;
-
     h2 {
       padding: 0 24px;
     }

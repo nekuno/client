@@ -259,15 +259,15 @@ export default class ProposalAvailabilityEditPage extends Component {
 
         return (
             <div className="views">
+                <TopNavBar
+                    background={'transparent'}
+                    leftIcon={'arrow-left'}
+                    rightIcon={'x'}
+                    centerText={CreatingProposalStore.proposal.id ? strings.editProposal : strings.publishProposal}
+                    textSize={'small'}
+                    onLeftLinkClickHandler={this.topNavBarLeftLinkClick}
+                    onRightLinkClickHandler={this.topNavBarRightLinkClick}/>
                 <div className="view view-main proposals-availability-view">
-                    <TopNavBar
-                        background={'transparent'}
-                        leftIcon={'arrow-left'}
-                        rightIcon={'x'}
-                        centerText={CreatingProposalStore.proposal.id ? strings.editProposal : strings.publishProposal}
-                        textSize={'small'}
-                        onLeftLinkClickHandler={this.topNavBarLeftLinkClick}
-                        onRightLinkClickHandler={this.topNavBarRightLinkClick}/>
                     <div className="proposals-availability-wrapper">
                         <h2>{strings.title}</h2>
                         <div className="proposals-availability-frame-wrapper">

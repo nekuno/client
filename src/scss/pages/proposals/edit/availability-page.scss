@@ -1,3 +1,4 @@
+@import '../../../_partials/variables';
 @import '../../../_partials/colors';
 
 body #root .App .views .view.proposals-availability-view {
@@ -5,6 +6,7 @@ body #root .App .views .view.proposals-availability-view {
   color: $gray-main-text;
   text-align: center;
   z-index: 0;
+	margin-top: $navbar-hg;
 
   .proposals-availability-wrapper {
     h2 {

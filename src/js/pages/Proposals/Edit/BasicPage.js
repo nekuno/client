@@ -5,7 +5,7 @@ import AuthenticatedComponent from "../../../components/AuthenticatedComponent";
 import connectToStores from "../../../utils/connectToStores";
 import TopNavBar from '../../../components/ui/TopNavBar';
 import StepsBar from "../../../components/ui/StepsBar";
-import Input from "../../../components/ui/Input";
+import Input from "../../../components/ui/Input/";
 import Textarea from "../../../components/ui/Textarea";
 import CreatingProposalStore from '../../../stores/CreatingProposalStore';
 import * as ProposalActionCreators from "../../../actions/ProposalActionCreators";
@@ -279,15 +279,15 @@ export default class ProposalBasicEditPage extends Component {
         return (
             CreatingProposalStore.proposal ?
                 <div className='views'>
+                    <TopNavBar
+                        background={'transparent'}
+                        leftIcon={'arrow-left'}
+                        rightIcon={'x'}
+                        centerText={CreatingProposalStore.proposal.id ? strings.editProposal : strings.publishProposal}
+                        textSize={'small'}
+                        onLeftLinkClickHandler={this.topNavBarLeftLinkClick}
+                        onRightLinkClickHandler={this.topNavBarRightLinkClick}/>
                     <div className="view view-main proposal-basic-edit">
-                        <TopNavBar
-                            background={'transparent'}
-                            leftIcon={'arrow-left'}
-                            rightIcon={'x'}
-                            centerText={CreatingProposalStore.proposal.id ? strings.editProposal : strings.publishProposal}
-                            textSize={'small'}
-                            onLeftLinkClickHandler={this.topNavBarLeftLinkClick}
-                            onRightLinkClickHandler={this.topNavBarRightLinkClick}/>
                         <div className="proposal-wrapper">
                             <h2>{strings.title}</h2>
                             <div>

@@ -202,17 +202,17 @@ export default class ProposalAvailabilityDatesEditPage extends Component {
 
         return (
             <div className="views">
+                {this.state.showUI &&
+                <TopNavBar
+                    background={canContinue ? this.getHexadecimalColor() : 'transparent'}
+                    color={canContinue ? '#FFFFFF' : '#000'}
+                    leftIcon={'x'}
+                    rightIcon={canContinue ? 'check' : ''}
+                    centerText={CreatingProposalStore.proposal.id ? strings.editProposal : strings.publishProposal}
+                    onLeftLinkClickHandler={this.topNavBarLeftLinkClick}
+                    onRightLinkClickHandler={this.topNavBarRightLinkClick}/>
+                }
                 <div className="view view-main proposals-availability-dates-view">
-                    {this.state.showUI &&
-                    <TopNavBar
-                        background={canContinue ? this.getHexadecimalColor() : 'transparent'}
-                        color={canContinue ? '#FFFFFF' : '#000'}
-                        leftIcon={'left-arrow'}
-                        rightIcon={canContinue ? 'check' : ''}
-                        centerText={CreatingProposalStore.proposal.id ? strings.editProposal : strings.publishProposal}
-                        onLeftLinkClickHandler={this.topNavBarLeftLinkClick}
-                        onRightLinkClickHandler={this.topNavBarRightLinkClick}/>
-                    }
                     <div className="proposals-project-availability-dates-wrapper">
                         <AvailabilityEdit
                             theme={this.getTheme()}

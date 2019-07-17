@@ -1,9 +1,11 @@
+@import '../../../_partials/variables';
 @import '../../../_partials/colors';
 
 body #root .App .views .view.proposals-features-view {
   background-color: $background-white;
   color: $gray-main-text;
   z-index: 0;
+	margin-top: $navbar-hg;
 
   .proposals-features-wrapper {
     color: $gray-secondary-text;

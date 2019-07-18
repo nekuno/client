@@ -78,7 +78,7 @@ import LeisureProfileSportsPage from "./pages/ProfileProposalFields/Leisure/Leis
 import ProfessionalProfileIndustryPage from "./pages/ProfileProposalFields/Professional/ProfessionalProfileIndustryPage";
 import ProfessionalProfilePage from "./pages/ProfileProposalFields/Professional/ProfessionalProfilePage";
 import ProfessionalProfileSkillsPage from "./pages/ProfileProposalFields/Professional/ProfessionalProfileSkillsPage";
-import AvailabilityPage from "./pages/ProfileProposalFields/Availability/AvailabilityPage";
+import AvailabilityEditOnSignUpPage from "./pages/ProfileProposalFields/Availability/AvailabilityEditOnSignUpPage";
 
 function requireAuth(nextState, replaceState) {
 	if (!LoginStore.isLoggedIn()) {
@@ -473,8 +473,8 @@ export default class Root extends Component {
 						/>
 						<Route
 							name="profile-proposal-availability"
-							path="/availability"
-							component={AvailabilityPage}
+							path="/availability-edit"
+							component={AvailabilityEditOnSignUpPage}
 						/>
 					</Route>
 				</Route>

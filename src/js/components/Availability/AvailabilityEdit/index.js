@@ -90,9 +90,6 @@ export default class AvailabilityEdit extends Component {
     onChangeRange(index, values) {
         const availability = this.getAvailability();
 
-
-
-
         let newSelection = availability.static.slice(0);
         if (!newSelection[index]) {
             newSelection[index] = {days: {}, range: ["Morning", "Afternoon", "Night"]};

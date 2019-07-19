@@ -71,7 +71,6 @@ export default class DateInputRange extends Component {
     }
 
     onChange(value) {
-        console.log(value);
         let formattedValue = null;
         if (value) {
             const startFormattedValue = format(value.start, 'YYYY-MM-DD');
@@ -82,11 +81,6 @@ export default class DateInputRange extends Component {
         this.setState({
             value: formattedValue
         });
-
-        const {eventType} = this.state;
-        if (eventType === 3) {
-
-        }
     }
 
     toggleSelection() {

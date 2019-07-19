@@ -10,6 +10,7 @@ class AvailabilityStore extends BaseStore {
     _registerToActions(action) {
         super._registerToActions(action);
         switch (action.type) {
+            case ActionTypes.UPDATE_AVAILABILITY:
             case ActionTypes.UPDATE_AVAILABILITY_SUCCESS:
                 this.availability = action.availability;
                 this.emitChange();

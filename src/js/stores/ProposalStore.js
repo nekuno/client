@@ -30,6 +30,17 @@ class ProposalStore extends BaseStore {
                 this._ownProposals = []; //To be deleted when it´s paginated
                 proposals.forEach(actionProposal => {
                     this.addOwnProposal(actionProposal);
+                    this.addOwnProposal(actionProposal);
+                    this.addOwnProposal(actionProposal);
+                    this.addOwnProposal(actionProposal);
+                    this.addOwnProposal(actionProposal);
+                    this.addOwnProposal(actionProposal);
+                    this.addOwnProposal(actionProposal);
+                    this.addOwnProposal(actionProposal);
+                    this.addOwnProposal(actionProposal);
+                    this.addOwnProposal(actionProposal);
+                    this.addOwnProposal(actionProposal);
+                    this.addOwnProposal(actionProposal);
                 });
                 this._isRequesting = false;
                 this.emitChange();

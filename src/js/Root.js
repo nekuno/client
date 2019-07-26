@@ -79,6 +79,7 @@ import ProfessionalProfileIndustryPage from "./pages/ProfileProposalFields/Profe
 import ProfessionalProfilePage from "./pages/ProfileProposalFields/Professional/ProfessionalProfilePage";
 import ProfessionalProfileSkillsPage from "./pages/ProfileProposalFields/Professional/ProfessionalProfileSkillsPage";
 import AvailabilityEditOnSignUpPage from "./pages/ProfileProposalFields/Availability/AvailabilityEditOnSignUpPage";
+import OwnProposalsPage from "./pages/OwnUser/OwnProposalsPage";
 
 function requireAuth(nextState, replaceState) {
 	if (!LoginStore.isLoggedIn()) {
@@ -258,6 +259,11 @@ export default class Root extends Component {
 							name="discover"
 							path="/discover"
 							component={DiscoverPage}
+						/>
+						<Route
+							name="own-proposals"
+							path="/plans"
+							component={OwnProposalsPage}
 						/>
 						<Route
 							name="social-networks-on-sign-up"

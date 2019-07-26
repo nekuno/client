@@ -31,7 +31,7 @@ export default class InputTag extends Component {
 
     componentDidUpdate(prevProps) {
         console.log('input updated');
-        if (!this.state.selected.length && this.props.selected.length) {
+        if (!this.state.selected.length && this.props.selected) {
             console.log('state updated');
             this.setState({selected: this.props.selected});
         }

@@ -1,0 +1,12 @@
+@import '../../../../scss/_partials/colors';
+
+.carouselcontinuous {
+  display: flex;
+  flex-wrap: nowrap;
+  //overflow-x: scroll;
+
+  .item {
+    flex-shrink: 0;
+    width: 80%;
+  }
+}

@@ -24,11 +24,11 @@ export default class BaseStore extends EventEmitter {
         this._pagination = {};
     };
 
-    getPaginationUrl(userId, initialUrl) {
-        const hasReceivedPagination = this._pagination.hasOwnProperty(userId);
+    getPaginationUrl(userId, initialUrl, pagination = this._pagination) {
+        const hasReceivedPagination = pagination.hasOwnProperty(userId);
 
         return !hasReceivedPagination ? initialUrl :
-            this._pagination[userId].nextLink ? this._pagination[userId].nextLink : '';
+            pagination[userId].nextLink ? pagination[userId].nextLink : '';
     }
 
     _registerToActions(action) {

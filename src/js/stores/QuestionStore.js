@@ -13,16 +13,29 @@ class QuestionStore extends BaseStore {
         super.setInitial();
         this._registerQuestionsLength = 4;
         this._questions = {};
+
+        this._loadingComparedQuestions = false;
         this._otherNotAnsweredQuestions = {};
-        this._initialPaginationUrl = API_URLS.ANSWERS;
+        this._otherNotAnswerPagination = {};
         this._initialComparedPaginationUrl = API_URLS.COMPARED_ANSWERS;
+
+        this._loadingDifferentAnswer = false;
+        this._otherDifferentAnswer = {};
+        this._otherDifferentAnsweredPagination = {};
+        this._initialDifferentAnswersPaginationUrl = API_URLS.DIFFERENT_ANSWERS;
+
+        this._loadingSameAnswer = false;
+        this._otherSameAnswer = {};
+        this._otherSameAnswerPagination = {};
+        this._initialSameAnswersPaginationUrl = API_URLS.SAME_ANSWERS;
+
+        this._initialPaginationUrl = API_URLS.ANSWERS;
         this._answerQuestion = {};
         this._answersLength = [];
         this._errors = '';
         this._noMoreQuestions = false;
         this._goToQuestionStats = false;
         this._isJustCompleted = false;
-        this._loadingComparedQuestions = false;
         this._loadingOwnQuestions = false;
         this._isRequestedQuestion = {};
         this._comparedOrder = {};
@@ -33,15 +46,11 @@ class QuestionStore extends BaseStore {
         super._registerToActions(action);
         let newItems = {};
         const userId = LoginStore.user ? LoginStore.user.id : null;
+        let otherUserId;
         switch (action.type) {
             case ActionTypes.REQUEST_QUESTIONS:
                 this._noMoreQuestions = false;
                 this._loadingOwnQuestions = true;
-                this.emitChange();
-                break;
-            case ActionTypes.REQUEST_COMPARED_QUESTIONS:
-                this._loadingComparedQuestions = true;
-                this._noMoreQuestions = false;
                 this.emitChange();
                 break;
             case ActionTypes.REQUEST_QUESTION:
@@ -92,9 +101,14 @@ class QuestionStore extends BaseStore {
                 mergeIntoBag(this._questions, newItems);
                 this.emitChange();
                 break;
+            case ActionTypes.REQUEST_COMPARED_QUESTIONS:
+                this._loadingComparedQuestions = true;
+                this._noMoreQuestions = false;
+                this.emitChange();
+                break;
             case ActionTypes.REQUEST_COMPARED_QUESTIONS_SUCCESS:
                 let items = action.response.items;
-                const otherUserId = action.otherUserId;
+                otherUserId = action.otherUserId;
                 const otherQuestions = items.otherQuestions.questions ? items.otherQuestions.questions : {};
                 if (Object.keys(otherQuestions).length > 0) {
                     this._setQuestionsOrder(otherUserId, otherQuestions);
@@ -112,10 +126,35 @@ class QuestionStore extends BaseStore {
                     mergeIntoBag(this._otherNotAnsweredQuestions, newOtherNotAnsweredQuestions);
                 }
 
-                this._pagination[otherUserId] = action.response.pagination;
+                this._otherNotAnswerPagination[otherUserId] = action.response.pagination;
                 this._loadingComparedQuestions = false;
 
                 mergeIntoBag(this._questions, newItems);
+                this.emitChange();
+                break;
+            case ActionTypes.REQUEST_OTHER_SAME_ANSWER_QUESTIONS:
+                this._loadingSameAnswer = true;
+                this.emitChange();
+                break;
+            case ActionTypes.REQUEST_OTHER_SAME_ANSWER_QUESTIONS_SUCCESS:
+                this._loadingSameAnswer = false;
+                newItems = action.response.items;
+                otherUserId = action.otherUserId;
+                this._otherSameAnswer[otherUserId] = this._otherSameAnswer[otherUserId] || {};
+                mergeIntoBag(this._otherSameAnswer[otherUserId], newItems);
+                this._otherSameAnswerPagination[otherUserId] = action.response.pagination;
+                this.emitChange();
+                break;
+            case ActionTypes.REQUEST_OTHER_DIFFERENT_ANSWER_QUESTIONS:
+                this._loadingDifferentAnswer = true;
+                this.emitChange();
+                break;
+            case ActionTypes.REQUEST_OTHER_DIFFERENT_ANSWER_QUESTIONS_SUCCESS:
+                newItems = action.response.items;
+                otherUserId = action.otherUserId;
+                this._otherDifferentAnswer[otherUserId] = this._otherDifferentAnswer[otherUserId] || {};
+                mergeIntoBag(this._otherDifferentAnswer[otherUserId], newItems);
+                this._otherDifferentAnsweredPagination[otherUserId] = action.response.pagination;
                 this.emitChange();
                 break;
             case ActionTypes.REQUEST_LOGIN_USER_SUCCESS:
@@ -211,6 +250,26 @@ class QuestionStore extends BaseStore {
     getOtherNotAnsweredQuestions(otherUserId) {
         return this._otherNotAnsweredQuestions[otherUserId] ? this._otherNotAnsweredQuestions[otherUserId] : {};
     }
+    
+    getOtherSameAnswerCount(otherUserId) {
+        return this._otherSameAnswerPagination[otherUserId] ? this._otherSameAnswerPagination[otherUserId].total : 0;
+    }
+
+    getOtherDifferentAnswerCount(otherUserId) {
+        return this._otherDifferentAnsweredPagination[otherUserId] ? this._otherDifferentAnsweredPagination[otherUserId].total : 0;
+    }
+
+    getOtherNotAnsweredCount(otherUserId) {
+        return this._otherNotAnswerPagination[otherUserId] ? this._otherNotAnswerPagination[otherUserId].total : 0;
+    }
+
+    getOtherSameAnswer(otherUserId) {
+        return this._otherSameAnswer[otherUserId] || {};
+    }
+
+    getOtherDifferentAnswer(otherUserId) {
+        return this._otherDifferentAnswer[otherUserId] || {};
+    }
 
     setEditable(questionId) {
         const userId = LoginStore.user.id;
@@ -241,8 +300,28 @@ class QuestionStore extends BaseStore {
         return url;
     }
 
-    getInitialRequestComparedQuestionsUrl(userId, filters = []) {
+    _getInitialRequestComparedQuestionsUrl(userId, filters = []) {
         return this._initialComparedPaginationUrl.replace('{otherUserId}', userId) + filters.map(filter => '&' + filter + '=1');
+    }
+
+    getComparedQuestionsPaginationUrl(userId) {
+        return this.getPaginationUrl(userId, this._getInitialRequestComparedQuestionsUrl(userId), this._otherNotAnswerPagination);
+    }
+
+    _getInitialRequestSameAnswersUrl(userId, filters = []) {
+        return this._initialSameAnswersPaginationUrl.replace('{otherUserId}', userId) + filters.map(filter => '&' + filter + '=1');
+    }
+
+    getSameAnswersPaginationUrl(userId) {
+        return this.getPaginationUrl(userId, this._getInitialRequestSameAnswersUrl(userId), this._otherSameAnswerPagination);
+    }
+
+    _getInitialRequestDifferentAnswersUrl(userId, filters = []) {
+        return this._initialDifferentAnswersPaginationUrl.replace('{otherUserId}', userId) + filters.map(filter => '&' + filter + '=1');
+    }
+
+    getDifferentAnswersPaginationUrl(userId) {
+        return this.getPaginationUrl(userId, this._getInitialRequestDifferentAnswersUrl(userId), this._otherDifferentAnsweredPagination);
     }
 
     getQuestion() {
@@ -302,6 +381,26 @@ class QuestionStore extends BaseStore {
 
     isLoadingComparedQuestions() {
         return this._loadingComparedQuestions;
+    }
+
+    isLoadingSameAnswer() {
+        return this._loadingSameAnswer;
+    }
+
+    isLoadingDifferentAnswer() {
+        return this._loadingDifferentAnswer;
+    }
+
+    hasReceivedComparedQuestionsPaginationOnce(userId) {
+        return this._otherNotAnswerPagination.hasOwnProperty(userId)
+    }
+
+    hasReceivedSameAnswerPaginationOnce(userId) {
+        return this._otherSameAnswerPagination.hasOwnProperty(userId);
+    }
+
+    hasReceivedDifferentAnswerPaginationOnce(userId) {
+        return this._otherDifferentAnsweredPagination.hasOwnProperty(userId);
     }
 
     isLoadingOwnQuestions() {

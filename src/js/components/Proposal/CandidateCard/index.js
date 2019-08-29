@@ -108,7 +108,7 @@ class CandidateCard extends Component {
 						<hr />
 					</div>
 
-					<div className={styles.proposal}>
+					{/*<div className={styles.proposal}>
 						<div className={styles.compatibleProposalTitle}>
 							<h4>{strings.compatibleWithProposal}</h4>
 						</div>
@@ -118,7 +118,7 @@ class CandidateCard extends Component {
 								{title}
 							</div>
 						</div>
-					</div>
+					</div>*/}
 					<div className={styles.buttons}>
                         <ProposalButton icon="close" iconClass={styles.passIcon} onClick={pass} />
                         <ProposalButton icon="check" iconClass={styles.likeIcon} onClick={like} />

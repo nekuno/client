@@ -107,11 +107,6 @@ export const SOCIAL_NETWORKS = [
         scope        : config.TUMBLR_SCOPE
     },
     {
-        resourceOwner: SOCIAL_NETWORKS_NAMES.LINKEDIN,
-        id           : config.LINKEDIN_ID,
-        scope        : config.LINKEDIN_SCOPE
-    },
-    {
         resourceOwner: SOCIAL_NETWORKS_NAMES.STEAM,
     }
 ];

@@ -13,6 +13,8 @@ body #root .App .view {
       height: 15px;
       margin-left: 0 !important;
       width: 15px;
+      color: $white;
+      background-color: $deep-purple;
     }
     .fetching-icon {
       -moz-animation-duration: 1s;
@@ -48,8 +50,6 @@ body #root .App .view {
         -webkit-box-shadow: 0 0 1px 1px yellow;
         -moz-box-shadow: 0 0 1px 1px yellow;
         box-shadow: 0 0 1px 1px yellow;
-        height: 16px;
-        width: 16px;
       }
     }
     @keyframes background-to-orange {
@@ -57,8 +57,6 @@ body #root .App .view {
         -webkit-box-shadow: 0 0 1px 1px orange;
         -moz-box-shadow: 0 0 1px 1px orange;
         box-shadow: 0 0 1px 1px orange;
-        height: 16px;
-        width: 16px;
       }
     }
 
@@ -66,57 +64,11 @@ body #root .App .view {
       stroke: #fff;
     }
     .wheel-separator {
-      stroke: $light-gray-translucent;
+      stroke: $text-second;
     }
-    .wheel-twitter {
-      stroke: $twitter-blue;
+    .wheel-twitter, .wheel-facebook, .wheel-google, .wheel-spotify, .wheen-instagram, .wheel-tumblr, .wheel-linkedin, .wheel-steam {
+      stroke: $deep-purple;
     }
-    .text-twitter {
-      background-color: $twitter-blue;
-    }
-    .wheel-facebook {
-      stroke: $facebook-blue;
-    }
-    .text-facebook {
-      background-color: $facebook-blue;
-    }
-    .wheel-google {
-      stroke: $youtube-red;
-    }
-    .text-google {
-      background-color: $youtube-red;
-    }
-    .wheel-spotify {
-      stroke: $spotify-green;
-    }
-    .text-spotify {
-      background-color: $spotify-green;
-    }
-    .wheel-instagram {
-      stroke: $instagram-blue;
-    }
-    .text-instagram {
-      background-color: $instagram-blue;
-    }
-    .wheel-tumblr {
-      stroke: $tumblr-blue;
-    }
-    .text-tumblr {
-      background-color: $tumblr-blue;
-    }
-    .wheel-linkedin {
-      stroke: $linkedin-blue;
-    }
-    .text-linkedin {
-      background-color: $linkedin-blue;
-    }
-    .wheel-steam {
-      stroke: $steam-black;
-    }
-    .text-steam {
-      background-color: $steam-black;
-    }
-
 
 
     .big-icon-wrapper.icon-wrapper {

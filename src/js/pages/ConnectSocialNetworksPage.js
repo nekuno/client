@@ -52,8 +52,7 @@ export default class ConnectSocialNetworksPage extends Component {
                     <div data-page="index" className="page connect-social-networks-page">
                         <div id="page-content" className="connect-social-networks-content">
                             <div className="title">{strings.title}</div>
-                            <div className="excerpt">{strings.excerpt}</div>
-                            <br />
+                            <div className="excerpt">{strings.excerpt1}<br/>{strings.excerpt2}</div>
                             <SocialWheels networks={networks} picture={picture} error={error ? strings.error : null} isLoading={isLoading}/>
                         </div>
                         <br />

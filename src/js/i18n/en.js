@@ -47,7 +47,8 @@ export default {
     ConnectSocialNetworksPage        : {
         top          : 'Social Networks',
         title        : 'Improve recommendations',
-        excerpt      : 'Make your data work for you! The more interest you contribute, the better recommendations you’ll get!',
+        excerpt1     : 'Make your data work for you!',
+        excerpt2     : 'The more interest you contribute, the better recommendations you’ll get!',
         error        : 'Error connecting network. You may have connected it with other user.',
         answerExplore: 'Do you want to answer explore objectives?'
     },

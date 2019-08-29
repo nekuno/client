@@ -78,7 +78,6 @@ export default class ConnectSocialNetworksOnSignUpPage extends Component {
                             <div className="title">{strings.welcome} {username}</div>
                             <div className="excerpt">{strings.excerpt1}</div>
                             <div className="excerpt">{strings.excerpt2}</div>
-                            <br />
                             <SocialWheels networks={networks} picture={picture} error={error ? strings.error : null} isLoading={isLoading}/>
                         </div>
                         <br />

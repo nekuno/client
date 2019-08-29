@@ -3,60 +3,21 @@
   text-align: center;
 
   div {
-    width: 60px;
-    height: 60px;
-    font-size: 40px;
+    width: 48px;
+    height: 48px;
+    font-size: 28px;
     text-align: center;
-    display: inline-block;
-    margin: 5px 5px;
-
-    span {
-      border-radius: 50%;
-      -moz-border-radius: 50%;
-      -webkit-border-radius: 50%;
-      color: white;
-      font-size: 1.5em;
-      box-shadow: 0 3px 6px 4px rgba(0, 0, 0, 0.6);
-      -moz-box-shadow: 0 3px 6px 4px rgba(0,0,0,0.6);
-      -webkit-box-shadow: 0 3px 6px 4px rgba(0,0,0,0.6);
-      -o-box-shadow: 0 3px 6px 4px rgba(0,0,0,0.6);
-    }
-
-    .icon-facebook {
-      background-color: $facebook-blue;
-    }
-
-    .icon-twitter {
-      background-color: $twitter-blue;
-    }
-
-    .icon-google {
-      background-color: $google-red;
-    }
-
-    .icon-youtube {
-      background-color: $youtube-red;
-    }
-
-    .icon-spotify {
-      background-color: $spotify-green;
-    }
-
-    .icon-instagram {
-      background-color: $instagram-blue;
-    }
-
-    .icon-tumblr {
-      background-color: $tumblr-blue;
-    }
-
-    .icon-linkedin {
-      background-color: $linkedin-blue;
-    }
-
-    .icon-steam {
-      background-color: $steam-black;
-    }
+    
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    
+    margin: 8px 8px;
+    border-radius: 50%;
+    background: $deep-purple;
+    color: $white;
+    
+    a { color: inherit; }
   }
 }
 

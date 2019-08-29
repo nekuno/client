@@ -157,7 +157,6 @@ export default class SocialWheels extends Component {
         return (
             <div className="social-wheels">
                 <SocialBox onClickHandler={this.connect} excludedResources={connectedNetworks.map(network => network.resource)} disabled={isLoading} />
-                <br/>
                 <div className="excerpt">{strings.excerpt}</div>
                 {wheelNetworks.length > 0 ?
                     <svg width="310" height="310">

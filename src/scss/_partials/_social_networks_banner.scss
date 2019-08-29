@@ -8,19 +8,24 @@ body #root .App .view {
     right: 0;
     text-align: center;
 
-    div {
+    & > div {
       color: white;
 
       .social-networks-link-title {
-        font-size: 1.428571429em;
-        font-weight: bold;
-        height: 55px;
+        font-size: 20px;
+        margin-bottom: 16px;
       }
 
       .social-networks-link-stats {
-        font-size: 0.857142857em;
-        margin-top: 10px;
+        font-size: 14px;
 
+        .social-box {
+          margin: 8px 0;
+          div {
+            background: $white;
+            color: $deep-purple;
+          }
+        }
         .spinner-wrapper {
           margin: auto;
           font-size: 0.8em;

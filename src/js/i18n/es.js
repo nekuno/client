@@ -48,7 +48,8 @@ export default {
     ConnectSocialNetworksPage        : {
         top    : 'Redes Sociales',
         title  : 'Mejora las recomendaciones',
-        excerpt: '¡Por fin tus datos trabajarán para ti! ¡Cuantos más intereses aportes, mejores recomendaciones obtendrás!',
+        excerpt1: '¡Por fin tus datos trabajarán para ti!',
+        excerpt2: '¡Cuantos más intereses aportes, mejores recomendaciones obtendrás!',
         error  : 'Error conectando red. Quizás ya la has conectado con otro usuario.'
     },
     EditProfilePage                  : {

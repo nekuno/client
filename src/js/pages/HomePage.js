@@ -10,7 +10,6 @@ import Framework7Service from '../services/Framework7Service';
 import LocaleStore from '../stores/LocaleStore';
 import Slider from 'react-slick';
 import Overlay from '../components/ui/Overlay/';
-import '../../scss/pages/home.scss';
 
 function getState(props) {
     const interfaceLanguage = LocaleStore.locale;

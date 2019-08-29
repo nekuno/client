@@ -26,9 +26,12 @@ export default class UsernameField extends Component {
             shownameEntered  : false,
         };
 
-        this.onUsernameChange = this.onUsernameChange.bind(this);
         this.onShownameChange = this.onShownameChange.bind(this);
     }
+	
+	randomize(length) {
+		return Math.round((Math.pow(26, length + 1) - Math.random() * Math.pow(26, length))).toString(26).slice(1);
+	}
 
     //https://gist.github.com/hagemann/382adfc57adbd5af078dc93feef01fe1
     slugify(string) {
@@ -52,41 +55,14 @@ export default class UsernameField extends Component {
         }
 
         const showname = this.showname.getValue();
-        const slug = this.slugify(showname);
-
-        if (slug.length > 2) {
-            this.username.setValue(slug);
-            this.setState({shownameEntered: true})
-        }
-    }
-
-    onUsernameChange(byUser = false) {
-        if (byUser) {
-            this.setState({shownameCoupled: false});
-        }
-        const {validationPromise} = this.state;
-        if (typeof validationPromise.cancel !== 'undefined') {
-            validationPromise.cancel();
-        }
-
-        if (typeof this.usernameTimeout !== 'undefined') {
-            clearTimeout(this.usernameTimeout);
-        }
-        this.usernameTimeout = setTimeout(() => {
-            let username = this.username.getValue();
-            let newPromise = UserActionCreators.validateUsername(username).then(() => {
-                // Username valid
-            }).catch(() => {
-                Framework7Service.nekunoApp().alert(this.props.strings.invalidUsername);
-            });
-            this.setState({validationPromise: newPromise});
-        }, 1000);
+        const slug = (this.randomize(6) + '_' + this.slugify(showname)).substr(0, 25);
+        this.setState({shownameEntered: true, username: slug});
     }
 
     handleClickSave() {
         const {strings} = this.props;
         this.setState({registering: true});
-        let username = this.username.getValue();
+        let username = this.state.username;
         let showname = this.showname.getValue();
         UserActionCreators.validateUsername(username).then(() => {
             this.props.onSaveHandler(username, showname);
@@ -98,8 +74,7 @@ export default class UsernameField extends Component {
 
     render() {
         const {username, isUsernameValid, strings} = this.props;
-        const {registering, shownameEntered} = this.state;
-        const shownameClass = shownameEntered ? "" : "showname-hidden";
+        const {registering} = this.state;
         return (
             <div>
                 <div className="answer-question username-question">
@@ -109,16 +84,8 @@ export default class UsernameField extends Component {
                             {strings.showname}
                         </div>
                         <ul>
-                            <Input defaultValue={username} placeholder={strings.showname} ref={c => this.showname = c} maxLength="25" onChange={this.onShownameChange.bind(this)} style={isUsernameValid ? {} : {color: 'red'}}/>
+                            <Input defaultValue={username} placeholder={strings.username} ref={c => this.showname = c} maxLength="25" onChange={this.onShownameChange.bind(this)} style={isUsernameValid ? {} : {color: 'red'}}/>
                         </ul>
-                        <div className={shownameClass}>
-                            <div className="title answer-question-title">
-                                {strings.title}
-                            </div>
-                            <ul>
-                                <Input defaultValue={username} placeholder={strings.username} ref={c => this.username = c} maxLength="25" onChange={this.onUsernameChange.bind(this, true)} style={isUsernameValid ? {} : {color: 'red'}}/>
-                            </ul>
-                        </div>
                     </div>
                 </div>
                 <br/>

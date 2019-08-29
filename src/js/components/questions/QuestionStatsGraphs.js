@@ -39,14 +39,19 @@ export default class QuestionStatsGraph extends Component {
         let secondProperty = "oldAnswersCount";
         let firstGraphClass = "young-answer-chart-" + userAnswer.answerId;
         let secondGraphClass = "old-answer-chart-" + userAnswer.answerId;
+        let thirdGraphClass = "nonbinary-answer-chart-" + userAnswer.answerId; // DEBUG
+		
         if (isGenderDiffGreater) {
             firstProperty = "femaleAnswersCount";
             secondProperty = "maleAnswersCount";
             firstGraphClass = "female-answer-chart-" + userAnswer.answerId;
             secondGraphClass = "male-answer-chart-" + userAnswer.answerId;
+            thirdGraphClass = "nonbinary-answer-chart-" + userAnswer.answerId;
         }
         let firstStats = [];
         let secondStats = [];
+        let thirdStats = [];
+		
         question.answers.forEach((answer, index) => {
             firstStats.push({
                 value: this.getPercentage(answer[firstProperty], question[firstProperty]),
@@ -55,11 +60,17 @@ export default class QuestionStatsGraph extends Component {
             secondStats.push({
                 value: this.getPercentage(answer[secondProperty], question[secondProperty]),
                 color: QUESTION_STATS_COLORS[index]
+			});
+			thirdStats.push({
+                value: this.getPercentage(answer[firstProperty], question[firstProperty]),
+                color: QUESTION_STATS_COLORS[index]
             });
         });
 
         let firstElem = document.getElementById(firstGraphClass);
         let secondElem = document.getElementById(secondGraphClass);
+		let thirdElem = document.getElementById(thirdGraphClass);
+		
         let canvasWidth = firstElem.style.width;
         let canvasHeight = firstElem.style.height;
 
@@ -70,9 +81,11 @@ export default class QuestionStatsGraph extends Component {
 
         let ctx1 = firstElem.getContext("2d");
         let ctx2 = secondElem.getContext("2d");
+        let ctx3 = thirdElem.getContext("2d");
 
         if (question[firstProperty]) {
             new Chart(ctx1).Doughnut(firstStats, options);
+            new Chart(ctx3).Doughnut(thirdStats, options);
         }
         if (question[secondProperty]) {
             new Chart(ctx2).Doughnut(secondStats, options);
@@ -99,10 +112,16 @@ export default class QuestionStatsGraph extends Component {
         const isGenderDiffGreater = this.isGenderDiffGreater(question);
         const firstIcon = isGenderDiffGreater ? 'icon-female stats-icon' : 'icon-cool stats-icon';
         const secondIcon = isGenderDiffGreater ? 'icon-male stats-icon' : 'icon-hipster stats-icon';
+		const thirdIcon = isGenderDiffGreater ? 'icon mdi mdi-gender-non-binary' : 'icon mdi mdi-gender-non-binary'; // DEBUG
+
         const firstGraphClass = isGenderDiffGreater ? "female-answer-chart-" + userAnswer.answerId : "young-answer-chart-" + userAnswer.answerId
         const secondGraphClass = isGenderDiffGreater ? "male-answer-chart-" + userAnswer.answerId : "old-answer-chart-" + userAnswer.answerId
+		const thirdGraphClass = isGenderDiffGreater ? "nonbinary-answer-chart-" + userAnswer.answerId : "nonbinary-answer-chart-" + userAnswer.answerId // DEBUG
+
         const firstText = isGenderDiffGreater ? strings.females : strings.young;
         const secondText = isGenderDiffGreater ? strings.males : strings.old;
+		const thirdText = 'NB'; // DEBUG
+
         const statsType = isGenderDiffGreater ? strings.typeGender : strings.typeAge;
 
         return (
@@ -117,6 +136,12 @@ export default class QuestionStatsGraph extends Component {
                     <canvas id={secondGraphClass}></canvas>
                     <div className={secondIcon}></div>
                     <div className="stats-text">{secondText}</div>
+                </div>
+				{/* DEBUG */}
+                <div className="first-answer-chart-container">
+                    <canvas id={thirdGraphClass}></canvas>
+                	<span className={thirdIcon}></span>
+                    <div className="stats-text">{thirdText}</div>
                 </div>
             </div>
         );

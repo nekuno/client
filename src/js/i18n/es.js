@@ -227,17 +227,6 @@ export default {
         excerpt: 'Realiza el test y elige lo que te gustaría que respondiera otro usuario para ser compatible contigo. Responde a estas cuatro preguntas y habremos terminado',
         next   : 'HACER TEST'
     },
-    ThreadPage                       : {
-        threads                : 'Descubrir',
-        create                 : 'Crear',
-        loadingMessage         : 'Cargando ovillos',
-        tutorialFirstStepTitle : 'Ovillos',
-        tutorialFirstStep      : 'En un Ovillo de Nekuno encontrarás aquello que sea más compatible contigo; tú puedes borrarlos o editarlos para introducir nuevos filtros sobre los aspectos que quieras.',
-        tutorialSecondStepTitle: 'Crear un Ovillo',
-        tutorialSecondStep     : 'Desde aquí puedes crear un nuevo Ovillo sobre lo que más te interese.',
-        tutorialThirdStepTitle : 'Menú',
-        tutorialThirdStep      : 'Este es el botón para abrir el menú y este punto verde indica que tienes mensajes nuevos. ¡Te invitamos a que explores todo Nekuno! ¡Gracias por participar en esta Beta privada!'
-    },
     DiscoverPage                     : {
         discover               : 'Descubrir',
         liked                  : 'Favoritos',
@@ -252,14 +241,6 @@ export default {
         orderSimilarity        : 'Ordenadas por similaridad',
         matching               : 'Compatibilidad',
         similarity             : 'Similaridad',
-    },
-    RecommendationPage               : {
-        loadingMessage   : 'Cargando recomendaciones',
-        confirmDelete    : '¿Estás seguro de que quieres borrar este ovillo?',
-        processingThread : 'Estos resultados son provisionales, en breve mejorarán',
-        confirmReplace   : 'Hemos mejorado tus recomendaciones. ¿Quieres actualizarlas?',
-        copiedToClipboard: 'Copiado al portapapeles',
-        shareError       : 'Parece que ha habido un error mientras compartías este contenido'
     },
     InvitationsPage                  : {
         invitations           : 'Invitaciones',
@@ -315,22 +296,6 @@ export default {
         invalidUrl     : 'URL Inválida',
         legalTerms     : 'Nunca publicaremos nada en tus redes.</br>Al registrarte, estás aceptando los <a href="https://nekuno.com/terms-and-conditions" target="_blank">Términos Legales</a>.',
         blockingError  : 'Tu navegador está bloqueando una petición a Facebook y no podemos registrar tu usuario. Por favor, deshabilita el bloqueo en la configuración o utiliza otro navegador.'
-    },
-    CreateThreadPage                 : {
-        create  : 'Crear ovillos',
-        title   : '¿Qué deseas descubrir en este nuevo ovillo?',
-        cancel  : 'Cancelar',
-        people  : 'Gente compatible',
-        contents: 'Contenido interesante',
-        creating: 'Creando ovillo',
-    },
-    EditThreadPage                   : {
-        edit       : 'Editar ovillo',
-        cancel     : 'Cancelar',
-        placeholder: 'Título',
-        people     : 'Gente compatible',
-        contents   : 'Contenido interesante',
-        updating   : 'Editando ovillo',
     },
     EditThreadLitePage               : {
         edit       : 'Editar ovillo',
@@ -584,15 +549,6 @@ export default {
         affinityPreparingTitle  : 'Preparando para calcular afinidad',
         registerWorkersFinish   : '¡Felicidades! Los procesos de registro han finalizado'
     },
-    ThreadNoResults                  : {
-        emptyThread: 'Este ovillo está vacío. Edítalo o elimínalo',
-        edit       : 'Editar',
-        delete     : 'Eliminar',
-        deleting   : 'Eliminando'
-    },
-    ThreadToolBar                    : {
-        next: 'Siguiente'
-    },
     MessagesToolBar                  : {
         maxLengthIs: 'La máxima longitud del mensaje es  '
     },
@@ -687,15 +643,6 @@ export default {
         placeholder: 'Título',
         finish     : 'Terminar'
     },
-    CreateContentThread              : {
-        back          : 'Volver',
-        selectFilter  : 'Selecciona un filtro',
-        addFilterTitle: 'Puedes añadir filtros para que los resultados sean más específicos',
-        addFilter     : 'Añadir filtro',
-        save          : 'Guardar ovillo',
-        create        : 'Crear ovillo',
-        addFilters    : 'Añade un filtro primero'
-    },
     CreateUsersThread                : {
         back          : 'Volver',
         selectFilter  : 'Selecciona un filtro',
@@ -707,17 +654,6 @@ export default {
         order         : 'Ordenación',
         matching      : 'Compatibilidad',
         similarity    : 'Similaridad',
-    },
-    ThreadContent                    : {
-        contents: 'Contenidos',
-        disabled: 'Estos resultados son provisionales, en breve mejorarán.',
-        filters : 'Filtros: ',
-    },
-    ThreadUsers                      : {
-        people  : 'Personas',
-        users   : 'Usuarios',
-        disabled: 'Estos resultados son provisionales, en breve mejorarán.',
-        filters : 'Filtros: ',
     },
     IntegerEdit                      : {
         minValue   : 'El valor mínimo es ',
@@ -800,20 +736,6 @@ export default {
         invitationTitle  : 'Invitación a insignia',
         shareError       : 'Ha ocurrido un error compartiendo el enlace.',
         copiedToClipboard: 'Copiado al portapapeles'
-    },
-    RecommendationUser               : {
-        age    : 'Edad',
-        message: 'Mensaje',
-    },
-    RecommendationUserDetails        : {
-        questions            : 'Preguntas',
-        coincidences         : 'Coincidencias',
-        interests            : 'Intereses',
-        noInterests          : 'No hay intereses',
-        common               : 'En común',
-        all                  : 'Todos',
-        interestsCount       : '%count% Intereses',
-        similarInterestsCount: '%count% Intereses similares',
     },
     SocialWheel                      : {
         isLoading: 'Pidiendo información...',

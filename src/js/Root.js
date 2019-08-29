@@ -33,11 +33,9 @@ import AnswerUserFieldPage from "./pages/AnswerUserFieldPage";
 import AnswerProfileFieldPage from "./pages/AnswerProfileFieldPage";
 import ProfilePage from "./pages/ProfilePage";
 import DiscoverPage from "./pages/DiscoverPage";
-import RecommendationPage from "./pages/RecommendationPage";
 import InvitationsPage from "./pages/InvitationsPage";
 import ConnectSocialNetworksOnSignUpPage from "./pages/ConnectSocialNetworksOnSignUpPage";
 import ConnectSocialNetworksPage from "./pages/ConnectSocialNetworksPage";
-import CreateThreadPage from "./pages/CreateThreadPage";
 import EditThreadLitePage from "./pages/EditThreadLitePage";
 import GroupPage from "./pages/GroupPage";
 import GroupStatsPage from "./pages/GroupStatsPage";
@@ -274,11 +272,6 @@ export default class Root extends Component {
 							name="social-networks"
 							path="/social-networks"
 							component={ConnectSocialNetworksPage}
-						/>
-						<Route
-							name="create-thread"
-							path="/create-thread"
-							component={CreateThreadPage}
 						/>
 						<Route
 							name="edit-thread"

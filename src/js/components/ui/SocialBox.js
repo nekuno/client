@@ -36,7 +36,7 @@ export default class SocialBox extends Component {
                         !excludedResources || !excludedResources.some(resource => resource === socialNetwork.resourceOwner) ?
                             <div key={index} className={disabledButtons ? 'disabled' : ''}>
                                 <a onClick={this.handleClickResourceOwner.bind(this, socialNetwork.resourceOwner, socialNetwork.scope)}>
-                                    <span className={socialNetwork.resourceOwner === 'google' ? 'icon-youtube' : 'icon-' + socialNetwork.resourceOwner}></span>
+                                    <span className={socialNetwork.resourceOwner === 'google' ? 'mdi mdi-youtube' : 'mdi mdi-' + socialNetwork.resourceOwner}></span>
                                 </a>
                             </div>
                             : null

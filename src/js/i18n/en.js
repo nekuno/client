@@ -227,17 +227,6 @@ export default {
         excerpt: 'Make the test answering for you and what you would like to answer another user to be compatible with you. Only 4 answers are required.',
         next   : 'DO TEST'
     },
-    ThreadPage                       : {
-        threads                : 'Discover',
-        create                 : 'New',
-        loadingMessage         : 'Loading yarns',
-        tutorialFirstStepTitle : 'Yarns',
-        tutorialFirstStep      : 'In a Nekuno Yarn you will find that which is most compatible with you; you can delete or edit them to introduce new filters on the issues you want.',
-        tutorialSecondStepTitle: 'Create a Yarn',
-        tutorialSecondStep     : 'Here you can create a new Yarn about what most interests you.',
-        tutorialThirdStepTitle : 'Menu',
-        tutorialThirdStep      : 'This is the button to open the menu and this green dot indicates you have new messages. We invite you to explore all Nekuno! Thank you for participating in this private Beta!'
-    },
     DiscoverPage                     : {
         discover               : 'Discover',
         liked                  : 'Liked users',
@@ -252,14 +241,6 @@ export default {
         orderSimilarity        : '',
         matching               : 'Matching',
         similarity             : 'Similarity',
-    },
-    RecommendationPage               : {
-        loadingMessage   : 'Loading recommendations',
-        confirmBlock     : 'Are you sure you want to block this user?',
-        processingThread : 'These results are provisional, we are working on improving them for you.',
-        confirmReplace   : 'We have improved your recommendations. Do you want to reload them?',
-        copiedToClipboard: 'Copied to clipboard',
-        shareError       : 'An error occurred sharing the content'
     },
     InvitationsPage                  : {
         invitations           : 'Invitations',
@@ -315,22 +296,6 @@ export default {
         invalidUrl     : 'Invalid URL',
         legalTerms     : 'We will never post anything on your networks.</br>By registering, you agree to the <a href="https://nekuno.com/terms-and-conditions" target="_blank">End-user license agreement</a>.',
         blockingError  : 'Your browser has blocked a Facebook request and we are not able to register you. Please, disable the blocking configuration or use an other browser.'
-    },
-    CreateThreadPage                 : {
-        create  : 'Create yarn',
-        title   : 'What do you want to discover in this new yarn?',
-        cancel  : 'Cancel',
-        people  : 'Compatible people',
-        contents: 'Interesting content',
-        creating: 'Creating yarn',
-    },
-    EditThreadPage                   : {
-        edit       : 'Edit yarn',
-        cancel     : 'Cancel',
-        placeholder: 'Title',
-        people     : 'Compatible people',
-        contents   : 'Interesting content',
-        updating   : 'Updating yarn',
     },
     EditThreadLitePage               : {
         edit       : 'Edit yarn',
@@ -578,15 +543,6 @@ export default {
         affinityPreparingTitle  : 'Preparing to calculate affinity',
         registerWorkersFinish   : 'Congratulations! The registration processes have finished.'
     },
-    ThreadNoResults                  : {
-        emptyThread: 'This yarn is empty. Edit or delete it.',
-        edit       : 'Edit',
-        delete     : 'Delete',
-        deleting   : 'Deleting'
-    },
-    ThreadToolBar                    : {
-        next: 'Next'
-    },
     MessagesToolBar                  : {
         maxLengthIs: 'Maximum message length is '
     },
@@ -681,15 +637,6 @@ export default {
         placeholder: 'Title',
         finish     : 'Finish'
     },
-    CreateContentThread              : {
-        back          : 'Back',
-        selectFilter  : 'Select filter',
-        addFilterTitle: 'You can add filters to be more specific',
-        addFilter     : 'Add filter',
-        save          : 'Save',
-        create        : 'Create',
-        addFilters    : 'Add a filter first'
-    },
     CreateUsersThread                : {
         back          : 'Back',
         selectFilter  : 'Select filter',
@@ -701,17 +648,6 @@ export default {
         order         : 'Order',
         matching      : 'Matching',
         similarity    : 'Similarity',
-    },
-    ThreadContent                    : {
-        contents: 'Contents',
-        disabled: 'We are weaving this yarn, please wait a moment...',
-        filters : 'Filters: ',
-    },
-    ThreadUsers                      : {
-        people  : 'People',
-        users   : 'Users',
-        disabled: 'We are weaving this yarn, please wait a moment...',
-        filters : 'Filters: ',
     },
     IntegerEdit                      : {
         minValue   : 'The minimum value is ',
@@ -794,20 +730,6 @@ export default {
         invitationTitle  : 'Badge invitation',
         shareError       : 'An error occurred sending the invitation.',
         copiedToClipboard: 'Copied to clipboard',
-    },
-    RecommendationUser               : {
-        age    : 'Age',
-        message: 'Message',
-    },
-    RecommendationUserDetails        : {
-        questions            : 'Questions',
-        coincidences         : 'Coincidences',
-        interests            : 'Interests',
-        noInterests          : 'There are no interests',
-        common               : 'In common',
-        all                  : 'All',
-        interestsCount       : '%count% Interests',
-        similarInterestsCount: '%count% Similar interests',
     },
     SocialWheel                      : {
         isLoading: 'Getting information...',

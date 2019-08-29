@@ -20,7 +20,6 @@ body #root .App .views .view .page.user-page {
 
       .profile-category {
         width: 100%;
-        background-color: $deep-purple-translucent;
         margin-left: -50%;
         margin-top: 10px;
         padding-top: 1px;
@@ -28,7 +27,9 @@ body #root .App .views .view .page.user-page {
         padding-left: 50%;
 
         h3 {
-          font-size: 1.3em;
+          color: $deep-purple;
+          font-size: 20px;
+          font-weight: normal;
           display: flex;
           justify-content: space-between;
           padding: 0 16px;

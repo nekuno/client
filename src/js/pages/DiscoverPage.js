@@ -289,7 +289,7 @@ export default class DiscoverPage extends Component {
 
         if (profile && thread && filters && Object.keys(thread).length > 0) {
             return <div className="edit-thread-button">
-                <Button onClick={this.editThread}><span className="icon-edit"></span> <span class="text">{strings.editFilters}</span></Button>
+                <Button onClick={this.editThread}><span className="icon-edit"></span> <span className="text">{strings.editFilters}</span></Button>
             </div>
         } else {
             return '';

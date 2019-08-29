@@ -75,9 +75,9 @@ export default class Question extends Component {
                 {this.props.graphActive ?
                     <QuestionStatsInLine question={question} userAnswer={userAnswer} onClick={this.onClickHandler}/>
                 :
-                    <div class="view-question-stats" onClick={this.onClickHandler}>
-                        <span class="text">{strings.viewStats}</span>
-                        <span class="icon mdi mdi-chart-donut"></span>
+                    <div className="view-question-stats" onClick={this.onClickHandler}>
+                        <span className="text">{strings.viewStats}</span>
+                        <span className="icon mdi mdi-chart-donut"></span>
                     </div>
                 }
                 

@@ -39,16 +39,16 @@ export default {
     },
     ConnectSocialNetworksOnSignUpPage: {
         next         : 'Continuar',
-        welcome      : 'Bienvenido',
-        excerpt1     : '¡Por fin tus datos trabajarán para ti!',
-        excerpt2     : '¡Alimenta a Nekuno con tus redes para obtener mejores recomendaciones!',
+        welcome      : 'Pongámonos a punto,',
+        excerpt1     : '¡Hagamos que tus datos empiecen a trabajar para ti!',
+        excerpt2     : 'Cada red que conectes ayudara a Nekuno a darte mejores recomendaciones',
         error        : 'Error conectando red. Quizás ya la has conectado con otro usuario.',
         answerExplore: 'Quieres contestar los objetivos de explorar?'
     },
     ConnectSocialNetworksPage        : {
         top    : 'Redes Sociales',
         title  : 'Mejora las recomendaciones',
-        excerpt1: '¡Por fin tus datos trabajarán para ti!',
+        excerpt1: '¡Hagamos que tus datos empiecen a trabajar para ti!',
         excerpt2: '¡Cuantos más intereses aportes, mejores recomendaciones obtendrás!',
         error  : 'Error conectando red. Quizás ya la has conectado con otro usuario.'
     },
@@ -415,8 +415,8 @@ export default {
         genderEmpty   : 'No has seleccionado el género'
     },
     UsernameField                    : {
-        username       : 'Nombre de usuario',
-        showname       : 'Nombre para mostrar',
+        username       : 'Escríbelo aquí',
+        showname       : '¿Qué nombre te gustaría usar?',
         title          : 'Elige tu nombre de usuario',
         save           : 'Continuar',
         invalidUsername: 'El nombre de usuario no es válido o ya está en uso. Los caracteres válidos son letras, números y _'
@@ -542,7 +542,7 @@ export default {
         shareError            : 'Ha ocurrido un error compartiendo el enlace.'
     },
     SocialWheels                     : {
-        excerpt      : 'Nekuno nunca publicará nada en tus redes',
+        excerpt      : 'No publicaremos nada, solo recibiremos lo que te gusta y lo que sigues 😉',
         otherNetworks: 'Otras redes conectadas'
     },
     ProcessesProgress                : {

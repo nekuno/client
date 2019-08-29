@@ -8,16 +8,16 @@ import moment from 'moment';
 class LocaleStore extends BaseStore {
 
     setInitial() {
-        this._locale = 'en';
-        let locale = LocalStorageService.get('locale');
+        this._locale = 'es';
+        let locale = null; //LocalStorageService.get('locale');
         if (locale) {
             this._locale = locale;
         } else if (LoginStore.user && ProfileStore.contains(LoginStore.user.slug) && ProfileStore.get(LoginStore.user.slug).interfaceLanguage) {
             this.locale = ProfileStore.get(LoginStore.user.slug).interfaceLanguage;
-        } else if (navigator.languages && navigator.languages.length > 0) {
-            this.locale = navigator.languages[0];
-        } else if (navigator.language) {
-            this.locale = navigator.language;
+        //} else if (navigator.languages && navigator.languages.length > 0) {
+        //    this.locale = navigator.languages[0];
+        //} else if (navigator.language) {
+        //    this.locale = navigator.language;
         }
     }
 

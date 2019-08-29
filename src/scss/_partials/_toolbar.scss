@@ -53,4 +53,10 @@
   &::before {
     content: none;
   }
+
+  @media only screen and (max-width: 359px) {
+    .toolbar-link .text {
+      display: none;
+    }
+  }
 }

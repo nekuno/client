@@ -35,9 +35,7 @@ export default class ThreadSelectedFilter extends Component {
             <div className="thread-filter-background">
                 {cantRemove ? null :
                     <div className="thread-filter-remove" onClick={this.handleClickRemoveFilter.bind(this)}>
-                        <div className="small-icon-wrapper">
-                            <span className="icon-delete"></span>
-                        </div>
+                        <span className="mdi mdi-delete"></span>
                     </div>
                 }
             </div>

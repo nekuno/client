@@ -7,13 +7,15 @@ body #root .App .views .view .page.create-thread-page  {
   #page-content {
 
     .profile-category {
-      width: 200%;
-      background-color: $deep-purple-translucent;
-      margin-left: -50%;
       margin-top: 10px;
       padding-top: 1px;
       padding-bottom: 1px;
-      padding-left: 50%;
+      h3 {
+        color: $deep-purple;
+        font-size: 20px;
+        font-weight: normal;
+        margin: 0.75em 0;
+      }
     }
     
     .thread-title {
@@ -22,14 +24,14 @@ body #root .App .views .view .page.create-thread-page  {
       margin-top: 75px;
     }
     .delete-filter {
-      height:30px;
-      width: 30px;
-      margin-top: 5px;
-      margin-left: 5px;
-
-      .icon-delete {
-        line-height: 30px;
-      }
+      font-size: 20px;
+      color: $deep-purple;
+      margin: 5px;
+      display: inline-block;
+      vertical-align: middle;
+      
+      position: relative;
+      top: -1px;
     }
     .thread-title ul li input[type="text"] {
       color: #fff;
@@ -45,7 +47,7 @@ body #root .App .views .view .page.create-thread-page  {
     }
     .persons-middle-vertical-line {
       border-left: 1px solid $green-alert;
-      height: 453px;
+      height: 435px;
       margin-left: 7px;
       margin-top: -10px;
       position: absolute;
@@ -153,11 +155,9 @@ body #root .App .views .view .page.create-thread-page  {
       display: table;
 
       .thread-filter-background {
-        background: $deep-purple-translucent;
         height: 590px;
         left: 0;
         margin-top: -15px;
-        opacity: 0.5;
         padding: 40px 0;
         position: absolute;
         width: 100%;
@@ -166,7 +166,9 @@ body #root .App .views .view .page.create-thread-page  {
         .thread-filter-remove {
           cursor: pointer;
           float: right;
-          margin: -30px 2% 30px 0;
+          margin: -30px 16px 30px 0;
+          font-size: 20px;
+          color: $deep-purple;
         }
       }
       .thread-filter-dot {
@@ -177,8 +179,9 @@ body #root .App .views .view .page.create-thread-page  {
         z-index: 111;
 
         .icon-circle {
-          border: 2.5px solid $dark-blue;
-          box-shadow: 0 0 0 2.5px $dark-blue;
+          color: $green-alert;
+          border: 2.5px solid $green-alert-translucent;
+          box-shadow: 0 0 0 2.5px $deep-purple-translucent;
           border-radius: 50%;
           -moz-border-radius: 50%;
           -webkit-border-radius: 50%;
@@ -200,14 +203,11 @@ body #root .App .views .view .page.create-thread-page  {
           z-index: 1;
         }
         .icon-circle.active {
-          color: $green-alert;
-          border: 2.5px solid $green-alert-translucent;
-          box-shadow: 0 0 0 2.5px $deep-purple-translucent;
         }
       }
       .text-radios {
         display: inline-block;
-        width: 90%;
+        width: 87%;
         padding: 0;
         z-index: 111;
       }
@@ -257,18 +257,19 @@ body #root .App .views .view .page.create-thread-page  {
       }
     }
 
+    .integer-title, .tags-and-choice-title, .text-checkboxes-title, .tag-input-title, .location-title, .text-radios-title, .checkbox-title {
+      font-size: 16px;
+      font-weight: bold;
+      text-align: left;
+      padding-left: 5px;
+    }
+
     .integer-filter, .tags-and-choice-filter {
       .list-block {
         display: inline-block;
         margin: 0;
         vertical-align: middle;
         width: 80%;
-
-        .integer-title, .tags-and-choice-title {
-          font-size: 0.8em;
-          font-weight: bold;
-          text-align: center;
-        }
 
         .item-input {
           font-weight: 400;
@@ -301,62 +302,35 @@ body #root .App .views .view .page.create-thread-page  {
       .location-filter-wrapper {
         display: inline-block;
         vertical-align: middle;
-        width: 90%;
+        width: 87%;
 
         .list-block {
           display: inline-block;
           margin: 0 0 0 15px;
           vertical-align: middle;
           width: 100%;
-
-          .location-title {
-            font-size: 0.8em;
-            font-weight: bold;
-            text-align: center;
-          }
         }
       }
     }
 
-    .select-filter {
-      background: $page-bg;
-      left: 0;
-      padding-top: 60px;
-      position: absolute;
-      top: -80px;
-      width: 100%;
-      z-index: 1111;
+    ul.checkbox-filters-list {
+      display: -ms-grid;
+      display: grid;
+      grid-auto-flow: row;
+      grid-template-columns: 1fr 1fr;
+      -ms-grid-columns: 1fr 1fr;
+      align-items: center;
 
-      .back-to-selected-filters {
-        cursor: pointer;
-        margin-left: 5%;
-      }
-
-      .list-block {
-        margin: 35px 0 35px 5%;
-
-        ul.checkbox-filters-list {
-          display: inline-table;
-          padding: 0 2.5%;
-          vertical-align: text-top;
-          width: 44%;
-
-          li {
-            .label-checkbox {
-              .item-inner {
-                .item-title {
-                  width: 80%;
-                }
-              }
-            }
-            &::after {
-              content: none;
-            }
-          }
-          .active-state {
-            background-color: transparent;
-          }
+      li {
+        .label-checkbox .item-inner .item-title {
+          width: auto;
         }
+        &::after {
+          content: none;
+        }
+      }
+      .active-state {
+        background-color: transparent;
       }
     }
 
@@ -367,11 +341,9 @@ body #root .App .views .view .page.create-thread-page  {
         font-weight: 400;
         background: $deep-purple;
         color: $white;
-        height: 60px;
-        line-height: 60px;
-        border-radius: 30px;
-        -moz-border-radius: 30px;
-        -webkit-border-radius: 30px;
+        height: 48px;
+        line-height: 48px;
+        border-radius: 24px;
         padding: 0 24px;
         box-sizing: border-box;
         vertical-align: middle;
@@ -438,7 +410,8 @@ body #root .App .views .view .page.create-thread-page  {
 
     @media only screen and (max-width: 338px) {
       .select-filter .list-block ul.checkbox-filters-list {
-        width: 88%;
+        grid-template-columns: 1fr;
+        -ms-grid-columns: 1fr;
       }
     }
 

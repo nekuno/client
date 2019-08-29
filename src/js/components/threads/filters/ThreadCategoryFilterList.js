@@ -47,24 +47,9 @@ export default class ThreadCategoryFilterList extends Component {
         // TODO: Don't filter to show tags (just use category.fields)
         const filteredCategoryFields = category.fields.filter(field => filtersMetadata[field] && filtersMetadata[field].type !== 'tags');
         const choicesLength = filteredCategoryFields.length || 0;
-        return <div>
-            <ul key="1" className="checkbox-filters-list">
-                {filteredCategoryFields.map((field, i) => {
-                    if (i >= choicesLength / 2) {
-                        return;
-                    }
-                    return this.renderField(field);
-                })}
-            </ul>
-            <ul key="2" className="checkbox-filters-list">
-                {filteredCategoryFields.map((field, i) => {
-                    if (i < choicesLength / 2) {
-                        return;
-                    }
-                    return this.renderField(field);
-                })}
-            </ul>
-        </div>
+        return <ul key="1" className="checkbox-filters-list">
+                { filteredCategoryFields.map(field => this.renderField(field)) }
+            </ul>;
     }
 
     render() {

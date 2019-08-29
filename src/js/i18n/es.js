@@ -299,13 +299,13 @@ export default {
         blockingError  : 'Tu navegador está bloqueando una petición a Facebook y no podemos registrar tu usuario. Por favor, deshabilita el bloqueo en la configuración o utiliza otro navegador.'
     },
     EditThreadLitePage               : {
-        edit       : 'Editar ovillo',
+        edit       : 'Editar filtros',
         cancel     : 'Cancelar',
         placeholder: 'Título',
         people     : 'Gente compatible',
         contents   : 'Contenido interesante',
-        updating   : 'Editando ovillo',
         filters    : 'Filtros'
+        updating   : 'Aplicando filtros',
     },
     SettingsPage                     : {
         title         : 'Términos y condiciones',
@@ -649,8 +649,8 @@ export default {
         selectFilter  : 'Selecciona un filtro',
         addFilterTitle: 'Puedes añadir filtros para que los resultados sean más específicos',
         addFilter     : 'Añadir filtro',
-        save          : 'Guardar ovillo',
-        create        : 'Crear ovillo',
+        save          : 'Aplicar filtros',
+        create        : 'Crear filtros',
         addFilters    : 'Añade un filtro primero',
         order         : 'Ordenación',
         matching      : 'Compatibilidad',

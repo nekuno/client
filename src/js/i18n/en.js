@@ -299,13 +299,13 @@ export default {
         blockingError  : 'Your browser has blocked a Facebook request and we are not able to register you. Please, disable the blocking configuration or use an other browser.'
     },
     EditThreadLitePage               : {
-        edit       : 'Edit yarn',
+        edit       : 'Edit filters',
         cancel     : 'Cancel',
         placeholder: 'Title',
         people     : 'Compatible people',
         contents   : 'Interesting content',
-        updating   : 'Updating yarn',
         filters    : 'Filters'
+        updating   : 'Applying filters',
     },
     SettingsPage                     : {
         title         : 'Terms and conditions',
@@ -643,7 +643,7 @@ export default {
         selectFilter  : 'Select filter',
         addFilterTitle: 'You can add filters to be more specific',
         addFilter     : 'Add filter',
-        save          : 'Save',
+        save          : 'Save filters',
         create        : 'Create',
         addFilters    : 'Add a filter first',
         order         : 'Order',

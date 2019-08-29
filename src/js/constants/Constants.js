@@ -41,7 +41,9 @@ export const API_URLS = {
 
     //Pagination urls
     ANSWERS           : API_ROOT + 'answers',
-    COMPARED_ANSWERS  : API_ROOT + 'answers/compare/{otherUserId}',
+    COMPARED_ANSWERS  : API_ROOT + 'answers/compare/{otherUserId}?showOnlyOtherNotAnsweredQuestions=true',
+    SAME_ANSWERS      : API_ROOT + 'answers/compare/{otherUserId}?showOnlyAgreement=agree',
+    DIFFERENT_ANSWERS : API_ROOT + 'answers/compare/{otherUserId}?showOnlyAgreement=disagree',
     OWN_INTERESTS     : API_ROOT + 'content?type[]={type}',
     COMPARED_INTERESTS: API_ROOT + 'content/compare/{userId}?type[]={type}&showOnlyCommon={showOnlyCommon}',
     RECOMMENDATIONS   : API_ROOT + 'threads/{threadId}/recommendation',

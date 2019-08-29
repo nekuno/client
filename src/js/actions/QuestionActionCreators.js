@@ -24,6 +24,22 @@ export function requestComparedQuestions(otherUserId, link) {
     }, {otherUserId});
 }
 
+export function requestSameAnswerQuestions(otherUserId, link) {
+    return dispatchAsync(QuestionAPI.getComparedAnswers(link), {
+        request: ActionTypes.REQUEST_OTHER_SAME_ANSWER_QUESTIONS,
+        success: ActionTypes.REQUEST_OTHER_SAME_ANSWER_QUESTIONS_SUCCESS,
+        failure: ActionTypes.REQUEST_OTHER_SAME_ANSWER_QUESTIONS_ERROR
+    }, {otherUserId});
+}
+
+export function requestDifferentAnswerQuestions(otherUserId, link) {
+    return dispatchAsync(QuestionAPI.getComparedAnswers(link), {
+        request: ActionTypes.REQUEST_OTHER_DIFFERENT_ANSWER_QUESTIONS,
+        success: ActionTypes.REQUEST_OTHER_DIFFERENT_ANSWER_QUESTIONS_SUCCESS,
+        failure: ActionTypes.REQUEST_OTHER_DIFFERENT_ANSWER_QUESTIONS_ERROR
+    }, {otherUserId});
+}
+
 export function requestQuestion(userId, questionId) {
     if (!questionId) {
         return requestNextQuestion(userId);

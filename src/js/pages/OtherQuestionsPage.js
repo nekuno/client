@@ -5,7 +5,6 @@ import ToolBar from '../components/ui/ToolBar/';
 import LoadingSpinnerCSS from '../components/ui/LoadingSpinnerCSS'
 import OtherQuestionList from '../components/questions/OtherQuestionList';
 import ProfilesAvatarConnection from '../components/ui/ProfilesAvatarConnection';
-import OtherQuestionsBanner from '../components/questions/OtherQuestionsBanner';
 import AuthenticatedComponent from '../components/AuthenticatedComponent';
 import translate from '../i18n/Translate';
 import connectToStores from '../utils/connectToStores';
@@ -27,7 +26,7 @@ function parsePicture(user) {
  * Requests data from server for current props.
  */
 function requestData(props) {
-    const {params, user, otherUser, isLoadingComparedStats, isLoadingComparedQuestions, initialRequestComparedQuestionsUrl} = props;
+    const {params, user, otherUser, isLoadingComparedStats, isLoadingComparedQuestions, requestNotAnsweredUrl, requestSameAnswersUrl, requestDifferentAnswersUrl,} = props;
     const otherUserSlug = params.slug;
 
     UserActionCreators.requestUser(otherUserSlug, ['username', 'photo']);
@@ -37,8 +36,11 @@ function requestData(props) {
     if (userId && otherUserId && !isLoadingComparedStats) {
         UserActionCreators.requestComparedStats(userId, otherUserId);
     }
+
     if (userId && otherUserId && !isLoadingComparedQuestions) {
-        QuestionActionCreators.requestComparedQuestions(otherUserId, initialRequestComparedQuestionsUrl);
+        QuestionActionCreators.requestComparedQuestions(otherUserId, requestNotAnsweredUrl);
+        QuestionActionCreators.requestDifferentAnswerQuestions(otherUserId, requestDifferentAnswersUrl);
+        QuestionActionCreators.requestSameAnswerQuestions(otherUserId, requestSameAnswersUrl);
     }
 }
 
@@ -54,13 +56,28 @@ function getState(props) {
     const questions = QuestionStore.get(currentUserId) || {};
     const otherQuestions = otherUser ? QuestionStore.getCompared(otherUserId) || {} : {};
     const otherNotAnsweredQuestions = otherUser ? QuestionStore.getOtherNotAnsweredQuestions(otherUserId) || {} : {};
+    const otherSameAnswerQuestions = otherUser ? QuestionStore.getOtherSameAnswer(otherUserId) : {};
+    const otherDifferentAnswerQuestions = otherUser ? QuestionStore.getOtherDifferentAnswer(otherUserId) : {};
+    const otherNotAnsweredCount = otherUser ? QuestionStore.getOtherNotAnsweredCount(otherUserId) : 0;
+    const otherSameAnswerCount = otherUser ? QuestionStore.getOtherSameAnswerCount(otherUserId) : 0;
+    const otherDifferentAnswerCount = otherUser ? QuestionStore.getOtherDifferentAnswerCount(otherUserId) : 0;
     const comparedStats = otherUserId ? ComparedStatsStore.get(currentUserId, otherUserId) : null;
     const isRequestedQuestion = otherUserId ? QuestionStore.isRequestedQuestion(otherUserId) : true;
     const isLoadingComparedStats = otherUserId ? ComparedStatsStore.isLoadingComparedStats() : true;
+
     const isLoadingComparedQuestions = otherUserId ? QuestionStore.isLoadingComparedQuestions() : true;
+    const isLoadingSameAnswer = otherUserId ? QuestionStore.isLoadingSameAnswer() : true;
+    const isLoadingDifferentAnswer = otherUserId ? QuestionStore.isLoadingDifferentAnswer() : true;
+
+    const hasReceivedNotAnsweredPagination = QuestionStore.hasReceivedComparedQuestionsPaginationOnce(otherUserId);
+    const hasReceivedSameAnswerPagination = QuestionStore.hasReceivedSameAnswerPaginationOnce(otherUserId);
+    const hasReceivedDifferentAnswerPagination = QuestionStore.hasReceivedDifferentAnswerPaginationOnce(otherUserId);
+
     const hasNextComparedQuestion = QuestionStore.hasQuestion();
-    const requestComparedQuestionsUrl = otherUserId ? QuestionStore.getRequestComparedQuestionsUrl(otherUserId, []) : null;
-    const initialRequestComparedQuestionsUrl = otherUserId ? QuestionStore.getInitialRequestComparedQuestionsUrl(otherUserId, []) : null;
+
+    const requestSameAnswersUrl = otherUserId ? QuestionStore.getSameAnswersPaginationUrl(otherUserId, []) : null;
+    const requestDifferentAnswersUrl = otherUserId ? QuestionStore.getDifferentAnswersPaginationUrl(otherUserId, []) : null;
+    const requestNotAnsweredUrl = otherUserId ? QuestionStore.getComparedQuestionsPaginationUrl(otherUserId, []) : null;
 
     return {
         otherQuestionsTotal,
@@ -70,11 +87,25 @@ function getState(props) {
         comparedStats,
         isRequestedQuestion,
         isLoadingComparedStats,
+
         isLoadingComparedQuestions,
+        isLoadingSameAnswer,
+        isLoadingDifferentAnswer,
+
+        hasReceivedNotAnsweredPagination,
+        hasReceivedSameAnswerPagination,
+        hasReceivedDifferentAnswerPagination,
+
         hasNextComparedQuestion,
-        requestComparedQuestionsUrl,
         otherNotAnsweredQuestions,
-        initialRequestComparedQuestionsUrl
+        otherSameAnswerQuestions,
+        otherDifferentAnswerQuestions,
+        otherNotAnsweredCount,
+        otherSameAnswerCount,
+        otherDifferentAnswerCount,
+        requestNotAnsweredUrl,
+        requestSameAnswersUrl,
+        requestDifferentAnswersUrl,
     };
 }
 
@@ -84,34 +115,54 @@ function getState(props) {
 export default class OtherQuestionsPage extends Component {
     static propTypes = {
         // Injected by React Router:
-        params                            : PropTypes.shape({
+        params                              : PropTypes.shape({
             slug: PropTypes.string.isRequired
         }),
         // Injected by @AuthenticatedComponent
-        user                              : PropTypes.object.isRequired,
+        user                                : PropTypes.object.isRequired,
         // Injected by @translate:
-        strings                           : PropTypes.object,
+        strings                             : PropTypes.object,
         // Injected by @connectToStores:
-        otherQuestionsTotal               : PropTypes.number.isRequired,
-        questions                         : PropTypes.object,
-        otherQuestions                    : PropTypes.object.isRequired,
-        otherNotAnsweredQuestions         : PropTypes.object.isRequired,
-        otherUser                         : PropTypes.object,
-        comparedStats                     : PropTypes.object,
-        isRequestedQuestion               : PropTypes.bool,
-        isLoadingComparedQuestions        : PropTypes.bool,
-        isLoadingComparedStats            : PropTypes.bool,
-        hasNextComparedQuestion           : PropTypes.bool,
-        requestComparedQuestionsUrl       : PropTypes.string,
-        initialRequestComparedQuestionsUrl: PropTypes.string
+        otherQuestionsTotal                 : PropTypes.number.isRequired,
+        questions                           : PropTypes.object,
+        otherQuestions                      : PropTypes.object.isRequired,
+        otherNotAnsweredQuestions           : PropTypes.object.isRequired,
+        otherNotAnsweredCount               : PropTypes.number,
+        otherSameAnswerQuestions            : PropTypes.object.isRequired,
+        otherSameAnswerCount                : PropTypes.number,
+        otherDifferentAnswerQuestions       : PropTypes.object.isRequired,
+        otherDifferentAnswerCount           : PropTypes.number,
+        otherUser                           : PropTypes.object,
+        comparedStats                       : PropTypes.object,
+        isRequestedQuestion                 : PropTypes.bool,
+        isLoadingComparedQuestions          : PropTypes.bool,
+        isLoadingSameAnswer                 : PropTypes.bool,
+        isLoadingDifferentAnswer            : PropTypes.bool,
+        isLoadingComparedStats              : PropTypes.bool,
+        hasReceivedNotAnsweredPagination    : PropTypes.bool,
+        hasReceivedSameAnswerPagination     : PropTypes.bool,
+        hasReceivedDifferentAnswerPagination: PropTypes.bool,
+        hasNextComparedQuestion             : PropTypes.bool,
+        requestNotAnsweredUrl               : PropTypes.string,
+        requestSameAnswersUrl               : PropTypes.string,
+        requestDifferentAnswersUrl          : PropTypes.string,
     };
+
+    constructor(props) {
+        super(props);
+
+        this.requestPagination = this.requestPagination.bind(this);
+        this.requestSameAnswerQuestions = this.requestSameAnswerQuestions.bind(this);
+        this.requestDifferentAnswerQuestions = this.requestDifferentAnswerQuestions.bind(this);
+        this.requestNotAnsweredQuestions = this.requestNotAnsweredQuestions.bind(this);
+    }
 
     componentDidMount() {
         requestData(this.props);
     }
 
     componentDidUpdate() {
-        const {user, otherUser, comparedStats, isLoadingComparedStats, isRequestedQuestion} = this.props;
+        const {user, otherUser, comparedStats, isLoadingComparedStats, isRequestedQuestion, otherSameAnswerCount, otherDifferentAnswerCount, otherNotAnsweredCount, hasReceivedSameAnswerPagination, hasReceivedDifferentAnswerPagination, hasReceivedNotAnsweredPagination} = this.props;
         const otherUserId = parseId(otherUser);
         const userId = parseId(user);
 
@@ -124,29 +175,69 @@ export default class OtherQuestionsPage extends Component {
                 QuestionActionCreators.requestNextOtherQuestion(userId, otherUserId);
             }
         }
+
+        if (otherDifferentAnswerCount === 0 && !hasReceivedDifferentAnswerPagination) {
+            this.requestDifferentAnswerQuestions();
+        }
+        if (otherSameAnswerCount === 0 && !hasReceivedSameAnswerPagination) {
+            this.requestSameAnswerQuestions();
+        }
+        if (otherNotAnsweredCount === 0 && !hasReceivedNotAnsweredPagination) {
+            this.requestNotAnsweredQuestions();
+        }
     }
 
     onTimerEnd(questionId) {
         QuestionActionCreators.setQuestionEditable(questionId);
     }
 
-    onBottomScroll() {
-        const {otherUser, isLoadingComparedQuestions, requestComparedQuestionsUrl} = this.props;
+    onBottomScroll(state) {
+        const {isLoadingComparedQuestions, requestComparedQuestionsUrl} = this.props;
         if (isLoadingComparedQuestions || !requestComparedQuestionsUrl) {
             return Promise.resolve();
         }
+
+        return this.requestPagination(state);
+    }
+
+    //TODO: Here for now, better inside OtherQuestionList
+    requestPagination(state) {
+        switch (state) {
+            case 'agree':
+                return this.requestSameAnswerQuestions();
+            case 'disagree':
+                return this.requestDifferentAnswerQuestions();
+            case 'explore':
+                return this.requestNotAnsweredQuestions();
+        }
+    }
+
+    requestSameAnswerQuestions() {
+        const {otherUser, requestSameAnswersUrl, isLoadingSameAnswer} = this.props;
         const otherUserId = parseId(otherUser);
-        return QuestionActionCreators.requestComparedQuestions(otherUserId, requestComparedQuestionsUrl);
+        if (isLoadingSameAnswer || !requestSameAnswersUrl) {
+            return;
+        }
+
+        return QuestionActionCreators.requestSameAnswerQuestions(otherUserId, requestSameAnswersUrl);
     }
 
-    getBanner() {
-        const {otherUser, questionsTotal, questions} = this.props;
-        const mustRenderBanner = !this.areAllQuestionsAnswered();
-        return mustRenderBanner ? <OtherQuestionsBanner user={otherUser} questionsTotal={questionsTotal || Object.keys(questions).length || 0}/> : '';
+    requestDifferentAnswerQuestions() {
+        const {otherUser, requestDifferentAnswersUrl, isLoadingDifferentAnswer} = this.props;
+        const otherUserId = parseId(otherUser);
+        if (isLoadingDifferentAnswer || !requestDifferentAnswersUrl) {
+            return;
+        }
+        return QuestionActionCreators.requestDifferentAnswerQuestions(otherUserId, requestDifferentAnswersUrl);
     }
 
-    areAllQuestionsAnswered() {
-        return !this.props.hasNextComparedQuestion;
+    requestNotAnsweredQuestions() {
+        const {otherUser, requestNotAnsweredUrl, isLoadingComparedQuestions} = this.props;
+        const otherUserId = parseId(otherUser);
+        if (isLoadingComparedQuestions || !requestNotAnsweredUrl) {
+            return;
+        }
+        return QuestionActionCreators.requestComparedQuestions(otherUserId, requestNotAnsweredUrl);
     }
 
     getQuestionsHeader() {
@@ -170,12 +261,12 @@ export default class OtherQuestionsPage extends Component {
     }
 
     render() {
-        const {otherUser, user, questions, otherQuestions, otherNotAnsweredQuestions, isLoadingComparedQuestions, strings, params} = this.props;
+        const {otherUser, user, questions, otherQuestions, otherNotAnsweredQuestions, otherSameAnswerQuestions, otherDifferentAnswerQuestions, otherNotAnsweredCount, otherSameAnswerCount, otherDifferentAnswerCount, isLoadingComparedQuestions, strings, params} = this.props;
         const ownPicture = parsePicture(user);
         const otherPicture = parsePicture(otherUser);
         return (
             <div className="views">
-                <TopNavBar leftIcon={'left-arrow'} centerText={otherUser ? otherUser.username : ''}/>
+                <TopNavBar leftIcon={'left-arrow'} centerText={otherUser ? otherUser.username : ''} user={user}/>
                 {otherUser ?
                     <ToolBar links={[
                         {'url': `/p/${params.slug}`, 'text': strings.about, 'icon': 'account'},
@@ -189,7 +280,8 @@ export default class OtherQuestionsPage extends Component {
                             <div id="page-content" className="other-questions-content with-tab-bar">
                                 <OtherQuestionList firstItems={this.getFirstItems.bind(this)()} otherQuestions={otherQuestions} questions={questions} otherUserSlug={otherUser.slug || ''} ownPicture={ownPicture} otherPicture={otherPicture}
                                                    onTimerEnd={this.onTimerEnd} isLoadingComparedQuestions={isLoadingComparedQuestions} onBottomScroll={this.onBottomScroll.bind(this)}
-                                                   otherNotAnsweredQuestions={otherNotAnsweredQuestions}
+                                                   otherNotAnsweredQuestions={otherNotAnsweredQuestions} otherSameAnswerQuestions={otherSameAnswerQuestions} otherDifferentAnswerQuestions={otherDifferentAnswerQuestions}
+                                                   otherNotAnsweredCount={otherNotAnsweredCount} otherSameAnswerCount={otherSameAnswerCount} otherDifferentAnswerCount={otherDifferentAnswerCount}
                                 />
                                 <br/>
                                 <br/>

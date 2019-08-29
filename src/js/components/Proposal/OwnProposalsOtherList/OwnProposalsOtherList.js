@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import styles from './OwnProposalsOtherList.scss';
-import Scroll from "../../Scroll/Scroll";
+import Scroll from "../../scroll/Scroll";
 import CardContentList from "../../interests/CardContentList";
 import connectToStores from "../../../utils/connectToStores";
 import ProposalStore from "../../../stores/ProposalStore";

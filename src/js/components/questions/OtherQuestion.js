@@ -8,7 +8,7 @@ import QuestionEditCountdown from './QuestionEditCountdown';
 export default class OtherQuestion extends Component {
     static propTypes = {
         question     : PropTypes.object.isRequired,
-        userAnswer   : PropTypes.object,
+        ownUserAnswer: PropTypes.object,
         ownPicture   : PropTypes.string,
         otherPicture : PropTypes.string.isRequired,
         otherUserSlug: PropTypes.string.isRequired,
@@ -42,19 +42,20 @@ export default class OtherQuestion extends Component {
     }
 
     render() {
-        let question = this.props.question.question;
+        console.log(this.props.question);
+        let question = this.props.question;
         if (!question) {
             return null;
         }
-        let userAnswer = this.props.userAnswer || {};
-        let editable = userAnswer.hasOwnProperty('isEditable') ? userAnswer.isEditable : true;
+        let ownUserAnswer = this.props.ownUserAnswer || {};
+        let editable = ownUserAnswer.hasOwnProperty('isEditable') ? ownUserAnswer.isEditable : true;
 
         let otherUserAnswer = this.props.question.userAnswer;
         const {strings} = this.props;
 
         let userAnswerText, otherUserAnswerText;
-        question.answers.forEach((answer) => {
-            if (userAnswer && answer.answerId === userAnswer.answerId) {
+        question.question.answers.forEach((answer) => {
+            if (ownUserAnswer && answer.answerId === ownUserAnswer.answerId) {
                 userAnswerText = answer.text;
             }
             if (otherUserAnswer && answer.answerId === otherUserAnswer.answerId) {
@@ -76,10 +77,10 @@ export default class OtherQuestion extends Component {
                 <div className="question-title">
                     {question.text}
                 </div>
-                <Answer locked={locked} text={otherUserAnswerText} answered={false} defaultPicture={this.props.otherPicture} accepted={this.isAnswerAcceptedByOtherAnswer(userAnswer, otherUserAnswer)} {...this.props}/>
-                <Answer grayed={locked} text={userAnswerText || strings.didntAnswered} answered={true} accepted={this.isAnswerAcceptedByOtherAnswer(otherUserAnswer, userAnswer)} {...this.props}/>
+                <Answer locked={locked} text={otherUserAnswerText} answered={false} defaultPicture={this.props.otherPicture} accepted={this.isAnswerAcceptedByOtherAnswer(ownUserAnswer, otherUserAnswer)} {...this.props}/>
+                <Answer grayed={locked} text={userAnswerText || strings.didntAnswered} answered={true} accepted={this.isAnswerAcceptedByOtherAnswer(otherUserAnswer, ownUserAnswer)} {...this.props}/>
                 {editable ? '' :
-                    <QuestionEditCountdown seconds={userAnswer.editableIn} questionId={question.questionId} onTimerEnd={this.props.onTimerEnd}/>
+                    <QuestionEditCountdown seconds={ownUserAnswer.editableIn} questionId={question.questionId} onTimerEnd={this.props.onTimerEnd}/>
                 }
                 <hr/>
             </div>

@@ -13,7 +13,7 @@ class CandidateCard extends Component {
     static propTypes = {
         proposal      : PropTypes.object.isRequired,
         user          : PropTypes.object.isRequired,
-        swiping       : PropTypes.bool,
+        swiping       : PropTypes.number,
         onClickHandler: PropTypes.func,
         // Injected by @translate:
         strings        : PropTypes.object,

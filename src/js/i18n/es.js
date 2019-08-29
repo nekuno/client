@@ -58,7 +58,7 @@ export default {
         saveChanges : 'Guardar cambios',
         cannotRemove: 'Este campo no se puede eliminar'
     },
-    HomePage                         : {
+    HomePageBak                         : {
         choosePath   : 'Elige tu camino',
         title1       : 'Redescubrir mi tribu' + "\n" + 'desbloqueando insignias',
         title2       : 'Compartir lo que te encanta' + "\n" + 'uniéndote y creando propuestas',
@@ -66,6 +66,16 @@ export default {
         events       : 'Eventos',
         explore      : 'Explorar',
         contact      : 'Contacto',
+        blockingError: 'Tu navegador está bloqueando una petición a Facebook y no podemos registrar tu usuario. Por favor, deshabilita el bloqueo en la configuración o utiliza otro navegador.'
+	},
+	HomePage                                : {
+        title1       : 'Conoce personas afines a ti',
+        title2       : 'Comparte tus ideas y planes',
+        title3       : 'Participa en proyectos y planes',
+        resume1      : 'Nekuno te pone fácil conocer a personas compatibles contigo',
+        resume2      : 'Conoce a personas compatibles contigo para realizar proyectos y planes',
+        resume3      : 'Descubre proyectos y planes ajustados a tu perfil',
+        skip         : 'Omitir',
         blockingError: 'Tu navegador está bloqueando una petición a Facebook y no podemos registrar tu usuario. Por favor, deshabilita el bloqueo en la configuración o utiliza otro navegador.'
     },
     ExplorePage                      : {

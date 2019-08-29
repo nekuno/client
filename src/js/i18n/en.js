@@ -58,7 +58,7 @@ export default {
         saveChanges : 'Save changes',
         cannotRemove: 'This field cannot be deleted'
     },
-    HomePage                         : {
+    HomePageBak                         : {
         choosePath   : 'Choose your path',
         title1       : 'Rediscover my tribe' + "\n" + 'unlocking badges',
         title2       : 'Share what I love' + "\n" + 'joining and creating proposals',
@@ -66,6 +66,16 @@ export default {
         events       : 'Events',
         explore      : 'Explore',
         contact      : 'Contact',
+        blockingError: 'Your browser has blocked a Facebook request and we are not able to register you. Please, disable the blocking configuration or use an other browser.'
+	},
+	HomePage                                : {
+        title1       : 'Meet people related to you',
+        title2       : 'Share your ideas and plans',
+        title3       : 'Take part in projects and plans',
+        resume1      : 'Nekuno makes it easy to find people compatible with you',
+        resume2      : 'Meet people compatible with you for carrying out projects and plans',
+        resume3      : 'Discover projects and plans that matches your profile',
+        skip         : 'Skip',
         blockingError: 'Your browser has blocked a Facebook request and we are not able to register you. Please, disable the blocking configuration or use an other browser.'
     },
     ExplorePage                      : {

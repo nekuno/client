@@ -5,6 +5,7 @@ import translate from "../../../i18n/Translate";
 import MatchingBars from "../../ui/MatchingBars";
 import CardOverlay from '../CardOverlay/';
 import ProposalIcon from "../../ui/ProposalIcon";
+import ProposalButton from '../../ui/ProposalButton/';
 
 @translate('CandidateCard')
 class CandidateCard extends Component {
@@ -58,7 +59,7 @@ class CandidateCard extends Component {
     }
 
     render() {
-        const {proposal, user, strings, swiping} = this.props;
+        const {proposal, user, strings, swiping, like, pass} = this.props;
         const {fields} = proposal;
         const {title} = fields;
         const proposalPhoto = fields.photo;
@@ -118,6 +119,10 @@ class CandidateCard extends Component {
 							</div>
 						</div>
 					</div>
+					<div className={styles.buttons}>
+                        <ProposalButton icon="close" iconClass={styles.passIcon} onClick={pass} />
+                        <ProposalButton icon="check" iconClass={styles.likeIcon} onClick={like} />
+                    </div>
 				</div>
 			</div>
 		);

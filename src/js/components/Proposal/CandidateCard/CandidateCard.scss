@@ -20,6 +20,7 @@
     font-size: 14px;
     margin: 0 2.5%;
     padding: 0;
+    padding-bottom: 8px;
     width: 95%;
 
     .candidate-image {
@@ -144,6 +145,17 @@
           padding: 0 5%;
         }
       }
+    }
+  }
+  .buttons {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    .likeIcon {
+      color: $material-green;
+    }
+    .passIcon {
+      color: $material-red;
     }
   }
 }

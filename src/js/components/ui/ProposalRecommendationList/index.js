@@ -81,7 +81,9 @@ class ProposalRecommendationList extends Component {
                 <ProposalCard
                     proposal={recommendation.proposal}
                     user={recommendation.owner}
-                    swiping={this.state.swiping} />
+                    swiping={this.state.swiping}
+                    like={(ev) => this.likeButton(ev)}
+                    pass={(ev) => this.passButton(ev)}/>
             </div>);
     }
 
@@ -91,7 +93,9 @@ class ProposalRecommendationList extends Component {
                 <CandidateCard
                     proposal={recommendation.proposal}
                     user={recommendation}
-                    swiping={this.state.swiping}/>
+                    swiping={this.state.swiping}
+                    like={(ev) => this.likeButton(ev)}
+                    pass={(ev) => this.passButton(ev)}/>
             </div>);
     }
 
@@ -226,12 +230,6 @@ class ProposalRecommendationList extends Component {
                         </div>
                     }
                 </div>
-                { firstRecommendation && (
-                    <div className={styles.buttons}>
-                        <ProposalButton icon="check" iconClass={styles.likeIcon} click={() => this.likeButton()} />
-                        <ProposalButton icon="close" iconClass={styles.passIcon} click={() => this.passButton()} />
-                    </div>
-                )}
             </div>
         );
     }

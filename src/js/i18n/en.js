@@ -304,7 +304,6 @@ export default {
         placeholder: 'Title',
         people     : 'Compatible people',
         contents   : 'Interesting content',
-        filters    : 'Filters'
         updating   : 'Applying filters',
     },
     SettingsPage                     : {
@@ -639,7 +638,6 @@ export default {
         finish     : 'Finish'
     },
     CreateUsersThread                : {
-        back          : 'Back',
         selectFilter  : 'Select filter',
         addFilterTitle: 'You can add filters to be more specific',
         addFilter     : 'Add filter',
@@ -649,6 +647,7 @@ export default {
         order         : 'Order',
         matching      : 'Matching',
         similarity    : 'Similarity',
+        filters       : 'Filters',
     },
     IntegerEdit                      : {
         minValue   : 'The minimum value is ',

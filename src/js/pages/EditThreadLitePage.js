@@ -127,27 +127,30 @@ export default class EditThreadLitePage extends Component {
     render() {
         const {user, filters, tags, thread, categories, strings} = this.props;
         const {category, threadName, updating} = this.state;
-        return (
+        const navbar = <TopNavBar centerText={strings.edit} rightIcon="x" onRightLinkClickHandler={this.goToDiscover}/>;
+        return ( updating ?
             <div className="views">
+                {navbar}
                 <div className="view view-main">
-                    <TopNavBar centerText={strings.edit} rightIcon="x" onRightLinkClickHandler={this.goToDiscover}/>
                     <div className="page create-thread-page lite">
                         <div id="page-content">
-                            {updating ? <EmptyMessage text={strings.updating} loadingGif={true}/> :
-                                thread && threadName && filters && categories ?
-                                    <div>
-                                        <div className="thread-title">
-                                            {strings.filters}:
-                                        </div>
-                                        <div key={1} className={category + '-first-vertical-line'}></div>
-                                        <div key={2} className={category + '-last-vertical-line'}></div>
-                                        <CreateUsersThread userId={user.id} defaultFilters={filters['userFilters']} threadName={threadName} tags={tags} thread={thread} categories={categories} onSave={this.onEdit}/>
-                                    </div>
-                                    : ''}
+                            <EmptyMessage text={strings.updating} loadingGif={true}/>
                         </div>
                     </div>
                 </div>
             </div>
+            :
+            thread && threadName && filters && categories ?
+                <CreateUsersThread navbar={navbar} userId={user.id} defaultFilters={filters['userFilters']} threadName={threadName} tags={tags} thread={thread} categories={categories} onSave={this.onEdit}/>
+                :
+                <div className="views">
+                    {navbar}
+                    <div className="view view-main">
+                        <div className="page create-thread-page lite">
+                            <div id="page-content"></div>
+                        </div>
+                    </div>
+                </div>
         );
     }
 }

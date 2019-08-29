@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import TopNavBar from '../ui/TopNavBar';
 import FullWidthButton from '../ui/FullWidthButton';
 import SetThreadTitlePopup from './SetThreadTitlePopup';
 import ThreadCategoryFilterList from './filters/ThreadCategoryFilterList';
@@ -31,6 +32,7 @@ export default class CreateUsersThread extends Component {
         thread         : PropTypes.object,
         categories     : PropTypes.array,
         onSave         : PropTypes.func.isRequired,
+        navbar         : PropTypes.object.isRequired,
         // Injected by @translate:
         strings        : PropTypes.object,
         // Injected by @popup:
@@ -417,7 +419,7 @@ export default class CreateUsersThread extends Component {
     }
 
     render() {
-        let categories = this.props.categories;
+        const { categories, navbar, strings } = this.props;
         let defaultFilters = Object.assign({}, this.props.defaultFilters);
         const data = this.state.filters || {};
         let filterKeys = Object.keys(defaultFilters).filter(key => Object.keys(data).some(dataKey => dataKey === key));
@@ -427,43 +429,65 @@ export default class CreateUsersThread extends Component {
                 filters[key] = defaultFilters[key]
             }
         });
-        let strings = this.props.strings;
         return (
             this.state.selectFilter ?
-                <div className="select-filter">
-                    <span className="back-to-selected-filters" onClick={this.goToSelectedFilters}>{strings.back}</span>
-                    <div className="title">{strings.selectFilter}</div>
-                    <ThreadCategoryFilterList categories={categories} filters={filters} filtersMetadata={defaultFilters} handleClickFilterOnList={this.handleClickFilterOnList}/>
-                </div>
-                :
-                <div className="users-filters-wrapper">
-                    <div className="table-row"></div>
-                    {this.renderActiveFilters()}
-                    <div className="table-row"></div>
-                    <div className="add-filter-title">{strings.addFilterTitle}</div>
-                    <div className="thread-filter add-filter">
-                        <div className="thread-filter-dot">
-                            <span className="icon-plus active"></span>
-                        </div>
-                        <div className="opposite-vertical-line"></div>
-                        <div className="add-filter-button-wrapper" onClick={this.handleClickAddFilter}>
-                            <div className="add-filter-button">
-                                <span className="add-filter-button-text">{strings.addFilter}</span>
+                <div className="views">
+                    <TopNavBar centerText={strings.selectFilter} leftIcon="left-arrow" onLeftLinkClickHandler={this.goToSelectedFilters} />
+                    <div className="view view-main">
+                        <div className="page create-thread-page lite">
+                            <div id="page-content">
+                                <div>
+                                    <ThreadCategoryFilterList categories={categories} filters={filters} filtersMetadata={defaultFilters} handleClickFilterOnList={this.handleClickFilterOnList}/>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                    <FullWidthButton onClick={this.props.thread ? this.editThread : this.createThread}>{this.props.thread ? strings.save : strings.create}</FullWidthButton>
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                    {this.getDefaultTitle() ? <SetThreadTitlePopup displaying={this.state.displayingTitlePopup} onClick={this.onSaveTitle} defaultTitle={this.getDefaultTitle()} contentRef={this.props.popupContentRef}/> : null}
+                </div>
+                :
+                <div className="views">
+                    {navbar}
+                    <div className="view view-main">
+                        <div className="page create-thread-page lite">
+                            <div id="page-content">
+                                <div>
+                                    <div className="thread-title">
+                                        {strings.filters}:
+                                    </div>
+                                    <div key={1} className={'persons-first-vertical-line'}></div>
+                                    <div key={2} className={'persons-last-vertical-line'}></div>
+                                    <div className="users-filters-wrapper">
+                                        <div className="table-row"></div>
+                                        {this.renderActiveFilters()}
+                                        <div className="table-row"></div>
+                                        <div className="add-filter-title">{strings.addFilterTitle}</div>
+                                        <div className="thread-filter add-filter">
+                                            <div className="thread-filter-dot">
+                                                <span className="icon-plus active"></span>
+                                            </div>
+                                            <div className="opposite-vertical-line"></div>
+                                            <div className="add-filter-button-wrapper" onClick={this.handleClickAddFilter}>
+                                                <div className="add-filter-button">
+                                                    <span className="add-filter-button-text">{strings.addFilter}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br />
+                                        <br />
+                                        <br />
+                                        <br />
+                                        <FullWidthButton onClick={this.props.thread ? this.editThread : this.createThread}>{this.props.thread ? strings.save : strings.create}</FullWidthButton>
+                                        <br />
+                                        <br />
+                                        <br />
+                                        <br />
+                                        <br />
+                                        <br />
+                                        {this.getDefaultTitle() ? <SetThreadTitlePopup displaying={this.state.displayingTitlePopup} onClick={this.onSaveTitle} defaultTitle={this.getDefaultTitle()} contentRef={this.props.popupContentRef}/> : null}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
         );
     }

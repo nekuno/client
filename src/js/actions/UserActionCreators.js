@@ -75,13 +75,7 @@ export function editUser(data) {
 }
 
 export function editShowname(showname) {
-    const data = {showname};
-
-    return dispatchAsync(UserAPI.editShowname(data), {
-        request: ActionTypes.EDIT_SHOWNAME,
-        success: ActionTypes.EDIT_SHOWNAME_SUCCESS,
-        failure: ActionTypes.EDIT_SHOWNAME_ERROR
-    })
+    return editUser({showname});
 }
 
 export function requestOwnProfile(slug) {

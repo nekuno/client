@@ -24,10 +24,6 @@ export default keyMirror({
     EDIT_USER_SUCCESS                       : null,
     EDIT_USER_ERROR                         : null,
 
-    EDIT_SHOWNAME                           : null,
-    EDIT_SHOWNAME_SUCCESS                   : null,
-    EDIT_SHOWNAME_ERROR                     : null,
-    
     SET_ENABLED                             : null,
     SET_ENABLED_SUCCESS                     : null,
     SET_ENABLED_ERROR                       : null,

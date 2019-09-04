@@ -174,7 +174,7 @@ export default class ProfileDataList extends Component {
 
         const selected = this.state.selectedEdit === dataName;
         if (!metadata.hasOwnProperty(dataName) || metadata[dataName].editable === false) {
-            return '';
+            return null;
         }
         let props = {
             editKey              : dataName,
@@ -251,7 +251,11 @@ export default class ProfileDataList extends Component {
                 filter = <TextAreaEdit {...props} />;
                 break;
         }
-        return <div key={dataName} ref={selected ? 'selectedEdit' : ''}>{filter}</div>;
+        return <div key={'parent-' + dataName} className="profile-category-edition">
+            <hr/>
+            <br/>
+            <div key={dataName} ref={selected ? 'selectedEdit' : ''}>{filter}</div>
+        </div>;
     }
 
     renderShowname() {
@@ -287,13 +291,8 @@ export default class ProfileDataList extends Component {
                                     <div>
                                         {index === 0 ? this.renderShowname() : null}
                                         {Object.keys(category.fields).map(field =>
-                                            <div key={'parent-' + field} className="profile-category-edition">
-                                                <hr/>
-                                                <br/>
-                                                {this.renderField(profile.hasOwnProperty(field) ? profile : [], metadata, field)}
-                                            </div>
-                                        )
-                                        }
+                                            this.renderField(profile.hasOwnProperty(field) ? profile : [], metadata, field)
+                                        )}
                                     </div>
 
                                     :

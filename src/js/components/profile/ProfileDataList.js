@@ -56,7 +56,7 @@ export default class ProfileDataList extends Component {
         super(props);
 
         this.state = {
-            profile         : {},
+            profile         : props.profile || {},
             selectedEdit    : null,
             selectedCategory: null
         };

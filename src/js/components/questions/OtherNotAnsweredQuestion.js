@@ -35,11 +35,11 @@ export default class OtherNotAnsweredQuestion extends Component {
         }
 
         return (
-            <div className="question">
+            <div className="question" onClick={this.goToAnswerQuestion}>
                 <div className="question-title">
                     {question.text}
                 </div>
-                <Chip onClickHandler={this.goToAnswerQuestion}>{strings.answer}</Chip>
+                <Chip>{strings.answer}</Chip>
                 <hr/>
             </div>
         );

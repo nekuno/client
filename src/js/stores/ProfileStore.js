@@ -78,6 +78,10 @@ class ProfileStore extends BaseStore {
                 this._profiles[LoginStore.user.slug] = action.data;
                 this.emitChange();
                 break;
+            case ActionTypes.EDIT_PROFILE_SUCCESS:
+                this._profiles[LoginStore.user.slug] = {...action.data, ...action.response};
+                this.emitChange();
+                break;
             case ActionTypes.EDIT_PROFILE_ERROR:
                 this._errors = getValidationErrors(action.error);
                 this._profiles[LoginStore.user.slug] = action.oldProfile;
@@ -145,10 +149,6 @@ class ProfileStore extends BaseStore {
                     type = thisMetadata.type;
                     name = thisMetadata.label;
                     value = this.getFieldText(type, thisMetadata, basicProfile, field)
-
-                    if (value === '' || value == false) {
-                        return;
-                    }
                 }
                 fields[field] = {
                     text : name,

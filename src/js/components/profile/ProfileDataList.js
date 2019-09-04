@@ -266,7 +266,7 @@ export default class ProfileDataList extends Component {
         </div>
     }
 
-    handleChangeShowname(data) {
+    handleChangeShowname(key, data) {
         UserActionCreators.editShowname(data);
     }
 

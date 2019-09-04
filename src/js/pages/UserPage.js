@@ -114,7 +114,7 @@ export default class UserPage extends Component {
 
         });
 
-        let editButton = <div className='edit-profile-button'><Button key='editButton' onClick={this.toggleEditMode} >
+        let editButton = <div className='edit-profile-button' key='editButton'><Button onClick={this.toggleEditMode}>
             <span> {strings.editProfile} </span>
         </Button></div>;
 

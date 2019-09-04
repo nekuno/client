@@ -83,6 +83,7 @@ export default class MultipleChoicesEdit extends Component {
                             defaultValue={[minRangeData, maxRangeData]}
                             max={metadata.choices.length - 1}
                             onAfterChange={this.handleChangeRange}
+                            onTouchStart={ev => ev.stopPropagation()}
                         />
                     </div>
                     : metadata.withImages ?

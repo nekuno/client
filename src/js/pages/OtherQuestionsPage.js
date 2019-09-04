@@ -241,11 +241,11 @@ export default class OtherQuestionsPage extends Component {
     }
 
     getQuestionsHeader() {
-        const {user, otherUser, comparedStats, isLoadingComparedQuestions, strings, otherQuestionsTotal} = this.props;
+        const {user, otherUser, comparedStats, isLoadingComparedQuestions, strings, otherSameAnswerCount, otherDifferentAnswerCount} = this.props;
         const ownPicture = parsePicture(user);
         const otherPicture = parsePicture(otherUser);
         const totalComparedStats = isLoadingComparedQuestions || !comparedStats ? <LoadingSpinnerCSS small={true}/> : comparedStats.commonAnswers || 0;
-        const computedQuestionsTotal = isLoadingComparedQuestions ? <LoadingSpinnerCSS small={true}/> : otherQuestionsTotal || 0;
+        const computedQuestionsTotal = isLoadingComparedQuestions ? <LoadingSpinnerCSS small={true}/> : (otherSameAnswerCount + otherDifferentAnswerCount) || 0;
 
         return <div className="other-questions-header-container">
             <ProfilesAvatarConnection ownPicture={ownPicture} otherPicture={otherPicture}/>

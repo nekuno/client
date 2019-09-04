@@ -75,8 +75,9 @@ export default class GenderField extends Component {
                         {strings.title}
                     </div>
                     <TextRadios title={this.state.descriptiveGender.length > 0 ? strings.include : strings.gender} labels={[
+						{key: 'female', text: strings.female},
+						{key: 'nb', text: strings.nb},
 						{key: 'male', text: strings.male},
-						{key: 'female', text: strings.female}
 					]} onClickHandler={this.onClickGender} value={this.state.gender}/>
                     <div style={{textAlign: 'center', marginBottom: '20px'}}>
                         <a onClick={this.onClickShowDescriptiveGender}>{ this.state.showDescriptiveGender ? strings.hideDescriptiveGender : strings.showDescriptiveGender}</a>
@@ -133,6 +134,7 @@ GenderField.defaultProps = {
         gender               : 'Gender',
         male                 : 'Male',
         female               : 'Female',
+        nb                   : 'Non-binary',
         showDescriptiveGender: 'Show other genders',
         hideDescriptiveGender: 'Hide other genders',
         maxDescriptiveGender : 'The maximum number of options permitted is 5, uncheck any other options to choose this one',

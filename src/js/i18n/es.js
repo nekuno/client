@@ -442,6 +442,7 @@ export default {
         gender               : 'Género',
         male                 : 'Hombre',
         female               : 'Mujer',
+        nb                   : 'No binarie',
         showDescriptiveGender: 'Mostrar otros géneros',
         hideDescriptiveGender: 'Ocultar otros géneros',
         maxDescriptiveGender : 'El máximo permitido es cinco, deselecciona alguna de las otras opciones',
@@ -510,6 +511,7 @@ export default {
     QuestionStatsGraph               : {
         females   : 'Mujeres',
         males     : 'Hombres',
+        nb        : 'No binaries',
         young     : '- de 30',
         old       : '+ de 30',
         typeAge   : 'Distribución por edad',

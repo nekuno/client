@@ -436,6 +436,7 @@ export default {
         gender               : 'Gender',
         male                 : 'Male',
         female               : 'Female',
+        nb                   : 'Non-binary',
         showDescriptiveGender: 'Show other genders',
         hideDescriptiveGender: 'Hide other genders',
         maxDescriptiveGender : 'The maximum number of options permitted is 5, uncheck any other options to choose this one',
@@ -504,6 +505,7 @@ export default {
     QuestionStatsGraph               : {
         females   : 'Girls',
         males     : 'Boys',
+        nb        : 'Non-binary',
         young     : '- than 30',
         old       : '+ than 30',
         typeAge   : 'Distribution by age',

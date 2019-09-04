@@ -37,6 +37,7 @@ export default class QuestionStatsGraph extends Component {
         const isGenderDiffGreater = this.isGenderDiffGreater(question);
         let firstProperty = "youngAnswersCount";
         let secondProperty = "oldAnswersCount";
+        let thirdProperty;
         let firstGraphClass = "young-answer-chart-" + userAnswer.answerId;
         let secondGraphClass = "old-answer-chart-" + userAnswer.answerId;
         let thirdGraphClass = "nonbinary-answer-chart-" + userAnswer.answerId; // DEBUG
@@ -44,6 +45,7 @@ export default class QuestionStatsGraph extends Component {
         if (isGenderDiffGreater) {
             firstProperty = "femaleAnswersCount";
             secondProperty = "maleAnswersCount";
+            thirdProperty = "nbAnswersCount";
             firstGraphClass = "female-answer-chart-" + userAnswer.answerId;
             secondGraphClass = "male-answer-chart-" + userAnswer.answerId;
             thirdGraphClass = "nonbinary-answer-chart-" + userAnswer.answerId;
@@ -61,8 +63,8 @@ export default class QuestionStatsGraph extends Component {
                 value: this.getPercentage(answer[secondProperty], question[secondProperty]),
                 color: QUESTION_STATS_COLORS[index]
 			});
-			thirdStats.push({
-                value: this.getPercentage(answer[firstProperty], question[firstProperty]),
+			thirdProperty && thirdStats.push({
+                value: this.getPercentage(answer[thirdProperty], question[thirdProperty]),
                 color: QUESTION_STATS_COLORS[index]
             });
         });
@@ -78,6 +80,8 @@ export default class QuestionStatsGraph extends Component {
         firstElem.height = canvasHeight;
         secondElem.width = canvasWidth;
         secondElem.height = canvasHeight;
+        thirdElem.width = canvasWidth;
+        thirdElem.height = canvasHeight;
 
         let ctx1 = firstElem.getContext("2d");
         let ctx2 = secondElem.getContext("2d");
@@ -85,10 +89,12 @@ export default class QuestionStatsGraph extends Component {
 
         if (question[firstProperty]) {
             new Chart(ctx1).Doughnut(firstStats, options);
-            new Chart(ctx3).Doughnut(thirdStats, options);
         }
         if (question[secondProperty]) {
             new Chart(ctx2).Doughnut(secondStats, options);
+        }
+        if (question[thirdProperty]) {
+            new Chart(ctx3).Doughnut(thirdStats, options);
         }
     }
 
@@ -112,15 +118,15 @@ export default class QuestionStatsGraph extends Component {
         const isGenderDiffGreater = this.isGenderDiffGreater(question);
         const firstIcon = isGenderDiffGreater ? 'icon-female stats-icon' : 'icon-cool stats-icon';
         const secondIcon = isGenderDiffGreater ? 'icon-male stats-icon' : 'icon-hipster stats-icon';
-		const thirdIcon = isGenderDiffGreater ? 'icon mdi mdi-gender-non-binary' : 'icon mdi mdi-gender-non-binary'; // DEBUG
+		const thirdIcon = isGenderDiffGreater ? 'icon mdi mdi-gender-non-binary' : null;
 
         const firstGraphClass = isGenderDiffGreater ? "female-answer-chart-" + userAnswer.answerId : "young-answer-chart-" + userAnswer.answerId
         const secondGraphClass = isGenderDiffGreater ? "male-answer-chart-" + userAnswer.answerId : "old-answer-chart-" + userAnswer.answerId
-		const thirdGraphClass = isGenderDiffGreater ? "nonbinary-answer-chart-" + userAnswer.answerId : "nonbinary-answer-chart-" + userAnswer.answerId // DEBUG
+		const thirdGraphClass = isGenderDiffGreater ? "nonbinary-answer-chart-" + userAnswer.answerId : null
 
         const firstText = isGenderDiffGreater ? strings.females : strings.young;
         const secondText = isGenderDiffGreater ? strings.males : strings.old;
-		const thirdText = 'NB'; // DEBUG
+		const thirdText = isGenderDiffGreater ? strings.nb : null;
 
         const statsType = isGenderDiffGreater ? strings.typeGender : strings.typeAge;
 
@@ -137,12 +143,13 @@ export default class QuestionStatsGraph extends Component {
                     <div className={secondIcon}></div>
                     <div className="stats-text">{secondText}</div>
                 </div>
-				{/* DEBUG */}
-                <div className="first-answer-chart-container">
-                    <canvas id={thirdGraphClass}></canvas>
-                	<span className={thirdIcon}></span>
-                    <div className="stats-text">{thirdText}</div>
-                </div>
+                { thirdGraphClass ? // DEBUG
+                    <div className="third-answer-chart-container">
+                        <canvas id={thirdGraphClass}></canvas>
+                    	<span className={thirdIcon}></span>
+                        <div className="stats-text">{thirdText}</div>
+                    </div>
+                : ''}
             </div>
         );
     }
@@ -152,6 +159,7 @@ QuestionStatsGraph.defaultProps = {
     strings: {
         females   : 'Girls',
         males     : 'Boys',
+        nb        : 'Non-binary',
         young     : '- than 30',
         old       : '+ than 30',
         typeGender: 'Distribution by gender',

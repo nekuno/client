@@ -32,7 +32,7 @@ export default class SocialNetworksBanner extends Component {
         SocialNetworkService.login(resource, scope, true).then(() => {
             ConnectActionCreators.connect(resource, SocialNetworkService.getAccessToken(resource), SocialNetworkService.getResourceId(resource), SocialNetworkService.getExpireTime(resource), SocialNetworkService.getRefreshToken(resource));
         }, (status) => {
-            Framework7Service.nekunoApp().alert(resource + ' login failed: ' + status.error.message);
+            Framework7Service.alertLoginFailed(resource, status);
         });
     };
 

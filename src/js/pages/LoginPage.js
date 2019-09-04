@@ -45,7 +45,7 @@ export default class LoginPage extends Component {
                     });
             },
             (status) => {
-                Framework7Service.nekunoApp().alert(resource + ' login failed: ' + status.error.message)
+                Framework7Service.alertLoginFailed(resource, status)
             });
     }
 

@@ -34,6 +34,11 @@ class Framework7Service {
     $$() {
         return this._$$;
     }
+    
+    alertLoginFailed(resource, status) {
+        this.nekunoApp().alert(`Ha fallado el login con ${resource} (${ststus.error.message})`)
+    }
+    
 }
 
 export default new Framework7Service();

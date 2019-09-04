@@ -1232,4 +1232,7 @@ export default {
         leisure   : 'Leisure plan',
         experience: 'Experience'
     },
+    AboutMeCategory : {
+        about: 'Sobre mí',
+    },
 }

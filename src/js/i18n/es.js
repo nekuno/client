@@ -194,7 +194,7 @@ export default {
         filterCreator: 'canales',
     },
     OtherQuestionsPage               : {
-        coincidences: 'Coincidencias de',
+        coincidences: 'coincidencias de',
         about       : 'Acerca de',
         photos      : 'Fotos',
         questions   : 'Respuestas',
@@ -1210,5 +1210,8 @@ export default {
         project   : 'Proyecto',
         leisure   : 'Plan de ocio',
         experience: 'Experiencia'
+    },
+    AboutMeCategory : {
+        about: 'Sobre mí',
     },
 }

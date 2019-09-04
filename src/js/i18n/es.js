@@ -76,7 +76,10 @@ export default {
         resume2      : 'Conoce a personas compatibles contigo para realizar proyectos y planes',
         resume3      : 'Descubre proyectos y planes ajustados a tu perfil',
         skip         : 'Omitir',
-        blockingError: 'Tu navegador está bloqueando una petición a Facebook y no podemos registrar tu usuario. Por favor, deshabilita el bloqueo en la configuración o utiliza otro navegador.'
+		blockingError: 'Tu navegador está bloqueando una petición a Facebook y no podemos registrar tu usuario. Por favor, deshabilita el bloqueo en la configuración o utiliza otro navegador.',
+		legalTerms        : 'Nunca publicaremos nada en tus redes.</br>Registrándote aceptas las <a href="https://nekuno.com/terms" target="_blank">Condiciones Legales</a>.', 	
+        signUp            : 'Entra con Facebook',
+        compatibility     : 'Entra con Facebook',
     },
     ExplorePage                      : {
         title  : 'Compartir lo que te encanta' + "\n" + 'uniéndote y creando propuestas',
@@ -648,7 +651,7 @@ export default {
         title    : '¡Felicidades!',
         text     : 'Has completado las primeras preguntas indispensables. Si quieres seguir contestando preguntas para mejorar las recomendaciones, puedes hacerlo desde tu perfil.',
         moreTests: 'Hacer más tests',
-        continue : 'Continuar a recomendaciones'
+        continue : 'Ir a recomendaciones'
     },
     SetThreadTitlePopup              : {
         title      : '¿Qué título quieres que tenga este ovillo?',

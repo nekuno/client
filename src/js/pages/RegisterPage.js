@@ -151,8 +151,6 @@ export default class RegisterPage extends Component {
                             <div className="privacy-terms-text">
                                 <p dangerouslySetInnerHTML={{__html: strings.legalTerms}}/>
                             </div>
-                            <br />
-                            <br />
                         </div>
 
                     </div>

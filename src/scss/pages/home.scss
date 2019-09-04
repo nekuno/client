@@ -1,87 +1,154 @@
 @import '../_partials/colors';
 
 body #root .App .views .view.home-view {
-  background: $purple-main;
-  overflow: hidden;
-  color: $white;
+	background: $purple-main;
+	overflow: hidden;
+	color: $white;
+	
+	.home-wrapper {
+		height: 100%;
+		padding: 16px 0;
+		
+		.nekuno-logo-wrapper {
+			height: 35px;
+			width: 100%;
+			position: relative;
+			.nekuno-logo {
+				background: url('/img/logo.svg') no-repeat;
+				background-size: 100% auto;
+				height: 100px;
+				width: 35%;
+				position: absolute;
+				right: 28px;
+				top: 16px;
+			}
+		}
+		
+		.swiper-container {
+			cursor: pointer;
+			padding: 24px 0 0;
+			
+			.swiper-slide {
+				height: 100%;
+				text-align: center;
+				
+				.login-image {
+					margin-top: 24px;
+					text-align: center;
+					img {
+						margin: auto;
+						width: 66%;
+					}
+				}
+				.slide-text {
+					padding: 0 16px;
+					margin: 8px 0;
+				}
+				h1 {
+					font-size: 24px;
+					font-weight: 600;
+				}
+				h3 {
+					font-weight: 400;
+					font-size: 16px;
+				}
+			}
+			
+			.slick-dots {
+				list-style: none;
+				margin: 0;
+				padding: 0;
+				text-align: center;
+				
+				li {
+					display: inline-block;
+					margin: 0;
+					
+					.dot {
+						background-color: #fff;
+						border: 8px solid rgba(255, 255, 255, 0);
+						background-clip: padding-box;
+						border-radius: 50%;
+						display: inline-block;
+						height: 4px;
+						width: 4px;
+					}
+					&.slick-active {
+						.dot {
+							border: 8px solid rgba(255, 255, 255, 0.2);
+						}
+					}
+				}
+			}
+		}
+		.skip-wrapper {
+			cursor: pointer;
+			font-weight: bold;
+			text-align: right;
+			z-index: 111;
+			position: absolute;
+			width: 100%;
+			bottom: 24px;
+			right: 24px;
+		}
+		
+		#facebook-register-button {
+			margin: auto;
+			position: absolute;
+			bottom: 75px;
+			text-align: center;
+			width: 100%;
+			left: 0;
+			right: 0;
+			
+			button {
+				width: 75%;
+				border: 1px solid white;
+				font-size: 16px;
+				font-weight: 500;
+				
+				.icon-spinner {
+					font-size: 40px;
+					margin-top: 4px;
+				}
+			}
+		}
+		
+		.privacy-terms-text {
+			bottom: 0;
+			font-size: 0.8em;
+			position: absolute;
+			margin: 0;
+			padding: 0 5%;
+			text-align: center;
+			width: 90%;
+			left: 0;
+			right: 0;
+			
+			a {
+				color: $material-grey;
+				text-decoration: underline;
+			}
+		}
+	}
+}
 
-  .home-wrapper {
-    height: 100%;
-    padding: 16px;
-
-    .nekuno-logo-wrapper {
-      height: 35px;
-      width: 100%;
-      position: relative;
-      .nekuno-logo {
-        background: url('/img/white-logo.png') no-repeat;
-        background-size: 100% auto;
-        height: 100px;
-        width: 30%;
-        position: absolute;
-        right: 16px;
-      }
-    }
-
-    .swiper-container {
-      cursor: pointer;
-      padding: 24px 24px 0 24px;
-
-      .swiper-slide {
-        height: 100%;
-        text-align: center;
-
-        .login-image {
-          margin-top: 24px;
-          text-align: center;
-          img {
-            margin: auto;
-            width: 75%;
-          }
-        }
-
-        h3 {
-          font-weight: normal;
-          font-size: 13px;
-        }
-      }
-
-      .slick-dots {
-        list-style: none;
-        margin: 0;
-        padding: 0;
-        text-align: center;
-
-        li {
-          display: inline-block;
-          margin: 0;
-
-          .dot {
-            background-color: #fff;
-            border: 8px solid rgba(255, 255, 255, 0);
-            background-clip: padding-box;
-            border-radius: 50%;
-            display: inline-block;
-            height: 4px;
-            width: 4px;
-          }
-          &.slick-active {
-            .dot {
-              border: 8px solid rgba(255, 255, 255, 0.2);
-            }
-          }
-        }
-      }
-    }
-    .skip-wrapper {
-      cursor: pointer;
-      font-weight: bold;
-      text-align: right;
-      z-index: 111;
-      position: absolute;
-      width: 100%;
-      bottom: 24px;
-      right: 24px;
-    }
-  }
+@media screen and (max-height: 640px) {
+	body #root .App .views .view.home-view .home-wrapper {
+		.swiper-container {
+			.swiper-slide .login-image {
+				img {
+					max-height: 25%;
+					max-width: 35%;
+				}
+			}
+			.slick-dots {
+				display: none !important;
+			}
+		}
+		
+		.nekuno-logo-wrapper .nekuno-logo {
+			width: 25%;
+		}
+	}
 }

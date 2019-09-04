@@ -22,7 +22,6 @@ export default class FacebookButton extends Component {
         return (
             <div id="facebook-register-button">
                 <FullWidthButton onClick={this.handleClick.bind(this)} disabled={disabled}>
-                    <span className={'icon-facebook'}></span>
                     {textField}
                 </FullWidthButton>
             </div>

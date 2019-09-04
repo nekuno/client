@@ -56,7 +56,7 @@ export default class UsernameField extends Component {
         }
 
         const showname = this.showname.getValue();
-        const slug = (this.randomize(6) + this.slugify(showname)).substr(0, 25);
+        const slug = (this.randomize(5) + '-' + this.slugify(showname)).substr(0, 25);
         this.setState({shownameEntered: true, username: slug});
     }
 

@@ -1,10 +1,9 @@
 #facebook-register-button {
   button {
     background-color: $facebook-blue;
-    padding-left: 0;
+    padding: 0;
 
     .icon-facebook {
-      background-color: $facebook-blue-light;
       font-size: 42px;
       float: left;
       line-height: inherit;

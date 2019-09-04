@@ -76,7 +76,10 @@ export default {
         resume2      : 'Meet people compatible with you for carrying out projects and plans',
         resume3      : 'Discover projects and plans that matches your profile',
         skip         : 'Skip',
-        blockingError: 'Your browser has blocked a Facebook request and we are not able to register you. Please, disable the blocking configuration or use an other browser.'
+		blockingError: 'Your browser has blocked a Facebook request and we are not able to register you. Please, disable the blocking configuration or use an other browser.',
+		legalTerms        : 'We will never post anything on your networks.</br>By registering, you agree to the <a href="https://nekuno.com/terms" target="_blank">End-user license agreement</a>.',
+        signUp            : 'Enter with Facebook',
+        compatibility     : 'Enter with Facebook',
     },
     ExplorePage                      : {
         title  : 'Share what I love' + "\n" + 'joining and creating proposals',

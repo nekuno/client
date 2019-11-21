@@ -48,7 +48,7 @@
         "rc-progress": "2.2.5",
         "rc-slider": "8.6.0",
         "react": "16.2.0",
-        "react-dom": "16.2.0",
+        "react-dom": "16.2.1",
         "react-emojione": "5.0.0",
         "react-geosuggest": "2.7.0",
         "react-image-crop": "3.0.10",

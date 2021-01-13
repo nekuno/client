@@ -35,7 +35,7 @@
         "es6-promise-plugin": "^4.1.0",
         "flux": "2.1.1",
         "framework7": "1.5.2",
-        "hellojs": "1.15.1",
+        "hellojs": "1.18.6",
         "history": "3.2.0",
         "invariant": "2.2.2",
         "json-prune": "1.0.1",

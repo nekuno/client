@@ -17,7 +17,7 @@
     "dependencies": {
         "Framework7-3D-Panels": "git+https://github.com/nolimits4web/Framework7-3D-Panels.git#b850e165ad13babe88389b741920660f9900e459",
         "bluebird": "3.4.6",
-        "chart.js": "1.0.2",
+        "chart.js": "2.9.4",
         "cordova-android": "^6.2.3",
         "cordova-ios": "^4.4.0",
         "cordova-plugin-app-event": "^1.2.0",
